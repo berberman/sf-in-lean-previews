@@ -77,24 +77,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/145"
     },
     "148": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "4dd68a0db485b676bb069bb8ef0f015b2e35821b",
+      "changed_variants": [],
+      "head_sha": "bac7326377ef370b8cdf59096a7649d36f709b93",
       "preview_path": "pr/148/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30166808788",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Smallstep: register Multi.refl as a reflexivity lemma",
       "url": "https://github.com/plclub/sf-in-lean/pull/148"
     },
