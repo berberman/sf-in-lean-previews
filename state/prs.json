@@ -97,6 +97,15 @@
       "status": "published",
       "title": "Smallstep: register Multi.refl as a reflexivity lemma",
       "url": "https://github.com/plclub/sf-in-lean/pull/148"
+    },
+    "149": {
+      "changed_variants": [],
+      "head_sha": "17e862e7afc6085ab831b053b95f29b1cce04e72",
+      "preview_path": "pr/149/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Fix processing of the -show verso flag",
+      "url": "https://github.com/plclub/sf-in-lean/pull/149"
     }
   },
   "schema": 3
