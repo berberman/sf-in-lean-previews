@@ -102,8 +102,8 @@
       "changed_variants": [],
       "head_sha": "17e862e7afc6085ab831b053b95f29b1cce04e72",
       "preview_path": "pr/149/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30173182002",
+      "status": "published",
       "title": "Fix processing of the -show verso flag",
       "url": "https://github.com/plclub/sf-in-lean/pull/149"
     }
