@@ -678,6 +678,11 @@ inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
   | refl (x : X) : Multi R x x
   | step (x y z : X) (h1 : R x y) (h2 : Multi R y z) : Multi R x z
 
+-- Note to developers (berberman):
+--     I would make some arguments implicit to proivde a cleaner interface
+--     (FYI the [mathlib
+--     version](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Logic/Relation.html#Relation.ReflTransGen))
+
 -- The effect of this definition is that `Multi R` relates two elements `x`
 -- and `y` if
 
@@ -699,7 +704,24 @@ notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 -- The relation `Multi R` has several crucial properties.
 
 -- First, it is obviously *reflexive* (a term can execute to itself by taking
--- zero steps).
+-- zero steps). That is just what the `Multi.refl` constructor says, so such a
+-- goal can always be closed with `exact .refl _`. It comes up often enough
+-- that it is worth registering the constructor as a *reflexivity lemma*, with
+-- the `@[refl]` attribute. The `rfl` tactic then closes a zero-step execution
+-- exactly as it closes `x = x`:
+
+attribute [refl] Multi.refl
+
+example : (.c 5 : Tm) ⟶* .c 5 := by rfl
+
+-- This pays off at the *end* of a reduction sequence too: the final
+-- `Multi.step` leaves a goal relating a term to itself, which `rfl`
+-- discharges.
+
+example : (.p (.c 1) (.c 2)) ⟶* .c (1 + 2) := by
+  apply Multi.step (y := .c (1 + 2))
+  · exact .plus 1 2
+  · rfl
 
 -- Second, it *contains* `R` -- single-step reductions are a particular case
 -- of multi-step executions. (It is this fact that justifies the word
@@ -755,6 +777,19 @@ example :
     apply Multi.step (y := .p (.c 0) (.p (.c 2) (.c (0 + 3))))
     · exact .plusRight _ _ _ (.const 0) (.plusRight _ _ _ (.const 2) (.plus 0 3))
     · exact multi_single _ _ _ (.plusRight _ _ _ (.const 0) (.plus 2 (0 + 3)))
+
+-- ### Exercise (2 stars): test_multistep_rfl ⭐⭐
+
+-- Prove the following reduction, ending the chain with `rfl` instead of
+-- `multi_single`.
+
+example : (.p (.p (.c 1) (.c 2)) (.c 4)) ⟶* .c ((1 + 2) + 4) := by
+  all_goals
+    apply Multi.step (y := .p (.c (1 + 2)) (.c 4))
+    · exact .plusLeft _ _ _ (.plus 1 2)
+    apply Multi.step (y := .c ((1 + 2) + 4))
+    · exact .plus (1 + 2) 4
+    · rfl
 
 -- ### Normal Forms Again
 

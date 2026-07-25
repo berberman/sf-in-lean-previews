@@ -1,5 +1,5 @@
 {
-  "main_sha": "b0f557b49446ea40dd4888400c67f6635908592f",
+  "main_sha": "62aba4b5643f7f05ab0a06a16a9c14e6ffeaa568",
   "prs": {
     "136": {
       "changed_variants": [
@@ -14,6 +14,18 @@
         {
           "audience": "terse",
           "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
         }
       ],
       "head_sha": "7c2a2d3416292f1d475bd37574730276ddb9084f",
@@ -36,6 +48,18 @@
         {
           "audience": "terse",
           "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
         }
       ],
       "head_sha": "cd718096c760e903636d25eeafc2c14778995d73",
@@ -58,6 +82,18 @@
         {
           "audience": "terse",
           "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
         }
       ],
       "head_sha": "5e8a079faf776ca30e8cdff8d48607c2fee3ca7f",
@@ -68,7 +104,20 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/142"
     },
     "145": {
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "b50852b572ef7e940128f8f3bbaae1c93fd32749",
       "preview_path": "pr/145/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30163400140",
@@ -76,17 +125,21 @@
       "title": "Tidy CONTRIBUTING.md and split out STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/145"
     },
-    "148": {
-      "changed_variants": [],
-      "head_sha": "bac7326377ef370b8cdf59096a7649d36f709b93",
-      "preview_path": "pr/148/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Smallstep: register Multi.refl as a reflexivity lemma",
-      "url": "https://github.com/plclub/sf-in-lean/pull/148"
-    },
     "149": {
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "17e862e7afc6085ab831b053b95f29b1cce04e72",
       "preview_path": "pr/149/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30173182002",

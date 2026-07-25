@@ -492,11 +492,25 @@ inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
   | refl (x : X) : Multi R x x
   | step (x y z : X) (h1 : R x y) (h2 : Multi R y z) : Multi R x z
 
+-- Note to developers (berberman):
+--     I would make some arguments implicit to proivde a
+--     cleaner interface (FYI the [mathlib
+--     version](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Logic/Relation.html#Relation.ReflTransGen))
+
 -- We write `⟶*` for the `Multi Step` relation on terms
 
 notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
 -- The relation `Multi R` has several crucial properties.
+
+attribute [refl] Multi.refl
+
+example : (.c 5 : Tm) ⟶* .c 5 := by rfl
+
+example : (.p (.c 1) (.c 2)) ⟶* .c (1 + 2) := by
+  apply Multi.step (y := .c (1 + 2))
+  · exact .plus 1 2
+  · rfl
 
 theorem multi_single {X : Type} (R : Relation X) (x y : X) (h : R x y) :
     Multi R x y :=
@@ -539,6 +553,14 @@ example : (.p (.c 0) (.c 3)) ⟶* .p (.c 0) (.c 3) := sorry
 example :
     (.p (.c 0) (.p (.c 2) (.p (.c 0) (.c 3))))
       ⟶* (.p (.c 0) (.c (2 + (0 + 3)))) := by
+  sorry
+
+-- ### Exercise (2 stars): test_multistep_rfl ⭐⭐
+
+-- Prove the following reduction, ending the chain with `rfl`
+-- instead of `multi_single`.
+
+example : (.p (.p (.c 1) (.c 2)) (.c 4)) ⟶* .c ((1 + 2) + 4) := by
   sorry
 
 -- ### Normal Forms Again
