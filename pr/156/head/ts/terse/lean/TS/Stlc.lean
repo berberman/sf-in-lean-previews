@@ -119,18 +119,22 @@ import TS.SFLCompat
 
 -- Now reconsider our examples, each along with its type:
 
--- - `λx:Bool. false` has type `Bool → Bool`
-
 -- - `λx:Bool. x` has type `Bool → Bool`
 
 -- - `(λx:Bool. x) true` has type `Bool`
 
+-- - `λx:Bool. if x then false else true` has type `Bool → Bool`
+
+-- - `λx:Bool. true` has type `Bool → Bool`
+
 -- - `λx:Bool. λy:Bool. x` has type `Bool → Bool → Bool` (i.e.,
 --   `Bool → (Bool → Bool)`)
 
--- - `(λx:Bool. λy:Bool. x) false` has type `Bool → Bool`
-
 -- - `(λx:Bool. λy:Bool. x) false true` has type `Bool`
+
+-- The last two, higher-order examples are left off the list on
+-- purpose -- working out their types is the subject of the
+-- quizzes that follow.
 
 -- Note that *all* functions are anonymous.
 
@@ -179,13 +183,13 @@ namespace Stlc
 
 inductive Ty where
   | bool
-  | arrow (T1 T2 : Ty)
+  | arrow (T₁ T₂ : Ty)
 
 -- ### Terms
 
 inductive Tm where
   | var (x : String)
-  | app (t1 t2 : Tm)
+  | app (t₁ t₂ : Tm)
   | abs (x : String) (T : Ty) (t : Tm)
   | tru
   | fls
@@ -224,8 +228,8 @@ macro_rules (kind := tyBracket)
       match x.getId.toString with
       | "Bool" => `(Ty.bool)
       | _ => `(($x : Ty))
-  | `(<{ $T1:stlcTy → $T2:stlcTy }>)  => `(Ty.arrow <{ $T1:stlcTy }> <{ $T2:stlcTy }>)
-  | `(<{ $T1:stlcTy -> $T2:stlcTy }>) => `(Ty.arrow <{ $T1:stlcTy }> <{ $T2:stlcTy }>)
+  | `(<{ $T₁:stlcTy → $T₂:stlcTy }>)  => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
+  | `(<{ $T₁:stlcTy -> $T₂:stlcTy }>) => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
 
 -- We'll write types inside of `<{ ... }>` brackets:
 
@@ -253,7 +257,7 @@ macro_rules (kind := tyBracket)
 -- The last production, `[x := s] t`, is the notation for
 -- substitution; we give it its meaning when we define
 -- substitution below. It binds tighter than application, so
--- `[x:=s] t1 t2` is the application of `[x:=s] t1` to `t2`,
+-- `[x:=s] t₁ t₂` is the application of `[x:=s] t₁` to `t₂`,
 -- and a `λ` or `if` body must be parenthesized:
 -- `[x:=s] (λ y : Bool . x)`.
 
@@ -289,7 +293,7 @@ macro_rules (kind := tmBracket)
       | "false" => `(Tm.fls)
       | "Bool"  => Macro.throwErrorAt x "`Bool` is a type, not a term"
       | _       => `(Tm.var $(quote x.getId.toString))
-  | `(<{ $t1:stlcTm $t2:stlcTm }>) => `(Tm.app <{ $t1:stlcTm }> <{ $t2:stlcTm }>)
+  | `(<{ $t₁:stlcTm $t₂:stlcTm }>) => `(Tm.app <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
   | `(<{ λ $x : $T . $t }>) => do
       `(Tm.abs $(← varStr x) <{ $T:stlcTy }> <{ $t:stlcTm }>)
   | `(<{ if $c then $t else $e }>) =>
@@ -424,29 +428,15 @@ def delabTm : Delab := whenPPOption getPPNotation do
 -- Here are the terms we will use as running examples, written
 -- in the new notation:
 
-def idB := <{ λ x : Bool . x }>
+abbrev idB := <{ λ x : Bool . x }>
 
-def idBB := <{ λ x : Bool → Bool . x }>
+abbrev idBB := <{ λ x : Bool → Bool . x }>
 
-def idBBBB := <{ λ x : (Bool → Bool) → (Bool → Bool) . x }>
+abbrev idBBBB := <{ λ x : (Bool → Bool) → (Bool → Bool) . x }>
 
-def k := <{ λ x : Bool . λ y : Bool . x }>
+abbrev k := <{ λ x : Bool . λ y : Bool . x }>
 
-def notB := <{ λ x : Bool . if x then false else true }>
-
-theorem idB_def : idB = <{ λ x : Bool . x }> := rfl
-theorem idBB_def : idBB = <{ λ x : Bool → Bool . x }> := rfl
-theorem idBBBB_def : idBBBB = <{ λ x : (Bool → Bool) → (Bool → Bool) . x }> := rfl
-theorem k_def : k = <{ λ x : Bool . λ y : Bool . x }> := rfl
-theorem notB_def : notB = <{ λ x : Bool . if x then false else true }> := rfl
-
--- Note to developers:
---     The Rocq source writes these as `Notation`s rather than
---     `Definition`s, so that `auto` sees through them for
---     free. Our convention (STYLE, "Definitions vs.
---     Abbreviations") is a `def` plus characterizing lemmas,
---     so the places that depend on what a name stands for are
---     visible in the proof rather than left to the elaborator.
+abbrev notB := <{ λ x : Bool . if x then false else true }>
 
 -- Note that an abstraction `λ x : T . t` (formally, `Tm.abs`
 -- applied to `x`, `T`, and `t`) is always annotated with the
@@ -507,13 +497,13 @@ theorem notB_def : notB = <{ λ x : Bool . if x then false else true }> := rfl
 -- We also make the second choice here.
 
 inductive Value : Tm → Prop where
-  | abs (x : String) (T2 : Ty) (t1 : Tm) : Value <{ λ ~x : ~T2 . ~t1 }>
+  | abs (x : String) (T₂ : Ty) (t₁ : Tm) : Value <{ λ ~x : ~T₂ . ~t₁ }>
   | tru : Value <{ true }>
   | fls : Value <{ false }>
 
-theorem idB_value : Value idB := by rw [idB_def]; exact .abs ..
-theorem idBB_value : Value idBB := by rw [idBB_def]; exact .abs ..
-theorem notB_value : Value notB := by rw [notB_def]; exact .abs ..
+theorem idB_value : Value idB := .abs ..
+theorem idBB_value : Value idBB := .abs ..
+theorem notB_value : Value notB := .abs ..
 
 -- Note to developers:
 --     The Rocq source follows each inductive definition in
@@ -608,11 +598,11 @@ theorem notB_value : Value notB := by rw [notB_def]; exact .abs ..
 --   [x:=s]y               = y                     if x ≠ y
 --   [x:=s](λx:T. t)       = λx:T. t
 --   [x:=s](λy:T. t)       = λy:T. [x:=s]t         if x ≠ y
---   [x:=s](t1 t2)         = ([x:=s]t1) ([x:=s]t2)
+--   [x:=s](t₁ t₂)         = ([x:=s]t₁) ([x:=s]t₂)
 --   [x:=s]true            = true
 --   [x:=s]false           = false
---   [x:=s](if t1 then t2 else t3) =
---                   if [x:=s]t1 then [x:=s]t2 else [x:=s]t3
+--   [x:=s](if t₁ then t₂ else t₃) =
+--                   if [x:=s]t₁ then [x:=s]t₂ else [x:=s]t₃
 
 -- ... and formally:
 
@@ -628,16 +618,16 @@ def subst (x : String) (s : Tm) (t : Tm) : Tm :=
   -- (see the note below the definition).
   | .var y =>
       if x = y then s else t
-  | <{ λ ~y : ~T . ~t1 }> =>
-      if x = y then t else <{ λ ~y : ~T . [~x := ~s] ~t1 }>
-  | <{ ~t1 ~t2 }> =>
-      <{ ([~x := ~s] ~t1) ([~x := ~s] ~t2) }>
+  | <{ λ ~y : ~T . ~t₁ }> =>
+      if x = y then t else <{ λ ~y : ~T . [~x := ~s] ~t₁ }>
+  | <{ ~t₁ ~t₂ }> =>
+      <{ ([~x := ~s] ~t₁) ([~x := ~s] ~t₂) }>
   | <{ true }> =>
       <{ true }>
   | <{ false }> =>
       <{ false }>
-  | <{ if ~t1 then ~t2 else ~t3 }> =>
-      <{ if [~x := ~s] ~t1 then [~x := ~s] ~t2 else [~x := ~s] ~t3 }>
+  | <{ if ~t₁ then ~t₂ else ~t₃ }> =>
+      <{ if [~x := ~s] ~t₁ then [~x := ~s] ~t₂ else [~x := ~s] ~t₃ }>
 end
 
 macro_rules (kind := tmBracket)
@@ -657,7 +647,7 @@ def delabSubst : Delab := whenPPOption getPPNotation do
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
 
-variable (x y : String) (s t t1 t2 t3 : Tm) (T : Ty)
+variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty)
 
 @[simp] theorem subst_var_eq : <{ [~x := ~s] ~(Tm.var x) }> = s := by
   simp [subst]
@@ -673,27 +663,27 @@ variable (x y : String) (s t t1 t2 t3 : Tm) (T : Ty)
   simp [subst, h]
 
 @[simp] theorem subst_app :
-    <{ [~x := ~s] (~t1 ~t2) }> = <{ ([~x := ~s] ~t1) ([~x := ~s] ~t2) }> := rfl
+    <{ [~x := ~s] (~t₁ ~t₂) }> = <{ ([~x := ~s] ~t₁) ([~x := ~s] ~t₂) }> := rfl
 
 @[simp] theorem subst_tru : <{ [~x := ~s] true }> = <{ true }> := rfl
 
 @[simp] theorem subst_fls : <{ [~x := ~s] false }> = <{ false }> := rfl
 
 @[simp] theorem subst_ite :
-    <{ [~x := ~s] (if ~t1 then ~t2 else ~t3) }> =
-      <{ if [~x := ~s] ~t1 then [~x := ~s] ~t2 else [~x := ~s] ~t3 }> := rfl
+    <{ [~x := ~s] (if ~t₁ then ~t₂ else ~t₃) }> =
+      <{ if [~x := ~s] ~t₁ then [~x := ~s] ~t₂ else [~x := ~s] ~t₃ }> := rfl
 
 -- _Quiz:_
 
 -- What is the result of the following substitution?
 
---   [x:=s](λy:T1. x (λx:T2. x))
+--   [x:=s](λy:T₁. x (λx:T₂. x))
 
--- (1) `(λy:T1. x (λx:T2. x))`
+-- (1) `(λy:T₁. x (λx:T₂. x))`
 
--- (2) `(λy:T1. s (λx:T2. s))`
+-- (2) `(λy:T₁. s (λx:T₂. s))`
 
--- (3) `(λy:T1. s (λx:T2. x))`
+-- (3) `(λy:T₁. s (λx:T₂. x))`
 
 -- (4) none of the above
 
@@ -747,29 +737,29 @@ variable (x y : String) (s t t1 t2 t3 : Tm) (T : Ty)
 
 -- ### Reduction
 
---   value v
---   -----------------------                      (ST_AppAbs)
---   (λx:T. t) v ⟶ [x:=v]t
+-- value v
+--                        -----------------------      (appAbs)
+--                         (λx:T. t) v ⟶ [x:=v]t
 
---   t1 ⟶ t1'
---   ----------------                           (ST_App1)
---   t1 t2 ⟶ t1' t2
+--                               t₁ ⟶ t₁'
+--                           ----------------          (app1)
+--                            t₁ t₂ ⟶ t₁' t₂
 
---   value v1
---   t2 ⟶ t2'
---   ----------------                           (ST_App2)
---   v1 t2 ⟶ v1 t2'
+--                               value v₁
+--                               t₂ ⟶ t₂'
+--                           ----------------          (app2)
+--                            v₁ t₂ ⟶ v₁ t₂'
 
 -- (plus the usual rules for conditionals).
 
--- The `ST_AppAbs` rule is often called *beta-reduction*.
+-- The `appAbs` rule is often called *beta-reduction*.
 
 -- This is *call by value* reduction: to reduce an application
--- `(t1 t2)`, we
+-- `(t₁ t₂)`, we
 
--- - first reduce `t1` to a value: a function `λx:T. t`
+-- - first reduce `t₁` to a value: a function `λx:T. t`
 
--- - then reduce the argument `t2` to a value `v`
+-- - then reduce the argument `t₂` to a value `v`
 
 -- - then reduce the application itself by substituting `v` for
 --   the bound variable `x` in the body `t`.
@@ -781,16 +771,16 @@ local notation:40 t:41 " ⟶ " t':41 => Step t t'
 inductive Step : Tm → Tm → Prop where
   | appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) :
       <{ (λ ~x : ~T . ~t) ~v }> ⟶ <{ [~x := ~v] ~t }>
-  | app1 (t1 t1' t2 : Tm) (h : t1 ⟶ t1') :
-      <{ ~t1 ~t2 }> ⟶ <{ ~t1' ~t2 }>
-  | app2 (v1 t2 t2' : Tm) (hv : Value v1) (h : t2 ⟶ t2') :
-      <{ ~v1 ~t2 }> ⟶ <{ ~v1 ~t2' }>
-  | ifTrue (t1 t2 : Tm) :
-      <{ if true then ~t1 else ~t2 }> ⟶ t1
-  | ifFalse (t1 t2 : Tm) :
-      <{ if false then ~t1 else ~t2 }> ⟶ t2
-  | ifStep (t1 t1' t2 t3 : Tm) (h : t1 ⟶ t1') :
-      <{ if ~t1 then ~t2 else ~t3 }> ⟶ <{ if ~t1' then ~t2 else ~t3 }>
+  | app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') :
+      <{ ~t₁ ~t₂ }> ⟶ <{ ~t₁' ~t₂ }>
+  | app2 (v₁ t₂ t₂' : Tm) (hv : Value v₁) (h : t₂ ⟶ t₂') :
+      <{ ~v₁ ~t₂ }> ⟶ <{ ~v₁ ~t₂' }>
+  | ifTrue (t₁ t₂ : Tm) :
+      <{ if true then ~t₁ else ~t₂ }> ⟶ t₁
+  | ifFalse (t₁ t₂ : Tm) :
+      <{ if false then ~t₁ else ~t₂ }> ⟶ t₂
+  | ifStep (t₁ t₁' t₂ t₃ : Tm) (h : t₁ ⟶ t₁') :
+      <{ if ~t₁ then ~t₂ else ~t₃ }> ⟶ <{ if ~t₁' then ~t₂ else ~t₃ }>
 end
 
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
@@ -875,7 +865,7 @@ scoped notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
 example : <{ ~idBB ~idB }> ⟶* idB := by
   apply Multi.step (y := idB)
-  · rw [idBB_def]; exact .appAbs "x" <{ Bool → Bool }> <{ x }> idB idB_value
+  · exact .appAbs "x" <{ Bool → Bool }> <{ x }> idB idB_value
   · rfl
 
 -- Example:
@@ -889,12 +879,12 @@ example : <{ ~idBB ~idB }> ⟶* idB := by
 
 example : <{ ~idBB (~idBB ~idB) }> ⟶* idB := by
   -- the same reduction happens twice, so we name it
-  have step1 : <{ ~idBB ~idB }> ⟶ idB := by
-    rw [idBB_def]; exact .appAbs "x" <{ Bool → Bool }> <{ x }> idB idB_value
+  have step₁ : <{ ~idBB ~idB }> ⟶ idB := by
+    exact .appAbs "x" <{ Bool → Bool }> <{ x }> idB idB_value
   apply Multi.step (y := <{ ~idBB ~idB }>)
-  · exact .app2 idBB <{ ~idBB ~idB }> idB idBB_value step1
+  · exact .app2 idBB <{ ~idBB ~idB }> idB idBB_value step₁
   apply Multi.step (y := idB)
-  · exact step1
+  · exact step₁
   · rfl
 
 -- Example:
@@ -910,11 +900,10 @@ example : <{ ~idBB (~idBB ~idB) }> ⟶* idB := by
 
 example : <{ ~idBB ~notB true }> ⟶* <{ false }> := by
   apply Multi.step (y := <{ ~notB true }>)
-  · refine .app1 <{ ~idBB ~notB }> notB <{ true }> ?_
-    rw [idBB_def]; exact .appAbs "x" <{ Bool → Bool }> <{ x }> notB notB_value
+  · exact .app1 <{ ~idBB ~notB }> notB <{ true }>
+      (.appAbs "x" <{ Bool → Bool }> <{ x }> notB notB_value)
   apply Multi.step (y := <{ if true then false else true }>)
-  · rw [notB_def]
-    exact .appAbs "x" <{ Bool }> <{ if x then false else true }> <{ true }> .tru
+  · exact .appAbs "x" <{ Bool }> <{ if x then false else true }> <{ true }> .tru
   apply Multi.step (y := <{ false }>)
   · exact .ifTrue <{ false }> <{ true }>
   · rfl
@@ -934,14 +923,13 @@ example : <{ ~idBB ~notB true }> ⟶* <{ false }> := by
 
 example : <{ ~idBB (~notB true) }> ⟶* <{ false }> := by
   apply Multi.step (y := <{ ~idBB (if true then false else true) }>)
-  · refine .app2 idBB <{ ~notB true }> <{ if true then false else true }> idBB_value ?_
-    rw [notB_def]
-    exact .appAbs "x" <{ Bool }> <{ if x then false else true }> <{ true }> .tru
+  · exact .app2 idBB <{ ~notB true }> <{ if true then false else true }> idBB_value
+      (.appAbs "x" <{ Bool }> <{ if x then false else true }> <{ true }> .tru)
   apply Multi.step (y := <{ ~idBB false }>)
   · exact .app2 idBB <{ if true then false else true }> <{ false }> idBB_value
       (.ifTrue <{ false }> <{ true }>)
   apply Multi.step (y := <{ false }>)
-  · rw [idBB_def]; exact .appAbs "x" <{ Bool → Bool }> <{ x }> <{ false }> .fls
+  · exact .appAbs "x" <{ Bool → Bool }> <{ x }> <{ false }> .fls
   · rfl
 
 -- _Quiz:_
@@ -987,34 +975,47 @@ abbrev Context := TotalMap String (Option Ty)
 
 -- ### Typing Relation
 
---   Γ x = T1
---   ------------------                             (T_Var)
---   Γ ⊢ x ⦂ T1
+-- Γ x = T₁
+--                             ------------                       (var)
+--                              Γ ⊢ x ⦂ T₁
 
---   x ↦ T2 ; Γ ⊢ t1 ⦂ T1
---   ------------------------------                     (T_Abs)
---   Γ ⊢ λx:T2. t1 ⦂ T2 → T1
+--                         x ↦ T₂ ; Γ ⊢ t₁ ⦂ T₁
+--                       -------------------------                (abs)
+--                        Γ ⊢ λx:T₂. t₁ ⦂ T₂ → T₁
 
---   Γ ⊢ t1 ⦂ T2 → T1
---   Γ ⊢ t2 ⦂ T2
---   ----------------------                          (T_App)
---   Γ ⊢ t1 t2 ⦂ T1
+--                           Γ ⊢ t₁ ⦂ T₂ → T₁
+--                             Γ ⊢ t₂ ⦂ T₂
+--                          ------------------                    (app)
+--                            Γ ⊢ t₁ t₂ ⦂ T₁
 
---   -----------------------                         (T_True)
---   Γ ⊢ true ⦂ Bool
+--                           -----------------                    (tru)
+--                            Γ ⊢ true ⦂ Bool
 
---   ------------------------                       (T_False)
---   Γ ⊢ false ⦂ Bool
+--                          ------------------                    (fls)
+--                           Γ ⊢ false ⦂ Bool
 
---   Γ ⊢ t1 ⦂ Bool    Γ ⊢ t2 ⦂ T    Γ ⊢ t3 ⦂ T
---   -----------------------------------------------------------------    (T_If)
---   Γ ⊢ if t1 then t2 else t3 ⦂ T
+--              Γ ⊢ t₁ ⦂ Bool    Γ ⊢ t₂ ⦂ T₁    Γ ⊢ t₃ ⦂ T₁
+--             ---------------------------------------------      (ite)
+--                    Γ ⊢ if t₁ then t₂ else t₃ ⦂ T₁
 
 -- We can read the three-place relation `Γ ⊢ t ⦂ T` as: "under
 -- the assumptions in Γ, the term `t` has the type `T`."
 
 -- In the formal development, we write this judgment inside the
 -- same `<{ .. }>` brackets.
+
+-- _Details:_ Notation encoding: contexts and judgments
+
+-- Contexts get a grammar of their own, `stlcCtx`. The
+-- **meaning** is the map update we already have -- `x ↦ T ; Γ`
+-- expands to exactly the `Typeclasses` chapter's update on `Γ`
+-- -- but its surface syntax has to be our own, because inside
+-- these brackets all three positions are in object syntax.
+-- Writing the map notation directly would mean writing the
+-- binding as `"x" →ₜ some <{ Bool → Bool }> ; Γ`: the name
+-- quoted, the value wrapped in `some`, and the type escaped
+-- back out of the brackets it belongs in. The grammar hides
+-- those three encoding details, and nothing else.
 
 declare_syntax_cat stlcCtx
 syntax:max "∅" : stlcCtx
@@ -1033,6 +1034,13 @@ partial def ctxTerm (G : TSyntax `stlcCtx) : MacroM Term :=
       `(TotalMap.update $(← ctxTerm G) $(← varStr x) (some <{ $T:stlcTy }>))
   | _ => Macro.throwUnsupported
 
+-- As with `subst`, the judgment notation is used inside the
+-- definition it names, so it is introduced in two steps: the
+-- rule below is declared `local` with hygiene off, so the
+-- `HasType` in its expansion resolves to the relation being
+-- declared, and after the `section` closes it is declared
+-- again for real use.
+
 section
 set_option hygiene false in
 local macro_rules (kind := judgeBracket)
@@ -1040,22 +1048,29 @@ local macro_rules (kind := judgeBracket)
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
 
 inductive HasType : Context → Tm → Ty → Prop where
-  | var (Γ : Context) (x : String) (T1 : Ty) (h : Γ[x] = some T1) :
-      <{ ~Γ ⊢ ~(Tm.var x) ⦂ ~T1 }>
-  | abs (Γ : Context) (x : String) (T1 T2 : Ty) (t1 : Tm)
-      (h : <{ ~x ↦ ~T2 ; ~Γ ⊢ ~t1 ⦂ ~T1 }>) :
-      <{ ~Γ ⊢ λ ~x : ~T2 . ~t1 ⦂ ~T2 → ~T1 }>
-  | app (Γ : Context) (T1 T2 : Ty) (t1 t2 : Tm)
-      (h1 : <{ ~Γ ⊢ ~t1 ⦂ ~T2 → ~T1 }>) (h2 : <{ ~Γ ⊢ ~t2 ⦂ ~T2 }>) :
-      <{ ~Γ ⊢ ~t1 ~t2 ⦂ ~T1 }>
+  | var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :
+      <{ ~Γ ⊢ ~(Tm.var x) ⦂ ~T₁ }>
+  | abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm)
+      (h : <{ ~x ↦ ~T₂ ; ~Γ ⊢ ~t₁ ⦂ ~T₁ }>) :
+      <{ ~Γ ⊢ λ ~x : ~T₂ . ~t₁ ⦂ ~T₂ → ~T₁ }>
+  | app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm)
+      (h₁ : <{ ~Γ ⊢ ~t₁ ⦂ ~T₂ → ~T₁ }>) (h₂ : <{ ~Γ ⊢ ~t₂ ⦂ ~T₂ }>) :
+      <{ ~Γ ⊢ ~t₁ ~t₂ ⦂ ~T₁ }>
   | tru (Γ : Context) :
       <{ ~Γ ⊢ true ⦂ Bool }>
   | fls (Γ : Context) :
       <{ ~Γ ⊢ false ⦂ Bool }>
-  | ite (Γ : Context) (t1 t2 t3 : Tm) (T1 : Ty)
-      (h1 : <{ ~Γ ⊢ ~t1 ⦂ Bool }>) (h2 : <{ ~Γ ⊢ ~t2 ⦂ ~T1 }>)
-      (h3 : <{ ~Γ ⊢ ~t3 ⦂ ~T1 }>) :
-      <{ ~Γ ⊢ if ~t1 then ~t2 else ~t3 ⦂ ~T1 }>
+  | ite (Γ : Context) (t₁ t₂ t₃ : Tm) (T₁ : Ty)
+      (h₁ : <{ ~Γ ⊢ ~t₁ ⦂ Bool }>) (h₂ : <{ ~Γ ⊢ ~t₂ ⦂ ~T₁ }>)
+      (h₃ : <{ ~Γ ⊢ ~t₃ ⦂ ~T₁ }>) :
+      <{ ~Γ ⊢ if ~t₁ then ~t₂ else ~t₃ ⦂ ~T₁ }>
+
+-- _Details:_ Notation encoding: the judgment, for real
+
+-- Closing the `section` retires the hygiene-free rule; the
+-- same rule is then declared again, hygienically, for every
+-- later use.
+
 end
 
 macro_rules (kind := judgeBracket)
@@ -1140,10 +1155,10 @@ example : ¬ ∃ T, <{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~T }> := by
   -- Each `cases` peels off one rule of the derivation, naming the premise it
   -- leaves behind; the context stays small because the old hypothesis goes away.
   cases hc with
-  | abs _ _ _ _ _ h1 =>
-    cases h1 with
-    | abs _ _ _ _ _ h2 =>
-      cases h2 with
+  | abs _ _ _ _ _ h₁ =>
+    cases h₁ with
+    | abs _ _ _ _ _ h₂ =>
+      cases h₂ with
       | app _ _ _ _ _ hf _ =>
         cases hf with
         | var _ _ _ hx =>

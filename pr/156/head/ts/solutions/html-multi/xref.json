@@ -2287,33 +2287,11 @@
         "Operational Semantics",
         "Values"]}},
      "address": "/Stlc/"}],
-   "Stlc.notB_def":
-   [{"id": "Stlc___notB_def",
-     "data":
-     {"/Stlc/#Stlc___notB_def":
-      {"display": "notB_def",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
    "Stlc.notB":
    [{"id": "Stlc___notB",
      "data":
      {"/Stlc/#Stlc___notB":
       {"display": "notB",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.k_def":
-   [{"id": "Stlc___k_def",
-     "data":
-     {"/Stlc/#Stlc___k_def":
-      {"display": "k_def",
        "context":
        ["Type Systems",
         "Stlc: The Simply Typed Lambda-Calculus",
@@ -2364,17 +2342,6 @@
         "Operational Semantics",
         "Values"]}},
      "address": "/Stlc/"}],
-   "Stlc.idB_def":
-   [{"id": "Stlc___idB_def",
-     "data":
-     {"/Stlc/#Stlc___idB_def":
-      {"display": "idB_def",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
    "Stlc.idBB_value":
    [{"id": "Stlc___idBB_value",
      "data":
@@ -2385,28 +2352,6 @@
         "Stlc: The Simply Typed Lambda-Calculus",
         "Operational Semantics",
         "Values"]}},
-     "address": "/Stlc/"}],
-   "Stlc.idBB_def":
-   [{"id": "Stlc___idBB_def",
-     "data":
-     {"/Stlc/#Stlc___idBB_def":
-      {"display": "idBB_def",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.idBBBB_def":
-   [{"id": "Stlc___idBBBB_def",
-     "data":
-     {"/Stlc/#Stlc___idBBBB_def":
-      {"display": "idBBBB_def",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
      "address": "/Stlc/"}],
    "Stlc.idBBBB":
    [{"id": "Stlc___idBBBB",

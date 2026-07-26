@@ -84,9 +84,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "d4123ca545d080c22145f32eae81f3fc742b9afb",
+      "head_sha": "f8ef25bbef3416fccdb881a2ffdd024cbe1e4e0a",
       "preview_path": "pr/156/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30211944961",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30214413006",
       "status": "published",
       "title": "Initial port of TS/Stlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/156"

@@ -39,7 +39,7 @@
  "974": "<code>Stlc.Tm.fls : Tm</code>",
  "973": "<code>Stlc.Tm.tru : Tm</code>",
  "972": "<code>Stlc.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
- "971": "<code>Stlc.Tm.app (t1 t2 : Tm) : Tm</code>",
+ "971": "<code>Stlc.Tm.app (t₁ t₂ : Tm) : Tm</code>",
  "970":
  "<code>String : Type</code><span class=\"sep\"></span><code class=\"docstring\">A string is a sequence of Unicode scalar values.\n\nAt runtime, strings are represented by [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)\nof bytes using the UTF-8 encoding. Both the size in bytes (`String.utf8ByteSize`) and in characters\n(`String.length`) are cached and take constant time. Many operations on strings perform in-place\nmodifications when the reference to the string is unique.\n</code>",
  "97":
@@ -47,7 +47,7 @@
  "969": "<code>String</code>",
  "968": "<code>Stlc.Tm.var (x : String) : Tm</code>",
  "967": "<code>Stlc.Tm : Type</code>",
- "966": "<code>Stlc.Ty.arrow (T1 T2 : Ty) : Ty</code>",
+ "966": "<code>Stlc.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
  "965": "<code>Stlc.Ty.bool : Ty</code>",
  "964": "<code>Stlc.Ty : Type</code>",
  "963":
@@ -1307,224 +1307,217 @@
  "118": "<code>a1 ⇓ a1.eval</code>",
  "117":
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
- "1169":
- "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "1168":
- "<code>Eq.symm.{u} {α : Sort u} {a b : α} (h : a = b) : b = a</code><span class=\"sep\"></span><code class=\"docstring\">Equality is symmetric: if `a = b` then `b = a`.\n\nBecause this is in the `Eq` namespace, if you have a variable `h : a = b`,\n`h.symm` can be used as shorthand for `Eq.symm h` as a proof of `b = a`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "1167": "<code>(\"x\" →ₜ some S ; ∅)[\"x\"] = some T2✝</code>",
  "1166":
- "<code>(\"x\" →ₜ some S ; ∅)[\"x\"] = some &lt;{ T2✝ → T1✝ }&gt;</code>",
- "1165": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ T2✝ → T1✝ }&gt;</code>",
- "1164": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ ~(T2✝) }&gt;</code>",
- "1163": "<code>&lt;{ ~(Γ✝) ⊢ ~(t2✝) ⦂ ~(T2✝) }&gt;</code>",
- "1162": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x x ⦂ ~(T1✝) }&gt;</code>",
- "1161": "<code>&lt;{ ∅ ⊢ λ x : S . x x ⦂ ~(T) }&gt;</code>",
- "1160": "<code>B = T2</code>",
+ "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
+ "1165":
+ "<code>Eq.symm.{u} {α : Sort u} {a b : α} (h : a = b) : b = a</code><span class=\"sep\"></span><code class=\"docstring\">Equality is symmetric: if `a = b` then `b = a`.\n\nBecause this is in the `Eq` namespace, if you have a variable `h : a = b`,\n`h.symm` can be used as shorthand for `Eq.symm h` as a proof of `b = a`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
+ "1164": "<code>(\"x\" →ₜ some S ; ∅)[\"x\"] = some T₂✝</code>",
+ "1163":
+ "<code>(\"x\" →ₜ some S ; ∅)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
+ "1162": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1161": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ ~(T₂✝) }&gt;</code>",
+ "1160": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
  "116": "<code>a.eval = n</code>",
- "1159": "<code>A = &lt;{ A → B }&gt;</code>",
- "1158":
+ "1159": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x x ⦂ ~(T₁✝) }&gt;</code>",
+ "1158": "<code>&lt;{ ∅ ⊢ λ x : S . x x ⦂ ~(T) }&gt;</code>",
+ "1157": "<code>B = T₂</code>",
+ "1156": "<code>A = &lt;{ A → B }&gt;</code>",
+ "1155":
  "<code class=\"docstring\">The `injection` tactic is based on the fact that constructors of inductive data\ntypes are injections.\nThat means that if `c` is a constructor of an inductive datatype, and if `(c t₁)`\nand `(c t₂)` are two terms that are equal then  `t₁` and `t₂` are equal too.\nIf `q` is a proof of a statement of conclusion `t₁ = t₂`, then injection applies\ninjectivity to derive the equality of all arguments of `t₁` and `t₂` placed in\nthe same positions. For example, from `(a::b) = (c::d)` we derive `a=c` and `b=d`.\nTo use this tactic `t₁` and `t₂` should be constructor applications of the same constructor.\nGiven `h : a::b = c::d`, the tactic `injection h` adds two new hypothesis with types\n`a = c` and `b = d` to the main goal.\nThe tactic `injection h with h₁ h₂` uses the names `h₁` and `h₂` to name the new hypotheses.\n</code>",
- "1157": "<code>&lt;{ A → B }&gt; = &lt;{ (A → B) → T2 }&gt;</code>",
- "1156": "<code>∀ (T2 : Ty), B ≠ &lt;{ B → T2 }&gt;</code>",
- "1155": "<code>∀ (T2 : Ty), A ≠ &lt;{ A → T2 }&gt;</code>",
- "1154": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → T2 }&gt;</code>",
- "1153": "<code>∀ (T1 T2 : Ty), T1 ≠ &lt;{ T1 → T2 }&gt;</code>",
- "1152":
- "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
- "1151":
- "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
- "1150":
- "<code>(\"y\" →ₜ some &lt;{ Bool }&gt; ; \"x\" →ₜ some &lt;{ Bool }&gt; ; ∅)[\"x\"] = some &lt;{ T2✝ → T1✝ }&gt;</code>",
+ "1154": "<code>&lt;{ A → B }&gt; = &lt;{ (A → B) → T₂ }&gt;</code>",
+ "1153": "<code>∀ (T₂ : Ty), B ≠ &lt;{ B → T₂ }&gt;</code>",
+ "1152": "<code>∀ (T₂ : Ty), A ≠ &lt;{ A → T₂ }&gt;</code>",
+ "1151": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → T₂ }&gt;</code>",
+ "1150": "<code>∀ (T₁ T₂ : Ty), T₁ ≠ &lt;{ T₁ → T₂ }&gt;</code>",
  "115":
  "<code>Slang.Aexp.EvalR.mult (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : a1.mult a2 ⇓ n1 * n2</code>",
- "1149": "<code>Γ✝[x✝] = some T1✝</code>",
- "1148": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x ⦂ T2✝ → T1✝ }&gt;</code>",
- "1147": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ y ⦂ ~(T2✝) }&gt;</code>",
- "1146": "<code>&lt;{ ~(Γ✝) ⊢ ~(t1✝) ⦂ T2✝ → T1✝ }&gt;</code>",
- "1145": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x y ⦂ ~(T1✝) }&gt;</code>",
- "1144": "<code>&lt;{ x ↦ Bool ; ∅ ⊢ λ y : Bool . x y ⦂ ~(T1✝) }&gt;</code>",
- "1143": "<code>&lt;{ ~(x✝ →ₜ some T2✝ ; Γ✝) ⊢ ~(t1✝) ⦂ ~(T1✝) }&gt;</code>",
- "1142": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
- "1141": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
- "1140":
- "<code>GetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)}\n  {valid : outParam (coll → idx → Prop)} [self : GetElem coll idx elem valid] (xs : coll) (i : idx) (h : valid xs i) :\n  elem</code><span class=\"sep\"></span><code class=\"docstring\">The syntax `arr[i]` gets the `i`'th element of the collection `arr`. If there\nare proof side conditions to the application, they will be automatically\ninferred by the `get_elem_tactic` tactic.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `xs[i]` in identifiers is `getElem`.\n\n * The recommended spelling of `xs[i]'h` in identifiers is `getElem`.</code>",
+ "1149":
+ "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
+ "1148":
+ "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
+ "1147":
+ "<code>(\"y\" →ₜ some &lt;{ Bool }&gt; ; \"x\" →ₜ some &lt;{ Bool }&gt; ; ∅)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
+ "1146": "<code>Γ✝[x✝] = some T₁✝</code>",
+ "1145": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1144": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
+ "1143": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1142": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
+ "1141": "<code>&lt;{ x ↦ Bool ; ∅ ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
+ "1140": "<code>&lt;{ ~(x✝ →ₜ some T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
  "114":
  "<code>Slang.Aexp.EvalR.minus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : a1.minus a2 ⇓ n1 - n2</code>",
- "1139":
- "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
- "1138":
- "<code>TotalMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
- "1137": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
+ "1139": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
+ "1138": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
+ "1137":
+ "<code>GetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)}\n  {valid : outParam (coll → idx → Prop)} [self : GetElem coll idx elem valid] (xs : coll) (i : idx) (h : valid xs i) :\n  elem</code><span class=\"sep\"></span><code class=\"docstring\">The syntax `arr[i]` gets the `i`'th element of the collection `arr`. If there\nare proof side conditions to the application, they will be automatically\ninferred by the `get_elem_tactic` tactic.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `xs[i]` in identifiers is `getElem`.\n\n * The recommended spelling of `xs[i]'h` in identifiers is `getElem`.</code>",
  "1136":
- "<code>Stlc.HasType.app (Γ : Context) (T1 T2 : Ty) (t1 t2 : Tm) (h1 : &lt;{ ~(Γ) ⊢ ~(t1) ⦂ T2 → T1 }&gt;)\n  (h2 : &lt;{ ~(Γ) ⊢ ~(t2) ⦂ ~(T2) }&gt;) : &lt;{ ~(Γ) ⊢ t1 t2 ⦂ ~(T1) }&gt;</code>",
+ "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
  "1135":
- "<code>Stlc.HasType.var (Γ : Context) (x : String) (T1 : Ty) (h : Γ[x] = some T1) :\n  &lt;{ ~(Γ) ⊢\n    ~((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) ⦂\n    ~(T1) }&gt;</code>",
- "1134":
- "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T1 T2 : Ty) (t1 : Tm) (h : &lt;{ ~(x →ₜ some T2 ; Γ) ⊢ ~(t1) ⦂ ~(T1) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T2 . t1 ⦂ T2 → T1 }&gt;</code>",
- "1133": "<code>Stlc.HasType.unexpand : Unexpander</code>",
+ "<code>TotalMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "1134": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
+ "1133":
+ "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(T₁) }&gt;</code>",
  "1132":
- "<code>Lean.PrettyPrinter.UnexpandM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The unexpander monad, essentially `Syntax → Option α`. The `Syntax` is the `ref`,\nand it has the possibility of failure without an error message.\n</code>",
+ "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :\n  &lt;{ ~(Γ) ⊢\n    ~((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) ⦂\n    ~(T₁) }&gt;</code>",
  "1131":
- "<code>Stlc.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Bool ; Γ` rather than as a chain of map updates. </code>",
- "1130": "<code>HasType Γ t3 T1</code>",
+ "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₜ some T₂ ; Γ) ⊢ ~(t₁) ⦂ ~(T₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T₂ . t₁ ⦂ T₂ → T₁ }&gt;</code>",
+ "1130": "<code>Stlc.HasType.unexpand : Unexpander</code>",
  "113": "<code>a2.eval = n2</code>",
- "1129": "<code>HasType Γ t2 T1</code>",
- "1128": "<code>HasType Γ t1 &lt;{ Bool }&gt;</code>",
- "1127":
- "<code>Stlc.HasType.ite (Γ : Context) (t1 t2 t3 : Tm) (T1 : Ty) (h1 : HasType Γ t1 &lt;{ Bool }&gt;) (h2 : HasType Γ t2 T1)\n  (h3 : HasType Γ t3 T1) : HasType Γ &lt;{ if t1 then t2 else t3 }&gt; T1</code>",
- "1126":
+ "1129":
+ "<code>Lean.PrettyPrinter.UnexpandM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The unexpander monad, essentially `Syntax → Option α`. The `Syntax` is the `ref`,\nand it has the possibility of failure without an error message.\n</code>",
+ "1128":
+ "<code>Stlc.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Bool ; Γ` rather than as a chain of map updates. </code>",
+ "1127": "<code>HasType Γ t₃ T₁</code>",
+ "1126": "<code>HasType Γ t₂ T₁</code>",
+ "1125": "<code>HasType Γ t₁ &lt;{ Bool }&gt;</code>",
+ "1124":
+ "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (T₁ : Ty) (h₁ : HasType Γ t₁ &lt;{ Bool }&gt;) (h₂ : HasType Γ t₂ T₁)\n  (h₃ : HasType Γ t₃ T₁) : HasType Γ &lt;{ if t₁ then t₂ else t₃ }&gt; T₁</code>",
+ "1123":
  "<code>Stlc.HasType.fls (Γ : Context) : HasType Γ &lt;{ false }&gt; &lt;{ Bool }&gt;</code>",
- "1125":
- "<code>Stlc.HasType.tru (Γ : Context) : HasType Γ &lt;{ true }&gt; &lt;{ Bool }&gt;</code>",
- "1124": "<code>HasType Γ t2 T2</code>",
- "1123": "<code>HasType Γ t1 &lt;{ T2 → T1 }&gt;</code>",
  "1122":
- "<code>Stlc.HasType.app (Γ : Context) (T1 T2 : Ty) (t1 t2 : Tm) (h1 : HasType Γ t1 &lt;{ T2 → T1 }&gt;) (h2 : HasType Γ t2 T2) :\n  HasType Γ &lt;{ t1 t2 }&gt; T1</code>",
- "1121": "<code>HasType (x →ₜ some T2 ; Γ) t1 T1</code>",
- "1120":
- "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T1 T2 : Ty) (t1 : Tm) (h : HasType (x →ₜ some T2 ; Γ) t1 T1) :\n  HasType Γ &lt;{ λ ~x : T2 . t1 }&gt; &lt;{ T2 → T1 }&gt;</code>",
+ "<code>Stlc.HasType.tru (Γ : Context) : HasType Γ &lt;{ true }&gt; &lt;{ Bool }&gt;</code>",
+ "1121": "<code>HasType Γ t₂ T₂</code>",
+ "1120": "<code>HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;</code>",
  "112": "<code>a1.eval = n1</code>",
- "1119": "<code>Γ[x] = some T1</code>",
- "1118": "<code>Context</code>",
+ "1119":
+ "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;) (h₂ : HasType Γ t₂ T₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; T₁</code>",
+ "1118": "<code>HasType (x →ₜ some T₂ ; Γ) t₁ T₁</code>",
  "1117":
- "<code>Stlc.HasType.var (Γ : Context) (x : String) (T1 : Ty) (h : Γ[x] = some T1) :\n  HasType Γ\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))\n    T1</code>",
- "1116": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
- "1115":
- "<code>Stlc.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1114": "<code>Lean.TSyntax `stlcCtx</code>",
- "1113": "<code>TSyntax `stlcCtx</code>",
+ "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₜ some T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
+ "1116": "<code>Γ[x] = some T₁</code>",
+ "1115": "<code>Context</code>",
+ "1114":
+ "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :\n  HasType Γ\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))\n    T₁</code>",
+ "1113": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
  "1112":
- "<code>Stlc.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1111": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
- "1110": "<code>Stlc.judgeBracket : Lean.ParserDescr</code>",
+ "<code>Stlc.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
+ "1111": "<code>Lean.TSyntax `stlcCtx</code>",
+ "1110": "<code>TSyntax `stlcCtx</code>",
  "111": "<code>a2 ⇓ n2</code>",
- "1109": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
- "1108": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
- "1107": "<code><span class=\"literal string\">\"∅\"</span> : String</code>",
- "1106": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
- "1105":
- "<code>TotalMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
- "1104": "<code>Stlc.Context : Type</code>",
- "1103":
- "<code>Stlc.Step.ifTrue (t1 t2 : Tm) : &lt;{ if true then t1 else t2 }&gt; ⟶ t1</code>",
+ "1109":
+ "<code>Stlc.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
+ "1108": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
+ "1107": "<code>Stlc.judgeBracket : Lean.ParserDescr</code>",
+ "1106": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
+ "1105": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
+ "1104": "<code><span class=\"literal string\">\"∅\"</span> : String</code>",
+ "1103": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
  "1102":
- "<code>Stlc.Step.app1 (t1 t1' t2 : Tm) (h : t1 ⟶ t1') : &lt;{ t1 t2 }&gt; ⟶ &lt;{ t1' t2 }&gt;</code>",
- "1101":
- "<code>Stlc.Step.app2 (v1 t2 t2' : Tm) (hv : Value v1) (h : t2 ⟶ t2') : &lt;{ v1 t2 }&gt; ⟶ &lt;{ v1 t2' }&gt;</code>",
- "1100": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
+ "<code>TotalMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
+ "1101": "<code>Stlc.Context : Type</code>",
+ "1100":
+ "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : &lt;{ if true then t₁ else t₂ }&gt; ⟶ t₁</code>",
  "110": "<code>a1 ⇓ n1</code>",
  "11": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
- "1099": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
+ "1099":
+ "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
  "1098":
- "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
- "1097":
- "<code>Stlc.Step.ifStep (t1 t1' t2 t3 : Tm) (h : Step t1 t1') : Step &lt;{ if t1 then t2 else t3 }&gt; &lt;{ if t1' then t2 else t3 }&gt;</code>",
- "1096":
- "<code>Stlc.Step.ifFalse (t1 t2 : Tm) : Step &lt;{ if false then t1 else t2 }&gt; t2</code>",
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : Value v₁) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
+ "1097": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
+ "1096": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
  "1095":
- "<code>Stlc.Step.ifTrue (t1 t2 : Tm) : Step &lt;{ if true then t1 else t2 }&gt; t1</code>",
- "1094": "<code>Value v1</code>",
+ "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
+ "1094":
+ "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') : Step &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
  "1093":
- "<code>Stlc.Step.app2 (v1 t2 t2' : Tm) (hv : Value v1) (h : Step t2 t2') : Step &lt;{ v1 t2 }&gt; &lt;{ v1 t2' }&gt;</code>",
+ "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : Step &lt;{ if false then t₁ else t₂ }&gt; t₂</code>",
  "1092":
- "<code>Stlc.Step.app1 (t1 t1' t2 : Tm) (h : Step t1 t1') : Step &lt;{ t1 t2 }&gt; &lt;{ t1' t2 }&gt;</code>",
- "1091": "<code>Value v</code>",
- "1090":
- "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
+ "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : Step &lt;{ if true then t₁ else t₂ }&gt; t₁</code>",
+ "1091": "<code>Step t₂ t₂'</code>",
+ "1090": "<code>Value v₁</code>",
  "109":
  "<code>Slang.Aexp.EvalR.plus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : a1.plus a2 ⇓ n1 + n2</code>",
- "1089": "<code>Stlc.Step : Tm → Tm → Prop</code>",
- "1088": "<code>&lt;{ [~x := s] t3✝ }&gt; = t3'✝</code>",
- "1087": "<code>Substi s x t3✝ t3'✝</code>",
- "1086": "<code>&lt;{ [~x := s] t2✝ }&gt; = t2'✝</code>",
- "1085": "<code>Substi s x t2✝ t2'✝</code>",
- "1084": "<code>&lt;{ [~x := s] t1✝ }&gt; = t1'✝</code>",
- "1083": "<code>Substi s x t1✝ t1'✝</code>",
- "1082": "<code>x ≠ x'✝</code>",
- "1081": "<code>Substi s x t t'</code>",
- "1080": "<code>Substi s x t3 &lt;{ [~x := s] t3 }&gt;</code>",
+ "1089":
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : Value v₁) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
+ "1088": "<code>Step t₁ t₁'</code>",
+ "1087":
+ "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
+ "1086": "<code>Value v</code>",
+ "1085":
+ "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
+ "1084": "<code>Stlc.Step : Tm → Tm → Prop</code>",
+ "1083": "<code>&lt;{ [~x := s] t₃✝ }&gt; = t₃'✝</code>",
+ "1082": "<code>Substi s x t₃✝ t₃'✝</code>",
+ "1081": "<code>&lt;{ [~x := s] t₂✝ }&gt; = t₂'✝</code>",
+ "1080": "<code>Substi s x t₂✝ t₂'✝</code>",
  "108": "<code>Slang.Aexp.EvalR.num (n : Nat) : num n ⇓ n</code>",
- "1079": "<code>Substi s x t2 &lt;{ [~x := s] t2 }&gt;</code>",
- "1078": "<code>Substi s x t1 &lt;{ [~x := s] t1 }&gt;</code>",
- "1077": "<code>¬x = y</code>",
- "1076": "<code>x = y</code>",
- "1075":
- "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
- "1074": "<code>&lt;{ [~x := s] t }&gt; = t'</code>",
- "1073":
- "<code>Stlc.substi_correct (s : Tm) (x : String) (t t' : Tm) : &lt;{ [~x := s] t }&gt; = t' ↔ Substi s x t t'</code>",
- "1072": "<code>Substi s x t3 t3'</code>",
- "1071":
- "<code>Stlc.Substi.ite {s : Tm} {x : String} (t1 t2 t3 t1' t2' t3' : Tm) (h1 : Substi s x t1 t1') (h2 : Substi s x t2 t2')\n  (h3 : Substi s x t3 t3') : Substi s x &lt;{ if t1 then t2 else t3 }&gt; &lt;{ if t1' then t2' else t3' }&gt;</code>",
+ "1079": "<code>&lt;{ [~x := s] t₁✝ }&gt; = t₁'✝</code>",
+ "1078": "<code>Substi s x t₁✝ t₁'✝</code>",
+ "1077": "<code>x ≠ x'✝</code>",
+ "1076": "<code>Substi s x t t'</code>",
+ "1075": "<code>Substi s x t₃ &lt;{ [~x := s] t₃ }&gt;</code>",
+ "1074": "<code>Substi s x t₂ &lt;{ [~x := s] t₂ }&gt;</code>",
+ "1073": "<code>Substi s x t₁ &lt;{ [~x := s] t₁ }&gt;</code>",
+ "1072": "<code>¬x = y</code>",
+ "1071": "<code>x = y</code>",
  "1070":
- "<code>Stlc.Substi.fls {s : Tm} {x : String} : Substi s x &lt;{ false }&gt; &lt;{ false }&gt;</code>",
+ "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
  "107": "<code>a ⇓ n</code>",
- "1069":
- "<code>Stlc.Substi.tru {s : Tm} {x : String} : Substi s x &lt;{ true }&gt; &lt;{ true }&gt;</code>",
- "1068": "<code>Substi s x t2 t2'</code>",
- "1067":
- "<code>Stlc.Substi.app {s : Tm} {x : String} (t1 t2 t1' t2' : Tm) (h1 : Substi s x t1 t1') (h2 : Substi s x t2 t2') :\n  Substi s x &lt;{ t1 t2 }&gt; &lt;{ t1' t2' }&gt;</code>",
- "1066": "<code>Substi s x t1 t1'</code>",
+ "1069": "<code>&lt;{ [~x := s] t }&gt; = t'</code>",
+ "1068":
+ "<code>Stlc.substi_correct (s : Tm) (x : String) (t t' : Tm) : &lt;{ [~x := s] t }&gt; = t' ↔ Substi s x t t'</code>",
+ "1067": "<code>Substi s x t₃ t₃'</code>",
+ "1066":
+ "<code>Stlc.Substi.ite {s : Tm} {x : String} (t₁ t₂ t₃ t₁' t₂' t₃' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂')\n  (h₃ : Substi s x t₃ t₃') : Substi s x &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂' else t₃' }&gt;</code>",
  "1065":
- "<code>Stlc.Substi.abs2 {s : Tm} {x : String} (x' : String) (T1 : Ty) (t1 t1' : Tm) (hx : x ≠ x') (h : Substi s x t1 t1') :\n  Substi s x &lt;{ λ ~x' : T1 . t1 }&gt; &lt;{ λ ~x' : T1 . t1' }&gt;</code>",
+ "<code>Stlc.Substi.fls {s : Tm} {x : String} : Substi s x &lt;{ false }&gt; &lt;{ false }&gt;</code>",
  "1064":
- "<code>Stlc.Substi.abs1 {s : Tm} {x : String} (T2 : Ty) (t1 : Tm) : Substi s x &lt;{ λ ~x : T2 . t1 }&gt; &lt;{ λ ~x : T2 . t1 }&gt;</code>",
- "1063": "<code>x ≠ x'</code>",
+ "<code>Stlc.Substi.tru {s : Tm} {x : String} : Substi s x &lt;{ true }&gt; &lt;{ true }&gt;</code>",
+ "1063": "<code>Substi s x t₂ t₂'</code>",
  "1062":
- "<code>Stlc.Substi.var2 {s : Tm} {x : String} (x' : String) (h : x ≠ x') :\n  Substi s x\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))</code>",
- "1061":
- "<code>Stlc.Substi.var1 {s : Tm} {x : String} :\n  Substi s x\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))\n    s</code>",
- "1060": "<code>Stlc.Substi (s : Tm) (x : String) : Tm → Tm → Prop</code>",
+ "<code>Stlc.Substi.app {s : Tm} {x : String} (t₁ t₂ t₁' t₂' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂') :\n  Substi s x &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂' }&gt;</code>",
+ "1061": "<code>Substi s x t₁ t₁'</code>",
+ "1060":
+ "<code>Stlc.Substi.abs2 {s : Tm} {x : String} (x' : String) (T₁ : Ty) (t₁ t₁' : Tm) (hx : x ≠ x') (h : Substi s x t₁ t₁') :\n  Substi s x &lt;{ λ ~x' : T₁ . t₁ }&gt; &lt;{ λ ~x' : T₁ . t₁' }&gt;</code>",
  "106":
  "<code class=\"docstring\">Introduces one or more hypotheses, optionally naming and/or pattern-matching them.\nFor each hypothesis to be introduced, the remaining main goal's target type must\nbe a `let` or function type.\n\n* `intro` by itself introduces one anonymous hypothesis, which can be accessed\n  by e.g. `assumption`. It is equivalent to `intro _`.\n* `intro x y` introduces two hypotheses and names them. Individual hypotheses\n  can be anonymized via `_`, given a type ascription, or matched against a pattern:\n  ```lean\n  -- ... ⊢ α × β → ...\n  intro (a, b)\n  -- ..., a : α, b : β ⊢ ...\n  ```\n* `intro rfl` is short for `intro h; subst h`, if `h` is an equality where the left-hand or right-hand side\n  is a variable.\n* Alternatively, `intro` can be combined with pattern matching much like `fun`:\n  ```lean\n  intro\n  | n + 1, 0 =&gt; tac\n  | ...\n  ```\n</code>",
  "1059":
- "<code>Stlc.subst_ite (x : String) (s t1 t2 t3 : Tm) :\n  &lt;{ [~x := s] (if t1 then t2 else t3) }&gt; = &lt;{ if [~x := s] t1 then [~x := s] t2 else [~x := s] t3 }&gt;</code>",
- "1058":
- "<code>Stlc.subst_fls (x : String) (s : Tm) : &lt;{ [~x := s] false }&gt; = &lt;{ false }&gt;</code>",
+ "<code>Stlc.Substi.abs1 {s : Tm} {x : String} (T₂ : Ty) (t₁ : Tm) : Substi s x &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ λ ~x : T₂ . t₁ }&gt;</code>",
+ "1058": "<code>x ≠ x'</code>",
  "1057":
- "<code>Stlc.subst_tru (x : String) (s : Tm) : &lt;{ [~x := s] true }&gt; = &lt;{ true }&gt;</code>",
+ "<code>Stlc.Substi.var2 {s : Tm} {x : String} (x' : String) (h : x ≠ x') :\n  Substi s x\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))</code>",
  "1056":
- "<code>Stlc.subst_app (x : String) (s t1 t2 : Tm) : &lt;{ [~x := s] (t1 t2) }&gt; = &lt;{ [~x := s] t1 [~x := s] t2 }&gt;</code>",
- "1055":
- "<code>Stlc.subst_abs_ne (x y : String) (s t : Tm) (T : Ty) (h : x ≠ y) :\n  &lt;{ [~x := s] (λ ~y : T . t) }&gt; = &lt;{ λ ~y : T . [~x := s] t }&gt;</code>",
+ "<code>Stlc.Substi.var1 {s : Tm} {x : String} :\n  Substi s x\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))\n    s</code>",
+ "1055": "<code>Stlc.Substi (s : Tm) (x : String) : Tm → Tm → Prop</code>",
  "1054":
- "<code>Stlc.subst_abs_eq (x : String) (s t : Tm) (T : Ty) : &lt;{ [~x := s] (λ ~x : T . t) }&gt; = &lt;{ λ ~x : T . t }&gt;</code>",
- "1053": "<code>x ≠ y</code>",
+ "<code>Stlc.subst_ite (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if t₁ then t₂ else t₃) }&gt; = &lt;{ if [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
+ "1053":
+ "<code>Stlc.subst_fls (x : String) (s : Tm) : &lt;{ [~x := s] false }&gt; = &lt;{ false }&gt;</code>",
  "1052":
- "<code>Stlc.subst_var_ne (x y : String) (s : Tm) (h : x ≠ y) :\n  &lt;{\n      [~x := s]\n        ~(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }&gt; =\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))</code>",
+ "<code>Stlc.subst_tru (x : String) (s : Tm) : &lt;{ [~x := s] true }&gt; = &lt;{ true }&gt;</code>",
  "1051":
- "<code>Stlc.subst_var_eq (x : String) (s : Tm) :\n  &lt;{\n      [~x := s]\n        ~(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }&gt; =\n    s</code>",
+ "<code>Stlc.subst_app (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ t₂) }&gt; = &lt;{ [~x := s] t₁ [~x := s] t₂ }&gt;</code>",
  "1050":
- "<code class=\"docstring\">Declares one or more typed variables, or modifies whether already-declared variables are\n  implicit.\n\nIntroduces variables that can be used in definitions within the same `namespace` or `section` block.\nWhen a definition mentions a variable, Lean will add it as an argument of the definition. This is\nuseful in particular when writing many definitions that have parameters in common (see below for an\nexample).\n\nVariable declarations have the same flexibility as regular function parameters. In particular they\ncan be [explicit, implicit][binder docs], or [instance implicit][tpil classes] (in which case they\ncan be anonymous). This can be changed, for instance one can turn explicit variable `x` into an\nimplicit one with `variable {x}`. Note that currently, you should avoid changing how variables are\nbound and declare new variables at the same time; see [issue 2789] for more on this topic.\n\nIn *theorem bodies* (i.e. proofs), variables are not included based on usage in order to ensure that\nchanges to the proof cannot change the statement of the overall theorem. Instead, variables are only\navailable to the proof if they have been mentioned in the theorem header or in an `include` command\nor are instance implicit and depend only on such variables.\n\nSee [*Variables and Sections* from Theorem Proving in Lean][tpil vars] for a more detailed\ndiscussion.\n\n[tpil vars]:\nhttps://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html#variables-and-sections\n(Variables and Sections on Theorem Proving in Lean) [tpil classes]:\nhttps://lean-lang.org/theorem_proving_in_lean4/type_classes.html (Type classes on Theorem Proving in\nLean) [binder docs]:\nhttps://leanprover-community.github.io/mathlib4_docs/Lean/Expr.html#Lean.BinderInfo (Documentation\nfor the BinderInfo type) [issue 2789]: https://github.com/leanprover/lean4/issues/2789 (Issue 2789\non github)\n\n## Examples\n\n```lean\nsection\n  variable\n    {α : Type u}      -- implicit\n    (a : α)           -- explicit\n    [instBEq : BEq α] -- instance implicit, named\n    [Hashable α]      -- instance implicit, anonymous\n\n  def isEqual (b : α) : Bool :=\n    a == b\n\n  #check isEqual\n  -- isEqual.{u} {α : Type u} (a : α) [instBEq : BEq α] (b : α) : Bool\n\n  variable\n    {a} -- `a` is implicit now\n\n  def eqComm {b : α} := a == b ↔ b == a\n\n  #check eqComm\n  -- eqComm.{u} {α : Type u} {a : α} [instBEq : BEq α] {b : α} : Prop\nend\n```\n\nThe following shows a typical use of `variable` to factor out definition arguments:\n\n```lean\nvariable (Src : Type)\n\nstructure Logger where\n  trace : List (Src × String)\n#check Logger\n-- Logger (Src : Type) : Type\n\nnamespace Logger\n  -- switch `Src : Type` to be implicit until the `end Logger`\n  variable {Src}\n\n  def empty : Logger Src where\n    trace := []\n  #check empty\n  -- Logger.empty {Src : Type} : Logger Src\n\n  variable (log : Logger Src)\n\n  def len :=\n    log.trace.length\n  #check len\n  -- Logger.len {Src : Type} (log : Logger Src) : Nat\n\n  variable (src : Src) [BEq Src]\n\n  -- at this point all of `log`, `src`, `Src` and the `BEq` instance can all become arguments\n\n  def filterSrc :=\n    log.trace.filterMap\n      fun (src', str') =&gt; if src' == src then some str' else none\n  #check filterSrc\n  -- Logger.filterSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : List String\n\n  def lenSrc :=\n    log.filterSrc src |&gt;.length\n  #check lenSrc\n  -- Logger.lenSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : Nat\nend Logger\n```\n\nThe following example demonstrates availability of variables in proofs:\n```lean\nvariable\n  {α : Type}    -- available in the proof as indirectly mentioned through `a`\n  [ToString α]  -- available in the proof as `α` is included\n  (a : α)       -- available in the proof as mentioned in the header\n  {β : Type}    -- not available in the proof\n  [ToString β]  -- not available in the proof\n\ntheorem ex : a = a := rfl\n```\nAfter elaboration of the proof, the following warning will be generated to highlight the unused\nhypothesis:\n```\nincluded section variable '[ToString α]' is not used in 'ex', consider excluding it\n```\nIn such cases, the offending variable declaration should be moved down or into a section so that\nonly theorems that do depend on it follow it until the end of the section.\n</code>",
+ "<code>Stlc.subst_abs_ne (x y : String) (s t : Tm) (T : Ty) (h : x ≠ y) :\n  &lt;{ [~x := s] (λ ~y : T . t) }&gt; = &lt;{ λ ~y : T . [~x := s] t }&gt;</code>",
  "105":
  "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
- "1049": "<code>Stlc.delabSubst : Delab</code>",
- "1048": "<code>Stlc.subst (x : String) (s t : Tm) : Tm</code>",
+ "1049":
+ "<code>Stlc.subst_abs_eq (x : String) (s t : Tm) (T : Ty) : &lt;{ [~x := s] (λ ~x : T . t) }&gt; = &lt;{ λ ~x : T . t }&gt;</code>",
+ "1048": "<code>x ≠ y</code>",
  "1047":
+ "<code>Stlc.subst_var_ne (x y : String) (s : Tm) (h : x ≠ y) :\n  &lt;{\n      [~x := s]\n        ~(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }&gt; =\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))</code>",
+ "1046":
+ "<code>Stlc.subst_var_eq (x : String) (s : Tm) :\n  &lt;{\n      [~x := s]\n        ~(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }&gt; =\n    s</code>",
+ "1045":
+ "<code class=\"docstring\">Declares one or more typed variables, or modifies whether already-declared variables are\n  implicit.\n\nIntroduces variables that can be used in definitions within the same `namespace` or `section` block.\nWhen a definition mentions a variable, Lean will add it as an argument of the definition. This is\nuseful in particular when writing many definitions that have parameters in common (see below for an\nexample).\n\nVariable declarations have the same flexibility as regular function parameters. In particular they\ncan be [explicit, implicit][binder docs], or [instance implicit][tpil classes] (in which case they\ncan be anonymous). This can be changed, for instance one can turn explicit variable `x` into an\nimplicit one with `variable {x}`. Note that currently, you should avoid changing how variables are\nbound and declare new variables at the same time; see [issue 2789] for more on this topic.\n\nIn *theorem bodies* (i.e. proofs), variables are not included based on usage in order to ensure that\nchanges to the proof cannot change the statement of the overall theorem. Instead, variables are only\navailable to the proof if they have been mentioned in the theorem header or in an `include` command\nor are instance implicit and depend only on such variables.\n\nSee [*Variables and Sections* from Theorem Proving in Lean][tpil vars] for a more detailed\ndiscussion.\n\n[tpil vars]:\nhttps://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html#variables-and-sections\n(Variables and Sections on Theorem Proving in Lean) [tpil classes]:\nhttps://lean-lang.org/theorem_proving_in_lean4/type_classes.html (Type classes on Theorem Proving in\nLean) [binder docs]:\nhttps://leanprover-community.github.io/mathlib4_docs/Lean/Expr.html#Lean.BinderInfo (Documentation\nfor the BinderInfo type) [issue 2789]: https://github.com/leanprover/lean4/issues/2789 (Issue 2789\non github)\n\n## Examples\n\n```lean\nsection\n  variable\n    {α : Type u}      -- implicit\n    (a : α)           -- explicit\n    [instBEq : BEq α] -- instance implicit, named\n    [Hashable α]      -- instance implicit, anonymous\n\n  def isEqual (b : α) : Bool :=\n    a == b\n\n  #check isEqual\n  -- isEqual.{u} {α : Type u} (a : α) [instBEq : BEq α] (b : α) : Bool\n\n  variable\n    {a} -- `a` is implicit now\n\n  def eqComm {b : α} := a == b ↔ b == a\n\n  #check eqComm\n  -- eqComm.{u} {α : Type u} {a : α} [instBEq : BEq α] {b : α} : Prop\nend\n```\n\nThe following shows a typical use of `variable` to factor out definition arguments:\n\n```lean\nvariable (Src : Type)\n\nstructure Logger where\n  trace : List (Src × String)\n#check Logger\n-- Logger (Src : Type) : Type\n\nnamespace Logger\n  -- switch `Src : Type` to be implicit until the `end Logger`\n  variable {Src}\n\n  def empty : Logger Src where\n    trace := []\n  #check empty\n  -- Logger.empty {Src : Type} : Logger Src\n\n  variable (log : Logger Src)\n\n  def len :=\n    log.trace.length\n  #check len\n  -- Logger.len {Src : Type} (log : Logger Src) : Nat\n\n  variable (src : Src) [BEq Src]\n\n  -- at this point all of `log`, `src`, `Src` and the `BEq` instance can all become arguments\n\n  def filterSrc :=\n    log.trace.filterMap\n      fun (src', str') =&gt; if src' == src then some str' else none\n  #check filterSrc\n  -- Logger.filterSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : List String\n\n  def lenSrc :=\n    log.filterSrc src |&gt;.length\n  #check lenSrc\n  -- Logger.lenSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : Nat\nend Logger\n```\n\nThe following example demonstrates availability of variables in proofs:\n```lean\nvariable\n  {α : Type}    -- available in the proof as indirectly mentioned through `a`\n  [ToString α]  -- available in the proof as `α` is included\n  (a : α)       -- available in the proof as mentioned in the header\n  {β : Type}    -- not available in the proof\n  [ToString β]  -- not available in the proof\n\ntheorem ex : a = a := rfl\n```\nAfter elaboration of the proof, the following warning will be generated to highlight the unused\nhypothesis:\n```\nincluded section variable '[ToString α]' is not used in 'ex', consider excluding it\n```\nIn such cases, the offending variable declaration should be moved down or into a section so that\nonly theorems that do depend on it follow it until the end of the section.\n</code>",
+ "1044": "<code>Stlc.delabSubst : Delab</code>",
+ "1043": "<code>Stlc.subst (x : String) (s t : Tm) : Tm</code>",
+ "1042":
  "<code>Stlc.varStr (x : Lean.TSyntax `stlcVar) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
- "1046": "<code>Lean.TSyntax `stlcTm</code>",
- "1045": "<code>Lean.TSyntax `stlcVar</code>",
- "1044": "<code>Stlc.notB_value : Value notB</code>",
- "1043": "<code>Stlc.idBB_value : Value idBB</code>",
- "1042": "<code>Stlc.idB_value : Value idB</code>",
- "1041": "<code>Stlc.Value.fls : Value &lt;{ false }&gt;</code>",
- "1040": "<code>Stlc.Value.tru : Value &lt;{ true }&gt;</code>",
+ "1041": "<code>Lean.TSyntax `stlcTm</code>",
+ "1040": "<code>Lean.TSyntax `stlcVar</code>",
  "104":
  "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
- "1039":
- "<code>Stlc.Value.abs (x : String) (T2 : Ty) (t1 : Tm) : Value &lt;{ λ ~x : T2 . t1 }&gt;</code>",
- "1038": "<code>Stlc.Value : Tm → Prop</code>",
- "1037":
- "<code class=\"docstring\">`#reduce &lt;expression&gt;` reduces the expression `&lt;expression&gt;` to its normal form. This\ninvolves applying reduction rules until no further reduction is possible.\n\nBy default, proofs and types within the expression are not reduced. Use modifiers\n`(proofs := true)`  and `(types := true)` to reduce them.\nRecall that propositions are types in Lean.\n\n**Warning:** This can be a computationally expensive operation,\nespecially for complex expressions.\n\nConsider using `#eval &lt;expression&gt;` for simple evaluation/execution\nof expressions.\n</code>",
- "1036":
- "<code>Stlc.notB_def : notB = &lt;{ λ x : Bool . if x then false else true }&gt;</code>",
- "1035":
- "<code>Stlc.k_def : k = &lt;{ λ x : Bool . λ y : Bool . x }&gt;</code>",
+ "1039": "<code>Stlc.notB_value : Value notB</code>",
+ "1038": "<code>Stlc.idBB_value : Value idBB</code>",
+ "1037": "<code>Stlc.idB_value : Value idB</code>",
+ "1036": "<code>Stlc.Value.fls : Value &lt;{ false }&gt;</code>",
+ "1035": "<code>Stlc.Value.tru : Value &lt;{ true }&gt;</code>",
  "1034":
- "<code>Stlc.idBBBB_def : idBBBB = &lt;{ λ x : (Bool → Bool) → Bool → Bool . x }&gt;</code>",
- "1033":
- "<code>Stlc.idBB_def : idBB = &lt;{ λ x : Bool → Bool . x }&gt;</code>",
- "1032": "<code>Stlc.idB_def : idB = &lt;{ λ x : Bool . x }&gt;</code>",
+ "<code>Stlc.Value.abs (x : String) (T₂ : Ty) (t₁ : Tm) : Value &lt;{ λ ~x : T₂ . t₁ }&gt;</code>",
+ "1033": "<code>Stlc.Value : Tm → Prop</code>",
+ "1032":
+ "<code class=\"docstring\">`#reduce &lt;expression&gt;` reduces the expression `&lt;expression&gt;` to its normal form. This\ninvolves applying reduction rules until no further reduction is possible.\n\nBy default, proofs and types within the expression are not reduced. Use modifiers\n`(proofs := true)`  and `(types := true)` to reduce them.\nRecall that propositions are types in Lean.\n\n**Warning:** This can be a computationally expensive operation,\nespecially for complex expressions.\n\nConsider using `#eval &lt;expression&gt;` for simple evaluation/execution\nof expressions.\n</code>",
  "1031": "<code>Stlc.notB : Tm</code>",
  "1030": "<code>Stlc.k : Tm</code>",
  "103":
