@@ -144,28 +144,6 @@
       "status": "published",
       "title": "Types: bnf grammar, and notation encoding behind :::details",
       "url": "https://github.com/plclub/sf-in-lean/pull/158"
-    },
-    "160": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        }
-      ],
-      "head_sha": "2aa486df12efb11320af974e8f071e6908e0754c",
-      "preview_path": "pr/160/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30222702007",
-      "status": "published",
-      "title": "proofread(Induction): remove note to developer in `Induction`",
-      "url": "https://github.com/plclub/sf-in-lean/pull/160"
     }
   },
   "schema": 3
