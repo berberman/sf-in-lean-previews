@@ -878,7 +878,8 @@ theorem sillyfun_false (n : Nat) :
 
 -- When we have a value `v : α × β` in our context, we can get
 -- the first and second projections of `v` using this tactic:
--- `let ⟨a, β⟩ := v`
+
+--   let ⟨a, β⟩ := v
 
 -- When using `cases`, we can specify to Lean that it should
 -- remember an equality between a compound expression and what

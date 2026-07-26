@@ -2665,8 +2665,10 @@ the truth of <code>P</code> for all lists <code>l</code>.</p>
                     What's the best Lean markup for a displayed equation? The markup below is going to get squished into a paragraph with all the rest by default, but IMO it would look better as a separate display. Also: Are we going to consistently write Qed at the end of proofs? We should agree on a convention.</p>
                   </div>
                 <p>
-                  <em>Theorem</em>: For all lists <code>l1</code>, <code>l2</code>, and <code>l3</code>,
-    <code>(l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3)</code>.</p>
+                  <em>Theorem</em>: For all lists <code>l1</code>, <code>l2</code>, and <code>l3</code>,</p>
+                <div class="sf-display">
+                  <pre><code>(l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3).
+</code></pre></div>
                 <p>
                   <em>Proof</em>: By induction on <code>l1</code>.</p>
                 <ul>
@@ -2806,8 +2808,10 @@ length of any two appended lists.</p>
 </span><span class="unknown token" data-binding=""></span></code><p>
                     For comparison, here are informal proofs of these two theorems:</p>
                   <p>
-                    <em>Theorem</em>: For all lists <code>l1</code> and <code>l2</code>,
-   <code>(l1 ++ l2).length = l1.length + l2.length</code>.</p>
+                    <em>Theorem</em>: For all lists <code>l1</code> and <code>l2</code>,</p>
+                  <div class="sf-display">
+                    <pre><code>(l1 ++ l2).length = l1.length + l2.length.
+</code></pre></div>
                   <p>
                     <em>Proof</em>: By induction on <code>l1</code>.</p>
                   <ul>

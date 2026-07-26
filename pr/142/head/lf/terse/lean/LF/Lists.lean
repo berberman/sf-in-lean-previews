@@ -340,7 +340,8 @@ theorem app_assoc (l1 l2 l3 : NatList) :
 --     agree on a convention.
 
 -- *Theorem*: For all lists `l1`, `l2`, and `l3`,
--- `(l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3)`.
+
+--   (l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3).
 
 -- *Proof*: By induction on `l1`.
 

@@ -2332,8 +2332,10 @@ lists to prove things like the associativity of list-append...</p>
                     What's the best Lean markup for a displayed equation? The markup below is going to get squished into a paragraph with all the rest by default, but IMO it would look better as a separate display. Also: Are we going to consistently write Qed at the end of proofs? We should agree on a convention.</p>
                   </div>
                 <p>
-                  <em>Theorem</em>: For all lists <code>l1</code>, <code>l2</code>, and <code>l3</code>,
-    <code>(l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3)</code>.</p>
+                  <em>Theorem</em>: For all lists <code>l1</code>, <code>l2</code>, and <code>l3</code>,</p>
+                <div class="sf-display">
+                  <pre><code>(l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3).
+</code></pre></div>
                 <p>
                   <em>Proof</em>: By induction on <code>l1</code>.</p>
                 <ul>
