@@ -1,5 +1,5 @@
 {
-  "main_sha": "699b718913ac0ff5f327949581f0d6672f2083be",
+  "main_sha": "471e85c98a81f49c2671efbf99e334d3abcaf079",
   "prs": {
     "136": {
       "changed_variants": [
@@ -46,15 +46,6 @@
       "status": "published",
       "title": "Lists: change abbrevs to definitions, rewrite proofs to use lemmas instead of rfl",
       "url": "https://github.com/plclub/sf-in-lean/pull/136"
-    },
-    "138": {
-      "changed_variants": [],
-      "head_sha": "225d92e6cbd1c36f379f3d01989ba8a82e35bce0",
-      "preview_path": "pr/138/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Refine Poly",
-      "url": "https://github.com/plclub/sf-in-lean/pull/138"
     },
     "142": {
       "changed_variants": [

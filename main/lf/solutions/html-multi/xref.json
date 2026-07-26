@@ -3346,40 +3346,6 @@
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
-   "repeat_zero":
-   [{"id": "repeat_zero",
-     "data":
-     {"/Poly/#repeat_zero":
-      {"display": "repeat_zero",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
-   "repeat_succ":
-   [{"id": "repeat_succ",
-     "data":
-     {"/Poly/#repeat_succ":
-      {"display": "repeat_succ",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
-   "repeat'":
-   [{"id": "repeat___",
-     "data":
-     {"/Poly/#repeat___":
-      {"display": "repeat'",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Annotation Inference"]}},
-     "address": "/Poly/"}],
    "reaches1_in":
    [{"id": "reaches1_in",
      "data":
@@ -3854,17 +3820,27 @@
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "mynil'":
-   [{"id": "mynil___",
+   "myRepeat_zero":
+   [{"id": "myRepeat_zero",
      "data":
-     {"/Poly/#mynil___":
-      {"display": "mynil'",
+     {"/Poly/#myRepeat_zero":
+      {"display": "myRepeat_zero",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
         "Polymorphism",
-        "Polymorphic Lists",
-        "Supplying Type Arguments Explicitly"]}},
+        "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
+   "myRepeat_succ":
+   [{"id": "myRepeat_succ",
+     "data":
+     {"/Poly/#myRepeat_succ":
+      {"display": "myRepeat_succ",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
      "address": "/Poly/"}],
    "myRepeat'''":
    [{"id": "myRepeat_________",
@@ -3890,6 +3866,18 @@
         "Polymorphic Lists",
         "Type Argument Synthesis"]}},
      "address": "/Poly/"}],
+   "myRepeat'":
+   [{"id": "myRepeat___",
+     "data":
+     {"/Poly/#myRepeat___":
+      {"display": "myRepeat'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Type Annotation Inference"]}},
+     "address": "/Poly/"}],
    "myRepeat":
    [{"id": "myRepeat",
      "data":
@@ -3900,6 +3888,18 @@
         "Poly: Polymorphism and Higher-Order Functions",
         "Polymorphism",
         "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
+   "myNil'":
+   [{"id": "myNil___",
+     "data":
+     {"/Poly/#myNil___":
+      {"display": "myNil'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Supplying Type Arguments Explicitly"]}},
      "address": "/Poly/"}],
    "myFoo":
    [{"id": "myFoo",
@@ -4403,22 +4403,22 @@
         "Logic in Lean",
         "Applying Theorems to Arguments"]}},
      "address": "/Logic/"}],
-   "hd_error_nil":
-   [{"id": "hd_error_nil",
+   "hdError_nil":
+   [{"id": "hdError_nil",
      "data":
-     {"/Poly/#hd_error_nil":
-      {"display": "hd_error_nil",
+     {"/Poly/#hdError_nil":
+      {"display": "hdError_nil",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
         "Polymorphism",
         "Polymorphic Options"]}},
      "address": "/Poly/"}],
-   "hd_error_cons":
-   [{"id": "hd_error_cons",
+   "hdError_cons":
+   [{"id": "hdError_cons",
      "data":
-     {"/Poly/#hd_error_cons":
-      {"display": "hd_error_cons",
+     {"/Poly/#hdError_cons":
+      {"display": "hdError_cons",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -4456,17 +4456,6 @@
         "Tactics: More Basic Tactics",
         "The  injection  and  contradiction  Tactics"]}},
      "address": "/Tactics/"}],
-   "ftrue":
-   [{"id": "ftrue",
-     "data":
-     {"/Poly/#ftrue":
-      {"display": "ftrue",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Functions as Data",
-        "Functions That Construct Functions"]}},
-     "address": "/Poly/"}],
    "forallb_true_iff":
    [{"id": "forallb_true_iff",
      "data":
@@ -4666,6 +4655,17 @@
         "Logical Connectives",
         "Disjunction"]}},
      "address": "/Logic/"}],
+   "fTrue":
+   [{"id": "fTrue",
+     "data":
+     {"/Poly/#fTrue":
+      {"display": "fTrue",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Functions as Data",
+        "Functions That Construct Functions"]}},
+     "address": "/Poly/"}],
    "existsb_existsb'":
    [{"id": "existsb_existsb___",
      "data":
@@ -5126,11 +5126,11 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
-   "doit3times":
-   [{"id": "doit3times",
+   "doIt3Times":
+   [{"id": "doIt3Times",
      "data":
-     {"/Poly/#doit3times":
-      {"display": "doit3times",
+     {"/Poly/#doIt3Times":
+      {"display": "doIt3Times",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -5293,11 +5293,11 @@
         "Inductively Defined Propositions",
         "Example: Reflexive and Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "countoddmembers'":
-   [{"id": "countoddmembers___",
+   "countOddMembers'":
+   [{"id": "countOddMembers___",
      "data":
-     {"/Poly/#countoddmembers___":
-      {"display": "countoddmembers'",
+     {"/Poly/#countOddMembers___":
+      {"display": "countOddMembers'",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -5326,11 +5326,11 @@
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
-   "constfun":
-   [{"id": "constfun",
+   "constFun":
+   [{"id": "constFun",
      "data":
-     {"/Poly/#constfun":
-      {"display": "constfun",
+     {"/Poly/#constFun":
+      {"display": "constFun",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -9847,10 +9847,10 @@
         "Data and Functions",
         "Booleans"]}},
      "address": "/Basics/"}],
-   "MumbleGrumble.Mumble.c":
-   [{"id": "MumbleGrumble___Mumble___c",
+   "Mumble.c":
+   [{"id": "Mumble___c",
      "data":
-     {"/Poly/#MumbleGrumble___Mumble___c":
+     {"/Poly/#Mumble___c":
       {"display": "c",
        "context":
        ["Logical Foundations",
@@ -9859,10 +9859,10 @@
         "Polymorphic Lists",
         "Supplying Type Arguments Explicitly"]}},
      "address": "/Poly/"}],
-   "MumbleGrumble.Mumble.b":
-   [{"id": "MumbleGrumble___Mumble___b",
+   "Mumble.b":
+   [{"id": "Mumble___b",
      "data":
-     {"/Poly/#MumbleGrumble___Mumble___b":
+     {"/Poly/#Mumble___b":
       {"display": "b",
        "context":
        ["Logical Foundations",
@@ -9871,10 +9871,10 @@
         "Polymorphic Lists",
         "Supplying Type Arguments Explicitly"]}},
      "address": "/Poly/"}],
-   "MumbleGrumble.Mumble.a":
-   [{"id": "MumbleGrumble___Mumble___a",
+   "Mumble.a":
+   [{"id": "Mumble___a",
      "data":
-     {"/Poly/#MumbleGrumble___Mumble___a":
+     {"/Poly/#Mumble___a":
       {"display": "a",
        "context":
        ["Logical Foundations",
@@ -9883,47 +9883,11 @@
         "Polymorphic Lists",
         "Supplying Type Arguments Explicitly"]}},
      "address": "/Poly/"}],
-   "MumbleGrumble.Mumble":
-   [{"id": "MumbleGrumble___Mumble",
+   "Mumble":
+   [{"id": "Mumble",
      "data":
-     {"/Poly/#MumbleGrumble___Mumble":
+     {"/Poly/#Mumble":
       {"display": "Mumble",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Supplying Type Arguments Explicitly"]}},
-     "address": "/Poly/"}],
-   "MumbleGrumble.Grumble.e":
-   [{"id": "MumbleGrumble___Grumble___e",
-     "data":
-     {"/Poly/#MumbleGrumble___Grumble___e":
-      {"display": "e",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Supplying Type Arguments Explicitly"]}},
-     "address": "/Poly/"}],
-   "MumbleGrumble.Grumble.d":
-   [{"id": "MumbleGrumble___Grumble___d",
-     "data":
-     {"/Poly/#MumbleGrumble___Grumble___d":
-      {"display": "d",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Supplying Type Arguments Explicitly"]}},
-     "address": "/Poly/"}],
-   "MumbleGrumble.Grumble":
-   [{"id": "MumbleGrumble___Grumble",
-     "data":
-     {"/Poly/#MumbleGrumble___Grumble":
-      {"display": "Grumble",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -11689,6 +11653,42 @@
         "Typeclasses",
         "First Example: Inhabited Types"]}},
      "address": "/Typeclasses/"}],
+   "Grumble.e":
+   [{"id": "Grumble___e",
+     "data":
+     {"/Poly/#Grumble___e":
+      {"display": "e",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Supplying Type Arguments Explicitly"]}},
+     "address": "/Poly/"}],
+   "Grumble.d":
+   [{"id": "Grumble___d",
+     "data":
+     {"/Poly/#Grumble___d":
+      {"display": "d",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Supplying Type Arguments Explicitly"]}},
+     "address": "/Poly/"}],
+   "Grumble":
+   [{"id": "Grumble",
+     "data":
+     {"/Poly/#Grumble":
+      {"display": "Grumble",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Supplying Type Arguments Explicitly"]}},
+     "address": "/Poly/"}],
    "Exercises.uncurry_curry":
    [{"id": "Exercises___uncurry_curry",
      "data":
@@ -12395,22 +12395,22 @@
         "Inductively Defined Propositions",
         "Example: Reflexive and Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "BoolList.bool_nil":
-   [{"id": "BoolList___bool_nil",
+   "BoolList.nil":
+   [{"id": "BoolList___nil",
      "data":
-     {"/Poly/#BoolList___bool_nil":
-      {"display": "bool_nil",
+     {"/Poly/#BoolList___nil":
+      {"display": "nil",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
         "Polymorphism",
         "Polymorphic Lists"]}},
      "address": "/Poly/"}],
-   "BoolList.bool_cons":
-   [{"id": "BoolList___bool_cons",
+   "BoolList.cons":
+   [{"id": "BoolList___cons",
      "data":
-     {"/Poly/#BoolList___bool_cons":
-      {"display": "bool_cons",
+     {"/Poly/#BoolList___cons":
+      {"display": "cons",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
