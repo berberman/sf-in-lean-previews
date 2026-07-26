@@ -1,5 +1,5 @@
 {
-  "main_sha": "62aba4b5643f7f05ab0a06a16a9c14e6ffeaa568",
+  "main_sha": "e743e0e6f1fbb3941d86856beedbc2f5c1173991",
   "prs": {
     "136": {
       "changed_variants": [
@@ -79,15 +79,6 @@
       "title": "DHS pass over the induction chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/142"
     },
-    "145": {
-      "changed_variants": [],
-      "head_sha": "0771779b0a8657139148a7db1b53eb3d9c13a8c4",
-      "preview_path": "pr/145/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Tidy CONTRIBUTING.md and split out STYLE.md",
-      "url": "https://github.com/plclub/sf-in-lean/pull/145"
-    },
     "149": {
       "changed_variants": [
         {
@@ -145,9 +136,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "d78b278c04a9caa27168d74122e7d9d39e395a54",
+      "head_sha": "569ff9d4701c3e59ada47f8722a7e88eaeaca286",
       "preview_path": "pr/151/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30182003597",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30203500631",
       "status": "published",
       "title": "Bunch of tidying and cleaning up typesetting",
       "url": "https://github.com/plclub/sf-in-lean/pull/151"

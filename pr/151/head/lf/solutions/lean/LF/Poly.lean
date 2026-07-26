@@ -590,7 +590,7 @@ example : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := (by rfl)
 -- Our last polymorphic type for now is *polymorphic options*. Lean's standard
 -- library provides `Option α`, with constructors `none` and `some x`. (We
 -- already saw `Option Nat` in the previous chapter.) Let's briefly look at
--- the definition:
+-- the definition from the standard library:
 
 --   inductive Option (α : Type) : Type where
 --     | none : Option α
