@@ -169,10 +169,19 @@
       "changed_variants": [],
       "head_sha": "4393b5f276a7f845d961952fff24b9f13c96e729",
       "preview_path": "pr/153/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30200718101",
+      "status": "published",
       "title": "Add a :::test directive for checks that run but aren't published",
       "url": "https://github.com/plclub/sf-in-lean/pull/153"
+    },
+    "154": {
+      "changed_variants": [],
+      "head_sha": "bd1163497825acaa2b31f56715e536bd1e1d8ba2",
+      "preview_path": "pr/154/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "More verso commands for enhanced rendering",
+      "url": "https://github.com/plclub/sf-in-lean/pull/154"
     }
   },
   "schema": 3
