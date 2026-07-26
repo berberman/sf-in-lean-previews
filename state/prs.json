@@ -48,44 +48,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/136"
     },
     "138": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "0fefd37ace152a505fccf31555e3314b2826a370",
+      "changed_variants": [],
+      "head_sha": "225d92e6cbd1c36f379f3d01989ba8a82e35bce0",
       "preview_path": "pr/138/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30185280122",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Refine Poly",
       "url": "https://github.com/plclub/sf-in-lean/pull/138"
     },
