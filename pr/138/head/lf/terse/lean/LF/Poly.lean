@@ -5,8 +5,6 @@ import LF.SFLCompat
 
 -- # Poly: Polymorphism and Higher-Order Functions
 
-variable (α β γ : Type)
-
 -- ### Polymorphic Lists
 
 -- Instead of defining new lists for each type, like this...
@@ -29,18 +27,34 @@ inductive MyList (α : Type) : Type where
 
 -- It is a *type constructor* — a function from types to types.
 
-#check (MyList : Type → Type)
+-- Note to developers (Yipeng Liu  @berberman):
+--     A trick used below: parenthesizing the declaration makes
+--     it a term — Lean elaborates it and prints its inferred
+--     function type, instead of the declaration signature:
+--     `MyList (α : Type) : Type`.
+
+#check (MyList)
+
+-- MyList : Type → Type
 
 -- The `α` in the definition of `MyList` becomes an implicit
 -- parameter to the list constructors `nil` and `cons`.
 
-#check (MyList.nil : MyList Nat)
+#check MyList.nil
 
-#check (MyList.cons 3 MyList.nil : MyList Nat)
+-- MyList.nil {α : Type} : MyList α
 
-#check (MyList.nil : {α : Type} → MyList α)
+#check MyList.cons 3 MyList.nil
 
-#check (MyList.cons : {α : Type} → α → MyList α → MyList α)
+-- MyList.cons 3 MyList.nil : MyList Nat
+
+#check MyList.nil
+
+-- MyList.nil {α : Type} : MyList α
+
+#check MyList.cons
+
+-- MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
 
 -- We can now define polymorphic versions of the functions
 -- we've already seen...
@@ -116,10 +130,15 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
   | 0 => .nil
   | count' + 1 => .cons x (myRepeat' α x count')
 
--- Indeed it will. We can see that `α` has the type `Type`, as
--- expected.
+-- Indeed it will. Lean infers that `α` is a type. The
+-- generated `u_1` is part of Lean's bookkeeping for treating
+-- types more generally. We will not need to interpret names
+-- like this for now — you can ignore them when they appear in
+-- Lean's output unless we explicitly call attention to them.
 
-#check (myRepeat' : ∀ (α : Type), α → Nat → List α)
+#check myRepeat'
+
+-- myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
 
 -- Lean has used *type inference* to deduce a type for `α`.
 
@@ -154,9 +173,11 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
 -- explicitly. The `@` makes all implicit arguments of a
 -- function explicit:
 
-#check (@List.nil : {α : Type} → List α)
+#check @List.nil
 
-def mynil' := @List.nil Nat
+def myNil' := @List.nil Nat
+
+-- @List.nil : {α : Type u_1} → List α
 
 -- _Quiz:_
 
@@ -275,10 +296,15 @@ theorem rev_cons {α : Type} (head : α) (tail : List α) :
 -- Here are a few simple exercises, just like ones in the
 -- `Lists` chapter, for practice with polymorphism. Complete
 -- the proofs below. You will likely find useful the following
--- lemmas about append and length from Lean's standard library:
+-- characterizing lemmas for `List.append` in Lean standard
+-- library:
 
 #check List.nil_append
 #check List.cons_append
+
+-- List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
+
+-- List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
 
 theorem app_nil_r {α : Type} (l : List α) :
     l ++ [] = l := by
@@ -287,6 +313,7 @@ theorem app_nil_r {α : Type} (l : List α) :
 theorem app_assoc {α : Type} (l m n : List α) :
     l ++ m ++ n = l ++ (m ++ n) := by
   sorry
+
 theorem app_length {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
   sorry
@@ -319,28 +346,24 @@ structure MyProd (α β : Type) where
 -- first and second components of the pair. It also has special
 -- syntax for creating products:
 
-#check (1, true)  /- (1, true) : Nat × Bool -/
-#check (1, true).fst  /- access first component -/
-#check (1, true).snd  /- access second component -/
+#check (1, true)
+#eval (1, true).fst
+#eval (1, true).snd
+
+-- (1, true) : Nat × Bool
+
+-- 1
+
+-- true
 
 -- You can also use `.1` instead of `.fst` and `.2` instead of
 -- `.snd`
 
-#check (1, true).1  /- access first component -/
-#check (1, true).2  /- access second component -/
-
 example : (3, 5).1 = 3 := by rfl
 example : (3, 5).2 = 5 := by rfl
 
--- The notation `α × β` is syntactic sugar for `Prod α β`.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Do we need to tell them how to type it in vscode? (If
---     yes, then should we be doing this for every notation
---     when it is introduced? (If yes, we should record this
---     decision in the Claude prompt that we use for checking
---     nitpicky regressions like this, creating and documenting
---     it if it doesn't already exist.))
+-- Lean writes the product type `Prod α β` as `α × β`. In VS
+-- Code you can type `\times` or `\x` to enter the `×` symbol.
 
 -- Be careful not to get `(x, y)` and `α × β` confused!
 
@@ -388,6 +411,8 @@ abbrev doIt3Times {α : Type} (f : α → α) (n : α) : α :=
 example : doIt3Times Nat.minustwo 9 = 3 := by rfl
 
 example : doIt3Times not true = false := by rfl
+
+-- doIt3Times {α : Type} (f : α → α) (n : α) : α
 
 -- ### Filter
 
@@ -572,19 +597,25 @@ example : constFun 5 99 = 5 := by rfl
 -- A two-argument function in Lean is actually a function that
 -- returns a function!
 
-#check (Nat.add : Nat → Nat → Nat)
+#check Nat.add
+
+-- Nat.add : Nat → Nat → Nat
 
 abbrev plus3 := Nat.add 3
-#check (plus3 : Nat → Nat)
+#check plus3
 
 example : plus3 4 = 7 := by rfl
 example : doIt3Times plus3 0 = 9 := by rfl
 example : doIt3Times (Nat.add 3) 0 = 9 := by rfl
+
+-- plus3 : Nat → Nat
 
 -- Similarly, we can write:
 
 abbrev fold_plus : List Nat → Nat → Nat :=
   fold (· + ·)
 
-#check (fold_plus : List Nat → Nat → Nat)
+#check fold_plus
+
+-- fold_plus : List Nat → Nat → Nat
 

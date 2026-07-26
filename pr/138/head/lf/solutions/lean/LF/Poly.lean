@@ -5,8 +5,6 @@ import LF.SFLCompat
 
 -- # Poly: Polymorphism and Higher-Order Functions
 
-variable (α β γ : Type)
-
 -- ## Polymorphism
 
 -- In this chapter we continue our development of basic concepts of functional
@@ -52,7 +50,14 @@ inductive MyList (α : Type) : Type where
 -- particular type `α`, the type `MyList α` is the inductively defined type of
 -- lists whose elements are of type `α`.
 
-#check (MyList : Type → Type)
+-- Note to developers (Yipeng Liu  @berberman):
+--     A trick used below: parenthesizing the declaration makes it a term —
+--     Lean elaborates it and prints its inferred function type, instead of
+--     the declaration signature: `MyList (α : Type) : Type`.
+
+#check (MyList)
+
+-- MyList : Type → Type
 
 -- The `α` in the definition of `MyList` automatically becomes a parameter to
 -- the constructors `nil` and `cons` — that is, `nil` and `cons` are now
@@ -60,24 +65,32 @@ inductive MyList (α : Type) : Type where
 -- default: Lean will infer it from context. For example, `MyList.nil` is the
 -- empty list, and Lean figures out the element type from how it is used.
 
-#check (MyList.nil : MyList Nat)
+#check MyList.nil
+
+-- MyList.nil {α : Type} : MyList α
 
 -- Similarly, `MyList.cons` adds an element of type `Nat` to a list of type
 -- `MyList Nat`. Here is an example of forming a list containing just the
 -- natural number 3.
 
-#check (MyList.cons 3 MyList.nil : MyList Nat)
+#check MyList.cons 3 MyList.nil
+
+-- MyList.cons 3 MyList.nil : MyList Nat
 
 -- What is the full type of `MyList.nil`? We can read off the result type
 -- `MyList α` from the definition, but to state the full type we must also
 -- bind `α`. Since the type argument to the constructor is implicit, Lean
 -- writes its type as `{α : Type} → MyList α`.
 
-#check (MyList.nil : {α : Type} → MyList α)
+#check MyList.nil
+
+-- MyList.nil {α : Type} : MyList α
 
 -- Similarly, the type of `MyList.cons` includes the implicit type parameter:
 
-#check (MyList.cons : {α : Type} → α → MyList α → MyList α)
+#check MyList.cons
+
+-- MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
 
 -- Having to supply a type argument for every single use of a list constructor
 -- would be rather burdensome. Fortunately, the type argument is implicit, so
@@ -167,9 +180,14 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
   | 0 => .nil
   | count' + 1 => .cons x (myRepeat' α x count')
 
--- Indeed it will. We can see that `α` has the type `Type`, as expected.
+-- Indeed it will. Lean infers that `α` is a type. The generated `u_1` is part
+-- of Lean's bookkeeping for treating types more generally. We will not need
+-- to interpret names like this for now — you can ignore them when they appear
+-- in Lean's output unless we explicitly call attention to them.
 
-#check (myRepeat' : ∀ (α : Type), α → Nat → List α)
+#check myRepeat'
+
+-- myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
 
 -- Lean was able to use *type inference* to deduce what the type of `α` must
 -- be, based on how it is used. Since `α` is an argument to `List`, it must be
@@ -230,9 +248,11 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
 -- We can use the `@` prefix to supply the type argument explicitly. The `@`
 -- makes all implicit arguments of a function explicit:
 
-#check (@List.nil : {α : Type} → List α)
+#check @List.nil
 
-def mynil' := @List.nil Nat
+def myNil' := @List.nil Nat
+
+-- @List.nil : {α : Type u_1} → List α
 
 -- _Quiz:_
 
@@ -337,8 +357,6 @@ def mynil' := @List.nil Nat
 
 -- Consider the following two inductively defined types.
 
-namespace MumbleGrumble
-
 inductive Mumble : Type where
   | a : Mumble
   | b (x : Mumble) (y : Nat) : Mumble
@@ -359,15 +377,13 @@ inductive Grumble (X: Type) : Type where
 -- - `@Grumble.e Bool (Mumble.b Mumble.c 0)`
 -- - `Mumble.c`
 
--- YES - [Grumble.d (Mumble.b Grumble.a 5)]
--- YES - [@Grumble.d Mumble (Mumble.b Mumble.a 5)]
--- YES - [@Grumble.d Bool (Mumble.b Mumble.a 5)]
--- YES - [@Grumble.e Bool true]
--- YES - [@Grumble.e Mumble (Mumble.b Mumble.c 0)]
--- NO  - [@Grumble.e Bool (Mumble.b Mumble.c 0)]
--- NO  - [Mumble.c]
-
-end MumbleGrumble
+-- - YES — `Grumble.d (Mumble.b Mumble.a 5)`
+-- - YES — `@Grumble.d Mumble (Mumble.b Mumble.a 5)`
+-- - YES — `@Grumble.d Bool (Mumble.b Mumble.a 5)`
+-- - YES — `@Grumble.e Bool true`
+-- - YES — `@Grumble.e Mumble (Mumble.b Mumble.c 0)`
+-- - NO — `@Grumble.e Bool (Mumble.b Mumble.c 0)`
+-- - NO — `Mumble.c`
 
 -- #### Exercises
 
@@ -385,11 +401,15 @@ theorem rev_cons {α : Type} (head : α) (tail : List α) :
 
 -- Here are a few simple exercises, just like ones in the `Lists` chapter, for
 -- practice with polymorphism. Complete the proofs below. You will likely find
--- useful the following lemmas about append and length from Lean's standard
--- library:
+-- useful the following characterizing lemmas for `List.append` in Lean
+-- standard library:
 
 #check List.nil_append
 #check List.cons_append
+
+-- List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
+
+-- List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
 
 theorem app_nil_r {α : Type} (l : List α) :
     l ++ [] = l := by
@@ -406,6 +426,7 @@ theorem app_assoc {α : Type} (l m n : List α) :
     | cons h t ih =>
       dsimp [List.cons_append]
       rw [ih]
+
 theorem app_length {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
   all_goals
@@ -455,26 +476,23 @@ structure MyProd (α β : Type) where
 -- `fst` and `snd` functions for accessing the first and second components of
 -- the pair. It also has special syntax for creating products:
 
-#check (1, true)  /- (1, true) : Nat × Bool -/
-#check (1, true).fst  /- access first component -/
-#check (1, true).snd  /- access second component -/
+#check (1, true)
+#eval (1, true).fst
+#eval (1, true).snd
+
+-- (1, true) : Nat × Bool
+
+-- 1
+
+-- true
 
 -- You can also use `.1` instead of `.fst` and `.2` instead of `.snd`
-
-#check (1, true).1  /- access first component -/
-#check (1, true).2  /- access second component -/
 
 example : (3, 5).1 = 3 := by rfl
 example : (3, 5).2 = 5 := by rfl
 
--- The notation `α × β` is syntactic sugar for `Prod α β`.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Do we need to tell them how to type it in vscode? (If yes, then should
---     we be doing this for every notation when it is introduced? (If yes, we
---     should record this decision in the Claude prompt that we use for
---     checking nitpicky regressions like this, creating and documenting it if
---     it doesn't already exist.))
+-- Lean writes the product type `Prod α β` as `α × β`. In VS Code you can type
+-- `\times` or `\x` to enter the `×` symbol.
 
 -- It is easy at first to get `(x, y)` and `α × β` confused. Remember that
 -- `(x, y)` is a *value* built from two other values, while `α × β` is a
@@ -539,16 +557,12 @@ example : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := (by rfl)
 
 -- Our last polymorphic type for now is *polymorphic options*. Lean's standard
 -- library provides `Option α`, with constructors `none` and `some`. (We
--- already saw `Option Nat` in the `Lists` chapter.) Let's briefly look at the
+-- already saw `NatOption` in the `Lists` chapter.) Let's briefly look at the
 -- definition:
 
-namespace Temp
-
-inductive Option (α : Type) : Type where
-  | none : Option α
-  | some (x : α) : Option α
-
-end Temp
+--   inductive Option (α : Type) : Type where
+--     | none : Option α
+--     | some (x : α) : Option α
 
 -- We can now rewrite the `nthError` function so that it works with any type
 -- of list.
@@ -573,8 +587,6 @@ def hdError {α : Type} (l : List α) : Option α := (
   match l with
   | [] => none
   | a :: _ => some a)
-
-#check hdError
 
 theorem hdError_nil {α : Type} : hdError ([] : List α) = none := (by rfl)
 
@@ -609,6 +621,8 @@ abbrev doIt3Times {α : Type} (f : α → α) (n : α) : α :=
 example : doIt3Times Nat.minustwo 9 = 3 := by rfl
 
 example : doIt3Times not true = false := by rfl
+
+-- doIt3Times {α : Type} (f : α → α) (n : α) : α
 
 -- ### Filter
 
@@ -675,8 +689,8 @@ example : countOddMembers' [] = 0 := by rfl
 -- fly" without declaring it at the top level or giving it a name. Lean
 -- provides two syntaxes for anonymous functions:
 
--- - `fun n => n * n` -- traditional lambda syntax
--- - `(· * ·)` -- "term with holes" syntax, where `·` marks arguments
+-- - `fun n => n * n` — traditional lambda syntax
+-- - `(· * ·)` — "term with holes" syntax, where `·` marks arguments
 
 example : doIt3Times (fun n => n * n) 2 = 256 := by rfl
 
@@ -790,8 +804,6 @@ theorem map_app {α β : Type} {f : α → β} {l l' : List α} :
   induction l with
   | nil => rw [map_nil, List.nil_append, List.nil_append]
   | cons h t ih => rw [List.cons_append, map_cons, map_cons, ih, List.cons_append]
-
--- /QUIETSOLUTION
 
 theorem map_rev {α : Type} {β : Type} : ∀ (f : α → β) (l : List α),
     map f l.rev = (map f l).rev := by
@@ -940,21 +952,27 @@ example : constFun 5 99 = 5 := by rfl
 -- examples of passing functions as data. To see why, recall the type of
 -- addition:
 
-#check (Nat.add : Nat → Nat → Nat)
+#check Nat.add
+
+-- Nat.add : Nat → Nat → Nat
 
 abbrev plus3 := Nat.add 3
-#check (plus3 : Nat → Nat)
+#check plus3
 
 example : plus3 4 = 7 := by rfl
 example : doIt3Times plus3 0 = 9 := by rfl
 example : doIt3Times (Nat.add 3) 0 = 9 := by rfl
+
+-- plus3 : Nat → Nat
 
 -- Similarly, we can write:
 
 abbrev fold_plus : List Nat → Nat → Nat :=
   fold (· + ·)
 
-#check (fold_plus : List Nat → Nat → Nat)
+#check fold_plus
+
+-- fold_plus : List Nat → Nat → Nat
 
 -- What's happening here is called *partial application*. In Lean, the type
 -- constructor `→` is right-associative, meaning a function type like
@@ -1065,6 +1083,10 @@ example : map (Nat.add 3) [2, 0, 2] = [5, 3, 5] := by rfl
 
 #check @prodCurry
 #check @prodUncurry
+
+-- @prodCurry : {α β γ : Type} → (α × β → γ) → α → β → γ
+
+-- @prodUncurry : {α β γ : Type} → (α → β → γ) → α × β → γ
 
 theorem uncurry_curry {α β γ : Type} (f : α → β → γ) (x : α) (y : β) :
     prodCurry (prodUncurry f) x y = f x y := by
