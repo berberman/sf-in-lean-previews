@@ -1,5 +1,5 @@
 {
-  "main_sha": "471e85c98a81f49c2671efbf99e334d3abcaf079",
+  "main_sha": "7fddc00221d7362ce269a9be3563b1e0be370bb6",
   "prs": {
     "136": {
       "changed_variants": [
@@ -69,14 +69,27 @@
       "title": "DHS pass over the induction chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/142"
     },
-    "154": {
-      "changed_variants": [],
-      "head_sha": "1b9c17053a7de98404e6cf0ace6443d6cf784ab1",
-      "preview_path": "pr/154/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30211189666",
+    "156": {
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "d4123ca545d080c22145f32eae81f3fc742b9afb",
+      "preview_path": "pr/156/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30211944961",
       "status": "published",
-      "title": "More verso commands for enhanced rendering",
-      "url": "https://github.com/plclub/sf-in-lean/pull/154"
+      "title": "Initial port of TS/Stlc",
+      "url": "https://github.com/plclub/sf-in-lean/pull/156"
     }
   },
   "schema": 3

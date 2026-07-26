@@ -1,0 +1,1 @@
+window.docContents[62].resolve({"/Stlc/#Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Types":{"contents":"inductive Ty where\n  | bool\n  | arrow (T1 T2 : Ty)\n\n\n","context":"Type Systems\u0009Stlc: The Simply Typed Lambda-Calculus\u0009Syntax","header":"5.2.1. Types","id":"/Stlc/#Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Types"}});
