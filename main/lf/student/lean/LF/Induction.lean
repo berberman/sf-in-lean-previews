@@ -327,6 +327,13 @@ theorem double_succ : ∀ n, double (succ n) = succ (succ (double n)) := by
 
 attribute [irreducible] double
 
+-- Note to developers (Claude, NOW):
+--     The `ASSUME HIDDEN` / `END ASSUME` region markers around this exercise
+--     are unhandled: `ASSUME HIDDEN` got swept into the developer note above,
+--     and this bare `END ASSUME` line renders as stray book prose in **all
+--     three** build products. (See BCP's "What is ASSUME HIDDEN??" note
+--     above.) Either implement the marker or delete both lines.
+
 -- END ASSUME
 
 -- Note to developers (Benjamin Pierce  @bcpierce00):
@@ -339,11 +346,11 @@ attribute [irreducible] double
 -- two steps: `rw [...]` will automatically close the goal if the rewrite
 -- makes the goal true by definition. For example, instead of writing
 
--- `rewrite [double_zero]; rfl`
+--   rewrite [double_zero]; rfl
 
 -- We could write this:
 
--- `rw [double_zero]`
+--   rw [double_zero]
 
 -- Using `rw` in your proofs is optional, but it will save you time (and is
 -- better style).
@@ -617,6 +624,18 @@ theorem add_shuffle3 : ∀ n m p : Nat,
     add (add n m) p = add (add n p) m := by
   sorry
 
+-- Note to developers (Claude, NOW):
+--     Rendering bug (all three build products look wrong). This helper-lemma
+--     block wraps its **entire** contents in the
+--     `-- SOLUTION`/`-- END SOLUTION` comment-marker idiom, which the Verso
+--     HTML build does not process (only the `solution!` tactic is handled).
+--     Result: in **student** and **terse** the block renders empty with a
+--     spurious `unexpected end of input` error and a doubled
+--     `-- FILL IN HERE`; in **solutions** the lemma is shown but the literal
+--     `-- SOLUTION` / `-- END SOLUTION` comment lines leak into the displayed
+--     code. (The generated `.lean` files are correct.) Fix by expressing
+--     `succ_mul` with the `solution!` tactic instead of the comment markers.
+
 -- FILL IN HERE
 
 -- Now prove commutativity of multiplication.
@@ -778,6 +797,15 @@ def natToBin (n : Nat) : Bin := sorry
 -- Note to developers (Daniel Sainati  @dsainati1, NOW):
 --     `How to hide these theorem statements so that students can get practice writing them?`
 
+-- Note to developers (Claude, NOW):
+--     The developer discussion below is not wrapped in a note, so it renders
+--     as ordinary book prose in **all three** build products (a stray "From
+--     GitHub: CH: David set it up so that if you put: `-- SOLUTION`
+--     `-- END SOLUTION` …" block). It should be a `:::dev` note or deleted.
+--     NB it also documents the intended behaviour of the
+--     `-- SOLUTION`/`-- END SOLUTION` idiom that is currently mis-rendering
+--     elsewhere in this chapter.
+
 -- From GitHub: CH: David set it up so that if you put: -- SOLUTION -- END
 -- SOLUTION
 
@@ -888,6 +916,14 @@ theorem normalize_b1 m : normalize (.b1 m) = incr (doubleBin (normalize m)) := s
 -- of `normalize` works the way you intend before you proceed. They won't be
 -- graded, but fill them in below.
 
+-- Note to developers (Claude, before next release):
+--     Same `-- SOLUTION` mishandling as elsewhere in this chapter, milder
+--     here: the block keeps surviving content (`attribute [irreducible] …`)
+--     after `-- END SOLUTION`, so student/terse don't error, but the
+--     **solutions** build leaks the literal `-- SOLUTION` / `-- END SOLUTION`
+--     comment lines into the displayed code. Prefer `solution!` over the
+--     comment markers.
+
 -- FILL IN HERE
 
 attribute [irreducible] normalize doubleBin natToBin incr binToNat
@@ -899,6 +935,13 @@ attribute [irreducible] normalize doubleBin natToBin incr binToNat
 -- proof -- that will allow the main proof to make progress. We have one lemma
 -- for the `b0` case (which also makes use of `double_incr_bin`) and another
 -- for the `b1` case.
+
+-- Note to developers (Claude, before next release):
+--     Same `-- SOLUTION` mishandling, milder: `bin_nat_bin` survives after
+--     `-- END SOLUTION` so student/terse don't error, but the **solutions**
+--     build leaks the literal `-- SOLUTION` / `-- END SOLUTION` comment lines
+--     around `incr_doubleBin`/`natToBin_two_mul` into the displayed code.
+--     Prefer `solution!` over the comment markers.
 
 -- FILL IN HERE
 

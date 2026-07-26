@@ -324,8 +324,8 @@ theorem rev_cons α h (t : List α) : (h :: t).rev = t.rev ++ [h] := by rfl
 -- the proofs below. You will likely find useful the following
 -- lemmas about append and length from Lean's standard library:
 
--- `List.nil_append {α} (as : List α) : [] ++ as = as`
--- `List.cons_append {α} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)`
+--   List.nil_append {α} (as : List α) : [] ++ as = as
+--   List.cons_append {α} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
 
 theorem app_nil_r {α : Type} : ∀ (l : List α),
     l ++ [] = l := by

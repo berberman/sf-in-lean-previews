@@ -1,8 +1,20 @@
 {
-  "main_sha": "e743e0e6f1fbb3941d86856beedbc2f5c1173991",
+  "main_sha": "699b718913ac0ff5f327949581f0d6672f2083be",
   "prs": {
     "136": {
       "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
         {
           "audience": "solutions",
           "volume": "lf"
@@ -39,6 +51,18 @@
       "changed_variants": [
         {
           "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
           "volume": "lf"
         },
         {
@@ -48,6 +72,14 @@
         {
           "audience": "terse",
           "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
         }
       ],
       "head_sha": "0fefd37ace152a505fccf31555e3314b2826a370",
@@ -61,6 +93,18 @@
       "changed_variants": [
         {
           "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
           "volume": "lf"
         },
         {
@@ -70,6 +114,14 @@
         {
           "audience": "terse",
           "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
         }
       ],
       "head_sha": "b944f12c81c1bca0e62c28a1098e69711cb9481f",
@@ -79,8 +131,32 @@
       "title": "DHS pass over the induction chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/142"
     },
-    "149": {
+    "153": {
       "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
         {
           "audience": "solutions",
           "volume": "ts"
@@ -88,21 +164,8 @@
         {
           "audience": "student",
           "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
         }
       ],
-      "head_sha": "17e862e7afc6085ab831b053b95f29b1cce04e72",
-      "preview_path": "pr/149/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30173182002",
-      "status": "published",
-      "title": "Fix processing of the -show verso flag",
-      "url": "https://github.com/plclub/sf-in-lean/pull/149"
-    },
-    "153": {
-      "changed_variants": [],
       "head_sha": "4393b5f276a7f845d961952fff24b9f13c96e729",
       "preview_path": "pr/153/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30200718101",
@@ -111,7 +174,40 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/153"
     },
     "154": {
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "bd1163497825acaa2b31f56715e536bd1e1d8ba2",
       "preview_path": "pr/154/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30201760500",

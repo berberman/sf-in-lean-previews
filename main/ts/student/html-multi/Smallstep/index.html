@@ -57,6 +57,22 @@
     <link rel="stylesheet" href="-verso-data/tippy-border.css">
     <link rel="stylesheet" href="-verso-data/katex/katex.css">
     <style>
+/* A display is set off vertically and indented a few characters from the left
+   margin — not flush left, not centered — the way a textbook indents a displayed
+   line. */
+.sf-display {
+  margin: 1em 0;
+  margin-left: 2.5em;
+}
+.sf-display pre {
+  margin: 0;
+  overflow-x: auto;
+}
+.sf-display pre code {
+  font-family: var(--verso-code-font-family, monospace);
+  white-space: pre;
+}
+</style><style>
 .exercise {
   margin: 1.2em 0;
   padding: 0.6em 1em;
@@ -1974,11 +1990,13 @@ Given a relation <code>R</code> (e.g., the step relation <code>⟶</code>), we d
                   </li>
                 <li>
                   <p>
-                    there is some nonempty sequence <code>z₁</code>, <code>z₂</code> , ..., <code>zₙ</code> such that
-           <code>R x₁ z₁</code>,
-           <code>R z₁ z₂</code>,
-           ...,
-           <code>R zₙ y</code>.</p>
+                    there is some nonempty sequence <code>z₁</code>, <code>z₂</code> , ..., <code>zₙ</code> such that</p>
+                  <div class="sf-display">
+                    <pre><code>R x₁ z₁,
+R z₁ z₂,
+...,
+R zₙ y.
+</code></pre></div>
                   </li>
                 </ul>
               <p>

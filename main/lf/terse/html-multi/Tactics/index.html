@@ -2960,8 +2960,10 @@ inductively defined types that are products of multiple things, we instead
 want a way to get the pieces of that value out from it.</p>
                 <p>
                   When we have a value <code>v : α × β</code> in our context, we can
-get the first and second projections of <code>v</code> using this tactic:
-   <code>let ⟨a, β⟩ := v</code></p>
+get the first and second projections of <code>v</code> using this tactic:</p>
+                <div class="sf-display">
+                  <pre><code>let ⟨a, β⟩ := v
+</code></pre></div>
                 <p>
                   When using <code>cases</code>, we can specify to Lean that it should
 remember an equality between a compound expression and what we are

@@ -1,0 +1,1 @@
+window.docContents[5].resolve({"/Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting":{"contents":"\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Logical Foundations\u0009Basics: Functional Programming in Lean","header":"1.2. Proof by Rewriting","id":"/Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting"}});

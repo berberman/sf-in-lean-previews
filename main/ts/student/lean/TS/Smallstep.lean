@@ -663,8 +663,12 @@ inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
 
 -- - `R x y`, or
 
--- - there is some nonempty sequence `z₁`, `z₂` , ..., `zₙ` such that `R x₁ z₁`,
---   `R z₁ z₂`, ..., `R zₙ y`.
+-- - there is some nonempty sequence `z₁`, `z₂` , ..., `zₙ` such that
+
+--   `R x₁ z₁,
+--   R z₁ z₂,
+--   ...,
+--   R zₙ y.`
 
 -- Intuitively, if `R` describes a single-step of computation, then
 -- `z₁ ... zₙ` are the intermediate steps of computation that get us from `x`

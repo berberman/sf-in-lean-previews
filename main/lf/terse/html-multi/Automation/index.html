@@ -2395,32 +2395,38 @@ regular expression <em>matches</em> some string.</p>
                 <p>
                   We can easily translate this intuition into a set of rules,
 where we write <code>s =~ re</code> to say that <code>re</code> matches <code>s</code>:</p>
-                <p>
-                  -------------- (mEmpty)
-                        <code>[] =~ EmptyStr</code></p>
-                <p>
-                  --------------- (mChar)
-                        <code>[x] =~ (Char x)</code></p>
-                <p>
-                  <code>s₁ =~ re₁</code>     <code>s₂ =~ re₂</code>
-                  --------------------------- (mApp)
-                  <code>(s₁ ++ s₂) =~ (App re₁ re₂)</code></p>
-                <p>
-                  <code>s₁ =~ re₁</code>
-                     --------------------- (mUnionL)
-                     <code>s₁ =~ (Union re₁ re₂)</code></p>
-                <p>
-                  <code>s₂ =~ re₂</code>
-                     --------------------- (mUnionR)
-                     <code>s₂ =~ (Union re₁ re₂)</code></p>
-                <p>
-                  --------------- (mStar0)
-                        <code>[] =~ (Star re)</code></p>
-                <p>
-                  <code>s₁ =~ re</code>
-                        <code>s₂ =~ (Star re)</code>
-                    ----------------------- (mStarApp)
-                    <code>(s₁ ++ s₂) =~ (Star re)</code></p>
+                <div class="sf-dev-note">
+                  <div class="sf-dev-note-label">
+                    Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                  <p>
+                    Check typesetting here (rules should be centered, I think):</p>
+                  </div>
+                <div class="sf-display">
+                  <pre><code>─────────────── (mEmpty)
+[] =~ EmptyStr
+
+─────────────── (mChar)
+[x] =~ (Char x)
+
+s₁ =~ re₁     s₂ =~ re₂
+─────────────────────────── (mApp)
+(s₁ ++ s₂) =~ (App re₁ re₂)
+
+s₁ =~ re₁
+───────────────────── (mUnionL)
+s₁ =~ (Union re₁ re₂)
+
+s₂ =~ re₂
+───────────────────── (mUnionR)
+s₂ =~ (Union re₁ re₂)
+
+──────────────── (mStar0)
+[] =~ (Star re)
+
+s₁ =~ re     s₂ =~ (Star re)
+──────────────────────────── (mStarApp)
+(s₁ ++ s₂) =~ (Star re)
+</code></pre></div>
                 <p>
                   This directly corresponds to the following <code>inductive</code> definition:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.namespace-0" data-verso-hover="20">namespace</span><span class="inter-text"> </span><span class="unknown token" data-binding="">RegExp</span><span class="inter-text">

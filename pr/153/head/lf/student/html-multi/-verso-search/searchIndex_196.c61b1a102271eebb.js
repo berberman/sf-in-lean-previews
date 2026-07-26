@@ -1,0 +1,1 @@
+window.docContents[196].resolve({"/#Logical-Foundations":{"contents":"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"","header":"Logical Foundations","id":"/#Logical-Foundations"}});

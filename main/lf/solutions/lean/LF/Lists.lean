@@ -729,7 +729,8 @@ theorem app_assoc (l1 l2 l3 : NatList) :
 --     convention.
 
 -- *Theorem*: For all lists `l1`, `l2`, and `l3`,
--- `(l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3)`.
+
+--   (l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3).
 
 -- *Proof*: By induction on `l1`.
 
@@ -861,7 +862,8 @@ theorem app_length (l1 l2 : NatList) :
 -- For comparison, here are informal proofs of these two theorems:
 
 -- *Theorem*: For all lists `l1` and `l2`,
--- `(l1 ++ l2).length = l1.length + l2.length`.
+
+--   (l1 ++ l2).length = l1.length + l2.length.
 
 -- *Proof*: By induction on `l1`.
 

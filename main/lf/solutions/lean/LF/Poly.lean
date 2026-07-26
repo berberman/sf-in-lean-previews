@@ -432,8 +432,8 @@ theorem rev_cons α h (t : List α) : (h :: t).rev = t.rev ++ [h] := by rfl
 -- useful the following lemmas about append and length from Lean's standard
 -- library:
 
--- `List.nil_append {α} (as : List α) : [] ++ as = as`
--- `List.cons_append {α} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)`
+--   List.nil_append {α} (as : List α) : [] ++ as = as
+--   List.cons_append {α} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
 
 theorem app_nil_r {α : Type} : ∀ (l : List α),
     l ++ [] = l := by
@@ -590,10 +590,15 @@ example : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := (by rfl)
 -- Our last polymorphic type for now is *polymorphic options*. Lean's standard
 -- library provides `Option α`, with constructors `none` and `some x`. (We
 -- already saw `Option Nat` in the previous chapter.) Let's briefly look at
--- the definition:
+-- the definition, which matches the one in the standard library:
 
--- inductive Option (α : Type) : Type where | none : Option α | some (x : α) :
--- Option α
+namespace OptionPlayground
+
+inductive Option (α : Type) : Type where
+  | none : Option α
+  | some (x : α) : Option α
+
+end OptionPlayground
 
 -- We can now rewrite the `nthError` function so that it works with any type
 -- of list.

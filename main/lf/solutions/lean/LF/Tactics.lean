@@ -1298,7 +1298,9 @@ theorem sillyfun_false (n : Nat) :
 -- want a way to get the pieces of that value out from it.
 
 -- When we have a value `v : α × β` in our context, we can get the first and
--- second projections of `v` using this tactic: `let ⟨a, β⟩ := v`
+-- second projections of `v` using this tactic:
+
+--   let ⟨a, β⟩ := v
 
 -- ### Exercise (3 stars): combine_split ⭐⭐⭐
 

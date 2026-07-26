@@ -2120,6 +2120,21 @@ way as before, except that now <code class="hl lean inline" data-lean-context="e
                 <p>
                   Following the pattern of <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-HasOne" data-verso-hover="247">HasOne</span></code> and <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-HasTwo" data-verso-hover="261">HasTwo</span></code>, define a class <code>HasThree</code> that
 specifies a type with at least three distinct elements.</p>
+                <div class="sf-dev-note">
+                  <div class="sf-dev-note-label">
+                    Note to developers (Claude, NOW)</div>
+                  <p>
+                    Rendering bug in this exercise and <code>instHasThree</code> below. Both use the
+<code>-- SOLUTION</code>/<code>-- END SOLUTION</code> comment-marker idiom to hide <strong>some</strong> class
+fields / instance fields, but the Verso HTML build does not process those
+markers (only the <code>solution!</code> tactic is handled). In <strong>student</strong> and <strong>terse</strong>
+the class shows only the visible fields while the <code>instHasThree</code> instance then
+reports a spurious <code>Fields missing: one_neq_three, two_neq_three</code> error; in
+<strong>solutions</strong> the hidden fields are shown but the literal <code>-- SOLUTION</code> /
+<code>-- END SOLUTION</code> comment lines leak into the displayed code. The generated
+<code>.lean</code> is fine — HTML-only. Fix by expressing the hidden fields with
+<code>solution!</code> rather than the comment markers.</p>
+                  </div>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.classTk-0">class</span><span class="inter-text"> </span><span class="const token" data-binding="const-HasThree" data-verso-hover="271">HasThree</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-15">(</span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="233">α</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-15">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-15">)</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.structure-0">where</span><span class="inter-text">
   </span><span class="const token" data-binding="const-HasThree.one" data-verso-hover="272">one</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-39">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="233">α</span><span class="inter-text">
   </span><span class="const token" data-binding="const-HasThree.two" data-verso-hover="273">two</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-50">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="233">α</span><span class="inter-text">
@@ -2550,14 +2565,14 @@ the same set of natural numbers!</p>
     </span><span class="tactic"><label for="tactic-state-17956610277843013144-234-242-592"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.subst-234" data-verso-hover="378">subst</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.232" data-verso-hover="376">hk</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-17956610277843013144-234-242-592"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.231" data-verso-hover="97">k</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Nat" data-verso-hover="242">Nat</span><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-TotalMap.Nat.isEven" data-verso-hover="345">isEven</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-TotalMap.Nat.double" data-verso-hover="346">double</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.231" data-verso-hover="97">k</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.true" data-verso-hover="43">true</span></span></span></span></span></span><span class="inter-text">
     </span><span class="tactic"><label for="tactic-state-7-247-266-594"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.exact-247" data-verso-hover="367">exact</span><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.Nat.even_double" data-verso-hover="365">even_double</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.231" data-verso-hover="97">k</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-247-266-594"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
-                In view of this theorem, we can say that the boolean computation even n is reflected in the truth of
+                In view of this theorem, we can say that the boolean computation <code>isEven n</code> is reflected in the truth of
 the proposition <code>∃ k, n = double k</code>.</p>
               <p>
                 Similarly, to state that two numbers n and m are equal, we can say either</p>
               <ul>
                 <li>
                   <p>
-                    that <code>n == m</code> returns <code>true</code></p>
+                    that <code>n == m</code> returns <code>true</code>, or</p>
                   </li>
                 <li>
                   <p>

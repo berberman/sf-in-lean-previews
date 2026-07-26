@@ -232,6 +232,15 @@ theorem double_succ : ∀ n, double (succ n) = succ (succ (double n)) := by
 
 attribute [irreducible] double
 
+-- Note to developers (Claude, NOW):
+--     The `ASSUME HIDDEN` / `END ASSUME` region markers around
+--     this exercise are unhandled: `ASSUME HIDDEN` got swept
+--     into the developer note above, and this bare
+--     `END ASSUME` line renders as stray book prose in **all
+--     three** build products. (See BCP's "What is ASSUME
+--     HIDDEN??" note above.) Either implement the marker or
+--     delete both lines.
+
 -- END ASSUME
 
 -- Note to developers (Benjamin Pierce  @bcpierce00):
@@ -245,11 +254,11 @@ attribute [irreducible] double
 -- close the goal if the rewrite makes the goal true by
 -- definition. For example, instead of writing
 
--- `rewrite [double_zero]; rfl`
+--   rewrite [double_zero]; rfl
 
 -- We could write this:
 
--- `rw [double_zero]`
+--   rw [double_zero]
 
 -- Using `rw` in your proofs is optional, but it will save you
 -- time (and is better style).
@@ -341,6 +350,21 @@ theorem mul_two (p : Nat) :
 theorem add_shuffle3 : ∀ n m p : Nat,
     add (add n m) p = add (add n p) m := by
   sorry
+
+-- Note to developers (Claude, NOW):
+--     Rendering bug (all three build products look wrong).
+--     This helper-lemma block wraps its **entire** contents in
+--     the `-- SOLUTION`/`-- END SOLUTION` comment-marker
+--     idiom, which the Verso HTML build does not process (only
+--     the `solution!` tactic is handled). Result: in
+--     **student** and **terse** the block renders empty with a
+--     spurious `unexpected end of input` error and a doubled
+--     `-- FILL IN HERE`; in **solutions** the lemma is shown
+--     but the literal `-- SOLUTION` / `-- END SOLUTION`
+--     comment lines leak into the displayed code. (The
+--     generated `.lean` files are correct.) Fix by expressing
+--     `succ_mul` with the `solution!` tactic instead of the
+--     comment markers.
 
 -- FILL IN HERE
 

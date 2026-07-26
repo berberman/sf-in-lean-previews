@@ -566,21 +566,33 @@ attribute [pp_nodot] RegExp.Char RegExp.App RegExp.Union RegExp.Star
 -- We can easily translate this intuition into a set of rules, where we write
 -- `s =~ re` to say that `re` matches `s`:
 
--- -------------- (mEmpty) `[] =~ EmptyStr`
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Check typesetting here (rules should be centered, I think):
 
--- --------------- (mChar) `[x] =~ (Char x)`
+--   ─────────────── (mEmpty)
+--   [] =~ EmptyStr
 
--- `s₁ =~ re₁` `s₂ =~ re₂` --------------------------- (mApp)
--- `(s₁ ++ s₂) =~ (App re₁ re₂)`
+--   ─────────────── (mChar)
+--   [x] =~ (Char x)
 
--- `s₁ =~ re₁` --------------------- (mUnionL) `s₁ =~ (Union re₁ re₂)`
+--   s₁ =~ re₁     s₂ =~ re₂
+--   ─────────────────────────── (mApp)
+--   (s₁ ++ s₂) =~ (App re₁ re₂)
 
--- `s₂ =~ re₂` --------------------- (mUnionR) `s₂ =~ (Union re₁ re₂)`
+--   s₁ =~ re₁
+--   ───────────────────── (mUnionL)
+--   s₁ =~ (Union re₁ re₂)
 
--- --------------- (mStar0) `[] =~ (Star re)`
+--   s₂ =~ re₂
+--   ───────────────────── (mUnionR)
+--   s₂ =~ (Union re₁ re₂)
 
--- `s₁ =~ re` `s₂ =~ (Star re)` ----------------------- (mStarApp)
--- `(s₁ ++ s₂) =~ (Star re)`
+--   ──────────────── (mStar0)
+--   [] =~ (Star re)
+
+--   s₁ =~ re     s₂ =~ (Star re)
+--   ──────────────────────────── (mStarApp)
+--   (s₁ ++ s₂) =~ (Star re)
 
 -- This directly corresponds to the following `inductive` definition:
 

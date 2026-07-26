@@ -4196,7 +4196,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero-next",
+   [{"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4211,7 +4211,7 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero",
+    {"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -6088,7 +6088,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6097,7 +6097,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -7539,6 +7539,39 @@
         "IndProp: Inductively Defined Propositions",
         "Additional Exercises"]}},
      "address": "/IndProp/"}],
+   "OptionPlayground.Option.some":
+   [{"id": "OptionPlayground___Option___some",
+     "data":
+     {"/Poly/#OptionPlayground___Option___some":
+      {"display": "some",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Options"]}},
+     "address": "/Poly/"}],
+   "OptionPlayground.Option.none":
+   [{"id": "OptionPlayground___Option___none",
+     "data":
+     {"/Poly/#OptionPlayground___Option___none":
+      {"display": "none",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Options"]}},
+     "address": "/Poly/"}],
+   "OptionPlayground.Option":
+   [{"id": "OptionPlayground___Option",
+     "data":
+     {"/Poly/#OptionPlayground___Option":
+      {"display": "Option",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Options"]}},
+     "address": "/Poly/"}],
    "NoStutter.nostutter2":
    [{"id": "NoStutter___nostutter2",
      "data":

@@ -2404,7 +2404,17 @@ ASSUME HIDDEN
   </span><span class="tactic"><label for="tactic-state-1878405532428859943-129-136-711"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.intro-129" data-verso-hover="35">intro</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.25" data-verso-hover="97">n</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-1878405532428859943-129-136-711"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.25" data-verso-hover="97">n</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="94">Nat</span><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-NatPlayground.Nat.double" data-verso-hover="431">double</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-NatPlayground.Nat.succ" data-verso-hover="96">succ</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.25" data-verso-hover="97">n</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.succ" data-verso-hover="96">succ</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-NatPlayground.Nat.succ" data-verso-hover="96">succ</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-NatPlayground.Nat.double" data-verso-hover="431">double</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.25" data-verso-hover="97">n</span><span class="unknown token" data-binding="">)</span><span class="unknown token" data-binding="">)</span></span></span></span></span></span><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Tactic.tacticSeq1Indented-129">;</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-7-138-141-713"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticRfl-138" data-verso-hover="16">rfl</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-138-141-713"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.attribute-143">attribute</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Command.attribute-143">[</span><span class="unknown token" data-binding="">irreducible</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Command.attribute-143">]</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.double" data-verso-hover="431">double</span><span class="inter-text">
-</span><span class="unknown token" data-binding=""></span></code><p>
+</span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
+                    <div class="sf-dev-note-label">
+                      Note to developers (Claude, NOW)</div>
+                    <p>
+                      The <code>ASSUME HIDDEN</code> / <code>END ASSUME</code> region markers around this exercise are
+unhandled: <code>ASSUME HIDDEN</code> got swept into the developer note above, and this
+bare <code>END ASSUME</code> line renders as stray book prose in <strong>all three</strong> build
+products. (See BCP's "What is ASSUME HIDDEN??" note above.) Either implement
+the marker or delete both lines.</p>
+                    </div>
+                  <p>
                     END ASSUME</p>
                   <div class="sf-dev-note">
                     <div class="sf-dev-note-label">
@@ -2421,12 +2431,14 @@ ASSUME HIDDEN
   followed by <code>rfl</code>. There is a tactic that combines these two steps: <code>rw [...]</code>
   will automatically close the goal if the rewrite makes the goal true by
   definition. For example, instead of writing</p>
-                <p>
-                  <code>rewrite [double_zero]; rfl</code></p>
+                <div class="sf-display">
+                  <pre><code>rewrite [double_zero]; rfl
+</code></pre></div>
                 <p>
                   We could write this:</p>
-                <p>
-                  <code>rw [double_zero]</code></p>
+                <div class="sf-display">
+                  <pre><code>rw [double_zero]
+</code></pre></div>
                 <p>
                   Using <code>rw</code> in your proofs is optional, but it will save you time
   (and is better style).</p>
@@ -2752,7 +2764,21 @@ right to left, use <code>rw [← h]</code>, where <code>←</code> is typed as <
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-0">theorem</span><span class="inter-text"> </span><span class="has-info warning"><span class="hover-container"><span class="hover-info messages"><code class="verso-message warning"><span class="text"></span><span class="text">declaration uses `</span><span class="highlighted"><span class="inter-text"></span><span class="unknown token" data-binding="">sorry</span><span class="inter-text"></span></span><span class="text">`</span></code></span></span><span class="const token" data-binding="const-NatPlayground.Nat.add_shuffle3" data-verso-hover="448">add_shuffle3</span></span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-21">:</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="97">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="97">m</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.7" data-verso-hover="97">p</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-33">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="94">Nat</span><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Term.forall-23">,</span><span class="inter-text">
     </span><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="106">add</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-48">(</span><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="106">add</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="97">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="97">m</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-48">)</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.7" data-verso-hover="97">p</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-44">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="106">add</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-66">(</span><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="106">add</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="97">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.7" data-verso-hover="97">p</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-66">)</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="97">m</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-78">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-2683682921159721642-81-83-799"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-81" data-verso-hover="14">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-2683682921159721642-81-83-799"><span class="tactic-state"><span class="goal"><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.21" data-verso-hover="97">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.23" data-verso-hover="97">m</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.24" data-verso-hover="97">p</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="94">Nat</span><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.21" data-verso-hover="97">n</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="106">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.23" data-verso-hover="97">m</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="106">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.24" data-verso-hover="97">p</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.21" data-verso-hover="97">n</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="106">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.24" data-verso-hover="97">p</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="106">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.23" data-verso-hover="97">m</span></span></span></span></span></span><span class="inter-text">
   </span><span class="tactic"><label for="tactic-state-7-86-91-801"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticSorry-86" data-verso-hover="40">sorry</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-86-91-801"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
-</span><span class="unknown token" data-binding=""></span></code><code class="hl lean block" data-lean-context="examples"><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
+</span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
+                  <div class="sf-dev-note-label">
+                    Note to developers (Claude, NOW)</div>
+                  <p>
+                    Rendering bug (all three build products look wrong). This helper-lemma block
+wraps its <strong>entire</strong> contents in the <code>-- SOLUTION</code>/<code>-- END SOLUTION</code>
+comment-marker idiom, which the Verso HTML build does not process (only the
+<code>solution!</code> tactic is handled). Result: in <strong>student</strong> and <strong>terse</strong> the block
+renders empty with a spurious <code>unexpected end of input</code> error and a doubled
+<code>-- FILL IN HERE</code>; in <strong>solutions</strong> the lemma is shown but the literal
+<code>-- SOLUTION</code> / <code>-- END SOLUTION</code> comment lines leak into the displayed code.
+(The generated <code>.lean</code> files are correct.) Fix by expressing <code>succ_mul</code> with
+the <code>solution!</code> tactic instead of the comment markers.</p>
+                  </div>
+                <code class="hl lean block" data-lean-context="examples"><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
 </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
 </span><span class="has-info error"><span class="hover-container"><span class="hover-info messages"><code class="verso-message error"><span class="text"></span><span class="text">unexpected end of input</span></code></span></span><span class="unknown token" data-binding=""></span></span></code><p>
                   Now prove commutativity of multiplication.</p>
@@ -2920,6 +2946,17 @@ binToNat   |                             |  binToNat
                       Note to developers (Daniel Sainati  @dsainati1, NOW)</div>
                     <pre>How to hide these theorem statements so that students can get practice writing them?
 </pre></div>
+                  <div class="sf-dev-note">
+                    <div class="sf-dev-note-label">
+                      Note to developers (Claude, NOW)</div>
+                    <p>
+                      The developer discussion below is not wrapped in a note, so it renders as
+ordinary book prose in <strong>all three</strong> build products (a stray "From GitHub: CH:
+David set it up so that if you put: <code>-- SOLUTION</code> <code>-- END SOLUTION</code> …" block).
+It should be a <code>:::dev</code> note or deleted. NB it also documents the intended
+behaviour of the <code>-- SOLUTION</code>/<code>-- END SOLUTION</code> idiom that is currently
+mis-rendering elsewhere in this chapter.</p>
+                    </div>
                   <p>
                     From GitHub:
 CH: David set it up so that if you put:
@@ -3039,6 +3076,16 @@ try to "look ahead" at future bits.</p>
                     It would be wise to do some <code>example</code> proofs to check that your
 definition of <code>normalize</code> works the way you intend before you
 proceed. They won't be graded, but fill them in below.</p>
+                  <div class="sf-dev-note">
+                    <div class="sf-dev-note-label">
+                      Note to developers (Claude, before next release)</div>
+                    <p>
+                      Same <code>-- SOLUTION</code> mishandling as elsewhere in this chapter, milder here: the
+block keeps surviving content (<code>attribute [irreducible] …</code>) after
+<code>-- END SOLUTION</code>, so student/terse don't error, but the <strong>solutions</strong> build
+leaks the literal <code>-- SOLUTION</code> / <code>-- END SOLUTION</code> comment lines into the
+displayed code. Prefer <code>solution!</code> over the comment markers.</p>
+                    </div>
                   <code class="hl lean block" data-lean-context="examples"><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
 
 </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
@@ -3053,6 +3100,16 @@ get stuck, and see if you can find a lemma -- perhaps requiring
 its own inductive proof -- that will allow the main proof to make
 progress. We have one lemma for the <code>b0</code> case (which also makes
 use of <code>double_incr_bin</code>) and another for the <code>b1</code> case.</p>
+                  <div class="sf-dev-note">
+                    <div class="sf-dev-note-label">
+                      Note to developers (Claude, before next release)</div>
+                    <p>
+                      Same <code>-- SOLUTION</code> mishandling, milder: <code>bin_nat_bin</code> survives after
+<code>-- END SOLUTION</code> so student/terse don't error, but the <strong>solutions</strong> build
+leaks the literal <code>-- SOLUTION</code> / <code>-- END SOLUTION</code> comment lines around
+<code>incr_doubleBin</code>/<code>natToBin_two_mul</code> into the displayed code. Prefer <code>solution!</code>
+over the comment markers.</p>
+                    </div>
                   <code class="hl lean block" data-lean-context="examples"><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
 
 </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
