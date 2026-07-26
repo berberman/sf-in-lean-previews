@@ -29,7 +29,7 @@ import LF.SFLCompat
 --     `This section will need some tidying and rewriting...`
 
 -- Lean will first need to compile `Basics.lean` so it can be
--- imported here -- detailed instructions are in the full
+-- imported here — detailed instructions are in the full
 -- version of this chapter...
 
 namespace NatPlayground.Nat
@@ -39,9 +39,17 @@ namespace NatPlayground.Nat
 -- _Quiz:_
 
 -- To prove the following theorem, which tactics will we need
--- besides `rfl`? (A) none, (B) `rewrite`, (C) `cases`, (D)
--- both `rewrite` and `cases`, or (E) can't be done with the
--- tactics we've seen.
+-- besides `rfl`?
+
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
 
 --   theorem review₁ : (true || false) = true
 
@@ -51,8 +59,16 @@ namespace NatPlayground.Nat
 
 --   theorem review₂ (b : Bool) : (true || b) = true
 
--- Which tactics do we need besides `rfl`? (A) none (B)
--- `rewrite`, (C) `cases`, (D) both `rewrite` and `cases`, or
+-- Which tactics do we need besides `rfl`?
+
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
 -- (E) can't be done with the tactics we've seen.
 
 -- _Quiz:_
@@ -61,8 +77,16 @@ namespace NatPlayground.Nat
 
 --   theorem review₃ b : (b || true) = true
 
--- Which tactics do we need besides `rfl`? (A) none (B)
--- `rewrite`, (C) `cases`, (D) both `rewrite` and `cases`, or
+-- Which tactics do we need besides `rfl`?
+
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
 -- (E) can't be done with the tactics we've seen.
 
 -- _Quiz:_
@@ -73,8 +97,15 @@ namespace NatPlayground.Nat
 
 --   theorem review₄ (n : Nat) : n + zero = n
 
--- (A) none, (B) `rewrite`, (C) `cases`, (D) both `rewrite` and
--- `cases`, or (E) can't be done with the tactics we've seen.
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
 
 -- _Quiz:_
 
@@ -82,8 +113,15 @@ namespace NatPlayground.Nat
 
 --   theorem review₅ (n : Nat) : zero + n = n
 
--- (A) none, (B) `rewrite`, (C) `cases`, (D) both `rewrite` and
--- `cases`, or (E) can't be done with the tactics we've seen.
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
 
 -- ### Exercise (1 star): succ_eq_add_one ⭐
 
@@ -101,7 +139,15 @@ theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
 sf_expect_failure
   example : ∀ n : Nat, zero + n = n := by
     intro n
-    -- `rfl` doesn't work here!
+    rfl -- `rfl` doesn't work here!
+
+-- Tactic `rfl` failed: The left-hand side
+--   zero + n
+-- is not definitionally equal to the right-hand side
+--   n
+
+-- n : Nat
+-- ⊢ zero + n = n
 
 -- And reasoning by cases using `cases n` doesn't get us much
 -- further: the branch of the case analysis where we assume
@@ -118,7 +164,12 @@ sf_expect_failure
       rfl
       -- so far so good...
     | succ n' =>   /- n = succ n' -/
-      -- ...but we're stuck on zero + n'
+      _ -- ...but we're stuck on zero + n'
+
+-- unsolved goals
+-- case succ
+-- n' : Nat
+-- ⊢ zero + succ n' = succ n'
 
 -- We need a bigger hammer: the *principle of induction* over
 -- natural numbers...
@@ -228,6 +279,10 @@ sf_expect_failure
       But `rw [add_comm]` might rewrite the wrong `+`!
     -/
     rw [add_comm]
+
+-- unsolved goals
+-- n m p q : Nat
+-- ⊢ p + q + (n + m) = m + n + (p + q)
 
 -- To use `add_comm` at the point where we need it, we can
 -- supply explicit arguments: `rw [add_comm n m]` tells Lean
@@ -395,7 +450,7 @@ attribute [pp_nodot] Bin.b0 Bin.b1
 
 -- ### Exercise (3 stars): binary_commute ⭐⭐⭐
 
--- Prove that the following diagram commutes---that is,
+-- Prove that the following diagram commutes — that is,
 -- incrementing a binary number and then converting it to a
 -- (unary) natural number yields the same result as first
 -- converting it to a natural number and then incrementing:
@@ -442,8 +497,8 @@ theorem nat_bin_nat (n : Nat) :
 
 -- ### Bin to Nat and Back to Bin (Advanced)
 
--- The opposite direction -- starting with a `Bin`, converting
--- to `Nat`, then converting back to `Bin` -- turns out to be
+-- The opposite direction — starting with a `Bin`, converting
+-- to `Nat`, then converting back to `Bin` — turns out to be
 -- problematic. That is, the following "theorem" does not hold.
 
 sf_expect_failure
@@ -537,11 +592,11 @@ attribute [irreducible] normalize doubleBin natToBin incr binToNat
 -- be a bit tricky.
 
 -- Hint: Start by trying to prove the main statement, see where
--- you get stuck, and see if you can find a lemma -- perhaps
--- requiring its own inductive proof -- that will allow the
--- main proof to make progress. We have one lemma for the `b0`
--- case (which also makes use of `double_incr_bin`) and another
--- for the `b1` case.
+-- you get stuck, and see if you can find a lemma — perhaps
+-- requiring its own inductive proof — that will allow the main
+-- proof to make progress. We have one lemma for the `b0` case
+-- (which also makes use of `double_incr_bin`) and another for
+-- the `b1` case.
 
 -- FILL IN HERE
 

@@ -68,7 +68,15 @@ namespace NatPlayground.Nat
 -- _Quiz:_
 
 -- To prove the following theorem, which tactics will we need besides `rfl`?
--- (A) none, (B) `rewrite`, (C) `cases`, (D) both `rewrite` and `cases`, or
+
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
 -- (E) can't be done with the tactics we've seen.
 
 --   theorem review₁ : (true || false) = true
@@ -79,9 +87,17 @@ namespace NatPlayground.Nat
 
 --   theorem review₂ (b : Bool) : (true || b) = true
 
--- Which tactics do we need besides `rfl`? (A) none (B) `rewrite`, (C)
--- `cases`, (D) both `rewrite` and `cases`, or (E) can't be done with the
--- tactics we've seen.
+-- Which tactics do we need besides `rfl`?
+
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
 
 -- _Quiz:_
 
@@ -89,9 +105,17 @@ namespace NatPlayground.Nat
 
 --   theorem review₃ b : (b || true) = true
 
--- Which tactics do we need besides `rfl`? (A) none (B) `rewrite`, (C)
--- `cases`, (D) both `rewrite` and `cases`, or (E) can't be done with the
--- tactics we've seen.
+-- Which tactics do we need besides `rfl`?
+
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
 
 -- _Quiz:_
 
@@ -101,7 +125,14 @@ namespace NatPlayground.Nat
 
 --   theorem review₄ (n : Nat) : n + zero = n
 
--- (A) none, (B) `rewrite`, (C) `cases`, (D) both `rewrite` and `cases`, or
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
 -- (E) can't be done with the tactics we've seen.
 
 -- _Quiz:_
@@ -110,7 +141,14 @@ namespace NatPlayground.Nat
 
 --   theorem review₅ (n : Nat) : zero + n = n
 
--- (A) none, (B) `rewrite`, (C) `cases`, (D) both `rewrite` and `cases`, or
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
 -- (E) can't be done with the tactics we've seen.
 
 -- ### Exercise (1 star): succ_eq_add_one ⭐
@@ -125,10 +163,10 @@ theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
 
 -- We defined `add` to recurse on its *second* argument:
 
---     def add (n : Nat) (m : Nat) : Nat :=
---       match m with
---       | zero => n
---       | succ m' => succ (add n m')
+--   def add (n : Nat) (m : Nat) : Nat :=
+--     match m with
+--     | zero => n
+--     | succ m' => succ (add n m')
 
 -- This means `n + zero` reduces to `n` by definition, but `zero + n` does
 -- *not*.
@@ -136,9 +174,9 @@ theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
 -- In `add_zero`, we were able to prove that `zero` is a neutral element for
 -- `+` on the *right* using just `rfl`:
 
---     theorem add_zero : ∀ (n : Nat), n + zero = n := by
---       intro n
---       rfl
+--   theorem add_zero : ∀ (n : Nat), n + zero = n := by
+--     intro n
+--     rfl
 
 -- But the proof that it is also a neutral element on the *left* can't be done
 -- in the same simple way. Just applying `rfl` doesn't work, since the `n` in
@@ -148,7 +186,15 @@ theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
 sf_expect_failure
   example : ∀ n : Nat, zero + n = n := by
     intro n
-    -- `rfl` doesn't work here!
+    rfl -- `rfl` doesn't work here!
+
+-- Tactic `rfl` failed: The left-hand side
+--   zero + n
+-- is not definitionally equal to the right-hand side
+--   n
+
+-- n : Nat
+-- ⊢ zero + n = n
 
 -- And reasoning by cases using `cases n` doesn't get us much further: the
 -- branch of the case analysis where we assume `n = zero` goes through just
@@ -164,7 +210,12 @@ sf_expect_failure
       rfl
       -- so far so good...
     | succ n' =>   /- n = succ n' -/
-      -- ...but we're stuck on zero + n'
+      _ -- ...but we're stuck on zero + n'
+
+-- unsolved goals
+-- case succ
+-- n' : Nat
+-- ⊢ zero + succ n' = succ n'
 
 -- We could use `cases n'` to get a bit further, but, since `n` can be
 -- arbitrarily large, we'll never get all the way there if we just go on like
@@ -370,6 +421,10 @@ sf_expect_failure
     -/
     rw [add_comm]
 
+-- unsolved goals
+-- n m p q : Nat
+-- ⊢ p + q + (n + m) = m + n + (p + q)
+
 -- To use `add_comm` at the point where we need it, we can supply explicit
 -- arguments: `rw [add_comm n m]` tells Lean exactly which `+` to rewrite. (We
 -- can also use `have` to establish the specific equation we want, then
@@ -388,8 +443,8 @@ theorem add_rearrange (n m p q : Nat) :
 -- The question has challenged philosophers for millennia, but a rough and
 -- ready answer could be this: A proof of a mathematical proposition `P` is a
 -- written (or spoken) text that instills in the reader or hearer the
--- certainty that `P` is true -- an unassailable argument for the truth of
--- `P`. That is, a proof is an act of communication.
+-- certainty that `P` is true — an unassailable argument for the truth of `P`.
+-- That is, a proof is an act of communication.
 
 -- Acts of communication may involve different sorts of readers. On one hand,
 -- the "reader" can be a program like Lean, in which case the "belief" that is
@@ -415,9 +470,9 @@ theorem add_rearrange (n m p q : Nat) :
 
 -- In practice, however, mathematicians have developed a rich set of
 -- conventions and idioms for writing about complex mathematical objects that
--- -- at least within a certain community -- make communication fairly
--- reliable. The conventions of this stylized form of communication give a
--- reasonably clear standard for judging proofs good or bad.
+-- — at least within a certain community — make communication fairly reliable.
+-- The conventions of this stylized form of communication give a reasonably
+-- clear standard for judging proofs good or bad.
 
 -- Because we are using Lean in this course, we will be working heavily with
 -- formal proofs. But this doesn't mean we can completely forget about
@@ -647,7 +702,7 @@ attribute [pp_nodot] Bin.b0 Bin.b1
 
 -- ### Exercise (3 stars): binary_commute ⭐⭐⭐
 
--- Prove that the following diagram commutes---that is, incrementing a binary
+-- Prove that the following diagram commutes — that is, incrementing a binary
 -- number and then converting it to a (unary) natural number yields the same
 -- result as first converting it to a natural number and then incrementing:
 
@@ -690,8 +745,8 @@ theorem nat_bin_nat (n : Nat) :
 
 -- ### Bin to Nat and Back to Bin (Advanced)
 
--- The opposite direction -- starting with a `Bin`, converting to `Nat`, then
--- converting back to `Bin` -- turns out to be problematic. That is, the
+-- The opposite direction — starting with a `Bin`, converting to `Nat`, then
+-- converting back to `Bin` — turns out to be problematic. That is, the
 -- following "theorem" does not hold.
 
 sf_expect_failure
@@ -779,10 +834,10 @@ attribute [irreducible] normalize doubleBin natToBin incr binToNat
 -- Finally, prove the main theorem. The inductive cases could be a bit tricky.
 
 -- Hint: Start by trying to prove the main statement, see where you get stuck,
--- and see if you can find a lemma -- perhaps requiring its own inductive
--- proof -- that will allow the main proof to make progress. We have one lemma
--- for the `b0` case (which also makes use of `double_incr_bin`) and another
--- for the `b1` case.
+-- and see if you can find a lemma — perhaps requiring its own inductive proof
+-- — that will allow the main proof to make progress. We have one lemma for
+-- the `b0` case (which also makes use of `double_incr_bin`) and another for
+-- the `b1` case.
 
 -- FILL IN HERE
 
