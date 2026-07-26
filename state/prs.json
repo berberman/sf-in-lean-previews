@@ -146,6 +146,48 @@
       "status": "published",
       "title": "Fix processing of the -show verso flag",
       "url": "https://github.com/plclub/sf-in-lean/pull/149"
+    },
+    "151": {
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "d78b278c04a9caa27168d74122e7d9d39e395a54",
+      "preview_path": "pr/151/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30182003597",
+      "status": "published",
+      "title": "Bunch of tidying and cleaning up typesetting",
+      "url": "https://github.com/plclub/sf-in-lean/pull/151"
     }
   },
   "schema": 3
