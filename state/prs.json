@@ -69,48 +69,6 @@
       "title": "DHS pass over the induction chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/142"
     },
-    "153": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "4393b5f276a7f845d961952fff24b9f13c96e729",
-      "preview_path": "pr/153/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30200718101",
-      "status": "published",
-      "title": "Add a :::test directive for checks that run but aren't published",
-      "url": "https://github.com/plclub/sf-in-lean/pull/153"
-    },
     "154": {
       "changed_variants": [
         {
