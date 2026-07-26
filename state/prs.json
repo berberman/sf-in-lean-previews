@@ -70,43 +70,10 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/142"
     },
     "154": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "bd1163497825acaa2b31f56715e536bd1e1d8ba2",
+      "changed_variants": [],
+      "head_sha": "1b9c17053a7de98404e6cf0ace6443d6cf784ab1",
       "preview_path": "pr/154/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30201760500",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30211189666",
       "status": "published",
       "title": "More verso commands for enhanced rendering",
       "url": "https://github.com/plclub/sf-in-lean/pull/154"
