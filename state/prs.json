@@ -62,9 +62,9 @@
           "volume": "lf"
         }
       ],
-      "head_sha": "1f2383773ba74d72e23b15cbea14cd2c83176fa7",
+      "head_sha": "c10402c3180ec5c5dcff18e14a34e3addeb84e05",
       "preview_path": "pr/142/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30208367530",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30216573810",
       "status": "published",
       "title": "DHS pass over the induction chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/142"
@@ -118,11 +118,24 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/157"
     },
     "158": {
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "18e20f340730b028e09f974188a3475087dc67b2",
       "preview_path": "pr/158/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30215784770",
+      "status": "published",
       "title": "Types: bnf grammar, and notation encoding behind :::details",
       "url": "https://github.com/plclub/sf-in-lean/pull/158"
     },
