@@ -151,7 +151,7 @@ def Z : Ident := "Z"
 -- and implicit coercions.
 
 -- You do not need to understand exactly what these declarations do. Briefly,
--- though:
+-- though, here is how the two blocks below fit together:
 
 -- - The `declare_syntax_cat` directive adds a new non-terminal to Lean's
 --   grammar, called `imp_aexp`. We'll add additional non-terminals further
@@ -159,13 +159,15 @@ def Z : Ident := "Z"
 
 -- - Each `syntax` directive defines a grammar production, of which there are
 --   eight in total. The first two define literals, `num` and `ident`, as
---   `imp_aexp`s. The next deveral directives define productions for building
+--   `imp_aexp`s. The next several directives define productions for building
 --   larger expressions, with some annotations to define precedence, etc.
 
 -- - Finally, `macro_rules` is used to translate each production of the
 --   `imp_aexp` nonterminal into a Lean expression.
 
--- - The same basic pattern is followed for `bexp`s too.
+-- Boolean expressions and, later, commands follow this same pattern exactly,
+-- so their declarations are collapsed where they appear: open one if you want
+-- to see the pattern repeated, and skip them otherwise.
 
 /-- Arithmetic expressions of Imp -/
 declare_syntax_cat imp_aexp
@@ -197,6 +199,8 @@ macro_rules
   | `(aexp { $a * $b }) => `(Aexp.mult (aexp {$a}) (aexp {$b}))
   | `(aexp { ($a) }) => `(aexp {$a})
 
+-- _Details:_ Notation encoding: boolean expressions
+
 /-- Boolean expressions of Imp -/
 declare_syntax_cat imp_bexp
 /-- Boolean literal (`true` or `false`) -/
@@ -220,6 +224,8 @@ syntax:max "~" term:max : imp_bexp
 
 /-- Embed an Imp boolean expression into a Lean term -/
 syntax:min "bexp " "{" imp_bexp "}" : term
+
+-- _Details:_ Notation encoding: boolean expressions, macro rules
 
 open Lean in
 macro_rules
@@ -281,20 +287,23 @@ def example_bexp : Bexp := bexp { true ∧ ¬(X ≤ 4) }
 -- elaborated term back into surface syntax so that Lean's own output uses our
 -- concrete Imp notation.
 
--- Each delaborator below walks a term of the given type and rebuilds the
--- matching piece of `imp_aexp`/`imp_bexp` syntax; a subterm Lean doesn't
--- recognize is printed with the `~` escape. The `@[delab …]` attribute
--- registers the top-level function to fire whenever Lean is about to display
--- a term headed by one of those constructors -- unless notation printing has
--- been switched off with `set_option pp.notation false`, which lets us fall
--- back to the raw constructors when debugging (see *Desugaring Notations*
--- below). The companion *category parenthesizer* re-inserts the parentheses
--- the grammar's precedences demand, so that, e.g., `(1 + 2) * 3` prints with
--- its parentheses intact.
+-- Each delaborator walks a term of the given type and rebuilds the matching
+-- piece of `imp_aexp`/`imp_bexp` syntax; a subterm Lean doesn't recognize is
+-- printed with the `~` escape. The `@[delab …]` attribute registers the
+-- top-level function to fire whenever Lean is about to display a term headed
+-- by one of those constructors -- unless notation printing has been switched
+-- off with `set_option pp.notation false`, which lets us fall back to the raw
+-- constructors when debugging (see *Desugaring Notations* below). The
+-- companion *category parenthesizer* re-inserts the parentheses the grammar's
+-- precedences demand, so that, e.g., `(1 + 2) * 3` prints with its
+-- parentheses intact.
 
--- You do not need to understand the details. The result is that a `#check`,
--- an `#eval`, or a proof goal mentioning an Imp expression is displayed in
--- readable Imp syntax rather than as a pile of constructors.
+-- You do not need to understand the details, and the code is collapsed below
+-- for that reason. The result is that a `#check`, an `#eval`, or a proof goal
+-- mentioning an Imp expression is displayed in readable Imp syntax rather
+-- than as a pile of constructors.
+
+-- _Details:_ Notation encoding: printing expressions back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer
@@ -395,6 +404,8 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
 -- `set_option pp.notation false` switch this delaborator off, revealing the
 -- raw constructors (see the "Desugaring Notations" discussion, after the
 -- commands are introduced).
+
+-- _Details:_ Notation encoding: registering the delaborators
 
 @[delab app.Aexp.num, delab app.Aexp.id, delab app.Aexp.plus,
   delab app.Aexp.minus, delab app.Aexp.mult]
@@ -508,11 +519,11 @@ example : bexp { true ∧ ¬(X ≤ 4) }.eval (X →ₜ 5 ; ∅) = true := by rfl
 -- *statements*). Informally, commands `c` are described by the following BNF
 -- grammar:
 
---   c := skip
---      | x := a
---      | c ; c
---      | if b then c else c end
---      | while b do c end
+-- c ::= skip
+--     | x := a
+--     | c ; c
+--     | if b then c else c end
+--     | while b do c end
 
 -- Here is the formal definition of the abstract syntax of commands.
 
@@ -523,8 +534,12 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
+-- _Details:_ Notation encoding: commands
+
 /-- Imp commands -/
 declare_syntax_cat imp_com
+
+-- _Details:_ Notation encoding: commands, macro rules
 
 /-- The command that does nothing (`skip;`) -/
 syntax ident ";" : imp_com
@@ -563,6 +578,8 @@ macro_rules
 -- section above). It reuses the expression delaborators for the condition of
 -- an `if`/`while` and for the right-hand side of an assignment, and prints an
 -- unrecognized subcommand with the `~` escape.
+
+-- _Details:_ Notation encoding: printing commands back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr

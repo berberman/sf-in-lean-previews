@@ -1,5 +1,5 @@
 {
-  "main_sha": "7fddc00221d7362ce269a9be3563b1e0be370bb6",
+  "main_sha": "9abb85dce5f1d65f1183095438d0030cf7ccf9ac",
   "prs": {
     "136": {
       "changed_variants": [
@@ -51,6 +51,18 @@
       "changed_variants": [
         {
           "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
           "volume": "lf"
         },
         {
@@ -60,6 +72,14 @@
         {
           "audience": "terse",
           "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
         }
       ],
       "head_sha": "c10402c3180ec5c5dcff18e14a34e3addeb84e05",
@@ -71,6 +91,18 @@
     },
     "156": {
       "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
         {
           "audience": "solutions",
           "volume": "ts"
@@ -91,32 +123,6 @@
       "title": "Initial port of TS/Stlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/156"
     },
-    "157": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "10b589b22c926604408cb487fadde245648d2c25",
-      "preview_path": "pr/157/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30214963418",
-      "status": "published",
-      "title": "Slang: the informal grammar becomes a bnf block",
-      "url": "https://github.com/plclub/sf-in-lean/pull/157"
-    },
     "158": {
       "changed_variants": [
         {
@@ -132,34 +138,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "18e20f340730b028e09f974188a3475087dc67b2",
+      "head_sha": "7c54e1defb94aaad7c13661b8085cf8dfe098f01",
       "preview_path": "pr/158/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30215784770",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30220828080",
       "status": "published",
       "title": "Types: bnf grammar, and notation encoding behind :::details",
       "url": "https://github.com/plclub/sf-in-lean/pull/158"
-    },
-    "159": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        }
-      ],
-      "head_sha": "5be4a9e5238a2be3fa8c446850245d5433dbd1ad",
-      "preview_path": "pr/159/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30215413993",
-      "status": "published",
-      "title": "Imp: bnf grammar, and repeated notation encoding behind :::details",
-      "url": "https://github.com/plclub/sf-in-lean/pull/159"
     }
   },
   "schema": 3

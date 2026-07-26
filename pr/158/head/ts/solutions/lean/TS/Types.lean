@@ -86,8 +86,8 @@ inductive Tm where
 --   annotations fixing precedence, and the last one declares the `<{ … }>`
 --   brackets that let a `tm` appear where Lean expects a term.
 
--- - `macro_rules` then translates each production into the corresponding
---   constructor of `Tm`.
+-- - `macro_rules` then translates the resulting syntax forms into the
+--   corresponding constructors of `Tm`.
 
 declare_syntax_cat tm
 -- The keyword atoms (`true`/`false`/`succ`/`pred`/`iszero`) are parsed as bare

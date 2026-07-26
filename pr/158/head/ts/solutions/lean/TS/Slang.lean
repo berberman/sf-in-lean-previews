@@ -52,18 +52,17 @@ inductive Bexp where
 -- For comparison, here's a conventional BNF (Backus-Naur Form) grammar
 -- defining the same abstract syntax:
 
--- a := nat
---       | a + a
---       | a − a
---       | a * a
-
---   b := bool
---       | a = a
---       | a ≠ a
---       | a ≤ a
---       | a > a
---       | ¬ b
---       | b ∧ b
+-- a ::= nat
+--     | a + a
+--     | a − a
+--     | a * a
+-- b ::= bool
+--     | a = a
+--     | a ≠ a
+--     | a ≤ a
+--     | a > a
+--     | ¬ b
+--     | b ∧ b
 
 -- Compared to the Lean version above...
 
