@@ -80,24 +80,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/142"
     },
     "145": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b50852b572ef7e940128f8f3bbaae1c93fd32749",
+      "changed_variants": [],
+      "head_sha": "0771779b0a8657139148a7db1b53eb3d9c13a8c4",
       "preview_path": "pr/145/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30163400140",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Tidy CONTRIBUTING.md and split out STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/145"
     },
@@ -178,8 +165,8 @@
       "changed_variants": [],
       "head_sha": "bd1163497825acaa2b31f56715e536bd1e1d8ba2",
       "preview_path": "pr/154/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30201760500",
+      "status": "published",
       "title": "More verso commands for enhanced rendering",
       "url": "https://github.com/plclub/sf-in-lean/pull/154"
     }
