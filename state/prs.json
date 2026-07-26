@@ -90,6 +90,63 @@
       "status": "published",
       "title": "Initial port of TS/Stlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/156"
+    },
+    "157": {
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "10b589b22c926604408cb487fadde245648d2c25",
+      "preview_path": "pr/157/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30214963418",
+      "status": "published",
+      "title": "Slang: the informal grammar becomes a bnf block",
+      "url": "https://github.com/plclub/sf-in-lean/pull/157"
+    },
+    "158": {
+      "changed_variants": [],
+      "head_sha": "18e20f340730b028e09f974188a3475087dc67b2",
+      "preview_path": "pr/158/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Types: bnf grammar, and notation encoding behind :::details",
+      "url": "https://github.com/plclub/sf-in-lean/pull/158"
+    },
+    "159": {
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        }
+      ],
+      "head_sha": "5be4a9e5238a2be3fa8c446850245d5433dbd1ad",
+      "preview_path": "pr/159/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30215413993",
+      "status": "published",
+      "title": "Imp: bnf grammar, and repeated notation encoding behind :::details",
+      "url": "https://github.com/plclub/sf-in-lean/pull/159"
     }
   },
   "schema": 3
