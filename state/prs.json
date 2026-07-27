@@ -47,52 +47,6 @@
       "title": "Lists: change abbrevs to definitions, rewrite proofs to use lemmas instead of rfl",
       "url": "https://github.com/plclub/sf-in-lean/pull/136"
     },
-    "142": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "098837d4530c20fa97f22538ffcc493b3361dfb7",
-      "preview_path": "pr/142/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30282845543",
-      "status": "published",
-      "title": "DHS pass over the induction chapter",
-      "url": "https://github.com/plclub/sf-in-lean/pull/142"
-    },
     "156": {
       "changed_variants": [
         {
