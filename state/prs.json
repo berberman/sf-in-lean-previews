@@ -138,6 +138,15 @@
       "status": "published",
       "title": "Types: bnf grammar, and notation encoding behind :::details",
       "url": "https://github.com/plclub/sf-in-lean/pull/158"
+    },
+    "163": {
+      "changed_variants": [],
+      "head_sha": "7550a4e4fd39ee05fa5ce18317eb771023ffd5c0",
+      "preview_path": "pr/163/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Fix solution markers leakage",
+      "url": "https://github.com/plclub/sf-in-lean/pull/163"
     }
   },
   "schema": 3
