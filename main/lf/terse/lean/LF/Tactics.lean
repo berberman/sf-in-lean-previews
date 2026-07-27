@@ -12,6 +12,13 @@ import LF.SFLCompat
 --     those chapters are rewritten to not use arithmetic. This
 --     will also require changing the examples.
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     (Old and possibly out of date -- check!) Many exercises
+--     in this chapter are based on defining and proving
+--     properties about Nat.ble and BEq.eq, which are not
+--     idiomatic in Lean. We should consider replacing these
+--     with a different set of exercises.
+
 -- Note to developers (before next release):
 --     This chapter could maybe use one or two more WORKINCLASS
 --     tags...

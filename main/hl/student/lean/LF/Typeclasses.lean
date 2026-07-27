@@ -519,10 +519,10 @@ example : ({ "foo" ↦ true } : TotalMap String Bool)["foo"]! = true := rfl
 
 example : ({ 1 ↦ 2, 1 ↦ 3 } : TotalMap Nat Nat)[1]! = 2 := rfl
 
--- ### Partial Map
+-- ### Partial Maps
 
 -- Note to developers:
---     rest of section here...
+--     rest of section here... (from Maps.lean + text)
 
 -- ## Reflection
 
