@@ -103,7 +103,7 @@ namespace NatPlayground.Nat
 
 -- What if we change the order of the arguments of `||`?
 
---   theorem review₃ b : (b || true) = true
+--   theorem review₃ (b : Bool) : (b || true) = true
 
 -- Which tactics do we need besides `rfl`?
 
@@ -870,7 +870,7 @@ def natToBin (n : Nat) : Bin := (
   | succ n' => incr (natToBin n'))
 
 theorem natToBin_zero : natToBin zero = .z := by rfl
-theorem natToBin_succ m : natToBin (succ m) = incr (natToBin m) := by rfl
+theorem natToBin_succ (m : Nat) : natToBin (succ m) = incr (natToBin m) := by rfl
 
 -- Prove that, if we start with any `Nat`, convert it to `Bin`, and convert it
 -- back, we get the same `Nat` which we started with.
@@ -897,7 +897,7 @@ theorem nat_bin_nat (n : Nat) :
 -- following "theorem" does not hold.
 
 sf_expect_failure
-  example b : natToBin (binToNat b) = b := by
+  example (b : Bin) : natToBin (binToNat b) = b := by
 
 -- Let's explore why this theorem fails and how to prove a modified version of
 -- it. We'll start with some lemmas that might seem unrelated but will turn
@@ -923,8 +923,8 @@ def doubleBin (b : Bin) : Bin := (
 -- Fill in the characterizing lemmas for this definition below:
 
 theorem doubleBin_z : doubleBin .z = .z := by rfl
-theorem doubleBin_b0 m : doubleBin (.b0 m) = .b0 (.b0 m) := by rfl
-theorem doubleBin_b1 m : doubleBin (.b1 m) = .b0 (.b1 m) := by rfl
+theorem doubleBin_b0 (m : Bin) : doubleBin (.b0 m) = .b0 (.b0 m) := by rfl
+theorem doubleBin_b1 (m : Bin) : doubleBin (.b1 m) = .b0 (.b1 m) := by rfl
 
 -- Check that your function correctly doubles zero.
 
@@ -943,7 +943,7 @@ theorem double_incr_bin (b : Bin) :
 -- Let's return to our desired theorem:
 
 sf_expect_failure
-  example b : natToBin (binToNat b) = b := by
+  example (b : Bin) : natToBin (binToNat b) = b := by
 
 -- The theorem fails because there are some `Bin` such that we won't
 -- necessarily get back to the *original* `Bin`, but instead to an
@@ -988,8 +988,8 @@ def normalize (b : Bin) : Bin := (
 -- Also specify the characterizing lemmas for this definition:
 
 theorem normalize_z : normalize .z = .z := by rfl
-theorem normalize_b0 m : normalize (.b0 m) = doubleBin (normalize m) := by rfl
-theorem normalize_b1 m : normalize (.b1 m) = incr (doubleBin (normalize m)) := by rfl
+theorem normalize_b0 (m : Bin) : normalize (.b0 m) = doubleBin (normalize m) := by rfl
+theorem normalize_b1 (m : Bin) : normalize (.b1 m) = incr (doubleBin (normalize m)) := by rfl
 
 -- It would be wise to do some `example` proofs to check that your definition
 -- of `normalize` works the way you intend before you proceed. They won't be

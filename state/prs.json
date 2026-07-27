@@ -51,18 +51,6 @@
       "changed_variants": [
         {
           "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
           "volume": "lf"
         },
         {
@@ -72,19 +60,11 @@
         {
           "audience": "terse",
           "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
         }
       ],
-      "head_sha": "c10402c3180ec5c5dcff18e14a34e3addeb84e05",
+      "head_sha": "1a4e6b02c05ea421d77e41a6e76aeff897f5c50a",
       "preview_path": "pr/142/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30216573810",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30225659062",
       "status": "published",
       "title": "DHS pass over the induction chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/142"

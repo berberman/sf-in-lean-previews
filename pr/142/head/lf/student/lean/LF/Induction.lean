@@ -103,7 +103,7 @@ namespace NatPlayground.Nat
 
 -- What if we change the order of the arguments of `||`?
 
---   theorem review₃ b : (b || true) = true
+--   theorem review₃ (b : Bool) : (b || true) = true
 
 -- Which tactics do we need besides `rfl`?
 
@@ -750,7 +750,7 @@ theorem nat_bin_nat (n : Nat) :
 -- following "theorem" does not hold.
 
 sf_expect_failure
-  example b : natToBin (binToNat b) = b := by
+  example (b : Bin) : natToBin (binToNat b) = b := by
 
 -- Let's explore why this theorem fails and how to prove a modified version of
 -- it. We'll start with some lemmas that might seem unrelated but will turn
@@ -785,7 +785,7 @@ theorem double_incr_bin (b : Bin) :
 -- Let's return to our desired theorem:
 
 sf_expect_failure
-  example b : natToBin (binToNat b) = b := by
+  example (b : Bin) : natToBin (binToNat b) = b := by
 
 -- The theorem fails because there are some `Bin` such that we won't
 -- necessarily get back to the *original* `Bin`, but instead to an
