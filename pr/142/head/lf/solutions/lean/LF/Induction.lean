@@ -61,6 +61,9 @@ import LF.SFLCompat
 --   InfoView. The extension will often prompt you do this if you change things
 --   upstream in the dependency tree.
 
+-- We reopen the namespace from the previous chapter to keep our definitions
+-- and theorems in this chapter localized to this file.
+
 namespace NatPlayground.Nat
 
 -- ## Review

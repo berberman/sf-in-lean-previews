@@ -32,6 +32,10 @@ import LF.SFLCompat
 -- imported here — detailed instructions are in the full
 -- version of this chapter...
 
+-- We reopen the namespace from the previous chapter to keep
+-- our definitions and theorems in this chapter localized to
+-- this file.
+
 namespace NatPlayground.Nat
 
 -- ## Review
