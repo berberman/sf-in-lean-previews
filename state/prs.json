@@ -2,48 +2,11 @@
   "main_sha": "9308d9da332cbfbb315117921ac1e1e46f6d250b",
   "prs": {
     "136": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "7c2a2d3416292f1d475bd37574730276ddb9084f",
+      "changed_variants": [],
+      "head_sha": "521d84589000e51d2efd44a5bffaa5ed56def3ea",
       "preview_path": "pr/136/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30163655592",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Lists: change abbrevs to definitions, rewrite proofs to use lemmas instead of rfl",
       "url": "https://github.com/plclub/sf-in-lean/pull/136"
     },
