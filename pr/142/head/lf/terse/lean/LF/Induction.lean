@@ -33,8 +33,9 @@ import LF.SFLCompat
 -- version of this chapter...
 
 -- We reopen the namespace from the previous chapter to keep
--- our definitions and theorems in this chapter localized to
--- this file.
+-- the definitions and theorems introduced in this chapter
+-- local to this file, so they don't clash with the standard
+-- library.
 
 namespace NatPlayground.Nat
 
@@ -143,7 +144,7 @@ theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
 sf_expect_failure
   example : ∀ n : Nat, zero + n = n := by
     intro n
-    rfl -- `rfl` doesn't work here!
+    rfl    -- doesn't work here!
 
 -- Tactic `rfl` failed: The left-hand side
 --   zero + n
@@ -159,6 +160,12 @@ sf_expect_failure
 -- `n = n' + 1` for some `n'` we get stuck in exactly the same
 -- way.
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     `This is not high priority, but at some point we should make a decision between
+--     /* ... */ comments and -- comments in lean code and try to be consistent.  Here
+--     we're inconsistent in the very same code block!  Are there standard Lean conventions
+--     we should just follow?`
+
 sf_expect_failure
   example : ∀ n : Nat, zero + n = n := by
     intro n
@@ -168,7 +175,7 @@ sf_expect_failure
       rfl
       -- so far so good...
     | succ n' =>   /- n = succ n' -/
-      _ -- ...but we're stuck on zero + n'
+      _     -- ...but we're stuck on zero + n'
 
 -- unsolved goals
 -- case succ
@@ -263,6 +270,11 @@ attribute [irreducible] double
 
 theorem double_add (n : Nat) : double n = n + n := by
   sorry
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Should the following comment really be hidden? We can
+--     postpone it for after the initial release, but it should
+--     be discussed at some point after that...
 
 -- ## Proofs Within Proofs
 
@@ -580,8 +592,8 @@ def normalize (b : Bin) : Bin := sorry
 
 -- It would be wise to do some `example` proofs to check that
 -- your definition of `normalize` works the way you intend
--- before you proceed. They won't be graded, but fill them in
--- below.
+-- before you proceed. They won't be graded, but do fill in a
+-- few below.
 
 -- Note to developers (Claude, before next release):
 --     Same `-- SOLUTION` mishandling as elsewhere in this

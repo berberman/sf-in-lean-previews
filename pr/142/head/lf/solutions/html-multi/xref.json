@@ -4214,7 +4214,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero",
+   [{"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4229,7 +4229,7 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero-next",
+    {"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -11356,7 +11356,7 @@
        ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -11367,7 +11367,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",

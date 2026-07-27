@@ -61,8 +61,9 @@ import LF.SFLCompat
 --   InfoView. The extension will often prompt you do this if you change things
 --   upstream in the dependency tree.
 
--- We reopen the namespace from the previous chapter to keep our definitions
--- and theorems in this chapter localized to this file.
+-- We reopen the namespace from the previous chapter to keep the definitions
+-- and theorems introduced in this chapter local to this file, so they don't
+-- clash with the standard library.
 
 namespace NatPlayground.Nat
 
@@ -192,7 +193,7 @@ theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
 sf_expect_failure
   example : ∀ n : Nat, zero + n = n := by
     intro n
-    rfl -- `rfl` doesn't work here!
+    rfl    -- doesn't work here!
 
 -- Tactic `rfl` failed: The left-hand side
 --   zero + n
@@ -207,6 +208,12 @@ sf_expect_failure
 -- fine, but in the branch where `n = n' + 1` for some `n'` we get stuck in
 -- exactly the same way.
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     `This is not high priority, but at some point we should make a decision between
+--     /* ... */ comments and -- comments in lean code and try to be consistent.  Here
+--     we're inconsistent in the very same code block!  Are there standard Lean conventions
+--     we should just follow?`
+
 sf_expect_failure
   example : ∀ n : Nat, zero + n = n := by
     intro n
@@ -216,7 +223,7 @@ sf_expect_failure
       rfl
       -- so far so good...
     | succ n' =>   /- n = succ n' -/
-      _ -- ...but we're stuck on zero + n'
+      _     -- ...but we're stuck on zero + n'
 
 -- unsolved goals
 -- case succ
@@ -427,6 +434,11 @@ theorem even_succ (n : Nat) :
     | succ n' ih =>
       rw [even, ih, not_involutive]
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Should the following comment really be hidden? We can postpone it for
+--     after the initial release, but it should be discussed at some point
+--     after that...
+
 -- ## Proofs Within Proofs
 
 -- In Lean, as in informal mathematics, large proofs are often broken into a
@@ -485,7 +497,7 @@ theorem add_rearrange (n m p q : Nat) :
 
 -- The question has challenged philosophers for millennia, but a rough and
 -- ready answer could be this: A proof of a mathematical proposition `P` is a
--- written (or spoken) text that instills in the reader or hearer the
+-- written (or spoken) text that instills in the reader (or hearer) the
 -- certainty that `P` is true — an unassailable argument for the truth of `P`.
 -- That is, a proof is an act of communication.
 
@@ -759,7 +771,7 @@ theorem mul_assoc (n m p : Nat) :
 
 -- ### A New Tactic Combinator
 
--- Before moving on to the next batch of exercises, let's introduce one small
+-- Before moving on to the next batch of exercises, let's introduce a simple
 -- *tactic combinator*. A tactic combinator combines tactics to form a larger
 -- tactic.
 
@@ -996,7 +1008,7 @@ theorem normalize_b1 (m : Bin) : normalize (.b1 m) = incr (doubleBin (normalize 
 
 -- It would be wise to do some `example` proofs to check that your definition
 -- of `normalize` works the way you intend before you proceed. They won't be
--- graded, but fill them in below.
+-- graded, but do fill in a few below.
 
 -- Note to developers (Claude, before next release):
 --     Same `-- SOLUTION` mishandling as elsewhere in this chapter, milder
