@@ -51,6 +51,18 @@
       "changed_variants": [
         {
           "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
           "volume": "lf"
         },
         {
@@ -60,6 +72,18 @@
         {
           "audience": "terse",
           "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
         }
       ],
       "head_sha": "1a4e6b02c05ea421d77e41a6e76aeff897f5c50a",
@@ -85,6 +109,18 @@
         },
         {
           "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
           "volume": "ts"
         },
         {
@@ -105,6 +141,30 @@
     },
     "158": {
       "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
         {
           "audience": "solutions",
           "volume": "ts"
