@@ -441,6 +441,17 @@ notation a " →ₜ " b " ; " m => TotalMap.update m a b
 
 def examplemap' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true ; ∅
 
+-- This completes the definition of total maps. Note that we don't need to
+-- define a `find` operation on this representation of maps because it is just
+-- function application!
+
+example : example_map = examplemap' := rfl
+
+example : examplemap'["baz"] = false := rfl
+example : examplemap'["foo"] = true := rfl
+example : examplemap'["quux"] = false := rfl
+example : examplemap'["bar"] = true := rfl
+
 -- When we use maps in later chapters, we'll need several fundamental facts
 -- about how they behave.
 
@@ -629,6 +640,19 @@ abbrev PartialMap (α : Type u) (β : Type v) := TotalMap α (Option β)
 --     duplicating all the typeclass instances (`GetElem`, `EmptyCollection`,
 --     ...) for partial maps. If this is confusing for any reason, feel free
 --     to change.
+
+-- Note to developers (Claude, NOW):
+--     The Maps chapter removed the `optionCoe` instance for the duration of
+--     its partial-map development (`attribute [-instance] optionCoe`,
+--     restored at `end PartialMap`), on the grounds that a coercion from `β`
+--     to `Option β` might be confusing at this point. It also recorded two
+--     things about doing so: the removal must not leak to end-of-file, or
+--     Verso's `tag`/`file` metadata coercion (`Tag → Option Tag`) fails at
+--     end-of-document; and `[-instance]` cannot be scoped `local`, hence the
+--     manual add/restore pair.
+--
+--     We have not carried that over -- nothing here needs it and it is not
+--     clear it is wanted. Decide whether to reinstate it.
 
 -- Updating a partial map at a key means storing `some` value there, and we
 -- introduce a similar notation for it:

@@ -150,9 +150,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "51058d52a418fd699ad60ce96a183aa8eba48318",
+      "head_sha": "f86c81acb72bf96b1b8950d659df43c633371775",
       "preview_path": "pr/164/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30313003902",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30318879391",
       "status": "published",
       "title": "Typeclasses: fold in the rest of the Maps material",
       "url": "https://github.com/plclub/sf-in-lean/pull/164"
