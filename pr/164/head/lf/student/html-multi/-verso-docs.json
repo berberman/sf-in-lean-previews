@@ -1270,84 +1270,85 @@
  "171": "<code>NatPlayground.Nat.Bin.z : Bin</code>",
  "170": "<code>NatPlayground.Nat.Bin : Type</code>",
  "17": "<code>MyBool : Type</code>",
- "1695": "<code>List.filter (fun x =&gt; a == x) xs ≠ []</code>",
- "1694":
+ "1696": "<code>List.filter (fun x =&gt; a == x) xs ≠ []</code>",
+ "1695":
  "<code>decide_eq_true_iff {p : Prop} [Decidable p] : decide p = true ↔ p</code>",
- "1693": "<code>Decidable p</code>",
- "1692":
+ "1694": "<code>Decidable p</code>",
+ "1693":
  "<code>decide_eq_false_iff_not {p : Prop} {x✝ : Decidable p} : decide p = false ↔ ¬p</code>",
- "1691":
+ "1692":
  "<code>Decidable.isFalse {p : Prop} (h : ¬p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `¬p` </code>",
- "1690":
+ "1691":
  "<code>Decidable.isTrue {p : Prop} (h : p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `p` </code>",
+ "1690": "<code>¬b = true</code>",
  "169": "<code>NatPlayground.Nat.even' (n : Nat) : Bool</code>",
- "1689": "<code>¬b = true</code>",
- "1688": "<code>b = true</code>",
- "1687": "<code>b = true ↔ P</code>",
- "1686":
+ "1689": "<code>b = true</code>",
+ "1688": "<code>b = true ↔ P</code>",
+ "1687":
  "<code>decidable_of_bool {a : Prop} (b : Bool) : (b = true ↔ a) → Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">Prove that `a` is decidable by constructing a boolean `b` and a proof that `b ↔ a`.\n(This is sometimes taken as an alternate definition of decidability.) </code>",
- "1685":
+ "1686":
  "<code>Classical.propDecidable (a : Prop) : Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">All propositions are `Decidable`. </code>",
- "1684": "<code>instDecidableEqNat : DecidableEq.{1} Nat</code>",
- "1683": "<code>instDecidableEqNat : DecidableEq Nat</code>",
- "1682": "<code>TotalMap.Nat.nat_eq (m n : Nat) : Bool</code>",
- "1681":
+ "1685": "<code>instDecidableEqNat : DecidableEq.{1} Nat</code>",
+ "1684": "<code>instDecidableEqNat : DecidableEq Nat</code>",
+ "1683": "<code>TotalMap.Nat.nat_eq (m n : Nat) : Bool</code>",
+ "1682":
  "<code class=\"docstring\">`decide` attempts to prove the main goal (with target type `p`) by synthesizing an instance of `Decidable p`\nand then reducing that instance to evaluate the truth value of `p`.\nIf it reduces to `isTrue h`, then `h` is a proof of `p` that closes the goal.\n\nThe target is not allowed to contain local variables or metavariables.\nIf there are local variables, you can first try using the `revert` tactic with these local variables to move them into the target,\nor you can use the `+revert` option, described below.\n\nOptions:\n- `decide +revert` begins by reverting local variables that the target depends on,\n  after cleaning up the local context of irrelevant variables.\n  A variable is *relevant* if it appears in the target, if it appears in a relevant variable,\n  or if it is a proposition that refers to a relevant variable.\n- `decide +kernel` uses kernel for reduction instead of the elaborator.\n  It has two key properties: (1) since it uses the kernel, it ignores transparency and can unfold everything,\n  and (2) it reduces the `Decidable` instance only once instead of twice.\n- `decide +native` uses the native code compiler (`#eval`) to evaluate the `Decidable` instance,\n  admitting the result via an axiom. This can be significantly more efficient than using reduction, but it is at the cost of increasing the size\n  This can be significantly more efficient than using reduction, but it is at the cost of increasing the size\n  of the trusted code base.\n  Namely, it depends on the correctness of the Lean compiler and all definitions with an `@[implemented_by]` attribute.\n  Like with `+kernel`, the `Decidable` instance is evaluated only once.\n\nLimitation: In the default mode or `+kernel` mode, since `decide` uses reduction to evaluate the term,\n`Decidable` instances defined by well-founded recursion might not work because evaluating them requires reducing proofs.\nReduction can also get stuck on `Decidable` instances with `Eq.rec` terms.\nThese can appear in instances defined using tactics (such as `rw` and `simp`).\nTo avoid this, create such instances using definitions such as `decidable_of_iff` instead.\n\n## Examples\n\nProving inequalities:\n```lean\nexample : 2 + 2 ≠ 5 := by decide\n```\n\nTrying to prove a false proposition:\n```lean\nexample : 1 ≠ 1 := by decide\n/-\ntactic 'decide' proved that the proposition\n  1 ≠ 1\nis false\n-/\n```\n\nTrying to prove a proposition whose `Decidable` instance fails to reduce\n```lean\nopaque unknownProp : Prop\n\nopen scoped Classical in\nexample : unknownProp := by decide\n/-\ntactic 'decide' failed for proposition\n  unknownProp\nsince its 'Decidable' instance reduced to\n  Classical.choice ⋯\nrather than to the 'isTrue' constructor.\n-/\n```\n\n## Properties and relations\n\nFor equality goals for types with decidable equality, usually `rfl` can be used in place of `decide`.\n```lean\nexample : 1 + 1 = 2 := by decide\nexample : 1 + 1 = 2 := by rfl\n```\n</code>",
- "1680":
+ "1681":
  "<code>decidable_of_decidable_of_iff {p q : Prop} [Decidable p] (h : p ↔ q) : Decidable q</code><span class=\"sep\"></span><code class=\"docstring\">Transfer a decidability proof across an equivalence of propositions. </code>",
+ "1680":
+ "<code>TotalMap.Nat.isEven_iff_Even {n : Nat} : TotalMap.Nat.isEven n = true ↔ TotalMap.Nat.Even n</code>",
  "168":
  "<code>NatPlayground.Nat.zero_neb_add_one (n : Nat) : (zero == succ n) = false</code>",
- "1679":
- "<code>TotalMap.Nat.isEven_iff_Even {n : Nat} : TotalMap.Nat.isEven n = true ↔ TotalMap.Nat.Even n</code>",
- "1678": "<code>p</code>",
- "1677":
+ "1679": "<code>p</code>",
+ "1678":
  "<code>TotalMap.Nat.Decidable.isTrue {p : Prop} (h : p) : Decidable p</code>",
- "1676": "<code>¬p</code>",
- "1675":
+ "1677": "<code>¬p</code>",
+ "1676":
  "<code>TotalMap.Nat.Decidable.isFalse {p : Prop} (h : ¬p) : Decidable p</code>",
- "1674": "<code>TotalMap.Nat.Decidable (p : Prop) : Type</code>",
- "1673":
+ "1675": "<code>TotalMap.Nat.Decidable (p : Prop) : Type</code>",
+ "1674":
  "<code>Decidable (p : Prop) : Type</code><span class=\"sep\"></span><code class=\"docstring\">Either a proof that `p` is true or a proof that `p` is false. This is equivalent to a `Bool` paired\nwith a proof that the `Bool` is `true` if and only if `p` is true.\n\n`Decidable` instances are primarily used via `if`-expressions and the tactic `decide`. In\nconditional expressions, the `Decidable` instance for the proposition is used to select a branch. At\nrun time, this case distinction code is identical to that which would be generated for a\n`Bool`-based conditional. In proofs, the tactic `decide` synthesizes an instance of `Decidable p`,\nattempts to reduce it to `isTrue h`, and then succeeds with the proof `h` if it can.\n\nBecause `Decidable` carries data, when writing `@[simp]` lemmas which include a `Decidable` instance\non the LHS, it is best to use `{_ : Decidable p}` rather than `[Decidable p]` so that non-canonical\ninstances can be found via unification rather than instance synthesis.\n</code>",
- "1672": "<code>TotalMap.Nat.eq {α : Type} (a₁ a₂ : α) : Bool</code>",
- "1671":
+ "1673": "<code>TotalMap.Nat.eq {α : Type} (a₁ a₂ : α) : Bool</code>",
+ "1672":
  "<code>beq_iff_eq.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {a b : α} : (a == b) = true ↔ a = b</code>",
- "1670": "<code>Even n</code>",
+ "1671": "<code>Even n</code>",
+ "1670":
+ "<code>Even n → isEven n = true</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if, reversed. If `a ↔ b` and `b`, then `a`. </code>",
  "167":
  "<code>Bool.or (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “or”, also known as disjunction. `or x y` can be written `x || y`.\n\nThe corresponding propositional connective is `Or : Prop → Prop → Prop`, written with the `∨`\noperator.\n\nThe Boolean `or` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `true` then `y` is not evaluated at runtime.\n</code>",
- "1669":
- "<code>Even n → isEven n = true</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if, reversed. If `a ↔ b` and `b`, then `a`. </code>",
- "1668": "<code>isEven (double k) = true</code>",
- "1667": "<code>n = bif true then double k else double k + 1</code>",
- "1666": "<code>n = bif isEven n then double k else double k + 1</code>",
- "1665": "<code>isEven n = true</code>",
- "1664":
+ "1669": "<code>isEven (double k) = true</code>",
+ "1668": "<code>n = bif true then double k else double k + 1</code>",
+ "1667": "<code>n = bif isEven n then double k else double k + 1</code>",
+ "1666": "<code>isEven n = true</code>",
+ "1665":
  "<code>isEven n = true → Even n</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if. If `a ↔ b` and `a`, then `b`. </code>",
- "1663":
+ "1664":
  "<code>TotalMap.Nat.isEven_iff_Even {n : Nat} : isEven n = true ↔ Even n</code>",
- "1662":
+ "1663":
  "<code>TotalMap.Nat.isEven_double_exists (n : Nat) : ∃ k, n = bif isEven n then double k else double k + 1</code>",
- "1661": "<code>isEven (double n) = true</code>",
- "1660":
+ "1662": "<code>isEven (double n) = true</code>",
+ "1661":
  "<code>TotalMap.Nat.even_double (k : Nat) : isEven (double k) = true</code>",
+ "1660": "<code>Bool.not_not (b : Bool) : (!!b) = b</code>",
  "166":
  "<code>NatPlayground.Nat.or_false_true (b : Bool) : (b || false) = true → b = true</code>",
- "1659": "<code>Bool.not_not (b : Bool) : (!!b) = b</code>",
- "1658": "<code>isEven (n + 1) = !isEven n</code>",
- "1657":
+ "1659": "<code>isEven (n + 1) = !isEven n</code>",
+ "1658":
  "<code>TotalMap.Nat.isEven_succ (n : Nat) : isEven (n + 1) = !isEven n</code>",
- "1656": "<code>TotalMap.Nat.Even (n : Nat) : Prop</code>",
- "1655":
+ "1657": "<code>TotalMap.Nat.Even (n : Nat) : Prop</code>",
+ "1656":
  "<code>TotalMap.Nat.double_succ (n : Nat) : double (n + 1) = double n + 2</code>",
- "1654": "<code>TotalMap.Nat.double_zero : double 0 = 0</code>",
- "1653":
+ "1655": "<code>TotalMap.Nat.double_zero : double 0 = 0</code>",
+ "1654":
  "<code>TotalMap.Nat.isEven_succ_succ (n : Nat) : isEven (n + 2) = isEven n</code>",
- "1652": "<code>TotalMap.Nat.isEven_one : isEven 1 = false</code>",
- "1651": "<code>TotalMap.Nat.isEven_zero : isEven 0 = true</code>",
- "1650": "<code>TotalMap.Nat.double : Nat → Nat</code>",
+ "1653": "<code>TotalMap.Nat.isEven_one : isEven 1 = false</code>",
+ "1652": "<code>TotalMap.Nat.isEven_zero : isEven 0 = true</code>",
+ "1651": "<code>TotalMap.Nat.double : Nat → Nat</code>",
+ "1650": "<code>TotalMap.Nat.isEven : Nat → Bool</code>",
  "165":
  "<code>NatPlayground.Nat.and3_exchange (b c d : Bool) : (b && c && d) = (b && d && c)</code>",
- "1649": "<code>TotalMap.Nat.isEven : Nat → Bool</code>",
- "1648": "<code>m₁[a'] = some b'</code>",
+ "1649": "<code>m₁[a'] = some b'</code>",
+ "1648": "<code>some b = some b'</code>",
  "1647": "<code>(a →ₚ b ; m₁)[a] = some b'</code>",
  "1646": "<code>¬a = a'</code>",
  "1645": "<code>a = a'</code>",
@@ -1360,7 +1361,7 @@
  "1640": "<code>Iff.rfl {a : Prop} : a ↔ a</code>",
  "164": "<code>Bool.and_true (b : Bool) : (b && true) = b</code>",
  "1639":
- "<code>PartialMap.subset_def.{u, v} {α : Type u} {β : Type v} (m₁ m₂ : PartialMap α β) :\n  m₁ ⊆ m₂ ↔ ∀ (a : α) (b : β), m₁[a] = some b → m₂[a] = some b</code>",
+ "<code>PartialMap.subset_def.{u, v} {α : Type u} {β : Type v} [BEq α] [ReflBEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) :\n  m₁ ⊆ m₂ ↔ ∀ (a : α) (b : β), m₁[a] = some b → m₂[a] = some b</code>",
  "1638":
  "<code>PartialMap α β → PartialMap α β → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
  "1637":

@@ -27,7 +27,7 @@ variable (α : Type)
 -- ## First Example: Inhabited Types
 
 -- Suppose we wanted to specify that a type has at least one
--- inhabitant -- i.e., that it is not empty. We have previously
+-- inhabitant — i.e., that it is not empty. We have previously
 -- seen `structure`, which would allow us to express this as
 
 structure HasOneStruct (α : Type) where
@@ -379,6 +379,8 @@ theorem List.elem_poly_eq_elem_nat (xs : List Nat) (n : Nat) : xs.elem_poly n = 
 universe u v
 variable {α : Type u} {β : Type v} [BEq α] [ReflBEq α] [LawfulBEq α]
 
+set_option linter.unusedSectionVars false
+
 -- where `α` is the type of our map keys and `β` the
 -- corresponding values. Looking at `ReflBEq` and `LawfulBEq`,
 -- we see that these typeclasses:
@@ -561,8 +563,8 @@ theorem update_shadow (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
 
 -- Given keys `a₁` and `a₂`, the tactic `by_cases`
 -- `h : a₁ = a₂` splits the proof into the case where they are
--- equal -- where `subst h` then replaces one by the other --
--- and the case where they are not, which is what `update_neq`
+-- equal — where `subst h` then replaces one by the other — and
+-- the case where they are not, which is what `update_neq`
 -- wants. Use it to prove the following theorem, which states
 -- that if we update a map to assign key `a` the same value as
 -- it already has in `m`, then the result is equal to `m`:
@@ -574,7 +576,7 @@ theorem update_shadow (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
 --     `destruct (eqb_spec x1 x2)`, which "simultaneously
 --     performs case analysis on the result of
 --     `String.eqb x1 x2` and generates hypotheses about the
---     equality (in the sense of `=`) of `x1` and `x2`" -- the
+--     equality (in the sense of `=`) of `x1` and `x2`" — the
 --     boolean/propositional reflection idiom. The paragraph
 --     above replaces that with `by_cases`/`subst`, which is
 --     what the Lean proof uses. But reflection is what the
@@ -690,7 +692,7 @@ abbrev PartialMap (α : Type u) (β : Type v) := TotalMap α (Option β)
 --     end-of-document; and `[-instance]` cannot be scoped
 --     `local`, hence the manual add/restore pair.
 --
---     We have not carried that over -- nothing here needs it
+--     We have not carried that over — nothing here needs it
 --     and it is not clear it is wanted. Decide whether to
 --     reinstate it.
 
@@ -753,7 +755,7 @@ theorem update_permute (m : PartialMap α β) (a₁ a₂ : α) (b₁ b₂ : β) 
 -- One last thing: for partial maps, it's convenient to
 -- introduce a notion of map inclusion, stating that all the
 -- entries in one map are also present in another. Lean already
--- has notation for this -- `m₁ ⊆ m₂` -- which we get by
+-- has notation for this — `m₁ ⊆ m₂` — which we get by
 -- supplying a `HasSubset` instance.
 
 def Subset (m₁ m₂ : PartialMap α β) : Prop :=
@@ -762,7 +764,7 @@ def Subset (m₁ m₂ : PartialMap α β) : Prop :=
 instance : HasSubset (PartialMap α β) where
   Subset := PartialMap.Subset
 
-def subset_def (m₁ m₂ : PartialMap α β) :
+theorem subset_def (m₁ m₂ : PartialMap α β) :
     m₁ ⊆ m₂ ↔ (∀ (a : α) (b : β), m₁[a] = some b → m₂[a] = some b) := .rfl
 
 -- We can then show that map update preserves map inclusion,
@@ -771,20 +773,18 @@ def subset_def (m₁ m₂ : PartialMap α β) :
 theorem update_subset (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :
     (a →ₚ b ; m₁) ⊆ (a →ₚ b ; m₂) := by
   rw [subset_def]
-  intro a' b' eq
-  rw [← eq]
-  by_cases eq : a = a'
-  · subst eq
-    simp [update_eq]
-  · simp only [update_neq _ _ _ eq] at *
-    rw [h a' b' eq]
-    symm
-    assumption
+  intro a' b' hb
+  by_cases ha : a = a'
+  · subst ha
+    rw [update_eq] at hb ⊢
+    exact hb
+  · rw [update_neq _ _ _ ha] at hb ⊢
+    exact h a' b' hb
 
 end PartialMap
 
 -- This property is quite useful for reasoning about languages
--- with variable binding -- e.g., the Simply Typed Lambda
+-- with variable binding — e.g., the Simply Typed Lambda
 -- Calculus, which we will see in *Type Systems*, where maps
 -- are used to keep track of which program variables are
 -- defined in a given scope.
@@ -805,7 +805,7 @@ namespace TotalMap
 --     I think this will still exist in previous chapters, just
 --     not have the reflection explanations until here? Since I
 --     can't import these yet, just placing here at the top of
---     this section -- CGH Burtonpatel: These definitions of
+--     this section — CGH Burtonpatel: These definitions of
 --     even as boolean computation and Prop should go below,
 --     after the table where we explain the difference.
 
@@ -869,7 +869,7 @@ theorem isEven_succ (n : Nat) : isEven (n + 1) = ! isEven n := by
 -- The crucial difference between the two worlds is
 -- decidability. Every (closed) Lean expression of type `Bool`
 -- can be simplified in a finite number of steps to either
--- `true` or `false` -- i.e., there is a terminating mechanical
+-- `true` or `false` — i.e., there is a terminating mechanical
 -- procedure for deciding whether or not it is true.
 
 -- This means that, for example, the type `Nat → Bool` is
@@ -956,7 +956,7 @@ theorem isEven_iff_Even {n : Nat} : isEven n = true ↔ Even n where
 
 -- Note to developers:
 --     This proof is from the typeclass version, which makes
---     more sense if maps are included --CGH
+--     more sense if maps are included — CGH
 
 example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := beq_iff_eq
 
@@ -1109,7 +1109,7 @@ sf_experiment
 --     other is a bit different. I list some theorems below but
 --     you should Loogle and see if that's what you want. Some
 --     the the proofs can be a bit advanced if you follow core,
---     or otherwise a bit circular. -- CGH
+--     or otherwise a bit circular. — CGH
 
 #check decidable_of_bool
 
@@ -1126,7 +1126,7 @@ example {P : Prop} (b : Bool) (h : b = true ↔ P) : Decidable P := by
 -- Note to developers:
 --     I'm not sure what part of the signature here is
 --     important to translate. Is the point the `Bool`/`Prop`
---     mismatch? -- CGH
+--     mismatch? — CGH
 
 example (a : α) [BEq α] [LawfulBEq α] (xs : List α) (neq : xs.filter (a == ·) ≠ []) : a ∈ xs := by
   sorry
