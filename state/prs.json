@@ -3,9 +3,9 @@
   "prs": {
     "136": {
       "changed_variants": [],
-      "head_sha": "268e582d571ea7b5a040368592aa85d016e62b98",
+      "head_sha": "d56c7bdebc2bd25949735e61fba92ec9fc58adc8",
       "preview_path": "pr/136/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30370383508",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30401388748",
       "status": "ci-failed",
       "title": "Lists: change abbrevs to definitions, rewrite proofs to use lemmas instead of rfl",
       "url": "https://github.com/plclub/sf-in-lean/pull/136"
