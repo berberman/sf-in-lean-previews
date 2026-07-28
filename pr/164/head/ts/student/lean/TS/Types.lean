@@ -21,7 +21,7 @@ import TS.SFLCompat
 --     https://www.seas.upenn.edu/~cis500/cis500-f06/lectures/1002.pdf
 --     https://www.seas.upenn.edu/~cis500/cis500-f06/lectures/1004.pdf
 
--- Our next major topic is *type systems* -- static program analyses that
+-- Our next major topic is *type systems* — static program analyses that
 -- classify expressions according to the "shapes" of their results. We'll
 -- begin with a typed version of the simplest imaginable language, to
 -- introduce the basic ideas of types and typing rules and the fundamental
@@ -35,8 +35,8 @@ import TS.SFLCompat
 -- To motivate the discussion of type systems, let's begin as usual with a
 -- tiny toy language. We want it to have the potential for programs to go
 -- wrong because of runtime type errors, so we endow it with two kinds of data
--- -- numbers and booleans -- where not every operation is defined on both
--- types of data. For example, program terms like `5 + true` and
+-- — numbers and booleans — where not every operation is defined on both types
+-- of data. For example, program terms like `5 + true` and
 -- `if 42 then 0 else 1` use undefined operator/data-type combinations.
 
 -- The language definition is completely routine.
@@ -45,7 +45,13 @@ import TS.SFLCompat
 
 -- Here is the syntax of program terms, informally:
 
--- t ::= true | false | if t then t else t | 0 | succ t | pred t | iszero t
+-- t ::= true
+--     | false
+--     | if t then t else t
+--     | 0
+--     | succ t
+--     | pred t
+--     | iszero t
 
 -- And here it is formally:
 
@@ -64,10 +70,24 @@ inductive Tm where
 
 -- Writing terms as raw constructors (`.ite .fls .zero (.succ .zero)`) gets
 -- unreadable quickly. We introduce a *concrete syntax* so that a term can be
--- written inside `<{ … }>` -- for example `<{ if false then 0 else succ 0 }>`
--- -- mirroring the informal grammar above. A bare identifier is spliced as a
+-- written inside `<{ … }>` — for example `<{ if false then 0 else succ 0 }>`
+-- — mirroring the informal grammar above. A bare identifier is spliced as a
 -- Lean term (so a variable `t` is written just `t`); `~e` escapes an
 -- arbitrary Lean expression, and `( … )` groups.
+
+-- You do not need to understand exactly how the declarations below work;
+-- every object language in this book is given its syntax the same way, so it
+-- is worth seeing the pattern once:
+
+-- - `declare_syntax_cat` adds a new non-terminal to Lean's grammar — here `tm`,
+--   the terms of this chapter's language.
+
+-- - Each `syntax` directive declares one production of that non-terminal, with
+--   annotations fixing precedence, and the last one declares the `<{ … }>`
+--   brackets that let a `tm` appear where Lean expects a term.
+
+-- - `macro_rules` then translates the resulting syntax forms into the
+--   corresponding constructors of `Tm`.
 
 declare_syntax_cat tm
 -- The keyword atoms (`true`/`false`/`succ`/`pred`/`iszero`) are parsed as bare
@@ -108,6 +128,8 @@ macro_rules
 -- `pp.notation false` turns it off, revealing the raw constructors.) A `Ty`
 -- prints as `Bool` or `Nat`.
 
+-- _Details:_ Notation encoding: printing terms back
+
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
 /-- Re-inserts parentheses in `tm` output according to the grammar's precedences. -/
 @[category_parenthesizer tm]
@@ -143,8 +165,10 @@ partial def delabTmInner : DelabM (TSyntax `tm) := do
   (⟨·⟩) <$> annotateTermInfo ⟨stx.raw⟩
 
 open Lean PrettyPrinter Delaborator SubExpr in
-@[delab app.Tm.tru, delab app.Tm.fls, delab app.Tm.zero, delab app.Tm.succ,
-  delab app.Tm.pred, delab app.Tm.isZero, delab app.Tm.ite]
+-- The keys are the constants' full names: `Tm` lives in namespace `TM`, and the
+-- `delab` attribute does not resolve its argument against the current namespace.
+@[delab app.TM.Tm.tru, delab app.TM.Tm.fls, delab app.TM.Tm.zero, delab app.TM.Tm.succ,
+  delab app.TM.Tm.pred, delab app.TM.Tm.isZero, delab app.TM.Tm.ite]
 partial def delabTm : Delab := whenPPOption getPPNotation do
   guard <| match_expr ← getExpr with
     | Tm.tru => true | Tm.fls => true | Tm.zero => true
@@ -239,7 +263,7 @@ scoped notation:40 t:41 " ⟶ " t':41 => Tm.Step t t'
 -- determinism (this will be proved in an optional exercise below).
 
 -- Notice that the `Tm.Step` relation doesn't care about whether the
--- expression being stepped makes global sense -- it just checks that the
+-- expression being stepped makes global sense — it just checks that the
 -- operation in the *next* reduction step is being applied to the right kinds
 -- of operands. For example, the term `succ true` cannot take a step, but the
 -- almost as obviously nonsensical term
@@ -341,7 +365,7 @@ theorem step_deterministic : Deterministic Tm.Step := by
 -- (A) Yes (B) No
 
 -- (Hint: Notice that the `Tm.Step` relation doesn't care about whether the
--- expression being stepped makes global sense -- it just checks that the
+-- expression being stepped makes global sense — it just checks that the
 -- operation in the *next* reduction step is being applied to the right kinds
 -- of operands.)
 
@@ -356,7 +380,7 @@ theorem step_deterministic : Deterministic Tm.Step := by
 
 -- Suppose we define an alternate single-step relation, written `t ⇢ t'`, that
 -- *drops* the `Tm.IsNValue` premise from the `predSucc` and `isZeroSucc`
--- rules -- so `pred (succ t)` and `iszero (succ t)` may step even when `t` is
+-- rules — so `pred (succ t)` and `iszero (succ t)` may step even when `t` is
 -- not a numeric value. (It is built with exactly the same notation setup as
 -- `Tm.Step`; note `predSucc`/`isZeroSucc` no longer take a premise.)
 
@@ -389,8 +413,8 @@ scoped notation:40 t:41 " ⇢ " t':41 => Tm.AltStep t t'
 --   `pred (succ true)` is stuck for `Tm.Step` but steps under `⇢` (to `true`,
 --   by `predSucc`, now that the `Tm.IsNValue` premise is gone).
 
--- - Is every `⇢` normal form also a `Tm.Step` normal form? Yes -- `Tm.Step` is
---   a subrelation of `⇢`, so anything stuck for `⇢` is stuck for `Tm.Step`.
+-- - Is every `⇢` normal form also a `Tm.Step` normal form? Yes — `Tm.Step` is a
+--   subrelation of `⇢`, so anything stuck for `⇢` is stuck for `Tm.Step`.
 
 -- - Is every value reachable by `Tm.Step` (in many steps) also reachable by `⇢`
 --   (in many steps)? Yes, for the same subrelation reason.
@@ -493,7 +517,7 @@ example : alt_simplify_step <{ 0 }> = none := rfl
 -- being defined; after the `section` we re-declare the same rules
 -- hygienically for real use. Unlike `⟶`, the judgment builds on the custom
 -- `tm` syntactic category, so it must use `syntax`/`macro_rules` rather than
--- `notation` -- which is why it still needs the `app_unexpander` to print the
+-- `notation` — which is why it still needs the `app_unexpander` to print the
 -- judgment back.
 
 inductive Ty where
@@ -537,7 +561,7 @@ macro_rules
 
 -- Print `Tm.HasType`/`Ty` values back as `<{ ⊢ … ⦂ … }>` notation: `delabTy`
 open Lean PrettyPrinter Delaborator SubExpr in
-@[delab app.Ty.bool, delab app.Ty.nat]
+@[delab app.TM.Ty.bool, delab app.TM.Ty.nat]
 def delabTy : Delab := whenPPOption getPPNotation do
   match_expr ← getExpr with
   | Ty.bool => `($(mkIdent `Bool):ident)
@@ -556,8 +580,7 @@ example : <{ ⊢ if false then 0 else succ 0 ⦂ Nat }> :=
 
 -- It's important to realize that the typing relation is a *conservative* (or
 -- *static*) approximation: it does not consider what happens when the term is
--- reduced -- in particular, it does not calculate the type of its normal
--- form.
+-- reduced — in particular, it does not calculate the type of its normal form.
 
 example : ¬ <{ ⊢ if false then 0 else true ⦂ Bool }> := by
   intro hc; cases hc with | ite _ _ _ _ h1 h2 h3 => cases h2
@@ -593,15 +616,15 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : 
 
 -- The typing relation enjoys two critical properties.
 
--- The first is that well-typed normal forms are not stuck -- or conversely,
--- if a term is well typed, then either it is a value or it can take at least
--- one step. We call this *progress*.
+-- The first is that well-typed normal forms are not stuck — or conversely, if
+-- a term is well typed, then either it is a value or it can take at least one
+-- step. We call this *progress*.
 
 -- ### Exercise (3 stars): finish_progress ⭐⭐⭐
 
 -- Complete the formal proof of the `progress` property. (Make sure you
 -- understand the parts we've given of the informal proof in the following
--- exercise before starting -- this will save you a lot of time.)
+-- exercise before starting — this will save you a lot of time.)
 
 theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
   sorry
@@ -611,7 +634,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 -- What is the relation between the *progress* property defined here and the
 -- *strong progress* from the Smallstep chapter?
 
--- (A) No difference -- they mean the same thing
+-- (A) No difference — they mean the same thing
 
 -- (B) Progress implies strong progress
 
@@ -640,7 +663,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 --   `t1'`.
 
 --   - If `t1` is a value, then by the canonical forms lemmas and the fact that
---     `⊢ t1 ⦂ Bool` we have that `t1` is a boolean value (`Tm.IsBValue`) -- i.e.,
+--     `⊢ t1 ⦂ Bool` we have that `t1` is a boolean value (`Tm.IsBValue`) — i.e.,
 --     it is either `true` or `false`. If `t1 = true`, then `t` steps to `t2` by
 --     `ifTrue`, while if `t1 = false`, then `t` steps to `t3` by `ifFalse`.
 --     Either way, `t` can step, which is what we wanted to show.
@@ -791,9 +814,9 @@ theorem soundness (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (hm : t ⟶* t')
 -- ### Exercise (3 stars): subject_expansion ⭐⭐⭐
 
 -- Having seen the subject reduction property, one might wonder whether the
--- opposite property -- subject *expansion* -- also holds. That is, is it
--- always the case that, if `t ⟶ t'` and `⊢ t' ⦂ T`, then `⊢ t ⦂ T`? If so,
--- prove it. If not, give a counter-example.
+-- opposite property — subject *expansion* — also holds. That is, is it always
+-- the case that, if `t ⟶ t'` and `⊢ t' ⦂ T`, then `⊢ t ⦂ T`? If so, prove it.
+-- If not, give a counter-example.
 
 theorem subject_expansion :
     (∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ <{ ⊢ t' ⦂ T }> → <{ ⊢ t ⦂ T }>)
@@ -881,7 +904,7 @@ end TM
 -- ### Exercise (3 stars): more_variations ⭐⭐⭐
 
 -- Make up some exercises of your own along the same lines as the ones above.
--- Try to find ways of selectively breaking properties -- i.e., ways of
+-- Try to find ways of selectively breaking properties — i.e., ways of
 -- changing the definitions that break just one of the properties and leave
 -- the others alone.
 

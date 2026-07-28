@@ -47,7 +47,13 @@ import TS.SFLCompat
 
 -- Here is the syntax of program terms, informally:
 
--- t ::= true | false | if t then t else t | 0 | succ t | pred t | iszero t
+-- t ::= true
+--     | false
+--     | if t then t else t
+--     | 0
+--     | succ t
+--     | pred t
+--     | iszero t
 
 -- And here it is formally:
 
@@ -97,6 +103,8 @@ macro_rules
   | `(<{ ~$e }>)  => pure e
   | `(<{ if $c then $t else $e }>) => `(Tm.ite <{ $c }> <{ $t }> <{ $e }>)
 
+-- _Details:_ Notation encoding: printing terms back
+
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
 /-- Re-inserts parentheses in `tm` output according to the grammar's precedences. -/
 @[category_parenthesizer tm]
@@ -132,8 +140,10 @@ partial def delabTmInner : DelabM (TSyntax `tm) := do
   (⟨·⟩) <$> annotateTermInfo ⟨stx.raw⟩
 
 open Lean PrettyPrinter Delaborator SubExpr in
-@[delab app.Tm.tru, delab app.Tm.fls, delab app.Tm.zero, delab app.Tm.succ,
-  delab app.Tm.pred, delab app.Tm.isZero, delab app.Tm.ite]
+-- The keys are the constants' full names: `Tm` lives in namespace `TM`, and the
+-- `delab` attribute does not resolve its argument against the current namespace.
+@[delab app.TM.Tm.tru, delab app.TM.Tm.fls, delab app.TM.Tm.zero, delab app.TM.Tm.succ,
+  delab app.TM.Tm.pred, delab app.TM.Tm.isZero, delab app.TM.Tm.ite]
 partial def delabTm : Delab := whenPPOption getPPNotation do
   guard <| match_expr ← getExpr with
     | Tm.tru => true | Tm.fls => true | Tm.zero => true
@@ -313,9 +323,9 @@ theorem step_deterministic : Deterministic Tm.Step := by
 -- (A) Yes (B) No
 
 -- (Hint: Notice that the `Tm.Step` relation doesn't care about
--- whether the expression being stepped makes global sense --
--- it just checks that the operation in the *next* reduction
--- step is being applied to the right kinds of operands.)
+-- whether the expression being stepped makes global sense — it
+-- just checks that the operation in the *next* reduction step
+-- is being applied to the right kinds of operands.)
 
 -- Note to developers (mwhicks1):
 --     `In the Rocq source these were a hidden, never-uncommented draft
@@ -324,7 +334,7 @@ theorem step_deterministic : Deterministic Tm.Step := by
 
 -- Suppose we define an alternate single-step relation, written
 -- `t ⇢ t'`, that *drops* the `Tm.IsNValue` premise from the
--- `predSucc` and `isZeroSucc` rules -- so `pred (succ t)` and
+-- `predSucc` and `isZeroSucc` rules — so `pred (succ t)` and
 -- `iszero (succ t)` may step even when `t` is not a numeric
 -- value. (It is built with exactly the same notation setup as
 -- `Tm.Step`; note `predSucc`/`isZeroSucc` no longer take a
@@ -362,9 +372,9 @@ scoped notation:40 t:41 " ⇢ " t':41 => Tm.AltStep t t'
 --   `⇢` (to `true`, by `predSucc`, now that the `Tm.IsNValue`
 --   premise is gone).
 
--- - Is every `⇢` normal form also a `Tm.Step` normal form? Yes
---   -- `Tm.Step` is a subrelation of `⇢`, so anything stuck for
---   `⇢` is stuck for `Tm.Step`.
+-- - Is every `⇢` normal form also a `Tm.Step` normal form? Yes —
+--   `Tm.Step` is a subrelation of `⇢`, so anything stuck for `⇢`
+--   is stuck for `Tm.Step`.
 
 -- - Is every value reachable by `Tm.Step` (in many steps) also
 --   reachable by `⇢` (in many steps)? Yes, for the same
@@ -463,7 +473,7 @@ macro_rules
 
 -- Print `Tm.HasType`/`Ty` values back as `<{ ⊢ … ⦂ … }>` notation: `delabTy`
 open Lean PrettyPrinter Delaborator SubExpr in
-@[delab app.Ty.bool, delab app.Ty.nat]
+@[delab app.TM.Ty.bool, delab app.TM.Ty.nat]
 def delabTy : Delab := whenPPOption getPPNotation do
   match_expr ← getExpr with
   | Ty.bool => `($(mkIdent `Bool):ident)
@@ -521,8 +531,8 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : 
 
 -- The typing relation enjoys two critical properties.
 
--- The first is that well-typed normal forms are not stuck --
--- or conversely, if a term is well typed, then either it is a
+-- The first is that well-typed normal forms are not stuck — or
+-- conversely, if a term is well typed, then either it is a
 -- value or it can take at least one step. We call this
 -- *progress*.
 
@@ -530,7 +540,7 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : 
 
 -- Complete the formal proof of the `progress` property. (Make
 -- sure you understand the parts we've given of the informal
--- proof in the following exercise before starting -- this will
+-- proof in the following exercise before starting — this will
 -- save you a lot of time.)
 
 theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
@@ -541,7 +551,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 -- What is the relation between the *progress* property defined
 -- here and the *strong progress* from the Smallstep chapter?
 
--- (A) No difference -- they mean the same thing
+-- (A) No difference — they mean the same thing
 
 -- (B) Progress implies strong progress
 
@@ -571,7 +581,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 
 --   - If `t1` is a value, then by the canonical forms lemmas and
 --     the fact that `⊢ t1 ⦂ Bool` we have that `t1` is a boolean
---     value (`Tm.IsBValue`) -- i.e., it is either `true` or
+--     value (`Tm.IsBValue`) — i.e., it is either `true` or
 --     `false`. If `t1 = true`, then `t` steps to `t2` by `ifTrue`,
 --     while if `t1 = false`, then `t` steps to `t3` by `ifFalse`.
 --     Either way, `t` can step, which is what we wanted to show.
@@ -723,7 +733,7 @@ theorem soundness (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (hm : t ⟶* t')
 -- ### Exercise (3 stars): subject_expansion ⭐⭐⭐
 
 -- Having seen the subject reduction property, one might wonder
--- whether the opposite property -- subject *expansion* -- also
+-- whether the opposite property — subject *expansion* — also
 -- holds. That is, is it always the case that, if `t ⟶ t'` and
 -- `⊢ t' ⦂ T`, then `⊢ t ⦂ T`? If so, prove it. If not, give a
 -- counter-example.
@@ -824,7 +834,7 @@ end TM
 
 -- Make up some exercises of your own along the same lines as
 -- the ones above. Try to find ways of selectively breaking
--- properties -- i.e., ways of changing the definitions that
+-- properties — i.e., ways of changing the definitions that
 -- break just one of the properties and leave the others alone.
 
 -- ### Exercise (1 star): remove_pred0 (manually graded) ⭐

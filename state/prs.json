@@ -49,9 +49,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "a7514aee778fc4c7bb261adfd1f122833366b256",
+      "head_sha": "e759e1f1964d6689d7abf7a723e90bd4260c0a0d",
       "preview_path": "pr/156/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30356204163",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30361301483",
       "status": "published",
       "title": "Initial port of TS/Stlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/156"
@@ -104,9 +104,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "f86c81acb72bf96b1b8950d659df43c633371775",
+      "head_sha": "4ac5950dad8bed8b0ca3234c5c9c9ccaf76dc830",
       "preview_path": "pr/164/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30318879391",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30361339322",
       "status": "published",
       "title": "Typeclasses: fold in the rest of the Maps material",
       "url": "https://github.com/plclub/sf-in-lean/pull/164"

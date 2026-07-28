@@ -1364,11 +1364,11 @@ style: they specify how a given expression can be evaluated to its final
 value "all in one big step":</p>
               <pre>2 + 2 + 3 * 4 ⇓ 16
 </pre><p>
-                This style is simple and natural for many purposes -- indeed, Gilles Kahn,
+                This style is simple and natural for many purposes — indeed, Gilles Kahn,
 who popularized it, called it <em>natural semantics</em>.  But there are some
 things it does not do well.  In particular, it does not give us a convenient
 way of talking about <em>concurrent</em> programming languages, where the semantics
-of a program -- the essence of how it behaves -- includes not just which
+of a program — the essence of how it behaves — includes not just which
 input states get mapped to which output states, but also the intermediate
 states that it passes through along the way; this is crucial, since these
 states can also be observed by concurrently executing code.</p>
@@ -1381,12 +1381,12 @@ write strange expressions like <code>2 + nil</code>, and our semantics for arith
 expressions will then need to say something about how such expressions
 behave.  One possibility is to maintain the convention that every arithmetic
 expression evaluates to some number by choosing some way of viewing a list
-as a number -- e.g., by specifying that a list should be interpreted as <code>0</code>
+as a number — e.g., by specifying that a list should be interpreted as <code>0</code>
 when it occurs in a context expecting a number.  But this would be a bit of
 a hack.</p>
               <p>
                 A much more natural approach is simply to say that the behavior of the
-expression <code>2 + nil</code> is <em>undefined</em> -- i.e., it doesn't evaluate to any
+expression <code>2 + nil</code> is <em>undefined</em> — i.e., it doesn't evaluate to any
 result at all.  And we can easily do this: we just have to formulate <code>aeval</code>
 and <code>beval</code> as inductive propositions rather than functions, so that we can
 make them partial functions instead of total ones.</p>
@@ -1399,8 +1399,8 @@ infinite loop or because, at some point, the program tries to do an
 operation that makes no sense, such as adding a number to a list, so that
 none of the evaluation rules can be applied.</p>
               <p>
-                These two outcomes -- nontermination vs. getting stuck in an erroneous
-configuration -- should not be confused.  In particular, we want to <em>allow</em>
+                These two outcomes — nontermination vs. getting stuck in an erroneous
+configuration — should not be confused.  In particular, we want to <em>allow</em>
 the first (because permitting the possibility of infinite loops is the price
 we pay for the convenience of programming with general looping constructs)
 but <em>prevent</em> the second (which is just wrong), for example by
@@ -1427,7 +1427,7 @@ computation:</p>
               <p>
                 To save space, we start with an incredibly simple language of just
 constants and addition.  (We use single-letter constructors <code>c</code> and <code>p</code>
--- for Constant and Plus -- for brevity.)  The same techniques scale up to
+— for Constant and Plus — for brevity.)  The same techniques scale up to
 richer languages.</p>
               <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-0" data-verso-hover="1">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-Tm" data-verso-hover="157">Tm</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-0" data-verso-hover="1">where</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.ctor-21">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-Tm.c" data-verso-hover="158">c</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-25">(</span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="4">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-25">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="5">Nat</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-25">)</span><span class="inter-text">          </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> Constant</span><span class="inter-text">
@@ -1441,6 +1441,13 @@ richer languages.</p>
 </span><span class="unknown token" data-binding=""></span></code><p>
                 Here is the same evaluator, written in exactly the same style, but formulated as an
 inductively defined relation. We use the notation <code>t ⇓ n</code> for "<code>t</code> evaluates to <code>n</code>."</p>
+              <p>
+                The <code>notation</code> command below is how that is declared: it introduces <code>⇓</code> as
+infix syntax for the <code>Eval</code> relation defined with it, with a precedence saying
+how tightly it binds.
+This is the lightweight way to name a relation; later chapters, where a whole
+object language needs a grammar rather than a single operator, reach for
+<code>declare_syntax_cat</code> instead.</p>
               <pre>                        -------                (const)
                         c n ⇓ n
 
@@ -1582,7 +1589,7 @@ develops some of these ideas in a bit more detail; reviewing that chapter
 may be useful if the treatment here feels too terse.)</p>
               <p>
                 A <em>binary relation</em> on a type <code>X</code> is a family of propositions parameterized
-by two elements of <code>X</code> -- i.e., a proposition about pairs of elements of
+by two elements of <code>X</code> — i.e., a proposition about pairs of elements of
 <code>X</code>.</p>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
@@ -1596,7 +1603,7 @@ by two elements of <code>X</code> -- i.e., a proposition about pairs of elements
 </span><span class="unknown token" data-binding=""></span></code><p>
                 Our main examples of such relations in this chapter will be the
 single-step reduction relation, <code>⟶</code>, and its multi-step variant, <code>⟶*</code>,
-defined below, but there are many other examples -- e.g., the "equals,"
+defined below, but there are many other examples — e.g., the "equals,"
 "less than," "less than or equal to," and "is the square of" relations on
 numbers, and the "prefix of" relation on lists and strings.</p>
               <p>
@@ -1678,7 +1685,7 @@ machine</em>:</p>
                     </li>
                   <li>
                     <p>
-                      A <em>step</em> of the machine is an atomic unit of computation -- here, a
+                      A <em>step</em> of the machine is an atomic unit of computation — here, a
     single "add" operation.</p>
                     </li>
                   <li>
@@ -1891,9 +1898,9 @@ general), normal forms and values are actually the same thing.</p>
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-318">theorem</span><span class="inter-text"> </span><span class="const token" data-binding="const-nf_same_as_value" data-verso-hover="243">nf_same_as_value</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-343">(</span><span class="var token" data-binding="var-_uniq.251" data-verso-hover="160">t</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-343">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Tm" data-verso-hover="157">Tm</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-343">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-352">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-IsNormalForm" data-verso-hover="232">IsNormalForm</span><span class="inter-text"> </span><span class="const token" data-binding="const-Step" data-verso-hover="206">Step</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.251" data-verso-hover="160">t</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_↔_»-354">↔</span><span class="inter-text"> </span><span class="const token" data-binding="const-IsValue" data-verso-hover="204">IsValue</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.251" data-verso-hover="160">t</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-388">:=</span><span class="inter-text">
   </span><span class="const anon-ctor token" data-binding="const-Iff.intro" data-verso-hover="244">⟨</span><span class="const token" data-binding="const-nf_is_value" data-verso-hover="238">nf_is_value</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.251" data-verso-hover="160">t</span><span class="const anon-ctor token" data-binding="const-Iff.intro" data-verso-hover="244">,</span><span class="inter-text"> </span><span class="const token" data-binding="const-value_is_nf" data-verso-hover="233">value_is_nf</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.251" data-verso-hover="160">t</span><span class="const anon-ctor token" data-binding="const-Iff.intro" data-verso-hover="244">⟩</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
-                  Why is this interesting? Because <code>IsValue</code> is a <em>syntactic</em> concept -- it is
-defined by looking at the way a term is written -- while <code>IsNormalForm</code> is a
-<em>semantic</em> one -- it is defined by looking at how the term steps.</p>
+                  Why is this interesting? Because <code>IsValue</code> is a <em>syntactic</em> concept — it is
+defined by looking at the way a term is written — while <code>IsNormalForm</code> is a
+<em>semantic</em> one — it is defined by looking at how the term steps.</p>
                 <p>
                   It is not obvious that these concepts should characterize the same set of terms!</p>
                 <p>
@@ -2032,7 +2039,7 @@ one step)?</p>
               <p>
                 We've been working so far with the <em>single-step reduction</em> relation <code>⟶</code>,
 which formalizes the individual steps of an abstract machine for executing
-programs.  We can use the same machine to reduce programs to completion --
+programs.  We can use the same machine to reduce programs to completion —
 to find out what final result they yield.  This can be formalized as
 follows:</p>
               <ul>
@@ -2109,7 +2116,7 @@ leaves a goal relating a term to itself, which <code>rfl</code> discharges.</p>
   </span><span class="tactic"><label for="tactic-state-7413380615076845787-90-92-342"><span class="built-in delim token" data-binding="kw-occ-Lean.cdotTk-90">·</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7413380615076845787-90-92-342"><span class="tactic-state"><span class="goal"><span class="labeled-case" checked="checked"><label class="case-label"><input type="checkbox" id="--verso-unique-343" checked="checked"><span for="--verso-unique-343" class="goal-name">h1</span></label><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-Tm.c" data-verso-hover="158">Tm.c</span><span class="inter-text"> </span><span class="unknown token" data-binding="">1</span><span class="unknown token" data-binding="">)</span><span class="unknown token" data-binding="">.</span><span class="const token" data-binding="const-Tm.p" data-verso-hover="159">p</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-Tm.c" data-verso-hover="158">Tm.c</span><span class="inter-text"> </span><span class="unknown token" data-binding="">2</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Step" data-verso-hover="206">⟶</span><span class="inter-text"> </span><span class="const token" data-binding="const-Tm.c" data-verso-hover="158">Tm.c</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="60">(</span><span class="unknown token" data-binding="">1</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="60">+</span><span class="inter-text"> </span><span class="unknown token" data-binding="">2</span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="60">)</span></span></span></span></span></span></span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-7-93-108-344"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.exact-93" data-verso-hover="57">exact</span><span class="inter-text"> </span><span class="const token" data-binding="const-Step.plus" data-verso-hover="223">.plus</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">1</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">2</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-93-108-344"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
   </span><span class="tactic"><label for="tactic-state-11175300468010131290-111-113-345"><span class="built-in delim token" data-binding="kw-occ-Lean.cdotTk-111">·</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-11175300468010131290-111-113-345"><span class="tactic-state"><span class="goal"><span class="labeled-case" checked="checked"><label class="case-label"><input type="checkbox" id="--verso-unique-346" checked="checked"><span for="--verso-unique-346" class="goal-name">h2</span></label><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Tm.c" data-verso-hover="158">Tm.c</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="60">(</span><span class="unknown token" data-binding="">1</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="60">+</span><span class="inter-text"> </span><span class="unknown token" data-binding="">2</span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="60">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Multi" data-verso-hover="270">⟶*</span><span class="inter-text"> </span><span class="const token" data-binding="const-Tm.c" data-verso-hover="158">Tm.c</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="60">(</span><span class="unknown token" data-binding="">1</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="60">+</span><span class="inter-text"> </span><span class="unknown token" data-binding="">2</span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="60">)</span></span></span></span></span></span></span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-7-114-117-347"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticRfl-114" data-verso-hover="45">rfl</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-114-117-347"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
-                Second, it <em>contains</em> <code>R</code> -- single-step reductions are a particular case of
+                Second, it <em>contains</em> <code>R</code> — single-step reductions are a particular case of
 multi-step executions.  (It is this fact that justifies the word "closure"
 in "multi-step closure of <code>R</code>.")</p>
               <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-0">theorem</span><span class="inter-text"> </span><span class="const token" data-binding="const-multi_single" data-verso-hover="276">multi_single</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-21">{</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="178">X</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-21">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="179">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-21">}</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-32">(</span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="181">R</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-32">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Relation" data-verso-hover="177">Relation</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="178">X</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-32">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-49">(</span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="182">x</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.8" data-verso-hover="182">y</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-49">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="178">X</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-49">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-59">(</span><span class="var token" data-binding="var-_uniq.10" data-verso-hover="273">h</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-59">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="181">R</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="182">x</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.8" data-verso-hover="182">y</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-59">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-71">:</span><span class="inter-text">
@@ -2189,7 +2196,7 @@ in "multi-step closure of <code>R</code>.")</p>
   </span><span class="const token" data-binding="const-Multi" data-verso-hover="270">Multi</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="181">R</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="182">t</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.8" data-verso-hover="182">t'</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_∧_»-70">∧</span><span class="inter-text"> </span><span class="const token" data-binding="const-IsNormalForm" data-verso-hover="232">IsNormalForm</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="181">R</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.8" data-verso-hover="182">t'</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                   We have already seen that, for our language, single-step reduction is
-deterministic -- i.e., a given term can take a single step in at most one
+deterministic — i.e., a given term can take a single step in at most one
 way.  It follows that, if <code>t</code> can reach a normal form, then this normal form
 is unique.</p>
                 <p>
@@ -2208,7 +2215,7 @@ as "<code>t'</code> is <em>the</em> normal form of <code>t</code>."</p>
                 <p>
                   Indeed, something stronger is true for this language (though not for all the
 languages we will see): the reduction of <em>any</em> term <code>t</code> will eventually
-reach a normal form in a finite number of steps -- i.e., <code>IsNormalFormOf</code> is
+reach a normal form in a finite number of steps — i.e., <code>IsNormalFormOf</code> is
 a <em>total</em> function.  We say the <code>Step</code> relation is <em>normalizing</em>.  To prove
 it, we need a couple of congruence lemmas.</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.definition-0">def</span><span class="inter-text"> </span><span class="const token" data-binding="const-Normalizing" data-verso-hover="292">Normalizing</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-16">{</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="178">X</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-16">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="179">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-16">}</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-27">(</span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="181">R</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-27">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Relation" data-verso-hover="177">Relation</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="178">X</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-27">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-44">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="86">Prop</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-51">:=</span><span class="inter-text">
@@ -2228,7 +2235,7 @@ it, we need a couple of congruence lemmas.</p>
                 <p>
                   With these lemmas in hand, the main proof is a straightforward induction.</p>
                 <p>
-                  <em>Theorem</em>: The <code>Step</code> relation is normalizing -- i.e., for every <code>t</code> there
+                  <em>Theorem</em>: The <code>Step</code> relation is normalizing — i.e., for every <code>t</code> there
 exists some <code>t'</code> such that <code>t</code> reduces to <code>t'</code> and <code>t'</code> is a normal form.</p>
                 <p>
                   <em>Proof sketch</em>: By induction on terms.  There are two cases:</p>
@@ -2326,7 +2333,7 @@ includes <code>⟶</code>).</p>
                     <span class="exercise-label">Exercise</span><span class="exercise-stars">★★★</span><span class="exercise-name">(multistep_of_eval_inf)</span></div>
                   <p>
                     Write a detailed informal version of the proof of <code>multistep_of_eval</code>.  (A
-paper exercise -- there is no Lean proof to fill in here.)</p>
+paper exercise — there is no Lean proof to fill in here.)</p>
                   </div>
                 <p>
                   For the converse, we need one lemma, which establishes a relation between
@@ -2423,7 +2430,7 @@ shape.)</p>
 
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.scoped-891">scoped</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.notation-891">notation</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-906">:</span><span class="literal number token" data-binding="">40</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.608" data-verso-hover="100">a</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-911">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="334">" ⟶a "</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.601" data-verso-hover="100">a'</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-926">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.notation-891">=&gt;</span><span class="inter-text"> </span><span class="const token" data-binding="const-Slang.AStep" data-verso-hover="321">AStep</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.608" data-verso-hover="100">a</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.601" data-verso-hover="100">a'</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
-                  Notice that <code>AStep</code> has exactly the shape <code>Aexp → Aexp → Prop</code> -- i.e., it is a
+                  Notice that <code>AStep</code> has exactly the shape <code>Aexp → Aexp → Prop</code> — i.e., it is a
 <code>Relation Aexp</code> in the sense of the <em>Relations</em> section above. So the generic
 vocabulary from that section (<code>Deterministic</code>, <code>IsNormalForm</code>, the multi-step
 closure <code>Multi</code>, ...) applies to it directly.</p>
@@ -2437,7 +2444,7 @@ the right operand is the one that takes a step.</p>
                   <div class="exercise-header">
                     <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(strong_progress_arith)</span></div>
                   <p>
-                    Every arithmetic expression is either a value or can take a step -- the same
+                    Every arithmetic expression is either a value or can take a step — the same
 <em>strong progress</em> property we proved for the toy language, now for the richer
 <code>Slang</code> arithmetic expressions.</p>
                   <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-0">theorem</span><span class="inter-text"> </span><span class="has-info warning"><span class="hover-container"><span class="hover-info messages"><code class="verso-message warning"><span class="text"></span><span class="text">declaration uses `</span><span class="highlighted"><span class="inter-text"></span><span class="unknown token" data-binding="">sorry</span><span class="inter-text"></span></span><span class="text">`</span></code></span></span><span class="const token" data-binding="const-Slang.strong_progress_arith" data-verso-hover="337">strong_progress_arith</span></span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-30">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-30">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Slang.Aexp" data-verso-hover="2">Aexp</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-30">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-41">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Slang.IsAValue" data-verso-hover="319">IsAValue</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_∨_»-43">∨</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∃</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.8" data-verso-hover="7">a'</span><span class="punctuation separator token" data-binding="kw-occ-«term∃_,_»-58">,</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="inter-text"> </span><span class="unknown token" data-binding="">⟶a</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.8" data-verso-hover="7">a'</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-76">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-10206649681622105692-79-81-437"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-79" data-verso-hover="29">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-10206649681622105692-79-81-437"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Slang.Aexp" data-verso-hover="2">Aexp</span><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Slang.IsAValue" data-verso-hover="319">IsAValue</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="inter-text"> </span><span class="const token" data-binding="const-Or" data-verso-hover="213">∨</span><span class="inter-text"> </span><span class="const token" data-binding="const-Exists" data-verso-hover="214">∃</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.19" data-verso-hover="7">a'</span><span class="const token" data-binding="const-Exists" data-verso-hover="214">,</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="inter-text"> </span><span class="const token" data-binding="const-Slang.AStep" data-verso-hover="321">⟶a</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.19" data-verso-hover="7">a'</span></span></span></span></span></span><span class="inter-text">
@@ -2509,7 +2516,7 @@ representative sample; <code>neq</code>, <code>le</code>, and <code>gt</code> fo
 
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.scoped-1744">scoped</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.notation-1744">notation</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-1759">:</span><span class="literal number token" data-binding="">40</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.736" data-verso-hover="100">b</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-1764">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="364">" ⟶b "</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.729" data-verso-hover="100">b'</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-1779">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.notation-1744">=&gt;</span><span class="inter-text"> </span><span class="const token" data-binding="const-Slang.BStep" data-verso-hover="338">BStep</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.736" data-verso-hover="100">b</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.729" data-verso-hover="100">b'</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
-                  A boolean example -- the left comparison operand reduces first:</p>
+                  A boolean example — the left comparison operand reduces first:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.example-0">example</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-8">:</span><span class="inter-text">
     </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-14">(</span><span class="const token" data-binding="const-Slang.Bexp.le" data-verso-hover="16">Bexp.le</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-23">(</span><span class="const token" data-binding="const-Slang.Aexp.plus" data-verso-hover="6">.plus</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-30">(</span><span class="const token" data-binding="const-Slang.Aexp.num" data-verso-hover="3">.num</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">1</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-30">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-39">(</span><span class="const token" data-binding="const-Slang.Aexp.num" data-verso-hover="3">.num</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">1</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-39">)</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-23">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-49">(</span><span class="const token" data-binding="const-Slang.Aexp.num" data-verso-hover="3">.num</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">3</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-49">)</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-14">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">⟶b</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-64">(</span><span class="const token" data-binding="const-Slang.Bexp.le" data-verso-hover="16">.le</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-69">(</span><span class="const token" data-binding="const-Slang.Aexp.num" data-verso-hover="3">.num</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">2</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-69">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-78">(</span><span class="const token" data-binding="const-Slang.Aexp.num" data-verso-hover="3">.num</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">3</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-78">)</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-64">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-88">:=</span><span class="inter-text">
   </span><span class="const token" data-binding="const-Slang.BStep.leLeft" data-verso-hover="365">.leLeft</span><span class="inter-text"> </span><span class="wildcard token" data-binding="">_</span><span class="inter-text"> </span><span class="wildcard token" data-binding="">_</span><span class="inter-text"> </span><span class="wildcard token" data-binding="">_</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-107">(</span><span class="const token" data-binding="const-Slang.AStep.plus" data-verso-hover="336">.plus</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">1</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">1</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-107">)</span><span class="inter-text">
@@ -2574,7 +2581,7 @@ base cases.</p>
                 <p>
                   The relation <code>⟶a</code> above bakes in a <em>left-to-right</em> evaluation order: the rule
 <code>plusRight</code> can fire only once the left operand is already a value (<code>IsAValue v1</code>).
-But nothing about the <em>meaning</em> of <code>+</code> requires that order -- we could just as
+But nothing about the <em>meaning</em> of <code>+</code> requires that order — we could just as
 well reduce the right operand first, or interleave the two.  Different orders
 are exactly what a concurrent or optimizing implementation might choose, so it
 is natural to ask whether the choice can affect the final answer.</p>
@@ -2615,7 +2622,7 @@ in two different ways, depending on which operand we choose to advance.</p>
 </span><span class="unknown token" data-binding=""></span></code><p>
                   Remarkably, this nondeterminism does <em>not</em> affect the final answer.  The key
 observation is that a single step never changes the big-step <em>value</em> of an
-expression -- whichever operand we advance, <code>eval</code> is preserved.</p>
+expression — whichever operand we advance, <code>eval</code> is preserved.</p>
                 <div class="exercise stars-2">
                   <div class="exercise-header">
                     <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(anstep_preserves_eval)</span></div>
@@ -2669,7 +2676,7 @@ reduces to <code>.num n1</code> under <code>⟶a</code> and to <code>.num n2</co
 </span><span class="unknown token" data-binding=""></span></code></div>
                 <p>
                   So even though <code>⟶n</code> is genuinely nondeterministic, the value it eventually
-produces is completely determined -- and it is the same value the deterministic
+produces is completely determined — and it is the same value the deterministic
 machine (and the big-step evaluator) computes.  This <em>confluence to a unique
 result</em> is exactly the property one wants when reordering or parallelizing the
 evaluation of pure expressions.</p>
@@ -2725,7 +2732,7 @@ updates the stack.</p>
 reduces, in some number of steps, to a stack holding exactly the value of the
 expression.</p>
                   <p>
-                    <em>Hint:</em> this will not go through by a direct induction -- the induction
+                    <em>Hint:</em> this will not go through by a direct induction — the induction
 hypothesis is too weak.  Prove a more general statement first, about running
 <code>compile a</code> followed by <em>any</em> leftover program <code>p</code>, starting from <em>any</em> stack
 <code>stk</code>.  (Reassociating the <code>++</code>s with <code>List.append_assoc</code>, and chaining steps
