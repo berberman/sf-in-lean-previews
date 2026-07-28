@@ -2463,50 +2463,6 @@
         "Typing",
         "Typing Relation"]}},
      "address": "/Stlc/"}],
-   "Stlc.Value.tru":
-   [{"id": "Stlc___Value___tru",
-     "data":
-     {"/Stlc/#Stlc___Value___tru":
-      {"display": "tru",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Operational Semantics",
-        "Values"]}},
-     "address": "/Stlc/"}],
-   "Stlc.Value.fls":
-   [{"id": "Stlc___Value___fls",
-     "data":
-     {"/Stlc/#Stlc___Value___fls":
-      {"display": "fls",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Operational Semantics",
-        "Values"]}},
-     "address": "/Stlc/"}],
-   "Stlc.Value.abs":
-   [{"id": "Stlc___Value___abs",
-     "data":
-     {"/Stlc/#Stlc___Value___abs":
-      {"display": "abs",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Operational Semantics",
-        "Values"]}},
-     "address": "/Stlc/"}],
-   "Stlc.Value":
-   [{"id": "Stlc___Value",
-     "data":
-     {"/Stlc/#Stlc___Value":
-      {"display": "Value",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Operational Semantics",
-        "Values"]}},
-     "address": "/Stlc/"}],
    "Stlc.Ty.bool":
    [{"id": "Stlc___Ty___bool",
      "data":
@@ -2605,6 +2561,50 @@
         "Stlc: The Simply Typed Lambda-Calculus",
         "Syntax",
         "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.IsValue.tru":
+   [{"id": "Stlc___Tm___IsValue___tru",
+     "data":
+     {"/Stlc/#Stlc___Tm___IsValue___tru":
+      {"display": "tru",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.IsValue.fls":
+   [{"id": "Stlc___Tm___IsValue___fls",
+     "data":
+     {"/Stlc/#Stlc___Tm___IsValue___fls":
+      {"display": "fls",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.IsValue.abs":
+   [{"id": "Stlc___Tm___IsValue___abs",
+     "data":
+     {"/Stlc/#Stlc___Tm___IsValue___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.IsValue":
+   [{"id": "Stlc___Tm___IsValue",
+     "data":
+     {"/Stlc/#Stlc___Tm___IsValue":
+      {"display": "Tm.IsValue",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
      "address": "/Stlc/"}],
    "Stlc.Tm":
    [{"id": "Stlc___Tm",

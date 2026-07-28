@@ -496,14 +496,14 @@ abbrev notB := <{ λ x : Bool . if x then false else true }>
 
 -- We also make the second choice here.
 
-inductive Value : Tm → Prop where
-  | abs (x : String) (T₂ : Ty) (t₁ : Tm) : Value <{ λ ~x : ~T₂ . ~t₁ }>
-  | tru : Value <{ true }>
-  | fls : Value <{ false }>
+inductive Tm.IsValue : Tm → Prop where
+  | abs (x : String) (T₂ : Ty) (t₁ : Tm) : Tm.IsValue <{ λ ~x : ~T₂ . ~t₁ }>
+  | tru : Tm.IsValue <{ true }>
+  | fls : Tm.IsValue <{ false }>
 
-theorem idB_value : Value idB := .abs ..
-theorem idBB_value : Value idBB := .abs ..
-theorem notB_value : Value notB := .abs ..
+theorem idB_value : idB.IsValue := .abs ..
+theorem idBB_value : idBB.IsValue := .abs ..
+theorem notB_value : notB.IsValue := .abs ..
 
 -- Note to developers:
 --     The Rocq source follows each inductive definition in
@@ -769,11 +769,11 @@ set_option hygiene false in
 local notation:40 t:41 " ⟶ " t':41 => Step t t'
 
 inductive Step : Tm → Tm → Prop where
-  | appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) :
+  | appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) :
       <{ (λ ~x : ~T . ~t) ~v }> ⟶ <{ [~x := ~v] ~t }>
   | app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') :
       <{ ~t₁ ~t₂ }> ⟶ <{ ~t₁' ~t₂ }>
-  | app2 (v₁ t₂ t₂' : Tm) (hv : Value v₁) (h : t₂ ⟶ t₂') :
+  | app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') :
       <{ ~v₁ ~t₂ }> ⟶ <{ ~v₁ ~t₂' }>
   | ifTrue (t₁ t₂ : Tm) :
       <{ if true then ~t₁ else ~t₂ }> ⟶ t₁

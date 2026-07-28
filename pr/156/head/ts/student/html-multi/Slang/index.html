@@ -1345,19 +1345,7 @@ trees -- the process that, for example, would translate the string
                 <p>
                   For comparison, here's a conventional BNF (Backus-Naur Form) grammar
 defining the same abstract syntax:</p>
-                <pre>  a := nat
-      | a + a
-      | a − a
-      | a * a
-
-  b := bool
-      | a = a
-      | a ≠ a
-      | a ≤ a
-      | a &gt; a
-      | ¬ b
-      | b ∧ b
-</pre><p>
+                <table class="bnf"><tr><td class="bnf-lhs"><span class="bnf-nt">a</span></td><td class="bnf-sep">::=</td><td class="bnf-alt"><span class="bnf-nt">nat</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">+</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">−</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">*</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"><span class="bnf-nt">b</span></td><td class="bnf-sep">::=</td><td class="bnf-alt"><span class="bnf-nt">bool</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">=</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">≠</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">≤</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">&gt;</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-kw">¬</span> <span class="bnf-nt">b</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">b</span> <span class="bnf-kw">∧</span> <span class="bnf-nt">b</span></td><td class="bnf-note"> </td></tr></table><p>
                   Compared to the Lean version above...</p>
                 <ul>
                   <li>

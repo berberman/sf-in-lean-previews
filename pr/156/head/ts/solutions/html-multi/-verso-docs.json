@@ -1412,11 +1412,11 @@
  "1099":
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
  "1098":
- "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : Value v₁) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
  "1097": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
  "1096": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
  "1095":
- "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
+ "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
  "1094":
  "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') : Step &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
  "1093":
@@ -1424,17 +1424,17 @@
  "1092":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : Step &lt;{ if true then t₁ else t₂ }&gt; t₁</code>",
  "1091": "<code>Step t₂ t₂'</code>",
- "1090": "<code>Value v₁</code>",
+ "1090": "<code>v₁.IsValue</code>",
  "109":
  "<code>Slang.Aexp.EvalR.plus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : a1.plus a2 ⇓ n1 + n2</code>",
  "1089":
- "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : Value v₁) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
  "1088": "<code>Step t₁ t₁'</code>",
  "1087":
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
- "1086": "<code>Value v</code>",
+ "1086": "<code>v.IsValue</code>",
  "1085":
- "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
+ "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
  "1084": "<code>Stlc.Step : Tm → Tm → Prop</code>",
  "1083": "<code>&lt;{ [~x := s] t₃✝ }&gt; = t₃'✝</code>",
  "1082": "<code>Substi s x t₃✝ t₃'✝</code>",
@@ -1508,14 +1508,14 @@
  "1040": "<code>Lean.TSyntax `stlcVar</code>",
  "104":
  "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
- "1039": "<code>Stlc.notB_value : Value notB</code>",
- "1038": "<code>Stlc.idBB_value : Value idBB</code>",
- "1037": "<code>Stlc.idB_value : Value idB</code>",
- "1036": "<code>Stlc.Value.fls : Value &lt;{ false }&gt;</code>",
- "1035": "<code>Stlc.Value.tru : Value &lt;{ true }&gt;</code>",
+ "1039": "<code>Stlc.notB_value : notB.IsValue</code>",
+ "1038": "<code>Stlc.idBB_value : idBB.IsValue</code>",
+ "1037": "<code>Stlc.idB_value : idB.IsValue</code>",
+ "1036": "<code>Stlc.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
+ "1035": "<code>Stlc.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
  "1034":
- "<code>Stlc.Value.abs (x : String) (T₂ : Ty) (t₁ : Tm) : Value &lt;{ λ ~x : T₂ . t₁ }&gt;</code>",
- "1033": "<code>Stlc.Value : Tm → Prop</code>",
+ "<code>Stlc.Tm.IsValue.abs (x : String) (T₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : T₂ . t₁ }&gt;.IsValue</code>",
+ "1033": "<code>Stlc.Tm.IsValue : Tm → Prop</code>",
  "1032":
  "<code class=\"docstring\">`#reduce &lt;expression&gt;` reduces the expression `&lt;expression&gt;` to its normal form. This\ninvolves applying reduction rules until no further reduction is possible.\n\nBy default, proofs and types within the expression are not reduced. Use modifiers\n`(proofs := true)`  and `(types := true)` to reduce them.\nRecall that propositions are types in Lean.\n\n**Warning:** This can be a computationally expensive operation,\nespecially for complex expressions.\n\nConsider using `#eval &lt;expression&gt;` for simple evaluation/execution\nof expressions.\n</code>",
  "1031": "<code>Stlc.notB : Tm</code>",

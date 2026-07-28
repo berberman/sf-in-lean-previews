@@ -147,6 +147,8 @@ macro_rules
   | `(aexp { $a * $b }) => `(Aexp.mult (aexp {$a}) (aexp {$b}))
   | `(aexp { ($a) }) => `(aexp {$a})
 
+-- _Details:_ Notation encoding: boolean expressions
+
 /-- Boolean expressions of Imp -/
 declare_syntax_cat imp_bexp
 /-- Boolean literal (`true` or `false`) -/
@@ -170,6 +172,8 @@ syntax:max "~" term:max : imp_bexp
 
 /-- Embed an Imp boolean expression into a Lean term -/
 syntax:min "bexp " "{" imp_bexp "}" : term
+
+-- _Details:_ Notation encoding: boolean expressions, macro rules
 
 open Lean in
 macro_rules
@@ -200,6 +204,8 @@ def example_aexp : Aexp := aexp { 3 + (X * 2) }
 def example_bexp : Bexp := bexp { true ∧ ¬(X ≤ 4) }
 
 -- ### Delaborators
+
+-- _Details:_ Notation encoding: printing expressions back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer
@@ -300,6 +306,8 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
 -- `set_option pp.notation false` switch this delaborator off,
 -- revealing the raw constructors (see the "Desugaring
 -- Notations" discussion, after the commands are introduced).
+
+-- _Details:_ Notation encoding: registering the delaborators
 
 @[delab app.Aexp.num, delab app.Aexp.id, delab app.Aexp.plus,
   delab app.Aexp.minus, delab app.Aexp.mult]
@@ -408,8 +416,12 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
+-- _Details:_ Notation encoding: commands
+
 /-- Imp commands -/
 declare_syntax_cat imp_com
+
+-- _Details:_ Notation encoding: commands, macro rules
 
 /-- The command that does nothing (`skip;`) -/
 syntax ident ";" : imp_com
@@ -442,6 +454,8 @@ macro_rules
     `(Com.whileDo (bexp {$b}) (imp {$c}))
   | `(imp { ~$c }) =>
     pure c
+
+-- _Details:_ Notation encoding: printing commands back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr

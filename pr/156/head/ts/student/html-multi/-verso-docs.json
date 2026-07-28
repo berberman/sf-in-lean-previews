@@ -111,11 +111,11 @@
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
  "76": "<code>e1✝.optimize0plus.eval = e1✝.eval</code>",
  "759":
- "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : Value v₁) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
  "758": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
  "757": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
  "756":
- "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
+ "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
  "755":
  "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') : Step &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
  "754":
@@ -123,17 +123,17 @@
  "753":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : Step &lt;{ if true then t₁ else t₂ }&gt; t₁</code>",
  "752": "<code>Step t₂ t₂'</code>",
- "751": "<code>Value v₁</code>",
+ "751": "<code>v₁.IsValue</code>",
  "750":
- "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : Value v₁) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
  "75":
  "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
  "749": "<code>Step t₁ t₁'</code>",
  "748":
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
- "747": "<code>Value v</code>",
+ "747": "<code>v.IsValue</code>",
  "746":
- "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : Value v) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
+ "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
  "745": "<code>Stlc.Step : Tm → Tm → Prop</code>",
  "744":
  "<code>Stlc.substi_correct (s : Tm) (x : String) (t t' : Tm) : &lt;{ [~x := s] t }&gt; = t' ↔ Substi s x t t'</code>",
@@ -169,16 +169,16 @@
  "<code>Stlc.varStr (x : Lean.TSyntax `stlcVar) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
  "727": "<code>Lean.TSyntax `stlcTm</code>",
  "726": "<code>Lean.TSyntax `stlcVar</code>",
- "725": "<code>Stlc.notB_value : Value notB</code>",
- "724": "<code>Stlc.idBB_value : Value idBB</code>",
- "723": "<code>Stlc.idB_value : Value idB</code>",
- "722": "<code>Stlc.Value.fls : Value &lt;{ false }&gt;</code>",
- "721": "<code>Stlc.Value.tru : Value &lt;{ true }&gt;</code>",
+ "725": "<code>Stlc.notB_value : notB.IsValue</code>",
+ "724": "<code>Stlc.idBB_value : idBB.IsValue</code>",
+ "723": "<code>Stlc.idB_value : idB.IsValue</code>",
+ "722": "<code>Stlc.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
+ "721": "<code>Stlc.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
  "720":
- "<code>Stlc.Value.abs (x : String) (T₂ : Ty) (t₁ : Tm) : Value &lt;{ λ ~x : T₂ . t₁ }&gt;</code>",
+ "<code>Stlc.Tm.IsValue.abs (x : String) (T₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : T₂ . t₁ }&gt;.IsValue</code>",
  "72":
  "<code class=\"docstring\">The `fun_induction` tactic is a convenience wrapper around the `induction` tactic to use the\nfunctional induction principle.\n\nThe tactic invocation\n```\nfun_induction f x₁ ... xₙ y₁ ... yₘ\n```\nwhere `f` is a function defined by non-mutual structural or well-founded recursion, is equivalent to\n```\ninduction y₁, ... yₘ using f.induct_unfolding x₁ ... xₙ\n```\nwhere the arguments of `f` are used as arguments to `f.induct_unfolding` or targets of the\ninduction, as appropriate.\n\nThe form\n```\nfun_induction f\n```\n(with no arguments to `f`) searches the goal for a unique eligible application of `f`, and uses\nthese arguments. An application of `f` is eligible if it is saturated and the arguments that will\nbecome targets are free variables.\n\nThe forms `fun_induction f x y generalizing z₁ ... zₙ` and\n`fun_induction f x y with | case1 =&gt; tac₁ | case2 x' ih =&gt; tac₂` work like with `induction.`\n\nUnder `set_option tactic.fun_induction.unfolding true` (the default), `fun_induction` uses the\n`f.induct_unfolding` induction principle, which will try to automatically unfold the call to `f` in\nthe goal. With `set_option tactic.fun_induction.unfolding false`, it uses `f.induct` instead.\n</code>",
- "719": "<code>Stlc.Value : Tm → Prop</code>",
+ "719": "<code>Stlc.Tm.IsValue : Tm → Prop</code>",
  "718":
  "<code class=\"docstring\">`#reduce &lt;expression&gt;` reduces the expression `&lt;expression&gt;` to its normal form. This\ninvolves applying reduction rules until no further reduction is possible.\n\nBy default, proofs and types within the expression are not reduced. Use modifiers\n`(proofs := true)`  and `(types := true)` to reduce them.\nRecall that propositions are types in Lean.\n\n**Warning:** This can be a computationally expensive operation,\nespecially for complex expressions.\n\nConsider using `#eval &lt;expression&gt;` for simple evaluation/execution\nof expressions.\n</code>",
  "717": "<code>Stlc.notB : Tm</code>",

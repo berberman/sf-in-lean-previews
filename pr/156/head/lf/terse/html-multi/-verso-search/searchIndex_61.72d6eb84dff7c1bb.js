@@ -1,0 +1,1 @@
+window.docContents[61].resolve({"/Typeclasses/#Logical-Foundations--Typeclasses--Maps--Partial-Maps":{"contents":"rest of section here...\n(from Maps.lean + text)\n\n","context":"Logical Foundations\u0009Typeclasses\u0009Maps","header":"8.4.4. Partial Maps","id":"/Typeclasses/#Logical-Foundations--Typeclasses--Maps--Partial-Maps"}});
