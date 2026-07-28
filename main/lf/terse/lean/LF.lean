@@ -5,6 +5,6 @@ import LF.Lists
 import LF.Poly
 import LF.Tactics
 import LF.Logic
-import LF.Typeclasses
 import LF.IndProp
 import LF.Automation
+import LF.Typeclasses

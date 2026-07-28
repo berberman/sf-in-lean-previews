@@ -23,7 +23,7 @@ variable (α : Type)
 
 -- ## First Example: Inhabited Types
 
--- Suppose we wanted to specify that a type has at least one inhabitant --
+-- Suppose we wanted to specify that a type has at least one inhabitant —
 -- i.e., that it is not empty. We have previously seen `structure`, which
 -- would allow us to express this as
 
@@ -362,6 +362,8 @@ theorem List.elem_poly_eq_elem_nat (xs : List Nat) (n : Nat) : xs.elem_poly n = 
 universe u v
 variable {α : Type u} {β : Type v} [BEq α] [ReflBEq α] [LawfulBEq α]
 
+set_option linter.unusedSectionVars false
+
 -- where `α` is the type of our map keys and `β` the corresponding values.
 -- Looking at `ReflBEq` and `LawfulBEq`, we see that these typeclasses:
 
@@ -465,6 +467,17 @@ notation a " →ₜ " b " ; " m => TotalMap.update m a b
 
 def examplemap' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true ; ∅
 
+-- This completes the definition of total maps. Note that we don't need to
+-- define a `find` operation on this representation of maps because it is just
+-- function application!
+
+example : example_map = examplemap' := rfl
+
+example : examplemap'["baz"] = false := rfl
+example : examplemap'["foo"] = true := rfl
+example : examplemap'["quux"] = false := rfl
+example : examplemap'["bar"] = true := rfl
+
 -- When we use maps in later chapters, we'll need several fundamental facts
 -- about how they behave.
 
@@ -474,13 +487,123 @@ def examplemap' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true 
 -- (Some of the proofs require the functional extensionality axiom, which was
 -- discussed in the Logic chapter.)
 
+-- First, the empty map returns its default element for all keys:
+
+theorem apply_empty (a : α) : (∅ : TotalMap α β)[a] = default := rfl
+
+-- Next, if we update a map `m` at a key `a` with a new value `b` and then
+-- look up `a` in the map resulting from the `update`, we get back `b`:
+
 theorem update_eq (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b := by
   unfold update
   rewrite [getElem_def, ReflBEq.rfl, cond_true]
   rfl
 
+-- On the other hand, if we update a map `m` at a key `a₁` and then look up a
+-- *different* key `a₂` in the resulting map, we get the same result that `m`
+-- would have given:
+
+-- ### Exercise (2 stars): update_neq ⭐⭐
+
+theorem update_neq (m : TotalMap α β) (a₁ a₂ : α) (h : a₁ ≠ a₂) (b : β) :
+    (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
+  all_goals
+    by_cases h' : a₁ = a₂
+    · contradiction
+    · unfold update
+      rewrite [getElem_def, beq_false_of_ne h, cond_false]
+      rfl
+
+-- The two remaining facts are equalities *between maps*, so we first need to
+-- say when two maps are equal. Since a total map *is* a function, this is
+-- exactly the functional extensionality principle from the Logic chapter: two
+-- maps are equal when they agree at every key. Recording it once, for maps,
+-- and tagging it `@[ext]` lets the `ext` tactic reduce a goal `m₁ = m₂` to
+-- the pointwise one in the proofs below.
+
+@[ext]
+theorem ext (m₁ m₂ : TotalMap α β) (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := funext h
+
+-- If we update a map `m` at a key `a` with a value `b₁` and then update again
+-- with the same key `a` and another value `b₂`, the resulting map behaves the
+-- same (gives the same result when applied to any key) as the simpler map
+-- obtained by performing just the second `update` on `m`:
+
+-- ### Exercise (2 stars): update_shadow ⭐⭐
+
+theorem update_shadow (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
+    (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
+  all_goals
+    ext a'
+    by_cases h : a = a'
+    · subst h
+      rewrite [update_eq, update_eq]
+      rfl
+    · rewrite [update_neq _ _ _ h, update_neq _ _ _ h, update_neq _ _ _ h]
+      rfl
+
+-- Given keys `a₁` and `a₂`, the tactic `by_cases` `h : a₁ = a₂` splits the
+-- proof into the case where they are equal — where `subst h` then replaces
+-- one by the other — and the case where they are not, which is what
+-- `update_neq` wants. Use it to prove the following theorem, which states
+-- that if we update a map to assign key `a` the same value as it already has
+-- in `m`, then the result is equal to `m`:
+
+-- Note to developers (mwhicks1, NOW):
+--     Two things the Rocq source says here have been dropped.
+--
+--     Rocq frames this case analysis around `destruct (eqb_spec x1 x2)`,
+--     which "simultaneously performs case analysis on the result of
+--     `String.eqb x1 x2` and generates hypotheses about the equality (in the
+--     sense of `=`) of `x1` and `x2`" — the boolean/propositional reflection
+--     idiom. The paragraph above replaces that with `by_cases`/`subst`, which
+--     is what the Lean proof uses. But reflection is what the `Reflection`
+--     section **below** is about, so the two may want to be connected rather
+--     than have one silently displace the other.
+--
+--     Rocq then says "With the example in chapter **IndProp** as a template,
+--     use `String.eqb_spec` to prove ...". That cross-reference is dropped,
+--     since it is unclear what the Lean `IndProp` chapter will end up
+--     containing. Revisit later.
+
+-- ### Exercise (2 stars): update_same ⭐⭐
+
+theorem update_same (m : TotalMap α β) (a : α) : (a →ₜ m[a] ; m) = m := by
+  all_goals
+    ext a'
+    by_cases h : a = a'
+    · subst h
+      rw [update_eq]
+    · rw [update_neq _ _ _ h]
+
+-- Similarly, prove one final property of the `update` function: if we update
+-- a map `m` at two distinct keys, it doesn't matter in which order we do the
+-- updates.
+
+-- Note to developers (mwhicks1, NOW):
+--     Rocq says "Similarly, use `String.eqb_spec` to prove ..."; the
+--     instruction to use a specific lemma is dropped here for the same reason
+--     as in the note above.
+
+-- ### Exercise (3 stars): update_permute ⭐⭐⭐
+
+theorem update_permute (m : TotalMap α β) (a₁ a₂ : α) (b₁ b₂ : β) (h : a₁ ≠ a₂) :
+    (a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m) = (a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m) := by
+  all_goals
+    ext a'
+    by_cases h₁ : a₁ = a'
+    · subst h₁
+      rw [update_eq, update_neq _ _ _ h.symm, update_eq]
+    · rw [update_neq _ _ _ h₁]
+      by_cases h₂ : a₂ = a'
+      · subst h₂
+        rw [update_eq, update_eq]
+      · rw [update_neq _ _ _ h₂, update_neq _ _ _ h₂, update_neq _ _ _ h₁]
+
 -- Note to developers:
---     exercises here...
+--     The Rocq source also has `apply_empty` and `update_eq` as (optional)
+--     exercises; here they are worked examples, since `update_eq` was already
+--     presented that way. Reconsider if this section is rebalanced.
 
 -- ### Notation for Concrete Maps
 
@@ -530,15 +653,136 @@ example : ({ 1 ↦ 2, 1 ↦ 3 } : TotalMap Nat Nat)[1]! = 2 := rfl
 
 -- ### Partial Maps
 
+-- Lastly, we define *partial maps* on top of total maps. A partial map with
+-- elements of type `β` is simply a total map with elements of type
+-- `Option β`, whose default element is `none`.
+
+end TotalMap
+
+abbrev PartialMap (α : Type u) (β : Type v) := TotalMap α (Option β)
+
+-- Note to developers (Chris Henson  @chenson2018):
+--     Making this an `abbrev` is a design decision: a type alias avoids
+--     duplicating all the typeclass instances (`GetElem`, `EmptyCollection`,
+--     ...) for partial maps. If this is confusing for any reason, feel free
+--     to change.
+
+-- Note to developers (Claude, NOW):
+--     The Maps chapter removed the `optionCoe` instance for the duration of
+--     its partial-map development (`attribute [-instance] optionCoe`,
+--     restored at `end PartialMap`), on the grounds that a coercion from `β`
+--     to `Option β` might be confusing at this point. It also recorded two
+--     things about doing so: the removal must not leak to end-of-file, or
+--     Verso's `tag`/`file` metadata coercion (`Tag → Option Tag`) fails at
+--     end-of-document; and `[-instance]` cannot be scoped `local`, hence the
+--     manual add/restore pair.
+--
+--     We have not carried that over — nothing here needs it and it is not
+--     clear it is wanted. Decide whether to reinstate it.
+
+-- Updating a partial map at a key means storing `some` value there, and we
+-- introduce a similar notation for it:
+
+namespace PartialMap
+
+def update (m : PartialMap α β) (a : α) (b : β) : PartialMap α β :=
+  (a →ₜ some b ; m)
+
+notation a " →ₚ " b " ; " m => PartialMap.update m a b
+
+-- We can also hide the last case when it is empty:
+
+notation a " →ₚ " b => PartialMap.update ∅ a b
+
+def examplepmap : PartialMap String Bool := "Church" →ₚ true ; "Turing" →ₚ false
+
+-- Since `PartialMap.update` is *defined* as a total-map update that stores
+-- `some` value, the two sides below are literally the same map, and the fact
+-- holds by `rfl`. It is still worth naming: `rw` matches goals
+-- *syntactically*, so a goal written with `→ₚ` will not match a total-map
+-- lemma written with `→ₜ` until it has been rewritten with this one. Each of
+-- the partial-map lemmas that follow begins by doing exactly that.
+
+theorem totalMap_eq (m : PartialMap α β) (a : α) (b : β) : (a →ₚ b ; m) = (a →ₜ some b ; m) := rfl
+
+-- We now straightforwardly lift all of the basic lemmas about total maps to
+-- partial maps.
+
+@[ext]
+theorem ext (m₁ m₂ : PartialMap α β) (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := funext h
+
+theorem apply_empty (a : α) : (∅ : PartialMap α β)[a] = none := rfl
+
+theorem update_eq (m : PartialMap α β) (a : α) (b : β) : (a →ₚ b ; m)[a] = some b := by
+  rw [totalMap_eq, TotalMap.update_eq]
+
+theorem update_neq (m : PartialMap α β) (a₁ a₂ : α) (h : a₁ ≠ a₂) (b : β) :
+    (a₁ →ₚ b ; m)[a₂] = m[a₂] := by
+  rw [totalMap_eq, TotalMap.update_neq _ _ _ h]
+
+theorem update_shadow (m : PartialMap α β) (a : α) (b₁ b₂ : β) :
+    (a →ₚ b₂ ; a →ₚ b₁ ; m) = (a →ₚ b₂ ; m) := by
+  simp [totalMap_eq]
+  exact TotalMap.update_shadow m a (some b₁) (some b₂)
+
+theorem update_same (m : PartialMap α β) (a : α) (b : β) (h : m[a] = some b) :
+    (a →ₚ b ; m) = m := by
+  rw [totalMap_eq, ← h, TotalMap.update_same]
+
+theorem update_permute (m : PartialMap α β) (a₁ a₂ : α) (b₁ b₂ : β) (h : a₁ ≠ a₂) :
+    (a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m) = (a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m) := by
+  simp only [totalMap_eq]
+  exact TotalMap.update_permute m a₁ a₂ (some b₁) (some b₂) h
+
+-- One last thing: for partial maps, it's convenient to introduce a notion of
+-- map inclusion, stating that all the entries in one map are also present in
+-- another. Lean already has notation for this — `m₁ ⊆ m₂` — which we get by
+-- supplying a `HasSubset` instance.
+
+def Subset (m₁ m₂ : PartialMap α β) : Prop :=
+  ∀ (a : α) (b : β), m₁[a] = some b → m₂[a] = some b
+
+instance : HasSubset (PartialMap α β) where
+  Subset := PartialMap.Subset
+
+theorem subset_def (m₁ m₂ : PartialMap α β) :
+    m₁ ⊆ m₂ ↔ (∀ (a : α) (b : β), m₁[a] = some b → m₂[a] = some b) := .rfl
+
+-- We can then show that map update preserves map inclusion, that is:
+
+theorem update_subset (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :
+    (a →ₚ b ; m₁) ⊆ (a →ₚ b ; m₂) := by
+  rw [subset_def]
+  intro a' b' hb
+  by_cases ha : a = a'
+  · subst ha
+    rw [update_eq] at hb ⊢
+    exact hb
+  · rw [update_neq _ _ _ ha] at hb ⊢
+    exact h a' b' hb
+
+end PartialMap
+
+-- This property is quite useful for reasoning about languages with variable
+-- binding — e.g., the Simply Typed Lambda Calculus, which we will see in
+-- *Type Systems*, where maps are used to keep track of which program
+-- variables are defined in a given scope.
+
 -- Note to developers:
---     rest of section here... (from Maps.lean + text)
+--     `namespace TotalMap` is reopened here only because the `Reflection`
+--     section below happens to sit inside it (its `Nat.isEven`/`Nat.double`
+--     are really `TotalMap.Nat.*`, and moving them to the root `Nat`
+--     namespace would collide with `UsingLean`'s `Nat.double`). Drop the
+--     reopen when that section is given a home of its own.
+
+namespace TotalMap
 
 -- ## Reflection
 
 -- Note to developers:
 --     I think this will still exist in previous chapters, just not have the
 --     reflection explanations until here? Since I can't import these yet,
---     just placing here at the top of this section -- CGH Burtonpatel: These
+--     just placing here at the top of this section — CGH Burtonpatel: These
 --     definitions of even as boolean computation and Prop should go below,
 --     after the table where we explain the difference.
 
@@ -600,7 +844,7 @@ theorem isEven_succ (n : Nat) : isEven (n + 1) = ! isEven n := by
 
 -- The crucial difference between the two worlds is decidability. Every
 -- (closed) Lean expression of type `Bool` can be simplified in a finite
--- number of steps to either `true` or `false` -- i.e., there is a terminating
+-- number of steps to either `true` or `false` — i.e., there is a terminating
 -- mechanical procedure for deciding whether or not it is true.
 
 -- This means that, for example, the type `Nat → Bool` is inhabited only by
@@ -700,7 +944,7 @@ theorem isEven_iff_Even {n : Nat} : isEven n = true ↔ Even n where
 
 -- Note to developers:
 --     This proof is from the typeclass version, which makes more sense if
---     maps are included --CGH
+--     maps are included — CGH
 
 example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := beq_iff_eq
 
@@ -837,7 +1081,7 @@ sf_experiment
 --     is easily translated, but the other is a bit different. I list some
 --     theorems below but you should Loogle and see if that's what you want.
 --     Some the the proofs can be a bit advanced if you follow core, or
---     otherwise a bit circular. -- CGH
+--     otherwise a bit circular. — CGH
 
 #check decidable_of_bool
 
@@ -853,7 +1097,7 @@ example {P : Prop} (b : Bool) (h : b = true ↔ P) : Decidable P := by
 
 -- Note to developers:
 --     I'm not sure what part of the signature here is important to translate.
---     Is the point the `Bool`/`Prop` mismatch? -- CGH
+--     Is the point the `Bool`/`Prop` mismatch? — CGH
 
 example (a : α) [BEq α] [LawfulBEq α] (xs : List α) (neq : xs.filter (a == ·) ≠ []) : a ∈ xs := by
   sorry
