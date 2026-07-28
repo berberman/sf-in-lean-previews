@@ -57,157 +57,158 @@
  "66":
  "<code>(b1.optimize0plus.minus b2.optimize0plus).eval = (b1.minus b2).eval</code>",
  "65": "<code>(b1.minus b2).optimize0plus.eval = (b1.minus b2).eval</code>",
- "648":
+ "647":
  "<code>TM.subject_expansion :\n  (∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;) ∨\n    ¬∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;</code>",
- "647": "<code>∀ (T : Ty), &lt;{ ⊢ b ⦂ T }&gt; → ¬c.IsStuck</code>",
- "646": "<code>Multi Tm.Step b c</code>",
- "645": "<code>a ⟶ b</code>",
- "644": "<code>∃ t', a ⟶ t'</code>",
- "643": "<code>a.IsValue</code>",
- "642": "<code>¬a.IsValue</code>",
- "641": "<code>a.IsNormalForm</code>",
- "640": "<code>a.IsStuck</code>",
+ "646": "<code>∀ (T : Ty), &lt;{ ⊢ b ⦂ T }&gt; → ¬c.IsStuck</code>",
+ "645": "<code>Multi Tm.Step b c</code>",
+ "644": "<code>a ⟶ b</code>",
+ "643": "<code>∃ t', a ⟶ t'</code>",
+ "642": "<code>a.IsValue</code>",
+ "641": "<code>¬a.IsValue</code>",
+ "640": "<code>a.IsNormalForm</code>",
  "64": "<code>(b1.plus b2).optimize0plus.eval = b1.eval + b2.eval</code>",
- "639": "<code>&lt;{ ⊢ a ⦂ T }&gt;</code>",
- "638": "<code>t ⟶* t'</code>",
- "637":
+ "639": "<code>a.IsStuck</code>",
+ "638": "<code>&lt;{ ⊢ a ⦂ T }&gt;</code>",
+ "637": "<code>t ⟶* t'</code>",
+ "636":
  "<code>TM.soundness (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (hm : t ⟶* t') : ¬t'.IsStuck</code>",
- "636": "<code>TM.Tm.MultiStep (t1 t2 : Tm) : Prop</code>",
- "635":
- "<code>TM.preservation' (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ T }&gt;</code>",
+ "635": "<code>TM.Tm.MultiStep (t1 t2 : Tm) : Prop</code>",
  "634":
+ "<code>TM.preservation' (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ T }&gt;</code>",
+ "633":
  "<code>TM.preservation (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ T }&gt;</code>",
- "633": "<code>&lt;{ ⊢ t ⦂ T }&gt;</code>",
- "632":
+ "632": "<code>&lt;{ ⊢ t ⦂ T }&gt;</code>",
+ "631":
  "<code>TM.progress (t : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
- "631": "<code>&lt;{ ⊢ Tm.fls ⦂ Ty.nat }&gt;</code>",
- "630": "<code>&lt;{ ⊢ Tm.tru ⦂ Ty.nat }&gt;</code>",
+ "630": "<code>&lt;{ ⊢ false ⦂ Nat }&gt;</code>",
  "63":
  "<code class=\"docstring\">Location specifications are used by many tactics that can operate on either the\nhypotheses or the goal. It can have one of the forms:\n* 'empty' is not actually present in this syntax, but most tactics use\n  `(location)?` matchers. It means to target the goal only.\n* `at h₁ ... hₙ`: target the hypotheses `h₁`, ..., `hₙ`\n* `at h₁ h₂ ⊢`: target the hypotheses `h₁` and `h₂`, and the goal\n* `at *`: target all hypotheses and the goal\n</code>",
- "629": "<code>&lt;{ ⊢ t ⦂ Ty.nat }&gt;</code>",
- "628":
- "<code>TM.nat_canonical (t : Tm) (hT : &lt;{ ⊢ t ⦂ Ty.nat }&gt;) (hv : t.IsValue) : t.IsNValue</code>",
- "627": "<code>&lt;{ ⊢ ~t0.succ ⦂ ~Ty.bool }&gt;</code>",
- "626": "<code>t.IsBValue</code>",
- "625": "<code>&lt;{ ⊢ t ⦂ Ty.bool }&gt;</code>",
- "624":
- "<code>TM.bool_canonical (t : Tm) (hT : &lt;{ ⊢ t ⦂ Ty.bool }&gt;) (hv : t.IsValue) : t.IsBValue</code>",
- "623": "<code>&lt;{ ⊢ ~t.succ ⦂ ~Ty.nat }&gt;</code>",
- "622": "<code>&lt;{ ⊢ ~Tm.fls.succ ⦂ ~Ty.bool }&gt;</code>",
- "621": "<code>&lt;{ ⊢ ~Tm.zero.succ.isZero ⦂ ~Ty.bool }&gt;</code>",
- "620":
- "<code>&lt;{ ⊢ ~(Tm.zero.succ.isZero.ite Tm.fls.succ Tm.tru) ⦂ ~Ty.bool }&gt;</code>",
+ "629": "<code>&lt;{ ⊢ true ⦂ Nat }&gt;</code>",
+ "628": "<code>&lt;{ ⊢ t ⦂ Nat }&gt;</code>",
+ "627":
+ "<code>TM.nat_canonical (t : Tm) (hT : &lt;{ ⊢ t ⦂ Nat }&gt;) (hv : t.IsValue) : t.IsNValue</code>",
+ "626": "<code>&lt;{ ⊢ succ t0 ⦂ Bool }&gt;</code>",
+ "625": "<code>t.IsBValue</code>",
+ "624": "<code>&lt;{ ⊢ t ⦂ Bool }&gt;</code>",
+ "623":
+ "<code>TM.bool_canonical (t : Tm) (hT : &lt;{ ⊢ t ⦂ Bool }&gt;) (hv : t.IsValue) : t.IsBValue</code>",
+ "622": "<code>&lt;{ ⊢ succ t ⦂ Nat }&gt;</code>",
+ "621": "<code>&lt;{ ⊢ succ false ⦂ Bool }&gt;</code>",
+ "620": "<code>&lt;{ ⊢ iszero (succ 0) ⦂ Bool }&gt;</code>",
  "62": "<code>(b1.plus b2).optimize0plus.eval = (b1.plus b2).eval</code>",
- "619": "<code>&lt;{ ⊢ Tm.tru ⦂ Ty.bool }&gt;</code>",
- "618": "<code>&lt;{ ⊢ Tm.zero ⦂ Ty.bool }&gt;</code>",
- "617": "<code>&lt;{ ⊢ Tm.fls ⦂ Ty.bool }&gt;</code>",
- "616": "<code>&lt;{ ⊢ t3✝ ⦂ T✝ }&gt;</code>",
- "615": "<code>&lt;{ ⊢ t2✝ ⦂ T✝ }&gt;</code>",
- "614": "<code>&lt;{ ⊢ t1✝ ⦂ Ty.bool }&gt;</code>",
- "613": "<code>&lt;{ ⊢ ~(Tm.fls.ite Tm.zero Tm.tru) ⦂ ~Ty.bool }&gt;</code>",
- "612":
- "<code>TM.Tm.HasType.succ (t1 : Tm) (h : &lt;{ ⊢ t1 ⦂ Ty.nat }&gt;) : &lt;{ ⊢ ~t1.succ ⦂ ~Ty.nat }&gt;</code>",
- "611": "<code>TM.Tm.HasType.zero : &lt;{ ⊢ Tm.zero ⦂ Ty.nat }&gt;</code>",
- "610": "<code>TM.Tm.HasType.fls : &lt;{ ⊢ Tm.fls ⦂ Ty.bool }&gt;</code>",
+ "619":
+ "<code>&lt;{ ⊢ if iszero (succ 0) then succ false else true ⦂ Bool }&gt;</code>",
+ "618": "<code>&lt;{ ⊢ true ⦂ Bool }&gt;</code>",
+ "617": "<code>&lt;{ ⊢ 0 ⦂ Bool }&gt;</code>",
+ "616": "<code>&lt;{ ⊢ false ⦂ Bool }&gt;</code>",
+ "615": "<code>&lt;{ ⊢ t3✝ ⦂ T✝ }&gt;</code>",
+ "614": "<code>&lt;{ ⊢ t2✝ ⦂ T✝ }&gt;</code>",
+ "613": "<code>&lt;{ ⊢ t1✝ ⦂ Bool }&gt;</code>",
+ "612": "<code>&lt;{ ⊢ if false then 0 else true ⦂ Bool }&gt;</code>",
+ "611":
+ "<code>TM.Tm.HasType.succ (t1 : Tm) (h : &lt;{ ⊢ t1 ⦂ Nat }&gt;) : &lt;{ ⊢ succ t1 ⦂ Nat }&gt;</code>",
+ "610": "<code>TM.Tm.HasType.zero : &lt;{ ⊢ 0 ⦂ Nat }&gt;</code>",
  "61":
  "<code class=\"docstring\">`rw` is like `rewrite`, but also tries to close the goal by \"cheap\" (reducible) `rfl` afterwards.\n</code>",
- "609":
- "<code>TM.Tm.HasType.ite (t1 t2 t3 : Tm) (T : Ty) (h1 : &lt;{ ⊢ t1 ⦂ Ty.bool }&gt;) (h2 : &lt;{ ⊢ t2 ⦂ T }&gt;) (h3 : &lt;{ ⊢ t3 ⦂ T }&gt;) :\n  &lt;{ ⊢ ~(t1.ite t2 t3) ⦂ ~T }&gt;</code>",
+ "609": "<code>TM.Tm.HasType.fls : &lt;{ ⊢ false ⦂ Bool }&gt;</code>",
  "608":
- "<code>MonadExcept.throw.{u, v, w} {ε : outParam (Type u)} {m : Type v → Type w} [self : MonadExcept ε m] {α : Type v} :\n  ε → m α</code><span class=\"sep\"></span><code class=\"docstring\">Throws an exception of type `ε` to the nearest enclosing handler.\n</code>",
+ "<code>TM.Tm.HasType.ite (t1 t2 t3 : Tm) (T : Ty) (h1 : &lt;{ ⊢ t1 ⦂ Bool }&gt;) (h2 : &lt;{ ⊢ t2 ⦂ T }&gt;) (h3 : &lt;{ ⊢ t3 ⦂ T }&gt;) :\n  &lt;{ ⊢ if t1 then t2 else t3 ⦂ T }&gt;</code>",
  "607":
- "<code>Lean.TSyntax.raw {ks : Lean.SyntaxNodeKinds} (self : Lean.TSyntax ks) : Lean.Syntax</code><span class=\"sep\"></span><code class=\"docstring\">The underlying `Syntax` value. </code>",
+ "<code>MonadExcept.throw.{u, v, w} {ε : outParam (Type u)} {m : Type v → Type w} [self : MonadExcept ε m] {α : Type v} :\n  ε → m α</code><span class=\"sep\"></span><code class=\"docstring\">Throws an exception of type `ε` to the nearest enclosing handler.\n</code>",
  "606":
- "<code>Lean.TSyntax.mk {ks : Lean.SyntaxNodeKinds} (raw : Lean.Syntax) : Lean.TSyntax ks</code>",
+ "<code>Lean.TSyntax.raw {ks : Lean.SyntaxNodeKinds} (self : Lean.TSyntax ks) : Lean.Syntax</code><span class=\"sep\"></span><code class=\"docstring\">The underlying `Syntax` value. </code>",
  "605":
+ "<code>Lean.TSyntax.mk {ks : Lean.SyntaxNodeKinds} (raw : Lean.Syntax) : Lean.TSyntax ks</code>",
+ "604":
  "<code>Lean.PrettyPrinter.Unexpander : Type</code><span class=\"sep\"></span><code class=\"docstring\">Function that tries to reverse macro expansions as a post-processing step of delaboration.\nWhile less general than an arbitrary delaborator, it can be declared without importing `Lean`.\nUsed by the `[app_unexpander]` attribute.\n</code>",
- "604": "<code>TM.Tm.HasType.unexpand : Lean.PrettyPrinter.Unexpander</code>",
- "603":
+ "603": "<code>TM.Tm.HasType.unexpand : Lean.PrettyPrinter.Unexpander</code>",
+ "602":
  "<code>Alternative.failure.{u, v} {f : Type u → Type v} [self : Alternative f] {α : Type u} : f α</code><span class=\"sep\"></span><code class=\"docstring\">Produces an empty collection or recoverable failure.  The `&lt;|&gt;` operator collects values or recovers\nfrom failures. See `Alternative` for more details.\n</code>",
- "602": "<code>TM.delabTy : Delab</code>",
- "601":
- "<code>TM.Tm.HasType.isZero (t1 : Tm) (h : t1.HasType Ty.nat) : t1.isZero.HasType Ty.bool</code>",
+ "601": "<code>TM.delabTy : Delab</code>",
  "600":
- "<code>TM.Tm.HasType.pred (t1 : Tm) (h : t1.HasType Ty.nat) : t1.pred.HasType Ty.nat</code>",
+ "<code>TM.Tm.HasType.isZero (t1 : Tm) (h : t1.HasType Ty.nat) : &lt;{ iszero t1 }&gt;.HasType Ty.bool</code>",
  "60":
  "<code>HAdd.hAdd.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAdd α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a + b` computes the sum of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `+` in identifiers is `add`.</code>",
  "6": "<code>Slang.Aexp.plus (a1 a2 : Aexp) : Aexp</code>",
- "599": "<code>HasType t1 Ty.nat</code>",
- "598":
- "<code>TM.Tm.HasType.succ (t1 : Tm) (h : t1.HasType Ty.nat) : t1.succ.HasType Ty.nat</code>",
- "597": "<code>TM.Tm.HasType.zero : zero.HasType Ty.nat</code>",
- "596": "<code>HasType t3 T</code>",
- "595": "<code>HasType t2 T</code>",
- "594": "<code>HasType t1 Ty.bool</code>",
- "593": "<code>Ty</code>",
- "592":
- "<code>TM.Tm.HasType.ite (t1 t2 t3 : Tm) (T : Ty) (h1 : t1.HasType Ty.bool) (h2 : t2.HasType T) (h3 : t3.HasType T) :\n  (t1.ite t2 t3).HasType T</code>",
- "591": "<code>TM.Tm.HasType.fls : fls.HasType Ty.bool</code>",
- "590": "<code>TM.Tm.HasType.tru : tru.HasType Ty.bool</code>",
+ "599":
+ "<code>TM.Tm.HasType.pred (t1 : Tm) (h : t1.HasType Ty.nat) : &lt;{ pred t1 }&gt;.HasType Ty.nat</code>",
+ "598": "<code>HasType t1 Ty.nat</code>",
+ "597":
+ "<code>TM.Tm.HasType.succ (t1 : Tm) (h : t1.HasType Ty.nat) : &lt;{ succ t1 }&gt;.HasType Ty.nat</code>",
+ "596": "<code>TM.Tm.HasType.zero : &lt;{ 0 }&gt;.HasType Ty.nat</code>",
+ "595": "<code>HasType t3 T</code>",
+ "594": "<code>HasType t2 T</code>",
+ "593": "<code>HasType t1 Ty.bool</code>",
+ "592": "<code>Ty</code>",
+ "591":
+ "<code>TM.Tm.HasType.ite (t1 t2 t3 : Tm) (T : Ty) (h1 : t1.HasType Ty.bool) (h2 : t2.HasType T) (h3 : t3.HasType T) :\n  &lt;{ if t1 then t2 else t3 }&gt;.HasType T</code>",
+ "590": "<code>TM.Tm.HasType.fls : &lt;{ false }&gt;.HasType Ty.bool</code>",
  "59":
  "<code>(Aexp.num (n + 1)).optimize0plus.eval = (Aexp.num (n + 1)).eval</code>",
- "589": "<code>TM.Tm.HasType : Tm → Ty → Prop</code>",
- "588": "<code><span class=\"literal string\">\"Nat\"</span> : String</code>",
- "587": "<code><span class=\"literal string\">\"Bool\"</span> : String</code>",
- "586":
- "<code>Lean.Name.toString (n : Lean.Name) (escape : Bool := true) : String</code><span class=\"sep\"></span><code class=\"docstring\">Converts a name to a string.\n\n- If `escape` is `true`, then escapes name components using `«` and `»` to ensure that\nthose names that can appear in source files round trip.\nNames with number components, anonymous names, and names containing `»` might not round trip.\nFurthermore, \"pseudo-syntax\" produced by the delaborator, such as `_`, `#0` or `?u`, is not escaped.\n</code>",
+ "589": "<code>TM.Tm.HasType.tru : &lt;{ true }&gt;.HasType Ty.bool</code>",
+ "588": "<code>TM.Tm.HasType : Tm → Ty → Prop</code>",
+ "587": "<code><span class=\"literal string\">\"Nat\"</span> : String</code>",
+ "586": "<code><span class=\"literal string\">\"Bool\"</span> : String</code>",
  "585":
+ "<code>Lean.Name.toString (n : Lean.Name) (escape : Bool := true) : String</code><span class=\"sep\"></span><code class=\"docstring\">Converts a name to a string.\n\n- If `escape` is `true`, then escapes name components using `«` and `»` to ensure that\nthose names that can appear in source files round trip.\nNames with number components, anonymous names, and names containing `»` might not round trip.\nFurthermore, \"pseudo-syntax\" produced by the delaborator, such as `_`, `#0` or `?u`, is not escaped.\n</code>",
+ "584":
  "<code>Lean.TSyntax.getId (s : Lean.Ident) : Lean.Name</code><span class=\"sep\"></span><code class=\"docstring\">Extracts the parsed name from the syntax of an identifier.\n\nReturns `Name.anonymous` if the syntax is malformed.\n</code>",
- "584": "<code>Lean.TSyntax `ident</code>",
- "583": "<code>Lean.TSyntax `tm</code>",
- "582": "<code><span class=\"literal string\">\" ⦂ \"</span> : String</code>",
- "581": "<code><span class=\"literal string\">\"⊢ \"</span> : String</code>",
- "580": "<code>TM.Ty.nat : Ty</code>",
+ "583": "<code>Lean.TSyntax `ident</code>",
+ "582": "<code>Lean.TSyntax `tm</code>",
+ "581": "<code><span class=\"literal string\">\" ⦂ \"</span> : String</code>",
+ "580": "<code><span class=\"literal string\">\"⊢ \"</span> : String</code>",
  "58":
  "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
- "579": "<code>TM.Ty.bool : Ty</code>",
- "578": "<code>TM.Ty : Type</code>",
- "577":
- "<code>Option.none.{u} {α : Type u} : Option α</code><span class=\"sep\"></span><code class=\"docstring\">No value. </code>",
+ "579": "<code>TM.Ty.nat : Ty</code>",
+ "578": "<code>TM.Ty.bool : Ty</code>",
+ "577": "<code>TM.Ty : Type</code>",
  "576":
- "<code>Option.some.{u} {α : Type u} (val : α) : Option α</code><span class=\"sep\"></span><code class=\"docstring\">Some value of type `α`. </code>",
+ "<code>Option.none.{u} {α : Type u} : Option α</code><span class=\"sep\"></span><code class=\"docstring\">No value. </code>",
  "575":
+ "<code>Option.some.{u} {α : Type u} (val : α) : Option α</code><span class=\"sep\"></span><code class=\"docstring\">Some value of type `α`. </code>",
+ "574":
  "<code>Option.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Optional values, which are either `some` around a value from the underlying type or `none`.\n\n`Option` can represent nullable types or computations that might fail. In the codomain of a function\ntype, it can also represent partiality.\n</code>",
- "574": "<code>TM.alt_simplify_step (t : Tm) : Option Tm</code>",
- "573":
- "<code>TM.Tm.AltStep.isZeroStep (t1 t1' : Tm) : t1.AltStep t1' → t1.isZero.AltStep t1'.isZero</code>",
+ "573": "<code>TM.alt_simplify_step (t : Tm) : Option Tm</code>",
  "572":
- "<code>TM.Tm.AltStep.isZeroSucc (t1 : Tm) : t1.succ.isZero.AltStep fls</code>",
- "571": "<code>TM.Tm.AltStep.isZeroZero : zero.isZero.AltStep tru</code>",
+ "<code>TM.Tm.AltStep.isZeroStep (t1 t1' : Tm) : t1.AltStep t1' → &lt;{ iszero t1 }&gt;.AltStep &lt;{ iszero t1' }&gt;</code>",
+ "571":
+ "<code>TM.Tm.AltStep.isZeroSucc (t1 : Tm) : &lt;{ iszero (succ t1) }&gt;.AltStep &lt;{ false }&gt;</code>",
  "570":
- "<code>TM.Tm.AltStep.predStep (t1 t1' : Tm) : t1.AltStep t1' → t1.pred.AltStep t1'.pred</code>",
+ "<code>TM.Tm.AltStep.isZeroZero : &lt;{ iszero 0 }&gt;.AltStep &lt;{ true }&gt;</code>",
  "57":
  "<code class=\"docstring\">`exact e` closes the main goal if its target type matches that of `e`.\n</code>",
  "569":
- "<code>TM.Tm.AltStep.predSucc (t1 : Tm) : t1.succ.pred.AltStep t1</code>",
- "568": "<code>TM.Tm.AltStep.predZero : zero.pred.AltStep zero</code>",
+ "<code>TM.Tm.AltStep.predStep (t1 t1' : Tm) : t1.AltStep t1' → &lt;{ pred t1 }&gt;.AltStep &lt;{ pred t1' }&gt;</code>",
+ "568":
+ "<code>TM.Tm.AltStep.predSucc (t1 : Tm) : &lt;{ pred (succ t1) }&gt;.AltStep t1</code>",
  "567":
- "<code>TM.Tm.AltStep.succStep (t1 t1' : Tm) : t1.AltStep t1' → t1.succ.AltStep t1'.succ</code>",
+ "<code>TM.Tm.AltStep.predZero : &lt;{ pred 0 }&gt;.AltStep &lt;{ 0 }&gt;</code>",
  "566":
- "<code>TM.Tm.AltStep.ifStep (t1 t1' t2 t3 : Tm) : t1.AltStep t1' → (t1.ite t2 t3).AltStep (t1'.ite t2 t3)</code>",
+ "<code>TM.Tm.AltStep.succStep (t1 t1' : Tm) : t1.AltStep t1' → &lt;{ succ t1 }&gt;.AltStep &lt;{ succ t1' }&gt;</code>",
  "565":
- "<code>TM.Tm.AltStep.ifFalse (t1 t2 : Tm) : (fls.ite t1 t2).AltStep t2</code>",
+ "<code>TM.Tm.AltStep.ifStep (t1 t1' t2 t3 : Tm) :\n  t1.AltStep t1' → &lt;{ if t1 then t2 else t3 }&gt;.AltStep &lt;{ if t1' then t2 else t3 }&gt;</code>",
  "564":
- "<code>TM.Tm.AltStep.ifTrue (t1 t2 : Tm) : (tru.ite t1 t2).AltStep t1</code>",
- "563": "<code>TM.Tm.AltStep : Tm → Tm → Prop</code>",
- "562": "<code><span class=\"literal string\">\" ⇢ \"</span> : String</code>",
- "561": "<code>TM.step_deterministic : Deterministic Tm.Step</code>",
- "560": "<code>TM.value_is_nf' (t : Tm) : t.IsValue → t.IsNormalForm</code>",
+ "<code>TM.Tm.AltStep.ifFalse (t1 t2 : Tm) : &lt;{ if false then t1 else t2 }&gt;.AltStep t2</code>",
+ "563":
+ "<code>TM.Tm.AltStep.ifTrue (t1 t2 : Tm) : &lt;{ if true then t1 else t2 }&gt;.AltStep t1</code>",
+ "562": "<code>TM.Tm.AltStep : Tm → Tm → Prop</code>",
+ "561": "<code><span class=\"literal string\">\" ⇢ \"</span> : String</code>",
+ "560": "<code>TM.step_deterministic : Deterministic Tm.Step</code>",
  "56": "<code>Nat.zero_add (n : Nat) : 0 + n = n</code>",
- "559": "<code>t.IsValue</code>",
- "558": "<code>TM.value_is_nf (t : Tm) (h : t.IsValue) : t.IsNormalForm</code>",
- "557": "<code>t0 ⟶ t1'</code>",
- "556": "<code>t1✝ ⟶ t1'</code>",
- "555":
- "<code>TM.Tm.Step.succStep (t1 t1' : Tm) (h : t1 ⟶ t1') : t1.succ ⟶ t1'.succ</code>",
- "554": "<code>t0.succ ⟶ t'</code>",
- "553": "<code>∃ t', t0.succ ⟶ t'</code>",
- "552": "<code>t0.IsNormalForm</code>",
- "551": "<code>t0.IsNValue</code>",
- "550": "<code>Tm.zero ⟶ t'</code>",
+ "559": "<code>TM.value_is_nf' (t : Tm) : t.IsValue → t.IsNormalForm</code>",
+ "558": "<code>t.IsValue</code>",
+ "557": "<code>TM.value_is_nf (t : Tm) (h : t.IsValue) : t.IsNormalForm</code>",
+ "556": "<code>t0 ⟶ t1'</code>",
+ "555": "<code>t1✝ ⟶ t1'</code>",
+ "554":
+ "<code>TM.Tm.Step.succStep (t1 t1' : Tm) (h : t1 ⟶ t1') : &lt;{ succ t1 }&gt; ⟶ &lt;{ succ t1' }&gt;</code>",
+ "553": "<code>&lt;{ succ t0 }&gt; ⟶ t'</code>",
+ "552": "<code>∃ t', &lt;{ succ t0 }&gt; ⟶ t'</code>",
+ "551": "<code>t0.IsNormalForm</code>",
+ "550": "<code>t0.IsNValue</code>",
  "55": "<code>Slang.Aexp.eval_num (n : Nat) : (Aexp.num n).eval = n</code>",
- "549": "<code>∃ t', Tm.zero ⟶ t'</code>",
- "548": "<code>TM.Tm.IsNValue.zero : Tm.zero.IsNValue</code>",
+ "549": "<code>&lt;{ 0 }&gt; ⟶ t'</code>",
+ "548": "<code>∃ t', &lt;{ 0 }&gt; ⟶ t'</code>",
  "547": "<code>t.IsNValue</code>",
  "546":
  "<code>TM.nvalue_is_nf (t : Tm) (h : t.IsNValue) : t.IsNormalForm</code>",
@@ -217,25 +218,28 @@
  "<code>_root_.IsNormalForm {X : Type} (R : Relation X) (t : X) : Prop</code>",
  "542": "<code>TM.Tm.IsNormalForm (t : Tm) : Prop</code>",
  "541":
- "<code>TM.Tm.Step.isZeroStep (t1 t1' : Tm) (h : t1.Step t1') : t1.isZero.Step t1'.isZero</code>",
+ "<code>TM.Tm.Step.isZeroStep (t1 t1' : Tm) (h : t1.Step t1') : &lt;{ iszero t1 }&gt;.Step &lt;{ iszero t1' }&gt;</code>",
  "540":
- "<code>TM.Tm.Step.isZeroSucc (v : Tm) (hv : v.IsNValue) : v.succ.isZero.Step fls</code>",
+ "<code>TM.Tm.Step.isZeroSucc (v : Tm) (hv : v.IsNValue) : &lt;{ iszero (succ v) }&gt;.Step &lt;{ false }&gt;</code>",
  "54": "<code>(Aexp.num 0).optimize0plus.eval = (Aexp.num 0).eval</code>",
- "539": "<code>TM.Tm.Step.isZeroZero : zero.isZero.Step tru</code>",
+ "539":
+ "<code>TM.Tm.Step.isZeroZero : &lt;{ iszero 0 }&gt;.Step &lt;{ true }&gt;</code>",
  "538":
- "<code>TM.Tm.Step.predStep (t1 t1' : Tm) (h : t1.Step t1') : t1.pred.Step t1'.pred</code>",
+ "<code>TM.Tm.Step.predStep (t1 t1' : Tm) (h : t1.Step t1') : &lt;{ pred t1 }&gt;.Step &lt;{ pred t1' }&gt;</code>",
  "537": "<code>v.IsNValue</code>",
  "536":
- "<code>TM.Tm.Step.predSucc (v : Tm) (hv : v.IsNValue) : v.succ.pred.Step v</code>",
- "535": "<code>TM.Tm.Step.predZero : zero.pred.Step zero</code>",
+ "<code>TM.Tm.Step.predSucc (v : Tm) (hv : v.IsNValue) : &lt;{ pred (succ v) }&gt;.Step v</code>",
+ "535":
+ "<code>TM.Tm.Step.predZero : &lt;{ pred 0 }&gt;.Step &lt;{ 0 }&gt;</code>",
  "534":
- "<code>TM.Tm.Step.succStep (t1 t1' : Tm) (h : t1.Step t1') : t1.succ.Step t1'.succ</code>",
+ "<code>TM.Tm.Step.succStep (t1 t1' : Tm) (h : t1.Step t1') : &lt;{ succ t1 }&gt;.Step &lt;{ succ t1' }&gt;</code>",
  "533": "<code>Step c c'</code>",
  "532":
- "<code>TM.Tm.Step.ifStep (c c' t2 t3 : Tm) (h : c.Step c') : (c.ite t2 t3).Step (c'.ite t2 t3)</code>",
+ "<code>TM.Tm.Step.ifStep (c c' t2 t3 : Tm) (h : c.Step c') : &lt;{ if c then t2 else t3 }&gt;.Step &lt;{ if c' then t2 else t3 }&gt;</code>",
  "531":
- "<code>TM.Tm.Step.ifFalse (t1 t2 : Tm) : (fls.ite t1 t2).Step t2</code>",
- "530": "<code>TM.Tm.Step.ifTrue (t1 t2 : Tm) : (tru.ite t1 t2).Step t1</code>",
+ "<code>TM.Tm.Step.ifFalse (t1 t2 : Tm) : &lt;{ if false then t1 else t2 }&gt;.Step t2</code>",
+ "530":
+ "<code>TM.Tm.Step.ifTrue (t1 t2 : Tm) : &lt;{ if true then t1 else t2 }&gt;.Step t1</code>",
  "53":
  "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "529": "<code>TM.Tm.Step : Tm → Tm → Prop</code>",
@@ -248,12 +252,12 @@
  "525": "<code>TM.Tm.IsValue (t : Tm) : Prop</code>",
  "524": "<code>IsNValue t</code>",
  "523":
- "<code>TM.Tm.IsNValue.succ (t : Tm) (h : t.IsNValue) : t.succ.IsNValue</code>",
- "522": "<code>TM.Tm.IsNValue.zero : zero.IsNValue</code>",
+ "<code>TM.Tm.IsNValue.succ (t : Tm) (h : t.IsNValue) : &lt;{ succ t }&gt;.IsNValue</code>",
+ "522": "<code>TM.Tm.IsNValue.zero : &lt;{ 0 }&gt;.IsNValue</code>",
  "521": "<code>TM.Tm.IsNValue : Tm → Prop</code>",
- "520": "<code>TM.Tm.IsBValue.fls : fls.IsBValue</code>",
+ "520": "<code>TM.Tm.IsBValue.fls : &lt;{ false }&gt;.IsBValue</code>",
  "52": "<code>(Aexp.num n).optimize0plus.eval = (Aexp.num n).eval</code>",
- "519": "<code>TM.Tm.IsBValue.tru : tru.IsBValue</code>",
+ "519": "<code>TM.Tm.IsBValue.tru : &lt;{ true }&gt;.IsBValue</code>",
  "518": "<code>TM.Tm.IsBValue : Tm → Prop</code>",
  "517":
  "<code>guard.{v} {f : Type → Type v} [Alternative f] (p : Prop) [Decidable p] : f Unit</code><span class=\"sep\"></span><code class=\"docstring\">If the proposition `p` is true, does nothing, else fails (using `failure`).\n</code>",

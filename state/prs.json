@@ -1,5 +1,5 @@
 {
-  "main_sha": "9308d9da332cbfbb315117921ac1e1e46f6d250b",
+  "main_sha": "5aa46b654a0acaa0e82eaf46dfded8e667bf8258",
   "prs": {
     "136": {
       "changed_variants": [],
@@ -55,52 +55,6 @@
       "status": "published",
       "title": "Initial port of TS/Stlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/156"
-    },
-    "158": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "7c54e1defb94aaad7c13661b8085cf8dfe098f01",
-      "preview_path": "pr/158/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30220828080",
-      "status": "published",
-      "title": "Types: bnf grammar, and notation encoding behind :::details",
-      "url": "https://github.com/plclub/sf-in-lean/pull/158"
     },
     "163": {
       "changed_variants": [],
