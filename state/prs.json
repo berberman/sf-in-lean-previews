@@ -58,11 +58,11 @@
     },
     "163": {
       "changed_variants": [],
-      "head_sha": "ad5517898404c9285557384060485795512df26e",
+      "head_sha": "9b51a6b4a25199d4118ce68d4295e5b3ef370ad2",
       "preview_path": "pr/163/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30418857711",
-      "status": "ci-failed",
-      "title": "Fix solution markers leakage",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Decompose SFLMeta.Save",
       "url": "https://github.com/plclub/sf-in-lean/pull/163"
     },
     "166": {
