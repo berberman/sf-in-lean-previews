@@ -70,7 +70,9 @@ theorem plus_2_2_is_4 : 2 + 2 = 4 := rfl
 
 def PlusClaim : Prop := 2 + 2 = 4
 
-#check (PlusClaim : Prop)
+#check PlusClaim
+
+-- PlusClaim : Prop
 
 -- We can later use this name in any situation where a proposition is expected
 -- -- for example, as the claim in a `theorem` declaration.
@@ -85,7 +87,9 @@ theorem PlusClaim_is_true : PlusClaim := rfl
 
 def IsThree (n : Nat) : Prop := n = 3
 
-#check (IsThree : Nat → Prop)
+#check IsThree
+
+-- IsThree (n : Nat) : Prop
 
 -- In Lean, functions that return propositions are said to define *properties*
 -- of their arguments.
@@ -93,7 +97,7 @@ def IsThree (n : Nat) : Prop := n = 3
 -- For instance, here's a (polymorphic) property defining the familiar notion
 -- of an *injective function*.
 
-def Injective {α β} (f : α → β) : Prop :=
+def Injective {α β : Type} (f : α → β) : Prop :=
   ∀ x y : α, f x = f y → x = y
 
 theorem succ_inj' : Injective Nat.succ := by
@@ -102,11 +106,6 @@ theorem succ_inj' : Injective Nat.succ := by
 -- The familiar equality operator `=` is a (binary) function that returns a
 -- `Prop`. The expression `n = m` is notation for `Eq n m`. Because `eq` can
 -- be used with elements of any type, it is also polymorphic:
-
--- Note to developers (Jonathan Chan  @ionathanch):
---     Actually it quantifies over `Sort`, where `Prop = Sort 0` and
---     `Type u = Sort (u + 1)`. Not something that needs teaching right at
---     this moment, but they'll see `Sort` when hovering.
 
 #check (Eq : ∀ {α : Type}, α → α → Prop)
 
@@ -120,7 +119,11 @@ theorem succ_inj' : Injective Nat.succ := by
 
 #check (false : Prop)
 
+-- false = true : Prop
+
 #check (true : Prop)
+
+-- true = true : Prop
 
 -- _Quiz:_
 
@@ -146,13 +149,11 @@ theorem succ_inj' : Injective Nat.succ := by
 -- 4. `Nat → Nat`
 -- 5. Not typeable
 
-#check (∀ n : Nat, (n + 1).pred = n : Prop)
-
 -- _Quiz:_
 
 -- What is the type of the following expression?
 
---   ∀ n : Nat, succ (pred n)
+--   ∀ n : Nat, n.pred + 1
 
 -- 1. `Prop`
 -- 2. `Nat → Prop`
