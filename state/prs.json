@@ -73,6 +73,15 @@
       "status": "ci-failed",
       "title": "Typclasses: add notation for getting elements",
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
+    },
+    "167": {
+      "changed_variants": [],
+      "head_sha": "e83e5296fec65e44f5be324976cf54aced1b098a",
+      "preview_path": "pr/167/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Pass over Logic chapter",
+      "url": "https://github.com/plclub/sf-in-lean/pull/167"
     }
   },
   "schema": 3
