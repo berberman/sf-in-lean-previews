@@ -82,11 +82,11 @@ theorem PlusClaim_is_true : PlusClaim := rfl
 -- functions that take arguments of some type and return a
 -- proposition.
 
-def IsThree (n : Nat) : Prop := n = 3
+def Nat.IsThree (n : Nat) : Prop := n = 3
 
-#check IsThree
+#check (Nat.IsThree)
 
--- IsThree (n : Nat) : Prop
+-- Nat.IsThree : Nat → Prop
 
 -- In Lean, functions that return propositions are said to
 -- define *properties* of their arguments.
@@ -242,8 +242,8 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 
 -- So much for proving conjunctive statements. To go in the
 -- other direction -- i.e., to *use* a conjunctive hypothesis
--- to help prove something else -- we can use `let` to obtain
--- the components.
+-- to help prove something else -- we can use `obtain` to
+-- obtain the components.
 
 example (n m : Nat) : n = 0 ∧ m = 0 → n + m = 0 := by
   sorry
@@ -430,12 +430,10 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ α : Type, ∀ x y : α, x = y ∧ x ≠ y → False
 
--- 1. `cases`, `unfold`, `left`, and `right`
--- 2. `cases` and `unfold`
--- 3. only `cases`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `cases`, `left`, and `right`
+-- 2. only `cases`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- _Quiz:_
 
@@ -444,12 +442,10 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ a b : Prop, a ∨ b → ¬ ¬ (a ∨ b)
 
--- 1. `cases`, `unfold`, `left`, and `right`
--- 2. `cases` and `unfold`
--- 3. only `cases`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `cases`, `left`, and `right`
+-- 2. only `cases`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- _Quiz:_
 
@@ -458,12 +454,10 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ a b : Prop, a → (a ∨ ¬ ¬ b)
 
--- 1. `cases`, `unfold`, `left`, and `right`
--- 2. `cases` and `unfold`
--- 3. only `cases`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `cases`, `left`, and `right`
+-- 2. only `cases`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- _Quiz:_
 
@@ -472,12 +466,10 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ a b : Prop, a ∨ b → (¬ ¬ a) ∨ (¬ ¬ b)
 
--- 1. `cases`, `unfold`, `left`, and `right`
--- 2. `cases` and `unfold`
--- 3. only `cases`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `cases`, `left`, and `right`
+-- 2. only `cases`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- _Quiz:_
 
@@ -486,12 +478,10 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ A : Prop, 1 = 0 → (A ∨ ¬ A)
 
--- 1. `contradiction`, `unfold`, `left`, and `right`
--- 2. `contradiction` and `unfold`
--- 3. only `contradiction`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `contradiction` `left`, and `right`
+-- 2. only `contradiction`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- ## Truth
 
@@ -646,38 +636,40 @@ example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
 -- recursive function taken an element and a list and
 -- returning... a proposition!
 
-def In {α : Type} (x : α) (xs : List α) : Prop :=
+def List.In {α : Type} (x : α) (xs : List α) : Prop :=
   match xs with
   | [] => False
   | x' :: xs' => x = x' ∨ In x xs'
 
-theorem In_nil {α} (x : α) : In x [] = False := rfl
+theorem List.In_nil {α} (x : α) : ¬ (List.In x []) := by
+  dsimp [List.In]; intro h; assumption
 
-theorem In_cons {α} (x x' : α) (xs : List α) : In x (x' :: xs) = (x = x' ∨ In x xs) := rfl
+theorem List.In_cons {α} (x x' : α) (xs : List α) : List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := rfl
 
--- When `In` is applied to a concrete list, it exapnds into a
--- concrete sequence of nested disjunctions.
+-- When `List.In` is applied to a concrete list, it exapnds
+-- into a concrete sequence of nested disjunctions.
 
-example : In 4 [1, 2, 3, 4, 5] := by
+example : List.In 4 [1, 2, 3, 4, 5] := by
   sorry
 
-example (n : Nat) (h : In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
+example (n : Nat) (h : List.In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
   sorry
     /- (Notice the use of the empty pattern to discharge the last case.) -/
 
 -- We can also reason about more generic statements involving
--- `In`.
+-- `List.In`.
 
-theorem In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : In x xs) :
-    In (f x) (List.map f xs) := by
+theorem In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : List.In x xs) :
+    List.In (f x) (List.map f xs) := by
   -- TERSE: FOLD
   induction xs
-  case nil => rw [In_nil] at h; contradiction
+  case nil =>
+    exfalso; apply List.In_nil x; assumption
   case cons x' xs' ih =>
-    rw [In_cons] at h
+    rw [List.In_cons] at h
     obtain h | h := h
-    case inl => rw [h, List.map_cons, In_cons]; left; rfl
-    case inr => rw [List.map_cons, In_cons]; right; exact ih h
+    case inl => rw [h, List.map_cons, List.In_cons]; left; rfl
+    case inr => rw [List.map_cons, List.In_cons]; right; exact ih h
   -- TERSE: /FOLD
 
 -- ## Applying Theorems to Arguments
@@ -694,7 +686,11 @@ theorem In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : In x 
 
 #check Nat.add_comm
 
+-- Nat.add_comm (n m : Nat) : n + m = m + n
+
 #check Nat.add_assoc
+
+-- Nat.add_assoc (n m k : Nat) : n + m + k = n + (m + k)
 
 -- Lean checks the *statements* of the `Nat.add_comm` and
 -- `Nat.add_assoc` theorems in the same way that it checks the
@@ -1109,8 +1105,8 @@ theorem mul_eq_0_ternary (n m p : Nat) :
 
 -- ### Exercise (2 stars): In_app_iff ⭐⭐
 
-theorem In_app_iff (α : Type) (xs xs' : List α) (x : α) :
-    In x (xs ++ xs') ↔ In x xs ∨ In x xs' := by
+theorem In_app_iff (α : Type) (l l' : List α) (x : α) :
+    List.In x (l ++ l') ↔ List.In x l ∨ List.In x l' := by
   sorry
 
 -- ### Exercise (1 star): beq_neq ⭐
@@ -1181,7 +1177,7 @@ abbrev excluded_middle := ∀ a : Prop, a ∨ ¬ a
 -- Logical systems in which excluded middle does not hold are
 -- referred to as *constructive logics*. They are so called
 -- because to prove a proposition, we must give a construction
--- for it; for instance, a proof of `∃ x, a x` is proven by
+-- for it; for instance, a proof of `∃ x, p x` is proven by
 -- providing a particular value of `x`.
 
 -- Logical systems in which excluded middle does hold, such as

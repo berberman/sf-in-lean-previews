@@ -6004,7 +6004,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6013,7 +6013,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -9738,6 +9738,13 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.IsThree":
+   [{"id": "Nat___IsThree",
+     "data":
+     {"/Logic/#Nat___IsThree":
+      {"display": "Nat.IsThree",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
+     "address": "/Logic/"}],
    "MyProd.snd":
    [{"id": "MyProd___snd",
      "data":
@@ -11450,7 +11457,7 @@
        ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly",
+   [{"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -11461,7 +11468,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly-next",
+    {"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -11496,6 +11503,93 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
      "address": "/Typeclasses/"}],
+   "List.IsNil":
+   [{"id": "List___IsNil",
+     "data":
+     {"/Logic/#List___IsNil":
+      {"display": "List.IsNil",
+       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+     "address": "/Logic/"}],
+   "List.In_nil":
+   [{"id": "List___In_nil",
+     "data":
+     {"/Logic/#List___In_nil":
+      {"display": "List.In_nil",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.In_map_iff":
+   [{"id": "List___In_map_iff",
+     "data":
+     {"/Logic/#List___In_map_iff":
+      {"display": "List.In_map_iff",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.In_cons":
+   [{"id": "List___In_cons",
+     "data":
+     {"/Logic/#List___In_cons":
+      {"display": "List.In_cons",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.In":
+   [{"id": "List___In",
+     "data":
+     {"/Logic/#List___In":
+      {"display": "List.In",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.All_nil":
+   [{"id": "List___All_nil",
+     "data":
+     {"/Logic/#List___All_nil":
+      {"display": "List.All_nil",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.All_cons":
+   [{"id": "List___All_cons",
+     "data":
+     {"/Logic/#List___All_cons":
+      {"display": "List.All_cons",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.All_In":
+   [{"id": "List___All_In",
+     "data":
+     {"/Logic/#List___All_In":
+      {"display": "List.All_In",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.All":
+   [{"id": "List___All",
+     "data":
+     {"/Logic/#List___All":
+      {"display": "List.All",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
    "LePlayground.le_inversion":
    [{"id": "LePlayground___le_inversion",
      "data":
@@ -11540,13 +11634,6 @@
         "Inductively Defined Propositions",
         "Example: Binary relation for comparing numbers"]}},
      "address": "/IndProp/"}],
-   "IsThree":
-   [{"id": "IsThree",
-     "data":
-     {"/Logic/#IsThree":
-      {"display": "IsThree",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
    "IsNil_nil":
    [{"id": "IsNil_nil",
      "data":
@@ -11561,13 +11648,6 @@
       {"display": "IsNil_cons",
        "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
      "address": "/Logic/"}],
-   "IsNil":
-   [{"id": "IsNil",
-     "data":
-     {"/Logic/#IsNil":
-      {"display": "IsNil",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
-     "address": "/Logic/"}],
    "Injective":
    [{"id": "Injective",
      "data":
@@ -11575,41 +11655,11 @@
       {"display": "Injective",
        "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
      "address": "/Logic/"}],
-   "In_nil":
-   [{"id": "In_nil",
-     "data":
-     {"/Logic/#In_nil":
-      {"display": "In_nil",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "In_map_iff":
-   [{"id": "In_map_iff",
-     "data":
-     {"/Logic/#In_map_iff":
-      {"display": "In_map_iff",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
    "In_map":
    [{"id": "In_map",
      "data":
      {"/Logic/#In_map":
       {"display": "In_map",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "In_cons":
-   [{"id": "In_cons",
-     "data":
-     {"/Logic/#In_cons":
-      {"display": "In_cons",
        "context":
        ["Logical Foundations",
         "Logic in Lean",
@@ -11670,16 +11720,6 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
-   "In":
-   [{"id": "In",
-     "data":
-     {"/Logic/#In":
-      {"display": "In",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
    "HasTwoIncomplete.two":
    [{"id": "HasTwoIncomplete___two",
      "data":
@@ -12638,47 +12678,7 @@
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "All_nil":
-   [{"id": "All_nil",
-     "data":
-     {"/Logic/#All_nil":
-      {"display": "All_nil",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "All_cons":
-   [{"id": "All_cons",
-     "data":
-     {"/Logic/#All_cons":
-      {"display": "All_cons",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "All_In":
-   [{"id": "All_In",
-     "data":
-     {"/Logic/#All_In":
-      {"display": "All_In",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "All":
-   [{"id": "All",
-     "data":
-     {"/Logic/#All":
-      {"display": "All",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}]}},
+     "address": "/IndProp/"}]}},
  "Verso.Genre.Manual.doc.tech":
  {"title": "Terminology",
   "description": "Definitions of technical terms",

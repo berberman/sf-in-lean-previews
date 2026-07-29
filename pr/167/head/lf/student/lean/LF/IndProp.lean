@@ -1125,7 +1125,7 @@ inductive In_Inductive {α : Type} (a : α) : List α → Prop
 
 -- ### Exercise (2 stars): in_mem ⭐⭐
 
-theorem in_mem α (x : α) (l : List α) : In x l ↔ x ∈ l := by
+theorem in_mem α (x : α) (l : List α) : List.In x l ↔ x ∈ l := by
   sorry
 
 -- The characterizing lemmas for `∈` are called `List.mem_nil_iff` and

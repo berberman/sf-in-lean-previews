@@ -85,11 +85,11 @@ theorem PlusClaim_is_true : PlusClaim := rfl
 -- For instance, the following function takes a number and returns a
 -- proposition asserting that this number is equal to three:
 
-def IsThree (n : Nat) : Prop := n = 3
+def Nat.IsThree (n : Nat) : Prop := n = 3
 
-#check IsThree
+#check (Nat.IsThree)
 
--- IsThree (n : Nat) : Prop
+-- Nat.IsThree : Nat → Prop
 
 -- In Lean, functions that return propositions are said to define *properties*
 -- of their arguments.
@@ -252,12 +252,12 @@ theorem add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
 
 -- So much for proving conjunctive statements. To go in the other direction --
 -- i.e., to *use* a conjunctive hypothesis to help prove something else -- we
--- can use `let` to obtain the components.
+-- can use `obtain` to obtain the components.
 
 example (n m : Nat) : n = 0 ∧ m = 0 → n + m = 0 := by
   all_goals
     intro h
-    let ⟨hn, hm⟩ := h
+    obtain ⟨hn, hm⟩ := h
     rw [hn, hm]
 
 -- We can also match on `h` right at the point where we introduce it, instead
@@ -592,12 +592,10 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ α : Type, ∀ x y : α, x = y ∧ x ≠ y → False
 
--- 1. `cases`, `unfold`, `left`, and `right`
--- 2. `cases` and `unfold`
--- 3. only `cases`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `cases`, `left`, and `right`
+-- 2. only `cases`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- _Quiz:_
 
@@ -606,12 +604,10 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ a b : Prop, a ∨ b → ¬ ¬ (a ∨ b)
 
--- 1. `cases`, `unfold`, `left`, and `right`
--- 2. `cases` and `unfold`
--- 3. only `cases`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `cases`, `left`, and `right`
+-- 2. only `cases`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- _Quiz:_
 
@@ -620,12 +616,10 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ a b : Prop, a → (a ∨ ¬ ¬ b)
 
--- 1. `cases`, `unfold`, `left`, and `right`
--- 2. `cases` and `unfold`
--- 3. only `cases`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `cases`, `left`, and `right`
+-- 2. only `cases`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- _Quiz:_
 
@@ -634,12 +628,10 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ a b : Prop, a ∨ b → (¬ ¬ a) ∨ (¬ ¬ b)
 
--- 1. `cases`, `unfold`, `left`, and `right`
--- 2. `cases` and `unfold`
--- 3. only `cases`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `cases`, `left`, and `right`
+-- 2. only `cases`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- _Quiz:_
 
@@ -648,12 +640,10 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 
 --   ∀ A : Prop, 1 = 0 → (A ∨ ¬ A)
 
--- 1. `contradiction`, `unfold`, `left`, and `right`
--- 2. `contradiction` and `unfold`
--- 3. only `contradiction`
--- 4. `left` and/or `right`
--- 5. only `unfold`
--- 6. none of the above
+-- 1. `contradiction` `left`, and `right`
+-- 2. only `contradiction`
+-- 3. `left` and/or `right`
+-- 4. none of the above
 
 -- ## Truth
 
@@ -689,14 +679,16 @@ def DiscrFun (n : Nat) : Prop :=
   | 0 => True
   | _ + 1 => False
 
-theorem DiscrFun_zero : DiscrFun 0 = True := rfl
+theorem DiscrFun_zero : DiscrFun 0 := by constructor
 
-theorem DiscrFun_succ n : DiscrFun (n + 1) = False := rfl
+theorem DiscrFun_succ (n : Nat) : ¬ DiscrFun (n + 1) := by
+  dsimp [DiscrFun]; intro h; assumption
 
 theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
   intro h
-  have hd : DiscrFun 0 := by rw [DiscrFun_zero]; exact ⟨⟩
-  rw [h, DiscrFun_succ] at hd; exact hd
+  have hd : DiscrFun 0 := DiscrFun_zero
+  apply DiscrFun_succ 0
+  rw [h] at hd; exact hd
 
 -- To generalize this to other constructors, we simply have to provide an
 -- appropriate variant of `DiscrFun`. To generalize it to other conclusions,
@@ -708,21 +700,24 @@ theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
 -- Use the same technique as above to show that `[] ≠ x :: xs`. Do not use the
 -- `contradiction` tactic.
 
-def IsNil {α : Type} (xs : List α) : Prop :=
-  match xs with
+def List.IsNil {α : Type} (l : List α) : Prop :=
+  match l with
   | [] => True
   | _ :: _ => False
 
-theorem IsNil_nil {α} : @IsNil α [] = True := rfl
+theorem IsNil_nil {α : Type} : List.IsNil ([] : List α) := by constructor
 
-theorem IsNil_cons {α} (x : α) (xs : List α) : IsNil (x :: xs) = False := rfl
+
+theorem IsNil_cons {α} (x : α) (l : List α) : ¬ List.IsNil (x :: l) := by
+  dsimp [List.IsNil, Not]
+  intro h; assumption
 
 theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
     ¬ ([] = x :: xs) := by
   all_goals
     intro h
-    have hn : @IsNil α [] := by rw [IsNil_nil]; exact ⟨⟩
-    rw [h, IsNil_cons] at hn; exact hn
+    have hn : List.IsNil ([] : List α) := IsNil_nil
+    apply IsNil_cons x xs; rw [←h]; exact hn
 
 -- ### Logical Equivalence
 
@@ -862,8 +857,8 @@ example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
 -- Prove that "`a` holds for all `x` implies "there is no `x` for which `a`
 -- does not hold." (Hint: `cases` and `let` work on existential assumptions!)
 
-theorem dist_not_exists (α : Type) (a : α → Prop) (h : ∀ x, a x) :
-    ¬ (∃ x, ¬ a x) := by
+theorem dist_not_exists (α : Type) (p : α → Prop) (h : ∀ x, p x) :
+    ¬ (∃ x, ¬ p x) := by
   all_goals
     intro ⟨x, hx⟩
     apply hx; apply h
@@ -872,8 +867,8 @@ theorem dist_not_exists (α : Type) (a : α → Prop) (h : ∀ x, a x) :
 
 -- Prove that existential quantification distributes over disjunction.
 
-theorem dist_exists_or (α : Type) (a b : α → Prop) :
-    (∃ x, a x ∨ b x) ↔ (∃ x, a x) ∨ (∃ x, b x) := by
+theorem dist_exists_or (α : Type) (p q : α → Prop) :
+    (∃ x, p x ∨ q x) ↔ (∃ x, p x) ∨ (∃ x, q x) := by
   all_goals
     constructor
     case mp =>
@@ -973,42 +968,44 @@ theorem add_exists_ble (n m : Nat) (h : ∃ x, m = x + n) : Nat.ble n m = true :
 -- We can translate this directly into a straightforward recursive function
 -- taken an element and a list and returning... a proposition!
 
-def In {α : Type} (x : α) (xs : List α) : Prop :=
+def List.In {α : Type} (x : α) (xs : List α) : Prop :=
   match xs with
   | [] => False
   | x' :: xs' => x = x' ∨ In x xs'
 
-theorem In_nil {α} (x : α) : In x [] = False := rfl
+theorem List.In_nil {α} (x : α) : ¬ (List.In x []) := by
+  dsimp [List.In]; intro h; assumption
 
-theorem In_cons {α} (x x' : α) (xs : List α) : In x (x' :: xs) = (x = x' ∨ In x xs) := rfl
+theorem List.In_cons {α} (x x' : α) (xs : List α) : List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := rfl
 
--- When `In` is applied to a concrete list, it exapnds into a concrete
+-- When `List.In` is applied to a concrete list, it exapnds into a concrete
 -- sequence of nested disjunctions.
 
-example : In 4 [1, 2, 3, 4, 5] := by
+example : List.In 4 [1, 2, 3, 4, 5] := by
   all_goals
-    dsimp [In]; right; right; right; left; rfl
+    dsimp [List.In]; right; right; right; left; rfl
 
-example (n : Nat) (h : In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
+example (n : Nat) (h : List.In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
   all_goals
-    dsimp [In] at h
+    dsimp [List.In] at h
     obtain h | h | ⟨⟨⟩⟩ := h
     case inl => exists 1
     case inr.inl => exists 2
     /- (Notice the use of the empty pattern to discharge the last case.) -/
 
--- We can also reason about more generic statements involving `In`.
+-- We can also reason about more generic statements involving `List.In`.
 
-theorem In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : In x xs) :
-    In (f x) (List.map f xs) := by
+theorem In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : List.In x xs) :
+    List.In (f x) (List.map f xs) := by
   -- TERSE: FOLD
   induction xs
-  case nil => rw [In_nil] at h; contradiction
+  case nil =>
+    exfalso; apply List.In_nil x; assumption
   case cons x' xs' ih =>
-    rw [In_cons] at h
+    rw [List.In_cons] at h
     obtain h | h := h
-    case inl => rw [h, List.map_cons, In_cons]; left; rfl
-    case inr => rw [List.map_cons, In_cons]; right; exact ih h
+    case inl => rw [h, List.map_cons, List.In_cons]; left; rfl
+    case inr => rw [List.map_cons, List.In_cons]; right; exact ih h
   -- TERSE: /FOLD
 
 -- This way of defining propositions recursively is very convenient in some
@@ -1021,13 +1018,15 @@ theorem In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : In x 
 
 -- ### Exercise (2 stars): In_map_iff ⭐⭐
 
-theorem In_map_iff (α β : Type) (f : α → β) (xs : List α) (y : β) :
-    In y (List.map f xs) ↔ ∃ x, f x = y ∧ In x xs := by
+theorem List.In_map_iff (α β : Type) (f : α → β) (xs : List α) (y : β) :
+    List.In y (List.map f xs) ↔ ∃ x, f x = y ∧ List.In x xs := by
   constructor
   case mp =>
     all_goals
       induction xs
-      case nil => intro h; rw [List.map_nil, In_nil] at h; contradiction
+      case nil =>
+        intro h; rw [List.map_nil] at h
+        exfalso; apply List.In_nil; assumption
       case cons x' xs' ih =>
         intro h
         rw [List.map_cons, In_cons] at h
@@ -1049,31 +1048,32 @@ theorem In_map_iff (α β : Type) (f : α → β) (xs : List α) (y : β) :
 -- ### Exercise (3 stars): All ⭐⭐⭐
 
 -- We noted above that functions returning propositions can be seen as
--- *properties* of their arguments. For instance, if `a` has type
--- `Nat -> Prop`, then `a n` says that property `a` holds of `n`.
+-- *properties* of their arguments. For instance, if `p` has type
+-- `Nat -> Prop`, then `p n` says that property `p` holds of `n`.
 
--- Drawing inspiration from `In`, write a recursive function `All` stating
--- that some property `a` holds of all elements of a list `l`. To make sure
--- your definition is correct, prove the `All_In` lemma below. (Of course,
--- your definition should *not* just restate the left-hand side of `All_In`.)
+-- Drawing inspiration from `List.In`, write a recursive function `All`
+-- stating that some property `a` holds of all elements of a list `l`. To make
+-- sure your definition is correct, prove the `All_In` lemma below. (Of
+-- course, your definition should *not* just restate the left-hand side of
+-- `All_In`.)
 
-def All {α : Type} (a : α → Prop) (xs : List α) : Prop := (
-  match xs with
+def List.All {α : Type} (p : α → Prop) (l : List α) : Prop := (
+  match l with
   | [] => True
-  | x :: xs' => a x ∧ All a xs')
+  | x :: l' => p x ∧ List.All p l')
 
-theorem All_nil {α} (a : α → Prop) : All a [] = True := (rfl)
+theorem List.All_nil {α} (a : α → Prop) : List.All a [] := (by constructor)
 
-theorem All_cons {α} (a : α → Prop) x xs : All a (x :: xs) = (a x ∧ All a xs) := (rfl)
+theorem List.All_cons {α} (p : α → Prop) x l : List.All p (x :: l) = (p x ∧ List.All p l) := (rfl)
 
-theorem All_In α (a : α → Prop) (xs : List α) :
-    (∀ x, In x xs → a x) ↔ All a xs := by
+theorem List.All_In α (p : α → Prop) (l : List α) :
+    (∀ x : α, List.In x l → p x) ↔ List.All p l := by
   all_goals
-    induction xs
+    induction l
     case nil =>
       constructor
-      case mp => intros; rw [All_nil]; exact ⟨⟩
-      case mpr => intro _ _ h; rw [In_nil] at h; contradiction
+      case mp => intros; exact All_nil _
+      case mpr => intro _ _ h; apply In_nil at h; contradiction
     case cons x' xs' ih =>
       let ⟨ih1, ih2⟩ := ih
       constructor
@@ -1148,7 +1148,11 @@ theorem combined_odd_even_elim_even Podd Peven n
 
 #check Nat.add_comm
 
+-- Nat.add_comm (n m : Nat) : n + m = m + n
+
 #check Nat.add_assoc
+
+-- Nat.add_assoc (n m k : Nat) : n + m + k = n + (m + k)
 
 -- Lean checks the *statements* of the `Nat.add_comm` and `Nat.add_assoc`
 -- theorems in the same way that it checks the *type* of any term (e.g.
@@ -1602,32 +1606,33 @@ theorem beqList_true_iff α (beq : α → α → Bool)
 -- ### Exercise (2 stars): All_forallb ⭐⭐
 
 -- Prove the theorem below, which relates `forallb`, from the exercise
--- `Tactics.forall_exists_challenge`, to the `All` property defined above.
+-- `Tactics.forall_exists_challenge`, to the `List.All` property defined
+-- above.
 
 -- Copy the definition of `forallb` from Tactics here so that this file can be
 -- graded on its own.
 
-def Logic.forallb {α : Type} (test : α → Bool) (xs : List α) : Bool := (
-  match xs with
+def Logic.forallb {α : Type} (test : α → Bool) (l : List α) : Bool := (
+  match l with
   | [] => true
   | x :: xs' => test x && forallb test xs')
 
 theorem forallb_nil {α} (test : α → Bool) : Logic.forallb test [] = true := (rfl)
 
-theorem forallb_cons {α} (test : α → Bool) x xs :
-    Logic.forallb test (x :: xs) = (test x && Logic.forallb test xs) := (rfl)
+theorem forallb_cons {α} (test : α → Bool) (x : α) (l : List α) :
+    Logic.forallb test (x :: l) = (test x && Logic.forallb test l) := (rfl)
 
-theorem forallb_true_iff α (test : α → Bool) (xs : List α) :
-    Logic.forallb test xs = true ↔ All (fun x => test x = true) xs := by
+theorem forallb_true_iff α (test : α → Bool) (l : List α) :
+    Logic.forallb test l = true ↔ List.All (fun x => test x = true) l := by
   all_goals
-    induction xs
+    induction l
     case nil =>
-      rw [forallb_nil, All_nil]
-      exact ⟨fun _ => ⟨⟩, fun _ => rfl⟩
+      rw [forallb_nil]
+      exact ⟨fun _ => List.All_nil _, fun _ => rfl⟩
     case cons x xs' ih =>
       let ⟨h₁, h₂⟩ := andb_true_iff (test x) (Logic.forallb test xs')
       let ⟨ih1, ih2⟩ := ih
-      rw [forallb_cons, All_cons]
+      rw [forallb_cons, List.All_cons]
       constructor
       case mp => intro h; exact ⟨(h₁ h).left, ih1 (h₁ h).right⟩
       case mpr => intro ⟨h1', h2'⟩; exact h₂ ⟨h1', ih2 h2'⟩
@@ -1746,15 +1751,15 @@ theorem mul_eq_0_ternary (n m p : Nat) :
 
 -- ### Exercise (2 stars): In_app_iff ⭐⭐
 
-theorem In_app_iff (α : Type) (xs xs' : List α) (x : α) :
-    In x (xs ++ xs') ↔ In x xs ∨ In x xs' := by
+theorem In_app_iff (α : Type) (l l' : List α) (x : α) :
+    List.In x (l ++ l') ↔ List.In x l ∨ List.In x l' := by
   all_goals
-    induction xs
+    induction l
     case nil =>
       constructor
       case mp => intro h; right; exact h
-      case mpr => rw [In_nil]; intro h; obtain ⟨⟨⟩⟩ | h := h; exact h
-    case cons y ys ih => rw [List.cons_append, In_cons, In_cons, ih, or_assoc]
+      case mpr => intro h; obtain ⟨⟨⟩⟩ | h := h; exact h
+    case cons y ys ih => rw [List.cons_append, List.In_cons, List.In_cons, ih, or_assoc]
 
 -- ### Exercise (1 star): beq_neq ⭐
 
@@ -1902,7 +1907,7 @@ theorem excluded_middle_nat_eq (n m : Nat) : n = m ∨ n ≠ m := by
 
 -- Logical systems in which excluded middle does not hold are referred to as
 -- *constructive logics*. They are so called because to prove a proposition,
--- we must give a construction for it; for instance, a proof of `∃ x, a x` is
+-- we must give a construction for it; for instance, a proof of `∃ x, p x` is
 -- proven by providing a particular value of `x`.
 
 -- Logical systems in which excluded middle does hold, such as ZFC set theory,
@@ -1966,14 +1971,14 @@ theorem em : ∀ a, a ∨ ¬ a := by
 -- in constructive reasoning, but arguments by contradiction, in particular,
 -- are infamous for leading to nonconstructive proofs. Here's a typical
 -- example: suppose that we want to show that there exists `x` with some
--- property `a`, i.e., such that `a x`. We start by assuming that our
--- conclusion is false; that is, `¬ ∃ x, a x`. From this premise, it is not
--- hard to derive `∀ x, ¬ a x`. If we manage to show that this results in a
+-- property `p`, i.e., such that `p x`. We start by assuming that our
+-- conclusion is false; that is, `¬ ∃ x, p x`. From this premise, it is not
+-- hard to derive `∀ x, ¬ p x`. If we manage to show that this results in a
 -- contradiction, we arrive at an existence proof without ever exhibiting a
--- value of `x` for which `a x` holds!
+-- value of `x` for which `p x` holds!
 
 -- The technical flaw here, from a constructive standpoint, is that we claimed
--- to prove `∃ x, a x` using a proof of `¬ ¬ ∃ x, a x`. Allowing ourselves to
+-- to prove `∃ x, p x` using a proof of `¬ ¬ ∃ x, p x`. Allowing ourselves to
 -- remove double negations from arbitrary statements is equivalent to assuming
 -- the excluded middle law, as shown in one of the exercises below.
 
@@ -2006,18 +2011,18 @@ theorem excluded_middle_irrefutable (a : Prop) : ¬ ¬ (a ∨ ¬ a) := by
 -- It is a theorem of classical logic that the following two assertions are
 -- equivalent:
 
---   ¬ ∃ x, ¬ a x
---   ∀ x, a x
+--   ¬ ∃ x, ¬ p x
+--   ∀ x, p x
 
 -- The `dist_not_exists` theorem proves one side of this equivalence.
 -- Interestingly, the other direction cannot be proven in constructive logic,
 -- but we can prove it here using `by_cases`.
 
-theorem not_exists_dist (α : Type) (a : α → Prop) :
-    (¬ ∃ x, ¬ a x) → (∀ x, a x) := by
+theorem not_exists_dist (α : Type) (p : α → Prop) :
+    (¬ ∃ x : α, ¬ p x) → (∀ x : α, p x) := by
   all_goals
     intro h x
-    by_cases hx : (a x)
+    by_cases hx : (p x)
     case pos => exact hx
     case neg => exfalso; apply h; exists x
 
