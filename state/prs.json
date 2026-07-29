@@ -64,6 +64,15 @@
       "status": "ci-failed",
       "title": "Fix solution markers leakage",
       "url": "https://github.com/plclub/sf-in-lean/pull/163"
+    },
+    "166": {
+      "changed_variants": [],
+      "head_sha": "145102a46b461fb47ac4bbf90ec815d927c79d4a",
+      "preview_path": "pr/166/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30435385156",
+      "status": "ci-failed",
+      "title": "Typclasses: add notation for getting elements",
+      "url": "https://github.com/plclub/sf-in-lean/pull/166"
     }
   },
   "schema": 3
