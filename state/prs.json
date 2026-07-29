@@ -60,8 +60,8 @@
       "changed_variants": [],
       "head_sha": "9b51a6b4a25199d4118ce68d4295e5b3ef370ad2",
       "preview_path": "pr/163/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30495022881",
+      "status": "ci-failed",
       "title": "Decompose SFLMeta.Save",
       "url": "https://github.com/plclub/sf-in-lean/pull/163"
     },
