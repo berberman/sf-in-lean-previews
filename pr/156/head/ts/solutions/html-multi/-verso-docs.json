@@ -1319,53 +1319,54 @@
  "118": "<code>a1 ⇓ a1.eval</code>",
  "117":
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
- "1163":
- "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
  "1162":
+ "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
+ "1161":
  "<code>Eq.symm.{u} {α : Sort u} {a b : α} (h : a = b) : b = a</code><span class=\"sep\"></span><code class=\"docstring\">Equality is symmetric: if `a = b` then `b = a`.\n\nBecause this is in the `Eq` namespace, if you have a variable `h : a = b`,\n`h.symm` can be used as shorthand for `Eq.symm h` as a proof of `b = a`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "1161": "<code>(\"x\" →ₜ some S ; ∅)[\"x\"] = some T₂✝</code>",
- "1160":
- "<code>(\"x\" →ₜ some S ; ∅)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
+ "1160": "<code>(\"x\" →ₚ S)[\"x\"] = some T₂✝</code>",
  "116": "<code>a.eval = n</code>",
- "1159": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1158": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ ~(T₂✝) }&gt;</code>",
- "1157": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
- "1156": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x x ⦂ ~(T₁✝) }&gt;</code>",
- "1155": "<code>&lt;{ ∅ ⊢ λ x : S . x x ⦂ ~(T) }&gt;</code>",
- "1154": "<code>B = T₂</code>",
- "1153": "<code>A = &lt;{ A → B }&gt;</code>",
- "1152":
+ "1159": "<code>(\"x\" →ₚ S)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
+ "1158": "<code>&lt;{ ~(\"x\" →ₚ S) ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1157": "<code>&lt;{ ~(\"x\" →ₚ S) ⊢ x ⦂ ~(T₂✝) }&gt;</code>",
+ "1156": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
+ "1155": "<code>&lt;{ ~(\"x\" →ₚ S) ⊢ x x ⦂ ~(T₁✝) }&gt;</code>",
+ "1154": "<code>&lt;{ ∅ ⊢ λ x : S . x x ⦂ ~(T) }&gt;</code>",
+ "1153": "<code>B = T₂</code>",
+ "1152": "<code>A = &lt;{ A → B }&gt;</code>",
+ "1151":
  "<code class=\"docstring\">The `injection` tactic is based on the fact that constructors of inductive data\ntypes are injections.\nThat means that if `c` is a constructor of an inductive datatype, and if `(c t₁)`\nand `(c t₂)` are two terms that are equal then  `t₁` and `t₂` are equal too.\nIf `q` is a proof of a statement of conclusion `t₁ = t₂`, then injection applies\ninjectivity to derive the equality of all arguments of `t₁` and `t₂` placed in\nthe same positions. For example, from `(a::b) = (c::d)` we derive `a=c` and `b=d`.\nTo use this tactic `t₁` and `t₂` should be constructor applications of the same constructor.\nGiven `h : a::b = c::d`, the tactic `injection h` adds two new hypothesis with types\n`a = c` and `b = d` to the main goal.\nThe tactic `injection h with h₁ h₂` uses the names `h₁` and `h₂` to name the new hypotheses.\n</code>",
- "1151": "<code>&lt;{ A → B }&gt; = &lt;{ (A → B) → T₂ }&gt;</code>",
- "1150": "<code>∀ (T₂ : Ty), B ≠ &lt;{ B → T₂ }&gt;</code>",
+ "1150": "<code>&lt;{ A → B }&gt; = &lt;{ (A → B) → T₂ }&gt;</code>",
  "115":
  "<code>Slang.Aexp.EvalR.mult (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : a1.mult a2 ⇓ n1 * n2</code>",
- "1149": "<code>∀ (T₂ : Ty), A ≠ &lt;{ A → T₂ }&gt;</code>",
- "1148": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → T₂ }&gt;</code>",
- "1147": "<code>∀ (T₁ T₂ : Ty), T₁ ≠ &lt;{ T₁ → T₂ }&gt;</code>",
- "1146":
- "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
+ "1149": "<code>∀ (T₂ : Ty), B ≠ &lt;{ B → T₂ }&gt;</code>",
+ "1148": "<code>∀ (T₂ : Ty), A ≠ &lt;{ A → T₂ }&gt;</code>",
+ "1147": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → T₂ }&gt;</code>",
+ "1146": "<code>∀ (T₁ T₂ : Ty), T₁ ≠ &lt;{ T₁ → T₂ }&gt;</code>",
  "1145":
- "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
+ "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
  "1144":
- "<code>(\"y\" →ₜ some &lt;{ Bool }&gt; ; \"x\" →ₜ some &lt;{ Bool }&gt; ; ∅)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
- "1143": "<code>Γ✝[x✝] = some T₁✝</code>",
- "1142": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1141": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
- "1140": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
+ "1143":
+ "<code>(\"y\" →ₚ &lt;{ Bool }&gt; ; \"x\" →ₚ &lt;{ Bool }&gt;)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
+ "1142": "<code>Γ✝[x✝] = some T₁✝</code>",
+ "1141":
+ "<code>&lt;{ y ↦ Bool ; ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1140":
+ "<code>&lt;{ y ↦ Bool ; ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
  "114":
  "<code>Slang.Aexp.EvalR.minus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : a1.minus a2 ⇓ n1 - n2</code>",
- "1139": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
- "1138": "<code>&lt;{ x ↦ Bool ; ∅ ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
- "1137": "<code>&lt;{ ~(x✝ →ₜ some T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1136": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
- "1135": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
- "1134":
- "<code>GetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)}\n  {valid : outParam (coll → idx → Prop)} [self : GetElem coll idx elem valid] (xs : coll) (i : idx) (h : valid xs i) :\n  elem</code><span class=\"sep\"></span><code class=\"docstring\">The syntax `arr[i]` gets the `i`'th element of the collection `arr`. If there\nare proof side conditions to the application, they will be automatically\ninferred by the `get_elem_tactic` tactic.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `xs[i]` in identifiers is `getElem`.\n\n * The recommended spelling of `xs[i]'h` in identifiers is `getElem`.</code>",
+ "1139": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1138":
+ "<code>&lt;{ y ↦ Bool ; ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
+ "1137":
+ "<code>&lt;{ ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
+ "1136": "<code>&lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1135": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
+ "1134": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
  "1133":
- "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
+ "<code>GetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)}\n  {valid : outParam (coll → idx → Prop)} [self : GetElem coll idx elem valid] (xs : coll) (i : idx) (h : valid xs i) :\n  elem</code><span class=\"sep\"></span><code class=\"docstring\">The syntax `arr[i]` gets the `i`'th element of the collection `arr`. If there\nare proof side conditions to the application, they will be automatically\ninferred by the `get_elem_tactic` tactic.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `xs[i]` in identifiers is `getElem`.\n\n * The recommended spelling of `xs[i]'h` in identifiers is `getElem`.</code>",
  "1132":
- "<code>TotalMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "<code>PartialMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
  "1131": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
  "1130":
  "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(T₁) }&gt;</code>",
@@ -1373,7 +1374,7 @@
  "1129":
  "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :\n  &lt;{ ~(Γ) ⊢\n    ~((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) ⦂\n    ~(T₁) }&gt;</code>",
  "1128":
- "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₜ some T₂ ; Γ) ⊢ ~(t₁) ⦂ ~(T₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T₂ . t₁ ⦂ T₂ → T₁ }&gt;</code>",
+ "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ T₂ ; Γ) ⊢ ~(t₁) ⦂ ~(T₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T₂ . t₁ ⦂ T₂ → T₁ }&gt;</code>",
  "1127": "<code>Stlc.HasType.unexpand : Unexpander</code>",
  "1126":
  "<code>Lean.PrettyPrinter.UnexpandM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The unexpander monad, essentially `Syntax → Option α`. The `Syntax` is the `ref`,\nand it has the possibility of failure without an error message.\n</code>",
@@ -1393,9 +1394,9 @@
  "1117": "<code>HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;</code>",
  "1116":
  "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;) (h₂ : HasType Γ t₂ T₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; T₁</code>",
- "1115": "<code>HasType (x →ₜ some T₂ ; Γ) t₁ T₁</code>",
+ "1115": "<code>HasType (x →ₚ T₂ ; Γ) t₁ T₁</code>",
  "1114":
- "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₜ some T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
+ "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
  "1113": "<code>Γ[x] = some T₁</code>",
  "1112": "<code>Context</code>",
  "1111":
@@ -1417,7 +1418,7 @@
  "110": "<code>a1 ⇓ n1</code>",
  "11": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
  "1099":
- "<code>TotalMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
+ "<code>PartialMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
  "1098": "<code>Stlc.Context : Type</code>",
  "1097":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : &lt;{ if true then t₁ else t₂ }&gt; ⟶ t₁</code>",

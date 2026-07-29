@@ -33,26 +33,28 @@
  "80":
  "<code class=\"docstring\">The `sorry` term is a temporary placeholder for a missing proof or value.\n\nThe syntax is intended for stubbing-out incomplete parts of a value or proof while still having a syntactically correct skeleton.\nLean will give a warning whenever a declaration uses `sorry`, so you aren't likely to miss it,\nbut you can double check if a declaration depends on `sorry` by looking for `sorryAx` in the output\nof the `#print axioms my_thm` command, the axiom used by the implementation of `sorry`.\n\n\"Go to definition\" on `sorry` in the Infoview will go to the source position where it was introduced, if such information is available.\n\nEach `sorry` is guaranteed to be unique, so for example the following fails:\n```lean\nexample : (sorry : Nat) = sorry := rfl -- fails\n```\n\nSee also the `sorry` tactic, which is short for `exact sorry`.\n</code>",
  "8": "<code>Slang.Aexp.minus (a1 a2 : Aexp) : Aexp</code>",
- "796":
- "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
  "795":
- "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
+ "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
  "794":
- "<code>GetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)}\n  {valid : outParam (coll → idx → Prop)} [self : GetElem coll idx elem valid] (xs : coll) (i : idx) (h : valid xs i) :\n  elem</code><span class=\"sep\"></span><code class=\"docstring\">The syntax `arr[i]` gets the `i`'th element of the collection `arr`. If there\nare proof side conditions to the application, they will be automatically\ninferred by the `get_elem_tactic` tactic.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `xs[i]` in identifiers is `getElem`.\n\n * The recommended spelling of `xs[i]'h` in identifiers is `getElem`.</code>",
+ "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
  "793":
- "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
+ "<code>GetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)}\n  {valid : outParam (coll → idx → Prop)} [self : GetElem coll idx elem valid] (xs : coll) (i : idx) (h : valid xs i) :\n  elem</code><span class=\"sep\"></span><code class=\"docstring\">The syntax `arr[i]` gets the `i`'th element of the collection `arr`. If there\nare proof side conditions to the application, they will be automatically\ninferred by the `get_elem_tactic` tactic.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `xs[i]` in identifiers is `getElem`.\n\n * The recommended spelling of `xs[i]'h` in identifiers is `getElem`.</code>",
  "792":
- "<code>TotalMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
- "791":
- "<code>(\"y\" →ₜ some &lt;{ Bool }&gt; ; \"x\" →ₜ some &lt;{ Bool }&gt; ; ∅)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
- "790": "<code>Γ✝[x✝] = some T₁✝</code>",
+ "<code>(\"y\" →ₚ &lt;{ Bool }&gt; ; \"x\" →ₚ &lt;{ Bool }&gt;)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
+ "791": "<code>Γ✝[x✝] = some T₁✝</code>",
+ "790":
+ "<code>&lt;{ y ↦ Bool ; ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
  "79": "<code>Slang.Bexp.optimize0plusB (b : Bexp) : Bexp</code>",
- "789": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "788": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
- "787": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "786": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
- "785": "<code>&lt;{ x ↦ Bool ; ∅ ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
- "784": "<code>&lt;{ ~(x✝ →ₜ some T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "789":
+ "<code>&lt;{ y ↦ Bool ; ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
+ "788": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "787":
+ "<code>&lt;{ y ↦ Bool ; ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
+ "786":
+ "<code>PartialMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
+ "785":
+ "<code>&lt;{ ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
+ "784": "<code>&lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
  "783": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
  "782": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
  "781":
@@ -61,7 +63,7 @@
  "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :\n  &lt;{ ~(Γ) ⊢\n    ~((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) ⦂\n    ~(T₁) }&gt;</code>",
  "78": "<code>Slang.Aexp.optimize0plus (a : Slang.Aexp) : Slang.Aexp</code>",
  "779":
- "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₜ some T₂ ; Γ) ⊢ ~(t₁) ⦂ ~(T₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T₂ . t₁ ⦂ T₂ → T₁ }&gt;</code>",
+ "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ T₂ ; Γ) ⊢ ~(t₁) ⦂ ~(T₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T₂ . t₁ ⦂ T₂ → T₁ }&gt;</code>",
  "778": "<code>Stlc.HasType.unexpand : Unexpander</code>",
  "777":
  "<code>Lean.PrettyPrinter.UnexpandM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The unexpander monad, essentially `Syntax → Option α`. The `Syntax` is the `ref`,\nand it has the possibility of failure without an error message.\n</code>",
@@ -82,9 +84,9 @@
  "768": "<code>HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;</code>",
  "767":
  "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;) (h₂ : HasType Γ t₂ T₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; T₁</code>",
- "766": "<code>HasType (x →ₜ some T₂ ; Γ) t₁ T₁</code>",
+ "766": "<code>HasType (x →ₚ T₂ ; Γ) t₁ T₁</code>",
  "765":
- "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₜ some T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
+ "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
  "764": "<code>Γ[x] = some T₁</code>",
  "763": "<code>Context</code>",
  "762":
@@ -104,7 +106,7 @@
  "752": "<code><span class=\"literal string\">\"∅\"</span> : String</code>",
  "751": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
  "750":
- "<code>TotalMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
+ "<code>PartialMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
  "75":
  "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
  "749": "<code>Stlc.Context : Type</code>",
