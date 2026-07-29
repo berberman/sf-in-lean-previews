@@ -58,9 +58,9 @@
     },
     "163": {
       "changed_variants": [],
-      "head_sha": "822d29af6df8757633357ee75bd9ecc44e28dc6a",
+      "head_sha": "ad5517898404c9285557384060485795512df26e",
       "preview_path": "pr/163/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30302679522",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30418857711",
       "status": "ci-failed",
       "title": "Fix solution markers leakage",
       "url": "https://github.com/plclub/sf-in-lean/pull/163"
