@@ -3,10 +3,10 @@
   "prs": {
     "136": {
       "changed_variants": [],
-      "head_sha": "d56c7bdebc2bd25949735e61fba92ec9fc58adc8",
+      "head_sha": "eea183b2d9cdd92f5ee93d5ed05cd49528b90aae",
       "preview_path": "pr/136/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30401388748",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Lists: change abbrevs to definitions, rewrite proofs to use lemmas instead of rfl",
       "url": "https://github.com/plclub/sf-in-lean/pull/136"
     },
@@ -157,51 +157,14 @@
       "title": "Pass over Logic chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/167"
     },
-    "168": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "448b4a0f95c761f5f724c036e3b1b34545214634",
-      "preview_path": "pr/168/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30510434742",
-      "status": "published",
-      "title": "Induction: fix informal proof solution rendering",
-      "url": "https://github.com/plclub/sf-in-lean/pull/168"
+    "169": {
+      "changed_variants": [],
+      "head_sha": "68c55844b0083112fa9b32301fabf7008c7bf229",
+      "preview_path": "pr/169/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "added the TotalMap update lemmas",
+      "url": "https://github.com/plclub/sf-in-lean/pull/169"
     }
   },
   "schema": 3
