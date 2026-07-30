@@ -56,12 +56,12 @@ import TS.SFLCompat
 
 -- 2 + 2 + 3 * 4 ⇓ 16
 
--- This style is simple and natural for many purposes -- indeed, Gilles Kahn,
+-- This style is simple and natural for many purposes — indeed, Gilles Kahn,
 -- who popularized it, called it *natural semantics*. But there are some
 -- things it does not do well. In particular, it does not give us a convenient
 -- way of talking about *concurrent* programming languages, where the
--- semantics of a program -- the essence of how it behaves -- includes not
--- just which input states get mapped to which output states, but also the
+-- semantics of a program — the essence of how it behaves — includes not just
+-- which input states get mapped to which output states, but also the
 -- intermediate states that it passes through along the way; this is crucial,
 -- since these states can also be observed by concurrently executing code.
 
@@ -73,12 +73,12 @@ import TS.SFLCompat
 -- expressions will then need to say something about how such expressions
 -- behave. One possibility is to maintain the convention that every arithmetic
 -- expression evaluates to some number by choosing some way of viewing a list
--- as a number -- e.g., by specifying that a list should be interpreted as `0`
+-- as a number — e.g., by specifying that a list should be interpreted as `0`
 -- when it occurs in a context expecting a number. But this would be a bit of
 -- a hack.
 
 -- A much more natural approach is simply to say that the behavior of the
--- expression `2 + nil` is *undefined* -- i.e., it doesn't evaluate to any
+-- expression `2 + nil` is *undefined* — i.e., it doesn't evaluate to any
 -- result at all. And we can easily do this: we just have to formulate `aeval`
 -- and `beval` as inductive propositions rather than functions, so that we can
 -- make them partial functions instead of total ones.
@@ -90,8 +90,8 @@ import TS.SFLCompat
 -- program tries to do an operation that makes no sense, such as adding a
 -- number to a list, so that none of the evaluation rules can be applied.
 
--- These two outcomes -- nontermination vs. getting stuck in an erroneous
--- configuration -- should not be confused. In particular, we want to *allow*
+-- These two outcomes — nontermination vs. getting stuck in an erroneous
+-- configuration — should not be confused. In particular, we want to *allow*
 -- the first (because permitting the possibility of infinite loops is the
 -- price we pay for the convenience of programming with general looping
 -- constructs) but *prevent* the second (which is just wrong), for example by
@@ -116,8 +116,8 @@ import TS.SFLCompat
 -- ## A Toy Language
 
 -- To save space, we start with an incredibly simple language of just
--- constants and addition. (We use single-letter constructors `c` and `p` --
--- for Constant and Plus -- for brevity.) The same techniques scale up to
+-- constants and addition. (We use single-letter constructors `c` and `p` —
+-- for Constant and Plus — for brevity.) The same techniques scale up to
 -- richer languages.
 
 inductive Tm where
@@ -134,6 +134,12 @@ def evalF (t : Tm) : Nat :=
 -- Here is the same evaluator, written in exactly the same style, but
 -- formulated as an inductively defined relation. We use the notation `t ⇓ n`
 -- for "`t` evaluates to `n`."
+
+-- The `notation` command below is how that is declared: it introduces `⇓` as
+-- infix syntax for the `Eval` relation defined with it, with a precedence
+-- saying how tightly it binds. This is the lightweight way to name a
+-- relation; later chapters, where a whole object language needs a grammar
+-- rather than a single operator, reach for `declare_syntax_cat` instead.
 
 -- -------                (const)
 --                         c n ⇓ n
@@ -256,7 +262,7 @@ end SimpleArith1
 -- may be useful if the treatment here feels too terse.)
 
 -- A *binary relation* on a type `X` is a family of propositions parameterized
--- by two elements of `X` -- i.e., a proposition about pairs of elements of
+-- by two elements of `X` — i.e., a proposition about pairs of elements of
 -- `X`.
 
 -- Note to developers (Michael Hicks  @mwhicks1, before next release):
@@ -268,7 +274,7 @@ def Relation (X : Type) := X → X → Prop
 
 -- Our main examples of such relations in this chapter will be the single-step
 -- reduction relation, `⟶`, and its multi-step variant, `⟶*`, defined below,
--- but there are many other examples -- e.g., the "equals," "less than," "less
+-- but there are many other examples — e.g., the "equals," "less than," "less
 -- than or equal to," and "is the square of" relations on numbers, and the
 -- "prefix of" relation on lists and strings.
 
@@ -333,7 +339,7 @@ end SimpleArith2
 
 -- - At any moment, the *state* of the machine is a term.
 
--- - A *step* of the machine is an atomic unit of computation -- here, a single
+-- - A *step* of the machine is an atomic unit of computation — here, a single
 --   "add" operation.
 
 -- - The *halting states* of the machine are ones where there is no more
@@ -530,9 +536,9 @@ theorem nf_is_value (t : Tm) (h : IsNormalForm Step t) : IsValue t := by
 theorem nf_same_as_value (t : Tm) : IsNormalForm Step t ↔ IsValue t :=
   ⟨nf_is_value t, value_is_nf t⟩
 
--- Why is this interesting? Because `IsValue` is a *syntactic* concept -- it
--- is defined by looking at the way a term is written -- while `IsNormalForm`
--- is a *semantic* one -- it is defined by looking at how the term steps.
+-- Why is this interesting? Because `IsValue` is a *syntactic* concept — it is
+-- defined by looking at the way a term is written — while `IsNormalForm` is a
+-- *semantic* one — it is defined by looking at how the term steps.
 
 -- It is not obvious that these concepts should characterize the same set of
 -- terms!
@@ -658,9 +664,8 @@ end Temp3
 
 -- We've been working so far with the *single-step reduction* relation `⟶`,
 -- which formalizes the individual steps of an abstract machine for executing
--- programs. We can use the same machine to reduce programs to completion --
--- to find out what final result they yield. This can be formalized as
--- follows:
+-- programs. We can use the same machine to reduce programs to completion — to
+-- find out what final result they yield. This can be formalized as follows:
 
 -- - First, we define a *multi-step reduction relation* `⟶*`, which relates
 --   terms `t` and `t'` if `t` can reach `t'` by any number (including zero) of
@@ -678,6 +683,11 @@ inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
   | refl (x : X) : Multi R x x
   | step (x y z : X) (h1 : R x y) (h2 : Multi R y z) : Multi R x z
 
+-- Note to developers (berberman):
+--     I would make some arguments implicit to proivde a cleaner interface
+--     (FYI the [mathlib
+--     version](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Logic/Relation.html#Relation.ReflTransGen))
+
 -- The effect of this definition is that `Multi R` relates two elements `x`
 -- and `y` if
 
@@ -685,8 +695,12 @@ inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
 
 -- - `R x y`, or
 
--- - there is some nonempty sequence `z₁`, `z₂` , ..., `zₙ` such that `R x₁ z₁`,
---   `R z₁ z₂`, ..., `R zₙ y`.
+-- - there is some nonempty sequence `z₁`, `z₂` , ..., `zₙ` such that
+
+--   `R x₁ z₁,
+--   R z₁ z₂,
+--   ...,
+--   R zₙ y.`
 
 -- Intuitively, if `R` describes a single-step of computation, then
 -- `z₁ ... zₙ` are the intermediate steps of computation that get us from `x`
@@ -699,11 +713,28 @@ notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 -- The relation `Multi R` has several crucial properties.
 
 -- First, it is obviously *reflexive* (a term can execute to itself by taking
--- zero steps).
+-- zero steps). That is just what the `Multi.refl` constructor says, so such a
+-- goal can always be closed with `exact .refl _`. It comes up often enough
+-- that it is worth registering the constructor as a *reflexivity lemma*, with
+-- the `@[refl]` attribute. The `rfl` tactic then closes a zero-step execution
+-- exactly as it closes `x = x`:
 
--- Second, it *contains* `R` -- single-step reductions are a particular case
--- of multi-step executions. (It is this fact that justifies the word
--- "closure" in "multi-step closure of `R`.")
+attribute [refl] Multi.refl
+
+example : (.c 5 : Tm) ⟶* .c 5 := by rfl
+
+-- This pays off at the *end* of a reduction sequence too: the final
+-- `Multi.step` leaves a goal relating a term to itself, which `rfl`
+-- discharges.
+
+example : (.p (.c 1) (.c 2)) ⟶* .c (1 + 2) := by
+  apply Multi.step (y := .c (1 + 2))
+  · exact .plus 1 2
+  · rfl
+
+-- Second, it *contains* `R` — single-step reductions are a particular case of
+-- multi-step executions. (It is this fact that justifies the word "closure"
+-- in "multi-step closure of `R`.")
 
 theorem multi_single {X : Type} (R : Relation X) (x y : X) (h : R x y) :
     Multi R x y :=
@@ -756,6 +787,19 @@ example :
     · exact .plusRight _ _ _ (.const 0) (.plusRight _ _ _ (.const 2) (.plus 0 3))
     · exact multi_single _ _ _ (.plusRight _ _ _ (.const 0) (.plus 2 (0 + 3)))
 
+-- ### Exercise (2 stars): test_multistep_rfl ⭐⭐
+
+-- Prove the following reduction, ending the chain with `rfl` instead of
+-- `multi_single`.
+
+example : (.p (.p (.c 1) (.c 2)) (.c 4)) ⟶* .c ((1 + 2) + 4) := by
+  all_goals
+    apply Multi.step (y := .p (.c (1 + 2)) (.c 4))
+    · exact .plusLeft _ _ _ (.plus 1 2)
+    apply Multi.step (y := .c ((1 + 2) + 4))
+    · exact .plus (1 + 2) 4
+    · rfl
+
 -- ### Normal Forms Again
 
 -- If `t` reduces to `t'` in zero or more steps and `t'` is a normal form, we
@@ -765,7 +809,7 @@ def IsNormalFormOf {X : Type} (R : Relation X) (t t' : X) : Prop :=
   Multi R t t' ∧ IsNormalForm R t'
 
 -- We have already seen that, for our language, single-step reduction is
--- deterministic -- i.e., a given term can take a single step in at most one
+-- deterministic — i.e., a given term can take a single step in at most one
 -- way. It follows that, if `t` can reach a normal form, then this normal form
 -- is unique.
 
@@ -795,9 +839,9 @@ theorem normal_forms_unique : Deterministic (IsNormalFormOf Step) := by
 
 -- Indeed, something stronger is true for this language (though not for all
 -- the languages we will see): the reduction of *any* term `t` will eventually
--- reach a normal form in a finite number of steps -- i.e., `IsNormalFormOf`
--- is a *total* function. We say the `Step` relation is *normalizing*. To
--- prove it, we need a couple of congruence lemmas.
+-- reach a normal form in a finite number of steps — i.e., `IsNormalFormOf` is
+-- a *total* function. We say the `Step` relation is *normalizing*. To prove
+-- it, we need a couple of congruence lemmas.
 
 def Normalizing {X : Type} (R : Relation X) : Prop :=
   ∀ t, ∃ t', IsNormalFormOf R t t'
@@ -818,7 +862,7 @@ theorem multistep_congr_2 (v1 t2 t2' : Tm) (hv : IsValue v1) (h : t2 ⟶* t2') :
 
 -- With these lemmas in hand, the main proof is a straightforward induction.
 
--- *Theorem*: The `Step` relation is normalizing -- i.e., for every `t` there
+-- *Theorem*: The `Step` relation is normalizing — i.e., for every `t` there
 -- exists some `t'` such that `t` reduces to `t'` and `t'` is a normal form.
 
 -- *Proof sketch*: By induction on terms. There are two cases:
@@ -905,7 +949,7 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 -- ### Exercise (3 stars): multistep_of_eval_inf ⭐⭐⭐
 
 -- Write a detailed informal version of the proof of `multistep_of_eval`. (A
--- paper exercise -- there is no Lean proof to fill in here.)
+-- paper exercise — there is no Lean proof to fill in here.)
 
 -- _Theorem_: for all `t`, `n`, if `t ⇓ n` then `t ⟶* c n`.
 
@@ -1048,7 +1092,7 @@ inductive AStep : Aexp → Aexp → Prop where
 
 scoped notation:40 a:41 " ⟶a " a':41 => AStep a a'
 
--- Notice that `AStep` has exactly the shape `Aexp → Aexp → Prop` -- i.e., it
+-- Notice that `AStep` has exactly the shape `Aexp → Aexp → Prop` — i.e., it
 -- is a `Relation Aexp` in the sense of the *Relations* section above. So the
 -- generic vocabulary from that section (`Deterministic`, `IsNormalForm`, the
 -- multi-step closure `Multi`, ...) applies to it directly.
@@ -1062,8 +1106,8 @@ example :
 
 -- ### Exercise (2 stars): strong_progress_arith ⭐⭐
 
--- Every arithmetic expression is either a value or can take a step -- the
--- same *strong progress* property we proved for the toy language, now for the
+-- Every arithmetic expression is either a value or can take a step — the same
+-- *strong progress* property we proved for the toy language, now for the
 -- richer `Slang` arithmetic expressions.
 
 theorem strong_progress_arith (a : Aexp) : IsAValue a ∨ ∃ a', a ⟶a a' := by
@@ -1166,7 +1210,7 @@ inductive BStep : Bexp → Bexp → Prop where
 
 scoped notation:40 b:41 " ⟶b " b':41 => BStep b b'
 
--- A boolean example -- the left comparison operand reduces first:
+-- A boolean example — the left comparison operand reduces first:
 
 example :
     (Bexp.le (.plus (.num 1) (.num 1)) (.num 3)) ⟶b (.le (.num 2) (.num 3)) :=
@@ -1226,7 +1270,7 @@ theorem bstep_deterministic : Deterministic BStep := by
 -- The relation `⟶a` above bakes in a *left-to-right* evaluation order: the
 -- rule `plusRight` can fire only once the left operand is already a value
 -- (`IsAValue v1`). But nothing about the *meaning* of `+` requires that order
--- -- we could just as well reduce the right operand first, or interleave the
+-- — we could just as well reduce the right operand first, or interleave the
 -- two. Different orders are exactly what a concurrent or optimizing
 -- implementation might choose, so it is natural to ask whether the choice can
 -- affect the final answer.
@@ -1265,7 +1309,7 @@ theorem anstep_not_deterministic : ¬ Deterministic ANStep := by
 
 -- Remarkably, this nondeterminism does *not* affect the final answer. The key
 -- observation is that a single step never changes the big-step *value* of an
--- expression -- whichever operand we advance, `eval` is preserved.
+-- expression — whichever operand we advance, `eval` is preserved.
 
 -- ### Exercise (2 stars): anstep_preserves_eval ⭐⭐
 
@@ -1326,7 +1370,7 @@ theorem astep_anstep_agree (a : Aexp) (n1 n2 : Nat)
     lia
 
 -- So even though `⟶n` is genuinely nondeterministic, the value it eventually
--- produces is completely determined -- and it is the same value the
+-- produces is completely determined — and it is the same value the
 -- deterministic machine (and the big-step evaluator) computes. This
 -- *confluence to a unique result* is exactly the property one wants when
 -- reordering or parallelizing the evaluation of pure expressions.
@@ -1384,7 +1428,7 @@ theorem stack_step_deterministic : Deterministic StackStep := by
 -- stack reduces, in some number of steps, to a stack holding exactly the
 -- value of the expression.
 
--- *Hint:* this will not go through by a direct induction -- the induction
+-- *Hint:* this will not go through by a direct induction — the induction
 -- hypothesis is too weak. Prove a more general statement first, about running
 -- `compile a` followed by *any* leftover program `p`, starting from *any*
 -- stack `stk`. (Reassociating the `++`s with `List.append_assoc`, and

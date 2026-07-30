@@ -4,47 +4,8 @@ import LF.SFLCompat
 
 -- # Induction: Proof by Induction
 
--- Note to developers (Jonathan Chan  @ionathanch):
---     [BCP: Old comment -- might be out of date?] A lot of the
---     proofs on the naturals rely on how operations on
---     naturals were defined in `Basics.lean`, but in the
---     stdlib they're slightly different (e.g. `sub` is defined
---     via `pred` rather than directly by recursion), and the
---     notations all go through typeclasses, which makes the
---     proofs a lot less direct (e.g. the existing `0 + n`
---     proof refers to `Nat.add_succ`). We should do one of the
---     following:
---
---     1. Not use `+`, `-`, `*` notation and instead use `add`,
---        `sub`, `mul` directly; or
---
---     2. Override stdlib notation with ones pointing to the
---        definitions in `Basics.lean`.
-
--- Note to developers (Harrison Goldstein  @hgoldstein95):
---     Option 1 is a very reasonable way to go about this if
---     we're attached to arithmetic being the way we teach
---     induction. My primary concern is that operators and type
---     classes are already so confusing that adding another
---     meaning of `+` is liable to throw someone way off. Is
---     there another context we can teach induction in that
---     also doesn't require a ton of background?
-
--- Note to developers (Jonathan Chan  @ionathanch):
---     `Basics.lean` now overrides the typeclasses for `-`,
---     `*`, and `^`, but not `+`, since that one is pervasive
---     throughout the stdlib and causes problems; I think this
---     works okay and isn't too confusing.
---
---     If we continue doing arithmetic proofs, this is a good
---     place to introduce equational reasoning via `calc`.
-
 -- Note to developers (before next release):
---     `Readers might expect us to add eqn:H annotations to uses of
---     induction, but this changes the shape of the IH in a nasty way! :-(
---     We should at least comment.  (BCP: Is this still relevant in Lean?)
---
---     SOONER: We should also consider adding more examples to clarify
+--     `SOONER: We should also consider adding more examples to clarify
 --     the concepts introduced in this chapter. This could help in
 --     reinforcing the understanding of induction principles.
 --
@@ -68,8 +29,13 @@ import LF.SFLCompat
 --     `This section will need some tidying and rewriting...`
 
 -- Lean will first need to compile `Basics.lean` so it can be
--- imported here -- detailed instructions are in the full
+-- imported here — detailed instructions are in the full
 -- version of this chapter...
+
+-- We reopen the namespace from the previous chapter to keep
+-- the definitions and theorems introduced in this chapter
+-- local to this file, so they don't clash with the standard
+-- library.
 
 namespace NatPlayground.Nat
 
@@ -78,31 +44,55 @@ namespace NatPlayground.Nat
 -- _Quiz:_
 
 -- To prove the following theorem, which tactics will we need
--- besides `intro` and `rfl`? (A) none, (B) `rewrite`, (C)
--- `cases`, (D) both `rewrite` and `cases`, or (E) can't be
--- done with the tactics we've seen.
+-- besides `rfl`?
 
---       theorem review1 : (true || false) = true
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
+
+--   theorem review₁ : (true || false) = true
 
 -- _Quiz:_
 
 -- What about the next one?
 
---       theorem review2 : ∀ b, (true || b) = true
+--   theorem review₂ (b : Bool) : (true || b) = true
 
--- Which tactics do we need besides `intro` and `rfl`? (A) none
--- (B) `rewrite`, (C) `cases`, (D) both `rewrite` and `cases`,
--- or (E) can't be done with the tactics we've seen.
+-- Which tactics do we need besides `rfl`?
+
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
 
 -- _Quiz:_
 
 -- What if we change the order of the arguments of `||`?
 
---       theorem review3 : ∀ b, (b || true) = true
+--   theorem review₃ (b : Bool) : (b || true) = true
 
--- Which tactics do we need besides `intro` and `rfl`? (A) none
--- (B) `rewrite`, (C) `cases`, (D) both `rewrite` and `cases`,
--- or (E) can't be done with the tactics we've seen.
+-- Which tactics do we need besides `rfl`?
+
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
 
 -- _Quiz:_
 
@@ -110,25 +100,38 @@ namespace NatPlayground.Nat
 -- recurses on the *second* argument: `n + zero = n` by
 -- definition, and `n + (m + 1) = (n + m) + 1` by definition.)
 
---       theorem review4 : ∀ n : Nat, n + zero = n
+--   theorem review₄ (n : Nat) : n + zero = n
 
--- (A) none, (B) `rewrite`, (C) `cases`, (D) both `rewrite` and
--- `cases`, or (E) can't be done with the tactics we've seen.
+-- (A) none
+
+-- (B) `rewrite`
+
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
 
 -- _Quiz:_
 
 -- What about this?
 
---       theorem review5 : ∀ n : Nat, zero + n = n
+--   theorem review₅ (n : Nat) : zero + n = n
 
--- (A) none, (B) `rewrite`, (C) `cases`, (D) both `rewrite` and
--- `cases`, or (E) can't be done with the tactics we've seen.
+-- (A) none
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
---     `We use this theorem later,
---        so let's make it into a review exercise here`
+-- (B) `rewrite`
 
--- Prove the following theorem, using theorems from Basics:
+-- (C) `cases`
+
+-- (D) both `rewrite` and `cases`
+
+-- (E) can't be done with the tactics we've seen.
+
+-- ### Exercise (1 star): succ_eq_add_one ⭐
+
+-- One more warm-up exercise. Prove the following theorem,
+-- using theorems from Basics:
 
 theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
   sorry
@@ -138,10 +141,18 @@ theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
 -- But the proof that it is also a neutral element on the
 -- *left* gets stuck...
 
-example : ∀ n : Nat, zero + n = n := by
-  intro n
-  -- `rfl` doesn't work here!
-  sorry
+sf_expect_failure
+  example : ∀ n : Nat, zero + n = n := by
+    intro n
+    rfl    -- doesn't work here!
+
+-- Tactic `rfl` failed: The left-hand side
+--   zero + n
+-- is not definitionally equal to the right-hand side
+--   n
+
+-- n : Nat
+-- ⊢ zero + n = n
 
 -- And reasoning by cases using `cases n` doesn't get us much
 -- further: the branch of the case analysis where we assume
@@ -149,16 +160,27 @@ example : ∀ n : Nat, zero + n = n := by
 -- `n = n' + 1` for some `n'` we get stuck in exactly the same
 -- way.
 
-example : ∀ n : Nat, zero + n = n := by
-  intro n
-  cases n with
-  | zero => /- n = zero -/
-    rewrite [add_zero]
-    rfl
-    -- so far so good...
-  | succ n' =>   /- n = succ n' -/
-    -- ...but we're stuck on zero + n'
-    sorry
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     `This is not high priority, but at some point we should make a decision between
+--     /* ... */ comments and -- comments in lean code and try to be consistent.  Here
+--     we're inconsistent in the very same code block!  Are there standard Lean conventions
+--     we should just follow?`
+
+sf_expect_failure
+  example : ∀ n : Nat, zero + n = n := by
+    intro n
+    cases n with
+    | zero => /- n = zero -/
+      rewrite [add_zero]
+      rfl
+      -- so far so good...
+    | succ n' =>   /- n = succ n' -/
+      _     -- ...but we're stuck on zero + n'
+
+-- unsolved goals
+-- case succ
+-- n' : Nat
+-- ⊢ zero + succ n' = succ n'
 
 -- We need a bigger hammer: the *principle of induction* over
 -- natural numbers...
@@ -196,10 +218,6 @@ theorem beq_self : ∀ n : Nat,
     (n == n) = true := by
   sorry
 
--- Note to developers (Roger Burtonpatel  @rogerburtonpatel):
---     `We need to make sure this section below is true! It won't be once we switch
---          to the indexed style.`
-
 -- Here's another related fact about addition, which we'll need
 -- later. (The proof is left as an exercise.)
 
@@ -210,29 +228,6 @@ theorem add_comm (n m : Nat) :
 theorem add_assoc (n m p : Nat) :
     n + (m + p) = (n + m) + p := by
   sorry
-
--- ### Exercise (2 stars): double_plus ⭐⭐
-
--- Consider the following function, which doubles its argument:
-
--- Note to developers (NOW):
---     `Rule rewrite
---
---     BCP: What is "ASSUME HIDDEN"??
---     ASSUME HIDDEN`
-
-def double (n : Nat) : Nat :=
-  match n with
-  | zero    => zero
-  | succ n' => succ (succ (double n'))
-
-theorem double_zero : double zero = zero := by rfl
-theorem double_succ : ∀ n, double (succ n) = succ (succ (double n)) := by
-  intro n; rfl
-
-attribute [irreducible] double
-
--- END ASSUME
 
 -- Note to developers (Benjamin Pierce  @bcpierce00):
 --     `We need better typesetting for displays like the following ones:`
@@ -245,11 +240,11 @@ attribute [irreducible] double
 -- close the goal if the rewrite makes the goal true by
 -- definition. For example, instead of writing
 
--- `rewrite [double_zero]; rfl`
+--   rewrite [double_zero]; rfl
 
 -- We could write this:
 
--- `rw [double_zero]`
+--   rw [double_zero]
 
 -- Using `rw` in your proofs is optional, but it will save you
 -- time (and is better style).
@@ -257,40 +252,48 @@ attribute [irreducible] double
 -- If `rw` leaves a goal that looks definitionally true, try
 -- adding `rfl` after it.
 
+-- ### Exercise (2 stars): double_add ⭐⭐
+
+-- Consider the following function, which doubles its argument:
+
+def double (n : Nat) : Nat :=
+  match n with
+  | zero    => zero
+  | succ n' => succ (succ (double n'))
+
+theorem double_zero : double zero = zero := by rfl
+theorem double_succ n : double (succ n) = succ (succ (double n)) := by rfl
+attribute [irreducible] double
+
 -- Use induction to prove this simple fact about `double`.
 -- Experiment with using `rw` instead of `rewrite` as well.
 
 theorem double_add (n : Nat) : double n = n + n := by
   sorry
 
--- ### Exercise (2 stars): beq_refl ⭐⭐
-
--- The following theorem relates the computational equality
--- `beq` on `Nat` with the definitional equality `=` on `Bool`.
-
-theorem beq_refl (n : Nat) :
-    (n == n) = true := by
-  sorry
-
 -- ## Proofs Within Proofs
 
 -- New tactic: `have`.
 
-theorem mult_zero_plus' (n m : Nat) :
+theorem mult_zero_add' (n m : Nat) :
     ((zero + n) + zero) * m = n * m := by
   have h : (zero + n) + zero = n := by
     rw [zero_add, add_zero]
   rw [h]
 
-example (n m p q : Nat) :
-   (n + m) + (p + q) = (m + n) + (p + q) := by
-  /-
-    We just need to swap (n + m) for (m + n)... seems
-    like add_comm should do the trick!
-    But `rw [add_comm]` might rewrite the wrong `+`!
-  -/
-  rw [add_comm]
-  sorry
+sf_expect_failure
+  example (n m p q : Nat) :
+     (n + m) + (p + q) = (m + n) + (p + q) := by
+    /-
+      We just need to swap (n + m) for (m + n)... seems
+      like add_comm should do the trick!
+      But `rw [add_comm]` might rewrite the wrong `+`!
+    -/
+    rw [add_comm]
+
+-- unsolved goals
+-- n m p q : Nat
+-- ⊢ p + q + (n + m) = m + n + (p + q)
 
 -- To use `add_comm` at the point where we need it, we can
 -- supply explicit arguments: `rw [add_comm n m]` tells Lean
@@ -298,13 +301,32 @@ example (n m p q : Nat) :
 -- establish the specific equation we want, then rewrite with
 -- it.)
 
-theorem plus_rearrange (n m p q : Nat) :
+theorem add_rearrange (n m p q : Nat) :
     (n + m) + (p + q) = (m + n) + (p + q) := by
   rw [add_comm n m]
 
 -- ## Formal vs. Informal Proof
 
 -- "Informal proofs are algorithms; formal proofs are code."
+
+-- ### Exercise (2 stars): add_comm_informal (Advanced, manually graded) ⭐⭐
+
+-- Translate your solution for `add_comm` into an informal
+-- proof:
+
+-- Theorem: Addition is commutative.
+
+-- Proof:
+
+-- ### Exercise (2 stars): beq_refl_informal ⭐⭐
+
+-- Write an informal proof of the following theorem, using the
+-- informal proof of `add_assoc` as a model. Don't just
+-- paraphrase the Lean tactics into English!
+
+-- Theorem: `(n == n) = true` for any `n`.
+
+-- Proof:
 
 -- ## More Exercises
 
@@ -326,41 +348,27 @@ theorem mul_two (p : Nat) :
     two * p = p + p := by
   sorry
 
--- These exercises state facts that will be used in later
--- chapters. We don't need to work them in class.
+-- These exercises state facts that will be used later. We
+-- don't need to work them in class.
 
 -- ### Exercise (3 stars): mul_comm ⭐⭐⭐
 
 -- Use `have` (or `rw` with explicit arguments) to help prove
--- `add_shuffle3`. You don't need to use induction yet.
+-- `add_shuffle3`. You don't need to use induction.
 
--- Note: By default, `rewrite` and `rw` rewrite left-to-right.
--- To rewrite from right to left, use `rw [← h]`, where `←` is
--- typed as `\l` or `\<-`.
-
-theorem add_shuffle3 : ∀ n m p : Nat,
+theorem add_shuffle3 (n m p : Nat) :
     add (add n m) p = add (add n p) m := by
   sorry
 
--- FILL IN HERE
+theorem succ_mul (m n : Nat) :
+    (succ n) * m = (n * m) + m := by
+  sorry
 
 -- Now prove commutativity of multiplication.
 
 theorem mul_comm (m n : Nat) :
     m * n = n * m := by
   sorry
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     `This comment is placed a bit awkwardly: In the terse version, we
---     usually skim past these exercises, but now we'll need to pause and look
---     at how <;> works...
---     TERSE`
-
--- New tactic combinator: `t₁ <;> t₂` runs `t₁`, then runs `t₂`
--- on every subgoal produced by `t₁`.
-
-example (b : Bool) : (b || true) = true := by
-  cases b <;> rfl
 
 -- ### Exercise (3 stars): more_exercises ⭐⭐⭐
 
@@ -370,16 +378,10 @@ example (b : Bool) : (b || true) = true := by
 -- analysis (`cases`), or (c) it also requires induction. Write
 -- down your prediction. Then fill in the proof. (There is no
 -- need to turn in your piece of paper; this is just to
--- encourage you to reflect before you hack!) Some of these
--- proofs can be shortened with `<;>` when several generated
--- subgoals have the same proof.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     `Is that the main reason for introducing <;> here?  Seems weak if so.
---     Could we consider moving it later?`
+-- encourage you to reflect before you hack!)
 
 theorem ble_refl (n : Nat) :
-    ble n n = true := by
+    Nat.ble n n = true := by
   sorry
 
 theorem andb_false (b : Bool) :
@@ -402,9 +404,234 @@ theorem mul_assoc (n m p : Nat) :
     n * (m * p) = (n * m) * p := by
   sorry
 
+-- ### A New Tactic Combinator
+
+-- New tactic combinator: `t₁ <;> t₂` runs `t₁`, then runs `t₂`
+-- on every subgoal produced by `t₁`.
+
+example (b : Bool) : (b || true) = true := by
+  cases b <;> rfl
+
+-- This is short for:
+
+example (b : Bool) : (b || true) = true := by
+  cases b with
+  | false => rfl
+  | true  => rfl
+
+-- We can also chain `<;>`s.
+
+example (b c : Bool) : (b && c) = (c && b) := by
+  cases b <;> cases c <;> rfl
+
 -- ### Nat to Bin and Back to Nat
+
+namespace NatToBin
+
+-- Recall the `Bin` type we defined in Basics:
+
+inductive Bin : Type where
+  | z
+  | b0 (n : Bin)
+  | b1 (n : Bin)
+
+-- Before you start working on the next exercise, replace the
+-- stub definitions of `incr` and `binToNat`, below, with your
+-- solution from Basics. That will make it possible for this
+-- file to be graded on its own.
+
+def incr (m : Bin) : Bin
+  := sorry
+
+theorem incr_z : incr .z = .b1 .z := sorry
+theorem incr_b0 m : incr (.b0 m) = .b1 m := sorry
+theorem incr_b1 m : incr (.b1 m) = .b0 (incr m) := sorry
+
+def binToNat (m : Bin) : Nat
+  := sorry
+
+theorem binToNat_z : binToNat .z = zero := sorry
+theorem binToNat_b0 m : binToNat (.b0 m) = mul (binToNat m) two := sorry
+theorem binToNat_b1 m : binToNat (.b1 m) = add (mul (binToNat m) two) one := sorry
+
+attribute [pp_nodot] Bin.b0 Bin.b1
+
+-- In Basics, we did some unit testing of `binToNat`, but we
+-- didn't prove its correctness. Now we'll do so.
+
+-- ### Exercise (3 stars): binary_commute ⭐⭐⭐
+
+-- Prove that the following diagram commutes — that is,
+-- incrementing a binary number and then converting it to a
+-- (unary) natural number yields the same result as first
+-- converting it to a natural number and then incrementing:
+
+--          incr Bin ----------------------> Bin
+--              |                             |
+--   binToNat   |                             |  binToNat
+--              |                             |
+--              v                             v
+--             Nat ------------------------> Nat
+--                         succ
+
+-- If you want to change your previous definitions of `incr` or
+-- `binToNat` to make the property easier to prove, feel free!
+
+theorem bin_to_nat_pres_incr (b : Bin) :
+    binToNat (incr b) = (binToNat b) + one := by
+  sorry
+
+-- ### Exercise (3 stars): nat_bin_nat ⭐⭐⭐
+
+-- Write a function to convert natural numbers to binary
+-- numbers. Also write some simplification lemmas for it.
+
+def natToBin (n : Nat) : Bin := sorry
+
+-- FILL IN HERE
+
+-- Prove that, if we start with any `Nat`, convert it to `Bin`,
+-- and convert it back, we get the same `Nat` which we started
+-- with.
+
+-- Hint: This proof should go through smoothly using the
+-- previous exercise about `incr` as a lemma. If not, revisit
+-- your definitions of the functions involved and consider
+-- whether they are more complicated than necessary: the shape
+-- of a proof by induction will match the recursive structure
+-- of the program being verified, so make the recursions as
+-- simple as possible.
+
+theorem nat_bin_nat (n : Nat) :
+    binToNat (natToBin n) = n := by
+  sorry
 
 -- ### Bin to Nat and Back to Bin (Advanced)
 
+-- The opposite direction — starting with a `Bin`, converting
+-- to `Nat`, then converting back to `Bin` — turns out to be
+-- problematic. That is, the following "theorem" does not hold.
+
+sf_expect_failure
+  example (b : Bin) : natToBin (binToNat b) = b := by
+
+-- Let's explore why this theorem fails and how to prove a
+-- modified version of it. We'll start with some lemmas that
+-- might seem unrelated but will turn out to be relevant.
+
+-- ### Exercise (2 stars): double_bin (Advanced) ⭐⭐
+
+-- Prove this lemma about `double`, which we defined earlier in
+-- the chapter.
+
+theorem double_incr (n : Nat) :
+    double (succ n) = (double n) + two := by
+  sorry
+
+-- Now define a similar doubling function for `Bin`.
+
+def doubleBin (b : Bin) : Bin := sorry
+
+-- Fill in the characterizing lemmas for this definition below:
+
+-- FILL IN HERE
+
+-- Check that your function correctly doubles zero.
+
+theorem double_bin_zero : doubleBin .z = .z := sorry
+
+-- Prove this lemma, which corresponds to `double_incr`.
+
+theorem double_incr_bin (b : Bin) :
+    doubleBin (incr b) = incr (incr (doubleBin b)) := by
+  sorry
+
+-- Let's return to our desired theorem:
+
+sf_expect_failure
+  example (b : Bin) : natToBin (binToNat b) = b := by
+
+-- The theorem fails because there are some `Bin` such that we
+-- won't necessarily get back to the *original* `Bin`, but
+-- instead to an "equivalent" `Bin`. (We deliberately leave
+-- that notion undefined here for you to think about.)
+
+-- Explain in a comment, below, why this failure occurs. Your
+-- explanation will not be graded, but it's important that you
+-- get it clear in your mind before going on to the next part.
+-- If you're stuck on this, think about alternative
+-- implementations of `doubleBin` that might have failed to
+-- satisfy `double_bin_zero` yet otherwise seem correct.
+
+-- To solve that problem, we can introduce a *normalization*
+-- function that selects the simplest `Bin` out of all the
+-- equivalent `Bin`. Then we can prove that the conversion from
+-- `Bin` to `Nat` and back again produces that normalized,
+-- simplest `Bin`.
+
+-- ### Exercise (4 stars): bin_nat_bin (Advanced) ⭐⭐⭐⭐
+
+-- Define `normalize`. You will need to keep its definition as
+-- simple as possible for later proofs to go smoothly. Do not
+-- use `binToNat` or `natToBin`, but do use `doubleBin`.
+
+-- Hint: Structure the recursion such that it *always* reaches
+-- the end of the `Bin` and *only* processes each bit once. Do
+-- not try to "look ahead" at future bits.
+
+def normalize (b : Bin) : Bin := sorry
+
+-- Also specify the characterizing lemmas for this definition:
+
+-- FILL IN HERE
+
+-- It would be wise to do some `example` proofs to check that
+-- your definition of `normalize` works the way you intend
+-- before you proceed. They won't be graded, but do fill in a
+-- few below.
+
+-- Note to developers (Claude, before next release):
+--     Same `-- SOLUTION` mishandling as elsewhere in this
+--     chapter, milder here: the block keeps surviving content
+--     (`attribute [irreducible] …`) after `-- END SOLUTION`,
+--     so student/terse don't error, but the **solutions**
+--     build leaks the literal `-- SOLUTION` /
+--     `-- END SOLUTION` comment lines into the displayed code.
+--     Prefer `solution!` over the comment markers.
+
+-- FILL IN HERE
+
+-- Now that we have defined all of our functions and their
+-- relevant characterizing lemmas, we mark them irreducible as
+-- usual. From here on out, our proofs about these definitions
+-- should use `rewrite` or `rw`.
+
+attribute [irreducible] normalize doubleBin natToBin incr binToNat
+
+-- Finally, prove the main theorem. The inductive cases could
+-- be a bit tricky.
+
+-- Hint: Start by trying to prove the main statement, see where
+-- you get stuck, and see if you can find a lemma — perhaps
+-- requiring its own inductive proof — that will allow the main
+-- proof to make progress. We have one lemma for the `b0` case
+-- (which also makes use of `double_incr_bin`) and another for
+-- the `b1` case.
+
+-- Note to developers (Claude, before next release):
+--     Same `-- SOLUTION` mishandling, milder: `bin_nat_bin`
+--     survives after `-- END SOLUTION` so student/terse don't
+--     error, but the **solutions** build leaks the literal
+--     `-- SOLUTION` / `-- END SOLUTION` comment lines around
+--     `incr_doubleBin`/`natToBin_two_mul` into the displayed
+--     code. Prefer `solution!` over the comment markers.
+
+-- FILL IN HERE
+
+theorem bin_nat_bin (b : Bin) :
+    natToBin (binToNat b) = normalize b := by
+  sorry
+
+end NatToBin
 end NatPlayground.Nat
 

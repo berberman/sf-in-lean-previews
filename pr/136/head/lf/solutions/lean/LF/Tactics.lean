@@ -11,6 +11,12 @@ import LF.SFLCompat
 --     `Induction`, once those chapters are rewritten to not use arithmetic.
 --     This will also require changing the examples.
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     (Old and possibly out of date -- check!) Many exercises in this chapter
+--     are based on defining and proving properties about Nat.ble and BEq.eq,
+--     which are not idiomatic in Lean. We should consider replacing these
+--     with a different set of exercises.
+
 -- Note to developers (before next release):
 --     This chapter could maybe use one or two more WORKINCLASS tags...
 
@@ -1298,7 +1304,9 @@ theorem sillyfun_false (n : Nat) :
 -- want a way to get the pieces of that value out from it.
 
 -- When we have a value `v : α × β` in our context, we can get the first and
--- second projections of `v` using this tactic: `let ⟨a, β⟩ := v`
+-- second projections of `v` using this tactic:
+
+--   let ⟨a, β⟩ := v
 
 -- ### Exercise (3 stars): combine_split ⭐⭐⭐
 

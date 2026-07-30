@@ -105,6 +105,14 @@ def evalF (t : Tm) : Nat :=
 -- style, but formulated as an inductively defined relation. We
 -- use the notation `t ⇓ n` for "`t` evaluates to `n`."
 
+-- The `notation` command below is how that is declared: it
+-- introduces `⇓` as infix syntax for the `Eval` relation
+-- defined with it, with a precedence saying how tightly it
+-- binds. This is the lightweight way to name a relation; later
+-- chapters, where a whole object language needs a grammar
+-- rather than a single operator, reach for
+-- `declare_syntax_cat` instead.
+
 -- -------                (const)
 --                         c n ⇓ n
 
@@ -134,8 +142,8 @@ inductive Step : Tm → Tm → Prop where
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 
 -- Notice: each step reduces the *leftmost* `p` node that is
--- ready to go -- the first rule tells how to rewrite it, the
--- second and third tell where to find it -- and constants do
+-- ready to go — the first rule tells how to rewrite it, the
+-- second and third tell where to find it — and constants do
 -- not step to anything.
 
 -- Let's pause and check a couple of examples of reasoning with
@@ -366,8 +374,8 @@ theorem nf_same_as_value (t : Tm) : IsNormalForm Step t ↔ IsValue t :=
   ⟨nf_is_value t, value_is_nf t⟩
 
 -- Why is this interesting? Because `IsValue` is a *syntactic*
--- concept -- it is defined by looking at the way a term is
--- written -- while `IsNormalForm` is a *semantic* one -- it is
+-- concept — it is defined by looking at the way a term is
+-- written — while `IsNormalForm` is a *semantic* one — it is
 -- defined by looking at how the term steps.
 
 -- It is not obvious that these concepts should characterize
@@ -492,11 +500,25 @@ inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
   | refl (x : X) : Multi R x x
   | step (x y z : X) (h1 : R x y) (h2 : Multi R y z) : Multi R x z
 
+-- Note to developers (berberman):
+--     I would make some arguments implicit to proivde a
+--     cleaner interface (FYI the [mathlib
+--     version](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Logic/Relation.html#Relation.ReflTransGen))
+
 -- We write `⟶*` for the `Multi Step` relation on terms
 
 notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
 -- The relation `Multi R` has several crucial properties.
+
+attribute [refl] Multi.refl
+
+example : (.c 5 : Tm) ⟶* .c 5 := by rfl
+
+example : (.p (.c 1) (.c 2)) ⟶* .c (1 + 2) := by
+  apply Multi.step (y := .c (1 + 2))
+  · exact .plus 1 2
+  · rfl
 
 theorem multi_single {X : Type} (R : Relation X) (x y : X) (h : R x y) :
     Multi R x y :=
@@ -539,6 +561,14 @@ example : (.p (.c 0) (.c 3)) ⟶* .p (.c 0) (.c 3) := sorry
 example :
     (.p (.c 0) (.p (.c 2) (.p (.c 0) (.c 3))))
       ⟶* (.p (.c 0) (.c (2 + (0 + 3)))) := by
+  sorry
+
+-- ### Exercise (2 stars): test_multistep_rfl ⭐⭐
+
+-- Prove the following reduction, ending the chain with `rfl`
+-- instead of `multi_single`.
+
+example : (.p (.p (.c 1) (.c 2)) (.c 4)) ⟶* .c ((1 + 2) + 4) := by
   sorry
 
 -- ### Normal Forms Again
@@ -645,7 +675,7 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 -- ### Exercise (3 stars): multistep_of_eval_inf ⭐⭐⭐
 
 -- Write a detailed informal version of the proof of
--- `multistep_of_eval`. (A paper exercise -- there is no Lean
+-- `multistep_of_eval`. (A paper exercise — there is no Lean
 -- proof to fill in here.)
 
 -- For the converse, we need one lemma, which establishes a
@@ -730,8 +760,8 @@ example :
 -- ### Exercise (2 stars): strong_progress_arith ⭐⭐
 
 -- Every arithmetic expression is either a value or can take a
--- step -- the same *strong progress* property we proved for
--- the toy language, now for the richer `Slang` arithmetic
+-- step — the same *strong progress* property we proved for the
+-- toy language, now for the richer `Slang` arithmetic
 -- expressions.
 
 theorem strong_progress_arith (a : Aexp) : IsAValue a ∨ ∃ a', a ⟶a a' := by
@@ -768,7 +798,7 @@ inductive BStep : Bexp → Bexp → Prop where
 
 scoped notation:40 b:41 " ⟶b " b':41 => BStep b b'
 
--- A boolean example -- the left comparison operand reduces
+-- A boolean example — the left comparison operand reduces
 -- first:
 
 example :
@@ -949,8 +979,8 @@ theorem stack_step_deterministic : Deterministic StackStep := by
 -- from the empty stack reduces, in some number of steps, to a
 -- stack holding exactly the value of the expression.
 
--- *Hint:* this will not go through by a direct induction --
--- the induction hypothesis is too weak. Prove a more general
+-- *Hint:* this will not go through by a direct induction — the
+-- induction hypothesis is too weak. Prove a more general
 -- statement first, about running `compile a` followed by *any*
 -- leftover program `p`, starting from *any* stack `stk`.
 -- (Reassociating the `++`s with `List.append_assoc`, and

@@ -1,5 +1,4 @@
 import LF.Basics
-import LF.Typeclasses
 import LF.Induction
 import LF.UsingLean
 import LF.Lists
@@ -8,3 +7,4 @@ import LF.Tactics
 import LF.Logic
 import LF.IndProp
 import LF.Automation
+import LF.Typeclasses

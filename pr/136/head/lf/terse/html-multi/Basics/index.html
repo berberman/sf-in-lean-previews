@@ -1987,7 +1987,7 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="current numbered"><td class="num">1.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses">Typeclasses</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr></table></div>
+              <table><tr class="current numbered"><td class="num">1.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses">Typeclasses</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
                 <label for="--verso-manual-toc-Basics" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Basics" checked="checked"></label><span class="number">1.</span> <span class="current"><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></span></div>
@@ -1999,7 +1999,7 @@ window.onload = async () => {
       <div class="toc-resize-handle"></div>
       <main><div class="content-wrapper">
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="#" rel="prev" title=" Logical Foundations"><span class="arrow">←</span><span class="where"> Logical Foundations</span></a><a class="local-button active" href="Typeclasses/#Logical-Foundations--Typeclasses" rel="next" title="2. Typeclasses"><span class="where">2. Typeclasses</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="#" rel="prev" title=" Logical Foundations"><span class="arrow">←</span><span class="where"> Logical Foundations</span></a><a class="local-button active" href="Induction/#Induction" rel="next" title="2. Induction: Proof by Induction"><span class="where">2. Induction: Proof by Induction</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
               1. Basics: Functional Programming in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Basics" title="Permalink">🔗</a></span></h1>
@@ -2412,6 +2412,16 @@ to ensure they pass with no <code>sorry</code>.</p>
 </span><span class="unknown token" data-binding=""></span></code><p>
                   Top-level definitions can also be prefixed by a namespace,
 which opens the namespace temporarily for the body of the definition.</p>
+                <div class="sf-dev-note">
+                  <div class="sf-dev-note-label">
+                    Note to developers (Claude, NOW)</div>
+                  <p>
+                    Rendering bug in <strong>student</strong> and <strong>terse</strong> (solutions is fine): the leading
+<code>--- …</code> triple-dash comment lines in this block and the next one each render
+<strong>twice</strong> in a row (e.g. two consecutive <code>--- this works, because …</code> lines). The
+solutions build shows each once, so this is a Verso rendering quirk with
+<code>---</code>-style comments in the elided builds, not a source duplication.</p>
+                  </div>
                 <code class="hl lean block" data-lean-context="examples"><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding="">- this works, because the definition is qualified by `RGB.`</span><span class="inter-text">
 </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding="">- this works, because the definition is qualified by `RGB.`</span><span class="inter-text">
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.definition-62">def</span><span class="inter-text"> </span><span class="const token" data-binding="const-RGB.myOtherBlue" data-verso-hover="64">RGB.myOtherBlue</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-82">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-RGB" data-verso-hover="43">RGB</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-88">:=</span><span class="inter-text"> </span><span class="const token" data-binding="const-RGB.myBlue" data-verso-hover="63">myBlue</span><span class="inter-text">
@@ -3136,19 +3146,17 @@ number as a sequence of constructors <code>b0</code> and <code>b1</code> (repres
 and 1s), terminated by a <code>z</code>.</p>
                   <p>
                     For example:</p>
-                  <p>
-                    | decimal |            binary     |                                                unary         |
-|:-------:| ---------------------:| ------------------------------------------------------------:|
-|    0    | <code>              z  </code> | <code>                                              zero      </code> |
-|    1    | <code>           b1 z  </code> | <code>                                         succ zero      </code> |
-|    2    | <code>       b0 (b1 z) </code> | <code>                                   succ (succ zero)     </code> |
-|    3    | <code>       b1 (b1 z) </code> | <code>                             succ (succ (succ zero))    </code> |
-|    4    | <code>   b0 (b0 (b1 z))</code> | <code>                       succ (succ (succ (succ zero)))   </code> |
-|    5    | <code>   b1 (b0 (b1 z))</code> | <code>                 succ (succ (succ (succ (succ zero))))  </code> |
-|    6    | <code>   b0 (b1 (b1 z))</code> | <code>           succ (succ (succ (succ (succ (succ zero))))) </code> |
-|    7    | <code>   b1 (b1 (b1 z))</code> | <code>     succ (succ (succ (succ (succ (succ (succ zero))))))</code> |
-|    8    | <code>b0 (b0 (b0 (b1 z)))</code> | <code>succ (succ (succ (succ (succ (succ (succ (succ zero)))))))</code> |</p>
-                  <p>
+                  <pre>decimal                binary   unary
+      0                     z   zero
+      1                  b1 z   succ zero
+      2             b0 (b1 z)   succ (succ zero)
+      3             b1 (b1 z)   succ (succ (succ zero))
+      4        b0 (b0 (b1 z))   succ (succ (succ (succ zero)))
+      5        b1 (b0 (b1 z))   succ (succ (succ (succ (succ zero))))
+      6        b0 (b1 (b1 z))   succ (succ (succ (succ (succ (succ zero)))))
+      7        b1 (b1 (b1 z))   succ (succ (succ (succ (succ (succ (succ zero))))))
+      8   b0 (b0 (b0 (b1 z)))   succ (succ (succ (succ (succ (succ (succ (succ zero)))))))
+</pre><p>
                     Note that the low-order bit is on the left and the high-order bit
 is on the right -- the opposite of the way binary numbers are
 usually written.  This choice makes them easier to manipulate.</p>
@@ -3233,6 +3241,21 @@ We should discuss.</p>
                     Now state and prove a theorem <code>negation_fn_applied_twice</code> similar
 to the previous one but where the hypothesis says that the
 function <code>f</code> has the property that <code>f x = !x</code>.</p>
+                  <div class="sf-dev-note">
+                    <div class="sf-dev-note-label">
+                      Note to developers (Claude, NOW)</div>
+                    <p>
+                      Rendering bug (all three build products look wrong). This exercise wraps its
+<strong>entire</strong> theorem in the <code>-- SOLUTION</code>/<code>-- END SOLUTION</code> comment-marker idiom,
+which the Verso HTML build does not process (only the <code>solution!</code> tactic is
+handled). Result: in <strong>student</strong> and <strong>terse</strong> the code block renders empty
+with a spurious <code>unexpected end of input</code> error and a doubled <code>-- FILL IN
+HERE</code>; in <strong>solutions</strong> the theorem is shown but the literal <code>-- SOLUTION</code> /
+<code>-- END SOLUTION</code> comment lines leak into the displayed code. (The generated
+<code>.lean</code> files are correct — this is purely an HTML-rendering gap.) Fix by
+rewriting with the <code>solution!</code> tactic, as the neighbouring
+<code>identity_fn_applied_twice</code> exercise does.</p>
+                    </div>
                   <code class="hl lean block" data-lean-context="examples"><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
 </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
 </span><span class="has-info error"><span class="hover-container"><span class="hover-info messages"><code class="verso-message error"><span class="text"></span><span class="text">unexpected end of input</span></code></span></span><span class="unknown token" data-binding=""></span></span></code></div>
@@ -3468,7 +3491,7 @@ go through without <code>dsimp</code> or <code>contradiction</code>. To discuss.
               </section>
             </section>
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="#" rel="prev" title=" Logical Foundations"><span class="arrow">←</span><span class="where"> Logical Foundations</span></a><a class="local-button active" href="Typeclasses/#Logical-Foundations--Typeclasses" rel="next" title="2. Typeclasses"><span class="where">2. Typeclasses</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="#" rel="prev" title=" Logical Foundations"><span class="arrow">←</span><span class="where"> Logical Foundations</span></a><a class="local-button active" href="Induction/#Induction" rel="next" title="2. Induction: Proof by Induction"><span class="where">2. Induction: Proof by Induction</span><span class="arrow">→</span></a></nav>
           </div>
         </main></div>
     </body>

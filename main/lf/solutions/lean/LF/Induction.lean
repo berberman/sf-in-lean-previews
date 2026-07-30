@@ -619,16 +619,16 @@ theorem add_assoc'' (n m p : Nat) :
 -- - Next, suppose `m = m' + 1` for some `m'`, where `n + m' = m' + n`. We must
 --   show that
 
---   n + (m' + 1) = (m' + 1) + n`.
+--   n + (m' + 1) = (m' + 1) + n.
 
 -- By the definition of `+`, `n + (m' + 1) = (n + m') + 1`, so our new goal is
 -- to show
 
---   (n + m') + 1 = (m' + 1) + n`.
+--   (n + m') + 1 = (m' + 1) + n.
 
--- By `succ_add`, `(m' + 1) + n = (m' + n) + 1`, so our new goal is, and by
--- the induction hypothesis, `n + m' = m' + n`, so both sides equal
--- `(m' + n) + 1`.
+-- By `succ_add`, `(m' + 1) + n = (m' + n) + 1`, so it remains to show
+-- `(n + m') + 1 = (m' + n) + 1`. This follows from the induction hypothesis
+-- `n + m' = m' + n`.
 
 -- ### Exercise (2 stars): beq_refl_informal ⭐⭐
 
@@ -642,13 +642,12 @@ theorem add_assoc'' (n m p : Nat) :
 
 -- By induction on `n`.
 
--- - First, suppose `n = zero`.  We must show `(zero == zero) = true`.  This
--- follows directly from the definition of `beq`.
+-- - First, suppose `n = zero`. We must show `(zero == zero) = true`. This
+--   follows directly from the definition of `beq`.
 
--- - Next, suppose `n = n' + 1`, where `(n' == n') = true`.  We
--- must show `(n' + 1 == n' + 1) = true`. This
--- follows directly from the induction hypothesis and the
--- definition of {name}`beq`.
+-- - Next, suppose `n = n' + 1`, where `(n' == n') = true`. We must show
+--   `(n' + 1 == n' + 1) = true`. This follows directly from the induction
+--   hypothesis and the definition of `beq`.
 
 -- ## More Exercises
 

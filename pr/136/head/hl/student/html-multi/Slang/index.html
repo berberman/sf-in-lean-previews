@@ -259,6 +259,64 @@ details.sf-quiz-solution > .sf-quiz-solution-body {
   border-left: 3px solid var(--sf-rule, #ccc);
 }
 </style><style>
+details.sf-details {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.015);
+  border-radius: 2px;
+}
+details.sf-details > summary {
+  cursor: pointer;
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  color: var(--sf-heading, inherit);
+  list-style: none;
+}
+details.sf-details > summary::-webkit-details-marker { display: none; }
+details.sf-details > summary::before {
+  content: "▸ ";
+  display: inline-block;
+  width: 1em;
+  transition: transform 120ms ease-in-out;
+}
+details.sf-details[open] > summary::before {
+  content: "▾ ";
+}
+details.sf-details[open] {
+  background: rgba(0, 0, 0, 0.03);
+}
+</style><style>
+table.bnf {
+  margin: 1em auto;
+  border-collapse: collapse;
+  font-family: var(--verso-code-font-family, monospace);
+}
+table.bnf td {
+  padding: 0.15em 0.5em;
+  vertical-align: baseline;
+}
+table.bnf td.bnf-lhs { text-align: right; }
+table.bnf td.bnf-sep { text-align: center; }
+table.bnf td.bnf-alt { text-align: left; }
+table.bnf .bnf-nt  { font-style: italic; }
+table.bnf .bnf-mv  {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 0.18em;
+}
+table.bnf .bnf-kw  { font-weight: 600; font-family: var(--verso-code-font-family, monospace); }
+/* The gloss column: set in the body font, muted, and pushed away from the
+   grammar so it reads as an annotation rather than as part of the syntax. */
+table.bnf td.bnf-note {
+  padding-left: 2.5em;
+  text-align: left;
+  font-family: inherit;
+  font-style: italic;
+  opacity: 0.65;
+}
+</style><style>
 
 .hl.lean {
   white-space: pre;
@@ -1267,19 +1325,7 @@ trees -- the process that, for example, would translate the string
                 <p>
                   For comparison, here's a conventional BNF (Backus-Naur Form) grammar
 defining the same abstract syntax:</p>
-                <pre>  a := nat
-      | a + a
-      | a − a
-      | a * a
-
-  b := bool
-      | a = a
-      | a ≠ a
-      | a ≤ a
-      | a &gt; a
-      | ¬ b
-      | b ∧ b
-</pre><p>
+                <table class="bnf"><tr><td class="bnf-lhs"><span class="bnf-nt">a</span></td><td class="bnf-sep">::=</td><td class="bnf-alt"><span class="bnf-nt">nat</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">+</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">−</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">*</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"><span class="bnf-nt">b</span></td><td class="bnf-sep">::=</td><td class="bnf-alt"><span class="bnf-nt">bool</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">=</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">≠</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">≤</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">a</span> <span class="bnf-kw">&gt;</span> <span class="bnf-nt">a</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-kw">¬</span> <span class="bnf-nt">b</span></td><td class="bnf-note"> </td></tr><tr><td class="bnf-lhs"> </td><td class="bnf-sep">|</td><td class="bnf-alt"><span class="bnf-nt">b</span> <span class="bnf-kw">∧</span> <span class="bnf-nt">b</span></td><td class="bnf-note"> </td></tr></table><p>
                   Compared to the Lean version above...</p>
                 <ul>
                   <li>

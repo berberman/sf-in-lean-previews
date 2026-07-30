@@ -5,29 +5,13 @@ import LF.SFLCompat
 
 -- # Poly: Polymorphism and Higher-Order Functions
 
--- Note to developers (Daniel Sainati  @dsainati1):
---     [BCP: Old comment -- might be out of date?] None of the
---     comments at the start of the chapter motivating the
---     polymorphic definition of lists make sense with the
---     change to use `List Nat` in the previous chapter.
---
---     Using the built-in definition of `List.reverse` is
---     dramatically more complicated than implementing our own
---     reverse function, since it is implemented in terms of an
---     auxiliary function.
---
---     The associativity of `++` in Lean is different than
---     Rocq. In Rocq the definition of `app_assoc` is
---     `l ++ m ++ n = (l ++ m) ++ n`, but in Lean it's
---     `l ++ m ++ n = l ++ (m ++ n)`.
-
 -- ### Polymorphic Lists
 
 -- Instead of defining new lists for each type, like this...
 
 inductive BoolList : Type where
-  | bool_nil
-  | bool_cons (b : Bool) (l : BoolList)
+  | nil
+  | cons (b : Bool) (l : BoolList)
 
 -- ... Lean lets us give a *polymorphic* definition that allows
 -- list elements of any type:
@@ -41,36 +25,36 @@ inductive MyList (α : Type) : Type where
 
 -- What is `MyList` itself?
 
--- It is a *function* from types to types.
+-- It is a *type constructor* — a function from types to types.
 
-#check (MyList : Type → Type)
+-- Note to developers (Yipeng Liu  @berberman):
+--     A trick used below: parenthesizing the declaration makes
+--     it a term — Lean elaborates it and prints its inferred
+--     function type, instead of the declaration signature:
+--     `MyList (α : Type) : Type`.
+
+#check (MyList)
+
+-- MyList : Type → Type
 
 -- The `α` in the definition of `MyList` becomes an implicit
 -- parameter to the list constructors `nil` and `cons`.
 
-#check (MyList.nil : MyList Nat)
+#check MyList.nil
 
-#check (MyList.cons 3 MyList.nil : MyList Nat)
+-- MyList.nil {α : Type} : MyList α
 
--- Note to developers (before next release):
---     Unclear - Reword
+#check MyList.cons 3 MyList.nil
 
-#check (@MyList.nil : {α : Type} → MyList α)
+-- MyList.cons 3 MyList.nil : MyList Nat
 
-#check (@MyList.cons : {α : Type} → α → MyList α → MyList α)
+#check MyList.nil
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
---     Does this still apply?
+-- MyList.nil {α : Type} : MyList α
 
--- Note to developers (Jonathan Chan  @ionathanch, NOW):
---     We should never write `forall` in place of `∀`, but
---     somewhere in `Basics` we ought to tell people that you
---     can find out how to type a symbol by hovering over it.
+#check MyList.cons
 
--- Side note: In .v files, the "forall" quantifier is spelled
--- out in letters. In the corresponding HTML files, it is
--- usually typeset as the standard mathematical "upside down
--- A."
+-- MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
 
 -- We can now define polymorphic versions of the functions
 -- we've already seen...
@@ -80,11 +64,12 @@ def myRepeat (α : Type) (x : α) (count : Nat) : MyList α :=
   | 0 => .nil
   | count' + 1 => .cons x (myRepeat α x count')
 
--- Some simple facts about list lengths
+-- Some simple facts about `myRepeat`:
 
-theorem repeat_zero α v : myRepeat α v 0 = MyList.nil := rfl
+theorem myRepeat_zero (α : Type) (v : α) : myRepeat α v 0 = MyList.nil := rfl
 
-theorem repeat_succ α v count : myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count) := rfl
+theorem myRepeat_succ (α : Type) (v : α) (count : Nat) :
+    myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count) := rfl
 
 example : myRepeat Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
 
@@ -111,9 +96,9 @@ example : myRepeat Bool false 1 = .cons false .nil := by rfl
 
 -- (A) `Nat → Nat → MyList Nat`
 
--- (B) `{α : Type} → α → Nat → MyList α`
+-- (B) `(α : Type) → α → Nat → MyList α`
 
--- (C) `{α : Type} → {β : Type} → α → Nat → MyList β`
+-- (C) `(α : Type) → {β : Type} → α → Nat → MyList β`
 
 -- (D) Ill-typed
 
@@ -123,7 +108,7 @@ example : myRepeat Bool false 1 = .cons false .nil := by rfl
 
 -- (A) `MyList Nat`
 
--- (B) `{α : Type} → α → Nat → MyList α`
+-- (B) `(α : Type) → α → Nat → MyList α`
 
 -- (C) `MyList Bool`
 
@@ -136,35 +121,24 @@ def list123 : List Nat := [1, 2, 3]
 
 -- #### Type Annotation Inference
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
---     I copied this over mostly verbatim from Poly.v, but I
---     think the point doesn't work in Lean. The definition of
---     `repeat'` below doesn't typecheck, I think Lean does
---     less inference than Rocq here. Should we just delete
---     this?
+-- Let's write the definition of `myRepeat` again, but this
+-- time we won't specify the type of the parameter `α`. Will
+-- Lean still accept it?
 
--- Note to developers (Jonathan Chan  @ionathanch, NOW):
---     Lean can still infer the types of arguments that are
---     used dependently, so I've adapted the text below to only
---     omit `α`. The question of what Lean infers as its type
---     is still tricky to present, since `#check repeat'` alone
---     will show that `α` is universe-polymorphic as well,
---     which I suppose we want to avoid explaining at this
---     moment?
-
--- Let's write the definition of `repeat` again, but this time
--- we won't specify the type of the parameter `α`. Will Lean
--- still accept it?
-
-def repeat' α (x : α) (count : Nat) : List α :=
+def myRepeat' α (x : α) (count : Nat) : List α :=
   match count with
   | 0 => .nil
-  | count' + 1 => .cons x (repeat' α x count')
+  | count' + 1 => .cons x (myRepeat' α x count')
 
--- Indeed it will. We can see that `α` has the type `Type`, as
--- expected.
+-- Indeed it will. Lean infers that `α` is a type. The
+-- generated `u_1` is part of Lean's bookkeeping for treating
+-- types more generally. We will not need to interpret names
+-- like this for now — you can ignore them when they appear in
+-- Lean's output unless we explicitly call attention to them.
 
-#check (repeat' : ∀ (α : Type), α → Nat → List α)
+#check myRepeat'
+
+-- myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
 
 -- Lean has used *type inference* to deduce a type for `α`.
 
@@ -175,7 +149,7 @@ def repeat' α (x : α) (count : Nat) : List α :=
 
 def myRepeat'' (α : Type) (x : α) (count : Nat) : List α :=
   match count with
-  | 0        => []
+  | 0 => []
   | count' + 1 => x :: myRepeat'' _ x count'
 
 -- Alternatively, we can declare arguments implicit by
@@ -183,7 +157,7 @@ def myRepeat'' (α : Type) (x : α) (count : Nat) : List α :=
 
 def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
   match count with
-  | 0        => []
+  | 0 => []
   | count' + 1 => x :: myRepeat''' x count'
 
 -- #### Supplying Type Arguments Explicitly
@@ -192,19 +166,18 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
 -- arguments. But occasionally this can lead to problems:
 
 -- This fails because Lean can't figure out the type of the
--- empty list: `def mynil := []` -- error: type not known We
--- can fix this with an explicit type annotation:
+-- empty list: `def mynil := []` — error: type not known We can
+-- fix this with an explicit type annotation:
 
 -- We can use the `@` prefix to supply the type argument
 -- explicitly. The `@` makes all implicit arguments of a
 -- function explicit:
 
--- Note to developers (Jonathan Chan  @ionathanch, NOW):
---     Didn't we alredy use this feature back on lines 121/126?
+#check @List.nil
 
-#check (@List.nil : {α : Type} → List α)
+def myNil' := @List.nil Nat
 
-def mynil' := @List.nil Nat
+-- @List.nil : {α : Type u_1} → List α
 
 -- _Quiz:_
 
@@ -308,46 +281,52 @@ def mynil' := @List.nil Nat
 
 -- #### Exercises
 
-def List.rev {α:Type} (l:List α) : List α :=
+def List.rev {α : Type} (l : List α) : List α :=
   match l with
   | .nil => .nil
   | .cons h t => rev t ++ (.cons h .nil)
 
-theorem rev_nil α : ([] : List α).rev = [] := by rfl
+theorem rev_nil {α : Type} : ([] : List α).rev = [] := by rfl
 
-theorem rev_cons α h (t : List α) : (h :: t).rev = t.rev ++ [h] := by rfl
+theorem rev_cons {α : Type} (head : α) (tail : List α) :
+    (head :: tail).rev = tail.rev ++ [head] := by rfl
 
 -- ### Exercise (2 stars): poly_exercises ⭐⭐
 
 -- Here are a few simple exercises, just like ones in the
 -- `Lists` chapter, for practice with polymorphism. Complete
 -- the proofs below. You will likely find useful the following
--- lemmas about append and length from Lean's standard library:
+-- characterizing lemmas for `List.append` in Lean standard
+-- library:
 
--- `List.nil_append {α} (as : List α) : [] ++ as = as`
--- `List.cons_append {α} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)`
+#check List.nil_append
+#check List.cons_append
 
-theorem app_nil_r {α : Type} : ∀ (l : List α),
+-- List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
+
+-- List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
+
+theorem app_nil_r {α : Type} (l : List α) :
     l ++ [] = l := by
   sorry
 
-theorem app_assoc {α : Type} : ∀ (l m n : List α),
+theorem app_assoc {α : Type} (l m n : List α) :
     l ++ m ++ n = l ++ (m ++ n) := by
   sorry
 
-theorem app_length {α : Type} : ∀ (l1 l2 : List α),
-    (l1 ++ l2).length = l1.length + l2.length := by
+theorem app_length {α : Type} {l₁ l₂ : List α} :
+    (l₁ ++ l₂).length = l₁.length + l₂.length := by
   sorry
 
 -- ### Exercise (2 stars): more_poly_exercises ⭐⭐
 
 -- Here are some slightly more interesting ones...
 
-theorem rev_app_distr {α : Type} : ∀ (l1 l2 : List α),
-    (l1 ++ l2).rev = l2.rev ++ l1.rev := by
+theorem rev_app_distr {α : Type} {l₁ l₂ : List α} :
+    (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev := by
   sorry
 
-theorem rev_involutive {α : Type} : ∀ (l : List α),
+theorem rev_involutive {α : Type} (l : List α) :
     l.rev.rev = l := by
   sorry
 
@@ -367,54 +346,44 @@ structure MyProd (α β : Type) where
 -- first and second components of the pair. It also has special
 -- syntax for creating products:
 
-#check (1, true)  /- (1, true) : Nat × Bool -/
-#check (1, true).fst  /- access first component -/
-#check (1, true).snd  /- access second component -/
+#check (1, true)
+#eval (1, true).fst
+#eval (1, true).snd
+
+-- (1, true) : Nat × Bool
+
+-- 1
+
+-- true
 
 -- You can also use `.1` instead of `.fst` and `.2` instead of
 -- `.snd`
 
-#check (1, true).1  /- access first component -/
-#check (1, true).2  /- access second component -/
-
 example : (3, 5).1 = 3 := by rfl
 example : (3, 5).2 = 5 := by rfl
 
--- The notation `α × β` is syntactic sugar for `Prod α β`.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Do we need to tell them how to type it in vscode? (If
---     yes, then should we be doing this for every notation
---     when it is introduced? (If yes, we should record this
---     decision in the Claude prompt that we use for checking
---     nitpicky regressions like this, creating and documenting
---     it if it doesn't already exist.))
+-- Lean writes the product type `Prod α β` as `α × β`. In VS
+-- Code you can type `\times` or `\x` to enter the `×` symbol.
 
 -- Be careful not to get `(x, y)` and `α × β` confused!
 
 -- What does this function do?
 
-def zip {α : Type} {β : Type} (lx : List α) (ly : List β) : List (α × β) :=
+def zip {α β : Type} (lx : List α) (ly : List β) : List (α × β) :=
   match lx, ly with
   | [], _ => []
   | _, [] => []
   | x :: tx, y :: ty => (x, y) :: zip tx ty
 
-theorem zip_nil_r α β ly : zip [] ly = ([] : List (α × β)) := by rfl
+theorem zip_nil_r {α β : Type} (ly : List β) : zip [] ly = ([] : List (α × β)) := by rfl
 
-theorem zip_nil_l α β lx : zip lx [] = ([] : List (α × β)) := by
-   cases lx
-   . rfl
-   . rfl
+theorem zip_nil_l {α β : Type} (lx : List α) : zip lx [] = ([] : List (α × β)) := by
+   cases lx <;> rfl
 
-theorem zip_cons α β lx ly (x : α) (y : β) :
+theorem zip_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} :
    zip (x :: lx) (y :: ly) = (x, y) :: zip lx ly := by rfl
 
 -- ### Polymorphic Options
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Did we literally see `Option Nat` or was it spelled some
---     other way?
 
 def nthError {α : Type} (l : List α) (n : Nat) : Option α :=
   match l with
@@ -423,40 +392,39 @@ def nthError {α : Type} (l : List α) (n : Nat) : Option α :=
     | 0 => some a
     | n' + 1 => nthError l' n'
 
--- test*nth*error1
-
 example : nthError [4, 5, 6, 7] 0 = some 4 := by rfl
 example : nthError [[1], [2]] 1 = some [2] := by rfl
 example : nthError [true] 2 = none := by rfl
 
 -- ## Functions as Data
 
--- Note to developers:
---     HIDE: Robert Rand: The terse version could really use
---     words here. (Or drop the section break and rename this
---     one to "Higher-Order Functions"
-
 -- ### Higher-Order Functions
 
--- Functions in Lean are *first class*.
+-- Functions that take other functions as arguments or return
+-- them as results are called higher-order functions.
 
-abbrev doit3times {α : Type} (f : α → α) (n : α) : α :=
+abbrev doIt3Times {α : Type} (f : α → α) (n : α) : α :=
   f (f (f n))
 
-#check @doit3times  /- @doit3times : {α : Type} → (α → α) → α → α -/
+#check doIt3Times
 
-example : doit3times Nat.minustwo 9 = 3 := by rfl
+example : doIt3Times Nat.minustwo 9 = 3 := by rfl
 
-example : doit3times not true = false := by rfl
+example : doIt3Times not true = false := by rfl
+
+-- doIt3Times {α : Type} (f : α → α) (n : α) : α
 
 -- ### Filter
+
+-- A *higher-order function* can take another function as an
+-- argument. For example, `filter` takes a test and a list.
 
 def filter {α : Type} (test : α → Bool) (l : List α) : List α :=
   match l with
   | [] => []
-  | h :: t =>
-    bif test h then h :: filter test t
-    else filter test t
+  | head :: tail =>
+    bif test head then head :: filter test tail
+    else filter test tail
 
 example : filter Nat.even [1, 2, 3, 4] = [2, 4] := by rfl
 
@@ -465,62 +433,46 @@ abbrev lengthIs1 {α : Type} (l : List α) : Bool :=
 
 example : filter lengthIs1
     [[1, 2], [3], [4], [5, 6, 7], [], [8]]
-  = [[3], [4], [8]] := by dsimp [filter, lengthIs1]
+  = [[3], [4], [8]] := by rfl
 
 theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by rfl
 
-theorem filter_cons_success {α : Type} {test : α → Bool} h t :
-   test h -> filter test (h :: t) = h :: filter test t := by
-   intro htest
-   dsimp [filter]
-   rw [htest]
-   dsimp
+theorem filter_cons_success {α : Type} {test : α → Bool} {head : α}
+    {tail : List α} (h : test head) :
+    filter test (head :: tail) = head :: filter test tail := by
+  dsimp [filter]
+  rw [h]
+  dsimp
 
-theorem filter_cons_fail {α : Type} {test : α → Bool} h t :
-   test h = false -> filter test (h :: t) = filter test t := by
-   intro htest
+theorem filter_cons_fail {α : Type} {test : α → Bool} {head : α}
+    {tail : List α} (h : test head = false) :
+    filter test (head :: tail) = filter test tail := by
    dsimp [filter]
-   rw [htest]
+   rw [h]
    dsimp
 
 -- The `filter` function (especially when combined with some
 -- other functions we'll see later) enables a powerful
 -- *wholemeal* (or *collection-oriented*) programming style.
 
-abbrev countoddmembers' (l : List Nat) : Nat :=
+abbrev countOddMembers' (l : List Nat) : Nat :=
   (filter Nat.odd l).length
 
-example : countoddmembers' [1, 0, 3, 1, 4, 5] = 4 := by rfl
-example : countoddmembers' [0, 2, 4] = 0 := by rfl
-example : countoddmembers' [] = 0 := by rfl
+example : countOddMembers' [1, 0, 3, 1, 4, 5] = 4 := by rfl
+example : countOddMembers' [0, 2, 4] = 0 := by rfl
+example : countOddMembers' [] = 0 := by rfl
 
 -- ### Anonymous Functions
-
--- Note to developers:
---     HIDE: Why not show them `fix` here? It's not that
---     complicated and it fills out the story. At least as a
---     little optional section. BAY: I'm not convinced it's
---     "not that complicated" for people who have never seen
---     much functional programming before. I think adding a
---     discussion of fix could easily take 20 minutes of class
---     time. BCP: Yes, this doesn't belong in lecture,
---     probably. But it might still be useful as an optional
---     section for people to read. (2013: Now that we've
---     created the idea of "advanced" sections, this seems like
---     a nice candidate.)
 
 -- Functions can be constructed "on the fly" without giving
 -- them names.
 
-example : doit3times (fun n => n * n) 2 = 256 := by rfl
+example : doIt3Times (fun n => n * n) 2 = 256 := by rfl
 
--- The expression `fun n => n * n` can be read as "the function
--- that, given a number `n`, yields `n * n`."
+-- Lean also provides the shorter `·` notation for anonymous
+-- functions.
 
--- Lean also supports a shorter notation using `·` as a
--- placeholder for the argument:
-
-example : doit3times (· + 1) 0 = 3 := by rfl
+example : doIt3Times (· + 1) 0 = 3 := by rfl
 
 example : filter (fun l => l.length == 1)
     [[1, 2], [3], [4], [5, 6, 7], [], [8]]
@@ -535,7 +487,7 @@ example : filter (·.length == 1)
 def map {α : Type} {β : Type} (f : α → β) (l : List α) : List β :=
   match l with
   | [] => []
-  | h :: t => f h :: map f t
+  | head :: tail => f head :: map f tail
 
 example : map (· + 3) [2, 0, 2] = [5, 3, 5] := by rfl
 
@@ -551,7 +503,7 @@ example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
 --   def map (f : α → β) (l : List α) : List β :=
 --     match l with
 --     | [] => []
---     | h :: t => f h :: map f t
+--     | head :: tail => f head :: map f tail
 
 -- What is the type of `@map`?
 
@@ -563,9 +515,10 @@ example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
 
 -- (D) `{α : Type} → (α → α) → List α → List α`
 
-theorem map_nil {α : Type} {β : Type} (f : α → β) : map f [] = [] := by rfl
+theorem map_nil {α : Type} {β : Type} {f : α → β} : map f [] = [] := by rfl
 
-theorem map_cons {α : Type} {β : Type} (f : α → β) h t : map f (h :: t) = f h :: map f t := by rfl
+theorem map_cons {α : Type} {β : Type} {f : α → β} {head : α} {tail : List α} :
+    map f (head :: tail) = f head :: map f tail := by rfl
 
 -- Lists are not the only inductive type for which `map` makes
 -- sense. Here is a `map` for the `Option` type:
@@ -580,7 +533,7 @@ def optionMap {α : Type} {β : Type} (f : α → β) (x? : Option α) : Option 
 def fold {α : Type} {β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
   match l with
   | [] => b
-  | h :: t => f h (fold f t b)
+  | head :: tail => f head (fold f tail b)
 
 -- This is the "reduce" in map/reduce...
 
@@ -592,19 +545,19 @@ example : fold (· ++ ·) [[1], [], [2, 3], [4]] [] = [1, 2, 3, 4] := by rfl
 
 example : fold (fun l n => l.length + n) [[1], [], [2, 3, 2], [4]] 0 = 5 := by rfl
 
-theorem fold_nil {α : Type} {β : Type} (f : α → β → β) (b : β) : fold f [] b = b := by rfl
+theorem fold_nil {α : Type} {β : Type} {f : α → β → β} {b : β} : fold f [] b = b := by rfl
 
-theorem fold_cons {α : Type} {β : Type} (f : α → β → β) h t (b : β) :
-   fold f (h :: t) b = f h (fold f t b) := by rfl
+theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {head : α} {tail : List α} {b : β} :
+    fold f (head :: tail) b = f head (fold f tail b) := by rfl
 
 -- _Quiz:_
 
 -- Here is the definition of `fold` again:
 
---   def fold (f : α → β → β) (l : List α) (b : β) : β :=
+--   def fold {α : Type} {β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
 --     match l with
 --     | [] => b
---     | h :: t => f h (fold f t b)
+--     | head :: tail => f head (fold f tail b)
 
 -- What is the type of `@fold`?
 
@@ -632,31 +585,37 @@ theorem fold_cons {α : Type} {β : Type} (f : α → β → β) h t (b : β) :
 
 -- Here are two functions that *return* functions as results.
 
-abbrev constfun {α : Type} (x : α) : Nat → α :=
+abbrev constFun {α : Type} (x : α) : Nat → α :=
   fun _ => x
 
-abbrev ftrue := constfun true
+abbrev fTrue := constFun true
 
-example : ftrue 0 = true := by rfl
+example : fTrue 0 = true := by rfl
 
-example : constfun 5 99 = 5 := by rfl
+example : constFun 5 99 = 5 := by rfl
 
 -- A two-argument function in Lean is actually a function that
 -- returns a function!
 
-#check (Nat.add : Nat → Nat → Nat)
+#check Nat.add
+
+-- Nat.add : Nat → Nat → Nat
 
 abbrev plus3 := Nat.add 3
-#check (plus3 : Nat → Nat)
+#check plus3
 
 example : plus3 4 = 7 := by rfl
-example : doit3times plus3 0 = 9 := by rfl
-example : doit3times (Nat.add 3) 0 = 9 := by rfl
+example : doIt3Times plus3 0 = 9 := by rfl
+example : doIt3Times (Nat.add 3) 0 = 9 := by rfl
+
+-- plus3 : Nat → Nat
 
 -- Similarly, we can write:
 
 abbrev fold_plus : List Nat → Nat → Nat :=
   fold (· + ·)
 
-#check (fold_plus : List Nat → Nat → Nat)
+#check fold_plus
+
+-- fold_plus : List Nat → Nat → Nat
 
