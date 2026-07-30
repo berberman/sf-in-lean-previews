@@ -140,48 +140,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
     },
     "167": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b5ca210a7472c55e819fff105f663bd1bf00a0f5",
+      "changed_variants": [],
+      "head_sha": "d883d85b67c49b8e8ac2006d3598ec540a2b0743",
       "preview_path": "pr/167/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30569698180",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Pass over Logic chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/167"
     },
@@ -230,6 +193,15 @@
       "status": "published",
       "title": "First draft of Hoare.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/171"
+    },
+    "178": {
+      "changed_variants": [],
+      "head_sha": "ff08714fcd92369c6ac555fdb6f1c2a84f23c008",
+      "preview_path": "pr/178/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30573090735",
+      "status": "ci-failed",
+      "title": "Refine basics",
+      "url": "https://github.com/plclub/sf-in-lean/pull/178"
     }
   },
   "schema": 3
