@@ -140,12 +140,49 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/163"
     },
     "166": {
-      "changed_variants": [],
-      "head_sha": "145102a46b461fb47ac4bbf90ec815d927c79d4a",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "9f11d14dc4a60dd8d7464aac6795fdb9c4afc980",
       "preview_path": "pr/166/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30435385156",
-      "status": "ci-failed",
-      "title": "Typclasses: add notation for getting elements",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30551904119",
+      "status": "published",
+      "title": "Typclasses: add notation for getting elements and make PartialMap a one-field structure",
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
     },
     "167": {
@@ -193,6 +230,15 @@
       "status": "published",
       "title": "Pass over Logic chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/167"
+    },
+    "171": {
+      "changed_variants": [],
+      "head_sha": "75e5f9b5908ba123de75fec7969323ce57d240ea",
+      "preview_path": "pr/171/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "First draft of Hoare.lean",
+      "url": "https://github.com/plclub/sf-in-lean/pull/171"
     }
   },
   "schema": 3
