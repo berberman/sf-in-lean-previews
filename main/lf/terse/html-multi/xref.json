@@ -1231,11 +1231,59 @@
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Repeat", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Bags-via-Lists":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Bags-via-Lists",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing",
      "data":
-     {"title": "Bags via Lists",
+     {"title": "Removing",
+      "shortTitle": null,
+      "sectionNum": "4.2.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Removing", "shortTitle": null, "number": "6"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Membership":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Membership",
+     "data":
+     {"title": "Membership",
+      "shortTitle": null,
+      "sectionNum": "4.2.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Membership", "shortTitle": null, "number": "5"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Included":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Included",
+     "data":
+     {"title": "Included",
+      "shortTitle": null,
+      "sectionNum": "4.2.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Included", "shortTitle": null, "number": "7"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Counting":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Counting",
+     "data":
+     {"title": "Counting",
       "shortTitle": null,
       "sectionNum": "4.2.4.",
       "searchPriority": 50,
@@ -1245,7 +1293,7 @@
         "shortTitle": null,
         "number": "4"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
-       {"title": "Bags via Lists", "shortTitle": null, "number": "4"}]},
+       {"title": "Counting", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Append":
    [{"id":
