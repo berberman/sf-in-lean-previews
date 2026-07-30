@@ -156,6 +156,15 @@
       "status": "published",
       "title": "Pass over Logic chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/167"
+    },
+    "168": {
+      "changed_variants": [],
+      "head_sha": "448b4a0f95c761f5f724c036e3b1b34545214634",
+      "preview_path": "pr/168/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Induction: fix informal proof solution rendering",
+      "url": "https://github.com/plclub/sf-in-lean/pull/168"
     }
   },
   "schema": 3
