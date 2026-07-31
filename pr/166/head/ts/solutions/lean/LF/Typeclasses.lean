@@ -578,13 +578,7 @@ notation a:55 " →ₜ " b:55 => TotalMap.update ∅ a b
 def exampleMap' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true ; ∅
 def exampleMap'' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true
 
--- This completes the definition of total maps. Note that we don't need to
--- define a `find` operation (as we did in the Lists chapter) on this
--- representation of maps because it is just function application!
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     ... but we said that we wanted to abstract away from the underlying
---     function representation, no?
+-- This completes the definition of total maps.
 
 example : exampleMap = exampleMap' := rfl
 example : exampleMap' = exampleMap'' := rfl

@@ -86,9 +86,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "dc016daee63d50be1376c5b0c38f954f0d486e75",
+      "head_sha": "85a18fe673962b69651b4913aaff315fc38f4e31",
       "preview_path": "pr/166/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30660491448",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30669401304",
       "status": "published",
       "title": "Typeclasses: add notation for getting elements and make PartialMap a one-field structure",
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
@@ -331,6 +331,15 @@
       "status": "published",
       "title": "Stlc: fix notation printer fallbacks",
       "url": "https://github.com/plclub/sf-in-lean/pull/182"
+    },
+    "183": {
+      "changed_variants": [],
+      "head_sha": "6d2313ae8fe035cc67a094b34d686317cadf100a",
+      "preview_path": "pr/183/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30668059683",
+      "status": "ci-failed",
+      "title": "Meta: experiment with autograding [WIP]",
+      "url": "https://github.com/plclub/sf-in-lean/pull/183"
     }
   },
   "schema": 3
