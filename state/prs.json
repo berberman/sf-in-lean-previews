@@ -44,7 +44,7 @@
       "preview_path": "pr/163/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30567986177",
       "status": "published",
-      "title": "Decompose SFLMeta.Save",
+      "title": "Decompose SFLMeta.Save and Improve lean block performance",
       "url": "https://github.com/plclub/sf-in-lean/pull/163"
     },
     "166": {
