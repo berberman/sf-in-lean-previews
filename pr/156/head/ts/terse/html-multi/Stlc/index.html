@@ -1467,7 +1467,7 @@ boolean values and arrow types for functions.</p>
                   </li>
                 </ul>
               <p>
-                The last two, higher-order examples are left off the list on purpose -- working out
+                The last two, higher-order examples are left off the list on purpose — working out
 their types is the subject of the quizzes that follow.</p>
               <p>
                 Note that <em>all</em> functions are anonymous.</p>
@@ -1546,8 +1546,8 @@ we did in the <a href="Types/#Types">Types</a> chapter...</p>
                 <details class="sf-details"><summary>Notation encoding: types</summary><p>
                     The <code>stlcTy</code> grammar covers <code>Bool</code>, arrows (written <code>→</code> or <code>-&gt;</code>, associating to
 the right), parentheses, and <code>~e</code>.  A bare identifier other than <code>Bool</code> is
-spliced in as a Lean term, so a local <code>T</code> -- or any Lean expression of type
-<code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Stlc.Ty" data-verso-hover="640">Ty</span></code> -- can appear directly inside the brackets.</p>
+spliced in as a Lean term, so a local <code>T</code> — or any Lean expression of type
+<code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Stlc.Ty" data-verso-hover="640">Ty</span></code> — can appear directly inside the brackets.</p>
                   <p>
                     To extend the grammar, a later chapter adds a <code>syntax</code> line to the category and
 a matching <code>macro_rules</code> case; that is all it takes to add a new type construct.</p>
@@ -1576,7 +1576,7 @@ a matching <code>macro_rules</code> case; that is all it takes to add a new type
 </span><span class="unknown token" data-binding=""></span></code><details class="sf-details"><summary>Notation encoding: terms</summary><p>
                     Terms are built from variables, application (associating to the left),
 abstraction, the two boolean constants, and conditionals.  A binding
-occurrence -- the <code>x</code> in <code>λ x : T . t</code> -- has a small grammar of its own,
+occurrence — the <code>x</code> in <code>λ x : T . t</code> — has a small grammar of its own,
 <code>stlcVar</code>, and <code>varStr</code> turns it into the string that <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Stlc.Tm.abs" data-verso-hover="657">Tm.abs</span></code> stores.</p>
                   <p>
                     Because types and terms share the brackets, each <code>macro_rules</code> group says which
@@ -1750,7 +1750,7 @@ underlying representation.)</p>
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.matchAlts-4806">|</span><span class="inter-text"> </span><span class="unknown token" data-binding="">`(stlcTm|</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Stlc.«stlcTm~_»-4818">~</span><span class="unknown token" data-binding="">$</span><span class="var token" data-binding="var-_uniq.133197" data-verso-hover="478">e</span><span class="punctuation bracket token" data-binding="kw-occ-stlcTm.quot-4808">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.matchAlts-4806">=&gt;</span><span class="inter-text"> </span><span class="const token" data-binding="const-Pure.pure" data-verso-hover="479">pure</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.133197" data-verso-hover="478">e</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.matchAlts-4806">|</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.133265" data-verso-hover="674">e</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.matchAlts-4806">=&gt;</span><span class="inter-text"> </span><span class="unknown token" data-binding="">`(</span><span class="unknown token" data-binding="">&lt;{</span><span class="inter-text"> </span><span class="unknown token" data-binding="">$</span><span class="var token" data-binding="var-_uniq.133265" data-verso-hover="674">e</span><span class="built-in delim token" data-binding="kw-occ-antiquotName-4849">:</span><span class="keyword token" data-binding="kw-occ-antiquotName-4849">stlcTm</span><span class="inter-text"> </span><span class="unknown token" data-binding="">}&gt;</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.quot-4842">)</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code></details><p>
-                  A few checks that the grammar parses the way it should -- application
+                  A few checks that the grammar parses the way it should — application
 associating to the left, conditionals nesting without parentheses, and <code>~</code>
 escaping to Lean:</p>
                 <div class="slide-break"></div>
@@ -1816,20 +1816,20 @@ to do.</p>
                   <li>
                     <p>
                       We can say that <code>λx:T. t</code> is a value only when <code>t</code> is a
-  value -- i.e., only if the function's body has been
+  value — i.e., only if the function's body has been
   reduced (as much as it can be without knowing what argument it
   is going to be applied to).</p>
                     </li>
                   <li>
                     <p>
                       Or we can say that <code>λx:T. t</code> is always a value, no matter
-  whether <code>t</code> is one or not -- in other words, we can say that
+  whether <code>t</code> is one or not — in other words, we can say that
   reduction stops at abstractions.</p>
                     </li>
                   </ul>
                 <p>
                   Our usual way of evaluating expressions in Lean makes the first
-choice -- for example,</p>
+choice — for example,</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="has-info information"><span class="hover-container"><span class="hover-info messages"><code class="verso-message information"><span class="text"></span><span class="highlighted"><span class="keyword token" data-binding="">fun</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="12">_x</span><span class="inter-text"> </span><span class="unknown token" data-binding="">=&gt;</span><span class="inter-text"> </span><span class="unknown token" data-binding="">7</span></span></code></span></span><span class="keyword token" data-binding="kw-occ-Lean.reduceCmd-0" data-verso-hover="708">#reduce</span></span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.fun-8">fun</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="12">_x</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-15">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool" data-verso-hover="13">Bool</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.basicFun-12">=&gt;</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">3</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_+_»-25">+</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">4</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                   yields:</p>
@@ -1838,7 +1838,7 @@ choice -- for example,</p>
 </code></pre></div>
                 <p>
                   But Lean is rather unusual in this respect.  Most functional
-programming languages make the second choice -- reduction of a
+programming languages make the second choice — reduction of a
 function's body only begins when the function is actually applied
 to an argument.</p>
                 <p>
@@ -1872,7 +1872,7 @@ analogue if a later pass wants automation.</p>
                   Intuitively, a "complete program" must not refer to any undefined
 variables.  We'll see shortly how to define the <em>free</em> variables
 in a STLC term.  A complete program, then, is one that is
-<span id="--tech-term-closed" class="def-technical-term"><em>closed</em></span> -- that is, that contains no free variables.</p>
+<span id="--tech-term-closed" class="def-technical-term"><em>closed</em></span> — that is, that contains no free variables.</p>
                 <p>
                   (Conversely, a term that may contain free variables is often
 called an <span id="--tech-term-open-term" class="def-technical-term"><em>open term</em></span>.)</p>
@@ -2129,7 +2129,7 @@ formalizing richer languages.</p>
               <section>
                 <h3 id="Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Reduction">
                   5.3.4. Reduction<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Reduction" title="Permalink">🔗</a></span></h3>
-                <pre>                               value v
+                <pre>                              v.IsValue
                        -----------------------      (appAbs)
                         (λx:T. t) v ⟶ [x:=v]t
 
@@ -2137,7 +2137,7 @@ formalizing richer languages.</p>
                           ----------------          (app1)
                            t₁ t₂ ⟶ t₁' t₂
 
-                              value v₁
+                              v.IsValue
                               t₂ ⟶ t₂'
                           ----------------          (app2)
                            v₁ t₂ ⟶ v₁ t₂'
@@ -2391,7 +2391,7 @@ variables.</p>
                 <p>
                   This leads us to a three-place <em>typing judgment</em>, informally
 written <code>Γ ⊢ t ⦂ T</code>, where <code>Γ</code> is a
-"typing context" -- a mapping from variables to their types.</p>
+"typing context" — a mapping from variables to their types.</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.abbrev-0">abbrev</span><span class="inter-text"> </span><span class="const token" data-binding="const-Stlc.Context" data-verso-hover="749">Context</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-15">:=</span><span class="inter-text"> </span><span class="const token" data-binding="const-PartialMap" data-verso-hover="750">PartialMap</span><span class="inter-text"> </span><span class="const token" data-binding="const-String" data-verso-hover="646">String</span><span class="inter-text"> </span><span class="const token" data-binding="const-Stlc.Ty" data-verso-hover="640">Ty</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                   Following the usual notation for partial maps, we write
@@ -2431,8 +2431,8 @@ that it maps <code>x</code> to <code>T</code>."</p>
 <code>&lt;{ .. }&gt;</code> brackets.</p>
                 <details class="sf-details"><summary>Notation encoding: contexts and judgments</summary><p>
                     Contexts get a grammar of their own, <code>stlcCtx</code>.  The <strong>meaning</strong> is the map update
-we already have -- <code>x ↦ T ; Γ</code> expands to exactly the <code>Typeclasses</code> chapter's
-partial-map update on <code>Γ</code> -- but its surface syntax has to be our own, because
+we already have — <code>x ↦ T ; Γ</code> expands to exactly the <code>Typeclasses</code> chapter's
+partial-map update on <code>Γ</code> — but its surface syntax has to be our own, because
 inside these brackets all three positions are in object syntax.  Writing the map
 notation directly would mean writing the binding as <code>"x" →ₚ &lt;{ Bool → Bool }&gt; ; Γ</code>:
 the name quoted, and the type escaped back out of the brackets it belongs in.
@@ -2528,8 +2528,8 @@ context prints as `x ↦ Bool ; Γ` rather than as a chain of map updates. -/</s
   </span><span class="const token" data-binding="const-Stlc.HasType.abs" data-verso-hover="779">.abs</span><span class="inter-text"> </span><span class="wildcard token" data-binding="">_</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="744">"x"</span><span class="inter-text"> </span><span class="wildcard token" data-binding="">_</span><span class="inter-text"> </span><span class="wildcard token" data-binding="">_</span><span class="inter-text"> </span><span class="wildcard token" data-binding="">_</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-80">(</span><span class="const token" data-binding="const-Stlc.HasType.var" data-verso-hover="780">.var</span><span class="inter-text"> </span><span class="wildcard token" data-binding="">_</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="744">"x"</span><span class="inter-text"> </span><span class="wildcard token" data-binding="">_</span><span class="inter-text"> </span><span class="const token" data-binding="const-rfl" data-verso-hover="25">rfl</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-80">)</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                   The derivation is small enough to write out directly: an abstraction rule
-whose premise is the variable rule, and the variable rule's premise -- that the
-extended context maps <code>x</code> to <code>Bool</code> -- holds by computation, hence <code>rfl</code>.</p>
+whose premise is the variable rule, and the variable rule's premise — that the
+extended context maps <code>x</code> to <code>Bool</code> — holds by computation, hence <code>rfl</code>.</p>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
                     Note to developers</div>
@@ -2556,7 +2556,7 @@ have no hint database, so both derivations are given explicitly.</p>
                 <p>
                   We can also show that some terms are <em>not</em> typable.  For example,
 we can check that there is no typing derivation assigning a type
-to the term <code>λx:Bool. λy:Bool. x y</code> -- i.e.,</p>
+to the term <code>λx:Bool. λy:Bool. x y</code> — i.e.,</p>
                 <div class="sf-display">
                   <pre><code>¬ ∃ T, ∅ ⊢ λx:Bool. λy:Bool. x y ⦂ T
 </code></pre></div>

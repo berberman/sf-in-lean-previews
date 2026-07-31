@@ -133,7 +133,7 @@ import TS.SFLCompat
 -- - `(λx:Bool. λy:Bool. x) false true` has type `Bool`
 
 -- The last two, higher-order examples are left off the list on
--- purpose -- working out their types is the subject of the
+-- purpose — working out their types is the subject of the
 -- quizzes that follow.
 
 -- Note that *all* functions are anonymous.
@@ -206,8 +206,8 @@ inductive Tm where
 -- The `stlcTy` grammar covers `Bool`, arrows (written `→` or
 -- `->`, associating to the right), parentheses, and `~e`. A
 -- bare identifier other than `Bool` is spliced in as a Lean
--- term, so a local `T` -- or any Lean expression of type `Ty`
--- -- can appear directly inside the brackets.
+-- term, so a local `T` — or any Lean expression of type `Ty` —
+-- can appear directly inside the brackets.
 
 -- To extend the grammar, a later chapter adds a `syntax` line
 -- to the category and a matching `macro_rules` case; that is
@@ -241,8 +241,8 @@ macro_rules (kind := tyBracket)
 
 -- Terms are built from variables, application (associating to
 -- the left), abstraction, the two boolean constants, and
--- conditionals. A binding occurrence -- the `x` in
--- `λ x : T . t` -- has a small grammar of its own, `stlcVar`,
+-- conditionals. A binding occurrence — the `x` in
+-- `λ x : T . t` — has a small grammar of its own, `stlcVar`,
 -- and `varStr` turns it into the string that `Tm.abs` stores.
 
 -- Because types and terms share the brackets, each
@@ -472,16 +472,16 @@ abbrev notB := <{ λ x : Bool . if x then false else true }>
 -- Third, for abstractions, we have a choice:
 
 -- - We can say that `λx:T. t` is a value only when `t` is a
---   value -- i.e., only if the function's body has been reduced
+--   value — i.e., only if the function's body has been reduced
 --   (as much as it can be without knowing what argument it is
 --   going to be applied to).
 
 -- - Or we can say that `λx:T. t` is always a value, no matter
---   whether `t` is one or not -- in other words, we can say that
+--   whether `t` is one or not — in other words, we can say that
 --   reduction stops at abstractions.
 
 -- Our usual way of evaluating expressions in Lean makes the
--- first choice -- for example,
+-- first choice — for example,
 
 #reduce fun _x : Bool => 3 + 4
 
@@ -490,7 +490,7 @@ abbrev notB := <{ λ x : Bool . if x then false else true }>
 --   fun _x => 7
 
 -- But Lean is rather unusual in this respect. Most functional
--- programming languages make the second choice -- reduction of
+-- programming languages make the second choice — reduction of
 -- a function's body only begins when the function is actually
 -- applied to an argument.
 
@@ -523,7 +523,7 @@ theorem notB_value : notB.IsValue := .abs ..
 -- Intuitively, a "complete program" must not refer to any
 -- undefined variables. We'll see shortly how to define the
 -- *free* variables in a STLC term. A complete program, then,
--- is one that is *closed* -- that is, that contains no free
+-- is one that is *closed* — that is, that contains no free
 -- variables.
 
 -- (Conversely, a term that may contain free variables is often
@@ -737,7 +737,7 @@ variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty)
 
 -- ### Reduction
 
--- value v
+-- v.IsValue
 --                        -----------------------      (appAbs)
 --                         (λx:T. t) v ⟶ [x:=v]t
 
@@ -745,7 +745,7 @@ variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty)
 --                           ----------------          (app1)
 --                            t₁ t₂ ⟶ t₁' t₂
 
---                               value v₁
+--                               v.IsValue
 --                               t₂ ⟶ t₂'
 --                           ----------------          (app2)
 --                            v₁ t₂ ⟶ v₁ t₂'
@@ -964,7 +964,7 @@ example : <{ ~idBB (~notB true) }> ⟶* <{ false }> := by
 -- variables.
 
 -- This leads us to a three-place *typing judgment*, informally
--- written `Γ ⊢ t ⦂ T`, where `Γ` is a "typing context" -- a
+-- written `Γ ⊢ t ⦂ T`, where `Γ` is a "typing context" — a
 -- mapping from variables to their types.
 
 abbrev Context := PartialMap String Ty
@@ -1007,9 +1007,9 @@ abbrev Context := PartialMap String Ty
 -- _Details:_ Notation encoding: contexts and judgments
 
 -- Contexts get a grammar of their own, `stlcCtx`. The
--- **meaning** is the map update we already have -- `x ↦ T ; Γ`
+-- **meaning** is the map update we already have — `x ↦ T ; Γ`
 -- expands to exactly the `Typeclasses` chapter's partial-map
--- update on `Γ` -- but its surface syntax has to be our own,
+-- update on `Γ` — but its surface syntax has to be our own,
 -- because inside these brackets all three positions are in
 -- object syntax. Writing the map notation directly would mean
 -- writing the binding as `"x" →ₚ <{ Bool → Bool }> ; Γ`: the
@@ -1120,8 +1120,8 @@ example : <{ ∅ ⊢ λ x : Bool . x ⦂ Bool → Bool }> :=
 
 -- The derivation is small enough to write out directly: an
 -- abstraction rule whose premise is the variable rule, and the
--- variable rule's premise -- that the extended context maps
--- `x` to `Bool` -- holds by computation, hence `rfl`.
+-- variable rule's premise — that the extended context maps `x`
+-- to `Bool` — holds by computation, hence `rfl`.
 
 -- Note to developers:
 --     The Rocq source proves this one, and the next, by
@@ -1145,8 +1145,7 @@ example :
 
 -- We can also show that some terms are *not* typable. For
 -- example, we can check that there is no typing derivation
--- assigning a type to the term `λx:Bool. λy:Bool. x y` --
--- i.e.,
+-- assigning a type to the term `λx:Bool. λy:Bool. x y` — i.e.,
 
 --   ¬ ∃ T, ∅ ⊢ λx:Bool. λy:Bool. x y ⦂ T
 
