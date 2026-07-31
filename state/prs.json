@@ -86,9 +86,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "621a9d34a5851f508993eda2595a25fbf4836005",
+      "head_sha": "229141ad41b9a7c040582fd146fec415f09b3d40",
       "preview_path": "pr/166/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30637783933",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30642643376",
       "status": "published",
       "title": "Typclasses: add notation for getting elements and make PartialMap a one-field structure",
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
@@ -132,9 +132,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "dc29eeb77647dd279f07f09665e8e98f8338b949",
+      "head_sha": "4109a4f71bfe00d35c6823df7564afb41a9503ca",
       "preview_path": "pr/167/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30631032599",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30641884618",
       "status": "published",
       "title": "Pass over Logic chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/167"
