@@ -90,7 +90,7 @@
       "preview_path": "pr/166/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30646972030",
       "status": "published",
-      "title": "Typclasses: add notation for getting elements and make PartialMap a one-field structure",
+      "title": "Typeclasses: add notation for getting elements and make PartialMap a one-field structure",
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
     },
     "167": {
@@ -195,11 +195,48 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/178"
     },
     "179": {
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "1a819eef182bbc12245b165adfbcbc7273369498",
       "preview_path": "pr/179/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30652320341",
+      "status": "published",
       "title": "Hoare: assertion and triple syntax",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
     },
