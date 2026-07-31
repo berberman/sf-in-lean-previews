@@ -236,7 +236,7 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 
 -- ### Exercise (2 stars): add_is_zero ⭐⭐
 
-theorem add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
+theorem Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
   sorry
 
 -- So much for proving conjunctive statements. To go in the other direction --
@@ -271,7 +271,7 @@ example (n m : Nat) : n = 0 → m = 0 → n + m = 0 := by
 
 example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
   all_goals
-    apply add_is_zero at h
+    apply Nat.add_is_zero at h
     obtain ⟨hn, hm⟩ := h
     rw [hm]; rfl
 
@@ -337,7 +337,7 @@ theorem and_associate (a b c : Prop) (h : a ∧ (b ∧ c)) : (a ∧ b) ∧ c := 
 -- cases are `inl` (for "left injection", or "in the left case") and `inr`
 -- (for "right injection", or "in the right case").
 
-theorem factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
+theorem Nat.factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
   cases h
   /- `n = 0` -/
   case inl hn => rw [hn, Nat.zero_mul]
@@ -370,7 +370,7 @@ theorem or_intro_l (a b : Prop) (h : a) : a ∨ b := by
 -- ... and here is a slightly more interesting example requiring both `left`
 -- and `right`:
 
-theorem zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
+theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
   all_goals
     cases n
     case zero => left; rfl
@@ -378,7 +378,7 @@ theorem zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
 
 -- ### Exercise (2 stars): mul_is_zero ⭐⭐
 
-theorem mul_is_zero (n m : Nat) (h : n * m = 0) : n = 0 ∨ m = 0 := by
+theorem Nat.mul_is_zero (n m : Nat) (h : n * m = 0) : n = 0 ∨ m = 0 := by
   sorry
 
 -- ### Exercise (1 star): or_commute ⭐
@@ -590,7 +590,7 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 -- To prove the following proposition, which tactics will we need besides
 -- `intro`, `apply`, and `exact`?
 
---   ∀ A : Prop, 1 = 0 → (A ∨ ¬ A)
+--   ∀ a : Prop, 1 = 0 → (a ∨ ¬ a)
 
 -- 1. `contradiction` `left`, and `right`
 -- 2. only `contradiction`
@@ -631,15 +631,15 @@ def DiscrFun (n : Nat) : Prop :=
   | 0 => True
   | _ + 1 => False
 
-theorem DiscrFun_zero : DiscrFun 0 := by constructor
+theorem discrFun_zero : DiscrFun 0 := by constructor
 
-theorem DiscrFun_succ (n : Nat) : ¬ DiscrFun (n + 1) := by
+theorem discrFun_succ (n : Nat) : ¬ DiscrFun (n + 1) := by
   dsimp [DiscrFun]; intro h; assumption
 
 theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
   intro h
-  have hd : DiscrFun 0 := DiscrFun_zero
-  apply DiscrFun_succ 0
+  have hd : DiscrFun 0 := discrFun_zero
+  apply discrFun_succ 0
   rw [h] at hd; exact hd
 
 -- To generalize this to other constructors, we simply have to provide an
@@ -678,7 +678,7 @@ theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
 
 #check (fun α β : Prop => α ↔ β : Prop → Prop → Prop)
 
-theorem iff_sym (a b : Prop) (h : a ↔ b) : (b ↔ a) := by
+theorem iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a := by
   all_goals
     constructor
     case mp => exact h.mpr
@@ -697,7 +697,7 @@ theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
 theorem iff_refl (a : Prop) : a ↔ a := by
   sorry
 
-theorem iff_trans (a b c : Prop) (h₁ : a ↔ b) (h₂ : b ↔ c) : (a ↔ c) := by
+theorem iff_trans (a b c : Prop) (h₁ : a ↔ b) (h₂ : b ↔ c) : a ↔ c := by
   sorry
 
 -- ### Exercise (3 stars): iff_practice ⭐⭐⭐
@@ -734,12 +734,13 @@ theorem or_distributes_over_and (a b c : Prop) :
 
 #check (Exists : ∀ {T : Type}, (T → Prop) → Prop)
 
-abbrev Even x := ∃ n : Nat, x = Nat.double n
+abbrev Nat.Even x := ∃ n : Nat, x = Nat.double n
 
-#check (Even : Nat → Prop)
+#check (Nat.Even : Nat → Prop)
 
+open Nat in
 example : Even 4 := by exists 2
-  -- `4 = Nat.double 2` holds by `rfl`,
+  -- `4 = double 2` holds by `rfl`,
   -- but is proven automatically by `exists`
 
 -- Conversely, if we have an existential hypothesis `∃ x, a` in the context,
@@ -753,7 +754,8 @@ example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
 -- ### Exercise (1 star): dist_not_exists ⭐
 
 -- Prove that "`a` holds for all `x` implies "there is no `x` for which `a`
--- does not hold." (Hint: `cases` and `let` work on existential assumptions!)
+-- does not hold." (Hint: `cases` and `obtain` work on existential
+-- assumptions!)
 
 theorem dist_not_exists (α : Type) (p : α → Prop) (h : ∀ x, p x) :
     ¬ (∃ x, ¬ p x) := by
@@ -897,10 +899,10 @@ theorem List.In_map_iff (α β : Type) (f : α → β) (xs : List α) (y : β) :
 
 -- We noted above that functions returning propositions can be seen as
 -- *properties* of their arguments. For instance, if `p` has type
--- `Nat -> Prop`, then `p n` says that property `p` holds of `n`.
+-- `Nat → Prop`, then `p n` says that property `p` holds of `n`.
 
 -- Drawing inspiration from `List.In`, write a recursive function `All`
--- stating that some property `a` holds of all elements of a list `l`. To make
+-- stating that some property `p` holds of all elements of a list `l`. To make
 -- sure your definition is correct, prove the `All_In` lemma below. (Of
 -- course, your definition should *not* just restate the left-hand side of
 -- `All_In`.)
@@ -919,7 +921,7 @@ theorem List.All_In α (p : α → Prop) (l : List α) :
 
 -- Complete the definition of `combine_odd_even` below. It takes as arguments
 -- two properties of numbers, `Podd` and `Peven`, and it should return a
--- property `a` such that `a n` is equivalent to `Podd n` when `n` is odd and
+-- property `p` such that `p n` is equivalent to `Podd n` when `n` is odd and
 -- equivalent to `Peven n` otherwise.
 
 abbrev combine_odd_even (Podd Peven : Nat → Prop) : Nat → Prop := sorry
@@ -1156,7 +1158,7 @@ example : Nat.even 42 = true := rfl
 
 -- ... or that there exists some `k` such that `n = double k`.
 
-example : Even 42 := by dsimp [Even]; exists 21
+example : Nat.Even 42 := by dsimp [Nat.Even]; exists 21
 
 -- Of course, it would be deeply strange if these two characterizations of
 -- evenness did not describe the same set of natural numbers! Fortunately,
@@ -1178,7 +1180,7 @@ theorem even_double_conv (n : Nat) : ∃ k : Nat,
 
 -- Now the main theorem:
 
-theorem even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
+theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
   -- FOLD
   constructor
   case mp =>
@@ -1239,7 +1241,7 @@ abbrev is_even_prime (n : Nat) : Bool :=
 
 -- The most direct way to prove this is to give the value of `k` explicitly.
 
-example : Even 100 := by
+example : Nat.Even 100 := by
   exists 50
 
 -- The proof of the corresponding boolean statement is simpler, because we
@@ -1251,8 +1253,8 @@ example : Nat.even 100 := rfl
 -- we can use the boolean formulation to prove the other one without
 -- mentioning the value 500 explicitly:
 
-example : Even 100 := by
-  obtain ⟨H, _⟩ := even_bool_prop 100
+example : Nat.Even 100 := by
+  obtain ⟨H, _⟩ := Nat.even_bool_prop 100
   apply H; rfl
 
 -- Although we haven't gained much in terms of proof-script simplicity in this
@@ -1279,9 +1281,9 @@ example : Nat.even 101 = false := rfl
 -- But if we convert it to a claim about the boolean `Nat.even` function, we
 -- can let Lean do the work for us.
 
-example : ¬ Even 101 := by
+example : ¬ Nat.Even 101 := by
   all_goals
-    intro h; apply (even_bool_prop 101).mpr at h
+    intro h; apply (Nat.even_bool_prop 101).mpr at h
     dsimp [Nat.even] at h; contradiction
 
 -- Conversely, there are situations where it can be easier to work with
@@ -1343,28 +1345,28 @@ theorem beqList_true_iff α (beq : α → α → Bool)
     ∀ xs1 xs2, beqList beq xs1 xs2 = true ↔ xs1 = xs2 := by
   sorry
 
--- ### Exercise (2 stars): All_forallb ⭐⭐
+-- ### Exercise (2 stars): List.allb ⭐⭐
 
--- Prove the theorem below, which relates `forallb`, from the exercise
+-- Prove the theorem below, which relates `List.allb`, from the exercise
 -- `Tactics.forall_exists_challenge`, to the `List.All` property defined
 -- above.
 
--- Copy the definition of `forallb` from Tactics here so that this file can be
--- graded on its own.
+-- Copy the definition of `List.allb` from Tactics here so that this file can
+-- be graded on its own.
 
-def Logic.forallb {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
+def List.allb {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
 
-theorem forallb_nil {α} (test : α → Bool) : Logic.forallb test [] = true := sorry
+theorem List.allb_nil {α} (test : α → Bool) : allb test [] = true := sorry
 
-theorem forallb_cons {α} (test : α → Bool) (x : α) (l : List α) :
-    Logic.forallb test (x :: l) = (test x && Logic.forallb test l) := sorry
+theorem List.allb_cons {α} (test : α → Bool) (x : α) (l : List α) :
+    allb test (x :: l) = (test x && allb test l) := sorry
 
-theorem forallb_true_iff α (test : α → Bool) (l : List α) :
-    Logic.forallb test l = true ↔ List.All (fun x => test x = true) l := by
+theorem List.allb_true_iff α (test : α → Bool) (l : List α) :
+    allb test l = true ↔ All (fun x => test x = true) l := by
   sorry
 
 -- (Ungraded thought question) Are there any important properties often the
--- function `forallb` which are not captured by this specification?
+-- function `List.allb` which are not captured by this specification?
 
 -- -----------------------------------------------------------------------------
 

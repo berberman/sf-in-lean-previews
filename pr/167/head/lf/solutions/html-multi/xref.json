@@ -2601,17 +2601,6 @@
         "Polymorphism",
         "Polymorphic Pairs"]}},
      "address": "/Poly/"}],
-   "zero_or_succ":
-   [{"id": "zero_or_succ",
-     "data":
-     {"/Logic/#zero_or_succ":
-      {"display": "zero_or_succ",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Logical Connectives",
-        "Disjunction"]}},
-     "address": "/Logic/"}],
    "zero_not_one":
    [{"id": "zero_not_one",
      "data":
@@ -3984,17 +3973,6 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using the Standard Library"]}},
      "address": "/UsingLean/"}],
-   "mul_is_zero":
-   [{"id": "mul_is_zero",
-     "data":
-     {"/Logic/#mul_is_zero":
-      {"display": "mul_is_zero",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Logical Connectives",
-        "Disjunction"]}},
-     "address": "/Logic/"}],
    "mul_eq_0_ternary":
    [{"id": "mul_eq_0_ternary",
      "data":
@@ -4473,36 +4451,6 @@
         "Tactics: More Basic Tactics",
         "The  injection  and  contradiction  Tactics"]}},
      "address": "/Tactics/"}],
-   "forallb_true_iff":
-   [{"id": "forallb_true_iff",
-     "data":
-     {"/Logic/#forallb_true_iff":
-      {"display": "forallb_true_iff",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Working with Decidable Properties"]}},
-     "address": "/Logic/"}],
-   "forallb_nil":
-   [{"id": "forallb_nil",
-     "data":
-     {"/Logic/#forallb_nil":
-      {"display": "forallb_nil",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Working with Decidable Properties"]}},
-     "address": "/Logic/"}],
-   "forallb_cons":
-   [{"id": "forallb_cons",
-     "data":
-     {"/Logic/#forallb_cons":
-      {"display": "forallb_cons",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Working with Decidable Properties"]}},
-     "address": "/Logic/"}],
    "forallb":
    [{"id": "forallb",
      "data":
@@ -4661,17 +4609,6 @@
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
-   "factor_is_zero":
-   [{"id": "factor_is_zero",
-     "data":
-     {"/Logic/#factor_is_zero":
-      {"display": "factor_is_zero",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Logical Connectives",
-        "Disjunction"]}},
-     "address": "/Logic/"}],
    "fTrue":
    [{"id": "fTrue",
      "data":
@@ -4771,16 +4708,6 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
-   "even_bool_prop":
-   [{"id": "even_bool_prop",
-     "data":
-     {"/Logic/#even_bool_prop":
-      {"display": "even_bool_prop",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Working with Decidable Properties"]}},
-     "address": "/Logic/"}],
    "ev_sum":
    [{"id": "ev_sum",
      "data":
@@ -4868,28 +4795,6 @@
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "ev_Even_iff":
-   [{"id": "ev_Even_iff",
-     "data":
-     {"/IndProp/#ev_Even_iff":
-      {"display": "ev_Even_iff",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Induction on Evidence"]}},
-     "address": "/IndProp/"}],
-   "ev_Even":
-   [{"id": "ev_Even",
-     "data":
-     {"/IndProp/#ev_Even":
-      {"display": "ev_Even",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Induction on Evidence"]}},
      "address": "/IndProp/"}],
    "ev_4_ev_n":
    [{"id": "ev_4_ev_n",
@@ -5162,6 +5067,20 @@
      "data":
      {"/Logic/#discr_example":
       {"display": "discr_example",
+       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+     "address": "/Logic/"}],
+   "discrFun_zero":
+   [{"id": "discrFun_zero",
+     "data":
+     {"/Logic/#discrFun_zero":
+      {"display": "discrFun_zero",
+       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+     "address": "/Logic/"}],
+   "discrFun_succ":
+   [{"id": "discrFun_succ",
+     "data":
+     {"/Logic/#discrFun_succ":
+      {"display": "discrFun_succ",
        "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
      "address": "/Logic/"}],
    "demorgan_em":
@@ -5807,17 +5726,6 @@
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "add_is_zero":
-   [{"id": "add_is_zero",
-     "data":
-     {"/Logic/#add_is_zero":
-      {"display": "add_is_zero",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Logical Connectives",
-        "Conjunction"]}},
-     "address": "/Logic/"}],
    "add_exists_ble":
    [{"id": "add_exists_ble",
      "data":
@@ -9676,6 +9584,17 @@
         "More Exercises",
         "Course Late Policies, Formalized"]}},
      "address": "/Basics/"}],
+   "Nat.zero_or_succ":
+   [{"id": "Nat___zero_or_succ",
+     "data":
+     {"/Logic/#Nat___zero_or_succ":
+      {"display": "Nat.zero_or_succ",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Disjunction"]}},
+     "address": "/Logic/"}],
    "Nat.odd_def":
    [{"id": "Nat___odd_def",
      "data":
@@ -9696,6 +9615,17 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.mul_is_zero":
+   [{"id": "Nat___mul_is_zero",
+     "data":
+     {"/Logic/#Nat___mul_is_zero":
+      {"display": "Nat.mul_is_zero",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Disjunction"]}},
+     "address": "/Logic/"}],
    "Nat.minustwo":
    [{"id": "Nat___minustwo",
      "data":
@@ -9706,6 +9636,17 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.factor_is_zero":
+   [{"id": "Nat___factor_is_zero",
+     "data":
+     {"/Logic/#Nat___factor_is_zero":
+      {"display": "Nat.factor_is_zero",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Disjunction"]}},
+     "address": "/Logic/"}],
    "Nat.even_zero":
    [{"id": "Nat___even_zero",
      "data":
@@ -9726,6 +9667,16 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.even_bool_prop":
+   [{"id": "Nat___even_bool_prop",
+     "data":
+     {"/Logic/#Nat___even_bool_prop":
+      {"display": "Nat.even_bool_prop",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Working with Decidable Properties"]}},
+     "address": "/Logic/"}],
    "Nat.even_add_three":
    [{"id": "Nat___even_add_three",
      "data":
@@ -9746,6 +9697,28 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.ev_Even_iff":
+   [{"id": "Nat___ev_Even_iff",
+     "data":
+     {"/IndProp/#Nat___ev_Even_iff":
+      {"display": "Nat.ev_Even_iff",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Induction on Evidence"]}},
+     "address": "/IndProp/"}],
+   "Nat.ev_Even":
+   [{"id": "Nat___ev_Even",
+     "data":
+     {"/IndProp/#Nat___ev_Even":
+      {"display": "Nat.ev_Even",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Induction on Evidence"]}},
+     "address": "/IndProp/"}],
    "Nat.double_zero":
    [{"id": "Nat___double_zero",
      "data":
@@ -9796,12 +9769,34 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.add_is_zero":
+   [{"id": "Nat___add_is_zero",
+     "data":
+     {"/Logic/#Nat___add_is_zero":
+      {"display": "Nat.add_is_zero",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Conjunction"]}},
+     "address": "/Logic/"}],
    "Nat.IsThree":
    [{"id": "Nat___IsThree",
      "data":
      {"/Logic/#Nat___IsThree":
       {"display": "Nat.IsThree",
        "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
+     "address": "/Logic/"}],
+   "Nat.Even":
+   [{"id": "Nat___Even",
+     "data":
+     {"/Logic/#Nat___Even":
+      {"display": "Nat.Even",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Truth",
+        "Existential Quantification"]}},
      "address": "/Logic/"}],
    "MyProd.snd":
    [{"id": "MyProd___snd",
@@ -10144,16 +10139,6 @@
         "IndProp: Inductively Defined Propositions",
         "Additional Exercises"]}},
      "address": "/IndProp/"}],
-   "Logic.forallb":
-   [{"id": "Logic___forallb",
-     "data":
-     {"/Logic/#Logic___forallb":
-      {"display": "Logic.forallb",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Working with Decidable Properties"]}},
-     "address": "/Logic/"}],
    "Lists.surjective_pairing_cases":
    [{"id": "Lists___surjective_pairing_cases",
      "data":
@@ -11841,7 +11826,7 @@
        ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -11852,7 +11837,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -11887,6 +11872,46 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
      "address": "/Typeclasses/"}],
+   "List.allb_true_iff":
+   [{"id": "List___allb_true_iff",
+     "data":
+     {"/Logic/#List___allb_true_iff":
+      {"display": "List.allb_true_iff",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Working with Decidable Properties"]}},
+     "address": "/Logic/"}],
+   "List.allb_nil":
+   [{"id": "List___allb_nil",
+     "data":
+     {"/Logic/#List___allb_nil":
+      {"display": "List.allb_nil",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Working with Decidable Properties"]}},
+     "address": "/Logic/"}],
+   "List.allb_cons":
+   [{"id": "List___allb_cons",
+     "data":
+     {"/Logic/#List___allb_cons":
+      {"display": "List.allb_cons",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Working with Decidable Properties"]}},
+     "address": "/Logic/"}],
+   "List.allb":
+   [{"id": "List___allb",
+     "data":
+     {"/Logic/#List___allb":
+      {"display": "List.allb",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Working with Decidable Properties"]}},
+     "address": "/Logic/"}],
    "List.IsNil":
    [{"id": "List___IsNil",
      "data":
@@ -12504,17 +12529,6 @@
         "Additional Exercises",
         "Church Numerals (Advanced)"]}},
      "address": "/Poly/"}],
-   "Even":
-   [{"id": "Even",
-     "data":
-     {"/Logic/#Even":
-      {"display": "Even",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Truth",
-        "Existential Quantification"]}},
-     "address": "/Logic/"}],
    "EvPlayground.Ev.ev_succ_succ":
    [{"id": "EvPlayground___Ev___ev_succ_succ",
      "data":
@@ -12635,20 +12649,6 @@
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "DiscrFun_zero":
-   [{"id": "DiscrFun_zero",
-     "data":
-     {"/Logic/#DiscrFun_zero":
-      {"display": "DiscrFun_zero",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
-     "address": "/Logic/"}],
-   "DiscrFun_succ":
-   [{"id": "DiscrFun_succ",
-     "data":
-     {"/Logic/#DiscrFun_succ":
-      {"display": "DiscrFun_succ",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
-     "address": "/Logic/"}],
    "DiscrFun":
    [{"id": "DiscrFun",
      "data":

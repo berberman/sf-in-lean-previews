@@ -410,7 +410,7 @@ def Nat.double (n : Nat) : Nat :=
 -- Lean's InfoView prints them. Take a look at the info view inside the proof
 -- of this thoerem (i.e., before the `rfl` tactic):
 
-theorem Nat.even_add_three (n : Nat) : Nat.even (n + 3) = Nat.even (n + 1) := by
+theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
   rfl
 
 -- Instead of printing the goal the way we wrote it in the theorem statement,
@@ -452,7 +452,7 @@ theorem Nat.even_succ (n : Nat) :
     | zero =>
       rfl
     | succ n' ih =>
-      rw [Nat.even, ih, Bool.not_not]
+      rw [even, ih, Bool.not_not]
 
 -- Note to developers (NOW):
 --     talk about using `Nat.add_zero` and friends from now on.
@@ -460,9 +460,9 @@ theorem Nat.even_succ (n : Nat) :
 -- (OA) : added lemmas proved for our Nat for Lean's Nat to prevent later
 -- files from breaking.
 
-theorem Nat.even_zero : Nat.even 0 = true := by rfl
+theorem Nat.even_zero : even 0 = true := by rfl
 
-theorem Nat.double_zero : Nat.double 0 = 0 := by rfl
+theorem Nat.double_zero : double 0 = 0 := by rfl
 
 theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 
@@ -472,15 +472,15 @@ theorem Nat.double_add (n : Nat) : n.double = n + n := by
   all_goals
     induction n with
     | zero =>
-      rw [Nat.double_zero]
+      rw [double_zero]
     | succ n' ih =>
-      rw [Nat.double_succ, ih, Nat.succ_add n' (n' + 1), Nat.add_succ n' n']
+      rw [double_succ, ih, succ_add n' (n' + 1), add_succ n' n']
 
 -- ### Exercise (2 stars): double_mul ⭐⭐
 
 theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
   all_goals
-    rw [Nat.double_add, Nat.two_mul]
+    rw [double_add, Nat.two_mul]
 
 -- ## Using Code Actions to Generate Match Skeletons
 

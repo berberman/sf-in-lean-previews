@@ -94,11 +94,48 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
     },
     "167": {
-      "changed_variants": [],
-      "head_sha": "4e3baccdb5f16b25f105436473d5fb54fd75fc73",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "94c4c4b325d52c18c0187a72a4f1ac6688b079ac",
       "preview_path": "pr/167/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30655576505",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30657045960",
+      "status": "published",
       "title": "Pass over Logic chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/167"
     },

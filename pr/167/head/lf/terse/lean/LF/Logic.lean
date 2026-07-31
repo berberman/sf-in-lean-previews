@@ -280,7 +280,7 @@ example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
 -- injection", or "in the left case") and `inr` (for "right
 -- injection", or "in the right case").
 
-theorem factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
+theorem Nat.factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
   cases h
   /- `n = 0` -/
   case inl hn => rw [hn, Nat.zero_mul]
@@ -310,12 +310,12 @@ theorem or_intro_l (a b : Prop) (h : a) : a ∨ b := by
 -- ... and here is a slightly more interesting example
 -- requiring both `left` and `right`:
 
-theorem zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
+theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
   sorry
 
 -- ### Exercise (2 stars): mul_is_zero ⭐⭐
 
-theorem mul_is_zero (n m : Nat) (h : n * m = 0) : n = 0 ∨ m = 0 := by
+theorem Nat.mul_is_zero (n m : Nat) (h : n * m = 0) : n = 0 ∨ m = 0 := by
   sorry
 
 -- ### Exercise (1 star): or_commute ⭐
@@ -474,7 +474,7 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 -- To prove the following proposition, which tactics will we
 -- need besides `intro`, `apply`, and `exact`?
 
---   ∀ A : Prop, 1 = 0 → (A ∨ ¬ A)
+--   ∀ a : Prop, 1 = 0 → (a ∨ ¬ a)
 
 -- 1. `contradiction` `left`, and `right`
 -- 2. only `contradiction`
@@ -515,7 +515,7 @@ example : True := by constructor
 
 #check (fun α β : Prop => α ↔ β : Prop → Prop → Prop)
 
-theorem iff_sym (a b : Prop) (h : a ↔ b) : (b ↔ a) := by
+theorem iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a := by
   sorry
 
 theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
@@ -531,7 +531,7 @@ theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
 theorem iff_refl (a : Prop) : a ↔ a := by
   sorry
 
-theorem iff_trans (a b c : Prop) (h₁ : a ↔ b) (h₂ : b ↔ c) : (a ↔ c) := by
+theorem iff_trans (a b c : Prop) (h₁ : a ↔ b) (h₂ : b ↔ c) : a ↔ c := by
   sorry
 
 -- ### Exercise (3 stars): iff_practice ⭐⭐⭐
@@ -553,12 +553,13 @@ theorem or_distributes_over_and (a b c : Prop) :
 
 #check (Exists : ∀ {T : Type}, (T → Prop) → Prop)
 
-abbrev Even x := ∃ n : Nat, x = Nat.double n
+abbrev Nat.Even x := ∃ n : Nat, x = Nat.double n
 
-#check (Even : Nat → Prop)
+#check (Nat.Even : Nat → Prop)
 
+open Nat in
 example : Even 4 := by exists 2
-  -- `4 = Nat.double 2` holds by `rfl`,
+  -- `4 = double 2` holds by `rfl`,
   -- but is proven automatically by `exists`
 
 -- Conversely, if we have an existential hypothesis `∃ x, a` in
@@ -874,7 +875,7 @@ example : Nat.even 42 = true := rfl
 
 -- ... or that there exists some `k` such that `n = double k`.
 
-example : Even 42 := by dsimp [Even]; exists 21
+example : Nat.Even 42 := by dsimp [Nat.Even]; exists 21
 
 -- Of course, it would be deeply strange if these two
 -- characterizations of evenness did not describe the same set
@@ -896,7 +897,7 @@ theorem even_double_conv (n : Nat) : ∃ k : Nat,
 
 -- Now the main theorem:
 
-theorem even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
+theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
   -- FOLD
   constructor
   case mp =>
@@ -944,7 +945,7 @@ abbrev is_even_prime (n : Nat) : Bool :=
 -- The most direct way to prove this is to give the value of
 -- `k` explicitly.
 
-example : Even 100 := by
+example : Nat.Even 100 := by
   exists 50
 
 -- The proof of the corresponding boolean statement is simpler,
@@ -957,8 +958,8 @@ example : Nat.even 100 := rfl
 -- are equivalent, we can use the boolean formulation to prove
 -- the other one without mentioning the value 500 explicitly:
 
-example : Even 100 := by
-  obtain ⟨H, _⟩ := even_bool_prop 100
+example : Nat.Even 100 := by
+  obtain ⟨H, _⟩ := Nat.even_bool_prop 100
   apply H; rfl
 
 -- Although we haven't gained much in terms of proof-script
@@ -987,7 +988,7 @@ example : Nat.even 101 = false := rfl
 -- But if we convert it to a claim about the boolean `Nat.even`
 -- function, we can let Lean do the work for us.
 
-example : ¬ Even 101 := by
+example : ¬ Nat.Even 101 := by
   sorry
 
 -- Conversely, there are situations where it can be easier to
