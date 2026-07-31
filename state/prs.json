@@ -1,52 +1,6 @@
 {
-  "main_sha": "f8a13f91dabb31c68d6f7cf9a5f34d001cfe8170",
+  "main_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
   "prs": {
-    "156": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b41093242394caccbe8c3430a1b284ecc75ceedc",
-      "preview_path": "pr/156/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30631151997",
-      "status": "published",
-      "title": "Initial port of TS/Stlc",
-      "url": "https://github.com/plclub/sf-in-lean/pull/156"
-    },
     "163": {
       "changed_variants": [
         {
@@ -94,48 +48,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/163"
     },
     "166": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "9f11d14dc4a60dd8d7464aac6795fdb9c4afc980",
+      "changed_variants": [],
+      "head_sha": "c0556e4ca7e36fed4a65f27ba823cfea480cef14",
       "preview_path": "pr/166/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30551904119",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Typclasses: add notation for getting elements and make PartialMap a one-field structure",
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
     },
@@ -248,6 +165,15 @@
       "status": "ci-failed",
       "title": "Hoare: experimental assn syntax [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
+    },
+    "181": {
+      "changed_variants": [],
+      "head_sha": "7e02bb1ded86e62324a0f0b8ec4438664f26d3cf",
+      "preview_path": "pr/181/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "StlcProp -- initial conversion",
+      "url": "https://github.com/plclub/sf-in-lean/pull/181"
     }
   },
   "schema": 3

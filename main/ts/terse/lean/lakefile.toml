@@ -4,3 +4,6 @@ defaultTargets = ["TS"]
 
 [[lean_lib]]
 name = "TS"
+
+[[lean_lib]]
+name = "LF"

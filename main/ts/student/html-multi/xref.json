@@ -203,6 +203,223 @@
        {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "2"}]},
      "address": "/Types/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Typing-Relation":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Typing-Relation",
+     "data":
+     {"title": "Typing Relation",
+      "shortTitle": null,
+      "sectionNum": "5.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Typing Relation", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Examples":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Examples",
+     "data":
+     {"title": "Examples",
+      "shortTitle": null,
+      "sectionNum": "5.4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Examples", "shortTitle": null, "number": "3"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Contexts":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Contexts",
+     "data":
+     {"title": "Contexts",
+      "shortTitle": null,
+      "sectionNum": "5.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Contexts", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing":
+   [{"id": "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing",
+     "data":
+     {"title": "Typing",
+      "shortTitle": null,
+      "sectionNum": "5.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Types":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Types",
+     "data":
+     {"title": "Types",
+      "shortTitle": null,
+      "sectionNum": "5.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Syntax", "shortTitle": null, "number": "2"},
+       {"title": "Types", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Terms":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Terms",
+     "data":
+     {"title": "Terms",
+      "shortTitle": null,
+      "sectionNum": "5.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Syntax", "shortTitle": null, "number": "2"},
+       {"title": "Terms", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax":
+   [{"id": "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax",
+     "data":
+     {"title": "Syntax",
+      "shortTitle": null,
+      "sectionNum": "5.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Syntax", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Overview":
+   [{"id": "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Overview", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Values":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Values",
+     "data":
+     {"title": "Values",
+      "shortTitle": null,
+      "sectionNum": "5.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Values", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Substitution":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Substitution",
+     "data":
+     {"title": "Substitution",
+      "shortTitle": null,
+      "sectionNum": "5.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Substitution", "shortTitle": null, "number": "3"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--STLC-Programs":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--STLC-Programs",
+     "data":
+     {"title": "STLC Programs",
+      "shortTitle": null,
+      "sectionNum": "5.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "STLC Programs", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Reduction":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Reduction",
+     "data":
+     {"title": "Reduction",
+      "shortTitle": null,
+      "sectionNum": "5.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Reduction", "shortTitle": null, "number": "4"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Examples":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Examples",
+     "data":
+     {"title": "Examples",
+      "shortTitle": null,
+      "sectionNum": "5.3.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Examples", "shortTitle": null, "number": "5"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics",
+     "data":
+     {"title": "Operational Semantics",
+      "shortTitle": null,
+      "sectionNum": "5.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"}]},
+     "address": "/Stlc/"}],
    "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Nondeterministic-Evaluation":
    [{"id":
      "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Nondeterministic-Evaluation",
@@ -595,6 +812,19 @@
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null}]},
      "address": "/"}],
+   "Stlc":
+   [{"id": "Stlc",
+     "data":
+     {"title": "Stlc: The Simply Typed Lambda-Calculus",
+      "shortTitle": null,
+      "sectionNum": "5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Stlc/"}],
    "Smallstep":
    [{"id": "Smallstep",
      "data":
@@ -624,7 +854,63 @@
  "Verso.Genre.Manual.doc.tech":
  {"title": "Terminology",
   "description": "Definitions of technical terms",
-  "contents": {}},
+  "contents":
+  {"variable binding":
+   [{"id": "--tech-term-variable-binding",
+     "data": {"term": "variable binding"},
+     "address": "/Stlc/"}],
+   "typing judgment":
+   [{"id": "--tech-term-typing-judgment",
+     "data": {"term": "typing judgment"},
+     "address": "/Stlc/"}],
+   "typing context":
+   [{"id": "--tech-term-typing-context",
+     "data": {"term": "typing context"},
+     "address": "/Stlc/"}],
+   "substitution":
+   [{"id": "--tech-term-substitution",
+     "data": {"term": "substitution"},
+     "address": "/Stlc/"}],
+   "polymorphic type":
+   [{"id": "--tech-term-polymorphic-types",
+     "data": {"term": "polymorphic types"},
+     "address": "/Stlc/"}],
+   "open term":
+   [{"id": "--tech-term-open-term",
+     "data": {"term": "open term"},
+     "address": "/Stlc/"}],
+   "lambda cube":
+   [{"id": "--tech-term-lambda-cube",
+     "data": {"term": "lambda cube"},
+     "address": "/Stlc/"}],
+   "higher order":
+   [{"id": "--tech-term-higher-order",
+     "data": {"term": "higher-order"},
+     "address": "/Stlc/"}],
+   "free variable":
+   [{"id": "--tech-term-free-variables",
+     "data": {"term": "free variables"},
+     "address": "/Stlc/"}],
+   "closed":
+   [{"id": "--tech-term-closed",
+     "data": {"term": "closed"},
+     "address": "/Stlc/"}],
+   "call by value":
+   [{"id": "--tech-term-call-by-value",
+     "data": {"term": "call by value"},
+     "address": "/Stlc/"}],
+   "calculus of construction":
+   [{"id": "--tech-term-Calculus-of-Constructions",
+     "data": {"term": "Calculus of Constructions"},
+     "address": "/Stlc/"}],
+   "beta reduction":
+   [{"id": "--tech-term-beta-reduction",
+     "data": {"term": "beta-reduction"},
+     "address": "/Stlc/"}],
+   "barendregt cube":
+   [{"id": "--tech-term-Barendregt-Cube",
+     "data": {"term": "Barendregt Cube"},
+     "address": "/Stlc/"}]}},
  "Verso.Genre.Manual.doc.tactic.conv":
  {"title": "Conversion Tactics",
   "description": "Tactics for performing targeted rewriting of subterms",
