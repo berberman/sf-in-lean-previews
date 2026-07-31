@@ -1259,7 +1259,7 @@
  "2635":
  "<code>PartialMap.getElem_empty {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] (a : α) : ∅[a] = none</code>",
  "2634":
- "<code>PartialMap.ext {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (h : ∀ (a : α), m₁[a] = m₂[a]) :\n  m₁ = m₂</code>",
+ "<code>PartialMap.ext {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] {m₁ m₂ : PartialMap α β} (h : ∀ (a : α), m₁[a] = m₂[a]) :\n  m₁ = m₂</code>",
  "2633":
  "<code>PartialMap.toTotal_eq_iff {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) :\n  m₁.toTotal = m₂.toTotal ↔ m₁ = m₂</code>",
  "2632":
