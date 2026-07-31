@@ -196,11 +196,11 @@
     },
     "179": {
       "changed_variants": [],
-      "head_sha": "4690534f8113623c63938ba9a8ab5571e46647a2",
+      "head_sha": "1a819eef182bbc12245b165adfbcbc7273369498",
       "preview_path": "pr/179/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30592084366",
-      "status": "ci-failed",
-      "title": "Hoare: experimental assn syntax [WIP]",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Hoare: assertion and triple syntax",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
     },
     "181": {
@@ -248,6 +248,52 @@
       "status": "published",
       "title": "StlcProp -- initial conversion",
       "url": "https://github.com/plclub/sf-in-lean/pull/181"
+    },
+    "182": {
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "f1ba666da4577b1ecaed03c31c63de0804958a22",
+      "preview_path": "pr/182/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30650773678",
+      "status": "published",
+      "title": "Stlc: fix notation printer fallbacks",
+      "url": "https://github.com/plclub/sf-in-lean/pull/182"
     }
   },
   "schema": 3
