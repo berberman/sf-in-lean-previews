@@ -461,11 +461,12 @@ end TotalMap
 -- a `Bool`*. The notation we introduce for this is:
 -- `xs[i] = MyGetElem.getElem xs i`.
 
--- Don't worry about the `outParam`, it's like a normal paramater with a hint
--- to Lean that helps typeclass inference. The `macro_rules` and the
--- `app_unexpander` are minor technicalities for getting the syntax to work.
+-- Don't worry about what `outParam Type` means, it's like a normal type
+-- paramater with a hint to Lean that helps typeclass inference. The
+-- `macro_rules` and the `app_unexpander` are minor technicalities for getting
+-- the syntax to work.
 
-class MyGetElem (coll : Type) (idx : Type) (elem : outParam (Type)) where
+class MyGetElem (coll : Type) (idx : Type) (elem : outParam Type) where
   getElem (xs : coll) (i : idx) : elem
 
 namespace MyGetElem
