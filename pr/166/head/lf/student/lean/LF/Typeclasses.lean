@@ -367,9 +367,9 @@ set_option linter.unusedSectionVars false
 -- rather than just as "equivalent" list structures. This simplifies proofs
 -- that use maps.
 
--- We build up to partial maps in two steps. First, we define a type of total
--- maps that return a default value when we look up a key that is not present
--- in the map.
+-- We build up to partial maps in two steps. First, we define total maps that
+-- return a default value when we look up a key that is not present in the
+-- map.
 
 def TotalMap (α : Type) (β : Type) := α → β
 
@@ -399,7 +399,13 @@ instance : EmptyCollection (TotalMap α β) where
 
 -- #### Getting Elements
 
--- To access values in a map, which are functions, we can apply the map to a
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     This introductory bit seems heavier than necessary. Why not just say
+--     that we want to treat TotalMap as an abstract thing, not rely on the
+--     fact that it is defined in terms of functions, and then go ahead and do
+--     that?
+
+-- To access values in a map (i.e., a function), we can apply the map to a
 -- key:
 
 -- Note to developers (Chris Henson (chenson2018), Niklas Halonen (xhalo32)):
@@ -411,19 +417,19 @@ example : (∅ : TotalMap Nat Nat) 1 = default := rfl
 end TotalMap
 
 -- Here we have made use of the the fact that the type `TotalMap` is defined
--- as a function type, so technically Lean let's us use a function application
+-- as a function type, so technically Lean lets us use a function application
 -- to get an element. While this is possible, it goes against the spirit we
 -- have seen in previous chapters of defining interfaces to our types, like
 -- characterizing lemmas. We would like that the public interface we design
 -- for TotalMap to be independent of the fact that the definition is `α → β`.
 
--- In the ideal, we should be able to substitute in a different type with
--- similar behavior without needing to change the public interface. Suppose,
--- just for the sake of argument, that we wanted to define total maps as
--- `List (α × β)` or `Std.HashMap α β`. Neither of these are functions, so the
--- syntax `∅ 1` wouldn't work. If this is the public interface to access
--- elements, it restricts the definition ot `TotalMap`, forcing it to be a
--- function of some kind.
+-- In the ideal, we should be able to substitute a different type with similar
+-- behavior without needing to change the public interface. Suppose, just for
+-- the sake of argument, that we wanted to define total maps as `List (α × β)`
+-- or `Std.HashMap α β`. Neither of these are functions, so the syntax `∅ 1`
+-- wouldn't work. If this is the public interface to access elements, it
+-- restricts the definition ot `TotalMap`, forcing it to be a function of some
+-- kind.
 
 -- To abstract away the function application, we introduce notation for
 -- accessing elements using square brackets. This let's us write `∅[1]` or
@@ -437,8 +443,8 @@ end TotalMap
 -- a `Bool`*. The notation we introduce for this is:
 -- `xs[i] = MyGetElem.getElem xs i`.
 
--- Don't worry about what `outParam Type` means, it's like a normal type
--- paramater with a hint to Lean that helps typeclass inference. The
+-- Don't worry about what `outParam Type` means (it's like a normal type
+-- parameter with a hint to Lean that helps typeclass inference). The
 -- `macro_rules` and the `app_unexpander` are minor technicalities for getting
 -- the syntax to work.
 
@@ -456,8 +462,14 @@ end MyGetElem
 
 open scoped MyGetElem
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Make sure we've really explained `open scoped` somewhere...
+
 -- To use the notation `m[a]` to access elements of a map `m`, we add a
 -- `MyGetElem` instance for total maps.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Have we explained `variable [Inhabited β]`?
 
 namespace TotalMap
 variable [Inhabited β]
@@ -469,17 +481,19 @@ theorem getElem_def (m : TotalMap α β) (a : α) : m[a] = m a := by rfl
 
 example : (∅ : TotalMap Nat Nat)[1] = default := by rfl
 
--- When proving some of the upcoming characterizing lemmas, we will rewrite
--- using `getElem_def`. However, `getElem_def` exposes the underlying
--- implementation that accessing elements in total maps is a function
--- application, therefore it should only be used sparingly, and only inside
--- the `TotalMap` namespace.
+-- When proving some of the characterizing lemmas below, we will rewrite using
+-- `getElem_def`. However, `getElem_def` exposes the underlying implementation
+-- that accessing elements in total maps is a function application, therefore
+-- it should only be used sparingly, and only inside the `TotalMap` namespace.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     That is a bit mysterious.
 
 -- Note to developers (Niklas Halonen  @xhalo32):
 --     As per the discussion in
 --     `https://github.com/plclub/sf-in-lean/pull/166#discussion_r3690573597`,
---     we should provide the reverse of `getElem_def` as a simp-lemma, however
---     it doesn't seem to behave nicely
+--     we should provide the reverse of `getElem_def` as a simp-lemma, but it
+--     doesn't seem to behave nicely:
 --
 --     `@[simp]
 --     theorem apply_eq_getElem (m : TotalMap α β) (a : α) : m a = m[a] := by rfl`
@@ -534,6 +548,10 @@ def exampleMap'' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true
 -- This completes the definition of total maps. Note that we don't need to
 -- define a `find` operation (as we did in the Lists chapter) on this
 -- representation of maps because it is just function application!
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     ... but we said that we wanted to abstract away from the underlying
+--     function representation, no?
 
 example : exampleMap = exampleMap' := rfl
 example : exampleMap' = exampleMap'' := rfl
@@ -713,6 +731,9 @@ sf_expect_failure
 -- elements of type `β` is simply a total map with elements of type
 -- `Option β`, whose default element is `none`.
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     I don't understand the comment on the `inner` field...
+
 structure PartialMap (α : Type) (β : Type) where
   /-- The inner total map. Should not appear in the public API, use `PartialMap.toTotal` instead. -/
   inner : TotalMap α (Option β)
@@ -728,16 +749,23 @@ instance : MyGetElem (PartialMap α β) α (Option β) where
 theorem getElem_def (m : PartialMap α β) (a : α) : m[a] = m.toTotal[a] := rfl
 
 -- Remember that we discussed earlier with total maps that using function
--- application exposes the implementation and that's why we introduced a new
+-- application exposes the implementation, and that's why we introduced a new
 -- notation `MyGetElem`? Here we take that concept to a new level, and instead
--- of using a `def` for partial maps, like this:
+-- of using a `def` for partial maps, like this...
 
 --   def PartialMap (α : Type) (β : Type) := TotalMap α (Option β)`
 
--- we define partial maps as a structure containing just a total map. This
--- more strongly hides the fact that it's a total map. Now, the type system
--- doesn't consider `PartialMap α β` to be definitionally equal to
--- `TotalMap α (Option β)`, so the following equality doesn't type check:
+-- ...we define partial maps as a structure containing just a total map. This
+-- more strongly hides the fact that it's a total map.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     If this way is better, then why didn't we do it for total maps too?
+--     Just for the sake of explaining two different mechanisms? We should
+--     explain our reasoning.
+
+-- Now, the type system doesn't consider `PartialMap α β` to be definitionally
+-- equal to `TotalMap α (Option β)`, so the following equality doesn't type
+-- check:
 
 sf_expect_failure
   example : (∅ : PartialMap α β) = (∅ : TotalMap α (Option β)) := by rfl

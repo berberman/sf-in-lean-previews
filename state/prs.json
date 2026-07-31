@@ -86,9 +86,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "1d3c7d5d7929e8fa6a893f5be3c5799fe55d6607",
+      "head_sha": "dc016daee63d50be1376c5b0c38f954f0d486e75",
       "preview_path": "pr/166/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30646972030",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30660491448",
       "status": "published",
       "title": "Typeclasses: add notation for getting elements and make PartialMap a one-field structure",
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
