@@ -11914,6 +11914,16 @@
         "Logic in Lean",
         "Programming with Propositions"]}},
      "address": "/Logic/"}],
+   "List.In_map":
+   [{"id": "List___In_map",
+     "data":
+     {"/Logic/#List___In_map":
+      {"display": "List.In_map",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
    "List.In_cons":
    [{"id": "List___In_cons",
      "data":
@@ -12038,16 +12048,6 @@
      {"/Logic/#Injective":
       {"display": "Injective",
        "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
-   "In_map":
-   [{"id": "In_map",
-     "data":
-     {"/Logic/#In_map":
-      {"display": "In_map",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
      "address": "/Logic/"}],
    "In_app_iff":
    [{"id": "In_app_iff",

@@ -104,12 +104,10 @@ theorem succ_inj' : Injective Nat.succ := by
   intro x y H; injection H
 
 -- The familiar equality operator `=` is a (binary) function that returns a
--- `Prop`. The expression `n = m` is notation for `Eq n m`. Because `eq` can
+-- `Prop`. The expression `n = m` is notation for `Eq n m`. Because `Eq` can
 -- be used with elements of any type, it is also polymorphic:
 
 #check (Eq : ∀ {α : Type}, α → α → Prop)
-
-#check Nat.pred
 
 -- As a convenience, Lean will cast booleans by equating them to `true`, which
 -- is why checking them against `Prop` succeeds. It also casts boolean
@@ -283,7 +281,7 @@ example (n m : Nat) : n = 0 → m = 0 → n + m = 0 := by
 example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
   all_goals
     apply add_is_zero at h
-    let ⟨hn, hm⟩ := h
+    obtain ⟨hn, hm⟩ := h
     rw [hm]; rfl
 
 -- Another common situation is that we know `a ∧ b` but in some context we
@@ -291,7 +289,7 @@ example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
 -- `_` to indicate that the unneeded conjunct should just be thrown away.
 
 theorem proj1 (a b : Prop) (h : a ∧ b) : a := by
-  let ⟨hP, _⟩ := h
+  obtain ⟨hP, _⟩ := h
   exact hP
 
 -- Conjunctions come with their own built-in projections, `.left` and
@@ -365,7 +363,7 @@ theorem factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
 -- in the first subgoal and `b` in the second.
 
 -- Rather than performing case analysis via `cases`, we can also use `obtain`
--- to match on the two possible injections, much like with `let` and `∧`.
+-- to match on the two possible injections, much like with `obtain` and `∧`.
 
 theorem and_is_false (b1 b2 : Bool) (h : (b1 = false) ∨ (b2 = false)) :
     (b1 && b2) = false := by
@@ -484,7 +482,7 @@ theorem not_False : ¬ False := by
 
 theorem contradiction_implies_anything (a b : Prop) (h : a ∧ ¬ a) : b := by
   all_goals
-    let ⟨hP, hnP⟩ := h
+    obtain ⟨hP, hnP⟩ := h
     apply hnP at hP; cases hP
 
 theorem double_neg (a : Prop) (hP : a) : ¬ ¬ a := by
@@ -895,7 +893,7 @@ theorem ble_plus_exists (n m : Nat) : (Nat.ble n m = true) → ∃ x, m = x + n 
         intro h
         rw [succ_ble_succ] at h
         apply ih at h
-        let ⟨x, hx⟩ := h
+        obtain ⟨x, hx⟩ := h
         exists x
         rw [hx]; rfl
 
@@ -906,7 +904,7 @@ theorem ble_plus (n m : Nat) : Nat.ble n (m + n) = true := by
 
 theorem add_exists_ble (n m : Nat) (h : ∃ x, m = x + n) : Nat.ble n m = true := by
   all_goals
-    let ⟨x, hx⟩ := h
+    obtain ⟨x, hx⟩ := h
     rw [hx]
     apply ble_plus
 
@@ -919,7 +917,7 @@ theorem add_exists_ble (n m : Nat) (h : ∃ x, m = x + n) : Nat.ble n m = true :
 -- - `a ∧ b` (conjunction):
 
 --   - introduced with `constructor`
---   - eliminated with `intro ⟨ha, hb⟩` or `let ⟨ha, hb⟩ := h`
+--   - eliminated with `intro ⟨ha, hb⟩` or `obtain ⟨ha, hb⟩ := h`
 
 -- - `a ∨ b` (disjunction):
 
@@ -942,13 +940,13 @@ theorem add_exists_ble (n m : Nat) (h : ∃ x, m = x + n) : Nat.ble n m = true :
 
 --   - introduced with `constructor`
 
---   - eliminated with `intro ⟨hab, hba⟩`, `let ⟨hab, hba⟩ := h`, or `Iff.mp` and
---     `Iff.mpr`
+--   - eliminated with `intro ⟨hab, hba⟩`, `obtain ⟨hab, hba⟩ := h`, or `Iff.mp`
+--     and `Iff.mpr`
 
 -- - `∃ x : α, a` (existential):
 
 --   - introduced with `exists y`
---   - eliminated with `intro ⟨x, Hx⟩` or `let ⟨x, Hx⟩ := H`
+--   - eliminated with `intro ⟨x, Hx⟩` or `obtain ⟨x, Hx⟩ := H`
 
 -- Fundamental connectives we've been using since the beginning:
 
@@ -962,7 +960,7 @@ theorem add_exists_ble (n m : Nat) (h : ∃ x, m = x + n) : Nat.ble n m = true :
 
 -- The logical connectives that we have seen provide a rich vocabulary for
 -- defining complex propositions from simpler ones. To illustrate, let's look
--- at how to express teh claim that an element `x` occurs in a list `l`.
+-- at how to express the claim that an element `x` occurs in a list `l`.
 -- Notice that this property has a simple recursive structure:
 
 -- We can translate this directly into a straightforward recursive function
@@ -995,7 +993,7 @@ example (n : Nat) (h : List.In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
 
 -- We can also reason about more generic statements involving `List.In`.
 
-theorem In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : List.In x xs) :
+theorem List.In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : List.In x xs) :
     List.In (f x) (List.map f xs) := by
   -- TERSE: FOLD
   induction xs
@@ -1036,14 +1034,14 @@ theorem List.In_map_iff (α β : Type) (f : α → β) (xs : List α) (y : β) :
           case left => rfl
           case right => rw [In_cons]; left; rfl
         case inr =>
-          let ⟨x', h₁, h₂⟩ := ih h
+          obtain ⟨x', h₁, h₂⟩ := ih h
           exists x'; constructor
           case left => exact h₁
           case right => rw [In_cons]; right; exact h₂
   case mpr =>
     all_goals
       intro ⟨x, h₁, h₂⟩
-      rw [← h₁]; apply In_map; exact h₂
+      rw [← h₁]; apply List.In_map; exact h₂
 
 -- ### Exercise (3 stars): All ⭐⭐⭐
 
@@ -1075,7 +1073,7 @@ theorem List.All_In α (p : α → Prop) (l : List α) :
       case mp => intros; exact All_nil _
       case mpr => intro _ _ h; apply In_nil at h; contradiction
     case cons x' xs' ih =>
-      let ⟨ih1, ih2⟩ := ih
+      obtain ⟨ih1, ih2⟩ := ih
       constructor
       case mp =>
         intro h; rw [All_cons]; constructor
@@ -1371,7 +1369,7 @@ theorem even_double_conv (n : Nat) : ∃ k : Nat,
       rw [Nat.even_zero]; dsimp
       exists 0  -- (`0 = Nat.double 0` is closed by `exists`'s final `rfl`)
     case succ n' ihn =>
-      let ⟨k', ihk⟩ := ihn
+      obtain ⟨k', ihk⟩ := ihn
       rw [Nat.even_succ]
       cases h : Nat.even n'
       case false =>
@@ -1388,7 +1386,7 @@ theorem even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
   constructor
   case mp =>
     intro h
-    let ⟨k, hk⟩ := even_double_conv n
+    obtain ⟨k, hk⟩ := even_double_conv n
     rw [h] at hk; dsimp at hk; dsimp [Even]; exists k
   case mpr =>
     intro ⟨k, hk⟩; rw [hk]; apply even_double
@@ -1457,7 +1455,7 @@ example : Nat.even 100 := rfl
 -- mentioning the value 500 explicitly:
 
 example : Even 100 := by
-  let ⟨H, _⟩ := even_bool_prop 100
+  obtain ⟨H, _⟩ := even_bool_prop 100
   apply H; rfl
 
 -- Although we haven't gained much in terms of proof-script simplicity in this
@@ -1591,9 +1589,9 @@ theorem beqList_true_iff α (beq : α → α → Bool)
         case mpr => intro; contradiction
       case cons x2 xs2' =>
         rw [beqList_cons_cons]
-        let ⟨h₁, h₂⟩ := andb_true_iff (beq x1 x2) (beqList beq xs1' xs2')
-        let ⟨hx1, hx2⟩ := h x1 x2
-        let ⟨ih1, ih2⟩ := ih xs2'
+        obtain ⟨h₁, h₂⟩ := andb_true_iff (beq x1 x2) (beqList beq xs1' xs2')
+        obtain ⟨hx1, hx2⟩ := h x1 x2
+        obtain ⟨ih1, ih2⟩ := ih xs2'
         constructor
         case mp =>
           intro h; congr
@@ -1630,8 +1628,8 @@ theorem forallb_true_iff α (test : α → Bool) (l : List α) :
       rw [forallb_nil]
       exact ⟨fun _ => List.All_nil _, fun _ => rfl⟩
     case cons x xs' ih =>
-      let ⟨h₁, h₂⟩ := andb_true_iff (test x) (Logic.forallb test xs')
-      let ⟨ih1, ih2⟩ := ih
+      obtain ⟨h₁, h₂⟩ := andb_true_iff (test x) (Logic.forallb test xs')
+      obtain ⟨ih1, ih2⟩ := ih
       rw [forallb_cons, List.All_cons]
       constructor
       case mp => intro h; exact ⟨(h₁ h).left, ih1 (h₁ h).right⟩
@@ -2003,7 +2001,7 @@ theorem em : ∀ a, a ∨ ¬ a := by
 
 theorem excluded_middle_irrefutable (a : Prop) : ¬ ¬ (a ∨ ¬ a) := by
   all_goals
-    intro h; let ⟨hnp, hnnp⟩ := de_morgan_not_or _ _ h
+    intro h; obtain ⟨hnp, hnnp⟩ := de_morgan_not_or _ _ h
     unfold Not at *; cases (hnnp hnp)
 
 -- ### Exercise (3 stars): not_exists_dist (Advanced) ⭐⭐⭐

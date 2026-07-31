@@ -2,48 +2,11 @@
   "main_sha": "f8a13f91dabb31c68d6f7cf9a5f34d001cfe8170",
   "prs": {
     "156": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "e246891012918fbc7c36a832c3eb209845fb5fb3",
+      "changed_variants": [],
+      "head_sha": "b41093242394caccbe8c3430a1b284ecc75ceedc",
       "preview_path": "pr/156/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30410824164",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Initial port of TS/Stlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/156"
     },
@@ -178,9 +141,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "d883d85b67c49b8e8ac2006d3598ec540a2b0743",
+      "head_sha": "dc29eeb77647dd279f07f09665e8e98f8338b949",
       "preview_path": "pr/167/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30574642695",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30631032599",
       "status": "published",
       "title": "Pass over Logic chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/167"
