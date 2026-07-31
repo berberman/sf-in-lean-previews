@@ -51,8 +51,8 @@
       "changed_variants": [],
       "head_sha": "c0556e4ca7e36fed4a65f27ba823cfea480cef14",
       "preview_path": "pr/166/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30635413952",
+      "status": "ci-failed",
       "title": "Typclasses: add notation for getting elements and make PartialMap a one-field structure",
       "url": "https://github.com/plclub/sf-in-lean/pull/166"
     },
@@ -167,11 +167,48 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
     },
     "181": {
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "7e02bb1ded86e62324a0f0b8ec4438664f26d3cf",
       "preview_path": "pr/181/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30635200188",
+      "status": "published",
       "title": "StlcProp -- initial conversion",
       "url": "https://github.com/plclub/sf-in-lean/pull/181"
     }

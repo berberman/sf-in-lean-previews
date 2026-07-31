@@ -1,0 +1,1144 @@
+{"Verso.Genre.Manual.section":
+ {"title": "Sections or chapters of the manual",
+  "description": null,
+  "contents":
+  {"Types":
+   [{"id": "Types",
+     "data":
+     {"title": "Types: Type Systems",
+      "shortTitle": null,
+      "sectionNum": "4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Typing":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Typing",
+     "data":
+     {"title": "Typing",
+      "shortTitle": null,
+      "sectionNum": "4.1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Typing", "shortTitle": null, "number": "4"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Type-Soundness":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Type-Soundness",
+     "data":
+     {"title": "Type Soundness",
+      "shortTitle": null,
+      "sectionNum": "4.1.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Type Soundness", "shortTitle": null, "number": "8"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Type-Preservation":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Type-Preservation",
+     "data":
+     {"title": "Type Preservation",
+      "shortTitle": null,
+      "sectionNum": "4.1.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Type Preservation", "shortTitle": null, "number": "7"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Syntax--Values":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Syntax--Values",
+     "data":
+     {"title": "Values",
+      "shortTitle": null,
+      "sectionNum": "4.1.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Syntax", "shortTitle": null, "number": "1"},
+       {"title": "Values", "shortTitle": null, "number": "2"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Syntax--Notation":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Syntax--Notation",
+     "data":
+     {"title": "Notation",
+      "shortTitle": null,
+      "sectionNum": "4.1.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Syntax", "shortTitle": null, "number": "1"},
+       {"title": "Notation", "shortTitle": null, "number": "1"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Syntax":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Syntax",
+     "data":
+     {"title": "Syntax",
+      "shortTitle": null,
+      "sectionNum": "4.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Syntax", "shortTitle": null, "number": "1"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Progress":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Progress",
+     "data":
+     {"title": "Progress",
+      "shortTitle": null,
+      "sectionNum": "4.1.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Progress", "shortTitle": null, "number": "6"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Operational-Semantics":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Operational-Semantics",
+     "data":
+     {"title": "Operational Semantics",
+      "shortTitle": null,
+      "sectionNum": "4.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "2"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Normal-Forms-and-Values":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Normal-Forms-and-Values",
+     "data":
+     {"title": "Normal Forms and Values",
+      "shortTitle": null,
+      "sectionNum": "4.1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Normal Forms and Values",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Canonical-forms":
+   [{"id":
+     "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions--Canonical-forms",
+     "data":
+     {"title": "Canonical forms",
+      "shortTitle": null,
+      "sectionNum": "4.1.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Canonical forms", "shortTitle": null, "number": "5"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions":
+   [{"id": "Type-Systems--Types___-Type-Systems--Typed-Arithmetic-Expressions",
+     "data":
+     {"title": "Typed Arithmetic Expressions",
+      "shortTitle": null,
+      "sectionNum": "4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Typed Arithmetic Expressions",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Types___-Type-Systems--Additional-Exercises":
+   [{"id": "Type-Systems--Types___-Type-Systems--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "2"}]},
+     "address": "/Types/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Typing-Relation":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Typing-Relation",
+     "data":
+     {"title": "Typing Relation",
+      "shortTitle": null,
+      "sectionNum": "5.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Typing Relation", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Examples":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Examples",
+     "data":
+     {"title": "Examples",
+      "shortTitle": null,
+      "sectionNum": "5.4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Examples", "shortTitle": null, "number": "3"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Contexts":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Contexts",
+     "data":
+     {"title": "Contexts",
+      "shortTitle": null,
+      "sectionNum": "5.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Contexts", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing":
+   [{"id": "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing",
+     "data":
+     {"title": "Typing",
+      "shortTitle": null,
+      "sectionNum": "5.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Types":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Types",
+     "data":
+     {"title": "Types",
+      "shortTitle": null,
+      "sectionNum": "5.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Syntax", "shortTitle": null, "number": "2"},
+       {"title": "Types", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Terms":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Terms",
+     "data":
+     {"title": "Terms",
+      "shortTitle": null,
+      "sectionNum": "5.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Syntax", "shortTitle": null, "number": "2"},
+       {"title": "Terms", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax":
+   [{"id": "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax",
+     "data":
+     {"title": "Syntax",
+      "shortTitle": null,
+      "sectionNum": "5.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Syntax", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Overview":
+   [{"id": "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Overview", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Values":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Values",
+     "data":
+     {"title": "Values",
+      "shortTitle": null,
+      "sectionNum": "5.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Values", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Substitution":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Substitution",
+     "data":
+     {"title": "Substitution",
+      "shortTitle": null,
+      "sectionNum": "5.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Substitution", "shortTitle": null, "number": "3"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--STLC-Programs":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--STLC-Programs",
+     "data":
+     {"title": "STLC Programs",
+      "shortTitle": null,
+      "sectionNum": "5.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "STLC Programs", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Reduction":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Reduction",
+     "data":
+     {"title": "Reduction",
+      "shortTitle": null,
+      "sectionNum": "5.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Reduction", "shortTitle": null, "number": "4"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Examples":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Examples",
+     "data":
+     {"title": "Examples",
+      "shortTitle": null,
+      "sectionNum": "5.3.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Examples", "shortTitle": null, "number": "5"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics",
+     "data":
+     {"title": "Operational Semantics",
+      "shortTitle": null,
+      "sectionNum": "5.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Uniqueness-of-Types":
+   [{"id": "Type-Systems--StlcProp___-Properties-of-STLC--Uniqueness-of-Types",
+     "data":
+     {"title": "Uniqueness of Types",
+      "shortTitle": null,
+      "sectionNum": "6.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Uniqueness of Types", "shortTitle": null, "number": "5"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Type-Soundness":
+   [{"id": "Type-Systems--StlcProp___-Properties-of-STLC--Type-Soundness",
+     "data":
+     {"title": "Type Soundness",
+      "shortTitle": null,
+      "sectionNum": "6.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Type Soundness", "shortTitle": null, "number": "4"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Progress":
+   [{"id": "Type-Systems--StlcProp___-Properties-of-STLC--Progress",
+     "data":
+     {"title": "Progress",
+      "shortTitle": null,
+      "sectionNum": "6.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Progress", "shortTitle": null, "number": "2"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Preservation--The-Weakening-Lemma":
+   [{"id":
+     "Type-Systems--StlcProp___-Properties-of-STLC--Preservation--The-Weakening-Lemma",
+     "data":
+     {"title": "The Weakening Lemma",
+      "shortTitle": null,
+      "sectionNum": "6.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Preservation", "shortTitle": null, "number": "3"},
+       {"title": "The Weakening Lemma", "shortTitle": null, "number": "1"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Preservation--The-Substitution-Lemma":
+   [{"id":
+     "Type-Systems--StlcProp___-Properties-of-STLC--Preservation--The-Substitution-Lemma",
+     "data":
+     {"title": "The Substitution Lemma",
+      "shortTitle": null,
+      "sectionNum": "6.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Preservation", "shortTitle": null, "number": "3"},
+       {"title": "The Substitution Lemma", "shortTitle": null, "number": "2"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Preservation--Main-Theorem":
+   [{"id":
+     "Type-Systems--StlcProp___-Properties-of-STLC--Preservation--Main-Theorem",
+     "data":
+     {"title": "Main Theorem",
+      "shortTitle": null,
+      "sectionNum": "6.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Preservation", "shortTitle": null, "number": "3"},
+       {"title": "Main Theorem", "shortTitle": null, "number": "3"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Preservation":
+   [{"id": "Type-Systems--StlcProp___-Properties-of-STLC--Preservation",
+     "data":
+     {"title": "Preservation",
+      "shortTitle": null,
+      "sectionNum": "6.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Preservation", "shortTitle": null, "number": "3"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Context-Invariance-_LPAR_Optional_RPAR_":
+   [{"id":
+     "Type-Systems--StlcProp___-Properties-of-STLC--Context-Invariance-_LPAR_Optional_RPAR_",
+     "data":
+     {"title": "Context Invariance (Optional)",
+      "shortTitle": null,
+      "sectionNum": "6.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Context Invariance (Optional)",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Canonical-Forms":
+   [{"id": "Type-Systems--StlcProp___-Properties-of-STLC--Canonical-Forms",
+     "data":
+     {"title": "Canonical Forms",
+      "shortTitle": null,
+      "sectionNum": "6.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Canonical Forms", "shortTitle": null, "number": "1"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises--Exercise___-STLC-with-Arithmetic--The-Technical-Theorems":
+   [{"id":
+     "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises--Exercise___-STLC-with-Arithmetic--The-Technical-Theorems",
+     "data":
+     {"title": "The Technical Theorems",
+      "shortTitle": null,
+      "sectionNum": "6.7.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "7"},
+       {"title": "Exercise: STLC with Arithmetic",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "The Technical Theorems", "shortTitle": null, "number": "1"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises--Exercise___-STLC-with-Arithmetic--Progress":
+   [{"id":
+     "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises--Exercise___-STLC-with-Arithmetic--Progress",
+     "data":
+     {"title": "Progress",
+      "shortTitle": null,
+      "sectionNum": "6.7.1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "7"},
+       {"title": "Exercise: STLC with Arithmetic",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Progress", "shortTitle": null, "number": "3"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises--Exercise___-STLC-with-Arithmetic--Preservation":
+   [{"id":
+     "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises--Exercise___-STLC-with-Arithmetic--Preservation",
+     "data":
+     {"title": "Preservation",
+      "shortTitle": null,
+      "sectionNum": "6.7.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "7"},
+       {"title": "Exercise: STLC with Arithmetic",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Preservation", "shortTitle": null, "number": "2"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises--Exercise___-STLC-with-Arithmetic":
+   [{"id":
+     "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises--Exercise___-STLC-with-Arithmetic",
+     "data":
+     {"title": "Exercise: STLC with Arithmetic",
+      "shortTitle": null,
+      "sectionNum": "6.7.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "7"},
+       {"title": "Exercise: STLC with Arithmetic",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises":
+   [{"id": "Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "6.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "7"}]},
+     "address": "/StlcProp/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Nondeterministic-Evaluation":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Nondeterministic-Evaluation",
+     "data":
+     {"title": "Nondeterministic Evaluation",
+      "shortTitle": null,
+      "sectionNum": "3.5.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Small-Step Slang", "shortTitle": null, "number": "5"},
+       {"title": "Nondeterministic Evaluation",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Boolean-Expressions":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Boolean-Expressions",
+     "data":
+     {"title": "Boolean Expressions",
+      "shortTitle": null,
+      "sectionNum": "3.5.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Small-Step Slang", "shortTitle": null, "number": "5"},
+       {"title": "Boolean Expressions", "shortTitle": null, "number": "2"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Arithmetic-Expressions":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Arithmetic-Expressions",
+     "data":
+     {"title": "Arithmetic Expressions",
+      "shortTitle": null,
+      "sectionNum": "3.5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Small-Step Slang", "shortTitle": null, "number": "5"},
+       {"title": "Arithmetic Expressions", "shortTitle": null, "number": "1"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--A-Small-Step-Stack-Machine":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--A-Small-Step-Stack-Machine",
+     "data":
+     {"title": "A Small-Step Stack Machine",
+      "shortTitle": null,
+      "sectionNum": "3.5.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Small-Step Slang", "shortTitle": null, "number": "5"},
+       {"title": "A Small-Step Stack Machine",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang",
+     "data":
+     {"title": "Small-Step Slang",
+      "shortTitle": null,
+      "sectionNum": "3.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Small-Step Slang", "shortTitle": null, "number": "5"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Relations--Values":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Relations--Values",
+     "data":
+     {"title": "Values",
+      "shortTitle": null,
+      "sectionNum": "3.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Relations", "shortTitle": null, "number": "3"},
+       {"title": "Values", "shortTitle": null, "number": "1"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Relations--Strong-Progress-and-Normal-Forms":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Relations--Strong-Progress-and-Normal-Forms",
+     "data":
+     {"title": "Strong Progress and Normal Forms",
+      "shortTitle": null,
+      "sectionNum": "3.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Relations", "shortTitle": null, "number": "3"},
+       {"title": "Strong Progress and Normal Forms",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Relations":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Relations",
+     "data":
+     {"title": "Relations",
+      "shortTitle": null,
+      "sectionNum": "3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Relations", "shortTitle": null, "number": "3"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Multi-Step-Reduction--Normal-Forms-Again":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Multi-Step-Reduction--Normal-Forms-Again",
+     "data":
+     {"title": "Normal Forms Again",
+      "shortTitle": null,
+      "sectionNum": "3.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Multi-Step Reduction", "shortTitle": null, "number": "4"},
+       {"title": "Normal Forms Again", "shortTitle": null, "number": "2"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Multi-Step-Reduction--Examples":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Multi-Step-Reduction--Examples",
+     "data":
+     {"title": "Examples",
+      "shortTitle": null,
+      "sectionNum": "3.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Multi-Step Reduction", "shortTitle": null, "number": "4"},
+       {"title": "Examples", "shortTitle": null, "number": "1"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Multi-Step-Reduction--Equivalence-of-Big-Step-and-Small-Step":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Multi-Step-Reduction--Equivalence-of-Big-Step-and-Small-Step",
+     "data":
+     {"title": "Equivalence of Big-Step and Small-Step",
+      "shortTitle": null,
+      "sectionNum": "3.4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Multi-Step Reduction", "shortTitle": null, "number": "4"},
+       {"title": "Equivalence of Big-Step and Small-Step",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Multi-Step-Reduction":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Multi-Step-Reduction",
+     "data":
+     {"title": "Multi-Step Reduction",
+      "shortTitle": null,
+      "sectionNum": "3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Multi-Step Reduction", "shortTitle": null, "number": "4"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Big-step-and-Small-step-Evaluation":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Big-step-and-Small-step-Evaluation",
+     "data":
+     {"title": "Big-step and Small-step Evaluation",
+      "shortTitle": null,
+      "sectionNum": "3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Big-step and Small-step Evaluation",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--A-Toy-Language":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--A-Toy-Language",
+     "data":
+     {"title": "A Toy Language",
+      "shortTitle": null,
+      "sectionNum": "3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "A Toy Language", "shortTitle": null, "number": "2"}]},
+     "address": "/Smallstep/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Inference-Rule-Notation":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Inference-Rule-Notation",
+     "data":
+     {"title": "Inference Rule Notation",
+      "shortTitle": null,
+      "sectionNum": "2.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Evaluation as a Relation", "shortTitle": null, "number": "2"},
+       {"title": "Inference Rule Notation",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Slang/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Equivalence-of-the-Definitions":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Equivalence-of-the-Definitions",
+     "data":
+     {"title": "Equivalence of the Definitions",
+      "shortTitle": null,
+      "sectionNum": "2.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Evaluation as a Relation", "shortTitle": null, "number": "2"},
+       {"title": "Equivalence of the Definitions",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Slang/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Computational-vs___-Relational-Definitions":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Computational-vs___-Relational-Definitions",
+     "data":
+     {"title": "Computational vs. Relational Definitions",
+      "shortTitle": null,
+      "sectionNum": "2.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Evaluation as a Relation", "shortTitle": null, "number": "2"},
+       {"title": "Computational vs. Relational Definitions",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Slang/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation",
+     "data":
+     {"title": "Evaluation as a Relation",
+      "shortTitle": null,
+      "sectionNum": "2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Evaluation as a Relation",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Slang/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Syntax":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Syntax",
+     "data":
+     {"title": "Syntax",
+      "shortTitle": null,
+      "sectionNum": "2.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Syntax", "shortTitle": null, "number": "1"}]},
+     "address": "/Slang/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Optimization":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Optimization",
+     "data":
+     {"title": "Optimization",
+      "shortTitle": null,
+      "sectionNum": "2.1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Optimization", "shortTitle": null, "number": "3"}]},
+     "address": "/Slang/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Evaluation":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Evaluation",
+     "data":
+     {"title": "Evaluation",
+      "shortTitle": null,
+      "sectionNum": "2.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Evaluation", "shortTitle": null, "number": "2"}]},
+     "address": "/Slang/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions",
+     "data":
+     {"title": "Arithmetic and Boolean Expressions",
+      "shortTitle": null,
+      "sectionNum": "2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Slang/"}],
+   "Type-Systems--Introduction":
+   [{"id": "Type-Systems--Introduction",
+     "data":
+     {"title": "Introduction",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Introduction", "shortTitle": null, "number": "1"}]},
+     "address": "/Intro/"}],
+   "Type-Systems":
+   [{"id": "Type-Systems",
+     "data":
+     {"title": "Type Systems",
+      "shortTitle": null,
+      "sectionNum": "",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null}]},
+     "address": "/"}],
+   "StlcProp":
+   [{"id": "StlcProp",
+     "data":
+     {"title": "StlcProp: Properties of STLC",
+      "shortTitle": null,
+      "sectionNum": "6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "StlcProp: Properties of STLC",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/StlcProp/"}],
+   "Stlc":
+   [{"id": "Stlc",
+     "data":
+     {"title": "Stlc: The Simply Typed Lambda-Calculus",
+      "shortTitle": null,
+      "sectionNum": "5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Stlc/"}],
+   "Smallstep":
+   [{"id": "Smallstep",
+     "data":
+     {"title": "Smallstep: Small-step Operational Semantics",
+      "shortTitle": null,
+      "sectionNum": "3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Smallstep/"}],
+   "Slang":
+   [{"id": "Slang",
+     "data":
+     {"title": "Slang: Arithmetic and Boolean Expressions",
+      "shortTitle": null,
+      "sectionNum": "2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Slang/"}]}},
+ "Verso.Genre.Manual.doc.tech":
+ {"title": "Terminology",
+  "description": "Definitions of technical terms",
+  "contents":
+  {"polymorphic type":
+   [{"id": "--tech-term-polymorphic-types",
+     "data": {"term": "polymorphic types"},
+     "address": "/Stlc/"}],
+   "open term":
+   [{"id": "--tech-term-open-term",
+     "data": {"term": "open term"},
+     "address": "/Stlc/"}],
+   "lambda cube":
+   [{"id": "--tech-term-lambda-cube",
+     "data": {"term": "lambda cube"},
+     "address": "/Stlc/"}],
+   "closed":
+   [{"id": "--tech-term-closed",
+     "data": {"term": "closed"},
+     "address": "/Stlc/"}],
+   "call by value":
+   [{"id": "--tech-term-call-by-value",
+     "data": {"term": "call by value"},
+     "address": "/Stlc/"}],
+   "calculus of construction":
+   [{"id": "--tech-term-Calculus-of-Constructions",
+     "data": {"term": "Calculus of Constructions"},
+     "address": "/Stlc/"}],
+   "beta reduction":
+   [{"id": "--tech-term-beta-reduction",
+     "data": {"term": "beta-reduction"},
+     "address": "/Stlc/"}],
+   "barendregt cube":
+   [{"id": "--tech-term-Barendregt-Cube",
+     "data": {"term": "Barendregt Cube"},
+     "address": "/Stlc/"}]}},
+ "Verso.Genre.Manual.doc.tactic.conv":
+ {"title": "Conversion Tactics",
+  "description": "Tactics for performing targeted rewriting of subterms",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.tactic":
+ {"title": "Tactic Documentation",
+  "description": "Detailed descriptions of tactics",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.suggestion":
+ {"title": "Lean constant suggestions",
+  "description": "Search suggestions for Lean constants",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.option":
+ {"title": "Compiler options", "description": null, "contents": {}},
+ "Verso.Genre.Manual.doc":
+ {"title": "Lean constant reference",
+  "description": "Documentation for Lean constants",
+  "contents": {}}}
