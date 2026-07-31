@@ -104,7 +104,7 @@
  "448":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
  "447":
- "<code>TotalMap.update_eq.{u, v} {α : Type u} {β : Type v} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β)\n  (a : α) (b : β) : (a →ₜ b ; m)[a] = b</code>",
+ "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  (a →ₜ b ; m)[a] = b</code>",
  "446": "<code>st[X] + 2 = m</code>",
  "445":
  "<code>Aexp.eval_num (st : State) (n : Nat) : Aexp.eval st n = n</code>",
@@ -119,7 +119,7 @@
  "439":
  "<code class=\"docstring\">* `unfold id` unfolds all occurrences of definition `id` in the target.\n* `unfold id1 id2 ...` is equivalent to `unfold id1; unfold id2; ...`.\n* `unfold id at h` unfolds at the hypothesis `h`.\n\nDefinitions can be either global or local definitions.\n\nFor non-recursive global definitions, this tactic is identical to `delta`.\nFor recursive global definitions, it uses the \"unfolding lemma\" `id.eq_def`,\nwhich is generated for each recursive definition, to unfold according to the recursive definition given by the user.\nOnly one level of unfolding is performed, in contrast to `simp only [id]`, which unfolds definition `id` recursively.\n</code>",
  "438":
- "<code>MyGetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)} [self : MyGetElem coll idx elem]\n  (xs : coll) (i : idx) : elem</code>",
+ "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
  "437": "<code>st =[ plus2 ]=&gt; st'</code>",
  "436": "<code>st[X] = n</code>",
  "435":
@@ -366,7 +366,7 @@
  "286": "<code>Com.skip : Com</code>",
  "285": "<code>Com : Type</code>",
  "284":
- "<code>TotalMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "<code>TotalMap.update {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
  "283":
  "<code>Bexp.eval_and (st : State) (b1 b2 : Bexp) : eval st (bexp {~b1 ∧ ~b2}) = (eval st b1 && eval st b2)</code>",
  "282":
@@ -586,8 +586,7 @@
  "154": "<code>Aexp.id (x : Ident) : Aexp</code>",
  "153": "<code>Aexp.num (n : Nat) : Aexp</code>",
  "152": "<code>Aexp : Type</code>",
- "151":
- "<code>TotalMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
+ "151": "<code>TotalMap (α β : Type) : Type</code>",
  "150": "<code>State : Type</code>",
  "15": "<code>Slang.Bexp.neq (a1 a2 : Aexp) : Bexp</code>",
  "149":

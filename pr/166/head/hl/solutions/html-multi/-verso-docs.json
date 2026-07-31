@@ -199,7 +199,7 @@
  "484":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
  "483":
- "<code>TotalMap.update_eq.{u, v} {α : Type u} {β : Type v} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β)\n  (a : α) (b : β) : (a →ₜ b ; m)[a] = b</code>",
+ "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  (a →ₜ b ; m)[a] = b</code>",
  "482": "<code>st[X] + 2 = m</code>",
  "481":
  "<code>Aexp.eval_num (st : State) (n : Nat) : Aexp.eval st n = n</code>",
@@ -213,7 +213,7 @@
  "477": "<code>Aexp.eval st✝ a✝ = m</code>",
  "476": "<code>st =[\n  imp {\n    X := X + 2;\n  } ]=&gt;\n  st'</code>",
  "475":
- "<code>MyGetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)} [self : MyGetElem coll idx elem]\n  (xs : coll) (i : idx) : elem</code>",
+ "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
  "474": "<code>st =[ plus2 ]=&gt; st'</code>",
  "473": "<code>st[X] = n</code>",
  "472":
@@ -461,7 +461,7 @@
  "322": "<code>Com.skip : Com</code>",
  "321": "<code>Com : Type</code>",
  "320":
- "<code>TotalMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "<code>TotalMap.update {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
  "32": "<code>Slang.Bexp.eval (b : Bexp) : Bool</code>",
  "319":
  "<code>Bexp.eval_and (st : State) (b1 b2 : Bexp) : eval st (bexp {~b1 ∧ ~b2}) = (eval st b1 && eval st b2)</code>",
@@ -686,8 +686,7 @@
  "19": "<code>Bexp</code>",
  "189": "<code>Aexp.num (n : Nat) : Aexp</code>",
  "188": "<code>Aexp : Type</code>",
- "187":
- "<code>TotalMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
+ "187": "<code>TotalMap (α β : Type) : Type</code>",
  "186": "<code>State : Type</code>",
  "185":
  "<code>String : Type</code><span class=\"sep\"></span><code class=\"docstring\">A string is a sequence of Unicode scalar values.\n\nAt runtime, strings are represented by [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)\nof bytes using the UTF-8 encoding. Both the size in bytes (`String.utf8ByteSize`) and in characters\n(`String.length`) are cached and take constant time. Many operations on strings perform in-place\nmodifications when the reference to the string is unique.\n</code>",
