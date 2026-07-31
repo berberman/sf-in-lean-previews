@@ -239,6 +239,15 @@
       "status": "ci-failed",
       "title": "Refine basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/178"
+    },
+    "179": {
+      "changed_variants": [],
+      "head_sha": "4690534f8113623c63938ba9a8ab5571e46647a2",
+      "preview_path": "pr/179/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Hoare: experimental assn syntax [WIP]",
+      "url": "https://github.com/plclub/sf-in-lean/pull/179"
     }
   },
   "schema": 3
