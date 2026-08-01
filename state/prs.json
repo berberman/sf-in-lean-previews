@@ -290,8 +290,8 @@
       "changed_variants": [],
       "head_sha": "e4b97c81741520f114a3001f0636a14fb9cd59a0",
       "preview_path": "pr/183/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30692926131",
+      "status": "ci-failed",
       "title": "Meta: experiment with autograding [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/183"
     },
