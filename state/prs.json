@@ -1,5 +1,5 @@
 {
-  "main_sha": "614820201c14922eb6dbd0636bdd141a546f2a59",
+  "main_sha": "aceea23bb5d037dca20b6aee6cf1e0680807cd71",
   "prs": {
     "166": {
       "changed_variants": [
@@ -239,52 +239,6 @@
       "status": "published",
       "title": "StlcProp -- initial conversion",
       "url": "https://github.com/plclub/sf-in-lean/pull/181"
-    },
-    "182": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f1ba666da4577b1ecaed03c31c63de0804958a22",
-      "preview_path": "pr/182/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30650773678",
-      "status": "published",
-      "title": "Stlc: fix notation printer fallbacks",
-      "url": "https://github.com/plclub/sf-in-lean/pull/182"
     },
     "183": {
       "changed_variants": [],

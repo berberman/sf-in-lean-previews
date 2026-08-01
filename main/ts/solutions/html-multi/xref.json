@@ -2320,6 +2320,17 @@
         "Typing",
         "Typing Relation"]}},
      "address": "/Stlc/"}],
+   "Stlc.isPlainTmVarName":
+   [{"id": "Stlc___isPlainTmVarName",
+     "data":
+     {"/Stlc/#Stlc___isPlainTmVarName":
+      {"display": "isPlainTmVarName",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
    "Stlc.isPlainName":
    [{"id": "Stlc___isPlainName",
      "data":
