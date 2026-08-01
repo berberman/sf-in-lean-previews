@@ -84,13 +84,8 @@ theorem List.elem_nat_cons (a b : Nat) (xs : List Nat) :
 --       | b :: tl => bif a == b then true else elem_poly a tl`
 
 -- Lean is trying to use typeclasses to work out how `==` should behave on a
--- value of type `α`, but it can't find the instance of the typeclass `BEq`
--- that it needs, since not every type can be checked for equality. As Lists
--- noted when we first used it, `==` on `Nat` comes from the `BEq` typeclass,
--- an interface each type has to implement for itself.
-
--- We could sidestep typeclasses entirely and just have the caller supply the
--- equality test to use:
+-- value of type `α`. We'll see exactly why shortly; for now, here's one way
+-- to sidestep the problem: have the caller supply the equality test to use.
 
 sf_experiment
   def List.elem_poly_eq {α : Type} (eq : α → α → Bool) (a : α) (xs : List α) : Bool :=
@@ -101,17 +96,18 @@ sf_experiment
   #eval [0, 1].elem_poly_eq Nat.beq 0
 
 -- This works, but it's tedious: every caller has to know, and remember to
--- supply, the right equality function. Typeclasses automate this — instead of
--- the programmer passing the function explicitly, Lean searches for one and
--- provides it on its own. We specify something we want Lean to search for by
--- declaring a `class` with the needed function as a field; a `class` is like
--- an interface in Java or a trait in Rust. Particular *implementations* of
--- that interface, different ones for different types, are called *instances*.
--- Finally, we add the name of that class as a *typeclass constraint* on the
--- polymorphic variable that the function applies to. This directs lean to use
--- the interface inside the function, and to find and fill in the appropriate
--- instance at call-sites to that function. Here is what this looks like for
--- `List.elem_poly`:
+-- supply, the right equality function.
+
+-- Typeclasses automate this — instead of the programmer passing the function
+-- explicitly, Lean searches for one and provides it on its own. We specify
+-- something we want Lean to search for by declaring a `class` with the needed
+-- function as a field; a `class` is like an interface in Java or a trait in
+-- Rust. Particular *implementations* of that interface, different ones for
+-- different types, are called *instances*. Finally, we add the name of that
+-- class as a *typeclass constraint* on the polymorphic variable that the
+-- function applies to. This directs Lean to use the interface inside the
+-- function, and to find and fill in the appropriate instance at call-sites to
+-- that function. Here is what this looks like for `List.elem_poly`:
 
 def List.elem_poly {α : Type} [BEq α] (a : α) (xs : List α) : Bool :=
   match xs with
@@ -125,12 +121,21 @@ theorem List.elem_poly_cons [BEq α] (a b : α) (xs : List α) :
 
 #eval [0, 1].elem_poly 0
 
--- In sum: the `[BEq α]` argument is filled in automatically, based on
--- whatever `α` the caller uses, and it's what `List.elem_poly` uses
--- internally wherever it writes `==`. This is the **ad hoc polymorphism** we
--- mentioned above: `List.elem_poly` isn't generic over every type, only over
--- types that support `==`. We'll see exactly how `[BEq α]` gets filled in
--- below, starting with how to define a typeclass in the first place.
+-- As Lists noted when we first used it, `==` on `Nat` comes from the `BEq`
+-- typeclass, and it's what `List.elem_poly` uses internally wherever it
+-- writes `==`. The `[BEq α]` constraint is saying that an instance of `BEq`
+-- must be provided at call sites for the *particular* type `α` that is used.
+-- In the example `[0, 1].elem_poly 0`, this type is `Nat`, and the
+-- automatically chosen instance is `Nat.beq`.
+
+-- In the earlier version of `List.elem_poly`, `α` was fully generic, with no
+-- typeclass constraint — so the `==` in its body would have needed to work
+-- for *every* type `α`, and no single `BEq` instance can do that. That's why
+-- Lean's search failed.
+
+-- Now it is time to dig into the details of what we have seen so far. We'll
+-- see exactly how `[BEq α]` gets filled in below, starting with how to define
+-- a typeclass in the first place.
 
 -- ## Defining Your Own Typeclasses
 

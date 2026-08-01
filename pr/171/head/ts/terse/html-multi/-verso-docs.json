@@ -33,31 +33,263 @@
  "80":
  "<code class=\"docstring\">The `sorry` term is a temporary placeholder for a missing proof or value.\n\nThe syntax is intended for stubbing-out incomplete parts of a value or proof while still having a syntactically correct skeleton.\nLean will give a warning whenever a declaration uses `sorry`, so you aren't likely to miss it,\nbut you can double check if a declaration depends on `sorry` by looking for `sorryAx` in the output\nof the `#print axioms my_thm` command, the axiom used by the implementation of `sorry`.\n\n\"Go to definition\" on `sorry` in the Infoview will go to the source position where it was introduced, if such information is available.\n\nEach `sorry` is guaranteed to be unique, so for example the following fails:\n```lean\nexample : (sorry : Nat) = sorry := rfl -- fails\n```\n\nSee also the `sorry` tactic, which is short for `exact sorry`.\n</code>",
  "8": "<code>Slang.Aexp.minus (a1 a2 : Aexp) : Aexp</code>",
+ "795":
+ "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
+ "794":
+ "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
+ "793":
+ "<code>GetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)}\n  {valid : outParam (coll → idx → Prop)} [self : GetElem coll idx elem valid] (xs : coll) (i : idx) (h : valid xs i) :\n  elem</code><span class=\"sep\"></span><code class=\"docstring\">The syntax `arr[i]` gets the `i`'th element of the collection `arr`. If there\nare proof side conditions to the application, they will be automatically\ninferred by the `get_elem_tactic` tactic.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `xs[i]` in identifiers is `getElem`.\n\n * The recommended spelling of `xs[i]'h` in identifiers is `getElem`.</code>",
+ "792":
+ "<code>(\"y\" →ₚ &lt;{ Bool }&gt; ; \"x\" →ₚ &lt;{ Bool }&gt;)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
+ "791": "<code>Γ✝[x✝] = some T₁✝</code>",
+ "790":
+ "<code>&lt;{ y ↦ Bool ; ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
  "79": "<code>Slang.Bexp.optimize0plusB (b : Bexp) : Bexp</code>",
+ "789":
+ "<code>&lt;{ y ↦ Bool ; ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
+ "788": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "787":
+ "<code>&lt;{ y ↦ Bool ; ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
+ "786":
+ "<code>PartialMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
+ "785":
+ "<code>&lt;{ ~(\"x\" →ₚ &lt;{ Bool }&gt;) ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
+ "784": "<code>&lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "783": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
+ "782": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
+ "781":
+ "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(T₁) }&gt;</code>",
+ "780":
+ "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :\n  &lt;{ ~(Γ) ⊢\n    ~((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) ⦂\n    ~(T₁) }&gt;</code>",
  "78": "<code>Slang.Aexp.optimize0plus (a : Slang.Aexp) : Slang.Aexp</code>",
+ "779":
+ "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ T₂ ; Γ) ⊢ ~(t₁) ⦂ ~(T₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T₂ . t₁ ⦂ T₂ → T₁ }&gt;</code>",
+ "778": "<code>Stlc.HasType.unexpand : Unexpander</code>",
+ "777":
+ "<code>Lean.PrettyPrinter.UnexpandM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The unexpander monad, essentially `Syntax → Option α`. The `Syntax` is the `ref`,\nand it has the possibility of failure without an error message.\n</code>",
+ "776":
+ "<code>Stlc.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Bool ; Γ` rather than as a chain of map updates. </code>",
+ "775": "<code>HasType Γ t₃ T₁</code>",
+ "774": "<code>HasType Γ t₂ T₁</code>",
+ "773": "<code>HasType Γ t₁ &lt;{ Bool }&gt;</code>",
+ "772":
+ "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (T₁ : Ty) (h₁ : HasType Γ t₁ &lt;{ Bool }&gt;) (h₂ : HasType Γ t₂ T₁)\n  (h₃ : HasType Γ t₃ T₁) : HasType Γ &lt;{ if t₁ then t₂ else t₃ }&gt; T₁</code>",
+ "771":
+ "<code>Stlc.HasType.fls (Γ : Context) : HasType Γ &lt;{ false }&gt; &lt;{ Bool }&gt;</code>",
+ "770":
+ "<code>Stlc.HasType.tru (Γ : Context) : HasType Γ &lt;{ true }&gt; &lt;{ Bool }&gt;</code>",
  "77":
  "<code class=\"docstring\">`simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target\nare simplified multiple times until no simplification is applicable.\nOnly non-dependent propositional hypotheses are considered.\n</code>",
+ "769": "<code>HasType Γ t₂ T₂</code>",
+ "768": "<code>HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;</code>",
+ "767":
+ "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;) (h₂ : HasType Γ t₂ T₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; T₁</code>",
+ "766": "<code>HasType (x →ₚ T₂ ; Γ) t₁ T₁</code>",
+ "765":
+ "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
+ "764": "<code>Γ[x] = some T₁</code>",
+ "763": "<code>Context</code>",
+ "762":
+ "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :\n  HasType Γ\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))\n    T₁</code>",
+ "761": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
+ "760":
+ "<code>Stlc.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
  "76": "<code>e1✝.optimize0plus.eval = e1✝.eval</code>",
+ "759": "<code>Lean.TSyntax `stlcCtx</code>",
+ "758": "<code>TSyntax `stlcCtx</code>",
+ "757":
+ "<code>Stlc.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
+ "756": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
+ "755": "<code>Stlc.judgeBracket : Lean.ParserDescr</code>",
+ "754": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
+ "753": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
+ "752": "<code><span class=\"literal string\">\"∅\"</span> : String</code>",
+ "751": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
+ "750":
+ "<code>PartialMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
  "75":
  "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
+ "749": "<code>Stlc.Context : Type</code>",
+ "748":
+ "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : &lt;{ if true then t₁ else t₂ }&gt; ⟶ t₁</code>",
+ "747":
+ "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
+ "746":
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
+ "745": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
+ "744": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
+ "743":
+ "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
+ "742":
+ "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') : Step &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
+ "741":
+ "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : Step &lt;{ if false then t₁ else t₂ }&gt; t₂</code>",
+ "740":
+ "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : Step &lt;{ if true then t₁ else t₂ }&gt; t₁</code>",
  "74": "<code>e1✝ = Aexp.num 0 → False</code>",
+ "739": "<code>Step t₂ t₂'</code>",
+ "738": "<code>v₁.IsValue</code>",
+ "737":
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
+ "736": "<code>Step t₁ t₁'</code>",
+ "735":
+ "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
+ "734": "<code>v.IsValue</code>",
+ "733":
+ "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
+ "732": "<code>Stlc.Step : Tm → Tm → Prop</code>",
+ "731":
+ "<code>Stlc.subst_ite (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if t₁ then t₂ else t₃) }&gt; = &lt;{ if [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
+ "730":
+ "<code>Stlc.subst_fls (x : String) (s : Tm) : &lt;{ [~x := s] false }&gt; = &lt;{ false }&gt;</code>",
  "73": "<code>e2✝.optimize0plus.eval = e2✝.eval</code>",
+ "729":
+ "<code>Stlc.subst_tru (x : String) (s : Tm) : &lt;{ [~x := s] true }&gt; = &lt;{ true }&gt;</code>",
+ "728":
+ "<code>Stlc.subst_app (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ t₂) }&gt; = &lt;{ [~x := s] t₁ [~x := s] t₂ }&gt;</code>",
+ "727":
+ "<code>Stlc.subst_abs_ne (x y : String) (s t : Tm) (T : Ty) (h : x ≠ y) :\n  &lt;{ [~x := s] (λ ~y : T . t) }&gt; = &lt;{ λ ~y : T . [~x := s] t }&gt;</code>",
+ "726":
+ "<code>Stlc.subst_abs_eq (x : String) (s t : Tm) (T : Ty) : &lt;{ [~x := s] (λ ~x : T . t) }&gt; = &lt;{ λ ~x : T . t }&gt;</code>",
+ "725":
+ "<code>Ne.{u} {α : Sort u} (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a ≠ b`, or `Ne a b` is defined as `¬ (a = b)` or `a = b → False`,\nand asserts that `a` and `b` are not equal.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≠` in identifiers is `ne`.</code>",
+ "724": "<code>x ≠ y</code>",
+ "723":
+ "<code>Stlc.subst_var_ne (x y : String) (s : Tm) (h : x ≠ y) :\n  &lt;{\n      [~x := s]\n        ~(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }&gt; =\n    (((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))</code>",
+ "722":
+ "<code>Stlc.subst_var_eq (x : String) (s : Tm) :\n  &lt;{\n      [~x := s]\n        ~(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((⋯))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }&gt; =\n    s</code>",
+ "721":
+ "<code class=\"docstring\">Declares one or more typed variables, or modifies whether already-declared variables are\n  implicit.\n\nIntroduces variables that can be used in definitions within the same `namespace` or `section` block.\nWhen a definition mentions a variable, Lean will add it as an argument of the definition. This is\nuseful in particular when writing many definitions that have parameters in common (see below for an\nexample).\n\nVariable declarations have the same flexibility as regular function parameters. In particular they\ncan be [explicit, implicit][binder docs], or [instance implicit][tpil classes] (in which case they\ncan be anonymous). This can be changed, for instance one can turn explicit variable `x` into an\nimplicit one with `variable {x}`. Note that currently, you should avoid changing how variables are\nbound and declare new variables at the same time; see [issue 2789] for more on this topic.\n\nIn *theorem bodies* (i.e. proofs), variables are not included based on usage in order to ensure that\nchanges to the proof cannot change the statement of the overall theorem. Instead, variables are only\navailable to the proof if they have been mentioned in the theorem header or in an `include` command\nor are instance implicit and depend only on such variables.\n\nSee [*Variables and Sections* from Theorem Proving in Lean][tpil vars] for a more detailed\ndiscussion.\n\n[tpil vars]:\nhttps://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html#variables-and-sections\n(Variables and Sections on Theorem Proving in Lean) [tpil classes]:\nhttps://lean-lang.org/theorem_proving_in_lean4/type_classes.html (Type classes on Theorem Proving in\nLean) [binder docs]:\nhttps://leanprover-community.github.io/mathlib4_docs/Lean/Expr.html#Lean.BinderInfo (Documentation\nfor the BinderInfo type) [issue 2789]: https://github.com/leanprover/lean4/issues/2789 (Issue 2789\non github)\n\n## Examples\n\n```lean\nsection\n  variable\n    {α : Type u}      -- implicit\n    (a : α)           -- explicit\n    [instBEq : BEq α] -- instance implicit, named\n    [Hashable α]      -- instance implicit, anonymous\n\n  def isEqual (b : α) : Bool :=\n    a == b\n\n  #check isEqual\n  -- isEqual.{u} {α : Type u} (a : α) [instBEq : BEq α] (b : α) : Bool\n\n  variable\n    {a} -- `a` is implicit now\n\n  def eqComm {b : α} := a == b ↔ b == a\n\n  #check eqComm\n  -- eqComm.{u} {α : Type u} {a : α} [instBEq : BEq α] {b : α} : Prop\nend\n```\n\nThe following shows a typical use of `variable` to factor out definition arguments:\n\n```lean\nvariable (Src : Type)\n\nstructure Logger where\n  trace : List (Src × String)\n#check Logger\n-- Logger (Src : Type) : Type\n\nnamespace Logger\n  -- switch `Src : Type` to be implicit until the `end Logger`\n  variable {Src}\n\n  def empty : Logger Src where\n    trace := []\n  #check empty\n  -- Logger.empty {Src : Type} : Logger Src\n\n  variable (log : Logger Src)\n\n  def len :=\n    log.trace.length\n  #check len\n  -- Logger.len {Src : Type} (log : Logger Src) : Nat\n\n  variable (src : Src) [BEq Src]\n\n  -- at this point all of `log`, `src`, `Src` and the `BEq` instance can all become arguments\n\n  def filterSrc :=\n    log.trace.filterMap\n      fun (src', str') =&gt; if src' == src then some str' else none\n  #check filterSrc\n  -- Logger.filterSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : List String\n\n  def lenSrc :=\n    log.filterSrc src |&gt;.length\n  #check lenSrc\n  -- Logger.lenSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : Nat\nend Logger\n```\n\nThe following example demonstrates availability of variables in proofs:\n```lean\nvariable\n  {α : Type}    -- available in the proof as indirectly mentioned through `a`\n  [ToString α]  -- available in the proof as `α` is included\n  (a : α)       -- available in the proof as mentioned in the header\n  {β : Type}    -- not available in the proof\n  [ToString β]  -- not available in the proof\n\ntheorem ex : a = a := rfl\n```\nAfter elaboration of the proof, the following warning will be generated to highlight the unused\nhypothesis:\n```\nincluded section variable '[ToString α]' is not used in 'ex', consider excluding it\n```\nIn such cases, the offending variable declaration should be moved down or into a section so that\nonly theorems that do depend on it follow it until the end of the section.\n</code>",
+ "720": "<code>Stlc.delabSubst : Delab</code>",
  "72":
  "<code class=\"docstring\">The `fun_induction` tactic is a convenience wrapper around the `induction` tactic to use the\nfunctional induction principle.\n\nThe tactic invocation\n```\nfun_induction f x₁ ... xₙ y₁ ... yₘ\n```\nwhere `f` is a function defined by non-mutual structural or well-founded recursion, is equivalent to\n```\ninduction y₁, ... yₘ using f.induct_unfolding x₁ ... xₙ\n```\nwhere the arguments of `f` are used as arguments to `f.induct_unfolding` or targets of the\ninduction, as appropriate.\n\nThe form\n```\nfun_induction f\n```\n(with no arguments to `f`) searches the goal for a unique eligible application of `f`, and uses\nthese arguments. An application of `f` is eligible if it is saturated and the arguments that will\nbecome targets are free variables.\n\nThe forms `fun_induction f x y generalizing z₁ ... zₙ` and\n`fun_induction f x y with | case1 =&gt; tac₁ | case2 x' ih =&gt; tac₂` work like with `induction.`\n\nUnder `set_option tactic.fun_induction.unfolding true` (the default), `fun_induction` uses the\n`f.induct_unfolding` induction principle, which will try to automatically unfold the call to `f` in\nthe goal. With `set_option tactic.fun_induction.unfolding false`, it uses `f.induct` instead.\n</code>",
+ "719": "<code>Stlc.subst (x : String) (s t : Tm) : Tm</code>",
+ "718":
+ "<code>Stlc.varStr (x : Lean.TSyntax `stlcVar) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
+ "717": "<code>Lean.TSyntax `stlcTm</code>",
+ "716": "<code>Lean.TSyntax `stlcVar</code>",
+ "715": "<code>Stlc.notB_value : notB.IsValue</code>",
+ "714": "<code>Stlc.idBB_value : idBB.IsValue</code>",
+ "713": "<code>Stlc.idB_value : idB.IsValue</code>",
+ "712": "<code>Stlc.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
+ "711": "<code>Stlc.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
+ "710":
+ "<code>Stlc.Tm.IsValue.abs (x : String) (T₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : T₂ . t₁ }&gt;.IsValue</code>",
  "71":
  "<code>Slang.optimize0plus_sound' (a : Aexp) : a.optimize0plus.eval = a.eval</code>",
+ "709": "<code>Stlc.Tm.IsValue : Tm → Prop</code>",
+ "708":
+ "<code class=\"docstring\">`#reduce &lt;expression&gt;` reduces the expression `&lt;expression&gt;` to its normal form. This\ninvolves applying reduction rules until no further reduction is possible.\n\nBy default, proofs and types within the expression are not reduced. Use modifiers\n`(proofs := true)`  and `(types := true)` to reduce them.\nRecall that propositions are types in Lean.\n\n**Warning:** This can be a computationally expensive operation,\nespecially for complex expressions.\n\nConsider using `#eval &lt;expression&gt;` for simple evaluation/execution\nof expressions.\n</code>",
+ "707": "<code>Stlc.notB : Tm</code>",
+ "706": "<code>Stlc.k : Tm</code>",
+ "705": "<code>Stlc.idBBBB : Tm</code>",
+ "704": "<code>Stlc.idBB : Tm</code>",
+ "703": "<code>Stlc.idB : Tm</code>",
+ "702": "<code>Stlc.delabTm : Delab</code>",
+ "701": "<code>Stlc.delabTy : Delab</code>",
+ "700":
+ "<code>Lean.Expr.getAppNumArgs (e : Expr) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Counts the number `n` of arguments for an expression `f a₁ .. aₙ`. </code>",
  "70":
  "<code>HMul.hMul.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMul α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a * b` computes the product of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `*` in identifiers is `mul`.</code>",
  "7": "<code>Aexp</code>",
+ "699":
+ "<code>Lean.Expr.constName? : Expr → Option Name</code><span class=\"sep\"></span><code class=\"docstring\">If the expression is a constant, return that name.\nOtherwise return `Option.none`.\n</code>",
+ "698":
+ "<code>Lean.Expr.getAppFn : Expr → Expr</code><span class=\"sep\"></span><code class=\"docstring\">If the given expression is a sequence of\nfunction applications `f a₁ .. aₙ`, return `f`.\nOtherwise return the input expression.\n</code>",
+ "697": "<code>Expr</code>",
+ "696":
+ "<code>Stlc.delabTmInner : DelabM (TSyntax `stlcTm)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTm` concrete syntax from a `Tm` value. </code>",
+ "695":
+ "<code>Lean.Name.mkSimple (s : String) : Name</code><span class=\"sep\"></span><code class=\"docstring\">Converts a `String` to a `Name` without performing any parsing. `mkSimple s` is short for `.str .anonymous s`.\n\nThis means that `mkSimple \"a.b\"` is the name `«a.b»`, not `a.b`.\n</code>",
+ "694":
+ "<code>Lean.TSyntax.getString (s : StrLit) : String</code><span class=\"sep\"></span><code class=\"docstring\">Decodes a string literal, removing quotation marks and unescaping escaped characters.\n\nReturns `\"\"` if the syntax is malformed.\n</code>",
+ "693": "<code>TSyntax `str</code>",
+ "692":
+ "<code>Stlc.delabVarInner : DelabM (TSyntax `stlcVar)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcVar` concrete syntax from the string in a binding position. </code>",
+ "691": "<code><span class=\"literal char\">'_'</span> : Char</code>",
+ "690":
+ "<code>Char.isAlphanum (c : Char) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the character is an ASCII letter or digit.\n\nThe ASCII letters are the following: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`.\nThe ASCII digits are the following: `0123456789`.\n</code>",
  "69":
  "<code>HSub.hSub.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HSub α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a - b` computes the difference of `a` and `b`.\nThe meaning of this notation is type-dependent.\n* For natural numbers, this operator saturates at 0: `a - b = 0` when `a ≤ b`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `-` in identifiers is `sub` (when used as a binary operator).</code>",
+ "689": "<code>Char</code>",
+ "688":
+ "<code>String.all {ρ : Type} (s : String) (pat : ρ) [String.Slice.Pattern.ForwardPattern pat] : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Checks whether a string only consists of matches of the pattern `pat`.\n\nShort-circuits at the first pattern mis-match.\n\nThis function is generic over all currently supported patterns.\n\nExamples:\n\n* `\"brown\".all Char.isLower = true`\n\n* `\"brown and orange\".all Char.isLower = false`\n\n* `\"aaaaaa\".all 'a' = true`\n\n* `\"aaaaaa\".all \"aa\" = true`\n\n* `\"aaaaaaa\".all \"aa\" = false`\n</code>",
+ "687":
+ "<code>Char.isDigit (c : Char) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the character is an ASCII digit.\n\nThe ASCII digits are the following: `0123456789`.\n</code>",
+ "686":
+ "<code>String.front (s : String) : Char</code><span class=\"sep\"></span><code class=\"docstring\">Returns the first character in `s`. If `s = \"\"`, returns `(default : Char)`.\n\nExamples:\n\n* `\"abc\".front = 'a'`\n\n* `\"\".front = (default : Char)`\n</code>",
+ "685":
+ "<code>String.isEmpty (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Checks whether a string is empty.\n\nEmpty strings are equal to `\"\"` and have length and end position `0`.\n\nExamples:\n* `\"\".isEmpty = true`\n* `\"empty\".isEmpty = false`\n* `\" \".isEmpty = false`\n</code>",
+ "684":
+ "<code>Stlc.isPlainName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare identifier in the object syntax? </code>",
+ "683":
+ "<code>Stlc.delabTyInner : DelabM (TSyntax `stlcTy)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTy` concrete syntax from a `Ty` value. </code>",
+ "682":
+ "<code>Stlc.stlcTm.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
+ "681":
+ "<code>Stlc.stlcTm.parenthesizer : CategoryParenthesizer</code><span class=\"sep\"></span><code class=\"docstring\">Re-inserts parentheses in `stlcTm` output according to the grammar's precedences. </code>",
+ "680": "<code>Lean.Parser.Category.stlcTm : Parser.Category</code>",
  "68":
  "<code>(b1.optimize0plus.mult b2.optimize0plus).eval = (b1.mult b2).eval</code>",
+ "679":
+ "<code>Stlc.stlcTy.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
+ "678":
+ "<code>Stlc.stlcTy.parenthesizer : CategoryParenthesizer</code><span class=\"sep\"></span><code class=\"docstring\">Re-inserts parentheses in `stlcTy` output according to the grammar's precedences. </code>",
+ "677": "<code>Lean.Parser.Category.stlcTy : Parser.Category</code>",
+ "676": "<code>TSyntax `stlcTy</code>",
+ "675":
+ "<code><span class=\"literal string\">\"`Bool` is a type, not a term\"</span> : String</code>",
+ "674": "<code>TSyntax `stlcTm</code>",
+ "673": "<code>Stlc.tmBracket : Lean.ParserDescr</code>",
+ "672": "<code><span class=\"literal string\">\"] \"</span> : String</code>",
+ "671": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
+ "670": "<code><span class=\"literal string\">\"[\"</span> : String</code>",
  "67": "<code>(b1.mult b2).optimize0plus.eval = (b1.mult b2).eval</code>",
+ "669": "<code><span class=\"literal string\">\" . \"</span> : String</code>",
+ "668": "<code><span class=\"literal string\">\" : \"</span> : String</code>",
+ "667": "<code><span class=\"literal string\">\"λ \"</span> : String</code>",
+ "666":
+ "<code>Lean.Parser.ppSpace : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser that advises the pretty printer to emit a space/soft line break. </code>",
+ "665": "<code>Lean.Parser.Category.stlcTm : Lean.Parser.Category</code>",
+ "664":
+ "<code>Lean.Macro.throwUnsupported {α : Type} : MacroM α</code><span class=\"sep\"></span><code class=\"docstring\">Throw an `unsupportedSyntax` exception. </code>",
+ "663":
+ "<code>Lean.Quote.quote {α : Type} {k : optParam SyntaxNodeKind `term} [self : Quote α k] : α → TSyntax k</code><span class=\"sep\"></span><code class=\"docstring\">Returns syntax for the given value.\n</code>",
+ "662":
+ "<code>Lean.Syntax.Term : Type</code><span class=\"sep\"></span><code class=\"docstring\">Syntax that represents a Lean term.\n</code>",
+ "661":
+ "<code>Lean.MacroM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The `MacroM` monad is the main monad for macro expansion. It has the\ninformation needed to handle hygienic name generation, and is the monad that\n`macro` definitions live in.\n\nNotably, this is a (relatively) pure monad: there is no `IO` and no access to\nthe `Environment`. That means that things like declaration lookup are\nimpossible here, as well as `IO.Ref` or other side-effecting operations.\nFor more capabilities, macros can instead be written as `elab` using `adaptExpander`.\n</code>",
+ "660": "<code>TSyntax `stlcVar</code>",
  "66":
  "<code>(b1.optimize0plus.minus b2.optimize0plus).eval = (b1.minus b2).eval</code>",
+ "659":
+ "<code>Stlc.varStr (x : TSyntax `stlcVar) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
+ "658": "<code>Lean.Parser.Category.stlcVar : Lean.Parser.Category</code>",
+ "657":
+ "<code>Stlc.Tm.abs (x : String) (T : Stlc.Ty) (t : Stlc.Tm) : Stlc.Tm</code>",
+ "656": "<code>Lean.TSyntax `stlcTy</code>",
+ "655": "<code>Stlc.tyBracket : Lean.ParserDescr</code>",
+ "654":
+ "<code><span class=\"literal string\">\" -&gt; \"</span> : String</code>",
+ "653": "<code><span class=\"literal string\">\" → \"</span> : String</code>",
+ "652": "<code>Lean.Parser.Category.stlcTy : Lean.Parser.Category</code>",
+ "651": "<code>Stlc.Tm.ite (c t e : Tm) : Tm</code>",
+ "650": "<code>Stlc.Tm.fls : Tm</code>",
  "65": "<code>(b1.minus b2).optimize0plus.eval = (b1.minus b2).eval</code>",
+ "649": "<code>Stlc.Tm.tru : Tm</code>",
+ "648": "<code>Stlc.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
+ "647": "<code>Stlc.Tm.app (t₁ t₂ : Tm) : Tm</code>",
+ "646":
+ "<code>String : Type</code><span class=\"sep\"></span><code class=\"docstring\">A string is a sequence of Unicode scalar values.\n\nAt runtime, strings are represented by [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)\nof bytes using the UTF-8 encoding. Both the size in bytes (`String.utf8ByteSize`) and in characters\n(`String.length`) are cached and take constant time. Many operations on strings perform in-place\nmodifications when the reference to the string is unique.\n</code>",
+ "645": "<code>String</code>",
+ "644": "<code>Stlc.Tm.var (x : String) : Tm</code>",
+ "643": "<code>Stlc.Tm : Type</code>",
+ "642": "<code>Stlc.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
+ "641": "<code>Stlc.Ty.bool : Ty</code>",
+ "640": "<code>Stlc.Ty : Type</code>",
  "64": "<code>(b1.plus b2).optimize0plus.eval = b1.eval + b2.eval</code>",
+ "639":
+ "<code>ArrayOfSize (n : Nat) : Type</code><span class=\"sep\"></span><code class=\"docstring\">An array that contains precisely `n` numbers.  Used only as an example of a\ndependent type in the opening discussion of the lambda cube. </code>",
  "638":
  "<code>TM.subject_expansion :\n  (∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;) ∨\n    ¬∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;</code>",
  "637": "<code>∀ (T : Ty), &lt;{ ⊢ b ⦂ T }&gt; → ¬c.IsStuck</code>",

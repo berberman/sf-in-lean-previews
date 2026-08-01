@@ -132,9 +132,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "75e5f9b5908ba123de75fec7969323ce57d240ea",
+      "head_sha": "eecc9040539b82e5c7da61947fa04b147fe62f4f",
       "preview_path": "pr/171/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30553916597",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30698060515",
       "status": "published",
       "title": "First draft of Hoare.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/171"
@@ -334,9 +334,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "753bd5e928825881b29e26c38d1540ca8e73d2fc",
+      "head_sha": "2f779757ba582bd8eb0601ff3ccbbca4e566b347",
       "preview_path": "pr/184/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30697364878",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30698280090",
       "status": "published",
       "title": "Rework presentation at the start of Typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/184"
