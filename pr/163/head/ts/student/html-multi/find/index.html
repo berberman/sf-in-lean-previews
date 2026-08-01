@@ -72,6 +72,13 @@
   white-space: pre;
 }
 </style><style>
+.diagram svg text[font-family="text"] {
+  font-family: var(--verso-text-font-family);
+}
+.diagram svg text[font-family="monospace"] {
+  font-family: var(--verso-code-font-family);
+}
+</style><style>
 .exercise {
   margin: 1.2em 0;
   padding: 0.6em 1em;
@@ -99,6 +106,19 @@
   margin-left: 0.5em;
   font-weight: 700;
   color: #a00;
+}
+</style><style>
+a.technical-term {
+  color: inherit;
+  text-decoration: currentcolor underline dotted;
+}
+a.technical-term:hover {
+  text-decoration: currentcolor underline solid;
+}
+/* Highlight the clicked term */
+.def-technical-term:target {
+  background-color: var(--verso-selected-color);
+  outline: auto;
 }
 </style><style>
 div.sf-quiz {
@@ -1200,6 +1220,223 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "2"}]},
      "address": "/Types/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Typing-Relation":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Typing-Relation",
+     "data":
+     {"title": "Typing Relation",
+      "shortTitle": null,
+      "sectionNum": "5.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Typing Relation", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Examples":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Examples",
+     "data":
+     {"title": "Examples",
+      "shortTitle": null,
+      "sectionNum": "5.4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Examples", "shortTitle": null, "number": "3"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Contexts":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Contexts",
+     "data":
+     {"title": "Contexts",
+      "shortTitle": null,
+      "sectionNum": "5.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"},
+       {"title": "Contexts", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing":
+   [{"id": "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing",
+     "data":
+     {"title": "Typing",
+      "shortTitle": null,
+      "sectionNum": "5.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Typing", "shortTitle": null, "number": "4"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Types":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Types",
+     "data":
+     {"title": "Types",
+      "shortTitle": null,
+      "sectionNum": "5.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Syntax", "shortTitle": null, "number": "2"},
+       {"title": "Types", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Terms":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax--Terms",
+     "data":
+     {"title": "Terms",
+      "shortTitle": null,
+      "sectionNum": "5.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Syntax", "shortTitle": null, "number": "2"},
+       {"title": "Terms", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax":
+   [{"id": "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax",
+     "data":
+     {"title": "Syntax",
+      "shortTitle": null,
+      "sectionNum": "5.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Syntax", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Overview":
+   [{"id": "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Overview", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Values":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Values",
+     "data":
+     {"title": "Values",
+      "shortTitle": null,
+      "sectionNum": "5.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Values", "shortTitle": null, "number": "1"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Substitution":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Substitution",
+     "data":
+     {"title": "Substitution",
+      "shortTitle": null,
+      "sectionNum": "5.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Substitution", "shortTitle": null, "number": "3"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--STLC-Programs":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--STLC-Programs",
+     "data":
+     {"title": "STLC Programs",
+      "shortTitle": null,
+      "sectionNum": "5.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "STLC Programs", "shortTitle": null, "number": "2"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Reduction":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Reduction",
+     "data":
+     {"title": "Reduction",
+      "shortTitle": null,
+      "sectionNum": "5.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Reduction", "shortTitle": null, "number": "4"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Examples":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics--Examples",
+     "data":
+     {"title": "Examples",
+      "shortTitle": null,
+      "sectionNum": "5.3.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"},
+       {"title": "Examples", "shortTitle": null, "number": "5"}]},
+     "address": "/Stlc/"}],
+   "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics":
+   [{"id":
+     "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Operational-Semantics",
+     "data":
+     {"title": "Operational Semantics",
+      "shortTitle": null,
+      "sectionNum": "5.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Operational Semantics", "shortTitle": null, "number": "3"}]},
+     "address": "/Stlc/"}],
    "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Nondeterministic-Evaluation":
    [{"id":
      "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Nondeterministic-Evaluation",
@@ -1592,6 +1829,19 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null}]},
      "address": "/"}],
+   "Stlc":
+   [{"id": "Stlc",
+     "data":
+     {"title": "Stlc: The Simply Typed Lambda-Calculus",
+      "shortTitle": null,
+      "sectionNum": "5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Stlc: The Simply Typed Lambda-Calculus",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Stlc/"}],
    "Smallstep":
    [{"id": "Smallstep",
      "data":
@@ -2650,6 +2900,710 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Typed Arithmetic Expressions",
         "Syntax"]}},
      "address": "/Types/"}],
+   "Stlc.varStr":
+   [{"id": "Stlc___varStr",
+     "data":
+     {"/Stlc/#Stlc___varStr":
+      {"display": "varStr",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.unexpandCtx":
+   [{"id": "Stlc___unexpandCtx",
+     "data":
+     {"/Stlc/#Stlc___unexpandCtx":
+      {"display": "unexpandCtx",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.tyBracket":
+   [{"id": "Stlc___tyBracket",
+     "data":
+     {"/Stlc/#Stlc___tyBracket":
+      {"display": "tyBracket",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.tmBracket":
+   [{"id": "Stlc___tmBracket",
+     "data":
+     {"/Stlc/#Stlc___tmBracket":
+      {"display": "tmBracket",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.subst_var_ne":
+   [{"id": "Stlc___subst_var_ne",
+     "data":
+     {"/Stlc/#Stlc___subst_var_ne":
+      {"display": "subst_var_ne",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.subst_var_eq":
+   [{"id": "Stlc___subst_var_eq",
+     "data":
+     {"/Stlc/#Stlc___subst_var_eq":
+      {"display": "subst_var_eq",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.subst_tru":
+   [{"id": "Stlc___subst_tru",
+     "data":
+     {"/Stlc/#Stlc___subst_tru":
+      {"display": "subst_tru",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.subst_ite":
+   [{"id": "Stlc___subst_ite",
+     "data":
+     {"/Stlc/#Stlc___subst_ite":
+      {"display": "subst_ite",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.subst_fls":
+   [{"id": "Stlc___subst_fls",
+     "data":
+     {"/Stlc/#Stlc___subst_fls":
+      {"display": "subst_fls",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.subst_app":
+   [{"id": "Stlc___subst_app",
+     "data":
+     {"/Stlc/#Stlc___subst_app":
+      {"display": "subst_app",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.subst_abs_ne":
+   [{"id": "Stlc___subst_abs_ne",
+     "data":
+     {"/Stlc/#Stlc___subst_abs_ne":
+      {"display": "subst_abs_ne",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.subst_abs_eq":
+   [{"id": "Stlc___subst_abs_eq",
+     "data":
+     {"/Stlc/#Stlc___subst_abs_eq":
+      {"display": "subst_abs_eq",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.subst":
+   [{"id": "Stlc___subst",
+     "data":
+     {"/Stlc/#Stlc___subst":
+      {"display": "subst",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.stlcTy.parenthesizer.wrapParens":
+   [{"id": "Stlc___stlcTy___parenthesizer___wrapParens",
+     "data":
+     {"/Stlc/#Stlc___stlcTy___parenthesizer___wrapParens":
+      {"display": "wrapParens",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.stlcTy.parenthesizer":
+   [{"id": "Stlc___stlcTy___parenthesizer",
+     "data":
+     {"/Stlc/#Stlc___stlcTy___parenthesizer":
+      {"display": "stlcTy.parenthesizer",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.stlcTm.parenthesizer.wrapParens":
+   [{"id": "Stlc___stlcTm___parenthesizer___wrapParens",
+     "data":
+     {"/Stlc/#Stlc___stlcTm___parenthesizer___wrapParens":
+      {"display": "wrapParens",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.stlcTm.parenthesizer":
+   [{"id": "Stlc___stlcTm___parenthesizer",
+     "data":
+     {"/Stlc/#Stlc___stlcTm___parenthesizer":
+      {"display": "stlcTm.parenthesizer",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.notB_value":
+   [{"id": "Stlc___notB_value",
+     "data":
+     {"/Stlc/#Stlc___notB_value":
+      {"display": "notB_value",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.notB":
+   [{"id": "Stlc___notB",
+     "data":
+     {"/Stlc/#Stlc___notB":
+      {"display": "notB",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.k":
+   [{"id": "Stlc___k",
+     "data":
+     {"/Stlc/#Stlc___k":
+      {"display": "k",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.judgeBracket":
+   [{"id": "Stlc___judgeBracket",
+     "data":
+     {"/Stlc/#Stlc___judgeBracket":
+      {"display": "judgeBracket",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.isPlainName":
+   [{"id": "Stlc___isPlainName",
+     "data":
+     {"/Stlc/#Stlc___isPlainName":
+      {"display": "isPlainName",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.idB_value":
+   [{"id": "Stlc___idB_value",
+     "data":
+     {"/Stlc/#Stlc___idB_value":
+      {"display": "idB_value",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.idBB_value":
+   [{"id": "Stlc___idBB_value",
+     "data":
+     {"/Stlc/#Stlc___idBB_value":
+      {"display": "idBB_value",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.idBBBB":
+   [{"id": "Stlc___idBBBB",
+     "data":
+     {"/Stlc/#Stlc___idBBBB":
+      {"display": "idBBBB",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.idBB":
+   [{"id": "Stlc___idBB",
+     "data":
+     {"/Stlc/#Stlc___idBB":
+      {"display": "idBB",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.idB":
+   [{"id": "Stlc___idB",
+     "data":
+     {"/Stlc/#Stlc___idB":
+      {"display": "idB",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.delabVarInner":
+   [{"id": "Stlc___delabVarInner",
+     "data":
+     {"/Stlc/#Stlc___delabVarInner":
+      {"display": "delabVarInner",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.delabTyInner":
+   [{"id": "Stlc___delabTyInner",
+     "data":
+     {"/Stlc/#Stlc___delabTyInner":
+      {"display": "delabTyInner",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.delabTy":
+   [{"id": "Stlc___delabTy",
+     "data":
+     {"/Stlc/#Stlc___delabTy":
+      {"display": "delabTy",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.delabTmInner":
+   [{"id": "Stlc___delabTmInner",
+     "data":
+     {"/Stlc/#Stlc___delabTmInner":
+      {"display": "delabTmInner",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.delabTm":
+   [{"id": "Stlc___delabTm",
+     "data":
+     {"/Stlc/#Stlc___delabTm":
+      {"display": "delabTm",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.delabSubst":
+   [{"id": "Stlc___delabSubst",
+     "data":
+     {"/Stlc/#Stlc___delabSubst":
+      {"display": "delabSubst",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.ctxTerm":
+   [{"id": "Stlc___ctxTerm",
+     "data":
+     {"/Stlc/#Stlc___ctxTerm":
+      {"display": "ctxTerm",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Ty.bool":
+   [{"id": "Stlc___Ty___bool",
+     "data":
+     {"/Stlc/#Stlc___Ty___bool":
+      {"display": "bool",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Types"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Ty.arrow":
+   [{"id": "Stlc___Ty___arrow",
+     "data":
+     {"/Stlc/#Stlc___Ty___arrow":
+      {"display": "arrow",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Types"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Ty":
+   [{"id": "Stlc___Ty",
+     "data":
+     {"/Stlc/#Stlc___Ty":
+      {"display": "Ty",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Types"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.var":
+   [{"id": "Stlc___Tm___var",
+     "data":
+     {"/Stlc/#Stlc___Tm___var":
+      {"display": "var",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.tru":
+   [{"id": "Stlc___Tm___tru",
+     "data":
+     {"/Stlc/#Stlc___Tm___tru":
+      {"display": "tru",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.ite":
+   [{"id": "Stlc___Tm___ite",
+     "data":
+     {"/Stlc/#Stlc___Tm___ite":
+      {"display": "ite",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.fls":
+   [{"id": "Stlc___Tm___fls",
+     "data":
+     {"/Stlc/#Stlc___Tm___fls":
+      {"display": "fls",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.app":
+   [{"id": "Stlc___Tm___app",
+     "data":
+     {"/Stlc/#Stlc___Tm___app":
+      {"display": "app",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.abs":
+   [{"id": "Stlc___Tm___abs",
+     "data":
+     {"/Stlc/#Stlc___Tm___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.IsValue.tru":
+   [{"id": "Stlc___Tm___IsValue___tru",
+     "data":
+     {"/Stlc/#Stlc___Tm___IsValue___tru":
+      {"display": "tru",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.IsValue.fls":
+   [{"id": "Stlc___Tm___IsValue___fls",
+     "data":
+     {"/Stlc/#Stlc___Tm___IsValue___fls":
+      {"display": "fls",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.IsValue.abs":
+   [{"id": "Stlc___Tm___IsValue___abs",
+     "data":
+     {"/Stlc/#Stlc___Tm___IsValue___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm.IsValue":
+   [{"id": "Stlc___Tm___IsValue",
+     "data":
+     {"/Stlc/#Stlc___Tm___IsValue":
+      {"display": "Tm.IsValue",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Values"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Tm":
+   [{"id": "Stlc___Tm",
+     "data":
+     {"/Stlc/#Stlc___Tm":
+      {"display": "Tm",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Step.ifTrue":
+   [{"id": "Stlc___Step___ifTrue",
+     "data":
+     {"/Stlc/#Stlc___Step___ifTrue":
+      {"display": "ifTrue",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Step.ifStep":
+   [{"id": "Stlc___Step___ifStep",
+     "data":
+     {"/Stlc/#Stlc___Step___ifStep":
+      {"display": "ifStep",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Step.ifFalse":
+   [{"id": "Stlc___Step___ifFalse",
+     "data":
+     {"/Stlc/#Stlc___Step___ifFalse":
+      {"display": "ifFalse",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Step.appAbs":
+   [{"id": "Stlc___Step___appAbs",
+     "data":
+     {"/Stlc/#Stlc___Step___appAbs":
+      {"display": "appAbs",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Step.app2":
+   [{"id": "Stlc___Step___app2",
+     "data":
+     {"/Stlc/#Stlc___Step___app2":
+      {"display": "app2",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Step.app1":
+   [{"id": "Stlc___Step___app1",
+     "data":
+     {"/Stlc/#Stlc___Step___app1":
+      {"display": "app1",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Step":
+   [{"id": "Stlc___Step",
+     "data":
+     {"/Stlc/#Stlc___Step":
+      {"display": "Step",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Reduction"]}},
+     "address": "/Stlc/"}],
+   "Stlc.HasType.var":
+   [{"id": "Stlc___HasType___var",
+     "data":
+     {"/Stlc/#Stlc___HasType___var":
+      {"display": "var",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.HasType.unexpand":
+   [{"id": "Stlc___HasType___unexpand",
+     "data":
+     {"/Stlc/#Stlc___HasType___unexpand":
+      {"display": "HasType.unexpand",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.HasType.tru":
+   [{"id": "Stlc___HasType___tru",
+     "data":
+     {"/Stlc/#Stlc___HasType___tru":
+      {"display": "tru",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.HasType.ite":
+   [{"id": "Stlc___HasType___ite",
+     "data":
+     {"/Stlc/#Stlc___HasType___ite":
+      {"display": "ite",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.HasType.fls":
+   [{"id": "Stlc___HasType___fls",
+     "data":
+     {"/Stlc/#Stlc___HasType___fls":
+      {"display": "fls",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.HasType.app":
+   [{"id": "Stlc___HasType___app",
+     "data":
+     {"/Stlc/#Stlc___HasType___app":
+      {"display": "app",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.HasType.abs":
+   [{"id": "Stlc___HasType___abs",
+     "data":
+     {"/Stlc/#Stlc___HasType___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.HasType":
+   [{"id": "Stlc___HasType",
+     "data":
+     {"/Stlc/#Stlc___HasType":
+      {"display": "HasType",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Context":
+   [{"id": "Stlc___Context",
+     "data":
+     {"/Stlc/#Stlc___Context":
+      {"display": "Context",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Contexts"]}},
+     "address": "/Stlc/"}],
    "Step.plusRight":
    [{"id": "Step___plusRight",
      "data":
@@ -4172,6 +5126,50 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Syntax",
         "Notation"]}},
      "address": "/Types/"}],
+   "Lean.Parser.Category.stlcVar":
+   [{"id": "Lean___Parser___Category___stlcVar",
+     "data":
+     {"/Stlc/#Lean___Parser___Category___stlcVar":
+      {"display": "stlcVar",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Lean.Parser.Category.stlcTy":
+   [{"id": "Lean___Parser___Category___stlcTy",
+     "data":
+     {"/Stlc/#Lean___Parser___Category___stlcTy":
+      {"display": "stlcTy",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Lean.Parser.Category.stlcTm":
+   [{"id": "Lean___Parser___Category___stlcTm",
+     "data":
+     {"/Stlc/#Lean___Parser___Category___stlcTm":
+      {"display": "stlcTm",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Lean.Parser.Category.stlcCtx":
+   [{"id": "Lean___Parser___Category___stlcCtx",
+     "data":
+     {"/Stlc/#Lean___Parser___Category___stlcCtx":
+      {"display": "stlcCtx",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Typing",
+        "Typing Relation"]}},
+     "address": "/Stlc/"}],
    "IsValue.const":
    [{"id": "IsValue___const",
      "data":
@@ -4259,7 +5257,63 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
  "Verso.Genre.Manual.doc.tech":
  {"title": "Terminology",
   "description": "Definitions of technical terms",
-  "contents": {}},
+  "contents":
+  {"variable binding":
+   [{"id": "--tech-term-variable-binding",
+     "data": {"term": "variable binding"},
+     "address": "/Stlc/"}],
+   "typing judgment":
+   [{"id": "--tech-term-typing-judgment",
+     "data": {"term": "typing judgment"},
+     "address": "/Stlc/"}],
+   "typing context":
+   [{"id": "--tech-term-typing-context",
+     "data": {"term": "typing context"},
+     "address": "/Stlc/"}],
+   "substitution":
+   [{"id": "--tech-term-substitution",
+     "data": {"term": "substitution"},
+     "address": "/Stlc/"}],
+   "polymorphic type":
+   [{"id": "--tech-term-polymorphic-types",
+     "data": {"term": "polymorphic types"},
+     "address": "/Stlc/"}],
+   "open term":
+   [{"id": "--tech-term-open-term",
+     "data": {"term": "open term"},
+     "address": "/Stlc/"}],
+   "lambda cube":
+   [{"id": "--tech-term-lambda-cube",
+     "data": {"term": "lambda cube"},
+     "address": "/Stlc/"}],
+   "higher order":
+   [{"id": "--tech-term-higher-order",
+     "data": {"term": "higher-order"},
+     "address": "/Stlc/"}],
+   "free variable":
+   [{"id": "--tech-term-free-variables",
+     "data": {"term": "free variables"},
+     "address": "/Stlc/"}],
+   "closed":
+   [{"id": "--tech-term-closed",
+     "data": {"term": "closed"},
+     "address": "/Stlc/"}],
+   "call by value":
+   [{"id": "--tech-term-call-by-value",
+     "data": {"term": "call by value"},
+     "address": "/Stlc/"}],
+   "calculus of construction":
+   [{"id": "--tech-term-Calculus-of-Constructions",
+     "data": {"term": "Calculus of Constructions"},
+     "address": "/Stlc/"}],
+   "beta reduction":
+   [{"id": "--tech-term-beta-reduction",
+     "data": {"term": "beta-reduction"},
+     "address": "/Stlc/"}],
+   "barendregt cube":
+   [{"id": "--tech-term-Barendregt-Cube",
+     "data": {"term": "Barendregt Cube"},
+     "address": "/Stlc/"}]}},
  "Verso.Genre.Manual.doc.tactic.conv":
  {"title": "Conversion Tactics",
   "description": "Tactics for performing targeted rewriting of subterms",
@@ -4676,7 +5730,7 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Intro/#Type-Systems--Introduction">Introduction</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Smallstep/#Smallstep">Smallstep: Small-step Operational Semantics</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Types/#Types">Types: Type Systems</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Intro/#Type-Systems--Introduction">Introduction</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Smallstep/#Smallstep">Smallstep: Small-step Operational Semantics</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Types/#Types">Types: Type Systems</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Stlc/#Stlc">Stlc: The Simply Typed Lambda-Calculus</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>

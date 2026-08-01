@@ -40,9 +40,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "d4860bc3016b0dcc5d11cd0aefc014a9bb78406a",
+      "head_sha": "1ae48d7963da374c0dd0d37729e0c2c8d9edceeb",
       "preview_path": "pr/163/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30567986177",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30674867811",
       "status": "published",
       "title": "Decompose SFLMeta.Save and Improve lean block performance",
       "url": "https://github.com/plclub/sf-in-lean/pull/163"
