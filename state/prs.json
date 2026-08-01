@@ -294,6 +294,15 @@
       "status": "ci-failed",
       "title": "Meta: experiment with autograding [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/183"
+    },
+    "184": {
+      "changed_variants": [],
+      "head_sha": "3d1e301ee08378d6780b42f66e80642b6d321fbb",
+      "preview_path": "pr/184/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30677038667",
+      "status": "ci-failed",
+      "title": "Rework presentation at the start of Typeclasses",
+      "url": "https://github.com/plclub/sf-in-lean/pull/184"
     }
   },
   "schema": 3
