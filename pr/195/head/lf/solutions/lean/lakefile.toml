@@ -1,0 +1,6 @@
+name = "lf-extracted"
+version = "0.1.0"
+defaultTargets = ["LF"]
+
+[[lean_lib]]
+name = "LF"

@@ -96,11 +96,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/171"
     },
     "178": {
-      "base_sha": "f8a13f91dabb31c68d6f7cf9a5f34d001cfe8170",
+      "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
       "changed_variants": [],
-      "head_sha": "e8185949e321a6631d9459ffc0e72fcd343346e3",
+      "head_sha": "2cc766630cc1eb1268d0161190082248d1826371",
       "preview_path": "pr/178/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30575842706",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30954767107",
       "status": "ci-failed",
       "title": "Refine basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/178"
@@ -352,11 +352,48 @@
     },
     "195": {
       "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "267ac8c053f4bcae74551631cf507ad7f36d7202",
       "preview_path": "pr/195/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30953806699",
+      "status": "published",
       "title": "Convert bibliography for Verso",
       "url": "https://github.com/plclub/sf-in-lean/pull/195"
     }
