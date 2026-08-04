@@ -289,16 +289,12 @@ example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
 
 -- `BEq.refl : (a == a) = true`
 
--- We'll learn more about type classes as we go. For now, the key idea is: a
--- type class is an interface, and an instance is an implementation of that
--- interface for a particular type.
+-- We'll learn more about type classes in chapter Typeclasses. For now, the
+-- key idea is: a type class is an interface, and an instance is an
+-- implementation of that interface for a particular type.
 
 -- (For a thorough treatment of type classes, see Chapter 3 of *Functional
 -- Programming in Lean*.)
-
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
---     Should we replace the above with a forward link to our typeclasses
---     chapter, once we have one?
 
 -- #### Head and Tail
 

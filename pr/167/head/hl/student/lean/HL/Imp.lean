@@ -456,8 +456,12 @@ end Imp.Delab
 
 -- The arithmetic and boolean evaluators must now be extended to handle
 -- variables, taking a state `st` as an extra argument. A variable is looked
--- up in the state with the map-indexing notation `st[x]` from the `Maps`
--- chapter.
+-- up in the state with the map-indexing notation `st[x]` from the
+-- `Typeclasses` chapter. For the notation to work, we need to
+-- `open scoped MyGetElem`, which opens only the scoped items like notation
+-- from the module.
+
+open scoped MyGetElem
 
 def Aexp.eval (st : State) (a : Aexp) : Nat :=
   match a with

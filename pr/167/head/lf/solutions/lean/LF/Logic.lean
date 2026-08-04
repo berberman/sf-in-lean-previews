@@ -12,19 +12,6 @@ import LF.SFLCompat
 --     Unlike earlier chapters, there are probably too many WORKINCLASSes in
 --     this chapter. BCP 20: But conversely some more quizzes would be great!
 
--- Note to developers (Jonathan Chan  @ionathanch):
---     Classical axioms are more pervasive in Lean and the section from Rocq
---     needs to be rewritten to acknowledge this and teach idiomatic style.
---     `BCP: Old comment -- might be out of date?`
-
--- Note to developers (Chris Henson  @chenson2018):
---     There's several style things to mention here like `classical` vs.
---     `open Classical`. `BCP: This one too?`
-
--- IMPORTBLOCK import LF.Basics IMPORTBLOCK import LF.Induction IMPORTBLOCK
--- import LF.Poly IMPORTBLOCK import LF.Tactics IMPORTBLOCK import
--- LF.CustomTactics
-
 -- We have now seen many examples of factual claims (i.e., *propositions*) and
 -- ways of presenting evidence of their truth (*proofs*). In particular, we
 -- have worked extensively with equality propositions (`e1 = e2`),
@@ -75,7 +62,7 @@ def PlusClaim : Prop := 2 + 2 = 4
 -- We can later use this name in any situation where a proposition is expected
 -- — for example, as the claim in a `theorem` declaration.
 
-theorem PlusClaim_is_true : PlusClaim := rfl
+theorem plusClaim_is_true : PlusClaim := rfl
 
 -- We can also write *parameterized* propositions — that is, functions that
 -- take arguments of some type and return a proposition.
@@ -725,10 +712,10 @@ def List.IsNil {α : Type} (l : List α) : Prop :=
   | [] => True
   | _ :: _ => False
 
-theorem IsNil_nil {α : Type} : List.IsNil ([] : List α) := by constructor
+theorem isNil_nil {α : Type} : List.IsNil ([] : List α) := by constructor
 
 
-theorem IsNil_cons {α} (x : α) (l : List α) : ¬ List.IsNil (x :: l) := by
+theorem isNil_cons {α} (x : α) (l : List α) : ¬ List.IsNil (x :: l) := by
   dsimp [List.IsNil, Not]
   intro h; assumption
 
@@ -736,8 +723,8 @@ theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
     ¬ ([] = x :: xs) := by
   all_goals
     intro h
-    have hn : List.IsNil ([] : List α) := IsNil_nil
-    apply IsNil_cons x xs
+    have hn : List.IsNil ([] : List α) := isNil_nil
+    apply isNil_cons x xs
     rw [←h]
     exact hn
 
@@ -812,8 +799,7 @@ theorem or_associate (a b c : Prop) : a ∨ (b ∨ c) ↔ (a ∨ b) ∨ c := by
       · left; left; exact ha
       · left; right; exact hb
       · right; exact hc
-    case mpr =>
-      intro h
+    · intro h
       obtain (ha | hb) | hc := h
       · left; exact ha
       · right; left; exact hb
@@ -1141,7 +1127,7 @@ def CombineOddEven (Odd Even : Nat → Prop) : Nat → Prop := (
 
 -- To test your definition, prove the following facts:
 
-theorem CombineOddEven_intro (Odd Even : Nat → Prop)
+theorem combineOddEven_intro (Odd Even : Nat → Prop)
     (n : Nat)
     (hOdd : Nat.odd n = true → Odd n)
     (hEven : Nat.odd n = false → Even n) :
@@ -1159,7 +1145,7 @@ theorem CombineOddEven_intro (Odd Even : Nat → Prop)
       apply hOdd
       exact h
 
-theorem CombinedOddEven_elim_odd
+theorem combineOddEven_elim_odd
     (Odd Even : Nat → Prop)
     (n : Nat)
     (h : CombineOddEven Odd Even n)
@@ -1169,7 +1155,7 @@ theorem CombinedOddEven_elim_odd
     rw [hOdd] at h
     dsimp at h; exact h
 
-theorem CombinedOddEven_elim_even
+theorem combineOddEven_elim_even
     (Odd Even : Nat → Prop)
     (n : Nat)
     (h : CombineOddEven Odd Even n)
@@ -1232,6 +1218,12 @@ sf_expect_failure
   example (x y z : Nat) : x + (y + z) = (z + y) + x := by
     rw [Nat.add_comm]
     rw [Nat.add_comm]
+
+-- Note to developers (Yipeng Liu  @berberman, before next release):
+--     These hidden variables are only for inline prose, but they currently
+--     leak into `leanOutput` error contexts. Maybe we should implement a
+--     separate scope for declaring variables only visible to `lean` role
+--     instead of `lean` block.
 
 -- unsolved goals
 -- a b c : Prop
@@ -1593,8 +1585,8 @@ theorem orb_true_iff (b1 b2 : Bool) :
       cases b1 with
       | false =>
         obtain h | h := h
-        case inl => contradiction
-        case inr => rw [or]; exact h
+        · contradiction
+        · rw [or]; exact h
       | true => rw [or]
 
 -- ### Exercise (3 stars): beqList ⭐⭐⭐
@@ -2182,8 +2174,8 @@ abbrev consequentia_mirabilis := ∀ a : Prop, (¬ a → a) → a
 theorem imp_or_em : imp_or → excluded_middle := by
   intro h a
   obtain hna | ha := h a a (fun ha => ha)
-  case inl => right; exact hna
-  case inr => left; exact ha
+  · right; exact hna
+  · left; exact ha
 
 theorem em_imp_or : excluded_middle → imp_or := by
   intro h a b hab

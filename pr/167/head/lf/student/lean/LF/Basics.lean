@@ -312,7 +312,7 @@ example : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false := sorry
 -- *prove* some simple properties of those functions. Here is a simple rule
 -- about `&&`:
 
--- - `MyBool.true && b = b`
+-- - `(MyBool.true && b) = b`
 
 -- This is an example of a *proposition*, a logical *claim* that we can try to
 -- prove. It says that `MyBool.true && b` is equal to `b` for every `MyBool`
@@ -720,19 +720,19 @@ open MyNamespace
 #check myDef -- Bool
 
 -- If we only want to bring *some*, rather than all, of the definitions of a
--- namespace into the current scope, we can use the `export` command:
+-- namespace into the current scope, we can use the `open (...)` form:
 
 namespace MyOtherNamespace
 def myHiddenDef : Bool := Bool.true
 def myVisibleDef : Bool := Bool.false
 end MyOtherNamespace
 
-export MyOtherNamespace (myVisibleDef)
+open MyOtherNamespace (myVisibleDef)
 
 -- `myVisibleDef` is now usable without qualification:
 #check myVisibleDef -- Bool
 
--- But `myHiddenDef`, which we did not `export`, still needs its full name;
+-- But `myHiddenDef`, which we did not `open`, still needs its full name;
 -- using it unqualified is an error:
 
 sf_expect_failure
@@ -740,7 +740,7 @@ sf_expect_failure
 
 -- In fact, this is what exactly what Lean does with the standard `Bool` type
 -- by default. Since it is such an important part of many proofs and programs,
--- Lean implicitly `export`s many of `Bool`s functions and constructors.
+-- Lean implicitly `open`s many of `Bool`s functions and constructors.
 -- Accordingly, we can use constructors like `true` and `false` and functions
 -- like `not` without qualifying them with `Bool.`.
 

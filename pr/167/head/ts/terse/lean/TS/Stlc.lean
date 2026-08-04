@@ -179,6 +179,8 @@ import TS.SFLCompat
 
 namespace Stlc
 
+open scoped MyGetElem
+
 -- ### Types
 
 inductive Ty where

@@ -15,6 +15,17 @@
         "shortTitle": null,
         "number": "3"}]},
      "address": "/UsingLean/"}],
+   "Typeclasses":
+   [{"id": "Typeclasses",
+     "data":
+     {"title": "Typeclasses",
+      "shortTitle": null,
+      "sectionNum": "10.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "10"}]},
+     "address": "/Typeclasses/"}],
    "Tactics":
    [{"id": "Tactics",
      "data":
@@ -183,67 +194,110 @@
         "shortTitle": null,
         "number": "4"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--Typeclasses--TODO":
-   [{"id": "Logical-Foundations--Typeclasses--TODO",
+   "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses":
+   [{"id": "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses",
      "data":
-     {"title": "TODO",
+     {"title": "Why We Need Typeclasses",
       "shortTitle": null,
-      "sectionNum": "10.6.",
+      "sectionNum": "10.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "TODO", "shortTitle": null, "number": "6"}]},
-     "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--Reflection":
-   [{"id": "Logical-Foundations--Typeclasses--Reflection",
-     "data":
-     {"title": "Reflection",
-      "shortTitle": null,
-      "sectionNum": "10.5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Reflection", "shortTitle": null, "number": "5"}]},
-     "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
-   [{"id": "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses",
-     "data":
-     {"title": "Proof-Carrying Typeclasses",
-      "shortTitle": null,
-      "sectionNum": "10.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Proof-Carrying Typeclasses",
+       {"title": "Why We Need Typeclasses",
         "shortTitle": null,
-        "number": "2"}]},
+        "number": "1"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--Notation-Typeclasses":
-   [{"id": "Logical-Foundations--Typeclasses--Notation-Typeclasses",
+   "Logical-Foundations--Typeclasses--Using-Typeclasses":
+   [{"id": "Logical-Foundations--Typeclasses--Using-Typeclasses",
      "data":
-     {"title": "Notation Typeclasses",
+     {"title": "Using Typeclasses",
       "shortTitle": null,
       "sectionNum": "10.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Notation Typeclasses", "shortTitle": null, "number": "3"}]},
+       {"title": "Using Typeclasses", "shortTitle": null, "number": "3"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--TODO":
+   [{"id": "Logical-Foundations--Typeclasses--TODO",
+     "data":
+     {"title": "TODO",
+      "shortTitle": null,
+      "sectionNum": "10.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "TODO", "shortTitle": null, "number": "7"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Reflection":
+   [{"id": "Logical-Foundations--Typeclasses--Reflection",
+     "data":
+     {"title": "Reflection",
+      "shortTitle": null,
+      "sectionNum": "10.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Reflection", "shortTitle": null, "number": "6"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
+   [{"id": "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses",
+     "data":
+     {"title": "Proof-Carrying Typeclasses",
+      "shortTitle": null,
+      "sectionNum": "10.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Proof-Carrying Typeclasses",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Maps--Total-Maps--Updating":
+   [{"id": "Logical-Foundations--Typeclasses--Maps--Total-Maps--Updating",
+     "data":
+     {"title": "Updating",
+      "shortTitle": null,
+      "sectionNum": "10.5.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Total Maps", "shortTitle": null, "number": "2"},
+       {"title": "Updating", "shortTitle": null, "number": "2"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Maps--Total-Maps--Getting-Elements":
+   [{"id":
+     "Logical-Foundations--Typeclasses--Maps--Total-Maps--Getting-Elements",
+     "data":
+     {"title": "Getting Elements",
+      "shortTitle": null,
+      "sectionNum": "10.5.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Total Maps", "shortTitle": null, "number": "2"},
+       {"title": "Getting Elements", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Total-Maps":
    [{"id": "Logical-Foundations--Typeclasses--Maps--Total-Maps",
      "data":
      {"title": "Total Maps",
       "shortTitle": null,
-      "sectionNum": "10.4.2.",
+      "sectionNum": "10.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Partial-Maps":
@@ -251,12 +305,12 @@
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "10.4.4.",
+      "sectionNum": "10.5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Partial Maps", "shortTitle": null, "number": "4"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Notation-for-Concrete-Maps":
@@ -264,12 +318,12 @@
      "data":
      {"title": "Notation for Concrete Maps",
       "shortTitle": null,
-      "sectionNum": "10.4.3.",
+      "sectionNum": "10.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Notation for Concrete Maps",
         "shortTitle": null,
         "number": "3"}]},
@@ -279,12 +333,12 @@
      "data":
      {"title": "Identifiers",
       "shortTitle": null,
-      "sectionNum": "10.4.1.",
+      "sectionNum": "10.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Identifiers", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps":
@@ -292,37 +346,26 @@
      "data":
      {"title": "Maps",
       "shortTitle": null,
-      "sectionNum": "10.4.",
+      "sectionNum": "10.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"}]},
+       {"title": "Maps", "shortTitle": null, "number": "5"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--First-Example___-Inhabited-Types":
-   [{"id": "Logical-Foundations--Typeclasses--First-Example___-Inhabited-Types",
+   "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses":
+   [{"id": "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses",
      "data":
-     {"title": "First Example: Inhabited Types",
+     {"title": "Defining Your Own Typeclasses",
       "shortTitle": null,
-      "sectionNum": "10.1.",
+      "sectionNum": "10.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "First Example: Inhabited Types",
+       {"title": "Defining Your Own Typeclasses",
         "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses":
-   [{"id": "Logical-Foundations--Typeclasses",
-     "data":
-     {"title": "Typeclasses",
-      "shortTitle": null,
-      "sectionNum": "10.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"}]},
+        "number": "2"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Varying-the-Induction-Hypothesis":
    [{"id":
@@ -3164,6 +3207,13 @@
       {"display": "plus_2_2_is_4",
        "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
      "address": "/Logic/"}],
+   "plusClaim_is_true":
+   [{"id": "plusClaim_is_true",
+     "data":
+     {"/Logic/#plusClaim_is_true":
+      {"display": "plusClaim_is_true",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
+     "address": "/Logic/"}],
    "plus3":
    [{"id": "plus3",
      "data":
@@ -3274,45 +3324,15 @@
         "Data and Functions",
         "Days of the Week (Enumerated Types)"]}},
      "address": "/Basics/"}],
-   "nat_hasOneStruct_where":
-   [{"id": "nat_hasOneStruct_where",
+   "nat_hasOneStruct":
+   [{"id": "nat_hasOneStruct",
      "data":
-     {"/Typeclasses/#nat_hasOneStruct_where":
-      {"display": "nat_hasOneStruct_where",
+     {"/Typeclasses/#nat_hasOneStruct":
+      {"display": "nat_hasOneStruct",
        "context":
        ["Logical Foundations",
         "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "nat_hasOneStruct_mk":
-   [{"id": "nat_hasOneStruct_mk",
-     "data":
-     {"/Typeclasses/#nat_hasOneStruct_mk":
-      {"display": "nat_hasOneStruct_mk",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "nat_hasOneStruct_eq_one":
-   [{"id": "nat_hasOneStruct_eq_one",
-     "data":
-     {"/Typeclasses/#nat_hasOneStruct_eq_one":
-      {"display": "nat_hasOneStruct_eq_one",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "nat_hasOneStruct_brace":
-   [{"id": "nat_hasOneStruct_brace",
-     "data":
-     {"/Typeclasses/#nat_hasOneStruct_brace":
-      {"display": "nat_hasOneStruct_brace",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
+        "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "myRepeat_zero":
    [{"id": "myRepeat_zero",
@@ -3598,7 +3618,7 @@
        "context":
        ["Logical Foundations",
         "Typeclasses",
-        "First Example: Inhabited Types"]}},
+        "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "instHasOneInt":
    [{"id": "instHasOneInt",
@@ -3608,7 +3628,7 @@
        "context":
        ["Logical Foundations",
         "Typeclasses",
-        "First Example: Inhabited Types"]}},
+        "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "injection_ex3":
    [{"id": "injection_ex3",
@@ -3640,6 +3660,14 @@
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
+   "getElem_def":
+   [{"id": "getElem_def",
+     "data":
+     {"/Typeclasses/#getElem_def":
+      {"display": "getElem_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "function_congruence":
    [{"id": "function_congruence",
      "data":
@@ -4308,7 +4336,23 @@
      {"/Typeclasses/#TotalMap___update_eq":
       {"display": "update_eq",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.update_def":
+   [{"id": "TotalMap___update_def",
+     "data":
+     {"/Typeclasses/#TotalMap___update_def":
+      {"display": "update_def",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.update":
    [{"id": "TotalMap___update",
@@ -4316,7 +4360,23 @@
      {"/Typeclasses/#TotalMap___update":
       {"display": "update",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.getElem_empty":
+   [{"id": "TotalMap___getElem_empty",
+     "data":
+     {"/Typeclasses/#TotalMap___getElem_empty":
+      {"display": "getElem_empty",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.getElem_def":
    [{"id": "TotalMap___getElem_def",
@@ -4324,7 +4384,11 @@
      {"/Typeclasses/#TotalMap___getElem_def":
       {"display": "getElem_def",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.ext":
    [{"id": "TotalMap___ext",
@@ -4332,37 +4396,53 @@
      {"/Typeclasses/#TotalMap___ext":
       {"display": "ext",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating"]}},
      "address": "/Typeclasses/"}],
-   "TotalMap.examplemap'":
-   [{"id": "TotalMap___examplemap___",
+   "TotalMap.exampleMap''":
+   [{"id": "TotalMap___exampleMap______",
      "data":
-     {"/Typeclasses/#TotalMap___examplemap___":
-      {"display": "examplemap'",
+     {"/Typeclasses/#TotalMap___exampleMap______":
+      {"display": "exampleMap''",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating"]}},
      "address": "/Typeclasses/"}],
-   "TotalMap.example_map":
-   [{"id": "TotalMap___example_map",
+   "TotalMap.exampleMap'":
+   [{"id": "TotalMap___exampleMap___",
      "data":
-     {"/Typeclasses/#TotalMap___example_map":
-      {"display": "example_map",
+     {"/Typeclasses/#TotalMap___exampleMap___":
+      {"display": "exampleMap'",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.exampleMap":
+   [{"id": "TotalMap___exampleMap",
+     "data":
+     {"/Typeclasses/#TotalMap___exampleMap":
+      {"display": "exampleMap",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.empty":
    [{"id": "TotalMap___empty",
      "data":
      {"/Typeclasses/#TotalMap___empty":
       {"display": "empty",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.apply_empty":
-   [{"id": "TotalMap___apply_empty",
-     "data":
-     {"/Typeclasses/#TotalMap___apply_empty":
-      {"display": "apply_empty",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
      "address": "/Typeclasses/"}],
@@ -4423,7 +4503,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
+   [{"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -4432,7 +4512,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
+    {"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -4489,39 +4569,6 @@
      {"/Typeclasses/#TotalMap___Nat___Decidable":
       {"display": "Decidable",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.KVPair.value":
-   [{"id": "TotalMap___KVPair___value",
-     "data":
-     {"/Typeclasses/#TotalMap___KVPair___value":
-      {"display": "value",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "Maps",
-        "Notation for Concrete Maps"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.KVPair.key":
-   [{"id": "TotalMap___KVPair___key",
-     "data":
-     {"/Typeclasses/#TotalMap___KVPair___key":
-      {"display": "key",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "Maps",
-        "Notation for Concrete Maps"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.KVPair":
-   [{"id": "TotalMap___KVPair",
-     "data":
-     {"/Typeclasses/#TotalMap___KVPair":
-      {"display": "KVPair",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "Maps",
-        "Notation for Concrete Maps"]}},
      "address": "/Typeclasses/"}],
    "TotalMap":
    [{"id": "TotalMap",
@@ -5009,13 +5056,6 @@
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "PlusClaim_is_true":
-   [{"id": "PlusClaim_is_true",
-     "data":
-     {"/Logic/#PlusClaim_is_true":
-      {"display": "PlusClaim_is_true",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
    "PlusClaim":
    [{"id": "PlusClaim",
      "data":
@@ -5452,11 +5492,35 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
-   "PartialMap.totalMap_eq":
-   [{"id": "PartialMap___totalMap_eq",
+   "PartialMap.toTotal_update":
+   [{"id": "PartialMap___toTotal_update",
      "data":
-     {"/Typeclasses/#PartialMap___totalMap_eq":
-      {"display": "totalMap_eq",
+     {"/Typeclasses/#PartialMap___toTotal_update":
+      {"display": "toTotal_update",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_eq_iff":
+   [{"id": "PartialMap___toTotal_eq_iff",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_eq_iff":
+      {"display": "toTotal_eq_iff",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_empty":
+   [{"id": "PartialMap___toTotal_empty",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_empty":
+      {"display": "toTotal_empty",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.toTotal":
+   [{"id": "PartialMap___toTotal",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal":
+      {"display": "PartialMap.toTotal",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -5468,6 +5532,22 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.inner":
+   [{"id": "PartialMap___inner",
+     "data":
+     {"/Typeclasses/#PartialMap___inner":
+      {"display": "inner",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.getElem_empty":
+   [{"id": "PartialMap___getElem_empty",
+     "data":
+     {"/Typeclasses/#PartialMap___getElem_empty":
+      {"display": "getElem_empty",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.ext":
    [{"id": "PartialMap___ext",
      "data":
@@ -5476,19 +5556,11 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
-   "PartialMap.examplepmap":
-   [{"id": "PartialMap___examplepmap",
+   "PartialMap.examplePmap":
+   [{"id": "PartialMap___examplePmap",
      "data":
-     {"/Typeclasses/#PartialMap___examplepmap":
-      {"display": "examplepmap",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
-     "address": "/Typeclasses/"}],
-   "PartialMap.apply_empty":
-   [{"id": "PartialMap___apply_empty",
-     "data":
-     {"/Typeclasses/#PartialMap___apply_empty":
-      {"display": "apply_empty",
+     {"/Typeclasses/#PartialMap___examplePmap":
+      {"display": "examplePmap",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -6831,6 +6903,42 @@
         "Polymorphism",
         "Polymorphic Lists"]}},
      "address": "/Poly/"}],
+   "MyGetElem.unexpandGetElem":
+   [{"id": "MyGetElem___unexpandGetElem",
+     "data":
+     {"/Typeclasses/#MyGetElem___unexpandGetElem":
+      {"display": "unexpandGetElem",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
+     "address": "/Typeclasses/"}],
+   "MyGetElem.getElem":
+   [{"id": "MyGetElem___getElem",
+     "data":
+     {"/Typeclasses/#MyGetElem___getElem":
+      {"display": "getElem",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
+     "address": "/Typeclasses/"}],
+   "MyGetElem":
+   [{"id": "MyGetElem",
+     "data":
+     {"/Typeclasses/#MyGetElem":
+      {"display": "MyGetElem",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
+     "address": "/Typeclasses/"}],
    "MyBool.true_and_wrong":
    [{"id": "MyBool___true_and_wrong",
      "data":
@@ -7754,7 +7862,15 @@
      {"/Typeclasses/#List___elem_poly_nil":
       {"display": "List.elem_poly_nil",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elem_poly_eq":
+   [{"id": "List___elem_poly_eq",
+     "data":
+     {"/Typeclasses/#List___elem_poly_eq":
+      {"display": "List.elem_poly_eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly_cons":
    [{"id": "List___elem_poly_cons",
@@ -7762,30 +7878,30 @@
      {"/Typeclasses/#List___elem_poly_cons":
       {"display": "List.elem_poly_cons",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
       "/Typeclasses/#List___elem_poly":
       {"display": "List.elem_poly",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
       "/Typeclasses/#List___elem_poly":
       {"display": "List.elem_poly",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_nat_nil":
    [{"id": "List___elem_nat_nil",
@@ -7793,7 +7909,7 @@
      {"/Typeclasses/#List___elem_nat_nil":
       {"display": "List.elem_nat_nil",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_nat_cons":
    [{"id": "List___elem_nat_cons",
@@ -7801,7 +7917,7 @@
      {"/Typeclasses/#List___elem_nat_cons":
       {"display": "List.elem_nat_cons",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_nat":
    [{"id": "List___elem_nat",
@@ -7809,7 +7925,7 @@
      {"/Typeclasses/#List___elem_nat":
       {"display": "List.elem_nat",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.In_nil":
    [{"id": "List___In_nil",
@@ -7884,6 +8000,39 @@
         "Inductively Defined Propositions",
         "Example: Binary relation for comparing numbers"]}},
      "address": "/IndProp/"}],
+   "KVPair.value":
+   [{"id": "KVPair___value",
+     "data":
+     {"/Typeclasses/#KVPair___value":
+      {"display": "value",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Notation for Concrete Maps"]}},
+     "address": "/Typeclasses/"}],
+   "KVPair.key":
+   [{"id": "KVPair___key",
+     "data":
+     {"/Typeclasses/#KVPair___key":
+      {"display": "key",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Notation for Concrete Maps"]}},
+     "address": "/Typeclasses/"}],
+   "KVPair":
+   [{"id": "KVPair",
+     "data":
+     {"/Typeclasses/#KVPair":
+      {"display": "KVPair",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Notation for Concrete Maps"]}},
+     "address": "/Typeclasses/"}],
    "Injective":
    [{"id": "Injective",
      "data":
@@ -7999,7 +8148,7 @@
        "context":
        ["Logical Foundations",
         "Typeclasses",
-        "First Example: Inhabited Types"]}},
+        "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "HasOneStruct":
    [{"id": "HasOneStruct",
@@ -8009,7 +8158,7 @@
        "context":
        ["Logical Foundations",
         "Typeclasses",
-        "First Example: Inhabited Types"]}},
+        "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "HasOne.one":
    [{"id": "HasOne___one",
@@ -8019,7 +8168,7 @@
        "context":
        ["Logical Foundations",
         "Typeclasses",
-        "First Example: Inhabited Types"]}},
+        "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "HasOne":
    [{"id": "HasOne",
@@ -8029,7 +8178,7 @@
        "context":
        ["Logical Foundations",
         "Typeclasses",
-        "First Example: Inhabited Types"]}},
+        "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "Grumble.e":
    [{"id": "Grumble___e",

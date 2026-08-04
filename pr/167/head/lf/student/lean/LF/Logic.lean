@@ -12,19 +12,6 @@ import LF.SFLCompat
 --     Unlike earlier chapters, there are probably too many WORKINCLASSes in
 --     this chapter. BCP 20: But conversely some more quizzes would be great!
 
--- Note to developers (Jonathan Chan  @ionathanch):
---     Classical axioms are more pervasive in Lean and the section from Rocq
---     needs to be rewritten to acknowledge this and teach idiomatic style.
---     `BCP: Old comment -- might be out of date?`
-
--- Note to developers (Chris Henson  @chenson2018):
---     There's several style things to mention here like `classical` vs.
---     `open Classical`. `BCP: This one too?`
-
--- IMPORTBLOCK import LF.Basics IMPORTBLOCK import LF.Induction IMPORTBLOCK
--- import LF.Poly IMPORTBLOCK import LF.Tactics IMPORTBLOCK import
--- LF.CustomTactics
-
 -- We have now seen many examples of factual claims (i.e., *propositions*) and
 -- ways of presenting evidence of their truth (*proofs*). In particular, we
 -- have worked extensively with equality propositions (`e1 = e2`),
@@ -75,7 +62,7 @@ def PlusClaim : Prop := 2 + 2 = 4
 -- We can later use this name in any situation where a proposition is expected
 -- — for example, as the claim in a `theorem` declaration.
 
-theorem PlusClaim_is_true : PlusClaim := rfl
+theorem plusClaim_is_true : PlusClaim := rfl
 
 -- We can also write *parameterized* propositions — that is, functions that
 -- take arguments of some type and return a proposition.
@@ -961,21 +948,21 @@ def CombineOddEven (Odd Even : Nat → Prop) : Nat → Prop := sorry
 
 -- To test your definition, prove the following facts:
 
-theorem CombineOddEven_intro (Odd Even : Nat → Prop)
+theorem combineOddEven_intro (Odd Even : Nat → Prop)
     (n : Nat)
     (hOdd : Nat.odd n = true → Odd n)
     (hEven : Nat.odd n = false → Even n) :
     CombineOddEven Odd Even n := by
   sorry
 
-theorem CombinedOddEven_elim_odd
+theorem combineOddEven_elim_odd
     (Odd Even : Nat → Prop)
     (n : Nat)
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = true) : Odd n := by
   sorry
 
-theorem CombinedOddEven_elim_even
+theorem combineOddEven_elim_even
     (Odd Even : Nat → Prop)
     (n : Nat)
     (h : CombineOddEven Odd Even n)
@@ -1035,6 +1022,12 @@ sf_expect_failure
   example (x y z : Nat) : x + (y + z) = (z + y) + x := by
     rw [Nat.add_comm]
     rw [Nat.add_comm]
+
+-- Note to developers (Yipeng Liu  @berberman, before next release):
+--     These hidden variables are only for inline prose, but they currently
+--     leak into `leanOutput` error contexts. Maybe we should implement a
+--     separate scope for declaring variables only visible to `lean` role
+--     instead of `lean` block.
 
 -- unsolved goals
 -- a b c : Prop

@@ -1360,9 +1360,9 @@
  "1137": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
  "1136": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
  "1135":
- "<code>GetElem.getElem.{u, v, w} {coll : Type u} {idx : Type v} {elem : outParam (Type w)}\n  {valid : outParam (coll → idx → Prop)} [self : GetElem coll idx elem valid] (xs : coll) (i : idx) (h : valid xs i) :\n  elem</code><span class=\"sep\"></span><code class=\"docstring\">The syntax `arr[i]` gets the `i`'th element of the collection `arr`. If there\nare proof side conditions to the application, they will be automatically\ninferred by the `get_elem_tactic` tactic.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `xs[i]` in identifiers is `getElem`.\n\n * The recommended spelling of `xs[i]'h` in identifiers is `getElem`.</code>",
+ "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
  "1134":
- "<code>PartialMap.update.{u, v} {α : Type u} {β : Type v} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
+ "<code>PartialMap.update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
  "1133": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
  "1132":
  "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(T₁) }&gt;</code>",
@@ -1411,8 +1411,7 @@
  "1104": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
  "1103": "<code><span class=\"literal string\">\"∅\"</span> : String</code>",
  "1102": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
- "1101":
- "<code>PartialMap.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code>",
+ "1101": "<code>PartialMap (α β : Type) : Type</code>",
  "1100": "<code>Stlc.Context : Type</code>",
  "110": "<code>a1 ⇓ n1</code>",
  "11": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",

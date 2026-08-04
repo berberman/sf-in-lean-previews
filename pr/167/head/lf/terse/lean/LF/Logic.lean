@@ -13,20 +13,6 @@ import LF.SFLCompat
 --     WORKINCLASSes in this chapter. BCP 20: But conversely
 --     some more quizzes would be great!
 
--- Note to developers (Jonathan Chan  @ionathanch):
---     Classical axioms are more pervasive in Lean and the
---     section from Rocq needs to be rewritten to acknowledge
---     this and teach idiomatic style.
---     `BCP: Old comment -- might be out of date?`
-
--- Note to developers (Chris Henson  @chenson2018):
---     There's several style things to mention here like
---     `classical` vs. `open Classical`. `BCP: This one too?`
-
--- IMPORTBLOCK import LF.Basics IMPORTBLOCK import LF.Induction
--- IMPORTBLOCK import LF.Poly IMPORTBLOCK import LF.Tactics
--- IMPORTBLOCK import LF.CustomTactics
-
 -- So far, we have seen:
 
 -- - *propositions*: mathematical statements, so far only of 3
@@ -74,7 +60,7 @@ def PlusClaim : Prop := 2 + 2 = 4
 
 -- PlusClaim : Prop
 
-theorem PlusClaim_is_true : PlusClaim := rfl
+theorem plusClaim_is_true : PlusClaim := rfl
 
 -- We can also write *parameterized* propositions — that is,
 -- functions that take arguments of some type and return a
@@ -745,6 +731,13 @@ sf_expect_failure
   example (x y z : Nat) : x + (y + z) = (z + y) + x := by
     rw [Nat.add_comm]
     rw [Nat.add_comm]
+
+-- Note to developers (Yipeng Liu  @berberman, before next release):
+--     These hidden variables are only for inline prose, but
+--     they currently leak into `leanOutput` error contexts.
+--     Maybe we should implement a separate scope for declaring
+--     variables only visible to `lean` role instead of `lean`
+--     block.
 
 -- unsolved goals
 -- a b c : Prop
