@@ -390,9 +390,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "267ac8c053f4bcae74551631cf507ad7f36d7202",
+      "head_sha": "3bb422a2c8b41c5f8963d16064b7c25a38161925",
       "preview_path": "pr/195/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30953806699",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30961194413",
       "status": "published",
       "title": "Convert bibliography for Verso",
       "url": "https://github.com/plclub/sf-in-lean/pull/195"
