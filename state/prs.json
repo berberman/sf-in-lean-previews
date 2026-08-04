@@ -349,6 +349,16 @@
       "status": "ci-failed",
       "title": "Editing pass over Typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/191"
+    },
+    "195": {
+      "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
+      "changed_variants": [],
+      "head_sha": "267ac8c053f4bcae74551631cf507ad7f36d7202",
+      "preview_path": "pr/195/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Convert bibliography for Verso",
+      "url": "https://github.com/plclub/sf-in-lean/pull/195"
     }
   },
   "schema": 3
