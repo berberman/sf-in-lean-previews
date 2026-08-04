@@ -1,52 +1,6 @@
 {
-  "main_sha": "aceea23bb5d037dca20b6aee6cf1e0680807cd71",
+  "main_sha": "9aa5bfeb89d4bd1891fee022ebc2c56af73e0694",
   "prs": {
-    "166": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "5587c903fae09f54ae76f0e1d677c9c15c97c9cd",
-      "preview_path": "pr/166/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30690625949",
-      "status": "published",
-      "title": "Typeclasses: add notation for getting elements and make PartialMap a one-field structure",
-      "url": "https://github.com/plclub/sf-in-lean/pull/166"
-    },
     "167": {
       "changed_variants": [
         {
@@ -86,9 +40,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "94c4c4b325d52c18c0187a72a4f1ac6688b079ac",
+      "head_sha": "982d13fddbe4781e84df7233160674e2076546f8",
       "preview_path": "pr/167/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30657045960",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30854294098",
       "status": "published",
       "title": "Pass over Logic chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/167"
@@ -187,9 +141,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "1a819eef182bbc12245b165adfbcbc7273369498",
+      "head_sha": "6e52353aa981e95fb075e2ddc31eb9ae42d9d9c5",
       "preview_path": "pr/179/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30652320341",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30738454288",
       "status": "published",
       "title": "Hoare: assertion and triple syntax",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
@@ -241,22 +195,197 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/181"
     },
     "183": {
-      "changed_variants": [],
-      "head_sha": "529b309bc533755421c2f7dcfd729c354ed00202",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "7459fb5e8816bd880c5a8a15b8bf54078989595c",
       "preview_path": "pr/183/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30697567614",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30788124945",
+      "status": "published",
       "title": "Meta: experiment with autograding [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/183"
     },
-    "184": {
+    "185": {
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "b7729749fa486ef359e0e782f923609ebb813556",
+      "preview_path": "pr/185/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30766102910",
+      "status": "published",
+      "title": "Fixed paren divergence in STLC unparser; HT @Robert Joseph",
+      "url": "https://github.com/plclub/sf-in-lean/pull/185"
+    },
+    "186": {
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "7564073d689366ad9024ba9015d8d2e5ea0eb3a5",
+      "preview_path": "pr/186/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30819781553",
+      "status": "published",
+      "title": "LF: Add notations appendix chapter",
+      "url": "https://github.com/plclub/sf-in-lean/pull/186"
+    },
+    "191": {
       "changed_variants": [],
-      "head_sha": "8fc317b4b08944e478e1a9d7c7f1309a63c5c8ec",
-      "preview_path": "pr/184/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Rework presentation at the start of Typeclasses",
-      "url": "https://github.com/plclub/sf-in-lean/pull/184"
+      "head_sha": "f9170256a6c7452c5553db3e3680f4eb1bfc6b2e",
+      "preview_path": "pr/191/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30908214726",
+      "status": "ci-failed",
+      "title": "Editing pass over Typeclasses",
+      "url": "https://github.com/plclub/sf-in-lean/pull/191"
+    },
+    "192": {
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "464cd1955b1d397d3100dddc069e5bb36d04e43d",
+      "preview_path": "pr/192/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30935565410",
+      "status": "published",
+      "title": "Qualified import with `open` and parentheses for handling `||` precedence",
+      "url": "https://github.com/plclub/sf-in-lean/pull/192"
     }
   },
   "schema": 3

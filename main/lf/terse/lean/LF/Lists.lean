@@ -205,10 +205,6 @@ example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
 -- `==` comes from the `BEq` class;
 -- `BEq.refl : (a == a) = true` is worth knowing by name.
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
---     Should we replace the above with a forward link to our
---     typeclasses chapter, once we have one?
-
 -- #### Head and Tail
 
 def head (default : Nat) (l : NatList) : Nat :=

@@ -1,0 +1,1 @@
+window.docContents[207].resolve({"/Stlc/#Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax":{"contents":"We next formalize the syntax of the STLC.\n\nnamespace Stlc\n\n\n\n\n\n\n","context":"Type Systems\u0009Stlc: The Simply Typed Lambda-Calculus","header":"5.2. Syntax","id":"/Stlc/#Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Syntax"}});

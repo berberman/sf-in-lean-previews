@@ -331,22 +331,11 @@ section
 open Lean Elab Term
 
 scoped syntax:max (name := assn) "assn(" ident "; " term ")" : term
-scoped syntax:max "#" noWs term:arg : term
 scoped syntax "{{" term "}}" : term
 
 @[term_elab assn]
 def assnElab : TermElab := fun stx type? => do
   match stx with
-  | `(assn($st; #$t:term)) =>
-    let t ← elabTerm t none
-    let ty ← Meta.inferType t
-    dbg_trace ty
-    if (ty.constName == ``_root_.Aexp) then
-      return (mkApp2 (mkConst ``Aexp.eval) (← elabTerm st none) t)
-    else if (ty.constName == ``_root_.Bexp) then
-      return (mkApp2 (mkConst ``Bexp.eval) (← elabTerm st none) t)
-    else
-      throwUnsupportedSyntax
   | `(assn($st; $t:term)) =>
     let t ← elabTerm t none
     let ty ← Meta.inferType t
@@ -362,7 +351,11 @@ def assnElab : TermElab := fun stx type? => do
           (mkConst ``String)
           (mkConst ``Nat))
         (← elabTerm st none) t
-    else if ty.isMVar then
+    if (ty.constName == ``_root_.Aexp) then -- Detect an embedded `Aexp` and turn it into `Aexp.eval st t`
+      return (mkApp2 (mkConst ``Aexp.eval) (← elabTerm st none) t)
+    else if (ty.constName == ``_root_.Bexp) then  -- Detect an embedded `Bexp` and turn it into `Bexp.eval st t`
+      return (mkApp2 (mkConst ``Bexp.eval) (← elabTerm st none) t)
+    else if ty.isMVar then -- This is a hack to guard against `Meta.isDefEq` assigning the type to be an `Assertion`
       return t
     else if (← Meta.isDefEq ty (mkConst ``_root_.Assertion)) then
       return mkApp t (← elabTerm st none)
@@ -403,12 +396,12 @@ end
 #check {{ fun st => st[X] = st[Y] }}
 
 variable (a : Aexp)
-#check {{ X = #a }}
+#check {{ X = a }}
 
 variable (b : Bexp)
-#check {{ #b }}
-#check {{ ¬ #b }}
-#check {{ #b ∧ #b }}
+#check {{ b }}
+#check {{ ¬ b }}
+#check {{ b ∧ b }}
 
 variable (P Q : Assertion)
 #check {{ P ∧ Q }}
@@ -1039,8 +1032,8 @@ end ExampleAssertionSub
 -- to understand the details, and everything can be switched off with
 -- `set_option pp.notation false`.
 
--- -- ::::details (summary := "Notation encoding: printing assertions back")
--- --
+-- -- TODO xhalo32: this all needs to be reworked -- ::::details (summary :=
+-- "Notation encoding: printing assertions back") --
 -- `lean
 -- -- namespace Assn.Delab
 -- -- open Lean PrettyPrinter Delaborator SubExpr Parenthesizer Imp.Delab
@@ -1317,7 +1310,7 @@ theorem hoare_asgn_examples2 :
 -- work.)
 
 theorem hoare_asgn_wrong : ∃ a : Aexp,
-    ¬ {{ True }} X := ~a; {{ X = #a }} := by
+    ¬ {{ True }} X := ~a; {{ X = a }} := by
   sorry
 
 -- ### Exercise (3 stars): hoare_asgn_fwd (Advanced) ⭐⭐⭐
@@ -1675,7 +1668,7 @@ theorem assertion_sub_ex2' :
 -- `apply`'s metavariables.
 
 theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
-    {{#a = n}}
+    {{a = n}}
       X := ~a;
       skip;
     {{X = n}} := by
@@ -1807,7 +1800,7 @@ theorem swap_exercise :
 --   finishes the proof.
 
 theorem invalid_triple : ¬ ∀ (a : Aexp) (n : Nat),
-    {{ #a = n }}
+    {{ a = n }}
       X := 3; Y := ~a;
     {{ Y = n }} := by
   unfold ValidHoareTriple
@@ -1858,7 +1851,7 @@ theorem invalid_triple : ¬ ∀ (a : Aexp) (n : Nat),
 -- We'll write `bassertion b` for the assertion "the boolean expression `b`
 -- evaluates to `true` (in the given state)."
 
-def bassertion (b : Bexp) : Assertion := {{ #b }} -- NOTE xhalo32: we don't need this IMO
+def bassertion (b : Bexp) : Assertion := {{ b }} -- NOTE xhalo32: we don't need this IMO
 
 @[simp] theorem bassertion_apply (b : Bexp) (st : State) :
     bassertion b st = (b.eval st = true) := rfl
@@ -1877,7 +1870,7 @@ instance : Coe Bexp Assertion := ⟨bassertion⟩
 --     2) ((bassertion (!b)) st) (clearer, but less direct).`
 
 theorem bexp_eval_false (b : Bexp) (st : State) (h : b.eval st = false) :
-    ¬ ({{ #b }}) st := by
+    ¬ ({{ b }}) st := by
   simp [h]
 
 -- Here `simp` is able to find that `b.eval st` is assumed to be `false` (by
@@ -1903,7 +1896,7 @@ theorem bexp_eval_false (b : Bexp) (st : State) (h : b.eval st = false) :
 --       ValidHoareTriple P (Com.cond b c1 c2) Q
 
 theorem hoare_if (P Q : Assertion) (b : Bexp) (c1 c2 : Com)
-    (htrue : {{ P ∧ #b }} ~c1 {{ Q }}) (hfalse : {{ P ∧ ¬ #b }} ~c2 {{ Q }}) :
+    (htrue : {{ P ∧ b }} ~c1 {{ Q }}) (hfalse : {{ P ∧ ¬ b }} ~c2 {{ Q }}) :
     {{ P }} if (~b) { ~c1 } else { ~c2 } {{ Q }} := by
   intro st st' hE hP
   inversion hE with
@@ -2277,8 +2270,8 @@ open scoped ValidHoareTriple
 --     folded...
 
 theorem hoare_while (P : Assertion) (b : Bexp) (c : Com)
-    (hhoare : {{P ∧ #b}} ~c {{ P }}) :
-    {{ P }} while (~b) { ~c } {{P ∧ ¬ #b}} := by
+    (hhoare : {{P ∧ b}} ~c {{ P }}) :
+    {{ P }} while (~b) { ~c } {{P ∧ ¬ b}} := by
   intro st st' heval hP
   /- We proceed by induction on `heval`, because, in the "keep
   looping" case, its hypotheses talk about the whole loop instead
@@ -3120,7 +3113,7 @@ theorem hoare_skip (P : Assertion) :
   exact ⟨st, rfl, hP⟩
 
 theorem hoare_if (P Q : Assertion) (b : Bexp) (c1 c2 : Com)
-    (hTrue : {{ P ∧ #b}} ~c1 {{ Q }}) (hFalse : {{ P ∧ ¬ #b}} ~c2 {{ Q }}) :
+    (hTrue : {{ P ∧ b}} ~c1 {{ Q }}) (hFalse : {{ P ∧ ¬ b}} ~c2 {{ Q }}) :
     {{ P }} if (~b) { ~c1 } else { ~c2 } {{ Q }} := by
   intro st r hE hP
   inversion hE with
@@ -3136,8 +3129,8 @@ theorem hoare_if (P Q : Assertion) (b : Bexp) (c1 c2 : Com)
     · exact ⟨hP, bexp_eval_false b st hb⟩
 
 theorem hoare_while (P : Assertion) (b : Bexp) (c : Com)
-    (hhoare : {{P ∧ #b}} ~c {{ P }}) :
-    {{ P }} while (~b) { ~c } {{ P ∧ ¬ #b}} := by
+    (hhoare : {{P ∧ b}} ~c {{ P }}) :
+    {{ P }} while (~b) { ~c } {{ P ∧ ¬ b}} := by
   intro st r he hP
   have key : ∀ (cmd : Com) (s : State) (r' : Result), (s =[ cmd ]=> r') →
       cmd = (impa { while (~b) { ~c } }) → P s →

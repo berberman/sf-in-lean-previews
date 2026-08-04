@@ -45,8 +45,6 @@ import LF.SFLCompat
 -- Like everything in Lean, well-formed propositions have a
 -- *type*:
 
--- -----------------------------------------------------------------------------
-
 -- ## The `Prop` Type
 
 #check (∀ n m : Nat, n + m = m + n : Prop)
@@ -78,7 +76,7 @@ def PlusClaim : Prop := 2 + 2 = 4
 
 theorem PlusClaim_is_true : PlusClaim := rfl
 
--- We can also write *parameterized* propositions -- that is,
+-- We can also write *parameterized* propositions — that is,
 -- functions that take arguments of some type and return a
 -- proposition.
 
@@ -98,14 +96,17 @@ def Injective {α β : Type} (f : α → β) : Prop :=
   ∀ x y : α, f x = f y → x = y
 
 theorem succ_inj' : Injective Nat.succ := by
-  intro x y H; injection H
+  intro x y h
+  injection h
 
 -- The familiar equality operator `=` is a (binary) function
 -- that returns a `Prop`. The expression `n = m` is notation
 -- for `Eq n m`. Because `Eq` can be used with elements of any
 -- type, it is also polymorphic:
 
-#check (Eq : ∀ {α : Type}, α → α → Prop)
+#check Eq
+
+-- Eq.{u_1} {α : Sort u_1} : α → α → Prop
 
 -- As a convenience, Lean will cast booleans by equating them
 -- to `true`, which is why checking them against `Prop`
@@ -193,8 +194,6 @@ theorem succ_inj' : Injective Nat.succ := by
 -- 5. `∀ n, (3 + 2 == n) = true → n = 5`
 -- 6. All of these are propositions
 
--- -----------------------------------------------------------------------------
-
 -- ## Logical Connectives
 
 -- ### Conjunction
@@ -207,22 +206,24 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   /- A proof of a conjunction is a pair of proofs of the two components.
       To prove a conjunction, we build a pair using `constructor`. -/
   constructor
-  case left  => /- 3 + 4 = 7 -/ rfl
-  case right => /- 2 * 2 = 4 -/ rfl
+  · rfl /- 3 + 4 = 7 -/
+  · rfl /- 2 * 2 = 4 -/
 
 -- The constructor for conjunction is `And.intro`, which
 -- concludes that `a ∧ b` given that `a` and `b` hold
 -- individually.
 
-#check (And.intro : ∀ {a b : Prop}, a → b → a ∧ b)
+#check And.intro
+
+-- And.intro {a b : Prop} (left : a) (right : b) : a ∧ b
 
 -- We can also apply the constructor for the conjunction
 -- explicitly.
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   apply And.intro
-  case left  => /- 3 + 4 = 7 -/ rfl
-  case right => /- 2 * 2 = 4 -/ rfl
+  · rfl /- 3 + 4 = 7 -/
+  · rfl /- 2 * 2 = 4 -/
 
 -- Rather than applying the constructor, we can explicitly
 -- provide the arguments to the constructor as an `exact`
@@ -239,9 +240,9 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   exact ⟨rfl, rfl⟩
 
 -- So much for proving conjunctive statements. To go in the
--- other direction -- i.e., to *use* a conjunctive hypothesis
--- to help prove something else -- we can use `obtain` to
--- obtain the components.
+-- other direction — i.e., to *use* a conjunctive hypothesis to
+-- help prove something else — we can use `obtain` to obtain
+-- the components.
 
 example (n m : Nat) : n = 0 ∧ m = 0 → n + m = 0 := by
   sorry
@@ -265,7 +266,9 @@ example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
 -- `And a b`. That is, `And` is a Lean operator that takes two
 -- propositions as arguments and yields a proposition.
 
-#check (And : Prop → Prop → Prop)
+#check And
+
+-- And (a b : Prop) : Prop
 
 -- ### Disjunction
 
@@ -275,17 +278,17 @@ example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
 -- `Or a b`, where `Or : Prop -> Prop -> Prop`.
 
 -- To use a disjunctive hypothesis in a proof, we proceed by
--- case analysis -- which, as with other data types like `Nat`,
+-- case analysis — which, as with other data types like `Nat`,
 -- is done using `cases`. The two cases are `inl` (for "left
 -- injection", or "in the left case") and `inr` (for "right
 -- injection", or "in the right case").
 
 theorem Nat.factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
-  cases h
+  cases h with
   /- `n = 0` -/
-  case inl hn => rw [hn, Nat.zero_mul]
+  | inl hn => rw [hn, Nat.zero_mul]
   /- `m = 0` -/
-  case inr hm => rw [hm, Nat.mul_zero]
+  | inr hm => rw [hm, Nat.mul_zero]
 
 -- Rather than performing case analysis via `cases`, we can
 -- also use `obtain` to match on the two possible injections,
@@ -294,8 +297,8 @@ theorem Nat.factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
 theorem and_is_false (b1 b2 : Bool) (h : (b1 = false) ∨ (b2 = false)) :
     (b1 && b2) = false := by
   obtain hb1 | hb2 := h
-  case inl => rw [hb1, Bool.false_and]
-  case inr => rw [hb2, Bool.and_false]
+  · rw [hb1, Bool.false_and]
+  · rw [hb2, Bool.and_false]
 
 -- Conversely, to show that a disjunction holds, it suffices to
 -- show that one of its sides holds. This can be done via the
@@ -326,7 +329,7 @@ theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
 -- ### Falsehood and Negation
 
 -- Up to this point, we have mostly been concerned with proving
--- "positive" statements -- addition is commutative, appending
+-- "positive" statements — addition is commutative, appending
 -- lists is associative, etc. We are sometimes also interested
 -- in negative results, demonstrating that some proposition is
 -- *not* true. Such statements are expressed with the logical
@@ -343,11 +346,16 @@ theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
 -- `False` is a specific unprovable proposition defined in the
 -- standard library.
 
-#check (Not : Prop → Prop)
+#check Not
 #print Not
 
 example (a : Prop) : Not a = (a → False) := rfl
 example (a : Prop) : (¬ a) = (a → False) := rfl
+
+-- Not (a : Prop) : Prop
+
+-- def Not : Prop → Prop :=
+-- fun a => a → False
 
 -- Since `False` is a contradictory proposition, the principle
 -- of explosion also applies to it. If we can get `False` into
@@ -362,12 +370,15 @@ theorem ex_falso_quodlibet (a : Prop) (h : False) : a := by
 
 #print Ne
 
+-- @[reducible] def Ne.{u} : {α : Sort u} → α → α → Prop :=
+-- fun {α} a b => ¬a = b
+
 theorem zero_not_one : 0 ≠ 1 := by
-  /- FULL: The proposition `0 ≠ 1` is exactly the same as `¬ (0 = 1)`
-      -- that is, `Not (0 = 1)` -- which unfolds to `(0 = 1) → False`. -/
-  /- FULL: To prove an inequality, we may assume the opposite equality... -/
+  /- The proposition `0 ≠ 1` is exactly the same as `¬ (0 = 1)`
+      — that is, `Not (0 = 1)` — which unfolds to `(0 = 1) → False`. -/
+  /- To prove an inequality, we may assume the opposite equality... -/
   intro contra
-  /- FULL: ...and deduce a contradiction from it. Here, the equality
+  /- ...and deduce a contradiction from it. Here, the equality
       `0 = 1` corresponds to `zero = succ zero`, which contradicts
       disjointness of constructors `zero` and `succ`, so `contradiction`
       takes care of it. -/
@@ -387,7 +398,7 @@ theorem not_False : ¬ False := by
 theorem contradiction_implies_anything (a b : Prop) (h : a ∧ ¬ a) : b := by
   sorry
 
-theorem double_neg (a : Prop) (hP : a) : ¬ ¬ a := by
+theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
   sorry
 
 -- Since inequality involves a negation, getting comfortable
@@ -399,14 +410,13 @@ theorem double_neg (a : Prop) (hP : a) : ¬ ¬ a := by
 -- `¬ a`, and in particular of the form `x ≠ y`.
 
 theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
-  -- FOLD
-  cases b
-  case false => rfl
-  case true =>
-    unfold Ne Not at h
+  cases b with
+  | false => rfl
+  | true =>
+    dsimp [Ne, Not] at h
     apply ex_falso_quodlibet
-    apply h; rfl
-  -- /FOLD
+    apply h
+    rfl
 
 -- Note to developers:
 --     HIDE: CH: I don't think this was the original intention,
@@ -511,17 +521,28 @@ example : True := by constructor
 -- `Iff.intro` to convert a goal of the form `a ↔ b` to two
 -- goals of the form `a → b` and `b → a`.
 
-#print Iff
-
 #check (fun α β : Prop => α ↔ β : Prop → Prop → Prop)
+
+#check Iff
+#check Iff.intro
+#check Iff.mp
+#check Iff.mpr
+
+-- Iff (a b : Prop) : Prop
+
+-- Iff.intro {a b : Prop} (mp : a → b) (mpr : b → a) : a ↔ b
+
+-- Iff.mp {a b : Prop} (self : a ↔ b) : a → b
+
+-- Iff.mpr {a b : Prop} (self : a ↔ b) : b → a
 
 theorem iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a := by
   sorry
 
 theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
   constructor
-  case mp => apply not_true_is_false
-  case mpr => intro h; rw [h]; intro h'; contradiction
+  · apply not_true_is_false
+  · intro h; rw [h]; intro h'; contradiction
 
 -- ### Exercise (1 star): iff_properties ⭐
 
@@ -551,11 +572,15 @@ theorem or_distributes_over_and (a b c : Prop) :
 
 -- ### Existential Quantification
 
-#check (Exists : ∀ {T : Type}, (T → Prop) → Prop)
+#check Exists
 
-abbrev Nat.Even x := ∃ n : Nat, x = Nat.double n
+-- Exists.{u} {α : Sort u} (p : α → Prop) : Prop
 
-#check (Nat.Even : Nat → Prop)
+def Nat.Even x := ∃ n : Nat, x = Nat.double n
+
+#check (Nat.Even)
+
+-- Nat.Even : Nat → Prop
 
 open Nat in
 example : Even 4 := by exists 2
@@ -569,8 +594,6 @@ example : Even 4 := by exists 2
 example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
   intro ⟨m, hm⟩
   exists (m + 2)
-
--- -----------------------------------------------------------------------------
 
 -- ## Recap: Logical Connectives in Lean
 
@@ -617,8 +640,6 @@ example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
 -- - implication (`a → b`)
 -- - universal quantification (`∀ x, a`)
 
--- -----------------------------------------------------------------------------
-
 -- ## Programming with Propositions
 
 -- What does it mean to say that "an element `x` occurs in a
@@ -640,10 +661,10 @@ def List.In {α : Type} (x : α) (xs : List α) : Prop :=
   | [] => False
   | x' :: xs' => x = x' ∨ In x xs'
 
-theorem List.In_nil {α} (x : α) : ¬ (List.In x []) := by
+theorem List.In_nil {α : Type} {x : α} : ¬ (List.In x []) := by
   dsimp [List.In]; intro h; assumption
 
-theorem List.In_cons {α} (x x' : α) (xs : List α) : List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := rfl
+theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := rfl
 
 -- When `List.In` is applied to a concrete list, it exapnds
 -- into a concrete sequence of nested disjunctions.
@@ -658,18 +679,16 @@ example (n : Nat) (h : List.In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
 -- We can also reason about more generic statements involving
 -- `List.In`.
 
-theorem List.In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : List.In x xs) :
-    List.In (f x) (List.map f xs) := by
-  -- TERSE: FOLD
-  induction xs
-  case nil =>
-    exfalso; apply List.In_nil x; assumption
-  case cons x' xs' ih =>
-    rw [List.In_cons] at h
+theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : In x xs) :
+    In (f x) (map f xs) := by
+  induction xs with
+  | nil =>
+    exfalso; apply In_nil; assumption
+  | cons x' xs' ih =>
+    rw [In_cons] at h
     obtain h | h := h
-    case inl => rw [h, List.map_cons, List.In_cons]; left; rfl
-    case inr => rw [List.map_cons, List.In_cons]; right; exact ih h
-  -- TERSE: /FOLD
+    · rw [h, map_cons, In_cons]; left; rfl
+    · rw [map_cons, In_cons]; right; exact ih h
 
 -- ## Applying Theorems to Arguments
 
@@ -700,7 +719,7 @@ theorem List.In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : 
 -- Why?
 
 -- The reason is that the identifier `Nat.add_comm` actually
--- refers to a *proof object* -- a logical derivation
+-- refers to a *proof object* — a logical derivation
 -- establishing the truth of the statement
 -- `∀ n m : Nat, n + m = m + n`. The type of this object is the
 -- proposition that it is a proof of.
@@ -719,13 +738,26 @@ theorem List.In_map (α β : Type) (f : α → β) (xs : List α) (x : α) (h : 
 --   we get back a proof object of type `n + n = m + m`.
 
 -- Lean actually allows us to *apply* a theorem as if it were a
--- function. This is often handy in proof scripts -- e.g.,
+-- function. This is often handy in proof scripts — e.g.,
 -- suppose we want to prove the following:
 
-example (x y z : Nat) : x + (y + z) = (z + y) + x := by
-  rw [Nat.add_comm]
-  rw [Nat.add_comm]
-  sorry
+sf_expect_failure
+  example (x y z : Nat) : x + (y + z) = (z + y) + x := by
+    rw [Nat.add_comm]
+    rw [Nat.add_comm]
+
+-- unsolved goals
+-- a b c : Prop
+-- n m : Nat
+-- α✝ : Type
+-- e1 e2 x✝¹ y✝¹ : α✝
+-- α β : Type
+-- x✝ x' y✝ : α
+-- l l' : List α
+-- f g : α → β
+-- p : α → Prop
+-- x y z : Nat
+-- ⊢ x + (y + z) = z + y + x
 
 -- It appears at first sight that we ought to be able to prove
 -- this be rewriting with `Nat.add_comm` twice to make the two
@@ -757,11 +789,11 @@ namespace FunctionTheoremQuiz
 --   n m : Nat
 --   h₁ : n = m
 --   h₂ : b = 42
---   trans_eq : ∀ (α : Type) (x y z : α), x = y → y = z → x = z
+--   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this "proof object"?
 
---   trans_eq Nat n m 42 h₁ h₂
+--   @trans_eq Nat n m 42 h₁ h₂
 
 -- 1. `n = m`
 -- 2. `42 = n`
@@ -775,11 +807,11 @@ namespace FunctionTheoremQuiz
 --   n m : Nat
 --   h₁ : n = m
 --   h₂ : b = 42
---   trans_eq : ∀ (α : Type) (x y z : α), x = y → y = z → x = z
+--   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this proof object?
 
---   trans_eq _ _ _ _ h₁ h₂
+--   trans_eq h₁ h₂
 
 -- 1. `n = m`
 -- 2. `42 = n`
@@ -793,11 +825,11 @@ namespace FunctionTheoremQuiz
 --   n m : Nat
 --   h₁ : n = m
 --   h₂ : b = 42
---   trans_eq : ∀ (α : Type) (x y z : α), x = y → y = z → x = z
+--   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this proof object?
 
---   trans_eq Nat m 42 n h₂
+--   @trans_eq Nat m 42 n h₂
 
 -- 1. `m = n`
 -- 2. `m = n → 42 = n`
@@ -811,11 +843,11 @@ namespace FunctionTheoremQuiz
 --   n m : Nat
 --   h₁ : n = m
 --   h₂ : b = 42
---   trans_eq : ∀ (α : Type) (x y z : α), x = y → y = z → x = z
+--   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this proof object?
 
---   trans_eq _ 42 n m
+--   @trans_eq _ 42 n m
 
 -- 1. `n = m → m = 42 → n = 42`
 -- 2. `42 = n → n = m → 42 = m`
@@ -829,11 +861,11 @@ namespace FunctionTheoremQuiz
 --   n m : Nat
 --   h₁ : n = m
 --   h₂ : b = 42
---   trans_eq : ∀ (α : Type) (x y z : α), x = y → y = z → x = z
+--   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this proof object?
 
---   trans_eq _ _ _ _ h₂ h₁
+--   trans_eq h₂ h₁
 
 -- 1. `b = a`
 -- 2. `42 = a`
@@ -856,7 +888,7 @@ end FunctionTheoremQuiz
 
 -- Since functions in Lean by default must terminate on all
 -- inputs, a terminating function of type `Nat → Bool` is a
--- *decision procedure* -- i.e., it yields `true` or `false` on
+-- *decision procedure* — i.e., it yields `true` or `false` on
 -- all inputs.
 
 -- For example, `Nat.even` is a decision procedure for the
@@ -885,11 +917,12 @@ example : Nat.Even 42 := by dsimp [Nat.Even]; exists 21
 
 theorem even_double (k : Nat) :
     Nat.even (Nat.double k) = true := by
-  -- FOLD
-  induction k
-  case zero => rw [Nat.double_zero]; rfl
-  case succ k' ih => rw [Nat.double_succ]; exact ih
-  -- /FOLD
+  induction k with
+  | zero => rw [Nat.double_zero]; rfl
+  | succ k' ih => rw [Nat.double_succ]; exact ih
+
+-- Note to developers (Yipeng Liu  @berberman):
+--     Same issue as `CombineOddEven`.
 
 theorem even_double_conv (n : Nat) : ∃ k : Nat,
     n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by
@@ -898,15 +931,11 @@ theorem even_double_conv (n : Nat) : ∃ k : Nat,
 -- Now the main theorem:
 
 theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
-  -- FOLD
   constructor
-  case mp =>
-    intro h
+  · intro h
     obtain ⟨k, hk⟩ := even_double_conv n
     rw [h] at hk; dsimp at hk; dsimp [Even]; exists k
-  case mpr =>
-    intro ⟨k, hk⟩; rw [hk]; apply even_double
-  -- /FOLD
+  · intro ⟨k, hk⟩; rw [hk]; apply even_double
 
 -- In view of this theorem, we can say that the boolean
 -- computation `Nat.even n` is *reflected* in the truth of the
@@ -923,13 +952,13 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 -- (For the reverse direction we need the simple fact that `==`
 -- is reflexive.)
 
-theorem beq_eq_true (n1 n2 : Nat) :
-    (n1 == n2) = true ↔ n1 = n2 := by
-  -- FOLD
+theorem beq_eq_true (n m : Nat) :
+    (n == m) = true ↔ n = m := by
   constructor
-  case mp => apply beq_eq
-  case mpr => intro H; rw [H, BEq.rfl]
-  -- /FOLD
+  · apply beq_eq
+  · intro h
+    rw [h]
+    apply BEq.rfl
 
 -- So what should we do in situations where some claim could be
 -- formalized as either a proposition or a boolean computation?
@@ -939,7 +968,7 @@ theorem beq_eq_true (n1 n2 : Nat) :
 -- more useful for defining functions, since we can test
 -- whether they are true using conditional expressions.
 
-abbrev is_even_prime (n : Nat) : Bool :=
+def is_even_prime (n : Nat) : Bool :=
   bif n == 2 then true else false
 
 -- The most direct way to prove this is to give the value of
@@ -959,8 +988,8 @@ example : Nat.even 100 := rfl
 -- the other one without mentioning the value 500 explicitly:
 
 example : Nat.Even 100 := by
-  obtain ⟨H, _⟩ := Nat.even_bool_prop 100
-  apply H; rfl
+  obtain ⟨h, _⟩ := Nat.even_bool_prop 100
+  apply h; rfl
 
 -- Although we haven't gained much in terms of proof-script
 -- simplicity in this case, larger proofs can often be made
@@ -981,9 +1010,9 @@ example : Nat.even 101 = false := rfl
 -- with directly. For example, suppose we state the nonevenness
 -- of `101` propositionally:
 
--- Proving this directly -- by assuming that there is some `n`
+-- Proving this directly — by assuming that there is some `n`
 -- such that `101 = Nat.double n` and then somehow reasoning to
--- a contradiction -- would be rather complicated.
+-- a contradiction — would be rather complicated.
 
 -- But if we convert it to a claim about the boolean `Nat.even`
 -- function, we can let Lean do the work for us.
@@ -1001,8 +1030,6 @@ example : ¬ Nat.Even 101 := by
 theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
     (n + p == m + p) = true := by
   sorry
-
--- -----------------------------------------------------------------------------
 
 -- ## The Logic of Lean
 
@@ -1032,19 +1059,55 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 -- the same term, and we cannot proceed by cases on `a` or `b`,
 -- as they are not inductive.
 
-/-- Tactic `rfl` failed -/
-#guard_msgs (substring := true) in
-example (a b : Prop) : a ∧ b = b ∧ a := by rfl
+sf_expect_failure
+  example (a b : Prop) : a ∧ b = b ∧ a := by rfl
 
-/-- Tactic `cases` failed -/
-#guard_msgs (substring := true) in
-example (a b : Prop) : a ∧ b = b ∧ a := by cases a
+-- Tactic `rfl` failed: The left-hand side
+--   a
+-- is not definitionally equal to the right-hand side
+--   b = b ∧ a
+
+-- a✝ b✝ c : Prop
+-- n m : Nat
+-- α✝ : Type
+-- e1 e2 x✝ y✝ : α✝
+-- α β : Type
+-- x x' y : α
+-- l l' : List α
+-- f g : α → β
+-- p : α → Prop
+-- a b : Prop
+-- ⊢ a ∧ b = b ∧ a
+
+sf_expect_failure
+  example (a b : Prop) : a ∧ b = b ∧ a := by cases a
+
+-- Tactic `cases` failed: major premise type is not an inductive type
+--   Prop
+
+-- Explanation: the `cases` tactic is for constructor-based reasoning as well as for applying custom cases principles with a 'using' clause or a registered '@[cases_eliminator]' theorem. The above type neither is an inductive type nor has a registered theorem.
+
+-- Consider using the 'by_cases' tactic, which does true/false reasoning for propositions.
+
+-- a✝ b✝ c : Prop
+-- n m : Nat
+-- α✝ : Type
+-- e1 e2 x✝ y✝ : α✝
+-- α β : Type
+-- x x' y : α
+-- l l' : List α
+-- f g : α → β
+-- p : α → Prop
+-- a b : Prop
+-- ⊢ a ∧ b = b ∧ a
 
 -- However, we *can* prove that `a ∧ b` implies `b ∧ a`, and
 -- vice versa -- this is the commutativity of conjunction that
 -- we have seen earlier.
 
-#check (@and_comm : ∀ a b : Prop, a ∧ b ↔ b ∧ a)
+#check and_comm
+
+-- and_comm {a b : Prop} : a ∧ b ↔ b ∧ a
 
 -- Since it would be convenient to be able to rewrite
 -- propositions from one side of `↔` to the other, Lean
@@ -1052,6 +1115,8 @@ example (a b : Prop) : a ∧ b = b ∧ a := by cases a
 -- *propositional extensionality* (`propext`).
 
 #print propext
+
+-- axiom propext : ∀ {a b : Prop}, (a ↔ b) → a = b
 
 -- Lean provides an `ext` tactic that applies `propext` for us.
 -- We can use it to show that commuted conjoined propositions
@@ -1094,7 +1159,11 @@ theorem and_comm_flip' (a b c : Prop) : (a ∧ b ∧ c) ↔ (c ∧ b ∧ a) := b
 
 #print axioms and_comm_flip
 
+-- 'and_comm_flip' depends on axioms: [propext]
+
 #print axioms and_comm_flip'
+
+-- 'and_comm_flip'' depends on axioms: [propext]
 
 -- ### Exercise (1 star): mul_eq_0_ternary ⭐
 
@@ -1102,9 +1171,9 @@ theorem mul_eq_0_ternary (n m p : Nat) :
     n * m * p = 0 ↔ n = 0 ∨ m = 0 ∨ p = 0 := by
   sorry
 
--- ### Exercise (2 stars): In_app_iff ⭐⭐
+-- ### Exercise (2 stars): In_append_iff ⭐⭐
 
-theorem In_app_iff (α : Type) (l l' : List α) (x : α) :
+theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
     List.In x (l ++ l') ↔ List.In x l ∨ List.In x l' := by
   sorry
 
@@ -1184,5 +1253,7 @@ abbrev excluded_middle := ∀ a : Prop, a ∨ ¬ a
 -- provides classical reasoning principles in the `Classical`
 -- library, including excluded middle.
 
-#check (Classical.em : ∀ a, a ∨ ¬ a)
+#check Classical.em
+
+-- Classical.em (p : Prop) : p ∨ ¬p
 

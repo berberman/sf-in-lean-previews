@@ -1189,7 +1189,7 @@ theorem in_mem α (x : α) (l : List α) : List.In x l ↔ x ∈ l := by
   all_goals
     constructor
     . intro h; induction l with
-      | nil => apply List.In_nil _ at h; contradiction
+      | nil => apply List.In_nil at h; contradiction
       | cons hd tl ih =>
         rw [List.In_cons] at h
         obtain h | h := h
