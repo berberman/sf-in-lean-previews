@@ -1,5 +1,5 @@
 {
-  "main_sha": "9aa5bfeb89d4bd1891fee022ebc2c56af73e0694",
+  "main_sha": "5345275c5b886befabdc056933f6a0264121dbb2",
   "prs": {
     "167": {
       "changed_variants": [
@@ -340,52 +340,6 @@
       "status": "ci-failed",
       "title": "Editing pass over Typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/191"
-    },
-    "192": {
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "464cd1955b1d397d3100dddc069e5bb36d04e43d",
-      "preview_path": "pr/192/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30935565410",
-      "status": "published",
-      "title": "Qualified import with `open` and parentheses for handling `||` precedence",
-      "url": "https://github.com/plclub/sf-in-lean/pull/192"
     }
   },
   "schema": 3

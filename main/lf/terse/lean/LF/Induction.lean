@@ -389,7 +389,7 @@ theorem andb_false (b : Bool) :
   sorry
 
 theorem all3_spec (b c : Bool) :
-    (b && c) || ((!b) || (!c)) = true := by
+    ((b && c) || ((!b) || (!c))) = true := by
   sorry
 
 theorem right_distrib (n m p : Nat) :
