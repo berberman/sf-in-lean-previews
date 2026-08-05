@@ -379,11 +379,48 @@
     },
     "191": {
       "base_sha": "6c3775c97cecc09b7bfa05363236cf0a03318d01",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "9095d4ab01efec8c2dba0738372c850d5197c4f9",
       "preview_path": "pr/191/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31023040578",
+      "status": "published",
       "title": "Editing pass over Typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/191"
     },
