@@ -470,6 +470,53 @@
       "status": "published",
       "title": "Convert bibliography for Verso",
       "url": "https://github.com/plclub/sf-in-lean/pull/195"
+    },
+    "198": {
+      "base_sha": "61ab428ae2f3e8e9de85c1998a2c6f2be2109548",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "9660b1a484696b4aa416f36bd8ef66a706a5ca16",
+      "preview_path": "pr/198/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31033478260",
+      "status": "published",
+      "title": "Typeclasses: motivate HasOne/DefaultValue with a real consumer, headOr",
+      "url": "https://github.com/plclub/sf-in-lean/pull/198"
     }
   },
   "schema": 3
