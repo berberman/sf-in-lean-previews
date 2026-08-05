@@ -893,8 +893,8 @@ end Playground
 
 -- #### Aside: Structures
 
--- When defining an inductive type with just case, we can instead use a
--- `structure`:
+-- When defining an inductive type with just one constructor, we can instead
+-- use a `structure`:
 
 structure NibbleStruct : Type where
   x0 : Playground.Bit
@@ -902,13 +902,47 @@ structure NibbleStruct : Type where
   x2 : Playground.Bit
   x3 : Playground.Bit
 
--- Rather than construct this as `.bits .b0 .b0 .b0 .b0` we construct it as:
+-- Rather than construct this as `.bits .b0 .b0 .b0 .b0`, we construct it as:
 
 #check NibbleStruct.mk .b0 .b0 .b0 .b0
 
 -- { x0 := Playground.Bit.b0, x1 := Playground.Bit.b0, x2 := Playground.Bit.b0, x3 := Playground.Bit.b0 } : NibbleStruct
 
--- The `.mk` constructor is created for us.
+-- The `.mk` constructor is created for us. However, structures are more
+-- commonly constructed by assigning values to their *fields*. Each field name
+-- is paird with its value using `:=`:
+
+def zeroNibble : NibbleStruct := {
+    x0 := .b0
+    x1 := .b0
+    x2 := .b0
+    x3 := .b0
+  }
+
+-- Since the result type is declared to be `NibbleStruct`, Lean knows which
+-- structure and fields we mean. Unlike `NibbleStruct.mk`, this construction
+-- syntax doesn't depend on the order of fields.
+
+-- Now that we have seen how to construct a strucure from scratch — how do we
+-- "update" an existing structure, or in other words, construct a new
+-- structure while reusing some old fields?
+
+def setFistTwoBits (old : NibbleStruct)
+    (newX0 : Playground.Bit)
+    (newX1 : Playground.Bit) : NibbleStruct :=
+  { old with x0 := newX0, x1 := newX1 }
+
+-- The expression `{ old with ... }` constructs a new `NibbleStruct` whose
+-- `x0` and `x1` have the given value and whose other fields are copied from
+-- `old`. Keep in mind that `old` was not modified — we constructed a new one.
+
+def makeNibbleStruct (x0 x1 x2 x3 : Playground.Bit) : NibbleStruct :=
+  { x0, x1, x2, x3 }
+
+-- When a field an the variable supplying its value have the same name, Lean
+-- let us write just the name. Thus `{ x0, x1, x2, x3 }` is a shorthand for
+-- `{ x0 := x0, x1 := x1, x2 := x2, x3 := x3 }`. This is called *field
+-- abbreviation*.
 
 -- ### Natural Numbers
 

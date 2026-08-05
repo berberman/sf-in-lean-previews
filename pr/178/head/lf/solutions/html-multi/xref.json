@@ -2688,6 +2688,18 @@
         "Tactics: More Basic Tactics",
         "Rewriting with Conditional Statements"]}},
      "address": "/Tactics/"}],
+   "zeroNibble":
+   [{"id": "zeroNibble",
+     "data":
+     {"/Basics/#zeroNibble":
+      {"display": "zeroNibble",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Aside: Structures"]}},
+     "address": "/Basics/"}],
    "unzip_nil":
    [{"id": "unzip_nil",
      "data":
@@ -3278,6 +3290,18 @@
         "Tactic Combinators",
         "The  try  combinator"]}},
      "address": "/Automation/"}],
+   "setFistTwoBits":
+   [{"id": "setFistTwoBits",
+     "data":
+     {"/Basics/#setFistTwoBits":
+      {"display": "setFistTwoBits",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Aside: Structures"]}},
+     "address": "/Basics/"}],
    "right":
    [{"id": "right",
      "data":
@@ -4121,6 +4145,18 @@
         "Functions as Data",
         "Map"]}},
      "address": "/Poly/"}],
+   "makeNibbleStruct":
+   [{"id": "makeNibbleStruct",
+     "data":
+     {"/Basics/#makeNibbleStruct":
+      {"display": "makeNibbleStruct",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Aside: Structures"]}},
+     "address": "/Basics/"}],
    "lt_ge_cases":
    [{"id": "lt_ge_cases",
      "data":
@@ -10929,7 +10965,7 @@
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append",
+   [{"id": "Lists___NatList___myRepeat_append-next",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
@@ -10948,7 +10984,7 @@
         "Induction on Lists",
         "Generalizing Statements"]}},
      "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append-next",
+    {"id": "Lists___NatList___myRepeat_append",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",

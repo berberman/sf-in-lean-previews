@@ -2667,6 +2667,18 @@
         "Tactics: More Basic Tactics",
         "Rewriting with Conditional Statements"]}},
      "address": "/Tactics/"}],
+   "zeroNibble":
+   [{"id": "zeroNibble",
+     "data":
+     {"/Basics/#zeroNibble":
+      {"display": "zeroNibble",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Aside: Structures"]}},
+     "address": "/Basics/"}],
    "triple":
    [{"id": "triple",
      "data":
@@ -3059,6 +3071,18 @@
         "Tactic Combinators",
         "The  try  combinator"]}},
      "address": "/Automation/"}],
+   "setFistTwoBits":
+   [{"id": "setFistTwoBits",
+     "data":
+     {"/Basics/#setFistTwoBits":
+      {"display": "setFistTwoBits",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Aside: Structures"]}},
+     "address": "/Basics/"}],
    "rfl_not_enough'":
    [{"id": "rfl_not_enough___",
      "data":
@@ -3512,6 +3536,18 @@
         "Functions as Data",
         "Map"]}},
      "address": "/Poly/"}],
+   "makeNibbleStruct":
+   [{"id": "makeNibbleStruct",
+     "data":
+     {"/Basics/#makeNibbleStruct":
+      {"display": "makeNibbleStruct",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Aside: Structures"]}},
+     "address": "/Basics/"}],
    "list123":
    [{"id": "list123",
      "data":
@@ -4648,7 +4684,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -4657,7 +4693,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
