@@ -890,6 +890,102 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1987,11 +2083,11 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="current numbered"><td class="num">3.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="current numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <label for="--verso-manual-toc-UsingLean" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-UsingLean" checked="checked"></label><span class="number">3.</span> <span class="current"><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></span></div>
-              <table><tr class="numbered"><td class="num">3.1.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers">More powerful Natural Numbers</a></td></tr><tr class="numbered"><td class="num">3.2.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-the-Standard-Library">Using the Standard Library</a></td></tr><tr class="numbered"><td class="num">3.3.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Structuring-proofs-with--calc">Structuring proofs with <code>calc</code></a></td></tr><tr class="numbered"><td class="num">3.4.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp">Definitional simplification: <code>dsimp</code></a></td></tr><tr class="numbered"><td class="num">3.5.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Redefining-Functions-and-Lemmas-over-Nats">Redefining Functions and Lemmas over Nats</a></td></tr><tr class="numbered"><td class="num">3.6.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-Code-Actions-to-Generate-Match-Skeletons">Using Code Actions to Generate Match Skeletons</a></td></tr></table></div>
+                <label for="--verso-manual-toc-UsingLean" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-UsingLean" checked="checked"></label><span class="number">4.</span> <span class="current"><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></span></div>
+              <table><tr class="numbered"><td class="num">4.1.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers">More powerful Natural Numbers</a></td></tr><tr class="numbered"><td class="num">4.2.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-the-Standard-Library">Using the Standard Library</a></td></tr><tr class="numbered"><td class="num">4.3.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Structuring-proofs-with--calc">Structuring proofs with <code>calc</code></a></td></tr><tr class="numbered"><td class="num">4.4.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp">Definitional simplification: <code>dsimp</code></a></td></tr><tr class="numbered"><td class="num">4.5.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Redefining-Functions-and-Lemmas-over-Nats">Redefining Functions and Lemmas over Nats</a></td></tr><tr class="numbered"><td class="num">4.6.</td><td><a href="UsingLean/#Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-Code-Actions-to-Generate-Match-Skeletons">Using Code Actions to Generate Match Skeletons</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -1999,10 +2095,10 @@ window.onload = async () => {
       <div class="toc-resize-handle"></div>
       <main><div class="content-wrapper">
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Induction/#Induction" rel="prev" title="2. Induction: Proof by Induction"><span class="arrow">←</span><span class="where">2. Induction: Proof by Induction</span></a><a class="local-button active" href="Lists/#Lists" rel="next" title="4. Lists: Working with Structured Data"><span class="where">4. Lists: Working with Structured Data</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Induction/#Induction" rel="prev" title="3. Induction: Proof by Induction"><span class="arrow">←</span><span class="where">3. Induction: Proof by Induction</span></a><a class="local-button active" href="Lists/#Lists" rel="next" title="5. Lists: Working with Structured Data"><span class="where">5. Lists: Working with Structured Data</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
-              3. UsingLean: Using the full power of a proof assistant<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=UsingLean" title="Permalink">🔗</a></span></h1>
+              4. UsingLean: Using the full power of a proof assistant<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=UsingLean" title="Permalink">🔗</a></span></h1>
             <div class="sf-dev-note">
               <div class="sf-dev-note-label">
                 Note to developers (NOW)</div>
@@ -2020,7 +2116,7 @@ calc</p>
               </div>
             <section>
               <h2 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers">
-                3.1. More powerful Natural Numbers<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers" title="Permalink">🔗</a></span></h2>
+                4.1. More powerful Natural Numbers<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers" title="Permalink">🔗</a></span></h2>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
                   Note to developers (Benjamin Pierce  @bcpierce00)</div>
@@ -2108,7 +2204,7 @@ of <code>&lt;theorem&gt;</code>.</p>
                 </div>
               <section>
                 <h3 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers--rfl--and-computation-with--Nat">
-                  3.1.1. <code>rfl</code> and computation with <code>Nat</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers--rfl--and-computation-with--Nat" title="Permalink">🔗</a></span></h3>
+                  4.1.1. <code>rfl</code> and computation with <code>Nat</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers--rfl--and-computation-with--Nat" title="Permalink">🔗</a></span></h3>
                 <p>
                   With Lean's <code>Nat</code>, much of the computation happens automatically,
 and <code>rfl</code> suffices to close any equality of computation on literals.</p>
@@ -2137,7 +2233,7 @@ solved with <code>rfl</code>.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-the-Standard-Library">
-                3.2. Using the Standard Library<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-the-Standard-Library" title="Permalink">🔗</a></span></h2>
+                4.2. Using the Standard Library<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-the-Standard-Library" title="Permalink">🔗</a></span></h2>
               <p>
                 As part of using Lean's standard <code>Nat</code> type, we will also begin
 using theorems about <code>Nat</code>s from the standard library. Because we
@@ -2211,7 +2307,7 @@ you can find the theorems you need using <code>rw?</code> and <code>exact?</code
 </span><span class="unknown token" data-binding=""></span></code></section>
             <section>
               <h2 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Structuring-proofs-with--calc">
-                3.3. Structuring proofs with <code>calc</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Structuring-proofs-with--calc" title="Permalink">🔗</a></span></h2>
+                4.3. Structuring proofs with <code>calc</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Structuring-proofs-with--calc" title="Permalink">🔗</a></span></h2>
               <p>
                 In Lean proofs, long <code>rw</code> chains are useful, but they are sometimes hard to
 read because the intermediate goals are invisible. Furthermore, sometimes we
@@ -2293,7 +2389,7 @@ will be tools in your ever-growing toolbox of tactics.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp">
-                3.4. Definitional simplification: <code>dsimp</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp" title="Permalink">🔗</a></span></h2>
+                4.4. Definitional simplification: <code>dsimp</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp" title="Permalink">🔗</a></span></h2>
               <p>
                 Often, rather than rewriting by a known equation like</p>
               <p>
@@ -2364,7 +2460,7 @@ versify. Also, we may want a pointer to where we introduce <code>simp</code>
                 </div>
               <section>
                 <h3 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp--A-New-Step-Towards-Automation">
-                  3.4.1. A New Step Towards Automation<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp--A-New-Step-Towards-Automation" title="Permalink">🔗</a></span></h3>
+                  4.4.1. A New Step Towards Automation<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp--A-New-Step-Towards-Automation" title="Permalink">🔗</a></span></h3>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
                     Note to developers (Benjamin Pierce  @bcpierce00)</div>
@@ -2398,7 +2494,7 @@ those proofs to make your logic clear.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Redefining-Functions-and-Lemmas-over-Nats">
-                3.5. Redefining Functions and Lemmas over Nats<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Redefining-Functions-and-Lemmas-over-Nats" title="Permalink">🔗</a></span></h2>
+                4.5. Redefining Functions and Lemmas over Nats<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Redefining-Functions-and-Lemmas-over-Nats" title="Permalink">🔗</a></span></h2>
               <p>
                 Now that we've switched over to using Lean's standard library, we can
 redefine some of the functions from the last few chapters on <code>Nat</code>s.
@@ -2511,7 +2607,7 @@ or constructor by writing <code>attribute [pp_nodot] &lt;Name&gt;</code>."  Do t
               </section>
             <section>
               <h2 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-Code-Actions-to-Generate-Match-Skeletons">
-                3.6. Using Code Actions to Generate Match Skeletons<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-Code-Actions-to-Generate-Match-Skeletons" title="Permalink">🔗</a></span></h2>
+                4.6. Using Code Actions to Generate Match Skeletons<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-Code-Actions-to-Generate-Match-Skeletons" title="Permalink">🔗</a></span></h2>
               <p>
                 Lean's language server can suggest <em>code actions</em>, which are
 small editor commands that modify the source code.
@@ -2578,7 +2674,7 @@ For example, suppose we start with</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
             </section>
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Induction/#Induction" rel="prev" title="2. Induction: Proof by Induction"><span class="arrow">←</span><span class="where">2. Induction: Proof by Induction</span></a><a class="local-button active" href="Lists/#Lists" rel="next" title="4. Lists: Working with Structured Data"><span class="where">4. Lists: Working with Structured Data</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Induction/#Induction" rel="prev" title="3. Induction: Proof by Induction"><span class="arrow">←</span><span class="where">3. Induction: Proof by Induction</span></a><a class="local-button active" href="Lists/#Lists" rel="next" title="5. Lists: Working with Structured Data"><span class="where">5. Lists: Working with Structured Data</span><span class="arrow">→</span></a></nav>
           </div>
         </main></div>
     </body>

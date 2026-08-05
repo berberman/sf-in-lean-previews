@@ -890,6 +890,102 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1987,11 +2083,11 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="current numbered"><td class="num">10.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="current numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <label for="--verso-manual-toc-Typeclasses" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Typeclasses" checked="checked"></label><span class="number">10.</span> <span class="current"><a href="Typeclasses/#Typeclasses">Typeclasses</a></span></div>
-              <table><tr class="numbered"><td class="num">10.1.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses">Why We Need Typeclasses</a></td></tr><tr class="numbered"><td class="num">10.2.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses">Defining Your Own Typeclasses</a></td></tr><tr class="numbered"><td class="num">10.3.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Using-Typeclasses">Using Typeclasses</a></td></tr><tr class="numbered"><td class="num">10.4.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses">Proof-Carrying Typeclasses</a></td></tr><tr class="numbered"><td class="num">10.5.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Maps">Maps</a></td></tr><tr class="numbered"><td class="num">10.6.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Reflection">Reflection</a></td></tr><tr class="numbered"><td class="num">10.7.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--TODO">TODO</a></td></tr></table></div>
+                <label for="--verso-manual-toc-Typeclasses" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Typeclasses" checked="checked"></label><span class="number">11.</span> <span class="current"><a href="Typeclasses/#Typeclasses">Typeclasses</a></span></div>
+              <table><tr class="numbered"><td class="num">11.1.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses">Why We Need Typeclasses</a></td></tr><tr class="numbered"><td class="num">11.2.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses">Defining Your Own Typeclasses</a></td></tr><tr class="numbered"><td class="num">11.3.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Using-Typeclasses">Using Typeclasses</a></td></tr><tr class="numbered"><td class="num">11.4.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses">Proof-Carrying Typeclasses</a></td></tr><tr class="numbered"><td class="num">11.5.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Maps">Maps</a></td></tr><tr class="numbered"><td class="num">11.6.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--Reflection">Reflection</a></td></tr><tr class="numbered"><td class="num">11.7.</td><td><a href="Typeclasses/#Logical-Foundations--Typeclasses--TODO">TODO</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -1999,11 +2095,11 @@ window.onload = async () => {
       <div class="toc-resize-handle"></div>
       <main><div class="content-wrapper">
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Automation/#Logical-Foundations--Automation___-More-Automation" rel="prev" title="9. Automation: More Automation"><span class="arrow">←</span><span class="where">9. Automation: More Automation</span></a><div></div>
+            <a class="local-button active" href="Automation/#Logical-Foundations--Automation___-More-Automation" rel="prev" title="10. Automation: More Automation"><span class="arrow">←</span><span class="where">10. Automation: More Automation</span></a><div></div>
             </nav>
           <section>
             <h1>
-              10. Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Typeclasses" title="Permalink">🔗</a></span></h1>
+              11. Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Typeclasses" title="Permalink">🔗</a></span></h1>
             <p>
               Chapter <a href="Poly/#Poly">Poly</a> introduced <strong>parametric polymorphism</strong>, declaring a type variable with no
 constraint on it:</p>
@@ -2028,7 +2124,7 @@ partially specify its behavior. In Lean, this is done through a form of "ad hoc 
 other languages, such as traits in Rust.</p>
             <section>
               <h2 id="Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses">
-                10.1. Why We Need Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses" title="Permalink">🔗</a></span></h2>
+                11.1. Why We Need Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses" title="Permalink">🔗</a></span></h2>
               <p>
                 Consider the following function, which checks whether a natural number occurs in a list:</p>
               <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.definition-1648">def</span><span class="inter-text"> </span><span class="const token" data-binding="const-List.elem_nat" data-verso-hover="2203" id="List___elem_nat">List.elem_nat</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-1666">(</span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="95">a</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-1666">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="389">Nat</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-1666">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-1676">(</span><span class="var token" data-binding="var-_uniq.7" data-verso-hover="767">xs</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-1676">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-List" data-verso-hover="691">List</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="389">Nat</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-1676">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-1692">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool" data-verso-hover="43">Bool</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-1699">:=</span><span class="inter-text">
@@ -2124,7 +2220,7 @@ to define a typeclass in the first place.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses">
-                10.2. Defining Your Own Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses" title="Permalink">🔗</a></span></h2>
+                11.2. Defining Your Own Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses" title="Permalink">🔗</a></span></h2>
               <p>
                 <code>BEq</code> comes from Lean's standard library. Let's define a typeclass of our own, to see the
 mechanism — classes, instances, and synthesis — that made <code>==</code> resolve automatically above.</p>
@@ -2203,7 +2299,7 @@ when maps need a default value for a generic type. First, though, let's go back 
               </section>
             <section>
               <h2 id="Logical-Foundations--Typeclasses--Using-Typeclasses">
-                10.3. Using Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Using-Typeclasses" title="Permalink">🔗</a></span></h2>
+                11.3. Using Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Using-Typeclasses" title="Permalink">🔗</a></span></h2>
               <p>
                 Let's check what <code>==</code> meant for <code>List.elem_nat</code>, with notation display turned off:</p>
               <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.set_option-9404" data-verso-hover="2221">set_option</span><span class="inter-text"> </span><span class="option token" data-binding="option-pp.notation" data-verso-hover="2225">pp.notation</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.set_option-9404" data-verso-hover="2221">false</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.in-9404">in</span><span class="inter-text">
@@ -2242,7 +2338,7 @@ natural numbers.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses">
-                10.4. Proof-Carrying Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses" title="Permalink">🔗</a></span></h2>
+                11.4. Proof-Carrying Typeclasses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses" title="Permalink">🔗</a></span></h2>
               <p>
                 Notably, the above examples enforce no conditions on the data that they carry, and we could provide
 any value that we would like for <code class="hl lean inline" data-lean-context="examples"><a href="Typeclasses/#HasOne___one" title="Definition of example"><span class="const token" data-binding="const-HasOne.one" data-verso-hover="2215">HasOne.one</span></a></code>. This could be misleading, for instance if we had instead defined an instance</p>
@@ -2317,14 +2413,14 @@ reports a spurious <code>Fields missing: one_neq_three, two_neq_three</code> err
               </section>
             <section>
               <h2 id="Logical-Foundations--Typeclasses--Maps">
-                10.5. Maps<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps" title="Permalink">🔗</a></span></h2>
+                11.5. Maps<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps" title="Permalink">🔗</a></span></h2>
               <p>
                 Maps (or dictionaries) are ubiquitous data structures both in ordinary programming and in the theory of programming languages; we're going to need them in many places in the coming chapters.</p>
               <p>
                 We'll define two flavors of maps: total maps, which include a "default" element to be returned when a key being looked up doesn't exist, and partial maps, which instead return an option to indicate success or failure. Partial maps are defined in terms of total maps, using <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Option.none" data-verso-hover="670">none</span></code> as the default element.</p>
               <section>
                 <h3 id="Logical-Foundations--Typeclasses--Maps--Identifiers">
-                  10.5.1. Identifiers<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Identifiers" title="Permalink">🔗</a></span></h3>
+                  11.5.1. Identifiers<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Identifiers" title="Permalink">🔗</a></span></h3>
                 <p>
                   To define maps, we first need a type for the keys that we will use to index into our maps. Instead of using concrete types, we will use a type variables</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.variable-14294" data-verso-hover="2201">variable</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-14303">{</span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="682">α</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-14303">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-14303">}</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-14315">{</span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="682">β</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-14315">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-14315">}</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-14327">[</span><span class="const token" data-binding="const-BEq" data-verso-hover="1980">BEq</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="682">α</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-14327">]</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-14336">[</span><span class="const token" data-binding="const-ReflBEq" data-verso-hover="2250">ReflBEq</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="682">α</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-14336">]</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-14349">[</span><span class="const token" data-binding="const-LawfulBEq" data-verso-hover="2251">LawfulBEq</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="682">α</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.instBinder-14349">]</span><span class="inter-text">
@@ -2350,7 +2446,7 @@ class LawfulBEq (α : Type u) [BEq α] : Prop extends ReflBEq α where
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Typeclasses--Maps--Total-Maps">
-                  10.5.2. Total Maps<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Total-Maps" title="Permalink">🔗</a></span></h3>
+                  11.5.2. Total Maps<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Total-Maps" title="Permalink">🔗</a></span></h3>
                 <p>
                   Our main job in this chapter will be to build a definition of partial maps that is similar in behavior to the one we saw in the Lists chapter, plus accompanying lemmas about its behavior.</p>
                 <p>
@@ -2376,7 +2472,7 @@ class LawfulBEq (α : Type u) [BEq α] : Prop extends ReflBEq α where
                   so that we can use the <code>∅</code> notation for this empty map.</p>
                 <section>
                   <h4 id="Logical-Foundations--Typeclasses--Maps--Total-Maps--Getting-Elements">
-                    10.5.2.1. Getting Elements<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Total-Maps--Getting-Elements" title="Permalink">🔗</a></span></h4>
+                    11.5.2.1. Getting Elements<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Total-Maps--Getting-Elements" title="Permalink">🔗</a></span></h4>
                   <div class="sf-dev-note">
                     <div class="sf-dev-note-label">
                       Note to developers (Benjamin Pierce  @bcpierce00)</div>
@@ -2505,7 +2601,7 @@ To see why, with <code>trace.Meta.Tactic.simp.rewrite</code> enabled and specify
                   </section>
                 <section>
                   <h4 id="Logical-Foundations--Typeclasses--Maps--Total-Maps--Updating">
-                    10.5.2.2. Updating<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Total-Maps--Updating" title="Permalink">🔗</a></span></h4>
+                    11.5.2.2. Updating<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Total-Maps--Updating" title="Permalink">🔗</a></span></h4>
                   <p>
                     More interesting is the map-updating function, which (as always) takes a map <code>m</code>, a key <code>a</code>, and a value <code>b</code> and returns a new map that takes <code>a</code> to <code>b</code> and takes every other key to whatever <code>m</code> does. The novelty here is that we achieve this effect by wrapping a new function around the old one.</p>
                   <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.definition-24153">def</span><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="2272" id="TotalMap___update">update</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-24164">(</span><span class="var token" data-binding="var-_uniq.28" data-verso-hover="2265">m</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-24164">:</span><span class="inter-text"> </span><a href="Typeclasses/#TotalMap" title="Definition of example"><span class="const token" data-binding="const-TotalMap" data-verso-hover="2252">TotalMap</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="682">α</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="682">β</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-24164">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-24185">(</span><span class="var token" data-binding="var-_uniq.30" data-verso-hover="685">a</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-24185">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="682">α</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-24185">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-24194">(</span><span class="var token" data-binding="var-_uniq.32" data-verso-hover="690">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-24194">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="682">β</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-24194">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-24203">:</span><span class="inter-text"> </span><a href="Typeclasses/#TotalMap" title="Definition of example"><span class="const token" data-binding="const-TotalMap" data-verso-hover="2252">TotalMap</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="682">α</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="682">β</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-24220">:=</span><span class="inter-text">
@@ -2650,7 +2746,7 @@ presented that way. Reconsider if this section is rebalanced.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Typeclasses--Maps--Notation-for-Concrete-Maps">
-                  10.5.3. Notation for Concrete Maps<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Notation-for-Concrete-Maps" title="Permalink">🔗</a></span></h3>
+                  11.5.3. Notation for Concrete Maps<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Notation-for-Concrete-Maps" title="Permalink">🔗</a></span></h3>
                 <p>
                   Wouldn't it be nice if we could use a more natural notation for concrete maps like <code>{ "bar" ↦ true, "foo" ↦ true }</code>?
 To accomplish this we define a simple structure that consists of a key and a value along with <code>↦</code> notation for it.</p>
@@ -2705,7 +2801,7 @@ A type which can't be inferred doesn't have any type classes like <code>MyGetEle
 </span><span class="unknown token" data-binding=""></span></code></section>
               <section>
                 <h3 id="Logical-Foundations--Typeclasses--Maps--Partial-Maps">
-                  10.5.4. Partial Maps<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Partial-Maps" title="Permalink">🔗</a></span></h3>
+                  11.5.4. Partial Maps<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Partial-Maps" title="Permalink">🔗</a></span></h3>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
                     Note to developers (Niklas Halonen  @xhalo32)</div>
@@ -2922,7 +3018,7 @@ its own.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Typeclasses--Reflection">
-                10.6. Reflection<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Reflection" title="Permalink">🔗</a></span></h2>
+                11.6. Reflection<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Reflection" title="Permalink">🔗</a></span></h2>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
                   Note to developers</div>
@@ -3212,7 +3308,7 @@ with computational features of Lean such as the <code class="hl lean inline" dat
               </section>
             <section>
               <h2 id="Logical-Foundations--Typeclasses--TODO">
-                10.7. TODO<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--TODO" title="Permalink">🔗</a></span></h2>
+                11.7. TODO<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--TODO" title="Permalink">🔗</a></span></h2>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
                   Note to developers</div>
@@ -3250,7 +3346,7 @@ proofs can be a bit advanced if you follow core, or otherwise a bit circular. �
               </section>
             </section>
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Automation/#Logical-Foundations--Automation___-More-Automation" rel="prev" title="9. Automation: More Automation"><span class="arrow">←</span><span class="where">9. Automation: More Automation</span></a><div></div>
+            <a class="local-button active" href="Automation/#Logical-Foundations--Automation___-More-Automation" rel="prev" title="10. Automation: More Automation"><span class="arrow">←</span><span class="where">10. Automation: More Automation</span></a><div></div>
             </nav>
           </div>
         </main></div>

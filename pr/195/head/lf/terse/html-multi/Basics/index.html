@@ -890,6 +890,102 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1987,11 +2083,11 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="current numbered"><td class="num">1.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="current numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <label for="--verso-manual-toc-Basics" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Basics" checked="checked"></label><span class="number">1.</span> <span class="current"><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></span></div>
-              <table><tr class="numbered"><td class="num">1.1.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions">Data and Functions</a></td></tr><tr class="numbered"><td class="num">1.2.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting">Proof by Rewriting</a></td></tr><tr class="numbered"><td class="num">1.3.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers">General Proofs about Natural Numbers</a></td></tr><tr class="numbered"><td class="num">1.4.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis">Proof by Case Analysis</a></td></tr><tr class="numbered"><td class="num">1.5.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises">More Exercises</a></td></tr></table></div>
+                <label for="--verso-manual-toc-Basics" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Basics" checked="checked"></label><span class="number">2.</span> <span class="current"><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></span></div>
+              <table><tr class="numbered"><td class="num">2.1.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions">Data and Functions</a></td></tr><tr class="numbered"><td class="num">2.2.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting">Proof by Rewriting</a></td></tr><tr class="numbered"><td class="num">2.3.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers">General Proofs about Natural Numbers</a></td></tr><tr class="numbered"><td class="num">2.4.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis">Proof by Case Analysis</a></td></tr><tr class="numbered"><td class="num">2.5.</td><td><a href="Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises">More Exercises</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -1999,10 +2095,10 @@ window.onload = async () => {
       <div class="toc-resize-handle"></div>
       <main><div class="content-wrapper">
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="#" rel="prev" title=" Logical Foundations"><span class="arrow">←</span><span class="where"> Logical Foundations</span></a><a class="local-button active" href="Induction/#Induction" rel="next" title="2. Induction: Proof by Induction"><span class="where">2. Induction: Proof by Induction</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Preface/#Preface" rel="prev" title="1. Preface"><span class="arrow">←</span><span class="where">1. Preface</span></a><a class="local-button active" href="Induction/#Induction" rel="next" title="3. Induction: Proof by Induction"><span class="where">3. Induction: Proof by Induction</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
-              1. Basics: Functional Programming in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Basics" title="Permalink">🔗</a></span></h1>
+              2. Basics: Functional Programming in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Basics" title="Permalink">🔗</a></span></h1>
             <div class="sf-dev-note">
               <div class="sf-dev-note-label">
                 Note to developers (Jonathan Chan  @ionathanch)</div>
@@ -2042,12 +2138,12 @@ There should be some instruction on interaction with the IDE, namely:</p>
               </div>
             <section>
               <h2 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions">
-                1.1. Data and Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions" title="Permalink">🔗</a></span></h2>
+                2.1. Data and Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions" title="Permalink">🔗</a></span></h2>
               <p>
                 In Lean, we can build practically everything from first principles...</p>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Days-of-the-Week-_LPAR_Enumerated-Types_RPAR_">
-                  1.1.1. Days of the Week (Enumerated Types)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Days-of-the-Week-_LPAR_Enumerated-Types_RPAR_" title="Permalink">🔗</a></span></h3>
+                  2.1.1. Days of the Week (Enumerated Types)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Days-of-the-Week-_LPAR_Enumerated-Types_RPAR_" title="Permalink">🔗</a></span></h3>
                 <p>
                   A datatype definition:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-4847" data-verso-hover="0">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-Day" data-verso-hover="1" id="Day">Day</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-4861">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-4847" data-verso-hover="0">where</span><span class="inter-text">
@@ -2115,12 +2211,12 @@ produces.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Using-the-VS-Code-Lean-Extension">
-                  1.1.2. Aside: Using the VS Code Lean Extension<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Using-the-VS-Code-Lean-Extension" title="Permalink">🔗</a></span></h3>
+                  2.1.2. Aside: Using the VS Code Lean Extension<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Using-the-VS-Code-Lean-Extension" title="Permalink">🔗</a></span></h3>
                 <div class="suppress-previous-header-when-terse"></div>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Booleans">
-                  1.1.3. Booleans<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Booleans" title="Permalink">🔗</a></span></h3>
+                  2.1.3. Booleans<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Booleans" title="Permalink">🔗</a></span></h3>
                 <p>
                   Another familiar enumerated type; we'll switch to Lean's built-in <code>Bool</code> later:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-11969" data-verso-hover="0">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-MyBool" data-verso-hover="17" id="MyBool">MyBool</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-11986">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-11969" data-verso-hover="0">where</span><span class="inter-text">
@@ -2201,7 +2297,7 @@ otherwise.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Basic-Proofs">
-                  1.1.4. Basic Proofs<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Basic-Proofs" title="Permalink">🔗</a></span></h3>
+                  2.1.4. Basic Proofs<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Basic-Proofs" title="Permalink">🔗</a></span></h3>
                 <p>
                   Let's prove something simple about booleans:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-17130">theorem</span><span class="inter-text"> </span><span class="const token" data-binding="const-MyBool.true_and" data-verso-hover="34" id="MyBool___true_and">true_and</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-17147">:</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-17153">(</span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="22">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-17153">:</span><span class="inter-text"> </span><a href="Basics/#MyBool" title="Definition of example"><span class="const token" data-binding="const-MyBool" data-verso-hover="17">MyBool</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-17153">)</span><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Term.forall-17149">,</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-17167">(</span><a href="Basics/#MyBool___true" title="Definition of example"><span class="const token" data-binding="const-MyBool.true" data-verso-hover="18">MyBool.true</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-_private.LF.Basics.0.MyBool.«term_&amp;&amp;_»-17168">&&</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="22">b</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-17167">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-17167">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="22">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-17190">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-16300744114962622967-17193-17195-21"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-17193" data-verso-hover="14">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-16300744114962622967-17193-17195-21"><span class="tactic-state"><span class="goal"><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.22" data-verso-hover="22">b</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><a href="Basics/#MyBool" title="Definition of example"><span class="const token" data-binding="const-MyBool" data-verso-hover="17">MyBool</span></a><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><a href="Basics/#MyBool___and" title="Definition of example"><span class="const token" data-binding="const-MyBool.and" data-verso-hover="23">(</span></a><a href="Basics/#MyBool___true" title="Definition of example"><span class="const token" data-binding="const-MyBool.true" data-verso-hover="18">true</span></a><span class="inter-text"> </span><a href="Basics/#MyBool___and" title="Definition of example"><span class="const token" data-binding="const-MyBool.and" data-verso-hover="23">&&</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.22" data-verso-hover="22">b</span><a href="Basics/#MyBool___and" title="Definition of example"><span class="const token" data-binding="const-MyBool.and" data-verso-hover="23">)</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.22" data-verso-hover="22">b</span></span></span></span></span></span><span class="inter-text">
@@ -2267,7 +2363,7 @@ Remove <code>sorry</code> and fill in the proof.</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Types">
-                  1.1.5. Types<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Types" title="Permalink">🔗</a></span></h3>
+                  2.1.5. Types<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Types" title="Permalink">🔗</a></span></h3>
                 <p>
                   We can use <code>#check</code> to check the type of an expression:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="has-info information"><span class="hover-container"><span class="hover-info messages"><code class="verso-message information"><span class="text"></span><span class="highlighted"><span class="inter-text"></span><span class="const token" data-binding="const-Bool.true" data-verso-hover="40">Bool.true</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool" data-verso-hover="41">Bool</span></span></code></span></span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.check-22729">#check</span></span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.true" data-verso-hover="40">Bool.true</span><span class="inter-text">
@@ -2277,12 +2373,12 @@ Remove <code>sorry</code> and fill in the proof.</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Unicode-in-Lean">
-                  1.1.6. Aside: Unicode in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Unicode-in-Lean" title="Permalink">🔗</a></span></h3>
+                  2.1.6. Aside: Unicode in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Unicode-in-Lean" title="Permalink">🔗</a></span></h3>
                 <div class="suppress-previous-header-when-terse"></div>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--New-Types-from-Old">
-                  1.1.7. New Types from Old<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--New-Types-from-Old" title="Permalink">🔗</a></span></h3>
+                  2.1.7. New Types from Old<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--New-Types-from-Old" title="Permalink">🔗</a></span></h3>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
                     Note to developers (Harrison Goldstein  @hgoldstein95)</div>
@@ -2388,7 +2484,7 @@ to ensure they pass with no <code>sorry</code>.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Namespaces">
-                  1.1.8. Namespaces<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Namespaces" title="Permalink">🔗</a></span></h3>
+                  2.1.8. Namespaces<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Namespaces" title="Permalink">🔗</a></span></h3>
                 <p>
                   <code>namespace</code> declarations create separate namespaces.</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.definition-30442">def</span><span class="inter-text"> </span><span class="const token" data-binding="const-myFoo" data-verso-hover="60" id="myFoo">myFoo</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-30452">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool" data-verso-hover="41">Bool</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-30459">:=</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.true" data-verso-hover="40">true</span><span class="inter-text">
@@ -2516,7 +2612,7 @@ want to know more.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_">
-                  1.1.9. Constructors with Multiple Parameters (Tuple Types)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_" title="Permalink">🔗</a></span></h3>
+                  2.1.9. Constructors with Multiple Parameters (Tuple Types)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_" title="Permalink">🔗</a></span></h3>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.namespace-37187" data-verso-hover="20">namespace</span><span class="inter-text"> </span><span class="unknown token" data-binding="">Playground</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                   A Nibble is half a byte -- four bits.</p>
@@ -2542,13 +2638,13 @@ want to know more.</p>
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-38931" data-verso-hover="39">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">Playground</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><section>
                   <h4 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Aside___-Structures">
-                    1.1.9.1. Aside: Structures<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Aside___-Structures" title="Permalink">🔗</a></span></h4>
+                    2.1.9.1. Aside: Structures<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Aside___-Structures" title="Permalink">🔗</a></span></h4>
                   <div class="suppress-previous-header-when-terse"></div>
                   </section>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Natural-Numbers">
-                  1.1.10. Natural Numbers<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Natural-Numbers" title="Permalink">🔗</a></span></h3>
+                  2.1.10. Natural Numbers<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Natural-Numbers" title="Permalink">🔗</a></span></h3>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.namespace-39661" data-verso-hover="20">namespace</span><span class="inter-text"> </span><span class="unknown token" data-binding="">NatPlayground</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                   For simplicity in proofs, we choose a <em>unary</em> representation of natural numbers.</p>
@@ -2613,10 +2709,10 @@ here is a simpler way:</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting">
-                1.2. Proof by Rewriting<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting" title="Permalink">🔗</a></span></h2>
+                2.2. Proof by Rewriting<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting" title="Permalink">🔗</a></span></h2>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-properties-about-functions-in-Lean">
-                  1.2.1. Proving properties about functions in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-properties-about-functions-in-Lean" title="Permalink">🔗</a></span></h3>
+                  2.2.1. Proving properties about functions in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-properties-about-functions-in-Lean" title="Permalink">🔗</a></span></h3>
                 <p>
                   We can prove properties of recursive functions like <code>add</code>:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-45167">theorem</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.add_zero" data-verso-hover="94" id="NatPlayground___Nat___add_zero">add_zero</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-45184">:</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-45192">:</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="80">Nat</span></a><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Term.forall-45186">,</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-NatPlayground.Nat.«term_+_»-45199">+</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___zero" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.zero" data-verso-hover="81">zero</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-45199">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-45212">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-5350554097065659972-45215-45217-52"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-45215" data-verso-hover="14">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-5350554097065659972-45215-45217-52"><span class="tactic-state"><span class="goal"><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.134" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="80">Nat</span></a><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.134" data-verso-hover="83">n</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___add" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="92">+</span></a><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___zero" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.zero" data-verso-hover="81">zero</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.134" data-verso-hover="83">n</span></span></span></span></span></span><span class="inter-text">
@@ -2636,7 +2732,7 @@ about natural numbers!</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-state-and-tactics">
-                  1.2.2. Proof state and tactics<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-state-and-tactics" title="Permalink">🔗</a></span></h3>
+                  2.2.2. Proof state and tactics<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-state-and-tactics" title="Permalink">🔗</a></span></h3>
                 <p>
                   Here is the previous proof in more detail:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-45902">theorem</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.add_zero_zero_explained" data-verso-hover="97" id="NatPlayground___Nat___add_zero_zero_explained">add_zero_zero_explained</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-45934">:</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∀</span><span class="inter-text">  </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-45943">:</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="80">Nat</span></a><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Term.forall-45936">,</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-NatPlayground.Nat.«term_+_»-45950">+</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___zero" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.zero" data-verso-hover="81">zero</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-NatPlayground.Nat.«term_+_»-45950">+</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___zero" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.zero" data-verso-hover="81">zero</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-45950">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-45970">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-3848391993975895465-45973-45975-70"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-45973" data-verso-hover="14">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-3848391993975895465-45973-45975-70"><span class="tactic-state"><span class="goal"><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.158" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="80">Nat</span></a><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.158" data-verso-hover="83">n</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___add" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="92">+</span></a><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___zero" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.zero" data-verso-hover="81">zero</span></a><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___add" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="92">+</span></a><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___zero" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.zero" data-verso-hover="81">zero</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.158" data-verso-hover="83">n</span></span></span></span></span></span><span class="inter-text">
@@ -2661,12 +2757,12 @@ about natural numbers!</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--The--rewrite--tactic">
-                  1.2.3. The <code>rewrite</code> tactic<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--The--rewrite--tactic" title="Permalink">🔗</a></span></h3>
+                  2.2.3. The <code>rewrite</code> tactic<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--The--rewrite--tactic" title="Permalink">🔗</a></span></h3>
                 <div class="suppress-previous-header-when-terse"></div>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--The--rfl--tactic">
-                  1.2.4. The <code>rfl</code> tactic<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--The--rfl--tactic" title="Permalink">🔗</a></span></h3>
+                  2.2.4. The <code>rfl</code> tactic<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--The--rfl--tactic" title="Permalink">🔗</a></span></h3>
                 <div class="suppress-previous-header-when-terse"></div>
                 <p>
                   The <code>rfl</code> closes a goal that looks like <code>a = a</code>, reducing both sides of the equality in
@@ -2674,7 +2770,7 @@ the process.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--A-New--add--Rule">
-                  1.2.5. A New <code>add</code> Rule<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--A-New--add--Rule" title="Permalink">🔗</a></span></h3>
+                  2.2.5. A New <code>add</code> Rule<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--A-New--add--Rule" title="Permalink">🔗</a></span></h3>
                 <p>
                   Here's another rule we can use for <code>add</code>:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-48112">theorem</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.add_succ" data-verso-hover="99" id="NatPlayground___Nat___add_succ">add_succ</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-48129">:</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-48139">:</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="80">Nat</span></a><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Term.forall-48131">,</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-NatPlayground.Nat.«term_+_»-48146">+</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-48150">(</span><a href="Basics/#NatPlayground___Nat___succ" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.succ" data-verso-hover="82">succ</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="83">m</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-48150">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-48146">=</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___succ" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.succ" data-verso-hover="82">succ</span></a><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-48166">(</span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-NatPlayground.Nat.«term_+_»-48167">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="83">m</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-48166">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-48174">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-13801623329673429252-48177-48179-86"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-48177" data-verso-hover="14">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-13801623329673429252-48177-48179-86"><span class="tactic-state"><span class="goal"><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_uniq.150" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.151" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="80">Nat</span></a><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.150" data-verso-hover="83">n</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___add" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="92">+</span></a><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___succ" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.succ" data-verso-hover="82">succ</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.151" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___succ" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.succ" data-verso-hover="82">succ</span></a><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___add" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="92">(</span></a><span class="var token" data-binding="var-_uniq.150" data-verso-hover="83">n</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___add" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="92">+</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.151" data-verso-hover="83">m</span><a href="Basics/#NatPlayground___Nat___add" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="92">)</span></a></span></span></span></span></span><span class="inter-text">
@@ -2690,7 +2786,7 @@ the process.</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Irreducibility___-Rewriting___-and-Proof-Engineering">
-                  1.2.6. Irreducibility, Rewriting, and Proof Engineering<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Irreducibility___-Rewriting___-and-Proof-Engineering" title="Permalink">🔗</a></span></h3>
+                  2.2.6. Irreducibility, Rewriting, and Proof Engineering<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Irreducibility___-Rewriting___-and-Proof-Engineering" title="Permalink">🔗</a></span></h3>
                 <p>
                   After proving the theorems that characterize a definition,
 we mark the definition <code>irreducible</code> to require rewriting by them instead
@@ -2738,7 +2834,7 @@ rather than <code>rfl</code>-ing through the definition.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals">
-                  1.2.7. Working with Numerals<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals" title="Permalink">🔗</a></span></h3>
+                  2.2.7. Working with Numerals<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals" title="Permalink">🔗</a></span></h3>
                 <p>
                   We know from our definitions above that <code>one</code> is just <code>succ zero</code>,
 <code>two</code> is <code>succ one</code>, and so on. We can write rules for these equalities too:</p>
@@ -2894,7 +2990,7 @@ claim.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers">
-                1.3. General Proofs about Natural Numbers<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers" title="Permalink">🔗</a></span></h2>
+                2.3. General Proofs about Natural Numbers<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers" title="Permalink">🔗</a></span></h2>
               <p>
                 A (slightly) more interesting theorem:</p>
               <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-61613">theorem</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.add_id_example" data-verso-hover="137" id="NatPlayground___Nat___add_id_example">add_id_example</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-61636">:</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-61646">:</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="80">Nat</span></a><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Term.forall-61638">,</span><span class="inter-text">
@@ -2920,7 +3016,7 @@ previously declared lemmas and theorems.</p>
 </span><span class="has-info information"><span class="hover-container"><span class="hover-info messages"><code class="verso-message information"><span class="text"></span><span class="highlighted"><span class="inter-text"></span><span class="const token" data-binding="const-NatPlayground.Nat.mul_succ" data-verso-hover="119">NatPlayground.Nat.mul_succ</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.2" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="80">Nat</span></a><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="83">n</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___mul" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.mul" data-verso-hover="116">*</span></a><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___succ" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.succ" data-verso-hover="82">succ</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.2" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="83">n</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___mul" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.mul" data-verso-hover="116">*</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.2" data-verso-hover="83">m</span><span class="inter-text"> </span><a href="Basics/#NatPlayground___Nat___add" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.add" data-verso-hover="92">+</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="83">n</span></span></code></span></span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.check-62218">#check</span></span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.mul_succ" data-verso-hover="119">mul_succ</span><span class="inter-text">  </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> ∀ (n m : Nat), n * Nat.succ m = n + n * m</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers--Type-Annotations">
-                  1.3.1. Type Annotations<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers--Type-Annotations" title="Permalink">🔗</a></span></h3>
+                  2.3.1. Type Annotations<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers--Type-Annotations" title="Permalink">🔗</a></span></h3>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
                     Note to developers</div>
@@ -2941,7 +3037,7 @@ TODO</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis">
-                1.4. Proof by Case Analysis<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis" title="Permalink">🔗</a></span></h2>
+                2.4. Proof by Case Analysis<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis" title="Permalink">🔗</a></span></h2>
               <p>
                 Sometimes simple calculation and rewriting are not enough...</p>
               <div class="sf-dev-note">
@@ -3078,7 +3174,7 @@ We will introduce some tactics for writing shorter proofs
 by case analysis in <code>Tactics.lean</code>.</p>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--New-Tactics___--rewrite-_________-at--and--exact">
-                  1.4.1. New Tactics: <code>rewrite ... at</code> and <code>exact</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--New-Tactics___--rewrite-_________-at--and--exact" title="Permalink">🔗</a></span></h3>
+                  2.4.1. New Tactics: <code>rewrite ... at</code> and <code>exact</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--New-Tactics___--rewrite-_________-at--and--exact" title="Permalink">🔗</a></span></h3>
                 <p>
                   You will need the <code>rewrite ... at</code> and <code>exact</code> tactics to complete the following exercises.</p>
                 <div class="exercise stars-2">
@@ -3112,14 +3208,14 @@ delete it now.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--More-on-Notation-_LPAR_Optional_RPAR_">
-                  1.4.2. More on Notation (Optional)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--More-on-Notation-_LPAR_Optional_RPAR_" title="Permalink">🔗</a></span></h3>
+                  2.4.2. More on Notation (Optional)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--More-on-Notation-_LPAR_Optional_RPAR_" title="Permalink">🔗</a></span></h3>
                 <p>
                   Lean has commands like <code>notation</code>, <code>infixl</code>, <code>infixr</code>, <code>prefix</code>, and <code>postfix</code> for defining new
 notation.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Structural-Recursion-_LPAR_Optional_RPAR_">
-                  1.4.3. Structural Recursion (Optional)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Structural-Recursion-_LPAR_Optional_RPAR_" title="Permalink">🔗</a></span></h3>
+                  2.4.3. Structural Recursion (Optional)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Structural-Recursion-_LPAR_Optional_RPAR_" title="Permalink">🔗</a></span></h3>
                 <div class="exercise stars-2">
                   <div class="exercise-header">
                     <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(decreasing)</span></div>
@@ -3133,7 +3229,7 @@ termination.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Binary-Numerals">
-                  1.4.4. Binary Numerals<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Binary-Numerals" title="Permalink">🔗</a></span></h3>
+                  2.4.4. Binary Numerals<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Binary-Numerals" title="Permalink">🔗</a></span></h3>
                 <div class="exercise stars-3">
                   <div class="exercise-header">
                     <span class="exercise-label">Exercise</span><span class="exercise-stars">★★★</span><span class="exercise-name">(binary)</span></div>
@@ -3199,10 +3295,10 @@ usually written.  This choice makes them easier to manipulate.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises">
-                1.5. More Exercises<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises" title="Permalink">🔗</a></span></h2>
+                2.5. More Exercises<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises" title="Permalink">🔗</a></span></h2>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Warmups">
-                  1.5.1. Warmups<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Warmups" title="Permalink">🔗</a></span></h3>
+                  2.5.1. Warmups<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Warmups" title="Permalink">🔗</a></span></h3>
                 <div class="exercise stars-1">
                   <div class="exercise-header">
                     <span class="exercise-label">Exercise</span><span class="exercise-stars">★</span><span class="exercise-name">(identity_fn_applied_twice)</span></div>
@@ -3253,7 +3349,7 @@ function <code>f</code> has the property that <code>f x = !x</code>.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Course-Late-Policies___-Formalized">
-                  1.5.2. Course Late Policies, Formalized<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Course-Late-Policies___-Formalized" title="Permalink">🔗</a></span></h3>
+                  2.5.2. Course Late Policies, Formalized<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Course-Late-Policies___-Formalized" title="Permalink">🔗</a></span></h3>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
                     Note to developers</div>
@@ -3474,7 +3570,7 @@ go through without <code>dsimp</code> or <code>contradiction</code>. To discuss.
               </section>
             </section>
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="#" rel="prev" title=" Logical Foundations"><span class="arrow">←</span><span class="where"> Logical Foundations</span></a><a class="local-button active" href="Induction/#Induction" rel="next" title="2. Induction: Proof by Induction"><span class="where">2. Induction: Proof by Induction</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Preface/#Preface" rel="prev" title="1. Preface"><span class="arrow">←</span><span class="where">1. Preface</span></a><a class="local-button active" href="Induction/#Induction" rel="next" title="3. Induction: Proof by Induction"><span class="where">3. Induction: Proof by Induction</span><span class="arrow">→</span></a></nav>
           </div>
         </main></div>
     </body>

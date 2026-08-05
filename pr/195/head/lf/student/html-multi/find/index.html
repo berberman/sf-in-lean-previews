@@ -889,6 +889,102 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1970,50 +2066,61 @@ window.onload = async () => {
      "data":
      {"title": "UsingLean: Using the full power of a proof assistant",
       "shortTitle": null,
-      "sectionNum": "3.",
+      "sectionNum": "4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"}]},
+        "number": "4"}]},
      "address": "/UsingLean/"}],
    "Typeclasses":
    [{"id": "Typeclasses",
      "data":
      {"title": "Typeclasses",
       "shortTitle": null,
-      "sectionNum": "10.",
+      "sectionNum": "11.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"}]},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"}]},
      "address": "/Typeclasses/"}],
    "Tactics":
    [{"id": "Tactics",
      "data":
      {"title": "Tactics: More Basic Tactics",
       "shortTitle": null,
-      "sectionNum": "6.",
+      "sectionNum": "7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "7"}]},
      "address": "/Tactics/"}],
+   "Preface":
+   [{"id": "Preface",
+     "data":
+     {"title": "Preface",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
    "Poly":
    [{"id": "Poly",
      "data":
      {"title": "Poly: Polymorphism and Higher-Order Functions",
       "shortTitle": null,
-      "sectionNum": "5.",
+      "sectionNum": "6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"}]},
+        "number": "6"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-the-Standard-Library":
    [{"id":
@@ -2021,13 +2128,13 @@ window.onload = async () => {
      "data":
      {"title": "Using the Standard Library",
       "shortTitle": null,
-      "sectionNum": "3.2.",
+      "sectionNum": "4.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Using the Standard Library",
         "shortTitle": null,
         "number": "2"}]},
@@ -2038,13 +2145,13 @@ window.onload = async () => {
      "data":
      {"title": "Using Code Actions to Generate Match Skeletons",
       "shortTitle": null,
-      "sectionNum": "3.6.",
+      "sectionNum": "4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Using Code Actions to Generate Match Skeletons",
         "shortTitle": null,
         "number": "6"}]},
@@ -2055,13 +2162,13 @@ window.onload = async () => {
      "data":
      {"title": "Structuring proofs with  calc",
       "shortTitle": null,
-      "sectionNum": "3.3.",
+      "sectionNum": "4.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Structuring proofs with  calc",
         "shortTitle": null,
         "number": "3"}]},
@@ -2072,13 +2179,13 @@ window.onload = async () => {
      "data":
      {"title": "Redefining Functions and Lemmas over Nats",
       "shortTitle": null,
-      "sectionNum": "3.5.",
+      "sectionNum": "4.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Redefining Functions and Lemmas over Nats",
         "shortTitle": null,
         "number": "5"}]},
@@ -2089,13 +2196,13 @@ window.onload = async () => {
      "data":
      {"title": "rfl  and computation with  Nat",
       "shortTitle": null,
-      "sectionNum": "3.1.1.",
+      "sectionNum": "4.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "More powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"},
@@ -2109,13 +2216,13 @@ window.onload = async () => {
      "data":
      {"title": "More powerful Natural Numbers",
       "shortTitle": null,
-      "sectionNum": "3.1.",
+      "sectionNum": "4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "More powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"}]},
@@ -2126,13 +2233,13 @@ window.onload = async () => {
      "data":
      {"title": "A New Step Towards Automation",
       "shortTitle": null,
-      "sectionNum": "3.4.1.",
+      "sectionNum": "4.4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Definitional simplification:  dsimp",
         "shortTitle": null,
         "number": "4"},
@@ -2146,13 +2253,13 @@ window.onload = async () => {
      "data":
      {"title": "Definitional simplification:  dsimp",
       "shortTitle": null,
-      "sectionNum": "3.4.",
+      "sectionNum": "4.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Definitional simplification:  dsimp",
         "shortTitle": null,
         "number": "4"}]},
@@ -2162,11 +2269,11 @@ window.onload = async () => {
      "data":
      {"title": "Why We Need Typeclasses",
       "shortTitle": null,
-      "sectionNum": "10.1.",
+      "sectionNum": "11.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Why We Need Typeclasses",
         "shortTitle": null,
         "number": "1"}]},
@@ -2176,11 +2283,11 @@ window.onload = async () => {
      "data":
      {"title": "Using Typeclasses",
       "shortTitle": null,
-      "sectionNum": "10.3.",
+      "sectionNum": "11.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Using Typeclasses", "shortTitle": null, "number": "3"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--TODO":
@@ -2188,11 +2295,11 @@ window.onload = async () => {
      "data":
      {"title": "TODO",
       "shortTitle": null,
-      "sectionNum": "10.7.",
+      "sectionNum": "11.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "TODO", "shortTitle": null, "number": "7"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Reflection":
@@ -2200,11 +2307,11 @@ window.onload = async () => {
      "data":
      {"title": "Reflection",
       "shortTitle": null,
-      "sectionNum": "10.6.",
+      "sectionNum": "11.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Reflection", "shortTitle": null, "number": "6"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
@@ -2212,11 +2319,11 @@ window.onload = async () => {
      "data":
      {"title": "Proof-Carrying Typeclasses",
       "shortTitle": null,
-      "sectionNum": "10.4.",
+      "sectionNum": "11.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Proof-Carrying Typeclasses",
         "shortTitle": null,
         "number": "4"}]},
@@ -2226,11 +2333,11 @@ window.onload = async () => {
      "data":
      {"title": "Updating",
       "shortTitle": null,
-      "sectionNum": "10.5.2.2.",
+      "sectionNum": "11.5.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"},
        {"title": "Updating", "shortTitle": null, "number": "2"}]},
@@ -2241,11 +2348,11 @@ window.onload = async () => {
      "data":
      {"title": "Getting Elements",
       "shortTitle": null,
-      "sectionNum": "10.5.2.1.",
+      "sectionNum": "11.5.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"},
        {"title": "Getting Elements", "shortTitle": null, "number": "1"}]},
@@ -2255,11 +2362,11 @@ window.onload = async () => {
      "data":
      {"title": "Total Maps",
       "shortTitle": null,
-      "sectionNum": "10.5.2.",
+      "sectionNum": "11.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
@@ -2268,11 +2375,11 @@ window.onload = async () => {
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "10.5.4.",
+      "sectionNum": "11.5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Partial Maps", "shortTitle": null, "number": "4"}]},
      "address": "/Typeclasses/"}],
@@ -2281,11 +2388,11 @@ window.onload = async () => {
      "data":
      {"title": "Notation for Concrete Maps",
       "shortTitle": null,
-      "sectionNum": "10.5.3.",
+      "sectionNum": "11.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Notation for Concrete Maps",
         "shortTitle": null,
@@ -2296,11 +2403,11 @@ window.onload = async () => {
      "data":
      {"title": "Identifiers",
       "shortTitle": null,
-      "sectionNum": "10.5.1.",
+      "sectionNum": "11.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Identifiers", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
@@ -2309,11 +2416,11 @@ window.onload = async () => {
      "data":
      {"title": "Maps",
       "shortTitle": null,
-      "sectionNum": "10.5.",
+      "sectionNum": "11.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Maps", "shortTitle": null, "number": "5"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses":
@@ -2321,11 +2428,11 @@ window.onload = async () => {
      "data":
      {"title": "Defining Your Own Typeclasses",
       "shortTitle": null,
-      "sectionNum": "10.2.",
+      "sectionNum": "11.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Defining Your Own Typeclasses",
         "shortTitle": null,
         "number": "2"}]},
@@ -2336,13 +2443,13 @@ window.onload = async () => {
      "data":
      {"title": "Varying the Induction Hypothesis",
       "shortTitle": null,
-      "sectionNum": "6.5.",
+      "sectionNum": "7.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Varying the Induction Hypothesis",
         "shortTitle": null,
         "number": "5"}]},
@@ -2353,13 +2460,13 @@ window.onload = async () => {
      "data":
      {"title": "Using Tactics on Hypotheses",
       "shortTitle": null,
-      "sectionNum": "6.3.",
+      "sectionNum": "7.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Using Tactics on Hypotheses",
         "shortTitle": null,
         "number": "3"}]},
@@ -2370,13 +2477,13 @@ window.onload = async () => {
      "data":
      {"title": "Destructing Tuples",
       "shortTitle": null,
-      "sectionNum": "6.7.1.",
+      "sectionNum": "7.7.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Using  cases  on Compound Expressions",
         "shortTitle": null,
         "number": "7"},
@@ -2388,13 +2495,13 @@ window.onload = async () => {
      "data":
      {"title": "Using  cases  on Compound Expressions",
       "shortTitle": null,
-      "sectionNum": "6.7.",
+      "sectionNum": "7.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Using  cases  on Compound Expressions",
         "shortTitle": null,
         "number": "7"}]},
@@ -2405,13 +2512,13 @@ window.onload = async () => {
      "data":
      {"title": "The  injection  and  contradiction  Tactics",
       "shortTitle": null,
-      "sectionNum": "6.2.",
+      "sectionNum": "7.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "The  injection  and  contradiction  Tactics",
         "shortTitle": null,
         "number": "2"}]},
@@ -2422,13 +2529,13 @@ window.onload = async () => {
      "data":
      {"title": "Supplying arguments to  apply",
       "shortTitle": null,
-      "sectionNum": "6.1.1.",
+      "sectionNum": "7.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "The  apply  Tactic", "shortTitle": null, "number": "1"},
        {"title": "Supplying arguments to  apply",
         "shortTitle": null,
@@ -2440,13 +2547,13 @@ window.onload = async () => {
      "data":
      {"title": "The  apply  Tactic",
       "shortTitle": null,
-      "sectionNum": "6.1.",
+      "sectionNum": "7.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "The  apply  Tactic", "shortTitle": null, "number": "1"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Specializing-Hypotheses":
@@ -2455,13 +2562,13 @@ window.onload = async () => {
      "data":
      {"title": "Specializing Hypotheses",
       "shortTitle": null,
-      "sectionNum": "6.4.",
+      "sectionNum": "7.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Specializing Hypotheses",
         "shortTitle": null,
         "number": "4"}]},
@@ -2472,13 +2579,13 @@ window.onload = async () => {
      "data":
      {"title": "Rewriting with Conditional Statements",
       "shortTitle": null,
-      "sectionNum": "6.6.",
+      "sectionNum": "7.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Rewriting with Conditional Statements",
         "shortTitle": null,
         "number": "6"}]},
@@ -2488,13 +2595,13 @@ window.onload = async () => {
      "data":
      {"title": "Review",
       "shortTitle": null,
-      "sectionNum": "6.8.",
+      "sectionNum": "7.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Review", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs":
@@ -2503,13 +2610,13 @@ window.onload = async () => {
      "data":
      {"title": "Polymorphic Pairs",
       "shortTitle": null,
-      "sectionNum": "5.1.2.",
+      "sectionNum": "6.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Pairs", "shortTitle": null, "number": "2"}]},
      "address": "/Poly/"}],
@@ -2519,13 +2626,13 @@ window.onload = async () => {
      "data":
      {"title": "Polymorphic Options",
       "shortTitle": null,
-      "sectionNum": "5.1.3.",
+      "sectionNum": "6.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Options", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
@@ -2535,13 +2642,13 @@ window.onload = async () => {
      "data":
      {"title": "Type Argument Synthesis",
       "shortTitle": null,
-      "sectionNum": "5.1.1.2.",
+      "sectionNum": "6.1.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
        {"title": "Type Argument Synthesis",
@@ -2554,13 +2661,13 @@ window.onload = async () => {
      "data":
      {"title": "Type Annotation Inference",
       "shortTitle": null,
-      "sectionNum": "5.1.1.1.",
+      "sectionNum": "6.1.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
        {"title": "Type Annotation Inference",
@@ -2573,13 +2680,13 @@ window.onload = async () => {
      "data":
      {"title": "Supplying Type Arguments Explicitly",
       "shortTitle": null,
-      "sectionNum": "5.1.1.3.",
+      "sectionNum": "6.1.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
        {"title": "Supplying Type Arguments Explicitly",
@@ -2592,13 +2699,13 @@ window.onload = async () => {
      "data":
      {"title": "Exercises",
       "shortTitle": null,
-      "sectionNum": "5.1.1.4.",
+      "sectionNum": "6.1.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
        {"title": "Exercises", "shortTitle": null, "number": "4"}]},
@@ -2609,13 +2716,13 @@ window.onload = async () => {
      "data":
      {"title": "Polymorphic Lists",
       "shortTitle": null,
-      "sectionNum": "5.1.1.",
+      "sectionNum": "6.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"}]},
      "address": "/Poly/"}],
@@ -2625,13 +2732,13 @@ window.onload = async () => {
      "data":
      {"title": "Polymorphism",
       "shortTitle": null,
-      "sectionNum": "5.1.",
+      "sectionNum": "6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Map":
@@ -2640,13 +2747,13 @@ window.onload = async () => {
      "data":
      {"title": "Map",
       "shortTitle": null,
-      "sectionNum": "5.2.4.",
+      "sectionNum": "6.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Map", "shortTitle": null, "number": "4"}]},
      "address": "/Poly/"}],
@@ -2656,13 +2763,13 @@ window.onload = async () => {
      "data":
      {"title": "Higher-Order Functions",
       "shortTitle": null,
-      "sectionNum": "5.2.1.",
+      "sectionNum": "6.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Higher-Order Functions", "shortTitle": null, "number": "1"}]},
      "address": "/Poly/"}],
@@ -2672,13 +2779,13 @@ window.onload = async () => {
      "data":
      {"title": "Functions That Construct Functions",
       "shortTitle": null,
-      "sectionNum": "5.2.6.",
+      "sectionNum": "6.2.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Functions That Construct Functions",
         "shortTitle": null,
@@ -2690,13 +2797,13 @@ window.onload = async () => {
      "data":
      {"title": "Fold",
       "shortTitle": null,
-      "sectionNum": "5.2.5.",
+      "sectionNum": "6.2.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Fold", "shortTitle": null, "number": "5"}]},
      "address": "/Poly/"}],
@@ -2706,13 +2813,13 @@ window.onload = async () => {
      "data":
      {"title": "Filter",
       "shortTitle": null,
-      "sectionNum": "5.2.2.",
+      "sectionNum": "6.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Filter", "shortTitle": null, "number": "2"}]},
      "address": "/Poly/"}],
@@ -2722,13 +2829,13 @@ window.onload = async () => {
      "data":
      {"title": "Anonymous Functions",
       "shortTitle": null,
-      "sectionNum": "5.2.3.",
+      "sectionNum": "6.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Anonymous Functions", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
@@ -2738,13 +2845,13 @@ window.onload = async () => {
      "data":
      {"title": "Functions as Data",
       "shortTitle": null,
-      "sectionNum": "5.2.",
+      "sectionNum": "6.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises--Church-Numerals-_LPAR_Advanced_RPAR_":
@@ -2753,13 +2860,13 @@ window.onload = async () => {
      "data":
      {"title": "Church Numerals (Advanced)",
       "shortTitle": null,
-      "sectionNum": "5.3.1.",
+      "sectionNum": "6.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "3"},
        {"title": "Church Numerals (Advanced)",
         "shortTitle": null,
@@ -2771,13 +2878,13 @@ window.onload = async () => {
      "data":
      {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "5.3.",
+      "sectionNum": "6.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--Logic-in-Lean--Working-with-Decidable-Properties":
@@ -2786,11 +2893,11 @@ window.onload = async () => {
      "data":
      {"title": "Working with Decidable Properties",
       "shortTitle": null,
-      "sectionNum": "7.7.",
+      "sectionNum": "8.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Working with Decidable Properties",
         "shortTitle": null,
         "number": "7"}]},
@@ -2800,11 +2907,11 @@ window.onload = async () => {
      "data":
      {"title": "Logical Equivalence",
       "shortTitle": null,
-      "sectionNum": "7.3.1.",
+      "sectionNum": "8.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Truth", "shortTitle": null, "number": "3"},
        {"title": "Logical Equivalence", "shortTitle": null, "number": "1"}]},
      "address": "/Logic/"}],
@@ -2814,11 +2921,11 @@ window.onload = async () => {
      "data":
      {"title": "Existential Quantification",
       "shortTitle": null,
-      "sectionNum": "7.3.2.",
+      "sectionNum": "8.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Truth", "shortTitle": null, "number": "3"},
        {"title": "Existential Quantification",
         "shortTitle": null,
@@ -2829,11 +2936,11 @@ window.onload = async () => {
      "data":
      {"title": "Truth",
       "shortTitle": null,
-      "sectionNum": "7.3.",
+      "sectionNum": "8.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Truth", "shortTitle": null, "number": "3"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Propositional-Extensionality":
@@ -2842,11 +2949,11 @@ window.onload = async () => {
      "data":
      {"title": "Propositional Extensionality",
       "shortTitle": null,
-      "sectionNum": "7.8.1.",
+      "sectionNum": "8.8.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
        {"title": "Propositional Extensionality",
         "shortTitle": null,
@@ -2858,11 +2965,11 @@ window.onload = async () => {
      "data":
      {"title": "Functional Extensionality",
       "shortTitle": null,
-      "sectionNum": "7.8.2.",
+      "sectionNum": "8.8.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
        {"title": "Functional Extensionality",
         "shortTitle": null,
@@ -2874,11 +2981,11 @@ window.onload = async () => {
      "data":
      {"title": "Classical vs. Constructive Logic",
       "shortTitle": null,
-      "sectionNum": "7.8.3.",
+      "sectionNum": "8.8.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
        {"title": "Classical vs. Constructive Logic",
         "shortTitle": null,
@@ -2889,11 +2996,11 @@ window.onload = async () => {
      "data":
      {"title": "The Logic of Lean",
       "shortTitle": null,
-      "sectionNum": "7.8.",
+      "sectionNum": "8.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The--Prop--Type":
@@ -2901,11 +3008,11 @@ window.onload = async () => {
      "data":
      {"title": "The  Prop  Type",
       "shortTitle": null,
-      "sectionNum": "7.1.",
+      "sectionNum": "8.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The  Prop  Type", "shortTitle": null, "number": "1"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--Recap___-Logical-Connectives-in-Lean":
@@ -2914,11 +3021,11 @@ window.onload = async () => {
      "data":
      {"title": "Recap: Logical Connectives in Lean",
       "shortTitle": null,
-      "sectionNum": "7.4.",
+      "sectionNum": "8.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Recap: Logical Connectives in Lean",
         "shortTitle": null,
         "number": "4"}]},
@@ -2928,11 +3035,11 @@ window.onload = async () => {
      "data":
      {"title": "Programming with Propositions",
       "shortTitle": null,
-      "sectionNum": "7.5.",
+      "sectionNum": "8.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Programming with Propositions",
         "shortTitle": null,
         "number": "5"}]},
@@ -2943,11 +3050,11 @@ window.onload = async () => {
      "data":
      {"title": "Falsehood and Negation",
       "shortTitle": null,
-      "sectionNum": "7.2.3.",
+      "sectionNum": "8.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
        {"title": "Falsehood and Negation", "shortTitle": null, "number": "3"}]},
      "address": "/Logic/"}],
@@ -2957,11 +3064,11 @@ window.onload = async () => {
      "data":
      {"title": "Disjunction",
       "shortTitle": null,
-      "sectionNum": "7.2.2.",
+      "sectionNum": "8.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
        {"title": "Disjunction", "shortTitle": null, "number": "2"}]},
      "address": "/Logic/"}],
@@ -2971,11 +3078,11 @@ window.onload = async () => {
      "data":
      {"title": "Conjunction",
       "shortTitle": null,
-      "sectionNum": "7.2.1.",
+      "sectionNum": "8.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
        {"title": "Conjunction", "shortTitle": null, "number": "1"}]},
      "address": "/Logic/"}],
@@ -2984,11 +3091,11 @@ window.onload = async () => {
      "data":
      {"title": "Logical Connectives",
       "shortTitle": null,
-      "sectionNum": "7.2.",
+      "sectionNum": "8.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Logical Connectives", "shortTitle": null, "number": "2"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--Applying-Theorems-to-Arguments":
@@ -2996,11 +3103,11 @@ window.onload = async () => {
      "data":
      {"title": "Applying Theorems to Arguments",
       "shortTitle": null,
-      "sectionNum": "7.6.",
+      "sectionNum": "8.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Applying Theorems to Arguments",
         "shortTitle": null,
         "number": "6"}]},
@@ -3011,13 +3118,13 @@ window.onload = async () => {
      "data":
      {"title": "Search",
       "shortTitle": null,
-      "sectionNum": "4.3.2.",
+      "sectionNum": "5.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Search", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
@@ -3027,13 +3134,13 @@ window.onload = async () => {
      "data":
      {"title": "List Exercises, Part 2",
       "shortTitle": null,
-      "sectionNum": "4.3.4.",
+      "sectionNum": "5.3.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 2", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
@@ -3043,13 +3150,13 @@ window.onload = async () => {
      "data":
      {"title": "List Exercises, Part 1",
       "shortTitle": null,
-      "sectionNum": "4.3.3.",
+      "sectionNum": "5.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 1", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
@@ -3059,13 +3166,13 @@ window.onload = async () => {
      "data":
      {"title": "Reversing a List",
       "shortTitle": null,
-      "sectionNum": "4.3.1.2.",
+      "sectionNum": "5.3.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Reversing a List", "shortTitle": null, "number": "2"}]},
@@ -3076,13 +3183,13 @@ window.onload = async () => {
      "data":
      {"title": "Generalizing Statements",
       "shortTitle": null,
-      "sectionNum": "4.3.1.1.",
+      "sectionNum": "5.3.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Generalizing Statements",
@@ -3095,13 +3202,13 @@ window.onload = async () => {
      "data":
      {"title": "Induction on Lists",
       "shortTitle": null,
-      "sectionNum": "4.3.1.",
+      "sectionNum": "5.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
@@ -3111,13 +3218,13 @@ window.onload = async () => {
      "data":
      {"title": "Reasoning About Lists",
       "shortTitle": null,
-      "sectionNum": "4.3.",
+      "sectionNum": "5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Partial-Maps":
@@ -3126,13 +3233,13 @@ window.onload = async () => {
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "4.5.",
+      "sectionNum": "5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Partial Maps", "shortTitle": null, "number": "5"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers":
@@ -3141,13 +3248,13 @@ window.onload = async () => {
      "data":
      {"title": "Pairs of Numbers",
       "shortTitle": null,
-      "sectionNum": "4.1.",
+      "sectionNum": "5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Pairs of Numbers", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Options":
@@ -3156,13 +3263,13 @@ window.onload = async () => {
      "data":
      {"title": "Options",
       "shortTitle": null,
-      "sectionNum": "4.4.",
+      "sectionNum": "5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Options", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail":
@@ -3171,13 +3278,13 @@ window.onload = async () => {
      "data":
      {"title": "Head and Tail",
       "shortTitle": null,
-      "sectionNum": "4.2.3.1.",
+      "sectionNum": "5.2.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
@@ -3190,13 +3297,13 @@ window.onload = async () => {
      "data":
      {"title": "Exercises",
       "shortTitle": null,
-      "sectionNum": "4.2.3.2.",
+      "sectionNum": "5.2.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
@@ -3209,13 +3316,13 @@ window.onload = async () => {
      "data":
      {"title": "Type Classes and Overloading",
       "shortTitle": null,
-      "sectionNum": "4.2.3.",
+      "sectionNum": "5.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
@@ -3227,13 +3334,13 @@ window.onload = async () => {
      "data":
      {"title": "Repeat",
       "shortTitle": null,
-      "sectionNum": "4.2.1.",
+      "sectionNum": "5.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Repeat", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
@@ -3243,13 +3350,13 @@ window.onload = async () => {
      "data":
      {"title": "Removing",
       "shortTitle": null,
-      "sectionNum": "4.2.6.",
+      "sectionNum": "5.2.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Removing", "shortTitle": null, "number": "6"}]},
      "address": "/Lists/"}],
@@ -3259,13 +3366,13 @@ window.onload = async () => {
      "data":
      {"title": "Membership",
       "shortTitle": null,
-      "sectionNum": "4.2.5.",
+      "sectionNum": "5.2.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Membership", "shortTitle": null, "number": "5"}]},
      "address": "/Lists/"}],
@@ -3275,13 +3382,13 @@ window.onload = async () => {
      "data":
      {"title": "Included",
       "shortTitle": null,
-      "sectionNum": "4.2.7.",
+      "sectionNum": "5.2.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Included", "shortTitle": null, "number": "7"}]},
      "address": "/Lists/"}],
@@ -3291,13 +3398,13 @@ window.onload = async () => {
      "data":
      {"title": "Counting",
       "shortTitle": null,
-      "sectionNum": "4.2.4.",
+      "sectionNum": "5.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Counting", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
@@ -3307,13 +3414,13 @@ window.onload = async () => {
      "data":
      {"title": "Append",
       "shortTitle": null,
-      "sectionNum": "4.2.2.",
+      "sectionNum": "5.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Append", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
@@ -3323,13 +3430,13 @@ window.onload = async () => {
      "data":
      {"title": "Lists of Numbers",
       "shortTitle": null,
-      "sectionNum": "4.2.",
+      "sectionNum": "5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Separate-Compilation":
@@ -3338,13 +3445,13 @@ window.onload = async () => {
      "data":
      {"title": "Separate Compilation",
       "shortTitle": null,
-      "sectionNum": "2.1.",
+      "sectionNum": "3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "Separate Compilation", "shortTitle": null, "number": "1"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Review--Tip___-the--rw--tactic":
@@ -3353,13 +3460,13 @@ window.onload = async () => {
      "data":
      {"title": "Tip: the  rw  tactic",
       "shortTitle": null,
-      "sectionNum": "2.2.2.",
+      "sectionNum": "3.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "Review", "shortTitle": null, "number": "2"},
        {"title": "Tip: the  rw  tactic", "shortTitle": null, "number": "2"}]},
      "address": "/Induction/"}],
@@ -3369,13 +3476,13 @@ window.onload = async () => {
      "data":
      {"title": "Proof by Induction",
       "shortTitle": null,
-      "sectionNum": "2.2.1.",
+      "sectionNum": "3.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "Review", "shortTitle": null, "number": "2"},
        {"title": "Proof by Induction", "shortTitle": null, "number": "1"}]},
      "address": "/Induction/"}],
@@ -3384,13 +3491,13 @@ window.onload = async () => {
      "data":
      {"title": "Review",
       "shortTitle": null,
-      "sectionNum": "2.2.",
+      "sectionNum": "3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "Review", "shortTitle": null, "number": "2"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Proofs-Within-Proofs":
@@ -3399,13 +3506,13 @@ window.onload = async () => {
      "data":
      {"title": "Proofs Within Proofs",
       "shortTitle": null,
-      "sectionNum": "2.3.",
+      "sectionNum": "3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "Proofs Within Proofs", "shortTitle": null, "number": "3"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Nat-to-Bin-and-Back-to-Nat":
@@ -3414,13 +3521,13 @@ window.onload = async () => {
      "data":
      {"title": "Nat to Bin and Back to Nat",
       "shortTitle": null,
-      "sectionNum": "2.5.2.",
+      "sectionNum": "3.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "More Exercises", "shortTitle": null, "number": "5"},
        {"title": "Nat to Bin and Back to Nat",
         "shortTitle": null,
@@ -3432,13 +3539,13 @@ window.onload = async () => {
      "data":
      {"title": "Bin to Nat and Back to Bin (Advanced)",
       "shortTitle": null,
-      "sectionNum": "2.5.3.",
+      "sectionNum": "3.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "More Exercises", "shortTitle": null, "number": "5"},
        {"title": "Bin to Nat and Back to Bin (Advanced)",
         "shortTitle": null,
@@ -3450,13 +3557,13 @@ window.onload = async () => {
      "data":
      {"title": "A New Tactic Combinator",
       "shortTitle": null,
-      "sectionNum": "2.5.1.",
+      "sectionNum": "3.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "More Exercises", "shortTitle": null, "number": "5"},
        {"title": "A New Tactic Combinator",
         "shortTitle": null,
@@ -3468,13 +3575,13 @@ window.onload = async () => {
      "data":
      {"title": "More Exercises",
       "shortTitle": null,
-      "sectionNum": "2.5.",
+      "sectionNum": "3.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "More Exercises", "shortTitle": null, "number": "5"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Formal-vs___-Informal-Proof":
@@ -3483,13 +3590,13 @@ window.onload = async () => {
      "data":
      {"title": "Formal vs. Informal Proof",
       "shortTitle": null,
-      "sectionNum": "2.4.",
+      "sectionNum": "3.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "Formal vs. Informal Proof",
         "shortTitle": null,
         "number": "4"}]},
@@ -3500,13 +3607,13 @@ window.onload = async () => {
      "data":
      {"title": "Multiple Induction Hypotheses",
       "shortTitle": null,
-      "sectionNum": "8.2.3.",
+      "sectionNum": "9.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Using Evidence in Proofs", "shortTitle": null, "number": "2"},
        {"title": "Multiple Induction Hypotheses",
         "shortTitle": null,
@@ -3518,13 +3625,13 @@ window.onload = async () => {
      "data":
      {"title": "Induction on Evidence",
       "shortTitle": null,
-      "sectionNum": "8.2.2.",
+      "sectionNum": "9.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Using Evidence in Proofs", "shortTitle": null, "number": "2"},
        {"title": "Induction on Evidence", "shortTitle": null, "number": "2"}]},
      "address": "/IndProp/"}],
@@ -3534,13 +3641,13 @@ window.onload = async () => {
      "data":
      {"title": "Destructing and Inverting Evidence",
       "shortTitle": null,
-      "sectionNum": "8.2.1.",
+      "sectionNum": "9.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Using Evidence in Proofs", "shortTitle": null, "number": "2"},
        {"title": "Destructing and Inverting Evidence",
         "shortTitle": null,
@@ -3552,13 +3659,13 @@ window.onload = async () => {
      "data":
      {"title": "Using Evidence in Proofs",
       "shortTitle": null,
-      "sectionNum": "8.2.",
+      "sectionNum": "9.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Using Evidence in Proofs",
         "shortTitle": null,
         "number": "2"}]},
@@ -3569,13 +3676,13 @@ window.onload = async () => {
      "data":
      {"title": "Example: Transitive Closure",
       "shortTitle": null,
-      "sectionNum": "8.1.3.",
+      "sectionNum": "9.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -3589,13 +3696,13 @@ window.onload = async () => {
      "data":
      {"title": "Example: The Collatz Conjecture",
       "shortTitle": null,
-      "sectionNum": "8.1.1.",
+      "sectionNum": "9.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -3609,13 +3716,13 @@ window.onload = async () => {
      "data":
      {"title": "Example: Reflexive and Transitive Closure",
       "shortTitle": null,
-      "sectionNum": "8.1.4.",
+      "sectionNum": "9.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -3629,13 +3736,13 @@ window.onload = async () => {
      "data":
      {"title": "Example: Evenness (yet again)",
       "shortTitle": null,
-      "sectionNum": "8.1.5.",
+      "sectionNum": "9.1.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -3649,13 +3756,13 @@ window.onload = async () => {
      "data":
      {"title": "Example: Binary relation for comparing numbers",
       "shortTitle": null,
-      "sectionNum": "8.1.2.",
+      "sectionNum": "9.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -3669,13 +3776,13 @@ window.onload = async () => {
      "data":
      {"title": "Constructing Evidence for Permutations",
       "shortTitle": null,
-      "sectionNum": "8.1.6.",
+      "sectionNum": "9.1.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -3689,13 +3796,13 @@ window.onload = async () => {
      "data":
      {"title": "Inductively Defined Propositions",
       "shortTitle": null,
-      "sectionNum": "8.1.",
+      "sectionNum": "9.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"}]},
@@ -3706,13 +3813,13 @@ window.onload = async () => {
      "data":
      {"title": "Exercising with Inductive Relations",
       "shortTitle": null,
-      "sectionNum": "8.3.",
+      "sectionNum": "9.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Exercising with Inductive Relations",
         "shortTitle": null,
         "number": "3"}]},
@@ -3723,13 +3830,13 @@ window.onload = async () => {
      "data":
      {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "8.4.",
+      "sectionNum": "9.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "4"}]},
      "address": "/IndProp/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals":
@@ -3738,13 +3845,13 @@ window.onload = async () => {
      "data":
      {"title": "Working with Numerals",
       "shortTitle": null,
-      "sectionNum": "1.2.7.",
+      "sectionNum": "2.2.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "Working with Numerals", "shortTitle": null, "number": "7"}]},
      "address": "/Basics/"}],
@@ -3754,13 +3861,13 @@ window.onload = async () => {
      "data":
      {"title": "The  rfl  tactic",
       "shortTitle": null,
-      "sectionNum": "1.2.4.",
+      "sectionNum": "2.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "The  rfl  tactic", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
@@ -3770,13 +3877,13 @@ window.onload = async () => {
      "data":
      {"title": "The  rewrite  tactic",
       "shortTitle": null,
-      "sectionNum": "1.2.3.",
+      "sectionNum": "2.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "The  rewrite  tactic", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
@@ -3786,13 +3893,13 @@ window.onload = async () => {
      "data":
      {"title": "Proving properties about functions in Lean",
       "shortTitle": null,
-      "sectionNum": "1.2.1.",
+      "sectionNum": "2.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "Proving properties about functions in Lean",
         "shortTitle": null,
@@ -3804,13 +3911,13 @@ window.onload = async () => {
      "data":
      {"title": "Proof state and tactics",
       "shortTitle": null,
-      "sectionNum": "1.2.2.",
+      "sectionNum": "2.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "Proof state and tactics",
         "shortTitle": null,
@@ -3822,13 +3929,13 @@ window.onload = async () => {
      "data":
      {"title": "Irreducibility, Rewriting, and Proof Engineering",
       "shortTitle": null,
-      "sectionNum": "1.2.6.",
+      "sectionNum": "2.2.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "Irreducibility, Rewriting, and Proof Engineering",
         "shortTitle": null,
@@ -3840,13 +3947,13 @@ window.onload = async () => {
      "data":
      {"title": "A New  add  Rule",
       "shortTitle": null,
-      "sectionNum": "1.2.5.",
+      "sectionNum": "2.2.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "A New  add  Rule", "shortTitle": null, "number": "5"}]},
      "address": "/Basics/"}],
@@ -3856,13 +3963,13 @@ window.onload = async () => {
      "data":
      {"title": "Proof by Rewriting",
       "shortTitle": null,
-      "sectionNum": "1.2.",
+      "sectionNum": "2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Structural-Recursion-_LPAR_Optional_RPAR_":
@@ -3871,13 +3978,13 @@ window.onload = async () => {
      "data":
      {"title": "Structural Recursion (Optional)",
       "shortTitle": null,
-      "sectionNum": "1.4.3.",
+      "sectionNum": "2.4.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
        {"title": "Structural Recursion (Optional)",
         "shortTitle": null,
@@ -3889,13 +3996,13 @@ window.onload = async () => {
      "data":
      {"title": "New Tactics:  rewrite ... at  and  exact",
       "shortTitle": null,
-      "sectionNum": "1.4.1.",
+      "sectionNum": "2.4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
        {"title": "New Tactics:  rewrite ... at  and  exact",
         "shortTitle": null,
@@ -3907,13 +4014,13 @@ window.onload = async () => {
      "data":
      {"title": "More on Notation (Optional)",
       "shortTitle": null,
-      "sectionNum": "1.4.2.",
+      "sectionNum": "2.4.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
        {"title": "More on Notation (Optional)",
         "shortTitle": null,
@@ -3925,13 +4032,13 @@ window.onload = async () => {
      "data":
      {"title": "Binary Numerals",
       "shortTitle": null,
-      "sectionNum": "1.4.4.",
+      "sectionNum": "2.4.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
        {"title": "Binary Numerals", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
@@ -3941,13 +4048,13 @@ window.onload = async () => {
      "data":
      {"title": "Proof by Case Analysis",
       "shortTitle": null,
-      "sectionNum": "1.4.",
+      "sectionNum": "2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Warmups":
@@ -3956,13 +4063,13 @@ window.onload = async () => {
      "data":
      {"title": "Warmups",
       "shortTitle": null,
-      "sectionNum": "1.5.1.",
+      "sectionNum": "2.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "More Exercises", "shortTitle": null, "number": "5"},
        {"title": "Warmups", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
@@ -3972,13 +4079,13 @@ window.onload = async () => {
      "data":
      {"title": "Course Late Policies, Formalized",
       "shortTitle": null,
-      "sectionNum": "1.5.2.",
+      "sectionNum": "2.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "More Exercises", "shortTitle": null, "number": "5"},
        {"title": "Course Late Policies, Formalized",
         "shortTitle": null,
@@ -3990,13 +4097,13 @@ window.onload = async () => {
      "data":
      {"title": "More Exercises",
       "shortTitle": null,
-      "sectionNum": "1.5.",
+      "sectionNum": "2.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "More Exercises", "shortTitle": null, "number": "5"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers--Type-Annotations":
@@ -4005,13 +4112,13 @@ window.onload = async () => {
      "data":
      {"title": "Type Annotations",
       "shortTitle": null,
-      "sectionNum": "1.3.1.",
+      "sectionNum": "2.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "General Proofs about Natural Numbers",
         "shortTitle": null,
         "number": "3"},
@@ -4023,13 +4130,13 @@ window.onload = async () => {
      "data":
      {"title": "General Proofs about Natural Numbers",
       "shortTitle": null,
-      "sectionNum": "1.3.",
+      "sectionNum": "2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "General Proofs about Natural Numbers",
         "shortTitle": null,
         "number": "3"}]},
@@ -4040,13 +4147,13 @@ window.onload = async () => {
      "data":
      {"title": "Types",
       "shortTitle": null,
-      "sectionNum": "1.1.5.",
+      "sectionNum": "2.1.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Types", "shortTitle": null, "number": "5"}]},
      "address": "/Basics/"}],
@@ -4056,13 +4163,13 @@ window.onload = async () => {
      "data":
      {"title": "New Types from Old",
       "shortTitle": null,
-      "sectionNum": "1.1.7.",
+      "sectionNum": "2.1.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "New Types from Old", "shortTitle": null, "number": "7"}]},
      "address": "/Basics/"}],
@@ -4072,13 +4179,13 @@ window.onload = async () => {
      "data":
      {"title": "Natural Numbers",
       "shortTitle": null,
-      "sectionNum": "1.1.10.",
+      "sectionNum": "2.1.10.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Natural Numbers", "shortTitle": null, "number": "10"}]},
      "address": "/Basics/"}],
@@ -4088,13 +4195,13 @@ window.onload = async () => {
      "data":
      {"title": "Namespaces",
       "shortTitle": null,
-      "sectionNum": "1.1.8.",
+      "sectionNum": "2.1.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Namespaces", "shortTitle": null, "number": "8"}]},
      "address": "/Basics/"}],
@@ -4104,13 +4211,13 @@ window.onload = async () => {
      "data":
      {"title": "Days of the Week (Enumerated Types)",
       "shortTitle": null,
-      "sectionNum": "1.1.1.",
+      "sectionNum": "2.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Days of the Week (Enumerated Types)",
         "shortTitle": null,
@@ -4122,13 +4229,13 @@ window.onload = async () => {
      "data":
      {"title": "Aside: Structures",
       "shortTitle": null,
-      "sectionNum": "1.1.9.1.",
+      "sectionNum": "2.1.9.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Constructors with Multiple Parameters (Tuple Types)",
         "shortTitle": null,
@@ -4141,13 +4248,13 @@ window.onload = async () => {
      "data":
      {"title": "Constructors with Multiple Parameters (Tuple Types)",
       "shortTitle": null,
-      "sectionNum": "1.1.9.",
+      "sectionNum": "2.1.9.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Constructors with Multiple Parameters (Tuple Types)",
         "shortTitle": null,
@@ -4159,13 +4266,13 @@ window.onload = async () => {
      "data":
      {"title": "Booleans",
       "shortTitle": null,
-      "sectionNum": "1.1.3.",
+      "sectionNum": "2.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Booleans", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
@@ -4175,13 +4282,13 @@ window.onload = async () => {
      "data":
      {"title": "Basic Proofs",
       "shortTitle": null,
-      "sectionNum": "1.1.4.",
+      "sectionNum": "2.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Basic Proofs", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
@@ -4191,13 +4298,13 @@ window.onload = async () => {
      "data":
      {"title": "Aside: Using the VS Code Lean Extension",
       "shortTitle": null,
-      "sectionNum": "1.1.2.",
+      "sectionNum": "2.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Aside: Using the VS Code Lean Extension",
         "shortTitle": null,
@@ -4209,13 +4316,13 @@ window.onload = async () => {
      "data":
      {"title": "Aside: Unicode in Lean",
       "shortTitle": null,
-      "sectionNum": "1.1.6.",
+      "sectionNum": "2.1.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Aside: Unicode in Lean", "shortTitle": null, "number": "6"}]},
      "address": "/Basics/"}],
@@ -4225,13 +4332,13 @@ window.onload = async () => {
      "data":
      {"title": "Data and Functions",
       "shortTitle": null,
-      "sectionNum": "1.1.",
+      "sectionNum": "2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Automation___-More-Automation--The--trivial--tactic":
@@ -4240,13 +4347,13 @@ window.onload = async () => {
      "data":
      {"title": "The  trivial  tactic",
       "shortTitle": null,
-      "sectionNum": "9.4.",
+      "sectionNum": "10.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "The  trivial  tactic", "shortTitle": null, "number": "4"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--The--simp--Tactic--Idiomatic--simp--Usage":
@@ -4255,13 +4362,13 @@ window.onload = async () => {
      "data":
      {"title": "Idiomatic  simp  Usage",
       "shortTitle": null,
-      "sectionNum": "9.3.1.",
+      "sectionNum": "10.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "The  simp  Tactic", "shortTitle": null, "number": "3"},
        {"title": "Idiomatic  simp  Usage", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
@@ -4271,13 +4378,13 @@ window.onload = async () => {
      "data":
      {"title": "The  simp  Tactic",
       "shortTitle": null,
-      "sectionNum": "9.3.",
+      "sectionNum": "10.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "The  simp  Tactic", "shortTitle": null, "number": "3"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--The--lia--Tactic":
@@ -4286,13 +4393,13 @@ window.onload = async () => {
      "data":
      {"title": "The  lia  Tactic",
       "shortTitle": null,
-      "sectionNum": "9.1.",
+      "sectionNum": "10.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "The  lia  Tactic", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--try--combinator":
@@ -4301,13 +4408,13 @@ window.onload = async () => {
      "data":
      {"title": "The  try  combinator",
       "shortTitle": null,
-      "sectionNum": "9.2.1.",
+      "sectionNum": "10.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
        {"title": "The  try  combinator", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
@@ -4317,13 +4424,13 @@ window.onload = async () => {
      "data":
      {"title": "The  repeat  combinator",
       "shortTitle": null,
-      "sectionNum": "9.2.2.",
+      "sectionNum": "10.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
        {"title": "The  repeat  combinator",
         "shortTitle": null,
@@ -4335,13 +4442,13 @@ window.onload = async () => {
      "data":
      {"title": "The  first  combinator",
       "shortTitle": null,
-      "sectionNum": "9.2.3.",
+      "sectionNum": "10.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
        {"title": "The  first  combinator", "shortTitle": null, "number": "3"}]},
      "address": "/Automation/"}],
@@ -4351,13 +4458,13 @@ window.onload = async () => {
      "data":
      {"title": "Tactic Combinators",
       "shortTitle": null,
-      "sectionNum": "9.2.",
+      "sectionNum": "10.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-___Weak___-Pumping-Lemma":
@@ -4366,13 +4473,13 @@ window.onload = async () => {
      "data":
      {"title": "The \"Weak\" Pumping Lemma",
       "shortTitle": null,
-      "sectionNum": "9.5.4.",
+      "sectionNum": "10.5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -4386,13 +4493,13 @@ window.onload = async () => {
      "data":
      {"title": "The (Strong) Pumping Lemma",
       "shortTitle": null,
-      "sectionNum": "9.5.5.",
+      "sectionNum": "10.5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -4406,13 +4513,13 @@ window.onload = async () => {
      "data":
      {"title": "The  generalize  Tactic",
       "shortTitle": null,
-      "sectionNum": "9.5.3.",
+      "sectionNum": "10.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -4426,13 +4533,13 @@ window.onload = async () => {
      "data":
      {"title": "Examples",
       "shortTitle": null,
-      "sectionNum": "9.5.2.",
+      "sectionNum": "10.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -4444,13 +4551,13 @@ window.onload = async () => {
      "data":
      {"title": "Definitions",
       "shortTitle": null,
-      "sectionNum": "9.5.1.",
+      "sectionNum": "10.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -4462,13 +4569,13 @@ window.onload = async () => {
      "data":
      {"title": "Case Study: Regular Expressions",
       "shortTitle": null,
-      "sectionNum": "9.5.",
+      "sectionNum": "10.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"}]},
@@ -4478,13 +4585,13 @@ window.onload = async () => {
      "data":
      {"title": "Automation: More Automation",
       "shortTitle": null,
-      "sectionNum": "9.",
+      "sectionNum": "10.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"}]},
+        "number": "10"}]},
      "address": "/Automation/"}],
    "Logical-Foundations":
    [{"id": "Logical-Foundations",
@@ -4501,63 +4608,63 @@ window.onload = async () => {
      "data":
      {"title": "Logic in Lean",
       "shortTitle": null,
-      "sectionNum": "7.",
+      "sectionNum": "8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"}]},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"}]},
      "address": "/Logic/"}],
    "Lists":
    [{"id": "Lists",
      "data":
      {"title": "Lists: Working with Structured Data",
       "shortTitle": null,
-      "sectionNum": "4.",
+      "sectionNum": "5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "5"}]},
      "address": "/Lists/"}],
    "Induction":
    [{"id": "Induction",
      "data":
      {"title": "Induction: Proof by Induction",
       "shortTitle": null,
-      "sectionNum": "2.",
+      "sectionNum": "3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"}]},
+        "number": "3"}]},
      "address": "/Induction/"}],
    "IndProp":
    [{"id": "IndProp",
      "data":
      {"title": "IndProp: Inductively Defined Propositions",
       "shortTitle": null,
-      "sectionNum": "8.",
+      "sectionNum": "9.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"}]},
+        "number": "9"}]},
      "address": "/IndProp/"}],
    "Basics":
    [{"id": "Basics",
      "data":
      {"title": "Basics: Functional Programming in Lean",
       "shortTitle": null,
-      "sectionNum": "1.",
+      "sectionNum": "2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"}]},
+        "number": "2"}]},
      "address": "/Basics/"}]}},
  "Verso.Genre.Manual.example":
  {"title": "Verso.Genre.Manual.example",
@@ -5524,7 +5631,7 @@ window.onload = async () => {
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero",
+   [{"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -5539,7 +5646,7 @@ window.onload = async () => {
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero-next",
+    {"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -6609,7 +6716,7 @@ window.onload = async () => {
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
+   [{"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6618,7 +6725,7 @@ window.onload = async () => {
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
+    {"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -9552,7 +9659,7 @@ window.onload = async () => {
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append",
+   [{"id": "Lists___NatList___myRepeat_append-next",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
@@ -9571,7 +9678,7 @@ window.onload = async () => {
         "Induction on Lists",
         "Generalizing Statements"]}},
      "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append-next",
+    {"id": "Lists___NatList___myRepeat_append",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
@@ -9879,7 +9986,7 @@ window.onload = async () => {
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly",
+   [{"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -9890,7 +9997,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly-next",
+    {"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -10972,7 +11079,7 @@ if (paramName) {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>

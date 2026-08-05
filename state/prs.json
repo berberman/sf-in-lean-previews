@@ -426,11 +426,48 @@
     },
     "195": {
       "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
-      "changed_variants": [],
-      "head_sha": "e0b9cbc8e7ec29b9d27a0bbfbb66576e37d9bb11",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "0c0c1ef4bdcb3d51093adae0e354dc69f506b3e2",
       "preview_path": "pr/195/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31050118040",
+      "status": "published",
       "title": "Convert bibliography for Verso",
       "url": "https://github.com/plclub/sf-in-lean/pull/195"
     },
