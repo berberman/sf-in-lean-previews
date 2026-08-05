@@ -47,58 +47,16 @@ theorem List.elem_nat_cons (a b : Nat) (xs : List Nat) :
 #eval [0, 1].elem_nat 1
 #eval [0, 1].elem_nat 2
 
--- What if we want this to work for lists of **any** element
+-- What if we want this to work for lists of *any* element
 -- type, not just `Nat`? Parametric polymorphism suggests
 -- simply replacing `Nat` with a type variable `α`, but that
 -- produces a puzzling error:
 
--- Note to developers:
---     @dsainati - The Verso compilation is not actually
---     removing this from the generated file despite the -keep
---     flag. It is, however, stripping the message guard, so
---     this results in an error. Once we figure out how we are
---     handling these cases, uncomment this.
---
---     mwhicks1: Until then, readers reach the sentence below —
---     "that produces a puzzling error" — without ever seeing
---     the error. Should the error text be described in prose
---     instead of shown as a (currently suppressed) code block?
---
---     `/--
---     error: failed to synthesize instance of type class
---       BEq α
---
---     Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
---     -/
---     #guard_msgs in
---     def List.elem_poly {α : Type} (a : α) (xs : List α) : Bool :=
---       match xs with
---       | [] => false
---       | b :: tl => bif a == b then true else elem_poly a tl`
---
---     `/--
---     error: failed to synthesize instance of type class
---       BEq α
---
---     Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
---     -/
---     #guard_msgs in
---     def List.elem_poly {α : Type} (a : α) (xs : List α) : Bool :=
---       match xs with
---       | [] => false
---       | b :: tl => bif a == b then true else elem_poly a tl`
---
---     `/--
---     error: failed to synthesize instance of type class
---       BEq α
---
---     Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
---     -/
---     #guard_msgs in
---     def List.elem_poly {α : Type} (a : α) (xs : List α) : Bool :=
---       match xs with
---       | [] => false
---       | b :: tl => bif a == b then true else elem_poly a tl`
+sf_expect_failure
+  def List.elem_poly {α : Type} (a : α) (xs : List α) : Bool :=
+    match xs with
+    | [] => false
+    | b :: tl => bif a == b then true else elem_poly a tl
 
 -- Lean is trying to use typeclasses to work out how `==`
 -- should behave on a value of type `α`. We'll see exactly why
@@ -716,7 +674,7 @@ example : exampleMap'["bar"] = true := rfl
 -- First, the empty map returns its default element for all
 -- keys:
 
-theorem getElem_empty (a : α): (∅ : TotalMap α β)[a] = default := rfl
+theorem getElem_empty (a : α) : (∅ : TotalMap α β)[a] = default := rfl
 
 -- Next, if we update a map `m` at a key `a` with a new value
 -- `b` and then look up `a` in the map resulting from the
