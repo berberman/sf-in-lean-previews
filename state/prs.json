@@ -97,11 +97,48 @@
     },
     "178": {
       "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
-      "changed_variants": [],
-      "head_sha": "3cf87721ca3ffc95c1d1d6cad079b1a60c45a4cd",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "163ccbeb2171c502e556de973694687ed8fb2e3b",
       "preview_path": "pr/178/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30964331334",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30965394931",
+      "status": "published",
       "title": "Refine basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/178"
     },
