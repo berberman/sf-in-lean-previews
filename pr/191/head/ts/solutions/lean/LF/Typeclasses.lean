@@ -323,7 +323,7 @@ instance : HasThree Nat where
 
 -- ## Maps
 
--- Maps (or "dictionaries") are ubiquitous data structures both in ordinary
+-- *Maps* (or "dictionaries") are ubiquitous data structures both in ordinary
 -- programming and in the theory of programming languages; we're going to need
 -- them in many places in later volumes.
 
@@ -333,7 +333,7 @@ instance : HasThree Nat where
 -- failure. Partial maps are defined in terms of total maps, using `none` as
 -- the default element.
 
--- ### Map Key and Value Types
+-- ### Key and Value Types
 
 -- To define maps, we first need a type for the keys that we will use to index
 -- into our maps and a type for the values the maps return. Instead of

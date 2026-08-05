@@ -342,10 +342,10 @@ instance : HasThree Nat where
 
 -- ## Maps
 
--- Maps (or "dictionaries") are ubiquitous data structures both
--- in ordinary programming and in the theory of programming
--- languages; we're going to need them in many places in later
--- volumes.
+-- *Maps* (or "dictionaries") are ubiquitous data structures
+-- both in ordinary programming and in the theory of
+-- programming languages; we're going to need them in many
+-- places in later volumes.
 
 -- We'll define two flavors of maps: *total maps*, which
 -- include a "default" element to be returned when a key being
@@ -354,7 +354,7 @@ instance : HasThree Nat where
 -- maps are defined in terms of total maps, using `none` as the
 -- default element.
 
--- ### Map Key and Value Types
+-- ### Key and Value Types
 
 -- To define maps, we first need a type for the keys that we
 -- will use to index into our maps and a type for the values
