@@ -259,10 +259,6 @@ set_option pp.all true in
 -- `1` above, rather than only proofs (which we will see below) — we expect at
 -- most one instance per type, so this search has a unique answer.
 
--- Note to developers:
---     @chenson2018: I don't really want to explain diamonds here, is the
---     above white lie hand-waving okay?? @bcpierce00: Seems OK to me.
-
 -- We'll put `DefaultValue`'s standard-library cousin, `Inhabited`, to work
 -- later in this chapter, when we define maps that need a default value for a
 -- generic type. First, though, let's go back to `List.elem_poly` and see how
@@ -360,7 +356,7 @@ instance : HasThree Nat where
 
 -- ## Maps
 
--- Maps (or "dictionaries") are ubiquitous data structures both in ordinary
+-- *Maps* (or "dictionaries") are ubiquitous data structures both in ordinary
 -- programming and in the theory of programming languages; we're going to need
 -- them in many places in later volumes.
 
@@ -370,7 +366,7 @@ instance : HasThree Nat where
 -- failure. Partial maps are defined in terms of total maps, using `none` as
 -- the default element.
 
--- ### Map Key and Value Types
+-- ### Key and Value Types
 
 -- To define maps, we first need a type for the keys that we will use to index
 -- into our maps and a type for the values the maps return. Instead of
@@ -476,33 +472,29 @@ example : emptyNatMap 2 = 0 := rfl
 
 -- #### Getting Elements
 
--- While `TotalMap` happens to be implemented as a function, we would prefer
--- not to expose that fact in its public interface. As such, we need to define
--- specific operations for getting and updating mappings, playing the role
--- that `find` played for the Lists chapter's list-based maps. As a first
--- attempt at the former, we could simply define a function `getElem` for
--- getting a key's element value:
+-- While `TotalMap`s happen to be implemented as functions under the hood, we
+-- would prefer not to expose this fact in their public interface.
+-- Accordingly, we define new operations for querying and updating mappings.
+-- As a first attempt at a query operation, playing the role that `find`
+-- played for the Lists chapter's list-based maps, we could define a function
+-- `getElem` for getting the value associated with a key:
 
 sf_experiment
   def getElem (m : TotalMap α β) (a: α) := m a
   
   example : getElem emptyNatMap 2 = 0 := rfl
 
--- To make element-getting lighter weight, we will define notation so we can
--- write `emptyNatMap[2]` rather than `getElem emptyNatMap`. We could make
--- notation for this specific `getElem` function; we will do precisely that
--- for the `update` function below. Instead, we are going to abstract the
--- concept of getting an element as its own typeclass, `MyGetElem`, and then
--- develop notation for instances of that typeclass. We do this to illustrate
--- a common pattern in Lean (indeed, `MyGetElem` is a simpler form of the
--- `GetElem` standard library function). It's the same pattern behind `==`:
--- writing `a == b` doesn't call a fixed function, it's notation for
--- `BEq.beq`, resolved by instance search for whatever type `a` and `b` have.
--- We're about to do the same thing for indexing notation, resolving `m[a]` to
--- `MyGetElem.getElem m a`, so that it works for any container type with a
--- `MyGetElem` instance, not just `TotalMap`. We see the pattern again at the
--- conclusion of our development of total maps, illustrating custom syntax for
--- constructing maps.
+-- To make element-getting lighter weight, let's define notation so we can
+-- write `emptyNatMap[2]` rather than `getElem emptyNatMap`. We could notate
+-- `getElem` directly — we'll do exactly that for `update` below — but here
+-- we'll instead make "getting an element" its own typeclass, `MyGetElem`, and
+-- notate **instances** of it. This is the same pattern behind `==`: writing
+-- `a == b` is notation for `BEq.beq`, resolved by instance search for
+-- whatever type `a` and `b` have. Doing the same for indexing notation means
+-- `m[a]` resolves to `MyGetElem.getElem m a` for any type with a `MyGetElem`
+-- instance, not just `TotalMap` (indeed, `MyGetElem` is a simpler form of the
+-- standard library's `GetElem`). We'll see the pattern once more at the end
+-- of this development, in the notation for constructing maps.
 
 end TotalMap
 
@@ -512,21 +504,27 @@ end TotalMap
 class MyGetElem (coll : Type) (idx : Type) (elem : outParam Type) where
   getElem (xs : coll) (i : idx) : elem
 
--- Don't worry about the `outParam` qualifier; it is a hint to Lean that helps
--- typeclass inference. An instance of `MyGetElem` for our `TotalMap` is the
--- following:
+-- (Don't worry about the `outParam` qualifier; it is a hint to Lean that
+-- helps typeclass inference.)
+
+-- The appropriate instance of `MyGetElem` for our `TotalMap` is:
 
 variable [Inhabited β]
 instance : MyGetElem (TotalMap α β) α β where
   getElem m a := m a
 
--- Now we associate the bracket syntax with `MyGetElem.getElem`. We've defined
--- custom notation before (e.g. `::` and `[...]` for lists, or `+`/`*`/`==`
--- for arithmetic), but always with `infixl`/`infixr` or `scoped macro`; this
--- is the first time we reach for the more general `notation`/`macro_rules`
--- forms. Don't worry about following the mechanism in detail — the
--- `macro_rules` and the `app_unexpander` below are minor technicalities for
--- getting the `m[a]` syntax to work.
+-- Now we can associate the bracket syntax with `MyGetElem.getElem`. We've
+-- defined custom notation before — `::` and `[...]` for lists (chapter Lists,
+-- including an `app_unexpander` for printing `[...]`-notation lists back
+-- out), or `+`/`*`/`==` for arithmetic — but always with `infixl`/`infixr` or
+-- `scoped macro`; this is the first time we reach for the more general
+-- `notation`/`macro_rules` forms for getting the `m[a]` syntax to work.
+-- (Don't worry about following the mechanism in detail — the `macro_rules`
+-- and the `app_unexpander` below are minor technicalities.)
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Can we point people to where they can read about these things if they
+--     are interested?
 
 namespace MyGetElem
 
@@ -541,15 +539,16 @@ end MyGetElem
 open scoped MyGetElem
 
 -- Since the standard library already declares the `$x[$i]` syntax for
--- `GetElem`, we only need to define the macro. It's scoped since we don't
--- want to override the default `GetElem` everywhere, but only when
--- `open scoped MyGetElem`.
+-- `GetElem`, we only need to define the `macro_rules` not the `notation` as
+-- we have done previously. It's scoped since we don't want to override the
+-- default `GetElem` everywhere, but only when `open scoped MyGetElem` is in
+-- force.
 
 -- Note to developers (Benjamin Pierce  @bcpierce00):
 --     Make sure we've really explained `open scoped` somewhere...
 
--- Since we implemented a `MyGetElem` instance for `TotalMap`, we can now use
--- the notation `m[a]` to access elements of a map `m`.
+-- Since we provided a `MyGetElem` instance for `TotalMap`, we can now use the
+-- notation `m[a]` to access elements of a map `m`.
 
 namespace TotalMap
 
@@ -632,8 +631,17 @@ def exampleMap :=
 -- chain a sequence of function or method calls left to right without nested
 -- parentheses.
 
--- We also introduce a notation for updating maps, in this case referencing
--- the `TotalMap.update` function directly.
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Should we introduce this notation earlier? (Are there good places to
+--     use it earlier?)
+
+-- We also introduce a notation for updating maps — this time, rather than
+-- going through a typeclass and its own `notation`/`macro_rules` machinery as
+-- we did for `MyGetElem`, we write `notation` that references
+-- `TotalMap.update` directly. Unlike indexing, `update` doesn't need to work
+-- generically across container types (there's no standard-library operation
+-- like `GetElem` that we're mirroring here), so the simpler, direct route
+-- suffices.
 
 notation a:55 " →ₜ " b:55 " ; " m:55 => TotalMap.update m a b
 
@@ -689,11 +697,12 @@ theorem update_neq {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b 
   sorry
 
 -- The two remaining facts are equalities *between maps*, so we first need to
--- say when two maps are equal. Since a total map is a function, this is
--- exactly the functional extensionality principle (`funext`) from the Logic
--- chapter: two maps are equal when they agree at every key. Recording it
--- once, for maps, and tagging it `@[ext]` lets the `ext` tactic reduce a goal
--- `m₁ = m₂` to the pointwise one in the proofs below.
+-- say when two maps are equal. Since a total map is implemented as a
+-- function, this is exactly the functional extensionality principle
+-- (`funext`) from the Logic chapter: two maps are equal when they agree at
+-- every key. Recording it once, for maps, and tagging it `@[ext]` lets the
+-- `ext` tactic reduce a goal `m₁ = m₂` to the pointwise one in the proofs
+-- below.
 
 @[ext]
 theorem ext {m₁ m₂ : TotalMap α β} (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := funext h
@@ -782,8 +791,10 @@ end KVPair
 
 open scoped KVPair
 
--- Next, we declare `Insert` and `Singleton` instances which control the `{}`
--- notation in Lean.
+-- Next, we declare `Insert` and `Singleton` instances — the standard-library
+-- typeclasses behind the `{x, y, ...}` and `{x}` collection-literal notation
+-- that `List`, `Finset`, and other stdlib containers already support — so
+-- that `TotalMap` can use it too.
 
 namespace TotalMap
 
@@ -837,19 +848,10 @@ sf_expect_failure
 -- elements of type `β` is simply a total map with elements of type
 -- `Option β`, whose default element is `none`.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     I don't understand the comment on the `inner` field...
---
---     Niklas Halonen (xhalo32): This is just a technical note that
---     discourages using `PartialMap.inner` over `PartialMap.toTotal`. We
---     don't want both to appear in the public API. Compare with
---     `MeasurableSet'` in
---     https://github.com/leanprover-community/mathlib4/blob/1f8806b67d6f09e6d2552c031e6d3a3171016116/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L52
---     which doesn't appear in the public API (it uses `MeasurableSet`
---     instead).
-
 structure PartialMap (α : Type) (β : Type) where
-  /-- The inner total map. Should not appear in the public API, use `PartialMap.toTotal` instead. -/
+  /-- The underlying total map. Lean always generates a public projection for a structure
+  field, so `inner` is technically accessible, but it isn't part of the intended interface:
+  use `PartialMap.toTotal` instead, so there's exactly one sanctioned way to get at it. -/
   inner : TotalMap α (Option β)
 
 instance : EmptyCollection (PartialMap α β) where
@@ -876,6 +878,15 @@ theorem getElem_def (m : PartialMap α β) (a : α) : m[a] = m.toTotal[a] := rfl
 --     If this way is better, then why didn't we do it for total maps too?
 --     Just for the sake of explaining two different mechanisms? We should
 --     explain our reasoning.
+--
+--     Claude: One possible reason — `TotalMap` is deliberately left as a bare
+--     function type because that transparency is the point of the Total Maps
+--     section: it's what lets two maps that answer every query the same way
+--     count as **literally** the same value, giving the extensional view of
+--     map equality. `PartialMap` doesn't need to make that same point, so
+--     it's free to hide the representation more thoroughly here. This is a
+--     guess at the original reasoning, not a confirmed answer — flagging it
+--     here for discussion rather than asserting it in the chapter text.
 
 -- Now, the type system doesn't consider `PartialMap α β` to be definitionally
 -- equal to `TotalMap α (Option β)`, so the following equality doesn't type
@@ -1099,6 +1110,9 @@ theorem isEven_succ (n : Nat) : isEven (n + 1) = ! isEven n := by
 
 -- Here are the key differences between `Bool` and `Prop`:
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Check formatting:
+
 -- - ⠀
 -- - `Bool`
 -- - `Prop`
@@ -1298,7 +1312,7 @@ sf_experiment
   #print eq
 
 -- But we have indicated to Lean, using the `noncomputable` keyword and
--- `Classical` namespace that we are *not* interested in computation. What is
+-- `Classical` namespace, that we are *not* interested in computation. What is
 -- happening in the background is that this allows typeclass synthesis to find
 -- the scoped instance `Classical.propDecidable`, which makes use of the axiom
 -- of choice to provide a proof that all propositions are *classically*
@@ -1307,6 +1321,9 @@ sf_experiment
 -- such as the `decide` tactic or the `#eval` command.
 
 -- ## TODO
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Needs finishing...
 
 -- Note to developers:
 --     Below are some stray examples from IndProp. `Decidable` only carries

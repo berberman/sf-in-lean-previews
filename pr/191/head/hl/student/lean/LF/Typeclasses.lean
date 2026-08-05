@@ -15,6 +15,9 @@ variable (α : Type)
 --
 --     Are we explaining these things somewhere, maybe in Poly ?
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Yes, in Poly!
+
 -- This lets us work with a type like `List α`, writing functions like
 -- `List.reverse` and `List.length` and proofs like `List.length_reverse`,
 -- which use only the list's structure and never inspect any particular

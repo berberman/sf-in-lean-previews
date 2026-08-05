@@ -1491,11 +1491,11 @@
  "<code>PartialMap.toTotal {α β : Type} (m : PartialMap α β) : TotalMap α (Option β)</code>",
  "128": "<code>NatPlayground.Nat.zero_ble (n : Nat) : ble zero n = true</code>",
  "1279":
- "<code>TotalMap α (Option β)</code><span class=\"sep\"></span><code class=\"docstring\">The inner total map. Should not appear in the public API, use `PartialMap.toTotal` instead. </code>",
+ "<code>TotalMap α (Option β)</code><span class=\"sep\"></span><code class=\"docstring\">The underlying total map. Lean always generates a public projection for a structure\nfield, so `inner` is technically accessible, but it isn't part of the intended interface:\nuse `PartialMap.toTotal` instead, so there's exactly one sanctioned way to get at it. </code>",
  "1278":
  "<code>PartialMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
  "1277":
- "<code>PartialMap.inner {α β : Type} (self : PartialMap α β) : TotalMap α (Option β)</code><span class=\"sep\"></span><code class=\"docstring\">The inner total map. Should not appear in the public API, use `PartialMap.toTotal` instead. </code>",
+ "<code>PartialMap.inner {α β : Type} (self : PartialMap α β) : TotalMap α (Option β)</code><span class=\"sep\"></span><code class=\"docstring\">The underlying total map. Lean always generates a public projection for a structure\nfield, so `inner` is technically accessible, but it isn't part of the intended interface:\nuse `PartialMap.toTotal` instead, so there's exactly one sanctioned way to get at it. </code>",
  "1276": "<code>PartialMap (α β : Type) : Type</code>",
  "1275":
  "<code>Singleton.singleton.{u, v} {α : outParam (Type u)} {β : Type v} [self : Singleton α β] : α → β</code><span class=\"sep\"></span><code class=\"docstring\">`singleton x` is a collection with the single element `x` (notation: `{x}`). \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{x}` in identifiers is `singleton`.</code>",
