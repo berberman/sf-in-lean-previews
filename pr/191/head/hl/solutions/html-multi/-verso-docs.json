@@ -1,0 +1,824 @@
+{"99":
+ "<code class=\"docstring\">`end` closes a `section` or `namespace` scope. If the scope is named `&lt;id&gt;`, it has to be closed\nwith `end &lt;id&gt;`. The `end` command is optional at the end of a file.\n</code>",
+ "98":
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.mult (e1 e2 : Aexp) (n1 n2 : Nat) :\n  EvalR e1 n1 → EvalR e2 n2 → EvalR (e1.mult e2) (n1 * n2)</code>",
+ "97":
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.minus (e1 e2 : Aexp) (n1 n2 : Nat) :\n  EvalR e1 n1 → EvalR e2 n2 → EvalR (e1.minus e2) (n1 - n2)</code>",
+ "96":
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.plus (e1 e2 : Aexp) (n1 n2 : Nat) :\n  EvalR e1 n1 → EvalR e2 n2 → EvalR (e1.plus e2) (n1 + n2)</code>",
+ "95":
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
+ "94": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
+ "93":
+ "<code>Slang.Aexp.EvalR.mult (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) : (a1.mult a2).EvalR (n1 * n2)</code>",
+ "92":
+ "<code>Slang.Aexp.EvalR.minus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) :\n  (a1.minus a2).EvalR (n1 - n2)</code>",
+ "91": "<code>EvalR a2 n2</code>",
+ "90": "<code>EvalR a1 n1</code>",
+ "9": "<code>Slang.Aexp.mult (a1 a2 : Aexp) : Aexp</code>",
+ "89":
+ "<code>Slang.Aexp.EvalR.plus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) : (a1.plus a2).EvalR (n1 + n2)</code>",
+ "88": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
+ "87":
+ "<code class=\"docstring\">The universe of propositions. `Prop ≡ Sort 0`.\n\nEvery proposition is propositionally equal to either `True` or `False`. </code>",
+ "86": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
+ "85": "<code>Slang.Aexp.eval (a : Slang.Aexp) : Nat</code>",
+ "84": "<code>b2✝.optimize0plusB.eval = b2✝.eval</code>",
+ "83": "<code>b1✝.optimize0plusB.eval = b1✝.eval</code>",
+ "82": "<code>b✝.optimize0plusB.eval = b✝.eval</code>",
+ "81":
+ "<code>Slang.optimize0plusB_sound (b : Bexp) : b.optimize0plusB.eval = b.eval</code>",
+ "80":
+ "<code>Bool.true : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `true`, not to be confused with the proposition `True`. </code>",
+ "8": "<code>Slang.Aexp.minus (a1 a2 : Aexp) : Aexp</code>",
+ "79": "<code>Slang.Bexp.optimize0plusB (b : Bexp) : Bexp</code>",
+ "78": "<code>Slang.Aexp.optimize0plus (a : Slang.Aexp) : Slang.Aexp</code>",
+ "77":
+ "<code class=\"docstring\">`simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target\nare simplified multiple times until no simplification is applicable.\nOnly non-dependent propositional hypotheses are considered.\n</code>",
+ "76": "<code>e1✝.optimize0plus.eval = e1✝.eval</code>",
+ "75":
+ "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
+ "74": "<code>e1✝ = Aexp.num 0 → False</code>",
+ "73": "<code>e2✝.optimize0plus.eval = e2✝.eval</code>",
+ "72":
+ "<code class=\"docstring\">The `fun_induction` tactic is a convenience wrapper around the `induction` tactic to use the\nfunctional induction principle.\n\nThe tactic invocation\n```\nfun_induction f x₁ ... xₙ y₁ ... yₘ\n```\nwhere `f` is a function defined by non-mutual structural or well-founded recursion, is equivalent to\n```\ninduction y₁, ... yₘ using f.induct_unfolding x₁ ... xₙ\n```\nwhere the arguments of `f` are used as arguments to `f.induct_unfolding` or targets of the\ninduction, as appropriate.\n\nThe form\n```\nfun_induction f\n```\n(with no arguments to `f`) searches the goal for a unique eligible application of `f`, and uses\nthese arguments. An application of `f` is eligible if it is saturated and the arguments that will\nbecome targets are free variables.\n\nThe forms `fun_induction f x y generalizing z₁ ... zₙ` and\n`fun_induction f x y with | case1 =&gt; tac₁ | case2 x' ih =&gt; tac₂` work like with `induction.`\n\nUnder `set_option tactic.fun_induction.unfolding true` (the default), `fun_induction` uses the\n`f.induct_unfolding` induction principle, which will try to automatically unfold the call to `f` in\nthe goal. With `set_option tactic.fun_induction.unfolding false`, it uses `f.induct` instead.\n</code>",
+ "71":
+ "<code>Slang.optimize0plus_sound' (a : Aexp) : a.optimize0plus.eval = a.eval</code>",
+ "70":
+ "<code>HMul.hMul.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMul α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a * b` computes the product of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `*` in identifiers is `mul`.</code>",
+ "7": "<code>Aexp</code>",
+ "69":
+ "<code>HSub.hSub.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HSub α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a - b` computes the difference of `a` and `b`.\nThe meaning of this notation is type-dependent.\n* For natural numbers, this operator saturates at 0: `a - b = 0` when `a ≤ b`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `-` in identifiers is `sub` (when used as a binary operator).</code>",
+ "68":
+ "<code>(b1.optimize0plus.mult b2.optimize0plus).eval = (b1.mult b2).eval</code>",
+ "67": "<code>(b1.mult b2).optimize0plus.eval = (b1.mult b2).eval</code>",
+ "66":
+ "<code>(b1.optimize0plus.minus b2.optimize0plus).eval = (b1.minus b2).eval</code>",
+ "65": "<code>(b1.minus b2).optimize0plus.eval = (b1.minus b2).eval</code>",
+ "64": "<code>(b1.plus b2).optimize0plus.eval = b1.eval + b2.eval</code>",
+ "63":
+ "<code class=\"docstring\">Location specifications are used by many tactics that can operate on either the\nhypotheses or the goal. It can have one of the forms:\n* 'empty' is not actually present in this syntax, but most tactics use\n  `(location)?` matchers. It means to target the goal only.\n* `at h₁ ... hₙ`: target the hypotheses `h₁`, ..., `hₙ`\n* `at h₁ h₂ ⊢`: target the hypotheses `h₁` and `h₂`, and the goal\n* `at *`: target all hypotheses and the goal\n</code>",
+ "62": "<code>(b1.plus b2).optimize0plus.eval = (b1.plus b2).eval</code>",
+ "61":
+ "<code class=\"docstring\">`rw` is like `rewrite`, but also tries to close the goal by \"cheap\" (reducible) `rfl` afterwards.\n</code>",
+ "60":
+ "<code>HAdd.hAdd.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAdd α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a + b` computes the sum of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `+` in identifiers is `add`.</code>",
+ "6": "<code>Slang.Aexp.plus (a1 a2 : Aexp) : Aexp</code>",
+ "59":
+ "<code>(Aexp.num (n + 1)).optimize0plus.eval = (Aexp.num (n + 1)).eval</code>",
+ "58":
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "57":
+ "<code class=\"docstring\">`exact e` closes the main goal if its target type matches that of `e`.\n</code>",
+ "566":
+ "<code>∀ (st1 : State), c.no_whiles = true → ∃ st2, st1 =[ c ]=&gt; st2</code>",
+ "565": "<code>st1 =[ cf ]=&gt; st2</code>",
+ "564": "<code>Bexp.eval st1 b = false</code>",
+ "563": "<code>st1 =[ ct ]=&gt; st2</code>",
+ "562": "<code>Bexp.eval st1 b = true</code>",
+ "561": "<code>ct.no_whiles = true ∧ cf.no_whiles = true</code>",
+ "560":
+ "<code>imp {\n      if (~b) {\n        ~ct\n      } else {\n        ~cf\n      }\n    }.no_whiles =\n  true</code>",
+ "56": "<code>Nat.zero_add (n : Nat) : 0 + n = n</code>",
+ "559":
+ "<code>∀ (st1 : State), cf.no_whiles = true → ∃ st2, st1 =[ cf ]=&gt; st2</code>",
+ "558":
+ "<code>∀ (st1 : State), ct.no_whiles = true → ∃ st2, st1 =[ ct ]=&gt; st2</code>",
+ "557": "<code>st1' =[ c2 ]=&gt; st1''</code>",
+ "556": "<code>st1 =[ c1 ]=&gt; st1'</code>",
+ "555":
+ "<code>∀ (st1 : State), c2.no_whiles = true → ∃ st2, st1 =[ c2 ]=&gt; st2</code>",
+ "554":
+ "<code>∀ (st1 : State), c1.no_whiles = true → ∃ st2, st1 =[ c1 ]=&gt; st2</code>",
+ "553": "<code>c.no_whiles = true</code>",
+ "552":
+ "<code>no_whiles_terminating' (c : Com) (st1 : State) (hb : c.no_whiles = true) : ∃ st2, st1 =[ c ]=&gt; st2</code>",
+ "551":
+ "<code class=\"docstring\">The `obtain` tactic is a combination of `have` and `rcases`. See `rcases` for\na description of supported patterns.\n\n```lean\nobtain ⟨patt⟩ : type := proof\n```\nis equivalent to\n```lean\nhave h : type := proof\nrcases h with ⟨patt⟩\n```\n\nIf `⟨patt⟩` is omitted, `rcases` will try to infer the pattern.\n\nIf `type` is omitted, `:= proof` is required.\n</code>",
+ "550": "<code>∀ (st : State), ∃ st', st =[ c2 ]=&gt; st'</code>",
+ "55": "<code>Slang.Aexp.eval_num (n : Nat) : (Aexp.num n).eval = n</code>",
+ "549": "<code>∀ (st : State), ∃ st', st =[ c1 ]=&gt; st'</code>",
+ "548":
+ "<code>no_whiles_terminating (c : Com) (st : State) (h : c.NoWhilesR) : ∃ st', st =[ c ]=&gt; st'</code>",
+ "547": "<code>c2.no_whiles = true</code>",
+ "546": "<code>c1.no_whiles = true</code>",
+ "545": "<code>c2.NoWhilesR</code>",
+ "544": "<code>c1.NoWhilesR</code>",
+ "543": "<code>c.NoWhilesR</code>",
+ "542":
+ "<code>imp {\n      while (~b) {\n        ~c\n      }\n    }.no_whiles =\n  true</code>",
+ "541": "<code>c.no_whiles = true → c.NoWhilesR</code>",
+ "540":
+ "<code>imp {\n      if (~b) {\n        ~c1\n      } else {\n        ~c2\n      }\n    }.no_whiles =\n  true</code>",
+ "54": "<code>(Aexp.num 0).optimize0plus.eval = (Aexp.num 0).eval</code>",
+ "539":
+ "<code>And.right {a b : Prop} (self : a ∧ b) : b</code><span class=\"sep\"></span><code class=\"docstring\">Extract the right conjunct from a conjunction. `h : a ∧ b` then\n`h.right`, also notated as `h.2`, is a proof of `b`. </code>",
+ "538":
+ "<code>And.left {a b : Prop} (self : a ∧ b) : a</code><span class=\"sep\"></span><code class=\"docstring\">Extract the left conjunct from a conjunction. `h : a ∧ b` then\n`h.left`, also notated as `h.1`, is a proof of `a`. </code>",
+ "537":
+ "<code>And (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`And a b`, or `a ∧ b`, is the conjunction of propositions. It can be\nconstructed and destructed like a pair: if `ha : a` and `hb : b` then\n`⟨ha, hb⟩ : a ∧ b`, and if `h : a ∧ b` then `h.left : a` and `h.right : b`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∧` in identifiers is `and`.</code>",
+ "536": "<code>c1.no_whiles = true ∧ c2.no_whiles = true</code>",
+ "535":
+ "<code>Bool.and_eq_true (a b : Bool) : ((a && b) = true) = (a = true ∧ b = true)</code>",
+ "534": "<code>imp {\n      ~c1\n      ~c2\n    }.no_whiles =\n  true</code>",
+ "533": "<code>c2.no_whiles = true → c2.NoWhilesR</code>",
+ "532": "<code>c1.no_whiles = true → c1.NoWhilesR</code>",
+ "531": "<code>⋯.no_whiles = true</code>",
+ "530": "<code>imp {\n      skip✝;\n    }.no_whiles =\n  true</code>",
+ "53":
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "529":
+ "<code>no_whiles_eqv (c : Com) : c.no_whiles = true ↔ c.NoWhilesR</code>",
+ "528":
+ "<code>Com.NoWhilesR.cond (b : Bexp) (c1 c2 : Com) (h1 : c1.NoWhilesR) (h2 : c2.NoWhilesR) :\n  imp {\n      if (~b) {\n        ~c1\n      } else {\n        ~c2\n      }\n    }.NoWhilesR</code>",
+ "527": "<code>NoWhilesR c2</code>",
+ "526": "<code>NoWhilesR c1</code>",
+ "525":
+ "<code>Com.NoWhilesR.seq (c1 c2 : Com) (h1 : c1.NoWhilesR) (h2 : c2.NoWhilesR) :\n  imp {\n      ~c1\n      ~c2\n    }.NoWhilesR</code>",
+ "524": "<code>Com.NoWhilesR.asgn (x : Ident) (a : Aexp) : ⋯.NoWhilesR</code>",
+ "523":
+ "<code>Com.NoWhilesR.skip :\n  imp {\n      skip✝;\n    }.NoWhilesR</code>",
+ "522": "<code>Com.NoWhilesR : Com → Prop</code>",
+ "521": "<code>Com.no_whiles (c : Com) : Bool</code>",
+ "520": "<code>s0 =[ c2 ]=&gt; s0'</code>",
+ "52": "<code>(Aexp.num n).optimize0plus.eval = (Aexp.num n).eval</code>",
+ "519":
+ "<code>(imp {\n    if (~b) {\n      ~c1\n    } else {\n      ~c2\n    }\n  }) =\n  loop</code>",
+ "518": "<code>(imp {\n    ~c1\n    ~c2\n  }) =\n  loop</code>",
+ "517": "<code>c2 = loop → False</code>",
+ "516": "<code>c1 = loop → False</code>",
+ "515": "<code>s0' =[ c2 ]=&gt; s0''</code>",
+ "514": "<code>s0 =[ c1 ]=&gt; s0'</code>",
+ "513": "<code>⋯ = loop</code>",
+ "512": "<code>(imp {\n    skip✝;\n  }) =\n  loop</code>",
+ "511":
+ "<code>(imp {\n      while (~b) {\n        ~c0\n      }\n    }) =\n    loop →\n  False</code>",
+ "510": "<code>c0 = loop → False</code>",
+ "51":
+ "<code class=\"docstring\">Assuming `x` is a variable in the local context with an inductive type,\n`cases x` splits the main goal, producing one goal for each constructor of the\ninductive type, in which the target is replaced by a general instance of that constructor.\nIf the type of an element in the local context depends on `x`,\nthat element is reverted and reintroduced afterward,\nso that the case split affects that hypothesis as well.\n`cases` detects unreachable cases and closes them automatically.\n\nFor example, given `n : Nat` and a goal with a hypothesis `h : P n` and target `Q n`,\n`cases n` produces one goal with hypothesis `h : P 0` and target `Q 0`,\nand one goal with hypothesis `h : P (Nat.succ a)` and target `Q (Nat.succ a)`.\nHere the name `a` is chosen automatically and is not accessible.\nYou can use `with` to provide the variables names for each constructor.\n- `cases e`, where `e` is an expression instead of a variable, generalizes `e` in the goal,\n  and then cases on the resulting variable.\n- Given `as : List α`, `cases as with | nil =&gt; tac₁ | cons a as' =&gt; tac₂`,\n  uses tactic `tac₁` for the `nil` case, and `tac₂` for the `cons` case,\n  and `a` and `as'` are used as names for the new variables introduced.\n- `cases h : e`, where `e` is a variable or an expression,\n  performs cases on `e` as above, but also adds a hypothesis `h : e = ...` to each goal,\n  where `...` is the constructor instance for that particular case.\n</code>",
+ "509":
+ "<code>s0' =[\n  imp {\n    while (~b) {\n      ~c0\n    }\n  } ]=&gt;\n  s0''</code>",
+ "508": "<code>Bexp.eval s0 b = true</code>",
+ "507": "<code>Bexp.eval s0 (bexp {true}) = false</code>",
+ "506": "<code>c0 =\n  (imp {\n    skip✝;\n  })</code>",
+ "505": "<code>b = (bexp {true})</code>",
+ "504":
+ "<code>(imp {\n    while (~b) {\n      ~c0\n    }\n  }) =\n  (imp {\n    while (true) {\n      skip✝;\n    }\n  })</code>",
+ "503":
+ "<code>(imp {\n    while (~b) {\n      ~c0\n    }\n  }) =\n  loop</code>",
+ "502": "<code>Bexp.eval s0 b = false</code>",
+ "501": "<code>s =[ c ]=&gt; s'</code>",
+ "500":
+ "<code>∀ (c : Com) (s s' : State), s =[ c ]=&gt; s' → c = loop → False</code>",
+ "50": "<code>a2.optimize0plus.eval = a2.eval</code>",
+ "5":
+ "<code>Nat : Type</code><span class=\"sep\"></span><code class=\"docstring\">The natural numbers, starting at zero.\n\nThis type is special-cased by both the kernel and the compiler, and overridden with an efficient\nimplementation. Both use a fast arbitrary-precision arithmetic library (usually\n[GMP](https://gmplib.org/)); at runtime, `Nat` values that are sufficiently small are unboxed.\n</code>",
+ "499": "<code>st =[ loop ]=&gt; st'</code>",
+ "498":
+ "<code>loop_never_stops (st st' : State) : ¬st =[ loop ]=&gt; st'</code>",
+ "497":
+ "<code>Exists.intro.{u} {α : Sort u} {p : α → Prop} (w : α) (h : p w) : Exists p</code><span class=\"sep\"></span><code class=\"docstring\">Existential introduction. If `a : α` and `h : p a`,\nthen `⟨a, h⟩` is a proof that `∃ x : α, p x`. </code>",
+ "496":
+ "<code>XtimesYinZ_spec2 (st : State) : ∃ st', st =[ XtimesYinZ ]=&gt; st'</code>",
+ "495":
+ "<code>XtimesYinZ_spec (st : State) : st =[ XtimesYinZ ]=&gt; Z →ₜ st[X] * st[Y] ; st</code>",
+ "494":
+ "<code>Eq.symm.{u} {α : Sort u} {a b : α} (h : a = b) : b = a</code><span class=\"sep\"></span><code class=\"docstring\">Equality is symmetric: if `a = b` then `b = a`.\n\nBecause this is in the `Eq` namespace, if you have a variable `h : a = b`,\n`h.symm` can be used as shorthand for `Eq.symm h` as a proof of `b = a`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
+ "493": "<code>st[X] * st[Y] = n</code>",
+ "492":
+ "<code>Aexp.eval_mult (st : State) (a1 a2 : Aexp) : Aexp.eval st (aexp {~a1 * ~a2}) = Aexp.eval st a1 * Aexp.eval st a2</code>",
+ "491": "<code>Aexp.eval st (aexp {X * Y}) = n</code>",
+ "490": "<code>Aexp.eval st✝ a✝ = n</code>",
+ "49": "<code>a1.optimize0plus.eval = a1.eval</code>",
+ "489": "<code>st =[\n  imp {\n    Z := X * Y;\n  } ]=&gt;\n  st'</code>",
+ "488": "<code>st =[ XtimesYinZ ]=&gt; st'</code>",
+ "487": "<code>st[Y] = ny</code>",
+ "486": "<code>st[X] = nx</code>",
+ "485":
+ "<code>XtimesYinZ_spec1 (st : State) (nx ny : Nat) (st' : State) (hx : st[X] = nx) (hy : st[Y] = ny)\n  (heval : st =[ XtimesYinZ ]=&gt; st') : st'[Z] = nx * ny</code>",
+ "484":
+ "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
+ "483":
+ "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  (a →ₜ b ; m)[a] = b</code>",
+ "482": "<code>st[X] + 2 = m</code>",
+ "481":
+ "<code>Aexp.eval_num (st : State) (n : Nat) : Aexp.eval st n = n</code>",
+ "480":
+ "<code>Aexp.eval_id (st : State) (x : Ident) : Aexp.eval st x = st[x]</code>",
+ "48":
+ "<code class=\"docstring\">After `with`, there is an optional tactic that runs on all branches, and\nthen a list of alternatives.\n</code>",
+ "479":
+ "<code>Aexp.eval_plus (st : State) (a1 a2 : Aexp) : Aexp.eval st (aexp {~a1 + ~a2}) = Aexp.eval st a1 + Aexp.eval st a2</code>",
+ "478": "<code>Aexp.eval st (aexp {X + 2}) = m</code>",
+ "477": "<code>Aexp.eval st✝ a✝ = m</code>",
+ "476": "<code>st =[\n  imp {\n    X := X + 2;\n  } ]=&gt;\n  st'</code>",
+ "475":
+ "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
+ "474": "<code>st =[ plus2 ]=&gt; st'</code>",
+ "473": "<code>st[X] = n</code>",
+ "472":
+ "<code>plus2_spec (st : State) (n : Nat) (st' : State) (hx : st[X] = n) (heval : st =[ plus2 ]=&gt; st') : st'[X] = n + 2</code>",
+ "471":
+ "<code class=\"docstring\">* `unfold id` unfolds all occurrences of definition `id` in the target.\n* `unfold id1 id2 ...` is equivalent to `unfold id1; unfold id2; ...`.\n* `unfold id at h` unfolds at the hypothesis `h`.\n\nDefinitions can be either global or local definitions.\n\nFor non-recursive global definitions, this tactic is identical to `delta`.\nFor recursive global definitions, it uses the \"unfolding lemma\" `id.eq_def`,\nwhich is generated for each recursive definition, to unfold according to the recursive definition given by the user.\nOnly one level of unfolding is performed, in contrast to `simp only [id]`, which unfolds definition `id` recursively.\n</code>",
+ "470":
+ "<code>pup_to_2_ceval : X →ₜ 2 =[ pup_to_n ]=&gt; X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2</code>",
+ "47":
+ "<code class=\"docstring\">Assuming `x` is a variable in the local context with an inductive type,\n`induction x` applies induction on `x` to the main goal,\nproducing one goal for each constructor of the inductive type,\nin which the target is replaced by a general instance of that constructor\nand an inductive hypothesis is added for each recursive argument to the constructor.\nIf the type of an element in the local context depends on `x`,\nthat element is reverted and reintroduced afterward,\nso that the inductive hypothesis incorporates that hypothesis as well.\n\nFor example, given `n : Nat` and a goal with a hypothesis `h : P n` and target `Q n`,\n`induction n` produces one goal with hypothesis `h : P 0` and target `Q 0`,\nand one goal with hypotheses `h : P (Nat.succ a)` and `ih₁ : P a → Q a` and target `Q (Nat.succ a)`.\nHere the names `a` and `ih₁` are chosen automatically and are not accessible.\nYou can use `with` to provide the variables names for each constructor.\n- `induction e`, where `e` is an expression instead of a variable,\n  generalizes `e` in the goal, and then performs induction on the resulting variable.\n- `induction e using r` allows the user to specify the principle of induction that should be used.\n  Here `r` should be a term whose result type must be of the form `C t`,\n  where `C` is a bound variable and `t` is a (possibly empty) sequence of bound variables\n- `induction e generalizing z₁ ... zₙ`, where `z₁ ... zₙ` are variables in the local context,\n  generalizes over `z₁ ... zₙ` before applying the induction but then introduces them in each goal.\n  In other words, the net effect is that each inductive hypothesis is generalized.\n- Given `x : Nat`, `induction x with | zero =&gt; tac₁ | succ x' ih =&gt; tac₂`\n  uses tactic `tac₁` for the `zero` case, and `tac₂` for the `succ` case.\n</code>",
+ "469": "<code>pup_to_n : Com</code>",
+ "468":
+ "<code>st' =[\n  imp {\n    while (~b) {\n      ~c\n    }\n  } ]=&gt;\n  st2</code>",
+ "467":
+ "<code>st2' =[\n  imp {\n    while (~b) {\n      ~c\n    }\n  } ]=&gt;\n  st2</code>",
+ "466": "<code>st =[ c ]=&gt; st2'</code>",
+ "465":
+ "<code>st2' =[\n  imp {\n    while (~b✝) {\n      ~c✝\n    }\n  } ]=&gt;\n  st''✝</code>",
+ "464": "<code>st✝ =[ c✝ ]=&gt; st2'</code>",
+ "463":
+ "<code>∀ (st2 : State),\n  st' =[\n      imp {\n        while (~b) {\n          ~c\n        }\n      } ]=&gt;\n      st2 →\n    st'' = st2</code>",
+ "462": "<code>∀ (st2 : State), st =[ c ]=&gt; st2 → st' = st2</code>",
+ "461":
+ "<code>st' =[\n  imp {\n    while (~b) {\n      ~c\n    }\n  } ]=&gt;\n  st''</code>",
+ "460":
+ "<code>st'✝ =[\n  imp {\n    while (~b) {\n      ~c\n    }\n  } ]=&gt;\n  st2</code>",
+ "46":
+ "<code>Slang.optimize0plus_sound (a : Aexp) : a.optimize0plus.eval = a.eval</code>",
+ "459": "<code>st =[ c ]=&gt; st'✝</code>",
+ "458":
+ "<code>st'✝ =[\n  imp {\n    while (~b✝) {\n      ~c✝\n    }\n  } ]=&gt;\n  st''✝</code>",
+ "457": "<code>st✝ =[ c✝ ]=&gt; st'✝</code>",
+ "456":
+ "<code>st =[\n  imp {\n    while (~b) {\n      ~c\n    }\n  } ]=&gt;\n  st2</code>",
+ "455": "<code>∀ (st2 : State), st =[ c2 ]=&gt; st2 → st' = st2</code>",
+ "454": "<code>st =[ c2 ]=&gt; st'</code>",
+ "453": "<code>st =[ c2 ]=&gt; st2</code>",
+ "452": "<code>st =[ c1 ]=&gt; st2</code>",
+ "451":
+ "<code>st =[\n  imp {\n    if (~b) {\n      ~c1\n    } else {\n      ~c2\n    }\n  } ]=&gt;\n  st2</code>",
+ "450": "<code>st' =[ c2 ]=&gt; st2</code>",
+ "45":
+ "<code class=\"docstring\">This tactic applies to a goal whose target has the form `x ~ x`,\nwhere `~` is equality, heterogeneous equality or any relation that\nhas a reflexivity lemma tagged with the attribute @[refl].\n</code>",
+ "449": "<code>st' = st2'</code>",
+ "448": "<code>st2' =[ c2 ]=&gt; st2</code>",
+ "447": "<code>st =[ c1 ]=&gt; st2'</code>",
+ "446": "<code>st2' =[ c2✝ ]=&gt; st''✝</code>",
+ "445": "<code>st✝ =[ c1✝ ]=&gt; st2'</code>",
+ "444": "<code>st =[\n  imp {\n    ~c1\n    ~c2\n  } ]=&gt;\n  st2</code>",
+ "443": "<code>∀ (st2 : State), st' =[ c2 ]=&gt; st2 → st'' = st2</code>",
+ "442": "<code>∀ (st2 : State), st =[ c1 ]=&gt; st2 → st' = st2</code>",
+ "441": "<code>st' =[ c2 ]=&gt; st''</code>",
+ "440": "<code>st =[ c1 ]=&gt; st'</code>",
+ "44": "<code>Slang.Aexp.optimize0plus (a : Aexp) : Aexp</code>",
+ "439": "<code>Aexp.eval st a = n'</code>",
+ "438": "<code>Aexp.eval st✝ a✝ = n'</code>",
+ "437": "<code>st =[ ⋯ ]=&gt; st2</code>",
+ "436": "<code>st =[\n  imp {\n    skip✝;\n  } ]=&gt;\n  st2</code>",
+ "435": "<code>st =[ c ]=&gt; st2</code>",
+ "434": "<code>st =[ c ]=&gt; st1</code>",
+ "433":
+ "<code>ceval_deterministic (c : Com) (st st1 st2 : State) (e1 : st =[ c ]=&gt; st1) (e2 : st =[ c ]=&gt; st2) : st1 = st2</code>",
+ "432":
+ "<code>¬∃ st',\n    st =[\n      imp {\n        while (~b) {\n          ~c\n        }\n      } ]=&gt;\n      st'</code>",
+ "431":
+ "<code>quiz5_answer (b : Bexp) (c : Com) (st : State)\n  (H :\n    ¬∃ st',\n        st =[\n          imp {\n            while (~b) {\n              ~c\n            }\n          } ]=&gt;\n          st')\n  (st'' : State) : Bexp.eval st'' b = true</code>",
+ "430": "<code>s0 =[ d2 ]=&gt; s0'</code>",
+ "43":
+ "<code>Slang.Bexp.eval_gt (a1 a2 : Slang.Aexp) : (Slang.Bexp.gt a1 a2).eval = decide (a1.eval &gt; a2.eval)</code>",
+ "429":
+ "<code>(imp {\n    if (~b0) {\n      ~d1\n    } else {\n      ~d2\n    }\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
+ "428":
+ "<code>(imp {\n    ~d1\n    ~d2\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
+ "427":
+ "<code>d2 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  False</code>",
+ "426":
+ "<code>d1 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  False</code>",
+ "425": "<code>s0' =[ d2 ]=&gt; s0''</code>",
+ "424": "<code>s0 =[ d1 ]=&gt; s0'</code>",
+ "423": "<code>⋯ =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
+ "422": "<code>Aexp.eval s0 a = n</code>",
+ "421":
+ "<code>(imp {\n    skip✝;\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
+ "420":
+ "<code>(imp {\n      while (~b0) {\n        ~c0\n      }\n    }) =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  False</code>",
+ "42":
+ "<code>Slang.Bexp.eval_le (a1 a2 : Slang.Aexp) : (Slang.Bexp.le a1 a2).eval = decide (a1.eval ≤ a2.eval)</code>",
+ "419":
+ "<code>c0 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  False</code>",
+ "418":
+ "<code>s0' =[\n  imp {\n    while (~b0) {\n      ~c0\n    }\n  } ]=&gt;\n  s0''</code>",
+ "417": "<code>s0 =[ c0 ]=&gt; s0'</code>",
+ "416": "<code>Bexp.eval s0 b0 = true</code>",
+ "415":
+ "<code>Com.EvalR.whileTrue (st st' st'' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : st =[ c ]=&gt; st')\n  (hloop :\n    st' =[\n      imp {\n        while (~b) {\n          ~c\n        }\n      } ]=&gt;\n      st'') :\n  st =[\n    imp {\n      while (~b) {\n        ~c\n      }\n    } ]=&gt;\n    st''</code>",
+ "414": "<code>true = false</code>",
+ "413":
+ "<code>st =[\n  imp {\n    while (~b0) {\n      ~c\n    }\n  } ]=&gt;\n  st'</code>",
+ "412": "<code>∀ (st : State), Bexp.eval st b0 = true</code>",
+ "411": "<code>c0 = c</code>",
+ "410": "<code>b0 = b</code>",
+ "41":
+ "<code>Decidable.decide (p : Prop) [h : Decidable p] : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Converts a decidable proposition into a `Bool`.\n\nIf `p : Prop` is decidable, then `decide p : Bool` is the Boolean value\nthat is `true` if `p` is true and `false` if `p` is false.\n</code>",
+ "409":
+ "<code class=\"docstring\">The `injection` tactic is based on the fact that constructors of inductive data\ntypes are injections.\nThat means that if `c` is a constructor of an inductive datatype, and if `(c t₁)`\nand `(c t₂)` are two terms that are equal then  `t₁` and `t₂` are equal too.\nIf `q` is a proof of a statement of conclusion `t₁ = t₂`, then injection applies\ninjectivity to derive the equality of all arguments of `t₁` and `t₂` placed in\nthe same positions. For example, from `(a::b) = (c::d)` we derive `a=c` and `b=d`.\nTo use this tactic `t₁` and `t₂` should be constructor applications of the same constructor.\nGiven `h : a::b = c::d`, the tactic `injection h` adds two new hypothesis with types\n`a = c` and `b = d` to the main goal.\nThe tactic `injection h with h₁ h₂` uses the names `h₁` and `h₂` to name the new hypotheses.\n</code>",
+ "408":
+ "<code>(imp {\n    while (~b0) {\n      ~c0\n    }\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
+ "407": "<code>Bexp.eval s0 b0 = false</code>",
+ "406":
+ "<code>Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) :\n  st =[\n    imp {\n      while (~b) {\n        ~c\n      }\n    } ]=&gt;\n    st</code>",
+ "405": "<code>s =[ cmd ]=&gt; s'</code>",
+ "404":
+ "<code>∀ (cmd : Com) (s s' : State),\n  s =[ cmd ]=&gt; s' →\n    cmd =\n        (imp {\n          while (~b) {\n            ~c\n          }\n        }) →\n      False</code>",
+ "403":
+ "<code class=\"docstring\">The `have` tactic is for adding opaque definitions and hypotheses to the local context of the main goal.\nThe definitions forget their associated value and cannot be unfolded, unlike definitions added by the `let` tactic.\n\n* `have h : t := e` adds the hypothesis `h : t` if `e` is a term of type `t`.\n* `have h := e` uses the type of `e` for `t`.\n* `have : t := e` and `have := e` use `this` for the name of the hypothesis.\n* `have pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that have only one applicable constructor.\n  For example, given `h : p ∧ q ∧ r`, `have ⟨h₁, h₂, h₃⟩ := h` produces the\n  hypotheses `h₁ : p`, `h₂ : q`, and `h₃ : r`.\n* The syntax `have (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `have` term.\n\n## Properties and relations\n\n* It is not possible to unfold a variable introduced using `have`, since the definition's value is forgotten.\n  The `let` tactic introduces definitions that can be unfolded.\n* The `have h : t := e` is like doing `let h : t := e; clear_value h`.\n* The `have` tactic is preferred for propositions, and `let` is preferred for non-propositions.\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n    Consider using the equivalent `let +nondep` to indicate the intent.\n\n</code>",
+ "402":
+ "<code>st =[\n  imp {\n    while (~b) {\n      ~c\n    }\n  } ]=&gt;\n  st'</code>",
+ "401":
+ "<code class=\"docstring\">The `rintro` tactic is a combination of the `intros` tactic with `rcases` to\nallow for destructuring patterns while introducing variables. See `rcases` for\na description of supported patterns. For example, `rintro (a | ⟨b, c⟩) ⟨d, e⟩`\nwill introduce two variables, and then do case splits on both of them producing\ntwo subgoals, one with variables `a d e` and the other with `b c d e`.\n\n`rintro`, unlike `rcases`, also supports the form `(x y : ty)` for introducing\nand type-ascripting multiple variables at once, similar to binders.\n</code>",
+ "400":
+ "<code>Exists.{u} {α : Sort u} (p : α → Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">Existential quantification. If `p : α → Prop` is a predicate, then `∃ x : α, p x`\nasserts that there is some `x` of type `α` such that `p x` holds.\nTo create an existential proof, use the `exists` tactic,\nor the anonymous constructor notation `⟨x, h⟩`.\nTo unpack an existential, use `cases h` where `h` is a proof of `∃ x : α, p x`,\nor `let ⟨x, hx⟩ := h` where `.\n\nBecause Lean has proof irrelevance, any two proofs of an existential are\ndefinitionally equal. One consequence of this is that it is impossible to recover the\nwitness of an existential from the mere fact of its existence.\nFor example, the following does not compile:\n```\nexample (h : ∃ x : Nat, x = x) : Nat :=\n  let ⟨x, _⟩ := h  -- fail, because the goal is `Nat : Type`\n  x\n```\nThe error message `recursor 'Exists.casesOn' can only eliminate into Prop` means\nthat this only works when the current goal is another proposition:\n```\nexample (h : ∃ x : Nat, x = x) : True :=\n  let ⟨x, _⟩ := h  -- ok, because the goal is `True : Prop`\n  trivial\n```\n</code>",
+ "40": "<code>Slang.Bexp.eval (b : Slang.Bexp) : Bool</code>",
+ "4": "<code>Nat</code>",
+ "399":
+ "<code>Not (a : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`Not p`, or `¬p`, is the negation of `p`. It is defined to be `p → False`,\nso if your goal is `¬p` you can use `intro h` to turn the goal into\n`h : p ⊢ False`, and if you have `hn : ¬p` and `h : p` then `hn h : False`\nand `(hn h).elim` will prove anything.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `¬` in identifiers is `not`.</code>",
+ "398": "<code>∀ (st : State), Bexp.eval st b = true</code>",
+ "397":
+ "<code>quiz4_answer (b : Bexp) (hbtrue : ∀ (st : State), Bexp.eval st b = true) (c : Com) (st : State) :\n  ¬∃ st',\n      st =[\n        imp {\n          while (~b) {\n            ~c\n          }\n        } ]=&gt;\n        st'</code>",
+ "396": "<code>st✝ =[ c2✝ ]=&gt; st'✝</code>",
+ "395": "<code>Bexp.eval st✝ b✝ = false</code>",
+ "394": "<code>st✝ =[ c1✝ ]=&gt; st'✝</code>",
+ "393": "<code>Bexp.eval st✝ b✝ = true</code>",
+ "392":
+ "<code>Com.EvalR.ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true) (hc : st =[ c1 ]=&gt; st') :\n  st =[\n    imp {\n      if (~b) {\n        ~c1\n      } else {\n        ~c2\n      }\n    } ]=&gt;\n    st'</code>",
+ "391":
+ "<code>st =[\n  imp {\n    if (~b) {\n      ~c\n    } else {\n      ~c\n    }\n  } ]=&gt;\n  st'</code>",
+ "390":
+ "<code>quiz3_answer (b : Bexp) (c : Com) (st st' : State)\n  (h :\n    st =[\n      imp {\n        if (~b) {\n          ~c\n        } else {\n          ~c\n        }\n      } ]=&gt;\n      st') :\n  st =[ c ]=&gt; st'</code>",
+ "39":
+ "<code>Slang.Bexp.eval_and (b1 b2 : Bexp) : (b1.and b2).eval = (b1.eval && b2.eval)</code>",
+ "389": "<code>st =[ c ]=&gt; st'</code>",
+ "388":
+ "<code>Com.EvalR.skip (st : State) :\n  st =[\n    imp {\n      skip✝;\n    } ]=&gt;\n    st</code>",
+ "387": "<code>smid =[ c ]=&gt; st'</code>",
+ "386": "<code>st =[\n  imp {\n    skip✝;\n  } ]=&gt;\n  smid</code>",
+ "385": "<code>smid =[ c2✝ ]=&gt; st''✝</code>",
+ "384": "<code>st✝ =[ c1✝ ]=&gt; smid</code>",
+ "383": "<code>st =[\n  imp {\n    skip✝;\n    ~c\n  } ]=&gt;\n  st'</code>",
+ "382":
+ "<code>quiz1_answer (c : Com) (st st' : State)\n  (h :\n    st =[\n      imp {\n        skip✝;\n        ~c\n      } ]=&gt;\n      st') :\n  st =[ c ]=&gt; st'</code>",
+ "381":
+ "<code>Com.EvalR.ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false) (hc : st =[ c2 ]=&gt; st') :\n  st =[\n    imp {\n      if (~b) {\n        ~c1\n      } else {\n        ~c2\n      }\n    } ]=&gt;\n    st'</code>",
+ "380":
+ "<code>Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) : st =[ ⋯ ]=&gt; x →ₜ n ; st</code>",
+ "38": "<code>Slang.Bexp.eval_not (b : Bexp) : b.not.eval = !b.eval</code>",
+ "379":
+ "<code>Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : st =[ c1 ]=&gt; st') (h2 : st' =[ c2 ]=&gt; st'') :\n  st =[\n    imp {\n      ~c1\n      ~c2\n    } ]=&gt;\n    st''</code>",
+ "378":
+ "<code class=\"docstring\">`apply e` tries to match the current goal against the conclusion of `e`'s type.\nIf it succeeds, then the tactic returns as many subgoals as the number of premises that\nhave not been fixed by type inference or type class resolution.\nNon-dependent premises are added before dependent ones.\n\nThe `apply` tactic uses higher-order pattern matching, type class resolution,\nand first-order unification with dependent types.\n</code>",
+ "377":
+ "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
+ "376": "<code>Lean.TSyntax `imp_com</code>",
+ "375":
+ "<code><span class=\"literal string\">\" ]=&gt; \"</span> : String</code>",
+ "374": "<code><span class=\"literal string\">\" =[ \"</span> : String</code>",
+ "373":
+ "<code>EvalR\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })\n  st' st''</code>",
+ "372": "<code>EvalR c st st'</code>",
+ "371":
+ "<code>Com.EvalR.whileTrue (st st' st'' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : c.EvalR st st')\n  (hloop :\n    imp {\n          while (~b) {\n            ~c\n          }\n        }.EvalR\n      st' st'') :\n  imp {\n        while (~b) {\n          ~c\n        }\n      }.EvalR\n    st st''</code>",
+ "370":
+ "<code>Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) :\n  imp {\n        while (~b) {\n          ~c\n        }\n      }.EvalR\n    st st</code>",
+ "37":
+ "<code>Slang.Bexp.eval_gt (a1 a2 : Aexp) : (gt a1 a2).eval = decide (a1.eval &gt; a2.eval)</code>",
+ "369": "<code>EvalR c2 st st'</code>",
+ "368": "<code>Bexp.eval st b = false</code>",
+ "367":
+ "<code>Com.EvalR.ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false) (hc : c2.EvalR st st') :\n  imp {\n        if (~b) {\n          ~c1\n        } else {\n          ~c2\n        }\n      }.EvalR\n    st st'</code>",
+ "366": "<code>Bexp.eval st b = true</code>",
+ "365":
+ "<code>Com.EvalR.ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true) (hc : c1.EvalR st st') :\n  imp {\n        if (~b) {\n          ~c1\n        } else {\n          ~c2\n        }\n      }.EvalR\n    st st'</code>",
+ "364": "<code>EvalR c2 st' st''</code>",
+ "363": "<code>EvalR c1 st st'</code>",
+ "362":
+ "<code>Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : c1.EvalR st st') (h2 : c2.EvalR st' st'') :\n  imp {\n        ~c1\n        ~c2\n      }.EvalR\n    st st''</code>",
+ "361": "<code>Aexp.eval st a = n</code>",
+ "360":
+ "<code>Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) : ⋯.EvalR st (x →ₜ n ; st)</code>",
+ "36":
+ "<code>Slang.Bexp.eval_le (a1 a2 : Aexp) : (le a1 a2).eval = decide (a1.eval ≤ a2.eval)</code>",
+ "359":
+ "<code>Com.EvalR.skip (st : State) :\n  imp {\n        skip✝;\n      }.EvalR\n    st st</code>",
+ "358": "<code>Com.EvalR : Com → State → State → Prop</code>",
+ "357":
+ "<code class=\"docstring\">`let` is used to declare a local definition. Example:\n```\nlet x := 1\nlet y := x + 1\nx + y\n```\nSince functions are first class citizens in Lean, you can use `let` to declare\nlocal functions too.\n```\nlet double := fun x =&gt; 2*x\ndouble (double 3)\n```\nFor recursive definitions, you should use `let rec`.\nYou can also perform pattern matching using `let`. For example,\nassume `p` has type `Nat × Nat`, then you can write\n```\nlet (x, y) := p\nx + y\n```\n\nThe *anaphoric let* `let := v` defines a variable called `this`.\n</code>",
+ "356": "<code>Com.ceval_fun_no_while (st : State) (c : Com) : State</code>",
+ "355": "<code>loop : Com</code>",
+ "354": "<code>subtract_3_from_5_slowly : Com</code>",
+ "353": "<code>subtract_slowly : Com</code>",
+ "352": "<code>subtract_slowly_body : Com</code>",
+ "351": "<code>XtimesYinZ : Com</code>",
+ "350": "<code>plus2 : Com</code>",
+ "35":
+ "<code>Slang.Bexp.eval_neq (a1 a2 : Aexp) : (neq a1 a2).eval = (a1.eval != a2.eval)</code>",
+ "349":
+ "<code>pp.notation</code><span class=\"sep\"></span><code class=\"docstring\">(pretty printer) disable/enable notation (infix, mixfix, postfix operators and unicode characters)</code>",
+ "348":
+ "<code class=\"docstring\">`set_option &lt;id&gt; &lt;value&gt;` sets the option `&lt;id&gt;` to `&lt;value&gt;`. Depending on the type of the option,\nthe value can be `true`, `false`, a string, or a numeral. Options are used to configure behavior of\nLean as well as user-defined extensions. The setting is active until the end of the current `section`\nor `namespace` or the end of the file.\nAuto-completion is available for `&lt;id&gt;` to list available options.\n\n`set_option &lt;id&gt; &lt;value&gt; in &lt;command&gt;` sets the option for just a single command:\n```\nset_option pp.all true in\n#check 1 + 1\n```\nSimilarly, `set_option &lt;id&gt; &lt;value&gt; in` can also be used inside terms and tactics to set an option\nonly in a single term or tactic.\n</code>",
+ "347":
+ "<code class=\"docstring\">`/-- ... -/ #guard_msgs in cmd` captures the messages generated by the command `cmd`\nand checks that they match the contents of the docstring.\n\nBasic example:\n```lean\n/--\nerror: Unknown identifier `x`\n-/\n#guard_msgs in\nexample : α := x\n```\nThis checks that there is such an error and then consumes the message.\n\nBy default, the command captures all messages, but the filter condition can be adjusted.\nFor example, we can select only warnings:\n```lean\n/--\nwarning: declaration uses 'sorry'\n-/\n#guard_msgs(warning) in\nexample : α := sorry\n```\nor only errors\n```lean\n#guard_msgs(error) in\nexample : α := sorry\n```\nIn the previous example, since warnings are not captured there is a warning on `sorry`.\nWe can drop the warning completely with\n```lean\n#guard_msgs(error, drop warning) in\nexample : α := sorry\n```\n\nIn general, `#guard_msgs` accepts a comma-separated list of configuration clauses in parentheses:\n```\n#guard_msgs (configElt,*) in cmd\n```\nBy default, the configuration list is\n`(check all, whitespace := normalized, ordering := exact, positions := false)`.\n\nMessage filters select messages by severity:\n- `info`, `warning`, `error`: (non-trace) messages with the given severity level.\n- `trace`: trace messages\n- `all`: all messages.\n\nThe filters can be prefixed with the action to take:\n- `check` (the default): capture and check the message\n- `drop`: drop the message\n- `pass`: let the message pass through\n\nIf no filter is specified, `check all` is assumed.  Otherwise, these filters are processed in\nleft-to-right order, with an implicit `pass all` at the end.\n\nWhitespace handling (after trimming leading and trailing whitespace):\n- `whitespace := exact` requires an exact whitespace match.\n- `whitespace := normalized` converts all newline characters to a space before matching\n  (the default). This allows breaking long lines.\n- `whitespace := lax` collapses whitespace to a single space before matching.\n\nMessage ordering:\n- `ordering := exact` uses the exact ordering of the messages (the default).\n- `ordering := sorted` sorts the messages in lexicographic order.\n  This helps with testing commands that are non-deterministic in their ordering.\n\nPosition reporting:\n- `positions := true` reports the ranges of all messages relative to the line on which\n  `#guard_msgs` appears.\n- `positions := false` does not report position info.\n\nSubstring matching:\n- `substring := true` checks that the docstring appears as a substring of the output\n  (after whitespace normalization). This is useful when you only care about part of the message.\n- `substring := false` (the default) requires exact matching (modulo whitespace normalization).\n\nStabilizing output:\nWhen messages contain autogenerated names (e.g., metavariables like `?m.47`), the output may\ndiffer between runs or Lean versions. Use `set_option pp.mvars.anonymous false` to replace\nanonymous metavariables with `?_` while preserving user-named metavariables like `?a`.\nAlternatively, `set_option pp.mvars false` replaces all metavariables with `?_`.\nSimilarly, `set_option pp.fvars.anonymous false` replaces loose free variable names like\n`_fvar.22` with `_fvar._`.\n\nFor example, `#guard_msgs (error, drop all) in cmd` means to check errors and drop\neverything else.\n\nThe command elaborator has special support for `#guard_msgs` for linting.\nThe `#guard_msgs` itself wants to capture linter warnings,\nso it elaborates the command it is attached to as if it were a top-level command.\nHowever, the command elaborator runs linters for *all* top-level commands,\nwhich would include `#guard_msgs` itself, and would cause duplicate and/or uncaptured linter warnings.\nThe top-level command elaborator only runs the linters if `#guard_msgs` is not present.\n</code>",
+ "346": "<code>fact_in_lean : Com</code>",
+ "345": "<code>Imp.Delab.delabCom : Delab</code>",
+ "344": "<code>Com.asgn (x : _root_.Ident) (a : Aexp) : Com</code>",
+ "343":
+ "<code>Imp.Delab.delabComInner : DelabM (TSyntax `imp_com)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `imp_com` concrete syntax from a `Com` term. </code>",
+ "342": "<code class=\"docstring\">Loop </code>",
+ "341": "<code class=\"docstring\">Conditional </code>",
+ "340": "<code>TSyntax `imp_com</code>",
+ "34":
+ "<code>Slang.Bexp.eval_eq (a1 a2 : Aexp) : (eq a1 a2).eval = (a1.eval == a2.eval)</code>",
+ "339":
+ "<code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n</code>",
+ "338": "<code class=\"docstring\">Include an Imp command in Lean code </code>",
+ "337": "<code><span class=\"literal string\">\"imp\"</span> : String</code>",
+ "336":
+ "<code><span class=\"literal string\">\"while \"</span> : String</code>",
+ "335": "<code><span class=\"literal string\">\"else\"</span> : String</code>",
+ "334":
+ "<code>Lean.Parser.ppHardSpace : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser that advises the pretty printer to emit a non-breaking space. </code>",
+ "333": "<code><span class=\"literal string\">\"if \"</span> : String</code>",
+ "332": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
+ "331":
+ "<code>Lean.Parser.ppLine : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser that advises the pretty printer to emit a hard line break. </code>",
+ "330":
+ "<code>Lean.Parser.ppDedent : Lean.Parser.Parser → Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser combinator that advises the pretty printer to dedent the given syntax.\nDedenting can in particular be used to counteract automatic indentation. </code>",
+ "33": "<code>Slang.Bexp.eval_bool (b : Bool) : (bool b).eval = b</code>",
+ "329": "<code><span class=\"literal string\">\";\"</span> : String</code>",
+ "328":
+ "<code>Lean.Parser.Category.imp_com : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Imp commands </code>",
+ "327": "<code>Com.whileDo (b : Bexp) (c : Com) : Com</code>",
+ "326": "<code>Com.cond (b : Bexp) (c1 c2 : Com) : Com</code>",
+ "325": "<code>Com</code>",
+ "324": "<code>Com.seq (c1 c2 : Com) : Com</code>",
+ "323": "<code>Com.asgn (x : Ident) (a : Aexp) : Com</code>",
+ "322": "<code>Com.skip : Com</code>",
+ "321": "<code>Com : Type</code>",
+ "320":
+ "<code>TotalMap.update {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "32": "<code>Slang.Bexp.eval (b : Bexp) : Bool</code>",
+ "319":
+ "<code>Bexp.eval_and (st : State) (b1 b2 : Bexp) : eval st (bexp {~b1 ∧ ~b2}) = (eval st b1 && eval st b2)</code>",
+ "318":
+ "<code>Bexp.eval_not (st : State) (b : Bexp) : eval st (bexp {¬ ~b}) = !eval st b</code>",
+ "317":
+ "<code>Bexp.eval_gt (st : State) (a1 a2 : Aexp) : eval st (bexp {~a1 &gt; ~a2}) = decide (Aexp.eval st a1 &gt; Aexp.eval st a2)</code>",
+ "316":
+ "<code>Bexp.eval_le (st : State) (a1 a2 : Aexp) : eval st (bexp {~a1 ≤ ~a2}) = decide (Aexp.eval st a1 ≤ Aexp.eval st a2)</code>",
+ "315":
+ "<code>Bexp.eval_neq (st : State) (a1 a2 : Aexp) : eval st (bexp {~a1 ≠ ~a2}) = (Aexp.eval st a1 != Aexp.eval st a2)</code>",
+ "314":
+ "<code>Bexp.eval_eq (st : State) (a1 a2 : Aexp) : eval st (bexp {~a1 = ~a2}) = (Aexp.eval st a1 == Aexp.eval st a2)</code>",
+ "313": "<code>Bexp.eval_bool (st : State) (b : Bool) : eval st b = b</code>",
+ "312":
+ "<code>Aexp.eval_mult (st : State) (a1 a2 : Aexp) : eval st (aexp {~a1 * ~a2}) = eval st a1 * eval st a2</code>",
+ "311":
+ "<code>Aexp.eval_minus (st : State) (a1 a2 : Aexp) : eval st (aexp {~a1 - ~a2}) = eval st a1 - eval st a2</code>",
+ "310":
+ "<code>Aexp.eval_plus (st : State) (a1 a2 : Aexp) : eval st (aexp {~a1 + ~a2}) = eval st a1 + eval st a2</code>",
+ "31":
+ "<code class=\"docstring\">The `simp` tactic uses lemmas and hypotheses to simplify the main goal target or\nnon-dependent hypotheses. It has many variants:\n- `simp` simplifies the main goal target using lemmas tagged with the attribute `[simp]`.\n- `simp [h₁, h₂, ..., hₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]` and the given `hᵢ`'s, where the `hᵢ`'s are expressions.-\n- If an `hᵢ` is a defined constant `f`, then `f` is unfolded. If `f` has equational lemmas associated\n  with it (and is not a projection or a `reducible` definition), these are used to rewrite with `f`.\n- `simp [*]` simplifies the main goal target using the lemmas tagged with the\n  attribute `[simp]` and all hypotheses.\n- `simp only [h₁, h₂, ..., hₙ]` is like `simp [h₁, h₂, ..., hₙ]` but does not use `[simp]` lemmas.\n- `simp [-id₁, ..., -idₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]`, but removes the ones named `idᵢ`.\n- `simp at h₁ h₂ ... hₙ` simplifies the hypotheses `h₁ : T₁` ... `hₙ : Tₙ`. If\n  the target or another hypothesis depends on `hᵢ`, a new simplified hypothesis\n  `hᵢ` is introduced, but the old one remains in the local context.\n- `simp at *` simplifies all the hypotheses and the target.\n- `simp [*] at *` simplifies target and all (propositional) hypotheses using the\n  other hypotheses.\n</code>",
+ "309":
+ "<code>Aexp.eval_id (st : State) (x : Ident) : eval st x = st[x]</code>",
+ "308": "<code>Aexp.eval_num (st : State) (n : Nat) : eval st n = n</code>",
+ "307": "<code>Bexp.eval (st : State) (b : Bexp) : Bool</code>",
+ "306": "<code>State</code>",
+ "305": "<code>Aexp.eval (st : State) (a : Aexp) : Nat</code>",
+ "304": "<code>Imp.Delab.delabBexp : Delab</code>",
+ "303":
+ "<code>Lean.Parser.Category.term : Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">`term` is the builtin syntax category for terms. A term denotes an expression\nin lean's type theory, for example `2 + 2` is a term. The difference between\n`Term` and `Expr` is that the former is a kind of syntax, while the latter is\nthe result of elaboration. For example `by simp` is also a `Term`, but it elaborates\nto different `Expr`s depending on the context. </code>",
+ "302":
+ "<code>guard.{v} {f : Type → Type v} [Alternative f] (p : Prop) [Decidable p] : f Unit</code><span class=\"sep\"></span><code class=\"docstring\">If the proposition `p` is true, does nothing, else fails (using `failure`).\n</code>",
+ "301": "<code>Lean.getPPNotation (o : Options) : Bool</code>",
+ "300":
+ "<code>Lean.PrettyPrinter.Delaborator.whenPPOption (opt : Options → Bool) (d : Delab) : Delab</code>",
+ "30":
+ "<code>Eq.{u_1} {α : Sort u_1} : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The equality relation. It has one introduction rule, `Eq.refl`.\nWe use `a = b` as notation for `Eq a b`.\nA fundamental property of equality is that it is an equivalence relation.\n```\nvariable (α : Type) (a b c d : α)\nvariable (hab : a = b) (hcb : c = b) (hcd : c = d)\n\nexample : a = d :=\n  Eq.trans (Eq.trans hab (Eq.symm hcb)) hcd\n```\nEquality is much more than an equivalence relation, however. It has the important property that every assertion\nrespects the equivalence, in the sense that we can substitute equal expressions without changing the truth value.\nThat is, given `h1 : a = b` and `h2 : p a`, we can construct a proof for `p b` using substitution: `Eq.subst h1 h2`.\nExample:\n```\nexample (α : Type) (a b : α) (p : α → Prop)\n        (h1 : a = b) (h2 : p a) : p b :=\n  Eq.subst h1 h2\n\nexample (α : Type) (a b : α) (p : α → Prop)\n    (h1 : a = b) (h2 : p a) : p b :=\n  h1 ▸ h2\n```\nThe triangle in the second presentation is a macro built on top of `Eq.subst` and `Eq.symm`, and you can enter it by typing `\\t`.\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `=` in identifiers is `eq`.</code>",
+ "3": "<code>Slang.Aexp.num (n : Nat) : Aexp</code>",
+ "299": "<code>Lean.PrettyPrinter.Delaborator.Delab : Type</code>",
+ "298": "<code>Imp.Delab.delabAexp : Delab</code>",
+ "297":
+ "<code>Bool.false : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `false`, not to be confused with the proposition `False`. </code>",
+ "296":
+ "<code>Imp.Delab.delabBexpInner : DelabM (TSyntax `imp_bexp)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `imp_bexp` concrete syntax from a `Bexp` term. </code>",
+ "295":
+ "<code>Lean.PrettyPrinter.Delaborator.SubExpr.withAppFn {α : Type} {m : Type → Type} [Monad m] [MonadReaderOf SubExpr m]\n  [MonadWithReaderOf SubExpr m] (x : m α) : m α</code>",
+ "294":
+ "<code>Lean.Name.mkSimple (s : String) : Name</code><span class=\"sep\"></span><code class=\"docstring\">Converts a `String` to a `Name` without performing any parsing. `mkSimple s` is short for `.str .anonymous s`.\n\nThis means that `mkSimple \"a.b\"` is the name `«a.b»`, not `a.b`.\n</code>",
+ "293": "<code>String</code>",
+ "292":
+ "<code>Lean.Literal.strVal (val : String) : Literal</code><span class=\"sep\"></span><code class=\"docstring\">String literal </code>",
+ "291":
+ "<code>Lean.Expr.lit : Literal → Expr</code><span class=\"sep\"></span><code class=\"docstring\">Natural number and string literal values.\n\nThey are not really needed, but provide a more compact representation in memory\nfor these two kinds of literals, and are used to implement efficient reduction\nin the elaborator and kernel. The \"raw\" natural number `2` can be represented\nas `Expr.lit (.natVal 2)`. Note that, it is definitionally equal to:\n```lean\nExpr.app (.const `Nat.succ []) (.app (.const `Nat.succ []) (.const `Nat.zero []))\n```\n</code>",
+ "290":
+ "<code>Lean.mkIdent (val : Name) : Lean.Ident</code><span class=\"sep\"></span><code class=\"docstring\">Creates an identifier from a name. The resulting identifier has no source position.\n</code>",
+ "29":
+ "<code class=\"docstring\">`by tac` constructs a term of the expected type by running the tactic(s) `tac`. </code>",
+ "289": "<code>Name</code>",
+ "288":
+ "<code>Lean.Expr.const (declName : Name) (us : List Level) : Expr</code><span class=\"sep\"></span><code class=\"docstring\">A (universe polymorphic) constant that has been defined earlier in the module or\nby another imported module. For example, `@Eq.{1}` is represented\nas ``Expr.const `Eq [.succ .zero]``, and `@Array.map.{0, 0}` is represented\nas ``Expr.const `Array.map [.zero, .zero]``.\n</code>",
+ "287": "<code>Aexp.id (x : _root_.Ident) : Aexp</code>",
+ "286": "<code>Lean.PrettyPrinter.Delaborator.delab : Delab</code>",
+ "285":
+ "<code>Option.none.{u} {α : Type u} : Option α</code><span class=\"sep\"></span><code class=\"docstring\">No value. </code>",
+ "284":
+ "<code>ToString.toString.{u} {α : Type u} [self : ToString α] : α → String</code><span class=\"sep\"></span><code class=\"docstring\">Converts a value into a string. </code>",
+ "283":
+ "<code>Lean.Syntax.mkNumLit (val : String) (info : SourceInfo := SourceInfo.none) : NumLit</code><span class=\"sep\"></span><code class=\"docstring\">Creates literal syntax for a number, which is provided as a string. The caller must ensure that the\nstring is a valid token for the `num` token parser.\n\nIf `info` is provided, then the literal's source information is copied from it.\n</code>",
+ "282":
+ "<code>Option.some.{u} {α : Type u} (val : α) : Option α</code><span class=\"sep\"></span><code class=\"docstring\">Some value of type `α`. </code>",
+ "281":
+ "<code>Lean.Expr.nat? (e : Expr) : Option Nat</code><span class=\"sep\"></span><code class=\"docstring\">Checks if an expression is a \"natural number numeral in normal form\",\ni.e. of type `Nat`, and explicitly of the form `OfNat.ofNat n`\nwhere `n` matches `.lit (.natVal n)` for some literal natural number `n`.\nand if so returns `n`.\n</code>",
+ "280":
+ "<code>Lean.PrettyPrinter.Delaborator.SubExpr.withAppArg {α : Type} {m : Type → Type} [Monad m] [MonadReaderOf SubExpr m]\n  [MonadWithReaderOf SubExpr m] (x : m α) : m α</code>",
+ "28":
+ "<code>Slang.Aexp.eval_mult (a1 a2 : Aexp) : (a1.mult a2).eval = a1.eval * a2.eval</code>",
+ "279":
+ "<code>Lean.PrettyPrinter.Delaborator.SubExpr.getExpr {m : Type → Type} [Monad m] [MonadReaderOf SubExpr m] : m Expr</code>",
+ "278": "<code>Expr</code>",
+ "277":
+ "<code>Imp.Delab.delabAexpInner : DelabM (TSyntax `imp_aexp)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `imp_aexp` concrete syntax from an `Aexp` term. </code>",
+ "276":
+ "<code>Lean.PrettyPrinter.Delaborator.annotateTermInfo (stx : Term) : Delab</code><span class=\"sep\"></span><code class=\"docstring\">Annotates the term with the current expression position and registers `TermInfo`\nto associate the term to the current expression.\n</code>",
+ "275": "<code>Lean.PrettyPrinter.Delaborator.DelabM (α : Type) : Type</code>",
+ "274":
+ "<code>Lean.TSyntax (ks : SyntaxNodeKinds) : Type</code><span class=\"sep\"></span><code class=\"docstring\">Typed syntax, which tracks the potential kinds of the `Syntax` it contains.\n\nWhile syntax quotations produce or expect `TSyntax` values of the correct kinds, this is not\notherwise enforced; it can easily be circumvented by direct use of the constructor.\n</code>",
+ "273": "<code>TSyntax any</code>",
+ "272": "<code>SyntaxNodeKinds</code>",
+ "271":
+ "<code>Imp.Delab.annAsTerm {any : SyntaxNodeKinds} (stx : TSyntax any) : DelabM (TSyntax any)</code><span class=\"sep\"></span><code class=\"docstring\">Tag freshly built syntax with the term info that Lean's pretty printer expects. </code>",
+ "270":
+ "<code>Imp.Delab.imp_bexp.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
+ "27":
+ "<code>Slang.Aexp.eval_minus (a1 a2 : Aexp) : (a1.minus a2).eval = a1.eval - a2.eval</code>",
+ "269":
+ "<code>Imp.Delab.imp_bexp.parenthesizer : CategoryParenthesizer</code><span class=\"sep\"></span><code class=\"docstring\">Re-inserts parentheses in `imp_bexp` output according to the grammar's precedences. </code>",
+ "268":
+ "<code>Lean.Parser.Category.imp_bexp : Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Boolean expressions of Imp </code>",
+ "267":
+ "<code>Lean.SourceInfo.fromRef (ref : Syntax) (canonical : Bool := false) : SourceInfo</code><span class=\"sep\"></span><code class=\"docstring\">Constructs a synthetic `SourceInfo` using a `ref : Syntax` for the span. </code>",
+ "266":
+ "<code>Lean.Syntax.setInfo (info : SourceInfo) : Syntax → Syntax</code>",
+ "265":
+ "<code>Lean.TSyntax.raw {ks : SyntaxNodeKinds} (self : TSyntax ks) : Syntax</code><span class=\"sep\"></span><code class=\"docstring\">The underlying `Syntax` value. </code>",
+ "264":
+ "<code class=\"docstring\">`return e` inside of a `do` block makes the surrounding block evaluate to `pure e`,\nskipping any further statements.\nNote that uses of the `do` keyword in other syntax like in `for _ in _ do`\ndo not constitute a surrounding block in this sense;\nin supported editors, the corresponding `do` keyword of the surrounding block\nis highlighted when hovering over `return`.\n\n`return` not followed by a term starting on the same line is equivalent to `return ()`.\n</code>",
+ "263":
+ "<code>Lean.TSyntax.mk {ks : SyntaxNodeKinds} (raw : Syntax) : TSyntax ks</code>",
+ "262": "<code>Lean.Unhygienic.run {α : Type} (x : Unhygienic α) : α</code>",
+ "261":
+ "<code>Lean.Syntax : Type</code><span class=\"sep\"></span><code class=\"docstring\">Lean syntax trees.\n\nSyntax trees are used pervasively throughout Lean: they are produced by the parser, transformed by\nthe macro expander, and elaborated. They are also produced by the delaborator and presented to\nusers.\n</code>",
+ "260": "<code>Syntax</code>",
+ "26":
+ "<code>Slang.Aexp.eval_plus (a1 a2 : Aexp) : (a1.plus a2).eval = a1.eval + a2.eval</code>",
+ "259":
+ "<code>Lean.PrettyPrinter.Parenthesizer.parenthesizeCategoryCore (cat : Name) (_prec : Nat) : Parenthesizer</code>",
+ "258":
+ "<code>Imp.Delab.imp_aexp.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
+ "257":
+ "<code>Lean.PrettyPrinter.Parenthesizer.maybeParenthesize (cat : Name) (canJuxtapose : Bool) (mkParen : Syntax → Syntax)\n  (prec : Nat) (x : ParenthesizerM Unit) : ParenthesizerM Unit</code><span class=\"sep\"></span><code class=\"docstring\">Run `x` and parenthesize the result using `mkParen` if necessary.\nIf `canJuxtapose` is false, we assume the category does not have a token-less juxtaposition syntax a la function application and deactivate rule 2. </code>",
+ "256": "<code>Lean.PrettyPrinter.CategoryParenthesizer : Type</code>",
+ "255":
+ "<code>Imp.Delab.imp_aexp.parenthesizer : CategoryParenthesizer</code><span class=\"sep\"></span><code class=\"docstring\">Re-inserts parentheses in `imp_aexp` output according to the grammar's precedences. </code>",
+ "254":
+ "<code>Lean.Parser.Category.imp_aexp : Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Arithmetic expressions of Imp </code>",
+ "253": "<code>example_bexp : Bexp</code>",
+ "252": "<code>example_aexp : Aexp</code>",
+ "251":
+ "<code>Bool → Bexp</code><span class=\"sep\"></span><code class=\"docstring\">Coerces a value of type `α` to type `β`. Accessible by the notation `↑x`,\nor by double type ascription `((x : α) : β)`. </code>",
+ "250":
+ "<code>Aexp</code><span class=\"sep\"></span><code class=\"docstring\">The `OfNat.ofNat` function is automatically inserted by the parser when\nthe user writes a numeric literal like `1 : α`. Implementations of this\ntypeclass can therefore customize the behavior of `n : α` based on `n` and\n`α`. </code>",
+ "25":
+ "<code>rfl.{u} {α : Sort u} {a : α} : a = a</code><span class=\"sep\"></span><code class=\"docstring\">`rfl : a = a` is the unique constructor of the equality type. This is the\nsame as `Eq.refl` except that it takes `a` implicitly instead of explicitly.\n\nThis is a more powerful theorem than it may appear at first, because although\nthe statement of the theorem is `a = a`, Lean will allow anything that is\ndefinitionally equal to that type. So, for instance, `2 + 2 = 4` is proven in\nLean by `rfl`, because both sides are the same up to definitional equality.\n</code>",
+ "249":
+ "<code>OfNat.{u} (α : Type u) : Nat → Type u</code><span class=\"sep\"></span><code class=\"docstring\">The class `OfNat α n` powers the numeric literal parser. If you write\n`37 : α`, Lean will attempt to synthesize `OfNat α 37`, and will generate\nthe term `(OfNat.ofNat 37 : α)`.\n\nThere is a bit of infinite regress here since the desugaring apparently\nstill contains a literal `37` in it. The type of expressions contains a\nprimitive constructor for \"raw natural number literals\", which you can directly\naccess using the macro `nat_lit 37`. Raw number literals are always of type `Nat`.\nSo it would be more correct to say that Lean looks for an instance of\n`OfNat α (nat_lit 37)`, and it generates the term `(OfNat.ofNat (nat_lit 37) : α)`.\n</code>",
+ "248":
+ "<code>Ident → Aexp</code><span class=\"sep\"></span><code class=\"docstring\">Coerces a value of type `α` to type `β`. Accessible by the notation `↑x`,\nor by double type ascription `((x : α) : β)`. </code>",
+ "247":
+ "<code>Coe.{u, v} (α : semiOutParam (Sort u)) (β : Sort v) : Sort (max (max 1 u) v)</code><span class=\"sep\"></span><code class=\"docstring\">`Coe α β` is the typeclass for coercions from `α` to `β`. It can be transitively\nchained with other `Coe` instances, and coercion is automatically used when\n`x` has type `α` but it is used in a context where `β` is expected.\nYou can use the `↑x` operator to explicitly trigger coercion.\n</code>",
+ "246": "<code>TSyntax `imp_bexp</code>",
+ "245":
+ "<code>Lean.Macro.throwErrorAt {α : Type} (ref : Syntax) (msg : String) : MacroM α</code><span class=\"sep\"></span><code class=\"docstring\">Throw an error with the given message and location information. </code>",
+ "244":
+ "<code>Lean.TSyntax.getId (s : Lean.Ident) : Name</code><span class=\"sep\"></span><code class=\"docstring\">Extracts the parsed name from the syntax of an identifier.\n\nReturns `Name.anonymous` if the syntax is malformed.\n</code>",
+ "243":
+ "<code class=\"docstring\">Embed an Imp boolean expression into a Lean term </code>",
+ "242": "<code><span class=\"literal string\">\"bexp \"</span> : String</code>",
+ "241": "<code><span class=\"literal string\">\" ∧ \"</span> : String</code>",
+ "240": "<code><span class=\"literal string\">\"¬ \"</span> : String</code>",
+ "24": "<code>Slang.Aexp.eval_num (n : Nat) : (num n).eval = n</code>",
+ "239":
+ "<code><span class=\"literal string\">\" &gt; \"</span> : String</code>",
+ "238": "<code><span class=\"literal string\">\" ≤ \"</span> : String</code>",
+ "237": "<code><span class=\"literal string\">\" ≠ \"</span> : String</code>",
+ "236": "<code><span class=\"literal string\">\" = \"</span> : String</code>",
+ "235":
+ "<code>Lean.Parser.Category.imp_bexp : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Boolean expressions of Imp </code>",
+ "234": "<code>TSyntax `imp_aexp</code>",
+ "233":
+ "<code>Pure.pure.{u, v} {f : Type u → Type v} [self : Pure f] {α : Type u} : α → f α</code><span class=\"sep\"></span><code class=\"docstring\">Given `a : α`, then `pure a : f α` represents an action that does nothing and returns `a`.\n\nExamples:\n* `(pure \"hello\" : Option String) = some \"hello\"`\n* `(pure \"hello\" : Except (Array String) String) = Except.ok \"hello\"`\n* `(pure \"hello\" : StateM Nat String).run 105 = (\"hello\", 105)`\n</code>",
+ "232": "<code>TSyntax `term</code>",
+ "231": "<code>TSyntax `ident</code>",
+ "230":
+ "<code>Lean.TSyntax.getNat (s : NumLit) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Interprets a numeric literal as a natural number.\n\nReturns `0` if the syntax is malformed.\n</code>",
+ "23":
+ "<code class=\"docstring\">Theorems tagged with the `simp` attribute are used by the simplifier\n(i.e., the `simp` tactic, and its variants) to simplify expressions occurring in your goals.\nWe call theorems tagged with the `simp` attribute \"simp theorems\" or \"simp lemmas\".\nLean maintains a database/index containing all active simp theorems.\nHere is an example of a simp theorem.\n```lean\n@[simp] theorem ne_eq (a b : α) : (a ≠ b) = Not (a = b) := rfl\n```\nThis simp theorem instructs the simplifier to replace instances of the term\n`a ≠ b` (e.g. `x + 0 ≠ y`) with `Not (a = b)` (e.g., `Not (x + 0 = y)`).\nThe simplifier applies simp theorems in one direction only:\nif `A = B` is a simp theorem, then `simp` replaces `A`s with `B`s,\nbut it doesn't replace `B`s with `A`s. Hence a simp theorem should have the\nproperty that its right-hand side is \"simpler\" than its left-hand side.\nIn particular, `=` and `↔` should not be viewed as symmetric operators in this situation.\nThe following would be a terrible simp theorem (if it were even allowed):\n```lean\n@[simp] lemma mul_right_inv_bad (a : G) : 1 = a * a⁻¹ := ...\n```\nReplacing 1 with a * a⁻¹ is not a sensible default direction to travel.\nEven worse would be a theorem that causes expressions to grow without bound,\ncausing simp to loop forever.\n\nBy default the simplifier applies `simp` theorems to an expression `e`\nafter its sub-expressions have been simplified.\nWe say it performs a bottom-up simplification.\nYou can instruct the simplifier to apply a theorem before its sub-expressions\nhave been simplified by using the modifier `↓`. Here is an example\n```lean\n@[simp↓] theorem not_and_eq (p q : Prop) : (¬ (p ∧ q)) = (¬p ∨ ¬q) :=\n```\n\nYou can instruct the simplifier to rewrite the lemma from right-to-left:\n```lean\nattribute @[simp ←] and_assoc\n```\n\nWhen multiple simp theorems are applicable, the simplifier uses the one with highest priority.\nThe equational theorems of functions are applied at very low priority (100 and below).\nIf there are several with the same priority, it is uses the \"most recent one\". Example:\n```lean\n@[simp high] theorem cond_true (a b : α) : cond true a b = a := rfl\n@[simp low+1] theorem or_true (p : Prop) : (p ∨ True) = True :=\n  propext &lt;| Iff.intro (fun _ =&gt; trivial) (fun _ =&gt; Or.inr trivial)\n@[simp 100] theorem ite_self {d : Decidable c} (a : α) : ite c a a = a := by\n  cases d &lt;;&gt; rfl\n```\n</code>",
+ "229":
+ "<code>Lean.Quote.quote {α : Type} {k : optParam SyntaxNodeKind `term} [self : Quote α k] : α → TSyntax k</code><span class=\"sep\"></span><code class=\"docstring\">Returns syntax for the given value.\n</code>",
+ "228": "<code>TSyntax `num</code>",
+ "227":
+ "<code class=\"docstring\">Embed an Imp arithmetic expression into a Lean term </code>",
+ "226":
+ "<code class=\"docstring\">Makes names from other namespaces visible without writing the namespace prefix.\n\nNames that are made available with `open` are visible within the current `section` or `namespace`\nblock. This makes referring to (type) definitions and theorems easier, but note that it can also\nmake [scoped instances], notations, and attributes from a different namespace available.\n\nThe `open` command can be used in a few different ways:\n\n* `open Some.Namespace.Path1 Some.Namespace.Path2` makes all non-protected names in\n  `Some.Namespace.Path1` and `Some.Namespace.Path2` available without the prefix, so that\n  `Some.Namespace.Path1.x` and `Some.Namespace.Path2.y` can be referred to by writing only `x` and\n  `y`.\n\n* `open Some.Namespace.Path hiding def1 def2` opens all non-protected names in `Some.Namespace.Path`\n  except `def1` and `def2`.\n\n* `open Some.Namespace.Path (def1 def2)` only makes `Some.Namespace.Path.def1` and\n  `Some.Namespace.Path.def2` available without the full prefix, so `Some.Namespace.Path.def3` would\n  be unaffected.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open Some.Namespace.Path renaming def1 → def1', def2 → def2'` same as `open Some.Namespace.Path\n  (def1 def2)` but `def1`/`def2`'s names are changed to `def1'`/`def2'`.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open scoped Some.Namespace.Path1 Some.Namespace.Path2` **only** opens [scoped instances],\n  notations, and attributes from `Namespace1` and `Namespace2`; it does **not** make any other name\n  available.\n\n* `open &lt;any of the open shapes above&gt; in` makes the names `open`-ed visible only in the next\n  command or expression.\n\n[scoped instance]: https://lean-lang.org/theorem_proving_in_lean4/type_classes.html#scoped-instances\n(Scoped instances in Theorem Proving in Lean)\n\n\n## Examples\n\n```lean\n/-- SKI combinators https://en.wikipedia.org/wiki/SKI_combinator_calculus -/\nnamespace Combinator.Calculus\n  def I (a : α) : α := a\n  def K (a : α) : β → α := fun _ =&gt; a\n  def S (x : α → β → γ) (y : α → β) (z : α) : γ := x z (y z)\nend Combinator.Calculus\n\nsection\n  -- open everything under `Combinator.Calculus`, *i.e.* `I`, `K` and `S`,\n  -- until the section ends\n  open Combinator.Calculus\n\n  theorem SKx_eq_K : S K x = I := rfl\nend\n\n-- open everything under `Combinator.Calculus` only for the next command (the next `theorem`, here)\nopen Combinator.Calculus in\ntheorem SKx_eq_K' : S K x = I := rfl\n\nsection\n  -- open only `S` and `K` under `Combinator.Calculus`\n  open Combinator.Calculus (S K)\n\n  theorem SKxy_eq_y : S K x y = y := rfl\n\n  -- `I` is not in scope, we have to use its full path\n  theorem SKxy_eq_Iy : S K x y = Combinator.Calculus.I y := rfl\nend\n\nsection\n  open Combinator.Calculus\n    renaming\n      I → identity,\n      K → konstant\n\n  #check identity\n  #check konstant\nend\n\nsection\n  open Combinator.Calculus\n    hiding S\n\n  #check I\n  #check K\nend\n\nsection\n  namespace Demo\n    inductive MyType\n    | val\n\n    namespace N1\n      scoped infix:68 \" ≋ \" =&gt; BEq.beq\n\n      scoped instance : BEq MyType where\n        beq _ _ := true\n\n      def Alias := MyType\n    end N1\n  end Demo\n\n  -- bring `≋` and the instance in scope, but not `Alias`\n  open scoped Demo.N1\n\n  #check Demo.MyType.val == Demo.MyType.val\n  #check Demo.MyType.val ≋ Demo.MyType.val\n  -- #check Alias -- unknown identifier 'Alias'\nend\n```\n</code>",
+ "225": "<code><span class=\"literal string\">\"}\"</span> : String</code>",
+ "224": "<code><span class=\"literal string\">\"{\"</span> : String</code>",
+ "223": "<code><span class=\"literal string\">\"aexp \"</span> : String</code>",
+ "222":
+ "<code class=\"docstring\">Minimum precedence used in term parsers. </code>",
+ "221":
+ "<code>Lean.Parser.Category.term : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">`term` is the builtin syntax category for terms. A term denotes an expression\nin lean's type theory, for example `2 + 2` is a term. The difference between\n`Term` and `Expr` is that the former is a kind of syntax, while the latter is\nthe result of elaboration. For example `by simp` is also a `Term`, but it elaborates\nto different `Expr`s depending on the context. </code>",
+ "220": "<code><span class=\"literal string\">\"~\"</span> : String</code>",
+ "22":
+ "<code class=\"docstring\">Pattern matching. `match e, ... with | p, ... =&gt; f | ...` matches each given\nterm `e` against each pattern `p` of a match alternative. When all patterns\nof an alternative match, the `match` term evaluates to the value of the\ncorresponding right-hand side `f` with the pattern variables bound to the\nrespective matched values.\nIf used as `match h : e, ... with | p, ... =&gt; f | ...`, `h : e = p` is available\nwithin `f`.\n\nWhen not constructing a proof, `match` does not automatically substitute variables\nmatched on in dependent variables' types. Use `match (generalizing := true) ...` to\nenforce this.\n\nSyntax quotations can also be used in a pattern match.\nThis matches a `Syntax` value against quotations, pattern variables, or `_`.\n\nQuoted identifiers only match identical identifiers - custom matching such as by the preresolved\nnames only should be done explicitly.\n\n`Syntax.atom`s are ignored during matching by default except when part of a built-in literal.\nFor users introducing new atoms, we recommend wrapping them in dedicated syntax kinds if they\nshould participate in matching.\nFor example, in\n```lean\nsyntax \"c\" (\"foo\" &lt;|&gt; \"bar\") ...\n```\n`foo` and `bar` are indistinguishable during matching, but in\n```lean\nsyntax foo := \"foo\"\nsyntax \"c\" (foo &lt;|&gt; \"bar\") ...\n```\nthey are not.\n</code>",
+ "219": "<code><span class=\"literal string\">\")\"</span> : String</code>",
+ "218": "<code><span class=\"literal string\">\"(\"</span> : String</code>",
+ "217": "<code><span class=\"literal string\">\" * \"</span> : String</code>",
+ "216": "<code><span class=\"literal string\">\" - \"</span> : String</code>",
+ "215": "<code><span class=\"literal string\">\" + \"</span> : String</code>",
+ "214":
+ "<code>Lean.Parser.ident : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">The parser `ident` parses a single identifier, possibly with namespaces, such as `foo` or\n`bar.baz`. The identifier must not be a declared token, so for example it will not match `\"def\"`\nbecause `def` is a keyword token. Tokens are implicitly declared by using them in string literals\nin parser declarations, so `syntax foo := \"bla\"` will make `bla` no longer legal as an identifier.\n\nIdentifiers can contain special characters or keywords if they are escaped using the `«»` characters:\n`«def»` is an identifier named `def`, and `«x»` is treated the same as `x`. This is useful for\nusing disallowed characters in identifiers such as `«foo.bar».baz` or `«hello world»`.\n\nThis parser has arity 1: it produces a `Syntax.ident` node containing the parsed identifier.\nYou can use `TSyntax.getId` to extract the name from the resulting syntax object. </code>",
+ "213":
+ "<code>Lean.Parser.numLit : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">The parser `num` parses a numeric literal in several bases:\n\n* Decimal: `129`\n* Hexadecimal: `0xdeadbeef`\n* Octal: `0o755`\n* Binary: `0b1101`\n\nThis parser has arity 1: it produces a `numLitKind` node containing an atom with the text of the\nliteral.\nYou can use `TSyntax.getNat` to extract the number from the resulting syntax object. </code>",
+ "212":
+ "<code class=\"docstring\">Maximum precedence used in term parsers, in particular for terms in\nfunction position (`ident`, `paren`, ...)\n</code>",
+ "211":
+ "<code>Lean.Parser.Category.imp_aexp : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Arithmetic expressions of Imp </code>",
+ "210": "<code><span class=\"literal string\">\"Z\"</span> : String</code>",
+ "21": "<code>Slang.Aexp.eval (a : Aexp) : Nat</code>",
+ "209": "<code>Z : Ident</code>",
+ "208": "<code><span class=\"literal string\">\"Y\"</span> : String</code>",
+ "207": "<code>Y : Ident</code>",
+ "206": "<code><span class=\"literal string\">\"X\"</span> : String</code>",
+ "205": "<code>X : Ident</code>",
+ "204": "<code><span class=\"literal string\">\"W\"</span> : String</code>",
+ "203": "<code>W : Ident</code>",
+ "202": "<code>Bexp.and (b1 b2 : Bexp) : Bexp</code>",
+ "201": "<code>Bexp.not (b : Bexp) : Bexp</code>",
+ "200": "<code>Bexp.gt (a1 a2 : Aexp) : Bexp</code>",
+ "20": "<code>Slang.Bexp.and (b1 b2 : Bexp) : Bexp</code>",
+ "2": "<code>Slang.Aexp : Type</code>",
+ "199": "<code>Bexp.le (a1 a2 : Aexp) : Bexp</code>",
+ "198": "<code>Bexp.neq (a1 a2 : Aexp) : Bexp</code>",
+ "197": "<code>Bexp.eq (a1 a2 : Aexp) : Bexp</code>",
+ "196": "<code>Bexp.bool (b : Bool) : Bexp</code>",
+ "195": "<code>Bexp : Type</code>",
+ "194": "<code>Aexp.mult (a1 a2 : Aexp) : Aexp</code>",
+ "193": "<code>Aexp.minus (a1 a2 : Aexp) : Aexp</code>",
+ "192": "<code>Aexp.plus (a1 a2 : Aexp) : Aexp</code>",
+ "191": "<code>Ident</code>",
+ "190": "<code>Aexp.id (x : Ident) : Aexp</code>",
+ "19": "<code>Bexp</code>",
+ "189": "<code>Aexp.num (n : Nat) : Aexp</code>",
+ "188": "<code>Aexp : Type</code>",
+ "187": "<code>TotalMap (α β : Type) : Type</code>",
+ "186": "<code>State : Type</code>",
+ "185":
+ "<code>String : Type</code><span class=\"sep\"></span><code class=\"docstring\">A string is a sequence of Unicode scalar values.\n\nAt runtime, strings are represented by [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)\nof bytes using the UTF-8 encoding. Both the size in bytes (`String.utf8ByteSize`) and in characters\n(`String.length`) are cached and take constant time. Many operations on strings perform in-place\nmodifications when the reference to the string is unique.\n</code>",
+ "184": "<code>Ident : Type</code>",
+ "183":
+ "<code>Slang.AevalRExtended.Aexp.EvalR.mult (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) :\n  (a1.mult a2).EvalR (n1 * n2)</code>",
+ "182":
+ "<code>Slang.AevalRExtended.Aexp.EvalR.minus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) :\n  (a1.minus a2).EvalR (n1 - n2)</code>",
+ "181":
+ "<code>Slang.AevalRExtended.Aexp.EvalR.plus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) :\n  (a1.plus a2).EvalR (n1 + n2)</code>",
+ "180":
+ "<code>Slang.AevalRExtended.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
+ "18": "<code>Slang.Bexp.not (b : Bexp) : Bexp</code>",
+ "179":
+ "<code>Slang.AevalRExtended.Aexp.EvalR.any (n : Nat) : any.EvalR n</code>",
+ "178": "<code>Slang.AevalRExtended.Aexp.EvalR : Aexp → Nat → Prop</code>",
+ "177": "<code>Slang.AevalRExtended.Aexp.mult (a1 a2 : Aexp) : Aexp</code>",
+ "176": "<code>Slang.AevalRExtended.Aexp.minus (a1 a2 : Aexp) : Aexp</code>",
+ "175": "<code>Slang.AevalRExtended.Aexp.plus (a1 a2 : Aexp) : Aexp</code>",
+ "174": "<code>Slang.AevalRExtended.Aexp.num (n : Nat) : Aexp</code>",
+ "173": "<code>Slang.AevalRExtended.Aexp.any : Aexp</code>",
+ "172": "<code>Slang.AevalRExtended.Aexp : Type</code>",
+ "171": "<code>n2 * n3 = n1</code>",
+ "170": "<code>n2 &gt; 0</code>",
+ "17": "<code>Slang.Bexp.gt (a1 a2 : Aexp) : Bexp</code>",
+ "169":
+ "<code>Slang.AevalRDivision.Aexp.EvalR.div (a1 a2 : Aexp) (n1 n2 n3 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2)\n  (hpos : n2 &gt; 0) (hdiv : n2 * n3 = n1) : (a1.div a2).EvalR n3</code>",
+ "168":
+ "<code>Slang.AevalRDivision.Aexp.EvalR.mult (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) :\n  (a1.mult a2).EvalR (n1 * n2)</code>",
+ "167":
+ "<code>Slang.AevalRDivision.Aexp.EvalR.minus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) :\n  (a1.minus a2).EvalR (n1 - n2)</code>",
+ "166":
+ "<code>Slang.AevalRDivision.Aexp.EvalR.plus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) :\n  (a1.plus a2).EvalR (n1 + n2)</code>",
+ "165":
+ "<code>Slang.AevalRDivision.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
+ "164": "<code>Slang.AevalRDivision.Aexp.EvalR : Aexp → Nat → Prop</code>",
+ "163": "<code>Slang.AevalRDivision.Aexp.div (a1 a2 : Aexp) : Aexp</code>",
+ "162": "<code>Slang.AevalRDivision.Aexp.mult (a1 a2 : Aexp) : Aexp</code>",
+ "161": "<code>Slang.AevalRDivision.Aexp.minus (a1 a2 : Aexp) : Aexp</code>",
+ "160": "<code>Slang.AevalRDivision.Aexp.plus (a1 a2 : Aexp) : Aexp</code>",
+ "16": "<code>Slang.Bexp.le (a1 a2 : Aexp) : Bexp</code>",
+ "159": "<code>Slang.AevalRDivision.Aexp.num (n : Nat) : Aexp</code>",
+ "158": "<code>Slang.AevalRDivision.Aexp : Type</code>",
+ "157": "<code>b2✝ ⇓b b2✝.eval</code>",
+ "156": "<code>b1✝ ⇓b b1✝.eval</code>",
+ "155": "<code>b✝ ⇓b b✝.eval</code>",
+ "154": "<code>b.eval = bv</code>",
+ "153":
+ "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x && y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&&` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
+ "152": "<code>b2✝.eval = tv2✝</code>",
+ "151": "<code>b1✝.eval = tv1✝</code>",
+ "150": "<code>b2✝ ⇓b tv2✝</code>",
+ "15": "<code>Slang.Bexp.neq (a1 a2 : Aexp) : Bexp</code>",
+ "149": "<code>b1✝ ⇓b tv1✝</code>",
+ "148":
+ "<code>Bool.not : Bool → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean negation, also known as Boolean complement. `not x` can be written `!x`.\n\nThis is a function that maps the value `true` to `false` and the value `false` to `true`. The\npropositional connective is `Not : Prop → Prop`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `!` in identifiers is `not`.</code>",
+ "147": "<code>b✝.eval = bv✝</code>",
+ "146": "<code>b✝ ⇓b bv✝</code>",
+ "145":
+ "<code>GT.gt.{u} {α : Type u} [LT α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a &gt; b` is an abbreviation for `b &lt; a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&gt;` in identifiers is `gt`.</code>",
+ "144":
+ "<code>LE.le.{u} {α : Type u} [self : LE α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-equal relation: `x ≤ y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≤` in identifiers is `le`.</code>",
+ "143":
+ "<code>bne.{u} {α : Type u} [BEq α] (a b : α) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">`x != y` is boolean not-equal. It is the negation of `x == y` which is supplied by\nthe `BEq` typeclass.\n\nUnlike `x ≠ y` (which is notation for `Ne x y`), this is `Bool` valued instead of\n`Prop` valued. It is mainly intended for programming applications.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `!=` in identifiers is `bne`.</code>",
+ "142":
+ "<code>BEq.beq.{u} {α : Type u} [self : BEq α] : α → α → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean equality, notated as `a == b`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `==` in identifiers is `beq`.</code>",
+ "141": "<code>b ⇓b bv</code>",
+ "140":
+ "<code>Slang.Bexp.evalR_iff_eval (b : Bexp) (bv : Bool) : b ⇓b bv ↔ b.eval = bv</code>",
+ "14": "<code>Slang.Bexp.eq (a1 a2 : Aexp) : Bexp</code>",
+ "139": "<code><span class=\"literal string\">\" ⇓b \"</span> : String</code>",
+ "138": "<code>EvalR b2 tv2</code>",
+ "137": "<code>EvalR b1 tv1</code>",
+ "136":
+ "<code>Slang.Bexp.EvalR.and (b1 b2 : Bexp) (tv1 tv2 : Bool) (h1 : b1.EvalR tv1) (h2 : b2.EvalR tv2) :\n  (b1.and b2).EvalR (tv1 && tv2)</code>",
+ "135": "<code>EvalR b bv</code>",
+ "134":
+ "<code>Slang.Bexp.EvalR.not (b : Bexp) (bv : Bool) (h : b.EvalR bv) : b.not.EvalR !bv</code>",
+ "133":
+ "<code>Slang.Bexp.EvalR.gt (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : (gt a1 a2).EvalR (decide (n1 &gt; n2))</code>",
+ "132":
+ "<code>Slang.Bexp.EvalR.le (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : (le a1 a2).EvalR (decide (n1 ≤ n2))</code>",
+ "131":
+ "<code>Slang.Bexp.EvalR.neq (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : (neq a1 a2).EvalR (n1 != n2)</code>",
+ "130":
+ "<code>Slang.Bexp.EvalR.eq (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : (eq a1 a2).EvalR (n1 == n2)</code>",
+ "13":
+ "<code>Bool : Type</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean values, `true` and `false`.\n\nLogically speaking, this is equivalent to `Prop` (the type of propositions). The distinction is\npublic important for programming: both propositions and their proofs are erased in the code generator,\nwhile `Bool` corresponds to the Boolean type in most programming languages and carries precisely one\nbit of run-time information.\n</code>",
+ "129": "<code>Slang.Bexp.EvalR.bool (b : Bool) : (bool b).EvalR b</code>",
+ "128": "<code>Slang.Bexp.EvalR : Bexp → Bool → Prop</code>",
+ "127":
+ "<code class=\"docstring\">`assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.\nNote also the `‹t›` term notation, which is a shorthand for `show t by assumption`.\n</code>",
+ "126": "<code>a2✝ ⇓ a2✝.eval</code>",
+ "125": "<code>a1✝ ⇓ a1✝.eval</code>",
+ "124": "<code>a2✝.eval = n2✝</code>",
+ "123": "<code>a1✝.eval = n1✝</code>",
+ "122": "<code>a2✝ ⇓ n2✝</code>",
+ "121": "<code>a1✝ ⇓ n1✝</code>",
+ "120":
+ "<code>Slang.Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
+ "12": "<code>Bool</code>",
+ "119": "<code>a2 ⇓ a2.eval</code>",
+ "118": "<code>a1 ⇓ a1.eval</code>",
+ "117":
+ "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
+ "116": "<code>a.eval = n</code>",
+ "115":
+ "<code>Slang.Aexp.EvalR.mult (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : a1.mult a2 ⇓ n1 * n2</code>",
+ "114":
+ "<code>Slang.Aexp.EvalR.minus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : a1.minus a2 ⇓ n1 - n2</code>",
+ "113": "<code>a2.eval = n2</code>",
+ "112": "<code>a1.eval = n1</code>",
+ "111": "<code>a2 ⇓ n2</code>",
+ "110": "<code>a1 ⇓ n1</code>",
+ "11": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
+ "109":
+ "<code>Slang.Aexp.EvalR.plus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1 ⇓ n1) (h2 : a2 ⇓ n2) : a1.plus a2 ⇓ n1 + n2</code>",
+ "108": "<code>Slang.Aexp.EvalR.num (n : Nat) : num n ⇓ n</code>",
+ "107": "<code>a ⇓ n</code>",
+ "106":
+ "<code class=\"docstring\">Introduces one or more hypotheses, optionally naming and/or pattern-matching them.\nFor each hypothesis to be introduced, the remaining main goal's target type must\nbe a `let` or function type.\n\n* `intro` by itself introduces one anonymous hypothesis, which can be accessed\n  by e.g. `assumption`. It is equivalent to `intro _`.\n* `intro x y` introduces two hypotheses and names them. Individual hypotheses\n  can be anonymized via `_`, given a type ascription, or matched against a pattern:\n  ```lean\n  -- ... ⊢ α × β → ...\n  intro (a, b)\n  -- ..., a : α, b : β ⊢ ...\n  ```\n* `intro rfl` is short for `intro h; subst h`, if `h` is an equality where the left-hand or right-hand side\n  is a variable.\n* Alternatively, `intro` can be combined with pattern matching much like `fun`:\n  ```lean\n  intro\n  | n + 1, 0 =&gt; tac\n  | ...\n  ```\n</code>",
+ "105":
+ "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
+ "104":
+ "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
+ "103":
+ "<code>Slang.Aexp.evalR_iff_eval (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
+ "102": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
+ "101": "<code>Lean.TSyntax `term</code>",
+ "100": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
+ "10": "<code>Slang.Bexp : Type</code>",
+ "1":
+ "<code class=\"docstring\">In Lean, every concrete type other than the universes\nand every type constructor other than dependent arrows\nis an instance of a general family of type constructions known as inductive types.\nIt is remarkable that it is possible to construct a substantial edifice of mathematics\nbased on nothing more than the type universes, dependent arrow types, and inductive types;\neverything else follows from those.\nIntuitively, an inductive type is built up from a specified list of constructors.\nFor example, `List α` is the list of elements of type `α`, and is defined as follows:\n```\ninductive List (α : Type u) where\n| nil\n| cons (head : α) (tail : List α)\n```\nA list of elements of type `α` is either the empty list, `nil`,\nor an element `head : α` followed by a list `tail : List α`.\nSee [Inductive types](https://lean-lang.org/theorem_proving_in_lean4/inductive_types.html)\nfor more information.\n</code>",
+ "0":
+ "<code class=\"docstring\">`namespace &lt;id&gt;` opens a section with label `&lt;id&gt;` that influences naming and name resolution inside\nthe section:\n* Declarations names are prefixed: `def seventeen : ℕ := 17` inside a namespace `Nat` is given the\n  full name `Nat.seventeen`.\n* Names introduced by `export` declarations are also prefixed by the identifier.\n* All names starting with `&lt;id&gt;.` become available in the namespace without the prefix. These names\n  are preferred over names introduced by outer namespaces or `open`.\n* Within a namespace, declarations can be `protected`, which excludes them from the effects of\n  opening the namespace.\n\nAs with `section`, namespaces can be nested and the scope of a namespace is terminated by a\ncorresponding `end &lt;id&gt;` or the end of the file.\n\n`namespace` also acts like `section` in delimiting the scope of `variable`, `open`, and other scoped commands.\n</code>"}
