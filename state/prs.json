@@ -417,9 +417,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "0370ecfdc0a095f03153b02ae24774743ec9f51c",
+      "head_sha": "9853b722a51dff9bf07e2eef4e752906d339c729",
       "preview_path": "pr/191/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31035486740",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31037361299",
       "status": "published",
       "title": "Editing pass over Typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/191"

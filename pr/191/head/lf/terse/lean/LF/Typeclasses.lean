@@ -471,26 +471,31 @@ example : emptyNatMap 2 = 0 := rfl
 
 -- #### Getting Elements
 
--- While `TotalMap` happens to be implemented as a function, we
--- would prefer not to expose that fact in its public
--- interface. As such, we need to define specific operations
--- for getting and updating mappings, playing the role that
--- `find` played for the Lists chapter's list-based maps. As a
--- first attempt at the former, we could simply define a
--- function `getElem` for getting a key's element value:
+-- While `TotalMap`s happen to be implemented as functions
+-- under the hood, we would prefer not to expose this fact in
+-- their public interface. Accordingly, we define new
+-- operations for querying and updating mappings. As a first
+-- attempt at a query operation, playing the role that `find`
+-- played for the Lists chapter's list-based maps, we could
+-- define a function `getElem` for getting the value associated
+-- with a key:
 
 sf_experiment
   def getElem (m : TotalMap α β) (a: α) := m a
   
   example : getElem emptyNatMap 2 = 0 := rfl
 
--- To make element-getting lighter weight, we will define
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     This next paragraph gets pretty tangled -- can it be
+--     streamlined?
+
+-- To make element-getting lighter weight, we can define
 -- notation so we can write `emptyNatMap[2]` rather than
 -- `getElem emptyNatMap`. We could make notation for this
 -- specific `getElem` function; we will do precisely that for
 -- the `update` function below. Instead, we are going to
 -- abstract the concept of getting an element as its own
--- typeclass, `MyGetElem`, and then develop notation for
+-- typeclass, called `MyGetElem`, and define notation for
 -- instances of that typeclass. We do this to illustrate a
 -- common pattern in Lean (indeed, `MyGetElem` is a simpler
 -- form of the `GetElem` standard library function). We see the
@@ -505,23 +510,29 @@ end TotalMap
 class MyGetElem (coll : Type) (idx : Type) (elem : outParam Type) where
   getElem (xs : coll) (i : idx) : elem
 
--- Don't worry about the `outParam` qualifier; it is a hint to
--- Lean that helps typeclass inference. An instance of
--- `MyGetElem` for our `TotalMap` is the following:
+-- (Don't worry about the `outParam` qualifier; it is a hint to
+-- Lean that helps typeclass inference.)
+
+-- The appropriate instance of `MyGetElem` for our `TotalMap`
+-- is:
 
 variable [Inhabited β]
 instance : MyGetElem (TotalMap α β) α β where
   getElem m a := m a
 
--- Now we associate the bracket syntax with
+-- Now we can associate the bracket syntax with
 -- `MyGetElem.getElem`. We've defined custom notation before
 -- (e.g. `::` and `[...]` for lists, or `+`/`*`/`==` for
 -- arithmetic), but always with `infixl`/`infixr` or
 -- `scoped macro`; this is the first time we reach for the more
--- general `notation`/`macro_rules` forms. Don't worry about
--- following the mechanism in detail — the `macro_rules` and
--- the `app_unexpander` below are minor technicalities for
--- getting the `m[a]` syntax to work.
+-- general `notation`/`macro_rules` forms for getting the
+-- `m[a]` syntax to work. (Don't worry about following the
+-- mechanism in detail — the `macro_rules` and the
+-- `app_unexpander` below are minor technicalities.)
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Can we point people to where they can read about these
+--     things if they are interested?
 
 namespace MyGetElem
 
@@ -536,17 +547,26 @@ end MyGetElem
 open scoped MyGetElem
 
 -- Since the standard library already declares the `$x[$i]`
--- syntax for `GetElem`, we only need to define the macro. It's
--- scoped since we don't want to override the default `GetElem`
--- everywhere, but only when `open scoped MyGetElem`.
+-- syntax for `GetElem`, we only need to define the macro.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     What does "the macro" mean? And didn't we say we were
+--     not going to explain the macro stuff? I feel like this
+--     section is falling in an uncomfortable middle ground
+--     between completely skating over the technicalities and
+--     actually explaining.
+
+-- It's scoped since we don't want to override the default
+-- `GetElem` everywhere, but only when `open scoped MyGetElem`
+-- is in force.
 
 -- Note to developers (Benjamin Pierce  @bcpierce00):
 --     Make sure we've really explained `open scoped`
 --     somewhere...
 
--- Since we implemented a `MyGetElem` instance for `TotalMap`,
--- we can now use the notation `m[a]` to access elements of a
--- map `m`.
+-- Since we provided a `MyGetElem` instance for `TotalMap`, we
+-- can now use the notation `m[a]` to access elements of a map
+-- `m`.
 
 namespace TotalMap
 
@@ -635,8 +655,17 @@ def exampleMap :=
 -- `x.f y`, letting us chain a sequence of function or method
 -- calls left to right without nested parentheses.
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Should we introduce this notation earlier? (Are there
+--     good places to use it earlier?)
+
 -- We also introduce a notation for updating maps, in this case
 -- referencing the `TotalMap.update` function directly.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     ... as opposed to what (let's be explicit!)? And why do
+--     we make this choice? Just to show both ways, or for some
+--     principled reason?
 
 notation a:55 " →ₜ " b:55 " ; " m:55 => TotalMap.update m a b
 
@@ -695,11 +724,12 @@ theorem update_neq {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b 
 
 -- The two remaining facts are equalities *between maps*, so we
 -- first need to say when two maps are equal. Since a total map
--- is a function, this is exactly the functional extensionality
--- principle (`funext`) from the Logic chapter: two maps are
--- equal when they agree at every key. Recording it once, for
--- maps, and tagging it `@[ext]` lets the `ext` tactic reduce a
--- goal `m₁ = m₂` to the pointwise one in the proofs below.
+-- is implemented as a function, this is exactly the functional
+-- extensionality principle (`funext`) from the Logic chapter:
+-- two maps are equal when they agree at every key. Recording
+-- it once, for maps, and tagging it `@[ext]` lets the `ext`
+-- tactic reduce a goal `m₁ = m₂` to the pointwise one in the
+-- proofs below.
 
 @[ext]
 theorem ext {m₁ m₂ : TotalMap α β} (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := funext h
@@ -795,8 +825,12 @@ end KVPair
 
 open scoped KVPair
 
--- Next, we declare `Insert` and `Singleton` instances which
+-- Next, we declare `Insert` and `Singleton` instances that
 -- control the `{}` notation in Lean.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Do readers know what `Insert` and `Singleton` are?
+--     Should we link to their docs?
 
 namespace TotalMap
 
@@ -1133,6 +1167,9 @@ theorem isEven_succ (n : Nat) : isEven (n + 1) = ! isEven n := by
 
 -- Here are the key differences between `Bool` and `Prop`:
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Check formatting:
+
 -- - ⠀
 -- - `Bool`
 -- - `Prop`
@@ -1353,7 +1390,7 @@ sf_experiment
   #print eq
 
 -- But we have indicated to Lean, using the `noncomputable`
--- keyword and `Classical` namespace that we are *not*
+-- keyword and `Classical` namespace, that we are *not*
 -- interested in computation. What is happening in the
 -- background is that this allows typeclass synthesis to find
 -- the scoped instance `Classical.propDecidable`, which makes
@@ -1365,6 +1402,9 @@ sf_experiment
 -- command.
 
 -- ## TODO
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Needs finishing...
 
 -- Note to developers:
 --     Below are some stray examples from IndProp. `Decidable`
