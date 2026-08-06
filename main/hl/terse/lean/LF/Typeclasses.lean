@@ -143,111 +143,172 @@ theorem List.elem_poly_cons [BEq α] (a b : α) (xs : List α) :
 -- instances, and synthesis — that made `==` resolve
 -- automatically above.
 
--- Suppose we want to specify that a type has at least one
--- inhabitant, i.e., that it is not empty. A `structure`
--- (chapter Lists) can express this directly:
+-- Suppose we want a function that returns the first element of
+-- a list, defaulting to a given value if the list is empty. As
+-- with `List.elem_poly_eq` above, here is a version that makes
+-- the default value an explicit parameter:
 
-structure HasOneStruct (α : Type) where
-  one : α
+def List.headOr_ex {α : Type} (defaultValue : α) (xs : List α) : α :=
+  match xs with
+  | [] => defaultValue
+  | hd :: _ => hd
 
--- A value of `HasOneStruct Nat` witnesses that `Nat` is
--- inhabited: it's built the same way any structure is, by
--- supplying a `Nat` for the `one` field:
+#eval [1, 2, 3].headOr_ex 0
+#eval ([] : List Nat).headOr_ex 0
 
-def nat_hasOneStruct : HasOneStruct Nat where
-  one := 1
+-- This works, but again it's tedious: every caller has to
+-- supply an element of `α` to default to, even when there's an
+-- obvious choice based on the type of the things in the list,
+-- like `0` for `Nat`.
 
-example : nat_hasOneStruct.one = 1 := rfl
+-- Getting Lean to fill in `defaultValue` automatically takes
+-- two things. One is marking the parameter as "searchable,"
+-- rather than something the caller always supplies explicitly.
+-- The other is giving Lean some information about what it
+-- should search *for*.
 
--- But nothing makes Lean produce this witness *automatically*:
--- we had to write `where one := 1` ourselves, unlike the
--- `BEq Nat` instance that Lean found for us on its own above.
+-- Considering the second problem first: The way to provide
+-- this information is to *name* the type-level concept we're
+-- after — the **default value** of a type. In particular, a
+-- `structure` (chapter Lists) is a good way to give a
+-- type-level concept a name; structures can also bundle
+-- together more than one piece of data, which will come in
+-- handy later, though we only need a single field here.
 
--- Typeclasses solve this. In Lean, they're implemented as
--- structures and declared the same way, but with `class` in
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     "type-level concept" doesn't say much to me here, and
+--     structures are *not* type-level things. (Well,
+--     `structure`s are, but *a* structure satisfying some
+--     `structure` declaration is not, if you see what I
+--     mean...)
+
+-- Considering the first problem: we need to mark this
+-- particular structure as one Lean should search for
+-- automatically — not every `structure`-typed argument should
+-- be.
+
+-- Let's build up to what wewant in two steps: first the
+-- naming, as a plain `structure`; then the marking, by
+-- upgrading it to a `class`. Here's the structure — we'll put
+-- it in its own namespace so we can reuse the name
+-- `DefaultValue` for the class version below:
+
+namespace DefaultValueScratch
+
+structure DefaultValue (α : Type) where
+  value : α
+
+-- A value of type `DefaultValue Nat` picks out a particular
+-- `Nat` to serve as the type's default: it's built the same
+-- way any structure is, by supplying a `Nat` for the `value`
+-- field:
+
+def natDefault : DefaultValue Nat where
+  value := 1
+
+example : natDefault.value = 1 := rfl
+
+end DefaultValueScratch
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Maybe the example is not needed?
+
+-- Now for the marking: we need to tell Lean that
+-- `DefaultValue` is the sort of structure it should search for
+-- automatically, the way it needs to for `List.headOr_ex`'s
+-- `defaultValue` argument. We do this by writing `class` in
 -- place of `structure`:
 
-class HasOne (α : Type) where
-  one : α
+class DefaultValue (α : Type) where
+  value : α
 
--- The difference is in how we provide values of this type.
+-- We then provide values of this type a bit differently.
 -- Instead of `def`, we use `instance`:
 
--- Note to developers:
---     From GitHub (@chenson2018): Part of the point here is
---     that we don't usually refer to instances explicitly,
---     even me providing an explicit name is for pedagogy
---     reasons. I'll make it more explicit in the text that
---     what we're looking for in the infoview is the presence
---     of this instance.
+instance instDefaultValueNat : DefaultValue Nat where
+  value := 1
 
-instance instHasOneNat : HasOne Nat where
-  one := 1
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Boldface, or italic? We should write down a rule in
+--     STYLE.md!
 
 -- Lean can now find this instance on its own, via **typeclass
 -- synthesis** (or **typeclass inference**) — the same process
--- that found `BEq Nat` earlier.
+-- that found `BEq Nat` earlier. That means we can rewrite
+-- `List.headOr_ex` the same way we rewrote `List.elem_poly_eq`
+-- into `List.elem_poly` above, replacing the explicit
+-- `defaultValue` parameter with an instance implicit:
 
-example : HasOne.one = (1 : Nat) := rfl
+def List.headOr {α : Type} [DefaultValue α] (xs : List α) : α :=
+  match xs with
+  | [] => DefaultValue.value
+  | hd :: _ => hd
 
--- Notice that we refer to `HasOne.one` alone, with no instance
--- named. Because the expression equates `HasOne.one` with a
--- `Nat`, Lean selects `instHasOneNat`, the instance for
--- `HasOne Nat`. We know that it is this instance because we
--- are able to prove that `HasOne.one` is equal to 1.
+#eval [1, 2, 3].headOr
+#eval ([] : List Nat).headOr
+
+example : DefaultValue.value = (1 : Nat) := rfl
+
+-- Notice that we refer to `DefaultValue.value` alone, with no
+-- instance named. Because the expression equates
+-- `DefaultValue.value` with the `Nat` `1`, Lean selects
+-- `instDefaultValueNat`, the instance for `DefaultValue Nat`.
+-- We know this because we are able to prove that
+-- `DefaultValue.value` is equal to 1.
 
 -- Let's declare a second instance, for `Int`, the type of
 -- integers `... -2, -1, 0, 1, 2, ...`:
 
-instance instHasOneInt : HasOne Int where
-  one := -1
+instance instDefaultValueInt : DefaultValue Int where
+  value := -1
 
--- Now, Lean can infer instances for both types:
+-- Now, Lean can infer instances for both types, including
+-- inside `List.headOr`:
 
-example : HasOne.one = (1 : Nat) := rfl
-example : HasOne.one = (-1 : Int) := rfl
+example : DefaultValue.value = (1 : Nat) := rfl
+example : DefaultValue.value = (-1 : Int) := rfl
+example : ([] : List Nat).headOr = 1 := rfl
+example : ([] : List Int).headOr = -1 := rfl
 
 -- Synthesis infers instances we could have specified
 -- explicitly:
 
-example : instHasOneNat.one = (1 : Nat) := rfl
-example : instHasOneInt.one = (-1 : Int) := rfl
+example : instDefaultValueNat.value = (1 : Nat) := rfl
+example : instDefaultValueInt.value = (-1 : Int) := rfl
 
 -- The option `pp.all` shows which instance Lean picked:
 
 set_option pp.all true in
-#check (HasOne.one : Nat)
+#check (DefaultValue.value : Nat)
 
--- @HasOne.one Nat instHasOneNat : Nat
+-- @DefaultValue.value Nat instDefaultValueNat : Nat
 
 set_option pp.all true in
-#check (HasOne.one : Int)
+#check (DefaultValue.value : Int)
 
--- @HasOne.one Int instHasOneInt : Int
+-- @DefaultValue.value Int instDefaultValueInt : Int
 
--- This reveals `instHasOneNat` and `instHasOneInt` as the
--- instances Lean picked. The `#synth` command runs the same
--- search directly:
+-- This reveals `instDefaultValueNat` and `instDefaultValueInt`
+-- as the instances Lean picked. The `#synth` command runs the
+-- same search directly:
 
-#synth HasOne Nat
+#synth DefaultValue Nat
 
--- instHasOneNat
+-- instDefaultValueNat
 
--- For a typeclass like `HasOne` that carries data — a term,
--- such as the `1` above, rather than only proofs — we expect
--- at most one instance per type, so this search has a unique
--- answer.
+-- For a typeclass like `DefaultValue` that carries data — a
+-- term, such as the `1` above, rather than only proofs (which
+-- we will see below) — we expect at most one instance per
+-- type, so this search has a unique answer.
 
--- Note to developers:
---     @chenson2018: I don't really want to explain diamonds
---     here, is the above white lie hand-waving okay??
---     @bcpierce00: Seems OK to me.
+-- We'll put `DefaultValue`'s standard-library cousin,
+-- `Inhabited`, to work later in this chapter, when we define
+-- maps that need a default value for a generic type. First,
+-- though, let's go back to `List.elem_poly` and see how its
+-- `[BEq α]` argument actually gets resolved.
 
--- We'll put `HasOne`'s standard-library cousin, `Inhabited`,
--- to work later in this chapter, when we define maps that need
--- a default value for a generic type. First, though, let's go
--- back to `List.elem_poly` and see how its `[BEq α]` argument
--- actually gets resolved.
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Is it a cousin, or a duplicate?
 
 -- ## Using Typeclasses
 
@@ -267,15 +328,17 @@ set_option pp.notation false in
 
 -- Writing `a == b` makes Lean search for an **instance** of
 -- `BEq` for the type of `a` and `b`, the same way it searched
--- for a `HasOne` instance above. For `Nat`, that instance is:
+-- for a `DefaultValue` instance above. For `Nat`, that
+-- instance is:
 
 instance (priority := low) : BEq Nat where
   beq := Nat.beq
 
 -- This is the instance Lean supplies for `[BEq α]` when
 -- `List.elem_poly` is called on a `List Nat` — no different
--- from Lean choosing `instHasOneNat` for `HasOne.one` earlier
--- when it was equated with `(1 : Nat)`.
+-- from Lean choosing `instDefaultValueNat` for
+-- `DefaultValue.value` earlier when it was equated with
+-- `(1 : Nat)`.
 
 -- ### Exercise (1 star): List.elem_poly_eq_elem_nat ⭐
 
@@ -325,8 +388,8 @@ instance : HasTwo Nat where
 
 -- ### Exercise (1 star): HasThree ⭐
 
--- Following the pattern of `HasOne` and `HasTwo`, define a
--- class `HasThree` that specifies a type with at least three
+-- Following the pattern of `DefaultValue` and `HasTwo`, define
+-- a class `HasThree` that specifies a type with at least three
 -- distinct elements, and give an instance of it for `Nat`.
 
 class HasThree (α : Type) where
@@ -441,7 +504,7 @@ namespace TotalMap
 
 -- In order to declare a default value of `β` we will use the
 -- `Inhabited` typeclass, which is the standard library's
--- implementation of our `HasOne` example from above:
+-- implementation of our `DefaultValue` example from above:
 
 variable [Inhabited β]
 
@@ -451,10 +514,11 @@ variable [Inhabited β]
 
 def empty : TotalMap α β := fun _ ↦ default
 
--- Just as declaring `BEq`/`HasOne` instances above hooked `==`
--- and `HasOne.one` up to our types, we can declare an instance
--- of the standard library's `EmptyCollection` typeclass to
--- associate `∅` with this empty map.
+-- Just as declaring `BEq`/`DefaultValue` instances above
+-- hooked `==` and `DefaultValue.value` up to our types, we can
+-- declare an instance of the standard library's
+-- `EmptyCollection` typeclass to associate `∅` with this empty
+-- map.
 
 instance : EmptyCollection (TotalMap α β) where
   emptyCollection := TotalMap.empty
@@ -488,22 +552,20 @@ sf_experiment
   
   example : getElem emptyNatMap 2 = 0 := rfl
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     This next paragraph gets pretty tangled -- can it be
---     streamlined?
-
--- To make element-getting lighter weight, we can define
+-- To make element-getting lighter weight, let's define
 -- notation so we can write `emptyNatMap[2]` rather than
--- `getElem emptyNatMap`. We could make notation for this
--- specific `getElem` function; we will do precisely that for
--- the `update` function below. Instead, we are going to
--- abstract the concept of getting an element as its own
--- typeclass, called `MyGetElem`, and define notation for
--- instances of that typeclass. We do this to illustrate a
--- common pattern in Lean (indeed, `MyGetElem` is a simpler
--- form of the `GetElem` standard library function). We see the
--- pattern again at the conclusion of our development of total
--- maps, illustrating custom syntax for constructing maps.
+-- `getElem emptyNatMap`. We could notate `getElem` directly —
+-- we'll do exactly that for `update` below — but here we'll
+-- instead make "getting an element" its own typeclass,
+-- `MyGetElem`, and notate **instances** of it. This is the
+-- same pattern behind `==`: writing `a == b` is notation for
+-- `BEq.beq`, resolved by instance search for whatever type `a`
+-- and `b` have. Doing the same for indexing notation means
+-- `m[a]` resolves to `MyGetElem.getElem m a` for any type with
+-- a `MyGetElem` instance, not just `TotalMap` (indeed,
+-- `MyGetElem` is a simpler form of the standard library's
+-- `GetElem`). We'll see the pattern once more at the end of
+-- this development, in the notation for constructing maps.
 
 end TotalMap
 
@@ -524,14 +586,15 @@ instance : MyGetElem (TotalMap α β) α β where
   getElem m a := m a
 
 -- Now we can associate the bracket syntax with
--- `MyGetElem.getElem`. We've defined custom notation before
--- (e.g. `::` and `[...]` for lists, or `+`/`*`/`==` for
--- arithmetic), but always with `infixl`/`infixr` or
--- `scoped macro`; this is the first time we reach for the more
--- general `notation`/`macro_rules` forms for getting the
--- `m[a]` syntax to work. (Don't worry about following the
--- mechanism in detail — the `macro_rules` and the
--- `app_unexpander` below are minor technicalities.)
+-- `MyGetElem.getElem`. We've defined custom notation before —
+-- `::` and `[...]` for lists (chapter Lists, including an
+-- `app_unexpander` for printing `[...]`-notation lists back
+-- out), or `+`/`*`/`==` for arithmetic — but always with
+-- `infixl`/`infixr` or `scoped macro`; this is the first time
+-- we reach for the more general `notation`/`macro_rules` forms
+-- for getting the `m[a]` syntax to work. (Don't worry about
+-- following the mechanism in detail — the `macro_rules` and
+-- the `app_unexpander` below are minor technicalities.)
 
 -- Note to developers (Benjamin Pierce  @bcpierce00):
 --     Can we point people to where they can read about these
@@ -550,18 +613,11 @@ end MyGetElem
 open scoped MyGetElem
 
 -- Since the standard library already declares the `$x[$i]`
--- syntax for `GetElem`, we only need to define the macro.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     What does "the macro" mean? And didn't we say we were
---     not going to explain the macro stuff? I feel like this
---     section is falling in an uncomfortable middle ground
---     between completely skating over the technicalities and
---     actually explaining.
-
--- It's scoped since we don't want to override the default
--- `GetElem` everywhere, but only when `open scoped MyGetElem`
--- is in force.
+-- syntax for `GetElem`, we only need to define the
+-- `macro_rules`, not the `notation` as we have done
+-- previously. It's scoped since we don't want to override the
+-- default `GetElem` everywhere, but only when
+-- `open scoped MyGetElem` is in force.
 
 -- Note to developers (Benjamin Pierce  @bcpierce00):
 --     Make sure we've really explained `open scoped`
@@ -662,13 +718,15 @@ def exampleMap :=
 --     Should we introduce this notation earlier? (Are there
 --     good places to use it earlier?)
 
--- We also introduce a notation for updating maps, in this case
--- referencing the `TotalMap.update` function directly.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     ... as opposed to what (let's be explicit!)? And why do
---     we make this choice? Just to show both ways, or for some
---     principled reason?
+-- We also introduce a notation for updating maps — this time,
+-- rather than going through a typeclass and its own
+-- `notation`/`macro_rules` machinery as we did for
+-- `MyGetElem`, we write a `notation` that references
+-- `TotalMap.update` directly. Unlike indexing, `update`
+-- doesn't need to work generically across container types
+-- (there's no standard-library operation like `GetElem` that
+-- we're mirroring here), so the simpler, direct route
+-- suffices.
 
 notation a:55 " →ₜ " b:55 " ; " m:55 => TotalMap.update m a b
 
@@ -828,12 +886,11 @@ end KVPair
 
 open scoped KVPair
 
--- Next, we declare `Insert` and `Singleton` instances that
--- control the `{}` notation in Lean.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Do readers know what `Insert` and `Singleton` are?
---     Should we link to their docs?
+-- Next, we declare `Insert` and `Singleton` instances — the
+-- standard-library typeclasses behind the `{x, y, ...}` and
+-- `{x}` collection-literal notation that `List`, `Finset`, and
+-- other stdlib containers already support — so that `TotalMap`
+-- can use it too.
 
 namespace TotalMap
 
@@ -892,19 +949,10 @@ sf_expect_failure
 -- with elements of type `Option β`, whose default element is
 -- `none`.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     I don't understand the comment on the `inner` field...
---
---     Niklas Halonen (xhalo32): This is just a technical note
---     that discourages using `PartialMap.inner` over
---     `PartialMap.toTotal`. We don't want both to appear in
---     the public API. Compare with `MeasurableSet'` in
---     https://github.com/leanprover-community/mathlib4/blob/1f8806b67d6f09e6d2552c031e6d3a3171016116/Mathlib/MeasureTheory/MeasurableSpace/Defs.lean#L52
---     which doesn't appear in the public API (it uses
---     `MeasurableSet` instead).
-
 structure PartialMap (α : Type) (β : Type) where
-  /-- The inner total map. Should not appear in the public API, use `PartialMap.toTotal` instead. -/
+  /-- The underlying total map. Lean always generates a public projection for a structure
+  field, so `inner` is technically accessible, but it isn't part of the intended interface:
+  use `PartialMap.toTotal` instead, so there's exactly one sanctioned way to get at it. -/
   inner : TotalMap α (Option β)
 
 instance : EmptyCollection (PartialMap α β) where
@@ -933,6 +981,17 @@ theorem getElem_def (m : PartialMap α β) (a : α) : m[a] = m.toTotal[a] := rfl
 --     If this way is better, then why didn't we do it for
 --     total maps too? Just for the sake of explaining two
 --     different mechanisms? We should explain our reasoning.
+--
+--     Claude: One possible reason — `TotalMap` is deliberately
+--     left as a bare function type because that transparency
+--     is the point of the Total Maps section: it's what lets
+--     two maps that answer every query the same way count as
+--     **literally** the same value, giving the extensional
+--     view of map equality. `PartialMap` doesn't need to make
+--     that same point, so it's free to hide the representation
+--     more thoroughly here. This is a guess at the original
+--     reasoning, not a confirmed answer — flagging it here for
+--     discussion rather than asserting it in the chapter text.
 
 -- Now, the type system doesn't consider `PartialMap α β` to be
 -- definitionally equal to `TotalMap α (Option β)`, so the
