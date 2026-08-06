@@ -1,1 +1,0 @@
-window.docContents[122].resolve({"/Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises":{"contents":"\n\n\n\n","context":"Logical Foundations\u0009Basics: Functional Programming in Lean","header":"1.5. More Exercises","id":"/Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises"}});

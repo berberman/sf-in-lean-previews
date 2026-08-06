@@ -144,48 +144,11 @@
     },
     "179": {
       "base_sha": "eecc9040539b82e5c7da61947fa04b147fe62f4f",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "6e52353aa981e95fb075e2ddc31eb9ae42d9d9c5",
+      "changed_variants": [],
+      "head_sha": "13608e8aead2bd66450c4b9b8636938bc3e6271e",
       "preview_path": "pr/179/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30738454288",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Hoare: assertion and triple syntax",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
     },
@@ -339,53 +302,6 @@
       "status": "waiting-ci",
       "title": "LF: Add notations appendix chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/186"
-    },
-    "199": {
-      "base_sha": "6e52353aa981e95fb075e2ddc31eb9ae42d9d9c5",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "94a93a8f54122785c05e68a671833712390fe642",
-      "preview_path": "pr/199/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31113992085",
-      "status": "published",
-      "title": "Added delaborators",
-      "url": "https://github.com/plclub/sf-in-lean/pull/199"
     },
     "200": {
       "base_sha": "4ef806525357ca2cfe90f8417518f3c4b14a8a4d",
