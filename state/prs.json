@@ -147,8 +147,8 @@
       "changed_variants": [],
       "head_sha": "13608e8aead2bd66450c4b9b8636938bc3e6271e",
       "preview_path": "pr/179/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31127304396",
+      "status": "ci-failed",
       "title": "Hoare: assertion and triple syntax",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
     },
