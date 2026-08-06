@@ -890,6 +890,102 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1987,11 +2083,11 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="current numbered"><td class="num">6.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="current numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <label for="--verso-manual-toc-Tactics" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Tactics" checked="checked"></label><span class="number">6.</span> <span class="current"><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></span></div>
-              <table><tr class="numbered"><td class="num">6.1.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic">The <code>apply</code> Tactic</a></td></tr><tr class="numbered"><td class="num">6.2.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics">The <code>injection</code> and <code>contradiction</code> Tactics</a></td></tr><tr class="numbered"><td class="num">6.3.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Using-Tactics-on-Hypotheses">Using Tactics on Hypotheses</a></td></tr><tr class="numbered"><td class="num">6.4.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Specializing-Hypotheses">Specializing Hypotheses</a></td></tr><tr class="numbered"><td class="num">6.5.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Varying-the-Induction-Hypothesis">Varying the Induction Hypothesis</a></td></tr><tr class="numbered"><td class="num">6.6.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Rewriting-with-Conditional-Statements">Rewriting with Conditional Statements</a></td></tr><tr class="numbered"><td class="num">6.7.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions">Using <code>cases</code> on Compound Expressions</a></td></tr><tr class="numbered"><td class="num">6.8.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Review">Review</a></td></tr></table></div>
+                <label for="--verso-manual-toc-Tactics" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Tactics" checked="checked"></label><span class="number">7.</span> <span class="current"><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></span></div>
+              <table><tr class="numbered"><td class="num">7.1.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic">The <code>apply</code> Tactic</a></td></tr><tr class="numbered"><td class="num">7.2.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics">The <code>injection</code> and <code>contradiction</code> Tactics</a></td></tr><tr class="numbered"><td class="num">7.3.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Using-Tactics-on-Hypotheses">Using Tactics on Hypotheses</a></td></tr><tr class="numbered"><td class="num">7.4.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Specializing-Hypotheses">Specializing Hypotheses</a></td></tr><tr class="numbered"><td class="num">7.5.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Varying-the-Induction-Hypothesis">Varying the Induction Hypothesis</a></td></tr><tr class="numbered"><td class="num">7.6.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Rewriting-with-Conditional-Statements">Rewriting with Conditional Statements</a></td></tr><tr class="numbered"><td class="num">7.7.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions">Using <code>cases</code> on Compound Expressions</a></td></tr><tr class="numbered"><td class="num">7.8.</td><td><a href="Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Review">Review</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -1999,10 +2095,10 @@ window.onload = async () => {
       <div class="toc-resize-handle"></div>
       <main><div class="content-wrapper">
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Poly/#Poly" rel="prev" title="5. Poly: Polymorphism and Higher-Order Functions"><span class="arrow">←</span><span class="where">5. Poly: Polymorphism and Higher-Order Functions</span></a><a class="local-button active" href="Logic/#Logic" rel="next" title="7. Logic in Lean"><span class="where">7. Logic in Lean</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Poly/#Poly" rel="prev" title="6. Poly: Polymorphism and Higher-Order Functions"><span class="arrow">←</span><span class="where">6. Poly: Polymorphism and Higher-Order Functions</span></a><a class="local-button active" href="Logic/#Logic" rel="next" title="8. Logic in Lean"><span class="where">8. Logic in Lean</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
-              6. Tactics: More Basic Tactics<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Tactics" title="Permalink">🔗</a></span></h1>
+              7. Tactics: More Basic Tactics<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Tactics" title="Permalink">🔗</a></span></h1>
             <div class="sf-dev-note">
               <div class="sf-dev-note-label">
                 Note to developers (Daniel Sainati  @dsainati1)</div>
@@ -2054,7 +2150,7 @@ it explicitly.)</p>
             <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.open-2310" data-verso-hover="68">open</span><span class="inter-text"> </span><span class="unknown token" data-binding="">Nat</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Command.openOnly-2315">(</span><span class="const token" data-binding="const-Nat.add_comm" data-verso-hover="306">add_comm</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat.add_assoc" data-verso-hover="310">add_assoc</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat.add_zero" data-verso-hover="609">add_zero</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat.add_succ" data-verso-hover="610">add_succ</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat.mul_one" data-verso-hover="354">mul_one</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat.succ_sub_succ" data-verso-hover="611">succ_sub_succ</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Command.openOnly-2315">)</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><section>
               <h2 id="Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic">
-                6.1. The <code>apply</code> Tactic<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic" title="Permalink">🔗</a></span></h2>
+                7.1. The <code>apply</code> Tactic<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic" title="Permalink">🔗</a></span></h2>
               <p>
                 The <code>apply</code> tactic is useful when some hypothesis or an
 earlier lemma exactly matches the goal:</p>
@@ -2099,7 +2195,7 @@ work:</p>
   </span><span class="tactic"><label for="tactic-state-16205645155345576601-5129-5133-1440"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.symm-5129" data-verso-hover="619">symm</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-16205645155345576601-5129-5133-1440"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.2" data-verso-hover="83">n</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Nat" data-verso-hover="300">Nat</span><span class="inter-text"></span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.4" data-verso-hover="83">m</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Nat" data-verso-hover="300">Nat</span><span class="inter-text"></span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.16" data-verso-hover="138">H</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="83">m</span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="83">m</span></span></span></span></span></span><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Tactic.tacticSeq1Indented-4956">;</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-7-5135-5142-1442"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.apply-5135" data-verso-hover="479">apply</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.16" data-verso-hover="138">H</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-5135-5142-1442"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><section>
                 <h3 id="Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Supplying-arguments-to--apply">
-                  6.1.1. Supplying arguments to <code>apply</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Supplying-arguments-to--apply" title="Permalink">🔗</a></span></h3>
+                  7.1.1. Supplying arguments to <code>apply</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Supplying-arguments-to--apply" title="Permalink">🔗</a></span></h3>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
                     Note to developers (Benjamin Pierce  @bcpierce00)</div>
@@ -2228,7 +2324,7 @@ remove this explanation or tweak it.  BCP: I think we did introduce it earlier..
               </section>
             <section>
               <h2 id="Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics">
-                6.2. The <code>injection</code> and <code>contradiction</code> Tactics<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics" title="Permalink">🔗</a></span></h2>
+                7.2. The <code>injection</code> and <code>contradiction</code> Tactics<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics" title="Permalink">🔗</a></span></h2>
               <p>
                 The constructors of inductive types are <em>injective</em> (or
 <em>one-to-one</em>) and <em>disjoint</em>.</p>
@@ -2569,7 +2665,7 @@ but I want to be sure</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
             <section>
               <h2 id="Logical-Foundations--Tactics___-More-Basic-Tactics--Using-Tactics-on-Hypotheses">
-                6.3. Using Tactics on Hypotheses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Using-Tactics-on-Hypotheses" title="Permalink">🔗</a></span></h2>
+                7.3. Using Tactics on Hypotheses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Using-Tactics-on-Hypotheses" title="Permalink">🔗</a></span></h2>
               <p>
                 Many tactics come with "<code>... at ...</code>" variants that work on
 hypotheses instead of goals.</p>
@@ -2633,7 +2729,7 @@ from the original Rocq, let me know what you think</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Tactics___-More-Basic-Tactics--Specializing-Hypotheses">
-                6.4. Specializing Hypotheses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Specializing-Hypotheses" title="Permalink">🔗</a></span></h2>
+                7.4. Specializing Hypotheses<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Specializing-Hypotheses" title="Permalink">🔗</a></span></h2>
               <p>
                 We've already seen how we can use <code>have</code> to do
 forward reasoning, by letting us state and prove useful facts
@@ -2694,7 +2790,7 @@ control where <code>apply</code> does its work.</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
             <section>
               <h2 id="Logical-Foundations--Tactics___-More-Basic-Tactics--Varying-the-Induction-Hypothesis">
-                6.5. Varying the Induction Hypothesis<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Varying-the-Induction-Hypothesis" title="Permalink">🔗</a></span></h2>
+                7.5. Varying the Induction Hypothesis<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Varying-the-Induction-Hypothesis" title="Permalink">🔗</a></span></h2>
               <p>
                 Recall this function for doubling a natural number from the
 <a href="Induction/#Induction">Induction</a> chapter:</p>
@@ -2868,7 +2964,7 @@ The <code>generalizing</code> option for the <code>induction</code> tactic does 
 </span><span class="unknown token" data-binding=""></span></code></section>
             <section>
               <h2 id="Logical-Foundations--Tactics___-More-Basic-Tactics--Rewriting-with-Conditional-Statements">
-                6.6. Rewriting with Conditional Statements<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Rewriting-with-Conditional-Statements" title="Permalink">🔗</a></span></h2>
+                7.6. Rewriting with Conditional Statements<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Rewriting-with-Conditional-Statements" title="Permalink">🔗</a></span></h2>
               <p>
                 We'll use a boolean "less or equal" test on numbers, written <code>n ≤? m</code>
 (the library function <code>Nat.ble</code>), together with the fact that it
@@ -2936,7 +3032,7 @@ hypothesis becomes sufficiently general.</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
             <section>
               <h2 id="Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions">
-                6.7. Using <code>cases</code> on Compound Expressions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions" title="Permalink">🔗</a></span></h2>
+                7.7. Using <code>cases</code> on Compound Expressions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions" title="Permalink">🔗</a></span></h2>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
                   Note to developers</div>
@@ -2967,7 +3063,7 @@ variables:</p>
   </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.case-58630" data-verso-hover="142">case</span><span class="inter-text"> </span><span class="unknown token" data-binding="">true</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-10168374624214290263-58640-58642-1936"><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Tactic.case-58630">=&gt;</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-10168374624214290263-58640-58642-1936"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.342" data-verso-hover="83">n</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Nat" data-verso-hover="300">Nat</span><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="const token" data-binding="const-ite" data-verso-hover="215">(</span><span class="const token" data-binding="const-ite" data-verso-hover="215">if</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.true" data-verso-hover="40">true</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.true" data-verso-hover="40">true</span><span class="inter-text"> </span><span class="const token" data-binding="const-ite" data-verso-hover="215">then</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.false" data-verso-hover="54">false</span><span class="inter-text"> </span><span class="const token" data-binding="const-ite" data-verso-hover="215">else</span><span class="inter-text"> </span><span class="const token" data-binding="const-ite" data-verso-hover="215">if</span><span class="inter-text"> </span><span class="const token" data-binding="const-BEq.beq" data-verso-hover="345">(</span><span class="var token" data-binding="var-_uniq.342" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="const token" data-binding="const-BEq.beq" data-verso-hover="345">==</span><span class="inter-text"> </span><span class="unknown token" data-binding="">5</span><span class="const token" data-binding="const-BEq.beq" data-verso-hover="345">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.true" data-verso-hover="40">true</span><span class="inter-text"> </span><span class="const token" data-binding="const-ite" data-verso-hover="215">then</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.false" data-verso-hover="54">false</span><span class="inter-text"> </span><span class="const token" data-binding="const-ite" data-verso-hover="215">else</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.false" data-verso-hover="54">false</span><span class="const token" data-binding="const-ite" data-verso-hover="215">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.false" data-verso-hover="54">false</span></span></span></span></span></span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-7-58643-58646-1938"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticRfl-58643" data-verso-hover="16">rfl</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-58643-58646-1938"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><section>
                 <h3 id="Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions--Destructing-Tuples">
-                  6.7.1. Destructing Tuples<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions--Destructing-Tuples" title="Permalink">🔗</a></span></h3>
+                  7.7.1. Destructing Tuples<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions--Destructing-Tuples" title="Permalink">🔗</a></span></h3>
                 <p>
                   <code>cases</code> is useful when we are dealing with inductively defined types
 that can be one thing or another; a <code>Bool</code> is either a <code>false</code> or a <code>true</code>,
@@ -3030,7 +3126,7 @@ information we need to complete a proof.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Tactics___-More-Basic-Tactics--Review">
-                6.8. Review<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Review" title="Permalink">🔗</a></span></h2>
+                7.8. Review<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Tactics___-More-Basic-Tactics--Review" title="Permalink">🔗</a></span></h2>
               <div class="suppress-previous-header-when-terse"></div>
               <p>
                 Micro Sermon</p>
@@ -3041,7 +3137,7 @@ information we need to complete a proof.</p>
               </section>
             </section>
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Poly/#Poly" rel="prev" title="5. Poly: Polymorphism and Higher-Order Functions"><span class="arrow">←</span><span class="where">5. Poly: Polymorphism and Higher-Order Functions</span></a><a class="local-button active" href="Logic/#Logic" rel="next" title="7. Logic in Lean"><span class="where">7. Logic in Lean</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Poly/#Poly" rel="prev" title="6. Poly: Polymorphism and Higher-Order Functions"><span class="arrow">←</span><span class="where">6. Poly: Polymorphism and Higher-Order Functions</span></a><a class="local-button active" href="Logic/#Logic" rel="next" title="8. Logic in Lean"><span class="where">8. Logic in Lean</span><span class="arrow">→</span></a></nav>
           </div>
         </main></div>
     </body>

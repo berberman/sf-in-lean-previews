@@ -1,5 +1,5 @@
 {
-  "main_sha": "f103dbfaddb5f6f4c1e4bb90d1a289b9cc78c986",
+  "main_sha": "501ef39bf8baa7f6081996b70957cd5be8ae743b",
   "prs": {
     "167": {
       "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
@@ -376,100 +376,6 @@
       "status": "published",
       "title": "LF: Add notations appendix chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/186"
-    },
-    "195": {
-      "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "0c0c1ef4bdcb3d51093adae0e354dc69f506b3e2",
-      "preview_path": "pr/195/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31050118040",
-      "status": "published",
-      "title": "Convert bibliography for Verso",
-      "url": "https://github.com/plclub/sf-in-lean/pull/195"
-    },
-    "198": {
-      "base_sha": "f103dbfaddb5f6f4c1e4bb90d1a289b9cc78c986",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "1021f6adf8c3aff74d04c14ed069ae446258a968",
-      "preview_path": "pr/198/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31063814060",
-      "status": "published",
-      "title": "Typeclasses: motivate HasOne/DefaultValue with a real consumer, headOr",
-      "url": "https://github.com/plclub/sf-in-lean/pull/198"
     }
   },
   "schema": 3

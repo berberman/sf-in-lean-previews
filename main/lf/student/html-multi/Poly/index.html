@@ -890,6 +890,102 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1987,11 +2083,11 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="current numbered"><td class="num">5.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="current numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <label for="--verso-manual-toc-Poly" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Poly" checked="checked"></label><span class="number">5.</span> <span class="current"><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></span></div>
-              <table><tr class="numbered"><td class="num">5.1.</td><td><a href="Poly/#Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism">Polymorphism</a></td></tr><tr class="numbered"><td class="num">5.2.</td><td><a href="Poly/#Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data">Functions as Data</a></td></tr><tr class="numbered"><td class="num">5.3.</td><td><a href="Poly/#Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises">Additional Exercises</a></td></tr></table></div>
+                <label for="--verso-manual-toc-Poly" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Poly" checked="checked"></label><span class="number">6.</span> <span class="current"><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></span></div>
+              <table><tr class="numbered"><td class="num">6.1.</td><td><a href="Poly/#Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism">Polymorphism</a></td></tr><tr class="numbered"><td class="num">6.2.</td><td><a href="Poly/#Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data">Functions as Data</a></td></tr><tr class="numbered"><td class="num">6.3.</td><td><a href="Poly/#Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises">Additional Exercises</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -1999,15 +2095,15 @@ window.onload = async () => {
       <div class="toc-resize-handle"></div>
       <main><div class="content-wrapper">
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Lists/#Lists" rel="prev" title="4. Lists: Working with Structured Data"><span class="arrow">←</span><span class="where">4. Lists: Working with Structured Data</span></a><a class="local-button active" href="Tactics/#Tactics" rel="next" title="6. Tactics: More Basic Tactics"><span class="where">6. Tactics: More Basic Tactics</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Lists/#Lists" rel="prev" title="5. Lists: Working with Structured Data"><span class="arrow">←</span><span class="where">5. Lists: Working with Structured Data</span></a><a class="local-button active" href="Tactics/#Tactics" rel="next" title="7. Tactics: More Basic Tactics"><span class="where">7. Tactics: More Basic Tactics</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
-              5. Poly: Polymorphism and Higher-Order Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Poly" title="Permalink">🔗</a></span></h1>
+              6. Poly: Polymorphism and Higher-Order Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Poly" title="Permalink">🔗</a></span></h1>
             <pre>import LF.Induction
 import LF.UsingLean
 </pre><section>
               <h2 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism">
-                5.1. Polymorphism<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism" title="Permalink">🔗</a></span></h2>
+                6.1. Polymorphism<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism" title="Permalink">🔗</a></span></h2>
               <p>
                 In this chapter we continue our development of basic
 concepts of functional programming. The critical new ideas are
@@ -2016,7 +2112,7 @@ they manipulate) and <em>higher-order functions</em> (treating functions
 as data). We begin with polymorphism.</p>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists">
-                  5.1.1. Polymorphic Lists<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists" title="Permalink">🔗</a></span></h3>
+                  6.1.1. Polymorphic Lists<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists" title="Permalink">🔗</a></span></h3>
                 <p>
                   In the last chapter, we worked with lists containing just
 numbers. Obviously, interesting programs also need to be able to
@@ -2169,7 +2265,7 @@ in the natural way:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.definition-7812">def</span><span class="inter-text"> </span><span class="const token" data-binding="const-list123" data-verso-hover="638" id="list123">list123</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-7824">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-List" data-verso-hover="635">List</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="326">Nat</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-7835">:=</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-«term[_]»-7838">[</span><span class="literal number token" data-binding="" data-verso-hover="96">1</span><span class="punctuation separator token" data-binding="kw-occ-«term[_]»-7838">,</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="96">2</span><span class="punctuation separator token" data-binding="kw-occ-«term[_]»-7838">,</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="96">3</span><span class="punctuation bracket token" data-binding="kw-occ-«term[_]»-7838">]</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><section>
                   <h4 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Annotation-Inference">
-                    5.1.1.1. Type Annotation Inference<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Annotation-Inference" title="Permalink">🔗</a></span></h4>
+                    6.1.1.1. Type Annotation Inference<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Annotation-Inference" title="Permalink">🔗</a></span></h4>
                   <p>
                     Let's write the definition of <code class="hl lean inline" data-lean-context="examples"><a href="Poly/#myRepeat" title="Definition of example"><span class="const token" data-binding="const-myRepeat" data-verso-hover="631">myRepeat</span></a></code> again, but this time we won't specify
 the type of the parameter <code class="hl lean inline" data-lean-context="examples"><span class="var token" data-binding="var-_uniq.862" data-verso-hover="626">α</span></code>. Will Lean still accept it?</p>
@@ -2195,7 +2291,7 @@ as documentation, so we will continue to use them much of the time.</p>
                   </section>
                 <section>
                   <h4 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Argument-Synthesis">
-                    5.1.1.2. Type Argument Synthesis<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Argument-Synthesis" title="Permalink">🔗</a></span></h4>
+                    6.1.1.2. Type Argument Synthesis<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Argument-Synthesis" title="Permalink">🔗</a></span></h4>
                   <p>
                     To use a polymorphic function, we need to pass it one or
 more types in addition to its other arguments. For example, the
@@ -2234,7 +2330,7 @@ provide one, because Lean is not expecting it.)</p>
                   </section>
                 <section>
                   <h4 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly">
-                    5.1.1.3. Supplying Type Arguments Explicitly<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly" title="Permalink">🔗</a></span></h4>
+                    6.1.1.3. Supplying Type Arguments Explicitly<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly" title="Permalink">🔗</a></span></h4>
                   <p>
                     One small problem with implicit arguments is that, once in a
 while, Lean does not have enough local information to determine
@@ -2450,7 +2546,7 @@ some type <code>X</code>?  (Add YES or NO to each line.)</p>
                   </section>
                 <section>
                   <h4 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises">
-                    5.1.1.4. Exercises<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises" title="Permalink">🔗</a></span></h4>
+                    6.1.1.4. Exercises<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises" title="Permalink">🔗</a></span></h4>
                   <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.definition-14503">def</span><span class="inter-text"> </span><span class="const token" data-binding="const-List.rev" data-verso-hover="653" id="List___rev">List.rev</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-14516">{</span><span class="var token" data-binding="var-_uniq.12" data-verso-hover="626">α</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-14516">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-14516">}</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-14528">(</span><span class="var token" data-binding="var-_uniq.15" data-verso-hover="654">l</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-14528">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-List" data-verso-hover="635">List</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12" data-verso-hover="626">α</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-14528">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-14542">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-List" data-verso-hover="635">List</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12" data-verso-hover="626">α</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-14552">:=</span><span class="inter-text">
   </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.match-14557" data-verso-hover="12">match</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.15" data-verso-hover="654">l</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.match-14557" data-verso-hover="12">with</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.matchAlts-14572">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-List.nil" data-verso-hover="636">.nil</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.matchAlts-14572">=&gt;</span><span class="inter-text"> </span><span class="unknown token" data-binding="">.nil</span><span class="inter-text">
@@ -2499,7 +2595,7 @@ characterizing lemmas for <code class="hl lean inline" data-lean-context="exampl
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs">
-                  5.1.2. Polymorphic Pairs<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs" title="Permalink">🔗</a></span></h3>
+                  6.1.2. Polymorphic Pairs<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs" title="Permalink">🔗</a></span></h3>
                 <p>
                   Like <code>inductive</code>s, <code>structure</code>s can also be made polymorphic.
 If we generalize the definition <code>NatProd</code> of pairs of natural numbers from last chapter,
@@ -2589,7 +2685,7 @@ given unit test, and you can prove the simplification lemmas about it</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Options">
-                  5.1.3. Polymorphic Options<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Options" title="Permalink">🔗</a></span></h3>
+                  6.1.3. Polymorphic Options<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Options" title="Permalink">🔗</a></span></h3>
                 <p>
                   Our last polymorphic type for now is <em>polymorphic options</em>.
 Lean's standard library provides <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Option" data-verso-hover="683">Option</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.1585" data-verso-hover="626">α</span></code>, with constructors
@@ -2635,7 +2731,7 @@ passes the unit tests below.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data">
-                5.2. Functions as Data<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data" title="Permalink">🔗</a></span></h2>
+                6.2. Functions as Data<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data" title="Permalink">🔗</a></span></h2>
               <p>
                 Like most modern programming languages — especially other
 "functional" languages, including OCaml, Haskell, Racket, Scala,
@@ -2644,7 +2740,7 @@ allowing them to be passed as arguments to other functions,
 returned as results, stored in data structures, etc.</p>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Higher-Order-Functions">
-                  5.2.1. Higher-Order Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Higher-Order-Functions" title="Permalink">🔗</a></span></h3>
+                  6.2.1. Higher-Order Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Higher-Order-Functions" title="Permalink">🔗</a></span></h3>
                 <p>
                   Functions that manipulate other functions are often called
 <em>higher-order</em> functions. Here's a simple one:</p>
@@ -2662,7 +2758,7 @@ value <code>n</code>.</p>
 </span><span class="unknown token" data-binding=""></span></code><pre class="hl lean lean-output information"><span class="verso-message"><span class="text"></span><span class="text"></span><span class="highlighted"><a href="Poly/#doIt3Times" title="Definition of example"><span class="const token" data-binding="const-doIt3Times" data-verso-hover="692">doIt3Times</span></a><span class="inter-text"> </span><span class="unknown token" data-binding="">{</span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="626">α</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="unknown token" data-binding="">}</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_pp_uniq.3" data-verso-hover="694">f</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="626">α</span><span class="inter-text"> </span><span class="unknown token" data-binding="">→</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="626">α</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_pp_uniq.4" data-verso-hover="629">n</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="626">α</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="626">α</span></span></span></pre></section>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Filter">
-                  5.2.2. Filter<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Filter" title="Permalink">🔗</a></span></h3>
+                  6.2.2. Filter<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Filter" title="Permalink">🔗</a></span></h3>
                 <p>
                   Here is a more useful higher-order function, taking a list
 of <code class="hl lean inline" data-lean-context="examples"><span class="var token" data-binding="var-_uniq.1661" data-verso-hover="626">α</span></code>s and a <em>predicate</em> on <code class="hl lean inline" data-lean-context="examples"><span class="var token" data-binding="var-_uniq.1671" data-verso-hover="626">α</span></code> (a function from <code class="hl lean inline" data-lean-context="examples"><span class="var token" data-binding="var-_uniq.1681" data-verso-hover="626">α</span></code> to <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-Bool" data-verso-hover="44">Bool</span></code>)
@@ -2713,7 +2809,7 @@ even members.</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Anonymous-Functions">
-                  5.2.3. Anonymous Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Anonymous-Functions" title="Permalink">🔗</a></span></h3>
+                  6.2.3. Anonymous Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Anonymous-Functions" title="Permalink">🔗</a></span></h3>
                 <p>
                   It is arguably a little sad, in the example just above, to
 be forced to define the function <code class="hl lean inline" data-lean-context="examples"><a href="Poly/#lengthIs1" title="Definition of example"><span class="const token" data-binding="const-lengthIs1" data-verso-hover="697">lengthIs1</span></a></code> and give it a name
@@ -2786,7 +2882,7 @@ their order in the original list.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Map">
-                  5.2.4. Map<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Map" title="Permalink">🔗</a></span></h3>
+                  6.2.4. Map<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Map" title="Permalink">🔗</a></span></h3>
                 <p>
                   Another handy higher-order function is called <code>map</code>.</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.definition-29279">def</span><span class="inter-text"> </span><span class="const token" data-binding="const-map" data-verso-hover="707" id="map">map</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-29287">{</span><span class="var token" data-binding="var-_uniq.12" data-verso-hover="626">α</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-29287">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-29287">}</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-29299">{</span><span class="var token" data-binding="var-_uniq.14" data-verso-hover="626">β</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-29299">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-29299">}</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-29311">(</span><span class="var token" data-binding="var-_uniq.18" data-verso-hover="708">f</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-29311">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12" data-verso-hover="626">α</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-29316">→</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.14" data-verso-hover="626">β</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-29311">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-29327">(</span><span class="var token" data-binding="var-_uniq.21" data-verso-hover="654">l</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-29327">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-List" data-verso-hover="635">List</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12" data-verso-hover="626">α</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-29327">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-29341">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-List" data-verso-hover="635">List</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.14" data-verso-hover="626">β</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-29351">:=</span><span class="inter-text">
@@ -2897,7 +2993,7 @@ can throw away afterwards.)</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Fold">
-                  5.2.5. Fold<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Fold" title="Permalink">🔗</a></span></h3>
+                  6.2.5. Fold<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Fold" title="Permalink">🔗</a></span></h3>
                 <p>
                   An even more powerful higher-order function is
 <code>fold</code>. It is the inspiration for the "reduce"
@@ -2989,7 +3085,7 @@ be <code class="hl lean inline" data-lean-context="examples"><span class="const 
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Functions-That-Construct-Functions">
-                  5.2.6. Functions That Construct Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Functions-That-Construct-Functions" title="Permalink">🔗</a></span></h3>
+                  6.2.6. Functions That Construct Functions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Functions-That-Construct-Functions" title="Permalink">🔗</a></span></h3>
                 <p>
                   Most of the higher-order functions we have talked about so
 far take functions as arguments. Let's look at some examples that
@@ -3049,7 +3145,7 @@ two more arguments: a list and a starting value.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises">
-                5.3. Additional Exercises<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises" title="Permalink">🔗</a></span></h2>
+                6.3. Additional Exercises<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises" title="Permalink">🔗</a></span></h2>
               <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.namespace-38952" data-verso-hover="20">namespace</span><span class="inter-text"> </span><span class="unknown token" data-binding="">Exercises</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><div class="exercise stars-2">
                 <div class="exercise-header">
@@ -3183,7 +3279,7 @@ if <code>l.length = n</code> then <code>nthError l n = none</code>.</p>
                 </div>
               <section>
                 <h3 id="Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises--Church-Numerals-_LPAR_Advanced_RPAR_">
-                  5.3.1. Church Numerals (Advanced)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises--Church-Numerals-_LPAR_Advanced_RPAR_" title="Permalink">🔗</a></span></h3>
+                  6.3.1. Church Numerals (Advanced)<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises--Church-Numerals-_LPAR_Advanced_RPAR_" title="Permalink">🔗</a></span></h3>
                 <p>
                   The following exercises explore an alternative way of defining
 natural numbers using the <em>Church numerals</em>, which are named after
@@ -3326,7 +3422,7 @@ Finding the right type can be tricky.</p>
               </section>
             </section>
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Lists/#Lists" rel="prev" title="4. Lists: Working with Structured Data"><span class="arrow">←</span><span class="where">4. Lists: Working with Structured Data</span></a><a class="local-button active" href="Tactics/#Tactics" rel="next" title="6. Tactics: More Basic Tactics"><span class="where">6. Tactics: More Basic Tactics</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Lists/#Lists" rel="prev" title="5. Lists: Working with Structured Data"><span class="arrow">←</span><span class="where">5. Lists: Working with Structured Data</span></a><a class="local-button active" href="Tactics/#Tactics" rel="next" title="7. Tactics: More Basic Tactics"><span class="where">7. Tactics: More Basic Tactics</span><span class="arrow">→</span></a></nav>
           </div>
         </main></div>
     </body>

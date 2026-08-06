@@ -890,6 +890,102 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1987,11 +2083,11 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="current numbered"><td class="num">7.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="current numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <label for="--verso-manual-toc-Logic" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Logic" checked="checked"></label><span class="number">7.</span> <span class="current"><a href="Logic/#Logic">Logic in Lean</a></span></div>
-              <table><tr class="numbered"><td class="num">7.1.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--The--Prop--Type">The <code>Prop</code> Type</a></td></tr><tr class="numbered"><td class="num">7.2.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Logical-Connectives">Logical Connectives</a></td></tr><tr class="numbered"><td class="num">7.3.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Truth">Truth</a></td></tr><tr class="numbered"><td class="num">7.4.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Recap___-Logical-Connectives-in-Lean">Recap: Logical Connectives in Lean</a></td></tr><tr class="numbered"><td class="num">7.5.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Programming-with-Propositions">Programming with Propositions</a></td></tr><tr class="numbered"><td class="num">7.6.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Applying-Theorems-to-Arguments">Applying Theorems to Arguments</a></td></tr><tr class="numbered"><td class="num">7.7.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Working-with-Decidable-Properties">Working with Decidable Properties</a></td></tr><tr class="numbered"><td class="num">7.8.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean">The Logic of Lean</a></td></tr></table></div>
+                <label for="--verso-manual-toc-Logic" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Logic" checked="checked"></label><span class="number">8.</span> <span class="current"><a href="Logic/#Logic">Logic in Lean</a></span></div>
+              <table><tr class="numbered"><td class="num">8.1.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--The--Prop--Type">The <code>Prop</code> Type</a></td></tr><tr class="numbered"><td class="num">8.2.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Logical-Connectives">Logical Connectives</a></td></tr><tr class="numbered"><td class="num">8.3.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Truth">Truth</a></td></tr><tr class="numbered"><td class="num">8.4.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Recap___-Logical-Connectives-in-Lean">Recap: Logical Connectives in Lean</a></td></tr><tr class="numbered"><td class="num">8.5.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Programming-with-Propositions">Programming with Propositions</a></td></tr><tr class="numbered"><td class="num">8.6.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Applying-Theorems-to-Arguments">Applying Theorems to Arguments</a></td></tr><tr class="numbered"><td class="num">8.7.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--Working-with-Decidable-Properties">Working with Decidable Properties</a></td></tr><tr class="numbered"><td class="num">8.8.</td><td><a href="Logic/#Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean">The Logic of Lean</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -1999,10 +2095,10 @@ window.onload = async () => {
       <div class="toc-resize-handle"></div>
       <main><div class="content-wrapper">
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Tactics/#Tactics" rel="prev" title="6. Tactics: More Basic Tactics"><span class="arrow">←</span><span class="where">6. Tactics: More Basic Tactics</span></a><a class="local-button active" href="IndProp/#IndProp" rel="next" title="8. IndProp: Inductively Defined Propositions"><span class="where">8. IndProp: Inductively Defined Propositions</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Tactics/#Tactics" rel="prev" title="7. Tactics: More Basic Tactics"><span class="arrow">←</span><span class="where">7. Tactics: More Basic Tactics</span></a><a class="local-button active" href="IndProp/#IndProp" rel="next" title="9. IndProp: Inductively Defined Propositions"><span class="where">9. IndProp: Inductively Defined Propositions</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
-              7. Logic in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logic" title="Permalink">🔗</a></span></h1>
+              8. Logic in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logic" title="Permalink">🔗</a></span></h1>
             <div class="sf-dev-note">
               <div class="sf-dev-note-label">
                 Note to developers (before next release)</div>
@@ -2072,7 +2168,7 @@ propositions and proofs.</p>
               -----------------------------------------------------------------------------</p>
             <section>
               <h2 id="Logical-Foundations--Logic-in-Lean--The--Prop--Type">
-                7.1. The <code>Prop</code> Type<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The--Prop--Type" title="Permalink">🔗</a></span></h2>
+                8.1. The <code>Prop</code> Type<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The--Prop--Type" title="Permalink">🔗</a></span></h2>
               <code class="hl lean block" data-lean-context="examples"><span class="has-info information"><span class="hover-container"><span class="hover-info messages"><code class="verso-message information"><span class="text"></span><span class="highlighted"><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_pp_uniq.2" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.3" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="300">Nat</span><span class="unknown token" data-binding="">),</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.2" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="303">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.3" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="15">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.3" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="303">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_pp_uniq.2" data-verso-hover="83">n</span></span><span class="text"> : </span><span class="highlighted"><span class="inter-text"></span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="757">Prop</span><span class="inter-text"></span></span></code></span></span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.check-2628">#check</span></span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-2635">(</span><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-2644">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="300">Nat</span><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Term.forall-2636">,</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_+_»-2651">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-2651">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="83">m</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_+_»-2659">+</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeAscription-2635">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="757">Prop</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.typeAscription-2635">)</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                 Note that <em>all</em> syntactically well-formed propositions have type
@@ -2336,10 +2432,10 @@ For clarity, we will avoid relying on these implicit casts.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Logic-in-Lean--Logical-Connectives">
-                7.2. Logical Connectives<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Logical-Connectives" title="Permalink">🔗</a></span></h2>
+                8.2. Logical Connectives<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Logical-Connectives" title="Permalink">🔗</a></span></h2>
               <section>
                 <h3 id="Logical-Foundations--Logic-in-Lean--Logical-Connectives--Conjunction">
-                  7.2.1. Conjunction<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Logical-Connectives--Conjunction" title="Permalink">🔗</a></span></h3>
+                  8.2.1. Conjunction<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Logical-Connectives--Conjunction" title="Permalink">🔗</a></span></h3>
                 <p>
                   The <em>conjunction</em>, or <em>logical and</em>, of propositions <code>A</code> and <code>B</code> is written
 <code>A ∧ B</code>; it represents the claim that both <code>A</code> and <code>B</code> are true.</p>
@@ -2395,7 +2491,7 @@ propositions as arguments and yields a proposition.</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
               <section>
                 <h3 id="Logical-Foundations--Logic-in-Lean--Logical-Connectives--Disjunction">
-                  7.2.2. Disjunction<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Logical-Connectives--Disjunction" title="Permalink">🔗</a></span></h3>
+                  8.2.2. Disjunction<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Logical-Connectives--Disjunction" title="Permalink">🔗</a></span></h3>
                 <p>
                   Another important connective is the <em>disjunction</em>, or <em>logical or</em>,
 of two propositions: <code>A ∨ B</code> is true when either <code>A</code> or <code>B</code> is.
@@ -2449,7 +2545,7 @@ requires proving the right side.  Here is a trivial use...</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Logic-in-Lean--Logical-Connectives--Falsehood-and-Negation">
-                  7.2.3. Falsehood and Negation<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Logical-Connectives--Falsehood-and-Negation" title="Permalink">🔗</a></span></h3>
+                  8.2.3. Falsehood and Negation<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Logical-Connectives--Falsehood-and-Negation" title="Permalink">🔗</a></span></h3>
                 <p>
                   Up to this point, we have mostly been concerned with proving
 "positive" statements -- addition is commutative, appending lists
@@ -2739,7 +2835,7 @@ besides <code>intro</code>, <code>apply</code>, and <code>exact</code>?</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Logic-in-Lean--Truth">
-                7.3. Truth<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Truth" title="Permalink">🔗</a></span></h2>
+                8.3. Truth<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Truth" title="Permalink">🔗</a></span></h2>
               <p>
                 Besides <code>False</code>, Lean's standard library also defines <code>True</code>,
 a proposition that is trivially true. To prove it, we use
@@ -2757,7 +2853,7 @@ to prove as a goal, and it provides no useful information
 when it appears as a hypothesis.</p>
               <section>
                 <h3 id="Logical-Foundations--Logic-in-Lean--Truth--Logical-Equivalence">
-                  7.3.1. Logical Equivalence<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Truth--Logical-Equivalence" title="Permalink">🔗</a></span></h3>
+                  8.3.1. Logical Equivalence<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Truth--Logical-Equivalence" title="Permalink">🔗</a></span></h3>
                 <p>
                   The handy "if and only if" connective, which asserts that two
 propositions have the same truth value, is a structure containing
@@ -2813,7 +2909,7 @@ prove that it is also reflexive and transitive.</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
               <section>
                 <h3 id="Logical-Foundations--Logic-in-Lean--Truth--Existential-Quantification">
-                  7.3.2. Existential Quantification<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Truth--Existential-Quantification" title="Permalink">🔗</a></span></h3>
+                  8.3.2. Existential Quantification<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Truth--Existential-Quantification" title="Permalink">🔗</a></span></h3>
                 <code class="hl lean block" data-lean-context="examples"><span class="has-info information"><span class="hover-container"><span class="hover-info messages"><code class="verso-message information"><span class="text"></span><span class="highlighted"><span class="keyword token" data-binding="">fun</span><span class="inter-text"> </span><span class="unknown token" data-binding="">{</span><span class="var token" data-binding="var-_pp_uniq.1" data-verso-hover="534">T</span><span class="unknown token" data-binding="">}</span><span class="inter-text"> </span><span class="unknown token" data-binding="">=&gt;</span><span class="inter-text"> </span><span class="const token" data-binding="const-Exists" data-verso-hover="834">Exists</span></span><span class="text"> : </span><span class="highlighted"><span class="unknown token" data-binding="">{</span><span class="var token" data-binding="var-_pp_uniq.2" data-verso-hover="534">T</span><span class="inter-text"> </span><span class="unknown token" data-binding="">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="unknown token" data-binding="">}</span><span class="inter-text"> </span><span class="unknown token" data-binding="">→</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="var token" data-binding="var-_pp_uniq.2" data-verso-hover="534">T</span><span class="inter-text"> </span><span class="unknown token" data-binding="">→</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="757">Prop</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">→</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="757">Prop</span></span></code></span></span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.check-30548">#check</span></span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-30555">(</span><span class="const token" data-binding="const-Exists" data-verso-hover="834">Exists</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeAscription-30555">:</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-30569">{</span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="534">T</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-30569">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="2">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-30569">}</span><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Term.forall-30565">,</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-30581">(</span><span class="var token" data-binding="var-_uniq.3" data-verso-hover="534">T</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-30582">→</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="757">Prop</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-30581">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-30581">→</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="757">Prop</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.typeAscription-30555">)</span><span class="inter-text">
 
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.abbrev-30605">abbrev</span><span class="inter-text"> </span><span class="const token" data-binding="const-Even" data-verso-hover="835" id="Even">Even</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.22" data-verso-hover="83">x</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-30619">:=</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∃</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.33" data-verso-hover="83">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.unbracketedExplicitBinders-30626">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="300">Nat</span><span class="punctuation separator token" data-binding="kw-occ-«term∃_,_»-30622">,</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.22" data-verso-hover="83">x</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-30635">=</span><span class="inter-text"> </span><a href="UsingLean/#Nat___double" title="Definition of example"><span class="const token" data-binding="const-Nat.double" data-verso-hover="375">double</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.33" data-verso-hover="83">n</span><span class="inter-text">
@@ -2836,7 +2932,7 @@ holds of <code>x</code>.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Logic-in-Lean--Recap___-Logical-Connectives-in-Lean">
-                7.4. Recap: Logical Connectives in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Recap___-Logical-Connectives-in-Lean" title="Permalink">🔗</a></span></h2>
+                8.4. Recap: Logical Connectives in Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Recap___-Logical-Connectives-in-Lean" title="Permalink">🔗</a></span></h2>
               <p>
                 Connectives introduced in this chapter:</p>
               <ul>
@@ -2948,7 +3044,7 @@ holds of <code>x</code>.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Logic-in-Lean--Programming-with-Propositions">
-                7.5. Programming with Propositions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Programming-with-Propositions" title="Permalink">🔗</a></span></h2>
+                8.5. Programming with Propositions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Programming-with-Propositions" title="Permalink">🔗</a></span></h2>
               <p>
                 What does it mean to say that
 "an element <code>x</code> occurs in a list <code>l</code>"?</p>
@@ -3001,7 +3097,7 @@ of nested disjunctions.</p>
 </span><span class="unknown token" data-binding=""></span></code></section>
             <section>
               <h2 id="Logical-Foundations--Logic-in-Lean--Applying-Theorems-to-Arguments">
-                7.6. Applying Theorems to Arguments<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Applying-Theorems-to-Arguments" title="Permalink">🔗</a></span></h2>
+                8.6. Applying Theorems to Arguments<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Applying-Theorems-to-Arguments" title="Permalink">🔗</a></span></h2>
               <p>
                 Lean also treats <em>proofs</em> as first-class objects!</p>
               <p>
@@ -3251,7 +3347,7 @@ trans_eq : ∀ (α : Type) (a b c : α), a = b → b = c → a = c
 </span><span class="unknown token" data-binding=""></span></code></section>
             <section>
               <h2 id="Logical-Foundations--Logic-in-Lean--Working-with-Decidable-Properties">
-                7.7. Working with Decidable Properties<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Working-with-Decidable-Properties" title="Permalink">🔗</a></span></h2>
+                8.7. Working with Decidable Properties<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--Working-with-Decidable-Properties" title="Permalink">🔗</a></span></h2>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
                   Note to developers (Benjamin Pierce  @bcpierce00)</div>
@@ -3428,7 +3524,7 @@ the equivalent form <code>n = m</code>, then we can easily rewrite with it.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean">
-                7.8. The Logic of Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean" title="Permalink">🔗</a></span></h2>
+                8.8. The Logic of Lean<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean" title="Permalink">🔗</a></span></h2>
               <p>
                 Lean's logical core is a "metalanguage for mathematics" in
 the same sense as familiar foundations for paper-and-pencil math, like
@@ -3438,7 +3534,7 @@ Zermelo–Fraenkel Set Theory (ZFC).</p>
 but a few points are useful to understand.</p>
               <section>
                 <h3 id="Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Propositional-Extensionality">
-                  7.8.1. Propositional Extensionality<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Propositional-Extensionality" title="Permalink">🔗</a></span></h3>
+                  8.8.1. Propositional Extensionality<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Propositional-Extensionality" title="Permalink">🔗</a></span></h3>
                 <p>
                   Lean's logic is quite minimalistic. This means that on occasionally
 encounters cases where translating standard mathematical reasoning
@@ -3531,7 +3627,7 @@ that is more convenient in certain situations.
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality">
-                  7.8.2. Functional Extensionality<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality" title="Permalink">🔗</a></span></h3>
+                  8.8.2. Functional Extensionality<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality" title="Permalink">🔗</a></span></h3>
                 <p>
                   We can also write propositions claiming that two <em>functions</em> are equal
 to each other. In some cases, we can also prove that two functions are
@@ -3565,7 +3661,7 @@ introducing all variables in one go.
 </span><span class="unknown token" data-binding=""></span></code></section>
               <section>
                 <h3 id="Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Classical-vs___-Constructive-Logic">
-                  7.8.3. Classical vs. Constructive Logic<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Classical-vs___-Constructive-Logic" title="Permalink">🔗</a></span></h3>
+                  8.8.3. Classical vs. Constructive Logic<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Classical-vs___-Constructive-Logic" title="Permalink">🔗</a></span></h3>
                 <p>
                   The following reasoning principle is <em>not</em> derivable in Lean:</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.abbrev-70715">abbrev</span><span class="inter-text"> </span><span class="const token" data-binding="const-excluded_middle" data-verso-hover="891" id="excluded_middle">excluded_middle</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-70738">:=</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∀</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="768">P</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-70747">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="757">Prop</span><span class="punctuation separator token" data-binding="kw-occ-Lean.Parser.Term.forall-70741">,</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="768">P</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_∨_»-70755">∨</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term¬_»-70761">¬</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="768">P</span><span class="inter-text">
@@ -3584,7 +3680,7 @@ including excluded middle.</p>
               </section>
             </section>
           <nav class="prev-next-buttons">
-            <a class="local-button active" href="Tactics/#Tactics" rel="prev" title="6. Tactics: More Basic Tactics"><span class="arrow">←</span><span class="where">6. Tactics: More Basic Tactics</span></a><a class="local-button active" href="IndProp/#IndProp" rel="next" title="8. IndProp: Inductively Defined Propositions"><span class="where">8. IndProp: Inductively Defined Propositions</span><span class="arrow">→</span></a></nav>
+            <a class="local-button active" href="Tactics/#Tactics" rel="prev" title="7. Tactics: More Basic Tactics"><span class="arrow">←</span><span class="where">7. Tactics: More Basic Tactics</span></a><a class="local-button active" href="IndProp/#IndProp" rel="next" title="9. IndProp: Inductively Defined Propositions"><span class="where">9. IndProp: Inductively Defined Propositions</span><span class="arrow">→</span></a></nav>
           </div>
         </main></div>
     </body>
