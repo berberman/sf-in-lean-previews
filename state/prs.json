@@ -473,11 +473,48 @@
     },
     "198": {
       "base_sha": "9853b722a51dff9bf07e2eef4e752906d339c729",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "e8faa561c20378c61c8b7daf39734008db54f8f8",
       "preview_path": "pr/198/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31057700535",
+      "status": "published",
       "title": "Typeclasses: motivate HasOne/DefaultValue with a real consumer, headOr",
       "url": "https://github.com/plclub/sf-in-lean/pull/198"
     }
