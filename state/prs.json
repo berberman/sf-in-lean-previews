@@ -376,6 +376,16 @@
       "status": "published",
       "title": "LF: Add notations appendix chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/186"
+    },
+    "199": {
+      "base_sha": "6e52353aa981e95fb075e2ddc31eb9ae42d9d9c5",
+      "changed_variants": [],
+      "head_sha": "94a93a8f54122785c05e68a671833712390fe642",
+      "preview_path": "pr/199/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Added delaborators",
+      "url": "https://github.com/plclub/sf-in-lean/pull/199"
     }
   },
   "schema": 3
