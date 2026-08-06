@@ -237,49 +237,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/181"
     },
     "183": {
-      "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "7459fb5e8816bd880c5a8a15b8bf54078989595c",
+      "base_sha": "4ef806525357ca2cfe90f8417518f3c4b14a8a4d",
+      "changed_variants": [],
+      "head_sha": "be333454e83ac9343c3b84a8cf7cb6e0c81e4370",
       "preview_path": "pr/183/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30788124945",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Meta: experiment with autograding",
       "url": "https://github.com/plclub/sf-in-lean/pull/183"
     },
