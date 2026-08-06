@@ -1313,6 +1313,10 @@ example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := beq_iff_eq
 --     @dsainati - commenting this out for the same reason as above
 --
 --     `def eq {α : Type} (a₁ a₂ : α) : Bool := if a₁ = a₂ then true else false`
+--
+--     `def eq {α : Type} (a₁ a₂ : α) : Bool := if a₁ = a₂ then true else false`
+--
+--     `def eq {α : Type} (a₁ a₂ : α) : Bool := if a₁ = a₂ then true else false`
 
 -- Lean will complain here that it cannot find an instance of `Decidable`.
 -- This typeclass
@@ -1321,6 +1325,18 @@ example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := beq_iff_eq
 --     @dsainati - commenting this out because the -keep doesn't work during
 --     extraction; this causes Lean to get the two instances (the real one and
 --     this one) confused
+--
+--     `class inductive Decidable (p : Prop) where
+--       /-- Proves that `p` is decidable by supplying a proof of `¬p` -/
+--       | isFalse (h : Not p) : Decidable p
+--       /-- Proves that `p` is decidable by supplying a proof of `p` -/
+--       | isTrue (h : p) : Decidable p`
+--
+--     `class inductive Decidable (p : Prop) where
+--       /-- Proves that `p` is decidable by supplying a proof of `¬p` -/
+--       | isFalse (h : Not p) : Decidable p
+--       /-- Proves that `p` is decidable by supplying a proof of `p` -/
+--       | isTrue (h : p) : Decidable p`
 --
 --     `class inductive Decidable (p : Prop) where
 --       /-- Proves that `p` is decidable by supplying a proof of `¬p` -/

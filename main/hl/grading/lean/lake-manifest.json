@@ -1,0 +1,16 @@
+{"version": "1.2.0",
+ "packagesDir": ".lake/packages",
+ "packages":
+ [{"url": "https://github.com/plclub/lean4-autograder-main",
+   "type": "git",
+   "subDir": null,
+   "scope": "",
+   "rev": "90a0033f1740e08ad91b9192bc5038a95b3b66ac",
+   "name": "autograder",
+   "manifestFile": "lake-manifest.json",
+   "inputRev": "bump-4-32-0",
+   "inherited": false,
+   "configFile": "lakefile.lean"}],
+ "name": "«hl-extracted»",
+ "lakeDir": ".lake",
+ "fixedToolchain": false}

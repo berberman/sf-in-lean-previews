@@ -1509,8 +1509,6 @@ theorem le_add_l : ∀ (a b : Nat), a ≤ a + b := by
       rw [Nat.succ_add]
       apply n_le_m__succ_n_le_succ_m
       assumption
-  -- GRADE_THEOREM 0.5: le_add_l
-  -- []
 
 -- ### Exercise (2 stars): plus_le_facts1 ⭐⭐
 
@@ -1950,7 +1948,6 @@ theorem subseq_trans : ∀ (l₁ l₂ l₃ : List Nat),
 
 inductive TotalRelation : Nat → Nat → Prop where
   | tot n m : TotalRelation n m
--- /SOLUTION
 
 theorem total_relation_is_total : ∀ n m, TotalRelation n m := by
   all_goals
@@ -2372,8 +2369,6 @@ theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
     case pal_consnoc x l hp ih =>
       rw [List.reverse_cons, List.reverse_append, ←List.cons_append, ←ih]
       congr
-  -- GRADE_THEOREM 3: pal_reverse
-  -- []
 
 -- Note to developers (Daniel Sainati  @dsainati1, NOW):
 --     This one is super annoying without simp. I propose we move it to the

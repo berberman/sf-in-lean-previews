@@ -733,7 +733,7 @@ theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
 -- `List.foldr (· ++ ·) ss []` is the result of concatenating them all
 -- together.
 
--- ### Exercise (2 stars): MUnion' ⭐⭐
+-- ### Exercise (2 stars): MStar' ⭐⭐
 
 theorem MStar' α (ss : List (List α)) (re : RegExp α)
   (h : ∀ s, s ∈ ss → s =~ re) :

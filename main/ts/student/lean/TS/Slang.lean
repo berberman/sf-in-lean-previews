@@ -246,12 +246,12 @@ theorem optimize0plus_sound' (a : Aexp) :
 
 def Bexp.optimize0plusB (b : Bexp) : Bexp := sorry
 
-example :
+theorem optimize0plusB_test1 :
     Bexp.optimize0plusB
         (.not (.gt (.plus (.num 0) (.num 4)) (.num 8)))
       = (.not (.gt (.num 4) (.num 8))) := sorry
 
-example :
+theorem optimize0plusB_test2 :
     Bexp.optimize0plusB
         (.and (.le (.plus (.num 0) (.num 4)) (.num 5)) (.bool true))
       = (.and (.le (.num 4) (.num 5)) (.bool true)) := sorry

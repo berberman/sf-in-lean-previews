@@ -275,9 +275,9 @@ example : count 1 [1] = 1 := by
 
 example : count 2 [2, 2] = 2 := sorry
 
-theorem NatList.test_count1 : count 1 [1, 1, 4] = 2 := sorry
+theorem test_count1 : count 1 [1, 1, 4] = 2 := sorry
 
-theorem NatList.test_count2 : count 5 [1, 1, 4] = 0 := sorry
+theorem test_count2 : count 5 [1, 1, 4] = 0 := sorry
 
 -- Again, all these proofs could be completed with just `rfl`,
 -- because the proof is computationally straight-forward --
@@ -311,9 +311,9 @@ example : member 1 [1] = true := by
 
 example : member 2 [1] = false := sorry -- rfl
 
-theorem NatList.test_member1 : member 1 [1, 4, 1] = true := sorry
+theorem test_member1 : member 1 [1, 4, 1] = true := sorry
 
-theorem NatList.test_member2 : member 2 [1, 4, 1] = false := sorry
+theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
 -- ### Removing
 
@@ -355,9 +355,9 @@ example : removeOne 5 [1, 5, 4] = [1, 4] := by
 
 example : count 5 (removeOne 5 [1, 5, 4]) = 0 := sorry
 
-theorem NatList.test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
+theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
 
-theorem NatList.test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
+theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
 
 def removeAll (v : Nat) (l : NatList) : NatList := sorry
 
@@ -383,9 +383,9 @@ example : count 5 (removeAll 5 [5, 1]) = 0 := by
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := sorry
 
-theorem NatList.test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
+theorem test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
 
-theorem NatList.test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
+theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
 -- ### Included
 
@@ -416,9 +416,9 @@ example : included [1] [2, 1] = true := by
 
 example : included [1, 1] [2, 1, 4, 1] = true := sorry
 
-theorem NatList.test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
+theorem test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
 
-theorem NatList.test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
+theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
 
 -- Note to developers (Niklas Halonen  @xhalo32, before next release):
 --     The next exercise is merely a special case of

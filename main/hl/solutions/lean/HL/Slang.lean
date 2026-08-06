@@ -254,12 +254,12 @@ def Bexp.optimize0plusB (b : Bexp) : Bexp := (
   | not b1    =>  not (optimize0plusB b1)
   | and b1 b2 =>  and (optimize0plusB b1) (optimize0plusB b2))
 
-example :
+theorem optimize0plusB_test1 :
     Bexp.optimize0plusB
         (.not (.gt (.plus (.num 0) (.num 4)) (.num 8)))
       = (.not (.gt (.num 4) (.num 8))) := (by rfl)
 
-example :
+theorem optimize0plusB_test2 :
     Bexp.optimize0plusB
         (.and (.le (.plus (.num 0) (.num 4)) (.num 5)) (.bool true))
       = (.and (.le (.num 4) (.num 5)) (.bool true)) := (by rfl)
