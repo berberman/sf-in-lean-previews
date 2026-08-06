@@ -16,6 +16,9 @@ variable (α : Type)
 --     Are we explaining these things somewhere, maybe in Poly
 --     ?
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Yes, in Poly!
+
 -- This lets us work with a type like `List α`, writing
 -- functions like `List.reverse` and `List.length` and proofs
 -- like `List.length_reverse`, which use only the list's
@@ -47,42 +50,28 @@ theorem List.elem_nat_cons (a b : Nat) (xs : List Nat) :
 #eval [0, 1].elem_nat 1
 #eval [0, 1].elem_nat 2
 
--- What if we want this to work for lists of **any** element
+-- What if we want this to work for lists of *any* element
 -- type, not just `Nat`? Parametric polymorphism suggests
 -- simply replacing `Nat` with a type variable `α`, but that
 -- produces a puzzling error:
 
--- Note to developers:
---     @dsainati - The Verso compilation is not actually
---     removing this from the generated file despite th e -keep
---     flag. It is, however, stripping the message guard, so
---     this results in an error. Once we figure out how we are
---     handling these cases, uncomment this.
---
---     `/--
---     error: failed to synthesize instance of type class
---       BEq α
---
---     Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
---     -/
---     #guard_msgs in
---     def List.elem_poly {α : Type} (a : α) (xs : List α) : Bool :=
---       match xs with
---       | [] => false
---       | b :: tl => bif a == b then true else elem_poly a tl`
+sf_expect_failure
+  def List.elem_poly {α : Type} (a : α) (xs : List α) : Bool :=
+    match xs with
+    | [] => false
+    | b :: tl => bif a == b then true else elem_poly a tl
 
 -- Lean is trying to use typeclasses to work out how `==`
 -- should behave on a value of type `α`. We'll see exactly why
 -- shortly; for now, here's one way to sidestep the problem:
 -- have the caller supply the equality test to use.
 
-sf_experiment
-  def List.elem_poly_eq {α : Type} (eq : α → α → Bool) (a : α) (xs : List α) : Bool :=
-    match xs with
-    | [] => false
-    | b :: tl => bif eq a b then true else elem_poly_eq eq a tl
-  
-  #eval [0, 1].elem_poly_eq Nat.beq 0
+def List.elem_poly_eq {α : Type} (eq : α → α → Bool) (a : α) (xs : List α) : Bool :=
+  match xs with
+  | [] => false
+  | b :: tl => bif eq a b then true else elem_poly_eq eq a tl
+
+#eval [0, 1].elem_poly_eq Nat.beq 0
 
 -- This works, but it's tedious: every caller has to know, and
 -- remember to supply, the right equality function.
@@ -92,14 +81,16 @@ sf_experiment
 -- provides it on its own. We specify something we want Lean to
 -- search for by declaring a `class` with the needed function
 -- as a field; a `class` is like an interface in Java or a
--- trait in Rust. Particular *implementations* of that
--- interface, different ones for different types, are called
--- *instances*. Finally, we add the name of that class as a
--- *typeclass constraint* on the polymorphic variable that the
--- function applies to. This directs Lean to use the interface
--- inside the function, and to find and fill in the appropriate
--- instance at call-sites to that function. Here is what this
--- looks like for `List.elem_poly`:
+-- trait in Rust. Particular implementations of that class,
+-- different ones for different types, are called *instances*.
+-- For functions that would use such instances, we specify the
+-- name of the class in a *instance implicit* on the
+-- polymorphic variable that the instance's function applies
+-- to. This directs Lean to rely on the class inside the
+-- function, and to find and fill in the appropriate instance
+-- when the function is called.
+
+-- Here is what this looks like for `List.elem_poly`:
 
 def List.elem_poly {α : Type} [BEq α] (a : α) (xs : List α) : Bool :=
   match xs with
@@ -113,15 +104,19 @@ theorem List.elem_poly_cons [BEq α] (a b : α) (xs : List α) :
 
 #eval [0, 1].elem_poly 0
 
+-- Comparing `List.elem_poly_eq` with `List.elem_poly`, we see
+-- three differences. First, `List.elem_poly_eq` takes an
+-- *explicit* parameter `eq`, whereas `List.elem_poly`
+-- specifies an instance implicit `[BEq α]`. The instance
+-- implicit indicates that an instance of `BEq` must be
+-- provided at call sites for the particular type `α` that is
+-- used. Second, whereas `List.elem_poly_eq` invokes parameter
+-- `eq` to test equality, `List.elem_poly` uses `==` instead.
 -- As Lists noted when we first used it, `==` on `Nat` comes
--- from the `BEq` typeclass, and it's what `List.elem_poly`
--- uses internally wherever it writes `==`. This is done using
--- **instance implicits**, where we place a desired typeclass
--- assumption in square bracket. The `[BEq α]` constraint is
--- saying that an instance of `BEq` must be provided at call
--- sites for the *particular* type `α` that is used. In the
--- example `[0, 1].elem_poly 0`, this type is `Nat`, and the
--- automatically chosen instance corresponds to `Nat.beq`.
+-- from the `BEq` typeclass. Finally, whereas
+-- `[0, 1].elem_poly_eq Nat.beq 0` passes the equality function
+-- `Nat.beq` explicitly, in `[0, 1].elem_poly 0` Lean fills it
+-- in automatically based on the type `Nat` of the `List`.
 
 -- Note to developers (xhalo32):
 --     This is technically incorrect, the instance `BEq Nat`,
@@ -130,11 +125,11 @@ theorem List.elem_poly_cons [BEq α] (a b : α) (xs : List α) :
 --     versus `List.elem_poly_eq` versus `List.elem_poly` and
 --     how `Nat.beq` and `==` play different roles.
 
--- In the earlier version of `List.elem_poly`, `α` was fully
--- generic, with no typeclass constraint — so the `==` in its
+-- Going back to the earlier version of `List.elem_poly`,
+-- without the instance implicit, we can now understand the
+-- error message: `α` was fully generic — so the `==` in its
 -- body would have needed to work for *every* type `α`, and no
--- single `BEq` instance can do that. That's why Lean's search
--- failed.
+-- single `BEq` instance can do that. So Lean's search failed.
 
 -- Now it is time to dig into the details of what we have seen
 -- so far. We'll see exactly how `[BEq α]` gets filled in
@@ -164,10 +159,9 @@ def nat_hasOneStruct : HasOneStruct Nat where
 
 example : nat_hasOneStruct.one = 1 := rfl
 
--- But nothing makes Lean produce this witness
--- **automatically**: we had to write `⟨1⟩` ourselves, unlike
--- the `BEq Nat` instance that Lean found for us on its own
--- above.
+-- But nothing makes Lean produce this witness *automatically*:
+-- we had to write `where one := 1` ourselves, unlike the
+-- `BEq Nat` instance that Lean found for us on its own above.
 
 -- Typeclasses solve this. In Lean, they're implemented as
 -- structures and declared the same way, but with `class` in
@@ -192,20 +186,29 @@ instance instHasOneNat : HasOne Nat where
 
 -- Lean can now find this instance on its own, via **typeclass
 -- synthesis** (or **typeclass inference**) — the same process
--- that found `BEq Nat` earlier. To see it choose between
--- instances, declare a second one, for `Int`, the type of
+-- that found `BEq Nat` earlier.
+
+example : HasOne.one = (1 : Nat) := rfl
+
+-- Notice that we refer to `HasOne.one` alone, with no instance
+-- named. Because the expression equates `HasOne.one` with a
+-- `Nat`, Lean selects `instHasOneNat`, the instance for
+-- `HasOne Nat`. We know that it is this instance because we
+-- are able to prove that `HasOne.one` is equal to 1.
+
+-- Let's declare a second instance, for `Int`, the type of
 -- integers `... -2, -1, 0, 1, 2, ...`:
 
 instance instHasOneInt : HasOne Int where
   one := -1
 
--- Now `HasOne.one` alone, with no instance named, is enough —
--- Lean infers which instance we mean from the expected type:
+-- Now, Lean can infer instances for both types:
 
 example : HasOne.one = (1 : Nat) := rfl
 example : HasOne.one = (-1 : Int) := rfl
 
--- These are the same as naming the instances explicitly:
+-- Synthesis infers instances we could have specified
+-- explicitly:
 
 example : instHasOneNat.one = (1 : Nat) := rfl
 example : instHasOneInt.one = (-1 : Int) := rfl
@@ -213,15 +216,18 @@ example : instHasOneInt.one = (-1 : Int) := rfl
 -- The option `pp.all` shows which instance Lean picked:
 
 set_option pp.all true in
-example : HasOne.one = (1 : Nat) := rfl
+#check (HasOne.one : Nat)
+
+-- @HasOne.one Nat instHasOneNat : Nat
 
 set_option pp.all true in
-example : HasOne.one = (-1 : Int) := rfl
+#check (HasOne.one : Int)
 
--- which reveals `@HasOne.one Nat instHasOneNat` and
--- `@HasOne.one Int instHasOneInt` on the right-hand side of
--- each equality. The `#synth` command runs the same search
--- directly:
+-- @HasOne.one Int instHasOneInt : Int
+
+-- This reveals `instHasOneNat` and `instHasOneInt` as the
+-- instances Lean picked. The `#synth` command runs the same
+-- search directly:
 
 #synth HasOne Nat
 
@@ -235,12 +241,13 @@ example : HasOne.one = (-1 : Int) := rfl
 -- Note to developers:
 --     @chenson2018: I don't really want to explain diamonds
 --     here, is the above white lie hand-waving okay??
+--     @bcpierce00: Seems OK to me.
 
 -- We'll put `HasOne`'s standard-library cousin, `Inhabited`,
--- to work later in this chapter, when maps need a default
--- value for a generic type. First, though, let's go back to
--- `List.elem_poly` and see how its `[BEq α]` argument actually
--- gets resolved.
+-- to work later in this chapter, when we define maps that need
+-- a default value for a generic type. First, though, let's go
+-- back to `List.elem_poly` and see how its `[BEq α]` argument
+-- actually gets resolved.
 
 -- ## Using Typeclasses
 
@@ -267,7 +274,8 @@ instance (priority := low) : BEq Nat where
 
 -- This is the instance Lean supplies for `[BEq α]` when
 -- `List.elem_poly` is called on a `List Nat` — no different
--- from Lean choosing `instHasOneNat` for `HasOne.one` earlier.
+-- from Lean choosing `instHasOneNat` for `HasOne.one` earlier
+-- when it was equated with `(1 : Nat)`.
 
 -- ### Exercise (1 star): List.elem_poly_eq_elem_nat ⭐
 
@@ -279,70 +287,47 @@ theorem List.elem_poly_eq_elem_nat (xs : List Nat) (n : Nat) : xs.elem_poly n = 
 
 -- ## Proof-Carrying Typeclasses
 
--- Notably, the above examples enforce no conditions on the
--- data that they carry, and we could provide any value that we
--- would like for `HasOne.one`. This could be misleading, for
--- instance if we had instead defined an instance
-
-sf_experiment
-  instance : HasOne Nat where
-    one := 2
-
--- we might have some counterintuitive proofs based on the name
--- leading us to believe the class contained the element `1`.
--- In most languages that support typeclasses it is not
--- possible to enforce a notion of "lawfulness" as part of the
--- typeclass, and it falls to the author to ensure that any
--- desired invariants are satisfied.
-
--- As an example, suppose that we wanted to express the idea
--- that a type has at least two distinct elements. A first
--- attempt might be
+-- The above examples enforce no conditions on the data an
+-- instance may carry — any value of the right type will do.
+-- But sometimes enforcing constraints on data is useful. For
+-- example, suppose we want to specify that a type has not just
+-- a single element, but two. Here is a first attempt:
 
 sf_experiment
   class HasTwoIncomplete (α : Type) where
     one : α
     two : α
 
--- but this does not disallow the case where `one` and `two`
--- are equal. In a proof assistant, however, typeclasses can
--- also carry proofs along with data, so we can write
+-- Unfortunately, this specification isn't precise because it
+-- allows `one` and `two` to refer to the same term.
+-- Fortunately, Lean's typeclasses can carry proofs along with
+-- data, so we can write the following to enforce that `one`
+-- and `two` are distinct.
 
 class HasTwo (α : Type) where
   one : α
   two : α
   one_neq_two : one ≠ two
 
--- to enforce that these are two distinct entries. Declaring
--- instances works in much the same way as before, except that
--- now `HasTwo.one_neq_two` requires a proof:
+-- Declaring instances works in much the same way as before,
+-- except that now the `HasTwo.one_neq_two` field requires a
+-- proof:
 
 instance : HasTwo Nat where
   one := 1
   two := 2
   one_neq_two := by intro contra; contradiction
 
+-- In most languages that support typeclasses (or traits) it is
+-- not possible to formally enforce laws such as `one_neq_two`.
+-- Thus it falls to the author to check, informally, that any
+-- required invariants are satisfied, which can lead to bugs.
+
 -- ### Exercise (1 star): HasThree ⭐
 
 -- Following the pattern of `HasOne` and `HasTwo`, define a
 -- class `HasThree` that specifies a type with at least three
--- distinct elements.
-
--- Note to developers (Claude, NOW):
---     Rendering bug in this exercise and `instHasThree` below.
---     Both use the `-- SOLUTION`/`-- END SOLUTION`
---     comment-marker idiom to hide **some** class fields /
---     instance fields, but the Verso HTML build does not
---     process those markers (only the `solution!` tactic is
---     handled). In **student** and **terse** the class shows
---     only the visible fields while the `instHasThree`
---     instance then reports a spurious
---     `Fields missing: one_neq_three, two_neq_three` error; in
---     **solutions** the hidden fields are shown but the
---     literal `-- SOLUTION` / `-- END SOLUTION` comment lines
---     leak into the displayed code. The generated `.lean` is
---     fine — HTML-only. Fix by expressing the hidden fields
---     with `solution!` rather than the comment markers.
+-- distinct elements, and give an instance of it for `Nat`.
 
 class HasThree (α : Type) where
   one : α
@@ -350,10 +335,6 @@ class HasThree (α : Type) where
   three : α
   one_neq_two : one ≠ two
   -- FILL IN HERE
-
--- ### Exercise (1 star): instHasThree ⭐
-
--- Provide an instance of `HasThree` for `Nat`.
 
 instance : HasThree Nat where
   one := 1
@@ -364,31 +345,41 @@ instance : HasThree Nat where
 
 -- ## Maps
 
--- Maps (or dictionaries) are ubiquitous data structures both
--- in ordinary programming and in the theory of programming
--- languages; we're going to need them in many places in the
--- coming chapters.
+-- *Maps* (or "dictionaries") are ubiquitous data structures
+-- both in ordinary programming and in the theory of
+-- programming languages; we're going to need them in many
+-- places in later volumes.
 
--- We'll define two flavors of maps: total maps, which include
--- a "default" element to be returned when a key being looked
--- up doesn't exist, and partial maps, which instead return an
--- option to indicate success or failure. Partial maps are
--- defined in terms of total maps, using `none` as the default
--- element.
+-- We'll define two flavors of maps: *total maps*, which
+-- include a "default" element to be returned when a key being
+-- looked up doesn't exist, and *partial maps*, which instead
+-- return an option to indicate success or failure. Partial
+-- maps are defined in terms of total maps, using `none` as the
+-- default element.
 
--- ### Identifiers
+-- ### Key and Value Types
 
 -- To define maps, we first need a type for the keys that we
--- will use to index into our maps. Instead of using concrete
--- types, we will use a type variables
+-- will use to index into our maps and a type for the values
+-- the maps return. Instead of choosing concrete types for
+-- these, we will use type variables.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Should we perhaps refer back to where the `variable`
+--     declaration is explained? (I guess in Poly, but which
+--     section?)
+--
+--     More generally, the exposition gets a little thick from
+--     here to the next section header.
 
 variable {α : Type} {β : Type} [BEq α] [ReflBEq α] [LawfulBEq α]
 
 set_option linter.unusedSectionVars false
 
--- where `α` is the type of our map keys and `β` the
--- corresponding values. Looking at `ReflBEq` and `LawfulBEq`,
--- we see that these typeclasses:
+-- Here, `α` is the type of the keys and `β` the corresponding
+-- values. In addition to `BEq`, which we have already seen,
+-- the key type `α` requires instances of the `ReflBEq` and
+-- `LawfulBEq` typeclasses:
 
 -- /-- `ReflBEq α` says that the `BEq` implementation is reflexive. -/
 -- class ReflBEq (α) [BEq α] : Prop where
@@ -406,28 +397,39 @@ set_option linter.unusedSectionVars false
 --   /-- If `a == b` evaluates to `true`, then `a` and `b` are equal in the logic. -/
 --   eq_of_beq : {a b : α} → a == b → a = b
 
--- provide the assumption that we have an boolean equality
--- (`==`) on our keys that is reflexive and coincides with
--- proposition equality `=`.
+-- These classes refine `BEq`, specifying that (`==`) is
+-- reflexive and coincides with proposition equality `=`.
+
+-- We place no constraints on the value type `β`.
 
 -- ### Total Maps
 
--- Our main job in this chapter will be to build a definition
--- of partial maps that is similar in behavior to the one we
--- saw in the Lists chapter, plus accompanying lemmas about its
--- behavior.
+-- The Lists chapter introduced a partial map abstraction,
+-- `PartialMap`, with a `find` function for lookup, based on
+-- lists of key-value pairs. Here, we are going to build a map
+-- abstraction using functions instead. The advantage of this
+-- representation is that it offers a more *extensional* view
+-- of maps, as we saw with functions in the Logic chapter: two
+-- maps that respond to every query in the same way will be
+-- represented as exactly the same function, rather than just
+-- as "equivalent" list structures. This simplifies proofs that
+-- use maps.
 
--- This time around, though, we're going to use functions,
--- rather than lists of key-value pairs, to build maps. The
--- advantage of this representation is that it offers a more
--- "extensional" view of maps: two maps that respond to queries
--- in the same way will be represented as exactly the same
--- function, rather than just as "equivalent" list structures.
--- This simplifies proofs that use maps.
-
--- We build up to partial maps in two steps. First, we define
--- total maps that return a default value when we look up a key
--- that is not present in the map.
+-- Note to developers (Claude):
+--     This paragraph previously wrote `{tech}_extensional_`,
+--     but that failed to build here with
+--     `No term def with key "extensional"`. The `{tech}` role
+--     emits a **reference** to a technical term that must
+--     resolve to a matching `{deftech}` definition; the only
+--     `{deftech}_extensional_` lives in the Logic chapter, and
+--     Verso's tech-term index isn't shared with this chapter's
+--     build, so the key can't be found. We flattened it to
+--     plain emphasis (`_extensional_`), matching how Logic
+--     itself renders in the generated `.lean`. Alternative
+--     fixes if we want a live link: add a local `{deftech}`
+--     for the term in this chapter, or arrange for
+--     cross-chapter `{tech}` references to resolve in a
+--     whole-book build.
 
 def TotalMap (α : Type) (β : Type) := α → β
 
@@ -445,79 +447,98 @@ variable [Inhabited β]
 
 -- The function `TotalMap.empty` yields an empty total map,
 -- given a default element; this map always returns the default
--- element when applied to any string.
+-- element when applied to any key.
 
 def empty : TotalMap α β := fun _ ↦ default
 
--- and we'll also declare an instance
+-- Just as declaring `BEq`/`HasOne` instances above hooked `==`
+-- and `HasOne.one` up to our types, we can declare an instance
+-- of the standard library's `EmptyCollection` typeclass to
+-- associate `∅` with this empty map.
 
 instance : EmptyCollection (TotalMap α β) where
   emptyCollection := TotalMap.empty
 
--- so that we can use the `∅` notation for this empty map.
+-- Here, for example, is an empty map that takes `Nat` keys to
+-- `Nat` values:
+
+def emptyNatMap : TotalMap Nat Nat := ∅
+
+-- Since a map is a function, we can apply it to a key to get
+-- out the corresponding value, like so:
+
+example : emptyNatMap 1 = default := rfl
+example : emptyNatMap 2 = 0 := rfl
+
+-- (For `Nat` the `default` is `0`.)
 
 -- #### Getting Elements
 
+-- While `TotalMap`s happen to be implemented as functions
+-- under the hood, we would prefer not to expose this fact in
+-- their public interface. Accordingly, we define new
+-- operations for querying and updating mappings. As a first
+-- attempt at a query operation, playing the role that `find`
+-- played for the Lists chapter's list-based maps, we could
+-- define a function `getElem` for getting the value associated
+-- with a key:
+
+sf_experiment
+  def getElem (m : TotalMap α β) (a: α) := m a
+  
+  example : getElem emptyNatMap 2 = 0 := rfl
+
 -- Note to developers (Benjamin Pierce  @bcpierce00):
---     This introductory bit seems heavier than necessary. Why
---     not just say that we want to treat TotalMap as an
---     abstract thing, not rely on the fact that it is defined
---     in terms of functions, and then go ahead and do that?
+--     This next paragraph gets pretty tangled -- can it be
+--     streamlined?
 
--- To access values in a map (i.e., a function), we can apply
--- the map to a key:
-
--- Note to developers (Chris Henson (chenson2018), Niklas Halonen (xhalo32)):
---     Using `default` in the early examples might be
---     confusing. We could use something concrete, like `0`
---     which is the default `Nat` instead.
-
-example : (∅ : TotalMap Nat Nat) 1 = default := rfl
+-- To make element-getting lighter weight, we can define
+-- notation so we can write `emptyNatMap[2]` rather than
+-- `getElem emptyNatMap`. We could make notation for this
+-- specific `getElem` function; we will do precisely that for
+-- the `update` function below. Instead, we are going to
+-- abstract the concept of getting an element as its own
+-- typeclass, called `MyGetElem`, and define notation for
+-- instances of that typeclass. We do this to illustrate a
+-- common pattern in Lean (indeed, `MyGetElem` is a simpler
+-- form of the `GetElem` standard library function). We see the
+-- pattern again at the conclusion of our development of total
+-- maps, illustrating custom syntax for constructing maps.
 
 end TotalMap
 
--- Here we have made use of the the fact that the type
--- `TotalMap` is defined as a function type, so technically
--- Lean lets us use a function application to get an element.
--- While this is possible, it goes against the spirit we have
--- seen in previous chapters of defining interfaces to our
--- types, like characterizing lemmas. We would like that the
--- public interface we design for TotalMap to be independent of
--- the fact that the definition is `α → β`.
-
--- In the ideal, we should be able to substitute a different
--- type with similar behavior without needing to change the
--- public interface. Suppose, just for the sake of argument,
--- that we wanted to define total maps as `List (α × β)` or
--- `Std.HashMap α β`. Neither of these are functions, so the
--- syntax `∅ 1` wouldn't work. If this is the public interface
--- to access elements, it restricts the definition ot
--- `TotalMap`, forcing it to be a function of some kind.
-
--- To abstract away the function application, we introduce
--- notation for accessing elements using square brackets. This
--- let's us write `∅[1]` or `m[a]` regardless of the underlying
--- definition of `TotalMap`.
-
--- We'll call the typeclass `MyGetElem`. The typeclass takes
--- three type parameters: the collection, the keys that can be
--- used to index and the elements that it returns. For example,
--- let's say we have declared an instance
--- `MyGetElem (List Bool) Nat Bool`. One can think of the
--- instance as saying that *indexing into `xs : List Bool` with
--- an index `i : Nat` returns a `Bool`*. The notation we
--- introduce for this is: `xs[i] = MyGetElem.getElem xs i`.
-
--- Don't worry about what `outParam Type` means (it's like a
--- normal type parameter with a hint to Lean that helps
--- typeclass inference). The `macro_rules` and the
--- `app_unexpander` are minor technicalities for getting the
--- syntax to work.
+-- The `MyGetElem` typeclass takes three type parameters: the
+-- map implementation, its keys, and its values.
 
 class MyGetElem (coll : Type) (idx : Type) (elem : outParam Type) where
   getElem (xs : coll) (i : idx) : elem
 
+-- (Don't worry about the `outParam` qualifier; it is a hint to
+-- Lean that helps typeclass inference.)
+
+-- The appropriate instance of `MyGetElem` for our `TotalMap`
+-- is:
+
+variable [Inhabited β]
+instance : MyGetElem (TotalMap α β) α β where
+  getElem m a := m a
+
+-- Now we can associate the bracket syntax with
+-- `MyGetElem.getElem`. We've defined custom notation before
+-- (e.g. `::` and `[...]` for lists, or `+`/`*`/`==` for
+-- arithmetic), but always with `infixl`/`infixr` or
+-- `scoped macro`; this is the first time we reach for the more
+-- general `notation`/`macro_rules` forms for getting the
+-- `m[a]` syntax to work. (Don't worry about following the
+-- mechanism in detail — the `macro_rules` and the
+-- `app_unexpander` below are minor technicalities.)
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Can we point people to where they can read about these
+--     things if they are interested?
+
 namespace MyGetElem
+
 scoped macro_rules | `($xs[$i]) => `(getElem $xs $i)
 
 @[app_unexpander getElem]
@@ -528,35 +549,33 @@ end MyGetElem
 
 open scoped MyGetElem
 
+-- Since the standard library already declares the `$x[$i]`
+-- syntax for `GetElem`, we only need to define the macro.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     What does "the macro" mean? And didn't we say we were
+--     not going to explain the macro stuff? I feel like this
+--     section is falling in an uncomfortable middle ground
+--     between completely skating over the technicalities and
+--     actually explaining.
+
+-- It's scoped since we don't want to override the default
+-- `GetElem` everywhere, but only when `open scoped MyGetElem`
+-- is in force.
+
 -- Note to developers (Benjamin Pierce  @bcpierce00):
 --     Make sure we've really explained `open scoped`
 --     somewhere...
 
--- To use the notation `m[a]` to access elements of a map `m`,
--- we add a `MyGetElem` instance for total maps.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Have we explained `variable [Inhabited β]`?
+-- Since we provided a `MyGetElem` instance for `TotalMap`, we
+-- can now use the notation `m[a]` to access elements of a map
+-- `m`.
 
 namespace TotalMap
-variable [Inhabited β]
-
-instance : MyGetElem (TotalMap α β) α β where
-  getElem m a := m a
 
 theorem getElem_def (m : TotalMap α β) (a : α) : m[a] = m a := by rfl
 
-example : (∅ : TotalMap Nat Nat)[1] = default := by rfl
-
--- When proving some of the characterizing lemmas below, we
--- will rewrite using `getElem_def`. However, `getElem_def`
--- exposes the underlying implementation that accessing
--- elements in total maps is a function application, therefore
--- it should only be used sparingly, and only inside the
--- `TotalMap` namespace.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     That is a bit mysterious.
+example : emptyNatMap[1] = default := by rfl
 
 -- Note to developers (Niklas Halonen  @xhalo32):
 --     As per the discussion in
@@ -611,21 +630,20 @@ example : (∅ : TotalMap Nat Nat)[1] = default := by rfl
 --     which is `(MyGetElem.getElem (MyGetElem.getElem m))[a]`
 --     and keep going.
 
--- #### Updating
+-- #### Updating Elements
 
--- More interesting is the map-updating function, which (as
--- always) takes a map `m`, a key `a`, and a value `b` and
--- returns a new map that takes `a` to `b` and takes every
--- other key to whatever `m` does. The novelty here is that we
--- achieve this effect by wrapping a new function around the
--- old one.
+-- Now we turn to the `update` function, which takes a map `m`,
+-- a key `a`, and a value `b` and returns a new map that takes
+-- `a` to `b` and takes every other key to whatever `m` does.
+-- We do this by wrapping a new map function around the old
+-- one.
 
 def update (m : TotalMap α β) (a : α) (b : β) : TotalMap α β :=
   fun a' => bif a == a' then b else m[a']
 
 -- This definition is a nice example of higher-order
 -- programming: `update` takes a function `m` and yields a new
--- function `fun x' ↦ ...` that behaves like the desired map.
+-- function `fun a' => ...` that behaves like the desired map.
 
 -- For example, we can build a map taking `String` to `Bool`,
 -- where `"foo"` and `"bar"` are mapped to `true` and every
@@ -636,14 +654,28 @@ def exampleMap :=
     |>.update "foo" true
     |>.update "bar" true
 
--- We'll also introduce a notation for updating maps
+-- Here `|>` is Lean's **pipe** notation: `x |>.f y` means
+-- `x.f y`, letting us chain a sequence of function or method
+-- calls left to right without nested parentheses.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Should we introduce this notation earlier? (Are there
+--     good places to use it earlier?)
+
+-- We also introduce a notation for updating maps, in this case
+-- referencing the `TotalMap.update` function directly.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     ... as opposed to what (let's be explicit!)? And why do
+--     we make this choice? Just to show both ways, or for some
+--     principled reason?
 
 notation a:55 " →ₜ " b:55 " ; " m:55 => TotalMap.update m a b
 
 theorem update_def (m : TotalMap α β) (a : α) (b : β) :
   a →ₜ b ; m = fun a' => bif a == a' then b else m[a'] := rfl
 
--- We can also hide the last case when it is empty:
+-- We can hide the last case when it is empty:
 
 notation a:55 " →ₜ " b:55 => TotalMap.update ∅ a b
 
@@ -662,14 +694,14 @@ example : exampleMap'["foo"] = true := rfl
 example : exampleMap'["quux"] = false := rfl
 example : exampleMap'["bar"] = true := rfl
 
--- When we use maps in later chapters, we'll need several
+-- When we use maps in later volumes, we'll need several
 -- fundamental facts about how they behave.
 
 -- Even if you don't work the following exercises, make sure
 -- you thoroughly understand the statements of the lemmas!
 
 -- (Some of the proofs require the functional extensionality
--- axiom, which was discussed in the Logic chapter.)
+-- axiom `funext`, discussed in the Logic chapter.)
 
 -- First, the empty map returns its default element for all
 -- keys:
@@ -695,12 +727,12 @@ theorem update_neq {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b 
 
 -- The two remaining facts are equalities *between maps*, so we
 -- first need to say when two maps are equal. Since a total map
--- *is* a function, this is exactly the functional
--- extensionality principle from the Logic chapter: two maps
--- are equal when they agree at every key. Recording it once,
--- for maps, and tagging it `@[ext]` lets the `ext` tactic
--- reduce a goal `m₁ = m₂` to the pointwise one in the proofs
--- below.
+-- is implemented as a function, this is exactly the functional
+-- extensionality principle (`funext`) from the Logic chapter:
+-- two maps are equal when they agree at every key. Recording
+-- it once, for maps, and tagging it `@[ext]` lets the `ext`
+-- tactic reduce a goal `m₁ = m₂` to the pointwise one in the
+-- proofs below.
 
 @[ext]
 theorem ext {m₁ m₂ : TotalMap α β} (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := funext h
@@ -796,8 +828,12 @@ end KVPair
 
 open scoped KVPair
 
--- Next, we declare `Insert` and `Singleton` instances which
--- control the `{}` notation in lean.
+-- Next, we declare `Insert` and `Singleton` instances that
+-- control the `{}` notation in Lean.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Do readers know what `Insert` and `Singleton` are?
+--     Should we link to their docs?
 
 namespace TotalMap
 
@@ -1134,6 +1170,9 @@ theorem isEven_succ (n : Nat) : isEven (n + 1) = ! isEven n := by
 
 -- Here are the key differences between `Bool` and `Prop`:
 
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Check formatting:
+
 -- - ⠀
 -- - `Bool`
 -- - `Prop`
@@ -1354,7 +1393,7 @@ sf_experiment
   #print eq
 
 -- But we have indicated to Lean, using the `noncomputable`
--- keyword and `Classical` namespace that we are *not*
+-- keyword and `Classical` namespace, that we are *not*
 -- interested in computation. What is happening in the
 -- background is that this allows typeclass synthesis to find
 -- the scoped instance `Classical.propDecidable`, which makes
@@ -1366,6 +1405,9 @@ sf_experiment
 -- command.
 
 -- ## TODO
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     Needs finishing...
 
 -- Note to developers:
 --     Below are some stray examples from IndProp. `Decidable`

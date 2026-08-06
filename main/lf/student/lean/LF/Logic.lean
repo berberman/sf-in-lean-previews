@@ -1470,7 +1470,7 @@ example (P Q : Prop) : P ∧ Q = Q ∧ P := by cases P
 
 #print propext
 
--- (Informally, an "extensional" property is one that pertains to observable
+-- (Informally, an *extensional* property is one that pertains to observable
 -- behavior. Thus, propositional extensionality means that a proposition's
 -- identity is completely determined by what we can observe from it -- i.e.,
 -- whether the proposition holds. We can state this more explicitly:)

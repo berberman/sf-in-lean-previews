@@ -1,5 +1,5 @@
 {
-  "main_sha": "6c3775c97cecc09b7bfa05363236cf0a03318d01",
+  "main_sha": "f103dbfaddb5f6f4c1e4bb90d1a289b9cc78c986",
   "prs": {
     "167": {
       "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
@@ -377,53 +377,6 @@
       "title": "LF: Add notations appendix chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/186"
     },
-    "191": {
-      "base_sha": "6c3775c97cecc09b7bfa05363236cf0a03318d01",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "72666a93ca4bc61cf093eb6a28f8496dddcf8719",
-      "preview_path": "pr/191/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31056640197",
-      "status": "published",
-      "title": "Editing pass over Typeclasses",
-      "url": "https://github.com/plclub/sf-in-lean/pull/191"
-    },
     "195": {
       "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
       "changed_variants": [
@@ -472,7 +425,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/195"
     },
     "198": {
-      "base_sha": "9853b722a51dff9bf07e2eef4e752906d339c729",
+      "base_sha": "f103dbfaddb5f6f4c1e4bb90d1a289b9cc78c986",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -511,9 +464,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "e8faa561c20378c61c8b7daf39734008db54f8f8",
+      "head_sha": "1021f6adf8c3aff74d04c14ed069ae446258a968",
       "preview_path": "pr/198/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31057700535",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31063814060",
       "status": "published",
       "title": "Typeclasses: motivate HasOne/DefaultValue with a real consumer, headOr",
       "url": "https://github.com/plclub/sf-in-lean/pull/198"
