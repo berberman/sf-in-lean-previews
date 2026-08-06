@@ -351,6 +351,8 @@ end Imp.Delab
 -- Now we need to add an `st` parameter to both evaluation
 -- functions:
 
+open scoped MyGetElem
+
 def Aexp.eval (st : State) (a : Aexp) : Nat :=
   match a with
   | num   n     =>  n

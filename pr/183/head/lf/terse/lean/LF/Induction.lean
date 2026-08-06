@@ -389,7 +389,7 @@ theorem andb_false (b : Bool) :
   sorry
 
 theorem all3_spec (b c : Bool) :
-    (b && c) || ((!b) || (!c)) = true := by
+    ((b && c) || ((!b) || (!c))) = true := by
   sorry
 
 theorem right_distrib (n m p : Nat) :
@@ -590,15 +590,6 @@ def normalize (b : Bin) : Bin := sorry
 -- before you proceed. They won't be graded, but do fill in a
 -- few below.
 
--- Note to developers (Claude, before next release):
---     Same `-- SOLUTION` mishandling as elsewhere in this
---     chapter, milder here: the block keeps surviving content
---     (`attribute [irreducible] …`) after `-- END SOLUTION`,
---     so student/terse don't error, but the **solutions**
---     build leaks the literal `-- SOLUTION` /
---     `-- END SOLUTION` comment lines into the displayed code.
---     Prefer `solution!` over the comment markers.
-
 -- FILL IN HERE
 
 -- Now that we have defined all of our functions and their
@@ -617,14 +608,6 @@ attribute [irreducible] normalize doubleBin natToBin incr binToNat
 -- proof to make progress. We have one lemma for the `b0` case
 -- (which also makes use of `double_incr_bin`) and another for
 -- the `b1` case.
-
--- Note to developers (Claude, before next release):
---     Same `-- SOLUTION` mishandling, milder: `bin_nat_bin`
---     survives after `-- END SOLUTION` so student/terse don't
---     error, but the **solutions** build leaks the literal
---     `-- SOLUTION` / `-- END SOLUTION` comment lines around
---     `incr_doubleBin`/`natToBin_two_mul` into the displayed
---     code. Prefer `solution!` over the comment markers.
 
 -- FILL IN HERE
 

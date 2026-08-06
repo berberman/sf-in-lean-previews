@@ -436,25 +436,25 @@ open MyNamespace
 
 -- If we only want to bring *some*, rather than all, of the
 -- definitions of a namespace into the current scope, we can
--- use the `export` command:
+-- use the `open (...)` form:
 
 namespace MyOtherNamespace
 def myHiddenDef : Bool := Bool.true
 def myVisibleDef : Bool := Bool.false
 end MyOtherNamespace
 
-export MyOtherNamespace (myVisibleDef)
+open MyOtherNamespace (myVisibleDef)
 
 -- `myVisibleDef` is now usable without qualification:
 #check myVisibleDef -- Bool
 
--- But `myHiddenDef`, which we did not `export`, still needs
--- its full name; using it unqualified is an error:
+-- But `myHiddenDef`, which we did not `open`, still needs its
+-- full name; using it unqualified is an error:
 
 sf_expect_failure
   #check myHiddenDef
 
--- Names from the `Bool` `namespace` are `export`ed and thus
+-- Names from the `Bool` `namespace` are `open`ed and thus
 -- available without qualification.
 
 #check Bool.true -- Bool
