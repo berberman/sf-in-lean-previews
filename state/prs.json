@@ -265,6 +265,53 @@
       "status": "waiting-ci",
       "title": "Lists: make `::` high priority to increase performance",
       "url": "https://github.com/plclub/sf-in-lean/pull/200"
+    },
+    "202": {
+      "base_sha": "1ef4da5bf3446cb90be6de20dca76a8fa229d063",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "b43ba4d59a46c15995a10bf5a9f7168b91e9f497",
+      "preview_path": "pr/202/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31136594929",
+      "status": "published",
+      "title": "Polishing pass over Basics",
+      "url": "https://github.com/plclub/sf-in-lean/pull/202"
     }
   },
   "schema": 3
