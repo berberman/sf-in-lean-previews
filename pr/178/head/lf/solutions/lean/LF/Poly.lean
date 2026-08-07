@@ -528,7 +528,7 @@ theorem zip_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} 
 
 -- print?
 
--- ### Exercise (2 stars): split ⭐⭐
+-- ### Exercise (2 stars): unzip ⭐⭐
 
 -- The function `unzip` goes in the other direction from `zip`: it takes a
 -- list of pairs and returns a pair of lists.
@@ -551,7 +551,7 @@ theorem unzip_cons_fst {α β : Type} {l : List (α × β)} {x : α} {y : β} :
 theorem unzip_cons_snd {α β : Type} {l : List (α × β)} {x : α} {y : β} :
    (unzip ((x, y) :: l)).snd = y :: (unzip l).snd := (by rfl)
 
-example : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := (by rfl)
+theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := (by rfl)
 
 -- ### Polymorphic Options
 
@@ -597,9 +597,9 @@ theorem hdError_nil {α : Type} : hdError ([] : List α) = none := (by rfl)
 theorem hdError_cons {α : Type} {head : α} {tail : List α} : hdError (head :: tail) = some head :=
   (by rfl)
 
-example : hdError [1, 2] = some 1 := (by rfl)
+theorem test_hdError1 : hdError [1, 2] = some 1 := (by rfl)
 
-example : hdError [[1], [2]] = some [1] := (by rfl)
+theorem test_hdError2 : hdError [[1], [2]] = some [1] := (by rfl)
 
 -- ## Functions as Data
 
@@ -725,9 +725,9 @@ example : filter (·.length == 1)
 abbrev filterEvenGt7 (l : List Nat) : List Nat := (
   filter (fun n => n.even && n > 7) l)
 
-example : filterEvenGt7 [1, 2, 6, 9, 10, 3, 12, 8] = [10, 12, 8] := (by rfl)
+theorem test_filterEvenGt7_1 : filterEvenGt7 [1, 2, 6, 9, 10, 3, 12, 8] = [10, 12, 8] := (by rfl)
 
-example : filterEvenGt7 [5, 2, 6, 19, 129] = [] := (by rfl)
+theorem test_filterEvenGt7_2 : filterEvenGt7 [5, 2, 6, 19, 129] = [] := (by rfl)
 
 -- ### Exercise (3 stars): partition ⭐⭐⭐
 
@@ -741,8 +741,8 @@ example : filterEvenGt7 [5, 2, 6, 19, 129] = [] := (by rfl)
 abbrev partition {α : Type} (test : α → Bool) (l : List α) : List α × List α := (
   (filter test l, filter (!test ·) l))
 
-example : partition (· % 2 != 0) [1, 2, 3, 4, 5] = ([1, 3, 5], [2, 4]) := (by rfl)
-example : partition (fun _ => false) [5, 9, 0] = ([], [5, 9, 0]) := (by rfl)
+theorem test_partition1 : partition (· % 2 != 0) [1, 2, 3, 4, 5] = ([1, 3, 5], [2, 4]) := (by rfl)
+theorem test_partition2 : partition (fun _ => false) [5, 9, 0] = ([], [5, 9, 0]) := (by rfl)
 
 -- ### Map
 
@@ -834,7 +834,7 @@ def flatMap {α : Type} {β : Type} (f : α → List β) (l : List α) : List β
   | [] => []
   | h :: t => f h ++ flatMap f t)
 
-example : flatMap (fun n => [n, n, n]) [1, 5, 4]
+theorem test_flatMap : flatMap (fun n => [n, n, n]) [1, 5, 4]
   = [1, 1, 1, 5, 5, 5, 4, 4, 4] := (by rfl)
 
 theorem flatMap_nil {α : Type} {β : Type} (f : α → List β) : flatMap f [] = [] :=
@@ -1219,8 +1219,8 @@ def scc (n : CNat) : CNat := (
   fun (X : Type) (f : X → X) (x : X) => f (n X f x))
 
 example : scc zero = one := (by rfl)
-example : scc one = two := (by rfl)
-example : scc two = three := (by rfl)
+theorem scc_2 : scc one = two := (by rfl)
+theorem scc_3 : scc two = three := (by rfl)
 
 -- ### Exercise (3 stars): church_plus (Advanced) ⭐⭐⭐
 
@@ -1234,9 +1234,9 @@ example : scc two = three := (by rfl)
 def plus (n m : CNat) : CNat := (
   fun (X : Type) (f : X → X) (x : X) => n X f (m X f x))
 
-example : plus zero one = one := (by rfl)
-example : plus two three = plus three two := (by rfl)
-example : plus (plus two two) three = plus one (plus three three) := (by rfl)
+theorem plus_1 : plus zero one = one := (by rfl)
+theorem plus_2 : plus two three = plus three two := (by rfl)
+theorem plus_3 : plus (plus two two) three = plus one (plus three three) := (by rfl)
 
 -- ### Exercise (3 stars): church_mult (Advanced) ⭐⭐⭐
 
@@ -1253,9 +1253,9 @@ example : plus (plus two two) three = plus one (plus three three) := (by rfl)
 def mult (n m : CNat) : CNat := (
   fun (X : Type) (f : X → X) (x : X) => n X (m X f) x)
 
-example : mult one one = one := (by rfl)
-example : mult zero (plus three three) = zero := (by rfl)
-example : mult two three = plus three three := (by rfl)
+theorem mult_1 : mult one one = one := (by rfl)
+theorem mult_2 : mult zero (plus three three) = zero := (by rfl)
+theorem mult_3 : mult two three = plus three three := (by rfl)
 
 -- ### Exercise (3 stars): church_exp (Advanced) ⭐⭐⭐
 
@@ -1269,9 +1269,9 @@ example : mult two three = plus three three := (by rfl)
 def exp (n m : CNat) : CNat := (
   fun (X : Type) (f : X → X) (x : X) => m (X → X) (n X) f x)
 
-example : exp two two = plus two two := (by rfl)
-example : exp three zero = one := (by rfl)
-example : exp three two = plus (mult two (mult two two)) one := (by rfl)
+theorem exp_1 : exp two two = plus two two := (by rfl)
+theorem exp_2 : exp three zero = one := (by rfl)
+theorem exp_3 : exp three two = plus (mult two (mult two two)) one := (by rfl)
 
 end Church
 end Exercises

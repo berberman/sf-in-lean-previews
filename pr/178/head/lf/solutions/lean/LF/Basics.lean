@@ -278,10 +278,10 @@ def nand (b1 : MyBool) (b2 : MyBool) : MyBool
   | MyBool.true => not b2
   | MyBool.false => MyBool.true)
 
-example : nand MyBool.true  MyBool.false = MyBool.true  := (by rfl)
-example : nand MyBool.false MyBool.false = MyBool.true  := (by rfl)
-example : nand MyBool.false MyBool.true  = MyBool.true  := (by rfl)
-example : nand MyBool.true  MyBool.true  = MyBool.false := (by rfl)
+theorem nand_test1 : nand MyBool.true  MyBool.false = MyBool.true  := (by rfl)
+theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := (by rfl)
+theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := (by rfl)
+theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := (by rfl)
 
 -- ### Exercise (1 star): and3 ⭐
 
@@ -291,10 +291,10 @@ example : nand MyBool.true  MyBool.true  = MyBool.false := (by rfl)
 def and3 (b1 : MyBool) (b2 : MyBool) (b3 : MyBool) : MyBool
   := (and b1 (and b2 b3))
 
-example : and3 MyBool.true  MyBool.true  MyBool.true  = MyBool.true  := (by rfl)
-example : and3 MyBool.false MyBool.true  MyBool.true  = MyBool.false := (by rfl)
-example : and3 MyBool.true  MyBool.false MyBool.true  = MyBool.false := (by rfl)
-example : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false := (by rfl)
+theorem and3_test1 : and3 MyBool.true  MyBool.true  MyBool.true  = MyBool.true  := (by rfl)
+theorem and3_test2 : and3 MyBool.false MyBool.true  MyBool.true  = MyBool.false := (by rfl)
+theorem and3_test3 : and3 MyBool.true  MyBool.false MyBool.true  = MyBool.false := (by rfl)
+theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false := (by rfl)
 
 -- ### Basic Proofs
 
@@ -615,8 +615,8 @@ def is_weekend (d : Day) : Bool
     | _ => false
     )
 
-example : is_weekend Day.sunday = true := (by rfl)
-example : is_weekend Day.friday = false := (by rfl)
+theorem is_weekend_test1 : is_weekend Day.sunday = true := (by rfl)
+theorem is_weekend_test2 : is_weekend Day.friday = false := (by rfl)
 
 -- ### Exercise (1 star): isInversion ⭐
 
@@ -640,11 +640,12 @@ def isInversion (c1 c2 : Color) : Bool
     | _, _ => false
     )
 
-example : isInversion Color.black Color.white = true := (by rfl)
-example : isInversion Color.white Color.black = Bool.true := (by rfl)
-example : isInversion (Color.primary RGB.red) (Color.primary RGB.blue) = Bool.true :=
+
+theorem isInversion_test1 : isInversion Color.black Color.white = true := (by rfl)
+theorem isInversion_test2 : isInversion Color.white Color.black = Bool.true := (by rfl)
+theorem isInversion_test3 : isInversion (Color.primary RGB.red) (Color.primary RGB.blue) = Bool.true :=
   (by rfl)
-example : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = Bool.false :=
+theorem isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = Bool.false :=
   (by rfl)
 
 -- ### Namespaces
@@ -1488,7 +1489,7 @@ def blt (n m : Nat) : Bool := (ble (succ n) m)
 
 example : blt two two = false := (by rfl)
 example : blt two four = true  := (by rfl)
-example : blt four two = false := (by rfl)
+theorem blt_test3 : blt four two = false := (by rfl)
 
 attribute [irreducible] blt ble
 
@@ -1733,7 +1734,7 @@ theorem or_false_true (b : Bool) :
     rewrite [Bool.or_false] at h
     exact h
 
--- ### Exercise (1 star): zero_nbeq_add_1 ⭐
+-- ### Exercise (1 star): zero_neb_add_one ⭐
 
 theorem zero_neb_add_one (n : Nat) :
   (zero == succ n) = false := by
@@ -1859,9 +1860,9 @@ def binToNat (m : Bin) : Nat
   | .b0 m' => binToNat m' * two
   | .b1 m' => binToNat m' * two + one)
 
-example : incr (.b1 .z) = .b0 (.b1 .z) := (by rfl)
-example : incr (.b0 (.b1 .z)) = .b1 (.b1 .z) := (by rfl)
-example : incr (.b1 (.b1 .z)) = .b0 (.b0 (.b1 .z)) := (by rfl)
+theorem incr_test1 : incr (.b1 .z) = .b0 (.b1 .z) := (by rfl)
+theorem incr_test2 : incr (.b0 (.b1 .z)) = .b1 (.b1 .z) := (by rfl)
+theorem incr_test3 : incr (.b1 (.b1 .z)) = .b0 (.b0 (.b1 .z)) := (by rfl)
 
 theorem incr_z : incr .z = .b1 .z := (by rfl)
 theorem incr_b0 (m : Bin) : incr (.b0 m) = .b1 m := (by rfl)
@@ -1878,19 +1879,18 @@ example : binToNat (.b0 (.b1 .z)) = two := (by
   rewrite [binToNat_b0, binToNat_b1, binToNat_z]
   rewrite [zero_mul_two, zero_add_one, one_mul_two]
   rfl
-
 )
-example : binToNat (incr (.b1 .z)) = add one (binToNat (.b1 .z)) := (by
+theorem binToNat_test1 : binToNat (incr (.b1 .z)) = add one (binToNat (.b1 .z)) := (by
     rewrite [binToNat_b1, binToNat_z, incr_b1, binToNat_b0, incr_z, binToNat_b1, binToNat_z]
     rewrite [zero_mul_two, zero_add_one, one_mul_two, one_add_one]
     rfl
 )
-example : binToNat (incr (incr (.b1 .z))) = add two (binToNat (.b1 .z)) := (by
+theorem binToNat_test2 : binToNat (incr (incr (.b1 .z))) = add two (binToNat (.b1 .z)) := (by
   rewrite [binToNat_b1, binToNat_z, incr_b1, incr_b0, binToNat_b1, incr_z, binToNat_b1, binToNat_z]
   rewrite [zero_mul_two, zero_add_one, one_mul_two]
   rfl
 )
-example : binToNat (.b0 (.b0 (.b1 .z))) = four := (by
+theorem binToNat_test3 : binToNat (.b0 (.b0 (.b1 .z))) = four := (by
   rewrite [binToNat_b0, binToNat_b0, binToNat_b1, binToNat_z]
   rewrite [zero_mul_two, zero_add_one, one_mul_two, two_mul_two]
   rfl
@@ -2080,10 +2080,10 @@ def gradeComparison (g1 g2 : Grade) : Comparison
   | eq => modifierComparison g1.modifier g2.modifier
   | gt => gt)
 
-example : gradeComparison ⟨A, minus⟩ ⟨B, plus⟩ = gt := (by rfl)
-example : gradeComparison ⟨A, minus⟩ ⟨A, plus⟩ = lt := (by rfl)
-example : gradeComparison ⟨F, plus⟩ ⟨F, plus⟩ = eq := (by rfl)
-example : gradeComparison ⟨B, minus⟩ ⟨C, plus⟩ = gt := (by rfl)
+theorem gradeComparison_test1 : gradeComparison ⟨A, minus⟩ ⟨B, plus⟩ = gt := (by rfl)
+theorem gradeComparison_test2 : gradeComparison ⟨A, minus⟩ ⟨A, plus⟩ = lt := (by rfl)
+theorem gradeComparison_test3 : gradeComparison ⟨F, plus⟩ ⟨F, plus⟩ = eq := (by rfl)
+theorem gradeComparison_test4 : gradeComparison ⟨B, minus⟩ ⟨C, plus⟩ = gt := (by rfl)
 
 def lowerLetter (l : Letter) : Letter :=
   match l with
@@ -2129,15 +2129,14 @@ def lowerGrade (g : Grade) : Grade
   | ⟨F, minus⟩ => ⟨F, minus⟩
   | ⟨l, minus⟩ => ⟨lowerLetter l, plus⟩)
 
-example : lowerGrade ⟨A, plus⟩ = ⟨A, natural⟩ := (by rfl)
+theorem lowerGrade_A_plus : lowerGrade ⟨A, plus⟩ = ⟨A, natural⟩ := (by rfl)
 example : lowerGrade ⟨A, natural⟩ = ⟨A, minus⟩ := (by rfl)
 example : lowerGrade ⟨A, minus⟩ = ⟨B, plus⟩ := (by rfl)
 example : lowerGrade ⟨B, plus⟩ = ⟨B, natural⟩ := (by rfl)
 example : lowerGrade ⟨F, natural⟩ = ⟨F, minus⟩ := (by rfl)
 example : lowerGrade (lowerGrade ⟨B, minus⟩) = ⟨C, natural⟩ := (by rfl)
 example : lowerGrade (lowerGrade (lowerGrade ⟨B, minus⟩)) = ⟨C, minus⟩ := (by rfl)
-
-theorem lowerGrade_F_Minus : lowerGrade ⟨F, minus⟩ = ⟨F, minus⟩ := (by rfl)
+theorem lowerGrade_F_minus : lowerGrade ⟨F, minus⟩ = ⟨F, minus⟩ := (by rfl)
 
 -- ### Exercise (3 stars): lower_grade_lowers ⭐⭐⭐
 
@@ -2168,7 +2167,7 @@ theorem lowerGrade_lowers : ∀ g : Grade,
       contradiction
     | ⟨l, minus⟩ =>
       cases l
-      case F => rewrite [lowerGrade_F_Minus]; exact h
+      case F => rewrite [lowerGrade_F_minus]; exact h
       all_goals rfl
 
 -- Note to developers (Roger Burtonpatel  @rogerburtonpatel):
@@ -2176,6 +2175,22 @@ theorem lowerGrade_lowers : ∀ g : Grade,
 --     `contradiction` tactic here instead, or some other reasoning that's not
 --     accomplishable with the tactics we've introduced so far. Can you make
 --     this proof work with only `rw`, `rfl`, `exact`, etc?
+--
+--     Niklas Halonen (xhalo32): We need to teach how to prove a goal that
+--     looks like `natural ≠ minus` for example. One could write `injection x`
+--     for example:
+--
+--     `example : natural ≠ minus := by
+--       intro x
+--       injection x`
+--
+--     `example : natural ≠ minus := by
+--       intro x
+--       injection x`
+--
+--     `example : natural ≠ minus := by
+--       intro x
+--       injection x`
 
 def applyLatePolicy (lateDays : NatPlayground.Nat) (g : Grade) : Grade :=
   if Nat.ble lateDays  9 then g

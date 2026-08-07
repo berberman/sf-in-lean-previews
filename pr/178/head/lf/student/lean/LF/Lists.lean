@@ -428,9 +428,9 @@ example : countOddMembers [0, 1, 2, 3, 0] = 2 := by
 
 example : countOddMembers [0, 1, 2, 3, 0] = 2 := sorry
 
-theorem NatList.test_countOddMembers1 : countOddMembers [0, 2, 4] = 0 := sorry
+theorem test_countOddMembers1 : countOddMembers [0, 2, 4] = 0 := sorry
 
-theorem NatList.test_countOddMembers2 : countOddMembers [] = 0 := sorry
+theorem test_countOddMembers2 : countOddMembers [] = 0 := sorry
 
 -- ### Exercise (3 stars): alternate (Advanced) ⭐⭐⭐
 
@@ -445,16 +445,16 @@ theorem NatList.test_countOddMembers2 : countOddMembers [] = 0 := sorry
 
 def alternate (l1 l2 : NatList) : NatList := sorry
 
-theorem NatList.test_alternate1 :
+theorem test_alternate1 :
     alternate [1, 2, 3] [4, 5, 6] = [1, 4, 2, 5, 3, 6] := sorry
 
-theorem NatList.test_alternate2 :
+theorem test_alternate2 :
     alternate [1] [4, 5, 6] = [1, 4, 5, 6] := sorry
 
-theorem NatList.test_alternate3 :
+theorem test_alternate3 :
     alternate [1, 2, 3] [4] = [1, 4, 2, 3] := sorry
 
-theorem NatList.test_alternate4 :
+theorem test_alternate4 :
     alternate [] [20, 30] = [20, 30] := sorry
 
 -- ### Counting
@@ -487,9 +487,9 @@ example : count 1 [1] = 1 := by
 
 example : count 2 [2, 2] = 2 := sorry
 
-theorem NatList.test_count1 : count 1 [1, 1, 4] = 2 := sorry
+theorem test_count1 : count 1 [1, 1, 4] = 2 := sorry
 
-theorem NatList.test_count2 : count 5 [1, 1, 4] = 0 := sorry
+theorem test_count2 : count 5 [1, 1, 4] = 0 := sorry
 
 -- Again, all these proofs could be completed with just `rfl`, because the
 -- proof is computationally straight-forward -- compute both sides of the
@@ -522,9 +522,9 @@ example : member 1 [1] = true := by
 
 example : member 2 [1] = false := sorry -- rfl
 
-theorem NatList.test_member1 : member 1 [1, 4, 1] = true := sorry
+theorem test_member1 : member 1 [1, 4, 1] = true := sorry
 
-theorem NatList.test_member2 : member 2 [1, 4, 1] = false := sorry
+theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
 -- ### Removing
 
@@ -563,9 +563,9 @@ example : removeOne 5 [1, 5, 4] = [1, 4] := by
 
 example : count 5 (removeOne 5 [1, 5, 4]) = 0 := sorry
 
-theorem NatList.test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
+theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
 
-theorem NatList.test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
+theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
 
 def removeAll (v : Nat) (l : NatList) : NatList := sorry
 
@@ -591,9 +591,9 @@ example : count 5 (removeAll 5 [5, 1]) = 0 := by
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := sorry
 
-theorem NatList.test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
+theorem test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
 
-theorem NatList.test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
+theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
 -- ### Included
 
@@ -624,9 +624,9 @@ example : included [1] [2, 1] = true := by
 
 example : included [1, 1] [2, 1, 4, 1] = true := sorry
 
-theorem NatList.test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
+theorem test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
 
-theorem NatList.test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
+theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
 
 -- Note to developers (Niklas Halonen  @xhalo32, before next release):
 --     The next exercise is merely a special case of `count_cons_same`. Is
@@ -1131,8 +1131,8 @@ theorem NatOption.elim_some {d₁ d₂ : Nat} : elim d₁ (.some d₂) = d₂ :=
 def head? (l : NatList) : NatOption := sorry
 
 example : head? [] = .none := sorry
-example : head? [1] = .some 1 := sorry
-example : head? [5, 6] = .some 5 := sorry
+theorem test_head?1 : head? [1] = .some 1 := sorry
+theorem test_head?2 : head? [5, 6] = .some 5 := sorry
 
 theorem head?_nil : head? [] = .none := sorry
 

@@ -96,7 +96,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/171"
     },
     "178": {
-      "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
+      "base_sha": "1ef4da5bf3446cb90be6de20dca76a8fa229d063",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -135,9 +135,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "dcf31e4ab4b203ca95a078c2cd91a03878300401",
+      "head_sha": "1321463786d8c671e887e559e9632121a2e75f0b",
       "preview_path": "pr/178/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31055519873",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31137726033",
       "status": "published",
       "title": "Refine basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/178"

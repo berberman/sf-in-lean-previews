@@ -1366,8 +1366,6 @@ theorem succ_n_le_succ_m__n_le_m : ∀ n m,
 
 theorem le_add_l : ∀ (a b : Nat), a ≤ a + b := by
   sorry
-  -- GRADE_THEOREM 0.5: le_add_l
-  -- []
 
 -- ### Exercise (2 stars): plus_le_facts1 ⭐⭐
 
@@ -1639,6 +1637,9 @@ theorem subseq_trans : ∀ (l₁ l₂ l₃ : List Nat),
 inductive TotalRelation : Nat → Nat → Prop where
   -- FILL IN HERE
 
+theorem total_relation_is_total : ∀ n m, TotalRelation n m := by
+  sorry
+
 -- ### Exercise (2 stars): empty_relation ⭐⭐
 
 -- Define an inductive binary relation `empty_relation` (on numbers) that
@@ -1824,8 +1825,6 @@ theorem pal_app_reverse : ∀ (α:Type) (l : List α),
 theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
 
   sorry
-  -- GRADE_THEOREM 3: pal_reverse
-  -- []
 
 -- Note to developers (Daniel Sainati  @dsainati1, NOW):
 --     This one is super annoying without simp. I propose we move it to the
