@@ -2,29 +2,6 @@ import LF.SFLCompat
 
 -- # Basics: Functional Programming in Lean
 
--- Note to developers (Jonathan Chan  @ionathanch):
---     [BCP: Old comment -- might be out of date?] There should
---     be some instruction on interaction with the IDE, namely:
---
---     - how to read the proof state
---
---     - clicking immediately after a tactic will show you what
---       it changed
---
---     - clicking after each `h` in `rw [h₁, h₂, ...]` will show
---       you what was rewritten
---
---     - hovering over a tactic will provide documentation on how
---       to use it
---
---     - hovering over a definition will give its type
---
---     - hovering over a Unicode character will tell you how to
---       type it
---
---     - Ctrl-clicking on a definition will take you to the
---       definition location
-
 -- ## Data and Functions
 
 -- In Lean, we can build practically everything from first
@@ -382,15 +359,6 @@ end RGB
 -- which opens the namespace temporarily for the body of the
 -- definition.
 
--- Note to developers (Claude, NOW):
---     Rendering bug in **student** and **terse** (solutions is
---     fine): the leading `--- …` triple-dash comment lines in
---     this block and the next one each render **twice** in a
---     row (e.g. two consecutive `--- this works, because …`
---     lines). The solutions build shows each once, so this is
---     a Verso rendering quirk with `---`-style comments in the
---     elided builds, not a source duplication.
-
 --- this works, because the definition is qualified by `RGB.`
 def RGB.myOtherBlue : RGB := myBlue
 
@@ -490,18 +458,6 @@ def nextWorkingDay' (d : Day) : Day :=
 -- Once you have written your predictions, copy the lines from
 -- the comment into an active section of the book to evaluate
 -- them.
-
--- Note to developers (mwhicks1):
---     This namespace section is great, but it interrupts the
---     pedagogical flow of the presentation of inductive types.
---     We were prevoiusly looking at constructors With one
---     argument, then there was this big digression, and now we
---     are back to two. Are we able to move the namespace stuff
---     to the end of this section (Data and Functions)? Then we
---     can start it by saying we are finishing with it but
---     readers can skip it if they prefer to "follow their
---     nose" regarding namespaces, and come back when they want
---     to know more.
 
 -- ### Constructors with Multiple Parameters (Tuple Types)
 
@@ -623,7 +579,7 @@ theorem add_zero : ∀ n : Nat, n + zero = n := by
 -- NatPlayground.Nat.add_zero (n : Nat) : n + zero = n
 
 -- Using our simplification rule `add_zero`, we can carry out a
--- simple proof about natural numbers!
+-- simple proof about natural numbers.
 
 theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
   intro n
@@ -640,18 +596,22 @@ theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
 theorem add_zero_zero_explained : ∀  n : Nat, n + zero + zero = n := by
   intro n
   /- After introducing `n`, our goal is `n + zero + zero = n`.
-     What can we do to simplify this expression? If you hover your cursor over the
-     `add_zero` in the rewrite below, you can see its type: `n + zero = n`. So,
-     we can use that rewrite rule to transform an appearnce of `n + zero` in the goal to `n`. -/
+     What can we do to simplify this expression? If you hover
+     your cursor over the `add_zero` in the rewrite below, you
+     can see its type: `n + zero = n`. So, we can use that
+     rewrite rule to transform an appearnce of `n + zero`
+     in the goal to `n`. -/
   rewrite [add_zero]
-  /- Now click here to see the new proof state that results from the tactic.
-     Notice how `n + zero + zero` changes to `n + zero` in the goal. -/
+  /- Now click here to see the new proof state that results
+     from the tactic. Notice how `n + zero + zero` changes to
+     `n + zero` in the goal. -/
   rewrite [add_zero]
-  /- Again the goal changes, from `n + zero` to `n`. Now the proof state
-     is an equality with both sides equal, so it can be closed by the
-     tactic `rfl`. -/
+  /- Again the goal changes, from `n + zero` to `n`. Now the
+     proof state is an equality with both sides equal, so it
+     can be closed by the tactic `rfl`. -/
   rfl
-  /- The proof is now done! The Lean InfoView tells us there are "No goals". -/
+  /- The proof is now done! The Lean InfoView tells us there are
+     "No goals". -/
 
 -- Give this proof a try (it's similar):
 
@@ -685,9 +645,9 @@ theorem add_one (n : Nat) : n + (succ zero) = succ n + zero := by
 
 attribute [irreducible] add
 
--- These characterizing theorems also follow a particular
--- pattern. Let's look again at the definition of `add`,
--- without the `+` notation for maximum clarity:
+-- These simplification rules also follow a particular pattern.
+-- Let's look again at the definition of `add`, without the `+`
+-- notation for maximum clarity:
 
 namespace AddPlayground
 
@@ -707,19 +667,19 @@ theorem add_succ : ∀ (n m : Nat), add n (succ m) = succ (add n m) := by
 end AddPlayground
 
 -- Each branch of a definition's control flow gets one
--- *simplification lemma*. Here are the two for `pred`:
+-- simplification rule. Here are the two for `pred`:
 
 theorem pred_zero : pred zero = zero := by rfl
 theorem pred_succ n : pred (succ n) = n := by rfl
 
 -- Now that we have defined and proved `pred`'s simplification
--- lemmas, we can mark it `irreducible`, to enforce rewriting
--- by these lemmas.
+-- rules, we can mark it `irreducible`, to enforce rewriting by
+-- these lemmas.
 
 attribute [irreducible] pred
 
 -- Similarly, for each of the three branches of the definition
--- of `even`, we need one simplification lemma:
+-- of `even`, we need one simplification rule:
 
 theorem even_zero : even zero = true := rfl
 theorem even_one : even (succ zero) = false := rfl
@@ -728,8 +688,8 @@ theorem even_succ_succ n : even (succ (succ n)) = even n := rfl
 attribute [irreducible] even odd
 
 -- From here on, we pair each definition with its
--- simplification lemmas and rewrite by those lemmas rather
--- than `rfl`-ing through the definition.
+-- simplification rules and rewrite by those rules rather than
+-- `rfl`-ing through the definition.
 
 -- ### Working with Numerals
 
@@ -754,6 +714,8 @@ theorem one_plus_one_eq_two : one + one = two := by
 
 theorem two_plus_two_eq_four : two + two = four := by
   sorry
+
+-- #### Multiplication
 
 def mul (n m : Nat) : Nat :=
   match m with
@@ -808,6 +770,8 @@ theorem one_mul_two : (one * two : Nat) = two := by
 theorem two_mul_two : (two * two : Nat) = four := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
   sorry
+
+-- #### Equality and Ordering
 
 -- Here is a function `beq` that tests natural numbers for
 -- equality, yielding a boolean.
@@ -880,7 +844,7 @@ theorem succ_succ_beq (n m : Nat) : ((succ n) == (succ m)) = (n == m) := by rfl
 
 attribute [irreducible] beq
 
--- ## General Proofs about Natural Numbers
+-- ### General Proofs about Natural Numbers
 
 -- A (slightly) more interesting theorem:
 
@@ -899,7 +863,7 @@ theorem add_id_exercise : ∀ n m o : Nat,
     n = m → m = o → n + m = m + o := by
   sorry
 
--- ### Displaying Theorem Statements
+-- #### Displaying Theorem Statements
 
 -- The `#check` command can also be used to examine the
 -- statements of previously declared lemmas and theorems.
@@ -1030,7 +994,7 @@ theorem and3_exchange (b c d : Bool) :
 
 -- As you can see, proofs by cases can become very verbose. We
 -- will introduce some tactics for writing shorter proofs by
--- case analysis in `Tactics.lean`.
+-- case analysis in Tactics chapter.
 
 -- ### New Tactics: `rewrite ... at` and `exact`
 
@@ -1348,14 +1312,6 @@ theorem lowerGrade_lowers : ∀ g : Grade,
 --     Niklas Halonen (xhalo32): We need to teach how to prove
 --     a goal that looks like `natural ≠ minus` for example.
 --     One could write `injection x` for example:
---
---     `example : natural ≠ minus := by
---       intro x
---       injection x`
---
---     `example : natural ≠ minus := by
---       intro x
---       injection x`
 --
 --     `example : natural ≠ minus := by
 --       intro x

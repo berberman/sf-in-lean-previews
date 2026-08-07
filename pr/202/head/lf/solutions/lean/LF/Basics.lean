@@ -2,25 +2,6 @@ import LF.SFLCompat
 
 -- # Basics: Functional Programming in Lean
 
--- Note to developers (Jonathan Chan  @ionathanch):
---     [BCP: Old comment -- might be out of date?] There should be some
---     instruction on interaction with the IDE, namely:
---
---     - how to read the proof state
---
---     - clicking immediately after a tactic will show you what it changed
---
---     - clicking after each `h` in `rw [h₁, h₂, ...]` will show you what was
---       rewritten
---
---     - hovering over a tactic will provide documentation on how to use it
---
---     - hovering over a definition will give its type
---
---     - hovering over a Unicode character will tell you how to type it
---
---     - Ctrl-clicking on a definition will take you to the definition location
-
 -- The *functional style* of programming is founded on simple mathematical
 -- intuitions: A program is essentially a concrete means for computing a
 -- mathematical function, which just maps inputs to outputs. Even when
@@ -323,7 +304,8 @@ theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b := by
 
 -- First we have the `by` keyword, which signals to Lean that we are beginning
 -- a sequence of *tactics*. The `intro b` and `rfl` that you see after the
--- `by` are examples of tactics.
+-- `by` are examples of tactics. If you hover over a tactic's name, Lean shows
+-- its documentation, explaining what the tactic does and how to use it.
 
 -- Tactics manipulate the *proof state*, as you can can see the in the Lean
 -- InfoView panel. The proof state is divided by the symbol ⊢, called the
@@ -379,24 +361,25 @@ theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
 -- It's also important to point out that, as with languages like Python and
 -- Haskell, Lean is *whitespace-sensitive*. That is, the indentation in proofs
 -- is important and changing it can change the meaning of the proof, usually
--- causing the proof to break. If we had instead written the following:
+-- causing the proof to break. Suppose we had instead written the following:
 
 sf_expect_failure
   theorem true_and_wrong : ∀ (b : MyBool), (MyBool.true && b) = b := by
     intro b
       rfl
 
+-- Lean complains because the `rfl` is not at the same level of indentation as
+-- the `{tactic}intro b`, so Lean does not recognize these two tactics as
+-- being sequential in the way they should be.
+
 -- Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
 
 -- b : MyBool
 -- ⊢ (true && b) = b
 
--- Lean would complain, since the `rfl` is not at the same level of
--- indentation as the `{tactic}intro b`, so it does not recognize these two
--- tactics as being sequential in the way they should be. In general,
--- sequential tactics applied to the same goal must be on subsequent lines at
--- the same level of indentation or separated on the same line by a `;` like
--- so:
+-- In general, sequential tactics applied to the same goal must be on
+-- subsequent lines at the same level of indentation or separated on the same
+-- line by a `;` like so:
 
 theorem true_and' : ∀ (b : MyBool), (MyBool.true && b) = b := by
   intro b; rfl
@@ -488,7 +471,7 @@ end MyBool
 --     want to unilaterally make that call. TODO
 
 -- The enumerated types we have seen so far are so-named because their
--- definitions explicitly enumerate a finite set of elements, their
+-- definitions explicitly enumerate a finite set of elements: their
 -- constructors. Here is a more interesting inductive type definition,
 -- `Color`, where one of the constructors takes an argument:
 
@@ -501,14 +484,6 @@ inductive Color : Type where
   | black
   | white
   | primary (p : RGB)
-
--- An `inductive` definition does two things:
-
--- - It introduces a set of new *constructors*. E.g., `RGB.red`,
---   `Color.primary`, `Bool.true`, `Bool.false`, `Day.monday`, etc. are
---   constructors.
-
--- - It groups them into a new named type, like `Bool`, `RGB`, or `Color`.
 
 -- *Constructor expressions* are formed by applying a constructor to zero or
 -- more other constructors or constructor expressions, obeying the declared
@@ -657,9 +632,9 @@ end Playground
 
 -- Playground.myFoo : RGB
 
--- Namespaces can be opened and closed as often as you like to add new
--- definitions and access old ones. When inside a `namespace`, definitions
--- from the that namespace can be referenced without prefixes.
+-- Namespaces can be re-opened as often as you like to add new definitions and
+-- access old ones. When inside a `namespace`, definitions from the that
+-- namespace can be referenced without prefixes.
 
 namespace Playground
 -- this refers to the `myFoo` we defined in the `Playground` namespace previously
@@ -682,14 +657,6 @@ end RGB
 
 -- Top-level definitions can also be prefixed by a namespace, which opens the
 -- namespace temporarily for the body of the definition.
-
--- Note to developers (Claude, NOW):
---     Rendering bug in **student** and **terse** (solutions is fine): the
---     leading `--- …` triple-dash comment lines in this block and the next
---     one each render **twice** in a row (e.g. two consecutive
---     `--- this works, because …` lines). The solutions build shows each
---     once, so this is a Verso rendering quirk with `---`-style comments in
---     the elided builds, not a source duplication.
 
 --- this works, because the definition is qualified by `RGB.`
 def RGB.myOtherBlue : RGB := myBlue
@@ -837,16 +804,6 @@ sf_expect_failure
 -- Once you have written your predictions, copy the lines from the comment
 -- into an active section of the book to evaluate them.
 
--- Note to developers (mwhicks1):
---     This namespace section is great, but it interrupts the pedagogical flow
---     of the presentation of inductive types. We were prevoiusly looking at
---     constructors With one argument, then there was this big digression, and
---     now we are back to two. Are we able to move the namespace stuff to the
---     end of this section (Data and Functions)? Then we can start it by
---     saying we are finishing with it but readers can skip it if they prefer
---     to "follow their nose" regarding namespaces, and come back when they
---     want to know more.
-
 -- ### Constructors with Multiple Parameters (Tuple Types)
 
 namespace Playground
@@ -872,7 +829,7 @@ inductive Nibble : Type where
 
 -- Nibble.bits Bit.b1 Bit.b0 Bit.b1 Bit.b0 : Nibble
 
--- Note: The `bits` constructor illustrates a feature of multi-parameter
+-- The `bits` constructor illustrates a feature of multi-parameter
 -- declarations, both for constructors and for functions: Instead of writing
 -- `(x0 : Bit) (x1 : Bit) ...` we write `(x0 x1 ... : Bit)` since all of the
 -- variables have the same type. We could have done the same with the function
@@ -893,7 +850,7 @@ example : allZero (.bits .b0 .b0 .b0 .b0) = true  := by rfl
 
 end Playground
 
--- #### Aside: Structures
+-- #### Structures
 
 -- When defining an inductive type with just one constructor, we can instead
 -- use a `structure`:
@@ -910,9 +867,9 @@ structure NibbleStruct : Type where
 
 -- { x0 := Playground.Bit.b0, x1 := Playground.Bit.b0, x2 := Playground.Bit.b0, x3 := Playground.Bit.b0 } : NibbleStruct
 
--- The `.mk` constructor is created for us. However, structures are more
--- commonly constructed by assigning values to their *fields*. Each field name
--- is paird with its value using `:=`:
+-- The `.mk` constructor is created for us. Structures are more commonly
+-- constructed by assigning values to their *fields*. Each field name is paird
+-- with its value using `:=`:
 
 def zeroNibble : NibbleStruct := {
     x0 := .b0
@@ -949,9 +906,10 @@ def makeNibbleStruct (x0 x1 x2 x3 : Playground.Bit) : NibbleStruct :=
 
 -- ### Natural Numbers
 
--- We put this portion of the chapter in a namespace so that our own
--- definition of numbers does not interfere with the one from the standard
--- library. In the remainder of the book, we'll use the standard library's.
+-- We put this portion of the chapter in a namespace so that our definition of
+-- numbers does not interfere with the one from the standard library. Our
+-- definition matches the standard one, which we will use in the rest of the
+-- book.
 
 namespace NatPlayground
 
@@ -987,11 +945,6 @@ namespace NatPlayground
 inductive Nat : Type where
   | zero
   | succ (n : Nat)
-
--- Naturally, Lean has its own definition of natural numbers, with some
--- slightly fancy features for reasoning and notation. As we are just
--- beginning to reason about natural numbers, we use our own definition here
--- and introduce the Lean one in a later chapter.
 
 -- We'll define some shorthands for numbers, putting them in the `Nat`
 -- namespace so we don't need to use `.` notation everywhere.
@@ -1094,8 +1047,8 @@ scoped infixl:65 " + " => add
 -- Being recursive on a `Nat` and returning `Nat` as well, `add` is the first
 -- example of a more sophisticated class of functions. In this chapter and
 -- beyond, we will *prove* properties about recursive functions like `add`
--- over inductive datatypes like `Nat`, using *simplification rules*, or
--- *characterizing lemmas*, about their behavior.
+-- over inductive datatypes like `Nat`, using *simplification rules*, also
+-- known as *characterizing lemmas*, about their behavior.
 
 -- Here is a simplification rule about `add`:
 
@@ -1112,7 +1065,7 @@ theorem add_zero : ∀ n : Nat, n + zero = n := by
 -- NatPlayground.Nat.add_zero (n : Nat) : n + zero = n
 
 -- Using our simplification rule `add_zero`, we can carry out a simple proof
--- about natural numbers!
+-- about natural numbers.
 
 theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
   intro n
@@ -1133,18 +1086,22 @@ theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
 theorem add_zero_zero_explained : ∀  n : Nat, n + zero + zero = n := by
   intro n
   /- After introducing `n`, our goal is `n + zero + zero = n`.
-     What can we do to simplify this expression? If you hover your cursor over the
-     `add_zero` in the rewrite below, you can see its type: `n + zero = n`. So,
-     we can use that rewrite rule to transform an appearnce of `n + zero` in the goal to `n`. -/
+     What can we do to simplify this expression? If you hover
+     your cursor over the `add_zero` in the rewrite below, you
+     can see its type: `n + zero = n`. So, we can use that
+     rewrite rule to transform an appearnce of `n + zero`
+     in the goal to `n`. -/
   rewrite [add_zero]
-  /- Now click here to see the new proof state that results from the tactic.
-     Notice how `n + zero + zero` changes to `n + zero` in the goal. -/
+  /- Now click here to see the new proof state that results
+     from the tactic. Notice how `n + zero + zero` changes to
+     `n + zero` in the goal. -/
   rewrite [add_zero]
-  /- Again the goal changes, from `n + zero` to `n`. Now the proof state
-     is an equality with both sides equal, so it can be closed by the
-     tactic `rfl`. -/
+  /- Again the goal changes, from `n + zero` to `n`. Now the
+     proof state is an equality with both sides equal, so it
+     can be closed by the tactic `rfl`. -/
   rfl
-  /- The proof is now done! The Lean InfoView tells us there are "No goals". -/
+  /- The proof is now done! The Lean InfoView tells us there are
+     "No goals". -/
 
 -- Give this proof a try (it's similar):
 
@@ -1158,12 +1115,11 @@ theorem add_zero_zero_zero : ∀ n : Nat, n + zero + zero + zero = n := by
 
 -- ### The `rewrite` tactic
 
--- As we saw above, the tactic that tells Lean to rewrite (part of) a goal or
--- hypothesis based on a rule is called `rewrite`. Given the rule `add_zero`,
--- which states that `n + zero` is equal to `n` for any `n`, we can replace
--- any `n + zero` in our proof with `n` via `rewrite [add_zero]`.
-
--- The `rewrite` tactic takes its argument(s) in square brackets.
+-- The `rewrite` tactic tells Lean to rewrite (part of) a goal or hypothesis
+-- based on a rule (or rules), given in square brackets. For example, given
+-- the rule `add_zero`, which states that `n + zero` is equal to `n` for any
+-- `n`, we can replace any `n + zero` in our proof with `n` via
+-- `rewrite [add_zero]`.
 
 -- ### The `rfl` tactic
 
@@ -1194,51 +1150,46 @@ theorem add_one (n : Nat) : n + (succ zero) = succ n + zero := by
   rewrite [add_zero]
   rfl
 
--- Again, we recommend stepping through these proofs in VS Code — that is,
--- moving past each tactic with your cursor to see how it changes the proof
--- state and hovering over each argument to `rewrite` to see its type.
+-- We recommend stepping through these proofs in VS Code — that is, moving
+-- past each tactic with your cursor to see how it changes the proof state and
+-- hovering over each argument to `rewrite` to see its type.
 
 -- ### Irreducibility, Rewriting, and Proof Engineering
 
 -- Lean, like any other programming language, has conventions and best
--- practices for writing good software. In object-oriented programming, for
--- example, it is considered good practice not to access the fields of an
--- object directly, but instead to use getter and setter methods. This helps
--- to encapsulate the object's definition, so that, if its fields or
--- implementation ever change, the interface it exposes to the outside world
--- remains the same. In simple examples such conventions may seem trivial or
--- even silly; in complex codebases, it is the only way to maintain crucial
--- invariants that prevent a system from becoming unmaintainable.
+-- practices for writing good software. Lean takes inspiration from
+-- object-oriented programming in favoring the use of *encapsulation*. In OOP,
+-- it is considered poor style to expose the fields of an object in its
+-- interface; instead, those fields should only be accessible by an object's
+-- methods (like getters and setters). Doing so hides the object's definition,
+-- so that, if its fields or implementation ever change, the interface it
+-- exposes to the outside world remains the same.
 
--- The same principle applies to definitions and proofs in Lean. In idiomatic
--- Lean, it is considered poor style to "peek" through definitions by using
--- `rfl` to implicitly simplify expressions that aren't syntactically
--- identical. If you take a look at the proofs of `add_zero` and `add_succ`
--- above, you will notice this is exactly what we did when we used the `rfl`
--- tactic.
+-- In idiomatic Lean, it is similarly considered poor style to "peek" through
+-- definitions by using `rfl` to implicitly simplify expressions that aren't
+-- syntactically identical. If you take a look at the proofs of `add_zero` and
+-- `add_succ` above, you will notice this is exactly what we did when we used
+-- the `rfl` tactic.
 
 -- However, the foundational theorems `add_zero` and `add_succ` provide a
 -- characterization of the behavior of `add` that makes using `rfl` to
 -- simplify expressions unnecessary; instead, we can rewrite by these theorems
--- anywhere we want to describe how `add` evaluates.
+-- anywhere we want to describe how `add` evaluates. In real-world Lean
+-- developments, the style of writing proofs using simplification rules is
+-- both standard and expected.
 
--- In this text, to enforce idiomatic style, we mark definitions with
+-- For the next few chapters, we mark definitions with
 -- `attribute [irreducible]` to prevent this peeking, also called
 -- **definitional equality abuse** (**defeq abuse**, for short). We place this
 -- attribute after the proofs of `add_zero` and `add_succ`, and can then
 -- rewrite by these theorems anywhere we want to describe how `add` evaluates.
--- In real-world Lean developments, the style of writing proofs using
--- simplification rules is both standard and expected. Definitions in those
--- developments may not use `attribute [irreducible]`, but they *will* have
--- definitions that are not meant to be reduced.
-
--- We use `attribute [irreducible]` here to enforce the style of using
--- simplification rules now so that it is natural to you moving forward. We
--- will relax this discipline in later chapters.
+-- We use `attribute [irreducible]` for now to enforce the style of using
+-- simplification rules, so that it is natural to you moving forward. We will
+-- relax this discipline in later chapters.
 
 attribute [irreducible] add
 
--- These characterizing theorems also follow a particular pattern. Let's look
+-- These simplification rules also follow a particular pattern. Let's look
 -- again at the definition of `add`, without the `+` notation for maximum
 -- clarity:
 
@@ -1263,26 +1214,24 @@ end AddPlayground
 -- statement defining `add` and describe how the evaluation of `add` proceeds
 -- in that case. The `add_zero` theorem describes how `add n zero` evaluates,
 -- while `add_succ` describes (symbolically) how `add n (succ m)` evaluates.
--- Because these theorems describe how to simplify more complex expressions
--- involving `add`, we call them *simplification lemmas* for `add`.
 
 -- These are instances of a general pattern: each definition operating over
 -- enumerated types like `Nat`, `Bool`, `Day`, or `Color` needs a
--- simplification lemma for each branch of control flow through the function.
+-- simplification rule for each branch of control flow through the function.
 
--- So, for example, we need two simplification lemmas for the definition of
+-- So, for example, we need two simplification rules for the definition of
 -- `pred`:
 
 theorem pred_zero : pred zero = zero := by rfl
 theorem pred_succ n : pred (succ n) = n := by rfl
 
--- Now that we have defined and proved `pred`'s simplification lemmas, we can
+-- Now that we have defined and proved `pred`'s simplification rules, we can
 -- mark it `irreducible`, to enforce rewriting by these lemmas.
 
 attribute [irreducible] pred
 
 -- Similarly, for each of the three branches of the definition of `even`, we
--- need one simplification lemma:
+-- need one simplification rule:
 
 theorem even_zero : even zero = true := rfl
 theorem even_one : even (succ zero) = false := rfl
@@ -1290,17 +1239,17 @@ theorem even_succ_succ n : even (succ (succ n)) = even n := rfl
 
 attribute [irreducible] even odd
 
--- In the remainder of this textbook, we will pair definitions with their
--- simplification lemmas. After proving these lemmas, instead of using `rfl`
--- to peek through the definitions, we will prefer rewriting by the lemmas.
+-- In the remainder of this textbook, we will pair definitions with
+-- simplification rules. After proving these rules, instead of using `rfl` to
+-- peek through the definitions, we will `rewrite` using the rules.
 
--- Eventually, we will introduce a way to automatically apply these
--- simplfication lemmas, but for now these tactics are forbidden by our
--- autograder. Real-world Lean uses automation extensively, and you will learn
--- to do so by the end of this book and in the following volumes. For the
--- moment it is important that you work through these early concepts by hand,
--- without automation. By the time the more powerful tools are introduced, you
--- will have the foundation to use them with precision and skill.
+-- Eventually, we will introduce a way to *automatically* apply these
+-- simplfication rules. Real-world Lean developments use automation
+-- extensively, and you will learn to do so gradually throughout this book.
+-- For the moment it is important that you work through these early concepts
+-- by hand, without automation. By the time the more powerful tools are
+-- introduced, you will have the foundational understanding to use them with
+-- precision and skill.
 
 -- ### Working with Numerals
 
@@ -1335,6 +1284,8 @@ theorem two_plus_two_eq_four : two + two = four := by
              two_eq_succ_one, one_eq_succ_zero]
     rewrite [add_succ, add_succ, add_zero]
     rfl
+
+-- #### Multiplication
 
 -- Now that we know how addition is defined, we can use it to define
 -- multiplication:
@@ -1374,9 +1325,8 @@ attribute [irreducible] mul
 -- Prove these thoerems using rewriting with the simplification rules for
 -- addition and multiplication.
 
--- (We have given you the first line.) Notice how `rewrite` can take any
--- number of arguments. You can use this rewrite with all of the
--- simplification rules at once, for example.
+-- Notice how `rewrite` can take any number of arguments. You can rewrite with
+-- all of the simplification rules at once, for example.
 
 -- After each rewrite, check the proof state by placing the cursor immediately
 -- after a rule to see how the goal is changing. This happens naturally as you
@@ -1419,6 +1369,8 @@ theorem two_mul_two : (two * two : Nat) = four := by
     rewrite [add_succ, add_succ, add_zero]
     rewrite [add_succ, add_succ, add_zero]
     rfl
+
+-- #### Equality and Ordering
 
 -- When we say that Lean relies on almost nothing that's truly built-in, we
 -- really mean it: even testing equality is not a primitive operation, but an
@@ -1489,7 +1441,7 @@ scoped infixl:30 " == " => beq
 -- we can try to prove, while `x == y` is a boolean *expression* whose value
 -- (either `true` or `false`) Lean can compute.
 
--- We can also now define the simplification lemmas for `beq` with our new
+-- We can also now define the simplification rules for `beq` with our new
 -- notation, one for each of the four cases of control flow through the
 -- function.
 
@@ -1500,7 +1452,7 @@ theorem succ_succ_beq (n m : Nat) : ((succ n) == (succ m)) = (n == m) := by rfl
 
 attribute [irreducible] beq
 
--- ## General Proofs about Natural Numbers
+-- ### General Proofs about Natural Numbers
 
 -- We now begin to make claims about *general* natural numbers.
 
@@ -1539,7 +1491,7 @@ theorem add_id_exercise : ∀ n m o : Nat,
     rewrite [h1, h2]
     rfl
 
--- ### Displaying Theorem Statements
+-- #### Displaying Theorem Statements
 
 -- The `#check` command can also be used to examine the statements of
 -- previously declared lemmas and theorems.
@@ -1594,13 +1546,10 @@ theorem add_one_neb_zero (n : Nat) : (succ n == zero) = false := by
     rfl
 
 -- The `cases` tactic generates *two* subgoals, which we must prove,
--- separately, in order to get Lean to accept the theorem.
-
--- The generated subgoals are tagged by the names of the constructors.
--- `| zero =>` and `cas| succ n' =>` select which subgoal to work on next and
--- introduce variable names.
-
--- Note also that when we enter a subcase, we increase the level of
+-- separately, in order to get Lean to accept the theorem. The generated
+-- subgoals are tagged by the names of the constructors. `| zero =>` and
+-- `| succ n' =>` select which subgoal to work on next and introduce variable
+-- names. Note also that when we enter a subcase, we increase the level of
 -- indentation at which we are working by two spaces.
 
 -- The `cases` tactic can be used with any inductively defined datatype. For
@@ -1691,7 +1640,8 @@ theorem and3_exchange (b c d : Bool) :
         rfl
 
 -- As you can see, proofs by cases can become very verbose. We will introduce
--- some tactics for writing shorter proofs by case analysis in `Tactics.lean`.
+-- some tactics for writing shorter proofs by case analysis in Tactics
+-- chapter.
 
 -- ### New Tactics: `rewrite ... at` and `exact`
 
@@ -2164,14 +2114,6 @@ theorem lowerGrade_lowers : ∀ g : Grade,
 --     Niklas Halonen (xhalo32): We need to teach how to prove a goal that
 --     looks like `natural ≠ minus` for example. One could write `injection x`
 --     for example:
---
---     `example : natural ≠ minus := by
---       intro x
---       injection x`
---
---     `example : natural ≠ minus := by
---       intro x
---       injection x`
 --
 --     `example : natural ≠ minus := by
 --       intro x

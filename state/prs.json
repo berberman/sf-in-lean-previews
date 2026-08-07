@@ -259,9 +259,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "80f97973303452b6e207472cb73524027a30abef",
+      "head_sha": "8e2aaa57be7c8ef5c5fbc6af9da1b14230df5b2a",
       "preview_path": "pr/202/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31184828803",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31197012694",
       "status": "published",
       "title": "Polishing pass over Basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/202"
