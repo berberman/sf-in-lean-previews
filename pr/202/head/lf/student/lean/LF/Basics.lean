@@ -152,10 +152,11 @@ example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.tuesday := by
 -- equal to itself. After evaluation, both sides of the equality are the same
 -- value, so the assertion is true by reflexivity. If we had made a different
 -- assertion, such as
--- `example : nextWorkingDay (nextWorkingDay Day.saturday) =
--- Day.monday`, then
--- Lean would not be able to verify it and would instead signal an error. Try
--- it out!
+
+sf_expect_failure
+  example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.monday := by rfl
+
+-- then Lean would not be able to verify it and would instead signal an error.
 
 -- ### Aside: Using the VS Code Lean Extension
 
@@ -189,8 +190,9 @@ example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.tuesday := by
 
 -- Following the pattern of the days of the week above, we can define the
 -- standard type `Bool` of booleans by enumerating its members `true` and
--- `false`. Our definition `MyBool` is equivalent to Lean's built-in `Bool`,
--- which we'll switch to later.
+-- `false`. We define our own `MyBool` to teach the concept of building
+-- booleans from scratch. Our definition `MyBool` is equivalent to Lean's
+-- built-in `Bool`, which we'll switch to later.
 
 inductive MyBool : Type where
   | true
@@ -288,7 +290,7 @@ theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false 
 -- *prove* some simple properties of those functions. Here is a simple rule
 -- about `&&`:
 
--- - `(MyBool.true && b) = b`
+-- - for any boolean value `b`, `(MyBool.true && b) = b`
 
 -- This is an example of a *proposition*, a logical *claim* that we can try to
 -- prove. It says that `MyBool.true && b` is equal to `b` for every `MyBool`
@@ -335,10 +337,13 @@ theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b := by
 
 theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
   /- Move your cursor (click) here to see the initial proof state in
-      the InfoView. The context (before the ⊢) is empty.
-      The goal is `∀ (b : MyBool), (MyBool.true && b) = b`. -/
+     the InfoView. If you are viewing the book online,
+     instead click on the white button after `by`.
+     The context (before the ⊢) is empty.
+     The goal is `∀ (b : MyBool), (MyBool.true && b) = b`. -/
   intro b
-  /- Now click here to see the new proof state that results from the
+  /- Now click here (or the white button after `intro b`)
+     to see the new proof state that results from the
      tactic. Notice how `intro b` has changed the _context_: it now
      contains `b : MyBool`.
 
@@ -379,11 +384,17 @@ sf_expect_failure
     intro b
       rfl
 
+-- Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+-- b : MyBool
+-- ⊢ (true && b) = b
+
 -- Lean would complain, since the `rfl` is not at the same level of
--- indentation as the `intro b`, so it does not recognize these two tactics as
--- being sequential in the way they should be. In general, sequential tactics
--- applied to the same goal must be on subsequent lines at the same level of
--- indentation or separated on the same line by a `;` like so:
+-- indentation as the `{tactic}intro b`, so it does not recognize these two
+-- tactics as being sequential in the way they should be. In general,
+-- sequential tactics applied to the same goal must be on subsequent lines at
+-- the same level of indentation or separated on the same line by a `;` like
+-- so:
 
 theorem true_and' : ∀ (b : MyBool), (MyBool.true && b) = b := by
   intro b; rfl
@@ -441,12 +452,18 @@ end MyBool
 
 #check Bool.true
 
+-- Bool.true : Bool
+
 -- If the expression after `#check` is followed by a colon and a type, Lean
 -- will verify that the type of the expression matches the given type and
 -- signal an error if not.
 
 #check (Bool.true : Bool)
 #check (Bool.not Bool.true : Bool)
+
+-- true : Bool
+
+-- !true : Bool
 
 -- Functions like `Bool.not` are themselves ordinary values, just like
 -- `Bool.true` and `Bool.false`. Their types are called *function types*, and
@@ -577,7 +594,7 @@ def is_weekend (d : Day) : Bool
 theorem is_weekend_test1 : is_weekend Day.sunday = true := sorry
 theorem is_weekend_test2 : is_weekend Day.friday = false := sorry
 
--- ### Exercise (1 star): is_inversion ⭐
+-- ### Exercise (1 star): isInversion ⭐
 
 -- Define a function that takes two colors and returns `true` if the second
 -- color is an *inversion* of the first, and false otherwise.
@@ -589,14 +606,15 @@ theorem is_weekend_test2 : is_weekend Day.friday = false := sorry
 -- As before, write the right-hand sides of the `example` blocks to ensure
 -- they pass with no `sorry`.
 
-def is_inversion (c1 c2 : Color) : Bool
+def isInversion (c1 c2 : Color) : Bool
   := sorry
 
-theorem is_inversion_test1 : is_inversion Color.black Color.white = true := sorry
-theorem is_inversion_test2 : is_inversion Color.white Color.black = Bool.true := sorry
-theorem is_inversion_test3 : is_inversion (Color.primary RGB.red) (Color.primary RGB.blue) = Bool.true :=
+
+theorem isInversion_test1 : isInversion Color.black Color.white = true := sorry
+theorem isInversion_test2 : isInversion Color.white Color.black = Bool.true := sorry
+theorem isInversion_test3 : isInversion (Color.primary RGB.red) (Color.primary RGB.blue) = Bool.true :=
   sorry
-theorem is_inversion_test4 : is_inversion (Color.primary RGB.green) (Color.primary RGB.red) = Bool.false :=
+theorem isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = Bool.false :=
   sorry
 
 -- ### Namespaces
@@ -616,8 +634,12 @@ namespace Playground
 def myFoo : RGB := RGB.blue
 end Playground
 
-#check myFoo             -- Bool
-#check Playground.myFoo  -- RGB
+#check myFoo
+#check Playground.myFoo
+
+-- myFoo : Bool
+
+-- Playground.myFoo : RGB
 
 -- Namespaces can be opened and closed as often as you like to add new
 -- definitions and access old ones. When inside a `namespace`, definitions
@@ -628,7 +650,9 @@ namespace Playground
 def myBar : RGB := myFoo
 end Playground
 
-#check Playground.myBar -- RGB
+#check Playground.myBar
+
+-- Playground.myBar : RGB
 
 -- When a type is created, a `namespace` with the same name as that type is
 -- implicitly created as well; definitions on that type are available inside
@@ -654,26 +678,18 @@ end RGB
 --- this works, because the definition is qualified by `RGB.`
 def RGB.myOtherBlue : RGB := myBlue
 
-#check RGB.myBlue      -- RGB
-#check RGB.myOtherBlue -- RGB
+#check RGB.myBlue
+#check RGB.myOtherBlue
 
--- Note to developers (Daniel Sainati  @dsainati1):
---     see my comment later in the file about guard msgs
---
---     `--- this doesn't work; the identifier is unknown
---     /-- error: Unknown identifier `myBlue` -/
---     #guard_msgs(error) in
---     #check myBlue -- unknown identifier`
---
---     `--- this doesn't work; the identifier is unknown
---     /-- error: Unknown identifier `myBlue` -/
---     #guard_msgs(error) in
---     #check myBlue -- unknown identifier`
---
---     `--- this doesn't work; the identifier is unknown
---     /-- error: Unknown identifier `myBlue` -/
---     #guard_msgs(error) in
---     #check myBlue -- unknown identifier`
+-- RGB.myBlue : RGB
+
+-- RGB.myOtherBlue : RGB
+
+sf_expect_failure
+  -- this doesn't work; the identifier is undefined
+  #check myBlue
+
+-- Unknown identifier `myBlue`
 
 -- Similarly, we could rewrite the definition of `nextWorkingDay` from above
 -- inside the `Day` namespace like so:
@@ -698,7 +714,9 @@ end MyNamespace
 
 open MyNamespace
 
-#check myDef -- Bool
+#check myDef
+
+-- MyNamespace.myDef : Bool
 
 -- If we only want to bring *some*, rather than all, of the definitions of a
 -- namespace into the current scope, we can use the `open (...)` form:
@@ -711,7 +729,9 @@ end MyOtherNamespace
 open MyOtherNamespace (myVisibleDef)
 
 -- `myVisibleDef` is now usable without qualification:
-#check myVisibleDef -- Bool
+#check myVisibleDef
+
+-- MyOtherNamespace.myVisibleDef : Bool
 
 -- But `myHiddenDef`, which we did not `open`, still needs its full name;
 -- using it unqualified is an error:
@@ -719,14 +739,20 @@ open MyOtherNamespace (myVisibleDef)
 sf_expect_failure
   #check myHiddenDef
 
+-- Unknown identifier `myHiddenDef`
+
 -- In fact, this is what exactly what Lean does with the standard `Bool` type
 -- by default. Since it is such an important part of many proofs and programs,
 -- Lean implicitly `open`s many of `Bool`s functions and constructors.
 -- Accordingly, we can use constructors like `true` and `false` and functions
--- like `not` without qualifying them with `Bool.`.
+-- like `not` without qualifying them with `Bool`.
 
-#check Bool.true -- Bool
-#check true -- Bool
+#check Bool.true
+#check true
+
+-- Bool.true : Bool
+
+-- Bool.true : Bool
 
 -- Finally, Lean can often automatically figure out which namespace a
 -- qualified name lives in, saving us the need to explicitly specify it every
@@ -764,10 +790,22 @@ def nextWorkingDay' (d : Day) : Day :=
 sf_expect_failure
   #check .true
 
+-- Invalid dotted identifier notation: The expected type of `.true` could not be determined
+
+-- Hint: Using one of these would be unambiguous:
+--   [apply] `true`
+--   [apply] `MyBool.true`
+--   [apply] `Lake.Toml.true`
+--   [apply] `Lean.LBool.true`
+--   [apply] `Std.Do.ExceptConds.true`
+--   [apply] `Lean.Meta.Grind.Filter.true`
+
 -- Here, though, because `not` is a function that takes a `Bool` argument,
 -- Lean knows that `.true` must here be a `Bool`:
 
 #check (Bool.not .true)
+
+-- !true : Bool
 
 -- ### Exercise (0 stars): custom_namespace_checks
 
@@ -814,13 +852,15 @@ inductive Bit : Type where
 inductive Nibble : Type where
   | bits (x0 x1 x2 x3 : Bit)
 
-#check (.bits .b1 .b0 .b1 .b0 : Nibble)
+#check Nibble.bits .b1 .b0 .b1 .b0
+
+-- Nibble.bits Bit.b1 Bit.b0 Bit.b1 Bit.b0 : Nibble
 
 -- Note: The `bits` constructor illustrates a feature of multi-parameter
 -- declarations, both for constructors and for functions: Instead of writing
 -- `(x0 : Bit) (x1 : Bit) ...` we write `(x0 x1 ... : Bit)` since all of the
 -- variables have the same type. We could have done the same with the function
--- definition `or` above, writing `or (b1 b2 : MyBool)` rather than
+-- definition `MyBool.or` above, writing `or (b1 b2 : MyBool)` rather than
 -- `or (b1 : MyBool) (b2 : MyBool)`.
 
 -- The `bits` constructor acts as a wrapper for its contents. Unwrapping is
@@ -839,8 +879,8 @@ end Playground
 
 -- #### Aside: Structures
 
--- When defining an inductive type with just case, we can instead use a
--- `structure`:
+-- When defining an inductive type with just one constructor, we can instead
+-- use a `structure`:
 
 structure NibbleStruct : Type where
   x0 : Playground.Bit
@@ -848,11 +888,48 @@ structure NibbleStruct : Type where
   x2 : Playground.Bit
   x3 : Playground.Bit
 
--- Rather than construct this as `.bits .b0 .b0 .b0 .b0` we construct it as:
+-- Rather than construct this as `.bits .b0 .b0 .b0 .b0`, we construct it as:
 
--- #check NibbleStruct.mk .b0 .b0 .b0 .b0
+#check NibbleStruct.mk .b0 .b0 .b0 .b0
 
--- The `.mk` constructor is created for us.
+-- { x0 := Playground.Bit.b0, x1 := Playground.Bit.b0, x2 := Playground.Bit.b0, x3 := Playground.Bit.b0 } : NibbleStruct
+
+-- The `.mk` constructor is created for us. However, structures are more
+-- commonly constructed by assigning values to their *fields*. Each field name
+-- is paird with its value using `:=`:
+
+def zeroNibble : NibbleStruct := {
+    x0 := .b0
+    x1 := .b0
+    x2 := .b0
+    x3 := .b0
+  }
+
+-- Since the result type is declared to be `NibbleStruct`, Lean knows which
+-- structure and fields we mean. Unlike `NibbleStruct.mk`, this construction
+-- syntax doesn't depend on the order of fields.
+
+-- Now that we have seen how to construct a structure from scratch — how do we
+-- "update" an existing structure, or in other words, construct a new
+-- structure while reusing some old fields?
+
+def setFistTwoBits (old : NibbleStruct)
+    (newX0 : Playground.Bit)
+    (newX1 : Playground.Bit) : NibbleStruct :=
+  { old with x0 := newX0, x1 := newX1 }
+
+-- The expression `{ old with ... }` constructs a new `NibbleStruct` whose
+-- `x0` and `x1` have the given value and whose other fields are copied from
+-- `old`. Keep in mind that `old` was not modified — we constructed a new
+-- structure starting from the old one.
+
+def makeNibbleStruct (x0 x1 x2 x3 : Playground.Bit) : NibbleStruct :=
+  { x0, x1, x2, x3 }
+
+-- When a field an the variable supplying its value have the same name, Lean
+-- let us write just the name. Thus `{ x0, x1, x2, x3 }` is a shorthand for
+-- `{ x0 := x0, x1 := x1, x2 := x2, x3 := x3 }`. This is called *field
+-- abbreviation*.
 
 -- ### Natural Numbers
 
@@ -863,10 +940,10 @@ structure NibbleStruct : Type where
 namespace NatPlayground
 
 -- All the types we have defined so far — both enumerated types such as `Day`,
--- `Bool`, and `Bit` and tuple types such as `Nibble` built from them — are
--- finite. The natural numbers, on the other hand, are an infinite set, so
--- we'll need to use a slightly richer form of inductive type declaration to
--- represent them: *recursive* inductive types.
+-- `MyBool`, and `Playground.Bit` and tuple types such as `Playground.Nibble`
+-- built from them — are finite. The natural numbers, on the other hand, are
+-- an infinite set, so we'll need to use a slightly richer form of inductive
+-- type declaration to represent them: *recursive* inductive types.
 
 -- While the need for recursion is unequivocal, there are many
 -- recursively-defined representations of numbers to choose from. You are
@@ -886,7 +963,7 @@ namespace NatPlayground
 -- sake of streamlining proofs. As a Lean datatype, it uses two constructors.
 -- The `zero` constructor represents the number zero. The `succ` constructor
 -- can be applied to the representation of the natural number `n`, yielding
--- the representation of `n+1`, where `succ` stands for "successor." The
+-- the representation of `n + 1`, where `succ` stands for "successor." The
 -- number `n` is then represented by `n` applications of `succ` to `zero`.
 
 -- Here is the complete datatype definition:
@@ -917,27 +994,33 @@ def pred (n : Nat) : Nat :=
   | zero => zero
   | succ n' => n'
 
-def minustwo (n : Nat) : Nat :=
+def minusTwo (n : Nat) : Nat :=
   match n with
   | zero => zero
   | succ (zero) => zero
   | succ (succ n') => n'
 
-#eval minustwo four
+#eval minusTwo four
 
--- Look the types of `succ`, `pred`, and `minustwo`:
+-- Look the types of `succ`, `pred`, and `minusTwo`:
 
-#check succ  -- Nat → Nat
-#check pred  -- Nat → Nat
-#check minustwo  -- Nat → Nat
+#check (succ)
+#check (pred)
+#check (minusTwo)
+
+-- succ : Nat → Nat
+
+-- pred : Nat → Nat
+
+-- minusTwo : Nat → Nat
 
 -- These are all things that can be applied to a number to yield a number.
--- However, there is a fundamental difference between `Nat.succ` and the other
--- two: functions like `Nat.pred` and `Nat.minustwo` are defined by giving
--- *computation rules* — e.g., the definition of `Nat.pred` says that
--- `Nat.pred (succ (succ zero))` can be simplified to `succ zero` — while the
--- definition of `Nat.succ` has no such behavior attached. Although it is like
--- a function in the sense that it can be applied to an argument, it does not
+-- However, there is a fundamental difference between `succ` and the other
+-- two: functions like `pred` and `minusTwo` are defined by giving
+-- *computation rules* — e.g., the definition of `pred` says that
+-- `pred (succ (succ zero))` can be simplified to `succ zero` — while the
+-- definition of `succ` has no such behavior attached. Although it is like a
+-- function in the sense that it can be applied to an argument, it does not
 -- *do* anything at all! It is just the way we write down numbers.
 
 -- We can also define *recursive functions*: functions that call themselves
@@ -954,7 +1037,7 @@ def even (n : Nat) : Bool :=
   | succ (zero) => false
   | succ (succ n') => even n'
 
-example : even one = false  := by rfl
+example : even one = false := by rfl
 example : even four = true := by rfl
 
 -- We could define `odd` by a similar recursive declaration, but here is a
@@ -963,7 +1046,7 @@ example : even four = true := by rfl
 def odd (n : Nat) : Bool :=
   not (even n)
 
-example : odd one = true  := by rfl
+example : odd one = true := by rfl
 example : odd four = false := by rfl
 
 -- This function takes multiple parameters, recursing on the second:
@@ -975,6 +1058,8 @@ def add (n : Nat) (m : Nat) : Nat :=
 
 #eval add one two -- succ (succ (succ zero)) -- aka, three!
 
+-- NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.zero)))
+
 -- We can also define infix notation for our `add` functions.
 
 -- Don't worry too much about how this is defined; we will return to it in
@@ -984,6 +1069,8 @@ scoped infixl:65 " + " => add
 
 #eval one + two -- succ (succ (succ zero)) -- aka, three again.
 
+-- NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.zero)))
+
 -- ## Proof by Rewriting
 
 -- ### Proving properties about functions in Lean
@@ -991,8 +1078,8 @@ scoped infixl:65 " + " => add
 -- Being recursive on a `Nat` and returning `Nat` as well, `add` is the first
 -- example of a more sophisticated class of functions. In this chapter and
 -- beyond, we will *prove* properties about recursive functions like `add`
--- over inductive datatypes like `Nat`, using *simplification rules* about
--- their behavior.
+-- over inductive datatypes like `Nat`, using *simplification rules*, or
+-- *characterizing lemmas*, about their behavior.
 
 -- Here is a simplification rule about `add`:
 
@@ -1005,6 +1092,8 @@ theorem add_zero : ∀ n : Nat, n + zero = n := by
   rfl
 
 #check add_zero
+
+-- NatPlayground.Nat.add_zero (n : Nat) : n + zero = n
 
 -- Using our simplification rule `add_zero`, we can carry out a simple proof
 -- about natural numbers!
@@ -1206,14 +1295,11 @@ theorem four_eq_succ_three : four = succ three := by rfl
 -- which allows us to use our `add` rules. Here's an example of how to start a
 -- proof this way.
 
+-- ### Exercise (1 star): mul_simpl_rules ⭐
+
 -- Finish the proof using the `add` rules:
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Should this be marked / formatted as an exercise or at least a
---     WORKINCLASS? RAB: Let's decide once we choose how to present the laws.
---     My intuition is yes.
-
-theorem one_plus_one_eq_two : (one + one : Nat) = two := by
+theorem one_plus_one_eq_two : one + one = two := by
   rewrite [one_eq_succ_zero]
   sorry
 
@@ -1332,15 +1418,14 @@ theorem succ_ble_zero (n : Nat) : ble (succ n) zero = false := by rfl
 theorem succ_ble_succ (n m : Nat) : ble (succ n) (succ m) = ble n m := by rfl
 
 example : ble two two = true  := by rfl
-example : ble two four = true  := by rfl
+example : ble two four = true := by rfl
 example : ble four two = false := by rfl
 
 -- ### Exercise (1 star): blt ⭐
 
 -- Define a less-than function in terms of `ble`.
 
-def blt (n m : Nat) : Bool
-  := sorry
+def blt (n m : Nat) : Bool := sorry
 
 example : blt two two = false := sorry
 example : blt two four = true  := sorry
@@ -1352,10 +1437,10 @@ attribute [irreducible] blt ble
 
 scoped infixl:30 " == " => beq
 
--- We now have two symbols that both look like equality: `=` and `==`. We'll
--- have much more to say about their differences and similarities later. For
--- now, notice that `x = y` is a logical *claim* — a "proposition" — that we
--- can try to prove, while `x == y` is a boolean *expression* whose value
+-- We now have seen two symbols that both look like equality: `=` and `==`.
+-- We'll have much more to say about their differences and similarities later.
+-- For now, notice that `x = y` is a logical *claim* — a "proposition" — that
+-- we can try to prove, while `x == y` is a boolean *expression* whose value
 -- (either `true` or `false`) Lean can compute.
 
 -- We can also now define the simplification lemmas for `beq` with our new
@@ -1405,38 +1490,35 @@ theorem add_id_exercise : ∀ n m o : Nat,
     n = m → m = o → n + m = m + o := by
   sorry
 
+-- ### Displaying Theorem Statements
+
 -- The `#check` command can also be used to examine the statements of
 -- previously declared lemmas and theorems.
 
 #check mul_zero  -- ∀ (n : Nat), n * 0 = 0
 #check mul_succ  -- ∀ (n m : Nat), n * Nat.succ m = n + n * m
 
--- ### Type Annotations
+-- NatPlayground.Nat.mul_zero (n : Nat) : n * zero = zero
 
--- Note that you may see a slight discrepancy in the output: `#check` might
--- show `NatPlayground.Nat.mul_zero (n : Nat) : n * zero = zero`.
--- Qualification, like `mul_zero` to `NatPlayground.Nat.mul_zero`, can happen
--- automatically when printing a type in Lean.
+-- NatPlayground.Nat.mul_succ (n m : Nat) : n * succ m = n * m + n
 
--- Another simple but important-to-note automatic display feature is
--- *indexing*: `mul_zero : ∀ (n : Nat), n * zero = zero` may display as
--- `mul_zero  (n : Nat) : n * zero = zero`.
+-- Note that you may see a slight discrepancy in the output: `#check` shows
+-- the theorem differently from the way it was introduced earlier.
 
--- Note how the `(n : Nat)` has moved *before* the colon and has lost the ∀.
--- The two definitions are equivalent for our purposes right now, but the
--- second is preferred in idiomatic Lean developments.
+-- First, Lean may print the theorem's fully qualified name
+-- `NatPlayground.Nat.mul_zero`. The qualification identifies the namespace
+-- containing the theorem, though the shorter name `mul_zero` is usually
+-- sufficient when Lean can determine which declaration we mean.
 
--- Note to developers:
---     Per Github discussion: Lean's convention is to prefer the declaration
---     header style (`mul_zero  (n : Nat) : n * zero = zero`) over universal
---     quantification style (`mul_zero : ∀ (n : Nat), n * zero = zero`). We
---     probably still want to teach the universal quantification style at
---     first, but should switch over to declaration header style quickly since
---     that is the idiomatic Lean way to do things.
---
---     BCP: Needs to be explained better. And the "indexing" part doesn't
---     really fit the section title. HG: +1, also we need terse content once
---     we figure out what this section is TODO
+-- Second, Lean displays the theorem's arguments before the colon
+-- `mul_zero (n : Nat) : n * zero = zero`. Writing arguments as binders before
+-- the colon is called *declaration-header style*. The same statement can be
+-- written using an explicit universal quantifier, as we have seen before:
+
+--   mul_zero : ∀ (n : Nat), n * zero = zero
+
+-- The declaration-header style is conventional in Lean, and we will generally
+-- use it from now on.
 
 -- ## Proof by Case Analysis
 
@@ -1444,81 +1526,21 @@ theorem add_id_exercise : ∀ n m o : Nat,
 -- rewriting: In general, the presence of unknown, hypothetical values
 -- (arbitrary numbers, booleans, etc.) can block a proof.
 
--- Note to developers (Daniel Sainati  @dsainati1):
---     At the moment our convention for unfinished proofs is to end with sorry
---     and guard the "proof uses sorry" warning. However after going through
---     MRC's comments here I realized we don't need to do this: we can leave
---     the proof unfinished and guard the error about goals being unsolved.
---     IMO this is preferable because it illustrates more directly what is
---     going on.
---
---     However, before we can do this, I think we may require a minor change
---     to how Verso files get compiled to Lean. If we just naïvely strip out
---     #guard msgs, the generated .lean files will now have errors since those
---     commands were guarding actual errors rather than just warnings. So we
---     would need a way to have .lean files with errors in them permitted by
---     the make command, or we would need to leave in #guard msgs that are
---     guarding actual errors.
---
---     BCP: This is a tricky balancing act!! Let's talk about it.
---
---     `/--
---     error: unsolved goals
---     n : Nat
---     ⊢ (succ n == zero) = false
---     -/
---     #guard_msgs(error) in
---     example : ∀ n : Nat,
---         (succ n == zero) = false := by
---       intro n
---       /-
---         We can't rewrite by any lemmas here because `n` is unknown!
---       -/`
---
---     `/--
---     error: unsolved goals
---     n : Nat
---     ⊢ (succ n == zero) = false
---     -/
---     #guard_msgs(error) in
---     example : ∀ n : Nat,
---         (succ n == zero) = false := by
---       intro n
---       /-
---         We can't rewrite by any lemmas here because `n` is unknown!
---       -/`
---
---     `/--
---     error: unsolved goals
---     n : Nat
---     ⊢ (succ n == zero) = false
---     -/
---     #guard_msgs(error) in
---     example : ∀ n : Nat,
---         (succ n == zero) = false := by
---       intro n
---       /-
---         We can't rewrite by any lemmas here because `n` is unknown!
---       -/`
-
-example : ∀ n : Nat,
-    (succ n == zero) = false := by
-  intro n
-  /-
-    We can't rewrite by any lemmas here because `n` is unknown!
-  -/
-  sorry
+sf_expect_failure
+  example (n : Nat) : (succ n == zero) = false := by
+    intro n
+    /-
+      We can't rewrite by any lemmas here because `n` is unknown!
+    -/
 
 -- The tactic that tells Lean to consider separate cases is called `cases`.
 
-theorem add_one_neb_zero : ∀ n : Nat,
-    (succ n == zero) = false := by
-  intro n
-  cases n
-  case zero =>
+theorem add_one_neb_zero (n : Nat) : (succ n == zero) = false := by
+  cases n with
+  | zero =>
     rewrite [succ_zero_beq_false]
     rfl
-  case succ n' =>
+  | succ n' =>
     rewrite [succ_zero_beq_false]
     rfl
 
@@ -1526,23 +1548,22 @@ theorem add_one_neb_zero : ∀ n : Nat,
 -- separately, in order to get Lean to accept the theorem.
 
 -- The generated subgoals are tagged by the names of the constructors.
--- `case zero =>` and `case succ n' =>` select which subgoal to work on next
--- and introduce variable names.
+-- `| zero =>` and `cas| succ n' =>` select which subgoal to work on next and
+-- introduce variable names.
 
--- Note also that when we enter a `case`, we increase the level of indentation
--- at which we are working by two spaces.
+-- Note also that when we enter a subcase, we increase the level of
+-- indentation at which we are working by two spaces.
 
 -- The `cases` tactic can be used with any inductively defined datatype. For
 -- example, we use it next to prove that boolean negation is involutive (that
 -- is, that negation is its own inverse).
 
-theorem not_involutive : ∀ b : Bool, (!!b) = b := by
-  intro b
-  cases b
-  case false =>
+theorem not_involutive (b : Bool) : (!!b) = b := by
+  cases b with
+  | false =>
     rewrite [Bool.not_false, Bool.not_true]
     rfl
-  case true =>
+  | true =>
     rewrite [Bool.not_true, Bool.not_false]
     rfl
 
@@ -1560,65 +1581,63 @@ theorem not_involutive : ∀ b : Bool, (!!b) = b := by
 
 -- We can also have nested case analysis:
 
-theorem and_commutative : ∀ b c : Bool,
+theorem and_commutative (b c : Bool) :
     (b && c) = (c && b) := by
-  intro b c
-  cases b
-  case true =>
-    cases c
-    case true =>
+  cases b with
+  | true =>
+    cases c with
+    | true =>
       rewrite [Bool.and_self]
       rfl
-    case false =>
+    | false =>
       rewrite [Bool.and_false, Bool.and_true]
       rfl
-  case false =>
-    cases c
-    case true =>
+  | false =>
+    cases c with
+    | true =>
       rewrite [Bool.and_true, Bool.and_false]
       rfl
-    case false =>
+    | false =>
       rewrite [Bool.and_self]
       rfl
 
-theorem and3_exchange : ∀ b c d : Bool,
+theorem and3_exchange (b c d : Bool) :
     ((b && c) && d) = ((b && d) && c) := by
-  intro b c d
-  cases b
-  case false =>
-    cases c
-    case true =>
-      cases d
-      case false =>
+  cases b with
+  | false =>
+    cases c with
+    | true =>
+      cases d with
+      | false =>
         rewrite [Bool.and_true, Bool.and_self]
         rfl
-      case true =>
+      | true =>
         rewrite [Bool.and_true]
         rfl
-    case false =>
-      cases d
-      case false =>
+    | false =>
+      cases d with
+      | false =>
         rewrite [Bool.and_self]
         rfl
-      case true =>
+      | true =>
         rewrite [Bool.and_self, Bool.and_true]
         rfl
-  case true =>
-    cases c
-    case true =>
-      cases d
-      case false =>
+  | true =>
+    cases c with
+    | true =>
+      cases d with
+      | false =>
         rewrite [Bool.and_self, Bool.and_false, Bool.and_true]
         rfl
-      case true =>
+      | true =>
         rewrite [Bool.and_self]
         rfl
-    case false =>
-      cases d
-      case false =>
+    | false =>
+      cases d with
+      | false =>
         rewrite [Bool.and_false]
         rfl
-      case true =>
+      | true =>
         rewrite [Bool.and_false, Bool.and_true, Bool.and_self]
         rfl
 
@@ -1630,13 +1649,13 @@ theorem and3_exchange : ∀ b c d : Bool,
 -- Some new tactics will be useful for the exercises ahead.
 
 -- The `rewrite ... at` tactic can be used to rewrite in a hypothesis instead
--- of the goal. For example, if `h : P` is in the context and we have a rule
--- `P = Q`, then `rewrite [P = Q] at h` changes the hypothesis to `h : Q`.
+-- of the goal. For example, if `hp : p` is in the context and we have a rule
+-- `h : p = q`, then `rewrite [hp] at h` changes the hypothesis to `h : q`.
 
 -- The `exact` tactic closes a goal by providing the exact proof of the goal.
--- For example, if `h : P` is in the context and the goal is `P`, then
--- `exact h` closes the goal. You can also transform `h` slightly, but we will
--- explain how when we get to an example where we need to.
+-- For example, if `hp : p` is in the context and the goal is `p`, then
+-- `exact hp` closes the goal. You can also transform `hp` slightly when using
+-- `exact`, and we will explain how when we get to an example that needs it.
 
 -- ### Exercise (2 stars): or_false_true ⭐⭐
 
@@ -1644,30 +1663,37 @@ theorem and3_exchange : ∀ b c d : Bool,
 
 -- Tip: the rewrite rule to simplify `(b || false)` is called `Bool.or_false`.
 
-theorem or_false_true : ∀ b : Bool,
+theorem or_false_true (b : Bool) :
     (b || false) = true → b = true := by
   sorry
 
 -- ### Exercise (1 star): zero_neb_add_one ⭐
 
-theorem zero_neb_add_one : ∀ n : Nat,
+theorem zero_neb_add_one (n : Nat) :
   (zero == succ n) = false := by
   sorry
 
 -- Note to developers (Daniel Sainati  @dsainati1):
 --     I move that we just cut this section entirely and come back to it when
 --     we've presented enough of the requisite material that we can actually
---     explain mwhicks1: I'm going to leave this here for now, but perhaps
---     make a note to fix later on—-when you've fixed it, come back and delete
---     this, rather than delete it now.
+--     explain
+
+-- Note to developers (Michael Hicks  @mwhicks1, before next release):
+--     I'm going to leave this here for now, but perhaps make a note to fix
+--     later on — when you've fixed it, come back and delete this, rather than
+--     delete it now.
+
+-- Note to developers (Yipeng Liu  @berberman, before next release):
+--     I feel we could split this section and push the typeclass stuff to
+--     `Typeclasses` chapter and complex notation syntax definitions to TS/HL.
 
 -- ### More on Notation (Optional)
 
 -- Lean has a very flexible notation system. Operators like `+` and `*` are
 -- defined with specified precedence and associativity. For example, `+` has
 -- precedence 65 and is left-associative, while `*` has precedence 70 and is
--- also left-associative. This means that `1+2*3*4` is parsed as
--- `1+((2*3)*4)`.
+-- also left-associative. This means that `1 + 2 * 3 * 4` is parsed as
+-- `1 + ((2 * 3) * 4)`.
 
 -- You can define custom notation using the `notation`, `infixl`, `infixr`,
 -- `prefix`, and `postfix` commands.
@@ -1675,12 +1701,7 @@ theorem zero_neb_add_one : ∀ n : Nat,
 -- Lean handles notation scoping through namespaces and *type classes*. The
 -- numeric literal `3` can be interpreted as `Nat`, `Int`, `Float`, etc.,
 -- depending on the expected type, thanks to Lean's `OfNat` type class. We
--- will explain type classes in more detail in the `Typeclasses` chapter,
--- found in `Typeclasses.lean`.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     In SF-classic, there was some special typesetting magic for chapter
---     titles that turned them into HTML links...
+-- will explain type classes in more detail in the Typeclasses chapter.
 
 -- ### Structural Recursion (Optional)
 
@@ -1690,16 +1711,16 @@ def even' (n : Nat) : Bool :=
   match n with
   | zero => true
   | succ (zero) => false
-  | succ (succ n') => even n'
+  | succ (succ n') => even' n'
 
 -- When Lean checks this definition, it verifies that the recursion
 -- terminates. Specifically, it checks that one of the parameters is
--- *structurally decreasing* — that each recursive call made in the body of
--- the definition is made on an argument that is smaller than the original
--- input. In `even` example above, the argument to the recursive call to
--- `even` is the variable `n'`. Because of our pattern match, we know that `n`
--- is equal to `succ (succ n')`, and therefore that `n'` is smaller than `n`.
--- This makes `n'` an acceptable argument to `even` for Lean's termination
+-- *structurally decreasing* — each recursive call made in the body of the
+-- definition is made on an argument that is smaller than the original input.
+-- In `even'` example above, the argument to the recursive call to `even'` is
+-- the variable `n'`. Because of our pattern match, we know that `n` is equal
+-- to `succ (succ n')`, and therefore that `n'` is smaller than `n`. This
+-- makes `n'` an acceptable argument to `even'` for Lean's termination
 -- checker, and so this recursive definition is accepted.
 
 -- This requirement is a fundamental feature of Lean's design: In particular,
@@ -1761,12 +1782,12 @@ theorem incr_test2 : incr (.b0 (.b1 .z)) = .b1 (.b1 .z) := sorry
 theorem incr_test3 : incr (.b1 (.b1 .z)) = .b0 (.b0 (.b1 .z)) := sorry
 
 theorem incr_z : incr .z = .b1 .z := sorry
-theorem incr_b0 m : incr (.b0 m) = .b1 m := sorry
-theorem incr_b1 m : incr (.b1 m) = .b0 (incr m) := sorry
+theorem incr_b0 (m : Bin) : incr (.b0 m) = .b1 m := sorry
+theorem incr_b1 (m : Bin) : incr (.b1 m) = .b0 (incr m) := sorry
 
 theorem binToNat_z : binToNat .z = zero := sorry
-theorem binToNat_b0 m : binToNat (.b0 m) = binToNat m * two := sorry
-theorem binToNat_b1 m : binToNat (.b1 m) = binToNat m * two + one := sorry
+theorem binToNat_b0 (m : Bin) : binToNat (.b0 m) = binToNat m * two := sorry
+theorem binToNat_b1 (m : Bin) : binToNat (.b1 m) = binToNat m * two + one := sorry
 
 -- You may find your previous proofs of `zero_add_one`, `one_add_one`,
 -- `zero_mul_two`, `one_mul_two`, and `two_mul_two` useful here.
@@ -1793,16 +1814,9 @@ end Nat
 -- Hint: You can use `rewrite` with *any* hypothesis that has an `=` in it as
 -- long as the types line up.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Roger, you changed the statement of the theorem From (∀ x : Bool, f x =
---     x) → ∀ b : Bool, f (f b) = b := by to: (∀ x : Bool, f x = x) → ∀ b :
---     Bool, f (f b) = b := by I predict students will find this significantly
---     harder to read. (I've complained before about the `:= by` living on the
---     same line as the theorem statement.) There are many related instances
---     elsewhere. We should discuss.
-
-theorem identity_fn_applied_twice : ∀ f : Bool → Bool,
-    (∀ x : Bool, f x = x) → ∀ b : Bool, f (f b) = b := by
+theorem identity_fn_applied_twice (f : Bool → Bool) :
+    (∀ x : Bool, f x = x) →
+    ∀ b : Bool, f (f b) = b := by
   sorry
 
 -- ### Exercise (1 star): negation_fn_applied_twice ⭐
@@ -1817,7 +1831,7 @@ theorem identity_fn_applied_twice : ∀ f : Bool → Bool,
 
 -- Prove the following theorem.
 
-theorem and_eq_or : ∀ b c : Bool, (b && c) = (b || c) → b = c := by
+theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
   sorry
 
 -- ### Course Late Policies, Formalized

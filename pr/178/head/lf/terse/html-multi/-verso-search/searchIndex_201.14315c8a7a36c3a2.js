@@ -1,1 +1,0 @@
-window.docContents[201].resolve({"/Poly/#Poly":{"contents":"variable (α β γ : Type) (x : α) (y : β)\nvariable (α β γ : Type) (x : α) (y : β)\nvariable (α β γ : Type) (x : α) (y : β)\n\n\n\n\nimport LF.Induction\nimport LF.UsingLean\n\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"6. Poly: Polymorphism and Higher-Order Functions","id":"/Poly/#Poly"}});

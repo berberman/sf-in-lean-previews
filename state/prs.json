@@ -1,5 +1,5 @@
 {
-  "main_sha": "1ef4da5bf3446cb90be6de20dca76a8fa229d063",
+  "main_sha": "9176551f253bb7d8b9d0bc2d3b9e344e687a29d4",
   "prs": {
     "167": {
       "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
@@ -94,53 +94,6 @@
       "status": "published",
       "title": "First draft of Hoare.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/171"
-    },
-    "178": {
-      "base_sha": "1ef4da5bf3446cb90be6de20dca76a8fa229d063",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "1321463786d8c671e887e559e9632121a2e75f0b",
-      "preview_path": "pr/178/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31137726033",
-      "status": "published",
-      "title": "Refine basics",
-      "url": "https://github.com/plclub/sf-in-lean/pull/178"
     },
     "179": {
       "base_sha": "eecc9040539b82e5c7da61947fa04b147fe62f4f",
@@ -267,7 +220,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/200"
     },
     "202": {
-      "base_sha": "1ef4da5bf3446cb90be6de20dca76a8fa229d063",
+      "base_sha": "f5e1bc981d10db98bf40d4806ae2a4f903659eec",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -306,9 +259,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "b43ba4d59a46c15995a10bf5a9f7168b91e9f497",
+      "head_sha": "80f97973303452b6e207472cb73524027a30abef",
       "preview_path": "pr/202/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31136594929",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31184828803",
       "status": "published",
       "title": "Polishing pass over Basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/202"
