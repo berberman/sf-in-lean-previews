@@ -3175,7 +3175,7 @@
  "1140":
  "<code>existsb {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
  "114":
- "<code>setFistTwoBits (old : NibbleStruct) (newX0 newX1 : Playground.Bit) : NibbleStruct</code>",
+ "<code>setFirstTwoBits (old : NibbleStruct) (newX0 newX1 : Playground.Bit) : NibbleStruct</code>",
  "1139":
  "<code>forallb {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
  "1138": "<code>filter test tl = lf</code>",

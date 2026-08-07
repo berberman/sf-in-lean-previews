@@ -2389,7 +2389,7 @@
  "1150":
  "<code>combined_odd_even_elim_odd (Podd Peven : Nat → Prop) (n : Nat) (h : combine_odd_even Podd Peven n)\n  (hodd : n.odd = true) : Podd n</code>",
  "115":
- "<code>setFistTwoBits (old : NibbleStruct) (newX0 newX1 : Playground.Bit) : NibbleStruct</code>",
+ "<code>setFirstTwoBits (old : NibbleStruct) (newX0 newX1 : Playground.Bit) : NibbleStruct</code>",
  "1149": "<code>n.odd = false → Peven n</code>",
  "1148": "<code>n.odd = true → Podd n</code>",
  "1147":

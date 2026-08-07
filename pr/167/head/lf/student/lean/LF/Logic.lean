@@ -925,7 +925,7 @@ theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
     (∀ x : α, In x l → p x) ↔ All p l := by
   sorry
 
--- Note to developers (Yipeng Liu  @berberman):
+-- Note to developers (Yipeng Liu  @berberman, NOW):
 --     I found this exercise combining too many awkward details for too little
 --     conceptual payoff:
 --
@@ -1499,7 +1499,7 @@ sf_expect_failure
 
 -- axiom propext : ∀ {a b : Prop}, (a ↔ b) → a = b
 
--- (Informally, an "extensional" property is one that pertains to observable
+-- (Informally, an *extensional* property is one that pertains to observable
 -- behavior. Thus, propositional extensionality means that a proposition's
 -- identity is completely determined by what we can observe from it — i.e.,
 -- whether the proposition holds. We can state this more explicitly:)

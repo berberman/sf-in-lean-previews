@@ -2,29 +2,6 @@ import LF.SFLCompat
 
 -- # Basics: Functional Programming in Lean
 
--- Note to developers (Jonathan Chan  @ionathanch):
---     [BCP: Old comment -- might be out of date?] There should
---     be some instruction on interaction with the IDE, namely:
---
---     - how to read the proof state
---
---     - clicking immediately after a tactic will show you what
---       it changed
---
---     - clicking after each `h` in `rw [h₁, h₂, ...]` will show
---       you what was rewritten
---
---     - hovering over a tactic will provide documentation on how
---       to use it
---
---     - hovering over a definition will give its type
---
---     - hovering over a Unicode character will tell you how to
---       type it
---
---     - Ctrl-clicking on a definition will take you to the
---       definition location
-
 -- ## Data and Functions
 
 -- In Lean, we can build practically everything from first
@@ -59,27 +36,11 @@ def nextWorkingDay (d : Day) : Day :=
 
 #eval nextWorkingDay Day.friday
 
+-- Day.monday
+
 #eval nextWorkingDay (nextWorkingDay Day.saturday)
 
--- Note to developers (Daniel Sainati  @dsainati1):
---     Where are we showing responses in comments? I don't see
---     them. MWH: I think we landed at three possibilities:
---
---     1. Don't include them
---
---     2. Include responses in comments
---
---     3. Use `#guard_msgs(...)` to include the responses and also
---        check that they are correct. I vote that we do the last
---        of these. It's useful for quietening the build, for
---        helping readers be sure that things are working as
---        expected, and for keeping things up to date.
---
---     Also: Further down in the text it says you can hover
---     over the definitions to see their output. This is not
---     happening in the web interface; it just shows the type
---     of `#eval` and the types of the arguments, not the
---     "message" it produces.
+-- Day.tuesday
 
 -- We can also record what we *expect* the result of calling a
 -- function to be in the form of a Lean `example`:
@@ -130,6 +91,12 @@ example : or MyBool.false MyBool.false = MyBool.false := by rfl
 example : or MyBool.false MyBool.true  = MyBool.true  := by rfl
 example : or MyBool.true  MyBool.true  = MyBool.true  := by rfl
 
+-- Note to developers (mwhicks):
+--     TODO: Seems wrong to not say anything about this
+--     notation here. Our rule is to mention simple notations
+--     like this, but not `macro_rules` etc. Do we actually
+--     introduce this later?
+
 -- We can define new symbolic notations for existing
 -- definitions. Don't worry for now about how the notation is
 -- defined.
@@ -138,7 +105,8 @@ local prefix:40 (priority := high) "!" => not
 local infixl:35 (priority := high) " && " => and
 local infixl:30 (priority := high) " || " => or
 
-example : (MyBool.false || MyBool.false || MyBool.true) = MyBool.true := by rfl
+example :
+    (MyBool.false || MyBool.false || MyBool.true) = MyBool.true := by rfl
 
 example : (!MyBool.false) = MyBool.true := by rfl
 
@@ -146,7 +114,7 @@ example : (!MyBool.false) = MyBool.true := by rfl
 
 -- The `sorry` keyword is a placeholder for an incomplete proof
 -- or definition. We use it in exercises to indicate the parts
--- that we're leaving for you -- i.e., your job is to replace
+-- that we're leaving for you — i.e., your job is to replace
 -- `sorry` with real definitions and proofs.
 
 -- Remove `sorry` below and complete the definition of the
@@ -158,10 +126,10 @@ example : (!MyBool.false) = MyBool.true := by rfl
 def nand (b1 : MyBool) (b2 : MyBool) : MyBool
   := sorry
 
-example : nand MyBool.true  MyBool.false = MyBool.true  := sorry
-example : nand MyBool.false MyBool.false = MyBool.true  := sorry
-example : nand MyBool.false MyBool.true  = MyBool.true  := sorry
-example : nand MyBool.true  MyBool.true  = MyBool.false := sorry
+theorem nand_test1 : nand MyBool.true  MyBool.false = MyBool.true  := sorry
+theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := sorry
+theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := sorry
+theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := sorry
 
 -- ### Exercise (1 star): and3 ⭐
 
@@ -172,10 +140,10 @@ example : nand MyBool.true  MyBool.true  = MyBool.false := sorry
 def and3 (b1 : MyBool) (b2 : MyBool) (b3 : MyBool) : MyBool
   := sorry
 
-example : and3 MyBool.true  MyBool.true  MyBool.true  = MyBool.true  := sorry
-example : and3 MyBool.false MyBool.true  MyBool.true  = MyBool.false := sorry
-example : and3 MyBool.true  MyBool.false MyBool.true  = MyBool.false := sorry
-example : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false := sorry
+theorem and3_test1 : and3 MyBool.true  MyBool.true  MyBool.true  = MyBool.true  := sorry
+theorem and3_test2 : and3 MyBool.false MyBool.true  MyBool.true  = MyBool.false := sorry
+theorem and3_test3 : and3 MyBool.true  MyBool.false MyBool.true  = MyBool.false := sorry
+theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false := sorry
 
 -- ### Basic Proofs
 
@@ -187,18 +155,15 @@ theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b := by
 
 -- And now let's see it in a bit more detail:
 
--- Note to developers (mwhicks1):
---     The theorem below has wonderful explaining what's going
---     on, but it is not typeset. Are we planning to fix that
---     problem? I re-flowed the text so it reads better on the
---     WWW in case not.
-
 theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
   /- Move your cursor (click) here to see the initial proof state in
-      the InfoView. The context (before the ⊢) is empty.
-      The goal is `∀ (b : MyBool), (MyBool.true && b) = b`. -/
+     the InfoView. If you are viewing the book online,
+     instead click on the white button after `by`.
+     The context (before the ⊢) is empty.
+     The goal is `∀ (b : MyBool), (MyBool.true && b) = b`. -/
   intro b
-  /- Now click here to see the new proof state that results from the
+  /- Now click here (or the white button after `intro b`)
+     to see the new proof state that results from the
      tactic. Notice how `intro b` has changed the _context_: it now
      contains `b : MyBool`.
 
@@ -247,8 +212,14 @@ end MyBool
 
 #check Bool.true
 
+-- Bool.true : Bool
+
 #check (Bool.true : Bool)
 #check (Bool.not Bool.true : Bool)
+
+-- true : Bool
+
+-- !true : Bool
 
 #check Bool.not
 
@@ -326,10 +297,10 @@ def isRed' (c : Color) : Bool :=
 def is_weekend (d : Day) : Bool
   := sorry
 
-example : is_weekend Day.sunday = true := sorry
-example : is_weekend Day.friday = false := sorry
+theorem is_weekend_test1 : is_weekend Day.sunday = true := sorry
+theorem is_weekend_test2 : is_weekend Day.friday = false := sorry
 
--- ### Exercise (1 star): is_inversion ⭐
+-- ### Exercise (1 star): isInversion ⭐
 
 -- Define a function that takes two colors and returns `true`
 -- if the second color is an *inversion* of the first, and
@@ -342,14 +313,15 @@ example : is_weekend Day.friday = false := sorry
 -- As before, write the right-hand sides of the `example`
 -- blocks to ensure they pass with no `sorry`.
 
-def is_inversion (c1 c2 : Color) : Bool
+def isInversion (c1 c2 : Color) : Bool
   := sorry
 
-example : is_inversion Color.black Color.white = true := sorry
-example : is_inversion Color.white Color.black = Bool.true := sorry
-example : is_inversion (Color.primary RGB.red) (Color.primary RGB.blue) = Bool.true :=
+
+theorem isInversion_test1 : isInversion Color.black Color.white = true := sorry
+theorem isInversion_test2 : isInversion Color.white Color.black = Bool.true := sorry
+theorem isInversion_test3 : isInversion (Color.primary RGB.red) (Color.primary RGB.blue) = Bool.true :=
   sorry
-example : is_inversion (Color.primary RGB.green) (Color.primary RGB.red) = Bool.false :=
+theorem isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = Bool.false :=
   sorry
 
 -- ### Namespaces
@@ -361,15 +333,21 @@ namespace Playground
 def myFoo : RGB := RGB.blue
 end Playground
 
-#check myFoo             -- Bool
-#check Playground.myFoo  -- RGB
+#check myFoo
+#check Playground.myFoo
+
+-- myFoo : Bool
+
+-- Playground.myFoo : RGB
 
 namespace Playground
 -- this refers to the `myFoo` we defined in the `Playground` namespace previously
 def myBar : RGB := myFoo
 end Playground
 
-#check Playground.myBar -- RGB
+#check Playground.myBar
+
+-- Playground.myBar : RGB
 
 -- Type definitions implicitly create namespaces.
 
@@ -381,28 +359,21 @@ end RGB
 -- which opens the namespace temporarily for the body of the
 -- definition.
 
--- Note to developers (Claude, NOW):
---     Rendering bug in **student** and **terse** (solutions is
---     fine): the leading `--- …` triple-dash comment lines in
---     this block and the next one each render **twice** in a
---     row (e.g. two consecutive `--- this works, because …`
---     lines). The solutions build shows each once, so this is
---     a Verso rendering quirk with `---`-style comments in the
---     elided builds, not a source duplication.
-
 --- this works, because the definition is qualified by `RGB.`
 def RGB.myOtherBlue : RGB := myBlue
 
-#check RGB.myBlue      -- RGB
-#check RGB.myOtherBlue -- RGB
+#check RGB.myBlue
+#check RGB.myOtherBlue
 
--- Note to developers (Daniel Sainati  @dsainati1):
---     see my comment later in the file about guard msgs
---
---     `--- this doesn't work; the identifier is unknown
---     /-- error: Unknown identifier `myBlue` -/
---     #guard_msgs(error) in
---     #check myBlue -- unknown identifier`
+-- RGB.myBlue : RGB
+
+-- RGB.myOtherBlue : RGB
+
+sf_expect_failure
+  -- this doesn't work; the identifier is undefined
+  #check myBlue
+
+-- Unknown identifier `myBlue`
 
 def Day.nextWorkingDay' (d : Day) : Day :=
   match d with
@@ -422,7 +393,9 @@ end MyNamespace
 
 open MyNamespace
 
-#check myDef -- Bool
+#check myDef
+
+-- MyNamespace.myDef : Bool
 
 -- If we only want to bring *some*, rather than all, of the
 -- definitions of a namespace into the current scope, we can
@@ -436,7 +409,9 @@ end MyOtherNamespace
 open MyOtherNamespace (myVisibleDef)
 
 -- `myVisibleDef` is now usable without qualification:
-#check myVisibleDef -- Bool
+#check myVisibleDef
+
+-- MyOtherNamespace.myVisibleDef : Bool
 
 -- But `myHiddenDef`, which we did not `open`, still needs its
 -- full name; using it unqualified is an error:
@@ -444,11 +419,17 @@ open MyOtherNamespace (myVisibleDef)
 sf_expect_failure
   #check myHiddenDef
 
+-- Unknown identifier `myHiddenDef`
+
 -- Names from the `Bool` `namespace` are `open`ed and thus
 -- available without qualification.
 
-#check Bool.true -- Bool
-#check true -- Bool
+#check Bool.true
+#check true
+
+-- Bool.true : Bool
+
+-- Bool.true : Bool
 
 -- Lean can often guess which qualified name we mean if we
 -- don't supply it explicitly:
@@ -478,23 +459,11 @@ def nextWorkingDay' (d : Day) : Day :=
 -- the comment into an active section of the book to evaluate
 -- them.
 
--- Note to developers (mwhicks1):
---     This namespace section is great, but it interrupts the
---     pedagogical flow of the presentation of inductive types.
---     We were prevoiusly looking at constructors With one
---     argument, then there was this big digression, and now we
---     are back to two. Are we able to move the namespace stuff
---     to the end of this section (Data and Functions)? Then we
---     can start it by saying we are finishing with it but
---     readers can skip it if they prefer to "follow their
---     nose" regarding namespaces, and come back when they want
---     to know more.
-
 -- ### Constructors with Multiple Parameters (Tuple Types)
 
 namespace Playground
 
--- A Nibble is half a byte -- four bits.
+-- A Nibble is half a byte — four bits.
 
 inductive Bit : Type where
   | b1
@@ -503,7 +472,9 @@ inductive Bit : Type where
 inductive Nibble : Type where
   | bits (x0 x1 x2 x3 : Bit)
 
-#check (.bits .b1 .b0 .b1 .b0 : Nibble)
+#check Nibble.bits .b1 .b0 .b1 .b0
+
+-- Nibble.bits Bit.b1 Bit.b0 Bit.b1 Bit.b0 : Nibble
 
 -- We can deconstruct a Nibble by pattern-matching.
 
@@ -545,13 +516,13 @@ def pred (n : Nat) : Nat :=
   | zero => zero
   | succ n' => n'
 
-def minustwo (n : Nat) : Nat :=
+def minusTwo (n : Nat) : Nat :=
   match n with
   | zero => zero
   | succ (zero) => zero
   | succ (succ n') => n'
 
-#eval minustwo four
+#eval minusTwo four
 
 -- Here are some recursive functions on natural numbers:
 
@@ -561,7 +532,7 @@ def even (n : Nat) : Bool :=
   | succ (zero) => false
   | succ (succ n') => even n'
 
-example : even one = false  := by rfl
+example : even one = false := by rfl
 example : even four = true := by rfl
 
 -- We could define `odd` by a similar recursive declaration,
@@ -570,7 +541,7 @@ example : even four = true := by rfl
 def odd (n : Nat) : Bool :=
   not (even n)
 
-example : odd one = true  := by rfl
+example : odd one = true := by rfl
 example : odd four = false := by rfl
 
 -- This function takes multiple parameters, recursing on the
@@ -583,11 +554,15 @@ def add (n : Nat) (m : Nat) : Nat :=
 
 #eval add one two -- succ (succ (succ zero)) -- aka, three!
 
+-- NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.zero)))
+
 -- We can also define infix notation for our `add` functions.
 
 scoped infixl:65 " + " => add
 
 #eval one + two -- succ (succ (succ zero)) -- aka, three again.
+
+-- NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.zero)))
 
 -- ## Proof by Rewriting
 
@@ -601,8 +576,10 @@ theorem add_zero : ∀ n : Nat, n + zero = n := by
 
 #check add_zero
 
+-- NatPlayground.Nat.add_zero (n : Nat) : n + zero = n
+
 -- Using our simplification rule `add_zero`, we can carry out a
--- simple proof about natural numbers!
+-- simple proof about natural numbers.
 
 theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
   intro n
@@ -619,18 +596,22 @@ theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
 theorem add_zero_zero_explained : ∀  n : Nat, n + zero + zero = n := by
   intro n
   /- After introducing `n`, our goal is `n + zero + zero = n`.
-     What can we do to simplify this expression? If you hover your cursor over the
-     `add_zero` in the rewrite below, you can see its type: `n + zero = n`. So,
-     we can use that rewrite rule to transform an appearnce of `n + zero` in the goal to `n`. -/
+     What can we do to simplify this expression? If you hover
+     your cursor over the `add_zero` in the rewrite below, you
+     can see its type: `n + zero = n`. So, we can use that
+     rewrite rule to transform an appearance of `n + zero`
+     in the goal to `n`. -/
   rewrite [add_zero]
-  /- Now click here to see the new proof state that results from the tactic.
-     Notice how `n + zero + zero` changes to `n + zero` in the goal. -/
+  /- Now click here to see the new proof state that results
+     from the tactic. Notice how `n + zero + zero` changes to
+     `n + zero` in the goal. -/
   rewrite [add_zero]
-  /- Again the goal changes, from `n + zero` to `n`. Now the proof state
-     is an equality with both sides equal, so it can be closed by the
-     tactic `rfl`. -/
+  /- Again the goal changes, from `n + zero` to `n`. Now the
+     proof state is an equality with both sides equal, so it
+     can be closed by the tactic `rfl`. -/
   rfl
-  /- The proof is now done! The Lean InfoView tells us there are "No goals". -/
+  /- The proof is now done! The Lean InfoView tells us there are
+     "No goals". -/
 
 -- Give this proof a try (it's similar):
 
@@ -664,9 +645,9 @@ theorem add_one (n : Nat) : n + (succ zero) = succ n + zero := by
 
 attribute [irreducible] add
 
--- These characterizing theorems also follow a particular
--- pattern. Let's look again at the definition of `add`,
--- without the `+` notation for maximum clarity:
+-- These simplification rules also follow a particular pattern.
+-- Let's look again at the definition of `add`, without the `+`
+-- notation for maximum clarity:
 
 namespace AddPlayground
 
@@ -686,19 +667,19 @@ theorem add_succ : ∀ (n m : Nat), add n (succ m) = succ (add n m) := by
 end AddPlayground
 
 -- Each branch of a definition's control flow gets one
--- *simplification lemma*. Here are the two for `pred`:
+-- simplification rule. Here are the two for `pred`:
 
 theorem pred_zero : pred zero = zero := by rfl
 theorem pred_succ n : pred (succ n) = n := by rfl
 
 -- Now that we have defined and proved `pred`'s simplification
--- lemmas, we can mark it `irreducible`, to enforce rewriting
--- by these lemmas.
+-- rules, we can mark it `irreducible`, to enforce rewriting by
+-- these lemmas.
 
 attribute [irreducible] pred
 
 -- Similarly, for each of the three branches of the definition
--- of `even`, we need one simplification lemma:
+-- of `even`, we need one simplification rule:
 
 theorem even_zero : even zero = true := rfl
 theorem even_one : even (succ zero) = false := rfl
@@ -707,8 +688,8 @@ theorem even_succ_succ n : even (succ (succ n)) = even n := rfl
 attribute [irreducible] even odd
 
 -- From here on, we pair each definition with its
--- simplification lemmas and rewrite by those lemmas rather
--- than `rfl`-ing through the definition.
+-- simplification rules and rewrite by those rules rather than
+-- `rfl`-ing through the definition.
 
 -- ### Working with Numerals
 
@@ -721,14 +702,11 @@ theorem two_eq_succ_one : two = succ one := by rfl
 theorem three_eq_succ_two : three = succ two := by rfl
 theorem four_eq_succ_three : four = succ three := by rfl
 
+-- ### Exercise (1 star): mul_simpl_rules ⭐
+
 -- Finish the proof using the `add` rules:
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Should this be marked / formatted as an exercise or at
---     least a WORKINCLASS? RAB: Let's decide once we choose
---     how to present the laws. My intuition is yes.
-
-theorem one_plus_one_eq_two : (one + one : Nat) = two := by
+theorem one_plus_one_eq_two : one + one = two := by
   rewrite [one_eq_succ_zero]
   sorry
 
@@ -736,6 +714,8 @@ theorem one_plus_one_eq_two : (one + one : Nat) = two := by
 
 theorem two_plus_two_eq_four : two + two = four := by
   sorry
+
+-- #### Multiplication
 
 def mul (n m : Nat) : Nat :=
   match m with
@@ -791,6 +771,8 @@ theorem two_mul_two : (two * two : Nat) = four := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
   sorry
 
+-- #### Equality and Ordering
+
 -- Here is a function `beq` that tests natural numbers for
 -- equality, yielding a boolean.
 
@@ -832,19 +814,18 @@ theorem succ_ble_zero (n : Nat) : ble (succ n) zero = false := by rfl
 theorem succ_ble_succ (n m : Nat) : ble (succ n) (succ m) = ble n m := by rfl
 
 example : ble two two = true  := by rfl
-example : ble two four = true  := by rfl
+example : ble two four = true := by rfl
 example : ble four two = false := by rfl
 
 -- ### Exercise (1 star): blt ⭐
 
 -- Define a less-than function in terms of `ble`.
 
-def blt (n m : Nat) : Bool
-  := sorry
+def blt (n m : Nat) : Bool := sorry
 
 example : blt two two = false := sorry
 example : blt two four = true  := sorry
-example : blt four two = false := sorry
+theorem blt_test3 : blt four two = false := sorry
 
 attribute [irreducible] blt ble
 
@@ -853,8 +834,8 @@ attribute [irreducible] blt ble
 
 scoped infixl:30 " == " => beq
 
--- Note that now `==` and `=` are different; the former means
--- `beq` whereas the latter is a logical claim.
+-- Note that `==` and `=` are different; the former means `beq`
+-- whereas the latter is a logical claim.
 
 theorem zero_zero_beq_true : (zero == zero) = true := by rfl
 theorem zero_succ_beq_false (n : Nat) : (zero == (succ n)) = false := by rfl
@@ -863,7 +844,7 @@ theorem succ_succ_beq (n m : Nat) : ((succ n) == (succ m)) = (n == m) := by rfl
 
 attribute [irreducible] beq
 
--- ## General Proofs about Natural Numbers
+-- ### General Proofs about Natural Numbers
 
 -- A (slightly) more interesting theorem:
 
@@ -882,98 +863,67 @@ theorem add_id_exercise : ∀ n m o : Nat,
     n = m → m = o → n + m = m + o := by
   sorry
 
+-- #### Displaying Theorem Statements
+
 -- The `#check` command can also be used to examine the
 -- statements of previously declared lemmas and theorems.
 
 #check mul_zero  -- ∀ (n : Nat), n * 0 = 0
 #check mul_succ  -- ∀ (n m : Nat), n * Nat.succ m = n + n * m
 
--- ### Type Annotations
+-- NatPlayground.Nat.mul_zero (n : Nat) : n * zero = zero
 
--- Note to developers:
---     Per Github discussion: Lean's convention is to prefer
---     the declaration header style
---     (`mul_zero  (n : Nat) : n * zero = zero`) over universal
---     quantification style
---     (`mul_zero : ∀ (n : Nat), n * zero = zero`). We probably
---     still want to teach the universal quantification style
---     at first, but should switch over to declaration header
---     style quickly since that is the idiomatic Lean way to do
---     things.
---
---     BCP: Needs to be explained better. And the "indexing"
---     part doesn't really fit the section title. HG: +1, also
---     we need terse content once we figure out what this
---     section is TODO
+-- NatPlayground.Nat.mul_succ (n m : Nat) : n * succ m = n * m + n
+
+-- Lean may:
+
+-- - print a fully qualified name, such as
+--   `NatPlayground.Nat.mul_zero`;
+
+-- - display universally quantified variables as binders before
+--   the colon.
+
+-- Thus,
+
+--   mul_zero : ∀ (n : Nat), n * zero = zero
+
+-- may be displayed as:
+
+--   mul_zero (n : Nat) : n * zero = zero
+
+-- The second form is the conventional *declaration-header
+-- style* in Lean.
 
 -- ## Proof by Case Analysis
 
 -- Sometimes simple calculation and rewriting are not enough...
 
--- Note to developers (Daniel Sainati  @dsainati1):
---     At the moment our convention for unfinished proofs is to
---     end with sorry and guard the "proof uses sorry" warning.
---     However after going through MRC's comments here I
---     realized we don't need to do this: we can leave the
---     proof unfinished and guard the error about goals being
---     unsolved. IMO this is preferable because it illustrates
---     more directly what is going on.
---
---     However, before we can do this, I think we may require a
---     minor change to how Verso files get compiled to Lean. If
---     we just naïvely strip out #guard msgs, the generated
---     .lean files will now have errors since those commands
---     were guarding actual errors rather than just warnings.
---     So we would need a way to have .lean files with errors
---     in them permitted by the make command, or we would need
---     to leave in #guard msgs that are guarding actual errors.
---
---     BCP: This is a tricky balancing act!! Let's talk about
---     it.
---
---     `/--
---     error: unsolved goals
---     n : Nat
---     ⊢ (succ n == zero) = false
---     -/
---     #guard_msgs(error) in
---     example : ∀ n : Nat,
---         (succ n == zero) = false := by
---       intro n
---       /-
---         We can't rewrite by any lemmas here because `n` is unknown!
---       -/`
-
-example : ∀ n : Nat,
-    (succ n == zero) = false := by
-  intro n
-  /-
-    We can't rewrite by any lemmas here because `n` is unknown!
-  -/
-  sorry
+sf_expect_failure
+  example (n : Nat) : (succ n == zero) = false := by
+    intro n
+    /-
+      We can't rewrite by any lemmas here because `n` is unknown!
+    -/
 
 -- We can use `cases` to perform case analysis:
 
-theorem add_one_neb_zero : ∀ n : Nat,
-    (succ n == zero) = false := by
-  intro n
-  cases n
-  case zero =>
+theorem add_one_neb_zero (n : Nat) : (succ n == zero) = false := by
+  cases n with
+  | zero =>
     rewrite [succ_zero_beq_false]
     rfl
-  case succ n' =>
+  | succ n' =>
     rewrite [succ_zero_beq_false]
     rfl
 
 -- Another example, using booleans:
 
-theorem not_involutive : ∀ b : Bool, (!!b) = b := by
-  intro b
-  cases b
-  case false =>
+theorem not_involutive (b : Bool) : (!!b) = b := by
+  cases b with
+  | false =>
     rewrite [Bool.not_false, Bool.not_true]
     rfl
-  case true =>
+  | true =>
     rewrite [Bool.not_true, Bool.not_false]
     rfl
 
@@ -982,71 +932,69 @@ theorem not_involutive : ∀ b : Bool, (!!b) = b := by
 
 -- We can also have nested case analysis:
 
-theorem and_commutative : ∀ b c : Bool,
+theorem and_commutative (b c : Bool) :
     (b && c) = (c && b) := by
-  intro b c
-  cases b
-  case true =>
-    cases c
-    case true =>
+  cases b with
+  | true =>
+    cases c with
+    | true =>
       rewrite [Bool.and_self]
       rfl
-    case false =>
+    | false =>
       rewrite [Bool.and_false, Bool.and_true]
       rfl
-  case false =>
-    cases c
-    case true =>
+  | false =>
+    cases c with
+    | true =>
       rewrite [Bool.and_true, Bool.and_false]
       rfl
-    case false =>
+    | false =>
       rewrite [Bool.and_self]
       rfl
 
-theorem and3_exchange : ∀ b c d : Bool,
+theorem and3_exchange (b c d : Bool) :
     ((b && c) && d) = ((b && d) && c) := by
-  intro b c d
-  cases b
-  case false =>
-    cases c
-    case true =>
-      cases d
-      case false =>
+  cases b with
+  | false =>
+    cases c with
+    | true =>
+      cases d with
+      | false =>
         rewrite [Bool.and_true, Bool.and_self]
         rfl
-      case true =>
+      | true =>
         rewrite [Bool.and_true]
         rfl
-    case false =>
-      cases d
-      case false =>
+    | false =>
+      cases d with
+      | false =>
         rewrite [Bool.and_self]
         rfl
-      case true =>
+      | true =>
         rewrite [Bool.and_self, Bool.and_true]
         rfl
-  case true =>
-    cases c
-    case true =>
-      cases d
-      case false =>
+  | true =>
+    cases c with
+    | true =>
+      cases d with
+      | false =>
         rewrite [Bool.and_self, Bool.and_false, Bool.and_true]
         rfl
-      case true =>
+      | true =>
         rewrite [Bool.and_self]
         rfl
-    case false =>
-      cases d
-      case false =>
+    | false =>
+      cases d with
+      | false =>
         rewrite [Bool.and_false]
         rfl
-      case true =>
+      | true =>
         rewrite [Bool.and_false, Bool.and_true, Bool.and_self]
         rfl
 
 -- As you can see, proofs by cases can become very verbose. We
 -- will introduce some tactics for writing shorter proofs by
--- case analysis in `Tactics.lean`.
+-- case analysis in Tactics chapter.
 
 -- ### New Tactics: `rewrite ... at` and `exact`
 
@@ -1060,23 +1008,30 @@ theorem and3_exchange : ∀ b c d : Bool,
 -- Tip: the rewrite rule to simplify `(b || false)` is called
 -- `Bool.or_false`.
 
-theorem or_false_true : ∀ b : Bool,
+theorem or_false_true (b : Bool) :
     (b || false) = true → b = true := by
   sorry
 
--- ### Exercise (1 star): zero_nbeq_add_1 ⭐
+-- ### Exercise (1 star): zero_neb_add_one ⭐
 
-theorem zero_neb_add_one : ∀ n : Nat,
+theorem zero_neb_add_one (n : Nat) :
   (zero == succ n) = false := by
   sorry
 
 -- Note to developers (Daniel Sainati  @dsainati1):
 --     I move that we just cut this section entirely and come
 --     back to it when we've presented enough of the requisite
---     material that we can actually explain mwhicks1: I'm
---     going to leave this here for now, but perhaps make a
---     note to fix later on---when you've fixed it, come back
+--     material that we can actually explain
+
+-- Note to developers (Michael Hicks  @mwhicks1, before next release):
+--     I'm going to leave this here for now, but perhaps make a
+--     note to fix later on — when you've fixed it, come back
 --     and delete this, rather than delete it now.
+
+-- Note to developers (Yipeng Liu  @berberman, before next release):
+--     I feel we could split this section and push the
+--     typeclass stuff to `Typeclasses` chapter and complex
+--     notation syntax definitions to TS/HL.
 
 -- ### More on Notation (Optional)
 
@@ -1116,7 +1071,7 @@ theorem zero_neb_add_one : ∀ n : Nat,
 --       8   b0 (b0 (b0 (b1 z)))   succ (succ (succ (succ (succ (succ (succ (succ zero)))))))
 
 -- Note that the low-order bit is on the left and the
--- high-order bit is on the right -- the opposite of the way
+-- high-order bit is on the right — the opposite of the way
 -- binary numbers are usually written. This choice makes them
 -- easier to manipulate.
 
@@ -1136,26 +1091,26 @@ def incr (m : Bin) : Bin
 def binToNat (m : Bin) : Nat
   := sorry
 
-example : incr (.b1 .z) = .b0 (.b1 .z) := sorry
-example : incr (.b0 (.b1 .z)) = .b1 (.b1 .z) := sorry
-example : incr (.b1 (.b1 .z)) = .b0 (.b0 (.b1 .z)) := sorry
+theorem incr_test1 : incr (.b1 .z) = .b0 (.b1 .z) := sorry
+theorem incr_test2 : incr (.b0 (.b1 .z)) = .b1 (.b1 .z) := sorry
+theorem incr_test3 : incr (.b1 (.b1 .z)) = .b0 (.b0 (.b1 .z)) := sorry
 
 theorem incr_z : incr .z = .b1 .z := sorry
-theorem incr_b0 m : incr (.b0 m) = .b1 m := sorry
-theorem incr_b1 m : incr (.b1 m) = .b0 (incr m) := sorry
+theorem incr_b0 (m : Bin) : incr (.b0 m) = .b1 m := sorry
+theorem incr_b1 (m : Bin) : incr (.b1 m) = .b0 (incr m) := sorry
 
 theorem binToNat_z : binToNat .z = zero := sorry
-theorem binToNat_b0 m : binToNat (.b0 m) = binToNat m * two := sorry
-theorem binToNat_b1 m : binToNat (.b1 m) = binToNat m * two + one := sorry
+theorem binToNat_b0 (m : Bin) : binToNat (.b0 m) = binToNat m * two := sorry
+theorem binToNat_b1 (m : Bin) : binToNat (.b1 m) = binToNat m * two + one := sorry
 
 -- You may find your previous proofs of `zero_add_one`,
 -- `one_add_one`, `zero_mul_two`, `one_mul_two`, and
 -- `two_mul_two` useful here.
 
 example : binToNat (.b0 (.b1 .z)) = two := sorry
-example : binToNat (incr (.b1 .z)) = add one (binToNat (.b1 .z)) := sorry
-example : binToNat (incr (incr (.b1 .z))) = add two (binToNat (.b1 .z)) := sorry
-example : binToNat (.b0 (.b0 (.b1 .z))) = four := sorry
+theorem binToNat_test1 : binToNat (incr (.b1 .z)) = add one (binToNat (.b1 .z)) := sorry
+theorem binToNat_test2 : binToNat (incr (incr (.b1 .z))) = add two (binToNat (.b1 .z)) := sorry
+theorem binToNat_test3 : binToNat (.b0 (.b0 (.b1 .z))) = four := sorry
 
 attribute [irreducible] incr binToNat
 
@@ -1175,17 +1130,9 @@ end Nat
 -- Hint: You can use `rewrite` with *any* hypothesis that has
 -- an `=` in it as long as the types line up.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Roger, you changed the statement of the theorem From (∀
---     x : Bool, f x = x) → ∀ b : Bool, f (f b) = b := by to:
---     (∀ x : Bool, f x = x) → ∀ b : Bool, f (f b) = b := by I
---     predict students will find this significantly harder to
---     read. (I've complained before about the `:= by` living
---     on the same line as the theorem statement.) There are
---     many related instances elsewhere. We should discuss.
-
-theorem identity_fn_applied_twice : ∀ f : Bool → Bool,
-    (∀ x : Bool, f x = x) → ∀ b : Bool, f (f b) = b := by
+theorem identity_fn_applied_twice (f : Bool → Bool) :
+    (∀ x : Bool, f x = x) →
+    ∀ b : Bool, f (f b) = b := by
   sorry
 
 -- ### Exercise (1 star): negation_fn_applied_twice ⭐
@@ -1200,7 +1147,7 @@ theorem identity_fn_applied_twice : ∀ f : Bool → Bool,
 
 -- Prove the following theorem.
 
-theorem and_eq_or : ∀ b c : Bool, (b && c) = (b || c) → b = c := by
+theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
   sorry
 
 -- ### Course Late Policies, Formalized
@@ -1294,10 +1241,10 @@ def modifierComparison (m1 m2 : Modifier) : Comparison :=
 def gradeComparison (g1 g2 : Grade) : Comparison
   := sorry
 
-example : gradeComparison ⟨A, minus⟩ ⟨B, plus⟩ = gt := sorry
-example : gradeComparison ⟨A, minus⟩ ⟨A, plus⟩ = lt := sorry
-example : gradeComparison ⟨F, plus⟩ ⟨F, plus⟩ = eq := sorry
-example : gradeComparison ⟨B, minus⟩ ⟨C, plus⟩ = gt := sorry
+theorem gradeComparison_test1 : gradeComparison ⟨A, minus⟩ ⟨B, plus⟩ = gt := sorry
+theorem gradeComparison_test2 : gradeComparison ⟨A, minus⟩ ⟨A, plus⟩ = lt := sorry
+theorem gradeComparison_test3 : gradeComparison ⟨F, plus⟩ ⟨F, plus⟩ = eq := sorry
+theorem gradeComparison_test4 : gradeComparison ⟨B, minus⟩ ⟨C, plus⟩ = gt := sorry
 
 def lowerLetter (l : Letter) : Letter :=
   match l with
@@ -1329,15 +1276,14 @@ theorem lowerLetter_lowers : ∀ l : Letter,
 def lowerGrade (g : Grade) : Grade
   := sorry
 
-example : lowerGrade ⟨A, plus⟩ = ⟨A, natural⟩ := sorry
+theorem lowerGrade_A_plus : lowerGrade ⟨A, plus⟩ = ⟨A, natural⟩ := sorry
 example : lowerGrade ⟨A, natural⟩ = ⟨A, minus⟩ := sorry
 example : lowerGrade ⟨A, minus⟩ = ⟨B, plus⟩ := sorry
 example : lowerGrade ⟨B, plus⟩ = ⟨B, natural⟩ := sorry
 example : lowerGrade ⟨F, natural⟩ = ⟨F, minus⟩ := sorry
 example : lowerGrade (lowerGrade ⟨B, minus⟩) = ⟨C, natural⟩ := sorry
 example : lowerGrade (lowerGrade (lowerGrade ⟨B, minus⟩)) = ⟨C, minus⟩ := sorry
-
-theorem lowerGrade_F_Minus : lowerGrade ⟨F, minus⟩ = ⟨F, minus⟩ := sorry
+theorem lowerGrade_F_minus : lowerGrade ⟨F, minus⟩ = ⟨F, minus⟩ := sorry
 
 -- ### Exercise (3 stars): lower_grade_lowers ⭐⭐⭐
 
@@ -1362,6 +1308,14 @@ theorem lowerGrade_lowers : ∀ g : Grade,
 --     some other reasoning that's not accomplishable with the
 --     tactics we've introduced so far. Can you make this proof
 --     work with only `rw`, `rfl`, `exact`, etc?
+--
+--     Niklas Halonen (xhalo32): We need to teach how to prove
+--     a goal that looks like `natural ≠ minus` for example.
+--     One could write `injection x` for example:
+--
+--     `example : natural ≠ minus := by
+--       intro x
+--       injection x`
 
 def applyLatePolicy (lateDays : NatPlayground.Nat) (g : Grade) : Grade :=
   if Nat.ble lateDays  9 then g

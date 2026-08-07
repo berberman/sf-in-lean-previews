@@ -182,7 +182,7 @@ namespace NatList
 
 -- Don't worry too much about what this is doing:
 
-scoped infixr:65 " :: " => cons
+scoped infixr:65 (priority := high) " :: " => cons
 scoped macro (priority := high) "[" elems:term,* "]" : term => do
   elems.getElems.foldrM (``(cons $(⟨·⟩) $(⟨·⟩))) (← ``(nil))
 
@@ -442,9 +442,9 @@ example : countOddMembers [0, 1, 2, 3, 0] = 2 := by
 
 example : countOddMembers [0, 1, 2, 3, 0] = 2 := (by rfl)
 
-theorem NatList.test_countOddMembers1 : countOddMembers [0, 2, 4] = 0 := (by rfl)
+theorem test_countOddMembers1 : countOddMembers [0, 2, 4] = 0 := (by rfl)
 
-theorem NatList.test_countOddMembers2 : countOddMembers [] = 0 := (by rfl)
+theorem test_countOddMembers2 : countOddMembers [] = 0 := (by rfl)
 
 -- ### Exercise (3 stars): alternate (Advanced) ⭐⭐⭐
 
@@ -463,16 +463,16 @@ def alternate (l1 l2 : NatList) : NatList := (
   | _, [] => l1
   | h1 :: t1, h2 :: t2 => h1 :: h2 :: alternate t1 t2)
 
-theorem NatList.test_alternate1 :
+theorem test_alternate1 :
     alternate [1, 2, 3] [4, 5, 6] = [1, 4, 2, 5, 3, 6] := (by rfl)
 
-theorem NatList.test_alternate2 :
+theorem test_alternate2 :
     alternate [1] [4, 5, 6] = [1, 4, 5, 6] := (by rfl)
 
-theorem NatList.test_alternate3 :
+theorem test_alternate3 :
     alternate [1, 2, 3] [4] = [1, 4, 2, 3] := (by rfl)
 
-theorem NatList.test_alternate4 :
+theorem test_alternate4 :
     alternate [] [20, 30] = [20, 30] := (by rfl)
 
 -- ### Counting
@@ -510,9 +510,9 @@ example : count 1 [1] = 1 := by
 
 example : count 2 [2, 2] = 2 := (by rfl)
 
-theorem NatList.test_count1 : count 1 [1, 1, 4] = 2 := (by rfl)
+theorem test_count1 : count 1 [1, 1, 4] = 2 := (by rfl)
 
-theorem NatList.test_count2 : count 5 [1, 1, 4] = 0 := (by rfl)
+theorem test_count2 : count 5 [1, 1, 4] = 0 := (by rfl)
 
 -- Again, all these proofs could be completed with just `rfl`, because the
 -- proof is computationally straight-forward -- compute both sides of the
@@ -550,9 +550,9 @@ example : member 1 [1] = true := by
 
 example : member 2 [1] = false := (by rfl) -- rfl
 
-theorem NatList.test_member1 : member 1 [1, 4, 1] = true := (by rfl)
+theorem test_member1 : member 1 [1, 4, 1] = true := (by rfl)
 
-theorem NatList.test_member2 : member 2 [1, 4, 1] = false := (by rfl)
+theorem test_member2 : member 2 [1, 4, 1] = false := (by rfl)
 
 -- ### Removing
 
@@ -596,9 +596,9 @@ example : removeOne 5 [1, 5, 4] = [1, 4] := by
 
 example : count 5 (removeOne 5 [1, 5, 4]) = 0 := (by rfl)
 
-theorem NatList.test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := (by rfl)
+theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := (by rfl)
 
-theorem NatList.test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := (by rfl)
+theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := (by rfl)
 
 def removeAll (v : Nat) (l : NatList) : NatList := (
   match l with
@@ -629,9 +629,9 @@ example : count 5 (removeAll 5 [5, 1]) = 0 := by
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := (by rfl)
 
-theorem NatList.test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := (by rfl)
+theorem test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := (by rfl)
 
-theorem NatList.test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := (by rfl)
+theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := (by rfl)
 
 -- ### Included
 
@@ -670,9 +670,9 @@ example : included [1] [2, 1] = true := by
 
 example : included [1, 1] [2, 1, 4, 1] = true := (by rfl)
 
-theorem NatList.test_included1 : included [1, 2] [2, 1, 4, 1] = true := (by rfl)
+theorem test_included1 : included [1, 2] [2, 1, 4, 1] = true := (by rfl)
 
-theorem NatList.test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := (by rfl)
+theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := (by rfl)
 
 -- Note to developers (Niklas Halonen  @xhalo32, before next release):
 --     The next exercise is merely a special case of `count_cons_same`. Is
@@ -1250,8 +1250,8 @@ def head? (l : NatList) : NatOption := (
   | h :: _ => .some h)
 
 example : head? [] = .none := (by rfl)
-example : head? [1] = .some 1 := (by rfl)
-example : head? [5, 6] = .some 5 := (by rfl)
+theorem test_head?1 : head? [1] = .some 1 := (by rfl)
+theorem test_head?2 : head? [5, 6] = .some 5 := (by rfl)
 
 theorem head?_nil : head? [] = .none := (by rfl)
 

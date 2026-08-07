@@ -1781,6 +1781,40 @@
         "number": "9"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "4"}]},
      "address": "/IndProp/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals--Multiplication":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals--Multiplication",
+     "data":
+     {"title": "Multiplication",
+      "shortTitle": null,
+      "sectionNum": "2.2.7.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Working with Numerals", "shortTitle": null, "number": "7"},
+       {"title": "Multiplication", "shortTitle": null, "number": "1"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals--Equality-and-Ordering":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals--Equality-and-Ordering",
+     "data":
+     {"title": "Equality and Ordering",
+      "shortTitle": null,
+      "sectionNum": "2.2.7.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Working with Numerals", "shortTitle": null, "number": "7"},
+       {"title": "Equality and Ordering", "shortTitle": null, "number": "2"}]},
+     "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals":
    [{"id":
      "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals",
@@ -1883,6 +1917,45 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--General-Proofs-about-Natural-Numbers--Displaying-Theorem-Statements":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--General-Proofs-about-Natural-Numbers--Displaying-Theorem-Statements",
+     "data":
+     {"title": "Displaying Theorem Statements",
+      "shortTitle": null,
+      "sectionNum": "2.2.8.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "General Proofs about Natural Numbers",
+        "shortTitle": null,
+        "number": "8"},
+       {"title": "Displaying Theorem Statements",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--General-Proofs-about-Natural-Numbers":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--General-Proofs-about-Natural-Numbers",
+     "data":
+     {"title": "General Proofs about Natural Numbers",
+      "shortTitle": null,
+      "sectionNum": "2.2.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "General Proofs about Natural Numbers",
+        "shortTitle": null,
+        "number": "8"}]},
+     "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--A-New--add--Rule":
    [{"id":
      "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--A-New--add--Rule",
@@ -1920,14 +1993,14 @@
      "data":
      {"title": "Structural Recursion (Optional)",
       "shortTitle": null,
-      "sectionNum": "2.4.3.",
+      "sectionNum": "2.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
        {"title": "Structural Recursion (Optional)",
         "shortTitle": null,
         "number": "3"}]},
@@ -1938,14 +2011,14 @@
      "data":
      {"title": "New Tactics:  rewrite ... at  and  exact",
       "shortTitle": null,
-      "sectionNum": "2.4.1.",
+      "sectionNum": "2.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
        {"title": "New Tactics:  rewrite ... at  and  exact",
         "shortTitle": null,
         "number": "1"}]},
@@ -1956,14 +2029,14 @@
      "data":
      {"title": "More on Notation (Optional)",
       "shortTitle": null,
-      "sectionNum": "2.4.2.",
+      "sectionNum": "2.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
        {"title": "More on Notation (Optional)",
         "shortTitle": null,
         "number": "2"}]},
@@ -1974,14 +2047,14 @@
      "data":
      {"title": "Binary Numerals",
       "shortTitle": null,
-      "sectionNum": "2.4.4.",
+      "sectionNum": "2.3.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
        {"title": "Binary Numerals", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis":
@@ -1990,14 +2063,14 @@
      "data":
      {"title": "Proof by Case Analysis",
       "shortTitle": null,
-      "sectionNum": "2.4.",
+      "sectionNum": "2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"}]},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Warmups":
    [{"id":
@@ -2005,14 +2078,14 @@
      "data":
      {"title": "Warmups",
       "shortTitle": null,
-      "sectionNum": "2.5.1.",
+      "sectionNum": "2.4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
+       {"title": "More Exercises", "shortTitle": null, "number": "4"},
        {"title": "Warmups", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Course-Late-Policies___-Formalized":
@@ -2021,14 +2094,14 @@
      "data":
      {"title": "Course Late Policies, Formalized",
       "shortTitle": null,
-      "sectionNum": "2.5.2.",
+      "sectionNum": "2.4.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
+       {"title": "More Exercises", "shortTitle": null, "number": "4"},
        {"title": "Course Late Policies, Formalized",
         "shortTitle": null,
         "number": "2"}]},
@@ -2039,51 +2112,14 @@
      "data":
      {"title": "More Exercises",
       "shortTitle": null,
-      "sectionNum": "2.5.",
+      "sectionNum": "2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers--Displaying-Theorem-Statements":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers--Displaying-Theorem-Statements",
-     "data":
-     {"title": "Displaying Theorem Statements",
-      "shortTitle": null,
-      "sectionNum": "2.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "General Proofs about Natural Numbers",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Displaying Theorem Statements",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers",
-     "data":
-     {"title": "General Proofs about Natural Numbers",
-      "shortTitle": null,
-      "sectionNum": "2.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "General Proofs about Natural Numbers",
-        "shortTitle": null,
-        "number": "3"}]},
+       {"title": "More Exercises", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Types":
    [{"id":
@@ -2091,7 +2127,7 @@
      "data":
      {"title": "Types",
       "shortTitle": null,
-      "sectionNum": "2.1.5.",
+      "sectionNum": "2.1.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -2099,7 +2135,7 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Types", "shortTitle": null, "number": "5"}]},
+       {"title": "Types", "shortTitle": null, "number": "6"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--New-Types-from-Old":
    [{"id":
@@ -2167,11 +2203,11 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Aside___-Structures":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Aside___-Structures",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures",
      "data":
-     {"title": "Aside: Structures",
+     {"title": "Structures",
       "shortTitle": null,
       "sectionNum": "2.1.9.1.",
       "searchPriority": 50,
@@ -2184,7 +2220,7 @@
        {"title": "Constructors with Multiple Parameters (Tuple Types)",
         "shortTitle": null,
         "number": "9"},
-       {"title": "Aside: Structures", "shortTitle": null, "number": "1"}]},
+       {"title": "Structures", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_":
    [{"id":
@@ -2260,7 +2296,7 @@
      "data":
      {"title": "Aside: Unicode in Lean",
       "shortTitle": null,
-      "sectionNum": "2.1.6.",
+      "sectionNum": "2.1.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -2268,7 +2304,7 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Aside: Unicode in Lean", "shortTitle": null, "number": "6"}]},
+       {"title": "Aside: Unicode in Lean", "shortTitle": null, "number": "5"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions":
    [{"id":
@@ -2710,7 +2746,7 @@
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Constructors with Multiple Parameters (Tuple Types)",
-        "Aside: Structures"]}},
+        "Structures"]}},
      "address": "/Basics/"}],
    "unzip_test1":
    [{"id": "unzip_test1",
@@ -3390,17 +3426,17 @@
         "Tactic Combinators",
         "The  try  combinator"]}},
      "address": "/Automation/"}],
-   "setFistTwoBits":
-   [{"id": "setFistTwoBits",
+   "setFirstTwoBits":
+   [{"id": "setFirstTwoBits",
      "data":
-     {"/Basics/#setFistTwoBits":
-      {"display": "setFistTwoBits",
+     {"/Basics/#setFirstTwoBits":
+      {"display": "setFirstTwoBits",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Constructors with Multiple Parameters (Tuple Types)",
-        "Aside: Structures"]}},
+        "Structures"]}},
      "address": "/Basics/"}],
    "right":
    [{"id": "right",
@@ -4245,7 +4281,7 @@
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Constructors with Multiple Parameters (Tuple Types)",
-        "Aside: Structures"]}},
+        "Structures"]}},
      "address": "/Basics/"}],
    "lt_ge_cases":
    [{"id": "lt_ge_cases",
@@ -6504,7 +6540,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
+   [{"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6513,7 +6549,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
+    {"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -8049,7 +8085,7 @@
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Constructors with Multiple Parameters (Tuple Types)",
-        "Aside: Structures"]}},
+        "Structures"]}},
      "address": "/Basics/"}],
    "NibbleStruct.x2":
    [{"id": "NibbleStruct___x2",
@@ -8061,7 +8097,7 @@
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Constructors with Multiple Parameters (Tuple Types)",
-        "Aside: Structures"]}},
+        "Structures"]}},
      "address": "/Basics/"}],
    "NibbleStruct.x1":
    [{"id": "NibbleStruct___x1",
@@ -8073,7 +8109,7 @@
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Constructors with Multiple Parameters (Tuple Types)",
-        "Aside: Structures"]}},
+        "Structures"]}},
      "address": "/Basics/"}],
    "NibbleStruct.x0":
    [{"id": "NibbleStruct___x0",
@@ -8085,7 +8121,7 @@
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Constructors with Multiple Parameters (Tuple Types)",
-        "Aside: Structures"]}},
+        "Structures"]}},
      "address": "/Basics/"}],
    "NibbleStruct":
    [{"id": "NibbleStruct",
@@ -8097,7 +8133,7 @@
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Constructors with Multiple Parameters (Tuple Types)",
-        "Aside: Structures"]}},
+        "Structures"]}},
      "address": "/Basics/"}],
    "NatPlayground.negation_fn_applied_twice":
    [{"id": "NatPlayground___negation_fn_applied_twice",
@@ -8141,7 +8177,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.zero_succ_beq_false":
    [{"id": "NatPlayground___Nat___zero_succ_beq_false",
@@ -8152,7 +8189,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.zero_neb_add_one":
    [{"id": "NatPlayground___Nat___zero_neb_add_one",
@@ -8174,7 +8212,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Multiplication"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.zero_mul":
    [{"id": "NatPlayground___Nat___zero_mul",
@@ -8196,7 +8235,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.zero_add_one":
    [{"id": "NatPlayground___Nat___zero_add_one",
@@ -8207,7 +8247,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Multiplication"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.zero_add":
    [{"id": "NatPlayground___Nat___zero_add",
@@ -8251,7 +8292,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Multiplication"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.two_eq_succ_one":
    [{"id": "NatPlayground___Nat___two_eq_succ_one",
@@ -8306,7 +8348,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.succ_succ_beq":
    [{"id": "NatPlayground___Nat___succ_succ_beq",
@@ -8317,7 +8360,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.succ_mul":
    [{"id": "NatPlayground___Nat___succ_mul",
@@ -8346,7 +8390,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.succ_ble_succ":
    [{"id": "NatPlayground___Nat___succ_ble_succ",
@@ -8357,7 +8402,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.succ_add":
    [{"id": "NatPlayground___Nat___succ_add",
@@ -8487,7 +8533,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Multiplication"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.one_eq_succ_zero":
    [{"id": "NatPlayground___Nat___one_eq_succ_zero",
@@ -8509,7 +8556,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Multiplication"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.one":
    [{"id": "NatPlayground___Nat___one",
@@ -8562,7 +8610,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Multiplication"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.mul_two":
    [{"id": "NatPlayground___Nat___mul_two",
@@ -8583,7 +8632,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Multiplication"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.mul_one":
    [{"id": "NatPlayground___Nat___mul_one",
@@ -8624,7 +8674,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Multiplication"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.minusTwo":
    [{"id": "NatPlayground___Nat___minusTwo",
@@ -8876,7 +8927,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.blt":
    [{"id": "NatPlayground___Nat___blt",
@@ -8887,7 +8939,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.ble_refl":
    [{"id": "NatPlayground___Nat___ble_refl",
@@ -8908,7 +8961,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.binToNat_z":
    [{"id": "NatPlayground___Nat___binToNat_z",
@@ -9007,7 +9061,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.beq":
    [{"id": "NatPlayground___Nat___beq",
@@ -9018,7 +9073,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.andb_false":
    [{"id": "NatPlayground___Nat___andb_false",
@@ -9175,6 +9231,7 @@
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
         "General Proofs about Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_id_example":
@@ -9185,6 +9242,7 @@
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
         "General Proofs about Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_comm":
