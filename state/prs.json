@@ -312,6 +312,53 @@
       "status": "published",
       "title": "Polishing pass over Basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/202"
+    },
+    "203": {
+      "base_sha": "1ef4da5bf3446cb90be6de20dca76a8fa229d063",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "7aa54c2e694baef84b967503cd98211cb74f3102",
+      "preview_path": "pr/203/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31165750153",
+      "status": "published",
+      "title": "Equiv.lean",
+      "url": "https://github.com/plclub/sf-in-lean/pull/203"
     }
   },
   "schema": 3
