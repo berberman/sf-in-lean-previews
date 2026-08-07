@@ -1,53 +1,6 @@
 {
-  "main_sha": "fcf1418167c6e760c0a1d826bc5526330edfa23c",
+  "main_sha": "ad2f7762187ca7a91b1e87b86a5e87bf6b907f6a",
   "prs": {
-    "167": {
-      "base_sha": "645b3ce2eb8908e54281f5b03f7e513cd65fcafd",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "cbb16cbfd67d1da70b2f63f537ef3ed441c92c28",
-      "preview_path": "pr/167/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31219804591",
-      "status": "published",
-      "title": "Pass over Logic chapter",
-      "url": "https://github.com/plclub/sf-in-lean/pull/167"
-    },
     "171": {
       "base_sha": "614820201c14922eb6dbd0636bdd141a546f2a59",
       "changed_variants": [
@@ -352,6 +305,16 @@
     },
     "210": {
       "base_sha": "645b3ce2eb8908e54281f5b03f7e513cd65fcafd",
+      "changed_variants": [],
+      "head_sha": "e920b82f70c371bdf681c5ea41294bb3ad3dcfb4",
+      "preview_path": "pr/210/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Induction polish",
+      "url": "https://github.com/plclub/sf-in-lean/pull/210"
+    },
+    "211": {
+      "base_sha": "ad2f7762187ca7a91b1e87b86a5e87bf6b907f6a",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -390,12 +353,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "a25497c6ac1f531a3d227fd449b9546657c9fd5a",
-      "preview_path": "pr/210/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31219179194",
+      "head_sha": "5e71da8cc32a77b495b33f358a27c2e0b28ca74b",
+      "preview_path": "pr/211/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31224705293",
       "status": "published",
-      "title": "Induction polish",
-      "url": "https://github.com/plclub/sf-in-lean/pull/210"
+      "title": "Poly: align naming with Lists and remove abbrevs",
+      "url": "https://github.com/plclub/sf-in-lean/pull/211"
     }
   },
   "schema": 3

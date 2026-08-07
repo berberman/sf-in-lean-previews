@@ -794,7 +794,7 @@ theorem inversion_ex2 : ∀ (n : Nat),
 -- Note to developers (before next release):
 --     This whole part of the section is a mess!!
 
-example (n : Nat) : Ev n → Even n := by
+example (n : Nat) : Ev n → Nat.Even n := by
   /- We could try to proceed by case analysis or induction on `n`.  But
       since `Ev` is mentioned in a premise, this strategy seems
       unpromising, because (as we've noted before) the induction
@@ -826,7 +826,7 @@ example (n : Nat) : Ev n → Even n := by
     of `n`.  Indeed, it is not difficult to convince Lean that this
     intermediate result would suffice. -/
     have he : (∃ (k' : Nat), n' = k'.double) → (∃ (n₀ : Nat), n' + 2 = n₀.double) := by
-      intro ⟨k, hk⟩; exists (k + 1); rw [double_succ, hk]
+      intro ⟨k, hk⟩; exists (k + 1); rw [Nat.double_succ, hk]
     apply he
     /- Unfortunately, now we are stuck: we are trying to prove another instance
         of the same theorem we set out to prove -- only here we are
@@ -858,7 +858,7 @@ example (n : Nat) : Ev n → Even n := by
 
 -- Let's try proving that lemma again:
 
-theorem ev_Even : ∀ n, Ev n → Even n := by
+theorem Nat.ev_Even : ∀ n, Ev n → Even n := by
   intro n h
   induction h
   /- h = ev_0 -/

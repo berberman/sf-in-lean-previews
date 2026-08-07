@@ -3162,25 +3162,18 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "plus_claim_is_true":
-   [{"id": "plus_claim_is_true",
-     "data":
-     {"/Logic/#plus_claim_is_true":
-      {"display": "plus_claim_is_true",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
-   "plus_claim":
-   [{"id": "plus_claim",
-     "data":
-     {"/Logic/#plus_claim":
-      {"display": "plus_claim",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
    "plus_2_2_is_4":
    [{"id": "plus_2_2_is_4",
      "data":
      {"/Logic/#plus_2_2_is_4":
       {"display": "plus_2_2_is_4",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
+     "address": "/Logic/"}],
+   "plusClaim_is_true":
+   [{"id": "plusClaim_is_true",
+     "data":
+     {"/Logic/#plusClaim_is_true":
+      {"display": "plusClaim_is_true",
        "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
      "address": "/Logic/"}],
    "plus3":
@@ -3204,17 +3197,6 @@
         "Logic in Lean",
         "Logical Connectives",
         "Disjunction"]}},
-     "address": "/Logic/"}],
-   "or_associate":
-   [{"id": "or_associate",
-     "data":
-     {"/Logic/#or_associate":
-      {"display": "or_associate",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Truth",
-        "Logical Equivalence"]}},
      "address": "/Logic/"}],
    "optionMap":
    [{"id": "optionMap",
@@ -3363,17 +3345,6 @@
         "Data and Functions",
         "Namespaces"]}},
      "address": "/Basics/"}],
-   "mul_eq_0":
-   [{"id": "mul_eq_0",
-     "data":
-     {"/Logic/#mul_eq_0":
-      {"display": "mul_eq_0",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Truth",
-        "Logical Equivalence"]}},
-     "address": "/Logic/"}],
    "monochrome'":
    [{"id": "monochrome___",
      "data":
@@ -3451,13 +3422,6 @@
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
-   "is_three":
-   [{"id": "is_three",
-     "data":
-     {"/Logic/#is_three":
-      {"display": "is_three",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
    "is_even_prime":
    [{"id": "is_even_prime",
      "data":
@@ -3532,13 +3496,6 @@
         "Typeclasses",
         "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
-   "injective":
-   [{"id": "injective",
-     "data":
-     {"/Logic/#injective":
-      {"display": "injective",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
    "identity":
    [{"id": "identity",
      "data":
@@ -3665,17 +3622,6 @@
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
-   "factor_is_zero":
-   [{"id": "factor_is_zero",
-     "data":
-     {"/Logic/#factor_is_zero":
-      {"display": "factor_is_zero",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Logical Connectives",
-        "Disjunction"]}},
-     "address": "/Logic/"}],
    "fTrue":
    [{"id": "fTrue",
      "data":
@@ -3709,16 +3655,6 @@
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
-   "even_zero":
-   [{"id": "even_zero",
-     "data":
-     {"/UsingLean/#even_zero":
-      {"display": "even_zero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
-        "Redefining Functions and Lemmas over Nats"]}},
-     "address": "/UsingLean/"}],
    "even_double":
    [{"id": "even_double",
      "data":
@@ -3729,26 +3665,6 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
-   "even_bool_prop":
-   [{"id": "even_bool_prop",
-     "data":
-     {"/Logic/#even_bool_prop":
-      {"display": "even_bool_prop",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Working with Decidable Properties"]}},
-     "address": "/Logic/"}],
-   "even_add_three":
-   [{"id": "even_add_three",
-     "data":
-     {"/UsingLean/#even_add_three":
-      {"display": "even_add_three",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
-        "Redefining Functions and Lemmas over Nats"]}},
-     "address": "/UsingLean/"}],
    "ev_succ_succ_ev'":
    [{"id": "ev_succ_succ_ev___",
      "data":
@@ -3792,17 +3708,6 @@
         "IndProp: Inductively Defined Propositions",
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
-   "ev_Even":
-   [{"id": "ev_Even",
-     "data":
-     {"/IndProp/#ev_Even":
-      {"display": "ev_Even",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Induction on Evidence"]}},
      "address": "/IndProp/"}],
    "ev_4''":
    [{"id": "ev_4______",
@@ -3857,26 +3762,6 @@
         "Tactics: More Basic Tactics",
         "The  injection  and  contradiction  Tactics"]}},
      "address": "/Tactics/"}],
-   "double_zero":
-   [{"id": "double_zero",
-     "data":
-     {"/UsingLean/#double_zero":
-      {"display": "double_zero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
-        "Redefining Functions and Lemmas over Nats"]}},
-     "address": "/UsingLean/"}],
-   "double_succ":
-   [{"id": "double_succ",
-     "data":
-     {"/UsingLean/#double_succ":
-      {"display": "double_succ",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
-        "Redefining Functions and Lemmas over Nats"]}},
-     "address": "/UsingLean/"}],
    "double_injective_take2":
    [{"id": "double_injective_take2",
      "data":
@@ -4048,16 +3933,6 @@
         "Tactics: More Basic Tactics",
         "Using Tactics on Hypotheses"]}},
      "address": "/Tactics/"}],
-   "beq_refl":
-   [{"id": "beq_refl",
-     "data":
-     {"/Logic/#beq_refl":
-      {"display": "beq_refl",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Working with Decidable Properties"]}},
-     "address": "/Logic/"}],
    "beq_eq_true":
    [{"id": "beq_eq_true",
      "data":
@@ -4378,7 +4253,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -4387,7 +4262,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -4871,6 +4746,13 @@
         "Data and Functions",
         "New Types from Old"]}},
      "address": "/Basics/"}],
+   "PlusClaim":
+   [{"id": "PlusClaim",
+     "data":
+     {"/Logic/#PlusClaim":
+      {"display": "PlusClaim",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
+     "address": "/Logic/"}],
    "Playground.myFoo":
    [{"id": "Playground___myFoo",
      "data":
@@ -6263,11 +6145,83 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.factor_is_zero":
+   [{"id": "Nat___factor_is_zero",
+     "data":
+     {"/Logic/#Nat___factor_is_zero":
+      {"display": "Nat.factor_is_zero",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Disjunction"]}},
+     "address": "/Logic/"}],
+   "Nat.even_zero":
+   [{"id": "Nat___even_zero",
+     "data":
+     {"/UsingLean/#Nat___even_zero":
+      {"display": "Nat.even_zero",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the full power of a proof assistant",
+        "Redefining Functions and Lemmas over Nats"]}},
+     "address": "/UsingLean/"}],
+   "Nat.even_bool_prop":
+   [{"id": "Nat___even_bool_prop",
+     "data":
+     {"/Logic/#Nat___even_bool_prop":
+      {"display": "Nat.even_bool_prop",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Working with Decidable Properties"]}},
+     "address": "/Logic/"}],
+   "Nat.even_add_three":
+   [{"id": "Nat___even_add_three",
+     "data":
+     {"/UsingLean/#Nat___even_add_three":
+      {"display": "Nat.even_add_three",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the full power of a proof assistant",
+        "Redefining Functions and Lemmas over Nats"]}},
+     "address": "/UsingLean/"}],
    "Nat.even":
    [{"id": "Nat___even",
      "data":
      {"/UsingLean/#Nat___even":
       {"display": "Nat.even",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the full power of a proof assistant",
+        "Redefining Functions and Lemmas over Nats"]}},
+     "address": "/UsingLean/"}],
+   "Nat.ev_Even":
+   [{"id": "Nat___ev_Even",
+     "data":
+     {"/IndProp/#Nat___ev_Even":
+      {"display": "Nat.ev_Even",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Induction on Evidence"]}},
+     "address": "/IndProp/"}],
+   "Nat.double_zero":
+   [{"id": "Nat___double_zero",
+     "data":
+     {"/UsingLean/#Nat___double_zero":
+      {"display": "Nat.double_zero",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the full power of a proof assistant",
+        "Redefining Functions and Lemmas over Nats"]}},
+     "address": "/UsingLean/"}],
+   "Nat.double_succ":
+   [{"id": "Nat___double_succ",
+     "data":
+     {"/UsingLean/#Nat___double_succ":
+      {"display": "Nat.double_succ",
        "context":
        ["Logical Foundations",
         "UsingLean: Using the full power of a proof assistant",
@@ -6283,6 +6237,24 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.IsThree":
+   [{"id": "Nat___IsThree",
+     "data":
+     {"/Logic/#Nat___IsThree":
+      {"display": "Nat.IsThree",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
+     "address": "/Logic/"}],
+   "Nat.Even":
+   [{"id": "Nat___Even",
+     "data":
+     {"/Logic/#Nat___Even":
+      {"display": "Nat.Even",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Truth",
+        "Existential Quantification"]}},
+     "address": "/Logic/"}],
    "MyProd.snd":
    [{"id": "MyProd___snd",
      "data":
@@ -7270,7 +7242,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly",
+   [{"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -7281,7 +7253,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly-next",
+    {"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -7316,6 +7288,46 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
+   "List.In_nil":
+   [{"id": "List___In_nil",
+     "data":
+     {"/Logic/#List___In_nil":
+      {"display": "List.In_nil",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.In_map":
+   [{"id": "List___In_map",
+     "data":
+     {"/Logic/#List___In_map":
+      {"display": "List.In_map",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.In_cons":
+   [{"id": "List___In_cons",
+     "data":
+     {"/Logic/#List___In_cons":
+      {"display": "List.In_cons",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.In":
+   [{"id": "List___In",
+     "data":
+     {"/Logic/#List___In":
+      {"display": "List.In",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
    "LePlayground.Le.step":
    [{"id": "LePlayground___Le___step",
      "data":
@@ -7382,45 +7394,12 @@
         "Maps",
         "Notation for Concrete Maps"]}},
      "address": "/Typeclasses/"}],
-   "In_nil":
-   [{"id": "In_nil",
+   "Injective":
+   [{"id": "Injective",
      "data":
-     {"/Logic/#In_nil":
-      {"display": "In_nil",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "In_map":
-   [{"id": "In_map",
-     "data":
-     {"/Logic/#In_map":
-      {"display": "In_map",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "In_cons":
-   [{"id": "In_cons",
-     "data":
-     {"/Logic/#In_cons":
-      {"display": "In_cons",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "In":
-   [{"id": "In",
-     "data":
-     {"/Logic/#In":
-      {"display": "In",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
+     {"/Logic/#Injective":
+      {"display": "Injective",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
      "address": "/Logic/"}],
    "HasTwoIncomplete.two":
    [{"id": "HasTwoIncomplete___two",
@@ -7478,17 +7457,6 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
      "address": "/Typeclasses/"}],
-   "Even":
-   [{"id": "Even",
-     "data":
-     {"/Logic/#Even":
-      {"display": "Even",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Truth",
-        "Existential Quantification"]}},
-     "address": "/Logic/"}],
    "Ev.ev_succ_succ":
    [{"id": "Ev___ev_succ_succ",
      "data":

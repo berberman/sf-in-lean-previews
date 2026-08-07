@@ -974,7 +974,7 @@ theorem inversion_ex2 : ∀ (n : Nat),
 -- Note to developers (before next release):
 --     This whole part of the section is a mess!!
 
-example (n : Nat) : Ev n → Even n := by
+example (n : Nat) : Ev n → Nat.Even n := by
   /- We could try to proceed by case analysis or induction on `n`.  But
       since `Ev` is mentioned in a premise, this strategy seems
       unpromising, because (as we've noted before) the induction
@@ -1006,7 +1006,7 @@ example (n : Nat) : Ev n → Even n := by
     of `n`.  Indeed, it is not difficult to convince Lean that this
     intermediate result would suffice. -/
     have he : (∃ (k' : Nat), n' = k'.double) → (∃ (n₀ : Nat), n' + 2 = n₀.double) := by
-      intro ⟨k, hk⟩; exists (k + 1); rw [double_succ, hk]
+      intro ⟨k, hk⟩; exists (k + 1); rw [Nat.double_succ, hk]
     apply he
     /- Unfortunately, now we are stuck: we are trying to prove another instance
         of the same theorem we set out to prove -- only here we are
@@ -1049,7 +1049,7 @@ example (n : Nat) : Ev n → Even n := by
 
 -- Let's try proving that lemma again:
 
-theorem ev_Even : ∀ n, Ev n → Even n := by
+theorem Nat.ev_Even : ∀ n, Ev n → Even n := by
   intro n h
   induction h
   /- h = ev_0 -/
@@ -1067,9 +1067,9 @@ theorem ev_Even : ∀ n, Ev n → Even n := by
 -- The equivalence between the second and third definitions of evenness now
 -- follows.
 
-theorem ev_Even_iff : ∀ n, Ev n ↔ Even n := by
+theorem Nat.ev_Even_iff : ∀ n, Ev n ↔ Even n := by
   intro n; apply Iff.intro
-  . intro h; exact ev_Even _ h
+  . intro h; exact Nat.ev_Even _ h
   . intro ⟨k, hk⟩; rw [hk]; exact ev_double k
 
 -- As we will see in later chapters, induction on evidence is a recurring
@@ -1125,7 +1125,7 @@ inductive In_Inductive {α : Type} (a : α) : List α → Prop
 
 -- ### Exercise (2 stars): in_mem ⭐⭐
 
-theorem in_mem α (x : α) (l : List α) : In x l ↔ x ∈ l := by
+theorem in_mem α (x : α) (l : List α) : List.In x l ↔ x ∈ l := by
   sorry
 
 -- The characterizing lemmas for `∈` are called `List.mem_nil_iff` and
