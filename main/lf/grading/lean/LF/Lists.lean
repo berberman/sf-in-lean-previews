@@ -183,7 +183,7 @@ namespace NatList
 
 -- Don't worry too much about what this is doing:
 
-scoped infixr:65 " :: " => cons
+scoped infixr:65 (priority := high) " :: " => cons
 scoped macro (priority := high) "[" elems:term,* "]" : term => do
   elems.getElems.foldrM (``(cons $(⟨·⟩) $(⟨·⟩))) (← ``(nil))
 

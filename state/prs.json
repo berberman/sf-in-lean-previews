@@ -1,5 +1,5 @@
 {
-  "main_sha": "9176551f253bb7d8b9d0bc2d3b9e344e687a29d4",
+  "main_sha": "2701eb82de36d630552e0d91db19d710dd649362",
   "prs": {
     "167": {
       "base_sha": "9bd7a8f8969608343dc78c7588f01db60e60208e",
@@ -209,16 +209,6 @@
       "title": "LF: Add notations appendix chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/186"
     },
-    "200": {
-      "base_sha": "4ef806525357ca2cfe90f8417518f3c4b14a8a4d",
-      "changed_variants": [],
-      "head_sha": "b8578ab28a8a18f7b7ab30730f92a00ceb276e0c",
-      "preview_path": "pr/200/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Lists: make `::` high priority to increase performance",
-      "url": "https://github.com/plclub/sf-in-lean/pull/200"
-    },
     "202": {
       "base_sha": "f5e1bc981d10db98bf40d4806ae2a4f903659eec",
       "changed_variants": [
@@ -312,6 +302,100 @@
       "status": "published",
       "title": "Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
+    },
+    "206": {
+      "base_sha": "9176551f253bb7d8b9d0bc2d3b9e344e687a29d4",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "6a96a29303fdf575598aa578cfc646c2295ff256",
+      "preview_path": "pr/206/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31214143239",
+      "status": "published",
+      "title": "Get ready for alpha testers",
+      "url": "https://github.com/plclub/sf-in-lean/pull/206"
+    },
+    "207": {
+      "base_sha": "5dcaf40a6242e4e263c2f18cddf46cdea9244e72",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "f1949cab7ac5116305a8e61cec964c3fd00cfed9",
+      "preview_path": "pr/207/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31216454611",
+      "status": "published",
+      "title": "LF: fix a few Induction inconsistencies",
+      "url": "https://github.com/plclub/sf-in-lean/pull/207"
     }
   },
   "schema": 3
