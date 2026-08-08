@@ -400,12 +400,59 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "a25f15125330a53b4b3566858b749c92c2f5b3f4",
+      "head_sha": "1b76a4c90a4008965fde80075b7bd1fba1c4b476",
       "preview_path": "pr/214/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31268608743",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31283900028",
       "status": "published",
       "title": "Cleaning up STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
+    },
+    "215": {
+      "base_sha": "e59d8d605dc7424e44ec450a17d7ea385499fd84",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "45f64ba6b18e2af1d8db488098dc2b6d7d73b239",
+      "preview_path": "pr/215/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31283957542",
+      "status": "published",
+      "title": "Slidebreaks weren't being emitted in `terse`",
+      "url": "https://github.com/plclub/sf-in-lean/pull/215"
     }
   },
   "schema": 3
