@@ -256,53 +256,6 @@
       "title": "Get ready for alpha testers",
       "url": "https://github.com/plclub/sf-in-lean/pull/206"
     },
-    "207": {
-      "base_sha": "5dcaf40a6242e4e263c2f18cddf46cdea9244e72",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f1949cab7ac5116305a8e61cec964c3fd00cfed9",
-      "preview_path": "pr/207/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31216454611",
-      "status": "published",
-      "title": "LF: fix a few Induction inconsistencies",
-      "url": "https://github.com/plclub/sf-in-lean/pull/207"
-    },
     "210": {
       "base_sha": "645b3ce2eb8908e54281f5b03f7e513cd65fcafd",
       "changed_variants": [],
