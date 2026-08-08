@@ -1753,9 +1753,9 @@ def even' (n : Nat) : Bool :=
 sf_expect_failure
   def factorial_bad (n : Nat) : Nat :=
     if n == 0 then 1
-    else n * factorial_bad (n - 1)
+    else n * factorial_bad (pred n)
 
--- This fails because Lean can't see that `n - 1` is structurally smaller.
+-- This fails because Lean can't see that `pred n` is structurally smaller.
 
 -- ### Binary Numerals
 
@@ -1959,7 +1959,7 @@ inductive Traveler : Type where
 -- If the traveler already has a ticket or has already checked in, nothing
 -- changes.
 
--- ### Exercise (1 star): buy_ticket ⭐
+-- ### Exercise (1 star): buyTicket ⭐
 
 -- Define `buyTicket`
 
@@ -1988,6 +1988,9 @@ attribute [irreducible] buyTicket
 -- Here is our first general property: buying a ticket twice has the same
 -- effect as buying it once.
 
+-- N.B. An operation is called *idempotent* if performing it twice has the
+-- same effect as performing it once.
+
 -- ### Exercise (2 stars): buy_ticket_idempotent ⭐⭐
 
 theorem buyTicket_idempotent (t : Traveler) :
@@ -2010,9 +2013,9 @@ theorem buyTicket_idempotent (t : Traveler) :
 -- A traveler can check in only after buying a ticket. and their bag is marked
 -- as needing inspection. Calling checkIn in any other state does nothing.
 
--- ### Exercise (1 star): check_in ⭐
+-- ### Exercise (1 star): checkIn ⭐
 
--- Define `check_in`.
+-- Define `checkIn`.
 
 def checkIn (t : Traveler) : Traveler := (
   match t with
@@ -2038,8 +2041,9 @@ theorem checkIn_checkedIn (bagContent : BagContent)
 
 attribute [irreducible] checkIn
 
--- Buying a ticket and then checking in always leaves the traveler checked in,
--- regardless of whether they were already checked in.
+-- A traveler who does not yet have a ticket can buy one and then check in.
+-- After doing so, the traveler is checked in and their bag needs to be
+-- screened.
 
 -- ### Exercise (1 star): buy_ticket_then_check_in ⭐
 
@@ -2054,7 +2058,7 @@ theorem buyTicket_then_checkIn (bagContent : BagContent) :
 -- while a bag containing a battery is blocked. If the traveler has not
 -- checked in, `inspectBag` does nothing.
 
--- ### Exercise (1 star): inspect_bag ⭐
+-- ### Exercise (1 star): inspectBag ⭐
 
 -- Define `inspectBag`.
 
@@ -2144,20 +2148,32 @@ theorem replaceBag_checkedIn (newContent oldContent : BagContent)
 
 attribute [irreducible] replaceBag
 
--- We know that replacing a bag after it has been inspected resets its
--- screening status. In other words, `inspectBag` and `replaceBag` cannot in
--- general be performed in either order.
+-- It is easy to see that replacing a bag after it has been inspected resets
+-- its screening status. In other words, `inspectBag` and `replaceBag` do not,
+-- in general, commute: the order in which the two operations are performed
+-- can affect the result.
 
--- But are there cases in which the two operations do commute?
+-- But are there cases in which the two operations **do** commute?
 
--- Yes. If the traveler has not checked in, `inspectBag` does nothing, so
--- replacing and inspecting the bag can be performed in either order.
+-- Yes. If the traveler has not checked in, `inspectBag` has no effect.
+-- Therefore, whether we inspect the bag before or after replacing it makes no
+-- difference. In this case, `inspectBag` and `replaceBag` commute.
 
 -- ### Exercise (2 stars): inspect_replace_commute ⭐⭐
 
+theorem inspectBag_replaceBag_comm_noTicket
+    (oldContent newContent : BagContent) :
+    inspectBag (replaceBag newContent (.noTicket oldContent)) =
+    replaceBag newContent (inspectBag (.noTicket oldContent)) := by
+  all_goals
+    rewrite [replaceBag_noTicket]
+    rewrite [inspectBag_noTicket]
+    rewrite [inspectBag_noTicket]
+    rewrite [replaceBag_noTicket]
+    rfl
+
 theorem inspectBag_replaceBag_comm_ticketed
-    (oldContent newContent : BagContent)
-    (screeningStatus : ScreeningStatus) :
+    (oldContent newContent : BagContent) :
     inspectBag (replaceBag newContent (.ticketed oldContent)) =
     replaceBag newContent (inspectBag (.ticketed oldContent)) := by
   all_goals

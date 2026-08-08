@@ -353,9 +353,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "9fb8d8d82b908269b1bd77ec7ee4e6a50d83e4de",
+      "head_sha": "c098bbba5070061fbd8e38be5c9bb1bb72f20689",
       "preview_path": "pr/213/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31245363439",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31279332559",
       "status": "published",
       "title": "Basics: rework the last exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/213"

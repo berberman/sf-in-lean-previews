@@ -1196,7 +1196,7 @@ inductive Traveler : Type where
 -- ticketed traveler. If the traveler already has a ticket or
 -- has already checked in, nothing changes.
 
--- ### Exercise (1 star): buy_ticket ⭐
+-- ### Exercise (1 star): buyTicket ⭐
 
 -- Define `buyTicket`
 
@@ -1231,9 +1231,9 @@ theorem buyTicket_idempotent (t : Traveler) :
 -- their bag is marked as needing inspection. Calling checkIn
 -- in any other state does nothing.
 
--- ### Exercise (1 star): check_in ⭐
+-- ### Exercise (1 star): checkIn ⭐
 
--- Define `check_in`.
+-- Define `checkIn`.
 
 def checkIn (t : Traveler) : Traveler := sorry
 
@@ -1255,9 +1255,9 @@ theorem checkIn_checkedIn (bagContent : BagContent)
 
 attribute [irreducible] checkIn
 
--- Buying a ticket and then checking in always leaves the
--- traveler checked in, regardless of whether they were already
--- checked in.
+-- A traveler who does not yet have a ticket can buy one and
+-- then check in. After doing so, the traveler is checked in
+-- and their bag needs to be screened.
 
 -- ### Exercise (1 star): buy_ticket_then_check_in ⭐
 
@@ -1269,7 +1269,7 @@ theorem buyTicket_then_checkIn (bagContent : BagContent) :
 -- is cleared, while a bag containing a battery is blocked. If
 -- the traveler has not checked in, `inspectBag` does nothing.
 
--- ### Exercise (1 star): inspect_bag ⭐
+-- ### Exercise (1 star): inspectBag ⭐
 
 -- Define `inspectBag`.
 
@@ -1336,9 +1336,14 @@ attribute [irreducible] replaceBag
 
 -- ### Exercise (2 stars): inspect_replace_commute ⭐⭐
 
+theorem inspectBag_replaceBag_comm_noTicket
+    (oldContent newContent : BagContent) :
+    inspectBag (replaceBag newContent (.noTicket oldContent)) =
+    replaceBag newContent (inspectBag (.noTicket oldContent)) := by
+  sorry
+
 theorem inspectBag_replaceBag_comm_ticketed
-    (oldContent newContent : BagContent)
-    (screeningStatus : ScreeningStatus) :
+    (oldContent newContent : BagContent) :
     inspectBag (replaceBag newContent (.ticketed oldContent)) =
     replaceBag newContent (inspectBag (.ticketed oldContent)) := by
   sorry

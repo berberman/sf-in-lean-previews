@@ -373,6 +373,10 @@ theorem test_nonZeros : nonZeros [0, 1, 0] = [1] := by
     rw [nonZeros_cons_zero]
     rw [nonZeros_nil]
 
+-- The next definition uses `bif`, Lean's conditional for Boolean tests. The
+-- expression `bif b then x else y` evaluates to `x` when `b` is `true` and to
+-- `y` when `b` is `false`.
+
 def oddMembers (l : NatList) : NatList := (
   match l with
   | [] => []

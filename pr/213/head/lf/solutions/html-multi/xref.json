@@ -4369,7 +4369,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero-next",
+   [{"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4384,7 +4384,7 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero",
+    {"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -6307,7 +6307,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
+   [{"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6316,7 +6316,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
+    {"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -9539,6 +9539,17 @@
      "data":
      {"/Basics/#NatPlayground___Airport___inspectBag_replaceBag_comm_ticketed":
       {"display": "inspectBag_replaceBag_comm_ticketed",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.inspectBag_replaceBag_comm_noTicket":
+   [{"id": "NatPlayground___Airport___inspectBag_replaceBag_comm_noTicket",
+     "data":
+     {"/Basics/#NatPlayground___Airport___inspectBag_replaceBag_comm_noTicket":
+      {"display": "inspectBag_replaceBag_comm_noTicket",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
