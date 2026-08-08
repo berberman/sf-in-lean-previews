@@ -376,6 +376,10 @@ theorem test_nonZeros : nonZeros [0, 1, 0] = [1] := by
 
 attribute [autogradedProof 0.5] Lists.NatList.test_nonZeros
 
+-- The next definition uses `bif`, Lean's conditional for Boolean tests. The
+-- expression `bif b then x else y` evaluates to `x` when `b` is `true` and to
+-- `y` when `b` is `false`.
+
 def oddMembers (l : NatList) : NatList := (
   match l with
   | [] => []

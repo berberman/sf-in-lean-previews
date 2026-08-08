@@ -1,5 +1,5 @@
 {
-  "main_sha": "ad2f7762187ca7a91b1e87b86a5e87bf6b907f6a",
+  "main_sha": "e59d8d605dc7424e44ec450a17d7ea385499fd84",
   "prs": {
     "171": {
       "base_sha": "614820201c14922eb6dbd0636bdd141a546f2a59",
@@ -313,7 +313,7 @@
       "title": "Poly: align naming with Lists and remove abbrevs",
       "url": "https://github.com/plclub/sf-in-lean/pull/211"
     },
-    "212": {
+    "213": {
       "base_sha": "ad2f7762187ca7a91b1e87b86a5e87bf6b907f6a",
       "changed_variants": [
         {
@@ -353,12 +353,59 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "9745e395791d1bacfaea8f38b8bc735c2d73985f",
-      "preview_path": "pr/212/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31234410398",
+      "head_sha": "9fb8d8d82b908269b1bd77ec7ee4e6a50d83e4de",
+      "preview_path": "pr/213/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31245363439",
       "status": "published",
-      "title": "LF: introduce bif before first use",
-      "url": "https://github.com/plclub/sf-in-lean/pull/212"
+      "title": "Basics: rework the last exercise",
+      "url": "https://github.com/plclub/sf-in-lean/pull/213"
+    },
+    "214": {
+      "base_sha": "ad2f7762187ca7a91b1e87b86a5e87bf6b907f6a",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "a25f15125330a53b4b3566858b749c92c2f5b3f4",
+      "preview_path": "pr/214/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31268608743",
+      "status": "published",
+      "title": "Cleaning up STYLE.md",
+      "url": "https://github.com/plclub/sf-in-lean/pull/214"
     }
   },
   "schema": 3
