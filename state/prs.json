@@ -1,5 +1,5 @@
 {
-  "main_sha": "e59d8d605dc7424e44ec450a17d7ea385499fd84",
+  "main_sha": "dc0de08d46a30acc796475c713d480f8ae53196f",
   "prs": {
     "171": {
       "base_sha": "614820201c14922eb6dbd0636bdd141a546f2a59",
@@ -407,53 +407,6 @@
       "title": "Cleaning up STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
     },
-    "215": {
-      "base_sha": "e59d8d605dc7424e44ec450a17d7ea385499fd84",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "45f64ba6b18e2af1d8db488098dc2b6d7d73b239",
-      "preview_path": "pr/215/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31283957542",
-      "status": "published",
-      "title": "Slidebreaks weren't being emitted in `terse`",
-      "url": "https://github.com/plclub/sf-in-lean/pull/215"
-    },
     "216": {
       "base_sha": "5e71da8cc32a77b495b33f358a27c2e0b28ca74b",
       "changed_variants": [],
@@ -463,6 +416,16 @@
       "status": "ci-failed",
       "title": "[WIP] Pass over Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
+    },
+    "217": {
+      "base_sha": "dc0de08d46a30acc796475c713d480f8ae53196f",
+      "changed_variants": [],
+      "head_sha": "2bcc2b62dfae6f7fea9b5b261e78151c995e3f30",
+      "preview_path": "pr/217/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "LF/Typeclasses: Re-work motivation for MyGetElem",
+      "url": "https://github.com/plclub/sf-in-lean/pull/217"
     }
   },
   "schema": 3
