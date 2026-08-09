@@ -1,5 +1,5 @@
 {
-  "main_sha": "f7319cdf386bb870e1ddeb0dae92dd4b270159d9",
+  "main_sha": "7d9a9643e38543d5c851148fa5f2288996d012d3",
   "prs": {
     "171": {
       "base_sha": "614820201c14922eb6dbd0636bdd141a546f2a59",
@@ -419,48 +419,11 @@
     },
     "218": {
       "base_sha": "15fbdb43be8af73f9f717de659cb23ae3521a88a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "37efd0f6369c66ad460ee18b82f3bebc9071b9b1",
+      "changed_variants": [],
+      "head_sha": "deba7c0514e541a3c2b37021dccc20b7cf6c7076",
       "preview_path": "pr/218/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31342001119",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Advice on writing new SFL material",
       "url": "https://github.com/plclub/sf-in-lean/pull/218"
     }
