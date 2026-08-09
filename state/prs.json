@@ -419,11 +419,48 @@
     },
     "218": {
       "base_sha": "15fbdb43be8af73f9f717de659cb23ae3521a88a",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "98844a4d879f8795e609f3fed211ee728ab94e59",
       "preview_path": "pr/218/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31320106747",
+      "status": "published",
       "title": "Advice on writing new SFL material",
       "url": "https://github.com/plclub/sf-in-lean/pull/218"
     }
