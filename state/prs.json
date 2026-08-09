@@ -466,11 +466,48 @@
     },
     "219": {
       "base_sha": "15fbdb43be8af73f9f717de659cb23ae3521a88a",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "c193357c3b9f387b891a0c30d9bb7c95ccb811dc",
       "preview_path": "pr/219/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31325620642",
+      "status": "published",
       "title": "Lists: clean up stale names and proof examples",
       "url": "https://github.com/plclub/sf-in-lean/pull/219"
     }
