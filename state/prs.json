@@ -1,5 +1,5 @@
 {
-  "main_sha": "dc0de08d46a30acc796475c713d480f8ae53196f",
+  "main_sha": "15fbdb43be8af73f9f717de659cb23ae3521a88a",
   "prs": {
     "171": {
       "base_sha": "614820201c14922eb6dbd0636bdd141a546f2a59",
@@ -416,16 +416,6 @@
       "status": "ci-failed",
       "title": "[WIP] Pass over Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
-    },
-    "217": {
-      "base_sha": "dc0de08d46a30acc796475c713d480f8ae53196f",
-      "changed_variants": [],
-      "head_sha": "2bcc2b62dfae6f7fea9b5b261e78151c995e3f30",
-      "preview_path": "pr/217/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "LF/Typeclasses: Re-work motivation for MyGetElem",
-      "url": "https://github.com/plclub/sf-in-lean/pull/217"
     }
   },
   "schema": 3
