@@ -463,6 +463,16 @@
       "status": "published",
       "title": "Advice on writing new SFL material",
       "url": "https://github.com/plclub/sf-in-lean/pull/218"
+    },
+    "219": {
+      "base_sha": "15fbdb43be8af73f9f717de659cb23ae3521a88a",
+      "changed_variants": [],
+      "head_sha": "c193357c3b9f387b891a0c30d9bb7c95ccb811dc",
+      "preview_path": "pr/219/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Lists: clean up stale names and proof examples",
+      "url": "https://github.com/plclub/sf-in-lean/pull/219"
     }
   },
   "schema": 3
