@@ -457,22 +457,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "98844a4d879f8795e609f3fed211ee728ab94e59",
+      "head_sha": "37efd0f6369c66ad460ee18b82f3bebc9071b9b1",
       "preview_path": "pr/218/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31320106747",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31342001119",
       "status": "published",
       "title": "Advice on writing new SFL material",
       "url": "https://github.com/plclub/sf-in-lean/pull/218"
-    },
-    "220": {
-      "base_sha": "f7319cdf386bb870e1ddeb0dae92dd4b270159d9",
-      "changed_variants": [],
-      "head_sha": "7386b83f3847440ff1cb6e0cf101f9fabbb5735f",
-      "preview_path": "pr/220/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Tweak the :::details implementation",
-      "url": "https://github.com/plclub/sf-in-lean/pull/220"
     }
   },
   "schema": 3

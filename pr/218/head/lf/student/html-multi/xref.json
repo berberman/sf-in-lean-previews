@@ -7662,7 +7662,7 @@
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append-next",
+   [{"id": "Lists___NatList___myRepeat_append",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
@@ -7681,7 +7681,7 @@
         "Induction on Lists",
         "Generalizing Statements"]}},
      "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append",
+    {"id": "Lists___NatList___myRepeat_append-next",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
