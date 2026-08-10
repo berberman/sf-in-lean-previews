@@ -4,10 +4,10 @@
     "171": {
       "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
       "changed_variants": [],
-      "head_sha": "e563b9c4afdb418e51cd5f8018e9a8f5ab3a1c45",
+      "head_sha": "a5930f903e4f18e6aa458d2c0327628db7a9ae2a",
       "preview_path": "pr/171/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31426761039",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "First draft of Hoare.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/171"
     },
@@ -175,9 +175,9 @@
     "213": {
       "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
       "changed_variants": [],
-      "head_sha": "87a8b079c69395c008a43cdf602963bf8bf24dcc",
+      "head_sha": "8b00bf77cd861e002632192a49bda255931777ae",
       "preview_path": "pr/213/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31427080468",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31428413703",
       "status": "ci-failed",
       "title": "Basics: rework the last exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/213"
