@@ -203,7 +203,7 @@ inductive Tm where
 -- Types and terms are both written inside `<{ … }>`; `~e`
 -- escapes to Lean.
 
--- _Details:_ Notation encoding: types
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: types
 
 -- The `stlcTy` grammar covers `Bool`, arrows (written `→` or
 -- `->`, associating to the right), parentheses, and `~e`. A
@@ -233,13 +233,15 @@ macro_rules (kind := tyBracket)
   | `(<{ $T₁:stlcTy → $T₂:stlcTy }>)  => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
   | `(<{ $T₁:stlcTy -> $T₂:stlcTy }>) => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
 
+-- END DETAILS
+
 -- We'll write types inside of `<{ ... }>` brackets:
 
 #check <{ Bool }>
 #check <{ Bool -> Bool }>
 #check <{ (Bool -> Bool) -> Bool }>
 
--- _Details:_ Notation encoding: terms
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: terms
 
 -- Terms are built from variables, application (associating to
 -- the left), abstraction, the two boolean constants, and
@@ -301,7 +303,9 @@ macro_rules (kind := tmBracket)
   | `(<{ if $c then $t else $e }>) =>
       `(Tm.ite <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
 
--- _Details:_ Notation encoding: printing it back
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing it back
 
 -- A *delaborator* runs the grammar backwards: it rebuilds the
 -- concrete syntax from a `Ty` or `Tm` value, so that types and
@@ -351,7 +355,13 @@ partial def delabTyInner : DelabM (TSyntax `stlcTy) := do
 open Lean in
 /-- Is `s` usable as a bare identifier in the object syntax? -/
 def isPlainName (s : String) : Bool :=
-  !s.isEmpty && !s.front.isDigit && s.all fun c => c.isAlphanum || c == '_'
+  !s.isEmpty && s != "_" && !s.front.isDigit &&
+    s.all fun c => c.isAlphanum || c == '_'
+
+open Lean in
+/-- Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? -/
+def isPlainTmVarName (s : String) : Bool :=
+  isPlainName s && s != "true" && s != "false" && s != "Bool"
 
 open Lean PrettyPrinter Delaborator SubExpr in
 /-- Rebuild `stlcVar` concrete syntax from the string in a binding position. -/
@@ -371,12 +381,17 @@ partial def delabTmInner : DelabM (TSyntax `stlcTm) := do
     | Tm.tru => `(stlcTm| $(mkIdent `true):ident)
     | Tm.fls => `(stlcTm| $(mkIdent `false):ident)
     | Tm.var _ => do
-        match ← withAppArg delab with
+        let x ← withAppArg delab
+        match x with
         | `($s:str) =>
-            if isPlainName s.getString then
+            if isPlainTmVarName s.getString then
               `(stlcTm| $(mkIdent (Name.mkSimple s.getString)):ident)
-            else `(stlcTm| ~($(⟨← delab⟩)))
-        | _ => `(stlcTm| ~($(⟨← delab⟩)))
+            else
+              let var : Term := mkIdent ``Stlc.Tm.var
+              `(stlcTm| ~($var $x))
+        | _ =>
+            let var : Term := mkIdent ``Stlc.Tm.var
+            `(stlcTm| ~($var $x))
     | Tm.app _ _ => do
         let f ← withAppFn <| withAppArg delabTmInner
         let a ← withAppArg delabTmInner
@@ -424,8 +439,11 @@ def delabTm : Delab := whenPPOption getPPNotation do
     | Tm.tru => true | Tm.fls => true | Tm.ite _ _ _ => true
     | _ => false
   match ← delabTmInner with
+  | `(stlcTm| ~($e)) => pure e
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
+
+-- END DETAILS
 
 -- Here are the terms we will use as running examples, written
 -- in the new notation:
@@ -531,7 +549,7 @@ theorem notB_value : notB.IsValue := .abs ..
 -- (Conversely, a term that may contain free variables is often
 -- called an *open term*.)
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     Is the "shortly" above setting wrong expectations? Where
 --     exactly are we defining the free variables in a STLC
 --     term? BCP 25: Indeed, we need to define "free"!
@@ -636,7 +654,7 @@ macro_rules (kind := tmBracket)
   | `(<{ [$x := $s] $t }>) => do
       `(subst $(← varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
 
--- _Details:_ Notation encoding: substitution
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: substitution
 
 -- One more line registers substitutions with the printer, so
 -- that a goal mentioning one reads as `[x := s] t` rather than
@@ -648,6 +666,8 @@ def delabSubst : Delab := whenPPOption getPPNotation do
   match ← delabTmInner with
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
+
+-- END DETAILS
 
 variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty)
 
@@ -950,7 +970,7 @@ example : <{ ~idBB (~notB true) }> ⟶* <{ false }> := by
 
 -- ### Contexts
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     I find the FULL explanation above much better than the
 --     TERSE one below, since the question below seems
 --     ill-posed without extra context. Why would one want to
@@ -1006,7 +1026,7 @@ abbrev Context := PartialMap String Ty
 -- In the formal development, we write this judgment inside the
 -- same `<{ .. }>` brackets.
 
--- _Details:_ Notation encoding: contexts and judgments
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: contexts and judgments
 
 -- Contexts get a grammar of their own, `stlcCtx`. The
 -- **meaning** is the map update we already have — `x ↦ T ; Γ`
@@ -1049,6 +1069,8 @@ local macro_rules (kind := judgeBracket)
   | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
 
+-- END DETAILS
+
 inductive HasType : Context → Tm → Ty → Prop where
   | var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :
       <{ ~Γ ⊢ ~(Tm.var x) ⦂ ~T₁ }>
@@ -1067,7 +1089,7 @@ inductive HasType : Context → Tm → Ty → Prop where
       (h₃ : <{ ~Γ ⊢ ~t₃ ⦂ ~T₁ }>) :
       <{ ~Γ ⊢ if ~t₁ then ~t₂ else ~t₃ ⦂ ~T₁ }>
 
--- _Details:_ Notation encoding: the judgment, for real
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: the judgment, for real
 
 -- Closing the `section` retires the hygiene-free rule; the
 -- same rule is then declared again, hygienically, for every
@@ -1079,7 +1101,9 @@ macro_rules (kind := judgeBracket)
   | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
 
--- _Details:_ Notation encoding: printing judgments back
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing judgments back
 
 -- As with terms, a judgment prints back in its own notation,
 -- so that a goal reads as `<{ x ↦ Bool ; ∅ ⊢ x ⦂ Bool }>`
@@ -1091,6 +1115,8 @@ open Lean PrettyPrinter in
 context prints as `x ↦ Bool ; Γ` rather than as a chain of map updates. -/
 partial def unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)
   | `(∅) => `(stlcCtx| ∅)
+  | `($x:str →ₚ $T) => do
+      unexpandCtx (← `($x →ₚ $T ; ∅))
   | `($x:str →ₚ $T ; $G) => do
       let G' ← unexpandCtx G
       let x' : TSyntax `stlcVar ←
@@ -1114,6 +1140,8 @@ def HasType.unexpand : Unexpander
   | `($_ $G $t $T) =>
       do `(<{ $(← unexpandCtx G) ⊢ ~($t) ⦂ ~($T) }>)
   | _ => throw ()
+
+-- END DETAILS
 
 -- ### Examples
 

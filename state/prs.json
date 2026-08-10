@@ -49,12 +49,49 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/171"
     },
     "179": {
-      "base_sha": "eecc9040539b82e5c7da61947fa04b147fe62f4f",
-      "changed_variants": [],
-      "head_sha": "0bc74c3dcfecd94c9afe1dd72fd32e79925b7512",
+      "base_sha": "a5930f903e4f18e6aa458d2c0327628db7a9ae2a",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "ee0b7294d7fc0af66f2aa2c2585f0911bd716ed3",
       "preview_path": "pr/179/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31441716528",
+      "status": "published",
       "title": "Hoare: assertion and triple syntax",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
     },

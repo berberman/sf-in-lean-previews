@@ -103,7 +103,7 @@ macro_rules
   | `(<{ ~$e }>)  => pure e
   | `(<{ if $c then $t else $e }>) => `(Tm.ite <{ $c }> <{ $t }> <{ $e }>)
 
--- _Details:_ Notation encoding: printing terms back
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing terms back
 
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
 /-- Re-inserts parentheses in `tm` output according to the grammar's precedences. -/
@@ -152,6 +152,8 @@ partial def delabTm : Delab := whenPPOption getPPNotation do
   match ← delabTmInner with
   | `(tm| ~$e) => pure e
   | e => `(<{ $e }>)
+
+-- END DETAILS
 
 -- #### Values
 
@@ -565,7 +567,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 
 -- Complete the corresponding informal proof.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Check the typesetting of this...
 
 -- *Theorem*: If `⊢ t ⦂ T`, then either `t` is a value or else
@@ -857,7 +859,7 @@ end TM
 -- the small-step semantics for stating preservation and
 -- progress?
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This next is not using the new conventions for `grade`
 --     blocks, which I thought `to_verso.py` was now enforcing.
 --     Is that because this file was converted a while back,

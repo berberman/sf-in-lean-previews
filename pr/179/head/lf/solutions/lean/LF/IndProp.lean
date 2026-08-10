@@ -769,9 +769,9 @@ theorem ev_double (n : Nat) : Ev n.double := by
   all_goals
     induction n
     case zero =>
-      rw [double_zero]; exact Ev.ev_0
+      rw [Nat.double_zero]; exact Ev.ev_0
     case succ n IH =>
-      rw [double_succ]; exact Ev.ev_succ_succ _ IH
+      rw [Nat.double_succ]; exact Ev.ev_succ_succ _ IH
 
 -- ### Constructing Evidence for Permutations
 
@@ -1011,7 +1011,7 @@ theorem inversion_ex2 : ∀ (n : Nat),
 -- Note to developers (before next release):
 --     This whole part of the section is a mess!!
 
-example (n : Nat) : Ev n → Even n := by
+example (n : Nat) : Ev n → Nat.Even n := by
   /- We could try to proceed by case analysis or induction on `n`.  But
       since `Ev` is mentioned in a premise, this strategy seems
       unpromising, because (as we've noted before) the induction
@@ -1043,14 +1043,14 @@ example (n : Nat) : Ev n → Even n := by
     of `n`.  Indeed, it is not difficult to convince Lean that this
     intermediate result would suffice. -/
     have he : (∃ (k' : Nat), n' = k'.double) → (∃ (n₀ : Nat), n' + 2 = n₀.double) := by
-      intro ⟨k, hk⟩; exists (k + 1); rw [double_succ, hk]
+      intro ⟨k, hk⟩; exists (k + 1); rw [Nat.double_succ, hk]
     apply he
     /- Unfortunately, now we are stuck: we are trying to prove another instance
         of the same theorem we set out to prove -- only here we are
         talking about `n'` instead of `n`. -/
     sorry
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2021):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     I agree that it's all pretty chewy. Wonder if we really need any of it
 --     or if the point could be made just as well with less detail... When I
 --     explained it in class this time, I just observed that the destruct was
@@ -1060,7 +1060,7 @@ example (n : Nat) : Ev n → Even n := by
 --     version -- the TERSE could still be streamlined). So I'm going to leave
 --     it for now.
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2025):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
 --     I think best just to shorten it! And maybe make it not a WORKINCLASS.
 
 -- ### Induction on Evidence
@@ -1086,7 +1086,7 @@ example (n : Nat) : Ev n → Even n := by
 
 -- Let's try proving that lemma again:
 
-theorem ev_Even : ∀ n, Ev n → Even n := by
+theorem Nat.ev_Even : ∀ n, Ev n → Even n := by
   intro n h
   induction h
   /- h = ev_0 -/
@@ -1104,9 +1104,9 @@ theorem ev_Even : ∀ n, Ev n → Even n := by
 -- The equivalence between the second and third definitions of evenness now
 -- follows.
 
-theorem ev_Even_iff : ∀ n, Ev n ↔ Even n := by
+theorem Nat.ev_Even_iff : ∀ n, Ev n ↔ Even n := by
   intro n; apply Iff.intro
-  . intro h; exact ev_Even _ h
+  . intro h; exact Nat.ev_Even _ h
   . intro ⟨k, hk⟩; rw [hk]; exact ev_double k
 
 -- As we will see in later chapters, induction on evidence is a recurring
@@ -1159,7 +1159,7 @@ theorem ev_plus_plus : ∀ n m p,
       apply ev_sum
       . assumption
       . assumption
-    . rw [←double_add]; exact ev_double n
+    . rw [←Nat.double_add]; exact ev_double n
 
 -- Another example of a proposition that can be characterized both recursively
 -- and inductively is the `In` predicate we defined in the Logic chapter. As a
@@ -1185,19 +1185,19 @@ inductive In_Inductive {α : Type} (a : α) : List α → Prop
 
 -- ### Exercise (2 stars): in_mem ⭐⭐
 
-theorem in_mem α (x : α) (l : List α) : In x l ↔ x ∈ l := by
+theorem in_mem α (x : α) (l : List α) : List.In x l ↔ x ∈ l := by
   all_goals
     constructor
     . intro h; induction l with
-      | nil => rw [In_nil] at h; contradiction
+      | nil => apply List.In_nil at h; contradiction
       | cons hd tl ih =>
-        rw [In_cons] at h
+        rw [List.In_cons] at h
         obtain h | h := h
         . subst h; constructor
         . constructor; exact ih h
     . intro h; induction h with
-      | head l' => rw [In_cons]; left; rfl
-      | tail y h ih => rw [In_cons]; right; assumption
+      | head l' => rw [List.In_cons]; left; rfl
+      | tail y h ih => rw [List.In_cons]; right; assumption
 
 -- The characterizing lemmas for `∈` are called `List.mem_nil_iff` and
 -- `List.mem_cons`
@@ -1372,7 +1372,7 @@ example : ¬ Perm3 [1, 2, 3] [1, 2, 4] := by
 
 -- ## Exercising with Inductive Relations
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     Bad flow + duplication needs fixing. Could move some of this to the
 --     top. In the terse version this whole section is useless, it only has a
 --     (mostly) duplicated definition. For now FULLED the whole thing, but
@@ -1509,8 +1509,6 @@ theorem le_add_l : ∀ (a b : Nat), a ≤ a + b := by
       rw [Nat.succ_add]
       apply n_le_m__succ_n_le_succ_m
       assumption
-  -- GRADE_THEOREM 0.5: le_add_l
-  -- []
 
 -- ### Exercise (2 stars): plus_le_facts1 ⭐⭐
 
@@ -1754,7 +1752,7 @@ inductive R : Nat → Nat → Nat → Prop where
 -- The relation `R` above actually encodes a familiar function. Figure out
 -- which function; then state and prove this equivalence in Lean.
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     They really need to use (+) here, not Nat.add, or there's some
 --     typeclass nonsense in the proofs
 
@@ -1950,7 +1948,6 @@ theorem subseq_trans : ∀ (l₁ l₂ l₃ : List Nat),
 
 inductive TotalRelation : Nat → Nat → Prop where
   | tot n m : TotalRelation n m
--- /SOLUTION
 
 theorem total_relation_is_total : ∀ n m, TotalRelation n m := by
   all_goals
@@ -2372,10 +2369,8 @@ theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
     case pal_consnoc x l hp ih =>
       rw [List.reverse_cons, List.reverse_append, ←List.cons_append, ←ih]
       congr
-  -- GRADE_THEOREM 3: pal_reverse
-  -- []
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     This one is super annoying without simp. I propose we move it to the
 --     simp chapter
 

@@ -94,7 +94,7 @@ abbrev State := TotalMap Ident Nat
 -- including one more constructor. (This is a fresh `Aexp`, replacing the
 -- variable-free one from the *Slang* chapter.)
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     That should be a live chapter link.
 
 inductive Aexp where
@@ -104,7 +104,7 @@ inductive Aexp where
   | minus (a1 a2 : Aexp)
   | mult (a1 a2 : Aexp)
 
--- Note to developers (Chris Henson  @chenson2018):
+-- Note to developers (Chris Henson @chenson2018):
 --     Rather than define identifiers as Ident, a more general approach is to
 --     use a **type variable** with `DecidableEq` (as the `Maps` chapter
 --     does), threaded through `Aexp`/`Bexp`/`Com`/`State`. Stashed for a
@@ -199,7 +199,7 @@ macro_rules
   | `(aexp { $a * $b }) => `(Aexp.mult (aexp {$a}) (aexp {$b}))
   | `(aexp { ($a) }) => `(aexp {$a})
 
--- _Details:_ Notation encoding: boolean expressions
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions
 
 /-- Boolean expressions of Imp -/
 declare_syntax_cat imp_bexp
@@ -225,7 +225,9 @@ syntax:max "~" term:max : imp_bexp
 /-- Embed an Imp boolean expression into a Lean term -/
 syntax:min "bexp " "{" imp_bexp "}" : term
 
--- _Details:_ Notation encoding: boolean expressions, macro rules
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions, macro rules
 
 open Lean in
 macro_rules
@@ -242,6 +244,8 @@ macro_rules
   | `(bexp { ¬ $b:imp_bexp }) => `(Bexp.not (bexp {$b}))
   | `(bexp { $b1:imp_bexp ∧ $b2:imp_bexp }) => `(Bexp.and (bexp {$b1}) (bexp {$b2}))
   | `(bexp { ($b:imp_bexp) }) => `(bexp {$b})
+
+-- END DETAILS
 
 -- We make it a little easier to write Imp programs using normal constructors
 -- (i.e., without notation), by using *implicit coercions*. In Lean, a `Coe`
@@ -303,7 +307,7 @@ def example_bexp : Bexp := bexp { true ∧ ¬(X ≤ 4) }
 -- mentioning an Imp expression is displayed in readable Imp syntax rather
 -- than as a pile of constructors.
 
--- _Details:_ Notation encoding: printing expressions back
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing expressions back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer
@@ -400,12 +404,14 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
     | _ => `(imp_bexp| ~$(← delab))
   annAsTerm stx
 
+-- END DETAILS
+
 -- The `whenPPOption getPPNotation` wrapper lets
 -- `set_option pp.notation false` switch this delaborator off, revealing the
 -- raw constructors (see the "Desugaring Notations" discussion, after the
 -- commands are introduced).
 
--- _Details:_ Notation encoding: registering the delaborators
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: registering the delaborators
 
 @[delab app.Aexp.num, delab app.Aexp.id, delab app.Aexp.plus,
   delab app.Aexp.minus, delab app.Aexp.mult]
@@ -439,6 +445,8 @@ partial def delabBexp : Delab := whenPPOption getPPNotation do
   | e => `(term| bexp { $e })
 
 end Imp.Delab
+
+-- END DETAILS
 
 -- With these delaborators in place, Lean pretty-prints Imp expressions with
 -- the higher-level notations rather than their raw constructors.
@@ -538,12 +546,14 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
--- _Details:_ Notation encoding: commands
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands
 
 /-- Imp commands -/
 declare_syntax_cat imp_com
 
--- _Details:_ Notation encoding: commands, macro rules
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
 /-- The command that does nothing (`skip;`) -/
 syntax ident ";" : imp_com
@@ -577,13 +587,15 @@ macro_rules
   | `(imp { ~$c }) =>
     pure c
 
+-- END DETAILS
+
 -- Just as we did for expressions, we add a delaborator so that Lean prints
 -- commands back in the `imp { … }` concrete syntax (see the Delaborators
 -- section above). It reuses the expression delaborators for the condition of
 -- an `if`/`while` and for the right-hand side of an assignment, and prints an
 -- unrecognized subcommand with the `~` escape.
 
--- _Details:_ Notation encoding: printing commands back
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
@@ -636,6 +648,8 @@ partial def delabCom : Delab := whenPPOption getPPNotation do
   | e => `(term| imp { $e })
 
 end Imp.Delab
+
+-- END DETAILS
 
 -- As an example, here is the factorial function again, written as a formal
 -- definition. When this command terminates, the variable `Y` will contain the
@@ -788,7 +802,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 -- definition of evaluation to be nondeterministic -- i.e., not only will it
 -- not be total, it will not even be a function!
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     I kind of hate this notation. Is there something more standard in Lean?
 --     CSLib precedent maybe?
 
@@ -841,7 +855,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 -- Here is the formal definition. Make sure you understand how it corresponds
 -- to the inference rules.
 
--- Note to developers (Chris Henson  @chenson2018):
+-- Note to developers (Chris Henson @chenson2018):
 --     TODO Propose you use inline notation such as
 --     `Com.EvalR (imp {skip;}) st st`
 
@@ -1205,7 +1219,7 @@ theorem no_whiles_terminating' (c : Com) (st1 : State)
           exact ⟨st2, .ifFalse st1 st2 b ct cf hbev h⟩
   | whileDo b c ih => simp [Com.no_whiles] at hb
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     `NOT PORTED YET — remaining sections of sfdev/lf/Imp.v to port:
 --       - Case Study (Optional), Imp.v:2774
 --           * subtract_slowly_spec (EX4?, Imp.v:2919): loop-invariant style proof

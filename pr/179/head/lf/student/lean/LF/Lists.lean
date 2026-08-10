@@ -5,27 +5,12 @@ import LF.SFLCompat
 
 -- # Lists: Working with Structured Data
 
--- Note to developers (Konstantinos Kallas  @angelhof):
---     The `Baz` "how many elements does this type have?" exercise (the last
---     exercise in the chapter) is a **manual** exercise, and that's a poor
---     fit: a student who doesn't realize an inductive definition needs a base
---     case will simply fail it and only see why in the grader comment — and
---     it's easy to wrongly think you have the right answer and move on
---     without thinking. Better to either add a short section that explains
---     this directly, or add a hint like the `one_true_baz` / `count_trues`
---     scaffold ("try to write a value of type `Baz` for which the lemma
---     holds"). Worth reworking for easier grading.
-
 -- This chapter introduces basic data structures and functions for working
 -- with them. We place all these definitions in the `Lists` namespace to avoid
 -- name clashes with Lean's standard library and with definitions from other
 -- chapters.
 
 namespace Lists
-
--- Note to developers (before next release):
---     Note that rewrite laws should sometimes differ from pattern matching
---     now
 
 -- ## Pairs of Numbers
 
@@ -180,7 +165,7 @@ namespace NatList
 
 -- Don't worry too much about what this is doing:
 
-scoped infixr:65 " :: " => cons
+scoped infixr:65 (priority := high) " :: " => cons
 scoped macro (priority := high) "[" elems:term,* "]" : term => do
   elems.getElems.foldrM (``(cons $(⟨·⟩) $(⟨·⟩))) (← ``(nil))
 
@@ -245,9 +230,6 @@ def append (l1 l2 : NatList) : NatList :=
 
 -- ### Type Classes and Overloading
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     One word, or two?
-
 -- In Lean, operators like `++`, `==`, and `+` are not hardwired to particular
 -- types. Instead, they are defined using *type classes* — a mechanism that
 -- lets us overload operations for different types.
@@ -273,35 +255,18 @@ example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
 example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
 
--- Note to developers (One An  @meluge, NOW):
---     Experiment: introduce `BEq.refl` here, at the point where the `BEq`
---     class is named.
-
--- Note to developers (Chris Henson  @chenson2018):
---     The way that this is written might mislead the student to think it is
---     inherent to BEq, which is not true: this additionally requires the
---     ReflBEq typeclass. How crucial is it to have this early mention of
---     typeclasses? bcpierce00: Hopefully we can postpone it.
-
 -- The equality test `==` on `Nat`s is another example: it comes from the
 -- `BEq` ("boolean equality") type class. One small but handy fact about it,
 -- which several proofs below will need, is that `==` is reflexive:
 
 -- `BEq.refl : (a == a) = true`
 
--- This is the standard library's version of the `beq_refl` theorem you proved
--- in Induction.
-
--- We'll learn more about type classes as we go. For now, the key idea is: a
--- type class is an interface, and an instance is an implementation of that
--- interface for a particular type.
+-- We'll learn more about type classes in chapter Typeclasses. For now, the
+-- key idea is: a type class is an interface, and an instance is an
+-- implementation of that interface for a particular type.
 
 -- (For a thorough treatment of type classes, see Chapter 3 of *Functional
 -- Programming in Lean*.)
-
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
---     Should we replace the above with a forward link to our typeclasses
---     chapter, once we have one?
 
 -- #### Head and Tail
 
@@ -369,6 +334,10 @@ theorem nonZeros_cons_nonZero {h : Nat} {t : NatList} :
 theorem test_nonZeros : nonZeros [0, 1, 0] = [1] := by
   sorry
 
+-- The next definition uses `bif`, Lean's conditional for Boolean tests. The
+-- expression `bif b then x else y` evaluates to `x` when `b` is `true` and to
+-- `y` when `b` is `false`.
+
 def oddMembers (l : NatList) : NatList := sorry
 
 theorem oddMembers_nil :
@@ -396,8 +365,8 @@ example : oddMembers [1, 2] = [1] := by
   · rw [oddMembers_cons_not_odd]
     · rw [oddMembers_nil]
     · rw [Nat.odd_def]
-      rw [even_succ, even_succ, even_zero, Bool.not_true, Bool.not_false, Bool.not_true]
-  · rw [Nat.odd, even_succ, even_zero, Bool.not_true, Bool.not_false]
+      rw [Nat.even_succ, Nat.even_succ, Nat.even_zero, Bool.not_true, Bool.not_false, Bool.not_true]
+  · rw [Nat.odd, Nat.even_succ, Nat.even_zero, Bool.not_true, Bool.not_false]
 
 -- This gets pretty verbose quite fast, however we can use `rfl` to deal with
 -- subgoals such as `Nat.odd 2 = false`:
@@ -432,9 +401,9 @@ example : countOddMembers [0, 1, 2, 3, 0] = 2 := by
 
 example : countOddMembers [0, 1, 2, 3, 0] = 2 := sorry
 
-theorem NatList.test_countOddMembers1 : countOddMembers [0, 2, 4] = 0 := sorry
+theorem test_countOddMembers1 : countOddMembers [0, 2, 4] = 0 := sorry
 
-theorem NatList.test_countOddMembers2 : countOddMembers [] = 0 := sorry
+theorem test_countOddMembers2 : countOddMembers [] = 0 := sorry
 
 -- ### Exercise (3 stars): alternate (Advanced) ⭐⭐⭐
 
@@ -449,16 +418,16 @@ theorem NatList.test_countOddMembers2 : countOddMembers [] = 0 := sorry
 
 def alternate (l1 l2 : NatList) : NatList := sorry
 
-theorem NatList.test_alternate1 :
+theorem test_alternate1 :
     alternate [1, 2, 3] [4, 5, 6] = [1, 4, 2, 5, 3, 6] := sorry
 
-theorem NatList.test_alternate2 :
+theorem test_alternate2 :
     alternate [1] [4, 5, 6] = [1, 4, 5, 6] := sorry
 
-theorem NatList.test_alternate3 :
+theorem test_alternate3 :
     alternate [1, 2, 3] [4] = [1, 4, 2, 3] := sorry
 
-theorem NatList.test_alternate4 :
+theorem test_alternate4 :
     alternate [] [20, 30] = [20, 30] := sorry
 
 -- ### Counting
@@ -491,9 +460,9 @@ example : count 1 [1] = 1 := by
 
 example : count 2 [2, 2] = 2 := sorry
 
-theorem NatList.test_count1 : count 1 [1, 1, 4] = 2 := sorry
+theorem test_count1 : count 1 [1, 1, 4] = 2 := sorry
 
-theorem NatList.test_count2 : count 5 [1, 1, 4] = 0 := sorry
+theorem test_count2 : count 5 [1, 1, 4] = 0 := sorry
 
 -- Again, all these proofs could be completed with just `rfl`, because the
 -- proof is computationally straight-forward -- compute both sides of the
@@ -526,9 +495,9 @@ example : member 1 [1] = true := by
 
 example : member 2 [1] = false := sorry -- rfl
 
-theorem NatList.test_member1 : member 1 [1, 4, 1] = true := sorry
+theorem test_member1 : member 1 [1, 4, 1] = true := sorry
 
-theorem NatList.test_member2 : member 2 [1, 4, 1] = false := sorry
+theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
 -- ### Removing
 
@@ -540,11 +509,6 @@ theorem NatList.test_member2 : member 2 [1, 4, 1] = false := sorry
 -- should return the same list unchanged. (This exercise is optional, but
 -- students following the advanced track will need to fill in the definition
 -- of `removeOne` for a later exercise.)
-
--- Note to developers (before next release):
---     BCP 25: At Penn this year, we removed the distinction between standard
---     and advanced tracks, which made the wording above confusing. Maybe just
---     make this an exercise for everybody?
 
 def removeOne (v : Nat) (l : NatList) : NatList := sorry
 
@@ -567,9 +531,9 @@ example : removeOne 5 [1, 5, 4] = [1, 4] := by
 
 example : count 5 (removeOne 5 [1, 5, 4]) = 0 := sorry
 
-theorem NatList.test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
+theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
 
-theorem NatList.test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
+theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
 
 def removeAll (v : Nat) (l : NatList) : NatList := sorry
 
@@ -595,20 +559,15 @@ example : count 5 (removeAll 5 [5, 1]) = 0 := by
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := sorry
 
-theorem NatList.test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
+theorem test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
 
-theorem NatList.test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
+theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
 -- ### Included
 
 -- ### Exercise (3 stars): included ⭐⭐⭐
 
 def included (l₁ l₂ : NatList) : Bool := sorry
-
--- Note to developers (Niklas Halonen  @xhalo32, before next release):
---     Do we need to introduce Bool.true*and, Bool.false*and and maybe their
---     mirror versions? There's also `NatPlayground.Nat.andb_false` from
---     Induction.lean...
 
 theorem included_nil {l₂ : NatList} : included nil l₂ = true := sorry
 
@@ -622,19 +581,15 @@ theorem included_cons_nonmember {v : Nat} {l₁ l₂ : NatList} (h : member v l�
 
 example : included [1] [2, 1] = true := by
   rw [included_cons_member]
-  · apply included_nil
+  · exact included_nil
   · rw [member_cons_diff rfl]
     rw [member_cons_same rfl]
 
 example : included [1, 1] [2, 1, 4, 1] = true := sorry
 
-theorem NatList.test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
+theorem test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
 
-theorem NatList.test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
-
--- Note to developers (Niklas Halonen  @xhalo32, before next release):
---     The next exercise is merely a special case of `count_cons_same`. Is
---     this on purpose?
+theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
 
 -- ### Exercise (2 stars): count_cons_inc (manually graded) ⭐⭐
 
@@ -706,13 +661,6 @@ theorem append_assoc (l1 l2 l3 : NatList) :
   | cons n l1' ih =>
     rw [cons_append, cons_append, cons_append, ih]
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     What's the best Lean markup for a displayed equation? The markup below
---     is going to get squished into a paragraph with all the rest by default,
---     but IMO it would look better as a separate display. Also: Are we going
---     to consistently write Qed at the end of proofs? We should agree on a
---     convention.
-
 -- *Theorem*: For all lists `l1`, `l2`, and `l3`,
 
 --   (l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3).
@@ -723,7 +671,7 @@ theorem append_assoc (l1 l2 l3 : NatList) :
 
 --   ([] ++ l2) ++ l3 = [] ++ (l2 ++ l3),
 
--- which follows directly from the definition of `app`.
+-- which follows directly from the definition of `append`.
 
 -- - Next, suppose `l1 = n :: l1'`, with
 
@@ -733,7 +681,7 @@ theorem append_assoc (l1 l2 l3 : NatList) :
 
 --   ((n :: l1') ++ l2) ++ l3 = (n :: l1') ++ (l2 ++ l3).
 
--- By the definition of `app`, this follows from
+-- By the definition of `append`, this follows from
 
 --   n :: ((l1' ++ l2) ++ l3) = n :: (l1' ++ (l2 ++ l3)),
 
@@ -823,16 +771,16 @@ sf_expect_failure
     induction l with
     | nil =>
       rw [reverse_nil, nil_append, length_cons, length_nil]
-    | cons n l' ih =>
+    | cons m l' ih =>
       rw [reverse_cons]
       -- `ih` not applicable
 
 -- unsolved goals
 -- case cons
--- n✝ n : Nat
+-- n m : Nat
 -- l' : NatList
--- ih : (l'.reverse ++ [n✝]).length = l'.reverse.length + 1
--- ⊢ (l'.reverse ++ [n] ++ [n✝]).length = (l'.reverse ++ [n]).length + 1
+-- ih : (l'.reverse ++ [n]).length = l'.reverse.length + 1
+-- ⊢ (l'.reverse ++ [m] ++ [n]).length = (l'.reverse ++ [m]).length + 1
 
 -- It turns out that the above lemma is more specific than it needs to be. We
 -- can strengthen the lemma to work not only on reversed lists but on general
@@ -982,7 +930,7 @@ theorem append_assoc4 {l1 l2 l3 l4 : NatList} :
 
 -- An exercise about your implementation of `nonZeros`:
 
-theorem nonZeros_app (l1 l2 : NatList) :
+theorem nonZeros_append (l1 l2 : NatList) :
     nonZeros (l1 ++ l2) = (nonZeros l1) ++ (nonZeros l2) := by
   sorry
 
@@ -1044,10 +992,10 @@ theorem remove_does_not_increase_count (l : NatList) :
     Nat.ble (count 0 (removeOne 0 l)) (count 0 l) = true := by
   sorry
 
--- ### Exercise (3 stars): count_app (manually graded) ⭐⭐⭐
+-- ### Exercise (3 stars): count_append (manually graded) ⭐⭐⭐
 
--- Write down an interesting theorem `count_app` about lists involving the
--- functions `count` and `app`, and prove it. (You may find that the
+-- Write down an interesting theorem `count_append` about lists involving the
+-- functions `count` and `append`, and prove it. (You may find that the
 -- difficulty of the proof depends on how you defined `count`!)
 
 -- ### Exercise (3 stars): involutive_injective (Advanced) ⭐⭐⭐
@@ -1135,8 +1083,8 @@ theorem NatOption.elim_some {d₁ d₂ : Nat} : elim d₁ (.some d₂) = d₂ :=
 def head? (l : NatList) : NatOption := sorry
 
 example : head? [] = .none := sorry
-example : head? [1] = .some 1 := sorry
-example : head? [5, 6] = .some 5 := sorry
+theorem test_head?1 : head? [1] = .some 1 := sorry
+theorem test_head?2 : head? [5, 6] = .some 5 := sorry
 
 theorem head?_nil : head? [] = .none := sorry
 

@@ -4,29 +4,7 @@ import LF.SFLCompat
 
 -- # Induction: Proof by Induction
 
--- Note to developers (before next release):
---     `SOONER: We should also consider adding more examples to clarify
---     the concepts introduced in this chapter. This could help in
---     reinforcing the understanding of induction principles.
---
---     LATER: In 3/22, MRC and BCP discussed "inlining" IndPrinciples
---     into earlier chapters, thus eliminating it as a chapter. This
---     chapter, Induction, is the first place a change would occur.  We
---     would present [nat_ind] here. Then in Lists/Poly we'd present
---     [list_ind], and the rest would go in IndProp and ProofObjects. The
---     main wrinkle is that we'd need to introduce [apply] here instead of
---     in Tactics if we want to preserve the presentation. The discussion
---     is preserved here: https://github.com/DeepSpec/sfdev/pull/471.
---
---     LATER: Now that we've added Steve's nice late-policy exercise in
---     Basics.v, the assignment for that chapter is probably hard enough.  Now
---     what about this chapter?  Can/should we make it a notch or two
---     harder?`
-
 -- ## Separate Compilation
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     `This section will need some tidying and rewriting...`
 
 -- Before getting started on this chapter, we need to import all of our
 -- definitions from the previous chapter:
@@ -61,9 +39,9 @@ import LF.SFLCompat
 --   InfoView. The extension will often prompt you do this if you change things
 --   upstream in the dependency tree.
 
--- We reopen the namespace from the previous chapter to keep the definitions
--- and theorems introduced in this chapter local to this file, so they don't
--- clash with the standard library.
+-- We reopen the namespace from the previous chapter to group this chapter's
+-- definitions and theorems with the custom natural-number development and
+-- keep their names distinct from the standard library.
 
 namespace NatPlayground.Nat
 
@@ -72,6 +50,10 @@ namespace NatPlayground.Nat
 -- _Quiz:_
 
 -- To prove the following theorem, which tactics will we need besides `rfl`?
+-- (Recall that `||` recurses on its *first* argument: `true || b = true` and
+-- `false || b = b`, by definition.)
+
+--   theorem review₁ : (true || false) = true
 
 -- (A) none
 
@@ -82,8 +64,6 @@ namespace NatPlayground.Nat
 -- (D) both `rewrite` and `cases`
 
 -- (E) can't be done with the tactics we've seen.
-
---   theorem review₁ : (true || false) = true
 
 -- _Quiz:_
 
@@ -160,10 +140,10 @@ namespace NatPlayground.Nat
 -- One more warm-up exercise. Prove the following theorem, using theorems from
 -- Basics:
 
-theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
+theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
   sorry
 
--- ### Proof by Induction
+-- ## Proof by Induction
 
 -- We defined `add` to recurse on its *second* argument:
 
@@ -175,21 +155,20 @@ theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
 -- This means `n + zero` reduces to `n` by definition, but `zero + n` does
 -- *not*.
 
--- In `add_zero`, we were able to prove that `zero` is a neutral element for
--- `+` on the *right* using just `rfl`:
+-- For the `add_zero` simplification rule, we were able to prove that `zero`
+-- is a neutral element for `+` on the *right* using just `rfl`:
 
 --   theorem add_zero : ∀ (n : Nat), n + zero = n := by
 --     intro n
 --     rfl
 
--- But the proof that it is also a neutral element on the *left* can't be done
--- in the same simple way. Just applying `rfl` doesn't work, since the `n` in
--- `zero + n` is an arbitrary unknown number, so the `match` in the definition
--- of `+` can't be simplified.
+-- What if we wanted to prove a rule that `zero` is also a neutral element on
+-- the *left*? Just applying `rfl` doesn't work, since the `n` in `zero + n`
+-- is an arbitrary unknown number, so the `match` in the definition of `+`
+-- can't be reduced.
 
 sf_expect_failure
-  example : ∀ n : Nat, zero + n = n := by
-    intro n
+  example (n : Nat) : zero + n = n := by
     rfl    -- doesn't work here!
 
 -- Tactic `rfl` failed: The left-hand side
@@ -200,20 +179,13 @@ sf_expect_failure
 -- n : Nat
 -- ⊢ zero + n = n
 
--- And reasoning by cases using `cases n` doesn't get us much further: the
--- branch of the case analysis where we assume `n = zero` goes through just
--- fine, but in the branch where `n = n' + 1` for some `n'` we get stuck in
--- exactly the same way.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     `This is not high priority, but at some point we should make a decision between
---     /* ... */ comments and -- comments in lean code and try to be consistent.  Here
---     we're inconsistent in the very same code block!  Are there standard Lean conventions
---     we should just follow?`
+-- And reasoning by cases using `cases` on `n` doesn't get us much further:
+-- the branch of the case analysis where we assume `n = zero` goes through
+-- just fine, but in the branch where `n = n' + 1` for some `n'` we get stuck
+-- in exactly the same way.
 
 sf_expect_failure
-  example : ∀ n : Nat, zero + n = n := by
-    intro n
+  example (n : Nat) : zero + n = n := by
     cases n with
     | zero => /- n = zero -/
       rewrite [add_zero]
@@ -227,7 +199,7 @@ sf_expect_failure
 -- n' : Nat
 -- ⊢ zero + succ n' = succ n'
 
--- We could use `cases n'` to get a bit further, but, since `n` can be
+-- We could use `cases` on `n'` to get a bit further, but, since `n` can be
 -- arbitrarily large, we'll never get all the way there if we just go on like
 -- this.
 
@@ -250,8 +222,7 @@ sf_expect_failure
 -- must show `P(n') → P(succ n')`. Here's how this works for the theorem at
 -- hand...
 
-theorem zero_add : ∀ n : Nat, zero + n = n := by
-  intro n
+theorem zero_add (n : Nat) : zero + n = n := by
   induction n with
   | zero => /- n = zero -/
     rewrite [add_zero]
@@ -271,7 +242,7 @@ theorem zero_add : ∀ n : Nat, zero + n = n := by
 -- branches.
 
 -- In the first subgoal, `n` is replaced by `zero`. The goal becomes
--- `zero + zero = zero`, which follows by `rfl`.
+-- `zero + zero = zero`, which follows by `rewrite [add_zero]` and `rfl`.
 
 -- In the second subgoal, `n` is replaced by `succ n'`, and the induction
 -- hypothesis `ih : zero + n' = n'` is added to the context. The goal becomes
@@ -281,10 +252,11 @@ theorem zero_add : ∀ n : Nat, zero + n = n := by
 -- to `n'`, and the goal becomes `succ n' = succ n'`, which closes with
 -- reflexivity.
 
-theorem beq_self : ∀ n : Nat,
-    (n == n) = true := by
+-- Here's another theorem to try, this time involving equality on natural
+-- numbers.
+
+theorem beq_self (n : Nat) : (n == n) = true := by
   all_goals
-    intro n
     induction n with
     | zero =>
       rewrite [zero_zero_beq_true]
@@ -292,19 +264,6 @@ theorem beq_self : ∀ n : Nat,
     | succ n' ih =>
       rewrite [succ_succ_beq]
       exact ih
-
--- Up until this point, we have been explicitly writing out all the parameters
--- to theorems with ∀s, which makes us introduce them explicitly with `intro`
--- before we can use them. A more Lean-idiomatic way is to write them on the
--- left side of the `:` in the theorem statement, which introduces them
--- automatically. So, the statement of `beq_self` that we just wrote could
--- also be:
-
---   theorem beq_self (n : Nat) : (n == n) = true := by ...
-
--- When written this way, we don't need to `intro n` at the start of the
--- proof, as `n` will already be in the context when we begin. We will prefer
--- this style going forward.
 
 -- ### Exercise (2 stars): basic_induction ⭐⭐
 
@@ -327,9 +286,6 @@ theorem add_assoc (n m p : Nat) :
     n + (m + p) = (n + m) + p := by
   sorry
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     `We need better typesetting for displays like the following ones:`
-
 -- ### Tip: the `rw` tactic
 
 -- As you've probably noticed, a common pattern in Lean proofs is
@@ -343,12 +299,9 @@ theorem add_assoc (n m p : Nat) :
 
 --   rw [double_zero]
 
--- Using `rw` in your proofs is optional, but it will save you time (and is
--- better style).
-
--- (One small caveat: `rw [...]` only performs a quick reflexivity check after
+-- A small caveat: `rw [...]` only performs a quick reflexivity check after
 -- rewriting; it does not unfold every definition. So, in rare cases, `rw` may
--- leave a goal that is still solved immediately by `rfl`.)
+-- leave a goal that is solved immediately by `rfl`.
 
 def aliasOfTwo := two
 
@@ -356,6 +309,8 @@ example (n : Nat) (h : n = aliasOfTwo) : n = two := by
   rw [h]
   /- The remaining goal is `aliasOfTwo = two`. -/
   rfl
+
+-- Let's get some practice with using `rw`.
 
 -- ### Exercise (2 stars): double_add ⭐⭐
 
@@ -370,8 +325,8 @@ theorem double_zero : double zero = zero := by rfl
 theorem double_succ n : double (succ n) = succ (succ (double n)) := by rfl
 attribute [irreducible] double
 
--- Use induction to prove this simple fact about `double`. Experiment with
--- using `rw` instead of `rewrite` as well.
+-- Use induction to prove this simple fact about `double`. Try using `rw`
+-- instead of `rewrite`.
 
 theorem double_add (n : Nat) : double n = n + n := by
   sorry
@@ -381,18 +336,19 @@ theorem double_add (n : Nat) : double n = n + n := by
 -- Here's a useful theorem that proves `even (n + 1)` flips the parity. This
 -- will facilitate proofs by induction on `n`:
 
--- One inconvenient aspect of our definition of `even n` is the recursive call
--- on `n'` when `n = succ (succ n')`. This makes proofs about `even n` harder
--- when done by induction on `n`, since we may need an induction hypothesis
--- about `succ (succ n')`. The following lemma gives an alternative
--- characterization of `even (succ n)` that works better with induction:
-
--- (Tip: To expand the body of `even` in a proof, use `rewrite [even]` or
--- `rw [even]`.)
-
 theorem even_succ (n : Nat) :
     even (succ n) = !even n := by
   sorry
+
+-- One inconvenient aspect of our definition of `even n` is the recursive call
+-- on `n'` when `n = succ (succ n')`. This makes proofs about `even n` harder
+-- when done by induction on `n`, since we may need an induction hypothesis
+-- about `succ (succ n')`, while induction just gives us one about `succ n'`).
+-- The following lemma gives an alternative characterization of
+-- `even (succ n)` that works better with induction:
+
+-- (Tip: To expand the body of `even` in a proof, use `rewrite [even]` or
+-- `rw [even]`.)
 
 -- ## Proofs Within Proofs
 
@@ -452,9 +408,8 @@ theorem add_rearrange (n m p q : Nat) :
 
 -- The question has challenged philosophers for millennia, but a rough and
 -- ready answer could be this: A proof of a mathematical proposition `P` is a
--- written (or spoken) text that instills in the reader (or hearer) the
--- certainty that `P` is true — an unassailable argument for the truth of `P`.
--- That is, a proof is an act of communication.
+-- text that instills in the reader the certainty that `P` is true. That is, a
+-- proof is an act of *communication*.
 
 -- Acts of communication may involve different sorts of readers. On one hand,
 -- the "reader" can be a program like Lean, in which case the "belief" that is
@@ -468,15 +423,15 @@ theorem add_rearrange (n m p q : Nat) :
 -- clearly specified. A "valid" proof is one that makes the reader believe
 -- `P`. But the same proof may be read by many different readers, some of whom
 -- may be convinced by a particular way of phrasing the argument, while others
--- may not be. Some readers may be particularly pedantic, inexperienced, or
--- just plain thick-headed; the only way to convince them will be to make the
--- argument in painstaking detail. Other readers, more familiar in the area,
--- may find all this detail so overwhelming that they lose the overall thread;
--- all they want is to be told the main ideas, since it is easier for them to
--- fill in the details for themselves than to wade through a written
--- presentation of them. Ultimately, there is no universal standard, because
--- there is no single way of writing an informal proof that will convince
--- every conceivable reader.
+-- may not be. Some readers may be particularly inexperienced or just plain
+-- thick-headed; the only way to convince them will be to make the argument in
+-- painstaking detail. Other readers, more familiar in the area, may find all
+-- this detail so overwhelming that they lose the overall thread; all they
+-- want is to be told the main ideas, since it is easier for them to fill in
+-- the details for themselves than to wade through a written presentation of
+-- them. Ultimately, there is no universal standard, because there is no
+-- single way of writing an informal proof that will convince every
+-- conceivable reader.
 
 -- In practice, however, mathematicians have developed a rich set of
 -- conventions and idioms for writing about complex mathematical objects that
@@ -549,9 +504,10 @@ theorem add_assoc'' (n m p : Nat) :
 -- generates the same sub-goals, in the same order, as the bullet points that
 -- a mathematician would usually write. But there are significant differences
 -- of detail: the formal proof is much more explicit in some ways (e.g., the
--- use of `rfl`) but much less explicit in others (in particular, the "proof
--- state" at any given point in the Lean proof is completely implicit, whereas
--- the informal proof reminds the reader several times where things stand).
+-- sequence of rewrites) but much less explicit in others (in particular, the
+-- "proof state" at any given point in the Lean proof is completely implicit,
+-- whereas the informal proof reminds the reader several times where things
+-- stand).
 
 -- ### Exercise (2 stars): add_comm_informal (Advanced, manually graded) ⭐⭐
 
@@ -627,7 +583,7 @@ theorem andb_false (b : Bool) :
   sorry
 
 theorem all3_spec (b c : Bool) :
-    (b && c) || ((!b) || (!c)) = true := by
+    ((b && c) || ((!b) || (!c))) = true := by
   sorry
 
 theorem right_distrib (n m p : Nat) :
@@ -664,19 +620,19 @@ example (b : Bool) : (b || true) = true := by
   | false => rfl
   | true  => rfl
 
--- We can also chain `<;>`s. In the next example, `cases b` creates two goals;
--- in each of them, `cases c` splits the goal again; then `rfl` solves all
--- four remaining goals.
+-- We can also chain `<;>`s. In the next example, `cases` on `b` creates two
+-- goals; in each of them, `cases` on `c` splits the goal again; then `rfl`
+-- solves all four remaining goals.
 
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
 -- Use `<;>` when the generated subgoals really do have the same proof. If
 -- different branches need different arguments, it is usually clearer to write
--- the cases explicitly. We'll discuss some other tactic combinators much
--- later in this book.
+-- the cases explicitly. We'll discuss some other tactic combinators in the
+-- Automation chapter.
 
--- ### Nat to Bin and Back to Nat
+-- ## Nat to Bin and Back to Nat
 
 namespace NatToBin
 
@@ -753,7 +709,7 @@ theorem nat_bin_nat (n : Nat) :
     binToNat (natToBin n) = n := by
   sorry
 
--- ### Bin to Nat and Back to Bin (Advanced)
+-- ## Bin to Nat and Back to Bin (Advanced)
 
 -- The opposite direction — starting with a `Bin`, converting to `Nat`, then
 -- converting back to `Bin` — turns out to be problematic. That is, the
@@ -833,14 +789,6 @@ def normalize (b : Bin) : Bin := sorry
 -- of `normalize` works the way you intend before you proceed. They won't be
 -- graded, but do fill in a few below.
 
--- Note to developers (Claude, before next release):
---     Same `-- SOLUTION` mishandling as elsewhere in this chapter, milder
---     here: the block keeps surviving content (`attribute [irreducible] …`)
---     after `-- END SOLUTION`, so student/terse don't error, but the
---     **solutions** build leaks the literal `-- SOLUTION` / `-- END SOLUTION`
---     comment lines into the displayed code. Prefer `solution!` over the
---     comment markers.
-
 -- FILL IN HERE
 
 -- Now that we have defined all of our functions and their relevant
@@ -856,13 +804,6 @@ attribute [irreducible] normalize doubleBin natToBin incr binToNat
 -- — that will allow the main proof to make progress. We have one lemma for
 -- the `b0` case (which also makes use of `double_incr_bin`) and another for
 -- the `b1` case.
-
--- Note to developers (Claude, before next release):
---     Same `-- SOLUTION` mishandling, milder: `bin_nat_bin` survives after
---     `-- END SOLUTION` so student/terse don't error, but the **solutions**
---     build leaks the literal `-- SOLUTION` / `-- END SOLUTION` comment lines
---     around `incr_doubleBin`/`natToBin_two_mul` into the displayed code.
---     Prefer `solution!` over the comment markers.
 
 -- FILL IN HERE
 

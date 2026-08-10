@@ -1,0 +1,1 @@
+window.docContents[141].resolve({"/UsingLean/#UsingLean":{"contents":"Chapter goals:\nNats\ndsimp\ncalc\n\n\n\nDid we intend for this section header to be in a \"full\" block?\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"4. UsingLean: Using the full power of a proof assistant","id":"/UsingLean/#UsingLean"}});

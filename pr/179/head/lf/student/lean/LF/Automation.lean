@@ -47,9 +47,6 @@ theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α) :
 -- arithmetic, a subset of propositional logic and arithmetic. `lia` is also a
 -- decision procedure for first-order logic.
 
--- Note to developers:
---     RAB: should we explain first-order logic? do they know what this is?
-
 -- If the goal is a universally quantified formula made out of
 
 -- - numeric constants, addition (`+` and `succ`), subtraction (`-` and `pred`)
@@ -172,9 +169,6 @@ theorem Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α) :
 -- first time that `try` catches a failure in a `<;>` sequence, the whole
 -- sequence will stop executing.
 
--- Note to developers (Roger Burtonpatel  @@rogerburtonpatel):
---     Use @berberman's infrastructure for expected failure here.
-
 /--
 error: unsolved goals
 case perm3_swap12
@@ -285,9 +279,6 @@ example : 10 ∈ [1,2,3,4,5,6,7,8,9,10] := by
 
 -- With `first`, we can solve the earlier issue with `try` where it would stop
 -- executing the sequence on the first failure.
-
--- Note to developers (Daniel Sainati  @@dsainati1):
---     Autoformat this later
 
 theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α) :
     Perm3 l₁ l₂ → x ∈ l₁ → x ∈ l₂ := by
@@ -457,11 +448,6 @@ example α x (l₁ l₂ l₃ : List α) :
 -- This usage of `simp only` is better because the addition of new `simp`
 -- lemmas won't cause this proof to change.
 
--- Note to developers (Daniel Sainati  @@dsainati1):
---     Chris suggested using Mathlib's `linter.flexible` option to enforce
---     proper `simp` usage. How do we feel about adding a Mathlib dependency
---     for this?
-
 -- Another rule around proper `simp` usage applies to the appropriate
 -- definition of `simp` lemmas.
 
@@ -531,14 +517,6 @@ attribute [pp_nodot] RegExp.Char RegExp.App RegExp.Union RegExp.Star
 -- theory of regular expressions, but the difference is not significant for
 -- present purposes.)
 
--- Note to developers (Daniel Sainati  @@dsainati1):
---     CH: Do you mean here that this is different because the inductive type
---     doesn't specify α is finite? In Lean the convention is for inductives
---     not to carry Prop-valued typeclasss assumptions, enforcing this only at
---     the theorems that use them. So this could give off a slightly wrong
---     impression. DHS: @bcpierce00 What was the purpose of this aside in the
---     original Rocq text? Does it make sense to keep here?
-
 -- We connect regular expressions and strings by defining when a regular
 -- expression *matches* some string.
 
@@ -565,9 +543,6 @@ attribute [pp_nodot] RegExp.Char RegExp.App RegExp.Union RegExp.Star
 
 -- We can easily translate this intuition into a set of rules, where we write
 -- `s =~ re` to say that `re` matches `s`:
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Check typesetting here (rules should be centered, I think):
 
 --   ─────────────── (mEmpty)
 --   [] =~ EmptyStr
@@ -613,9 +588,6 @@ inductive ExpMatch {α : Type} : List α → RegExp α → Prop where
            : ExpMatch (s₁ ++ s₂) (Star re)
 
 infix:40 " =~ " => ExpMatch
-
--- Note to developers (Daniel Sainati  @@dsainati1):
---     replace with quiz directive
 
 -- Notice that this clause in our informal definition...
 
@@ -697,9 +669,6 @@ theorem regexp_match_of_list α (l : List α) : l =~ reg_exp_of_list l := by
 -- following lemma shows that every string `s` matched by `re` is also matched
 -- by `Star re`.
 
--- Note to developers (Daniel Sainati  @@dsainati1):
---     How to make this a WORKINCLASS in verso?
-
 theorem MStar1 α s (re : RegExp α) :
     s =~ re →
     s =~ Star re := by
@@ -733,7 +702,7 @@ theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
 -- `List.foldr (· ++ ·) ss []` is the result of concatenating them all
 -- together.
 
--- ### Exercise (2 stars): MUnion' ⭐⭐
+-- ### Exercise (2 stars): MStar' ⭐⭐
 
 theorem MStar' α (ss : List (List α)) (re : RegExp α)
   (h : ∀ s, s ∈ ss → s =~ re) :
@@ -780,9 +749,6 @@ def reChars {α : Type} (re : RegExp α) : List α :=
   | Star re => reChars re
 
 -- Now, the main theorem:
-
--- Note to developers (Daniel Sainati  @@dsainati1):
---     This should be a workinclass
 
 theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     (hmatch : s =~ re) (hin : x ∈ s) : x ∈ reChars re := by
@@ -1110,7 +1076,7 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
     s₃  ≠ [ ] ∧
     (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ .Star re)  := by
   intro hmatch₁ hmatch₂ ih₁ ih₂ hLen
-  rw [app_length] at *
+  rw [append_length] at *
   obtain Hs1len0 | ⟨s1len, Hs1re1⟩ | Hs1re1 :
     (s₁.length = 0
       ∨ (s₁.length ≠ 0 ∧ s₁.length < pumpingConstant re)
@@ -1133,10 +1099,6 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
   sorry
 
 -- ### The (Strong) Pumping Lemma
-
--- Note to developers (Daniel Sainati  @@dsainati1):
---     If this exercise is going to be optional we should still fill in the
---     solution but it's lower priority.
 
 -- ### Exercise (10 stars): weak_pumping ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
 
