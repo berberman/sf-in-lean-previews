@@ -258,48 +258,11 @@
     },
     "214": {
       "base_sha": "ad2f7762187ca7a91b1e87b86a5e87bf6b907f6a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f5ce0abe96c85d0522ec1e87d6a0cf7e2d14f756",
+      "changed_variants": [],
+      "head_sha": "6b27bd02783b1d026b155d6a995d165d9bb72748",
       "preview_path": "pr/214/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31409480308",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Cleaning up STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
     },
