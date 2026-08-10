@@ -359,6 +359,53 @@
       "status": "published",
       "title": "Advice on writing new SFL material",
       "url": "https://github.com/plclub/sf-in-lean/pull/218"
+    },
+    "224": {
+      "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "82e1789fe7772d0583dbd701a8ca499c1964fa38",
+      "preview_path": "pr/224/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31407790458",
+      "status": "published",
+      "title": "IndProp: fix reader-facing formatting artifacts",
+      "url": "https://github.com/plclub/sf-in-lean/pull/224"
     }
   },
   "schema": 3
