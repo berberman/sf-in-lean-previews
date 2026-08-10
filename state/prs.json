@@ -51,10 +51,10 @@
     "179": {
       "base_sha": "eecc9040539b82e5c7da61947fa04b147fe62f4f",
       "changed_variants": [],
-      "head_sha": "13608e8aead2bd66450c4b9b8636938bc3e6271e",
+      "head_sha": "57e0124a8ee012278500e1285e5f5226f5af4b05",
       "preview_path": "pr/179/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31127304396",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Hoare: assertion and triple syntax",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
     },
