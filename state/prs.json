@@ -2,49 +2,12 @@
   "main_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
   "prs": {
     "171": {
-      "base_sha": "614820201c14922eb6dbd0636bdd141a546f2a59",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "eecc9040539b82e5c7da61947fa04b147fe62f4f",
+      "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
+      "changed_variants": [],
+      "head_sha": "e563b9c4afdb418e51cd5f8018e9a8f5ab3a1c45",
       "preview_path": "pr/171/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30698060515",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31426761039",
+      "status": "ci-failed",
       "title": "First draft of Hoare.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/171"
     },
@@ -210,49 +173,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
     },
     "213": {
-      "base_sha": "6500b32c12089bd6e75130e2af04ec94a64e857b",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "4c4c24a00b0c6c27cc1a99701354a6c86d2ab9d0",
+      "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
+      "changed_variants": [],
+      "head_sha": "87a8b079c69395c008a43cdf602963bf8bf24dcc",
       "preview_path": "pr/213/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31402328018",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31427080468",
+      "status": "ci-failed",
       "title": "Basics: rework the last exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/213"
     },
