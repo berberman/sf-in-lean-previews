@@ -2106,7 +2106,7 @@ constraint on it:</p>
             <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.variable-642" data-verso-hover="1641">variable</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-651">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="683">α</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-651">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="8">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-651">)</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
               <div class="sf-dev-note-label">
-                Note to developers (Michael Hicks  @mwhicks1)</div>
+                Note to developers (Michael Hicks @mwhicks1)</div>
               <p>
                 Students will run across universes, though. When looking at List lemmas, for example, they will see things like:</p>
               <pre>List.reverse.{u} {α : Type u} (as : List α) : List α
@@ -2115,7 +2115,7 @@ constraint on it:</p>
               </div>
             <div class="sf-dev-note">
               <div class="sf-dev-note-label">
-                Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                Note to developers (Benjamin Pierce @bcpierce00)</div>
               <p>
                 Yes, in Poly!</p>
               </div>
@@ -2250,7 +2250,7 @@ good way to give a type-level concept a name; structures can also bundle togethe
 piece of data, which will come in handy later, though we only need a single field here.</p>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                  Note to developers (Benjamin Pierce @bcpierce00)</div>
                 <p>
                   "type-level concept" doesn't say much to me here, and structures are <em>not</em> type-level things.
 (Well, <code>structure</code>s are, but <em>a</em> structure satisfying some <code>structure</code> declaration is not,
@@ -2278,7 +2278,7 @@ it's built the same way any structure is, by supplying a <code>Nat</code> for th
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-8413" data-verso-hover="58">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">DefaultValueScratch</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
                 <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                  Note to developers (Benjamin Pierce @bcpierce00)</div>
                 <p>
                   Maybe the example is not needed?</p>
                 </div>
@@ -2294,7 +2294,7 @@ We do this by writing <code>class</code> in place of <code>structure</code>:</p>
   </span><a href="Typeclasses/#DefaultValue___value" title="Definition of example"><span class="const token" data-binding="const-DefaultValue.value" data-verso-hover="484">value</span></a><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.structInstFieldDef-8997">:=</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="31">1</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
                 <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                  Note to developers (Benjamin Pierce @bcpierce00)</div>
                 <p>
                   Boldface, or italic?  We should write down a rule in STYLE.md!</p>
                 </div>
@@ -2351,7 +2351,7 @@ chapter, when we define maps that need a default value for a generic type. First
 back to <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-List.elem_poly" data-verso-hover="1648">List.elem_poly</span></code> and see how its <code>[BEq α]</code> argument actually gets resolved.</p>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                  Note to developers (Benjamin Pierce @bcpierce00)</div>
                 <p>
                   Is it a cousin, or a duplicate?</p>
                 </div>
@@ -2453,7 +2453,7 @@ specifies a type with at least three distinct elements, and give an instance of 
 a type for the values the maps return. Instead of choosing concrete types for these, we will use type variables.</p>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                    Note to developers (Benjamin Pierce @bcpierce00)</div>
                   <p>
                     Should we perhaps refer back to where the <code>variable</code> declaration is explained?  (I guess in Poly, but which section?)</p>
                   <p>
@@ -2584,7 +2584,7 @@ syntax to work. (Don't worry about following the mechanism in detail — the
 <code>macro_rules</code> and the <code>app_unexpander</code> below are minor technicalities.)</p>
                   <div class="sf-dev-note">
                     <div class="sf-dev-note-label">
-                      Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                      Note to developers (Benjamin Pierce @bcpierce00)</div>
                     <p>
                       Can we point people to where they can read about these things if they are interested?</p>
                     </div>
@@ -2606,7 +2606,7 @@ It's scoped since we don't want to override the default <code>GetElem</code> eve
 only when <code>open scoped MyGetElem</code> is in force.</p>
                   <div class="sf-dev-note">
                     <div class="sf-dev-note-label">
-                      Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                      Note to developers (Benjamin Pierce @bcpierce00)</div>
                     <p>
                       Make sure we've really explained <code>open scoped</code> somewhere...</p>
                     </div>
@@ -2620,7 +2620,7 @@ notation <code>m[a]</code> to access elements of a map <code>m</code>.</p>
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.example-24677">example</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-24685">:</span><span class="inter-text"> </span><a href="Typeclasses/#TotalMap___emptyNatMap" title="Definition of example"><span class="const token" data-binding="const-TotalMap.emptyNatMap" data-verso-hover="1690">emptyNatMap</span></a><span class="punctuation bracket token" data-binding="kw-occ-«term__[_]»-24687">[</span><span class="literal number token" data-binding="" data-verso-hover="31">1</span><span class="punctuation bracket token" data-binding="kw-occ-«term__[_]»-24687">]</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-24687">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-Inhabited.default" data-verso-hover="1687">default</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-24712">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-9370794885625164343-24715-24717-4493"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-24715" data-verso-hover="20">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-9370794885625164343-24715-24717-4493"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.2" data-verso-hover="683">α✝</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="8">Type</span><span class="inter-text"></span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.4" data-verso-hover="683">α</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="8">Type</span><span class="inter-text"></span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.6" data-verso-hover="683">β</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="8">Type</span><span class="inter-text"></span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.60" data-verso-hover="1706">inst✝³</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-BEq" data-verso-hover="1505">BEq</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="683">α</span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.67" data-verso-hover="1707">inst✝²</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-ReflBEq" data-verso-hover="1683">ReflBEq</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="683">α</span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.74" data-verso-hover="1708">inst✝¹</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-LawfulBEq" data-verso-hover="1684">LawfulBEq</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="683">α</span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.77" data-verso-hover="1709">inst✝</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Inhabited" data-verso-hover="1664">Inhabited</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="683">β</span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><a href="Typeclasses/#TotalMap___emptyNatMap" title="Definition of example"><span class="const token" data-binding="const-TotalMap.emptyNatMap" data-verso-hover="1690">emptyNatMap</span></a><span class="inter-text"></span><a href="Typeclasses/#MyGetElem___getElem" title="Definition of example"><span class="const token" data-binding="const-MyGetElem.getElem" data-verso-hover="1700">[</span></a><span class="unknown token" data-binding="">1</span><a href="Typeclasses/#MyGetElem___getElem" title="Definition of example"><span class="const token" data-binding="const-MyGetElem.getElem" data-verso-hover="1700">]</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="21">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-Inhabited.default" data-verso-hover="1687">default</span></span></span></span></span></span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-7-24718-24721-4495"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticRfl-24718" data-verso-hover="1">rfl</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-24718-24721-4495"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
                     <div class="sf-dev-note-label">
-                      Note to developers (Niklas Halonen  @xhalo32)</div>
+                      Note to developers (Niklas Halonen @xhalo32)</div>
                     <p>
                       As per the discussion in <code>https://github.com/plclub/sf-in-lean/pull/166#discussion_r3690573597</code>, we should provide the reverse of <code>getElem_def</code> as a simp-lemma, but it doesn't seem to behave nicely:</p>
                     <pre>@[simp]
@@ -2679,7 +2679,7 @@ a new map function around the old one.</p>
 function or method calls left to right without nested parentheses.</p>
                   <div class="sf-dev-note">
                     <div class="sf-dev-note-label">
-                      Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                      Note to developers (Benjamin Pierce @bcpierce00)</div>
                     <p>
                       Should we introduce this notation earlier?  (Are there good places to use it earlier?)</p>
                     </div>
@@ -2859,7 +2859,7 @@ A type which can't be inferred doesn't have any type classes like <code>MyGetEle
                   11.5.4. Partial Maps<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--Maps--Partial-Maps" title="Permalink">🔗</a></span></h3>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
-                    Note to developers (Niklas Halonen  @xhalo32)</div>
+                    Note to developers (Niklas Halonen @xhalo32)</div>
                   <p>
                     We should spend some time discussing differences between the inductive approach in Lists.lean and the approach here.
 The inductive approach could be made polymorphic and proven to be equivalent with partial maps (I believe), so the point is not that the maps are extensionally different.
@@ -2893,7 +2893,7 @@ Here we take that concept to a new level, and instead of using a <code>def</code
 This more strongly hides the fact that it's a total map.</p>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                    Note to developers (Benjamin Pierce @bcpierce00)</div>
                   <p>
                     If this way is better, then why didn't we do it for total maps too?  Just for the sake
 of explaining two different mechanisms? We should explain our reasoning.</p>
@@ -3030,7 +3030,7 @@ that all the entries in one map are also present in another. Lean already has no
 <code>m₁ ⊆ m₂</code> — which we get by supplying a <code class="hl lean inline" data-lean-context="examples"><span class="const token" data-binding="const-HasSubset" data-verso-hover="1780">HasSubset</span></code> instance.</p>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
-                    Note to developers (Niklas Halonen  @xhalo32)</div>
+                    Note to developers (Niklas Halonen @xhalo32)</div>
                   <p>
                     I think it would be more idiomatic to define <code>Subset</code> as <code>∀ {a : α} {b : β}, m₁[a] = some b → m₂[a] = some b</code>.</p>
                   </div>
@@ -3126,7 +3126,7 @@ Burtonpatel: These definitions of even as boolean computation and Prop should go
                 Here are the key differences between <code>Bool</code> and <code>Prop</code>:</p>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                  Note to developers (Benjamin Pierce @bcpierce00)</div>
                 <p>
                   Check formatting:</p>
                 </div>
@@ -3351,7 +3351,7 @@ with computational features of Lean such as the <code class="hl lean inline" dat
                 11.7. TODO<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Typeclasses--TODO" title="Permalink">🔗</a></span></h2>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
+                  Note to developers (Benjamin Pierce @bcpierce00)</div>
                 <p>
                   Needs finishing...</p>
                 </div>

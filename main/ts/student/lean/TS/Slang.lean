@@ -2,7 +2,7 @@ import TS.SFLCompat
 
 -- # Slang: Arithmetic and Boolean Expressions
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     We need to figure out our approach to text width, especially for
 --     proofs. Quite a few proofs here don't render into the chosen page
 --     width, and for terse mode it will be worse.
@@ -313,7 +313,7 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 -- keyword allows us to scope the notation to the present namespace so it
 -- doesn't collide with other evaluation relations later.
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
+-- Note to developers (Michael Hicks @mwhicks1, before next release):
 --     The Rocq version here says "As we saw in our case study of regular
 --     expressions in chapter IndProp, Rocq provides a way to use this
 --     notation in the definition of aevalR itself." It then re-shows the
@@ -377,7 +377,7 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 --                     ------------------           (mult)
 --                     mult e1 e2 ⇓ n1*n2
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     The first two quizzes here seem kind of boring.
 
 -- _Quiz:_
@@ -389,11 +389,11 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 -- (A) `num` and `plus` (B) `num` only (C) `num` and `mult` (D) `mult` and
 -- `plus` (E) `num`, `mult`, and `plus`
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
+-- Note to developers (Michael Hicks @mwhicks1, before next release):
 --     Not sure if we need ⇓b, or whether we can define ⇓ overloaded. Don't
 --     understand Lean notation yet!
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     About `Bexp.eval` below: We should discuss a way to recall definitions
 --     without having to write them out manually like this. I think a simple
 --     `#print` may work as an alternative, assuming there are no namespace
@@ -441,7 +441,7 @@ theorem Aexp.evalR_iff_eval (a : Aexp) (n : Nat) :
 -- We can make the proof quite a bit shorter using more automation like we did
 -- in the previous section.
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
+-- Note to developers (Michael Hicks @mwhicks1, before next release):
 --     the `workinclass!` marker should signal this live in-class exercise.
 --     But it is not rendering properly on the HTML. In fact it replaces
 --     `workinclass!` with the `all_goals` tactic, which we don't need.
@@ -463,7 +463,7 @@ inductive Bexp.EvalR : Bexp → Bool → Prop where
 
 scoped notation:55 e:56 " ⇓b " b:56 => Bexp.EvalR e b
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     There is no keyboard shortcut for a subscript b, nor is there one for c
 --     (to use used with cevalR below). There are numbers, x, y, z, l, m, n,
 --     etc.
@@ -547,7 +547,7 @@ inductive Aexp.EvalR : Aexp → Nat → Prop where
 
 end Slang.AevalRExtended
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
+-- Note to developers (Michael Hicks @mwhicks1, before next release):
 --     The following text seems not quite right to me. First, you can use
 --     options for partial functions, and that's very natural to do in Lean as
 --     a monad. Second, and related, monadic functions need not even be
@@ -556,7 +556,7 @@ end Slang.AevalRExtended
 --     here, but failing to mention options (which I think were introduced in
 --     LF) seems a bit surprising.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Agreed.
 
 -- At this point you may be wondering: which of these styles should I use by
@@ -575,7 +575,7 @@ end Slang.AevalRExtended
 -- plus a lemma that the two coincide, allowing later proofs to switch between
 -- points of view at will -- exactly what we did above.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Well, we didn't actually do a proof that switched between the points of
 --     view. Should we?
 

@@ -1,5 +1,5 @@
 {
-  "main_sha": "6500b32c12089bd6e75130e2af04ec94a64e857b",
+  "main_sha": "601d96bac74004a4dddbd4299f05a8fed83b5f38",
   "prs": {
     "171": {
       "base_sha": "614820201c14922eb6dbd0636bdd141a546f2a59",
@@ -208,53 +208,6 @@
       "status": "published",
       "title": "Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
-    },
-    "206": {
-      "base_sha": "9176551f253bb7d8b9d0bc2d3b9e344e687a29d4",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "6a96a29303fdf575598aa578cfc646c2295ff256",
-      "preview_path": "pr/206/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31214143239",
-      "status": "published",
-      "title": "Get ready for alpha testers",
-      "url": "https://github.com/plclub/sf-in-lean/pull/206"
     },
     "213": {
       "base_sha": "6500b32c12089bd6e75130e2af04ec94a64e857b",

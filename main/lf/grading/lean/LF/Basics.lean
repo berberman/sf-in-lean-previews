@@ -408,7 +408,7 @@ attribute [autogradedProof 1] MyBool.false_or
 -- Be careful, though: every time you say `sorry` you are leaving a door open
 -- for total nonsense to enter Lean's safe, formally checked world!
 
--- Note to developers (Harrison Goldstein  @hgoldstein95):
+-- Note to developers (Harrison Goldstein @hgoldstein95):
 --     In the terse .lean output this ends up looking like an exercise.
 
 sf_experiment
@@ -473,7 +473,7 @@ end MyBool
 
 -- ### New Types from Old
 
--- Note to developers (Harrison Goldstein  @hgoldstein95):
+-- Note to developers (Harrison Goldstein @hgoldstein95):
 --     I feel like this section has too much content in terse, but I don't
 --     want to unilaterally make that call. TODO
 
@@ -1706,17 +1706,17 @@ theorem zero_neb_add_one (n : Nat) :
 
 attribute [autogradedProof 1] NatPlayground.Nat.zero_neb_add_one
 
--- Note to developers (Daniel Sainati  @dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     I move that we just cut this section entirely and come back to it when
 --     we've presented enough of the requisite material that we can actually
 --     explain
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
+-- Note to developers (Michael Hicks @mwhicks1, before next release):
 --     I'm going to leave this here for now, but perhaps make a note to fix
 --     later on — when you've fixed it, come back and delete this, rather than
 --     delete it now.
 
--- Note to developers (Yipeng Liu  @berberman, before next release):
+-- Note to developers (Yipeng Liu @berberman, before next release):
 --     I feel we could split this section and push the typeclass stuff to
 --     `Typeclasses` chapter and complex notation syntax definitions to TS/HL.
 
@@ -2147,7 +2147,7 @@ theorem lowerGrade_lowers : ∀ g : Grade,
       case F => rewrite [lowerGrade_F_minus]; exact h
       all_goals rfl
 
--- Note to developers (Roger Burtonpatel  @rogerburtonpatel):
+-- Note to developers (Roger Burtonpatel @rogerburtonpatel):
 --     in removing `dsimp` from these proofs, I found that you might need the
 --     `contradiction` tactic here instead, or some other reasoning that's not
 --     accomplishable with the tactics we've introduced so far. Can you make
@@ -2205,7 +2205,7 @@ attribute [autogradedProof 2] NatPlayground.LateDays.grade_lowered_once
 
 end LateDays
 
--- Note to developers (Roger Burtonpatel  @rogerburtonpatel):
+-- Note to developers (Roger Burtonpatel @rogerburtonpatel):
 --     If we are to have this exercise, we must either make the functions
 --     irreducible or teach about `rw` of a reducible definition. We also have
 --     to figure out how to make lowerGrade_lowers go through without `dsimp`

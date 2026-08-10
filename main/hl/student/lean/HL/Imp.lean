@@ -94,7 +94,7 @@ abbrev State := TotalMap Ident Nat
 -- including one more constructor. (This is a fresh `Aexp`, replacing the
 -- variable-free one from the *Slang* chapter.)
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     That should be a live chapter link.
 
 inductive Aexp where
@@ -104,7 +104,7 @@ inductive Aexp where
   | minus (a1 a2 : Aexp)
   | mult (a1 a2 : Aexp)
 
--- Note to developers (Chris Henson  @chenson2018):
+-- Note to developers (Chris Henson @chenson2018):
 --     Rather than define identifiers as Ident, a more general approach is to
 --     use a **type variable** with `DecidableEq` (as the `Maps` chapter
 --     does), threaded through `Aexp`/`Bexp`/`Com`/`State`. Stashed for a
@@ -800,7 +800,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 -- definition of evaluation to be nondeterministic -- i.e., not only will it
 -- not be total, it will not even be a function!
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     I kind of hate this notation. Is there something more standard in Lean?
 --     CSLib precedent maybe?
 
@@ -853,7 +853,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 -- Here is the formal definition. Make sure you understand how it corresponds
 -- to the inference rules.
 
--- Note to developers (Chris Henson  @chenson2018):
+-- Note to developers (Chris Henson @chenson2018):
 --     TODO Propose you use inline notation such as
 --     `Com.EvalR (imp {skip;}) st st`
 
@@ -1099,7 +1099,7 @@ theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
 
 -- FILL IN HERE
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     `NOT PORTED YET — remaining sections of sfdev/lf/Imp.v to port:
 --       - Case Study (Optional), Imp.v:2774
 --           * subtract_slowly_spec (EX4?, Imp.v:2919): loop-invariant style proof

@@ -26,7 +26,7 @@ import LF.SFLCompat
 
 -- ## Separate Compilation
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `This section will need some tidying and rewriting...`
 
 -- Before getting started on this chapter, we need to import all of our
@@ -211,7 +211,7 @@ sf_expect_failure
 -- just fine, but in the branch where `n = n' + 1` for some `n'` we get stuck
 -- in exactly the same way.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `This is not high priority, but at some point we should make a decision between
 --     /* ... */ comments and -- comments in lean code and try to be consistent.  Here
 --     we're inconsistent in the very same code block!  Are there standard Lean conventions
@@ -240,7 +240,7 @@ sf_expect_failure
 -- defined sets, we often need a more powerful reasoning principle:
 -- *induction*.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     I changed boldface back to italic here, but I'm happy to discuss using
 --     boldface in a principled and consistent (and sparing) way...
 
@@ -359,7 +359,7 @@ theorem add_assoc (n m p : Nat) :
 
 attribute [autogradedProof 0.5] NatPlayground.Nat.add_assoc
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `We need better typesetting for displays like the following ones:`
 
 -- ### Tip: the `rw` tactic

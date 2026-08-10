@@ -772,7 +772,7 @@ attribute [autogradedProof 3] TM.progress
 
 -- Complete the corresponding informal proof.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Check the typesetting of this...
 
 -- *Theorem*: If `⊢ t ⦂ T`, then either `t` is a value or else `t ⟶ t'` for
@@ -1227,7 +1227,7 @@ end TM
 -- between reaching an error state and failing to terminate.  This is one
 -- reason that language theorists generally prefer the small-step style.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This next is not using the new conventions for `grade` blocks, which I
 --     thought `to_verso.py` was now enforcing. Is that because this file was
 --     converted a while back, before these improvements? (I suspect yes

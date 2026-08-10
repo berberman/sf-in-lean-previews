@@ -51,7 +51,7 @@ inductive MyList (α : Type) : Type where
 -- particular type `α`, the type `MyList α` is the inductively defined type of
 -- lists whose elements are of type `α`.
 
--- Note to developers (Yipeng Liu  @berberman):
+-- Note to developers (Yipeng Liu @berberman):
 --     A trick used below: parenthesizing the declaration makes it a term —
 --     Lean elaborates it and prints its inferred function type, instead of
 --     the declaration signature: `MyList (α : Type) : Type`.

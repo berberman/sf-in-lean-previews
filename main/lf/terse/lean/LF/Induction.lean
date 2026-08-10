@@ -25,7 +25,7 @@ import LF.SFLCompat
 
 -- ## Separate Compilation
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `This section will need some tidying and rewriting...`
 
 -- Lean will first need to compile `Basics.lean` so it can be
@@ -161,7 +161,7 @@ sf_expect_failure
 -- where `n = n' + 1` for some `n'` we get stuck in exactly the
 -- same way.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `This is not high priority, but at some point we should make a decision between
 --     /* ... */ comments and -- comments in lean code and try to be consistent.  Here
 --     we're inconsistent in the very same code block!  Are there standard Lean conventions
@@ -227,7 +227,7 @@ theorem add_assoc (n m p : Nat) :
     n + (m + p) = (n + m) + p := by
   sorry
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `We need better typesetting for displays like the following ones:`
 
 -- ### Tip: the `rw` tactic

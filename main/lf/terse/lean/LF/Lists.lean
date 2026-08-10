@@ -160,7 +160,7 @@ def append (l1 l2 : NatList) : NatList :=
 
 -- ### Type Classes and Overloading
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     One word, or two?
 
 instance : HAppend NatList NatList NatList where
@@ -178,7 +178,7 @@ example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
 example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
 
--- Note to developers (Chris Henson  @chenson2018):
+-- Note to developers (Chris Henson @chenson2018):
 --     The way that this is written might mislead the student
 --     to think it is inherent to BEq, which is not true: this
 --     additionally requires the ReflBEq typeclass. How crucial
@@ -376,7 +376,7 @@ theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
 def included (l₁ l₂ : NatList) : Bool := sorry
 
--- Note to developers (Niklas Halonen  @xhalo32, before next release):
+-- Note to developers (Niklas Halonen @xhalo32, before next release):
 --     Do we need to introduce Bool.true*and, Bool.false*and
 --     and maybe their mirror versions? There's also
 --     `NatPlayground.Nat.andb_false` from Induction.lean...
@@ -403,7 +403,7 @@ theorem test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
 
 theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
 
--- Note to developers (Niklas Halonen  @xhalo32, before next release):
+-- Note to developers (Niklas Halonen @xhalo32, before next release):
 --     The next exercise is merely a special case of
 --     `count_cons_same`. Is this on purpose?
 
@@ -446,7 +446,7 @@ theorem append_assoc (l1 l2 l3 : NatList) :
 -- For comparison, here is an informal proof of the same
 -- theorem.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Are we going to consistently write Qed at the end of
 --     proofs? We should agree on a convention.
 

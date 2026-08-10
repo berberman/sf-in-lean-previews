@@ -567,7 +567,7 @@ theorem notB_value : notB.IsValue := .abs ..
 -- (Conversely, a term that may contain free variables is often called an
 -- *open term*.)
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     Is the "shortly" above setting wrong expectations? Where exactly are we
 --     defining the free variables in a STLC term? BCP 25: Indeed, we need to
 --     define "free"!
@@ -1119,7 +1119,7 @@ example : <{ ~idBBBB ~idBB ~idB }> ⟶* idB := by
 -- With these refinements, we are ready to give informal and formal
 -- specifications of the typing relation.
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     I find the FULL explanation above much better than the TERSE one below,
 --     since the question below seems ill-posed without extra context. Why
 --     would one want to type a term `x y` if we've just said that we will

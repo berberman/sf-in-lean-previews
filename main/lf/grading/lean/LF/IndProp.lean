@@ -1055,7 +1055,7 @@ example (n : Nat) : Ev n → Nat.Even n := by
         talking about `n'` instead of `n`. -/
     sorry
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2021):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     I agree that it's all pretty chewy. Wonder if we really need any of it
 --     or if the point could be made just as well with less detail... When I
 --     explained it in class this time, I just observed that the destruct was
@@ -1065,7 +1065,7 @@ example (n : Nat) : Ev n → Nat.Even n := by
 --     version -- the TERSE could still be streamlined). So I'm going to leave
 --     it for now.
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2025):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
 --     I think best just to shorten it! And maybe make it not a WORKINCLASS.
 
 -- ### Induction on Evidence
@@ -1377,7 +1377,7 @@ example : ¬ Perm3 [1, 2, 3] [1, 2, 4] := by
 
 -- ## Exercising with Inductive Relations
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     Bad flow + duplication needs fixing. Could move some of this to the
 --     top. In the terse version this whole section is useless, it only has a
 --     (mostly) duplicated definition. For now FULLED the whole thing, but
@@ -1791,7 +1791,7 @@ inductive R : Nat → Nat → Nat → Prop where
 -- The relation `R` above actually encodes a familiar function. Figure out
 -- which function; then state and prove this equivalence in Lean.
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     They really need to use (+) here, not Nat.add, or there's some
 --     typeclass nonsense in the proofs
 
@@ -2425,7 +2425,7 @@ theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
 
 attribute [autogradedProof 3] pal_reverse
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     This one is super annoying without simp. I propose we move it to the
 --     simp chapter
 
