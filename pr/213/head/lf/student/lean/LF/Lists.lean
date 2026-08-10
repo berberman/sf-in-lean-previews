@@ -5,17 +5,6 @@ import LF.SFLCompat
 
 -- # Lists: Working with Structured Data
 
--- Note to developers (Konstantinos Kallas  @angelhof):
---     The `Baz` "how many elements does this type have?" exercise (the last
---     exercise in the chapter) is a **manual** exercise, and that's a poor
---     fit: a student who doesn't realize an inductive definition needs a base
---     case will simply fail it and only see why in the grader comment — and
---     it's easy to wrongly think you have the right answer and move on
---     without thinking. Better to either add a short section that explains
---     this directly, or add a hint like the `one_true_baz` / `count_trues`
---     scaffold ("try to write a value of type `Baz` for which the lemma
---     holds"). Worth reworking for easier grading.
-
 -- This chapter introduces basic data structures and functions for working
 -- with them. We place all these definitions in the `Lists` namespace to avoid
 -- name clashes with Lean's standard library and with definitions from other
@@ -272,10 +261,6 @@ theorem cons_append {n : Nat} {l1 l2 : NatList} : (n :: l1) ++ l2 = n :: (l1 ++ 
 example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
 example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
-
--- Note to developers (One An  @meluge, NOW):
---     Experiment: introduce `BEq.refl` here, at the point where the `BEq`
---     class is named.
 
 -- Note to developers (Chris Henson  @chenson2018):
 --     The way that this is written might mislead the student to think it is
@@ -619,7 +604,7 @@ theorem included_cons_nonmember {v : Nat} {l₁ l₂ : NatList} (h : member v l�
 
 example : included [1] [2, 1] = true := by
   rw [included_cons_member]
-  · apply included_nil
+  · exact included_nil
   · rw [member_cons_diff rfl]
     rw [member_cons_same rfl]
 
@@ -704,11 +689,8 @@ theorem append_assoc (l1 l2 l3 : NatList) :
     rw [cons_append, cons_append, cons_append, ih]
 
 -- Note to developers (Benjamin Pierce  @bcpierce00):
---     What's the best Lean markup for a displayed equation? The markup below
---     is going to get squished into a paragraph with all the rest by default,
---     but IMO it would look better as a separate display. Also: Are we going
---     to consistently write Qed at the end of proofs? We should agree on a
---     convention.
+--     Are we going to consistently write Qed at the end of proofs? We should
+--     agree on a convention.
 
 -- *Theorem*: For all lists `l1`, `l2`, and `l3`,
 
@@ -720,7 +702,7 @@ theorem append_assoc (l1 l2 l3 : NatList) :
 
 --   ([] ++ l2) ++ l3 = [] ++ (l2 ++ l3),
 
--- which follows directly from the definition of `app`.
+-- which follows directly from the definition of `append`.
 
 -- - Next, suppose `l1 = n :: l1'`, with
 
@@ -730,7 +712,7 @@ theorem append_assoc (l1 l2 l3 : NatList) :
 
 --   ((n :: l1') ++ l2) ++ l3 = (n :: l1') ++ (l2 ++ l3).
 
--- By the definition of `app`, this follows from
+-- By the definition of `append`, this follows from
 
 --   n :: ((l1' ++ l2) ++ l3) = n :: (l1' ++ (l2 ++ l3)),
 
@@ -820,16 +802,16 @@ sf_expect_failure
     induction l with
     | nil =>
       rw [reverse_nil, nil_append, length_cons, length_nil]
-    | cons n l' ih =>
+    | cons m l' ih =>
       rw [reverse_cons]
       -- `ih` not applicable
 
 -- unsolved goals
 -- case cons
--- n✝ n : Nat
+-- n m : Nat
 -- l' : NatList
--- ih : (l'.reverse ++ [n✝]).length = l'.reverse.length + 1
--- ⊢ (l'.reverse ++ [n] ++ [n✝]).length = (l'.reverse ++ [n]).length + 1
+-- ih : (l'.reverse ++ [n]).length = l'.reverse.length + 1
+-- ⊢ (l'.reverse ++ [m] ++ [n]).length = (l'.reverse ++ [m]).length + 1
 
 -- It turns out that the above lemma is more specific than it needs to be. We
 -- can strengthen the lemma to work not only on reversed lists but on general
@@ -979,7 +961,7 @@ theorem append_assoc4 {l1 l2 l3 l4 : NatList} :
 
 -- An exercise about your implementation of `nonZeros`:
 
-theorem nonZeros_app (l1 l2 : NatList) :
+theorem nonZeros_append (l1 l2 : NatList) :
     nonZeros (l1 ++ l2) = (nonZeros l1) ++ (nonZeros l2) := by
   sorry
 
@@ -1041,10 +1023,10 @@ theorem remove_does_not_increase_count (l : NatList) :
     Nat.ble (count 0 (removeOne 0 l)) (count 0 l) = true := by
   sorry
 
--- ### Exercise (3 stars): count_app (manually graded) ⭐⭐⭐
+-- ### Exercise (3 stars): count_append (manually graded) ⭐⭐⭐
 
--- Write down an interesting theorem `count_app` about lists involving the
--- functions `count` and `app`, and prove it. (You may find that the
+-- Write down an interesting theorem `count_append` about lists involving the
+-- functions `count` and `append`, and prove it. (You may find that the
 -- difficulty of the proof depends on how you defined `count`!)
 
 -- ### Exercise (3 stars): involutive_injective (Advanced) ⭐⭐⭐

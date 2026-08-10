@@ -910,7 +910,6 @@ theorem add_id_exercise : ∀ n m o : Nat,
 
 sf_expect_failure
   example (n : Nat) : (succ n == zero) = false := by
-    intro n
     /-
       We can't rewrite by any lemmas here because `n` is unknown!
     -/
@@ -1227,7 +1226,7 @@ theorem buyTicket_idempotent (t : Traveler) :
     buyTicket (buyTicket t) = buyTicket t := by
   sorry
 
--- A traveler can check in only after buying a ticket. and
+-- A traveler can check in only after buying a ticket, and
 -- their bag is marked as needing inspection. Calling checkIn
 -- in any other state does nothing.
 
