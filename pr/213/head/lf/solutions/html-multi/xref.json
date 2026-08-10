@@ -6384,7 +6384,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
+   [{"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6393,7 +6393,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
+    {"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -9522,50 +9522,6 @@
         "Data and Functions",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Airport.replaceBag_ticketed":
-   [{"id": "NatPlayground___Airport___replaceBag_ticketed",
-     "data":
-     {"/Basics/#NatPlayground___Airport___replaceBag_ticketed":
-      {"display": "replaceBag_ticketed",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.replaceBag_noTicket":
-   [{"id": "NatPlayground___Airport___replaceBag_noTicket",
-     "data":
-     {"/Basics/#NatPlayground___Airport___replaceBag_noTicket":
-      {"display": "replaceBag_noTicket",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.replaceBag_checkedIn":
-   [{"id": "NatPlayground___Airport___replaceBag_checkedIn",
-     "data":
-     {"/Basics/#NatPlayground___Airport___replaceBag_checkedIn":
-      {"display": "replaceBag_checkedIn",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.replaceBag":
-   [{"id": "NatPlayground___Airport___replaceBag",
-     "data":
-     {"/Basics/#NatPlayground___Airport___replaceBag":
-      {"display": "replaceBag",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
    "NatPlayground.Airport.inspectBag_ticketed":
    [{"id": "NatPlayground___Airport___inspectBag_ticketed",
      "data":
@@ -9577,22 +9533,11 @@
         "More Exercises",
         "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Airport.inspectBag_replaceBag_comm_ticketed":
-   [{"id": "NatPlayground___Airport___inspectBag_replaceBag_comm_ticketed",
+   "NatPlayground.Airport.inspectBag_prohibited":
+   [{"id": "NatPlayground___Airport___inspectBag_prohibited",
      "data":
-     {"/Basics/#NatPlayground___Airport___inspectBag_replaceBag_comm_ticketed":
-      {"display": "inspectBag_replaceBag_comm_ticketed",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.inspectBag_replaceBag_comm_noTicket":
-   [{"id": "NatPlayground___Airport___inspectBag_replaceBag_comm_noTicket",
-     "data":
-     {"/Basics/#NatPlayground___Airport___inspectBag_replaceBag_comm_noTicket":
-      {"display": "inspectBag_replaceBag_comm_noTicket",
+     {"/Basics/#NatPlayground___Airport___inspectBag_prohibited":
+      {"display": "inspectBag_prohibited",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -9632,11 +9577,22 @@
         "More Exercises",
         "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Airport.inspectBag_battery":
-   [{"id": "NatPlayground___Airport___inspectBag_battery",
+   "NatPlayground.Airport.inspectBag_changeBag_comm_ticketed":
+   [{"id": "NatPlayground___Airport___inspectBag_changeBag_comm_ticketed",
      "data":
-     {"/Basics/#NatPlayground___Airport___inspectBag_battery":
-      {"display": "inspectBag_battery",
+     {"/Basics/#NatPlayground___Airport___inspectBag_changeBag_comm_ticketed":
+      {"display": "inspectBag_changeBag_comm_ticketed",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.inspectBag_changeBag_comm_noTicket":
+   [{"id": "NatPlayground___Airport___inspectBag_changeBag_comm_noTicket",
+     "data":
+     {"/Basics/#NatPlayground___Airport___inspectBag_changeBag_comm_noTicket":
+      {"display": "inspectBag_changeBag_comm_noTicket",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -9692,6 +9648,50 @@
      "data":
      {"/Basics/#NatPlayground___Airport___checkIn":
       {"display": "checkIn",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.changeBag_ticketed":
+   [{"id": "NatPlayground___Airport___changeBag_ticketed",
+     "data":
+     {"/Basics/#NatPlayground___Airport___changeBag_ticketed":
+      {"display": "changeBag_ticketed",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.changeBag_noTicket":
+   [{"id": "NatPlayground___Airport___changeBag_noTicket",
+     "data":
+     {"/Basics/#NatPlayground___Airport___changeBag_noTicket":
+      {"display": "changeBag_noTicket",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.changeBag_checkedIn":
+   [{"id": "NatPlayground___Airport___changeBag_checkedIn",
+     "data":
+     {"/Basics/#NatPlayground___Airport___changeBag_checkedIn":
+      {"display": "changeBag_checkedIn",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.changeBag":
+   [{"id": "NatPlayground___Airport___changeBag",
+     "data":
+     {"/Basics/#NatPlayground___Airport___changeBag":
+      {"display": "changeBag",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -9852,22 +9852,22 @@
         "More Exercises",
         "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Airport.BagContent.ordinary":
-   [{"id": "NatPlayground___Airport___BagContent___ordinary",
+   "NatPlayground.Airport.BagContent.prohibited":
+   [{"id": "NatPlayground___Airport___BagContent___prohibited",
      "data":
-     {"/Basics/#NatPlayground___Airport___BagContent___ordinary":
-      {"display": "ordinary",
+     {"/Basics/#NatPlayground___Airport___BagContent___prohibited":
+      {"display": "prohibited",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
         "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Airport.BagContent.battery":
-   [{"id": "NatPlayground___Airport___BagContent___battery",
+   "NatPlayground.Airport.BagContent.ordinary":
+   [{"id": "NatPlayground___Airport___BagContent___ordinary",
      "data":
-     {"/Basics/#NatPlayground___Airport___BagContent___battery":
-      {"display": "battery",
+     {"/Basics/#NatPlayground___Airport___BagContent___ordinary":
+      {"display": "ordinary",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -11559,7 +11559,7 @@
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append",
+   [{"id": "Lists___NatList___myRepeat_append-next",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
@@ -11578,7 +11578,7 @@
         "Induction on Lists",
         "Generalizing Statements"]}},
      "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append-next",
+    {"id": "Lists___NatList___myRepeat_append",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",

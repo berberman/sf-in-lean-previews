@@ -1934,7 +1934,7 @@ theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
 -- In this exercise, we will model part of a database storing information
 -- about travelers passing through an airport. The database contains one entry
 -- per traveler, recording information about where the traveler is in the
--- airport process and the contents of their luggage.
+-- airport process and the contents of their current carry-on bag.
 
 -- We will implement several operations on these entries, state intended
 -- properties of the database's behavior, and prove that the implementation
@@ -1942,21 +1942,16 @@ theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
 
 namespace Airport
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Remove all the `:::terse` blocks and promote `:::full` blocks to top
---     level -- the whole section is `:::::full` now.
-
--- First, we describe the possible states of a bag.
-
--- For simplicity, we assume that a bag either contains a battery, which
--- causes it to fail inspection, or contains only ordinary items:
+-- For simplicity, a carry-on bag either contains a prohibited item, such as a
+-- liquid that exceeds the allowed limit, causing it to fail inspection, or
+-- contains only ordinary items.
 
 inductive BagContent : Type where
-  | battery
+  | prohibited
   | ordinary
 
--- A bag's screening status records whether the bag has not yet been
--- inspected, has been cleared, or has been blocked:
+-- After a traveler checks in, the database also records the result of the
+-- most recent security screening of their carry-on bag.
 
 inductive ScreeningStatus : Type where
   | notScreened
@@ -1971,7 +1966,10 @@ inductive ScreeningStatus : Type where
 -- - they have a ticket but have not yet checked in;
 
 -- - they have checked in, in which case the database also stores the screening
---   status of their bag.
+--   status of their carry-on bag.
+
+-- We can represent these possible database entries directly with an inductive
+-- type.
 
 inductive Traveler : Type where
   | noTicket  (bagContent : BagContent)
@@ -1990,7 +1988,7 @@ def buyTicket (t : Traveler) : Traveler := (
   | _ => t
 )
 example : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := (by rfl)
-example : buyTicket (.checkedIn .battery .blocked) = .checkedIn .battery .blocked := (by rfl)
+example : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := (by rfl)
 
 -- Here are the simplification rules for `buyTicket`:
 
@@ -2007,7 +2005,7 @@ theorem buyTicket_checkedIn (bagContent : BagContent)
 attribute [irreducible] buyTicket
 
 -- The first property we will prove about our system is that purchasing a
--- ticket is an idempotent operation (i.e., performing it twice has the same
+-- ticket is an *idempotent* operation (i.e., performing it twice has the same
 -- effect as performing it once).
 
 -- ### Exercise (2 stars): buy_ticket_idempotent ⭐⭐
@@ -2029,9 +2027,9 @@ theorem buyTicket_idempotent (t : Traveler) :
         rewrite [buyTicket_checkedIn]
         rfl
 
--- A traveler can check in only after buying a ticket, and their bag is then
--- marked as needing inspection. Calling `checkIn` in any other state does
--- nothing.
+-- A traveler can check in only after buying a ticket. Checking in records
+-- that their carry-on bag still needs to be inspected. Calling `checkIn`
+-- before buying a ticket or after already checking in does nothing.
 
 -- ### Exercise (1 star): checkIn ⭐
 
@@ -2042,7 +2040,7 @@ def checkIn (t : Traveler) : Traveler := (
 )
 
 example : checkIn (.noTicket .ordinary) = .noTicket .ordinary := (by rfl)
-example : checkIn (.ticketed .battery) = .checkedIn .battery .notScreened := (by rfl)
+example : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := (by rfl)
 example : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := (by rfl)
 
 -- Again, we record one rewrite rule for each case:
@@ -2060,7 +2058,8 @@ theorem checkIn_checkedIn (bagContent : BagContent)
 attribute [irreducible] checkIn
 
 -- A traveler who does not yet have a ticket can buy one and then check in.
--- After this, the traveler is checked in and their bag needs to be screened.
+-- After this, the traveler is checked in and their carry-on ba bag needs to
+-- be screened.
 
 -- ### Exercise (1 star): buy_ticket_then_check_in ⭐
 
@@ -2071,9 +2070,9 @@ theorem buyTicket_then_checkIn (bagContent : BagContent) :
     rewrite [checkIn_ticketed]
     rfl
 
--- Bag inspection happens only after check-in. An ordinary bag is cleared,
--- while a bag containing a battery is blocked. If the traveler has not
--- checked in, `inspectBag` does nothing.
+-- Carry-on inspection happens only after check-in. A bag containing only
+-- ordinary items is cleared, while a bag containing a prohibited item is
+-- blocked. If the traveler has not checked in, `inspectBag` does nothing.
 
 -- ### Exercise (1 star): inspectBag ⭐
 
@@ -2082,13 +2081,13 @@ theorem buyTicket_then_checkIn (bagContent : BagContent) :
 def inspectBag (t : Traveler) : Traveler := (
   match t with
   | .checkedIn .ordinary _ => .checkedIn .ordinary .cleared
-  | .checkedIn .battery _ => .checkedIn .battery .blocked
+  | .checkedIn .prohibited _ => .checkedIn .prohibited .blocked
   | _ => t
 )
 
-example : inspectBag (.ticketed .battery) = .ticketed .battery := (by rfl)
+example : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := (by rfl)
 example : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := (by rfl)
-example : inspectBag (.checkedIn .battery .notScreened) = .checkedIn .battery .blocked := (by rfl)
+example : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := (by rfl)
 
 -- Again, we record one characterization lemma for each case.
 
@@ -2101,15 +2100,15 @@ theorem inspectBag_ticketed (bagContent : BagContent) :
 theorem inspectBag_ordinary (screeningStatus : ScreeningStatus) :
     inspectBag (.checkedIn .ordinary screeningStatus) = .checkedIn .ordinary .cleared := (by rfl)
 
-theorem inspectBag_battery (screeningStatus : ScreeningStatus) :
-    inspectBag (.checkedIn .battery screeningStatus) = .checkedIn .battery .blocked := (by rfl)
+theorem inspectBag_prohibited (screeningStatus : ScreeningStatus) :
+    inspectBag (.checkedIn .prohibited screeningStatus) = .checkedIn .prohibited .blocked := (by rfl)
 
 attribute [irreducible] inspectBag
 
 -- ### Exercise (2 stars): inspect_bag_idempotent ⭐⭐
 
--- Show that tnspecting the same unchanged bag twice has the same effect as
--- inspecting it once.
+-- Show that inspecting same unchanged carry-on bag twice has the same effect
+-- as inspecting it once.
 
 theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspectBag t := by
   all_goals
@@ -2124,80 +2123,80 @@ theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspe
       rfl
     | checkedIn bagContent screeningStatus =>
       cases bagContent with
-      | battery =>
-        rewrite [inspectBag_battery]
-        rewrite [inspectBag_battery]
+      | prohibited =>
+        rewrite [inspectBag_prohibited]
+        rewrite [inspectBag_prohibited]
         rfl
       | ordinary =>
         rewrite [inspectBag_ordinary]
         rewrite [inspectBag_ordinary]
         rfl
 
--- If the traveler replaces the bag after check in, the previous screening
--- result no longer applies to the new bag.
+-- A traveler may leave the screened area and return with a different carry-on
+-- bag. Since the previous screening result applied to the old bag, a new
+-- carry-on must be screened again before the traveler can re-enter.
 
--- ### Exercise (1 star): replace_bag ⭐
+-- ### Exercise (1 star): changeBag ⭐
 
--- Define `replaceBag`.
+-- Define `changeBag`.
 
-def replaceBag (newContent : BagContent) (t : Traveler) : Traveler := (
+def changeBag (newContent : BagContent) (t : Traveler) : Traveler := (
   match t with
   | .checkedIn _ _ => .checkedIn newContent .notScreened
   | .ticketed _ => .ticketed newContent
   | .noTicket _ => .noTicket newContent
 )
 
-example : replaceBag .battery (.ticketed .ordinary) = .ticketed .battery := (by rfl)
-example : replaceBag .battery (.checkedIn .ordinary .cleared) = .checkedIn .battery .notScreened := (by rfl)
+example : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := (by rfl)
+example : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := (by rfl)
 
 -- As before, we record the behavior of each case as a rewrite rule.
 
-theorem replaceBag_noTicket (newContent oldContent : BagContent) :
-    replaceBag newContent (.noTicket oldContent) = .noTicket newContent := (by rfl)
+theorem changeBag_noTicket (newContent oldContent : BagContent) :
+    changeBag newContent (.noTicket oldContent) = .noTicket newContent := (by rfl)
 
-theorem replaceBag_ticketed (newContent oldContent : BagContent) :
-    replaceBag newContent (.ticketed oldContent) = .ticketed newContent := (by rfl)
+theorem changeBag_ticketed (newContent oldContent : BagContent) :
+    changeBag newContent (.ticketed oldContent) = .ticketed newContent := (by rfl)
 
-theorem replaceBag_checkedIn (newContent oldContent : BagContent)
+theorem changeBag_checkedIn (newContent oldContent : BagContent)
     (screeningStatus : ScreeningStatus) :
-    replaceBag newContent (.checkedIn oldContent screeningStatus) =
+    changeBag newContent (.checkedIn oldContent screeningStatus) =
     .checkedIn newContent .notScreened := (by rfl)
 
-attribute [irreducible] replaceBag
+attribute [irreducible] changeBag
 
 -- It is easy to see that replacing a bag after it has been inspected resets
--- its screening status. In other words, `inspectBag` and `replaceBag` do not,
+-- its screening status. In other words, `inspectBag` and `changeBag` do not,
 -- in general, commute: the order in which the two operations are performed
 -- can affect the result.
 
--- But are there cases in which the two operations *do* commute?
+-- However, if the traveler has not checked in, `inspectBag` does nothing, so
+-- changing and inspecting the carry-on can be performed in either order.
+-- There are two such cases: the traveler may not yet have a ticket, or may
+-- have a ticket but not yet be checked in.
 
--- Yes. If the traveler has not checked in, `inspectBag` has no effect.
--- Therefore, whether we inspect the bag before or after replacing it makes no
--- difference. In this case, `inspectBag` and `replaceBag` commute.
+-- ### Exercise (2 stars): inspect_changeBag_commute ⭐⭐
 
--- ### Exercise (2 stars): inspect_replace_commute ⭐⭐
-
-theorem inspectBag_replaceBag_comm_noTicket
+theorem inspectBag_changeBag_comm_noTicket
     (oldContent newContent : BagContent) :
-    inspectBag (replaceBag newContent (.noTicket oldContent)) =
-    replaceBag newContent (inspectBag (.noTicket oldContent)) := by
+    inspectBag (changeBag newContent (.noTicket oldContent)) =
+    changeBag newContent (inspectBag (.noTicket oldContent)) := by
   all_goals
-    rewrite [replaceBag_noTicket]
+    rewrite [changeBag_noTicket]
     rewrite [inspectBag_noTicket]
     rewrite [inspectBag_noTicket]
-    rewrite [replaceBag_noTicket]
+    rewrite [changeBag_noTicket]
     rfl
 
-theorem inspectBag_replaceBag_comm_ticketed
+theorem inspectBag_changeBag_comm_ticketed
     (oldContent newContent : BagContent) :
-    inspectBag (replaceBag newContent (.ticketed oldContent)) =
-    replaceBag newContent (inspectBag (.ticketed oldContent)) := by
+    inspectBag (changeBag newContent (.ticketed oldContent)) =
+    changeBag newContent (inspectBag (.ticketed oldContent)) := by
   all_goals
-    rewrite [replaceBag_ticketed]
+    rewrite [changeBag_ticketed]
     rewrite [inspectBag_ticketed]
     rewrite [inspectBag_ticketed]
-    rewrite [replaceBag_ticketed]
+    rewrite [changeBag_ticketed]
     rfl
 
 end Airport

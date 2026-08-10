@@ -286,9 +286,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "6dffff899e113ce61062e60c75f6041bef295471",
+      "head_sha": "d7750dfbe09c979d22ccd50791fcec0b12f3cd1f",
       "preview_path": "pr/213/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31437998135",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31442616470",
       "status": "published",
       "title": "Basics: rework the last exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/213"
@@ -398,7 +398,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/218"
     },
     "224": {
-      "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
+      "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -437,9 +437,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "82e1789fe7772d0583dbd701a8ca499c1964fa38",
+      "head_sha": "6842e3aeba25b563d6967d35bd30b0a250ca571b",
       "preview_path": "pr/224/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31407790458",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31443177416",
       "status": "published",
       "title": "IndProp: fix reader-facing formatting artifacts",
       "url": "https://github.com/plclub/sf-in-lean/pull/224"

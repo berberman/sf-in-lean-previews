@@ -1071,28 +1071,28 @@
  "<code>NatPlayground.Nat.review₂ (b : Bool) : (true || b) = true</code>",
  "307": "<code>NatPlayground.Nat.review₁ : (true || false) = true</code>",
  "306":
- "<code>NatPlayground.Airport.inspectBag_replaceBag_comm_ticketed (oldContent newContent : BagContent) :\n  inspectBag (replaceBag newContent (Traveler.ticketed oldContent)) =\n    replaceBag newContent (inspectBag (Traveler.ticketed oldContent))</code>",
+ "<code>NatPlayground.Airport.inspectBag_changeBag_comm_ticketed (oldContent newContent : BagContent) :\n  inspectBag (changeBag newContent (Traveler.ticketed oldContent)) =\n    changeBag newContent (inspectBag (Traveler.ticketed oldContent))</code>",
  "305":
- "<code>NatPlayground.Airport.inspectBag_replaceBag_comm_noTicket (oldContent newContent : BagContent) :\n  inspectBag (replaceBag newContent (Traveler.noTicket oldContent)) =\n    replaceBag newContent (inspectBag (Traveler.noTicket oldContent))</code>",
+ "<code>NatPlayground.Airport.inspectBag_changeBag_comm_noTicket (oldContent newContent : BagContent) :\n  inspectBag (changeBag newContent (Traveler.noTicket oldContent)) =\n    changeBag newContent (inspectBag (Traveler.noTicket oldContent))</code>",
  "304":
- "<code>NatPlayground.Airport.replaceBag (newContent : NatPlayground.Airport.BagContent) (t : NatPlayground.Airport.Traveler) :\n  NatPlayground.Airport.Traveler</code>",
+ "<code>NatPlayground.Airport.changeBag (newContent : NatPlayground.Airport.BagContent) (t : NatPlayground.Airport.Traveler) :\n  NatPlayground.Airport.Traveler</code>",
  "303":
  "<code>NatPlayground.Airport.inspectBag (t : NatPlayground.Airport.Traveler) : NatPlayground.Airport.Traveler</code>",
  "302":
- "<code>NatPlayground.Airport.replaceBag_checkedIn (newContent oldContent : BagContent) (screeningStatus : ScreeningStatus) :\n  replaceBag newContent (Traveler.checkedIn oldContent screeningStatus) =\n    Traveler.checkedIn newContent ScreeningStatus.notScreened</code>",
+ "<code>NatPlayground.Airport.changeBag_checkedIn (newContent oldContent : BagContent) (screeningStatus : ScreeningStatus) :\n  changeBag newContent (Traveler.checkedIn oldContent screeningStatus) =\n    Traveler.checkedIn newContent ScreeningStatus.notScreened</code>",
  "301":
- "<code>NatPlayground.Airport.replaceBag_ticketed (newContent oldContent : BagContent) :\n  replaceBag newContent (Traveler.ticketed oldContent) = Traveler.ticketed newContent</code>",
+ "<code>NatPlayground.Airport.changeBag_ticketed (newContent oldContent : BagContent) :\n  changeBag newContent (Traveler.ticketed oldContent) = Traveler.ticketed newContent</code>",
  "300":
- "<code>NatPlayground.Airport.replaceBag_noTicket (newContent oldContent : BagContent) :\n  replaceBag newContent (Traveler.noTicket oldContent) = Traveler.noTicket newContent</code>",
+ "<code>NatPlayground.Airport.changeBag_noTicket (newContent oldContent : BagContent) :\n  changeBag newContent (Traveler.noTicket oldContent) = Traveler.noTicket newContent</code>",
  "30": "<code>MyBool.or (b1 b2 : MyBool) : MyBool</code>",
  "3":
  "<code class=\"docstring\">`exact e` closes the main goal if its target type matches that of `e`.\n</code>",
  "299":
- "<code>NatPlayground.Airport.replaceBag (newContent : BagContent) (t : Traveler) : Traveler</code>",
+ "<code>NatPlayground.Airport.changeBag (newContent : BagContent) (t : Traveler) : Traveler</code>",
  "298":
  "<code>NatPlayground.Airport.inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspectBag t</code>",
  "297":
- "<code>NatPlayground.Airport.inspectBag_battery (screeningStatus : ScreeningStatus) :\n  inspectBag (Traveler.checkedIn BagContent.battery screeningStatus) =\n    Traveler.checkedIn BagContent.battery ScreeningStatus.blocked</code>",
+ "<code>NatPlayground.Airport.inspectBag_prohibited (screeningStatus : ScreeningStatus) :\n  inspectBag (Traveler.checkedIn BagContent.prohibited screeningStatus) =\n    Traveler.checkedIn BagContent.prohibited ScreeningStatus.blocked</code>",
  "296":
  "<code>NatPlayground.Airport.inspectBag_ordinary (screeningStatus : ScreeningStatus) :\n  inspectBag (Traveler.checkedIn BagContent.ordinary screeningStatus) =\n    Traveler.checkedIn BagContent.ordinary ScreeningStatus.cleared</code>",
  "295":
@@ -1143,7 +1143,7 @@
  "271": "<code>NatPlayground.Airport.ScreeningStatus : Type</code>",
  "270": "<code>NatPlayground.Airport.BagContent.ordinary : BagContent</code>",
  "27": "<code>MyBool.not (b : MyBool) : MyBool</code>",
- "269": "<code>NatPlayground.Airport.BagContent.battery : BagContent</code>",
+ "269": "<code>NatPlayground.Airport.BagContent.prohibited : BagContent</code>",
  "268": "<code>NatPlayground.Airport.BagContent : Type</code>",
  "267": "<code>false = b</code>",
  "266": "<code>false = (b || false)</code>",
