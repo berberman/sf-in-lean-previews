@@ -6,21 +6,6 @@ import TS.SFLCompat
 
 -- # Types: Type Systems
 
--- Note to developers:
---     LATER: For consistency with the STLC definitions in future chapters, it
---     would be better and simpler to represent numbers by a simple nat,
---     rather than as strings of `succ` applied to `0` (which also introduces
---     subtleties that are really not the main point here). But the present
---     formulation is not a big problem either.
---
---     LATER: Harper's lecture from the Milner symposium would make a good
---     support for this lecture.
---
---     LATER: There are a bunch of slides from earlier offerings of CIS500
---     that might be wonderful additions to the TERSE notes.
---     https://www.seas.upenn.edu/~cis500/cis500-f06/lectures/1002.pdf
---     https://www.seas.upenn.edu/~cis500/cis500-f06/lectures/1004.pdf
-
 -- Our next major topic is *type systems* — static program analyses that
 -- classify expressions according to the "shapes" of their results. We'll
 -- begin with a typed version of the simplest imaginable language, to
@@ -375,11 +360,6 @@ theorem step_deterministic : Deterministic Tm.Step := by
 -- main development.* We define an alternate step relation `⇢` and a step
 -- *function* for it.
 
--- Note to developers (mwhicks1):
---     `In the Rocq source these were a hidden, never-uncommented draft
---     (with `eval` still to be renamed to `step`).  Here they are activated as
---     live Lean. Not sure if we want to keep this.`
-
 -- Suppose we define an alternate single-step relation, written `t ⇢ t'`, that
 -- *drops* the `Tm.IsNValue` premise from the `predSucc` and `isZeroSucc`
 -- rules — so `pred (succ t)` and `iszero (succ t)` may step even when `t` is
@@ -650,9 +630,6 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 
 -- Complete the corresponding informal proof.
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Check the typesetting of this...
-
 -- *Theorem*: If `⊢ t ⦂ T`, then either `t` is a value or else `t ⟶ t'` for
 -- some `t'`.
 
@@ -831,19 +808,6 @@ end TM
 -- determinism / progress / preservation still hold, with a counterexample if
 -- one breaks. (These are graded manually; there is no Lean code to complete.)
 
--- Note to developers:
---     `HIDE: Two further variations kept for the instructors only (they overlap
---     with the two quizzes in the Type Soundness section above).
---
---     variation1a (EX2M?): add the two step rules
---       predTrue  : pred true  ⟶ pred false
---       predFalse : pred false ⟶ pred true
---     -- Determinism, Progress, and Preservation all remain true.
---
---     variation1b (EX2M?): add the typing rule
---       ifFunny : ⊢ t2 ⦂ Nat → ⊢ if true then t2 else t3 ⦂ Nat
---     -- Determinism, Progress, and Preservation all remain true.`
-
 -- ### Exercise (2 stars): variation1 (manually graded) ⭐⭐
 
 -- Suppose that we add this new rule to the typing relation:
@@ -927,13 +891,4 @@ end TM
 -- Can you see any limitations of either of your properties? Do they allow for
 -- nonterminating programs? Why might we prefer the small-step semantics for
 -- stating preservation and progress?
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     This next is not using the new conventions for `grade` blocks, which I
---     thought `to_verso.py` was now enforcing. Is that because this file was
---     converted a while back, before these improvements? (I suspect yes
---     because the indentation is also wonky and I improved that too.) Anyway,
---     the `grade` block headers should be fixed, throughout (and maybe in
---     Smallstep and Imp?)... `dev` block headers too, if we want to be really
---     consistent.
 

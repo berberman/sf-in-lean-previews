@@ -13,10 +13,6 @@ import LF.SFLCompat
 
 -- ## More powerful Natural Numbers
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Is Basics needed explicitly? And why are these here instead of at the
---     top of the file?
-
 -- Until now, we have been working with our own custom natural numbers, using
 -- the `Nat` type that we defined in `Basics.lean`.
 
@@ -30,19 +26,6 @@ import LF.SFLCompat
 -- In Lean, programmers and mathematicians don't re-prove the basic properties
 -- of natural numbers from scratch, nor do they tend to write out `rewrite`
 -- steps for basic properties of natural numbers by hand.
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Just making a note that we need to explain the `zero.succ.succ`
---     notation someplace well before this file!
---
---     Have we already explained sections, and how they differ from
---     namespaces? Will it be clear to readers why we need one here? Can we
---     choose a better name than `long_example`?
-
--- Note to developers (Daniel Sainati @dsainati1):
---     We turn off the postfix notation for our new definition of succ in
---     `Basics`, should we also turn it off here for Nats? I really find it to
---     be less readable, but maybe that's just me.
 
 section long_example
 open NatPlayground.Nat
@@ -84,9 +67,6 @@ theorem test_mult1_nat : (3 * 3 : Nat) = 9 := by
 -- In fact, from now on, we will use the built-in `Nat` type and its powerful
 -- features, writing `Nat.<theorem>` to reference Lean's version of
 -- `<theorem>`.
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Why can't we just write <theorem>?
 
 -- ### `rfl` and computation with `Nat`
 
@@ -141,9 +121,6 @@ example (a b : Nat) : a + b = b + a := by
 -- idiomatic Lean does not leave `exact?` tactics (or any other `?` tactics,
 -- as we will see shortly) in the finished versions of proofs and instead
 -- replaces them with the tactics they found during search.
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Why do we say "Lean 4" in some places, instead of just "Lean"
 
 -- The `exact?` tactic is useful when we just need a single library theorem to
 -- get us over the finish line of a proof, but it is not so helpful when we
@@ -257,9 +234,6 @@ theorem succ_mul_succ' (n m : Nat) :
 -- If you prefer `rw` to `calc`, that's fine! Each has particular uses, and
 -- both will be tools in your ever-growing toolbox of tactics.
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Needs some exercises!!
-
 -- ## Definitional simplification: `dsimp`
 
 -- Often, rather than rewriting by a known equation like
@@ -332,9 +306,6 @@ example (n : Nat) : square n + 0 = n * n := by
 --     volume).
 
 -- ### A New Step Towards Automation
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     This section reference should be a live pointer, at least in the HTML.
 
 -- In the section on `Irreducibility, Rewriting, and Proof
 -- Engineering` of
@@ -414,11 +385,6 @@ theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
 -- `set_option pp.fieldNotation false` at the top of each file, but from now
 -- on we will leave it enabled, since field notation is recommended in
 -- idiomatic Lean developments.
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Cut this: "It can also be disabled just for a specific function or
---     constructor by writing `attribute [pp_nodot] <Name>`." Do they need to
---     know it in SFL?
 
 -- As an example, observe the difference in how Lean prints the goal in the
 -- following two examples:

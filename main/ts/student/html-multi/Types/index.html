@@ -1293,24 +1293,6 @@ window.onload = async () => {
           <section>
             <h1>
               4. Types: Type Systems<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Types" title="Permalink">🔗</a></span></h1>
-            <div class="sf-dev-note">
-              <div class="sf-dev-note-label">
-                Note to developers</div>
-              <p>
-                LATER: For consistency with the STLC definitions in future chapters, it
-would be better and simpler to represent numbers by a simple nat, rather
-than as strings of <code>succ</code> applied to <code>0</code> (which also introduces
-subtleties that are really not the main point here).  But the present
-formulation is not a big problem either.</p>
-              <p>
-                LATER: Harper's lecture from the Milner symposium would make a good
-support for this lecture.</p>
-              <p>
-                LATER: There are a bunch of slides from earlier offerings of CIS500 that
-might be wonderful additions to the TERSE notes.
-  https://www.seas.upenn.edu/~cis500/cis500-f06/lectures/1002.pdf
-  https://www.seas.upenn.edu/~cis500/cis500-f06/lectures/1004.pdf</p>
-              </div>
             <p>
               Our next major topic is <em>type systems</em> — static program analyses that
 classify expressions according to the "shapes" of their results.  We'll
@@ -1684,13 +1666,6 @@ kinds of operands.)</p>
                   <em>Optional aside, good practice with step relations but tangential to the
 main development.</em>  We define an alternate step relation <code>⇢</code> and a step
 <em>function</em> for it.</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (mwhicks1)</div>
-                  <pre>In the Rocq source these were a hidden, never-uncommented draft
-(with `eval` still to be renamed to `step`).  Here they are activated as
-live Lean. Not sure if we want to keep this.
-</pre></div>
                 <p>
                   Suppose we define an alternate single-step relation, written <code>t ⇢ t'</code>,
 that <em>drops</em> the <code>Tm.IsNValue</code> premise from the <code>predSucc</code> and <code>isZeroSucc</code>
@@ -1988,12 +1963,6 @@ exercise before starting — this will save you a lot of time.)</p>
                     <span class="exercise-label">Exercise</span><span class="exercise-stars">★★★</span><span class="exercise-name">(finish_progress_informal)</span></div>
                   <p>
                     Complete the corresponding informal proof.</p>
-                  <div class="sf-dev-note">
-                    <div class="sf-dev-note-label">
-                      Note to developers (Benjamin Pierce @bcpierce00)</div>
-                    <p>
-                      Check the typesetting of this...</p>
-                    </div>
                   <p>
                     <em>Theorem</em>: If <code>⊢ t ⦂ T</code>, then either <code>t</code> is a value or else <code>t ⟶ t'</code> for
 some <code>t'</code>.</p>
@@ -2277,21 +2246,6 @@ prove it.  If not, give a counter-example.</p>
 of determinism / progress / preservation still hold, with a
 counterexample if one breaks.  (These are graded manually; there is no
 Lean code to complete.)</p>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers</div>
-                <pre>HIDE: Two further variations kept for the instructors only (they overlap
-with the two quizzes in the Type Soundness section above).
-
-variation1a (EX2M?): add the two step rules
-  predTrue  : pred true  ⟶ pred false
-  predFalse : pred false ⟶ pred true
--- Determinism, Progress, and Preservation all remain true.
-
-variation1b (EX2M?): add the typing rule
-  ifFunny : ⊢ t2 ⦂ Nat → ⊢ if true then t2 else t3 ⦂ Nat
--- Determinism, Progress, and Preservation all remain true.
-</pre></div>
               <div class="exercise stars-2">
                 <div class="exercise-header">
                   <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(variation1)</span><span class="exercise-level"> (manually graded)</span></div>
@@ -2397,16 +2351,6 @@ not need to prove them.)</p>
                   Can you see any limitations of either of your properties?  Do they allow
 for nonterminating programs?  Why might we prefer the small-step semantics
 for stating preservation and progress?</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce @bcpierce00)</div>
-                  <p>
-                    This next is not using the new conventions for <code>grade</code> blocks, which I thought
-<code>to_verso.py</code> was now enforcing.  Is that because this file was converted a while back,
-before these improvements?  (I suspect yes because the indentation is also
-wonky and I improved that too.) Anyway, the <code>grade</code> block headers should be fixed, throughout (and maybe in Smallstep and Imp?)... <code>dev</code> block headers too, if we want
-to be really consistent.</p>
-                  </div>
                 </div>
               </section>
             </section>

@@ -1293,14 +1293,6 @@ window.onload = async () => {
           <section>
             <h1>
               2. Slang: Arithmetic and Boolean Expressions<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Slang" title="Permalink">🔗</a></span></h1>
-            <div class="sf-dev-note">
-              <div class="sf-dev-note-label">
-                Note to developers (Benjamin Pierce @bcpierce00)</div>
-              <p>
-                We need to figure out our approach to text width, especially
-for proofs.  Quite a few proofs here don't render into the
-chosen page width, and for terse mode it will be worse.</p>
-              </div>
             <p>
               We begin by looking at a language we call <strong>Slang</strong> (for <em>simple
 language</em>). Despite its simplicity, Slang lets us introduce key concepts for
@@ -1598,14 +1590,6 @@ value <code>n</code>.</p>
                 In Lean the <code>notation</code> is declared right after the inductive.
 The <code>scoped</code> keyword allows us to scope the notation to the present namespace so it doesn't
 collide with other evaluation relations later.</p>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers (Michael Hicks @mwhicks1, before next release)</div>
-                <p>
-                  The Rocq version here says "As we saw in our case study of regular expressions
-in chapter IndProp, Rocq provides a way to use this notation in the definition of aevalR itself."
-It then re-shows the definition with Downarrow. We need to resolve how we want to do this.</p>
-                </div>
               <section>
                 <h3 id="Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Inference-Rule-Notation">
                   2.2.1. Inference Rule Notation<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Inference-Rule-Notation" title="Permalink">🔗</a></span></h3>
@@ -1665,13 +1649,7 @@ them:</p>
                          e2 ⇓ n2
                     ------------------           (mult)
                     mult e1 e2 ⇓ n1*n2
-</pre><div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce @bcpierce00)</div>
-                  <p>
-                    The first two quizzes here seem kind of boring.</p>
-                  </div>
-                <div class="sf-quiz">
+</pre><div class="sf-quiz">
                   <div class="sf-quiz-label">
                     Quiz</div>
                   <p>
@@ -1688,22 +1666,7 @@ them:</p>
                     <p>
                       (E) <code>num</code>, <code>mult</code>, and <code>plus</code></p>
                     </div>
-                  </details><div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Michael Hicks @mwhicks1, before next release)</div>
-                  <p>
-                    Not sure if we need ⇓b, or whether we can define
-⇓ overloaded. Don't understand Lean notation yet!</p>
-                  </div>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Chris Henson @chenson2018, before next release)</div>
-                  <p>
-                    About <code>Bexp.eval</code> below: We should discuss a way to recall definitions without
-having to write them out manually like this. I think a simple <code>#print</code> may work as an
-alternative, assuming there are no namespace issues..</p>
-                  </div>
-                <div class="exercise stars-1">
+                  </details><div class="exercise stars-1">
                   <div class="exercise-header">
                     <span class="exercise-label">Exercise</span><span class="exercise-stars">★</span><span class="exercise-name">(beval_rules)</span></div>
                   <p>
@@ -1747,14 +1710,6 @@ definitions of evaluation agree.</p>
 </span><span class="unknown token" data-binding=""></span></code><p>
                   We can make the proof quite a bit shorter using more automation like we did in
 the previous section.</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Michael Hicks @mwhicks1, before next release)</div>
-                  <p>
-                    the <code>workinclass!</code> marker should signal this live in-class exercise.
-But it is not rendering properly on the HTML. In fact it replaces <code>workinclass!</code> with
-the <code>all_goals</code> tactic, which we don't need.</p>
-                  </div>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-0">theorem</span><span class="inter-text"> </span><span class="const token" data-binding="const-Slang.Aexp.evalR_iff_eval'" data-verso-hover="121">Aexp.evalR_iff_eval'</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-29">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-29">:</span><span class="inter-text"> </span><a href="Slang/#Slang___Aexp" title="Definition of example"><span class="const token" data-binding="const-Slang.Aexp" data-verso-hover="2">Aexp</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-29">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-40">(</span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="4">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-40">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="5">Nat</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-40">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-50">:</span><span class="inter-text">
     </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Slang.«term_⇓_»-56">⇓</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="4">n</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_↔_»-56">↔</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="built-in delim token" data-binding="">.</span><a href="Slang/#Slang___Aexp___eval" title="Definition of example"><span class="const token" data-binding="const-Slang.Aexp.eval" data-verso-hover="21">eval</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-68">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="4">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-79">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-9975240973926615477-82-84-147"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-82" data-verso-hover="29">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-9975240973926615477-82-84-147"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><a href="Slang/#Slang___Aexp" title="Definition of example"><span class="const token" data-binding="const-Slang.Aexp" data-verso-hover="2">Aexp</span></a><span class="inter-text"></span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.4" data-verso-hover="4">n</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Nat" data-verso-hover="5">Nat</span><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="inter-text"> </span><a href="Slang/#Slang___Aexp___EvalR" title="Definition of example"><span class="const token" data-binding="const-Slang.Aexp.EvalR" data-verso-hover="87">⇓</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="4">n</span><span class="inter-text"> </span><span class="const token" data-binding="const-Iff" data-verso-hover="105">↔</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="7">a</span><span class="unknown token" data-binding="">.</span><a href="Slang/#Slang___Aexp___eval" title="Definition of example"><span class="const token" data-binding="const-Slang.Aexp.eval" data-verso-hover="21">eval</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="30">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="4">n</span></span></span></span></span></span><span class="inter-text">
   </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.allGoals-87" data-verso-hover="122">all_goals</span><span class="inter-text">
@@ -1771,14 +1726,7 @@ it is equivalent to <code class="hl lean inline" data-lean-context="examples"><a
   </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
 
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.scoped-71">scoped</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.notation-71">notation</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-86">:</span><span class="literal number token" data-binding="">55</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.182" data-verso-hover="102">e</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-91">:</span><span class="literal number token" data-binding="">56</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="131">" ⇓b "</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.175" data-verso-hover="102">b</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-105">:</span><span class="literal number token" data-binding="">56</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.notation-71">=&gt;</span><span class="inter-text"> </span><span class="const token" data-binding="const-Slang.Bexp.EvalR" data-verso-hover="130">Bexp.EvalR</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.182" data-verso-hover="102">e</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.175" data-verso-hover="102">b</span><span class="inter-text">
-</span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
-                    <div class="sf-dev-note-label">
-                      Note to developers (Michael Hicks @mwhicks1)</div>
-                    <p>
-                      There is no keyboard shortcut for a subscript b, nor is there one for c
-(to use used with cevalR below). There are numbers, x, y, z, l, m, n, etc.</p>
-                    </div>
-                  <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-0">theorem</span><span class="inter-text"> </span><span class="has-info warning"><span class="hover-container"><span class="hover-info messages"><code class="verso-message warning"><span class="text"></span><span class="text">declaration uses `</span><span class="highlighted"><span class="inter-text"></span><span class="unknown token" data-binding="">sorry</span><span class="inter-text"></span></span><span class="text">`</span></code></span></span><span class="const token" data-binding="const-Slang.Bexp.evalR_iff_eval" data-verso-hover="132">Bexp.evalR_iff_eval</span></span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-28">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="19">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-28">:</span><span class="inter-text"> </span><a href="Slang/#Slang___Bexp" title="Definition of example"><span class="const token" data-binding="const-Slang.Bexp" data-verso-hover="10">Bexp</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-28">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-39">(</span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="12">bv</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-39">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool" data-verso-hover="13">Bool</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-39">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-51">:</span><span class="inter-text">
+</span><span class="unknown token" data-binding=""></span></code><code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.theorem-0">theorem</span><span class="inter-text"> </span><span class="has-info warning"><span class="hover-container"><span class="hover-info messages"><code class="verso-message warning"><span class="text"></span><span class="text">declaration uses `</span><span class="highlighted"><span class="inter-text"></span><span class="unknown token" data-binding="">sorry</span><span class="inter-text"></span></span><span class="text">`</span></code></span></span><span class="const token" data-binding="const-Slang.Bexp.evalR_iff_eval" data-verso-hover="132">Bexp.evalR_iff_eval</span></span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-28">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="19">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-28">:</span><span class="inter-text"> </span><a href="Slang/#Slang___Bexp" title="Definition of example"><span class="const token" data-binding="const-Slang.Bexp" data-verso-hover="10">Bexp</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-28">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-39">(</span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="12">bv</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-39">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool" data-verso-hover="13">Bool</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-39">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-51">:</span><span class="inter-text">
     </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="19">b</span><span class="inter-text"> </span><span class="unknown token" data-binding="">⇓b</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="12">bv</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_↔_»-57">↔</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="19">b</span><span class="built-in delim token" data-binding="">.</span><a href="Slang/#Slang___Bexp___eval" title="Definition of example"><span class="const token" data-binding="const-Slang.Bexp.eval" data-verso-hover="32">eval</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-71">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="12">bv</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-83">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-13028895536707286406-86-88-194"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-86" data-verso-hover="29">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-13028895536707286406-86-88-194"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.2" data-verso-hover="19">b</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><a href="Slang/#Slang___Bexp" title="Definition of example"><span class="const token" data-binding="const-Slang.Bexp" data-verso-hover="10">Bexp</span></a><span class="inter-text"></span></span></span><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.4" data-verso-hover="12">bv</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Bool" data-verso-hover="13">Bool</span><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="19">b</span><span class="inter-text"> </span><span class="const token" data-binding="const-Slang.Bexp.EvalR" data-verso-hover="130">⇓b</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="12">bv</span><span class="inter-text"> </span><span class="const token" data-binding="const-Iff" data-verso-hover="105">↔</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="19">b</span><span class="unknown token" data-binding="">.</span><a href="Slang/#Slang___Bexp___eval" title="Definition of example"><span class="const token" data-binding="const-Slang.Bexp.eval" data-verso-hover="32">eval</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="30">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="12">bv</span></span></span></span></span></span><span class="inter-text">
   </span><span class="tactic"><label for="tactic-state-7-91-96-196"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticSorry-91" data-verso-hover="85">sorry</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-91-96-196"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code></div>
@@ -1852,25 +1800,7 @@ relation is no problem.</p>
       </span><a href="Slang/#Slang___AevalRExtended___Aexp___EvalR" title="Definition of example"><span class="const token" data-binding="const-Slang.AevalRExtended.Aexp.EvalR" data-verso-hover="153">EvalR</span></a><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-27188">(</span><a href="Slang/#Slang___AevalRExtended___Aexp___mult" title="Definition of example"><span class="const token" data-binding="const-Slang.AevalRExtended.Aexp.mult" data-verso-hover="152">.mult</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.126" data-verso-hover="7">a1</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.128" data-verso-hover="7">a2</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-27188">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-27202">(</span><span class="var token" data-binding="var-_uniq.130" data-verso-hover="4">n1</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_*_»-27203">*</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.132" data-verso-hover="4">n2</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-27202">)</span><span class="inter-text">
 
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-27213" data-verso-hover="100">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">Slang.AevalRExtended</span><span class="inter-text">
-</span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Michael Hicks @mwhicks1, before next release)</div>
-                  <p>
-                    The following text seems not quite right to me. First, you can
-use options for partial functions, and that's very natural to do in Lean
-as a monad. Second, and related, monadic functions need not even be
-terminating if the implement the <code>CCPO</code> typeclass and are labeled as
-a <code>partial_fixpoint</code>. Maybe we don't want to get into the second thing here,
-but failing to mention options (which I think were introduced in LF) seems
-a bit surprising.</p>
-                  </div>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce @bcpierce00)</div>
-                  <p>
-                    Agreed.</p>
-                  </div>
-                <p>
+</span><span class="unknown token" data-binding=""></span></code><p>
                   At this point you may be wondering: which of these styles should I use
 by default?</p>
                 <p>
@@ -1886,13 +1816,6 @@ and we can use Lean's computation mechanism to simplify them during proofs.</p>
                   In large developments it is common to give a definition in <em>both</em>
 styles plus a lemma that the two coincide, allowing later proofs to
 switch between points of view at will -- exactly what we did above.</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce @bcpierce00)</div>
-                  <p>
-                    Well, we didn't actually do a proof that switched between the points
-of view.  Should we?</p>
-                  </div>
                 </section>
               </section>
             </section>

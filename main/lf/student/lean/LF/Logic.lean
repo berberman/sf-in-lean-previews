@@ -8,10 +8,6 @@ import LF.SFLCompat
 
 -- # Logic in Lean
 
--- Note to developers (before next release):
---     Unlike earlier chapters, there are probably too many WORKINCLASSes in
---     this chapter. BCP 20: But conversely some more quizzes would be great!
-
 -- We have now seen many examples of factual claims (i.e., *propositions*) and
 -- ways of presenting evidence of their truth (*proofs*). In particular, we
 -- have worked extensively with equality propositions (`e1 = e2`),
@@ -525,17 +521,6 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
     apply h
     rfl
 
--- Note to developers:
---     HIDE: CH: I don't think this was the original intention, but some of
---     these quizzes got unnecessarily tricky and pedantic. For instance, the
---     first quiz below makes a big distinction between using the destruct
---     tactic and destructing using an intro pattern, even if conceptually
---     there is no difference. Could it be that these quizzes were devised
---     when intro patterns were not taught in the course and an update would
---     be helpful now? Since I don't see the gain in tricking a majority of
---     students in giving the "wrong" answer, even if it's a perfectly
---     sensible one.
-
 -- _Quiz:_
 
 -- To prove the following proposition, which tactics will we need besides
@@ -1023,12 +1008,6 @@ sf_expect_failure
     rw [Nat.add_comm]
     rw [Nat.add_comm]
 
--- Note to developers (Yipeng Liu @berberman, before next release):
---     These hidden variables are only for inline prose, but they currently
---     leak into `leanOutput` error contexts. Maybe we should implement a
---     separate scope for declaring variables only visible to `lean` role
---     instead of `lean` block.
-
 -- unsolved goals
 -- a b c : Prop
 -- n m : Nat
@@ -1215,9 +1194,6 @@ theorem even_double (k : Nat) :
   induction k with
   | zero => rw [Nat.double_zero]; rfl
   | succ k' ih => rw [Nat.double_succ]; exact ih
-
--- Note to developers (Yipeng Liu @berberman):
---     Same issue as `CombineOddEven`.
 
 theorem even_double_conv (n : Nat) : ∃ k : Nat,
     n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by
@@ -1838,10 +1814,6 @@ theorem not_exists_dist (α : Type) (p : α → Prop) :
 -- single circular chain of implications that connects them all. You should
 -- not use `by_cases`, as this implicitly introduces a dependency on
 -- `excluded_middle`.
-
--- Note to developers (Jonathan Chan):
---     If the hint suggests proving the implications in a loop, why do the
---     solutions not do this?
 
 abbrev peirce := ∀ a b : Prop, ((a → b) → a) → a
 

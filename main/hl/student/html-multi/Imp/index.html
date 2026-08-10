@@ -1274,37 +1274,6 @@ window.onload = async () => {
           <section>
             <h1>
               3. Imp: Simple Imperative Programs<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Imp" title="Permalink">🔗</a></span></h1>
-            <div class="sf-dev-note">
-              <div class="sf-dev-note-label">
-                Note to developers (before next release)</div>
-              <p>
-                Needs some WORKINCLASSes and some quizzes</p>
-              <p>
-                LATER: Another nice challenge exercise at some point would be to add
-   C-style arrays (i.e., indirect read/write).  This sets up some
-   really nice challenge problems in Hoare (reasoning about arrays /
-   aliasing / etc.).</p>
-              <p>
-                SOONER: BCP 25: Maybe we should write / instead of && in assertions,
-   to save a mismatch in the <code>dec_minimum</code> exercise in Hoare2?</p>
-              <p>
-                At some point we could consider moving material from the old
-   HoareLists to this chapter (and into later files, as
-   appropriate).  We haven't done it yet because it's a shame to
-   complicate the nice simple presentation here when it's used as the
-   basis for applications like Xavier's static analysis lectures.
-   Also, we now have a whole volume on real separation logic...</p>
-              <p>
-                MWH (port note): The Rocq chapter's "Rocq Automation" tour has been
-retooled here for Lean.  The tactic combinators <code>try</code> and <code>repeat</code> (and the
-custom-tactic <code>macro</code>) are introduced in this chapter; <code>&lt;;&gt;</code> and <code>simp</code> were
-already introduced in Logical Foundations (<code>&lt;;&gt;</code> in <code>Induction</code>)
-so we use them freely and the <code>&lt;;&gt;</code> section
-below is a recap.  For linear arithmetic we use <code>lia</code>;
-NOTE that LF currently
-introduces <code>omega</code>, not <code>lia</code>, so this needs to be reconciled volume-wide
-(either introduce <code>lia</code> in LF, or keep <code>omega</code>).</p>
-              </div>
             <p>
               In this chapter, we take a more serious look at how to use Lean as a
 tool to study other things.  Our case study is a <em>simple imperative
@@ -1371,37 +1340,13 @@ state as a total map from strings (variable names) to <code>Nat</code>, and will
                   We can add variables to the arithmetic expressions we had before simply
 by including one more constructor.  (This is a fresh <code>Aexp</code>, replacing
 the variable-free one from the <em>Slang</em> chapter.)</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce @bcpierce00)</div>
-                  <p>
-                    That should be a live chapter link.</p>
-                  </div>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-5123" data-verso-hover="1">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-Aexp" data-verso-hover="163" id="Aexp">Aexp</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-5123" data-verso-hover="1">where</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.ctor-5146">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-Aexp.num" data-verso-hover="164" id="Aexp___num">num</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5152">(</span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="4">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5152">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="5">Nat</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5152">)</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.ctor-5164">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-Aexp.id" data-verso-hover="165" id="Aexp___id">id</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5169">(</span><span class="var token" data-binding="var-_uniq.8" data-verso-hover="166">x</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5169">:</span><span class="inter-text"> </span><a href="Imp/#Ident" title="Definition of example"><span class="const token" data-binding="const-Ident" data-verso-hover="159">Ident</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5169">)</span><span class="inter-text">                </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> NEW</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.ctor-5205">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-Aexp.plus" data-verso-hover="167" id="Aexp___plus">plus</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5212">(</span><span class="var token" data-binding="var-_uniq.11" data-verso-hover="7">a1</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.13" data-verso-hover="7">a2</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5212">:</span><span class="inter-text"> </span><a href="Imp/#Aexp" title="Definition of example"><span class="const token" data-binding="const-Aexp" data-verso-hover="163">Aexp</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5212">)</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.ctor-5229">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-Aexp.minus" data-verso-hover="168" id="Aexp___minus">minus</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5237">(</span><span class="var token" data-binding="var-_uniq.17" data-verso-hover="7">a1</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.19" data-verso-hover="7">a2</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5237">:</span><span class="inter-text"> </span><a href="Imp/#Aexp" title="Definition of example"><span class="const token" data-binding="const-Aexp" data-verso-hover="163">Aexp</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5237">)</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.ctor-5254">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-Aexp.mult" data-verso-hover="169" id="Aexp___mult">mult</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5261">(</span><span class="var token" data-binding="var-_uniq.23" data-verso-hover="7">a1</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.25" data-verso-hover="7">a2</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5261">:</span><span class="inter-text"> </span><a href="Imp/#Aexp" title="Definition of example"><span class="const token" data-binding="const-Aexp" data-verso-hover="163">Aexp</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-5261">)</span><span class="inter-text">
-</span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Chris Henson @chenson2018)</div>
-                  <p>
-                    Rather than define identifiers as Ident, a more general approach is
-to use a <strong>type variable</strong> with <code>DecidableEq</code> (as the
-<code>Maps</code> chapter does), threaded through <code>Aexp</code>/<code>Bexp</code>/<code>Com</code>/<code>State</code>.  Stashed
-for a future decision; the parameterized version would look like:</p>
-                  <pre>inductive Aexp (V : Type) where
-  | num (n : Nat)
-  | id (x : V)
-  | plus (a1 a2 : Aexp V)
-  | minus (a1 a2 : Aexp V)
-  | mult (a1 a2 : Aexp V)
--- … then `Bexp V`, `Com V`, `abbrev State (V) [DecidableEq V] :=
--- TotalMap V Nat`, and `[DecidableEq V]` wherever a lookup/update is
--- performed.
-</pre></div>
-                <p>
+</span><span class="unknown token" data-binding=""></span></code><p>
                   The <code>Bexp</code> definition is unchanged, except that it now refers to the new <code>Aexp</code>.</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-5980" data-verso-hover="1">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bexp" data-verso-hover="170" id="Bexp">Bexp</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-5980" data-verso-hover="1">where</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.ctor-6003">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bexp.bool" data-verso-hover="171" id="Bexp___bool">bool</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-6010">(</span><span class="var token" data-binding="var-_uniq.5" data-verso-hover="12">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-6010">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool" data-verso-hover="13">Bool</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-6010">)</span><span class="inter-text">
@@ -1785,16 +1730,7 @@ For the notation to work, we need to <code>open scoped MyGetElem</code>, which o
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.example-23087">example</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-23095">:</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-«termAexp{_}»-23097" data-verso-hover="202">aexp</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-«termAexp{_}»-23097">{</span><span class="inter-text"> </span><a href="Imp/#Z" title="Definition of example"><span class="const token" data-binding="const-Z" data-verso-hover="184">Z</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«imp_aexp_+_»-23104">+</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-«imp_aexp(_)»-23108">(</span><a href="Imp/#X" title="Definition of example"><span class="const token" data-binding="const-X" data-verso-hover="180">X</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«imp_aexp_*_»-23109">*</span><span class="inter-text"> </span><a href="Imp/#Y" title="Definition of example"><span class="const token" data-binding="const-Y" data-verso-hover="182">Y</span></a><span class="punctuation bracket token" data-binding="kw-occ-«imp_aexp(_)»-23108">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-«termAexp{_}»-23097">}</span><span class="built-in delim token" data-binding="">.</span><a href="Imp/#Aexp___eval" title="Definition of example"><span class="const token" data-binding="const-Aexp.eval" data-verso-hover="280">eval</span></a><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-23123">(</span><a href="Imp/#X" title="Definition of example"><span class="const token" data-binding="const-X" data-verso-hover="180">X</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-TotalMap.«term_→ₜ_;_»-23124">→ₜ</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">5</span><span class="inter-text"> </span><span class="punctuation separator token" data-binding="kw-occ-TotalMap.«term_→ₜ_;_»-23124">;</span><span class="inter-text"> </span><a href="Imp/#Y" title="Definition of example"><span class="const token" data-binding="const-Y" data-verso-hover="182">Y</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-TotalMap.«term_→ₜ_;_»-23137">→ₜ</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">4</span><span class="inter-text"> </span><span class="punctuation separator token" data-binding="kw-occ-TotalMap.«term_→ₜ_;_»-23137">;</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∅</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-23123">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-23097">=</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">20</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-23160">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-9253397829789435326-23163-23165-200"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-23163" data-verso-hover="29">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-9253397829789435326-23163-23165-200"><span class="tactic-state"><span class="goal"><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><a href="Imp/#Aexp___eval" title="Definition of example"><span class="const token" data-binding="const-Aexp.eval" data-verso-hover="280">Aexp.eval</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">(</span><a href="Imp/#X" title="Definition of example"><span class="const token" data-binding="const-X" data-verso-hover="180">X</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">→ₜ</span><span class="inter-text"> </span><span class="unknown token" data-binding="">5</span><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">;</span><span class="inter-text"> </span><a href="Imp/#Y" title="Definition of example"><span class="const token" data-binding="const-Y" data-verso-hover="182">Y</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">→ₜ</span><span class="inter-text"> </span><span class="unknown token" data-binding="">4</span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(aexp</span><span class="inter-text"> </span><span class="unknown token" data-binding="">{</span><span class="unknown token" data-binding="">Z</span><span class="inter-text"> </span><span class="unknown token" data-binding="">+</span><span class="inter-text"> </span><span class="unknown token" data-binding="">X</span><span class="inter-text"> </span><span class="unknown token" data-binding="">*</span><span class="inter-text"> </span><span class="unknown token" data-binding="">Y</span><span class="unknown token" data-binding="">})</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="30">=</span><span class="inter-text"> </span><span class="unknown token" data-binding="">20</span></span></span></span></span></span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-7-23166-23169-202"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticRfl-23166" data-verso-hover="45">rfl</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-23166-23169-202"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.example-23171">example</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-23179">:</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-«termBexp{_}»-23181" data-verso-hover="218">bexp</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-«termBexp{_}»-23181">{</span><span class="inter-text"> </span><span class="unknown token" data-binding="">true</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«imp_bexp_∧_»-23188">∧</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«imp_bexp¬_»-23197">¬</span><span class="punctuation bracket token" data-binding="kw-occ-«imp_bexp(_)»-23199">(</span><a href="Imp/#X" title="Definition of example"><span class="const token" data-binding="const-X" data-verso-hover="180">X</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«imp_bexp_≤_»-23200">≤</span><span class="inter-text"> </span><span class="literal number token" data-binding="">4</span><span class="punctuation bracket token" data-binding="kw-occ-«imp_bexp(_)»-23199">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-«termBexp{_}»-23181">}</span><span class="built-in delim token" data-binding="">.</span><a href="Imp/#Bexp___eval" title="Definition of example"><span class="const token" data-binding="const-Bexp.eval" data-verso-hover="282">eval</span></a><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-23216">(</span><a href="Imp/#X" title="Definition of example"><span class="const token" data-binding="const-X" data-verso-hover="180">X</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-TotalMap.«term_→ₜ_;_»-23217">→ₜ</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="4">5</span><span class="inter-text"> </span><span class="punctuation separator token" data-binding="kw-occ-TotalMap.«term_→ₜ_;_»-23217">;</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∅</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-23216">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-23181">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.true" data-verso-hover="83">true</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-23242">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-3190773394161773903-23245-23247-203"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-23245" data-verso-hover="29">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-3190773394161773903-23245-23247-203"><span class="tactic-state"><span class="goal"><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><a href="Imp/#Bexp___eval" title="Definition of example"><span class="const token" data-binding="const-Bexp.eval" data-verso-hover="282">Bexp.eval</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">(</span><a href="Imp/#X" title="Definition of example"><span class="const token" data-binding="const-X" data-verso-hover="180">X</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">→ₜ</span><span class="inter-text"> </span><span class="unknown token" data-binding="">5</span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">)</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(bexp</span><span class="inter-text"> </span><span class="unknown token" data-binding="">{</span><span class="unknown token" data-binding="">true</span><span class="inter-text"> </span><span class="unknown token" data-binding="">∧</span><span class="inter-text"> </span><span class="unknown token" data-binding="">¬</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="unknown token" data-binding="">X</span><span class="inter-text"> </span><span class="unknown token" data-binding="">≤</span><span class="inter-text"> </span><span class="unknown token" data-binding="">4</span><span class="unknown token" data-binding="">)</span><span class="unknown token" data-binding="">})</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="30">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-Bool.true" data-verso-hover="83">true</span></span></span></span></span></span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-7-23248-23251-205"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticRfl-23248" data-verso-hover="45">rfl</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-23248-23251-205"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
-</span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers</div>
-                  <p>
-                    dsainati: Bikeshedding: I'm not sure how I feel about this arrow subscript for maps.
-Easy to change later but just flagging to discuss. mwhicks1: This comes from the Maps
-chapter, which chenson2018 is working on.
-There is a keyboard shortcut for ↦ we could use (mapsto).</p>
-                  </div>
-                </section>
+</span><span class="unknown token" data-binding=""></span></code></section>
               </section>
             <section>
               <h2 id="Hoare-Logic--Imp___-Simple-Imperative-Programs--Commands">
@@ -2032,14 +1968,6 @@ would be a proof of <code>False</code>), a disaster for logical consistency.</p>
                   Thus, because it doesn't terminate on all inputs, the full <code>ceval_fun</code>
 cannot be written in Lean -- at least not without additional tricks and
 workarounds.</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers</div>
-                  <p>
-                    Perhaps that discussion should be moved to -- or previewed in --
-   Logic.v?  MRC'20: It's already in ProofObjects (which not everyone
-   sees).</p>
-                  </div>
                 </section>
               <section>
                 <h3 id="Hoare-Logic--Imp___-Simple-Imperative-Programs--Evaluating-Commands--Evaluation-as-a-Relation">
@@ -2054,13 +1982,6 @@ it gives us more flexibility in the definition. For example, if we
 add nondeterministic features like <code>any</code> to the language, we want the
 definition of evaluation to be nondeterministic -- i.e., not only will it
 not be total, it will not even be a function!</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Michael Hicks @mwhicks1)</div>
-                  <p>
-                    I kind of hate this notation. Is there something more standard
-in Lean? CSLib precedent maybe?</p>
-                  </div>
                 <p>
                   We'll use the notation <code>st =[ c ]=&gt; st'</code> for the <code>Com.EvalR</code> relation:
 <code>st =[ c ]=&gt; st'</code> means that executing program <code>c</code> in a starting state
@@ -2068,13 +1989,6 @@ in Lean? CSLib precedent maybe?</p>
 state <code>st</code> to <code>st'</code>".</p>
                 <p>
                   Operational Semantics</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (before next release)</div>
-                  <p>
-                    BCP 21: I wonder if <code>seq</code> would be easier to work with if st' and
-   st'' were swapped...</p>
-                  </div>
                 <p>
                   Here is an informal definition of evaluation, presented as inference rules
 for readability:</p>
@@ -2114,12 +2028,6 @@ for readability:</p>
                 <p>
                   Here is the formal definition.  Make sure you understand how it
 corresponds to the inference rules.</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Chris Henson @chenson2018)</div>
-                  <p>
-                    TODO Propose you use inline notation such as <code>Com.EvalR (imp {skip;}) st st</code></p>
-                  </div>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-36342" data-verso-hover="1">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-Com.EvalR" data-verso-hover="333" id="Com___EvalR">Com.EvalR</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-36362">:</span><span class="inter-text"> </span><a href="Imp/#Com" title="Definition of example"><span class="const token" data-binding="const-Com" data-verso-hover="296">Com</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-36364">→</span><span class="inter-text"> </span><a href="Imp/#State" title="Definition of example"><span class="const token" data-binding="const-State" data-verso-hover="161">State</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-36372">→</span><span class="inter-text"> </span><a href="Imp/#State" title="Definition of example"><span class="const token" data-binding="const-State" data-verso-hover="161">State</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-36382">→</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="88">Prop</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-36342" data-verso-hover="1">where</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.ctor-36405">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-Com.EvalR.skip" data-verso-hover="334" id="Com___EvalR___skip">skip</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36412">(</span><span class="var token" data-binding="var-_uniq.13" data-verso-hover="281">st</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36412">:</span><span class="inter-text"> </span><a href="Imp/#State" title="Definition of example"><span class="const token" data-binding="const-State" data-verso-hover="161">State</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36412">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-36425">:</span><span class="inter-text"> </span><a href="Imp/#Com___EvalR" title="Definition of example"><span class="const token" data-binding="const-Com.EvalR" data-verso-hover="333">EvalR</span></a><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-36433">(</span><span class="keyword token" data-binding="kw-occ-«termImp_{___}»-36434" data-verso-hover="313">imp</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-«termImp_{___}»-36434">{</span><span class="unknown token" data-binding="">skip</span><span class="punctuation separator token" data-binding="kw-occ-«imp_com_;»-36439">;</span><span class="punctuation bracket token" data-binding="kw-occ-«termImp_{___}»-36434">}</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-36433">)</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.13" data-verso-hover="281">st</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.13" data-verso-hover="281">st</span><span class="inter-text">
   </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.ctor-36455">|</span><span class="inter-text"> </span><span class="const token" data-binding="const-Com.EvalR.asgn" data-verso-hover="335" id="Com___EvalR___asgn">asgn</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36462">(</span><span class="var token" data-binding="var-_uniq.19" data-verso-hover="281">st</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36462">:</span><span class="inter-text"> </span><a href="Imp/#State" title="Definition of example"><span class="const token" data-binding="const-State" data-verso-hover="161">State</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36462">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36475">(</span><span class="var token" data-binding="var-_uniq.21" data-verso-hover="7">a</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36475">:</span><span class="inter-text"> </span><a href="Imp/#Aexp" title="Definition of example"><span class="const token" data-binding="const-Aexp" data-verso-hover="163">Aexp</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36475">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36486">(</span><span class="var token" data-binding="var-_uniq.23" data-verso-hover="4">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36486">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="5">Nat</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36486">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36496">(</span><span class="var token" data-binding="var-_uniq.25" data-verso-hover="166">x</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36496">:</span><span class="inter-text"> </span><a href="Imp/#Ident" title="Definition of example"><span class="const token" data-binding="const-Ident" data-verso-hover="159">Ident</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36496">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36508">(</span><span class="var token" data-binding="var-_uniq.32" data-verso-hover="336">h</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36508">:</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.21" data-verso-hover="7">a</span><span class="built-in delim token" data-binding="">.</span><a href="Imp/#Aexp___eval" title="Definition of example"><span class="const token" data-binding="const-Aexp.eval" data-verso-hover="280">eval</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.19" data-verso-hover="281">st</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-36513">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.23" data-verso-hover="4">n</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36508">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-36528">:</span><span class="inter-text">
@@ -2223,16 +2131,6 @@ it for us.</p>
   </span><a href="Imp/#Z" title="Definition of example"><span class="const token" data-binding="const-Z" data-verso-hover="184">Z</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">→ₜ</span><span class="inter-text"> </span><span class="unknown token" data-binding="">2</span><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">;</span><span class="inter-text"> </span><a href="Imp/#Y" title="Definition of example"><span class="const token" data-binding="const-Y" data-verso-hover="182">Y</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">→ₜ</span><span class="inter-text"> </span><span class="unknown token" data-binding="">1</span><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">;</span><span class="inter-text"> </span><a href="Imp/#X" title="Definition of example"><span class="const token" data-binding="const-X" data-verso-hover="180">X</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-TotalMap.update" data-verso-hover="295">→ₜ</span><span class="inter-text"> </span><span class="unknown token" data-binding="">0</span></span></span></span></span></span><span class="inter-text">
   </span><span class="tactic"><label for="tactic-state-7-124-129-231"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticSorry-124" data-verso-hover="85">sorry</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-124-129-231"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code></div>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers</div>
-                  <p>
-                    PR: I phrased these quizzes with the following alternatives:
-   (A) Not true
-   (B) True and easily provable
-   (C) True and takes more work to prove
-   (D) True and cannot be proved without additional axioms</p>
-                  </div>
                 <div class="sf-quiz">
                   <div class="sf-quiz-label">
                     Quiz</div>
@@ -3029,55 +2927,6 @@ prove a theorem <code>no_whiles_terminating</code> that says this.  Use either
                 <code class="hl lean block" data-lean-context="examples"><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
 </span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
 </span><span class="has-info error"><span class="hover-container"><span class="hover-info messages"><code class="verso-message error"><span class="text"></span><span class="text">unexpected end of input</span></code></span></span><span class="unknown token" data-binding=""></span></span></code></div>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers (Michael Hicks @mwhicks1)</div>
-                <pre>NOT PORTED YET — remaining sections of sfdev/lf/Imp.v to port:
-  - Case Study (Optional), Imp.v:2774
-      * subtract_slowly_spec (EX4?, Imp.v:2919): loop-invariant style proof
-        about `subtract_slowly`.
-  - Additional Exercises, Imp.v:2986
-      * stack_compiler (EX3, Imp.v:2988): define `s_execute` (stack machine)
-        and `s_compile : aexp -&gt; list sinstr`; needs a `SInstr` inductive
-        (SPush/SLoad/SPlus/SMinus/SMult) and a list-based stack.
-      * execute_app (EX3, Imp.v:3114)
-      * stack_compiler_correct (EX3, Imp.v:3134): the correctness theorem;
-        the standard proof needs a strengthened lemma over an arbitrary
-        initial stack (generalize the stack before inducting).
-      * short_circuit (EX3?, Imp.v:3184): short-circuiting `Bexp.eval`.
-      * break_imp (EX4?, Imp.v:3227): extends Com with `CBreak`; new
-        relational semantics `ceval` carrying a `result` (SContinue/SBreak).
-        Large. See verso-book branch (lf/Imp.lean ~line 1141, CEvalBreak) for
-        a prior take on the signal type.
-      * while_break_true (EX3A?, Imp.v:3454)
-      * ceval_deterministic for break (EX4A?, Imp.v:3477)
-      * exn_imp (EX4A?, Imp.v:3524): exceptions variant. Large.
-      * add_for_loop (EX4?, Imp.v:3728): add a C-style `for` loop to Com,
-        its notation, and extend ceval.
-</pre></div>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers</div>
-                <pre>HTML polish — deferred Verso-markup opportunities for a later pass (see
-CONTRIBUTING.md, "Verso markup for nicer HTML"):
-* {name} was applied to resolvable declaration references in visible prose.
-  More could be added, but bare type names were linked only selectively (avoid
-  over-linking; mind forward references and namespace scope — a name must
-  already be defined and in scope at that point in the document, or {name} fails
-  to build).
-* {ref "tag"} cross-references link "see the X section" phrasings; add a
-  `%%% tag := "…" %%%` block under a heading to make it a target. Done for the
-  Notations and Delaborators sections; more internal "above/below" phrasings
-  could get the same treatment.
-* {tactic}`simp` — link tactic names in the automation/tactics prose (`try`,
-  `repeat`, `&lt;;&gt;`, `simp`, `lia`, `cases`, `induction`).
-* {deftech}/{tech} — a small glossary: define Imp's core terms once with
-  {deftech} (abstract syntax, state, big-step, relation, partial function, …)
-  and link later uses with {tech}.
-* {lean}`expr` — inline elaborated expressions/types where a whole expression,
-  not just a single name, reads better with hover types (e.g. the
-  `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).
-</pre></div>
               </section>
             </section>
           <nav class="prev-next-buttons">

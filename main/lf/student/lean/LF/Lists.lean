@@ -12,10 +12,6 @@ import LF.SFLCompat
 
 namespace Lists
 
--- Note to developers (before next release):
---     Note that rewrite laws should sometimes differ from pattern matching
---     now
-
 -- ## Pairs of Numbers
 
 -- In an `inductive` type definition, each constructor can take any number of
@@ -234,9 +230,6 @@ def append (l1 l2 : NatList) : NatList :=
 
 -- ### Type Classes and Overloading
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     One word, or two?
-
 -- In Lean, operators like `++`, `==`, and `+` are not hardwired to particular
 -- types. Instead, they are defined using *type classes* — a mechanism that
 -- lets us overload operations for different types.
@@ -261,12 +254,6 @@ theorem cons_append {n : Nat} {l1 l2 : NatList} : (n :: l1) ++ l2 = n :: (l1 ++ 
 example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
 example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
-
--- Note to developers (Chris Henson @chenson2018):
---     The way that this is written might mislead the student to think it is
---     inherent to BEq, which is not true: this additionally requires the
---     ReflBEq typeclass. How crucial is it to have this early mention of
---     typeclasses? bcpierce00: Hopefully we can postpone it.
 
 -- The equality test `==` on `Nat`s is another example: it comes from the
 -- `BEq` ("boolean equality") type class. One small but handy fact about it,
@@ -523,11 +510,6 @@ theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 -- students following the advanced track will need to fill in the definition
 -- of `removeOne` for a later exercise.)
 
--- Note to developers (before next release):
---     BCP 25: At Penn this year, we removed the distinction between standard
---     and advanced tracks, which made the wording above confusing. Maybe just
---     make this an exercise for everybody?
-
 def removeOne (v : Nat) (l : NatList) : NatList := sorry
 
 theorem removeOne_nil {v : Nat} : removeOne v nil = nil := sorry
@@ -587,11 +569,6 @@ theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
 def included (l₁ l₂ : NatList) : Bool := sorry
 
--- Note to developers (Niklas Halonen @xhalo32, before next release):
---     Do we need to introduce Bool.true*and, Bool.false*and and maybe their
---     mirror versions? There's also `NatPlayground.Nat.andb_false` from
---     Induction.lean...
-
 theorem included_nil {l₂ : NatList} : included nil l₂ = true := sorry
 
 theorem included_cons_member {v : Nat} {l₁ l₂ : NatList} (h : member v l₂ = true) :
@@ -613,10 +590,6 @@ example : included [1, 1] [2, 1, 4, 1] = true := sorry
 theorem test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
 
 theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
-
--- Note to developers (Niklas Halonen @xhalo32, before next release):
---     The next exercise is merely a special case of `count_cons_same`. Is
---     this on purpose?
 
 -- ### Exercise (2 stars): count_cons_inc (manually graded) ⭐⭐
 
@@ -687,10 +660,6 @@ theorem append_assoc (l1 l2 l3 : NatList) :
     rw [nil_append, nil_append]
   | cons n l1' ih =>
     rw [cons_append, cons_append, cons_append, ih]
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Are we going to consistently write Qed at the end of proofs? We should
---     agree on a convention.
 
 -- *Theorem*: For all lists `l1`, `l2`, and `l3`,
 
