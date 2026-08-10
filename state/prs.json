@@ -212,10 +212,10 @@
     "213": {
       "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
       "changed_variants": [],
-      "head_sha": "8b00bf77cd861e002632192a49bda255931777ae",
+      "head_sha": "6dffff899e113ce61062e60c75f6041bef295471",
       "preview_path": "pr/213/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31428413703",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Basics: rework the last exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/213"
     },
