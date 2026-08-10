@@ -25,17 +25,17 @@ import LF.SFLCompat
 
 -- ## Separate Compilation
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `This section will need some tidying and rewriting...`
 
 -- Lean will first need to compile `Basics.lean` so it can be
 -- imported here — detailed instructions are in the full
 -- version of this chapter...
 
--- We reopen the namespace from the previous chapter to keep
--- the definitions and theorems introduced in this chapter
--- local to this file, so they don't clash with the standard
--- library.
+-- We reopen the namespace from the previous chapter to group
+-- this chapter's definitions and theorems with the custom
+-- natural-number development and keep their names distinct
+-- from the standard library.
 
 namespace NatPlayground.Nat
 
@@ -44,7 +44,11 @@ namespace NatPlayground.Nat
 -- _Quiz:_
 
 -- To prove the following theorem, which tactics will we need
--- besides `rfl`?
+-- besides `rfl`? (Recall that `||` recurses on its *first*
+-- argument: `true || b = true` and `false || b = b`, by
+-- definition.)
+
+--   theorem review₁ : (true || false) = true
 
 -- (A) none
 
@@ -55,8 +59,6 @@ namespace NatPlayground.Nat
 -- (D) both `rewrite` and `cases`
 
 -- (E) can't be done with the tactics we've seen.
-
---   theorem review₁ : (true || false) = true
 
 -- _Quiz:_
 
@@ -133,17 +135,16 @@ namespace NatPlayground.Nat
 -- One more warm-up exercise. Prove the following theorem,
 -- using theorems from Basics:
 
-theorem succ_eq_add_one : ∀ n : Nat, succ n = n + one := by
+theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
   sorry
 
--- ### Proof by Induction
+-- ## Proof by Induction
 
 -- But the proof that it is also a neutral element on the
 -- *left* gets stuck...
 
 sf_expect_failure
-  example : ∀ n : Nat, zero + n = n := by
-    intro n
+  example (n : Nat) : zero + n = n := by
     rfl    -- doesn't work here!
 
 -- Tactic `rfl` failed: The left-hand side
@@ -154,21 +155,20 @@ sf_expect_failure
 -- n : Nat
 -- ⊢ zero + n = n
 
--- And reasoning by cases using `cases n` doesn't get us much
--- further: the branch of the case analysis where we assume
--- `n = zero` goes through just fine, but in the branch where
--- `n = n' + 1` for some `n'` we get stuck in exactly the same
--- way.
+-- And reasoning by cases using `cases` on `n` doesn't get us
+-- much further: the branch of the case analysis where we
+-- assume `n = zero` goes through just fine, but in the branch
+-- where `n = n' + 1` for some `n'` we get stuck in exactly the
+-- same way.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `This is not high priority, but at some point we should make a decision between
 --     /* ... */ comments and -- comments in lean code and try to be consistent.  Here
 --     we're inconsistent in the very same code block!  Are there standard Lean conventions
 --     we should just follow?`
 
 sf_expect_failure
-  example : ∀ n : Nat, zero + n = n := by
-    intro n
+  example (n : Nat) : zero + n = n := by
     cases n with
     | zero => /- n = zero -/
       rewrite [add_zero]
@@ -197,8 +197,7 @@ sf_expect_failure
 
 -- For example...
 
-theorem zero_add : ∀ n : Nat, zero + n = n := by
-  intro n
+theorem zero_add (n : Nat) : zero + n = n := by
   induction n with
   | zero => /- n = zero -/
     rewrite [add_zero]
@@ -214,8 +213,7 @@ theorem zero_add : ∀ n : Nat, zero + n = n := by
 
 -- Let's try this one together:
 
-theorem beq_self : ∀ n : Nat,
-    (n == n) = true := by
+theorem beq_self (n : Nat) : (n == n) = true := by
   sorry
 
 -- Here's another related fact about addition, which we'll need
@@ -229,7 +227,7 @@ theorem add_assoc (n m p : Nat) :
     n + (m + p) = (n + m) + p := by
   sorry
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `We need better typesetting for displays like the following ones:`
 
 -- ### Tip: the `rw` tactic
@@ -245,9 +243,6 @@ theorem add_assoc (n m p : Nat) :
 -- We could write this:
 
 --   rw [double_zero]
-
--- Using `rw` in your proofs is optional, but it will save you
--- time (and is better style).
 
 -- If `rw` leaves a goal that looks definitionally true, try
 -- adding `rfl` after it.
@@ -265,8 +260,8 @@ theorem double_zero : double zero = zero := by rfl
 theorem double_succ n : double (succ n) = succ (succ (double n)) := by rfl
 attribute [irreducible] double
 
--- Use induction to prove this simple fact about `double`.
--- Experiment with using `rw` instead of `rewrite` as well.
+-- Use induction to prove this simple fact about `double`. Try
+-- using `rw` instead of `rewrite`.
 
 theorem double_add (n : Nat) : double n = n + n := by
   sorry
@@ -424,7 +419,7 @@ example (b : Bool) : (b || true) = true := by
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
--- ### Nat to Bin and Back to Nat
+-- ## Nat to Bin and Back to Nat
 
 namespace NatToBin
 
@@ -506,7 +501,7 @@ theorem nat_bin_nat (n : Nat) :
     binToNat (natToBin n) = n := by
   sorry
 
--- ### Bin to Nat and Back to Bin (Advanced)
+-- ## Bin to Nat and Back to Bin (Advanced)
 
 -- The opposite direction — starting with a `Bin`, converting
 -- to `Nat`, then converting back to `Bin` — turns out to be

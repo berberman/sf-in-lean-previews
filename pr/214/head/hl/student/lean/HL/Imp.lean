@@ -6,33 +6,6 @@ import HL.SFLCompat
 
 -- # Imp: Simple Imperative Programs
 
--- Note to developers (before next release):
---     Needs some WORKINCLASSes and some quizzes
---
---     LATER: Another nice challenge exercise at some point would be to add
---     C-style arrays (i.e., indirect read/write). This sets up some really
---     nice challenge problems in Hoare (reasoning about arrays / aliasing /
---     etc.).
---
---     SOONER: BCP 25: Maybe we should write / instead of && in assertions, to
---     save a mismatch in the `dec_minimum` exercise in Hoare2?
---
---     At some point we could consider moving material from the old HoareLists
---     to this chapter (and into later files, as appropriate). We haven't done
---     it yet because it's a shame to complicate the nice simple presentation
---     here when it's used as the basis for applications like Xavier's static
---     analysis lectures. Also, we now have a whole volume on real separation
---     logic...
---
---     MWH (port note): The Rocq chapter's "Rocq Automation" tour has been
---     retooled here for Lean. The tactic combinators `try` and `repeat` (and
---     the custom-tactic `macro`) are introduced in this chapter; `<;>` and
---     `simp` were already introduced in Logical Foundations (`<;>` in
---     `Induction`) so we use them freely and the `<;>` section below is a
---     recap. For linear arithmetic we use `lia`; NOTE that LF currently
---     introduces `omega`, not `lia`, so this needs to be reconciled
---     volume-wide (either introduce `lia` in LF, or keep `omega`).
-
 -- In this chapter, we take a more serious look at how to use Lean as a tool
 -- to study other things. Our case study is a *simple imperative programming
 -- language* called Imp, embodying a tiny core fragment of conventional
@@ -94,31 +67,12 @@ abbrev State := TotalMap Ident Nat
 -- including one more constructor. (This is a fresh `Aexp`, replacing the
 -- variable-free one from the *Slang* chapter.)
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     That should be a live chapter link.
-
 inductive Aexp where
   | num (n : Nat)
   | id (x : Ident)                -- NEW
   | plus (a1 a2 : Aexp)
   | minus (a1 a2 : Aexp)
   | mult (a1 a2 : Aexp)
-
--- Note to developers (Chris Henson  @chenson2018):
---     Rather than define identifiers as Ident, a more general approach is to
---     use a **type variable** with `DecidableEq` (as the `Maps` chapter
---     does), threaded through `Aexp`/`Bexp`/`Com`/`State`. Stashed for a
---     future decision; the parameterized version would look like:
---
---     `inductive Aexp (V : Type) where
---       | num (n : Nat)
---       | id (x : V)
---       | plus (a1 a2 : Aexp V)
---       | minus (a1 a2 : Aexp V)
---       | mult (a1 a2 : Aexp V)
---     -- … then `Bexp V`, `Com V`, `abbrev State (V) [DecidableEq V] :=
---     -- TotalMap V Nat`, and `[DecidableEq V]` wherever a lookup/update is
---     -- performed.`
 
 -- The `Bexp` definition is unchanged, except that it now refers to the new
 -- `Aexp`.
@@ -199,7 +153,7 @@ macro_rules
   | `(aexp { $a * $b }) => `(Aexp.mult (aexp {$a}) (aexp {$b}))
   | `(aexp { ($a) }) => `(aexp {$a})
 
--- _Details:_ Notation encoding: boolean expressions
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions
 
 /-- Boolean expressions of Imp -/
 declare_syntax_cat imp_bexp
@@ -225,7 +179,9 @@ syntax:max "~" term:max : imp_bexp
 /-- Embed an Imp boolean expression into a Lean term -/
 syntax:min "bexp " "{" imp_bexp "}" : term
 
--- _Details:_ Notation encoding: boolean expressions, macro rules
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions, macro rules
 
 open Lean in
 macro_rules
@@ -242,6 +198,8 @@ macro_rules
   | `(bexp { ¬ $b:imp_bexp }) => `(Bexp.not (bexp {$b}))
   | `(bexp { $b1:imp_bexp ∧ $b2:imp_bexp }) => `(Bexp.and (bexp {$b1}) (bexp {$b2}))
   | `(bexp { ($b:imp_bexp) }) => `(bexp {$b})
+
+-- END DETAILS
 
 -- We make it a little easier to write Imp programs using normal constructors
 -- (i.e., without notation), by using *implicit coercions*. In Lean, a `Coe`
@@ -303,7 +261,7 @@ def example_bexp : Bexp := bexp { true ∧ ¬(X ≤ 4) }
 -- mentioning an Imp expression is displayed in readable Imp syntax rather
 -- than as a pile of constructors.
 
--- _Details:_ Notation encoding: printing expressions back
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing expressions back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer
@@ -400,12 +358,14 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
     | _ => `(imp_bexp| ~$(← delab))
   annAsTerm stx
 
+-- END DETAILS
+
 -- The `whenPPOption getPPNotation` wrapper lets
 -- `set_option pp.notation false` switch this delaborator off, revealing the
 -- raw constructors (see the "Desugaring Notations" discussion, after the
 -- commands are introduced).
 
--- _Details:_ Notation encoding: registering the delaborators
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: registering the delaborators
 
 @[delab app.Aexp.num, delab app.Aexp.id, delab app.Aexp.plus,
   delab app.Aexp.minus, delab app.Aexp.mult]
@@ -439,6 +399,8 @@ partial def delabBexp : Delab := whenPPOption getPPNotation do
   | e => `(term| bexp { $e })
 
 end Imp.Delab
+
+-- END DETAILS
 
 -- With these delaborators in place, Lean pretty-prints Imp expressions with
 -- the higher-level notations rather than their raw constructors.
@@ -511,12 +473,6 @@ example : aexp { Z + (X * Y) }.eval (X →ₜ 5 ; Y →ₜ 4 ; ∅) = 20 := by r
 
 example : bexp { true ∧ ¬(X ≤ 4) }.eval (X →ₜ 5 ; ∅) = true := by rfl
 
--- Note to developers:
---     dsainati: Bikeshedding: I'm not sure how I feel about this arrow
---     subscript for maps. Easy to change later but just flagging to discuss.
---     mwhicks1: This comes from the Maps chapter, which chenson2018 is
---     working on. There is a keyboard shortcut for ↦ we could use (mapsto).
-
 -- ## Commands
 
 -- Now we are ready to define the syntax and behavior of Imp *commands* (or
@@ -538,12 +494,14 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
--- _Details:_ Notation encoding: commands
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands
 
 /-- Imp commands -/
 declare_syntax_cat imp_com
 
--- _Details:_ Notation encoding: commands, macro rules
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
 /-- The command that does nothing (`skip;`) -/
 syntax ident ";" : imp_com
@@ -577,13 +535,15 @@ macro_rules
   | `(imp { ~$c }) =>
     pure c
 
+-- END DETAILS
+
 -- Just as we did for expressions, we add a delaborator so that Lean prints
 -- commands back in the `imp { … }` concrete syntax (see the Delaborators
 -- section above). It reuses the expression delaborators for the condition of
 -- an `if`/`while` and for the right-hand side of an assignment, and prints an
 -- unrecognized subcommand with the `~` escape.
 
--- _Details:_ Notation encoding: printing commands back
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
@@ -634,6 +594,8 @@ partial def delabCom : Delab := whenPPOption getPPNotation do
   | e => `(term| imp { $e })
 
 end Imp.Delab
+
+-- END DETAILS
 
 -- As an example, here is the factorial function again, written as a formal
 -- definition. When this command terminates, the variable `Y` will contain the
@@ -769,11 +731,6 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 -- cannot be written in Lean -- at least not without additional tricks and
 -- workarounds.
 
--- Note to developers:
---     Perhaps that discussion should be moved to -- or previewed in --
---     Logic.v? MRC'20: It's already in ProofObjects (which not everyone
---     sees).
-
 -- ### Evaluation as a Relation
 
 -- Here's a better way: define `ceval` as a *relation* rather than a
@@ -786,20 +743,12 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 -- definition of evaluation to be nondeterministic -- i.e., not only will it
 -- not be total, it will not even be a function!
 
--- Note to developers (Michael Hicks  @mwhicks1):
---     I kind of hate this notation. Is there something more standard in Lean?
---     CSLib precedent maybe?
-
 -- We'll use the notation `st =[ c ]=> st'` for the `Com.EvalR` relation:
 -- `st =[ c ]=> st'` means that executing program `c` in a starting state `st`
 -- results in an ending state `st'`. This can be pronounced "`c` takes state
 -- `st` to `st'`".
 
 -- Operational Semantics
-
--- Note to developers (before next release):
---     BCP 21: I wonder if `seq` would be easier to work with if st' and st''
---     were swapped...
 
 -- Here is an informal definition of evaluation, presented as inference rules
 -- for readability:
@@ -838,10 +787,6 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 
 -- Here is the formal definition. Make sure you understand how it corresponds
 -- to the inference rules.
-
--- Note to developers (Chris Henson  @chenson2018):
---     TODO Propose you use inline notation such as
---     `Com.EvalR (imp {skip;}) st st`
 
 inductive Com.EvalR : Com → State → State → Prop where
   | skip (st : State) : EvalR (imp {skip;}) st st
@@ -899,11 +844,6 @@ example :
       Z := 2;
     ]=> (Z →ₜ 2 ; Y →ₜ 1 ; X →ₜ 0 ; ∅) := by
   sorry
-
--- Note to developers:
---     PR: I phrased these quizzes with the following alternatives: (A) Not
---     true (B) True and easily provable (C) True and takes more work to prove
---     (D) True and cannot be proved without additional axioms
 
 -- _Quiz:_
 
@@ -1084,49 +1024,4 @@ theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
 -- `Com.no_whiles` instead of `Com.NoWhilesR`):
 
 -- FILL IN HERE
-
--- Note to developers (Michael Hicks  @mwhicks1):
---     `NOT PORTED YET — remaining sections of sfdev/lf/Imp.v to port:
---       - Case Study (Optional), Imp.v:2774
---           * subtract_slowly_spec (EX4?, Imp.v:2919): loop-invariant style proof
---             about `subtract_slowly`.
---       - Additional Exercises, Imp.v:2986
---           * stack_compiler (EX3, Imp.v:2988): define `s_execute` (stack machine)
---             and `s_compile : aexp -> list sinstr`; needs a `SInstr` inductive
---             (SPush/SLoad/SPlus/SMinus/SMult) and a list-based stack.
---           * execute_app (EX3, Imp.v:3114)
---           * stack_compiler_correct (EX3, Imp.v:3134): the correctness theorem;
---             the standard proof needs a strengthened lemma over an arbitrary
---             initial stack (generalize the stack before inducting).
---           * short_circuit (EX3?, Imp.v:3184): short-circuiting `Bexp.eval`.
---           * break_imp (EX4?, Imp.v:3227): extends Com with `CBreak`; new
---             relational semantics `ceval` carrying a `result` (SContinue/SBreak).
---             Large. See verso-book branch (lf/Imp.lean ~line 1141, CEvalBreak) for
---             a prior take on the signal type.
---           * while_break_true (EX3A?, Imp.v:3454)
---           * ceval_deterministic for break (EX4A?, Imp.v:3477)
---           * exn_imp (EX4A?, Imp.v:3524): exceptions variant. Large.
---           * add_for_loop (EX4?, Imp.v:3728): add a C-style `for` loop to Com,
---             its notation, and extend ceval.`
-
--- Note to developers:
---     `HTML polish — deferred Verso-markup opportunities for a later pass (see
---     CONTRIBUTING.md, "Verso markup for nicer HTML"):
---     * {name} was applied to resolvable declaration references in visible prose.
---       More could be added, but bare type names were linked only selectively (avoid
---       over-linking; mind forward references and namespace scope — a name must
---       already be defined and in scope at that point in the document, or {name} fails
---       to build).
---     * {ref "tag"} cross-references link "see the X section" phrasings; add a
---       `%%% tag := "…" %%%` block under a heading to make it a target. Done for the
---       Notations and Delaborators sections; more internal "above/below" phrasings
---       could get the same treatment.
---     * {tactic}`simp` — link tactic names in the automation/tactics prose (`try`,
---       `repeat`, `<;>`, `simp`, `lia`, `cases`, `induction`).
---     * {deftech}/{tech} — a small glossary: define Imp's core terms once with
---       {deftech} (abstract syntax, state, big-step, relation, partial function, …)
---       and link later uses with {tech}.
---     * {lean}`expr` — inline elaborated expressions/types where a whole expression,
---       not just a single name, reads better with hover types (e.g. the
---       `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 

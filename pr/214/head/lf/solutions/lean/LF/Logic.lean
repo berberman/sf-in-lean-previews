@@ -1103,7 +1103,7 @@ theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
         · rw [h₁]; exact hx
         · apply ih₂; apply hp; exact h₂
 
--- Note to developers (Yipeng Liu  @berberman, NOW):
+-- Note to developers (Yipeng Liu @berberman, NOW):
 --     I found this exercise combining too many awkward details for too little
 --     conceptual payoff:
 --
@@ -1219,7 +1219,7 @@ sf_expect_failure
     rw [Nat.add_comm]
     rw [Nat.add_comm]
 
--- Note to developers (Yipeng Liu  @berberman, before next release):
+-- Note to developers (Yipeng Liu @berberman, before next release):
 --     These hidden variables are only for inline prose, but they currently
 --     leak into `leanOutput` error contexts. Maybe we should implement a
 --     separate scope for declaring variables only visible to `lean` role
@@ -1412,7 +1412,7 @@ theorem even_double (k : Nat) :
   | zero => rw [Nat.double_zero]; rfl
   | succ k' ih => rw [Nat.double_succ]; exact ih
 
--- Note to developers (Yipeng Liu  @berberman):
+-- Note to developers (Yipeng Liu @berberman):
 --     Same issue as `CombineOddEven`.
 
 theorem even_double_conv (n : Nat) : ∃ k : Nat,

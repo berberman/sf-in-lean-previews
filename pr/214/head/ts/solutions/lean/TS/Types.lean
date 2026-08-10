@@ -128,7 +128,7 @@ macro_rules
 -- `pp.notation false` turns it off, revealing the raw constructors.) A `Ty`
 -- prints as `Bool` or `Nat`.
 
--- _Details:_ Notation encoding: printing terms back
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing terms back
 
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
 /-- Re-inserts parentheses in `tm` output according to the grammar's precedences. -/
@@ -177,6 +177,8 @@ partial def delabTm : Delab := whenPPOption getPPNotation do
   match ← delabTmInner with
   | `(tm| ~$e) => pure e
   | e => `(<{ $e }>)
+
+-- END DETAILS
 
 -- #### Values
 
@@ -767,7 +769,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 
 -- Complete the corresponding informal proof.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Check the typesetting of this...
 
 -- *Theorem*: If `⊢ t ⦂ T`, then either `t` is a value or else `t ⟶ t'` for
@@ -1218,7 +1220,7 @@ end TM
 -- between reaching an error state and failing to terminate.  This is one
 -- reason that language theorists generally prefer the small-step style.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This next is not using the new conventions for `grade` blocks, which I
 --     thought `to_verso.py` was now enforcing. Is that because this file was
 --     converted a while back, before these improvements? (I suspect yes

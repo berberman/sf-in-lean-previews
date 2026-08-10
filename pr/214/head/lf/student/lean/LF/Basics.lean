@@ -216,11 +216,6 @@ example : or MyBool.false MyBool.false = MyBool.false := by rfl
 example : or MyBool.false MyBool.true  = MyBool.true  := by rfl
 example : or MyBool.true  MyBool.true  = MyBool.true  := by rfl
 
--- Note to developers (mwhicks):
---     TODO: Seems wrong to not say anything about this notation here. Our
---     rule is to mention simple notations like this, but not `macro_rules`
---     etc. Do we actually introduce this later?
-
 -- We can define new symbolic notations for existing definitions. Don't worry
 -- for now about how the notation is defined.
 
@@ -397,9 +392,6 @@ theorem false_or : ∀ (b : MyBool), (MyBool.false || b) = b := by
 -- Be careful, though: every time you say `sorry` you are leaving a door open
 -- for total nonsense to enter Lean's safe, formally checked world!
 
--- Note to developers (Harrison Goldstein  @hgoldstein95):
---     In the terse .lean output this ends up looking like an exercise.
-
 sf_experiment
   theorem really_bad : MyBool.true = MyBool.false := by sorry
 
@@ -461,10 +453,6 @@ end MyBool
 -- `Bool`, this function produces an output of type `Bool`."
 
 -- ### New Types from Old
-
--- Note to developers (Harrison Goldstein  @hgoldstein95):
---     I feel like this section has too much content in terse, but I don't
---     want to unilaterally make that call. TODO
 
 -- The enumerated types we have seen so far are so-named because their
 -- definitions explicitly enumerate a finite set of elements: their
@@ -1142,15 +1130,19 @@ theorem add_one (n : Nat) : n + (succ zero) = succ n + zero := by
 -- interface; instead, those fields should only be accessible by an object's
 -- methods (like getters and setters). Doing so hides the object's definition,
 -- so that, if its fields or implementation ever change, the interface it
--- exposes to the outside world remains the same.
+-- exposes to the outside world remains the same. In simple examples such
+-- conventions may seem trivial or even silly; in complex codebases, it is the
+-- only way to maintain crucial invariants that prevent a system from becoming
+-- unmaintainable.
 
--- In idiomatic Lean, it is similarly considered poor style to "peek" through
+-- The same principle applies to programs and proofs in Lean. In idiomatic
+-- Lean, it is considered poor style to *unfold* — that is, "peek through" —
 -- definitions by using `rfl` to implicitly simplify expressions that aren't
 -- syntactically identical. If you take a look at the proofs of `add_zero` and
 -- `add_succ` above, you will notice this is exactly what we did when we used
 -- the `rfl` tactic.
 
--- However, the foundational theorems `add_zero` and `add_succ` provide a
+-- Fortunately, the foundational theorems `add_zero` and `add_succ` provide a
 -- characterization of the behavior of `add` that makes using `rfl` to
 -- simplify expressions unnecessary; instead, we can rewrite by these theorems
 -- anywhere we want to describe how `add` evaluates. In real-world Lean
@@ -1277,10 +1269,6 @@ scoped infixl:70 " * " => mul
 -- Remove `sorry` and prove the simplification rules for `mul` below. You will
 -- likely find the proofs of the simplification rules for `add` to be helpful
 -- as a model.
-
--- Note to developers:
---     @rogerburtonpatel: it would be nice if we could get the theorem
---     *statements* inside a `solution!` block as well.
 
 theorem mul_zero : ∀ n : Nat, n * zero = zero := by
   sorry
@@ -1469,8 +1457,10 @@ theorem add_id_exercise : ∀ n m o : Nat,
 
 --   mul_zero : ∀ (n : Nat), n * zero = zero
 
--- The declaration-header style is conventional in Lean, and we will generally
--- use it from now on.
+-- Writing statements in declaration-header style shortens proofs because Lean
+-- automatically adds declared variables to the context, rather than requiring
+-- them to be added with `intro`. The declaration-header style is conventional
+-- in Lean, and we will generally use it from now on.
 
 -- ## Proof by Case Analysis
 
@@ -1480,7 +1470,6 @@ theorem add_id_exercise : ∀ n m o : Nat,
 
 sf_expect_failure
   example (n : Nat) : (succ n == zero) = false := by
-    intro n
     /-
       We can't rewrite by any lemmas here because `n` is unknown!
     -/
@@ -1622,20 +1611,6 @@ theorem or_false_true (b : Bool) :
 theorem zero_neb_add_one (n : Nat) :
   (zero == succ n) = false := by
   sorry
-
--- Note to developers (Daniel Sainati  @dsainati1):
---     I move that we just cut this section entirely and come back to it when
---     we've presented enough of the requisite material that we can actually
---     explain
-
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
---     I'm going to leave this here for now, but perhaps make a note to fix
---     later on — when you've fixed it, come back and delete this, rather than
---     delete it now.
-
--- Note to developers (Yipeng Liu  @berberman, before next release):
---     I feel we could split this section and push the typeclass stuff to
---     `Typeclasses` chapter and complex notation syntax definitions to TS/HL.
 
 -- ### More on Notation (Optional)
 
@@ -1785,17 +1760,6 @@ theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
   sorry
 
 -- ### Course Late Policies, Formalized
-
--- Note to developers:
---     This exercise needs to be changed. Per GitHub discussion: the way this
---     exercise is currently structured is at odds with our definition of Nats
---     (use of large digits that would be tedious to work with by rewriting).
---     The definitions of grades and letters also do not lend themselves well
---     to our discipline of defining and using rewrite rules for all our
---     functions, as they would require a frustrating number of such rules. We
---     should come up with a new exercise here of similar size and difficulty,
---     but that works better with the new presentation style of this material.
---     HG: Also, we should make sure that this reads OK in full/terse TODO
 
 -- Suppose that a course has a grading policy based on late days, where a
 -- student's final letter grade is lowered if they submit too many homework
@@ -1950,31 +1914,10 @@ theorem lowerGrade_F_minus : lowerGrade ⟨F, minus⟩ = ⟨F, minus⟩ := sorry
 
 -- ### Exercise (3 stars): lower_grade_lowers ⭐⭐⭐
 
--- Note to developers:
---     For our solution we use:
---
---     - Working on multiple match cases with `| _ ... | _ => ...`;
---     - Working on all remaining goals with `all_goals`.
---     - These are not expected of students at this point.
-
 theorem lowerGrade_lowers : ∀ g : Grade,
     gradeComparison ⟨F, minus⟩ g = lt →
     gradeComparison (lowerGrade g) g = lt := by
   sorry
-
--- Note to developers (Roger Burtonpatel  @rogerburtonpatel):
---     in removing `dsimp` from these proofs, I found that you might need the
---     `contradiction` tactic here instead, or some other reasoning that's not
---     accomplishable with the tactics we've introduced so far. Can you make
---     this proof work with only `rw`, `rfl`, `exact`, etc?
---
---     Niklas Halonen (xhalo32): We need to teach how to prove a goal that
---     looks like `natural ≠ minus` for example. One could write `injection x`
---     for example:
---
---     `example : natural ≠ minus := by
---       intro x
---       injection x`
 
 def applyLatePolicy (lateDays : NatPlayground.Nat) (g : Grade) : Grade :=
   if Nat.ble lateDays  9 then g
@@ -2007,10 +1950,4 @@ theorem grade_lowered_once : ∀ (lateDays : NatPlayground.Nat) (g : Grade),
   sorry
 
 end LateDays
-
--- Note to developers (Roger Burtonpatel  @rogerburtonpatel):
---     If we are to have this exercise, we must either make the functions
---     irreducible or teach about `rw` of a reducible definition. We also have
---     to figure out how to make lowerGrade_lowers go through without `dsimp`
---     or `contradiction`. To discuss.
 

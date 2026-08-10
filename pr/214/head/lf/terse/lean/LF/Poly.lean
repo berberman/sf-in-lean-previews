@@ -27,7 +27,7 @@ inductive MyList (α : Type) : Type where
 
 -- It is a *type constructor* — a function from types to types.
 
--- Note to developers (Yipeng Liu  @berberman):
+-- Note to developers (Yipeng Liu @berberman):
 --     A trick used below: parenthesizing the declaration makes
 --     it a term — Lean elaborates it and prints its inferred
 --     function type, instead of the declaration signature:
@@ -293,9 +293,9 @@ theorem rev_cons {α : Type} (head : α) (tail : List α) :
 
 -- ### Exercise (2 stars): poly_exercises ⭐⭐
 
--- Here are a few simple exercises, just like ones in the
--- `Lists` chapter, for practice with polymorphism. Complete
--- the proofs below. You will likely find useful the following
+-- Here are a few simple exercises, just like ones in the Lists
+-- chapter, for practice with polymorphism. Complete the proofs
+-- below. You will likely find useful the following
 -- characterizing lemmas for `List.append` in Lean standard
 -- library:
 
@@ -306,15 +306,15 @@ theorem rev_cons {α : Type} (head : α) (tail : List α) :
 
 -- List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
 
-theorem app_nil_r {α : Type} (l : List α) :
+theorem append_nil {α : Type} (l : List α) :
     l ++ [] = l := by
   sorry
 
-theorem app_assoc {α : Type} (l m n : List α) :
+theorem append_assoc {α : Type} (l m n : List α) :
     l ++ m ++ n = l ++ (m ++ n) := by
   sorry
 
-theorem app_length {α : Type} {l₁ l₂ : List α} :
+theorem append_length {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
   sorry
 
@@ -322,11 +322,11 @@ theorem app_length {α : Type} {l₁ l₂ : List α} :
 
 -- Here are some slightly more interesting ones...
 
-theorem rev_app_distr {α : Type} {l₁ l₂ : List α} :
+theorem reverse_append {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev := by
   sorry
 
-theorem rev_involutive {α : Type} (l : List α) :
+theorem reverse_reverse {α : Type} (l : List α) :
     l.rev.rev = l := by
   sorry
 
@@ -375,26 +375,25 @@ def zip {α β : Type} (lx : List α) (ly : List β) : List (α × β) :=
   | _, [] => []
   | x :: tx, y :: ty => (x, y) :: zip tx ty
 
-theorem zip_nil_r {α β : Type} (ly : List β) : zip [] ly = ([] : List (α × β)) := by rfl
+theorem zip_nil_right {α β : Type} (ly : List β) : zip [] ly = ([] : List (α × β)) := by rfl
 
-theorem zip_nil_l {α β : Type} (lx : List α) : zip lx [] = ([] : List (α × β)) := by
+theorem zip_nil_left {α β : Type} (lx : List α) : zip lx [] = ([] : List (α × β)) := by
    cases lx <;> rfl
-
-theorem zip_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} :
+theorem zip_cons_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} :
    zip (x :: lx) (y :: ly) = (x, y) :: zip lx ly := by rfl
 
 -- ### Polymorphic Options
 
-def nthError {α : Type} (l : List α) (n : Nat) : Option α :=
+def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
   match l with
   | [] => none
   | a :: l' => match n with
     | 0 => some a
-    | n' + 1 => nthError l' n'
+    | n' + 1 => nth? l' n'
 
-example : nthError [4, 5, 6, 7] 0 = some 4 := by rfl
-example : nthError [[1], [2]] 1 = some [2] := by rfl
-example : nthError [true] 2 = none := by rfl
+example : nth? [4, 5, 6, 7] 0 = some 4 := by rfl
+example : nth? [[1], [2]] 1 = some [2] := by rfl
+example : nth? [true] 2 = none := by rfl
 
 -- ## Functions as Data
 
@@ -403,7 +402,7 @@ example : nthError [true] 2 = none := by rfl
 -- Functions that take other functions as arguments or return
 -- them as results are called higher-order functions.
 
-abbrev doIt3Times {α : Type} (f : α → α) (n : α) : α :=
+def doIt3Times {α : Type} (f : α → α) (n : α) : α :=
   f (f (f n))
 
 #check doIt3Times
@@ -428,23 +427,23 @@ def filter {α : Type} (test : α → Bool) (l : List α) : List α :=
 
 example : filter Nat.even [1, 2, 3, 4] = [2, 4] := by rfl
 
-abbrev lengthIs1 {α : Type} (l : List α) : Bool :=
+def isLength1 {α : Type} (l : List α) : Bool :=
   l.length == 1
 
-example : filter lengthIs1
+example : filter isLength1
     [[1, 2], [3], [4], [5, 6, 7], [], [8]]
   = [[3], [4], [8]] := by rfl
 
 theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by rfl
 
-theorem filter_cons_success {α : Type} {test : α → Bool} {head : α}
+theorem filter_cons_of_pos {α : Type} {test : α → Bool} {head : α}
     {tail : List α} (h : test head) :
     filter test (head :: tail) = head :: filter test tail := by
   dsimp [filter]
   rw [h]
   dsimp
 
-theorem filter_cons_fail {α : Type} {test : α → Bool} {head : α}
+theorem filter_cons_of_neg {α : Type} {test : α → Bool} {head : α}
     {tail : List α} (h : test head = false) :
     filter test (head :: tail) = filter test tail := by
    dsimp [filter]
@@ -455,12 +454,11 @@ theorem filter_cons_fail {α : Type} {test : α → Bool} {head : α}
 -- other functions we'll see later) enables a powerful
 -- *wholemeal* (or *collection-oriented*) programming style.
 
-abbrev countOddMembers' (l : List Nat) : Nat :=
-  (filter Nat.odd l).length
+def countOddMembers (l : List Nat) : Nat := (filter Nat.odd l).length
 
-example : countOddMembers' [1, 0, 3, 1, 4, 5] = 4 := by rfl
-example : countOddMembers' [0, 2, 4] = 0 := by rfl
-example : countOddMembers' [] = 0 := by rfl
+example : countOddMembers [1, 0, 3, 1, 4, 5] = 4 := by rfl
+example : countOddMembers [0, 2, 4] = 0 := by rfl
+example : countOddMembers [] = 0 := by rfl
 
 -- ### Anonymous Functions
 
@@ -514,6 +512,9 @@ example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
 -- (C) `{α β : Type} → (α → β) → List α → List β`
 
 -- (D) `{α : Type} → (α → α) → List α → List α`
+
+-- As usual, we define the following simplification rules for
+-- `map`:
 
 theorem map_nil {α : Type} {β : Type} {f : α → β} : map f [] = [] := by rfl
 
@@ -585,10 +586,10 @@ theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {head : α} {ta
 
 -- Here are two functions that *return* functions as results.
 
-abbrev constFun {α : Type} (x : α) : Nat → α :=
+def constFun {α : Type} (x : α) : Nat → α :=
   fun _ => x
 
-abbrev fTrue := constFun true
+def fTrue := constFun true
 
 example : fTrue 0 = true := by rfl
 
@@ -601,7 +602,7 @@ example : constFun 5 99 = 5 := by rfl
 
 -- Nat.add : Nat → Nat → Nat
 
-abbrev plus3 := Nat.add 3
+def plus3 := Nat.add 3
 #check plus3
 
 example : plus3 4 = 7 := by rfl
@@ -612,7 +613,7 @@ example : doIt3Times (Nat.add 3) 0 = 9 := by rfl
 
 -- Similarly, we can write:
 
-abbrev fold_plus : List Nat → Nat → Nat :=
+def fold_plus : List Nat → Nat → Nat :=
   fold (· + ·)
 
 #check fold_plus

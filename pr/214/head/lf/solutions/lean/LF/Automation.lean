@@ -172,7 +172,7 @@ theorem Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α) :
 -- first time that `try` catches a failure in a `<;>` sequence, the whole
 -- sequence will stop executing.
 
--- Note to developers (Roger Burtonpatel  @@rogerburtonpatel):
+-- Note to developers (Roger Burtonpatel @rogerburtonpatel):
 --     Use @berberman's infrastructure for expected failure here.
 
 /--
@@ -286,7 +286,7 @@ example : 10 ∈ [1,2,3,4,5,6,7,8,9,10] := by
 -- With `first`, we can solve the earlier issue with `try` where it would stop
 -- executing the sequence on the first failure.
 
--- Note to developers (Daniel Sainati  @@dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     Autoformat this later
 
 theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α) :
@@ -457,7 +457,7 @@ example α x (l₁ l₂ l₃ : List α) :
 -- This usage of `simp only` is better because the addition of new `simp`
 -- lemmas won't cause this proof to change.
 
--- Note to developers (Daniel Sainati  @@dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     Chris suggested using Mathlib's `linter.flexible` option to enforce
 --     proper `simp` usage. How do we feel about adding a Mathlib dependency
 --     for this?
@@ -531,7 +531,7 @@ attribute [pp_nodot] RegExp.Char RegExp.App RegExp.Union RegExp.Star
 -- theory of regular expressions, but the difference is not significant for
 -- present purposes.)
 
--- Note to developers (Daniel Sainati  @@dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     CH: Do you mean here that this is different because the inductive type
 --     doesn't specify α is finite? In Lean the convention is for inductives
 --     not to carry Prop-valued typeclasss assumptions, enforcing this only at
@@ -566,7 +566,7 @@ attribute [pp_nodot] RegExp.Char RegExp.App RegExp.Union RegExp.Star
 -- We can easily translate this intuition into a set of rules, where we write
 -- `s =~ re` to say that `re` matches `s`:
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Check typesetting here (rules should be centered, I think):
 
 --   ─────────────── (mEmpty)
@@ -614,7 +614,7 @@ inductive ExpMatch {α : Type} : List α → RegExp α → Prop where
 
 infix:40 " =~ " => ExpMatch
 
--- Note to developers (Daniel Sainati  @@dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     replace with quiz directive
 
 -- Notice that this clause in our informal definition...
@@ -704,7 +704,7 @@ theorem regexp_match_of_list α (l : List α) : l =~ reg_exp_of_list l := by
 -- following lemma shows that every string `s` matched by `re` is also matched
 -- by `Star re`.
 
--- Note to developers (Daniel Sainati  @@dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     How to make this a WORKINCLASS in verso?
 
 theorem MStar1 α s (re : RegExp α) :
@@ -802,7 +802,7 @@ def reChars {α : Type} (re : RegExp α) : List α :=
 
 -- Now, the main theorem:
 
--- Note to developers (Daniel Sainati  @@dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     This should be a workinclass
 
 theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
@@ -1118,7 +1118,7 @@ theorem weak_pumping_app {α : Type}
   obtain H | H :
     pumpingConstant re₁ ≤ s₁.length ∨ pumpingConstant re₂ ≤ s₂.length := by
     all_goals
-      rw [app_length] at hLen
+      rw [append_length] at hLen
       apply add_le_cases
       apply hLen
   . all_goals
@@ -1249,7 +1249,7 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
     s₃  ≠ [ ] ∧
     (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ .Star re)  := by
   intro hmatch₁ hmatch₂ ih₁ ih₂ hLen
-  rw [app_length] at *
+  rw [append_length] at *
   obtain Hs1len0 | ⟨s1len, Hs1re1⟩ | Hs1re1 :
     (s₁.length = 0
       ∨ (s₁.length ≠ 0 ∧ s₁.length < pumpingConstant re)
@@ -1317,7 +1317,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
 
 -- ### The (Strong) Pumping Lemma
 
--- Note to developers (Daniel Sainati  @@dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     If this exercise is going to be optional we should still fill in the
 --     solution but it's lower priority.
 

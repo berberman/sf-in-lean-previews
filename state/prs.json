@@ -296,9 +296,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "1b76a4c90a4008965fde80075b7bd1fba1c4b476",
+      "head_sha": "f5ce0abe96c85d0522ec1e87d6a0cf7e2d14f756",
       "preview_path": "pr/214/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31283900028",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31409480308",
       "status": "published",
       "title": "Cleaning up STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
