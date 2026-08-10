@@ -1396,38 +1396,6 @@
         "number": "3"},
        {"title": "Separate Compilation", "shortTitle": null, "number": "1"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Review--Tip___-the--rw--tactic":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Review--Tip___-the--rw--tactic",
-     "data":
-     {"title": "Tip: the  rw  tactic",
-      "shortTitle": null,
-      "sectionNum": "3.2.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Review", "shortTitle": null, "number": "2"},
-       {"title": "Tip: the  rw  tactic", "shortTitle": null, "number": "2"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Review--Proof-by-Induction":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Review--Proof-by-Induction",
-     "data":
-     {"title": "Proof by Induction",
-      "shortTitle": null,
-      "sectionNum": "3.2.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Review", "shortTitle": null, "number": "2"},
-       {"title": "Proof by Induction", "shortTitle": null, "number": "1"}]},
-     "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Review":
    [{"id": "Logical-Foundations--Induction___-Proof-by-Induction--Review",
      "data":
@@ -1448,6 +1416,37 @@
      "data":
      {"title": "Proofs Within Proofs",
       "shortTitle": null,
+      "sectionNum": "3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proofs Within Proofs", "shortTitle": null, "number": "4"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic",
+     "data":
+     {"title": "Tip: the  rw  tactic",
+      "shortTitle": null,
+      "sectionNum": "3.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
+       {"title": "Tip: the  rw  tactic", "shortTitle": null, "number": "1"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction",
+     "data":
+     {"title": "Proof by Induction",
+      "shortTitle": null,
       "sectionNum": "3.3.",
       "searchPriority": 50,
       "context":
@@ -1455,43 +1454,24 @@
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "Proofs Within Proofs", "shortTitle": null, "number": "3"}]},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Nat-to-Bin-and-Back-to-Nat":
+   "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Nat-to-Bin-and-Back-to-Nat",
+     "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat",
      "data":
      {"title": "Nat to Bin and Back to Nat",
       "shortTitle": null,
-      "sectionNum": "3.5.2.",
+      "sectionNum": "3.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
        {"title": "Nat to Bin and Back to Nat",
         "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_",
-     "data":
-     {"title": "Bin to Nat and Back to Bin (Advanced)",
-      "shortTitle": null,
-      "sectionNum": "3.5.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
-       {"title": "Bin to Nat and Back to Bin (Advanced)",
-        "shortTitle": null,
-        "number": "3"}]},
+        "number": "7"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
    [{"id":
@@ -1499,14 +1479,14 @@
      "data":
      {"title": "A New Tactic Combinator",
       "shortTitle": null,
-      "sectionNum": "3.5.1.",
+      "sectionNum": "3.6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"},
        {"title": "A New Tactic Combinator",
         "shortTitle": null,
         "number": "1"}]},
@@ -1517,14 +1497,14 @@
      "data":
      {"title": "More Exercises",
       "shortTitle": null,
-      "sectionNum": "3.5.",
+      "sectionNum": "3.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"}]},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Formal-vs___-Informal-Proof":
    [{"id":
@@ -1532,7 +1512,7 @@
      "data":
      {"title": "Formal vs. Informal Proof",
       "shortTitle": null,
-      "sectionNum": "3.4.",
+      "sectionNum": "3.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -1541,7 +1521,24 @@
         "number": "3"},
        {"title": "Formal vs. Informal Proof",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "5"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_",
+     "data":
+     {"title": "Bin to Nat and Back to Bin (Advanced)",
+      "shortTitle": null,
+      "sectionNum": "3.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Bin to Nat and Back to Bin (Advanced)",
+        "shortTitle": null,
+        "number": "8"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Using-Evidence-in-Proofs--Multiple-Induction-Hypotheses":
    [{"id":
@@ -2560,19 +2557,6 @@
         "shortTitle": null,
         "number": "5"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation":
-   [{"id": "Logical-Foundations--Automation___-More-Automation",
-     "data":
-     {"title": "Automation: More Automation",
-      "shortTitle": null,
-      "sectionNum": "10.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Automation: More Automation",
-        "shortTitle": null,
-        "number": "10"}]},
-     "address": "/Automation/"}],
    "Logical-Foundations":
    [{"id": "Logical-Foundations",
      "data":
@@ -2645,7 +2629,20 @@
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"}]},
-     "address": "/Basics/"}]}},
+     "address": "/Basics/"}],
+   "Automation":
+   [{"id": "Automation",
+     "data":
+     {"title": "Automation: More Automation",
+      "shortTitle": null,
+      "sectionNum": "10.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Automation: More Automation",
+        "shortTitle": null,
+        "number": "10"}]},
+     "address": "/Automation/"}]}},
  "Verso.Genre.Manual.example":
  {"title": "Verso.Genre.Manual.example",
   "description": null,
@@ -4390,7 +4387,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero-next",
+   [{"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4405,7 +4402,7 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero",
+    {"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -8079,7 +8076,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
         "Proof by Induction"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.zero_ble":
@@ -8114,7 +8110,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
         "Proof by Induction"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.zero":
@@ -8269,7 +8264,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
         "Proof by Induction"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.succ":
@@ -8694,7 +8688,7 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.even_one":
@@ -8738,7 +8732,7 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.double_succ":
@@ -8749,7 +8743,7 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.double_add":
@@ -8760,7 +8754,7 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.double":
@@ -8771,7 +8765,7 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.blt_test3":
@@ -8905,7 +8899,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
         "Proof by Induction"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.beq'":
@@ -8980,7 +8973,7 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.add_zero_zero_zero":
@@ -9109,7 +9102,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
         "Proof by Induction"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.add_assoc''":
@@ -9140,7 +9132,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
         "Proof by Induction"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.add":
@@ -9162,7 +9153,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.normalize_b1":
@@ -9173,7 +9163,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.normalize_b0":
@@ -9184,7 +9173,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.normalize":
@@ -9195,7 +9183,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.nat_bin_nat":
@@ -9206,7 +9193,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.natToBin_zero":
@@ -9217,7 +9203,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.natToBin_succ":
@@ -9228,7 +9213,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.natToBin":
@@ -9239,7 +9223,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.incr_z":
@@ -9250,7 +9233,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.incr_b1":
@@ -9261,7 +9243,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.incr_b0":
@@ -9272,7 +9253,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.incr":
@@ -9283,7 +9263,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.double_incr_bin":
@@ -9294,7 +9273,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.double_incr":
@@ -9305,7 +9283,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.double_bin_zero":
@@ -9316,7 +9293,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.doubleBin_z":
@@ -9327,7 +9303,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.doubleBin_b1":
@@ -9338,7 +9313,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.doubleBin_b0":
@@ -9349,7 +9323,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.doubleBin":
@@ -9360,7 +9333,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Bin to Nat and Back to Bin (Advanced)"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.bin_to_nat_pres_incr":
@@ -9371,7 +9343,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.binToNat_z":
@@ -9382,7 +9353,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.binToNat_b1":
@@ -9393,7 +9363,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.binToNat_b0":
@@ -9404,7 +9373,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.binToNat":
@@ -9415,7 +9383,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin.z":
@@ -9426,7 +9393,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin.b1":
@@ -9437,7 +9403,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin.b0":
@@ -9448,7 +9413,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin":
@@ -9459,7 +9423,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.Bin.z":
@@ -11631,7 +11594,7 @@
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append",
+   [{"id": "Lists___NatList___myRepeat_append-next",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
@@ -11650,7 +11613,7 @@
         "Induction on Lists",
         "Generalizing Statements"]}},
      "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append-next",
+    {"id": "Lists___NatList___myRepeat_append",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",

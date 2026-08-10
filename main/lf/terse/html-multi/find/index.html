@@ -1821,242 +1821,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 </style><script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // Track whether any tippy is visible (O(1) check instead of DOM scan)
-    let visibleTippyCount = 0;
-    function blockedByTippy(elem) {
-      return visibleTippyCount > 0;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        if (inst.reference.className == 'tactic') {
-          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-          hideParentTooltips(inst.reference);
-          if (blockedByTippy(inst.reference)) { return false; }
-
-        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-          if (blockedByTactic(inst.reference)) { return false };
-          if (blockedByTippy(inst.reference)) { return false; }
-        } else { // Nothing to show here!
-          return false;
-        }
-      },
-      onShown(inst) { visibleTippyCount++; },
-      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverId) { // Docstrings from the table
-            // TODO stop doing an implicit conversion from string to number here
-            let data = versoDocData[hoverId];
-            if (data) {
-              const info = document.createElement("span");
-              info.className = "hover-info";
-              info.style.display = "block";
-              info.innerHTML = data;
-              content.appendChild(info);
-              /* Render docstrings - TODO server-side */
-              if ('undefined' !== typeof marked) {
-                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                      const str = d.innerText;
-                      const html = marked.parse(str);
-                      const rendered = document.createElement("div");
-                      rendered.classList.add("docstring");
-                      rendered.innerHTML = html;
-                      d.parentNode.replaceChild(rendered, d);
-                  }
-              }
-            } else {
-              content.innerHTML = "Failed to load doc ID: " + hoverId;
-            }
-          } else if (hoverInfo) { // The inline info, still used for compiler messages
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          const extraLinks = tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (!tok._tippy && tok.matches(tacticTippySelector)) {
-              tippy(tok, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (tok._tippy) tok._tippy.destroy();
-          });
-        }
-      });
-  });
-}
-</script>
-    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -3455,38 +3219,6 @@ window.onload = async () => {
         "number": "3"},
        {"title": "Separate Compilation", "shortTitle": null, "number": "1"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Review--Tip___-the--rw--tactic":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Review--Tip___-the--rw--tactic",
-     "data":
-     {"title": "Tip: the  rw  tactic",
-      "shortTitle": null,
-      "sectionNum": "3.2.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Review", "shortTitle": null, "number": "2"},
-       {"title": "Tip: the  rw  tactic", "shortTitle": null, "number": "2"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Review--Proof-by-Induction":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Review--Proof-by-Induction",
-     "data":
-     {"title": "Proof by Induction",
-      "shortTitle": null,
-      "sectionNum": "3.2.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Review", "shortTitle": null, "number": "2"},
-       {"title": "Proof by Induction", "shortTitle": null, "number": "1"}]},
-     "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Review":
    [{"id": "Logical-Foundations--Induction___-Proof-by-Induction--Review",
      "data":
@@ -3507,6 +3239,37 @@ window.onload = async () => {
      "data":
      {"title": "Proofs Within Proofs",
       "shortTitle": null,
+      "sectionNum": "3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proofs Within Proofs", "shortTitle": null, "number": "4"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic",
+     "data":
+     {"title": "Tip: the  rw  tactic",
+      "shortTitle": null,
+      "sectionNum": "3.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
+       {"title": "Tip: the  rw  tactic", "shortTitle": null, "number": "1"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction",
+     "data":
+     {"title": "Proof by Induction",
+      "shortTitle": null,
       "sectionNum": "3.3.",
       "searchPriority": 50,
       "context":
@@ -3514,43 +3277,24 @@ window.onload = async () => {
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "Proofs Within Proofs", "shortTitle": null, "number": "3"}]},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Nat-to-Bin-and-Back-to-Nat":
+   "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Nat-to-Bin-and-Back-to-Nat",
+     "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat",
      "data":
      {"title": "Nat to Bin and Back to Nat",
       "shortTitle": null,
-      "sectionNum": "3.5.2.",
+      "sectionNum": "3.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
        {"title": "Nat to Bin and Back to Nat",
         "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_",
-     "data":
-     {"title": "Bin to Nat and Back to Bin (Advanced)",
-      "shortTitle": null,
-      "sectionNum": "3.5.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
-       {"title": "Bin to Nat and Back to Bin (Advanced)",
-        "shortTitle": null,
-        "number": "3"}]},
+        "number": "7"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
    [{"id":
@@ -3558,14 +3302,14 @@ window.onload = async () => {
      "data":
      {"title": "A New Tactic Combinator",
       "shortTitle": null,
-      "sectionNum": "3.5.1.",
+      "sectionNum": "3.6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"},
        {"title": "A New Tactic Combinator",
         "shortTitle": null,
         "number": "1"}]},
@@ -3576,14 +3320,14 @@ window.onload = async () => {
      "data":
      {"title": "More Exercises",
       "shortTitle": null,
-      "sectionNum": "3.5.",
+      "sectionNum": "3.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"}]},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Formal-vs___-Informal-Proof":
    [{"id":
@@ -3591,7 +3335,7 @@ window.onload = async () => {
      "data":
      {"title": "Formal vs. Informal Proof",
       "shortTitle": null,
-      "sectionNum": "3.4.",
+      "sectionNum": "3.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -3600,7 +3344,24 @@ window.onload = async () => {
         "number": "3"},
        {"title": "Formal vs. Informal Proof",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "5"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_",
+     "data":
+     {"title": "Bin to Nat and Back to Bin (Advanced)",
+      "shortTitle": null,
+      "sectionNum": "3.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Bin to Nat and Back to Bin (Advanced)",
+        "shortTitle": null,
+        "number": "8"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Using-Evidence-in-Proofs--Multiple-Induction-Hypotheses":
    [{"id":
@@ -4619,19 +4380,6 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "5"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation":
-   [{"id": "Logical-Foundations--Automation___-More-Automation",
-     "data":
-     {"title": "Automation: More Automation",
-      "shortTitle": null,
-      "sectionNum": "10.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Automation: More Automation",
-        "shortTitle": null,
-        "number": "10"}]},
-     "address": "/Automation/"}],
    "Logical-Foundations":
    [{"id": "Logical-Foundations",
      "data":
@@ -4704,7 +4452,20 @@ window.onload = async () => {
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"}]},
-     "address": "/Basics/"}]}},
+     "address": "/Basics/"}],
+   "Automation":
+   [{"id": "Automation",
+     "data":
+     {"title": "Automation: More Automation",
+      "shortTitle": null,
+      "sectionNum": "10.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Automation: More Automation",
+        "shortTitle": null,
+        "number": "10"}]},
+     "address": "/Automation/"}]}},
  "Verso.Genre.Manual.example":
  {"title": "Verso.Genre.Manual.example",
   "description": null,
@@ -6312,7 +6073,7 @@ window.onload = async () => {
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6321,7 +6082,7 @@ window.onload = async () => {
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -7312,7 +7073,6 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
         "Proof by Induction"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.zero":
@@ -7644,7 +7404,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.double_succ":
@@ -7655,7 +7415,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.double":
@@ -7666,7 +7426,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.ble":
@@ -7830,7 +7590,6 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin.b1":
@@ -7841,7 +7600,6 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin.b0":
@@ -7852,7 +7610,6 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin":
@@ -7863,7 +7620,6 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.AddPlayground.add_zero":
@@ -10065,6 +9821,242 @@ if (paramName) {
     });
 }
 </script>
+    <script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // Track whether any tippy is visible (O(1) check instead of DOM scan)
+    let visibleTippyCount = 0;
+    function blockedByTippy(elem) {
+      return visibleTippyCount > 0;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        if (inst.reference.className == 'tactic') {
+          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+          hideParentTooltips(inst.reference);
+          if (blockedByTippy(inst.reference)) { return false; }
+
+        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
+          if (blockedByTactic(inst.reference)) { return false };
+          if (blockedByTippy(inst.reference)) { return false; }
+        } else { // Nothing to show here!
+          return false;
+        }
+      },
+      onShown(inst) { visibleTippyCount++; },
+      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverId) { // Docstrings from the table
+            // TODO stop doing an implicit conversion from string to number here
+            let data = versoDocData[hoverId];
+            if (data) {
+              const info = document.createElement("span");
+              info.className = "hover-info";
+              info.style.display = "block";
+              info.innerHTML = data;
+              content.appendChild(info);
+              /* Render docstrings - TODO server-side */
+              if ('undefined' !== typeof marked) {
+                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
+                      const str = d.innerText;
+                      const html = marked.parse(str);
+                      const rendered = document.createElement("div");
+                      rendered.classList.add("docstring");
+                      rendered.innerHTML = html;
+                      d.parentNode.replaceChild(rendered, d);
+                  }
+              }
+            } else {
+              content.innerHTML = "Failed to load doc ID: " + hoverId;
+            }
+          } else if (hoverInfo) { // The inline info, still used for compiler messages
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          const extraLinks = tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (!tok._tippy && tok.matches(tacticTippySelector)) {
+              tippy(tok, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (tok._tippy) tok._tippy.destroy();
+          });
+        }
+      });
+  });
+}
+</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -10091,7 +10083,7 @@ if (paramName) {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Logical-Foundations--Automation___-More-Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>

@@ -900,7 +900,6 @@ theorem add_id_exercise : ∀ n m o : Nat,
 
 sf_expect_failure
   example (n : Nat) : (succ n == zero) = false := by
-    intro n
     /-
       We can't rewrite by any lemmas here because `n` is unknown!
     -/
