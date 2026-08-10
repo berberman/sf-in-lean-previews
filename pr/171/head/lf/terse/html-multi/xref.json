@@ -7,39 +7,61 @@
      "data":
      {"title": "UsingLean: Using the full power of a proof assistant",
       "shortTitle": null,
-      "sectionNum": "3.",
+      "sectionNum": "4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"}]},
+        "number": "4"}]},
      "address": "/UsingLean/"}],
+   "Typeclasses":
+   [{"id": "Typeclasses",
+     "data":
+     {"title": "Typeclasses",
+      "shortTitle": null,
+      "sectionNum": "11.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"}]},
+     "address": "/Typeclasses/"}],
    "Tactics":
    [{"id": "Tactics",
      "data":
      {"title": "Tactics: More Basic Tactics",
       "shortTitle": null,
-      "sectionNum": "6.",
+      "sectionNum": "7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "7"}]},
      "address": "/Tactics/"}],
+   "Preface":
+   [{"id": "Preface",
+     "data":
+     {"title": "Preface",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
    "Poly":
    [{"id": "Poly",
      "data":
      {"title": "Poly: Polymorphism and Higher-Order Functions",
       "shortTitle": null,
-      "sectionNum": "5.",
+      "sectionNum": "6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"}]},
+        "number": "6"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-the-Standard-Library":
    [{"id":
@@ -47,13 +69,13 @@
      "data":
      {"title": "Using the Standard Library",
       "shortTitle": null,
-      "sectionNum": "3.2.",
+      "sectionNum": "4.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Using the Standard Library",
         "shortTitle": null,
         "number": "2"}]},
@@ -64,13 +86,13 @@
      "data":
      {"title": "Using Code Actions to Generate Match Skeletons",
       "shortTitle": null,
-      "sectionNum": "3.6.",
+      "sectionNum": "4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Using Code Actions to Generate Match Skeletons",
         "shortTitle": null,
         "number": "6"}]},
@@ -81,13 +103,13 @@
      "data":
      {"title": "Structuring proofs with  calc",
       "shortTitle": null,
-      "sectionNum": "3.3.",
+      "sectionNum": "4.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Structuring proofs with  calc",
         "shortTitle": null,
         "number": "3"}]},
@@ -98,13 +120,13 @@
      "data":
      {"title": "Redefining Functions and Lemmas over Nats",
       "shortTitle": null,
-      "sectionNum": "3.5.",
+      "sectionNum": "4.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Redefining Functions and Lemmas over Nats",
         "shortTitle": null,
         "number": "5"}]},
@@ -115,13 +137,13 @@
      "data":
      {"title": "rfl  and computation with  Nat",
       "shortTitle": null,
-      "sectionNum": "3.1.1.",
+      "sectionNum": "4.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "More powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"},
@@ -135,13 +157,13 @@
      "data":
      {"title": "More powerful Natural Numbers",
       "shortTitle": null,
-      "sectionNum": "3.1.",
+      "sectionNum": "4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "More powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"}]},
@@ -152,13 +174,13 @@
      "data":
      {"title": "A New Step Towards Automation",
       "shortTitle": null,
-      "sectionNum": "3.4.1.",
+      "sectionNum": "4.4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Definitional simplification:  dsimp",
         "shortTitle": null,
         "number": "4"},
@@ -172,78 +194,122 @@
      "data":
      {"title": "Definitional simplification:  dsimp",
       "shortTitle": null,
-      "sectionNum": "3.4.",
+      "sectionNum": "4.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the full power of a proof assistant",
         "shortTitle": null,
-        "number": "3"},
+        "number": "4"},
        {"title": "Definitional simplification:  dsimp",
         "shortTitle": null,
         "number": "4"}]},
      "address": "/UsingLean/"}],
+   "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses":
+   [{"id": "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses",
+     "data":
+     {"title": "Why We Need Typeclasses",
+      "shortTitle": null,
+      "sectionNum": "11.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Why We Need Typeclasses",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Using-Typeclasses":
+   [{"id": "Logical-Foundations--Typeclasses--Using-Typeclasses",
+     "data":
+     {"title": "Using Typeclasses",
+      "shortTitle": null,
+      "sectionNum": "11.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Using Typeclasses", "shortTitle": null, "number": "3"}]},
+     "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--TODO":
    [{"id": "Logical-Foundations--Typeclasses--TODO",
      "data":
      {"title": "TODO",
       "shortTitle": null,
-      "sectionNum": "10.6.",
+      "sectionNum": "11.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "TODO", "shortTitle": null, "number": "6"}]},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "TODO", "shortTitle": null, "number": "7"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Reflection":
    [{"id": "Logical-Foundations--Typeclasses--Reflection",
      "data":
      {"title": "Reflection",
       "shortTitle": null,
-      "sectionNum": "10.5.",
+      "sectionNum": "11.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Reflection", "shortTitle": null, "number": "5"}]},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Reflection", "shortTitle": null, "number": "6"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses",
      "data":
      {"title": "Proof-Carrying Typeclasses",
       "shortTitle": null,
-      "sectionNum": "10.2.",
+      "sectionNum": "11.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Proof-Carrying Typeclasses",
         "shortTitle": null,
-        "number": "2"}]},
+        "number": "4"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--Notation-Typeclasses":
-   [{"id": "Logical-Foundations--Typeclasses--Notation-Typeclasses",
+   "Logical-Foundations--Typeclasses--Maps--Total-Maps--Updating-Elements":
+   [{"id":
+     "Logical-Foundations--Typeclasses--Maps--Total-Maps--Updating-Elements",
      "data":
-     {"title": "Notation Typeclasses",
+     {"title": "Updating Elements",
       "shortTitle": null,
-      "sectionNum": "10.3.",
+      "sectionNum": "11.5.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Notation Typeclasses", "shortTitle": null, "number": "3"}]},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Total Maps", "shortTitle": null, "number": "2"},
+       {"title": "Updating Elements", "shortTitle": null, "number": "2"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Maps--Total-Maps--Getting-Elements":
+   [{"id":
+     "Logical-Foundations--Typeclasses--Maps--Total-Maps--Getting-Elements",
+     "data":
+     {"title": "Getting Elements",
+      "shortTitle": null,
+      "sectionNum": "11.5.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Total Maps", "shortTitle": null, "number": "2"},
+       {"title": "Getting Elements", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Total-Maps":
    [{"id": "Logical-Foundations--Typeclasses--Maps--Total-Maps",
      "data":
      {"title": "Total Maps",
       "shortTitle": null,
-      "sectionNum": "10.4.2.",
+      "sectionNum": "11.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Partial-Maps":
@@ -251,12 +317,12 @@
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "10.4.4.",
+      "sectionNum": "11.5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Partial Maps", "shortTitle": null, "number": "4"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Notation-for-Concrete-Maps":
@@ -264,65 +330,54 @@
      "data":
      {"title": "Notation for Concrete Maps",
       "shortTitle": null,
-      "sectionNum": "10.4.3.",
+      "sectionNum": "11.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Notation for Concrete Maps",
         "shortTitle": null,
         "number": "3"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--Maps--Identifiers":
-   [{"id": "Logical-Foundations--Typeclasses--Maps--Identifiers",
+   "Logical-Foundations--Typeclasses--Maps--Key-and-Value-Types":
+   [{"id": "Logical-Foundations--Typeclasses--Maps--Key-and-Value-Types",
      "data":
-     {"title": "Identifiers",
+     {"title": "Key and Value Types",
       "shortTitle": null,
-      "sectionNum": "10.4.1.",
+      "sectionNum": "11.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"},
-       {"title": "Identifiers", "shortTitle": null, "number": "1"}]},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Key and Value Types", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps":
    [{"id": "Logical-Foundations--Typeclasses--Maps",
      "data":
      {"title": "Maps",
       "shortTitle": null,
-      "sectionNum": "10.4.",
+      "sectionNum": "11.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "Maps", "shortTitle": null, "number": "4"}]},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Maps", "shortTitle": null, "number": "5"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--First-Example___-Inhabited-Types":
-   [{"id": "Logical-Foundations--Typeclasses--First-Example___-Inhabited-Types",
+   "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses":
+   [{"id": "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses",
      "data":
-     {"title": "First Example: Inhabited Types",
+     {"title": "Defining Your Own Typeclasses",
       "shortTitle": null,
-      "sectionNum": "10.1.",
+      "sectionNum": "11.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"},
-       {"title": "First Example: Inhabited Types",
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Defining Your Own Typeclasses",
         "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses":
-   [{"id": "Logical-Foundations--Typeclasses",
-     "data":
-     {"title": "Typeclasses",
-      "shortTitle": null,
-      "sectionNum": "10.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "10"}]},
+        "number": "2"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Varying-the-Induction-Hypothesis":
    [{"id":
@@ -330,13 +385,13 @@
      "data":
      {"title": "Varying the Induction Hypothesis",
       "shortTitle": null,
-      "sectionNum": "6.5.",
+      "sectionNum": "7.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Varying the Induction Hypothesis",
         "shortTitle": null,
         "number": "5"}]},
@@ -347,13 +402,13 @@
      "data":
      {"title": "Using Tactics on Hypotheses",
       "shortTitle": null,
-      "sectionNum": "6.3.",
+      "sectionNum": "7.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Using Tactics on Hypotheses",
         "shortTitle": null,
         "number": "3"}]},
@@ -364,13 +419,13 @@
      "data":
      {"title": "Destructing Tuples",
       "shortTitle": null,
-      "sectionNum": "6.7.1.",
+      "sectionNum": "7.7.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Using  cases  on Compound Expressions",
         "shortTitle": null,
         "number": "7"},
@@ -382,13 +437,13 @@
      "data":
      {"title": "Using  cases  on Compound Expressions",
       "shortTitle": null,
-      "sectionNum": "6.7.",
+      "sectionNum": "7.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Using  cases  on Compound Expressions",
         "shortTitle": null,
         "number": "7"}]},
@@ -399,13 +454,13 @@
      "data":
      {"title": "The  injection  and  contradiction  Tactics",
       "shortTitle": null,
-      "sectionNum": "6.2.",
+      "sectionNum": "7.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "The  injection  and  contradiction  Tactics",
         "shortTitle": null,
         "number": "2"}]},
@@ -416,13 +471,13 @@
      "data":
      {"title": "Supplying arguments to  apply",
       "shortTitle": null,
-      "sectionNum": "6.1.1.",
+      "sectionNum": "7.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "The  apply  Tactic", "shortTitle": null, "number": "1"},
        {"title": "Supplying arguments to  apply",
         "shortTitle": null,
@@ -434,13 +489,13 @@
      "data":
      {"title": "The  apply  Tactic",
       "shortTitle": null,
-      "sectionNum": "6.1.",
+      "sectionNum": "7.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "The  apply  Tactic", "shortTitle": null, "number": "1"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Specializing-Hypotheses":
@@ -449,13 +504,13 @@
      "data":
      {"title": "Specializing Hypotheses",
       "shortTitle": null,
-      "sectionNum": "6.4.",
+      "sectionNum": "7.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Specializing Hypotheses",
         "shortTitle": null,
         "number": "4"}]},
@@ -466,13 +521,13 @@
      "data":
      {"title": "Rewriting with Conditional Statements",
       "shortTitle": null,
-      "sectionNum": "6.6.",
+      "sectionNum": "7.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Rewriting with Conditional Statements",
         "shortTitle": null,
         "number": "6"}]},
@@ -482,13 +537,13 @@
      "data":
      {"title": "Review",
       "shortTitle": null,
-      "sectionNum": "6.8.",
+      "sectionNum": "7.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "6"},
+        "number": "7"},
        {"title": "Review", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs":
@@ -497,13 +552,13 @@
      "data":
      {"title": "Polymorphic Pairs",
       "shortTitle": null,
-      "sectionNum": "5.1.2.",
+      "sectionNum": "6.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Pairs", "shortTitle": null, "number": "2"}]},
      "address": "/Poly/"}],
@@ -513,13 +568,13 @@
      "data":
      {"title": "Polymorphic Options",
       "shortTitle": null,
-      "sectionNum": "5.1.3.",
+      "sectionNum": "6.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Options", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
@@ -529,13 +584,13 @@
      "data":
      {"title": "Type Argument Synthesis",
       "shortTitle": null,
-      "sectionNum": "5.1.1.2.",
+      "sectionNum": "6.1.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
        {"title": "Type Argument Synthesis",
@@ -548,13 +603,13 @@
      "data":
      {"title": "Type Annotation Inference",
       "shortTitle": null,
-      "sectionNum": "5.1.1.1.",
+      "sectionNum": "6.1.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
        {"title": "Type Annotation Inference",
@@ -567,13 +622,13 @@
      "data":
      {"title": "Supplying Type Arguments Explicitly",
       "shortTitle": null,
-      "sectionNum": "5.1.1.3.",
+      "sectionNum": "6.1.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
        {"title": "Supplying Type Arguments Explicitly",
@@ -586,13 +641,13 @@
      "data":
      {"title": "Exercises",
       "shortTitle": null,
-      "sectionNum": "5.1.1.4.",
+      "sectionNum": "6.1.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
        {"title": "Exercises", "shortTitle": null, "number": "4"}]},
@@ -603,13 +658,13 @@
      "data":
      {"title": "Polymorphic Lists",
       "shortTitle": null,
-      "sectionNum": "5.1.1.",
+      "sectionNum": "6.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"}]},
      "address": "/Poly/"}],
@@ -619,13 +674,13 @@
      "data":
      {"title": "Polymorphism",
       "shortTitle": null,
-      "sectionNum": "5.1.",
+      "sectionNum": "6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Functions-as-Data--Map":
@@ -634,13 +689,13 @@
      "data":
      {"title": "Map",
       "shortTitle": null,
-      "sectionNum": "5.2.4.",
+      "sectionNum": "6.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Map", "shortTitle": null, "number": "4"}]},
      "address": "/Poly/"}],
@@ -650,13 +705,13 @@
      "data":
      {"title": "Higher-Order Functions",
       "shortTitle": null,
-      "sectionNum": "5.2.1.",
+      "sectionNum": "6.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Higher-Order Functions", "shortTitle": null, "number": "1"}]},
      "address": "/Poly/"}],
@@ -666,13 +721,13 @@
      "data":
      {"title": "Functions That Construct Functions",
       "shortTitle": null,
-      "sectionNum": "5.2.6.",
+      "sectionNum": "6.2.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Functions That Construct Functions",
         "shortTitle": null,
@@ -684,13 +739,13 @@
      "data":
      {"title": "Fold",
       "shortTitle": null,
-      "sectionNum": "5.2.5.",
+      "sectionNum": "6.2.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Fold", "shortTitle": null, "number": "5"}]},
      "address": "/Poly/"}],
@@ -700,13 +755,13 @@
      "data":
      {"title": "Filter",
       "shortTitle": null,
-      "sectionNum": "5.2.2.",
+      "sectionNum": "6.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Filter", "shortTitle": null, "number": "2"}]},
      "address": "/Poly/"}],
@@ -716,13 +771,13 @@
      "data":
      {"title": "Anonymous Functions",
       "shortTitle": null,
-      "sectionNum": "5.2.3.",
+      "sectionNum": "6.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"},
        {"title": "Anonymous Functions", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
@@ -732,13 +787,13 @@
      "data":
      {"title": "Functions as Data",
       "shortTitle": null,
-      "sectionNum": "5.2.",
+      "sectionNum": "6.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Functions as Data", "shortTitle": null, "number": "2"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Additional-Exercises--Church-Numerals-_LPAR_Advanced_RPAR_":
@@ -747,13 +802,13 @@
      "data":
      {"title": "Church Numerals (Advanced)",
       "shortTitle": null,
-      "sectionNum": "5.3.1.",
+      "sectionNum": "6.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "3"},
        {"title": "Church Numerals (Advanced)",
         "shortTitle": null,
@@ -765,13 +820,13 @@
      "data":
      {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "5.3.",
+      "sectionNum": "6.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Poly: Polymorphism and Higher-Order Functions",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--Logic-in-Lean--Working-with-Decidable-Properties":
@@ -780,11 +835,11 @@
      "data":
      {"title": "Working with Decidable Properties",
       "shortTitle": null,
-      "sectionNum": "7.7.",
+      "sectionNum": "8.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Working with Decidable Properties",
         "shortTitle": null,
         "number": "7"}]},
@@ -794,11 +849,11 @@
      "data":
      {"title": "Logical Equivalence",
       "shortTitle": null,
-      "sectionNum": "7.3.1.",
+      "sectionNum": "8.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Truth", "shortTitle": null, "number": "3"},
        {"title": "Logical Equivalence", "shortTitle": null, "number": "1"}]},
      "address": "/Logic/"}],
@@ -808,11 +863,11 @@
      "data":
      {"title": "Existential Quantification",
       "shortTitle": null,
-      "sectionNum": "7.3.2.",
+      "sectionNum": "8.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Truth", "shortTitle": null, "number": "3"},
        {"title": "Existential Quantification",
         "shortTitle": null,
@@ -823,11 +878,11 @@
      "data":
      {"title": "Truth",
       "shortTitle": null,
-      "sectionNum": "7.3.",
+      "sectionNum": "8.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Truth", "shortTitle": null, "number": "3"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Propositional-Extensionality":
@@ -836,11 +891,11 @@
      "data":
      {"title": "Propositional Extensionality",
       "shortTitle": null,
-      "sectionNum": "7.8.1.",
+      "sectionNum": "8.8.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
        {"title": "Propositional Extensionality",
         "shortTitle": null,
@@ -852,11 +907,11 @@
      "data":
      {"title": "Functional Extensionality",
       "shortTitle": null,
-      "sectionNum": "7.8.2.",
+      "sectionNum": "8.8.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
        {"title": "Functional Extensionality",
         "shortTitle": null,
@@ -868,11 +923,11 @@
      "data":
      {"title": "Classical vs. Constructive Logic",
       "shortTitle": null,
-      "sectionNum": "7.8.3.",
+      "sectionNum": "8.8.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
        {"title": "Classical vs. Constructive Logic",
         "shortTitle": null,
@@ -883,11 +938,11 @@
      "data":
      {"title": "The Logic of Lean",
       "shortTitle": null,
-      "sectionNum": "7.8.",
+      "sectionNum": "8.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The--Prop--Type":
@@ -895,11 +950,11 @@
      "data":
      {"title": "The  Prop  Type",
       "shortTitle": null,
-      "sectionNum": "7.1.",
+      "sectionNum": "8.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The  Prop  Type", "shortTitle": null, "number": "1"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--Recap___-Logical-Connectives-in-Lean":
@@ -908,11 +963,11 @@
      "data":
      {"title": "Recap: Logical Connectives in Lean",
       "shortTitle": null,
-      "sectionNum": "7.4.",
+      "sectionNum": "8.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Recap: Logical Connectives in Lean",
         "shortTitle": null,
         "number": "4"}]},
@@ -922,11 +977,11 @@
      "data":
      {"title": "Programming with Propositions",
       "shortTitle": null,
-      "sectionNum": "7.5.",
+      "sectionNum": "8.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Programming with Propositions",
         "shortTitle": null,
         "number": "5"}]},
@@ -937,11 +992,11 @@
      "data":
      {"title": "Falsehood and Negation",
       "shortTitle": null,
-      "sectionNum": "7.2.3.",
+      "sectionNum": "8.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
        {"title": "Falsehood and Negation", "shortTitle": null, "number": "3"}]},
      "address": "/Logic/"}],
@@ -951,11 +1006,11 @@
      "data":
      {"title": "Disjunction",
       "shortTitle": null,
-      "sectionNum": "7.2.2.",
+      "sectionNum": "8.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
        {"title": "Disjunction", "shortTitle": null, "number": "2"}]},
      "address": "/Logic/"}],
@@ -965,11 +1020,11 @@
      "data":
      {"title": "Conjunction",
       "shortTitle": null,
-      "sectionNum": "7.2.1.",
+      "sectionNum": "8.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
        {"title": "Conjunction", "shortTitle": null, "number": "1"}]},
      "address": "/Logic/"}],
@@ -978,11 +1033,11 @@
      "data":
      {"title": "Logical Connectives",
       "shortTitle": null,
-      "sectionNum": "7.2.",
+      "sectionNum": "8.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Logical Connectives", "shortTitle": null, "number": "2"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--Applying-Theorems-to-Arguments":
@@ -990,11 +1045,11 @@
      "data":
      {"title": "Applying Theorems to Arguments",
       "shortTitle": null,
-      "sectionNum": "7.6.",
+      "sectionNum": "8.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Applying Theorems to Arguments",
         "shortTitle": null,
         "number": "6"}]},
@@ -1005,13 +1060,13 @@
      "data":
      {"title": "Search",
       "shortTitle": null,
-      "sectionNum": "4.3.2.",
+      "sectionNum": "5.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Search", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
@@ -1021,13 +1076,13 @@
      "data":
      {"title": "List Exercises, Part 2",
       "shortTitle": null,
-      "sectionNum": "4.3.4.",
+      "sectionNum": "5.3.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 2", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
@@ -1037,13 +1092,13 @@
      "data":
      {"title": "List Exercises, Part 1",
       "shortTitle": null,
-      "sectionNum": "4.3.3.",
+      "sectionNum": "5.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 1", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
@@ -1053,13 +1108,13 @@
      "data":
      {"title": "Reversing a List",
       "shortTitle": null,
-      "sectionNum": "4.3.1.2.",
+      "sectionNum": "5.3.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Reversing a List", "shortTitle": null, "number": "2"}]},
@@ -1070,13 +1125,13 @@
      "data":
      {"title": "Generalizing Statements",
       "shortTitle": null,
-      "sectionNum": "4.3.1.1.",
+      "sectionNum": "5.3.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Generalizing Statements",
@@ -1089,13 +1144,13 @@
      "data":
      {"title": "Induction on Lists",
       "shortTitle": null,
-      "sectionNum": "4.3.1.",
+      "sectionNum": "5.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
@@ -1105,13 +1160,13 @@
      "data":
      {"title": "Reasoning About Lists",
       "shortTitle": null,
-      "sectionNum": "4.3.",
+      "sectionNum": "5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Partial-Maps":
@@ -1120,13 +1175,13 @@
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "4.5.",
+      "sectionNum": "5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Partial Maps", "shortTitle": null, "number": "5"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers":
@@ -1135,13 +1190,13 @@
      "data":
      {"title": "Pairs of Numbers",
       "shortTitle": null,
-      "sectionNum": "4.1.",
+      "sectionNum": "5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Pairs of Numbers", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Options":
@@ -1150,13 +1205,13 @@
      "data":
      {"title": "Options",
       "shortTitle": null,
-      "sectionNum": "4.4.",
+      "sectionNum": "5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Options", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail":
@@ -1165,13 +1220,13 @@
      "data":
      {"title": "Head and Tail",
       "shortTitle": null,
-      "sectionNum": "4.2.3.1.",
+      "sectionNum": "5.2.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
@@ -1184,13 +1239,13 @@
      "data":
      {"title": "Exercises",
       "shortTitle": null,
-      "sectionNum": "4.2.3.2.",
+      "sectionNum": "5.2.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
@@ -1203,13 +1258,13 @@
      "data":
      {"title": "Type Classes and Overloading",
       "shortTitle": null,
-      "sectionNum": "4.2.3.",
+      "sectionNum": "5.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
@@ -1221,13 +1276,13 @@
      "data":
      {"title": "Repeat",
       "shortTitle": null,
-      "sectionNum": "4.2.1.",
+      "sectionNum": "5.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Repeat", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
@@ -1237,13 +1292,13 @@
      "data":
      {"title": "Removing",
       "shortTitle": null,
-      "sectionNum": "4.2.6.",
+      "sectionNum": "5.2.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Removing", "shortTitle": null, "number": "6"}]},
      "address": "/Lists/"}],
@@ -1253,13 +1308,13 @@
      "data":
      {"title": "Membership",
       "shortTitle": null,
-      "sectionNum": "4.2.5.",
+      "sectionNum": "5.2.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Membership", "shortTitle": null, "number": "5"}]},
      "address": "/Lists/"}],
@@ -1269,13 +1324,13 @@
      "data":
      {"title": "Included",
       "shortTitle": null,
-      "sectionNum": "4.2.7.",
+      "sectionNum": "5.2.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Included", "shortTitle": null, "number": "7"}]},
      "address": "/Lists/"}],
@@ -1285,13 +1340,13 @@
      "data":
      {"title": "Counting",
       "shortTitle": null,
-      "sectionNum": "4.2.4.",
+      "sectionNum": "5.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Counting", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
@@ -1301,13 +1356,13 @@
      "data":
      {"title": "Append",
       "shortTitle": null,
-      "sectionNum": "4.2.2.",
+      "sectionNum": "5.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Append", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
@@ -1317,13 +1372,13 @@
      "data":
      {"title": "Lists of Numbers",
       "shortTitle": null,
-      "sectionNum": "4.2.",
+      "sectionNum": "5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Lists of Numbers", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Separate-Compilation":
@@ -1332,59 +1387,27 @@
      "data":
      {"title": "Separate Compilation",
       "shortTitle": null,
-      "sectionNum": "2.1.",
+      "sectionNum": "3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "Separate Compilation", "shortTitle": null, "number": "1"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Review--Tip___-the--rw--tactic":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Review--Tip___-the--rw--tactic",
-     "data":
-     {"title": "Tip: the  rw  tactic",
-      "shortTitle": null,
-      "sectionNum": "2.2.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Review", "shortTitle": null, "number": "2"},
-       {"title": "Tip: the  rw  tactic", "shortTitle": null, "number": "2"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Review--Proof-by-Induction":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Review--Proof-by-Induction",
-     "data":
-     {"title": "Proof by Induction",
-      "shortTitle": null,
-      "sectionNum": "2.2.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Review", "shortTitle": null, "number": "2"},
-       {"title": "Proof by Induction", "shortTitle": null, "number": "1"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Review":
    [{"id": "Logical-Foundations--Induction___-Proof-by-Induction--Review",
      "data":
      {"title": "Review",
       "shortTitle": null,
-      "sectionNum": "2.2.",
+      "sectionNum": "3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "Review", "shortTitle": null, "number": "2"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Proofs-Within-Proofs":
@@ -1393,50 +1416,62 @@
      "data":
      {"title": "Proofs Within Proofs",
       "shortTitle": null,
-      "sectionNum": "2.3.",
+      "sectionNum": "3.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
-       {"title": "Proofs Within Proofs", "shortTitle": null, "number": "3"}]},
+        "number": "3"},
+       {"title": "Proofs Within Proofs", "shortTitle": null, "number": "4"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Nat-to-Bin-and-Back-to-Nat":
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Nat-to-Bin-and-Back-to-Nat",
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic",
+     "data":
+     {"title": "Tip: the  rw  tactic",
+      "shortTitle": null,
+      "sectionNum": "3.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
+       {"title": "Tip: the  rw  tactic", "shortTitle": null, "number": "1"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction",
+     "data":
+     {"title": "Proof by Induction",
+      "shortTitle": null,
+      "sectionNum": "3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat",
      "data":
      {"title": "Nat to Bin and Back to Nat",
       "shortTitle": null,
-      "sectionNum": "2.5.2.",
+      "sectionNum": "3.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
+        "number": "3"},
        {"title": "Nat to Bin and Back to Nat",
         "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_",
-     "data":
-     {"title": "Bin to Nat and Back to Bin (Advanced)",
-      "shortTitle": null,
-      "sectionNum": "2.5.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
-       {"title": "Bin to Nat and Back to Bin (Advanced)",
-        "shortTitle": null,
-        "number": "3"}]},
+        "number": "7"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
    [{"id":
@@ -1444,14 +1479,14 @@
      "data":
      {"title": "A New Tactic Combinator",
       "shortTitle": null,
-      "sectionNum": "2.5.1.",
+      "sectionNum": "3.6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
+        "number": "3"},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"},
        {"title": "A New Tactic Combinator",
         "shortTitle": null,
         "number": "1"}]},
@@ -1462,14 +1497,14 @@
      "data":
      {"title": "More Exercises",
       "shortTitle": null,
-      "sectionNum": "2.5.",
+      "sectionNum": "3.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"}]},
+        "number": "3"},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Formal-vs___-Informal-Proof":
    [{"id":
@@ -1477,16 +1512,33 @@
      "data":
      {"title": "Formal vs. Informal Proof",
       "shortTitle": null,
-      "sectionNum": "2.4.",
+      "sectionNum": "3.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"},
+        "number": "3"},
        {"title": "Formal vs. Informal Proof",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "5"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_",
+     "data":
+     {"title": "Bin to Nat and Back to Bin (Advanced)",
+      "shortTitle": null,
+      "sectionNum": "3.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Bin to Nat and Back to Bin (Advanced)",
+        "shortTitle": null,
+        "number": "8"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Using-Evidence-in-Proofs--Multiple-Induction-Hypotheses":
    [{"id":
@@ -1494,13 +1546,13 @@
      "data":
      {"title": "Multiple Induction Hypotheses",
       "shortTitle": null,
-      "sectionNum": "8.2.3.",
+      "sectionNum": "9.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Using Evidence in Proofs", "shortTitle": null, "number": "2"},
        {"title": "Multiple Induction Hypotheses",
         "shortTitle": null,
@@ -1512,13 +1564,13 @@
      "data":
      {"title": "Induction on Evidence",
       "shortTitle": null,
-      "sectionNum": "8.2.2.",
+      "sectionNum": "9.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Using Evidence in Proofs", "shortTitle": null, "number": "2"},
        {"title": "Induction on Evidence", "shortTitle": null, "number": "2"}]},
      "address": "/IndProp/"}],
@@ -1528,13 +1580,13 @@
      "data":
      {"title": "Destructing and Inverting Evidence",
       "shortTitle": null,
-      "sectionNum": "8.2.1.",
+      "sectionNum": "9.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Using Evidence in Proofs", "shortTitle": null, "number": "2"},
        {"title": "Destructing and Inverting Evidence",
         "shortTitle": null,
@@ -1546,13 +1598,13 @@
      "data":
      {"title": "Using Evidence in Proofs",
       "shortTitle": null,
-      "sectionNum": "8.2.",
+      "sectionNum": "9.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Using Evidence in Proofs",
         "shortTitle": null,
         "number": "2"}]},
@@ -1563,13 +1615,13 @@
      "data":
      {"title": "Example: Transitive Closure",
       "shortTitle": null,
-      "sectionNum": "8.1.3.",
+      "sectionNum": "9.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -1583,13 +1635,13 @@
      "data":
      {"title": "Example: The Collatz Conjecture",
       "shortTitle": null,
-      "sectionNum": "8.1.1.",
+      "sectionNum": "9.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -1603,13 +1655,13 @@
      "data":
      {"title": "Example: Reflexive and Transitive Closure",
       "shortTitle": null,
-      "sectionNum": "8.1.4.",
+      "sectionNum": "9.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -1623,13 +1675,13 @@
      "data":
      {"title": "Example: Evenness (yet again)",
       "shortTitle": null,
-      "sectionNum": "8.1.5.",
+      "sectionNum": "9.1.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -1643,13 +1695,13 @@
      "data":
      {"title": "Example: Binary relation for comparing numbers",
       "shortTitle": null,
-      "sectionNum": "8.1.2.",
+      "sectionNum": "9.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -1663,13 +1715,13 @@
      "data":
      {"title": "Constructing Evidence for Permutations",
       "shortTitle": null,
-      "sectionNum": "8.1.6.",
+      "sectionNum": "9.1.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
@@ -1683,13 +1735,13 @@
      "data":
      {"title": "Inductively Defined Propositions",
       "shortTitle": null,
-      "sectionNum": "8.1.",
+      "sectionNum": "9.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"}]},
@@ -1700,13 +1752,13 @@
      "data":
      {"title": "Exercising with Inductive Relations",
       "shortTitle": null,
-      "sectionNum": "8.3.",
+      "sectionNum": "9.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Exercising with Inductive Relations",
         "shortTitle": null,
         "number": "3"}]},
@@ -1717,28 +1769,62 @@
      "data":
      {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "8.4.",
+      "sectionNum": "9.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"},
+        "number": "9"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "4"}]},
      "address": "/IndProp/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals--Multiplication":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals--Multiplication",
+     "data":
+     {"title": "Multiplication",
+      "shortTitle": null,
+      "sectionNum": "2.2.7.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Working with Numerals", "shortTitle": null, "number": "7"},
+       {"title": "Multiplication", "shortTitle": null, "number": "1"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals--Equality-and-Ordering":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals--Equality-and-Ordering",
+     "data":
+     {"title": "Equality and Ordering",
+      "shortTitle": null,
+      "sectionNum": "2.2.7.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Working with Numerals", "shortTitle": null, "number": "7"},
+       {"title": "Equality and Ordering", "shortTitle": null, "number": "2"}]},
+     "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals":
    [{"id":
      "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Working-with-Numerals",
      "data":
      {"title": "Working with Numerals",
       "shortTitle": null,
-      "sectionNum": "1.2.7.",
+      "sectionNum": "2.2.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "Working with Numerals", "shortTitle": null, "number": "7"}]},
      "address": "/Basics/"}],
@@ -1748,13 +1834,13 @@
      "data":
      {"title": "The  rfl  tactic",
       "shortTitle": null,
-      "sectionNum": "1.2.4.",
+      "sectionNum": "2.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "The  rfl  tactic", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
@@ -1764,13 +1850,13 @@
      "data":
      {"title": "The  rewrite  tactic",
       "shortTitle": null,
-      "sectionNum": "1.2.3.",
+      "sectionNum": "2.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "The  rewrite  tactic", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
@@ -1780,13 +1866,13 @@
      "data":
      {"title": "Proving properties about functions in Lean",
       "shortTitle": null,
-      "sectionNum": "1.2.1.",
+      "sectionNum": "2.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "Proving properties about functions in Lean",
         "shortTitle": null,
@@ -1798,13 +1884,13 @@
      "data":
      {"title": "Proof state and tactics",
       "shortTitle": null,
-      "sectionNum": "1.2.2.",
+      "sectionNum": "2.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "Proof state and tactics",
         "shortTitle": null,
@@ -1816,17 +1902,56 @@
      "data":
      {"title": "Irreducibility, Rewriting, and Proof Engineering",
       "shortTitle": null,
-      "sectionNum": "1.2.6.",
+      "sectionNum": "2.2.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "Irreducibility, Rewriting, and Proof Engineering",
         "shortTitle": null,
         "number": "6"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--General-Proofs-about-Natural-Numbers--Displaying-Theorem-Statements":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--General-Proofs-about-Natural-Numbers--Displaying-Theorem-Statements",
+     "data":
+     {"title": "Displaying Theorem Statements",
+      "shortTitle": null,
+      "sectionNum": "2.2.8.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "General Proofs about Natural Numbers",
+        "shortTitle": null,
+        "number": "8"},
+       {"title": "Displaying Theorem Statements",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--General-Proofs-about-Natural-Numbers":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--General-Proofs-about-Natural-Numbers",
+     "data":
+     {"title": "General Proofs about Natural Numbers",
+      "shortTitle": null,
+      "sectionNum": "2.2.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "General Proofs about Natural Numbers",
+        "shortTitle": null,
+        "number": "8"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--A-New--add--Rule":
    [{"id":
@@ -1834,13 +1959,13 @@
      "data":
      {"title": "A New  add  Rule",
       "shortTitle": null,
-      "sectionNum": "1.2.5.",
+      "sectionNum": "2.2.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
        {"title": "A New  add  Rule", "shortTitle": null, "number": "5"}]},
      "address": "/Basics/"}],
@@ -1850,13 +1975,13 @@
      "data":
      {"title": "Proof by Rewriting",
       "shortTitle": null,
-      "sectionNum": "1.2.",
+      "sectionNum": "2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Structural-Recursion-_LPAR_Optional_RPAR_":
@@ -1865,14 +1990,14 @@
      "data":
      {"title": "Structural Recursion (Optional)",
       "shortTitle": null,
-      "sectionNum": "1.4.3.",
+      "sectionNum": "2.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
+        "number": "2"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
        {"title": "Structural Recursion (Optional)",
         "shortTitle": null,
         "number": "3"}]},
@@ -1883,14 +2008,14 @@
      "data":
      {"title": "New Tactics:  rewrite ... at  and  exact",
       "shortTitle": null,
-      "sectionNum": "1.4.1.",
+      "sectionNum": "2.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
+        "number": "2"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
        {"title": "New Tactics:  rewrite ... at  and  exact",
         "shortTitle": null,
         "number": "1"}]},
@@ -1901,14 +2026,14 @@
      "data":
      {"title": "More on Notation (Optional)",
       "shortTitle": null,
-      "sectionNum": "1.4.2.",
+      "sectionNum": "2.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
+        "number": "2"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
        {"title": "More on Notation (Optional)",
         "shortTitle": null,
         "number": "2"}]},
@@ -1919,14 +2044,14 @@
      "data":
      {"title": "Binary Numerals",
       "shortTitle": null,
-      "sectionNum": "1.4.4.",
+      "sectionNum": "2.3.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"},
+        "number": "2"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
        {"title": "Binary Numerals", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis":
@@ -1935,14 +2060,14 @@
      "data":
      {"title": "Proof by Case Analysis",
       "shortTitle": null,
-      "sectionNum": "1.4.",
+      "sectionNum": "2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "4"}]},
+        "number": "2"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Warmups":
    [{"id":
@@ -1950,14 +2075,14 @@
      "data":
      {"title": "Warmups",
       "shortTitle": null,
-      "sectionNum": "1.5.1.",
+      "sectionNum": "2.4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
+        "number": "2"},
+       {"title": "More Exercises", "shortTitle": null, "number": "4"},
        {"title": "Warmups", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Course-Late-Policies___-Formalized":
@@ -1966,14 +2091,14 @@
      "data":
      {"title": "Course Late Policies, Formalized",
       "shortTitle": null,
-      "sectionNum": "1.5.2.",
+      "sectionNum": "2.4.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"},
+        "number": "2"},
+       {"title": "More Exercises", "shortTitle": null, "number": "4"},
        {"title": "Course Late Policies, Formalized",
         "shortTitle": null,
         "number": "2"}]},
@@ -1984,49 +2109,14 @@
      "data":
      {"title": "More Exercises",
       "shortTitle": null,
-      "sectionNum": "1.5.",
+      "sectionNum": "2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "More Exercises", "shortTitle": null, "number": "5"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers--Type-Annotations":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers--Type-Annotations",
-     "data":
-     {"title": "Type Annotations",
-      "shortTitle": null,
-      "sectionNum": "1.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "General Proofs about Natural Numbers",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Type Annotations", "shortTitle": null, "number": "1"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--General-Proofs-about-Natural-Numbers",
-     "data":
-     {"title": "General Proofs about Natural Numbers",
-      "shortTitle": null,
-      "sectionNum": "1.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "General Proofs about Natural Numbers",
-        "shortTitle": null,
-        "number": "3"}]},
+        "number": "2"},
+       {"title": "More Exercises", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Types":
    [{"id":
@@ -2034,15 +2124,15 @@
      "data":
      {"title": "Types",
       "shortTitle": null,
-      "sectionNum": "1.1.5.",
+      "sectionNum": "2.1.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Types", "shortTitle": null, "number": "5"}]},
+       {"title": "Types", "shortTitle": null, "number": "6"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--New-Types-from-Old":
    [{"id":
@@ -2050,13 +2140,13 @@
      "data":
      {"title": "New Types from Old",
       "shortTitle": null,
-      "sectionNum": "1.1.7.",
+      "sectionNum": "2.1.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "New Types from Old", "shortTitle": null, "number": "7"}]},
      "address": "/Basics/"}],
@@ -2066,13 +2156,13 @@
      "data":
      {"title": "Natural Numbers",
       "shortTitle": null,
-      "sectionNum": "1.1.10.",
+      "sectionNum": "2.1.10.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Natural Numbers", "shortTitle": null, "number": "10"}]},
      "address": "/Basics/"}],
@@ -2082,13 +2172,13 @@
      "data":
      {"title": "Namespaces",
       "shortTitle": null,
-      "sectionNum": "1.1.8.",
+      "sectionNum": "2.1.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Namespaces", "shortTitle": null, "number": "8"}]},
      "address": "/Basics/"}],
@@ -2098,36 +2188,36 @@
      "data":
      {"title": "Days of the Week (Enumerated Types)",
       "shortTitle": null,
-      "sectionNum": "1.1.1.",
+      "sectionNum": "2.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Days of the Week (Enumerated Types)",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Aside___-Structures":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Aside___-Structures",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures",
      "data":
-     {"title": "Aside: Structures",
+     {"title": "Structures",
       "shortTitle": null,
-      "sectionNum": "1.1.9.1.",
+      "sectionNum": "2.1.9.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Constructors with Multiple Parameters (Tuple Types)",
         "shortTitle": null,
         "number": "9"},
-       {"title": "Aside: Structures", "shortTitle": null, "number": "1"}]},
+       {"title": "Structures", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_":
    [{"id":
@@ -2135,13 +2225,13 @@
      "data":
      {"title": "Constructors with Multiple Parameters (Tuple Types)",
       "shortTitle": null,
-      "sectionNum": "1.1.9.",
+      "sectionNum": "2.1.9.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Constructors with Multiple Parameters (Tuple Types)",
         "shortTitle": null,
@@ -2153,13 +2243,13 @@
      "data":
      {"title": "Booleans",
       "shortTitle": null,
-      "sectionNum": "1.1.3.",
+      "sectionNum": "2.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Booleans", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
@@ -2169,13 +2259,13 @@
      "data":
      {"title": "Basic Proofs",
       "shortTitle": null,
-      "sectionNum": "1.1.4.",
+      "sectionNum": "2.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Basic Proofs", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
@@ -2185,13 +2275,13 @@
      "data":
      {"title": "Aside: Using the VS Code Lean Extension",
       "shortTitle": null,
-      "sectionNum": "1.1.2.",
+      "sectionNum": "2.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
        {"title": "Aside: Using the VS Code Lean Extension",
         "shortTitle": null,
@@ -2203,15 +2293,15 @@
      "data":
      {"title": "Aside: Unicode in Lean",
       "shortTitle": null,
-      "sectionNum": "1.1.6.",
+      "sectionNum": "2.1.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Aside: Unicode in Lean", "shortTitle": null, "number": "6"}]},
+       {"title": "Aside: Unicode in Lean", "shortTitle": null, "number": "5"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions":
    [{"id":
@@ -2219,13 +2309,13 @@
      "data":
      {"title": "Data and Functions",
       "shortTitle": null,
-      "sectionNum": "1.1.",
+      "sectionNum": "2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"},
+        "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Automation___-More-Automation--The--trivial--tactic":
@@ -2234,13 +2324,13 @@
      "data":
      {"title": "The  trivial  tactic",
       "shortTitle": null,
-      "sectionNum": "9.4.",
+      "sectionNum": "10.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "The  trivial  tactic", "shortTitle": null, "number": "4"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--The--simp--Tactic--Idiomatic--simp--Usage":
@@ -2249,13 +2339,13 @@
      "data":
      {"title": "Idiomatic  simp  Usage",
       "shortTitle": null,
-      "sectionNum": "9.3.1.",
+      "sectionNum": "10.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "The  simp  Tactic", "shortTitle": null, "number": "3"},
        {"title": "Idiomatic  simp  Usage", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
@@ -2265,13 +2355,13 @@
      "data":
      {"title": "The  simp  Tactic",
       "shortTitle": null,
-      "sectionNum": "9.3.",
+      "sectionNum": "10.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "The  simp  Tactic", "shortTitle": null, "number": "3"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--The--lia--Tactic":
@@ -2280,13 +2370,13 @@
      "data":
      {"title": "The  lia  Tactic",
       "shortTitle": null,
-      "sectionNum": "9.1.",
+      "sectionNum": "10.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "The  lia  Tactic", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--try--combinator":
@@ -2295,13 +2385,13 @@
      "data":
      {"title": "The  try  combinator",
       "shortTitle": null,
-      "sectionNum": "9.2.1.",
+      "sectionNum": "10.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
        {"title": "The  try  combinator", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
@@ -2311,13 +2401,13 @@
      "data":
      {"title": "The  repeat  combinator",
       "shortTitle": null,
-      "sectionNum": "9.2.2.",
+      "sectionNum": "10.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
        {"title": "The  repeat  combinator",
         "shortTitle": null,
@@ -2329,13 +2419,13 @@
      "data":
      {"title": "The  first  combinator",
       "shortTitle": null,
-      "sectionNum": "9.2.3.",
+      "sectionNum": "10.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
        {"title": "The  first  combinator", "shortTitle": null, "number": "3"}]},
      "address": "/Automation/"}],
@@ -2345,13 +2435,13 @@
      "data":
      {"title": "Tactic Combinators",
       "shortTitle": null,
-      "sectionNum": "9.2.",
+      "sectionNum": "10.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-___Weak___-Pumping-Lemma":
@@ -2360,13 +2450,13 @@
      "data":
      {"title": "The \"Weak\" Pumping Lemma",
       "shortTitle": null,
-      "sectionNum": "9.5.4.",
+      "sectionNum": "10.5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -2380,13 +2470,13 @@
      "data":
      {"title": "The (Strong) Pumping Lemma",
       "shortTitle": null,
-      "sectionNum": "9.5.5.",
+      "sectionNum": "10.5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -2400,13 +2490,13 @@
      "data":
      {"title": "The  generalize  Tactic",
       "shortTitle": null,
-      "sectionNum": "9.5.3.",
+      "sectionNum": "10.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -2420,13 +2510,13 @@
      "data":
      {"title": "Examples",
       "shortTitle": null,
-      "sectionNum": "9.5.2.",
+      "sectionNum": "10.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -2438,13 +2528,13 @@
      "data":
      {"title": "Definitions",
       "shortTitle": null,
-      "sectionNum": "9.5.1.",
+      "sectionNum": "10.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
@@ -2456,29 +2546,16 @@
      "data":
      {"title": "Case Study: Regular Expressions",
       "shortTitle": null,
-      "sectionNum": "9.5.",
+      "sectionNum": "10.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Automation: More Automation",
         "shortTitle": null,
-        "number": "9"},
+        "number": "10"},
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"}]},
-     "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation":
-   [{"id": "Logical-Foundations--Automation___-More-Automation",
-     "data":
-     {"title": "Automation: More Automation",
-      "shortTitle": null,
-      "sectionNum": "9.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Automation: More Automation",
-        "shortTitle": null,
-        "number": "9"}]},
      "address": "/Automation/"}],
    "Logical-Foundations":
    [{"id": "Logical-Foundations",
@@ -2495,95 +2572,108 @@
      "data":
      {"title": "Logic in Lean",
       "shortTitle": null,
-      "sectionNum": "7.",
+      "sectionNum": "8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "7"}]},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"}]},
      "address": "/Logic/"}],
    "Lists":
    [{"id": "Lists",
      "data":
      {"title": "Lists: Working with Structured Data",
       "shortTitle": null,
-      "sectionNum": "4.",
+      "sectionNum": "5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "5"}]},
      "address": "/Lists/"}],
    "Induction":
    [{"id": "Induction",
      "data":
      {"title": "Induction: Proof by Induction",
       "shortTitle": null,
-      "sectionNum": "2.",
+      "sectionNum": "3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
-        "number": "2"}]},
+        "number": "3"}]},
      "address": "/Induction/"}],
    "IndProp":
    [{"id": "IndProp",
      "data":
      {"title": "IndProp: Inductively Defined Propositions",
       "shortTitle": null,
-      "sectionNum": "8.",
+      "sectionNum": "9.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
-        "number": "8"}]},
+        "number": "9"}]},
      "address": "/IndProp/"}],
    "Basics":
    [{"id": "Basics",
      "data":
      {"title": "Basics: Functional Programming in Lean",
       "shortTitle": null,
-      "sectionNum": "1.",
+      "sectionNum": "2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Basics/"}]}},
+        "number": "2"}]},
+     "address": "/Basics/"}],
+   "Automation":
+   [{"id": "Automation",
+     "data":
+     {"title": "Automation: More Automation",
+      "shortTitle": null,
+      "sectionNum": "10.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Automation: More Automation",
+        "shortTitle": null,
+        "number": "10"}]},
+     "address": "/Automation/"}]}},
  "Verso.Genre.Manual.example":
  {"title": "Verso.Genre.Manual.example",
   "description": null,
   "contents":
-  {"zip_nil_r":
-   [{"id": "zip_nil_r",
+  {"zip_nil_right":
+   [{"id": "zip_nil_right",
      "data":
-     {"/Poly/#zip_nil_r":
-      {"display": "zip_nil_r",
+     {"/Poly/#zip_nil_right":
+      {"display": "zip_nil_right",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
         "Polymorphism",
         "Polymorphic Pairs"]}},
      "address": "/Poly/"}],
-   "zip_nil_l":
-   [{"id": "zip_nil_l",
+   "zip_nil_left":
+   [{"id": "zip_nil_left",
      "data":
-     {"/Poly/#zip_nil_l":
-      {"display": "zip_nil_l",
+     {"/Poly/#zip_nil_left":
+      {"display": "zip_nil_left",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
         "Polymorphism",
         "Polymorphic Pairs"]}},
      "address": "/Poly/"}],
-   "zip_cons":
-   [{"id": "zip_cons",
+   "zip_cons_cons":
+   [{"id": "zip_cons_cons",
      "data":
-     {"/Poly/#zip_cons":
-      {"display": "zip_cons",
+     {"/Poly/#zip_cons_cons":
+      {"display": "zip_cons_cons",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -3069,25 +3159,18 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "plus_claim_is_true":
-   [{"id": "plus_claim_is_true",
-     "data":
-     {"/Logic/#plus_claim_is_true":
-      {"display": "plus_claim_is_true",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
-   "plus_claim":
-   [{"id": "plus_claim",
-     "data":
-     {"/Logic/#plus_claim":
-      {"display": "plus_claim",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
    "plus_2_2_is_4":
    [{"id": "plus_2_2_is_4",
      "data":
      {"/Logic/#plus_2_2_is_4":
       {"display": "plus_2_2_is_4",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
+     "address": "/Logic/"}],
+   "plusClaim_is_true":
+   [{"id": "plusClaim_is_true",
+     "data":
+     {"/Logic/#plusClaim_is_true":
+      {"display": "plusClaim_is_true",
        "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
      "address": "/Logic/"}],
    "plus3":
@@ -3112,17 +3195,6 @@
         "Logical Connectives",
         "Disjunction"]}},
      "address": "/Logic/"}],
-   "or_associate":
-   [{"id": "or_associate",
-     "data":
-     {"/Logic/#or_associate":
-      {"display": "or_associate",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Truth",
-        "Logical Equivalence"]}},
-     "address": "/Logic/"}],
    "optionMap":
    [{"id": "optionMap",
      "data":
@@ -3134,11 +3206,11 @@
         "Functions as Data",
         "Map"]}},
      "address": "/Poly/"}],
-   "nthError":
-   [{"id": "nthError",
+   "nth?":
+   [{"id": "nth___",
      "data":
-     {"/Poly/#nthError":
-      {"display": "nthError",
+     {"/Poly/#nth___":
+      {"display": "nth?",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -3178,46 +3250,6 @@
         "Data and Functions",
         "Days of the Week (Enumerated Types)"]}},
      "address": "/Basics/"}],
-   "nat_hasOneStruct_where":
-   [{"id": "nat_hasOneStruct_where",
-     "data":
-     {"/Typeclasses/#nat_hasOneStruct_where":
-      {"display": "nat_hasOneStruct_where",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "nat_hasOneStruct_mk":
-   [{"id": "nat_hasOneStruct_mk",
-     "data":
-     {"/Typeclasses/#nat_hasOneStruct_mk":
-      {"display": "nat_hasOneStruct_mk",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "nat_hasOneStruct_eq_one":
-   [{"id": "nat_hasOneStruct_eq_one",
-     "data":
-     {"/Typeclasses/#nat_hasOneStruct_eq_one":
-      {"display": "nat_hasOneStruct_eq_one",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "nat_hasOneStruct_brace":
-   [{"id": "nat_hasOneStruct_brace",
-     "data":
-     {"/Typeclasses/#nat_hasOneStruct_brace":
-      {"display": "nat_hasOneStruct_brace",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
    "myRepeat_zero":
    [{"id": "myRepeat_zero",
      "data":
@@ -3310,17 +3342,6 @@
         "Data and Functions",
         "Namespaces"]}},
      "address": "/Basics/"}],
-   "mul_eq_0":
-   [{"id": "mul_eq_0",
-     "data":
-     {"/Logic/#mul_eq_0":
-      {"display": "mul_eq_0",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Truth",
-        "Logical Equivalence"]}},
-     "address": "/Logic/"}],
    "monochrome'":
    [{"id": "monochrome___",
      "data":
@@ -3387,24 +3408,6 @@
         "Polymorphism",
         "Polymorphic Lists"]}},
      "address": "/Poly/"}],
-   "lengthIs1":
-   [{"id": "lengthIs1",
-     "data":
-     {"/Poly/#lengthIs1":
-      {"display": "lengthIs1",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Functions as Data",
-        "Filter"]}},
-     "address": "/Poly/"}],
-   "is_three":
-   [{"id": "is_three",
-     "data":
-     {"/Logic/#is_three":
-      {"display": "is_three",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
    "is_even_prime":
    [{"id": "is_even_prime",
      "data":
@@ -3437,6 +3440,17 @@
         "Data and Functions",
         "New Types from Old"]}},
      "address": "/Basics/"}],
+   "isLength1":
+   [{"id": "isLength1",
+     "data":
+     {"/Poly/#isLength1":
+      {"display": "isLength1",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Functions as Data",
+        "Filter"]}},
+     "address": "/Poly/"}],
    "inversion_ex2":
    [{"id": "inversion_ex2",
      "data":
@@ -3459,33 +3473,26 @@
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
-   "instHasOneNat":
-   [{"id": "instHasOneNat",
+   "instDefaultValueNat":
+   [{"id": "instDefaultValueNat",
      "data":
-     {"/Typeclasses/#instHasOneNat":
-      {"display": "instHasOneNat",
+     {"/Typeclasses/#instDefaultValueNat":
+      {"display": "instDefaultValueNat",
        "context":
        ["Logical Foundations",
         "Typeclasses",
-        "First Example: Inhabited Types"]}},
+        "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
-   "instHasOneInt":
-   [{"id": "instHasOneInt",
+   "instDefaultValueInt":
+   [{"id": "instDefaultValueInt",
      "data":
-     {"/Typeclasses/#instHasOneInt":
-      {"display": "instHasOneInt",
+     {"/Typeclasses/#instDefaultValueInt":
+      {"display": "instDefaultValueInt",
        "context":
        ["Logical Foundations",
         "Typeclasses",
-        "First Example: Inhabited Types"]}},
+        "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
-   "injective":
-   [{"id": "injective",
-     "data":
-     {"/Logic/#injective":
-      {"display": "injective",
-       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
-     "address": "/Logic/"}],
    "identity":
    [{"id": "identity",
      "data":
@@ -3506,6 +3513,14 @@
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
+   "getElem_def":
+   [{"id": "getElem_def",
+     "data":
+     {"/Typeclasses/#getElem_def":
+      {"display": "getElem_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "function_congruence":
    [{"id": "function_congruence",
      "data":
@@ -3571,22 +3586,22 @@
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
-   "filter_cons_success":
-   [{"id": "filter_cons_success",
+   "filter_cons_of_pos":
+   [{"id": "filter_cons_of_pos",
      "data":
-     {"/Poly/#filter_cons_success":
-      {"display": "filter_cons_success",
+     {"/Poly/#filter_cons_of_pos":
+      {"display": "filter_cons_of_pos",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
-   "filter_cons_fail":
-   [{"id": "filter_cons_fail",
+   "filter_cons_of_neg":
+   [{"id": "filter_cons_of_neg",
      "data":
-     {"/Poly/#filter_cons_fail":
-      {"display": "filter_cons_fail",
+     {"/Poly/#filter_cons_of_neg":
+      {"display": "filter_cons_of_neg",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -3604,17 +3619,6 @@
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
-   "factor_is_zero":
-   [{"id": "factor_is_zero",
-     "data":
-     {"/Logic/#factor_is_zero":
-      {"display": "factor_is_zero",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Logical Connectives",
-        "Disjunction"]}},
-     "address": "/Logic/"}],
    "fTrue":
    [{"id": "fTrue",
      "data":
@@ -3648,16 +3652,6 @@
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
-   "even_zero":
-   [{"id": "even_zero",
-     "data":
-     {"/UsingLean/#even_zero":
-      {"display": "even_zero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
-        "Redefining Functions and Lemmas over Nats"]}},
-     "address": "/UsingLean/"}],
    "even_double":
    [{"id": "even_double",
      "data":
@@ -3668,26 +3662,6 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
-   "even_bool_prop":
-   [{"id": "even_bool_prop",
-     "data":
-     {"/Logic/#even_bool_prop":
-      {"display": "even_bool_prop",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Working with Decidable Properties"]}},
-     "address": "/Logic/"}],
-   "even_add_three":
-   [{"id": "even_add_three",
-     "data":
-     {"/UsingLean/#even_add_three":
-      {"display": "even_add_three",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
-        "Redefining Functions and Lemmas over Nats"]}},
-     "address": "/UsingLean/"}],
    "ev_succ_succ_ev'":
    [{"id": "ev_succ_succ_ev___",
      "data":
@@ -3731,17 +3705,6 @@
         "IndProp: Inductively Defined Propositions",
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
-   "ev_Even":
-   [{"id": "ev_Even",
-     "data":
-     {"/IndProp/#ev_Even":
-      {"display": "ev_Even",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Induction on Evidence"]}},
      "address": "/IndProp/"}],
    "ev_4''":
    [{"id": "ev_4______",
@@ -3796,26 +3759,6 @@
         "Tactics: More Basic Tactics",
         "The  injection  and  contradiction  Tactics"]}},
      "address": "/Tactics/"}],
-   "double_zero":
-   [{"id": "double_zero",
-     "data":
-     {"/UsingLean/#double_zero":
-      {"display": "double_zero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
-        "Redefining Functions and Lemmas over Nats"]}},
-     "address": "/UsingLean/"}],
-   "double_succ":
-   [{"id": "double_succ",
-     "data":
-     {"/UsingLean/#double_succ":
-      {"display": "double_succ",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
-        "Redefining Functions and Lemmas over Nats"]}},
-     "address": "/UsingLean/"}],
    "double_injective_take2":
    [{"id": "double_injective_take2",
      "data":
@@ -3900,11 +3843,11 @@
         "Inductively Defined Propositions",
         "Example: Reflexive and Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "countOddMembers'":
-   [{"id": "countOddMembers___",
+   "countOddMembers":
+   [{"id": "countOddMembers",
      "data":
-     {"/Poly/#countOddMembers___":
-      {"display": "countOddMembers'",
+     {"/Poly/#countOddMembers":
+      {"display": "countOddMembers",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -3987,16 +3930,6 @@
         "Tactics: More Basic Tactics",
         "Using Tactics on Hypotheses"]}},
      "address": "/Tactics/"}],
-   "beq_refl":
-   [{"id": "beq_refl",
-     "data":
-     {"/Logic/#beq_refl":
-      {"display": "beq_refl",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Working with Decidable Properties"]}},
-     "address": "/Logic/"}],
    "beq_eq_true":
    [{"id": "beq_eq_true",
      "data":
@@ -4130,7 +4063,23 @@
      {"/Typeclasses/#TotalMap___update_eq":
       {"display": "update_eq",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating Elements"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.update_def":
+   [{"id": "TotalMap___update_def",
+     "data":
+     {"/Typeclasses/#TotalMap___update_def":
+      {"display": "update_def",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating Elements"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.update":
    [{"id": "TotalMap___update",
@@ -4138,7 +4087,23 @@
      {"/Typeclasses/#TotalMap___update":
       {"display": "update",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating Elements"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.getElem_empty":
+   [{"id": "TotalMap___getElem_empty",
+     "data":
+     {"/Typeclasses/#TotalMap___getElem_empty":
+      {"display": "getElem_empty",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating Elements"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.getElem_def":
    [{"id": "TotalMap___getElem_def",
@@ -4146,7 +4111,23 @@
      {"/Typeclasses/#TotalMap___getElem_def":
       {"display": "getElem_def",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.getElem":
+   [{"id": "TotalMap___getElem",
+     "data":
+     {"/Typeclasses/#TotalMap___getElem":
+      {"display": "getElem",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.ext":
    [{"id": "TotalMap___ext",
@@ -4154,21 +4135,53 @@
      {"/Typeclasses/#TotalMap___ext":
       {"display": "ext",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating Elements"]}},
      "address": "/Typeclasses/"}],
-   "TotalMap.examplemap'":
-   [{"id": "TotalMap___examplemap___",
+   "TotalMap.exampleMap''":
+   [{"id": "TotalMap___exampleMap______",
      "data":
-     {"/Typeclasses/#TotalMap___examplemap___":
-      {"display": "examplemap'",
+     {"/Typeclasses/#TotalMap___exampleMap______":
+      {"display": "exampleMap''",
        "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating Elements"]}},
      "address": "/Typeclasses/"}],
-   "TotalMap.example_map":
-   [{"id": "TotalMap___example_map",
+   "TotalMap.exampleMap'":
+   [{"id": "TotalMap___exampleMap___",
      "data":
-     {"/Typeclasses/#TotalMap___example_map":
-      {"display": "example_map",
+     {"/Typeclasses/#TotalMap___exampleMap___":
+      {"display": "exampleMap'",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating Elements"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.exampleMap":
+   [{"id": "TotalMap___exampleMap",
+     "data":
+     {"/Typeclasses/#TotalMap___exampleMap":
+      {"display": "exampleMap",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating Elements"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.emptyNatMap":
+   [{"id": "TotalMap___emptyNatMap",
+     "data":
+     {"/Typeclasses/#TotalMap___emptyNatMap":
+      {"display": "emptyNatMap",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
      "address": "/Typeclasses/"}],
@@ -4177,14 +4190,6 @@
      "data":
      {"/Typeclasses/#TotalMap___empty":
       {"display": "empty",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.apply_empty":
-   [{"id": "TotalMap___apply_empty",
-     "data":
-     {"/Typeclasses/#TotalMap___apply_empty":
-      {"display": "apply_empty",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
      "address": "/Typeclasses/"}],
@@ -4311,39 +4316,6 @@
      {"/Typeclasses/#TotalMap___Nat___Decidable":
       {"display": "Decidable",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.KVPair.value":
-   [{"id": "TotalMap___KVPair___value",
-     "data":
-     {"/Typeclasses/#TotalMap___KVPair___value":
-      {"display": "value",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "Maps",
-        "Notation for Concrete Maps"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.KVPair.key":
-   [{"id": "TotalMap___KVPair___key",
-     "data":
-     {"/Typeclasses/#TotalMap___KVPair___key":
-      {"display": "key",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "Maps",
-        "Notation for Concrete Maps"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.KVPair":
-   [{"id": "TotalMap___KVPair",
-     "data":
-     {"/Typeclasses/#TotalMap___KVPair":
-      {"display": "KVPair",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "Maps",
-        "Notation for Concrete Maps"]}},
      "address": "/Typeclasses/"}],
    "TotalMap":
    [{"id": "TotalMap",
@@ -4771,6 +4743,13 @@
         "Data and Functions",
         "New Types from Old"]}},
      "address": "/Basics/"}],
+   "PlusClaim":
+   [{"id": "PlusClaim",
+     "data":
+     {"/Logic/#PlusClaim":
+      {"display": "PlusClaim",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
+     "address": "/Logic/"}],
    "Playground.myFoo":
    [{"id": "Playground___myFoo",
      "data":
@@ -5095,11 +5074,35 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
-   "PartialMap.totalMap_eq":
-   [{"id": "PartialMap___totalMap_eq",
+   "PartialMap.toTotal_update":
+   [{"id": "PartialMap___toTotal_update",
      "data":
-     {"/Typeclasses/#PartialMap___totalMap_eq":
-      {"display": "totalMap_eq",
+     {"/Typeclasses/#PartialMap___toTotal_update":
+      {"display": "toTotal_update",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_eq_iff":
+   [{"id": "PartialMap___toTotal_eq_iff",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_eq_iff":
+      {"display": "toTotal_eq_iff",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_empty":
+   [{"id": "PartialMap___toTotal_empty",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_empty":
+      {"display": "toTotal_empty",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.toTotal":
+   [{"id": "PartialMap___toTotal",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal":
+      {"display": "PartialMap.toTotal",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -5111,6 +5114,22 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.inner":
+   [{"id": "PartialMap___inner",
+     "data":
+     {"/Typeclasses/#PartialMap___inner":
+      {"display": "inner",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.getElem_empty":
+   [{"id": "PartialMap___getElem_empty",
+     "data":
+     {"/Typeclasses/#PartialMap___getElem_empty":
+      {"display": "getElem_empty",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.ext":
    [{"id": "PartialMap___ext",
      "data":
@@ -5119,19 +5138,11 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
-   "PartialMap.examplepmap":
-   [{"id": "PartialMap___examplepmap",
+   "PartialMap.examplePmap":
+   [{"id": "PartialMap___examplePmap",
      "data":
-     {"/Typeclasses/#PartialMap___examplepmap":
-      {"display": "examplepmap",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
-     "address": "/Typeclasses/"}],
-   "PartialMap.apply_empty":
-   [{"id": "PartialMap___apply_empty",
-     "data":
-     {"/Typeclasses/#PartialMap___apply_empty":
-      {"display": "apply_empty",
+     {"/Typeclasses/#PartialMap___examplePmap":
+      {"display": "examplePmap",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -5204,7 +5215,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.zero_succ_beq_false":
    [{"id": "NatPlayground___Nat___zero_succ_beq_false",
@@ -5215,7 +5227,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.zero_ble":
    [{"id": "NatPlayground___Nat___zero_ble",
@@ -5226,7 +5239,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.zero_add":
    [{"id": "NatPlayground___Nat___zero_add",
@@ -5236,7 +5250,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
         "Proof by Induction"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.zero":
@@ -5303,7 +5316,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.succ_succ_beq":
    [{"id": "NatPlayground___Nat___succ_succ_beq",
@@ -5314,7 +5328,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.succ_ble_zero":
    [{"id": "NatPlayground___Nat___succ_ble_zero",
@@ -5325,7 +5340,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.succ_ble_succ":
    [{"id": "NatPlayground___Nat___succ_ble_succ",
@@ -5336,7 +5352,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.succ":
    [{"id": "NatPlayground___Nat___succ",
@@ -5476,13 +5493,14 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Multiplication"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Nat.minustwo":
-   [{"id": "NatPlayground___Nat___minustwo",
+   "NatPlayground.Nat.minusTwo":
+   [{"id": "NatPlayground___Nat___minusTwo",
      "data":
-     {"/Basics/#NatPlayground___Nat___minustwo":
-      {"display": "minustwo",
+     {"/Basics/#NatPlayground___Nat___minusTwo":
+      {"display": "minusTwo",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -5563,7 +5581,7 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.double_succ":
@@ -5574,7 +5592,7 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.double":
@@ -5585,7 +5603,7 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Review",
+        "Proof by Induction",
         "Tip: the  rw  tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.ble":
@@ -5597,7 +5615,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.beq'":
    [{"id": "NatPlayground___Nat___beq___",
@@ -5608,7 +5627,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.beq":
    [{"id": "NatPlayground___Nat___beq",
@@ -5619,7 +5639,8 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Working with Numerals"]}},
+        "Working with Numerals",
+        "Equality and Ordering"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.and_commutative":
    [{"id": "NatPlayground___Nat___and_commutative",
@@ -5724,6 +5745,7 @@
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
         "General Proofs about Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add":
@@ -5745,7 +5767,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin.b1":
@@ -5756,7 +5777,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin.b0":
@@ -5767,7 +5787,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin":
@@ -5778,7 +5797,6 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Nat to Bin and Back to Nat"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.AddPlayground.add_zero":
@@ -6119,11 +6137,83 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.factor_is_zero":
+   [{"id": "Nat___factor_is_zero",
+     "data":
+     {"/Logic/#Nat___factor_is_zero":
+      {"display": "Nat.factor_is_zero",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Disjunction"]}},
+     "address": "/Logic/"}],
+   "Nat.even_zero":
+   [{"id": "Nat___even_zero",
+     "data":
+     {"/UsingLean/#Nat___even_zero":
+      {"display": "Nat.even_zero",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the full power of a proof assistant",
+        "Redefining Functions and Lemmas over Nats"]}},
+     "address": "/UsingLean/"}],
+   "Nat.even_bool_prop":
+   [{"id": "Nat___even_bool_prop",
+     "data":
+     {"/Logic/#Nat___even_bool_prop":
+      {"display": "Nat.even_bool_prop",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Working with Decidable Properties"]}},
+     "address": "/Logic/"}],
+   "Nat.even_add_three":
+   [{"id": "Nat___even_add_three",
+     "data":
+     {"/UsingLean/#Nat___even_add_three":
+      {"display": "Nat.even_add_three",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the full power of a proof assistant",
+        "Redefining Functions and Lemmas over Nats"]}},
+     "address": "/UsingLean/"}],
    "Nat.even":
    [{"id": "Nat___even",
      "data":
      {"/UsingLean/#Nat___even":
       {"display": "Nat.even",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the full power of a proof assistant",
+        "Redefining Functions and Lemmas over Nats"]}},
+     "address": "/UsingLean/"}],
+   "Nat.ev_Even":
+   [{"id": "Nat___ev_Even",
+     "data":
+     {"/IndProp/#Nat___ev_Even":
+      {"display": "Nat.ev_Even",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Induction on Evidence"]}},
+     "address": "/IndProp/"}],
+   "Nat.double_zero":
+   [{"id": "Nat___double_zero",
+     "data":
+     {"/UsingLean/#Nat___double_zero":
+      {"display": "Nat.double_zero",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the full power of a proof assistant",
+        "Redefining Functions and Lemmas over Nats"]}},
+     "address": "/UsingLean/"}],
+   "Nat.double_succ":
+   [{"id": "Nat___double_succ",
+     "data":
+     {"/UsingLean/#Nat___double_succ":
+      {"display": "Nat.double_succ",
        "context":
        ["Logical Foundations",
         "UsingLean: Using the full power of a proof assistant",
@@ -6139,6 +6229,24 @@
         "UsingLean: Using the full power of a proof assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.IsThree":
+   [{"id": "Nat___IsThree",
+     "data":
+     {"/Logic/#Nat___IsThree":
+      {"display": "Nat.IsThree",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
+     "address": "/Logic/"}],
+   "Nat.Even":
+   [{"id": "Nat___Even",
+     "data":
+     {"/Logic/#Nat___Even":
+      {"display": "Nat.Even",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Truth",
+        "Existential Quantification"]}},
+     "address": "/Logic/"}],
    "MyProd.snd":
    [{"id": "MyProd___snd",
      "data":
@@ -6238,6 +6346,42 @@
         "Polymorphism",
         "Polymorphic Lists"]}},
      "address": "/Poly/"}],
+   "MyGetElem.unexpandGetElem":
+   [{"id": "MyGetElem___unexpandGetElem",
+     "data":
+     {"/Typeclasses/#MyGetElem___unexpandGetElem":
+      {"display": "unexpandGetElem",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
+     "address": "/Typeclasses/"}],
+   "MyGetElem.getElem":
+   [{"id": "MyGetElem___getElem",
+     "data":
+     {"/Typeclasses/#MyGetElem___getElem":
+      {"display": "getElem",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
+     "address": "/Typeclasses/"}],
+   "MyGetElem":
+   [{"id": "MyGetElem",
+     "data":
+     {"/Typeclasses/#MyGetElem":
+      {"display": "MyGetElem",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
+     "address": "/Typeclasses/"}],
    "MyBool.true_and_explained":
    [{"id": "MyBool___true_and_explained",
      "data":
@@ -7045,13 +7189,41 @@
         "Polymorphic Lists",
         "Exercises"]}},
      "address": "/Poly/"}],
+   "List.headOr_ex":
+   [{"id": "List___headOr_ex",
+     "data":
+     {"/Typeclasses/#List___headOr_ex":
+      {"display": "List.headOr_ex",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.headOr":
+   [{"id": "List___headOr",
+     "data":
+     {"/Typeclasses/#List___headOr":
+      {"display": "List.headOr",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
    "List.elem_poly_nil":
    [{"id": "List___elem_poly_nil",
      "data":
      {"/Typeclasses/#List___elem_poly_nil":
       {"display": "List.elem_poly_nil",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elem_poly_eq":
+   [{"id": "List___elem_poly_eq",
+     "data":
+     {"/Typeclasses/#List___elem_poly_eq":
+      {"display": "List.elem_poly_eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly_cons":
    [{"id": "List___elem_poly_cons",
@@ -7059,7 +7231,7 @@
      {"/Typeclasses/#List___elem_poly_cons":
       {"display": "List.elem_poly_cons",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
    [{"id": "List___elem_poly",
@@ -7067,22 +7239,22 @@
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
       "/Typeclasses/#List___elem_poly":
       {"display": "List.elem_poly",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
     {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
       "/Typeclasses/#List___elem_poly":
       {"display": "List.elem_poly",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_nat_nil":
    [{"id": "List___elem_nat_nil",
@@ -7090,7 +7262,7 @@
      {"/Typeclasses/#List___elem_nat_nil":
       {"display": "List.elem_nat_nil",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_nat_cons":
    [{"id": "List___elem_nat_cons",
@@ -7098,7 +7270,7 @@
      {"/Typeclasses/#List___elem_nat_cons":
       {"display": "List.elem_nat_cons",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_nat":
    [{"id": "List___elem_nat",
@@ -7106,8 +7278,48 @@
      {"/Typeclasses/#List___elem_nat":
       {"display": "List.elem_nat",
        "context":
-       ["Logical Foundations", "Typeclasses", "Notation Typeclasses"]}},
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
+   "List.In_nil":
+   [{"id": "List___In_nil",
+     "data":
+     {"/Logic/#List___In_nil":
+      {"display": "List.In_nil",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.In_map":
+   [{"id": "List___In_map",
+     "data":
+     {"/Logic/#List___In_map":
+      {"display": "List.In_map",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.In_cons":
+   [{"id": "List___In_cons",
+     "data":
+     {"/Logic/#List___In_cons":
+      {"display": "List.In_cons",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
+   "List.In":
+   [{"id": "List___In",
+     "data":
+     {"/Logic/#List___In":
+      {"display": "List.In",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Programming with Propositions"]}},
+     "address": "/Logic/"}],
    "LePlayground.Le.step":
    [{"id": "LePlayground___Le___step",
      "data":
@@ -7141,45 +7353,45 @@
         "Inductively Defined Propositions",
         "Example: Binary relation for comparing numbers"]}},
      "address": "/IndProp/"}],
-   "In_nil":
-   [{"id": "In_nil",
+   "KVPair.value":
+   [{"id": "KVPair___value",
      "data":
-     {"/Logic/#In_nil":
-      {"display": "In_nil",
+     {"/Typeclasses/#KVPair___value":
+      {"display": "value",
        "context":
        ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "In_map":
-   [{"id": "In_map",
+        "Typeclasses",
+        "Maps",
+        "Notation for Concrete Maps"]}},
+     "address": "/Typeclasses/"}],
+   "KVPair.key":
+   [{"id": "KVPair___key",
      "data":
-     {"/Logic/#In_map":
-      {"display": "In_map",
+     {"/Typeclasses/#KVPair___key":
+      {"display": "key",
        "context":
        ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "In_cons":
-   [{"id": "In_cons",
+        "Typeclasses",
+        "Maps",
+        "Notation for Concrete Maps"]}},
+     "address": "/Typeclasses/"}],
+   "KVPair":
+   [{"id": "KVPair",
      "data":
-     {"/Logic/#In_cons":
-      {"display": "In_cons",
+     {"/Typeclasses/#KVPair":
+      {"display": "KVPair",
        "context":
        ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
-     "address": "/Logic/"}],
-   "In":
-   [{"id": "In",
+        "Typeclasses",
+        "Maps",
+        "Notation for Concrete Maps"]}},
+     "address": "/Typeclasses/"}],
+   "Injective":
+   [{"id": "Injective",
      "data":
-     {"/Logic/#In":
-      {"display": "In",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Programming with Propositions"]}},
+     {"/Logic/#Injective":
+      {"display": "Injective",
+       "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
      "address": "/Logic/"}],
    "HasTwoIncomplete.two":
    [{"id": "HasTwoIncomplete___two",
@@ -7237,57 +7449,6 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
      "address": "/Typeclasses/"}],
-   "HasOneStruct.one":
-   [{"id": "HasOneStruct___one",
-     "data":
-     {"/Typeclasses/#HasOneStruct___one":
-      {"display": "one",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "HasOneStruct":
-   [{"id": "HasOneStruct",
-     "data":
-     {"/Typeclasses/#HasOneStruct":
-      {"display": "HasOneStruct",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "HasOne.one":
-   [{"id": "HasOne___one",
-     "data":
-     {"/Typeclasses/#HasOne___one":
-      {"display": "one",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "HasOne":
-   [{"id": "HasOne",
-     "data":
-     {"/Typeclasses/#HasOne":
-      {"display": "HasOne",
-       "context":
-       ["Logical Foundations",
-        "Typeclasses",
-        "First Example: Inhabited Types"]}},
-     "address": "/Typeclasses/"}],
-   "Even":
-   [{"id": "Even",
-     "data":
-     {"/Logic/#Even":
-      {"display": "Even",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Truth",
-        "Existential Quantification"]}},
-     "address": "/Logic/"}],
    "Ev.ev_succ_succ":
    [{"id": "Ev___ev_succ_succ",
      "data":
@@ -7321,6 +7482,56 @@
         "Inductively Defined Propositions",
         "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
+   "DefaultValueScratch.natDefault":
+   [{"id": "DefaultValueScratch___natDefault",
+     "data":
+     {"/Typeclasses/#DefaultValueScratch___natDefault":
+      {"display": "natDefault",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "DefaultValueScratch.DefaultValue.value":
+   [{"id": "DefaultValueScratch___DefaultValue___value",
+     "data":
+     {"/Typeclasses/#DefaultValueScratch___DefaultValue___value":
+      {"display": "value",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "DefaultValueScratch.DefaultValue":
+   [{"id": "DefaultValueScratch___DefaultValue",
+     "data":
+     {"/Typeclasses/#DefaultValueScratch___DefaultValue":
+      {"display": "DefaultValue",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "DefaultValue.value":
+   [{"id": "DefaultValue___value",
+     "data":
+     {"/Typeclasses/#DefaultValue___value":
+      {"display": "value",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "DefaultValue":
+   [{"id": "DefaultValue",
+     "data":
+     {"/Typeclasses/#DefaultValue":
+      {"display": "DefaultValue",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
    "Day.wednesday":
    [{"id": "Day___wednesday",
      "data":

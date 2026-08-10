@@ -1,3 +1,4 @@
+import LF.Preface
 import LF.Basics
 import LF.Induction
 import LF.UsingLean

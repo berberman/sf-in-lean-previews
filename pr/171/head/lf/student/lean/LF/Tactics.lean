@@ -5,27 +5,6 @@ import LF.SFLCompat
 
 -- # Tactics: More Basic Tactics
 
--- Note to developers (Daniel Sainati  @dsainati1):
---     [BCP: Old comment -- might be out of date?] There is a section here on
---     unfolding definitions that should probably move earlier, to `Basics` or
---     `Induction`, once those chapters are rewritten to not use arithmetic.
---     This will also require changing the examples.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     (Old and possibly out of date -- check!) Many exercises in this chapter
---     are based on defining and proving properties about Nat.ble and BEq.eq,
---     which are not idiomatic in Lean. We should consider replacing these
---     with a different set of exercises.
-
--- Note to developers (before next release):
---     This chapter could maybe use one or two more WORKINCLASS tags...
-
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2025):
---     General comment: All the previous chapters have felt pretty smooth.
---     This one suddenly feels like we're throwing a huge amount of
---     information at them, with little scaffolding -- just a bunch of
---     miscellaneous tactics and examples. Wish it flowed better, somehow.
-
 -- This chapter introduces several additional proof strategies and tactics
 -- that allow us to begin proving more interesting properties of functional
 -- programs.
@@ -43,12 +22,6 @@ import LF.SFLCompat
 -- - more details on how to reason by case analysis.
 
 -- OA: added these to use Lean's Nat.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Deserves a comment. (In general, the reader should be given enough
---     information to understand every line in the files we give them. This
---     will not always be possible, but when it is not we should mark it
---     explicitly.)
 
 open Nat (add_comm add_assoc add_zero add_succ mul_one succ_sub_succ)
 
@@ -129,7 +102,7 @@ theorem rev_exercise1 {α} (l l' : List α) :
     l' = l.rev := by
   intro eq
   rw [eq]; symm
-  apply rev_involutive
+  apply reverse_reverse
   -- /ADMITTED
 
 -- ### Exercise (1 star): apply_rewrite (manually graded) ⭐
@@ -138,14 +111,6 @@ theorem rev_exercise1 {α} (l l' : List α) :
 -- are the situations where both can usefully be applied?
 
 -- ### Supplying arguments to `apply`
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     This note is probably dead...
---
---     AAA dislikes the `...with...` variants of tactics, which he feels don't
---     work very well. But we (Arthur and BCP) decided to leave things alone
---     for now, since removing `...with...` would require changing MANY
---     proofs.
 
 -- The following silly example uses two rewrites in a row to get from `\[a;b`]
 -- to `\[e;f`].
@@ -160,25 +125,12 @@ theorem trans_eq_example (a b c d e f : Nat) :
 -- Since this is a common pattern, we might like to pull it out as a lemma
 -- that records, once and for all, the fact that equality is transitive.
 
--- Note to developers:
---     `HIDE: Robert Rand: I found using m, n and o throughout this discussion
---     super confusing -- m doesn't come between n and o! Rocq's eq_trans uses
---     x, y and z, which is what I wanted to change this too anyhow.`
-
 theorem trans_eq {α : Type} (x y z : α) :
     x = y → y = z → x = z := by
   intro eq1 eq2
   rw [eq1, eq2]
 
 -- Nowwe **should** be able to use `trans_eq` to prove the above example.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     `Is this still true?
---
---     Robert Rand: This one makes a nice workinclass. You can show
---     the various ways around the problem, including named "with",
---     unnamed "with", and (if you desire), explicitly providing the
---     arguments to trans_eq.`
 
 -- But it doesn't *quite* work. If we simply tell Lean `apply
 -- trans_eq` after
@@ -210,7 +162,7 @@ theorem trans_eq_example'' (a b c d e f : Nat) :
   intro eq1 eq2
   apply trans_eq [a, b] [c, d] [e, f] eq1 eq2
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     This and below are new (my addition), thoughts?
 
 -- In the previous example, we had to specify the `x` and `z` arguments to
@@ -254,7 +206,7 @@ theorem trans_eq_example_exact (a b c d e f : Nat) :
   intro eq1 eq2
   exact trans_eq _ _ _ eq1 eq2
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     if we decide we want to introduce `calc` earlier, we can remove this
 --     explanation or tweak it. BCP: I think we did introduce it earlier...
 
@@ -437,38 +389,7 @@ theorem beq_0_l (n : Nat) :
     -- consideration.
     contradiction
 
--- Note to developers:
---     HIDE: APT: Could add an advanced exercise asking them to show somthing
---     like `true = false → 0 = 1` using `rewrite` and a function definition
---     and using `discriminate`. BCP: This might be nice, but not sure this is
---     a critical point to make.
---
---     HIDE: "There should be more discussion and practice with how to deal
---     with subexpressions that do not allow application of hypotheses, for
---     example how to deal with the `.succ m` in `m + (.succ m)`. Again, I
---     sort of understand what to do with `destruct` and induction, but it
---     would help to have more exercises that break down the process of making
---     this connection." BCP 9/18: Not sure exactly what to add, but if
---     anybody has good ideas...
---
---     HIDE: This relies on the fact that `injection` only works with
---     constructors. Should this be discussed earlier? Or is this the right
---     place to mention it briefly? BCP 20: I think here is OK, though a
---     longer explanation (including a remark on why you would not want this
---     in general!) would be welcome...
---
---     HIDE: Robert Rand: I think it's nice to start them off with a easy
---     question and also to use more datatypes than Nat and Bool.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     All these quizzes (here and elsewhere) need to be checked!
-
 -- _Quiz:_
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     In Rocq, there was a line of = signs between premises and conclusion.
---     They've gotten lost here. There are probably more instances of this
---     elsewhere!
 
 -- Recall our `RGB` and `Color` types:
 
@@ -553,13 +474,6 @@ theorem beq_0_l (n : Nat) :
 
 -- (D) None of the above.
 
--- Note to developers:
---     HIDE: BCP 9/16: Not sure this theorem is pulling its weight in SF! It's
---     used relatively few places, and there is nothing too interesting to say
---     about it here -- indeed it kind of disrupts the flow. BCP 9/18: I
---     actually found it useful several times in the lecture on this chapter,
---     so I think it's best to leave it.
-
 -- The injectivity of constructors allows us to reason that
 -- `∀ (n m : Nat), n + 1 = m + 1 → n = m`. The converse of this implication is
 -- an instance of a more general fact about both constructors and functions,
@@ -575,7 +489,7 @@ theorem eq_implies_succ_equal (n m : Nat) :
   intro eq
   rw [eq]
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     can someone double check me on this? I think `congr` works this way but
 --     I want to be sure
 
@@ -590,7 +504,7 @@ theorem eq_implies_succ_equal' (n m : Nat) :
   intro eq
   congr
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     how is this explanation of `congr`?
 
 -- The `congr` tactic also accepts a numerical argument, which tells Lean how
@@ -634,17 +548,6 @@ theorem eq_implies_succ_proj_equal (a b c d : Nat) :
 -- For example, the tactic "`dsimp at H`" performs simplification on the
 -- hypothesis `H` in the context.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     This is surely NOT the right way to prove this fact, and I'm not sure
---     that proving it here is what we want to do anyway. Inserting it for now
---     for expediency, to get this file closer to compiling...
-
--- Note to developers (Claude):
---     NB `rfl` does not prove this: in this chapter `==` on `Nat` elaborates
---     via the generic decidable-equality instance (`n == m` is
---     `decide (n = m)`), and `decide` is stuck on variables. So we reduce to
---     propositional injectivity.
-
 theorem beq_succ (n m : Nat) : (n + 1 == m + 1) = (n == m) :=
   decide_eq_decide.mpr Nat.succ_inj
 
@@ -669,14 +572,6 @@ theorem succ_inj (n m : Nat) :
 
 -- Here is a variant of a proof that uses forward reasoning throughout instead
 -- of backward reasoning.
-
--- Note to developers:
---     HIDE: Robert Rand: I find the behavior of `apply in` to be hideous. If
---     I have H1 : A and H2: A → B, I don't want to change H1 to B (leaving me
---     with an entirely redundant H2), I want to change H2 to B, leaving me
---     with H1 : A, H2 : B. I tend to point this out and show that
---     `specialize (EQ H)` gives us what we want. This makes for a nice segue
---     to the next section.
 
 theorem silly4 (n m p q : Nat) :
     (n = m → p = q) →
@@ -705,7 +600,7 @@ theorem silly4 (n m p q : Nat) :
 -- very large development, so we won't import the whole thing here, but we
 -- have provided you `apply ... at ...` because it is quite useful.
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     this part has been changed from the original Rocq, let me know what you
 --     think
 
@@ -721,11 +616,6 @@ theorem silly4 (n m p q : Nat) :
 -- that it looks like `P` with `x` replaced by `e`.
 
 -- For example:
-
--- Note to developers:
---     HIDE: Robert Rand: I found this very useful because not all students
---     realize I can get a specific case from the forall in the hypotheses.
---     I've shortened the proof a bit. BCP: Maybe this comment is dead?
 
 theorem have_example m :
     (∀ n, m * n = 0) → m = 0 := by
@@ -752,8 +642,8 @@ theorem replace_example m :
 -- Use `have` or `replace` to prove the the following lemma, following the
 -- model of the examples above. Do not use `induction`.
 
-theorem nth_error_always_none (l : List Nat) :
-    (∀ i, nthError l i = none) →
+theorem nth?_always_none (l : List Nat) :
+    (∀ i, nth? l i = none) →
     l = [] := by
   sorry
 
@@ -805,15 +695,15 @@ example (n m : Nat) :
     n = m := by
   induction n
   case zero =>
-    rw [double_zero]
+    rw [Nat.double_zero]
     intro eq
     cases m
     case zero => rfl
-    case succ _ => rw [double_succ] at eq; contradiction
+    case succ _ => rw [Nat.double_succ] at eq; contradiction
   case succ n' ih =>
     intro eq
     cases m
-    case zero => rw [double_zero, double_succ] at eq; contradiction
+    case zero => rw [Nat.double_zero, Nat.double_succ] at eq; contradiction
     case succ m' =>
       congr
       /- At this point, the induction hypothesis `ih` does _not_ give us
@@ -879,23 +769,18 @@ example (n m : Nat) :
 -- in the goal statement at the point where the `induction` tactic is invoked
 -- on `n`.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     The comments in this proof might need trimming -- probably not
---     appropriate in the terse version, and probably not nicely typeset in
---     the full version
-
 theorem double_injective : ∀ (n m : Nat),
     n.double = m.double →
     n = m := by
   intro n
   induction n
   case zero =>
-    rw [double_zero]
+    rw [Nat.double_zero]
     intro m eq
     cases m
     case zero => rfl
     case succ _ =>
-      rw [double_succ] at eq
+      rw [Nat.double_succ] at eq
       contradiction
   case succ n' ih =>
   -- Notice that both the goal and the induction hypothesis are
@@ -910,7 +795,7 @@ theorem double_injective : ∀ (n m : Nat),
   cases m
   case zero =>
     -- The 0 case is trivial:
-    rw [double_zero, double_succ] at eq
+    rw [Nat.double_zero, Nat.double_succ] at eq
     contradiction
   case succ m' =>
     congr
@@ -921,12 +806,7 @@ theorem double_injective : ∀ (n m : Nat),
     -- in the IH with the current `m'` (this instantiation is performed
     -- automatically by the `apply` in the next step), then `ih` gives
     -- us exactly what we need to finish the proof.
-    apply ih; rw [double_succ, double_succ] at eq; injections
-
--- Note to developers:
---     `HIDE: Robert Rand: I found jumping straight to "what if we want to
---     do induction on the second argument" via double_injective_take2_FAILED
---     to be much more natural here.`
+    apply ih; rw [Nat.double_succ, Nat.double_succ] at eq; injections
 
 -- The thing to take away from all this is that you need to be careful, when
 -- using induction, that you are not trying to prove something too specific:
@@ -969,13 +849,13 @@ theorem double_injective_take2_FAILED (n m : Nat) :
     cases n
     case zero => rfl
     case succ =>
-      rw [double_zero, double_succ] at eq
+      rw [Nat.double_zero, Nat.double_succ] at eq
       contradiction
   case succ =>
     intro eq
     cases n
     case zero =>
-      rw [double_zero, double_succ] at eq
+      rw [Nat.double_zero, Nat.double_succ] at eq
       contradiction
     case succ =>
       congr
@@ -1005,16 +885,16 @@ theorem double_injective_take2 (n m : Nat) :
     cases n
     case zero => rfl
     case succ =>
-      rw [double_zero, double_succ] at eq
+      rw [Nat.double_zero, Nat.double_succ] at eq
       contradiction
   case succ _ ih =>
     cases n
     case zero =>
-      rw [double_zero, double_succ] at eq
+      rw [Nat.double_zero, Nat.double_succ] at eq
       contradiction
     case succ =>
       congr
-      rw [double_succ, double_succ] at eq
+      rw [Nat.double_succ, Nat.double_succ] at eq
       injections _ eq; exact ih _ eq
 
 -- Let's look at an informal proof of this theorem. Note that the proposition
@@ -1062,31 +942,10 @@ theorem double_injective_take2 (n m : Nat) :
 -- library function `Nat.ble`), together with the fact that it commutes with
 -- successor on both sides.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Added, to make the file compile, on Claude's suggestion. But is this
---     the right way? Answer: No, just replaces uses of it by Nat.ble!
-
 infix:52 " ≤? " => Nat.ble
 
 theorem zero_ble (m : Nat) : (0 ≤? m) = true := rfl
 theorem succ_ble_succ (n m : Nat) : ((n + 1) ≤? (m + 1)) = (n ≤? m) := rfl
-
--- Note to developers (Claude, before next release):
---     Claude-generated note. (BCP: Whoever reviews this part of the chapter
---     next should read and delete it.)
---
---     The `leb_*` → `ble_*` rename is now applied across `Lists`, `Tactics`,
---     and `Logic`, matching the `ble_complete` / `ble_correct` / `ble_iff`
---     names already used in `IndProp`: every one of these is stated over
---     `≤?`, which is notation for `Nat.ble` (declared just above), so the
---     name now tracks the function. Statements keep the `≤?` notation rather
---     than spelling out `Nat.ble`, following `IndProp`.
---
---     One thing to think about: `beq_succ` (above, and used in `Logic`) is a
---     separate `BEq` question: it could likewise be restated via
---     `Nat.beq_eq_true_eq` / `BEq.comm`, which would let the `beq_symm`
---     exercise below drop its induction. Worth a decision, but it changes an
---     exercise's shape, not just a name.
 
 -- Suppose that we want to show that `add` is the inverse of `sub`. Since we
 -- are working with natural numbers, we need an assumption to prevent `sub`
@@ -1128,18 +987,10 @@ theorem sub_add_ble : ∀ (n m : Nat),
 
 theorem nth_error_after_last {α : Type} (n : Nat) (l : List α) :
     l.length = n →
-    nthError l n = none := by
+    nth? l n = none := by
   sorry
 
 -- ## Using `cases` on Compound Expressions
-
--- Note to developers:
---     HIDE: CH: If eqn is only useful for compound expressions and those are
---     only discussed here, why has eqn been introduced before this point? It
---     seems that so far its only use was for documentation, and while one
---     might argue that it's good practice to always use eqn, that's not the
---     case, as illustrated by its disappearance in Logics. BCP '19: Fixed
---     Logic.v -- I do think it's good documentation!
 
 -- We have seen many examples where `cases` is used to perform case analysis
 -- of the value of some variable. Sometimes we need to reason by cases on the
@@ -1330,9 +1181,6 @@ theorem bool_fn_applied_thrice (f : Bool → Bool) (b : Bool) :
 -- - `congr`: change a goal of the form `f x = f y` into `x = y`
 
 -- Additional Exercises
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     There seems to be nothing left for the student to fill in!
 
 -- ### Exercise (3 stars): beq_symm ⭐⭐⭐
 

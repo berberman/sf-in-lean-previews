@@ -8,11 +8,11 @@ import LF.SFLCompat
 -- Note to developers (NOW):
 --     Chapter goals: Nats dsimp calc
 
--- Note to developers (Benjamin Pierce  @bcpierce00, NOW):
+-- Note to developers (Benjamin Pierce @bcpierce00, NOW):
 --     Did we intend for this section header to be in a "full"
 --     block?
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Is Basics needed explicitly? And why are these here
 --     instead of at the top of the file?
 
@@ -34,7 +34,7 @@ import LF.SFLCompat
 -- they tend to write out `rewrite` steps for basic properties
 -- of natural numbers by hand.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Just making a note that we need to explain the
 --     `zero.succ.succ` notation someplace well before this
 --     file!
@@ -44,7 +44,7 @@ import LF.SFLCompat
 --     one here? Can we choose a better name than
 --     `long_example`?
 
--- Note to developers (Daniel Sainati  @dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     We turn off the postfix notation for our new definition
 --     of succ in `Basics`, should we also turn it off here for
 --     Nats? I really find it to be less readable, but maybe
@@ -63,7 +63,7 @@ theorem test_mult1' : (two * two : NatPlayground.Nat) = four := by
   rfl
 end long_example
 
--- Note to developers (Benjamin Pierce  @bcpierce00, NOW):
+-- Note to developers (Benjamin Pierce @bcpierce00, NOW):
 --     The info viewed in the InfoView during this proof is
 --     kind of mysterious (to me) here. Have we already given
 --     people enough help to understand it here?
@@ -94,7 +94,7 @@ theorem test_mult1_nat : (3 * 3 : Nat) = 9 := by
 -- and its powerful features, writing `Nat.<theorem>` to
 -- reference Lean's version of `<theorem>`.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Why can't we just write <theorem>?
 
 -- ### `rfl` and computation with `Nat`
@@ -240,7 +240,7 @@ theorem succ_mul_succ' (n m : Nat) :
 -- particular uses, and both will be tools in your ever-growing
 -- toolbox of tactics.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Needs some exercises!!
 
 -- ## Definitional simplification: `dsimp`
@@ -314,12 +314,12 @@ example (n : Nat) : square n + 0 = n * n := by
 -- searches for functions to simplify by. Many Lean tactics
 -- have `?` versions; try it out if you are unsure.
 
--- Note to developers (Roger Burtonpatel  @rogerburtonpatel, NOW):
+-- Note to developers (Roger Burtonpatel @rogerburtonpatel, NOW):
 --     Hard pointer needed to this section once we versify.
 --     Also, we may want a pointer to where we introduce `simp`
 --     (and *maybe* `grind` in the next volume).
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This section reference should be a live pointer, at
 --     least in the HTML.
 
@@ -352,7 +352,7 @@ def Nat.double (n : Nat) : Nat :=
 -- Defining functions in the `Nat` namespace changes how they
 -- print:
 
-theorem even_add_three (n : Nat) : Nat.even (n + 3) = Nat.even (n + 1) := by
+theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
   rfl
 
 -- This printing style is called *field notation* and can be
@@ -368,7 +368,7 @@ example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
 
 -- ### Exercise (2 stars): even_succ ⭐⭐
 
-theorem even_succ (n : Nat) :
+theorem Nat.even_succ (n : Nat) :
     (n + 1).even = !(n.even) := by
   sorry
 
@@ -378,20 +378,20 @@ theorem even_succ (n : Nat) :
 -- (OA) : added lemmas proved for our Nat for Lean's Nat to
 -- prevent later files from breaking.
 
-theorem even_zero : Nat.even 0 = true := by rfl
+theorem Nat.even_zero : even 0 = true := by rfl
 
-theorem double_zero : Nat.double 0 = 0 := by rfl
+theorem Nat.double_zero : double 0 = 0 := by rfl
 
-theorem double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
+theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 
 -- ### Exercise (2 stars): double_add ⭐⭐
 
-theorem double_add (n : Nat) : n.double = n + n := by
+theorem Nat.double_add (n : Nat) : n.double = n + n := by
   sorry
 
 -- ### Exercise (2 stars): double_mul ⭐⭐
 
-theorem double_mul (n : Nat) : n.double = 2 * n := by
+theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
   sorry
 
 -- ## Using Code Actions to Generate Match Skeletons

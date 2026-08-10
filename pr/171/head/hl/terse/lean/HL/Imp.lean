@@ -67,7 +67,7 @@ abbrev State := TotalMap Ident Nat
 -- fresh `Aexp`, replacing the variable-free one from the
 -- *Slang* chapter.)
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     That should be a live chapter link.
 
 inductive Aexp where
@@ -77,7 +77,7 @@ inductive Aexp where
   | minus (a1 a2 : Aexp)
   | mult (a1 a2 : Aexp)
 
--- Note to developers (Chris Henson  @chenson2018):
+-- Note to developers (Chris Henson @chenson2018):
 --     Rather than define identifiers as Ident, a more general
 --     approach is to use a **type variable** with
 --     `DecidableEq` (as the `Maps` chapter does), threaded
@@ -147,7 +147,7 @@ macro_rules
   | `(aexp { $a * $b }) => `(Aexp.mult (aexp {$a}) (aexp {$b}))
   | `(aexp { ($a) }) => `(aexp {$a})
 
--- _Details:_ Notation encoding: boolean expressions
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions
 
 /-- Boolean expressions of Imp -/
 declare_syntax_cat imp_bexp
@@ -173,7 +173,9 @@ syntax:max "~" term:max : imp_bexp
 /-- Embed an Imp boolean expression into a Lean term -/
 syntax:min "bexp " "{" imp_bexp "}" : term
 
--- _Details:_ Notation encoding: boolean expressions, macro rules
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions, macro rules
 
 open Lean in
 macro_rules
@@ -191,6 +193,8 @@ macro_rules
   | `(bexp { $b1:imp_bexp ∧ $b2:imp_bexp }) => `(Bexp.and (bexp {$b1}) (bexp {$b2}))
   | `(bexp { ($b:imp_bexp) }) => `(bexp {$b})
 
+-- END DETAILS
+
 instance : Coe Ident Aexp where
   coe := .id
 
@@ -205,7 +209,7 @@ def example_bexp : Bexp := bexp { true ∧ ¬(X ≤ 4) }
 
 -- ### Delaborators
 
--- _Details:_ Notation encoding: printing expressions back
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing expressions back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer
@@ -302,12 +306,14 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
     | _ => `(imp_bexp| ~$(← delab))
   annAsTerm stx
 
+-- END DETAILS
+
 -- The `whenPPOption getPPNotation` wrapper lets
 -- `set_option pp.notation false` switch this delaborator off,
 -- revealing the raw constructors (see the "Desugaring
 -- Notations" discussion, after the commands are introduced).
 
--- _Details:_ Notation encoding: registering the delaborators
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: registering the delaborators
 
 @[delab app.Aexp.num, delab app.Aexp.id, delab app.Aexp.plus,
   delab app.Aexp.minus, delab app.Aexp.mult]
@@ -342,6 +348,8 @@ partial def delabBexp : Delab := whenPPOption getPPNotation do
 
 end Imp.Delab
 
+-- END DETAILS
+
 #check aexp { 3 + (X * 2) }
 
 #check bexp { true ∧ ¬(X ≤ 4) }
@@ -350,6 +358,8 @@ end Imp.Delab
 
 -- Now we need to add an `st` parameter to both evaluation
 -- functions:
+
+open scoped MyGetElem
 
 def Aexp.eval (st : State) (a : Aexp) : Nat :=
   match a with
@@ -416,12 +426,14 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
--- _Details:_ Notation encoding: commands
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands
 
 /-- Imp commands -/
 declare_syntax_cat imp_com
 
--- _Details:_ Notation encoding: commands, macro rules
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
 /-- The command that does nothing (`skip;`) -/
 syntax ident ";" : imp_com
@@ -455,7 +467,9 @@ macro_rules
   | `(imp { ~$c }) =>
     pure c
 
--- _Details:_ Notation encoding: printing commands back
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
@@ -508,6 +522,8 @@ partial def delabCom : Delab := whenPPOption getPPNotation do
   | e => `(term| imp { $e })
 
 end Imp.Delab
+
+-- END DETAILS
 
 def fact_in_lean : Com := imp {
   Z := X;
@@ -606,7 +622,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 -- than a `State`, similar to what we did for `Aexp.EvalR`
 -- above.
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     I kind of hate this notation. Is there something more
 --     standard in Lean? CSLib precedent maybe?
 
@@ -659,7 +675,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 -- Here is the formal definition. Make sure you understand how
 -- it corresponds to the inference rules.
 
--- Note to developers (Chris Henson  @chenson2018):
+-- Note to developers (Chris Henson @chenson2018):
 --     TODO Propose you use inline notation such as
 --     `Com.EvalR (imp {skip;}) st st`
 
@@ -903,7 +919,7 @@ theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
 
 -- FILL IN HERE
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     `NOT PORTED YET — remaining sections of sfdev/lf/Imp.v to port:
 --       - Case Study (Optional), Imp.v:2774
 --           * subtract_slowly_spec (EX4?, Imp.v:2919): loop-invariant style proof

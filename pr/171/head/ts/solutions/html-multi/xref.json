@@ -2320,6 +2320,17 @@
         "Typing",
         "Typing Relation"]}},
      "address": "/Stlc/"}],
+   "Stlc.isPlainTmVarName":
+   [{"id": "Stlc___isPlainTmVarName",
+     "data":
+     {"/Stlc/#Stlc___isPlainTmVarName":
+      {"display": "isPlainTmVarName",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
    "Stlc.isPlainName":
    [{"id": "Stlc___isPlainName",
      "data":
@@ -2974,6 +2985,28 @@
      "data":
      {"/Slang/#Slang___optimize0plus_sound":
       {"display": "optimize0plus_sound",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.optimize0plusB_test2":
+   [{"id": "Slang___optimize0plusB_test2",
+     "data":
+     {"/Slang/#Slang___optimize0plusB_test2":
+      {"display": "optimize0plusB_test2",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.optimize0plusB_test1":
+   [{"id": "Slang___optimize0plusB_test1",
+     "data":
+     {"/Slang/#Slang___optimize0plusB_test1":
+      {"display": "optimize0plusB_test1",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",

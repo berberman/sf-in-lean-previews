@@ -2,11 +2,6 @@ import HL.SFLCompat
 
 -- # Slang: Arithmetic and Boolean Expressions
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     We need to figure out our approach to text width, especially for
---     proofs. Quite a few proofs here don't render into the chosen page
---     width, and for terse mode it will be worse.
-
 -- We begin by looking at a language we call **Slang** (for *simple
 -- language*). Despite its simplicity, Slang lets us introduce key concepts
 -- for specifying the *syntax* and *semantics* of programming languages and
@@ -246,12 +241,12 @@ theorem optimize0plus_sound' (a : Aexp) :
 
 def Bexp.optimize0plusB (b : Bexp) : Bexp := sorry
 
-example :
+theorem optimize0plusB_test1 :
     Bexp.optimize0plusB
         (.not (.gt (.plus (.num 0) (.num 4)) (.num 8)))
       = (.not (.gt (.num 4) (.num 8))) := sorry
 
-example :
+theorem optimize0plusB_test2 :
     Bexp.optimize0plusB
         (.and (.le (.plus (.num 0) (.num 4)) (.num 5)) (.bool true))
       = (.and (.le (.num 4) (.num 5)) (.bool true)) := sorry
@@ -313,12 +308,6 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 -- keyword allows us to scope the notation to the present namespace so it
 -- doesn't collide with other evaluation relations later.
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
---     The Rocq version here says "As we saw in our case study of regular
---     expressions in chapter IndProp, Rocq provides a way to use this
---     notation in the definition of aevalR itself." It then re-shows the
---     definition with Downarrow. We need to resolve how we want to do this.
-
 -- ### Inference Rule Notation
 
 -- In informal discussions, it is convenient to write the rules for
@@ -377,9 +366,6 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 --                     ------------------           (mult)
 --                     mult e1 e2 ⇓ n1*n2
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     The first two quizzes here seem kind of boring.
-
 -- _Quiz:_
 
 -- Which rules are needed to prove the following?
@@ -388,16 +374,6 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 
 -- (A) `num` and `plus` (B) `num` only (C) `num` and `mult` (D) `mult` and
 -- `plus` (E) `num`, `mult`, and `plus`
-
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
---     Not sure if we need ⇓b, or whether we can define ⇓ overloaded. Don't
---     understand Lean notation yet!
-
--- Note to developers (Chris Henson  @chenson2018, before next release):
---     About `Bexp.eval` below: We should discuss a way to recall definitions
---     without having to write them out manually like this. I think a simple
---     `#print` may work as an alternative, assuming there are no namespace
---     issues..
 
 -- ### Exercise (1 star): beval_rules ⭐
 
@@ -441,11 +417,6 @@ theorem Aexp.evalR_iff_eval (a : Aexp) (n : Nat) :
 -- We can make the proof quite a bit shorter using more automation like we did
 -- in the previous section.
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
---     the `workinclass!` marker should signal this live in-class exercise.
---     But it is not rendering properly on the HTML. In fact it replaces
---     `workinclass!` with the `all_goals` tactic, which we don't need.
-
 theorem Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) :
     a ⇓ n ↔ a.eval = n := by
   all_goals
@@ -462,11 +433,6 @@ inductive Bexp.EvalR : Bexp → Bool → Prop where
   -- FILL IN HERE
 
 scoped notation:55 e:56 " ⇓b " b:56 => Bexp.EvalR e b
-
--- Note to developers (Michael Hicks  @mwhicks1):
---     There is no keyboard shortcut for a subscript b, nor is there one for c
---     (to use used with cevalR below). There are numbers, x, y, z, l, m, n,
---     etc.
 
 theorem Bexp.evalR_iff_eval (b : Bexp) (bv : Bool) :
     b ⇓b bv ↔ b.eval = bv := by
@@ -547,18 +513,6 @@ inductive Aexp.EvalR : Aexp → Nat → Prop where
 
 end Slang.AevalRExtended
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
---     The following text seems not quite right to me. First, you can use
---     options for partial functions, and that's very natural to do in Lean as
---     a monad. Second, and related, monadic functions need not even be
---     terminating if the implement the `CCPO` typeclass and are labeled as a
---     `partial_fixpoint`. Maybe we don't want to get into the second thing
---     here, but failing to mention options (which I think were introduced in
---     LF) seems a bit surprising.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Agreed.
-
 -- At this point you may be wondering: which of these styles should I use by
 -- default?
 
@@ -574,8 +528,4 @@ end Slang.AevalRExtended
 -- In large developments it is common to give a definition in *both* styles
 -- plus a lemma that the two coincide, allowing later proofs to switch between
 -- points of view at will -- exactly what we did above.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     Well, we didn't actually do a proof that switched between the points of
---     view. Should we?
 

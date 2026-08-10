@@ -5,13 +5,13 @@ import HL.SFLCompat
 
 -- # Hoare: Hoare Logic, Part I
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2025):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
 --     There is an excellent and fairly polished problem on a
 --     Hoare Logic for a little assembly language in the
 --     materials for the 2025 CIS 5000 final exam at Penn. We
 --     should turn it into an exercise in this chapter!
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2021):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     Any chance we could move the (awkwardly placed) weakest
 --     precondition discussion to this chapter instead?
 --
@@ -117,6 +117,8 @@ import HL.SFLCompat
 
 -- An *assertion* is a logical claim about the state of a
 -- program's memory -- formally, a property of `State`s.
+
+open scoped MyGetElem
 
 abbrev Assertion := State → Prop
 
@@ -234,7 +236,7 @@ instance : Coe Ident Aexp' := ⟨fun x => Aexp'.ofAexp (.id x)⟩
 --     version of the `Arguments` command is documented under
 --     `simpl`.
 
--- Note to developers (One An  @meluge):
+-- Note to developers (One An @meluge):
 --     The Rocq source here issues
 --     `Arguments assert_of_Prop /.` (and likewise for the
 --     other two lifting functions) so that `simpl` always
@@ -880,7 +882,7 @@ end ExampleAssertionSub
 
 -- ### Printing Assertions
 
--- _Details:_ Notation encoding: printing assertions back
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing assertions back
 
 namespace Assn.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer Imp.Delab
@@ -1081,7 +1083,9 @@ raw term. -/
 def delabAssnTotal : DelabM (TSyntax `assn) :=
   delabAssnFun <|> identOrEscapeAssn
 
--- _Details:_ Notation encoding: registering the delaborators
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: registering the delaborators
 
 @[delab app.ValidHoareTriple]
 def delabTriple : Delab := whenPPOption getPPNotation do
@@ -1109,6 +1113,8 @@ def delabOfProp : Delab := whenPPOption getPPNotation do
   `({{ $(← delabAssnFun) }})
 
 end Assn.Delab
+
+-- END DETAILS
 
 -- Now, using the substitution operation we've just defined, we
 -- can give the precise proof rule for assignment:
@@ -1507,7 +1513,7 @@ theorem bexp_eval_false (b : Bexp) (st : State) (h : b.eval st = false) :
     ¬ ((bassertion b) st) := by
   simp [bassertion, h]
 
--- Note to developers (One An  @meluge):
+-- Note to developers (One An @meluge):
 --     The Rocq proof is the single tactic `congruence`. Using
 --     simp seems to work but should we build our own
 --     `congruence` tactic?
@@ -1553,7 +1559,8 @@ theorem if_example :
       unfold AssertImplies Assertion.sub bassertion
       intro st ⟨_, h⟩
       simp only [Bexp.eval_eq, Aexp.eval_id, Aexp.eval_num, beq_iff_eq] at h
-      simp [Aexp'.ofAexp, TotalMap.update_neq _ Y X (by decide),
+      simp [Aexp'.ofAexp,
+            TotalMap.update_neq (m := st) (a₁ := Y) (a₂ := X) (by decide) 2,
             TotalMap.update_eq, h]
   · -- Else
     apply hoare_consequence_pre
@@ -1692,10 +1699,10 @@ theorem hoare_while (P : Assertion) (b : Bexp) (c : Com)
     | ifFalse s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
   exact key _ st st' heval rfl hP
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2021):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     This definition / discussion could be clearer.
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2023):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2023):
 --     `Maja says: The wording of "we will never enter the
 --     loop" could definitely be improved. As is, it suggests a situation
 --     where the loop condition itself can never be satisfied. I suspect that
@@ -1788,7 +1795,7 @@ theorem hoare_while (P : Assertion) (b : Bexp) (c : Com)
 --     means to be a loop invariant -- I think that would be
 --     pretty helpful.
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2021):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     What is this example doing here?? Needs some text.
 
 -- Note to developers:

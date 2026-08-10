@@ -794,7 +794,7 @@ theorem inversion_ex2 : ∀ (n : Nat),
 -- Note to developers (before next release):
 --     This whole part of the section is a mess!!
 
-example (n : Nat) : Ev n → Even n := by
+example (n : Nat) : Ev n → Nat.Even n := by
   /- We could try to proceed by case analysis or induction on `n`.  But
       since `Ev` is mentioned in a premise, this strategy seems
       unpromising, because (as we've noted before) the induction
@@ -826,14 +826,14 @@ example (n : Nat) : Ev n → Even n := by
     of `n`.  Indeed, it is not difficult to convince Lean that this
     intermediate result would suffice. -/
     have he : (∃ (k' : Nat), n' = k'.double) → (∃ (n₀ : Nat), n' + 2 = n₀.double) := by
-      intro ⟨k, hk⟩; exists (k + 1); rw [double_succ, hk]
+      intro ⟨k, hk⟩; exists (k + 1); rw [Nat.double_succ, hk]
     apply he
     /- Unfortunately, now we are stuck: we are trying to prove another instance
         of the same theorem we set out to prove -- only here we are
         talking about `n'` instead of `n`. -/
     sorry
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2021):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     I agree that it's all pretty chewy. Wonder if we really
 --     need any of it or if the point could be made just as
 --     well with less detail... When I explained it in class
@@ -845,7 +845,7 @@ example (n : Nat) : Ev n → Even n := by
 --     TERSE could still be streamlined). So I'm going to leave
 --     it for now.
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2025):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
 --     I think best just to shorten it! And maybe make it not a
 --     WORKINCLASS.
 
@@ -858,7 +858,7 @@ example (n : Nat) : Ev n → Even n := by
 
 -- Let's try proving that lemma again:
 
-theorem ev_Even : ∀ n, Ev n → Even n := by
+theorem Nat.ev_Even : ∀ n, Ev n → Even n := by
   intro n h
   induction h
   /- h = ev_0 -/
@@ -868,7 +868,7 @@ theorem ev_Even : ∀ n, Ev n → Even n := by
     let ⟨k, hk⟩ := ih
     exists k + 1; rw [double_succ, hk]
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     Bad flow + duplication needs fixing. Could move some of
 --     this to the top. In the terse version this whole section
 --     is useless, it only has a (mostly) duplicated
