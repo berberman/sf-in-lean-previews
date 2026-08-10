@@ -4,12 +4,12 @@ import TS.SFLCompat
 
 -- # Smallstep: Small-step Operational Semantics
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     The `hiding lean` (above in the source file) should not
 --     be needed any more and should be removed from all files
 --     everywhere it exists.
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     This chapter adapts Smallstep to follow Slang, the
 --     initial part of Imp, on just Aexp and Bexp (without
 --     variables). This means that parts of this chapter had to
@@ -210,7 +210,7 @@ end SimpleArith1
 
 -- The step relation `⟶` is an example of a relation on `Tm`.
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
+-- Note to developers (Michael Hicks @mwhicks1, before next release):
 --     Should we be getting this (and `Deterministic`, `Multi`,
 --     etc. if appropriate) from the Lean standard library? If
 --     not, should we match the concepts in CSLib, if they
@@ -269,7 +269,7 @@ theorem step_deterministic : Deterministic SimpleArith1.Step := by
 
 end SimpleArith2
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     In the Rocq there is the development of a special tactic
 --     to make this proof simpler. Do we want that here?
 

@@ -2110,19 +2110,13 @@ calc</p>
               </div>
             <div class="sf-dev-note">
               <div class="sf-dev-note-label">
-                Note to developers (Benjamin Pierce  @bcpierce00, NOW)</div>
+                Note to developers (Benjamin Pierce @bcpierce00, NOW)</div>
               <p>
                 Did we intend for this section header to be in a "full" block?</p>
               </div>
             <section>
               <h2 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers">
                 4.1. More powerful Natural Numbers<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers" title="Permalink">🔗</a></span></h2>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
-                <p>
-                  Is Basics needed explicitly?  And why are these here instead of at the top of the file?</p>
-                </div>
               <pre>import LF.Basics
 import LF.Induction
 </pre><p>
@@ -2139,23 +2133,6 @@ same as the <code>Nat</code> we defined in <code>Basics.lean</code>.</p>
                 In Lean, programmers and mathematicians don't re-prove the basic properties of
 natural numbers from scratch, nor do they tend to write out <code>rewrite</code> steps
 for basic properties of natural numbers by hand.</p>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
-                <p>
-                  Just making a note that we need to explain the
-<code>zero.succ.succ</code> notation someplace well before this file!</p>
-                <p>
-                  Have we already explained sections, and how they differ from namespaces? Will it be clear to readers why we need one here? Can we choose a better name than <code>long_example</code>?</p>
-                </div>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers (Daniel Sainati  @dsainati1)</div>
-                <p>
-                  We turn off the postfix notation for our new definition of succ in <code>Basics</code>, should
-we also turn it off here for Nats? I really find it to be less readable, but maybe that's
-just me.</p>
-                </div>
               <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.section-2174" data-verso-hover="363">section</span><span class="inter-text"> </span><span class="unknown token" data-binding="">long_example</span><span class="inter-text">
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.open-2195" data-verso-hover="92">open</span><span class="inter-text"> </span><span class="unknown token" data-binding="">NatPlayground.Nat</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
@@ -2169,7 +2146,7 @@ just me.</p>
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-2518" data-verso-hover="58">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">long_example</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><div class="sf-dev-note">
                 <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00, NOW)</div>
+                  Note to developers (Benjamin Pierce @bcpierce00, NOW)</div>
                 <p>
                   The info viewed in the InfoView during this proof is kind of
 mysterious (to me) here.  Have we already given people enough help
@@ -2196,12 +2173,6 @@ which enable more powerful and concise proofs.</p>
                 In fact, from now on, we will use the built-in <code>Nat</code> type and its powerful
 features, writing <code>Nat.&lt;theorem&gt;</code> to reference Lean's version
 of <code>&lt;theorem&gt;</code>.</p>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
-                <p>
-                  Why can't we just write &lt;theorem&gt;?</p>
-                </div>
               <section>
                 <h3 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers--rfl--and-computation-with--Nat">
                   4.1.1. <code>rfl</code> and computation with <code>Nat</code><span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-powerful-Natural-Numbers--rfl--and-computation-with--Nat" title="Permalink">🔗</a></span></h3>
@@ -2258,12 +2229,6 @@ it found to complete the proof; idiomatic Lean does not leave
 <code>exact?</code> tactics (or any other <code>?</code> tactics, as we will see shortly)
 in the finished versions of proofs and instead replaces them with
 the tactics they found during search.</p>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
-                <p>
-                  Why do we say "Lean 4" in some places, instead of just "Lean"</p>
-                </div>
               <p>
                 The <code>exact?</code> tactic is useful when we just need a single library theorem to get us over
 the finish line of a proof, but it is not so helpful when we are deep in the middle of a proof
@@ -2421,12 +2386,6 @@ appropriate rules to rewrite by.</p>
 </span><span class="unknown token" data-binding=""></span></code><p>
                   If you prefer <code>rw</code> to <code>calc</code>, that's fine! Each has particular uses, and both
 will be tools in your ever-growing toolbox of tactics.</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce  @bcpierce00)</div>
-                  <p>
-                    Needs some exercises!!</p>
-                  </div>
                 </div>
               </section>
             <section>
@@ -2491,7 +2450,7 @@ so it can finish goals that rfl would close.</p>
 functions to simplify by. Many Lean tactics have <code>?</code> versions; try it out if you are unsure.</p>
               <div class="sf-dev-note">
                 <div class="sf-dev-note-label">
-                  Note to developers (Roger Burtonpatel  @rogerburtonpatel, NOW)</div>
+                  Note to developers (Roger Burtonpatel @rogerburtonpatel, NOW)</div>
                 <p>
                   Hard pointer needed to this section once we
 versify. Also, we may want a pointer to where we introduce <code>simp</code>
@@ -2500,12 +2459,6 @@ versify. Also, we may want a pointer to where we introduce <code>simp</code>
               <section>
                 <h3 id="Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp--A-New-Step-Towards-Automation">
                   4.4.1. A New Step Towards Automation<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-simplification___--dsimp--A-New-Step-Towards-Automation" title="Permalink">🔗</a></span></h3>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce  @bcpierce00)</div>
-                  <p>
-                    This section reference should be a live pointer, at least in the HTML.</p>
-                  </div>
                 <p>
                   In the section on <code>Irreducibility, Rewriting, and Proof
 Engineering</code> of <code>Basics.lean</code>, we hinted at introducing more
@@ -2583,13 +2536,6 @@ same term.</p>
                 In previous chapters we disabled this notation by putting <code>set_option pp.fieldNotation false</code>
 at the top of each file, but from now on we will leave it enabled, since  field notation
 is recommended in idiomatic Lean developments.</p>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers (Benjamin Pierce  @bcpierce00)</div>
-                <p>
-                  Cut this: "It can also be disabled just for a specific function
-or constructor by writing <code>attribute [pp_nodot] &lt;Name&gt;</code>."  Do they need to know it in SFL?</p>
-                </div>
               <p>
                 As an example, observe the difference in how Lean prints the goal in the following two examples:</p>
               <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.example-18701">example</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-18709">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="31">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-18709">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="32">Nat</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-18709">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-18719">:</span><span class="inter-text"> </span><a href="UsingLean/#Nat___double" title="Definition of example"><span class="const token" data-binding="const-Nat.double" data-verso-hover="446">Nat.double</span></a><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-18732">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="31">n</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_+_»-18733">+</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="31">0</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-18732">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-18721">=</span><span class="inter-text"> </span><a href="UsingLean/#Nat___double" title="Definition of example"><span class="const token" data-binding="const-Nat.double" data-verso-hover="446">Nat.double</span></a><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="31">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-18755">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-4092229552332679282-18758-18760-858"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-18758" data-verso-hover="20">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-4092229552332679282-18758-18760-858"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.2" data-verso-hover="31">n</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Nat" data-verso-hover="32">Nat</span><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="375">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="31">n</span><span class="inter-text"> </span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="375">+</span><span class="inter-text"> </span><span class="unknown token" data-binding="">0</span><span class="const token" data-binding="const-HAdd.hAdd" data-verso-hover="375">)</span><span class="unknown token" data-binding="">.</span><a href="UsingLean/#Nat___double" title="Definition of example"><span class="const token" data-binding="const-Nat.double" data-verso-hover="446">double</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="21">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="31">n</span><span class="unknown token" data-binding="">.</span><a href="UsingLean/#Nat___double" title="Definition of example"><span class="const token" data-binding="const-Nat.double" data-verso-hover="446">double</span></a></span></span></span></span></span><span class="inter-text">

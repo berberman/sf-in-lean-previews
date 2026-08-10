@@ -8,11 +8,11 @@ import LF.SFLCompat
 -- Note to developers (NOW):
 --     Chapter goals: Nats dsimp calc
 
--- Note to developers (Benjamin Pierce  @bcpierce00, NOW):
+-- Note to developers (Benjamin Pierce @bcpierce00, NOW):
 --     Did we intend for this section header to be in a "full"
 --     block?
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Is Basics needed explicitly? And why are these here
 --     instead of at the top of the file?
 
@@ -34,7 +34,7 @@ import LF.SFLCompat
 -- they tend to write out `rewrite` steps for basic properties
 -- of natural numbers by hand.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Just making a note that we need to explain the
 --     `zero.succ.succ` notation someplace well before this
 --     file!
@@ -44,7 +44,7 @@ import LF.SFLCompat
 --     one here? Can we choose a better name than
 --     `long_example`?
 
--- Note to developers (Daniel Sainati  @dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     We turn off the postfix notation for our new definition
 --     of succ in `Basics`, should we also turn it off here for
 --     Nats? I really find it to be less readable, but maybe
@@ -63,7 +63,7 @@ theorem test_mult1' : (two * two : NatPlayground.Nat) = four := by
   rfl
 end long_example
 
--- Note to developers (Benjamin Pierce  @bcpierce00, NOW):
+-- Note to developers (Benjamin Pierce @bcpierce00, NOW):
 --     The info viewed in the InfoView during this proof is
 --     kind of mysterious (to me) here. Have we already given
 --     people enough help to understand it here?
@@ -94,7 +94,7 @@ theorem test_mult1_nat : (3 * 3 : Nat) = 9 := by
 -- and its powerful features, writing `Nat.<theorem>` to
 -- reference Lean's version of `<theorem>`.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Why can't we just write <theorem>?
 
 -- ### `rfl` and computation with `Nat`
@@ -240,7 +240,7 @@ theorem succ_mul_succ' (n m : Nat) :
 -- particular uses, and both will be tools in your ever-growing
 -- toolbox of tactics.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Needs some exercises!!
 
 -- ## Definitional simplification: `dsimp`
@@ -314,12 +314,12 @@ example (n : Nat) : square n + 0 = n * n := by
 -- searches for functions to simplify by. Many Lean tactics
 -- have `?` versions; try it out if you are unsure.
 
--- Note to developers (Roger Burtonpatel  @rogerburtonpatel, NOW):
+-- Note to developers (Roger Burtonpatel @rogerburtonpatel, NOW):
 --     Hard pointer needed to this section once we versify.
 --     Also, we may want a pointer to where we introduce `simp`
 --     (and *maybe* `grind` in the next volume).
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This section reference should be a live pointer, at
 --     least in the HTML.
 

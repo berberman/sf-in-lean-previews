@@ -5,14 +5,14 @@ import LF.SFLCompat
 
 -- # Tactics: More Basic Tactics
 
--- Note to developers (Daniel Sainati  @dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     [BCP: Old comment -- might be out of date?] There is a
 --     section here on unfolding definitions that should
 --     probably move earlier, to `Basics` or `Induction`, once
 --     those chapters are rewritten to not use arithmetic. This
 --     will also require changing the examples.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     (Old and possibly out of date -- check!) Many exercises
 --     in this chapter are based on defining and proving
 --     properties about Nat.ble and BEq.eq, which are not
@@ -23,7 +23,7 @@ import LF.SFLCompat
 --     This chapter could maybe use one or two more WORKINCLASS
 --     tags...
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2025):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
 --     General comment: All the previous chapters have felt
 --     pretty smooth. This one suddenly feels like we're
 --     throwing a huge amount of information at them, with
@@ -32,7 +32,7 @@ import LF.SFLCompat
 
 -- OA: added these to use Lean's Nat.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Deserves a comment. (In general, the reader should be
 --     given enough information to understand every line in the
 --     files we give them. This will not always be possible,
@@ -87,7 +87,7 @@ theorem silly3 (n m : Nat) :
 
 -- ### Supplying arguments to `apply`
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This note is probably dead...
 --
 --     AAA dislikes the `...with...` variants of tactics, which
@@ -122,7 +122,7 @@ theorem trans_eq {α : Type} (x y z : α) :
 -- Nowwe **should** be able to use `trans_eq` to prove the
 -- above example.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `Is this still true?
 --
 --     Robert Rand: This one makes a nice workinclass. You can show
@@ -151,7 +151,7 @@ theorem trans_eq_example'' (a b c d e f : Nat) :
   intro eq1 eq2
   apply trans_eq [a, b] [c, d] [e, f] eq1 eq2
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     This and below are new (my addition), thoughts?
 
 -- In the previous example, we had to specify the `x` and `z`
@@ -192,7 +192,7 @@ theorem trans_eq_example_exact (a b c d e f : Nat) :
   intro eq1 eq2
   exact trans_eq _ _ _ eq1 eq2
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     if we decide we want to introduce `calc` earlier, we can
 --     remove this explanation or tweak it. BCP: I think we did
 --     introduce it earlier...
@@ -339,13 +339,13 @@ theorem beq_0_l (n : Nat) :
 --     with a easy question and also to use more datatypes than
 --     Nat and Bool.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     All these quizzes (here and elsewhere) need to be
 --     checked!
 
 -- _Quiz:_
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     In Rocq, there was a line of = signs between premises
 --     and conclusion. They've gotten lost here. There are
 --     probably more instances of this elsewhere!
@@ -460,7 +460,7 @@ theorem eq_implies_succ_equal (n m : Nat) :
   intro eq
   rw [eq]
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     can someone double check me on this? I think `congr`
 --     works this way but I want to be sure
 
@@ -471,7 +471,7 @@ theorem eq_implies_succ_equal' (n m : Nat) :
   intro eq
   congr
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     how is this explanation of `congr`?
 
 -- We can specify the recursion-depth with `congr n`.
@@ -500,7 +500,7 @@ theorem eq_implies_succ_proj_equal (a b c d : Nat) :
 -- Many tactics come with "`... at ...`" variants that work on
 -- hypotheses instead of goals.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This is surely NOT the right way to prove this fact, and
 --     I'm not sure that proving it here is what we want to do
 --     anyway. Inserting it for now for expediency, to get this
@@ -547,7 +547,7 @@ theorem silly4 (n m p q : Nat) :
   apply eq1 at eq2
   exact eq2
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     this part has been changed from the original Rocq, let
 --     me know what you think
 
@@ -655,7 +655,7 @@ example (n m : Nat) :
 -- universally quantified in the goal statement at the point
 -- where the `induction` tactic is invoked on `n`.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     The comments in this proof might need trimming --
 --     probably not appropriate in the terse version, and
 --     probably not nicely typeset in the full version
@@ -782,7 +782,7 @@ theorem double_injective_take2 (n m : Nat) :
 -- `n ≤? m` (the library function `Nat.ble`), together with the
 -- fact that it commutes with successor on both sides.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Added, to make the file compile, on Claude's suggestion.
 --     But is this the right way? Answer: No, just replaces
 --     uses of it by Nat.ble!

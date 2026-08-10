@@ -216,11 +216,6 @@ example : or MyBool.false MyBool.false = MyBool.false := by rfl
 example : or MyBool.false MyBool.true  = MyBool.true  := by rfl
 example : or MyBool.true  MyBool.true  = MyBool.true  := by rfl
 
--- Note to developers (mwhicks):
---     TODO: Seems wrong to not say anything about this notation here. Our
---     rule is to mention simple notations like this, but not `macro_rules`
---     etc. Do we actually introduce this later?
-
 -- We can define new symbolic notations for existing definitions. Don't worry
 -- for now about how the notation is defined.
 
@@ -397,9 +392,6 @@ theorem false_or : ∀ (b : MyBool), (MyBool.false || b) = b := by
 -- Be careful, though: every time you say `sorry` you are leaving a door open
 -- for total nonsense to enter Lean's safe, formally checked world!
 
--- Note to developers (Harrison Goldstein  @hgoldstein95):
---     In the terse .lean output this ends up looking like an exercise.
-
 sf_experiment
   theorem really_bad : MyBool.true = MyBool.false := by sorry
 
@@ -461,10 +453,6 @@ end MyBool
 -- `Bool`, this function produces an output of type `Bool`."
 
 -- ### New Types from Old
-
--- Note to developers (Harrison Goldstein  @hgoldstein95):
---     I feel like this section has too much content in terse, but I don't
---     want to unilaterally make that call. TODO
 
 -- The enumerated types we have seen so far are so-named because their
 -- definitions explicitly enumerate a finite set of elements: their
@@ -1291,10 +1279,6 @@ scoped infixl:70 " * " => mul
 -- likely find the proofs of the simplification rules for `add` to be helpful
 -- as a model.
 
--- Note to developers:
---     @rogerburtonpatel: it would be nice if we could get the theorem
---     *statements* inside a `solution!` block as well.
-
 theorem mul_zero : ∀ n : Nat, n * zero = zero := by
   sorry
 
@@ -1637,20 +1621,6 @@ theorem zero_neb_add_one (n : Nat) :
   (zero == succ n) = false := by
   sorry
 
--- Note to developers (Daniel Sainati  @dsainati1):
---     I move that we just cut this section entirely and come back to it when
---     we've presented enough of the requisite material that we can actually
---     explain
-
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
---     I'm going to leave this here for now, but perhaps make a note to fix
---     later on — when you've fixed it, come back and delete this, rather than
---     delete it now.
-
--- Note to developers (Yipeng Liu  @berberman, before next release):
---     I feel we could split this section and push the typeclass stuff to
---     `Typeclasses` chapter and complex notation syntax definitions to TS/HL.
-
 -- ### More on Notation (Optional)
 
 -- Lean has a very flexible notation system. Operators like `+` and `*` are
@@ -1800,26 +1770,25 @@ theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
 
 -- ### Airport Exercise
 
--- Note to developers (Yipeng Liu  @berberman, before next release):
---     Add grading attributes.
-
 -- Now that we have learned the basic features of Lean 4, let's close the
 -- chapter with an exercise that brings them together.
 
--- One fascinating aspect of using a theorem prover like Lean is that we can
--- do more than implement a system — we can also state precisely what we
--- expect the system to behave and prove that our implementation satisfies
--- those expectations.
+-- In a theorem prover like Lean, we can do more than just implement a system
+-- — we can also state precisely how we expect the system to behave and prove
+-- that our implementation satisfies that expectation.
 
--- In this exercise, we will model part of an airport database. The airport
--- stores one database entry for each traveler. An entry records where the
--- traveler is in the airport process, together with information about their
--- current bag.
+-- In this exercise, we will model part of a database storing information
+-- about travelers passing through an airport. The database contains one entry
+-- per traveler, recording information about where the traveler is in the
+-- airport process and the contents of their luggage.
 
--- We will implement several operations on these entries and prove general
--- properties about their behavior.
+-- We will implement several operations on these entries, state properties
+-- that describe how the database should behave, and prove that the
+-- implementation satisfies them.
 
 namespace Airport
+
+-- First, we describe the possible states of a bag.
 
 -- For simplicity, we assume that a bag either contains a battery, which
 -- causes it to fail inspection, or contains only ordinary items:
@@ -1828,15 +1797,16 @@ inductive BagContent : Type where
   | battery
   | ordinary
 
--- The screening status records whether the bag has not yet been inspected,
--- has been cleared, or has been blocked:
+-- A bag's screening status records whether the bag has not yet been
+-- inspected, has been cleared, or has been blocked:
 
 inductive ScreeningStatus : Type where
   | notScreened
   | cleared
   | blocked
 
--- A traveler can be in one of three stages:
+-- Next, we consider the possible stages of the airport process a traveler can
+-- inhabit:
 
 -- - they have not yet purchased a ticket;
 
@@ -1876,11 +1846,9 @@ theorem buyTicket_checkedIn (bagContent : BagContent)
 
 attribute [irreducible] buyTicket
 
--- Here is our first general property: buying a ticket twice has the same
--- effect as buying it once.
-
--- N.B. An operation is called *idempotent* if performing it twice has the
--- same effect as performing it once.
+-- An operation is called *idempotent* when performing it twice has the same
+-- effect as performing it once. The first property we will prove about our
+-- system is that purchasing a ticket is an idempotent operation.
 
 -- ### Exercise (2 stars): buy_ticket_idempotent ⭐⭐
 

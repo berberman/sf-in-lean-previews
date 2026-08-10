@@ -225,7 +225,7 @@ end MyBool
 
 -- ### New Types from Old
 
--- Note to developers (Harrison Goldstein  @hgoldstein95):
+-- Note to developers (Harrison Goldstein @hgoldstein95):
 --     I feel like this section has too much content in terse,
 --     but I don't want to unilaterally make that call. TODO
 
@@ -1027,17 +1027,17 @@ theorem zero_neb_add_one (n : Nat) :
   (zero == succ n) = false := by
   sorry
 
--- Note to developers (Daniel Sainati  @dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     I move that we just cut this section entirely and come
 --     back to it when we've presented enough of the requisite
 --     material that we can actually explain
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
+-- Note to developers (Michael Hicks @mwhicks1, before next release):
 --     I'm going to leave this here for now, but perhaps make a
 --     note to fix later on — when you've fixed it, come back
 --     and delete this, rather than delete it now.
 
--- Note to developers (Yipeng Liu  @berberman, before next release):
+-- Note to developers (Yipeng Liu @berberman, before next release):
 --     I feel we could split this section and push the
 --     typeclass stuff to `Typeclasses` chapter and complex
 --     notation syntax definitions to TS/HL.
@@ -1161,7 +1161,7 @@ theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
 
 -- ### Airport Exercise
 
--- Note to developers (Yipeng Liu  @berberman, before next release):
+-- Note to developers (Yipeng Liu @berberman, before next release):
 --     Add grading attributes.
 
 -- We will model a simple airport system in Lean. Besides
@@ -1217,8 +1217,8 @@ theorem buyTicket_checkedIn (bagContent : BagContent)
 
 attribute [irreducible] buyTicket
 
--- Here is our first general property: buying a ticket twice
--- has the same effect as buying it once.
+-- Here is our first general property: buying a ticket twice is
+-- idempotent.
 
 -- ### Exercise (2 stars): buy_ticket_idempotent ⭐⭐
 

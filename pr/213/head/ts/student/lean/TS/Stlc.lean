@@ -546,14 +546,6 @@ theorem idB_value : idB.IsValue := .abs ..
 theorem idBB_value : idBB.IsValue := .abs ..
 theorem notB_value : notB.IsValue := .abs ..
 
--- Note to developers:
---     The Rocq source follows each inductive definition in this chapter with
---     a `Hint Constructors … : core`, registering the constructors with
---     `auto`; the proofs then lean on `auto`/`eauto` to assemble derivations.
---     We have no counterpart here: the proofs below name their constructors
---     explicitly, in the style of the Types chapter. Lean's `grind` would be
---     the closest analogue if a later pass wants automation.
-
 -- ### STLC Programs
 
 -- Finally, we must consider what constitutes a *complete* program.
@@ -565,11 +557,6 @@ theorem notB_value : notB.IsValue := .abs ..
 
 -- (Conversely, a term that may contain free variables is often called an
 -- *open term*.)
-
--- Note to developers (Chris Henson  @chenson2018, before next release):
---     Is the "shortly" above setting wrong expectations? Where exactly are we
---     defining the free variables in a STLC term? BCP 25: Indeed, we need to
---     define "free"!
 
 -- Having made the choice not to reduce under abstractions, we don't need to
 -- worry about whether variables are values, since we'll always be reducing
@@ -1018,16 +1005,6 @@ example : <{ ~idBB (~notB true) }> ⟶* <{ false }> := by
 
 -- (B) no
 
--- Note to developers:
---     The Rocq source repeats the four examples above using the `normalize`
---     tactic defined in its `Smallstep` chapter, and the exercise below asks
---     for `step_example5` both with and without it. We have no such tactic:
---     the Smallstep chapter here does not define one, so the repeats are
---     dropped and the exercise is stated once, proved by hand. Writing a
---     `normalize` tactic — repeatedly applying `Multi.step` with the unique
---     available reduction, then closing with reflexivity — is the natural
---     follow-up, and it belongs in the Smallstep chapter, not here.
-
 -- ### Exercise (2 stars): step_example5 ⭐⭐
 
 example : <{ ~idBBBB ~idBB ~idB }> ⟶* idB := by
@@ -1075,12 +1052,6 @@ example : <{ ~idBBBB ~idBB ~idB }> ⟶* idB := by
 
 -- With these refinements, we are ready to give informal and formal
 -- specifications of the typing relation.
-
--- Note to developers (Chris Henson  @chenson2018, before next release):
---     I find the FULL explanation above much better than the TERSE one below,
---     since the question below seems ill-posed without extra context. Why
---     would one want to type a term `x y` if we've just said that we will
---     just look at closed terms as our programs?
 
 abbrev Context := PartialMap String Ty
 
@@ -1247,13 +1218,6 @@ example : <{ ∅ ⊢ λ x : Bool . x ⦂ Bool → Bool }> :=
 -- the extended context maps `x` to `Bool` — holds by computation, hence
 -- `rfl`.
 
--- Note to developers:
---     The Rocq source proves this one, and the next, by `eauto`, having
---     registered the `has_type` constructors in the `core` hint database; it
---     also observes that plain `auto` suffices here because the term contains
---     no application nodes. We have no hint database, so both derivations are
---     given explicitly.
-
 -- More examples:
 
 --   ∅ ⊢ λx:Bool. λy:Bool → Bool. y (y x)
@@ -1318,14 +1282,6 @@ example : ¬ ∃ T, <{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~T }> := by
 
 example : ¬ ∃ S T, <{ ∅ ⊢ λ x : ~S . x x ⦂ ~T }> := by
   sorry
-
--- Note to developers:
---     The Rocq proof gets to the same contradiction through a chain of
---     `inversion`s and then an induction on the offending type; the `LATER`
---     note there asks why `eauto 30` makes no progress on the previous
---     example, and a `NOTATION` note from Ori reports an error with the
---     associativity of the arrow in one of the inversion hypotheses. Neither
---     issue arises in this encoding.
 
 -- _Quiz:_
 

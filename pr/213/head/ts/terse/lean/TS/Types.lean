@@ -567,7 +567,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 
 -- Complete the corresponding informal proof.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Check the typesetting of this...
 
 -- *Theorem*: If `⊢ t ⦂ T`, then either `t` is a value or else
@@ -859,7 +859,7 @@ end TM
 -- the small-step semantics for stating preservation and
 -- progress?
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This next is not using the new conventions for `grade`
 --     blocks, which I thought `to_verso.py` was now enforcing.
 --     Is that because this file was converted a while back,

@@ -4,29 +4,7 @@ import LF.SFLCompat
 
 -- # Induction: Proof by Induction
 
--- Note to developers (before next release):
---     `SOONER: We should also consider adding more examples to clarify
---     the concepts introduced in this chapter. This could help in
---     reinforcing the understanding of induction principles.
---
---     LATER: In 3/22, MRC and BCP discussed "inlining" IndPrinciples
---     into earlier chapters, thus eliminating it as a chapter. This
---     chapter, Induction, is the first place a change would occur.  We
---     would present [nat_ind] here. Then in Lists/Poly we'd present
---     [list_ind], and the rest would go in IndProp and ProofObjects. The
---     main wrinkle is that we'd need to introduce [apply] here instead of
---     in Tactics if we want to preserve the presentation. The discussion
---     is preserved here: https://github.com/DeepSpec/sfdev/pull/471.
---
---     LATER: Now that we've added Steve's nice late-policy exercise in
---     Basics.v, the assignment for that chapter is probably hard enough.  Now
---     what about this chapter?  Can/should we make it a notch or two
---     harder?`
-
 -- ## Separate Compilation
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     `This section will need some tidying and rewriting...`
 
 -- Before getting started on this chapter, we need to import all of our
 -- definitions from the previous chapter:
@@ -206,12 +184,6 @@ sf_expect_failure
 -- just fine, but in the branch where `n = n' + 1` for some `n'` we get stuck
 -- in exactly the same way.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     `This is not high priority, but at some point we should make a decision between
---     /* ... */ comments and -- comments in lean code and try to be consistent.  Here
---     we're inconsistent in the very same code block!  Are there standard Lean conventions
---     we should just follow?`
-
 sf_expect_failure
   example (n : Nat) : zero + n = n := by
     cases n with
@@ -234,10 +206,6 @@ sf_expect_failure
 -- To prove interesting facts about numbers, lists, and other inductively
 -- defined sets, we often need a more powerful reasoning principle:
 -- *induction*.
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     I changed boldface back to italic here, but I'm happy to discuss using
---     boldface in a principled and consistent (and sparing) way...
 
 -- Recall (from a discrete math course, probably) the *principle of induction
 -- over natural numbers*: If `P(n)` is some proposition involving a natural
@@ -317,9 +285,6 @@ theorem add_comm (n m : Nat) :
 theorem add_assoc (n m p : Nat) :
     n + (m + p) = (n + m) + p := by
   sorry
-
--- Note to developers (Benjamin Pierce  @bcpierce00):
---     `We need better typesetting for displays like the following ones:`
 
 -- ### Tip: the `rw` tactic
 
