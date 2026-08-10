@@ -235,7 +235,11 @@ sf_expect_failure
 
 -- To prove interesting facts about numbers, lists, and other inductively
 -- defined sets, we often need a more powerful reasoning principle:
--- **induction**.
+-- *induction*.
+
+-- Note to developers (Benjamin Pierce  @bcpierce00):
+--     I changed boldface back to italic here, but I'm happy to discuss using
+--     boldface in a principled and consistent (and sparing) way...
 
 -- Recall (from a discrete math course, probably) the *principle of induction
 -- over natural numbers*: If `P(n)` is some proposition involving a natural
@@ -282,8 +286,8 @@ theorem zero_add (n : Nat) : zero + n = n := by
 -- to `n'`, and the goal becomes `succ n' = succ n'`, which closes with
 -- reflexivity.
 
--- Here's another theorem to try, this time involving a fact about equality on
--- natural numbers.
+-- Here's another theorem to try, this time involving equality on natural
+-- numbers.
 
 theorem beq_self (n : Nat) : (n == n) = true := by
   all_goals
@@ -362,7 +366,7 @@ theorem add_assoc (n m p : Nat) :
 
 -- A small caveat: `rw [...]` only performs a quick reflexivity check after
 -- rewriting; it does not unfold every definition. So, in rare cases, `rw` may
--- leave a goal that is still solved immediately by `rfl`.
+-- leave a goal that is solved immediately by `rfl`.
 
 def aliasOfTwo := two
 
@@ -413,8 +417,9 @@ theorem even_succ (n : Nat) :
 -- One inconvenient aspect of our definition of `even n` is the recursive call
 -- on `n'` when `n = succ (succ n')`. This makes proofs about `even n` harder
 -- when done by induction on `n`, since we may need an induction hypothesis
--- about `succ (succ n')`. The following lemma gives an alternative
--- characterization of `even (succ n)` that works better with induction:
+-- about `succ (succ n')`, while induction just gives us one about `succ n'`).
+-- The following lemma gives an alternative characterization of
+-- `even (succ n)` that works better with induction:
 
 -- (Tip: To expand the body of `even` in a proof, use `rewrite [even]` or
 -- `rw [even]`.)
