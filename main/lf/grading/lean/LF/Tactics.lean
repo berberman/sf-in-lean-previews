@@ -132,7 +132,7 @@ theorem rev_exercise1 {α} (l l' : List α) :
     l' = l.rev := by
   intro eq
   rw [eq]; symm
-  apply rev_involutive
+  apply reverse_reverse
   -- /ADMITTED
 
 attribute [autogradedProof 2] rev_exercise1
@@ -780,8 +780,8 @@ theorem replace_example m :
 -- Use `have` or `replace` to prove the the following lemma, following the
 -- model of the examples above. Do not use `induction`.
 
-theorem nth_error_always_none (l : List Nat) :
-    (∀ i, nthError l i = none) →
+theorem nth?_always_none (l : List Nat) :
+    (∀ i, nth? l i = none) →
     l = [] := by
   all_goals
     intro h
@@ -789,7 +789,7 @@ theorem nth_error_always_none (l : List Nat) :
     case nil => rfl
     case cons hd tl =>
       have h := h (i := 0)
-      dsimp [nthError] at h
+      dsimp [nth?] at h
       contradiction
 
 -- Tactics like `have` and `replace` can also be used with lemmas and theorems
@@ -1255,7 +1255,7 @@ theorem sub_add_ble : ∀ (n m : Nat),
 
 theorem nth_error_after_last {α : Type} (n : Nat) (l : List α) :
     l.length = n →
-    nthError l n = none := by
+    nth? l n = none := by
   all_goals
     intros hlen
     induction l generalizing n
@@ -1263,7 +1263,7 @@ theorem nth_error_after_last {α : Type} (n : Nat) (l : List α) :
     case cons hd tl ih =>
       rw [List.length_cons] at hlen
       rw [← hlen]
-      dsimp [nthError]; apply ih _; rfl
+      dsimp [nth?]; apply ih _; rfl
 
 attribute [autogradedProof 3] nth_error_after_last
 

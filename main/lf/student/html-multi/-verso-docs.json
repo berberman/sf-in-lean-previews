@@ -35,7 +35,7 @@
  "975": "<code>sillyfun_false (n : Nat) : sillyfun n = false</code>",
  "974": "<code>sillyfun (n : Nat) : Bool</code>",
  "973":
- "<code>nth_error_after_last {α : Type} (n : Nat) (l : List α) : l.length = n → nthError l n = none</code>",
+ "<code>nth_error_after_last {α : Type} (n : Nat) (l : List α) : l.length = n → nth? l n = none</code>",
  "972": "<code>n' ≤? m' = true</code>",
  "971": "<code>n' + 1 ≤? m' + 1 = true</code>",
  "970": "<code>n' + 1 ≤? n✝ + 1 = true</code>",
@@ -114,7 +114,7 @@
  "911":
  "<code>trans_eq_example'''''' (a b c d e f : Nat) : [a, b] = [c, d] → [c, d] = [e, f] → [a, b] = [e, f]</code>",
  "910":
- "<code>nth_error_always_none (l : List Nat) : (∀ (i : Nat), nthError l i = none) → l = []</code>",
+ "<code>nth?_always_none (l : List Nat) : (∀ (i : Nat), nth? l i = none) → l = []</code>",
  "91":
  "<code class=\"docstring\">Makes names from other namespaces visible without writing the namespace prefix.\n\nNames that are made available with `open` are visible within the current `section` or `namespace`\nblock. This makes referring to (type) definitions and theorems easier, but note that it can also\nmake [scoped instances], notations, and attributes from a different namespace available.\n\nThe `open` command can be used in a few different ways:\n\n* `open Some.Namespace.Path1 Some.Namespace.Path2` makes all non-protected names in\n  `Some.Namespace.Path1` and `Some.Namespace.Path2` available without the prefix, so that\n  `Some.Namespace.Path1.x` and `Some.Namespace.Path2.y` can be referred to by writing only `x` and\n  `y`.\n\n* `open Some.Namespace.Path hiding def1 def2` opens all non-protected names in `Some.Namespace.Path`\n  except `def1` and `def2`.\n\n* `open Some.Namespace.Path (def1 def2)` only makes `Some.Namespace.Path.def1` and\n  `Some.Namespace.Path.def2` available without the full prefix, so `Some.Namespace.Path.def3` would\n  be unaffected.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open Some.Namespace.Path renaming def1 → def1', def2 → def2'` same as `open Some.Namespace.Path\n  (def1 def2)` but `def1`/`def2`'s names are changed to `def1'`/`def2'`.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open scoped Some.Namespace.Path1 Some.Namespace.Path2` **only** opens [scoped instances],\n  notations, and attributes from `Namespace1` and `Namespace2`; it does **not** make any other name\n  available.\n\n* `open &lt;any of the open shapes above&gt; in` makes the names `open`-ed visible only in the next\n  command or expression.\n\n[scoped instance]: https://lean-lang.org/theorem_proving_in_lean4/type_classes.html#scoped-instances\n(Scoped instances in Theorem Proving in Lean)\n\n\n## Examples\n\n```lean\n/-- SKI combinators https://en.wikipedia.org/wiki/SKI_combinator_calculus -/\nnamespace Combinator.Calculus\n  def I (a : α) : α := a\n  def K (a : α) : β → α := fun _ =&gt; a\n  def S (x : α → β → γ) (y : α → β) (z : α) : γ := x z (y z)\nend Combinator.Calculus\n\nsection\n  -- open everything under `Combinator.Calculus`, *i.e.* `I`, `K` and `S`,\n  -- until the section ends\n  open Combinator.Calculus\n\n  theorem SKx_eq_K : S K x = I := rfl\nend\n\n-- open everything under `Combinator.Calculus` only for the next command (the next `theorem`, here)\nopen Combinator.Calculus in\ntheorem SKx_eq_K' : S K x = I := rfl\n\nsection\n  -- open only `S` and `K` under `Combinator.Calculus`\n  open Combinator.Calculus (S K)\n\n  theorem SKxy_eq_y : S K x y = y := rfl\n\n  -- `I` is not in scope, we have to use its full path\n  theorem SKxy_eq_Iy : S K x y = Combinator.Calculus.I y := rfl\nend\n\nsection\n  open Combinator.Calculus\n    renaming\n      I → identity,\n      K → konstant\n\n  #check identity\n  #check konstant\nend\n\nsection\n  open Combinator.Calculus\n    hiding S\n\n  #check I\n  #check K\nend\n\nsection\n  namespace Demo\n    inductive MyType\n    | val\n\n    namespace N1\n      scoped infix:68 \" ≋ \" =&gt; BEq.beq\n\n      scoped instance : BEq MyType where\n        beq _ _ := true\n\n      def Alias := MyType\n    end N1\n  end Demo\n\n  -- bring `≋` and the instance in scope, but not `Alias`\n  open scoped Demo.N1\n\n  #check Demo.MyType.val == Demo.MyType.val\n  #check Demo.MyType.val ≋ Demo.MyType.val\n  -- #check Alias -- unknown identifier 'Alias'\nend\n```\n</code>",
  "909":
@@ -240,60 +240,56 @@
  "<code>isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = false</code>",
  "829": "<code>Nat.add_zero (n : Nat) : n + 0 = n</code>",
  "828":
- "<code>Exercises.Church.exp_3 : exp three two = plus (mult two (mult two two)) one</code>",
- "827": "<code>Exercises.Church.exp_2 : exp three zero = one</code>",
- "826": "<code>Exercises.Church.exp_1 : exp two two = plus two two</code>",
- "825": "<code>Exercises.Church.exp (n m : CNat) : CNat</code>",
- "824":
- "<code>Exercises.Church.mult_3 : mult two three = plus three three</code>",
- "823":
- "<code>Exercises.Church.mult_2 : mult zero (plus three three) = zero</code>",
- "822": "<code>Exercises.Church.mult_1 : mult one one = one</code>",
- "821": "<code>Exercises.Church.mult (n m : CNat) : CNat</code>",
+ "<code>Church.exp_3 : exp three two = plus (mult two (mult two two)) one</code>",
+ "827": "<code>Church.exp_2 : exp three zero = one</code>",
+ "826": "<code>Church.exp_1 : exp two two = plus two two</code>",
+ "825": "<code>Church.exp (n m : CNat) : CNat</code>",
+ "824": "<code>Church.mult_3 : mult two three = plus three three</code>",
+ "823": "<code>Church.mult_2 : mult zero (plus three three) = zero</code>",
+ "822": "<code>Church.mult_1 : mult one one = one</code>",
+ "821": "<code>Church.mult (n m : CNat) : CNat</code>",
  "820": "<code class=\"docstring\">The universe level 2</code>",
  "82":
  "<code>isInversion_test3 : isInversion (Color.primary RGB.red) (Color.primary RGB.blue) = true</code>",
  "819": "<code class=\"docstring\">The universe level 1</code>",
  "818":
- "<code>Exercises.Church.plus_3 : plus (plus two two) three = plus one (plus three three)</code>",
- "817":
- "<code>Exercises.Church.plus_2 : plus two three = plus three two</code>",
- "816": "<code>Exercises.Church.plus_1 : plus zero one = one</code>",
- "815": "<code>Exercises.Church.plus (n m : CNat) : CNat</code>",
- "814": "<code>Exercises.Church.scc_3 : scc two = three</code>",
- "813": "<code>Exercises.Church.scc_2 : scc one = two</code>",
+ "<code>Church.plus_3 : plus (plus two two) three = plus one (plus three three)</code>",
+ "817": "<code>Church.plus_2 : plus two three = plus three two</code>",
+ "816": "<code>Church.plus_1 : plus zero one = one</code>",
+ "815": "<code>Church.plus (n m : CNat) : CNat</code>",
+ "814": "<code>Church.scc_3 : scc two = three</code>",
+ "813": "<code>Church.scc_2 : scc one = two</code>",
  "812": "<code>CNat</code>",
- "811": "<code>Exercises.Church.scc (n : CNat) : CNat</code>",
- "810": "<code>Exercises.Church.two' : CNat</code>",
+ "811": "<code>Church.scc (n : CNat) : CNat</code>",
+ "810": "<code>Church.two' : CNat</code>",
  "81":
  "<code>isInversion_test2 : isInversion Color.white Color.black = true</code>",
- "809": "<code>Exercises.Church.one' : CNat</code>",
- "808": "<code>Exercises.Church.zero' : CNat</code>",
- "807": "<code>Exercises.Church.three : CNat</code>",
- "806": "<code>Exercises.Church.zero : CNat</code>",
- "805": "<code>Exercises.Church.two : CNat</code>",
+ "809": "<code>Church.one' : CNat</code>",
+ "808": "<code>Church.zero' : CNat</code>",
+ "807": "<code>Church.three : CNat</code>",
+ "806": "<code>Church.zero : CNat</code>",
+ "805": "<code>Church.two : CNat</code>",
  "804": "<code>X → X</code>",
- "803": "<code>Exercises.Church.one : CNat</code>",
- "802": "<code>Exercises.Church.CNat : Type 1</code>",
+ "803": "<code>Church.one : CNat</code>",
+ "802": "<code>Church.CNat : Type 1</code>",
  "801":
- "<code>Exercises.curry_uncurry {α β γ : Type} (f : α × β → γ) {p : α × β} : prodUncurry (prodCurry f) p = f p</code>",
+ "<code>curry_uncurry {α β γ : Type} (f : α × β → γ) {p : α × β} : prodUncurry (prodCurry f) p = f p</code>",
  "800":
- "<code>Exercises.uncurry_curry {α β γ : Type} (f : α → β → γ) (x : α) (y : β) : prodCurry (prodUncurry f) x y = f x y</code>",
+ "<code>uncurry_curry {α β γ : Type} (f : α → β → γ) (x : α) (y : β) : prodCurry (prodUncurry f) x y = f x y</code>",
  "80":
  "<code>isInversion_test1 : isInversion Color.black Color.white = true</code>",
  "8": "<code>Day.monday : Day</code>",
  "799": "<code>α × β</code>",
  "798": "<code>α → β → γ</code>",
  "797":
- "<code>Exercises.prodUncurry {α β γ : Type} (f : α → β → γ) (p : α × β) : γ</code>",
+ "<code>prodUncurry {α β γ : Type} (f : α → β → γ) (p : α × β) : γ</code>",
  "796": "<code>α × β → γ</code>",
  "795":
- "<code>Exercises.prodCurry {α β γ : Type} (f : α × β → γ) (x : α) (y : β) : γ</code>",
- "794":
- "<code>Exercises.foldMap {α β : Type} (f : α → β) (l : List α) : List β</code>",
+ "<code>prodCurry {α β γ : Type} (f : α × β → γ) (x : α) (y : β) : γ</code>",
+ "794": "<code>foldMap {α β : Type} (f : α → β) (l : List α) : List β</code>",
  "793":
- "<code>Exercises.fold_length_correct {α : Type} (l : List α) : foldLength l = l.length</code>",
- "792": "<code>Exercises.foldLength {α : Type} (l : List α) : Nat</code>",
+ "<code>fold_length_correct {α : Type} (l : List α) : foldLength l = l.length</code>",
+ "792": "<code>foldLength {α : Type} (l : List α) : Nat</code>",
  "791": "<code>fold_plus : List Nat → Nat → Nat</code>",
  "790": "<code>plus3 : Nat → Nat</code>",
  "79": "<code>isInversion (c1 c2 : Color) : Bool</code>",
@@ -339,31 +335,31 @@
  "<code>test_filterEvenGt7_1 : filterEvenGt7 [1, 2, 6, 9, 10, 3, 12, 8] = [10, 12, 8]</code>",
  "766": "<code>filterEvenGt7 (l : List Nat) : List Nat</code>",
  "765": "<code>List Nat</code>",
- "764": "<code>countOddMembers' (l : List Nat) : Nat</code>",
+ "764": "<code>countOddMembers (l : List Nat) : Nat</code>",
  "763": "<code>test head = false</code>",
  "762":
- "<code>filter_cons_fail {α : Type} {test : α → Bool} {head : α} {tail : List α} (h : test head = false) :\n  filter test (head :: tail) = filter test tail</code>",
+ "<code>filter_cons_of_neg {α : Type} {test : α → Bool} {head : α} {tail : List α} (h : test head = false) :\n  filter test (head :: tail) = filter test tail</code>",
  "761": "<code>test head = true</code>",
  "760":
- "<code>filter_cons_success {α : Type} {test : α → Bool} {head : α} {tail : List α} (h : test head = true) :\n  filter test (head :: tail) = head :: filter test tail</code>",
+ "<code>filter_cons_of_pos {α : Type} {test : α → Bool} {head : α} {tail : List α} (h : test head = true) :\n  filter test (head :: tail) = head :: filter test tail</code>",
  "76": "<code>is_weekend (d : Day) : Bool</code>",
  "759":
  "<code>filter_nil {α : Type} {test : α → Bool} : filter test [] = []</code>",
- "758": "<code>lengthIs1 {α : Type} (l : List α) : Bool</code>",
+ "758": "<code>isLength1 {α : Type} (l : List α) : Bool</code>",
  "757": "<code>α → Bool</code>",
  "756":
  "<code>filter {α : Type} (test : α → Bool) (l : List α) : List α</code>",
  "755": "<code>α → a</code>",
  "754": "<code>α → α</code>",
  "753": "<code>doIt3Times {α : Type} (f : α → α) (n : α) : α</code>",
- "752": "<code>test_hdError2 : hdError [[1], [2]] = some [1]</code>",
- "751": "<code>test_hdError1 : hdError [1, 2] = some 1</code>",
+ "752": "<code>test_head?2 : head? [[1], [2]] = some [1]</code>",
+ "751": "<code>test_head?1 : head? [1, 2] = some 1</code>",
  "750":
- "<code>hdError_cons {α : Type} {head : α} {tail : List α} : hdError (head :: tail) = some head</code>",
+ "<code>head?_cons {α : Type} {head : α} {tail : List α} : head? (head :: tail) = some head</code>",
  "75": "<code>isRed' (c : Color) : Bool</code>",
- "749": "<code>hdError_nil {α : Type} : hdError [] = none</code>",
- "748": "<code>hdError {α : Type} (l : List α) : Option α</code>",
- "747": "<code>nthError {α : Type} (l : List α) (n : Nat) : Option α</code>",
+ "749": "<code>head?_nil {α : Type} : head? [] = none</code>",
+ "748": "<code>head? {α : Type} (l : List α) : Option α</code>",
+ "747": "<code>nth? {α : Type} (l : List α) (n : Nat) : Option α</code>",
  "746":
  "<code>OptionPlayground.Option.some {α : Type} (x : α) : Option α</code>",
  "745": "<code>OptionPlayground.Option.none {α : Type} : Option α</code>",
@@ -383,9 +379,10 @@
  "737": "<code>List (α × β)</code>",
  "736": "<code>unzip {α β : Type} (l : List (α × β)) : List α × List β</code>",
  "735":
- "<code>zip_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} : zip (x :: lx) (y :: ly) = (x, y) :: zip lx ly</code>",
- "734": "<code>zip_nil_l {α β : Type} (lx : List α) : zip lx [] = []</code>",
- "733": "<code>zip_nil_r {α β : Type} (ly : List β) : zip [] ly = []</code>",
+ "<code>zip_cons_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} : zip (x :: lx) (y :: ly) = (x, y) :: zip lx ly</code>",
+ "734": "<code>zip_nil_left {α β : Type} (lx : List α) : zip lx [] = []</code>",
+ "733":
+ "<code>zip_nil_right {α β : Type} (ly : List β) : zip [] ly = []</code>",
  "732": "<code>List β</code>",
  "731":
  "<code>zip {α β : Type} (lx : List α) (ly : List β) : List (α × β)</code>",
@@ -401,17 +398,17 @@
  "726": "<code>MyProd.snd {α β : Type} (self : MyProd α β) : β</code>",
  "725": "<code>MyProd.fst {α β : Type} (self : MyProd α β) : α</code>",
  "724": "<code>MyProd (α β : Type) : Type</code>",
- "723": "<code>rev_involutive {α : Type} (l : List α) : l.rev.rev = l</code>",
+ "723": "<code>reverse_reverse {α : Type} (l : List α) : l.rev.rev = l</code>",
  "722":
- "<code>rev_app_distr {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev</code>",
+ "<code>reverse_append {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev</code>",
  "721":
  "<code>List.length.{u_1} {α : Type u_1} : List α → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The length of a list.\n\nThis function is overridden in the compiler to `lengthTR`, which uses constant stack space.\n\nExamples:\n* `([] : List String).length = 0`\n* `[\"green\", \"brown\"].length = 2`\n</code>",
  "720":
- "<code>app_length {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).length = l₁.length + l₂.length</code>",
+ "<code>append_length {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).length = l₁.length + l₂.length</code>",
  "72": "<code>Color</code>",
  "719":
- "<code>app_assoc {α : Type} (l m n : List α) : l ++ m ++ n = l ++ (m ++ n)</code>",
- "718": "<code>app_nil_r {α : Type} (l : List α) : l ++ [] = l</code>",
+ "<code>append_assoc {α : Type} (l m n : List α) : l ++ m ++ n = l ++ (m ++ n)</code>",
+ "718": "<code>append_nil {α : Type} (l : List α) : l ++ [] = l</code>",
  "717":
  "<code>List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)</code>",
  "716": "<code>Type u</code>",

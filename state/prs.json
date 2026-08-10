@@ -1,5 +1,5 @@
 {
-  "main_sha": "9be0713e8c75944eb625ea7270c63c05ba1f95b7",
+  "main_sha": "9484da86256db4fa8a022b733b257fe21ea6670c",
   "prs": {
     "171": {
       "base_sha": "614820201c14922eb6dbd0636bdd141a546f2a59",
@@ -256,100 +256,6 @@
       "title": "Get ready for alpha testers",
       "url": "https://github.com/plclub/sf-in-lean/pull/206"
     },
-    "210": {
-      "base_sha": "9be0713e8c75944eb625ea7270c63c05ba1f95b7",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "fd535b3376fcf16ccd4f8efa788922aecef2f12e",
-      "preview_path": "pr/210/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31349144072",
-      "status": "published",
-      "title": "Induction polish",
-      "url": "https://github.com/plclub/sf-in-lean/pull/210"
-    },
-    "211": {
-      "base_sha": "9be0713e8c75944eb625ea7270c63c05ba1f95b7",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "c05b078c687e9905b64fa4a723d60dd497f8d019",
-      "preview_path": "pr/211/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31349202529",
-      "status": "published",
-      "title": "Poly: align naming with Lists and remove abbrevs",
-      "url": "https://github.com/plclub/sf-in-lean/pull/211"
-    },
     "213": {
       "base_sha": "ad2f7762187ca7a91b1e87b86a5e87bf6b907f6a",
       "changed_variants": [
@@ -445,7 +351,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
     },
     "216": {
-      "base_sha": "5e71da8cc32a77b495b33f358a27c2e0b28ca74b",
+      "base_sha": "9484da86256db4fa8a022b733b257fe21ea6670c",
       "changed_variants": [],
       "head_sha": "7e436034e9a33c794dc5a264f3812b48015181f9",
       "preview_path": "pr/216/head/",

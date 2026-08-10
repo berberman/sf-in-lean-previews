@@ -513,17 +513,17 @@
  "637": "<code>α → β</code>",
  "636": "<code>map {α β : Type} (f : α → β) (l : List α) : List β</code>",
  "635": "<code>List Nat</code>",
- "634": "<code>countOddMembers' (l : List Nat) : Nat</code>",
+ "634": "<code>countOddMembers (l : List Nat) : Nat</code>",
  "633": "<code>test head = false</code>",
  "632":
- "<code>filter_cons_fail {α : Type} {test : α → Bool} {head : α} {tail : List α} (h : test head = false) :\n  filter test (head :: tail) = filter test tail</code>",
+ "<code>filter_cons_of_neg {α : Type} {test : α → Bool} {head : α} {tail : List α} (h : test head = false) :\n  filter test (head :: tail) = filter test tail</code>",
  "631": "<code>test head = true</code>",
  "630":
- "<code>filter_cons_success {α : Type} {test : α → Bool} {head : α} {tail : List α} (h : test head = true) :\n  filter test (head :: tail) = head :: filter test tail</code>",
+ "<code>filter_cons_of_pos {α : Type} {test : α → Bool} {head : α} {tail : List α} (h : test head = true) :\n  filter test (head :: tail) = head :: filter test tail</code>",
  "63": "<code>Color.white : Color</code>",
  "629":
  "<code>filter_nil {α : Type} {test : α → Bool} : filter test [] = []</code>",
- "628": "<code>lengthIs1 {α : Type} (l : List α) : Bool</code>",
+ "628": "<code>isLength1 {α : Type} (l : List α) : Bool</code>",
  "627": "<code>α → Bool</code>",
  "626":
  "<code>filter {α : Type} (test : α → Bool) (l : List α) : List α</code>",
@@ -537,11 +537,12 @@
  "620":
  "<code>Option.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Optional values, which are either `some` around a value from the underlying type or `none`.\n\n`Option` can represent nullable types or computations that might fail. In the codomain of a function\ntype, it can also represent partiality.\n</code>",
  "62": "<code>Color.black : Color</code>",
- "619": "<code>nthError {α : Type} (l : List α) (n : Nat) : Option α</code>",
+ "619": "<code>nth? {α : Type} (l : List α) (n : Nat) : Option α</code>",
  "618":
- "<code>zip_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} : zip (x :: lx) (y :: ly) = (x, y) :: zip lx ly</code>",
- "617": "<code>zip_nil_l {α β : Type} (lx : List α) : zip lx [] = []</code>",
- "616": "<code>zip_nil_r {α β : Type} (ly : List β) : zip [] ly = []</code>",
+ "<code>zip_cons_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} : zip (x :: lx) (y :: ly) = (x, y) :: zip lx ly</code>",
+ "617": "<code>zip_nil_left {α β : Type} (lx : List α) : zip lx [] = []</code>",
+ "616":
+ "<code>zip_nil_right {α β : Type} (ly : List β) : zip [] ly = []</code>",
  "615": "<code>List β</code>",
  "614":
  "<code>zip {α β : Type} (lx : List α) (ly : List β) : List (α × β)</code>",
@@ -557,16 +558,16 @@
  "609": "<code>MyProd.snd {α β : Type} (self : MyProd α β) : β</code>",
  "608": "<code>MyProd.fst {α β : Type} (self : MyProd α β) : α</code>",
  "607": "<code>MyProd (α β : Type) : Type</code>",
- "606": "<code>rev_involutive {α : Type} (l : List α) : l.rev.rev = l</code>",
+ "606": "<code>reverse_reverse {α : Type} (l : List α) : l.rev.rev = l</code>",
  "605":
- "<code>rev_app_distr {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev</code>",
+ "<code>reverse_append {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev</code>",
  "604":
  "<code>List.length.{u_1} {α : Type u_1} : List α → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The length of a list.\n\nThis function is overridden in the compiler to `lengthTR`, which uses constant stack space.\n\nExamples:\n* `([] : List String).length = 0`\n* `[\"green\", \"brown\"].length = 2`\n</code>",
  "603":
- "<code>app_length {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).length = l₁.length + l₂.length</code>",
+ "<code>append_length {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).length = l₁.length + l₂.length</code>",
  "602":
- "<code>app_assoc {α : Type} (l m n : List α) : l ++ m ++ n = l ++ (m ++ n)</code>",
- "601": "<code>app_nil_r {α : Type} (l : List α) : l ++ [] = l</code>",
+ "<code>append_assoc {α : Type} (l m n : List α) : l ++ m ++ n = l ++ (m ++ n)</code>",
+ "601": "<code>append_nil {α : Type} (l : List α) : l ++ [] = l</code>",
  "600":
  "<code>List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)</code>",
  "60": "<code>RGB.blue : RGB</code>",
