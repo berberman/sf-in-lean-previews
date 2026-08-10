@@ -257,49 +257,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/206"
     },
     "213": {
-      "base_sha": "ad2f7762187ca7a91b1e87b86a5e87bf6b907f6a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "c098bbba5070061fbd8e38be5c9bb1bb72f20689",
+      "base_sha": "6500b32c12089bd6e75130e2af04ec94a64e857b",
+      "changed_variants": [],
+      "head_sha": "f3610e27b56a181aef05389a6493260e1aafed50",
       "preview_path": "pr/213/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31279332559",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Basics: rework the last exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/213"
     },
@@ -351,11 +314,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
     },
     "216": {
-      "base_sha": "9484da86256db4fa8a022b733b257fe21ea6670c",
+      "base_sha": "6500b32c12089bd6e75130e2af04ec94a64e857b",
       "changed_variants": [],
-      "head_sha": "7e436034e9a33c794dc5a264f3812b48015181f9",
+      "head_sha": "34acd4aaf0469f1ab7e8cafc34839da457eecf58",
       "preview_path": "pr/216/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31291706342",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31356077714",
       "status": "ci-failed",
       "title": "[WIP] Pass over Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
