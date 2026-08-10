@@ -1142,6 +1142,34 @@ details.sf-quiz-solution > .sf-quiz-solution-body {
   border-left: 3px solid var(--sf-rule, #ccc);
 }
 </style><style>
+details.sf-details {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.015);
+  border-radius: 2px;
+}
+details.sf-details > summary {
+  cursor: pointer;
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  color: var(--sf-heading, inherit);
+  list-style: none;
+}
+details.sf-details > summary::-webkit-details-marker { display: none; }
+details.sf-details > summary::before {
+  content: "▸ ";
+  display: inline-block;
+  width: 1em;
+  transition: transform 120ms ease-in-out;
+}
+details.sf-details[open] > summary::before {
+  content: "▾ ";
+}
+details.sf-details[open] {
+  background: rgba(0, 0, 0, 0.03);
+}
+</style><style>
 
 .hl.lean {
   white-space: pre;
@@ -6071,7 +6099,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6080,7 +6108,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -7674,127 +7702,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Natural Numbers"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.Traveler.ticketed":
-   [{"id": "NatPlayground___Airport___Traveler___ticketed",
-     "data":
-     {"/Basics/#NatPlayground___Airport___Traveler___ticketed":
-      {"display": "ticketed",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.Traveler.noTicket":
-   [{"id": "NatPlayground___Airport___Traveler___noTicket",
-     "data":
-     {"/Basics/#NatPlayground___Airport___Traveler___noTicket":
-      {"display": "noTicket",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.Traveler.checkedIn":
-   [{"id": "NatPlayground___Airport___Traveler___checkedIn",
-     "data":
-     {"/Basics/#NatPlayground___Airport___Traveler___checkedIn":
-      {"display": "checkedIn",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.Traveler":
-   [{"id": "NatPlayground___Airport___Traveler",
-     "data":
-     {"/Basics/#NatPlayground___Airport___Traveler":
-      {"display": "Traveler",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.ScreeningStatus.notScreened":
-   [{"id": "NatPlayground___Airport___ScreeningStatus___notScreened",
-     "data":
-     {"/Basics/#NatPlayground___Airport___ScreeningStatus___notScreened":
-      {"display": "notScreened",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.ScreeningStatus.cleared":
-   [{"id": "NatPlayground___Airport___ScreeningStatus___cleared",
-     "data":
-     {"/Basics/#NatPlayground___Airport___ScreeningStatus___cleared":
-      {"display": "cleared",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.ScreeningStatus.blocked":
-   [{"id": "NatPlayground___Airport___ScreeningStatus___blocked",
-     "data":
-     {"/Basics/#NatPlayground___Airport___ScreeningStatus___blocked":
-      {"display": "blocked",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.ScreeningStatus":
-   [{"id": "NatPlayground___Airport___ScreeningStatus",
-     "data":
-     {"/Basics/#NatPlayground___Airport___ScreeningStatus":
-      {"display": "ScreeningStatus",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.BagContent.ordinary":
-   [{"id": "NatPlayground___Airport___BagContent___ordinary",
-     "data":
-     {"/Basics/#NatPlayground___Airport___BagContent___ordinary":
-      {"display": "ordinary",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.BagContent.battery":
-   [{"id": "NatPlayground___Airport___BagContent___battery",
-     "data":
-     {"/Basics/#NatPlayground___Airport___BagContent___battery":
-      {"display": "battery",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.BagContent":
-   [{"id": "NatPlayground___Airport___BagContent",
-     "data":
-     {"/Basics/#NatPlayground___Airport___BagContent":
-      {"display": "BagContent",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
      "address": "/Basics/"}],
    "Nat.odd_def":
    [{"id": "Nat___odd_def",

@@ -4248,7 +4248,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -4257,7 +4257,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -5851,127 +5851,6 @@
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Natural Numbers"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.Traveler.ticketed":
-   [{"id": "NatPlayground___Airport___Traveler___ticketed",
-     "data":
-     {"/Basics/#NatPlayground___Airport___Traveler___ticketed":
-      {"display": "ticketed",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.Traveler.noTicket":
-   [{"id": "NatPlayground___Airport___Traveler___noTicket",
-     "data":
-     {"/Basics/#NatPlayground___Airport___Traveler___noTicket":
-      {"display": "noTicket",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.Traveler.checkedIn":
-   [{"id": "NatPlayground___Airport___Traveler___checkedIn",
-     "data":
-     {"/Basics/#NatPlayground___Airport___Traveler___checkedIn":
-      {"display": "checkedIn",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.Traveler":
-   [{"id": "NatPlayground___Airport___Traveler",
-     "data":
-     {"/Basics/#NatPlayground___Airport___Traveler":
-      {"display": "Traveler",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.ScreeningStatus.notScreened":
-   [{"id": "NatPlayground___Airport___ScreeningStatus___notScreened",
-     "data":
-     {"/Basics/#NatPlayground___Airport___ScreeningStatus___notScreened":
-      {"display": "notScreened",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.ScreeningStatus.cleared":
-   [{"id": "NatPlayground___Airport___ScreeningStatus___cleared",
-     "data":
-     {"/Basics/#NatPlayground___Airport___ScreeningStatus___cleared":
-      {"display": "cleared",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.ScreeningStatus.blocked":
-   [{"id": "NatPlayground___Airport___ScreeningStatus___blocked",
-     "data":
-     {"/Basics/#NatPlayground___Airport___ScreeningStatus___blocked":
-      {"display": "blocked",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.ScreeningStatus":
-   [{"id": "NatPlayground___Airport___ScreeningStatus",
-     "data":
-     {"/Basics/#NatPlayground___Airport___ScreeningStatus":
-      {"display": "ScreeningStatus",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.BagContent.ordinary":
-   [{"id": "NatPlayground___Airport___BagContent___ordinary",
-     "data":
-     {"/Basics/#NatPlayground___Airport___BagContent___ordinary":
-      {"display": "ordinary",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.BagContent.battery":
-   [{"id": "NatPlayground___Airport___BagContent___battery",
-     "data":
-     {"/Basics/#NatPlayground___Airport___BagContent___battery":
-      {"display": "battery",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Airport.BagContent":
-   [{"id": "NatPlayground___Airport___BagContent",
-     "data":
-     {"/Basics/#NatPlayground___Airport___BagContent":
-      {"display": "BagContent",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Airport Exercise"]}},
      "address": "/Basics/"}],
    "Nat.odd_def":
    [{"id": "Nat___odd_def",

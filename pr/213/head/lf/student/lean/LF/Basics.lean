@@ -918,14 +918,25 @@ inductive Nat : Type where
   | zero
   | succ (n : Nat)
 
--- The following lines make ordinary numerals such as 0, 1, and 2 work with
--- our `Nat` type.You can ignore the details for now.
+-- With a little Lean magic, we can also arrange that ordinary numerals such
+-- as 0, 1, and 2 will be interpreted as values of our new `Nat` type whenever
+-- this is sensible in context.
+
+-- The technical details of how this is done are not important for present
+-- purposes, so we won't spend time explaining them here. Instead, we'll mark
+-- them with `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and hide
+-- them in a collapsed text segment in the HTML presentation. Click on the
+-- triangle in the HTML if you want to have a look.
+
+-- THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
 
 def ofNat : _root_.Nat → Nat
   | .zero => .zero
   | .succ n => .succ (ofNat n)
 
 instance (n : _root_.Nat) : OfNat Nat n := ⟨ofNat n⟩
+
+-- END DETAILS
 
 -- We'll define some shorthands for numbers, putting them in the `Nat`
 -- namespace so we don't need to use `.` notation everywhere.
@@ -1770,21 +1781,17 @@ theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
 
 -- ### Airport Exercise
 
--- Now that we have learned the basic features of Lean 4, let's close the
+-- Now that we have learned some basic features of Lean, let's close the
 -- chapter with an exercise that brings them together.
-
--- In a theorem prover like Lean, we can do more than just implement a system
--- — we can also state precisely how we expect the system to behave and prove
--- that our implementation satisfies that expectation.
 
 -- In this exercise, we will model part of a database storing information
 -- about travelers passing through an airport. The database contains one entry
 -- per traveler, recording information about where the traveler is in the
 -- airport process and the contents of their luggage.
 
--- We will implement several operations on these entries, state properties
--- that describe how the database should behave, and prove that the
--- implementation satisfies them.
+-- We will implement several operations on these entries, state intended
+-- properties of the database's behavior, and prove that the implementation
+-- satisfies them.
 
 namespace Airport
 
@@ -1805,7 +1812,7 @@ inductive ScreeningStatus : Type where
   | cleared
   | blocked
 
--- Next, we consider the possible stages of the airport process a traveler can
+-- Next, we define the possible stages of the airport process a traveler can
 -- inhabit:
 
 -- - they have not yet purchased a ticket;
@@ -1816,8 +1823,8 @@ inductive ScreeningStatus : Type where
 --   status of their bag.
 
 inductive Traveler : Type where
-  | noTicket (bagContent : BagContent)
-  | ticketed (bagContent : BagContent)
+  | noTicket  (bagContent : BagContent)
+  | ticketed  (bagContent : BagContent)
   | checkedIn (bagContent : BagContent) (screeningStatus : ScreeningStatus)
 
 -- Buying a ticket changes a traveler with no ticket into a ticketed traveler.
@@ -1826,13 +1833,11 @@ inductive Traveler : Type where
 
 -- ### Exercise (1 star): buyTicket ⭐
 
--- Define `buyTicket`
-
 def buyTicket (t : Traveler) : Traveler := sorry
 example : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := sorry
 example : buyTicket (.checkedIn .battery .blocked) = .checkedIn .battery .blocked := sorry
 
--- The simplification rules for `buyTicket`:
+-- Here are the simplification rules for `buyTicket`:
 
 theorem buyTicket_noTicket (bagContent : BagContent) :
     buyTicket (.noTicket bagContent) = .ticketed bagContent := sorry
@@ -1846,9 +1851,9 @@ theorem buyTicket_checkedIn (bagContent : BagContent)
 
 attribute [irreducible] buyTicket
 
--- An operation is called *idempotent* when performing it twice has the same
--- effect as performing it once. The first property we will prove about our
--- system is that purchasing a ticket is an idempotent operation.
+-- The first property we will prove about our system is that purchasing a
+-- ticket is an idempotent operation (i.e., performing it twice has the same
+-- effect as performing it once).
 
 -- ### Exercise (2 stars): buy_ticket_idempotent ⭐⭐
 
@@ -1856,12 +1861,11 @@ theorem buyTicket_idempotent (t : Traveler) :
     buyTicket (buyTicket t) = buyTicket t := by
   sorry
 
--- A traveler can check in only after buying a ticket, and their bag is marked
--- as needing inspection. Calling checkIn in any other state does nothing.
+-- A traveler can check in only after buying a ticket, and their bag is then
+-- marked as needing inspection. Calling `checkIn` in any other state does
+-- nothing.
 
 -- ### Exercise (1 star): checkIn ⭐
-
--- Define `checkIn`.
 
 def checkIn (t : Traveler) : Traveler := sorry
 
@@ -1884,8 +1888,7 @@ theorem checkIn_checkedIn (bagContent : BagContent)
 attribute [irreducible] checkIn
 
 -- A traveler who does not yet have a ticket can buy one and then check in.
--- After doing so, the traveler is checked in and their bag needs to be
--- screened.
+-- After this, the traveler is checked in and their bag needs to be screened.
 
 -- ### Exercise (1 star): buy_ticket_then_check_in ⭐
 
@@ -1925,8 +1928,8 @@ attribute [irreducible] inspectBag
 
 -- ### Exercise (2 stars): inspect_bag_idempotent ⭐⭐
 
--- Inspecting the same unchanged bag twice has the same effect as inspecting
--- it once.
+-- Show that tnspecting the same unchanged bag twice has the same effect as
+-- inspecting it once.
 
 theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspectBag t := by
   sorry
@@ -1963,7 +1966,7 @@ attribute [irreducible] replaceBag
 -- in general, commute: the order in which the two operations are performed
 -- can affect the result.
 
--- But are there cases in which the two operations **do** commute?
+-- But are there cases in which the two operations *do* commute?
 
 -- Yes. If the traveler has not checked in, `inspectBag` has no effect.
 -- Therefore, whether we inspect the bag before or after replacing it makes no
