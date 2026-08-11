@@ -584,6 +584,53 @@
       "status": "published",
       "title": "Tackle dev comments in `Lists`",
       "url": "https://github.com/plclub/sf-in-lean/pull/232"
+    },
+    "234": {
+      "base_sha": "b8fb67d1d7c2f73f1463691310bf9ba4b0ccf16d",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "d8b3e3b95ee2e6f1cb285bdba05b4d9a46f011d5",
+      "preview_path": "pr/234/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31520206956",
+      "status": "published",
+      "title": "Use Lean terminology for types",
+      "url": "https://github.com/plclub/sf-in-lean/pull/234"
     }
   },
   "schema": 3
