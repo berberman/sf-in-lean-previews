@@ -2080,7 +2080,7 @@
  "1358": "<code>Ev' m</code>",
  "1357": "<code>Ev' n</code>",
  "1356":
- "<code>Ev'.ev'_sum (n m : Nat) (Hn : Ev' n) (Hm : Ev' m) : Ev' (n + m)</code>",
+ "<code>Ev'.ev'_sum (n m : Nat) (h₁ : Ev' n) (h₂ : Ev' m) : Ev' (n + m)</code>",
  "1355": "<code>Ev'.ev'_2 : Ev' 2</code>",
  "1354": "<code>Ev'.ev'_0 : Ev' 0</code>",
  "1353": "<code>Ev' : Nat → Prop</code>",
@@ -2190,7 +2190,7 @@
  "128": "<code>NatPlayground.Nat.four : Nat</code>",
  "1279": "<code>Nat → Prop</code>",
  "1278": "<code>Ev n</code>",
- "1277": "<code>Ev.ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)</code>",
+ "1277": "<code>Ev.ev_succ_succ (n : Nat) (h : Ev n) : Ev (n + 2)</code>",
  "1276": "<code>Ev.ev_0 : Ev 0</code>",
  "1275": "<code>Ev : Nat → Prop</code>",
  "1274":
@@ -2200,10 +2200,10 @@
  "1272":
  "<code>Perm3.perm3_swap12 {α : Type} (a b c : α) : Perm3 [a, b, c] [b, a, c]</code>",
  "1271": "<code>Perm3 {α : Type} : List α → List α → Prop</code>",
- "1270": "<code>collatz' : Prop</code>",
+ "1270": "<code>Collatz' : Prop</code>",
  "127": "<code>NatPlayground.Nat.three : Nat</code>",
- "1269": "<code>cms (n m : Nat) : Prop</code>",
- "1268": "<code>cs (n m : Nat) : Prop</code>",
+ "1269": "<code>Cms (n m : Nat) : Prop</code>",
+ "1268": "<code>Cs (n m : Nat) : Prop</code>",
  "1267":
  "<code>ClosReflTrans.rt_trans {α : Type} {R : α → α → Prop} (x y z : α) :\n  ClosReflTrans R x y → ClosReflTrans R y z → ClosReflTrans R x z</code>",
  "1266":
@@ -2237,7 +2237,7 @@
  "<code>LePlayground.Le.step (n m : Nat) : Le n m → Le n (m + 1)</code>",
  "1245": "<code>LePlayground.Le.refl (n : Nat) : Le n n</code>",
  "1244": "<code>LePlayground.Le : Nat → Nat → Prop</code>",
- "1243": "<code>collatz : Prop</code>",
+ "1243": "<code>Collatz : Prop</code>",
  "1242":
  "<code>CollatzHoldsFor.chf_odd (n : Nat) : n.even = false → CollatzHoldsFor (3 * n + 1) → CollatzHoldsFor n</code>",
  "1241":

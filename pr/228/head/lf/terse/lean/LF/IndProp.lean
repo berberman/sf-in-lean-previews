@@ -370,7 +370,7 @@ example : CollatzHoldsFor 12 := by
 -- The Collatz conjecture then states that the sequence
 -- beginning from *any* positive number reaches `1`:
 
-def collatz := ∀ n, n ≠ 0 → CollatzHoldsFor n
+def Collatz := ∀ n, n ≠ 0 → CollatzHoldsFor n
 
 -- If you succeed in proving this conjecture, you've got a
 -- bright future as a number theorist! But don't spend too long
@@ -430,7 +430,7 @@ end LePlayground
 
 -- In Lean this looks as follows:
 
-inductive ClosTrans {α: Type} (R: α → α → Prop) : α → α → Prop where
+inductive ClosTrans {α : Type} (R : α → α → Prop) : α → α → Prop where
   | t_step (x y : α) :
       R x y →
       ClosTrans R x y
@@ -495,7 +495,7 @@ example : AncestorOf .sage .moss := by
 --   —————————————————————————————————————————————— (rt_trans)
 --              ClosReflTrans R x z
 
-inductive ClosReflTrans {α: Type} (R: α → α → Prop) : α → α → Prop where
+inductive ClosReflTrans {α : Type} (R : α → α → Prop) : α → α → Prop where
   | rt_step (x y : α) :
       R x y →
       ClosReflTrans R x y
@@ -510,20 +510,20 @@ inductive ClosReflTrans {α: Type} (R: α → α → Prop) : α → α → Prop 
 -- Collatz conjecture. First we define a binary relation
 -- corresponding to the "Collatz step function" `csf`:
 
-def cs (n m : Nat) : Prop := csf n = m
+def Cs (n m : Nat) : Prop := csf n = m
 
 -- This Collatz step relation can be used in conjunction with
 -- the reflexive and transitive closure operation to define a
--- *Collatz multi-step* (`cms`) relation, expressing that a
+-- *Collatz multi-step* (`Cms`) relation, expressing that a
 -- number `n` reaches another number `m` in zero or more
 -- Collatz steps:
 
-def cms (n m : Nat) : Prop := ClosReflTrans cs n m
-def collatz' : Prop := ∀ (n : Nat), n ≠ 0 → cms n 1
+def Cms (n m : Nat) : Prop := ClosReflTrans Cs n m
+def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → Cms n 1
 
 -- Note to developers:
 --     HIDE: CH: Would it be helpful to add an exercise later
---     proving cms equivalent to CollatzHoldsFor
+--     proving Cms equivalent to CollatzHoldsFor
 
 -- ### Example: Permutations
 
@@ -603,7 +603,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 
 inductive Ev : Nat → Prop where
   | ev_0                              : Ev 0
-  | ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)
+  | ev_succ_succ (n : Nat) (h : Ev n) : Ev (n + 2)
 
 -- There are both similarities and a few differences between
 -- inductive *properties* like `Ev` and the inductive *types*
@@ -624,7 +624,7 @@ inductive Ev : Nat → Prop where
 -- "evidence constructors":
 
 #check (Ev.ev_0) -- Ev 0
-#check Ev.ev_succ_succ -- ∀ (n : Nat) (H : Ev n) : Ev (n + 2)
+#check Ev.ev_succ_succ -- ∀ (n : Nat) (h : Ev n) : Ev (n + 2)
 
 -- These evidence constructors can be thought of as "primitive
 -- evidence of evenness", and they can be used later on just
@@ -716,11 +716,11 @@ theorem Perm3_rev' : Perm3 [1, 2, 3] [3, 2, 1] := by
 theorem ev_inversion : ∀ (n : Nat),
     Ev n →
     (n = 0) ∨ ∃ n', n = n' + 2 ∧ Ev n' := by
-    intro n H
-    cases H
+    intro n h
+    cases h
     case ev_0 =>
       left; rfl
-    case ev_succ_succ n H =>
+    case ev_succ_succ n h =>
       right; exists n
 
 -- Facts like this are often called "inversion lemmas" because

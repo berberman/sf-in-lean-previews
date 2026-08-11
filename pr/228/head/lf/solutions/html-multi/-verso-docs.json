@@ -2401,7 +2401,7 @@
  "1686": "<code>Ev' m</code>",
  "1685": "<code>Ev' n</code>",
  "1684":
- "<code>Ev'.ev'_sum (n m : Nat) (Hn : Ev' n) (Hm : Ev' m) : Ev' (n + m)</code>",
+ "<code>Ev'.ev'_sum (n m : Nat) (h₁ : Ev' n) (h₂ : Ev' m) : Ev' (n + m)</code>",
  "1683": "<code>Ev'.ev'_2 : Ev' 2</code>",
  "1682": "<code>Ev'.ev'_0 : Ev' 0</code>",
  "1681": "<code>Ev' : Nat → Prop</code>",
@@ -2550,7 +2550,7 @@
  "1574": "<code>EvPlayground.Ev : Nat → Prop</code>",
  "1573": "<code>Nat → Prop</code>",
  "1572": "<code>Ev n</code>",
- "1571": "<code>Ev.ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)</code>",
+ "1571": "<code>Ev.ev_succ_succ (n : Nat) (h : Ev n) : Ev (n + 2)</code>",
  "1570": "<code>Ev.ev_0 : Ev 0</code>",
  "157": "<code>NatPlayground.Nat.two : NatPlayground.Nat</code>",
  "1569": "<code>Ev : Nat → Prop</code>",
@@ -2572,9 +2572,9 @@
  "1560":
  "<code>ClosReflTransSym {α : Type} (R : α → α → Prop) : α → α → Prop</code>",
  "156": "<code>NatPlayground.Nat.one : NatPlayground.Nat</code>",
- "1559": "<code>collatz' : Prop</code>",
- "1558": "<code>cms (n m : Nat) : Prop</code>",
- "1557": "<code>cs (n m : Nat) : Prop</code>",
+ "1559": "<code>Collatz' : Prop</code>",
+ "1558": "<code>Cms (n m : Nat) : Prop</code>",
+ "1557": "<code>Cs (n m : Nat) : Prop</code>",
  "1556":
  "<code>ClosReflTrans.rt_trans {α : Type} {R : α → α → Prop} (x y z : α) :\n  ClosReflTrans R x y → ClosReflTrans R y z → ClosReflTrans R x z</code>",
  "1555":
@@ -2609,7 +2609,7 @@
  "<code>LePlayground.Le.step (n m : Nat) : Le n m → Le n (m + 1)</code>",
  "1534": "<code>LePlayground.Le.refl (n : Nat) : Le n n</code>",
  "1533": "<code>LePlayground.Le : Nat → Nat → Prop</code>",
- "1532": "<code>collatz : Prop</code>",
+ "1532": "<code>Collatz : Prop</code>",
  "1531":
  "<code>CollatzHoldsFor.chf_odd (n : Nat) : n.even = false → CollatzHoldsFor (3 * n + 1) → CollatzHoldsFor n</code>",
  "1530":

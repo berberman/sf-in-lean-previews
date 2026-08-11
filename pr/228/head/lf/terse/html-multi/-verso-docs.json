@@ -27,7 +27,7 @@
  "98": "<code>Playground.allZero (nb : Nibble) : Bool</code>",
  "979": "<code>ev_4 : Ev 4</code>",
  "978": "<code>Ev n</code>",
- "977": "<code>Ev.ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)</code>",
+ "977": "<code>Ev.ev_succ_succ (n : Nat) (h : Ev n) : Ev (n + 2)</code>",
  "976": "<code>Ev.ev_0 : Ev 0</code>",
  "975": "<code>Ev : Nat → Prop</code>",
  "974":
@@ -37,10 +37,10 @@
  "972":
  "<code>Perm3.perm3_swap12 {α : Type} (a b c : α) : Perm3 [a, b, c] [b, a, c]</code>",
  "971": "<code>Perm3 {α : Type} : List α → List α → Prop</code>",
- "970": "<code>collatz' : Prop</code>",
+ "970": "<code>Collatz' : Prop</code>",
  "97": "<code>Bit</code>",
- "969": "<code>cms (n m : Nat) : Prop</code>",
- "968": "<code>cs (n m : Nat) : Prop</code>",
+ "969": "<code>Cms (n m : Nat) : Prop</code>",
+ "968": "<code>Cs (n m : Nat) : Prop</code>",
  "967":
  "<code>ClosReflTrans.rt_trans {α : Type} {R : α → α → Prop} (x y z : α) :\n  ClosReflTrans R x y → ClosReflTrans R y z → ClosReflTrans R x z</code>",
  "966":
@@ -73,7 +73,7 @@
  "946": "<code>LePlayground.Le.step (n m : Nat) : Le n m → Le n (m + 1)</code>",
  "945": "<code>LePlayground.Le.refl (n : Nat) : Le n n</code>",
  "944": "<code>LePlayground.Le : Nat → Nat → Prop</code>",
- "943": "<code>collatz : Prop</code>",
+ "943": "<code>Collatz : Prop</code>",
  "942":
  "<code>CollatzHoldsFor.chf_odd (n : Nat) : n.even = false → CollatzHoldsFor (3 * n + 1) → CollatzHoldsFor n</code>",
  "941":
