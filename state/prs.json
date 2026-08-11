@@ -406,6 +406,16 @@
       "status": "ci-failed",
       "title": "Draft PR for translating preface and postscript",
       "url": "https://github.com/plclub/sf-in-lean/pull/227"
+    },
+    "228": {
+      "base_sha": "66265d3e43e5847eb573ba1aa6b0509f9fa291ab",
+      "changed_variants": [],
+      "head_sha": "6a408291137178dee8354b0e9d9eebd8eea17419",
+      "preview_path": "pr/228/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Polish IndProp",
+      "url": "https://github.com/plclub/sf-in-lean/pull/228"
     }
   },
   "schema": 3
