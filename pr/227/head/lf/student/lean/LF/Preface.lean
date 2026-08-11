@@ -202,9 +202,11 @@ import LF.SFLCompat
 
 -- The Visual Studio Code IDE is the recommended platform for using Lean.
 
+-- - Clone the [SF-in-Lean git repo](https://github.com/plclub/sf-in-lean)
 -- - Install VS Code if needed
 -- - From the Extensions tab of VSCode, install the Lean 4 Extension
 -- - Wait for Lean to build the project
+-- - XXXXXX more needed
 
 -- ### Exercises
 
@@ -238,20 +240,19 @@ import LF.SFLCompat
 -- some readers. Advanced exercises offer an extra challenge and a deeper cut
 -- at the ideas.
 
--- ### Recommended Citation Format
+-- ### Citation Format
 
 -- If you want to refer to this volume in your own writing, please do so as
 -- follows:
 
--- @book            {$FIRSTAUTHOR:SF$VOLUMENUMBER,
--- author       =   {$AUTHORS},
--- editor       =   {Benjamin C. Pierce},
--- title        =   "$VOLUMENAME",
--- series       =   "Software Foundations",
--- volume       =   "$VOLUMENUMBER",
--- year         =   "$VOLUMEYEAR",
+-- @book            {SFL:1,
+-- author       =   {Mike Hicks and Benjamin C. Pierce and the SF-in-Lean team},
+-- title        =   "Logical Foundations",
+-- series       =   "Software Foundations in Lean",
+-- volume       =   "1",
+-- year         =   "2026",
 -- publisher    =   "Electronic textbook",
--- note         =   {Version $VERSION, \URL<http://softwarefoundations.cis.upenn.edu>}
+-- note         =   {Version 0.1.0, \URL<https://github.com/plclub/sf-in-lean>}
 -- }
 
 -- ## For Potential Contributors
@@ -271,7 +272,6 @@ import LF.SFLCompat
 
 -- ## Acknowledgements
 
--- Development of the *Software Foundations* series has been supported, in
--- part, by the National Science Foundation under the NSF Expeditions grant
--- 1521523, *The Science of Deep Specification*.
+-- See `ACKNOWLEDGEMENTS.md` in the [SF-in-Lean git
+-- repo](https://github.com/plclub/sf-in-lean).
 

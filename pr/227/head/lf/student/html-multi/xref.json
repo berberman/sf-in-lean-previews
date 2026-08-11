@@ -599,22 +599,6 @@
        {"title": "Practicalities", "shortTitle": null, "number": "3"},
        {"title": "System Requirements", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
-   "Logical-Foundations--Preface--Practicalities--Recommended-Citation-Format":
-   [{"id":
-     "Logical-Foundations--Preface--Practicalities--Recommended-Citation-Format",
-     "data":
-     {"title": "Recommended Citation Format",
-      "shortTitle": null,
-      "sectionNum": "1.3.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Practicalities", "shortTitle": null, "number": "3"},
-       {"title": "Recommended Citation Format",
-        "shortTitle": null,
-        "number": "3"}]},
-     "address": "/Preface/"}],
    "Logical-Foundations--Preface--Practicalities--Exercises":
    [{"id": "Logical-Foundations--Preface--Practicalities--Exercises",
      "data":
@@ -627,6 +611,19 @@
        {"title": "Preface", "shortTitle": null, "number": "1"},
        {"title": "Practicalities", "shortTitle": null, "number": "3"},
        {"title": "Exercises", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Citation-Format":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Citation-Format",
+     "data":
+     {"title": "Citation Format",
+      "shortTitle": null,
+      "sectionNum": "1.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Citation Format", "shortTitle": null, "number": "3"}]},
      "address": "/Preface/"}],
    "Logical-Foundations--Preface--Practicalities":
    [{"id": "Logical-Foundations--Preface--Practicalities",
@@ -3847,7 +3844,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero",
+   [{"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -3862,7 +3859,7 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero-next",
+    {"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -8238,7 +8235,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -8249,7 +8246,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",

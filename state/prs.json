@@ -380,9 +380,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "804172dc1c1f14c174b9418591b60f755810ee5b",
+      "head_sha": "8546dc97fe476d43e89b5251ab0dc1b3d46c8641",
       "preview_path": "pr/227/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31525775180",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31547768962",
       "status": "published",
       "title": "Draft PR for translating preface and postscript",
       "url": "https://github.com/plclub/sf-in-lean/pull/227"
