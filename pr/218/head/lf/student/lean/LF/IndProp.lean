@@ -5,149 +5,6 @@ import LF.SFLCompat
 
 -- # IndProp: Inductively Defined Propositions
 
--- Note to developers:
---     `HIDE: BCP 25: After teaching the chapter this semester, I feel
---     that (a) the Ev example, while arguably suboptimal, actually works
---     acceptably well. (I just wish that the n in ``ev_succ_succ` n H` was not
---     two smaller than the n that is being shown to be even -- that's
---     always awkward.  Wonder if there is some clever way around that...)
---
---     However, (b) the chapter is very long, and quite a few of the
---     exercises are hard, especially if you do as I did this year and
---     require the advanced exercises for everybody (on the assumption
---     that they could get plenty of help from LLMs, etc.).  I think it
---     really needs to be at least significantly trimmed, if not split up.`
---
---     `HIDE: MRC 3/22: I offer a few remarks. I'm putting them here, above
---     the BCP'21 comment, not to say that they are in any way more
---     important; rather, just to preserve some chronological legibility.
---
---     - This chapter is an outlier in length. It now has the maximum line
---       length (in the FULL version) of any chapter in LF, at about 2300
---       LoC. That's a z-score of about 1.75 for the "blue arrow" chapters
---       in the dependency diagram.
---
---     - This chapter has 39 exercises, of which 25 (!) are optional.
---
---     - The running example of evenness is known to be uncompelling
---       because it is representable without inductively-defined
---       propositions. There do exist compelling examples:
---
---       + Functions like `factorial` whose "natural" definitions are not
---         structurally recursive. [Coq'Art 8.4]  [BCP 25: FWIW, I don't
---         find the "natural" definition of factorial suitable for present
---         purposes: the reasons it is better and more natural than a
---         simple fixpoint seem rather subtle.]
---
---       + Partial functions.
---
---       + Relations (that are not strictly functions).
---
---     I have a couple of personal opinions based on those observations:
---
---     - I favor BCP'21's "path 1" of de-emphasizing (to the extent
---       perhaps of eliminating) evenness.
---
---     - I favor re-factoring this chapter into two files, with a main
---       (blue) path that covers the essentials without cluttering
---       optional exercises throughout the file.`
---
---     HIDE: BCP '21: This chapter has been the subject of a lot of discussion
---     over the past couple of years, with lots of people expressing
---     dissatisfaction with the use of evenness as a main example. In this
---     revision, I have attempted a compromise: keeping evenness as the
---     running example (because, aside from the artificiality of the example,
---     it is pretty well polished) but preceding it with short discussions of
---     several better-motivated examples.
---
---     I'm not yet convinced that this goes far enough, though (I was not
---     satisfied with my lecture on this part of the chapter, even after
---     adding these examples, though I did do some further streamlining
---     afterward and there are some further opportunities for streamlining --
---     perhaps enough to make the present treatment palatible). I see three
---     possible paths forward:
---
---     - 1. Choose a better example and simply replace all the even stuff. (But
---          which one is better? I don't think we've found it yet.)
---
---     - 2. Mix and match -- use different examples from the top of the chapter to
---          make different points.
---
---     - 3. Leave the examples as-is but streamline as much as possible so we don't
---          get stuck in them.
---
---     Here, for reference, is the whole discussion from before:
---
---     -----------------
---
---     CH: In my Lyon course it became obvious to pretty much everyone that
---     the inductive definition of evenness that this chapter uses
---     intensiviely is so silly and artificial that it makes understanding
---     very hard for most students. There's zero need to define evenness
---     inductively, when `∃ k, n = 2*k` does the job fine, so inductive
---     propositions seem to students not something useful, but just
---     self-inflicted pain. All the inductive propositions, up to subsequences
---     and the matching on Regular Expressions at the end, have this useless
---     self-inflicted pain flavour. So I returned to this the following
---     morning and showed to the students how to define reflexive-transitive
---     closure as an inductive relation, and afterwards the were able to
---     follow much better. The code I quickly hacked up for this is at:
---     https://prosecco.gforge.inria.fr/personal/hritcu/teaching/lyon2019/Multi.v
---
---     BCP: Yes, this chapter needs a revamp! For the moment I am going to
---     just add a couple of sentences to the opening sequence below, to warn
---     students about this potential confusion. Moving forward, I wonder
---     whether something like ordered binary trees would be a simple enough
---     running example.
---
---     BCP 20: I remain puzzled by what is the really right example for this
---     chapter. Ordered trees (and sorted lists) don't feel quite right
---     because students might think we should define them with Fixpoint, not
---     inductive. APT 21: Ordered trees are also surprisingly complex to
---     describe (see VFA/SearchTree.v). Maybe Permutations would be be a good
---     choice? The only problem is convincing students that the standard Lean
---     inductive definition is actually correct (see VFA/Perm.v)!
---
---     We should also think about how to make the material flow better between
---     this chapter and ProofObjects. When lecturing about this one I ended up
---     introducing a lot of the concepts from that one.
---
---     --------
---
---     LATER: BCP 19: After lecturing on the first part of this chapter, I'm
---     afraid I have to agree that the Ev / even / evenb stuff is a total
---     mess. Besides the "why are there so many definitions of evenness?"
---     problem, evenness is just not a very natural inductively defined
---     proposition as a first example, because we already have so many
---     intuitions about what evenness is, and they clash with the new
---     definition.
---
---     So what to do?
---
---     An early version of this chapter, years ago, used a completely
---     artificial inductively defined property of numbers (0 is beautiful,
---     twice a beautiful number is beautiful, etc.). We could consider going
---     back to that. Or perhaps there is a more natural example, either
---     involving numbers or perhaps using some other inductive structure like
---     lists or binary trees. Not sure what's best.
---
---     A related issue is that later chapters (ProofObjects, IndPrinciples)
---     also rely heavily on this example. Sigh.
---
---     BCP 20: Tried to sort this out a bit better by renaming the
---     propositional definition from `Ev` to `eveni`, for symmetry with
---     `evenb`, and renaming the definition that says "a number is even if it
---     is twice something" to `evend`. What do people think of this?
---
---     BCP 20 update: In parallel, APT tried to sort it out a different way;
---     his is more consistent with the standard library, so let's try to go
---     with that one consistently...
-
--- Note to developers (before next release):
---     This chapter needs more (and better!) quizzes
-
--- IMPORTBLOCK import LF.Logic IMPORTBLOCK import LF.CustomTactics
-
 -- ## Inductively Defined Propositions
 
 -- In the Logic chapter, we looked at several ways of writing propositions,
@@ -175,12 +32,6 @@ def csf (n : Nat) : Nat :=
   if n.even then div2 n
   else (3 * n) + 1
 
--- Note to developers:
---     HIDE: CH: This is now called `csf` and not just `f` for a good reason.
---     If one adds single letter global identifiers that badly interferes with
---     inadvertently reusing the same names in pattern matching patterns,
---     leading to confusing error messages from Lean.
-
 -- Next, we look at what happens when we repeatedly apply `csf` to some given
 -- starting number. For example, `csf 12` is `6`, and `csf 6` is `3`, so by
 -- repeatedly applying `csf` we get the sequence
@@ -201,6 +52,9 @@ def csf (n : Nat) : Nat :=
 -- programming language, but it is rejected by Lean's termination checker,
 -- since the argument to the recursive call, `csf n`, is not "obviously
 -- smaller" than `n`.
+
+-- Note to developers (Kihong Heo @KihongHeo, NOW):
+--     Probably `reaches1In` according to STYLE.md?
 
 /--
 error: fail to show termination for
@@ -241,6 +95,9 @@ def reaches1_in (n : Nat) : Nat :=
 -- principle convince Lean that `div2 n` is smaller than `n`, we certainly
 -- can't convince it that `(3 * n) + 1` is smaller than `n`!
 
+-- Note to developers (Kihong Heo @KihongHeo, NOW):
+--     Probably `CollatzHoldsFor` according to STYLE.md?
+
 /--
 error: fail to show termination for
   collatz_holds_for
@@ -266,6 +123,10 @@ def collatz_holds_for (n : Nat) : Prop :=
   | 1 => True
   | _ => if n.even then collatz_holds_for (div2 n)
                    else collatz_holds_for ((3 * n) + 1)
+
+-- Note to developers (Kihong Heo @KihongHeo, NOW):
+--     I feel that this paragraph does not match the error message below. The
+--     Lean error msg refers to `div 2`.
 
 -- This recursive function is also rejected by the termination checker, since,
 -- while we could in principle convince Lean that `div2 n` is smaller than
@@ -364,11 +225,6 @@ def collatz := ∀ n, n ≠ 0 → CollatzHoldsFor n
 -- If you succeed in proving this conjecture, you've got a bright future as a
 -- number theorist! But don't spend too long on it -- it's been open since
 -- 1937.
-
--- Note to developers:
---     HIDE: CH: We may want to add an exercise later proving false if one
---     assumes Collatz' conjecture without the `n ≠ 0` assumption. We had that
---     mistake in the script for years and no one noticed, wow!
 
 -- ### Example: Binary relation for comparing numbers
 
@@ -471,9 +327,6 @@ example : AncestorOf .sage .moss := by
   . apply ClosTrans.t_step; apply ParentOf.po_SC
   . apply ClosTrans.t_step; apply ParentOf.po_CM
 
--- Note to developers:
---     HIDE: CH: A simple exercise could be nice here?
-
 -- Computing the transitive closure can be undecidable even for a relation R
 -- that is decidable (e.g., the `cms` relation below), so in general we can't
 -- expect to define transitive closure as a boolean function. Fortunately,
@@ -538,10 +391,6 @@ def collatz' : Prop := ∀ (n : Nat), n ≠ 0 → cms n 1
 --       —————————————————————————————————————————————(rt_trans)
 --                          cms 16 1
 
--- Note to developers:
---     HIDE: CH: Would it be helpful to add an exercise later proving cms
---     equivalent to CollatzHoldsFor
-
 -- ### Exercise (1 star): clos_refl_trans_sym (manually graded) ⭐
 
 -- How would you modify the `ClosReflTrans` definition above so as to define
@@ -549,7 +398,7 @@ def collatz' : Prop := ∀ (n : Nat), n ≠ 0 → cms n 1
 
 -- FILL IN HERE
 
--- Example: Permutations
+-- ### Example: Permutations
 
 -- The familiar mathematical concept of *permutation* also has an elegant
 -- formulation as an inductive relation. For simplicity, let's focus on
@@ -599,7 +448,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 
 -- ### Exercise (1 star): perm (manually graded) ⭐
 
--- According to this definition, is `\[1;2;3`] a permutation of itself?
+-- According to this definition, is `[1, 2, 3]` a permutation of itself?
 
 -- ### Example: Evenness (yet again)
 
@@ -921,16 +770,12 @@ theorem ev_4_ev_n : ∀ n,
   inversion h
   case ev_succ_succ h' => apply ev_succ_succ_ev; exact h'
 
--- - []
-
 -- ### Exercise (1 star): ev5_nonsense ⭐
 
 -- Prove the following result using `inversion`.
 
 theorem ev5_nonsense : Ev 5 → 2 + 2 = 9 := by
   sorry
-
--- - []
 
 -- We can use `inversion` to re-prove some theorems from `Tactics.lean`.
 
@@ -945,9 +790,6 @@ theorem inversion_ex2 : ∀ (n : Nat),
   n + 1 = 0 → 2 + 2 = 5 := by
   intro n h
   inversion h
-
--- Note to developers (before next release):
---     The wording there is totally awkward!
 
 -- Here's how `inversion` works in general.
 
@@ -970,9 +812,6 @@ theorem inversion_ex2 : ∀ (n : Nat),
 -- of evenness is implied by the two earlier ones (since, by `even_bool_prop`
 -- in chapter Logic, we already know that those are equivalent to each other).
 -- To show that all three coincide, we just need the following lemma.
-
--- Note to developers (before next release):
---     This whole part of the section is a mess!!
 
 example (n : Nat) : Ev n → Nat.Even n := by
   /- We could try to proceed by case analysis or induction on `n`.  But
@@ -1012,19 +851,6 @@ example (n : Nat) : Ev n → Nat.Even n := by
         of the same theorem we set out to prove -- only here we are
         talking about `n'` instead of `n`. -/
     sorry
-
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2021):
---     I agree that it's all pretty chewy. Wonder if we really need any of it
---     or if the point could be made just as well with less detail... When I
---     explained it in class this time, I just observed that the destruct was
---     giving us a hypothesis about 2 being even, which just can't be what we
---     want, and skipped all the rest... After thinking about it for a bit,
---     though, I do think the full story here is useful (at least for the FULL
---     version -- the TERSE could still be streamlined). So I'm going to leave
---     it for now.
-
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2025):
---     I think best just to shorten it! And maybe make it not a WORKINCLASS.
 
 -- ### Induction on Evidence
 
@@ -1152,12 +978,6 @@ end ClosReflTransRemainder
 -- Let's say that a relation on a type `α` is *diagonal* if it refines the
 -- identity relation -- i.e., if `R x y` implies `x = y`.
 
--- Note to developers:
---     HIDE: NDS 25: I originally wanted to do this with the empty relation,
---     defined inductively, but this requires introducing the surprising
---     behavior of unhabitated types, which I don't think have been covered
---     (yet?). Maybe they should be? BCP 25: This one seems good.
-
 def isDiagonal {α : Type} (R: α → α → Prop) := ∀ x y, R x y → x = y
 
 -- Now consider the following lemma about diagonal relations:
@@ -1183,11 +1003,6 @@ theorem closure_of_diagonal_is_diagonal : ∀ α (R: α → α → Prop),
        the type being inducted over. -/
   case rt_trans x' y' z' hxy hyz ihxy ihyz =>
     rw [ihxy, ihyz]
-
--- Note to developers:
---     HIDE: NDS comparing the previous proof to the pen-and-paper version
---     could be an idea to consider, as the way people tend to write it on
---     paper differs a bit from the mechanized proof. BCP 25: Yes.
 
 -- ### Exercise (4 stars): ev'_ev (Advanced) ⭐⭐⭐⭐
 
@@ -1257,12 +1072,6 @@ example : ¬ Perm3 [1, 2, 3] [1, 2, 4] := by
 
 -- ## Exercising with Inductive Relations
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
---     Bad flow + duplication needs fixing. Could move some of this to the
---     top. In the terse version this whole section is useless, it only has a
---     (mostly) duplicated definition. For now FULLED the whole thing, but
---     better fix seems needed.
-
 -- Just as a single-argument proposition defines a *property*, a two-argument
 -- proposition defines a *relation*.
 
@@ -1330,10 +1139,6 @@ example : ∀ (m n : Nat), m ≥ n → n ≤ m := by
   rw [←ge_iff_le]; assumption
 
 end Playground
-
--- Note to developers:
---     HIDE: PR: Added the following paragraph to try to help reduce random
---     walks over the following exercises.
 
 -- From the definition of `le`, we can sketch the behaviors of `cases` and
 -- `induction` on a hypothesis `h` providing evidence of the form `le e1 e2`.
@@ -1464,24 +1269,6 @@ inductive R : Nat → Nat → Nat → Prop where
   | c4 m n o (h : R (m + 1) (n + 1) (o + 2)) : R m     n     o
   | c5 m n o (h : R m     n     o        )   : R n     m     o
 
--- Note to developers:
---     HIDE: APT 21: Reformatted the above after a student with dyslexia
---     complained. But the effect is still lost in the HTML. He also noted
---     that the kind of question that follows doesn't really require a
---     high-arity relation.
---
---     MRC 3/22: I believe that violates the OCaml Community Guidelines on
---     indentation.
---
---     https://ocaml.org/learn/tutorials/guidelines.html#Bad-indentation-of-pattern-matching-constructs
---
---     Whether those are applicable here is a matter of debate. But torquing
---     the entire textbook into this mode of alignment does not seem any more
---     desirable to me than torquing an OCaml codebase.
---
---     BCP 25: No, but for this specific problem it seems OK. Let's leave it
---     like this.
-
 -- - Which of the following propositions are provable?
 
 -- - `R 1 1 2`
@@ -1499,7 +1286,7 @@ inductive R : Nat → Nat → Nat → Prop where
 -- The relation `R` above actually encodes a familiar function. Figure out
 -- which function; then state and prove this equivalence in Lean.
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     They really need to use (+) here, not Nat.add, or there's some
 --     typeclass nonsense in the proofs
 
@@ -1552,7 +1339,7 @@ end R
 --   [1,3]
 --   [5,6,2,1,7,3,8].
 
--- - Define an inductive proposition `subseq` on `list Nat` that captures what
+-- - Define an inductive proposition `subseq` on `List Nat` that captures what
 --   it means to be a subsequence. There are a number of correct ways to do
 --   this. You should make sure that your definition behaves correctly on all
 --   the positive and negative examples above, but you do not need to prove this
@@ -1568,25 +1355,6 @@ end R
 --   `l₁` is a subsequence of `l₂` and `l₂` is a subsequence of `l₃`, then `l₁`
 --   is a subsequence of `l₃`.
 
--- Note to developers (before next release):
---     `AC'21: I think that it is more atomic to consider
---     [sub_nil : subseq [] []]. The benefits is that it makes calls to
---     [inversion] produce fewer goals. The downside is that one has to
---     state as a lemma [sub_nil_l : forall l, subseq [] l], however it
---     would be nice to have this as an exercise anyway, because otherwise
---     students who go for the definition of [sub_seq [] []] are required
---     to guess the need for [sub_nil_l].
---     BCP: I agree this version could be nicer to suggest, and I agree that
---     adding this lemma as a warm-up exercise is nice.`
---
---     Sainati 25: I am generally not against proofs that can be made much
---     easier with smart inductive definitions (this is sort of the whole ball
---     game in a way, isn't it?) but one way to make sure students can't
---     trivialize the exercise is to just give them the definition we want
---     them to use? We could also add a (maybe optional) question afterwards
---     to provide a different definition that makes the proofs easier (and
---     maybe prove them equivalent).
-
 inductive subseq : List Nat → List Nat → Prop where
 -- FILL IN HERE
 
@@ -1597,14 +1365,6 @@ theorem subseq_app : ∀ (l₁ l₂ l₃ : List Nat),
   subseq l₁ l₂ →
   subseq l₁ (l₂ ++ l₃) := by
   sorry
-
--- Note to developers:
---     HIDE: AC'21: this exercise should probably be marked as more
---     challenging. In particular, it's not necessarily obvious at first sight
---     that the induction should go on the second hypothesis, and with `l₁`
---     generalized. BCP 21: Made it 3 points instead of 2, and included a
---     hint. CH'23: Made it 4 points, since there are 5 different choices here
---     and the hint doesn't help with that.
 
 theorem subseq_trans : ∀ (l₁ l₂ l₃ : List Nat),
   subseq l₁ l₂ →
@@ -1734,8 +1494,8 @@ example : ¬ (NoStutter [3, 1, 1, 4]) := by
 
 --   [4, 3].
 
--- Now, suppose we have a set `α`, a function `test: α→bool`, and a list `l`
--- of type `List α`. Suppose further that `l` is an in-order merge of two
+-- Now, suppose we have a type `α`, a function `test : α → Bool`, and a list
+-- `l` of type `List α`. Suppose further that `l` is an in-order merge of two
 -- lists, `l₁` and `l₂`, such that every item in `l₁` satisfies `test` and no
 -- item in `l₂` satisfies test. Then `filter test l = l₁`.
 
@@ -1766,54 +1526,20 @@ theorem merge_filter : ∀ (α : Type) (test: α→ Bool) (l l₁ l₂ : List α
 -- A palindrome is a sequence that reads the same backwards as forwards.
 
 -- - Define an inductive proposition `Pal` on `List α` that captures what it
---   means to be a palindrome. (Hint: You'll need three cases.
+--   means to be a palindrome. (Hint: You'll need three cases.)
 
--- - Prove (`pal_app_reverse`) that
+-- - Prove `pal_app_reverse`, which states that
 
---   ∀ l, pal (l ++ l.reverse).
+--   ∀ l, Pal (l ++ l.reverse).
 
--- - Prove (`pal_reverse` that)
+-- - Prove `pal_reverse`, which states that
 
---   ∀ l, pal l → l = l.reverse.
+--   ∀ l, Pal l → l = l.reverse.
 
 -- For extra credit, try proving the same theorems with an alternate
 -- definition with a *single* constructor of this type:
 
---   ∀ l, l = l.reverse → pal l
-
--- Note to developers:
---     `HIDE: MTF 6/22: It isn't exactly clear why the single constructor approach
---     "will not work very well".  It seems to work extremely well:
---
---      inductive pal {α:Type} : List α → Prop :=
---        | palc : forall l, l = rev l → pal l.
---
---      theorem pal_app_reverse : forall (α:Type) (l : List α),
---        pal (l ++ (rev l)).
---      Proof.
---        intros α l.
---        apply palc.
---        rewrite rev_app_distr.
---        rewrite rev_involutive.
---        reflexivity.
---      Qed.
---
---      theorem pal_reverse : forall (α:Type) (l: List α) , pal l → l = rev l.
---      Proof.
---        intros α l H. destruct H. assumption.
---      Qed.
---
---      theorem palindrome_converse: forall {α: Type} (l: List α), l = rev l → pal l.
---      Proof.
---        intros α l H. apply palc. assumption.
---      Qed.
---
---        This seems to be yet another example of a property that can be expressed as a
---        non-inductive proposition being artificially formulated as an inductive
---        proposition.  Are there any other properties of the [palindrome] proposition
---        that would be difficult to prove from its specification?
---
---     BCP 25: Took away the "will not work very well" wording.`
+--   ∀ l, l = l.reverse → Pal l
 
 inductive Pal {α:Type} : List α → Prop where
 -- FILL IN HERE
@@ -1826,7 +1552,7 @@ theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
 
   sorry
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     This one is super annoying without simp. I propose we move it to the
 --     simp chapter
 
@@ -1842,17 +1568,18 @@ theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
 
 -- ### Exercise (4 stars): NoDup (Advanced) ⭐⭐⭐⭐
 
--- Use the `∈` property to define a proposition `disjoint α l₁ l₂`, which
--- should be provable exactly when `l₁` and `l₂` are lists (with elements of
--- type α) that have no elements in common.
+-- Use the `∈` property to define a proposition `disjoint l₁ l₂`, which should
+-- be provable exactly when `l₁` and `l₂` are lists (with elements of type
+-- `α`) that have no elements in common.
 
 -- FILL IN HERE
 
--- Next, use `∈` to define an inductive proposition [NoDup α l], which should
--- be provable exactly when `l` is a list (with elements of type `α`) where
--- every member is different from every other. For example,
--- `NoDup Nat [1, 2, 3,  4]` and `NoDup Bool []` should be provable, while
--- `NoDup Nat \[1, 2, 1`] and `NoDup Bool [true, true]` should not be.
+-- Next, use `∈` to define an inductive proposition `NoDup l`, which should be
+-- provable exactly when `l` is a list (with elements of type `α`) where every
+-- member is different from every other. For example,
+-- `NoDup ([1, 2, 3, 4] : List Nat)` and `NoDup ([] : List Bool)` should be
+-- provable, while `NoDup ([1, 2, 1] : List Nat)` and
+-- `NoDup ([true, true] : List Bool)` should not be.
 
 -- FILL IN HERE
 
@@ -1890,10 +1617,6 @@ inductive Repeats {α:Type} : List α → Prop where
 -- This proof is much easier if you use the excluded middle to show that `∈`
 -- is decidable, i.e., `∀ x l, (x ∈ l) \/ ~ (x ∈ l)`. Remember the `by_cases`
 -- tactic from Logic!
-
--- Note to developers:
---     HIDE: APT21: Apparently, this is really quite hard; even the strongest
---     students couldn't do it this year.
 
 theorem pigeonhole_principle:
   ∀ (α:Type) (l₁  l₂:List α),

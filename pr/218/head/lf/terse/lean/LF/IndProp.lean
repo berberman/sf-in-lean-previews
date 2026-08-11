@@ -163,9 +163,6 @@ import LF.SFLCompat
 -- Note to developers (before next release):
 --     This chapter needs more (and better!) quizzes
 
--- IMPORTBLOCK import LF.Logic IMPORTBLOCK import
--- LF.CustomTactics
-
 -- ## Inductively Defined Propositions
 
 -- In the Logic chapter, we looked at several ways of writing
@@ -225,6 +222,9 @@ def csf (n : Nat) : Nat :=
 -- since the argument to the recursive call, `csf n`, is not
 -- "obviously smaller" than `n`.
 
+-- Note to developers (Kihong Heo @KihongHeo, NOW):
+--     Probably `reaches1In` according to STYLE.md?
+
 /--
 error: fail to show termination for
   reaches1_in
@@ -267,6 +267,9 @@ def reaches1_in (n : Nat) : Nat :=
 -- Lean that `div2 n` is smaller than `n`, we certainly can't
 -- convince it that `(3 * n) + 1` is smaller than `n`!
 
+-- Note to developers (Kihong Heo @KihongHeo, NOW):
+--     Probably `CollatzHoldsFor` according to STYLE.md?
+
 /--
 error: fail to show termination for
   collatz_holds_for
@@ -292,6 +295,10 @@ def collatz_holds_for (n : Nat) : Prop :=
   | 1 => True
   | _ => if n.even then collatz_holds_for (div2 n)
                    else collatz_holds_for ((3 * n) + 1)
+
+-- Note to developers (Kihong Heo @KihongHeo, NOW):
+--     I feel that this paragraph does not match the error
+--     message below. The Lean error msg refers to `div 2`.
 
 -- This recursive function is also rejected by the termination
 -- checker, since, while we could in principle convince Lean
@@ -536,7 +543,7 @@ def collatz' : Prop := ∀ (n : Nat), n ≠ 0 → cms n 1
 --     HIDE: CH: Would it be helpful to add an exercise later
 --     proving cms equivalent to CollatzHoldsFor
 
--- Example: Permutations
+-- ### Example: Permutations
 
 -- The familiar mathematical concept of *permutation* also has
 -- an elegant formulation as an inductive relation. For
@@ -833,7 +840,7 @@ example (n : Nat) : Ev n → Nat.Even n := by
         talking about `n'` instead of `n`. -/
     sorry
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2021):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     I agree that it's all pretty chewy. Wonder if we really
 --     need any of it or if the point could be made just as
 --     well with less detail... When I explained it in class
@@ -845,7 +852,7 @@ example (n : Nat) : Ev n → Nat.Even n := by
 --     TERSE could still be streamlined). So I'm going to leave
 --     it for now.
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2025):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
 --     I think best just to shorten it! And maybe make it not a
 --     WORKINCLASS.
 
@@ -868,7 +875,7 @@ theorem Nat.ev_Even : ∀ n, Ev n → Even n := by
     let ⟨k, hk⟩ := ih
     exists k + 1; rw [double_succ, hk]
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     Bad flow + duplication needs fixing. Could move some of
 --     this to the top. In the terse version this whole section
 --     is useless, it only has a (mostly) duplicated

@@ -342,11 +342,48 @@
     },
     "218": {
       "base_sha": "15fbdb43be8af73f9f717de659cb23ae3521a88a",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "687618360efa885c0c46fd50b45aee8c4b1acefe",
       "preview_path": "pr/218/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31508537504",
+      "status": "published",
       "title": "Advice on writing new SFL material",
       "url": "https://github.com/plclub/sf-in-lean/pull/218"
     },
@@ -390,9 +427,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "7a5ba278b12a52f4de91f4d360d5d18a180b5a32",
+      "head_sha": "052d5a795d34435a24034f1bdfc0be5433cf29a3",
       "preview_path": "pr/227/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31501937628",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31508841654",
       "status": "published",
       "title": "Draft PR for translating preface and postscript",
       "url": "https://github.com/plclub/sf-in-lean/pull/227"

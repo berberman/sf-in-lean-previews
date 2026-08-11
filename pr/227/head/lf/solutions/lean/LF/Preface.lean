@@ -2,6 +2,12 @@ import LF.SFLCompat
 
 -- # Preface
 
+-- Note to developers (Benjamin Pierce @bcpierce00):
+--     From Chris: For whoever takes this up, recall that
+--     lean-software-foundations-contributors > Main Achievements of Lean
+--     lists some big Lean projects you can reference to replace the
+--     Rocq-specific achievements
+
 -- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
 --     The SF course at Penn (CIS 5000) sometimes attracts students who don't
 --     have enough math background and begin really flailing around the middle

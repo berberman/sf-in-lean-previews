@@ -401,7 +401,7 @@ theorem false_or : ∀ (b : MyBool), (MyBool.false || b) = b := by
 -- Be careful, though: every time you say `sorry` you are leaving a door open
 -- for total nonsense to enter Lean's safe, formally checked world!
 
--- Note to developers (Harrison Goldstein  @hgoldstein95):
+-- Note to developers (Harrison Goldstein @hgoldstein95):
 --     In the terse .lean output this ends up looking like an exercise.
 
 sf_experiment
@@ -466,7 +466,7 @@ end MyBool
 
 -- ### New Types from Old
 
--- Note to developers (Harrison Goldstein  @hgoldstein95):
+-- Note to developers (Harrison Goldstein @hgoldstein95):
 --     I feel like this section has too much content in terse, but I don't
 --     want to unilaterally make that call. TODO
 
@@ -1163,15 +1163,19 @@ theorem add_one (n : Nat) : n + (succ zero) = succ n + zero := by
 -- interface; instead, those fields should only be accessible by an object's
 -- methods (like getters and setters). Doing so hides the object's definition,
 -- so that, if its fields or implementation ever change, the interface it
--- exposes to the outside world remains the same.
+-- exposes to the outside world remains the same. In simple examples such
+-- conventions may seem trivial or even silly; in complex codebases, it is the
+-- only way to maintain crucial invariants that prevent a system from becoming
+-- unmaintainable.
 
--- In idiomatic Lean, it is similarly considered poor style to "peek" through
+-- The same principle applies to programs and proofs in Lean. In idiomatic
+-- Lean, it is considered poor style to *unfold* — that is, "peek through" —
 -- definitions by using `rfl` to implicitly simplify expressions that aren't
 -- syntactically identical. If you take a look at the proofs of `add_zero` and
 -- `add_succ` above, you will notice this is exactly what we did when we used
 -- the `rfl` tactic.
 
--- However, the foundational theorems `add_zero` and `add_succ` provide a
+-- Fortunately, the foundational theorems `add_zero` and `add_succ` provide a
 -- characterization of the behavior of `add` that makes using `rfl` to
 -- simplify expressions unnecessary; instead, we can rewrite by these theorems
 -- anywhere we want to describe how `add` evaluates. In real-world Lean
@@ -1518,8 +1522,10 @@ theorem add_id_exercise : ∀ n m o : Nat,
 
 --   mul_zero : ∀ (n : Nat), n * zero = zero
 
--- The declaration-header style is conventional in Lean, and we will generally
--- use it from now on.
+-- Writing statements in declaration-header style shortens proofs because Lean
+-- automatically adds declared variables to the context, rather than requiring
+-- them to be added with `intro`. The declaration-header style is conventional
+-- in Lean, and we will generally use it from now on.
 
 -- ## Proof by Case Analysis
 
@@ -1529,7 +1535,6 @@ theorem add_id_exercise : ∀ n m o : Nat,
 
 sf_expect_failure
   example (n : Nat) : (succ n == zero) = false := by
-    intro n
     /-
       We can't rewrite by any lemmas here because `n` is unknown!
     -/
@@ -1678,17 +1683,17 @@ theorem zero_neb_add_one (n : Nat) :
     | zero => rewrite [zero_succ_beq_false]; rfl
     | succ n' => rewrite [zero_succ_beq_false]; rfl
 
--- Note to developers (Daniel Sainati  @dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     I move that we just cut this section entirely and come back to it when
 --     we've presented enough of the requisite material that we can actually
 --     explain
 
--- Note to developers (Michael Hicks  @mwhicks1, before next release):
+-- Note to developers (Michael Hicks @mwhicks1, before next release):
 --     I'm going to leave this here for now, but perhaps make a note to fix
 --     later on — when you've fixed it, come back and delete this, rather than
 --     delete it now.
 
--- Note to developers (Yipeng Liu  @berberman, before next release):
+-- Note to developers (Yipeng Liu @berberman, before next release):
 --     I feel we could split this section and push the typeclass stuff to
 --     `Typeclasses` chapter and complex notation syntax definitions to TS/HL.
 
@@ -2105,7 +2110,7 @@ theorem lowerGrade_lowers : ∀ g : Grade,
       case F => rewrite [lowerGrade_F_minus]; exact h
       all_goals rfl
 
--- Note to developers (Roger Burtonpatel  @rogerburtonpatel):
+-- Note to developers (Roger Burtonpatel @rogerburtonpatel):
 --     in removing `dsimp` from these proofs, I found that you might need the
 --     `contradiction` tactic here instead, or some other reasoning that's not
 --     accomplishable with the tactics we've introduced so far. Can you make
@@ -2157,7 +2162,7 @@ theorem grade_lowered_once : ∀ (lateDays : NatPlayground.Nat) (g : Grade),
 
 end LateDays
 
--- Note to developers (Roger Burtonpatel  @rogerburtonpatel):
+-- Note to developers (Roger Burtonpatel @rogerburtonpatel):
 --     If we are to have this exercise, we must either make the functions
 --     irreducible or teach about `rw` of a reducible definition. We also have
 --     to figure out how to make lowerGrade_lowers go through without `dsimp`
