@@ -447,9 +447,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "398d914c6b3e72e6e3459693d0b4984cdd48b4df",
+      "head_sha": "a58e7a1758dfe292e1855a1c3462bec30ec23545",
       "preview_path": "pr/228/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31471213926",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31473345992",
       "status": "published",
       "title": "Polish IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/228"

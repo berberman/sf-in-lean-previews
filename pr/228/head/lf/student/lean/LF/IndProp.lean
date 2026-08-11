@@ -53,33 +53,29 @@ def csf (n : Nat) : Nat :=
 -- since the argument to the recursive call, `csf n`, is not "obviously
 -- smaller" than `n`.
 
-/--
-error: fail to show termination for
-  reaches1In
-with errors
-failed to infer structural recursion:
-Cannot use parameter n:
-  failed to eliminate recursive application
-    reaches1In (csf n)
+sf_expect_failure
+  def reaches1In (n : Nat) : Nat :=
+    if n == 1 then 0
+    else 1 + reaches1In (csf n)
+
+-- fail to show termination for
+--   reaches1In
+-- with errors
+-- failed to infer structural recursion:
+-- Cannot use parameter n:
+--   failed to eliminate recursive application
+--     reaches1In (csf n)
 
 
-failed to prove termination, possible solutions:
-  - Use `have`-expressions to prove the remaining goals
-  - Use `termination_by` to specify a different well-founded relation
-  - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
-n : Nat
-h✝ : ¬(n == 1) = true
-⊢ csf n < n
--/
-#guard_msgs in
-def reaches1In (n : Nat) : Nat :=
-  if n == 1 then 0
-  else 1 + reaches1In (csf n)
+-- failed to prove termination, possible solutions:
+--   - Use `have`-expressions to prove the remaining goals
+--   - Use `termination_by` to specify a different well-founded relation
+--   - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
+-- n : Nat
+-- h✝ : ¬(n == 1) = true
+-- ⊢ csf n < n
 
--- You can write this definition in a standard programming language. This
--- definition is, however, rejected by Lean's termination checker, since the
--- argument to the recursive call, `csf n`, is not "obviously smaller" than
--- `n`. Indeed, this isn't just a pointless limitation: functions in Lean are
+-- Indeed, this isn't just a pointless limitation: functions in Lean are
 -- required to be total, to ensure logical consistency.
 
 -- Moreover, we can't fix it by devising a more clever termination checker:
@@ -238,7 +234,7 @@ def collatz := ∀ n, n ≠ 0 → CollatzHoldsFor n
 namespace LePlayground
 
 inductive Le : Nat → Nat → Prop where
-  | refl (n : Nat)              : Le n n
+  | refl (n : Nat)   : Le n n
   | step (n m : Nat) : Le n m → Le n (m + 1)
 
 scoped infix:50 (priority := high) " ≤ " => Le
@@ -259,16 +255,16 @@ end LePlayground
 -- the following two rules:
 
 --                 R x y
---            ---------------- (t_step)
+--            ─────────────── (t_step)
 --            ClosTrans R x y
 
 --   ClosTrans R x y    ClosTrans R y z
---   ------------------------------------ (t_trans)
+--   ──────────────────────────────────── (t_trans)
 --            ClosTrans R x z
 
 -- In Lean this looks as follows:
 
-inductive ClosTrans {α: Type} (R: α→α→Prop) : α → α → Prop where
+inductive ClosTrans {α: Type} (R: α → α → Prop) : α → α → Prop where
   | t_step (x y : α) :
       R x y →
       ClosTrans R x y
@@ -330,14 +326,14 @@ example : AncestorOf .sage .moss := by
 -- added a reflexivity rule to `ClosTrans`):
 
 --                      R x y
---              --------------------- (rt_step)
+--            ——————————————————————— (rt_step)
 --              ClosReflTrans R x y
 
---              --------------------- (rt_refl)
+--            ——————————————————————— (rt_refl)
 --              ClosReflTrans R x x
 
 --      ClosReflTrans R x y    ClosReflTrans R y z
---   ---------------------------------------------- (rt_trans)
+--   —————————————————————————————————————————————— (rt_trans)
 --              ClosReflTrans R x z
 
 inductive ClosReflTrans {α: Type} (R: α → α → Prop) : α → α → Prop where
@@ -369,10 +365,10 @@ def collatz' : Prop := ∀ (n : Nat), n ≠ 0 → cms n 1
 -- interesting derivations than the linear ones of the directly-defined
 -- `CollatzHoldsFor` relation:
 
---   csf 16 = 8         csf 8 = 4         csf 4 = 2         csf 2 = 1
---   ————————(rt_step)  ———————(rt_step)  ———————(rt_step)  ———————(rt_step)
+--   csf 16 = 8           csf 8 = 4           csf 4 = 2           csf 2 = 1
+--   ——————————(rt_step)  —————————(rt_step)  —————————(rt_step)  —————————(rt_step)
 --   cms 16 8           cms 8 4           cms 4 2           cms 2 1
---   —————————————————————————(rt_trans)  ————————————————————————(rt_trans)
+--   ——————————————————————————(rt_trans)  —————————————————————————(rt_trans)
 --       cms 16 4                              cms 4 1
 --       —————————————————————————————————————————————(rt_trans)
 --                          cms 16 1
@@ -449,12 +445,12 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 -- chapter, is to say that a number is even if we can *establish* its evenness
 -- from the following two rules:
 
---       ---- (ev_0)
+--       ———— (ev_0)
 --       Ev 0
 
 --       Ev n
---   ------------ (ev_succ_succ)
---   Ev (n + 2)
+--   —————————————— (ev_succ_succ)
+--     Ev (n + 2)
 
 -- Intuitively these rules say that:
 
@@ -486,7 +482,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 -- corresponds to a separate constructor:
 
 inductive Ev : Nat → Prop where
-  | ev_0                       : Ev 0
+  | ev_0                              : Ev 0
   | ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)
 
 -- Such definitions are interestingly different from previous uses of
@@ -504,14 +500,14 @@ inductive Ev : Nat → Prop where
 -- In contrast, recall the definition of `List`:
 
 sf_expect_failure
-  inductive List (α:Type) : Type where
+  inductive List (α : Type) : Type where
     | nil
     | cons (x : α) (l : List α)
 
 -- or (equivalently but more explicitly):
 
 sf_expect_failure
-  inductive List (α:Type) : Type where
+  inductive List (α : Type) : Type where
     | nil                       : List α
     | cons (x : α) (l : List α) : List α
 
@@ -520,20 +516,19 @@ sf_expect_failure
 -- (i.e., `List α`). But if we had tried to bring `Nat` to the left of the
 -- colon in defining `Ev`, we would have seen an error:
 
-/--
-error: Mismatched inductive type parameter in
-  WrongEv 0
-The provided argument
-  0
-is not definitionally equal to the expected parameter
-  n
+sf_expect_failure
+  inductive WrongEv (n : Nat) : Prop where
+    | wrong_ev_0 : WrongEv 0
+    | wrong_ev_succ_succ (H: WrongEv n) : WrongEv (n + 2)
 
-Note: The value of parameter `n` must be fixed throughout the inductive declaration. Consider making this parameter an index if it must vary.
--/
-#guard_msgs in
-inductive WrongEv (n : Nat) : Prop where
-  | wrong_ev_0 : WrongEv 0
-  | wrong_ev_succ_succ (H: WrongEv n) : WrongEv (n + 2)
+-- Mismatched inductive type parameter in
+--   WrongEv 0
+-- The provided argument
+--   0
+-- is not definitionally equal to the expected parameter
+--   n
+
+-- Note: The value of parameter `n` must be fixed throughout the inductive declaration. Consider making this parameter an index if it must vary.
 
 -- In an `inductive` definition, an argument to the type constructor on the
 -- left of the colon is called a "parameter", whereas an argument on the right

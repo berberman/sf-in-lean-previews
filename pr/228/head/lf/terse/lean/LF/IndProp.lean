@@ -222,35 +222,31 @@ def csf (n : Nat) : Nat :=
 -- since the argument to the recursive call, `csf n`, is not
 -- "obviously smaller" than `n`.
 
-/--
-error: fail to show termination for
-  reaches1In
-with errors
-failed to infer structural recursion:
-Cannot use parameter n:
-  failed to eliminate recursive application
-    reaches1In (csf n)
+sf_expect_failure
+  def reaches1In (n : Nat) : Nat :=
+    if n == 1 then 0
+    else 1 + reaches1In (csf n)
+
+-- fail to show termination for
+--   reaches1In
+-- with errors
+-- failed to infer structural recursion:
+-- Cannot use parameter n:
+--   failed to eliminate recursive application
+--     reaches1In (csf n)
 
 
-failed to prove termination, possible solutions:
-  - Use `have`-expressions to prove the remaining goals
-  - Use `termination_by` to specify a different well-founded relation
-  - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
-n : Nat
-h✝ : ¬(n == 1) = true
-⊢ csf n < n
--/
-#guard_msgs in
-def reaches1In (n : Nat) : Nat :=
-  if n == 1 then 0
-  else 1 + reaches1In (csf n)
+-- failed to prove termination, possible solutions:
+--   - Use `have`-expressions to prove the remaining goals
+--   - Use `termination_by` to specify a different well-founded relation
+--   - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
+-- n : Nat
+-- h✝ : ¬(n == 1) = true
+-- ⊢ csf n < n
 
--- You can write this definition in a standard programming
--- language. This definition is, however, rejected by Lean's
--- termination checker, since the argument to the recursive
--- call, `csf n`, is not "obviously smaller" than `n`. Indeed,
--- this isn't just a pointless limitation: functions in Lean
--- are required to be total, to ensure logical consistency.
+-- Indeed, this isn't just a pointless limitation: functions in
+-- Lean are required to be total, to ensure logical
+-- consistency.
 
 -- Moreover, we can't fix it by devising a more clever
 -- termination checker: deciding whether this particular
@@ -408,7 +404,7 @@ def collatz := ∀ n, n ≠ 0 → CollatzHoldsFor n
 namespace LePlayground
 
 inductive Le : Nat → Nat → Prop where
-  | refl (n : Nat)              : Le n n
+  | refl (n : Nat)   : Le n n
   | step (n m : Nat) : Le n m → Le n (m + 1)
 
 scoped infix:50 (priority := high) " ≤ " => Le
@@ -425,16 +421,16 @@ end LePlayground
 -- transitive. This can be defined by the following two rules:
 
 --                 R x y
---            ---------------- (t_step)
+--            ─────────────── (t_step)
 --            ClosTrans R x y
 
 --   ClosTrans R x y    ClosTrans R y z
---   ------------------------------------ (t_trans)
+--   ──────────────────────────────────── (t_trans)
 --            ClosTrans R x z
 
 -- In Lean this looks as follows:
 
-inductive ClosTrans {α: Type} (R: α→α→Prop) : α → α → Prop where
+inductive ClosTrans {α: Type} (R: α → α → Prop) : α → α → Prop where
   | t_step (x y : α) :
       R x y →
       ClosTrans R x y
@@ -489,14 +485,14 @@ example : AncestorOf .sage .moss := by
 -- to `ClosTrans`):
 
 --                      R x y
---              --------------------- (rt_step)
+--            ——————————————————————— (rt_step)
 --              ClosReflTrans R x y
 
---              --------------------- (rt_refl)
+--            ——————————————————————— (rt_refl)
 --              ClosReflTrans R x x
 
 --      ClosReflTrans R x y    ClosReflTrans R y z
---   ---------------------------------------------- (rt_trans)
+--   —————————————————————————————————————————————— (rt_trans)
 --              ClosReflTrans R x z
 
 inductive ClosReflTrans {α: Type} (R: α → α → Prop) : α → α → Prop where
@@ -583,12 +579,12 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 -- we can *establish* its evenness from the following two
 -- rules:
 
---       ---- (ev_0)
+--       ———— (ev_0)
 --       Ev 0
 
 --       Ev n
---   ------------ (ev_succ_succ)
---   Ev (n + 2)
+--   —————————————— (ev_succ_succ)
+--     Ev (n + 2)
 
 -- To illustrate how this new definition of evenness works,
 -- let's imagine using it to show that `4` is even:
@@ -606,7 +602,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 -- constructor:
 
 inductive Ev : Nat → Prop where
-  | ev_0                       : Ev 0
+  | ev_0                              : Ev 0
   | ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)
 
 -- There are both similarities and a few differences between
@@ -614,7 +610,7 @@ inductive Ev : Nat → Prop where
 -- like `Nat` or `List` that we have been using throughout the
 -- course:
 
---   inductive List (α:Type) : Type where
+--   inductive List (α : Type) : Type where
 --     | nil                       : List α
 --     | cons (x : α) (l : List α) : List α.
 
