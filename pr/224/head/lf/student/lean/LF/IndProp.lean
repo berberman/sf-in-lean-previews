@@ -1484,7 +1484,7 @@ example : ¬ (NoStutter [3, 1, 1, 4]) := by
 
 --   [4, 3].
 
--- Now, suppose we have a set `α`, a function `test : α → Bool`, and a list
+-- Now, suppose we have a type `α`, a function `test : α → Bool`, and a list
 -- `l` of type `List α`. Suppose further that `l` is an in-order merge of two
 -- lists, `l₁` and `l₂`, such that every item in `l₁` satisfies `test` and no
 -- item in `l₂` satisfies test. Then `filter test l = l₁`.

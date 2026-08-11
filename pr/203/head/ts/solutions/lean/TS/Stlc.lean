@@ -234,7 +234,7 @@ inductive Tm where
 -- for typing judgments too. How that works is in the collapsed blocks below;
 -- nothing later in the chapter depends on it.
 
--- _Details:_ Notation encoding: types
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: types
 
 -- The `stlcTy` grammar covers `Bool`, arrows (written `→` or `->`,
 -- associating to the right), parentheses, and `~e`. A bare identifier other
@@ -263,13 +263,15 @@ macro_rules (kind := tyBracket)
   | `(<{ $T₁:stlcTy → $T₂:stlcTy }>)  => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
   | `(<{ $T₁:stlcTy -> $T₂:stlcTy }>) => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
 
+-- END DETAILS
+
 -- We'll write types inside of `<{ ... }>` brackets:
 
 #check <{ Bool }>
 #check <{ Bool -> Bool }>
 #check <{ (Bool -> Bool) -> Bool }>
 
--- _Details:_ Notation encoding: terms
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: terms
 
 -- Terms are built from variables, application (associating to the left),
 -- abstraction, the two boolean constants, and conditionals. A binding
@@ -328,7 +330,9 @@ macro_rules (kind := tmBracket)
   | `(<{ if $c then $t else $e }>) =>
       `(Tm.ite <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
 
--- _Details:_ Notation encoding: printing it back
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing it back
 
 -- A *delaborator* runs the grammar backwards: it rebuilds the concrete syntax
 -- from a `Ty` or `Tm` value, so that types and terms appearing in goals and
@@ -465,6 +469,8 @@ def delabTm : Delab := whenPPOption getPPNotation do
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
 
+-- END DETAILS
+
 -- Here are the terms we will use as running examples, written in the new
 -- notation:
 
@@ -560,7 +566,7 @@ theorem notB_value : notB.IsValue := .abs ..
 -- (Conversely, a term that may contain free variables is often called an
 -- *open term*.)
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     Is the "shortly" above setting wrong expectations? Where exactly are we
 --     defining the free variables in a STLC term? BCP 25: Indeed, we need to
 --     define "free"!
@@ -660,7 +666,7 @@ macro_rules (kind := tmBracket)
   | `(<{ [$x := $s] $t }>) => do
       `(subst $(← varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
 
--- _Details:_ Notation encoding: substitution
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: substitution
 
 -- One more line registers substitutions with the printer, so that a goal
 -- mentioning one reads as `[x := s] t` rather than as a `subst` application.
@@ -671,6 +677,8 @@ def delabSubst : Delab := whenPPOption getPPNotation do
   match ← delabTmInner with
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
+
+-- END DETAILS
 
 -- As we did for the evaluators in the Slang chapter, we pair the definition
 -- with one *simplification lemma* per constructor, saying how `subst` behaves
@@ -1110,7 +1118,7 @@ example : <{ ~idBBBB ~idBB ~idB }> ⟶* idB := by
 -- With these refinements, we are ready to give informal and formal
 -- specifications of the typing relation.
 
--- Note to developers (Chris Henson  @chenson2018, before next release):
+-- Note to developers (Chris Henson @chenson2018, before next release):
 --     I find the FULL explanation above much better than the TERSE one below,
 --     since the question below seems ill-posed without extra context. Why
 --     would one want to type a term `x y` if we've just said that we will
@@ -1159,7 +1167,7 @@ abbrev Context := PartialMap String Ty
 -- judgment then goes inside the same `<{ … }>` brackets as terms, written
 -- with the turnstile and colon of the Types chapter: `<{ Γ ⊢ t ⦂ T }>`.
 
--- _Details:_ Notation encoding: contexts and judgments
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: contexts and judgments
 
 -- Contexts get a grammar of their own, `stlcCtx`. The **meaning** is the map
 -- update we already have — `x ↦ T ; Γ` expands to exactly the `Typeclasses`
@@ -1199,6 +1207,8 @@ local macro_rules (kind := judgeBracket)
   | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
 
+-- END DETAILS
+
 inductive HasType : Context → Tm → Ty → Prop where
   | var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :
       <{ ~Γ ⊢ ~(Tm.var x) ⦂ ~T₁ }>
@@ -1217,7 +1227,7 @@ inductive HasType : Context → Tm → Ty → Prop where
       (h₃ : <{ ~Γ ⊢ ~t₃ ⦂ ~T₁ }>) :
       <{ ~Γ ⊢ if ~t₁ then ~t₂ else ~t₃ ⦂ ~T₁ }>
 
--- _Details:_ Notation encoding: the judgment, for real
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: the judgment, for real
 
 -- Closing the `section` retires the hygiene-free rule; the same rule is then
 -- declared again, hygienically, for every later use.
@@ -1228,7 +1238,9 @@ macro_rules (kind := judgeBracket)
   | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
 
--- _Details:_ Notation encoding: printing judgments back
+-- END DETAILS
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing judgments back
 
 -- As with terms, a judgment prints back in its own notation, so that a goal
 -- reads as `<{ x ↦ Bool ; ∅ ⊢ x ⦂ Bool }>` rather than as a `HasType` applied
@@ -1264,6 +1276,8 @@ def HasType.unexpand : Unexpander
   | `($_ $G $t $T) =>
       do `(<{ $(← unexpandCtx G) ⊢ ~($t) ⦂ ~($T) }>)
   | _ => throw ()
+
+-- END DETAILS
 
 -- ### Examples
 

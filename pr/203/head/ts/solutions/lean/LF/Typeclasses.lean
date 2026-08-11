@@ -7,7 +7,7 @@ import TS.SFLCompat
 
 variable (α : Type)
 
--- Note to developers (Michael Hicks  @mwhicks1):
+-- Note to developers (Michael Hicks @mwhicks1):
 --     Students will run across universes, though. When looking at List
 --     lemmas, for example, they will see things like:
 --
@@ -15,7 +15,7 @@ variable (α : Type)
 --
 --     Are we explaining these things somewhere, maybe in Poly ?
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Yes, in Poly!
 
 -- This lets us work with a type like `List α`, writing functions like
@@ -159,7 +159,7 @@ def List.headOr_ex {α : Type} (defaultValue : α) (xs : List α) : α :=
 -- one piece of data, which will come in handy later, though we only need a
 -- single field here.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     "type-level concept" doesn't say much to me here, and structures are
 --     *not* type-level things. (Well, `structure`s are, but *a* structure
 --     satisfying some `structure` declaration is not, if you see what I
@@ -190,7 +190,7 @@ example : natDefault.value = 1 := rfl
 
 end DefaultValueScratch
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Maybe the example is not needed?
 
 -- Now for the marking: we need to tell Lean that `DefaultValue` is the sort
@@ -207,7 +207,7 @@ class DefaultValue (α : Type) where
 instance instDefaultValueNat : DefaultValue Nat where
   value := 1
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Boldface, or italic? We should write down a rule in STYLE.md!
 
 -- Lean can now find this instance on its own, via **typeclass synthesis** (or
@@ -279,7 +279,7 @@ set_option pp.all true in
 -- generic type. First, though, let's go back to `List.elem_poly` and see how
 -- its `[BEq α]` argument actually gets resolved.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Is it a cousin, or a duplicate?
 
 -- ## Using Typeclasses
@@ -399,7 +399,7 @@ instance : HasThree Nat where
 -- into our maps and a type for the values the maps return. Instead of
 -- choosing concrete types for these, we will use type variables.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Should we perhaps refer back to where the `variable` declaration is
 --     explained? (I guess in Poly, but which section?)
 --
@@ -515,13 +515,19 @@ sf_experiment
 -- write `emptyNatMap[2]` rather than `getElem emptyNatMap`. We could notate
 -- `getElem` directly — we'll do exactly that for `update` below — but here
 -- we'll instead make "getting an element" its own typeclass, `MyGetElem`, and
--- notate **instances** of it. This is the same pattern behind `==`: writing
--- `a == b` is notation for `BEq.beq`, resolved by instance search for
--- whatever type `a` and `b` have. Doing the same for indexing notation means
--- `m[a]` resolves to `MyGetElem.getElem m a` for any type with a `MyGetElem`
--- instance, not just `TotalMap` (indeed, `MyGetElem` is a simpler form of the
--- standard library's `GetElem`). We'll see the pattern once more at the end
--- of this development, in the notation for constructing maps.
+-- notate *instances* of it. Doing so means `m[a]` resolves to
+-- `MyGetElem.getElem m a` for any type with a `MyGetElem` instance, not just
+-- `TotalMap`.
+
+-- Using typeclasses to define notation is typical in Lean when the same
+-- notation is useful for many different types. We have seen the approach
+-- already with `==`: writing `a == b` is notation for `BEq.beq`, resolved by
+-- instance search for whatever type `a` and `b` have. We also just saw
+-- overloaded notation for `EmptyCollection` above, where `∅` is notation for
+-- `EmptyCollection.emptyCollection`. Our typeclass `MyGetElem` is a simpler
+-- version of the standard library's `GetElem` typeclass, which has many
+-- instances such as `Array`, `List`, and `Vector`. We develop it to
+-- illustrate the notation-as-typeclass approach.
 
 end TotalMap
 
@@ -549,7 +555,7 @@ instance : MyGetElem (TotalMap α β) α β where
 -- (Don't worry about following the mechanism in detail — the `macro_rules`
 -- and the `app_unexpander` below are minor technicalities.)
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Can we point people to where they can read about these things if they
 --     are interested?
 
@@ -571,7 +577,7 @@ open scoped MyGetElem
 -- default `GetElem` everywhere, but only when `open scoped MyGetElem` is in
 -- force.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Make sure we've really explained `open scoped` somewhere...
 
 -- Since we provided a `MyGetElem` instance for `TotalMap`, we can now use the
@@ -583,7 +589,7 @@ theorem getElem_def (m : TotalMap α β) (a : α) : m[a] = m a := by rfl
 
 example : emptyNatMap[1] = default := by rfl
 
--- Note to developers (Niklas Halonen  @xhalo32):
+-- Note to developers (Niklas Halonen @xhalo32):
 --     As per the discussion in
 --     `https://github.com/plclub/sf-in-lean/pull/166#discussion_r3690573597`,
 --     we should provide the reverse of `getElem_def` as a simp-lemma, but it
@@ -658,7 +664,7 @@ def exampleMap :=
 -- chain a sequence of function or method calls left to right without nested
 -- parentheses.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Should we introduce this notation earlier? (Are there good places to
 --     use it earlier?)
 
@@ -883,7 +889,7 @@ sf_expect_failure
 
 -- ### Partial Maps
 
--- Note to developers (Niklas Halonen  @xhalo32):
+-- Note to developers (Niklas Halonen @xhalo32):
 --     We should spend some time discussing differences between the inductive
 --     approach in Lists.lean and the approach here. The inductive approach
 --     could be made polymorphic and proven to be equivalent with partial maps
@@ -921,7 +927,7 @@ theorem getElem_def (m : PartialMap α β) (a : α) : m[a] = m.toTotal[a] := rfl
 -- ...we define partial maps as a structure containing just a total map. This
 -- more strongly hides the fact that it's a total map.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     If this way is better, then why didn't we do it for total maps too?
 --     Just for the sake of explaining two different mechanisms? We should
 --     explain our reasoning.
@@ -1063,7 +1069,7 @@ example : { 1 ↦ 2, 2 ↦ 3 } = 1 →ₚ 2 ; 2 →ₚ 3 := rfl
 -- another. Lean already has notation for this — `m₁ ⊆ m₂` — which we get by
 -- supplying a `HasSubset` instance.
 
--- Note to developers (Niklas Halonen  @xhalo32):
+-- Note to developers (Niklas Halonen @xhalo32):
 --     I think it would be more idiomatic to define `Subset` as
 --     `∀ {a : α} {b : β}, m₁[a] = some b → m₂[a] = some b`.
 
@@ -1157,7 +1163,7 @@ theorem isEven_succ (n : Nat) : isEven (n + 1) = ! isEven n := by
 
 -- Here are the key differences between `Bool` and `Prop`:
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Check formatting:
 
 -- - ⠀
@@ -1406,7 +1412,7 @@ sf_experiment
 
 -- ## TODO
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Needs finishing...
 
 -- Note to developers:

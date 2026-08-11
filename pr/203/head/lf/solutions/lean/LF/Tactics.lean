@@ -5,13 +5,13 @@ import LF.SFLCompat
 
 -- # Tactics: More Basic Tactics
 
--- Note to developers (Daniel Sainati  @dsainati1):
+-- Note to developers (Daniel Sainati @dsainati1):
 --     [BCP: Old comment -- might be out of date?] There is a section here on
 --     unfolding definitions that should probably move earlier, to `Basics` or
 --     `Induction`, once those chapters are rewritten to not use arithmetic.
 --     This will also require changing the examples.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     (Old and possibly out of date -- check!) Many exercises in this chapter
 --     are based on defining and proving properties about Nat.ble and BEq.eq,
 --     which are not idiomatic in Lean. We should consider replacing these
@@ -20,7 +20,7 @@ import LF.SFLCompat
 -- Note to developers (before next release):
 --     This chapter could maybe use one or two more WORKINCLASS tags...
 
--- Note to developers (Benjamin Pierce  @bcpierce00, before next release, 2025):
+-- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
 --     General comment: All the previous chapters have felt pretty smooth.
 --     This one suddenly feels like we're throwing a huge amount of
 --     information at them, with little scaffolding -- just a bunch of
@@ -44,7 +44,7 @@ import LF.SFLCompat
 
 -- OA: added these to use Lean's Nat.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Deserves a comment. (In general, the reader should be given enough
 --     information to understand every line in the files we give them. This
 --     will not always be possible, but when it is not we should mark it
@@ -131,7 +131,7 @@ theorem rev_exercise1 {α} (l l' : List α) :
     l' = l.rev := by
   intro eq
   rw [eq]; symm
-  apply rev_involutive
+  apply reverse_reverse
   -- /ADMITTED
 
 -- ### Exercise (1 star): apply_rewrite (manually graded) ⭐
@@ -154,7 +154,7 @@ theorem rev_exercise1 {α} (l l' : List α) :
 
 -- ### Supplying arguments to `apply`
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This note is probably dead...
 --
 --     AAA dislikes the `...with...` variants of tactics, which he feels don't
@@ -187,7 +187,7 @@ theorem trans_eq {α : Type} (x y z : α) :
 
 -- Nowwe **should** be able to use `trans_eq` to prove the above example.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     `Is this still true?
 --
 --     Robert Rand: This one makes a nice workinclass. You can show
@@ -225,7 +225,7 @@ theorem trans_eq_example'' (a b c d e f : Nat) :
   intro eq1 eq2
   apply trans_eq [a, b] [c, d] [e, f] eq1 eq2
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     This and below are new (my addition), thoughts?
 
 -- In the previous example, we had to specify the `x` and `z` arguments to
@@ -269,7 +269,7 @@ theorem trans_eq_example_exact (a b c d e f : Nat) :
   intro eq1 eq2
   exact trans_eq _ _ _ eq1 eq2
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     if we decide we want to introduce `calc` earlier, we can remove this
 --     explanation or tweak it. BCP: I think we did introduce it earlier...
 
@@ -481,12 +481,12 @@ theorem beq_0_l (n : Nat) :
 --     HIDE: Robert Rand: I think it's nice to start them off with a easy
 --     question and also to use more datatypes than Nat and Bool.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     All these quizzes (here and elsewhere) need to be checked!
 
 -- _Quiz:_
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     In Rocq, there was a line of = signs between premises and conclusion.
 --     They've gotten lost here. There are probably more instances of this
 --     elsewhere!
@@ -596,7 +596,7 @@ theorem eq_implies_succ_equal (n m : Nat) :
   intro eq
   rw [eq]
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     can someone double check me on this? I think `congr` works this way but
 --     I want to be sure
 
@@ -611,7 +611,7 @@ theorem eq_implies_succ_equal' (n m : Nat) :
   intro eq
   congr
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     how is this explanation of `congr`?
 
 -- The `congr` tactic also accepts a numerical argument, which tells Lean how
@@ -655,7 +655,7 @@ theorem eq_implies_succ_proj_equal (a b c d : Nat) :
 -- For example, the tactic "`dsimp at H`" performs simplification on the
 -- hypothesis `H` in the context.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     This is surely NOT the right way to prove this fact, and I'm not sure
 --     that proving it here is what we want to do anyway. Inserting it for now
 --     for expediency, to get this file closer to compiling...
@@ -726,7 +726,7 @@ theorem silly4 (n m p q : Nat) :
 -- very large development, so we won't import the whole thing here, but we
 -- have provided you `apply ... at ...` because it is quite useful.
 
--- Note to developers (Daniel Sainati  @dsainati1, NOW):
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
 --     this part has been changed from the original Rocq, let me know what you
 --     think
 
@@ -773,8 +773,8 @@ theorem replace_example m :
 -- Use `have` or `replace` to prove the the following lemma, following the
 -- model of the examples above. Do not use `induction`.
 
-theorem nth_error_always_none (l : List Nat) :
-    (∀ i, nthError l i = none) →
+theorem nth?_always_none (l : List Nat) :
+    (∀ i, nth? l i = none) →
     l = [] := by
   all_goals
     intro h
@@ -782,7 +782,7 @@ theorem nth_error_always_none (l : List Nat) :
     case nil => rfl
     case cons hd tl =>
       have h := h (i := 0)
-      dsimp [nthError] at h
+      dsimp [nth?] at h
       contradiction
 
 -- Tactics like `have` and `replace` can also be used with lemmas and theorems
@@ -833,15 +833,15 @@ example (n m : Nat) :
     n = m := by
   induction n
   case zero =>
-    rw [double_zero]
+    rw [Nat.double_zero]
     intro eq
     cases m
     case zero => rfl
-    case succ _ => rw [double_succ] at eq; contradiction
+    case succ _ => rw [Nat.double_succ] at eq; contradiction
   case succ n' ih =>
     intro eq
     cases m
-    case zero => rw [double_zero, double_succ] at eq; contradiction
+    case zero => rw [Nat.double_zero, Nat.double_succ] at eq; contradiction
     case succ m' =>
       congr
       /- At this point, the induction hypothesis `ih` does _not_ give us
@@ -907,7 +907,7 @@ example (n m : Nat) :
 -- in the goal statement at the point where the `induction` tactic is invoked
 -- on `n`.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     The comments in this proof might need trimming -- probably not
 --     appropriate in the terse version, and probably not nicely typeset in
 --     the full version
@@ -918,12 +918,12 @@ theorem double_injective : ∀ (n m : Nat),
   intro n
   induction n
   case zero =>
-    rw [double_zero]
+    rw [Nat.double_zero]
     intro m eq
     cases m
     case zero => rfl
     case succ _ =>
-      rw [double_succ] at eq
+      rw [Nat.double_succ] at eq
       contradiction
   case succ n' ih =>
   -- Notice that both the goal and the induction hypothesis are
@@ -938,7 +938,7 @@ theorem double_injective : ∀ (n m : Nat),
   cases m
   case zero =>
     -- The 0 case is trivial:
-    rw [double_zero, double_succ] at eq
+    rw [Nat.double_zero, Nat.double_succ] at eq
     contradiction
   case succ m' =>
     congr
@@ -949,7 +949,7 @@ theorem double_injective : ∀ (n m : Nat),
     -- in the IH with the current `m'` (this instantiation is performed
     -- automatically by the `apply` in the next step), then `ih` gives
     -- us exactly what we need to finish the proof.
-    apply ih; rw [double_succ, double_succ] at eq; injections
+    apply ih; rw [Nat.double_succ, Nat.double_succ] at eq; injections
 
 -- Note to developers:
 --     `HIDE: Robert Rand: I found jumping straight to "what if we want to
@@ -1085,13 +1085,13 @@ theorem double_injective_take2_FAILED (n m : Nat) :
     cases n
     case zero => rfl
     case succ =>
-      rw [double_zero, double_succ] at eq
+      rw [Nat.double_zero, Nat.double_succ] at eq
       contradiction
   case succ =>
     intro eq
     cases n
     case zero =>
-      rw [double_zero, double_succ] at eq
+      rw [Nat.double_zero, Nat.double_succ] at eq
       contradiction
     case succ =>
       congr
@@ -1121,16 +1121,16 @@ theorem double_injective_take2 (n m : Nat) :
     cases n
     case zero => rfl
     case succ =>
-      rw [double_zero, double_succ] at eq
+      rw [Nat.double_zero, Nat.double_succ] at eq
       contradiction
   case succ _ ih =>
     cases n
     case zero =>
-      rw [double_zero, double_succ] at eq
+      rw [Nat.double_zero, Nat.double_succ] at eq
       contradiction
     case succ =>
       congr
-      rw [double_succ, double_succ] at eq
+      rw [Nat.double_succ, Nat.double_succ] at eq
       injections _ eq; exact ih _ eq
 
 -- Let's look at an informal proof of this theorem. Note that the proposition
@@ -1178,7 +1178,7 @@ theorem double_injective_take2 (n m : Nat) :
 -- library function `Nat.ble`), together with the fact that it commutes with
 -- successor on both sides.
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     Added, to make the file compile, on Claude's suggestion. But is this
 --     the right way? Answer: No, just replaces uses of it by Nat.ble!
 
@@ -1244,7 +1244,7 @@ theorem sub_add_ble : ∀ (n m : Nat),
 
 theorem nth_error_after_last {α : Type} (n : Nat) (l : List α) :
     l.length = n →
-    nthError l n = none := by
+    nth? l n = none := by
   all_goals
     intros hlen
     induction l generalizing n
@@ -1252,7 +1252,7 @@ theorem nth_error_after_last {α : Type} (n : Nat) (l : List α) :
     case cons hd tl ih =>
       rw [List.length_cons] at hlen
       rw [← hlen]
-      dsimp [nthError]; apply ih _; rfl
+      dsimp [nth?]; apply ih _; rfl
 
 -- ## Using `cases` on Compound Expressions
 
@@ -1485,7 +1485,7 @@ theorem bool_fn_applied_thrice (f : Bool → Bool) (b : Bool) :
 
 -- Additional Exercises
 
--- Note to developers (Benjamin Pierce  @bcpierce00):
+-- Note to developers (Benjamin Pierce @bcpierce00):
 --     There seems to be nothing left for the student to fill in!
 
 -- ### Exercise (3 stars): beq_symm ⭐⭐⭐
