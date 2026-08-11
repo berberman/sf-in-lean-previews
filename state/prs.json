@@ -343,9 +343,9 @@
     "216": {
       "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
       "changed_variants": [],
-      "head_sha": "05b36c22052e50dbc61904a05eef0d1dff2bb030",
+      "head_sha": "43d959205d3b446ebb0b6d92c0529ad42493d215",
       "preview_path": "pr/216/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31422658274",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31469745841",
       "status": "ci-failed",
       "title": "[WIP] Pass over Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
@@ -409,11 +409,48 @@
     },
     "228": {
       "base_sha": "66265d3e43e5847eb573ba1aa6b0509f9fa291ab",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "6a408291137178dee8354b0e9d9eebd8eea17419",
       "preview_path": "pr/228/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31469383504",
+      "status": "published",
       "title": "Polish IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/228"
     }
