@@ -34,12 +34,31 @@ import LF.SFLCompat
 
 -- ## Looking Forward
 
--- If what you've seen so far has whetted your interest, you have several
+-- OLD: If what you've seen so far has whetted your interest, you have several
 -- choices for further reading in later volumes of the *Software Foundations*
 -- series. Some of these are intended to be accessible to readers immediately
 -- after finishing *Logical Foundations*; others require a few chapters from
 -- Volume 2, *Programming Language Foundations*. The Preface chapter in each
 -- volume gives details about prerequisites.
+
+-- FINISH: As of August 2026, there are two more volumes written in Lean.
+
+-- *Hoare Logic*: This short volume describes one of the primary methods for
+-- reasoning about *imperative* programs- programs with state and mutation,
+-- like C++, Java, C, and Assembly- in a pure logic like Lean's. This method,
+-- called *Hoare Logic*, is embeddable into Lean's type system and is a
+-- powerful tool for determining the correct behavior of imperative code.
+-- Since most of the code in the wild today is imperative, this technique is
+-- both well-established and popular among industry professionals who analyze
+-- and fortify the correctness of systems.
+
+-- *Type Systems*: Another tool for reasoning about the correctness of a
+-- program is a *type system*. You have interacted thoroughly with Lean's rich
+-- type system, which is one of the most complex in a modern programming
+-- language. Most languages have type systems that are far less complex, but
+-- which still provide incredibly useful guardrails against ill-behaved
+-- programs. In this volume you will explore how to read, analyze, and design
+-- type systems in a proof assistant.
 
 -- ## Resources
 
