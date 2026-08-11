@@ -2,7 +2,7 @@
   "main_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
   "prs": {
     "171": {
-      "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
+      "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -41,57 +41,20 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "a5930f903e4f18e6aa458d2c0327628db7a9ae2a",
+      "head_sha": "d289a81a5e7e8aa4c4c5c75ce7c22a205a2ffb7c",
       "preview_path": "pr/171/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31428467312",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31452628383",
       "status": "published",
       "title": "First draft of Hoare.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/171"
     },
     "179": {
       "base_sha": "a5930f903e4f18e6aa458d2c0327628db7a9ae2a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "ee0b7294d7fc0af66f2aa2c2585f0911bd716ed3",
+      "changed_variants": [],
+      "head_sha": "c4fcbb877c7528d0245f79259e46f7c2d27b3974",
       "preview_path": "pr/179/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31441716528",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Hoare: assertion and triple syntax",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
     },
@@ -447,9 +410,9 @@
     "227": {
       "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
       "changed_variants": [],
-      "head_sha": "93a381bce140161e8e0c91540b3f2ec2e53cf42d",
+      "head_sha": "b731e937d1fd3d77a94e470377130a133e1bcdb4",
       "preview_path": "pr/227/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31445635218",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31452494020",
       "status": "ci-failed",
       "title": "Draft PR for translating preface and postscript",
       "url": "https://github.com/plclub/sf-in-lean/pull/227"
