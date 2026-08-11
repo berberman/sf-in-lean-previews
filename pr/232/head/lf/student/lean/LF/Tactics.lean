@@ -1215,7 +1215,7 @@ theorem beq_trans (n m p : Nat) :
     (n == p) = true := by
   sorry
 
--- ### Exercise (3 stars): split_combine (manually graded) ⭐⭐⭐
+-- ### Exercise (3 stars): split_combine (Advanced, manually graded) ⭐⭐⭐
 
 -- We proved, in an exercise above, that `combine` is the inverse of `split`.
 -- Complete the definition of `split_combine_statement` below with a property
@@ -1237,14 +1237,14 @@ theorem split_combine : split_combine_statement := by
   sorry
 -- FILL IN HERE
 
--- ### Exercise (3 stars): filter_exercise ⭐⭐⭐
+-- ### Exercise (3 stars): filter_exercise (Advanced) ⭐⭐⭐
 
 theorem filter_exercise {α : Type} (test : α → Bool) (a : α) (l lf : List α) :
     filter test l = a :: lf →
     test a = true := by
   sorry
 
--- ### Exercise (4 stars): forall_exists_challenge ⭐⭐⭐⭐
+-- ### Exercise (4 stars): forall_exists_challenge (Advanced) ⭐⭐⭐⭐
 
 -- Define two recursive `Fixpoints`, `forallb` and `existsb`. The first checks
 -- whether every element in a list satisfies a given predicate:

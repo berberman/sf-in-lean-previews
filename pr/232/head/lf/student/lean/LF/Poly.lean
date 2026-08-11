@@ -961,7 +961,7 @@ def foldMap {α : Type} {β : Type} (f : α → β) (l : List α) : List β := s
 
 -- FILL IN HERE
 
--- ### Exercise (2 stars): currying ⭐⭐
+-- ### Exercise (2 stars): currying (Advanced) ⭐⭐
 
 -- The type `α → β → γ` can be read as describing functions that take two
 -- arguments, one of type `α` and another of type `β`, and return an output of
@@ -1016,7 +1016,7 @@ theorem curry_uncurry {α β γ : Type} (f : α × β → γ) {p : α × β} :
     prodUncurry (prodCurry f) p = f p := by
   sorry
 
--- ### Exercise (2 stars): nth_error_informal (manually graded) ⭐⭐
+-- ### Exercise (2 stars): nth_error_informal (Advanced, manually graded) ⭐⭐
 
 -- Recall the definition of the `nth?` function:
 
@@ -1102,7 +1102,7 @@ example : two Nat Nat.succ 0 = 2 := by rfl
 -- the definitions of the following functions. Make sure that the
 -- corresponding unit tests pass by proving them with `rfl`.
 
--- ### Exercise (2 stars): church_scc ⭐⭐
+-- ### Exercise (2 stars): church_scc (Advanced) ⭐⭐
 
 -- Define a function that computes the successor of a Church numeral. Given a
 -- Church numeral `n`, its successor `scc n` should iterate its function
@@ -1116,7 +1116,7 @@ example : scc zero = one := sorry
 theorem scc_2 : scc one = two := sorry
 theorem scc_3 : scc two = three := sorry
 
--- ### Exercise (3 stars): church_plus ⭐⭐⭐
+-- ### Exercise (3 stars): church_plus (Advanced) ⭐⭐⭐
 
 -- Define a function that computes the addition of two Church numerals. Given
 -- `fun X f x => f^n x` and `fun X f x => f^m x` as input, `plus` should
@@ -1131,7 +1131,7 @@ theorem plus_1 : plus zero one = one := sorry
 theorem plus_2 : plus two three = plus three two := sorry
 theorem plus_3 : plus (plus two two) three = plus one (plus three three) := sorry
 
--- ### Exercise (3 stars): church_mult ⭐⭐⭐
+-- ### Exercise (3 stars): church_mult (Advanced) ⭐⭐⭐
 
 -- Define a function that computes the multiplication of two Church numerals.
 
@@ -1149,7 +1149,7 @@ theorem mult_1 : mult one one = one := sorry
 theorem mult_2 : mult zero (plus three three) = zero := sorry
 theorem mult_3 : mult two three = plus three three := sorry
 
--- ### Exercise (3 stars): church_exp ⭐⭐⭐
+-- ### Exercise (3 stars): church_exp (Advanced) ⭐⭐⭐
 
 -- Exponentiation:
 

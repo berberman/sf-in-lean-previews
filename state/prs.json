@@ -333,57 +333,20 @@
     "216": {
       "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
       "changed_variants": [],
-      "head_sha": "43d959205d3b446ebb0b6d92c0529ad42493d215",
+      "head_sha": "220e97850af805c53ccf18f5a0a3ad769fb37c46",
       "preview_path": "pr/216/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31469745841",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31523401225",
       "status": "ci-failed",
       "title": "[WIP] Pass over Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },
     "227": {
       "base_sha": "b8fb67d1d7c2f73f1463691310bf9ba4b0ccf16d",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "74ff038fdee24cbd60800d95a2dfec389fbc2aa1",
+      "changed_variants": [],
+      "head_sha": "6b673088b5e17d00ef66e82219f6cad4b09edf04",
       "preview_path": "pr/227/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31521861970",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31523428714",
+      "status": "ci-failed",
       "title": "Draft PR for translating preface and postscript",
       "url": "https://github.com/plclub/sf-in-lean/pull/227"
     },
@@ -578,9 +541,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "a9b6b486c448bf64c289afb00d0778c7d5ad4529",
+      "head_sha": "94a2ee1503bf958bb5e8b1ecbc8c8949d374ea03",
       "preview_path": "pr/232/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31516887561",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31523615535",
       "status": "published",
       "title": "Tackle dev comments in `Lists`",
       "url": "https://github.com/plclub/sf-in-lean/pull/232"

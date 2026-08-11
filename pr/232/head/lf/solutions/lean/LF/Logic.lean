@@ -489,7 +489,7 @@ theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
   all_goals
     intro h; apply h; exact ha
 
--- ### Exercise (2 stars): double_neg_informal (manually graded) ⭐⭐
+-- ### Exercise (2 stars): double_neg_informal (Advanced, manually graded) ⭐⭐
 
 -- Write an *informal* proof of `double_neg`: *Theorem*: `a` implies `¬ ¬ a`,
 -- for any proposition `a`.
@@ -508,7 +508,7 @@ theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
     apply h
     exact ha
 
--- ### Exercise (1 star): not_PNP_informal (manually graded) ⭐
+-- ### Exercise (1 star): not_PNP_informal (Advanced, manually graded) ⭐
 
 -- Write an informal proof of the proposition `∀ a : Prop, ¬ (a ∧ ¬ a)`.
 
@@ -702,7 +702,7 @@ theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
 -- we can use `exfalso` to replace them with `False`. The `contradiction`
 -- tactic takes care of all of this for us.
 
--- ### Exercise (2 stars): nil_is_not_cons (manually graded) ⭐⭐
+-- ### Exercise (2 stars): nil_is_not_cons (Advanced, manually graded) ⭐⭐
 
 -- Use the same technique as above to show that `[] ≠ x :: xs`. Do not use the
 -- `contradiction` tactic.
@@ -2120,7 +2120,7 @@ theorem excluded_middle_irrefutable (a : Prop) : ¬ ¬ (a ∨ ¬ a) := by
     obtain ⟨hna, hnna⟩ := de_morgan_not_or h
     exact hnna hna
 
--- ### Exercise (3 stars): not_exists_dist ⭐⭐⭐
+-- ### Exercise (3 stars): not_exists_dist (Advanced) ⭐⭐⭐
 
 -- It is a theorem of classical logic that the following two assertions are
 -- equivalent:

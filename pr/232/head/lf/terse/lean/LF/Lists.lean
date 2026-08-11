@@ -132,9 +132,9 @@ def myRepeat (n count : Nat) : NatList :=
 
 -- Some simple facts about repetition:
 
-theorem repeat_zero {v : Nat} : myRepeat v 0 = [] := rfl
+theorem repeat_zero {n : Nat} : myRepeat n 0 = [] := rfl
 
-theorem repeat_succ {v count : Nat} : myRepeat v (count + 1) = v :: myRepeat v count := rfl
+theorem repeat_succ {n count : Nat} : myRepeat n (count + 1) = n :: myRepeat n count := rfl
 
 def length (l : NatList) : Nat :=
   match l with
@@ -149,10 +149,10 @@ theorem length_cons {n : Nat} {l : NatList} : (n :: l).length = l.length + 1 := 
 
 -- ### Append
 
-def append (l1 l2 : NatList) : NatList :=
-  match l1 with
-  | [] => l2
-  | h :: t => h :: append t l2
+def append (l₁ l₂ : NatList) : NatList :=
+  match l₁ with
+  | [] => l₂
+  | h :: t => h :: append t l₂
 
 -- ### Type Classes and Overloading
 
@@ -162,13 +162,13 @@ def append (l1 l2 : NatList) : NatList :=
 instance : HAppend NatList NatList NatList where
   hAppend := append
 
--- Now `l1 ++ l2` means `append l1 l2` within `NatList`.
+-- Now `l₁ ++ l₂` means `append l₁ l₂` within `NatList`.
 
 -- Some simple facts about appending lists:
 
 theorem nil_append (l : NatList) : [] ++ l = l := rfl
 
-theorem cons_append {n : Nat} {l1 l2 : NatList} : (n :: l1) ++ l2 = n :: (l1 ++ l2) := rfl
+theorem cons_append {n : Nat} {l₁ l₂ : NatList} : (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := rfl
 
 example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
@@ -216,24 +216,24 @@ def foo (n : Nat) : NatList :=
 -- ### Exercise (1 star): counting ⭐
 
 -- Define a `count` function for `NatList`s that counts the
--- number of times an element `v` appears in the list.
+-- number of times an element `n` appears in the list.
 
-def count (v : Nat) (l : NatList) : Nat := sorry
+def count (n : Nat) (l : NatList) : Nat := sorry
 
 -- Now, prove these lemmas which should hold about your
 -- definition.
 
-theorem count_nil {x : Nat} : count x [] = 0 := sorry
+theorem count_nil {n : Nat} : count n [] = 0 := sorry
 
-theorem count_cons_def {v h : Nat} {t : NatList} :
-    count v (h :: t) = bif v == h then (count v t) + 1 else count v t := sorry
+theorem count_cons_def {n h : Nat} {t : NatList} :
+    count n (h :: t) = bif n == h then (count n t) + 1 else count n t := sorry
 
-theorem count_cons_same {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = true) :
-    count v₁ (v₂ :: t) = count v₁ t + 1 := by
+theorem count_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+    count n₁ (n₂ :: t) = count n₁ t + 1 := by
   sorry
 
-theorem count_cons_diff {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = false) :
-    count v₁ (v₂ :: t) = count v₁ t := by
+theorem count_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+    count n₁ (n₂ :: t) = count n₁ t := by
   sorry
 
 example : count 1 [1] = 1 := by
@@ -258,16 +258,16 @@ example : count 6 [1, 2, 3, 1, 4, 1] = 0 := sorry
 
 -- ### Exercise (1 star): membership ⭐
 
-def member (v : Nat) (l : NatList) : Bool := sorry
+def member (n : Nat) (l : NatList) : Bool := sorry
 
-theorem member_nil {v : Nat} : member v [] = false := sorry
+theorem member_nil {n : Nat} : member n [] = false := sorry
 
-theorem member_cons_same {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = true) :
-    member v₁ (v₂ :: t) = true := by
+theorem member_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+    member n₁ (n₂ :: t) = true := by
   sorry
 
-theorem member_cons_diff {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = false) :
-    member v₁ (v₂ :: t) = member v₁ t := by
+theorem member_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+    member n₁ (n₂ :: t) = member n₁ t := by
   sorry
 
 example : member 1 [1] = true := by
@@ -289,16 +289,16 @@ theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 -- When `removeOne` is applied to a list without the number to
 -- remove, it should return the same list unchanged.
 
-def removeOne (v : Nat) (l : NatList) : NatList := sorry
+def removeOne (n : Nat) (l : NatList) : NatList := sorry
 
-theorem removeOne_nil {v : Nat} : removeOne v nil = nil := sorry
+theorem removeOne_nil {n : Nat} : removeOne n nil = nil := sorry
 
-theorem removeOne_cons_same {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = true) :
-    removeOne v₁ (v₂ :: t) = t := by
+theorem removeOne_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+    removeOne n₁ (n₂ :: t) = t := by
   sorry
 
-theorem removeOne_cons_diff {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = false) :
-    removeOne v₁ (v₂ :: t) = v₂ :: removeOne v₁ t := by
+theorem removeOne_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+    removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t := by
   sorry
 
 example : removeOne 5 [1, 5, 4] = [1, 4] := by
@@ -311,16 +311,16 @@ theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
 
 theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
 
-def removeAll (v : Nat) (l : NatList) : NatList := sorry
+def removeAll (n : Nat) (l : NatList) : NatList := sorry
 
-theorem removeAll_nil {v : Nat} : removeAll v [] = [] := sorry
+theorem removeAll_nil {n : Nat} : removeAll n [] = [] := sorry
 
-theorem removeAll_cons_same {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = true) :
-    removeAll v₁ (v₂ :: t) = removeAll v₁ t := by
+theorem removeAll_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+    removeAll n₁ (n₂ :: t) = removeAll n₁ t := by
   sorry
 
-theorem removeAll_cons_diff {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = false) :
-    removeAll v₁ (v₂ :: t) = v₂ :: removeAll v₁ t := by
+theorem removeAll_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+    removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t := by
   sorry
 
 example : count 5 (removeAll 5 [5, 1]) = 0 := by
@@ -332,7 +332,7 @@ example : count 5 (removeAll 5 [5, 1]) = 0 := by
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := sorry
 
-theorem test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
+theorem test_removeAll₁ : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
 
 theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
@@ -344,12 +344,12 @@ def included (l₁ l₂ : NatList) : Bool := sorry
 
 theorem included_nil {l₂ : NatList} : included nil l₂ = true := sorry
 
-theorem included_cons_member {v : Nat} {l₁ l₂ : NatList} (h : member v l₂ = true) :
-    included (cons v l₁) l₂ = included l₁ (removeOne v l₂) := by
+theorem included_cons_member {n : Nat} {l₁ l₂ : NatList} (h : member n l₂ = true) :
+    included (cons n l₁) l₂ = included l₁ (removeOne n l₂) := by
   sorry
 
-theorem included_cons_nonmember {v : Nat} {l₁ l₂ : NatList} (h : member v l₂ = false) :
-    included (cons v l₁) l₂ = false := by
+theorem included_cons_nonmember {n : Nat} {l₁ l₂ : NatList} (h : member n l₂ = false) :
+    included (cons n l₁) l₂ = false := by
   sorry
 
 example : included [1] [2, 1] = true := by
@@ -387,40 +387,40 @@ theorem tail_length_pred (l : NatList) :
 -- tactic on lists to prove things like the associativity of
 -- list-append...
 
-theorem append_assoc (l1 l2 l3 : NatList) :
-    (l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3) := by
-  induction l1 with
+theorem append_assoc (l₁ l₂ l₃ : NatList) :
+    (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃) := by
+  induction l₁ with
   | nil =>
     rw [nil_append, nil_append]
-  | cons n l1' ih =>
+  | cons n l₁' ih =>
     rw [cons_append, cons_append, cons_append, ih]
 
 -- For comparison, here is an informal proof of the same
 -- theorem.
 
--- *Theorem*: For all lists `l1`, `l2`, and `l3`,
+-- *Theorem*: For all lists `l₁`, `l₂`, and `l₃`,
 
---   (l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3).
+--   (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
 
--- *Proof*: By induction on `l1`.
+-- *Proof*: By induction on `l₁`.
 
--- - First, suppose `l1 = []`. We must show
+-- - First, suppose `l₁ = []`. We must show
 
---   ([] ++ l2) ++ l3 = [] ++ (l2 ++ l3),
+--   ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
 
 -- which follows directly from the definition of `append`.
 
--- - Next, suppose `l1 = n :: l1'`, with
+-- - Next, suppose `l₁ = n :: l₁'`, with
 
---   (l1' ++ l2) ++ l3 = l1' ++ (l2 ++ l3)
+--   (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
 
 -- (the induction hypothesis). We must show
 
---   ((n :: l1') ++ l2) ++ l3 = (n :: l1') ++ (l2 ++ l3).
+--   ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
 
 -- By the definition of `append`, this follows from
 
---   n :: ((l1' ++ l2) ++ l3) = n :: (l1' ++ (l2 ++ l3)),
+--   n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
 
 -- which is immediate from the induction hypothesis. *Qed*.
 
@@ -658,7 +658,7 @@ theorem MyId.beq_refl (x : MyId) : MyId.beq x x = true := by
 
 inductive PartialMap : Type where
   | empty : PartialMap
-  | record (i : MyId) (v : Nat) (m : PartialMap) : PartialMap
+  | record (i : MyId) (n : Nat) (m : PartialMap) : PartialMap
 
 namespace PartialMap
 
@@ -675,16 +675,16 @@ def update (d : PartialMap) (x : MyId) (value : Nat) : PartialMap :=
 def find (x : MyId) (d : PartialMap) : NatOption :=
   match d with
   | empty => .none
-  | record y v d' =>
-    bif MyId.beq x y then .some v
+  | record y n d' =>
+    bif MyId.beq x y then .some n
     else find x d'
 
 -- _Quiz:_
 
 -- Is the following claim true or false?
 
-theorem quiz1 (d : PartialMap) (x : MyId) (v : Nat) :
-    find x (update d x v) = .some v := by
+theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
+    find x (update d x n) = .some n := by
   dsimp [update, find]
   rw [MyId.beq_refl]
   dsimp

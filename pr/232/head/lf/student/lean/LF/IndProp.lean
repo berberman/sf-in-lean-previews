@@ -910,7 +910,7 @@ theorem Nat.ev_Even_iff : ∀ n, Ev n ↔ Even n := by
 theorem ev_sum : ∀ n m, Ev n → Ev m → Ev (n + m) := by
   sorry
 
--- ### Exercise (3 stars): ev_ev__ev ⭐⭐⭐
+-- ### Exercise (3 stars): ev_ev__ev (Advanced) ⭐⭐⭐
 
 theorem ev_ev__ev : ∀ n m, Ev (n + m) → Ev n → Ev m := by
   /- Hint: There are two pieces of evidence you could attempt to induct upon
@@ -1004,7 +1004,7 @@ theorem closure_of_diagonal_is_diagonal : ∀ α (R: α → α → Prop),
   case rt_trans x' y' z' hxy hyz ihxy ihyz =>
     rw [ihxy, ihyz]
 
--- ### Exercise (4 stars): ev'_ev ⭐⭐⭐⭐
+-- ### Exercise (4 stars): ev'_ev (Advanced) ⭐⭐⭐⭐
 
 -- In general, there may be multiple ways of defining a property inductively.
 -- For example, here's a (slightly contrived) alternative definition for `Ev`:
@@ -1318,7 +1318,7 @@ theorem R_equiv_fR : ∀ m n o, R m n o ↔ fR m n = o := by
 
 end R
 
--- ### Exercise (4 stars): subsequence ⭐⭐⭐⭐
+-- ### Exercise (4 stars): subsequence (Advanced) ⭐⭐⭐⭐
 
 -- A list is a *subsequence* of another list if all of the elements in the
 -- first list occur in the same order in the second list, possibly with some
@@ -1474,7 +1474,7 @@ example : ¬ (NoStutter [3, 1, 1, 4]) := by
         rfl
   -/
 
--- ### Exercise (4 stars): filter_challenge ⭐⭐⭐⭐
+-- ### Exercise (4 stars): filter_challenge (Advanced) ⭐⭐⭐⭐
 
 -- Let's prove that our definition of `filter` from the `Poly` chapter matches
 -- an abstract specification. Here is the specification, written out
@@ -1512,7 +1512,7 @@ theorem merge_filter : ∀ (α : Type) (test: α→ Bool) (l l₁ l₂ : List α
   List.filter test l = l₁ := by
   sorry
 
--- ### Exercise (5 stars): filter_challenge_2 ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): filter_challenge_2 (Advanced) ⭐⭐⭐⭐⭐
 
 -- A different way to characterize the behavior of `filter` goes like this:
 -- Among all subsequences of `l` with the property that `test` evaluates to
@@ -1566,7 +1566,7 @@ theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
 
 -- FILL IN HERE
 
--- ### Exercise (4 stars): NoDup ⭐⭐⭐⭐
+-- ### Exercise (4 stars): NoDup (Advanced) ⭐⭐⭐⭐
 
 -- Use the `∈` property to define a proposition `disjoint l₁ l₂`, which should
 -- be provable exactly when `l₁` and `l₂` are lists (with elements of type
@@ -1588,7 +1588,7 @@ theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
 
 -- FILL IN HERE
 
--- ### Exercise (5 stars): pigeonhole_principle ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): pigeonhole_principle (Advanced) ⭐⭐⭐⭐⭐
 
 -- The *pigeonhole principle* states a basic fact about counting: if we
 -- distribute more than `n` items into `n` pigeonholes, some pigeonhole must
