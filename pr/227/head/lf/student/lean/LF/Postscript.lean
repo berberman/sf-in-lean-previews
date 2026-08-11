@@ -27,7 +27,7 @@ import LF.SFLCompat
 -- - inductive proofs
 -- - proof objects
 
--- - *Rocq*, an industrial-strength proof assistant
+-- - *Lean*, an industrial-strength proof assistant
 -- - functional core language
 -- - core tactics
 -- - automation

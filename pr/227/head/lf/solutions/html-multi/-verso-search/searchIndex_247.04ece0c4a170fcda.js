@@ -1,1 +1,0 @@
-window.docContents[247].resolve({"/Postscript/#Postscript":{"contents":"The FULL version could use some real text\n\nCongratulations: We've made it to the end of Logical\nFoundations!\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"12. Postscript","id":"/Postscript/#Postscript"}});

@@ -2,7 +2,7 @@ import LF.SFLCompat
 
 -- # Postscript
 
--- Note to developers (before next release):
+-- Note to developers:
 --     The FULL version could use some real text
 
 -- Congratulations: We've made it to the end of *Logical Foundations*!
@@ -30,7 +30,7 @@ import LF.SFLCompat
 -- - inductive proofs
 -- - proof objects
 
--- - *Rocq*, an industrial-strength proof assistant
+-- - *Lean*, an industrial-strength proof assistant
 -- - functional core language
 -- - core tactics
 -- - automation

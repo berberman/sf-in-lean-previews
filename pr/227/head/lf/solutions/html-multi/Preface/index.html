@@ -1991,7 +1991,7 @@ window.onload = async () => {
             <div class="split-toc">
               <div class="title">
                 <label for="--verso-manual-toc-Preface" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Preface" checked="checked"></label><span class="number">1.</span> <span class="current"><a href="Preface/#Preface">Preface</a></span></div>
-              <table><tr class="numbered"><td class="num">1.1.</td><td><a href="Preface/#Logical-Foundations--Preface--Welcome">Welcome</a></td></tr><tr class="numbered"><td class="num">1.2.</td><td><a href="Preface/#Logical-Foundations--Preface--Overview">Overview</a></td></tr><tr class="numbered"><td class="num">1.3.</td><td><a href="Preface/#Logical-Foundations--Preface--Practicalities">Practicalities</a></td></tr><tr class="numbered"><td class="num">1.4.</td><td><a href="Preface/#Logical-Foundations--Preface--Resources">Resources</a></td></tr><tr class="numbered"><td class="num">1.5.</td><td><a href="Preface/#Logical-Foundations--Preface--Note-for-Instructors-and-Contributors">Note for Instructors and Contributors</a></td></tr><tr class="numbered"><td class="num">1.6.</td><td><a href="Preface/#Logical-Foundations--Preface--Translations">Translations</a></td></tr><tr class="numbered"><td class="num">1.7.</td><td><a href="Preface/#Logical-Foundations--Preface--Thanks">Thanks</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.1.</td><td><a href="Preface/#Logical-Foundations--Preface--Welcome">Welcome</a></td></tr><tr class="numbered"><td class="num">1.2.</td><td><a href="Preface/#Logical-Foundations--Preface--Overview">Overview</a></td></tr><tr class="numbered"><td class="num">1.3.</td><td><a href="Preface/#Logical-Foundations--Preface--Practicalities">Practicalities</a></td></tr><tr class="numbered"><td class="num">1.4.</td><td><a href="Preface/#Logical-Foundations--Preface--For-Potential-Contributors">For Potential Contributors</a></td></tr><tr class="numbered"><td class="num">1.5.</td><td><a href="Preface/#Logical-Foundations--Preface--For-Instructors">For Instructors</a></td></tr><tr class="numbered"><td class="num">1.6.</td><td><a href="Preface/#Logical-Foundations--Preface--Acknowledgements">Acknowledgements</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -2003,69 +2003,32 @@ window.onload = async () => {
           <section>
             <h1>
               1. Preface<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Preface" title="Permalink">🔗</a></span></h1>
-            <div class="sf-dev-note">
-              <div class="sf-dev-note-label">
-                Note to developers (Benjamin Pierce @bcpierce00)</div>
-              <p>
-                From Chris: For whoever takes this up, recall that lean-software-foundations-contributors &gt; Main Achievements of Lean lists some big Lean projects you can reference to replace the Rocq-specific achievements</p>
-              </div>
-            <div class="sf-dev-note">
-              <div class="sf-dev-note-label">
-                Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025)</div>
-              <p>
-                The SF course at Penn (CIS 5000) sometimes attracts
-students who don't have enough math background and begin really
-flailing around the middle of the semester. I wonder if we could
-help these people weed themselves out by offering some kind of more
-detailed self-assessment near the beginning, maybe in this
-chapter.</p>
-              <p>
-                Some concepts that I would hope people have seen before:</p>
-              <ul>
-                <li>
-                  <p>
-                    recursive, polymorphic functional programming over lists</p>
-                  </li>
-                <li>
-                  <p>
-                    abstract definitions involving relations (e.g., reflexive,
-    symmetric, transitive closure of a relation)</p>
-                  </li>
-                </ul>
-              </div>
             <section>
               <h2 id="Logical-Foundations--Preface--Welcome">
                 1.1. Welcome<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Welcome" title="Permalink">🔗</a></span></h2>
               <p>
-                This is the entry point to a series of electronic textbooks on
-various aspects of <em>Software Foundations</em>, the mathematical
-underpinnings of reliable software.  Topics in the series include
-basic concepts of logic, computer-assisted theorem proving, the
-Rocq prover, functional programming, operational semantics, logics
-and techniques for reasoning about programs, static type systems,
-property-based random testing, and verification of practical C
-code.  The exposition is intended for a broad range of readers,
-from advanced undergraduates to PhD students and researchers.  No
-specific background in logic or programming languages is assumed,
-though a degree of mathematical maturity will be helpful.</p>
+                This is the entry point to a series of electronic textbooks on various
+aspects of <em>Software Foundations</em>, the mathematical underpinnings of
+reliable software.  Topics in the series include basic concepts of
+logic, functional programming, computer-assisted theorem proving,
+operational semantics, logics and techniques for reasoning about
+programs, static type systems, property-based random testing, and
+verification of practical C code.  The exposition is intended for a
+broad range of readers, from advanced undergraduates to PhD students
+and researchers.  No specific background in logic or programming
+languages is assumed, though a degree of mathematical maturity will be
+helpful.</p>
               <p>
-                The principal novelty of the series is that it is one hundred
-percent formalized and machine-checked: each text is literally a
-script for Rocq.  The books are intended to be read alongside (or
-inside) an interactive session with Rocq.  All the details in the
-text are fully formalized in Rocq, and most of the exercises are
-designed to be worked using Rocq.</p>
+                The principal novelty of the series is that it is one hundred percent
+formalized and machine-checked: each text is literally a script for
+Lean.  The books are intended to be read alongside (or inside) an
+interactive session with Lean.  All the details in the text are fully
+formalized in Lean, and almost all of the exercises are designed to be
+worked using Lean.</p>
               <p>
-                The files in each book are organized into a sequence of core
-chapters, covering about one semester's worth of material and
-organized into a coherent linear narrative, plus a number of
-"offshoot" chapters covering additional topics.  All the core
-chapters are suitable for both upper-level undergraduate and
-graduate students.</p>
-              <p>
-                This book, <em>Logical Foundations</em>, lays groundwork for the others,
-introducing the reader to the basic ideas of functional
-programming, constructive logic, and the Rocq prover.</p>
+                This book, <em>Logical Foundations in Lean</em>, lays groundwork for the
+others, introducing the reader to the basic ideas of functional
+programming, formal logic, and Lean itself.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Preface--Overview">
@@ -2080,26 +2043,25 @@ information processing is woven into every aspect of society
 greatly amplifies the cost of bugs and insecurities.</p>
               <p>
                 Computer scientists and software engineers have responded to these
-challenges by developing a host of techniques for improving
-software reliability, ranging from recommendations about managing
-software projects teams (e.g., extreme programming) to design
-philosophies for libraries (e.g., model-view-controller,
-publish-subscribe, etc.) and programming languages (e.g.,
-object-oriented programming, functional programming, ...)
-to mathematical techniques for
-specifying and reasoning about properties of software and tools
-for helping validate these properties.  The <em>Software Foundations</em>
-series is focused on this last set of tools.</p>
+challenges with a host of techniques for improving software
+reliability, ranging from recommendations about managing software
+projects teams (e.g., extreme programming) to design philosophies for
+libraries (e.g., model-view-controller, publish-subscribe, etc.) and
+whole programming languages (e.g., object-oriented programming,
+functional programming, ...) to mathematical techniques for specifying
+and reasoning about properties of software and tools for helping
+validate these properties.  The <em>Software Foundations</em> books are focused
+on this last set of tools.</p>
               <p>
-                This volume weaves together three conceptual threads:</p>
+                The present volume weaves together three conceptual threads:</p>
               <p>
                 (A) basic tools from <em>logic</em> for making and justifying precise
     claims about programs;</p>
               <p>
-                (B) the use of <em>proof assistants</em> (or <em>provers</em>) to construct
+                (B) the use of <em>provers</em> (or <em>proof assistants</em>) to construct
     rigorous logical arguments;</p>
               <p>
-                (C) <em>functional programming</em>, both as a method of programming that
+                (C) <em>functional programming</em>, both as a programming method that
     simplifies reasoning about programs and as a bridge between
     programming and logic.</p>
               <section>
@@ -2120,69 +2082,74 @@ much of the impetus for the development of logic during the past
 one hundred years came from mathematics."</p>
                 <p>
                   In particular, the fundamental tools of <em>inductive proof</em> are
-ubiquitous in all of computer science.  You have surely seen them
-before, perhaps in a course on discrete math or analysis of
-algorithms, but in this course we will examine them more deeply
-than you have probably done so far.</p>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers</div>
-                  <p>
-                    HIDE: That last claim is now only true if people read some
-optional chapters.  Oh well...</p>
-                  </div>
+ubiquitous across computer science.  You have surely seen them before,
+perhaps in a course on discrete math or analysis of algorithms, but in
+this book we will examine them more deeply than you have probably done
+so far.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Preface--Overview--Proof-Assistants">
                   1.2.2. Proof Assistants<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Overview--Proof-Assistants" title="Permalink">🔗</a></span></h3>
                 <p>
-                  The flow of ideas between logic and computer science has not been
-unidirectional: CS has also made important contributions to logic.
-One of these has been the development of software tools for
-helping construct proofs of logical propositions.  These tools
-fall into two broad categories:</p>
+                  The flow of ideas between logic and computer science over the years
+has run in both directions, with CS also making contributions to
+logic. One of these has been the development of software tools for
+helping construct and validate proofs of logical statements.  These
+tools fall into two broad categories:</p>
                 <ul>
                   <li>
                     <p>
-                      <em>Automated theorem provers</em> provide "push-button" operation:
-     you give them a proposition and they return either <em>true</em> or
-     <em>false</em> (or, sometimes, <em>don't know: ran out of time</em>).
-     Although their reasoning capabilities are still limited,
-     they have matured tremendously in recent decades and
-     are used now in a multitude of settings.  Examples of such
-     tools include SAT solvers, SMT solvers, and model checkers.</p>
+                      <em>Automated theorem provers</em> provide "push-button" operation: you
+     give them a proposition and they return either <em>true</em> or <em>false</em>
+     (or, sometimes, <em>don't know: ran out of time</em>). Although their
+     reasoning capabilities are limited, they have matured
+     tremendously in recent decades and are used now in a multitude of
+     settings.  Examples of such tools include SAT solvers, SMT
+     solvers, and model checkers.</p>
                     </li>
                   <li>
                     <p>
-                      <em>Proof assistants</em> are hybrid tools that automate the more
-     routine aspects of building proofs while depending on human
-     guidance for more difficult aspects.  Widely used proof
-     assistants include Isabelle, Agda, Twelf, ACL2, PVS, F*,
-     HOL4, Lean, and Rocq, among many others.</p>
+                      <em>Proof assistants</em> — or just <em>provers</em> — are hybrid tools that
+     automate the more routine aspects of creating proofs while
+     depending on human guidance for more difficult aspects.  Widely
+     used proof assistants include Isabelle, Agda, Twelf, ACL2, PVS,
+     F*, HOL4, Rocq, and Lean, among many others.</p>
                     </li>
                   </ul>
                 <p>
-                  This course is based around Rocq, a proof assistant that has been
-under development since 1983 and has attracted a large community
-of users in both research and industry.  Rocq provides a rich
-environment for interactive development of machine-checked formal
-reasoning.  The kernel of the Rocq system is a simple
-proof-checker, which guarantees that only correct deduction steps
-are ever performed.  On top of this kernel, the Rocq environment
-provides high-level facilities for proof development, including a
-large library of common definitions and lemmas, powerful tactics
-for constructing complex proofs semi-automatically, and a
-special-purpose programming language for defining new
-proof-automation tactics for specific situations.</p>
+                  This course is based around Lean, a proof assistant that has been
+under development since 2013 and has attracted a large and active
+community of users in both research and at companies like DeepMind,
+OpenAI, Anthropic, MSR, and AWS.</p>
                 <p>
-                  Rocq has been a critical enabler for a huge variety of work across
-computer science and mathematics:</p>
+                  Lean provides a rich environment for interactive development of
+machine-checked formal reasoning.  The kernel of the Lean system is a
+simple proof-checker, which guarantees that only correct deduction
+steps are ever performed.  On top of this kernel, the Lean environment
+provides high-level facilities for proof development, including a
+large library of common definitions and lemmas, powerful tactics for
+constructing complex proofs semi-automatically, and a highly
+extensible system for defining new proof-automation tactics and
+notations for specific situations.</p>
+                <p>
+                  Lean and its relatives have become a critical enablers for a huge
+variety of work across computer science and mathematics:</p>
+                <div class="sf-dev-note">
+                  <div class="sf-dev-note-label">
+                    Note to developers (Benjamin Pierce @bcpierce00)</div>
+                  <p>
+                    Need more examples, including specifically things accomplished in Lean.</p>
+                  <p>
+                    <code>lean-software-foundations-contributors &gt; Main Achievements of Lean</code>
+lists some big Lean projects -- some of them should be mentioned here.
+And there are probably things here to trim.</p>
+                  </div>
                 <ul>
                   <li>
                     <p>
-                      As a <em>platform for modeling programming languages</em>, it has
-  become a standard tool for researchers who need to describe and
-  reason about complex language definitions.  It has been used,
+                      As a <em>platform for modeling programming languages</em>, they have
+  become standard tools for researchers who need to describe and
+  reason about complex language definitions.  They have been used,
   for example, to check the security of the JavaCard platform,
   obtaining the highest level of common criteria certification,
   and for formal specifications of the x86 and LLVM instruction
@@ -2190,146 +2157,99 @@ computer science and mathematics:</p>
                     </li>
                   <li>
                     <p>
-                      As an <em>environment for developing formally certified software
-  and hardware</em>, Rocq has been used, for example, to build
+                      As <em>environments for developing formally certified software
+  and hardware</em>, they been used, for example, to build
   CompCert, a fully-verified optimizing compiler for C, and
   CertiKOS, a fully verified hypervisor, for proving the
   correctness of subtle algorithms involving floating point
   numbers, and as the basis for CertiCrypt, FCF, and SSProve,
   which are frameworks for proving cryptographic algorithms secure.
-  It is also being used to build verified implementations of the
+  They are also being used to build verified implementations of the
   open-source RISC-V processor architecture.</p>
                     </li>
                   <li>
                     <p>
-                      As a <em>realistic environment for functional programming with
-  dependent types</em>, it has inspired numerous innovations.  For
-  example, Hoare Type Theory embeds reasoning about
-  "pre-conditions" and "post-conditions" (an extension of the
-  <em>Hoare Logic</em> we will see later in this course) in Rocq.</p>
-                    </li>
-                  <li>
-                    <p>
-                      As a <em>proof assistant for higher-order logic</em>, it has been used
-  to validate a number of important results in mathematics.  For
-  example, its ability to include complex computations inside
-  proofs made it possible to develop the first formally verified
-  proof of the 4-color theorem.  This proof had previously been
-  controversial among mathematicians because it required checking
-  a large number of configurations using a program. In the Rocq
-  formalization, everything is checked, including the correctness
-  of the computational part.  More recently, an even more massive
-  effort led to a Rocq formalization of the Feit-Thompson Theorem,
-  the first major step in the classification of finite simple
-  groups.</p>
+                      As <em>proof assistants for mathematics</em>, they have been used to
+  validate and help develop a number of important results.  For
+  example, the ability to include complex computations inside proofs
+  made it possible to develop the first formally verified proof of the
+  4-color theorem.  This proof had previously been controversial among
+  mathematicians because it required checking a large number of
+  configurations using a program. More recently, an even more massive
+  effort led to a formalization of the Feit-Thompson Theorem, the
+  first major step in the classification of finite simple groups.</p>
                     </li>
                   </ul>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers</div>
-                  <p>
-                    HIDE: CH: How about also mentioning more recent Rocq successes, like Iris
-(https://iris-project.org/) or VST (http://vst.cs.princeton.edu/)?</p>
-                  </div>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Preface--Overview--Functional-Programming">
                   1.2.3. Functional Programming<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Overview--Functional-Programming" title="Permalink">🔗</a></span></h3>
                 <p>
-                  The term <em>functional programming</em> refers both to a collection of
-programming idioms that can be used in almost any programming
-language and to a family of programming languages designed to
-emphasize these idioms, including Haskell, OCaml, Standard ML,
-F##, Scala, Scheme, Racket, Common Lisp, Clojure, Erlang, F*,
-and Rocq.</p>
+                  <em>Functional programming</em> refers both to a collection of idioms that
+can be used in almost any programming language and to a family of
+ languages designed to foreground these idioms, including Haskell,
+OCaml, Standard ML, F##, Scala, Scheme, Racket, Common Lisp, Clojure,
+Erlang, F*, and Lean itself.</p>
                 <p>
-                  Functional programming has been developed over many decades --
-indeed, its roots go back to Church's lambda-calculus, which was
-invented in the 1930s, well <em>before</em> the first electronic
-computers!  But since the early '90s it has enjoyed a surge of
-interest among industrial engineers and language designers,
-playing a key role in high-value systems at companies like Jane
-Street Capital, Microsoft, Facebook, Twitter, and Ericsson.</p>
+                  Functional programming has been developed over many decades — indeed,
+its roots go back to Church's lambda-calculus from the 1930s, well
+<em>before</em> the first electronic computers!  But since the early '90s it
+has enjoyed a surge of interest among both software engineers and
+language designers.</p>
                 <p>
-                  The most basic tenet of functional programming is that, as much as
+                  The most basic tenet of functional programming is that, whenever
 possible, computation should be <em>pure</em>, in the sense that the only
 effect of execution should be to produce a result: it should be
 free from <em>side effects</em> such as I/O, assignments to mutable
 variables, redirecting pointers, etc.  For example, whereas an
 <em>imperative</em> sorting function might take a list of numbers and
 rearrange its pointers to put the list in order, a pure sorting
-function would take the original list and return a <em>new</em> list
+function would take the original list and return a fresh list
 containing the same numbers in sorted order.</p>
                 <p>
-                  A significant benefit of this style of programming is that it
-makes programs easier to understand and reason about.  If every
-operation on a data structure yields a new data structure, leaving
-the old one intact, then there is no need to worry about how that
-structure is being shared and whether a change by one part of the
-program might break an invariant relied on by another part of the
-program.  These considerations are particularly critical in
-concurrent systems, where every piece of mutable state that is
-shared between threads is a potential source of pernicious bugs.
-Indeed, a large part of the recent interest in functional
-programming in industry is due to its simpler behavior in the
-presence of concurrency.</p>
+                  A significant benefit of this style of programming is that it makes
+programs easier to understand and reason about.  If every operation on
+a data structure yields a new data structure, leaving the old one
+intact, then there is no need to worry about how that structure is
+being shared and whether a change by one part of the program might
+break an invariant relied on by another part of the program.  These
+considerations are particularly critical in concurrent systems, where
+every piece of mutable state shared between threads is a potential
+source of pernicious bugs.</p>
                 <p>
-                  Another reason for the current excitement about functional
-programming is related to the first: functional programs are often
-much easier to parallelize and physically distribute than their
-imperative counterparts.  If running a computation has no effect
-other than producing a result, then it does not matter <em>where</em> it
-is run.  Similarly, if a data structure is never modified
-destructively, then it can be copied freely, across cores or
-across the network.  Indeed, the "Map-Reduce" idiom, which lies at
-the heart of massively distributed query processors like Hadoop
-and is used by Google to index the entire web is a classic example
-of functional programming.</p>
+                  Another reason for the popularity of functional programming is related
+to the first: functional programs are often much easier to parallelize
+and physically distribute than their imperative counterparts.  If
+running a computation has no effect other than producing a result,
+then it does not matter <em>where</em> it is run.  Similarly, if a data
+structure is never modified destructively, it can be copied freely,
+across cores or across the network.  Indeed, the "Map-Reduce" idiom,
+which lies at the heart of massively distributed query processors like
+Hadoop and is used by Google to index the entire web, is a classic
+example of functional programming.</p>
                 <p>
-                  For purposes of this course, functional programming has yet
-another significant attraction: it serves as a bridge between
-logic and computer science.  Indeed, Rocq itself can be viewed as a
-combination of a small but extremely expressive functional
-programming language plus a set of tools for stating and proving
-logical assertions.  Moreover, when we come to look more closely,
-we find that these two sides of Rocq are actually aspects of the
-very same underlying machinery -- i.e., <em>proofs are programs</em>.</p>
-                </section>
-              <section>
-                <h3 id="Logical-Foundations--Preface--Overview--Rocq-vs___-Coq">
-                  1.2.4. Rocq vs. Coq<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Overview--Rocq-vs___-Coq" title="Permalink">🔗</a></span></h3>
-                <p>
-                  Until 2025, the Rocq prover was known as Coq. According to the
-official webpage, "The name 'Coq' referenced the Calculus of
-Constructions (CoC), the foundational system it is based on, as
-well as one of its creators, Thierry Coquand. Additionally, it
-paid homage to the French national symbol, the rooster.  The new
-name, 'the Rocq Prover', honors Inria Rocquencourt, the original
-site where the prover was developed. It also alludes to the
-mythological bird Roc (or Rokh), symbolizing strength and not so
-disconnected to a rooster. Furthermore, the name conveys a sense
-of solidity, and its unintended connection to music adds a
-pleasant resonance."</p>
-                <p>
-                  The current release of Software Foundations is still in a
-transitional state, and you will see references to both Coq and
-Rocq.</p>
+                  For purposes of these books, functional programming has yet another
+significant attraction: it serves as a bridge between logic and
+computer science.  Indeed, Lean itself can be viewed as a combination
+of a small but extremely expressive functional programming language
+and a set of tools for stating and proving logical assertions.
+Moreover, when we come to look more closely, we find that these two
+sides of Lean are actually aspects of the very same underlying
+machinery -- i.e., <em>proofs are programs</em>.</p>
                 <div class="sf-dev-note">
                   <div class="sf-dev-note-label">
-                    Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025)</div>
+                    Note to developers (Benjamin Pierce @bcpierce00)</div>
                   <p>
-                    Update this when the rename is finished!</p>
+                    Is this an accurate description of Lean?</p>
                   </div>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Preface--Overview--Further-Reading">
-                  1.2.5. Further Reading<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Overview--Further-Reading" title="Permalink">🔗</a></span></h3>
+                  1.2.4. Further Reading<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Overview--Further-Reading" title="Permalink">🔗</a></span></h3>
                 <p>
                   This text is intended to be self contained, but readers looking
 for a deeper treatment of particular topics will find some
-suggestions for further reading in the <a href="Postscript/#Postscript">Postscript</a> chapter.
-Bibliographic information for all cited works can be found in the
-file <code>Bib</code>.</p>
+suggestions for further reading in the <a href="Postscript/#Postscript">Postscript</a> chapter.</p>
                 </section>
               </section>
             <section>
@@ -2338,270 +2258,33 @@ file <code>Bib</code>.</p>
               <section>
                 <h3 id="Logical-Foundations--Preface--Practicalities--System-Requirements">
                   1.3.1. System Requirements<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--System-Requirements" title="Permalink">🔗</a></span></h3>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (before next release)</div>
-                  <p>
-                    I ported some of the instructions from
-<code>https://www.seas.upenn.edu/~cis5000/current/coq.html</code> but there might be
-more goodness to extract from there</p>
-                  </div>
                 <p>
-                  Rocq runs on Windows, Linux, and macOS.  The files in this book
-have been tested with Rocq $COQVERSION.</p>
+                  Lean runs on Windows, Linux, and MacOS.  The files in this book
+have been tested with Lean version <code>4.32.0</code>.</p>
                 <section>
-                  <h4 id="Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode-___-Docker">
-                    1.3.1.1. Recommended Installation Method: VSCode + Docker<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode-___-Docker" title="Permalink">🔗</a></span></h4>
+                  <h4 id="Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode">
+                    1.3.1.1. Recommended Installation Method: VSCode<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode" title="Permalink">🔗</a></span></h4>
                   <p>
-                    The Visual Studio Code IDE can cooperate with the Docker
-virtualization platform to compile Rocq scripts without the need
-for any separate Rocq installation.  This method is recommended for
-most Software Foundations readers.</p>
+                    The Visual Studio Code IDE is the recommended platform for using Lean.</p>
                   <ul>
                     <li>
                       <p>
-                        Install Docker from &lt;https://www.docker.com/get-started/&gt; or
-  make sure your existing installation is up to date.</p>
+                        Install VS Code if needed</p>
                       </li>
                     <li>
                       <p>
-                        Make sure Docker is running.</p>
+                        From the Extensions tab of VSCode, install the Lean 4 Extension</p>
                       </li>
                     <li>
                       <p>
-                        Install VSCode from &lt;https://code.visualstudio.com&gt; and start it
-  running.</p>
-                      </li>
-                    <li>
-                      <p>
-                        Install VSCode's Dev Containers Extension from
-  &lt;https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers&gt;</p>
-                      <p>
-                        (Note that this extension only works with the official version
-  of VSCode, not with some VSCode forks like VsCodium.)</p>
-                      </li>
-                    <li>
-                      <p>
-                        Set up a directory for this SF volume by downloading the
-  provided <code>.tgz</code> file.  Besides the <code>.v</code> file for each chapter,
-  this directory will contain a <code>.devcontainer</code> subdirectory with
-  instructions for VSCode about where to find an appropriate
-  Docker image and a <code>_CoqProject</code> file, whose presence triggers
-  the VSRocq extension.</p>
+                        Wait for Lean to build the project</p>
                       </li>
                     </ul>
-                  <div class="sf-dev-note">
-                    <div class="sf-dev-note-label">
-                      Note to developers (before next release)</div>
-                    <p>
-                      RocqProject, at some point?</p>
-                    </div>
-                  <ul>
-                    <li>
-                      <p>
-                        In VSCode, use <code>File &gt; Open Folder</code> to open the new directory.
-VSCode should ask you whether you want to run the project in the
-associated Docker container.  (If it does not ask you, you can
-open the command palette by pressing F1 and run the command “Dev
-Containers: Reopen in Container”.)</p>
-                      </li>
-                    </ul>
-                  <p>
-                    This step may take some time.</p>
-                  <ul>
-                    <li>
-                      <p>
-                        Check that VSRocq is working by double-clicking the file
-<code>Basics.v</code> from the list on the left (you should see a blinking
-cursor in the window that opens; if not you can click in that
-window to select it), and pressing <code>alt+downarrow</code> (on MacOS,
-<code>control+option+downarrow</code>) a few times.  You should see the
-cursor move through the file and the region above the cursor get
-highlighted.</p>
-                      </li>
-                    <li>
-                      <p>
-                        If VSRocq does not work and you receive an error indicating that
-  <code>vsrocqtop</code> was not found, open a new terminal in the container
-  (you can do this by opening the command palette and running the
-  command “Terminal: Create New Terminal”) and run the command
-  <code>which vsrocqtop</code>. This should print the path to the VSRocq
-  installation inside the container. Copy this path
-  and paste it into the “VSRocq: Path” textbox in the
-  VSRocq extension settings (accessible via the gear icon on
-  the VSRocq extension page in VSCode), then reload your window.</p>
-                      </li>
-                    <li>
-                      <p>
-                        To see what other key bindings are available, press F1 and then
-type <code>Coq:</code>, or visit the VSRocq web pages:
-&lt;https://github.com/rocq-prover/vsrocq&gt;.</p>
-                      </li>
-                    </ul>
-                  <div class="sf-dev-note">
-                    <div class="sf-dev-note-label">
-                      Note to developers (before next release)</div>
-                    <pre>We might want to include some of this...
-
-When I try to run the line importing all the definitions from Basics.v, I get this error:
-
-Error when parsing .vo (from file /workspaces/lf/Basics.vo) for library LF.Basics: The file /workspaces/lf/Basics.vo was compiled with OCaml 5.2.1 while this instance of Rocq was compiled with OCaml 5.3.0.
-Rocq object files need to be compiled with the same OCaml toolchain to be compatible.
-
-Try this:
-
-Open the terminal pane inside VSCode
-type make clean and check that there are no .vo files
-type make to rebuild Basics.vo
-You may also need to tell VSCode to Reopen in Container so that it notices that things have been rebuilt.
-
-And some of this (from
-https://github.com/bcpierce00/au-fsv23)...
-
-KNOWN PROBLEMS
-
-VSCode shows Docker returned an error
-
- Make sure that Docker is installed and running.
-
-The Remote-Containers: Reopen in Container command is not
-recoqnized by VSCode
-
- You need to have the Remote - Containers extension VSCode
- extension installed and enabled. See here for instructions on how
-
-to install it.
-
-Running Remote-Containers: Reopen in Container cannot find
-container
-
- Make sure you copied the .devcontainer folder to your projects
- root folder and that it includes the devcontainer.json file.
-
-Cannot find a physical path bound to logical path X with prefix Y
-when importing file
-
- Make sure that the Rocq files have been compiled. Run make to
- compile the project files.  If the _CoqProject files is not
- located in the project root folder you need to either Move the
- files to the root project folder Or add the line
- "coq.coqProjectRoot": "PATH_TO_COQPROJECT" (in
- .devcontainer/devcontainer.json to point to the directory where
- _CoqProject is located. Restarting the docker container is
- required after this step.
-
-Docker pull rate limit hit
-
-Docker Hub rate limits pulls of images for free accounts to 200
-per six hours. If this limit is hit you might get one of the
-following errors and have to wait until the rate limit resets.
-
-ERROR: toomanyrequests: Too Many Requests
-
-You have reached your
-pull rate limit. You may increase the limit by authenticating and
-upgrading: https://www.docker.com/increase-rate-limits
-</pre></div>
                   </section>
                 </section>
               <section>
-                <h3 id="Logical-Foundations--Preface--Practicalities--Alternative-Installation-Methods">
-                  1.3.2. Alternative Installation Methods<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Alternative-Installation-Methods" title="Permalink">🔗</a></span></h3>
-                <p>
-                  If you prefer, there are several other ways to use Rocq. You will need:</p>
-                <ul>
-                  <li>
-                    <p>
-                      A current installation of Rocq, available from the Rocq home
-  page (&lt;https://rocq-prover.org/install&gt;).  The "Rocq Platform"
-  offers the easiest installation experience for most people,
-  especially on Windows.</p>
-                    </li>
-                  <li>
-                    <p>
-                      An IDE for interacting with Rocq.  There are several choices:</p>
-                    </li>
-                  </ul>
-                <ul>
-                  <li>
-                    <p>
-                      <em>VsCoq</em> is an extension for Visual Studio Code that offers a
-simple interface via a familiar IDE.  This option is the
-recommended default.</p>
-                    </li>
-                  </ul>
-                <p>
-                  VsCoq can be used as an ordinary IDE or it can be combined
-with Docker (see below) for a lightweight installation
-experience.</p>
-                <ul>
-                  <li>
-                    <p>
-                      <em>Proof General</em> is an Emacs-based IDE.  It tends to be
-preferred by users who are already comfortable with Emacs.
-It requires a separate installation (google "Proof General",
-but generally all you need to do is <code>M-x package-list-packages</code>,
-then select the <code>proof-general</code> package from the list and
-hit the <code>i</code> key for install, then hit the <code>x</code> key for execute).</p>
-                    </li>
-                  </ul>
-                <p>
-                  There are only a few commands you need to know to use ProofGeneral
-effectively. They are:</p>
-                <ul>
-                  <li>
-                    <p>
-                      <code>C-c C-n</code>: send the next command to Rocq.</p>
-                    </li>
-                  <li>
-                    <p>
-                      <code>C-c C-u</code>: undo (retract) the most recently executed command.</p>
-                    </li>
-                  <li>
-                    <p>
-                      <code>C-c C-RET</code>: submit everything up to the current cursor location to
-  Rocq for processing.</p>
-                    </li>
-                  <li>
-                    <p>
-                      <code>C-c C-.</code>: move the cursor to the end of the last command which has
-  been processed by Rocq.</p>
-                    </li>
-                  <li>
-                    <p>
-                      <code>C-c .</code>: toggle "electric terminator mode". When this mode is
-  turned on, simply typing a period will send the current command to
-  Rocq (normally you have to type a period and then type <code>C-c C-n</code>).</p>
-                    </li>
-                  </ul>
-                <p>
-                  Adventurous users of Rocq within Emacs may want to check out
-extensions such as <code>company-coq</code> and <code>control-lock</code>.</p>
-                <ul>
-                  <li>
-                    <p>
-                      <em>RocqIDE</em> is a simpler stand-alone IDE.  It is distributed with
-the Rocq Platform, so it should be available once you have Rocq
-installed.  It can also be compiled from scratch, but on some
-platforms this may involve installing additional packages for GUI
-libraries and such.</p>
-                    </li>
-                  </ul>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (before next release)</div>
-                  <p>
-                    is this recommendation still up-to-date?</p>
-                  </div>
-                <p>
-                  Users who like RocqIDE should consider running it with the
-"asynchronous" and "error resilience" modes disabled:</p>
-                <pre>coqide -async-proofs off \
-       -async-proofs-command-error-resilience off Foo.v &
-</pre></section>
-              <section>
                 <h3 id="Logical-Foundations--Preface--Practicalities--Exercises">
-                  1.3.3. Exercises<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Exercises" title="Permalink">🔗</a></span></h3>
+                  1.3.2. Exercises<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Exercises" title="Permalink">🔗</a></span></h3>
                 <p>
                   Each chapter includes numerous exercises.  Each is marked with a
 "star rating," which can be interpreted as follows:</p>
@@ -2636,48 +2319,25 @@ assigns extra points to harder exercises:</p>
 4 stars = 6 points
 5 stars = 10 points
 </pre><p>
-                  Some exercises are marked "advanced," and some are marked
-"optional."  Doing just the non-optional, non-advanced exercises
-should provide good coverage of the core material.  Optional
-exercises provide a bit of extra practice with key concepts and
-introduce secondary themes that may be of interest to some
-readers.  Advanced exercises are for readers who want an extra
-challenge and a deeper cut at the material.</p>
-                <p>
-                  <strong>Please do not post solutions to the exercises in a public place.</strong>
-Software Foundations is widely used both for self-study and for
-university courses.  Having solutions easily available makes it
-much less useful for courses, which typically have graded homework
-assignments.  We especially request that readers not post
-solutions to the exercises anyplace where they can be found by
-search engines.</p>
-                </section>
-              <section>
-                <h3 id="Logical-Foundations--Preface--Practicalities--Downloading-the-Rocq-Files">
-                  1.3.4. Downloading the Rocq Files<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Downloading-the-Rocq-Files" title="Permalink">🔗</a></span></h3>
-                <p>
-                  A tar file containing the full sources for the "release version"
-of this book (as a collection of Rocq scripts and HTML files) is
-available at &lt;https://softwarefoundations.cis.upenn.edu&gt;.</p>
-                <p>
-                  If you are using the book as part of a class, your professor may
-give you access to a locally modified version of the files; you
-should use that one instead of the public release version, so that
-you get any local updates during the semester.</p>
-                </section>
-              <section>
-                <h3 id="Logical-Foundations--Preface--Practicalities--Chapter-Dependencies">
-                  1.3.5. Chapter Dependencies<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Chapter-Dependencies" title="Permalink">🔗</a></span></h3>
-                <p>
-                  A diagram of the dependencies between chapters and some suggested
-paths through the material can be found in the file <code>deps.html</code>.</p>
+                  Some exercises are marked "advanced," and some are marked "optional."
+Doing just the non-optional, non-advanced exercises should provide
+good coverage of the core material.  Optional exercises provide a bit
+of extra practice with key concepts and introduce secondary themes
+that may be of interest to some readers.  Advanced exercises offer an
+extra challenge and a deeper cut at the ideas.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Preface--Practicalities--Recommended-Citation-Format">
-                  1.3.6. Recommended Citation Format<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Recommended-Citation-Format" title="Permalink">🔗</a></span></h3>
+                  1.3.3. Recommended Citation Format<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Recommended-Citation-Format" title="Permalink">🔗</a></span></h3>
                 <p>
                   If you want to refer to this volume in your own writing, please
 do so as follows:</p>
+                <div class="sf-dev-note">
+                  <div class="sf-dev-note-label">
+                    Note to developers (Benjamin Pierce @bcpierce00)</div>
+                  <p>
+                    Fix.  Give a citation for the whole series also?</p>
+                  </div>
                 <pre>@book            {$FIRSTAUTHOR:SF$VOLUMENUMBER,
 author       =   {$AUTHORS},
 editor       =   {Benjamin C. Pierce},
@@ -2691,95 +2351,40 @@ note         =   {Version $VERSION, \URL&lt;http://softwarefoundations.cis.upenn
 </pre></section>
               </section>
             <section>
-              <h2 id="Logical-Foundations--Preface--Resources">
-                1.4. Resources<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Resources" title="Permalink">🔗</a></span></h2>
-              <section>
-                <h3 id="Logical-Foundations--Preface--Resources--Sample-Exams">
-                  1.4.1. Sample Exams<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Resources--Sample-Exams" title="Permalink">🔗</a></span></h3>
+              <h2 id="Logical-Foundations--Preface--For-Potential-Contributors">
+                1.4. For Potential Contributors<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--For-Potential-Contributors" title="Permalink">🔗</a></span></h2>
+              <p>
+                If you find things you'd like to help add or improve, your
+contributions are welcome!  To get started, clone the
+<a href="https://github.com/plclub/sf-in-lean">SF-in-Lean git repo</a> and
+have a look at <code>ALPHATESTERS.md</code>.</p>
+              </section>
+            <section>
+              <h2 id="Logical-Foundations--Preface--For-Instructors">
+                1.5. For Instructors<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--For-Instructors" title="Permalink">🔗</a></span></h2>
+              <p>
+                A large compendium of exams from many offerings of CIS5000 ("Software
+Foundations") at the University of Pennsylvania can be found at
+&lt;https://www.seas.upenn.edu/~cis5000/current/exams/index.html&gt;. Until
+2026, the course was offered in Rocq, but the ideas behind the
+problems are still relevant.</p>
+              </section>
+            <section>
+              <h2 id="Logical-Foundations--Preface--Acknowledgements">
+                1.6. Acknowledgements<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Acknowledgements" title="Permalink">🔗</a></span></h2>
+              <div class="sf-dev-note">
+                <div class="sf-dev-note-label">
+                  Note to developers (Benjamin Pierce @bcpierce00)</div>
                 <p>
-                  A large compendium of exams from many offerings of
-CIS5000 ("Software Foundations") at the University of Pennsylvania
-can be found at
-&lt;https://www.seas.upenn.edu/~cis5000/current/exams/index.html&gt;.
-There has been some drift of notations over the years, but most of
-the problems are still relevant to the current text.</p>
-                </section>
-              <section>
-                <h3 id="Logical-Foundations--Preface--Resources--Lecture-Videos">
-                  1.4.2. Lecture Videos<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Resources--Lecture-Videos" title="Permalink">🔗</a></span></h3>
+                  Belongs in a separate file.</p>
                 <p>
-                  Lectures for two intensive summer courses based on <em>Logical
-Foundations</em> (part of the DeepSpec summer school series) can be
-found at &lt;https://deepspec.org/event/dsss17&gt; and
-&lt;https://deepspec.org/event/dsss18/&gt;.  The video quality in the
-2017 lectures is poor at the beginning but gets better in the
-later lectures.</p>
-                </section>
-              </section>
-            <section>
-              <h2 id="Logical-Foundations--Preface--Note-for-Instructors-and-Contributors">
-                1.5. Note for Instructors and Contributors<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Note-for-Instructors-and-Contributors" title="Permalink">🔗</a></span></h2>
-              <p>
-                If you plan to use these materials in your own teaching, or if you
-are using software foundations for self study and are finding
-things you'd like to help add or improve, your contributions are
-welcome!  You are warmly invited to join the private SF git repo.</p>
-              <p>
-                In order to keep the legalities simple and to have a single point
-of responsibility in case the need should ever arise to adjust the
-license terms, sublicense, etc., we ask all contributors (i.e.,
-everyone with access to the developers' repository) to assign
-copyright in their contributions to the appropriate "author of
-record," as follows:</p>
-              <ul>
-                <li>
-                  <p>
-                    I hereby assign copyright in my past and future contributions
-    to the Software Foundations project to the Author of Record of
-    each volume or component, to be licensed under the same terms
-    as the rest of Software Foundations.  I understand that, at
-    present, the Authors of Record are as follows: For Volumes 1
-    and 2, known until 2016 as "Software Foundations" and from
-    2016 as (respectively) "Logical Foundations" and "Programming
-    Foundations," and for Volume 4, "QuickChick: Property-Based
-    Testing in Rocq," the Author of Record is Benjamin C. Pierce.
-    For Volume 3, "Verified Functional Algorithms," and volume 5,
-    "Verifiable C," the Author of Record is Andrew W. Appel. For
-    Volume 6, "Separation Logic Foundations," the author of record
-    is Arthur Chargueraud. For components outside of designated
-    volumes (e.g., typesetting and grading tools and other
-    software infrastructure), the Author of Record is Benjamin C.
-    Pierce.</p>
-                  </li>
-                </ul>
-              <p>
-                To get started, please send an email to Benjamin Pierce,
-describing yourself and how you plan to use the materials and
-including (A) the above copyright transfer text and (B) your
-github username.</p>
-              <p>
-                We'll set you up with access to the git repository and developers'
-mailing lists.  In the repository you'll find the files
-<code>INSTRUCTORS</code> and <code>CONTRIBUTING</code> with further instructions.</p>
-              </section>
-            <section>
-              <h2 id="Logical-Foundations--Preface--Translations">
-                1.6. Translations<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Translations" title="Permalink">🔗</a></span></h2>
-              <p>
-                Thanks to the efforts of a team of volunteer translators,
-<em>Software Foundations</em> can be enjoyed in Japanese at
-&lt;http://proofcafe.org/sf&gt;.  A Chinese translation is also underway;
- you can preview it at &lt;https://rocq-zh.github.io/SF-zh/&gt;.</p>
-              </section>
-            <section>
-              <h2 id="Logical-Foundations--Preface--Thanks">
-                1.7. Thanks<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Thanks" title="Permalink">🔗</a></span></h2>
+                  Should include SF classic.</p>
+                </div>
               <p>
                 Development of the <em>Software Foundations</em> series has been
 supported, in part, by the National Science Foundation under the
 NSF Expeditions grant 1521523, <em>The Science of Deep
-Specification</em>.
-</p>
+Specification</em>.</p>
               </section>
             </section>
           <nav class="prev-next-buttons">
