@@ -323,9 +323,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "3913833cd7e683e51b7c7fe21e939bf42a4a365b",
+      "head_sha": "329d5516aeda34d5a75bd6d6987fe4eb6ef8699c",
       "preview_path": "pr/214/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31527964724",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31529556996",
       "status": "published",
       "title": "Cleaning up CONTRIBUTING.md and STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
