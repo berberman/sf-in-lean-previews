@@ -399,11 +399,48 @@
     },
     "227": {
       "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
-      "changed_variants": [],
-      "head_sha": "77a5b15dd6498258ae4b9036d7d1555945c03c74",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "96487653b349fd90b95dee7e885f2e3131f27cf1",
       "preview_path": "pr/227/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31490930732",
+      "status": "published",
       "title": "Draft PR for translating preface and postscript",
       "url": "https://github.com/plclub/sf-in-lean/pull/227"
     },

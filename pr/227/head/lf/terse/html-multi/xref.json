@@ -39,6 +39,28 @@
         "shortTitle": null,
         "number": "7"}]},
      "address": "/Tactics/"}],
+   "Preface":
+   [{"id": "Preface",
+     "data":
+     {"title": "Preface",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Postscript":
+   [{"id": "Postscript",
+     "data":
+     {"title": "Postscript",
+      "shortTitle": null,
+      "sectionNum": "12.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"}]},
+     "address": "/Postscript/"}],
    "Poly":
    [{"id": "Poly",
      "data":
@@ -535,19 +557,324 @@
         "number": "7"},
        {"title": "Review", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
-   "Logical-Foundations--Preface___-Software-Foundations-in-Lean":
-   [{"id": "Logical-Foundations--Preface___-Software-Foundations-in-Lean",
+   "Logical-Foundations--Preface--Welcome":
+   [{"id": "Logical-Foundations--Preface--Welcome",
      "data":
-     {"title": "Preface: Software Foundations in Lean",
+     {"title": "Welcome",
       "shortTitle": null,
-      "sectionNum": "1.",
+      "sectionNum": "1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Preface: Software Foundations in Lean",
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Welcome", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Translations":
+   [{"id": "Logical-Foundations--Preface--Translations",
+     "data":
+     {"title": "Translations",
+      "shortTitle": null,
+      "sectionNum": "1.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Translations", "shortTitle": null, "number": "6"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Thanks":
+   [{"id": "Logical-Foundations--Preface--Thanks",
+     "data":
+     {"title": "Thanks",
+      "shortTitle": null,
+      "sectionNum": "1.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Thanks", "shortTitle": null, "number": "7"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Resources--Sample-Exams":
+   [{"id": "Logical-Foundations--Preface--Resources--Sample-Exams",
+     "data":
+     {"title": "Sample Exams",
+      "shortTitle": null,
+      "sectionNum": "1.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Resources", "shortTitle": null, "number": "4"},
+       {"title": "Sample Exams", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Resources--Lecture-Videos":
+   [{"id": "Logical-Foundations--Preface--Resources--Lecture-Videos",
+     "data":
+     {"title": "Lecture Videos",
+      "shortTitle": null,
+      "sectionNum": "1.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Resources", "shortTitle": null, "number": "4"},
+       {"title": "Lecture Videos", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Resources":
+   [{"id": "Logical-Foundations--Preface--Resources",
+     "data":
+     {"title": "Resources",
+      "shortTitle": null,
+      "sectionNum": "1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Resources", "shortTitle": null, "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode-___-Docker":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode-___-Docker",
+     "data":
+     {"title": "Recommended Installation Method: VSCode + Docker",
+      "shortTitle": null,
+      "sectionNum": "1.3.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "System Requirements", "shortTitle": null, "number": "1"},
+       {"title": "Recommended Installation Method: VSCode + Docker",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--System-Requirements":
+   [{"id": "Logical-Foundations--Preface--Practicalities--System-Requirements",
+     "data":
+     {"title": "System Requirements",
+      "shortTitle": null,
+      "sectionNum": "1.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "System Requirements", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Recommended-Citation-Format":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--Recommended-Citation-Format",
+     "data":
+     {"title": "Recommended Citation Format",
+      "shortTitle": null,
+      "sectionNum": "1.3.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Recommended Citation Format",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Exercises":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Exercises",
+     "data":
+     {"title": "Exercises",
+      "shortTitle": null,
+      "sectionNum": "1.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Exercises", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Downloading-the-Rocq-Files":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--Downloading-the-Rocq-Files",
+     "data":
+     {"title": "Downloading the Rocq Files",
+      "shortTitle": null,
+      "sectionNum": "1.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Downloading the Rocq Files",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Chapter-Dependencies":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Chapter-Dependencies",
+     "data":
+     {"title": "Chapter Dependencies",
+      "shortTitle": null,
+      "sectionNum": "1.3.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Chapter Dependencies", "shortTitle": null, "number": "5"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Alternative-Installation-Methods":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--Alternative-Installation-Methods",
+     "data":
+     {"title": "Alternative Installation Methods",
+      "shortTitle": null,
+      "sectionNum": "1.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Alternative Installation Methods",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities":
+   [{"id": "Logical-Foundations--Preface--Practicalities",
+     "data":
+     {"title": "Practicalities",
+      "shortTitle": null,
+      "sectionNum": "1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Rocq-vs___-Coq":
+   [{"id": "Logical-Foundations--Preface--Overview--Rocq-vs___-Coq",
+     "data":
+     {"title": "Rocq vs. Coq",
+      "shortTitle": null,
+      "sectionNum": "1.2.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Rocq vs. Coq", "shortTitle": null, "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Proof-Assistants":
+   [{"id": "Logical-Foundations--Preface--Overview--Proof-Assistants",
+     "data":
+     {"title": "Proof Assistants",
+      "shortTitle": null,
+      "sectionNum": "1.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Proof Assistants", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Logic":
+   [{"id": "Logical-Foundations--Preface--Overview--Logic",
+     "data":
+     {"title": "Logic",
+      "shortTitle": null,
+      "sectionNum": "1.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Logic", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Further-Reading":
+   [{"id": "Logical-Foundations--Preface--Overview--Further-Reading",
+     "data":
+     {"title": "Further Reading",
+      "shortTitle": null,
+      "sectionNum": "1.2.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Further Reading", "shortTitle": null, "number": "5"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Functional-Programming":
+   [{"id": "Logical-Foundations--Preface--Overview--Functional-Programming",
+     "data":
+     {"title": "Functional Programming",
+      "shortTitle": null,
+      "sectionNum": "1.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Functional Programming", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview":
+   [{"id": "Logical-Foundations--Preface--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Note-for-Instructors-and-Contributors":
+   [{"id":
+     "Logical-Foundations--Preface--Note-for-Instructors-and-Contributors",
+     "data":
+     {"title": "Note for Instructors and Contributors",
+      "shortTitle": null,
+      "sectionNum": "1.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Note for Instructors and Contributors",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Postscript--Resources":
+   [{"id": "Logical-Foundations--Postscript--Resources",
+     "data":
+     {"title": "Resources",
+      "shortTitle": null,
+      "sectionNum": "12.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Resources", "shortTitle": null, "number": "3"}]},
+     "address": "/Postscript/"}],
+   "Logical-Foundations--Postscript--Looking-Forward":
+   [{"id": "Logical-Foundations--Postscript--Looking-Forward",
+     "data":
+     {"title": "Looking Forward",
+      "shortTitle": null,
+      "sectionNum": "12.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Looking Forward", "shortTitle": null, "number": "2"}]},
+     "address": "/Postscript/"}],
+   "Logical-Foundations--Postscript--Looking-Back":
+   [{"id": "Logical-Foundations--Postscript--Looking-Back",
+     "data":
+     {"title": "Looking Back",
+      "shortTitle": null,
+      "sectionNum": "12.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Looking Back", "shortTitle": null, "number": "1"}]},
+     "address": "/Postscript/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs":
    [{"id":
      "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs",
@@ -1671,11 +1998,11 @@
         "shortTitle": null,
         "number": "4"}]},
      "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_":
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Permutations":
    [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_",
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Permutations",
      "data":
-     {"title": "Example: Evenness (yet again)",
+     {"title": "Example: Permutations",
       "shortTitle": null,
       "sectionNum": "9.1.5.",
       "searchPriority": 50,
@@ -1687,9 +2014,27 @@
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
+       {"title": "Example: Permutations", "shortTitle": null, "number": "5"}]},
+     "address": "/IndProp/"}],
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_":
+   [{"id":
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_",
+     "data":
+     {"title": "Example: Evenness (yet again)",
+      "shortTitle": null,
+      "sectionNum": "9.1.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "IndProp: Inductively Defined Propositions",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Inductively Defined Propositions",
+        "shortTitle": null,
+        "number": "1"},
        {"title": "Example: Evenness (yet again)",
         "shortTitle": null,
-        "number": "5"}]},
+        "number": "6"}]},
      "address": "/IndProp/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers":
    [{"id":
@@ -1717,7 +2062,7 @@
      "data":
      {"title": "Constructing Evidence for Permutations",
       "shortTitle": null,
-      "sectionNum": "9.1.6.",
+      "sectionNum": "9.1.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -1729,7 +2074,7 @@
         "number": "1"},
        {"title": "Constructing Evidence for Permutations",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "7"}]},
      "address": "/IndProp/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions":
    [{"id":
@@ -4252,7 +4597,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -4261,7 +4606,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -4985,7 +5330,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3.perm3_swap23":
    [{"id": "Perm3___perm3_swap23",
@@ -4996,7 +5341,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3.perm3_swap12":
    [{"id": "Perm3___perm3_swap12",
@@ -5007,7 +5352,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3":
    [{"id": "Perm3",
@@ -5018,7 +5363,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "PartialMap.update_subset":
    [{"id": "PartialMap___update_subset",
@@ -6888,7 +7233,7 @@
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append-next",
+   [{"id": "Lists___NatList___myRepeat_append",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
@@ -6907,7 +7252,7 @@
         "Induction on Lists",
         "Generalizing Statements"]}},
      "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append",
+    {"id": "Lists___NatList___myRepeat_append-next",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",

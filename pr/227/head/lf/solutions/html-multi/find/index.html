@@ -889,102 +889,6 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
-.marginalia .note {
-  position: relative;
-  padding: 0.5rem;
-}
-
-/*
-The margin-note layout responds to the width of <main>, not the viewport, because the
-ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
-query container (see Html/Style.lean), so the container queries below track the actual
-content width.
-
-There are two "in the margin" regimes, split at the same width where the content stops
-being left-aligned and becomes centered (1112px and 1212px of content width; at the
-default ToC width these are the old 1400px and 1500px viewport breakpoints):
-
-  * While the content is left-aligned there is a large area to its right, so a fixed
-    13rem note with a fixed 16rem overhang fits comfortably.
-  * Once the content is centered the note must fit the symmetric right gap, whose width
-    is (content - text column) / 2. A fixed overhang would overflow the page for content
-    widths just above the centering threshold, so the note and its overhang are sized in
-    container units, which always fit that gap.
-*/
-
-/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
-@media screen and (width <= 700px) {
-  .marginalia .note {
-    float: left;
-    clear: left;
-    width: 90%;
-    margin: 1rem 5%;
-  }
-}
-
-/* Wider than a phone: by default float the note at the right of the text column,
-   overlapping the content. The container queries below lift it into the true margin
-   once there is room. */
-@media screen and (min-width: 701px) {
-  .marginalia .note {
-    float: right;
-    clear: right;
-    width: 40%;
-    margin: 1rem 0;
-    margin-left: 10%;
-  }
-}
-
-/* Left-aligned content: a fixed-size note in the wide area to its right. */
-@container main (width >= 1112px) {
-  .marginalia .note {
-    float: right;
-    clear: right;
-    width: 13rem;
-    margin: 1rem -16rem 0 0;
-  }
-}
-
-/* Centered content: size the note in container units so it always fits the symmetric
-   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
-   so the fixed-overhang note above is only ever used while the content is left-aligned.
-   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
-   content width at which the content is centered. */
-@container main (width >= 1212px) {
-  .marginalia .note {
-    width: 15cqi;
-    margin-right: -18cqi;
-  }
-}
-
-.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
-  background-color: var(--lean-accent-light-blue);
-}
-
-body {
-  counter-reset: margin-note-counter;
-}
-.marginalia .note {
-  counter-increment: margin-note-counter;
-}
-.marginalia .note::before {
-  content: counter(margin-note-counter) ".";
-  position: absolute;
-  vertical-align: baseline;
-  font-size: 0.9em;
-  font-weight: bold;
-  left: -3rem;
-  width: 3rem;
-  text-align: right;
-}
-.marginalia::after {
-  content: counter(margin-note-counter);
-  vertical-align: super;
-  font-size: 0.7em;
-  font-weight: bold;
-  margin-right: 0.5em;
-}
-</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1821,242 +1725,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 </style><script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // Track whether any tippy is visible (O(1) check instead of DOM scan)
-    let visibleTippyCount = 0;
-    function blockedByTippy(elem) {
-      return visibleTippyCount > 0;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        if (inst.reference.className == 'tactic') {
-          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-          hideParentTooltips(inst.reference);
-          if (blockedByTippy(inst.reference)) { return false; }
-
-        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-          if (blockedByTactic(inst.reference)) { return false };
-          if (blockedByTippy(inst.reference)) { return false; }
-        } else { // Nothing to show here!
-          return false;
-        }
-      },
-      onShown(inst) { visibleTippyCount++; },
-      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverId) { // Docstrings from the table
-            // TODO stop doing an implicit conversion from string to number here
-            let data = versoDocData[hoverId];
-            if (data) {
-              const info = document.createElement("span");
-              info.className = "hover-info";
-              info.style.display = "block";
-              info.innerHTML = data;
-              content.appendChild(info);
-              /* Render docstrings - TODO server-side */
-              if ('undefined' !== typeof marked) {
-                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                      const str = d.innerText;
-                      const html = marked.parse(str);
-                      const rendered = document.createElement("div");
-                      rendered.classList.add("docstring");
-                      rendered.innerHTML = html;
-                      d.parentNode.replaceChild(rendered, d);
-                  }
-              }
-            } else {
-              content.innerHTML = "Failed to load doc ID: " + hoverId;
-            }
-          } else if (hoverInfo) { // The inline info, still used for compiler messages
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          const extraLinks = tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (!tok._tippy && tok.matches(tacticTippySelector)) {
-              tippy(tok, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (tok._tippy) tok._tippy.destroy();
-          });
-        }
-      });
-  });
-}
-</script>
-    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -2098,6 +1766,28 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "7"}]},
      "address": "/Tactics/"}],
+   "Preface":
+   [{"id": "Preface",
+     "data":
+     {"title": "Preface",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Postscript":
+   [{"id": "Postscript",
+     "data":
+     {"title": "Postscript",
+      "shortTitle": null,
+      "sectionNum": "12.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"}]},
+     "address": "/Postscript/"}],
    "Poly":
    [{"id": "Poly",
      "data":
@@ -2594,19 +2284,324 @@ window.onload = async () => {
         "number": "7"},
        {"title": "Review", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
-   "Logical-Foundations--Preface___-Software-Foundations-in-Lean":
-   [{"id": "Logical-Foundations--Preface___-Software-Foundations-in-Lean",
+   "Logical-Foundations--Preface--Welcome":
+   [{"id": "Logical-Foundations--Preface--Welcome",
      "data":
-     {"title": "Preface: Software Foundations in Lean",
+     {"title": "Welcome",
       "shortTitle": null,
-      "sectionNum": "1.",
+      "sectionNum": "1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Preface: Software Foundations in Lean",
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Welcome", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Translations":
+   [{"id": "Logical-Foundations--Preface--Translations",
+     "data":
+     {"title": "Translations",
+      "shortTitle": null,
+      "sectionNum": "1.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Translations", "shortTitle": null, "number": "6"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Thanks":
+   [{"id": "Logical-Foundations--Preface--Thanks",
+     "data":
+     {"title": "Thanks",
+      "shortTitle": null,
+      "sectionNum": "1.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Thanks", "shortTitle": null, "number": "7"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Resources--Sample-Exams":
+   [{"id": "Logical-Foundations--Preface--Resources--Sample-Exams",
+     "data":
+     {"title": "Sample Exams",
+      "shortTitle": null,
+      "sectionNum": "1.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Resources", "shortTitle": null, "number": "4"},
+       {"title": "Sample Exams", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Resources--Lecture-Videos":
+   [{"id": "Logical-Foundations--Preface--Resources--Lecture-Videos",
+     "data":
+     {"title": "Lecture Videos",
+      "shortTitle": null,
+      "sectionNum": "1.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Resources", "shortTitle": null, "number": "4"},
+       {"title": "Lecture Videos", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Resources":
+   [{"id": "Logical-Foundations--Preface--Resources",
+     "data":
+     {"title": "Resources",
+      "shortTitle": null,
+      "sectionNum": "1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Resources", "shortTitle": null, "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode-___-Docker":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode-___-Docker",
+     "data":
+     {"title": "Recommended Installation Method: VSCode + Docker",
+      "shortTitle": null,
+      "sectionNum": "1.3.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "System Requirements", "shortTitle": null, "number": "1"},
+       {"title": "Recommended Installation Method: VSCode + Docker",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--System-Requirements":
+   [{"id": "Logical-Foundations--Preface--Practicalities--System-Requirements",
+     "data":
+     {"title": "System Requirements",
+      "shortTitle": null,
+      "sectionNum": "1.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "System Requirements", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Recommended-Citation-Format":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--Recommended-Citation-Format",
+     "data":
+     {"title": "Recommended Citation Format",
+      "shortTitle": null,
+      "sectionNum": "1.3.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Recommended Citation Format",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Exercises":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Exercises",
+     "data":
+     {"title": "Exercises",
+      "shortTitle": null,
+      "sectionNum": "1.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Exercises", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Downloading-the-Rocq-Files":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--Downloading-the-Rocq-Files",
+     "data":
+     {"title": "Downloading the Rocq Files",
+      "shortTitle": null,
+      "sectionNum": "1.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Downloading the Rocq Files",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Chapter-Dependencies":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Chapter-Dependencies",
+     "data":
+     {"title": "Chapter Dependencies",
+      "shortTitle": null,
+      "sectionNum": "1.3.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Chapter Dependencies", "shortTitle": null, "number": "5"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Alternative-Installation-Methods":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--Alternative-Installation-Methods",
+     "data":
+     {"title": "Alternative Installation Methods",
+      "shortTitle": null,
+      "sectionNum": "1.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Alternative Installation Methods",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities":
+   [{"id": "Logical-Foundations--Preface--Practicalities",
+     "data":
+     {"title": "Practicalities",
+      "shortTitle": null,
+      "sectionNum": "1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Rocq-vs___-Coq":
+   [{"id": "Logical-Foundations--Preface--Overview--Rocq-vs___-Coq",
+     "data":
+     {"title": "Rocq vs. Coq",
+      "shortTitle": null,
+      "sectionNum": "1.2.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Rocq vs. Coq", "shortTitle": null, "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Proof-Assistants":
+   [{"id": "Logical-Foundations--Preface--Overview--Proof-Assistants",
+     "data":
+     {"title": "Proof Assistants",
+      "shortTitle": null,
+      "sectionNum": "1.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Proof Assistants", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Logic":
+   [{"id": "Logical-Foundations--Preface--Overview--Logic",
+     "data":
+     {"title": "Logic",
+      "shortTitle": null,
+      "sectionNum": "1.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Logic", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Further-Reading":
+   [{"id": "Logical-Foundations--Preface--Overview--Further-Reading",
+     "data":
+     {"title": "Further Reading",
+      "shortTitle": null,
+      "sectionNum": "1.2.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Further Reading", "shortTitle": null, "number": "5"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Functional-Programming":
+   [{"id": "Logical-Foundations--Preface--Overview--Functional-Programming",
+     "data":
+     {"title": "Functional Programming",
+      "shortTitle": null,
+      "sectionNum": "1.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Functional Programming", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview":
+   [{"id": "Logical-Foundations--Preface--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Note-for-Instructors-and-Contributors":
+   [{"id":
+     "Logical-Foundations--Preface--Note-for-Instructors-and-Contributors",
+     "data":
+     {"title": "Note for Instructors and Contributors",
+      "shortTitle": null,
+      "sectionNum": "1.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Note for Instructors and Contributors",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Postscript--Resources":
+   [{"id": "Logical-Foundations--Postscript--Resources",
+     "data":
+     {"title": "Resources",
+      "shortTitle": null,
+      "sectionNum": "12.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Resources", "shortTitle": null, "number": "3"}]},
+     "address": "/Postscript/"}],
+   "Logical-Foundations--Postscript--Looking-Forward":
+   [{"id": "Logical-Foundations--Postscript--Looking-Forward",
+     "data":
+     {"title": "Looking Forward",
+      "shortTitle": null,
+      "sectionNum": "12.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Looking Forward", "shortTitle": null, "number": "2"}]},
+     "address": "/Postscript/"}],
+   "Logical-Foundations--Postscript--Looking-Back":
+   [{"id": "Logical-Foundations--Postscript--Looking-Back",
+     "data":
+     {"title": "Looking Back",
+      "shortTitle": null,
+      "sectionNum": "12.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Looking Back", "shortTitle": null, "number": "1"}]},
+     "address": "/Postscript/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs":
    [{"id":
      "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs",
@@ -3730,11 +3725,11 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "4"}]},
      "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_":
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Permutations":
    [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_",
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Permutations",
      "data":
-     {"title": "Example: Evenness (yet again)",
+     {"title": "Example: Permutations",
       "shortTitle": null,
       "sectionNum": "9.1.5.",
       "searchPriority": 50,
@@ -3746,9 +3741,27 @@ window.onload = async () => {
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
+       {"title": "Example: Permutations", "shortTitle": null, "number": "5"}]},
+     "address": "/IndProp/"}],
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_":
+   [{"id":
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_",
+     "data":
+     {"title": "Example: Evenness (yet again)",
+      "shortTitle": null,
+      "sectionNum": "9.1.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "IndProp: Inductively Defined Propositions",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Inductively Defined Propositions",
+        "shortTitle": null,
+        "number": "1"},
        {"title": "Example: Evenness (yet again)",
         "shortTitle": null,
-        "number": "5"}]},
+        "number": "6"}]},
      "address": "/IndProp/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers":
    [{"id":
@@ -3776,7 +3789,7 @@ window.onload = async () => {
      "data":
      {"title": "Constructing Evidence for Permutations",
       "shortTitle": null,
-      "sectionNum": "9.1.6.",
+      "sectionNum": "9.1.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -3788,7 +3801,7 @@ window.onload = async () => {
         "number": "1"},
        {"title": "Constructing Evidence for Permutations",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "7"}]},
      "address": "/IndProp/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions":
    [{"id":
@@ -9623,7 +9636,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3.perm3_swap23":
    [{"id": "Perm3___perm3_swap23",
@@ -9634,7 +9647,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3.perm3_swap12":
    [{"id": "Perm3___perm3_swap12",
@@ -9645,7 +9658,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3":
    [{"id": "Perm3",
@@ -9656,7 +9669,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "PartialMap.update_subset":
    [{"id": "PartialMap___update_subset",
@@ -13655,7 +13668,7 @@ window.onload = async () => {
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append-next",
+   [{"id": "Lists___NatList___myRepeat_append",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
@@ -13674,7 +13687,7 @@ window.onload = async () => {
         "Induction on Lists",
         "Generalizing Statements"]}},
      "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append",
+    {"id": "Lists___NatList___myRepeat_append-next",
      "data":
      {"/Lists/#Lists___NatList___myRepeat_append-next":
       {"display": "myRepeat_append",
@@ -14394,7 +14407,7 @@ window.onload = async () => {
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly",
+   [{"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -14405,7 +14418,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly-next",
+    {"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -15873,6 +15886,242 @@ if (paramName) {
     });
 }
 </script>
+    <script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // Track whether any tippy is visible (O(1) check instead of DOM scan)
+    let visibleTippyCount = 0;
+    function blockedByTippy(elem) {
+      return visibleTippyCount > 0;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        if (inst.reference.className == 'tactic') {
+          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+          hideParentTooltips(inst.reference);
+          if (blockedByTippy(inst.reference)) { return false; }
+
+        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
+          if (blockedByTactic(inst.reference)) { return false };
+          if (blockedByTippy(inst.reference)) { return false; }
+        } else { // Nothing to show here!
+          return false;
+        }
+      },
+      onShown(inst) { visibleTippyCount++; },
+      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverId) { // Docstrings from the table
+            // TODO stop doing an implicit conversion from string to number here
+            let data = versoDocData[hoverId];
+            if (data) {
+              const info = document.createElement("span");
+              info.className = "hover-info";
+              info.style.display = "block";
+              info.innerHTML = data;
+              content.appendChild(info);
+              /* Render docstrings - TODO server-side */
+              if ('undefined' !== typeof marked) {
+                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
+                      const str = d.innerText;
+                      const html = marked.parse(str);
+                      const rendered = document.createElement("div");
+                      rendered.classList.add("docstring");
+                      rendered.innerHTML = html;
+                      d.parentNode.replaceChild(rendered, d);
+                  }
+              }
+            } else {
+              content.innerHTML = "Failed to load doc ID: " + hoverId;
+            }
+          } else if (hoverInfo) { // The inline info, still used for compiler messages
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          const extraLinks = tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (!tok._tippy && tok.matches(tacticTippySelector)) {
+              tippy(tok, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (tok._tippy) tok._tippy.destroy();
+          });
+        }
+      });
+  });
+}
+</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -15899,7 +16148,7 @@ if (paramName) {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Logical-Foundations--Preface___-Software-Foundations-in-Lean">Preface: Software Foundations in Lean</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr><tr class="numbered"><td class="num">12.</td><td><a href="Postscript/#Postscript">Postscript</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
