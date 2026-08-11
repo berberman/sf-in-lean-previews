@@ -341,7 +341,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },
     "227": {
-      "base_sha": "66265d3e43e5847eb573ba1aa6b0509f9fa291ab",
+      "base_sha": "b8fb67d1d7c2f73f1463691310bf9ba4b0ccf16d",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -380,9 +380,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "e79caa6ba5565d0b7ddb1a414be773ed2f77ec7f",
+      "head_sha": "74ff038fdee24cbd60800d95a2dfec389fbc2aa1",
       "preview_path": "pr/227/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31516327079",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31521861970",
       "status": "published",
       "title": "Draft PR for translating preface and postscript",
       "url": "https://github.com/plclub/sf-in-lean/pull/227"
