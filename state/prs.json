@@ -323,11 +323,11 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "860a2bdcf2c9e89c484898982c387d35d0efcc5b",
+      "head_sha": "3913833cd7e683e51b7c7fe21e939bf42a4a365b",
       "preview_path": "pr/214/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31416952214",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31527964724",
       "status": "published",
-      "title": "Cleaning up STYLE.md",
+      "title": "Cleaning up CONTRIBUTING.md and STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
     },
     "216": {
