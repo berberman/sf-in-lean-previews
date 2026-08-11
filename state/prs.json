@@ -1,5 +1,5 @@
 {
-  "main_sha": "66265d3e43e5847eb573ba1aa6b0509f9fa291ab",
+  "main_sha": "b8fb67d1d7c2f73f1463691310bf9ba4b0ccf16d",
   "prs": {
     "171": {
       "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
@@ -480,6 +480,63 @@
       "status": "published",
       "title": "Bump to 4.33.0 [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/229"
+    },
+    "230": {
+      "base_sha": "c4fcbb877c7528d0245f79259e46f7c2d27b3974",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "b5be34d165f3d27e1a32fe7bdc8957a43814ffc6",
+      "preview_path": "pr/230/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31512100337",
+      "status": "published",
+      "title": "Port Hoare2 chapter to Lean",
+      "url": "https://github.com/plclub/sf-in-lean/pull/230"
+    },
+    "231": {
+      "base_sha": "c4fcbb877c7528d0245f79259e46f7c2d27b3974",
+      "changed_variants": [],
+      "head_sha": "307a7e780294811de7660b1ed1ad0154467c1b93",
+      "preview_path": "pr/231/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31512349435",
+      "status": "ci-failed",
+      "title": "Hoare: start going through proofs [WIP]",
+      "url": "https://github.com/plclub/sf-in-lean/pull/231"
     }
   },
   "schema": 3
