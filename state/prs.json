@@ -239,9 +239,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "8e934e2d00878dbee5fdf7013309282b44ebd0a5",
+      "head_sha": "269da6349fc59220678543c47cf0e599b44c00d4",
       "preview_path": "pr/203/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31444340397",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31479666465",
       "status": "published",
       "title": "Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
