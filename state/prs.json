@@ -540,11 +540,48 @@
     },
     "232": {
       "base_sha": "b8fb67d1d7c2f73f1463691310bf9ba4b0ccf16d",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "a9b6b486c448bf64c289afb00d0778c7d5ad4529",
       "preview_path": "pr/232/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31516887561",
+      "status": "published",
       "title": "Tackle dev comments in `Lists`",
       "url": "https://github.com/plclub/sf-in-lean/pull/232"
     }

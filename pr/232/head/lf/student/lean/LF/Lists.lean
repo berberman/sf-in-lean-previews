@@ -400,7 +400,7 @@ theorem test_countOddMembers1 : countOddMembers [0, 2, 4] = 0 := sorry
 
 theorem test_countOddMembers2 : countOddMembers [] = 0 := sorry
 
--- ### Exercise (3 stars): alternate (Advanced) ⭐⭐⭐
+-- ### Exercise (3 stars): alternate ⭐⭐⭐
 
 -- Complete the following definition of `alternate`, which interleaves two
 -- lists into one, alternating between elements taken from the first list and
@@ -956,7 +956,7 @@ theorem ble_self_succ (n : Nat) :
 -- Before doing the next exercise, make sure you've filled in the definition
 -- of `removeOne` above.
 
--- ### Exercise (3 stars): remove_does_not_increase_count (Advanced) ⭐⭐⭐
+-- ### Exercise (3 stars): remove_does_not_increase_count ⭐⭐⭐
 
 theorem remove_does_not_increase_count (l : NatList) :
     Nat.ble (count 0 (removeOne 0 l)) (count 0 l) = true := by
@@ -968,7 +968,7 @@ theorem remove_does_not_increase_count (l : NatList) :
 -- functions `count` and `append`, and prove it. (You may find that the
 -- difficulty of the proof depends on how you defined `count`!)
 
--- ### Exercise (3 stars): involutive_injective (Advanced) ⭐⭐⭐
+-- ### Exercise (3 stars): involutive_injective ⭐⭐⭐
 
 -- Prove that every involution is injective.
 
@@ -980,7 +980,7 @@ theorem involutive_injective (f : Nat → Nat) (hInv : ∀ n : Nat, n = f (f n))
     (∀ n₁ n₂ : Nat, f n₁ = f n₂ → n₁ = n₂) := by
   sorry
 
--- ### Exercise (2 stars): reverse_injective (Advanced) ⭐⭐
+-- ### Exercise (2 stars): reverse_injective ⭐⭐
 
 -- Prove that `reverse` is injective. Do not prove this by induction — that
 -- would be hard. Instead, re-use the same proof technique that you used for

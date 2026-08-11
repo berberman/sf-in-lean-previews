@@ -583,7 +583,7 @@ theorem add_assoc'' (n m p : Nat) :
 -- whereas the informal proof reminds the reader several times where things
 -- stand).
 
--- ### Exercise (2 stars): add_comm_informal (Advanced, manually graded) ⭐⭐
+-- ### Exercise (2 stars): add_comm_informal (manually graded) ⭐⭐
 
 -- Translate your solution for `add_comm` into an informal proof:
 
@@ -906,7 +906,7 @@ sf_expect_failure
 -- it. We'll start with some lemmas that might seem unrelated but will turn
 -- out to be relevant.
 
--- ### Exercise (2 stars): double_bin (Advanced) ⭐⭐
+-- ### Exercise (2 stars): double_bin ⭐⭐
 
 -- Prove this lemma about `double`, which we defined earlier in the chapter.
 
@@ -972,7 +972,7 @@ sf_expect_failure
 -- prove that the conversion from `Bin` to `Nat` and back again produces that
 -- normalized, simplest `Bin`.
 
--- ### Exercise (4 stars): bin_nat_bin (Advanced) ⭐⭐⭐⭐
+-- ### Exercise (4 stars): bin_nat_bin ⭐⭐⭐⭐
 
 -- Define `normalize`. You will need to keep its definition as simple as
 -- possible for later proofs to go smoothly. Do not use `binToNat` or

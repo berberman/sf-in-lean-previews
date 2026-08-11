@@ -1040,7 +1040,7 @@ theorem fold_map_correct {α : Type} {β : Type} (f : α → β) (l : List α) :
     dsimp only [foldMap] at *
     rw [fold_cons, map_cons, ih]
 
--- ### Exercise (2 stars): currying (Advanced) ⭐⭐
+-- ### Exercise (2 stars): currying ⭐⭐
 
 -- The type `α → β → γ` can be read as describing functions that take two
 -- arguments, one of type `α` and another of type `β`, and return an output of
@@ -1098,7 +1098,7 @@ theorem curry_uncurry {α β γ : Type} (f : α × β → γ) {p : α × β} :
   all_goals
     rfl
 
--- ### Exercise (2 stars): nth_error_informal (Advanced, manually graded) ⭐⭐
+-- ### Exercise (2 stars): nth_error_informal (manually graded) ⭐⭐
 
 -- Recall the definition of the `nth?` function:
 
@@ -1202,7 +1202,7 @@ example : two Nat Nat.succ 0 = 2 := by rfl
 -- the definitions of the following functions. Make sure that the
 -- corresponding unit tests pass by proving them with `rfl`.
 
--- ### Exercise (2 stars): church_scc (Advanced) ⭐⭐
+-- ### Exercise (2 stars): church_scc ⭐⭐
 
 -- Define a function that computes the successor of a Church numeral. Given a
 -- Church numeral `n`, its successor `scc n` should iterate its function
@@ -1217,7 +1217,7 @@ example : scc zero = one := (by rfl)
 theorem scc_2 : scc one = two := (by rfl)
 theorem scc_3 : scc two = three := (by rfl)
 
--- ### Exercise (3 stars): church_plus (Advanced) ⭐⭐⭐
+-- ### Exercise (3 stars): church_plus ⭐⭐⭐
 
 -- Define a function that computes the addition of two Church numerals. Given
 -- `fun X f x => f^n x` and `fun X f x => f^m x` as input, `plus` should
@@ -1233,7 +1233,7 @@ theorem plus_1 : plus zero one = one := (by rfl)
 theorem plus_2 : plus two three = plus three two := (by rfl)
 theorem plus_3 : plus (plus two two) three = plus one (plus three three) := (by rfl)
 
--- ### Exercise (3 stars): church_mult (Advanced) ⭐⭐⭐
+-- ### Exercise (3 stars): church_mult ⭐⭐⭐
 
 -- Define a function that computes the multiplication of two Church numerals.
 
@@ -1252,7 +1252,7 @@ theorem mult_1 : mult one one = one := (by rfl)
 theorem mult_2 : mult zero (plus three three) = zero := (by rfl)
 theorem mult_3 : mult two three = plus three three := (by rfl)
 
--- ### Exercise (3 stars): church_exp (Advanced) ⭐⭐⭐
+-- ### Exercise (3 stars): church_exp ⭐⭐⭐
 
 -- Exponentiation:
 
