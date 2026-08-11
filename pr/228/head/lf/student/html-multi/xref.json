@@ -8633,21 +8633,34 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "CollatzHoldsFor'":
-   [{"id": "CollatzHoldsFor___",
+   "CollatzHoldsFor":
+   [{"id": "CollatzHoldsFor-next",
      "data":
-     {"/IndProp/#CollatzHoldsFor___":
-      {"display": "CollatzHoldsFor'",
+     {"/IndProp/#CollatzHoldsFor-next":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
+      {"display": "CollatzHoldsFor",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+     "address": "/IndProp/"},
+    {"id": "CollatzHoldsFor",
      "data":
-     {"/IndProp/#CollatzHoldsFor":
+     {"/IndProp/#CollatzHoldsFor-next":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
       {"display": "CollatzHoldsFor",
        "context":
        ["Logical Foundations",

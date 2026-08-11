@@ -2005,247 +2005,247 @@
  "1407":
  "<code>plus_lt (n₁ n₂ m : Nat) : n₁ + n₂ &lt; m → n₁ &lt; m ∧ n₂ &lt; m</code>",
  "1406": "<code>n_lt_m__n_le_m (n m : Nat) : n &lt; m → n ≤ m</code>",
- "1405":
- "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
- "1404": "<code>lt_ge_cases (n m : Nat) : n &lt; m ∨ n ≥ m</code>",
- "1403": "<code>le_plus_trans (n m p : Nat) : n ≤ m → n ≤ m + p</code>",
- "1402": "<code>plus_le_compat_r (n m p : Nat) : n ≤ m → n + p ≤ m + p</code>",
- "1401": "<code>add_le_compat_l (n m p : Nat) : n ≤ m → p + n ≤ p + m</code>",
- "1400":
+ "1405": "<code>lt_ge_cases (n m : Nat) : n &lt; m ∨ n ≥ m</code>",
+ "1404": "<code>le_plus_trans (n m p : Nat) : n ≤ m → n ≤ m + p</code>",
+ "1403": "<code>plus_le_compat_r (n m p : Nat) : n ≤ m → n + p ≤ m + p</code>",
+ "1402": "<code>add_le_compat_l (n m p : Nat) : n ≤ m → p + n ≤ p + m</code>",
+ "1401":
  "<code>add_le_cases (n m p q : Nat) : n + m ≤ p + q → n ≤ p ∨ m ≤ q</code>",
+ "1400": "<code>n₂ ≤ m'</code>",
  "140":
  "<code>NatPlayground.Nat.add_zero_zero (n : Nat) : n + zero + zero = n</code>",
  "14": "<code>Day.saturday : Day</code>",
- "1399": "<code>n₂ ≤ m'</code>",
- "1398": "<code>n₁ ≤ m'</code>",
- "1397": "<code>n₁ ≤ m' ∧ n₂ ≤ m'</code>",
- "1396": "<code>(n₁ + n₂).le m'</code>",
- "1395": "<code>n₁ ≤ m✝ ∧ n₂ ≤ m✝</code>",
- "1394": "<code>(n₁ + n₂).le m✝</code>",
- "1393": "<code>n₁ + n₂ ≤ m</code>",
- "1392": "<code>add_le (n₁ n₂ m : Nat) : n₁ + n₂ ≤ m → n₁ ≤ m ∧ n₂ ≤ m</code>",
- "1391": "<code>le_add_l (a b : Nat) : a ≤ a + b</code>",
- "1390":
+ "1399": "<code>n₁ ≤ m'</code>",
+ "1398": "<code>n₁ ≤ m' ∧ n₂ ≤ m'</code>",
+ "1397": "<code>(n₁ + n₂).le m'</code>",
+ "1396": "<code>n₁ ≤ m✝ ∧ n₂ ≤ m✝</code>",
+ "1395": "<code>(n₁ + n₂).le m✝</code>",
+ "1394": "<code>n₁ + n₂ ≤ m</code>",
+ "1393": "<code>add_le (n₁ n₂ m : Nat) : n₁ + n₂ ≤ m → n₁ ≤ m ∧ n₂ ≤ m</code>",
+ "1392": "<code>le_add_l (a b : Nat) : a ≤ a + b</code>",
+ "1391":
  "<code>succ_n_le_succ_m__n_le_m (n m : Nat) : n + 1 ≤ m + 1 → n ≤ m</code>",
+ "1390":
+ "<code>n_le_m__succ_n_le_succ_m (n m : Nat) : n ≤ m → n + 1 ≤ m + 1</code>",
  "139":
  "<code>NatPlayground.Nat.add_zero (n : NatPlayground.Nat) : n + NatPlayground.Nat.zero = n</code>",
- "1389":
- "<code>n_le_m__succ_n_le_succ_m (n m : Nat) : n ≤ m → n + 1 ≤ m + 1</code>",
- "1388": "<code>zero_le_n (n : Nat) : 0 ≤ n</code>",
- "1387": "<code>le_trans (m n o : Nat) : m ≤ n → n ≤ o → m ≤ o</code>",
- "1386":
+ "1389": "<code>zero_le_n (n : Nat) : 0 ≤ n</code>",
+ "1388": "<code>le_trans (m n o : Nat) : m ≤ n → n ≤ o → m ≤ o</code>",
+ "1387":
  "<code>ge_iff_le.{u_1} {α : Type u_1} [LE α] {x y : α} : x ≥ y ↔ y ≤ x</code>",
- "1385": "<code>m ≥ n</code>",
- "1384":
+ "1386": "<code>m ≥ n</code>",
+ "1385":
  "<code>GE.ge.{u} {α : Type u} [LE α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a ≥ b` is an abbreviation for `b ≤ a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≥` in identifiers is `ge`.</code>",
- "1383": "<code>Playground.ge (m n : Nat) : Prop</code>",
- "1382": "<code>Playground.lt (n m : Nat) : Prop</code>",
- "1381": "<code>Nat.le 2 0</code>",
- "1380": "<code>2 ≤ 1</code>",
+ "1384": "<code>Playground.ge (m n : Nat) : Prop</code>",
+ "1383": "<code>Playground.lt (n m : Nat) : Prop</code>",
+ "1382": "<code>Nat.le 2 0</code>",
+ "1381": "<code>2 ≤ 1</code>",
+ "1380": "<code>Playground.test_le3 : 2 ≤ 1 → 2 + 2 = 5</code>",
  "138": "<code>NatPlayground.Nat.add_zero (n : Nat) : n + zero = n</code>",
- "1379": "<code>Playground.test_le3 : 2 ≤ 1 → 2 + 2 = 5</code>",
- "1378":
+ "1379":
  "<code>Nat.le (n : Nat) : Nat → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Non-strict, or weak, inequality of natural numbers, usually accessed via the `≤` operator.\n</code>",
- "1377":
+ "1378":
  "<code>Nat.le.step {n m : Nat} : n.le m → n.le m.succ</code><span class=\"sep\"></span><code class=\"docstring\">If `n ≤ m`, then `n ≤ m + 1`. </code>",
- "1376": "<code>Playground.test_le2 : 3 ≤ 6</code>",
- "1375": "<code>Playground.test_le1 : 3 ≤ 3</code>",
- "1374": "<code>Le n m</code>",
- "1373":
+ "1377": "<code>Playground.test_le2 : 3 ≤ 6</code>",
+ "1376": "<code>Playground.test_le1 : 3 ≤ 3</code>",
+ "1375": "<code>Le n m</code>",
+ "1374":
  "<code>Playground.Le.succ (n m : Nat) (H : Le n m) : Le n (m + 1)</code>",
- "1372": "<code>Playground.Le.refl (n : Nat) : Le n n</code>",
- "1371": "<code>Playground.Le : Nat → Nat → Prop</code>",
- "1370":
+ "1373": "<code>Playground.Le.refl (n : Nat) : Le n n</code>",
+ "1372": "<code>Playground.Le : Nat → Nat → Prop</code>",
+ "1371":
  "<code>Perm3_NotIn (α : Type) (x : α) (l₁ l₂ : List α) : Perm3 l₁ l₂ → ¬x ∈ l₁ → ¬x ∈ l₂</code>",
- "137": "<code><span class=\"literal string\">\" + \"</span> : String</code>",
- "1369":
+ "1370":
  "<code>Perm3_In (α : Type) (x : α) (l₁ l₂ : List α) : Perm3 l₁ l₂ → x ∈ l₁ → x ∈ l₂</code>",
- "1368": "<code>Perm3 l₃✝ l₂✝</code>",
- "1367": "<code>Perm3 l₂✝ l₁✝</code>",
- "1366": "<code>Perm3 l₂✝ l₃✝</code>",
- "1365": "<code>Perm3 l₁✝ l₂✝</code>",
- "1364": "<code>Perm3 l₁ l₂</code>",
- "1363":
+ "137": "<code><span class=\"literal string\">\" + \"</span> : String</code>",
+ "1369": "<code>Perm3 l₃✝ l₂✝</code>",
+ "1368": "<code>Perm3 l₂✝ l₁✝</code>",
+ "1367": "<code>Perm3 l₂✝ l₃✝</code>",
+ "1366": "<code>Perm3 l₁✝ l₂✝</code>",
+ "1365": "<code>Perm3 l₁ l₂</code>",
+ "1364":
  "<code>Perm3_symm (α : Type) (l₁ l₂ : List α) : Perm3 l₁ l₂ → Perm3 l₂ l₁</code>",
- "1362":
+ "1363":
  "<code>Perm3Reminder.Perm3.perm3_trans {α : Type} (l₁ l₂ l₃ : List α) : Perm3 l₁ l₂ → Perm3 l₂ l₃ → Perm3 l₁ l₃</code>",
- "1361":
+ "1362":
  "<code>Perm3Reminder.Perm3.perm3_swap23 {α : Type} (a b c : α) : Perm3 [a, b, c] [a, c, b]</code>",
- "1360":
+ "1361":
  "<code>Perm3Reminder.Perm3.perm3_swap12 {α : Type} (a b c : α) : Perm3 [a, b, c] [b, a, c]</code>",
+ "1360": "<code>Perm3Reminder.Perm3 {α : Type} : List α → List α → Prop</code>",
  "136":
  "<code>NatPlayground.Nat.add (n m : NatPlayground.Nat) : NatPlayground.Nat</code>",
- "1359": "<code>Perm3Reminder.Perm3 {α : Type} : List α → List α → Prop</code>",
- "1358": "<code>ev'_ev (n : Nat) : Ev' n ↔ Ev n</code>",
- "1357": "<code>Ev' m</code>",
- "1356": "<code>Ev' n</code>",
- "1355":
+ "1359": "<code>ev'_ev (n : Nat) : Ev' n ↔ Ev n</code>",
+ "1358": "<code>Ev' m</code>",
+ "1357": "<code>Ev' n</code>",
+ "1356":
  "<code>Ev'.ev'_sum (n m : Nat) (Hn : Ev' n) (Hm : Ev' m) : Ev' (n + m)</code>",
- "1354": "<code>Ev'.ev'_2 : Ev' 2</code>",
- "1353": "<code>Ev'.ev'_0 : Ev' 0</code>",
- "1352": "<code>Ev' : Nat → Prop</code>",
- "1351": "<code>y' = z'</code>",
- "1350": "<code>x' = y'</code>",
+ "1355": "<code>Ev'.ev'_2 : Ev' 2</code>",
+ "1354": "<code>Ev'.ev'_0 : Ev' 0</code>",
+ "1353": "<code>Ev' : Nat → Prop</code>",
+ "1352": "<code>y' = z'</code>",
+ "1351": "<code>x' = y'</code>",
+ "1350": "<code>ClosReflTrans R y' z'</code>",
  "135": "<code>NatPlayground.Nat.odd (n : Nat) : Bool</code>",
- "1349": "<code>ClosReflTrans R y' z'</code>",
- "1348": "<code>ClosReflTrans R x' y'</code>",
- "1347": "<code>R x' y'</code>",
- "1346": "<code>y✝ = z✝</code>",
- "1345": "<code>x✝ = y✝</code>",
- "1344": "<code>ClosReflTrans R y✝ z✝</code>",
- "1343": "<code>ClosReflTrans R x✝ y✝</code>",
- "1342": "<code>R x✝ y✝</code>",
- "1341": "<code>ClosReflTrans R x y</code>",
- "1340": "<code>isDiagonal R</code>",
- "134": "<code>NatPlayground.Nat.even (n : Nat) : Bool</code>",
- "1339":
+ "1349": "<code>ClosReflTrans R x' y'</code>",
+ "1348": "<code>R x' y'</code>",
+ "1347": "<code>y✝ = z✝</code>",
+ "1346": "<code>x✝ = y✝</code>",
+ "1345": "<code>ClosReflTrans R y✝ z✝</code>",
+ "1344": "<code>ClosReflTrans R x✝ y✝</code>",
+ "1343": "<code>R x✝ y✝</code>",
+ "1342": "<code>ClosReflTrans R x y</code>",
+ "1341": "<code>isDiagonal R</code>",
+ "1340":
  "<code>closure_of_diagonal_is_diagonal (α : Type) (R : α → α → Prop) : isDiagonal R → isDiagonal (ClosReflTrans R)</code>",
- "1338": "<code>isDiagonal {α : Type} (R : α → α → Prop) : Prop</code>",
- "1337":
+ "134": "<code>NatPlayground.Nat.even (n : Nat) : Bool</code>",
+ "1339": "<code>isDiagonal {α : Type} (R : α → α → Prop) : Prop</code>",
+ "1338":
  "<code>ClosReflTransRemainder.ClosReflTrans.rt_trans {α : Type} {R : α → α → Prop} (x y z : α) :\n  ClosReflTrans R x y → ClosReflTrans R y z → ClosReflTrans R x z</code>",
- "1336":
+ "1337":
  "<code>ClosReflTransRemainder.ClosReflTrans.rt_refl {α : Type} {R : α → α → Prop} (x : α) : ClosReflTrans R x x</code>",
- "1335":
+ "1336":
  "<code>ClosReflTransRemainder.ClosReflTrans.rt_step {α : Type} {R : α → α → Prop} (x y : α) : R x y → ClosReflTrans R x y</code>",
- "1334":
+ "1335":
  "<code>ClosReflTransRemainder.ClosReflTrans {α : Type} (R : α → α → Prop) : α → α → Prop</code>",
- "1333":
+ "1334":
  "<code>Membership.mem.{u, v} {α : outParam (Type u)} {γ : Type v} [self : Membership α γ] : γ → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The membership relation `a ∈ s : Prop` where `a : α`, `s : γ`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∈` in identifiers is `mem`.</code>",
- "1332":
+ "1333":
  "<code>in_mem (α : Type) (x : α) (l : List α) : List.In x l ↔ x ∈ l</code>",
- "1331":
+ "1332":
  "<code>In_Inductive.tail {α : Type} {a : α} (b : α) {as : List α} : In_Inductive a as → In_Inductive a (b :: as)</code>",
- "1330":
+ "1331":
  "<code>In_Inductive.head {α : Type} {a : α} (as : List α) : In_Inductive a (a :: as)</code>",
+ "1330": "<code>In_Inductive {α : Type} (a : α) : List α → Prop</code>",
  "133":
  "<code>NatPlayground.Nat.minusTwo (n : NatPlayground.Nat) : NatPlayground.Nat</code>",
- "1329": "<code>In_Inductive {α : Type} (a : α) : List α → Prop</code>",
- "1328": "<code>In' {α : Type} (x : α) (xs : List α) : Prop</code>",
- "1327":
+ "1329": "<code>In' {α : Type} (x : α) (xs : List α) : Prop</code>",
+ "1328":
  "<code>ev_plus_plus (n m p : Nat) : Ev (n + m) → Ev (n + p) → Ev (m + p)</code>",
- "1326": "<code>ev_ev__ev (n m : Nat) : Ev (n + m) → Ev n → Ev m</code>",
- "1325": "<code>ev_sum (n m : Nat) : Ev n → Ev m → Ev (n + m)</code>",
- "1324": "<code>ev_double (n : Nat) : Ev (double n)</code>",
- "1323": "<code>Nat.ev_Even_iff (n : Nat) : Ev n ↔ n.Even</code>",
- "1322": "<code>n' = double k</code>",
- "1321": "<code>n'.Even</code>",
- "1320": "<code>n✝.Even</code>",
+ "1327": "<code>ev_ev__ev (n m : Nat) : Ev (n + m) → Ev n → Ev m</code>",
+ "1326": "<code>ev_sum (n m : Nat) : Ev n → Ev m → Ev (n + m)</code>",
+ "1325": "<code>ev_double (n : Nat) : Ev (double n)</code>",
+ "1324": "<code>Nat.ev_Even_iff (n : Nat) : Ev n ↔ n.Even</code>",
+ "1323": "<code>n' = double k</code>",
+ "1322": "<code>n'.Even</code>",
+ "1321": "<code>n✝.Even</code>",
+ "1320": "<code>Nat.ev_Even (n : Nat) : Ev n → n.Even</code>",
  "132":
  "<code>NatPlayground.Nat.pred (n : NatPlayground.Nat) : NatPlayground.Nat</code>",
- "1319": "<code>Nat.ev_Even (n : Nat) : Ev n → n.Even</code>",
- "1318": "<code>n' = Nat.double k</code>",
- "1317":
+ "1319": "<code>n' = Nat.double k</code>",
+ "1318":
  "<code>(∃ k', n' = Nat.double k') → ∃ n₀, n' + 2 = Nat.double n₀</code>",
- "1316": "<code>inversion_ex2 (n : Nat) : n + 1 = 0 → 2 + 2 = 5</code>",
- "1315":
+ "1317": "<code>inversion_ex2 (n : Nat) : n + 1 = 0 → 2 + 2 = 5</code>",
+ "1316":
  "<code>inversion_ex1 (n m o : Nat) : [n, m] = [o, o] → [n] = [m]</code>",
- "1314": "<code>ev5_nonsense : Ev 5 → 2 + 2 = 9</code>",
- "1313": "<code>Ev (n + 4)</code>",
- "1312": "<code>ev_4_ev_n (n : Nat) : Ev (n + 4) → Ev n</code>",
- "1311": "<code>one_not_even' : ¬Ev 1</code>",
- "1310": "<code>1 = n' + 2</code>",
+ "1315": "<code>ev5_nonsense : Ev 5 → 2 + 2 = 9</code>",
+ "1314": "<code>Ev (n + 4)</code>",
+ "1313": "<code>ev_4_ev_n (n : Nat) : Ev (n + 4) → Ev n</code>",
+ "1312": "<code>one_not_even' : ¬Ev 1</code>",
+ "1311": "<code>1 = n' + 2</code>",
+ "1310": "<code>∃ n', 1 = n' + 2 ∧ Ev n'</code>",
  "131":
  "<code>NatPlayground.Nat.succ (n : NatPlayground.Nat) : NatPlayground.Nat</code>",
- "1309": "<code>∃ n', 1 = n' + 2 ∧ Ev n'</code>",
- "1308": "<code>1 = 0 ∨ ∃ n', 1 = n' + 2 ∧ Ev n'</code>",
- "1307": "<code>Ev 1</code>",
- "1306": "<code>one_not_even : ¬Ev 1</code>",
- "1305":
+ "1309": "<code>1 = 0 ∨ ∃ n', 1 = n' + 2 ∧ Ev n'</code>",
+ "1308": "<code>Ev 1</code>",
+ "1307": "<code>one_not_even : ¬Ev 1</code>",
+ "1306":
  "<code class=\"docstring\">`inversion t` generalizes nonvariable indices of the type of `t` before invoking `cases t`,\nthen solves away contradictory generated goals.\n`t` itself will also be generalized with a heterogeneous equality `heq`\nif trying to generalize the indices produces an ill-typed result.\n* If `inversion +clear t` is set, then `heq` will be `clear`ed from the context if present,\n  along with `t` if there are no dependencies on it.\n* The form `inversion t with | tag₁ x ... =&gt; tac ... | ... | tagₙ z ... =&gt; tac ...` is supported,\n  similar to that of `cases` and `inversion`.\n</code>",
- "1304": "<code>ev_succ_succ_ev' (n : Nat) : Ev (n + 2) → Ev n</code>",
- "1303":
+ "1305": "<code>ev_succ_succ_ev' (n : Nat) : Ev (n + 2) → Ev n</code>",
+ "1304":
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
- "1302": "<code>n = n'</code>",
- "1301": "<code>Ev n'</code>",
- "1300": "<code>n + 2 = n' + 2</code>",
+ "1303": "<code>n = n'</code>",
+ "1302": "<code>Ev n'</code>",
+ "1301": "<code>n + 2 = n' + 2</code>",
+ "1300":
+ "<code class=\"docstring\">The `let` tactic is for adding definitions to the local context of the main goal.\nThe definition can be unfolded, unlike definitions introduced by `have`.\n\n* `let x : t := e` adds the definition `x : t := e` if `e` is a term of type `t`.\n* `let x := e` uses the type of `e` for `t`.\n* `let : t := e` and `let := e` use `this` for the name of the hypothesis.\n* `let pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that let only one applicable constructor.\n  For example, given `p : α × β × γ`, `let ⟨x, y, z⟩ := p` produces the\n  local variables `x : α`, `y : β`, and `z : γ`.\n* The syntax `let (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `let` term.\n\n## Properties and relations\n\n* Unlike `have`, it is possible to unfold definitions introduced using `let`, using tactics\n  such as `simp`, `dsimp`, `unfold`, and `subst`.\n* The `clear_value` tactic turns a `let` definition into a `have` definition after the fact.\n  The tactic might fail if the local context depends on the value of the variable.\n* The `let` tactic is preferred for data (non-propositions).\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n</code>",
  "130": "<code>NatPlayground.Nat.minusTwo (n : Nat) : Nat</code>",
  "13": "<code>Day.friday : Day</code>",
- "1299":
- "<code class=\"docstring\">The `let` tactic is for adding definitions to the local context of the main goal.\nThe definition can be unfolded, unlike definitions introduced by `have`.\n\n* `let x : t := e` adds the definition `x : t := e` if `e` is a term of type `t`.\n* `let x := e` uses the type of `e` for `t`.\n* `let : t := e` and `let := e` use `this` for the name of the hypothesis.\n* `let pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that let only one applicable constructor.\n  For example, given `p : α × β × γ`, `let ⟨x, y, z⟩ := p` produces the\n  local variables `x : α`, `y : β`, and `z : γ`.\n* The syntax `let (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `let` term.\n\n## Properties and relations\n\n* Unlike `have`, it is possible to unfold definitions introduced using `let`, using tactics\n  such as `simp`, `dsimp`, `unfold`, and `subst`.\n* The `clear_value` tactic turns a `let` definition into a `have` definition after the fact.\n  The tactic might fail if the local context depends on the value of the variable.\n* The `let` tactic is preferred for data (non-propositions).\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n</code>",
- "1298": "<code>∃ n', n + 2 = n' + 2 ∧ Ev n'</code>",
- "1297": "<code>n + 2 = 0</code>",
- "1296": "<code>n + 2 = 0 ∨ ∃ n', n + 2 = n' + 2 ∧ Ev n'</code>",
- "1295": "<code>Ev (n + 2)</code>",
- "1294": "<code>ev_succ_succ_ev (n : Nat) : Ev (n + 2) → Ev n</code>",
- "1293":
+ "1299": "<code>∃ n', n + 2 = n' + 2 ∧ Ev n'</code>",
+ "1298": "<code>n + 2 = 0</code>",
+ "1297": "<code>n + 2 = 0 ∨ ∃ n', n + 2 = n' + 2 ∧ Ev n'</code>",
+ "1296": "<code>Ev (n + 2)</code>",
+ "1295": "<code>ev_succ_succ_ev (n : Nat) : Ev (n + 2) → Ev n</code>",
+ "1294":
  "<code>LePlayground.le_inversion (n m : Nat) : n ≤ m → n = m ∨ ∃ m', m = m' + 1 ∧ n ≤ m'</code>",
- "1292": "<code>Ev n✝</code>",
- "1291":
+ "1293": "<code>Ev n✝</code>",
+ "1292":
  "<code>ev_inversion (n : Nat) : Ev n → n = 0 ∨ ∃ n', n = n' + 2 ∧ Ev n'</code>",
- "1290":
+ "1291":
  "<code>Perm3_refl (α : Type) (a b c : α) : Perm3 [a, b, c] [a, b, c]</code>",
+ "1290": "<code>Perm3_ex1 : Perm3 [1, 2, 3] [2, 3, 1]</code>",
  "129": "<code>NatPlayground.Nat.pred (n : Nat) : Nat</code>",
- "1289": "<code>Perm3_ex1 : Perm3 [1, 2, 3] [2, 3, 1]</code>",
- "1288": "<code>Perm3_rev' : Perm3 [1, 2, 3] [3, 2, 1]</code>",
- "1287": "<code>Perm3_rev : Perm3 [1, 2, 3] [3, 2, 1]</code>",
- "1286": "<code>ev_double (n : Nat) : Ev (Nat.double n)</code>",
- "1285": "<code>ev_plus4 (n : Nat) (h : Ev n) : Ev (4 + n)</code>",
- "1284": "<code>ev_4'' : Ev 4</code>",
- "1283": "<code>ev_4' : Ev 4</code>",
- "1282": "<code>ev_4 : Ev 4</code>",
- "1281":
+ "1289": "<code>Perm3_rev' : Perm3 [1, 2, 3] [3, 2, 1]</code>",
+ "1288": "<code>Perm3_rev : Perm3 [1, 2, 3] [3, 2, 1]</code>",
+ "1287": "<code>ev_double (n : Nat) : Ev (Nat.double n)</code>",
+ "1286": "<code>ev_plus4 (n : Nat) (h : Ev n) : Ev (4 + n)</code>",
+ "1285": "<code>ev_4'' : Ev 4</code>",
+ "1284": "<code>ev_4' : Ev 4</code>",
+ "1283": "<code>ev_4 : Ev 4</code>",
+ "1282":
  "<code>EvPlayground.Ev.ev_succ_succ (n : Nat) : Ev n → Ev (n + 2)</code>",
- "1280": "<code>EvPlayground.Ev.ev_0 : Ev 0</code>",
+ "1281": "<code>EvPlayground.Ev.ev_0 : Ev 0</code>",
+ "1280": "<code>EvPlayground.Ev : Nat → Prop</code>",
  "128": "<code>NatPlayground.Nat.four : Nat</code>",
- "1279": "<code>EvPlayground.Ev : Nat → Prop</code>",
- "1278": "<code>Nat → Prop</code>",
- "1277": "<code>Ev n</code>",
- "1276": "<code>Ev.ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)</code>",
- "1275": "<code>Ev.ev_0 : Ev 0</code>",
- "1274": "<code>Ev : Nat → Prop</code>",
- "1273":
+ "1279": "<code>Nat → Prop</code>",
+ "1278": "<code>Ev n</code>",
+ "1277": "<code>Ev.ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)</code>",
+ "1276": "<code>Ev.ev_0 : Ev 0</code>",
+ "1275": "<code>Ev : Nat → Prop</code>",
+ "1274":
  "<code>Perm3.perm3_trans {α : Type} (l₁ l₂ l₃ : List α) : Perm3 l₁ l₂ → Perm3 l₂ l₃ → Perm3 l₁ l₃</code>",
- "1272":
+ "1273":
  "<code>Perm3.perm3_swap23 {α : Type} (a b c : α) : Perm3 [a, b, c] [a, c, b]</code>",
- "1271":
+ "1272":
  "<code>Perm3.perm3_swap12 {α : Type} (a b c : α) : Perm3 [a, b, c] [b, a, c]</code>",
- "1270": "<code>Perm3 {α : Type} : List α → List α → Prop</code>",
+ "1271": "<code>Perm3 {α : Type} : List α → List α → Prop</code>",
+ "1270": "<code>collatz' : Prop</code>",
  "127": "<code>NatPlayground.Nat.three : Nat</code>",
- "1269": "<code>collatz' : Prop</code>",
- "1268": "<code>cms (n m : Nat) : Prop</code>",
- "1267": "<code>cs (n m : Nat) : Prop</code>",
- "1266":
+ "1269": "<code>cms (n m : Nat) : Prop</code>",
+ "1268": "<code>cs (n m : Nat) : Prop</code>",
+ "1267":
  "<code>ClosReflTrans.rt_trans {α : Type} {R : α → α → Prop} (x y z : α) :\n  ClosReflTrans R x y → ClosReflTrans R y z → ClosReflTrans R x z</code>",
- "1265":
+ "1266":
  "<code>ClosReflTrans.rt_refl {α : Type} {R : α → α → Prop} (x : α) : ClosReflTrans R x x</code>",
- "1264":
+ "1265":
  "<code>ClosReflTrans.rt_step {α : Type} {R : α → α → Prop} (x y : α) : R x y → ClosReflTrans R x y</code>",
- "1263":
+ "1264":
  "<code>ClosReflTrans {α : Type} (R : α → α → Prop) : α → α → Prop</code>",
- "1262": "<code>AncestorOf : Person → Person → Prop</code>",
- "1261": "<code>ParentOf.po_CM : ParentOf Person.cleo Person.moss</code>",
- "1260": "<code>ParentOf.po_SR : ParentOf Person.sage Person.ridley</code>",
+ "1263": "<code>AncestorOf : Person → Person → Prop</code>",
+ "1262": "<code>ParentOf.po_CM : ParentOf Person.cleo Person.moss</code>",
+ "1261": "<code>ParentOf.po_SR : ParentOf Person.sage Person.ridley</code>",
+ "1260": "<code>ParentOf.po_SC : ParentOf Person.sage Person.cleo</code>",
  "126": "<code>NatPlayground.Nat.two : Nat</code>",
- "1259": "<code>ParentOf.po_SC : ParentOf Person.sage Person.cleo</code>",
- "1258": "<code>ParentOf : Person → Person → Prop</code>",
- "1257": "<code>Person.moss : Person</code>",
- "1256": "<code>Person.ridley : Person</code>",
- "1255": "<code>Person.cleo : Person</code>",
- "1254": "<code>Person.sage : Person</code>",
- "1253": "<code>Person : Type</code>",
- "1252":
+ "1259": "<code>ParentOf : Person → Person → Prop</code>",
+ "1258": "<code>Person.moss : Person</code>",
+ "1257": "<code>Person.ridley : Person</code>",
+ "1256": "<code>Person.cleo : Person</code>",
+ "1255": "<code>Person.sage : Person</code>",
+ "1254": "<code>Person : Type</code>",
+ "1253":
  "<code>ClosTrans.t_trans {α : Type} {R : α → α → Prop} (x y z : α) : ClosTrans R x y → ClosTrans R y z → ClosTrans R x z</code>",
- "1251":
+ "1252":
  "<code>ClosTrans.t_step {α : Type} {R : α → α → Prop} (x y : α) : R x y → ClosTrans R x y</code>",
- "1250": "<code>α → α → Prop</code>",
+ "1251": "<code>α → α → Prop</code>",
+ "1250": "<code>ClosTrans {α : Type} (R : α → α → Prop) : α → α → Prop</code>",
  "125": "<code>NatPlayground.Nat.one : Nat</code>",
- "1249": "<code>ClosTrans {α : Type} (R : α → α → Prop) : α → α → Prop</code>",
- "1248": "<code>LePlayground.Le.refl (n : Nat) : n ≤ n</code>",
- "1247": "<code>LePlayground.Le.step (n m : Nat) : n ≤ m → n ≤ m + 1</code>",
- "1246": "<code><span class=\"literal string\">\" ≤ \"</span> : String</code>",
- "1245":
+ "1249": "<code>LePlayground.Le.refl (n : Nat) : n ≤ n</code>",
+ "1248": "<code>LePlayground.Le.step (n m : Nat) : n ≤ m → n ≤ m + 1</code>",
+ "1247": "<code><span class=\"literal string\">\" ≤ \"</span> : String</code>",
+ "1246":
  "<code>LePlayground.Le.step (n m : Nat) : Le n m → Le n (m + 1)</code>",
- "1244": "<code>LePlayground.Le.refl (n : Nat) : Le n n</code>",
- "1243": "<code>LePlayground.Le : Nat → Nat → Prop</code>",
- "1242": "<code>collatz : Prop</code>",
- "1241":
+ "1245": "<code>LePlayground.Le.refl (n : Nat) : Le n n</code>",
+ "1244": "<code>LePlayground.Le : Nat → Nat → Prop</code>",
+ "1243": "<code>collatz : Prop</code>",
+ "1242":
  "<code>CollatzHoldsFor.chf_odd (n : Nat) : n.even = false → CollatzHoldsFor (3 * n + 1) → CollatzHoldsFor n</code>",
- "1240":
+ "1241":
  "<code>CollatzHoldsFor.chf_even (n : Nat) : n.even = true → CollatzHoldsFor (div2 n) → CollatzHoldsFor n</code>",
+ "1240": "<code>CollatzHoldsFor.chf_one : CollatzHoldsFor 1</code>",
  "124": "<code>NatPlayground.Nat.succ (n : Nat) : Nat</code>",
- "1239": "<code>CollatzHoldsFor.chf_one : CollatzHoldsFor 1</code>",
- "1238": "<code>CollatzHoldsFor : Nat → Prop</code>",
- "1237": "<code>CollatzHoldsFor' (n : Nat) : Prop</code>",
+ "1239": "<code>CollatzHoldsFor : Nat → Prop</code>",
+ "1238":
+ "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
+ "1237": "<code>CollatzHoldsFor (n : Nat) : Prop</code>",
  "1236": "<code>reaches1In (n : Nat) : Nat</code>",
  "1235":
  "<code class=\"docstring\">`/-- ... -/ #guard_msgs in cmd` captures the messages generated by the command `cmd`\nand checks that they match the contents of the docstring.\n\nBasic example:\n```lean\n/--\nerror: Unknown identifier `x`\n-/\n#guard_msgs in\nexample : α := x\n```\nThis checks that there is such an error and then consumes the message.\n\nBy default, the command captures all messages, but the filter condition can be adjusted.\nFor example, we can select only warnings:\n```lean\n/--\nwarning: declaration uses 'sorry'\n-/\n#guard_msgs(warning) in\nexample : α := sorry\n```\nor only errors\n```lean\n#guard_msgs(error) in\nexample : α := sorry\n```\nIn the previous example, since warnings are not captured there is a warning on `sorry`.\nWe can drop the warning completely with\n```lean\n#guard_msgs(error, drop warning) in\nexample : α := sorry\n```\n\nIn general, `#guard_msgs` accepts a comma-separated list of configuration clauses in parentheses:\n```\n#guard_msgs (configElt,*) in cmd\n```\nBy default, the configuration list is\n`(check all, whitespace := normalized, ordering := exact, positions := false)`.\n\nMessage filters select messages by severity:\n- `info`, `warning`, `error`: (non-trace) messages with the given severity level.\n- `trace`: trace messages\n- `all`: all messages.\n\nThe filters can be prefixed with the action to take:\n- `check` (the default): capture and check the message\n- `drop`: drop the message\n- `pass`: let the message pass through\n\nIf no filter is specified, `check all` is assumed.  Otherwise, these filters are processed in\nleft-to-right order, with an implicit `pass all` at the end.\n\nWhitespace handling (after trimming leading and trailing whitespace):\n- `whitespace := exact` requires an exact whitespace match.\n- `whitespace := normalized` converts all newline characters to a space before matching\n  (the default). This allows breaking long lines.\n- `whitespace := lax` collapses whitespace to a single space before matching.\n\nMessage ordering:\n- `ordering := exact` uses the exact ordering of the messages (the default).\n- `ordering := sorted` sorts the messages in lexicographic order.\n  This helps with testing commands that are non-deterministic in their ordering.\n\nPosition reporting:\n- `positions := true` reports the ranges of all messages relative to the line on which\n  `#guard_msgs` appears.\n- `positions := false` does not report position info.\n\nSubstring matching:\n- `substring := true` checks that the docstring appears as a substring of the output\n  (after whitespace normalization). This is useful when you only care about part of the message.\n- `substring := false` (the default) requires exact matching (modulo whitespace normalization).\n\nStabilizing output:\nWhen messages contain autogenerated names (e.g., metavariables like `?m.47`), the output may\ndiffer between runs or Lean versions. Use `set_option pp.mvars.anonymous false` to replace\nanonymous metavariables with `?_` while preserving user-named metavariables like `?a`.\nAlternatively, `set_option pp.mvars false` replaces all metavariables with `?_`.\nSimilarly, `set_option pp.fvars.anonymous false` replaces loose free variable names like\n`_fvar.22` with `_fvar._`.\n\nFor example, `#guard_msgs (error, drop all) in cmd` means to check errors and drop\neverything else.\n\nThe command elaborator has special support for `#guard_msgs` for linting.\nThe `#guard_msgs` itself wants to capture linter warnings,\nso it elaborates the command it is attached to as if it were a top-level command.\nHowever, the command elaborator runs linters for *all* top-level commands,\nwhich would include `#guard_msgs` itself, and would cause duplicate and/or uncaptured linter warnings.\nThe top-level command elaborator only runs the linters if `#guard_msgs` is not present.\n</code>",

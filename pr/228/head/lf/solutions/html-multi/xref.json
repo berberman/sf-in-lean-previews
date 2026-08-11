@@ -6393,7 +6393,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6402,7 +6402,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -13173,21 +13173,34 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "CollatzHoldsFor'":
-   [{"id": "CollatzHoldsFor___",
+   "CollatzHoldsFor":
+   [{"id": "CollatzHoldsFor",
      "data":
-     {"/IndProp/#CollatzHoldsFor___":
-      {"display": "CollatzHoldsFor'",
+     {"/IndProp/#CollatzHoldsFor-next":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
+      {"display": "CollatzHoldsFor",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+     "address": "/IndProp/"},
+    {"id": "CollatzHoldsFor-next",
      "data":
-     {"/IndProp/#CollatzHoldsFor":
+     {"/IndProp/#CollatzHoldsFor-next":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
       {"display": "CollatzHoldsFor",
        "context":
        ["Logical Foundations",

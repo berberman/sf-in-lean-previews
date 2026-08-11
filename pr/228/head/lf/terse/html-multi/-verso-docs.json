@@ -1,88 +1,89 @@
-{"999": "<code>inversion_ex2 (n : Nat) : n + 1 = 0 → 2 + 2 = 5</code>",
- "998":
+{"999":
  "<code>inversion_ex1 (n m o : Nat) : [n, m] = [o, o] → [n] = [m]</code>",
- "997":
+ "998":
  "<code class=\"docstring\">`inversion t` generalizes nonvariable indices of the type of `t` before invoking `cases t`,\nthen solves away contradictory generated goals.\n`t` itself will also be generalized with a heterogeneous equality `heq`\nif trying to generalize the indices produces an ill-typed result.\n* If `inversion +clear t` is set, then `heq` will be `clear`ed from the context if present,\n  along with `t` if there are no dependencies on it.\n* The form `inversion t with | tag₁ x ... =&gt; tac ... | ... | tagₙ z ... =&gt; tac ...` is supported,\n  similar to that of `cases` and `inversion`.\n</code>",
- "996": "<code>ev_succ_succ_ev' (n : Nat) : Ev (n + 2) → Ev n</code>",
- "995":
+ "997": "<code>ev_succ_succ_ev' (n : Nat) : Ev (n + 2) → Ev n</code>",
+ "996":
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
- "994": "<code>n = n'</code>",
- "993": "<code>Ev n'</code>",
- "992": "<code>n + 2 = n' + 2</code>",
- "991":
+ "995": "<code>n = n'</code>",
+ "994": "<code>Ev n'</code>",
+ "993": "<code>n + 2 = n' + 2</code>",
+ "992":
  "<code class=\"docstring\">The `let` tactic is for adding definitions to the local context of the main goal.\nThe definition can be unfolded, unlike definitions introduced by `have`.\n\n* `let x : t := e` adds the definition `x : t := e` if `e` is a term of type `t`.\n* `let x := e` uses the type of `e` for `t`.\n* `let : t := e` and `let := e` use `this` for the name of the hypothesis.\n* `let pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that let only one applicable constructor.\n  For example, given `p : α × β × γ`, `let ⟨x, y, z⟩ := p` produces the\n  local variables `x : α`, `y : β`, and `z : γ`.\n* The syntax `let (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `let` term.\n\n## Properties and relations\n\n* Unlike `have`, it is possible to unfold definitions introduced using `let`, using tactics\n  such as `simp`, `dsimp`, `unfold`, and `subst`.\n* The `clear_value` tactic turns a `let` definition into a `have` definition after the fact.\n  The tactic might fail if the local context depends on the value of the variable.\n* The `let` tactic is preferred for data (non-propositions).\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n</code>",
- "990": "<code>∃ n', n + 2 = n' + 2 ∧ Ev n'</code>",
+ "991": "<code>∃ n', n + 2 = n' + 2 ∧ Ev n'</code>",
+ "990": "<code>n + 2 = 0</code>",
  "99": "<code>Nibble</code>",
- "989": "<code>n + 2 = 0</code>",
- "988": "<code>n + 2 = 0 ∨ ∃ n', n + 2 = n' + 2 ∧ Ev n'</code>",
- "987": "<code>Ev (n + 2)</code>",
- "986": "<code>ev_succ_succ_ev (n : Nat) : Ev (n + 2) → Ev n</code>",
- "985": "<code>Ev n✝</code>",
- "984":
+ "989": "<code>n + 2 = 0 ∨ ∃ n', n + 2 = n' + 2 ∧ Ev n'</code>",
+ "988": "<code>Ev (n + 2)</code>",
+ "987": "<code>ev_succ_succ_ev (n : Nat) : Ev (n + 2) → Ev n</code>",
+ "986": "<code>Ev n✝</code>",
+ "985":
  "<code>ev_inversion (n : Nat) : Ev n → n = 0 ∨ ∃ n', n = n' + 2 ∧ Ev n'</code>",
- "983": "<code>Perm3_rev' : Perm3 [1, 2, 3] [3, 2, 1]</code>",
- "982": "<code>Perm3_rev : Perm3 [1, 2, 3] [3, 2, 1]</code>",
- "981": "<code>ev_plus4 (n : Nat) (h : Ev n) : Ev (4 + n)</code>",
- "980": "<code>ev_4'' : Ev 4</code>",
+ "984": "<code>Perm3_rev' : Perm3 [1, 2, 3] [3, 2, 1]</code>",
+ "983": "<code>Perm3_rev : Perm3 [1, 2, 3] [3, 2, 1]</code>",
+ "982": "<code>ev_plus4 (n : Nat) (h : Ev n) : Ev (4 + n)</code>",
+ "981": "<code>ev_4'' : Ev 4</code>",
+ "980": "<code>ev_4' : Ev 4</code>",
  "98": "<code>Playground.allZero (nb : Nibble) : Bool</code>",
- "979": "<code>ev_4' : Ev 4</code>",
- "978": "<code>ev_4 : Ev 4</code>",
- "977": "<code>Ev n</code>",
- "976": "<code>Ev.ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)</code>",
- "975": "<code>Ev.ev_0 : Ev 0</code>",
- "974": "<code>Ev : Nat → Prop</code>",
- "973":
+ "979": "<code>ev_4 : Ev 4</code>",
+ "978": "<code>Ev n</code>",
+ "977": "<code>Ev.ev_succ_succ (n : Nat) (H : Ev n) : Ev (n + 2)</code>",
+ "976": "<code>Ev.ev_0 : Ev 0</code>",
+ "975": "<code>Ev : Nat → Prop</code>",
+ "974":
  "<code>Perm3.perm3_trans {α : Type} (l₁ l₂ l₃ : List α) : Perm3 l₁ l₂ → Perm3 l₂ l₃ → Perm3 l₁ l₃</code>",
- "972":
+ "973":
  "<code>Perm3.perm3_swap23 {α : Type} (a b c : α) : Perm3 [a, b, c] [a, c, b]</code>",
- "971":
+ "972":
  "<code>Perm3.perm3_swap12 {α : Type} (a b c : α) : Perm3 [a, b, c] [b, a, c]</code>",
- "970": "<code>Perm3 {α : Type} : List α → List α → Prop</code>",
+ "971": "<code>Perm3 {α : Type} : List α → List α → Prop</code>",
+ "970": "<code>collatz' : Prop</code>",
  "97": "<code>Bit</code>",
- "969": "<code>collatz' : Prop</code>",
- "968": "<code>cms (n m : Nat) : Prop</code>",
- "967": "<code>cs (n m : Nat) : Prop</code>",
- "966":
+ "969": "<code>cms (n m : Nat) : Prop</code>",
+ "968": "<code>cs (n m : Nat) : Prop</code>",
+ "967":
  "<code>ClosReflTrans.rt_trans {α : Type} {R : α → α → Prop} (x y z : α) :\n  ClosReflTrans R x y → ClosReflTrans R y z → ClosReflTrans R x z</code>",
- "965":
+ "966":
  "<code>ClosReflTrans.rt_refl {α : Type} {R : α → α → Prop} (x : α) : ClosReflTrans R x x</code>",
- "964":
+ "965":
  "<code>ClosReflTrans.rt_step {α : Type} {R : α → α → Prop} (x y : α) : R x y → ClosReflTrans R x y</code>",
- "963":
+ "964":
  "<code>ClosReflTrans {α : Type} (R : α → α → Prop) : α → α → Prop</code>",
- "962": "<code>AncestorOf : Person → Person → Prop</code>",
- "961": "<code>ParentOf.po_CM : ParentOf Person.cleo Person.moss</code>",
- "960": "<code>ParentOf.po_SR : ParentOf Person.sage Person.ridley</code>",
+ "963": "<code>AncestorOf : Person → Person → Prop</code>",
+ "962": "<code>ParentOf.po_CM : ParentOf Person.cleo Person.moss</code>",
+ "961": "<code>ParentOf.po_SR : ParentOf Person.sage Person.ridley</code>",
+ "960": "<code>ParentOf.po_SC : ParentOf Person.sage Person.cleo</code>",
  "96": "<code>Playground.Nibble.bits (x0 x1 x2 x3 : Bit) : Nibble</code>",
- "959": "<code>ParentOf.po_SC : ParentOf Person.sage Person.cleo</code>",
- "958": "<code>ParentOf : Person → Person → Prop</code>",
- "957": "<code>Person.moss : Person</code>",
- "956": "<code>Person.ridley : Person</code>",
- "955": "<code>Person.cleo : Person</code>",
- "954": "<code>Person.sage : Person</code>",
- "953": "<code>Person : Type</code>",
- "952":
+ "959": "<code>ParentOf : Person → Person → Prop</code>",
+ "958": "<code>Person.moss : Person</code>",
+ "957": "<code>Person.ridley : Person</code>",
+ "956": "<code>Person.cleo : Person</code>",
+ "955": "<code>Person.sage : Person</code>",
+ "954": "<code>Person : Type</code>",
+ "953":
  "<code>ClosTrans.t_trans {α : Type} {R : α → α → Prop} (x y z : α) : ClosTrans R x y → ClosTrans R y z → ClosTrans R x z</code>",
- "951":
+ "952":
  "<code>ClosTrans.t_step {α : Type} {R : α → α → Prop} (x y : α) : R x y → ClosTrans R x y</code>",
- "950": "<code>α → α → Prop</code>",
+ "951": "<code>α → α → Prop</code>",
+ "950": "<code>ClosTrans {α : Type} (R : α → α → Prop) : α → α → Prop</code>",
  "95": "<code>Playground.Nibble : Type</code>",
- "949": "<code>ClosTrans {α : Type} (R : α → α → Prop) : α → α → Prop</code>",
- "948": "<code>LePlayground.Le.refl (n : Nat) : n ≤ n</code>",
- "947": "<code>LePlayground.Le.step (n m : Nat) : n ≤ m → n ≤ m + 1</code>",
- "946": "<code><span class=\"literal string\">\" ≤ \"</span> : String</code>",
- "945": "<code>LePlayground.Le.step (n m : Nat) : Le n m → Le n (m + 1)</code>",
- "944": "<code>LePlayground.Le.refl (n : Nat) : Le n n</code>",
- "943": "<code>LePlayground.Le : Nat → Nat → Prop</code>",
- "942": "<code>collatz : Prop</code>",
- "941":
+ "949": "<code>LePlayground.Le.refl (n : Nat) : n ≤ n</code>",
+ "948": "<code>LePlayground.Le.step (n m : Nat) : n ≤ m → n ≤ m + 1</code>",
+ "947": "<code><span class=\"literal string\">\" ≤ \"</span> : String</code>",
+ "946": "<code>LePlayground.Le.step (n m : Nat) : Le n m → Le n (m + 1)</code>",
+ "945": "<code>LePlayground.Le.refl (n : Nat) : Le n n</code>",
+ "944": "<code>LePlayground.Le : Nat → Nat → Prop</code>",
+ "943": "<code>collatz : Prop</code>",
+ "942":
  "<code>CollatzHoldsFor.chf_odd (n : Nat) : n.even = false → CollatzHoldsFor (3 * n + 1) → CollatzHoldsFor n</code>",
- "940":
+ "941":
  "<code>CollatzHoldsFor.chf_even (n : Nat) : n.even = true → CollatzHoldsFor (div2 n) → CollatzHoldsFor n</code>",
+ "940": "<code>CollatzHoldsFor.chf_one : CollatzHoldsFor 1</code>",
  "94": "<code>Playground.Bit.b0 : Bit</code>",
- "939": "<code>CollatzHoldsFor.chf_one : CollatzHoldsFor 1</code>",
- "938": "<code>CollatzHoldsFor : Nat → Prop</code>",
- "937": "<code>CollatzHoldsFor' (n : Nat) : Prop</code>",
+ "939": "<code>CollatzHoldsFor : Nat → Prop</code>",
+ "938":
+ "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
+ "937": "<code>CollatzHoldsFor (n : Nat) : Prop</code>",
  "936": "<code>reaches1In (n : Nat) : Nat</code>",
  "935":
  "<code class=\"docstring\">`/-- ... -/ #guard_msgs in cmd` captures the messages generated by the command `cmd`\nand checks that they match the contents of the docstring.\n\nBasic example:\n```lean\n/--\nerror: Unknown identifier `x`\n-/\n#guard_msgs in\nexample : α := x\n```\nThis checks that there is such an error and then consumes the message.\n\nBy default, the command captures all messages, but the filter condition can be adjusted.\nFor example, we can select only warnings:\n```lean\n/--\nwarning: declaration uses 'sorry'\n-/\n#guard_msgs(warning) in\nexample : α := sorry\n```\nor only errors\n```lean\n#guard_msgs(error) in\nexample : α := sorry\n```\nIn the previous example, since warnings are not captured there is a warning on `sorry`.\nWe can drop the warning completely with\n```lean\n#guard_msgs(error, drop warning) in\nexample : α := sorry\n```\n\nIn general, `#guard_msgs` accepts a comma-separated list of configuration clauses in parentheses:\n```\n#guard_msgs (configElt,*) in cmd\n```\nBy default, the configuration list is\n`(check all, whitespace := normalized, ordering := exact, positions := false)`.\n\nMessage filters select messages by severity:\n- `info`, `warning`, `error`: (non-trace) messages with the given severity level.\n- `trace`: trace messages\n- `all`: all messages.\n\nThe filters can be prefixed with the action to take:\n- `check` (the default): capture and check the message\n- `drop`: drop the message\n- `pass`: let the message pass through\n\nIf no filter is specified, `check all` is assumed.  Otherwise, these filters are processed in\nleft-to-right order, with an implicit `pass all` at the end.\n\nWhitespace handling (after trimming leading and trailing whitespace):\n- `whitespace := exact` requires an exact whitespace match.\n- `whitespace := normalized` converts all newline characters to a space before matching\n  (the default). This allows breaking long lines.\n- `whitespace := lax` collapses whitespace to a single space before matching.\n\nMessage ordering:\n- `ordering := exact` uses the exact ordering of the messages (the default).\n- `ordering := sorted` sorts the messages in lexicographic order.\n  This helps with testing commands that are non-deterministic in their ordering.\n\nPosition reporting:\n- `positions := true` reports the ranges of all messages relative to the line on which\n  `#guard_msgs` appears.\n- `positions := false` does not report position info.\n\nSubstring matching:\n- `substring := true` checks that the docstring appears as a substring of the output\n  (after whitespace normalization). This is useful when you only care about part of the message.\n- `substring := false` (the default) requires exact matching (modulo whitespace normalization).\n\nStabilizing output:\nWhen messages contain autogenerated names (e.g., metavariables like `?m.47`), the output may\ndiffer between runs or Lean versions. Use `set_option pp.mvars.anonymous false` to replace\nanonymous metavariables with `?_` while preserving user-named metavariables like `?a`.\nAlternatively, `set_option pp.mvars false` replaces all metavariables with `?_`.\nSimilarly, `set_option pp.fvars.anonymous false` replaces loose free variable names like\n`_fvar.22` with `_fvar._`.\n\nFor example, `#guard_msgs (error, drop all) in cmd` means to check errors and drop\neverything else.\n\nThe command elaborator has special support for `#guard_msgs` for linting.\nThe `#guard_msgs` itself wants to capture linter warnings,\nso it elaborates the command it is attached to as if it were a top-level command.\nHowever, the command elaborator runs linters for *all* top-level commands,\nwhich would include `#guard_msgs` itself, and would cause duplicate and/or uncaptured linter warnings.\nThe top-level command elaborator only runs the linters if `#guard_msgs` is not present.\n</code>",
@@ -1713,311 +1714,310 @@
  "1199":
  "<code>pumpingConstant re ≤ [].length → ∃ s₂ s₃ s₄, [] = s₂ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₂ ++ napp m s₃ ++ s₄ =~ re</code>",
  "1198": "<code>[] =~ re</code>",
- "1197":
- "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
- "1196": "<code>pumpingConstant re ≤ s₁.length</code>",
- "1195": "<code>s₁.length &lt; pumpingConstant re</code>",
- "1194": "<code>s₁.length ≠ 0</code>",
- "1193": "<code>s₁.length = 0</code>",
- "1192": "<code>pumpingConstant (Star re) ≤ s₁.length + s₂.length</code>",
- "1191": "<code>pumpingConstant (Star re) ≤ (s₁ ++ s₂).length</code>",
- "1190":
+ "1197": "<code>pumpingConstant re ≤ s₁.length</code>",
+ "1196": "<code>s₁.length &lt; pumpingConstant re</code>",
+ "1195": "<code>s₁.length ≠ 0</code>",
+ "1194": "<code>s₁.length = 0</code>",
+ "1193": "<code>pumpingConstant (Star re) ≤ s₁.length + s₂.length</code>",
+ "1192": "<code>pumpingConstant (Star re) ≤ (s₁ ++ s₂).length</code>",
+ "1191":
  "<code>pumpingConstant (Star re) ≤ s₂.length →\n  ∃ s₁ s₃ s₄, s₂ = s₁ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₁ ++ napp m s₃ ++ s₄ =~ Star re</code>",
+ "1190":
+ "<code>pumpingConstant re ≤ s₁.length → ∃ s₂ s₃ s₄, s₁ = s₂ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₂ ++ napp m s₃ ++ s₄ =~ re</code>",
  "119":
  "<code>NatPlayground.Nat.add_succ (n m : NatPlayground.Nat) : n + NatPlayground.Nat.succ m = NatPlayground.Nat.succ (n + m)</code>",
  "1189":
- "<code>pumpingConstant re ≤ s₁.length → ∃ s₂ s₃ s₄, s₁ = s₂ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₂ ++ napp m s₃ ++ s₄ =~ re</code>",
- "1188":
  "<code>RegExp.Pumping.weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α) :\n  s₁ =~ re →\n    s₂ =~ Star re →\n      (pumpingConstant re ≤ s₁.length →\n          ∃ s₂ s₃ s₄, s₁ = s₂ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₂ ++ napp m s₃ ++ s₄ =~ re) →\n        (pumpingConstant (Star re) ≤ s₂.length →\n            ∃ s₁ s₃ s₄, s₂ = s₁ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₁ ++ napp m s₃ ++ s₄ =~ Star re) →\n          pumpingConstant (Star re) ≤ (s₁ ++ s₂).length →\n            ∃ s₀ s₃ s₄, s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₀ ++ napp m s₃ ++ s₄ =~ Star re</code>",
- "1187":
+ "1188":
  "<code>RegExp.Pumping.weak_pumping_star_zero {α : Type} (re : RegExp α) :\n  pumpingConstant (Star re) ≤ [].length →\n    ∃ s₁ s₂ s₃, [] = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [] ∧ ∀ (m : Nat), s₁ ++ napp m s₂ ++ s₃ =~ Star re</code>",
- "1186": "<code>pumpingConstant (Union re₁ re₂) ≤ s₂.length</code>",
- "1185":
+ "1187": "<code>pumpingConstant (Union re₁ re₂) ≤ s₂.length</code>",
+ "1186":
  "<code>RegExp.Pumping.weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α) :\n  s₂ =~ re₂ →\n    (pumpingConstant re₂ ≤ s₂.length →\n        ∃ s₁ s₃ s₄, s₂ = s₁ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₁ ++ napp m s₃ ++ s₄ =~ re₂) →\n      pumpingConstant (Union re₁ re₂) ≤ s₂.length →\n        ∃ s₁ s₀ s₃, s₂ = s₁ ++ s₀ ++ s₃ ∧ s₀ ≠ [] ∧ ∀ (m : Nat), s₁ ++ napp m s₀ ++ s₃ =~ Union re₁ re₂</code>",
- "1184": "<code>pumpingConstant (Union re₁ re₂) ≤ s₁.length</code>",
- "1183":
+ "1185": "<code>pumpingConstant (Union re₁ re₂) ≤ s₁.length</code>",
+ "1184":
  "<code>RegExp.Pumping.weak_pumping_union_l {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α) :\n  s₁ =~ re₁ →\n    (pumpingConstant re₁ ≤ s₁.length →\n        ∃ s₂ s₃ s₄, s₁ = s₂ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₂ ++ napp m s₃ ++ s₄ =~ re₁) →\n      pumpingConstant (Union re₁ re₂) ≤ s₁.length →\n        ∃ s₀ s₂ s₃, s₁ = s₀ ++ s₂ ++ s₃ ∧ s₂ ≠ [] ∧ ∀ (m : Nat), s₀ ++ napp m s₂ ++ s₃ =~ Union re₁ re₂</code>",
- "1182": "<code>pumpingConstant re₂ ≤ s₂.length</code>",
- "1181": "<code>pumpingConstant re₁ ≤ s₁.length</code>",
- "1180": "<code>pumpingConstant (App re₁ re₂) ≤ (s₁ ++ s₂).length</code>",
+ "1183": "<code>pumpingConstant re₂ ≤ s₂.length</code>",
+ "1182": "<code>pumpingConstant re₁ ≤ s₁.length</code>",
+ "1181": "<code>pumpingConstant (App re₁ re₂) ≤ (s₁ ++ s₂).length</code>",
+ "1180":
+ "<code>pumpingConstant re₂ ≤ s₂.length → ∃ s₁ s₃ s₄, s₂ = s₁ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₁ ++ napp m s₃ ++ s₄ =~ re₂</code>",
  "118":
  "<code>NatPlayground.Nat.add_succ (n m : Nat) : n + succ m = succ (n + m)</code>",
  "1179":
- "<code>pumpingConstant re₂ ≤ s₂.length → ∃ s₁ s₃ s₄, s₂ = s₁ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₁ ++ napp m s₃ ++ s₄ =~ re₂</code>",
- "1178":
  "<code>pumpingConstant re₁ ≤ s₁.length → ∃ s₂ s₃ s₄, s₁ = s₂ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₂ ++ napp m s₃ ++ s₄ =~ re₁</code>",
- "1177": "<code>s₂ =~ re₂</code>",
- "1176": "<code>s₁ =~ re₁</code>",
- "1175":
+ "1178": "<code>s₂ =~ re₂</code>",
+ "1177": "<code>s₁ =~ re₁</code>",
+ "1176":
  "<code>RegExp.Pumping.weak_pumping_app {α : Type} (s₁ s₂ : List α) (re₁ re₂ : RegExp α) :\n  s₁ =~ re₁ →\n    s₂ =~ re₂ →\n      (pumpingConstant re₁ ≤ s₁.length →\n          ∃ s₂ s₃ s₄, s₁ = s₂ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₂ ++ napp m s₃ ++ s₄ =~ re₁) →\n        (pumpingConstant re₂ ≤ s₂.length →\n            ∃ s₁ s₃ s₄, s₂ = s₁ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₁ ++ napp m s₃ ++ s₄ =~ re₂) →\n          pumpingConstant (App re₁ re₂) ≤ (s₁ ++ s₂).length →\n            ∃ s₀ s₃ s₄, s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧ s₃ ≠ [] ∧ ∀ (m : Nat), s₀ ++ napp m s₃ ++ s₄ =~ App re₁ re₂</code>",
- "1174":
+ "1175":
  "<code>RegExp.Pumping.weak_pumping_char {α : Type} (x : α) :\n  pumpingConstant (Char x) ≤ [x].length →\n    ∃ s₁ s₂ s₃, [x] = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [] ∧ ∀ (m : Nat), s₁ ++ napp m s₂ ++ s₃ =~ Char x</code>",
- "1173": "<code>napp m s₁ ++ s₂ =~ Star re</code>",
- "1172": "<code>s₁ =~ re</code>",
- "1171":
+ "1174": "<code>napp m s₁ ++ s₂ =~ Star re</code>",
+ "1173": "<code>s₁ =~ re</code>",
+ "1172":
  "<code>RegExp.Pumping.napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α) (hs1 : s₁ =~ re) (hs₂ : s₂ =~ Star re) :\n  napp m s₁ ++ s₂ =~ Star re</code>",
- "1170": "<code>napp (n + m) l = napp n l ++ napp m l</code>",
+ "1171": "<code>napp (n + m) l = napp n l ++ napp m l</code>",
+ "1170":
+ "<code>RegExp.Pumping.napp_plus {α : Type} (n m : Nat) (l : List α) : napp (n + m) l = napp n l ++ napp m l</code>",
  "117":
  "<code>NatPlayground.Nat.add_zero_zero_zero (n : Nat) : n + zero + zero + zero = n</code>",
  "1169":
- "<code>RegExp.Pumping.napp_plus {α : Type} (n m : Nat) (l : List α) : napp (n + m) l = napp n l ++ napp m l</code>",
- "1168":
  "<code>RegExp.Pumping.napp_succ {α : Type} (n : Nat) (l : List α) : napp (n + 1) l = l ++ napp n l</code>",
- "1167":
+ "1168":
  "<code>RegExp.Pumping.napp_zero {α : Type} (l : List α) : napp 0 l = []</code>",
- "1166":
+ "1167":
  "<code>RegExp.Pumping.napp {α : Type} (n : Nat) (l : List α) : List α</code>",
- "1165": "<code>pumpingConstant re ≥ 1</code>",
- "1164": "<code>pumpingConstant re = 0</code>",
- "1163":
+ "1166": "<code>pumpingConstant re ≥ 1</code>",
+ "1165": "<code>pumpingConstant re = 0</code>",
+ "1164":
  "<code>RegExp.Pumping.pumping_constant_0_false {α : Type} (re : RegExp α) (h : pumpingConstant re = 0) : False</code>",
- "1162": "<code>pumpingConstant r✝ ≥ 1</code>",
- "1161": "<code>pumpingConstant r2✝ ≥ 1</code>",
- "1160": "<code>pumpingConstant re₁ ≥ 1</code>",
+ "1163": "<code>pumpingConstant r✝ ≥ 1</code>",
+ "1162": "<code>pumpingConstant r2✝ ≥ 1</code>",
+ "1161": "<code>pumpingConstant re₁ ≥ 1</code>",
+ "1160":
+ "<code>GE.ge.{u} {α : Type u} [LE α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a ≥ b` is an abbreviation for `b ≤ a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≥` in identifiers is `ge`.</code>",
  "116":
  "<code>NatPlayground.Nat.add_zero_zero_explained (n : Nat) : n + zero + zero = n</code>",
  "1159":
- "<code>GE.ge.{u} {α : Type u} [LE α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a ≥ b` is an abbreviation for `b ≤ a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≥` in identifiers is `ge`.</code>",
- "1158":
  "<code>RegExp.Pumping.pumping_constant_ge_1 {α : Type} (re : RegExp α) : pumpingConstant re ≥ 1</code>",
- "1157":
+ "1158":
  "<code>RegExp.Pumping.pumpingConstant {α : Type} (re : RegExp α) : Nat</code>",
- "1156":
+ "1157":
  "<code>RegExp.MStar'' (α : Type) (s : List α) (re : RegExp α) :\n  s =~ Star re → ∃ ss, s = List.foldr (fun x1 x2 =&gt; x1 ++ x2) [] ss ∧ ∀ (s' : List α), s' ∈ ss → s' =~ re</code>",
- "1155":
+ "1156":
  "<code>List.append_assoc.{u} {α : Type u} (as bs cs : List α) : as ++ bs ++ cs = as ++ (bs ++ cs)</code>",
- "1154":
+ "1155":
  "<code>Star re = Star re → s₂ =~ Star re → s₂✝ ++ s₂ =~ Star re</code>",
- "1153": "<code>Star re = re → s₂ =~ re → s₁✝ ++ s₂ =~ re</code>",
- "1152": "<code>s₂✝ =~ Star re</code>",
- "1151": "<code>s₁✝ =~ re</code>",
- "1150": "<code>re = re✝</code>",
+ "1154": "<code>Star re = re → s₂ =~ re → s₁✝ ++ s₂ =~ re</code>",
+ "1153": "<code>s₂✝ =~ Star re</code>",
+ "1152": "<code>s₁✝ =~ re</code>",
+ "1151": "<code>re = re✝</code>",
+ "1150": "<code>s₂ =~ Star re✝</code>",
  "115":
  "<code>NatPlayground.Nat.add_zero_zero (n : Nat) : n + zero + zero = n</code>",
- "1149": "<code>s₂ =~ Star re✝</code>",
- "1148":
+ "1149":
  "<code>Star re = Star re✝ → s₂ =~ Star re✝ → s₂✝ ++ s₂ =~ Star re✝</code>",
- "1147": "<code>Star re = re✝ → s₂ =~ re✝ → s₁✝ ++ s₂ =~ re✝</code>",
- "1146": "<code>Star re = Star re✝</code>",
- "1145": "<code>Star re = Union re₁✝ re₂✝</code>",
- "1144": "<code>Star re = App re₁✝ re₂✝</code>",
- "1143": "<code>Star re = re₂✝ → s₂ =~ re₂✝ → s₂✝ ++ s₂ =~ re₂✝</code>",
- "1142": "<code>Star re = re₁✝ → s₂ =~ re₁✝ → s₁✝ ++ s₂ =~ re₁✝</code>",
- "1141": "<code>Star re = Char c✝</code>",
- "1140": "<code>Star re = EmptyStr</code>",
+ "1148": "<code>Star re = re✝ → s₂ =~ re✝ → s₁✝ ++ s₂ =~ re✝</code>",
+ "1147": "<code>Star re = Star re✝</code>",
+ "1146": "<code>Star re = Union re₁✝ re₂✝</code>",
+ "1145": "<code>Star re = App re₁✝ re₂✝</code>",
+ "1144": "<code>Star re = re₂✝ → s₂ =~ re₂✝ → s₂✝ ++ s₂ =~ re₂✝</code>",
+ "1143": "<code>Star re = re₁✝ → s₂ =~ re₁✝ → s₁✝ ++ s₂ =~ re₁✝</code>",
+ "1142": "<code>Star re = Char c✝</code>",
+ "1141": "<code>Star re = EmptyStr</code>",
+ "1140": "<code>Star re = re'</code>",
  "114":
  "<code>NatPlayground.Nat.add_zero (n : NatPlayground.Nat) : n + NatPlayground.Nat.zero = n</code>",
- "1139": "<code>Star re = re'</code>",
- "1138":
+ "1139":
  "<code class=\"docstring\">* `generalize ([h :] e = x),+` replaces all occurrences `e`s in the main goal\n  with a fresh hypothesis `x`s. If `h` is given, `h : e = x` is introduced as well.\n* `generalize e = x at h₁ ... hₙ` also generalizes occurrences of `e`\n  inside `h₁`, ..., `hₙ`.\n* `generalize e = x at *` will generalize occurrences of `e` everywhere.\n</code>",
- "1137":
+ "1138":
  "<code>RegExp.star_app (α : Type) (s₁ s₂ : List α) (re : RegExp α) : s₁ =~ Star re → s₂ =~ Star re → s₁ ++ s₂ =~ Star re</code>",
- "1136": "<code>s₂ =~ Star re</code>",
- "1135": "<code>s₁ =~ re'</code>",
- "1134": "<code>re' = Star re</code>",
- "1133": "<code>s₁ =~ Star re</code>",
- "1132": "<code>s₂✝ =~ Star re✝</code>",
- "1131": "<code>s₁✝ =~ re✝</code>",
- "1130": "<code>x ∈ s₂✝ → x ∈ (Star re✝).reChars</code>",
+ "1137": "<code>s₂ =~ Star re</code>",
+ "1136": "<code>s₁ =~ re'</code>",
+ "1135": "<code>re' = Star re</code>",
+ "1134": "<code>s₁ =~ Star re</code>",
+ "1133": "<code>s₂✝ =~ Star re✝</code>",
+ "1132": "<code>s₁✝ =~ re✝</code>",
+ "1131": "<code>x ∈ s₂✝ → x ∈ (Star re✝).reChars</code>",
+ "1130": "<code>x ∈ s₁✝ → x ∈ re✝.reChars</code>",
  "113": "<code>NatPlayground.Nat.add_zero (n : Nat) : n + zero = n</code>",
- "1129": "<code>x ∈ s₁✝ → x ∈ re✝.reChars</code>",
- "1128":
+ "1129":
  "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) (re : RegExp α) (h₁ : s₁ =~ re) (h₂ : s₂ =~ Star re) :\n  s₁ ++ s₂ =~ Star re</code>",
- "1127":
+ "1128":
  "<code>RegExp.ExpMatch.mStar0 {α : Type} (re : RegExp α) : [] =~ Star re</code>",
- "1126":
+ "1127":
  "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α) (h₂ : s₂ =~ re₂) : s₂ =~ Union re₁ re₂</code>",
- "1125":
+ "1126":
  "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α) (h₁ : s₁ =~ re₁) : s₁ =~ Union re₁ re₂</code>",
- "1124": "<code>x ∈ s₂✝</code>",
- "1123": "<code>x ∈ s₁✝</code>",
- "1122":
+ "1125": "<code>x ∈ s₂✝</code>",
+ "1124": "<code>x ∈ s₁✝</code>",
+ "1123":
  "<code class=\"docstring\">`rcases` is a tactic that will perform `cases` recursively, according to a pattern. It is used to\ndestructure hypotheses or expressions composed of inductive types like `h1 : a ∧ b ∧ c ∨ d` or\n`h2 : ∃ x y, trans_rel R x y`. Usual usage might be `rcases h1 with ⟨ha, hb, hc⟩ | hd` or\n`rcases h2 with ⟨x, y, _ | ⟨z, hxz, hzy⟩⟩` for these examples.\n\nEach element of an `rcases` pattern is matched against a particular local hypothesis (most of which\nare generated during the execution of `rcases` and represent individual elements destructured from\nthe input expression). An `rcases` pattern has the following grammar:\n\n* A name like `x`, which names the active hypothesis as `x`.\n* A blank `_`, which does nothing (letting the automatic naming system used by `cases` name the\n  hypothesis).\n* A hyphen `-`, which clears the active hypothesis and any dependents.\n* The keyword `rfl`, which expects the hypothesis to be `h : a = b`, and calls `subst` on the\n  hypothesis (which has the effect of replacing `b` with `a` everywhere or vice versa).\n* A type ascription `p : ty`, which sets the type of the hypothesis to `ty` and then matches it\n  against `p`. (Of course, `ty` must unify with the actual type of `h` for this to work.)\n* A tuple pattern `⟨p1, p2, p3⟩`, which matches a constructor with many arguments, or a series\n  of nested conjunctions or existentials. For example if the active hypothesis is `a ∧ b ∧ c`,\n  then the conjunction will be destructured, and `p1` will be matched against `a`, `p2` against `b`\n  and so on.\n* A `@` before a tuple pattern as in `@⟨p1, p2, p3⟩` will bind all arguments in the constructor,\n  while leaving the `@` off will only use the patterns on the explicit arguments.\n* An alternation pattern `p1 | p2 | p3`, which matches an inductive type with multiple constructors,\n  or a nested disjunction like `a ∨ b ∨ c`.\n\nA pattern like `⟨a, b, c⟩ | ⟨d, e⟩` will do a split over the inductive datatype,\nnaming the first three parameters of the first constructor as `a,b,c` and the\nfirst two of the second constructor `d,e`. If the list is not as long as the\nnumber of arguments to the constructor or the number of constructors, the\nremaining variables will be automatically named. If there are nested brackets\nsuch as `⟨⟨a⟩, b | c⟩ | d` then these will cause more case splits as necessary.\nIf there are too many arguments, such as `⟨a, b, c⟩` for splitting on\n`∃ x, ∃ y, p x`, then it will be treated as `⟨a, ⟨b, c⟩⟩`, splitting the last\nparameter as necessary.\n\n`rcases` also has special support for quotient types: quotient induction into Prop works like\nmatching on the constructor `quot.mk`.\n\n`rcases h : e with PAT` will do the same as `rcases e with PAT` with the exception that an\nassumption `h : e = PAT` will be added to the context.\n</code>",
- "1121": "<code>x ∈ s₁✝ ∨ x ∈ s₂✝</code>",
- "1120": "<code>x ∈ s₁✝ ++ s₂✝</code>",
+ "1122": "<code>x ∈ s₁✝ ∨ x ∈ s₂✝</code>",
+ "1121": "<code>x ∈ s₁✝ ++ s₂✝</code>",
+ "1120": "<code>s₂✝ =~ re₂✝</code>",
  "112": "<code><span class=\"literal string\">\" + \"</span> : String</code>",
- "1119": "<code>s₂✝ =~ re₂✝</code>",
- "1118": "<code>s₁✝ =~ re₁✝</code>",
- "1117": "<code>x ∈ s₂✝ → x ∈ re₂✝.reChars</code>",
- "1116": "<code>x ∈ s₁✝ → x ∈ re₁✝.reChars</code>",
- "1115": "<code>x = c</code>",
- "1114": "<code>x ∈ [c]</code>",
- "1113": "<code>RegExp.ExpMatch.mEmpty {α : Type} : [] =~ EmptyStr</code>",
- "1112": "<code>x ∈ s</code>",
- "1111":
+ "1119": "<code>s₁✝ =~ re₁✝</code>",
+ "1118": "<code>x ∈ s₂✝ → x ∈ re₂✝.reChars</code>",
+ "1117": "<code>x ∈ s₁✝ → x ∈ re₁✝.reChars</code>",
+ "1116": "<code>x = c</code>",
+ "1115": "<code>x ∈ [c]</code>",
+ "1114": "<code>RegExp.ExpMatch.mEmpty {α : Type} : [] =~ EmptyStr</code>",
+ "1113": "<code>x ∈ s</code>",
+ "1112":
  "<code>RegExp.in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α} (hmatch : s =~ re) (hin : x ∈ s) : x ∈ re.reChars</code>",
- "1110": "<code>RegExp.reChars {α : Type} (re : RegExp α) : List α</code>",
+ "1111": "<code>RegExp.reChars {α : Type} (re : RegExp α) : List α</code>",
+ "1110": "<code>RegExp.EmptyStr' {α : Type} : RegExp α</code>",
  "111":
  "<code>NatPlayground.Nat.add (n m : NatPlayground.Nat) : NatPlayground.Nat</code>",
- "1109": "<code>RegExp.EmptyStr' {α : Type} : RegExp α</code>",
- "1108":
+ "1109":
  "<code>List.Mem.{u} {α : Type u} (a : α) : List α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">List membership, typically accessed via the `∈` operator.\n\n`a ∈ l` means that `a` is an element of the list `l`. Elements are compared according to Lean's\nlogical equality.\n\nThe related function `List.elem` is a Boolean membership test that uses a `BEq α` instance.\n\nExamples:\n* `a ∈ [x, y, z] ↔ a = x ∨ a = y ∨ a = z`\n</code>",
- "1107": "<code>s' ∈ ss'</code>",
- "1106": "<code>∀ (s_1 : List α), s_1 ∈ s :: ss' → s_1 =~ re</code>",
- "1105":
+ "1108": "<code>s' ∈ ss'</code>",
+ "1107": "<code>∀ (s_1 : List α), s_1 ∈ s :: ss' → s_1 =~ re</code>",
+ "1106":
  "<code>(∀ (s : List α), s ∈ ss' → s =~ re) → List.foldr (fun x1 x2 =&gt; x1 ++ x2) [] ss' =~ Star re</code>",
- "1104": "<code>∀ (s : List α), s ∈ [] → s =~ re</code>",
- "1103":
+ "1105": "<code>∀ (s : List α), s ∈ [] → s =~ re</code>",
+ "1104":
  "<code>List.foldr.{u, v} {α : Type u} {β : Type v} (f : α → β → β) (init : β) (l : List α) : β</code><span class=\"sep\"></span><code class=\"docstring\">Folds a function over a list from the right, accumulating a value starting with `init`. The\naccumulated value is combined with the each element of the list in reverse order, using `f`.\n\n`O(|l|)`. Replaced at runtime with `List.foldrTR`.\n\nExamples:\n * `[a, b, c].foldr f init  = f a (f b (f c init))`\n * `[1, 2, 3].foldr (toString · ++ ·) \"\" = \"123\"`\n * `[1, 2, 3].foldr (s!\"({·} {·})\") \"!\" = \"(1 (2 (3 !)))\"`\n</code>",
- "1102": "<code>∀ (s : List α), s ∈ ss → s =~ re</code>",
- "1101": "<code>List (List α)</code>",
- "1100":
+ "1103": "<code>∀ (s : List α), s ∈ ss → s =~ re</code>",
+ "1102": "<code>List (List α)</code>",
+ "1101":
  "<code>RegExp.MStar' (α : Type) (ss : List (List α)) (re : RegExp α) (h : ∀ (s : List α), s ∈ ss → s =~ re) :\n  List.foldr (fun x1 x2 =&gt; x1 ++ x2) [] ss =~ Star re</code>",
+ "1100":
+ "<code>RegExp.MUnion' (α : Type) (s : List α) (re₁ re₂ : RegExp α) : s =~ re₁ ∨ s =~ re₂ → s =~ Union re₁ re₂</code>",
  "110": "<code>NatPlayground.Nat.odd (n : Nat) : Bool</code>",
  "11": "<code>Day.wednesday : Day</code>",
  "1099":
- "<code>RegExp.MUnion' (α : Type) (s : List α) (re₁ re₂ : RegExp α) : s =~ re₁ ∨ s =~ re₂ → s =~ Union re₁ re₂</code>",
- "1098":
  "<code>RegExp.EmptySet_is_empty (α : Type) (s : List α) : ¬s =~ EmptySet</code>",
- "1097":
+ "1098":
  "<code>List.append_nil.{u} {α : Type u} (as : List α) : as ++ [] = as</code>",
- "1096": "<code>s =~ re</code>",
- "1095":
+ "1097": "<code>s =~ re</code>",
+ "1096":
  "<code>RegExp.MStar1 (α : Type) (s : List α) (re : RegExp α) : s =~ re → s =~ Star re</code>",
- "1094":
+ "1095":
  "<code>RegExp.regexp_match_of_list (α : Type) (l : List α) : l =~ reg_exp_of_list l</code>",
- "1093":
+ "1094":
  "<code>RegExp.reg_exp_of_list {α : Type} (l : List α) : RegExp α</code>",
- "1092": "<code>[1, 2] =~ Char 1</code>",
- "1091":
+ "1093": "<code>[1, 2] =~ Char 1</code>",
+ "1092":
  "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ : List α) (re₁ : RegExp α) (s₂ : List α) (re₂ : RegExp α) (h₁ : s₁ =~ re₁)\n  (h₂ : s₂ =~ re₂) : s₁ ++ s₂ =~ App re₁ re₂</code>",
- "1090":
+ "1091":
  "<code>RegExp.ExpMatch.mChar {α : Type} (c : α) : [c] =~ Char c</code>",
+ "1090": "<code>s =~ EmptySet</code>",
  "109": "<code>NatPlayground.Nat.even (n : Nat) : Bool</code>",
- "1089": "<code>s =~ EmptySet</code>",
- "1088": "<code>RegExp.quiz (α : Type) (s : List α) : ¬s =~ EmptySet</code>",
- "1087": "<code><span class=\"literal string\">\" =~ \"</span> : String</code>",
- "1086": "<code>ExpMatch s₂ (Star re)</code>",
- "1085": "<code>ExpMatch s₁ re</code>",
- "1084":
+ "1089": "<code>RegExp.quiz (α : Type) (s : List α) : ¬s =~ EmptySet</code>",
+ "1088": "<code><span class=\"literal string\">\" =~ \"</span> : String</code>",
+ "1087": "<code>ExpMatch s₂ (Star re)</code>",
+ "1086": "<code>ExpMatch s₁ re</code>",
+ "1085":
  "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) (re : RegExp α) (h₁ : ExpMatch s₁ re)\n  (h₂ : ExpMatch s₂ (Star re)) : ExpMatch (s₁ ++ s₂) (Star re)</code>",
- "1083":
+ "1084":
  "<code>RegExp.ExpMatch.mStar0 {α : Type} (re : RegExp α) : ExpMatch [] (Star re)</code>",
- "1082":
+ "1083":
  "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α) (h₂ : ExpMatch s₂ re₂) :\n  ExpMatch s₂ (Union re₁ re₂)</code>",
- "1081":
+ "1082":
  "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α) (h₁ : ExpMatch s₁ re₁) :\n  ExpMatch s₁ (Union re₁ re₂)</code>",
- "1080": "<code>ExpMatch s₂ re₂</code>",
+ "1081": "<code>ExpMatch s₂ re₂</code>",
+ "1080": "<code>ExpMatch s₁ re₁</code>",
  "108": "<code>NatPlayground.Nat.minusTwo (n : Nat) : Nat</code>",
- "1079": "<code>ExpMatch s₁ re₁</code>",
- "1078":
+ "1079":
  "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ : List α) (re₁ : RegExp α) (s₂ : List α) (re₂ : RegExp α) (h₁ : ExpMatch s₁ re₁)\n  (h₂ : ExpMatch s₂ re₂) : ExpMatch (s₁ ++ s₂) (App re₁ re₂)</code>",
- "1077":
+ "1078":
  "<code>RegExp.ExpMatch.mChar {α : Type} (c : α) : ExpMatch [c] (Char c)</code>",
- "1076":
+ "1077":
  "<code>RegExp.ExpMatch.mEmpty {α : Type} : ExpMatch [] EmptyStr</code>",
- "1075": "<code>RegExp.ExpMatch {α : Type} : List α → RegExp α → Prop</code>",
- "1074":
+ "1076": "<code>RegExp.ExpMatch {α : Type} : List α → RegExp α → Prop</code>",
+ "1075":
  "<code>Repr.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">The standard way of turning values of some type into `Format`.\n\nWhen rendered this `Format` should be as close as possible to something that can be parsed as the\ninput value.\n</code>",
- "1073":
+ "1074":
  "<code>DecidableEq.{u} (α : Sort u) : Sort (max 1 u)</code><span class=\"sep\"></span><code class=\"docstring\">Propositional equality is `Decidable` for all elements of a type.\n\nIn other words, an instance of `DecidableEq α` is a means of deciding the proposition `a = b` is\nfor all `a b : α`.\n</code>",
- "1072":
+ "1073":
  "<code>BEq.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">`BEq α` is a typeclass for supplying a boolean-valued equality relation on\n`α`, notated as `a == b`. Unlike `DecidableEq α` (which uses `a = b`), this\nis `Bool` valued instead of `Prop` valued, and it also does not have any\naxioms like being reflexive or agreeing with `=`. It is mainly intended for\nprogramming applications. See `LawfulBEq` for a version that requires that\n`==` and `=` coincide.\n\nTypically we prefer to put the \"more variable\" term on the left,\nand the \"more constant\" term on the right.\n</code>",
- "1071": "<code>RegExp.Star {α : Type} (r : RegExp α) : RegExp α</code>",
- "1070": "<code>RegExp.Union {α : Type} (r1 r2 : RegExp α) : RegExp α</code>",
+ "1072": "<code>RegExp.Star {α : Type} (r : RegExp α) : RegExp α</code>",
+ "1071": "<code>RegExp.Union {α : Type} (r1 r2 : RegExp α) : RegExp α</code>",
+ "1070": "<code>RegExp α</code>",
  "107": "<code>NatPlayground.Nat.pred (n : Nat) : Nat</code>",
- "1069": "<code>RegExp α</code>",
- "1068": "<code>RegExp.App {α : Type} (r1 r2 : RegExp α) : RegExp α</code>",
- "1067": "<code>RegExp.Char {α : Type} (c : α) : RegExp α</code>",
- "1066": "<code>RegExp.EmptyStr {α : Type} : RegExp α</code>",
- "1065": "<code>RegExp.EmptySet {α : Type} : RegExp α</code>",
- "1064": "<code>RegExp (α : Type) : Type</code>",
- "1063": "<code>A</code>",
- "1062": "<code>¬A</code>",
- "1061":
+ "1069": "<code>RegExp.App {α : Type} (r1 r2 : RegExp α) : RegExp α</code>",
+ "1068": "<code>RegExp.Char {α : Type} (c : α) : RegExp α</code>",
+ "1067": "<code>RegExp.EmptyStr {α : Type} : RegExp α</code>",
+ "1066": "<code>RegExp.EmptySet {α : Type} : RegExp α</code>",
+ "1065": "<code>RegExp (α : Type) : Type</code>",
+ "1064": "<code>A</code>",
+ "1063": "<code>¬A</code>",
+ "1062":
  "<code class=\"docstring\">`trivial` tries different simple tactics (e.g., `rfl`, `contradiction`, ...)\nto close the current goal.\nYou can use the command `macro_rules` to extend the set of tactics used. Example:\n```\nmacro_rules | `(tactic| trivial) =&gt; `(tactic| simp)\n```\n</code>",
- "1060":
+ "1061":
  "<code>List.mem_append.{u_1} {α : Type u_1} {a : α} {s t : List α} : a ∈ s ++ t ↔ a ∈ s ∨ a ∈ t</code>",
+ "1060": "<code>x ∈ l₂</code>",
  "106": "<code>NatPlayground.Nat.four : Nat</code>",
- "1059": "<code>x ∈ l₂</code>",
- "1058":
+ "1059":
  "<code>Perm3_In_shortest (α : Type) (x : α) (l₁ l₂ : List α) : Perm3 l₁ l₂ → x ∈ l₁ → x ∈ l₂</code>",
- "1057":
+ "1058":
  "<code class=\"docstring\">`simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target\nare simplified multiple times until no simplification is applicable.\nOnly non-dependent propositional hypotheses are considered.\n</code>",
- "1056": "<code>x ∈ l₂ ∨ x ∈ l₃</code>",
- "1055": "<code>x ∈ l₁ ∨ x ∈ l₂</code>",
- "1054": "<code>x ∈ l₂ ++ l₃</code>",
- "1053": "<code>x ∈ l₁ ++ l₂</code>",
- "1052": "<code>x = a✝ ∨ x = b✝ ∨ x = c✝</code>",
- "1051":
+ "1057": "<code>x ∈ l₂ ∨ x ∈ l₃</code>",
+ "1056": "<code>x ∈ l₁ ∨ x ∈ l₂</code>",
+ "1055": "<code>x ∈ l₂ ++ l₃</code>",
+ "1054": "<code>x ∈ l₁ ++ l₂</code>",
+ "1053": "<code>x = a✝ ∨ x = b✝ ∨ x = c✝</code>",
+ "1052":
  "<code>Perm3_In_almost_shortest (α : Type) (x : α) (l₁ l₂ : List α) : Perm3 l₁ l₂ → x ∈ l₁ → x ∈ l₂</code>",
- "1050":
+ "1051":
  "<code class=\"docstring\">`simp?` takes the same arguments as `simp`, but reports an equivalent call to `simp only`\nthat would be sufficient to close the goal. This is useful for reducing the size of the simp\nset in a local invocation to speed up processing.\n```\nexample (x : Nat) : (if True then x + 2 else 3) = x + 2 := by\n  simp? -- prints \"Try this: simp only [ite_true]\"\n```\n\nThis command can also be used in `simp_all` and `dsimp`.\n</code>",
+ "1050":
+ "<code>simp_lemmas_example.add_succ_nested_3 (n m : Nat) : n + (m + 1 + 1) = n + m + 1 + 1</code>",
  "105": "<code>NatPlayground.Nat.three : Nat</code>",
  "1049":
- "<code>simp_lemmas_example.add_succ_nested_3 (n m : Nat) : n + (m + 1 + 1) = n + m + 1 + 1</code>",
- "1048":
  "<code>simp_lemmas_example.add_succ_nested_2 (n m : Nat) : n + (m + 1 + 1) = n + m + 1 + 1</code>",
- "1047":
+ "1048":
  "<code class=\"docstring\">The `simp` tactic uses lemmas and hypotheses to simplify the main goal target or\nnon-dependent hypotheses. It has many variants:\n- `simp` simplifies the main goal target using lemmas tagged with the attribute `[simp]`.\n- `simp [h₁, h₂, ..., hₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]` and the given `hᵢ`'s, where the `hᵢ`'s are expressions.-\n- If an `hᵢ` is a defined constant `f`, then `f` is unfolded. If `f` has equational lemmas associated\n  with it (and is not a projection or a `reducible` definition), these are used to rewrite with `f`.\n- `simp [*]` simplifies the main goal target using the lemmas tagged with the\n  attribute `[simp]` and all hypotheses.\n- `simp only [h₁, h₂, ..., hₙ]` is like `simp [h₁, h₂, ..., hₙ]` but does not use `[simp]` lemmas.\n- `simp [-id₁, ..., -idₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]`, but removes the ones named `idᵢ`.\n- `simp at h₁ h₂ ... hₙ` simplifies the hypotheses `h₁ : T₁` ... `hₙ : Tₙ`. If\n  the target or another hypothesis depends on `hᵢ`, a new simplified hypothesis\n  `hᵢ` is introduced, but the old one remains in the local context.\n- `simp at *` simplifies all the hypotheses and the target.\n- `simp [*] at *` simplifies target and all (propositional) hypotheses using the\n  other hypotheses.\n</code>",
- "1046":
+ "1047":
  "<code>simp_lemmas_example.add_succ_nested (n m : Nat) : n + (m + 1 + 1) = n + m + 1 + 1</code>",
- "1045":
+ "1046":
  "<code>simp_lemmas_example.add_succ (n m : Nat) : n + (m + 1) = n + m + 1</code>",
- "1044": "<code>simp_lemmas_example.add_zero (n : Nat) : n + 0 = n</code>",
- "1043":
+ "1045": "<code>simp_lemmas_example.add_zero (n : Nat) : n + 0 = n</code>",
+ "1044":
  "<code class=\"docstring\">Theorems tagged with the `simp` attribute are used by the simplifier\n(i.e., the `simp` tactic, and its variants) to simplify expressions occurring in your goals.\nWe call theorems tagged with the `simp` attribute \"simp theorems\" or \"simp lemmas\".\nLean maintains a database/index containing all active simp theorems.\nHere is an example of a simp theorem.\n```lean\n@[simp] theorem ne_eq (a b : α) : (a ≠ b) = Not (a = b) := rfl\n```\nThis simp theorem instructs the simplifier to replace instances of the term\n`a ≠ b` (e.g. `x + 0 ≠ y`) with `Not (a = b)` (e.g., `Not (x + 0 = y)`).\nThe simplifier applies simp theorems in one direction only:\nif `A = B` is a simp theorem, then `simp` replaces `A`s with `B`s,\nbut it doesn't replace `B`s with `A`s. Hence a simp theorem should have the\nproperty that its right-hand side is \"simpler\" than its left-hand side.\nIn particular, `=` and `↔` should not be viewed as symmetric operators in this situation.\nThe following would be a terrible simp theorem (if it were even allowed):\n```lean\n@[simp] lemma mul_right_inv_bad (a : G) : 1 = a * a⁻¹ := ...\n```\nReplacing 1 with a * a⁻¹ is not a sensible default direction to travel.\nEven worse would be a theorem that causes expressions to grow without bound,\ncausing simp to loop forever.\n\nBy default the simplifier applies `simp` theorems to an expression `e`\nafter its sub-expressions have been simplified.\nWe say it performs a bottom-up simplification.\nYou can instruct the simplifier to apply a theorem before its sub-expressions\nhave been simplified by using the modifier `↓`. Here is an example\n```lean\n@[simp↓] theorem not_and_eq (p q : Prop) : (¬ (p ∧ q)) = (¬p ∨ ¬q) :=\n```\n\nYou can instruct the simplifier to rewrite the lemma from right-to-left:\n```lean\nattribute @[simp ←] and_assoc\n```\n\nWhen multiple simp theorems are applicable, the simplifier uses the one with highest priority.\nThe equational theorems of functions are applied at very low priority (100 and below).\nIf there are several with the same priority, it is uses the \"most recent one\". Example:\n```lean\n@[simp high] theorem cond_true (a b : α) : cond true a b = a := rfl\n@[simp low+1] theorem or_true (p : Prop) : (p ∨ True) = True :=\n  propext &lt;| Iff.intro (fun _ =&gt; trivial) (fun _ =&gt; Or.inr trivial)\n@[simp 100] theorem ite_self {d : Decidable c} (a : α) : ite c a a = a := by\n  cases d &lt;;&gt; rfl\n```\n</code>",
- "1042":
+ "1043":
  "<code>Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α) : Perm3 l₁ l₂ → x ∈ l₁ → x ∈ l₂</code>",
- "1041":
+ "1042":
  "<code>List.mem_cons_of_mem.{u_1} {α : Type u_1} (y : α) {a : α} {l : List α} : a ∈ l → a ∈ y :: l</code>",
- "1040":
+ "1041":
  "<code>List.mem_cons_self.{u_1} {α : Type u_1} {a : α} {l : List α} : a ∈ a :: l</code>",
+ "1040":
+ "<code class=\"docstring\">`first | tac | ...` runs each `tac` until one succeeds, or else fails. </code>",
  "104": "<code>NatPlayground.Nat.two : Nat</code>",
  "1039":
- "<code class=\"docstring\">`first | tac | ...` runs each `tac` until one succeeds, or else fails. </code>",
- "1038":
  "<code class=\"docstring\">`repeat tac` repeatedly applies `tac` so long as it succeeds.\nThe tactic `tac` may be a tactic sequence, and if `tac` fails at any point in its execution,\n`repeat` will revert any partial changes that `tac` made to the tactic state.\n\nThe tactic `tac` should eventually fail, otherwise `repeat tac` will run indefinitely.\n\nSee also:\n* `try tac` is like `repeat tac` but will apply `tac` at most once.\n* `repeat' tac` recursively applies `tac` to each goal.\n* `first | tac1 | tac2` implements the backtracking used by `repeat`\n</code>",
- "1037":
+ "1038":
  "<code>Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α) : Perm3 l₁ l₂ → x ∈ l₁ → x ∈ l₂</code>",
- "1036":
+ "1037":
  "<code>GT.gt.{u} {α : Type u} [LT α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a &gt; b` is an abbreviation for `b &lt; a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&gt;` in identifiers is `gt`.</code>",
- "1035": "<code>silly n</code>",
- "1034": "<code>∃ m, n = m + 2</code>",
- "1033": "<code>silly.mk3 (n : Nat) (h : ∃ m, n = m + 2) : silly n</code>",
- "1032": "<code>1 ∈ []</code>",
- "1031": "<code>silly.mk2 (n : Nat) (h : 1 ∈ []) : silly n</code>",
- "1030": "<code>n &gt; 1</code>",
+ "1036": "<code>silly n</code>",
+ "1035": "<code>∃ m, n = m + 2</code>",
+ "1034": "<code>silly.mk3 (n : Nat) (h : ∃ m, n = m + 2) : silly n</code>",
+ "1033": "<code>1 ∈ []</code>",
+ "1032": "<code>silly.mk2 (n : Nat) (h : 1 ∈ []) : silly n</code>",
+ "1031": "<code>n &gt; 1</code>",
+ "1030": "<code>silly.mk1 (n : Nat) (h : n &gt; 1) : silly n</code>",
  "103": "<code>NatPlayground.Nat.one : Nat</code>",
- "1029": "<code>silly.mk1 (n : Nat) (h : n &gt; 1) : silly n</code>",
- "1028": "<code>silly : Nat → Prop</code>",
- "1027":
+ "1029": "<code>silly : Nat → Prop</code>",
+ "1028":
  "<code class=\"docstring\">`try tac` runs `tac` and succeeds even if `tac` failed. </code>",
- "1026": "<code>P</code>",
- "1025":
+ "1027": "<code>P</code>",
+ "1026":
  "<code>Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α) : Perm3 l₁ l₂ → x ∈ l₁ → x ∈ l₂</code>",
- "1024":
+ "1025":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
- "1023": "<code>x ∈ l₁✝</code>",
- "1022": "<code>Perm3 l₂✝ l₃✝</code>",
- "1021": "<code>Perm3 l₁✝ l₂✝</code>",
- "1020": "<code>x ∈ l₂✝ → x ∈ l₃✝</code>",
+ "1024": "<code>x ∈ l₁✝</code>",
+ "1023": "<code>Perm3 l₂✝ l₃✝</code>",
+ "1022": "<code>Perm3 l₁✝ l₂✝</code>",
+ "1021": "<code>x ∈ l₂✝ → x ∈ l₃✝</code>",
+ "1020": "<code>x ∈ l₁✝ → x ∈ l₂✝</code>",
  "102": "<code>NatPlayground.Nat.succ (n : Nat) : Nat</code>",
- "1019": "<code>x ∈ l₁✝ → x ∈ l₂✝</code>",
- "1018": "<code>x ∈ []</code>",
- "1017": "<code>x = c✝</code>",
- "1016": "<code>x = b✝</code>",
- "1015": "<code>x = a✝</code>",
- "1014": "<code>x = a✝ ∨ x = b✝ ∨ x = c✝ ∨ x ∈ []</code>",
- "1013": "<code>x = a✝ ∨ x = b✝ ∨ x ∈ [c✝]</code>",
- "1012": "<code>x = a✝ ∨ x ∈ [b✝, c✝]</code>",
- "1011":
+ "1019": "<code>x ∈ []</code>",
+ "1018": "<code>x = c✝</code>",
+ "1017": "<code>x = b✝</code>",
+ "1016": "<code>x = a✝</code>",
+ "1015": "<code>x = a✝ ∨ x = b✝ ∨ x = c✝ ∨ x ∈ []</code>",
+ "1014": "<code>x = a✝ ∨ x = b✝ ∨ x ∈ [c✝]</code>",
+ "1013": "<code>x = a✝ ∨ x ∈ [b✝, c✝]</code>",
+ "1012":
  "<code>List.mem_cons.{u_1} {α✝ : Type u_1} {b : α✝} {l : List α✝} {a : α✝} : a ∈ b :: l ↔ a = b ∨ a ∈ l</code>",
- "1010": "<code>x ∈ [a✝, b✝, c✝]</code>",
+ "1011": "<code>x ∈ [a✝, b✝, c✝]</code>",
+ "1010": "<code>x ∈ l₁</code>",
  "101": "<code>NatPlayground.Nat.zero : Nat</code>",
- "1009": "<code>x ∈ l₁</code>",
- "1008": "<code>Perm3 l₁ l₂</code>",
- "1007":
+ "1009": "<code>Perm3 l₁ l₂</code>",
+ "1008":
  "<code>Membership.mem.{u, v} {α : outParam (Type u)} {γ : Type v} [self : Membership α γ] : γ → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The membership relation `a ∈ s : Prop` where `a : α`, `s : γ`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∈` in identifiers is `mem`.</code>",
- "1006":
+ "1007":
  "<code>Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α) : Perm3 l₁ l₂ → x ∈ l₁ → x ∈ l₂</code>",
- "1005": "<code>n' = double k</code>",
- "1004": "<code>n'.Even</code>",
- "1003": "<code>n✝.Even</code>",
- "1002": "<code>Nat.ev_Even (n : Nat) : Ev n → n.Even</code>",
- "1001": "<code>n' = Nat.double k</code>",
- "1000":
+ "1006": "<code>n' = double k</code>",
+ "1005": "<code>n'.Even</code>",
+ "1004": "<code>n✝.Even</code>",
+ "1003": "<code>Nat.ev_Even (n : Nat) : Ev n → n.Even</code>",
+ "1002": "<code>n' = Nat.double k</code>",
+ "1001":
  "<code>(∃ k', n' = Nat.double k') → ∃ n₀, n' + 2 = Nat.double n₀</code>",
+ "1000": "<code>inversion_ex2 (n : Nat) : n + 1 = 0 → 2 + 2 = 5</code>",
  "100": "<code>NatPlayground.Nat : Type</code>",
  "10": "<code>Day.tuesday : Day</code>",
  "1":

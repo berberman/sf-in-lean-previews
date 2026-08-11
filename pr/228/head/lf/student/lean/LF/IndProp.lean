@@ -88,40 +88,35 @@ def reaches1In (n : Nat) : Nat :=
 
 -- Another idea could be to express the concept "eventually reaches `1` in the
 -- Collatz sequence" as a *recursively defined property* of numbers
--- `CollatzHoldsFor' : Nat → Prop`. This is also rejected: while we could in
--- principle convince Lean that `div2 n` is smaller than `n`, we certainly
--- can't convince it that `(3 * n) + 1` is smaller than `n`!
+-- `CollatzHoldsFor : Nat → Prop`. This is also rejected by the termination
+-- checker. In principle, we could convince Lean that `div2 n` is smaller than
+-- `n` by supplying an appropriate proof. However, we still can't convince it
+-- that `(3 * n) + 1` is smaller than `n`!
 
-/--
-error: fail to show termination for
-  CollatzHoldsFor'
-with errors
-failed to infer structural recursion:
-Cannot use parameter n:
-  failed to eliminate recursive application
-    CollatzHoldsFor' (div2 n)
+sf_expect_failure
+  def CollatzHoldsFor (n : Nat) : Prop :=
+    match n with
+    | 0 => False
+    | 1 => True
+    | _ => if n.even then CollatzHoldsFor (div2 n)
+                     else CollatzHoldsFor ((3 * n) + 1)
+
+-- fail to show termination for
+--   CollatzHoldsFor
+-- with errors
+-- failed to infer structural recursion:
+-- Cannot use parameter n:
+--   failed to eliminate recursive application
+--     CollatzHoldsFor (div2 n)
 
 
-failed to prove termination, possible solutions:
-  - Use `have`-expressions to prove the remaining goals
-  - Use `termination_by` to specify a different well-founded relation
-  - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
-n x✝ : Nat
-h✝ : n.even = true
-⊢ div2 n < x✝
--/
-#guard_msgs in
-def CollatzHoldsFor' (n : Nat) : Prop :=
-  match n with
-  | 0 => False
-  | 1 => True
-  | _ => if n.even then CollatzHoldsFor' (div2 n)
-                   else CollatzHoldsFor' ((3 * n) + 1)
-
--- This recursive function is also rejected by the termination checker. In
--- principle, we could convince Lean that `div2 n` is smaller than `n` by
--- supplying an appropriate proof. However, we still can't convince it that
--- `(3 * n) + 1` is smaller than `n`!
+-- failed to prove termination, possible solutions:
+--   - Use `have`-expressions to prove the remaining goals
+--   - Use `termination_by` to specify a different well-founded relation
+--   - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
+-- n x✝ : Nat
+-- h✝ : n.even = true
+-- ⊢ div2 n < x✝
 
 -- Fortunately, there is another way to do it: We can express the concept
 -- "reaches `1` eventually in the Collatz sequence" as an *inductively defined
@@ -129,7 +124,7 @@ def CollatzHoldsFor' (n : Nat) : Prop :=
 -- rules:
 
 --                 ─────────────────── (chf_one)
---                 CollatzHoldsFor 1
+--                  CollatzHoldsFor 1
 
 --   even n = true     CollatzHoldsFor (div2 n)
 --   ─────────────────────────────────────────── (chf_even)
@@ -151,25 +146,25 @@ def CollatzHoldsFor' (n : Nat) : Prop :=
 -- that `12` reaches `1` (where we leave out the evenness/oddness premises):
 
 --   ─────────────────────── (chf_one)
---   CollatzHoldsFor 1
+--     CollatzHoldsFor 1
 --   ─────────────────────── (chf_even)
---   CollatzHoldsFor 2
+--     CollatzHoldsFor 2
 --   ─────────────────────── (chf_even)
---   CollatzHoldsFor 4
+--     CollatzHoldsFor 4
 --   ─────────────────────── (chf_even)
---   CollatzHoldsFor 8
+--     CollatzHoldsFor 8
 --   ─────────────────────── (chf_even)
---   CollatzHoldsFor 16
+--     CollatzHoldsFor 16
 --   ─────────────────────── (chf_odd)
---   CollatzHoldsFor 5
+--     CollatzHoldsFor 5
 --   ─────────────────────── (chf_even)
---   CollatzHoldsFor 10
+--     CollatzHoldsFor 10
 --   ─────────────────────── (chf_odd)
---   CollatzHoldsFor 3
+--     CollatzHoldsFor 3
 --   ─────────────────────── (chf_even)
---   CollatzHoldsFor 6
+--     CollatzHoldsFor 6
 --   ─────────────────────── (chf_even)
---   CollatzHoldsFor 12
+--     CollatzHoldsFor 12
 
 -- Formally in Lean, the `CollatzHoldsFor` property is *inductively defined*:
 
