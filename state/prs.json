@@ -50,11 +50,48 @@
     },
     "179": {
       "base_sha": "a5930f903e4f18e6aa458d2c0327628db7a9ae2a",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "c4fcbb877c7528d0245f79259e46f7c2d27b3974",
       "preview_path": "pr/179/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31452824608",
+      "status": "published",
       "title": "Hoare: assertion and triple syntax",
       "url": "https://github.com/plclub/sf-in-lean/pull/179"
     },

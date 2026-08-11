@@ -72,8 +72,6 @@ import HL.SFLCompat
 
 -- ## Assertions
 
-open scoped MyGetElem
-
 -- An *assertion* is a logical claim about the state of a program's memory --
 -- formally, a predicate of `State`s.
 
@@ -209,9 +207,11 @@ macro_rules
   | `(assn($st; $l → $r)) => ``(assn($st; $l) → assn($st; $r))
   | `(assn($st; $l ↔ $r)) => ``(assn($st; $l) ↔ assn($st; $r))
   | `(assn($st; ¬ $t)) => ``(¬ assn($st; $t))
-  | `(assn($st; $f $a1)) => ``($f assn($st; $a1))
-  | `(assn($st; $f $a1 $a2)) => ``($f assn($st; $a1) assn($st; $a2))
-  -- | `(assn($st; $f $t*)) => ``($f ) -- TODO how to get arbitrary applications
+  | `(assn($st; $f $args*)) => do
+    let mut result := f
+    for arg in args do
+      result ← `($result assn($st; $arg))
+    return result
 end
 
 #check {{ 1 = 2 }}
@@ -233,23 +233,21 @@ variable (b : Bexp)
 variable (P Q : Assertion)
 #check {{ P ∧ Q }}
 
+variable (f : Nat → Nat → Nat → Nat)
+#check {{ f X Y X = 0 }}
+
 end Assertion
 
--- TODO OUTDATED One small limitation of this approach is that we don't have
--- an automatic way to coerce a function application that appears within an
--- assertion to make appropriate use of the state when its arguments should be
--- interpets as Imp arithmetic expressions. Instead, we introduce a notation
--- `#f e1 .. en` that stands for `fun st => f (e1 st) .. (en st)`, letting us
--- manually mark such function calls when they're needed as part of an
--- assertion.
+-- Function applications inside assertions automatically interpret their
+-- arguments in the current state. Thus, `{{ f e1 ... en }}` stands for
+-- `fun st => f (e1 st) ... (en st)`.
 
--- TODO OUTDATED Occasionally we need to "escape" a raw Lean function to
--- express a particularly complicated assertion. We can do that using a `~`
--- prefix, as in `{{ ~(raw_lean) }}` -- the same escape convention that the
--- `imp { … }` notation uses.
+-- Occasionally it is simpler to write an assertion directly as a Lean
+-- function. Such a function can be placed inside the assertion notation
+-- without an escape marker.
 
--- For example, `{{ ~(fun st => ∀ x, st[x] = 0) }}` indicates an assertion
--- that every variable maps to `0` in the given state.
+-- For example, `{{ fun st => ∀ x, st[x] = 0 }}` indicates an assertion that
+-- every variable maps to `0` in the given state.
 
 -- ### Example Assertions
 
@@ -1465,14 +1463,12 @@ theorem invalid_triple : ¬ ∀ (a : Aexp) (n : Nat),
 --   ------------------------------------  (hoare_if)
 --   {{P}} if b then c1 else c2 end {{Q}}
 
--- TODO OUTDATED To interpret this rule formally, we need to do a little work.
--- Strictly speaking, the assertion we've written, `P ∧ b`, is the conjunction
--- of an assertion and a boolean expression -- i.e., it doesn't typecheck. To
--- fix this, we need a way of formally "lifting" any bexp `b` to an assertion.
--- We'll write `bassertion b` for the assertion "the boolean expression `b`
--- evaluates to `true` (in the given state)."
+-- Strictly speaking, `P ∧ b` combines an assertion with a boolean expression.
+-- The assertion notation handles this by evaluating `b` in the current state.
+-- We'll write `bassertion b` for the resulting assertion: "the boolean
+-- expression `b` evaluates to `true` in the given state."
 
-def bassertion (b : Bexp) : Assertion := {{ b }} -- NOTE xhalo32: we don't need this IMO
+def bassertion (b : Bexp) : Assertion := {{ b }}
 
 @[simp] theorem bassertion_apply (b : Bexp) (st : State) :
     bassertion b st = (b.eval st = true) := rfl

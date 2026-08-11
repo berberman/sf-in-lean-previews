@@ -115,8 +115,6 @@ import HL.SFLCompat
 
 -- ## Assertions
 
-open scoped MyGetElem
-
 -- An *assertion* is a logical claim about the state of a
 -- program's memory -- formally, a predicate of `State`s.
 
@@ -233,16 +231,12 @@ abbrev Assertion := State → Prop
 --     assertions.  Like the delimiters <{ }> used for Imp programs,
 --     we now also have {{ }} delimiters for use with Assertions.
 --
---     Inside that scope, the meaning of variables, nat literals,
---     propositions, etc. is "lifted" to take a state parameter.
+--     Inside that scope, variables, arithmetic and boolean expressions,
+--     propositions, and function arguments are interpreted in the current
+--     state.  This replaces the need for [ap], [ap2], and explicit lifting
+--     markers.
 --
---     The notation {{ #f x1 .. xn }} now "lifts" a normal function
---     that should be of type [nat -> .. -> nat -> T] so that each of
---     the inputs is treated as an [Aexp] and the state is threaded through.
---     (This replaces the need for [ap], [ap2], etc. throughout.)
---
---     The notation {{ $rocq_term }} now "quotes" a rocq term literally
---     without lifting.  Parentheses can be used as in {{ $(foo bar) }}.`
+--     A raw Lean assertion can also be written directly inside {{ }}.`
 
 -- Note to developers (Claude):
 --     Delaborators for this grammar are defined in the
@@ -313,9 +307,11 @@ macro_rules
   | `(assn($st; $l → $r)) => ``(assn($st; $l) → assn($st; $r))
   | `(assn($st; $l ↔ $r)) => ``(assn($st; $l) ↔ assn($st; $r))
   | `(assn($st; ¬ $t)) => ``(¬ assn($st; $t))
-  | `(assn($st; $f $a1)) => ``($f assn($st; $a1))
-  | `(assn($st; $f $a1 $a2)) => ``($f assn($st; $a1) assn($st; $a2))
-  -- | `(assn($st; $f $t*)) => ``($f ) -- TODO how to get arbitrary applications
+  | `(assn($st; $f $args*)) => do
+    let mut result := f
+    for arg in args do
+      result ← `($result assn($st; $arg))
+    return result
 end
 
 #check {{ 1 = 2 }}
@@ -337,23 +333,21 @@ variable (b : Bexp)
 variable (P Q : Assertion)
 #check {{ P ∧ Q }}
 
+variable (f : Nat → Nat → Nat → Nat)
+#check {{ f X Y X = 0 }}
+
 end Assertion
 
--- TODO OUTDATED We will sometimes need to lift functions to
--- operate on assertion expressions:
+-- Function applications inside assertions automatically
+-- interpret their arguments in the current state:
 
--- `{{ #f e1 .. en }}` stands for
--- `(fun st => f (e1 st) .. (en st))`
+-- `{{ f e1 ... en }}` stands for
+-- `(fun st => f (e1 st) ... (en st))`.
 
--- Note to developers:
---     NOTATION: This notation should come early so that later
---     notations for arithmetic expressions take precedence for
---     printing. Otherwise `{{ X + X }}` would print as
---     `{{ #add X Y }}`.
+-- We can place a raw Lean function directly inside assertion
+-- notation:
 
--- We can "escape" a raw Lean function using a `~` prefix:
-
--- For example: `{{ ~(fun st => ∀ x, st[x] = 0) }}`
+-- For example: `{{ fun st => ∀ x, st[x] = 0 }}`
 
 -- Note to developers:
 --     NOTATION: SAZ 2024: It is important that this custom
@@ -1340,13 +1334,10 @@ theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
 --   ------------------------------------  (hoare_if)
 --   {{P}} if b then c1 else c2 end {{Q}}
 
--- To make this formal, we need a way of formally "lifting" any
--- bexp `b` to an assertion.
-
 -- We'll write `bassertion b` for the assertion "the boolean
--- expression `b` evaluates to `true`."
+-- expression `b` evaluates to `true` in the given state."
 
-def bassertion (b : Bexp) : Assertion := {{ b }} -- NOTE xhalo32: we don't need this IMO
+def bassertion (b : Bexp) : Assertion := {{ b }}
 
 @[simp] theorem bassertion_apply (b : Bexp) (st : State) :
     bassertion b st = (b.eval st = true) := rfl
