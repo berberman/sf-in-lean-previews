@@ -681,11 +681,48 @@
     },
     "237": {
       "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
-      "changed_variants": [],
-      "head_sha": "1dc4c79bce1fd0531a4e3a108f5f5b43384435e5",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "a6f3391753b4af1d6f98517f11a2b8b9a69a705d",
       "preview_path": "pr/237/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31587709543",
+      "status": "published",
       "title": "bib: add entry and citations",
       "url": "https://github.com/plclub/sf-in-lean/pull/237"
     }
