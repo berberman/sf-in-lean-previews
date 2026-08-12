@@ -145,10 +145,10 @@
     "216": {
       "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
       "changed_variants": [],
-      "head_sha": "220e97850af805c53ccf18f5a0a3ad769fb37c46",
+      "head_sha": "60b0fd96bed4fa6fed3b0c20331cbeba2e8fb4f6",
       "preview_path": "pr/216/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31523401225",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "[WIP] Pass over Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },
