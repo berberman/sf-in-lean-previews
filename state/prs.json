@@ -492,49 +492,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
     },
     "232": {
-      "base_sha": "74ca02eaea932e3bdad5b2bad4395c8c2fe4bf8a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "49f37c9a802e5d42dc94a958e5d21131c615107c",
+      "base_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
+      "changed_variants": [],
+      "head_sha": "335dd6592dc0f83ed83a4cc692f949f6f49911a9",
       "preview_path": "pr/232/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31600362681",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Tackle dev comments in `Lists`",
       "url": "https://github.com/plclub/sf-in-lean/pull/232"
     },
@@ -584,6 +547,53 @@
       "status": "published",
       "title": "Use Lean terminology for types",
       "url": "https://github.com/plclub/sf-in-lean/pull/234"
+    },
+    "238": {
+      "base_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "1df11bc3273d3c78dcb77b476ee8c27d855de231",
+      "preview_path": "pr/238/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31605884380",
+      "status": "published",
+      "title": "branch_watch: nbsp in Changes counts, PR base branch, tidier non-PR line",
+      "url": "https://github.com/plclub/sf-in-lean/pull/238"
     }
   },
   "schema": 3
