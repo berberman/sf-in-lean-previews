@@ -1295,273 +1295,302 @@
  "<code>NatPlayground.Nat.zero_succ_beq_false (n : Nat) : (zero == succ n) = false</code>",
  "186":
  "<code>NatPlayground.Nat.zero_zero_beq_true : (zero == zero) = true</code>",
- "185": "<code><span class=\"literal string\">\" == \"</span> : String</code>",
- "184": "<code>NatPlayground.Nat.beq (n m : NatPlayground.Nat) : Bool</code>",
- "1838": "<code>List.filter (fun x =&gt; a == x) xs ≠ []</code>",
- "1837":
+ "1859": "<code>List.filter (fun x =&gt; a == x) xs ≠ []</code>",
+ "1858":
  "<code>decide_eq_true_iff {p : Prop} [Decidable p] : decide p = true ↔ p</code>",
- "1836":
+ "1857":
  "<code>Decidable.decide (p : Prop) [h : Decidable p] : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Converts a decidable proposition into a `Bool`.\n\nIf `p : Prop` is decidable, then `decide p : Bool` is the Boolean value\nthat is `true` if `p` is true and `false` if `p` is false.\n</code>",
- "1835": "<code>Decidable p</code>",
- "1834":
+ "1856": "<code>Decidable p</code>",
+ "1855":
  "<code>decide_eq_false_iff_not {p : Prop} {x✝ : Decidable p} : decide p = false ↔ ¬p</code>",
- "1833":
+ "1854":
  "<code>Decidable.isFalse {p : Prop} (h : ¬p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `¬p` </code>",
- "1832":
+ "1853":
  "<code>Decidable.isTrue {p : Prop} (h : p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `p` </code>",
- "1831": "<code>¬b = true</code>",
- "1830": "<code>b = true</code>",
- "183": "<code>NatPlayground.Nat.blt_test3 : blt four two = false</code>",
- "1829": "<code>b = true ↔ P</code>",
- "1828":
+ "1852": "<code>¬b = true</code>",
+ "1851": "<code>b = true</code>",
+ "1850": "<code>b = true ↔ P</code>",
+ "185": "<code><span class=\"literal string\">\" == \"</span> : String</code>",
+ "1849":
  "<code>decidable_of_bool {a : Prop} (b : Bool) : (b = true ↔ a) → Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">Prove that `a` is decidable by constructing a boolean `b` and a proof that `b ↔ a`.\n(This is sometimes taken as an alternate definition of decidability.) </code>",
- "1827":
+ "1848":
  "<code>Classical.propDecidable (a : Prop) : Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">All propositions are `Decidable`. </code>",
- "1826": "<code>TotalMap.Nat.eq {α : Type} (a₁ a₂ : α) : Bool</code>",
- "1825": "<code>instDecidableEqNat : DecidableEq.{1} Nat</code>",
- "1824": "<code>instDecidableEqNat : DecidableEq Nat</code>",
- "1823": "<code>TotalMap.Nat.nat_eq (m n : Nat) : Bool</code>",
- "1822":
+ "1847": "<code>TotalMap.Nat.eq {α : Type} (a₁ a₂ : α) : Bool</code>",
+ "1846": "<code>instDecidableEqNat : DecidableEq.{1} Nat</code>",
+ "1845": "<code>instDecidableEqNat : DecidableEq Nat</code>",
+ "1844": "<code>TotalMap.Nat.nat_eq (m n : Nat) : Bool</code>",
+ "1843":
  "<code class=\"docstring\">`decide` attempts to prove the main goal (with target type `p`) by synthesizing an instance of `Decidable p`\nand then reducing that instance to evaluate the truth value of `p`.\nIf it reduces to `isTrue h`, then `h` is a proof of `p` that closes the goal.\n\nThe target is not allowed to contain local variables or metavariables.\nIf there are local variables, you can first try using the `revert` tactic with these local variables to move them into the target,\nor you can use the `+revert` option, described below.\n\nOptions:\n- `decide +revert` begins by reverting local variables that the target depends on,\n  after cleaning up the local context of irrelevant variables.\n  A variable is *relevant* if it appears in the target, if it appears in a relevant variable,\n  or if it is a proposition that refers to a relevant variable.\n- `decide +kernel` uses kernel for reduction instead of the elaborator.\n  It has two key properties: (1) since it uses the kernel, it ignores transparency and can unfold everything,\n  and (2) it reduces the `Decidable` instance only once instead of twice.\n- `decide +native` uses the native code compiler (`#eval`) to evaluate the `Decidable` instance,\n  admitting the result via an axiom.\n  This can be significantly more efficient than using reduction, but it is at the cost of increasing the size\n  of the trusted code base.\n  Namely, it depends on the correctness of the Lean compiler and all definitions with an `@[implemented_by]` attribute.\n  Like with `+kernel`, the `Decidable` instance is evaluated only once.\n\nLimitation: In the default mode or `+kernel` mode, since `decide` uses reduction to evaluate the term,\n`Decidable` instances defined by well-founded recursion might not work because evaluating them requires reducing proofs.\nReduction can also get stuck on `Decidable` instances with `Eq.rec` terms.\nThese can appear in instances defined using tactics (such as `rw` and `simp`).\nTo avoid this, create such instances using definitions such as `decidable_of_iff` instead.\n\n## Examples\n\nProving inequalities:\n```lean\nexample : 2 + 2 ≠ 5 := by decide\n```\n\nTrying to prove a false proposition:\n```lean\nexample : 1 ≠ 1 := by decide\n/-\ntactic 'decide' proved that the proposition\n  1 ≠ 1\nis false\n-/\n```\n\nTrying to prove a proposition whose `Decidable` instance fails to reduce\n```lean\nopaque unknownProp : Prop\n\nopen scoped Classical in\nexample : unknownProp := by decide\n/-\ntactic 'decide' failed for proposition\n  unknownProp\nsince its 'Decidable' instance reduced to\n  Classical.choice ⋯\nrather than to the 'isTrue' constructor.\n-/\n```\n\n## Properties and relations\n\nFor equality goals for types with decidable equality, usually `rfl` can be used in place of `decide`.\n```lean\nexample : 1 + 1 = 2 := by decide\nexample : 1 + 1 = 2 := by rfl\n```\n</code>",
- "1821":
+ "1842":
  "<code>decidable_of_decidable_of_iff {p q : Prop} [Decidable p] (h : p ↔ q) : Decidable q</code><span class=\"sep\"></span><code class=\"docstring\">Transfer a decidability proof across an equivalence of propositions. </code>",
- "1820":
+ "1841":
  "<code>TotalMap.Nat.isEven_iff_Even {n : Nat} : TotalMap.Nat.isEven n = true ↔ TotalMap.Nat.Even n</code>",
+ "1840":
+ "<code>Decidable (p : Prop) : Type</code><span class=\"sep\"></span><code class=\"docstring\">Either a proof that `p` is true or a proof that `p` is false. This is equivalent to a `Bool` paired\nwith a proof that the `Bool` is `true` if and only if `p` is true.\n\n`Decidable` instances are primarily used via `if`-expressions and the tactic `decide`. In\nconditional expressions, the `Decidable` instance for the proposition is used to select a branch. At\nrun time, this case distinction code is identical to that which would be generated for a\n`Bool`-based conditional. In proofs, the tactic `decide` synthesizes an instance of `Decidable p`,\nattempts to reduce it to `isTrue h`, and then succeeds with the proof `h` if it can.\n\nBecause `Decidable` carries data, when writing `@[simp]` lemmas which include a `Decidable` instance\non the LHS, it is best to use `{_ : Decidable p}` rather than `[Decidable p]` so that non-canonical\ninstances can be found via unification rather than instance synthesis.\n</code>",
+ "184": "<code>NatPlayground.Nat.beq (n m : NatPlayground.Nat) : Bool</code>",
+ "1839":
+ "<code>beq_iff_eq.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {a b : α} : (a == b) = true ↔ a = b</code>",
+ "1838": "<code>Even n</code>",
+ "1837":
+ "<code>Even n → isEven n = true</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if, reversed. If `a ↔ b` and `b`, then `a`. </code>",
+ "1836": "<code>isEven (double k) = true</code>",
+ "1835": "<code>n = bif isEven n then double k else double k + 1</code>",
+ "1834": "<code>isEven n = true</code>",
+ "1833":
+ "<code>isEven n = true → Even n</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if. If `a ↔ b` and `a`, then `b`. </code>",
+ "1832":
+ "<code>TotalMap.Nat.isEven_iff_Even {n : Nat} : isEven n = true ↔ Even n</code>",
+ "1831":
+ "<code>TotalMap.Nat.isEven_double_exists (n : Nat) : ∃ k, n = bif isEven n then double k else double k + 1</code>",
+ "1830": "<code>isEven (double n) = true</code>",
+ "183": "<code>NatPlayground.Nat.blt_test3 : blt four two = false</code>",
+ "1829":
+ "<code>TotalMap.Nat.even_double (k : Nat) : isEven (double k) = true</code>",
+ "1828": "<code>Bool.not_not (b : Bool) : (!!b) = b</code>",
+ "1827": "<code>isEven (n + 1) = !isEven n</code>",
+ "1826":
+ "<code>TotalMap.Nat.isEven_succ (n : Nat) : isEven (n + 1) = !isEven n</code>",
+ "1825": "<code>TotalMap.Nat.Even (n : Nat) : Prop</code>",
+ "1824":
+ "<code>TotalMap.Nat.double_succ (n : Nat) : double (n + 1) = double n + 2</code>",
+ "1823": "<code>TotalMap.Nat.double_zero : double 0 = 0</code>",
+ "1822":
+ "<code>TotalMap.Nat.isEven_succ_succ (n : Nat) : isEven (n + 2) = isEven n</code>",
+ "1821": "<code>TotalMap.Nat.isEven_one : isEven 1 = false</code>",
+ "1820": "<code>TotalMap.Nat.isEven_zero : isEven 0 = true</code>",
  "182": "<code>NatPlayground.Nat.blt (n m : Nat) : Bool</code>",
  "1819":
- "<code>Decidable (p : Prop) : Type</code><span class=\"sep\"></span><code class=\"docstring\">Either a proof that `p` is true or a proof that `p` is false. This is equivalent to a `Bool` paired\nwith a proof that the `Bool` is `true` if and only if `p` is true.\n\n`Decidable` instances are primarily used via `if`-expressions and the tactic `decide`. In\nconditional expressions, the `Decidable` instance for the proposition is used to select a branch. At\nrun time, this case distinction code is identical to that which would be generated for a\n`Bool`-based conditional. In proofs, the tactic `decide` synthesizes an instance of `Decidable p`,\nattempts to reduce it to `isTrue h`, and then succeeds with the proof `h` if it can.\n\nBecause `Decidable` carries data, when writing `@[simp]` lemmas which include a `Decidable` instance\non the LHS, it is best to use `{_ : Decidable p}` rather than `[Decidable p]` so that non-canonical\ninstances can be found via unification rather than instance synthesis.\n</code>",
- "1818":
- "<code>beq_iff_eq.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {a b : α} : (a == b) = true ↔ a = b</code>",
- "1817": "<code>Even n</code>",
- "1816":
- "<code>Even n → isEven n = true</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if, reversed. If `a ↔ b` and `b`, then `a`. </code>",
- "1815": "<code>isEven (double k) = true</code>",
- "1814": "<code>n = bif isEven n then double k else double k + 1</code>",
- "1813": "<code>isEven n = true</code>",
- "1812":
- "<code>isEven n = true → Even n</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if. If `a ↔ b` and `a`, then `b`. </code>",
- "1811":
- "<code>TotalMap.Nat.isEven_iff_Even {n : Nat} : isEven n = true ↔ Even n</code>",
- "1810":
- "<code>TotalMap.Nat.isEven_double_exists (n : Nat) : ∃ k, n = bif isEven n then double k else double k + 1</code>",
+ "<code class=\"docstring\">The `unseal foo` command ensures that the definition of `foo` is unsealed, meaning it is marked as `[semireducible]`, the\ndefault reducibility setting. This command is useful when you need to allow some level of reduction of `foo` in proofs.\n\nFunctionally, `unseal foo` is equivalent to `attribute [local semireducible] foo`.\nApplying this attribute makes `foo` semireducible only within the local scope.\n</code>",
+ "1818": "<code>TotalMap.Nat.double : Nat → Nat</code>",
+ "1817": "<code>TotalMap.Nat.isEven : Nat → Bool</code>",
+ "1816": "<code>m₁[a'] = some b'</code>",
+ "1815": "<code>some b = some b'</code>",
+ "1814": "<code>(a →ₚ b ; m₁)[a] = some b'</code>",
+ "1813": "<code>¬a = a'</code>",
+ "1812": "<code>a = a'</code>",
+ "1811": "<code>(a →ₚ b ; m₁)[a'] = some b'</code>",
+ "1810": "<code>∀ (a : α) (b : β), m₁[a] = some b → m₂[a] = some b</code>",
  "181": "<code>NatPlayground.Nat.ble (n m : NatPlayground.Nat) : Bool</code>",
- "1809": "<code>isEven (double n) = true</code>",
- "1808":
- "<code>TotalMap.Nat.even_double (k : Nat) : isEven (double k) = true</code>",
- "1807": "<code>Bool.not_not (b : Bool) : (!!b) = b</code>",
- "1806": "<code>isEven (n + 1) = !isEven n</code>",
+ "1809":
+ "<code>HasSubset.Subset.{u} {α : Type u} [self : HasSubset α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
+ "1808": "<code>m₁ ⊆ m₂</code>",
+ "1807":
+ "<code>PartialMap.update_subset {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m₁ m₂ : PartialMap α β) (a : α)\n  (b : β) (h : m₁ ⊆ m₂) : a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
+ "1806": "<code>Iff.rfl {a : Prop} : a ↔ a</code>",
  "1805":
- "<code>TotalMap.Nat.isEven_succ (n : Nat) : isEven (n + 1) = !isEven n</code>",
- "1804": "<code>TotalMap.Nat.Even (n : Nat) : Prop</code>",
+ "<code>PartialMap.subset_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m₁ m₂ : PartialMap α β) :\n  m₁ ⊆ m₂ ↔ ∀ (a : α) (b : β), m₁[a] = some b → m₂[a] = some b</code>",
+ "1804":
+ "<code>PartialMap α β → PartialMap α β → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
  "1803":
- "<code>TotalMap.Nat.double_succ (n : Nat) : double (n + 1) = double n + 2</code>",
- "1802": "<code>TotalMap.Nat.double_zero : double 0 = 0</code>",
+ "<code>PartialMap.Subset {α β : Type} (m₁ m₂ : PartialMap α β) : Prop</code>",
+ "1802":
+ "<code>HasSubset.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Notation type class for the subset relation `⊆`. </code>",
  "1801":
- "<code>TotalMap.Nat.isEven_succ_succ (n : Nat) : isEven (n + 2) = isEven n</code>",
- "1800": "<code>TotalMap.Nat.isEven_one : isEven 1 = false</code>",
+ "<code>KVPair α β → PartialMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`singleton x` is a collection with the single element `x` (notation: `{x}`). \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{x}` in identifiers is `singleton`.</code>",
+ "1800":
+ "<code>KVPair α β → PartialMap α β → PartialMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`insert x xs` inserts the element `x` into the collection `xs`. </code>",
  "180":
  "<code>NatPlayground.Nat.succ_ble_succ (n m : Nat) : ble (succ n) (succ m) = ble n m</code>",
  "18":
  "<code class=\"docstring\">Pattern matching. `match e, ... with | p, ... =&gt; f | ...` matches each given\nterm `e` against each pattern `p` of a match alternative. When all patterns\nof an alternative match, the `match` term evaluates to the value of the\ncorresponding right-hand side `f` with the pattern variables bound to the\nrespective matched values.\nIf used as `match h : e, ... with | p, ... =&gt; f | ...`, `h : e = p` is available\nwithin `f`.\n\nWhen not constructing a proof, `match` does not automatically substitute variables\nmatched on in dependent variables' types. Use `match (generalizing := true) ...` to\nenforce this.\n\nSyntax quotations can also be used in a pattern match.\nThis matches a `Syntax` value against quotations, pattern variables, or `_`.\n\nQuoted identifiers only match identical identifiers - custom matching such as by the preresolved\nnames only should be done explicitly.\n\n`Syntax.atom`s are ignored during matching by default except when part of a built-in literal.\nFor users introducing new atoms, we recommend wrapping them in dedicated syntax kinds if they\nshould participate in matching.\nFor example, in\n```lean\nsyntax \"c\" (\"foo\" &lt;|&gt; \"bar\") ...\n```\n`foo` and `bar` are indistinguishable during matching, but in\n```lean\nsyntax foo := \"foo\"\nsyntax \"c\" (foo &lt;|&gt; \"bar\") ...\n```\nthey are not.\n</code>",
- "1799": "<code>TotalMap.Nat.isEven_zero : isEven 0 = true</code>",
- "1798":
- "<code class=\"docstring\">The `unseal foo` command ensures that the definition of `foo` is unsealed, meaning it is marked as `[semireducible]`, the\ndefault reducibility setting. This command is useful when you need to allow some level of reduction of `foo` in proofs.\n\nFunctionally, `unseal foo` is equivalent to `attribute [local semireducible] foo`.\nApplying this attribute makes `foo` semireducible only within the local scope.\n</code>",
- "1797": "<code>TotalMap.Nat.double : Nat → Nat</code>",
- "1796": "<code>TotalMap.Nat.isEven : Nat → Bool</code>",
- "1795": "<code>m₁[a'] = some b'</code>",
- "1794": "<code>some b = some b'</code>",
- "1793": "<code>(a →ₚ b ; m₁)[a] = some b'</code>",
- "1792": "<code>¬a = a'</code>",
- "1791": "<code>a = a'</code>",
- "1790": "<code>(a →ₚ b ; m₁)[a'] = some b'</code>",
+ "1799":
+ "<code>PartialMap.update_permute {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : PartialMap α β} {a₁ a₂ : α}\n  {b₁ b₂ : β} (h : a₁ ≠ a₂) : a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m = a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m</code>",
+ "1798": "<code>m[a] = some b</code>",
+ "1797":
+ "<code>PartialMap.update_same {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : PartialMap α β} {a : α} {b : β}\n  (h : m[a] = some b) : a →ₚ b ; m = m</code>",
+ "1796":
+ "<code>PartialMap.update_shadow {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : PartialMap α β) (a : α)\n  (b₁ b₂ : β) : a →ₚ b₂ ; a →ₚ b₁ ; m = a →ₚ b₂ ; m</code>",
+ "1795":
+ "<code>PartialMap.update_neq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : PartialMap α β} {a₁ a₂ : α}\n  (h : a₁ ≠ a₂) (b : β) : (a₁ →ₚ b ; m)[a₂] = m[a₂]</code>",
+ "1794":
+ "<code>PartialMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : PartialMap α β) (a : α) (b : β) :\n  (a →ₚ b ; m)[a] = some b</code>",
+ "1793":
+ "<code>Option.default_eq_none.{u_1} {α : Type u_1} : default = none</code>",
+ "1792":
+ "<code>PartialMap.getElem_empty {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (a : α) : ∅[a] = none</code>",
+ "1791":
+ "<code>PartialMap.ext {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m₁ m₂ : PartialMap α β}\n  (h : ∀ (a : α), m₁[a] = m₂[a]) : m₁ = m₂</code>",
+ "1790":
+ "<code>PartialMap.toTotal_eq_iff {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m₁ m₂ : PartialMap α β) :\n  m₁.toTotal = m₂.toTotal ↔ m₁ = m₂</code>",
  "179":
  "<code>NatPlayground.Nat.succ_ble_zero (n : Nat) : ble (succ n) zero = false</code>",
- "1789": "<code>∀ (a : α) (b : β), m₁[a] = some b → m₂[a] = some b</code>",
+ "1789":
+ "<code>PartialMap.mk.injEq {α β : Type} (inner inner✝ : TotalMap α (Option β)) :\n  ({ inner := inner } = { inner := inner✝ }) = (inner = inner✝)</code>",
  "1788":
- "<code>HasSubset.Subset.{u} {α : Type u} [self : HasSubset α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
- "1787": "<code>m₁ ⊆ m₂</code>",
+ "<code>PartialMap.toTotal_update {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : PartialMap α β) (a : α)\n  (b : β) : (a →ₚ b ; m).toTotal = a →ₜ some b ; m.toTotal</code>",
+ "1787":
+ "<code>PartialMap.toTotal_empty {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] : ∅.toTotal = ∅</code>",
  "1786":
- "<code>PartialMap.update_subset {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m₁ m₂ : PartialMap α β) (a : α)\n  (b : β) (h : m₁ ⊆ m₂) : a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
- "1785": "<code>Iff.rfl {a : Prop} : a ↔ a</code>",
- "1784":
- "<code>PartialMap.subset_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m₁ m₂ : PartialMap α β) :\n  m₁ ⊆ m₂ ↔ ∀ (a : α) (b : β), m₁[a] = some b → m₂[a] = some b</code>",
- "1783":
- "<code>PartialMap α β → PartialMap α β → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
+ "<code><span class=\"literal string\">\"Turing\"</span> : String</code>",
+ "1785":
+ "<code><span class=\"literal string\">\"Church\"</span> : String</code>",
+ "1784": "<code>PartialMap.examplePmap : PartialMap String Bool</code>",
+ "1783": "<code><span class=\"literal string\">\" →ₚ \"</span> : String</code>",
  "1782":
- "<code>PartialMap.Subset {α β : Type} (m₁ m₂ : PartialMap α β) : Prop</code>",
+ "<code>PartialMap.mk {α β : Type} (inner : TotalMap α (Option β)) : PartialMap α β</code>",
  "1781":
- "<code>HasSubset.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Notation type class for the subset relation `⊆`. </code>",
+ "<code>PartialMap.update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
  "1780":
- "<code>KVPair α β → PartialMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`singleton x` is a collection with the single element `x` (notation: `{x}`). \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{x}` in identifiers is `singleton`.</code>",
+ "<code>Unit.unit : Unit</code><span class=\"sep\"></span><code class=\"docstring\">The only element of the unit type.\n\nIt can be written as an empty tuple: `()`.\n</code>",
  "178": "<code>NatPlayground.Nat.zero_ble (n : Nat) : ble zero n = true</code>",
  "1779":
- "<code>KVPair α β → PartialMap α β → PartialMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`insert x xs` inserts the element `x` into the collection `xs`. </code>",
+ "<code>Lean.Name : Type</code><span class=\"sep\"></span><code class=\"docstring\">Hierarchical names consist of a sequence of components, each of\nwhich is either a string or numeric, that are written separated by dots (`.`).\n\nHierarchical names are used to name declarations and for creating\nunique identifiers for free variables and metavariables.\n\nYou can create hierarchical names using a backtick:\n```\n`Lean.Meta.whnf\n```\nIt is short for `.str (.str (.str .anonymous \"Lean\") \"Meta\") \"whnf\"`.\n\nYou can use double backticks to request Lean to statically check whether the name\ncorresponds to a Lean declaration in scope.\n```\n``Lean.Meta.whnf\n```\nIf the name is not in scope, Lean will report an error.\n\nThere are two ways to convert a `String` to a `Name`:\n\n 1. `Name.mkSimple` creates a name with a single string component.\n\n 2. `String.toName` first splits the string into its dot-separated\n    components, and then creates a hierarchical name.\n</code>",
  "1778":
- "<code>PartialMap.update_permute {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : PartialMap α β} {a₁ a₂ : α}\n  {b₁ b₂ : β} (h : a₁ ≠ a₂) : a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m = a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m</code>",
- "1777": "<code>m[a] = some b</code>",
- "1776":
- "<code>PartialMap.update_same {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : PartialMap α β} {a : α} {b : β}\n  (h : m[a] = some b) : a →ₚ b ; m = m</code>",
- "1775":
- "<code>PartialMap.update_shadow {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : PartialMap α β) (a : α)\n  (b₁ b₂ : β) : a →ₚ b₂ ; a →ₚ b₁ ; m = a →ₚ b₂ ; m</code>",
+ "<code>Function.const.{u, v} {α : Sort u} (β : Sort v) (a : α) : β → α</code><span class=\"sep\"></span><code class=\"docstring\">The constant function that ignores its argument.\n\nIf `a : α`, then `Function.const β a : β → α` is the “constant function with value `a`”. For all\narguments `b : β`, `Function.const β a b = a`. It is often written directly as `fun _ =&gt; a`.\n\nExamples:\n * `Function.const Bool 10 true = 10`\n * `Function.const Bool 10 false = 10`\n * `Function.const String 10 \"any string\" = 10`\n</code>",
+ "1777":
+ "<code>getElem_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : PartialMap α β) (a : α) :\n  m[a] = m.toTotal[a]</code>",
+ "1776": "<code>PartialMap α β → α → Option β</code>",
+ "1775": "<code>PartialMap α β</code>",
  "1774":
- "<code>PartialMap.update_neq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : PartialMap α β} {a₁ a₂ : α}\n  (h : a₁ ≠ a₂) (b : β) : (a₁ →ₚ b ; m)[a₂] = m[a₂]</code>",
+ "<code>PartialMap.toTotal {α β : Type} (m : PartialMap α β) : TotalMap α (Option β)</code>",
  "1773":
- "<code>PartialMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : PartialMap α β) (a : α) (b : β) :\n  (a →ₚ b ; m)[a] = some b</code>",
+ "<code>TotalMap α (Option β)</code><span class=\"sep\"></span><code class=\"docstring\">The underlying total map. Lean always generates a public projection for a structure\nfield, so `inner` is technically accessible, but it isn't part of the intended interface:\nuse `PartialMap.toTotal` instead, so there's exactly one sanctioned way to get at it. </code>",
  "1772":
- "<code>Option.default_eq_none.{u_1} {α : Type u_1} : default = none</code>",
+ "<code>PartialMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
  "1771":
- "<code>PartialMap.getElem_empty {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (a : α) : ∅[a] = none</code>",
- "1770":
- "<code>PartialMap.ext {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m₁ m₂ : PartialMap α β}\n  (h : ∀ (a : α), m₁[a] = m₂[a]) : m₁ = m₂</code>",
+ "<code>PartialMap.inner {α β : Type} (self : PartialMap α β) : TotalMap α (Option β)</code><span class=\"sep\"></span><code class=\"docstring\">The underlying total map. Lean always generates a public projection for a structure\nfield, so `inner` is technically accessible, but it isn't part of the intended interface:\nuse `PartialMap.toTotal` instead, so there's exactly one sanctioned way to get at it. </code>",
+ "1770": "<code>PartialMap (α β : Type) : Type</code>",
  "177": "<code>NatPlayground.Nat.ble (n m : Nat) : Bool</code>",
  "1769":
- "<code>PartialMap.toTotal_eq_iff {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m₁ m₂ : PartialMap α β) :\n  m₁.toTotal = m₂.toTotal ↔ m₁ = m₂</code>",
- "1768":
- "<code>PartialMap.mk.injEq {α β : Type} (inner inner✝ : TotalMap α (Option β)) :\n  ({ inner := inner } = { inner := inner✝ }) = (inner = inner✝)</code>",
- "1767":
- "<code>PartialMap.toTotal_update {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : PartialMap α β) (a : α)\n  (b : β) : (a →ₚ b ; m).toTotal = a →ₜ some b ; m.toTotal</code>",
- "1766":
- "<code>PartialMap.toTotal_empty {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] : ∅.toTotal = ∅</code>",
- "1765":
- "<code><span class=\"literal string\">\"Turing\"</span> : String</code>",
- "1764":
- "<code><span class=\"literal string\">\"Church\"</span> : String</code>",
- "1763": "<code>PartialMap.examplePmap : PartialMap String Bool</code>",
- "1762": "<code><span class=\"literal string\">\" →ₚ \"</span> : String</code>",
- "1761":
- "<code>PartialMap.mk {α β : Type} (inner : TotalMap α (Option β)) : PartialMap α β</code>",
- "1760":
- "<code>PartialMap.update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
- "176": "<code>NatPlayground.Nat.beq' (n m : Nat) : Bool</code>",
- "1759":
- "<code>Unit.unit : Unit</code><span class=\"sep\"></span><code class=\"docstring\">The only element of the unit type.\n\nIt can be written as an empty tuple: `()`.\n</code>",
- "1758":
- "<code>Lean.Name : Type</code><span class=\"sep\"></span><code class=\"docstring\">Hierarchical names consist of a sequence of components, each of\nwhich is either a string or numeric, that are written separated by dots (`.`).\n\nHierarchical names are used to name declarations and for creating\nunique identifiers for free variables and metavariables.\n\nYou can create hierarchical names using a backtick:\n```\n`Lean.Meta.whnf\n```\nIt is short for `.str (.str (.str .anonymous \"Lean\") \"Meta\") \"whnf\"`.\n\nYou can use double backticks to request Lean to statically check whether the name\ncorresponds to a Lean declaration in scope.\n```\n``Lean.Meta.whnf\n```\nIf the name is not in scope, Lean will report an error.\n\nThere are two ways to convert a `String` to a `Name`:\n\n 1. `Name.mkSimple` creates a name with a single string component.\n\n 2. `String.toName` first splits the string into its dot-separated\n    components, and then creates a hierarchical name.\n</code>",
- "1757":
- "<code>Function.const.{u, v} {α : Sort u} (β : Sort v) (a : α) : β → α</code><span class=\"sep\"></span><code class=\"docstring\">The constant function that ignores its argument.\n\nIf `a : α`, then `Function.const β a : β → α` is the “constant function with value `a`”. For all\narguments `b : β`, `Function.const β a b = a`. It is often written directly as `fun _ =&gt; a`.\n\nExamples:\n * `Function.const Bool 10 true = 10`\n * `Function.const Bool 10 false = 10`\n * `Function.const String 10 \"any string\" = 10`\n</code>",
- "1756":
- "<code>getElem_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : PartialMap α β) (a : α) :\n  m[a] = m.toTotal[a]</code>",
- "1755": "<code>PartialMap α β → α → Option β</code>",
- "1754": "<code>PartialMap α β</code>",
- "1753":
- "<code>PartialMap.toTotal {α β : Type} (m : PartialMap α β) : TotalMap α (Option β)</code>",
- "1752":
- "<code>TotalMap α (Option β)</code><span class=\"sep\"></span><code class=\"docstring\">The underlying total map. Lean always generates a public projection for a structure\nfield, so `inner` is technically accessible, but it isn't part of the intended interface:\nuse `PartialMap.toTotal` instead, so there's exactly one sanctioned way to get at it. </code>",
- "1751":
- "<code>PartialMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
- "1750":
- "<code>PartialMap.inner {α β : Type} (self : PartialMap α β) : TotalMap α (Option β)</code><span class=\"sep\"></span><code class=\"docstring\">The underlying total map. Lean always generates a public projection for a structure\nfield, so `inner` is technically accessible, but it isn't part of the intended interface:\nuse `PartialMap.toTotal` instead, so there's exactly one sanctioned way to get at it. </code>",
- "175": "<code>NatPlayground.Nat.beq (n m : Nat) : Bool</code>",
- "1749": "<code>PartialMap (α β : Type) : Type</code>",
- "1748":
  "<code>Singleton.singleton.{u, v} {α : outParam (Type u)} {β : Type v} [self : Singleton α β] : α → β</code><span class=\"sep\"></span><code class=\"docstring\">`singleton x` is a collection with the single element `x` (notation: `{x}`). \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{x}` in identifiers is `singleton`.</code>",
- "1747":
+ "1768":
  "<code>∀ (x : KVPair α β), insert x ∅ = insert x ∅</code><span class=\"sep\"></span><code class=\"docstring\">`insert x ∅ = {x}` </code>",
- "1746":
+ "1767":
  "<code>LawfulSingleton.{u, v} (α : Type u) (β : Type v) [EmptyCollection β] [Insert α β] [Singleton α β] : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`insert x ∅ = {x}` </code>",
- "1745":
+ "1766":
  "<code>Insert.insert.{u, v} {α : outParam (Type u)} {γ : Type v} [self : Insert α γ] : α → γ → γ</code><span class=\"sep\"></span><code class=\"docstring\">`insert x xs` inserts the element `x` into the collection `xs`. </code>",
- "1744":
+ "1765":
  "<code>KVPair α β → TotalMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`singleton x` is a collection with the single element `x` (notation: `{x}`). \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{x}` in identifiers is `singleton`.</code>",
- "1743":
+ "1764":
  "<code>Singleton.{u, v} (α : outParam (Type u)) (β : Type v) : Type (max u v)</code><span class=\"sep\"></span><code class=\"docstring\">Type class for the `singleton` operation.\nUsed to implement the `{ a, b, c }` syntax.\n</code>",
- "1742": "<code>KVPair α β</code>",
- "1741":
+ "1763": "<code>KVPair α β</code>",
+ "1762":
  "<code>KVPair α β → TotalMap α β → TotalMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`insert x xs` inserts the element `x` into the collection `xs`. </code>",
- "1740":
+ "1761":
  "<code>Insert.{u, v} (α : outParam (Type u)) (γ : Type v) : Type (max u v)</code><span class=\"sep\"></span><code class=\"docstring\">Type class for the `insert` operation.\nUsed to implement the `{ a, b, c }` syntax.\n</code>",
- "174": "<code>NatPlayground.Nat.two_mul_two : two * two = four</code>",
- "1739":
+ "1760":
  "<code>KVPair.mk {K V : Type} (key : K) (value : V) : KVPair K V</code>",
- "1738": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
- "1737": "<code>KVPair.value {K V : Type} (self : KVPair K V) : V</code>",
- "1736": "<code>KVPair.key {K V : Type} (self : KVPair K V) : K</code>",
- "1735":
+ "176": "<code>NatPlayground.Nat.beq' (n m : Nat) : Bool</code>",
+ "1759": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
+ "1758": "<code>KVPair.value {K V : Type} (self : KVPair K V) : V</code>",
+ "1757": "<code>KVPair.key {K V : Type} (self : KVPair K V) : K</code>",
+ "1756":
  "<code>KVPair (K V : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">A key-value pair with `↦` syntax.\n</code>",
- "1734":
+ "1755":
  "<code>TotalMap.update_permute {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a₁ a₂ : α}\n  {b₁ b₂ : β} (h : a₁ ≠ a₂) : a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m = a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m</code>",
- "1733":
+ "1754":
  "<code>TotalMap.update_same {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) :\n  a →ₜ m[a] ; m = m</code>",
- "1732":
+ "1753":
  "<code>TotalMap.update_shadow {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α)\n  (b₁ b₂ : β) : a →ₜ b₂ ; a →ₜ b₁ ; m = a →ₜ b₂ ; m</code>",
- "1731": "<code>∀ (a : α), m₁[a] = m₂[a]</code>",
- "1730":
+ "1752":
+ "<code>beq_false_of_ne.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {a b : α} (h : a ≠ b) : (a == b) = false</code>",
+ "1751": "<code>¬\"bar\" = a</code>",
+ "1750": "<code>\"bar\" = a</code>",
+ "175": "<code>NatPlayground.Nat.beq (n m : Nat) : Bool</code>",
+ "1749": "<code>m₁.toFun x = m₂.toFun x</code>",
+ "1748": "<code>m₁.toFun x = m₂.get x</code>",
+ "1747": "<code>m₁.toFun x = m₂[x]</code>",
+ "1746": "<code>m₁.get x = m₂[x]</code>",
+ "1745": "<code>m₁[x] = m₂[x]</code>",
+ "1744":
+ "<code class=\"docstring\">`specialize h a₁ ... aₙ` is equivalent to `replace h := h a₁ ... aₙ`.\nIt specializes the local hypothesis `h` by instantiating\nuniversal quantifications and implications using the concrete terms `a₁` ... `aₙ`.\nThe tactic adds a new hypothesis with the same name and tries to remove\nthe original `h` if possible.\n\nExample: given `h : ∀ (n : Nat), p n → q n` and `h' : p 2`,\nthen `specialize h 2 h'` replaces `h` with `h : q 2`.\n\nThe tactic also supports instantiating particular universal quantifiers\nusing named argument syntax. Example: given `h : ∀ (m n : Nat), p m n`,\nthen `specialize h (n := 2)` replaces `h` with `h : ∀ (m : Nat), p m 2`.\n</code>",
+ "1743": "<code>∀ (a : α), m₁[a] = m₂[a]</code>",
+ "1742":
  "<code>TotalMap.ext {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m₁ m₂ : TotalMap α β}\n  (h : ∀ (a : α), m₁[a] = m₂[a]) : m₁ = m₂</code>",
- "173": "<code>NatPlayground.Nat.one_mul_two : one * two = two</code>",
- "1729":
+ "1741":
  "<code class=\"docstring\">Registers an extensionality theorem.\n\n* When `@[ext]` is applied to a theorem, the theorem is registered for the `ext` tactic, and it generates an \"`ext_iff`\" theorem.\nThe name of the theorem is from adding the suffix `_iff` to the theorem name.\n\n* When `@[ext]` is applied to a structure, it generates an `.ext` theorem and applies the `@[ext]` attribute to it.\nThe result is an `.ext` and an `.ext_iff` theorem with the `.ext` theorem registered for the `ext` tactic.\n\n* An optional natural number argument, e.g. `@[ext 9000]`, specifies a priority for the `ext` lemma.\nHigher-priority lemmas are chosen first, and the default is `1000`.\n\n* The flag `@[ext (iff := false)]` disables generating an `ext_iff` theorem.\n\n* The flag `@[ext (flat := false)]` causes generated structure extensionality theorems to show inherited fields based on their representation,\nrather than flattening the parents' fields into the lemma's equality hypotheses.\n</code>",
- "1728": "<code>a₁ ≠ a₂</code>",
- "1727":
+ "1740":
+ "<code>TotalMap.mk.injEq {α β : Type} (toFun toFun✝ : α → β) : ({ toFun := toFun } = { toFun := toFun✝ }) = (toFun = toFun✝)</code>",
+ "174": "<code>NatPlayground.Nat.two_mul_two : two * two = four</code>",
+ "1739": "<code>a₁ ≠ a₂</code>",
+ "1738":
  "<code>TotalMap.update_neq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a₁ a₂ : α}\n  (h : a₁ ≠ a₂) (b : β) : (a₁ →ₜ b ; m)[a₂] = m[a₂]</code>",
- "1726":
- "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
- "1725":
- "<code>ReflBEq.rfl.{u_1} {α : Type u_1} {inst✝ : BEq α} [self : ReflBEq α] {a : α} : (a == a) = true</code><span class=\"sep\"></span><code class=\"docstring\">`==` is reflexive, that is, `(a == a) = true`. </code>",
- "1724":
+ "1737":
  "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  (a →ₜ b ; m)[a] = b</code>",
- "1723":
- "<code>backward.isDefEq.respectTransparency.types</code><span class=\"sep\"></span><code class=\"docstring\">if true, do not bump transparency to `.default` when checking whether the type of a metavariable matches the type of the term being assigned to it.</code>",
- "1722":
+ "1736":
  "<code>TotalMap.getElem_empty {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (a : α) : ∅[a] = default</code>",
- "1721": "<code><span class=\"literal string\">\"quux\"</span> : String</code>",
- "1720": "<code><span class=\"literal string\">\"baz\"</span> : String</code>",
+ "1735": "<code>Bool.default_bool : default = false</code>",
+ "1734": "<code>String</code>",
+ "1733": "<code>String → Bool</code>",
+ "1732":
+ "<code>cond_false.{u_1} {α : Sort u_1} (a b : α) : (bif false then a else b) = b</code>",
+ "1731":
+ "<code class=\"docstring\">This is the same as `byTactic`, but it uses a different syntax kind. This is\nused by `show` and `suffices` instead of `byTactic` because these syntaxes don't\nsupport arbitrary terms where `byTactic` is accepted. Mathport uses this to e.g.\nsafely find-replace `by exact $e` by `$e` in any context without causing\nincorrect syntax when the full expression is `show $T by exact $e`.\n</code>",
+ "1730":
+ "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
+ "173": "<code>NatPlayground.Nat.one_mul_two : one * two = two</code>",
+ "1729": "<code><span class=\"literal string\">\"quux\"</span> : String</code>",
+ "1728": "<code>TotalMap.exampleMap'' : TotalMap String Bool</code>",
+ "1727": "<code>TotalMap.exampleMap' : TotalMap String Bool</code>",
+ "1726":
+ "<code>TotalMap.update_apply {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a a' : α)\n  (b : β) : (a →ₜ b ; m)[a'] = bif a == a' then b else m[a']</code>",
+ "1725":
+ "<code>TotalMap.update_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  a →ₜ b ; m = { toFun := fun a' =&gt; bif a == a' then b else m[a'] }</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. Prefer `update_apply` if possible. </code>",
+ "1724": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
+ "1723": "<code><span class=\"literal string\">\" →ₜ \"</span> : String</code>",
+ "1722": "<code><span class=\"literal string\">\"bar\"</span> : String</code>",
+ "1721": "<code><span class=\"literal string\">\"foo\"</span> : String</code>",
+ "1720": "<code>TotalMap.exampleMap : TotalMap String Bool</code>",
  "172": "<code>NatPlayground.Nat.zero_mul_two : zero * two = zero</code>",
- "1719": "<code>TotalMap.exampleMap'' : TotalMap String Bool</code>",
- "1718": "<code>TotalMap.exampleMap' : TotalMap String Bool</code>",
- "1717":
- "<code>TotalMap.update_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  a →ₜ b ; m = fun a' =&gt; bif a == a' then b else m[a']</code>",
- "1716": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
- "1715": "<code><span class=\"literal string\">\" →ₜ \"</span> : String</code>",
- "1714": "<code><span class=\"literal string\">\"bar\"</span> : String</code>",
- "1713": "<code><span class=\"literal string\">\"foo\"</span> : String</code>",
- "1712": "<code>TotalMap.exampleMap : TotalMap String Bool</code>",
- "1711":
+ "1719":
  "<code>String : Type</code><span class=\"sep\"></span><code class=\"docstring\">A string is a sequence of Unicode scalar values.\n\nAt runtime, strings are represented by [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)\nof bytes using the UTF-8 encoding. Both the size in bytes (`String.utf8ByteSize`) and in characters\n(`String.length`) are cached and take constant time. Many operations on strings perform in-place\nmodifications when the reference to the string is unique.\n</code>",
- "1710":
+ "1718":
  "<code>TotalMap.update {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
- "171": "<code>NatPlayground.Nat.one_add_one : one + one = two</code>",
- "1709": "<code>Inhabited β</code>",
- "1708": "<code>LawfulBEq α</code>",
- "1707": "<code>ReflBEq α</code>",
- "1706": "<code>BEq α</code>",
- "1705":
- "<code>TotalMap.getElem_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) :\n  m[a] = m a</code>",
- "1704":
+ "1717":
+ "<code>TotalMap.get_eq_getElem {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) :\n  m.get a = m[a]</code>",
+ "1716":
+ "<code>TotalMap.getElem_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) :\n  m[a] = m.get a</code>",
+ "1715":
  "<code>MyGetElem.unexpandGetElem : Lean.PrettyPrinter.Unexpander</code>",
- "1703": "<code>TotalMap α β → α → β</code>",
- "1702": "<code>idx</code>",
- "1701": "<code>coll</code>",
- "1700":
+ "1714": "<code>TotalMap α β → α → β</code>",
+ "1713": "<code>idx</code>",
+ "1712": "<code>coll</code>",
+ "1711":
  "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
+ "1710":
+ "<code>outParam.{u} (α : Sort u) : Sort u</code><span class=\"sep\"></span><code class=\"docstring\">Gadget for marking output parameters in type classes.\n\nFor example, the `Membership` class is defined as:\n```\nclass Membership (α : outParam (Type u)) (γ : Type v)\n```\nThis means that whenever a typeclass goal of the form `Membership ?α ?γ` comes\nup, Lean will wait to solve it until `?γ` is known, but then it will run\ntypeclass inference, and take the first solution it finds, for any value of `?α`,\nwhich thereby determines what `?α` should be.\n\nThis expresses that in a term like `a ∈ s`, `s` might be a `Set α` or\n`List α` or some other type with a membership operation, and in each case\nthe \"member\" type `α` is determined by looking at the container type.\n</code>",
+ "171": "<code>NatPlayground.Nat.one_add_one : one + one = two</code>",
+ "1709": "<code>outParam Type</code>",
+ "1708":
+ "<code>MyGetElem (coll idx : Type) (elem : outParam Type) : Type</code>",
+ "1707":
+ "<code>Vector.{u} (α : Type u) (n : Nat) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">`Vector α n` is an `Array α` with size `n`. </code>",
+ "1706":
+ "<code>Array.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">`Array α` is the type of [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array) with elements\nfrom `α`. This type has special support in the runtime.\n\nArrays perform best when unshared. As long as there is never more than one reference to an array,\nall updates will be performed _destructively_. This results in performance comparable to mutable\narrays in imperative programming languages.\n\nAn array has a size and a capacity. The size is the number of elements present in the array, while\nthe capacity is the amount of memory currently allocated for elements. The size is accessible via\n`Array.size`, but the capacity is not observable from Lean code. `Array.emptyWithCapacity n` creates\nan array which is equal to `#[]`, but internally allocates an array of capacity `n`. When the size\nexceeds the capacity, allocation is required to grow the array.\n\nFrom the point of view of proofs, `Array α` is just a wrapper around `List α`.\n</code>",
+ "1705":
+ "<code>GetElem.{u, v, w} (coll : Type u) (idx : Type v) (elem : outParam (Type w)) (valid : outParam (coll → idx → Prop)) :\n  Type (max (max u v) w)</code><span class=\"sep\"></span><code class=\"docstring\">The classes `GetElem` and `GetElem?` implement lookup notation,\nspecifically `xs[i]`, `xs[i]?`, `xs[i]!`, and `xs[i]'p`.\n\nBoth classes are indexed by types `coll`, `idx`, and `elem` which are\nthe collection, the index, and the element types.\nA single collection may support lookups with multiple index\ntypes. The relation `valid` determines when the index is guaranteed to be\nvalid; lookups of valid indices are guaranteed not to fail.\n\nFor example, an instance for arrays looks like\n`GetElem (Array α) Nat α (fun xs i =&gt; i &lt; xs.size)`. In other words, given an\narray `xs` and a natural number `i`, `xs[i]` will return an `α` when `valid xs i`\nholds, which is true when `i` is less than the size of the array. `Array`\nadditionally supports indexing with `USize` instead of `Nat`.\nIn either case, because the bounds are checked at compile time,\nno runtime check is required.\n\nGiven `xs[i]` with `xs : coll` and `i : idx`, Lean looks for an instance of\n`GetElem coll idx elem valid` and uses this to infer the type of the return\nvalue `elem` and side condition `valid` required to ensure `xs[i]` yields\na valid value of type `elem`. The tactic `get_elem_tactic` is\ninvoked to prove validity automatically. The `xs[i]'p` notation uses the\nproof `p` to satisfy the validity condition.\nIf the proof `p` is long, it is often easier to place the\nproof in the context using `have`, because `get_elem_tactic` tries\n`assumption`.\n\n\nThe proof side-condition `valid xs i` is automatically dispatched by the\n`get_elem_tactic` tactic; this tactic can be extended by adding more clauses to\n`get_elem_tactic_extensible` using `macro_rules`.\n\n`xs[i]?` and `xs[i]!` do not impose a proof obligation; the former returns\nan `Option elem`, with `none` signalling that the value isn't present, and\nthe latter returns `elem` but panics if the value isn't there, returning\n`default : elem` based on the `Inhabited elem` instance.\nThese are provided by the `GetElem?` class, for which there is a default instance\ngenerated from a `GetElem` class as long as `valid xs i` is always decidable.\n\nImportant instances include:\n  * `arr[i] : α` where `arr : Array α` and `i : Nat` or `i : USize`: does array\n    indexing with no runtime bounds check and a proof side goal `i &lt; arr.size`.\n  * `l[i] : α` where `l : List α` and `i : Nat`: index into a list, with proof\n    side goal `i &lt; l.length`.\n\n</code>",
+ "1704": "<code>Nat.default_eq_zero : default = 0</code>",
+ "1703": "<code>Nat → Nat</code>",
+ "1702":
+ "<code>TotalMap.get_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a : α} :\n  m.get a = m.toFun a</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. </code>",
+ "1701": "<code>TotalMap α β</code>",
+ "1700":
+ "<code>TotalMap.get {α β : Type} (m : TotalMap α β) (a : α) : β</code>",
  "170": "<code>NatPlayground.Nat.zero_add_one : zero + one = one</code>",
  "17": "<code>Day</code>",
- "1699":
- "<code>outParam.{u} (α : Sort u) : Sort u</code><span class=\"sep\"></span><code class=\"docstring\">Gadget for marking output parameters in type classes.\n\nFor example, the `Membership` class is defined as:\n```\nclass Membership (α : outParam (Type u)) (γ : Type v)\n```\nThis means that whenever a typeclass goal of the form `Membership ?α ?γ` comes\nup, Lean will wait to solve it until `?γ` is known, but then it will run\ntypeclass inference, and take the first solution it finds, for any value of `?α`,\nwhich thereby determines what `?α` should be.\n\nThis expresses that in a term like `a ∈ s`, `s` might be a `Set α` or\n`List α` or some other type with a membership operation, and in each case\nthe \"member\" type `α` is determined by looking at the container type.\n</code>",
- "1698": "<code>outParam Type</code>",
+ "1699": "<code>TotalMap.emptyNatMap : TotalMap Nat Nat</code>",
+ "1698": "<code>TotalMap.mk {α β : Type} (toFun : α → β) : TotalMap α β</code>",
  "1697":
- "<code>MyGetElem (coll idx : Type) (elem : outParam Type) : Type</code>",
- "1696":
- "<code>Vector.{u} (α : Type u) (n : Nat) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">`Vector α n` is an `Array α` with size `n`. </code>",
- "1695":
- "<code>Array.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">`Array α` is the type of [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array) with elements\nfrom `α`. This type has special support in the runtime.\n\nArrays perform best when unshared. As long as there is never more than one reference to an array,\nall updates will be performed _destructively_. This results in performance comparable to mutable\narrays in imperative programming languages.\n\nAn array has a size and a capacity. The size is the number of elements present in the array, while\nthe capacity is the amount of memory currently allocated for elements. The size is accessible via\n`Array.size`, but the capacity is not observable from Lean code. `Array.emptyWithCapacity n` creates\nan array which is equal to `#[]`, but internally allocates an array of capacity `n`. When the size\nexceeds the capacity, allocation is required to grow the array.\n\nFrom the point of view of proofs, `Array α` is just a wrapper around `List α`.\n</code>",
- "1694":
- "<code>GetElem.{u, v, w} (coll : Type u) (idx : Type v) (elem : outParam (Type w)) (valid : outParam (coll → idx → Prop)) :\n  Type (max (max u v) w)</code><span class=\"sep\"></span><code class=\"docstring\">The classes `GetElem` and `GetElem?` implement lookup notation,\nspecifically `xs[i]`, `xs[i]?`, `xs[i]!`, and `xs[i]'p`.\n\nBoth classes are indexed by types `coll`, `idx`, and `elem` which are\nthe collection, the index, and the element types.\nA single collection may support lookups with multiple index\ntypes. The relation `valid` determines when the index is guaranteed to be\nvalid; lookups of valid indices are guaranteed not to fail.\n\nFor example, an instance for arrays looks like\n`GetElem (Array α) Nat α (fun xs i =&gt; i &lt; xs.size)`. In other words, given an\narray `xs` and a natural number `i`, `xs[i]` will return an `α` when `valid xs i`\nholds, which is true when `i` is less than the size of the array. `Array`\nadditionally supports indexing with `USize` instead of `Nat`.\nIn either case, because the bounds are checked at compile time,\nno runtime check is required.\n\nGiven `xs[i]` with `xs : coll` and `i : idx`, Lean looks for an instance of\n`GetElem coll idx elem valid` and uses this to infer the type of the return\nvalue `elem` and side condition `valid` required to ensure `xs[i]` yields\na valid value of type `elem`. The tactic `get_elem_tactic` is\ninvoked to prove validity automatically. The `xs[i]'p` notation uses the\nproof `p` to satisfy the validity condition.\nIf the proof `p` is long, it is often easier to place the\nproof in the context using `have`, because `get_elem_tactic` tries\n`assumption`.\n\n\nThe proof side-condition `valid xs i` is automatically dispatched by the\n`get_elem_tactic` tactic; this tactic can be extended by adding more clauses to\n`get_elem_tactic_extensible` using `macro_rules`.\n\n`xs[i]?` and `xs[i]!` do not impose a proof obligation; the former returns\nan `Option elem`, with `none` signalling that the value isn't present, and\nthe latter returns `elem` but panics if the value isn't there, returning\n`default : elem` based on the `Inhabited elem` instance.\nThese are provided by the `GetElem?` class, for which there is a default instance\ngenerated from a `GetElem` class as long as `valid xs i` is always decidable.\n\nImportant instances include:\n  * `arr[i] : α` where `arr : Array α` and `i : Nat` or `i : USize`: does array\n    indexing with no runtime bounds check and a proof side goal `i &lt; arr.size`.\n  * `l[i] : α` where `l : List α` and `i : Nat`: index into a list, with proof\n    side goal `i &lt; l.length`.\n\n</code>",
- "1693":
  "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
- "1692": "<code>TotalMap α β</code>",
+ "1696": "<code>Inhabited β</code>",
+ "1695": "<code>LawfulBEq α</code>",
+ "1694": "<code>ReflBEq α</code>",
+ "1693": "<code>BEq α</code>",
+ "1692":
+ "<code>TotalMap.empty_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] : ∅ = { toFun := fun x =&gt; default }</code>",
  "1691":
- "<code>TotalMap.getElem {α β : Type} (m : TotalMap α β) (a : α) : β</code>",
- "1690": "<code>TotalMap.emptyNatMap : TotalMap Nat Nat</code>",
+ "<code>TotalMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
+ "1690":
+ "<code>EmptyCollection.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">`EmptyCollection α` is the typeclass which supports the notation `∅`, also written as `{}`. </code>",
  "169":
  "<code>NatPlayground.Nat.mul_succ (n m : Nat) : n * succ m = n * m + n</code>",
  "1689":
- "<code>TotalMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
- "1688":
- "<code>EmptyCollection.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">`EmptyCollection α` is the typeclass which supports the notation `∅`, also written as `{}`. </code>",
- "1687":
  "<code>Inhabited.default.{u} {α : Sort u} [self : Inhabited α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`default` is a function that produces a \"default\" element of any\n`Inhabited` type. This element does not have any particular specified\nproperties, but it is often an all-zeroes value. </code>",
- "1686":
+ "1688": "<code>α → β</code>",
+ "1687":
  "<code>TotalMap.empty {α β : Type} [Inhabited β] : TotalMap α β</code>",
+ "1686":
+ "<code>TotalMap.toFun {α β : Type} (self : TotalMap α β) : α → β</code>",
  "1685": "<code>TotalMap (α β : Type) : Type</code>",
  "1684":
  "<code>LawfulBEq.{u} (α : Type u) [BEq α] : Prop</code><span class=\"sep\"></span><code class=\"docstring\">A Boolean equality test coincides with propositional equality.\n\nIn other words:\n* `a == b` implies `a = b`.\n* `a == a` is true.\n</code>",

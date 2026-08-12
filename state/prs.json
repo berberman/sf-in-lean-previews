@@ -1,5 +1,5 @@
 {
-  "main_sha": "3b07b36776c7ce449020f3eed3d5fd8137370ee5",
+  "main_sha": "f7ffe5156121727db63a847e4320fd5e93bbd0b8",
   "prs": {
     "171": {
       "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
@@ -342,11 +342,48 @@
     },
     "229": {
       "base_sha": "3b07b36776c7ce449020f3eed3d5fd8137370ee5",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "f08059880873f271f73c1942bcdf528393cb566d",
       "preview_path": "pr/229/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31609008340",
+      "status": "published",
       "title": "Bump to 4.33.0 + structure Totalmap",
       "url": "https://github.com/plclub/sf-in-lean/pull/229"
     },
@@ -407,53 +444,6 @@
       "title": "Hoare: start going through proofs [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
     },
-    "232": {
-      "base_sha": "3b07b36776c7ce449020f3eed3d5fd8137370ee5",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "0f2f3967955f582ba7bf248faeb3149a33a497b0",
-      "preview_path": "pr/232/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31609179248",
-      "status": "published",
-      "title": "Tackle dev comments in `Lists`",
-      "url": "https://github.com/plclub/sf-in-lean/pull/232"
-    },
     "234": {
       "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
       "changed_variants": [
@@ -503,11 +493,48 @@
     },
     "238": {
       "base_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "c9d95422ac4b4d8023fbace7496ececed99f44f5",
       "preview_path": "pr/238/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31609622743",
+      "status": "published",
       "title": "branch_watch: nbsp in Changes counts, PR base branch, tidier non-PR line",
       "url": "https://github.com/plclub/sf-in-lean/pull/238"
     }

@@ -1279,43 +1279,11 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Search":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Search",
-     "data":
-     {"title": "Search",
-      "shortTitle": null,
-      "sectionNum": "5.3.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
-       {"title": "Search", "shortTitle": null, "number": "2"}]},
-     "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
    [{"id":
      "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2",
      "data":
      {"title": "List Exercises, Part 2",
-      "shortTitle": null,
-      "sectionNum": "5.3.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
-       {"title": "List Exercises, Part 2", "shortTitle": null, "number": "4"}]},
-     "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1",
-     "data":
-     {"title": "List Exercises, Part 1",
       "shortTitle": null,
       "sectionNum": "5.3.3.",
       "searchPriority": 50,
@@ -1325,7 +1293,23 @@
         "shortTitle": null,
         "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
-       {"title": "List Exercises, Part 1", "shortTitle": null, "number": "3"}]},
+       {"title": "List Exercises, Part 2", "shortTitle": null, "number": "3"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1",
+     "data":
+     {"title": "List Exercises, Part 1",
+      "shortTitle": null,
+      "sectionNum": "5.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
+       {"title": "List Exercises, Part 1", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Induction-on-Lists--Reversing-a-List":
    [{"id":
@@ -6629,7 +6613,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
+   [{"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6638,7 +6622,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
+    {"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -11174,22 +11158,22 @@
         "Lists of Numbers",
         "Removing"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.test_removeAll2":
-   [{"id": "Lists___NatList___test_removeAll2",
+   "Lists.NatList.test_removeAll₁":
+   [{"id": "Lists___NatList___test_removeAll___",
      "data":
-     {"/Lists/#Lists___NatList___test_removeAll2":
-      {"display": "test_removeAll2",
+     {"/Lists/#Lists___NatList___test_removeAll___":
+      {"display": "test_removeAll₁",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
         "Removing"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.test_removeAll1":
-   [{"id": "Lists___NatList___test_removeAll1",
+   "Lists.NatList.test_removeAll2":
+   [{"id": "Lists___NatList___test_removeAll2",
      "data":
-     {"/Lists/#Lists___NatList___test_removeAll1":
-      {"display": "test_removeAll1",
+     {"/Lists/#Lists___NatList___test_removeAll2":
+      {"display": "test_removeAll2",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
@@ -11424,17 +11408,6 @@
         "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.reverse_reverse":
-   [{"id": "Lists___NatList___reverse_reverse",
-     "data":
-     {"/Lists/#Lists___NatList___reverse_reverse":
-      {"display": "reverse_reverse",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "List Exercises, Part 1"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.reverse_nil":
    [{"id": "Lists___NatList___reverse_nil",
      "data":
@@ -11446,6 +11419,17 @@
         "Reasoning About Lists",
         "Induction on Lists",
         "Reversing a List"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.reverse_involutive":
+   [{"id": "Lists___NatList___reverse_involutive",
+     "data":
+     {"/Lists/#Lists___NatList___reverse_involutive":
+      {"display": "reverse_involutive",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "List Exercises, Part 1"]}},
      "address": "/Lists/"}],
    "Lists.NatList.reverse_injective":
    [{"id": "Lists___NatList___reverse_injective",
@@ -11515,6 +11499,17 @@
         "Lists of Numbers",
         "Repeat"]}},
      "address": "/Lists/"}],
+   "Lists.NatList.remove_does_not_increase_count'":
+   [{"id": "Lists___NatList___remove_does_not_increase_count___",
+     "data":
+     {"/Lists/#Lists___NatList___remove_does_not_increase_count___":
+      {"display": "remove_does_not_increase_count'",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "List Exercises, Part 2"]}},
+     "address": "/Lists/"}],
    "Lists.NatList.remove_does_not_increase_count":
    [{"id": "Lists___NatList___remove_does_not_increase_count",
      "data":
@@ -11559,17 +11554,6 @@
         "Lists of Numbers",
         "Removing"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.removeOne_cons_def":
-   [{"id": "Lists___NatList___removeOne_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___removeOne_cons_def":
-      {"display": "removeOne_cons_def",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Removing"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.removeOne":
    [{"id": "Lists___NatList___removeOne",
      "data":
@@ -11608,17 +11592,6 @@
      "data":
      {"/Lists/#Lists___NatList___removeAll_cons_diff":
       {"display": "removeAll_cons_diff",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Removing"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.removeAll_cons_def":
-   [{"id": "Lists___NatList___removeAll_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___removeAll_cons_def":
-      {"display": "removeAll_cons_def",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
@@ -11836,37 +11809,34 @@
         "Lists: Working with Structured Data",
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append",
+   "Lists.NatList.myRepeat_append_general":
+   [{"id": "Lists___NatList___myRepeat_append_general",
      "data":
-     {"/Lists/#Lists___NatList___myRepeat_append-next":
-      {"display": "myRepeat_append",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]},
-      "/Lists/#Lists___NatList___myRepeat_append":
-      {"display": "myRepeat_append",
+     {"/Lists/#Lists___NatList___myRepeat_append_general":
+      {"display": "myRepeat_append_general",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Reasoning About Lists",
         "Induction on Lists",
         "Generalizing Statements"]}},
-     "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append-next",
+     "address": "/Lists/"}],
+   "Lists.NatList.myRepeat_append_fail":
+   [{"id": "Lists___NatList___myRepeat_append_fail",
      "data":
-     {"/Lists/#Lists___NatList___myRepeat_append-next":
-      {"display": "myRepeat_append",
+     {"/Lists/#Lists___NatList___myRepeat_append_fail":
+      {"display": "myRepeat_append_fail",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Reasoning About Lists",
         "Induction on Lists",
-        "Generalizing Statements"]},
-      "/Lists/#Lists___NatList___myRepeat_append":
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.myRepeat_append":
+   [{"id": "Lists___NatList___myRepeat_append",
+     "data":
+     {"/Lists/#Lists___NatList___myRepeat_append":
       {"display": "myRepeat_append",
        "context":
        ["Logical Foundations",
@@ -11913,17 +11883,6 @@
      "data":
      {"/Lists/#Lists___NatList___member_cons_diff":
       {"display": "member_cons_diff",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Membership"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.member_cons_def":
-   [{"id": "Lists___NatList___member_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___member_cons_def":
-      {"display": "member_cons_def",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
@@ -12054,17 +12013,6 @@
         "Lists of Numbers",
         "Included"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.included_cons_def":
-   [{"id": "Lists___NatList___included_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___included_cons_def":
-      {"display": "included_cons_def",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Included"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.included":
    [{"id": "Lists___NatList___included",
      "data":
@@ -12187,17 +12135,6 @@
         "Lists of Numbers",
         "Counting"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.count_cons_inc":
-   [{"id": "Lists___NatList___count_cons_inc",
-     "data":
-     {"/Lists/#Lists___NatList___count_cons_inc":
-      {"display": "count_cons_inc",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Included"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.count_cons_diff":
    [{"id": "Lists___NatList___count_cons_diff",
      "data":
@@ -12230,18 +12167,6 @@
         "Lists: Working with Structured Data",
         "Reasoning About Lists",
         "List Exercises, Part 2"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.countOddMembers_def":
-   [{"id": "Lists___NatList___countOddMembers_def",
-     "data":
-     {"/Lists/#Lists___NatList___countOddMembers_def":
-      {"display": "countOddMembers_def",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Type Classes and Overloading",
-        "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.countOddMembers":
    [{"id": "Lists___NatList___countOddMembers",
@@ -12336,17 +12261,6 @@
      "data":
      {"/Lists/#Lists___NatList___beq_cons_diff":
       {"display": "beq_cons_diff",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "List Exercises, Part 1"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.beq_cons_def":
-   [{"id": "Lists___NatList___beq_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___beq_cons_def":
-      {"display": "beq_cons_def",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",

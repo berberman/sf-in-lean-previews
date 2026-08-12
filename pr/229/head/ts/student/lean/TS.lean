@@ -1,4 +1,4 @@
-import TS.Intro
+import TS.Preface
 import TS.Slang
 import TS.Smallstep
 import TS.Types

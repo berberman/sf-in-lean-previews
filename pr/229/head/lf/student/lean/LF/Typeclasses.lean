@@ -398,12 +398,13 @@ set_option linter.unusedSectionVars false
 -- function, rather than just as "equivalent" list structures. This simplifies
 -- proofs that use maps.
 
-def TotalMap (α : Type) (β : Type) := α → β
+structure TotalMap (α : Type) (β : Type) where
+  toFun : α → β
 
 namespace TotalMap
 
--- Intuitively, a total map over an element type `β` is just a function that
--- can be looked up using a corresponding `a : α`.
+-- Intuitively, a total map over an element type `β` just contains a function
+-- `toFun` from a key of type `α` to a value of type `β`.
 
 -- In order to declare a default value of `β` we will use the `Inhabited`
 -- typeclass, which is the standard library's implementation of our
@@ -415,7 +416,8 @@ variable [Inhabited β]
 -- element; this map always returns the default element when applied to any
 -- key.
 
-def empty : TotalMap α β := fun _ ↦ default
+def empty : TotalMap α β where
+  toFun := fun _ ↦ default
 
 -- Just as declaring `BEq`/`DefaultValue` instances above hooked `==` and
 -- `DefaultValue.value` up to our types, we can declare an instance of the
@@ -425,39 +427,45 @@ def empty : TotalMap α β := fun _ ↦ default
 instance : EmptyCollection (TotalMap α β) where
   emptyCollection := TotalMap.empty
 
+theorem empty_def : (∅ : TotalMap α β) = { toFun := fun _ ↦ default } := by rfl
+
 -- Here, for example, is an empty map that takes `Nat` keys to `Nat` values:
 
 def emptyNatMap : TotalMap Nat Nat := ∅
 
--- Since a map is a function, we can apply it to a key to get out the
--- corresponding value, like so:
-
-example : emptyNatMap 1 = default := rfl
-example : emptyNatMap 2 = 0 := rfl
-
--- (For `Nat` the `default` is `0`.)
-
 -- #### Getting Elements
 
 -- While `TotalMap`s happen to be implemented as functions under the hood, we
--- would prefer not to expose this fact in their public interface.
--- Accordingly, we define new operations for querying and updating mappings.
--- As a first attempt at a query operation, playing the role that `find`
--- played for the Lists chapter's list-based maps, we could define a function
--- `getElem` for getting the value associated with a key:
+-- would prefer not to expose this fact in its public interface. Accordingly,
+-- we define new operations for querying and updating mappings. As a first
+-- attempt at a query operation, playing the role that `find` played for the
+-- Lists chapter's list-based maps, we could define a function `get` for
+-- getting the value associated with a key:
 
-sf_experiment
-  def getElem (m : TotalMap α β) (a: α) := m a
-  
-  example : getElem emptyNatMap 2 = 0 := rfl
+def get (m : TotalMap α β) (a : α) := m.toFun a
 
--- To make element-getting lighter weight, let's define notation so we can
--- write `emptyNatMap[2]` rather than `getElem emptyNatMap`. We could notate
--- `getElem` directly — we'll do exactly that for `update` below — but here
--- we'll instead make "getting an element" its own typeclass, `MyGetElem`, and
--- notate *instances* of it. Doing so means `m[a]` resolves to
--- `MyGetElem.getElem m a` for any type with a `MyGetElem` instance, not just
--- `TotalMap`.
+/-- This exposes implementation-specific details of `TotalMap`.
+Avoid using this outside the `TotalMap` namespace. -/
+theorem get_def {m : TotalMap α β} {a : α} : m.get a = m.toFun a := by rfl
+
+example : emptyNatMap.get 2 = 0 := by rfl
+
+-- Here is an example that uses the API lemmas `empty_def` and `get_def`:
+
+example {n : Nat} : emptyNatMap.get n = 0 := by
+  rw [get_def, emptyNatMap, empty_def, Nat.default_eq_zero]
+
+-- `get` is the public API counterpart to `toFun` which is an
+-- implementation-specific detail of `TotalMap`. Because `get_def` "peeks"
+-- through the abstraction, it should be used sparingly, and only inside the
+-- `TotalMap` namespace.
+
+-- To make element-getting more convenient, let's define notation so we can
+-- write `emptyNatMap[2]` rather than `emptyNatMap.get`. We could notate `get`
+-- directly — we'll do exactly that for `update` below — but here we'll
+-- instead make "getting an element" its own typeclass, `MyGetElem`, and
+-- notate it. Doing so means `m[a]` resolves to `MyGetElem.getElem m a` for
+-- any type with a `MyGetElem` instance, not just `TotalMap`.
 
 -- Using typeclasses to define notation is typical in Lean when the same
 -- notation is useful for many different types. We have seen the approach
@@ -484,7 +492,7 @@ class MyGetElem (coll : Type) (idx : Type) (elem : outParam Type) where
 
 variable [Inhabited β]
 instance : MyGetElem (TotalMap α β) α β where
-  getElem m a := m a
+  getElem m a := m.get a
 
 -- Now we can associate the bracket syntax with `MyGetElem.getElem`. We've
 -- defined custom notation before — `::` and `[...]` for lists (chapter Lists,
@@ -497,7 +505,7 @@ instance : MyGetElem (TotalMap α β) α β where
 
 namespace MyGetElem
 
-scoped macro_rules | `($xs[$i]) => `(getElem $xs $i)
+scoped macro_rules | `($xs[$i]) => ``(getElem $xs $i)
 
 @[app_unexpander getElem]
 def unexpandGetElem : Lean.PrettyPrinter.Unexpander
@@ -518,9 +526,27 @@ open scoped MyGetElem
 
 namespace TotalMap
 
-theorem getElem_def (m : TotalMap α β) (a : α) : m[a] = m a := by rfl
+theorem getElem_def (m : TotalMap α β) (a : α) : m[a] = m.get a := by rfl
 
 example : emptyNatMap[1] = default := by rfl
+
+example {n : Nat} : emptyNatMap[n] = 0 := by
+  rw [getElem_def, get_def, emptyNatMap, empty_def, Nat.default_eq_zero]
+
+-- (For `Nat` the `default` is `0`.)
+
+-- We want the public API of `TotalMap` to use the `m[a]` notation instead of
+-- `m.get a` so we provide the reverse direction of `getElem_def` as a
+-- `simp`-lemma.
+
+@[simp]
+theorem get_eq_getElem (m : TotalMap α β) (a : α) : m.get a = m[a] := by rfl
+
+example {n : Nat} : emptyNatMap.get n = emptyNatMap[n] := by
+  simp
+
+-- This design should minimize the need to use `getElem_def` outside concrete
+-- examples (which are typically solvable with `rfl` anyways).
 
 -- #### Updating Elements
 
@@ -529,12 +555,8 @@ example : emptyNatMap[1] = default := by rfl
 -- other key to whatever `m` does. We do this by wrapping a new map function
 -- around the old one.
 
-def update (m : TotalMap α β) (a : α) (b : β) : TotalMap α β :=
-  fun a' => bif a == a' then b else m[a']
-
--- This definition is a nice example of higher-order programming: `update`
--- takes a function `m` and yields a new function `fun a' => ...` that behaves
--- like the desired map.
+def update (m : TotalMap α β) (a : α) (b : β) : TotalMap α β where
+  toFun := fun a' => bif a == a' then b else m[a']
 
 -- For example, we can build a map taking `String` to `Bool`, where `"foo"`
 -- and `"bar"` are mapped to `true` and every other key is mapped to `false`,
@@ -559,10 +581,15 @@ def exampleMap :=
 
 notation a:55 " →ₜ " b:55 " ; " m:55 => TotalMap.update m a b
 
+/-- This exposes implementation-specific details of `TotalMap`.
+Avoid using this outside the `TotalMap` namespace. Prefer `update_apply` if possible. -/
 theorem update_def (m : TotalMap α β) (a : α) (b : β) :
-  a →ₜ b ; m = fun a' => bif a == a' then b else m[a'] := rfl
+  a →ₜ b ; m = { toFun := fun a' => bif a == a' then b else m[a'] } := by rfl
 
--- We can hide the last case when it is empty:
+theorem update_apply (m : TotalMap α β) (a a' : α) (b : β) :
+  (a →ₜ b ; m)[a'] = bif a == a' then b else m[a'] := by rfl
+
+-- We can omit the map from the notation when we want it to be empty:
 
 notation a:55 " →ₜ " b:55 => TotalMap.update ∅ a b
 
@@ -571,15 +598,27 @@ notation a:55 " →ₜ " b:55 => TotalMap.update ∅ a b
 def exampleMap' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true ; ∅
 def exampleMap'' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true
 
--- This completes the definition of total maps.
+example : exampleMap = exampleMap' := by rfl
+example : exampleMap' = exampleMap'' := by rfl
 
-example : exampleMap = exampleMap' := rfl
-example : exampleMap' = exampleMap'' := rfl
+example : exampleMap'["bar"] = true := by rfl
+example : exampleMap'["foo"] = true := by rfl
+example : exampleMap'["quux"] = false := by rfl
 
-example : exampleMap'["baz"] = false := rfl
-example : exampleMap'["foo"] = true := rfl
-example : exampleMap'["quux"] = false := rfl
-example : exampleMap'["bar"] = true := rfl
+-- Let's also see a couple of examples of working with updated maps using
+-- rewrites:
+
+example : exampleMap'["bar"] = true := by
+  rw [exampleMap', update_apply, BEq.rfl, cond_true]
+
+example : exampleMap'["foo"] = true := by
+  rw [exampleMap', update_apply, show ("bar" == "foo") = false by simp, cond_false]
+  rw [update_apply, BEq.rfl, cond_true]
+
+example : exampleMap'["quux"] = false := by
+  rw [exampleMap', update_apply, show ("bar" == "quux") = false by simp, cond_false]
+  rw [update_apply, show ("foo" == "quux") = false by rfl, cond_false]
+  rw [empty_def, getElem_def, get_def, Bool.default_bool]
 
 -- When we use maps in later volumes, we'll need several fundamental facts
 -- about how they behave.
@@ -592,15 +631,20 @@ example : exampleMap'["bar"] = true := rfl
 
 -- First, the empty map returns its default element for all keys:
 
-theorem getElem_empty (a : α) : (∅ : TotalMap α β)[a] = default := rfl
+@[simp]
+theorem getElem_empty (a : α) : (∅ : TotalMap α β)[a] = default := by
+  rw [empty_def, getElem_def, get_def]
+
+-- Notice that in the example `exampleMap'["quux"] = false` the last rewrite
+-- is effectively just `getElem_empty`.
 
 -- Next, if we update a map `m` at a key `a` with a new value `b` and then
 -- look up `a` in the map resulting from the `update`, we get back `b`:
 
-set_option backward.isDefEq.respectTransparency.types false
-
 theorem update_eq (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b := by
-  rw [update_def, getElem_def, ReflBEq.rfl, cond_true]
+  rw [update_def, getElem_def, get_def]
+  dsimp only -- reduces `{ toFun := ... }.toFun` so that we get a subterm that looks like `a == a`
+  rw [BEq.rfl, cond_true]
 
 -- On the other hand, if we update a map `m` at a key `a₁` and then look up a
 -- *different* key `a₂` in the resulting map, we get the same result that `m`
@@ -614,25 +658,36 @@ theorem update_neq {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b 
 
 -- The two remaining facts are equalities *between maps*, so we first need to
 -- say when two maps are equal. Since a total map is implemented as a
--- function, this is exactly the functional extensionality principle
+-- function, this is effectively the functional extensionality principle
 -- (`funext`) from the Logic chapter: two maps are equal when they agree at
 -- every key. Recording it once, for maps, and tagging it `@[ext]` lets the
 -- `ext` tactic reduce a goal `m₁ = m₂` to the pointwise one in the proofs
 -- below.
 
+-- The fact that `TotalMap` is a structure complicates things slightly. We
+-- need to use injectivity of its constructor `mk` which Lean automatically
+-- provides for us as `mk.injEq`. It lets us prove `m₁ = m₂` from
+-- `m₁.toFun = m₂.toFun` or vice versa.
+
 @[ext]
-theorem ext {m₁ m₂ : TotalMap α β} (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := funext h
+theorem ext {m₁ m₂ : TotalMap α β} (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := by
+  rw [TotalMap.mk.injEq]
+  apply funext
+  intro x
+  specialize h x
+  rw [getElem_def, get_def, getElem_def, get_def] at h
+  exact h
 
--- If we update a map `m` at a key `a` with a value `b₁` and then update again
--- with the same key `a` and another value `b₂`, the resulting map behaves the
--- same (gives the same result when applied to any key) as the simpler map
--- obtained by performing just the second `update` on `m`:
+-- To demonstrate this extensionality principle, let's look at an example:
 
--- ### Exercise (2 stars): update_shadow ⭐⭐
-
-theorem update_shadow (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
-    (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
-  sorry
+example : "bar" →ₜ true ; "foo" →ₜ true = "foo" →ₜ true ; "bar" →ₜ true := by
+  ext a
+  by_cases h : "bar" = a
+  · subst h
+    rw [update_eq, update_neq (show "foo" ≠ "bar" by simp), update_eq]
+  · simp only [update_apply]
+    rw [beq_false_of_ne h]
+    simp
 
 -- Given keys `a₁` and `a₂`, the tactic `by_cases` `h : a₁ = a₂` splits the
 -- proof into the case where they are equal — where `subst h` then replaces
@@ -640,6 +695,17 @@ theorem update_shadow (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
 -- `update_neq` wants. Use it to prove the following theorem, which states
 -- that if we update a map to assign key `a` the same value as it already has
 -- in `m`, then the result is equal to `m`:
+
+-- ### Exercise (2 stars): update_shadow ⭐⭐
+
+-- If we update a map `m` at a key `a` with a value `b₁` and then update again
+-- with the same key `a` and another value `b₂`, the resulting map behaves the
+-- same (gives the same result when applied to any key) as the simpler map
+-- obtained by performing just the second `update` on `m`:
+
+theorem update_shadow (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
+    (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
+  sorry
 
 -- Note to developers (mwhicks1, NOW):
 --     Two things the Rocq source says here have been dropped.

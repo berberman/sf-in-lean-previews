@@ -1279,43 +1279,11 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Search":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Search",
-     "data":
-     {"title": "Search",
-      "shortTitle": null,
-      "sectionNum": "5.3.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
-       {"title": "Search", "shortTitle": null, "number": "2"}]},
-     "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
    [{"id":
      "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2",
      "data":
      {"title": "List Exercises, Part 2",
-      "shortTitle": null,
-      "sectionNum": "5.3.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
-       {"title": "List Exercises, Part 2", "shortTitle": null, "number": "4"}]},
-     "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1",
-     "data":
-     {"title": "List Exercises, Part 1",
       "shortTitle": null,
       "sectionNum": "5.3.3.",
       "searchPriority": 50,
@@ -1325,7 +1293,23 @@
         "shortTitle": null,
         "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
-       {"title": "List Exercises, Part 1", "shortTitle": null, "number": "3"}]},
+       {"title": "List Exercises, Part 2", "shortTitle": null, "number": "3"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1",
+     "data":
+     {"title": "List Exercises, Part 1",
+      "shortTitle": null,
+      "sectionNum": "5.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
+       {"title": "List Exercises, Part 1", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Induction-on-Lists--Reversing-a-List":
    [{"id":
@@ -7128,37 +7112,34 @@
         "Lists: Working with Structured Data",
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append",
+   "Lists.NatList.myRepeat_append_general":
+   [{"id": "Lists___NatList___myRepeat_append_general",
      "data":
-     {"/Lists/#Lists___NatList___myRepeat_append-next":
-      {"display": "myRepeat_append",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]},
-      "/Lists/#Lists___NatList___myRepeat_append":
-      {"display": "myRepeat_append",
+     {"/Lists/#Lists___NatList___myRepeat_append_general":
+      {"display": "myRepeat_append_general",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Reasoning About Lists",
         "Induction on Lists",
         "Generalizing Statements"]}},
-     "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append-next",
+     "address": "/Lists/"}],
+   "Lists.NatList.myRepeat_append_fail":
+   [{"id": "Lists___NatList___myRepeat_append_fail",
      "data":
-     {"/Lists/#Lists___NatList___myRepeat_append-next":
-      {"display": "myRepeat_append",
+     {"/Lists/#Lists___NatList___myRepeat_append_fail":
+      {"display": "myRepeat_append_fail",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Reasoning About Lists",
         "Induction on Lists",
-        "Generalizing Statements"]},
-      "/Lists/#Lists___NatList___myRepeat_append":
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.myRepeat_append":
+   [{"id": "Lists___NatList___myRepeat_append",
+     "data":
+     {"/Lists/#Lists___NatList___myRepeat_append":
       {"display": "myRepeat_append",
        "context":
        ["Logical Foundations",
