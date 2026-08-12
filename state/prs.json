@@ -584,6 +584,100 @@
       "status": "published",
       "title": "Use Lean terminology for types",
       "url": "https://github.com/plclub/sf-in-lean/pull/234"
+    },
+    "235": {
+      "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "2844044a39086a1691da474c13ccd3ab639a6959",
+      "preview_path": "pr/235/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31557303973",
+      "status": "published",
+      "title": "Polish the Logical Foundations postscript",
+      "url": "https://github.com/plclub/sf-in-lean/pull/235"
+    },
+    "236": {
+      "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "c37fb6d7ca385a15b78c8fc405105f1de3bfef80",
+      "preview_path": "pr/236/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31557562366",
+      "status": "published",
+      "title": "Fix small Preface typos",
+      "url": "https://github.com/plclub/sf-in-lean/pull/236"
     }
   },
   "schema": 3
