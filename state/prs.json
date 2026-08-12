@@ -229,9 +229,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "269da6349fc59220678543c47cf0e599b44c00d4",
+      "head_sha": "a5cc51690ca834496c10be048bce85c4d47c3bb5",
       "preview_path": "pr/203/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31479666465",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31554905174",
       "status": "published",
       "title": "Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
@@ -539,7 +539,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/232"
     },
     "234": {
-      "base_sha": "b8fb67d1d7c2f73f1463691310bf9ba4b0ccf16d",
+      "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -578,9 +578,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "d8b3e3b95ee2e6f1cb285bdba05b4d9a46f011d5",
+      "head_sha": "fae7829c36fbba701c7889afa11ba3c1a91117f7",
       "preview_path": "pr/234/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31520206956",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31555257129",
       "status": "published",
       "title": "Use Lean terminology for types",
       "url": "https://github.com/plclub/sf-in-lean/pull/234"
