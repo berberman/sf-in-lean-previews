@@ -202,10 +202,10 @@
     "229": {
       "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
       "changed_variants": [],
-      "head_sha": "b98d6ddab62be984b1c00e85d586a43f6eb91359",
+      "head_sha": "e72769921d42c46c4ab2f6670d0caf3f2789b2ec",
       "preview_path": "pr/229/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31639436750",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Bump to 4.33.0 + structure Totalmap",
       "url": "https://github.com/plclub/sf-in-lean/pull/229"
     },
