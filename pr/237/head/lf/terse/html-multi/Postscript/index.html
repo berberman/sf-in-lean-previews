@@ -2100,55 +2100,40 @@ window.onload = async () => {
           <section>
             <h1>
               12. Postscript<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Postscript" title="Permalink">🔗</a></span></h1>
-            <div class="sf-dev-note">
-              <div class="sf-dev-note-label">
-                Note to developers</div>
-              <p>
-                The FULL version could use some real text</p>
-              </div>
             <p>
-              Congratulations: We've made it to the end of <em>Logical Foundations</em>!</p>
+              Congratulations: We've reached the end of <em>Logical Foundations</em>!</p>
             <section>
               <h2 id="Logical-Foundations--Postscript--Looking-Back">
                 12.1. Looking Back<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Postscript--Looking-Back" title="Permalink">🔗</a></span></h2>
               <p>
-                We've covered quite a bit of ground so far.  Here's a quick review...</p>
+                We've covered quite a bit of ground. Along the way, we developed three
+connected themes:</p>
+              <p>
+                <em>Functional programming</em>:</p>
               <ul>
                 <li>
                   <p>
-                    <em>Functional programming</em>:</p>
-                  <ul>
-                    <li>
-                      <p>
-                        "declarative" programming style (recursion over immutable
-         data structures, rather than looping over mutable arrays
-         or pointer structures)</p>
-                      </li>
-                    <li>
-                      <p>
-                        higher-order functions</p>
-                      </li>
-                    <li>
-                      <p>
-                        polymorphism</p>
-                      </li>
-                    </ul>
+                    recursive definitions over immutable data</p>
+                  </li>
+                <li>
+                  <p>
+                    higher-order functions</p>
+                  </li>
+                <li>
+                  <p>
+                    polymorphism</p>
                   </li>
                 </ul>
               <div class="slide-break"></div>
-              <ul>
-                <li>
-                  <p>
-                    <em>Logic</em>, the mathematical basis for software engineering:</p>
-                  </li>
-                </ul>
+              <p>
+                <em>Logic</em>, the mathematical basis for software engineering:</p>
               <pre>       logic                        calculus
 --------------------   ~   ----------------------------
 software engineering       mechanical/civil engineering
 </pre><ul>
                 <li>
                   <p>
-                    inductively defined sets and relations</p>
+                    inductively defined propositions and relations</p>
                   </li>
                 <li>
                   <p>
@@ -2160,22 +2145,20 @@ software engineering       mechanical/civil engineering
                   </li>
                 </ul>
               <div class="slide-break"></div>
+              <p>
+                <em>Lean</em>, an industrial-strength proof assistant:</p>
               <ul>
                 <li>
                   <p>
-                    <em>Lean</em>, an industrial-strength proof assistant</p>
+                    a functional programming language</p>
                   </li>
                 <li>
                   <p>
-                    functional core language</p>
+                    tactics for constructing proofs</p>
                   </li>
                 <li>
                   <p>
-                    core tactics</p>
-                  </li>
-                <li>
-                  <p>
-                    automation</p>
+                    proof automation</p>
                   </li>
                 </ul>
               </section>
@@ -2183,121 +2166,53 @@ software engineering       mechanical/civil engineering
               <h2 id="Logical-Foundations--Postscript--Looking-Forward">
                 12.2. Looking Forward<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Postscript--Looking-Forward" title="Permalink">🔗</a></span></h2>
               <p>
-                OLD: If what you've seen so far has whetted your interest, you have
-several choices for further reading in later volumes of the
-<em>Software Foundations</em> series.  Some of these are intended to be
-accessible to readers immediately after finishing <em>Logical
-Foundations</em>; others require a few chapters from Volume 2,
-<em>Programming Language Foundations</em>.  The Preface chapter in each
-volume gives details about prerequisites.</p>
+                The next volumes carry these ideas into programming-language theory
+and program verification:</p>
+              <ul>
+                <li>
+                  <p>
+                    <em>Type Systems</em> develops operational semantics and type systems,
+  including the simply typed lambda calculus and the progress and
+  preservation theorems.</p>
+                  </li>
+                <li>
+                  <p>
+                    <em>Hoare Logic</em> introduces imperative programs and Hoare logic,
+  a framework for stating and proving correctness properties of programs
+  with mutable state.</p>
+                  </li>
+                </ul>
               <p>
-                FINISH: As of August 2026, there are two more volumes written in Lean.</p>
-              <p>
-                <em>Hoare Logic</em>: This short volume describes one of the primary methods
-    for reasoning about <em>imperative</em> programs- programs with state and
-    mutation, like C++, Java, C, and Assembly- in a pure logic
-    like Lean's. This method, called <em>Hoare Logic</em>, is embeddable into
-    Lean's type system and is a powerful tool for determining
-    the correct behavior of imperative code. Since most of the code
-    in the wild today is imperative, this technique is both well-established
-    and popular among industry professionals who analyze and fortify the
-    correctness of systems.</p>
-              <p>
-                <em>Type Systems</em>: Another tool for reasoning about the correctness of a program
-    is a <em>type system</em>. You have interacted thoroughly with Lean's rich type system,
-    which is one of the most complex in a modern programming language. Most
-    languages have type systems that are far less complex, but which still provide
-    incredibly useful guardrails against ill-behaved programs. In this volume you
-    will explore how to read, analyze, and design type systems in a proof assistant.</p>
-              <div class="sf-dev-note">
-                <div class="sf-dev-note-label">
-                  Note to developers (before next release)</div>
-                <pre>Might be worth explicitly advertising each volume, like
-this?  Some danger of redunancy tho...
-
-        - _Programming Language Foundations_ (volume 2, by a set of
-          authors similar to this book's) covers material that
-          might be found in a graduate course on the theory of
-          programming languages, including Hoare logic, operational
-          semantics, and type systems.
-
-        - _Verified Functional Algorithms_ (volume 3, by Andrew
-          Appel) builds on the themes of functional programming and
-          program verification in Rocq, addressing a range of topics
-          that might be found in a standard data structures course,
-          with an eye to formal verification.
-</pre></div>
+                Both volumes build directly on the definitions and proof techniques
+introduced here.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Postscript--Resources">
                 12.3. Resources<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Postscript--Resources" title="Permalink">🔗</a></span></h2>
               <p>
-                Here are some other good places to learn more...</p>
+                This volume also contains optional sections and exercises that develop
+some topics further.</p>
+              <p>
+                For questions about Lean, the
+<a href="https://leanprover.zulipchat.com/">Lean community Zulip</a> is an active
+place to ask questions and discuss formalization.</p>
+              <p>
+                The following books continue in several different directions:</p>
               <ul>
                 <li>
                   <p>
-                    This book includes some optional chapters covering topics
-  that you may find useful.  Take a look at the #&lt;a
-  href="toc.html"&gt;#table of contents#&lt;/a&gt;# and the #&lt;a
-  href="deps.html"&gt;#chapter dependency diagram#&lt;/a&gt;# to find
-  them.</p>
+                    <a href="https://lean-lang.org/functional_programming_in_lean/">Functional Programming in Lean</a>
+  explores Lean as a programming language.</p>
                   </li>
                 <li>
                   <p>
-                    For questions about Rocq, the <code>#coq</code> area of Stack
-  Overflow (&lt;https://stackoverflow.com/questions/tagged/coq&gt;)
-  is an excellent community resource.</p>
+                    <a href="https://docs.lean-lang.org/theorem_proving_in_lean4/">Theorem Proving in Lean 4</a>
+  gives a systematic introduction to Lean's logic and proof language.</p>
                   </li>
                 <li>
                   <p>
-                    Here are some great books on functional programming</p>
-                  <ul>
-                    <li>
-                      <p>
-                        Learn You a Haskell for Great Good, by Miran Lipovaca
-       Lipovaca 2011 Lipovača (2011)<span class="marginalia"><span class="note"><span class="citation">Miran Lipovača (April 2011). <a href="http://learnyouahaskell.com">“Learn You a Haskell for Great Good! A Beginner's Guide”</a>. <em>No Starch Press.</em> <strong></strong>.</span></span></span>.</p>
-                      </li>
-                    <li>
-                      <p>
-                        Real World Haskell, by Bryan O'Sullivan, John Goerzen,
-       and Don Stewart O'Sullivan 2008 O'Sullivan, Goerzen,  and Stewart (2008)<span class="marginalia"><span class="note"><span class="citation">Bryan O'Sullivan, John Goerzen,  and Don Stewart (2008). <a href="http://book.realworldhaskell.org">“Real World Haskell: Code You Can Believe In”</a>. <em>O'Reilly.</em> <strong></strong>.</span></span></span></p>
-                      </li>
-                    <li>
-                      <p>
-                        ...and many other excellent books on Haskell, OCaml,
-       Scheme, Racket, Scala, F sharp, etc., etc.</p>
-                      </li>
-                    </ul>
-                  </li>
-                <li>
-                  <p>
-                    And some further resources for Rocq:</p>
-                  <ul>
-                    <li>
-                      <p>
-                        Certified Programming with Dependent Types, by Adam
-      Chlipala Chlipala 2013 Chlipala (2013)<span class="marginalia"><span class="note"><span class="citation">Adam Chlipala (2013). <a href="https://tinyurl.com/zqdnyg2">“Certified Programming with Dependent Types”</a>. <em>MIT Press.</em> <strong></strong>.</span></span></span>.</p>
-                      </li>
-                    <li>
-                      <p>
-                        Interactive Theorem Proving and Program Development:
-      Coq'Art: The Calculus of Inductive Constructions, by Yves
-      Bertot and Pierre Casteran Bertot 2004 Bertot and Castéran (2004)<span class="marginalia"><span class="note"><span class="citation">Yves Bertot and Pierre Castéran (2004). <a href="https://tinyurl.com/z3o7nqu">“Interactive Theorem Proving and Program Development: Coq'Art: The Calculus of Inductive Constructions”</a>. <em>Springer-Verlag.</em> <strong></strong>.</span></span></span>.</p>
-                      </li>
-                    </ul>
-                  </li>
-                <li>
-                  <p>
-                    If you're interested in real-world applications of formal
-  verification to critical software, see the Postscript chapter
-  of <em>Programming Language Foundations</em>.</p>
-                  </li>
-                <li>
-                  <p>
-                    For applications of Rocq in building verified systems, the
-  lectures and course materials for the 2017 DeepSpec Summer
-  School are a great resource.
-  &lt;https://deepspec.org/event/dsss17/index.html&gt;
+                    <a href="https://leanprover-community.github.io/mathematics_in_lean/">Mathematics in Lean</a>
+  develops formalized mathematics using Lean and Mathlib.
 </p>
                   </li>
                 </ul>

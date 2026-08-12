@@ -1,5 +1,5 @@
 {
-  "main_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
+  "main_sha": "74ca02eaea932e3bdad5b2bad4395c8c2fe4bf8a",
   "prs": {
     "171": {
       "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
@@ -585,53 +585,6 @@
       "title": "Use Lean terminology for types",
       "url": "https://github.com/plclub/sf-in-lean/pull/234"
     },
-    "235": {
-      "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "2844044a39086a1691da474c13ccd3ab639a6959",
-      "preview_path": "pr/235/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31557303973",
-      "status": "published",
-      "title": "Polish the Logical Foundations postscript",
-      "url": "https://github.com/plclub/sf-in-lean/pull/235"
-    },
     "236": {
       "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
       "changed_variants": [
@@ -680,7 +633,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/236"
     },
     "237": {
-      "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
+      "base_sha": "74ca02eaea932e3bdad5b2bad4395c8c2fe4bf8a",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -719,9 +672,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "a6f3391753b4af1d6f98517f11a2b8b9a69a705d",
+      "head_sha": "60f3aed57c08c25838e7e1e12d8085ce3688c4ab",
       "preview_path": "pr/237/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31587709543",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31589537884",
       "status": "published",
       "title": "bib: add entry and citations",
       "url": "https://github.com/plclub/sf-in-lean/pull/237"
