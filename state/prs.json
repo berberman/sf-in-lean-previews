@@ -1,5 +1,5 @@
 {
-  "main_sha": "74ca02eaea932e3bdad5b2bad4395c8c2fe4bf8a",
+  "main_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
   "prs": {
     "171": {
       "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
@@ -284,7 +284,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/213"
     },
     "214": {
-      "base_sha": "74ca02eaea932e3bdad5b2bad4395c8c2fe4bf8a",
+      "base_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -323,9 +323,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "6d842e184453c24b5a0a2c087bd163c122e4d652",
+      "head_sha": "c43121825e3d1a2d03c43751e2e33cd2382fc0a5",
       "preview_path": "pr/214/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31601148598",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31604830225",
       "status": "published",
       "title": "Cleaning up CONTRIBUTING.md and STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
@@ -584,100 +584,6 @@
       "status": "published",
       "title": "Use Lean terminology for types",
       "url": "https://github.com/plclub/sf-in-lean/pull/234"
-    },
-    "236": {
-      "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "c37fb6d7ca385a15b78c8fc405105f1de3bfef80",
-      "preview_path": "pr/236/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31557562366",
-      "status": "published",
-      "title": "Fix small Preface typos",
-      "url": "https://github.com/plclub/sf-in-lean/pull/236"
-    },
-    "237": {
-      "base_sha": "74ca02eaea932e3bdad5b2bad4395c8c2fe4bf8a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "60f3aed57c08c25838e7e1e12d8085ce3688c4ab",
-      "preview_path": "pr/237/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31589537884",
-      "status": "published",
-      "title": "bib: add entry and citations",
-      "url": "https://github.com/plclub/sf-in-lean/pull/237"
     }
   },
   "schema": 3

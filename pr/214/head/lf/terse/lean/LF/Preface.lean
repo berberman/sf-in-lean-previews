@@ -127,7 +127,7 @@ import LF.SFLCompat
 -- system for defining new proof-automation tactics and
 -- notations for specific situations.
 
--- Lean and its relatives have become a critical enablers for a
+-- Lean and its relatives have become critical enablers for a
 -- huge variety of work across computer science and
 -- mathematics:
 
@@ -150,7 +150,7 @@ import LF.SFLCompat
 --   as C.
 
 -- - As *environments for developing formally certified software
---   and hardware*, they been used, for example, to build
+--   and hardware*, they have been used, for example, to build
 --   CompCert, a fully-verified optimizing compiler for C, and
 --   CertiKOS, a fully verified hypervisor, for proving the
 --   correctness of subtle algorithms involving floating point
@@ -176,7 +176,7 @@ import LF.SFLCompat
 -- *Functional programming* refers both to a collection of
 -- idioms that can be used in almost any programming language
 -- and to a family of languages designed to foreground these
--- idioms, including Haskell, OCaml, Standard ML, F##, Scala,
+-- idioms, including Haskell, OCaml, Standard ML, F#, Scala,
 -- Scheme, Racket, Common Lisp, Clojure, Erlang, F*, and Lean
 -- itself.
 
