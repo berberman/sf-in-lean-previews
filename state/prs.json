@@ -284,7 +284,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/213"
     },
     "214": {
-      "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
+      "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -323,9 +323,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "329d5516aeda34d5a75bd6d6987fe4eb6ef8699c",
+      "head_sha": "c9bd3da8a7fcf6249b1bf0eea3d9428953882691",
       "preview_path": "pr/214/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31529556996",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31556646001",
       "status": "published",
       "title": "Cleaning up CONTRIBUTING.md and STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
