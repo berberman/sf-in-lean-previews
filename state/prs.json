@@ -445,7 +445,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
     },
     "234": {
-      "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
+      "base_sha": "d588d9ce187721ec3c683aadb222e9e43f768bfb",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -484,9 +484,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "fae7829c36fbba701c7889afa11ba3c1a91117f7",
+      "head_sha": "657bb18026c01f93b1b6bd30713e696f5575eba7",
       "preview_path": "pr/234/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31555257129",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31617601514",
       "status": "published",
       "title": "Use Lean terminology for types",
       "url": "https://github.com/plclub/sf-in-lean/pull/234"

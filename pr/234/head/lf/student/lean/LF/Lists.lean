@@ -15,15 +15,15 @@ namespace Lists
 -- ## Pairs of Numbers
 
 -- In an `inductive` type definition, each constructor can take any number of
--- arguments -- none (as with `true` and `0`), one (as with `succ`), or more
--- than one (as with `Nibble` and the following):
+-- arguments -- none (as with `true` and `0`), one (as with `Nat.succ`), or
+-- more than one (as with `Playground.Nibble` and the following):
 
 inductive NatProd where
   | pair (n1 n2 : Nat)
 
 -- This declaration can be read: "The one and only way to construct a pair of
--- numbers is by applying the constructor `pair` to two arguments of type
--- `Nat`."
+-- numbers is by applying the constructor `NatProd.pair` to two arguments of
+-- type `Nat`."
 
 #check (NatProd.pair 3 5)
 
@@ -44,8 +44,8 @@ def NatProd.snd (p : NatProd) : Nat :=
 example : (NatProd.pair 3 5).fst = 3 := by rfl
 
 -- Since pairs will be used heavily in what follows, it will be convenient to
--- write them with angle bracket notation `⟨x, y⟩` instead of
--- `NatProd.pair x y`. This notation is built into Lean and is called
+-- write them with angle bracket notation `⟨n, m⟩` instead of
+-- `NatProd.pair n m`. This notation is built into Lean and is called
 -- "anonymous constructor syntax". It is available for any inductive type with
 -- a single constructor, as long as the expected type is declared or can be
 -- inferred from the context.
@@ -70,8 +70,8 @@ def NatProd.swap (p : NatProd) : NatProd :=
 -- to be confused with the "multiple pattern" syntax (with no brackets:
 -- `x, y`) that we have seen previously. The above examples illustrate pattern
 -- matching on a pair with elements `x` and `y`, whereas, for example, the
--- definition of `sub` in Basics performs pattern matching on the values `n`
--- and `m`:
+-- definition of `sub` for subtracting two `Nat`s performs pattern matching on
+-- the values `n` and `m`:
 
 def sub (n m : Nat) : Nat :=
   match n, m with
@@ -102,6 +102,10 @@ sf_expect_failure
 -- Invalid `⟨...⟩` notation: The expected type `Nat` has more than one constructor
 
 -- Note: This notation can only be used when the expected type is an inductive type with a single constructor
+
+-- These extensions to pattern matching also mean that the rewrite laws we
+-- define for each function may not always match one-to-one with the cases of
+-- our match constructs.
 
 -- Lean also provides a convenient way to define `inductive` structures like
 -- pairs that have a single constructor but multiple ways to access their
@@ -202,9 +206,9 @@ def myRepeat (n count : Nat) : NatList :=
 
 -- Some simple facts about repetition:
 
-theorem repeat_zero {v : Nat} : myRepeat v 0 = [] := rfl
+theorem repeat_zero {n : Nat} : myRepeat n 0 = [] := rfl
 
-theorem repeat_succ {v count : Nat} : myRepeat v (count + 1) = v :: myRepeat v count := rfl
+theorem repeat_succ {n count : Nat} : myRepeat n (count + 1) = n :: myRepeat n count := rfl
 
 -- The `length` function calculates the length of a list.
 
@@ -223,10 +227,10 @@ theorem length_cons {n : Nat} {l : NatList} : (n :: l).length = l.length + 1 := 
 
 -- The `append` function appends (concatenates) two lists.
 
-def append (l1 l2 : NatList) : NatList :=
-  match l1 with
-  | [] => l2
-  | h :: t => h :: append t l2
+def append (l₁ l₂ : NatList) : NatList :=
+  match l₁ with
+  | [] => l₂
+  | h :: t => h :: append t l₂
 
 -- ### Type Classes and Overloading
 
@@ -243,13 +247,13 @@ def append (l1 l2 : NatList) : NatList :=
 instance : HAppend NatList NatList NatList where
   hAppend := append
 
--- Now `l1 ++ l2` means `append l1 l2` within `NatList`.
+-- Now `l₁ ++ l₂` means `append l₁ l₂` within `NatList`.
 
 -- Some simple facts about appending lists:
 
 theorem nil_append (l : NatList) : [] ++ l = l := rfl
 
-theorem cons_append {n : Nat} {l1 l2 : NatList} : (n :: l1) ++ l2 = n :: (l1 ++ l2) := rfl
+theorem cons_append {n : Nat} {l₁ l₂ : NatList} : (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := rfl
 
 example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
@@ -262,11 +266,8 @@ example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
 -- `BEq.refl : (a == a) = true`
 
 -- We'll learn more about type classes in chapter Typeclasses. For now, the
--- key idea is: a type class is an interface, and an instance is an
--- implementation of that interface for a particular type.
-
--- (For a thorough treatment of type classes, see Chapter 3 of *Functional
--- Programming in Lean*.)
+-- key idea is just this: a type class is like an *interface*, and an instance
+-- is an implementation of that interface for a particular type.
 
 -- #### Head and Tail
 
@@ -297,9 +298,11 @@ theorem tail_cons {h : Nat} {t : NatList} : (h :: t).tail = t := by rfl
 
 theorem tail_nil : [].tail = [] := by rfl
 
-example : head 0 [1, 2, 3] = 1 := by rw [head_cons]
-example : head 0 [] = 0 := by rw [head_nil]
-example : [1, 2, 3].tail = [2, 3] := by rw [tail_cons]
+-- And some examples:
+
+-- example : head 0 [1, 2, 3] = 1 := by rw [head_cons]
+-- example : head 0 [] = 0 := by rw [head_nil]
+-- example : [1, 2, 3].tail = [2, 3] := by rw [tail_cons]
 
 -- _Quiz:_
 
@@ -348,14 +351,14 @@ theorem oddMembers_cons {h : Nat} {t : NatList} :
       bif h.odd then h :: oddMembers t else oddMembers t :=
   sorry
 
-theorem oddMembers_cons_odd {x : Nat} {l : NatList}
-    (h : x.odd = true) :
-    oddMembers (x :: l) = x :: oddMembers l := by
+theorem oddMembers_cons_odd {n : Nat} {l : NatList}
+    (h : n.odd = true) :
+    oddMembers (n :: l) = n :: oddMembers l := by
   sorry
 
-theorem oddMembers_cons_not_odd {x : Nat} {l : NatList}
-    (h : x.odd = false) :
-    oddMembers (x :: l) = oddMembers l := by
+theorem oddMembers_cons_not_odd {n : Nat} {l : NatList}
+    (h : n.odd = false) :
+    oddMembers (n :: l) = oddMembers l := by
   sorry
 
 -- Now, we can prove that `oddMembers [1, 2]` returns `[1]` using the lemmas:
@@ -391,14 +394,6 @@ theorem test_oddMembers : oddMembers [0, 1, 2, 3, 0] = [1, 3] := sorry
 
 def countOddMembers (l : NatList) : Nat := sorry
 
-theorem countOddMembers_def (l : NatList) :
-    countOddMembers l = (oddMembers l).length := sorry
-
-example : countOddMembers [0, 1, 2, 3, 0] = 2 := by
-  rw [countOddMembers_def]
-  rw [test_oddMembers]
-  rw [length_cons, length_cons, length_nil]
-
 example : countOddMembers [0, 1, 2, 3, 0] = 2 := sorry
 
 theorem test_countOddMembers1 : countOddMembers [0, 2, 4] = 0 := sorry
@@ -416,7 +411,7 @@ theorem test_countOddMembers2 : countOddMembers [] = 0 := sorry
 -- recursive*, as mentioned in Basics. If you encounter this difficulty,
 -- consider pattern matching against both lists at the same time.
 
-def alternate (l1 l2 : NatList) : NatList := sorry
+def alternate (l₁ l₂ : NatList) : NatList := sorry
 
 theorem test_alternate1 :
     alternate [1, 2, 3] [4, 5, 6] = [1, 4, 2, 5, 3, 6] := sorry
@@ -435,23 +430,23 @@ theorem test_alternate4 :
 -- ### Exercise (1 star): counting ⭐
 
 -- Define a `count` function for `NatList`s that counts the number of times an
--- element `v` appears in the list.
+-- element `n` appears in the list.
 
-def count (v : Nat) (l : NatList) : Nat := sorry
+def count (n : Nat) (l : NatList) : Nat := sorry
 
 -- Now, prove these lemmas which should hold about your definition.
 
-theorem count_nil {x : Nat} : count x [] = 0 := sorry
+theorem count_nil {n : Nat} : count n [] = 0 := sorry
 
-theorem count_cons_def {v h : Nat} {t : NatList} :
-    count v (h :: t) = bif v == h then (count v t) + 1 else count v t := sorry
+theorem count_cons_def {n h : Nat} {t : NatList} :
+    count n (h :: t) = bif n == h then (count n t) + 1 else count n t := sorry
 
-theorem count_cons_same {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = true) :
-    count v₁ (v₂ :: t) = count v₁ t + 1 := by
+theorem count_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+    count n₁ (n₂ :: t) = count n₁ t + 1 := by
   sorry
 
-theorem count_cons_diff {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = false) :
-    count v₁ (v₂ :: t) = count v₁ t := by
+theorem count_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+    count n₁ (n₂ :: t) = count n₁ t := by
   sorry
 
 example : count 1 [1] = 1 := by
@@ -475,19 +470,16 @@ example : count 6 [1, 2, 3, 1, 4, 1] = 0 := sorry
 
 -- ### Exercise (1 star): membership ⭐
 
-def member (v : Nat) (l : NatList) : Bool := sorry
+def member (n : Nat) (l : NatList) : Bool := sorry
 
-theorem member_nil {v : Nat} : member v [] = false := sorry
+theorem member_nil {n : Nat} : member n [] = false := sorry
 
-theorem member_cons_def {v h : Nat} {t : NatList} :
-  member v (h :: t) = bif v == h then true else member v t := sorry
-
-theorem member_cons_same {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = true) :
-    member v₁ (v₂ :: t) = true := by
+theorem member_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+    member n₁ (n₂ :: t) = true := by
   sorry
 
-theorem member_cons_diff {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = false) :
-    member v₁ (v₂ :: t) = member v₁ t := by
+theorem member_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+    member n₁ (n₂ :: t) = member n₁ t := by
   sorry
 
 example : member 1 [1] = true := by
@@ -506,23 +498,18 @@ theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 -- Here are some more `NatList` functions for you to practice with.
 
 -- When `removeOne` is applied to a list without the number to remove, it
--- should return the same list unchanged. (This exercise is optional, but
--- students following the advanced track will need to fill in the definition
--- of `removeOne` for a later exercise.)
+-- should return the same list unchanged.
 
-def removeOne (v : Nat) (l : NatList) : NatList := sorry
+def removeOne (n : Nat) (l : NatList) : NatList := sorry
 
-theorem removeOne_nil {v : Nat} : removeOne v nil = nil := sorry
+theorem removeOne_nil {n : Nat} : removeOne n nil = nil := sorry
 
-theorem removeOne_cons_def {v h : Nat} {t : NatList} :
-  removeOne v (h :: t) = bif v == h then t else h :: removeOne v t := sorry
-
-theorem removeOne_cons_same {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = true) :
-    removeOne v₁ (v₂ :: t) = t := by
+theorem removeOne_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+    removeOne n₁ (n₂ :: t) = t := by
   sorry
 
-theorem removeOne_cons_diff {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = false) :
-    removeOne v₁ (v₂ :: t) = v₂ :: removeOne v₁ t := by
+theorem removeOne_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+    removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t := by
   sorry
 
 example : removeOne 5 [1, 5, 4] = [1, 4] := by
@@ -535,19 +522,16 @@ theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
 
 theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
 
-def removeAll (v : Nat) (l : NatList) : NatList := sorry
+def removeAll (n : Nat) (l : NatList) : NatList := sorry
 
-theorem removeAll_nil {v : Nat} : removeAll v [] = [] := sorry
+theorem removeAll_nil {n : Nat} : removeAll n [] = [] := sorry
 
-theorem removeAll_cons_def {v h : Nat} {t : NatList} :
-  removeAll v (h :: t) = bif v == h then removeAll v t else h :: removeAll v t := sorry
-
-theorem removeAll_cons_same {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = true) :
-    removeAll v₁ (v₂ :: t) = removeAll v₁ t := by
+theorem removeAll_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+    removeAll n₁ (n₂ :: t) = removeAll n₁ t := by
   sorry
 
-theorem removeAll_cons_diff {v₁ v₂ : Nat} {t : NatList} (h : (v₁ == v₂) = false) :
-    removeAll v₁ (v₂ :: t) = v₂ :: removeAll v₁ t := by
+theorem removeAll_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+    removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t := by
   sorry
 
 example : count 5 (removeAll 5 [5, 1]) = 0 := by
@@ -559,7 +543,7 @@ example : count 5 (removeAll 5 [5, 1]) = 0 := by
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := sorry
 
-theorem test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
+theorem test_removeAll₁ : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
 
 theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
@@ -571,12 +555,12 @@ def included (l₁ l₂ : NatList) : Bool := sorry
 
 theorem included_nil {l₂ : NatList} : included nil l₂ = true := sorry
 
-theorem included_cons_member {v : Nat} {l₁ l₂ : NatList} (h : member v l₂ = true) :
-    included (cons v l₁) l₂ = included l₁ (removeOne v l₂) := by
+theorem included_cons_member {n : Nat} {l₁ l₂ : NatList} (h : member n l₂ = true) :
+    included (cons n l₁) l₂ = included l₁ (removeOne n l₂) := by
   sorry
 
-theorem included_cons_nonmember {v : Nat} {l₁ l₂ : NatList} (h : member v l₂ = false) :
-    included (cons v l₁) l₂ = false := by
+theorem included_cons_nonmember {n : Nat} {l₁ l₂ : NatList} (h : member n l₂ = false) :
+    included (cons n l₁) l₂ = false := by
   sorry
 
 example : included [1] [2, 1] = true := by
@@ -591,11 +575,6 @@ theorem test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
 
 theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
 
--- ### Exercise (2 stars): count_cons_inc (manually graded) ⭐⭐
-
--- Adding a value to a list should increase the value's count by one. State
--- this as a theorem and prove it.
-
 -- ## Reasoning About Lists
 
 -- As with numbers, simple facts about list-processing functions can sometimes
@@ -606,8 +585,8 @@ theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
 theorem tail_length_pred (l : NatList) :
     l.length.pred = l.tail.length := by
   cases l with
-  | nil       => rw [tail_nil, length_nil]; dsimp
-  | cons n l' => rw [tail_cons, length_cons]; dsimp
+  | nil       => rw [tail_nil, length_nil]; rfl
+  | cons n l' => rw [tail_cons, length_cons]; rfl
 
 -- Here, the `nil` case works because we've chosen to define `tail [] = []`.
 -- Notice that the `cons` case introduces two names, `n` and `l'`,
@@ -629,14 +608,14 @@ theorem tail_length_pred (l : NatList) :
 -- familiar than standard natural number induction, but the idea is equally
 -- simple. Each `inductive` declaration defines a type whose values can be
 -- built up using the declared constructors. For example, a boolean can be
--- either `true` or `false`; a number can be either `0` or else `succ` applied
--- to another number; and a list can be either `[]` or else `::` applied to a
--- number and a list. Moreover, applications of the declared constructors to
--- one another are the *only* possible shapes that values of an inductive type
--- can have.
+-- either `true` or `false`; a number can be either `0` or else `Nat.succ`
+-- applied to another number; and a list can be either `[]` or else `::`
+-- applied to a number and a list. Moreover, applications of the declared
+-- constructors to one another are the *only* possible shapes that values of
+-- an inductive type can have.
 
 -- This last fact directly gives rise to a way of reasoning about inductive
--- types: a number is either `0` or else it is `succ` applied to some
+-- types: a number is either `0` or else it is `Nat.succ` applied to some
 -- *smaller* number; a list is either `[]` or else it is `::` applied to some
 -- number and some *smaller* list; etc. Thus, if we have in mind some
 -- proposition `P` that mentions a list `l` and we want to argue that `P`
@@ -653,37 +632,37 @@ theorem tail_length_pred (l : NatList) :
 
 -- Here's a concrete example:
 
-theorem append_assoc (l1 l2 l3 : NatList) :
-    (l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3) := by
-  induction l1 with
+theorem append_assoc (l₁ l₂ l₃ : NatList) :
+    (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃) := by
+  induction l₁ with
   | nil =>
     rw [nil_append, nil_append]
-  | cons n l1' ih =>
+  | cons n l₁' ih =>
     rw [cons_append, cons_append, cons_append, ih]
 
--- *Theorem*: For all lists `l1`, `l2`, and `l3`,
+-- *Theorem*: For all lists `l₁`, `l₂`, and `l₃`,
 
---   (l1 ++ l2) ++ l3 = l1 ++ (l2 ++ l3).
+--   (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
 
--- *Proof*: By induction on `l1`.
+-- *Proof*: By induction on `l₁`.
 
--- - First, suppose `l1 = []`. We must show
+-- - First, suppose `l₁ = []`. We must show
 
---   ([] ++ l2) ++ l3 = [] ++ (l2 ++ l3),
+--   ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
 
 -- which follows directly from the definition of `append`.
 
--- - Next, suppose `l1 = n :: l1'`, with
+-- - Next, suppose `l₁ = n :: l₁'`, with
 
---   (l1' ++ l2) ++ l3 = l1' ++ (l2 ++ l3)
+--   (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
 
 -- (the induction hypothesis). We must show
 
---   ((n :: l1') ++ l2) ++ l3 = (n :: l1') ++ (l2 ++ l3).
+--   ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
 
 -- By the definition of `append`, this follows from
 
---   n :: ((l1' ++ l2) ++ l3) = n :: (l1' ++ (l2 ++ l3)),
+--   n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
 
 -- which is immediate from the induction hypothesis. *Qed*.
 
@@ -691,10 +670,11 @@ theorem append_assoc (l1 l2 l3 : NatList) :
 
 -- In some situations, it is necessary to generalize a statement in order to
 -- prove it by induction. Intuitively, the reason is that a more general
--- statement also yields a more general (stronger) inductive hypothesis.
+-- statement also yields a more general (stronger) inductive hypothesis. While
+-- the following statement is true, we cannot prove it directly:
 
 sf_expect_failure
-  theorem myRepeat_append {c n : Nat} :
+  theorem myRepeat_append_fail {c n : Nat} :
       myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
     induction c with
     | zero => rw [repeat_zero, nil_append]
@@ -712,13 +692,19 @@ sf_expect_failure
 
 -- To get a more general inductive hypothesis, we can generalize:
 
-theorem myRepeat_append {c₁ c₂ n : Nat} :
+theorem myRepeat_append_general {c₁ c₂ n : Nat} :
     myRepeat n c₁ ++ myRepeat n c₂ = myRepeat n (c₁ + c₂) := by
   induction c₁ with
   | zero =>
     rw [repeat_zero, Nat.zero_add, nil_append]
   | succ c1' ih =>
     rw [Nat.succ_add, repeat_succ, repeat_succ, cons_append, ih]
+
+-- Then, we can use this more general theorem to prove the original goal:
+
+theorem myRepeat_append {c n : Nat} :
+    myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
+  exact myRepeat_append_general
 
 -- #### Reversing a List
 
@@ -810,30 +796,30 @@ theorem length_append {l₁ l₂ : NatList} :
   all_goals
     induction l₁ with
     | nil => rw [nil_append, length_nil, Nat.zero_add]
-    | cons n l1' ih =>
+    | cons n l₁' ih =>
       rw [cons_append, length_cons, ih, length_cons, Nat.succ_add]
 
 -- For comparison, here are informal proofs of these two theorems:
 
--- *Theorem*: For all lists `l1` and `l2`,
+-- *Theorem*: For all lists `l₁` and `l₂`,
 
---   (l1 ++ l2).length = l1.length + l2.length.
+--   (l₁ ++ l₂).length = l₁.length + l₂.length.
 
--- *Proof*: By induction on `l1`.
+-- *Proof*: By induction on `l₁`.
 
--- - First, suppose `l1 = []`. We must show
+-- - First, suppose `l₁ = []`. We must show
 
---   ([] ++ l2).length = [].length + l2.length,
+--   ([] ++ l₂).length = [].length + l₂.length,
 
 -- which follows directly from the definitions of `length`, `++`, and `+`.
 
--- - Next, suppose `l1 = n::l1'`, with
+-- - Next, suppose `l₁ = n::l₁'`, with
 
---   (l1' ++ l2).length = l1'.length + l2.length
+--   (l₁' ++ l₂).length = l₁'.length + l₂.length
 
 -- We must show
 
---   ((n::l1') ++ l2).length = (n::l1').length + l2.length.
+--   ((n::l₁') ++ l₂).length = (n::l₁').length + l₂.length.
 
 -- This follows directly from the definitions of `length` and `++` together
 -- with the induction hypothesis. *Qed*.
@@ -886,20 +872,6 @@ theorem length_append {l₁ l₂ : NatList} :
 -- is a good default for our present purposes because we're trying to be
 -- ultra-clear about the details.
 
--- ### Search
-
--- We've seen that proofs can make use of other theorems we've already proved,
--- e.g., using `rw`. But in order to refer to a theorem, we need to know its
--- name!
-
--- In Lean, the `exact?` tactic will search for a lemma that closes the
--- current goal. The `#check` command shows the type of a named theorem. You
--- can also use `example` with `exact?` to search for lemmas matching a
--- particular pattern.
-
--- Your IDE likely has its own search functionality too. In VS Code with the
--- Lean 4 extension, you can use Ctrl+T to search for definitions by name.
-
 -- ### List Exercises, Part 1
 
 -- ### Exercise (3 stars): list_exercises ⭐⭐⭐
@@ -917,21 +889,21 @@ theorem reverse_append {l₁ l₂ : NatList} :
 -- An *involution* is a function that is its own inverse. That is, applying
 -- the function twice yields the original input.
 
-theorem reverse_reverse (l : NatList) :
+theorem reverse_involutive (l : NatList) :
     l.reverse.reverse = l := by
   sorry
 
 -- There is a short solution to the next one. If you find yourself getting
 -- tangled up, step back and try to look for a simpler way.
 
-theorem append_assoc4 {l1 l2 l3 l4 : NatList} :
-    l1 ++ (l2 ++ (l3 ++ l4)) = ((l1 ++ l2) ++ l3) ++ l4 := by
+theorem append_assoc4 {l₁ l₂ l₃ l4 : NatList} :
+    l₁ ++ (l₂ ++ (l₃ ++ l4)) = ((l₁ ++ l₂) ++ l₃) ++ l4 := by
   sorry
 
 -- An exercise about your implementation of `nonZeros`:
 
-theorem nonZeros_append (l1 l2 : NatList) :
-    nonZeros (l1 ++ l2) = (nonZeros l1) ++ (nonZeros l2) := by
+theorem nonZeros_append (l₁ l₂ : NatList) :
+    nonZeros (l₁ ++ l₂) = (nonZeros l₁) ++ (nonZeros l₂) := by
   sorry
 
 -- ### Exercise (2 stars): beq ⭐⭐
@@ -939,18 +911,16 @@ theorem nonZeros_append (l1 l2 : NatList) :
 -- Fill in the definition of `beq`, which compares lists of numbers for
 -- equality. Prove that `beq l l` yields `true` for every list `l`.
 
-def beq (l1 l2 : NatList) : Bool := sorry
+def beq (l₁ l₂ : NatList) : Bool := sorry
 
 theorem beq_nil : beq [] [] = true := sorry
 
-theorem beq_cons_def {h1 h2 : Nat} {t1 t2 : NatList} : beq (h1 :: t1) (h2 :: t2) = ((h1 == h2) && beq t1 t2) := sorry
-
-theorem beq_cons_same {h1 h2 : Nat} {t1 t2 : NatList} (h : (h1 == h2) = true) :
-    beq (h1 :: t1) (h2 :: t2) = beq t1 t2 := by
+theorem beq_cons_same {h₁ h₂ : Nat} {t₁ t₂ : NatList} (h : (h₁ == h₂) = true) :
+    beq (h₁ :: t₁) (h₂ :: t₂) = beq t₁ t₂ := by
   sorry
 
-theorem beq_cons_diff {h1 h2 : Nat} {t1 t2 : NatList} (h : (h1 == h2) = false) :
-    beq (h1 :: t1) (h2 :: t2) = false := by
+theorem beq_cons_diff {h₁ h₂ : Nat} {t₁ t₂ : NatList} (h : (h₁ == h₂) = false) :
+    beq (h₁ :: t₁) (h₂ :: t₂) = false := by
   sorry
 
 example : beq [] [] = true := sorry
@@ -1002,7 +972,7 @@ theorem remove_does_not_increase_count (l : NatList) :
 
 -- Prove that every involution is injective.
 
--- Involutions were defined above in `reverse_reverse`. An *injective*
+-- Involutions were defined above in `reverse_involutive`. An *injective*
 -- function is one-to-one: it maps distinct inputs to distinct outputs,
 -- without any collisions.
 
@@ -1047,10 +1017,10 @@ inductive NatOption : Type where
 
 namespace NatList
 
--- We can then change the above definition of `nthBad` to return `none` when
--- the list is too short and `some a` when the list has enough members and `a`
--- appears at position `n`. We call this new function `nth?` to indicate that
--- it may result in an error.
+-- We can then change the above definition of `nthBad` to return
+-- `NatOption.none` when the list is too short and `some a` when the list has
+-- enough members and `a` appears at position `n`. We call this new function
+-- `nth?` to indicate that it may result in an error.
 
 def nth? (l : NatList) (n : Nat) : NatOption :=
   match l with
@@ -1085,10 +1055,6 @@ def head? (l : NatList) : NatOption := sorry
 example : head? [] = .none := sorry
 theorem test_head?1 : head? [1] = .some 1 := sorry
 theorem test_head?2 : head? [5, 6] = .some 5 := sorry
-
-theorem head?_nil : head? [] = .none := sorry
-
-theorem head?_cons {h : Nat} {t : NatList} : head? (h :: t) = .some h := sorry
 
 -- ### Exercise (1 star): option_elim_head? ⭐
 
@@ -1130,7 +1096,7 @@ theorem MyId.beq_refl (x : MyId) : MyId.beq x x = true := by
 
 inductive PartialMap : Type where
   | empty : PartialMap
-  | record (i : MyId) (v : Nat) (m : PartialMap) : PartialMap
+  | record (i : MyId) (n : Nat) (m : PartialMap) : PartialMap
 
 -- This declaration can be read: "There are two ways to construct a
 -- `PartialMap`: either using the constructor `empty` to represent an empty
@@ -1155,16 +1121,16 @@ def update (d : PartialMap) (x : MyId) (value : Nat) : PartialMap :=
 def find (x : MyId) (d : PartialMap) : NatOption :=
   match d with
   | empty => .none
-  | record y v d' =>
-    bif MyId.beq x y then .some v
+  | record y n d' =>
+    bif MyId.beq x y then .some n
     else find x d'
 
 -- _Quiz:_
 
 -- Is the following claim true or false?
 
-theorem quiz1 (d : PartialMap) (x : MyId) (v : Nat) :
-    find x (update d x v) = .some v := by
+theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
+    find x (update d x n) = .some n := by
   dsimp [update, find]
   rw [MyId.beq_refl]
   dsimp
@@ -1187,8 +1153,8 @@ theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
 
 -- ### Exercise (1 star): update_eq ⭐
 
-theorem update_eq (d : PartialMap) (x : MyId) (v : Nat) :
-    find x (update d x v) = .some v := by
+theorem update_eq (d : PartialMap) (x : MyId) (n : Nat) :
+    find x (update d x n) = .some n := by
   sorry
 
 -- ### Exercise (1 star): update_neq ⭐

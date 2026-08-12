@@ -108,8 +108,8 @@ import LF.SFLCompat
 -- semi-automatically, and a highly extensible system for defining new
 -- proof-automation tactics and notations for specific situations.
 
--- Lean and its relatives have become a critical enablers for a huge variety
--- of work across computer science and mathematics:
+-- Lean and its relatives have become critical enablers for a huge variety of
+-- work across computer science and mathematics:
 
 -- Note to developers (Benjamin Pierce @bcpierce00):
 --     Need more examples, including specifically things accomplished in Lean.
@@ -126,12 +126,13 @@ import LF.SFLCompat
 --   LLVM instruction sets and programming languages such as C.
 
 -- - As *environments for developing formally certified software and hardware*,
---   they been used, for example, to build CompCert, a fully-verified optimizing
---   compiler for C, and CertiKOS, a fully verified hypervisor, for proving the
---   correctness of subtle algorithms involving floating point numbers, and as
---   the basis for CertiCrypt, FCF, and SSProve, which are frameworks for
---   proving cryptographic algorithms secure. They are also being used to build
---   verified implementations of the open-source RISC-V processor architecture.
+--   they have been used, for example, to build CompCert, a fully-verified
+--   optimizing compiler for C, and CertiKOS, a fully verified hypervisor, for
+--   proving the correctness of subtle algorithms involving floating point
+--   numbers, and as the basis for CertiCrypt, FCF, and SSProve, which are
+--   frameworks for proving cryptographic algorithms secure. They are also being
+--   used to build verified implementations of the open-source RISC-V processor
+--   architecture.
 
 -- - As *proof assistants for mathematics*, they have been used to validate and
 --   help develop a number of important results. For example, the ability to
@@ -148,7 +149,7 @@ import LF.SFLCompat
 -- *Functional programming* refers both to a collection of idioms that can be
 -- used in almost any programming language and to a family of languages
 -- designed to foreground these idioms, including Haskell, OCaml, Standard ML,
--- F##, Scala, Scheme, Racket, Common Lisp, Clojure, Erlang, F*, and Lean
+-- F#, Scala, Scheme, Racket, Common Lisp, Clojure, Erlang, F*, and Lean
 -- itself.
 
 -- Functional programming has been developed over many decades — indeed, its
