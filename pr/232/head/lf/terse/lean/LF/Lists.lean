@@ -456,7 +456,7 @@ theorem myRepeat_append_general {c₁ c₂ n : Nat} :
   | succ c1' ih =>
     rw [Nat.succ_add, repeat_succ, repeat_succ, cons_append, ih]
 
--- Then, we can use this more general theorem to prove our
+-- Then, we can use this more general theorem to prove the
 -- original goal:
 
 theorem myRepeat_append {c n : Nat} :

@@ -1,5 +1,5 @@
 {
-  "main_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
+  "main_sha": "3b07b36776c7ce449020f3eed3d5fd8137370ee5",
   "prs": {
     "171": {
       "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
@@ -283,53 +283,6 @@
       "title": "Basics: rework the last exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/213"
     },
-    "214": {
-      "base_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "46221d47c26863e4e44d51e4cf172a324b7ab7e0",
-      "preview_path": "pr/214/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31607697276",
-      "status": "published",
-      "title": "Cleaning up CONTRIBUTING.md and STYLE.md",
-      "url": "https://github.com/plclub/sf-in-lean/pull/214"
-    },
     "216": {
       "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
       "changed_variants": [],
@@ -388,50 +341,13 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/228"
     },
     "229": {
-      "base_sha": "66265d3e43e5847eb573ba1aa6b0509f9fa291ab",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "1b76045e7a9b74cf81b4d3643b98e47cc3635a29",
+      "base_sha": "3b07b36776c7ce449020f3eed3d5fd8137370ee5",
+      "changed_variants": [],
+      "head_sha": "f08059880873f271f73c1942bcdf528393cb566d",
       "preview_path": "pr/229/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31496101605",
-      "status": "published",
-      "title": "Bump to 4.33.0 [WIP]",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Bump to 4.33.0 + structure Totalmap",
       "url": "https://github.com/plclub/sf-in-lean/pull/229"
     },
     "230": {
@@ -492,7 +408,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
     },
     "232": {
-      "base_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
+      "base_sha": "3b07b36776c7ce449020f3eed3d5fd8137370ee5",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -531,9 +447,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "335dd6592dc0f83ed83a4cc692f949f6f49911a9",
+      "head_sha": "0f2f3967955f582ba7bf248faeb3149a33a497b0",
       "preview_path": "pr/232/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31606649475",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31609179248",
       "status": "published",
       "title": "Tackle dev comments in `Lists`",
       "url": "https://github.com/plclub/sf-in-lean/pull/232"
@@ -587,48 +503,11 @@
     },
     "238": {
       "base_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "1df11bc3273d3c78dcb77b476ee8c27d855de231",
+      "changed_variants": [],
+      "head_sha": "c9d95422ac4b4d8023fbace7496ececed99f44f5",
       "preview_path": "pr/238/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31605884380",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "branch_watch: nbsp in Changes counts, PR base branch, tidier non-PR line",
       "url": "https://github.com/plclub/sf-in-lean/pull/238"
     }

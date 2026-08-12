@@ -266,8 +266,8 @@ example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
 -- `BEq.refl : (a == a) = true`
 
 -- We'll learn more about type classes in chapter Typeclasses. For now, the
--- key idea is: a type class is an interface, and an instance is an
--- implementation of that interface for a particular type.
+-- key idea is just this: a type class is like an *interface*, and an instance
+-- is an implementation of that interface for a particular type.
 
 -- #### Head and Tail
 
@@ -700,7 +700,7 @@ theorem myRepeat_append_general {c₁ c₂ n : Nat} :
   | succ c1' ih =>
     rw [Nat.succ_add, repeat_succ, repeat_succ, cons_append, ih]
 
--- Then, we can use this more general theorem to prove our original goal:
+-- Then, we can use this more general theorem to prove the original goal:
 
 theorem myRepeat_append {c n : Nat} :
     myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
