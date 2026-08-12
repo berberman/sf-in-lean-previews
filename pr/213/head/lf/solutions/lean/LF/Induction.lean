@@ -620,6 +620,8 @@ theorem add_assoc'' (n m p : Nat) :
 -- `(n + m') + 1 = (m' + n) + 1`. This follows from the induction hypothesis
 -- `n + m' = m' + n`.
 
+-- *Qed*.
+
 -- ### Exercise (2 stars): beq_refl_informal ⭐⭐
 
 -- Write an informal proof of the following theorem, using the informal proof
@@ -638,6 +640,8 @@ theorem add_assoc'' (n m p : Nat) :
 -- - Next, suppose `n = n' + 1`, where `(n' == n') = true`. We must show
 --   `(n' + 1 == n' + 1) = true`. This follows directly from the induction
 --   hypothesis and the definition of `beq`.
+
+-- *Qed*.
 
 -- ## More Exercises
 

@@ -5,8 +5,6 @@ import LF.SFLCompat
 
 -- # IndProp: Inductively Defined Propositions
 
--- IMPORTBLOCK import LF.Logic IMPORTBLOCK import LF.CustomTactics
-
 -- ## Inductively Defined Propositions
 
 -- In the Logic chapter, we looked at several ways of writing propositions,
@@ -55,6 +53,9 @@ def csf (n : Nat) : Nat :=
 -- since the argument to the recursive call, `csf n`, is not "obviously
 -- smaller" than `n`.
 
+-- Note to developers (Kihong Heo @KihongHeo, NOW):
+--     Probably `reaches1In` according to STYLE.md?
+
 /--
 error: fail to show termination for
   reaches1_in
@@ -94,6 +95,9 @@ def reaches1_in (n : Nat) : Nat :=
 -- principle convince Lean that `div2 n` is smaller than `n`, we certainly
 -- can't convince it that `(3 * n) + 1` is smaller than `n`!
 
+-- Note to developers (Kihong Heo @KihongHeo, NOW):
+--     Probably `CollatzHoldsFor` according to STYLE.md?
+
 /--
 error: fail to show termination for
   collatz_holds_for
@@ -119,6 +123,10 @@ def collatz_holds_for (n : Nat) : Prop :=
   | 1 => True
   | _ => if n.even then collatz_holds_for (div2 n)
                    else collatz_holds_for ((3 * n) + 1)
+
+-- Note to developers (Kihong Heo @KihongHeo, NOW):
+--     I feel that this paragraph does not match the error message below. The
+--     Lean error msg refers to `div 2`.
 
 -- This recursive function is also rejected by the termination checker, since,
 -- while we could in principle convince Lean that `div2 n` is smaller than
@@ -390,7 +398,7 @@ def collatz' : Prop := ∀ (n : Nat), n ≠ 0 → cms n 1
 
 -- FILL IN HERE
 
--- Example: Permutations
+-- ### Example: Permutations
 
 -- The familiar mathematical concept of *permutation* also has an elegant
 -- formulation as an inductive relation. For simplicity, let's focus on
@@ -440,7 +448,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 
 -- ### Exercise (1 star): perm (manually graded) ⭐
 
--- According to this definition, is `\[1;2;3`] a permutation of itself?
+-- According to this definition, is `[1, 2, 3]` a permutation of itself?
 
 -- ### Example: Evenness (yet again)
 
@@ -762,16 +770,12 @@ theorem ev_4_ev_n : ∀ n,
   inversion h
   case ev_succ_succ h' => apply ev_succ_succ_ev; exact h'
 
--- - []
-
 -- ### Exercise (1 star): ev5_nonsense ⭐
 
 -- Prove the following result using `inversion`.
 
 theorem ev5_nonsense : Ev 5 → 2 + 2 = 9 := by
   sorry
-
--- - []
 
 -- We can use `inversion` to re-prove some theorems from `Tactics.lean`.
 
@@ -1335,7 +1339,7 @@ end R
 --   [1,3]
 --   [5,6,2,1,7,3,8].
 
--- - Define an inductive proposition `subseq` on `list Nat` that captures what
+-- - Define an inductive proposition `subseq` on `List Nat` that captures what
 --   it means to be a subsequence. There are a number of correct ways to do
 --   this. You should make sure that your definition behaves correctly on all
 --   the positive and negative examples above, but you do not need to prove this
@@ -1490,8 +1494,8 @@ example : ¬ (NoStutter [3, 1, 1, 4]) := by
 
 --   [4, 3].
 
--- Now, suppose we have a set `α`, a function `test: α→bool`, and a list `l`
--- of type `List α`. Suppose further that `l` is an in-order merge of two
+-- Now, suppose we have a type `α`, a function `test : α → Bool`, and a list
+-- `l` of type `List α`. Suppose further that `l` is an in-order merge of two
 -- lists, `l₁` and `l₂`, such that every item in `l₁` satisfies `test` and no
 -- item in `l₂` satisfies test. Then `filter test l = l₁`.
 
@@ -1522,20 +1526,20 @@ theorem merge_filter : ∀ (α : Type) (test: α→ Bool) (l l₁ l₂ : List α
 -- A palindrome is a sequence that reads the same backwards as forwards.
 
 -- - Define an inductive proposition `Pal` on `List α` that captures what it
---   means to be a palindrome. (Hint: You'll need three cases.
+--   means to be a palindrome. (Hint: You'll need three cases.)
 
--- - Prove (`pal_app_reverse`) that
+-- - Prove `pal_app_reverse`, which states that
 
---   ∀ l, pal (l ++ l.reverse).
+--   ∀ l, Pal (l ++ l.reverse).
 
--- - Prove (`pal_reverse` that)
+-- - Prove `pal_reverse`, which states that
 
---   ∀ l, pal l → l = l.reverse.
+--   ∀ l, Pal l → l = l.reverse.
 
 -- For extra credit, try proving the same theorems with an alternate
 -- definition with a *single* constructor of this type:
 
---   ∀ l, l = l.reverse → pal l
+--   ∀ l, l = l.reverse → Pal l
 
 inductive Pal {α:Type} : List α → Prop where
 -- FILL IN HERE
@@ -1564,17 +1568,18 @@ theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
 
 -- ### Exercise (4 stars): NoDup (Advanced) ⭐⭐⭐⭐
 
--- Use the `∈` property to define a proposition `disjoint α l₁ l₂`, which
--- should be provable exactly when `l₁` and `l₂` are lists (with elements of
--- type α) that have no elements in common.
+-- Use the `∈` property to define a proposition `disjoint l₁ l₂`, which should
+-- be provable exactly when `l₁` and `l₂` are lists (with elements of type
+-- `α`) that have no elements in common.
 
 -- FILL IN HERE
 
--- Next, use `∈` to define an inductive proposition [NoDup α l], which should
--- be provable exactly when `l` is a list (with elements of type `α`) where
--- every member is different from every other. For example,
--- `NoDup Nat [1, 2, 3,  4]` and `NoDup Bool []` should be provable, while
--- `NoDup Nat \[1, 2, 1`] and `NoDup Bool [true, true]` should not be.
+-- Next, use `∈` to define an inductive proposition `NoDup l`, which should be
+-- provable exactly when `l` is a list (with elements of type `α`) where every
+-- member is different from every other. For example,
+-- `NoDup ([1, 2, 3, 4] : List Nat)` and `NoDup ([] : List Bool)` should be
+-- provable, while `NoDup ([1, 2, 1] : List Nat)` and
+-- `NoDup ([true, true] : List Bool)` should not be.
 
 -- FILL IN HERE
 

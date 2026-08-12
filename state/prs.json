@@ -238,11 +238,48 @@
     },
     "213": {
       "base_sha": "d588d9ce187721ec3c683aadb222e9e43f768bfb",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "b60ee0ecd4335ef0659cf16d3bce843dc35742ef",
       "preview_path": "pr/213/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31627002217",
+      "status": "published",
       "title": "Basics: rework the last exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/213"
     },

@@ -50,6 +50,17 @@
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
+   "Postscript":
+   [{"id": "Postscript",
+     "data":
+     {"title": "Postscript",
+      "shortTitle": null,
+      "sectionNum": "12.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"}]},
+     "address": "/Postscript/"}],
    "Poly":
    [{"id": "Poly",
      "data":
@@ -546,6 +557,220 @@
         "number": "7"},
        {"title": "Review", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
+   "Logical-Foundations--Preface--Welcome":
+   [{"id": "Logical-Foundations--Preface--Welcome",
+     "data":
+     {"title": "Welcome",
+      "shortTitle": null,
+      "sectionNum": "1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Welcome", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--System-Requirements":
+   [{"id": "Logical-Foundations--Preface--Practicalities--System-Requirements",
+     "data":
+     {"title": "System Requirements",
+      "shortTitle": null,
+      "sectionNum": "1.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "System Requirements", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Installation":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Installation",
+     "data":
+     {"title": "Installation",
+      "shortTitle": null,
+      "sectionNum": "1.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Installation", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Exercises":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Exercises",
+     "data":
+     {"title": "Exercises",
+      "shortTitle": null,
+      "sectionNum": "1.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Exercises", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Citation-Format":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Citation-Format",
+     "data":
+     {"title": "Citation Format",
+      "shortTitle": null,
+      "sectionNum": "1.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Citation Format", "shortTitle": null, "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities":
+   [{"id": "Logical-Foundations--Preface--Practicalities",
+     "data":
+     {"title": "Practicalities",
+      "shortTitle": null,
+      "sectionNum": "1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Proof-Assistants":
+   [{"id": "Logical-Foundations--Preface--Overview--Proof-Assistants",
+     "data":
+     {"title": "Proof Assistants",
+      "shortTitle": null,
+      "sectionNum": "1.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Proof Assistants", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Logic":
+   [{"id": "Logical-Foundations--Preface--Overview--Logic",
+     "data":
+     {"title": "Logic",
+      "shortTitle": null,
+      "sectionNum": "1.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Logic", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Further-Reading":
+   [{"id": "Logical-Foundations--Preface--Overview--Further-Reading",
+     "data":
+     {"title": "Further Reading",
+      "shortTitle": null,
+      "sectionNum": "1.2.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Further Reading", "shortTitle": null, "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Functional-Programming":
+   [{"id": "Logical-Foundations--Preface--Overview--Functional-Programming",
+     "data":
+     {"title": "Functional Programming",
+      "shortTitle": null,
+      "sectionNum": "1.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Functional Programming", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview":
+   [{"id": "Logical-Foundations--Preface--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--For-Potential-Contributors":
+   [{"id": "Logical-Foundations--Preface--For-Potential-Contributors",
+     "data":
+     {"title": "For Potential Contributors",
+      "shortTitle": null,
+      "sectionNum": "1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Potential Contributors",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--For-Instructors":
+   [{"id": "Logical-Foundations--Preface--For-Instructors",
+     "data":
+     {"title": "For Instructors",
+      "shortTitle": null,
+      "sectionNum": "1.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Instructors", "shortTitle": null, "number": "5"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Acknowledgements":
+   [{"id": "Logical-Foundations--Preface--Acknowledgements",
+     "data":
+     {"title": "Acknowledgements",
+      "shortTitle": null,
+      "sectionNum": "1.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Acknowledgements", "shortTitle": null, "number": "6"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Postscript--Resources":
+   [{"id": "Logical-Foundations--Postscript--Resources",
+     "data":
+     {"title": "Resources",
+      "shortTitle": null,
+      "sectionNum": "12.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Resources", "shortTitle": null, "number": "3"}]},
+     "address": "/Postscript/"}],
+   "Logical-Foundations--Postscript--Looking-Forward":
+   [{"id": "Logical-Foundations--Postscript--Looking-Forward",
+     "data":
+     {"title": "Looking Forward",
+      "shortTitle": null,
+      "sectionNum": "12.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Looking Forward", "shortTitle": null, "number": "2"}]},
+     "address": "/Postscript/"}],
+   "Logical-Foundations--Postscript--Looking-Back":
+   [{"id": "Logical-Foundations--Postscript--Looking-Back",
+     "data":
+     {"title": "Looking Back",
+      "shortTitle": null,
+      "sectionNum": "12.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Looking Back", "shortTitle": null, "number": "1"}]},
+     "address": "/Postscript/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs":
    [{"id":
      "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs",
@@ -1054,43 +1279,11 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Search":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Search",
-     "data":
-     {"title": "Search",
-      "shortTitle": null,
-      "sectionNum": "5.3.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
-       {"title": "Search", "shortTitle": null, "number": "2"}]},
-     "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
    [{"id":
      "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2",
      "data":
      {"title": "List Exercises, Part 2",
-      "shortTitle": null,
-      "sectionNum": "5.3.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
-       {"title": "List Exercises, Part 2", "shortTitle": null, "number": "4"}]},
-     "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1",
-     "data":
-     {"title": "List Exercises, Part 1",
       "shortTitle": null,
       "sectionNum": "5.3.3.",
       "searchPriority": 50,
@@ -1100,7 +1293,23 @@
         "shortTitle": null,
         "number": "5"},
        {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
-       {"title": "List Exercises, Part 1", "shortTitle": null, "number": "3"}]},
+       {"title": "List Exercises, Part 2", "shortTitle": null, "number": "3"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1",
+     "data":
+     {"title": "List Exercises, Part 1",
+      "shortTitle": null,
+      "sectionNum": "5.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
+       {"title": "List Exercises, Part 1", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Induction-on-Lists--Reversing-a-List":
    [{"id":
@@ -1669,11 +1878,11 @@
         "shortTitle": null,
         "number": "4"}]},
      "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_":
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Permutations":
    [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_",
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Permutations",
      "data":
-     {"title": "Example: Evenness (yet again)",
+     {"title": "Example: Permutations",
       "shortTitle": null,
       "sectionNum": "9.1.5.",
       "searchPriority": 50,
@@ -1685,9 +1894,27 @@
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
+       {"title": "Example: Permutations", "shortTitle": null, "number": "5"}]},
+     "address": "/IndProp/"}],
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_":
+   [{"id":
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Evenness-_LPAR_yet-again_RPAR_",
+     "data":
+     {"title": "Example: Evenness (yet again)",
+      "shortTitle": null,
+      "sectionNum": "9.1.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "IndProp: Inductively Defined Propositions",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Inductively Defined Propositions",
+        "shortTitle": null,
+        "number": "1"},
        {"title": "Example: Evenness (yet again)",
         "shortTitle": null,
-        "number": "5"}]},
+        "number": "6"}]},
      "address": "/IndProp/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers":
    [{"id":
@@ -1715,7 +1942,7 @@
      "data":
      {"title": "Constructing Evidence for Permutations",
       "shortTitle": null,
-      "sectionNum": "9.1.6.",
+      "sectionNum": "9.1.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -1727,7 +1954,7 @@
         "number": "1"},
        {"title": "Constructing Evidence for Permutations",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "7"}]},
      "address": "/IndProp/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions":
    [{"id":
@@ -4385,7 +4612,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero-next",
+   [{"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4400,7 +4627,7 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero",
+    {"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -7560,7 +7787,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3.perm3_swap23":
    [{"id": "Perm3___perm3_swap23",
@@ -7571,7 +7798,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3.perm3_swap12":
    [{"id": "Perm3___perm3_swap12",
@@ -7582,7 +7809,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3":
    [{"id": "Perm3",
@@ -7593,7 +7820,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "PartialMap.update_subset":
    [{"id": "PartialMap___update_subset",
@@ -10896,22 +11123,22 @@
         "Lists of Numbers",
         "Removing"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.test_removeAll2":
-   [{"id": "Lists___NatList___test_removeAll2",
+   "Lists.NatList.test_removeAll₁":
+   [{"id": "Lists___NatList___test_removeAll___",
      "data":
-     {"/Lists/#Lists___NatList___test_removeAll2":
-      {"display": "test_removeAll2",
+     {"/Lists/#Lists___NatList___test_removeAll___":
+      {"display": "test_removeAll₁",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
         "Removing"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.test_removeAll1":
-   [{"id": "Lists___NatList___test_removeAll1",
+   "Lists.NatList.test_removeAll2":
+   [{"id": "Lists___NatList___test_removeAll2",
      "data":
-     {"/Lists/#Lists___NatList___test_removeAll1":
-      {"display": "test_removeAll1",
+     {"/Lists/#Lists___NatList___test_removeAll2":
+      {"display": "test_removeAll2",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
@@ -11146,17 +11373,6 @@
         "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.reverse_reverse":
-   [{"id": "Lists___NatList___reverse_reverse",
-     "data":
-     {"/Lists/#Lists___NatList___reverse_reverse":
-      {"display": "reverse_reverse",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "List Exercises, Part 1"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.reverse_nil":
    [{"id": "Lists___NatList___reverse_nil",
      "data":
@@ -11168,6 +11384,17 @@
         "Reasoning About Lists",
         "Induction on Lists",
         "Reversing a List"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.reverse_involutive":
+   [{"id": "Lists___NatList___reverse_involutive",
+     "data":
+     {"/Lists/#Lists___NatList___reverse_involutive":
+      {"display": "reverse_involutive",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "List Exercises, Part 1"]}},
      "address": "/Lists/"}],
    "Lists.NatList.reverse_injective":
    [{"id": "Lists___NatList___reverse_injective",
@@ -11237,6 +11464,17 @@
         "Lists of Numbers",
         "Repeat"]}},
      "address": "/Lists/"}],
+   "Lists.NatList.remove_does_not_increase_count'":
+   [{"id": "Lists___NatList___remove_does_not_increase_count___",
+     "data":
+     {"/Lists/#Lists___NatList___remove_does_not_increase_count___":
+      {"display": "remove_does_not_increase_count'",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "List Exercises, Part 2"]}},
+     "address": "/Lists/"}],
    "Lists.NatList.remove_does_not_increase_count":
    [{"id": "Lists___NatList___remove_does_not_increase_count",
      "data":
@@ -11281,17 +11519,6 @@
         "Lists of Numbers",
         "Removing"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.removeOne_cons_def":
-   [{"id": "Lists___NatList___removeOne_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___removeOne_cons_def":
-      {"display": "removeOne_cons_def",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Removing"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.removeOne":
    [{"id": "Lists___NatList___removeOne",
      "data":
@@ -11330,17 +11557,6 @@
      "data":
      {"/Lists/#Lists___NatList___removeAll_cons_diff":
       {"display": "removeAll_cons_diff",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Removing"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.removeAll_cons_def":
-   [{"id": "Lists___NatList___removeAll_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___removeAll_cons_def":
-      {"display": "removeAll_cons_def",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
@@ -11558,37 +11774,34 @@
         "Lists: Working with Structured Data",
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append-next",
+   "Lists.NatList.myRepeat_append_general":
+   [{"id": "Lists___NatList___myRepeat_append_general",
      "data":
-     {"/Lists/#Lists___NatList___myRepeat_append-next":
-      {"display": "myRepeat_append",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]},
-      "/Lists/#Lists___NatList___myRepeat_append":
-      {"display": "myRepeat_append",
+     {"/Lists/#Lists___NatList___myRepeat_append_general":
+      {"display": "myRepeat_append_general",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Reasoning About Lists",
         "Induction on Lists",
         "Generalizing Statements"]}},
-     "address": "/Lists/"},
-    {"id": "Lists___NatList___myRepeat_append",
+     "address": "/Lists/"}],
+   "Lists.NatList.myRepeat_append_fail":
+   [{"id": "Lists___NatList___myRepeat_append_fail",
      "data":
-     {"/Lists/#Lists___NatList___myRepeat_append-next":
-      {"display": "myRepeat_append",
+     {"/Lists/#Lists___NatList___myRepeat_append_fail":
+      {"display": "myRepeat_append_fail",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Reasoning About Lists",
         "Induction on Lists",
-        "Generalizing Statements"]},
-      "/Lists/#Lists___NatList___myRepeat_append":
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.myRepeat_append":
+   [{"id": "Lists___NatList___myRepeat_append",
+     "data":
+     {"/Lists/#Lists___NatList___myRepeat_append":
       {"display": "myRepeat_append",
        "context":
        ["Logical Foundations",
@@ -11635,17 +11848,6 @@
      "data":
      {"/Lists/#Lists___NatList___member_cons_diff":
       {"display": "member_cons_diff",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Membership"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.member_cons_def":
-   [{"id": "Lists___NatList___member_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___member_cons_def":
-      {"display": "member_cons_def",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
@@ -11776,17 +11978,6 @@
         "Lists of Numbers",
         "Included"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.included_cons_def":
-   [{"id": "Lists___NatList___included_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___included_cons_def":
-      {"display": "included_cons_def",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Included"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.included":
    [{"id": "Lists___NatList___included",
      "data":
@@ -11909,17 +12100,6 @@
         "Lists of Numbers",
         "Counting"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.count_cons_inc":
-   [{"id": "Lists___NatList___count_cons_inc",
-     "data":
-     {"/Lists/#Lists___NatList___count_cons_inc":
-      {"display": "count_cons_inc",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Included"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.count_cons_diff":
    [{"id": "Lists___NatList___count_cons_diff",
      "data":
@@ -11952,18 +12132,6 @@
         "Lists: Working with Structured Data",
         "Reasoning About Lists",
         "List Exercises, Part 2"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.countOddMembers_def":
-   [{"id": "Lists___NatList___countOddMembers_def",
-     "data":
-     {"/Lists/#Lists___NatList___countOddMembers_def":
-      {"display": "countOddMembers_def",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Type Classes and Overloading",
-        "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.countOddMembers":
    [{"id": "Lists___NatList___countOddMembers",
@@ -12058,17 +12226,6 @@
      "data":
      {"/Lists/#Lists___NatList___beq_cons_diff":
       {"display": "beq_cons_diff",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "List Exercises, Part 1"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.beq_cons_def":
-   [{"id": "Lists___NatList___beq_cons_def",
-     "data":
-     {"/Lists/#Lists___NatList___beq_cons_def":
-      {"display": "beq_cons_def",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
