@@ -4118,17 +4118,6 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "excluded_middle":
-   [{"id": "excluded_middle",
-     "data":
-     {"/Logic/#excluded_middle":
-      {"display": "excluded_middle",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "ex_falso_quodlibet":
    [{"id": "ex_falso_quodlibet",
      "data":
@@ -8507,6 +8496,17 @@
         "Polymorphic Lists",
         "Supplying Type Arguments Explicitly"]}},
      "address": "/Poly/"}],
+   "ExcludedMiddle":
+   [{"id": "ExcludedMiddle",
+     "data":
+     {"/Logic/#ExcludedMiddle":
+      {"display": "ExcludedMiddle",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "EvPlayground.Ev.ev_succ_succ":
    [{"id": "EvPlayground___Ev___ev_succ_succ",
      "data":

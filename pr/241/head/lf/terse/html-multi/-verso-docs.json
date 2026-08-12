@@ -94,7 +94,7 @@
  "930":
  "<code>Classical.em (p : Prop) : p ∨ ¬p</code><span class=\"sep\"></span><code class=\"docstring\">**Diaconescu's theorem**: excluded middle from choice, Function extensionality and propositional extensionality. </code>",
  "93": "<code>Playground.Bit.b1 : Bit</code>",
- "929": "<code>excluded_middle : Prop</code>",
+ "929": "<code>ExcludedMiddle : Prop</code>",
  "928":
  "<code>add_comm_fun' : (fun n m =&gt; n + m) = fun n m =&gt; m + n</code>",
  "927":

@@ -1648,12 +1648,12 @@ theorem trRev_correct {α : Type} : @trRev α = @List.rev α := by
 -- following intuitive reasoning principle is not derivable in Lean with the
 -- tools we've seen so far:
 
-def excluded_middle := ∀ a : Prop, a ∨ ¬ a
+def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 
 -- To understand operationally why this is the case, recall that, to prove a
 -- statement of the form `a ∨ b`, we use the `left` and `right` tactics, which
 -- effectively require knowing which side of the disjunction holds. But the
--- universally quantified `a` in `excluded_middle` is an *arbitrary*
+-- universally quantified `a` in `ExcludedMiddle` is an *arbitrary*
 -- proposition, which we know nothing about. We don't have enough information
 -- to choose which of `left` or `right` to apply.
 
@@ -1802,28 +1802,28 @@ theorem not_exists_dist (α : Type) (p : α → Prop) :
 
 -- For those who like a challenge, here is an exercise adapted from the
 -- Coq'Art book by Bertot and Casteran (p. 123). Each of the following five
--- statements, together with `excluded_middle`, can be considered as
+-- statements, together with `ExcludedMiddle`, can be considered as
 -- characterizing classical logic. We can't prove any one of them in Lean
 -- without `Classical`, but adding any *one* of them as an axiom allows us to
 -- work classically.
 
 -- To see this, prove that all six propositions (these five plus
--- `excluded_middle`) are equivalent.
+-- `ExcludedMiddle`) are equivalent.
 
 -- Hint: Rather than considering all pairs of statements pairwise, prove a
 -- single circular chain of implications that connects them all. You should
 -- not use `by_cases`, as this implicitly introduces a dependency on
--- `excluded_middle`.
+-- `ExcludedMiddle`.
 
-def peirce := ∀ a b : Prop, ((a → b) → a) → a
+def Peirce := ∀ a b : Prop, ((a → b) → a) → a
 
-def not_not := ∀ a : Prop, ¬ ¬ a → a
+def NotNot := ∀ a : Prop, ¬ ¬ a → a
 
-def de_morgan_not_and_not := ∀ a b : Prop, ¬ (¬ a ∧ ¬ b) → a ∨ b
+def DeMorganNotAndNot := ∀ a b : Prop, ¬ (¬ a ∧ ¬ b) → a ∨ b
 
-def imp_or := ∀ a b : Prop, (a → b) → (¬ a ∨ b)
+def ImpOr := ∀ a b : Prop, (a → b) → (¬ a ∨ b)
 
-def consequentia_mirabilis := ∀ a : Prop, (¬ a → a) → a
+def ConsequentiaMirabilis := ∀ a : Prop, (¬ a → a) → a
 
 -- FILL IN HERE
 

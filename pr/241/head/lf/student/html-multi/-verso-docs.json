@@ -2247,11 +2247,11 @@
  "1231": "<code>csf (n : Nat) : Nat</code>",
  "1230": "<code>div2 (n : Nat) : Nat</code>",
  "123": "<code>NatPlayground.Nat.zero : Nat</code>",
- "1229": "<code>consequentia_mirabilis : Prop</code>",
- "1228": "<code>imp_or : Prop</code>",
- "1227": "<code>de_morgan_not_and_not : Prop</code>",
- "1226": "<code>not_not : Prop</code>",
- "1225": "<code>peirce : Prop</code>",
+ "1229": "<code>ConsequentiaMirabilis : Prop</code>",
+ "1228": "<code>ImpOr : Prop</code>",
+ "1227": "<code>DeMorganNotAndNot : Prop</code>",
+ "1226": "<code>NotNot : Prop</code>",
+ "1225": "<code>Peirce : Prop</code>",
  "1224":
  "<code>not_exists_dist (α : Type) (p : α → Prop) : (¬∃ x, ¬p x) → ∀ (x : α), p x</code>",
  "1223": "<code>excluded_middle_irrefutable (a : Prop) : ¬¬(a ∨ ¬a)</code>",
@@ -2273,7 +2273,7 @@
  "1213": "<code>a ↔ b = true</code>",
  "1212":
  "<code>restricted_excluded_middle (a : Prop) (b : Bool) (h : a ↔ b = true) : a ∨ ¬a</code>",
- "1211": "<code>excluded_middle : Prop</code>",
+ "1211": "<code>ExcludedMiddle : Prop</code>",
  "1210": "<code>trRev_correct {α : Type} : trRev = List.rev</code>",
  "121":
  "<code>makeNibbleStruct (x0 x1 x2 x3 : Playground.Bit) : NibbleStruct</code>",

@@ -3946,17 +3946,6 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "peirce":
-   [{"id": "peirce",
-     "data":
-     {"/Logic/#peirce":
-      {"display": "peirce",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "partition":
    [{"id": "partition",
      "data":
@@ -4166,17 +4155,6 @@
      "data":
      {"/Logic/#not_not_cm":
       {"display": "not_not_cm",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
-   "not_not":
-   [{"id": "not_not",
-     "data":
-     {"/Logic/#not_not":
-      {"display": "not_not",
        "context":
        ["Logical Foundations",
         "Logic in Lean",
@@ -4840,28 +4818,6 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
-   "imp_or_em":
-   [{"id": "imp_or_em",
-     "data":
-     {"/Logic/#imp_or_em":
-      {"display": "imp_or_em",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
-   "imp_or":
-   [{"id": "imp_or",
-     "data":
-     {"/Logic/#imp_or":
-      {"display": "imp_or",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "iff_trans":
    [{"id": "iff_trans",
      "data":
@@ -5221,17 +5177,6 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "excluded_middle":
-   [{"id": "excluded_middle",
-     "data":
-     {"/Logic/#excluded_middle":
-      {"display": "excluded_middle",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "ex_falso_quodlibet":
    [{"id": "ex_falso_quodlibet",
      "data":
@@ -5458,17 +5403,6 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "em_imp_or":
-   [{"id": "em_imp_or",
-     "data":
-     {"/Logic/#em_imp_or":
-      {"display": "em_imp_or",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "em_demorgan":
    [{"id": "em_demorgan",
      "data":
@@ -5485,6 +5419,17 @@
      "data":
      {"/Logic/#em_cm":
       {"display": "em_cm",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
+   "em_ImpOr":
+   [{"id": "em_ImpOr",
+     "data":
+     {"/Logic/#em_ImpOr":
+      {"display": "em_ImpOr",
        "context":
        ["Logical Foundations",
         "Logic in Lean",
@@ -5670,17 +5615,6 @@
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
-   "de_morgan_not_and_not":
-   [{"id": "de_morgan_not_and_not",
-     "data":
-     {"/Logic/#de_morgan_not_and_not":
-      {"display": "de_morgan_not_and_not",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "curry_uncurry":
    [{"id": "curry_uncurry",
      "data":
@@ -5757,17 +5691,6 @@
         "Functions as Data",
         "Functions That Construct Functions"]}},
      "address": "/Poly/"}],
-   "consequentia_mirabilis":
-   [{"id": "consequentia_mirabilis",
-     "data":
-     {"/Logic/#consequentia_mirabilis":
-      {"display": "consequentia_mirabilis",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "complicated_computation":
    [{"id": "complicated_computation",
      "data":
@@ -7824,6 +7747,17 @@
         "Inductively Defined Propositions",
         "Example: Permutations"]}},
      "address": "/IndProp/"}],
+   "Peirce":
+   [{"id": "Peirce",
+     "data":
+     {"/Logic/#Peirce":
+      {"display": "Peirce",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "PartialMap.update_subset":
    [{"id": "PartialMap___update_subset",
      "data":
@@ -8085,6 +8019,17 @@
         "Polymorphism",
         "Polymorphic Options"]}},
      "address": "/Poly/"}],
+   "NotNot":
+   [{"id": "NotNot",
+     "data":
+     {"/Logic/#NotNot":
+      {"display": "NotNot",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "NoStutter.nostutter2":
    [{"id": "NoStutter___nostutter2",
      "data":
@@ -12812,6 +12757,28 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
+   "ImpOr_em":
+   [{"id": "ImpOr_em",
+     "data":
+     {"/Logic/#ImpOr_em":
+      {"display": "ImpOr_em",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
+   "ImpOr":
+   [{"id": "ImpOr",
+     "data":
+     {"/Logic/#ImpOr":
+      {"display": "ImpOr",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "HasTwoIncomplete.two":
    [{"id": "HasTwoIncomplete___two",
      "data":
@@ -12960,6 +12927,17 @@
         "Polymorphic Lists",
         "Supplying Type Arguments Explicitly"]}},
      "address": "/Poly/"}],
+   "ExcludedMiddle":
+   [{"id": "ExcludedMiddle",
+     "data":
+     {"/Logic/#ExcludedMiddle":
+      {"display": "ExcludedMiddle",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "EvPlayground.Ev.ev_succ_succ":
    [{"id": "EvPlayground___Ev___ev_succ_succ",
      "data":
@@ -13137,6 +13115,17 @@
         "Typeclasses",
         "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
+   "DeMorganNotAndNot":
+   [{"id": "DeMorganNotAndNot",
+     "data":
+     {"/Logic/#DeMorganNotAndNot":
+      {"display": "DeMorganNotAndNot",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "Day.wednesday":
    [{"id": "Day___wednesday",
      "data":
@@ -13236,6 +13225,17 @@
         "Data and Functions",
         "Days of the Week (Enumerated Types)"]}},
      "address": "/Basics/"}],
+   "ConsequentiaMirabilis":
+   [{"id": "ConsequentiaMirabilis",
+     "data":
+     {"/Logic/#ConsequentiaMirabilis":
+      {"display": "ConsequentiaMirabilis",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "CombineOddEven":
    [{"id": "CombineOddEven",
      "data":
