@@ -889,102 +889,6 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
-.marginalia .note {
-  position: relative;
-  padding: 0.5rem;
-}
-
-/*
-The margin-note layout responds to the width of <main>, not the viewport, because the
-ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
-query container (see Html/Style.lean), so the container queries below track the actual
-content width.
-
-There are two "in the margin" regimes, split at the same width where the content stops
-being left-aligned and becomes centered (1112px and 1212px of content width; at the
-default ToC width these are the old 1400px and 1500px viewport breakpoints):
-
-  * While the content is left-aligned there is a large area to its right, so a fixed
-    13rem note with a fixed 16rem overhang fits comfortably.
-  * Once the content is centered the note must fit the symmetric right gap, whose width
-    is (content - text column) / 2. A fixed overhang would overflow the page for content
-    widths just above the centering threshold, so the note and its overhang are sized in
-    container units, which always fit that gap.
-*/
-
-/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
-@media screen and (width <= 700px) {
-  .marginalia .note {
-    float: left;
-    clear: left;
-    width: 90%;
-    margin: 1rem 5%;
-  }
-}
-
-/* Wider than a phone: by default float the note at the right of the text column,
-   overlapping the content. The container queries below lift it into the true margin
-   once there is room. */
-@media screen and (min-width: 701px) {
-  .marginalia .note {
-    float: right;
-    clear: right;
-    width: 40%;
-    margin: 1rem 0;
-    margin-left: 10%;
-  }
-}
-
-/* Left-aligned content: a fixed-size note in the wide area to its right. */
-@container main (width >= 1112px) {
-  .marginalia .note {
-    float: right;
-    clear: right;
-    width: 13rem;
-    margin: 1rem -16rem 0 0;
-  }
-}
-
-/* Centered content: size the note in container units so it always fits the symmetric
-   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
-   so the fixed-overhang note above is only ever used while the content is left-aligned.
-   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
-   content width at which the content is centered. */
-@container main (width >= 1212px) {
-  .marginalia .note {
-    width: 15cqi;
-    margin-right: -18cqi;
-  }
-}
-
-.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
-  background-color: var(--lean-accent-light-blue);
-}
-
-body {
-  counter-reset: margin-note-counter;
-}
-.marginalia .note {
-  counter-increment: margin-note-counter;
-}
-.marginalia .note::before {
-  content: counter(margin-note-counter) ".";
-  position: absolute;
-  vertical-align: baseline;
-  font-size: 0.9em;
-  font-weight: bold;
-  left: -3rem;
-  width: 3rem;
-  text-align: right;
-}
-.marginalia::after {
-  content: counter(margin-note-counter);
-  vertical-align: super;
-  font-size: 0.7em;
-  font-weight: bold;
-  margin-right: 0.5em;
-}
-</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1873,6 +1777,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
+   "Postscript":
+   [{"id": "Postscript",
+     "data":
+     {"title": "Postscript",
+      "shortTitle": null,
+      "sectionNum": "12.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"}]},
+     "address": "/Postscript/"}],
    "Poly":
    [{"id": "Poly",
      "data":
@@ -2369,6 +2284,220 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "number": "7"},
        {"title": "Review", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
+   "Logical-Foundations--Preface--Welcome":
+   [{"id": "Logical-Foundations--Preface--Welcome",
+     "data":
+     {"title": "Welcome",
+      "shortTitle": null,
+      "sectionNum": "1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Welcome", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--System-Requirements":
+   [{"id": "Logical-Foundations--Preface--Practicalities--System-Requirements",
+     "data":
+     {"title": "System Requirements",
+      "shortTitle": null,
+      "sectionNum": "1.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "System Requirements", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Installation":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Installation",
+     "data":
+     {"title": "Installation",
+      "shortTitle": null,
+      "sectionNum": "1.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Installation", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Exercises":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Exercises",
+     "data":
+     {"title": "Exercises",
+      "shortTitle": null,
+      "sectionNum": "1.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Exercises", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Citation-Format":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Citation-Format",
+     "data":
+     {"title": "Citation Format",
+      "shortTitle": null,
+      "sectionNum": "1.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Citation Format", "shortTitle": null, "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities":
+   [{"id": "Logical-Foundations--Preface--Practicalities",
+     "data":
+     {"title": "Practicalities",
+      "shortTitle": null,
+      "sectionNum": "1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Proof-Assistants":
+   [{"id": "Logical-Foundations--Preface--Overview--Proof-Assistants",
+     "data":
+     {"title": "Proof Assistants",
+      "shortTitle": null,
+      "sectionNum": "1.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Proof Assistants", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Logic":
+   [{"id": "Logical-Foundations--Preface--Overview--Logic",
+     "data":
+     {"title": "Logic",
+      "shortTitle": null,
+      "sectionNum": "1.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Logic", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Further-Reading":
+   [{"id": "Logical-Foundations--Preface--Overview--Further-Reading",
+     "data":
+     {"title": "Further Reading",
+      "shortTitle": null,
+      "sectionNum": "1.2.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Further Reading", "shortTitle": null, "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview--Functional-Programming":
+   [{"id": "Logical-Foundations--Preface--Overview--Functional-Programming",
+     "data":
+     {"title": "Functional Programming",
+      "shortTitle": null,
+      "sectionNum": "1.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"},
+       {"title": "Functional Programming", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Overview":
+   [{"id": "Logical-Foundations--Preface--Overview",
+     "data":
+     {"title": "Overview",
+      "shortTitle": null,
+      "sectionNum": "1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Overview", "shortTitle": null, "number": "2"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--For-Potential-Contributors":
+   [{"id": "Logical-Foundations--Preface--For-Potential-Contributors",
+     "data":
+     {"title": "For Potential Contributors",
+      "shortTitle": null,
+      "sectionNum": "1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Potential Contributors",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--For-Instructors":
+   [{"id": "Logical-Foundations--Preface--For-Instructors",
+     "data":
+     {"title": "For Instructors",
+      "shortTitle": null,
+      "sectionNum": "1.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Instructors", "shortTitle": null, "number": "5"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Acknowledgements":
+   [{"id": "Logical-Foundations--Preface--Acknowledgements",
+     "data":
+     {"title": "Acknowledgements",
+      "shortTitle": null,
+      "sectionNum": "1.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Acknowledgements", "shortTitle": null, "number": "6"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Postscript--Resources":
+   [{"id": "Logical-Foundations--Postscript--Resources",
+     "data":
+     {"title": "Resources",
+      "shortTitle": null,
+      "sectionNum": "12.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Resources", "shortTitle": null, "number": "3"}]},
+     "address": "/Postscript/"}],
+   "Logical-Foundations--Postscript--Looking-Forward":
+   [{"id": "Logical-Foundations--Postscript--Looking-Forward",
+     "data":
+     {"title": "Looking Forward",
+      "shortTitle": null,
+      "sectionNum": "12.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Looking Forward", "shortTitle": null, "number": "2"}]},
+     "address": "/Postscript/"}],
+   "Logical-Foundations--Postscript--Looking-Back":
+   [{"id": "Logical-Foundations--Postscript--Looking-Back",
+     "data":
+     {"title": "Looking Back",
+      "shortTitle": null,
+      "sectionNum": "12.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Postscript", "shortTitle": null, "number": "12"},
+       {"title": "Looking Back", "shortTitle": null, "number": "1"}]},
+     "address": "/Postscript/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs":
    [{"id":
      "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Pairs",
@@ -6212,7 +6341,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero",
+   [{"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -6227,7 +6356,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero-next",
+    {"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -8211,7 +8340,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
+   [{"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -8220,7 +8349,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
+    {"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -14088,7 +14217,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly",
+   [{"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -14099,7 +14228,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly-next",
+    {"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -15829,7 +15958,7 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Basics/#Basics">Basics: Functional Programming in Lean</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Induction/#Induction">Induction: Proof by Induction</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="UsingLean/#UsingLean">UsingLean: Using the full power of a proof assistant</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Lists/#Lists">Lists: Working with Structured Data</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Poly/#Poly">Poly: Polymorphism and Higher-Order Functions</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="Tactics/#Tactics">Tactics: More Basic Tactics</a></td></tr><tr class="numbered"><td class="num">8.</td><td><a href="Logic/#Logic">Logic in Lean</a></td></tr><tr class="numbered"><td class="num">9.</td><td><a href="IndProp/#IndProp">IndProp: Inductively Defined Propositions</a></td></tr><tr class="numbered"><td class="num">10.</td><td><a href="Automation/#Automation">Automation: More Automation</a></td></tr><tr class="numbered"><td class="num">11.</td><td><a href="Typeclasses/#Typeclasses">Typeclasses</a></td></tr><tr class="numbered"><td class="num">12.</td><td><a href="Postscript/#Postscript">Postscript</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>

@@ -728,7 +728,7 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 -- In some situations, it is necessary to generalize a statement in order to
 -- prove it by induction. Intuitively, the reason is that a more general
 -- statement also yields a more general (stronger) inductive hypothesis. While
--- the following theorem statement is true, we cannot prove it directly:
+-- the following statement is true, we cannot prove it directly:
 
 sf_expect_failure
   theorem myRepeat_append_fail {c n : Nat} :
