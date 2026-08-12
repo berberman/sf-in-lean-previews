@@ -323,9 +323,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "c43121825e3d1a2d03c43751e2e33cd2382fc0a5",
+      "head_sha": "46221d47c26863e4e44d51e4cf172a324b7ab7e0",
       "preview_path": "pr/214/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31604830225",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31607697276",
       "status": "published",
       "title": "Cleaning up CONTRIBUTING.md and STYLE.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/214"
@@ -493,11 +493,48 @@
     },
     "232": {
       "base_sha": "ec9f0fb84c89c026cc1ecf69e315c889758c9b1d",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "335dd6592dc0f83ed83a4cc692f949f6f49911a9",
       "preview_path": "pr/232/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31606649475",
+      "status": "published",
       "title": "Tackle dev comments in `Lists`",
       "url": "https://github.com/plclub/sf-in-lean/pull/232"
     },
