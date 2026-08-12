@@ -184,9 +184,9 @@ structure DefaultValue (α : Type) where
 -- a `Nat` for the `value` field:
 
 def natDefault : DefaultValue Nat where
-  value := 1
+  value := 0
 
-example : natDefault.value = 1 := rfl
+example : natDefault.value = 0 := rfl
 
 end DefaultValueScratch
 
@@ -205,7 +205,7 @@ class DefaultValue (α : Type) where
 -- use `instance`:
 
 instance instDefaultValueNat : DefaultValue Nat where
-  value := 1
+  value := 0
 
 -- Note to developers (Benjamin Pierce @bcpierce00):
 --     Boldface, or italic? We should write down a rule in STYLE.md!
@@ -224,13 +224,13 @@ def List.headOr {α : Type} [DefaultValue α] (xs : List α) : α :=
 #eval [1, 2, 3].headOr
 #eval ([] : List Nat).headOr
 
-example : DefaultValue.value = (1 : Nat) := rfl
+example : DefaultValue.value = (0 : Nat) := rfl
 
 -- Notice that we refer to `DefaultValue.value` alone, with no instance named.
--- Because the expression equates `DefaultValue.value` with the `Nat` `1`,
+-- Because the expression equates `DefaultValue.value` with the `Nat` `0`,
 -- Lean selects `instDefaultValueNat`, the instance for `DefaultValue Nat`. We
 -- know this because we are able to prove that `DefaultValue.value` is equal
--- to 1.
+-- to `0`.
 
 -- Let's declare a second instance, for `Int`, the type of integers
 -- `... -2, -1, 0, 1, 2, ...`:
@@ -241,14 +241,14 @@ instance instDefaultValueInt : DefaultValue Int where
 -- Now, Lean can infer instances for both types, including inside
 -- `List.headOr`:
 
-example : DefaultValue.value = (1 : Nat) := rfl
+example : DefaultValue.value = (0 : Nat) := rfl
 example : DefaultValue.value = (-1 : Int) := rfl
-example : ([] : List Nat).headOr = 1 := rfl
+example : ([] : List Nat).headOr = 0 := rfl
 example : ([] : List Int).headOr = -1 := rfl
 
 -- Synthesis infers instances we could have specified explicitly:
 
-example : instDefaultValueNat.value = (1 : Nat) := rfl
+example : instDefaultValueNat.value = (0 : Nat) := rfl
 example : instDefaultValueInt.value = (-1 : Int) := rfl
 
 -- The option `pp.all` shows which instance Lean picked:
@@ -504,11 +504,14 @@ example : emptyNatMap.get 2 = 0 := by rfl
 -- Here is an example that uses the API lemmas `empty_def` and `get_def`:
 
 example {n : Nat} : emptyNatMap.get n = 0 := by
-  rw [get_def, emptyNatMap, empty_def, Nat.default_eq_zero]
+  rewrite [get_def, emptyNatMap, empty_def, Nat.default_eq_zero]
+  rfl
 
--- Note to developers (Niklas Halonen @xhalo32):
---     We need to explain projection reduction so that it makes sense that
---     `rfl` can prove `{ toFun := fun x => 0 }.toFun n = 0`.
+-- In the above example, we use `rewrite` and `rfl` instead of the usual `rw`
+-- to highlight something interesting. After the rewrites in this proof, we
+-- end up with a goal that looks like `{ toFun := fun x => 0 }.toFun n = 0`,
+-- which we can solve with `rfl`. This is because the projection `.toFun` on a
+-- structure of the form `{ toFun := x }` is definitionally equal to `x`.
 
 -- `get` is the public API counterpart to `toFun` which is an
 -- implementation-specific detail of `TotalMap`. Because `get_def` "peeks"
@@ -563,18 +566,12 @@ instance : MyGetElem (TotalMap α β) α β where
 -- out), or `+`/`*`/`==` for arithmetic — but always with `infixl`/`infixr` or
 -- `scoped macro`; this is the first time we reach for the more general
 -- `notation`/`macro_rules` forms for getting the `m[a]` syntax to work.
--- (Don't worry about following the mechanism in detail — the `macro_rules`
--- and the `app_unexpander` below are minor technicalities.)
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Can we point people to where they can read about these things if they
---     are interested?
-
--- Note to developers (Niklas Halonen @xhalo32):
---     Reply to Benjamin:
---     `https://leanprover-community.github.io/lean4-metaprogramming-book/main/05_syntax.html`
---     and
---     `https://leanprover-community.github.io/lean4-metaprogramming-book/main/06_macros.html`.
+-- Don't worry about following the mechanism in detail — the `macro_rules` and
+-- the `app_unexpander` below are minor technicalities. However, if you do
+-- wish to learn more, Chapter 5 and 6 of [Metaprogramming in Lean
+-- 4](https://leanprover-community.github.io/lean4-metaprogramming-book/)
+-- contain more detail.
 
 namespace MyGetElem
 
@@ -588,7 +585,7 @@ end MyGetElem
 
 open scoped MyGetElem
 
--- Since the standard library already declares the `$x[$i]` syntax for
+-- Since the standard library already declares the `x[i]` syntax for
 -- `GetElem`, we only need to define the `macro_rules`, not the `notation` as
 -- we have done previously. It's scoped since we don't want to override the
 -- default `GetElem` everywhere, but only when `open scoped MyGetElem` is in
@@ -609,11 +606,9 @@ example : emptyNatMap[1] = default := by rfl
 example {n : Nat} : emptyNatMap[n] = 0 := by
   rw [getElem_def, get_def, emptyNatMap, empty_def, Nat.default_eq_zero]
 
--- (For `Nat` the `default` is `0`.)
-
 -- We want the public API of `TotalMap` to use the `m[a]` notation instead of
--- `m.get a` so we provide the reverse direction of `getElem_def` as a
--- `simp`-lemma.
+-- `m.get a` so we provide the reverse direction of `getElem_def` as a `simp`
+-- lemma; the `m[a]` notation is the `TotalMap` API's `simp` normal form.
 
 @[simp]
 theorem get_eq_getElem (m : TotalMap α β) (a : α) : m.get a = m[a] := by rfl
@@ -621,7 +616,7 @@ theorem get_eq_getElem (m : TotalMap α β) (a : α) : m.get a = m[a] := by rfl
 example {n : Nat} : emptyNatMap.get n = emptyNatMap[n] := by
   simp
 
--- This design should minimize the need to use `getElem_def` outside concrete
+-- This design minimizes the need to use `getElem_def` outside concrete
 -- examples (which are typically solvable with `rfl` anyways).
 
 -- #### Updating Elements
@@ -721,6 +716,7 @@ theorem getElem_empty (a : α) : (∅ : TotalMap α β)[a] = default := by
 -- Next, if we update a map `m` at a key `a` with a new value `b` and then
 -- look up `a` in the map resulting from the `update`, we get back `b`:
 
+@[simp]
 theorem update_eq (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b := by
   rw [update_def, getElem_def, get_def]
   dsimp only -- reduces `{ toFun := ... }.toFun` so that we get a subterm that looks like `a == a`
@@ -735,9 +731,6 @@ theorem update_eq (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] =
 theorem update_neq {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
     (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
   sorry
-
--- Note to developers (Niklas Halonen @xhalo32):
---     Should we mark `update_eq/neq` as `@[simp]`?
 
 -- The two remaining facts are equalities *between maps*, so we first need to
 -- say when two maps are equal. Since a total map is implemented as a
@@ -779,13 +772,20 @@ example : "bar" →ₜ true ; "foo" →ₜ true = "foo" →ₜ true ; "bar" →�
 -- that if we update a map to assign key `a` the same value as it already has
 -- in `m`, then the result is equal to `m`:
 
+-- ### Exercise (2 stars): update_same ⭐⭐
+
+@[simp]
+theorem update_same (m : TotalMap α β) (a : α) : (a →ₜ m[a] ; m) = m := by
+  sorry
+
+-- Similarly, if we update a map `m` at a key `a` with a value `b₁` and then
+-- update again with the same key `a` and another value `b₂`, the resulting
+-- map behaves the same (gives the same result when applied to any key) as the
+-- simpler map obtained by performing just the second `update` on `m`:
+
 -- ### Exercise (2 stars): update_shadow ⭐⭐
 
--- If we update a map `m` at a key `a` with a value `b₁` and then update again
--- with the same key `a` and another value `b₂`, the resulting map behaves the
--- same (gives the same result when applied to any key) as the simpler map
--- obtained by performing just the second `update` on `m`:
-
+@[simp]
 theorem update_shadow (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
     (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
   sorry
@@ -834,11 +834,6 @@ theorem update_shadow (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
 --       rfl
 --     example : ("bar" == "foo") = false := by
 --       decide`
-
--- ### Exercise (2 stars): update_same ⭐⭐
-
-theorem update_same (m : TotalMap α β) (a : α) : (a →ₜ m[a] ; m) = m := by
-  sorry
 
 -- Similarly, prove one final property of the `update` function: if we update
 -- a map `m` at two distinct keys, it doesn't matter in which order we do the

@@ -1953,7 +1953,7 @@ theorem revAppend_nil {α : Type} {xs : List α} : revAppend [] xs = xs := rfl
 theorem revAppend_cons {α : Type} {x : α} {xs ys : List α} :
     revAppend (x :: xs) ys = revAppend xs (x :: ys) := rfl
 
-abbrev trRev {α} (xs : List α) : List α := revAppend xs []
+def trRev {α} (xs : List α) : List α := revAppend xs []
 
 -- This version of `List.rev` is said to be *tail recursive*, because the
 -- recursive call to the function is the last operation that needs to be
@@ -1983,12 +1983,12 @@ theorem trRev_correct {α : Type} : @trRev α = @List.rev α := by
 -- following intuitive reasoning principle is not derivable in Lean with the
 -- tools we've seen so far:
 
-abbrev excluded_middle := ∀ a : Prop, a ∨ ¬ a
+def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 
 -- To understand operationally why this is the case, recall that, to prove a
 -- statement of the form `a ∨ b`, we use the `left` and `right` tactics, which
 -- effectively require knowing which side of the disjunction holds. But the
--- universally quantified `a` in `excluded_middle` is an *arbitrary*
+-- universally quantified `a` in `ExcludedMiddle` is an *arbitrary*
 -- proposition, which we know nothing about. We don't have enough information
 -- to choose which of `left` or `right` to apply.
 
@@ -2144,46 +2144,46 @@ theorem not_exists_dist (α : Type) (p : α → Prop) :
 
 -- For those who like a challenge, here is an exercise adapted from the
 -- Coq'Art book by Bertot and Casteran (p. 123). Each of the following five
--- statements, together with `excluded_middle`, can be considered as
+-- statements, together with `ExcludedMiddle`, can be considered as
 -- characterizing classical logic. We can't prove any one of them in Lean
 -- without `Classical`, but adding any *one* of them as an axiom allows us to
 -- work classically.
 
 -- To see this, prove that all six propositions (these five plus
--- `excluded_middle`) are equivalent.
+-- `ExcludedMiddle`) are equivalent.
 
 -- Hint: Rather than considering all pairs of statements pairwise, prove a
 -- single circular chain of implications that connects them all. You should
 -- not use `by_cases`, as this implicitly introduces a dependency on
--- `excluded_middle`.
+-- `ExcludedMiddle`.
 
 -- Note to developers (Jonathan Chan):
 --     If the hint suggests proving the implications in a loop, why do the
 --     solutions not do this?
 
-abbrev peirce := ∀ a b : Prop, ((a → b) → a) → a
+def Peirce := ∀ a b : Prop, ((a → b) → a) → a
 
-abbrev not_not := ∀ a : Prop, ¬ ¬ a → a
+def NotNot := ∀ a : Prop, ¬ ¬ a → a
 
-abbrev de_morgan_not_and_not := ∀ a b : Prop, ¬ (¬ a ∧ ¬ b) → a ∨ b
+def DeMorganNotAndNot := ∀ a b : Prop, ¬ (¬ a ∧ ¬ b) → a ∨ b
 
-abbrev imp_or := ∀ a b : Prop, (a → b) → (¬ a ∨ b)
+def ImpOr := ∀ a b : Prop, (a → b) → (¬ a ∨ b)
 
-abbrev consequentia_mirabilis := ∀ a : Prop, (¬ a → a) → a
+def ConsequentiaMirabilis := ∀ a : Prop, (¬ a → a) → a
 
-theorem imp_or_em : imp_or → excluded_middle := by
+theorem ImpOr_em : ImpOr → ExcludedMiddle := by
   intro h a
   obtain hna | ha := h a a (fun ha => ha)
   · right; exact hna
   · left; exact ha
 
-theorem em_imp_or : excluded_middle → imp_or := by
+theorem em_ImpOr : ExcludedMiddle → ImpOr := by
   intro h a b hab
   obtain ha | hna := h a
   · right; exact hab ha
   · left; exact hna
 
-theorem em_demorgan : excluded_middle → de_morgan_not_and_not := by
+theorem em_demorgan : ExcludedMiddle → DeMorganNotAndNot := by
   intro h a b hnn
   obtain ha | hna := h a
   · left; exact ha
@@ -2191,45 +2191,45 @@ theorem em_demorgan : excluded_middle → de_morgan_not_and_not := by
     · right; exact hb
     · exfalso; exact hnn ⟨hna, hnb⟩
 
-theorem demorgan_em : de_morgan_not_and_not → excluded_middle := by
+theorem demorgan_em : DeMorganNotAndNot → ExcludedMiddle := by
   intro h a
   apply h a (¬ a)
   intro ⟨hna, hnna⟩
   exact hnna hna
-theorem em_not_not : excluded_middle → not_not := by
+theorem em_not_not : ExcludedMiddle → NotNot := by
   intro h a hnna
   obtain ha | hna := h a
   · exact ha
   · exfalso; exact hnna hna
 
-theorem not_not_em' : not_not → excluded_middle := by
+theorem not_not_em' : NotNot → ExcludedMiddle := by
   intro h a; exact h _ (excluded_middle_irrefutable a)
 
-theorem em_cm : excluded_middle → consequentia_mirabilis := by
+theorem em_cm : ExcludedMiddle → ConsequentiaMirabilis := by
   intro h a hnaa
   obtain ha | hna := h a
   · exact ha
   · exact (hnaa hna)
 
-theorem cm_em : consequentia_mirabilis → excluded_middle := by
+theorem cm_em : ConsequentiaMirabilis → ExcludedMiddle := by
   intro hc a; apply hc
   intro h; right
   intro ha; apply h
   left; exact ha
 
-theorem cm_not_not : consequentia_mirabilis → not_not := by
+theorem cm_not_not : ConsequentiaMirabilis → NotNot := by
   intro h a hnna; apply h
   intro hna; exfalso; exact hnna hna
 
-theorem not_not_cm : not_not → consequentia_mirabilis := by
+theorem not_not_cm : NotNot → ConsequentiaMirabilis := by
   intro h a hnaa; apply h
   intro hna; exact hna (hnaa hna)
 
-theorem cm_peirce : consequentia_mirabilis → peirce := by
+theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
   intro h a b haba; apply h
   intro hna; apply haba
   intro ha; contradiction
 
-theorem peirce_cm : peirce → consequentia_mirabilis := by
+theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
