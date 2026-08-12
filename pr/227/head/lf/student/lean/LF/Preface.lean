@@ -198,15 +198,21 @@ import LF.SFLCompat
 -- Lean runs on Windows, Linux, and MacOS. The files in this book have been
 -- tested with Lean version `4.32.0`.
 
--- #### Recommended Installation Method: VSCode
+-- ### Installation
 
 -- The Visual Studio Code IDE is the recommended platform for using Lean.
 
--- - Clone the [SF-in-Lean git repo](https://github.com/plclub/sf-in-lean)
 -- - Install VS Code if needed
--- - From the Extensions tab of VSCode, install the Lean 4 Extension
--- - Wait for Lean to build the project
--- - XXXXXX more needed
+
+-- - From the Extensions tab of VS Code, install the Lean 4 extension
+
+-- - Clone the [SF-in-Lean](https://github.com/plclub/sf-in-lean) git repo and
+--   open it in VS Code
+
+-- - The first time you open a Lean file, the extension will offer to install
+--   Lean itself; accept, and it will fetch the version this book needs
+
+-- - Wait for Lean to build the project (it takes a few minutes)
 
 -- ### Exercises
 

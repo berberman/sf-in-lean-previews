@@ -569,23 +569,6 @@
        {"title": "Preface", "shortTitle": null, "number": "1"},
        {"title": "Welcome", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
-   "Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode":
-   [{"id":
-     "Logical-Foundations--Preface--Practicalities--System-Requirements--Recommended-Installation-Method___-VSCode",
-     "data":
-     {"title": "Recommended Installation Method: VSCode",
-      "shortTitle": null,
-      "sectionNum": "1.3.1.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Practicalities", "shortTitle": null, "number": "3"},
-       {"title": "System Requirements", "shortTitle": null, "number": "1"},
-       {"title": "Recommended Installation Method: VSCode",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Preface/"}],
    "Logical-Foundations--Preface--Practicalities--System-Requirements":
    [{"id": "Logical-Foundations--Preface--Practicalities--System-Requirements",
      "data":
@@ -599,10 +582,10 @@
        {"title": "Practicalities", "shortTitle": null, "number": "3"},
        {"title": "System Requirements", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
-   "Logical-Foundations--Preface--Practicalities--Exercises":
-   [{"id": "Logical-Foundations--Preface--Practicalities--Exercises",
+   "Logical-Foundations--Preface--Practicalities--Installation":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Installation",
      "data":
-     {"title": "Exercises",
+     {"title": "Installation",
       "shortTitle": null,
       "sectionNum": "1.3.2.",
       "searchPriority": 50,
@@ -610,12 +593,12 @@
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"},
        {"title": "Practicalities", "shortTitle": null, "number": "3"},
-       {"title": "Exercises", "shortTitle": null, "number": "2"}]},
+       {"title": "Installation", "shortTitle": null, "number": "2"}]},
      "address": "/Preface/"}],
-   "Logical-Foundations--Preface--Practicalities--Citation-Format":
-   [{"id": "Logical-Foundations--Preface--Practicalities--Citation-Format",
+   "Logical-Foundations--Preface--Practicalities--Exercises":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Exercises",
      "data":
-     {"title": "Citation Format",
+     {"title": "Exercises",
       "shortTitle": null,
       "sectionNum": "1.3.3.",
       "searchPriority": 50,
@@ -623,7 +606,20 @@
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"},
        {"title": "Practicalities", "shortTitle": null, "number": "3"},
-       {"title": "Citation Format", "shortTitle": null, "number": "3"}]},
+       {"title": "Exercises", "shortTitle": null, "number": "3"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Citation-Format":
+   [{"id": "Logical-Foundations--Preface--Practicalities--Citation-Format",
+     "data":
+     {"title": "Citation Format",
+      "shortTitle": null,
+      "sectionNum": "1.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Citation Format", "shortTitle": null, "number": "4"}]},
      "address": "/Preface/"}],
    "Logical-Foundations--Preface--Practicalities":
    [{"id": "Logical-Foundations--Preface--Practicalities",
@@ -4634,7 +4630,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero",
+   [{"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4649,7 +4645,7 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero-next",
+    {"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -6633,7 +6629,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6642,7 +6638,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
