@@ -1533,9 +1533,9 @@
  "128": "<code>NatPlayground.Nat.AddPlayground.add (n m : Nat) : Nat</code>",
  "1279":
  "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
- "1278": "<code>m₁.toFun x = m₂.toFun x</code>",
- "1277": "<code>m₁.toFun x = m₂.get x</code>",
- "1276": "<code>m₁.toFun x = m₂[x]</code>",
+ "1278": "<code>m₁.inner x = m₂.inner x</code>",
+ "1277": "<code>m₁.inner x = m₂.get x</code>",
+ "1276": "<code>m₁.inner x = m₂[x]</code>",
  "1275": "<code>m₁.get x = m₂[x]</code>",
  "1274": "<code>m₁[x] = m₂[x]</code>",
  "1273":
@@ -1548,7 +1548,7 @@
  "127":
  "<code>NatPlayground.Nat.add_one (n : Nat) : n + succ zero = succ n + zero</code>",
  "1269":
- "<code>TotalMap.mk.injEq {α β : Type} (toFun toFun✝ : α → β) : ({ toFun := toFun } = { toFun := toFun✝ }) = (toFun = toFun✝)</code>",
+ "<code>TotalMap.mk.injEq {α β : Type} (inner inner✝ : α → β) : ({ inner := inner } = { inner := inner✝ }) = (inner = inner✝)</code>",
  "1268": "<code>a₁ ≠ a₂</code>",
  "1267":
  "<code>TotalMap.update_neq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a₁ a₂ : α}\n  (h : a₁ ≠ a₂) (b : β) : (a₁ →ₜ b ; m)[a₂] = m[a₂]</code>",
@@ -1573,7 +1573,7 @@
  "1255":
  "<code>TotalMap.update_apply {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a a' : α)\n  (b : β) : (a →ₜ b ; m)[a'] = bif a == a' then b else m[a']</code>",
  "1254":
- "<code>TotalMap.update_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  a →ₜ b ; m = { toFun := fun a' =&gt; bif a == a' then b else m[a'] }</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. Prefer `update_apply` if possible. </code>",
+ "<code>TotalMap.update_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  a →ₜ b ; m = { inner := fun a' =&gt; bif a == a' then b else m[a'] }</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. Prefer `update_apply` if possible. </code>",
  "1253": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
  "1252": "<code><span class=\"literal string\">\" →ₜ \"</span> : String</code>",
  "1251": "<code><span class=\"literal string\">\"bar\"</span> : String</code>",
@@ -1612,14 +1612,14 @@
  "1233": "<code>Nat.default_eq_zero : default = 0</code>",
  "1232": "<code>Nat → Nat</code>",
  "1231":
- "<code>TotalMap.get_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a : α} :\n  m.get a = m.toFun a</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. </code>",
+ "<code>TotalMap.get_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a : α} :\n  m.get a = m.inner a</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. </code>",
  "1230": "<code>TotalMap α β</code>",
  "123":
  "<code>NatPlayground.Nat.add_zero_zero_explained (n : Nat) : n + zero + zero = n</code>",
  "1229":
  "<code>TotalMap.get {α β : Type} (m : TotalMap α β) (a : α) : β</code>",
  "1228": "<code>TotalMap.emptyNatMap : TotalMap Nat Nat</code>",
- "1227": "<code>TotalMap.mk {α β : Type} (toFun : α → β) : TotalMap α β</code>",
+ "1227": "<code>TotalMap.mk {α β : Type} (inner : α → β) : TotalMap α β</code>",
  "1226":
  "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
  "1225": "<code>Inhabited β</code>",
@@ -1627,7 +1627,7 @@
  "1223": "<code>ReflBEq α</code>",
  "1222": "<code>BEq α</code>",
  "1221":
- "<code>TotalMap.empty_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] : ∅ = { toFun := fun x =&gt; default }</code>",
+ "<code>TotalMap.empty_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] : ∅ = { inner := fun x =&gt; default }</code>",
  "1220":
  "<code>TotalMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
  "122":
@@ -1640,7 +1640,7 @@
  "1216":
  "<code>TotalMap.empty {α β : Type} [Inhabited β] : TotalMap α β</code>",
  "1215":
- "<code>TotalMap.toFun {α β : Type} (self : TotalMap α β) : α → β</code>",
+ "<code>TotalMap.inner {α β : Type} (self : TotalMap α β) : α → β</code>",
  "1214": "<code>TotalMap (α β : Type) : Type</code>",
  "1213":
  "<code>LawfulBEq.{u} (α : Type u) [BEq α] : Prop</code><span class=\"sep\"></span><code class=\"docstring\">A Boolean equality test coincides with propositional equality.\n\nIn other words:\n* `a == b` implies `a = b`.\n* `a == a` is true.\n</code>",

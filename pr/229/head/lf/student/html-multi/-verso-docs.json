@@ -1491,9 +1491,9 @@
  "<code>beq_false_of_ne.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {a b : α} (h : a ≠ b) : (a == b) = false</code>",
  "1744": "<code>¬\"bar\" = a</code>",
  "1743": "<code>\"bar\" = a</code>",
- "1742": "<code>m₁.toFun x = m₂.toFun x</code>",
- "1741": "<code>m₁.toFun x = m₂.get x</code>",
- "1740": "<code>m₁.toFun x = m₂[x]</code>",
+ "1742": "<code>m₁.inner x = m₂.inner x</code>",
+ "1741": "<code>m₁.inner x = m₂.get x</code>",
+ "1740": "<code>m₁.inner x = m₂[x]</code>",
  "174":
  "<code>NatPlayground.Nat.mul (n m : NatPlayground.Nat) : NatPlayground.Nat</code>",
  "1739": "<code>m₁.get x = m₂[x]</code>",
@@ -1506,7 +1506,7 @@
  "1734":
  "<code class=\"docstring\">Registers an extensionality theorem.\n\n* When `@[ext]` is applied to a theorem, the theorem is registered for the `ext` tactic, and it generates an \"`ext_iff`\" theorem.\nThe name of the theorem is from adding the suffix `_iff` to the theorem name.\n\n* When `@[ext]` is applied to a structure, it generates an `.ext` theorem and applies the `@[ext]` attribute to it.\nThe result is an `.ext` and an `.ext_iff` theorem with the `.ext` theorem registered for the `ext` tactic.\n\n* An optional natural number argument, e.g. `@[ext 9000]`, specifies a priority for the `ext` lemma.\nHigher-priority lemmas are chosen first, and the default is `1000`.\n\n* The flag `@[ext (iff := false)]` disables generating an `ext_iff` theorem.\n\n* The flag `@[ext (flat := false)]` causes generated structure extensionality theorems to show inherited fields based on their representation,\nrather than flattening the parents' fields into the lemma's equality hypotheses.\n</code>",
  "1733":
- "<code>TotalMap.mk.injEq {α β : Type} (toFun toFun✝ : α → β) : ({ toFun := toFun } = { toFun := toFun✝ }) = (toFun = toFun✝)</code>",
+ "<code>TotalMap.mk.injEq {α β : Type} (inner inner✝ : α → β) : ({ inner := inner } = { inner := inner✝ }) = (inner = inner✝)</code>",
  "1732": "<code>a₁ ≠ a₂</code>",
  "1731":
  "<code>TotalMap.update_neq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a₁ a₂ : α}\n  (h : a₁ ≠ a₂) (b : β) : (a₁ →ₜ b ; m)[a₂] = m[a₂]</code>",
@@ -1531,7 +1531,7 @@
  "1719":
  "<code>TotalMap.update_apply {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a a' : α)\n  (b : β) : (a →ₜ b ; m)[a'] = bif a == a' then b else m[a']</code>",
  "1718":
- "<code>TotalMap.update_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  a →ₜ b ; m = { toFun := fun a' =&gt; bif a == a' then b else m[a'] }</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. Prefer `update_apply` if possible. </code>",
+ "<code>TotalMap.update_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  a →ₜ b ; m = { inner := fun a' =&gt; bif a == a' then b else m[a'] }</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. Prefer `update_apply` if possible. </code>",
  "1717": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
  "1716": "<code><span class=\"literal string\">\" →ₜ \"</span> : String</code>",
  "1715": "<code><span class=\"literal string\">\"bar\"</span> : String</code>",
@@ -1570,12 +1570,12 @@
  "1697": "<code>Nat.default_eq_zero : default = 0</code>",
  "1696": "<code>Nat → Nat</code>",
  "1695":
- "<code>TotalMap.get_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a : α} :\n  m.get a = m.toFun a</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. </code>",
+ "<code>TotalMap.get_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a : α} :\n  m.get a = m.inner a</code><span class=\"sep\"></span><code class=\"docstring\">This exposes implementation-specific details of `TotalMap`.\nAvoid using this outside the `TotalMap` namespace. </code>",
  "1694": "<code>TotalMap α β</code>",
  "1693":
  "<code>TotalMap.get {α β : Type} (m : TotalMap α β) (a : α) : β</code>",
  "1692": "<code>TotalMap.emptyNatMap : TotalMap Nat Nat</code>",
- "1691": "<code>TotalMap.mk {α β : Type} (toFun : α → β) : TotalMap α β</code>",
+ "1691": "<code>TotalMap.mk {α β : Type} (inner : α → β) : TotalMap α β</code>",
  "1690":
  "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
  "169": "<code>NatPlayground.Nat.four_eq_succ_three : four = succ three</code>",
@@ -1584,7 +1584,7 @@
  "1687": "<code>ReflBEq α</code>",
  "1686": "<code>BEq α</code>",
  "1685":
- "<code>TotalMap.empty_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] : ∅ = { toFun := fun x =&gt; default }</code>",
+ "<code>TotalMap.empty_def {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] : ∅ = { inner := fun x =&gt; default }</code>",
  "1684":
  "<code>TotalMap α β</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
  "1683":
@@ -1596,7 +1596,7 @@
  "<code>TotalMap.empty {α β : Type} [Inhabited β] : TotalMap α β</code>",
  "168": "<code>NatPlayground.Nat.three_eq_succ_two : three = succ two</code>",
  "1679":
- "<code>TotalMap.toFun {α β : Type} (self : TotalMap α β) : α → β</code>",
+ "<code>TotalMap.inner {α β : Type} (self : TotalMap α β) : α → β</code>",
  "1678": "<code>TotalMap (α β : Type) : Type</code>",
  "1677":
  "<code>LawfulBEq.{u} (α : Type u) [BEq α] : Prop</code><span class=\"sep\"></span><code class=\"docstring\">A Boolean equality test coincides with propositional equality.\n\nIn other words:\n* `a == b` implies `a = b`.\n* `a == a` is true.\n</code>",

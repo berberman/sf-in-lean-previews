@@ -495,12 +495,12 @@ set_option linter.unusedSectionVars false
 --     whole-book build.
 
 structure TotalMap (α : Type) (β : Type) where
-  toFun : α → β
+  inner : α → β
 
 namespace TotalMap
 
 -- Intuitively, a total map over an element type `β` just
--- contains a function `toFun` from a key of type `α` to a
+-- contains a function `inner` from a key of type `α` to a
 -- value of type `β`.
 
 -- In order to declare a default value of `β` we will use the
@@ -514,7 +514,7 @@ variable [Inhabited β]
 -- element when applied to any key.
 
 def empty : TotalMap α β where
-  toFun := fun _ ↦ default
+  inner := fun _ ↦ default
 
 -- Just as declaring `BEq`/`DefaultValue` instances above
 -- hooked `==` and `DefaultValue.value` up to our types, we can
@@ -525,7 +525,7 @@ def empty : TotalMap α β where
 instance : EmptyCollection (TotalMap α β) where
   emptyCollection := TotalMap.empty
 
-theorem empty_def : (∅ : TotalMap α β) = { toFun := fun _ ↦ default } := by rfl
+theorem empty_def : (∅ : TotalMap α β) = { inner := fun _ ↦ default } := by rfl
 
 -- Here, for example, is an empty map that takes `Nat` keys to
 -- `Nat` values:
@@ -542,11 +542,11 @@ def emptyNatMap : TotalMap Nat Nat := ∅
 -- Lists chapter's list-based maps, we could define a function
 -- `get` for getting the value associated with a key:
 
-def get (m : TotalMap α β) (a : α) := m.toFun a
+def get (m : TotalMap α β) (a : α) := m.inner a
 
 /-- This exposes implementation-specific details of `TotalMap`.
 Avoid using this outside the `TotalMap` namespace. -/
-theorem get_def {m : TotalMap α β} {a : α} : m.get a = m.toFun a := by rfl
+theorem get_def {m : TotalMap α β} {a : α} : m.get a = m.inner a := by rfl
 
 example : emptyNatMap.get 2 = 0 := by rfl
 
@@ -560,12 +560,12 @@ example {n : Nat} : emptyNatMap.get n = 0 := by
 -- In the above example, we use `rewrite` and `rfl` instead of
 -- the usual `rw` to highlight something interesting. After the
 -- rewrites in this proof, we end up with a goal that looks
--- like `{ toFun := fun x => 0 }.toFun n = 0`, which we can
--- solve with `rfl`. This is because the projection `.toFun` on
--- a structure of the form `{ toFun := x }` is definitionally
+-- like `{ inner := fun x => 0 }.inner n = 0`, which we can
+-- solve with `rfl`. This is because the projection `.inner` on
+-- a structure of the form `{ inner := x }` is definitionally
 -- equal to `x`.
 
--- `get` is the public API counterpart to `toFun` which is an
+-- `get` is the public API counterpart to `inner` which is an
 -- implementation-specific detail of `TotalMap`. Because
 -- `get_def` "peeks" through the abstraction, it should be used
 -- sparingly, and only inside the `TotalMap` namespace.
@@ -694,7 +694,7 @@ example {n : Nat} : emptyNatMap.get n = emptyNatMap[n] := by
 -- one.
 
 def update (m : TotalMap α β) (a : α) (b : β) : TotalMap α β where
-  toFun := fun a' => bif a == a' then b else m[a']
+  inner := fun a' => bif a == a' then b else m[a']
 
 -- For example, we can build a map taking `String` to `Bool`,
 -- where `"foo"` and `"bar"` are mapped to `true` and every
@@ -728,7 +728,7 @@ notation a:55 " →ₜ " b:55 " ; " m:55 => TotalMap.update m a b
 /-- This exposes implementation-specific details of `TotalMap`.
 Avoid using this outside the `TotalMap` namespace. Prefer `update_apply` if possible. -/
 theorem update_def (m : TotalMap α β) (a : α) (b : β) :
-  a →ₜ b ; m = { toFun := fun a' => bif a == a' then b else m[a'] } := by rfl
+  a →ₜ b ; m = { inner := fun a' => bif a == a' then b else m[a'] } := by rfl
 
 theorem update_apply (m : TotalMap α β) (a a' : α) (b : β) :
   (a →ₜ b ; m)[a'] = bif a == a' then b else m[a'] := by rfl
@@ -791,7 +791,7 @@ theorem getElem_empty (a : α) : (∅ : TotalMap α β)[a] = default := by
 @[simp]
 theorem update_eq (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b := by
   rw [update_def, getElem_def, get_def]
-  dsimp only -- reduces `{ toFun := ... }.toFun` so that we get a subterm that looks like `a == a`
+  dsimp only -- reduces `{ inner := ... }.inner` so that we get a subterm that looks like `a == a`
   rw [BEq.rfl, cond_true]
 
 -- On the other hand, if we update a map `m` at a key `a₁` and
@@ -816,7 +816,7 @@ theorem update_neq {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b 
 -- The fact that `TotalMap` is a structure complicates things
 -- slightly. We need to use injectivity of its constructor `mk`
 -- which Lean automatically provides for us as `mk.injEq`. It
--- lets us prove `m₁ = m₂` from `m₁.toFun = m₂.toFun` or vice
+-- lets us prove `m₁ = m₂` from `m₁.inner = m₂.inner` or vice
 -- versa.
 
 @[ext]
