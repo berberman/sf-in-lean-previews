@@ -2312,11 +2312,11 @@
        {"title": "More Exercises", "shortTitle": null, "number": "4"},
        {"title": "Warmups", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Course-Late-Policies___-Formalized":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Airport-Exercise":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Course-Late-Policies___-Formalized",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Airport-Exercise",
      "data":
-     {"title": "Course Late Policies, Formalized",
+     {"title": "Airport Exercise",
       "shortTitle": null,
       "sectionNum": "2.4.2.",
       "searchPriority": 50,
@@ -2326,9 +2326,7 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "More Exercises", "shortTitle": null, "number": "4"},
-       {"title": "Course Late Policies, Formalized",
-        "shortTitle": null,
-        "number": "2"}]},
+       {"title": "Airport Exercise", "shortTitle": null, "number": "2"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises":
    [{"id":
@@ -3946,17 +3944,6 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "peirce":
-   [{"id": "peirce",
-     "data":
-     {"/Logic/#peirce":
-      {"display": "peirce",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "partition":
    [{"id": "partition",
      "data":
@@ -4166,17 +4153,6 @@
      "data":
      {"/Logic/#not_not_cm":
       {"display": "not_not_cm",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
-   "not_not":
-   [{"id": "not_not",
-     "data":
-     {"/Logic/#not_not":
-      {"display": "not_not",
        "context":
        ["Logical Foundations",
         "Logic in Lean",
@@ -4614,7 +4590,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero-next",
+   [{"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4629,7 +4605,7 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero",
+    {"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4840,28 +4816,6 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
-   "imp_or_em":
-   [{"id": "imp_or_em",
-     "data":
-     {"/Logic/#imp_or_em":
-      {"display": "imp_or_em",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
-   "imp_or":
-   [{"id": "imp_or",
-     "data":
-     {"/Logic/#imp_or":
-      {"display": "imp_or",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "iff_trans":
    [{"id": "iff_trans",
      "data":
@@ -5221,17 +5175,6 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "excluded_middle":
-   [{"id": "excluded_middle",
-     "data":
-     {"/Logic/#excluded_middle":
-      {"display": "excluded_middle",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "ex_falso_quodlibet":
    [{"id": "ex_falso_quodlibet",
      "data":
@@ -5458,17 +5401,6 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "em_imp_or":
-   [{"id": "em_imp_or",
-     "data":
-     {"/Logic/#em_imp_or":
-      {"display": "em_imp_or",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "em_demorgan":
    [{"id": "em_demorgan",
      "data":
@@ -5485,6 +5417,17 @@
      "data":
      {"/Logic/#em_cm":
       {"display": "em_cm",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
+   "em_ImpOr":
+   [{"id": "em_ImpOr",
+     "data":
+     {"/Logic/#em_ImpOr":
+      {"display": "em_ImpOr",
        "context":
        ["Logical Foundations",
         "Logic in Lean",
@@ -5670,17 +5613,6 @@
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
-   "de_morgan_not_and_not":
-   [{"id": "de_morgan_not_and_not",
-     "data":
-     {"/Logic/#de_morgan_not_and_not":
-      {"display": "de_morgan_not_and_not",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "curry_uncurry":
    [{"id": "curry_uncurry",
      "data":
@@ -5757,17 +5689,6 @@
         "Functions as Data",
         "Functions That Construct Functions"]}},
      "address": "/Poly/"}],
-   "consequentia_mirabilis":
-   [{"id": "consequentia_mirabilis",
-     "data":
-     {"/Logic/#consequentia_mirabilis":
-      {"display": "consequentia_mirabilis",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "complicated_computation":
    [{"id": "complicated_computation",
      "data":
@@ -7824,6 +7745,17 @@
         "Inductively Defined Propositions",
         "Example: Permutations"]}},
      "address": "/IndProp/"}],
+   "Peirce":
+   [{"id": "Peirce",
+     "data":
+     {"/Logic/#Peirce":
+      {"display": "Peirce",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "PartialMap.update_subset":
    [{"id": "PartialMap___update_subset",
      "data":
@@ -8085,6 +8017,17 @@
         "Polymorphism",
         "Polymorphic Options"]}},
      "address": "/Poly/"}],
+   "NotNot":
+   [{"id": "NotNot",
+     "data":
+     {"/Logic/#NotNot":
+      {"display": "NotNot",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "NoStutter.nostutter2":
    [{"id": "NoStutter___nostutter2",
      "data":
@@ -8214,6 +8157,17 @@
         "Data and Functions",
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.ofNat":
+   [{"id": "NatPlayground___ofNat",
+     "data":
+     {"/Basics/#NatPlayground___ofNat":
+      {"display": "ofNat",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.negation_fn_applied_twice":
    [{"id": "NatPlayground___negation_fn_applied_twice",
@@ -9740,412 +9694,368 @@
         "Data and Functions",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.ofNat":
-   [{"id": "NatPlayground___LateDays___ofNat",
+   "NatPlayground.Airport.inspectBag_ticketed":
+   [{"id": "NatPlayground___Airport___inspectBag_ticketed",
      "data":
-     {"/Basics/#NatPlayground___LateDays___ofNat":
-      {"display": "ofNat",
+     {"/Basics/#NatPlayground___Airport___inspectBag_ticketed":
+      {"display": "inspectBag_ticketed",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.no_penalty_for_mostly_on_time":
-   [{"id": "NatPlayground___LateDays___no_penalty_for_mostly_on_time",
+   "NatPlayground.Airport.inspectBag_prohibited":
+   [{"id": "NatPlayground___Airport___inspectBag_prohibited",
      "data":
-     {"/Basics/#NatPlayground___LateDays___no_penalty_for_mostly_on_time":
-      {"display": "no_penalty_for_mostly_on_time",
+     {"/Basics/#NatPlayground___Airport___inspectBag_prohibited":
+      {"display": "inspectBag_prohibited",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.modifierComparison":
-   [{"id": "NatPlayground___LateDays___modifierComparison",
+   "NatPlayground.Airport.inspectBag_ordinary":
+   [{"id": "NatPlayground___Airport___inspectBag_ordinary",
      "data":
-     {"/Basics/#NatPlayground___LateDays___modifierComparison":
-      {"display": "modifierComparison",
+     {"/Basics/#NatPlayground___Airport___inspectBag_ordinary":
+      {"display": "inspectBag_ordinary",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.lowerLetter_lowers":
-   [{"id": "NatPlayground___LateDays___lowerLetter_lowers",
+   "NatPlayground.Airport.inspectBag_noTicket":
+   [{"id": "NatPlayground___Airport___inspectBag_noTicket",
      "data":
-     {"/Basics/#NatPlayground___LateDays___lowerLetter_lowers":
-      {"display": "lowerLetter_lowers",
+     {"/Basics/#NatPlayground___Airport___inspectBag_noTicket":
+      {"display": "inspectBag_noTicket",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.lowerLetter_F_is_F":
-   [{"id": "NatPlayground___LateDays___lowerLetter_F_is_F",
+   "NatPlayground.Airport.inspectBag_idempotent":
+   [{"id": "NatPlayground___Airport___inspectBag_idempotent",
      "data":
-     {"/Basics/#NatPlayground___LateDays___lowerLetter_F_is_F":
-      {"display": "lowerLetter_F_is_F",
+     {"/Basics/#NatPlayground___Airport___inspectBag_idempotent":
+      {"display": "inspectBag_idempotent",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.lowerLetter":
-   [{"id": "NatPlayground___LateDays___lowerLetter",
+   "NatPlayground.Airport.inspectBag_changeBag_comm_ticketed":
+   [{"id": "NatPlayground___Airport___inspectBag_changeBag_comm_ticketed",
      "data":
-     {"/Basics/#NatPlayground___LateDays___lowerLetter":
-      {"display": "lowerLetter",
+     {"/Basics/#NatPlayground___Airport___inspectBag_changeBag_comm_ticketed":
+      {"display": "inspectBag_changeBag_comm_ticketed",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.lowerGrade_lowers":
-   [{"id": "NatPlayground___LateDays___lowerGrade_lowers",
+   "NatPlayground.Airport.inspectBag_changeBag_comm_noTicket":
+   [{"id": "NatPlayground___Airport___inspectBag_changeBag_comm_noTicket",
      "data":
-     {"/Basics/#NatPlayground___LateDays___lowerGrade_lowers":
-      {"display": "lowerGrade_lowers",
+     {"/Basics/#NatPlayground___Airport___inspectBag_changeBag_comm_noTicket":
+      {"display": "inspectBag_changeBag_comm_noTicket",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.lowerGrade_F_minus":
-   [{"id": "NatPlayground___LateDays___lowerGrade_F_minus",
+   "NatPlayground.Airport.inspectBag":
+   [{"id": "NatPlayground___Airport___inspectBag",
      "data":
-     {"/Basics/#NatPlayground___LateDays___lowerGrade_F_minus":
-      {"display": "lowerGrade_F_minus",
+     {"/Basics/#NatPlayground___Airport___inspectBag":
+      {"display": "inspectBag",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.lowerGrade_A_plus":
-   [{"id": "NatPlayground___LateDays___lowerGrade_A_plus",
+   "NatPlayground.Airport.checkIn_ticketed":
+   [{"id": "NatPlayground___Airport___checkIn_ticketed",
      "data":
-     {"/Basics/#NatPlayground___LateDays___lowerGrade_A_plus":
-      {"display": "lowerGrade_A_plus",
+     {"/Basics/#NatPlayground___Airport___checkIn_ticketed":
+      {"display": "checkIn_ticketed",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.lowerGrade":
-   [{"id": "NatPlayground___LateDays___lowerGrade",
+   "NatPlayground.Airport.checkIn_noTicket":
+   [{"id": "NatPlayground___Airport___checkIn_noTicket",
      "data":
-     {"/Basics/#NatPlayground___LateDays___lowerGrade":
-      {"display": "lowerGrade",
+     {"/Basics/#NatPlayground___Airport___checkIn_noTicket":
+      {"display": "checkIn_noTicket",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.letterComparison_Eq":
-   [{"id": "NatPlayground___LateDays___letterComparison_Eq",
+   "NatPlayground.Airport.checkIn_checkedIn":
+   [{"id": "NatPlayground___Airport___checkIn_checkedIn",
      "data":
-     {"/Basics/#NatPlayground___LateDays___letterComparison_Eq":
-      {"display": "letterComparison_Eq",
+     {"/Basics/#NatPlayground___Airport___checkIn_checkedIn":
+      {"display": "checkIn_checkedIn",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.letterComparison":
-   [{"id": "NatPlayground___LateDays___letterComparison",
+   "NatPlayground.Airport.checkIn":
+   [{"id": "NatPlayground___Airport___checkIn",
      "data":
-     {"/Basics/#NatPlayground___LateDays___letterComparison":
-      {"display": "letterComparison",
+     {"/Basics/#NatPlayground___Airport___checkIn":
+      {"display": "checkIn",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.grade_lowered_once":
-   [{"id": "NatPlayground___LateDays___grade_lowered_once",
+   "NatPlayground.Airport.changeBag_ticketed":
+   [{"id": "NatPlayground___Airport___changeBag_ticketed",
      "data":
-     {"/Basics/#NatPlayground___LateDays___grade_lowered_once":
-      {"display": "grade_lowered_once",
+     {"/Basics/#NatPlayground___Airport___changeBag_ticketed":
+      {"display": "changeBag_ticketed",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.gradeComparison_test4":
-   [{"id": "NatPlayground___LateDays___gradeComparison_test4",
+   "NatPlayground.Airport.changeBag_noTicket":
+   [{"id": "NatPlayground___Airport___changeBag_noTicket",
      "data":
-     {"/Basics/#NatPlayground___LateDays___gradeComparison_test4":
-      {"display": "gradeComparison_test4",
+     {"/Basics/#NatPlayground___Airport___changeBag_noTicket":
+      {"display": "changeBag_noTicket",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.gradeComparison_test3":
-   [{"id": "NatPlayground___LateDays___gradeComparison_test3",
+   "NatPlayground.Airport.changeBag_checkedIn":
+   [{"id": "NatPlayground___Airport___changeBag_checkedIn",
      "data":
-     {"/Basics/#NatPlayground___LateDays___gradeComparison_test3":
-      {"display": "gradeComparison_test3",
+     {"/Basics/#NatPlayground___Airport___changeBag_checkedIn":
+      {"display": "changeBag_checkedIn",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.gradeComparison_test2":
-   [{"id": "NatPlayground___LateDays___gradeComparison_test2",
+   "NatPlayground.Airport.changeBag":
+   [{"id": "NatPlayground___Airport___changeBag",
      "data":
-     {"/Basics/#NatPlayground___LateDays___gradeComparison_test2":
-      {"display": "gradeComparison_test2",
+     {"/Basics/#NatPlayground___Airport___changeBag":
+      {"display": "changeBag",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.gradeComparison_test1":
-   [{"id": "NatPlayground___LateDays___gradeComparison_test1",
+   "NatPlayground.Airport.buyTicket_ticketed":
+   [{"id": "NatPlayground___Airport___buyTicket_ticketed",
      "data":
-     {"/Basics/#NatPlayground___LateDays___gradeComparison_test1":
-      {"display": "gradeComparison_test1",
+     {"/Basics/#NatPlayground___Airport___buyTicket_ticketed":
+      {"display": "buyTicket_ticketed",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.gradeComparison":
-   [{"id": "NatPlayground___LateDays___gradeComparison",
+   "NatPlayground.Airport.buyTicket_then_checkIn":
+   [{"id": "NatPlayground___Airport___buyTicket_then_checkIn",
      "data":
-     {"/Basics/#NatPlayground___LateDays___gradeComparison":
-      {"display": "gradeComparison",
+     {"/Basics/#NatPlayground___Airport___buyTicket_then_checkIn":
+      {"display": "buyTicket_then_checkIn",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.applyLatePolicy_unfold":
-   [{"id": "NatPlayground___LateDays___applyLatePolicy_unfold",
+   "NatPlayground.Airport.buyTicket_noTicket":
+   [{"id": "NatPlayground___Airport___buyTicket_noTicket",
      "data":
-     {"/Basics/#NatPlayground___LateDays___applyLatePolicy_unfold":
-      {"display": "applyLatePolicy_unfold",
+     {"/Basics/#NatPlayground___Airport___buyTicket_noTicket":
+      {"display": "buyTicket_noTicket",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.applyLatePolicy":
-   [{"id": "NatPlayground___LateDays___applyLatePolicy",
+   "NatPlayground.Airport.buyTicket_idempotent":
+   [{"id": "NatPlayground___Airport___buyTicket_idempotent",
      "data":
-     {"/Basics/#NatPlayground___LateDays___applyLatePolicy":
-      {"display": "applyLatePolicy",
+     {"/Basics/#NatPlayground___Airport___buyTicket_idempotent":
+      {"display": "buyTicket_idempotent",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Modifier.plus":
-   [{"id": "NatPlayground___LateDays___Modifier___plus",
+   "NatPlayground.Airport.buyTicket_checkedIn":
+   [{"id": "NatPlayground___Airport___buyTicket_checkedIn",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Modifier___plus":
-      {"display": "plus",
+     {"/Basics/#NatPlayground___Airport___buyTicket_checkedIn":
+      {"display": "buyTicket_checkedIn",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Modifier.natural":
-   [{"id": "NatPlayground___LateDays___Modifier___natural",
+   "NatPlayground.Airport.buyTicket":
+   [{"id": "NatPlayground___Airport___buyTicket",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Modifier___natural":
-      {"display": "natural",
+     {"/Basics/#NatPlayground___Airport___buyTicket":
+      {"display": "buyTicket",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Modifier.minus":
-   [{"id": "NatPlayground___LateDays___Modifier___minus",
+   "NatPlayground.Airport.Traveler.ticketed":
+   [{"id": "NatPlayground___Airport___Traveler___ticketed",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Modifier___minus":
-      {"display": "minus",
+     {"/Basics/#NatPlayground___Airport___Traveler___ticketed":
+      {"display": "ticketed",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Modifier":
-   [{"id": "NatPlayground___LateDays___Modifier",
+   "NatPlayground.Airport.Traveler.noTicket":
+   [{"id": "NatPlayground___Airport___Traveler___noTicket",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Modifier":
-      {"display": "Modifier",
+     {"/Basics/#NatPlayground___Airport___Traveler___noTicket":
+      {"display": "noTicket",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.F":
-   [{"id": "NatPlayground___LateDays___Letter___F",
+   "NatPlayground.Airport.Traveler.checkedIn":
+   [{"id": "NatPlayground___Airport___Traveler___checkedIn",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___F":
-      {"display": "F",
+     {"/Basics/#NatPlayground___Airport___Traveler___checkedIn":
+      {"display": "checkedIn",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.D":
-   [{"id": "NatPlayground___LateDays___Letter___D",
+   "NatPlayground.Airport.Traveler":
+   [{"id": "NatPlayground___Airport___Traveler",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___D":
-      {"display": "D",
+     {"/Basics/#NatPlayground___Airport___Traveler":
+      {"display": "Traveler",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.C":
-   [{"id": "NatPlayground___LateDays___Letter___C",
+   "NatPlayground.Airport.ScreeningStatus.notScreened":
+   [{"id": "NatPlayground___Airport___ScreeningStatus___notScreened",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___C":
-      {"display": "C",
+     {"/Basics/#NatPlayground___Airport___ScreeningStatus___notScreened":
+      {"display": "notScreened",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.B":
-   [{"id": "NatPlayground___LateDays___Letter___B",
+   "NatPlayground.Airport.ScreeningStatus.cleared":
+   [{"id": "NatPlayground___Airport___ScreeningStatus___cleared",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___B":
-      {"display": "B",
+     {"/Basics/#NatPlayground___Airport___ScreeningStatus___cleared":
+      {"display": "cleared",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.A":
-   [{"id": "NatPlayground___LateDays___Letter___A",
+   "NatPlayground.Airport.ScreeningStatus.blocked":
+   [{"id": "NatPlayground___Airport___ScreeningStatus___blocked",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___A":
-      {"display": "A",
+     {"/Basics/#NatPlayground___Airport___ScreeningStatus___blocked":
+      {"display": "blocked",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter":
-   [{"id": "NatPlayground___LateDays___Letter",
+   "NatPlayground.Airport.ScreeningStatus":
+   [{"id": "NatPlayground___Airport___ScreeningStatus",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Letter":
-      {"display": "Letter",
+     {"/Basics/#NatPlayground___Airport___ScreeningStatus":
+      {"display": "ScreeningStatus",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Grade.modifier":
-   [{"id": "NatPlayground___LateDays___Grade___modifier",
+   "NatPlayground.Airport.BagContent.prohibited":
+   [{"id": "NatPlayground___Airport___BagContent___prohibited",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Grade___modifier":
-      {"display": "modifier",
+     {"/Basics/#NatPlayground___Airport___BagContent___prohibited":
+      {"display": "prohibited",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Grade.letter":
-   [{"id": "NatPlayground___LateDays___Grade___letter",
+   "NatPlayground.Airport.BagContent.ordinary":
+   [{"id": "NatPlayground___Airport___BagContent___ordinary",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Grade___letter":
-      {"display": "letter",
+     {"/Basics/#NatPlayground___Airport___BagContent___ordinary":
+      {"display": "ordinary",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
-   "NatPlayground.LateDays.Grade":
-   [{"id": "NatPlayground___LateDays___Grade",
+   "NatPlayground.Airport.BagContent":
+   [{"id": "NatPlayground___Airport___BagContent",
      "data":
-     {"/Basics/#NatPlayground___LateDays___Grade":
-      {"display": "Grade",
+     {"/Basics/#NatPlayground___Airport___BagContent":
+      {"display": "BagContent",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Comparison.lt":
-   [{"id": "NatPlayground___LateDays___Comparison___lt",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Comparison___lt":
-      {"display": "lt",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Comparison.gt":
-   [{"id": "NatPlayground___LateDays___Comparison___gt",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Comparison___gt":
-      {"display": "gt",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Comparison.eq":
-   [{"id": "NatPlayground___LateDays___Comparison___eq",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Comparison___eq":
-      {"display": "eq",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Comparison":
-   [{"id": "NatPlayground___LateDays___Comparison",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Comparison":
-      {"display": "Comparison",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
+        "Airport Exercise"]}},
      "address": "/Basics/"}],
    "Nat.zero_or_succ":
    [{"id": "Nat___zero_or_succ",
@@ -12812,6 +12722,28 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
+   "ImpOr_em":
+   [{"id": "ImpOr_em",
+     "data":
+     {"/Logic/#ImpOr_em":
+      {"display": "ImpOr_em",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
+   "ImpOr":
+   [{"id": "ImpOr",
+     "data":
+     {"/Logic/#ImpOr":
+      {"display": "ImpOr",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "HasTwoIncomplete.two":
    [{"id": "HasTwoIncomplete___two",
      "data":
@@ -12960,6 +12892,17 @@
         "Polymorphic Lists",
         "Supplying Type Arguments Explicitly"]}},
      "address": "/Poly/"}],
+   "ExcludedMiddle":
+   [{"id": "ExcludedMiddle",
+     "data":
+     {"/Logic/#ExcludedMiddle":
+      {"display": "ExcludedMiddle",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "EvPlayground.Ev.ev_succ_succ":
    [{"id": "EvPlayground___Ev___ev_succ_succ",
      "data":
@@ -13137,6 +13080,17 @@
         "Typeclasses",
         "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
+   "DeMorganNotAndNot":
+   [{"id": "DeMorganNotAndNot",
+     "data":
+     {"/Logic/#DeMorganNotAndNot":
+      {"display": "DeMorganNotAndNot",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "Day.wednesday":
    [{"id": "Day___wednesday",
      "data":
@@ -13236,6 +13190,17 @@
         "Data and Functions",
         "Days of the Week (Enumerated Types)"]}},
      "address": "/Basics/"}],
+   "ConsequentiaMirabilis":
+   [{"id": "ConsequentiaMirabilis",
+     "data":
+     {"/Logic/#ConsequentiaMirabilis":
+      {"display": "ConsequentiaMirabilis",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "CombineOddEven":
    [{"id": "CombineOddEven",
      "data":

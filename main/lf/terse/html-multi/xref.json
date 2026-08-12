@@ -2312,11 +2312,11 @@
        {"title": "More Exercises", "shortTitle": null, "number": "4"},
        {"title": "Warmups", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Course-Late-Policies___-Formalized":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Airport-Exercise":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Course-Late-Policies___-Formalized",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Airport-Exercise",
      "data":
-     {"title": "Course Late Policies, Formalized",
+     {"title": "Airport Exercise",
       "shortTitle": null,
       "sectionNum": "2.4.2.",
       "searchPriority": 50,
@@ -2326,9 +2326,7 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "More Exercises", "shortTitle": null, "number": "4"},
-       {"title": "Course Late Policies, Formalized",
-        "shortTitle": null,
-        "number": "2"}]},
+       {"title": "Airport Exercise", "shortTitle": null, "number": "2"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises":
    [{"id":
@@ -3857,17 +3855,6 @@
         "Functions as Data",
         "Functions That Construct Functions"]}},
      "address": "/Poly/"}],
-   "excluded_middle":
-   [{"id": "excluded_middle",
-     "data":
-     {"/Logic/#excluded_middle":
-      {"display": "excluded_middle",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "The Logic of Lean",
-        "Classical vs. Constructive Logic"]}},
-     "address": "/Logic/"}],
    "ex_falso_quodlibet":
    [{"id": "ex_falso_quodlibet",
      "data":
@@ -4477,7 +4464,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
+   [{"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -4486,7 +4473,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq-next",
+    {"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -5433,6 +5420,17 @@
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "NatPlayground.ofNat":
+   [{"id": "NatPlayground___ofNat",
+     "data":
+     {"/Basics/#NatPlayground___ofNat":
+      {"display": "ofNat",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Data and Functions",
+        "Natural Numbers"]}},
+     "address": "/Basics/"}],
    "NatPlayground.Nat.zero_zero_beq_true":
    [{"id": "NatPlayground___Nat___zero_zero_beq_true",
      "data":
@@ -6069,270 +6067,6 @@
         "Basics: Functional Programming in Lean",
         "Data and Functions",
         "Natural Numbers"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.ofNat":
-   [{"id": "NatPlayground___LateDays___ofNat",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___ofNat":
-      {"display": "ofNat",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.modifierComparison":
-   [{"id": "NatPlayground___LateDays___modifierComparison",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___modifierComparison":
-      {"display": "modifierComparison",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.lowerLetter_F_is_F":
-   [{"id": "NatPlayground___LateDays___lowerLetter_F_is_F",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___lowerLetter_F_is_F":
-      {"display": "lowerLetter_F_is_F",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.lowerLetter":
-   [{"id": "NatPlayground___LateDays___lowerLetter",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___lowerLetter":
-      {"display": "lowerLetter",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.letterComparison":
-   [{"id": "NatPlayground___LateDays___letterComparison",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___letterComparison":
-      {"display": "letterComparison",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.applyLatePolicy_unfold":
-   [{"id": "NatPlayground___LateDays___applyLatePolicy_unfold",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___applyLatePolicy_unfold":
-      {"display": "applyLatePolicy_unfold",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.applyLatePolicy":
-   [{"id": "NatPlayground___LateDays___applyLatePolicy",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___applyLatePolicy":
-      {"display": "applyLatePolicy",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Modifier.plus":
-   [{"id": "NatPlayground___LateDays___Modifier___plus",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Modifier___plus":
-      {"display": "plus",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Modifier.natural":
-   [{"id": "NatPlayground___LateDays___Modifier___natural",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Modifier___natural":
-      {"display": "natural",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Modifier.minus":
-   [{"id": "NatPlayground___LateDays___Modifier___minus",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Modifier___minus":
-      {"display": "minus",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Modifier":
-   [{"id": "NatPlayground___LateDays___Modifier",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Modifier":
-      {"display": "Modifier",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.F":
-   [{"id": "NatPlayground___LateDays___Letter___F",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___F":
-      {"display": "F",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.D":
-   [{"id": "NatPlayground___LateDays___Letter___D",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___D":
-      {"display": "D",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.C":
-   [{"id": "NatPlayground___LateDays___Letter___C",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___C":
-      {"display": "C",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.B":
-   [{"id": "NatPlayground___LateDays___Letter___B",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___B":
-      {"display": "B",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter.A":
-   [{"id": "NatPlayground___LateDays___Letter___A",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Letter___A":
-      {"display": "A",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Letter":
-   [{"id": "NatPlayground___LateDays___Letter",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Letter":
-      {"display": "Letter",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Grade.modifier":
-   [{"id": "NatPlayground___LateDays___Grade___modifier",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Grade___modifier":
-      {"display": "modifier",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Grade.letter":
-   [{"id": "NatPlayground___LateDays___Grade___letter",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Grade___letter":
-      {"display": "letter",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Grade":
-   [{"id": "NatPlayground___LateDays___Grade",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Grade":
-      {"display": "Grade",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Comparison.lt":
-   [{"id": "NatPlayground___LateDays___Comparison___lt",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Comparison___lt":
-      {"display": "lt",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Comparison.gt":
-   [{"id": "NatPlayground___LateDays___Comparison___gt",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Comparison___gt":
-      {"display": "gt",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Comparison.eq":
-   [{"id": "NatPlayground___LateDays___Comparison___eq",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Comparison___eq":
-      {"display": "eq",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.LateDays.Comparison":
-   [{"id": "NatPlayground___LateDays___Comparison",
-     "data":
-     {"/Basics/#NatPlayground___LateDays___Comparison":
-      {"display": "Comparison",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "More Exercises",
-        "Course Late Policies, Formalized"]}},
      "address": "/Basics/"}],
    "Nat.odd_def":
    [{"id": "Nat___odd_def",
@@ -7673,6 +7407,17 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
      "address": "/Typeclasses/"}],
+   "ExcludedMiddle":
+   [{"id": "ExcludedMiddle",
+     "data":
+     {"/Logic/#ExcludedMiddle":
+      {"display": "ExcludedMiddle",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Classical vs. Constructive Logic"]}},
+     "address": "/Logic/"}],
    "Ev.ev_succ_succ":
    [{"id": "Ev___ev_succ_succ",
      "data":

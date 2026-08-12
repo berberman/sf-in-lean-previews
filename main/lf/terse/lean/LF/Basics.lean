@@ -153,6 +153,10 @@ theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b := by
   intro b
   rfl
 
+-- Note to developers (Benjamin Pierce @bcpierce00):
+--     The typesetting here is bad -- most of the text has to
+--     come out of the inline comments...
+
 -- And now let's see it in a bit more detail:
 
 theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
@@ -498,6 +502,28 @@ namespace NatPlayground
 inductive Nat : Type where
   | zero
   | succ (n : Nat)
+
+-- With a little Lean magic, we can also arrange that ordinary
+-- numerals such as 0, 1, and 2 will be interpreted as values
+-- of our new `Nat` type whenever this is sensible in context.
+
+-- The technical details of how this is done are not important
+-- for present purposes, so we won't spend time explaining them
+-- here. Instead, we'll mark them with
+-- `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and
+-- hide them in a collapsed text segment in the HTML
+-- presentation. Click on the triangle in the HTML if you want
+-- to have a look.
+
+-- THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
+
+def ofNat : _root_.Nat → Nat
+  | .zero => .zero
+  | .succ n => .succ (ofNat n)
+
+instance (n : _root_.Nat) : OfNat Nat n := ⟨ofNat n⟩
+
+-- END DETAILS
 
 -- Eventually we'll swap to Lean's definition of natural
 -- numbers, which is very similar to this.
@@ -1148,210 +1174,4 @@ theorem identity_fn_applied_twice (f : Bool → Bool) :
 
 theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
   sorry
-
--- ### Course Late Policies, Formalized
-
--- Note to developers:
---     This exercise needs to be changed. Per GitHub
---     discussion: the way this exercise is currently
---     structured is at odds with our definition of Nats (use
---     of large digits that would be tedious to work with by
---     rewriting). The definitions of grades and letters also
---     do not lend themselves well to our discipline of
---     defining and using rewrite rules for all our functions,
---     as they would require a frustrating number of such
---     rules. We should come up with a new exercise here of
---     similar size and difficulty, but that works better with
---     the new presentation style of this material. HG: Also,
---     we should make sure that this reads OK in full/terse
---     TODO
-
-namespace LateDays
-open scoped NatPlayground.Nat
-
--- Numeric literals (`9`, `17`, `21`) for our unary `Nat`.
-@[reducible] def ofNat : _root_.Nat → Nat
-  | .zero => .zero
-  | .succ n => .succ (ofNat n)
-
-instance (n : _root_.Nat) : OfNat Nat n := ⟨ofNat n⟩
-
-inductive Letter : Type where
-  | A | B | C | D | F
-
-inductive Modifier : Type where
-  | plus | natural | minus
-
-structure Grade where
-  letter : Letter
-  modifier : Modifier
-
-inductive Comparison : Type where
-  | eq   -- "equal"
-  | lt   -- "less than"
-  | gt   -- "greater than"
-
-open Letter Modifier Comparison
-
-def letterComparison (l1 l2 : Letter) : Comparison :=
-  match l1, l2 with
-  | A, A => eq
-  | A, _ => gt
-  | B, A => lt
-  | B, B => eq
-  | B, _ => gt
-  | C, A => lt
-  | C, B => lt
-  | C, C => eq
-  | C, _ => gt
-  | D, F => gt
-  | D, D => eq
-  | D, _ => lt
-  | F, F => eq
-  | F, _ => lt
-
-example : letterComparison B A = lt := by rfl
-example : letterComparison D D = eq := by rfl
-example : letterComparison B F = gt := by rfl
-
--- ### Exercise (1 star): letter_comparison ⭐
-
-theorem letterComparison_Eq : ∀ l : Letter,
-    letterComparison l l = eq := by
-  sorry
-
-def modifierComparison (m1 m2 : Modifier) : Comparison :=
-  match m1, m2 with
-  | plus, plus => eq
-  | plus, _ => gt
-  | natural, plus => lt
-  | natural, natural => eq
-  | natural, _ => gt
-  | minus, minus => eq
-  | minus, _ => lt
-
--- ### Exercise (2 stars): grade_comparison ⭐⭐
-
--- Here, we will need to access the fields of the `Grade`
--- structure. The field names are `letter` and `modifier`, so
--- for a grade `g`, we can write `g.letter` and `g.modifier` to
--- access these fields.
-
-def gradeComparison (g1 g2 : Grade) : Comparison
-  := sorry
-
-theorem gradeComparison_test1 : gradeComparison ⟨A, minus⟩ ⟨B, plus⟩ = gt := sorry
-theorem gradeComparison_test2 : gradeComparison ⟨A, minus⟩ ⟨A, plus⟩ = lt := sorry
-theorem gradeComparison_test3 : gradeComparison ⟨F, plus⟩ ⟨F, plus⟩ = eq := sorry
-theorem gradeComparison_test4 : gradeComparison ⟨B, minus⟩ ⟨C, plus⟩ = gt := sorry
-
-def lowerLetter (l : Letter) : Letter :=
-  match l with
-  | A => B
-  | B => C
-  | C => D
-  | D => F
-  | F => F  -- Can't go lower than F!
-
-theorem lowerLetter_F_is_F : lowerLetter F = F := by rfl
-
--- ### Exercise (2 stars): lower_letter_lowers ⭐⭐
-
-theorem lowerLetter_lowers : ∀ l : Letter,
-    letterComparison F l = lt →
-    letterComparison (lowerLetter l) l = lt := by
-  sorry
-
--- ### Exercise (2 stars): lower_grade ⭐⭐
-
--- In addition to the dot notation for accessing structure
--- fields, we can also use pattern matching to access these
--- fields. For example, if `g` is a grade, then we can write
--- `match g with ⟨l, m⟩ => ...` to access the letter and
--- modifier components of `g` as `l` and `m`, respectively.
--- Note: The angle brackets `⟨` and `⟩` are typed as `\<` and
--- `\>`.
-
-def lowerGrade (g : Grade) : Grade
-  := sorry
-
-theorem lowerGrade_A_plus : lowerGrade ⟨A, plus⟩ = ⟨A, natural⟩ := sorry
-example : lowerGrade ⟨A, natural⟩ = ⟨A, minus⟩ := sorry
-example : lowerGrade ⟨A, minus⟩ = ⟨B, plus⟩ := sorry
-example : lowerGrade ⟨B, plus⟩ = ⟨B, natural⟩ := sorry
-example : lowerGrade ⟨F, natural⟩ = ⟨F, minus⟩ := sorry
-example : lowerGrade (lowerGrade ⟨B, minus⟩) = ⟨C, natural⟩ := sorry
-example : lowerGrade (lowerGrade (lowerGrade ⟨B, minus⟩)) = ⟨C, minus⟩ := sorry
-theorem lowerGrade_F_minus : lowerGrade ⟨F, minus⟩ = ⟨F, minus⟩ := sorry
-
--- ### Exercise (3 stars): lower_grade_lowers ⭐⭐⭐
-
--- Note to developers:
---     For our solution we use:
---
---     - Working on multiple match cases with
---       `| _ ... | _ => ...`;
---
---     - Working on all remaining goals with `all_goals`.
---
---     - These are not expected of students at this point.
-
-theorem lowerGrade_lowers : ∀ g : Grade,
-    gradeComparison ⟨F, minus⟩ g = lt →
-    gradeComparison (lowerGrade g) g = lt := by
-  sorry
-
--- Note to developers (Roger Burtonpatel @rogerburtonpatel):
---     in removing `dsimp` from these proofs, I found that you
---     might need the `contradiction` tactic here instead, or
---     some other reasoning that's not accomplishable with the
---     tactics we've introduced so far. Can you make this proof
---     work with only `rw`, `rfl`, `exact`, etc?
---
---     Niklas Halonen (xhalo32): We need to teach how to prove
---     a goal that looks like `natural ≠ minus` for example.
---     One could write `injection x` for example:
---
---     `example : natural ≠ minus := by
---       intro x
---       injection x`
-
-def applyLatePolicy (lateDays : NatPlayground.Nat) (g : Grade) : Grade :=
-  if Nat.ble lateDays  9 then g
-  else if Nat.ble lateDays 17 then lowerGrade g
-  else if Nat.ble lateDays 21 then lowerGrade (lowerGrade g)
-  else lowerGrade (lowerGrade (lowerGrade g))
-
-theorem applyLatePolicy_unfold : ∀ (lateDays : NatPlayground.Nat) (g : Grade),
-    applyLatePolicy lateDays g
-    =
-    (if Nat.ble lateDays 9 then g
-     else if Nat.ble lateDays 17 then lowerGrade g
-     else if Nat.ble lateDays 21 then lowerGrade (lowerGrade g)
-     else lowerGrade (lowerGrade (lowerGrade g))) := by
-  intro _ _; rfl
-
--- ### Exercise (2 stars): no_penalty_for_mostly_on_time ⭐⭐
-
-theorem no_penalty_for_mostly_on_time : ∀ (lateDays : NatPlayground.Nat) (g : Grade),
-    (Nat.ble lateDays 9 = true) →
-    applyLatePolicy lateDays g = g := by
-  sorry
-
--- ### Exercise (2 stars): grade_lowered_once ⭐⭐
-
-theorem grade_lowered_once : ∀ (lateDays : NatPlayground.Nat) (g : Grade),
-    (Nat.ble lateDays 9 = false) →
-    (Nat.ble lateDays 17 = true) →
-    applyLatePolicy lateDays g = lowerGrade g := by
-  sorry
-
-end LateDays
-
--- Note to developers (Roger Burtonpatel @rogerburtonpatel):
---     If we are to have this exercise, we must either make the
---     functions irreducible or teach about `rw` of a reducible
---     definition. We also have to figure out how to make
---     lowerGrade_lowers go through without `dsimp` or
---     `contradiction`. To discuss.
 

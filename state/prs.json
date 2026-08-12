@@ -1,5 +1,5 @@
 {
-  "main_sha": "d588d9ce187721ec3c683aadb222e9e43f768bfb",
+  "main_sha": "92dbf2689aeb8886747566cd181da2ac5cdbae50",
   "prs": {
     "171": {
       "base_sha": "9af2ebb6e823885bd8437d26e9a22a5678329499",
@@ -443,53 +443,6 @@
       "status": "published",
       "title": "Use Lean terminology for types",
       "url": "https://github.com/plclub/sf-in-lean/pull/234"
-    },
-    "241": {
-      "base_sha": "d588d9ce187721ec3c683aadb222e9e43f768bfb",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "5438f1a3361a4d27ae2edcc8e191f524c78522fe",
-      "preview_path": "pr/241/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31629637518",
-      "status": "published",
-      "title": "Remove `abbrev`s (#189)",
-      "url": "https://github.com/plclub/sf-in-lean/pull/241"
     }
   },
   "schema": 3
