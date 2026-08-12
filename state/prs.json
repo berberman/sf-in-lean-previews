@@ -531,9 +531,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "c9d95422ac4b4d8023fbace7496ececed99f44f5",
+      "head_sha": "90bba2062ce0537a31a3fc8372d5838d8075a1b4",
       "preview_path": "pr/238/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31609622743",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31613676561",
       "status": "published",
       "title": "branch_watch: nbsp in Changes counts, PR base branch, tidier non-PR line",
       "url": "https://github.com/plclub/sf-in-lean/pull/238"
