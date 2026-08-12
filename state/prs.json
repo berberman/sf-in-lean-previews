@@ -678,6 +678,16 @@
       "status": "published",
       "title": "Fix small Preface typos",
       "url": "https://github.com/plclub/sf-in-lean/pull/236"
+    },
+    "237": {
+      "base_sha": "40ef3f3fab652b3d003d7fb44f2e41b3fb204ce6",
+      "changed_variants": [],
+      "head_sha": "1dc4c79bce1fd0531a4e3a108f5f5b43384435e5",
+      "preview_path": "pr/237/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "bib: add entry and citations",
+      "url": "https://github.com/plclub/sf-in-lean/pull/237"
     }
   },
   "schema": 3
