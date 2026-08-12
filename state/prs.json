@@ -201,11 +201,48 @@
     },
     "229": {
       "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "e72769921d42c46c4ab2f6670d0caf3f2789b2ec",
       "preview_path": "pr/229/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31641706834",
+      "status": "published",
       "title": "Bump to 4.33.0 + structure Totalmap",
       "url": "https://github.com/plclub/sf-in-lean/pull/229"
     },

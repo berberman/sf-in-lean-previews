@@ -662,6 +662,7 @@ theorem update_eq (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] =
 
 -- ### Exercise (2 stars): update_neq ⭐⭐
 
+@[simp]
 theorem update_neq {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
     (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
   sorry
