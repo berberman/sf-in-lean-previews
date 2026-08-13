@@ -143,12 +143,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
     },
     "216": {
-      "base_sha": "2ec6a79b1aadcde2506333e003ea9cadad616161",
+      "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
       "changed_variants": [],
-      "head_sha": "0fbf648c686445d52b99a4d72c63acf5facfbafc",
+      "head_sha": "6801763567edb9b8953eed56ffa33f84b347098d",
       "preview_path": "pr/216/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31706825708",
+      "status": "ci-failed",
       "title": "Refactor Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },
