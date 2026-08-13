@@ -232,17 +232,31 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Slang/"}],
-   "Hoare-Logic--Introduction":
-   [{"id": "Hoare-Logic--Introduction",
+   "Hoare-Logic--Preface--Recommended-Citation-Format":
+   [{"id": "Hoare-Logic--Preface--Recommended-Citation-Format",
      "data":
-     {"title": "Introduction",
+     {"title": "Recommended Citation Format",
+      "shortTitle": null,
+      "sectionNum": "1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Recommended Citation Format",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Preface/"}],
+   "Hoare-Logic--Preface":
+   [{"id": "Hoare-Logic--Preface",
+     "data":
+     {"title": "Preface",
       "shortTitle": null,
       "sectionNum": "1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Introduction", "shortTitle": null, "number": "1"}]},
-     "address": "/Intro/"}],
+       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs":
    [{"id":
      "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs",

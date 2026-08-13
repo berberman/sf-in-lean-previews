@@ -5,10 +5,9 @@ import HL.SFLCompat
 
 -- # Hoare: Hoare Logic, Part I
 
--- In the final chaper of *Logical Foundations* (*Software Foundations*,
--- volume 1), we began applying the mathematical tools developed in the first
--- part of the course to studying the theory of a small programming language,
--- Imp.
+-- In an earlier chapter, we began applying the mathematical tools developed
+-- in the first part of the course to studying the theory of a small
+-- programming language, Imp.
 
 -- - We defined a type of *abstract syntax trees* for Imp, together with an
 --   *evaluation relation* (a partial function on states) that specifies the
@@ -32,7 +31,7 @@ import HL.SFLCompat
 --   - correctness (in the sense of preserving meaning) of a number of useful
 --     program transformations
 
---   - behavioral equivalence of programs (in the *Equiv* chapter).
+--   - behavioral equivalence of programs (in the Equiv chapter).
 
 -- If we stopped here, we would already have something useful: a set of tools
 -- for defining and discussing programming languages and language features
@@ -44,9 +43,10 @@ import HL.SFLCompat
 -- them as "theorems." But properties that seem intuitively obvious can
 -- sometimes be quite subtle (sometimes also subtly wrong!).
 
--- We'll return to the theme of metatheoretic properties of whole languages
--- later in this volume when we discuss *types* and *type soundness*. In this
--- chapter, though, we turn to a different set of issues.
+-- In another volume of this series (*Type Systems*), we expand upon the theme
+-- of metatheoretic properties of whole languages when we discuss *types* and
+-- *type soundness*. In this chapter, though, we turn to a different set of
+-- issues.
 
 -- Our goal in this chapter is to develop the tools to work through some
 -- simple examples of *program verification* -- i.e., to use the precise
@@ -148,8 +148,7 @@ end ExAssertions
 -- `{{ _ }}` brackets, or when Lean knows that the type of an expression is
 -- `Assertion`.
 
--- There is no need to understand the details of how these notation hacks
--- work. (We barely understand some of it ourselves!)
+-- There is no need to understand the details of how these notations work.
 
 namespace Assertion
 
@@ -682,8 +681,6 @@ theorem hoare_seq (P Q R : Assertion) (c1 c2 : Com)
 
 def Assertion.sub (x : Ident) (a : Aexp) (P : Assertion) : Assertion :=
   fun (st : State) => P (x →ₜ a.eval st ; st)
-
--- TODO Introduce a notation typeclass for this (e.g. HasSubst)
 
 /-- Assertion substitution: `P [X ↦ a]` -/
 syntax:100 term:100 " [" ident " ↦ " imp_aexp "]" : term
@@ -1818,7 +1815,7 @@ open scoped ValidHoareTriple
 
 --          {{P}} c {{P}}
 --   ---------------------------
---   {{P} while b do c end {{P}}
+--   {{P}} while b do c end {{P}}
 
 -- This rule is valid: if `P` is a command invariant of `c`, as the premise
 -- requires, then, no matter how many times the loop body executes, `P` is

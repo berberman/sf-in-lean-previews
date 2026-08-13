@@ -286,9 +286,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "b5be34d165f3d27e1a32fe7bdc8957a43814ffc6",
+      "head_sha": "ccdf0d3e0eb97dddea8588d1c751352005865c99",
       "preview_path": "pr/230/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31512100337",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31735460578",
       "status": "published",
       "title": "Port Hoare2 chapter to Lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/230"

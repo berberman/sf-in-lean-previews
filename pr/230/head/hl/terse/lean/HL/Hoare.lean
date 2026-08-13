@@ -810,15 +810,8 @@ theorem hoare_seq (P Q R : Assertion) (c1 c2 : Com)
 def Assertion.sub (x : Ident) (a : Aexp) (P : Assertion) : Assertion :=
   fun (st : State) => P (x →ₜ a.eval st ; st)
 
--- Note to developers (before next release):
---     This concrete syntax is hard to read in comments because
---     of all the square brackets. Something like
---     `P with X ↦ a` would be much better. I guess the same
---     will apply to the lambda-calculus chapters... BCP 25: I
---     still think this is a good idea, and I had a quick go at
---     implementing it, but did not succeed yet.
-
--- TODO Introduce a notation typeclass for this (e.g. HasSubst)
+-- Note to developers (One An @meluge, before next release):
+--     Introduce a notation typeclass for this (e.g. HasSubst)
 
 /-- Assertion substitution: `P [X ↦ a]` -/
 syntax:100 term:100 " [" ident " ↦ " imp_aexp "]" : term

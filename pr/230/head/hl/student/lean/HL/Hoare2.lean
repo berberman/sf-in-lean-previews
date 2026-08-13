@@ -1235,8 +1235,8 @@ def parityDec (m : Nat) : Decorated where
     ->> {{ post }}
   }
 
--- If you use the suggested loop invariant, you may find the following lemmas
--- helpful (as well as `leb_complete` and `leb_correct`).
+-- If you use the suggested loop invariant, you may find the following two
+-- lemmas helpful.
 
 theorem parity_ge_2 (x : Nat) (h : 2 ≤ x) :
     parity (x - 2) = parity x := by
@@ -1504,19 +1504,6 @@ def minimumDec (a b : Nat) : Decorated where
       {{ sorry }}
     ->> {{ Z = Nat.min a b }}
   }
-  /- HIDE:
-  - The first implication holds by substitution and algebra.
-  - The second holds because:
-      + by lemma2 we can rewrite
-        [Z+1 + min (X-1) (Y-1)] as
-        [Z+1 + (min x y) - 1]
-      + by lemma1 and [X<>0 /\ Y<>0], [min x y <> 0],
-        so [(min x y) - 1] is not zero-truncated.
-      + so we can rewrite [Z+1 + (min x y) - 1]
-        as [Z + min x y].
-  - The third holds because the second conjunct implies
-    [X] and [Y]
-    are both [0]. -/
 
 theorem minimum_correct (a b : Nat) :
     (minimumDec a b).OuterTripleValid := by
@@ -1645,16 +1632,13 @@ theorem dpow2_down_correct (n : Nat) :
 
 -- ### Exercise (2 stars): fib_eqn (Advanced) ⭐⭐
 
--- The Fibonacci function is usually written like this:
+-- The Fibonacci function is characterized by the equations
 
---   Fixpoint fib n :=
---     match n with
---     | 0 => 1
---     | 1 => 1
---     | _ => fib (pred n) + fib (pred (pred n))
---     end.
+--   fib 0 = 1
+--   fib 1 = 1
+--   fib (n + 2) = fib (n + 1) + fib n
 
--- The same recursion can be written in a form that Lean accepts structurally:
+-- This recurrence can be defined structurally in Lean as follows:
 
 def fib : Nat → Nat
   | 0 => 1
