@@ -149,7 +149,7 @@
       "preview_path": "pr/216/head/",
       "run_url": null,
       "status": "waiting-ci",
-      "title": "[WIP] Pass over Tactics",
+      "title": "Refactor Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },
     "228": {
