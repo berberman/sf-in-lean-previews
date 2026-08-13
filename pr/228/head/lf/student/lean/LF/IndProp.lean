@@ -310,7 +310,7 @@ example : AncestorOf .sage .moss := by
   . apply ClosTrans.t_step; apply ParentOf.po_CM
 
 -- Computing the transitive closure can be undecidable even for a relation R
--- that is decidable (e.g., the `Cms` relation below), so in general we can't
+-- that is decidable (e.g., the `CMS` relation below), so in general we can't
 -- expect to define transitive closure as a boolean function. Fortunately,
 -- Lean allows us to define transitive closure as an inductive relation.
 
@@ -351,27 +351,27 @@ inductive ClosReflTrans {α : Type} (R : α → α → Prop) : α → α → Pro
 -- conjecture. First we define a binary relation corresponding to the "Collatz
 -- step function" `csf`:
 
-def Cs (n m : Nat) : Prop := csf n = m
+def CS (n m : Nat) : Prop := csf n = m
 
 -- This Collatz step relation can be used in conjunction with the reflexive
--- and transitive closure operation to define a *Collatz multi-step* (`Cms`)
+-- and transitive closure operation to define a *Collatz multi-step* (`CMS`)
 -- relation, expressing that a number `n` reaches another number `m` in zero
 -- or more Collatz steps:
 
-def Cms (n m : Nat) : Prop := ClosReflTrans Cs n m
-def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → Cms n 1
+def CMS (n m : Nat) : Prop := ClosReflTrans CS n m
+def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CMS n 1
 
--- This `Cms` relation defined in terms of `ClosReflTrans` allows for more
+-- This `CMS` relation defined in terms of `ClosReflTrans` allows for more
 -- interesting derivations than the linear ones of the directly-defined
 -- `CollatzHoldsFor` relation:
 
 --   csf 16 = 8           csf 8 = 4           csf 4 = 2           csf 2 = 1
 --   ——————————(rt_step)  —————————(rt_step)  —————————(rt_step)  —————————(rt_step)
---   Cms 16 8           Cms 8 4           Cms 4 2           Cms 2 1
+--   CMS 16 8           CMS 8 4           CMS 4 2           CMS 2 1
 --   ——————————————————————————(rt_trans)  —————————————————————————(rt_trans)
---       Cms 16 4                              Cms 4 1
+--       CMS 16 4                              CMS 4 1
 --       —————————————————————————————————————————————(rt_trans)
---                          Cms 16 1
+--                          CMS 16 1
 
 -- ### Exercise (1 star): clos_refl_trans_sym (manually graded) ⭐
 

@@ -510,20 +510,20 @@ inductive ClosReflTrans {α : Type} (R : α → α → Prop) : α → α → Pro
 -- Collatz conjecture. First we define a binary relation
 -- corresponding to the "Collatz step function" `csf`:
 
-def Cs (n m : Nat) : Prop := csf n = m
+def CS (n m : Nat) : Prop := csf n = m
 
 -- This Collatz step relation can be used in conjunction with
 -- the reflexive and transitive closure operation to define a
--- *Collatz multi-step* (`Cms`) relation, expressing that a
+-- *Collatz multi-step* (`CMS`) relation, expressing that a
 -- number `n` reaches another number `m` in zero or more
 -- Collatz steps:
 
-def Cms (n m : Nat) : Prop := ClosReflTrans Cs n m
-def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → Cms n 1
+def CMS (n m : Nat) : Prop := ClosReflTrans CS n m
+def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CMS n 1
 
 -- Note to developers:
 --     HIDE: CH: Would it be helpful to add an exercise later
---     proving Cms equivalent to CollatzHoldsFor
+--     proving CMS equivalent to CollatzHoldsFor
 
 -- ### Example: Permutations
 

@@ -791,17 +791,31 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Slang/"}],
-   "Type-Systems--Introduction":
-   [{"id": "Type-Systems--Introduction",
+   "Type-Systems--Preface--Recommended-Citation-Format":
+   [{"id": "Type-Systems--Preface--Recommended-Citation-Format",
      "data":
-     {"title": "Introduction",
+     {"title": "Recommended Citation Format",
+      "shortTitle": null,
+      "sectionNum": "1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Recommended Citation Format",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Preface/"}],
+   "Type-Systems--Preface":
+   [{"id": "Type-Systems--Preface",
+     "data":
+     {"title": "Preface",
       "shortTitle": null,
       "sectionNum": "1.",
       "searchPriority": 50,
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "Introduction", "shortTitle": null, "number": "1"}]},
-     "address": "/Intro/"}],
+       {"title": "Preface", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
    "Type-Systems":
    [{"id": "Type-Systems",
      "data":
