@@ -396,6 +396,16 @@
       "status": "published",
       "title": "pass on Preface and citations",
       "url": "https://github.com/plclub/sf-in-lean/pull/242"
+    },
+    "243": {
+      "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
+      "changed_variants": [],
+      "head_sha": "f444fc3bbdcfa4a17e5a0d343351e653d1c809de",
+      "preview_path": "pr/243/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31741512395",
+      "status": "ci-failed",
+      "title": "Add acknowledgements to the preface of each volume",
+      "url": "https://github.com/plclub/sf-in-lean/pull/243"
     }
   },
   "schema": 3
