@@ -390,22 +390,106 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "ad346cf25e618d38f6571b894c4ac22e9f9db9c3",
+      "head_sha": "05f3701e066bb35f0e97435f866786dad1f0d6f4",
       "preview_path": "pr/242/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31649791444",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31744502449",
       "status": "published",
       "title": "pass on Preface and citations",
       "url": "https://github.com/plclub/sf-in-lean/pull/242"
     },
     "243": {
       "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
-      "changed_variants": [],
-      "head_sha": "f444fc3bbdcfa4a17e5a0d343351e653d1c809de",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "d8a538d9dd61708dcd50b73602eacf76685e5042",
       "preview_path": "pr/243/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31741512395",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31743880735",
+      "status": "published",
       "title": "Add acknowledgements to the preface of each volume",
       "url": "https://github.com/plclub/sf-in-lean/pull/243"
+    },
+    "244": {
+      "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "b4a053271aa99b4f1a55ff94fd94808e45b70a21",
+      "preview_path": "pr/244/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31744158634",
+      "status": "published",
+      "title": "Document `inversion`.",
+      "url": "https://github.com/plclub/sf-in-lean/pull/244"
     }
   },
   "schema": 3

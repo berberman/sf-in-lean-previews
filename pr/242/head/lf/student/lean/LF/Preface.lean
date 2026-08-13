@@ -121,10 +121,10 @@ import LF.SFLCompat
 -- - Deepmind's AI model for IMO problems:
 --   [Alphaproof](https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/)
 
--- - formal specification for the [cedar polucy
+-- - formal specification for the [cedar policy
 --   language](https://github.com/cedar-policy/cedar-spec)
 
--- - As a *platform for modeling programming languages*, proof assistans have
+-- - As a *platform for modeling programming languages*, proof assistants have
 --   become standard tools for researchers who need to describe and reason about
 --   complex language definitions. They have been used, for example, to check
 --   the security of the JavaCard platform, obtaining the highest level of
@@ -201,9 +201,9 @@ import LF.SFLCompat
 
 -- ### Further Reading
 
--- This text is intended to be self contained, but readers looking for a
--- deeper treatment of particular topics will find some suggestions for
--- further reading in the Postscript chapter.
+-- This text is intended to be self contained, but readers looking for
+-- follow-on textbooks or deeper treatments of particular topics will find
+-- some suggestions for further reading in the Postscript chapter.
 
 -- ## Practicalities
 

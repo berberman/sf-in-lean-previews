@@ -141,20 +141,15 @@ import LF.SFLCompat
 -- - Deepmind's AI model for IMO problems:
 --   [Alphaproof](https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/)
 
--- - formal specification for the [cedar polucy
+-- - formal specification for the [cedar policy
 --   language](https://github.com/cedar-policy/cedar-spec)
 
 -- Note to developers (Benjamin Pierce @bcpierce00):
---     Need more examples, including specifically things
---     accomplished in Lean.
---
---     `lean-software-foundations-contributors > Main Achievements of Lean`
---     lists some big Lean projects -- some of them should be
---     mentioned here. And there are probably things here to
---     trim.
+--     The individual references above should be merged into
+--     the categories below...
 
 -- - As a *platform for modeling programming languages*, proof
---   assistans have become standard tools for researchers who
+--   assistants have become standard tools for researchers who
 --   need to describe and reason about complex language
 --   definitions. They have been used, for example, to check the
 --   security of the JavaCard platform, obtaining the highest
@@ -244,17 +239,12 @@ import LF.SFLCompat
 -- sides of Lean are actually aspects of the very same
 -- underlying machinery -- i.e., *proofs are programs*.
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Is this an accurate description of Lean? Luisa Cicolini
---     (luisacicolini) That looks fair to me, I suppose it's
---     too early to cite curry howard?
-
 -- ### Further Reading
 
 -- This text is intended to be self contained, but readers
--- looking for a deeper treatment of particular topics will
--- find some suggestions for further reading in the Postscript
--- chapter.
+-- looking for follow-on textbooks or deeper treatments of
+-- particular topics will find some suggestions for further
+-- reading in the Postscript chapter.
 
 -- ## Practicalities
 

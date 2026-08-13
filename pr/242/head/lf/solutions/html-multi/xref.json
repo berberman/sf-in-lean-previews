@@ -4590,7 +4590,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero",
+   [{"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4605,7 +4605,7 @@
         "UsingLean: Using the full power of a proof assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero-next",
+    {"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -6534,7 +6534,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
+   [{"id": "TotalMap___Nat___eq",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -6543,7 +6543,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
+    {"id": "TotalMap___Nat___eq-next",
      "data":
      {"/Typeclasses/#TotalMap___Nat___eq-next":
       {"display": "eq",
@@ -12400,7 +12400,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -12411,7 +12411,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
