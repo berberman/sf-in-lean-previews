@@ -446,6 +446,10 @@ set_option linter.unusedSectionVars false
 -- function, rather than just as "equivalent" list structures. This simplifies
 -- proofs that use maps.
 
+-- Instead of using functions directly, we encapsulate them inside a
+-- `structure` which we call `TotalMap`. Intuitively, a total map just
+-- contains a function `inner` from a key of type `α` to a value of type `β`.
+
 -- Note to developers (Claude):
 --     This paragraph previously wrote `{tech}_extensional_`, but that failed
 --     to build here with `No term def with key "extensional"`. The `{tech}`
@@ -462,9 +466,6 @@ structure TotalMap (α : Type) (β : Type) where
   inner : α → β
 
 namespace TotalMap
-
--- Intuitively, a total map over an element type `β` just contains a function
--- `inner` from a key of type `α` to a value of type `β`.
 
 -- In order to declare a default value of `β` we will use the `Inhabited`
 -- typeclass, which is the standard library's implementation of our
@@ -548,9 +549,9 @@ example {n : Nat} : emptyNatMap.get n = 0 := by
 --     A reason I can come up with why we use a notation typeclass (in library
 --     code) over a plain notation is that it makes it possible (for a
 --     downstream consumer) to write `open scoped MyGetElem` instead of
---     writing `open scoped TotalMap` and `open scoped TotalMap` individually.
---     This wouldn't be a good sell if `→ₜ` and `→ₚ` are scoped notations, but
---     they're currently global.
+--     writing `open scoped TotalMap` and `open scoped PartialMap`
+--     individually. This wouldn't be a good sell if `→ₜ` and `→ₚ` are scoped
+--     notations, but they're currently global.
 
 end TotalMap
 
@@ -983,6 +984,10 @@ instance : MyGetElem (PartialMap α β) α (Option β) where
   getElem m a := m.toTotal[a]
 
 theorem getElem_def (m : PartialMap α β) (a : α) : m[a] = m.toTotal[a] := rfl
+
+-- Note to developers (Niklas Halonen @xhalo32, NOW):
+--     The following few paragrahps are out-of-date because `TotalMap` is also
+--     a structure.
 
 -- Remember that we discussed earlier with total maps that using function
 -- application exposes the implementation, and that's why we introduced a new

@@ -239,9 +239,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "e72769921d42c46c4ab2f6670d0caf3f2789b2ec",
+      "head_sha": "c8a968e376e1bb89f0d58e32d607c80240a3b83d",
       "preview_path": "pr/229/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31641706834",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31697725764",
       "status": "published",
       "title": "Bump to 4.33.0 + structure Totalmap",
       "url": "https://github.com/plclub/sf-in-lean/pull/229"
