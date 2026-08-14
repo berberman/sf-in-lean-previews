@@ -339,6 +339,16 @@
       "status": "published",
       "title": "README: On SFL build structure, expected use",
       "url": "https://github.com/plclub/sf-in-lean/pull/245"
+    },
+    "247": {
+      "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
+      "changed_variants": [],
+      "head_sha": "61978d162780dd2fd03d013f5a20c81ac0619544",
+      "preview_path": "pr/247/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31836776060",
+      "status": "ci-failed",
+      "title": "DHS polishing pass over typeclasses",
+      "url": "https://github.com/plclub/sf-in-lean/pull/247"
     }
   },
   "schema": 3
