@@ -333,9 +333,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "2e18f99f02aaff78e54069a7690084d603337b41",
+      "head_sha": "a9d376a9198965a51ba70ce83803eca9dfc2434e",
       "preview_path": "pr/245/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31806357007",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31839824437",
       "status": "published",
       "title": "README: On SFL build structure, expected use",
       "url": "https://github.com/plclub/sf-in-lean/pull/245"
