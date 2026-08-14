@@ -1,5 +1,5 @@
 {
-  "main_sha": "4a8a40319fcd21de04a14d76f0e7418549648384",
+  "main_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -245,53 +245,6 @@
       "status": "ci-failed",
       "title": "Hoare: start going through proofs [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
-    },
-    "242": {
-      "base_sha": "e76cbeab8abdd5e1ebe5562e2c744d106868008f",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "12bfc96134859829c73dcf1b82649976342bdc17",
-      "preview_path": "pr/242/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31800717015",
-      "status": "published",
-      "title": "pass on Preface and citations",
-      "url": "https://github.com/plclub/sf-in-lean/pull/242"
     },
     "244": {
       "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
