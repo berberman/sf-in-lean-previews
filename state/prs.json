@@ -236,53 +236,6 @@
       "title": "Polish IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/228"
     },
-    "229": {
-      "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "c8a968e376e1bb89f0d58e32d607c80240a3b83d",
-      "preview_path": "pr/229/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31697725764",
-      "status": "published",
-      "title": "Bump to 4.33.0 + structure Totalmap",
-      "url": "https://github.com/plclub/sf-in-lean/pull/229"
-    },
     "230": {
       "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
       "changed_variants": [
@@ -331,12 +284,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/230"
     },
     "231": {
-      "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
+      "base_sha": "06e96d93b9a14079f4c4c499bffc299f2fc2af24",
       "changed_variants": [],
-      "head_sha": "56317e203273092b0cad09620be5f37a9ec4c3fc",
+      "head_sha": "4fd19077cecd2d5d9893acb9d4345b5f90a63db2",
       "preview_path": "pr/231/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31706026445",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Hoare: start going through proofs [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
     },
