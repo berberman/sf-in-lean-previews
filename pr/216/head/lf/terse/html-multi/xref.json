@@ -390,6 +390,26 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Typeclasses/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations",
+     "data":
+     {"title": "Splitting with Equations",
+      "shortTitle": null,
+      "sectionNum": "7.7.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Using  cases  on Expressions",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Splitting with Equations",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Destructing-Tuples":
    [{"id":
      "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Destructing-Tuples",
@@ -3469,39 +3489,15 @@
         "Rewriting with Conditional Statements"]}},
      "address": "/Tactics/"}],
    "keepIf_some":
-   [{"id": "keepIf_some-next",
+   [{"id": "keepIf_some",
      "data":
-     {"/Tactics/#keepIf_some-next":
+     {"/Tactics/#keepIf_some":
       {"display": "keepIf_some",
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
         "Using  cases  on Expressions",
-        "Destructing Tuples"]},
-      "/Tactics/#keepIf_some":
-      {"display": "keepIf_some",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using  cases  on Expressions",
-        "Destructing Tuples"]}},
-     "address": "/Tactics/"},
-    {"id": "keepIf_some",
-     "data":
-     {"/Tactics/#keepIf_some-next":
-      {"display": "keepIf_some",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using  cases  on Expressions",
-        "Destructing Tuples"]},
-      "/Tactics/#keepIf_some":
-      {"display": "keepIf_some",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using  cases  on Expressions",
-        "Destructing Tuples"]}},
+        "Splitting with Equations"]}},
      "address": "/Tactics/"}],
    "keepIf":
    [{"id": "keepIf",
@@ -3512,7 +3508,7 @@
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
         "Using  cases  on Expressions",
-        "Destructing Tuples"]}},
+        "Splitting with Equations"]}},
      "address": "/Tactics/"}],
    "is_even_prime":
    [{"id": "is_even_prime",
@@ -3878,16 +3874,6 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "diagonal_induction":
-   [{"id": "diagonal_induction",
-     "data":
-     {"/Tactics/#diagonal_induction":
-      {"display": "diagonal_induction",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Rewriting with Conditional Statements"]}},
-     "address": "/Tactics/"}],
    "csf":
    [{"id": "csf",
      "data":

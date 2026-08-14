@@ -1212,15 +1212,13 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 
 -- (For the reverse direction we need the simple fact that `==` is reflexive.)
 
+-- Don't worry too much about `Nat.beq_eq_true_eq` yet, we need this from Lean
+-- because `n == m` is a wrapper of `DecidableEq Nat`. We will go over this in
+-- the Typeclasses chapter.
+
 theorem beq_eq_true (n m : Nat) :
     (n == m) = true ↔ n = m := by
-  constructor
-  · rw [Nat.beq_eq_true_eq]
-    intro h
-    exact h
-  · intro h
-    rw [h]
-    apply BEq.rfl
+  rw [Nat.beq_eq_true_eq]
 
 -- So what should we do in situations where some claim could be formalized as
 -- either a proposition or a boolean computation? Which should we choose?

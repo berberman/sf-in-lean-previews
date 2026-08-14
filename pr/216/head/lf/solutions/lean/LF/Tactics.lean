@@ -968,7 +968,7 @@ example (n m p q : Nat)
 
 -- The use of `rw` here is a little different from the examples we have seen
 -- so far. The theorem `double_injective` says `n = m` *provided that*
--- `n.double = m.double`, no just `n = m`. When we write
+-- `n.double = m.double`, not just `n = m`. When we write
 -- `rw [double_injective n m]`, Lean uses the conclusion `n = m` to rewrite
 -- the goal, and then asks us to prove the hypothesis needed by
 -- `double_injective`. Thus we get two goals: the updated main goal,
@@ -1043,22 +1043,23 @@ theorem diagonal_induction (p : Nat → Nat → Prop)
     (hzs : ∀ n, p 0 n → p 0 (n + 1))
     (hss : ∀ m n, p m n → p (m + 1) (n + 1)) :
     ∀ m n, p m n := by
-  intro m n
-  induction m generalizing n with
-  | zero =>
-    induction n with
-    | zero => apply hzz
-    | succ n' ih =>
-      apply hzs
-      apply ih
-  | succ m' ih =>
-    induction n with
+  all_goals
+    intro m n
+    induction m generalizing n with
     | zero =>
-      apply hsz
-      apply ih
-    | succ n' ih' =>
-      apply hss
-      apply ih
+      induction n with
+      | zero => apply hzz
+      | succ n' ih =>
+        apply hzs
+        apply ih
+    | succ m' ih =>
+      induction n with
+      | zero =>
+        apply hsz
+        apply ih
+      | succ n' ih' =>
+        apply hss
+        apply ih
 
 -- ## Using `cases` on Expressions
 
@@ -1133,6 +1134,14 @@ theorem zip_unzip {α β : Type} (l : List (α × β))
       dsimp [zip]
       rw [ih]
       rfl
+
+-- ### Splitting with Equations
+
+-- When using `cases`, we can specify to Lean that it should remember an
+-- equality between a compound expression and what we are decomposing it into,
+-- using `cases h : ...` syntax. This information can actually be critical,
+-- and, if we leave it out, we might lack information we need to complete a
+-- proof.
 
 -- For example, suppose we define a function `keepIf` like this:
 

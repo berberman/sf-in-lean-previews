@@ -709,22 +709,7 @@ theorem diagonal_induction (p : Nat → Nat → Prop)
     (hzs : ∀ n, p 0 n → p 0 (n + 1))
     (hss : ∀ m n, p m n → p (m + 1) (n + 1)) :
     ∀ m n, p m n := by
-  intro m n
-  induction m generalizing n with
-  | zero =>
-    induction n with
-    | zero => apply hzz
-    | succ n' ih =>
-      apply hzs
-      apply ih
-  | succ m' ih =>
-    induction n with
-    | zero =>
-      apply hsz
-      apply ih
-    | succ n' ih' =>
-      apply hss
-      apply ih
+  sorry
 
 -- ## Using `cases` on Expressions
 
@@ -775,6 +760,8 @@ theorem zip_unzip {α β : Type} (l : List (α × β))
     zip l₁ l₂ = l := by
   sorry
 
+-- ### Splitting with Equations
+
 -- When using `cases`, we can specify to Lean that it should
 -- remember an equality between a compound expression and what
 -- we are decomposing it into, using `cases h : ...` syntax.
@@ -784,28 +771,6 @@ theorem zip_unzip {α β : Type} (l : List (α × β))
 
 def keepIf {α : Type} (test : α → Bool) (x : α) : Option α :=
   if test x then some x else none
-
-sf_expect_failure
-  theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
-      (h : keepIf test x = some y) :
-      x = y := by
-    dsimp [keepIf] at h
-    cases (test x)
-
--- unsolved goals
--- case false
--- α : Type
--- test : α → Bool
--- x y : α
--- h : (if test x = true then some x else none) = some y
--- ⊢ x = y
-
--- case true
--- α : Type
--- test : α → Bool
--- x y : α
--- h : (if test x = true then some x else none) = some y
--- ⊢ x = y
 
 -- Adding the `h : ⋯ ` qualifier saves this information so we
 -- can use it.
