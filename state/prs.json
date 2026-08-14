@@ -144,11 +144,48 @@
     },
     "216": {
       "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
-      "changed_variants": [],
-      "head_sha": "6801763567edb9b8953eed56ffa33f84b347098d",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "5c3f1476f8e496fa0f44bf61071e3a386b2c4f8c",
       "preview_path": "pr/216/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31706825708",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31764176596",
+      "status": "published",
       "title": "Refactor Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },

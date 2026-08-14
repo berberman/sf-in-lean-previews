@@ -1,0 +1,1 @@
+window.docContents[228].resolve({"/Hoare/#Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Additional-Exercises--Havoc":{"contents":"\n\n\n\n","context":"Hoare Logic\u0009Hoare: Hoare Logic, Part I\u0009Additional Exercises","header":"4.6.1. Havoc","id":"/Hoare/#Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Additional-Exercises--Havoc"}});
