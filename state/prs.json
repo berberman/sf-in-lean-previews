@@ -292,6 +292,16 @@
       "status": "published",
       "title": "Document `inversion`.",
       "url": "https://github.com/plclub/sf-in-lean/pull/244"
+    },
+    "245": {
+      "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
+      "changed_variants": [],
+      "head_sha": "2e18f99f02aaff78e54069a7690084d603337b41",
+      "preview_path": "pr/245/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "README: On SFL build structure, expected use",
+      "url": "https://github.com/plclub/sf-in-lean/pull/245"
     }
   },
   "schema": 3
