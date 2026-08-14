@@ -144,11 +144,48 @@
     },
     "216": {
       "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "6be73180cebf6fdfc0c546b40d7d994b6b72b220",
       "preview_path": "pr/216/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31790682511",
+      "status": "published",
       "title": "Refactor Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },
@@ -343,9 +380,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "05f3701e066bb35f0e97435f866786dad1f0d6f4",
+      "head_sha": "1b0a7d3533b5f12dff71c20a8bddbd661688f9c6",
       "preview_path": "pr/242/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31744502449",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31791732844",
       "status": "published",
       "title": "pass on Preface and citations",
       "url": "https://github.com/plclub/sf-in-lean/pull/242"

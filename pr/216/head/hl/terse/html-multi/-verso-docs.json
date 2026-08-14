@@ -60,60 +60,46 @@
  "<code>(b1.optimize0plus.minus b2.optimize0plus).eval = (b1.minus b2).eval</code>",
  "65": "<code>(b1.minus b2).optimize0plus.eval = (b1.minus b2).eval</code>",
  "64": "<code>(b1.plus b2).optimize0plus.eval = b1.eval + b2.eval</code>",
- "637":
- "<code>c2 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
- "636": "<code>s0 =[ c2 ]=&gt; s0'</code>",
- "635":
- "<code>(imp {\n    if (~b0) {\n      ~c1\n    } else {\n      ~c2\n    }\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
- "634":
- "<code>(imp {\n    ~c1\n    ~c2\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
- "633":
- "<code>c2 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b s0''</code>",
- "632":
- "<code>c1 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
- "631": "<code>s0' =[ c2 ]=&gt; s0''</code>",
- "630": "<code>s0 =[ c1 ]=&gt; s0'</code>",
  "63":
  "<code class=\"docstring\">Location specifications are used by many tactics that can operate on either the\nhypotheses or the goal. It can have one of the forms:\n* 'empty' is not actually present in this syntax, but most tactics use\n  `(location)?` matchers. It means to target the goal only.\n* `at h₁ ... hₙ`: target the hypotheses `h₁`, ..., `hₙ`\n* `at h₁ h₂ ⊢`: target the hypotheses `h₁` and `h₂`, and the goal\n* `at *`: target all hypotheses and the goal\n</code>",
  "629":
- "<code>(imp {\n      while (~b0) {\n        ~c0\n      }\n    }) =\n    (imp {\n      while (~b0) {\n        ~c0\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b0 s0''</code>",
- "628":
- "<code>c0 =\n    (imp {\n      while (~b0) {\n        ~c0\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b0 s0'</code>",
+ "<code>c2 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
+ "628": "<code>s0 =[ c2 ]=&gt; s0'</code>",
  "627":
- "<code>st =[\n  imp {\n    while (~b0) {\n      ~c0\n    }\n  } ]=&gt;\n  st'</code>",
- "626": "<code>{{P ∧ b0}} ~c0 {{P}}</code>",
+ "<code>(imp {\n    if (~b0) {\n      ~c1\n    } else {\n      ~c2\n    }\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
+ "626":
+ "<code>(imp {\n    ~c1\n    ~c2\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
  "625":
- "<code>(imp {\n      while (~b0) {\n        ~c0\n      }\n    }) =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b s0''</code>",
+ "<code>c2 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b s0''</code>",
  "624":
- "<code>c0 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
- "623": "<code>{{P ∧ b0}} ~c {{P}}</code>",
- "622": "<code>P s0</code>",
+ "<code>c1 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
+ "623": "<code>s0' =[ c2 ]=&gt; s0''</code>",
+ "622": "<code>s0 =[ c1 ]=&gt; s0'</code>",
  "621":
- "<code>∀ (cmd : Com) (s s' : State),\n  s =[ cmd ]=&gt; s' →\n    cmd =\n        (imp {\n          while (~b) {\n            ~c\n          }\n        }) →\n      P s → P s' ∧ ¬bassertion b s'</code>",
- "620": "<code>{{P ∧ b}} ~c {{P}}</code>",
+ "<code>(imp {\n      while (~b0) {\n        ~c0\n      }\n    }) =\n    (imp {\n      while (~b0) {\n        ~c0\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b0 s0''</code>",
+ "620":
+ "<code>c0 =\n    (imp {\n      while (~b0) {\n        ~c0\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b0 s0'</code>",
  "62": "<code>(b1.plus b2).optimize0plus.eval = (b1.plus b2).eval</code>",
  "619":
- "<code>hoare_while (P : Assertion) (b : Bexp) (c : Com) (hhoare : {{P ∧ b}} ~c {{P}}) :\n  {{P}}\n    while (~b) {\n      ~c\n    } {{P ∧ ¬b}}</code>",
- "618":
- "<code>if_example''' :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
+ "<code>st =[\n  imp {\n    while (~b0) {\n      ~c0\n    }\n  } ]=&gt;\n  st'</code>",
+ "618": "<code>{{P ∧ b0}} ~c0 {{P}}</code>",
  "617":
- "<code class=\"docstring\">Like `assertion_auto`, but also unfolds `bassertion`, so that facts\nabout the boolean guards of conditionals and loops become available. </code>",
+ "<code>(imp {\n      while (~b0) {\n        ~c0\n      }\n    }) =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b s0''</code>",
  "616":
- "<code>if_example'' :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
- "615":
- "<code><span class=\"literal string\">\"assertion_auto'\"</span> : String</code>",
- "614":
- "<code class=\"docstring\">`decide` attempts to prove the main goal (with target type `p`) by synthesizing an instance of `Decidable p`\nand then reducing that instance to evaluate the truth value of `p`.\nIf it reduces to `isTrue h`, then `h` is a proof of `p` that closes the goal.\n\nThe target is not allowed to contain local variables or metavariables.\nIf there are local variables, you can first try using the `revert` tactic with these local variables to move them into the target,\nor you can use the `+revert` option, described below.\n\nOptions:\n- `decide +revert` begins by reverting local variables that the target depends on,\n  after cleaning up the local context of irrelevant variables.\n  A variable is *relevant* if it appears in the target, if it appears in a relevant variable,\n  or if it is a proposition that refers to a relevant variable.\n- `decide +kernel` uses kernel for reduction instead of the elaborator.\n  It has two key properties: (1) since it uses the kernel, it ignores transparency and can unfold everything,\n  and (2) it reduces the `Decidable` instance only once instead of twice.\n- `decide +native` uses the native code compiler (`#eval`) to evaluate the `Decidable` instance,\n  admitting the result via an axiom. This can be significantly more efficient than using reduction, but it is at the cost of increasing the size\n  This can be significantly more efficient than using reduction, but it is at the cost of increasing the size\n  of the trusted code base.\n  Namely, it depends on the correctness of the Lean compiler and all definitions with an `@[implemented_by]` attribute.\n  Like with `+kernel`, the `Decidable` instance is evaluated only once.\n\nLimitation: In the default mode or `+kernel` mode, since `decide` uses reduction to evaluate the term,\n`Decidable` instances defined by well-founded recursion might not work because evaluating them requires reducing proofs.\nReduction can also get stuck on `Decidable` instances with `Eq.rec` terms.\nThese can appear in instances defined using tactics (such as `rw` and `simp`).\nTo avoid this, create such instances using definitions such as `decidable_of_iff` instead.\n\n## Examples\n\nProving inequalities:\n```lean\nexample : 2 + 2 ≠ 5 := by decide\n```\n\nTrying to prove a false proposition:\n```lean\nexample : 1 ≠ 1 := by decide\n/-\ntactic 'decide' proved that the proposition\n  1 ≠ 1\nis false\n-/\n```\n\nTrying to prove a proposition whose `Decidable` instance fails to reduce\n```lean\nopaque unknownProp : Prop\n\nopen scoped Classical in\nexample : unknownProp := by decide\n/-\ntactic 'decide' failed for proposition\n  unknownProp\nsince its 'Decidable' instance reduced to\n  Classical.choice ⋯\nrather than to the 'isTrue' constructor.\n-/\n```\n\n## Properties and relations\n\nFor equality goals for types with decidable equality, usually `rfl` can be used in place of `decide`.\n```lean\nexample : 1 + 1 = 2 := by decide\nexample : 1 + 1 = 2 := by rfl\n```\n</code>",
+ "<code>c0 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
+ "615": "<code>{{P ∧ b0}} ~c {{P}}</code>",
+ "614": "<code>P s0</code>",
  "613":
- "<code>TotalMap.update_neq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a₁ a₂ : α}\n  (h : a₁ ≠ a₂) (b : β) : (a₁ →ₜ b ; m)[a₂] = m[a₂]</code>",
- "612": "<code>st[X] = 0</code>",
+ "<code>∀ (cmd : Com) (s s' : State),\n  s =[ cmd ]=&gt; s' →\n    cmd =\n        (imp {\n          while (~b) {\n            ~c\n          }\n        }) →\n      P s → P s' ∧ ¬bassertion b s'</code>",
+ "612": "<code>{{P ∧ b}} ~c {{P}}</code>",
  "611":
- "<code>beq_iff_eq.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {a b : α} : (a == b) = true ↔ a = b</code>",
+ "<code>hoare_while (P : Assertion) (b : Bexp) (c : Com) (hhoare : {{P ∧ b}} ~c {{P}}) :\n  {{P}}\n    while (~b) {\n      ~c\n    } {{P ∧ ¬b}}</code>",
  "610":
- "<code>Bexp.eval_eq (st : State) (a1 a2 : Aexp) : Bexp.eval st (bexp {~a1 = ~a2}) = (Aexp.eval st a1 == Aexp.eval st a2)</code>",
+ "<code>if_example''' :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
  "61":
  "<code class=\"docstring\">`rw` is like `rewrite`, but also tries to close the goal by \"cheap\" (reducible) `rfl` afterwards.\n</code>",
- "609": "<code>Bexp.eval st (bexp {X = 0}) = true</code>",
+ "609":
+ "<code>if_example'' :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
  "608":
  "<code>if_example :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
  "607":
@@ -169,7 +155,7 @@
  "<code>hoare_consequence_pre' (P P' Q : Assertion) (c : Com) (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
  "580": "<code>{{P'}} ~c {{Q'}}</code>",
  "58":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "579":
  "<code>hoare_consequence (P P' Q Q' : Assertion) (c : Com) (htriple : {{P'}} ~c {{Q'}}) (hpre : P -&gt;&gt; P') (hpost : Q' -&gt;&gt; Q) :\n  {{P}} ~c {{Q}}</code>",
  "578":
@@ -256,7 +242,7 @@
  "<code>LE.le.{u} {α : Type u} [self : LE α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-equal relation: `x ≤ y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≤` in identifiers is `le`.</code>",
  "530": "<code>Lean.TSyntax `imp_aexp</code>",
  "53":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "529": "<code>Lean.TSyntax `ident</code>",
  "528": "<code><span class=\"literal string\">\"]\"</span> : String</code>",
  "527": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",

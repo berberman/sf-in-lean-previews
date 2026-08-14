@@ -70,16 +70,16 @@ import LF.SFLCompat
 -- Logic is the field of study whose subject matter is *proofs*
 -- -- unassailable arguments for the truth of particular
 -- propositions. Volumes have been written about the central
--- role of logic in computer science. Manna and Waldinger
--- called it "the calculus of computer science," while Halpern
--- et al.'s paper *On the Unusual Effectiveness of Logic in
--- Computer Science* catalogs scores of ways in which logic
--- offers critical tools and insights. Indeed, they observe
--- that, "As a matter of fact, logic has turned out to be
--- significantly more effective in computer science than it has
--- been in mathematics. This is quite remarkable, especially
--- since much of the impetus for the development of logic
--- during the past one hundred years came from mathematics."
+-- role of logic in computer science. called it "the calculus
+-- of computer science," while 's paper *On the Unusual
+-- Effectiveness of Logic in Computer Science* catalogs scores
+-- of ways in which logic offers critical tools and insights.
+-- Indeed, they observe that, "As a matter of fact, logic has
+-- turned out to be significantly more effective in computer
+-- science than it has been in mathematics. This is quite
+-- remarkable, especially since much of the impetus for the
+-- development of logic during the past one hundred years came
+-- from mathematics."
 
 -- In particular, the fundamental tools of *inductive proof*
 -- are ubiquitous across computer science. You have surely seen
@@ -132,18 +132,6 @@ import LF.SFLCompat
 -- work](https://leanprover-community.github.io/papers.html)
 -- across computer science and mathematics:
 
--- - formalizing the proof of [Fermat's last
---   theorem](https://github.com/ImperialCollegeLondon/FLT)
-
--- - formalizing the [Sphere packing
---   problem](https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean)
-
--- - Deepmind's AI model for IMO problems:
---   [Alphaproof](https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/)
-
--- - formal specification for the [cedar policy
---   language](https://github.com/cedar-policy/cedar-spec)
-
 -- Note to developers (Benjamin Pierce @bcpierce00):
 --     The individual references above should be merged into
 --     the categories below...
@@ -159,14 +147,15 @@ import LF.SFLCompat
 
 -- - As *environments for developing formally certified software
 --   and hardware*, they have been used, for example, to build
---   CompCert, a fully-verified optimizing compiler for C, and
---   CertiKOS, a fully verified hypervisor, for proving the
---   correctness of subtle algorithms involving floating point
---   numbers, and as the basis for CertiCrypt, FCF, and SSProve,
---   which are frameworks for proving cryptographic algorithms
---   secure. They are also being used to build verified
---   implementations of the open-source RISC-V processor
---   architecture.
+--   CompCert, a fully-verified optimizing compiler for C,
+--   [Cedar](https://github.com/cedar-policy/cedar-spec), a
+--   formally-specified policy language, and CertiKOS, a fully
+--   verified hypervisor, for proving the correctness of subtle
+--   algorithms involving floating point numbers, and as the
+--   basis for CertiCrypt, FCF, and SSProve, which are frameworks
+--   for proving cryptographic algorithms secure. They are also
+--   being used to build verified implementations of the
+--   open-source RISC-V processor architecture.
 
 -- - As *proof assistants for mathematics*, they have been used
 --   to validate and help develop a number of important results.
@@ -178,6 +167,14 @@ import LF.SFLCompat
 --   a program. More recently, an even more massive effort led to
 --   a formalization of the Feit-Thompson Theorem, the first
 --   major step in the classification of finite simple groups.
+--   Specifically, Lean is currently at the core of various
+--   formalization efforts in mathematics, such as the proof of
+--   [Fermat's Last
+--   Theorem](https://github.com/ImperialCollegeLondon/FLT), the
+--   [Sphere Packing
+--   Problem](https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean).
+--   and even DeepMind's AI model for IMO problems
+--   [AlphaProof](https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/).
 
 -- ### Functional Programming
 
@@ -251,7 +248,7 @@ import LF.SFLCompat
 -- ### System Requirements
 
 -- Lean runs on Windows, Linux, and MacOS. The files in this
--- book have been tested with Lean version `4.32.0`.
+-- book have been tested with Lean version `4.33.0`.
 
 -- ### Installation
 

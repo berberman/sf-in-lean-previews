@@ -1253,7 +1253,6 @@ arithmetic with `lia`. -/
 macro "assertion_auto" : tactic =>
   `(tactic| (intros
              <;> try (simp [assertImplies_def, ValidHoareTriple, Assertion.sub,
-                            TotalMap.update, TotalMap.getElem_def,
                             W, X, Y, Z] at *)
              <;> try lia))
 
@@ -1517,18 +1516,9 @@ theorem if_example :
         Y := X + 1;
       }
     {{X ≤ Y}} := by
-  apply hoare_if
-  · -- Then
-    apply hoare_consequence_pre
-    · apply hoare_asgn
-    · -- `assertion_auto` makes no progress here
-      unfold AssertImplies Assertion.sub
-      intro st ⟨_, h⟩
-      simp only [Bexp.eval_eq, Aexp.eval_id, Aexp.eval_num, beq_iff_eq] at h
-      rw [TotalMap.update_neq (by decide), TotalMap.update_eq, h]
-      simp
-  · -- Else
-    apply hoare_consequence_pre
+  -- the proof is the same for both the true and false branches
+  apply hoare_if <;>
+  · apply hoare_consequence_pre
     · apply hoare_asgn
     · assertion_auto
 
@@ -1540,15 +1530,6 @@ theorem if_example :
 -- boolean equality test `st[X] == 0` to the equation `st[X] = 0` is handled
 -- by lemmas `simp` already knows, such as `beq_iff_eq`.) So, let's add the
 -- unfolding into our tactic.
-
-/-- Like `assertion_auto`, but also unfolds `bassertion`, so that facts
-about the boolean guards of conditionals and loops become available. -/
-macro "assertion_auto'" : tactic =>
-  `(tactic| (intros
-             <;> try (simp [assertImplies_def, ValidHoareTriple, Assertion.sub,
-                            TotalMap.update, TotalMap.getElem_def,
-                            W, X, Y, Z] at *)
-             <;> try lia))
 
 -- Now the proof is quite streamlined.
 
@@ -1563,10 +1544,10 @@ theorem if_example'' :
   apply hoare_if
   · apply hoare_consequence_pre
     · apply hoare_asgn
-    · assertion_auto'
+    · assertion_auto
   · apply hoare_consequence_pre
     · apply hoare_asgn
-    · assertion_auto'
+    · assertion_auto
 
 -- We can even shorten it a little bit more.
 
@@ -1579,13 +1560,13 @@ theorem if_example''' :
       }
     {{X ≤ Y}} := by
   apply hoare_if <;> apply hoare_consequence_pre <;>
-    (try apply hoare_asgn) <;> try assertion_auto'
+    (try apply hoare_asgn) <;> try assertion_auto
 
 -- ### Exercise (2 stars): if_minus_plus ⭐⭐
 
 -- Prove the theorem below using `hoare_if`. Do not use
 -- `unfold
--- ValidHoareTriple`. The `assertion_auto'` tactic we just defined may
+-- ValidHoareTriple`. The `assertion_auto` tactic we just defined may
 -- be useful.
 
 theorem if_minus_plus :
@@ -1777,7 +1758,7 @@ theorem hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :
 
 -- Use your `if1` rule to prove the following (valid) Hoare triple.
 
--- Hint: `assertion_auto'` will once again get you most but not all the way to
+-- Hint: `assertion_auto` will once again get you most but not all the way to
 -- a completely automated proof. You can finish manually, or tweak the tactic
 -- further.
 
@@ -1977,8 +1958,8 @@ theorem while_example :
   · apply hoare_while
     apply hoare_consequence_pre
     · apply hoare_asgn
-    · assertion_auto'
-  · assertion_auto'
+    · assertion_auto
+  · assertion_auto
 
 -- _Quiz:_
 

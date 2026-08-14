@@ -2203,10 +2203,10 @@ on this last set of tools.</p>
                   Logic is the field of study whose subject matter is <em>proofs</em> --
 unassailable arguments for the truth of particular propositions.
 Volumes have been written about the central role of logic in
-computer science.  Manna and Waldinger called it "the calculus of
-computer science,"Manna and Waldinger (1971)<span class="marginalia"><span class="note"><span class="citation">Zohar Manna and Richard J Waldinger (1971). “Toward automatic program synthesis”. <em>Communications of the ACM.</em> <strong>14</strong>(3).</span></span></span> while Halpern et al.'s paper <em>On the Unusual
-Effectiveness of Logic in Computer Science</em>Halpern <em>et al.</em> (2001)<span class="marginalia"><span class="note"><span class="citation">Joseph Y Halpern, Robert Harper, Neil Immerman, Phokion G Kolaitis, Moshe Y Vardi,  and Victor Vianu (2001). “On the unusual effectiveness of logic in computer science”. <em>Bulletin of Symbolic Logic.</em> <strong>7</strong>(2).</span></span></span> catalogs scores of
-ways in which logic offers critical tools and insights.  Indeed,
+computer science. Manna and Waldinger (1971)<span class="marginalia"><span class="note"><span class="citation">Zohar Manna and Richard J Waldinger (1971). “Toward automatic program synthesis”. <em>Communications of the ACM.</em> <strong>14</strong>(3).</span></span></span> called it "the calculus of
+computer science," while Halpern <em>et al.</em> (2001)<span class="marginalia"><span class="note"><span class="citation">Joseph Y Halpern, Robert Harper, Neil Immerman, Phokion G Kolaitis, Moshe Y Vardi,  and Victor Vianu (2001). “On the unusual effectiveness of logic in computer science”. <em>Bulletin of Symbolic Logic.</em> <strong>7</strong>(2).</span></span></span>'s paper <em>On the Unusual
+Effectiveness of Logic in Computer Science</em> catalogs scores of
+ways in which logic offers critical tools and insights. Indeed,
 they observe that, "As a matter of fact, logic has turned out to
 be significantly more effective in computer science than it has
 been in mathematics. This is quite remarkable, especially since
@@ -2269,24 +2269,6 @@ variety of work</a> across computer science and mathematics:</p>
                 <ul>
                   <li>
                     <p>
-                      formalizing the proof of <a href="https://github.com/ImperialCollegeLondon/FLT">Fermat's last theorem</a></p>
-                    </li>
-                  <li>
-                    <p>
-                      formalizing the <a href="https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean">Sphere packing problem</a></p>
-                    </li>
-                  <li>
-                    <p>
-                      Deepmind's AI model for IMO problems: <a href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/">Alphaproof</a></p>
-                    </li>
-                  <li>
-                    <p>
-                      formal specification for the <a href="https://github.com/cedar-policy/cedar-spec">cedar policy language</a></p>
-                    </li>
-                  </ul>
-                <ul>
-                  <li>
-                    <p>
                       As a <em>platform for modeling programming languages</em>, proof assistants have
   become standard tools for researchers who need to describe and
   reason about complex language definitions. They have been used,
@@ -2299,8 +2281,9 @@ variety of work</a> across computer science and mathematics:</p>
                     <p>
                       As <em>environments for developing formally certified software
   and hardware</em>, they have been used, for example, to build
-  CompCertLeroy <em>et al.</em> (2016)<span class="marginalia"><span class="note"><span class="citation">Xavier Leroy, Sandrine Blazy, Daniel Kaestner, Bernhard Schommer, Markus Pister,  and Christian Ferdinand (2016). “CompCert-a formally verified optimizing compiler”. <em>ERTS 2016: Embedded Real Time Software and Systems, 8th European Congress.</em> <strong></strong>.</span></span></span>, a fully-verified optimizing compiler for C, and
-  CertiKOSGu <em>et al.</em> (2016)<span class="marginalia"><span class="note"><span class="citation">Ronghui Gu,  Zhong Shao, Hao Chen, Xiongnan Newman Wu, Jieung Kim, Vilhelm Sjoeberg,  and David Costanzo (2016). “CertiKOS: An extensible architecture for building certified concurrent OS kernels”. <em>12th USENIX Symposium on Operating Systems Design and Implementation (OSDI 16).</em> <strong></strong>.</span></span></span>, a fully verified hypervisor, for proving the
+  CompCert (Leroy <em>et al.</em>, 2016)<span class="marginalia"><span class="note"><span class="citation">Xavier Leroy, Sandrine Blazy, Daniel Kästner, Bernhard Schommer, Markus Pister,  and Christian Ferdinand, 2016. “CompCert-a formally verified optimizing compiler”. In <em>ERTS 2016: Embedded Real Time Software and Systems, 8th European Congress.</em></span></span></span>, a fully-verified optimizing compiler for C,
+  <a href="https://github.com/cedar-policy/cedar-spec">Cedar</a> (Disselkoen <em>et al.</em>, 2024)<span class="marginalia"><span class="note"><span class="citation">Craig Disselkoen, Aaron Eline, Shaobo He, Kyle Headley, Michael Hicks, Kesha Hietala, John Kaster, Anwar Mamat, Matt McCutchen, Neha Rungta,  and others, 2024. “How we built cedar: A verification-guided approach”. In <em>Companion Proceedings of the 32nd ACM International Conference on the Foundations of Software Engineering.</em></span></span></span>, a formally-specified policy language, and
+  CertiKOS (Gu <em>et al.</em>, 2016)<span class="marginalia"><span class="note"><span class="citation">Ronghui Gu, Zhong Shao, Hao Chen, Xiongnan Newman Wu, Jieung Kim, Vilhelm Sjöberg,  and David Costanzo, 2016. “CertiKOS: An extensible architecture for building certified concurrent OS kernels”. In <em>12th USENIX Symposium on Operating Systems Design and Implementation (OSDI 16).</em></span></span></span>, a fully verified hypervisor, for proving the
   correctness of subtle algorithms involving floating point
   numbers, and as the basis for CertiCrypt, FCF, and SSProve,
   which are frameworks for proving cryptographic algorithms secure.
@@ -2317,7 +2300,11 @@ variety of work</a> across computer science and mathematics:</p>
   mathematicians because it required checking a large number of
   configurations using a program. More recently, an even more massive
   effort led to a formalization of the Feit-Thompson Theorem, the
-  first major step in the classification of finite simple groups.</p>
+  first major step in the classification of finite simple groups.
+  Specifically, Lean is currently at the core of various formalization efforts in
+  mathematics, such as the proof of <a href="https://github.com/ImperialCollegeLondon/FLT">Fermat's Last Theorem</a>,
+  the <a href="https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean">Sphere Packing Problem</a>.
+  and even DeepMind's AI model for IMO problems <a href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/">AlphaProof</a>.</p>
                     </li>
                   </ul>
                 </section>
@@ -2394,7 +2381,7 @@ suggestions for further reading in the <a href="Postscript/#Postscript">Postscri
                   1.3.1. System Requirements<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--System-Requirements" title="Permalink">🔗</a></span></h3>
                 <p>
                   Lean runs on Windows, Linux, and MacOS.  The files in this book
-have been tested with Lean version <code>4.32.0</code>.</p>
+have been tested with Lean version <code>4.33.0</code>.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Preface--Practicalities--Installation">

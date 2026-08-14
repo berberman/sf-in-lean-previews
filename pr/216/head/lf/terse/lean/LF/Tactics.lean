@@ -58,11 +58,12 @@ theorem apply_exercise (m : Nat)
 -- The goal must match the hypothesis *exactly* for `apply` to
 -- work:
 
-example(n m : Nat) (h : n = m) : m = n := by
+example (n m : Nat) (h : n = m) : m = n := by
   -- Here we cannot use `apply` directly...
   /- ...but we can use the `symm` tactic, which switches the left
       and right sides of an equality in the goal. -/
-  symm; apply h
+  symm
+  apply h
 
 -- ### Exercise (2 stars): apply_exercise1 ⭐⭐
 
@@ -295,6 +296,16 @@ example (n : Nat)
 -- contradictory hypothesis entails anything (even manifestly
 -- false things!).
 
+-- Notice that due to the way addition on naturals is defined,
+-- deriving a contradiction from `1 + n = 0` is not as trivial
+-- as it seems.
+
+sf_expect_failure
+  example (n : Nat)
+      (h : 1 + n = 0) :
+      2 + 2 = 5 := by
+    contradiction -- doesn't work because `1 + n` doesn't reduce to `n.succ`.
+
 -- ### Exercise (1 star): disjoint_ex3 ⭐
 
 theorem disjoint_ex3 {α : Type} (x y z : α) (l : List α)
@@ -455,6 +466,16 @@ example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
   congr 1
   rw [Nat.add_comm]
   congr
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     The above proof can be made simpler by just rewriting
+--     before the `congr`, so arguably it doesn't require
+--     limiting the depth.
+--
+--     `example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
+--         (a, c + 1) = (b, 1 + d) := by
+--       rw [Nat.add_comm]
+--       congr`
 
 -- ## Using `apply` on Hypotheses
 
@@ -694,8 +715,8 @@ theorem length_append_self {α : Type} {n : Nat} {l : List α}
     rw [← h]
   | cons x xs ih =>
     rw [List.cons_append, List.length_cons] at *
-    rw [← length_append_cons (x := x) rfl]
-    rw [ih (by rfl), ← h]
+    rw [← length_append_cons rfl]
+    rw [ih rfl, ← h]
     rw [Nat.add_add_add_comm]
 
 -- ### Exercise (3 stars): diagonal_induction ⭐⭐⭐
@@ -791,6 +812,11 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
 -- ### Additional Exercises
 
 -- ### Exercise (2 stars): append_left_cancel ⭐⭐
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     After `injections _ eq`, `eq`'s type uses `.append`
+--     rather than `++` which is a bit confusing. Not sure why
+--     that happens.
 
 theorem append_left_cancel {α : Type} (l₁ l₂ l₃ : List α)
     (h : l₁ ++ l₂ = l₁ ++ l₃) :

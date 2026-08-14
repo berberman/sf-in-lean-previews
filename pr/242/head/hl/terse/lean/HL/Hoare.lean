@@ -1236,7 +1236,6 @@ arithmetic with `lia`. -/
 macro "assertion_auto" : tactic =>
   `(tactic| (intros
              <;> try (simp [assertImplies_def, ValidHoareTriple, Assertion.sub,
-                            TotalMap.update, TotalMap.getElem_def,
                             W, X, Y, Z] at *)
              <;> try lia))
 
@@ -1390,18 +1389,9 @@ theorem if_example :
         Y := X + 1;
       }
     {{X ≤ Y}} := by
-  apply hoare_if
-  · -- Then
-    apply hoare_consequence_pre
-    · apply hoare_asgn
-    · -- `assertion_auto` makes no progress here
-      unfold AssertImplies Assertion.sub
-      intro st ⟨_, h⟩
-      simp only [Bexp.eval_eq, Aexp.eval_id, Aexp.eval_num, beq_iff_eq] at h
-      rw [TotalMap.update_neq (by decide), TotalMap.update_eq, h]
-      simp
-  · -- Else
-    apply hoare_consequence_pre
+  -- the proof is the same for both the true and false branches
+  apply hoare_if <;>
+  · apply hoare_consequence_pre
     · apply hoare_asgn
     · assertion_auto
 
@@ -1420,15 +1410,6 @@ theorem if_example :
 --     HIDE: MRC'20: There's probably a better way to engineer
 --     this. I don't know Ltac very well though.
 
-/-- Like `assertion_auto`, but also unfolds `bassertion`, so that facts
-about the boolean guards of conditionals and loops become available. -/
-macro "assertion_auto'" : tactic =>
-  `(tactic| (intros
-             <;> try (simp [assertImplies_def, ValidHoareTriple, Assertion.sub,
-                            TotalMap.update, TotalMap.getElem_def,
-                            W, X, Y, Z] at *)
-             <;> try lia))
-
 -- Now the proof is quite streamlined.
 
 theorem if_example'' :
@@ -1442,10 +1423,10 @@ theorem if_example'' :
   apply hoare_if
   · apply hoare_consequence_pre
     · apply hoare_asgn
-    · assertion_auto'
+    · assertion_auto
   · apply hoare_consequence_pre
     · apply hoare_asgn
-    · assertion_auto'
+    · assertion_auto
 
 -- We can even shorten it a little bit more.
 
@@ -1458,19 +1439,7 @@ theorem if_example''' :
       }
     {{X ≤ Y}} := by
   apply hoare_if <;> apply hoare_consequence_pre <;>
-    (try apply hoare_asgn) <;> try assertion_auto'
-
--- Note to developers (Claude):
---     At this point the Rocq source defines a further
---     refinement `assertion_auto''` that also rewrites with
---     `leb_le`, "for inequalities". In Lean the boolean
---     comparisons produced by `Bexp.eval` are already reduced
---     by `simp`'s standard `decide`/`==` lemmas, so
---     `assertion_auto'` handles inequalities as it stands and
---     no `assertion_auto''` is needed (nor the later
---     `assertion_auto'''`, whose extra `negb`/`not_false`
---     rewrites `simp` also covers); occurrences of both in the
---     Rocq text are rendered as `assertion_auto'`.
+    (try apply hoare_asgn) <;> try assertion_auto
 
 -- Note to developers:
 --     HIDE: Question from 2012, Midterm 2. One-sided

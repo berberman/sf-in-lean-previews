@@ -381,7 +381,7 @@
  "581": "<code>TM.Tm.HasType : Tm → Ty → Prop</code>",
  "580": "<code><span class=\"literal string\">\"Nat\"</span> : String</code>",
  "58":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "579": "<code><span class=\"literal string\">\"Bool\"</span> : String</code>",
  "578":
  "<code>Lean.Name.toString (n : Lean.Name) (escape : Bool := true) : String</code><span class=\"sep\"></span><code class=\"docstring\">Converts a name to a string.\n\n- If `escape` is `true`, then escapes name components using `«` and `»` to ensure that\nthose names that can appear in source files round trip.\nNames with number components, anonymous names, and names containing `»` might not round trip.\nFurthermore, \"pseudo-syntax\" produced by the delaborator, such as `_`, `#0` or `?u`, is not escaped.\n</code>",
@@ -460,7 +460,7 @@
  "<code>TM.Tm.Step.predStep (t1 t1' : Tm) (h : t1.Step t1') : &lt;{ pred t1 }&gt;.Step &lt;{ pred t1' }&gt;</code>",
  "530": "<code>v.IsNValue</code>",
  "53":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "529":
  "<code>TM.Tm.Step.predSucc (v : Tm) (hv : v.IsNValue) : &lt;{ pred (succ v) }&gt;.Step v</code>",
  "528":

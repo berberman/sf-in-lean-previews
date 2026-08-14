@@ -74,11 +74,12 @@ theorem apply_exercise (m : Nat)
 -- `apply` will not work if the left and right sides of the equality are
 -- swapped.
 
-example(n m : Nat) (h : n = m) : m = n := by
+example (n m : Nat) (h : n = m) : m = n := by
   -- Here we cannot use `apply` directly...
   /- ...but we can use the `symm` tactic, which switches the left
       and right sides of an equality in the goal. -/
-  symm; apply h
+  symm
+  apply h
 
 -- ### Exercise (2 stars): apply_exercise1 ⭐⭐
 
@@ -368,6 +369,15 @@ example (n : Nat)
 -- These examples are instances of a logical principle known as the *principle
 -- of explosion*, which asserts that a contradictory hypothesis entails
 -- anything (even manifestly false things!).
+
+-- Notice that due to the way addition on naturals is defined, deriving a
+-- contradiction from `1 + n = 0` is not as trivial as it seems.
+
+sf_expect_failure
+  example (n : Nat)
+      (h : 1 + n = 0) :
+      2 + 2 = 5 := by
+    contradiction -- doesn't work because `1 + n` doesn't reduce to `n.succ`.
 
 -- If you find the principle of explosion confusing, remember that these
 -- proofs are *not* simply showing that the conclusion of the statement holds.
@@ -930,8 +940,8 @@ theorem length_append_self {α : Type} {n : Nat} {l : List α}
     rw [← h]
   | cons x xs ih =>
     rw [List.cons_append, List.length_cons] at *
-    rw [← length_append_cons (x := x) rfl]
-    rw [ih (by rfl), ← h]
+    rw [← length_append_cons rfl]
+    rw [ih rfl, ← h]
     rw [Nat.add_add_add_comm]
 
 -- ### Exercise (3 stars): diagonal_induction ⭐⭐⭐
