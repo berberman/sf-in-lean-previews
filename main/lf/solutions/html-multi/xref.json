@@ -3816,11 +3816,11 @@
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
-   "reaches1_in":
-   [{"id": "reaches1_in",
+   "reaches1In":
+   [{"id": "reaches1In",
      "data":
-     {"/IndProp/#reaches1_in":
-      {"display": "reaches1_in",
+     {"/IndProp/#reaches1In":
+      {"display": "reaches1In",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -5635,17 +5635,6 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "cs":
-   [{"id": "cs",
-     "data":
-     {"/IndProp/#cs":
-      {"display": "cs",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
    "countOddMembers":
    [{"id": "countOddMembers",
      "data":
@@ -5731,50 +5720,6 @@
         "Logic in Lean",
         "Programming with Propositions"]}},
      "address": "/Logic/"}],
-   "collatz_holds_for":
-   [{"id": "collatz_holds_for",
-     "data":
-     {"/IndProp/#collatz_holds_for":
-      {"display": "collatz_holds_for",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "collatz'":
-   [{"id": "collatz___",
-     "data":
-     {"/IndProp/#collatz___":
-      {"display": "collatz'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "collatz":
-   [{"id": "collatz",
-     "data":
-     {"/IndProp/#collatz":
-      {"display": "collatz",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "cms":
-   [{"id": "cms",
-     "data":
-     {"/IndProp/#cms":
-      {"display": "cms",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
    "cm_peirce":
    [{"id": "cm_peirce",
      "data":
@@ -12453,7 +12398,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -12464,7 +12409,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -13344,8 +13289,54 @@
    "CollatzHoldsFor":
    [{"id": "CollatzHoldsFor",
      "data":
-     {"/IndProp/#CollatzHoldsFor":
+     {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"},
+    {"id": "CollatzHoldsFor-next",
+     "data":
+     {"/IndProp/#CollatzHoldsFor-next":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"}],
+   "Collatz'":
+   [{"id": "Collatz___",
+     "data":
+     {"/IndProp/#Collatz___":
+      {"display": "Collatz'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "Collatz":
+   [{"id": "Collatz",
+     "data":
+     {"/IndProp/#Collatz":
+      {"display": "Collatz",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -13781,6 +13772,28 @@
         "Additional Exercises",
         "Church Numerals (Advanced)"]}},
      "address": "/Poly/"}],
+   "CS":
+   [{"id": "CS",
+     "data":
+     {"/IndProp/#CS":
+      {"display": "CS",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "CMS":
+   [{"id": "CMS",
+     "data":
+     {"/IndProp/#CMS":
+      {"display": "CMS",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
    "BoolList.nil":
    [{"id": "BoolList___nil",
      "data":

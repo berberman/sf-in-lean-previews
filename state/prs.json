@@ -1,5 +1,5 @@
 {
-  "main_sha": "e76cbeab8abdd5e1ebe5562e2c744d106868008f",
+  "main_sha": "4a8a40319fcd21de04a14d76f0e7418549648384",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -189,53 +189,6 @@
       "title": "Refactor Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },
-    "228": {
-      "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f01e97e8292e17d5249e51c8d28f4bc4744c79e0",
-      "preview_path": "pr/228/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31751315743",
-      "status": "published",
-      "title": "Polish IndProp",
-      "url": "https://github.com/plclub/sf-in-lean/pull/228"
-    },
     "230": {
       "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
       "changed_variants": [
@@ -292,53 +245,6 @@
       "status": "ci-failed",
       "title": "Hoare: start going through proofs [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
-    },
-    "234": {
-      "base_sha": "d588d9ce187721ec3c683aadb222e9e43f768bfb",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "657bb18026c01f93b1b6bd30713e696f5575eba7",
-      "preview_path": "pr/234/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31617601514",
-      "status": "published",
-      "title": "Use Lean terminology for types",
-      "url": "https://github.com/plclub/sf-in-lean/pull/234"
     },
     "242": {
       "base_sha": "e76cbeab8abdd5e1ebe5562e2c744d106868008f",
