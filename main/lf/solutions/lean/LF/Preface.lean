@@ -4,16 +4,16 @@ import LF.SFLCompat
 
 -- ## Welcome
 
--- This is the entry point to a series of electronic textbooks on various
--- aspects of *Software Foundations*, the mathematical underpinnings of
--- reliable software. Topics in the series include basic concepts of logic,
--- functional programming, computer-assisted theorem proving, operational
--- semantics, logics and techniques for reasoning about programs, static type
--- systems, property-based random testing, and verification of practical C
--- code. The exposition is intended for a broad range of readers, from
--- advanced undergraduates to PhD students and researchers. No specific
--- background in logic or programming languages is assumed, though a degree of
--- mathematical maturity will be helpful.
+-- This is the starting point for a series of electronic textbooks on
+-- *Software Foundations*, the mathematical underpinnings of reliable
+-- software. Topics in the series include basic concepts of logic, functional
+-- programming, computer-assisted theorem proving, operational semantics,
+-- logics and techniques for reasoning about programs, static type systems,
+-- property-based random testing, and verification of practical C code. The
+-- exposition is intended for a broad range of readers, from advanced
+-- undergraduates to PhD students and researchers. No specific background in
+-- logic or programming languages is assumed, though a degree of mathematical
+-- maturity will be helpful.
 
 -- The principal novelty of the series is that it is one hundred percent
 -- formalized and machine-checked: each text is literally a script for Lean.
@@ -308,8 +308,49 @@ import LF.SFLCompat
 -- the course was offered in Rocq, but the ideas behind the problems are still
 -- relevant.
 
--- ## Acknowledgements
+-- ### Credits
 
--- See `ACKNOWLEDGEMENTS.md` in the [SF-in-Lean git
--- repo](https://github.com/plclub/sf-in-lean).
+-- **Leadership:** Mike Hicks and Benjamin C. Pierce lead the SF-in-Lean
+-- project.
+
+-- **Authors:** The Lean adaptation of *Software Foundations* was created by
+-- Mike Hicks, Benjamin C. Pierce, One An, Roger Burtonpatel, Jonathan Chan,
+-- Harry Goldstein, Niklas Halonen, Chris Henson, Kihong Heo, Yipeng Liu, and
+-- Daniel Sainati,
+
+-- **... with contributions from** Luisa Cicolini, Michael Clarkson, Robert
+-- Joseph, Sati, and Shriya Thakur,
+
+-- **... and gratitude to** David Thrane Christiansen, for helping us
+-- understand the intricacies of Lean's Verso document preparation system.
+
+-- **SF in Rocq:** The first three volumes of *Software Foundations in Lean*
+-- (*Logical Foundations*, *Type Systems*, and *Hoare Logic*) are adapted from
+-- the *Logical Foundations* and *Programming Language Foundations* volumes of
+-- the original *Software Foundations* series, developed from 2008 to 2026 by
+-- a large team of authors and contributors led by Benjamin C. Pierce.
+
+-- The original *Logical Foundations* was written by Benjamin C. Pierce,
+-- Arthur Azevedo de Amorim, Chris Casinghino, Marco Gaboardi, Michael
+-- Greenberg, Cătălin Hriţcu, Vilhelm Sjöberg, and Brent Yorgey, with
+-- contributions from Loris D'Antoni, Andrew W. Appel, Arthur Charguéraud,
+-- Michael Clarkson, Anthony Cowley, Jeffrey Foster, Dmitri Garbuzov, Olek
+-- Gierczak, Michael Hicks, Ranjit Jhala, Ori Lahav, Yishuai Li, Greg
+-- Morrisett, Jennifer Paykin, Mukund Raghothaman, Chung-chieh Shan, Leonid
+-- Spesivtsev, Caleb Stanford, Andrew Tolmach, Philip Wadler, Stephanie
+-- Weirich, Li-Yao Xia, and Steve Zdancewic.
+
+-- The original *Programming Language Foundations* was written by Benjamin C.
+-- Pierce, Arthur Azevedo de Amorim, Chris Casinghino, Marco Gaboardi, Michael
+-- Greenberg, Cătălin Hriţcu, Vilhelm Sjöberg, Andrew Tolmach, and Brent
+-- Yorgey with contributions from Loris D'Antoni, Andrew W. Appel, Arthur
+-- Chargueraud, Michael Clarkson, Anthony Cowley, Jeffrey Foster, Dmitri
+-- Garbuzov, Michael Hicks, Ranjit Jhala, Ori Lahav, Yishuai Li, Greg
+-- Morrisett, Jennifer Paykin, Mukund Raghothaman, Chung-Chieh Shan, Leonid
+-- Spesivtsev, Caleb Stanford, Philip Wadler, Stephanie Weirich, Li-Yao Xia,
+-- and Steve Zdancewic.
+
+-- **Funding:** Development of the original *Software Foundations* series in
+-- Rocq was supported, in part, by the National Science Foundation under the
+-- NSF Expeditions grant 1521523, *The Science of Deep Specification*.
 

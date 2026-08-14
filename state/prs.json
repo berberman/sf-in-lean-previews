@@ -1,5 +1,5 @@
 {
-  "main_sha": "06e96d93b9a14079f4c4c499bffc299f2fc2af24",
+  "main_sha": "e76cbeab8abdd5e1ebe5562e2c744d106868008f",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -342,16 +342,6 @@
     },
     "242": {
       "base_sha": "06e96d93b9a14079f4c4c499bffc299f2fc2af24",
-      "changed_variants": [],
-      "head_sha": "de11478ca76221b89c72da5a5e390c8c27a7c356",
-      "preview_path": "pr/242/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "pass on Preface and citations",
-      "url": "https://github.com/plclub/sf-in-lean/pull/242"
-    },
-    "243": {
-      "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -390,12 +380,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "d8a538d9dd61708dcd50b73602eacf76685e5042",
-      "preview_path": "pr/243/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31743880735",
+      "head_sha": "de11478ca76221b89c72da5a5e390c8c27a7c356",
+      "preview_path": "pr/242/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31798263496",
       "status": "published",
-      "title": "Add acknowledgements to the preface of each volume",
-      "url": "https://github.com/plclub/sf-in-lean/pull/243"
+      "title": "pass on Preface and citations",
+      "url": "https://github.com/plclub/sf-in-lean/pull/242"
     },
     "244": {
       "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",

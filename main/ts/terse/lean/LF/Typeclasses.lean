@@ -229,8 +229,9 @@ instance instDefaultValueNat : DefaultValue Nat where
   value := 0
 
 -- Note to developers (Benjamin Pierce @bcpierce00):
---     Boldface, or italic? We should write down a rule in
---     STYLE.md!
+--     Boldface, or italic? The rule is now in STYLE.md
+--     ("Emphasis vs. boldface"): use `_…_` for ordinary
+--     emphasis, reserve `*…*` (bold) for rare strong emphasis.
 
 -- Lean can now find this instance on its own, via **typeclass
 -- synthesis** (or **typeclass inference**) — the same process
