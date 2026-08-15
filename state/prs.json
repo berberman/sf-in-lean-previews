@@ -379,48 +379,11 @@
     },
     "247": {
       "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "97ea3ff3ae5de98f85493844eead509ea079654d",
+      "changed_variants": [],
+      "head_sha": "664db214d20edeed6a75a4097f96ecbeeedeff82",
       "preview_path": "pr/247/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31855036080",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31903681130",
+      "status": "ci-failed",
       "title": "DHS polishing pass over typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/247"
     }
