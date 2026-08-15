@@ -386,6 +386,16 @@
       "status": "published",
       "title": "DHS polishing pass over typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/247"
+    },
+    "248": {
+      "base_sha": "97ea3ff3ae5de98f85493844eead509ea079654d",
+      "changed_variants": [],
+      "head_sha": "8d7a8d282a858b42c6ce56a726839261d5e4347e",
+      "preview_path": "pr/248/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31880271514",
+      "status": "ci-failed",
+      "title": "Typeclasses: make Monoid a structure, add \u2297_[m] notation",
+      "url": "https://github.com/plclub/sf-in-lean/pull/248"
     }
   },
   "schema": 3
