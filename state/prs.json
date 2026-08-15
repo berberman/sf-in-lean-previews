@@ -239,9 +239,9 @@
     "231": {
       "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
       "changed_variants": [],
-      "head_sha": "20ac2ae2020475cdd8655873f93621da7a137b1c",
+      "head_sha": "eecd619d8429fc2b58a6042cd3ad42cccc7e32c1",
       "preview_path": "pr/231/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31874284875",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31890194415",
       "status": "ci-failed",
       "title": "Hoare: start going through proofs [WIP]",
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
