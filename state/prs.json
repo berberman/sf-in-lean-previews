@@ -380,9 +380,9 @@
     "247": {
       "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
       "changed_variants": [],
-      "head_sha": "664db214d20edeed6a75a4097f96ecbeeedeff82",
+      "head_sha": "5f2ee5de150c326df34911f74f8a1e6f0b626e6a",
       "preview_path": "pr/247/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31903681130",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31904378874",
       "status": "ci-failed",
       "title": "DHS polishing pass over typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/247"
