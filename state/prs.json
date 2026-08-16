@@ -1,5 +1,5 @@
 {
-  "main_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
+  "main_sha": "ed3449ff543edb6da267f67de5027e59cb359e71",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -376,53 +376,6 @@
       "status": "published",
       "title": "README: On SFL build structure, expected use",
       "url": "https://github.com/plclub/sf-in-lean/pull/245"
-    },
-    "247": {
-      "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "fc9b30fc3a285b815d13b1bdce82ca9fa6ef4ec5",
-      "preview_path": "pr/247/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31958817421",
-      "status": "published",
-      "title": "DHS polishing pass over typeclasses",
-      "url": "https://github.com/plclub/sf-in-lean/pull/247"
     },
     "250": {
       "base_sha": "f7a57a2d811b851e167cddec1352bfb2f166abdd",
