@@ -760,18 +760,23 @@ attribute [irreducible] ValidHoareTriple
 
 -- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing triples back
 
--- This delaborator works only with `Com` from Imp.
+-- The delaborator is agnostic to the command type: it prints
+-- the command with whatever printer is registered for its
+-- constructors and splices the result into the triple, so a
+-- language-extension chapter only has to register a printer
+-- for its own `Com`.
 
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
 @[delab app.HasTriple.Triple]
 def delabTriple : Delab := whenPPOption getPPNotation do
   guard <| (← getExpr).isAppOfArity ``HasTriple.Triple 5
-  guard <| (← getExpr).getArg! 0 == mkConst ``Com
   let P ← withNaryArg 2 delabAssn
-  let c ← withNaryArg 3 delabComInner
+  let c ← withNaryArg 3 delab
   let Q ← withNaryArg 4 delabAssn
-  ``({{ $P }} $c:imp_com {{ $Q }})
+  match c with
+  | `(imp { $c:imp_com }) => ``({{ $P }} $c:imp_com {{ $Q }})
+  | c => ``({{ $P }} ~$c {{ $Q }})
 
 end Assertion.Delab
 

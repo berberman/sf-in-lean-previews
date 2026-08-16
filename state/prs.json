@@ -276,9 +276,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "152e9d04e86121ed70606f22d768cff9cd76fc4e",
+      "head_sha": "9314fd434cb0a3ab35febedc7f57d2baf8469896",
       "preview_path": "pr/231/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31892583695",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31945445639",
       "status": "published",
       "title": "Hoare: start going through proofs",
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
@@ -389,11 +389,48 @@
     },
     "250": {
       "base_sha": "f7a57a2d811b851e167cddec1352bfb2f166abdd",
-      "changed_variants": [],
-      "head_sha": "57945c95ae4de90a70ba3f9b0a9668acb9f590d0",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "e28922eec27b8b05760320a0ec76896d27398f96",
       "preview_path": "pr/250/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31944629917",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31945368554",
+      "status": "published",
       "title": "Clean up proofs in Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/250"
     },
@@ -490,6 +527,16 @@
       "status": "published",
       "title": "Imp: Com.EvalR implicit arguments",
       "url": "https://github.com/plclub/sf-in-lean/pull/252"
+    },
+    "254": {
+      "base_sha": "4068895527b802cc9bd8746d8190d1b1c978c54c",
+      "changed_variants": [],
+      "head_sha": "bda1e7a932b35d96452a494261e92deae3111e84",
+      "preview_path": "pr/254/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Hoare: Com.EvalR implicit arguments",
+      "url": "https://github.com/plclub/sf-in-lean/pull/254"
     }
   },
   "schema": 3

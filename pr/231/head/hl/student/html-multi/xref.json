@@ -2229,6 +2229,14 @@
         "Expressions With Variables",
         "Delaborators"]}},
      "address": "/Imp/"}],
+   "Imp.Delab.delabComInnerFor":
+   [{"id": "Imp___Delab___delabComInnerFor",
+     "data":
+     {"/Imp/#Imp___Delab___delabComInnerFor":
+      {"display": "delabComInnerFor",
+       "context":
+       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
    "Imp.Delab.delabComInner":
    [{"id": "Imp___Delab___delabComInner",
      "data":
@@ -2341,6 +2349,30 @@
      "data":
      {"/Hoare/#If1___ValidHoareTriple":
       {"display": "ValidHoareTriple",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Delab.delabComInner":
+   [{"id": "If1___Delab___delabComInner",
+     "data":
+     {"/Hoare/#If1___Delab___delabComInner":
+      {"display": "delabComInner",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Delab.delabCom":
+   [{"id": "If1___Delab___delabCom",
+     "data":
+     {"/Hoare/#If1___Delab___delabCom":
+      {"display": "delabCom",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",

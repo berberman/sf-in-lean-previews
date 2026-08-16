@@ -670,18 +670,22 @@ attribute [irreducible] ValidHoareTriple
 
 -- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing triples back
 
--- This delaborator works only with `Com` from Imp.
+-- The delaborator is agnostic to the command type: it prints the command with
+-- whatever printer is registered for its constructors and splices the result
+-- into the triple, so a language-extension chapter only has to register a
+-- printer for its own `Com`.
 
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
 @[delab app.HasTriple.Triple]
 def delabTriple : Delab := whenPPOption getPPNotation do
   guard <| (← getExpr).isAppOfArity ``HasTriple.Triple 5
-  guard <| (← getExpr).getArg! 0 == mkConst ``Com
   let P ← withNaryArg 2 delabAssn
-  let c ← withNaryArg 3 delabComInner
+  let c ← withNaryArg 3 delab
   let Q ← withNaryArg 4 delabAssn
-  ``({{ $P }} $c:imp_com {{ $Q }})
+  match c with
+  | `(imp { $c:imp_com }) => ``({{ $P }} $c:imp_com {{ $Q }})
+  | c => ``({{ $P }} ~$c {{ $Q }})
 
 end Assertion.Delab
 
@@ -1688,6 +1692,43 @@ scoped macro_rules
     `(Com.if1 (bexp {$b}) (imp {$c}))
   | `(imp { ~$c }) =>
     pure c
+
+-- The delaborators are re-instantiated the same way: the Imp printer is
+-- parameterized over the namespace of the command constructors, so the
+-- extended printer is that printer at `If1.Com` plus one case for `if1`.
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing the extended commands back
+
+namespace Delab
+open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+
+/-- Rebuild `imp_com` syntax from an `If1.Com` term. -/
+partial def delabComInner : DelabM (TSyntax `imp_com) :=
+  delabComInnerFor ``Com do
+    let e ← getExpr
+    guard <| e.isAppOfArity ``Com.if1 2
+    let b ← withAppFn <| withAppArg delabBexpInner
+    let c ← withAppArg If1.Delab.delabComInner
+    `(imp_com| if1 ($b) {$c})
+
+@[delab app.If1.Com.skip, delab app.If1.Com.asgn, delab app.If1.Com.seq,
+  delab app.If1.Com.cond, delab app.If1.Com.whileDo, delab app.If1.Com.if1]
+partial def delabCom : Delab := whenPPOption getPPNotation do
+  guard <| match_expr ← getExpr with
+    | Com.skip => true
+    | Com.asgn _ _ => true
+    | Com.seq _ _ => true
+    | Com.cond _ _ _ => true
+    | Com.whileDo _ _ => true
+    | Com.if1 _ _ => true
+    | _ => false
+  match ← delabComInner with
+  | `(imp_com| ~$e) => pure e
+  | e => `(term| imp { $e })
+
+end Delab
+
+-- END DETAILS
 
 -- ### Exercise (2 stars): if1_ceval ⭐⭐
 
