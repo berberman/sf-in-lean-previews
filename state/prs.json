@@ -396,6 +396,53 @@
       "status": "ci-failed",
       "title": "Clean up proofs in Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/250"
+    },
+    "251": {
+      "base_sha": "ccdf0d3e0eb97dddea8588d1c751352005865c99",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "4ff53cf21f945aabea1e4807c08c44bbf0fb3bd3",
+      "preview_path": "pr/251/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31940674473",
+      "status": "published",
+      "title": "Hoare2 fixes",
+      "url": "https://github.com/plclub/sf-in-lean/pull/251"
     }
   },
   "schema": 3
