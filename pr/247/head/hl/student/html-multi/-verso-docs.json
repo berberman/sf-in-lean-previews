@@ -733,7 +733,7 @@
  "459":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
  "458":
- "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  (a →ₜ b ; m)[a] = b</code>",
+ "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b</code>",
  "457": "<code>st[X] + 2 = m</code>",
  "456":
  "<code>Aexp.eval_num (st : State) (n : Nat) : Aexp.eval st n = n</code>",
@@ -995,7 +995,7 @@
  "297": "<code>Com.skip : Com</code>",
  "296": "<code>Com : Type</code>",
  "295":
- "<code>TotalMap.update {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "<code>TotalMap.update {α β : Type} (m : TotalMap α β) [BEq α] (a : α) (b : β) : TotalMap α β</code>",
  "294":
  "<code>Bexp.eval_and (st : State) (b1 b2 : Bexp) : eval st (bexp {~b1 ∧ ~b2}) = (eval st b1 && eval st b2)</code>",
  "293":
