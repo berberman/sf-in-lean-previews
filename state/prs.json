@@ -96,12 +96,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/185"
     },
     "203": {
-      "base_sha": "1ef4da5bf3446cb90be6de20dca76a8fa229d063",
+      "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
       "changed_variants": [],
-      "head_sha": "89fe5941cfbe139202d62cb19539a4188a5dfceb",
+      "head_sha": "3e1016a31d497ab2cade1f837ba1f73fd8f2e3f2",
       "preview_path": "pr/203/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31934864090",
+      "status": "ci-failed",
       "title": "Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
     },
