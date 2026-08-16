@@ -626,11 +626,6 @@ def emptyNatMap : TotalMap Nat Nat := ∅
 
 -- #### Getting Elements
 
--- Note to developers (Niklas Halonen @xhalo32):
---     I have clarified here that `MyGetElem` has nothing to do with the
---     encapsulation (`inner` vs `get`). It's simply notation that expands to
---     the public API (`get`).
-
 -- While `TotalMap`s happen to be implemented as functions under the hood, we
 -- would prefer not to expose this fact in its public interface. Accordingly,
 -- we define new operations for querying and updating mappings. We define a
@@ -1128,12 +1123,11 @@ example {n : Nat} : emptyNatMap[n] = none := by
 theorem toTotal_eq_getElem {α β : Type} (m : PartialMap α β) (a : α) :
     m.toTotal[a] = m[a] := rfl
 
--- Remember that we discussed earlier with total maps that accessing the
--- `inner` field and performing function application application exposes the
--- implementation, and that's why we introduced the API `TotalMap.get`? We
--- follow a similar principle with `PartialMap`s, and define
--- `PartialMap.toTotal` to be the public API counterpart to
--- `PartialMap.inner`.
+-- We previously defined `TotalMap.get` so that users can retrieve elements
+-- from a `TotalMap` in a manner independent of its actual implementation,
+-- which is a function stored in `TotalMap.inner`. We follow a similar
+-- principle with `PartialMap`s, and define `PartialMap.toTotal` to be the
+-- public API counterpart to `PartialMap.inner`.
 
 -- We again want the public API to use the `m[a]` notation instead of
 -- `m.toTotal[a]` so we provide the reverse direction of `getElem_def` as a

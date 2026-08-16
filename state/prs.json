@@ -652,9 +652,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "7ffd6f1f7beecc3c834f5824f7b3248e001bf55f",
+      "head_sha": "7a21b3585da320300db4f149e35b539b6b8417ad",
       "preview_path": "pr/255/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31954437520",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31956915125",
       "status": "published",
       "title": "Typeclasses: explain `MyGetElem` and encapsulation better",
       "url": "https://github.com/plclub/sf-in-lean/pull/255"
