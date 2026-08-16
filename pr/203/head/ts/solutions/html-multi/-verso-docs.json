@@ -628,7 +628,7 @@
  "580":
  "<code>Slang.multi_anstep_preserves_eval (a a' : Aexp) (h : Multi ANStep a a') : a.eval = a'.eval</code>",
  "58":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "579": "<code>a2✝.eval = a2'✝.eval</code>",
  "578": "<code>a2✝ ⟶n a2'✝</code>",
  "577": "<code>a1✝.eval = a1'✝.eval</code>",
@@ -701,7 +701,7 @@
  "531": "<code>Bexp.gt a1✝ a2✝ ⟶b y2</code>",
  "530": "<code>Bexp.le (Aexp.num n1✝) (Aexp.num n2✝) ⟶b y2</code>",
  "53":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "529": "<code>Bexp.le v1✝ a2✝ ⟶b y2</code>",
  "528": "<code>Bexp.le a1✝ a2✝ ⟶b y2</code>",
  "527": "<code>Bexp.neq (Aexp.num n1✝) (Aexp.num n2✝) ⟶b y2</code>",

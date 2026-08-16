@@ -97,11 +97,48 @@
     },
     "203": {
       "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
-      "changed_variants": [],
-      "head_sha": "c81aa9f806effc0565eb0373ee345ccb5f5d554d",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "f7a57a2d811b851e167cddec1352bfb2f166abdd",
       "preview_path": "pr/203/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31936243384",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31939180382",
+      "status": "published",
       "title": "Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
     },
@@ -351,11 +388,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/247"
     },
     "250": {
-      "base_sha": "c81aa9f806effc0565eb0373ee345ccb5f5d554d",
+      "base_sha": "f7a57a2d811b851e167cddec1352bfb2f166abdd",
       "changed_variants": [],
-      "head_sha": "ed49e96ce1daeb58f3f93a795a523d439ffcdb41",
+      "head_sha": "5b9541bcda68f96050b40bfefce8cf8feb7b690e",
       "preview_path": "pr/250/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31938941726",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31939214218",
       "status": "ci-failed",
       "title": "Clean up proofs in Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/250"

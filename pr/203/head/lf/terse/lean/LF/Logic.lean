@@ -340,7 +340,7 @@ example (a : Prop) : (¬ a) = (a → False) := rfl
 
 -- Not (a : Prop) : Prop
 
--- def Not : Prop → Prop :=
+-- @[implicit_reducible] def Not : Prop → Prop :=
 -- fun a => a → False
 
 -- Since `False` is a contradictory proposition, the principle
@@ -1233,7 +1233,7 @@ theorem add_comm_fun' : (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) 
 -- The following reasoning principle is *not* derivable with
 -- the tools we've seen so far:
 
-abbrev excluded_middle := ∀ a : Prop, a ∨ ¬ a
+def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 
 -- Logical systems in which excluded middle does not hold are
 -- referred to as *constructive logics*. They are so called

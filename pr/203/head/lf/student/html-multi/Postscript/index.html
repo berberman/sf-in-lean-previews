@@ -890,6 +890,102 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -1045,6 +1141,34 @@ details.sf-quiz-solution[open] > summary {
 details.sf-quiz-solution > .sf-quiz-solution-body {
   padding: 0.2em 0.8em;
   border-left: 3px solid var(--sf-rule, #ccc);
+}
+</style><style>
+details.sf-details {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.015);
+  border-radius: 2px;
+}
+details.sf-details > summary {
+  cursor: pointer;
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  color: var(--sf-heading, inherit);
+  list-style: none;
+}
+details.sf-details > summary::-webkit-details-marker { display: none; }
+details.sf-details > summary::before {
+  content: "▸ ";
+  display: inline-block;
+  width: 1em;
+  transition: transform 120ms ease-in-out;
+}
+details.sf-details[open] > summary::before {
+  content: "▾ ";
+}
+details.sf-details[open] {
+  background: rgba(0, 0, 0, 0.03);
 }
 </style><style>
 
@@ -2005,47 +2129,38 @@ window.onload = async () => {
             <h1>
               12. Postscript<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Postscript" title="Permalink">🔗</a></span></h1>
             <p>
-              Congratulations: We've made it to the end of <em>Logical Foundations</em>!</p>
+              Congratulations: We've reached the end of <em>Logical Foundations</em>!</p>
             <section>
               <h2 id="Logical-Foundations--Postscript--Looking-Back">
                 12.1. Looking Back<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Postscript--Looking-Back" title="Permalink">🔗</a></span></h2>
               <p>
-                We've covered quite a bit of ground so far.  Here's a quick review...</p>
+                We've covered quite a bit of ground. Along the way, we developed three
+connected themes:</p>
+              <p>
+                <em>Functional programming</em>:</p>
               <ul>
                 <li>
                   <p>
-                    <em>Functional programming</em>:</p>
-                  <ul>
-                    <li>
-                      <p>
-                        "declarative" programming style (recursion over immutable
-         data structures, rather than looping over mutable arrays
-         or pointer structures)</p>
-                      </li>
-                    <li>
-                      <p>
-                        higher-order functions</p>
-                      </li>
-                    <li>
-                      <p>
-                        polymorphism</p>
-                      </li>
-                    </ul>
+                    recursive definitions over immutable data</p>
                   </li>
-                </ul>
-              <ul>
                 <li>
                   <p>
-                    <em>Logic</em>, the mathematical basis for software engineering:</p>
+                    higher-order functions</p>
+                  </li>
+                <li>
+                  <p>
+                    polymorphism</p>
                   </li>
                 </ul>
+              <p>
+                <em>Logic</em>, the mathematical basis for software engineering:</p>
               <pre>       logic                        calculus
 --------------------   ~   ----------------------------
 software engineering       mechanical/civil engineering
 </pre><ul>
                 <li>
                   <p>
-                    inductively defined sets and relations</p>
+                    inductively defined propositions and relations</p>
                   </li>
                 <li>
                   <p>
@@ -2056,22 +2171,20 @@ software engineering       mechanical/civil engineering
                     proof objects</p>
                   </li>
                 </ul>
+              <p>
+                <em>Lean</em>, an industrial-strength proof assistant:</p>
               <ul>
                 <li>
                   <p>
-                    <em>Lean</em>, an industrial-strength proof assistant</p>
+                    a functional programming language</p>
                   </li>
                 <li>
                   <p>
-                    functional core language</p>
+                    tactics for constructing proofs</p>
                   </li>
                 <li>
                   <p>
-                    core tactics</p>
-                  </li>
-                <li>
-                  <p>
-                    automation</p>
+                    proof automation</p>
                   </li>
                 </ul>
               </section>
@@ -2079,103 +2192,53 @@ software engineering       mechanical/civil engineering
               <h2 id="Logical-Foundations--Postscript--Looking-Forward">
                 12.2. Looking Forward<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Postscript--Looking-Forward" title="Permalink">🔗</a></span></h2>
               <p>
-                OLD: If what you've seen so far has whetted your interest, you have
-several choices for further reading in later volumes of the
-<em>Software Foundations</em> series.  Some of these are intended to be
-accessible to readers immediately after finishing <em>Logical
-Foundations</em>; others require a few chapters from Volume 2,
-<em>Programming Language Foundations</em>.  The Preface chapter in each
-volume gives details about prerequisites.</p>
+                The next volumes carry these ideas into programming-language theory
+and program verification:</p>
+              <ul>
+                <li>
+                  <p>
+                    <em>Type Systems</em> develops operational semantics and type systems,
+  including the simply typed lambda calculus and the progress and
+  preservation theorems.</p>
+                  </li>
+                <li>
+                  <p>
+                    <em>Hoare Logic</em> introduces imperative programs and Hoare logic,
+  a framework for stating and proving correctness properties of programs
+  with mutable state.</p>
+                  </li>
+                </ul>
               <p>
-                FINISH: As of August 2026, there are two more volumes written in Lean.</p>
-              <p>
-                <em>Hoare Logic</em>: This short volume describes one of the primary methods
-    for reasoning about <em>imperative</em> programs- programs with state and
-    mutation, like C++, Java, C, and Assembly- in a pure logic
-    like Lean's. This method, called <em>Hoare Logic</em>, is embeddable into
-    Lean's type system and is a powerful tool for determining
-    the correct behavior of imperative code. Since most of the code
-    in the wild today is imperative, this technique is both well-established
-    and popular among industry professionals who analyze and fortify the
-    correctness of systems.</p>
-              <p>
-                <em>Type Systems</em>: Another tool for reasoning about the correctness of a program
-    is a <em>type system</em>. You have interacted thoroughly with Lean's rich type system,
-    which is one of the most complex in a modern programming language. Most
-    languages have type systems that are far less complex, but which still provide
-    incredibly useful guardrails against ill-behaved programs. In this volume you
-    will explore how to read, analyze, and design type systems in a proof assistant.</p>
+                Both volumes build directly on the definitions and proof techniques
+introduced here.</p>
               </section>
             <section>
               <h2 id="Logical-Foundations--Postscript--Resources">
                 12.3. Resources<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Postscript--Resources" title="Permalink">🔗</a></span></h2>
               <p>
-                Here are some other good places to learn more...</p>
+                This volume also contains optional sections and exercises that develop
+some topics further.</p>
+              <p>
+                For questions about Lean, the
+<a href="https://leanprover.zulipchat.com/">Lean community Zulip</a> is an active
+place to ask questions and discuss formalization.</p>
+              <p>
+                The following books continue in several different directions:</p>
               <ul>
                 <li>
                   <p>
-                    This book includes some optional chapters covering topics
-  that you may find useful.  Take a look at the #&lt;a
-  href="toc.html"&gt;#table of contents#&lt;/a&gt;# and the #&lt;a
-  href="deps.html"&gt;#chapter dependency diagram#&lt;/a&gt;# to find
-  them.</p>
+                    <a href="https://lean-lang.org/functional_programming_in_lean/">Functional Programming in Lean</a>
+  explores Lean as a programming language.</p>
                   </li>
                 <li>
                   <p>
-                    For questions about Rocq, the <code>#coq</code> area of Stack
-  Overflow (&lt;https://stackoverflow.com/questions/tagged/coq&gt;)
-  is an excellent community resource.</p>
+                    <a href="https://docs.lean-lang.org/theorem_proving_in_lean4/">Theorem Proving in Lean 4</a>
+  gives a systematic introduction to Lean's logic and proof language.</p>
                   </li>
                 <li>
                   <p>
-                    Here are some great books on functional programming</p>
-                  <ul>
-                    <li>
-                      <p>
-                        Learn You a Haskell for Great Good, by Miran Lipovaca
-       Lipovaca 2011.</p>
-                      </li>
-                    <li>
-                      <p>
-                        Real World Haskell, by Bryan O'Sullivan, John Goerzen,
-       and Don Stewart O'Sullivan 2008</p>
-                      </li>
-                    <li>
-                      <p>
-                        ...and many other excellent books on Haskell, OCaml,
-       Scheme, Racket, Scala, F sharp, etc., etc.</p>
-                      </li>
-                    </ul>
-                  </li>
-                <li>
-                  <p>
-                    And some further resources for Rocq:</p>
-                  <ul>
-                    <li>
-                      <p>
-                        Certified Programming with Dependent Types, by Adam
-      Chlipala Chlipala 2013.</p>
-                      </li>
-                    <li>
-                      <p>
-                        Interactive Theorem Proving and Program Development:
-      Coq'Art: The Calculus of Inductive Constructions, by Yves
-      Bertot and Pierre Casteran Bertot 2004.</p>
-                      </li>
-                    </ul>
-                  </li>
-                <li>
-                  <p>
-                    If you're interested in real-world applications of formal
-  verification to critical software, see the Postscript chapter
-  of <em>Programming Language Foundations</em>.</p>
-                  </li>
-                <li>
-                  <p>
-                    For applications of Rocq in building verified systems, the
-  lectures and course materials for the 2017 DeepSpec Summer
-  School are a great resource.
-  &lt;https://deepspec.org/event/dsss17/index.html&gt;
+                    <a href="https://leanprover-community.github.io/mathematics_in_lean/">Mathematics in Lean</a>
+  develops formalized mathematics using Lean and Mathlib.
 </p>
                   </li>
                 </ul>
