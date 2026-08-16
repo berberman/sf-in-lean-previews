@@ -390,9 +390,9 @@
     "250": {
       "base_sha": "f7a57a2d811b851e167cddec1352bfb2f166abdd",
       "changed_variants": [],
-      "head_sha": "5b9541bcda68f96050b40bfefce8cf8feb7b690e",
+      "head_sha": "57945c95ae4de90a70ba3f9b0a9668acb9f590d0",
       "preview_path": "pr/250/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31939214218",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31944629917",
       "status": "ci-failed",
       "title": "Clean up proofs in Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/250"
@@ -443,6 +443,53 @@
       "status": "published",
       "title": "Hoare2 fixes",
       "url": "https://github.com/plclub/sf-in-lean/pull/251"
+    },
+    "252": {
+      "base_sha": "152e9d04e86121ed70606f22d768cff9cd76fc4e",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "4068895527b802cc9bd8746d8190d1b1c978c54c",
+      "preview_path": "pr/252/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31944787398",
+      "status": "published",
+      "title": "Imp: Com.EvalR implicit arguments",
+      "url": "https://github.com/plclub/sf-in-lean/pull/252"
     }
   },
   "schema": 3
