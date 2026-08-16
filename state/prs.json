@@ -611,6 +611,53 @@
       "status": "published",
       "title": "Hoare: Com.EvalR implicit arguments",
       "url": "https://github.com/plclub/sf-in-lean/pull/254"
+    },
+    "255": {
+      "base_sha": "6e928a126d581c9c68df711454476be9200da7ef",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "7ffd6f1f7beecc3c834f5824f7b3248e001bf55f",
+      "preview_path": "pr/255/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31954437520",
+      "status": "published",
+      "title": "Typeclasses: explain `MyGetElem` and encapsulation better",
+      "url": "https://github.com/plclub/sf-in-lean/pull/255"
     }
   },
   "schema": 3
