@@ -1,416 +1,414 @@
-{"999": "<code>s0' = s1</code>",
- "998": "<code>P s1</code>",
- "997": "<code>Result.normal s0' = Result.normal s1</code>",
+{"999": "<code>Com.skip = Com.whileDo b c</code>",
+ "998":
+ "<code>HoareAssertAssume.Com.EvalR.skip (st : State) : st =[ Com.skip ]=&gt; Result.normal st</code>",
+ "997": "<code>Result.error = Result.normal s1</code>",
  "996":
- "<code>Com.whileDo b0 c0 = Com.whileDo b0 c0 → P s0' → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b0 s'</code>",
+ "<code>c0 = Com.whileDo b0 c0 → P s0 → ∃ s', Result.error = Result.normal s' ∧ P s' ∧ ¬bassertion b0 s'</code>",
  "995":
- "<code>c0 = Com.whileDo b0 c0 → P s0 → ∃ s', Result.normal s0' = Result.normal s' ∧ P s' ∧ ¬bassertion b0 s'</code>",
- "994": "<code>st =[ Com.whileDo b0 c0 ]=&gt; r</code>",
+ "<code>c0 = Com.whileDo b c → P s0 → ∃ s', Result.error = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
+ "994": "<code>s0 =[ c0 ]=&gt; Result.error</code>",
  "993":
- "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b0 = true) c0 fun st =&gt; P st</code>",
- "992":
- "<code>Com.whileDo b0 c0 = Com.whileDo b c → P s0' → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
- "991":
- "<code>c0 = Com.whileDo b c → P s0 → ∃ s', Result.normal s0' = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
- "990": "<code>s0' =[ Com.whileDo b0 c0 ]=&gt; r0</code>",
+ "<code>HoareAssertAssume.Com.EvalR.whileTrueError (st : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true)\n  (hc : st =[ c ]=&gt; Result.error) : st =[ Com.whileDo b c ]=&gt; Result.error</code>",
+ "992": "<code>P s0'</code>",
+ "991": "<code>s0' = s1</code>",
+ "990": "<code>P s1</code>",
  "99":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.minus (e1 e2 : Aexp) (n1 n2 : Nat) :\n  EvalR e1 n1 → EvalR e2 n2 → EvalR (e1.minus e2) (n1 - n2)</code>",
- "989": "<code>s0 =[ c0 ]=&gt; Result.normal s0'</code>",
+ "989": "<code>Result.normal s0' = Result.normal s1</code>",
  "988":
- "<code>HoareAssertAssume.Com.EvalR.whileTrueNormal (st st' : State) (r : Result) (b : Bexp) (c : Com)\n  (hb : Bexp.eval st b = true) (hc : st =[ c ]=&gt; Result.normal st') (hloop : st' =[ Com.whileDo b c ]=&gt; r) :\n  st =[ Com.whileDo b c ]=&gt; r</code>",
- "987": "<code>st =[ Com.whileDo b0 c ]=&gt; r</code>",
- "986":
- "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b0 = true) c fun st =&gt; P st</code>",
- "985": "<code>Com.whileDo b0 c0 = Com.whileDo b c</code>",
+ "<code>Com.whileDo b0 c0 = Com.whileDo b0 c0 → P s0' → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b0 s'</code>",
+ "987":
+ "<code>c0 = Com.whileDo b0 c0 → P s0 → ∃ s', Result.normal s0' = Result.normal s' ∧ P s' ∧ ¬bassertion b0 s'</code>",
+ "986": "<code>st =[ Com.whileDo b0 c0 ]=&gt; r</code>",
+ "985":
+ "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b0 = true) c0 fun st =&gt; P st</code>",
  "984":
- "<code>HoareAssertAssume.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) :\n  st =[ Com.whileDo b c ]=&gt; Result.normal st</code>",
- "983": "<code>s =[ cmd ]=&gt; r'</code>",
- "982":
- "<code>∀ (cmd : Com) (s : State) (r' : Result),\n  s =[ cmd ]=&gt; r' → cmd = Com.whileDo b c → P s → ∃ s', r' = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
- "981": "<code>st =[ Com.whileDo b c ]=&gt; r</code>",
+ "<code>Com.whileDo b0 c0 = Com.whileDo b c → P s0' → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
+ "983":
+ "<code>c0 = Com.whileDo b c → P s0 → ∃ s', Result.normal s0' = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
+ "982": "<code>s0' =[ Com.whileDo b0 c0 ]=&gt; r0</code>",
+ "981": "<code>s0 =[ c0 ]=&gt; Result.normal s0'</code>",
  "980":
- "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c fun st =&gt; P st</code>",
+ "<code>HoareAssertAssume.Com.EvalR.whileTrueNormal (st st' : State) (r : Result) (b : Bexp) (c : Com)\n  (hb : Bexp.eval st b = true) (hc : st =[ c ]=&gt; Result.normal st') (hloop : st' =[ Com.whileDo b c ]=&gt; r) :\n  st =[ Com.whileDo b c ]=&gt; r</code>",
  "98":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.plus (e1 e2 : Aexp) (n1 n2 : Nat) :\n  EvalR e1 n1 → EvalR e2 n2 → EvalR (e1.plus e2) (n1 + n2)</code>",
- "979":
- "<code>HoareAssertAssume.hoare_while (P : Assertion) (b : Bexp) (c : Com)\n  (hhoare : ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c fun st =&gt; P st) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.whileDo b c) fun st =&gt; P st ∧ ¬Bexp.eval st b = true</code>",
- "978": "<code>st =[ c2 ]=&gt; r</code>",
- "977": "<code>st =[ c1 ]=&gt; r</code>",
- "976": "<code>st =[ Com.cond b c1 c2 ]=&gt; r</code>",
- "975":
- "<code>ValidHoareTriple (fun st =&gt; P st ∧ ¬Bexp.eval st b = true) c2 fun st =&gt; Q st</code>",
+ "979": "<code>st =[ Com.whileDo b0 c ]=&gt; r</code>",
+ "978":
+ "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b0 = true) c fun st =&gt; P st</code>",
+ "977": "<code>Com.whileDo b0 c0 = Com.whileDo b c</code>",
+ "976":
+ "<code>HoareAssertAssume.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) :\n  st =[ Com.whileDo b c ]=&gt; Result.normal st</code>",
+ "975": "<code>s =[ cmd ]=&gt; r'</code>",
  "974":
- "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c1 fun st =&gt; Q st</code>",
- "973":
- "<code>HoareAssertAssume.hoare_if (P Q : Assertion) (b : Bexp) (c1 c2 : Com)\n  (hTrue : ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c1 fun st =&gt; Q st)\n  (hFalse : ValidHoareTriple (fun st =&gt; P st ∧ ¬Bexp.eval st b = true) c2 fun st =&gt; Q st) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.cond b c1 c2) fun st =&gt; Q st</code>",
- "972": "<code>st =[ Com.skip ]=&gt; r</code>",
+ "<code>∀ (cmd : Com) (s : State) (r' : Result),\n  s =[ cmd ]=&gt; r' → cmd = Com.whileDo b c → P s → ∃ s', r' = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
+ "973": "<code>st =[ Com.whileDo b c ]=&gt; r</code>",
+ "972":
+ "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c fun st =&gt; P st</code>",
  "971":
- "<code>HoareAssertAssume.hoare_skip (P : Assertion) : ValidHoareTriple (fun st =&gt; P st) Com.skip fun st =&gt; P st</code>",
- "970":
- "<code>∃ st', Result.error = Result.normal st' ∧ (fun st =&gt; Q st) st'</code>",
+ "<code>HoareAssertAssume.hoare_while (P : Assertion) (b : Bexp) (c : Com)\n  (hhoare : ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c fun st =&gt; P st) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.whileDo b c) fun st =&gt; P st ∧ ¬Bexp.eval st b = true</code>",
+ "970": "<code>st =[ c2 ]=&gt; r</code>",
  "97":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
- "969":
- "<code>(fun st =&gt; P st) st → ∃ st', Result.error = Result.normal st' ∧ (fun st =&gt; Q st) st'</code>",
- "968": "<code>st =[ c1 ]=&gt; Result.error</code>",
- "967": "<code>st' = st''</code>",
- "966": "<code>Q st''</code>",
- "965": "<code>Result.normal st' = Result.normal st''</code>",
- "964":
- "<code>∃ st'_1, Result.normal st' = Result.normal st'_1 ∧ (fun st =&gt; Q st) st'_1</code>",
+ "969": "<code>st =[ c1 ]=&gt; r</code>",
+ "968": "<code>st =[ Com.cond b c1 c2 ]=&gt; r</code>",
+ "967":
+ "<code>ValidHoareTriple (fun st =&gt; P st ∧ ¬Bexp.eval st b = true) c2 fun st =&gt; Q st</code>",
+ "966":
+ "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c1 fun st =&gt; Q st</code>",
+ "965":
+ "<code>HoareAssertAssume.hoare_if (P Q : Assertion) (b : Bexp) (c1 c2 : Com)\n  (hTrue : ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c1 fun st =&gt; Q st)\n  (hFalse : ValidHoareTriple (fun st =&gt; P st ∧ ¬Bexp.eval st b = true) c2 fun st =&gt; Q st) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.cond b c1 c2) fun st =&gt; Q st</code>",
+ "964": "<code>st =[ Com.skip ]=&gt; r</code>",
  "963":
- "<code>(fun st =&gt; P st) st → ∃ st'_1, Result.normal st' = Result.normal st'_1 ∧ (fun st =&gt; Q st) st'_1</code>",
- "962": "<code>st' =[ c2 ]=&gt; r</code>",
- "961": "<code>st =[ c1 ]=&gt; Result.normal st'</code>",
- "960": "<code>st =[ c1.seq c2 ]=&gt; r</code>",
+ "<code>HoareAssertAssume.hoare_skip (P : Assertion) : ValidHoareTriple (fun st =&gt; P st) Com.skip fun st =&gt; P st</code>",
+ "962":
+ "<code>∃ st', Result.error = Result.normal st' ∧ (fun st =&gt; Q st) st'</code>",
+ "961":
+ "<code>(fun st =&gt; P st) st → ∃ st', Result.error = Result.normal st' ∧ (fun st =&gt; Q st) st'</code>",
+ "960": "<code>st =[ c1 ]=&gt; Result.error</code>",
  "96": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "959":
- "<code>HoareAssertAssume.hoare_seq (P Q R : Assertion) (c1 c2 : Com) (h1 : ValidHoareTriple (fun st =&gt; Q st) c2 fun st =&gt; R st)\n  (h2 : ValidHoareTriple (fun st =&gt; P st) c1 fun st =&gt; Q st) :\n  ValidHoareTriple (fun st =&gt; P st) (c1.seq c2) fun st =&gt; R st</code>",
- "958": "<code>Q' st'</code>",
- "957": "<code>r = Result.normal st'</code>",
- "956": "<code>∃ st', r = Result.normal st' ∧ Q' st'</code>",
+ "959": "<code>st' = st''</code>",
+ "958": "<code>Q st''</code>",
+ "957": "<code>Result.normal st' = Result.normal st''</code>",
+ "956":
+ "<code>∃ st'_1, Result.normal st' = Result.normal st'_1 ∧ (fun st =&gt; Q st) st'_1</code>",
  "955":
- "<code>∀ (st : State) (r : Result), st =[ c ]=&gt; r → (fun st =&gt; P st) st → ∃ st', r = Result.normal st' ∧ (fun st =&gt; Q' st) st'</code>",
- "954":
- "<code>ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q' st</code>",
- "953":
- "<code>HoareAssertAssume.hoare_consequence_post (P Q Q' : Assertion) (c : Com)\n  (hhoare : ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q' st) (himp : Q' -&gt;&gt; Q) :\n  ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q st</code>",
- "952": "<code>st =[ c ]=&gt; r</code>",
+ "<code>(fun st =&gt; P st) st → ∃ st'_1, Result.normal st' = Result.normal st'_1 ∧ (fun st =&gt; Q st) st'_1</code>",
+ "954": "<code>st' =[ c2 ]=&gt; r</code>",
+ "953": "<code>st =[ c1 ]=&gt; Result.normal st'</code>",
+ "952": "<code>st =[ c1.seq c2 ]=&gt; r</code>",
  "951":
- "<code>HoareAssertAssume.hoare_consequence_pre (P P' Q : Assertion) (c : Com)\n  (hhoare : ValidHoareTriple (fun st =&gt; P' st) c fun st =&gt; Q st) (himp : P -&gt;&gt; P') :\n  ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q st</code>",
- "950": "<code>st =[ Com.asgn x a ]=&gt; r</code>",
+ "<code>HoareAssertAssume.hoare_seq (P Q R : Assertion) (c1 c2 : Com) (h1 : ValidHoareTriple (fun st =&gt; Q st) c2 fun st =&gt; R st)\n  (h2 : ValidHoareTriple (fun st =&gt; P st) c1 fun st =&gt; Q st) :\n  ValidHoareTriple (fun st =&gt; P st) (c1.seq c2) fun st =&gt; R st</code>",
+ "950": "<code>Q' st'</code>",
  "95":
  "<code>Slang.Aexp.EvalR.mult (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) : (a1.mult a2).EvalR (n1 * n2)</code>",
- "949":
- "<code>HoareAssertAssume.hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :\n  ValidHoareTriple (fun st =&gt; Assertion.sub x a Q st) (Com.asgn x a) fun st =&gt; Q st</code>",
- "948": "<code>Q st</code>",
- "947": "<code>st = st'</code>",
- "946": "<code>Q st'</code>",
- "945": "<code>Result.normal st = Result.normal st'</code>",
- "944":
- "<code>HoareAssertAssume.Com.EvalR.assertTrue (st : State) (b : Bexp) (hb : Bexp.eval st b = true) :\n  st =[ Com.assert b ]=&gt; Result.normal st</code>",
- "943": "<code>st =[ Com.assert b ]=&gt; Result.normal st</code>",
- "942": "<code>st =[ Com.assume b ]=&gt; r</code>",
+ "949": "<code>r = Result.normal st'</code>",
+ "948": "<code>∃ st', r = Result.normal st' ∧ Q' st'</code>",
+ "947":
+ "<code>∀ (st : State) (r : Result), st =[ c ]=&gt; r → (fun st =&gt; P st) st → ∃ st', r = Result.normal st' ∧ (fun st =&gt; Q' st) st'</code>",
+ "946":
+ "<code>ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q' st</code>",
+ "945":
+ "<code>HoareAssertAssume.hoare_consequence_post (P Q Q' : Assertion) (c : Com)\n  (hhoare : ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q' st) (himp : Q' -&gt;&gt; Q) :\n  ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q st</code>",
+ "944": "<code>st =[ c ]=&gt; r</code>",
+ "943":
+ "<code>HoareAssertAssume.hoare_consequence_pre (P P' Q : Assertion) (c : Com)\n  (hhoare : ValidHoareTriple (fun st =&gt; P' st) c fun st =&gt; Q st) (himp : P -&gt;&gt; P') :\n  ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q st</code>",
+ "942": "<code>st =[ Com.asgn x a ]=&gt; r</code>",
  "941":
- "<code>ValidHoareTriple (fun st =&gt; P st) (Com.assert b) fun st =&gt; Q st</code>",
- "940":
- "<code>HoareAssertAssume.assert_implies_assume (P : Assertion) (b : Bexp) (Q : Assertion)\n  (hhoare : ValidHoareTriple (fun st =&gt; P st) (Com.assert b) fun st =&gt; Q st) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.assume b) fun st =&gt; Q st</code>",
+ "<code>HoareAssertAssume.hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :\n  ValidHoareTriple (fun st =&gt; Assertion.sub x a Q st) (Com.asgn x a) fun st =&gt; Q st</code>",
+ "940": "<code>Q st</code>",
  "94":
  "<code>Slang.Aexp.EvalR.minus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) :\n  (a1.minus a2).EvalR (n1 - n2)</code>",
- "939": "<code>(fun st =&gt; False) st'</code>",
- "938": "<code>Result.error = Result.normal st'</code>",
- "937":
- "<code>HoareAssertAssume.Com.EvalR.assertFalse (st : State) (b : Bexp) (hb : Bexp.eval st b = false) :\n  st =[ Com.assert b ]=&gt; Result.error</code>",
- "936": "<code>∅ =[ Com.assert (bexp {false}) ]=&gt; Result.error</code>",
- "935":
- "<code>∀ (st : State) (r : Result),\n  st =[ Com.assert (bexp {false}) ]=&gt; r →\n    (fun st =&gt; (fun st =&gt; True) st) st → ∃ st', r = Result.normal st' ∧ (fun st =&gt; (fun st =&gt; False) st) st'</code>",
- "934":
- "<code>ValidHoareTriple (fun st =&gt; (fun st =&gt; True) st) (Com.assert (bexp {false})) fun st =&gt; (fun st =&gt; False) st</code>",
- "933": "<code>Bexp.eval st (bexp {false}) = true</code>",
- "932": "<code>(fun st =&gt; True) st</code>",
- "931": "<code>st =[ Com.assume (bexp {false}) ]=&gt; r</code>",
- "930":
- "<code>HoareAssertAssume.assert_assume_differ :\n  ∃ P b Q,\n    (ValidHoareTriple (fun st =&gt; P st) (Com.assume b) fun st =&gt; Q st) ∧\n      ¬ValidHoareTriple (fun st =&gt; P st) (Com.assert b) fun st =&gt; Q st</code>",
+ "939": "<code>st = st'</code>",
+ "938": "<code>Q st'</code>",
+ "937": "<code>Result.normal st = Result.normal st'</code>",
+ "936":
+ "<code>HoareAssertAssume.Com.EvalR.assertTrue (st : State) (b : Bexp) (hb : Bexp.eval st b = true) :\n  st =[ Com.assert b ]=&gt; Result.normal st</code>",
+ "935": "<code>st =[ Com.assert b ]=&gt; Result.normal st</code>",
+ "934": "<code>st =[ Com.assume b ]=&gt; r</code>",
+ "933":
+ "<code>ValidHoareTriple (fun st =&gt; P st) (Com.assert b) fun st =&gt; Q st</code>",
+ "932":
+ "<code>HoareAssertAssume.assert_implies_assume (P : Assertion) (b : Bexp) (Q : Assertion)\n  (hhoare : ValidHoareTriple (fun st =&gt; P st) (Com.assert b) fun st =&gt; Q st) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.assume b) fun st =&gt; Q st</code>",
+ "931": "<code>(fun st =&gt; False) st'</code>",
+ "930": "<code>Result.error = Result.normal st'</code>",
  "93": "<code>EvalR a2 n2</code>",
  "929":
- "<code>HoareAssertAssume.ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
- "928": "<code>Lean.TSyntax `haa_com</code>",
+ "<code>HoareAssertAssume.Com.EvalR.assertFalse (st : State) (b : Bexp) (hb : Bexp.eval st b = false) :\n  st =[ Com.assert b ]=&gt; Result.error</code>",
+ "928": "<code>∅ =[ Com.assert (bexp {false}) ]=&gt; Result.error</code>",
  "927":
- "<code>HoareAssertAssume.Com.EvalR.assume (st : State) (b : Bexp) (hb : Bexp.eval st b = true) :\n  (assume b).EvalR st (Result.normal st)</code>",
+ "<code>∀ (st : State) (r : Result),\n  st =[ Com.assert (bexp {false}) ]=&gt; r →\n    (fun st =&gt; (fun st =&gt; True) st) st → ∃ st', r = Result.normal st' ∧ (fun st =&gt; (fun st =&gt; False) st) st'</code>",
  "926":
- "<code>HoareAssertAssume.Com.EvalR.assertFalse (st : State) (b : Bexp) (hb : Bexp.eval st b = false) :\n  (assert b).EvalR st Result.error</code>",
- "925":
- "<code>HoareAssertAssume.Com.EvalR.assertTrue (st : State) (b : Bexp) (hb : Bexp.eval st b = true) :\n  (assert b).EvalR st (Result.normal st)</code>",
- "924": "<code>EvalR c st Result.error</code>",
- "923":
- "<code>HoareAssertAssume.Com.EvalR.whileTrueError (st : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true)\n  (hc : c.EvalR st Result.error) : (whileDo b c).EvalR st Result.error</code>",
- "922": "<code>EvalR (whileDo b c) st' r</code>",
- "921": "<code>EvalR c st (Result.normal st')</code>",
- "920":
- "<code>HoareAssertAssume.Com.EvalR.whileTrueNormal (st st' : State) (r : Result) (b : Bexp) (c : Com)\n  (hb : Bexp.eval st b = true) (hc : c.EvalR st (Result.normal st')) (hloop : (whileDo b c).EvalR st' r) :\n  (whileDo b c).EvalR st r</code>",
+ "<code>ValidHoareTriple (fun st =&gt; (fun st =&gt; True) st) (Com.assert (bexp {false})) fun st =&gt; (fun st =&gt; False) st</code>",
+ "925": "<code>Bexp.eval st (bexp {false}) = true</code>",
+ "924": "<code>(fun st =&gt; True) st</code>",
+ "923": "<code>st =[ Com.assume (bexp {false}) ]=&gt; r</code>",
+ "922":
+ "<code>HoareAssertAssume.assert_assume_differ :\n  ∃ P b Q,\n    (ValidHoareTriple (fun st =&gt; P st) (Com.assume b) fun st =&gt; Q st) ∧\n      ¬ValidHoareTriple (fun st =&gt; P st) (Com.assert b) fun st =&gt; Q st</code>",
+ "921":
+ "<code>HoareAssertAssume.ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
+ "920": "<code>Lean.TSyntax `haa_com</code>",
  "92": "<code>EvalR a1 n1</code>",
  "919":
- "<code>HoareAssertAssume.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) :\n  (whileDo b c).EvalR st (Result.normal st)</code>",
- "918": "<code>EvalR c2 st r</code>",
+ "<code>HoareAssertAssume.Com.EvalR.assume (st : State) (b : Bexp) (hb : Bexp.eval st b = true) :\n  (assume b).EvalR st (Result.normal st)</code>",
+ "918":
+ "<code>HoareAssertAssume.Com.EvalR.assertFalse (st : State) (b : Bexp) (hb : Bexp.eval st b = false) :\n  (assert b).EvalR st Result.error</code>",
  "917":
- "<code>HoareAssertAssume.Com.EvalR.ifFalse (st : State) (r : Result) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false)\n  (hc : c2.EvalR st r) : (cond b c1 c2).EvalR st r</code>",
- "916": "<code>EvalR c1 st r</code>",
+ "<code>HoareAssertAssume.Com.EvalR.assertTrue (st : State) (b : Bexp) (hb : Bexp.eval st b = true) :\n  (assert b).EvalR st (Result.normal st)</code>",
+ "916": "<code>EvalR c st Result.error</code>",
  "915":
- "<code>HoareAssertAssume.Com.EvalR.ifTrue (st : State) (r : Result) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true)\n  (hc : c1.EvalR st r) : (cond b c1 c2).EvalR st r</code>",
- "914": "<code>EvalR c1 st Result.error</code>",
- "913":
- "<code>HoareAssertAssume.Com.EvalR.seqError (c1 c2 : Com) (st : State) (h : c1.EvalR st Result.error) :\n  (c1.seq c2).EvalR st Result.error</code>",
- "912": "<code>EvalR c2 st' r</code>",
- "911": "<code>EvalR c1 st (Result.normal st')</code>",
- "910": "<code>Result</code>",
+ "<code>HoareAssertAssume.Com.EvalR.whileTrueError (st : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true)\n  (hc : c.EvalR st Result.error) : (whileDo b c).EvalR st Result.error</code>",
+ "914": "<code>EvalR (whileDo b c) st' r</code>",
+ "913": "<code>EvalR c st (Result.normal st')</code>",
+ "912":
+ "<code>HoareAssertAssume.Com.EvalR.whileTrueNormal (st st' : State) (r : Result) (b : Bexp) (c : Com)\n  (hb : Bexp.eval st b = true) (hc : c.EvalR st (Result.normal st')) (hloop : (whileDo b c).EvalR st' r) :\n  (whileDo b c).EvalR st r</code>",
+ "911":
+ "<code>HoareAssertAssume.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) :\n  (whileDo b c).EvalR st (Result.normal st)</code>",
+ "910": "<code>EvalR c2 st r</code>",
  "91":
  "<code>Slang.Aexp.EvalR.plus (a1 a2 : Aexp) (n1 n2 : Nat) (h1 : a1.EvalR n1) (h2 : a2.EvalR n2) : (a1.plus a2).EvalR (n1 + n2)</code>",
  "909":
- "<code>HoareAssertAssume.Com.EvalR.seqNormal (c1 c2 : Com) (st st' : State) (r : Result) (h1 : c1.EvalR st (Result.normal st'))\n  (h2 : c2.EvalR st' r) : (c1.seq c2).EvalR st r</code>",
- "908":
- "<code>HoareAssertAssume.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  (asgn x a).EvalR st (Result.normal (x →ₜ n ; st))</code>",
+ "<code>HoareAssertAssume.Com.EvalR.ifFalse (st : State) (r : Result) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false)\n  (hc : c2.EvalR st r) : (cond b c1 c2).EvalR st r</code>",
+ "908": "<code>EvalR c1 st r</code>",
  "907":
- "<code>HoareAssertAssume.Com.EvalR.skip (st : State) : skip.EvalR st (Result.normal st)</code>",
- "906":
- "<code>HoareAssertAssume.Com.EvalR : Com → State → Result → Prop</code>",
- "905": "<code>HoareAssertAssume.Result.error : Result</code>",
- "904": "<code>HoareAssertAssume.Result.normal : State → Result</code>",
- "903": "<code>HoareAssertAssume.Result : Type</code>",
- "902": "<code>TSyntax `haa_com</code>",
+ "<code>HoareAssertAssume.Com.EvalR.ifTrue (st : State) (r : Result) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true)\n  (hc : c1.EvalR st r) : (cond b c1 c2).EvalR st r</code>",
+ "906": "<code>EvalR c1 st Result.error</code>",
+ "905":
+ "<code>HoareAssertAssume.Com.EvalR.seqError (c1 c2 : Com) (st : State) (h : c1.EvalR st Result.error) :\n  (c1.seq c2).EvalR st Result.error</code>",
+ "904": "<code>EvalR c2 st' r</code>",
+ "903": "<code>EvalR c1 st (Result.normal st')</code>",
+ "902": "<code>Result</code>",
  "901":
- "<code class=\"docstring\">Include an assert/assume-Imp command in Lean code </code>",
- "900": "<code><span class=\"literal string\">\"impa\"</span> : String</code>",
+ "<code>HoareAssertAssume.Com.EvalR.seqNormal (c1 c2 : Com) (st st' : State) (r : Result) (h1 : c1.EvalR st (Result.normal st'))\n  (h2 : c2.EvalR st' r) : (c1.seq c2).EvalR st r</code>",
+ "900":
+ "<code>HoareAssertAssume.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  (asgn x a).EvalR st (Result.normal (x →ₜ n ; st))</code>",
  "90": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
  "9": "<code>Slang.Aexp.mult (a1 a2 : Aexp) : Aexp</code>",
- "899": "<code><span class=\"literal string\">\" (\"</span> : String</code>",
+ "899":
+ "<code>HoareAssertAssume.Com.EvalR.skip (st : State) : skip.EvalR st (Result.normal st)</code>",
  "898":
+ "<code>HoareAssertAssume.Com.EvalR : Com → State → Result → Prop</code>",
+ "897": "<code>HoareAssertAssume.Result.error : Result</code>",
+ "896": "<code>HoareAssertAssume.Result.normal : State → Result</code>",
+ "895": "<code>HoareAssertAssume.Result : Type</code>",
+ "894": "<code>TSyntax `haa_com</code>",
+ "893":
+ "<code class=\"docstring\">Include an assert/assume-Imp command in Lean code </code>",
+ "892": "<code><span class=\"literal string\">\"impa\"</span> : String</code>",
+ "891": "<code><span class=\"literal string\">\" (\"</span> : String</code>",
+ "890":
  "<code>Lean.Parser.Category.haa_com : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Imp commands plus `assert` and `assume` </code>",
- "897": "<code>HoareAssertAssume.Com.assume : Bexp → Com</code>",
- "896": "<code>HoareAssertAssume.Com.assert : Bexp → Com</code>",
- "895": "<code>HoareAssertAssume.Com.whileDo : Bexp → Com → Com</code>",
- "894": "<code>HoareAssertAssume.Com.cond : Bexp → Com → Com → Com</code>",
- "893": "<code>HoareAssertAssume.Com.seq : Com → Com → Com</code>",
- "892": "<code>HoareAssertAssume.Com.asgn : Ident → Aexp → Com</code>",
- "891": "<code>HoareAssertAssume.Com.skip : Com</code>",
- "890": "<code>HoareAssertAssume.Com : Type</code>",
  "89":
  "<code class=\"docstring\">The universe of propositions. `Prop ≡ Sort 0`.\n\nEvery proposition is propositionally equal to either `True` or `False`. </code>",
- "889":
+ "889": "<code>HoareAssertAssume.Com.assume : Bexp → Com</code>",
+ "888": "<code>HoareAssertAssume.Com.assert : Bexp → Com</code>",
+ "887": "<code>HoareAssertAssume.Com.whileDo : Bexp → Com → Com</code>",
+ "886": "<code>HoareAssertAssume.Com.cond : Bexp → Com → Com → Com</code>",
+ "885": "<code>HoareAssertAssume.Com.seq : Com → Com → Com</code>",
+ "884": "<code>HoareAssertAssume.Com.asgn : Ident → Aexp → Com</code>",
+ "883": "<code>HoareAssertAssume.Com.skip : Com</code>",
+ "882": "<code>HoareAssertAssume.Com : Type</code>",
+ "881":
  "<code class=\"docstring\">The `dsimp` tactic is the definitional simplifier. It is similar to `simp` but only\napplies theorems that hold by reflexivity. Thus, the result is guaranteed to be\ndefinitionally equal to the input.\n</code>",
- "888":
- "<code>Himp.havoc_post (P : Assertion) (x : Ident) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.havoc x) fun st =&gt; (fun st =&gt; ∃ n, (fun st =&gt; Assertion.sub x n P st) st) st</code>",
- "887": "<code>(fun st =&gt; ∀ (n : Nat), Assertion.sub x n Q st) st</code>",
- "886": "<code>st =[ Com.havoc x ]=&gt; st'</code>",
- "885":
- "<code>Himp.hoare_havoc (Q : Assertion) (x : Ident) :\n  ValidHoareTriple (fun st =&gt; (fun st =&gt; havoc_pre x Q st) st) (Com.havoc x) fun st =&gt; Q st</code>",
- "884":
- "<code>Himp.havoc_pre (x : Ident) (Q : Assertion) (st : State) : Prop</code>",
- "883":
- "<code>Himp.hoare_consequence_pre (P P' Q : Assertion) (c : Com) (hhoare : ValidHoareTriple (fun st =&gt; P' st) c fun st =&gt; Q st)\n  (himp : P -&gt;&gt; P') : ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q st</code>",
- "882":
- "<code>Himp.ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
- "881": "<code>Lean.TSyntax `himp_com</code>",
  "880":
- "<code>Himp.Com.EvalR.havoc (st : State) (x : Ident) (n : Nat) : (havoc x).EvalR st (x →ₜ n ; st)</code>",
+ "<code>Himp.havoc_post (P : Assertion) (x : Ident) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.havoc x) fun st =&gt; (fun st =&gt; ∃ n, (fun st =&gt; Assertion.sub x n P st) st) st</code>",
  "88": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "879":
- "<code>Himp.Com.EvalR.whileTrue (st st' st'' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : c.EvalR st st')\n  (hloop : (whileDo b c).EvalR st' st'') : (whileDo b c).EvalR st st''</code>",
- "878":
- "<code>Himp.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) : (whileDo b c).EvalR st st</code>",
+ "879": "<code>(fun st =&gt; ∀ (n : Nat), Assertion.sub x n Q st) st</code>",
+ "878": "<code>st =[ Com.havoc x ]=&gt; st'</code>",
  "877":
- "<code>Himp.Com.EvalR.ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false) (hc : c2.EvalR st st') :\n  (cond b c1 c2).EvalR st st'</code>",
+ "<code>Himp.hoare_havoc (Q : Assertion) (x : Ident) :\n  ValidHoareTriple (fun st =&gt; (fun st =&gt; havoc_pre x Q st) st) (Com.havoc x) fun st =&gt; Q st</code>",
  "876":
- "<code>Himp.Com.EvalR.ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true) (hc : c1.EvalR st st') :\n  (cond b c1 c2).EvalR st st'</code>",
+ "<code>Himp.havoc_pre (x : Ident) (Q : Assertion) (st : State) : Prop</code>",
  "875":
- "<code>Himp.Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : c1.EvalR st st') (h2 : c2.EvalR st' st'') :\n  (c1.seq c2).EvalR st st''</code>",
+ "<code>Himp.hoare_consequence_pre (P P' Q : Assertion) (c : Com) (hhoare : ValidHoareTriple (fun st =&gt; P' st) c fun st =&gt; Q st)\n  (himp : P -&gt;&gt; P') : ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q st</code>",
  "874":
- "<code>Himp.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  (asgn x a).EvalR st (x →ₜ n ; st)</code>",
- "873": "<code>Himp.Com.EvalR.skip (st : State) : skip.EvalR st st</code>",
- "872": "<code>Himp.Com.EvalR : Com → State → State → Prop</code>",
- "871": "<code>TSyntax `himp_com</code>",
- "870": "<code class=\"docstring\">Include a Himp command in Lean code </code>",
+ "<code>Himp.ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
+ "873": "<code>Lean.TSyntax `himp_com</code>",
+ "872":
+ "<code>Himp.Com.EvalR.havoc (st : State) (x : Ident) (n : Nat) : (havoc x).EvalR st (x →ₜ n ; st)</code>",
+ "871":
+ "<code>Himp.Com.EvalR.whileTrue (st st' st'' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : c.EvalR st st')\n  (hloop : (whileDo b c).EvalR st' st'') : (whileDo b c).EvalR st st''</code>",
+ "870":
+ "<code>Himp.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) : (whileDo b c).EvalR st st</code>",
  "87": "<code>Slang.Aexp.eval (a : Slang.Aexp) : Nat</code>",
- "869": "<code><span class=\"literal string\">\"imph\"</span> : String</code>",
+ "869":
+ "<code>Himp.Com.EvalR.ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false) (hc : c2.EvalR st st') :\n  (cond b c1 c2).EvalR st st'</code>",
  "868":
- "<code>Lean.Parser.Category.himp_com : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Himp commands: Imp commands plus `havoc` </code>",
- "867": "<code>Himp.Com.havoc : Ident → Com</code>",
- "866": "<code>Himp.Com.whileDo : Bexp → Com → Com</code>",
- "865": "<code>Himp.Com.cond : Bexp → Com → Com → Com</code>",
- "864": "<code>Himp.Com.seq : Com → Com → Com</code>",
- "863": "<code>Himp.Com.asgn : Ident → Aexp → Com</code>",
- "862": "<code>Himp.Com.skip : Com</code>",
- "861": "<code>Himp.Com : Type</code>",
+ "<code>Himp.Com.EvalR.ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true) (hc : c1.EvalR st st') :\n  (cond b c1 c2).EvalR st st'</code>",
+ "867":
+ "<code>Himp.Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : c1.EvalR st st') (h2 : c2.EvalR st' st'') :\n  (c1.seq c2).EvalR st st''</code>",
+ "866":
+ "<code>Himp.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  (asgn x a).EvalR st (x →ₜ n ; st)</code>",
+ "865": "<code>Himp.Com.EvalR.skip (st : State) : skip.EvalR st st</code>",
+ "864": "<code>Himp.Com.EvalR : Com → State → State → Prop</code>",
+ "863": "<code>TSyntax `himp_com</code>",
+ "862": "<code class=\"docstring\">Include a Himp command in Lean code </code>",
+ "861": "<code><span class=\"literal string\">\"imph\"</span> : String</code>",
  "860":
- "<code>RepeatExercise.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  st =[ Com.asgn x a ]=&gt; x →ₜ n ; st</code>",
+ "<code>Lean.Parser.Category.himp_com : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Himp commands: Imp commands plus `havoc` </code>",
  "86": "<code>b2✝.optimize0plusB.eval = b2✝.eval</code>",
- "859":
- "<code>RepeatExercise.Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : st =[ c1 ]=&gt; st') (h2 : st' =[ c2 ]=&gt; st'') :\n  st =[ c1.seq c2 ]=&gt; st''</code>",
- "858":
- "<code>RepeatExercise.Com.EvalR.repeatEnd (st st' : State) (b : Bexp) (c : Com) (hc : st =[ c ]=&gt; st')\n  (hb : Bexp.eval st' b = true) : st =[ c.repeatUntil b ]=&gt; st'</code>",
- "857":
- "<code>RepeatExercise.ex1_repeat_works : ∅ =[ ex1_repeat ]=&gt; Y →ₜ 1 ; X →ₜ 1</code>",
- "856": "<code>RepeatExercise.ex1_repeat : Com</code>",
- "855":
- "<code>RepeatExercise.ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
- "854": "<code>Lean.TSyntax `rpt_com</code>",
- "853": "<code>EvalR (c.repeatUntil b) st' st''</code>",
- "852": "<code>Bexp.eval st' b = false</code>",
+ "859": "<code>Himp.Com.havoc : Ident → Com</code>",
+ "858": "<code>Himp.Com.whileDo : Bexp → Com → Com</code>",
+ "857": "<code>Himp.Com.cond : Bexp → Com → Com → Com</code>",
+ "856": "<code>Himp.Com.seq : Com → Com → Com</code>",
+ "855": "<code>Himp.Com.asgn : Ident → Aexp → Com</code>",
+ "854": "<code>Himp.Com.skip : Com</code>",
+ "853": "<code>Himp.Com : Type</code>",
+ "852":
+ "<code>RepeatExercise.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  st =[ Com.asgn x a ]=&gt; x →ₜ n ; st</code>",
  "851":
- "<code>RepeatExercise.Com.EvalR.repeatLoop (st st' st'' : State) (b : Bexp) (c : Com) (hc : c.EvalR st st')\n  (hb : Bexp.eval st' b = false) (hloop : (c.repeatUntil b).EvalR st' st'') : (c.repeatUntil b).EvalR st st''</code>",
- "850": "<code>Bexp.eval st' b = true</code>",
+ "<code>RepeatExercise.Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : st =[ c1 ]=&gt; st') (h2 : st' =[ c2 ]=&gt; st'') :\n  st =[ c1.seq c2 ]=&gt; st''</code>",
+ "850":
+ "<code>RepeatExercise.Com.EvalR.repeatEnd (st st' : State) (b : Bexp) (c : Com) (hc : st =[ c ]=&gt; st')\n  (hb : Bexp.eval st' b = true) : st =[ c.repeatUntil b ]=&gt; st'</code>",
  "85": "<code>b1✝.optimize0plusB.eval = b1✝.eval</code>",
  "849":
- "<code>RepeatExercise.Com.EvalR.repeatEnd (st st' : State) (b : Bexp) (c : Com) (hc : c.EvalR st st')\n  (hb : Bexp.eval st' b = true) : (c.repeatUntil b).EvalR st st'</code>",
- "848":
- "<code>RepeatExercise.Com.EvalR.whileTrue (st st' st'' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true)\n  (hc : c.EvalR st st') (hloop : (whileDo b c).EvalR st' st'') : (whileDo b c).EvalR st st''</code>",
+ "<code>RepeatExercise.ex1_repeat_works : ∅ =[ ex1_repeat ]=&gt; Y →ₜ 1 ; X →ₜ 1</code>",
+ "848": "<code>RepeatExercise.ex1_repeat : Com</code>",
  "847":
- "<code>RepeatExercise.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) :\n  (whileDo b c).EvalR st st</code>",
- "846":
- "<code>RepeatExercise.Com.EvalR.ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false)\n  (hc : c2.EvalR st st') : (cond b c1 c2).EvalR st st'</code>",
- "845":
- "<code>RepeatExercise.Com.EvalR.ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true)\n  (hc : c1.EvalR st st') : (cond b c1 c2).EvalR st st'</code>",
- "844":
- "<code>RepeatExercise.Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : c1.EvalR st st') (h2 : c2.EvalR st' st'') :\n  (c1.seq c2).EvalR st st''</code>",
+ "<code>RepeatExercise.ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
+ "846": "<code>Lean.TSyntax `rpt_com</code>",
+ "845": "<code>EvalR (c.repeatUntil b) st' st''</code>",
+ "844": "<code>Bexp.eval st' b = false</code>",
  "843":
- "<code>RepeatExercise.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  (asgn x a).EvalR st (x →ₜ n ; st)</code>",
- "842":
- "<code>RepeatExercise.Com.EvalR.skip (st : State) : skip.EvalR st st</code>",
- "841": "<code>RepeatExercise.Com.EvalR : Com → State → State → Prop</code>",
- "840": "<code class=\"docstring\">Repeat loop </code>",
+ "<code>RepeatExercise.Com.EvalR.repeatLoop (st st' st'' : State) (b : Bexp) (c : Com) (hc : c.EvalR st st')\n  (hb : Bexp.eval st' b = false) (hloop : (c.repeatUntil b).EvalR st' st'') : (c.repeatUntil b).EvalR st st''</code>",
+ "842": "<code>Bexp.eval st' b = true</code>",
+ "841":
+ "<code>RepeatExercise.Com.EvalR.repeatEnd (st st' : State) (b : Bexp) (c : Com) (hc : c.EvalR st st')\n  (hb : Bexp.eval st' b = true) : (c.repeatUntil b).EvalR st st'</code>",
+ "840":
+ "<code>RepeatExercise.Com.EvalR.whileTrue (st st' st'' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true)\n  (hc : c.EvalR st st') (hloop : (whileDo b c).EvalR st' st'') : (whileDo b c).EvalR st st''</code>",
  "84": "<code>b✝.optimize0plusB.eval = b✝.eval</code>",
- "839": "<code>TSyntax `rpt_com</code>",
+ "839":
+ "<code>RepeatExercise.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) :\n  (whileDo b c).EvalR st st</code>",
  "838":
- "<code class=\"docstring\">Include a Repeat-Imp command in Lean code </code>",
- "837": "<code><span class=\"literal string\">\"impr\"</span> : String</code>",
+ "<code>RepeatExercise.Com.EvalR.ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false)\n  (hc : c2.EvalR st st') : (cond b c1 c2).EvalR st st'</code>",
+ "837":
+ "<code>RepeatExercise.Com.EvalR.ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true)\n  (hc : c1.EvalR st st') : (cond b c1 c2).EvalR st st'</code>",
  "836":
- "<code><span class=\"literal string\">\" until \"</span> : String</code>",
+ "<code>RepeatExercise.Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : c1.EvalR st st') (h2 : c2.EvalR st' st'') :\n  (c1.seq c2).EvalR st st''</code>",
  "835":
- "<code><span class=\"literal string\">\"repeat\"</span> : String</code>",
+ "<code>RepeatExercise.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  (asgn x a).EvalR st (x →ₜ n ; st)</code>",
  "834":
- "<code>Lean.Parser.Category.rpt_com : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Repeat-Imp commands: Imp commands plus `repeat` </code>",
- "833": "<code>RepeatExercise.Com.repeatUntil : Com → Bexp → Com</code>",
- "832": "<code>RepeatExercise.Com.whileDo : Bexp → Com → Com</code>",
- "831": "<code>RepeatExercise.Com.cond : Bexp → Com → Com → Com</code>",
- "830": "<code>RepeatExercise.Com.seq : Com → Com → Com</code>",
+ "<code>RepeatExercise.Com.EvalR.skip (st : State) : skip.EvalR st st</code>",
+ "833": "<code>RepeatExercise.Com.EvalR : Com → State → State → Prop</code>",
+ "832": "<code class=\"docstring\">Repeat loop </code>",
+ "831": "<code>TSyntax `rpt_com</code>",
+ "830":
+ "<code class=\"docstring\">Include a Repeat-Imp command in Lean code </code>",
  "83":
  "<code>Slang.optimize0plusB_sound (b : Bexp) : b.optimize0plusB.eval = b.eval</code>",
- "829": "<code>RepeatExercise.Com.asgn : Ident → Aexp → Com</code>",
- "828": "<code>RepeatExercise.Com.skip : Com</code>",
- "827": "<code>RepeatExercise.Com : Type</code>",
+ "829": "<code><span class=\"literal string\">\"impr\"</span> : String</code>",
+ "828":
+ "<code><span class=\"literal string\">\" until \"</span> : String</code>",
+ "827":
+ "<code><span class=\"literal string\">\"repeat\"</span> : String</code>",
  "826":
- "<code>absurd.{v} {a : Prop} {b : Sort v} (h₁ : a) (h₂ : ¬a) : b</code><span class=\"sep\"></span><code class=\"docstring\">Anything follows from two contradictory hypotheses. Example:\n```\nexample (hp : p) (hnp : ¬p) : q := absurd hp hnp\n```\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
- "825": "<code>¬Bexp.eval st (bexp {true}) = true</code>",
- "824":
- "<code>hoare_post_true (P Q : Assertion) (c : Com) (h : ∀ (st : State), Q st) : {{P}} ~c {{Q}}</code>",
- "823":
- "<code>always_loop_hoare (Q : Assertion) :\n  {{True}}\n    while (true) {\n      skip;\n    } {{Q}}</code>",
- "822":
- "<code>while_example :\n  {{X ≤ 3}}\n    while (X ≤ 2) {\n      X := X + 1;\n    } {{X = 3}}</code>",
- "821":
- "<code>c2 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
- "820":
- "<code>(imp {\n    if (~b0) {\n      ~c1\n    } else {\n      ~c2\n    }\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
+ "<code>Lean.Parser.Category.rpt_com : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">Repeat-Imp commands: Imp commands plus `repeat` </code>",
+ "825": "<code>RepeatExercise.Com.repeatUntil : Com → Bexp → Com</code>",
+ "824": "<code>RepeatExercise.Com.whileDo : Bexp → Com → Com</code>",
+ "823": "<code>RepeatExercise.Com.cond : Bexp → Com → Com → Com</code>",
+ "822": "<code>RepeatExercise.Com.seq : Com → Com → Com</code>",
+ "821": "<code>RepeatExercise.Com.asgn : Ident → Aexp → Com</code>",
+ "820": "<code>RepeatExercise.Com.skip : Com</code>",
  "82":
  "<code>Bool.true : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `true`, not to be confused with the proposition `True`. </code>",
- "819":
- "<code>(imp {\n    ~c1\n    ~c2\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
+ "819": "<code>RepeatExercise.Com : Type</code>",
  "818":
- "<code>c2 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b s0''</code>",
- "817":
- "<code>c1 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
+ "<code>absurd.{v} {a : Prop} {b : Sort v} (h₁ : a) (h₂ : ¬a) : b</code><span class=\"sep\"></span><code class=\"docstring\">Anything follows from two contradictory hypotheses. Example:\n```\nexample (hp : p) (hnp : ¬p) : q := absurd hp hnp\n```\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
+ "817": "<code>¬Bexp.eval st (bexp {true}) = true</code>",
  "816":
- "<code>(imp {\n      while (~b0) {\n        ~c0\n      }\n    }) =\n    (imp {\n      while (~b0) {\n        ~c0\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b0 s0''</code>",
+ "<code>hoare_post_true (P Q : Assertion) (c : Com) (h : ∀ (st : State), Q st) : {{P}} ~c {{Q}}</code>",
  "815":
- "<code>c0 =\n    (imp {\n      while (~b0) {\n        ~c0\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b0 s0'</code>",
+ "<code>always_loop_hoare (Q : Assertion) :\n  {{True}}\n    while (true) {\n      skip;\n    } {{Q}}</code>",
  "814":
- "<code>st =[\n  imp {\n    while (~b0) {\n      ~c0\n    }\n  } ]=&gt;\n  st'</code>",
- "813": "<code>{{P ∧ b0}} ~c0 {{P}}</code>",
+ "<code>while_example :\n  {{X ≤ 3}}\n    while (X ≤ 2) {\n      X := X + 1;\n    } {{X = 3}}</code>",
+ "813":
+ "<code>c2 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
  "812":
- "<code>(imp {\n      while (~b0) {\n        ~c0\n      }\n    }) =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b s0''</code>",
+ "<code>(imp {\n    if (~b0) {\n      ~c1\n    } else {\n      ~c2\n    }\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
  "811":
- "<code>c0 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
- "810": "<code>{{P ∧ b0}} ~c {{P}}</code>",
+ "<code>(imp {\n    ~c1\n    ~c2\n  }) =\n  (imp {\n    while (~b) {\n      ~c\n    }\n  })</code>",
+ "810":
+ "<code>c2 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b s0''</code>",
  "81":
  "<code>Slang.optimize0plusB_test2 :\n  ((Bexp.le ((Aexp.num 0).plus (Aexp.num 4)) (Aexp.num 5)).and (Bexp.bool true)).optimize0plusB =\n    (Bexp.le (Aexp.num 4) (Aexp.num 5)).and (Bexp.bool true)</code>",
- "809": "<code>P s0</code>",
+ "809":
+ "<code>c1 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
  "808":
- "<code>∀ (cmd : Com) (s s' : State),\n  s =[ cmd ]=&gt; s' →\n    cmd =\n        (imp {\n          while (~b) {\n            ~c\n          }\n        }) →\n      P s → P s' ∧ ¬bassertion b s'</code>",
- "807": "<code>{{P ∧ b}} ~c {{P}}</code>",
+ "<code>(imp {\n      while (~b0) {\n        ~c0\n      }\n    }) =\n    (imp {\n      while (~b0) {\n        ~c0\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b0 s0''</code>",
+ "807":
+ "<code>c0 =\n    (imp {\n      while (~b0) {\n        ~c0\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b0 s0'</code>",
  "806":
- "<code>hoare_while (P : Assertion) (b : Bexp) (c : Com) (hhoare : {{P ∧ b}} ~c {{P}}) :\n  {{P}}\n    while (~b) {\n      ~c\n    } {{P ∧ ¬b}}</code>",
- "805":
- "<code>If1.hoare_if1_good :\n  ValidHoareTriple (fun st =&gt; st[X] + st[Y] = st[Z]) (Com.if1 (bexp {Y ≠ 0}) (Com.asgn X (aexp {X + Y}))) fun st =&gt;\n    st[X] = st[Z]</code>",
- "804": "<code>st =[ Com.asgn x a ]=&gt; st'</code>",
+ "<code>st =[\n  imp {\n    while (~b0) {\n      ~c0\n    }\n  } ]=&gt;\n  st'</code>",
+ "805": "<code>{{P ∧ b0}} ~c0 {{P}}</code>",
+ "804":
+ "<code>(imp {\n      while (~b0) {\n        ~c0\n      }\n    }) =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0' → P s0'' ∧ ¬bassertion b s0''</code>",
  "803":
- "<code>If1.hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :\n  ValidHoareTriple (fun st =&gt; Assertion.sub x a Q st) (Com.asgn x a) fun st =&gt; Q st</code>",
- "802":
- "<code>ValidHoareTriple (fun st =&gt; P' st) c fun st =&gt; Q st</code>",
- "801":
- "<code>If1.hoare_consequence_pre (P P' Q : Assertion) (c : Com) (hhoare : ValidHoareTriple (fun st =&gt; P' st) c fun st =&gt; Q st)\n  (himp : P -&gt;&gt; P') : ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q st</code>",
- "800": "<code>st =[ Com.if1 b c ]=&gt; st'</code>",
+ "<code>c0 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  P s0 → P s0' ∧ ¬bassertion b s0'</code>",
+ "802": "<code>{{P ∧ b0}} ~c {{P}}</code>",
+ "801": "<code>P s0</code>",
+ "800":
+ "<code>∀ (cmd : Com) (s s' : State),\n  s =[ cmd ]=&gt; s' →\n    cmd =\n        (imp {\n          while (~b) {\n            ~c\n          }\n        }) →\n      P s → P s' ∧ ¬bassertion b s'</code>",
  "80":
  "<code>Slang.optimize0plusB_test1 :\n  (Bexp.gt ((Aexp.num 0).plus (Aexp.num 4)) (Aexp.num 8)).not.optimize0plusB = (Bexp.gt (Aexp.num 4) (Aexp.num 8)).not</code>",
  "8": "<code>Slang.Aexp.minus (a1 a2 : Aexp) : Aexp</code>",
- "799": "<code>{{P ∧ ¬b}} -&gt;&gt; Q</code>",
+ "799": "<code>{{P ∧ b}} ~c {{P}}</code>",
  "798":
- "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c fun st =&gt; Q st</code>",
+ "<code>hoare_while (P : Assertion) (b : Bexp) (c : Com) (hhoare : {{P ∧ b}} ~c {{P}}) :\n  {{P}}\n    while (~b) {\n      ~c\n    } {{P ∧ ¬b}}</code>",
  "797":
- "<code>If1.hoare_if1 (b : Bexp) (c : Com) (P Q : Assertion)\n  (htrue : ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c fun st =&gt; Q st) (hfalse : {{P ∧ ¬b}} -&gt;&gt; Q) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.if1 b c) fun st =&gt; Q st</code>",
- "796":
- "<code>If1.ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
+ "<code>If1.hoare_if1_good :\n  ValidHoareTriple (fun st =&gt; st[X] + st[Y] = st[Z]) (Com.if1 (bexp {Y ≠ 0}) (Com.asgn X (aexp {X + Y}))) fun st =&gt;\n    st[X] = st[Z]</code>",
+ "796": "<code>st =[ Com.asgn x a ]=&gt; st'</code>",
  "795":
- "<code>If1.Com.EvalR.if1False (st : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = false) : st =[ Com.if1 b c ]=&gt; st</code>",
+ "<code>If1.hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :\n  ValidHoareTriple (fun st =&gt; Assertion.sub x a Q st) (Com.asgn x a) fun st =&gt; Q st</code>",
  "794":
- "<code>If1.if1false_test : X →ₜ 2 =[ Com.if1 (bexp {X = 0}) (Com.asgn X (aexp {1})) ]=&gt; X →ₜ 2</code>",
+ "<code>ValidHoareTriple (fun st =&gt; P' st) c fun st =&gt; Q st</code>",
  "793":
- "<code>If1.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  st =[ Com.asgn x a ]=&gt; x →ₜ n ; st</code>",
- "792":
- "<code>If1.Com.EvalR.if1True (st st' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : st =[ c ]=&gt; st') :\n  st =[ Com.if1 b c ]=&gt; st'</code>",
- "791":
- "<code>If1.if1true_test : ∅ =[ Com.if1 (bexp {X = 0}) (Com.asgn X (aexp {1})) ]=&gt; X →ₜ 1</code>",
- "790": "<code>Lean.TSyntax `if1_com</code>",
+ "<code>If1.hoare_consequence_pre (P P' Q : Assertion) (c : Com) (hhoare : ValidHoareTriple (fun st =&gt; P' st) c fun st =&gt; Q st)\n  (himp : P -&gt;&gt; P') : ValidHoareTriple (fun st =&gt; P st) c fun st =&gt; Q st</code>",
+ "792": "<code>st =[ Com.if1 b c ]=&gt; st'</code>",
+ "791": "<code>{{P ∧ ¬b}} -&gt;&gt; Q</code>",
+ "790":
+ "<code>ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c fun st =&gt; Q st</code>",
  "79": "<code>Slang.Bexp.optimize0plusB (b : Bexp) : Bexp</code>",
  "789":
- "<code class=\"docstring\">The standardized \"high\" priority `high = 10000`, for things that should be higher than default priority. </code>",
+ "<code>If1.hoare_if1 (b : Bexp) (c : Com) (P Q : Assertion)\n  (htrue : ValidHoareTriple (fun st =&gt; P st ∧ Bexp.eval st b = true) c fun st =&gt; Q st) (hfalse : {{P ∧ ¬b}} -&gt;&gt; Q) :\n  ValidHoareTriple (fun st =&gt; P st) (Com.if1 b c) fun st =&gt; Q st</code>",
  "788":
- "<code>If1.Com.EvalR.if1False (st : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = false) : («if1» b c).EvalR st st</code>",
+ "<code>If1.ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
  "787":
- "<code>If1.Com.EvalR.if1True (st st' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : c.EvalR st st') :\n  («if1» b c).EvalR st st'</code>",
- "786": "<code>EvalR (whileDo b c) st' st''</code>",
+ "<code>If1.Com.EvalR.if1False (st : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = false) : st =[ Com.if1 b c ]=&gt; st</code>",
+ "786":
+ "<code>If1.if1false_test : X →ₜ 2 =[ Com.if1 (bexp {X = 0}) (Com.asgn X (aexp {1})) ]=&gt; X →ₜ 2</code>",
  "785":
- "<code>If1.Com.EvalR.whileTrue (st st' st'' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : c.EvalR st st')\n  (hloop : (whileDo b c).EvalR st' st'') : (whileDo b c).EvalR st st''</code>",
+ "<code>If1.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  st =[ Com.asgn x a ]=&gt; x →ₜ n ; st</code>",
  "784":
- "<code>If1.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) : (whileDo b c).EvalR st st</code>",
+ "<code>If1.Com.EvalR.if1True (st st' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : st =[ c ]=&gt; st') :\n  st =[ Com.if1 b c ]=&gt; st'</code>",
  "783":
- "<code>If1.Com.EvalR.ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false) (hc : c2.EvalR st st') :\n  (cond b c1 c2).EvalR st st'</code>",
- "782":
- "<code>If1.Com.EvalR.ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true) (hc : c1.EvalR st st') :\n  (cond b c1 c2).EvalR st st'</code>",
+ "<code>If1.if1true_test : ∅ =[ Com.if1 (bexp {X = 0}) (Com.asgn X (aexp {1})) ]=&gt; X →ₜ 1</code>",
+ "782": "<code>Lean.TSyntax `if1_com</code>",
  "781":
- "<code>If1.Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : c1.EvalR st st') (h2 : c2.EvalR st' st'') :\n  (c1.seq c2).EvalR st st''</code>",
+ "<code class=\"docstring\">The standardized \"high\" priority `high = 10000`, for things that should be higher than default priority. </code>",
  "780":
- "<code>If1.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  (asgn x a).EvalR st (x →ₜ n ; st)</code>",
+ "<code>If1.Com.EvalR.if1False (st : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = false) : («if1» b c).EvalR st st</code>",
  "78": "<code>Slang.Aexp.optimize0plus (a : Slang.Aexp) : Slang.Aexp</code>",
- "779": "<code>If1.Com.EvalR.skip (st : State) : skip.EvalR st st</code>",
- "778": "<code>If1.Com.EvalR : Com → State → State → Prop</code>",
- "777": "<code class=\"docstring\">One-sided conditional </code>",
- "776": "<code>TSyntax `if1_com</code>",
- "775": "<code class=\"docstring\">Include an If1 command in Lean code </code>",
- "774": "<code><span class=\"literal string\">\"imp1\"</span> : String</code>",
- "773": "<code><span class=\"literal string\">\"if1 \"</span> : String</code>",
+ "779":
+ "<code>If1.Com.EvalR.if1True (st st' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : c.EvalR st st') :\n  («if1» b c).EvalR st st'</code>",
+ "778": "<code>EvalR (whileDo b c) st' st''</code>",
+ "777":
+ "<code>If1.Com.EvalR.whileTrue (st st' st'' : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true) (hc : c.EvalR st st')\n  (hloop : (whileDo b c).EvalR st' st'') : (whileDo b c).EvalR st st''</code>",
+ "776":
+ "<code>If1.Com.EvalR.whileFalse (b : Bexp) (st : State) (c : Com) (hb : Bexp.eval st b = false) : (whileDo b c).EvalR st st</code>",
+ "775":
+ "<code>If1.Com.EvalR.ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false) (hc : c2.EvalR st st') :\n  (cond b c1 c2).EvalR st st'</code>",
+ "774":
+ "<code>If1.Com.EvalR.ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true) (hc : c1.EvalR st st') :\n  (cond b c1 c2).EvalR st st'</code>",
+ "773":
+ "<code>If1.Com.EvalR.seq (c1 c2 : Com) (st st' st'' : State) (h1 : c1.EvalR st st') (h2 : c2.EvalR st' st'') :\n  (c1.seq c2).EvalR st st''</code>",
  "772":
- "<code>Lean.Parser.Category.if1_com : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">If1 commands: Imp commands plus `if1` </code>",
- "771": "<code>If1.Com.if1 : Bexp → Com → Com</code>",
- "770": "<code>If1.Com.whileDo : Bexp → Com → Com</code>",
+ "<code>If1.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  (asgn x a).EvalR st (x →ₜ n ; st)</code>",
+ "771": "<code>If1.Com.EvalR.skip (st : State) : skip.EvalR st st</code>",
+ "770": "<code>If1.Com.EvalR : Com → State → State → Prop</code>",
  "77":
  "<code class=\"docstring\">`simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target\nare simplified multiple times until no simplification is applicable.\nOnly non-dependent propositional hypotheses are considered.\n</code>",
- "769": "<code>If1.Com.cond : Bexp → Com → Com → Com</code>",
- "768": "<code>If1.Com.seq : Com → Com → Com</code>",
- "767": "<code>If1.Com.asgn : Ident → Aexp → Com</code>",
- "766": "<code>If1.Com.skip : Com</code>",
- "765":
- "<code class=\"docstring\">A type universe. `Type ≡ Type 0`, `Type u ≡ Sort (u + 1)`. </code>",
- "764": "<code>If1.Com : Type</code>",
- "763":
- "<code>if_minus_plus :\n  {{True}}\n    if (X ≤ Y) {\n      Z := Y - X;\n    } else {\n      Y := X + Z;\n    } {{Y = X + Z}}</code>",
- "762":
- "<code>if_example''' :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
- "761":
- "<code class=\"docstring\">Like `assertion_auto`, but also unfolds `bassertion`, so that facts\nabout the boolean guards of conditionals and loops become available. </code>",
- "760":
- "<code>if_example'' :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
+ "769": "<code class=\"docstring\">One-sided conditional </code>",
+ "768": "<code>TSyntax `if1_com</code>",
+ "767": "<code class=\"docstring\">Include an If1 command in Lean code </code>",
+ "766": "<code><span class=\"literal string\">\"imp1\"</span> : String</code>",
+ "765": "<code><span class=\"literal string\">\"if1 \"</span> : String</code>",
+ "764":
+ "<code>Lean.Parser.Category.if1_com : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">If1 commands: Imp commands plus `if1` </code>",
+ "763": "<code>If1.Com.if1 : Bexp → Com → Com</code>",
+ "762": "<code>If1.Com.whileDo : Bexp → Com → Com</code>",
+ "761": "<code>If1.Com.cond : Bexp → Com → Com → Com</code>",
+ "760": "<code>If1.Com.seq : Com → Com → Com</code>",
  "76": "<code>e1✝.optimize0plus.eval = e1✝.eval</code>",
- "759":
- "<code><span class=\"literal string\">\"assertion_auto'\"</span> : String</code>",
- "758":
- "<code class=\"docstring\">`decide` attempts to prove the main goal (with target type `p`) by synthesizing an instance of `Decidable p`\nand then reducing that instance to evaluate the truth value of `p`.\nIf it reduces to `isTrue h`, then `h` is a proof of `p` that closes the goal.\n\nThe target is not allowed to contain local variables or metavariables.\nIf there are local variables, you can first try using the `revert` tactic with these local variables to move them into the target,\nor you can use the `+revert` option, described below.\n\nOptions:\n- `decide +revert` begins by reverting local variables that the target depends on,\n  after cleaning up the local context of irrelevant variables.\n  A variable is *relevant* if it appears in the target, if it appears in a relevant variable,\n  or if it is a proposition that refers to a relevant variable.\n- `decide +kernel` uses kernel for reduction instead of the elaborator.\n  It has two key properties: (1) since it uses the kernel, it ignores transparency and can unfold everything,\n  and (2) it reduces the `Decidable` instance only once instead of twice.\n- `decide +native` uses the native code compiler (`#eval`) to evaluate the `Decidable` instance,\n  admitting the result via an axiom. This can be significantly more efficient than using reduction, but it is at the cost of increasing the size\n  This can be significantly more efficient than using reduction, but it is at the cost of increasing the size\n  of the trusted code base.\n  Namely, it depends on the correctness of the Lean compiler and all definitions with an `@[implemented_by]` attribute.\n  Like with `+kernel`, the `Decidable` instance is evaluated only once.\n\nLimitation: In the default mode or `+kernel` mode, since `decide` uses reduction to evaluate the term,\n`Decidable` instances defined by well-founded recursion might not work because evaluating them requires reducing proofs.\nReduction can also get stuck on `Decidable` instances with `Eq.rec` terms.\nThese can appear in instances defined using tactics (such as `rw` and `simp`).\nTo avoid this, create such instances using definitions such as `decidable_of_iff` instead.\n\n## Examples\n\nProving inequalities:\n```lean\nexample : 2 + 2 ≠ 5 := by decide\n```\n\nTrying to prove a false proposition:\n```lean\nexample : 1 ≠ 1 := by decide\n/-\ntactic 'decide' proved that the proposition\n  1 ≠ 1\nis false\n-/\n```\n\nTrying to prove a proposition whose `Decidable` instance fails to reduce\n```lean\nopaque unknownProp : Prop\n\nopen scoped Classical in\nexample : unknownProp := by decide\n/-\ntactic 'decide' failed for proposition\n  unknownProp\nsince its 'Decidable' instance reduced to\n  Classical.choice ⋯\nrather than to the 'isTrue' constructor.\n-/\n```\n\n## Properties and relations\n\nFor equality goals for types with decidable equality, usually `rfl` can be used in place of `decide`.\n```lean\nexample : 1 + 1 = 2 := by decide\nexample : 1 + 1 = 2 := by rfl\n```\n</code>",
+ "759": "<code>If1.Com.asgn : Ident → Aexp → Com</code>",
+ "758": "<code>If1.Com.skip : Com</code>",
  "757":
- "<code>TotalMap.update_neq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] {m : TotalMap α β} {a₁ a₂ : α}\n  (h : a₁ ≠ a₂) (b : β) : (a₁ →ₜ b ; m)[a₂] = m[a₂]</code>",
- "756": "<code>st[X] = 0</code>",
+ "<code class=\"docstring\">A type universe. `Type ≡ Type 0`, `Type u ≡ Sort (u + 1)`. </code>",
+ "756": "<code>If1.Com : Type</code>",
  "755":
- "<code>beq_iff_eq.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {a b : α} : (a == b) = true ↔ a = b</code>",
+ "<code>if_minus_plus :\n  {{True}}\n    if (X ≤ Y) {\n      Z := Y - X;\n    } else {\n      Y := X + Z;\n    } {{Y = X + Z}}</code>",
  "754":
- "<code>Bexp.eval_eq (st : State) (a1 a2 : Aexp) : Bexp.eval st (bexp {~a1 = ~a2}) = (Aexp.eval st a1 == Aexp.eval st a2)</code>",
- "753": "<code>Bexp.eval st (bexp {X = 0}) = true</code>",
+ "<code>if_example''' :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
+ "753":
+ "<code>if_example'' :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
  "752":
  "<code>if_example :\n  {{True}}\n    if (X = 0) {\n      Y := 2;\n    } else {\n      Y := X + 1;\n    } {{X ≤ Y}}</code>",
  "751":
@@ -505,12 +503,12 @@
  "701":
  "<code>And.intro {a b : Prop} (left : a) (right : b) : a ∧ b</code><span class=\"sep\"></span><code class=\"docstring\">`And.intro : a → b → a ∧ b` is the constructor for the And operation. </code>",
  "700":
- "<code>TotalMap.update_same {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) :\n  a →ₜ m[a] ; m = m</code>",
+ "<code>TotalMap.update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) : a →ₜ m[a] ; m = m</code>",
  "70":
  "<code>HMul.hMul.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMul α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a * b` computes the product of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `*` in identifiers is `mul`.</code>",
  "7": "<code>Aexp</code>",
  "699":
- "<code>TotalMap.update_shadow {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α)\n  (b₁ b₂ : β) : a →ₜ b₂ ; a →ₜ b₁ ; m = a →ₜ b₂ ; m</code>",
+ "<code>TotalMap.update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :\n  a →ₜ b₂ ; a →ₜ b₁ ; m = a →ₜ b₂ ; m</code>",
  "698": "<code>st[X] = m</code>",
  "697": "<code>P st ∧ st[X] = m</code>",
  "696": "<code>st =[\n  imp {\n    X := ~a;\n  } ]=&gt;\n  st'</code>",
@@ -708,7 +706,7 @@
  "581": "<code><span class=\"literal string\">\"}}\"</span> : String</code>",
  "580": "<code><span class=\"literal string\">\"{{\"</span> : String</code>",
  "58":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "579": "<code><span class=\"literal string\">\"; \"</span> : String</code>",
  "578":
  "<code>Lean.Parser.ident : Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">The parser `ident` parses a single identifier, possibly with namespaces, such as `foo` or\n`bar.baz`. The identifier must not be a declared token, so for example it will not match `\"def\"`\nbecause `def` is a keyword token. Tokens are implicitly declared by using them in string literals\nin parser declarations, so `syntax foo := \"bla\"` will make `bla` no longer legal as an identifier.\n\nIdentifiers can contain special characters or keywords if they are escaped using the `«»` characters:\n`«def»` is an identifier named `def`, and `«x»` is treated the same as `x`. This is useful for\nusing disallowed characters in identifiers such as `«foo.bar».baz` or `«hello world»`.\n\nThis parser has arity 1: it produces a `Syntax.ident` node containing the parsed identifier.\nYou can use `TSyntax.getId` to extract the name from the resulting syntax object. </code>",
@@ -785,7 +783,7 @@
  "530":
  "<code>Com.NoWhilesR.cond (b : Bexp) (c1 c2 : Com) (h1 : c1.NoWhilesR) (h2 : c2.NoWhilesR) :\n  imp {\n      if (~b) {\n        ~c1\n      } else {\n        ~c2\n      }\n    }.NoWhilesR</code>",
  "53":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.32.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "529": "<code>NoWhilesR c2</code>",
  "528": "<code>NoWhilesR c1</code>",
  "527":
@@ -854,7 +852,7 @@
  "486":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
  "485":
- "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  (a →ₜ b ; m)[a] = b</code>",
+ "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b</code>",
  "484": "<code>st[X] + 2 = m</code>",
  "483":
  "<code>Aexp.eval_num (st : State) (n : Nat) : Aexp.eval st n = n</code>",
@@ -1116,7 +1114,7 @@
  "324": "<code>Com.skip : Com</code>",
  "323": "<code>Com : Type</code>",
  "322":
- "<code>TotalMap.update {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "<code>TotalMap.update {α β : Type} (m : TotalMap α β) [BEq α] (a : α) (b : β) : TotalMap α β</code>",
  "321":
  "<code>Bexp.eval_and (st : State) (b1 b2 : Bexp) : eval st (bexp {~b1 ∧ ~b2}) = (eval st b1 && eval st b2)</code>",
  "320":
@@ -1470,60 +1468,48 @@
  "105":
  "<code>Slang.Aexp.evalR_iff_eval (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
  "104": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
- "1031":
- "<code>HoareAssertAssume.hoare_assume (Q : Assertion) (b : Bexp) :\n  ValidHoareTriple (fun st =&gt; Bexp.eval st b = true → Q st) (Com.assume b) fun st =&gt; Q st</code>",
- "1030":
- "<code>HoareAssertAssume.hoare_assert (Q : Assertion) (b : Bexp) :\n  ValidHoareTriple (fun st =&gt; Q st ∧ Bexp.eval st b = true) (Com.assert b) fun st =&gt; Q st</code>",
  "103": "<code>Lean.TSyntax `term</code>",
- "1029":
- "<code>HoareAssertAssume.assert_assume_example :\n  ValidHoareTriple (fun st =&gt; True)\n    ((Com.assume (bexp {X = 1})).seq ((Com.asgn X (aexp {X + 1})).seq (Com.assert (bexp {X = 2})))) fun st =&gt; True</code>",
- "1028": "<code>Com.assume b0 = Com.whileDo b c</code>",
- "1027":
- "<code>HoareAssertAssume.Com.EvalR.assume (st : State) (b : Bexp) (hb : Bexp.eval st b = true) :\n  st =[ Com.assume b ]=&gt; Result.normal st</code>",
- "1026": "<code>Com.assert b0 = Com.whileDo b c</code>",
- "1025":
- "<code>c2 = Com.whileDo b c → P s0 → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
- "1024": "<code>s0 =[ c2 ]=&gt; r0</code>",
  "1023":
- "<code>HoareAssertAssume.Com.EvalR.ifFalse (st : State) (r : Result) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false)\n  (hc : st =[ c2 ]=&gt; r) : st =[ Com.cond b c1 c2 ]=&gt; r</code>",
- "1022": "<code>Com.cond b0 c1 c2 = Com.whileDo b c</code>",
+ "<code>HoareAssertAssume.hoare_assume (Q : Assertion) (b : Bexp) :\n  ValidHoareTriple (fun st =&gt; Bexp.eval st b = true → Q st) (Com.assume b) fun st =&gt; Q st</code>",
+ "1022":
+ "<code>HoareAssertAssume.hoare_assert (Q : Assertion) (b : Bexp) :\n  ValidHoareTriple (fun st =&gt; Q st ∧ Bexp.eval st b = true) (Com.assert b) fun st =&gt; Q st</code>",
  "1021":
- "<code>c1 = Com.whileDo b c → P s0 → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
- "1020": "<code>s0 =[ c1 ]=&gt; r0</code>",
+ "<code>HoareAssertAssume.assert_assume_example :\n  ValidHoareTriple (fun st =&gt; True)\n    ((Com.assume (bexp {X = 1})).seq ((Com.asgn X (aexp {X + 1})).seq (Com.assert (bexp {X = 2})))) fun st =&gt; True</code>",
+ "1020": "<code>Com.assume b0 = Com.whileDo b c</code>",
  "102": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
  "1019":
- "<code>HoareAssertAssume.Com.EvalR.ifTrue (st : State) (r : Result) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true)\n  (hc : st =[ c1 ]=&gt; r) : st =[ Com.cond b c1 c2 ]=&gt; r</code>",
- "1018":
- "<code>c1 = Com.whileDo b c → P s0 → ∃ s', Result.error = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
- "1017": "<code>s0 =[ c1 ]=&gt; Result.error</code>",
- "1016":
- "<code>HoareAssertAssume.Com.EvalR.seqError (c1 c2 : Com) (st : State) (h : st =[ c1 ]=&gt; Result.error) :\n  st =[ c1.seq c2 ]=&gt; Result.error</code>",
- "1015": "<code>c1.seq c2 = Com.whileDo b c</code>",
- "1014":
- "<code>c2 = Com.whileDo b c → P s0' → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
+ "<code>HoareAssertAssume.Com.EvalR.assume (st : State) (b : Bexp) (hb : Bexp.eval st b = true) :\n  st =[ Com.assume b ]=&gt; Result.normal st</code>",
+ "1018": "<code>Com.assert b0 = Com.whileDo b c</code>",
+ "1017":
+ "<code>c2 = Com.whileDo b c → P s0 → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
+ "1016": "<code>s0 =[ c2 ]=&gt; r0</code>",
+ "1015":
+ "<code>HoareAssertAssume.Com.EvalR.ifFalse (st : State) (r : Result) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = false)\n  (hc : st =[ c2 ]=&gt; r) : st =[ Com.cond b c1 c2 ]=&gt; r</code>",
+ "1014": "<code>Com.cond b0 c1 c2 = Com.whileDo b c</code>",
  "1013":
- "<code>c1 = Com.whileDo b c → P s0 → ∃ s', Result.normal s0' = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
- "1012": "<code>s0' =[ c2 ]=&gt; r0</code>",
- "1011": "<code>s0 =[ c1 ]=&gt; Result.normal s0'</code>",
+ "<code>c1 = Com.whileDo b c → P s0 → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
+ "1012": "<code>s0 =[ c1 ]=&gt; r0</code>",
+ "1011":
+ "<code>HoareAssertAssume.Com.EvalR.ifTrue (st : State) (r : Result) (b : Bexp) (c1 c2 : Com) (hb : Bexp.eval st b = true)\n  (hc : st =[ c1 ]=&gt; r) : st =[ Com.cond b c1 c2 ]=&gt; r</code>",
  "1010":
- "<code>HoareAssertAssume.Com.EvalR.seqNormal (c1 c2 : Com) (st st' : State) (r : Result) (h1 : st =[ c1 ]=&gt; Result.normal st')\n  (h2 : st' =[ c2 ]=&gt; r) : st =[ c1.seq c2 ]=&gt; r</code>",
+ "<code>c1 = Com.whileDo b c → P s0 → ∃ s', Result.error = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
  "101":
  "<code class=\"docstring\">`end` closes a `section` or `namespace` scope. If the scope is named `&lt;id&gt;`, it has to be closed\nwith `end &lt;id&gt;`. The `end` command is optional at the end of a file.\n</code>",
- "1009": "<code>Com.asgn x a = Com.whileDo b c</code>",
+ "1009": "<code>s0 =[ c1 ]=&gt; Result.error</code>",
  "1008":
- "<code>HoareAssertAssume.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  st =[ Com.asgn x a ]=&gt; Result.normal (x →ₜ n ; st)</code>",
- "1007": "<code>Com.skip = Com.whileDo b c</code>",
+ "<code>HoareAssertAssume.Com.EvalR.seqError (c1 c2 : Com) (st : State) (h : st =[ c1 ]=&gt; Result.error) :\n  st =[ c1.seq c2 ]=&gt; Result.error</code>",
+ "1007": "<code>c1.seq c2 = Com.whileDo b c</code>",
  "1006":
- "<code>HoareAssertAssume.Com.EvalR.skip (st : State) : st =[ Com.skip ]=&gt; Result.normal st</code>",
- "1005": "<code>Result.error = Result.normal s1</code>",
- "1004":
- "<code>c0 = Com.whileDo b0 c0 → P s0 → ∃ s', Result.error = Result.normal s' ∧ P s' ∧ ¬bassertion b0 s'</code>",
- "1003":
- "<code>c0 = Com.whileDo b c → P s0 → ∃ s', Result.error = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
- "1002": "<code>s0 =[ c0 ]=&gt; Result.error</code>",
- "1001":
- "<code>HoareAssertAssume.Com.EvalR.whileTrueError (st : State) (b : Bexp) (c : Com) (hb : Bexp.eval st b = true)\n  (hc : st =[ c ]=&gt; Result.error) : st =[ Com.whileDo b c ]=&gt; Result.error</code>",
- "1000": "<code>P s0'</code>",
+ "<code>c2 = Com.whileDo b c → P s0' → ∃ s', r0 = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
+ "1005":
+ "<code>c1 = Com.whileDo b c → P s0 → ∃ s', Result.normal s0' = Result.normal s' ∧ P s' ∧ ¬bassertion b s'</code>",
+ "1004": "<code>s0' =[ c2 ]=&gt; r0</code>",
+ "1003": "<code>s0 =[ c1 ]=&gt; Result.normal s0'</code>",
+ "1002":
+ "<code>HoareAssertAssume.Com.EvalR.seqNormal (c1 c2 : Com) (st st' : State) (r : Result) (h1 : st =[ c1 ]=&gt; Result.normal st')\n  (h2 : st' =[ c2 ]=&gt; r) : st =[ c1.seq c2 ]=&gt; r</code>",
+ "1001": "<code>Com.asgn x a = Com.whileDo b c</code>",
+ "1000":
+ "<code>HoareAssertAssume.Com.EvalR.asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : Aexp.eval st a = n) :\n  st =[ Com.asgn x a ]=&gt; Result.normal (x →ₜ n ; st)</code>",
  "100":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.mult (e1 e2 : Aexp) (n1 n2 : Nat) :\n  EvalR e1 n1 → EvalR e2 n2 → EvalR (e1.mult e2) (n1 * n2)</code>",
  "10": "<code>Slang.Bexp : Type</code>",

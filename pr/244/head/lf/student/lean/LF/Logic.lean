@@ -397,7 +397,7 @@ example (a : Prop) : (¬ a) = (a → False) := rfl
 
 -- Not (a : Prop) : Prop
 
--- def Not : Prop → Prop :=
+-- @[implicit_reducible] def Not : Prop → Prop :=
 -- fun a => a → False
 
 -- Since `False` is a contradictory proposition, the principle of explosion

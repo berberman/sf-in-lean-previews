@@ -4,19 +4,18 @@ import LF.SFLCompat
 
 -- ## Welcome
 
--- This is the entry point to a series of electronic textbooks
--- on various aspects of *Software Foundations*, the
--- mathematical underpinnings of reliable software. Topics in
--- the series include basic concepts of logic, functional
--- programming, computer-assisted theorem proving, operational
--- semantics, logics and techniques for reasoning about
--- programs, static type systems, property-based random
--- testing, and verification of practical C code. The
--- exposition is intended for a broad range of readers, from
--- advanced undergraduates to PhD students and researchers. No
--- specific background in logic or programming languages is
--- assumed, though a degree of mathematical maturity will be
--- helpful.
+-- This is the starting point for a series of electronic
+-- textbooks on *Software Foundations*, the mathematical
+-- underpinnings of reliable software. Topics in the series
+-- include basic concepts of logic, functional programming,
+-- computer-assisted theorem proving, operational semantics,
+-- logics and techniques for reasoning about programs, static
+-- type systems, property-based random testing, and
+-- verification of practical C code. The exposition is intended
+-- for a broad range of readers, from advanced undergraduates
+-- to PhD students and researchers. No specific background in
+-- logic or programming languages is assumed, though a degree
+-- of mathematical maturity will be helpful.
 
 -- The principal novelty of the series is that it is one
 -- hundred percent formalized and machine-checked: each text is
@@ -70,16 +69,16 @@ import LF.SFLCompat
 -- Logic is the field of study whose subject matter is *proofs*
 -- -- unassailable arguments for the truth of particular
 -- propositions. Volumes have been written about the central
--- role of logic in computer science. Manna and Waldinger
--- called it "the calculus of computer science," while Halpern
--- et al.'s paper *On the Unusual Effectiveness of Logic in
--- Computer Science* catalogs scores of ways in which logic
--- offers critical tools and insights. Indeed, they observe
--- that, "As a matter of fact, logic has turned out to be
--- significantly more effective in computer science than it has
--- been in mathematics. This is quite remarkable, especially
--- since much of the impetus for the development of logic
--- during the past one hundred years came from mathematics."
+-- role of logic in computer science. called it "the calculus
+-- of computer science," while 's paper *On the Unusual
+-- Effectiveness of Logic in Computer Science* catalogs scores
+-- of ways in which logic offers critical tools and insights.
+-- Indeed, they observe that, "As a matter of fact, logic has
+-- turned out to be significantly more effective in computer
+-- science than it has been in mathematics. This is quite
+-- remarkable, especially since much of the impetus for the
+-- development of logic during the past one hundred years came
+-- from mathematics."
 
 -- In particular, the fundamental tools of *inductive proof*
 -- are ubiquitous across computer science. You have surely seen
@@ -128,37 +127,39 @@ import LF.SFLCompat
 -- notations for specific situations.
 
 -- Lean and its relatives have become critical enablers for a
--- huge variety of work across computer science and
--- mathematics:
+-- [huge variety of
+-- work](https://leanprover-community.github.io/papers.html)
+-- across computer science and mathematics:
 
 -- Note to developers (Benjamin Pierce @bcpierce00):
---     Need more examples, including specifically things
---     accomplished in Lean.
---
---     `lean-software-foundations-contributors > Main Achievements of Lean`
---     lists some big Lean projects -- some of them should be
---     mentioned here. And there are probably things here to
---     trim.
+--     The individual references above should be merged into
+--     the categories below. In particular, the first three
+--     should go in the bullet about math, and the last one
+--     should go in the bullet about modeling programming
+--     languages. (I see that that first bullet could also use
+--     citations for some of the points it already makes, but
+--     we can leave that for later...)
 
--- - As a *platform for modeling programming languages*, they
---   have become standard tools for researchers who need to
---   describe and reason about complex language definitions. They
---   have been used, for example, to check the security of the
---   JavaCard platform, obtaining the highest level of common
---   criteria certification, and for formal specifications of the
---   x86 and LLVM instruction sets and programming languages such
---   as C.
+-- - As a *platform for modeling programming languages*, proof
+--   assistants have become standard tools for researchers who
+--   need to describe and reason about complex language
+--   definitions. They have been used, for example, to check the
+--   security of the JavaCard platform, obtaining the highest
+--   level of common criteria certification, and for formal
+--   specifications of the x86 and LLVM instruction sets and
+--   programming languages such as C.
 
 -- - As *environments for developing formally certified software
 --   and hardware*, they have been used, for example, to build
---   CompCert, a fully-verified optimizing compiler for C, and
---   CertiKOS, a fully verified hypervisor, for proving the
---   correctness of subtle algorithms involving floating point
---   numbers, and as the basis for CertiCrypt, FCF, and SSProve,
---   which are frameworks for proving cryptographic algorithms
---   secure. They are also being used to build verified
---   implementations of the open-source RISC-V processor
---   architecture.
+--   CompCert, a fully-verified optimizing compiler for C,
+--   [Cedar](https://github.com/cedar-policy/cedar-spec), a
+--   formally-specified policy language, and CertiKOS, a fully
+--   verified hypervisor, for proving the correctness of subtle
+--   algorithms involving floating point numbers, and as the
+--   basis for CertiCrypt, FCF, and SSProve, which are frameworks
+--   for proving cryptographic algorithms secure. They are also
+--   being used to build verified implementations of the
+--   open-source RISC-V processor architecture.
 
 -- - As *proof assistants for mathematics*, they have been used
 --   to validate and help develop a number of important results.
@@ -170,6 +171,14 @@ import LF.SFLCompat
 --   a program. More recently, an even more massive effort led to
 --   a formalization of the Feit-Thompson Theorem, the first
 --   major step in the classification of finite simple groups.
+--   Specifically, Lean is currently at the core of various
+--   formalization efforts in mathematics, such as the proof of
+--   [Fermat's Last
+--   Theorem](https://github.com/ImperialCollegeLondon/FLT), the
+--   [Sphere Packing
+--   Problem](https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean).
+--   and even DeepMind's AI model for IMO problems
+--   [AlphaProof](https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/).
 
 -- ### Functional Programming
 
@@ -231,22 +240,19 @@ import LF.SFLCompat
 -- sides of Lean are actually aspects of the very same
 -- underlying machinery -- i.e., *proofs are programs*.
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Is this an accurate description of Lean?
-
 -- ### Further Reading
 
 -- This text is intended to be self contained, but readers
--- looking for a deeper treatment of particular topics will
--- find some suggestions for further reading in the Postscript
--- chapter.
+-- looking for follow-on textbooks or deeper treatments of
+-- particular topics will find some suggestions for further
+-- reading in the Postscript chapter.
 
 -- ## Practicalities
 
 -- ### System Requirements
 
 -- Lean runs on Windows, Linux, and MacOS. The files in this
--- book have been tested with Lean version `4.32.0`.
+-- book have been tested with Lean version `4.33.0`.
 
 -- ### Installation
 
@@ -357,8 +363,57 @@ import LF.SFLCompat
 -- Until 2026, the course was offered in Rocq, but the ideas
 -- behind the problems are still relevant.
 
--- ## Acknowledgements
+-- ### Credits
 
--- See `ACKNOWLEDGEMENTS.md` in the [SF-in-Lean git
--- repo](https://github.com/plclub/sf-in-lean).
+-- **Leadership:** Mike Hicks and Benjamin C. Pierce lead the
+-- SF-in-Lean project.
+
+-- **Authors:** The Lean adaptation of *Software Foundations*
+-- was created by Mike Hicks, Benjamin C. Pierce, One An, Roger
+-- Burtonpatel, Jonathan Chan, Harry Goldstein, Niklas Halonen,
+-- Chris Henson, Kihong Heo, Yipeng Liu, and Daniel Sainati,
+
+-- **... with contributions from** Luisa Cicolini, Michael
+-- Clarkson, Robert Joseph, Sati, and Shriya Thakur,
+
+-- **... and gratitude to** David Thrane Christiansen, for
+-- helping us understand the intricacies of Lean's Verso
+-- document preparation system.
+
+-- **SF in Rocq:** The first three volumes of *Software
+-- Foundations in Lean* (*Logical Foundations*, *Type Systems*,
+-- and *Hoare Logic*) are adapted from the *Logical
+-- Foundations* and *Programming Language Foundations* volumes
+-- of the original *Software Foundations* series, developed
+-- from 2008 to 2026 by a large team of authors and
+-- contributors led by Benjamin C. Pierce.
+
+-- The original *Logical Foundations* was written by Benjamin
+-- C. Pierce, Arthur Azevedo de Amorim, Chris Casinghino, Marco
+-- Gaboardi, Michael Greenberg, Cătălin Hriţcu, Vilhelm
+-- Sjöberg, and Brent Yorgey, with contributions from Loris
+-- D'Antoni, Andrew W. Appel, Arthur Charguéraud, Michael
+-- Clarkson, Anthony Cowley, Jeffrey Foster, Dmitri Garbuzov,
+-- Olek Gierczak, Michael Hicks, Ranjit Jhala, Ori Lahav,
+-- Yishuai Li, Greg Morrisett, Jennifer Paykin, Mukund
+-- Raghothaman, Chung-chieh Shan, Leonid Spesivtsev, Caleb
+-- Stanford, Andrew Tolmach, Philip Wadler, Stephanie Weirich,
+-- Li-Yao Xia, and Steve Zdancewic.
+
+-- The original *Programming Language Foundations* was written
+-- by Benjamin C. Pierce, Arthur Azevedo de Amorim, Chris
+-- Casinghino, Marco Gaboardi, Michael Greenberg, Cătălin
+-- Hriţcu, Vilhelm Sjöberg, Andrew Tolmach, and Brent Yorgey
+-- with contributions from Loris D'Antoni, Andrew W. Appel,
+-- Arthur Chargueraud, Michael Clarkson, Anthony Cowley,
+-- Jeffrey Foster, Dmitri Garbuzov, Michael Hicks, Ranjit
+-- Jhala, Ori Lahav, Yishuai Li, Greg Morrisett, Jennifer
+-- Paykin, Mukund Raghothaman, Chung-Chieh Shan, Leonid
+-- Spesivtsev, Caleb Stanford, Philip Wadler, Stephanie
+-- Weirich, Li-Yao Xia, and Steve Zdancewic.
+
+-- **Funding:** Development of the original *Software
+-- Foundations* series in Rocq was supported, in part, by the
+-- National Science Foundation under the NSF Expeditions grant
+-- 1521523, *The Science of Deep Specification*.
 

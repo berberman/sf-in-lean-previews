@@ -889,6 +889,102 @@ div.sf-quote {
   margin: 1em 0;
 }
 </style><style>
+.marginalia .note {
+  position: relative;
+  padding: 0.5rem;
+}
+
+/*
+The margin-note layout responds to the width of <main>, not the viewport, because the
+ToC is resizable: a wider ToC leaves less room beside the text for notes. <main> is a
+query container (see Html/Style.lean), so the container queries below track the actual
+content width.
+
+There are two "in the margin" regimes, split at the same width where the content stops
+being left-aligned and becomes centered (1112px and 1212px of content width; at the
+default ToC width these are the old 1400px and 1500px viewport breakpoints):
+
+  * While the content is left-aligned there is a large area to its right, so a fixed
+    13rem note with a fixed 16rem overhang fits comfortably.
+  * Once the content is centered the note must fit the symmetric right gap, whose width
+    is (content - text column) / 2. A fixed overhang would overflow the page for content
+    widths just above the centering threshold, so the note and its overhang are sized in
+    container units, which always fit that gap.
+*/
+
+/* Narrow viewport (e.g. phone): the ToC is hidden and the note spans the text column. */
+@media screen and (width <= 700px) {
+  .marginalia .note {
+    float: left;
+    clear: left;
+    width: 90%;
+    margin: 1rem 5%;
+  }
+}
+
+/* Wider than a phone: by default float the note at the right of the text column,
+   overlapping the content. The container queries below lift it into the true margin
+   once there is room. */
+@media screen and (min-width: 701px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 40%;
+    margin: 1rem 0;
+    margin-left: 10%;
+  }
+}
+
+/* Left-aligned content: a fixed-size note in the wide area to its right. */
+@container main (width >= 1112px) {
+  .marginalia .note {
+    float: right;
+    clear: right;
+    width: 13rem;
+    margin: 1rem -16rem 0 0;
+  }
+}
+
+/* Centered content: size the note in container units so it always fits the symmetric
+   right gap. The threshold matches the content-centering threshold in Html/Style.lean,
+   so the fixed-overhang note above is only ever used while the content is left-aligned.
+   The overhang (18cqi) stays below the gap, (100cqi - text column) / 2, for every
+   content width at which the content is centered. */
+@container main (width >= 1212px) {
+  .marginalia .note {
+    width: 15cqi;
+    margin-right: -18cqi;
+  }
+}
+
+.marginalia:hover, .marginalia:hover .note, .marginalia:has(.note:hover) {
+  background-color: var(--lean-accent-light-blue);
+}
+
+body {
+  counter-reset: margin-note-counter;
+}
+.marginalia .note {
+  counter-increment: margin-note-counter;
+}
+.marginalia .note::before {
+  content: counter(margin-note-counter) ".";
+  position: absolute;
+  vertical-align: baseline;
+  font-size: 0.9em;
+  font-weight: bold;
+  left: -3rem;
+  width: 3rem;
+  text-align: right;
+}
+.marginalia::after {
+  content: counter(margin-note-counter);
+  vertical-align: super;
+  font-size: 0.7em;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -2466,6 +2562,19 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "4"}]},
      "address": "/Preface/"}],
+   "Logical-Foundations--Preface--For-Instructors--Credits":
+   [{"id": "Logical-Foundations--Preface--For-Instructors--Credits",
+     "data":
+     {"title": "Credits",
+      "shortTitle": null,
+      "sectionNum": "1.5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Instructors", "shortTitle": null, "number": "5"},
+       {"title": "Credits", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
    "Logical-Foundations--Preface--For-Instructors":
    [{"id": "Logical-Foundations--Preface--For-Instructors",
      "data":
@@ -2477,18 +2586,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"},
        {"title": "For Instructors", "shortTitle": null, "number": "5"}]},
-     "address": "/Preface/"}],
-   "Logical-Foundations--Preface--Acknowledgements":
-   [{"id": "Logical-Foundations--Preface--Acknowledgements",
-     "data":
-     {"title": "Acknowledgements",
-      "shortTitle": null,
-      "sectionNum": "1.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Acknowledgements", "shortTitle": null, "number": "6"}]},
      "address": "/Preface/"}],
    "Logical-Foundations--Postscript--Resources":
    [{"id": "Logical-Foundations--Postscript--Resources",
@@ -5128,11 +5225,11 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
-   "reaches1_in":
-   [{"id": "reaches1_in",
+   "reaches1In":
+   [{"id": "reaches1In",
      "data":
-     {"/IndProp/#reaches1_in":
-      {"display": "reaches1_in",
+     {"/IndProp/#reaches1In":
+      {"display": "reaches1In",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -5453,6 +5550,16 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
+   "instDefaultValueOption":
+   [{"id": "instDefaultValueOption",
+     "data":
+     {"/Typeclasses/#instDefaultValueOption":
+      {"display": "instDefaultValueOption",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
    "instDefaultValueNat":
    [{"id": "instDefaultValueNat",
      "data":
@@ -5493,14 +5600,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
-   "getElem_def":
-   [{"id": "getElem_def",
-     "data":
-     {"/Typeclasses/#getElem_def":
-      {"display": "getElem_def",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
-     "address": "/Typeclasses/"}],
    "function_congruence":
    [{"id": "function_congruence",
      "data":
@@ -5801,17 +5900,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "cs":
-   [{"id": "cs",
-     "data":
-     {"/IndProp/#cs":
-      {"display": "cs",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
    "countOddMembers":
    [{"id": "countOddMembers",
      "data":
@@ -5845,50 +5933,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "More powerful Natural Numbers",
         "rfl  and computation with  Nat"]}},
      "address": "/UsingLean/"}],
-   "collatz_holds_for":
-   [{"id": "collatz_holds_for",
-     "data":
-     {"/IndProp/#collatz_holds_for":
-      {"display": "collatz_holds_for",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "collatz'":
-   [{"id": "collatz___",
-     "data":
-     {"/IndProp/#collatz___":
-      {"display": "collatz'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "collatz":
-   [{"id": "collatz",
-     "data":
-     {"/IndProp/#collatz":
-      {"display": "collatz",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "cms":
-   [{"id": "cms",
-     "data":
-     {"/IndProp/#cms":
-      {"display": "cms",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
    "beq_succ":
    [{"id": "beq_succ",
      "data":
@@ -6050,6 +6094,18 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Total Maps",
         "Updating Elements"]}},
      "address": "/Typeclasses/"}],
+   "TotalMap.update_apply":
+   [{"id": "TotalMap___update_apply",
+     "data":
+     {"/Typeclasses/#TotalMap___update_apply":
+      {"display": "update_apply",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Updating Elements"]}},
+     "address": "/Typeclasses/"}],
    "TotalMap.update":
    [{"id": "TotalMap___update",
      "data":
@@ -6061,6 +6117,38 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Maps",
         "Total Maps",
         "Updating Elements"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.inner":
+   [{"id": "TotalMap___inner",
+     "data":
+     {"/Typeclasses/#TotalMap___inner":
+      {"display": "inner",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.get_eq_getElem":
+   [{"id": "TotalMap___get_eq_getElem",
+     "data":
+     {"/Typeclasses/#TotalMap___get_eq_getElem":
+      {"display": "get_eq_getElem",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
+     "address": "/Typeclasses/"}],
+   "TotalMap.get_def":
+   [{"id": "TotalMap___get_def",
+     "data":
+     {"/Typeclasses/#TotalMap___get_def":
+      {"display": "get_def",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Maps",
+        "Total Maps",
+        "Getting Elements"]}},
      "address": "/Typeclasses/"}],
    "TotalMap.getElem_empty":
    [{"id": "TotalMap___getElem_empty",
@@ -6086,11 +6174,11 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Total Maps",
         "Getting Elements"]}},
      "address": "/Typeclasses/"}],
-   "TotalMap.getElem":
-   [{"id": "TotalMap___getElem",
+   "TotalMap.get":
+   [{"id": "TotalMap___get",
      "data":
-     {"/Typeclasses/#TotalMap___getElem":
-      {"display": "getElem",
+     {"/Typeclasses/#TotalMap___get":
+      {"display": "get",
        "context":
        ["Logical Foundations",
         "Typeclasses",
@@ -6146,6 +6234,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Total Maps",
         "Updating Elements"]}},
      "address": "/Typeclasses/"}],
+   "TotalMap.empty_def":
+   [{"id": "TotalMap___empty_def",
+     "data":
+     {"/Typeclasses/#TotalMap___empty_def":
+      {"display": "empty_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
+     "address": "/Typeclasses/"}],
    "TotalMap.emptyNatMap":
    [{"id": "TotalMap___emptyNatMap",
      "data":
@@ -6161,130 +6257,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       {"display": "empty",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.nat_eq":
-   [{"id": "TotalMap___Nat___nat_eq",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___nat_eq":
-      {"display": "nat_eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_zero":
-   [{"id": "TotalMap___Nat___isEven_zero",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_zero":
-      {"display": "isEven_zero",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_succ_succ":
-   [{"id": "TotalMap___Nat___isEven_succ_succ",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_succ_succ":
-      {"display": "isEven_succ_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_succ":
-   [{"id": "TotalMap___Nat___isEven_succ",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_succ":
-      {"display": "isEven_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_one":
-   [{"id": "TotalMap___Nat___isEven_one",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_one":
-      {"display": "isEven_one",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_iff_Even":
-   [{"id": "TotalMap___Nat___isEven_iff_Even",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_iff_Even":
-      {"display": "isEven_iff_Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven":
-   [{"id": "TotalMap___Nat___isEven",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven":
-      {"display": "isEven",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.even_double":
-   [{"id": "TotalMap___Nat___even_double",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___even_double":
-      {"display": "even_double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___eq-next":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
-      "/Typeclasses/#TotalMap___Nat___eq":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___eq-next":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
-      "/Typeclasses/#TotalMap___Nat___eq":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.double_zero":
-   [{"id": "TotalMap___Nat___double_zero",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___double_zero":
-      {"display": "double_zero",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.double_succ":
-   [{"id": "TotalMap___Nat___double_succ",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___double_succ":
-      {"display": "double_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.double":
-   [{"id": "TotalMap___Nat___double",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___double":
-      {"display": "double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.Even":
-   [{"id": "TotalMap___Nat___Even",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___Even":
-      {"display": "Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.Decidable.isTrue":
-   [{"id": "TotalMap___Nat___Decidable___isTrue",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___Decidable___isTrue":
-      {"display": "isTrue",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.Decidable.isFalse":
-   [{"id": "TotalMap___Nat___Decidable___isFalse",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___Decidable___isFalse":
-      {"display": "isFalse",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.Decidable":
-   [{"id": "TotalMap___Nat___Decidable",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___Decidable":
-      {"display": "Decidable",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap":
    [{"id": "TotalMap",
@@ -6646,6 +6618,67 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Case Study: Regular Expressions",
         "Definitions"]}},
      "address": "/Automation/"}],
+   "Reflection.nat_eq":
+   [{"id": "Reflection___nat_eq",
+     "data":
+     {"/Typeclasses/#Reflection___nat_eq":
+      {"display": "nat_eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_iff_Even":
+   [{"id": "Reflection___even_iff_Even",
+     "data":
+     {"/Typeclasses/#Reflection___even_iff_Even":
+      {"display": "even_iff_Even",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_double":
+   [{"id": "Reflection___even_double",
+     "data":
+     {"/Typeclasses/#Reflection___even_double":
+      {"display": "even_double",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.eq":
+   [{"id": "Reflection___eq",
+     "data":
+     {"/Typeclasses/#Reflection___eq-next":
+      {"display": "eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
+      "/Typeclasses/#Reflection___eq":
+      {"display": "eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"},
+    {"id": "Reflection___eq-next",
+     "data":
+     {"/Typeclasses/#Reflection___eq-next":
+      {"display": "eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
+      "/Typeclasses/#Reflection___eq":
+      {"display": "eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Decidable.isTrue":
+   [{"id": "Reflection___Decidable___isTrue",
+     "data":
+     {"/Typeclasses/#Reflection___Decidable___isTrue":
+      {"display": "isTrue",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Decidable.isFalse":
+   [{"id": "Reflection___Decidable___isFalse",
+     "data":
+     {"/Typeclasses/#Reflection___Decidable___isFalse":
+      {"display": "isFalse",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Decidable":
+   [{"id": "Reflection___Decidable",
+     "data":
+     {"/Typeclasses/#Reflection___Decidable":
+      {"display": "Decidable",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
    "RGB.red":
    [{"id": "RGB___red",
      "data":
@@ -7059,6 +7092,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_eq_getElem":
+   [{"id": "PartialMap___toTotal_eq_getElem",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_eq_getElem":
+      {"display": "toTotal_eq_getElem",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.toTotal_empty":
    [{"id": "PartialMap___toTotal_empty",
      "data":
@@ -7067,11 +7108,19 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_def":
+   [{"id": "PartialMap___toTotal_def",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_def":
+      {"display": "toTotal_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.toTotal":
    [{"id": "PartialMap___toTotal",
      "data":
      {"/Typeclasses/#PartialMap___toTotal":
-      {"display": "PartialMap.toTotal",
+      {"display": "toTotal",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -7099,6 +7148,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.getElem_def":
+   [{"id": "PartialMap___getElem_def",
+     "data":
+     {"/Typeclasses/#PartialMap___getElem_def":
+      {"display": "getElem_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.ext":
    [{"id": "PartialMap___ext",
      "data":
@@ -7112,6 +7169,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"/Typeclasses/#PartialMap___examplePmap":
       {"display": "examplePmap",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.emptyNatMap":
+   [{"id": "PartialMap___emptyNatMap",
+     "data":
+     {"/Typeclasses/#PartialMap___emptyNatMap":
+      {"display": "emptyNatMap",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -9433,10 +9498,56 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+   [{"id": "CollatzHoldsFor-next",
      "data":
-     {"/IndProp/#CollatzHoldsFor":
+     {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"},
+    {"id": "CollatzHoldsFor",
+     "data":
+     {"/IndProp/#CollatzHoldsFor-next":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"}],
+   "Collatz'":
+   [{"id": "Collatz___",
+     "data":
+     {"/IndProp/#Collatz___":
+      {"display": "Collatz'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "Collatz":
+   [{"id": "Collatz",
+     "data":
+     {"/IndProp/#Collatz":
+      {"display": "Collatz",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -9520,6 +9631,28 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Inductively Defined Propositions",
         "Example: Reflexive and Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "CS":
+   [{"id": "CS",
+     "data":
+     {"/IndProp/#CS":
+      {"display": "CS",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "CMS":
+   [{"id": "CMS",
+     "data":
+     {"/IndProp/#CMS":
+      {"display": "CMS",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
    "BoolList.nil":
    [{"id": "BoolList___nil",
      "data":
@@ -9563,7 +9696,103 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}]}},
+     "address": "/IndProp/"}],
+   "Algebra.id_unique":
+   [{"id": "Algebra___id_unique",
+     "data":
+     {"/Typeclasses/#Algebra___id_unique":
+      {"display": "id_unique",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.OpSet.op":
+   [{"id": "Algebra___OpSet___op",
+     "data":
+     {"/Typeclasses/#Algebra___OpSet___op":
+      {"display": "op",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.OpSet":
+   [{"id": "Algebra___OpSet",
+     "data":
+     {"/Typeclasses/#Algebra___OpSet":
+      {"display": "OpSet",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.right_id":
+   [{"id": "Algebra___Monoid___right_id",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___right_id":
+      {"display": "right_id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.left_id":
+   [{"id": "Algebra___Monoid___left_id",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___left_id":
+      {"display": "left_id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.id":
+   [{"id": "Algebra___Monoid___id",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___id":
+      {"display": "id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.assoc":
+   [{"id": "Algebra___Monoid___assoc",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___assoc":
+      {"display": "assoc",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid":
+   [{"id": "Algebra___Monoid",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid":
+      {"display": "Monoid",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group.right_inv":
+   [{"id": "Algebra___Group___right_inv",
+     "data":
+     {"/Typeclasses/#Algebra___Group___right_inv":
+      {"display": "right_inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group.left_inv":
+   [{"id": "Algebra___Group___left_inv",
+     "data":
+     {"/Typeclasses/#Algebra___Group___left_inv":
+      {"display": "left_inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group.inv":
+   [{"id": "Algebra___Group___inv",
+     "data":
+     {"/Typeclasses/#Algebra___Group___inv":
+      {"display": "inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group":
+   [{"id": "Algebra___Group",
+     "data":
+     {"/Typeclasses/#Algebra___Group":
+      {"display": "Group",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}]}},
  "Verso.Genre.Manual.doc.tech":
  {"title": "Terminology",
   "description": "Definitions of technical terms",
