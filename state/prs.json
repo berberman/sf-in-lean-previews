@@ -530,11 +530,48 @@
     },
     "254": {
       "base_sha": "4068895527b802cc9bd8746d8190d1b1c978c54c",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "bda1e7a932b35d96452a494261e92deae3111e84",
       "preview_path": "pr/254/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31945895358",
+      "status": "published",
       "title": "Hoare: Com.EvalR implicit arguments",
       "url": "https://github.com/plclub/sf-in-lean/pull/254"
     }
