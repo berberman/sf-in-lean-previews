@@ -349,6 +349,16 @@
       "status": "ci-failed",
       "title": "DHS polishing pass over typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/247"
+    },
+    "250": {
+      "base_sha": "c81aa9f806effc0565eb0373ee345ccb5f5d554d",
+      "changed_variants": [],
+      "head_sha": "ed49e96ce1daeb58f3f93a795a523d439ffcdb41",
+      "preview_path": "pr/250/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31938941726",
+      "status": "ci-failed",
+      "title": "Clean up proofs in Equiv",
+      "url": "https://github.com/plclub/sf-in-lean/pull/250"
     }
   },
   "schema": 3
