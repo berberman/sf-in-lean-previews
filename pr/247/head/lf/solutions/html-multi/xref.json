@@ -4913,14 +4913,6 @@
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
-   "getElem_def":
-   [{"id": "getElem_def",
-     "data":
-     {"/Typeclasses/#getElem_def":
-      {"display": "getElem_def",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
-     "address": "/Typeclasses/"}],
    "function_congruence":
    [{"id": "function_congruence",
      "data":
@@ -7822,6 +7814,14 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_eq_getElem":
+   [{"id": "PartialMap___toTotal_eq_getElem",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_eq_getElem":
+      {"display": "toTotal_eq_getElem",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.toTotal_empty":
    [{"id": "PartialMap___toTotal_empty",
      "data":
@@ -7830,11 +7830,19 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_def":
+   [{"id": "PartialMap___toTotal_def",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_def":
+      {"display": "toTotal_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.toTotal":
    [{"id": "PartialMap___toTotal",
      "data":
      {"/Typeclasses/#PartialMap___toTotal":
-      {"display": "PartialMap.toTotal",
+      {"display": "toTotal",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -7862,6 +7870,14 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.getElem_def":
+   [{"id": "PartialMap___getElem_def",
+     "data":
+     {"/Typeclasses/#PartialMap___getElem_def":
+      {"display": "getElem_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.ext":
    [{"id": "PartialMap___ext",
      "data":
@@ -7875,6 +7891,14 @@
      "data":
      {"/Typeclasses/#PartialMap___examplePmap":
       {"display": "examplePmap",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.emptyNatMap":
+   [{"id": "PartialMap___emptyNatMap",
+     "data":
+     {"/Typeclasses/#PartialMap___emptyNatMap":
+      {"display": "emptyNatMap",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],

@@ -592,10 +592,9 @@ def emptyNatMap : TotalMap Nat Nat := ∅
 
 -- While `TotalMap`s happen to be implemented as functions under the hood, we
 -- would prefer not to expose this fact in its public interface. Accordingly,
--- we define new operations for querying and updating mappings. As a first
--- attempt at a query operation, playing the role that `find` played for the
--- Lists chapter's list-based maps, we could define a function `get` for
--- getting the value associated with a key:
+-- we define new operations for querying and updating mappings. We define a
+-- function `get` for getting the value associated with a key playing the role
+-- that `find` played for the Lists chapter's list-based maps,
 
 def get {α β : Type} (m : TotalMap α β) (a : α) := m.inner a
 
@@ -691,7 +690,7 @@ open scoped MyGetElem
 
 namespace TotalMap
 
-theorem getElem_def {α  β : Type} (m : TotalMap α β) (a : α) : m[a] = m.get a := by rfl
+theorem getElem_def {α β : Type} (m : TotalMap α β) (a : α) : m[a] = m.get a := by rfl
 
 example : emptyNatMap[1] = default := by rfl
 
@@ -703,7 +702,7 @@ example {n : Nat} : emptyNatMap[n] = 0 := by
 -- lemma; the `m[a]` notation is the `TotalMap` API's `simp` normal form.
 
 @[simp]
-theorem get_eq_getElem {α β : Type} (m : TotalMap α β) (a : α) : m.get a = m[a] := by rfl
+theorem get_eq_getElem {α β : Type} (m : TotalMap α β) (a : α) : m.get a = m[a] := rfl
 
 example {n : Nat} : emptyNatMap.get n = emptyNatMap[n] := by
   simp
@@ -973,7 +972,7 @@ example : ({ 1 ↦ 2, 1 ↦ 3 } : TotalMap Nat Nat)[1] = 2 := rfl
 -- `MyGetElem`, so typeclass resolution gets stuck in the following example:
 
 sf_expect_failure
-  example : ({ "foo" ↦ true })["foo"] = true := rfl
+  example : ({ "foo" ↦ true })["foo"] = true := by rfl
 
 -- ### Partial Maps
 
@@ -993,23 +992,42 @@ structure PartialMap (α : Type) (β : Type) where
 instance {α β : Type} : EmptyCollection (PartialMap α β) where
   emptyCollection := { inner := ∅ }
 
-def PartialMap.toTotal  {α β : Type} (m : PartialMap α β) : TotalMap α (Option β) := m.inner
+namespace PartialMap
 
-instance  {α β : Type} : MyGetElem (PartialMap α β) α (Option β) where
+def toTotal {α β : Type} (m : PartialMap α β) : TotalMap α (Option β) := m.inner
+
+/-- This exposes implementation-specific details of `PartialMap`.
+Avoid using this outside the `PartialMap` namespace. -/
+theorem toTotal_def {α β : Type} (m : PartialMap α β) : m.toTotal = m.inner := by rfl
+
+instance {α β : Type} : MyGetElem (PartialMap α β) α (Option β) where
   getElem m a := m.toTotal[a]
 
-theorem getElem_def  {α β : Type} (m : PartialMap α β) (a : α) : m[a] = m.toTotal[a] := rfl
+theorem getElem_def {α β : Type} (m : PartialMap α β) (a : α) : m[a] = m.toTotal[a] := rfl
 
--- Remember that we discussed earlier with total maps that using accessing the
--- `inner` field and performing function application application exposes the
--- implementation, and that's why we introduced a new notation `MyGetElem`?
--- Here we extend that concept, and instead of using a `def` for partial maps,
--- like this...
+def emptyNatMap : PartialMap Nat Nat where
+  inner := ∅
 
---   def PartialMap (α : Type) (β : Type) := TotalMap α (Option β)`
+example : emptyNatMap[1] = default := by rfl
 
--- ...we define partial maps as a structure containing a total map. This more
--- strongly hides the fact that it's implemented using a total map.
+example {n : Nat} : emptyNatMap[n] = none := by
+  rw [getElem_def, toTotal_def, emptyNatMap]
+  dsimp only
+  rw [TotalMap.getElem_def, TotalMap.get_def, TotalMap.empty_def, Option.default_eq_none]
+
+@[simp]
+theorem toTotal_eq_getElem {α β : Type} (m : PartialMap α β) (a : α) :
+    m.toTotal[a] = m[a] := rfl
+
+-- We previously defined `TotalMap.get` so that users can retrieve elements
+-- from a `TotalMap` in a manner independent of its actual implementation,
+-- which is a function stored in `TotalMap.inner`. We follow a similar
+-- principle with `PartialMap`s, and define `PartialMap.toTotal` to be the
+-- public API counterpart to `PartialMap.inner`.
+
+-- We again want the public API to use the `m[a]` notation instead of
+-- `m.toTotal[a]` so we provide the reverse direction of `getElem_def` as a
+-- `simp` lemma to specify that the `simp` normal form is `m[a]`.
 
 -- Updating a partial map at a key means storing a `some` value there. To
 -- update, we create a new partial map from `a →ₜ some b ; m.toTotal` by
@@ -1017,9 +1035,7 @@ theorem getElem_def  {α β : Type} (m : PartialMap α β) (a : α) : m[a] = m.t
 -- This is equivalent to writing `{ inner := a →ₜ some b ; m.toTotal }`. We
 -- also introduce a similar notation for it as for total maps.
 
-namespace PartialMap
-
-def update  {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β :=
+def update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β :=
   ⟨a →ₜ some b ; m.toTotal⟩
 
 notation a:55 " →ₚ " b:55 " ; " m:55 => PartialMap.update m a b
@@ -1030,16 +1046,17 @@ def examplePmap : PartialMap String Bool := "Church" →ₚ true ; "Turing" →�
 
 -- Next, we provide some fundamental properties about `toTotal`:
 
+@[simp]
 theorem toTotal_empty {α β : Type} : (∅ : PartialMap α β).toTotal = (∅ : TotalMap α (Option β)) := rfl
 
+@[simp]
 theorem toTotal_update{α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) :
     (a →ₚ b ; m).toTotal = a →ₜ some b ; m.toTotal := rfl
 
 -- As an example, here's how we can use these on some concrete maps:
 
 example : (2 →ₚ 3)[2] = some 3 := by
-  rw [getElem_def, toTotal_update, toTotal_empty, TotalMap.getElem_def]
-  rfl
+  rw [getElem_def, toTotal_update, toTotal_empty, TotalMap.update_eq]
 
 -- This also holds by definition (`rfl`), since all the rewrites in the above
 -- proof do the computation step-by-step.
@@ -1062,37 +1079,48 @@ theorem ext {α β : Type} {m₁ m₂ : PartialMap α β} (h : ∀ a : α, m₁[
 
 -- Now, let's lift the `TotalMap` lemmas:
 
+@[simp]
 theorem getElem_empty {α β : Type} [BEq α] (a : α) : (∅ : PartialMap α β)[a] = none := by
   rw [getElem_def, toTotal_empty, TotalMap.getElem_empty, Option.default_eq_none]
 
-theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : PartialMap α β) (a : α) (b : β) : (a →ₚ b ; m)[a] = some b := by
+@[simp]
+theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : PartialMap α β) (a : α) (b : β) :
+    (a →ₚ b ; m)[a] = some b := by
   rw [getElem_def, toTotal_update, TotalMap.update_eq]
 
-theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
-    (a₁ →ₚ b ; m)[a₂] = m[a₂] := by
-  dsimp [getElem_def, toTotal_update]
+@[simp]
+theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α}
+    (h : a₁ ≠ a₂) (b : β) : (a₁ →ₚ b ; m)[a₂] = m[a₂] := by
+  simp only [getElem_def, toTotal_update]
   rw [TotalMap.update_neq h]
 
 theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : PartialMap α β) (a : α) (b₁ b₂ : β) :
     (a →ₚ b₂ ; a →ₚ b₁ ; m) = (a →ₚ b₂ ; m) := by
   apply ext
   intro x
-  dsimp [getElem_def, toTotal_update]
+  simp only [getElem_def, toTotal_update]
   rw [TotalMap.update_shadow]
 
-theorem update_same {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a : α} {b : β} (h : m[a] = some b) :
-    (a →ₚ b ; m) = m := by
+theorem update_same {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a : α} {b : β}
+    (h : m[a] = some b) : (a →ₚ b ; m) = m := by
   apply ext
   intro x
-  dsimp [getElem_def, toTotal_update]
+  simp only [getElem_def, toTotal_update]
   rw [← h, getElem_def, TotalMap.update_same]
 
-theorem update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :
-    (a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m) = (a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m) := by
+theorem update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α}
+    {b₁ b₂ : β} (h : a₁ ≠ a₂) : (a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m) = (a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m) := by
   apply ext
   intro x
-  dsimp [getElem_def, toTotal_update]
+  simp only [getElem_def, toTotal_update]
   rw [TotalMap.update_permute h]
+
+example : (2 →ₚ 3)[2] = some 3 := by
+  simp
+
+example : examplePmap["Post"] = none := by
+  rw [examplePmap]
+  simp
 
 -- And let's add `{}`-notation for partial maps as well.
 
@@ -1123,8 +1151,8 @@ theorem subset_def {α β : Type} (m₁ m₂ : PartialMap α β) :
 
 -- We can then show that map update preserves map inclusion, that is:
 
-theorem update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :
-    (a →ₚ b ; m₁) ⊆ (a →ₚ b ; m₂) := by
+theorem update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β)
+    (h : m₁ ⊆ m₂) : (a →ₚ b ; m₁) ⊆ (a →ₚ b ; m₂) := by
   rw [subset_def] at h ⊢
   intro a' b' hb
   by_cases ha : a = a'

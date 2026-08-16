@@ -417,9 +417,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "6e928a126d581c9c68df711454476be9200da7ef",
+      "head_sha": "fc9b30fc3a285b815d13b1bdce82ca9fa6ef4ec5",
       "preview_path": "pr/247/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31947980429",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31958817421",
       "status": "published",
       "title": "DHS polishing pass over typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/247"
@@ -611,53 +611,6 @@
       "status": "published",
       "title": "Hoare: Com.EvalR implicit arguments",
       "url": "https://github.com/plclub/sf-in-lean/pull/254"
-    },
-    "255": {
-      "base_sha": "6e928a126d581c9c68df711454476be9200da7ef",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "7a21b3585da320300db4f149e35b539b6b8417ad",
-      "preview_path": "pr/255/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31956915125",
-      "status": "published",
-      "title": "Typeclasses: explain `MyGetElem` and encapsulation better",
-      "url": "https://github.com/plclub/sf-in-lean/pull/255"
     }
   },
   "schema": 3
