@@ -611,53 +611,6 @@
       "status": "published",
       "title": "Polish Slang",
       "url": "https://github.com/plclub/sf-in-lean/pull/266"
-    },
-    "267": {
-      "base_sha": "9c6f00a92c5ce091dd94f6c90c593712bc6cc695",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "2fd72a358e0a2d462e927d8895c17218765faad2",
-      "preview_path": "pr/267/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32080811954",
-      "status": "published",
-      "title": "ALPHA-TESTERS minor fixes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/267"
     }
   },
   "schema": 3
