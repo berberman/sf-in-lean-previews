@@ -1,5 +1,5 @@
 {
-  "main_sha": "632ec7deec898bdaab18e1e17115f937fe93ed41",
+  "main_sha": "18089be9ae3269f18459d4b46fb68833223505c8",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -235,53 +235,6 @@
       "status": "published",
       "title": "Port Hoare2 chapter to Lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/230"
-    },
-    "244": {
-      "base_sha": "632ec7deec898bdaab18e1e17115f937fe93ed41",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "ff364357a3fa8277284c7b954ad13779981fffe4",
-      "preview_path": "pr/244/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32056063496",
-      "status": "published",
-      "title": "Document `inversion`.",
-      "url": "https://github.com/plclub/sf-in-lean/pull/244"
     },
     "250": {
       "base_sha": "f7a57a2d811b851e167cddec1352bfb2f166abdd",
@@ -520,11 +473,48 @@
     },
     "263": {
       "base_sha": "632ec7deec898bdaab18e1e17115f937fe93ed41",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "be54a6f79209e43b129334aa64454680b62add32",
       "preview_path": "pr/263/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32058230064",
+      "status": "published",
       "title": "Pass over UsingLean",
       "url": "https://github.com/plclub/sf-in-lean/pull/263"
     }

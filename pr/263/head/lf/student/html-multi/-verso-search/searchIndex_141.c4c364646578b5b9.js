@@ -1,0 +1,1 @@
+window.docContents[141].resolve({"/UsingLean/#UsingLean":{"contents":"\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"4. UsingLean: Using the full power of a proof assistant","id":"/UsingLean/#UsingLean"}});
