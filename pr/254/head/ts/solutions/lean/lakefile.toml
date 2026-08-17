@@ -1,9 +1,0 @@
-name = "ts-extracted"
-version = "0.1.0"
-defaultTargets = ["TS"]
-
-[[lean_lib]]
-name = "TS"
-
-[[lean_lib]]
-name = "LF"

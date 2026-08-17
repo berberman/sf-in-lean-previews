@@ -41,15 +41,15 @@
      "data":
      {"title": "Printing Assertions",
       "shortTitle": null,
-      "sectionNum": "4.4.4.",
+      "sectionNum": "4.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Proof Rules", "shortTitle": null, "number": "4"},
-       {"title": "Printing Assertions", "shortTitle": null, "number": "4"}]},
+       {"title": "Assertions", "shortTitle": null, "number": "1"},
+       {"title": "Printing Assertions", "shortTitle": null, "number": "3"}]},
      "address": "/Hoare/"}],
    "Slang":
    [{"id": "Slang",
@@ -482,7 +482,7 @@
      "data":
      {"title": "Exercise:  repeat",
       "shortTitle": null,
-      "sectionNum": "4.4.9.1.",
+      "sectionNum": "4.4.8.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -490,7 +490,7 @@
         "shortTitle": null,
         "number": "4"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
-       {"title": "While Loops", "shortTitle": null, "number": "9"},
+       {"title": "While Loops", "shortTitle": null, "number": "8"},
        {"title": "Exercise:  repeat", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Proof-Rules--While-Loops":
@@ -499,7 +499,7 @@
      "data":
      {"title": "While Loops",
       "shortTitle": null,
-      "sectionNum": "4.4.9.",
+      "sectionNum": "4.4.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -507,7 +507,7 @@
         "shortTitle": null,
         "number": "4"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
-       {"title": "While Loops", "shortTitle": null, "number": "9"}]},
+       {"title": "While Loops", "shortTitle": null, "number": "8"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Proof-Rules--Skip":
    [{"id": "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Proof-Rules--Skip",
@@ -530,7 +530,7 @@
      "data":
      {"title": "Sequencing + Assignment",
       "shortTitle": null,
-      "sectionNum": "4.4.7.",
+      "sectionNum": "4.4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -540,7 +540,7 @@
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Sequencing + Assignment",
         "shortTitle": null,
-        "number": "7"}]},
+        "number": "6"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Proof-Rules--Sequencing":
    [{"id":
@@ -564,7 +564,7 @@
      "data":
      {"title": "Consequence",
       "shortTitle": null,
-      "sectionNum": "4.4.5.",
+      "sectionNum": "4.4.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -572,7 +572,7 @@
         "shortTitle": null,
         "number": "4"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
-       {"title": "Consequence", "shortTitle": null, "number": "5"}]},
+       {"title": "Consequence", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Proof-Rules--Conditionals--Exercise___-One-sided-conditionals":
    [{"id":
@@ -580,7 +580,7 @@
      "data":
      {"title": "Exercise: One-sided conditionals",
       "shortTitle": null,
-      "sectionNum": "4.4.8.2.",
+      "sectionNum": "4.4.7.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -588,7 +588,7 @@
         "shortTitle": null,
         "number": "4"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
-       {"title": "Conditionals", "shortTitle": null, "number": "8"},
+       {"title": "Conditionals", "shortTitle": null, "number": "7"},
        {"title": "Exercise: One-sided conditionals",
         "shortTitle": null,
         "number": "2"}]},
@@ -599,7 +599,7 @@
      "data":
      {"title": "Example",
       "shortTitle": null,
-      "sectionNum": "4.4.8.1.",
+      "sectionNum": "4.4.7.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -607,7 +607,7 @@
         "shortTitle": null,
         "number": "4"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
-       {"title": "Conditionals", "shortTitle": null, "number": "8"},
+       {"title": "Conditionals", "shortTitle": null, "number": "7"},
        {"title": "Example", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Proof-Rules--Conditionals":
@@ -616,7 +616,7 @@
      "data":
      {"title": "Conditionals",
       "shortTitle": null,
-      "sectionNum": "4.4.8.",
+      "sectionNum": "4.4.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -624,7 +624,7 @@
         "shortTitle": null,
         "number": "4"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
-       {"title": "Conditionals", "shortTitle": null, "number": "8"}]},
+       {"title": "Conditionals", "shortTitle": null, "number": "7"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Proof-Rules--Automation":
    [{"id":
@@ -632,7 +632,7 @@
      "data":
      {"title": "Automation",
       "shortTitle": null,
-      "sectionNum": "4.4.6.",
+      "sectionNum": "4.4.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -640,7 +640,7 @@
         "shortTitle": null,
         "number": "4"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
-       {"title": "Automation", "shortTitle": null, "number": "6"}]},
+       {"title": "Automation", "shortTitle": null, "number": "5"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Proof-Rules--Assignment":
    [{"id":
@@ -746,7 +746,7 @@
      "data":
      {"title": "Assertion Implication",
       "shortTitle": null,
-      "sectionNum": "4.1.3.",
+      "sectionNum": "4.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -754,7 +754,7 @@
         "shortTitle": null,
         "number": "4"},
        {"title": "Assertions", "shortTitle": null, "number": "1"},
-       {"title": "Assertion Implication", "shortTitle": null, "number": "3"}]},
+       {"title": "Assertion Implication", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Assertions":
    [{"id": "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Assertions",
@@ -853,6 +853,16 @@
         "Hoare: Hoare Logic, Part I",
         "Proof Rules",
         "While Loops"]}},
+     "address": "/Hoare/"}],
+   "validHoareTriple_def":
+   [{"id": "validHoareTriple_def",
+     "data":
+     {"/Hoare/#validHoareTriple_def":
+      {"display": "validHoareTriple_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
    "subtract_slowly_body":
    [{"id": "subtract_slowly_body",
@@ -963,23 +973,11 @@
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
-   "if_example'''":
-   [{"id": "if_example_________",
+   "if_example'":
+   [{"id": "if_example___",
      "data":
-     {"/Hoare/#if_example_________":
-      {"display": "if_example'''",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Conditionals",
-        "Example"]}},
-     "address": "/Hoare/"}],
-   "if_example''":
-   [{"id": "if_example______",
-     "data":
-     {"/Hoare/#if_example______":
-      {"display": "if_example''",
+     {"/Hoare/#if_example___":
+      {"display": "if_example'",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -1040,22 +1038,11 @@
         "Proof Rules",
         "Conditionals"]}},
      "address": "/Hoare/"}],
-   "hoare_consequence_pre''''":
-   [{"id": "hoare_consequence_pre____________",
+   "hoare_consequence_pre''":
+   [{"id": "hoare_consequence_pre______",
      "data":
-     {"/Hoare/#hoare_consequence_pre____________":
-      {"display": "hoare_consequence_pre''''",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Automation"]}},
-     "address": "/Hoare/"}],
-   "hoare_consequence_pre'''":
-   [{"id": "hoare_consequence_pre_________",
-     "data":
-     {"/Hoare/#hoare_consequence_pre_________":
-      {"display": "hoare_consequence_pre'''",
+     {"/Hoare/#hoare_consequence_pre______":
+      {"display": "hoare_consequence_pre''",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -1170,7 +1157,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Proof Rules",
-        "Printing Assertions"]}},
+        "Assignment"]}},
      "address": "/Hoare/"}],
    "fact_in_lean":
    [{"id": "fact_in_lean",
@@ -1179,28 +1166,6 @@
       {"display": "fact_in_lean",
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
-     "address": "/Imp/"}],
-   "example_bexp":
-   [{"id": "example_bexp",
-     "data":
-     {"/Imp/#example_bexp":
-      {"display": "example_bexp",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "example_aexp":
-   [{"id": "example_aexp",
-     "data":
-     {"/Imp/#example_aexp":
-      {"display": "example_aexp",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
      "address": "/Imp/"}],
    "ceval_deterministic":
    [{"id": "ceval_deterministic",
@@ -1218,28 +1183,6 @@
      "data":
      {"/Hoare/#bexp_eval_false":
       {"display": "bexp_eval_false",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Conditionals"]}},
-     "address": "/Hoare/"}],
-   "bassertion_apply":
-   [{"id": "bassertion_apply",
-     "data":
-     {"/Hoare/#bassertion_apply":
-      {"display": "bassertion_apply",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Conditionals"]}},
-     "address": "/Hoare/"}],
-   "bassertion":
-   [{"id": "bassertion",
-     "data":
-     {"/Hoare/#bassertion":
-      {"display": "bassertion",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -1277,13 +1220,24 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Proof Rules",
-        "Printing Assertions"]}},
+        "Assignment"]}},
      "address": "/Hoare/"}],
    "assertImplies_def":
    [{"id": "assertImplies_def",
      "data":
      {"/Hoare/#assertImplies_def":
       {"display": "assertImplies_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
+        "Assertion Implication"]}},
+     "address": "/Hoare/"}],
+   "assertIff_def":
+   [{"id": "assertIff_def",
+     "data":
+     {"/Hoare/#assertIff_def":
+      {"display": "assertIff_def",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -2071,6 +2025,18 @@
         "Evaluation as a Relation",
         "Computational vs. Relational Definitions"]}},
      "address": "/Slang/"}],
+   "RepeatExercise.validHoareTriple_def":
+   [{"id": "RepeatExercise___validHoareTriple_def",
+     "data":
+     {"/Hoare/#RepeatExercise___validHoareTriple_def":
+      {"display": "validHoareTriple_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
    "RepeatExercise.ValidHoareTriple":
    [{"id": "RepeatExercise___ValidHoareTriple",
      "data":
@@ -2167,18 +2133,6 @@
         "While Loops",
         "Exercise:  repeat"]}},
      "address": "/Hoare/"}],
-   "Lean.Parser.Category.rpt_com":
-   [{"id": "Lean___Parser___Category___rpt_com",
-     "data":
-     {"/Hoare/#Lean___Parser___Category___rpt_com":
-      {"display": "rpt_com",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "While Loops",
-        "Exercise:  repeat"]}},
-     "address": "/Hoare/"}],
    "Lean.Parser.Category.imp_com":
    [{"id": "Lean___Parser___Category___imp_com",
      "data":
@@ -2209,40 +2163,6 @@
         "Expressions With Variables",
         "Notations"]}},
      "address": "/Imp/"}],
-   "Lean.Parser.Category.if1_com":
-   [{"id": "Lean___Parser___Category___if1_com",
-     "data":
-     {"/Hoare/#Lean___Parser___Category___if1_com":
-      {"display": "if1_com",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Conditionals",
-        "Exercise: One-sided conditionals"]}},
-     "address": "/Hoare/"}],
-   "Lean.Parser.Category.himp_com":
-   [{"id": "Lean___Parser___Category___himp_com",
-     "data":
-     {"/Hoare/#Lean___Parser___Category___himp_com":
-      {"display": "himp_com",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Additional Exercises",
-        "Havoc"]}},
-     "address": "/Hoare/"}],
-   "Lean.Parser.Category.haa_com":
-   [{"id": "Lean___Parser___Category___haa_com",
-     "data":
-     {"/Hoare/#Lean___Parser___Category___haa_com":
-      {"display": "haa_com",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Additional Exercises",
-        "Assert and Assume"]}},
-     "address": "/Hoare/"}],
    "Imp.Delab.imp_bexp.parenthesizer.wrapParens":
    [{"id": "Imp___Delab___imp_bexp___parenthesizer___wrapParens",
      "data":
@@ -2286,6 +2206,14 @@
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "Delaborators"]}},
+     "address": "/Imp/"}],
+   "Imp.Delab.delabComInnerFor":
+   [{"id": "Imp___Delab___delabComInnerFor",
+     "data":
+     {"/Imp/#Imp___Delab___delabComInnerFor":
+      {"display": "delabComInnerFor",
+       "context":
+       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
    "Imp.Delab.delabComInner":
    [{"id": "Imp___Delab___delabComInner",
@@ -2358,6 +2286,18 @@
         "Expressions With Variables",
         "Delaborators"]}},
      "address": "/Imp/"}],
+   "If1.validHoareTriple_def":
+   [{"id": "If1___validHoareTriple_def",
+     "data":
+     {"/Hoare/#If1___validHoareTriple_def":
+      {"display": "validHoareTriple_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
    "If1.hoare_consequence_pre":
    [{"id": "If1___hoare_consequence_pre",
      "data":
@@ -2387,6 +2327,30 @@
      "data":
      {"/Hoare/#If1___ValidHoareTriple":
       {"display": "ValidHoareTriple",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Delab.delabComInner":
+   [{"id": "If1___Delab___delabComInner",
+     "data":
+     {"/Hoare/#If1___Delab___delabComInner":
+      {"display": "delabComInner",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Delab.delabCom":
+   [{"id": "If1___Delab___delabCom",
+     "data":
+     {"/Hoare/#If1___Delab___delabCom":
+      {"display": "delabCom",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -2489,6 +2453,17 @@
         "Expressions With Variables",
         "States"]}},
      "address": "/Imp/"}],
+   "HoareAssertAssume.validHoareTriple_def":
+   [{"id": "HoareAssertAssume___validHoareTriple_def",
+     "data":
+     {"/Hoare/#HoareAssertAssume___validHoareTriple_def":
+      {"display": "validHoareTriple_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
    "HoareAssertAssume.hoare_while":
    [{"id": "HoareAssertAssume___hoare_while",
      "data":
@@ -2615,6 +2590,17 @@
      "data":
      {"/Hoare/#HoareAssertAssume___Com___whileDo":
       {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "HoareAssertAssume.Com.unexpandEvalR":
+   [{"id": "HoareAssertAssume___Com___unexpandEvalR",
+     "data":
+     {"/Hoare/#HoareAssertAssume___Com___unexpandEvalR":
+      {"display": "Com.unexpandEvalR",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -2841,6 +2827,17 @@
         "Additional Exercises",
         "Assert and Assume"]}},
      "address": "/Hoare/"}],
+   "Himp.validHoareTriple_def":
+   [{"id": "Himp___validHoareTriple_def",
+     "data":
+     {"/Hoare/#Himp___validHoareTriple_def":
+      {"display": "validHoareTriple_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Havoc"]}},
+     "address": "/Hoare/"}],
    "Himp.hoare_consequence_pre":
    [{"id": "Himp___hoare_consequence_pre",
      "data":
@@ -2868,6 +2865,17 @@
      "data":
      {"/Hoare/#Himp___Com___whileDo":
       {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Havoc"]}},
+     "address": "/Hoare/"}],
+   "Himp.Com.unexpandEvalR":
+   [{"id": "Himp___Com___unexpandEvalR",
+     "data":
+     {"/Hoare/#Himp___Com___unexpandEvalR":
+      {"display": "Com.unexpandEvalR",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -3039,6 +3047,48 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
+   "HasTriple.Triple":
+   [{"id": "HasTriple___Triple",
+     "data":
+     {"/Hoare/#HasTriple___Triple":
+      {"display": "Triple",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
+     "address": "/Hoare/"}],
+   "HasTriple":
+   [{"id": "HasTriple",
+     "data":
+     {"/Hoare/#HasTriple":
+      {"display": "HasTriple",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
+     "address": "/Hoare/"}],
+   "HasEval.Eval":
+   [{"id": "HasEval___Eval",
+     "data":
+     {"/Imp/#HasEval___Eval":
+      {"display": "Eval",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Evaluation as a Relation"]}},
+     "address": "/Imp/"}],
+   "HasEval":
+   [{"id": "HasEval",
+     "data":
+     {"/Imp/#HasEval":
+      {"display": "HasEval",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Evaluation as a Relation"]}},
+     "address": "/Imp/"}],
    "ExamplePrettyAssertions.assertion9":
    [{"id": "ExamplePrettyAssertions___assertion9",
      "data":
@@ -3173,6 +3223,17 @@
       {"display": "whileDo",
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
+   "Com.unexpandEvalR":
+   [{"id": "Com___unexpandEvalR",
+     "data":
+     {"/Imp/#Com___unexpandEvalR":
+      {"display": "Com.unexpandEvalR",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "Com.skip":
    [{"id": "Com___skip",
@@ -3489,11 +3550,33 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
-   "Assertion.sub":
-   [{"id": "Assertion___sub",
+   "Assertion.subst_def":
+   [{"id": "Assertion___subst_def",
      "data":
-     {"/Hoare/#Assertion___sub":
-      {"display": "Assertion.sub",
+     {"/Hoare/#Assertion___subst_def":
+      {"display": "subst_def",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Assignment"]}},
+     "address": "/Hoare/"}],
+   "Assertion.subst_apply":
+   [{"id": "Assertion___subst_apply",
+     "data":
+     {"/Hoare/#Assertion___subst_apply":
+      {"display": "subst_apply",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Assignment"]}},
+     "address": "/Hoare/"}],
+   "Assertion.subst":
+   [{"id": "Assertion___subst",
+     "data":
+     {"/Hoare/#Assertion___subst":
+      {"display": "Assertion.subst",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -3530,8 +3613,7 @@
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Printing Assertions"]}},
+        "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabSub":
    [{"id": "Assertion___Delab___delabSub",
@@ -3542,7 +3624,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Proof Rules",
-        "Printing Assertions"]}},
+        "Assignment"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabBody":
    [{"id": "Assertion___Delab___delabBody",
@@ -3552,7 +3634,7 @@
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
+        "Assertions",
         "Printing Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssnArg":
@@ -3563,7 +3645,7 @@
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
+        "Assertions",
         "Printing Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssn":
@@ -3574,7 +3656,18 @@
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
+        "Assertions",
+        "Printing Assertions"]}},
+     "address": "/Hoare/"}],
+   "Assertion.Delab.delabAssertion":
+   [{"id": "Assertion___Delab___delabAssertion",
+     "data":
+     {"/Hoare/#Assertion___Delab___delabAssertion":
+      {"display": "delabAssertion",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
         "Printing Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssertImplies":
@@ -3585,8 +3678,19 @@
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Printing Assertions"]}},
+        "Assertions",
+        "Assertion Implication"]}},
+     "address": "/Hoare/"}],
+   "Assertion.Delab.delabAssertIff":
+   [{"id": "Assertion___Delab___delabAssertIff",
+     "data":
+     {"/Hoare/#Assertion___Delab___delabAssertIff":
+      {"display": "delabAssertIff",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
+        "Assertion Implication"]}},
      "address": "/Hoare/"}],
    "Assertion":
    [{"id": "Assertion",

@@ -10,6 +10,11 @@ import HL.SFLCompat
 --     a little assembly language in the materials for the 2025 CIS 5000 final
 --     exam at Penn. We should turn it into an exercise in this chapter!
 
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Reply to Benjamin's note above: The way we do it now in Lean is to have
+--     a custom elaborater which avoids all the coercions plus doesn't need
+--     the syntax category for assertions.
+
 -- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     Any chance we could move the (awkwardly placed) weakest precondition
 --     discussion to this chapter instead?
@@ -161,7 +166,7 @@ import HL.SFLCompat
 -- An *assertion* is a logical claim about the state of a program's memory --
 -- formally, a predicate of `State`s.
 
-open scoped MyGetElem
+open scoped Com MyGetElem
 
 abbrev Assertion := State → Prop
 
@@ -314,27 +319,16 @@ end ExAssertions
 --
 --     A raw Lean assertion can also be written directly inside {{ }}.`
 
--- Note to developers (Claude):
---     Delaborators for this grammar are defined in the *Printing Assertions*
---     section below (after assertion substitution, the last notation they
---     need to recognize). They cover the base chapter's forms -- triples,
---     `->>`, substitution, and lifted `Prop`s; not covered are the extension
---     modules' shadowed triples (each module defines its own `Com` and
---     `ValidHoareTriple`) and the `bassertion` coercion, which fall back to
---     raw display. An assertion applied to a state (after `intro st`) also
---     prints raw -- the same thing that happens in the Rocq development as
---     soon as `simpl` unfolds the notation.
-
 namespace Assertion
 
 section
 open Lean Elab Term
 
 scoped syntax:max (name := assn) "assn(" ident "; " term ")" : term
-scoped syntax "{{" term "}}" : term
+scoped syntax:lead "{{" term "}}" : term
 
 @[term_elab assn]
-def assnElab : TermElab := fun stx type? => do
+def assnElab : TermElab := fun stx _type? => do
   match stx with
   | `(assn($st; $t:term)) =>
     let t ← elabTerm t none
@@ -388,6 +382,25 @@ macro_rules
     return result
 end
 
+-- Note to developers (Niklas Halonen):
+--     Mention (don't explain macro hygiene though) why
+--
+--     `#check {{ st[X] = st[Y] }}`
+--
+--     doesn't work, but instead one should write
+--
+--     `#check {{ fun st => st[X] = st[Y] }}`
+--
+--     And mention that when inside the brackets, one sees in the infoview
+--
+--     `st✝ : State`
+--
+--     but outside the brackets, one sees
+--     `fun st => st[X] = st[X] : State → Prop`
+--
+--     Also: should we introduce the terminology "pure" for embedding
+--     propositions into assertions that are constant functions?
+
 #check {{ 1 = 2 }}
 #check {{ X = X }}
 #check {{ X = 2 * X }} -- X is the constant "X" defined in Imp
@@ -411,6 +424,7 @@ variable (f : Nat → Nat → Nat → Nat)
 #check {{ f X Y X = 0 }}
 
 end Assertion
+open scoped Assertion
 
 -- Function applications inside assertions automatically interpret their
 -- arguments in the current state. Thus, `{{ f e1 ... en }}` stands for
@@ -423,34 +437,11 @@ end Assertion
 -- For example, `{{ fun st => ∀ x, st[x] = 0 }}` indicates an assertion that
 -- every variable maps to `0` in the given state.
 
--- Note to developers:
---     NOTATION: SAZ 2024: It is important that this custom notation be at a
---     level higher than 1 when added to the `constr` grammar because it
---     interacts with the "application" case of `com` and the notation for
---     Hoare triples. That grammar parses embedded function arguments at level
---     1. We never want `f {{P}}` to parse `{ P }` as an assertion when used
---     in a command. Instead we want `{{P}}` to "close" the Hoare triple.
---
---     `NOTATION: Note for Rocq custom grammar hackers.  From what I can tell, the
---     Rocq LL(1) parser does left-factorize the grammar, *however* it uses a very
---     strict notion of what counts as "equal" for the purposes of the factorization.
---     In particular, a grammar entry might have a level,
---     as in [e custom assn at level 99] in the notation below.  Leaving out the
---     "at level 99" is *semantically equivalent*, because the [assn] grammar starts
---     at that level, but omitting it will not work because the grammar for
---     Hoare triples below includes "at level 99" -- the [LEVEL "99"] part of the
---     grammar counts for factorization.
---
---     The upshot is that means that this notation and the Hoare triple notation
---     (which overlaps with [{{ _ }}]) must be changed in tandem and use identical
---     level specifications.`
-
 -- ### Example Assertions
 
 -- Here are some example assertions that take advantage of this new notation.
 
 namespace ExamplePrettyAssertions
-open scoped Assertion
 
 def assertion1 : Assertion := {{ X = 3 }}
 def assertion2 : Assertion := {{ True }}
@@ -458,11 +449,12 @@ def assertion3 : Assertion := {{ False }}
 def assertion4 : Assertion := {{ True ∨ False }}
 def assertion5 : Assertion := {{ X ≤ Y }}
 def assertion6 : Assertion := {{ X = 3 ∨ X ≤ Y }}
-def assertion7 : Assertion := {{ Z = (max X Y) }}
+def assertion7 : Assertion := {{ Z = max X Y }}
 def assertion8 : Assertion := {{ Z * Z ≤ X
                                  ∧ ¬ (((Nat.succ Z) * (Nat.succ Z)) ≤ X) }}
 def assertion9 : Assertion := {{ Nat.add X Y > max Y X }}
-
+variable {xs : List Nat}
+-- #check {{ xs = X }}
 /--
 info: def ExamplePrettyAssertions.assertion8 : Assertion :=
 fun st => st[Z] * st[Z] ≤ st[X] ∧ ¬st[Z].succ * st[Z].succ ≤ st[X]
@@ -471,6 +463,120 @@ fun st => st[Z] * st[Z] ≤ st[X] ∧ ¬st[Z].succ * st[Z].succ ≤ st[X]
 #print assertion8
 
 end ExamplePrettyAssertions
+
+-- ### Printing Assertions
+
+-- As in the Imp chapter, the assertion notation above is *input* only: Lean
+-- reads `{{ X ≤ 5 }}` but still prints the underlying function, as
+-- `#print assertion8` just showed. The delaborators below close the loop for
+-- plain assertions: a state lambda whose body Lean can rebuild is printed
+-- back in `{{ … }}` notation, and an assertion Lean cannot rebuild falls back
+-- to the raw `fun st => …` form, which is exactly this notation's escape
+-- syntax, so what you see is always valid input. Each time a new notation
+-- involving assertions appears below (implication, Hoare triples,
+-- substitution), a small delaborator defined next to it will extend this
+-- printing to cover it. As before, there is no need to understand the
+-- details.
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing assertions back
+
+namespace Assertion.Delab
+open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+
+/-- Rebuild the surface form of an assertion body, undoing the state
+threading the `assn` elaborator performs: `st[X]` prints as `X`,
+`Aexp.eval st a` as `a`, `Bexp.eval st b = true` as `b`, an applied
+assertion `P st` as `P`, and a subterm that does not mention the state
+prints as itself. -/
+partial def delabBody (stId : FVarId) : DelabM Term := do
+  let e ← getExpr
+  if !e.containsFVar stId then
+    delab
+  else
+    match_expr e with
+    | MyGetElem.getElem _ _ _ _ st _ =>
+      guard (st == .fvar stId)
+      withNaryArg 5 delab
+    | Aexp.eval st _ =>
+      guard (st == .fvar stId)
+      withAppArg delab
+    | HAdd.hAdd _ _ _ _ _ _ =>
+      `($(← withNaryArg 4 (delabBody stId)) + $(← withNaryArg 5 (delabBody stId)))
+    | HSub.hSub _ _ _ _ _ _ =>
+      `($(← withNaryArg 4 (delabBody stId)) - $(← withNaryArg 5 (delabBody stId)))
+    | HMul.hMul _ _ _ _ _ _ =>
+      `($(← withNaryArg 4 (delabBody stId)) * $(← withNaryArg 5 (delabBody stId)))
+    | Eq _ l r =>
+      -- `Bexp.eval st b = true` is the threaded form of a bare boolean `b`
+      if r.isConstOf ``Bool.true && l.isAppOfArity ``Bexp.eval 2
+          && l.appFn!.appArg! == .fvar stId then
+        withNaryArg 1 <| withAppArg delab
+      else
+        `($(← withNaryArg 1 (delabBody stId)) = $(← withNaryArg 2 (delabBody stId)))
+    | Ne _ _ _ =>
+      `($(← withNaryArg 1 (delabBody stId)) ≠ $(← withNaryArg 2 (delabBody stId)))
+    | LE.le _ _ _ _ =>
+      `($(← withNaryArg 2 (delabBody stId)) ≤ $(← withNaryArg 3 (delabBody stId)))
+    | LT.lt _ _ _ _ =>
+      `($(← withNaryArg 2 (delabBody stId)) < $(← withNaryArg 3 (delabBody stId)))
+    | GE.ge _ _ _ _ =>
+      `($(← withNaryArg 2 (delabBody stId)) ≥ $(← withNaryArg 3 (delabBody stId)))
+    | GT.gt _ _ _ _ =>
+      `($(← withNaryArg 2 (delabBody stId)) > $(← withNaryArg 3 (delabBody stId)))
+    | And _ _ =>
+      `($(← withNaryArg 0 (delabBody stId)) ∧ $(← withNaryArg 1 (delabBody stId)))
+    | Or _ _ =>
+      `($(← withNaryArg 0 (delabBody stId)) ∨ $(← withNaryArg 1 (delabBody stId)))
+    | Iff _ _ =>
+      `($(← withNaryArg 0 (delabBody stId)) ↔ $(← withNaryArg 1 (delabBody stId)))
+    | Not _ =>
+      `(¬ $(← withAppArg (delabBody stId)))
+    | _ =>
+      if e.isArrow then
+        `($(← withBindingDomain (delabBody stId)) →
+          $(← withBindingBody `h (delabBody stId)))
+      else if let .app f v := e then
+        -- an applied assertion `P st` (or an applied escape lambda)
+        guard (v == .fvar stId)
+        guard !(f.containsFVar stId)
+        withAppFn delab
+      else
+        failure
+
+/-- Print an `Assertion`-valued term as it appears inside `{{ … }}`: a
+state lambda is un-threaded; a term the printer cannot rebuild falls back
+to the raw lambda, which is exactly this notation's escape form. -/
+partial def delabAssn : DelabM Term := do
+  if (← getExpr).isLambda then
+    (withBindingBody' `st (pure ·.fvarId!) fun stId => delabBody stId)
+      <|> Delaborator.delab
+  else
+    delab
+
+/-- Print an assertion-position argument: a state lambda gets the
+`{{ … }}` notation; any other term (a named assertion, a substitution)
+already reads well bare. -/
+def delabAssnArg (i : Nat) : DelabM Term := do
+  if (← withNaryArg i getExpr).isLambda then
+    `({{ $(← withNaryArg i delabAssn) }})
+  else
+    withNaryArg i Delaborator.delab
+
+/-- Print a bare assertion lambda in `{{ … }}` notation.  Keyed on lambdas
+at large, so the guards bail out cheaply unless the binder is a `State`
+and the body is a proposition the printer can rebuild. -/
+@[delab lam]
+def delabAssertion : Delab := whenPPOption getPPNotation do
+  let e ← getExpr
+  guard <| e.isLambda && e.bindingDomain!.isConstOf ``_root_.State
+  let P ← withBindingBody' `st (pure ·.fvarId!) fun stId => do
+    guard (← Meta.inferType (← getExpr)).isProp
+    delabBody stId
+  `({{ $P }})
+
+end Assertion.Delab
+
+-- END DETAILS
 
 -- ### Assertion Implication
 
@@ -491,19 +597,46 @@ theorem assertImplies_def {P Q : Assertion} : P ->> Q ↔ ∀ st, P st → Q st 
 
 notation:26 P:27 " <<->> " Q:27 => AssertImplies P Q ∧ AssertImplies Q P
 
--- Note to developers (Claude):
---     The Rocq source puts these notations in a `hoare_spec_scope`, with a
---     book comment explaining that "the `hoare_spec_scope` annotation tells
---     Rocq that this notation is not global but is intended to be used in
---     particular contexts." Lean has no notation scopes, so the notations are
---     simply global and that paragraph is omitted.
+theorem assertIff_def {P Q : Assertion} : P <<->> Q ↔ AssertImplies P Q ∧ AssertImplies Q P
+    := by rfl
+
+-- The matching delaborators print implications and equivalences between
+-- assertions back in `->>` and `<<->>` notation.
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing implications back
+
+namespace Assertion.Delab
+open Lean PrettyPrinter Delaborator SubExpr
+
+@[delab app.AssertImplies]
+def delabAssertImplies : Delab := whenPPOption getPPNotation do
+  guard <| (← getExpr).isAppOfArity ``AssertImplies 2
+  `($(← delabAssnArg 0) ->> $(← delabAssnArg 1))
+
+/-- `<<->>` abbreviates a conjunction of two `AssertImplies`, so its
+delaborator is keyed on `∧` and bails out unless the two conjuncts mirror
+each other. -/
+@[delab app.And]
+def delabAssertIff : Delab := whenPPOption getPPNotation do
+  let e ← getExpr
+  guard <| e.isAppOfArity ``And 2
+  let l := e.appFn!.appArg!
+  let r := e.appArg!
+  guard <| l.isAppOfArity ``AssertImplies 2 && r.isAppOfArity ``AssertImplies 2
+  guard <| l.appFn!.appArg! == r.appArg! && l.appArg! == r.appFn!.appArg!
+  `($(← withNaryArg 0 <| delabAssnArg 0) <<->> $(← withNaryArg 0 <| delabAssnArg 1))
+
+end Assertion.Delab
+
+-- END DETAILS
 
 -- ## Hoare Triples, Informally
 
 -- A *Hoare triple* is a claim about the state before and after executing a
--- command. The standard notation is
+-- command. A commond notation for Hoare triples, and the one we use in this
+-- book, is
 
---   {P} c {Q}
+--   {{P}} c {{Q}}
 
 -- meaning:
 
@@ -513,11 +646,6 @@ notation:26 P:27 " <<->> " Q:27 => AssertImplies P Q ∧ AssertImplies Q P
 
 -- Assertion `P` is called the *precondition* of the triple, and `Q` is the
 -- *postcondition*.
-
--- Because single braces are already used for other things in Lean, we'll
--- write Hoare triples with double braces:
-
---   {{P}} c {{Q}}
 
 -- For example,
 
@@ -688,97 +816,107 @@ notation:26 P:27 " <<->> " Q:27 => AssertImplies P Q ∧ AssertImplies Q P
 
 -- We formalize valid Hoare triples in Lean as follows:
 
+open scoped HasEval
+
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
-  ∀ st st',
+  ∀ {st st' : State},
     (st =[ c ]=> st') →
     P st →
     Q st'
 
--- Note to developers:
---     `NOTATION: SAZ 2024 One trickiness of these notations is that we
---     want the [com] and [assn] grammars to be "open", so that they can
---     include expressions parsed by the full [constr] grammar of Rocq.
---     However, then there is a conflict of precedence of the
---     "application" cases:
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Somethings strange is going on in `theorem if_example`, using
+--     `apply hoare_consequence_pre` followed by `· exact hoare_asgn` works,
+--     but `refine hoare_consequence_pre hoare_asgn ?_` or
+--     `apply hoare_consequence_pre hoare_asgn` don't. The only solution I
+--     found was to mark `ValidHoareTriple` irreducible.
 --
---     The example " {{ True }} X := 0 {{ False }} " does not parse as
---     intended because the [com] grammar includes the capability of
---     parsing the (ill-typed) term "0 {{ False }}".
---
---     This means that the "application" for [com] should disallow
---     arguments at the level at which the [assn] grammar is included
---     in constr.  The upshot is that this notation should be included
---     in the grammar at the *same* level as the assertion notation
---     [{{ P }}], which is 2.`
+--     It has to do something with `apply` and `refine` looking inside the
+--     implication in `∀ {st st'}, ...`
 
 -- Notation for Hoare triples. The command between the two assertions is
 -- parsed with the same grammar as the `imp { … }` notation, so a command that
 -- is a Lean variable (rather than concrete syntax) is spliced in with `~c`,
 -- just as in the `st =[ c ]=> st'` notation.
 
-open scoped Assertion
+class HasTriple (Com : Type) where
+  Triple : Assertion → Com → Assertion → Prop
 
-namespace ValidHoareTriple
+namespace HasTriple
 
 /-- Hoare triple: `{{ P }} c {{ Q }}` -/
-scoped syntax:lead "{{" term "}} " imp_com:lead " {{" term "}}" : term
+scoped notation:lead "{{" P "}} " c:lead " {{" Q "}}" => Triple ({{ P }}) c ({{ Q }})
 
-macro_rules
+/-- Hoare triple with `imp_com` command syntax -/
+scoped syntax:lead (priority := high) "{{" term "}} " imp_com:lead " {{" term "}}" : term
+scoped macro_rules
   | `({{ $P }} $c:imp_com {{ $Q }}) =>
-      `(ValidHoareTriple ({{ $P }}) (imp { $c }) ({{ $Q }}))
+      ``(HasTriple.Triple ({{ $P }}) (imp { $c }) ({{ $Q }}))
+end HasTriple
 
-end ValidHoareTriple
+instance : HasTriple Com where
+  Triple := ValidHoareTriple
 
-section
-open scoped ValidHoareTriple
+open scoped HasTriple
 
--- Note to developers:
---     `HIDE: AAA: If I try to set the notation as {P} c {Q}, I get the
---     following error:
---
---       Error: A notation must include at least one symbol.
---
---     Maybe we could use other braces? For instance, I tried it with [P]
---     c [Q] and it seems to work (although I don't know how that would
---     affect the rest of the book).
---
---     BCP: Let's try with the "squashed" double braces for a while and
---     see if we like it.
---
---     P.S.
---     This works:
---        Notation "{ x }" := (x) (at level 0, x at level 99).
---     But this doesn't:
---        Notation "{ P }  c  { Q }" :=
---          (ValidHoareTriple P c Q)
---          (at level 0, P at level 99, c at level 99, Q at level 99)
---        : hoare_spec_scope.
---     Why??`
+theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
+    {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
+      (st =[ c ]=> st') →
+      P st →
+      Q st' := by rfl
+
+attribute [irreducible] ValidHoareTriple
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing triples back
+
+-- The delaborator is agnostic to the command type: it prints the command with
+-- whatever printer is registered for its constructors and splices the result
+-- into the triple, so a language-extension chapter only has to register a
+-- printer for its own `Com`.
+
+namespace Assertion.Delab
+open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+@[delab app.HasTriple.Triple]
+def delabTriple : Delab := whenPPOption getPPNotation do
+  guard <| (← getExpr).isAppOfArity ``HasTriple.Triple 5
+  let P ← withNaryArg 2 delabAssn
+  let c ← withNaryArg 3 delab
+  let Q ← withNaryArg 4 delabAssn
+  match c with
+  | `(imp { $c:imp_com }) => ``({{ $P }} $c:imp_com {{ $Q }})
+  | c => ``({{ $P }} ~$c {{ $Q }})
+
+end Assertion.Delab
+
+-- END DETAILS
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Is it possible to add a line break after the `Y := Y`?
 
 -- ### Exercise (1 star): hoare_post_true ⭐
 
 -- Prove that if `Q` holds in every state, then any triple with `Q` as its
 -- postcondition is valid.
 
-theorem hoare_post_true (P Q : Assertion) (c : Com) (h : ∀ st, Q st) :
+theorem hoare_post_true {P Q : Assertion} {c : Com} (h : ∀ st, Q st) :
     {{ P }} ~c {{ Q }} := by
   all_goals
-    unfold ValidHoareTriple
-    intro st st' _heval _hp
-    apply h
+    rw [validHoareTriple_def]
+    intro st st' hc hpre
+    exact h st'
 
 -- ### Exercise (1 star): hoare_pre_false ⭐
 
 -- Prove that if `P` holds in no state, then any triple with `P` as its
 -- precondition is valid.
 
-theorem hoare_pre_false (P Q : Assertion) (c : Com) (h : ∀ st, ¬ (P st)) :
+theorem hoare_pre_false {P Q : Assertion} {c : Com} (h : ∀ st, ¬ (P st)) :
     {{ P }} ~c {{ Q }} := by
   all_goals
-    unfold ValidHoareTriple
-    intro st st' _heval hp
-    apply h at hp
+    rw [validHoareTriple_def]
+    intro st st' hc hpre
+    specialize h st
     contradiction
 
 -- ## Proof Rules
@@ -800,11 +938,12 @@ theorem hoare_pre_false (P Q : Assertion) (c : Com) (h : ∀ st, ¬ (P st)) :
 --   --------------------  (hoare_skip)
 --   {{ P }} skip {{ P }}
 
-theorem hoare_skip (P : Assertion) :
-    {{ P }} skip; {{ P }} := by
-  intro st st' h hp
+theorem hoare_skip {P : Assertion} :
+    {{ P }} skip {{ P }} := by
+  rw [validHoareTriple_def]
+  intro st st' h hpre
   inversion h
-  assumption
+  exact hpre
 
 -- ### Sequencing
 
@@ -816,15 +955,17 @@ theorem hoare_skip (P : Assertion) :
 --    {{ P }} c1 {{ Q }}
 --    {{ Q }} c2 {{ R }}
 --   ----------------------  (hoare_seq)
---   {{ P }} c1;c2 {{ R }}
+--   {{ P }} c1; c2 {{ R }}
 
-theorem hoare_seq (P Q R : Assertion) (c1 c2 : Com)
+theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
     (h1 : {{ Q }} ~c2 {{ R }}) (h2 : {{ P }} ~c1 {{ Q }}) :
-    {{ P }} ~c1 ~c2 {{ R }} := by
-  intro st st' h12 pre
-  inversion h12 with
+    {{ P }} ~c1; ~c2 {{ R }} := by
+  rw [validHoareTriple_def]
+  intro st st' h hpre
+  inversion h with
   | seq st'' hc1 hc2 =>
-    exact h1 _ _ hc2 (h2 _ _ hc1 pre)
+    rw [validHoareTriple_def] at h1 h2
+    exact h1 hc2 (h2 hc1 hpre)
 
 -- Note that, in the formal rule `hoare_seq`, the premises are given in
 -- backwards order (`c2` before `c1`). This matches the natural flow of
@@ -918,7 +1059,7 @@ theorem hoare_seq (P Q R : Assertion) (c1 c2 : Com)
 
 -- To formalize the rule, we must first formalize the idea of "substituting an
 -- expression for an Imp variable in an assertion", which we refer to as
--- assertion substitution, or `Assertion.sub`.
+-- assertion substitution, or `Assertion.subst`.
 
 -- Intuitively, given a proposition `P`, a variable `X`, and an arithmetic
 -- expression `a`, we want to derive another proposition `P'` that is just the
@@ -932,26 +1073,67 @@ theorem hoare_seq (P Q R : Assertion) (c1 c2 : Com)
 -- However, we can achieve the same effect by evaluating `P` in an updated
 -- state, defined as follows:
 
-def Assertion.sub (x : Ident) (a : Aexp) (P : Assertion) : Assertion :=
+def Assertion.subst (x : Ident) (a : Aexp) (P : Assertion) : Assertion :=
   fun (st : State) => P (x →ₜ a.eval st ; st)
 
 -- Note to developers (One An @meluge, before next release):
 --     Introduce a notation typeclass for this (e.g. HasSubst)
 
-/-- Assertion substitution: `P [X ↦ a]` -/
-syntax:100 term:100 " [" ident " ↦ " imp_aexp "]" : term
+namespace Assertion
+
+/-- Assertion substitution, written inside the braces: `{{ (P) [X ↦ a] }}`.
+The substituted assertion is re-read with the same notation, so Imp
+variables in it mean state lookups as usual; a named assertion is passed
+through directly. -/
+scoped syntax:max term:arg " [" ident " ↦ " imp_aexp "]" : term
 
 macro_rules
-  | `($P [$x ↦ $a]) => `(Assertion.sub $x (aexp { $a }) $P)
-  -- | `(assn($st; $P [$x ↦ $a])) => ``(assn($st; $P) [$x ↦ $a]) -- maybe we could push substitutions inside
+  | `(assn($st; $P [$x ↦ $a:imp_aexp])) =>
+    match P with
+    | `($_:ident) => ``(Assertion.subst $x (aexp { $a }) $P $st)
+    | _ => ``(Assertion.subst $x (aexp { $a }) ({{ $P }}) $st)
+
+theorem subst_def {x : Ident} {a : Aexp} {P : Assertion} :
+    Assertion.subst x a P = fun (st : State) => P (x →ₜ a.eval st ; st) := by rfl
+
+@[simp]
+theorem subst_apply {x : Ident} {a : Aexp} {P : Assertion} {st : State} :
+    Assertion.subst x a P st ↔ P (x →ₜ a.eval st ; st) := by rfl
+
+end Assertion
 
 -- This notation allows us to write this operation as:
 
 --   P [ X ↦ a ]
 
-#check (fun st => Assertion.sub X (aexp { 2 * X }) ({{ X ≤ 10 }}) st)
-#check {{ X ≤ 10 }} [X ↦ 2 * X]
-#check (∀ st, ({{ X ≤ 10 }} [X ↦ 2 * X]) st)
+#check (fun st => Assertion.subst X (aexp { 2 * X }) ({{ X ≤ 10 }}) st)
+#check {{ (X ≤ 10) [X ↦ 2 * X] }}
+#check (∀ st, ({{ (X ≤ 10) [X ↦ 2 * X] }}) st)
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing substitutions back
+
+namespace Assertion.Delab
+open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+
+/-- Print an `Assertion.subst` back in `P [x ↦ a]` notation.  Emits the
+bare inside-the-braces form: the generic application case of `delabBody`
+picks it up inside an assertion body, and the enclosing printer supplies
+the single pair of braces. -/
+@[delab app.Assertion.subst]
+def delabSub : Delab := whenPPOption getPPNotation do
+  guard <| (← getExpr).isAppOfArity ``Assertion.subst 3
+  let `($x:ident) ← withNaryArg 0 delab | failure
+  let a ← withNaryArg 1 delabAexpInner
+  if (← withNaryArg 2 getExpr).isLambda then
+    `(($(← withNaryArg 2 delabAssn)) [$x:ident ↦ $a:imp_aexp])
+  else
+    match ← withNaryArg 2 delab with
+    | `($P:ident) => `($P:ident [$x:ident ↦ $a:imp_aexp])
+    | P => `(($P) [$x:ident ↦ $a:imp_aexp])
+
+end Assertion.Delab
+
+-- END DETAILS
 
 -- That is, `P [X ↦ a]` stands for an assertion -- let's call it `P'` -- that
 -- behaves just like `P` except that, wherever `P` looks up the variable `X`
@@ -1009,138 +1191,31 @@ macro_rules
 
 namespace ExampleAssertionSub
 example :
-    {{ (X ≤ 5) }} [X ↦ 3] <<->> {{ 3 ≤ 5 }} := by
-  constructor <;> (unfold AssertImplies Assertion.sub; intro st h; exact h)
+    {{ (X ≤ 5) [X ↦ 3] }} <<->> {{ 3 ≤ 5 }} := by
+  rw [assertIff_def]
+  rw [assertImplies_def]
+  constructor
+  · intro st _
+    simp
+  · intro st h
+    simp
 
 example :
-    {{ (X ≤ 5) }} [X ↦ X + 1] <<->> {{ (X + 1) ≤ 5 }} := by
-  constructor <;> (unfold AssertImplies Assertion.sub; intro st h; exact h)
+    {{ (X ≤ 5) [X ↦ X + 1] }} <<->> {{ (X + 1) ≤ 5 }} := by
+  rw [assertIff_def]
+  constructor
+  · rw [assertImplies_def]
+    intro st
+    simp
+  · rw [assertImplies_def]
+    intro st
+    simp
 
 end ExampleAssertionSub
 
--- ### Printing Assertions
-
--- As in the Imp chapter, the assertion notations above are *input* only: Lean
--- reads `{{ X ≤ 5 }}` but still prints the underlying function. The
--- delaborators below close the loop for the common cases: Hoare triples,
--- `->>` implications, and assertion substitutions are printed back in their
--- concrete notation, and an assertion Lean cannot rebuild falls back to the
--- raw `fun st => …` form -- which is exactly this notation's escape syntax,
--- so what you see is always valid input. As before, there is no need to
--- understand the details, and everything can be switched off with
--- `set_option pp.notation false`.
-
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing assertions back
-
-namespace Assertion.Delab
-open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
-
-/-- Rebuild the surface form of an assertion body, undoing the state
-threading the `assn` elaborator performs: `st[X]` prints as `X`,
-`Aexp.eval st a` as `a`, `Bexp.eval st b = true` as `b`, an applied
-assertion `P st` as `P`, and a subterm that does not mention the state
-prints as itself. -/
-partial def delabBody (stId : FVarId) : DelabM Term := do
-  let e ← getExpr
-  if !e.containsFVar stId then
-    delab
-  else
-    match_expr e with
-    | MyGetElem.getElem _ _ _ _ st _ =>
-      guard (st == .fvar stId)
-      withNaryArg 5 delab
-    | Aexp.eval st _ =>
-      guard (st == .fvar stId)
-      withAppArg delab
-    | HAdd.hAdd _ _ _ _ _ _ =>
-      `($(← withNaryArg 4 (delabBody stId)) + $(← withNaryArg 5 (delabBody stId)))
-    | HSub.hSub _ _ _ _ _ _ =>
-      `($(← withNaryArg 4 (delabBody stId)) - $(← withNaryArg 5 (delabBody stId)))
-    | HMul.hMul _ _ _ _ _ _ =>
-      `($(← withNaryArg 4 (delabBody stId)) * $(← withNaryArg 5 (delabBody stId)))
-    | Eq _ l r =>
-      -- `Bexp.eval st b = true` is the threaded form of a bare boolean `b`
-      if r.isConstOf ``Bool.true && l.isAppOfArity ``Bexp.eval 2
-          && l.appFn!.appArg! == .fvar stId then
-        withNaryArg 1 <| withAppArg delab
-      else
-        `($(← withNaryArg 1 (delabBody stId)) = $(← withNaryArg 2 (delabBody stId)))
-    | Ne _ _ _ =>
-      `($(← withNaryArg 1 (delabBody stId)) ≠ $(← withNaryArg 2 (delabBody stId)))
-    | LE.le _ _ _ _ =>
-      `($(← withNaryArg 2 (delabBody stId)) ≤ $(← withNaryArg 3 (delabBody stId)))
-    | LT.lt _ _ _ _ =>
-      `($(← withNaryArg 2 (delabBody stId)) < $(← withNaryArg 3 (delabBody stId)))
-    | GE.ge _ _ _ _ =>
-      `($(← withNaryArg 2 (delabBody stId)) ≥ $(← withNaryArg 3 (delabBody stId)))
-    | GT.gt _ _ _ _ =>
-      `($(← withNaryArg 2 (delabBody stId)) > $(← withNaryArg 3 (delabBody stId)))
-    | And _ _ =>
-      `($(← withNaryArg 0 (delabBody stId)) ∧ $(← withNaryArg 1 (delabBody stId)))
-    | Or _ _ =>
-      `($(← withNaryArg 0 (delabBody stId)) ∨ $(← withNaryArg 1 (delabBody stId)))
-    | Iff _ _ =>
-      `($(← withNaryArg 0 (delabBody stId)) ↔ $(← withNaryArg 1 (delabBody stId)))
-    | Not _ =>
-      `(¬ $(← withAppArg (delabBody stId)))
-    | _ =>
-      if e.isArrow then
-        `($(← withBindingDomain (delabBody stId)) →
-          $(← withBindingBody `h (delabBody stId)))
-      else if let .app f v := e then
-        -- an applied assertion `P st` (or an applied escape lambda)
-        guard (v == .fvar stId)
-        guard !(f.containsFVar stId)
-        withAppFn delab
-      else
-        failure
-
-/-- Print an `Assertion`-valued term as it appears inside `{{ … }}`: a
-state lambda is un-threaded; a term the printer cannot rebuild falls back
-to the raw lambda, which is exactly this notation's escape form. -/
-partial def delabAssn : DelabM Term := do
-  if (← getExpr).isLambda then
-    (withBindingBody' `st (pure ·.fvarId!) fun stId => delabBody stId)
-      <|> Delaborator.delab
-  else
-    delab
-
-@[delab app.ValidHoareTriple]
-def delabTriple : Delab := whenPPOption getPPNotation do
-  guard <| (← getExpr).isAppOfArity ``ValidHoareTriple 3
-  let P ← withNaryArg 0 delabAssn
-  let c ← withNaryArg 1 delabComInner
-  let Q ← withNaryArg 2 delabAssn
-  `({{ $P }} $c:imp_com {{ $Q }})
-
-/-- Print an assertion-position argument: a state lambda gets the
-`{{ … }}` notation; any other term (a named assertion, a substitution)
-already reads well bare. -/
-def delabAssnArg (i : Nat) : DelabM Term := do
-  if (← withNaryArg i getExpr).isLambda then
-    `({{ $(← withNaryArg i delabAssn) }})
-  else
-    withNaryArg i Delaborator.delab
-
-@[delab app.AssertImplies]
-def delabAssertImplies : Delab := whenPPOption getPPNotation do
-  guard <| (← getExpr).isAppOfArity ``AssertImplies 2
-  `($(← delabAssnArg 0) ->> $(← delabAssnArg 1))
-
-@[delab app.Assertion.sub]
-def delabSub : Delab := whenPPOption getPPNotation do
-  guard <| (← getExpr).isAppOfArity ``Assertion.sub 3
-  let `($x:ident) ← withNaryArg 0 delab | failure
-  let a ← withNaryArg 1 delabAexpInner
-  let P ← withNaryArg 2 delabAssn
-  if (← withNaryArg 2 getExpr).isLambda then
-    `({{ $P }} [$x:ident ↦ $a:imp_aexp])
-  else
-    `($P [$x:ident ↦ $a:imp_aexp])
-
-end Assertion.Delab
-
--- END DETAILS
+-- Most of the `simp` calls rely on `Assertion.subst_apply`,
+-- `TotalMap.update_eq` plus some `Aexp` characterizing lemmas like
+-- `Aexp.eval_num`.
 
 -- Now, using the substitution operation we've just defined, we can give the
 -- precise proof rule for assignment:
@@ -1150,21 +1225,23 @@ end Assertion.Delab
 
 -- We can prove formally that this rule is indeed valid.
 
-theorem hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :
-    {{ Q [x ↦ ~a] }}  x := ~a; {{ Q }} := by
+theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
+    {{ Q [x ↦ ~a] }} x := ~a {{ Q }} := by
+  rw [validHoareTriple_def]
   intro st st' hE hQ
   inversion hE with
   | asgn n h =>
     subst h
+    rw [Assertion.subst_def] at hQ
     exact hQ
 
 -- Here's a first formal proof of a Hoare triple using this rule.
 
 theorem assertion_sub_example :
-    {{ {{ X < 5 }} [X ↦ X + 1] }}
-      X := X + 1;
+    {{ (X < 5) [X ↦ X + 1] }}
+      X := X + 1
     {{ X < 5 }} := by
-  apply hoare_asgn
+  exact hoare_asgn
 
 -- Of course, we'd probably prefer to work with this simpler triple:
 
@@ -1187,22 +1264,22 @@ theorem assertion_sub_example :
 theorem hoare_asgn_examples1 :
     ∃ P : Assertion,
       {{ P }}
-        X := 2 * X;
+        X := 2 * X
       {{ X ≤ 10 }} := by
   all_goals
-    exists {{ X ≤ 10 }} [X ↦ 2 * X]
-    apply hoare_asgn
+    exists ({{ (X ≤ 10) [X ↦ 2 * X] }})
+    exact hoare_asgn
 
 -- ### Exercise (2 stars): hoare_asgn_examples2 ⭐⭐
 
 theorem hoare_asgn_examples2 :
     ∃ P : Assertion,
       {{ P }}
-        X := 3;
+        X := 3
       {{ 0 ≤ X ∧ X ≤ 5 }} := by
   all_goals
-    exists {{ 0 ≤ X ∧ X ≤ 5 }} [X ↦ 3]
-    apply hoare_asgn
+    exists ({{ (0 ≤ X ∧ X ≤ 5) [X ↦ 3] }})
+    exact hoare_asgn
 
 -- ### Exercise (2 stars): hoare_asgn_wrong ⭐⭐
 
@@ -1219,17 +1296,25 @@ theorem hoare_asgn_examples2 :
 -- so your counterexample needs to exhibit an `a` for which the rule doesn't
 -- work.)
 
+-- Note to developers (Niklas Halonen @xhalo32):
+--     The following exercise provides explicit state arguments to a
+--     hypothesis:
+--
+--     `apply hc (st := ∅) (st' := X →ₜ 1)`
+--
+--     Should we demonstrate this with an example before this exercise?
+
 theorem hoare_asgn_wrong : ∃ a : Aexp,
-    ¬ {{ True }} X := ~a; {{ X = a }} := by
+    ¬ {{ True }} X := ~a {{ X = a }} := by
   all_goals
     exists aexp { X + 1 }
     intro hc
-    unfold ValidHoareTriple at hc
-    have h2 : (X →ₜ 1 ; ∅)[X] = (aexp { X + 1 }).eval (X →ₜ 1 ; ∅) := by
-      apply hc ∅ (X →ₜ 1 ; ∅)
+    rw [validHoareTriple_def] at hc
+    have h2 : (X →ₜ 1)[X] = (aexp { X + 1 }).eval (X →ₜ 1) := by
+      apply hc (st := ∅) (st' := X →ₜ 1)
       · apply Com.EvalR.asgn; rfl
       · exact True.intro
-    simp [TotalMap.update_eq] at h2
+    simp at h2
 
 -- If `a` itself mentions `X`, then the value of `a` may be different in the
 -- final state because of this update. For example, if `a` is `X + 1`, then
@@ -1264,21 +1349,18 @@ theorem hoare_asgn_wrong : ∃ a : Aexp,
 --     notation for the precondition, but it comes at the cost of having to
 --     "escape" the function in the postcondition.
 
-theorem hoare_asgn_fwd (m : Nat) (a : Aexp) (P : Assertion) :
+theorem hoare_asgn_fwd {m : Nat} {a : Aexp} {P : Assertion} :
     {{ P ∧ X = m }}
-      X := ~a;
+      X := ~a
     {{ fun st => P (X →ₜ m ; st)
          ∧ st[X] = a.eval (X →ₜ m ; st) }} := by
   all_goals
-    unfold ValidHoareTriple
-    intro st st' heval hpre
+    rw [validHoareTriple_def]
+    intro st st' heval ⟨hp, hx⟩
     inversion heval with
     | asgn n h =>
-      obtain ⟨hp, hx⟩ := hpre
-      subst h
-      have hx' : st[X] = m := hx
-      rw [← hx', TotalMap.update_eq, TotalMap.update_shadow,
-          TotalMap.update_same]
+      subst h hx
+      rw [TotalMap.update_eq, TotalMap.update_shadow, TotalMap.update_same]
       exact ⟨hp, rfl⟩
 
 -- ### Exercise (2 stars): hoare_asgn_fwd_exists (Advanced) ⭐⭐
@@ -1295,11 +1377,11 @@ theorem hoare_asgn_fwd (m : Nat) (a : Aexp) (P : Assertion) :
 
 theorem hoare_asgn_fwd_exists (a : Aexp) (P : Assertion) :
     {{ P }}
-      X := ~a;
+      X := ~a
     {{ fun st => ∃ m, P (X →ₜ m ; st) ∧
          st[X] = a.eval (X →ₜ m ; st) }} := by
   all_goals
-    unfold ValidHoareTriple
+    rw [validHoareTriple_def]
     intro st st' heval hpre
     inversion heval with
     | asgn n h =>
@@ -1355,25 +1437,23 @@ theorem hoare_asgn_fwd_exists (a : Aexp) (P : Assertion) :
 
 -- Here are the formal versions:
 
-theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
+theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
     {{ P }} ~c {{ Q }} := by
-  unfold ValidHoareTriple
+  rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
-  apply hhoare st st'
-  · assumption
-  · apply himp
-    assumption
+  apply hhoare heval
+  rw [assertImplies_def] at himp
+  exact himp _ hpre
 
-theorem hoare_consequence_post (P Q Q' : Assertion) (c : Com)
+theorem hoare_consequence_post {P Q Q' : Assertion} {c : Com}
     (hhoare : {{ P }} ~c {{ Q' }}) (himp : Q' ->> Q) :
     {{ P }} ~c {{ Q }} := by
-  unfold ValidHoareTriple
+  rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
+  rw [assertImplies_def] at himp
   apply himp
-  apply hhoare st st'
-  · assumption
-  · assumption
+  exact hhoare heval hpre
 
 -- For example, we can use the first consequence rule like this:
 
@@ -1385,13 +1465,13 @@ theorem hoare_consequence_post (P Q Q' : Assertion) (c : Com)
 -- Or, formally...
 
 theorem hoare_asgn_example1 :
-    {{True}} X := 1; {{X = 1}} := by
+    {{True}} X := 1 {{X = 1}} := by
   all_goals
-    apply hoare_consequence_pre
-    · apply hoare_asgn
-    · unfold AssertImplies Assertion.sub
+    apply hoare_consequence_pre (P' := {{ (X = 1) [X ↦ 1] }})
+    · exact hoare_asgn
+    · rw [assertImplies_def]
       intro st _
-      rfl
+      simp
 
 -- We can also use it to prove the example mentioned earlier.
 
@@ -1404,15 +1484,19 @@ theorem hoare_asgn_example1 :
 
 theorem assertion_sub_example2 :
     {{X < 4}}
-      X := X + 1;
+      X := X + 1
     {{X < 5}} := by
   all_goals
-    apply hoare_consequence_pre
-    · apply hoare_asgn
-    · unfold AssertImplies Assertion.sub
+    apply hoare_consequence_pre (P' := {{ (X < 5) [X ↦ X + 1] }})
+    · exact hoare_asgn
+    · rw [assertImplies_def]
       intro st h
-      simp [TotalMap.update_eq] at *
+      simp_all
       lia
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     The above proof uses `simp_all` purely because `lia` can't see that `X`
+--     and `"X"` are the same (they are currently marked as `@[simp]` in Imp).
 
 -- Finally, here is a combined rule of consequence that allows us to vary both
 -- the precondition and the postcondition.
@@ -1423,14 +1507,18 @@ theorem assertion_sub_example2 :
 --   -----------------------------   (hoare_consequence)
 --          {{P}} c {{Q}}
 
-theorem hoare_consequence (P P' Q Q' : Assertion) (c : Com)
+-- Note to developers (Niklas Halonen @xhalo32):
+--     In the following proof, `(P' := P')` is not necessary, however it
+--     avoids having a metavariable in the first goal. Another option is to
+--     just write
+--     `exact hoare_consequence_pre (hoare_consequence_post htriple hpost) hpre`.
+
+theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
     (htriple : {{ P' }} ~c {{ Q' }}) (hpre : P ->> P') (hpost : Q' ->> Q) :
     {{ P }} ~c {{ Q }} := by
   apply hoare_consequence_pre (P' := P')
-  · apply hoare_consequence_post (Q' := Q')
-    · assumption
-    · assumption
-  · assumption
+  · exact hoare_consequence_post htriple hpost
+  · exact hpre
 
 -- ### Automation
 
@@ -1438,12 +1526,14 @@ theorem hoare_consequence (P P' Q Q' : Assertion) (c : Com)
 -- streamlined using the automation techniques that we introduced in the
 -- *Automation* chapter of *Logical Foundations*.
 
--- Recall that the `simp` tactic can be told to unfold definitions as part of
--- its simplifications. The definitions we keep needing to unfold in this
--- chapter are `ValidHoareTriple`, `AssertImplies`, `Assertion.sub`, the
--- lifting functions `Assertion.ofProp`, `Aexp'.ofNat`, and `Aexp'.ofAexp`,
--- and the total-map operations. We'll pass these to `simp` explicitly below
--- (and shortly package the recipe up as a tactic of our own).
+-- Recall that `simp` rewrites with any lemmas we pass it. The definitions
+-- whose meaning we keep needing to expose in this chapter --
+-- `ValidHoareTriple`, `AssertImplies`, and `Assertion.subst` -- each come
+-- with a characterizing lemma (`validHoareTriple_def`, `assertImplies_def`,
+-- `Assertion.subst_def`) restating the definition as an equation. Passing
+-- these lemmas to `simp` replaces the defined notions by their meanings
+-- wherever they appear. We'll do that explicitly below (and shortly package
+-- the recipe up as a tactic of our own).
 
 -- Note to developers (Claude):
 --     The Rocq source here registers
@@ -1453,82 +1543,82 @@ theorem hoare_consequence (P P' Q Q' : Assertion) (c : Com)
 --     it does not affect `simpl`), so its Lean counterpart is the
 --     `assertion_auto` tactic's simp list below -- not global `@[simp]`
 --     lemmas as for the notation wrappers, whose folded names carry no
---     meaning in goals the way `->>` and `Assertion.sub` do.
+--     meaning in goals the way `->>` and `Assertion.subst` do.
+
+-- Note to developers (Niklas Halonen @xhalo32, NOW):
+--     The following paragraph is outdated.
 
 -- The proof of `hoare_consequence_pre`, repeated below, looks like an
 -- opportune place for automation, because all it does is `unfold`, `intro`,
 -- and `apply`. (It uses `assumption`, too, but that's just application of a
 -- hypothesis.)
 
+--   theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
+--       (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
+--       {{ P }} ~c {{ Q }} := by
+--     rw [validHoareTriple_def] at hhoare ⊢
+--     intro st st' heval hpre
+--     apply hhoare heval
+--     rw [assertImplies_def] at himp
+--     exact himp _ hpre
+
+-- Since `AssertImplies` is not marked `irreducible`, and `assertImplies_def`
+-- is a proof by definitional equality, we can skip the
+-- `rw [assertImplies_def] at himp` and use `P ->> P'` like an implication
+-- directly.
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     This needs a better explanation of when it's okay to use definitions
+--     without using their characterizing lemmas.
+
 theorem hoare_consequence_pre' (P P' Q : Assertion) (c : Com)
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
     {{ P }} ~c {{ Q }} := by
-  unfold ValidHoareTriple
+  rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
-  apply hhoare st st'
-  · assumption
-  · apply himp
-    assumption
+  apply hhoare heval
+  exact himp _ hpre
 
--- Notice that this proof passes the states `st` and `st'` to `apply
--- hhoare`
--- explicitly. We didn't actually need to: when an argument of the applied
--- theorem is not determined by the goal, `apply` introduces a *metavariable*
--- `?st` as a placeholder and lets a later step of the proof determine it.
--- Here, `assumption` instantiates `?st` with `st` when it discovers `st` in
--- the assumption `heval`. Using `apply` this way is like telling Lean, "Be
--- patient: The missing part is going to be filled in later in the proof."
+-- From now on, we will not usually rewrite `assertImplies_def` explicitly.
 
-theorem hoare_consequence_pre''' (P P' Q : Assertion) (c : Com)
+-- Since, after the `rw` and `intro`, the remaining steps just apply
+-- hypotheses to the goal (and each other), the remaining proof can be
+-- compressed into a single tactic: `apply_rules`.
+
+theorem hoare_consequence_pre'' (P P' Q : Assertion) (c : Com)
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
     {{ P }} ~c {{ Q }} := by
-  unfold ValidHoareTriple
+  rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
-  apply hhoare
-  · assumption
-  · apply himp
-    assumption
+  apply_rules
 
--- Since the remaining steps just apply hypotheses to each other, the entire
--- proof can actually be compressed into a single line, by writing the term
--- that `exact`ly proves the conclusion.
-
-theorem hoare_consequence_pre'''' (P P' Q : Assertion) (c : Com)
-    (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
-    {{ P }} ~c {{ Q }} := by
-  intro st st' heval hpre
-  exact hhoare st st' heval (himp st hpre)
-
--- Of course, it's hard to write such a one-liner without having gone through
--- the original proof of `hoare_consequence_pre` to see the steps it used. But
--- now that we know the shape of the argument, it's a good bet that the same
--- trick will also work for `hoare_consequence_post`.
+-- The same trick works for `hoare_consequence_post`.
 
 theorem hoare_consequence_post' (P Q Q' : Assertion) (c : Com)
     (hhoare : {{ P }} ~c {{ Q' }}) (himp : Q' ->> Q) :
     {{ P }} ~c {{ Q }} := by
+  rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
-  exact himp st' (hhoare st st' heval hpre)
+  apply_rules
 
--- We can also use a metavariable to streamline a proof
--- (`hoare_asgn_example1`), that we did earlier as an example of using the
--- consequence rule:
+-- We can also leave a metavariable for `P'` in `hoare_asgn_example1`, that we
+-- did earlier as an example of using the consequence rule:
 
 theorem hoare_asgn_example1' :
-    {{True}} X := 1; {{X = 1}} := by
-  apply hoare_consequence_pre  -- no need to state an assertion
-  · apply hoare_asgn
-  · unfold AssertImplies Assertion.sub
-    intro st _
-    rfl
+    {{True}} X := 1 {{X = 1}} := by
+  apply hoare_consequence_pre -- not specifying `(P' := ...)` leaves a "hole" `?P'`
+  · -- The goal is `{{?P'}} X := 1 {{X = 1}}`
+    exact hoare_asgn -- Assigns `?P'` to `{{ (X = 1) [X ↦ 1] }}` (automatically closing `case P'`)
+  · intro st _ -- Since `->>` is an implication, we can just use `intro` directly.
+    simp
 
 -- The final bullet of that proof also looks like a candidate for automation.
 
 theorem hoare_asgn_example1'' :
-    {{True}} X := 1; {{X = 1}} := by
+    {{True}} X := 1 {{X = 1}} := by
   apply hoare_consequence_pre
-  · apply hoare_asgn
-  · simp [AssertImplies, Assertion.sub, TotalMap.update_eq]
+  · exact hoare_asgn
+  · simp [assertImplies_def]
 
 -- Now we have quite a nice proof script: it simply identifies the Hoare rules
 -- that need to be used and leaves the remaining low-level details up to Lean
@@ -1547,38 +1637,45 @@ theorem hoare_asgn_example1'' :
 
 theorem assertion_sub_example2' :
     {{X < 4}}
-      X := X + 1;
+      X := X + 1
     {{X < 5}} := by
   apply hoare_consequence_pre
-  · apply hoare_asgn
-  · simp [AssertImplies, Assertion.sub, TotalMap.update_eq]  -- an arithmetic goal remains
+  · exact hoare_asgn
+  · simp [assertImplies_def] -- an arithmetic goal remains
     lia
 
 -- Let's introduce our own tactic to handle both that bullet and the bullet
 -- from example 1. A `macro` declaration gives a name to a canned sequence of
 -- tactics:
 
-/-- Prove routine facts about assertions: unfold the Hoare-logic
-definitions and lifting functions, simplify, and finish any leftover
-arithmetic with `lia`. -/
+-- Note to developers (Niklas Halonen @xhalo32):
+--     It's unfortunate that we need to unfold `X, Y, Z, W` in
+--     `assertion_auto` as `simp` wouldn't otherwise reduce `X == Y` to
+--     `false`. Note that `Ident` is an `abbrev`. Making it an
+--     `implicit_reducible` def breaks `lia` for some reason and doesn't
+--     resolve the issue.
+--
+--     `@[implicit_reducible]
+--     def Ident := String
+--     deriving BEq, ReflBEq, LawfulBEq, DecidableEq`
+
 macro "assertion_auto" : tactic =>
-  `(tactic| (intros
-             <;> try (simp [assertImplies_def, ValidHoareTriple, Assertion.sub,
-                            W, X, Y, Z] at *)
-             <;> try lia))
+  `(tactic| focus (simp +decide [assertImplies_def, assertIff_def, validHoareTriple_def,
+                                Assertion.subst_def] at *
+                  <;> lia))
 
 theorem assertion_sub_example2'' :
     {{X < 4}}
-      X := X + 1;
+      X := X + 1
     {{X < 5}} := by
   apply hoare_consequence_pre
-  · apply hoare_asgn
+  · exact hoare_asgn
   · assertion_auto
 
 theorem hoare_asgn_example1''' :
-    {{True}} X := 1; {{X = 1}} := by
+    {{True}} X := 1 {{X = 1}} := by
   apply hoare_consequence_pre
-  · apply hoare_asgn
+  · exact hoare_asgn
   · assertion_auto
 
 -- Again, we have quite a nice proof script. All the low-level details of
@@ -1593,20 +1690,20 @@ theorem hoare_asgn_example1''' :
 
 theorem assertion_sub_ex1' :
     {{ X ≤ 5 }}
-      X := 2 * X;
+      X := 2 * X
     {{ X ≤ 10 }} := by
   all_goals
     apply hoare_consequence_pre
-    · apply hoare_asgn
+    · exact hoare_asgn
     · assertion_auto
 
 theorem assertion_sub_ex2' :
     {{ 0 ≤ 3 ∧ 3 ≤ 5 }}
-      X := 3;
+      X := 3
     {{ 0 ≤ X ∧ X ≤ 5 }} := by
   all_goals
     apply hoare_consequence_pre
-    · apply hoare_asgn
+    · exact hoare_asgn
     · assertion_auto
 
 -- ### Sequencing + Assignment
@@ -1618,14 +1715,14 @@ theorem assertion_sub_ex2' :
 theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
     {{a = n}}
       X := ~a;
-      skip;
+      skip
     {{X = n}} := by
   apply hoare_seq
   · -- right part of seq
-    apply hoare_skip
+    exact hoare_skip
   · -- left part of seq
     apply hoare_consequence_pre
-    · apply hoare_asgn
+    · exact hoare_asgn
     · assertion_auto
 
 -- Informally, a nice way of displaying a proof using the sequencing rule is
@@ -1662,18 +1759,18 @@ theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
 theorem hoare_asgn_example4 :
     {{ True }}
       X := 1;
-      Y := 2;
+      Y := 2
     {{ X = 1 ∧ Y = 2 }} := by
   apply hoare_seq (Q := {{ X = 1 }})
   · -- right part of seq
     all_goals
       apply hoare_consequence_pre
-      · apply hoare_asgn
+      · exact hoare_asgn
       · assertion_auto
   · -- left part of seq
     all_goals
       apply hoare_consequence_pre
-      · apply hoare_asgn
+      · exact hoare_asgn
       · assertion_auto
 
 -- ### Exercise (3 stars): swap_exercise ⭐⭐⭐
@@ -1683,7 +1780,7 @@ theorem hoare_asgn_example4 :
 
 --   {{X ≤ Y}} c {{Y ≤ X}}
 
--- Your proof should not need to use `unfold ValidHoareTriple`.
+-- Your proof should not need to use `rw [validHoareTriple_def]`.
 
 -- Hints:
 
@@ -1711,21 +1808,20 @@ theorem hoare_asgn_example4 :
 --        Maybe move this decorated program to the decorated programs
 --        section, since it's a good warm-up exercise.`
 
-def swap_program : Com :=
-  (imp { Z := X; X := Y; Y := Z; })
+def swap_program : Com := (imp { Z := X; X := Y; Y := Z })
 
 theorem swap_exercise :
     {{X ≤ Y}}
       ~swap_program
     {{Y ≤ X}} := by
   all_goals
-    unfold swap_program
+    rw [swap_program]
     apply hoare_seq
     · apply hoare_seq
-      · apply hoare_asgn
-      · apply hoare_asgn
+      · exact hoare_asgn
+      · exact hoare_asgn
     · apply hoare_consequence_pre
-      · apply hoare_asgn
+      · exact hoare_asgn
       · assertion_auto
 
 -- ### Exercise (4 stars): invalid_triple (Advanced) ⭐⭐⭐⭐
@@ -1763,20 +1859,16 @@ theorem swap_exercise :
 
 theorem invalid_triple : ¬ ∀ (a : Aexp) (n : Nat),
     {{ a = n }}
-      X := 3; Y := ~a;
+      X := 3; Y := ~a
     {{ Y = n }} := by
-  unfold ValidHoareTriple
   intro h
+  simp only [validHoareTriple_def] at h
   all_goals
-    specialize h (aexp { X }) 2 (X →ₜ 2 ; ∅) (Y →ₜ 3 ; X →ₜ 3 ; X →ₜ 2 ; ∅)
-    have heval : (X →ₜ 2 ; ∅) =[ X := 3; Y := X; ]=>
-        (Y →ₜ 3 ; X →ₜ 3 ; X →ₜ 2 ; ∅) := by
-      apply Com.EvalR.seq
+    specialize h (aexp { X }) 2 (st := X →ₜ 2) (st' := Y →ₜ 3 ; X →ₜ 3 ; X →ₜ 2) ?_
+    · apply Com.EvalR.seq
       · apply Com.EvalR.asgn; rfl
       · apply Com.EvalR.asgn; rfl
-    apply h at heval
-    have hcontra := heval rfl
-    simp [TotalMap.update_eq] at hcontra
+    simp at h
 
 -- ### Conditionals
 
@@ -1815,36 +1907,20 @@ theorem invalid_triple : ¬ ∀ (a : Aexp) (n : Nat),
 --   ------------------------------------  (hoare_if)
 --   {{P}} if b then c1 else c2 end {{Q}}
 
--- Strictly speaking, `P ∧ b` combines an assertion with a boolean expression.
--- The assertion notation handles this by evaluating `b` in the current state.
--- We'll write `bassertion b` for the resulting assertion: "the boolean
--- expression `b` evaluates to `true` in the given state."
-
-def bassertion (b : Bexp) : Assertion := {{ b }}
-
-@[simp] theorem bassertion_apply (b : Bexp) (st : State) :
-    bassertion b st = (b.eval st = true) := rfl
-
-instance : Coe Bexp Assertion := ⟨bassertion⟩
-
--- A useful fact about `bassertion`:
-
--- Note to developers (before next release):
---     `Robert Rand: This isn't an identity but that's because
---     we're using [~(bassertion b st)] in our triples, instead of a more
---     direct/intuitive predicate.
+-- Note to developers (Niklas Halonen @xhalo32):
+--     I have removed `bassertion` as it's an unnecessary abstraction and only
+--     adds overhead for the reader.
 --
---     Some alternatives: 1) P_True b and P_False b (defined directly as
---     desired) 1) bassertion b false (adds relevant argument to bassertion)
---     2) ((bassertion (!b)) st) (clearer, but less direct).`
+--     The following theorem is now unnecessary.
 
 theorem bexp_eval_false (b : Bexp) (st : State) (h : b.eval st = false) :
     ¬ ({{ b }}) st := by
+  dsimp
   simp [h]
 
--- Here `simp` is able to find that `b.eval st` is assumed to be `false` (by
--- rewriting with `h`), notice that the goal claims it is `true`, and use the
--- resulting contradiction to complete the proof.
+-- Here, we first reduce the expression to `¬Bexp.eval st b = true` with
+-- `dsimp`, which is trivial after we instruct `simp` to rewrite `b.eval st`
+-- to `false`.
 
 -- Note to developers (One An @meluge):
 --     The Rocq proof is the single tactic `congruence`. Using simp seems to
@@ -1857,20 +1933,17 @@ theorem bexp_eval_false (b : Bexp) (st : State) (h : b.eval st = false) :
 -- `hfalse : {{ P ∧ ¬b }} ~c2 {{Q}}`, we can conclude
 -- `{{P}} if (~b) { ~c1 } else { ~c2 } {{Q}}`.
 
--- That is (unwrapping the notations):
-
---   theorem hoare_if (P Q : Assertion) (b : Bexp) (c1 c2 : Com)
---       (htrue : ValidHoareTriple (fun st => P st ∧ bassertion b st) c1 Q)
---       (hfalse : ValidHoareTriple (fun st => P st ∧ ¬ (bassertion b st)) c2 Q) :
---       ValidHoareTriple P (Com.cond b c1 c2) Q
-
-theorem hoare_if (P Q : Assertion) (b : Bexp) (c1 c2 : Com)
+theorem hoare_if {P Q : Assertion} {b : Bexp} {c1 c2 : Com}
     (htrue : {{ P ∧ b }} ~c1 {{ Q }}) (hfalse : {{ P ∧ ¬ b }} ~c2 {{ Q }}) :
     {{ P }} if (~b) { ~c1 } else { ~c2 } {{ Q }} := by
-  intro st st' hE hP
+  rw [validHoareTriple_def] at htrue hfalse ⊢
+  intro st st' hE hpre
   inversion hE with
-  | ifTrue hb hc => exact htrue _ _ hc ⟨hP, hb⟩
-  | ifFalse hb hc => exact hfalse _ _ hc ⟨hP, bexp_eval_false b st hb⟩
+  | ifTrue hb hc1 =>
+    exact htrue hc1 ⟨hpre, hb⟩
+  | ifFalse hb hc =>
+    rw [← Bool.not_eq_true] at hb
+    exact hfalse hc ⟨hpre, hb⟩
 
 -- #### Example
 
@@ -1880,79 +1953,49 @@ theorem hoare_if (P Q : Assertion) (b : Bexp) (c1 c2 : Com)
 theorem if_example :
     {{True}}
       if (X = 0) {
-        Y := 2;
+        Y := 2
       } else {
-        Y := X + 1;
-      }
-    {{X ≤ Y}} := by
-  -- the proof is the same for both the true and false branches
-  apply hoare_if <;>
-  · apply hoare_consequence_pre
-    · apply hoare_asgn
-    · assertion_auto
-
--- As we did earlier, it would be nice to eliminate all the low-level proof
--- script that isn't about the Hoare rules. Unfortunately, the
--- `assertion_auto` tactic we wrote wasn't quite up to the job. Looking at the
--- proof of `if_example`, we can see why: we had to unfold a definition
--- (`bassertion`) that we didn't need in earlier proofs. (The step from the
--- boolean equality test `st[X] == 0` to the equation `st[X] = 0` is handled
--- by lemmas `simp` already knows, such as `beq_iff_eq`.) So, let's add the
--- unfolding into our tactic.
-
--- Note to developers:
---     HIDE: MRC'20: There's probably a better way to engineer this. I don't
---     know Ltac very well though.
-
--- Now the proof is quite streamlined.
-
-theorem if_example'' :
-    {{True}}
-      if (X = 0) {
-        Y := 2;
-      } else {
-        Y := X + 1;
+        Y := X + 1
       }
     {{X ≤ Y}} := by
   apply hoare_if
-  · apply hoare_consequence_pre
-    · apply hoare_asgn
+  · -- Then
+    apply hoare_consequence_pre
+    · exact hoare_asgn
     · assertion_auto
-  · apply hoare_consequence_pre
-    · apply hoare_asgn
+  · -- Else
+    apply hoare_consequence_pre
+    · exact hoare_asgn
     · assertion_auto
 
 -- We can even shorten it a little bit more.
 
-theorem if_example''' :
+theorem if_example' :
     {{True}}
       if (X = 0) {
-        Y := 2;
+        Y := 2
       } else {
-        Y := X + 1;
+        Y := X + 1
       }
     {{X ≤ Y}} := by
-  apply hoare_if <;> apply hoare_consequence_pre <;>
-    (try apply hoare_asgn) <;> try assertion_auto
+  apply hoare_if <;> apply hoare_consequence_pre hoare_asgn (by assertion_auto)
 
 -- ### Exercise (2 stars): if_minus_plus ⭐⭐
 
--- Prove the theorem below using `hoare_if`. Do not use
--- `unfold
--- ValidHoareTriple`. The `assertion_auto` tactic we just defined may
--- be useful.
+-- Prove the theorem below using `hoare_if`. Do not use unfold
+-- `ValidHoareTriple`. The `assertion_auto` tactic we just defined may be
+-- useful.
 
 theorem if_minus_plus :
     {{True}}
       if (X ≤ Y) {
-        Z := Y - X;
+        Z := Y - X
       } else {
-        Y := X + Z;
+        Y := X + Z
       }
     {{Y = X + Z}} := by
   all_goals
-    apply hoare_if <;> apply hoare_consequence_pre <;>
-      (try apply hoare_asgn) <;> try assertion_auto
+    apply hoare_if <;> apply hoare_consequence_pre hoare_asgn (by assertion_auto)
 
 -- #### Exercise: One-sided conditionals
 
@@ -1972,7 +2015,6 @@ theorem if_minus_plus :
 -- polluting the global name space. The `scoped` notations below are active
 -- only inside `namespace If1`.)
 
-end -- closes `open scoped ValidHoareTriple`
 namespace If1
 
 inductive Com : Type where
@@ -1983,43 +2025,63 @@ inductive Com : Type where
   | whileDo : Bexp → Com → Com
   | if1 : Bexp → Com → Com
 
-/-- If1 commands: Imp commands plus `if1` -/
-declare_syntax_cat if1_com
-/-- The command that does nothing (`skip;`) -/
-syntax ident ";" : if1_com
-/-- Sequencing: one command after another -/
-syntax if1_com ppDedent(ppLine if1_com) : if1_com
-/-- Assignment -/
-syntax ident " := " imp_aexp ";" : if1_com
-/-- Conditional -/
-syntax "if " "(" imp_bexp ")" ppHardSpace "{" ppLine if1_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine if1_com ppDedent(ppLine "}") : if1_com
-/-- Loop -/
-syntax "while " "(" imp_bexp ")" ppHardSpace "{" ppLine if1_com ppDedent(ppLine "}") : if1_com
 /-- One-sided conditional -/
-syntax "if1 " "(" imp_bexp ")" ppHardSpace "{" ppLine if1_com ppDedent(ppLine "}") : if1_com
-/-- Escape to Lean -/
-syntax:max "~" term:max : if1_com
-
-/-- Include an If1 command in Lean code -/
-syntax:min "imp1" ppHardSpace "{" ppLine if1_com ppDedent(ppLine "}") : term
+scoped syntax "if1 " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : imp_com
 
 open Lean in
-macro_rules
-  | `(imp1 { $x:ident ; }) =>
+scoped macro_rules
+  | `(imp { $x:ident }) =>
     if x.getId == `skip then `(Com.skip)
     else Macro.throwErrorAt x s!"expected 'skip', got '{x.getId}'"
-  | `(imp1 { $c1 $c2 }) =>
-    `(Com.seq (imp1 {$c1}) (imp1 {$c2}))
-  | `(imp1 { $x:ident := $a; }) =>
+  | `(imp { $c1; $c2 }) =>
+    `(Com.seq (imp {$c1}) (imp {$c2}))
+  | `(imp { $x:ident := $a }) =>
     `(Com.asgn $x (aexp {$a}))
-  | `(imp1 { if ($b) {$c1} else {$c2} }) =>
-    `(Com.cond (bexp {$b}) (imp1 {$c1}) (imp1 {$c2}))
-  | `(imp1 { while ($b) {$c} }) =>
-    `(Com.whileDo (bexp {$b}) (imp1 {$c}))
-  | `(imp1 { if1 ($b) {$c} }) =>
-    `(Com.if1 (bexp {$b}) (imp1 {$c}))
-  | `(imp1 { ~$c }) =>
+  | `(imp { if ($b) {$c1} else {$c2} }) =>
+    `(Com.cond (bexp {$b}) (imp {$c1}) (imp {$c2}))
+  | `(imp { while ($b) {$c} }) =>
+    `(Com.whileDo (bexp {$b}) (imp {$c}))
+  | `(imp { if1 ($b) {$c} }) =>
+    `(Com.if1 (bexp {$b}) (imp {$c}))
+  | `(imp { ~$c }) =>
     pure c
+
+-- The delaborators are re-instantiated the same way: the Imp printer is
+-- parameterized over the namespace of the command constructors, so the
+-- extended printer is that printer at `If1.Com` plus one case for `if1`.
+
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing the extended commands back
+
+namespace Delab
+open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+
+/-- Rebuild `imp_com` syntax from an `If1.Com` term. -/
+partial def delabComInner : DelabM (TSyntax `imp_com) :=
+  delabComInnerFor ``Com do
+    let e ← getExpr
+    guard <| e.isAppOfArity ``Com.if1 2
+    let b ← withAppFn <| withAppArg delabBexpInner
+    let c ← withAppArg If1.Delab.delabComInner
+    `(imp_com| if1 ($b) {$c})
+
+@[delab app.If1.Com.skip, delab app.If1.Com.asgn, delab app.If1.Com.seq,
+  delab app.If1.Com.cond, delab app.If1.Com.whileDo, delab app.If1.Com.if1]
+partial def delabCom : Delab := whenPPOption getPPNotation do
+  guard <| match_expr ← getExpr with
+    | Com.skip => true
+    | Com.asgn _ _ => true
+    | Com.seq _ _ => true
+    | Com.cond _ _ _ => true
+    | Com.whileDo _ _ => true
+    | Com.if1 _ _ => true
+    | _ => false
+  match ← delabComInner with
+  | `(imp_com| ~$e) => pure e
+  | e => `(term| imp { $e })
+
+end Delab
+
+-- END DETAILS
 
 -- ### Exercise (2 stars): if1_ceval ⭐⭐
 
@@ -2027,76 +2089,79 @@ macro_rules
 -- the rules for `if` guide you.
 
 inductive Com.EvalR : Com → State → State → Prop where
-  | skip (st : State) :
-      EvalR (imp1 {skip;}) st st
-  | asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : a.eval st = n) :
-      EvalR (imp1 {x := ~a;}) st (x →ₜ n ; st)
-  | seq (c1 c2 : Com) (st st' st'' : State)
+  | skip {st : State} :
+      EvalR (imp {skip}) st st
+  | asgn {st : State} (a : Aexp) {n : Nat} (x : Ident) (h : a.eval st = n) :
+      EvalR (imp {x := ~a}) st (x →ₜ n ; st)
+  | seq {c1 c2 : Com} (st st' st'' : State)
       (h1 : EvalR c1 st st') (h2 : EvalR c2 st' st'') :
-      EvalR (imp1 {~c1 ~c2}) st st''
-  | ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = true)
+      EvalR (imp {~c1; ~c2}) st st''
+  | ifTrue {st st' : State} (b : Bexp) {c1 c2 : Com} (hb : b.eval st = true)
       (hc : EvalR c1 st st') :
-      EvalR (imp1 {if (~b) {~c1} else {~c2} }) st st'
-  | ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = false)
+      EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
+  | ifFalse {st st' : State} (b : Bexp) {c1 c2 : Com} (hb : b.eval st = false)
       (hc : EvalR c2 st st') :
-      EvalR (imp1 {if (~b) {~c1} else {~c2} }) st st'
-  | whileFalse (b : Bexp) (st : State) (c : Com) (hb : b.eval st = false) :
-      EvalR (imp1 {while (~b) {~c} }) st st
-  | whileTrue (st st' st'' : State) (b : Bexp) (c : Com)
+      EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
+  | whileFalse {b : Bexp} (st : State) (c : Com) (hb : b.eval st = false) :
+      EvalR (imp {while (~b) {~c} }) st st
+  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st st')
-      (hloop : EvalR (imp1 {while (~b) {~c} }) st' st'') :
-      EvalR (imp1 {while (~b) {~c} }) st st''
-  | if1True (st st' : State) (b : Bexp) (c : Com) (hb : b.eval st = true)
+      (hloop : EvalR (imp {while (~b) {~c} }) st' st'') :
+      EvalR (imp {while (~b) {~c} }) st st''
+  | if1True {st st' : State} {b : Bexp} {c : Com} (hb : b.eval st = true)
       (hc : EvalR c st st') :
-      EvalR (imp1 {if1 (~b) {~c} }) st st'
-  | if1False (st : State) (b : Bexp) (c : Com) (hb : b.eval st = false) :
-      EvalR (imp1 {if1 (~b) {~c} }) st st
+      EvalR (imp {if1 (~b) {~c} }) st st'
+  | if1False {st : State} {b : Bexp} {c : Com} (hb : b.eval st = false) :
+      EvalR (imp {if1 (~b) {~c} }) st st
 
-scoped notation:40 (priority := high) st0:41 " =[ " c " ]=> " st1:41 =>
-  Com.EvalR c st0 st1
-scoped syntax:40 (priority := high) term:41 " =[ " if1_com " ]=> " term:41 : term
-scoped macro_rules
-  | `($st0 =[ $c:if1_com ]=> $st1) => `($st0 =[ imp1 { $c } ]=> $st1)
+instance : HasEval Com State State where
+  Eval := Com.EvalR
+
+@[app_unexpander Com.EvalR]
+def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
+  | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
+  | _ => throw ()
 
 -- The following unit tests should be provable simply by applying your new
 -- rules (plus `rfl` for the boolean side conditions) if you have defined them
 -- correctly.
 
 theorem if1true_test :
-    ∅ =[ if1 (X = 0) { X := 1; } ]=> (X →ₜ 1 ; ∅) := by
+    ∅ =[ if1 (X = 0) { X := 1 } ]=> (X →ₜ 1) := by
   all_goals
     apply Com.EvalR.if1True
     · rfl
     · apply Com.EvalR.asgn; rfl
 
 theorem if1false_test :
-    (X →ₜ 2 ; ∅) =[ if1 (X = 0) { X := 1; } ]=> (X →ₜ 2 ; ∅) := by
+    (X →ₜ 2) =[ if1 (X = 0) { X := 1 } ]=> (X →ₜ 2) := by
   all_goals
     apply Com.EvalR.if1False
     rfl
+
+-- Note to developers:
+--     This is outdated. It should explain `HasTriple`
 
 -- Now we have to repeat the definition and notation of Hoare triples, so that
 -- they will use the updated `Com` type.
 
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
-  ∀ st st',
+  ∀ {st st' : State},
     (st =[ c ]=> st') →
     P st →
     Q st'
 
-namespace ValidHoareTriple
+instance : HasTriple Com where
+  Triple := ValidHoareTriple
 
-/-- Hoare triple over If1 commands -/
-scoped syntax:lead "{{" term "}} " if1_com:lead " {{" term "}}" : term
+theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
+    {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
+      (st =[ c ]=> st') →
+      P st →
+      Q st' := by rfl
 
-macro_rules
-  | `({{ $P }} $c:if1_com {{ $Q }}) =>
-      `(ValidHoareTriple ({{ $P }}) (imp1 { $c }) ({{ $Q }}))
-
-end ValidHoareTriple
-
-open scoped ValidHoareTriple
+attribute [irreducible] ValidHoareTriple
 
 -- ### Exercise (2 stars): hoare_if1 (manually graded) ⭐⭐
 
@@ -2117,10 +2182,14 @@ theorem hoare_if1 (b : Bexp) (c : Com) (P Q : Assertion)
     (htrue : {{ P ∧ b }} ~c {{ Q }})
     (hfalse : ({{ P ∧ ¬ b }}) ->> Q) :
     {{ P }} if1 (~b) { ~c } {{ Q }} := by
+  rw [validHoareTriple_def] at htrue ⊢
   intro st st' heval hpre
   inversion heval with
-  | if1True hb hc => exact htrue _ _ hc ⟨hpre, hb⟩
-  | if1False hb => exact hfalse _ ⟨hpre, bexp_eval_false b st hb⟩
+  | if1True hb hc =>
+    exact htrue hc ⟨hpre, hb⟩
+  | if1False hb =>
+    apply hfalse
+    simp [hpre, hb]
 
 -- For example (`hoare_if1_good`) your rule should be strong enough to show
 -- the following Hoare triple is valid:
@@ -2134,15 +2203,18 @@ theorem hoare_if1 (b : Bexp) (c : Com) (P Q : Assertion)
 -- Before the next exercise, we need to restate the Hoare rules of consequence
 -- (for preconditions) and assignment for the new `Com` type.
 
-theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
+theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
     {{ P }} ~c {{ Q }} := by
+  rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
-  exact hhoare st st' heval (himp st hpre)
+  exact hhoare heval (himp st hpre)
 
-theorem hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :
-    {{Q [x ↦ ~a]}} x := ~a; {{ Q }} := by
+theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
+    {{Q [x ↦ ~a]}} x := ~a {{ Q }} := by
+  rw [validHoareTriple_def]
   intro st st' heval hQ
+  rw [Assertion.subst_apply] at hQ
   inversion heval with
   | asgn n h =>
     subst h
@@ -2168,19 +2240,17 @@ theorem hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :
 theorem hoare_if1_good :
     {{ X + Y = Z }}
       if1 (Y ≠ 0) {
-        X := X + Y;
+        X := X + Y
       }
     {{ X = Z }} := by
   all_goals
     apply hoare_if1
     · apply hoare_consequence_pre
-      · apply hoare_asgn
+      · exact hoare_asgn
       · assertion_auto
     · assertion_auto
 
 end If1
-section
-open scoped ValidHoareTriple
 
 -- ### While Loops
 
@@ -2233,38 +2303,31 @@ open scoped ValidHoareTriple
 --     HIDE: The big comment will not display nicely. But I guess it's
 --     folded...
 
-theorem hoare_while (P : Assertion) (b : Bexp) (c : Com)
+-- Note to developers (Niklas Halonen @xhalo32):
+--     We need to explain the `generalize` tactic.
+
+theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
     (hhoare : {{P ∧ b}} ~c {{ P }}) :
     {{ P }} while (~b) { ~c } {{P ∧ ¬ b}} := by
-  intro st st' heval hP
+  rw [validHoareTriple_def] at hhoare ⊢
+  intro st st' heval hpre
   /- We proceed by induction on `heval`, because, in the "keep
   looping" case, its hypotheses talk about the whole loop instead
-  of just `c`. The auxiliary statement `key` generalizes over an
+  of just `c`. We begin by generalizing over an
   arbitrary command, together with an equation remembering that the
-  command is the original loop; otherwise, that information would
-  be lost in the induction. The cases for commands other than
+  command is the original loop. The cases for commands other than
   `while` are dismissed because their equations are contradictory. -/
-  have key : ∀ (cmd : Com) (s s' : State), (s =[ cmd ]=> s') →
-      cmd = (imp { while (~b) { ~c } }) → P s →
-      P s' ∧ ¬ bassertion b s' := by
-    intro cmd s s' hev
-    induction hev with
-    | whileFalse b0 s0 c0 hb =>
-        intro heq hp
-        injection heq with e1 _
-        subst e1
-        exact ⟨hp, bexp_eval_false _ _ hb⟩
-    | whileTrue s0 s0' s0'' b0 c0 hb hc hloop ih1 ih2 =>
-        intro heq hp
-        injection heq with e1 e2
-        subst e1 e2
-        exact ih2 rfl (hhoare _ _ hc ⟨hp, hb⟩)
-    | skip s0 => intro heq; simp at heq
-    | asgn s0 a n x h => intro heq; simp at heq
-    | seq c1 c2 s0 s0' s0'' h1 h2 ih1 ih2 => intro heq; simp at heq
-    | ifTrue s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
-    | ifFalse s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
-  exact key _ st st' heval rfl hP
+  generalize heq : (imp { while (~b) { ~c } }) = cmd at heval
+  induction heval with
+  | @whileFalse b0 s0 c0 hb =>
+    injection heq with hbeq hceq
+    simp_all
+  | @whileTrue s0 s0' s0'' b0 c0 hb hc hloop ih1 ih2 =>
+    injection heq with hbeq hceq
+    subst hbeq hceq
+    exact ih2 (hhoare hc ⟨hpre, hb⟩) rfl
+  | skip | asgn | seq | ifTrue | ifFalse =>
+    contradiction
 
 -- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     This definition / discussion could be clearer.
@@ -2384,13 +2447,13 @@ theorem hoare_while (P : Assertion) (b : Bexp) (c : Com)
 theorem while_example :
     {{X ≤ 3}}
       while (X ≤ 2) {
-        X := X + 1;
+        X := X + 1
       }
     {{X = 3}} := by
   apply hoare_consequence_post
   · apply hoare_while
     apply hoare_consequence_pre
-    · apply hoare_asgn
+    · exact hoare_asgn
     · assertion_auto
   · assertion_auto
 
@@ -2449,14 +2512,14 @@ theorem while_example :
 -- If the loop never terminates, any postcondition will work.
 
 theorem always_loop_hoare (Q : Assertion) :
-    {{True}} while (true) { skip; } {{ Q }} := by
+    {{True}} while (true) { skip } {{ Q }} := by
   apply hoare_consequence_post
   · apply hoare_while
     apply hoare_post_true
     intro st
     exact True.intro
-  · intro st ⟨_hinv, hguard⟩
-    exact absurd rfl hguard
+  · intro st ⟨_, hguard⟩
+    simp at hguard
 
 -- Of course, this result is not surprising if we remember that the definition
 -- of `ValidHoareTriple` asserts that the postcondition must hold *only* when
@@ -2486,7 +2549,6 @@ theorem always_loop_hoare (Q : Assertion) :
 -- `repeat { c } until (b)`. You will write the evaluation rule for `repeat`
 -- and add a new Hoare rule to the language for programs involving it.
 
-end
 namespace RepeatExercise
 
 inductive Com : Type where
@@ -2502,43 +2564,25 @@ inductive Com : Type where
 -- guard stays *false*. Because of this, the body will always execute at least
 -- once.
 
-/-- Repeat-Imp commands: Imp commands plus `repeat` -/
-declare_syntax_cat rpt_com
 /-- Repeat loop -/
-syntax "repeat" ppHardSpace "{" ppLine rpt_com ppDedent(ppLine "}") " until " "(" imp_bexp ")" : rpt_com
-
-/-- The command that does nothing (`skip;`) -/
-syntax ident ";" : rpt_com
-/-- Sequencing: one command after another -/
-syntax rpt_com ppDedent(ppLine rpt_com) : rpt_com
-/-- Assignment -/
-syntax ident " := " imp_aexp ";" : rpt_com
-/-- Conditional -/
-syntax "if " "(" imp_bexp ")" ppHardSpace "{" ppLine rpt_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine rpt_com ppDedent(ppLine "}") : rpt_com
-/-- Loop -/
-syntax "while " "(" imp_bexp ")" ppHardSpace "{" ppLine rpt_com ppDedent(ppLine "}") : rpt_com
-/-- Escape to Lean -/
-syntax:max "~" term:max : rpt_com
-
-/-- Include a Repeat-Imp command in Lean code -/
-syntax:min "impr" ppHardSpace "{" ppLine rpt_com ppDedent(ppLine "}") : term
+syntax "repeat" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") " until " "(" imp_bexp ")" : imp_com
 
 open Lean in
-macro_rules
-  | `(impr { $x:ident ; }) =>
+scoped macro_rules
+  | `(imp { $x:ident }) =>
     if x.getId == `skip then `(Com.skip)
     else Macro.throwErrorAt x s!"expected 'skip', got '{x.getId}'"
-  | `(impr { $c1 $c2 }) =>
-    `(Com.seq (impr {$c1}) (impr {$c2}))
-  | `(impr { $x:ident := $a; }) =>
+  | `(imp { $c1; $c2 }) =>
+    `(Com.seq (imp {$c1}) (imp {$c2}))
+  | `(imp { $x:ident := $a }) =>
     `(Com.asgn $x (aexp {$a}))
-  | `(impr { if ($b) {$c1} else {$c2} }) =>
-    `(Com.cond (bexp {$b}) (impr {$c1}) (impr {$c2}))
-  | `(impr { while ($b) {$c} }) =>
-    `(Com.whileDo (bexp {$b}) (impr {$c}))
-  | `(impr { repeat {$c} until ($b) }) =>
-    `(Com.repeatUntil (impr {$c}) (bexp {$b}))
-  | `(impr { ~$c }) =>
+  | `(imp { if ($b) {$c1} else {$c2} }) =>
+    `(Com.cond (bexp {$b}) (imp {$c1}) (imp {$c2}))
+  | `(imp { while ($b) {$c} }) =>
+    `(Com.whileDo (bexp {$b}) (imp {$c}))
+  | `(imp { repeat {$c} until ($b) }) =>
+    `(Com.repeatUntil (imp {$c}) (bexp {$b}))
+  | `(imp { ~$c }) =>
     pure c
 
 -- ### Exercise (4 stars): hoare_repeat (Advanced, manually graded) ⭐⭐⭐⭐
@@ -2548,77 +2592,85 @@ macro_rules
 -- execute at least once, and that the loop ends when the guard becomes true.
 
 inductive Com.EvalR : Com → State → State → Prop where
-  | skip (st : State) :
-      EvalR (impr {skip;}) st st
-  | asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : a.eval st = n) :
-      EvalR (impr {x := ~a;}) st (x →ₜ n ; st)
-  | seq (c1 c2 : Com) (st st' st'' : State)
+  | skip {st : State} :
+      EvalR (imp {skip}) st st
+  | asgn {st : State} (a : Aexp) {n : Nat} (x : Ident) (h : a.eval st = n) :
+      EvalR (imp {x := ~a}) st (x →ₜ n ; st)
+  | seq {c1 c2 : Com} (st st' st'' : State)
       (h1 : EvalR c1 st st') (h2 : EvalR c2 st' st'') :
-      EvalR (impr {~c1 ~c2}) st st''
-  | ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = true)
+      EvalR (imp {~c1; ~c2}) st st''
+  | ifTrue {st st' : State} (b : Bexp) {c1 c2 : Com} (hb : b.eval st = true)
       (hc : EvalR c1 st st') :
-      EvalR (impr {if (~b) {~c1} else {~c2} }) st st'
-  | ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = false)
+      EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
+  | ifFalse {st st' : State} (b : Bexp) {c1 c2 : Com} (hb : b.eval st = false)
       (hc : EvalR c2 st st') :
-      EvalR (impr {if (~b) {~c1} else {~c2} }) st st'
-  | whileFalse (b : Bexp) (st : State) (c : Com) (hb : b.eval st = false) :
-      EvalR (impr {while (~b) {~c} }) st st
-  | whileTrue (st st' st'' : State) (b : Bexp) (c : Com)
+      EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
+  | whileFalse {b : Bexp} (st : State) (c : Com) (hb : b.eval st = false) :
+      EvalR (imp {while (~b) {~c} }) st st
+  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st st')
-      (hloop : EvalR (impr {while (~b) {~c} }) st' st'') :
-      EvalR (impr {while (~b) {~c} }) st st''
-  | repeatEnd (st st' : State) (b : Bexp) (c : Com) (hc : EvalR c st st')
+      (hloop : EvalR (imp {while (~b) {~c} }) st' st'') :
+      EvalR (imp {while (~b) {~c} }) st st''
+  | repeatEnd {st st' : State} {b : Bexp} {c : Com} (hc : EvalR c st st')
       (hb : b.eval st' = true) :
-      EvalR (impr {repeat {~c} until (~b) }) st st'
-  | repeatLoop (st st' st'' : State) (b : Bexp) (c : Com)
+      EvalR (imp {repeat {~c} until (~b) }) st st'
+  | repeatLoop {st st' st'' : State} {b : Bexp} {c : Com}
       (hc : EvalR c st st') (hb : b.eval st' = false)
-      (hloop : EvalR (impr {repeat {~c} until (~b) }) st' st'') :
-      EvalR (impr {repeat {~c} until (~b) }) st st''
+      (hloop : EvalR (imp {repeat {~c} until (~b) }) st' st'') :
+      EvalR (imp {repeat {~c} until (~b) }) st st''
 
-scoped notation:40 (priority := high) st0:41 " =[ " c " ]=> " st1:41 =>
-  Com.EvalR c st0 st1
-scoped syntax:40 (priority := high) term:41 " =[ " rpt_com " ]=> " term:41 : term
-scoped macro_rules
-  | `($st0 =[ $c:rpt_com ]=> $st1) => `($st0 =[ impr { $c } ]=> $st1)
+instance : HasEval Com State State where
+  Eval := Com.EvalR
+
+@[app_unexpander Com.EvalR]
+def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
+  | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
+  | _ => throw ()
 
 -- A couple of definitions from above, copied here so they use the new
 -- `Com.EvalR`.
 
-def ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
-  ∀ st st', (st =[ c ]=> st') → P st → Q st'
+def ValidHoareTriple
+    (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
+  ∀ {st st' : State},
+    (st =[ c ]=> st') →
+    P st →
+    Q st'
 
-namespace ValidHoareTriple
+instance : HasTriple Com where
+  Triple := ValidHoareTriple
 
-/-- Hoare triple over Repeat-Imp commands -/
-scoped syntax:lead "{{" term "}} " rpt_com:lead " {{" term "}}" : term
+theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
+    {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
+      (st =[ c ]=> st') →
+      P st →
+      Q st' := by rfl
 
-macro_rules
-  | `({{ $P }} $c:rpt_com {{ $Q }}) =>
-      `(ValidHoareTriple ({{ $P }}) (impr { $c }) ({{ $Q }}))
-
-end ValidHoareTriple
-
-open scoped ValidHoareTriple
+attribute [irreducible] ValidHoareTriple
 
 -- To make sure you've got the evaluation rules for `repeat` right, prove that
 -- `ex1_repeat` evaluates correctly.
 
 def ex1_repeat : Com :=
-  impr {
+  imp {
     repeat {
       X := 1;
-      Y := Y + 1;
+      Y := Y + 1
     } until (X = 1)
   }
 
 theorem ex1_repeat_works :
-    ∅ =[ ex1_repeat ]=> (Y →ₜ 1 ; X →ₜ 1 ; ∅) := by
+    ∅ =[ ex1_repeat ]=> (Y →ₜ 1 ; X →ₜ 1) := by
   all_goals
     apply Com.EvalR.repeatEnd
     · apply Com.EvalR.seq
       · apply Com.EvalR.asgn; rfl
       · apply Com.EvalR.asgn; rfl
-    · rfl
+    · simp +decide
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Do we want to `open Com.EvalR` to make the previous proof easier to
+--     write?
 
 -- Now state and prove a theorem, `hoare_repeat`, that expresses an
 -- appropriate proof rule for `repeat` commands. Use `hoare_while` as a model,
@@ -2630,36 +2682,26 @@ as it goes, but it isn't going to lead to a nice rule for decorated
 programs, when we get to that, because it uses c twice, perhaps in
 different ways! -/
 
-theorem hoare_repeat (P Q : Assertion) (b : Bexp) (c : Com)
+theorem hoare_repeat {P Q : Assertion} {b : Bexp} {c : Com}
     (h1 : {{ P }} ~c {{ Q }}) (h2 : {{ Q ∧ ¬ b }} ~c {{ Q }}) :
     {{ P }} repeat { ~c } until (~b) {{ Q ∧ b }} := by
-  have key : ∀ (cmd : Com) (s s' : State), (s =[ cmd ]=> s') →
-      cmd = (impr { repeat { ~c } until (~b) }) →
-      ∀ (P' : Assertion), ({{ P' }} ~c {{ Q }}) → P' s →
-      Q s' ∧ bassertion b s' := by
-    intro cmd s s' hev
-    induction hev with
-    | repeatEnd s0 s0' b0 c0 hc hb =>
-        intro heq P' hP'c hp
-        injection heq with e1 e2
-        subst e1 e2
-        exact ⟨hP'c _ _ hc hp, hb⟩
-    | repeatLoop s0 s0' s0'' b0 c0 hc hb hloop ih1 ih2 =>
-        intro heq P' hP'c hp
-        injection heq with e1 e2
-        subst e1 e2
-        apply ih2 rfl _ h2
-        exact ⟨hP'c _ _ hc hp, bexp_eval_false _ _ hb⟩
-    | skip s0 => intro heq; simp at heq
-    | asgn s0 a n x h => intro heq; simp at heq
-    | seq c1 c2 s0 s0' s0'' hh1 hh2 ih1 ih2 => intro heq; simp at heq
-    | ifTrue s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
-    | ifFalse s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
-    | whileFalse b0 s0 c0 hb => intro heq; simp at heq
-    | whileTrue s0 s0' s0'' b0 c0 hb hc hloop ih1 ih2 =>
-        intro heq; simp at heq
+  rw [validHoareTriple_def] at h1 h2 ⊢
   intro st st' heval hpre
-  exact key _ st st' heval rfl P h1 hpre
+  generalize heq : (imp { repeat { ~c } until (~b) }) = cmd at heval
+  induction heval generalizing P with
+  | @repeatEnd s0 s0' b0 c0 hc hb ih =>
+    injection heq with hceq hbeq
+    subst hceq hbeq
+    exact ⟨h1 hc hpre, hb⟩
+  | @repeatLoop s0 s0' s0'' b0 c0 hc hb hloop ih1 ih2 =>
+    injection heq with hceq hbeq
+    subst hceq hbeq
+    apply ih2 h2 _ rfl
+    constructor
+    · exact h1 hc hpre
+    · simp [hb]
+  | skip | asgn | seq | ifTrue | ifFalse | whileFalse | whileTrue =>
+    contradiction
 
 -- For full credit, make sure (informally) that your rule can be used to prove
 -- the following valid Hoare triple:
@@ -2680,10 +2722,10 @@ theorem hoare_repeat (P Q : Assertion) (b : Bexp) (c : Com)
 that `hoare_repeat` can handle this litmus test: -/
 
 def ex2_repeat : Com :=
-  impr {
+  imp {
     repeat {
       Y := X;
-      X := X - 1;
+      X := X - 1
     } until (X = 0)
   }
 
@@ -2691,41 +2733,38 @@ def ex2_repeat : Com :=
 the proofs of some more Hoare rules from above (remember we're in
 a separate namespace, with a different definition of commands). -/
 
-theorem hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :
-    {{Q [x ↦ ~a]}} x := ~a; {{ Q }} := by
-  unfold ValidHoareTriple
+theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
+    {{Q [x ↦ ~a]}} x := ~a {{ Q }} := by
+  rw [validHoareTriple_def]
   intro st st' hE hQ
+  rw [Assertion.subst_apply] at hQ
   inversion hE with
   | asgn n h =>
     subst h
     exact hQ
 
-theorem hoare_consequence (P P' Q Q' : Assertion) (c : Com)
+theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
     (hht : {{ P' }} ~c {{ Q' }}) (hPP' : P ->> P') (hQ'Q : Q' ->> Q) :
     {{ P }} ~c {{ Q }} := by
+  rw [validHoareTriple_def] at hht ⊢
   intro st st' hc hP
-  apply hQ'Q
-  apply hht st st'
-  · assumption
-  · apply hPP'
-    assumption
+  apply_rules
 
-theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
+theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
     {{ P }} ~c {{ Q }} := by
+  rw [validHoareTriple_def] at hhoare ⊢
   intro st st' hc hP
-  apply hhoare st st'
-  · assumption
-  · apply himp
-    assumption
+  apply_rules
 
-theorem hoare_seq (P Q R : Assertion) (c1 c2 : Com)
+theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
     (h1 : {{ Q }} ~c2 {{R}}) (h2 : {{ P }} ~c1 {{ Q }}) :
-    {{ P }} ~c1 ~c2 {{R}} := by
+    {{ P }} ~c1; ~c2 {{R}} := by
+  rw [validHoareTriple_def] at h1 h2 ⊢
   intro st st' h12 pre
   inversion h12 with
   | seq st'' hc1 hc2 =>
-    exact h1 _ _ hc2 (h2 _ _ hc1 pre)
+    apply_rules
 
 /- Now we are ready to show `ex2_repeat` correct using `hoare_repeat`. -/
 /- NOTATION: IY -- I've noticed this oddity in previous lemmas, but
@@ -2735,15 +2774,13 @@ theorem ex2_repeat_hoare_repeat :
     {{ X > 0 }}
       ~ex2_repeat
     {{ X = 0 ∧ Y > 0 }} := by
-  unfold ex2_repeat
+  rw [ex2_repeat]
   apply hoare_consequence
   · apply hoare_repeat (Q := {{ Y > 0 }})
-    · apply hoare_seq <;> apply hoare_asgn
-    · apply hoare_seq
-      · apply hoare_asgn
-      · apply hoare_consequence_pre
-        · apply hoare_asgn
-        · assertion_auto
+    · apply hoare_seq hoare_asgn hoare_asgn
+    · apply hoare_seq hoare_asgn
+      apply hoare_consequence_pre hoare_asgn
+      assertion_auto
   · -- body of repeat if exiting right away
     assertion_auto
   · -- final postcondition
@@ -2757,30 +2794,32 @@ like this: -/
 theorem hoare_repeat' (P : Assertion) (b : Bexp) (c : Com)
     (h : {{ P }} ~c {{ P }}) :
     {{ P }} repeat { ~c } until (~b) {{ P ∧ b }} := by
-  unfold ValidHoareTriple
+  rw [validHoareTriple_def]
   intro st st' he hP
   have key : ∀ (cmd : Com) (s s' : State), (s =[ cmd ]=> s') →
-      cmd = (impr { repeat { ~c } until (~b) }) → P s →
-      P s' ∧ bassertion b s' := by
+      cmd = (imp { repeat { ~c } until (~b) }) → P s →
+      P s' ∧ b.eval s' := by
     intro cmd s s' hev
     induction hev with
-    | repeatEnd s0 s0' b0 c0 hc hb =>
+    | @repeatEnd s0 s0' b0 c0 hc hb =>
         intro heq hp
         injection heq with e1 e2
         subst e1 e2
-        exact ⟨h _ _ hc hp, hb⟩
-    | repeatLoop s0 s0' s0'' b0 c0 hc hb hloop ih1 ih2 =>
+        rw [validHoareTriple_def] at h
+        exact ⟨h hc hp, hb⟩
+    | @repeatLoop s0 s0' s0'' b0 c0 hc hb hloop ih1 ih2 =>
         intro heq hp
         injection heq with e1 e2
         subst e1 e2
-        exact ih2 rfl (h _ _ hc hp)
-    | skip s0 => intro heq; simp at heq
-    | asgn s0 a n x ha => intro heq; simp at heq
-    | seq c1 c2 s0 s0' s0'' hh1 hh2 ih1 ih2 => intro heq; simp at heq
-    | ifTrue s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
-    | ifFalse s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
-    | whileFalse b0 s0 c0 hb => intro heq; simp at heq
-    | whileTrue s0 s0' s0'' b0 c0 hb hc hloop ih1 ih2 =>
+        rw [validHoareTriple_def] at h
+        exact ih2 rfl (h hc hp)
+    | @skip s0 => intro heq; simp at heq
+    | @asgn s0 a n x ha => intro heq; simp at heq
+    | @seq c1 c2 s0 s0' s0'' hh1 hh2 ih1 ih2 => intro heq; simp at heq
+    | @ifTrue s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
+    | @ifFalse s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
+    | @whileFalse b0 s0 c0 hb => intro heq; simp at heq
+    | @whileTrue s0 s0' s0'' b0 c0 hb hc hloop ih1 ih2 =>
         intro heq; simp at heq
   exact key _ st st' he rfl hP
 
@@ -2811,16 +2850,13 @@ example :
     {{ X = 0 ∧ Y > 0}} := by
   apply hoare_consequence
   · apply hoare_repeat' (P := {{ Y > 0 }})
-    apply hoare_seq
-    · apply hoare_asgn
-    · apply hoare_consequence_pre
-      · apply hoare_asgn
-      · -- body of repeat if looping
-        unfold AssertImplies Assertion.sub
-        intro st hy
-        -- loop invariant too weak on its own,
-        -- we need the value of the previous guard
-        sorry
+    apply hoare_seq hoare_asgn
+    apply hoare_consequence_pre hoare_asgn
+    intro st hy
+    simp
+    -- loop invariant too weak on its own,
+    -- we need the value of the previous guard
+    sorry
   · -- initial precondition
     intro st ⟨_, hy⟩
     exact hy
@@ -2837,15 +2873,12 @@ example :
     {{ X = 0 ∧ Y > 0}} := by
   apply hoare_consequence
   · apply hoare_repeat' (P := {{ X > 0 ∧ Y > 0 }})
-    apply hoare_seq
-    · apply hoare_asgn
-    · apply hoare_consequence_pre
-      · apply hoare_asgn
-      · -- body of repeat if looping
-        unfold AssertImplies Assertion.sub
-        intro st ⟨hx, hy⟩
-        -- loop invariant too strong
-        sorry
+    apply hoare_seq hoare_asgn
+    apply hoare_consequence_pre hoare_asgn
+    intro st ⟨hx, hy⟩
+    simp
+    -- loop invariant too strong
+    sorry
   · -- initial precondition
     intro st hp
     exact hp
@@ -2919,103 +2952,90 @@ inductive Com : Type where
   | whileDo : Bexp → Com → Com
   | havoc : Ident → Com
 
-/-- Himp commands: Imp commands plus `havoc` -/
-declare_syntax_cat himp_com
 /-- Havoc: set a variable to a nondeterministically chosen number
 (`havoc x;`).  As with `skip`, the word `havoc` is not reserved: the
 production accepts any identifier and the macro below rejects
 everything except `havoc`. -/
-syntax ident ident ";" : himp_com
-
-/-- The command that does nothing (`skip;`) -/
-syntax ident ";" : himp_com
-/-- Sequencing: one command after another -/
-syntax himp_com ppDedent(ppLine himp_com) : himp_com
-/-- Assignment -/
-syntax ident " := " imp_aexp ";" : himp_com
-/-- Conditional -/
-syntax "if " "(" imp_bexp ")" ppHardSpace "{" ppLine himp_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine himp_com ppDedent(ppLine "}") : himp_com
-/-- Loop -/
-syntax "while " "(" imp_bexp ")" ppHardSpace "{" ppLine himp_com ppDedent(ppLine "}") : himp_com
-/-- Escape to Lean -/
-syntax:max "~" term:max : himp_com
-
-/-- Include a Himp command in Lean code -/
-syntax:min "imph" ppHardSpace "{" ppLine himp_com ppDedent(ppLine "}") : term
+scoped syntax ident ident : imp_com
 
 open Lean in
-macro_rules
-  | `(imph { $x:ident ; }) =>
+scoped macro_rules
+  | `(imp { $x:ident }) =>
     if x.getId == `skip then `(Com.skip)
     else Macro.throwErrorAt x s!"expected 'skip', got '{x.getId}'"
-  | `(imph { $c1 $c2 }) =>
-    `(Com.seq (imph {$c1}) (imph {$c2}))
-  | `(imph { $x:ident := $a; }) =>
+  | `(imp { $c1; $c2 }) =>
+    `(Com.seq (imp {$c1}) (imp {$c2}))
+  | `(imp { $x:ident := $a }) =>
     `(Com.asgn $x (aexp {$a}))
-  | `(imph { if ($b) {$c1} else {$c2} }) =>
-    `(Com.cond (bexp {$b}) (imph {$c1}) (imph {$c2}))
-  | `(imph { while ($b) {$c} }) =>
-    `(Com.whileDo (bexp {$b}) (imph {$c}))
-  | `(imph { $h:ident $x:ident ; }) =>
+  | `(imp { if ($b) {$c1} else {$c2} }) =>
+    `(Com.cond (bexp {$b}) (imp {$c1}) (imp {$c2}))
+  | `(imp { while ($b) {$c} }) =>
+    `(Com.whileDo (bexp {$b}) (imp {$c}))
+  | `(imp { $h:ident $x:ident }) =>
     if h.getId == `havoc then `(Com.havoc $x)
     else Macro.throwErrorAt h s!"expected 'havoc', got '{h.getId}'"
-  | `(imph { ~$c }) =>
+  | `(imp { ~$c }) =>
     pure c
 
 inductive Com.EvalR : Com → State → State → Prop where
-  | skip (st : State) :
-      EvalR (imph {skip;}) st st
-  | asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : a.eval st = n) :
-      EvalR (imph {x := ~a;}) st (x →ₜ n ; st)
-  | seq (c1 c2 : Com) (st st' st'' : State)
+  | skip {st : State} :
+      EvalR (imp {skip}) st st
+  | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : a.eval st = n) :
+      EvalR (imp {x := ~a}) st (x →ₜ n ; st)
+  | seq {c1 c2 : Com} {st st' st'' : State}
       (h1 : EvalR c1 st st') (h2 : EvalR c2 st' st'') :
-      EvalR (imph {~c1 ~c2}) st st''
-  | ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = true)
+      EvalR (imp {~c1; ~c2}) st st''
+  | ifTrue {st st' : State} {b : Bexp} {c1 c2 : Com} (hb : b.eval st = true)
       (hc : EvalR c1 st st') :
-      EvalR (imph {if (~b) {~c1} else {~c2} }) st st'
-  | ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = false)
+      EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
+  | ifFalse {st st' : State} {b : Bexp} {c1 c2 : Com} (hb : b.eval st = false)
       (hc : EvalR c2 st st') :
-      EvalR (imph {if (~b) {~c1} else {~c2} }) st st'
-  | whileFalse (b : Bexp) (st : State) (c : Com) (hb : b.eval st = false) :
-      EvalR (imph {while (~b) {~c} }) st st
-  | whileTrue (st st' st'' : State) (b : Bexp) (c : Com)
+      EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
+  | whileFalse {b : Bexp} {st : State} {c : Com} (hb : b.eval st = false) :
+      EvalR (imp {while (~b) {~c} }) st st
+  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st st')
-      (hloop : EvalR (imph {while (~b) {~c} }) st' st'') :
-      EvalR (imph {while (~b) {~c} }) st st''
-  | havoc (st : State) (x : Ident) (n : Nat) :
-      EvalR (imph {havoc x;}) st (x →ₜ n ; st)
+      (hloop : EvalR (imp {while (~b) {~c} }) st' st'') :
+      EvalR (imp {while (~b) {~c} }) st st''
+  | havoc {st : State} {x : Ident} {n : Nat} :
+      EvalR (imp {havoc x}) st (x →ₜ n ; st)
 
-scoped notation:40 (priority := high) st0:41 " =[ " c " ]=> " st1:41 =>
-  Com.EvalR c st0 st1
-scoped syntax:40 (priority := high) term:41 " =[ " himp_com " ]=> " term:41 : term
-scoped macro_rules
-  | `($st0 =[ $c:himp_com ]=> $st1) => `($st0 =[ imph { $c } ]=> $st1)
+instance : HasEval Com State State where
+  Eval := Com.EvalR
+
+@[app_unexpander Com.EvalR]
+def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
+  | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
+  | _ => throw ()
 
 -- The definition of Hoare triples is exactly as before.
 
-def ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
-  ∀ st st', (st =[ c ]=> st') → P st → Q st'
+def ValidHoareTriple
+    (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
+  ∀ {st st' : State},
+    (st =[ c ]=> st') →
+    P st →
+    Q st'
 
-namespace ValidHoareTriple
+instance : HasTriple Com where
+  Triple := ValidHoareTriple
 
-/-- Hoare triple over Himp commands -/
-scoped syntax:lead "{{" term "}} " himp_com:lead " {{" term "}}" : term
+theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
+    {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
+      (st =[ c ]=> st') →
+      P st →
+      Q st' := by rfl
 
-macro_rules
-  | `({{ $P }} $c:himp_com {{ $Q }}) =>
-      `(ValidHoareTriple ({{ $P }}) (imph { $c }) ({{ $Q }}))
-
-end ValidHoareTriple
-
-open scoped ValidHoareTriple
+attribute [irreducible] ValidHoareTriple
 
 -- And the precondition consequence rule is exactly as before.
 
-theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
+theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
     {{ P }} ~c {{ Q }} := by
+  rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
-  exact hhoare st st' heval (himp st hpre)
+  apply_rules
 
 -- ### Exercise (3 stars): hoare_havoc (Advanced) ⭐⭐⭐
 
@@ -3028,15 +3048,19 @@ theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
 -- and prove that the resulting rule is correct.
 
 def havoc_pre (x : Ident) (Q : Assertion) (st : State) : Prop :=
-  (∀ (n : Nat), Assertion.sub x (.num n) Q st)
+  (∀ (n : Nat), ({{ Q [x ↦ ~(.num n)] }}) st)
 
-theorem hoare_havoc (Q : Assertion) (x : Ident) :
-    {{ fun st => havoc_pre x Q st }} havoc x; {{ Q }} := by
+theorem hoare_havoc {Q : Assertion} {x : Ident} :
+    {{ fun st => havoc_pre x Q st }} havoc x {{ Q }} := by
   all_goals
-    unfold ValidHoareTriple havoc_pre
+    rw [validHoareTriple_def]
     intro st st' heval hpre
+    rw [havoc_pre] at hpre
     inversion heval with
-    | havoc n => apply hpre
+    | havoc n =>
+      specialize hpre n
+      simp only [Assertion.subst_apply, Aexp.eval_num] at hpre
+      exact hpre
 
 -- ### Exercise (3 stars): havoc_post (Advanced) ⭐⭐⭐
 
@@ -3051,19 +3075,18 @@ theorem hoare_havoc (Q : Assertion) (x : Ident) :
 -- Note to developers (before next release):
 --     This exercise is kind of weird. Should probably be optional.
 
-theorem havoc_post (P : Assertion) (x : Ident) :
-    {{ P }} havoc x;
-    {{ fun st => ∃ (n : Nat), ({{ P [x ↦ ~(Aexp.num n)] }}) st }} := by
+theorem havoc_post {P : Assertion} {x : Ident} :
+    {{ P }}
+    havoc x
+    {{ fun st => ∃ (n : Nat), ({{ P [x ↦ ~(.num n)] }}) st }} := by
   apply hoare_consequence_pre
   · apply hoare_havoc
-  ·
-    all_goals
-      unfold havoc_pre AssertImplies Assertion.sub
-      intro st hP n
+  · all_goals
+      intro st hpre n
+      simp only [Assertion.subst_apply, Aexp.eval_num, TotalMap.update_shadow]
       exists st[x]
-      dsimp
-      rw [TotalMap.update_shadow, TotalMap.update_same]
-      apply hP
+      rw [TotalMap.update_same]
+      exact hpre
 
 end Himp
 
@@ -3101,47 +3124,29 @@ inductive Com : Type where
 -- Note to developers:
 --     NOTATION: LATER: Reconsider these precedences
 
-/-- Imp commands plus `assert` and `assume` -/
-declare_syntax_cat haa_com
 /-- Assert / assume (`assert (b);`, `assume (b);`).  As with `skip`, the
 words `assert` and `assume` are not reserved: the production accepts any
 identifier and the macro below rejects everything else. -/
-syntax ident " (" imp_bexp ")" ";" : haa_com
-
-/-- The command that does nothing (`skip;`) -/
-syntax ident ";" : haa_com
-/-- Sequencing: one command after another -/
-syntax haa_com ppDedent(ppLine haa_com) : haa_com
-/-- Assignment -/
-syntax ident " := " imp_aexp ";" : haa_com
-/-- Conditional -/
-syntax "if " "(" imp_bexp ")" ppHardSpace "{" ppLine haa_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine haa_com ppDedent(ppLine "}") : haa_com
-/-- Loop -/
-syntax "while " "(" imp_bexp ")" ppHardSpace "{" ppLine haa_com ppDedent(ppLine "}") : haa_com
-/-- Escape to Lean -/
-syntax:max "~" term:max : haa_com
-
-/-- Include an assert/assume-Imp command in Lean code -/
-syntax:min "impa" ppHardSpace "{" ppLine haa_com ppDedent(ppLine "}") : term
+scoped syntax ident " (" imp_bexp ")" : imp_com
 
 open Lean in
-macro_rules
-  | `(impa { $x:ident ; }) =>
+scoped macro_rules
+  | `(imp { $x:ident }) =>
     if x.getId == `skip then `(Com.skip)
     else Macro.throwErrorAt x s!"expected 'skip', got '{x.getId}'"
-  | `(impa { $h:ident ($b) ; }) =>
+  | `(imp { $h:ident ($b) }) =>
     if h.getId == `assert then `(Com.assert (bexp {$b}))
     else if h.getId == `assume then `(Com.assume (bexp {$b}))
     else Macro.throwErrorAt h s!"expected 'assert' or 'assume', got '{h.getId}'"
-  | `(impa { $c1 $c2 }) =>
-    `(Com.seq (impa {$c1}) (impa {$c2}))
-  | `(impa { $x:ident := $a; }) =>
+  | `(imp { $c1; $c2 }) =>
+    `(Com.seq (imp {$c1}) (imp {$c2}))
+  | `(imp { $x:ident := $a }) =>
     `(Com.asgn $x (aexp {$a}))
-  | `(impa { if ($b) {$c1} else {$c2} }) =>
-    `(Com.cond (bexp {$b}) (impa {$c1}) (impa {$c2}))
-  | `(impa { while ($b) {$c} }) =>
-    `(Com.whileDo (bexp {$b}) (impa {$c}))
-  | `(impa { ~$c }) =>
+  | `(imp { if ($b) {$c1} else {$c2} }) =>
+    `(Com.cond (bexp {$b}) (imp {$c1}) (imp {$c2}))
+  | `(imp { while ($b) {$c} }) =>
+    `(Com.whileDo (bexp {$b}) (imp {$c}))
+  | `(imp { ~$c }) =>
     pure c
 
 -- To define the behavior of `assert` and `assume`, we need to add notation
@@ -3151,50 +3156,52 @@ macro_rules
 -- program, either a state or an error:
 
 inductive Result : Type where
-  | normal : State → Result
+  | normal (st : State) : Result
   | error : Result
 
 -- Now we are ready to give you the evaluation relation for the new language.
 
 inductive Com.EvalR : Com → State → Result → Prop where
   /- Old rules, several modified -/
-  | skip (st : State) :
-      EvalR (impa {skip;}) st (.normal st)
-  | asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : a.eval st = n) :
-      EvalR (impa {x := ~a;}) st (.normal (x →ₜ n ; st))
-  | seqNormal (c1 c2 : Com) (st st' : State) (r : Result)
+  | skip {st : State} :
+      EvalR (imp {skip}) st (.normal st)
+  | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : a.eval st = n) :
+      EvalR (imp {x := ~a}) st (.normal (x →ₜ n ; st))
+  | seqNormal {c1 c2 : Com} {st st' : State} {r : Result}
       (h1 : EvalR c1 st (.normal st')) (h2 : EvalR c2 st' r) :
-      EvalR (impa {~c1 ~c2}) st r
-  | seqError (c1 c2 : Com) (st : State) (h : EvalR c1 st .error) :
-      EvalR (impa {~c1 ~c2}) st .error
-  | ifTrue (st : State) (r : Result) (b : Bexp) (c1 c2 : Com)
+      EvalR (imp {~c1; ~c2}) st r
+  | seqError {c1 c2 : Com} {st : State} (h : EvalR c1 st .error) :
+      EvalR (imp {~c1; ~c2}) st .error
+  | ifTrue {st : State} {r : Result} {b : Bexp} {c1 c2 : Com}
       (hb : b.eval st = true) (hc : EvalR c1 st r) :
-      EvalR (impa {if (~b) {~c1} else {~c2} }) st r
-  | ifFalse (st : State) (r : Result) (b : Bexp) (c1 c2 : Com)
+      EvalR (imp {if (~b) {~c1} else {~c2} }) st r
+  | ifFalse {st : State} {r : Result} {b : Bexp} {c1 c2 : Com}
       (hb : b.eval st = false) (hc : EvalR c2 st r) :
-      EvalR (impa {if (~b) {~c1} else {~c2} }) st r
-  | whileFalse (b : Bexp) (st : State) (c : Com) (hb : b.eval st = false) :
-      EvalR (impa {while (~b) {~c} }) st (.normal st)
-  | whileTrueNormal (st st' : State) (r : Result) (b : Bexp) (c : Com)
+      EvalR (imp {if (~b) {~c1} else {~c2} }) st r
+  | whileFalse {b : Bexp} {st : State} {c : Com} (hb : b.eval st = false) :
+      EvalR (imp {while (~b) {~c} }) st (.normal st)
+  | whileTrueNormal {st st' : State} {r : Result} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st (.normal st'))
-      (hloop : EvalR (impa {while (~b) {~c} }) st' r) :
-      EvalR (impa {while (~b) {~c} }) st r
-  | whileTrueError (st : State) (b : Bexp) (c : Com)
+      (hloop : EvalR (imp {while (~b) {~c} }) st' r) :
+      EvalR (imp {while (~b) {~c} }) st r
+  | whileTrueError {st : State} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st .error) :
-      EvalR (impa {while (~b) {~c} }) st .error
+      EvalR (imp {while (~b) {~c} }) st .error
   /- Rules for Assert and Assume -/
-  | assertTrue (st : State) (b : Bexp) (hb : b.eval st = true) :
-      EvalR (impa {assert (~b);}) st (.normal st)
-  | assertFalse (st : State) (b : Bexp) (hb : b.eval st = false) :
-      EvalR (impa {assert (~b);}) st .error
-  | assume (st : State) (b : Bexp) (hb : b.eval st = true) :
-      EvalR (impa {assume (~b);}) st (.normal st)
+  | assertTrue {st : State} {b : Bexp} (hb : b.eval st = true) :
+      EvalR (imp {assert (~b)}) st (.normal st)
+  | assertFalse {st : State} {b : Bexp} (hb : b.eval st = false) :
+      EvalR (imp {assert (~b)}) st .error
+  | assume {st : State} {b : Bexp} (hb : b.eval st = true) :
+      EvalR (imp {assume (~b)}) st (.normal st)
 
-scoped notation:40 (priority := high) st0:41 " =[ " c " ]=> " r:41 =>
-  Com.EvalR c st0 r
-scoped syntax:40 (priority := high) term:41 " =[ " haa_com " ]=> " term:41 : term
-scoped macro_rules
-  | `($st0 =[ $c:haa_com ]=> $r) => `($st0 =[ impa { $c } ]=> $r)
+instance : HasEval Com State Result where
+  Eval := Com.EvalR
+
+@[app_unexpander Com.EvalR]
+def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
+  | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
+  | _ => throw ()
 
 -- We redefine hoare triples: Now, `{{ P }} c {{ Q }}` means that, whenever
 -- `c` is started in a state satisfying `P`, and terminates with result `r`,
@@ -3202,22 +3209,19 @@ scoped macro_rules
 
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
-  ∀ st r,
+  ∀ {st : State} {r : Result},
     (st =[ c ]=> r) → P st →
-    (∃ st', r = Result.normal st' ∧ Q st')
+    ∃ st', r = Result.normal st' ∧ Q st'
 
-namespace ValidHoareTriple
+instance : HasTriple Com where
+  Triple := ValidHoareTriple
 
-/-- Hoare triple over assert/assume-Imp commands -/
-scoped syntax:lead "{{" term "}} " haa_com:lead " {{" term "}}" : term
+theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
+    {{ P }} ~c {{ Q }} ↔ ∀ {st : State} {r : Result},
+      (st =[ c ]=> r) → P st →
+      ∃ st', r = Result.normal st' ∧ Q st' := by rfl
 
-macro_rules
-  | `({{ $P }} $c:haa_com {{ $Q }}) =>
-      `(ValidHoareTriple ({{ $P }}) (impa { $c }) ({{ $Q }}))
-
-end ValidHoareTriple
-
-open scoped ValidHoareTriple
+attribute [irreducible] ValidHoareTriple
 
 -- ### Exercise (4 stars): assert_vs_assume ⭐⭐⭐⭐
 
@@ -3226,163 +3230,146 @@ open scoped ValidHoareTriple
 -- but not by the `assert` statement.
 
 theorem assert_assume_differ : ∃ (P : Assertion) (b : Bexp) (Q : Assertion),
-    ({{ P }} assume (~b); {{ Q }})
-    ∧ ¬ ({{ P }} assert (~b); {{ Q }}) := by
+    ({{ P }} assume (~b) {{ Q }})
+    ∧ ¬ ({{ P }} assert (~b) {{ Q }}) := by
   all_goals
-    exists {{ True }}, bexp { false }, ({{ False }} : Assertion)
+    exists {{ True }}, bexp { false }, ({{ False }})
     constructor
-    · unfold ValidHoareTriple
-      intro st r hE _
-      inversion hE with
+    · rw [validHoareTriple_def]
+      intro st r heval _
+      inversion heval with
       | assume hb => simp at hb
     · intro hC
-      unfold ValidHoareTriple at hC
-      have h : ∅ =[ assert (false); ]=> Result.error := by
+      rw [validHoareTriple_def] at hC
+      have h : ∅ =[ assert (false) ]=> Result.error := by
         apply Com.EvalR.assertFalse
-        rfl
-      obtain ⟨st', heq, _⟩ := hC ∅ Result.error h True.intro
-      simp at heq
+        simp
+      obtain ⟨st', h1, h2⟩ := hC h True.intro
+      contradiction
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     For some reason, after `rw [validHoareTriple_def] at hC`, the existence
+--     turns into `Exists ({{r = Result.normal ∧ False}})`. Maybe it's the
+--     assertion delaborator?
 
 -- Then prove that any triple for an `assert` also works when `assert` is
 -- replaced by `assume`.
 
 theorem assert_implies_assume (P : Assertion) (b : Bexp) (Q : Assertion)
-    (hhoare : {{ P }} assert (~b); {{ Q }}) :
-    {{ P }} assume (~b); {{ Q }} := by
+    (hhoare : {{ P }} assert (~b) {{ Q }}) :
+    {{ P }} assume (~b) {{ Q }} := by
   all_goals
-    unfold ValidHoareTriple
-    intro st r hEval hP
-    inversion hEval with
+    rw [validHoareTriple_def] at hhoare ⊢
+    intro st r heval hpre
+    inversion heval with
     | assume hb =>
       exists st
-      have h : st =[ assert (~b); ]=> Result.normal st := by
+      have h : st =[ assert (~b) ]=> Result.normal st := by
         apply Com.EvalR.assertTrue
         assumption
-      obtain ⟨st', h1, h2⟩ := hhoare st (Result.normal st) h hP
-      injection h1 with e
-      subst e
+      obtain ⟨st', h1, h2⟩ := hhoare h hpre
+      injection h1 with hsteq
+      subst hsteq
       exact ⟨rfl, h2⟩
 
 -- Next, here are proofs for the old hoare rules adapted to the new semantics.
 -- You don't need to do anything with these.
 
-theorem hoare_asgn (Q : Assertion) (x : Ident) (a : Aexp) :
-    {{Q [x ↦ ~a]}} x := ~a; {{ Q }} := by
-  unfold ValidHoareTriple
-  intro st r hE hQ
-  inversion hE with
+theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
+    {{Q [x ↦ ~a]}} x := ~a {{ Q }} := by
+  rw [validHoareTriple_def]
+  intro st r heval hQ
+  rw [Assertion.subst_apply] at hQ
+  inversion heval with
   | asgn n h =>
     exists (x →ₜ n ; st)
     subst h
     exact ⟨rfl, hQ⟩
 
-theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
+theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
     {{ P }} ~c {{ Q }} := by
-  intro st r hc hP
-  apply hhoare st r
-  · assumption
-  · apply himp
-    assumption
+  rw [validHoareTriple_def] at hhoare ⊢
+  intro st r hc hpre
+  apply_rules
 
-theorem hoare_consequence_post (P Q Q' : Assertion) (c : Com)
+theorem hoare_consequence_post {P Q Q' : Assertion} {c : Com}
     (hhoare : {{ P }} ~c {{ Q' }}) (himp : Q' ->> Q) :
-    {{ P }} ~c {{ Q }} := by
-  intro st r hc hP
-  unfold ValidHoareTriple at hhoare
-  have h : ∃ st', r = Result.normal st' ∧ Q' st' := by
-    apply hhoare st <;> assumption
-  obtain ⟨st', hr, hQ'⟩ := h
+    {{ P }} ~c {{   Q }} := by
+  rw [validHoareTriple_def] at hhoare ⊢
+  intro st r hc hpre
+  obtain ⟨st', hr, hQ'⟩ := hhoare hc hpre
   exists st'
-  constructor
-  · assumption
-  · apply himp
-    assumption
+  exact ⟨hr, himp _ hQ'⟩
 
-theorem hoare_seq (P Q R : Assertion) (c1 c2 : Com)
+theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
     (h1 : {{ Q }} ~c2 {{R}}) (h2 : {{ P }} ~c1 {{ Q }}) :
-    {{ P }} ~c1 ~c2 {{R}} := by
-  intro st r h12 pre
+    {{ P }} ~c1; ~c2 {{R}} := by
+  rw [validHoareTriple_def] at h1 h2 ⊢
+  intro st r h12 hpre
   inversion h12 with
   | seqNormal st' hc1 hc2 =>
-    apply h1
-    · apply hc2
-    · apply h2 at hc1
-      apply hc1 at pre
-      obtain ⟨st'', heq, hQ⟩ := pre
-      injection heq with e
-      subst e
-      assumption
+    apply h1 hc2
+    specialize h2 hc1 hpre
+    obtain ⟨st'', heq, hQ⟩ := h2
+    injection heq with e
+    subst e
+    exact hQ
   | seqError hc1 =>
     -- Find contradictory assumption
-    apply h2 at hc1
-    apply hc1 at pre
-    obtain ⟨st', hC, _⟩ := pre
-    simp at hC
+    specialize h2 hc1 hpre
+    obtain ⟨st', hC, _⟩ := h2
+    contradiction
 
 -- Here are the other proof rules (sanity check)
 
-theorem hoare_skip (P : Assertion) :
-    {{ P }} skip; {{ P }} := by
-  intro st r h hP
+theorem hoare_skip {P : Assertion} :
+    {{ P }} skip {{ P }} := by
+  rw [validHoareTriple_def]
+  intro st r h hpre
   inversion h
-  exact ⟨st, rfl, hP⟩
+  exact ⟨st, rfl, hpre⟩
 
-theorem hoare_if (P Q : Assertion) (b : Bexp) (c1 c2 : Com)
+theorem hoare_if {P Q : Assertion} {b : Bexp} {c1 c2 : Com}
     (hTrue : {{ P ∧ b}} ~c1 {{ Q }}) (hFalse : {{ P ∧ ¬ b}} ~c2 {{ Q }}) :
     {{ P }} if (~b) { ~c1 } else { ~c2 } {{ Q }} := by
-  intro st r hE hP
+  rw [validHoareTriple_def] at hTrue hFalse ⊢
+  intro st r hE hpre
   inversion hE with
   | ifTrue hb hc =>
     -- b is true
-    apply hTrue st r
-    · assumption
-    · exact ⟨hP, hb⟩
+    apply_rules [And.intro]
   | ifFalse hb hc =>
     -- b is false
-    apply hFalse st r
-    · assumption
-    · exact ⟨hP, bexp_eval_false b st hb⟩
+    apply hFalse hc
+    exact ⟨hpre, by simp [hb]⟩
 
-theorem hoare_while (P : Assertion) (b : Bexp) (c : Com)
+theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
     (hhoare : {{P ∧ b}} ~c {{ P }}) :
     {{ P }} while (~b) { ~c } {{ P ∧ ¬ b}} := by
-  intro st r he hP
-  have key : ∀ (cmd : Com) (s : State) (r' : Result), (s =[ cmd ]=> r') →
-      cmd = (impa { while (~b) { ~c } }) → P s →
-      ∃ s', r' = Result.normal s' ∧ P s' ∧ ¬ bassertion b s' := by
-    intro cmd s r' hev
-    induction hev with
-    | whileFalse b0 s0 c0 hb =>
-        intro heq hp
-        injection heq with e1 _
-        subst e1
-        exact ⟨s0, rfl, hp, bexp_eval_false _ _ hb⟩
-    | whileTrueNormal s0 s0' r0 b0 c0 hb hc hloop ih1 ih2 =>
-        intro heq hp
-        injection heq with e1 e2
-        subst e1 e2
-        apply ih2 rfl
-        obtain ⟨s1, heq1, hp1⟩ := hhoare _ _ hc ⟨hp, hb⟩
-        injection heq1 with e
-        subst e
-        exact hp1
-    | whileTrueError s0 b0 c0 hb hc =>
-        intro heq hp
-        injection heq with e1 e2
-        subst e1 e2
-        obtain ⟨s1, heq1, _⟩ := hhoare _ _ hc ⟨hp, hb⟩
-        simp at heq1
-    | skip s0 => intro heq; simp at heq
-    | asgn s0 a n x ha => intro heq; simp at heq
-    | seqNormal c1 c2 s0 s0' r0 hh1 hh2 ih1 ih2 => intro heq; simp at heq
-    | seqError c1 c2 s0 hh ih => intro heq; simp at heq
-    | ifTrue s0 r0 b0 c1 c2 hb hc ih => intro heq; simp at heq
-    | ifFalse s0 r0 b0 c1 c2 hb hc ih => intro heq; simp at heq
-    | assertTrue s0 b0 hb => intro heq; simp at heq
-    | assertFalse s0 b0 hb => intro heq; simp at heq
-    | assume s0 b0 hb => intro heq; simp at heq
-  exact key _ st r he rfl hP
+  rw [validHoareTriple_def] at hhoare ⊢
+  intro st r heval hpre
+  generalize heq : (imp { while (~b) { ~c } }) = cmd at heval
+  induction heval generalizing P with
+  | @whileFalse b0 s0 c0 hb =>
+    injection heq with hbeq hceq
+    subst hbeq hceq
+    exact ⟨s0, rfl, hpre, by simp [hb]⟩
+  | @whileTrueNormal s0 s0' r0 b0 c0 hb hc hloop ih1 ih2 =>
+    injection heq with hbeq hceq
+    subst hbeq hceq
+    apply ih2 hhoare _ rfl
+    obtain ⟨s1, heq1, hs1⟩ := hhoare hc ⟨hpre, hb⟩
+    injection heq1 with he
+    subst he
+    exact hs1
+  | @whileTrueError s0 b0 c0 hb hc =>
+    injection heq with hbeq hceq
+    subst hbeq hceq
+    obtain ⟨s1, heq1, hs1⟩ := hhoare hc ⟨hpre, hb⟩
+    simp at heq1
+  | skip | asgn | seqNormal | seqError | ifTrue | ifFalse | assertTrue | assertFalse | assume =>
+    contradiction
 
 -- Finally, state Hoare rules for `assert` and `assume` and use them to prove
 -- a simple program correct. Name your rules `hoare_assert` and
@@ -3390,23 +3377,25 @@ theorem hoare_while (P : Assertion) (b : Bexp) (c : Com)
 
 /- HIDE: Equivalently, we could make the postcondition Q ∧ b or the
 precondition Q → b ... -/
-theorem hoare_assert (Q : Assertion) (b : Bexp) :
-    {{Q ∧ b}} assert (~b); {{ Q }} := by
-  intro st r hEval hpre
+theorem hoare_assert {Q : Assertion} {b : Bexp} :
+    {{Q ∧ b}} assert (~b) {{ Q }} := by
+  rw [validHoareTriple_def]
+  intro st r heval hpre
   obtain ⟨hst, hb⟩ := hpre
   exists st
-  inversion hEval with
+  inversion heval with
   | assertTrue hb' => exact ⟨rfl, hst⟩
   | assertFalse hb' => simp [hb'] at hb
 
 /- Stating this in a backwards-direction friendly way. -/
 /- HIDE: Equivalently, we could make the postcondition Q ∧ b... -/
-theorem hoare_assume (Q : Assertion) (b : Bexp) :
-    {{ b → Q }} assume (~b); {{ Q }} := by
-  intro st r hEval hst
+theorem hoare_assume {Q : Assertion} {b : Bexp} :
+    {{ b → Q }} assume (~b) {{ Q }} := by
+  rw [validHoareTriple_def]
+  intro st r heval hpre
   exists st
-  inversion hEval with
-  | assume hb => exact ⟨rfl, hst hb⟩
+  inversion heval with
+  | assume hb => exact ⟨rfl, hpre hb⟩
 
 -- Use your rules to prove the following triple.
 
@@ -3414,14 +3403,14 @@ theorem assert_assume_example :
     {{True}}
       assume (X = 1);
       X := X + 1;
-      assert (X = 2);
+      assert (X = 2)
     {{True}} := by
   all_goals
     apply hoare_consequence_pre
     · apply hoare_seq
       · apply hoare_seq
         · apply hoare_assert
-        · apply hoare_asgn
+        · exact hoare_asgn
       · apply hoare_assume
     · assertion_auto
 
