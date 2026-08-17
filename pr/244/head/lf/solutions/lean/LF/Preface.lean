@@ -111,14 +111,6 @@ import LF.SFLCompat
 -- work](https://leanprover-community.github.io/papers.html) across computer
 -- science and mathematics:
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     The individual references above should be merged into the categories
---     below. In particular, the first three should go in the bullet about
---     math, and the last one should go in the bullet about modeling
---     programming languages. (I see that that first bullet could also use
---     citations for some of the points it already makes, but we can leave
---     that for later...)
-
 -- - As a *platform for modeling programming languages*, proof assistants have
 --   become standard tools for researchers who need to describe and reason about
 --   complex language definitions. They have been used, for example, to check

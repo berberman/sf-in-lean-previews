@@ -1,5 +1,5 @@
 {
-  "main_sha": "b0b7561345757ef2dbf185717989e5b3bfc08226",
+  "main_sha": "632ec7deec898bdaab18e1e17115f937fe93ed41",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -237,7 +237,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/230"
     },
     "244": {
-      "base_sha": "ed3449ff543edb6da267f67de5027e59cb359e71",
+      "base_sha": "632ec7deec898bdaab18e1e17115f937fe93ed41",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -276,9 +276,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "1cd424b3c67cabcdf06c0ddb4ce5e099287cb81d",
+      "head_sha": "ff364357a3fa8277284c7b954ad13779981fffe4",
       "preview_path": "pr/244/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31966682403",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32056063496",
       "status": "published",
       "title": "Document `inversion`.",
       "url": "https://github.com/plclub/sf-in-lean/pull/244"
@@ -470,53 +470,6 @@
       "status": "published",
       "title": "Add AUTOMATED_GRADING.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/257"
-    },
-    "258": {
-      "base_sha": "be175c55ebdf086ead850769f9e8507022a49894",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "7ddc70e7afbd4371304357cf9a5ce041efe0d1c0",
-      "preview_path": "pr/258/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32048009199",
-      "status": "published",
-      "title": "Note updates to LF from Catalin",
-      "url": "https://github.com/plclub/sf-in-lean/pull/258"
     },
     "262": {
       "base_sha": "be175c55ebdf086ead850769f9e8507022a49894",
