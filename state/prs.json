@@ -470,6 +470,53 @@
       "status": "published",
       "title": "Add AUTOMATED_GRADING.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/257"
+    },
+    "258": {
+      "base_sha": "be175c55ebdf086ead850769f9e8507022a49894",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "f3bc0990b55f7b874d4b1572d66d363e0a319f04",
+      "preview_path": "pr/258/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32039658510",
+      "status": "published",
+      "title": "Note updates to LF from Catalin",
+      "url": "https://github.com/plclub/sf-in-lean/pull/258"
     }
   },
   "schema": 3
