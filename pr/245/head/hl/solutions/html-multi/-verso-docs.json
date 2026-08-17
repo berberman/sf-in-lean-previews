@@ -503,12 +503,12 @@
  "701":
  "<code>And.intro {a b : Prop} (left : a) (right : b) : a ∧ b</code><span class=\"sep\"></span><code class=\"docstring\">`And.intro : a → b → a ∧ b` is the constructor for the And operation. </code>",
  "700":
- "<code>TotalMap.update_same {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) :\n  a →ₜ m[a] ; m = m</code>",
+ "<code>TotalMap.update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) : a →ₜ m[a] ; m = m</code>",
  "70":
  "<code>HMul.hMul.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMul α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a * b` computes the product of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `*` in identifiers is `mul`.</code>",
  "7": "<code>Aexp</code>",
  "699":
- "<code>TotalMap.update_shadow {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α)\n  (b₁ b₂ : β) : a →ₜ b₂ ; a →ₜ b₁ ; m = a →ₜ b₂ ; m</code>",
+ "<code>TotalMap.update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :\n  a →ₜ b₂ ; a →ₜ b₁ ; m = a →ₜ b₂ ; m</code>",
  "698": "<code>st[X] = m</code>",
  "697": "<code>P st ∧ st[X] = m</code>",
  "696": "<code>st =[\n  imp {\n    X := ~a;\n  } ]=&gt;\n  st'</code>",
@@ -852,7 +852,7 @@
  "486":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
  "485":
- "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  (a →ₜ b ; m)[a] = b</code>",
+ "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b</code>",
  "484": "<code>st[X] + 2 = m</code>",
  "483":
  "<code>Aexp.eval_num (st : State) (n : Nat) : Aexp.eval st n = n</code>",
@@ -1114,7 +1114,7 @@
  "324": "<code>Com.skip : Com</code>",
  "323": "<code>Com : Type</code>",
  "322":
- "<code>TotalMap.update {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "<code>TotalMap.update {α β : Type} (m : TotalMap α β) [BEq α] (a : α) (b : β) : TotalMap α β</code>",
  "321":
  "<code>Bexp.eval_and (st : State) (b1 b2 : Bexp) : eval st (bexp {~b1 ∧ ~b2}) = (eval st b1 && eval st b2)</code>",
  "320":

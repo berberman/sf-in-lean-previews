@@ -375,7 +375,7 @@
  "45":
  "<code class=\"docstring\">This tactic applies to a goal whose target has the form `x ~ x`,\nwhere `~` is equality, heterogeneous equality or any relation that\nhas a reflexivity lemma tagged with the attribute @[refl].\n</code>",
  "449":
- "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  (a →ₜ b ; m)[a] = b</code>",
+ "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b</code>",
  "448": "<code>st[X] + 2 = m</code>",
  "447":
  "<code>Aexp.eval_num (st : State) (n : Nat) : Aexp.eval st n = n</code>",
@@ -637,7 +637,7 @@
  "288": "<code>Com.skip : Com</code>",
  "287": "<code>Com : Type</code>",
  "286":
- "<code>TotalMap.update {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "<code>TotalMap.update {α β : Type} (m : TotalMap α β) [BEq α] (a : α) (b : β) : TotalMap α β</code>",
  "285":
  "<code>Bexp.eval_and (st : State) (b1 b2 : Bexp) : eval st (bexp {~b1 ∧ ~b2}) = (eval st b1 && eval st b2)</code>",
  "284":

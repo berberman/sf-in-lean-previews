@@ -331,12 +331,49 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/244"
     },
     "245": {
-      "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
-      "changed_variants": [],
-      "head_sha": "d1db9d7b3a40a0aff2c0e593e697fb455d88b848",
+      "base_sha": "ed3449ff543edb6da267f67de5027e59cb359e71",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "cf43c2837e4c968e5d0f1cc4e9d2cc19f4b12b6e",
       "preview_path": "pr/245/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32021206283",
+      "status": "published",
       "title": "README: On SFL build structure, expected use",
       "url": "https://github.com/plclub/sf-in-lean/pull/245"
     },
