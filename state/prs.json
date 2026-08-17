@@ -1,5 +1,5 @@
 {
-  "main_sha": "be175c55ebdf086ead850769f9e8507022a49894",
+  "main_sha": "b55fd7d491e7810b98a70a8002cafcd18bf6a30f",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -517,6 +517,100 @@
       "status": "published",
       "title": "Note updates to LF from Catalin",
       "url": "https://github.com/plclub/sf-in-lean/pull/258"
+    },
+    "259": {
+      "base_sha": "be175c55ebdf086ead850769f9e8507022a49894",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "2f4369913728ec3fc7484e1fbd37502936468de2",
+      "preview_path": "pr/259/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32048595039",
+      "status": "published",
+      "title": "Tidy ALPHATESTERS.md",
+      "url": "https://github.com/plclub/sf-in-lean/pull/259"
+    },
+    "262": {
+      "base_sha": "be175c55ebdf086ead850769f9e8507022a49894",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "a4814f48203c8653315a242fc91947f181d864fd",
+      "preview_path": "pr/262/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32048619825",
+      "status": "published",
+      "title": "Survey of :::details candidates",
+      "url": "https://github.com/plclub/sf-in-lean/pull/262"
     }
   },
   "schema": 3
