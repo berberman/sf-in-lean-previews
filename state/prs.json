@@ -472,7 +472,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/262"
     },
     "263": {
-      "base_sha": "632ec7deec898bdaab18e1e17115f937fe93ed41",
+      "base_sha": "9c6f00a92c5ce091dd94f6c90c593712bc6cc695",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -511,9 +511,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "be54a6f79209e43b129334aa64454680b62add32",
+      "head_sha": "cf67a5003a2e68c85017ee9d8c94c59305e594a1",
       "preview_path": "pr/263/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32058230064",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32078008882",
       "status": "published",
       "title": "Pass over UsingLean",
       "url": "https://github.com/plclub/sf-in-lean/pull/263"

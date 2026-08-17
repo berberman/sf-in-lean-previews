@@ -3,7 +3,7 @@ import LF.Induction
 
 import LF.SFLCompat
 
--- # UsingLean: Using the full power of a proof assistant
+-- # UsingLean: Using the Full Power of a Proof Assistant
 
 -- ## More Powerful Natural Numbers
 
@@ -56,10 +56,8 @@ example : (3 * 3 : Nat) = 9 := by rfl
 
 -- In fact, from now on, we will use the built-in `Nat` type and its powerful
 -- features, writing `Nat.<theorem>` to reference Lean's version of
--- `<theorem>`.
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Why can't we just write <theorem>?
+-- `<theorem>`. (By convention, theorems about a type live in the namespace of
+-- that type, hence the need for the `Nat.` prefix.)
 
 -- ### `rfl` and Computation with `Nat`
 
@@ -110,7 +108,7 @@ example (n m : Nat) : n + m = m + n := by
 
 -- If you are using the Lean extension in VSCode, the InfoView will have a
 -- blue `[apply]` button that shows the suggested theorem to close the goal.
--- Alternatively, VSCode may show an inline suggestion (light bulb) button
+-- Alternatively, VSCode may show an inline suggestion (lightbulb) button
 -- above the `exact?`. You can click either of these buttons to replace the
 -- occurrence of `exact?` with the tactic it found to complete the proof;
 -- idiomatic Lean does not leave `exact?` tactics (or any other `?` tactics,
@@ -130,7 +128,6 @@ example (n m : Nat) : n + m = m + n := by
 
 -- Try this:
 --   [apply] rw [Nat.add_comm]
---   -- no goals
 
 -- However, unlike `exact?`, just because `rw?` suggests a theorem to you does
 -- not automatically imply that it will be useful. In the example below, many
@@ -247,11 +244,8 @@ theorem succ_mul_succ' (n m : Nat) :
 -- ## Definitional Simplification: `dsimp`
 
 -- Often, rather than rewriting by a known equation like
-
--- `n + succ m = succ (n + m)` using `rw [add_succ]`,
-
--- we just want to simplify the function (here `Nat.add`) automatically when
--- we can.
+-- `n + succ m = succ (n + m)` using `rw [add_succ]`, we just want to simplify
+-- the function (here `Nat.add`) automatically when we can.
 
 -- The `dsimp` tactic ("definitionally simplify") unfolds definitions and
 -- performs definitional simplifications. You can give it hints in square
@@ -313,28 +307,18 @@ example (n : Nat) : square n + 0 = n * n := by
 -- functions to simplify by. Many Lean tactics have `?` versions; try it out
 -- if you are unsure.
 
--- Note to developers (Roger Burtonpatel @rogerburtonpatel, NOW):
---     Hard pointer (ionathanch: from where?) needed to this section once we
---     versify. Also, we may want a pointer to where we introduce `simp` (and
---     *maybe* `grind` in the next volume).
-
 -- ### A New Step Towards Automation
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     This section reference should be a live pointer, at least in the HTML.
+-- In the section on Irreducibility, Rewriting, and Proof Engineering in
+-- Basics, we hinted at introducing more automated tactics than `rewrite` for
+-- writing proofs. The first of these is `dsimp`: by using `dsimp`, we allow
+-- Lean to introduce a small amount of its own automatic reasoning using other
+-- basic tactics like `rfl`. If you're ever confused by what `dsimp` is doing,
+-- don't be afraid to switch back to `rewrite` to examine what's going on.
 
--- In the section on `Irreducibility, Rewriting, and Proof
--- Engineering` of
--- `Basics.lean`, we hinted at introducing more automated tactics than
--- `rewrite` for writing proofs. The first of these is `dsimp`: by using
--- `dsimp`, we allow Lean to introduce a small amount of its own automatic
--- reasoning using other basic tactics like `rfl`. If you're ever confused by
--- what `dsimp` is doing, don't be afraid to switch back to `rewrite` to
--- examine what's going on.
-
--- Later in this volume, we will introduce the more powerful automated tactic
--- `simp`, which can sometimes solve complex goals by itself and is
--- accordingly extremely common in real-world Lean developments.
+-- Later in the Automation chapter, we will introduce the more powerful
+-- automated tactic `simp`, which can sometimes solve complex goals by itself
+-- and is accordingly extremely common in real-world Lean developments.
 
 -- But, using this tactic now does not help (in fact, it hurts!) the process
 -- of learning logical reasoning, formal theorem proving, and Lean.
@@ -350,8 +334,8 @@ example (n : Nat) : square n + 0 = n * n := by
 -- Now that we've switched over to using Lean's standard library, we can
 -- redefine some of the functions from the last few chapters on `Nat`s. Note
 -- that, for the built-in `Nat` type, the patterns `0` and `n + 1` correspond
--- to `zero` and `succ n`. Likewise, the pattern `n + 2` is equivalent to
--- `n + 1 + 1`.
+-- to `Nat.zero` and `Nat.succ n`. Likewise, the pattern `n + 2` is equivalent
+-- to `n + 1 + 1`.
 
 -- Prove some of these theorems using the techniques we've discussed this
 -- chapter.
@@ -368,22 +352,22 @@ theorem Nat.odd_def (n : Nat) : n.odd = !(n.even) := rfl
 
 def Nat.minustwo (n : Nat) : Nat :=
   match n with
-  | 0    => 0
-  | 1    => 0
+  | 0      => 0
+  | 1      => 0
   | n' + 2 => n'
 
 def Nat.double (n : Nat) : Nat :=
   match n with
-  | 0    => 0
+  | 0      => 0
   | n' + 1 => double n' + 2
 
 -- Note that we defined these functions in the `Nat` namespace; Lean's naming
 -- conventions advise that functions on a type should be defined in that
--- type's namepsace in almost all circumstnaces.
+-- type's namespace in almost all circumstances.
 
 -- When we define functions this way, something interesting happens to the way
--- Lean's InfoView prints them. Take a look at the info view inside the proof
--- of this thoerem (i.e., before the `rfl` tactic):
+-- Lean's InfoView prints them. Take a look at the InfoView inside the proof
+-- of this theorem before the `rfl` tactic:
 
 theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
   rfl
@@ -393,7 +377,7 @@ theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
 -- *field notation*, whereby Lean prints functions inside the namespace of a
 -- type *after* their first argument, separated by a `.`. At first glance,
 -- this may appear similar to how object-oriented methods work, but it's
--- really just a syntactic variation on the normal fu8nction-application style
+-- really just a syntactic variation on the normal function-application style
 -- we've seen so far. That is, `Nat.even n` and `n.even` are just different
 -- ways to write the exact same term.
 
@@ -402,18 +386,15 @@ theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
 -- on we will leave it enabled, since field notation is recommended in
 -- idiomatic Lean developments.
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Cut this: "It can also be disabled just for a specific function or
---     constructor by writing `attribute [pp_nodot] <Name>`." Do they need to
---     know it in SFL?
-
 -- As an example, observe the difference in how Lean prints the goal in the
 -- following two examples:
+
+set_option pp.fieldNotation false
 
 example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
   rfl
 
-attribute [pp_nodot] Nat.double
+set_option pp.fieldNotation true
 
 example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
   rfl
@@ -429,16 +410,12 @@ theorem Nat.even_succ (n : Nat) :
     | succ n' ih =>
       rw [even, ih, Bool.not_not]
 
--- Note to developers (NOW):
---     talk about using `Nat.add_zero` and friends from now on.
-
--- (OA) : added lemmas proved for our Nat for Lean's Nat to prevent later
--- files from breaking.
+-- We reprove here for Lean's `Nat` some theorems about `Nat.even` and
+-- `Nat.double`, which we had previously proven for our custom
+-- `NatPlayground.Nat`.
 
 theorem Nat.even_zero : even 0 = true := by rfl
-
 theorem Nat.double_zero : double 0 = 0 := by rfl
-
 theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 
 -- ### Exercise (2 stars): double_add ⭐⭐
@@ -460,12 +437,11 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 -- ## Using Code Actions to Generate Match Skeletons
 
 -- Lean's language server can suggest *code actions*, which are small editor
--- commands that modify the source code. In VSCode, a light-bulb icon appears
+-- commands that modify the source code. In VSCode, a lightbulb icon appears
 -- on the left when a code action is available at your cursor. You can click
 -- the icon or open the code action menu with `Ctrl + .` on Windows/Linux or
--- `Command + .` on macOS.
-
--- For more information, see [Lean 4 VS Code extension
+-- `Command + .` on macOS. For more information, see the [Lean 4 VSCode
+-- extension
 -- manual](https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md#code-actions).
 
 -- Some code actions can generate the explicit branches needed for pattern
@@ -473,12 +449,11 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 -- or with tactics such as `cases` and `induction`, which we saw in previous
 -- chapters.
 
--- Let's look at an example using `induction`.
-
--- For example, suppose we start with the following incomplete proof:
+-- Let's look at an example using `induction`. For example, suppose we start
+-- with the following incomplete proof:
 
 sf_expect_failure
-  theorem foo (n : Nat) : Nat.beq n n := by
+  example (n : Nat) : Nat.beq n n := by
     induction n
 
 -- Put your cursor on `induction n` and open the code action menu. You should
@@ -497,13 +472,13 @@ example (n : Nat) : Nat.beq n n := by
 
 example (n : Nat) : Nat.beq n n := by
   induction n with
-  | zero      => rfl
+  | zero => rfl
   | succ n ih => rw [Nat.beq, ih]
 
 -- Note that Lean used `_` for the induction hypothesis in the generated
--- `.succ` branch. At that point, Lean didn't know the unfinished proof would
--- need to refer to the hypothesis. Since we use it in `rw`, we replace `_`
--- with the name `ih`.
+-- `succ` branch. At that point, Lean didn't know whether the unfinished proof
+-- would need to refer to the hypothesis. Since we use it in `rw`, we replace
+-- `_` with the name `ih`.
 
 -- In later chapters, we will see some tactics that can make such inaccessible
 -- names available again.

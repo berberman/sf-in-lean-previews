@@ -3,7 +3,7 @@ import LF.Induction
 
 import LF.SFLCompat
 
--- # UsingLean: Using the full power of a proof assistant
+-- # UsingLean: Using the Full Power of a Proof Assistant
 
 -- ## More Powerful Natural Numbers
 
@@ -62,10 +62,9 @@ example : (3 * 3 : Nat) = 9 := by rfl
 
 -- In fact, from now on, we will use the built-in `Nat` type
 -- and its powerful features, writing `Nat.<theorem>` to
--- reference Lean's version of `<theorem>`.
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Why can't we just write <theorem>?
+-- reference Lean's version of `<theorem>`. (By convention,
+-- theorems about a type live in the namespace of that type,
+-- hence the need for the `Nat.` prefix.)
 
 -- ### `rfl` and Computation with `Nat`
 
@@ -110,14 +109,18 @@ example (n m : Nat) : n + m = m + n := by
 -- Try this:
 --   [apply] exact Nat.add_comm n m
 
--- You can also use `rw?` to look for theorems to rewrite by
+-- You can also use `rw?` to look for theorems to rewrite by.
 
 example (n m : Nat) : n + m = m + n := by
   rw?
 
 -- Try this:
 --   [apply] rw [Nat.add_comm]
---   -- no goals
+
+-- However, just because `rw?` suggests a theorem to you does
+-- not automatically imply that it will be useful; you will
+-- need to carefully look through its suggestions to see which
+-- ones seem useful.
 
 sf_expect_failure
   example (n m k : Nat) :
@@ -221,11 +224,9 @@ theorem succ_mul_succ' (n m : Nat) :
 -- ## Definitional Simplification: `dsimp`
 
 -- Often, rather than rewriting by a known equation like
-
--- `n + succ m = succ (n + m)` using `rw [add_succ]`,
-
--- we just want to simplify the function (here `Nat.add`)
--- automatically when we can.
+-- `n + succ m = succ (n + m)` using `rw [add_succ]`, we just
+-- want to simplify the function (here `Nat.add`) automatically
+-- when we can.
 
 -- The `dsimp` tactic ("definitionally simplify") unfolds
 -- definitions and performs definitional simplifications. You
@@ -289,16 +290,6 @@ example (n : Nat) : square n + 0 = n * n := by
 -- searches for functions to simplify by. Many Lean tactics
 -- have `?` versions; try it out if you are unsure.
 
--- Note to developers (Roger Burtonpatel @rogerburtonpatel, NOW):
---     Hard pointer (ionathanch: from where?) needed to this
---     section once we versify. Also, we may want a pointer to
---     where we introduce `simp` (and *maybe* `grind` in the
---     next volume).
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     This section reference should be a live pointer, at
---     least in the HTML.
-
 -- ## Redefining Functions and Lemmas over Nats
 
 -- Let's redefine some functions on Lean's `Nat`s and prove
@@ -316,13 +307,13 @@ theorem Nat.odd_def (n : Nat) : n.odd = !(n.even) := rfl
 
 def Nat.minustwo (n : Nat) : Nat :=
   match n with
-  | 0    => 0
-  | 1    => 0
+  | 0      => 0
+  | 1      => 0
   | n' + 2 => n'
 
 def Nat.double (n : Nat) : Nat :=
   match n with
-  | 0    => 0
+  | 0      => 0
   | n' + 1 => double n' + 2
 
 -- Defining functions in the `Nat` namespace changes how they
@@ -332,12 +323,14 @@ theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
   rfl
 
 -- This printing style is called *field notation* and can be
--- disabled with the `pp_nodot` attribute.
+-- enabled or disabled with the `pp.fieldNotation` option.
+
+set_option pp.fieldNotation false
 
 example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
   rfl
 
-attribute [pp_nodot] Nat.double
+set_option pp.fieldNotation true
 
 example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
   rfl
@@ -348,16 +341,12 @@ theorem Nat.even_succ (n : Nat) :
     (n + 1).even = !(n.even) := by
   sorry
 
--- Note to developers (NOW):
---     talk about using `Nat.add_zero` and friends from now on.
-
--- (OA) : added lemmas proved for our Nat for Lean's Nat to
--- prevent later files from breaking.
+-- We reprove here for Lean's `Nat` some theorems about
+-- `Nat.even` and `Nat.double`, which we had previously proven
+-- for our custom `NatPlayground.Nat`.
 
 theorem Nat.even_zero : even 0 = true := by rfl
-
 theorem Nat.double_zero : double 0 = 0 := by rfl
-
 theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 
 -- ### Exercise (2 stars): double_add ⭐⭐
@@ -374,18 +363,15 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 
 -- Lean's language server can suggest *code actions*, which are
 -- small editor commands that modify the source code. In
--- VSCode, a light-bulb icon appears on the left when a code
+-- VSCode, a lightbulb icon appears on the left when a code
 -- action is available at your cursor. You can click the icon
 -- or open the code action menu with `Ctrl + .` on
--- Windows/Linux or `Command + .` on macOS.
-
--- For more information, see [Lean 4 VS Code extension
+-- Windows/Linux or `Command + .` on macOS. For more
+-- information, see the [Lean 4 VSCode extension
 -- manual](https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md#code-actions).
 
 -- Some code actions can generate the explicit branches needed
 -- for pattern matching. This is especially useful when working
 -- with `match` expressions, or with tactics such as `cases`
 -- and `induction`, which we saw in previous chapters.
-
--- Let's look at an example using `induction`.
 

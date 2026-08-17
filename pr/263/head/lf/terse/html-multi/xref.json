@@ -5,13 +5,13 @@
   {"UsingLean":
    [{"id": "UsingLean",
      "data":
-     {"title": "UsingLean: Using the full power of a proof assistant",
+     {"title": "UsingLean: Using the Full Power of a Proof Assistant",
       "shortTitle": null,
       "sectionNum": "4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the full power of a proof assistant",
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"}]},
      "address": "/UsingLean/"}],
@@ -74,9 +74,9 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Poly/"}],
-   "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-the-Standard-Library":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-the-Standard-Library":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-the-Standard-Library",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-the-Standard-Library",
      "data":
      {"title": "Using the Standard Library",
       "shortTitle": null,
@@ -84,16 +84,16 @@
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the full power of a proof assistant",
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
        {"title": "Using the Standard Library",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-Code-Actions-to-Generate-Match-Skeletons":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-Code-Actions-to-Generate-Match-Skeletons":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Using-Code-Actions-to-Generate-Match-Skeletons",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-Code-Actions-to-Generate-Match-Skeletons",
      "data":
      {"title": "Using Code Actions to Generate Match Skeletons",
       "shortTitle": null,
@@ -101,16 +101,16 @@
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the full power of a proof assistant",
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
        {"title": "Using Code Actions to Generate Match Skeletons",
         "shortTitle": null,
         "number": "6"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Structuring-Proofs-with--calc":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Structuring-Proofs-with--calc",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc",
      "data":
      {"title": "Structuring Proofs with  calc",
       "shortTitle": null,
@@ -118,16 +118,16 @@
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the full power of a proof assistant",
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
        {"title": "Structuring Proofs with  calc",
         "shortTitle": null,
         "number": "3"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Redefining-Functions-and-Lemmas-over-Nats":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Redefining-Functions-and-Lemmas-over-Nats":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Redefining-Functions-and-Lemmas-over-Nats",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Redefining-Functions-and-Lemmas-over-Nats",
      "data":
      {"title": "Redefining Functions and Lemmas over Nats",
       "shortTitle": null,
@@ -135,16 +135,16 @@
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the full power of a proof assistant",
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
        {"title": "Redefining Functions and Lemmas over Nats",
         "shortTitle": null,
         "number": "5"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-Powerful-Natural-Numbers--rfl--and-Computation-with--Nat":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--rfl--and-Computation-with--Nat":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-Powerful-Natural-Numbers--rfl--and-Computation-with--Nat",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--rfl--and-Computation-with--Nat",
      "data":
      {"title": "rfl  and Computation with  Nat",
       "shortTitle": null,
@@ -152,7 +152,7 @@
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the full power of a proof assistant",
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
        {"title": "More Powerful Natural Numbers",
@@ -162,9 +162,9 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-Powerful-Natural-Numbers":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--More-Powerful-Natural-Numbers",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers",
      "data":
      {"title": "More Powerful Natural Numbers",
       "shortTitle": null,
@@ -172,16 +172,16 @@
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the full power of a proof assistant",
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
        {"title": "More Powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation",
      "data":
      {"title": "A New Step Towards Automation",
       "shortTitle": null,
@@ -189,7 +189,7 @@
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the full power of a proof assistant",
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
        {"title": "Definitional Simplification:  dsimp",
@@ -199,9 +199,9 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-Simplification___--dsimp":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-full-power-of-a-proof-assistant--Definitional-Simplification___--dsimp",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp",
      "data":
      {"title": "Definitional Simplification:  dsimp",
       "shortTitle": null,
@@ -209,7 +209,7 @@
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the full power of a proof assistant",
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
        {"title": "Definitional Simplification:  dsimp",
@@ -2945,7 +2945,7 @@
       {"display": "triple",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Definitional Simplification:  dsimp"]}},
      "address": "/UsingLean/"}],
    "trans_eq_example_exact":
@@ -3042,7 +3042,7 @@
       {"display": "succ_mul_succ",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Structuring Proofs with  calc"]}},
      "address": "/UsingLean/"}],
    "succ_injective'":
@@ -3109,7 +3109,7 @@
       {"display": "square",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Definitional Simplification:  dsimp"]}},
      "address": "/UsingLean/"}],
    "simp_lemmas_example.add_zero":
@@ -5961,7 +5961,7 @@
       {"display": "Nat.odd_def",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
    "Nat.odd":
@@ -5971,7 +5971,7 @@
       {"display": "Nat.odd",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
    "Nat.minustwo":
@@ -5981,7 +5981,7 @@
       {"display": "Nat.minustwo",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
    "Nat.factor_is_zero":
@@ -6002,7 +6002,7 @@
       {"display": "Nat.even_zero",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
    "Nat.even_bool_prop":
@@ -6022,7 +6022,7 @@
       {"display": "Nat.even_add_three",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
    "Nat.even":
@@ -6032,7 +6032,7 @@
       {"display": "Nat.even",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
    "Nat.ev_Even":
@@ -6053,7 +6053,7 @@
       {"display": "Nat.double_zero",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
    "Nat.double_succ":
@@ -6063,7 +6063,7 @@
       {"display": "Nat.double_succ",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
    "Nat.double":
@@ -6073,7 +6073,7 @@
       {"display": "Nat.double",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the full power of a proof assistant",
+        "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
    "Nat.IsThree":
@@ -7078,7 +7078,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -7089,7 +7089,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
