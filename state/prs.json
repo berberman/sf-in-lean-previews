@@ -378,7 +378,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/256"
     },
     "257": {
-      "base_sha": "be175c55ebdf086ead850769f9e8507022a49894",
+      "base_sha": "18089be9ae3269f18459d4b46fb68833223505c8",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -417,9 +417,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "7d105b0872f137feadb312ed4f5ab81ce40c8bdc",
+      "head_sha": "cdf796d9e5e21b5424f62e5f42671809a1eb6c5b",
       "preview_path": "pr/257/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32035150022",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32060412710",
       "status": "published",
       "title": "Add AUTOMATED_GRADING.md",
       "url": "https://github.com/plclub/sf-in-lean/pull/257"
