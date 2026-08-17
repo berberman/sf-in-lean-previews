@@ -423,6 +423,53 @@
       "status": "published",
       "title": "Fix infinite regress in Imp delaborator",
       "url": "https://github.com/plclub/sf-in-lean/pull/256"
+    },
+    "257": {
+      "base_sha": "be175c55ebdf086ead850769f9e8507022a49894",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "7d105b0872f137feadb312ed4f5ab81ce40c8bdc",
+      "preview_path": "pr/257/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32035150022",
+      "status": "published",
+      "title": "Add AUTOMATED_GRADING.md",
+      "url": "https://github.com/plclub/sf-in-lean/pull/257"
     }
   },
   "schema": 3
