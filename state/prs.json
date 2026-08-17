@@ -564,6 +564,53 @@
       "status": "published",
       "title": "Redraft AI Policy",
       "url": "https://github.com/plclub/sf-in-lean/pull/264"
+    },
+    "266": {
+      "base_sha": "9c6f00a92c5ce091dd94f6c90c593712bc6cc695",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "9aadf40032ca1bbd9cd4b736cc59f545ebd0411e",
+      "preview_path": "pr/266/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32067858353",
+      "status": "published",
+      "title": "Polish Slang",
+      "url": "https://github.com/plclub/sf-in-lean/pull/266"
     }
   },
   "schema": 3
