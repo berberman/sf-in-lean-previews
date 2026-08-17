@@ -1849,6 +1849,242 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 </style><script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // Track whether any tippy is visible (O(1) check instead of DOM scan)
+    let visibleTippyCount = 0;
+    function blockedByTippy(elem) {
+      return visibleTippyCount > 0;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        if (inst.reference.className == 'tactic') {
+          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+          hideParentTooltips(inst.reference);
+          if (blockedByTippy(inst.reference)) { return false; }
+
+        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
+          if (blockedByTactic(inst.reference)) { return false };
+          if (blockedByTippy(inst.reference)) { return false; }
+        } else { // Nothing to show here!
+          return false;
+        }
+      },
+      onShown(inst) { visibleTippyCount++; },
+      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverId) { // Docstrings from the table
+            // TODO stop doing an implicit conversion from string to number here
+            let data = versoDocData[hoverId];
+            if (data) {
+              const info = document.createElement("span");
+              info.className = "hover-info";
+              info.style.display = "block";
+              info.innerHTML = data;
+              content.appendChild(info);
+              /* Render docstrings - TODO server-side */
+              if ('undefined' !== typeof marked) {
+                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
+                      const str = d.innerText;
+                      const html = marked.parse(str);
+                      const rendered = document.createElement("div");
+                      rendered.classList.add("docstring");
+                      rendered.innerHTML = html;
+                      d.parentNode.replaceChild(rendered, d);
+                  }
+              }
+            } else {
+              content.innerHTML = "Failed to load doc ID: " + hoverId;
+            }
+          } else if (hoverInfo) { // The inline info, still used for compiler messages
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          const extraLinks = tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (!tok._tippy && tok.matches(tacticTippySelector)) {
+              tippy(tok, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (tok._tippy) tok._tippy.destroy();
+          });
+        }
+      });
+  });
+}
+</script>
+    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -5770,6 +6006,16 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
+   "instDefaultValueOption":
+   [{"id": "instDefaultValueOption",
+     "data":
+     {"/Typeclasses/#instDefaultValueOption":
+      {"display": "instDefaultValueOption",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
    "instDefaultValueNat":
    [{"id": "instDefaultValueNat",
      "data":
@@ -5820,14 +6066,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
-   "getElem_def":
-   [{"id": "getElem_def",
-     "data":
-     {"/Typeclasses/#getElem_def":
-      {"display": "getElem_def",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
-     "address": "/Typeclasses/"}],
    "function_congruence":
    [{"id": "function_congruence",
      "data":
@@ -6622,97 +6860,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
      "address": "/Typeclasses/"}],
-   "TotalMap.Nat.nat_eq":
-   [{"id": "TotalMap___Nat___nat_eq",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___nat_eq":
-      {"display": "nat_eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_zero":
-   [{"id": "TotalMap___Nat___isEven_zero",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_zero":
-      {"display": "isEven_zero",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_succ_succ":
-   [{"id": "TotalMap___Nat___isEven_succ_succ",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_succ_succ":
-      {"display": "isEven_succ_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_succ":
-   [{"id": "TotalMap___Nat___isEven_succ",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_succ":
-      {"display": "isEven_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_one":
-   [{"id": "TotalMap___Nat___isEven_one",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_one":
-      {"display": "isEven_one",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_iff_Even":
-   [{"id": "TotalMap___Nat___isEven_iff_Even",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_iff_Even":
-      {"display": "isEven_iff_Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven":
-   [{"id": "TotalMap___Nat___isEven",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven":
-      {"display": "isEven",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.even_double":
-   [{"id": "TotalMap___Nat___even_double",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___even_double":
-      {"display": "even_double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___eq":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.double_zero":
-   [{"id": "TotalMap___Nat___double_zero",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___double_zero":
-      {"display": "double_zero",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.double_succ":
-   [{"id": "TotalMap___Nat___double_succ",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___double_succ":
-      {"display": "double_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.double":
-   [{"id": "TotalMap___Nat___double",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___double":
-      {"display": "double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.Even":
-   [{"id": "TotalMap___Nat___Even",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___Even":
-      {"display": "Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
    "TotalMap":
    [{"id": "TotalMap",
      "data":
@@ -7073,6 +7220,55 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Case Study: Regular Expressions",
         "Definitions"]}},
      "address": "/Automation/"}],
+   "Reflection.nat_eq":
+   [{"id": "Reflection___nat_eq",
+     "data":
+     {"/Typeclasses/#Reflection___nat_eq":
+      {"display": "nat_eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_iff_Even":
+   [{"id": "Reflection___even_iff_Even",
+     "data":
+     {"/Typeclasses/#Reflection___even_iff_Even":
+      {"display": "even_iff_Even",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_double":
+   [{"id": "Reflection___even_double",
+     "data":
+     {"/Typeclasses/#Reflection___even_double":
+      {"display": "even_double",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.eq":
+   [{"id": "Reflection___eq",
+     "data":
+     {"/Typeclasses/#Reflection___eq":
+      {"display": "eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Decidable.isTrue":
+   [{"id": "Reflection___Decidable___isTrue",
+     "data":
+     {"/Typeclasses/#Reflection___Decidable___isTrue":
+      {"display": "isTrue",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Decidable.isFalse":
+   [{"id": "Reflection___Decidable___isFalse",
+     "data":
+     {"/Typeclasses/#Reflection___Decidable___isFalse":
+      {"display": "isFalse",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Decidable":
+   [{"id": "Reflection___Decidable",
+     "data":
+     {"/Typeclasses/#Reflection___Decidable":
+      {"display": "Decidable",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
    "RGB.red":
    [{"id": "RGB___red",
      "data":
@@ -7651,6 +7847,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_eq_getElem":
+   [{"id": "PartialMap___toTotal_eq_getElem",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_eq_getElem":
+      {"display": "toTotal_eq_getElem",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.toTotal_empty":
    [{"id": "PartialMap___toTotal_empty",
      "data":
@@ -7659,11 +7863,19 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_def":
+   [{"id": "PartialMap___toTotal_def",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_def":
+      {"display": "toTotal_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.toTotal":
    [{"id": "PartialMap___toTotal",
      "data":
      {"/Typeclasses/#PartialMap___toTotal":
-      {"display": "PartialMap.toTotal",
+      {"display": "toTotal",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -7691,6 +7903,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.getElem_def":
+   [{"id": "PartialMap___getElem_def",
+     "data":
+     {"/Typeclasses/#PartialMap___getElem_def":
+      {"display": "getElem_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.ext":
    [{"id": "PartialMap___ext",
      "data":
@@ -7704,6 +7924,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"/Typeclasses/#PartialMap___examplePmap":
       {"display": "examplePmap",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.emptyNatMap":
+   [{"id": "PartialMap___emptyNatMap",
+     "data":
+     {"/Typeclasses/#PartialMap___emptyNatMap":
+      {"display": "emptyNatMap",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -10896,7 +11124,103 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}]}},
+     "address": "/IndProp/"}],
+   "Algebra.id_unique":
+   [{"id": "Algebra___id_unique",
+     "data":
+     {"/Typeclasses/#Algebra___id_unique":
+      {"display": "id_unique",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.OpSet.op":
+   [{"id": "Algebra___OpSet___op",
+     "data":
+     {"/Typeclasses/#Algebra___OpSet___op":
+      {"display": "op",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.OpSet":
+   [{"id": "Algebra___OpSet",
+     "data":
+     {"/Typeclasses/#Algebra___OpSet":
+      {"display": "OpSet",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.right_id":
+   [{"id": "Algebra___Monoid___right_id",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___right_id":
+      {"display": "right_id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.left_id":
+   [{"id": "Algebra___Monoid___left_id",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___left_id":
+      {"display": "left_id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.id":
+   [{"id": "Algebra___Monoid___id",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___id":
+      {"display": "id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.assoc":
+   [{"id": "Algebra___Monoid___assoc",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___assoc":
+      {"display": "assoc",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid":
+   [{"id": "Algebra___Monoid",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid":
+      {"display": "Monoid",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group.right_inv":
+   [{"id": "Algebra___Group___right_inv",
+     "data":
+     {"/Typeclasses/#Algebra___Group___right_inv":
+      {"display": "right_inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group.left_inv":
+   [{"id": "Algebra___Group___left_inv",
+     "data":
+     {"/Typeclasses/#Algebra___Group___left_inv":
+      {"display": "left_inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group.inv":
+   [{"id": "Algebra___Group___inv",
+     "data":
+     {"/Typeclasses/#Algebra___Group___inv":
+      {"display": "inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group":
+   [{"id": "Algebra___Group",
+     "data":
+     {"/Typeclasses/#Algebra___Group":
+      {"display": "Group",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}]}},
  "Verso.Genre.Manual.doc.tech":
  {"title": "Terminology",
   "description": "Definitions of technical terms",
@@ -11057,242 +11381,6 @@ if (paramName) {
             `;
         }
     });
-}
-</script>
-    <script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // Track whether any tippy is visible (O(1) check instead of DOM scan)
-    let visibleTippyCount = 0;
-    function blockedByTippy(elem) {
-      return visibleTippyCount > 0;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        if (inst.reference.className == 'tactic') {
-          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-          hideParentTooltips(inst.reference);
-          if (blockedByTippy(inst.reference)) { return false; }
-
-        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-          if (blockedByTactic(inst.reference)) { return false };
-          if (blockedByTippy(inst.reference)) { return false; }
-        } else { // Nothing to show here!
-          return false;
-        }
-      },
-      onShown(inst) { visibleTippyCount++; },
-      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverId) { // Docstrings from the table
-            // TODO stop doing an implicit conversion from string to number here
-            let data = versoDocData[hoverId];
-            if (data) {
-              const info = document.createElement("span");
-              info.className = "hover-info";
-              info.style.display = "block";
-              info.innerHTML = data;
-              content.appendChild(info);
-              /* Render docstrings - TODO server-side */
-              if ('undefined' !== typeof marked) {
-                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                      const str = d.innerText;
-                      const html = marked.parse(str);
-                      const rendered = document.createElement("div");
-                      rendered.classList.add("docstring");
-                      rendered.innerHTML = html;
-                      d.parentNode.replaceChild(rendered, d);
-                  }
-              }
-            } else {
-              content.innerHTML = "Failed to load doc ID: " + hoverId;
-            }
-          } else if (hoverInfo) { // The inline info, still used for compiler messages
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          const extraLinks = tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (!tok._tippy && tok.matches(tacticTippySelector)) {
-              tippy(tok, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (tok._tippy) tok._tippy.destroy();
-          });
-        }
-      });
-  });
 }
 </script>
     <style data-previewctl-verso-code-links>

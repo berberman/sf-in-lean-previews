@@ -166,7 +166,7 @@ import HL.SFLCompat
 -- An *assertion* is a logical claim about the state of a program's memory --
 -- formally, a predicate of `State`s.
 
-open scoped MyGetElem
+open scoped Com MyGetElem
 
 abbrev Assertion := State → Prop
 
@@ -1660,9 +1660,9 @@ theorem assertion_sub_example2' :
 --     deriving BEq, ReflBEq, LawfulBEq, DecidableEq`
 
 macro "assertion_auto" : tactic =>
-  `(tactic| focus (simp [assertImplies_def, assertIff_def, validHoareTriple_def,
-                         Assertion.subst_def, X, Y, Z, W] at *
-                  <;> try lia))
+  `(tactic| focus (simp +decide [assertImplies_def, assertIff_def, validHoareTriple_def,
+                                Assertion.subst_def] at *
+                  <;> lia))
 
 theorem assertion_sub_example2'' :
     {{X < 4}}
@@ -2666,7 +2666,7 @@ theorem ex1_repeat_works :
     · apply Com.EvalR.seq
       · apply Com.EvalR.asgn; rfl
       · apply Com.EvalR.asgn; rfl
-    · simp
+    · simp +decide
 
 -- Note to developers (Niklas Halonen @xhalo32):
 --     Do we want to `open Com.EvalR` to make the previous proof easier to

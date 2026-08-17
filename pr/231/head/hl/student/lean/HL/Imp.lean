@@ -58,6 +58,8 @@ import HL.SFLCompat
 -- We give the type of variable identifiers a name, `Ident`. For now it is
 -- just `String`; naming it makes the intent clearer.
 
+open scoped MyGetElem
+
 abbrev Ident := String
 abbrev State := TotalMap Ident Nat
 
@@ -94,17 +96,9 @@ def X : Ident := "X"
 def Y : Ident := "Y"
 def Z : Ident := "Z"
 
-attribute [simp] X Y Z W -- this helps `simp` reduce some total map terms
-
--- (This convention for naming program variables (`X`, `Y`, `Z`) clashes a bit
--- with our earlier use of uppercase letters for types. Since we're not using
--- polymorphism heavily in the chapters developed to Imp, this overloading
--- should not cause confusion.)
-
 -- ### Notations
 
--- To make Imp programs easier to read and write, we introduce some notations
--- and implicit coercions.
+-- To make Imp programs easier to read and write, we introduce some notations.
 
 -- You do not need to understand exactly what these declarations do. Briefly,
 -- though, here is how the two blocks below fit together:
@@ -203,37 +197,8 @@ macro_rules
 
 -- END DETAILS
 
--- We make it a little easier to write Imp programs using normal constructors
--- (i.e., without notation), by using *implicit coercions*. In Lean, a `Coe`
--- instance tells the elaborator how to turn a value of one type into another
--- automatically:
-
--- - `Coe Ident Aexp` lets us write a bare variable (an `Ident`) where an `Aexp`
---   is expected; the identifier is implicitly wrapped with `id`.
-
--- - `OfNat Aexp n` lets us write a numeric literal where an `Aexp` is expected;
---   it is implicitly wrapped with `num`.
-
--- - `Coe Bool Bexp` lets us write a boolean literal (`true`/`false`) where a
---   `Bexp` is expected; it is implicitly wrapped with `bool`.
-
-instance : Coe Ident Aexp where
-  coe := .id
-
-instance (n : Nat) : OfNat Aexp n where
-  ofNat := .num n
-
-instance : Coe Bool Bexp where
-  coe := .bool
-
--- With these coercions we can write `.plus 3 (.mult X 2)` instead of the
--- fully explicit `.plus (.num 3) (.mult (.id "X") (.num 2))`, and
--- `.and true (.not …)` instead of `.and (.bool true) (.not …)`. More readably
--- still, the concrete syntax from the Notations section lets us write these
--- examples directly:
-
-def example_aexp : Aexp := aexp { 3 + (X * 2) }
-def example_bexp : Bexp := bexp { true ∧ ¬(X ≤ 4) }
+#check aexp { 3 + (X * 2) }
+#check bexp { true ∧ ¬(X ≤ 4) }
 
 -- ### Delaborators
 
@@ -421,11 +386,9 @@ end Imp.Delab
 -- The arithmetic and boolean evaluators must now be extended to handle
 -- variables, taking a state `st` as an extra argument. A variable is looked
 -- up in the state with the map-indexing notation `st[x]` from the
--- `Typeclasses` chapter. For the notation to work, we need to
--- `open scoped MyGetElem`, which opens only the scoped items like notation
--- from the module.
-
-open scoped MyGetElem
+-- `Typeclasses` chapter. For the notation to work, we used
+-- `open scoped MyGetElem` earlier, which opens only the scoped items like
+-- notation from the module.
 
 def Aexp.eval (st : State) (a : Aexp) : Nat :=
   match a with
@@ -496,15 +459,10 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
 /-- Imp commands -/
 declare_syntax_cat imp_com
-
--- END DETAILS
-
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
-
 /-- The command that does nothing (`skip`) -/
 syntax ident : imp_com
 /-- Sequencing: one command after another -/
@@ -521,8 +479,10 @@ syntax:max "~" term:max : imp_com
 /-- Include an Imp command in Lean code -/
 syntax:min "imp" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : term
 
+namespace Com
+
 open Lean in
-macro_rules
+scoped macro_rules
   | `(imp { $x:ident }) =>
     if x.getId == `skip then `(Com.skip)
     else Macro.throwErrorAt x s!"expected 'skip', got '{x.getId}'"
@@ -537,6 +497,10 @@ macro_rules
   | `(imp { ~$c }) =>
     pure c
 
+end Com
+
+open scoped Com
+
 -- END DETAILS
 
 -- Just as we did for expressions, we add a delaborator so that Lean prints
@@ -550,17 +514,11 @@ macro_rules
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
 
-/-- Rebuild `imp_com` concrete syntax from a command term whose constructors
-live in namespace `ns` — `Com` for Imp itself, and an extension chapter's own
-command type elsewhere, with its constructors beyond Imp's five handled by
-`extra`.  Constructors are matched by name (`ns ++ `seq`, …) because each
-extension declares a fresh inductive; there is no shared type to match on. -/
 partial def delabComInnerFor (ns : Name) (extra : DelabM (TSyntax `imp_com)) :
     DelabM (TSyntax `imp_com) := do
   let e ← getExpr
   let stx ←
-    -- `mkIdent` rather than a quotation-literal `skip`, which would pick up
-    -- macro hygiene scopes and print as `skip✝`.
+    -- Using `(imp_com| skip)` would delaborate as `skip✝`. `mkIdent` fixes this.
     if e.isConstOf (ns ++ `skip) then
       `(imp_com| $(mkIdent `skip):ident)
     else if e.isAppOfArity (ns ++ `asgn) 2 then

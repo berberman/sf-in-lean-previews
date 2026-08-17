@@ -276,9 +276,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "9314fd434cb0a3ab35febedc7f57d2baf8469896",
+      "head_sha": "eec212a5f807ddd952dae80bdcfe274f07f93ff9",
       "preview_path": "pr/231/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31945445639",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32015104509",
       "status": "published",
       "title": "Hoare: start going through proofs",
       "url": "https://github.com/plclub/sf-in-lean/pull/231"
@@ -417,9 +417,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "e28922eec27b8b05760320a0ec76896d27398f96",
+      "head_sha": "7b2f2f0781113ee6dcae4c765b339c12979ed75d",
       "preview_path": "pr/250/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31945368554",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32015381814",
       "status": "published",
       "title": "Clean up proofs in Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/250"
@@ -464,15 +464,15 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "4ff53cf21f945aabea1e4807c08c44bbf0fb3bd3",
+      "head_sha": "b86980d133841a8598c374e15021fa07974c0a0f",
       "preview_path": "pr/251/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31940674473",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32015878126",
       "status": "published",
       "title": "Hoare2 fixes",
       "url": "https://github.com/plclub/sf-in-lean/pull/251"
     },
     "252": {
-      "base_sha": "152e9d04e86121ed70606f22d768cff9cd76fc4e",
+      "base_sha": "eec212a5f807ddd952dae80bdcfe274f07f93ff9",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -511,15 +511,15 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "4068895527b802cc9bd8746d8190d1b1c978c54c",
+      "head_sha": "706598cd241542842b875f8c73a6f0798fc67b26",
       "preview_path": "pr/252/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31944787398",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32015382089",
       "status": "published",
       "title": "Imp: Com.EvalR implicit arguments",
       "url": "https://github.com/plclub/sf-in-lean/pull/252"
     },
     "254": {
-      "base_sha": "4068895527b802cc9bd8746d8190d1b1c978c54c",
+      "base_sha": "706598cd241542842b875f8c73a6f0798fc67b26",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -558,9 +558,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "bda1e7a932b35d96452a494261e92deae3111e84",
+      "head_sha": "4e8ccf553cadbe99d7239ff183893e55fe4c49a4",
       "preview_path": "pr/254/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31945895358",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32015380433",
       "status": "published",
       "title": "Hoare: Com.EvalR implicit arguments",
       "url": "https://github.com/plclub/sf-in-lean/pull/254"

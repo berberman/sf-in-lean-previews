@@ -1167,28 +1167,6 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
-   "example_bexp":
-   [{"id": "example_bexp",
-     "data":
-     {"/Imp/#example_bexp":
-      {"display": "example_bexp",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "example_aexp":
-   [{"id": "example_aexp",
-     "data":
-     {"/Imp/#example_aexp":
-      {"display": "example_aexp",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
    "ceval_deterministic":
    [{"id": "ceval_deterministic",
      "data":

@@ -4,7 +4,7 @@ import HL.SFLCompat
 
 -- # Hoare2: Hoare Logic, Part II
 
-open scoped MyGetElem Assertion HasTriple
+open scoped Com MyGetElem Assertion HasTriple
 
 -- Note to developers (before next release):
 --     BCP 23,25: There are a lot of questions about the flow

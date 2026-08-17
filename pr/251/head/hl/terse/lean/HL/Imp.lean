@@ -57,6 +57,8 @@ import HL.SFLCompat
 -- For now it is just `String`; naming it makes the intent
 -- clearer.
 
+open scoped MyGetElem
+
 abbrev Ident := String
 abbrev State := TotalMap Ident Nat
 
@@ -114,8 +116,6 @@ def W : Ident := "W"
 def X : Ident := "X"
 def Y : Ident := "Y"
 def Z : Ident := "Z"
-
-attribute [simp] X Y Z W -- this helps `simp` reduce some total map terms
 
 -- ### Notations
 
@@ -197,17 +197,8 @@ macro_rules
 
 -- END DETAILS
 
-instance : Coe Ident Aexp where
-  coe := .id
-
-instance (n : Nat) : OfNat Aexp n where
-  ofNat := .num n
-
-instance : Coe Bool Bexp where
-  coe := .bool
-
-def example_aexp : Aexp := aexp { 3 + (X * 2) }
-def example_bexp : Bexp := bexp { true ∧ ¬(X ≤ 4) }
+#check aexp { 3 + (X * 2) }
+#check bexp { true ∧ ¬(X ≤ 4) }
 
 -- ### Delaborators
 
@@ -361,8 +352,6 @@ end Imp.Delab
 -- Now we need to add an `st` parameter to both evaluation
 -- functions:
 
-open scoped MyGetElem
-
 def Aexp.eval (st : State) (a : Aexp) : Nat :=
   match a with
   | num   n     =>  n
@@ -428,15 +417,10 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
 /-- Imp commands -/
 declare_syntax_cat imp_com
-
--- END DETAILS
-
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
-
 /-- The command that does nothing (`skip`) -/
 syntax ident : imp_com
 /-- Sequencing: one command after another -/
@@ -453,8 +437,10 @@ syntax:max "~" term:max : imp_com
 /-- Include an Imp command in Lean code -/
 syntax:min "imp" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : term
 
+namespace Com
+
 open Lean in
-macro_rules
+scoped macro_rules
   | `(imp { $x:ident }) =>
     if x.getId == `skip then `(Com.skip)
     else Macro.throwErrorAt x s!"expected 'skip', got '{x.getId}'"
@@ -469,6 +455,10 @@ macro_rules
   | `(imp { ~$c }) =>
     pure c
 
+end Com
+
+open scoped Com
+
 -- END DETAILS
 
 -- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
@@ -476,15 +466,14 @@ macro_rules
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
 
-/-- Rebuild `imp_com` concrete syntax from a `Com` term. -/
-partial def delabComInner : DelabM (TSyntax `imp_com) := do
+partial def delabComInnerFor (ns : Name) (extra : DelabM (TSyntax `imp_com)) :
+    DelabM (TSyntax `imp_com) := do
   let e ← getExpr
   let stx ←
-    match_expr e with
-    -- `mkIdent` rather than a quotation-literal `skip`, which would pick up
-    -- macro hygiene scopes and print as `skip✝`.
-    | Com.skip => `(imp_com| $(mkIdent `skip):ident)
-    | Com.asgn _ _ =>
+    -- Using `(imp_com| skip)` would delaborate as `skip✝`. `mkIdent` fixes this.
+    if e.isConstOf (ns ++ `skip) then
+      `(imp_com| $(mkIdent `skip):ident)
+    else if e.isAppOfArity (ns ++ `asgn) 2 then
       match ← withAppFn <| withAppArg getExpr with
       | .lit (.strVal s) =>
         let a ← withAppArg delabAexpInner
@@ -493,21 +482,26 @@ partial def delabComInner : DelabM (TSyntax `imp_com) := do
         let `($x:ident) ← withAppFn <| withAppArg delab | failure
         let a ← withAppArg delabAexpInner
         `(imp_com| $x:ident := $a)
-    | Com.seq _ _ =>
-      let s1 ← withAppFn <| withAppArg delabComInner
-      let s2 ← withAppArg delabComInner
+    else if e.isAppOfArity (ns ++ `seq) 2 then
+      let s1 ← withAppFn <| withAppArg (delabComInnerFor ns extra)
+      let s2 ← withAppArg (delabComInnerFor ns extra)
       `(imp_com| $s1; $s2)
-    | Com.cond _ _ _ =>
+    else if e.isAppOfArity (ns ++ `cond) 3 then
       let b  ← withAppFn <| withAppFn <| withAppArg delabBexpInner
-      let c1 ← withAppFn <| withAppArg delabComInner
-      let c2 ← withAppArg delabComInner
+      let c1 ← withAppFn <| withAppArg (delabComInnerFor ns extra)
+      let c2 ← withAppArg (delabComInnerFor ns extra)
       `(imp_com| if ($b) {$c1} else {$c2})
-    | Com.whileDo _ _ =>
+    else if e.isAppOfArity (ns ++ `whileDo) 2 then
       let b ← withAppFn <| withAppArg delabBexpInner
-      let c ← withAppArg delabComInner
+      let c ← withAppArg (delabComInnerFor ns extra)
       `(imp_com| while ($b) {$c})
-    | _ => `(imp_com| ~$(← delab))
+    else
+      extra <|> `(imp_com| ~$(← delab))
   annAsTerm stx
+
+/-- Rebuild `imp_com` concrete syntax from a `Com` term. -/
+partial def delabComInner : DelabM (TSyntax `imp_com) :=
+  delabComInnerFor ``Com failure
 
 @[delab app.Com.skip, delab app.Com.asgn, delab app.Com.seq,
   delab app.Com.cond, delab app.Com.whileDo]

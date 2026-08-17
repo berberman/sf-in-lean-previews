@@ -2098,28 +2098,6 @@
         "Finding Loop Invariants",
         "Exercise: Factorial"]}},
      "address": "/Hoare2/"}],
-   "example_bexp":
-   [{"id": "example_bexp",
-     "data":
-     {"/Imp/#example_bexp":
-      {"display": "example_bexp",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "example_aexp":
-   [{"id": "example_aexp",
-     "data":
-     {"/Imp/#example_aexp":
-      {"display": "example_aexp",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
    "dpow2_down_correct":
    [{"id": "dpow2_down_correct",
      "data":
@@ -3653,6 +3631,14 @@
         "Expressions With Variables",
         "Delaborators"]}},
      "address": "/Imp/"}],
+   "Imp.Delab.delabComInnerFor":
+   [{"id": "Imp___Delab___delabComInnerFor",
+     "data":
+     {"/Imp/#Imp___Delab___delabComInnerFor":
+      {"display": "delabComInnerFor",
+       "context":
+       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
    "Imp.Delab.delabComInner":
    [{"id": "Imp___Delab___delabComInner",
      "data":
@@ -3813,6 +3799,30 @@
      "data":
      {"/Hoare/#If1___ValidHoareTriple":
       {"display": "ValidHoareTriple",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Delab.delabComInner":
+   [{"id": "If1___Delab___delabComInner",
+     "data":
+     {"/Hoare/#If1___Delab___delabComInner":
+      {"display": "delabComInner",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "If1.Delab.delabCom":
+   [{"id": "If1___Delab___delabCom",
+     "data":
+     {"/Hoare/#If1___Delab___delabCom":
+      {"display": "delabCom",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",

@@ -711,6 +711,19 @@
         "shortTitle": null,
         "number": "4"}]},
      "address": "/Preface/"}],
+   "Logical-Foundations--Preface--For-Instructors--Credits":
+   [{"id": "Logical-Foundations--Preface--For-Instructors--Credits",
+     "data":
+     {"title": "Credits",
+      "shortTitle": null,
+      "sectionNum": "1.5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "For Instructors", "shortTitle": null, "number": "5"},
+       {"title": "Credits", "shortTitle": null, "number": "1"}]},
+     "address": "/Preface/"}],
    "Logical-Foundations--Preface--For-Instructors":
    [{"id": "Logical-Foundations--Preface--For-Instructors",
      "data":
@@ -722,18 +735,6 @@
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"},
        {"title": "For Instructors", "shortTitle": null, "number": "5"}]},
-     "address": "/Preface/"}],
-   "Logical-Foundations--Preface--Acknowledgements":
-   [{"id": "Logical-Foundations--Preface--Acknowledgements",
-     "data":
-     {"title": "Acknowledgements",
-      "shortTitle": null,
-      "sectionNum": "1.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Preface", "shortTitle": null, "number": "1"},
-       {"title": "Acknowledgements", "shortTitle": null, "number": "6"}]},
      "address": "/Preface/"}],
    "Logical-Foundations--Postscript--Resources":
    [{"id": "Logical-Foundations--Postscript--Resources",
@@ -3373,11 +3374,11 @@
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
-   "reaches1_in":
-   [{"id": "reaches1_in",
+   "reaches1In":
+   [{"id": "reaches1In",
      "data":
-     {"/IndProp/#reaches1_in":
-      {"display": "reaches1_in",
+     {"/IndProp/#reaches1In":
+      {"display": "reaches1In",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -3698,6 +3699,16 @@
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
+   "instDefaultValueOption":
+   [{"id": "instDefaultValueOption",
+     "data":
+     {"/Typeclasses/#instDefaultValueOption":
+      {"display": "instDefaultValueOption",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
    "instDefaultValueNat":
    [{"id": "instDefaultValueNat",
      "data":
@@ -3738,14 +3749,6 @@
         "Tactics: More Basic Tactics",
         "Specializing Hypotheses"]}},
      "address": "/Tactics/"}],
-   "getElem_def":
-   [{"id": "getElem_def",
-     "data":
-     {"/Typeclasses/#getElem_def":
-      {"display": "getElem_def",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
-     "address": "/Typeclasses/"}],
    "function_congruence":
    [{"id": "function_congruence",
      "data":
@@ -4046,17 +4049,6 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "cs":
-   [{"id": "cs",
-     "data":
-     {"/IndProp/#cs":
-      {"display": "cs",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
    "countOddMembers":
    [{"id": "countOddMembers",
      "data":
@@ -4090,50 +4082,6 @@
         "More powerful Natural Numbers",
         "rfl  and computation with  Nat"]}},
      "address": "/UsingLean/"}],
-   "collatz_holds_for":
-   [{"id": "collatz_holds_for",
-     "data":
-     {"/IndProp/#collatz_holds_for":
-      {"display": "collatz_holds_for",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "collatz'":
-   [{"id": "collatz___",
-     "data":
-     {"/IndProp/#collatz___":
-      {"display": "collatz'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "collatz":
-   [{"id": "collatz",
-     "data":
-     {"/IndProp/#collatz":
-      {"display": "collatz",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "cms":
-   [{"id": "cms",
-     "data":
-     {"/IndProp/#cms":
-      {"display": "cms",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
    "beq_succ":
    [{"id": "beq_succ",
      "data":
@@ -4458,130 +4406,6 @@
       {"display": "empty",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.nat_eq":
-   [{"id": "TotalMap___Nat___nat_eq",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___nat_eq":
-      {"display": "nat_eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_zero":
-   [{"id": "TotalMap___Nat___isEven_zero",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_zero":
-      {"display": "isEven_zero",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_succ_succ":
-   [{"id": "TotalMap___Nat___isEven_succ_succ",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_succ_succ":
-      {"display": "isEven_succ_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_succ":
-   [{"id": "TotalMap___Nat___isEven_succ",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_succ":
-      {"display": "isEven_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_one":
-   [{"id": "TotalMap___Nat___isEven_one",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_one":
-      {"display": "isEven_one",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven_iff_Even":
-   [{"id": "TotalMap___Nat___isEven_iff_Even",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven_iff_Even":
-      {"display": "isEven_iff_Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.isEven":
-   [{"id": "TotalMap___Nat___isEven",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___isEven":
-      {"display": "isEven",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.even_double":
-   [{"id": "TotalMap___Nat___even_double",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___even_double":
-      {"display": "even_double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.eq":
-   [{"id": "TotalMap___Nat___eq-next",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___eq-next":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
-      "/Typeclasses/#TotalMap___Nat___eq":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"},
-    {"id": "TotalMap___Nat___eq",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___eq-next":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
-      "/Typeclasses/#TotalMap___Nat___eq":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.double_zero":
-   [{"id": "TotalMap___Nat___double_zero",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___double_zero":
-      {"display": "double_zero",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.double_succ":
-   [{"id": "TotalMap___Nat___double_succ",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___double_succ":
-      {"display": "double_succ",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.double":
-   [{"id": "TotalMap___Nat___double",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___double":
-      {"display": "double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.Even":
-   [{"id": "TotalMap___Nat___Even",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___Even":
-      {"display": "Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.Decidable.isTrue":
-   [{"id": "TotalMap___Nat___Decidable___isTrue",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___Decidable___isTrue":
-      {"display": "isTrue",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.Decidable.isFalse":
-   [{"id": "TotalMap___Nat___Decidable___isFalse",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___Decidable___isFalse":
-      {"display": "isFalse",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "TotalMap.Nat.Decidable":
-   [{"id": "TotalMap___Nat___Decidable",
-     "data":
-     {"/Typeclasses/#TotalMap___Nat___Decidable":
-      {"display": "Decidable",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "TotalMap":
    [{"id": "TotalMap",
@@ -4943,6 +4767,67 @@
         "Case Study: Regular Expressions",
         "Definitions"]}},
      "address": "/Automation/"}],
+   "Reflection.nat_eq":
+   [{"id": "Reflection___nat_eq",
+     "data":
+     {"/Typeclasses/#Reflection___nat_eq":
+      {"display": "nat_eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_iff_Even":
+   [{"id": "Reflection___even_iff_Even",
+     "data":
+     {"/Typeclasses/#Reflection___even_iff_Even":
+      {"display": "even_iff_Even",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_double":
+   [{"id": "Reflection___even_double",
+     "data":
+     {"/Typeclasses/#Reflection___even_double":
+      {"display": "even_double",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.eq":
+   [{"id": "Reflection___eq",
+     "data":
+     {"/Typeclasses/#Reflection___eq-next":
+      {"display": "eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
+      "/Typeclasses/#Reflection___eq":
+      {"display": "eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"},
+    {"id": "Reflection___eq-next",
+     "data":
+     {"/Typeclasses/#Reflection___eq-next":
+      {"display": "eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
+      "/Typeclasses/#Reflection___eq":
+      {"display": "eq",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Decidable.isTrue":
+   [{"id": "Reflection___Decidable___isTrue",
+     "data":
+     {"/Typeclasses/#Reflection___Decidable___isTrue":
+      {"display": "isTrue",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Decidable.isFalse":
+   [{"id": "Reflection___Decidable___isFalse",
+     "data":
+     {"/Typeclasses/#Reflection___Decidable___isFalse":
+      {"display": "isFalse",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Decidable":
+   [{"id": "Reflection___Decidable",
+     "data":
+     {"/Typeclasses/#Reflection___Decidable":
+      {"display": "Decidable",
+       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     "address": "/Typeclasses/"}],
    "RGB.red":
    [{"id": "RGB___red",
      "data":
@@ -5356,6 +5241,14 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_eq_getElem":
+   [{"id": "PartialMap___toTotal_eq_getElem",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_eq_getElem":
+      {"display": "toTotal_eq_getElem",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.toTotal_empty":
    [{"id": "PartialMap___toTotal_empty",
      "data":
@@ -5364,11 +5257,19 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.toTotal_def":
+   [{"id": "PartialMap___toTotal_def",
+     "data":
+     {"/Typeclasses/#PartialMap___toTotal_def":
+      {"display": "toTotal_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.toTotal":
    [{"id": "PartialMap___toTotal",
      "data":
      {"/Typeclasses/#PartialMap___toTotal":
-      {"display": "PartialMap.toTotal",
+      {"display": "toTotal",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -5396,6 +5297,14 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
+   "PartialMap.getElem_def":
+   [{"id": "PartialMap___getElem_def",
+     "data":
+     {"/Typeclasses/#PartialMap___getElem_def":
+      {"display": "getElem_def",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
    "PartialMap.ext":
    [{"id": "PartialMap___ext",
      "data":
@@ -5409,6 +5318,14 @@
      "data":
      {"/Typeclasses/#PartialMap___examplePmap":
       {"display": "examplePmap",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
+     "address": "/Typeclasses/"}],
+   "PartialMap.emptyNatMap":
+   [{"id": "PartialMap___emptyNatMap",
+     "data":
+     {"/Typeclasses/#PartialMap___emptyNatMap":
+      {"display": "emptyNatMap",
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
@@ -7730,10 +7647,56 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+   [{"id": "CollatzHoldsFor-next",
      "data":
-     {"/IndProp/#CollatzHoldsFor":
+     {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"},
+    {"id": "CollatzHoldsFor",
+     "data":
+     {"/IndProp/#CollatzHoldsFor-next":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]},
+      "/IndProp/#CollatzHoldsFor":
+      {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"}],
+   "Collatz'":
+   [{"id": "Collatz___",
+     "data":
+     {"/IndProp/#Collatz___":
+      {"display": "Collatz'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "Collatz":
+   [{"id": "Collatz",
+     "data":
+     {"/IndProp/#Collatz":
+      {"display": "Collatz",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -7817,6 +7780,28 @@
         "Inductively Defined Propositions",
         "Example: Reflexive and Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "CS":
+   [{"id": "CS",
+     "data":
+     {"/IndProp/#CS":
+      {"display": "CS",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "CMS":
+   [{"id": "CMS",
+     "data":
+     {"/IndProp/#CMS":
+      {"display": "CMS",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
    "BoolList.nil":
    [{"id": "BoolList___nil",
      "data":
@@ -7860,7 +7845,103 @@
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}]}},
+     "address": "/IndProp/"}],
+   "Algebra.id_unique":
+   [{"id": "Algebra___id_unique",
+     "data":
+     {"/Typeclasses/#Algebra___id_unique":
+      {"display": "id_unique",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.OpSet.op":
+   [{"id": "Algebra___OpSet___op",
+     "data":
+     {"/Typeclasses/#Algebra___OpSet___op":
+      {"display": "op",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.OpSet":
+   [{"id": "Algebra___OpSet",
+     "data":
+     {"/Typeclasses/#Algebra___OpSet":
+      {"display": "OpSet",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.right_id":
+   [{"id": "Algebra___Monoid___right_id",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___right_id":
+      {"display": "right_id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.left_id":
+   [{"id": "Algebra___Monoid___left_id",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___left_id":
+      {"display": "left_id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.id":
+   [{"id": "Algebra___Monoid___id",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___id":
+      {"display": "id",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid.assoc":
+   [{"id": "Algebra___Monoid___assoc",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid___assoc":
+      {"display": "assoc",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Monoid":
+   [{"id": "Algebra___Monoid",
+     "data":
+     {"/Typeclasses/#Algebra___Monoid":
+      {"display": "Monoid",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group.right_inv":
+   [{"id": "Algebra___Group___right_inv",
+     "data":
+     {"/Typeclasses/#Algebra___Group___right_inv":
+      {"display": "right_inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group.left_inv":
+   [{"id": "Algebra___Group___left_inv",
+     "data":
+     {"/Typeclasses/#Algebra___Group___left_inv":
+      {"display": "left_inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group.inv":
+   [{"id": "Algebra___Group___inv",
+     "data":
+     {"/Typeclasses/#Algebra___Group___inv":
+      {"display": "inv",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "Algebra.Group":
+   [{"id": "Algebra___Group",
+     "data":
+     {"/Typeclasses/#Algebra___Group":
+      {"display": "Group",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Proof-Carrying Typeclasses"]}},
+     "address": "/Typeclasses/"}]}},
  "Verso.Genre.Manual.doc.tech":
  {"title": "Terminology",
   "description": "Definitions of technical terms",

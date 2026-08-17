@@ -58,6 +58,8 @@ import HL.SFLCompat
 -- For now it is just `String`; naming it makes the intent
 -- clearer.
 
+open scoped MyGetElem
+
 abbrev Ident := String
 abbrev State := TotalMap Ident Nat
 
@@ -115,8 +117,6 @@ def W : Ident := "W"
 def X : Ident := "X"
 def Y : Ident := "Y"
 def Z : Ident := "Z"
-
-attribute [simp] X Y Z W -- this helps `simp` reduce some total map terms
 
 -- ### Notations
 
@@ -198,17 +198,8 @@ macro_rules
 
 -- END DETAILS
 
-instance : Coe Ident Aexp where
-  coe := .id
-
-instance (n : Nat) : OfNat Aexp n where
-  ofNat := .num n
-
-instance : Coe Bool Bexp where
-  coe := .bool
-
-def example_aexp : Aexp := aexp { 3 + (X * 2) }
-def example_bexp : Bexp := bexp { true ∧ ¬(X ≤ 4) }
+#check aexp { 3 + (X * 2) }
+#check bexp { true ∧ ¬(X ≤ 4) }
 
 -- ### Delaborators
 
@@ -362,8 +353,6 @@ end Imp.Delab
 -- Now we need to add an `st` parameter to both evaluation
 -- functions:
 
-open scoped MyGetElem
-
 def Aexp.eval (st : State) (a : Aexp) : Nat :=
   match a with
   | num   n     =>  n
@@ -429,15 +418,10 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
 /-- Imp commands -/
 declare_syntax_cat imp_com
-
--- END DETAILS
-
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
-
 /-- The command that does nothing (`skip`) -/
 syntax ident : imp_com
 /-- Sequencing: one command after another -/
@@ -454,8 +438,10 @@ syntax:max "~" term:max : imp_com
 /-- Include an Imp command in Lean code -/
 syntax:min "imp" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : term
 
+namespace Com
+
 open Lean in
-macro_rules
+scoped macro_rules
   | `(imp { $x:ident }) =>
     if x.getId == `skip then `(Com.skip)
     else Macro.throwErrorAt x s!"expected 'skip', got '{x.getId}'"
@@ -470,6 +456,10 @@ macro_rules
   | `(imp { ~$c }) =>
     pure c
 
+end Com
+
+open scoped Com
+
 -- END DETAILS
 
 -- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
@@ -477,17 +467,11 @@ macro_rules
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
 
-/-- Rebuild `imp_com` concrete syntax from a command term whose constructors
-live in namespace `ns` — `Com` for Imp itself, and an extension chapter's own
-command type elsewhere, with its constructors beyond Imp's five handled by
-`extra`.  Constructors are matched by name (`ns ++ `seq`, …) because each
-extension declares a fresh inductive; there is no shared type to match on. -/
 partial def delabComInnerFor (ns : Name) (extra : DelabM (TSyntax `imp_com)) :
     DelabM (TSyntax `imp_com) := do
   let e ← getExpr
   let stx ←
-    -- `mkIdent` rather than a quotation-literal `skip`, which would pick up
-    -- macro hygiene scopes and print as `skip✝`.
+    -- Using `(imp_com| skip)` would delaborate as `skip✝`. `mkIdent` fixes this.
     if e.isConstOf (ns ++ `skip) then
       `(imp_com| $(mkIdent `skip):ident)
     else if e.isAppOfArity (ns ++ `asgn) 2 then
