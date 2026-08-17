@@ -82,7 +82,7 @@ example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
 -- Note to developers (Benjamin Pierce @bcpierce00):
---     `INCOMING BOCHUM MATERIAL (old/bochum-lf-updates/AltAuto.v): the
+--     `INCOMING BOCHUM MATERIAL summarized by Claude (old/bochum-lf-updates/AltAuto.v): the
 --        Bochum LF updates extend AltAuto's discussion of the sequencing
 --        tactical with new material on Rocq's "local form with `..`":
 --

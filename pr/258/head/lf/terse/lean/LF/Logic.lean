@@ -418,7 +418,7 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 --     sensible one.
 
 -- Note to developers (Benjamin Pierce @bcpierce00):
---     `INCOMING BOCHUM MATERIAL (old/bochum-lf-updates/Logic.v): the five
+--     `INCOMING BOCHUM MATERIAL summarized by Claude (old/bochum-lf-updates/Logic.v): the five
 --        quizzes below were reworked in the Bochum LF updates -- addressing
 --        the concern in the dev note above.  Every option list was replaced
 --        by the following uniform one (with `discriminate` in place of
