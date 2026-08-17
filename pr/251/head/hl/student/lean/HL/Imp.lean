@@ -1,3 +1,4 @@
+import LF.CustomTactics
 import LF.Typeclasses
 import Lean.PrettyPrinter.Delaborator
 import Lean.PrettyPrinter.Parenthesizer
@@ -761,20 +762,20 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 -- to the inference rules.
 
 inductive Com.EvalR : Com → State → State → Prop where
-  | skip (st : State) : EvalR (imp {skip}) st st
-  | asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : a.eval st = n) :
+  | skip {st : State} : EvalR (imp {skip}) st st
+  | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : a.eval st = n) :
       EvalR (imp {x := ~a}) st (x →ₜ n ; st)
-  | seq (c1 c2 : Com) (st st' st'' : State) (h1 : EvalR c1 st st') (h2 : EvalR c2 st' st'') :
+  | seq {c1 c2 : Com} {st st' st'' : State} (h1 : EvalR c1 st st') (h2 : EvalR c2 st' st'') :
       EvalR (imp {~c1; ~c2}) st st''
-  | ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = true)
+  | ifTrue {st st' : State} {b : Bexp} {c1 c2 : Com} (hb : b.eval st = true)
       (hc : EvalR c1 st st') :
       EvalR (imp {if (~b) {~c1} else {~c2}}) st st'
-  | ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = false)
+  | ifFalse {st st' : State} {b : Bexp} {c1 c2 : Com} (hb : b.eval st = false)
       (hc : EvalR c2 st st') :
       EvalR (imp {if (~b) {~c1} else {~c2}}) st st'
-  | whileFalse (b : Bexp) (st : State) (c : Com) (hb : b.eval st = false) :
+  | whileFalse {b : Bexp} {st : State} {c : Com} (hb : b.eval st = false) :
       EvalR (imp {while (~b) {~c}}) st st
-  | whileTrue (st st' st'' : State) (b : Bexp) (c : Com) (hb : b.eval st = true)
+  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com} (hb : b.eval st = true)
       (hc : EvalR c st st') (hloop : Com.EvalR (imp {while (~b) {~c}}) st' st'') :
       EvalR (imp {while (~b) {~c}}) st st''
 
@@ -897,34 +898,34 @@ example :
 theorem ceval_deterministic (c : Com) (st st1 st2 : State)
     (e1 : st =[ c ]=> st1) (e2 : st =[ c ]=> st2) : st1 = st2 := by
   induction e1 generalizing st2 with
-  | skip st =>
-      cases e2 with
-      | skip => rfl
-  | asgn st a n x h =>
-      cases e2 with
-      | asgn _ _ n' _ h' => subst h; subst h'; rfl
-  | seq c1 c2 st st' st'' h1 h2 ih1 ih2 =>
-      cases e2 with
-      | seq _ _ _ st2' _ h1' h2' =>
+  | @skip st =>
+      inversion e2
+      rfl
+  | @asgn st a n x h =>
+      inversion e2 with
+      | asgn h' => subst h; subst h'; rfl
+  | @seq c1 c2 st st' st'' h1 h2 ih1 ih2 =>
+      inversion e2 with
+      | seq st2' h1' h2' =>
           have hst : st' = st2' := ih1 _ h1'
           subst hst
           exact ih2 _ h2'
-  | ifTrue st st' b c1 c2 hb hc ih =>
-      cases e2 with
-      | ifTrue _ _ _ _ _ hb' hc' => exact ih _ hc'
-      | ifFalse _ _ _ _ _ hb' hc' => simp_all
-  | ifFalse st st' b c1 c2 hb hc ih =>
-      cases e2 with
-      | ifTrue _ _ _ _ _ hb' hc' => simp_all
-      | ifFalse _ _ _ _ _ hb' hc' => exact ih _ hc'
-  | whileFalse b st c hb =>
-      cases e2 with
-      | whileFalse _ _ _ hb' => rfl
-      | whileTrue _ _ _ _ _ hb' hc' hl' => simp_all
-  | whileTrue st st' st'' b c hb hc hloop ih1 ih2 =>
-      cases e2 with
-      | whileFalse _ _ _ hb' => simp_all
-      | whileTrue _ st2' _ _ _ hb' hc' hl' =>
+  | @ifTrue st st' b c1 c2 hb hc ih =>
+      inversion e2 with
+      | ifTrue hb' hc' => exact ih _ hc'
+      | ifFalse hb' hc' => simp_all
+  | @ifFalse st st' b c1 c2 hb hc ih =>
+      inversion e2 with
+      | ifTrue hb' hc' => simp_all
+      | ifFalse hb' hc' => exact ih _ hc'
+  | @whileFalse b st c hb =>
+      inversion e2 with
+      | whileFalse hb' => rfl
+      | whileTrue hb' hc' hl' => simp_all
+  | @whileTrue st st' st'' b c hb hc hloop ih1 ih2 =>
+      inversion e2 with
+      | whileFalse hb' => simp_all
+      | whileTrue st2' _ hc' hl' =>
           have hst : st' = st2' := ih1 _ hc'
           subst hst
           exact ih2 _ hl'
@@ -956,8 +957,8 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
   -- Inverting `heval` forces one step of the `ceval` computation: since
   -- `plus2` is an assignment, `st'` must be `st` extended at `X`.
   unfold plus2 at heval
-  cases heval with
-  | asgn _ _ m _ h =>
+  inversion heval with
+  | asgn m h =>
       simp only [Aexp.eval_plus, Aexp.eval_id, Aexp.eval_num] at h
       rw [TotalMap.update_eq]
       lia

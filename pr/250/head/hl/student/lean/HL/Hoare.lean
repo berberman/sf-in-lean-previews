@@ -1736,22 +1736,22 @@ end Delab
 -- the rules for `if` guide you.
 
 inductive Com.EvalR : Com → State → State → Prop where
-  | skip (st : State) :
+  | skip {st : State} :
       EvalR (imp {skip}) st st
-  | asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : a.eval st = n) :
+  | asgn {st : State} (a : Aexp) {n : Nat} (x : Ident) (h : a.eval st = n) :
       EvalR (imp {x := ~a}) st (x →ₜ n ; st)
-  | seq (c1 c2 : Com) (st st' st'' : State)
+  | seq {c1 c2 : Com} (st st' st'' : State)
       (h1 : EvalR c1 st st') (h2 : EvalR c2 st' st'') :
       EvalR (imp {~c1; ~c2}) st st''
-  | ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = true)
+  | ifTrue {st st' : State} (b : Bexp) {c1 c2 : Com} (hb : b.eval st = true)
       (hc : EvalR c1 st st') :
       EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
-  | ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = false)
+  | ifFalse {st st' : State} (b : Bexp) {c1 c2 : Com} (hb : b.eval st = false)
       (hc : EvalR c2 st st') :
       EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
-  | whileFalse (b : Bexp) (st : State) (c : Com) (hb : b.eval st = false) :
+  | whileFalse {b : Bexp} (st : State) (c : Com) (hb : b.eval st = false) :
       EvalR (imp {while (~b) {~c} }) st st
-  | whileTrue (st st' st'' : State) (b : Bexp) (c : Com)
+  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st st')
       (hloop : EvalR (imp {while (~b) {~c} }) st' st'') :
       EvalR (imp {while (~b) {~c} }) st st''
@@ -2153,22 +2153,22 @@ scoped macro_rules
 -- execute at least once, and that the loop ends when the guard becomes true.
 
 inductive Com.EvalR : Com → State → State → Prop where
-  | skip (st : State) :
+  | skip {st : State} :
       EvalR (imp {skip}) st st
-  | asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : a.eval st = n) :
+  | asgn {st : State} (a : Aexp) {n : Nat} (x : Ident) (h : a.eval st = n) :
       EvalR (imp {x := ~a}) st (x →ₜ n ; st)
-  | seq (c1 c2 : Com) (st st' st'' : State)
+  | seq {c1 c2 : Com} (st st' st'' : State)
       (h1 : EvalR c1 st st') (h2 : EvalR c2 st' st'') :
       EvalR (imp {~c1; ~c2}) st st''
-  | ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = true)
+  | ifTrue {st st' : State} (b : Bexp) {c1 c2 : Com} (hb : b.eval st = true)
       (hc : EvalR c1 st st') :
       EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
-  | ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = false)
+  | ifFalse {st st' : State} (b : Bexp) {c1 c2 : Com} (hb : b.eval st = false)
       (hc : EvalR c2 st st') :
       EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
-  | whileFalse (b : Bexp) (st : State) (c : Com) (hb : b.eval st = false) :
+  | whileFalse {b : Bexp} (st : State) (c : Com) (hb : b.eval st = false) :
       EvalR (imp {while (~b) {~c} }) st st
-  | whileTrue (st st' st'' : State) (b : Bexp) (c : Com)
+  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st st')
       (hloop : EvalR (imp {while (~b) {~c} }) st' st'') :
       EvalR (imp {while (~b) {~c} }) st st''
@@ -2332,26 +2332,26 @@ scoped macro_rules
     pure c
 
 inductive Com.EvalR : Com → State → State → Prop where
-  | skip (st : State) :
+  | skip {st : State} :
       EvalR (imp {skip}) st st
-  | asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : a.eval st = n) :
+  | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : a.eval st = n) :
       EvalR (imp {x := ~a}) st (x →ₜ n ; st)
-  | seq (c1 c2 : Com) (st st' st'' : State)
+  | seq {c1 c2 : Com} {st st' st'' : State}
       (h1 : EvalR c1 st st') (h2 : EvalR c2 st' st'') :
       EvalR (imp {~c1; ~c2}) st st''
-  | ifTrue (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = true)
+  | ifTrue {st st' : State} {b : Bexp} {c1 c2 : Com} (hb : b.eval st = true)
       (hc : EvalR c1 st st') :
       EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
-  | ifFalse (st st' : State) (b : Bexp) (c1 c2 : Com) (hb : b.eval st = false)
+  | ifFalse {st st' : State} {b : Bexp} {c1 c2 : Com} (hb : b.eval st = false)
       (hc : EvalR c2 st st') :
       EvalR (imp {if (~b) {~c1} else {~c2} }) st st'
-  | whileFalse (b : Bexp) (st : State) (c : Com) (hb : b.eval st = false) :
+  | whileFalse {b : Bexp} {st : State} {c : Com} (hb : b.eval st = false) :
       EvalR (imp {while (~b) {~c} }) st st
-  | whileTrue (st st' st'' : State) (b : Bexp) (c : Com)
+  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st st')
       (hloop : EvalR (imp {while (~b) {~c} }) st' st'') :
       EvalR (imp {while (~b) {~c} }) st st''
-  | havoc (st : State) (x : Ident) (n : Nat) :
+  | havoc {st : State} {x : Ident} {n : Nat} :
       EvalR (imp {havoc x}) st (x →ₜ n ; st)
 
 instance : HasEval Com State State where
@@ -2488,36 +2488,36 @@ inductive Result : Type where
 
 inductive Com.EvalR : Com → State → Result → Prop where
   /- Old rules, several modified -/
-  | skip (st : State) :
+  | skip {st : State} :
       EvalR (imp {skip}) st (.normal st)
-  | asgn (st : State) (a : Aexp) (n : Nat) (x : Ident) (h : a.eval st = n) :
+  | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : a.eval st = n) :
       EvalR (imp {x := ~a}) st (.normal (x →ₜ n ; st))
-  | seqNormal (c1 c2 : Com) (st st' : State) (r : Result)
+  | seqNormal {c1 c2 : Com} {st st' : State} {r : Result}
       (h1 : EvalR c1 st (.normal st')) (h2 : EvalR c2 st' r) :
       EvalR (imp {~c1; ~c2}) st r
-  | seqError (c1 c2 : Com) (st : State) (h : EvalR c1 st .error) :
+  | seqError {c1 c2 : Com} {st : State} (h : EvalR c1 st .error) :
       EvalR (imp {~c1; ~c2}) st .error
-  | ifTrue (st : State) (r : Result) (b : Bexp) (c1 c2 : Com)
+  | ifTrue {st : State} {r : Result} {b : Bexp} {c1 c2 : Com}
       (hb : b.eval st = true) (hc : EvalR c1 st r) :
       EvalR (imp {if (~b) {~c1} else {~c2} }) st r
-  | ifFalse (st : State) (r : Result) (b : Bexp) (c1 c2 : Com)
+  | ifFalse {st : State} {r : Result} {b : Bexp} {c1 c2 : Com}
       (hb : b.eval st = false) (hc : EvalR c2 st r) :
       EvalR (imp {if (~b) {~c1} else {~c2} }) st r
-  | whileFalse (b : Bexp) (st : State) (c : Com) (hb : b.eval st = false) :
+  | whileFalse {b : Bexp} {st : State} {c : Com} (hb : b.eval st = false) :
       EvalR (imp {while (~b) {~c} }) st (.normal st)
-  | whileTrueNormal (st st' : State) (r : Result) (b : Bexp) (c : Com)
+  | whileTrueNormal {st st' : State} {r : Result} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st (.normal st'))
       (hloop : EvalR (imp {while (~b) {~c} }) st' r) :
       EvalR (imp {while (~b) {~c} }) st r
-  | whileTrueError (st : State) (b : Bexp) (c : Com)
+  | whileTrueError {st : State} {b : Bexp} {c : Com}
       (hb : b.eval st = true) (hc : EvalR c st .error) :
       EvalR (imp {while (~b) {~c} }) st .error
   /- Rules for Assert and Assume -/
-  | assertTrue (st : State) (b : Bexp) (hb : b.eval st = true) :
+  | assertTrue {st : State} {b : Bexp} (hb : b.eval st = true) :
       EvalR (imp {assert (~b)}) st (.normal st)
-  | assertFalse (st : State) (b : Bexp) (hb : b.eval st = false) :
+  | assertFalse {st : State} {b : Bexp} (hb : b.eval st = false) :
       EvalR (imp {assert (~b)}) st .error
-  | assume (st : State) (b : Bexp) (hb : b.eval st = true) :
+  | assume {st : State} {b : Bexp} (hb : b.eval st = true) :
       EvalR (imp {assume (~b)}) st (.normal st)
 
 instance : HasEval Com State Result where
@@ -2646,11 +2646,11 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
   intro st r heval hpre
   generalize heq : (imp { while (~b) { ~c } }) = cmd at heval
   induction heval generalizing P with
-  | whileFalse b0 s0 c0 hb =>
+  | @whileFalse b0 s0 c0 hb =>
     injection heq with hbeq hceq
     subst hbeq hceq
     exact ⟨s0, rfl, hpre, by simp [hb]⟩
-  | whileTrueNormal s0 s0' r0 b0 c0 hb hc hloop ih1 ih2 =>
+  | @whileTrueNormal s0 s0' r0 b0 c0 hb hc hloop ih1 ih2 =>
     injection heq with hbeq hceq
     subst hbeq hceq
     apply ih2 hhoare _ rfl
@@ -2658,7 +2658,7 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
     injection heq1 with he
     subst he
     exact hs1
-  | whileTrueError s0 b0 c0 hb hc =>
+  | @whileTrueError s0 b0 c0 hb hc =>
     injection heq with hbeq hceq
     subst hbeq hceq
     obtain ⟨s1, heq1, hs1⟩ := hhoare hc ⟨hpre, hb⟩

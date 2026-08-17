@@ -436,7 +436,7 @@
  "<code class=\"docstring\">Given a main goal `ctx ⊢ t`, `suffices h : t' from e` replaces the main goal with `ctx ⊢ t'`,\n`e` must have type `t` in the context `ctx, h : t'`.\n\nThe variant `suffices h : t' by tac` is a shorthand for `suffices h : t' from by tac`.\nIf `h :` is omitted, the name `this` is used.\n </code>",
  "488": "<code>st =[\n  imp {\n    skip\n  } ]=&gt;\n  st'</code>",
  "487":
- "<code>TotalMap.update_same {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) :\n  a →ₜ m[a] ; m = m</code>",
+ "<code>TotalMap.update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) : a →ₜ m[a] ; m = m</code>",
  "486": "<code>Aexp.eval st X = n</code>",
  "485": "<code>st =[\n  imp {\n    X := ~X\n  } ]=&gt;\n  st'</code>",
  "484":
@@ -512,7 +512,7 @@
  "446":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
  "445":
- "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] [LawfulBEq α] [Inhabited β] (m : TotalMap α β) (a : α) (b : β) :\n  (a →ₜ b ; m)[a] = b</code>",
+ "<code>TotalMap.update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b</code>",
  "444": "<code>st[X] + 2 = m</code>",
  "443":
  "<code>Aexp.eval_num (st : State) (n : Nat) : Aexp.eval st n = n</code>",
@@ -789,7 +789,7 @@
  "28":
  "<code>Slang.Aexp.eval_mult (a1 a2 : Aexp) : (a1.mult a2).eval = a1.eval * a2.eval</code>",
  "279":
- "<code>TotalMap.update {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) : TotalMap α β</code>",
+ "<code>TotalMap.update {α β : Type} (m : TotalMap α β) [BEq α] (a : α) (b : β) : TotalMap α β</code>",
  "278":
  "<code>Bexp.eval_and (st : State) (b1 b2 : Bexp) : eval st (bexp {~b1 ∧ ~b2}) = (eval st b1 && eval st b2)</code>",
  "277":
