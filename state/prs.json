@@ -517,6 +517,16 @@
       "status": "published",
       "title": "Survey of :::details candidates",
       "url": "https://github.com/plclub/sf-in-lean/pull/262"
+    },
+    "263": {
+      "base_sha": "632ec7deec898bdaab18e1e17115f937fe93ed41",
+      "changed_variants": [],
+      "head_sha": "be54a6f79209e43b129334aa64454680b62add32",
+      "preview_path": "pr/263/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Pass over UsingLean",
+      "url": "https://github.com/plclub/sf-in-lean/pull/263"
     }
   },
   "schema": 3
