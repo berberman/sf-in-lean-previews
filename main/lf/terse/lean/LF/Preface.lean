@@ -287,7 +287,7 @@ import LF.SFLCompat
 --     unpack, open the folder in VS Code, accept the install
 --     prompt". Until that exists, this section should probably
 --     say plainly that readers get the files from their
---     instructor or by following `ALPHATESTERS.md`.
+--     instructor or by following `ALPHA-TESTERS.md`.
 
 -- ### Exercises
 
@@ -343,7 +343,7 @@ import LF.SFLCompat
 -- If you find things you'd like to help add or improve, your
 -- contributions are welcome! To get started, clone the
 -- [SF-in-Lean git repo](https://github.com/plclub/sf-in-lean)
--- and have a look at `ALPHATESTERS.md`.
+-- and have a look at `ALPHA-TESTERS.md`.
 
 -- ## For Instructors
 
