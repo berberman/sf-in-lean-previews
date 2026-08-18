@@ -75,9 +75,8 @@ example (m n p : Nat) :
     m + (n + p) = m + n + p := by
   lia
 
-example (A B C D : Prop) :
-  (A → B) → (B → C) → (C → D) → (A → D)
-     := by
+example (a b c d : Prop) :
+    (a → b) → (b → c) → (c → d) → (a → d) := by
   lia
 
 -- `lia` can solve many of the cases of our old `Perm3_In` example.
@@ -88,18 +87,18 @@ theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
   | perm3_swap12 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
-    -- In addition to basic arithmetic, `lia` can also discharge goals
-    -- that are simple facts about logic.
-    . lia /- was right; left; assumption -/
+    /- In addition to basic arithmetic, `lia` can also discharge goals
+      that are simple facts about logic. -/
+    . lia -- was right; left; assumption
     . lia
     . lia
     . lia
   | perm3_swap23 =>
-  -- Here, we solve _all_ goals- and eschew the `obtain` - with
-  -- the <;> tactic combinator, which we saw in the `Induction` chapter.
+  /- Here, we solve _all_ goals ─ and eschew the `obtain` ─ with
+    the <;> tactic combinator, which we saw in the `Induction` chapter. -/
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
   | perm3_trans _ _ _ _ _ ih₁2 ih₂3 =>
-    lia /- was apply ih₂3; apply ih₁2; apply hIn -/
+    lia -- was apply ih₂3; apply ih₁2; apply hIn
 
 -- ## Tactic Combinators
 
@@ -118,13 +117,13 @@ example (b c : Bool) : (b && c) = (c && b) := by
 -- and more interesting properties without drowning in boring, repetitive
 -- detail.
 
--- ### The `try` combinator
+-- ### The `try` Combinator
 
 -- The first such combinator we'll discuss is `try`. If `t` is a tactic, then
 -- `try t` is a tactic that is just like `t` except that, if `t` fails,
 -- `try t` *successfully* does nothing at all (rather than failing).
 
-example (a : Prop) (h : a) : a := by
+example {a : Prop} (h : a) : a := by
   try rfl -- `rfl` would fail here, but `try` swallows the failure...
   exact h -- ...so we can still finish some other way.
 
@@ -137,18 +136,18 @@ example : 1 = 1 := by
 inductive silly : Nat → Prop where
 | mk1 n (h : n > 1) : silly n
 | mk2 n (h : 1 ∈ []) : silly n
-| mk3 n (h : exists m, n = m + 2) : silly n
+| mk3 n (h : ∃ m, n = m + 2) : silly n
 
-example n (h : silly n) : n ≠ 1 := by
-  inversion h
-  . lia
-  . contradiction
-  . lia
+example {n} (h : silly n) : n ≠ 1 := by
+  inversion h with
+  | mk1 => lia
+  | mk2 => contradiction
+  | mk3 => lia
 
 -- Here, we can use the `lia` tactic to close some of these goals, but not all
 -- of them. So, a more compact way to write this proof would be:
 
-example n (h : silly n) : n ≠ 1 := by
+example {n} (h : silly n) : n ≠ 1 := by
   cases h <;> try lia
   -- `lia` doesn't know that `1 ∈ []` is impossible, but we can use `contradiction`
   contradiction
@@ -168,7 +167,7 @@ sf_expect_failure
   example (α : Type) (x : α) (l₁ l₂ : List α)
       (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
     induction hPerm <;> try lia <;>
-    try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
+      try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
 
 -- unsolved goals
 -- case perm3_swap12
@@ -187,7 +186,7 @@ sf_expect_failure
 -- hIn : x ∈ [a✝, b✝, c✝]
 -- ⊢ x ∈ [a✝, c✝, b✝]
 
--- ### The `repeat` combinator
+-- ### The `repeat` Combinator
 
 -- The `repeat` combinator takes another tactic or parenthesized sequence of
 -- tactics and keeps applying it until it fails.
@@ -198,7 +197,7 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
   repeat
     rw [List.mem_cons]
     try left; rfl
-    -- try makes this optional, which is necessary for the last repetition where left; rfl succeeds
+    -- `try` makes this optional, which is necessary for the last repetition where `left; rfl` succeeds
     try right
 
 -- The tactic `repeat t` never fails: if the tactic `t` doesn't apply to the
@@ -206,7 +205,7 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
 -- (i.e., it repeats zero times).
 
 example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
-  -- This is a no-op
+  -- this is a no-op
   repeat lia
   repeat
     rw [List.mem_cons]
@@ -218,8 +217,7 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
 -- progress), then `repeat t` will loop forever.
 
 sf_expect_failure
-  example (m n : Nat) :
-    m + n = n + m := by
+  example (m n : Nat) : m + n = n + m := by
     /- Uncomment the next line to see the infinite loop occur.  You will
        then need to recomment it make Lean listen to you again. -/
     -- repeat rewrite [Nat.add_comm]
@@ -235,12 +233,12 @@ sf_expect_failure
 -- (i.e., it does not terminate), this simply means that we have failed to
 -- construct a proof at all, not that we have constructed a bad proof.
 
--- ### The `first` combinator
+-- ### The `first` Combinator
 
 -- The `first` combinator takes a sequence of tactics and tries them in order,
 -- stopping after the first success. As a silly example:
 
-example n m : n * (m + 1) = n * m + n := by
+example (n m : Nat) : n * (m + 1) = n * m + n := by
   first | rfl | left | lia | induction n
 
 -- Neither `rfl` nor `left` succeed on this goal, but `lia` does, so `first`
@@ -341,9 +339,9 @@ end simp_lemmas_example
 theorem Perm3_In_almost_shortest (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm <;>
-  first
-  | simp at * <;> lia
-  | lia
+    first
+    | simp at * <;> lia
+    | lia
 
 -- Like `apply` and `rw`, there's also a version of `simp` that can simplify
 -- in hypotheses, rather than the goal. Invoking `simp` as
@@ -455,7 +453,7 @@ example α x (l₁ l₂ l₃ : List α)
 -- define our `simp` lemmas such that they respect this left-to-right
 -- simplification behavior.
 
--- ## The `trivial` tactic
+-- ## The `trivial` Tactic
 
 -- A final automated tactic to have in your toolkit is `trivial`, which tries
 -- a number of different simple tactics (such as `rfl` or `contradiction`) to
@@ -684,15 +682,7 @@ theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
 theorem MStar' α (ss : List (List α)) (re : RegExp α)
     (h : ∀ s, s ∈ ss → s =~ re) :
     ss.foldr (· ++ ·) [] =~ Star re := by
-  -- ADMITTED
-  induction ss with
-  | nil => constructor
-  | cons s ss' ih =>
-    simp only [List.foldr_cons]
-    constructor
-    · apply h; simp
-    · apply ih; intro s' hs'
-      apply h; right; assumption
+  sorry
 
 -- ### Exercise (1 star): EmptyStr_not_needed ⭐
 

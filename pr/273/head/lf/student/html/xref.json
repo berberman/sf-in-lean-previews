@@ -2526,11 +2526,11 @@
         "number": "2"},
        {"title": "Data and Functions", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Automation___-More-Automation--The--trivial--tactic":
+   "Logical-Foundations--Automation___-More-Automation--The--trivial--Tactic":
    [{"id":
-     "Logical-Foundations--Automation___-More-Automation--The--trivial--tactic",
+     "Logical-Foundations--Automation___-More-Automation--The--trivial--Tactic",
      "data":
-     {"title": "The  trivial  tactic",
+     {"title": "The  trivial  Tactic",
       "shortTitle": null,
       "sectionNum": "10.4.",
       "searchPriority": 50,
@@ -2539,7 +2539,7 @@
        {"title": "Automation: More Automation",
         "shortTitle": null,
         "number": "10"},
-       {"title": "The  trivial  tactic", "shortTitle": null, "number": "4"}]},
+       {"title": "The  trivial  Tactic", "shortTitle": null, "number": "4"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--The--simp--Tactic--Idiomatic--simp--Usage":
    [{"id":
@@ -2587,11 +2587,11 @@
         "number": "10"},
        {"title": "The  lia  Tactic", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--try--combinator":
+   "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--try--Combinator":
    [{"id":
-     "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--try--combinator",
+     "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--try--Combinator",
      "data":
-     {"title": "The  try  combinator",
+     {"title": "The  try  Combinator",
       "shortTitle": null,
       "sectionNum": "10.2.1.",
       "searchPriority": 50,
@@ -2601,13 +2601,13 @@
         "shortTitle": null,
         "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
-       {"title": "The  try  combinator", "shortTitle": null, "number": "1"}]},
+       {"title": "The  try  Combinator", "shortTitle": null, "number": "1"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--repeat--combinator":
+   "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--repeat--Combinator":
    [{"id":
-     "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--repeat--combinator",
+     "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--repeat--Combinator",
      "data":
-     {"title": "The  repeat  combinator",
+     {"title": "The  repeat  Combinator",
       "shortTitle": null,
       "sectionNum": "10.2.2.",
       "searchPriority": 50,
@@ -2617,15 +2617,15 @@
         "shortTitle": null,
         "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
-       {"title": "The  repeat  combinator",
+       {"title": "The  repeat  Combinator",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--first--combinator":
+   "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--first--Combinator":
    [{"id":
-     "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--first--combinator",
+     "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators--The--first--Combinator",
      "data":
-     {"title": "The  first  combinator",
+     {"title": "The  first  Combinator",
       "shortTitle": null,
       "sectionNum": "10.2.3.",
       "searchPriority": 50,
@@ -2635,7 +2635,7 @@
         "shortTitle": null,
         "number": "10"},
        {"title": "Tactic Combinators", "shortTitle": null, "number": "2"},
-       {"title": "The  first  combinator", "shortTitle": null, "number": "3"}]},
+       {"title": "The  first  Combinator", "shortTitle": null, "number": "3"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Tactic-Combinators":
    [{"id":
@@ -3269,7 +3269,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Tactic Combinators",
-        "The  try  combinator"]}},
+        "The  try  Combinator"]}},
      "address": "/Automation/"}],
    "silly.mk2":
    [{"id": "silly___mk2",
@@ -3280,7 +3280,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Tactic Combinators",
-        "The  try  combinator"]}},
+        "The  try  Combinator"]}},
      "address": "/Automation/"}],
    "silly.mk1":
    [{"id": "silly___mk1",
@@ -3291,7 +3291,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Tactic Combinators",
-        "The  try  combinator"]}},
+        "The  try  Combinator"]}},
      "address": "/Automation/"}],
    "silly":
    [{"id": "silly",
@@ -3302,7 +3302,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Tactic Combinators",
-        "The  try  combinator"]}},
+        "The  try  Combinator"]}},
      "address": "/Automation/"}],
    "setFirstTwoBits":
    [{"id": "setFirstTwoBits",
@@ -4835,17 +4835,6 @@
         "Case Study: Regular Expressions",
         "The \"Weak\" Pumping Lemma"]}},
      "address": "/Automation/"}],
-   "RegExp.MStar'":
-   [{"id": "RegExp___MStar___",
-     "data":
-     {"/Automation/#RegExp___MStar___":
-      {"display": "MStar'",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Examples"]}},
-     "address": "/Automation/"}],
    "RegExp.ExpMatch.mUnionR":
    [{"id": "RegExp___ExpMatch___mUnionR",
      "data":
@@ -5434,7 +5423,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Tactic Combinators",
-        "The  try  combinator"]}},
+        "The  try  Combinator"]}},
      "address": "/Automation/"}],
    "Perm3_In_better_with_lia":
    [{"id": "Perm3_In_better_with_lia",
@@ -5455,7 +5444,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Tactic Combinators",
-        "The  first  combinator"]}},
+        "The  first  Combinator"]}},
      "address": "/Automation/"}],
    "Perm3_In_almost_shortest":
    [{"id": "Perm3_In_almost_shortest",
