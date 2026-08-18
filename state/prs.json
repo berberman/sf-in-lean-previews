@@ -661,11 +661,48 @@
     },
     "269": {
       "base_sha": "14a3145d747638151bae36917a60d8684279e548",
-      "changed_variants": [],
-      "head_sha": "ae61490401734e8f30243fc45551f8a659db7b36",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "4241e1c1987df5fa775fa673eec411177d0e7def",
       "preview_path": "pr/269/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32137414310",
+      "status": "published",
       "title": "Small fixes",
       "url": "https://github.com/plclub/sf-in-lean/pull/269"
     }
