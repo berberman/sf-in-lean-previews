@@ -804,113 +804,113 @@
  "475": "<code>Nat.even (n : Nat) : Bool</code>",
  "474":
  "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
- "473": "<code>n + n = m + m</code>",
- "472": "<code>n + n = m * 2</code>",
- "471": "<code>Nat.mul_two (n : Nat) : n * 2 = n + n</code>",
- "470": "<code>n * 2 = m * 2</code>",
+ "473":
+ "<code class=\"docstring\">The `simp` tactic uses lemmas and hypotheses to simplify the main goal target or\nnon-dependent hypotheses. It has many variants:\n- `simp` simplifies the main goal target using lemmas tagged with the attribute `[simp]`.\n- `simp [h₁, h₂, ..., hₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]` and the given `hᵢ`'s, where the `hᵢ`'s are expressions.-\n- If an `hᵢ` is a defined constant `f`, then `f` is unfolded. If `f` has equational lemmas associated\n  with it (and is not a projection or a `reducible` definition), these are used to rewrite with `f`.\n- `simp [*]` simplifies the main goal target using the lemmas tagged with the\n  attribute `[simp]` and all hypotheses.\n- `simp only [h₁, h₂, ..., hₙ]` is like `simp [h₁, h₂, ..., hₙ]` but does not use `[simp]` lemmas.\n- `simp [-id₁, ..., -idₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]`, but removes the ones named `idᵢ`.\n- `simp at h₁ h₂ ... hₙ` simplifies the hypotheses `h₁ : T₁` ... `hₙ : Tₙ`. If\n  the target or another hypothesis depends on `hᵢ`, a new simplified hypothesis\n  `hᵢ` is introduced, but the old one remains in the local context.\n- `simp at *` simplifies all the hypotheses and the target.\n- `simp [*] at *` simplifies target and all (propositional) hypotheses using the\n  other hypotheses.\n</code>",
+ "472": "<code>n + n = m + m</code>",
+ "471": "<code>n + n = m * 2</code>",
+ "470": "<code>Nat.mul_two (n : Nat) : n * 2 = n + n</code>",
  "47": "<code>MyBool.and3 (b1 b2 b3 : MyBool) : MyBool</code>",
- "469": "<code>Nat.mul_comm (n m : Nat) : n * m = m * n</code>",
- "468": "<code>2 * n = m * 2</code>",
- "467": "<code>n * n = 16</code>",
- "466": "<code>square n = 16</code>",
- "465": "<code>m = n</code>",
- "464": "<code>n + n = m</code>",
- "463": "<code>triple (n : Nat) : Nat</code>",
- "462": "<code>square (n : Nat) : Nat</code>",
- "461":
+ "469": "<code>n * 2 = m * 2</code>",
+ "468": "<code>Nat.mul_comm (n m : Nat) : n * m = m * n</code>",
+ "467": "<code>2 * n = m * 2</code>",
+ "466": "<code>n * n = 16</code>",
+ "465": "<code>square n = 16</code>",
+ "464": "<code>m = n</code>",
+ "463": "<code>n + n = m</code>",
+ "462": "<code>triple (n : Nat) : Nat</code>",
+ "461": "<code>square (n : Nat) : Nat</code>",
+ "460":
  "<code>succ_mul_succ' (n m : Nat) : (n + 1) * (m + 1) = n * m + n + m + 1</code>",
- "460": "<code>Nat.mul_one (n : Nat) : n * 1 = n</code>",
  "46": "<code>MyBool.nand_test4 : nand true true = false</code>",
- "459": "<code>Nat.mul_add (n m k : Nat) : n * (m + k) = n * m + n * k</code>",
- "458": "<code>Nat.one_mul (n : Nat) : 1 * n = n</code>",
- "457": "<code>Nat.add_mul (n m k : Nat) : (n + m) * k = n * k + m * k</code>",
- "456":
- "<code>succ_mul_succ (n m : Nat) : (n + 1) * (m + 1) = n * m + n + m + 1</code>",
+ "459": "<code>Nat.mul_one (n : Nat) : n * 1 = n</code>",
+ "458": "<code>Nat.mul_add (n m k : Nat) : n * (m + k) = n * m + n * k</code>",
+ "457": "<code>Nat.one_mul (n : Nat) : 1 * n = n</code>",
+ "456": "<code>Nat.add_mul (n m k : Nat) : (n + m) * k = n * k + m * k</code>",
  "455":
- "<code>Nat.beq_eq_true_eq (a b : Nat) : ((a == b) = true) = (a = b)</code>",
+ "<code>succ_mul_succ (n m : Nat) : (n + 1) * (m + 1) = n * m + n + m + 1</code>",
  "454":
+ "<code>Nat.beq_eq_true_eq (a b : Nat) : ((a == b) = true) = (a = b)</code>",
+ "453":
  "<code>BEq.beq.{u} {α : Type u} [self : BEq α] : α → α → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean equality, notated as `a == b`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `==` in identifiers is `beq`.</code>",
- "453": "<code>mul_three_beq (n : Nat) : (3 * n == n + n + n) = true</code>",
- "452": "<code>Nat.two_mul (n : Nat) : 2 * n = n + n</code>",
- "451": "<code>Nat.add_one_mul (n m : Nat) : (n + 1) * m = n * m + m</code>",
- "450": "<code>mul_three (n : Nat) : 3 * n = n + n + n</code>",
+ "452": "<code>mul_three_beq (n : Nat) : (3 * n == n + n + n) = true</code>",
+ "451": "<code>Nat.two_mul (n : Nat) : 2 * n = n + n</code>",
+ "450": "<code>Nat.add_one_mul (n m : Nat) : (n + 1) * m = n * m + m</code>",
  "45": "<code>MyBool.nand_test3 : nand false true = true</code>",
- "449":
- "<code>Ordering.eq : Ordering</code><span class=\"sep\"></span><code class=\"docstring\">Equal. </code>",
+ "449": "<code>mul_three (n : Nat) : 3 * n = n + n + n</code>",
  "448":
- "<code>Ord.compare.{u} {α : Type u} [self : Ord α] : α → α → Ordering</code><span class=\"sep\"></span><code class=\"docstring\">Compare two elements in `α` using the comparator contained in an `[Ord α]` instance. </code>",
+ "<code>Ordering.eq : Ordering</code><span class=\"sep\"></span><code class=\"docstring\">Equal. </code>",
  "447":
- "<code>Nat.compare_eq_eq {a b : Nat} : compare a b = Ordering.eq ↔ a = b</code>",
+ "<code>Ord.compare.{u} {α : Type u} [self : Ord α] : α → α → Ordering</code><span class=\"sep\"></span><code class=\"docstring\">Compare two elements in `α` using the comparator contained in an `[Ord α]` instance. </code>",
  "446":
- "<code>OfNat.ofNat.{u} {α : Type u} (x✝ : Nat) [self : OfNat α x✝] : α</code><span class=\"sep\"></span><code class=\"docstring\">The `OfNat.ofNat` function is automatically inserted by the parser when\nthe user writes a numeric literal like `1 : α`. Implementations of this\ntypeclass can therefore customize the behavior of `n : α` based on `n` and\n`α`. </code>",
+ "<code>Nat.compare_eq_eq {a b : Nat} : compare a b = Ordering.eq ↔ a = b</code>",
  "445":
- "<code>Rat.ofNat_eq_ofNat {a b : Nat} : OfNat.ofNat a = OfNat.ofNat b ↔ a = b</code>",
+ "<code>OfNat.ofNat.{u} {α : Type u} (x✝ : Nat) [self : OfNat α x✝] : α</code><span class=\"sep\"></span><code class=\"docstring\">The `OfNat.ofNat` function is automatically inserted by the parser when\nthe user writes a numeric literal like `1 : α`. Implementations of this\ntypeclass can therefore customize the behavior of `n : α` based on `n` and\n`α`. </code>",
  "444":
+ "<code>Rat.ofNat_eq_ofNat {a b : Nat} : OfNat.ofNat a = OfNat.ofNat b ↔ a = b</code>",
+ "443":
  "<code>Nat.add : Nat → Nat → Nat</code><span class=\"sep\"></span><code class=\"docstring\">Addition of natural numbers, typically used via the `+` operator.\n\nThis function is overridden in both the kernel and the compiler to efficiently evaluate using the\narbitrary-precision arithmetic library. The definition provided here is the logical model.\n</code>",
- "443": "<code>Nat.add_eq {x y : Nat} : x.add y = x + y</code>",
- "442":
- "<code>Nat.add_succ_sub_one (m n : Nat) : m + n.succ - 1 = m + n</code>",
+ "442": "<code>Nat.add_eq {x y : Nat} : x.add y = x + y</code>",
  "441":
- "<code>Nat.max_add_right_self {a b : Nat} : max a (a + b) = a + b</code>",
+ "<code>Nat.add_succ_sub_one (m n : Nat) : m + n.succ - 1 = m + n</code>",
  "440":
- "<code>Nat.max_add_left_self {a b : Nat} : max a (b + a) = b + a</code>",
+ "<code>Nat.max_add_right_self {a b : Nat} : max a (a + b) = a + b</code>",
  "44": "<code>MyBool.nand_test2 : nand false false = true</code>",
  "439":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.max_add_left_self {a b : Nat} : max a (b + a) = b + a</code>",
  "438":
- "<code>Nat.succ_add_sub_one (n m : Nat) : m.succ + n - 1 = m + n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "437":
- "<code>Nat.add_right_max_self {a b : Nat} : max (a + b) a = a + b</code>",
+ "<code>Nat.succ_add_sub_one (n m : Nat) : m.succ + n - 1 = m + n</code>",
  "436":
- "<code>Max.max.{u} {α : Type u} [self : Max α] : α → α → α</code><span class=\"sep\"></span><code class=\"docstring\">Returns the greater of its two arguments. </code>",
+ "<code>Nat.add_right_max_self {a b : Nat} : max (a + b) a = a + b</code>",
  "435":
- "<code>Nat.add_left_max_self {a b : Nat} : max (b + a) a = b + a</code>",
+ "<code>Max.max.{u} {α : Type u} [self : Max α] : α → α → α</code><span class=\"sep\"></span><code class=\"docstring\">Returns the greater of its two arguments. </code>",
  "434":
- "<code>HSub.hSub.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HSub α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a - b` computes the difference of `a` and `b`.\nThe meaning of this notation is type-dependent.\n* For natural numbers, this operator saturates at 0: `a - b = 0` when `a ≤ b`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `-` in identifiers is `sub` (when used as a binary operator).</code>",
+ "<code>Nat.add_left_max_self {a b : Nat} : max (b + a) a = b + a</code>",
  "433":
- "<code>Nat.add_sub_sub_cancel {a b c : Nat} (h : c ≤ a) : a + b - (a - c) = b + c</code>",
+ "<code>HSub.hSub.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HSub α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a - b` computes the difference of `a` and `b`.\nThe meaning of this notation is type-dependent.\n* For natural numbers, this operator saturates at 0: `a - b = 0` when `a ≤ b`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `-` in identifiers is `sub` (when used as a binary operator).</code>",
  "432":
- "<code>BitVec.cpopNatRec {w : Nat} (x : BitVec w) (pos acc : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Count the number of bits with value `1` downward from the `pos`-th bit to the\n`0`-th bit of `x`, storing the result in `acc`. </code>",
+ "<code>Nat.add_sub_sub_cancel {a b c : Nat} (h : c ≤ a) : a + b - (a - c) = b + c</code>",
  "431":
- "<code>BitVec.allOnes (n : Nat) : BitVec n</code><span class=\"sep\"></span><code class=\"docstring\">Returns a bitvector of size `n` where all bits are `1`. </code>",
+ "<code>BitVec.cpopNatRec {w : Nat} (x : BitVec w) (pos acc : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Count the number of bits with value `1` downward from the `pos`-th bit to the\n`0`-th bit of `x`, storing the result in `acc`. </code>",
  "430":
- "<code>Nat.le.refl {n : Nat} : n.le n</code><span class=\"sep\"></span><code class=\"docstring\">Non-strict inequality is reflexive: `n ≤ n` </code>",
+ "<code>BitVec.allOnes (n : Nat) : BitVec n</code><span class=\"sep\"></span><code class=\"docstring\">Returns a bitvector of size `n` where all bits are `1`. </code>",
  "43": "<code>MyBool.nand_test1 : nand true false = true</code>",
  "429":
- "<code>BitVec.cpopNatRec_allOnes {n w acc : Nat} (h : n ≤ w) : (BitVec.allOnes w).cpopNatRec n acc = acc + n</code>",
+ "<code>Nat.le.refl {n : Nat} : n.le n</code><span class=\"sep\"></span><code class=\"docstring\">Non-strict inequality is reflexive: `n ≤ n` </code>",
  "428":
- "<code>Std.PRange.UpwardEnumerable.succMany.{u} {α : Type u} [Std.PRange.UpwardEnumerable α]\n  [Std.PRange.LawfulUpwardEnumerable α] [Std.PRange.InfinitelyUpwardEnumerable α] (n : Nat) (a : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">Maps elements of `α` to their `n`-th successor. This should semantically behave like repeatedly\napplying `succ`, but it might be more efficient.\n\nThis function uses an `UpwardEnumerable α` instance.\n`LawfulUpwardEnumerable α` ensures the compatibility with `succ` and `succ?`.\n\nIf no other implementation is provided in UpwardEnumerable instance, succMany? repeatedly applies succ?.\n</code>",
+ "<code>BitVec.cpopNatRec_allOnes {n w acc : Nat} (h : n ≤ w) : (BitVec.allOnes w).cpopNatRec n acc = acc + n</code>",
  "427":
- "<code>Std.PRange.Nat.succMany_eq {m n : Nat} : Std.PRange.succMany n m = m + n</code>",
+ "<code>Std.PRange.UpwardEnumerable.succMany.{u} {α : Type u} [Std.PRange.UpwardEnumerable α]\n  [Std.PRange.LawfulUpwardEnumerable α] [Std.PRange.InfinitelyUpwardEnumerable α] (n : Nat) (a : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">Maps elements of `α` to their `n`-th successor. This should semantically behave like repeatedly\napplying `succ`, but it might be more efficient.\n\nThis function uses an `UpwardEnumerable α` instance.\n`LawfulUpwardEnumerable α` ensures the compatibility with `succ` and `succ?`.\n\nIf no other implementation is provided in UpwardEnumerable instance, succMany? repeatedly applies succ?.\n</code>",
  "426":
+ "<code>Std.PRange.Nat.succMany_eq {m n : Nat} : Std.PRange.succMany n m = m + n</code>",
+ "425":
  "<code>LE.le.{u} {α : Type u} [self : LE α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-equal relation: `x ≤ y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≤` in identifiers is `le`.</code>",
- "425": "<code>Nat.le_antisymm_iff {a b : Nat} : a = b ↔ a ≤ b ∧ b ≤ a</code>",
- "424":
- "<code>HMod.hMod.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMod α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a % b` computes the remainder upon dividing `a` by `b`.\nThe meaning of this notation is type-dependent.\n* For `Nat` and `Int` it satisfies `a % b + b * (a / b) = a`,\n  and `a % 0` is defined to be `a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `%` in identifiers is `mod`.</code>",
+ "424": "<code>Nat.le_antisymm_iff {a b : Nat} : a = b ↔ a ≤ b ∧ b ≤ a</code>",
  "423":
- "<code>And (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`And a b`, or `a ∧ b`, is the conjunction of propositions. It can be\nconstructed and destructed like a pair: if `ha : a` and `hb : b` then\n`⟨ha, hb⟩ : a ∧ b`, and if `h : a ∧ b` then `h.left : a` and `h.right : b`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∧` in identifiers is `and`.</code>",
+ "<code>HMod.hMod.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMod α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a % b` computes the remainder upon dividing `a` by `b`.\nThe meaning of this notation is type-dependent.\n* For `Nat` and `Int` it satisfies `a % b + b * (a / b) = a`,\n  and `a % 0` is defined to be `a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `%` in identifiers is `mod`.</code>",
  "422":
- "<code>HDiv.hDiv.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HDiv α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a / b` computes the result of dividing `a` by `b`.\nThe meaning of this notation is type-dependent.\n* For most types like `Nat`, `Int`, `Rat`, `Real`, `a / 0` is defined to be `0`.\n* For `Nat`, `a / b` rounds downwards.\n* For `Int`, `a / b` rounds downwards if `b` is positive or upwards if `b` is negative.\n  It is implemented as `Int.ediv`, the unique function satisfying\n  `a % b + b * (a / b) = a` and `0 ≤ a % b &lt; natAbs b` for `b ≠ 0`.\n  Other rounding conventions are available using the functions\n  `Int.fdiv` (floor rounding) and `Int.tdiv` (truncation rounding).\n* For `Float`, `a / 0` follows the IEEE 754 semantics for division,\n  usually resulting in `inf` or `nan`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `/` in identifiers is `div`.</code>",
+ "<code>And (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`And a b`, or `a ∧ b`, is the conjunction of propositions. It can be\nconstructed and destructed like a pair: if `ha : a` and `hb : b` then\n`⟨ha, hb⟩ : a ∧ b`, and if `h : a ∧ b` then `h.left : a` and `h.right : b`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∧` in identifiers is `and`.</code>",
  "421":
- "<code>Nat.ext_div_mod_iff (n a b : Nat) : a = b ↔ a / n = b / n ∧ a % n = b % n</code>",
+ "<code>HDiv.hDiv.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HDiv α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a / b` computes the result of dividing `a` by `b`.\nThe meaning of this notation is type-dependent.\n* For most types like `Nat`, `Int`, `Rat`, `Real`, `a / 0` is defined to be `0`.\n* For `Nat`, `a / b` rounds downwards.\n* For `Int`, `a / b` rounds downwards if `b` is positive or upwards if `b` is negative.\n  It is implemented as `Int.ediv`, the unique function satisfying\n  `a % b + b * (a / b) = a` and `0 ≤ a % b &lt; natAbs b` for `b ≠ 0`.\n  Other rounding conventions are available using the functions\n  `Int.fdiv` (floor rounding) and `Int.tdiv` (truncation rounding).\n* For `Float`, `a / 0` follows the IEEE 754 semantics for division,\n  usually resulting in `inf` or `nan`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `/` in identifiers is `div`.</code>",
  "420":
- "<code>propext {a b : Prop} : (a ↔ b) → a = b</code><span class=\"sep\"></span><code class=\"docstring\">The [axiom](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=axioms) of **propositional extensionality**. It asserts that if\npropositions `a` and `b` are logically equivalent (that is, if `a` can be proved from `b` and vice\nversa), then `a` and `b` are *equal*, meaning `a` can be replaced with `b` in all contexts.\n\nThe standard logical connectives provably respect propositional extensionality. However, an axiom is\nneeded for higher order expressions like `P a` where `P : Prop → Prop` is unknown, as well as for\nequality. Propositional extensionality is intuitionistically valid.\n</code>",
+ "<code>Nat.ext_div_mod_iff (n a b : Nat) : a = b ↔ a / n = b / n ∧ a % n = b % n</code>",
  "42": "<code>MyBool.nand (b1 b2 : MyBool) : MyBool</code>",
  "419":
- "<code>Nat.testBit (m n : Nat) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the `(n+1)`th least significant bit is `1`, or `false` if it is `0`.\n</code>",
+ "<code>propext {a b : Prop} : (a ↔ b) → a = b</code><span class=\"sep\"></span><code class=\"docstring\">The [axiom](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=axioms) of **propositional extensionality**. It asserts that if\npropositions `a` and `b` are logically equivalent (that is, if `a` can be proved from `b` and vice\nversa), then `a` and `b` are *equal*, meaning `a` can be replaced with `b` in all contexts.\n\nThe standard logical connectives provably respect propositional extensionality. However, an axiom is\nneeded for higher order expressions like `P a` where `P : Prop → Prop` is unknown, as well as for\nequality. Propositional extensionality is intuitionistically valid.\n</code>",
  "418":
- "<code>Nat.eq_iff_testBit_eq {n m : Nat} : n = m ↔ ∀ (i : Nat), n.testBit i = m.testBit i</code>",
+ "<code>Nat.testBit (m n : Nat) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the `(n+1)`th least significant bit is `1`, or `false` if it is `0`.\n</code>",
  "417":
+ "<code>Nat.eq_iff_testBit_eq {n m : Nat} : n = m ↔ ∀ (i : Nat), n.testBit i = m.testBit i</code>",
+ "416":
  "<code>Nat.add_left_comm (n m k : Nat) : n + (m + k) = m + (n + k)</code>",
- "416": "<code>Nat.add_assoc (n m k : Nat) : n + m + k = n + (m + k)</code>",
- "415": "<code>Nat.add_right_comm (n m k : Nat) : n + m + k = n + k + m</code>",
- "414":
+ "415": "<code>Nat.add_assoc (n m k : Nat) : n + m + k = n + (m + k)</code>",
+ "414": "<code>Nat.add_right_comm (n m k : Nat) : n + m + k = n + k + m</code>",
+ "413":
  "<code class=\"docstring\">`rw?` tries to find a lemma which can rewrite the goal.\n\n`rw?` should not be left in proofs; it is a search tool, like `apply?`.\n\nSuggestions are printed as `rw [h]` or `rw [← h]`.\n\nYou can use `rw? [-my_lemma, -my_theorem]` to prevent `rw?` using the named lemmas.\n</code>",
- "413": "<code>Nat.add_comm (n m : Nat) : n + m = m + n</code>",
- "412":
- "<code class=\"docstring\">Searches environment for definitions or theorems that can solve the goal using `exact`\nwith conditions resolved by `solve_by_elim`.\n\nThe optional `using` clause provides identifiers in the local context that must be\nused by `exact?` when closing the goal.  This is most useful if there are multiple\nways to resolve the goal, and one wants to guide which lemma is used.\n\nUse `+grind` to enable `grind` as a fallback discharger for subgoals.\nUse `+try?` to enable `try?` as a fallback discharger for subgoals.\nUse `-star` to disable fallback to star-indexed lemmas (like `Empty.elim`, `And.left`).\nUse `+all` to collect all successful lemmas instead of stopping at the first.\n</code>",
+ "412": "<code>Nat.add_comm (n m : Nat) : n + m = m + n</code>",
  "411":
- "<code class=\"docstring\">The `simp` tactic uses lemmas and hypotheses to simplify the main goal target or\nnon-dependent hypotheses. It has many variants:\n- `simp` simplifies the main goal target using lemmas tagged with the attribute `[simp]`.\n- `simp [h₁, h₂, ..., hₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]` and the given `hᵢ`'s, where the `hᵢ`'s are expressions.-\n- If an `hᵢ` is a defined constant `f`, then `f` is unfolded. If `f` has equational lemmas associated\n  with it (and is not a projection or a `reducible` definition), these are used to rewrite with `f`.\n- `simp [*]` simplifies the main goal target using the lemmas tagged with the\n  attribute `[simp]` and all hypotheses.\n- `simp only [h₁, h₂, ..., hₙ]` is like `simp [h₁, h₂, ..., hₙ]` but does not use `[simp]` lemmas.\n- `simp [-id₁, ..., -idₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]`, but removes the ones named `idᵢ`.\n- `simp at h₁ h₂ ... hₙ` simplifies the hypotheses `h₁ : T₁` ... `hₙ : Tₙ`. If\n  the target or another hypothesis depends on `hᵢ`, a new simplified hypothesis\n  `hᵢ` is introduced, but the old one remains in the local context.\n- `simp at *` simplifies all the hypotheses and the target.\n- `simp [*] at *` simplifies target and all (propositional) hypotheses using the\n  other hypotheses.\n</code>",
+ "<code class=\"docstring\">Searches environment for definitions or theorems that can solve the goal using `exact`\nwith conditions resolved by `solve_by_elim`.\n\nThe optional `using` clause provides identifiers in the local context that must be\nused by `exact?` when closing the goal.  This is most useful if there are multiple\nways to resolve the goal, and one wants to guide which lemma is used.\n\nUse `+grind` to enable `grind` as a fallback discharger for subgoals.\nUse `+try?` to enable `try?` as a fallback discharger for subgoals.\nUse `-star` to disable fallback to star-indexed lemmas (like `Empty.elim`, `And.left`).\nUse `+all` to collect all successful lemmas instead of stopping at the first.\n</code>",
  "410":
  "<code>HMul.hMul.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMul α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a * b` computes the product of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `*` in identifiers is `mul`.</code>",
  "41":

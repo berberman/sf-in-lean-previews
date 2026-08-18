@@ -1,1 +1,0 @@
-window.docContents[141].resolve({"/UsingLean/#UsingLean":{"contents":"variable (n : Nat)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"4. UsingLean: Using the Full Power of a Proof Assistant","id":"/UsingLean/#UsingLean"}});

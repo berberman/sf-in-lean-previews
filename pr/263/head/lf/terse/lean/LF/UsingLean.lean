@@ -5,6 +5,13 @@ import LF.SFLCompat
 
 -- # UsingLean: Using the Full Power of a Proof Assistant
 
+-- In this chapter, we will learn to write more idiomatic Lean
+-- using its more powerful tools. This includes the natural
+-- numbers from its standard library, tactics which can search
+-- for lemmas from the standard library, namespaces for
+-- organizing lemmas, and two new tactics, `calc` and `dsimp`,
+-- which enable more readable and concise proofs.
+
 -- ## More Powerful Natural Numbers
 
 -- Until now, we have been working with our own custom natural
@@ -52,19 +59,11 @@ example : (two * two : NatPlayground.Nat) = four := by
 example : (3 * 3 : Nat) = 9 := by rfl
 
 -- The annotation `: Nat` tells Lean that we are using its
--- built-in `Nat` type.
-
--- In this chapter we will learn how to use the built-in `Nat`
--- and some powerful features for computing with and proving
--- properties about natural numbers. Specifically, we will
--- learn about `dsimp`, `calc`, and `simp` annotations, which
--- enable more powerful and concise proofs.
-
--- In fact, from now on, we will use the built-in `Nat` type
--- and its powerful features, writing `Nat.<theorem>` to
--- reference Lean's version of `<theorem>`. (By convention,
--- theorems about a type live in the namespace of that type,
--- hence the need for the `Nat.` prefix.)
+-- built-in `Nat` type. In fact, from now on, we will use the
+-- built-in `Nat` type and its powerful features, writing
+-- `Nat.<theorem>` to reference Lean's version of `<theorem>`.
+-- (By convention, theorems about a type live in the namespace
+-- of that type, hence the need for the `Nat.` prefix.)
 
 -- ### `rfl` and Computation with `Nat`
 
