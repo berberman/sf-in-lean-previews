@@ -705,6 +705,53 @@
       "status": "published",
       "title": "Induction: Small fixes (plus question)",
       "url": "https://github.com/plclub/sf-in-lean/pull/270"
+    },
+    "271": {
+      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "1b7670d8efe864c7651db0818fa12d53ecbdbb76",
+      "preview_path": "pr/271/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32147203162",
+      "status": "published",
+      "title": "Small polishing on Basics",
+      "url": "https://github.com/plclub/sf-in-lean/pull/271"
     }
   },
   "schema": 3
