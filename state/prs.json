@@ -436,6 +436,16 @@
     },
     "273": {
       "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
+      "changed_variants": [],
+      "head_sha": "abfe7233159175bd1bfb8bfcc07ac679c4c8538b",
+      "preview_path": "pr/273/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Style pass over Automation",
+      "url": "https://github.com/plclub/sf-in-lean/pull/273"
+    },
+    "274": {
+      "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -474,12 +484,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "f6fb2303e867443ceced81e1fa10a9bf2ed4e0bc",
-      "preview_path": "pr/273/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32171486423",
+      "head_sha": "a15c8d3cfa9a71de8b917bab60bc4074c65b4400",
+      "preview_path": "pr/274/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32191381787",
       "status": "published",
-      "title": "Style pass over Automation",
-      "url": "https://github.com/plclub/sf-in-lean/pull/273"
+      "title": "UsingLean: spit and polish (and questions)",
+      "url": "https://github.com/plclub/sf-in-lean/pull/274"
     }
   },
   "schema": 3
