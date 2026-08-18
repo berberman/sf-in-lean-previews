@@ -2218,7 +2218,7 @@
      "data":
      {"title": "Structural Recursion (Optional)",
       "shortTitle": null,
-      "sectionNum": "2.3.3.",
+      "sectionNum": "2.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -2228,7 +2228,7 @@
        {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
        {"title": "Structural Recursion (Optional)",
         "shortTitle": null,
-        "number": "3"}]},
+        "number": "2"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--New-Tactics___--rewrite-_________-at--and--exact":
    [{"id":
@@ -2248,31 +2248,13 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--More-on-Notation-_LPAR_Optional_RPAR_":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--More-on-Notation-_LPAR_Optional_RPAR_",
-     "data":
-     {"title": "More on Notation (Optional)",
-      "shortTitle": null,
-      "sectionNum": "2.3.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
-       {"title": "More on Notation (Optional)",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Binary-Numerals":
    [{"id":
      "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Binary-Numerals",
      "data":
      {"title": "Binary Numerals",
       "shortTitle": null,
-      "sectionNum": "2.3.4.",
+      "sectionNum": "2.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -2280,7 +2262,7 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
-       {"title": "Binary Numerals", "shortTitle": null, "number": "4"}]},
+       {"title": "Binary Numerals", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis":
    [{"id":
@@ -4706,7 +4688,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq-next",
+   [{"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -4715,7 +4697,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq",
+    {"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -5317,35 +5299,35 @@
         "Data and Functions",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Nat.zero_zero_beq_true":
-   [{"id": "NatPlayground___Nat___zero_zero_beq_true",
-     "data":
-     {"/Basics/#NatPlayground___Nat___zero_zero_beq_true":
-      {"display": "zero_zero_beq_true",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "Proof by Rewriting",
-        "Working with Numerals",
-        "Equality and Ordering"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Nat.zero_succ_beq_false":
-   [{"id": "NatPlayground___Nat___zero_succ_beq_false",
-     "data":
-     {"/Basics/#NatPlayground___Nat___zero_succ_beq_false":
-      {"display": "zero_succ_beq_false",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "Proof by Rewriting",
-        "Working with Numerals",
-        "Equality and Ordering"]}},
-     "address": "/Basics/"}],
    "NatPlayground.Nat.zero_ble":
    [{"id": "NatPlayground___Nat___zero_ble",
      "data":
      {"/Basics/#NatPlayground___Nat___zero_ble":
       {"display": "zero_ble",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Equality and Ordering"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.zero_beq_zero":
+   [{"id": "NatPlayground___Nat___zero_beq_zero",
+     "data":
+     {"/Basics/#NatPlayground___Nat___zero_beq_zero":
+      {"display": "zero_beq_zero",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Equality and Ordering"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.zero_beq_succ":
+   [{"id": "NatPlayground___Nat___zero_beq_succ",
+     "data":
+     {"/Basics/#NatPlayground___Nat___zero_beq_succ":
+      {"display": "zero_beq_succ",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -5418,30 +5400,6 @@
         "Data and Functions",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Nat.succ_zero_beq_false":
-   [{"id": "NatPlayground___Nat___succ_zero_beq_false",
-     "data":
-     {"/Basics/#NatPlayground___Nat___succ_zero_beq_false":
-      {"display": "succ_zero_beq_false",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "Proof by Rewriting",
-        "Working with Numerals",
-        "Equality and Ordering"]}},
-     "address": "/Basics/"}],
-   "NatPlayground.Nat.succ_succ_beq":
-   [{"id": "NatPlayground___Nat___succ_succ_beq",
-     "data":
-     {"/Basics/#NatPlayground___Nat___succ_succ_beq":
-      {"display": "succ_succ_beq",
-       "context":
-       ["Logical Foundations",
-        "Basics: Functional Programming in Lean",
-        "Proof by Rewriting",
-        "Working with Numerals",
-        "Equality and Ordering"]}},
-     "address": "/Basics/"}],
    "NatPlayground.Nat.succ_ble_zero":
    [{"id": "NatPlayground___Nat___succ_ble_zero",
      "data":
@@ -5459,6 +5417,30 @@
      "data":
      {"/Basics/#NatPlayground___Nat___succ_ble_succ":
       {"display": "succ_ble_succ",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Equality and Ordering"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.succ_beq_zero":
+   [{"id": "NatPlayground___Nat___succ_beq_zero",
+     "data":
+     {"/Basics/#NatPlayground___Nat___succ_beq_zero":
+      {"display": "succ_beq_zero",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Equality and Ordering"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.succ_beq_succ":
+   [{"id": "NatPlayground___Nat___succ_beq_succ",
+     "data":
+     {"/Basics/#NatPlayground___Nat___succ_beq_succ":
+      {"display": "succ_beq_succ",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -7078,7 +7060,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly",
+   [{"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -7089,7 +7071,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly-next",
+    {"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",

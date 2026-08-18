@@ -117,10 +117,9 @@ example (n m : Nat) : n + m = m + n := by
 -- Try this:
 --   [apply] rw [Nat.add_comm]
 
--- However, just because `rw?` suggests a theorem to you does
--- not automatically imply that it will be useful; you will
--- need to carefully look through its suggestions to see which
--- ones seem useful.
+-- Just because `rw?` suggests a theorem does not mean that it
+-- will be useful; choose carefully from its suggestions (if at
+-- all).
 
 sf_expect_failure
   example (n m k : Nat) :
@@ -206,7 +205,7 @@ theorem succ_mul_succ (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
   rw [Nat.add_mul, Nat.one_mul, Nat.mul_add, Nat.mul_one, ← Nat.add_assoc]
 
--- Given this proof with `rw`, rewrite it with `calc`. Reminder
+-- Given this proof with `rw`, rewrite it with `calc`. Recall
 -- that you can use `rw?` to find appropriate rules to rewrite
 -- by.
 

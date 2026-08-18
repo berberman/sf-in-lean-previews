@@ -219,8 +219,8 @@ theorem succ_mul_succ (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
   rw [Nat.add_mul, Nat.one_mul, Nat.mul_add, Nat.mul_one, ← Nat.add_assoc]
 
--- Given this proof with `rw`, rewrite it with `calc`. Reminder that you can
--- use `rw?` to find appropriate rules to rewrite by.
+-- Given this proof with `rw`, rewrite it with `calc`. Recall that you can use
+-- `rw?` to find appropriate rules to rewrite by.
 
 theorem succ_mul_succ' (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by

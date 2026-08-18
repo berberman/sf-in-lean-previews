@@ -511,9 +511,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "cf67a5003a2e68c85017ee9d8c94c59305e594a1",
+      "head_sha": "fd0c9a296cbe99fd6c897c2e839aa7abd2976010",
       "preview_path": "pr/263/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32078008882",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32142778147",
       "status": "published",
       "title": "Pass over UsingLean",
       "url": "https://github.com/plclub/sf-in-lean/pull/263"
