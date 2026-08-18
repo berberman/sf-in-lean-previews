@@ -566,7 +566,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/264"
     },
     "266": {
-      "base_sha": "9c6f00a92c5ce091dd94f6c90c593712bc6cc695",
+      "base_sha": "14a3145d747638151bae36917a60d8684279e548",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -605,9 +605,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "9aadf40032ca1bbd9cd4b736cc59f545ebd0411e",
+      "head_sha": "e5046f8e1aa07dfba4ee8a77cc9ab0b22b03f44e",
       "preview_path": "pr/266/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32067858353",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32135217777",
       "status": "published",
       "title": "Polish Slang",
       "url": "https://github.com/plclub/sf-in-lean/pull/266"
@@ -658,6 +658,16 @@
       "status": "published",
       "title": "Basics: Some corrections, formatting, style changes.",
       "url": "https://github.com/plclub/sf-in-lean/pull/268"
+    },
+    "269": {
+      "base_sha": "14a3145d747638151bae36917a60d8684279e548",
+      "changed_variants": [],
+      "head_sha": "ae61490401734e8f30243fc45551f8a659db7b36",
+      "preview_path": "pr/269/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Small fixes",
+      "url": "https://github.com/plclub/sf-in-lean/pull/269"
     }
   },
   "schema": 3

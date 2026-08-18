@@ -587,7 +587,10 @@ def eval (a : Aexp) : Option Nat :=
 end Aexp
 
 -- This definition is a lot wordier than the earlier version. There are tools
--- to reduce this overhead, namely monads, but we will not discuss those here.
+-- to reduce this overhead, namely monads, but we will not discuss these in
+-- Software Foundations in Lean. Curious readers can learn more about them
+-- from [Functional Programming in
+-- Lean](https://lean-lang.org/functional_programming_in_lean/Monads/).
 
 -- By contrast, partiality is no problem for the relational version of the
 -- definition.
@@ -643,14 +646,13 @@ end Slang.AevalRExtended
 -- At this point you may be wondering: which of these styles should I use by
 -- default?
 
--- Where the thing being defined is not easy to express as a function -- or is
--- genuinely *not* a function -- relational definitions are often simpler.
--- When both styles are workable, relational definitions can be more elegant
--- and easier to understand, and Lean generates useful inversion and induction
--- principles from them. On the other hand, functional definitions are
--- automatically deterministic and total -- whereas, for a relation, we must
--- *prove* these if we need them -- and we can use Lean's computation
--- mechanism to simplify them during proofs.
+-- Where the thing being defined is not easy to express as a function,
+-- definitions are often simpler. When both styles are workable, relational
+-- definitions can be more elegant and easier to understand, and Lean
+-- generates useful inversion and induction principles from them. On the other
+-- hand, functional definitions are automatically deterministic and total --
+-- whereas, for a relation, we must *prove* these if we need them -- and we
+-- can use Lean's computation mechanism to simplify them during proofs.
 
 -- In large developments it is common to give a definition in *both* styles
 -- plus a lemma that the two coincide, allowing later proofs to switch between

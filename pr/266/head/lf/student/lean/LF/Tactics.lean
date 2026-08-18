@@ -603,8 +603,8 @@ theorem silly4 (n m p q : Nat) :
 -- To apply a tactic in multiple places at the same time, you can list
 -- multiple hypotheses in a row after the `at`. You can also explicitly use a
 -- tactic on the goal (usually because you are applying the tactic to both a
--- hypothesis and the goal) by including it after the `at` with the `⊢`
--- symbol, written `\goal` or `\vdash`.
+-- hypothesis and the goal) by including it after the `at` with the turnstile
+-- symbol `⊢`, written `\|-`, `\goal` or `\vdash`.
 
 example (a b : Nat) (h₁ : a = 1 + 1) (h₂ : b = 1 + 2) :
   Nat.ble (a, b).1 (a, b).2 := by

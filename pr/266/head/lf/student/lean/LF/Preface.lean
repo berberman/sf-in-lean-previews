@@ -273,7 +273,7 @@ import LF.SFLCompat
 -- If you find things you'd like to help add or improve, your contributions
 -- are welcome! To get started, clone the [SF-in-Lean git
 -- repo](https://github.com/plclub/sf-in-lean) and have a look at
--- `ALPHATESTERS.md`.
+-- `ALPHA-TESTERS.md`.
 
 -- ## For Instructors
 

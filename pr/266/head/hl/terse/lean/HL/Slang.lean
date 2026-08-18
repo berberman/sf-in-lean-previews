@@ -344,7 +344,10 @@ end Aexp
 
 -- This definition is a lot wordier than the earlier version.
 -- There are tools to reduce this overhead, namely monads, but
--- we will not discuss those here.
+-- we will not discuss these in Software Foundations in Lean.
+-- Curious readers can learn more about them from [Functional
+-- Programming in
+-- Lean](https://lean-lang.org/functional_programming_in_lean/Monads/).
 
 -- By contrast, partiality is no problem for the relational
 -- version of the definition.
