@@ -473,16 +473,6 @@
     },
     "263": {
       "base_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",
-      "changed_variants": [],
-      "head_sha": "62592774e48393655a9e4d1b9084882ce2e6cb85",
-      "preview_path": "pr/263/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Pass over UsingLean",
-      "url": "https://github.com/plclub/sf-in-lean/pull/263"
-    },
-    "266": {
-      "base_sha": "14a3145d747638151bae36917a60d8684279e548",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -521,22 +511,59 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "e5046f8e1aa07dfba4ee8a77cc9ab0b22b03f44e",
+      "head_sha": "62592774e48393655a9e4d1b9084882ce2e6cb85",
+      "preview_path": "pr/263/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32156135631",
+      "status": "published",
+      "title": "Pass over UsingLean",
+      "url": "https://github.com/plclub/sf-in-lean/pull/263"
+    },
+    "266": {
+      "base_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "91af82939e625c97a4ff243ae6817d1fa077cb93",
       "preview_path": "pr/266/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32135217777",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32156533118",
       "status": "published",
       "title": "Polish Slang",
       "url": "https://github.com/plclub/sf-in-lean/pull/266"
-    },
-    "270": {
-      "base_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",
-      "changed_variants": [],
-      "head_sha": "53f2dd832645e2742deaf8dd627fcf247b31168d",
-      "preview_path": "pr/270/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Induction: Small fixes (plus question)",
-      "url": "https://github.com/plclub/sf-in-lean/pull/270"
     }
   },
   "schema": 3

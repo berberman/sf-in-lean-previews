@@ -105,9 +105,9 @@ example (n m : Nat) : n + m = m + n := by
 -- Try this:
 --   [apply] exact Nat.add_comm n m
 
--- If you are using the Lean extension in VSCode, the InfoView will have a
+-- If you are using the Lean extension in VS Code, the InfoView will have a
 -- blue `[apply]` button that shows the suggested theorem to close the goal.
--- Alternatively, VSCode may show an inline suggestion (lightbulb) button
+-- Alternatively, VS Code may show an inline suggestion (lightbulb) button
 -- above the `exact?`. You can click either of these buttons to replace the
 -- occurrence of `exact?` with the tactic it found to complete the proof;
 -- idiomatic Lean does not leave `exact?` tactics (or any other `?` tactics,
@@ -407,7 +407,7 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 -- ## Using Code Actions to Generate Match Skeletons
 
 -- Lean's language server can suggest *code actions*, which are small editor
--- commands that modify the source code. In VSCode, a lightbulb icon appears
+-- commands that modify the source code. In VS Code, a lightbulb icon appears
 -- on the left when a code action is available at your cursor. You can click
 -- the icon or open the code action menu with `Ctrl + .` on Windows/Linux or
 -- `Command + .` on macOS. For more information, see the [Lean 4 VSCode
