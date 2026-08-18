@@ -103,28 +103,29 @@ example :
 
 example : (!MyBool.false) = MyBool.true := by rfl
 
--- The technical details of how symbolic notation works are not
--- important right now, so we won't spend time explaining them
--- here. Instead, we'll mark them with
+-- The technical details of how these symbolic notations work
+-- are not something you need to understand until quite a bit
+-- later in your Lean journey. We'll mark these details -- and
+-- similar material later on -- with
 -- `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and
--- hide them in a collapsed text segment in the HTML
--- presentation. Click on the triangle in the HTML if you want
--- to have a look.
+-- collapsed text segments in the HTML presentation. Click on
+-- the triangle in the HTML if you want to have a peek, or just
+-- move on to the following material, as you like.
 
 -- THESE DETAILS CAN BE SKIPPED: Details
 
 -- Lean has a very flexible notation system. Operators like
 -- `||` and `&&` are defined with specified precedence and
--- associativity. For example, use of the `infixl` directive
--- above states that `&&` is an infix operator, has precedence
--- 35, and is left-associative, while `||` is also infix and
+-- associativity. For example, the `infixl` directive above
+-- states that `&&` is an infix operator, has precedence 35,
+-- and is left-associative, while `||` is also infix and
 -- left-associative and has precedence 30. This means that
 -- `MyBool.true || MyBool.false && MyBool.false` is parsed as
 -- `MyBool.true || (MyBool.false && MyBool.false)`.
 
--- You can define custom notation using the `notation`,
--- `infixl`, `infixr`, `prefix`, and `postfix` commands, some
--- of which we will see later on.
+-- Custom notations are defined using the `notation`, `infixl`,
+-- `infixr`, `prefix`, and `postfix` commands, some of which we
+-- will see (again, in skippable sections) later on.
 
 -- END DETAILS
 

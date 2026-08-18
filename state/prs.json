@@ -1,5 +1,5 @@
 {
-  "main_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
+  "main_sha": "fdcf0761ba4b63b6fa403b4184f5b032e5e1fa27",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -518,53 +518,6 @@
       "title": "Pass over UsingLean",
       "url": "https://github.com/plclub/sf-in-lean/pull/263"
     },
-    "264": {
-      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "97a6c66561432363f3d13a681fdf9283d1cd6ff2",
-      "preview_path": "pr/264/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32152458546",
-      "status": "published",
-      "title": "Redraft AI Policy",
-      "url": "https://github.com/plclub/sf-in-lean/pull/264"
-    },
     "266": {
       "base_sha": "14a3145d747638151bae36917a60d8684279e548",
       "changed_variants": [
@@ -611,53 +564,6 @@
       "status": "published",
       "title": "Polish Slang",
       "url": "https://github.com/plclub/sf-in-lean/pull/266"
-    },
-    "269": {
-      "base_sha": "14a3145d747638151bae36917a60d8684279e548",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "4241e1c1987df5fa775fa673eec411177d0e7def",
-      "preview_path": "pr/269/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32137414310",
-      "status": "published",
-      "title": "Small fixes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/269"
     },
     "270": {
       "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
@@ -706,55 +612,8 @@
       "title": "Induction: Small fixes (plus question)",
       "url": "https://github.com/plclub/sf-in-lean/pull/270"
     },
-    "271": {
-      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "1b7670d8efe864c7651db0818fa12d53ecbdbb76",
-      "preview_path": "pr/271/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32147203162",
-      "status": "published",
-      "title": "Small polishing on Basics",
-      "url": "https://github.com/plclub/sf-in-lean/pull/271"
-    },
     "272": {
-      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
+      "base_sha": "fdcf0761ba4b63b6fa403b4184f5b032e5e1fa27",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -793,9 +652,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "ccc66ea1bf0cfe1fb206b1472d0c1947870bfe9a",
+      "head_sha": "9b35981065862e2c8af4f9f21e9831d617d2b0eb",
       "preview_path": "pr/272/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32150651759",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32154008779",
       "status": "published",
       "title": "VSCode \u2192 VS Code",
       "url": "https://github.com/plclub/sf-in-lean/pull/272"
