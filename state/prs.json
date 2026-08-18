@@ -614,11 +614,48 @@
     },
     "268": {
       "base_sha": "14a3145d747638151bae36917a60d8684279e548",
-      "changed_variants": [],
-      "head_sha": "49ed56f65da350bfb3a9c1eeb0dd345319270204",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "017a6eb033e813e801c285322a0a1b3c4a48088f",
       "preview_path": "pr/268/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32125813569",
+      "status": "published",
       "title": "Basics: Some corrections, formatting, style changes.",
       "url": "https://github.com/plclub/sf-in-lean/pull/268"
     }
