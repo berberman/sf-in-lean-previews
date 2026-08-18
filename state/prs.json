@@ -519,7 +519,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/263"
     },
     "264": {
-      "base_sha": "9c6f00a92c5ce091dd94f6c90c593712bc6cc695",
+      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -558,9 +558,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "14d845a4cf0d8899c4a3523477e90d1c97e52b00",
+      "head_sha": "97a6c66561432363f3d13a681fdf9283d1cd6ff2",
       "preview_path": "pr/264/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32085179772",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32152458546",
       "status": "published",
       "title": "Redraft AI Policy",
       "url": "https://github.com/plclub/sf-in-lean/pull/264"
