@@ -472,7 +472,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/262"
     },
     "263": {
-      "base_sha": "9c6f00a92c5ce091dd94f6c90c593712bc6cc695",
+      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -511,9 +511,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "27e69c37a85666b9d40713b6a2e368b2640a88a3",
+      "head_sha": "383f86352590c9f749a9d53589195c92d5059405",
       "preview_path": "pr/263/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32148366326",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32149722031",
       "status": "published",
       "title": "Pass over UsingLean",
       "url": "https://github.com/plclub/sf-in-lean/pull/263"
@@ -752,6 +752,53 @@
       "status": "published",
       "title": "Small polishing on Basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/271"
+    },
+    "272": {
+      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "ccc66ea1bf0cfe1fb206b1472d0c1947870bfe9a",
+      "preview_path": "pr/272/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32150651759",
+      "status": "published",
+      "title": "VSCode \u2192 VS Code",
+      "url": "https://github.com/plclub/sf-in-lean/pull/272"
     }
   },
   "schema": 3
