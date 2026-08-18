@@ -558,9 +558,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "d365c7d0456e940f96339951f3f230985d38285a",
+      "head_sha": "14d845a4cf0d8899c4a3523477e90d1c97e52b00",
       "preview_path": "pr/264/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32069805646",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32085179772",
       "status": "published",
       "title": "Redraft AI Policy",
       "url": "https://github.com/plclub/sf-in-lean/pull/264"
