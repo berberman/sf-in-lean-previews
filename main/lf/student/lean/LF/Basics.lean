@@ -1560,7 +1560,7 @@ theorem not_involutive (b : Bool) : (!!b) = b := by
 
 -- In the UsingLean chapter we will discuss how to search through the standard
 -- library for theorems like these. For now, note that, if you hover over the
--- name of these theorems in VSCode, the Lean 4 extension will show you their
+-- name of these theorems in VS Code, the Lean 4 extension will show you their
 -- type, i.e., what the theorem proves.
 
 -- We can also have nested case analysis:

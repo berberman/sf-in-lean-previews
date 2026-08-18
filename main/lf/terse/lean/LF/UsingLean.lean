@@ -397,8 +397,8 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 -- ## Using Code Actions to Generate Match Skeletons
 
 -- Lean's language server can suggest *code actions*, which are
--- small editor commands that modify the source code. In
--- VSCode, a light-bulb icon appears on the left when a code
+-- small editor commands that modify the source code. In VS
+-- Code, a light-bulb icon appears on the left when a code
 -- action is available at your cursor. You can click the icon
 -- or open the code action menu with `Ctrl + .` on
 -- Windows/Linux or `Command + .` on macOS.

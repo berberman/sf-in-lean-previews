@@ -134,9 +134,9 @@ example (a b : Nat) : a + b = b + a := by
   /- this will suggest that we use `exact Nat.add_comm a b` to close this goal -/
   exact?
 
--- If you are using the Lean 4 extension in VSCode, the InfoView will have a
+-- If you are using the Lean 4 extension in VS Code, the InfoView will have a
 -- blue `[apply]` button that shows the suggested theorem to close the goal.
--- Alternatively, VSCode may show an inline suggestion (light bulb) button
+-- Alternatively, VS Code may show an inline suggestion (light bulb) button
 -- above the `exact?`. You can click either of these buttons to replace the
 -- occurrence of `exact?` with the tactic it found to complete the proof;
 -- idiomatic Lean does not leave `exact?` tactics (or any other `?` tactics,
@@ -496,7 +496,7 @@ attribute [autogradedProof 1] Nat.double_mul
 -- ## Using Code Actions to Generate Match Skeletons
 
 -- Lean's language server can suggest *code actions*, which are small editor
--- commands that modify the source code. In VSCode, a light-bulb icon appears
+-- commands that modify the source code. In VS Code, a light-bulb icon appears
 -- on the left when a code action is available at your cursor. You can click
 -- the icon or open the code action menu with `Ctrl + .` on Windows/Linux or
 -- `Command + .` on macOS.

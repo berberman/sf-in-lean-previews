@@ -1,5 +1,5 @@
 {
-  "main_sha": "fdcf0761ba4b63b6fa403b4184f5b032e5e1fa27",
+  "main_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -472,49 +472,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/262"
     },
     "263": {
-      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "383f86352590c9f749a9d53589195c92d5059405",
+      "base_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",
+      "changed_variants": [],
+      "head_sha": "62592774e48393655a9e4d1b9084882ce2e6cb85",
       "preview_path": "pr/263/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32149722031",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Pass over UsingLean",
       "url": "https://github.com/plclub/sf-in-lean/pull/263"
     },
@@ -566,98 +529,14 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/266"
     },
     "270": {
-      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "1d7a4a3d58ce0f839a7e5036a2425e10acd1b14b",
+      "base_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",
+      "changed_variants": [],
+      "head_sha": "53f2dd832645e2742deaf8dd627fcf247b31168d",
       "preview_path": "pr/270/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32145314303",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Induction: Small fixes (plus question)",
       "url": "https://github.com/plclub/sf-in-lean/pull/270"
-    },
-    "272": {
-      "base_sha": "fdcf0761ba4b63b6fa403b4184f5b032e5e1fa27",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "9b35981065862e2c8af4f9f21e9831d617d2b0eb",
-      "preview_path": "pr/272/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32154008779",
-      "status": "published",
-      "title": "VSCode \u2192 VS Code",
-      "url": "https://github.com/plclub/sf-in-lean/pull/272"
     }
   },
   "schema": 3
