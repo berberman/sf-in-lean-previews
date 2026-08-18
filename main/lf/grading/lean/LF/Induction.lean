@@ -26,9 +26,6 @@ import LF.SFLCompat
 
 -- ## Separate Compilation
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     `This section will need some tidying and rewriting...`
-
 -- Before getting started on this chapter, we need to import all of our
 -- definitions from the previous chapter:
 
@@ -211,12 +208,6 @@ sf_expect_failure
 -- just fine, but in the branch where `n = n' + 1` for some `n'` we get stuck
 -- in exactly the same way.
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     `This is not high priority, but at some point we should make a decision between
---     /* ... */ comments and -- comments in lean code and try to be consistent.  Here
---     we're inconsistent in the very same code block!  Are there standard Lean conventions
---     we should just follow?`
-
 sf_expect_failure
   example (n : Nat) : zero + n = n := by
     cases n with
@@ -239,10 +230,6 @@ sf_expect_failure
 -- To prove interesting facts about numbers, lists, and other inductively
 -- defined sets, we often need a more powerful reasoning principle:
 -- *induction*.
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     I changed boldface back to italic here, but I'm happy to discuss using
---     boldface in a principled and consistent (and sparing) way...
 
 -- Recall (from a discrete math course, probably) the *principle of induction
 -- over natural numbers*: If `P(n)` is some proposition involving a natural
@@ -412,33 +399,6 @@ theorem double_add (n : Nat) : double n = n + n := by
 
 attribute [autogradedProof 0.5] NatPlayground.Nat.double_add
 
--- ### Exercise (2 stars): even_succ ⭐⭐
-
--- Here's a useful theorem that proves `even (n + 1)` flips the parity. This
--- will facilitate proofs by induction on `n`:
-
-theorem even_succ (n : Nat) :
-    even (succ n) = !even n := by
-  all_goals
-    induction n with
-    | zero =>
-      rw [even_zero, even_one]
-      rfl
-    | succ n' ih =>
-      rw [even, ih, not_involutive]
-
--- One inconvenient aspect of our definition of `even n` is the recursive call
--- on `n'` when `n = succ (succ n')`. This makes proofs about `even n` harder
--- when done by induction on `n`, since we may need an induction hypothesis
--- about `succ (succ n')`, while induction just gives us one about `succ n'`).
--- The following lemma gives an alternative characterization of
--- `even (succ n)` that works better with induction:
-
--- (Tip: To expand the body of `even` in a proof, use `rewrite [even]` or
--- `rw [even]`.)
-
-attribute [autogradedProof 1] NatPlayground.Nat.even_succ
-
 -- ## Proofs Within Proofs
 
 -- In Lean, as in informal mathematics, large proofs are often broken into a
@@ -458,8 +418,7 @@ theorem mult_zero_add' (n m : Nat) :
 -- immediately, and it's available as a hypothesis for the rest of the proof.
 
 -- As another example, suppose we want to prove that
--- `(n + m)
--- + (p + q) = (m + n) + (p + q)`. The only difference between the
+-- `(n + m) + (p + q) = (m + n) + (p + q)`. The only difference between the
 -- two sides of the `=` is that the arguments `m` and `n` to the first inner
 -- `+` are swapped, so it seems we should be able to use the commutativity of
 -- addition (`add_comm`) to rewrite one into the other. However, the `rw`

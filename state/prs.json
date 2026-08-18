@@ -1,5 +1,5 @@
 {
-  "main_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",
+  "main_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -470,53 +470,6 @@
       "status": "published",
       "title": "Survey of :::details candidates",
       "url": "https://github.com/plclub/sf-in-lean/pull/262"
-    },
-    "263": {
-      "base_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "62592774e48393655a9e4d1b9084882ce2e6cb85",
-      "preview_path": "pr/263/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32156135631",
-      "status": "published",
-      "title": "Pass over UsingLean",
-      "url": "https://github.com/plclub/sf-in-lean/pull/263"
     },
     "266": {
       "base_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",

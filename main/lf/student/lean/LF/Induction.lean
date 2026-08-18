@@ -331,25 +331,6 @@ attribute [irreducible] double
 theorem double_add (n : Nat) : double n = n + n := by
   sorry
 
--- ### Exercise (2 stars): even_succ ⭐⭐
-
--- Here's a useful theorem that proves `even (n + 1)` flips the parity. This
--- will facilitate proofs by induction on `n`:
-
-theorem even_succ (n : Nat) :
-    even (succ n) = !even n := by
-  sorry
-
--- One inconvenient aspect of our definition of `even n` is the recursive call
--- on `n'` when `n = succ (succ n')`. This makes proofs about `even n` harder
--- when done by induction on `n`, since we may need an induction hypothesis
--- about `succ (succ n')`, while induction just gives us one about `succ n'`).
--- The following lemma gives an alternative characterization of
--- `even (succ n)` that works better with induction:
-
--- (Tip: To expand the body of `even` in a proof, use `rewrite [even]` or
--- `rw [even]`.)
-
 -- ## Proofs Within Proofs
 
 -- In Lean, as in informal mathematics, large proofs are often broken into a
@@ -369,8 +350,7 @@ theorem mult_zero_add' (n m : Nat) :
 -- immediately, and it's available as a hypothesis for the rest of the proof.
 
 -- As another example, suppose we want to prove that
--- `(n + m)
--- + (p + q) = (m + n) + (p + q)`. The only difference between the
+-- `(n + m) + (p + q) = (m + n) + (p + q)`. The only difference between the
 -- two sides of the `=` is that the arguments `m` and `n` to the first inner
 -- `+` are swapped, so it seems we should be able to use the commutativity of
 -- addition (`add_comm`) to rewrite one into the other. However, the `rw`
