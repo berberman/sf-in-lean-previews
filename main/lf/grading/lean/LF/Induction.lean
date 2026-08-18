@@ -296,10 +296,10 @@ theorem beq_self (n : Nat) : (n == n) = true := by
   all_goals
     induction n with
     | zero =>
-      rewrite [zero_zero_beq_true]
+      rewrite [zero_beq_zero]
       rfl
     | succ n' ih =>
-      rewrite [succ_succ_beq]
+      rewrite [succ_beq_succ]
       exact ih
 
 -- ### Exercise (2 stars): basic_induction ⭐⭐
