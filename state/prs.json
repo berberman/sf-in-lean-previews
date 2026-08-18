@@ -511,9 +511,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "fd0c9a296cbe99fd6c897c2e839aa7abd2976010",
+      "head_sha": "5c6f84fcfab7802fb2d2eee78fcf67795af503d5",
       "preview_path": "pr/263/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32142778147",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32145340190",
       "status": "published",
       "title": "Pass over UsingLean",
       "url": "https://github.com/plclub/sf-in-lean/pull/263"
@@ -658,6 +658,53 @@
       "status": "published",
       "title": "Small fixes",
       "url": "https://github.com/plclub/sf-in-lean/pull/269"
+    },
+    "270": {
+      "base_sha": "3b14f619db0909956cb1249d91c7fa158b373a37",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "1d7a4a3d58ce0f839a7e5036a2425e10acd1b14b",
+      "preview_path": "pr/270/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32145314303",
+      "status": "published",
+      "title": "Induction: Small fixes (plus question)",
+      "url": "https://github.com/plclub/sf-in-lean/pull/270"
     }
   },
   "schema": 3

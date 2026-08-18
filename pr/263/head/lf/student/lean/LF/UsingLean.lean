@@ -167,12 +167,9 @@ theorem mul_three_beq (n : Nat) :
 -- which subterms to rewrite.
 
 -- The `calc` tactic writes down the intermediate goals of a proof, and allows
--- us to specify exactly which rewrite rules to apply at each step. It is a
--- powerful tool for structuring proofs, and is often more readable than long
--- `rw` chains.
-
--- `calc` is designed to mimic the style of proofs in mathematics textbooks,
--- which will often look something like this:
+-- us to specify exactly which rewrite rules to apply at each step. It is
+-- designed to mimic the style of proofs in mathematics textbooks, which will
+-- often look something like this:
 
 --   n + (m + k)
 --   = (n + m) + k        ...   [by associativity of addition]
