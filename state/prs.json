@@ -527,6 +527,16 @@
       "status": "published",
       "title": "Lists: Questions and some adjustments",
       "url": "https://github.com/plclub/sf-in-lean/pull/275"
+    },
+    "276": {
+      "base_sha": "68908d35effe49f11043f287887558e54c24ca52",
+      "changed_variants": [],
+      "head_sha": "1a9891595fe920912e766faf31acf41ceb161150",
+      "preview_path": "pr/276/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Polish Smallstep",
+      "url": "https://github.com/plclub/sf-in-lean/pull/276"
     }
   },
   "schema": 3
