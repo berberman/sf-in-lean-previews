@@ -1,5 +1,5 @@
 {
-  "main_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
+  "main_sha": "68908d35effe49f11043f287887558e54c24ca52",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -433,16 +433,6 @@
       "status": "published",
       "title": "Polish Slang",
       "url": "https://github.com/plclub/sf-in-lean/pull/266"
-    },
-    "273": {
-      "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
-      "changed_variants": [],
-      "head_sha": "e3611e03fdc9646de55b2c85dc3a2322680effc3",
-      "preview_path": "pr/273/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Style pass over Automation",
-      "url": "https://github.com/plclub/sf-in-lean/pull/273"
     },
     "274": {
       "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
