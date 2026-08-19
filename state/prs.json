@@ -436,48 +436,11 @@
     },
     "273": {
       "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "5f53a6e01bbcc7c68ef88ef714d18a7b611a24ff",
+      "changed_variants": [],
+      "head_sha": "e3611e03fdc9646de55b2c85dc3a2322680effc3",
       "preview_path": "pr/273/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32192160542",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Style pass over Automation",
       "url": "https://github.com/plclub/sf-in-lean/pull/273"
     },
