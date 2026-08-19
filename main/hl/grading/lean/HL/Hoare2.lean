@@ -1067,8 +1067,7 @@ def ifMinusPlusDec : Decorated where
 
 theorem if_minus_plus_correct :
     ifMinusPlusDec.OuterTripleValid := by
-  all_goals
-    sorry
+  sorry
 
 -- ### Exercise (2 stars): div_mod_outer_triple_valid ⭐⭐
 
@@ -1092,8 +1091,7 @@ def divModDec (a b : Nat) : Decorated where
 
 theorem div_mod_outer_triple_valid (a b : Nat) :
     (divModDec a b).OuterTripleValid := by
-  all_goals
-    sorry
+  sorry
 
 -- ## Finding Loop Invariants
 
@@ -1302,8 +1300,7 @@ def slowAssignmentDec (m : Nat) : Decorated where
 
 theorem slow_assignment (m : Nat) :
     (slowAssignmentDec m).OuterTripleValid := by
-  all_goals
-    sorry
+  sorry
 
 -- ### Example: Parity
 
@@ -1448,10 +1445,7 @@ theorem parity_lt_2 (x : Nat) (h : ¬ 2 ≤ x) :
 
 theorem parity_outer_triple_valid (m : Nat) :
     (parityDec m).OuterTripleValid := by
-  all_goals
-    -- Simplification is too aggressive here; recover the
-    -- folded guard before proving preservation and exit.
-    sorry
+  sorry
 
 /- Here is another loop invariant — arguably a more natural
 one —
@@ -1628,8 +1622,7 @@ def sqrtDec (m : Nat) : Decorated where
 
 theorem sqrt_correct (m : Nat) :
     (sqrtDec m).OuterTripleValid := by
-  all_goals
-    sorry
+  sorry
 
 -- ### Example: Squaring
 
@@ -1842,13 +1835,11 @@ def factorialDec (m : Nat) : Decorated := ({
 
 theorem fact_sub_one (m : Nat) (h : m ≠ 0) :
     m * fact (m - 1) = fact m := by
-  all_goals
-    sorry
+  sorry
 
 theorem factorial_correct (m : Nat) :
     (factorialDec m).OuterTripleValid := by
-  all_goals
-    sorry
+  sorry
 
 -- Note to developers:
 --     HIDE: MRC'20: That's not really an Imp program though: it is a schema
@@ -1926,8 +1917,7 @@ def minimumDec (a b : Nat) : Decorated where
 
 theorem minimum_correct (a b : Nat) :
     (minimumDec a b).OuterTripleValid := by
-  all_goals
-    sorry
+  sorry
 
 -- Note to developers:
 --     `HIDE: LY: in this exercise, many end up writing the following implication
@@ -1999,8 +1989,7 @@ def twoLoopsDec (a b c : Nat) : Decorated where
 
 theorem two_loops (a b c : Nat) :
     (twoLoopsDec a b c).OuterTripleValid := by
-  all_goals
-    sorry
+  sorry
 
 -- Solution:
 -- [[
@@ -2167,8 +2156,7 @@ theorem one_le_pow2 (n : Nat) : 1 ≤ pow2 n := by
 
 theorem dpow2_down_correct (n : Nat) :
     (dpow2Dec n).OuterTripleValid := by
-  all_goals
-    sorry
+  sorry
 
 -- Note to developers:
 --     `HIDE: Another (very) good exercise from 09-mid2 -- just needs typeset
@@ -2230,8 +2218,7 @@ def fib : Nat → Nat
 
 theorem fib_eqn (n : Nat) (h : n > 0) :
     fib n + fib (Nat.pred n) = fib (1 + n) := by
-  all_goals
-    sorry
+  sorry
 
 -- ### Exercise (4 stars): fib (Advanced) ⭐⭐⭐⭐
 
@@ -2319,8 +2306,7 @@ def dfib (n : Nat) : Decorated where
 
 theorem dfib_correct (n : Nat) :
     (dfib n).OuterTripleValid := by
-  all_goals
-    sorry
+  sorry
 
 -- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     This exercise should really be expanded into its own whole section.
@@ -2824,8 +2810,7 @@ def IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
 theorem is_wp_example :
     IsWp ({{ Y ≤ 4 }}) (imp {X := Y + 1})
       ({{ X ≤ 5 }}) := by
-  all_goals
-    sorry
+  sorry
 
 -- ### Exercise (2 stars): hoare_asgn_weakest (Advanced) ⭐⭐
 
@@ -2835,8 +2820,7 @@ theorem is_wp_example :
 theorem hoare_asgn_weakest
     (Q : Assertion) (x : Ident) (a : Aexp) :
     IsWp ({{ Q [x ↦ ~a] }}) (imp {x := ~a}) Q := by
-  all_goals
-    sorry
+  sorry
 
 attribute [autogradedProof 2] hoare_asgn_weakest
 
@@ -2850,8 +2834,7 @@ namespace Himp2
 theorem hoare_havoc_weakest (P Q : Assertion) (x : Ident)
     (h : Himp.ValidHoareTriple P (Himp.Com.havoc x) Q) :
     P ->> Himp.havoc_pre x Q := by
-  all_goals
-    sorry
+  sorry
 
 end Himp2
 

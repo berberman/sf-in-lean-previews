@@ -226,8 +226,7 @@ example :
       (.p
         (.c 2)
         (.c 4))) := by
-  all_goals
-    apply Step.plusRight; apply Step.plusRight; apply Step.plus
+  apply Step.plusRight; apply Step.plusRight; apply Step.plus
 
 -- _Quiz:_
 
@@ -433,24 +432,23 @@ notation:40 t:41 " ⟶ " t':41 => Step t t'
 -- now also use the fact that a `IsValue` (a `c n`) cannot step.
 
 theorem step_deterministic : Deterministic Step := by
-  all_goals
-    intro x y1 y2 h1
-    induction h1 generalizing y2 with
-    | plus n1 n2 =>
-        intro h2; cases h2 with
-        | plus => rfl
-        | plusLeft _ _ _ hs => cases hs
-        | plusRight _ _ _ hv hs => cases hs
-    | plusLeft t1 t1' t2 hs ih =>
-        intro h2; cases h2 with
-        | plus => cases hs
-        | plusLeft _ _ _ hs2 => rw [ih _ hs2]
-        | plusRight _ _ _ hv hs2 => cases hv; cases hs
-    | plusRight v1 t2 t2' hv hs ih =>
-        intro h2; cases h2 with
-        | plus => cases hs
-        | plusLeft _ _ _ hs2 => cases hv; cases hs2
-        | plusRight _ _ _ hv2 hs2 => rw [ih _ hs2]
+  intro x y1 y2 h1
+  induction h1 generalizing y2 with
+  | plus n1 n2 =>
+      intro h2; cases h2 with
+      | plus => rfl
+      | plusLeft _ _ _ hs => cases hs
+      | plusRight _ _ _ hv hs => cases hs
+  | plusLeft t1 t1' t2 hs ih =>
+      intro h2; cases h2 with
+      | plus => cases hs
+      | plusLeft _ _ _ hs2 => rw [ih _ hs2]
+      | plusRight _ _ _ hv hs2 => cases hv; cases hs
+  | plusRight v1 t2 t2' hv hs ih =>
+      intro h2; cases h2 with
+      | plus => cases hs
+      | plusLeft _ _ _ hs2 => cases hv; cases hs2
+      | plusRight _ _ _ hv2 hs2 => rw [ih _ hs2]
 
 attribute [autogradedProof 3] step_deterministic
 
@@ -584,9 +582,8 @@ theorem value_not_same_as_normal_form :
     ∃ v, IsValue v ∧ ¬ IsNormalForm Step v := by
   apply Exists.intro (.p (.c 0) (.c 0))
   apply And.intro (.funny _ 0)
-  all_goals
-    intro h
-    exact h ⟨.c (0 + 0), .plus 0 0⟩
+  intro h
+  exact h ⟨.c (0 + 0), .plus 0 0⟩
 
 end Temp1
 
@@ -618,9 +615,8 @@ theorem value_not_same_as_normal_form :
     ∃ v, IsValue v ∧ ¬ IsNormalForm Step v := by
   apply Exists.intro (.c 5)
   apply And.intro (.const 5)
-  all_goals
-    intro h
-    exact h ⟨.p (.c 5) (.c 0), .funny 5⟩
+  intro h
+  exact h ⟨.p (.c 5) (.c 0), .funny 5⟩
 
 end Temp2
 
@@ -653,13 +649,11 @@ theorem value_not_same_as_normal_form :
     ∃ t, ¬ IsValue t ∧ IsNormalForm Step t := by
   apply Exists.intro (.p (.c 1) (.p (.c 1) (.c 2)))
   apply And.intro
-  · all_goals
-      intro h; cases h
-  · all_goals
-      intro h
-      obtain ⟨t', ht⟩ := h
-      cases ht with
-      | plusLeft _ _ _ hs => cases hs
+  · intro h; cases h
+  · intro h
+    obtain ⟨t', ht⟩ := h
+    cases ht with
+    | plusLeft _ _ _ hs => cases hs
 
 end Temp3
 
@@ -785,10 +779,9 @@ example : (.p (.c 0) (.c 3)) ⟶* .p (.c 0) (.c 3) := (.refl _)
 example :
     (.p (.c 0) (.p (.c 2) (.p (.c 0) (.c 3))))
       ⟶* (.p (.c 0) (.c (2 + (0 + 3)))) := by
-  all_goals
-    apply Multi.step (y := .p (.c 0) (.p (.c 2) (.c (0 + 3))))
-    · exact .plusRight _ _ _ (.const 0) (.plusRight _ _ _ (.const 2) (.plus 0 3))
-    · exact multi_single _ _ _ (.plusRight _ _ _ (.const 0) (.plus 2 (0 + 3)))
+  apply Multi.step (y := .p (.c 0) (.p (.c 2) (.c (0 + 3))))
+  · exact .plusRight _ _ _ (.const 0) (.plusRight _ _ _ (.const 2) (.plus 0 3))
+  · exact multi_single _ _ _ (.plusRight _ _ _ (.const 0) (.plus 2 (0 + 3)))
 
 -- ### Exercise (2 stars): test_multistep_rfl ⭐⭐
 
@@ -796,12 +789,11 @@ example :
 -- `multi_single`.
 
 example : (.p (.p (.c 1) (.c 2)) (.c 4)) ⟶* .c ((1 + 2) + 4) := by
-  all_goals
-    apply Multi.step (y := .p (.c (1 + 2)) (.c 4))
-    · exact .plusLeft _ _ _ (.plus 1 2)
-    apply Multi.step (y := .c ((1 + 2) + 4))
-    · exact .plus (1 + 2) 4
-    · rfl
+  apply Multi.step (y := .p (.c (1 + 2)) (.c 4))
+  · exact .plusLeft _ _ _ (.plus 1 2)
+  apply Multi.step (y := .c ((1 + 2) + 4))
+  · exact .plus (1 + 2) 4
+  · rfl
 
 -- ### Normal Forms Again
 
@@ -826,19 +818,18 @@ theorem normal_forms_unique : Deterministic (IsNormalFormOf Step) := by
   intro x y1 y2 p1 p2
   obtain ⟨p11, p12⟩ := p1
   obtain ⟨p21, p22⟩ := p2
-  all_goals
-    induction p11 generalizing y2 with
-    | refl a =>
-        cases p21 with
-        | refl => rfl
-        | step _ b _ h1 _ => exact absurd ⟨b, h1⟩ p12
-    | step a b c h1 h2 ih =>
-        cases p21 with
-        | refl => exact absurd ⟨b, h1⟩ p22
-        | step _ b' _ h1' h2' =>
-            have hbb : b = b' := step_deterministic _ _ _ h1 h1'
-            subst hbb
-            exact ih y2 p12 h2' p22
+  induction p11 generalizing y2 with
+  | refl a =>
+      cases p21 with
+      | refl => rfl
+      | step _ b _ h1 _ => exact absurd ⟨b, h1⟩ p12
+  | step a b c h1 h2 ih =>
+      cases p21 with
+      | refl => exact absurd ⟨b, h1⟩ p22
+      | step _ b' _ h1' h2' =>
+          have hbb : b = b' := step_deterministic _ _ _ h1 h1'
+          subst hbb
+          exact ih y2 p12 h2' p22
 
 -- Indeed, something stronger is true for this language (though not for all
 -- the languages we will see): the reduction of *any* term `t` will eventually
@@ -858,10 +849,9 @@ theorem multistep_congr_1 (t1 t1' t2 : Tm) (h : t1 ⟶* t1') : (.p t1 t2) ⟶* (
 
 theorem multistep_congr_2 (v1 t2 t2' : Tm) (hv : IsValue v1) (h : t2 ⟶* t2') :
     (.p v1 t2) ⟶* (.p v1 t2') := by
-  all_goals
-    induction h with
-    | refl x => exact .refl _
-    | step x y z h1 h2 ih => exact .step _ (.p v1 y) _ (.plusRight v1 x y hv h1) ih
+  induction h with
+  | refl x => exact .refl _
+  | step x y z h1 h2 ih => exact .step _ (.p v1 y) _ (.plusRight v1 x y hv h1) ih
 
 -- With these lemmas in hand, the main proof is a straightforward induction.
 
@@ -911,13 +901,12 @@ theorem step_normalizing : Normalizing Step := by
 -- ### Exercise (3 stars): multistep_of_eval ⭐⭐⭐
 
 theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
-  all_goals
-    induction h with
-    | const n => exact .refl _
-    | plus t1 t2 n1 n2 h1 h2 ih1 ih2 =>
-        apply multi_trans _ _ _ _ (multistep_congr_1 t1 (.c n1) t2 ih1)
-        apply multi_trans _ _ _ _ (multistep_congr_2 (.c n1) t2 (.c n2) (.const n1) ih2)
-        exact multi_single _ _ _ (.plus n1 n2)
+  induction h with
+  | const n => exact .refl _
+  | plus t1 t2 n1 n2 h1 h2 ih1 ih2 =>
+      apply multi_trans _ _ _ _ (multistep_congr_1 t1 (.c n1) t2 ih1)
+      apply multi_trans _ _ _ _ (multistep_congr_2 (.c n1) t2 (.c n2) (.const n1) ih2)
+      exact multi_single _ _ _ (.plus n1 n2)
 
 -- The key ideas in the proof can be seen in the following picture:
 
@@ -982,17 +971,16 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 -- ### Exercise (3 stars): eval_of_step ⭐⭐⭐
 
 theorem eval_of_step (t t' : Tm) (n : Nat) (hs : t ⟶ t') (he : t' ⇓ n) : t ⇓ n := by
-  all_goals
-    induction hs generalizing n with
-    | plus n1 n2 =>
-        cases he with
-        | const _ => exact .plus _ _ n1 n2 (.const n1) (.const n2)
-    | plusLeft t1 t1' t2 h1 ih =>
-        cases he with
-        | plus _ _ m1 m2 he1 he2 => exact .plus t1 t2 m1 m2 (ih m1 he1) he2
-    | plusRight v1 t2 t2' hv h2 ih =>
-        cases he with
-        | plus _ _ m1 m2 he1 he2 => exact .plus v1 t2 m1 m2 he1 (ih m2 he2)
+  induction hs generalizing n with
+  | plus n1 n2 =>
+      cases he with
+      | const _ => exact .plus _ _ n1 n2 (.const n1) (.const n2)
+  | plusLeft t1 t1' t2 h1 ih =>
+      cases he with
+      | plus _ _ m1 m2 he1 he2 => exact .plus t1 t2 m1 m2 (ih m1 he1) he2
+  | plusRight v1 t2 t2' hv h2 ih =>
+      cases he with
+      | plus _ _ m1 m2 he1 he2 => exact .plus v1 t2 m1 m2 he1 (ih m2 he2)
 
 -- The fact that small-step reduction implies big-step evaluation is now
 -- straightforward to prove, once we have factored out the observation that
@@ -1005,15 +993,14 @@ theorem eval_of_step (t t' : Tm) (n : Nat) (hs : t ⟶ t') (he : t' ⇓ n) : t �
 
 theorem eval_of_multistep (t t' : Tm) (h : IsNormalFormOf Step t t') :
     ∃ n, t' = .c n ∧ t ⇓ n := by
-  all_goals
-    obtain ⟨hs, hnf⟩ := h
-    obtain ⟨n⟩ := (nf_same_as_value t').mp hnf
-    have H : ∀ (a tc : Tm), Multi Step a tc → tc = .c n → a ⇓ n := by
-      intro a tc hst
-      induction hst with
-      | refl b => intro heq; subst heq; exact .const n
-      | step b c d h1 h2 ih => intro heq; exact eval_of_step b c n h1 (ih heq)
-    exact ⟨n, rfl, H t (.c n) hs rfl⟩
+  obtain ⟨hs, hnf⟩ := h
+  obtain ⟨n⟩ := (nf_same_as_value t').mp hnf
+  have H : ∀ (a tc : Tm), Multi Step a tc → tc = .c n → a ⇓ n := by
+    intro a tc hst
+    induction hst with
+    | refl b => intro heq; subst heq; exact .const n
+    | step b c d h1 h2 ih => intro heq; exact eval_of_step b c n h1 (ih heq)
+  exact ⟨n, rfl, H t (.c n) hs rfl⟩
 
 -- ### Exercise (3 stars): interp_tm ⭐⭐⭐
 
@@ -1024,17 +1011,16 @@ theorem eval_of_multistep (t t' : Tm) (h : IsNormalFormOf Step t t') :
 -- though!)
 
 theorem evalF_eval (t : Tm) (n : Nat) : evalF t = n ↔ t ⇓ n := by
-  all_goals
-    constructor
-    · intro hi
-      subst hi
-      induction t with
-      | c n => exact .const n
-      | p t1 t2 ih1 ih2 => exact .plus t1 t2 _ _ ih1 ih2
-    · intro he
-      induction he with
-      | const n => rfl
-      | plus t1 t2 n1 n2 h1 h2 ih1 ih2 => simp only [evalF]; rw [ih1, ih2]
+  constructor
+  · intro hi
+    subst hi
+    induction t with
+    | c n => exact .const n
+    | p t1 t2 ih1 ih2 => exact .plus t1 t2 _ _ ih1 ih2
+  · intro he
+    induction he with
+    | const n => rfl
+    | plus t1 t2 n1 n2 h1 h2 ih1 ih2 => simp only [evalF]; rw [ih1, ih2]
 
 -- ## Small-Step Slang
 
@@ -1114,39 +1100,38 @@ example :
 -- richer `Slang` arithmetic expressions.
 
 theorem strong_progress_arith (a : Aexp) : IsAValue a ∨ ∃ a', a ⟶a a' := by
-  all_goals
-    induction a with
-    | num n => exact .inl (.num n)
-    | plus a1 a2 ih1 ih2 =>
-        right
-        cases ih1 with
-        | inr h1 => obtain ⟨a1', ha1⟩ := h1; exact ⟨_, .plusLeft _ _ _ ha1⟩
-        | inl hv1 => cases hv1 with
-          | num n1 => cases ih2 with
-            | inr h2 => obtain ⟨a2', ha2⟩ := h2
-                        exact ⟨_, .plusRight _ _ _ (.num n1) ha2⟩
-            | inl hv2 => cases hv2 with
-              | num n2 => exact ⟨_, .plus n1 n2⟩
-    | minus a1 a2 ih1 ih2 =>
-        right
-        cases ih1 with
-        | inr h1 => obtain ⟨a1', ha1⟩ := h1; exact ⟨_, .minusLeft _ _ _ ha1⟩
-        | inl hv1 => cases hv1 with
-          | num n1 => cases ih2 with
-            | inr h2 => obtain ⟨a2', ha2⟩ := h2
-                        exact ⟨_, .minusRight _ _ _ (.num n1) ha2⟩
-            | inl hv2 => cases hv2 with
-              | num n2 => exact ⟨_, .minus n1 n2⟩
-    | mult a1 a2 ih1 ih2 =>
-        right
-        cases ih1 with
-        | inr h1 => obtain ⟨a1', ha1⟩ := h1; exact ⟨_, .multLeft _ _ _ ha1⟩
-        | inl hv1 => cases hv1 with
-          | num n1 => cases ih2 with
-            | inr h2 => obtain ⟨a2', ha2⟩ := h2
-                        exact ⟨_, .multRight _ _ _ (.num n1) ha2⟩
-            | inl hv2 => cases hv2 with
-              | num n2 => exact ⟨_, .mult n1 n2⟩
+  induction a with
+  | num n => exact .inl (.num n)
+  | plus a1 a2 ih1 ih2 =>
+      right
+      cases ih1 with
+      | inr h1 => obtain ⟨a1', ha1⟩ := h1; exact ⟨_, .plusLeft _ _ _ ha1⟩
+      | inl hv1 => cases hv1 with
+        | num n1 => cases ih2 with
+          | inr h2 => obtain ⟨a2', ha2⟩ := h2
+                      exact ⟨_, .plusRight _ _ _ (.num n1) ha2⟩
+          | inl hv2 => cases hv2 with
+            | num n2 => exact ⟨_, .plus n1 n2⟩
+  | minus a1 a2 ih1 ih2 =>
+      right
+      cases ih1 with
+      | inr h1 => obtain ⟨a1', ha1⟩ := h1; exact ⟨_, .minusLeft _ _ _ ha1⟩
+      | inl hv1 => cases hv1 with
+        | num n1 => cases ih2 with
+          | inr h2 => obtain ⟨a2', ha2⟩ := h2
+                      exact ⟨_, .minusRight _ _ _ (.num n1) ha2⟩
+          | inl hv2 => cases hv2 with
+            | num n2 => exact ⟨_, .minus n1 n2⟩
+  | mult a1 a2 ih1 ih2 =>
+      right
+      cases ih1 with
+      | inr h1 => obtain ⟨a1', ha1⟩ := h1; exact ⟨_, .multLeft _ _ _ ha1⟩
+      | inl hv1 => cases hv1 with
+        | num n1 => cases ih2 with
+          | inr h2 => obtain ⟨a2', ha2⟩ := h2
+                      exact ⟨_, .multRight _ _ _ (.num n1) ha2⟩
+          | inl hv2 => cases hv2 with
+            | num n2 => exact ⟨_, .mult n1 n2⟩
 
 -- ### Boolean Expressions
 
@@ -1241,14 +1226,13 @@ example :
 -- step.)
 
 theorem astep_deterministic : Deterministic AStep := by
-  all_goals
-    intro x y1 y2 h1
-    induction h1 generalizing y2 <;> intro h2 <;> cases h2 <;>
-      first
-        | rfl
-        | cases ‹AStep (Aexp.num _) _›
-        | (cases ‹IsAValue _›; cases ‹AStep (Aexp.num _) _›)
-        | (congr 1 <;> first | rfl | (apply ‹∀ _, AStep _ _ → _ = _› <;> assumption))
+  intro x y1 y2 h1
+  induction h1 generalizing y2 <;> intro h2 <;> cases h2 <;>
+    first
+      | rfl
+      | cases ‹AStep (Aexp.num _) _›
+      | (cases ‹IsAValue _›; cases ‹AStep (Aexp.num _) _›)
+      | (congr 1 <;> first | rfl | (apply ‹∀ _, AStep _ _ → _ = _› <;> assumption))
 
 -- ### Exercise (3 stars): bstep_deterministic ⭐⭐⭐
 
@@ -1258,15 +1242,14 @@ theorem astep_deterministic : Deterministic AStep := by
 -- contribute only base cases.
 
 theorem bstep_deterministic : Deterministic BStep := by
-  all_goals
-    intro x y1 y2 h1
-    induction h1 generalizing y2 <;> intro h2 <;> cases h2 <;>
-      first
-        | rfl
-        | cases ‹AStep (Aexp.num _) _›
-        | (cases ‹IsAValue _›; cases ‹AStep (Aexp.num _) _›)
-        | cases ‹BStep (Bexp.bool _) _›
-        | (congr 1 <;> first | rfl | (apply astep_deterministic <;> assumption) | (apply ‹∀ _, BStep _ _ → _ = _› <;> assumption))
+  intro x y1 y2 h1
+  induction h1 generalizing y2 <;> intro h2 <;> cases h2 <;>
+    first
+      | rfl
+      | cases ‹AStep (Aexp.num _) _›
+      | (cases ‹IsAValue _›; cases ‹AStep (Aexp.num _) _›)
+      | cases ‹BStep (Bexp.bool _) _›
+      | (congr 1 <;> first | rfl | (apply astep_deterministic <;> assumption) | (apply ‹∀ _, BStep _ _ → _ = _› <;> assumption))
 
 -- ### Nondeterministic Evaluation
 
@@ -1321,8 +1304,7 @@ theorem anstep_not_deterministic : ¬ Deterministic ANStep := by
 -- `eval` and, where present, the induction hypothesis.
 
 theorem anstep_preserves_eval (a a' : Aexp) (h : a ⟶n a') : a.eval = a'.eval := by
-  all_goals
-    induction h <;> simp only [Aexp.eval, *]
+  induction h <;> simp only [Aexp.eval, *]
 
 -- This lifts to any number of steps by a routine induction on the multi-step
 -- derivation:
@@ -1365,12 +1347,11 @@ theorem multi_astep_imp_anstep (a a' : Aexp) (h : Multi AStep a a') : Multi ANSt
 
 theorem astep_anstep_agree (a : Aexp) (n1 n2 : Nat)
     (hd : Multi AStep a (.num n1)) (hn : Multi ANStep a (.num n2)) : n1 = n2 := by
-  all_goals
-    have e1 := multi_anstep_preserves_eval a (.num n1)
-      (multi_astep_imp_anstep a (.num n1) hd)
-    have e2 := multi_anstep_preserves_eval a (.num n2) hn
-    simp only [Aexp.eval] at e1 e2
-    lia
+  have e1 := multi_anstep_preserves_eval a (.num n1)
+    (multi_astep_imp_anstep a (.num n1) hd)
+  have e2 := multi_anstep_preserves_eval a (.num n2) hn
+  simp only [Aexp.eval] at e1 e2
+  lia
 
 -- So even though `⟶n` is genuinely nondeterministic, the value it eventually
 -- produces is completely determined — and it is the same value the
@@ -1439,36 +1420,35 @@ theorem stack_step_deterministic : Deterministic StackStep := by
 
 theorem compiler_is_correct (a : Aexp) :
     Multi StackStep (compile a, []) ([], [a.eval]) := by
-  all_goals
-    have gen : ∀ (a : Aexp) (p : Prog) (stk : Stack),
-        Multi StackStep (compile a ++ p, stk) (p, a.eval :: stk) := by
-      intro a
-      induction a with
-      | num n =>
-          intro p stk
-          simp only [compile, Aexp.eval]
-          exact multi_single _ _ _ (StackStep.push p stk n)
-      | plus a1 a2 ih1 ih2 =>
-          intro p stk
-          simp only [compile, Aexp.eval, List.append_assoc]
-          exact multi_trans _ _ _ _ (ih1 _ stk)
-            (multi_trans _ _ _ _ (ih2 _ (a1.eval :: stk))
-              (multi_single _ _ _ (StackStep.plus p stk a2.eval a1.eval)))
-      | minus a1 a2 ih1 ih2 =>
-          intro p stk
-          simp only [compile, Aexp.eval, List.append_assoc]
-          exact multi_trans _ _ _ _ (ih1 _ stk)
-            (multi_trans _ _ _ _ (ih2 _ (a1.eval :: stk))
-              (multi_single _ _ _ (StackStep.minus p stk a2.eval a1.eval)))
-      | mult a1 a2 ih1 ih2 =>
-          intro p stk
-          simp only [compile, Aexp.eval, List.append_assoc]
-          exact multi_trans _ _ _ _ (ih1 _ stk)
-            (multi_trans _ _ _ _ (ih2 _ (a1.eval :: stk))
-              (multi_single _ _ _ (StackStep.mult p stk a2.eval a1.eval)))
-    have hfin := gen a [] []
-    simp only [List.append_nil] at hfin
-    exact hfin
+  have gen : ∀ (a : Aexp) (p : Prog) (stk : Stack),
+      Multi StackStep (compile a ++ p, stk) (p, a.eval :: stk) := by
+    intro a
+    induction a with
+    | num n =>
+        intro p stk
+        simp only [compile, Aexp.eval]
+        exact multi_single _ _ _ (StackStep.push p stk n)
+    | plus a1 a2 ih1 ih2 =>
+        intro p stk
+        simp only [compile, Aexp.eval, List.append_assoc]
+        exact multi_trans _ _ _ _ (ih1 _ stk)
+          (multi_trans _ _ _ _ (ih2 _ (a1.eval :: stk))
+            (multi_single _ _ _ (StackStep.plus p stk a2.eval a1.eval)))
+    | minus a1 a2 ih1 ih2 =>
+        intro p stk
+        simp only [compile, Aexp.eval, List.append_assoc]
+        exact multi_trans _ _ _ _ (ih1 _ stk)
+          (multi_trans _ _ _ _ (ih2 _ (a1.eval :: stk))
+            (multi_single _ _ _ (StackStep.minus p stk a2.eval a1.eval)))
+    | mult a1 a2 ih1 ih2 =>
+        intro p stk
+        simp only [compile, Aexp.eval, List.append_assoc]
+        exact multi_trans _ _ _ _ (ih1 _ stk)
+          (multi_trans _ _ _ _ (ih2 _ (a1.eval :: stk))
+            (multi_single _ _ _ (StackStep.mult p stk a2.eval a1.eval)))
+  have hfin := gen a [] []
+  simp only [List.append_nil] at hfin
+  exact hfin
 
 end Slang
 

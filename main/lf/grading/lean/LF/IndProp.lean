@@ -758,12 +758,11 @@ theorem ev_plus4 (n : Nat) (h : Ev n) : Ev (4 + n) := by
 -- ### Exercise (1 star): ev_double ⭐
 
 theorem ev_double (n : Nat) : Ev n.double := by
-  all_goals
-    induction n
-    case zero =>
-      rw [Nat.double_zero]; exact Ev.ev_0
-    case succ n ih =>
-      rw [Nat.double_succ]; exact Ev.ev_succ_succ _ ih
+  induction n
+  case zero =>
+    rw [Nat.double_zero]; exact Ev.ev_0
+  case succ n ih =>
+    rw [Nat.double_succ]; exact Ev.ev_succ_succ _ ih
 
 -- ### Constructing Evidence for Permutations
 
@@ -796,17 +795,15 @@ theorem Perm3_rev' : Perm3 [1, 2, 3] [3, 2, 1] := by
 -- ### Exercise (1 star): Perm3 ⭐
 
 theorem Perm3_ex1 : Perm3 [1, 2, 3] [2, 3, 1] := by
-  all_goals
-    apply Perm3.perm3_trans (l₂ := [2, 1, 3])
-    . apply Perm3.perm3_swap12
-    . apply Perm3.perm3_swap23
+  apply Perm3.perm3_trans (l₂ := [2, 1, 3])
+  . apply Perm3.perm3_swap12
+  . apply Perm3.perm3_swap23
 
 theorem Perm3_refl : ∀ (α : Type) (a b c : α ), Perm3 [a, b, c] [a, b, c] := by
-  all_goals
-    intro α a b c
-    apply Perm3.perm3_trans (l₂:=[b, a, c])
-    . apply Perm3.perm3_swap12
-    . apply Perm3.perm3_swap12
+  intro α a b c
+  apply Perm3.perm3_trans (l₂:=[b, a, c])
+  . apply Perm3.perm3_swap12
+  . apply Perm3.perm3_swap12
 
 attribute [autogradedProof 0.5] Perm3_ex1 Perm3_refl
 
@@ -870,11 +867,10 @@ namespace LePlayground
 theorem le_inversion : ∀ (n m : Nat),
   Le n m →
   (n = m) ∨ (∃ m', m = m' + 1 ∧ Le n m') := by
-  all_goals
-    intros n m h
-    cases h
-    case refl => left; rfl
-    case step m h => right; exists m
+  intros n m h
+  cases h
+  case refl => left; rfl
+  case step m h => right; exists m
 
 end LePlayground
 
@@ -952,14 +948,13 @@ attribute [autogradedProof 1] ev_4_ev_n
 -- Prove the following result using `inversion`.
 
 theorem ev5_nonsense : Ev 5 → 2 + 2 = 9 := by
-  all_goals
-    intro h
-    /- Contradiction, as neither constructor can possibly apply... -/
-    inversion h
-    case ev_succ_succ h' =>
-      inversion h'
-      case ev_succ_succ h'' =>
-      inversion h''
+  intro h
+  /- Contradiction, as neither constructor can possibly apply... -/
+  inversion h
+  case ev_succ_succ h' =>
+    inversion h'
+    case ev_succ_succ h'' =>
+    inversion h''
 
 -- We can use `inversion` to re-prove some theorems from `Tactics.lean`.
 
@@ -1111,26 +1106,24 @@ theorem Nat.ev_Even_iff : ∀ n, Ev n ↔ Even n := by
 -- ### Exercise (2 stars): ev_sum ⭐⭐
 
 theorem ev_sum : ∀ n m, Ev n → Ev m → Ev (n + m) := by
-  all_goals
-    intro n m hn hm
-    induction hn
-    case ev_0 => rw [Nat.zero_add]; exact hm
-    case ev_succ_succ n' h' ih =>
-      rw [Nat.add_comm, ←Nat.add_assoc, Nat.add_comm m]
-      apply Ev.ev_succ_succ; exact ih
+  intro n m hn hm
+  induction hn
+  case ev_0 => rw [Nat.zero_add]; exact hm
+  case ev_succ_succ n' h' ih =>
+    rw [Nat.add_comm, ←Nat.add_assoc, Nat.add_comm m]
+    apply Ev.ev_succ_succ; exact ih
 
 -- ### Exercise (3 stars): ev_ev__ev (Advanced) ⭐⭐⭐
 
 theorem ev_ev__ev : ∀ n m, Ev (n + m) → Ev n → Ev m := by
   /- Hint: There are two pieces of evidence you could attempt to induct upon
       here. If one doesn't work, try the other. -/
-  all_goals
-    intro n m hnm hn
-    induction hn generalizing m
-    case ev_0 => rw [Nat.zero_add] at hnm; exact hnm
-    case ev_succ_succ n' h' ih =>
-      apply ih; rw [Nat.add_comm, ←Nat.add_assoc, Nat.add_comm m] at hnm
-      inversion hnm; assumption
+  intro n m hnm hn
+  induction hn generalizing m
+  case ev_0 => rw [Nat.zero_add] at hnm; exact hnm
+  case ev_succ_succ n' h' ih =>
+    apply ih; rw [Nat.add_comm, ←Nat.add_assoc, Nat.add_comm m] at hnm
+    inversion hnm; assumption
 
 -- ### Exercise (3 stars): ev_plus_plus ⭐⭐⭐
 
@@ -1140,18 +1133,17 @@ theorem ev_ev__ev : ∀ n m, Ev (n + m) → Ev n → Ev m := by
 
 theorem ev_plus_plus : ∀ n m p,
   Ev (n+m) → Ev (n+p) → Ev (m+p) := by
-  all_goals
-    intro n m p hnm hnp
-    apply (ev_ev__ev (n+n))
-    . have h : n + n + (m + p) = n + m + (n + p) := by
-        rw [Nat.add_assoc, Nat.add_assoc]
-        congr 1
-        exact Nat.add_left_comm _ _ _
-      rw [h]
-      apply ev_sum
-      . assumption
-      . assumption
-    . rw [←Nat.double_add]; exact ev_double n
+  intro n m p hnm hnp
+  apply (ev_ev__ev (n+n))
+  . have h : n + n + (m + p) = n + m + (n + p) := by
+      rw [Nat.add_assoc, Nat.add_assoc]
+      congr 1
+      exact Nat.add_left_comm _ _ _
+    rw [h]
+    apply ev_sum
+    . assumption
+    . assumption
+  . rw [←Nat.double_add]; exact ev_double n
 
 -- Another example of a proposition that can be characterized both recursively
 -- and inductively is the `In` predicate we defined in the Logic chapter. As a
@@ -1178,18 +1170,17 @@ inductive In_Inductive {α : Type} (a : α) : List α → Prop
 -- ### Exercise (2 stars): in_mem ⭐⭐
 
 theorem in_mem α (x : α) (l : List α) : List.In x l ↔ x ∈ l := by
-  all_goals
-    constructor
-    . intro h; induction l with
-      | nil => apply List.In_nil at h; contradiction
-      | cons hd tl ih =>
-        rw [List.In_cons] at h
-        obtain h | h := h
-        . subst h; constructor
-        . constructor; exact ih h
-    . intro h; induction h with
-      | head l' => rw [List.In_cons]; left; rfl
-      | tail y h ih => rw [List.In_cons]; right; assumption
+  constructor
+  . intro h; induction l with
+    | nil => apply List.In_nil at h; contradiction
+    | cons hd tl ih =>
+      rw [List.In_cons] at h
+      obtain h | h := h
+      . subst h; constructor
+      . constructor; exact ih h
+  . intro h; induction h with
+    | head l' => rw [List.In_cons]; left; rfl
+    | tail y h ih => rw [List.In_cons]; right; assumption
 
 -- The characterizing lemmas for `∈` are called `List.mem_nil_iff` and
 -- `List.mem_cons`
@@ -1268,18 +1259,17 @@ inductive Ev' : Nat → Prop where
 -- constructors of inductively defined propositions.
 
 theorem ev'_ev : ∀ n, Ev' n ↔ Ev n := by
-  all_goals
-    intro n
-    apply Iff.intro
-    . /- → -/
-      intro h; induction h
-      . constructor
-      . constructor; constructor
-      . apply ev_sum; assumption; assumption
-    . /- <- -/
-      intro h; induction h
-      . constructor
-      . constructor; assumption; constructor
+  intro n
+  apply Iff.intro
+  . /- → -/
+    intro h; induction h
+    . constructor
+    . constructor; constructor
+    . apply ev_sum; assumption; assumption
+  . /- <- -/
+    intro h; induction h
+    . constructor
+    . constructor; assumption; constructor
 
 -- We can do similar inductive proofs on the `Perm3` relation, which we
 -- defined earlier as follows:
@@ -1312,36 +1302,34 @@ theorem Perm3_symm : ∀ (α : Type) (l₁ l₂ : List α),
 
 theorem Perm3_In : ∀ (α : Type) (x : α) (l₁ l₂ : List α),
     Perm3 l₁ l₂ → x ∈ l₁ → x ∈ l₂ := by
-  all_goals
-    intros α x l₁ l₂ hPerm hIn
-    induction hPerm
-    case perm3_swap12 a b c =>
-      rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
-      obtain h | h | h | h := hIn
-      . right; left; assumption
-      . left; assumption
-      . right; right; left; assumption
-      . contradiction
-    case perm3_swap23 a b c =>
-      rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
-      obtain h | h | h | h := hIn
-      . left; assumption
-      . right; right; left; assumption
-      . right; left; assumption
-      . contradiction
-    case perm3_trans _ _ _ _ _ ih₁2 ih₂3 =>
-      apply ih₂3; apply ih₁2; apply hIn
+  intros α x l₁ l₂ hPerm hIn
+  induction hPerm
+  case perm3_swap12 a b c =>
+    rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
+    obtain h | h | h | h := hIn
+    . right; left; assumption
+    . left; assumption
+    . right; right; left; assumption
+    . contradiction
+  case perm3_swap23 a b c =>
+    rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
+    obtain h | h | h | h := hIn
+    . left; assumption
+    . right; right; left; assumption
+    . right; left; assumption
+    . contradiction
+  case perm3_trans _ _ _ _ _ ih₁2 ih₂3 =>
+    apply ih₂3; apply ih₁2; apply hIn
   /- HIDE: CH: The base cases are a bit stupid without [tauto] -/
 
 -- ### Exercise (1 star): Perm3_NotIn ⭐
 
 theorem Perm3_NotIn : ∀ (α : Type) (x : α) (l₁ l₂ : List α),
     Perm3 l₁ l₂ → ¬x ∈ l₁ → ¬x ∈ l₂ := by
-  all_goals
-    intros α x l₁ l₂ hPerm hIn hContra
-    apply hIn; apply Perm3_In
-    . apply Perm3_symm; exact hPerm
-    . exact hContra
+  intros α x l₁ l₂ hPerm hIn hContra
+  apply hIn; apply Perm3_In
+  . apply Perm3_symm; exact hPerm
+  . exact hContra
 
 -- ### Exercise (2 stars): NotPerm3 ⭐⭐
 
@@ -1349,18 +1337,17 @@ theorem Perm3_NotIn : ∀ (α : Type) (x : α) (l₁ l₂ : List α),
 -- lemmas above, like `Perm3_In` can be useful for this.
 
 example : ¬ Perm3 [1, 2, 3] [1, 2, 4] := by
-  all_goals
-    intro h; apply (Perm3_In Nat 3) at h
-    have h4 : ¬3 ∈ [1, 2, 4] := by
-      rw [List.mem_cons, List.mem_cons, List.mem_cons]; intro h4
-      obtain h | h | h | h := h4
-      . contradiction
-      . contradiction
-      . contradiction
-      . contradiction
-    apply h4; apply h
-    rw [List.mem_cons, List.mem_cons, List.mem_cons]
-    right; right; left; rfl
+  intro h; apply (Perm3_In Nat 3) at h
+  have h4 : ¬3 ∈ [1, 2, 4] := by
+    rw [List.mem_cons, List.mem_cons, List.mem_cons]; intro h4
+    obtain h | h | h | h := h4
+    . contradiction
+    . contradiction
+    . contradiction
+    . contradiction
+  apply h4; apply h
+  rw [List.mem_cons, List.mem_cons, List.mem_cons]
+  right; right; left; rfl
 
 -- ## Exercising with Inductive Relations
 
@@ -1409,18 +1396,15 @@ inductive Le : Nat → Nat → Prop where
 -- Some sanity checks...
 
 theorem test_le1 : 3 ≤ 3 := by
-  all_goals
-    apply Nat.le.refl
+  apply Nat.le.refl
 
 theorem test_le2 : 3 ≤ 6 := by
-  all_goals
-    apply Nat.le.step; apply Nat.le.step; apply Nat.le.step; apply Nat.le.refl
+  apply Nat.le.step; apply Nat.le.step; apply Nat.le.step; apply Nat.le.refl
 
 theorem test_le3 : (2 ≤ 1) → 2 + 2 = 5 := by
-  all_goals
-    intros h
-    inversion h
-    case step h' => inversion h'
+  intros h
+  inversion h
+  case step h' => inversion h'
 
 -- The "strictly less than" relation `n < m` can now be defined in terms of
 -- `Nat.le`.
@@ -1458,57 +1442,52 @@ end Playground
 -- ### Exercise (3 stars): le_facts ⭐⭐⭐
 
 theorem le_trans : ∀ (m n o : Nat), m ≤ n → n ≤ o → m ≤ o := by
-  all_goals
-    intro n m o h₁  h₂
-    induction  h₂
-    case refl => assumption
-    case step m' h' ih => constructor; exact ih
+  intro n m o h₁  h₂
+  induction  h₂
+  case refl => assumption
+  case step m' h' ih => constructor; exact ih
 
 attribute [autogradedProof 0.5] le_trans
 
 theorem zero_le_n : ∀ n, 0 ≤ n := by
-  all_goals
-    intro n; induction n
-    case zero => constructor
-    case succ n ih => constructor; assumption
+  intro n; induction n
+  case zero => constructor
+  case succ n ih => constructor; assumption
 
 attribute [autogradedProof 0.5] zero_le_n
 
 theorem n_le_m__succ_n_le_succ_m : ∀ n m,
   n ≤ m → n + 1 ≤ m + 1 := by
-  all_goals
-    intro n m h
-    induction h
-    case refl => constructor
-    case step m' h ih =>
-      rw [Nat.succ_add]
-      constructor
-      assumption
+  intro n m h
+  induction h
+  case refl => constructor
+  case step m' h ih =>
+    rw [Nat.succ_add]
+    constructor
+    assumption
 
 attribute [autogradedProof 0.5] n_le_m__succ_n_le_succ_m
 
 theorem succ_n_le_succ_m__n_le_m : ∀ n m,
   n + 1 ≤ m + 1 → n ≤ m := by
-  all_goals
-    intro n m h
-    inversion h
-    case refl => constructor
-    case step h' =>
-      apply le_trans _ (n + 1) _
-      . constructor; constructor
-      . assumption
+  intro n m h
+  inversion h
+  case refl => constructor
+  case step h' =>
+    apply le_trans _ (n + 1) _
+    . constructor; constructor
+    . assumption
 
 attribute [autogradedProof 1] succ_n_le_succ_m__n_le_m
 
 theorem le_add_l : ∀ (a b : Nat), a ≤ a + b := by
-  all_goals
-    intros a b
-    induction a
-    case zero => rw [Nat.zero_add]; apply zero_le_n
-    case succ a' ih =>
-      rw [Nat.succ_add]
-      apply n_le_m__succ_n_le_succ_m
-      assumption
+  intros a b
+  induction a
+  case zero => rw [Nat.zero_add]; apply zero_le_n
+  case succ a' ih =>
+    rw [Nat.succ_add]
+    apply n_le_m__succ_n_le_succ_m
+    assumption
 
 attribute [autogradedProof 0.5] le_add_l
 
@@ -1539,22 +1518,21 @@ attribute [autogradedProof 1] add_le
 theorem add_le_cases : ∀ (n m p q : Nat),
   n + m ≤ p + q → n ≤ p ∨ m ≤ q := by
   /- Hint: May be easiest to prove by induction on `n`. -/
-  all_goals
-    intros n m p q h; induction n generalizing m p q
-    case zero => left; apply zero_le_n
-    case succ n' ih =>
-      cases p
-      case zero =>
-        right; apply add_le at h
-        obtain ⟨_, h⟩ := h
-        rw [Nat.zero_add] at h; assumption
-      case succ p' =>
-        rw [Nat.succ_add, Nat.succ_add] at h
-        apply succ_n_le_succ_m__n_le_m at h
-        apply ih at h
-        cases h
-        . left; apply n_le_m__succ_n_le_succ_m; assumption
-        . right; assumption
+  intros n m p q h; induction n generalizing m p q
+  case zero => left; apply zero_le_n
+  case succ n' ih =>
+    cases p
+    case zero =>
+      right; apply add_le at h
+      obtain ⟨_, h⟩ := h
+      rw [Nat.zero_add] at h; assumption
+    case succ p' =>
+      rw [Nat.succ_add, Nat.succ_add] at h
+      apply succ_n_le_succ_m__n_le_m at h
+      apply ih at h
+      cases h
+      . left; apply n_le_m__succ_n_le_succ_m; assumption
+      . right; assumption
 
 attribute [autogradedProof 1] add_le_cases
 
@@ -1563,38 +1541,35 @@ attribute [autogradedProof 1] add_le_cases
 theorem add_le_compat_l : ∀ (n m p : Nat),
   n ≤ m →
   p + n ≤ p + m := by
-  all_goals
-    intros n m p h
-    induction p
-    case zero =>
-      rw [Nat.zero_add, Nat.zero_add]; assumption
-    case succ p' ih =>
-      rw [Nat.succ_add, Nat.succ_add]
-      apply n_le_m__succ_n_le_succ_m
-      assumption
+  intros n m p h
+  induction p
+  case zero =>
+    rw [Nat.zero_add, Nat.zero_add]; assumption
+  case succ p' ih =>
+    rw [Nat.succ_add, Nat.succ_add]
+    apply n_le_m__succ_n_le_succ_m
+    assumption
 
 attribute [autogradedProof 0.5] add_le_compat_l
 
 theorem plus_le_compat_r : ∀ (n m p : Nat),
   n ≤ m →
   n + p ≤ m + p := by
-  all_goals
-    intro n m p h
-    rw [Nat.add_comm, Nat.add_comm m]
-    apply add_le_compat_l
-    assumption
+  intro n m p h
+  rw [Nat.add_comm, Nat.add_comm m]
+  apply add_le_compat_l
+  assumption
 
 attribute [autogradedProof 0.5] plus_le_compat_r
 
 theorem le_plus_trans : ∀ (n m p : Nat),
   n ≤ m →
   n ≤ m + p := by
-  all_goals
-    intros n m p h
-    induction p
-    case zero => rw [Nat.add_zero]; assumption
-    case succ p' ih =>
-      rw [←Nat.add_assoc]; constructor; assumption
+  intros n m p h
+  induction p
+  case zero => rw [Nat.add_zero]; assumption
+  case succ p' ih =>
+    rw [←Nat.add_assoc]; constructor; assumption
 
 attribute [autogradedProof 1] le_plus_trans
 
@@ -1602,54 +1577,51 @@ attribute [autogradedProof 1] le_plus_trans
 
 theorem lt_ge_cases : ∀ (n m : Nat),
   n < m ∨ n ≥ m := by
-  all_goals
-    intro n m; induction n generalizing m
+  intro n m; induction n generalizing m
+  case zero =>
+    cases m
+    case zero => right; constructor
+    case succ _ =>
+      left;
+      apply n_le_m__succ_n_le_succ_m;
+      apply zero_le_n
+  case succ n' ih =>
+    cases m
     case zero =>
-      cases m
-      case zero => right; constructor
-      case succ _ =>
-        left;
-        apply n_le_m__succ_n_le_succ_m;
-        apply zero_le_n
-    case succ n' ih =>
-      cases m
-      case zero =>
-        rw [ge_iff_le]; right
-        apply zero_le_n
-      case succ m' =>
-        obtain ih | ih := (ih m')
-        . left
-          apply n_le_m__succ_n_le_succ_m
-          exact ih
-        . right
-          apply n_le_m__succ_n_le_succ_m
-          exact ih
+      rw [ge_iff_le]; right
+      apply zero_le_n
+    case succ m' =>
+      obtain ih | ih := (ih m')
+      . left
+        apply n_le_m__succ_n_le_succ_m
+        exact ih
+      . right
+        apply n_le_m__succ_n_le_succ_m
+        exact ih
 
 attribute [autogradedProof 1.5] lt_ge_cases
 
 theorem n_lt_m__n_le_m : ∀ (n m : Nat),
   n < m →
   n ≤ m := by
-  all_goals
-    intro n m h
-    apply succ_n_le_succ_m__n_le_m; constructor; assumption
+  intro n m h
+  apply succ_n_le_succ_m__n_le_m; constructor; assumption
 
 attribute [autogradedProof 0.5] n_lt_m__n_le_m
 
 theorem plus_lt : ∀ (n₁ n₂ m : Nat),
   n₁ + n₂ < m →
   n₁ < m ∧ n₂ < m := by
-  all_goals
-    intro n₁ n₂ m h
-    constructor
-    . apply le_trans (n := (n₁ + n₂) + 1)
-      . apply n_le_m__succ_n_le_succ_m
-        apply le_add_l
-      . exact h
-    . apply le_trans (n := (n₂ + n₁) + 1)
-      . apply n_le_m__succ_n_le_succ_m
-        apply le_add_l
-      . rw [Nat.add_comm n₂]; assumption
+  intro n₁ n₂ m h
+  constructor
+  . apply le_trans (n := (n₁ + n₂) + 1)
+    . apply n_le_m__succ_n_le_succ_m
+      apply le_add_l
+    . exact h
+  . apply le_trans (n := (n₂ + n₁) + 1)
+    . apply n_le_m__succ_n_le_succ_m
+      apply le_add_l
+    . rw [Nat.add_comm n₂]; assumption
 
 attribute [autogradedProof 1] plus_lt
 
@@ -1682,35 +1654,33 @@ attribute [autogradedProof 1] plus_lt
 
 theorem ble_complete : ∀ (n m : Nat),
   n ≤? m = true → n ≤ m := by
-  all_goals
-    intro n m h; induction n generalizing m
-    case zero => apply zero_le_n
-    case succ n' ih =>
-      cases m
-      case zero =>
-        contradiction
-      case succ m' =>
-        dsimp [Nat.ble] at h
-        apply n_le_m__succ_n_le_succ_m
-        apply ih; apply h
+  intro n m h; induction n generalizing m
+  case zero => apply zero_le_n
+  case succ n' ih =>
+    cases m
+    case zero =>
+      contradiction
+    case succ m' =>
+      dsimp [Nat.ble] at h
+      apply n_le_m__succ_n_le_succ_m
+      apply ih; apply h
 
 attribute [autogradedProof 2] ble_complete
 
 theorem ble_correct : ∀ n m,
   n ≤ m →
   n ≤? m = true := by
-  all_goals
-    intro n m h
-    induction n generalizing m
-    case zero => dsimp [Nat.ble]
-    case succ n' ih =>
-      cases m
-      case zero => contradiction
-      case succ m' =>
-        dsimp [Nat.ble]
-        apply succ_n_le_succ_m__n_le_m at h
-        apply ih at h
-        assumption
+  intro n m h
+  induction n generalizing m
+  case zero => dsimp [Nat.ble]
+  case succ n' ih =>
+    cases m
+    case zero => contradiction
+    case succ m' =>
+      dsimp [Nat.ble]
+      apply succ_n_le_succ_m__n_le_m at h
+      apply ih at h
+      assumption
 
 attribute [autogradedProof 2] ble_correct
 
@@ -1718,19 +1688,17 @@ attribute [autogradedProof 2] ble_correct
 
 theorem ble_iff : ∀ n m,
   n ≤? m = true ↔ n ≤ m := by
-  all_goals
-    intro n m; apply Iff.intro
-    . apply ble_complete
-    . apply ble_correct
+  intro n m; apply Iff.intro
+  . apply ble_complete
+  . apply ble_correct
 
 attribute [autogradedProof 1] ble_iff
 
 theorem ble_true_trans : ∀ n m o,
   n ≤? m = true → m ≤? o = true → n ≤? o = true := by
-  all_goals
-    intros n m o
-    rw [ble_iff, ble_iff, ble_iff]
-    apply le_trans
+  intros n m o
+  rw [ble_iff, ble_iff, ble_iff]
+  apply le_trans
 -- /HIDE
 
 attribute [autogradedProof 1] ble_true_trans
@@ -1811,26 +1779,25 @@ def fR : Nat → Nat → Nat
   := (fun x y => x + y)
 
 theorem R_equiv_fR : ∀ m n o, R m n o ↔ fR m n = o := by
-  all_goals
-    intro m n o
-    unfold fR
-    apply Iff.intro
-    . intro h; induction h
-      case c1 => rfl
-      case c2 m n o _ ih => rw [Nat.succ_add, ih]
-      case c3 m n o _ ih => rw [Nat.add_succ, ih]
-      case c4 m n o _ ih =>
-        rw [Nat.succ_add, Nat.add_succ] at ih
-        injections
-      case c5 m n o _ ih => rw [Nat.add_comm]; exact ih
-    . intro h; subst h
-      have R0 : ∀ k, R 0 k k := by
-        intro k; induction k
-        case zero => exact .c1
-        case succ k ih => exact .c3 _ _ _ ih
-      induction m
-      case zero => rw [Nat.zero_add]; exact R0 n
-      case succ m ih => rw [Nat.succ_add]; exact .c2 _ _ _ ih
+  intro m n o
+  unfold fR
+  apply Iff.intro
+  . intro h; induction h
+    case c1 => rfl
+    case c2 m n o _ ih => rw [Nat.succ_add, ih]
+    case c3 m n o _ ih => rw [Nat.add_succ, ih]
+    case c4 m n o _ ih =>
+      rw [Nat.succ_add, Nat.add_succ] at ih
+      injections
+    case c5 m n o _ ih => rw [Nat.add_comm]; exact ih
+  . intro h; subst h
+    have R0 : ∀ k, R 0 k k := by
+      intro k; induction k
+      case zero => exact .c1
+      case succ k ih => exact .c3 _ _ _ ih
+    induction m
+    case zero => rw [Nat.zero_add]; exact R0 n
+    case succ m ih => rw [Nat.succ_add]; exact .c2 _ _ _ ih
   /- HIDE: And here's a somewhat nicer version using some automation,
      but we haven't covered that yet...
 
@@ -1916,22 +1883,20 @@ inductive subseq : List Nat → List Nat → Prop where
   | sub_skip x l₁ l₂ (h : subseq l₁ l₂) : subseq l₁ (x :: l₂)
 
 theorem subseq_refl : ∀ (l : List Nat), subseq l l := by
-  all_goals
-    intro l
-    induction l
-    case nil => constructor
-    case cons hd tl ih =>
-      constructor; assumption
+  intro l
+  induction l
+  case nil => constructor
+  case cons hd tl ih =>
+    constructor; assumption
 
 theorem subseq_app : ∀ (l₁ l₂ l₃ : List Nat),
   subseq l₁ l₂ →
   subseq l₁ (l₂ ++ l₃) := by
-  all_goals
-    intro l₁ l₂ l₃ h
-    induction h
-    case sub_nil => constructor
-    case sub_take => constructor; assumption
-    case sub_skip => constructor; assumption
+  intro l₁ l₂ l₃ h
+  induction h
+  case sub_nil => constructor
+  case sub_take => constructor; assumption
+  case sub_skip => constructor; assumption
 
 -- Note to developers:
 --     HIDE: AC'21: this exercise should probably be marked as more
@@ -1947,16 +1912,15 @@ theorem subseq_trans : ∀ (l₁ l₂ l₃ : List Nat),
   subseq l₁ l₃ := by
   /- Hint: be careful about what you are doing induction on and which
      other things need to be generalized... -/
-  all_goals
-    intro l₁ l₂ l₃ h₁2 h₂3
-    induction h₂3 generalizing l₁
-    case sub_nil => inversion h₁2; constructor
-    case sub_take _ _ _ _ ih =>
-      inversion h₁2; constructor
-      . constructor; apply ih; assumption
-      . constructor; apply ih; assumption
-    case sub_skip _ _ _ _ ih =>
-      constructor; apply ih; assumption;
+  intro l₁ l₂ l₃ h₁2 h₂3
+  induction h₂3 generalizing l₁
+  case sub_nil => inversion h₁2; constructor
+  case sub_take _ _ _ _ ih =>
+    inversion h₁2; constructor
+    . constructor; apply ih; assumption
+    . constructor; apply ih; assumption
+  case sub_skip _ _ _ _ ih =>
+    constructor; apply ih; assumption;
 
 attribute [autogradedProof 1] subseq_refl
 
@@ -2007,8 +1971,7 @@ inductive TotalRelation : Nat → Nat → Prop where
   | tot n m : TotalRelation n m
 
 theorem total_relation_is_total : ∀ n m, TotalRelation n m := by
-  all_goals
-    intro _ _; constructor
+  intro _ _; constructor
 
 attribute [autogradedProof 2] total_relation_is_total
 
@@ -2025,8 +1988,7 @@ inductive EmptyRelation : Nat → Nat → Prop where
 --     https://github.com/plclub/sf-in-lean/issues/52 is fixed
 
 theorem empty_relation_is_empty : ∀ n m, ¬ EmptyRelation n m := by
-  all_goals
-    intros n m contra; cases contra
+  intros n m contra; cases contra
 
 attribute [autogradedProof 2] empty_relation_is_empty
 
@@ -2059,30 +2021,26 @@ inductive NoStutter {α:Type} : List α → Prop where
 -- example with more basic tactics.)
 
 example : NoStutter [3, 1, 4, 1, 5, 6] := by
-  all_goals
-    constructor; intro contra; contradiction
-    constructor; intro contra; contradiction
-    constructor; intro contra; contradiction
-    constructor; intro contra; contradiction
-    constructor; intro contra; contradiction
-    constructor
+  constructor; intro contra; contradiction
+  constructor; intro contra; contradiction
+  constructor; intro contra; contradiction
+  constructor; intro contra; contradiction
+  constructor; intro contra; contradiction
+  constructor
 
 example : NoStutter (@List.nil Nat) := by
-  all_goals
-    constructor
+  constructor
 
 example :  NoStutter [5] := by
-  all_goals
-    constructor
+  constructor
 
 example : ¬ (NoStutter [3, 1, 1, 4]) := by
-  all_goals
-    intro contra; inversion contra with
-    | nostutter2 _ contra =>
-      inversion contra with
-      | nostutter2 _ h _ =>
-        apply h
-        rfl
+  intro contra; inversion contra with
+  | nostutter2 _ contra =>
+    inversion contra with
+    | nostutter2 _ h _ =>
+      apply h
+      rfl
 
 -- ### Exercise (4 stars): filter_challenge (Advanced) ⭐⭐⭐⭐
 
@@ -2127,25 +2085,23 @@ theorem merge_filter : ∀ (α : Type) (test: α→ Bool) (l l₁ l₂ : List α
   List.all l₁ (fun n => test n) →
   List.all l₂ (fun n => !test n) →
   List.filter test l = l₁ := by
-  all_goals
-
-    intro α test l l₁ l₂ hmerge h₁ h₂; induction hmerge
-    case merge_empty => rfl
-    case merge_left l₁' l₂' l₃ x h' ih =>
-      rw [List.all_cons, Bool.and_eq_true] at h₁
-      obtain ⟨htest, h₁⟩ := h₁
-      rw [List.filter_cons, htest]; dsimp
-      congr 1; apply ih
-      . assumption
-      . assumption
-    case merge_right l₁' l₂' l₃ x h' ih =>
-      rw [List.all_cons, Bool.and_eq_true,
-        Bool.not_eq_eq_eq_not, Bool.not_true] at h₂
-      obtain ⟨htest, h₂⟩ := h₂
-      rw [List.filter_cons, htest]; dsimp
-      congr 1; apply ih
-      . assumption
-      . assumption
+  intro α test l l₁ l₂ hmerge h₁ h₂; induction hmerge
+  case merge_empty => rfl
+  case merge_left l₁' l₂' l₃ x h' ih =>
+    rw [List.all_cons, Bool.and_eq_true] at h₁
+    obtain ⟨htest, h₁⟩ := h₁
+    rw [List.filter_cons, htest]; dsimp
+    congr 1; apply ih
+    . assumption
+    . assumption
+  case merge_right l₁' l₂' l₃ x h' ih =>
+    rw [List.all_cons, Bool.and_eq_true,
+      Bool.not_eq_eq_eq_not, Bool.not_true] at h₂
+    obtain ⟨htest, h₂⟩ := h₂
+    rw [List.filter_cons, htest]; dsimp
+    congr 1; apply ih
+    . assumption
+    . assumption
 
 attribute [autogradedProof 6] merge_filter
 
@@ -2415,25 +2371,23 @@ inductive Pal {α:Type} : List α → Prop where
 
 theorem pal_app_reverse : ∀ (α:Type) (l : List α),
   Pal (l ++ l.reverse) := by
-  all_goals
-    intro α l; induction l
-    case nil => rw [List.reverse_nil, List.append_nil]; constructor
-    case cons hd tl ih =>
-      rw [List.reverse_cons, List.cons_append, ←List.append_assoc]
-      constructor; assumption
+  intro α l; induction l
+  case nil => rw [List.reverse_nil, List.append_nil]; constructor
+  case cons hd tl ih =>
+    rw [List.reverse_cons, List.cons_append, ←List.append_assoc]
+    constructor; assumption
 
 attribute [autogradedProof 3] pal_app_reverse
 
 theorem pal_reverse : ∀ (α:Type) (l: List α) , Pal l → l = l.reverse := by
 
-  all_goals
-    intro α l hp; induction hp
-    case pal_nil => rw [List.reverse_nil]
-    case pal_one x =>
-      rw [List.reverse_cons, List.reverse_nil, List.nil_append]
-    case pal_consnoc x l hp ih =>
-      rw [List.reverse_cons, List.reverse_append, ←List.cons_append, ←ih]
-      congr
+  intro α l hp; induction hp
+  case pal_nil => rw [List.reverse_nil]
+  case pal_one x =>
+    rw [List.reverse_cons, List.reverse_nil, List.nil_append]
+  case pal_consnoc x l hp ih =>
+    rw [List.reverse_cons, List.reverse_append, ←List.cons_append, ←ih]
+    congr
 
 attribute [autogradedProof 3] pal_reverse
 
@@ -2736,16 +2690,15 @@ theorem NoDup_disjoint_app : ∀ {α:Type} (l₁ l₂: List α),
 theorem mem_split : ∀ (α:Type) (x:α) (l:List α),
   x ∈ l →
   ∃ l₁ l₂, l = l₁ ++ x :: l₂ := by
-  all_goals
-    intro α x l hin
-    induction l generalizing x
-    case nil => rw [List.mem_nil_iff] at hin; contradiction
-    case cons hd tl ih =>
-      rw [List.mem_cons] at hin; rcases hin with hin | hin
-      . subst hin; exists []; exists tl
-      . have ⟨l₁', ⟨l₂', ih⟩⟩ := ih x hin
-        subst ih
-        exists hd :: l₁'; exists l₂'
+  intro α x l hin
+  induction l generalizing x
+  case nil => rw [List.mem_nil_iff] at hin; contradiction
+  case cons hd tl ih =>
+    rw [List.mem_cons] at hin; rcases hin with hin | hin
+    . subst hin; exists []; exists tl
+    . have ⟨l₁', ⟨l₂', ih⟩⟩ := ih x hin
+      subst ih
+      exists hd :: l₁'; exists l₂'
 
 attribute [autogradedProof 2] mem_split
 
@@ -2775,40 +2728,39 @@ theorem pigeonhole_principle:
   (∀ x, x ∈ l₁ → x ∈ l₂) →
   l₂.length < l₁.length →
   Repeats l₁ := by
-  all_goals
-    intros α l₁ l₂ hin hlen
-    induction l₁ generalizing l₂
-    case nil =>
-      rw [List.length_nil] at hlen
-      apply Nat.not_lt_zero at hlen
-      contradiction
-    case cons x l₁' ih =>
-      by_cases h : x ∈ l₁'
-      . constructor; assumption
-      . apply Repeats.rep_later
-        have h₂ : x ∈ l₂ := by
-          apply hin; rw [List.mem_cons]; left; rfl
-        have ⟨l₂a, ⟨l₂b, heq⟩⟩ := mem_split _ _ _ h₂
-        have hin₂ : ∀ x' : α, x' ∈ l₁' -> x' ∈ (l₂a ++ l₂b) := by
-          intro x₀ hin₀
-          have hneq : x ≠ x₀ := by
-            intro heq; subst heq; apply h; assumption
-          have h₁ : x₀ ∈ l₂ := by
-            apply hin; rw [List.mem_cons]; right; assumption
-          rw [heq, List.mem_append] at h₁; rcases h₁ with h₁ | h₁
-          . rw [List.mem_append]; left; assumption
-          . rw [List.mem_append]; right;
-            rw [List.mem_cons] at h₁; rcases h₁ with h₁ | h₁
-            . subst h₁; contradiction
-            . assumption
-        have hlen₂ : (l₂a ++ l₂b).length < l₁'.length := by
-          have hlen' : l₂.length = (l₂a ++ l₂b).length + 1 := by
-            rw [heq, List.length_append, List.length_append, List.length_cons, Nat.add_assoc]
-          rw [hlen', List.length_append, List.length_cons] at hlen
-          rw [List.length_append]
-          apply succ_n_le_succ_m__n_le_m
-          exact hlen
-        apply ih (l₂a ++ l₂b) hin₂ hlen₂
+  intros α l₁ l₂ hin hlen
+  induction l₁ generalizing l₂
+  case nil =>
+    rw [List.length_nil] at hlen
+    apply Nat.not_lt_zero at hlen
+    contradiction
+  case cons x l₁' ih =>
+    by_cases h : x ∈ l₁'
+    . constructor; assumption
+    . apply Repeats.rep_later
+      have h₂ : x ∈ l₂ := by
+        apply hin; rw [List.mem_cons]; left; rfl
+      have ⟨l₂a, ⟨l₂b, heq⟩⟩ := mem_split _ _ _ h₂
+      have hin₂ : ∀ x' : α, x' ∈ l₁' -> x' ∈ (l₂a ++ l₂b) := by
+        intro x₀ hin₀
+        have hneq : x ≠ x₀ := by
+          intro heq; subst heq; apply h; assumption
+        have h₁ : x₀ ∈ l₂ := by
+          apply hin; rw [List.mem_cons]; right; assumption
+        rw [heq, List.mem_append] at h₁; rcases h₁ with h₁ | h₁
+        . rw [List.mem_append]; left; assumption
+        . rw [List.mem_append]; right;
+          rw [List.mem_cons] at h₁; rcases h₁ with h₁ | h₁
+          . subst h₁; contradiction
+          . assumption
+      have hlen₂ : (l₂a ++ l₂b).length < l₁'.length := by
+        have hlen' : l₂.length = (l₂a ++ l₂b).length + 1 := by
+          rw [heq, List.length_append, List.length_append, List.length_cons, Nat.add_assoc]
+        rw [hlen', List.length_append, List.length_cons] at hlen
+        rw [List.length_append]
+        apply succ_n_le_succ_m__n_le_m
+        exact hlen
+      apply ih (l₂a ++ l₂b) hin₂ hlen₂
     /-.
         destruct (EM (In x l1')) as [H | H].
         + /- In x l1' -/

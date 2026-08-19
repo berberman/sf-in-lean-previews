@@ -1,5 +1,5 @@
 {
-  "main_sha": "bc464d864c2648fd2d9219087c7309cc9403b5b7",
+  "main_sha": "d729f511065e2b246007b9582269842779b9aa4b",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -517,53 +517,6 @@
       "status": "published",
       "title": "Polish Smallstep",
       "url": "https://github.com/plclub/sf-in-lean/pull/276"
-    },
-    "280": {
-      "base_sha": "0fd678c688850fc31c5aea84e0ec30a504dea3f2",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "fb518a91564bf8db7b5ae71b751d902a30203cf0",
-      "preview_path": "pr/280/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32284956736",
-      "status": "published",
-      "title": "Claude: all_goals fix",
-      "url": "https://github.com/plclub/sf-in-lean/pull/280"
     },
     "281": {
       "base_sha": "066a5ece80eabcc31ecc25846bb0071d2eaeee23",

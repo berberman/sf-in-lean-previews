@@ -446,10 +446,9 @@ theorem Aexp.evalR_iff_eval (a : Aexp) (n : Nat) :
 
 theorem Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) :
     a ⇓ n ↔ a.eval = n := by
-  all_goals
-    constructor <;> intro h
-    · induction h <;> simp_all
-    · subst h; induction a <;> constructor <;> assumption
+  constructor <;> intro h
+  · induction h <;> simp_all
+  · subst h; induction a <;> constructor <;> assumption
 
 -- ### Exercise (3 stars): bevalR ⭐⭐⭐
 

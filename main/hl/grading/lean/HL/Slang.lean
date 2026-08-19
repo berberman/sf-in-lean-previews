@@ -298,9 +298,8 @@ attribute [autogradedProof 0.5] Slang.optimize0plusB_test2
 
 theorem optimize0plusB_sound (b : Bexp) :
     b.optimize0plusB.eval = b.eval := by
-  all_goals
-    induction b <;>
-      simp_all [Bexp.optimize0plusB, optimize0plus_sound]
+  induction b <;>
+  simp_all [Bexp.optimize0plusB, optimize0plus_sound]
 
 attribute [autogradedProof 2] Slang.optimize0plusB_sound
 
@@ -510,17 +509,11 @@ theorem Aexp.evalR_iff_eval (a : Aexp) (n : Nat) :
 -- We can make the proof quite a bit shorter using more automation like we did
 -- in the previous section.
 
--- Note to developers (Michael Hicks @mwhicks1, before next release):
---     the `workinclass!` marker should signal this live in-class exercise.
---     But it is not rendering properly on the HTML. In fact it replaces
---     `workinclass!` with the `all_goals` tactic, which we don't need.
-
 theorem Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) :
     a ⇓ n ↔ a.eval = n := by
-  all_goals
-    constructor <;> intro h
-    · induction h <;> simp_all
-    · subst h; induction a <;> constructor <;> assumption
+  constructor <;> intro h
+  · induction h <;> simp_all
+  · subst h; induction a <;> constructor <;> assumption
 
 -- ### Exercise (3 stars): bevalR ⭐⭐⭐
 
@@ -541,11 +534,10 @@ scoped notation:55 e:56 " ⇓ " b:56 => Bexp.EvalR e b
 
 theorem Bexp.evalR_iff_eval (b : Bexp) (bv : Bool) :
     b ⇓ bv ↔ b.eval = bv := by
-  all_goals
-    constructor <;> intro h
-    · induction h <;> simp_all [Aexp.evalR_iff_eval]
-    · subst h
-      induction b <;> constructor <;> simp_all [Aexp.evalR_iff_eval]
+  constructor <;> intro h
+  · induction h <;> simp_all [Aexp.evalR_iff_eval]
+  · subst h
+    induction b <;> constructor <;> simp_all [Aexp.evalR_iff_eval]
 
 attribute [autogradedProof 3] Slang.Bexp.evalR_iff_eval
 
