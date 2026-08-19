@@ -189,16 +189,6 @@
       "title": "Refactor Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },
-    "230": {
-      "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
-      "changed_variants": [],
-      "head_sha": "fda3c3aebc2b1a557928fb4186e6265732cd645b",
-      "preview_path": "pr/230/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Port Hoare2 chapter to Lean",
-      "url": "https://github.com/plclub/sf-in-lean/pull/230"
-    },
     "250": {
       "base_sha": "f7a57a2d811b851e167cddec1352bfb2f166abdd",
       "changed_variants": [
@@ -574,6 +564,53 @@
       "status": "published",
       "title": "Polish Smallstep",
       "url": "https://github.com/plclub/sf-in-lean/pull/276"
+    },
+    "277": {
+      "base_sha": "68908d35effe49f11043f287887558e54c24ca52",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "6af65a5f603e76640ea20b73d562b9aa97251a70",
+      "preview_path": "pr/277/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32260357327",
+      "status": "published",
+      "title": "UsingLean: dev note on rw?/exact? burying book lemmas under stdlib hits",
+      "url": "https://github.com/plclub/sf-in-lean/pull/277"
     }
   },
   "schema": 3
