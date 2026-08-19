@@ -143,7 +143,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
     },
     "216": {
-      "base_sha": "345e5d89a0e546c6951a2e856b79048576903cbc",
+      "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -182,9 +182,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "6be73180cebf6fdfc0c546b40d7d994b6b72b220",
+      "head_sha": "374b62fd207c746dd24ab928b7be54048b6d7fd1",
       "preview_path": "pr/216/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31790682511",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32206546804",
       "status": "published",
       "title": "Refactor Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
@@ -530,11 +530,48 @@
     },
     "275": {
       "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "88d9e661372167a62f50f2961b98eb0789684423",
       "preview_path": "pr/275/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32205888041",
+      "status": "published",
       "title": "Lists: Questions and some adjustments",
       "url": "https://github.com/plclub/sf-in-lean/pull/275"
     }

@@ -219,7 +219,7 @@ example (n m : Nat)
   have : n = Nat.pred (n + 1) := by rfl
   /- The hypothesis name defaults to `this` when unspecified. -/
   rewrite [this, h]
-  rfl
+  rw [Nat.pred_succ]
 
 -- As a convenience, the `injection` tactic allows us to
 -- exploit injectivity of any constructor (not just
@@ -577,34 +577,28 @@ example (a b c d e f : Nat)
 -- Suppose we want to show that `Nat.double` is injective
 -- (i.e., it maps different arguments to different results).
 
--- Note to developers (Yipeng Liu @berberman):
---     A single `contradiction` can close `zero.succ` case
---     without any rewrite as shown below —
---     `h : double 0 = (m' + 1).double` gets unfolded to
---     `0 = ((m'.double).add 1).succ`, and then `noConfusion`
---     kicks in. The unfold can happen because `Nat.double` is
---     not marked as `irreducible`. Similarly it can close
---     `succ.zero` case. I think this is fine, and I removed
---     the `Nat.double_zero`/`Nat.double_succ` rewrites.
-
 sf_expect_failure
   theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := by
     induction n with
     | zero =>
       cases m with
       | zero => rfl
-      | succ m' => contradiction
+      | succ m' =>
+        rw [Nat.double_zero, Nat.double_succ] at h
+        contradiction
     | succ n' ih =>
       cases m with
-      | zero => contradiction
+      | zero =>
+        rw [Nat.double_zero, Nat.double_succ] at h
+        contradiction
       | succ m' =>
         congr
 
 -- unsolved goals
 -- case succ.succ.e_a
 -- n' m' : Nat
--- ih : Nat.double n' = Nat.double (m' + 1) → n' = m' + 1
--- h : Nat.double (n' + 1) = Nat.double (m' + 1)
+-- ih : n'.double = (m' + 1).double → n' = m' + 1
+-- h : (n' + 1).double = (m' + 1).double
 -- ⊢ n' = m'
 
 -- We get stuck, because the induction hypothesis `ih` is too

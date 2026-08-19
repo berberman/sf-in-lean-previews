@@ -82,7 +82,7 @@ theorem apply_exercise (m : Nat)
     apply hEven
 
 -- To use the `apply` tactic, the (conclusion of the) fact being applied must
--- match the goal exactly (perhaps after simplification) —bodies for example,
+-- match the goal exactly (perhaps after simplification) — for example,
 -- `apply` will not work if the left and right sides of the equality are
 -- swapped.
 
@@ -310,7 +310,7 @@ example (n m : Nat)
   have : n = Nat.pred (n + 1) := by rfl
   /- The hypothesis name defaults to `this` when unspecified. -/
   rewrite [this, h]
-  rfl
+  rw [Nat.pred_succ]
 
 -- This technique for injectivity can be generalized to any constructor by
 -- writing the equivalent of `pred` — i.e., writing a function that "undoes"
@@ -737,32 +737,28 @@ sf_experiment
 
 -- If we begin it with
 
--- Note to developers (Yipeng Liu @berberman):
---     A single `contradiction` can close `zero.succ` case without any rewrite
---     as shown below — `h : double 0 = (m' + 1).double` gets unfolded to
---     `0 = ((m'.double).add 1).succ`, and then `noConfusion` kicks in. The
---     unfold can happen because `Nat.double` is not marked as `irreducible`.
---     Similarly it can close `succ.zero` case. I think this is fine, and I
---     removed the `Nat.double_zero`/`Nat.double_succ` rewrites.
-
 sf_expect_failure
   theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := by
     induction n with
     | zero =>
       cases m with
       | zero => rfl
-      | succ m' => contradiction
+      | succ m' =>
+        rw [Nat.double_zero, Nat.double_succ] at h
+        contradiction
     | succ n' ih =>
       cases m with
-      | zero => contradiction
+      | zero =>
+        rw [Nat.double_zero, Nat.double_succ] at h
+        contradiction
       | succ m' =>
         congr
 
 -- unsolved goals
 -- case succ.succ.e_a
 -- n' m' : Nat
--- ih : Nat.double n' = Nat.double (m' + 1) → n' = m' + 1
--- h : Nat.double (n' + 1) = Nat.double (m' + 1)
+-- ih : n'.double = (m' + 1).double → n' = m' + 1
+-- h : (n' + 1).double = (m' + 1).double
 -- ⊢ n' = m'
 
 -- We get stuck — `m` is fixed during the induction, so in the successor case
@@ -973,7 +969,7 @@ theorem add_self_injective (n m : Nat)
 
 #check double_injective
 
--- double_injective (n m : Nat) (h : Nat.double n = Nat.double m) : n = m
+-- double_injective (n m : Nat) (h : n.double = m.double) : n = m
 
 -- For example, we can prove:
 
