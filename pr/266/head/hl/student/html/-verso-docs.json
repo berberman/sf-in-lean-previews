@@ -1233,11 +1233,11 @@
  "176":
  "<code>Slang.Aexp.evalR_iff_eval (a : Slang.Aexp) (n : Nat) : a.EvalR n ↔ a.eval = n</code>",
  "175":
- "<code>Slang.AevalRExtended.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2) :\n  (a₁.mult a₂).EvalR (n1 * n2)</code>",
+ "<code>Slang.AevalRExtended.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
  "174":
- "<code>Slang.AevalRExtended.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2) :\n  (a₁.minus a₂).EvalR (n1 - n2)</code>",
+ "<code>Slang.AevalRExtended.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
  "173":
- "<code>Slang.AevalRExtended.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2) :\n  (a₁.plus a₂).EvalR (n1 + n2)</code>",
+ "<code>Slang.AevalRExtended.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
  "172":
  "<code>Slang.AevalRExtended.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
  "171":
@@ -1250,17 +1250,17 @@
  "166": "<code>Slang.AevalRExtended.Aexp.num (n : Nat) : Aexp</code>",
  "165": "<code>Slang.AevalRExtended.Aexp.any : Aexp</code>",
  "164": "<code>Slang.AevalRExtended.Aexp : Type</code>",
- "163": "<code>n2 * n3 = n1</code>",
- "162": "<code>n2 &gt; 0</code>",
+ "163": "<code>n₂ * n3 = n₁</code>",
+ "162": "<code>n₂ &gt; 0</code>",
  "161":
- "<code>Slang.AevalRDivision.Aexp.EvalR.div (a₁ a₂ : Aexp) (n1 n2 n3 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2)\n  (hpos : n2 &gt; 0) (hdiv : n2 * n3 = n1) : (a₁.div a₂).EvalR n3</code>",
+ "<code>Slang.AevalRDivision.Aexp.EvalR.div (a₁ a₂ : Aexp) (n₁ n₂ n3 : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂)\n  (hpos : n₂ &gt; 0) (hdiv : n₂ * n3 = n₁) : (a₁.div a₂).EvalR n3</code>",
  "160":
- "<code>Slang.AevalRDivision.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2) :\n  (a₁.mult a₂).EvalR (n1 * n2)</code>",
+ "<code>Slang.AevalRDivision.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
  "16": "<code>Slang.Bexp.le (a₁ a₂ : Aexp) : Bexp</code>",
  "159":
- "<code>Slang.AevalRDivision.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2) :\n  (a₁.minus a₂).EvalR (n1 - n2)</code>",
+ "<code>Slang.AevalRDivision.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
  "158":
- "<code>Slang.AevalRDivision.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2) :\n  (a₁.plus a₂).EvalR (n1 + n2)</code>",
+ "<code>Slang.AevalRDivision.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
  "157":
  "<code>Slang.AevalRDivision.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
  "156": "<code>Slang.AevalRDivision.Aexp.EvalR : Aexp → Nat → Prop</code>",
@@ -1285,11 +1285,11 @@
  "<code class=\"docstring\">`assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.\nNote also the `‹t›` term notation, which is a shorthand for `show t by assumption`.\n</code>",
  "142": "<code>a₂✝ ⇓ a₂✝.eval</code>",
  "141": "<code>a₁✝ ⇓ a₁✝.eval</code>",
- "140": "<code>a₂✝.eval = n2✝</code>",
+ "140": "<code>a₂✝.eval = n₂✝</code>",
  "14": "<code>Slang.Bexp.eq (a₁ a₂ : Aexp) : Bexp</code>",
- "139": "<code>a₁✝.eval = n1✝</code>",
- "138": "<code>a₂✝ ⇓ n2✝</code>",
- "137": "<code>a₁✝ ⇓ n1✝</code>",
+ "139": "<code>a₁✝.eval = n₁✝</code>",
+ "138": "<code>a₂✝ ⇓ n₂✝</code>",
+ "137": "<code>a₁✝ ⇓ n₁✝</code>",
  "136":
  "<code class=\"docstring\">`all_goals tac` runs `tac` on each goal, concatenating the resulting goals.\nIf the tactic fails on any goal, the entire `all_goals` tactic fails.\n\nSee also `any_goals tac`.\n</code>",
  "135":
@@ -1300,17 +1300,17 @@
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
  "131": "<code>a.eval = n</code>",
  "130":
- "<code>Slang.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁ ⇓ n1) (h2 : a₂ ⇓ n2) : a₁.mult a₂ ⇓ n1 * n2</code>",
+ "<code>Slang.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.mult a₂ ⇓ n₁ * n₂</code>",
  "13":
  "<code>Bool : Type</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean values, `true` and `false`.\n\nLogically speaking, this is equivalent to `Prop` (the type of propositions). The distinction is\npublic important for programming: both propositions and their proofs are erased in the code generator,\nwhile `Bool` corresponds to the Boolean type in most programming languages and carries precisely one\nbit of run-time information.\n</code>",
  "129":
- "<code>Slang.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁ ⇓ n1) (h2 : a₂ ⇓ n2) : a₁.minus a₂ ⇓ n1 - n2</code>",
- "128": "<code>a₂.eval = n2</code>",
- "127": "<code>a₁.eval = n1</code>",
- "126": "<code>a₂ ⇓ n2</code>",
- "125": "<code>a₁ ⇓ n1</code>",
+ "<code>Slang.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.minus a₂ ⇓ n₁ - n₂</code>",
+ "128": "<code>a₂.eval = n₂</code>",
+ "127": "<code>a₁.eval = n₁</code>",
+ "126": "<code>a₂ ⇓ n₂</code>",
+ "125": "<code>a₁ ⇓ n₁</code>",
  "124":
- "<code>Slang.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁ ⇓ n1) (h2 : a₂ ⇓ n2) : a₁.plus a₂ ⇓ n1 + n2</code>",
+ "<code>Slang.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.plus a₂ ⇓ n₁ + n₂</code>",
  "123": "<code>Slang.Aexp.EvalR.num (n : Nat) : num n ⇓ n</code>",
  "122": "<code>a ⇓ n</code>",
  "121":
@@ -1326,23 +1326,23 @@
  "116": "<code>Lean.TSyntax `term</code>",
  "115": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
  "114":
- "<code>Slang.ArithUnnamed.Aexp.EvalR.mult (e1 e2 : Aexp) (n1 n2 : Nat) :\n  EvalR e1 n1 → EvalR e2 n2 → EvalR (e1.mult e2) (n1 * n2)</code>",
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.mult (e1 e2 : Aexp) (n₁ n₂ : Nat) :\n  EvalR e1 n₁ → EvalR e2 n₂ → EvalR (e1.mult e2) (n₁ * n₂)</code>",
  "113":
- "<code>Slang.ArithUnnamed.Aexp.EvalR.minus (e1 e2 : Aexp) (n1 n2 : Nat) :\n  EvalR e1 n1 → EvalR e2 n2 → EvalR (e1.minus e2) (n1 - n2)</code>",
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.minus (e1 e2 : Aexp) (n₁ n₂ : Nat) :\n  EvalR e1 n₁ → EvalR e2 n₂ → EvalR (e1.minus e2) (n₁ - n₂)</code>",
  "112":
- "<code>Slang.ArithUnnamed.Aexp.EvalR.plus (e1 e2 : Aexp) (n1 n2 : Nat) :\n  EvalR e1 n1 → EvalR e2 n2 → EvalR (e1.plus e2) (n1 + n2)</code>",
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.plus (e1 e2 : Aexp) (n₁ n₂ : Nat) :\n  EvalR e1 n₁ → EvalR e2 n₂ → EvalR (e1.plus e2) (n₁ + n₂)</code>",
  "111":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
  "110": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
  "11": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
  "109":
- "<code>Slang.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2) : (a₁.mult a₂).EvalR (n1 * n2)</code>",
+ "<code>Slang.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
  "108":
- "<code>Slang.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2) :\n  (a₁.minus a₂).EvalR (n1 - n2)</code>",
- "107": "<code>EvalR a₂ n2</code>",
- "106": "<code>EvalR a₁ n1</code>",
+ "<code>Slang.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
+ "107": "<code>EvalR a₂ n₂</code>",
+ "106": "<code>EvalR a₁ n₁</code>",
  "105":
- "<code>Slang.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n1 n2 : Nat) (h1 : a₁.EvalR n1) (h2 : a₂.EvalR n2) : (a₁.plus a₂).EvalR (n1 + n2)</code>",
+ "<code>Slang.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
  "104": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
  "103": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
  "102":

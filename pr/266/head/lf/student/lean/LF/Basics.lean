@@ -953,6 +953,7 @@ def ofNat : _root_.Nat → Nat
   | .succ n => .succ (ofNat n)
 
 instance (n : _root_.Nat) : OfNat Nat n := ⟨ofNat n⟩
+attribute [pp_nodot] Nat.succ
 
 -- END DETAILS
 

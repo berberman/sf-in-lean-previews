@@ -732,8 +732,8 @@ theorem silly4 (n m p q : Nat) :
 -- hypothesis and the goal) by including it after the `at` with the turnstile
 -- symbol `⊢`, written `\|-`, `\goal` or `\vdash`.
 
-example (a b : Nat) (h₁ : a = 1 + 1) (h₂ : b = 1 + 2) :
-  Nat.ble (a, b).1 (a, b).2 := by
+example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
+  Nat.ble (n, m).1 (n, m).2 := by
   dsimp at h₁ h₂ ⊢
   rw [h₁, h₂]
   rfl
