@@ -4531,7 +4531,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero-next",
+   [{"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4546,7 +4546,7 @@
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero",
+    {"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -6921,7 +6921,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq",
+   [{"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6930,7 +6930,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
+    {"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -13174,7 +13174,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+   [{"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -13191,7 +13191,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor-next",
+    {"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",

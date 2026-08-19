@@ -395,14 +395,17 @@ sf_expect_failure
     intro b
       rfl
 
--- Lean complains because the `rfl` is not at the same level of indentation as
--- the `{tactic}intro b`, so Lean does not recognize these two tactics as
--- being sequential in the way they should be.
+-- To see the error message, comment out `sf_expect_failure` temporarily. You
+-- should see the following message.
 
 -- Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
 
 -- b : MyBool
 -- ⊢ (true && b) = b
+
+-- Lean complains because the `rfl` is not at the same level of indentation as
+-- the `{tactic}intro b`, so Lean does not recognize these two tactics as
+-- being sequential in the way they should be.
 
 -- In general, sequential tactics applied to the same goal must be on
 -- subsequent lines at the same level of indentation or separated on the same
@@ -1719,7 +1722,7 @@ theorem and3_exchange (b c d : Bool) :
 
 -- The `rewrite ... at` tactic can be used to rewrite in a hypothesis instead
 -- of the goal. For example, if `hp : p` is in the context and we have a rule
--- `h : p = q`, then `rewrite [hp] at h` changes the hypothesis to `h : q`.
+-- `r : p = q`, then `rewrite [r] at hp` changes the hypothesis to `hp : q`.
 
 -- The `exact` tactic closes a goal by providing the exact proof of the goal.
 -- For example, if `hp : p` is in the context and the goal is `p`, then
