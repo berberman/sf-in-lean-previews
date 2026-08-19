@@ -530,11 +530,48 @@
     },
     "276": {
       "base_sha": "68908d35effe49f11043f287887558e54c24ca52",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "1a9891595fe920912e766faf31acf41ceb161150",
       "preview_path": "pr/276/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32238036740",
+      "status": "published",
       "title": "Polish Smallstep",
       "url": "https://github.com/plclub/sf-in-lean/pull/276"
     }
