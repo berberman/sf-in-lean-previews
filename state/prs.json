@@ -388,7 +388,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/262"
     },
     "266": {
-      "base_sha": "88ff573012900ecb4ff65c0424a6abd441b978fe",
+      "base_sha": "68908d35effe49f11043f287887558e54c24ca52",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -427,9 +427,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "116b2cac66835010e12f98e7ce074dfd36748a61",
+      "head_sha": "08aef8e19453bbf9b76276ffc42a955f8875fed6",
       "preview_path": "pr/266/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32251754067",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32252909230",
       "status": "published",
       "title": "Polish Slang",
       "url": "https://github.com/plclub/sf-in-lean/pull/266"

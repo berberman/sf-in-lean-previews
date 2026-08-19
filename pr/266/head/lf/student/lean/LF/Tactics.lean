@@ -545,8 +545,8 @@ theorem eq_implies_succ_proj_equal (a b c d : Nat) :
 -- unchanged. However, most tactics also have a variant that performs a
 -- similar operation on a statement in the context.
 
--- For example, the tactic "`dsimp at h`" performs simplification on the
--- hypothesis `h` in the context.
+-- For example, the tactic "`dsimp at H`" performs simplification on the
+-- hypothesis `H` in the context.
 
 theorem beq_succ (n m : Nat) : (n + 1 == m + 1) = (n == m) :=
   decide_eq_decide.mpr Nat.succ_inj

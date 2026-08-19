@@ -652,8 +652,8 @@ theorem eq_implies_succ_proj_equal (a b c d : Nat) :
 -- unchanged. However, most tactics also have a variant that performs a
 -- similar operation on a statement in the context.
 
--- For example, the tactic "`dsimp at h`" performs simplification on the
--- hypothesis `h` in the context.
+-- For example, the tactic "`dsimp at H`" performs simplification on the
+-- hypothesis `H` in the context.
 
 -- Note to developers (Benjamin Pierce @bcpierce00):
 --     This is surely NOT the right way to prove this fact, and I'm not sure

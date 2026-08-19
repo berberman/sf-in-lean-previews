@@ -153,10 +153,10 @@ end Bexp
 def Aexp.optimize0plus (a : Aexp) : Aexp :=
   match a with
   | num   n          => num n
-  | plus  (num 0) e2 => optimize0plus e2
-  | plus  e1      e2 => plus  (optimize0plus e1) (optimize0plus e2)
-  | minus e1      e2 => minus (optimize0plus e1) (optimize0plus e2)
-  | mult  e1      e2 => mult  (optimize0plus e1) (optimize0plus e2)
+  | plus  (num 0) e₂ => optimize0plus e₂
+  | plus  e₁      e₂ => plus  (optimize0plus e₁) (optimize0plus e₂)
+  | minus e₁      e₂ => minus (optimize0plus e₁) (optimize0plus e₂)
+  | mult  e₁      e₂ => mult  (optimize0plus e₁) (optimize0plus e₂)
 
 -- To gain confidence that our optimization is doing the right thing, we can
 -- test it on some examples and see if the output looks OK.
@@ -300,11 +300,11 @@ theorem optimize0plusB_sound (b : Bexp) :
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
   | num (n : Nat) : EvalR (.num n) n
-  | plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.plus a₁ a₂) (n₁ + n₂)
-  | minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.minus a₁ a₂) (n₁ - n₂)
-  | mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
+  | mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.mult a₁ a₂) (n₁ * n₂)
 
 -- One comment on the style of this definition. We could instead have
@@ -315,9 +315,9 @@ namespace ArithUnnamed
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
   | num (n : Nat) : EvalR (.num n) n
-  | plus (e1 e2 : Aexp) (n₁ n₂ : Nat) : EvalR e1 n₁ → EvalR e2 n₂ → EvalR (.plus e1 e2) (n₁ + n₂)
-  | minus (e1 e2 : Aexp) (n₁ n₂ : Nat) : EvalR e1 n₁ → EvalR e2 n₂ → EvalR (.minus e1 e2) (n₁ - n₂)
-  | mult (e1 e2 : Aexp) (n₁ n₂ : Nat) : EvalR e1 n₁ → EvalR e2 n₂ → EvalR (.mult e1 e2) (n₁ * n₂)
+  | plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} : EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (.plus a₁ a₂) (n₁ + n₂)
+  | minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} : EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (.minus a₁ a₂) (n₁ - n₂)
+  | mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} : EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (.mult a₁ a₂) (n₁ * n₂)
 
 end ArithUnnamed
 
@@ -343,10 +343,10 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 -- below the line. For example, the constructor `plus` can be written like
 -- this as an inference rule:
 
--- e1 ⇓ n₁
---                          e2 ⇓ n₂
+-- a₁ ⇓ n₁
+--                          a₂ ⇓ n₂
 --                     ------------------          (plus)
---                     plus e1 e2 ⇓ n₁+n₂
+--                     plus a₁ a₂ ⇓ n₁ + n₂
 
 -- Notice the structural correspondence between this rule and our version of
 -- the inductive type with unnamed hypotheses:
@@ -360,7 +360,7 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 -- informal notation for implications. You can read the rule name on the right
 -- as the name of the constructor and read each of the linebreaks between the
 -- premises above the line (as well as the line itself) as `→`. All the
--- variables mentioned in the rule (`e1`, `n₁`, etc.) are implicitly bound by
+-- variables mentioned in the rule (`a₁`, `n₁`, etc.) are implicitly bound by
 -- universal quantifiers at the beginning. (Such variables are often called
 -- *metavariables* to distinguish them from the variables of whatever language
 -- we are defining. At the moment, our arithmetic expressions don't include
@@ -372,26 +372,26 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 -- To summarize: a group of inference rules corresponds to a single inductive
 -- definition; each rule's name corresponds to a constructor name; above the
 -- line are the premises, below the line the conclusion; metavariables like
--- `e1` and `n₁` are implicitly universally quantified. The whole collection
+-- `a₁` and `n₁` are implicitly universally quantified. The whole collection
 -- of rules defines `⇓` as the smallest relation closed under them:
 
 -- ---------                (num)
 --                         num n ⇓ n
 
---                          e1 ⇓ n₁
---                          e2 ⇓ n₂
+--                          a₁ ⇓ n₁
+--                          a₂ ⇓ n₂
 --                     ------------------           (plus)
---                     plus e1 e2 ⇓ n₁+n₂
+--                     plus a₁ a₂ ⇓ n₁ + n₂
 
---                          e1 ⇓ n₁
---                          e2 ⇓ n₂
+--                          a₁ ⇓ n₁
+--                          a₂ ⇓ n₂
 --                    -------------------           (minus)
---                    minus e1 e2 ⇓ n₁-n₂
+--                    minus a₁ a₂ ⇓ n₁ - n₂
 
---                          e1 ⇓ n₁
---                          e2 ⇓ n₂
+--                          a₁ ⇓ n₁
+--                          a₂ ⇓ n₂
 --                     ------------------           (mult)
---                     mult e1 e2 ⇓ n₁*n₂
+--                     mult a₁ a₂ ⇓ n₁*n₂
 
 -- _Quiz:_
 
@@ -430,16 +430,16 @@ theorem Aexp.evalR_iff_eval (a : Aexp) (n : Nat) :
   · intro h
     induction h with
     | num n => rfl
-    | plus a₁ a₂ n₁ n₂ h₁ h₂ ih₁ ih₂ => simp only [Aexp.eval_plus]; rw [ih₁, ih₂]
-    | minus a₁ a₂ n₁ n₂ h₁ h₂ ih₁ ih₂ => simp only [Aexp.eval_minus]; rw [ih₁, ih₂]
-    | mult a₁ a₂ n₁ n₂ h₁ h₂ ih₁ ih₂ => simp only [Aexp.eval_mult]; rw [ih₁, ih₂]
+    | plus h₁ h₂ ih₁ ih₂ => simp only [Aexp.eval_plus]; rw [ih₁, ih₂]
+    | minus h₁ h₂ ih₁ ih₂ => simp only [Aexp.eval_minus]; rw [ih₁, ih₂]
+    | mult h₁ h₂ ih₁ ih₂ => simp only [Aexp.eval_mult]; rw [ih₁, ih₂]
   · intro h
     subst h
     induction a with
     | num n => exact .num n
-    | plus a₁ a₂ ih₁ ih₂ => exact .plus a₁ a₂ _ _ ih₁ ih₂
-    | minus a₁ a₂ ih₁ ih₂ => exact .minus a₁ a₂ _ _ ih₁ ih₂
-    | mult a₁ a₂ ih₁ ih₂ => exact .mult a₁ a₂ _ _ ih₁ ih₂
+    | plus a₁ a₂ ih₁ ih₂ => exact .plus ih₁ ih₂
+    | minus a₁ a₂ ih₁ ih₂ => exact .minus ih₁ ih₂
+    | mult a₁ a₂ ih₁ ih₂ => exact .mult ih₁ ih₂
 
 -- We can make the proof quite a bit shorter using more automation like we did
 -- in the previous section.
@@ -528,9 +528,9 @@ inductive Aexp.EvalR : Aexp → Nat → Prop where
       EvalR (.minus a₁ a₂) (n₁ - n₂)
   | mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) :
       EvalR (.mult a₁ a₂) (n₁ * n₂)
-  | div (a₁ a₂ : Aexp) (n₁ n₂ n3 : Nat)             -- NEW
-      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) (hpos : n₂ > 0) (hdiv : n₂ * n3 = n₁) :
-      EvalR (.div a₁ a₂) n3
+  | div (a₁ a₂ : Aexp) (n₁ n₂ n₃ : Nat)             -- NEW
+      (h₁ : EvalR a₁ n₁) (h₂ : EvalR a₂ n₂) (hpos : n₂ > 0) (hdiv : n₂ * n₃ = n₁) :
+      EvalR (.div a₁ a₂) n₃
 
 -- Notice that there are some inputs (those with a divisor of 0) for which
 -- this relation does not specify an output.

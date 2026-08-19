@@ -1,20 +1,20 @@
 {"99":
- "<code>Slang.ArithUnnamed.Aexp.EvalR.mult (e1 e2 : Aexp) (n₁ n₂ : Nat) :\n  EvalR e1 n₁ → EvalR e2 n₂ → EvalR (e1.mult e2) (n₁ * n₂)</code>",
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.mult a₂) (n₁ * n₂)</code>",
  "98":
- "<code>Slang.ArithUnnamed.Aexp.EvalR.minus (e1 e2 : Aexp) (n₁ n₂ : Nat) :\n  EvalR e1 n₁ → EvalR e2 n₂ → EvalR (e1.minus e2) (n₁ - n₂)</code>",
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.minus a₂) (n₁ - n₂)</code>",
  "97":
- "<code>Slang.ArithUnnamed.Aexp.EvalR.plus (e1 e2 : Aexp) (n₁ n₂ : Nat) :\n  EvalR e1 n₁ → EvalR e2 n₂ → EvalR (e1.plus e2) (n₁ + n₂)</code>",
+ "<code>Slang.ArithUnnamed.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.plus a₂) (n₁ + n₂)</code>",
  "96":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
  "95": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
  "94":
- "<code>Slang.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
+ "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
  "93":
- "<code>Slang.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
+ "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
  "92": "<code>EvalR a₂ n₂</code>",
  "91": "<code>EvalR a₁ n₁</code>",
  "90":
- "<code>Slang.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
+ "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
  "9": "<code>Slang.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
  "89": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
  "88": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
@@ -65,7 +65,7 @@
  "<code>Lean.PrettyPrinter.UnexpandM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The unexpander monad, essentially `Syntax → Option α`. The `Syntax` is the `ref`,\nand it has the possibility of failure without an error message.\n</code>",
  "780":
  "<code>Stlc.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Bool ; Γ` rather than as a chain of map updates. </code>",
- "78": "<code>e1✝.optimize0plus.eval = e1✝.eval</code>",
+ "78": "<code>e₁✝.optimize0plus.eval = e₁✝.eval</code>",
  "779": "<code>HasType Γ t₃ T₁</code>",
  "778": "<code>HasType Γ t₂ T₁</code>",
  "777": "<code>HasType Γ t₁ &lt;{ Bool }&gt;</code>",
@@ -96,7 +96,7 @@
  "761":
  "<code>Stlc.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
  "760": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
- "76": "<code>e1✝ = Aexp.num 0 → False</code>",
+ "76": "<code>e₁✝ = Aexp.num 0 → False</code>",
  "759": "<code>Stlc.judgeBracket : Lean.ParserDescr</code>",
  "758": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
  "757": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
@@ -110,7 +110,7 @@
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
  "750":
  "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
- "75": "<code>e2✝.optimize0plus.eval = e2✝.eval</code>",
+ "75": "<code>e₂✝.optimize0plus.eval = e₂✝.eval</code>",
  "749": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
  "748": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
  "747":
@@ -1102,11 +1102,11 @@
  "143": "<code>Slang.AevalRExtended.Aexp.num (n : Nat) : Aexp</code>",
  "142": "<code>Slang.AevalRExtended.Aexp.any : Aexp</code>",
  "141": "<code>Slang.AevalRExtended.Aexp : Type</code>",
- "140": "<code>n₂ * n3 = n₁</code>",
+ "140": "<code>n₂ * n₃ = n₁</code>",
  "14": "<code>Slang.Bexp.eq (a₁ a₂ : Aexp) : Bexp</code>",
  "139": "<code>n₂ &gt; 0</code>",
  "138":
- "<code>Slang.AevalRDivision.Aexp.EvalR.div (a₁ a₂ : Aexp) (n₁ n₂ n3 : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂)\n  (hpos : n₂ &gt; 0) (hdiv : n₂ * n3 = n₁) : (a₁.div a₂).EvalR n3</code>",
+ "<code>Slang.AevalRDivision.Aexp.EvalR.div (a₁ a₂ : Aexp) (n₁ n₂ n₃ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂)\n  (hpos : n₂ &gt; 0) (hdiv : n₂ * n₃ = n₁) : (a₁.div a₂).EvalR n₃</code>",
  "137":
  "<code>Slang.AevalRDivision.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
  "136":
@@ -1143,16 +1143,16 @@
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
  "116": "<code>a.eval = n</code>",
  "115":
- "<code>Slang.Aexp.EvalR.mult (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.mult a₂ ⇓ n₁ * n₂</code>",
+ "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.mult a₂ ⇓ n₁ * n₂</code>",
  "114":
- "<code>Slang.Aexp.EvalR.minus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.minus a₂ ⇓ n₁ - n₂</code>",
- "113": "<code>a₂.eval = n₂</code>",
- "112": "<code>a₁.eval = n₁</code>",
- "111": "<code>a₂ ⇓ n₂</code>",
- "110": "<code>a₁ ⇓ n₁</code>",
+ "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.minus a₂ ⇓ n₁ - n₂</code>",
+ "113": "<code>a₂✝.eval = n₂✝</code>",
+ "112": "<code>a₁✝.eval = n₁✝</code>",
+ "111": "<code>a₂✝ ⇓ n₂✝</code>",
+ "110": "<code>a₁✝ ⇓ n₁✝</code>",
  "11": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
  "109":
- "<code>Slang.Aexp.EvalR.plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.plus a₂ ⇓ n₁ + n₂</code>",
+ "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.plus a₂ ⇓ n₁ + n₂</code>",
  "108": "<code>Slang.Aexp.EvalR.num (n : Nat) : num n ⇓ n</code>",
  "107": "<code>a ⇓ n</code>",
  "106":
