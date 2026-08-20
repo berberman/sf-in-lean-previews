@@ -530,11 +530,48 @@
     },
     "289": {
       "base_sha": "5dde65c668774c7dd3c2d902105de1e2e8bd4692",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "8cc79f4a609e4b096062d454a594094639f2cf82",
       "preview_path": "pr/289/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32416902850",
+      "status": "published",
       "title": "Allow inversion with no branches",
       "url": "https://github.com/plclub/sf-in-lean/pull/289"
     }
