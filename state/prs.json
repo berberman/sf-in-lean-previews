@@ -519,7 +519,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/281"
     },
     "282": {
-      "base_sha": "bc464d864c2648fd2d9219087c7309cc9403b5b7",
+      "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -558,9 +558,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "52526d8dcb679f3fb6ec1ea1fd0163271e14bd3c",
+      "head_sha": "fb6be4d9229fdf44f93f4e3fb609460c4c74dcf7",
       "preview_path": "pr/282/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32293001928",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32395620159",
       "status": "published",
       "title": "Add remaining exercises to Imp",
       "url": "https://github.com/plclub/sf-in-lean/pull/282"

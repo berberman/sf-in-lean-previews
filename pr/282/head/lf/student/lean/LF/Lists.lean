@@ -103,23 +103,11 @@ sf_expect_failure
 
 -- Note: This notation can only be used when the expected type is an inductive type with a single constructor
 
--- These extensions to pattern matching also mean that the rewrite laws we
--- define for each function may not always match one-to-one with the cases of
--- our match constructs.
-
--- Lean also provides a convenient way to define `inductive` structures like
--- pairs that have a single constructor but multiple ways to access their
--- data, using the `structure` keyword. The definition of `NatProd'` below is
--- equivalent to the `NatProd` definition from earlier, except that Lean
--- automatically generates the `fst` and `snd` accessors.
-
-structure NatProd' where
-  fst : Nat
-  snd : Nat
-
-#check (NatProd'.mk 3 5)
-example : (NatProd'.mk 3 5).fst = 3 := by rfl
-example : (⟨3, 5⟩ : NatProd').fst = 3 := by rfl
+-- As with the multi-argument `match n, m with` style used above in `sub`,
+-- matching jointly on several values can combine what would otherwise be
+-- several separate cases into a single match arm. This means the
+-- simplification rules we define for such a function may not always match
+-- one-to-one with the cases of its match construct.
 
 -- A property like `p = ⟨p.fst, p.snd⟩` can be proved by exposing the
 -- structure of the pair, either with `cases` or by destructuring in `intro`.
@@ -148,6 +136,22 @@ theorem fst_swap_is_snd (p : NatProd) :
     p.swap.fst = p.snd := by
   sorry
 
+-- ## Structures
+
+-- Lean also provides a convenient way to define `inductive` structures like
+-- pairs that have a single constructor but multiple ways to access their
+-- data, using the `structure` keyword. The definition of `NatProd'` below is
+-- equivalent to the `NatProd` definition from earlier, except that Lean
+-- automatically generates the `fst` and `snd` accessors.
+
+structure NatProd' where
+  fst : Nat
+  snd : Nat
+
+#check (NatProd'.mk 3 5)
+example : (NatProd'.mk 3 5).fst = 3 := by rfl
+example : (⟨3, 5⟩ : NatProd').fst = 3 := by rfl
+
 -- ## Lists of Numbers
 
 -- Generalizing the definition of pairs, we can describe the type of *lists*
@@ -167,7 +171,14 @@ namespace NatList
 -- following declarations allow us to use `::` as an infix `cons` operator and
 -- square brackets as an "outfix" notation for constructing lists.
 
--- Don't worry too much about what this is doing:
+-- Don't worry too much about how this works.
+
+-- THESE DETAILS CAN BE SKIPPED: List syntax
+
+-- We first define `::` as right-associative notation for `cons`, and then
+-- define list notation as a *macro*, allowing us to write `[1, 2]` instead of
+-- `1 :: 2 :: []`. The *unexpander* reverses the macro, translating list
+-- syntax back to cons syntax.
 
 scoped infixr:65 (priority := high) " :: " => cons
 scoped macro (priority := high) "[" elems:term,* "]" : term => do
@@ -183,9 +194,7 @@ def unexpandCons : Lean.PrettyPrinter.Unexpander
   | `($_ $x [$xs,*]) => `([$x, $xs,*])
   | _ => throw ()
 
--- We first define `::` as right-associative *notation* for `cons`, and then
--- define list notation *macro* with *unexpander*, allowing us to write
--- `[1, 2]` instead of `1 :: 2 :: []`.
+-- END DETAILS
 
 -- Now these all mean exactly the same thing:
 
@@ -793,11 +802,10 @@ theorem length_reverse {l : NatList} :
 
 theorem length_append {l₁ l₂ : NatList} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
-  all_goals
-    induction l₁ with
-    | nil => rw [nil_append, length_nil, Nat.zero_add]
-    | cons n l₁' ih =>
-      rw [cons_append, length_cons, ih, length_cons, Nat.succ_add]
+  induction l₁ with
+  | nil => rw [nil_append, length_nil, Nat.zero_add]
+  | cons n l₁' ih =>
+    rw [cons_append, length_cons, ih, length_cons, Nat.succ_add]
 
 -- For comparison, here are informal proofs of these two theorems:
 

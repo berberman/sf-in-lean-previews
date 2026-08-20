@@ -706,50 +706,50 @@
  "544": "<code>Lists.NatList.mylist2 : NatList</code>",
  "543": "<code>Lists.NatList.mylist1 : NatList</code>",
  "542":
- "<code>Lists.NatList.cons (n : Nat) (l : Lists.NatList) : Lists.NatList</code>",
- "541":
  "<code>MonadExcept.throw.{u, v, w} {ε : outParam (Type u)} {m : Type v → Type w} [self : MonadExcept ε m] {α : Type v} :\n  ε → m α</code><span class=\"sep\"></span><code class=\"docstring\">Throws an exception of type `ε` to the nearest enclosing handler.\n</code>",
- "540":
+ "541":
  "<code>Lists.NatList.unexpandCons : Lean.PrettyPrinter.Unexpander</code>",
+ "540":
+ "<code>Lean.PrettyPrinter.Unexpander : Type</code><span class=\"sep\"></span><code class=\"docstring\">Function that tries to reverse macro expansions as a post-processing step of delaboration.\nWhile less general than an arbitrary delaborator, it can be declared without importing `Lean`.\nUsed by the `[app_unexpander]` attribute.\n</code>",
  "54": "<code>MyBool.and3 (b1 b2 b3 : MyBool) : MyBool</code>",
  "539":
- "<code>Lean.PrettyPrinter.Unexpander : Type</code><span class=\"sep\"></span><code class=\"docstring\">Function that tries to reverse macro expansions as a post-processing step of delaboration.\nWhile less general than an arbitrary delaborator, it can be declared without importing `Lean`.\nUsed by the `[app_unexpander]` attribute.\n</code>",
- "538":
  "<code>Lists.NatList.unexpandNil : Lean.PrettyPrinter.Unexpander</code>",
- "537": "<code>Lean.TSyntax `term</code>",
- "536": "<code>Lean.Syntax</code>",
- "535":
+ "538": "<code>Lean.TSyntax `term</code>",
+ "537": "<code>Lean.Syntax</code>",
+ "536":
  "<code>Lean.TSyntax.mk {ks : Lean.SyntaxNodeKinds} (raw : Lean.Syntax) : Lean.TSyntax ks</code>",
- "534":
+ "535":
  "<code>Array.foldrM.{u, v, w} {α : Type u} {β : Type v} {m : Type v → Type w} [Monad m] (f : α → β → m β) (init : β)\n  (as : Array α) (start : Nat := as.size) (stop : Nat := 0) : m β</code><span class=\"sep\"></span><code class=\"docstring\">Folds a monadic function over an array from the right, accumulating a value starting with `init`.\nThe accumulated value is combined with the each element of the list in reverse order, using `f`.\n\nThe optional parameters `start` and `stop` control the region of the array to be folded. Folding\nproceeds from `start` (exclusive) to `stop` (inclusive), so no folding occurs unless `start &gt; stop`.\nBy default, the entire array is folded.\n\nExamples:\n```lean example\nexample [Monad m] (f : α → β → m β) :\n  Array.foldrM (m := m) f x₀ #[a, b, c] = (do\n    let x₁ ← f c x₀\n    let x₂ ← f b x₁\n    let x₃ ← f a x₂\n    pure x₃)\n  := by rfl\n```\n\n```lean example\nexample [Monad m] (f : α → β → m β) :\n  Array.foldrM (m := m) f x₀ #[a, b, c] (start := 2) = (do\n    let x₁ ← f b x₀\n    let x₂ ← f a x₁\n    pure x₂)\n  := by rfl\n```\n</code>",
- "533":
+ "534":
  "<code>Lean.Syntax.TSepArray.getElems {k : Lean.SyntaxNodeKinds} {sep : String} (sa : Lean.Syntax.TSepArray k sep) :\n  Lean.TSyntaxArray k</code><span class=\"sep\"></span><code class=\"docstring\">Extracts the non-separator elements of a separated array.\n</code>",
- "532": "<code><span class=\"literal string\">\"]\"</span> : String</code>",
- "531":
+ "533": "<code><span class=\"literal string\">\"]\"</span> : String</code>",
+ "532":
  "<code>Lean.Parser.Category.term : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">`term` is the builtin syntax category for terms. A term denotes an expression\nin lean's type theory, for example `2 + 2` is a term. The difference between\n`Term` and `Expr` is that the former is a kind of syntax, while the latter is\nthe result of elaboration. For example `by simp` is also a `Term`, but it elaborates\nto different `Expr`s depending on the context. </code>",
- "530": "<code>Lean.Syntax.TSepArray `term \",\"</code>",
+ "531": "<code>Lean.Syntax.TSepArray `term \",\"</code>",
+ "530": "<code><span class=\"literal string\">\"[\"</span> : String</code>",
  "53": "<code>MyBool.nand_test4 : nand true true = false</code>",
- "529": "<code><span class=\"literal string\">\"[\"</span> : String</code>",
- "528": "<code><span class=\"literal string\">\" :: \"</span> : String</code>",
- "527":
+ "529": "<code><span class=\"literal string\">\" :: \"</span> : String</code>",
+ "528":
  "<code class=\"docstring\">`infixr:prec \"op\" =&gt; f` is equivalent to `notation:prec x:prec1 \"op\" y:prec =&gt; f x y`, where `prec1 := prec + 1`.\n</code>",
+ "527":
+ "<code>Lists.NatList.cons (n : Nat) (l : Lists.NatList) : Lists.NatList</code>",
  "526": "<code>NatList</code>",
  "525": "<code>Lists.NatList.cons (n : Nat) (l : NatList) : NatList</code>",
  "524": "<code>Lists.NatList.nil : NatList</code>",
  "523": "<code>Lists.NatList : Type</code>",
- "522": "<code>Lists.fst_swap_is_snd (p : NatProd) : p.swap.fst = p.snd</code>",
- "521":
- "<code>Lists.snd_fst_is_swap (p : NatProd) : NatProd.pair p.snd p.fst = p.swap</code>",
- "520":
- "<code>Lists.surjective_pairing_cases (p : NatProd) : p = NatProd.pair p.fst p.snd</code>",
+ "522": "<code>Nat</code>",
+ "521": "<code>Lists.NatProd'.mk (fst snd : Nat) : NatProd'</code>",
+ "520": "<code>Lists.NatProd'.snd (self : NatProd') : Nat</code>",
  "52": "<code>MyBool.nand_test3 : nand false true = true</code>",
- "519":
+ "519": "<code>Lists.NatProd'.fst (self : NatProd') : Nat</code>",
+ "518": "<code>Lists.NatProd' : Type</code>",
+ "517": "<code>Lists.fst_swap_is_snd (p : NatProd) : p.swap.fst = p.snd</code>",
+ "516":
+ "<code>Lists.snd_fst_is_swap (p : NatProd) : NatProd.pair p.snd p.fst = p.swap</code>",
+ "515":
+ "<code>Lists.surjective_pairing_cases (p : NatProd) : p = NatProd.pair p.fst p.snd</code>",
+ "514":
  "<code>Lists.surjective_pairing (p : NatProd) : p = NatProd.pair p.fst p.snd</code>",
- "518": "<code>Nat</code>",
- "517": "<code>Lists.NatProd'.mk (fst snd : Nat) : NatProd'</code>",
- "516": "<code>Lists.NatProd'.snd (self : NatProd') : Nat</code>",
- "515": "<code>Lists.NatProd'.fst (self : NatProd') : Nat</code>",
- "514": "<code>Lists.NatProd' : Type</code>",
  "513": "<code>Lists.bad_sub (n m : Nat) : Nat</code>",
  "512": "<code>Lists.bad_fst (p : NatProd) : Nat</code>",
  "511": "<code>Lists.sub (n m : Nat) : Nat</code>",

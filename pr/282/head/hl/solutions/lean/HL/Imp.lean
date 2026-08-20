@@ -936,12 +936,11 @@ example :
       Y := 1;
       Z := 2
     ]=> (Z →ₜ 2 ; Y →ₜ 1 ; X →ₜ 0 ; ∅) := by
-  all_goals
-    apply Com.EvalR.seq (st' := (X →ₜ 0 ; ∅))
+  apply Com.EvalR.seq (st' := (X →ₜ 0 ; ∅))
+  · apply Com.EvalR.asgn; rfl
+  · apply Com.EvalR.seq (st' := (Y →ₜ 1 ; X →ₜ 0 ; ∅))
     · apply Com.EvalR.asgn; rfl
-    · apply Com.EvalR.seq (st' := (Y →ₜ 1 ; X →ₜ 0 ; ∅))
-      · apply Com.EvalR.asgn; rfl
-      · apply Com.EvalR.asgn; rfl
+    · apply Com.EvalR.asgn; rfl
 
 -- Note to developers:
 --     PR: I phrased these quizzes with the following alternatives: (A) Not
@@ -1063,20 +1062,19 @@ def pup_to_n : Com := (
 theorem pup_to_2_ceval :
     (X →ₜ 2 ; ∅) =[ pup_to_n ]=>
       (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅) := by
-  all_goals
-    unfold pup_to_n
-    apply Com.EvalR.seq (st' := (Y →ₜ 0 ; X →ₜ 2 ; ∅))
-    · apply Com.EvalR.asgn; rfl
-    · apply Com.EvalR.whileTrue (st' := (X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
+  unfold pup_to_n
+  apply Com.EvalR.seq (st' := (Y →ₜ 0 ; X →ₜ 2 ; ∅))
+  · apply Com.EvalR.asgn; rfl
+  · apply Com.EvalR.whileTrue (st' := (X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
+    · rfl
+    · apply Com.EvalR.seq (st' := (Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
+        (apply Com.EvalR.asgn; rfl)
+    · apply Com.EvalR.whileTrue
+        (st' := (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
       · rfl
-      · apply Com.EvalR.seq (st' := (Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
+      · apply Com.EvalR.seq (st' := (Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
           (apply Com.EvalR.asgn; rfl)
-      · apply Com.EvalR.whileTrue
-          (st' := (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
-        · rfl
-        · apply Com.EvalR.seq (st' := (Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
-            (apply Com.EvalR.asgn; rfl)
-        · apply Com.EvalR.whileFalse; rfl
+      · apply Com.EvalR.whileFalse; rfl
 
 -- ## Reasoning About Imp Programs
 
@@ -1135,23 +1133,22 @@ theorem XtimesYinZ_spec₂ (st : State) : ∃ st', st =[ XtimesYinZ ]=> st' := b
 -- equation).
 
 theorem loop_never_stops (st st' : State) : ¬ (st =[ loop ]=> st') := by
-  all_goals
-    intro contra
-    -- Generalize over the command so the induction remembers what `loop` is.
-    have key : ∀ (c : Com) (s s' : State), (s =[ c ]=> s') → c = loop → False := by
-      intro c s s' hce
-      induction hce with
-      | @whileFalse b s₀ c₀ hb =>
-          intro heq; unfold loop at heq; injection heq with e₁ _
-          subst e₁; simp at hb
-      | @whileTrue s₀ s0' s0'' b c₀ hb hc hloop ih₁ ih₂ =>
-          intro heq; exact ih₂ heq
-      | @skip s₀ => intro heq; simp [loop] at heq
-      | @asgn s₀ a n x h => intro heq; simp [loop] at heq
-      | @seq c₁ c₂ s₀ s0' s0'' h₁ h₂ ih₁ ih₂ => intro heq; simp [loop] at heq
-      | @ifTrue s₀ s0' b c₁ c₂ hb hc ih => intro heq; simp [loop] at heq
-      | @ifFalse s₀ s0' b c₁ c₂ hb hc ih => intro heq; simp [loop] at heq
-    exact key loop st st' contra rfl
+  intro contra
+  -- Generalize over the command so the induction remembers what `loop` is.
+  have key : ∀ (c : Com) (s s' : State), (s =[ c ]=> s') → c = loop → False := by
+    intro c s s' hce
+    induction hce with
+    | @whileFalse b s₀ c₀ hb =>
+        intro heq; unfold loop at heq; injection heq with e₁ _
+        subst e₁; simp at hb
+    | @whileTrue s₀ s0' s0'' b c₀ hb hc hloop ih₁ ih₂ =>
+        intro heq; exact ih₂ heq
+    | @skip s₀ => intro heq; simp [loop] at heq
+    | @asgn s₀ a n x h => intro heq; simp [loop] at heq
+    | @seq c₁ c₂ s₀ s0' s0'' h₁ h₂ ih₁ ih₂ => intro heq; simp [loop] at heq
+    | @ifTrue s₀ s0' b c₁ c₂ hb hc ih => intro heq; simp [loop] at heq
+    | @ifFalse s₀ s0' b c₁ c₂ hb hc ih => intro heq; simp [loop] at heq
+  exact key loop st st' contra rfl
 
 -- ### Exercise (3 stars): no_whiles_eqv ⭐⭐⭐
 
@@ -1176,24 +1173,23 @@ inductive Com.NoWhilesR : Com → Prop where
       Com.NoWhilesR (imp { if (~b) { ~c₁ } else { ~c₂ } })
 
 theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
-  all_goals
-    constructor
-    · induction c with
-      | skip => intro _; exact .skip
-      | asgn x a => intro _; exact .asgn x a
-      | seq c₁ c₂ ih₁ ih₂ =>
-          intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
-          exact .seq _ _ (ih₁ h.1) (ih₂ h.2)
-      | cond b c₁ c₂ ih₁ ih₂ =>
-          intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
-          exact .cond _ _ _ (ih₁ h.1) (ih₂ h.2)
-      | whileDo b c ih => intro h; simp [Com.no_whiles] at h
-    · intro h
-      induction h with
-      | skip => rfl
-      | asgn x a => rfl
-      | seq c₁ c₂ h₁ h₂ ih₁ ih₂ => simp [Com.no_whiles, ih₁, ih₂]
-      | cond b c₁ c₂ h₁ h₂ ih₁ ih₂ => simp [Com.no_whiles, ih₁, ih₂]
+  constructor
+  · induction c with
+    | skip => intro _; exact .skip
+    | asgn x a => intro _; exact .asgn x a
+    | seq c₁ c₂ ih₁ ih₂ =>
+        intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
+        exact .seq _ _ (ih₁ h.1) (ih₂ h.2)
+    | cond b c₁ c₂ ih₁ ih₂ =>
+        intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
+        exact .cond _ _ _ (ih₁ h.1) (ih₂ h.2)
+    | whileDo b c ih => intro h; simp [Com.no_whiles] at h
+  · intro h
+    induction h with
+    | skip => rfl
+    | asgn x a => rfl
+    | seq c₁ c₂ h₁ h₂ ih₁ ih₂ => simp [Com.no_whiles, ih₁, ih₂]
+    | cond b c₁ c₂ h₁ h₂ ih₁ ih₂ => simp [Com.no_whiles, ih₁, ih₂]
 
 -- ### Exercise (4 stars): no_whiles_terminating ⭐⭐⭐⭐
 
@@ -1203,22 +1199,21 @@ theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
 
 theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
     ∃ st', st =[ c ]=> st' := by
-  all_goals
-    induction h generalizing st with
-    | @skip => exact ⟨st, .skip⟩
-    | @asgn x a => exact ⟨(x →ₜ a.eval st ; st), .asgn rfl⟩
-    | @seq c₁ c₂ h₁ h₂ ih₁ ih₂ =>
-        obtain ⟨st', hc₁⟩ := ih₁ st
-        obtain ⟨st'', hc₂⟩ := ih₂ st'
-        exact ⟨st'', .seq hc₁ hc₂⟩
-    | @cond b c₁ c₂ h₁ h₂ ih₁ ih₂ =>
-        cases hb : b.eval st with
-        | true =>
-            obtain ⟨st', hc₁⟩ := ih₁ st
-            exact ⟨st', .ifTrue hb hc₁⟩
-        | false =>
-            obtain ⟨st', hc₂⟩ := ih₂ st
-            exact ⟨st', .ifFalse hb hc₂⟩
+  induction h generalizing st with
+  | @skip => exact ⟨st, .skip⟩
+  | @asgn x a => exact ⟨(x →ₜ a.eval st ; st), .asgn rfl⟩
+  | @seq c₁ c₂ h₁ h₂ ih₁ ih₂ =>
+      obtain ⟨st', hc₁⟩ := ih₁ st
+      obtain ⟨st'', hc₂⟩ := ih₂ st'
+      exact ⟨st'', .seq hc₁ hc₂⟩
+  | @cond b c₁ c₂ h₁ h₂ ih₁ ih₂ =>
+      cases hb : b.eval st with
+      | true =>
+          obtain ⟨st', hc₁⟩ := ih₁ st
+          exact ⟨st', .ifTrue hb hc₁⟩
+      | false =>
+          obtain ⟨st', hc₂⟩ := ih₂ st
+          exact ⟨st', .ifFalse hb hc₂⟩
 
 -- And here is an alternative solution by induction on `c` (using
 -- `Com.no_whiles` instead of `Com.NoWhilesR`):
@@ -1325,12 +1320,10 @@ def s_execute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat :=
                                         -- Bad state: skip
 
 example : s_execute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
-  all_goals
-    rfl
+  rfl
 
 example : s_execute (X →ₜ 3) [3, 4] [sPush 4, sLoad X, sMult, sPlus] = [15, 4] := by
-  all_goals
-    rfl
+  rfl
 
 -- Next, write a function that compiles an `Aexp` into a stack machine
 -- program. The effect of running the program should be the same as pushing
@@ -1348,8 +1341,7 @@ def s_compile (a : Aexp) : List Sinstr :=
 -- works.
 
 example : s_compile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, sMinus] := by
-  all_goals
-    rfl
+  rfl
 
 -- ### Exercise (3 stars): execute_app ⭐⭐⭐
 
@@ -1359,10 +1351,9 @@ example : s_compile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, 
 
 theorem execute_app (st : State) (p₁ p₂ : List Sinstr) (stack : List Nat) :
   s_execute st stack (p₁ ++ p₂) = s_execute st (s_execute st stack p₁) p₂ := by
-  all_goals
-    induction p₁ generalizing p₂ stack with
-    | nil => rfl
-    | cons a p' ih => cases a <;> rcases stack with _ | ⟨_, _ | ⟨_, _⟩⟩ <;> simp_all [s_execute]
+  induction p₁ generalizing p₂ stack with
+  | nil => rfl
+  | cons a p' ih => cases a <;> rcases stack with _ | ⟨_, _ | ⟨_, _⟩⟩ <;> simp_all [s_execute]
 
 -- ### Exercise (3 stars): compiler_correct ⭐⭐⭐
 
@@ -1373,17 +1364,15 @@ theorem execute_app (st : State) (p₁ p₂ : List Sinstr) (stack : List Nat) :
 
 theorem s_compile_correct_aux (st : State) (a : Aexp) (stack : List Nat) :
   s_execute st stack (s_compile a) = Aexp.eval st a :: stack := by
-  all_goals
-    induction a generalizing st stack <;>
-      simp_all [s_compile, List.append_assoc, execute_app] <;>
-      rfl
+  induction a generalizing st stack <;>
+  simp_all [s_compile, List.append_assoc, execute_app] <;>
+  rfl
 
 -- The main theorem should be a very easy corollary of that lemma.
 
 theorem s_compile_correct (st : State) (a : Aexp) :
   s_execute st [] (s_compile a) = [ Aexp.eval st a ] := by
-  all_goals
-    apply s_compile_correct_aux
+  apply s_compile_correct_aux
 
 end StackCompiler
 
@@ -1417,8 +1406,7 @@ def Bexp.eval_sc (st : State) (b : Bexp) : Bool := (
 -- This exercise turned out to be easier than we intended!
 theorem beval__beval_sc (st : State) (b : Bexp) :
   b.eval st = b.eval_sc st := by
-  all_goals
-    induction b <;> simp_all [Bexp.eval_sc] <;> lia
+  induction b <;> simp_all [Bexp.eval_sc] <;> lia
 
 -- ### Exercise (3 stars): break_imp ⭐⭐⭐
 
@@ -1440,23 +1428,21 @@ inductive Com where
 
 -- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
-/-- Imp commands -/
-declare_syntax_cat break_imp_com
 /-- Commands like `skip` or `brk` -/
-syntax ident : break_imp_com
+local syntax ident : imp_com
 /-- Sequencing: one command after another -/
-syntax break_imp_com ";" ppDedent(ppLine break_imp_com) : break_imp_com
+local syntax imp_com ";" ppDedent(ppLine imp_com) : imp_com
 /-- Assignment -/
-syntax ident " := " imp_aexp : break_imp_com
+local syntax ident " := " imp_aexp : imp_com
 /-- Conditional -/
-syntax "if " "(" imp_bexp ")" ppHardSpace "{" ppLine break_imp_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine break_imp_com ppDedent(ppLine "}") : break_imp_com
+local syntax "if " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine imp_com ppDedent(ppLine "}") : imp_com
 /-- Loop -/
-syntax "while " "(" imp_bexp ")" ppHardSpace "{" ppLine break_imp_com ppDedent(ppLine "}") : break_imp_com
+local syntax "while " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : imp_com
 /-- Escape to Lean -/
-syntax:max "~" term:max : break_imp_com
+local syntax:max "~" term:max : imp_com
 
 /-- Include an Imp command in Lean code -/
-syntax:min "break_imp" ppHardSpace "{" ppLine break_imp_com ppDedent(ppLine "}") : term
+local syntax:min "break_imp" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : term
 
 namespace Com
 
@@ -1484,43 +1470,43 @@ open scoped BreakImp.Com
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
 
-partial def delabComInnerFor (ns : Name) (extra : DelabM (TSyntax `break_imp_com)) :
-    DelabM (TSyntax `break_imp_com) := do
+partial def delabComInnerFor (ns : Name) (extra : DelabM (TSyntax `imp_com)) :
+    DelabM (TSyntax `imp_com) := do
   let e ← getExpr
   let stx ←
-    -- Using `(break_imp_com| skip)` would delaborate as `skip✝`. `mkIdent` fixes this.
+    -- Using `(imp_com| skip)` would delaborate as `skip✝`. `mkIdent` fixes this.
     if e.isConstOf (ns ++ `skip) then
-      `(break_imp_com| $(mkIdent `skip):ident)
+      `(imp_com| $(mkIdent `skip):ident)
     else if e.isConstOf (ns ++ `brk) then
-      `(break_imp_com| $(mkIdent `brk):ident)
+      `(imp_com| $(mkIdent `brk):ident)
     else if e.isAppOfArity (ns ++ `asgn) 2 then
       match ← withAppFn <| withAppArg getExpr with
       | .lit (.strVal s) =>
         let a ← withAppArg Imp.Delab.delabAexpInner
-        `(break_imp_com| $(mkIdent (.mkSimple s)):ident := $a)
+        `(imp_com| $(mkIdent (.mkSimple s)):ident := $a)
       | _ =>
         let `($x:ident) ← withAppFn <| withAppArg delab | failure
         let a ← withAppArg Imp.Delab.delabAexpInner
-        `(break_imp_com| $x:ident := $a)
+        `(imp_com| $x:ident := $a)
     else if e.isAppOfArity (ns ++ `seq) 2 then
       let s₁ ← withAppFn <| withAppArg (delabComInnerFor ns extra)
       let s₂ ← withAppArg (delabComInnerFor ns extra)
-      `(break_imp_com| $s₁; $s₂)
+      `(imp_com| $s₁; $s₂)
     else if e.isAppOfArity (ns ++ `cond) 3 then
       let b  ← withAppFn <| withAppFn <| withAppArg Imp.Delab.delabBexpInner
       let c₁ ← withAppFn <| withAppArg (delabComInnerFor ns extra)
       let c₂ ← withAppArg (delabComInnerFor ns extra)
-      `(break_imp_com| if ($b) {$c₁} else {$c₂})
+      `(imp_com| if ($b) {$c₁} else {$c₂})
     else if e.isAppOfArity (ns ++ `whileDo) 2 then
       let b ← withAppFn <| withAppArg Imp.Delab.delabBexpInner
       let c ← withAppArg (delabComInnerFor ns extra)
-      `(break_imp_com| while ($b) {$c})
+      `(imp_com| while ($b) {$c})
     else
-      extra <|> `(break_imp_com| ~$(← delab))
+      extra <|> `(imp_com| ~$(← delab))
   Imp.Delab.annAsTerm stx
 
-/-- Rebuild `break_imp_com` concrete syntax from a `Com` term. -/
-partial def delabComInner : DelabM (TSyntax `break_imp_com) :=
+/-- Rebuild `imp_com` concrete syntax from a `Com` term. -/
+partial def delabComInner : DelabM (TSyntax `imp_com) :=
   delabComInnerFor ``Com failure
 
 @[delab app.BreakImp.Com.skip, delab app.BreakImp.Com.asgn, delab app.BreakImp.Com.seq,
@@ -1535,7 +1521,7 @@ partial def delabCom : Delab := whenPPOption getPPNotation do
     | Com.whileDo _ _ => true
     | _ => false
   match ← delabComInner with
-  | `(break_imp_com| ~$e) => pure e
+  | `(imp_com| ~$e) => pure e
   | e => `(term| break_imp { $e })
 end Imp.Delab
 
@@ -1659,9 +1645,9 @@ scoped notation:40 (priority := high) st0:41 " =[ " c " ]=> " st1:41 " // " s:41
 -- Also accept a bare Imp command between the brackets, so concrete programs can
 -- be written without the `break_imp { … }` wrapper. Bare `Com` terms still work via the
 -- notation above; splice a Lean term into the command with `~`.
-scoped syntax:40 term:41 " =[ " break_imp_com " ]=> " term:41 " // " term:41 : term
+scoped syntax:40 term:41 " =[ " imp_com " ]=> " term:41 " // " term:41 : term
 scoped macro_rules
-  | `($st0 =[ $c:break_imp_com ]=> $st1 // $s) => ``($st0 =[ break_imp { $c } ]=> $st1 // $s)
+  | `($st0 =[ $c:imp_com ]=> $st1 // $s) => ``($st0 =[ break_imp { $c } ]=> $st1 // $s)
 end HasEvalResult
 
 instance : HasEvalResult Com State State Result where
@@ -1680,38 +1666,33 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
 
 theorem break_ignore (c : Com) (st st' : State) (s : Result) (h : st =[ brk ; ~c ]=> st' // s) :
   st = st' := by
-  all_goals
-    inversion h with
-    | seqContinue st'' h₁ h₂ =>
-        inversion h₁
-    | seqBreak h =>
-        inversion h; rfl
+  inversion h with
+  | seqContinue st'' h₁ h₂ =>
+      inversion h₁
+  | seqBreak h =>
+      inversion h; rfl
 
 theorem while_continue (b : Bexp) (c : Com) (st st' : State) (s : Result)
   (h : st =[ while (~b) {~c} ]=> st' // s) :
   s = sContinue := by
-  all_goals
-    inversion h <;> rfl
+  inversion h <;> rfl
 
 theorem while_stops_on_break (b : Bexp) (c : Com) (st st' : State)
   (h₁ : b.eval st = true)
   (h₂ : st =[ c ]=> st' // sBreak) :
   st =[ while (~b) {~c} ]=> st' // sContinue := by
-  all_goals
-    apply Com.EvalR.whileBreak <;> assumption
+  apply Com.EvalR.whileBreak <;> assumption
 
 theorem seq_continue (c₁ c₂ : Com) (st st' st'' : State)
   (h₁ : st =[ c₁ ]=> st' // sContinue)
   (h₂ : st' =[ c₂ ]=> st'' // sContinue) :
   st =[ ~c₁ ; ~c₂ ]=> st'' // sContinue := by
-  all_goals
-    apply Com.EvalR.seqContinue (st' := st') <;> assumption
+  apply Com.EvalR.seqContinue (st' := st') <;> assumption
 
 theorem seq_stops_on_break (c₁ c₂ : Com) (st st' : State)
   (h : st =[ c₁ ]=> st' // sBreak) :
   st =[ ~c₁ ; ~c₂ ]=> st' // sBreak := by
-  all_goals
-    apply Com.EvalR.seqBreak <;> assumption
+  apply Com.EvalR.seqBreak <;> assumption
 
 -- ### Exercise (3 stars): while_break_true ⭐⭐⭐
 
@@ -1719,14 +1700,13 @@ theorem while_break_true (b : Bexp) (c : Com) (st st' : State)
   (h₁ : st =[ while (~b) {~c} ]=> st' // sContinue)
   (h₂ : b.eval st' = true) :
   ∃ st'', st'' =[ ~c ]=> st' // sBreak := by
-  all_goals
-    generalize heq : (break_imp {while (~b) {~c}}) = c' at h₁ ⊢
-    generalize hr : sContinue = s at h₁ ⊢
-    induction h₁ with (inversion heq; try lia)
-    | whileContinue _ _ _ _ ih₂ =>
-        apply ih₂ <;> try lia
-    | @whileBreak st =>
-        exists st
+  generalize heq : (break_imp {while (~b) {~c}}) = c' at h₁ ⊢
+  generalize hr : sContinue = s at h₁ ⊢
+  induction h₁ with (inversion heq; try lia)
+  | whileContinue _ _ _ _ ih₂ =>
+      apply ih₂ <;> try lia
+  | @whileBreak st =>
+      exists st
 
 -- ### Exercise (4 stars): ceval_deterministic ⭐⭐⭐⭐
 
@@ -1734,55 +1714,54 @@ theorem ceval_deterministic (c : Com) (st st₁ st₂ : State) (s₁ s₂ : Resu
   (h₁ : st =[ ~c ]=> st₁ // s₁)
   (h₂ : st =[ ~c ]=> st₂ // s₂) :
   st₁ = st₂ ∧ s₁ = s₂ := by
-  all_goals
-    induction h₁ generalizing st₂ s₂ with (try (inversion h₂ <;> lia))
-    | seqContinue h₁' h₂' ih₁ ih₂ =>
-      inversion h₂ with
-      | seqContinue h₁ h₂ =>
-        obtain ⟨eq₁, _⟩ := ih₁ _ _ h₁
-        inversion eq₁
-        apply ih₂
-        assumption
-      | seqBreak h =>
-        specialize ih₁ _ _ h
-        lia
-    | seqBreak _ ih =>
-      inversion h₂ with
-      | seqContinue h₁ _ =>
-        specialize ih _ _ h₁
-        lia
-      | seqBreak =>
-        apply ih
-        assumption
-    | ifTrue _ _ ih =>
-      inversion h₂
-      . apply ih; assumption
-      . lia
-    | ifFalse _ _ ih =>
-      inversion h₂
-      . lia
-      . apply ih; assumption
-    | whileContinue hb hc hloop ihc ihloop =>
-      inversion h₂ with
-      | whileFalse => lia
-      | whileBreak hb' hc' =>
-        specialize ihc _ _ hc'
-        lia
-      | whileContinue hb' hc' hloop' =>
-        obtain ⟨eq₁, _⟩ := ihc _ _ hc'
-        inversion eq₁
-        apply ihloop
-        assumption
-    | whileBreak hb hc ih =>
-      inversion h₂ with
-      | whileFalse => lia
-      | whileBreak hb' hc' =>
-        obtain ⟨eq₁, _⟩ := ih _ _ hc'
-        inversion eq₁
-        lia
-      | whileContinue hb' hc' hloop' =>
-        specialize ih _ _ hc'
-        lia
+  induction h₁ generalizing st₂ s₂ with (try (inversion h₂ <;> lia))
+  | seqContinue h₁' h₂' ih₁ ih₂ =>
+    inversion h₂ with
+    | seqContinue h₁ h₂ =>
+      obtain ⟨eq₁, _⟩ := ih₁ _ _ h₁
+      inversion eq₁
+      apply ih₂
+      assumption
+    | seqBreak h =>
+      specialize ih₁ _ _ h
+      lia
+  | seqBreak _ ih =>
+    inversion h₂ with
+    | seqContinue h₁ _ =>
+      specialize ih _ _ h₁
+      lia
+    | seqBreak =>
+      apply ih
+      assumption
+  | ifTrue _ _ ih =>
+    inversion h₂
+    . apply ih; assumption
+    . lia
+  | ifFalse _ _ ih =>
+    inversion h₂
+    . lia
+    . apply ih; assumption
+  | whileContinue hb hc hloop ihc ihloop =>
+    inversion h₂ with
+    | whileFalse => lia
+    | whileBreak hb' hc' =>
+      specialize ihc _ _ hc'
+      lia
+    | whileContinue hb' hc' hloop' =>
+      obtain ⟨eq₁, _⟩ := ihc _ _ hc'
+      inversion eq₁
+      apply ihloop
+      assumption
+  | whileBreak hb hc ih =>
+    inversion h₂ with
+    | whileFalse => lia
+    | whileBreak hb' hc' =>
+      obtain ⟨eq₁, _⟩ := ih _ _ hc'
+      inversion eq₁
+      lia
+    | whileContinue hb' hc' hloop' =>
+      specialize ih _ _ hc'
+      lia
 
 end BreakImp
 

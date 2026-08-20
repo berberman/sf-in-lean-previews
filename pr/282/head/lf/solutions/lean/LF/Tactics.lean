@@ -101,9 +101,8 @@ theorem silly_ex p :
     (∀ (n : Nat), n.even = false → n.odd = true) →
     p.even = true →
     (p + 1).odd = true := by
-  all_goals
-    intro eq1 eq2 eq3
-    apply eq2; apply eq1; apply eq3
+  intro eq1 eq2 eq3
+  apply eq2; apply eq1; apply eq3
 
 -- To use the `apply` tactic, the (conclusion of the) fact being applied must
 -- match the goal exactly (perhaps after simplification) -- for example,
@@ -293,11 +292,10 @@ theorem trans_eq_exercise (n m o p : Nat) :
     m = o.minustwo →
     (n + p) = m →
     (n + p) = o.minustwo := by
-  all_goals
-    intro eq1 eq2
-    calc n + p
-    _ = m := by rw [eq2]
-    _ = o.minustwo := by rw [eq1]
+  intro eq1 eq2
+  calc n + p
+  _ = m := by rw [eq2]
+  _ = o.minustwo := by rw [eq1]
 
 -- ## The `injection` and `contradiction` Tactics
 
@@ -359,10 +357,9 @@ theorem injection_ex1 (n m o : Nat) :
     [n, m] = [o, o] →
     n = m := by
   intro h
-  all_goals
-    injection h with h1 h2
-    injection h2 with h3
-    rw [h1, h3]
+  injection h with h1 h2
+  injection h2 with h3
+  rw [h1, h3]
 
 -- There is also a related tactic, `injections`, that applies the `injection`
 -- tactic to all your hypotheses at once, as many times in a row as it can.
@@ -373,9 +370,8 @@ theorem injection_ex2 (n m o : Nat) :
     [n, m] = [o, o] →
     n = m := by
   intro h
-  all_goals
-    injections h1 _ h3
-    rw [h1, h3]
+  injections h1 _ h3
+  rw [h1, h3]
 
 -- ### Exercise (3 stars): injection_ex3 ⭐⭐⭐
 
@@ -434,9 +430,8 @@ theorem disjoint_ex2 (n : Nat) :
 theorem disjoint_ex3 {α : Type} (x y z : α) (l : List α) :
     x :: y :: l = [] →
     x = z := by
-  all_goals
-    intros eq1
-    contradiction
+  intros eq1
+  contradiction
 
 -- For a more useful example, we can use `contradiction` to make a connection
 -- between the two different notions of equality (`=` and `==`) that we have
@@ -784,14 +779,13 @@ theorem replace_example m :
 theorem nth?_always_none (l : List Nat) :
     (∀ i, nth? l i = none) →
     l = [] := by
-  all_goals
-    intro h
-    cases l
-    case nil => rfl
-    case cons hd tl =>
-      have h := h (i := 0)
-      dsimp [nth?] at h
-      contradiction
+  intro h
+  cases l
+  case nil => rfl
+  case cons hd tl =>
+    have h := h (i := 0)
+    dsimp [nth?] at h
+    contradiction
 
 -- Tactics like `have` and `replace` can also be used with lemmas and theorems
 -- we've already proven, not just things in our context. Using these tactis
@@ -974,22 +968,21 @@ theorem double_injective : ∀ (n m : Nat),
 
 theorem beq_eq : ∀ (n m : Nat),
     (n == m) = true → n = m := by
-  all_goals
-    intro n
-    induction n
-    case zero =>
-      intro m eq; cases m
-      case zero => rfl
-      case succ m' =>
-        contradiction
-    case succ n' ih =>
-      intro m eq; cases m
-      case zero => contradiction
-      case succ m' =>
-        congr
-        apply ih
-        rw [beq_succ] at eq
-        assumption
+  intro n
+  induction n
+  case zero =>
+    intro m eq; cases m
+    case zero => rfl
+    case succ m' =>
+      contradiction
+  case succ n' ih =>
+    intro m eq; cases m
+    case zero => contradiction
+    case succ m' =>
+      congr
+      apply ih
+      rw [beq_succ] at eq
+      assumption
 
 -- ### Exercise (2 stars): beq_eq_informal ⭐⭐
 
@@ -1063,21 +1056,20 @@ theorem beq_eq : ∀ (n m : Nat),
 theorem plus_n_n_injective : ∀ (n m : Nat),
     n + n = m + m →
     n = m := by
-  all_goals
-    intro n
-    induction n
-    . case zero =>
-      intro m eq; cases m
-      . case zero => rfl
-      . case succ => dsimp at eq; contradiction
-    . case succ n' ih =>
-      intro m eq; cases m
-      . case zero => dsimp at eq; contradiction
-      . case succ m' =>
-        rw [add_succ, add_succ (m' + 1)] at eq
-        injection eq with eq
-        rw [add_comm, add_comm (m' + 1)] at eq
-        injections eq; congr; exact ih _ eq
+  intro n
+  induction n
+  . case zero =>
+    intro m eq; cases m
+    . case zero => rfl
+    . case succ => dsimp at eq; contradiction
+  . case succ n' ih =>
+    intro m eq; cases m
+    . case zero => dsimp at eq; contradiction
+    . case succ m' =>
+      rw [add_succ, add_succ (m' + 1)] at eq
+      injection eq with eq
+      rw [add_comm, add_comm (m' + 1)] at eq
+      injections eq; congr; exact ih _ eq
 
 -- The strategy of doing fewer `intros` before an `induction` to obtain a more
 -- general IH doesn't always work; sometimes some *rearrangement* of
@@ -1253,14 +1245,13 @@ theorem sub_add_ble : ∀ (n m : Nat),
 theorem nth_error_after_last {α : Type} (n : Nat) (l : List α) :
     l.length = n →
     nth? l n = none := by
-  all_goals
-    intros hlen
-    induction l generalizing n
-    case nil => rfl
-    case cons hd tl ih =>
-      rw [List.length_cons] at hlen
-      rw [← hlen]
-      dsimp [nth?]; apply ih _; rfl
+  intros hlen
+  induction l generalizing n
+  case nil => rfl
+  case cons hd tl ih =>
+    rw [List.length_cons] at hlen
+    rw [← hlen]
+    dsimp [nth?]; apply ih _; rfl
 
 -- ## Using `cases` on Compound Expressions
 
@@ -1333,21 +1324,20 @@ def split {α β : Type} (l : List (α × β)) : (List α) × (List β) :=
 theorem split_zip {α β : Type} (l : List (α × β)) l1 l2 :
     split l = (l1, l2) →
     zip l1 l2 = l := by
-  all_goals
-    intro h
-    induction l generalizing l1 l2
-    case nil =>
-      injections h1 h2
-      rw [← h1, ← h2]
-      rfl
-    case cons hd tl ih =>
-      let ⟨a, b⟩ := hd
-      dsimp [split] at h
-      injections h1 h2
-      rw [← h1, ← h2]
-      dsimp [zip]
-      rw [ih]
-      rfl
+  intro h
+  induction l generalizing l1 l2
+  case nil =>
+    injections h1 h2
+    rw [← h1, ← h2]
+    rfl
+  case cons hd tl ih =>
+    let ⟨a, b⟩ := hd
+    dsimp [split] at h
+    injections h1 h2
+    rw [← h1, ← h2]
+    dsimp [zip]
+    rw [ih]
+    rfl
 
 -- For example, suppose we define a function `sillyfun1` like this:
 
@@ -1407,24 +1397,23 @@ theorem sillyfun1_odd (n : Nat) :
 
 theorem bool_fn_applied_thrice (f : Bool → Bool) (b : Bool) :
     f (f (f b)) = f b := by
-  all_goals
-    cases b
+  cases b
+  case false =>
+    cases heqffalse : (f false)
     case false =>
-      cases heqffalse : (f false)
-      case false =>
-        rw [heqffalse, heqffalse]
-      case true =>
-        cases heqftrue : (f true)
-        case false => assumption
-        case true => assumption
+      rw [heqffalse, heqffalse]
     case true =>
       cases heqftrue : (f true)
-      case false =>
-        cases heqffalse : (f false)
-        case false => assumption
-        case true => assumption
-      case true =>
-          rw [heqftrue, heqftrue]
+      case false => assumption
+      case true => assumption
+  case true =>
+    cases heqftrue : (f true)
+    case false =>
+      cases heqffalse : (f false)
+      case false => assumption
+      case true => assumption
+    case true =>
+        rw [heqftrue, heqftrue]
 
 -- ## Review
 
@@ -1567,10 +1556,9 @@ theorem beq_trans (n m p : Nat) :
     (n == m) = true →
     (m == p) = true →
     (n == p) = true := by
-  all_goals
-    intros hnm hmp
-    apply beq_eq at hnm
-    rw [hnm, hmp]
+  intros hnm hmp
+  apply beq_eq at hnm
+  rw [hnm, hmp]
 
 -- ### Exercise (3 stars): split_combine (Advanced, manually graded) ⭐⭐⭐
 
@@ -1591,20 +1579,19 @@ def split_combine_statement : Prop :=
     split (zip l1 l2) = (l1, l2)
 
 theorem split_combine : split_combine_statement := by
-  all_goals
-    intros α β l1 l2 h
-    induction l1 generalizing l2
-    case nil =>
-      cases l2
-      case nil => rfl
-      case cons => contradiction
-    case cons hd tl ih =>
-      cases l2
-      case nil => contradiction
-      case cons hd' tl' =>
-        dsimp [split, zip]
-        rw [ih]
-        injections
+  intros α β l1 l2 h
+  induction l1 generalizing l2
+  case nil =>
+    cases l2
+    case nil => rfl
+    case cons => contradiction
+  case cons hd tl ih =>
+    cases l2
+    case nil => contradiction
+    case cons hd' tl' =>
+      dsimp [split, zip]
+      rw [ih]
+      injections
 
 /- Here are more approaches -/
 theorem split_combine' (α β :Type) l (l1 : List α) (l2 : List β) :
@@ -1661,23 +1648,22 @@ Proof.
 theorem filter_exercise {α : Type} (test : α → Bool) (a : α) (l lf : List α) :
     filter test l = a :: lf →
     test a = true := by
-  all_goals
-    intro h
-    induction l generalizing a lf test
-    case nil => contradiction
-    case cons hd tl ih =>
-      dsimp [filter] at h
-      cases h' : (test hd)
-      case false =>
-        rw [h'] at h
-        dsimp at h
-        exact ih _ _ _ h
-      case true =>
-        rw [h'] at h
-        dsimp at h
-        injections h1 h2
-        rw [← h1]
-        assumption
+  intro h
+  induction l generalizing a lf test
+  case nil => contradiction
+  case cons hd tl ih =>
+    dsimp [filter] at h
+    cases h' : (test hd)
+    case false =>
+      rw [h'] at h
+      dsimp at h
+      exact ih _ _ _ h
+    case true =>
+      rw [h'] at h
+      dsimp at h
+      injections h1 h2
+      rw [← h1]
+      assumption
 
 -- ### Exercise (4 stars): forall_exists_challenge (Advanced) ⭐⭐⭐⭐
 
@@ -1728,12 +1714,11 @@ def existsb' {α : Type} (test : α → Bool) (l : List α) : Bool := (
 
 theorem existsb_existsb' (α : Type) (test : α → Bool) (l : List α) :
     existsb test l = existsb' test l := by
-  all_goals
-    induction l generalizing test
-    case nil => rfl
-    case cons hd tl ih =>
-      dsimp [existsb]
-      rw [ih]
-      dsimp [existsb', forallb]
-      rw [Bool.not_and, Bool.not_not]
+  induction l generalizing test
+  case nil => rfl
+  case cons hd tl ih =>
+    dsimp [existsb]
+    rw [ih]
+    dsimp [existsb', forallb]
+    rw [Bool.not_and, Bool.not_not]
 
