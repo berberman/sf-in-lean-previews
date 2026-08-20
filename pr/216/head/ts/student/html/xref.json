@@ -2891,6 +2891,28 @@
         "Small-Step Slang",
         "A Small-Step Stack Machine"]}},
      "address": "/Smallstep/"}],
+   "Slang.Nat.odd":
+   [{"id": "Slang___Nat___odd",
+     "data":
+     {"/Slang/#Slang___Nat___odd":
+      {"display": "Nat.odd",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.Nat.even":
+   [{"id": "Slang___Nat___even",
+     "data":
+     {"/Slang/#Slang___Nat___even":
+      {"display": "Nat.even",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.IsAValue.num":
    [{"id": "Slang___IsAValue___num",
      "data":
@@ -2961,7 +2983,7 @@
    [{"id": "Slang___Bexp___eval_not",
      "data":
      {"/Slang/#Slang___Bexp___eval_not":
-      {"display": "Bexp.eval_not",
+      {"display": "eval_not",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -2972,7 +2994,7 @@
    [{"id": "Slang___Bexp___eval_neq",
      "data":
      {"/Slang/#Slang___Bexp___eval_neq":
-      {"display": "Bexp.eval_neq",
+      {"display": "eval_neq",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -2983,7 +3005,7 @@
    [{"id": "Slang___Bexp___eval_le",
      "data":
      {"/Slang/#Slang___Bexp___eval_le":
-      {"display": "Bexp.eval_le",
+      {"display": "eval_le",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -2994,7 +3016,7 @@
    [{"id": "Slang___Bexp___eval_gt",
      "data":
      {"/Slang/#Slang___Bexp___eval_gt":
-      {"display": "Bexp.eval_gt",
+      {"display": "eval_gt",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3005,7 +3027,7 @@
    [{"id": "Slang___Bexp___eval_eq",
      "data":
      {"/Slang/#Slang___Bexp___eval_eq":
-      {"display": "Bexp.eval_eq",
+      {"display": "eval_eq",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3016,7 +3038,7 @@
    [{"id": "Slang___Bexp___eval_bool",
      "data":
      {"/Slang/#Slang___Bexp___eval_bool":
-      {"display": "Bexp.eval_bool",
+      {"display": "eval_bool",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3027,7 +3049,7 @@
    [{"id": "Slang___Bexp___eval_and",
      "data":
      {"/Slang/#Slang___Bexp___eval_and":
-      {"display": "Bexp.eval_and",
+      {"display": "eval_and",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3038,7 +3060,7 @@
    [{"id": "Slang___Bexp___eval",
      "data":
      {"/Slang/#Slang___Bexp___eval":
-      {"display": "Bexp.eval",
+      {"display": "eval",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3429,7 +3451,7 @@
    [{"id": "Slang___Aexp___eval_plus",
      "data":
      {"/Slang/#Slang___Aexp___eval_plus":
-      {"display": "Aexp.eval_plus",
+      {"display": "eval_plus",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3440,7 +3462,7 @@
    [{"id": "Slang___Aexp___eval_num",
      "data":
      {"/Slang/#Slang___Aexp___eval_num":
-      {"display": "Aexp.eval_num",
+      {"display": "eval_num",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3451,7 +3473,7 @@
    [{"id": "Slang___Aexp___eval_mult",
      "data":
      {"/Slang/#Slang___Aexp___eval_mult":
-      {"display": "Aexp.eval_mult",
+      {"display": "eval_mult",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3462,7 +3484,7 @@
    [{"id": "Slang___Aexp___eval_minus",
      "data":
      {"/Slang/#Slang___Aexp___eval_minus":
-      {"display": "Aexp.eval_minus",
+      {"display": "eval_minus",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3484,7 +3506,7 @@
    [{"id": "Slang___Aexp___eval",
      "data":
      {"/Slang/#Slang___Aexp___eval":
-      {"display": "Aexp.eval",
+      {"display": "eval",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3722,6 +3744,17 @@
      "data":
      {"/Slang/#Slang___AevalRDivision___Aexp___minus":
       {"display": "minus",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Computational vs. Relational Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.AevalRDivision.Aexp.eval":
+   [{"id": "Slang___AevalRDivision___Aexp___eval",
+     "data":
+     {"/Slang/#Slang___AevalRDivision___Aexp___eval":
+      {"display": "eval",
        "context":
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",

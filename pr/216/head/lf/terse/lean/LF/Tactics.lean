@@ -18,14 +18,12 @@ import LF.SFLCompat
 
 -- ## The `apply` Tactic
 
--- The `apply` tactic is useful when some hypothesis or an
--- earlier lemma exactly matches the goal:
+-- The `apply` tactic is useful when the goal is instead the
+-- conclusion of an implication.
 
-example (n m : Nat) (h : n = m) : n = m := by
-  /- Here, we could finish with `rw [h]` as we
-    have done several times before.  Or we can finish
-    by using `apply`: -/
+example (p q : Prop) (h : p → q) (hp : p) : q := by
   apply h
+  exact hp
 
 -- `apply` also works with hypotheses whose types are
 -- implications:
@@ -33,7 +31,7 @@ example (n m : Nat) (h : n = m) : n = m := by
 example (n m o p : Nat) (hnm : n = m) (h : n = m → [n, o] = [m, p]) :
     [n, o] = [m, p] := by
   apply h
-  apply hnm
+  exact hnm
 
 -- Observe how Lean picks appropriate values for the
 -- universally quantified variables of the hypothesis:
@@ -42,7 +40,7 @@ example (n m : Nat) (h₁ : (n, n) = (m, m))
     (h₂ : ∀ (q r : Nat), (q, q) = (r, r) → [q] = [r]) :
     [n] = [m] := by
   apply h₂
-  apply h₁
+  exact h₁
 
 -- ### Exercise (2 stars): apply_exercise ⭐⭐
 
@@ -55,15 +53,15 @@ theorem apply_exercise (m : Nat)
     (m + 1).odd = true := by
   sorry
 
--- The goal must match the hypothesis *exactly* for `apply` to
--- work:
+-- The goal must match the hypothesis for `apply` to work:
 
-example (n m : Nat) (h : n = m) : m = n := by
-  -- Here we cannot use `apply` directly...
-  /- ...but we can use the `symm` tactic, which switches the left
-      and right sides of an equality in the goal. -/
+example (n m : Nat) (h : n = 0 → n = m) (hn : n = 0) : m = n := by
+  /- Here we cannot use `apply` directly...
+    ...but we can use the `symm` tactic, which switches the left
+    and right sides of an equality in the goal. -/
   symm
   apply h
+  exact hn
 
 -- ### Exercise (2 stars): apply_exercise1 ⭐⭐
 
@@ -160,8 +158,10 @@ example (a b c d e f : Nat)
   apply trans_eq _ _ _ h₁ h₂
 
 -- If we know the name of the argument we are supplying (in
--- this case `y`), we can just name it directly, and avoid
--- typing any `_`s.
+-- this case `y`), we can name it directly and avoid typing any
+-- `_`s. This feature is called *named arguments*. Named
+-- arguments can be used in function applications generally,
+-- not just with `apply`.
 
 example (a b c d e f : Nat)
     (h₁ : [a, b] = [c, d])
@@ -305,6 +305,16 @@ sf_expect_failure
       (h : 1 + n = 0) :
       2 + 2 = 5 := by
     contradiction -- doesn't work because `1 + n` doesn't reduce to `n.succ`.
+
+-- To fix it, rewriting with `Nat.one_add` changes the
+-- hypothesis from `1 + n = 0` to `n.succ = 0`. Then Lean can
+-- immediately recognize this as impossible.
+
+example (n : Nat)
+    (h : 1 + n = 0) :
+    2 + 2 = 5 := by
+  rw [Nat.one_add] at h
+  contradiction
 
 -- ### Exercise (1 star): disjoint_ex3 ⭐
 
@@ -494,6 +504,15 @@ example (n m p q : Nat)
   apply h at hnm
   exact hnm
 
+-- You can apply tactics in multiple places at the same time,
+-- including the goal:
+
+example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
+  Nat.ble (n, m).1 (n, m).2 := by
+  dsimp at h₁ h₂ ⊢
+  rw [h₁, h₂]
+  rfl
+
 -- ## Specializing Hypotheses
 
 -- We've already seen how we can use `have` to do forward
@@ -505,25 +524,25 @@ example (n m p q : Nat)
 -- If `h` is a quantified hypothesis in the current context —
 -- i.e., `h : ∀ (x : α), P x` — then we can use `have` to
 -- obtain a special case of `h` by supplying a value for `x`.
--- For example, `have h := h (x := e)` introduces a new `h`
--- which `x` has been instantiated with `e`.
+-- For example, `have h := h e` introduces a new `h` which `x`
+-- has been instantiated with `e`.
 
 -- For example:
 
 example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
-  have h := h (n := 1)
+  have h := h 1
   rw [Nat.mul_one] at h
   exact h
 
 -- You may notice that, in the above proof, the original `h` is
--- still present in the contenxt, although it is shadowed by
--- the new `h`. Often we don't care to keep this old hypothesis
+-- still present in the context, although it is shadowed by the
+-- new `h`. Often we don't care to keep this old hypothesis
 -- around, and so we can use the `replace` tactic instead. It
 -- behaves like `have`, except that it gets rid of the old
 -- hypothesis afterwards when possible:
 
 example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
-  replace h := h (n := 1)
+  replace h := h 1
   rw [Nat.mul_one] at h
   exact h
 

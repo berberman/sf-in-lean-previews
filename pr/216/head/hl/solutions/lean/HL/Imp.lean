@@ -928,12 +928,11 @@ example :
       Y := 1;
       Z := 2
     ]=> (Z →ₜ 2 ; Y →ₜ 1 ; X →ₜ 0 ; ∅) := by
-  all_goals
-    apply Com.EvalR.seq (st' := (X →ₜ 0 ; ∅))
+  apply Com.EvalR.seq (st' := (X →ₜ 0 ; ∅))
+  · apply Com.EvalR.asgn; rfl
+  · apply Com.EvalR.seq (st' := (Y →ₜ 1 ; X →ₜ 0 ; ∅))
     · apply Com.EvalR.asgn; rfl
-    · apply Com.EvalR.seq (st' := (Y →ₜ 1 ; X →ₜ 0 ; ∅))
-      · apply Com.EvalR.asgn; rfl
-      · apply Com.EvalR.asgn; rfl
+    · apply Com.EvalR.asgn; rfl
 
 -- Note to developers:
 --     PR: I phrased these quizzes with the following alternatives: (A) Not
@@ -1055,20 +1054,19 @@ def pup_to_n : Com := (
 theorem pup_to_2_ceval :
     (X →ₜ 2 ; ∅) =[ pup_to_n ]=>
       (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅) := by
-  all_goals
-    unfold pup_to_n
-    apply Com.EvalR.seq (st' := (Y →ₜ 0 ; X →ₜ 2 ; ∅))
-    · apply Com.EvalR.asgn; rfl
-    · apply Com.EvalR.whileTrue (st' := (X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
+  unfold pup_to_n
+  apply Com.EvalR.seq (st' := (Y →ₜ 0 ; X →ₜ 2 ; ∅))
+  · apply Com.EvalR.asgn; rfl
+  · apply Com.EvalR.whileTrue (st' := (X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
+    · rfl
+    · apply Com.EvalR.seq (st' := (Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
+        (apply Com.EvalR.asgn; rfl)
+    · apply Com.EvalR.whileTrue
+        (st' := (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
       · rfl
-      · apply Com.EvalR.seq (st' := (Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
+      · apply Com.EvalR.seq (st' := (Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
           (apply Com.EvalR.asgn; rfl)
-      · apply Com.EvalR.whileTrue
-          (st' := (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
-        · rfl
-        · apply Com.EvalR.seq (st' := (Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
-            (apply Com.EvalR.asgn; rfl)
-        · apply Com.EvalR.whileFalse; rfl
+      · apply Com.EvalR.whileFalse; rfl
 
 -- ## Reasoning About Imp Programs
 
@@ -1129,23 +1127,22 @@ theorem XtimesYinZ_spec2 (st : State) : ∃ st', st =[ XtimesYinZ ]=> st' := by
 -- equation).
 
 theorem loop_never_stops (st st' : State) : ¬ (st =[ loop ]=> st') := by
-  all_goals
-    intro contra
-    -- Generalize over the command so the induction remembers what `loop` is.
-    have key : ∀ (c : Com) (s s' : State), (s =[ c ]=> s') → c = loop → False := by
-      intro c s s' hce
-      induction hce with
-      | @whileFalse b s0 c0 hb =>
-          intro heq; unfold loop at heq; injection heq with e1 _
-          subst e1; simp at hb
-      | @whileTrue s0 s0' s0'' b c0 hb hc hloop ih1 ih2 =>
-          intro heq; exact ih2 heq
-      | @skip s0 => intro heq; simp [loop] at heq
-      | @asgn s0 a n x h => intro heq; simp [loop] at heq
-      | @seq c1 c2 s0 s0' s0'' h1 h2 ih1 ih2 => intro heq; simp [loop] at heq
-      | @ifTrue s0 s0' b c1 c2 hb hc ih => intro heq; simp [loop] at heq
-      | @ifFalse s0 s0' b c1 c2 hb hc ih => intro heq; simp [loop] at heq
-    exact key loop st st' contra rfl
+  intro contra
+  -- Generalize over the command so the induction remembers what `loop` is.
+  have key : ∀ (c : Com) (s s' : State), (s =[ c ]=> s') → c = loop → False := by
+    intro c s s' hce
+    induction hce with
+    | @whileFalse b s0 c0 hb =>
+        intro heq; unfold loop at heq; injection heq with e1 _
+        subst e1; simp at hb
+    | @whileTrue s0 s0' s0'' b c0 hb hc hloop ih1 ih2 =>
+        intro heq; exact ih2 heq
+    | @skip s0 => intro heq; simp [loop] at heq
+    | @asgn s0 a n x h => intro heq; simp [loop] at heq
+    | @seq c1 c2 s0 s0' s0'' h1 h2 ih1 ih2 => intro heq; simp [loop] at heq
+    | @ifTrue s0 s0' b c1 c2 hb hc ih => intro heq; simp [loop] at heq
+    | @ifFalse s0 s0' b c1 c2 hb hc ih => intro heq; simp [loop] at heq
+  exact key loop st st' contra rfl
 
 -- ### Exercise (3 stars): no_whiles_eqv ⭐⭐⭐
 
@@ -1170,24 +1167,23 @@ inductive Com.NoWhilesR : Com → Prop where
       Com.NoWhilesR (imp { if (~b) { ~c1 } else { ~c2 } })
 
 theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
-  all_goals
-    constructor
-    · induction c with
-      | skip => intro _; exact .skip
-      | asgn x a => intro _; exact .asgn x a
-      | seq c1 c2 ih1 ih2 =>
-          intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
-          exact .seq _ _ (ih1 h.1) (ih2 h.2)
-      | cond b c1 c2 ih1 ih2 =>
-          intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
-          exact .cond _ _ _ (ih1 h.1) (ih2 h.2)
-      | whileDo b c ih => intro h; simp [Com.no_whiles] at h
-    · intro h
-      induction h with
-      | skip => rfl
-      | asgn x a => rfl
-      | seq c1 c2 h1 h2 ih1 ih2 => simp [Com.no_whiles, ih1, ih2]
-      | cond b c1 c2 h1 h2 ih1 ih2 => simp [Com.no_whiles, ih1, ih2]
+  constructor
+  · induction c with
+    | skip => intro _; exact .skip
+    | asgn x a => intro _; exact .asgn x a
+    | seq c1 c2 ih1 ih2 =>
+        intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
+        exact .seq _ _ (ih1 h.1) (ih2 h.2)
+    | cond b c1 c2 ih1 ih2 =>
+        intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
+        exact .cond _ _ _ (ih1 h.1) (ih2 h.2)
+    | whileDo b c ih => intro h; simp [Com.no_whiles] at h
+  · intro h
+    induction h with
+    | skip => rfl
+    | asgn x a => rfl
+    | seq c1 c2 h1 h2 ih1 ih2 => simp [Com.no_whiles, ih1, ih2]
+    | cond b c1 c2 h1 h2 ih1 ih2 => simp [Com.no_whiles, ih1, ih2]
 
 -- ### Exercise (4 stars): no_whiles_terminating ⭐⭐⭐⭐
 
@@ -1197,22 +1193,21 @@ theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
 
 theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
     ∃ st', st =[ c ]=> st' := by
-  all_goals
-    induction h generalizing st with
-    | @skip => exact ⟨st, .skip⟩
-    | @asgn x a => exact ⟨(x →ₜ a.eval st ; st), .asgn rfl⟩
-    | @seq c1 c2 h1 h2 ih1 ih2 =>
-        obtain ⟨st', hc1⟩ := ih1 st
-        obtain ⟨st'', hc2⟩ := ih2 st'
-        exact ⟨st'', .seq hc1 hc2⟩
-    | @cond b c1 c2 h1 h2 ih1 ih2 =>
-        cases hb : b.eval st with
-        | true =>
-            obtain ⟨st', hc1⟩ := ih1 st
-            exact ⟨st', .ifTrue hb hc1⟩
-        | false =>
-            obtain ⟨st', hc2⟩ := ih2 st
-            exact ⟨st', .ifFalse hb hc2⟩
+  induction h generalizing st with
+  | @skip => exact ⟨st, .skip⟩
+  | @asgn x a => exact ⟨(x →ₜ a.eval st ; st), .asgn rfl⟩
+  | @seq c1 c2 h1 h2 ih1 ih2 =>
+      obtain ⟨st', hc1⟩ := ih1 st
+      obtain ⟨st'', hc2⟩ := ih2 st'
+      exact ⟨st'', .seq hc1 hc2⟩
+  | @cond b c1 c2 h1 h2 ih1 ih2 =>
+      cases hb : b.eval st with
+      | true =>
+          obtain ⟨st', hc1⟩ := ih1 st
+          exact ⟨st', .ifTrue hb hc1⟩
+      | false =>
+          obtain ⟨st', hc2⟩ := ih2 st
+          exact ⟨st', .ifFalse hb hc2⟩
 
 -- And here is an alternative solution by induction on `c` (using
 -- `Com.no_whiles` instead of `Com.NoWhilesR`):

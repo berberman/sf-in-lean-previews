@@ -143,7 +143,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
     },
     "216": {
-      "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
+      "base_sha": "c02594888acc88a1500c628e6b05f0eb2e6d86ec",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -182,9 +182,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "374b62fd207c746dd24ab928b7be54048b6d7fd1",
+      "head_sha": "670ac758f49ba45924ed27dabe54b8b4ac41f793",
       "preview_path": "pr/216/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32206546804",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32427287140",
       "status": "published",
       "title": "Refactor Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/216"
@@ -527,6 +527,16 @@
       "status": "published",
       "title": "UsingLean explains irreducible; code actions to Induction.",
       "url": "https://github.com/plclub/sf-in-lean/pull/288"
+    },
+    "290": {
+      "base_sha": "c02594888acc88a1500c628e6b05f0eb2e6d86ec",
+      "changed_variants": [],
+      "head_sha": "aebfe3631c31100824082ab69c619e27c55d662a",
+      "preview_path": "pr/290/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "SFLMeta: remove stripGuardMsgs",
+      "url": "https://github.com/plclub/sf-in-lean/pull/290"
     }
   },
   "schema": 3

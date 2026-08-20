@@ -151,14 +151,12 @@ sf_expect_failure
 
 theorem mul_three (n : Nat) :
     3 * n = n + n + n := by
-  all_goals
-    rw [Nat.add_one_mul, Nat.two_mul]
+  rw [Nat.add_one_mul, Nat.two_mul]
 
 theorem mul_three_beq (n : Nat) :
     (3 * n == n + n + n) = true := by
-  all_goals
-    rw [Nat.beq_eq_true_eq]
-    exact mul_three n
+  rw [Nat.beq_eq_true_eq]
+  exact mul_three n
 
 -- ## Structuring Proofs with `calc`
 
@@ -223,13 +221,12 @@ theorem succ_mul_succ (n m : Nat) :
 
 theorem succ_mul_succ' (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
-  all_goals
-    calc (n + 1) * (m + 1)
-      _ = n * (m + 1) + 1 * (m + 1) := by rw [Nat.add_mul]
-      _ = n * (m + 1) + (m + 1)     := by rw [Nat.one_mul]
-      _ = (n * m + n * 1) + (m + 1) := by rw [Nat.mul_add]
-      _ = (n * m + n) + (m + 1)     := by rw [Nat.mul_one]
-      _ = n * m + n + m + 1         := by rw [← Nat.add_assoc]
+  calc (n + 1) * (m + 1)
+  _ = n * (m + 1) + 1 * (m + 1) := by rw [Nat.add_mul]
+  _ = n * (m + 1) + (m + 1)     := by rw [Nat.one_mul]
+  _ = (n * m + n * 1) + (m + 1) := by rw [Nat.mul_add]
+  _ = (n * m + n) + (m + 1)     := by rw [Nat.mul_one]
+  _ = n * m + n + m + 1         := by rw [← Nat.add_assoc]
 
 -- If you prefer `rw` to `calc`, that's fine! Each has particular uses, and
 -- both will be tools in your ever-growing toolbox of tactics.
@@ -276,10 +273,9 @@ example (n m : Nat) (h : n + n = m) : triple n = m + n := by
 -- Complete this proof, using `dsimp` or `rw` as appropriate.
 
 example (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
-  all_goals
-    rw [h]
-    dsimp [triple]
-    rw [Nat.add_assoc]
+  rw [h]
+  dsimp [triple]
+  rw [Nat.add_assoc]
 
 -- `dsimp at h` also works on hypotheses, which `rfl` can't touch.
 
@@ -407,12 +403,11 @@ example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
 
 theorem Nat.even_succ (n : Nat) :
     (n + 1).even = !(n.even) := by
-  all_goals
-    induction n with
-    | zero =>
-      rfl
-    | succ n' ih =>
-      rw [even, ih, Bool.not_not]
+  induction n with
+  | zero =>
+    rfl
+  | succ n' ih =>
+    rw [even, ih, Bool.not_not]
 
 -- We reprove here for Lean's `Nat` some theorems about `Nat.even` and
 -- `Nat.double`, which we had previously proven for our custom
@@ -425,18 +420,16 @@ theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 -- ### Exercise (2 stars): double_add ⭐⭐
 
 theorem Nat.double_add (n : Nat) : n.double = n + n := by
-  all_goals
-    induction n with
-    | zero =>
-      rw [double_zero]
-    | succ n' ih =>
-      rw [double_succ, ih, succ_add n' (n' + 1), add_succ n' n']
+  induction n with
+  | zero =>
+    rw [double_zero]
+  | succ n' ih =>
+    rw [double_succ, ih, succ_add n' (n' + 1), add_succ n' n']
 
 -- ### Exercise (2 stars): double_mul ⭐⭐
 
 theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
-  all_goals
-    rw [double_add, Nat.two_mul]
+  rw [double_add, Nat.two_mul]
 
 -- ## Using Code Actions to Generate Match Skeletons
 

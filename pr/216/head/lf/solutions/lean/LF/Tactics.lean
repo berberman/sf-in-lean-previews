@@ -35,11 +35,15 @@ import LF.SFLCompat
 -- We often encounter situations where the goal to be proved is *exactly* the
 -- same as some hypothesis in the context or some previously proved lemma.
 
-example (n m : Nat) (h : n = m) : n = m := by
-  /- Here, we could finish with `rw [h]` as we
-    have done several times before.  Or we can finish
-    by using `apply`: -/
+-- The `apply` tactic is useful when the goal is instead the conclusion of an
+-- implication.
+
+-- For example, suppose we have a hypothesis `h : p → q` and our goal is `q`.
+-- We can use `apply h` to replace the goal `q` with the premise `p`:
+
+example (p q : Prop) (h : p → q) (hp : p) : q := by
   apply h
+  exact hp
 
 -- The `apply` tactic also works with hypotheses and lemmas whose types are
 -- implications. If the conclusion of the implication matches the current
@@ -48,16 +52,16 @@ example (n m : Nat) (h : n = m) : n = m := by
 example (n m o p : Nat) (hnm : n = m) (h : n = m → [n, o] = [m, p]) :
     [n, o] = [m, p] := by
   apply h
-  apply hnm
+  exact hnm
 
 -- When we use `apply h`, Lean tries to match the conclusion of the type of
 -- `h` with the current goal. Here `h : n = m → [n, o] = [m, p]` has
 -- conclusion `[n, o] = [m, p]`, which matches the current goal. Lean then
--- replaces the goal with the premise that is still need, `n = m`. Then we
--- close the goal with `apply hnm`.
+-- replaces the goal with the premise that is still needed, `n = m`. Then we
+-- close the goal with `exact hnm`.
 
 -- More generally, the type of a theorem or hypothesis used with `apply` may
--- have universally quantified variables and premises. Lean tries to unify its
+-- have universally quantified variables and premises. Lean tries to match its
 -- conclusion with the current goal to determine appropriate values for the
 -- quantified variables.
 
@@ -65,7 +69,7 @@ example (n m : Nat) (h₁ : (n, n) = (m, m))
     (h₂ : ∀ (q r : Nat), (q, q) = (r, r) → [q] = [r]) :
     [n] = [m] := by
   apply h₂
-  apply h₁
+  exact h₁
 
 -- ### Exercise (2 stars): apply_exercise ⭐⭐
 
@@ -76,22 +80,21 @@ theorem apply_exercise (m : Nat)
     (h₂ : ∀ (n : Nat), n.even = false → n.odd = true)
     (hEven : m.even = true) :
     (m + 1).odd = true := by
-  all_goals
-    apply h₂
-    apply h₁
-    apply hEven
+  apply h₂
+  apply h₁
+  exact hEven
 
--- To use the `apply` tactic, the (conclusion of the) fact being applied must
--- match the goal exactly (perhaps after simplification) — for example,
--- `apply` will not work if the left and right sides of the equality are
--- swapped.
+-- To use the `apply` tactic, the conclusion of the fact being applied must
+-- match the goal. For example, `apply` will not work if the left and right
+-- sides of the equality are swapped.
 
-example (n m : Nat) (h : n = m) : m = n := by
-  -- Here we cannot use `apply` directly...
-  /- ...but we can use the `symm` tactic, which switches the left
-      and right sides of an equality in the goal. -/
+example (n m : Nat) (h : n = 0 → n = m) (hn : n = 0) : m = n := by
+  /- Here we cannot use `apply` directly...
+    ...but we can use the `symm` tactic, which switches the left
+    and right sides of an equality in the goal. -/
   symm
   apply h
+  exact hn
 
 -- ### Exercise (2 stars): apply_exercise1 ⭐⭐
 
@@ -102,10 +105,9 @@ example (n m : Nat) (h : n = m) : m = n := by
 
 theorem rev_exercise1 {α : Type} (l l' : List α) (h : l = l'.rev) :
     l' = l.rev := by
-  all_goals
-    rw [h]
-    symm
-    apply reverse_reverse
+  rw [h]
+  symm
+  apply reverse_reverse
 
 -- ### Exercise (1 star): apply_rewrite (manually graded) ⭐
 
@@ -116,14 +118,10 @@ theorem rev_exercise1 {α : Type} (l l' : List α) (h : l = l'.rev) :
 -- the context or a previously proved lemma) to modify the goal, replacing all
 -- occurrences of one side by the other.
 
--- The `apply` tactic uses a known **implication** (a hypothesis from the
--- context, a previously proved lemma, or a constructor) to replace a goal
--- that matches the conclusion of the implication with subgoals, one for each
--- premise of the implication.
-
--- If the known fact is itself an equality (with no premises), then either
--- tactic can be used. (We will see below that each tactic can also be used to
--- modify a hypothesis rather than the goal.)
+-- The `apply` tactic works backward from a known fact. It takes a hypothesis,
+-- theorem, or constructor whose conclusion can be matched with the current
+-- goal. Lean uses the goal to infer as many of its arguments as possible, and
+-- any remaining premises that still need to be proved become new subgoals.
 
 -- ### Supplying arguments to `apply`
 
@@ -225,7 +223,9 @@ example (a b c d e f : Nat)
   apply trans_eq _ _ _ h₁ h₂
 
 -- If we know the name of the argument we are supplying (in this case `y`), we
--- can just name it directly, and avoid typing any `_`s.
+-- can name it directly and avoid typing any `_`s. This feature is called
+-- *named arguments*. Named arguments can be used in function applications
+-- generally, not just with `apply`.
 
 example (a b c d e f : Nat)
     (h₁ : [a, b] = [c, d])
@@ -268,10 +268,9 @@ theorem trans_eq_exercise (n m o p : Nat)
     (h₁ : m = o.minusTwo)
     (h₂ : (n + p) = m) :
     (n + p) = o.minusTwo := by
-  all_goals
-    calc n + p
-    _ = m := by rw [h₂]
-    _ = o.minusTwo := by rw [h₁]
+  calc n + p
+  _ = m := by rw [h₂]
+  _ = o.minusTwo := by rw [h₁]
 
 -- ## The `injection` and `contradiction` Tactics
 
@@ -345,10 +344,9 @@ example (n m : Nat)
 example (n m o : Nat)
     (h : [n, m] = [o, o]) :
     n = m := by
-  all_goals
-    injection h with h₁ h₂
-    injection h₂ with h₃
-    rw [h₁, h₃]
+  injection h with h₁ h₂
+  injection h₂ with h₃
+  rw [h₁, h₃]
 
 -- There is also a related tactic, `injections`, that applies the `injection`
 -- tactic to all your hypotheses at once, as many times in a row as it can.
@@ -358,9 +356,8 @@ example (n m o : Nat)
 example (n m o : Nat)
     (h : [n, m] = [o, o]) :
     n = m := by
-  all_goals
-    injections h₁ _ h₃
-    rw [h₁, h₃]
+  injections h₁ _ h₃
+  rw [h₁, h₃]
 
 -- ### Exercise (3 stars): injection_ex3 ⭐⭐⭐
 
@@ -410,6 +407,16 @@ sf_expect_failure
       2 + 2 = 5 := by
     contradiction -- doesn't work because `1 + n` doesn't reduce to `n.succ`.
 
+-- To fix it, rewriting with `Nat.one_add` changes the hypothesis from
+-- `1 + n = 0` to `n.succ = 0`. Then Lean can immediately recognize this as
+-- impossible.
+
+example (n : Nat)
+    (h : 1 + n = 0) :
+    2 + 2 = 5 := by
+  rw [Nat.one_add] at h
+  contradiction
+
 -- If you find the principle of explosion confusing, remember that these
 -- proofs are *not* simply showing that the conclusion of the statement holds.
 -- Rather, they are showing that, *if* the nonsensical situation described by
@@ -425,8 +432,7 @@ sf_expect_failure
 theorem disjoint_ex3 {α : Type} (x y z : α) (l : List α)
     (h : x :: y :: l = []) :
     x = z := by
-  all_goals
-    contradiction
+  contradiction
 
 -- ### Quizzes
 
@@ -631,8 +637,8 @@ example (n m p q : Nat)
 
 -- The informal proofs in mathematics and computer science often use forward
 -- reasoning. In Lean, however, backward reasoning is often more idiomatic,
--- though forward reas can sometimes be easier to follow or more natural for
--- particular proofs.
+-- though forward reasoning can sometimes be easier to follow or more natural
+-- for particular proofs.
 
 -- You may be interested to know that the `apply ... at ...` tactic is not
 -- part of Lean's core set of tactics. However, Lean makes it very easy for
@@ -643,6 +649,18 @@ example (n m p q : Nat)
 -- is a very large development, so we will not import the whole thing here,
 -- but we have made `apply ... at ...` available because it is quite useful.
 
+-- To apply a tactic in multiple places at the same time, you can list
+-- multiple hypotheses in a row after the `at`. You can also explicitly use a
+-- tactic on the goal (usually because you are applying the tactic to both a
+-- hypothesis and the goal) by including it after the `at` with the turnstile
+-- symbol `⊢`, written `\|-`, `\goal` or `\vdash`.
+
+example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
+  Nat.ble (n, m).1 (n, m).2 := by
+  dsimp at h₁ h₂ ⊢
+  rw [h₁, h₂]
+  rfl
+
 -- ## Specializing Hypotheses
 
 -- We've already seen how we can use `have` to do forward reasoning, by
@@ -652,24 +670,24 @@ example (n m p q : Nat)
 
 -- If `h` is a quantified hypothesis in the current context — i.e.,
 -- `h : ∀ (x : α), P x` — then we can use `have` to obtain a special case of
--- `h` by supplying a value for `x`. For example, `have h := h (x := e)`
--- introduces a new `h` which `x` has been instantiated with `e`.
+-- `h` by supplying a value for `x`. For example, `have h := h e` introduces a
+-- new `h` which `x` has been instantiated with `e`.
 
 -- For example:
 
 example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
-  have h := h (n := 1)
+  have h := h 1
   rw [Nat.mul_one] at h
   exact h
 
 -- You may notice that, in the above proof, the original `h` is still present
--- in the contenxt, although it is shadowed by the new `h`. Often we don't
--- care to keep this old hypothesis around, and so we can use the `replace`
--- tactic instead. It behaves like `have`, except that it gets rid of the old
+-- in the context, although it is shadowed by the new `h`. Often we don't care
+-- to keep this old hypothesis around, and so we can use the `replace` tactic
+-- instead. It behaves like `have`, except that it gets rid of the old
 -- hypothesis afterwards when possible:
 
 example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
-  replace h := h (n := 1)
+  replace h := h 1
   rw [Nat.mul_one] at h
   exact h
 
@@ -689,13 +707,12 @@ example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
 
 theorem nth?_always_none (l : List Nat) (h : ∀ i, nth? l i = none) :
     l = [] := by
-  all_goals
-    cases l with
-    | nil => rfl
-    | cons x xs =>
-      have h := h (i := 0)
-      dsimp [nth?] at h
-      contradiction
+  cases l with
+  | nil => rfl
+  | cons x xs =>
+    have h := h 0
+    dsimp [nth?] at h
+    contradiction
 
 -- Tactics like `have` and `replace` can also be used with lemmas and theorems
 -- we've already proven, not just things in our context. Using these tactis
@@ -735,7 +752,7 @@ example (a b c d e f : Nat)
 sf_experiment
   theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := sorry
 
--- If we begin it with
+-- The way we start this proof is a bit delicate: if we begin it with
 
 sf_expect_failure
   theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := by
@@ -917,22 +934,21 @@ theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := by
 theorem add_self_injective (n m : Nat)
     (h : n + n = m + m) :
     n = m := by
-  all_goals
-    induction n generalizing m with
-    | zero =>
-      cases m with
-      | zero => rfl
-      | succ m' => dsimp at h; contradiction
-    | succ n' ih =>
-      cases m with
-      | zero => dsimp at h; contradiction
-      | succ m' =>
-        congr
-        apply ih
-        rw [Nat.add_succ, Nat.add_succ (m' + 1)] at h
-        injection h with h
-        rw [Nat.add_comm, Nat.add_comm (m' + 1)] at h
-        injections h
+  induction n generalizing m with
+  | zero =>
+    cases m with
+    | zero => rfl
+    | succ m' => dsimp at h; contradiction
+  | succ n' ih =>
+    cases m with
+    | zero => dsimp at h; contradiction
+    | succ m' =>
+      congr
+      apply ih
+      rw [Nat.add_succ, Nat.add_succ (m' + 1)] at h
+      injection h with h
+      rw [Nat.add_comm, Nat.add_comm (m' + 1)] at h
+      injections h
 
 -- ### Exercise (2 stars): add_self_injective_informal ⭐⭐
 
@@ -1002,15 +1018,14 @@ example (n m p q : Nat)
 theorem nth?_after_last {α : Type}
     {n : Nat} {l : List α} (h : l.length = n) :
     nth? l n = none := by
-  all_goals
-    induction l generalizing n with
-    | nil => rfl
-    | cons x xs ih =>
-      rw [List.length_cons] at h
-      rw [← h]
-      dsimp [nth?]
-      apply ih
-      rfl
+  induction l generalizing n with
+  | nil => rfl
+  | cons x xs ih =>
+    rw [List.length_cons] at h
+    rw [← h]
+    dsimp [nth?]
+    apply ih
+    rfl
 
 -- ### Exercise (3 stars): length_append_cons ⭐⭐⭐
 
@@ -1019,16 +1034,15 @@ theorem nth?_after_last {α : Type}
 theorem length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat}
     (h : (l₁ ++ (x :: l₂)).length = n) :
     ((l₁ ++ l₂).length) + 1 = n := by
-  all_goals
-    induction l₁ generalizing n with
-    | nil => assumption
-    | cons y ys ih =>
-      rw [List.cons_append, List.length_cons] at *
-      /- A trick here: by using `rfl` to close `(ys ++ x :: l₂).length = n`
-         we effectively choose `n` to be `(ys ++ x :: l₂).length`
-      -/
-      rw [ih rfl]
-      assumption
+  induction l₁ generalizing n with
+  | nil => assumption
+  | cons y ys ih =>
+    rw [List.cons_append, List.length_cons] at *
+    /- A trick here: by using `rfl` to close `(ys ++ x :: l₂).length = n`
+       we effectively choose `n` to be `(ys ++ x :: l₂).length`
+    -/
+    rw [ih rfl]
+    assumption
 
 -- ### Exercise (3 stars): length_append_self ⭐⭐⭐
 
@@ -1058,23 +1072,22 @@ theorem diagonal_induction (p : Nat → Nat → Prop)
     (hzs : ∀ n, p 0 n → p 0 (n + 1))
     (hss : ∀ m n, p m n → p (m + 1) (n + 1)) :
     ∀ m n, p m n := by
-  all_goals
-    intro m n
-    induction m generalizing n with
+  intro m n
+  induction m generalizing n with
+  | zero =>
+    induction n with
+    | zero => exact hzz
+    | succ n' ih =>
+      apply hzs
+      apply ih
+  | succ m' ih =>
+    induction n with
     | zero =>
-      induction n with
-      | zero => exact hzz
-      | succ n' ih =>
-        apply hzs
-        apply ih
-    | succ m' ih =>
-      induction n with
-      | zero =>
-        apply hsz
-        apply ih
-      | succ n' ih' =>
-        apply hss
-        apply ih
+      apply hsz
+      apply ih
+    | succ n' ih' =>
+      apply hss
+      apply ih
 
 -- ## Using `cases` on Expressions
 
@@ -1134,21 +1147,20 @@ theorem zip_unzip {α β : Type} (l : List (α × β))
     (l₁ : List α) (l₂ : List β)
     (h : unzip l = (l₁, l₂)) :
     zip l₁ l₂ = l := by
-  all_goals
-    induction l generalizing l₁ l₂ with
-    | nil =>
-      rw [unzip_nil] at h
-      injections h₁ h₂
-      rw [← h₁, ← h₂]
-      rfl
-    | cons x xs ih =>
-      let ⟨a, b⟩ := x
-      dsimp [unzip] at h
-      injections h₁ h₂
-      rw [← h₁, ← h₂]
-      dsimp [zip]
-      rw [ih]
-      rfl
+  induction l generalizing l₁ l₂ with
+  | nil =>
+    rw [unzip_nil] at h
+    injections h₁ h₂
+    rw [← h₁, ← h₂]
+    rfl
+  | cons x xs ih =>
+    let ⟨a, b⟩ := x
+    dsimp [unzip] at h
+    injections h₁ h₂
+    rw [← h₁, ← h₂]
+    dsimp [zip]
+    rw [ih]
+    rfl
 
 -- ### Splitting with Equations
 
@@ -1213,22 +1225,21 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
 
 theorem bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) :
     f (f (f b)) = f b := by
-  all_goals
-    cases b with
-    | false =>
-      cases h₁ : f false with
-      | false => rw [h₁]; assumption
-      | true =>
-        cases h₂ : f true with
-        | false => assumption
-        | true => assumption
+  cases b with
+  | false =>
+    cases h₁ : f false with
+    | false => rw [h₁]; assumption
     | true =>
-      cases h₁ : f true with
-      | false =>
-        cases h₂ : f false with
-        | false => assumption
-        | true => assumption
-      | true => rw [h₁]; assumption
+      cases h₂ : f true with
+      | false => assumption
+      | true => assumption
+  | true =>
+    cases h₁ : f true with
+    | false =>
+      cases h₂ : f false with
+      | false => assumption
+      | true => assumption
+    | true => rw [h₁]; assumption
 
 -- ## Review
 
@@ -1320,12 +1331,11 @@ theorem bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) :
 theorem append_left_cancel {α : Type} (l₁ l₂ l₃ : List α)
     (h : l₁ ++ l₂ = l₁ ++ l₃) :
     l₂ = l₃ := by
-  all_goals
-    induction l₁ with
-    | nil => assumption
-    | cons x xs ih =>
-      injections _ eq
-      exact ih eq
+  induction l₁ with
+  | nil => assumption
+  | cons x xs ih =>
+    injections _ eq
+    exact ih eq
 
 -- ### Exercise (3 stars): map_injective_of_injective ⭐⭐⭐
 
@@ -1344,23 +1354,22 @@ theorem map_injective_of_injective {α β : Type}
     (l₁ l₂ : List α)
     (h : map f l₁ = map f l₂) :
     l₁ = l₂ := by
-  all_goals
-    induction l₁ generalizing l₂ with
+  induction l₁ generalizing l₂ with
+  | nil =>
+    cases l₂ with
+    | nil => rfl
+    | cons y ys =>
+      rw [map_cons, map_nil] at h
+      contradiction
+  | cons x xs ih =>
+    cases l₂ with
     | nil =>
-      cases l₂ with
-      | nil => rfl
-      | cons y ys =>
-        rw [map_cons, map_nil] at h
-        contradiction
-    | cons x xs ih =>
-      cases l₂ with
-      | nil =>
-        rw [map_cons, map_nil] at h
-        contradiction
-      | cons y ys =>
-        rw [map_cons, map_cons] at h
-        injection h with hxy hxs
-        rw [hf x y hxy, ih ys hxs]
+      rw [map_cons, map_nil] at h
+      contradiction
+    | cons y ys =>
+      rw [map_cons, map_cons] at h
+      injection h with hxy hxs
+      rw [hf x y hxy, ih ys hxs]
 
 -- ### Exercise (3 stars): unzip_zip (Advanced, manually graded) ⭐⭐⭐
 
@@ -1423,20 +1432,19 @@ theorem test_pos_of_filter_cons {α : Type}
     (test : α → Bool) (x : α) (l l' : List α)
     (h : filter test l = x :: l') :
     test x = true := by
-  all_goals
-    induction l generalizing x l' test with
-    | nil => contradiction
-    | cons y ys ih =>
-      dsimp [filter] at h
-      cases hy : (test y)
-      · rw [hy] at h
-        dsimp at h
-        exact ih _ _ _ h
-      · rw [hy] at h
-        dsimp at h
-        injections h1 h2
-        rw [← h1]
-        exact hy
+  induction l generalizing x l' test with
+  | nil => contradiction
+  | cons y ys ih =>
+    dsimp [filter] at h
+    cases hy : (test y)
+    · rw [hy] at h
+      dsimp at h
+      exact ih _ _ _ h
+    · rw [hy] at h
+      dsimp at h
+      injections h1 h2
+      rw [← h1]
+      exact hy
 
 -- ### Exercise (4 stars): forall_exists_challenge (Advanced) ⭐⭐⭐⭐
 
@@ -1478,12 +1486,11 @@ def anyTrue' {α : Type} (test : α → Bool) (l : List α) : Bool := (
 
 theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     anyTrue test l = anyTrue' test l := by
-  all_goals
-    induction l generalizing test with
-    | nil => rfl
-    | cons x xs ih =>
-      dsimp [anyTrue]
-      rw [ih]
-      dsimp [anyTrue', allTrue]
-      rw [Bool.not_and, Bool.not_not]
+  induction l generalizing test with
+  | nil => rfl
+  | cons x xs ih =>
+    dsimp [anyTrue]
+    rw [ih]
+    dsimp [anyTrue', allTrue]
+    rw [Bool.not_and, Bool.not_not]
 

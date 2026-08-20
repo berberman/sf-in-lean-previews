@@ -802,27 +802,26 @@ inductive Substi (s : Tm) (x : String) : Tm → Tm → Prop where
 
 theorem substi_correct (s : Tm) (x : String) (t t' : Tm) :
     <{ [~x := ~s] ~t }> = t' ↔ Substi s x t t' := by
-  all_goals
-    constructor
-    · -- →
-      intro h
-      subst h
-      induction t with
-      | var y =>
-          by_cases hxy : x = y
-          · subst hxy; simp; exact .var1
-          · simp [hxy]; exact .var2 y hxy
-      | app t₁ t₂ ih₁ ih₂ => exact .app _ _ _ _ ih₁ ih₂
-      | abs y T t₁ ih =>
-          by_cases hxy : x = y
-          · subst hxy; simp; exact .abs1 T t₁
-          · simp [hxy]; exact .abs2 y T t₁ _ hxy ih
-      | tru => exact .tru
-      | fls => exact .fls
-      | ite t₁ t₂ t₃ ih₁ ih₂ ih₃ => exact .ite _ _ _ _ _ _ ih₁ ih₂ ih₃
-    · -- ←
-      intro h
-      induction h <;> simp_all
+  constructor
+  · -- →
+    intro h
+    subst h
+    induction t with
+    | var y =>
+        by_cases hxy : x = y
+        · subst hxy; simp; exact .var1
+        · simp [hxy]; exact .var2 y hxy
+    | app t₁ t₂ ih₁ ih₂ => exact .app _ _ _ _ ih₁ ih₂
+    | abs y T t₁ ih =>
+        by_cases hxy : x = y
+        · subst hxy; simp; exact .abs1 T t₁
+        · simp [hxy]; exact .abs2 y T t₁ _ hxy ih
+    | tru => exact .tru
+    | fls => exact .fls
+    | ite t₁ t₂ t₃ ih₁ ih₂ ih₃ => exact .ite _ _ _ _ _ _ ih₁ ih₂ ih₃
+  · -- ←
+    intro h
+    induction h <;> simp_all
 
 -- ### Reduction
 
@@ -1067,13 +1066,12 @@ example : <{ ~idBB (~notB true) }> ⟶* <{ false }> := by
 -- ### Exercise (2 stars): step_example5 ⭐⭐
 
 example : <{ ~idBBBB ~idBB ~idB }> ⟶* idB := by
-  all_goals
-    apply Multi.step (y := <{ ~idBB ~idB }>)
-    · exact .app1 <{ ~idBBBB ~idBB }> idBB idB
-        (.appAbs "x" <{ (Bool → Bool) → Bool → Bool }> <{ x }> idBB idBB_value)
-    apply Multi.step (y := idB)
-    · exact .appAbs "x" <{ Bool → Bool }> <{ x }> idB idB_value
-    · rfl
+  apply Multi.step (y := <{ ~idBB ~idB }>)
+  · exact .app1 <{ ~idBBBB ~idBB }> idBB idB
+      (.appAbs "x" <{ (Bool → Bool) → Bool → Bool }> <{ x }> idBB idBB_value)
+  apply Multi.step (y := idB)
+  · exact .appAbs "x" <{ Bool → Bool }> <{ x }> idB idB_value
+  · rfl
 
 -- ## Typing
 
@@ -1316,14 +1314,13 @@ example :
 example :
     <{ ∅ ⊢ λ x : Bool . λ y : Bool → Bool . y (y x) ⦂
        Bool → (Bool → Bool) → Bool }> := by
-  all_goals
-    apply HasType.abs
-    apply HasType.abs
-    apply HasType.app (T₂ := <{ Bool }>)
+  apply HasType.abs
+  apply HasType.abs
+  apply HasType.app (T₂ := <{ Bool }>)
+  · apply HasType.var; rfl
+  · apply HasType.app (T₂ := <{ Bool }>)
     · apply HasType.var; rfl
-    · apply HasType.app (T₂ := <{ Bool }>)
-      · apply HasType.var; rfl
-      · apply HasType.var; rfl
+    · apply HasType.var; rfl
 
 -- ### Exercise (2 stars): typing_example_3 ⭐⭐
 
@@ -1370,24 +1367,21 @@ example : ¬ ∃ T, <{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~T }> := by
 --   ¬ ∃ S T, ∅ ⊢ λx:S. x x ⦂ T
 
 example : ¬ ∃ S T, <{ ∅ ⊢ λ x : ~S . x x ⦂ ~T }> := by
-  all_goals
-    -- The two occurrences of `x` force its type `S` to satisfy `S = S → T`,
-    -- and no (finite) type does.
-    have arrow_ne : ∀ (T₁ T₂ : Ty), T₁ ≠ Ty.arrow T₁ T₂ := by
-      intro T₁
-      induction T₁ with
-      | bool => intro T₂ h; cases h
-      | arrow A B ihA _ => intro T₂ h; injection h with h₁ _; exact ihA B h₁
-    intro ⟨S, T, hc⟩
-    cases hc with
-    | abs _ _ _ _ _ h₁ =>
-      cases h₁ with
-      | app _ _ _ _ _ hf ha =>
-        cases hf with
-        | var _ _ _ hx =>
-          cases ha with
-          | var _ _ _ hy =>
-            exact arrow_ne _ _ ((Option.some.inj hy).symm.trans (Option.some.inj hx))
+  have arrow_ne : ∀ (T₁ T₂ : Ty), T₁ ≠ Ty.arrow T₁ T₂ := by
+    intro T₁
+    induction T₁ with
+    | bool => intro T₂ h; cases h
+    | arrow A B ihA _ => intro T₂ h; injection h with h₁ _; exact ihA B h₁
+  intro ⟨S, T, hc⟩
+  cases hc with
+  | abs _ _ _ _ _ h₁ =>
+    cases h₁ with
+    | app _ _ _ _ _ hf ha =>
+      cases hf with
+      | var _ _ _ hx =>
+        cases ha with
+        | var _ _ _ hy =>
+          exact arrow_ne _ _ ((Option.some.inj hy).symm.trans (Option.some.inj hx))
 
 -- Note to developers:
 --     The Rocq proof gets to the same contradiction through a chain of
