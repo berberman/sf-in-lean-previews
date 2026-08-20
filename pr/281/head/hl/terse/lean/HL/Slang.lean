@@ -272,12 +272,6 @@ theorem Aexp.evalR_iff_eval (a : Aexp) (n : Nat) :
 -- We can make the proof quite a bit shorter using more
 -- automation like we did in the previous section.
 
--- Note to developers (Michael Hicks @mwhicks1, before next release):
---     the `workinclass!` marker should signal this live
---     in-class exercise. But it is not rendering properly on
---     the HTML. In fact it replaces `workinclass!` with the
---     `all_goals` tactic, which we don't need.
-
 theorem Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) :
     a ⇓ n ↔ a.eval = n := by
   sorry

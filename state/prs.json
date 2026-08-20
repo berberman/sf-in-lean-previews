@@ -473,11 +473,48 @@
     },
     "281": {
       "base_sha": "0af8a1a49d4ecccfd21b836cb3155903e95fad3d",
-      "changed_variants": [],
-      "head_sha": "51043cd26cdee1f4d230081c21c91c0b1c337d21",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "b2819c48acff233ed0be2c35824e5e3ca4dac754",
       "preview_path": "pr/281/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32322954172",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32324049555",
+      "status": "published",
       "title": "Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/281"
     },

@@ -1038,17 +1038,6 @@ theorem and3_exchange (b c d : Bool) :
 
 -- ### New Tactics: `rewrite ... at` and `exact`
 
--- Note to developers (David Walker @princedpw):
---     The description of `rewrite ... at` appears wrong. It
---     should say something like the following. (I suggest
---     changing the letter associated with the rule from h to
---     something else -- perhaps r. I found that easier to
---     read.)
---
---     For example, if `hp : p` is in the context and we have a
---     rule `r : p = q`, then `rewrite [r] at hp` changes the
---     hypothesis to `hp : q`.
-
 -- You will need the `rewrite ... at` and `exact` tactics to
 -- complete the following exercises.
 

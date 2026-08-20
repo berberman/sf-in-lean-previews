@@ -292,10 +292,9 @@ theorem injection_ex1 (n m o : Nat) :
     [n, m] = [o, o] →
     n = m := by
   intro h
-  all_goals
-    injection h with h1 h2
-    injection h2 with h3
-    rw [h1, h3]
+  injection h with h1 h2
+  injection h2 with h3
+  rw [h1, h3]
 
 -- There is also a related tactic, `injections`, that applies the `injection`
 -- tactic to all your hypotheses at once, as many times in a row as it can.
@@ -306,9 +305,8 @@ theorem injection_ex2 (n m o : Nat) :
     [n, m] = [o, o] →
     n = m := by
   intro h
-  all_goals
-    injections h1 _ h3
-    rw [h1, h3]
+  injections h1 _ h3
+  rw [h1, h3]
 
 -- ### Exercise (3 stars): injection_ex3 ⭐⭐⭐
 

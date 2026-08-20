@@ -1,364 +1,359 @@
 {"999":
- "<code>Lean.Macro.throwUnsupported {α : Type} : MacroM α</code><span class=\"sep\"></span><code class=\"docstring\">Throw an `unsupportedSyntax` exception. </code>",
- "998":
- "<code>Lean.Quote.quote {α : Type} {k : optParam SyntaxNodeKind `term} [self : Quote α k] : α → TSyntax k</code><span class=\"sep\"></span><code class=\"docstring\">Returns syntax for the given value.\n</code>",
- "997":
- "<code>Lean.Syntax.Term : Type</code><span class=\"sep\"></span><code class=\"docstring\">Syntax that represents a Lean term.\n</code>",
- "996":
- "<code>Lean.MacroM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The `MacroM` monad is the main monad for macro expansion. It has the\ninformation needed to handle hygienic name generation, and is the monad that\n`macro` definitions live in.\n\nNotably, this is a (relatively) pure monad: there is no `IO` and no access to\nthe `Environment`. That means that things like declaration lookup are\nimpossible here, as well as `IO.Ref` or other side-effecting operations.\nFor more capabilities, macros can instead be written as `elab` using `adaptExpander`.\n</code>",
- "995": "<code>TSyntax `stlcVar</code>",
- "994":
- "<code>Stlc.varStr (x : TSyntax `stlcVar) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
- "993": "<code>Lean.Parser.Category.stlcVar : Lean.Parser.Category</code>",
- "992":
  "<code>Stlc.Tm.abs (x : String) (T : Stlc.Ty) (t : Stlc.Tm) : Stlc.Tm</code>",
- "991": "<code>Lean.TSyntax `stlcTy</code>",
- "990": "<code>Stlc.tyBracket : Lean.ParserDescr</code>",
+ "998": "<code>Lean.TSyntax `stlcTy</code>",
+ "997": "<code>Stlc.tyBracket : Lean.ParserDescr</code>",
+ "996":
+ "<code><span class=\"literal string\">\" -&gt; \"</span> : String</code>",
+ "995": "<code><span class=\"literal string\">\" → \"</span> : String</code>",
+ "994": "<code>Lean.Parser.Category.stlcTy : Lean.Parser.Category</code>",
+ "993": "<code>Stlc.Tm.ite (c t e : Tm) : Tm</code>",
+ "992": "<code>Stlc.Tm.fls : Tm</code>",
+ "991": "<code>Stlc.Tm.tru : Tm</code>",
+ "990": "<code>Stlc.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
  "99":
  "<code>Slang.optimize0plusB_test2 :\n  ((Bexp.le ((Aexp.num 0).plus (Aexp.num 4)) (Aexp.num 5)).and (Bexp.bool true)).optimize0plusB =\n    (Bexp.le (Aexp.num 4) (Aexp.num 5)).and (Bexp.bool true)</code>",
- "989":
- "<code><span class=\"literal string\">\" -&gt; \"</span> : String</code>",
- "988": "<code><span class=\"literal string\">\" → \"</span> : String</code>",
- "987": "<code>Lean.Parser.Category.stlcTy : Lean.Parser.Category</code>",
- "986": "<code>Stlc.Tm.ite (c t e : Tm) : Tm</code>",
- "985": "<code>Stlc.Tm.fls : Tm</code>",
- "984": "<code>Stlc.Tm.tru : Tm</code>",
- "983": "<code>Stlc.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
- "982": "<code>Stlc.Tm.app (t₁ t₂ : Tm) : Tm</code>",
- "981":
+ "989": "<code>Stlc.Tm.app (t₁ t₂ : Tm) : Tm</code>",
+ "988":
  "<code>String : Type</code><span class=\"sep\"></span><code class=\"docstring\">A string is a sequence of Unicode scalar values.\n\nAt runtime, strings are represented by [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)\nof bytes using the UTF-8 encoding. Both the size in bytes (`String.utf8ByteSize`) and in characters\n(`String.length`) are cached and take constant time. Many operations on strings perform in-place\nmodifications when the reference to the string is unique.\n</code>",
- "980": "<code>String</code>",
+ "987": "<code>String</code>",
+ "986": "<code>Stlc.Tm.var (x : String) : Tm</code>",
+ "985": "<code>Stlc.Tm : Type</code>",
+ "984": "<code>Stlc.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
+ "983": "<code>Stlc.Ty.bool : Ty</code>",
+ "982": "<code>Stlc.Ty : Type</code>",
+ "981":
+ "<code>ArrayOfSize (n : Nat) : Type</code><span class=\"sep\"></span><code class=\"docstring\">An array that contains precisely `n` numbers.  Used only as an example of a\ndependent type in the opening discussion of the lambda cube. </code>",
+ "980": "<code>&lt;{ ⊢ if false then true else 0 ⦂ Nat }&gt;</code>",
  "98":
  "<code>Slang.optimize0plusB_test1 :\n  (Bexp.gt ((Aexp.num 0).plus (Aexp.num 4)) (Aexp.num 8)).not.optimize0plusB = (Bexp.gt (Aexp.num 4) (Aexp.num 8)).not</code>",
- "979": "<code>Stlc.Tm.var (x : String) : Tm</code>",
- "978": "<code>Stlc.Tm : Type</code>",
- "977": "<code>Stlc.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
- "976": "<code>Stlc.Ty.bool : Ty</code>",
- "975": "<code>Stlc.Ty : Type</code>",
- "974":
- "<code>ArrayOfSize (n : Nat) : Type</code><span class=\"sep\"></span><code class=\"docstring\">An array that contains precisely `n` numbers.  Used only as an example of a\ndependent type in the opening discussion of the lambda cube. </code>",
- "973": "<code>&lt;{ ⊢ if false then true else 0 ⦂ Nat }&gt;</code>",
- "972":
+ "979":
  "<code>∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;</code>",
- "971":
+ "978":
  "<code>TM.subject_expansion :\n  (∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;) ∨\n    ¬∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;</code>",
- "970": "<code>∀ (T : Ty), &lt;{ ⊢ b ⦂ T }&gt; → ¬c.IsStuck</code>",
+ "977": "<code>∀ (T : Ty), &lt;{ ⊢ b ⦂ T }&gt; → ¬c.IsStuck</code>",
+ "976": "<code>Multi Tm.Step b c</code>",
+ "975": "<code>∃ t', a ⟶ t'</code>",
+ "974": "<code>a.IsValue</code>",
+ "973": "<code>¬a.IsValue</code>",
+ "972": "<code>a.IsNormalForm</code>",
+ "971": "<code>a.IsStuck</code>",
+ "970": "<code>&lt;{ ⊢ a ⦂ T }&gt;</code>",
  "97": "<code>Slang.Bexp.optimize0plusB (b : Bexp) : Bexp</code>",
- "969": "<code>Multi Tm.Step b c</code>",
- "968": "<code>∃ t', a ⟶ t'</code>",
- "967": "<code>a.IsValue</code>",
- "966": "<code>¬a.IsValue</code>",
- "965": "<code>a.IsNormalForm</code>",
- "964": "<code>a.IsStuck</code>",
- "963": "<code>&lt;{ ⊢ a ⦂ T }&gt;</code>",
- "962":
+ "969":
  "<code>TM.soundness (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (hm : t ⟶* t') : ¬t'.IsStuck</code>",
- "961": "<code>TM.Tm.MultiStep (t1 t2 : Tm) : Prop</code>",
- "960": "<code>&lt;{ ⊢ iszero t1 ⦂ T }&gt;</code>",
+ "968": "<code>TM.Tm.MultiStep (t1 t2 : Tm) : Prop</code>",
+ "967": "<code>&lt;{ ⊢ iszero t1 ⦂ T }&gt;</code>",
+ "966": "<code>&lt;{ ⊢ iszero (succ v) ⦂ T }&gt;</code>",
+ "965": "<code>&lt;{ ⊢ iszero 0 ⦂ T }&gt;</code>",
+ "964": "<code>&lt;{ ⊢ pred t1 ⦂ T }&gt;</code>",
+ "963": "<code>&lt;{ ⊢ v ⦂ Nat }&gt;</code>",
+ "962": "<code>&lt;{ ⊢ pred (succ v) ⦂ T }&gt;</code>",
+ "961": "<code>&lt;{ ⊢ pred 0 ⦂ T }&gt;</code>",
+ "960": "<code>&lt;{ ⊢ succ t1 ⦂ T }&gt;</code>",
  "96": "<code>e₁✝.optimize0plus.eval = e₁✝.eval</code>",
- "959": "<code>&lt;{ ⊢ iszero (succ v) ⦂ T }&gt;</code>",
- "958": "<code>&lt;{ ⊢ iszero 0 ⦂ T }&gt;</code>",
- "957": "<code>&lt;{ ⊢ pred t1 ⦂ T }&gt;</code>",
- "956": "<code>&lt;{ ⊢ v ⦂ Nat }&gt;</code>",
- "955": "<code>&lt;{ ⊢ pred (succ v) ⦂ T }&gt;</code>",
- "954": "<code>&lt;{ ⊢ pred 0 ⦂ T }&gt;</code>",
- "953": "<code>&lt;{ ⊢ succ t1 ⦂ T }&gt;</code>",
- "952": "<code>∀ (T : Ty), &lt;{ ⊢ t1 ⦂ T }&gt; → &lt;{ ⊢ t1' ⦂ T }&gt;</code>",
- "951": "<code>&lt;{ ⊢ c ⦂ Bool }&gt;</code>",
- "950": "<code>&lt;{ ⊢ if c then t2 else t3 ⦂ T }&gt;</code>",
+ "959": "<code>∀ (T : Ty), &lt;{ ⊢ t1 ⦂ T }&gt; → &lt;{ ⊢ t1' ⦂ T }&gt;</code>",
+ "958": "<code>&lt;{ ⊢ c ⦂ Bool }&gt;</code>",
+ "957": "<code>&lt;{ ⊢ if c then t2 else t3 ⦂ T }&gt;</code>",
+ "956": "<code>∀ (T : Ty), &lt;{ ⊢ c ⦂ T }&gt; → &lt;{ ⊢ c' ⦂ T }&gt;</code>",
+ "955": "<code>&lt;{ ⊢ if false then t1 else t2 ⦂ T }&gt;</code>",
+ "954": "<code>&lt;{ ⊢ t1 ⦂ T }&gt;</code>",
+ "953": "<code>&lt;{ ⊢ if true then t1 else t2 ⦂ T }&gt;</code>",
+ "952":
+ "<code>TM.preservation' (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ T }&gt;</code>",
+ "951":
+ "<code>∀ (t' : Tm), &lt;{ succ v }&gt; ⟶ t' → &lt;{ ⊢ t' ⦂ Nat }&gt;</code>",
+ "950": "<code>&lt;{ ⊢ succ v ⦂ Nat }&gt;</code>",
  "95":
  "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
- "949": "<code>∀ (T : Ty), &lt;{ ⊢ c ⦂ T }&gt; → &lt;{ ⊢ c' ⦂ T }&gt;</code>",
- "948": "<code>&lt;{ ⊢ if false then t1 else t2 ⦂ T }&gt;</code>",
- "947": "<code>&lt;{ ⊢ t1 ⦂ T }&gt;</code>",
- "946": "<code>&lt;{ ⊢ if true then t1 else t2 ⦂ T }&gt;</code>",
- "945":
- "<code>TM.preservation' (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ T }&gt;</code>",
- "944":
- "<code>∀ (t' : Tm), &lt;{ succ v }&gt; ⟶ t' → &lt;{ ⊢ t' ⦂ Nat }&gt;</code>",
- "943": "<code>&lt;{ ⊢ succ v ⦂ Nat }&gt;</code>",
- "942": "<code>&lt;{ iszero t1 }&gt; ⟶ t'</code>",
- "941": "<code>&lt;{ ⊢ t' ⦂ Nat }&gt;</code>",
- "940":
+ "949": "<code>&lt;{ iszero t1 }&gt; ⟶ t'</code>",
+ "948": "<code>&lt;{ ⊢ t' ⦂ Nat }&gt;</code>",
+ "947":
  "<code>∀ (t'_1 : Tm), &lt;{ succ t' }&gt; ⟶ t'_1 → &lt;{ ⊢ t'_1 ⦂ Nat }&gt;</code>",
+ "946": "<code>&lt;{ ⊢ succ t' ⦂ Nat }&gt;</code>",
+ "945": "<code>t'.IsNValue</code>",
+ "944": "<code>∀ (t' : Tm), &lt;{ 0 }&gt; ⟶ t' → &lt;{ ⊢ t' ⦂ Nat }&gt;</code>",
+ "943": "<code>&lt;{ pred t1 }&gt; ⟶ t'</code>",
+ "942": "<code>&lt;{ succ t1 }&gt; ⟶ t'</code>",
+ "941": "<code>∀ (t' : Tm), t1 ⟶ t' → &lt;{ ⊢ t' ⦂ Nat }&gt;</code>",
+ "940": "<code>t1 ⟶ c'</code>",
  "94": "<code>e₁✝ = Aexp.num 0 → False</code>",
- "939": "<code>&lt;{ ⊢ succ t' ⦂ Nat }&gt;</code>",
- "938": "<code>t'.IsNValue</code>",
- "937": "<code>∀ (t' : Tm), &lt;{ 0 }&gt; ⟶ t' → &lt;{ ⊢ t' ⦂ Nat }&gt;</code>",
- "936": "<code>&lt;{ pred t1 }&gt; ⟶ t'</code>",
- "935": "<code>&lt;{ succ t1 }&gt; ⟶ t'</code>",
- "934": "<code>∀ (t' : Tm), t1 ⟶ t' → &lt;{ ⊢ t' ⦂ Nat }&gt;</code>",
- "933": "<code>t1 ⟶ c'</code>",
- "932": "<code>c✝ ⟶ c'</code>",
- "931":
+ "939": "<code>c✝ ⟶ c'</code>",
+ "938":
  "<code>∀ (t' : Tm), &lt;{ false }&gt; ⟶ t' → &lt;{ ⊢ t' ⦂ Bool }&gt;</code>",
- "930":
+ "937":
  "<code>∀ (t' : Tm), &lt;{ true }&gt; ⟶ t' → &lt;{ ⊢ t' ⦂ Bool }&gt;</code>",
- "93": "<code>e₂✝.optimize0plus.eval = e₂✝.eval</code>",
- "929": "<code>&lt;{ if t1 then t2 else t3 }&gt; ⟶ t'</code>",
- "928": "<code>∀ (t' : Tm), t3 ⟶ t' → &lt;{ ⊢ t' ⦂ T }&gt;</code>",
- "927": "<code>∀ (t' : Tm), t2 ⟶ t' → &lt;{ ⊢ t' ⦂ T }&gt;</code>",
- "926": "<code>∀ (t' : Tm), t1 ⟶ t' → &lt;{ ⊢ t' ⦂ Bool }&gt;</code>",
- "925":
+ "936": "<code>&lt;{ if t1 then t2 else t3 }&gt; ⟶ t'</code>",
+ "935": "<code>∀ (t' : Tm), t3 ⟶ t' → &lt;{ ⊢ t' ⦂ T }&gt;</code>",
+ "934": "<code>∀ (t' : Tm), t2 ⟶ t' → &lt;{ ⊢ t' ⦂ T }&gt;</code>",
+ "933": "<code>∀ (t' : Tm), t1 ⟶ t' → &lt;{ ⊢ t' ⦂ Bool }&gt;</code>",
+ "932":
  "<code>TM.preservation (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ T }&gt;</code>",
- "924":
+ "931":
  "<code>TM.Tm.HasType.isZero (t1 : Tm) (h : &lt;{ ⊢ t1 ⦂ Nat }&gt;) : &lt;{ ⊢ iszero t1 ⦂ Bool }&gt;</code>",
- "923": "<code>&lt;{ ⊢ succ t0 ⦂ Nat }&gt;</code>",
- "922": "<code>&lt;{ ⊢ 0 ⦂ Nat }&gt;</code>",
- "921":
+ "930": "<code>&lt;{ ⊢ succ t0 ⦂ Nat }&gt;</code>",
+ "93": "<code>e₂✝.optimize0plus.eval = e₂✝.eval</code>",
+ "929": "<code>&lt;{ ⊢ 0 ⦂ Nat }&gt;</code>",
+ "928":
  "<code>TM.Tm.HasType.pred (t1 : Tm) (h : &lt;{ ⊢ t1 ⦂ Nat }&gt;) : &lt;{ ⊢ pred t1 ⦂ Nat }&gt;</code>",
- "920": "<code>t1 ⟶ t'</code>",
+ "927": "<code>t1 ⟶ t'</code>",
+ "926": "<code>&lt;{ ⊢ t1 ⦂ Nat }&gt;</code>",
+ "925": "<code>∃ t', t1 ⟶ t'</code>",
+ "924": "<code>t1.IsValue</code>",
+ "923": "<code>t3.IsValue ∨ ∃ t', t3 ⟶ t'</code>",
+ "922": "<code>t2.IsValue ∨ ∃ t', t2 ⟶ t'</code>",
+ "921": "<code>t1.IsValue ∨ ∃ t', t1 ⟶ t'</code>",
+ "920": "<code>&lt;{ ⊢ t3 ⦂ T }&gt;</code>",
  "92":
  "<code>Slang.optimize0plus_sound' (a : Aexp) : a.optimize0plus.eval = a.eval</code>",
- "919": "<code>&lt;{ ⊢ t1 ⦂ Nat }&gt;</code>",
- "918": "<code>t1.IsValue</code>",
- "917": "<code>t3.IsValue ∨ ∃ t', t3 ⟶ t'</code>",
- "916": "<code>t2.IsValue ∨ ∃ t', t2 ⟶ t'</code>",
- "915": "<code>t1.IsValue ∨ ∃ t', t1 ⟶ t'</code>",
- "914": "<code>&lt;{ ⊢ t3 ⦂ T }&gt;</code>",
- "913": "<code>&lt;{ ⊢ t2 ⦂ T }&gt;</code>",
- "912": "<code>&lt;{ ⊢ t1 ⦂ Bool }&gt;</code>",
- "911": "<code>TM.Tm.HasType.tru : &lt;{ ⊢ true ⦂ Bool }&gt;</code>",
- "910": "<code>&lt;{ ⊢ t ⦂ T }&gt;</code>",
+ "919": "<code>&lt;{ ⊢ t2 ⦂ T }&gt;</code>",
+ "918": "<code>&lt;{ ⊢ t1 ⦂ Bool }&gt;</code>",
+ "917": "<code>TM.Tm.HasType.tru : &lt;{ ⊢ true ⦂ Bool }&gt;</code>",
+ "916": "<code>&lt;{ ⊢ t ⦂ T }&gt;</code>",
+ "915":
+ "<code>TM.progress (t : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
+ "914": "<code>&lt;{ ⊢ false ⦂ Nat }&gt;</code>",
+ "913": "<code>&lt;{ ⊢ true ⦂ Nat }&gt;</code>",
+ "912":
+ "<code>TM.nat_canonical (t : Tm) (hT : &lt;{ ⊢ t ⦂ Nat }&gt;) (hv : t.IsValue) : t.IsNValue</code>",
+ "911": "<code>&lt;{ ⊢ succ t0 ⦂ Bool }&gt;</code>",
+ "910": "<code>&lt;{ ⊢ t ⦂ Bool }&gt;</code>",
  "91":
  "<code class=\"docstring\">`simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target\nare simplified multiple times until no simplification is applicable.\nOnly non-dependent propositional hypotheses are considered.\n</code>",
  "909":
- "<code>TM.progress (t : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
- "908": "<code>&lt;{ ⊢ false ⦂ Nat }&gt;</code>",
- "907": "<code>&lt;{ ⊢ true ⦂ Nat }&gt;</code>",
- "906":
- "<code>TM.nat_canonical (t : Tm) (hT : &lt;{ ⊢ t ⦂ Nat }&gt;) (hv : t.IsValue) : t.IsNValue</code>",
- "905": "<code>&lt;{ ⊢ succ t0 ⦂ Bool }&gt;</code>",
- "904": "<code>&lt;{ ⊢ t ⦂ Bool }&gt;</code>",
- "903":
  "<code>TM.bool_canonical (t : Tm) (hT : &lt;{ ⊢ t ⦂ Bool }&gt;) (hv : t.IsValue) : t.IsBValue</code>",
- "902": "<code>&lt;{ ⊢ t ⦂ Nat }&gt;</code>",
- "901": "<code>&lt;{ ⊢ t1✝ ⦂ Nat }&gt;</code>",
- "900": "<code>&lt;{ ⊢ succ t ⦂ Nat }&gt;</code>",
+ "908": "<code>&lt;{ ⊢ t ⦂ Nat }&gt;</code>",
+ "907": "<code>&lt;{ ⊢ t1✝ ⦂ Nat }&gt;</code>",
+ "906": "<code>&lt;{ ⊢ succ t ⦂ Nat }&gt;</code>",
+ "905": "<code>&lt;{ ⊢ succ false ⦂ Bool }&gt;</code>",
+ "904": "<code>&lt;{ ⊢ iszero (succ 0) ⦂ Bool }&gt;</code>",
+ "903":
+ "<code>&lt;{ ⊢ if iszero (succ 0) then succ false else true ⦂ Bool }&gt;</code>",
+ "902": "<code>&lt;{ ⊢ true ⦂ Bool }&gt;</code>",
+ "901": "<code>&lt;{ ⊢ 0 ⦂ Bool }&gt;</code>",
+ "900": "<code>&lt;{ ⊢ false ⦂ Bool }&gt;</code>",
  "90":
  "<code class=\"docstring\">`tac &lt;;&gt; tac'` runs `tac` on the main goal and `tac'` on each produced goal,\nconcatenating all goals produced by `tac'`.\n</code>",
  "9": "<code>Slang.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
- "899": "<code>&lt;{ ⊢ succ false ⦂ Bool }&gt;</code>",
- "898": "<code>&lt;{ ⊢ iszero (succ 0) ⦂ Bool }&gt;</code>",
- "897":
- "<code>&lt;{ ⊢ if iszero (succ 0) then succ false else true ⦂ Bool }&gt;</code>",
- "896": "<code>&lt;{ ⊢ true ⦂ Bool }&gt;</code>",
- "895": "<code>&lt;{ ⊢ 0 ⦂ Bool }&gt;</code>",
- "894": "<code>&lt;{ ⊢ false ⦂ Bool }&gt;</code>",
- "893": "<code>&lt;{ ⊢ t3✝ ⦂ T✝ }&gt;</code>",
- "892": "<code>&lt;{ ⊢ t2✝ ⦂ T✝ }&gt;</code>",
- "891": "<code>&lt;{ ⊢ t1✝ ⦂ Bool }&gt;</code>",
- "890": "<code>&lt;{ ⊢ if false then 0 else true ⦂ Bool }&gt;</code>",
+ "899": "<code>&lt;{ ⊢ t3✝ ⦂ T✝ }&gt;</code>",
+ "898": "<code>&lt;{ ⊢ t2✝ ⦂ T✝ }&gt;</code>",
+ "897": "<code>&lt;{ ⊢ t1✝ ⦂ Bool }&gt;</code>",
+ "896": "<code>&lt;{ ⊢ if false then 0 else true ⦂ Bool }&gt;</code>",
+ "895":
+ "<code>TM.Tm.HasType.succ (t1 : Tm) (h : &lt;{ ⊢ t1 ⦂ Nat }&gt;) : &lt;{ ⊢ succ t1 ⦂ Nat }&gt;</code>",
+ "894": "<code>TM.Tm.HasType.zero : &lt;{ ⊢ 0 ⦂ Nat }&gt;</code>",
+ "893": "<code>TM.Tm.HasType.fls : &lt;{ ⊢ false ⦂ Bool }&gt;</code>",
+ "892":
+ "<code>TM.Tm.HasType.ite (t1 t2 t3 : Tm) (T : Ty) (h1 : &lt;{ ⊢ t1 ⦂ Bool }&gt;) (h2 : &lt;{ ⊢ t2 ⦂ T }&gt;) (h3 : &lt;{ ⊢ t3 ⦂ T }&gt;) :\n  &lt;{ ⊢ if t1 then t2 else t3 ⦂ T }&gt;</code>",
+ "891":
+ "<code>MonadExcept.throw.{u, v, w} {ε : outParam (Type u)} {m : Type v → Type w} [self : MonadExcept ε m] {α : Type v} :\n  ε → m α</code><span class=\"sep\"></span><code class=\"docstring\">Throws an exception of type `ε` to the nearest enclosing handler.\n</code>",
+ "890":
+ "<code>Lean.TSyntax.raw {ks : Lean.SyntaxNodeKinds} (self : Lean.TSyntax ks) : Lean.Syntax</code><span class=\"sep\"></span><code class=\"docstring\">The underlying `Syntax` value. </code>",
  "89":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
  "889":
- "<code>TM.Tm.HasType.succ (t1 : Tm) (h : &lt;{ ⊢ t1 ⦂ Nat }&gt;) : &lt;{ ⊢ succ t1 ⦂ Nat }&gt;</code>",
- "888": "<code>TM.Tm.HasType.zero : &lt;{ ⊢ 0 ⦂ Nat }&gt;</code>",
- "887": "<code>TM.Tm.HasType.fls : &lt;{ ⊢ false ⦂ Bool }&gt;</code>",
- "886":
- "<code>TM.Tm.HasType.ite (t1 t2 t3 : Tm) (T : Ty) (h1 : &lt;{ ⊢ t1 ⦂ Bool }&gt;) (h2 : &lt;{ ⊢ t2 ⦂ T }&gt;) (h3 : &lt;{ ⊢ t3 ⦂ T }&gt;) :\n  &lt;{ ⊢ if t1 then t2 else t3 ⦂ T }&gt;</code>",
- "885":
- "<code>MonadExcept.throw.{u, v, w} {ε : outParam (Type u)} {m : Type v → Type w} [self : MonadExcept ε m] {α : Type v} :\n  ε → m α</code><span class=\"sep\"></span><code class=\"docstring\">Throws an exception of type `ε` to the nearest enclosing handler.\n</code>",
- "884":
- "<code>Lean.TSyntax.raw {ks : Lean.SyntaxNodeKinds} (self : Lean.TSyntax ks) : Lean.Syntax</code><span class=\"sep\"></span><code class=\"docstring\">The underlying `Syntax` value. </code>",
- "883":
  "<code>Lean.TSyntax.mk {ks : Lean.SyntaxNodeKinds} (raw : Lean.Syntax) : Lean.TSyntax ks</code>",
- "882":
+ "888":
  "<code>Lean.PrettyPrinter.Unexpander : Type</code><span class=\"sep\"></span><code class=\"docstring\">Function that tries to reverse macro expansions as a post-processing step of delaboration.\nWhile less general than an arbitrary delaborator, it can be declared without importing `Lean`.\nUsed by the `[app_unexpander]` attribute.\n</code>",
- "881": "<code>TM.Tm.HasType.unexpand : Lean.PrettyPrinter.Unexpander</code>",
- "880":
+ "887": "<code>TM.Tm.HasType.unexpand : Lean.PrettyPrinter.Unexpander</code>",
+ "886":
  "<code>Alternative.failure.{u, v} {f : Type u → Type v} [self : Alternative f] {α : Type u} : f α</code><span class=\"sep\"></span><code class=\"docstring\">Produces an empty collection or recoverable failure.  The `&lt;|&gt;` operator collects values or recovers\nfrom failures. See `Alternative` for more details.\n</code>",
- "88": "<code>Nat.even n'✝ = true → Nat.even (n'✝ + 1) = false</code>",
- "879": "<code>TM.delabTy : Delab</code>",
- "878":
+ "885": "<code>TM.delabTy : Delab</code>",
+ "884":
  "<code>TM.Tm.HasType.isZero (t1 : Tm) (h : t1.HasType Ty.nat) : &lt;{ iszero t1 }&gt;.HasType Ty.bool</code>",
- "877":
+ "883":
  "<code>TM.Tm.HasType.pred (t1 : Tm) (h : t1.HasType Ty.nat) : &lt;{ pred t1 }&gt;.HasType Ty.nat</code>",
- "876": "<code>HasType t1 Ty.nat</code>",
- "875":
+ "882": "<code>HasType t1 Ty.nat</code>",
+ "881":
  "<code>TM.Tm.HasType.succ (t1 : Tm) (h : t1.HasType Ty.nat) : &lt;{ succ t1 }&gt;.HasType Ty.nat</code>",
- "874": "<code>TM.Tm.HasType.zero : &lt;{ 0 }&gt;.HasType Ty.nat</code>",
- "873": "<code>HasType t3 T</code>",
- "872": "<code>HasType t2 T</code>",
- "871": "<code>HasType t1 Ty.bool</code>",
- "870": "<code>Ty</code>",
+ "880": "<code>TM.Tm.HasType.zero : &lt;{ 0 }&gt;.HasType Ty.nat</code>",
+ "88": "<code>Nat.even n'✝ = true → Nat.even (n'✝ + 1) = false</code>",
+ "879": "<code>HasType t3 T</code>",
+ "878": "<code>HasType t2 T</code>",
+ "877": "<code>HasType t1 Ty.bool</code>",
+ "876": "<code>Ty</code>",
+ "875":
+ "<code>TM.Tm.HasType.ite (t1 t2 t3 : Tm) (T : Ty) (h1 : t1.HasType Ty.bool) (h2 : t2.HasType T) (h3 : t3.HasType T) :\n  &lt;{ if t1 then t2 else t3 }&gt;.HasType T</code>",
+ "874": "<code>TM.Tm.HasType.fls : &lt;{ false }&gt;.HasType Ty.bool</code>",
+ "873": "<code>TM.Tm.HasType.tru : &lt;{ true }&gt;.HasType Ty.bool</code>",
+ "872": "<code>TM.Tm.HasType : Tm → Ty → Prop</code>",
+ "871": "<code><span class=\"literal string\">\"Nat\"</span> : String</code>",
+ "870": "<code><span class=\"literal string\">\"Bool\"</span> : String</code>",
  "87":
  "<code class=\"docstring\">`contradiction` closes the main goal if its hypotheses are \"trivially contradictory\".\n\n- Inductive type/family with no applicable constructors\n  ```lean\n  example (h : False) : p := by contradiction\n  ```\n- Injectivity of constructors\n  ```lean\n  example (h : none = some true) : p := by contradiction  --\n  ```\n- Decidable false proposition\n  ```lean\n  example (h : 2 + 2 = 3) : p := by contradiction\n  ```\n- Contradictory hypotheses\n  ```lean\n  example (h : p) (h' : ¬ p) : q := by contradiction\n  ```\n- Other simple contradictions such as\n  ```lean\n  example (x : Nat) (h : x ≠ x) : p := by contradiction\n  ```\n</code>",
  "869":
- "<code>TM.Tm.HasType.ite (t1 t2 t3 : Tm) (T : Ty) (h1 : t1.HasType Ty.bool) (h2 : t2.HasType T) (h3 : t3.HasType T) :\n  &lt;{ if t1 then t2 else t3 }&gt;.HasType T</code>",
- "868": "<code>TM.Tm.HasType.fls : &lt;{ false }&gt;.HasType Ty.bool</code>",
- "867": "<code>TM.Tm.HasType.tru : &lt;{ true }&gt;.HasType Ty.bool</code>",
- "866": "<code>TM.Tm.HasType : Tm → Ty → Prop</code>",
- "865": "<code><span class=\"literal string\">\"Nat\"</span> : String</code>",
- "864": "<code><span class=\"literal string\">\"Bool\"</span> : String</code>",
- "863":
  "<code>Lean.Name.toString (n : Lean.Name) (escape : Bool := true) : String</code><span class=\"sep\"></span><code class=\"docstring\">Converts a name to a string.\n\n- If `escape` is `true`, then escapes name components using `«` and `»` to ensure that\nthose names that can appear in source files round trip.\nNames with number components, anonymous names, and names containing `»` might not round trip.\nFurthermore, \"pseudo-syntax\" produced by the delaborator, such as `_`, `#0` or `?u`, is not escaped.\n</code>",
- "862":
+ "868":
  "<code>Lean.TSyntax.getId (s : Lean.Ident) : Lean.Name</code><span class=\"sep\"></span><code class=\"docstring\">Extracts the parsed name from the syntax of an identifier.\n\nReturns `Name.anonymous` if the syntax is malformed.\n</code>",
- "861": "<code>Lean.TSyntax `ident</code>",
- "860": "<code>Lean.TSyntax `tm</code>",
+ "867": "<code>Lean.TSyntax `ident</code>",
+ "866": "<code>Lean.TSyntax `tm</code>",
+ "865": "<code><span class=\"literal string\">\" ⦂ \"</span> : String</code>",
+ "864": "<code><span class=\"literal string\">\"⊢ \"</span> : String</code>",
+ "863": "<code>TM.Ty.nat : Ty</code>",
+ "862": "<code>TM.Ty.bool : Ty</code>",
+ "861": "<code>TM.Ty : Type</code>",
+ "860": "<code>TM.alt_simplify_step (t : Tm) : Option Tm</code>",
  "86": "<code>Nat.even n'✝ = true</code>",
- "859": "<code><span class=\"literal string\">\" ⦂ \"</span> : String</code>",
- "858": "<code><span class=\"literal string\">\"⊢ \"</span> : String</code>",
- "857": "<code>TM.Ty.nat : Ty</code>",
- "856": "<code>TM.Ty.bool : Ty</code>",
- "855": "<code>TM.Ty : Type</code>",
- "854": "<code>TM.alt_simplify_step (t : Tm) : Option Tm</code>",
- "853":
+ "859":
  "<code>TM.Tm.AltStep.isZeroStep (t1 t1' : Tm) : t1.AltStep t1' → &lt;{ iszero t1 }&gt;.AltStep &lt;{ iszero t1' }&gt;</code>",
- "852":
+ "858":
  "<code>TM.Tm.AltStep.isZeroSucc (t1 : Tm) : &lt;{ iszero (succ t1) }&gt;.AltStep &lt;{ false }&gt;</code>",
- "851":
+ "857":
  "<code>TM.Tm.AltStep.isZeroZero : &lt;{ iszero 0 }&gt;.AltStep &lt;{ true }&gt;</code>",
- "850":
+ "856":
  "<code>TM.Tm.AltStep.predStep (t1 t1' : Tm) : t1.AltStep t1' → &lt;{ pred t1 }&gt;.AltStep &lt;{ pred t1' }&gt;</code>",
- "85": "<code>Nat.even n'✝ = true → Nat.odd n'✝ = false</code>",
- "849":
+ "855":
  "<code>TM.Tm.AltStep.predSucc (t1 : Tm) : &lt;{ pred (succ t1) }&gt;.AltStep t1</code>",
- "848":
+ "854":
  "<code>TM.Tm.AltStep.predZero : &lt;{ pred 0 }&gt;.AltStep &lt;{ 0 }&gt;</code>",
- "847":
+ "853":
  "<code>TM.Tm.AltStep.succStep (t1 t1' : Tm) : t1.AltStep t1' → &lt;{ succ t1 }&gt;.AltStep &lt;{ succ t1' }&gt;</code>",
- "846":
+ "852":
  "<code>TM.Tm.AltStep.ifStep (t1 t1' t2 t3 : Tm) :\n  t1.AltStep t1' → &lt;{ if t1 then t2 else t3 }&gt;.AltStep &lt;{ if t1' then t2 else t3 }&gt;</code>",
- "845":
+ "851":
  "<code>TM.Tm.AltStep.ifFalse (t1 t2 : Tm) : &lt;{ if false then t1 else t2 }&gt;.AltStep t2</code>",
- "844":
+ "850":
  "<code>TM.Tm.AltStep.ifTrue (t1 t2 : Tm) : &lt;{ if true then t1 else t2 }&gt;.AltStep t1</code>",
- "843": "<code>TM.Tm.AltStep : Tm → Tm → Prop</code>",
- "842": "<code><span class=\"literal string\">\" ⇢ \"</span> : String</code>",
- "841": "<code>∀ (y2 : Tm), &lt;{ succ v✝ }&gt; ⟶ y2 → t1' = y2</code>",
- "840": "<code>&lt;{ succ v✝ }&gt; ⟶ t1'</code>",
- "84": "<code>false = true</code>",
- "839": "<code>&lt;{ iszero t1 }&gt; ⟶ y2</code>",
- "838": "<code>&lt;{ iszero (succ v) }&gt; ⟶ y2</code>",
- "837":
+ "85": "<code>Nat.even n'✝ = true → Nat.odd n'✝ = false</code>",
+ "849": "<code>TM.Tm.AltStep : Tm → Tm → Prop</code>",
+ "848": "<code><span class=\"literal string\">\" ⇢ \"</span> : String</code>",
+ "847": "<code>∀ (y2 : Tm), &lt;{ succ v✝ }&gt; ⟶ y2 → t1' = y2</code>",
+ "846": "<code>&lt;{ succ v✝ }&gt; ⟶ t1'</code>",
+ "845": "<code>&lt;{ iszero t1 }&gt; ⟶ y2</code>",
+ "844": "<code>&lt;{ iszero (succ v) }&gt; ⟶ y2</code>",
+ "843":
  "<code>TM.Tm.Step.isZeroSucc (v : Tm) (hv : v.IsNValue) : &lt;{ iszero (succ v) }&gt; ⟶ &lt;{ false }&gt;</code>",
- "836":
+ "842":
  "<code>TM.Tm.Step.isZeroStep (t1 t1' : Tm) (h : t1 ⟶ t1') : &lt;{ iszero t1 }&gt; ⟶ &lt;{ iszero t1' }&gt;</code>",
- "835": "<code>&lt;{ iszero 0 }&gt; ⟶ y2</code>",
- "834":
+ "841": "<code>&lt;{ iszero 0 }&gt; ⟶ y2</code>",
+ "840":
  "<code>TM.Tm.Step.isZeroZero : &lt;{ iszero 0 }&gt; ⟶ &lt;{ true }&gt;</code>",
- "833": "<code>∀ (y2_1 : Tm), &lt;{ succ y2 }&gt; ⟶ y2_1 → t1' = y2_1</code>",
- "832": "<code>&lt;{ succ y2 }&gt; ⟶ t1'</code>",
- "831": "<code>y2.IsNValue</code>",
- "830": "<code>v✝.IsNValue</code>",
- "83": "<code>true = true</code>",
- "829": "<code>∀ (y2 : Tm), &lt;{ 0 }&gt; ⟶ y2 → t1' = y2</code>",
- "828": "<code>&lt;{ 0 }&gt; ⟶ t1'</code>",
- "827": "<code>&lt;{ pred t1 }&gt; ⟶ y2</code>",
- "826": "<code>&lt;{ succ v }&gt; ⟶ t1'✝</code>",
- "825": "<code>&lt;{ pred (succ v) }&gt; ⟶ y2</code>",
- "824":
+ "84": "<code>false = true</code>",
+ "839": "<code>∀ (y2_1 : Tm), &lt;{ succ y2 }&gt; ⟶ y2_1 → t1' = y2_1</code>",
+ "838": "<code>&lt;{ succ y2 }&gt; ⟶ t1'</code>",
+ "837": "<code>y2.IsNValue</code>",
+ "836": "<code>v✝.IsNValue</code>",
+ "835": "<code>∀ (y2 : Tm), &lt;{ 0 }&gt; ⟶ y2 → t1' = y2</code>",
+ "834": "<code>&lt;{ 0 }&gt; ⟶ t1'</code>",
+ "833": "<code>&lt;{ pred t1 }&gt; ⟶ y2</code>",
+ "832": "<code>&lt;{ succ v }&gt; ⟶ t1'✝</code>",
+ "831": "<code>&lt;{ pred (succ v) }&gt; ⟶ y2</code>",
+ "830":
  "<code>TM.Tm.Step.predSucc (v : Tm) (hv : v.IsNValue) : &lt;{ pred (succ v) }&gt; ⟶ v</code>",
- "823": "<code>&lt;{ 0 }&gt; ⟶ t1'✝</code>",
- "822":
+ "83": "<code>true = true</code>",
+ "829": "<code>&lt;{ 0 }&gt; ⟶ t1'✝</code>",
+ "828":
  "<code>TM.Tm.Step.predStep (t1 t1' : Tm) (h : t1 ⟶ t1') : &lt;{ pred t1 }&gt; ⟶ &lt;{ pred t1' }&gt;</code>",
- "821": "<code>&lt;{ pred 0 }&gt; ⟶ y2</code>",
- "820": "<code>TM.Tm.Step.predZero : &lt;{ pred 0 }&gt; ⟶ &lt;{ 0 }&gt;</code>",
+ "827": "<code>&lt;{ pred 0 }&gt; ⟶ y2</code>",
+ "826": "<code>TM.Tm.Step.predZero : &lt;{ pred 0 }&gt; ⟶ &lt;{ 0 }&gt;</code>",
+ "825": "<code>t1 ⟶ t1'✝</code>",
+ "824": "<code>&lt;{ succ t1 }&gt; ⟶ y2</code>",
+ "823": "<code>∀ (y2 : Tm), t1 ⟶ y2 → t1' = y2</code>",
+ "822": "<code>t1 ⟶ t1'</code>",
+ "821": "<code>c ⟶ c''</code>",
+ "820": "<code>c✝ ⟶ c''</code>",
  "82": "<code>Nat.even n = true</code>",
- "819": "<code>&lt;{ succ t1 }&gt; ⟶ y2</code>",
- "818": "<code>c ⟶ c''</code>",
- "817": "<code>c✝ ⟶ c''</code>",
- "816": "<code>∀ (y2 : Tm), &lt;{ false }&gt; ⟶ y2 → c' = y2</code>",
- "815": "<code>&lt;{ false }&gt; ⟶ c'</code>",
- "814": "<code>∀ (y2 : Tm), &lt;{ true }&gt; ⟶ y2 → c' = y2</code>",
- "813": "<code>&lt;{ true }&gt; ⟶ c'</code>",
- "812": "<code>&lt;{ if c then t2 else t3 }&gt; ⟶ y2</code>",
- "811": "<code>∀ (y2 : Tm), c ⟶ y2 → c' = y2</code>",
- "810": "<code>c ⟶ c'</code>",
- "81": "<code>Slang.Nat.odd (n : Nat) : Bool</code>",
- "809": "<code>&lt;{ false }&gt; ⟶ c'✝</code>",
- "808": "<code>&lt;{ if false then t1 else t2 }&gt; ⟶ y2</code>",
- "807":
+ "819": "<code>∀ (y2 : Tm), &lt;{ false }&gt; ⟶ y2 → c' = y2</code>",
+ "818": "<code>&lt;{ false }&gt; ⟶ c'</code>",
+ "817": "<code>∀ (y2 : Tm), &lt;{ true }&gt; ⟶ y2 → c' = y2</code>",
+ "816": "<code>&lt;{ true }&gt; ⟶ c'</code>",
+ "815": "<code>&lt;{ if c then t2 else t3 }&gt; ⟶ y2</code>",
+ "814": "<code>∀ (y2 : Tm), c ⟶ y2 → c' = y2</code>",
+ "813": "<code>c ⟶ c'</code>",
+ "812": "<code>&lt;{ false }&gt; ⟶ c'✝</code>",
+ "811": "<code>&lt;{ if false then t1 else t2 }&gt; ⟶ y2</code>",
+ "810":
  "<code>TM.Tm.Step.ifFalse (t1 t2 : Tm) : &lt;{ if false then t1 else t2 }&gt; ⟶ t2</code>",
- "806": "<code>&lt;{ true }&gt; ⟶ c'✝</code>",
- "805": "<code>c✝ ⟶ c'✝</code>",
- "804":
+ "81": "<code>Slang.Nat.odd (n : Nat) : Bool</code>",
+ "809": "<code>&lt;{ true }&gt; ⟶ c'✝</code>",
+ "808": "<code>c✝ ⟶ c'✝</code>",
+ "807":
  "<code>TM.Tm.Step.ifStep (c c' t2 t3 : Tm) (h : c ⟶ c') : &lt;{ if c then t2 else t3 }&gt; ⟶ &lt;{ if c' then t2 else t3 }&gt;</code>",
- "803": "<code>&lt;{ if true then t1 else t2 }&gt; ⟶ y2</code>",
- "802":
+ "806": "<code>&lt;{ if true then t1 else t2 }&gt; ⟶ y2</code>",
+ "805":
  "<code>TM.Tm.Step.ifTrue (t1 t2 : Tm) : &lt;{ if true then t1 else t2 }&gt; ⟶ t1</code>",
- "801": "<code>TM.step_deterministic : Deterministic Tm.Step</code>",
- "800": "<code>&lt;{ iszero t0 }&gt;.IsNValue</code>",
+ "804": "<code>x ⟶ y1</code>",
+ "803": "<code>TM.step_deterministic : Deterministic Tm.Step</code>",
+ "802": "<code>&lt;{ iszero t0 }&gt;.IsNValue</code>",
+ "801": "<code>&lt;{ iszero t0 }&gt;.IsBValue</code>",
+ "800": "<code>&lt;{ iszero t0 }&gt;.IsValue</code>",
  "80":
  "<code>Bool.false : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `false`, not to be confused with the proposition `False`. </code>",
  "8": "<code>Slang.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
- "799": "<code>&lt;{ iszero t0 }&gt;.IsBValue</code>",
- "798": "<code>&lt;{ iszero t0 }&gt;.IsValue</code>",
- "797": "<code>&lt;{ pred t0 }&gt;.IsNValue</code>",
- "796": "<code>&lt;{ pred t0 }&gt;.IsBValue</code>",
- "795": "<code>&lt;{ pred t0 }&gt;.IsValue</code>",
- "794": "<code>&lt;{ succ t0 }&gt;.IsNValue</code>",
- "793": "<code>&lt;{ succ t0 }&gt;.IsBValue</code>",
- "792": "<code>&lt;{ succ t0 }&gt;.IsValue</code>",
- "791": "<code>&lt;{ 0 }&gt;.IsValue</code>",
- "790": "<code>&lt;{ if c then t0 else e }&gt;.IsNValue</code>",
+ "799": "<code>&lt;{ pred t0 }&gt;.IsNValue</code>",
+ "798": "<code>&lt;{ pred t0 }&gt;.IsBValue</code>",
+ "797": "<code>&lt;{ pred t0 }&gt;.IsValue</code>",
+ "796": "<code>&lt;{ succ t0 }&gt;.IsNValue</code>",
+ "795": "<code>&lt;{ succ t0 }&gt;.IsBValue</code>",
+ "794": "<code>&lt;{ succ t0 }&gt;.IsValue</code>",
+ "793": "<code>&lt;{ 0 }&gt;.IsValue</code>",
+ "792": "<code>&lt;{ if c then t0 else e }&gt;.IsNValue</code>",
+ "791": "<code>&lt;{ if c then t0 else e }&gt;.IsBValue</code>",
+ "790": "<code>&lt;{ if c then t0 else e }&gt;.IsValue</code>",
  "79":
  "<code>Bool.true : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `true`, not to be confused with the proposition `True`. </code>",
- "789": "<code>&lt;{ if c then t0 else e }&gt;.IsBValue</code>",
- "788": "<code>&lt;{ if c then t0 else e }&gt;.IsValue</code>",
- "787": "<code>e.IsValue → e.IsNormalForm</code>",
- "786": "<code>t0.IsValue → t0.IsNormalForm</code>",
- "785": "<code>c.IsValue → c.IsNormalForm</code>",
- "784": "<code>&lt;{ false }&gt;.IsValue</code>",
- "783": "<code>∃ t', &lt;{ false }&gt; ⟶ t'</code>",
- "782": "<code>&lt;{ true }&gt;.IsValue</code>",
- "781": "<code>∃ t', &lt;{ true }&gt; ⟶ t'</code>",
- "780": "<code>TM.value_is_nf' (t : Tm) : t.IsValue → t.IsNormalForm</code>",
+ "789": "<code>e.IsValue → e.IsNormalForm</code>",
+ "788": "<code>t0.IsValue → t0.IsNormalForm</code>",
+ "787": "<code>c.IsValue → c.IsNormalForm</code>",
+ "786": "<code>&lt;{ false }&gt;.IsValue</code>",
+ "785": "<code>∃ t', &lt;{ false }&gt; ⟶ t'</code>",
+ "784": "<code>&lt;{ true }&gt;.IsValue</code>",
+ "783": "<code>∃ t', &lt;{ true }&gt; ⟶ t'</code>",
+ "782": "<code>TM.value_is_nf' (t : Tm) : t.IsValue → t.IsNormalForm</code>",
+ "781": "<code>&lt;{ false }&gt; ⟶ t'</code>",
+ "780": "<code>&lt;{ true }&gt; ⟶ t'</code>",
  "78": "<code>Slang.Nat.even (n : Nat) : Bool</code>",
- "779": "<code>&lt;{ false }&gt; ⟶ t'</code>",
- "778": "<code>&lt;{ true }&gt; ⟶ t'</code>",
- "777": "<code>t.IsBValue</code>",
- "776": "<code>t.IsValue</code>",
- "775": "<code>TM.value_is_nf (t : Tm) (h : t.IsValue) : t.IsNormalForm</code>",
- "774": "<code>t0 ⟶ t1'</code>",
- "773": "<code>t1✝ ⟶ t1'</code>",
- "772": "<code>&lt;{ succ t0 }&gt; ⟶ t'</code>",
- "771": "<code>∃ t', &lt;{ succ t0 }&gt; ⟶ t'</code>",
- "770": "<code>t0.IsNormalForm</code>",
+ "779": "<code>t.IsBValue</code>",
+ "778": "<code>t.IsValue</code>",
+ "777": "<code>TM.value_is_nf (t : Tm) (h : t.IsValue) : t.IsNormalForm</code>",
+ "776": "<code>t0 ⟶ t1'</code>",
+ "775": "<code>t1✝ ⟶ t1'</code>",
+ "774": "<code>&lt;{ succ t0 }&gt; ⟶ t'</code>",
+ "773": "<code>∃ t', &lt;{ succ t0 }&gt; ⟶ t'</code>",
+ "772": "<code>t0.IsNormalForm</code>",
+ "771": "<code>t0.IsNValue</code>",
+ "770": "<code>&lt;{ 0 }&gt; ⟶ t'</code>",
  "77":
  "<code class=\"docstring\">The `fun_induction` tactic is a convenience wrapper around the `induction` tactic to use the\nfunctional induction principle.\n\nThe tactic invocation\n```\nfun_induction f x₁ ... xₙ y₁ ... yₘ\n```\nwhere `f` is a function defined by non-mutual structural or well-founded recursion, is equivalent to\n```\ninduction y₁, ... yₘ using f.induct_unfolding x₁ ... xₙ\n```\nwhere the arguments of `f` are used as arguments to `f.induct_unfolding` or targets of the\ninduction, as appropriate.\n\nThe form\n```\nfun_induction f\n```\n(with no arguments to `f`) searches the goal for a unique eligible application of `f`, and uses\nthese arguments. An application of `f` is eligible if it is saturated and the arguments that will\nbecome targets are free variables.\n\nThe forms `fun_induction f x y generalizing z₁ ... zₙ` and\n`fun_induction f x y with | case1 =&gt; tac₁ | case2 x' ih =&gt; tac₂` work like with `induction.`\n\nUnder `set_option tactic.fun_induction.unfolding true` (the default), `fun_induction` uses the\n`f.induct_unfolding` induction principle, which will try to automatically unfold the call to `f` in\nthe goal. With `set_option tactic.fun_induction.unfolding false`, it uses `f.induct` instead.\n</code>",
- "769": "<code>t0.IsNValue</code>",
- "768": "<code>&lt;{ 0 }&gt; ⟶ t'</code>",
- "767": "<code>∃ t', &lt;{ 0 }&gt; ⟶ t'</code>",
- "766": "<code>t.IsNValue</code>",
- "765":
+ "769": "<code>∃ t', &lt;{ 0 }&gt; ⟶ t'</code>",
+ "768": "<code>t.IsNValue</code>",
+ "767":
  "<code>TM.nvalue_is_nf (t : Tm) (h : t.IsNValue) : t.IsNormalForm</code>",
- "764": "<code>&lt;{ false }&gt;.IsNValue</code>",
- "763": "<code>t✝.IsNValue</code>",
- "762": "<code>&lt;{ succ false }&gt;.IsNValue</code>",
- "761": "<code>&lt;{ succ false }&gt;.IsBValue</code>",
- "760": "<code>&lt;{ succ false }&gt;.IsValue</code>",
+ "766": "<code>&lt;{ false }&gt;.IsNValue</code>",
+ "765": "<code>t✝.IsNValue</code>",
+ "764": "<code>&lt;{ succ false }&gt;.IsNValue</code>",
+ "763": "<code>&lt;{ succ false }&gt;.IsBValue</code>",
+ "762": "<code>&lt;{ succ false }&gt;.IsValue</code>",
+ "761": "<code>&lt;{ false }&gt; ⟶ t1'✝</code>",
+ "760": "<code>t1✝ ⟶ t1'✝</code>",
  "76":
  "<code>HMul.hMul.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMul α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a * b` computes the product of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `*` in identifiers is `mul`.</code>",
- "759": "<code>&lt;{ false }&gt; ⟶ t1'✝</code>",
- "758":
+ "759":
  "<code>TM.Tm.Step.succStep (t1 t1' : Tm) (h : t1 ⟶ t1') : &lt;{ succ t1 }&gt; ⟶ &lt;{ succ t1' }&gt;</code>",
- "757": "<code>&lt;{ succ false }&gt; ⟶ t'</code>",
- "756": "<code>∃ t', &lt;{ succ false }&gt; ⟶ t'</code>",
- "755":
+ "758": "<code>&lt;{ succ false }&gt; ⟶ t'</code>",
+ "757": "<code>∃ t', &lt;{ succ false }&gt; ⟶ t'</code>",
+ "756":
  "<code class=\"docstring\">`refine e` behaves like `exact e`, except that named (`?x`) or unnamed (`?_`)\nholes in `e` that are not solved by unification with the main goal's target type\nare converted into new goals, using the hole's name, if any, as the goal case name.\n</code>",
- "754": "<code>TM.some_term_is_stuck : ∃ t, t.IsStuck</code>",
- "753": "<code>TM.Tm.IsStuck (t : Tm) : Prop</code>",
- "752":
+ "755": "<code>TM.some_term_is_stuck : ∃ t, t.IsStuck</code>",
+ "754": "<code>TM.Tm.IsStuck (t : Tm) : Prop</code>",
+ "753":
  "<code>_root_.IsNormalForm {X : Type} (R : Relation X) (t : X) : Prop</code>",
- "751": "<code>TM.Tm.IsNormalForm (t : Tm) : Prop</code>",
- "750":
+ "752": "<code>TM.Tm.IsNormalForm (t : Tm) : Prop</code>",
+ "751":
  "<code>TM.Tm.Step.isZeroStep (t1 t1' : Tm) (h : t1.Step t1') : &lt;{ iszero t1 }&gt;.Step &lt;{ iszero t1' }&gt;</code>",
+ "750":
+ "<code>TM.Tm.Step.isZeroSucc (v : Tm) (hv : v.IsNValue) : &lt;{ iszero (succ v) }&gt;.Step &lt;{ false }&gt;</code>",
  "75":
  "<code>HSub.hSub.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HSub α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a - b` computes the difference of `a` and `b`.\nThe meaning of this notation is type-dependent.\n* For natural numbers, this operator saturates at 0: `a - b = 0` when `a ≤ b`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `-` in identifiers is `sub` (when used as a binary operator).</code>",
  "749":
- "<code>TM.Tm.Step.isZeroSucc (v : Tm) (hv : v.IsNValue) : &lt;{ iszero (succ v) }&gt;.Step &lt;{ false }&gt;</code>",
- "748":
  "<code>TM.Tm.Step.isZeroZero : &lt;{ iszero 0 }&gt;.Step &lt;{ true }&gt;</code>",
- "747":
+ "748":
  "<code>TM.Tm.Step.predStep (t1 t1' : Tm) (h : t1.Step t1') : &lt;{ pred t1 }&gt;.Step &lt;{ pred t1' }&gt;</code>",
- "746": "<code>v.IsNValue</code>",
- "745":
+ "747": "<code>v.IsNValue</code>",
+ "746":
  "<code>TM.Tm.Step.predSucc (v : Tm) (hv : v.IsNValue) : &lt;{ pred (succ v) }&gt;.Step v</code>",
- "744":
+ "745":
  "<code>TM.Tm.Step.predZero : &lt;{ pred 0 }&gt;.Step &lt;{ 0 }&gt;</code>",
+ "744": "<code>Step t1 t1'</code>",
  "743":
  "<code>TM.Tm.Step.succStep (t1 t1' : Tm) (h : t1.Step t1') : &lt;{ succ t1 }&gt;.Step &lt;{ succ t1' }&gt;</code>",
  "742": "<code>Step c c'</code>",
@@ -510,9 +505,9 @@
  "655":
  "<code>List.append_assoc.{u} {α : Type u} (as bs cs : List α) : as ++ bs ++ cs = as ++ (bs ++ cs)</code>",
  "654":
- "<code>∀ (p : Prog) (stk : Stack), Multi StackStep (compile a2 ++ p, stk) (p, a2.eval :: stk)</code>",
+ "<code>∀ (p : Prog) (stk : Stack), Multi StackStep (compile a₂ ++ p, stk) (p, a₂.eval :: stk)</code>",
  "653":
- "<code>∀ (p : Prog) (stk : Stack), Multi StackStep (compile a1 ++ p, stk) (p, a1.eval :: stk)</code>",
+ "<code>∀ (p : Prog) (stk : Stack), Multi StackStep (compile a₁ ++ p, stk) (p, a₁.eval :: stk)</code>",
  "652":
  "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
  "651":
@@ -523,18 +518,18 @@
  "<code>(Aexp.num (n + 1)).optimize0plus.eval = (Aexp.num (n + 1)).eval</code>",
  "649":
  "<code>Slang.compiler_is_correct (a : Aexp) : Multi StackStep (compile a, []) ([], [a.eval])</code>",
- "648": "<code>StackStep (SInstr.mult :: p✝, n✝ :: m✝ :: stk✝) y2</code>",
- "647": "<code>StackStep (SInstr.minus :: p✝, n✝ :: m✝ :: stk✝) y2</code>",
- "646": "<code>StackStep (SInstr.plus :: p✝, n✝ :: m✝ :: stk✝) y2</code>",
+ "648": "<code>StackStep (SInstr.mult :: p✝, n✝ :: m✝ :: stk✝) y₂</code>",
+ "647": "<code>StackStep (SInstr.minus :: p✝, n✝ :: m✝ :: stk✝) y₂</code>",
+ "646": "<code>StackStep (SInstr.plus :: p✝, n✝ :: m✝ :: stk✝) y₂</code>",
  "645":
  "<code>List.cons.{u} {α : Type u} (head : α) (tail : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">The list whose first element is `head`, where `tail` is the rest of the list.\nUsually written `head :: tail`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `::` in identifiers is `cons`.\n\n * The recommended spelling of `[a]` in identifiers is `singleton`.</code>",
  "644":
  "<code>Prod.mk.{u, v} {α : Type u} {β : Type v} (fst : α) (snd : β) : α × β</code><span class=\"sep\"></span><code class=\"docstring\">Constructs a pair. This is usually written `(x, y)` instead of `Prod.mk x y`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `(a, b)` in identifiers is `mk`.</code>",
- "643": "<code>StackStep (SInstr.push n✝ :: p✝, stk✝) y2</code>",
+ "643": "<code>StackStep (SInstr.push n✝ :: p✝, stk✝) y₂</code>",
  "642":
  "<code>Prod.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code><span class=\"sep\"></span><code class=\"docstring\">The product type, usually written `α × β`. Product types are also called pair or tuple types.\nElements of this type are pairs in which the first element is an `α` and the second element is a\n`β`.\n\nProducts nest to the right, so `(x, y, z) : α × β × γ` is equivalent to `(x, (y, z)) : α × (β × γ)`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `×` in identifiers is `Prod`.</code>",
- "641": "<code>StackStep x y2</code>",
- "640": "<code>StackStep x y1</code>",
+ "641": "<code>StackStep x y₂</code>",
+ "640": "<code>StackStep x y₁</code>",
  "64":
  "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
  "639": "<code>Prog × Stack</code>",
@@ -562,35 +557,35 @@
  "624": "<code>Slang.SInstr.plus : SInstr</code>",
  "623": "<code>Slang.SInstr.push (n : Nat) : SInstr</code>",
  "622": "<code>Slang.SInstr : Type</code>",
- "621": "<code>a.eval = n2</code>",
- "620": "<code>a.eval = n1</code>",
+ "621": "<code>a.eval = n₂</code>",
+ "620": "<code>a.eval = n₁</code>",
  "62": "<code>Nat.zero_add (n : Nat) : 0 + n = n</code>",
- "619": "<code>a.eval = (Aexp.num n2).eval</code>",
- "618": "<code>a.eval = (Aexp.num n1).eval</code>",
- "617": "<code>Multi ANStep a (Aexp.num n2)</code>",
- "616": "<code>Multi AStep a (Aexp.num n1)</code>",
+ "619": "<code>a.eval = (Aexp.num n₂).eval</code>",
+ "618": "<code>a.eval = (Aexp.num n₁).eval</code>",
+ "617": "<code>Multi ANStep a (Aexp.num n₂)</code>",
+ "616": "<code>Multi AStep a (Aexp.num n₁)</code>",
  "615":
- "<code>Slang.astep_anstep_agree (a : Aexp) (n1 n2 : Nat) (hd : Multi AStep a (Aexp.num n1))\n  (hn : Multi ANStep a (Aexp.num n2)) : n1 = n2</code>",
+ "<code>Slang.astep_anstep_agree (a : Aexp) (n₁ n₂ : Nat) (hd : Multi AStep a (Aexp.num n₁))\n  (hn : Multi ANStep a (Aexp.num n₂)) : n₁ = n₂</code>",
  "614": "<code>Multi AStep y z</code>",
  "613": "<code>x ⟶a y</code>",
  "612": "<code>Multi AStep a a'</code>",
  "611":
  "<code>Slang.multi_astep_imp_anstep (a a' : Aexp) (h : Multi AStep a a') : Multi ANStep a a'</code>",
  "610":
- "<code>Slang.ANStep.mult (n1 n2 : Nat) : (Aexp.num n1).mult (Aexp.num n2) ⟶n Aexp.num (n1 * n2)</code>",
+ "<code>Slang.ANStep.mult (n₁ n₂ : Nat) : (Aexp.num n₁).mult (Aexp.num n₂) ⟶n Aexp.num (n₁ * n₂)</code>",
  "61": "<code>Slang.Aexp.eval_num (n : Nat) : (Aexp.num n).eval = n</code>",
  "609":
- "<code>Slang.ANStep.multRight (a1 a2 a2' : Aexp) (h : a2 ⟶n a2') : a1.mult a2 ⟶n a1.mult a2'</code>",
+ "<code>Slang.ANStep.multRight (a₁ a₂ a₂' : Aexp) (h : a₂ ⟶n a₂') : a₁.mult a₂ ⟶n a₁.mult a₂'</code>",
  "608":
- "<code>Slang.ANStep.multLeft (a1 a1' a2 : Aexp) (h : a1 ⟶n a1') : a1.mult a2 ⟶n a1'.mult a2</code>",
+ "<code>Slang.ANStep.multLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶n a₁') : a₁.mult a₂ ⟶n a₁'.mult a₂</code>",
  "607":
- "<code>Slang.ANStep.minus (n1 n2 : Nat) : (Aexp.num n1).minus (Aexp.num n2) ⟶n Aexp.num (n1 - n2)</code>",
+ "<code>Slang.ANStep.minus (n₁ n₂ : Nat) : (Aexp.num n₁).minus (Aexp.num n₂) ⟶n Aexp.num (n₁ - n₂)</code>",
  "606":
- "<code>Slang.ANStep.minusRight (a1 a2 a2' : Aexp) (h : a2 ⟶n a2') : a1.minus a2 ⟶n a1.minus a2'</code>",
+ "<code>Slang.ANStep.minusRight (a₁ a₂ a₂' : Aexp) (h : a₂ ⟶n a₂') : a₁.minus a₂ ⟶n a₁.minus a₂'</code>",
  "605":
- "<code>Slang.ANStep.minusLeft (a1 a1' a2 : Aexp) (h : a1 ⟶n a1') : a1.minus a2 ⟶n a1'.minus a2</code>",
- "604": "<code>a2 ⟶n a2'</code>",
- "603": "<code>a1 ⟶n a1'</code>",
+ "<code>Slang.ANStep.minusLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶n a₁') : a₁.minus a₂ ⟶n a₁'.minus a₂</code>",
+ "604": "<code>a₂ ⟶n a₂'</code>",
+ "603": "<code>a₁ ⟶n a₁'</code>",
  "602": "<code>a ⟶a a'</code>",
  "601":
  "<code>Slang.astep_imp_anstep (a a' : Aexp) (h : a ⟶a a') : a ⟶n a'</code>",
@@ -602,10 +597,10 @@
  "597": "<code>Multi ANStep a a'</code>",
  "596":
  "<code>Slang.multi_anstep_preserves_eval (a a' : Aexp) (h : Multi ANStep a a') : a.eval = a'.eval</code>",
- "595": "<code>a2✝.eval = a2'✝.eval</code>",
- "594": "<code>a2✝ ⟶n a2'✝</code>",
- "593": "<code>a1✝.eval = a1'✝.eval</code>",
- "592": "<code>a1✝ ⟶n a1'✝</code>",
+ "595": "<code>a₂✝.eval = a₂'✝.eval</code>",
+ "594": "<code>a₂✝ ⟶n a₂'✝</code>",
+ "593": "<code>a₁✝.eval = a₁'✝.eval</code>",
+ "592": "<code>a₁✝ ⟶n a₁'✝</code>",
  "591": "<code>a ⟶n a'</code>",
  "590":
  "<code>Slang.anstep_preserves_eval (a a' : Aexp) (h : a ⟶n a') : a.eval = a'.eval</code>",
@@ -614,123 +609,123 @@
  "589":
  "<code>(Aexp.num 2).plus ((Aexp.num 2).plus (Aexp.num 2)) = ((Aexp.num 1).plus (Aexp.num 1)).plus (Aexp.num 4)</code>",
  "588":
- "<code>Slang.ANStep.plusRight (a1 a2 a2' : Aexp) (h : a2 ⟶n a2') : a1.plus a2 ⟶n a1.plus a2'</code>",
+ "<code>Slang.ANStep.plusRight (a₁ a₂ a₂' : Aexp) (h : a₂ ⟶n a₂') : a₁.plus a₂ ⟶n a₁.plus a₂'</code>",
  "587":
  "<code>((Aexp.num 1).plus (Aexp.num 1)).plus ((Aexp.num 2).plus (Aexp.num 2)) ⟶n\n  ((Aexp.num 1).plus (Aexp.num 1)).plus (Aexp.num 4)</code>",
  "586":
- "<code>Slang.ANStep.plus (n1 n2 : Nat) : (Aexp.num n1).plus (Aexp.num n2) ⟶n Aexp.num (n1 + n2)</code>",
+ "<code>Slang.ANStep.plus (n₁ n₂ : Nat) : (Aexp.num n₁).plus (Aexp.num n₂) ⟶n Aexp.num (n₁ + n₂)</code>",
  "585":
- "<code>Slang.ANStep.plusLeft (a1 a1' a2 : Aexp) (h : a1 ⟶n a1') : a1.plus a2 ⟶n a1'.plus a2</code>",
+ "<code>Slang.ANStep.plusLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶n a₁') : a₁.plus a₂ ⟶n a₁'.plus a₂</code>",
  "584":
  "<code>((Aexp.num 1).plus (Aexp.num 1)).plus ((Aexp.num 2).plus (Aexp.num 2)) ⟶n\n  (Aexp.num 2).plus ((Aexp.num 2).plus (Aexp.num 2))</code>",
  "583": "<code>Deterministic ANStep</code>",
  "582": "<code>Slang.anstep_not_deterministic : ¬Deterministic ANStep</code>",
  "581": "<code><span class=\"literal string\">\" ⟶n \"</span> : String</code>",
  "580":
- "<code>Slang.ANStep.mult (n1 n2 : Nat) : ANStep ((Aexp.num n1).mult (Aexp.num n2)) (Aexp.num (n1 * n2))</code>",
+ "<code>Slang.ANStep.mult (n₁ n₂ : Nat) : ANStep ((Aexp.num n₁).mult (Aexp.num n₂)) (Aexp.num (n₁ * n₂))</code>",
  "58": "<code>(Aexp.num n).optimize0plus.eval = (Aexp.num n).eval</code>",
  "579":
- "<code>Slang.ANStep.multRight (a1 a2 a2' : Aexp) (h : ANStep a2 a2') : ANStep (a1.mult a2) (a1.mult a2')</code>",
+ "<code>Slang.ANStep.multRight (a₁ a₂ a₂' : Aexp) (h : ANStep a₂ a₂') : ANStep (a₁.mult a₂) (a₁.mult a₂')</code>",
  "578":
- "<code>Slang.ANStep.multLeft (a1 a1' a2 : Aexp) (h : ANStep a1 a1') : ANStep (a1.mult a2) (a1'.mult a2)</code>",
+ "<code>Slang.ANStep.multLeft (a₁ a₁' a₂ : Aexp) (h : ANStep a₁ a₁') : ANStep (a₁.mult a₂) (a₁'.mult a₂)</code>",
  "577":
- "<code>Slang.ANStep.minus (n1 n2 : Nat) : ANStep ((Aexp.num n1).minus (Aexp.num n2)) (Aexp.num (n1 - n2))</code>",
+ "<code>Slang.ANStep.minus (n₁ n₂ : Nat) : ANStep ((Aexp.num n₁).minus (Aexp.num n₂)) (Aexp.num (n₁ - n₂))</code>",
  "576":
- "<code>Slang.ANStep.minusRight (a1 a2 a2' : Aexp) (h : ANStep a2 a2') : ANStep (a1.minus a2) (a1.minus a2')</code>",
+ "<code>Slang.ANStep.minusRight (a₁ a₂ a₂' : Aexp) (h : ANStep a₂ a₂') : ANStep (a₁.minus a₂) (a₁.minus a₂')</code>",
  "575":
- "<code>Slang.ANStep.minusLeft (a1 a1' a2 : Aexp) (h : ANStep a1 a1') : ANStep (a1.minus a2) (a1'.minus a2)</code>",
+ "<code>Slang.ANStep.minusLeft (a₁ a₁' a₂ : Aexp) (h : ANStep a₁ a₁') : ANStep (a₁.minus a₂) (a₁'.minus a₂)</code>",
  "574":
- "<code>Slang.ANStep.plus (n1 n2 : Nat) : ANStep ((Aexp.num n1).plus (Aexp.num n2)) (Aexp.num (n1 + n2))</code>",
- "573": "<code>ANStep a2 a2'</code>",
+ "<code>Slang.ANStep.plus (n₁ n₂ : Nat) : ANStep ((Aexp.num n₁).plus (Aexp.num n₂)) (Aexp.num (n₁ + n₂))</code>",
+ "573": "<code>ANStep a₂ a₂'</code>",
  "572":
- "<code>Slang.ANStep.plusRight (a1 a2 a2' : Aexp) (h : ANStep a2 a2') : ANStep (a1.plus a2) (a1.plus a2')</code>",
- "571": "<code>ANStep a1 a1'</code>",
+ "<code>Slang.ANStep.plusRight (a₁ a₂ a₂' : Aexp) (h : ANStep a₂ a₂') : ANStep (a₁.plus a₂) (a₁.plus a₂')</code>",
+ "571": "<code>ANStep a₁ a₁'</code>",
  "570":
- "<code>Slang.ANStep.plusLeft (a1 a1' a2 : Aexp) (h : ANStep a1 a1') : ANStep (a1.plus a2) (a1'.plus a2)</code>",
+ "<code>Slang.ANStep.plusLeft (a₁ a₁' a₂ : Aexp) (h : ANStep a₁ a₁') : ANStep (a₁.plus a₂) (a₁'.plus a₂)</code>",
  "57":
  "<code class=\"docstring\">Assuming `x` is a variable in the local context with an inductive type,\n`cases x` splits the main goal, producing one goal for each constructor of the\ninductive type, in which the target is replaced by a general instance of that constructor.\nIf the type of an element in the local context depends on `x`,\nthat element is reverted and reintroduced afterward,\nso that the case split affects that hypothesis as well.\n`cases` detects unreachable cases and closes them automatically.\n\nFor example, given `n : Nat` and a goal with a hypothesis `h : P n` and target `Q n`,\n`cases n` produces one goal with hypothesis `h : P 0` and target `Q 0`,\nand one goal with hypothesis `h : P (Nat.succ a)` and target `Q (Nat.succ a)`.\nHere the name `a` is chosen automatically and is not accessible.\nYou can use `with` to provide the variables names for each constructor.\n- `cases e`, where `e` is an expression instead of a variable, generalizes `e` in the goal,\n  and then cases on the resulting variable.\n- Given `as : List α`, `cases as with | nil =&gt; tac₁ | cons a as' =&gt; tac₂`,\n  uses tactic `tac₁` for the `nil` case, and `tac₂` for the `cons` case,\n  and `a` and `as'` are used as names for the new variables introduced.\n- `cases h : e`, where `e` is a variable or an expression,\n  performs cases on `e` as above, but also adds a hypothesis `h : e = ...` to each goal,\n  where `...` is the constructor instance for that particular case.\n</code>",
  "569": "<code>Slang.ANStep : Aexp → Aexp → Prop</code>",
- "568": "<code>∀ (y2 : Bexp), Bexp.bool false ⟶b y2 → b2'✝ = y2</code>",
- "567": "<code>∀ (y2 : Bexp), Bexp.bool true ⟶b y2 → b2'✝ = y2</code>",
- "566": "<code>Bexp.bool true ⟶b b2'✝</code>",
- "565": "<code>∀ (y2 : Bexp), b2✝ ⟶b y2 → b2'✝¹ = y2</code>",
- "564": "<code>b2✝ ⟶b b2'✝¹</code>",
- "563": "<code>∀ (y2 : Bexp), Bexp.bool false ⟶b y2 → b1'✝ = y2</code>",
- "562": "<code>Bexp.bool false ⟶b b1'✝</code>",
- "561": "<code>∀ (y2 : Bexp), Bexp.bool true ⟶b y2 → b1'✝ = y2</code>",
- "560": "<code>∀ (y2 : Bexp), b1✝ ⟶b y2 → b1'✝¹ = y2</code>",
+ "568": "<code>∀ (y₂ : Bexp), Bexp.bool false ⟶b y₂ → b₂'✝ = y₂</code>",
+ "567": "<code>∀ (y₂ : Bexp), Bexp.bool true ⟶b y₂ → b₂'✝ = y₂</code>",
+ "566": "<code>Bexp.bool true ⟶b b₂'✝</code>",
+ "565": "<code>∀ (y₂ : Bexp), b₂✝ ⟶b y₂ → b₂'✝¹ = y₂</code>",
+ "564": "<code>b₂✝ ⟶b b₂'✝¹</code>",
+ "563": "<code>∀ (y₂ : Bexp), Bexp.bool false ⟶b y₂ → b₁'✝ = y₂</code>",
+ "562": "<code>Bexp.bool false ⟶b b₁'✝</code>",
+ "561": "<code>∀ (y₂ : Bexp), Bexp.bool true ⟶b y₂ → b₁'✝ = y₂</code>",
+ "560": "<code>∀ (y₂ : Bexp), b₁✝ ⟶b y₂ → b₁'✝¹ = y₂</code>",
  "56": "<code>a₂.optimize0plus.eval = a₂.eval</code>",
- "559": "<code>b1✝ ⟶b b1'✝¹</code>",
- "558": "<code>Bexp.bool false ⟶b b2'✝</code>",
- "557": "<code>Bexp.bool true ⟶b b1'✝</code>",
- "556": "<code>(Bexp.bool true).and (Bexp.bool true) ⟶b y2</code>",
- "555": "<code>(Bexp.bool false).and b2✝ ⟶b y2</code>",
- "554": "<code>(Bexp.bool true).and b2✝ ⟶b y2</code>",
- "553": "<code>b1✝.and b2✝ ⟶b y2</code>",
- "552": "<code>(Bexp.bool false).not ⟶b y2</code>",
- "551": "<code>(Bexp.bool true).not ⟶b y2</code>",
- "550": "<code>b1✝.not ⟶b y2</code>",
+ "559": "<code>b₁✝ ⟶b b₁'✝¹</code>",
+ "558": "<code>Bexp.bool false ⟶b b₂'✝</code>",
+ "557": "<code>Bexp.bool true ⟶b b₁'✝</code>",
+ "556": "<code>(Bexp.bool true).and (Bexp.bool true) ⟶b y₂</code>",
+ "555": "<code>(Bexp.bool false).and b₂✝ ⟶b y₂</code>",
+ "554": "<code>(Bexp.bool true).and b₂✝ ⟶b y₂</code>",
+ "553": "<code>b₁✝.and b₂✝ ⟶b y₂</code>",
+ "552": "<code>(Bexp.bool false).not ⟶b y₂</code>",
+ "551": "<code>(Bexp.bool true).not ⟶b y₂</code>",
+ "550": "<code>b₁✝.not ⟶b y₂</code>",
  "55": "<code>a₁.optimize0plus.eval = a₁.eval</code>",
- "549": "<code>Bexp.gt (Aexp.num n1✝) (Aexp.num n2✝) ⟶b y2</code>",
- "548": "<code>Bexp.gt v1✝ a2✝ ⟶b y2</code>",
- "547": "<code>Bexp.gt a1✝ a2✝ ⟶b y2</code>",
- "546": "<code>Bexp.le (Aexp.num n1✝) (Aexp.num n2✝) ⟶b y2</code>",
- "545": "<code>Bexp.le v1✝ a2✝ ⟶b y2</code>",
- "544": "<code>Bexp.le a1✝ a2✝ ⟶b y2</code>",
- "543": "<code>Bexp.neq (Aexp.num n1✝) (Aexp.num n2✝) ⟶b y2</code>",
- "542": "<code>Bexp.neq v1✝ a2✝ ⟶b y2</code>",
- "541": "<code>Bexp.neq a1✝ a2✝ ⟶b y2</code>",
- "540": "<code>Bexp.eq (Aexp.num n1✝) (Aexp.num n2✝) ⟶b y2</code>",
+ "549": "<code>Bexp.gt (Aexp.num n₁✝) (Aexp.num n₂✝) ⟶b y₂</code>",
+ "548": "<code>Bexp.gt v₁✝ a₂✝ ⟶b y₂</code>",
+ "547": "<code>Bexp.gt a₁✝ a₂✝ ⟶b y₂</code>",
+ "546": "<code>Bexp.le (Aexp.num n₁✝) (Aexp.num n₂✝) ⟶b y₂</code>",
+ "545": "<code>Bexp.le v₁✝ a₂✝ ⟶b y₂</code>",
+ "544": "<code>Bexp.le a₁✝ a₂✝ ⟶b y₂</code>",
+ "543": "<code>Bexp.neq (Aexp.num n₁✝) (Aexp.num n₂✝) ⟶b y₂</code>",
+ "542": "<code>Bexp.neq v₁✝ a₂✝ ⟶b y₂</code>",
+ "541": "<code>Bexp.neq a₁✝ a₂✝ ⟶b y₂</code>",
+ "540": "<code>Bexp.eq (Aexp.num n₁✝) (Aexp.num n₂✝) ⟶b y₂</code>",
  "54":
  "<code class=\"docstring\">After `with`, there is an optional tactic that runs on all branches, and\nthen a list of alternatives.\n</code>",
- "539": "<code>Bexp.eq v1✝ a2✝ ⟶b y2</code>",
- "538": "<code>(Bexp.bool true).and (Bexp.bool false) ⟶b y2</code>",
- "537": "<code>Bexp.eq a1✝ a2✝ ⟶b y2</code>",
- "536": "<code>∀ (y2 : Bexp), b2✝ ⟶b y2 → b2'✝ = y2</code>",
- "535": "<code>b2✝ ⟶b b2'✝</code>",
- "534": "<code>∀ (y2 : Bexp), b1✝ ⟶b y2 → b1'✝ = y2</code>",
- "533": "<code>b1✝ ⟶b b1'✝</code>",
+ "539": "<code>Bexp.eq v₁✝ a₂✝ ⟶b y₂</code>",
+ "538": "<code>(Bexp.bool true).and (Bexp.bool false) ⟶b y₂</code>",
+ "537": "<code>Bexp.eq a₁✝ a₂✝ ⟶b y₂</code>",
+ "536": "<code>∀ (y₂ : Bexp), b₂✝ ⟶b y₂ → b₂'✝ = y₂</code>",
+ "535": "<code>b₂✝ ⟶b b₂'✝</code>",
+ "534": "<code>∀ (y₂ : Bexp), b₁✝ ⟶b y₂ → b₁'✝ = y₂</code>",
+ "533": "<code>b₁✝ ⟶b b₁'✝</code>",
  "532":
  "<code>Ne.{u} {α : Sort u} (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a ≠ b`, or `Ne a b` is defined as `¬ (a = b)` or `a = b → False`,\nand asserts that `a` and `b` are not equal.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≠` in identifiers is `ne`.</code>",
- "531": "<code>x ⟶b y1</code>",
+ "531": "<code>x ⟶b y₁</code>",
  "530": "<code>Slang.bstep_deterministic : Deterministic BStep</code>",
  "53":
  "<code class=\"docstring\">Assuming `x` is a variable in the local context with an inductive type,\n`induction x` applies induction on `x` to the main goal,\nproducing one goal for each constructor of the inductive type,\nin which the target is replaced by a general instance of that constructor\nand an inductive hypothesis is added for each recursive argument to the constructor.\nIf the type of an element in the local context depends on `x`,\nthat element is reverted and reintroduced afterward,\nso that the inductive hypothesis incorporates that hypothesis as well.\n\nFor example, given `n : Nat` and a goal with a hypothesis `h : P n` and target `Q n`,\n`induction n` produces one goal with hypothesis `h : P 0` and target `Q 0`,\nand one goal with hypotheses `h : P (Nat.succ a)` and `ih₁ : P a → Q a` and target `Q (Nat.succ a)`.\nHere the names `a` and `ih₁` are chosen automatically and are not accessible.\nYou can use `with` to provide the variables names for each constructor.\n- `induction e`, where `e` is an expression instead of a variable,\n  generalizes `e` in the goal, and then performs induction on the resulting variable.\n- `induction e using r` allows the user to specify the principle of induction that should be used.\n  Here `r` should be a term whose result type must be of the form `C t`,\n  where `C` is a bound variable and `t` is a (possibly empty) sequence of bound variables\n- `induction e generalizing z₁ ... zₙ`, where `z₁ ... zₙ` are variables in the local context,\n  generalizes over `z₁ ... zₙ` before applying the induction but then introduces them in each goal.\n  In other words, the net effect is that each inductive hypothesis is generalized.\n- Given `x : Nat`, `induction x with | zero =&gt; tac₁ | succ x' ih =&gt; tac₂`\n  uses tactic `tac₁` for the `zero` case, and `tac₂` for the `succ` case.\n</code>",
  "529":
  "<code class=\"docstring\">Apply congruence (recursively) to goals of the form `⊢ f as = f bs` and `⊢ f as ≍ f bs`.\nThe optional parameter is the depth of the recursive applications.\nThis is useful when `congr` is too aggressive in breaking down the goal.\nFor example, given `⊢ f (g (x + y)) = f (g (y + x))`,\n`congr` produces the goals `⊢ x = y` and `⊢ y = x`,\nwhile `congr 2` produces the intended `⊢ x + y = y + x`.\n</code>",
  "528": "<code>IsAValue (Aexp.num n✝)</code>",
- "527": "<code>∀ (y2 : Aexp), Aexp.num n2✝ ⟶a y2 → a2'✝ = y2</code>",
- "526": "<code>∀ (y2 : Aexp), a2✝ ⟶a y2 → a2'✝¹ = y2</code>",
- "525": "<code>a2✝ ⟶a a2'✝¹</code>",
- "524": "<code>v1✝ ⟶a a1'✝</code>",
- "523": "<code>∀ (y2 : Aexp), Aexp.num n1✝ ⟶a y2 → a1'✝ = y2</code>",
- "522": "<code>IsAValue a1✝</code>",
- "521": "<code>∀ (y2 : Aexp), a1✝ ⟶a y2 → a1'✝¹ = y2</code>",
- "520": "<code>a1✝ ⟶a a1'✝¹</code>",
+ "527": "<code>∀ (y₂ : Aexp), Aexp.num n₂✝ ⟶a y₂ → a₂'✝ = y₂</code>",
+ "526": "<code>∀ (y₂ : Aexp), a₂✝ ⟶a y₂ → a₂'✝¹ = y₂</code>",
+ "525": "<code>a₂✝ ⟶a a₂'✝¹</code>",
+ "524": "<code>v₁✝ ⟶a a₁'✝</code>",
+ "523": "<code>∀ (y₂ : Aexp), Aexp.num n₁✝ ⟶a y₂ → a₁'✝ = y₂</code>",
+ "522": "<code>IsAValue a₁✝</code>",
+ "521": "<code>∀ (y₂ : Aexp), a₁✝ ⟶a y₂ → a₁'✝¹ = y₂</code>",
+ "520": "<code>a₁✝ ⟶a a₁'✝¹</code>",
  "52":
  "<code>Slang.optimize0plus_sound (a : Aexp) : a.optimize0plus.eval = a.eval</code>",
- "519": "<code>Aexp.num n2✝ ⟶a a2'✝</code>",
- "518": "<code>IsAValue (Aexp.num n1✝)</code>",
- "517": "<code>Aexp.num n1✝ ⟶a a1'✝</code>",
- "516": "<code>v1✝.mult a2✝ ⟶a y2</code>",
- "515": "<code>a1✝.mult a2✝ ⟶a y2</code>",
- "514": "<code>(Aexp.num n1✝).minus (Aexp.num n2✝) ⟶a y2</code>",
- "513": "<code>v1✝.minus a2✝ ⟶a y2</code>",
- "512": "<code>a1✝.minus a2✝ ⟶a y2</code>",
- "511": "<code>(Aexp.num n1✝).plus (Aexp.num n2✝) ⟶a y2</code>",
- "510": "<code>v1✝.plus a2✝ ⟶a y2</code>",
+ "519": "<code>Aexp.num n₂✝ ⟶a a₂'✝</code>",
+ "518": "<code>IsAValue (Aexp.num n₁✝)</code>",
+ "517": "<code>Aexp.num n₁✝ ⟶a a₁'✝</code>",
+ "516": "<code>v₁✝.mult a₂✝ ⟶a y₂</code>",
+ "515": "<code>a₁✝.mult a₂✝ ⟶a y₂</code>",
+ "514": "<code>(Aexp.num n₁✝).minus (Aexp.num n₂✝) ⟶a y₂</code>",
+ "513": "<code>v₁✝.minus a₂✝ ⟶a y₂</code>",
+ "512": "<code>a₁✝.minus a₂✝ ⟶a y₂</code>",
+ "511": "<code>(Aexp.num n₁✝).plus (Aexp.num n₂✝) ⟶a y₂</code>",
+ "510": "<code>v₁✝.plus a₂✝ ⟶a y₂</code>",
  "51": "<code>Slang.Aexp.eval (a : Slang.Aexp) : Nat</code>",
- "509": "<code>(Aexp.num n1✝).mult (Aexp.num n2✝) ⟶a y2</code>",
- "508": "<code>a1✝.plus a2✝ ⟶a y2</code>",
- "507": "<code>∀ (y2 : Aexp), a2✝ ⟶a y2 → a2'✝ = y2</code>",
- "506": "<code>a2✝ ⟶a a2'✝</code>",
- "505": "<code>IsAValue v1✝</code>",
- "504": "<code>∀ (y2 : Aexp), a1✝ ⟶a y2 → a1'✝ = y2</code>",
- "503": "<code>a1✝ ⟶a a1'✝</code>",
- "502": "<code>x ⟶a y1</code>",
+ "509": "<code>(Aexp.num n₁✝).mult (Aexp.num n₂✝) ⟶a y₂</code>",
+ "508": "<code>a₁✝.plus a₂✝ ⟶a y₂</code>",
+ "507": "<code>∀ (y₂ : Aexp), a₂✝ ⟶a y₂ → a₂'✝ = y₂</code>",
+ "506": "<code>a₂✝ ⟶a a₂'✝</code>",
+ "505": "<code>IsAValue v₁✝</code>",
+ "504": "<code>∀ (y₂ : Aexp), a₁✝ ⟶a y₂ → a₁'✝ = y₂</code>",
+ "503": "<code>a₁✝ ⟶a a₁'✝</code>",
+ "502": "<code>x ⟶a y₁</code>",
  "501": "<code>Slang.astep_deterministic : Deterministic AStep</code>",
  "500":
- "<code>Slang.BStep.leLeft (a1 a1' a2 : Aexp) (h : a1 ⟶a a1') : Bexp.le a1 a2 ⟶b Bexp.le a1' a2</code>",
+ "<code>Slang.BStep.leLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶a a₁') : Bexp.le a₁ a₂ ⟶b Bexp.le a₁' a₂</code>",
  "50": "<code>Slang.Aexp.optimize0plus (a : Slang.Aexp) : Slang.Aexp</code>",
  "5":
  "<code>Nat : Type</code><span class=\"sep\"></span><code class=\"docstring\">The natural numbers, starting at zero.\n\nThis type is special-cased by both the kernel and the compiler, and overridden with an efficient\nimplementation. Both use a fast arbitrary-precision arithmetic library (usually\n[GMP](https://gmplib.org/)); at runtime, `Nat` values that are sufficiently small are unboxed.\n</code>",
@@ -740,111 +735,111 @@
  "497":
  "<code>Slang.BStep.andTrueTrue : BStep ((Bexp.bool true).and (Bexp.bool true)) (Bexp.bool true)</code>",
  "496":
- "<code>Slang.BStep.andFalse (b2 : Bexp) : BStep ((Bexp.bool false).and b2) (Bexp.bool false)</code>",
- "495": "<code>BStep b2 b2'</code>",
+ "<code>Slang.BStep.andFalse (b₂ : Bexp) : BStep ((Bexp.bool false).and b₂) (Bexp.bool false)</code>",
+ "495": "<code>BStep b₂ b₂'</code>",
  "494":
- "<code>Slang.BStep.andTrueStep (b2 b2' : Bexp) (h : BStep b2 b2') : BStep ((Bexp.bool true).and b2) ((Bexp.bool true).and b2')</code>",
+ "<code>Slang.BStep.andTrueStep (b₂ b₂' : Bexp) (h : BStep b₂ b₂') : BStep ((Bexp.bool true).and b₂) ((Bexp.bool true).and b₂')</code>",
  "493":
- "<code>Slang.BStep.andStep (b1 b1' b2 : Bexp) (h : BStep b1 b1') : BStep (b1.and b2) (b1'.and b2)</code>",
+ "<code>Slang.BStep.andStep (b₁ b₁' b₂ : Bexp) (h : BStep b₁ b₁') : BStep (b₁.and b₂) (b₁'.and b₂)</code>",
  "492":
  "<code>Slang.BStep.notFalse : BStep (Bexp.bool false).not (Bexp.bool true)</code>",
  "491":
  "<code>Slang.BStep.notTrue : BStep (Bexp.bool true).not (Bexp.bool false)</code>",
- "490": "<code>BStep b1 b1'</code>",
+ "490": "<code>BStep b₁ b₁'</code>",
  "49": "<code>Slang.Aexp.plus (a₁ a₂ : Slang.Aexp) : Slang.Aexp</code>",
  "489":
- "<code>Slang.BStep.notStep (b1 b1' : Bexp) (h : BStep b1 b1') : BStep b1.not b1'.not</code>",
+ "<code>Slang.BStep.notStep (b₁ b₁' : Bexp) (h : BStep b₁ b₁') : BStep b₁.not b₁'.not</code>",
  "488":
- "<code>Slang.BStep.gt (n1 n2 : Nat) : BStep (Bexp.gt (Aexp.num n1) (Aexp.num n2)) (Bexp.bool (decide (n1 &gt; n2)))</code>",
+ "<code>Slang.BStep.gt (n₁ n₂ : Nat) : BStep (Bexp.gt (Aexp.num n₁) (Aexp.num n₂)) (Bexp.bool (decide (n₁ &gt; n₂)))</code>",
  "487":
- "<code>Slang.BStep.gtRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : a2 ⟶a a2') : BStep (Bexp.gt v1 a2) (Bexp.gt v1 a2')</code>",
+ "<code>Slang.BStep.gtRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : a₂ ⟶a a₂') : BStep (Bexp.gt v₁ a₂) (Bexp.gt v₁ a₂')</code>",
  "486":
- "<code>Slang.BStep.gtLeft (a1 a1' a2 : Aexp) (h : a1 ⟶a a1') : BStep (Bexp.gt a1 a2) (Bexp.gt a1' a2)</code>",
+ "<code>Slang.BStep.gtLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶a a₁') : BStep (Bexp.gt a₁ a₂) (Bexp.gt a₁' a₂)</code>",
  "485":
- "<code>Slang.BStep.le (n1 n2 : Nat) : BStep (Bexp.le (Aexp.num n1) (Aexp.num n2)) (Bexp.bool (decide (n1 ≤ n2)))</code>",
+ "<code>Slang.BStep.le (n₁ n₂ : Nat) : BStep (Bexp.le (Aexp.num n₁) (Aexp.num n₂)) (Bexp.bool (decide (n₁ ≤ n₂)))</code>",
  "484":
- "<code>Slang.BStep.leRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : a2 ⟶a a2') : BStep (Bexp.le v1 a2) (Bexp.le v1 a2')</code>",
+ "<code>Slang.BStep.leRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : a₂ ⟶a a₂') : BStep (Bexp.le v₁ a₂) (Bexp.le v₁ a₂')</code>",
  "483":
- "<code>Slang.BStep.leLeft (a1 a1' a2 : Aexp) (h : a1 ⟶a a1') : BStep (Bexp.le a1 a2) (Bexp.le a1' a2)</code>",
+ "<code>Slang.BStep.leLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶a a₁') : BStep (Bexp.le a₁ a₂) (Bexp.le a₁' a₂)</code>",
  "482":
- "<code>Slang.BStep.neq (n1 n2 : Nat) : BStep (Bexp.neq (Aexp.num n1) (Aexp.num n2)) (Bexp.bool (decide (n1 ≠ n2)))</code>",
+ "<code>Slang.BStep.neq (n₁ n₂ : Nat) : BStep (Bexp.neq (Aexp.num n₁) (Aexp.num n₂)) (Bexp.bool (decide (n₁ ≠ n₂)))</code>",
  "481":
- "<code>Slang.BStep.neqRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : a2 ⟶a a2') : BStep (Bexp.neq v1 a2) (Bexp.neq v1 a2')</code>",
+ "<code>Slang.BStep.neqRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : a₂ ⟶a a₂') : BStep (Bexp.neq v₁ a₂) (Bexp.neq v₁ a₂')</code>",
  "480":
- "<code>Slang.BStep.neqLeft (a1 a1' a2 : Aexp) (h : a1 ⟶a a1') : BStep (Bexp.neq a1 a2) (Bexp.neq a1' a2)</code>",
+ "<code>Slang.BStep.neqLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶a a₁') : BStep (Bexp.neq a₁ a₂) (Bexp.neq a₁' a₂)</code>",
  "48":
  "<code class=\"docstring\">This tactic applies to a goal whose target has the form `x ~ x`,\nwhere `~` is equality, heterogeneous equality or any relation that\nhas a reflexivity lemma tagged with the attribute @[refl].\n</code>",
  "479":
- "<code>Slang.BStep.eq (n1 n2 : Nat) : BStep (Bexp.eq (Aexp.num n1) (Aexp.num n2)) (Bexp.bool (decide (n1 = n2)))</code>",
+ "<code>Slang.BStep.eq (n₁ n₂ : Nat) : BStep (Bexp.eq (Aexp.num n₁) (Aexp.num n₂)) (Bexp.bool (decide (n₁ = n₂)))</code>",
  "478":
- "<code>Slang.BStep.eqRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : a2 ⟶a a2') : BStep (Bexp.eq v1 a2) (Bexp.eq v1 a2')</code>",
+ "<code>Slang.BStep.eqRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : a₂ ⟶a a₂') : BStep (Bexp.eq v₁ a₂) (Bexp.eq v₁ a₂')</code>",
  "477":
- "<code>Slang.BStep.eqLeft (a1 a1' a2 : Aexp) (h : a1 ⟶a a1') : BStep (Bexp.eq a1 a2) (Bexp.eq a1' a2)</code>",
+ "<code>Slang.BStep.eqLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶a a₁') : BStep (Bexp.eq a₁ a₂) (Bexp.eq a₁' a₂)</code>",
  "476": "<code>Slang.BStep : Bexp → Bexp → Prop</code>",
  "475":
- "<code>Slang.AStep.mult (n1 n2 : Nat) : (Aexp.num n1).mult (Aexp.num n2) ⟶a Aexp.num (n1 * n2)</code>",
+ "<code>Slang.AStep.mult (n₁ n₂ : Nat) : (Aexp.num n₁).mult (Aexp.num n₂) ⟶a Aexp.num (n₁ * n₂)</code>",
  "474":
- "<code>Slang.AStep.multRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : a2 ⟶a a2') : v1.mult a2 ⟶a v1.mult a2'</code>",
+ "<code>Slang.AStep.multRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : a₂ ⟶a a₂') : v₁.mult a₂ ⟶a v₁.mult a₂'</code>",
  "473":
- "<code>Slang.AStep.multLeft (a1 a1' a2 : Aexp) (h : a1 ⟶a a1') : a1.mult a2 ⟶a a1'.mult a2</code>",
+ "<code>Slang.AStep.multLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶a a₁') : a₁.mult a₂ ⟶a a₁'.mult a₂</code>",
  "472":
- "<code>Slang.AStep.minus (n1 n2 : Nat) : (Aexp.num n1).minus (Aexp.num n2) ⟶a Aexp.num (n1 - n2)</code>",
+ "<code>Slang.AStep.minus (n₁ n₂ : Nat) : (Aexp.num n₁).minus (Aexp.num n₂) ⟶a Aexp.num (n₁ - n₂)</code>",
  "471":
- "<code>Slang.AStep.minusRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : a2 ⟶a a2') : v1.minus a2 ⟶a v1.minus a2'</code>",
+ "<code>Slang.AStep.minusRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : a₂ ⟶a a₂') : v₁.minus a₂ ⟶a v₁.minus a₂'</code>",
  "470":
- "<code>Slang.AStep.minusLeft (a1 a1' a2 : Aexp) (h : a1 ⟶a a1') : a1.minus a2 ⟶a a1'.minus a2</code>",
+ "<code>Slang.AStep.minusLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶a a₁') : a₁.minus a₂ ⟶a a₁'.minus a₂</code>",
  "47": "<code>Slang.Aexp.optimize0plus (a : Aexp) : Aexp</code>",
- "469": "<code>IsAValue a2</code>",
- "468": "<code>a2 ⟶a a2'</code>",
- "467": "<code>∃ a', a2 ⟶a a'</code>",
- "466": "<code>IsAValue a1</code>",
+ "469": "<code>IsAValue a₂</code>",
+ "468": "<code>a₂ ⟶a a₂'</code>",
+ "467": "<code>∃ a', a₂ ⟶a a'</code>",
+ "466": "<code>IsAValue a₁</code>",
  "465":
- "<code>Slang.AStep.plusLeft (a1 a1' a2 : Aexp) (h : a1 ⟶a a1') : a1.plus a2 ⟶a a1'.plus a2</code>",
- "464": "<code>a1 ⟶a a1'</code>",
- "463": "<code>∃ a', a1 ⟶a a'</code>",
- "462": "<code>IsAValue a2 ∨ ∃ a', a2 ⟶a a'</code>",
- "461": "<code>IsAValue a1 ∨ ∃ a', a1 ⟶a a'</code>",
+ "<code>Slang.AStep.plusLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶a a₁') : a₁.plus a₂ ⟶a a₁'.plus a₂</code>",
+ "464": "<code>a₁ ⟶a a₁'</code>",
+ "463": "<code>∃ a', a₁ ⟶a a'</code>",
+ "462": "<code>IsAValue a₂ ∨ ∃ a', a₂ ⟶a a'</code>",
+ "461": "<code>IsAValue a₁ ∨ ∃ a', a₁ ⟶a a'</code>",
  "460":
  "<code>Slang.strong_progress_arith (a : Aexp) : IsAValue a ∨ ∃ a', a ⟶a a'</code>",
  "46":
  "<code>Slang.Bexp.eval_gt (a₁ a₂ : Slang.Aexp) : (Slang.Bexp.gt a₁ a₂).eval = decide (a₁.eval &gt; a₂.eval)</code>",
  "459":
- "<code>Slang.AStep.plus (n1 n2 : Nat) : (Aexp.num n1).plus (Aexp.num n2) ⟶a Aexp.num (n1 + n2)</code>",
+ "<code>Slang.AStep.plus (n₁ n₂ : Nat) : (Aexp.num n₁).plus (Aexp.num n₂) ⟶a Aexp.num (n₁ + n₂)</code>",
  "458":
- "<code>Slang.AStep.plusRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : a2 ⟶a a2') : v1.plus a2 ⟶a v1.plus a2'</code>",
+ "<code>Slang.AStep.plusRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : a₂ ⟶a a₂') : v₁.plus a₂ ⟶a v₁.plus a₂'</code>",
  "457": "<code><span class=\"literal string\">\" ⟶a \"</span> : String</code>",
  "456":
- "<code>Slang.AStep.mult (n1 n2 : Nat) : AStep ((Aexp.num n1).mult (Aexp.num n2)) (Aexp.num (n1 * n2))</code>",
+ "<code>Slang.AStep.mult (n₁ n₂ : Nat) : AStep ((Aexp.num n₁).mult (Aexp.num n₂)) (Aexp.num (n₁ * n₂))</code>",
  "455":
- "<code>Slang.AStep.multRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') : AStep (v1.mult a2) (v1.mult a2')</code>",
+ "<code>Slang.AStep.multRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') : AStep (v₁.mult a₂) (v₁.mult a₂')</code>",
  "454":
- "<code>Slang.AStep.multLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : AStep (a1.mult a2) (a1'.mult a2)</code>",
+ "<code>Slang.AStep.multLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : AStep (a₁.mult a₂) (a₁'.mult a₂)</code>",
  "453":
- "<code>Slang.AStep.minus (n1 n2 : Nat) : AStep ((Aexp.num n1).minus (Aexp.num n2)) (Aexp.num (n1 - n2))</code>",
+ "<code>Slang.AStep.minus (n₁ n₂ : Nat) : AStep ((Aexp.num n₁).minus (Aexp.num n₂)) (Aexp.num (n₁ - n₂))</code>",
  "452":
- "<code>Slang.AStep.minusRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') : AStep (v1.minus a2) (v1.minus a2')</code>",
+ "<code>Slang.AStep.minusRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') : AStep (v₁.minus a₂) (v₁.minus a₂')</code>",
  "451":
- "<code>Slang.AStep.minusLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : AStep (a1.minus a2) (a1'.minus a2)</code>",
+ "<code>Slang.AStep.minusLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : AStep (a₁.minus a₂) (a₁'.minus a₂)</code>",
  "450":
- "<code>Slang.AStep.plus (n1 n2 : Nat) : AStep ((Aexp.num n1).plus (Aexp.num n2)) (Aexp.num (n1 + n2))</code>",
+ "<code>Slang.AStep.plus (n₁ n₂ : Nat) : AStep ((Aexp.num n₁).plus (Aexp.num n₂)) (Aexp.num (n₁ + n₂))</code>",
  "45":
  "<code>Slang.Bexp.eval_le (a₁ a₂ : Slang.Aexp) : (Slang.Bexp.le a₁ a₂).eval = decide (a₁.eval ≤ a₂.eval)</code>",
- "449": "<code>AStep a2 a2'</code>",
- "448": "<code>IsAValue v1</code>",
+ "449": "<code>AStep a₂ a₂'</code>",
+ "448": "<code>IsAValue v₁</code>",
  "447":
- "<code>Slang.AStep.plusRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') : AStep (v1.plus a2) (v1.plus a2')</code>",
- "446": "<code>AStep a1 a1'</code>",
+ "<code>Slang.AStep.plusRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') : AStep (v₁.plus a₂) (v₁.plus a₂')</code>",
+ "446": "<code>AStep a₁ a₁'</code>",
  "445":
- "<code>Slang.AStep.plusLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : AStep (a1.plus a2) (a1'.plus a2)</code>",
+ "<code>Slang.AStep.plusLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : AStep (a₁.plus a₂) (a₁'.plus a₂)</code>",
  "444": "<code>Slang.AStep : Aexp → Aexp → Prop</code>",
  "443": "<code>Slang.IsAValue.num (n : Nat) : IsAValue (Aexp.num n)</code>",
  "442": "<code>Slang.IsAValue : Aexp → Prop</code>",
- "441": "<code>evalF t2 = n2</code>",
- "440": "<code>evalF t1 = n1</code>",
+ "441": "<code>evalF t₂ = n₂</code>",
+ "440": "<code>evalF t₁ = n₁</code>",
  "44":
  "<code>Decidable.decide (p : Prop) [h : Decidable p] : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Converts a decidable proposition into a `Bool`.\n\nIf `p : Prop` is decidable, then `decide p : Bool` is the Boolean value\nthat is `true` if `p` is true and `false` if `p` is false.\n</code>",
- "439": "<code>t2 ⇓ evalF t2</code>",
- "438": "<code>t1 ⇓ evalF t1</code>",
+ "439": "<code>t₂ ⇓ evalF t₂</code>",
+ "438": "<code>t₁ ⇓ evalF t₁</code>",
  "437": "<code>evalF t = n</code>",
  "436": "<code>evalF_eval (t : Tm) (n : Nat) : evalF t = n ↔ t ⇓ n</code>",
  "435": "<code>d = Tm.c n</code>",
@@ -862,65 +857,65 @@
  "424": "<code>IsNormalFormOf Step t t'</code>",
  "423":
  "<code>eval_of_multistep (t t' : Tm) (h : IsNormalFormOf Step t t') : ∃ n, t' = Tm.c n ∧ t ⇓ n</code>",
- "422": "<code>t2' ⇓ m2</code>",
- "421": "<code>v1 ⇓ m1</code>",
- "420": "<code>v1.p t2' ⇓ n</code>",
+ "422": "<code>t₂' ⇓ m₂</code>",
+ "421": "<code>v₁ ⇓ m₁</code>",
+ "420": "<code>v₁.p t₂' ⇓ n</code>",
  "42":
  "<code class=\"docstring\">The universe of propositions. `Prop ≡ Sort 0`.\n\nEvery proposition is propositionally equal to either `True` or `False`. </code>",
- "419": "<code>∀ (n : Nat), (t2' ⇓ n) → t2 ⇓ n</code>",
- "418": "<code>t2 ⇓ m2</code>",
- "417": "<code>t1' ⇓ m1</code>",
- "416": "<code>t2✝ ⇓ m2</code>",
- "415": "<code>t1✝ ⇓ m1</code>",
- "414": "<code>t1'.p t2 ⇓ n</code>",
- "413": "<code>∀ (n : Nat), (t1' ⇓ n) → t1 ⇓ n</code>",
- "412": "<code>Tm.c (n1 + n2) ⇓ n</code>",
+ "419": "<code>∀ (n : Nat), (t₂' ⇓ n) → t₂ ⇓ n</code>",
+ "418": "<code>t₂ ⇓ m₂</code>",
+ "417": "<code>t₁' ⇓ m₁</code>",
+ "416": "<code>t₂✝ ⇓ m₂</code>",
+ "415": "<code>t₁✝ ⇓ m₁</code>",
+ "414": "<code>t₁'.p t₂ ⇓ n</code>",
+ "413": "<code>∀ (n : Nat), (t₁' ⇓ n) → t₁ ⇓ n</code>",
+ "412": "<code>Tm.c (n₁ + n₂) ⇓ n</code>",
  "411": "<code>t' ⇓ n</code>",
  "410": "<code>t ⟶ t'</code>",
  "41":
  "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval && b₂.eval)</code>",
  "409":
  "<code>eval_of_step (t t' : Tm) (n : Nat) (hs : t ⟶ t') (he : t' ⇓ n) : t ⇓ n</code>",
- "408": "<code>t2 ⇓ n2</code>",
- "407": "<code>t1 ⇓ n1</code>",
+ "408": "<code>t₂ ⇓ n₂</code>",
+ "407": "<code>t₁ ⇓ n₁</code>",
  "406":
- "<code>Eval.plus (t1 t2 : Tm) (n1 n2 : Nat) (h1 : t1 ⇓ n1) (h2 : t2 ⇓ n2) : t1.p t2 ⇓ n1 + n2</code>",
+ "<code>Eval.plus (t₁ t₂ : Tm) (n₁ n₂ : Nat) (h₁ : t₁ ⇓ n₁) (h₂ : t₂ ⇓ n₂) : t₁.p t₂ ⇓ n₁ + n₂</code>",
  "405": "<code>Eval.const (n : Nat) : Tm.c n ⇓ n</code>",
  "404": "<code>t ⇓ n</code>",
  "403":
  "<code>multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* Tm.c n</code>",
- "402": "<code>IsNormalForm Step (Tm.c n2)</code>",
- "401": "<code>t2 ⟶* Tm.c n2</code>",
- "400": "<code>IsNormalForm Step (Tm.c n1)</code>",
+ "402": "<code>IsNormalForm Step (Tm.c n₂)</code>",
+ "401": "<code>t₂ ⟶* Tm.c n₂</code>",
+ "400": "<code>IsNormalForm Step (Tm.c n₁)</code>",
  "40": "<code>Slang.Bexp.eval_not (b : Bexp) : b.not.eval = !b.eval</code>",
  "4": "<code>Nat</code>",
- "399": "<code>t1 ⟶* Tm.c n1</code>",
+ "399": "<code>t₁ ⟶* Tm.c n₁</code>",
  "398":
  "<code>Iff.mp {a b : Prop} (self : a ↔ b) : a → b</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if. If `a ↔ b` and `a`, then `b`. </code>",
- "397": "<code>IsNormalForm Step t2'</code>",
- "396": "<code>IsNormalForm Step t1'</code>",
- "395": "<code>∃ t', IsNormalFormOf Step t2 t'</code>",
- "394": "<code>∃ t', IsNormalFormOf Step t1 t'</code>",
+ "397": "<code>IsNormalForm Step t₂'</code>",
+ "396": "<code>IsNormalForm Step t₁'</code>",
+ "395": "<code>∃ t', IsNormalFormOf Step t₂ t'</code>",
+ "394": "<code>∃ t', IsNormalFormOf Step t₁ t'</code>",
  "393":
  "<code>Iff.mpr {a b : Prop} (self : a ↔ b) : b → a</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if, reversed. If `a ↔ b` and `b`, then `a`. </code>",
  "392": "<code>step_normalizing : Normalizing Step</code>",
- "391": "<code>v1.p y ⟶* v1.p z</code>",
- "390": "<code>t2 ⟶* t2'</code>",
+ "391": "<code>v₁.p y ⟶* v₁.p z</code>",
+ "390": "<code>t₂ ⟶* t₂'</code>",
  "39":
  "<code>Slang.Bexp.eval_gt (a₁ a₂ : Aexp) : (gt a₁ a₂).eval = decide (a₁.eval &gt; a₂.eval)</code>",
  "389":
- "<code>multistep_congr_2 (v1 t2 t2' : Tm) (hv : IsValue v1) (h : t2 ⟶* t2') : v1.p t2 ⟶* v1.p t2'</code>",
- "388": "<code>y.p t2 ⟶* z.p t2</code>",
+ "<code>multistep_congr_2 (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : t₂ ⟶* t₂') : v₁.p t₂ ⟶* v₁.p t₂'</code>",
+ "388": "<code>y.p t₂ ⟶* z.p t₂</code>",
  "387": "<code>y ⟶* z</code>",
  "386": "<code>x ⟶ y</code>",
- "385": "<code>t1 ⟶* t1'</code>",
+ "385": "<code>t₁ ⟶* t₁'</code>",
  "384":
- "<code>multistep_congr_1 (t1 t1' t2 : Tm) (h : t1 ⟶* t1') : t1.p t2 ⟶* t1'.p t2</code>",
+ "<code>multistep_congr_1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶* t₁') : t₁.p t₂ ⟶* t₁'.p t₂</code>",
  "383": "<code>Normalizing {X : Type} (R : Relation X) : Prop</code>",
  "382": "<code>b = b'</code>",
  "381":
  "<code class=\"docstring\">The `have` tactic is for adding opaque definitions and hypotheses to the local context of the main goal.\nThe definitions forget their associated value and cannot be unfolded, unlike definitions added by the `let` tactic.\n\n* `have h : t := e` adds the hypothesis `h : t` if `e` is a term of type `t`.\n* `have h := e` uses the type of `e` for `t`.\n* `have : t := e` and `have := e` use `this` for the name of the hypothesis.\n* `have pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that have only one applicable constructor.\n  For example, given `h : p ∧ q ∧ r`, `have ⟨h₁, h₂, h₃⟩ := h` produces the\n  hypotheses `h₁ : p`, `h₂ : q`, and `h₃ : r`.\n* The syntax `have (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `have` term.\n\n## Properties and relations\n\n* It is not possible to unfold a variable introduced using `have`, since the definition's value is forgotten.\n  The `let` tactic introduces definitions that can be unfolded.\n* The `have h : t := e` is like doing `let h : t := e; clear_value h`.\n* The `have` tactic is preferred for propositions, and `let` is preferred for non-propositions.\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n    Consider using the equivalent `let +nondep` to indicate the intent.\n\n</code>",
- "380": "<code>b' ⟶* y2</code>",
+ "380": "<code>b' ⟶* y₂</code>",
  "38":
  "<code>Slang.Bexp.eval_le (a₁ a₂ : Aexp) : (le a₁ a₂).eval = decide (a₁.eval ≤ a₂.eval)</code>",
  "379": "<code>a ⟶ b'</code>",
@@ -928,21 +923,21 @@
  "377": "<code>x✝ ⟶ b'</code>",
  "376": "<code>IsNormalForm Step c</code>",
  "375":
- "<code>∀ (y2 : Tm), IsNormalForm Step c → b ⟶* y2 → IsNormalForm Step y2 → c = y2</code>",
+ "<code>∀ (y₂ : Tm), IsNormalForm Step c → b ⟶* y₂ → IsNormalForm Step y₂ → c = y₂</code>",
  "374": "<code>b ⟶* c</code>",
- "373": "<code>b ⟶* y2</code>",
+ "373": "<code>b ⟶* y₂</code>",
  "372": "<code>a ⟶ b</code>",
  "371": "<code>x✝ ⟶ b</code>",
- "370": "<code>a ⟶* y2</code>",
+ "370": "<code>a ⟶* y₂</code>",
  "37":
  "<code>Slang.Bexp.eval_neq (a₁ a₂ : Aexp) : (neq a₁ a₂).eval = (a₁.eval != a₂.eval)</code>",
  "369": "<code>IsNormalForm Step a</code>",
- "368": "<code>IsNormalForm Step y2</code>",
- "367": "<code>x ⟶* y2</code>",
- "366": "<code>IsNormalForm Step y1</code>",
- "365": "<code>x ⟶* y1</code>",
- "364": "<code>IsNormalFormOf Step x y2</code>",
- "363": "<code>IsNormalFormOf Step x y1</code>",
+ "368": "<code>IsNormalForm Step y₂</code>",
+ "367": "<code>x ⟶* y₂</code>",
+ "366": "<code>IsNormalForm Step y₁</code>",
+ "365": "<code>x ⟶* y₁</code>",
+ "364": "<code>IsNormalFormOf Step x y₂</code>",
+ "363": "<code>IsNormalFormOf Step x y₁</code>",
  "362":
  "<code>normal_forms_unique : Deterministic (IsNormalFormOf Step)</code>",
  "361":
@@ -964,22 +959,22 @@
  "350": "<code>R x y</code>",
  "35": "<code>Slang.Bexp.eval_bool (b : Bool) : (bool b).eval = b</code>",
  "349":
- "<code>Multi.step {X : Type} {R : Relation X} (x y z : X) (h1 : R x y) (h2 : Multi R y z) : Multi R x z</code>",
+ "<code>Multi.step {X : Type} {R : Relation X} (x y z : X) (h₁ : R x y) (h₂ : Multi R y z) : Multi R x z</code>",
  "348":
  "<code>Multi.refl {X : Type} {R : Relation X} (x : X) : Multi R x x</code>",
  "347": "<code>Multi {X : Type} (R : Relation X) : X → X → Prop</code>",
- "346": "<code>Step (Tm.c 1) t1'✝</code>",
- "345": "<code>Step t1✝ t1'✝</code>",
+ "346": "<code>Step (Tm.c 1) t₁'✝</code>",
+ "345": "<code>Step t₁✝ t₁'✝</code>",
  "344": "<code>Step ((Tm.c 1).p ((Tm.c 1).p (Tm.c 2))) t'</code>",
  "343": "<code>∃ t', Step ((Tm.c 1).p ((Tm.c 1).p (Tm.c 2))) t'</code>",
  "342": "<code>IsValue ((Tm.c 1).p ((Tm.c 1).p (Tm.c 2)))</code>",
  "341":
  "<code>Temp3.value_not_same_as_normal_form : ∃ t, ¬IsValue t ∧ IsNormalForm Step t</code>",
  "340":
- "<code>Temp3.Step.plusLeft (t1 t1' t2 : Tm) (h : Step t1 t1') : Step (t1.p t2) (t1'.p t2)</code>",
+ "<code>Temp3.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (t₁.p t₂) (t₁'.p t₂)</code>",
  "34": "<code>Slang.Bexp.eval (b : Bexp) : Bool</code>",
  "339":
- "<code>Temp3.Step.plus (n1 n2 : Nat) : Step ((Tm.c n1).p (Tm.c n2)) (Tm.c (n1 + n2))</code>",
+ "<code>Temp3.Step.plus (n₁ n₂ : Nat) : Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
  "338": "<code>Temp3.Step : Tm → Tm → Prop</code>",
  "337": "<code>Temp3.IsValue.const (n : Nat) : IsValue (Tm.c n)</code>",
  "336": "<code>Temp3.IsValue : Tm → Prop</code>",
@@ -987,11 +982,11 @@
  "334":
  "<code>Temp2.value_not_same_as_normal_form : ∃ v, IsValue v ∧ ¬IsNormalForm Step v</code>",
  "333":
- "<code>Temp2.Step.plusRight (v1 t2 t2' : Tm) (hv : IsValue v1) (h : Step t2 t2') : Step (v1.p t2) (v1.p t2')</code>",
+ "<code>Temp2.Step.plusRight (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : Step t₂ t₂') : Step (v₁.p t₂) (v₁.p t₂')</code>",
  "332":
- "<code>Temp2.Step.plusLeft (t1 t1' t2 : Tm) (h : Step t1 t1') : Step (t1.p t2) (t1'.p t2)</code>",
+ "<code>Temp2.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (t₁.p t₂) (t₁'.p t₂)</code>",
  "331":
- "<code>Temp2.Step.plus (n1 n2 : Nat) : Step ((Tm.c n1).p (Tm.c n2)) (Tm.c (n1 + n2))</code>",
+ "<code>Temp2.Step.plus (n₁ n₂ : Nat) : Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
  "330":
  "<code>Temp2.Step.funny (n : Nat) : Step (Tm.c n) ((Tm.c n).p (Tm.c 0))</code>",
  "33":
@@ -1009,16 +1004,16 @@
  "322":
  "<code>Temp1.value_not_same_as_normal_form : ∃ v, IsValue v ∧ ¬IsNormalForm Step v</code>",
  "321":
- "<code>Temp1.Step.plusRight (v1 t2 t2' : Tm) (hv : IsValue v1) (h : Step t2 t2') : Step (v1.p t2) (v1.p t2')</code>",
+ "<code>Temp1.Step.plusRight (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : Step t₂ t₂') : Step (v₁.p t₂) (v₁.p t₂')</code>",
  "320":
- "<code>Temp1.Step.plusLeft (t1 t1' t2 : Tm) (h : Step t1 t1') : Step (t1.p t2) (t1'.p t2)</code>",
+ "<code>Temp1.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (t₁.p t₂) (t₁'.p t₂)</code>",
  "32":
  "<code class=\"docstring\">The `simp` tactic uses lemmas and hypotheses to simplify the main goal target or\nnon-dependent hypotheses. It has many variants:\n- `simp` simplifies the main goal target using lemmas tagged with the attribute `[simp]`.\n- `simp [h₁, h₂, ..., hₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]` and the given `hᵢ`'s, where the `hᵢ`'s are expressions.-\n- If an `hᵢ` is a defined constant `f`, then `f` is unfolded. If `f` has equational lemmas associated\n  with it (and is not a projection or a `reducible` definition), these are used to rewrite with `f`.\n- `simp [*]` simplifies the main goal target using the lemmas tagged with the\n  attribute `[simp]` and all hypotheses.\n- `simp only [h₁, h₂, ..., hₙ]` is like `simp [h₁, h₂, ..., hₙ]` but does not use `[simp]` lemmas.\n- `simp [-id₁, ..., -idₙ]` simplifies the main goal target using the lemmas tagged\n  with the attribute `[simp]`, but removes the ones named `idᵢ`.\n- `simp at h₁ h₂ ... hₙ` simplifies the hypotheses `h₁ : T₁` ... `hₙ : Tₙ`. If\n  the target or another hypothesis depends on `hᵢ`, a new simplified hypothesis\n  `hᵢ` is introduced, but the old one remains in the local context.\n- `simp at *` simplifies all the hypotheses and the target.\n- `simp [*] at *` simplifies target and all (propositional) hypotheses using the\n  other hypotheses.\n</code>",
  "319":
- "<code>Temp1.Step.plus (n1 n2 : Nat) : Step ((Tm.c n1).p (Tm.c n2)) (Tm.c (n1 + n2))</code>",
+ "<code>Temp1.Step.plus (n₁ n₂ : Nat) : Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
  "318": "<code>Temp1.Step : Tm → Tm → Prop</code>",
  "317":
- "<code>Temp1.IsValue.funny (t1 : Tm) (n : Nat) : IsValue (t1.p (Tm.c n))</code>",
+ "<code>Temp1.IsValue.funny (t₁ : Tm) (n : Nat) : IsValue (t₁.p (Tm.c n))</code>",
  "316": "<code>Temp1.IsValue.const (n : Nat) : IsValue (Tm.c n)</code>",
  "315": "<code>Temp1.IsValue : Tm → Prop</code>",
  "314":
@@ -1041,24 +1036,24 @@
  "303":
  "<code>value_is_nf (v : Tm) (h : IsValue v) : IsNormalForm Step v</code>",
  "302": "<code>IsNormalForm {X : Type} (R : Relation X) (t : X) : Prop</code>",
- "301": "<code>∃ t', t1 ⟶ t'</code>",
+ "301": "<code>∃ t', t₁ ⟶ t'</code>",
  "300":
  "<code class=\"docstring\">The `obtain` tactic is a combination of `have` and `rcases`. See `rcases` for\na description of supported patterns.\n\n```lean\nobtain ⟨patt⟩ : type := proof\n```\nis equivalent to\n```lean\nhave h : type := proof\nrcases h with ⟨patt⟩\n```\n\nIf `⟨patt⟩` is omitted, `rcases` will try to infer the pattern.\n\nIf `type` is omitted, `:= proof` is required.\n</code>",
  "30":
  "<code class=\"docstring\">`by tac` constructs a term of the expected type by running the tactic(s) `tac`. </code>",
  "3": "<code>Slang.Aexp.num (n : Nat) : Aexp</code>",
- "299": "<code>∃ t', t2 ⟶ t'</code>",
+ "299": "<code>∃ t', t₂ ⟶ t'</code>",
  "298":
  "<code>Or.inr {a b : Prop} (h : b) : a ∨ b</code><span class=\"sep\"></span><code class=\"docstring\">`Or.inr` is \"right injection\" into an `Or`. If `h : b` then `Or.inr h : a ∨ b`. </code>",
  "297":
  "<code>Exists.intro.{u} {α : Sort u} {p : α → Prop} (w : α) (h : p w) : Exists p</code><span class=\"sep\"></span><code class=\"docstring\">Existential introduction. If `a : α` and `h : p a`,\nthen `⟨a, h⟩` is a proof that `∃ x : α, p x`. </code>",
- "296": "<code>IsValue t2</code>",
+ "296": "<code>IsValue t₂</code>",
  "295":
  "<code>Or.inl {a b : Prop} (h : a) : a ∨ b</code><span class=\"sep\"></span><code class=\"docstring\">`Or.inl` is \"left injection\" into an `Or`. If `h : a` then `Or.inl h : a ∨ b`. </code>",
  "294":
  "<code class=\"docstring\">Applies the second constructor when\nthe goal is an inductive type with exactly two constructors, or fails otherwise.\n```\nexample {p q : Prop} (h : q) : p ∨ q := by\n  right\n  exact h\n```\n</code>",
- "293": "<code>IsValue t2 ∨ ∃ t', t2 ⟶ t'</code>",
- "292": "<code>IsValue t1 ∨ ∃ t', t1 ⟶ t'</code>",
+ "293": "<code>IsValue t₂ ∨ ∃ t', t₂ ⟶ t'</code>",
+ "292": "<code>IsValue t₁ ∨ ∃ t', t₁ ⟶ t'</code>",
  "291":
  "<code class=\"docstring\">Applies the first constructor when\nthe goal is an inductive type with exactly two constructors, or fails otherwise.\n```\nexample : True ∨ False := by\n  left\n  trivial\n```\n</code>",
  "290":
@@ -1068,82 +1063,82 @@
  "289":
  "<code>Or (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`Or a b`, or `a ∨ b`, is the disjunction of propositions. There are two\nconstructors for `Or`, called `Or.inl : a → a ∨ b` and `Or.inr : b → a ∨ b`,\nand you can use `match` or `cases` to destruct an `Or` assumption into the\ntwo cases.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∨` in identifiers is `or`.</code>",
  "288": "<code>strong_progress (t : Tm) : IsValue t ∨ ∃ t', t ⟶ t'</code>",
- "287": "<code>Tm.c n✝ ⟶ t1'✝</code>",
- "286": "<code>v1 ⟶ t1'✝</code>",
- "285": "<code>∀ (y2 : Tm), Tm.c n2✝ ⟶ y2 → t2' = y2</code>",
- "284": "<code>Tm.c n2✝ ⟶ t2'</code>",
- "283": "<code>IsValue (Tm.c n1✝)</code>",
- "282": "<code>v1.p t2 ⟶ y2</code>",
- "281": "<code>∀ (y2 : Tm), t2 ⟶ y2 → t2' = y2</code>",
- "280": "<code>t2 ⟶ t2'</code>",
+ "287": "<code>Tm.c n✝ ⟶ t₁'✝</code>",
+ "286": "<code>v₁ ⟶ t₁'✝</code>",
+ "285": "<code>∀ (y₂ : Tm), Tm.c n₂✝ ⟶ y₂ → t₂' = y₂</code>",
+ "284": "<code>Tm.c n₂✝ ⟶ t₂'</code>",
+ "283": "<code>IsValue (Tm.c n₁✝)</code>",
+ "282": "<code>v₁.p t₂ ⟶ y₂</code>",
+ "281": "<code>∀ (y₂ : Tm), t₂ ⟶ y₂ → t₂' = y₂</code>",
+ "280": "<code>t₂ ⟶ t₂'</code>",
  "28":
  "<code>Slang.Aexp.eval_minus (a₁ a₂ : Aexp) : (a₁.minus a₂).eval = a₁.eval - a₂.eval</code>",
- "279": "<code>∀ (y2 : Tm), Tm.c n✝ ⟶ y2 → t1' = y2</code>",
- "278": "<code>Tm.c n✝ ⟶ t1'</code>",
- "277": "<code>t2 ⟶ t2'✝</code>",
- "276": "<code>IsValue t1</code>",
- "275": "<code>t1 ⟶ t1'✝</code>",
- "274": "<code>∀ (y2 : Tm), Tm.c n1✝ ⟶ y2 → t1' = y2</code>",
- "273": "<code>Tm.c n1✝ ⟶ t1'</code>",
- "272": "<code>t1.p t2 ⟶ y2</code>",
- "271": "<code>∀ (y2 : Tm), t1 ⟶ y2 → t1' = y2</code>",
- "270": "<code>t1 ⟶ t1'</code>",
+ "279": "<code>∀ (y₂ : Tm), Tm.c n✝ ⟶ y₂ → t₁' = y₂</code>",
+ "278": "<code>Tm.c n✝ ⟶ t₁'</code>",
+ "277": "<code>t₂ ⟶ t₂'✝</code>",
+ "276": "<code>IsValue t₁</code>",
+ "275": "<code>IsValue v₁✝</code>",
+ "274": "<code>t₁ ⟶ t₁'✝</code>",
+ "273": "<code>∀ (y₂ : Tm), Tm.c n₁✝ ⟶ y₂ → t₁' = y₂</code>",
+ "272": "<code>Tm.c n₁✝ ⟶ t₁'</code>",
+ "271": "<code>t₁.p t₂ ⟶ y₂</code>",
+ "270": "<code>∀ (y₂ : Tm), t₁ ⟶ y₂ → t₁' = y₂</code>",
  "27":
  "<code>Slang.Aexp.eval_plus (a₁ a₂ : Aexp) : (a₁.plus a₂).eval = a₁.eval + a₂.eval</code>",
- "269": "<code>Tm.c n2 ⟶ t2'✝</code>",
- "268": "<code>IsValue (Tm.c n1)</code>",
- "267": "<code>t2✝ ⟶ t2'✝</code>",
- "266": "<code>IsValue v1✝</code>",
+ "269": "<code>t₁ ⟶ t₁'</code>",
+ "268": "<code>Tm.c n₂ ⟶ t₂'✝</code>",
+ "267": "<code>IsValue (Tm.c n₁)</code>",
+ "266": "<code>t₂✝ ⟶ t₂'✝</code>",
  "265":
- "<code>Step.plusRight (v1 t2 t2' : Tm) (hv : IsValue v1) (h : t2 ⟶ t2') : v1.p t2 ⟶ v1.p t2'</code>",
- "264": "<code>Tm.c n1 ⟶ t1'✝</code>",
- "263": "<code>t1✝ ⟶ t1'✝</code>",
+ "<code>Step.plusRight (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : t₂ ⟶ t₂') : v₁.p t₂ ⟶ v₁.p t₂'</code>",
+ "264": "<code>Tm.c n₁ ⟶ t₁'✝</code>",
+ "263": "<code>t₁✝ ⟶ t₁'✝</code>",
  "262":
- "<code>Step.plusLeft (t1 t1' t2 : Tm) (h : t1 ⟶ t1') : t1.p t2 ⟶ t1'.p t2</code>",
- "261": "<code>(Tm.c n1).p (Tm.c n2) ⟶ y2</code>",
+ "<code>Step.plusLeft (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : t₁.p t₂ ⟶ t₁'.p t₂</code>",
+ "261": "<code>(Tm.c n₁).p (Tm.c n₂) ⟶ y₂</code>",
  "260":
- "<code>Step.plus (n1 n2 : Nat) : (Tm.c n1).p (Tm.c n2) ⟶ Tm.c (n1 + n2)</code>",
+ "<code>Step.plus (n₁ n₂ : Nat) : (Tm.c n₁).p (Tm.c n₂) ⟶ Tm.c (n₁ + n₂)</code>",
  "26":
  "<code>rfl.{u} {α : Sort u} {a : α} : a = a</code><span class=\"sep\"></span><code class=\"docstring\">`rfl : a = a` is the unique constructor of the equality type. This is the\nsame as `Eq.refl` except that it takes `a` implicitly instead of explicitly.\n\nThis is a more powerful theorem than it may appear at first, because although\nthe statement of the theorem is `a = a`, Lean will allow anything that is\ndefinitionally equal to that type. So, for instance, `2 + 2 = 4` is proven in\nLean by `rfl`, because both sides are the same up to definitional equality.\n</code>",
- "259": "<code>x ⟶ y1</code>",
+ "259": "<code>x ⟶ y₁</code>",
  "258": "<code>step_deterministic : Deterministic Step</code>",
- "257": "<code>IsValue v1</code>",
+ "257": "<code>IsValue v₁</code>",
  "256":
- "<code>Step.plusRight (v1 t2 t2' : Tm) (hv : IsValue v1) (h : Step t2 t2') : Step (v1.p t2) (v1.p t2')</code>",
+ "<code>Step.plusRight (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : Step t₂ t₂') : Step (v₁.p t₂) (v₁.p t₂')</code>",
  "255":
- "<code>Step.plusLeft (t1 t1' t2 : Tm) (h : Step t1 t1') : Step (t1.p t2) (t1'.p t2)</code>",
+ "<code>Step.plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (t₁.p t₂) (t₁'.p t₂)</code>",
  "254":
- "<code>Step.plus (n1 n2 : Nat) : Step ((Tm.c n1).p (Tm.c n2)) (Tm.c (n1 + n2))</code>",
+ "<code>Step.plus (n₁ n₂ : Nat) : Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
  "253": "<code>Step : Tm → Tm → Prop</code>",
  "252": "<code>IsValue.const (n : Nat) : IsValue (Tm.c n)</code>",
  "251": "<code>IsValue : Tm → Prop</code>",
- "250": "<code>∀ (y2 : Tm), SimpleArith1.Step (Tm.c n2✝) y2 → t2' = y2</code>",
+ "250": "<code>∀ (y₂ : Tm), SimpleArith1.Step (Tm.c n₂✝) y₂ → t₂' = y₂</code>",
  "25": "<code>Slang.Aexp.eval_num (n : Nat) : (num n).eval = n</code>",
- "249": "<code>SimpleArith1.Step (Tm.c n2✝) t2'</code>",
- "248": "<code>SimpleArith1.Step ((Tm.c n1).p t2) y2</code>",
- "247": "<code>∀ (y2 : Tm), SimpleArith1.Step t2 y2 → t2' = y2</code>",
- "246": "<code>SimpleArith1.Step t2 t2'</code>",
+ "249": "<code>SimpleArith1.Step (Tm.c n₂✝) t₂'</code>",
+ "248": "<code>SimpleArith1.Step ((Tm.c n₁).p t₂) y₂</code>",
+ "247": "<code>∀ (y₂ : Tm), SimpleArith1.Step t₂ y₂ → t₂' = y₂</code>",
+ "246": "<code>SimpleArith1.Step t₂ t₂'</code>",
  "245":
- "<code>SimpleArith1.Step.plusRight (n1 : Nat) (t2 t2' : Tm) (h : SimpleArith1.Step t2 t2') :\n  SimpleArith1.Step ((Tm.c n1).p t2) ((Tm.c n1).p t2')</code>",
- "244": "<code>SimpleArith1.Step t2 t2'✝</code>",
- "243": "<code>SimpleArith1.Step t1 t1'✝</code>",
- "242": "<code>∀ (y2 : Tm), SimpleArith1.Step (Tm.c n1✝) y2 → t1' = y2</code>",
- "241": "<code>SimpleArith1.Step (Tm.c n1✝) t1'</code>",
- "240": "<code>SimpleArith1.Step (t1.p t2) y2</code>",
+ "<code>SimpleArith1.Step.plusRight (n₁ : Nat) (t₂ t₂' : Tm) (h : SimpleArith1.Step t₂ t₂') :\n  SimpleArith1.Step ((Tm.c n₁).p t₂) ((Tm.c n₁).p t₂')</code>",
+ "244": "<code>SimpleArith1.Step t₂ t₂'✝</code>",
+ "243": "<code>SimpleArith1.Step t₁ t₁'✝</code>",
+ "242": "<code>∀ (y₂ : Tm), SimpleArith1.Step (Tm.c n₁✝) y₂ → t₁' = y₂</code>",
+ "241": "<code>SimpleArith1.Step (Tm.c n₁✝) t₁'</code>",
+ "240": "<code>SimpleArith1.Step (t₁.p t₂) y₂</code>",
  "24":
  "<code class=\"docstring\">Theorems tagged with the `simp` attribute are used by the simplifier\n(i.e., the `simp` tactic, and its variants) to simplify expressions occurring in your goals.\nWe call theorems tagged with the `simp` attribute \"simp theorems\" or \"simp lemmas\".\nLean maintains a database/index containing all active simp theorems.\nHere is an example of a simp theorem.\n```lean\n@[simp] theorem ne_eq (a b : α) : (a ≠ b) = Not (a = b) := rfl\n```\nThis simp theorem instructs the simplifier to replace instances of the term\n`a ≠ b` (e.g. `x + 0 ≠ y`) with `Not (a = b)` (e.g., `Not (x + 0 = y)`).\nThe simplifier applies simp theorems in one direction only:\nif `A = B` is a simp theorem, then `simp` replaces `A`s with `B`s,\nbut it doesn't replace `B`s with `A`s. Hence a simp theorem should have the\nproperty that its right-hand side is \"simpler\" than its left-hand side.\nIn particular, `=` and `↔` should not be viewed as symmetric operators in this situation.\nThe following would be a terrible simp theorem (if it were even allowed):\n```lean\n@[simp] lemma mul_right_inv_bad (a : G) : 1 = a * a⁻¹ := ...\n```\nReplacing 1 with a * a⁻¹ is not a sensible default direction to travel.\nEven worse would be a theorem that causes expressions to grow without bound,\ncausing simp to loop forever.\n\nBy default the simplifier applies `simp` theorems to an expression `e`\nafter its sub-expressions have been simplified.\nWe say it performs a bottom-up simplification.\nYou can instruct the simplifier to apply a theorem before its sub-expressions\nhave been simplified by using the modifier `↓`. Here is an example\n```lean\n@[simp↓] theorem not_and_eq (p q : Prop) : (¬ (p ∧ q)) = (¬p ∨ ¬q) :=\n```\n\nYou can instruct the simplifier to rewrite the lemma from right-to-left:\n```lean\nattribute @[simp ←] and_assoc\n```\n\nWhen multiple simp theorems are applicable, the simplifier uses the one with highest priority.\nThe equational theorems of functions are applied at very low priority (100 and below).\nIf there are several with the same priority, it is uses the \"most recent one\". Example:\n```lean\n@[simp high] theorem cond_true (a b : α) : cond true a b = a := rfl\n@[simp low+1] theorem or_true (p : Prop) : (p ∨ True) = True :=\n  propext &lt;| Iff.intro (fun _ =&gt; trivial) (fun _ =&gt; Or.inr trivial)\n@[simp 100] theorem ite_self {d : Decidable c} (a : α) : ite c a a = a := by\n  cases d &lt;;&gt; rfl\n```\n</code>",
- "239": "<code>∀ (y2 : Tm), SimpleArith1.Step t1 y2 → t1' = y2</code>",
- "238": "<code>SimpleArith1.Step t1 t1'</code>",
+ "239": "<code>∀ (y₂ : Tm), SimpleArith1.Step t₁ y₂ → t₁' = y₂</code>",
+ "238": "<code>SimpleArith1.Step t₁ t₁'</code>",
  "237":
- "<code>SimpleArith1.Step.plusLeft (t1 t1' t2 : Tm) (h : SimpleArith1.Step t1 t1') : SimpleArith1.Step (t1.p t2) (t1'.p t2)</code>",
+ "<code>SimpleArith1.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : SimpleArith1.Step t₁ t₁') : SimpleArith1.Step (t₁.p t₂) (t₁'.p t₂)</code>",
  "236":
  "<code class=\"docstring\">`first | tac | ...` runs each `tac` until one succeeds, or else fails. </code>",
- "235": "<code>SimpleArith1.Step (Tm.c n2) t2'✝</code>",
- "234": "<code>SimpleArith1.Step (Tm.c n1) t1'✝</code>",
- "233": "<code>SimpleArith1.Step ((Tm.c n1).p (Tm.c n2)) y2</code>",
+ "235": "<code>SimpleArith1.Step (Tm.c n₂) t₂'✝</code>",
+ "234": "<code>SimpleArith1.Step (Tm.c n₁) t₁'✝</code>",
+ "233": "<code>SimpleArith1.Step ((Tm.c n₁).p (Tm.c n₂)) y₂</code>",
  "232":
- "<code>SimpleArith1.Step.plus (n1 n2 : Nat) : SimpleArith1.Step ((Tm.c n1).p (Tm.c n2)) (Tm.c (n1 + n2))</code>",
- "231": "<code>SimpleArith1.Step x y1</code>",
+ "<code>SimpleArith1.Step.plus (n₁ n₂ : Nat) : SimpleArith1.Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
+ "231": "<code>SimpleArith1.Step x y₁</code>",
  "230":
  "<code>SimpleArith2.step_deterministic : Deterministic SimpleArith1.Step</code>",
  "23":
@@ -1156,35 +1151,35 @@
  "225": "<code>Type</code>",
  "224": "<code>Relation (X : Type) : Type</code>",
  "223":
- "<code>SimpleArith1.Step.plusRight (n1 : Nat) (t2 t2' : Tm) (h : t2 ⟶ t2') : (Tm.c n1).p t2 ⟶ (Tm.c n1).p t2'</code>",
+ "<code>SimpleArith1.Step.plusRight (n₁ : Nat) (t₂ t₂' : Tm) (h : t₂ ⟶ t₂') : (Tm.c n₁).p t₂ ⟶ (Tm.c n₁).p t₂'</code>",
  "222":
- "<code>SimpleArith1.Step.plus (n1 n2 : Nat) : (Tm.c n1).p (Tm.c n2) ⟶ Tm.c (n1 + n2)</code>",
+ "<code>SimpleArith1.Step.plus (n₁ n₂ : Nat) : (Tm.c n₁).p (Tm.c n₂) ⟶ Tm.c (n₁ + n₂)</code>",
  "221":
- "<code>SimpleArith1.Step.plusLeft (t1 t1' t2 : Tm) (h : t1 ⟶ t1') : t1.p t2 ⟶ t1'.p t2</code>",
+ "<code>SimpleArith1.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : t₁.p t₂ ⟶ t₁'.p t₂</code>",
  "220":
  "<code class=\"docstring\">`apply e` tries to match the current goal against the conclusion of `e`'s type.\nIf it succeeds, then the tactic returns as many subgoals as the number of premises that\nhave not been fixed by type inference or type class resolution.\nNon-dependent premises are added before dependent ones.\n\nThe `apply` tactic uses higher-order pattern matching, type class resolution,\nand first-order unification with dependent types.\n</code>",
  "22": "<code>Slang.Aexp.eval (a : Aexp) : Nat</code>",
  "219": "<code><span class=\"literal string\">\" ⟶ \"</span> : String</code>",
- "218": "<code>Step t2 t2'</code>",
+ "218": "<code>Step t₂ t₂'</code>",
  "217":
- "<code>SimpleArith1.Step.plusRight (n1 : Nat) (t2 t2' : Tm) (h : Step t2 t2') : Step ((Tm.c n1).p t2) ((Tm.c n1).p t2')</code>",
- "216": "<code>Step t1 t1'</code>",
+ "<code>SimpleArith1.Step.plusRight (n₁ : Nat) (t₂ t₂' : Tm) (h : Step t₂ t₂') : Step ((Tm.c n₁).p t₂) ((Tm.c n₁).p t₂')</code>",
+ "216": "<code>Step t₁ t₁'</code>",
  "215":
- "<code>SimpleArith1.Step.plusLeft (t1 t1' t2 : Tm) (h : Step t1 t1') : Step (t1.p t2) (t1'.p t2)</code>",
+ "<code>SimpleArith1.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (t₁.p t₂) (t₁'.p t₂)</code>",
  "214":
- "<code>SimpleArith1.Step.plus (n1 n2 : Nat) : Step ((Tm.c n1).p (Tm.c n2)) (Tm.c (n1 + n2))</code>",
+ "<code>SimpleArith1.Step.plus (n₁ n₂ : Nat) : Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
  "213": "<code>SimpleArith1.Step : Tm → Tm → Prop</code>",
- "212": "<code>Eval t2 n2</code>",
- "211": "<code>Eval t1 n1</code>",
+ "212": "<code>Eval t₂ n₂</code>",
+ "211": "<code>Eval t₁ n₁</code>",
  "210":
- "<code>Eval.plus (t1 t2 : Tm) (n1 n2 : Nat) (h1 : Eval t1 n1) (h2 : Eval t2 n2) : Eval (t1.p t2) (n1 + n2)</code>",
+ "<code>Eval.plus (t₁ t₂ : Tm) (n₁ n₂ : Nat) (h₁ : Eval t₁ n₁) (h₂ : Eval t₂ n₂) : Eval (t₁.p t₂) (n₁ + n₂)</code>",
  "21":
  "<code><span class=\"literal string\">\"1 + 2 * 3\"</span> : String</code>",
  "209": "<code>Eval.const (n : Nat) : Eval (Tm.c n) n</code>",
  "208": "<code>Eval : Tm → Nat → Prop</code>",
  "207": "<code>evalF (t : Tm) : Nat</code>",
  "206": "<code>Tm</code>",
- "205": "<code>Tm.p (t1 t2 : Tm) : Tm</code>",
+ "205": "<code>Tm.p (t₁ t₂ : Tm) : Tm</code>",
  "204": "<code>Tm.c (n : Nat) : Tm</code>",
  "203": "<code>Tm : Type</code>",
  "202":
@@ -1320,285 +1315,295 @@
  "12": "<code>Bool</code>",
  "119":
  "<code>Slang.Aexp.evalR_iff_eval (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
- "118": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
- "1178":
+ "1183":
  "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "1177":
+ "1182":
  "<code>Eq.symm.{u} {α : Sort u} {a b : α} (h : a = b) : b = a</code><span class=\"sep\"></span><code class=\"docstring\">Equality is symmetric: if `a = b` then `b = a`.\n\nBecause this is in the `Eq` namespace, if you have a variable `h : a = b`,\n`h.symm` can be used as shorthand for `Eq.symm h` as a proof of `b = a`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "1176": "<code>(\"x\" →ₚ S)[\"x\"] = some T₂✝</code>",
- "1175": "<code>(\"x\" →ₚ S)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
- "1174": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1173": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ ~(T₂✝) }&gt;</code>",
- "1172": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
- "1171": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x x ⦂ ~(T₁✝) }&gt;</code>",
- "1170": "<code>&lt;{ ∅ ⊢ λ x : S . x x ⦂ ~(T) }&gt;</code>",
- "117": "<code>Lean.TSyntax `term</code>",
- "1169": "<code>B = T₂</code>",
- "1168": "<code>A = &lt;{ A → B }&gt;</code>",
- "1167":
+ "1181": "<code>(\"x\" →ₚ S)[\"x\"] = some T₂✝</code>",
+ "1180": "<code>(\"x\" →ₚ S)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
+ "118": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
+ "1179": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1178": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ ~(T₂✝) }&gt;</code>",
+ "1177": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
+ "1176": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x x ⦂ ~(T₁✝) }&gt;</code>",
+ "1175": "<code>&lt;{ ∅ ⊢ λ x : S . x x ⦂ ~(T) }&gt;</code>",
+ "1174": "<code>B = T₂</code>",
+ "1173": "<code>A = &lt;{ A → B }&gt;</code>",
+ "1172":
  "<code class=\"docstring\">The `injection` tactic is based on the fact that constructors of inductive data\ntypes are injections.\nThat means that if `c` is a constructor of an inductive datatype, and if `(c t₁)`\nand `(c t₂)` are two terms that are equal then  `t₁` and `t₂` are equal too.\nIf `q` is a proof of a statement of conclusion `t₁ = t₂`, then injection applies\ninjectivity to derive the equality of all arguments of `t₁` and `t₂` placed in\nthe same positions. For example, from `(a::b) = (c::d)` we derive `a=c` and `b=d`.\nTo use this tactic `t₁` and `t₂` should be constructor applications of the same constructor.\nGiven `h : a::b = c::d`, the tactic `injection h` adds two new hypothesis with types\n`a = c` and `b = d` to the main goal.\nThe tactic `injection h with h₁ h₂` uses the names `h₁` and `h₂` to name the new hypotheses.\n</code>",
- "1166": "<code>&lt;{ A → B }&gt; = &lt;{ (A → B) → T₂ }&gt;</code>",
- "1165": "<code>∀ (T₂ : Ty), B ≠ &lt;{ B → T₂ }&gt;</code>",
- "1164": "<code>∀ (T₂ : Ty), A ≠ &lt;{ A → T₂ }&gt;</code>",
- "1163": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → T₂ }&gt;</code>",
- "1162": "<code>∀ (T₁ T₂ : Ty), T₁ ≠ &lt;{ T₁ → T₂ }&gt;</code>",
- "1161":
+ "1171": "<code>&lt;{ A → B }&gt; = &lt;{ (A → B) → T₂ }&gt;</code>",
+ "1170": "<code>∀ (T₂ : Ty), B ≠ &lt;{ B → T₂ }&gt;</code>",
+ "117": "<code>Lean.TSyntax `term</code>",
+ "1169": "<code>∀ (T₂ : Ty), A ≠ &lt;{ A → T₂ }&gt;</code>",
+ "1168": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → T₂ }&gt;</code>",
+ "1167": "<code>∀ (T₁ T₂ : Ty), T₁ ≠ &lt;{ T₁ → T₂ }&gt;</code>",
+ "1166":
  "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
- "1160":
+ "1165":
  "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
- "116": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
- "1159":
+ "1164":
  "<code>(\"y\" →ₚ &lt;{ Bool }&gt; ; \"x\" →ₚ &lt;{ Bool }&gt;)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
- "1158": "<code>Γ✝[x✝] = some T₁✝</code>",
- "1157": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1156": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
- "1155": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1154": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
- "1153": "<code>&lt;{ x ↦ Bool ; ∅ ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
- "1152": "<code>&lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1151": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
- "1150": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
+ "1163": "<code>Γ✝[x✝] = some T₁✝</code>",
+ "1162": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1161": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
+ "1160": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "116": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
+ "1159": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
+ "1158": "<code>&lt;{ x ↦ Bool ; ∅ ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
+ "1157": "<code>&lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1156": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
+ "1155": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
+ "1154":
+ "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
+ "1153":
+ "<code>PartialMap.update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
+ "1152": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
+ "1151":
+ "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(T₁) }&gt;</code>",
+ "1150":
+ "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) : &lt;{ ~(Γ) ⊢ ~(Stlc.Tm.var x) ⦂ ~(T₁) }&gt;</code>",
  "115":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.mult a₂) (n₁ * n₂)</code>",
  "1149":
- "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
- "1148":
- "<code>PartialMap.update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
- "1147": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
- "1146":
- "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(T₁) }&gt;</code>",
- "1145":
- "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) : &lt;{ ~(Γ) ⊢ ~(Stlc.Tm.var x) ⦂ ~(T₁) }&gt;</code>",
- "1144":
  "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ T₂ ; Γ) ⊢ ~(t₁) ⦂ ~(T₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T₂ . t₁ ⦂ T₂ → T₁ }&gt;</code>",
- "1143": "<code>Stlc.HasType.unexpand : Unexpander</code>",
- "1142":
+ "1148": "<code>Stlc.HasType.unexpand : Unexpander</code>",
+ "1147":
  "<code>Lean.PrettyPrinter.UnexpandM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The unexpander monad, essentially `Syntax → Option α`. The `Syntax` is the `ref`,\nand it has the possibility of failure without an error message.\n</code>",
- "1141":
+ "1146":
  "<code>Stlc.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Bool ; Γ` rather than as a chain of map updates. </code>",
- "1140": "<code>HasType Γ t₃ T₁</code>",
+ "1145": "<code>HasType Γ t₃ T₁</code>",
+ "1144": "<code>HasType Γ t₂ T₁</code>",
+ "1143": "<code>HasType Γ t₁ &lt;{ Bool }&gt;</code>",
+ "1142":
+ "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (T₁ : Ty) (h₁ : HasType Γ t₁ &lt;{ Bool }&gt;) (h₂ : HasType Γ t₂ T₁)\n  (h₃ : HasType Γ t₃ T₁) : HasType Γ &lt;{ if t₁ then t₂ else t₃ }&gt; T₁</code>",
+ "1141":
+ "<code>Stlc.HasType.fls (Γ : Context) : HasType Γ &lt;{ false }&gt; &lt;{ Bool }&gt;</code>",
+ "1140":
+ "<code>Stlc.HasType.tru (Γ : Context) : HasType Γ &lt;{ true }&gt; &lt;{ Bool }&gt;</code>",
  "114":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.minus a₂) (n₁ - n₂)</code>",
- "1139": "<code>HasType Γ t₂ T₁</code>",
- "1138": "<code>HasType Γ t₁ &lt;{ Bool }&gt;</code>",
+ "1139": "<code>HasType Γ t₂ T₂</code>",
+ "1138": "<code>HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;</code>",
  "1137":
- "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (T₁ : Ty) (h₁ : HasType Γ t₁ &lt;{ Bool }&gt;) (h₂ : HasType Γ t₂ T₁)\n  (h₃ : HasType Γ t₃ T₁) : HasType Γ &lt;{ if t₁ then t₂ else t₃ }&gt; T₁</code>",
- "1136":
- "<code>Stlc.HasType.fls (Γ : Context) : HasType Γ &lt;{ false }&gt; &lt;{ Bool }&gt;</code>",
- "1135":
- "<code>Stlc.HasType.tru (Γ : Context) : HasType Γ &lt;{ true }&gt; &lt;{ Bool }&gt;</code>",
- "1134": "<code>HasType Γ t₂ T₂</code>",
- "1133": "<code>HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;</code>",
- "1132":
  "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;) (h₂ : HasType Γ t₂ T₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; T₁</code>",
- "1131": "<code>HasType (x →ₚ T₂ ; Γ) t₁ T₁</code>",
- "1130":
+ "1136": "<code>HasType (x →ₚ T₂ ; Γ) t₁ T₁</code>",
+ "1135":
  "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
+ "1134": "<code>Γ[x] = some T₁</code>",
+ "1133": "<code>Context</code>",
+ "1132":
+ "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) : HasType Γ (Stlc.Tm.var x) T₁</code>",
+ "1131": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
+ "1130":
+ "<code>Stlc.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
  "113":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.plus a₂) (n₁ + n₂)</code>",
- "1129": "<code>Γ[x] = some T₁</code>",
- "1128": "<code>Context</code>",
+ "1129": "<code>Lean.TSyntax `stlcCtx</code>",
+ "1128": "<code>TSyntax `stlcCtx</code>",
  "1127":
- "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) : HasType Γ (Stlc.Tm.var x) T₁</code>",
- "1126": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
- "1125":
- "<code>Stlc.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1124": "<code>Lean.TSyntax `stlcCtx</code>",
- "1123": "<code>TSyntax `stlcCtx</code>",
- "1122":
  "<code>Stlc.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1121": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
- "1120": "<code>Stlc.judgeBracket : Lean.ParserDescr</code>",
+ "1126": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
+ "1125": "<code>Stlc.judgeBracket : Lean.ParserDescr</code>",
+ "1124": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
+ "1123": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
+ "1122": "<code><span class=\"literal string\">\"∅\"</span> : String</code>",
+ "1121": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
+ "1120": "<code>PartialMap (α β : Type) : Type</code>",
  "112":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
- "1119": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
- "1118": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
- "1117": "<code><span class=\"literal string\">\"∅\"</span> : String</code>",
- "1116": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
- "1115": "<code>PartialMap (α β : Type) : Type</code>",
- "1114": "<code>Stlc.Context : Type</code>",
- "1113":
+ "1119": "<code>Stlc.Context : Type</code>",
+ "1118":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : &lt;{ if true then t₁ else t₂ }&gt; ⟶ t₁</code>",
- "1112":
+ "1117":
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
- "1111":
+ "1116":
  "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
- "1110": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
- "111": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1109": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
- "1108":
+ "1115": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
+ "1114": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
+ "1113":
  "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
- "1107":
+ "1112":
  "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') : Step &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
- "1106":
+ "1111":
  "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : Step &lt;{ if false then t₁ else t₂ }&gt; t₂</code>",
- "1105":
+ "1110":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : Step &lt;{ if true then t₁ else t₂ }&gt; t₁</code>",
- "1104": "<code>Step t₂ t₂'</code>",
- "1103": "<code>v₁.IsValue</code>",
- "1102":
+ "111": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
+ "1109": "<code>v₁.IsValue</code>",
+ "1108":
  "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
- "1101": "<code>Step t₁ t₁'</code>",
- "1100":
+ "1107":
  "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
+ "1106": "<code>v.IsValue</code>",
+ "1105":
+ "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
+ "1104": "<code>Stlc.Step : Tm → Tm → Prop</code>",
+ "1103": "<code>&lt;{ [~x := s] t₃✝ }&gt; = t₃'✝</code>",
+ "1102": "<code>Substi s x t₃✝ t₃'✝</code>",
+ "1101": "<code>&lt;{ [~x := s] t₂✝ }&gt; = t₂'✝</code>",
+ "1100": "<code>Substi s x t₂✝ t₂'✝</code>",
  "110":
  "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
  "11": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
- "1099": "<code>v.IsValue</code>",
- "1098":
- "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
- "1097": "<code>Stlc.Step : Tm → Tm → Prop</code>",
- "1096": "<code>&lt;{ [~x := s] t₃✝ }&gt; = t₃'✝</code>",
- "1095": "<code>Substi s x t₃✝ t₃'✝</code>",
- "1094": "<code>&lt;{ [~x := s] t₂✝ }&gt; = t₂'✝</code>",
- "1093": "<code>Substi s x t₂✝ t₂'✝</code>",
- "1092": "<code>&lt;{ [~x := s] t₁✝ }&gt; = t₁'✝</code>",
- "1091": "<code>Substi s x t₁✝ t₁'✝</code>",
- "1090": "<code>x ≠ x'✝</code>",
+ "1099": "<code>&lt;{ [~x := s] t₁✝ }&gt; = t₁'✝</code>",
+ "1098": "<code>Substi s x t₁✝ t₁'✝</code>",
+ "1097": "<code>x ≠ x'✝</code>",
+ "1096": "<code>Substi s x t t'</code>",
+ "1095": "<code>Substi s x t₃ &lt;{ [~x := s] t₃ }&gt;</code>",
+ "1094": "<code>Substi s x t₂ &lt;{ [~x := s] t₂ }&gt;</code>",
+ "1093": "<code>Substi s x t₁ &lt;{ [~x := s] t₁ }&gt;</code>",
+ "1092": "<code>¬x = y</code>",
+ "1091": "<code>x = y</code>",
+ "1090":
+ "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
  "109":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
- "1089": "<code>Substi s x t t'</code>",
- "1088": "<code>Substi s x t₃ &lt;{ [~x := s] t₃ }&gt;</code>",
- "1087": "<code>Substi s x t₂ &lt;{ [~x := s] t₂ }&gt;</code>",
- "1086": "<code>Substi s x t₁ &lt;{ [~x := s] t₁ }&gt;</code>",
- "1085": "<code>¬x = y</code>",
- "1084": "<code>x = y</code>",
- "1083":
- "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
- "1082": "<code>&lt;{ [~x := s] t }&gt; = t'</code>",
- "1081":
+ "1089": "<code>&lt;{ [~x := s] t }&gt; = t'</code>",
+ "1088":
  "<code>Stlc.substi_correct (s : Tm) (x : String) (t t' : Tm) : &lt;{ [~x := s] t }&gt; = t' ↔ Substi s x t t'</code>",
- "1080": "<code>Substi s x t₃ t₃'</code>",
+ "1087": "<code>Substi s x t₃ t₃'</code>",
+ "1086":
+ "<code>Stlc.Substi.ite {s : Tm} {x : String} (t₁ t₂ t₃ t₁' t₂' t₃' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂')\n  (h₃ : Substi s x t₃ t₃') : Substi s x &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂' else t₃' }&gt;</code>",
+ "1085":
+ "<code>Stlc.Substi.fls {s : Tm} {x : String} : Substi s x &lt;{ false }&gt; &lt;{ false }&gt;</code>",
+ "1084":
+ "<code>Stlc.Substi.tru {s : Tm} {x : String} : Substi s x &lt;{ true }&gt; &lt;{ true }&gt;</code>",
+ "1083": "<code>Substi s x t₂ t₂'</code>",
+ "1082":
+ "<code>Stlc.Substi.app {s : Tm} {x : String} (t₁ t₂ t₁' t₂' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂') :\n  Substi s x &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂' }&gt;</code>",
+ "1081": "<code>Substi s x t₁ t₁'</code>",
+ "1080":
+ "<code>Stlc.Substi.abs2 {s : Tm} {x : String} (x' : String) (T₁ : Ty) (t₁ t₁' : Tm) (hx : x ≠ x') (h : Substi s x t₁ t₁') :\n  Substi s x &lt;{ λ ~x' : T₁ . t₁ }&gt; &lt;{ λ ~x' : T₁ . t₁' }&gt;</code>",
  "108": "<code>EvalR a₂ n₂</code>",
  "1079":
- "<code>Stlc.Substi.ite {s : Tm} {x : String} (t₁ t₂ t₃ t₁' t₂' t₃' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂')\n  (h₃ : Substi s x t₃ t₃') : Substi s x &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂' else t₃' }&gt;</code>",
- "1078":
- "<code>Stlc.Substi.fls {s : Tm} {x : String} : Substi s x &lt;{ false }&gt; &lt;{ false }&gt;</code>",
- "1077":
- "<code>Stlc.Substi.tru {s : Tm} {x : String} : Substi s x &lt;{ true }&gt; &lt;{ true }&gt;</code>",
- "1076": "<code>Substi s x t₂ t₂'</code>",
- "1075":
- "<code>Stlc.Substi.app {s : Tm} {x : String} (t₁ t₂ t₁' t₂' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂') :\n  Substi s x &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂' }&gt;</code>",
- "1074": "<code>Substi s x t₁ t₁'</code>",
- "1073":
- "<code>Stlc.Substi.abs2 {s : Tm} {x : String} (x' : String) (T₁ : Ty) (t₁ t₁' : Tm) (hx : x ≠ x') (h : Substi s x t₁ t₁') :\n  Substi s x &lt;{ λ ~x' : T₁ . t₁ }&gt; &lt;{ λ ~x' : T₁ . t₁' }&gt;</code>",
- "1072":
  "<code>Stlc.Substi.abs1 {s : Tm} {x : String} (T₂ : Ty) (t₁ : Tm) : Substi s x &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ λ ~x : T₂ . t₁ }&gt;</code>",
- "1071": "<code>x ≠ x'</code>",
- "1070":
+ "1078": "<code>x ≠ x'</code>",
+ "1077":
  "<code>Stlc.Substi.var2 {s : Tm} {x : String} (x' : String) (h : x ≠ x') : Substi s x (Stlc.Tm.var x') (Stlc.Tm.var x')</code>",
+ "1076":
+ "<code>Stlc.Substi.var1 {s : Tm} {x : String} : Substi s x (Stlc.Tm.var x) s</code>",
+ "1075": "<code>Stlc.Substi (s : Tm) (x : String) : Tm → Tm → Prop</code>",
+ "1074":
+ "<code>Stlc.subst_ite (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if t₁ then t₂ else t₃) }&gt; = &lt;{ if [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
+ "1073":
+ "<code>Stlc.subst_fls (x : String) (s : Tm) : &lt;{ [~x := s] false }&gt; = &lt;{ false }&gt;</code>",
+ "1072":
+ "<code>Stlc.subst_tru (x : String) (s : Tm) : &lt;{ [~x := s] true }&gt; = &lt;{ true }&gt;</code>",
+ "1071":
+ "<code>Stlc.subst_app (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ t₂) }&gt; = &lt;{ [~x := s] t₁ [~x := s] t₂ }&gt;</code>",
+ "1070":
+ "<code>Stlc.subst_abs_ne (x y : String) (s t : Tm) (T : Ty) (h : x ≠ y) :\n  &lt;{ [~x := s] (λ ~y : T . t) }&gt; = &lt;{ λ ~y : T . [~x := s] t }&gt;</code>",
  "107": "<code>EvalR a₁ n₁</code>",
  "1069":
- "<code>Stlc.Substi.var1 {s : Tm} {x : String} : Substi s x (Stlc.Tm.var x) s</code>",
- "1068": "<code>Stlc.Substi (s : Tm) (x : String) : Tm → Tm → Prop</code>",
- "1067":
- "<code>Stlc.subst_ite (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if t₁ then t₂ else t₃) }&gt; = &lt;{ if [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
- "1066":
- "<code>Stlc.subst_fls (x : String) (s : Tm) : &lt;{ [~x := s] false }&gt; = &lt;{ false }&gt;</code>",
- "1065":
- "<code>Stlc.subst_tru (x : String) (s : Tm) : &lt;{ [~x := s] true }&gt; = &lt;{ true }&gt;</code>",
- "1064":
- "<code>Stlc.subst_app (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ t₂) }&gt; = &lt;{ [~x := s] t₁ [~x := s] t₂ }&gt;</code>",
- "1063":
- "<code>Stlc.subst_abs_ne (x y : String) (s t : Tm) (T : Ty) (h : x ≠ y) :\n  &lt;{ [~x := s] (λ ~y : T . t) }&gt; = &lt;{ λ ~y : T . [~x := s] t }&gt;</code>",
- "1062":
  "<code>Stlc.subst_abs_eq (x : String) (s t : Tm) (T : Ty) : &lt;{ [~x := s] (λ ~x : T . t) }&gt; = &lt;{ λ ~x : T . t }&gt;</code>",
- "1061": "<code>x ≠ y</code>",
- "1060":
+ "1068": "<code>x ≠ y</code>",
+ "1067":
  "<code>Stlc.subst_var_ne (x y : String) (s : Tm) (h : x ≠ y) : &lt;{ [~x := s] ~(Stlc.Tm.var y) }&gt; = Stlc.Tm.var y</code>",
+ "1066":
+ "<code>Stlc.subst_var_eq (x : String) (s : Tm) : &lt;{ [~x := s] ~(Stlc.Tm.var x) }&gt; = s</code>",
+ "1065":
+ "<code class=\"docstring\">Declares one or more typed variables, or modifies whether already-declared variables are\n  implicit.\n\nIntroduces variables that can be used in definitions within the same `namespace` or `section` block.\nWhen a definition mentions a variable, Lean will add it as an argument of the definition. This is\nuseful in particular when writing many definitions that have parameters in common (see below for an\nexample).\n\nVariable declarations have the same flexibility as regular function parameters. In particular they\ncan be [explicit, implicit][binder docs], or [instance implicit][tpil classes] (in which case they\ncan be anonymous). This can be changed, for instance one can turn explicit variable `x` into an\nimplicit one with `variable {x}`. Note that currently, you should avoid changing how variables are\nbound and declare new variables at the same time; see [issue 2789] for more on this topic.\n\nIn *theorem bodies* (i.e. proofs), variables are not included based on usage in order to ensure that\nchanges to the proof cannot change the statement of the overall theorem. Instead, variables are only\navailable to the proof if they have been mentioned in the theorem header or in an `include` command\nor are instance implicit and depend only on such variables.\n\nSee [*Variables and Sections* from Theorem Proving in Lean][tpil vars] for a more detailed\ndiscussion.\n\n[tpil vars]:\nhttps://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html#variables-and-sections\n(Variables and Sections on Theorem Proving in Lean) [tpil classes]:\nhttps://lean-lang.org/theorem_proving_in_lean4/type_classes.html (Type classes on Theorem Proving in\nLean) [binder docs]:\nhttps://leanprover-community.github.io/mathlib4_docs/Lean/Expr.html#Lean.BinderInfo (Documentation\nfor the BinderInfo type) [issue 2789]: https://github.com/leanprover/lean4/issues/2789 (Issue 2789\non github)\n\n## Examples\n\n```lean\nsection\n  variable\n    {α : Type u}      -- implicit\n    (a : α)           -- explicit\n    [instBEq : BEq α] -- instance implicit, named\n    [Hashable α]      -- instance implicit, anonymous\n\n  def isEqual (b : α) : Bool :=\n    a == b\n\n  #check isEqual\n  -- isEqual.{u} {α : Type u} (a : α) [instBEq : BEq α] (b : α) : Bool\n\n  variable\n    {a} -- `a` is implicit now\n\n  def eqComm {b : α} := a == b ↔ b == a\n\n  #check eqComm\n  -- eqComm.{u} {α : Type u} {a : α} [instBEq : BEq α] {b : α} : Prop\nend\n```\n\nThe following shows a typical use of `variable` to factor out definition arguments:\n\n```lean\nvariable (Src : Type)\n\nstructure Logger where\n  trace : List (Src × String)\n#check Logger\n-- Logger (Src : Type) : Type\n\nnamespace Logger\n  -- switch `Src : Type` to be implicit until the `end Logger`\n  variable {Src}\n\n  def empty : Logger Src where\n    trace := []\n  #check empty\n  -- Logger.empty {Src : Type} : Logger Src\n\n  variable (log : Logger Src)\n\n  def len :=\n    log.trace.length\n  #check len\n  -- Logger.len {Src : Type} (log : Logger Src) : Nat\n\n  variable (src : Src) [BEq Src]\n\n  -- at this point all of `log`, `src`, `Src` and the `BEq` instance can all become arguments\n\n  def filterSrc :=\n    log.trace.filterMap\n      fun (src', str') =&gt; if src' == src then some str' else none\n  #check filterSrc\n  -- Logger.filterSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : List String\n\n  def lenSrc :=\n    log.filterSrc src |&gt;.length\n  #check lenSrc\n  -- Logger.lenSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : Nat\nend Logger\n```\n\nThe following example demonstrates availability of variables in proofs:\n```lean\nvariable\n  {α : Type}    -- available in the proof as indirectly mentioned through `a`\n  [ToString α]  -- available in the proof as `α` is included\n  (a : α)       -- available in the proof as mentioned in the header\n  {β : Type}    -- not available in the proof\n  [ToString β]  -- not available in the proof\n\ntheorem ex : a = a := rfl\n```\nAfter elaboration of the proof, the following warning will be generated to highlight the unused\nhypothesis:\n```\nincluded section variable '[ToString α]' is not used in 'ex', consider excluding it\n```\nIn such cases, the offending variable declaration should be moved down or into a section so that\nonly theorems that do depend on it follow it until the end of the section.\n</code>",
+ "1064": "<code>Stlc.delabSubst : Delab</code>",
+ "1063": "<code>Stlc.subst (x : String) (s t : Tm) : Tm</code>",
+ "1062":
+ "<code>Stlc.varStr (x : Lean.TSyntax `stlcVar) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
+ "1061": "<code>Lean.TSyntax `stlcTm</code>",
+ "1060": "<code>Lean.TSyntax `stlcVar</code>",
  "106":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
- "1059":
- "<code>Stlc.subst_var_eq (x : String) (s : Tm) : &lt;{ [~x := s] ~(Stlc.Tm.var x) }&gt; = s</code>",
- "1058":
- "<code class=\"docstring\">Declares one or more typed variables, or modifies whether already-declared variables are\n  implicit.\n\nIntroduces variables that can be used in definitions within the same `namespace` or `section` block.\nWhen a definition mentions a variable, Lean will add it as an argument of the definition. This is\nuseful in particular when writing many definitions that have parameters in common (see below for an\nexample).\n\nVariable declarations have the same flexibility as regular function parameters. In particular they\ncan be [explicit, implicit][binder docs], or [instance implicit][tpil classes] (in which case they\ncan be anonymous). This can be changed, for instance one can turn explicit variable `x` into an\nimplicit one with `variable {x}`. Note that currently, you should avoid changing how variables are\nbound and declare new variables at the same time; see [issue 2789] for more on this topic.\n\nIn *theorem bodies* (i.e. proofs), variables are not included based on usage in order to ensure that\nchanges to the proof cannot change the statement of the overall theorem. Instead, variables are only\navailable to the proof if they have been mentioned in the theorem header or in an `include` command\nor are instance implicit and depend only on such variables.\n\nSee [*Variables and Sections* from Theorem Proving in Lean][tpil vars] for a more detailed\ndiscussion.\n\n[tpil vars]:\nhttps://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html#variables-and-sections\n(Variables and Sections on Theorem Proving in Lean) [tpil classes]:\nhttps://lean-lang.org/theorem_proving_in_lean4/type_classes.html (Type classes on Theorem Proving in\nLean) [binder docs]:\nhttps://leanprover-community.github.io/mathlib4_docs/Lean/Expr.html#Lean.BinderInfo (Documentation\nfor the BinderInfo type) [issue 2789]: https://github.com/leanprover/lean4/issues/2789 (Issue 2789\non github)\n\n## Examples\n\n```lean\nsection\n  variable\n    {α : Type u}      -- implicit\n    (a : α)           -- explicit\n    [instBEq : BEq α] -- instance implicit, named\n    [Hashable α]      -- instance implicit, anonymous\n\n  def isEqual (b : α) : Bool :=\n    a == b\n\n  #check isEqual\n  -- isEqual.{u} {α : Type u} (a : α) [instBEq : BEq α] (b : α) : Bool\n\n  variable\n    {a} -- `a` is implicit now\n\n  def eqComm {b : α} := a == b ↔ b == a\n\n  #check eqComm\n  -- eqComm.{u} {α : Type u} {a : α} [instBEq : BEq α] {b : α} : Prop\nend\n```\n\nThe following shows a typical use of `variable` to factor out definition arguments:\n\n```lean\nvariable (Src : Type)\n\nstructure Logger where\n  trace : List (Src × String)\n#check Logger\n-- Logger (Src : Type) : Type\n\nnamespace Logger\n  -- switch `Src : Type` to be implicit until the `end Logger`\n  variable {Src}\n\n  def empty : Logger Src where\n    trace := []\n  #check empty\n  -- Logger.empty {Src : Type} : Logger Src\n\n  variable (log : Logger Src)\n\n  def len :=\n    log.trace.length\n  #check len\n  -- Logger.len {Src : Type} (log : Logger Src) : Nat\n\n  variable (src : Src) [BEq Src]\n\n  -- at this point all of `log`, `src`, `Src` and the `BEq` instance can all become arguments\n\n  def filterSrc :=\n    log.trace.filterMap\n      fun (src', str') =&gt; if src' == src then some str' else none\n  #check filterSrc\n  -- Logger.filterSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : List String\n\n  def lenSrc :=\n    log.filterSrc src |&gt;.length\n  #check lenSrc\n  -- Logger.lenSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : Nat\nend Logger\n```\n\nThe following example demonstrates availability of variables in proofs:\n```lean\nvariable\n  {α : Type}    -- available in the proof as indirectly mentioned through `a`\n  [ToString α]  -- available in the proof as `α` is included\n  (a : α)       -- available in the proof as mentioned in the header\n  {β : Type}    -- not available in the proof\n  [ToString β]  -- not available in the proof\n\ntheorem ex : a = a := rfl\n```\nAfter elaboration of the proof, the following warning will be generated to highlight the unused\nhypothesis:\n```\nincluded section variable '[ToString α]' is not used in 'ex', consider excluding it\n```\nIn such cases, the offending variable declaration should be moved down or into a section so that\nonly theorems that do depend on it follow it until the end of the section.\n</code>",
- "1057": "<code>Stlc.delabSubst : Delab</code>",
- "1056": "<code>Stlc.subst (x : String) (s t : Tm) : Tm</code>",
- "1055":
- "<code>Stlc.varStr (x : Lean.TSyntax `stlcVar) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
- "1054": "<code>Lean.TSyntax `stlcTm</code>",
- "1053": "<code>Lean.TSyntax `stlcVar</code>",
- "1052": "<code>Stlc.notB_value : notB.IsValue</code>",
- "1051": "<code>Stlc.idBB_value : idBB.IsValue</code>",
- "1050": "<code>Stlc.idB_value : idB.IsValue</code>",
- "105": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
- "1049": "<code>Stlc.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
- "1048": "<code>Stlc.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
- "1047":
+ "1059": "<code>Stlc.notB_value : notB.IsValue</code>",
+ "1058": "<code>Stlc.idBB_value : idBB.IsValue</code>",
+ "1057": "<code>Stlc.idB_value : idB.IsValue</code>",
+ "1056": "<code>Stlc.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
+ "1055": "<code>Stlc.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
+ "1054":
  "<code>Stlc.Tm.IsValue.abs (x : String) (T₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : T₂ . t₁ }&gt;.IsValue</code>",
- "1046": "<code>Stlc.Tm.IsValue : Tm → Prop</code>",
- "1045":
+ "1053": "<code>Stlc.Tm.IsValue : Tm → Prop</code>",
+ "1052":
  "<code class=\"docstring\">`#reduce &lt;expression&gt;` reduces the expression `&lt;expression&gt;` to its normal form. This\ninvolves applying reduction rules until no further reduction is possible.\n\nBy default, proofs and types within the expression are not reduced. Use modifiers\n`(proofs := true)`  and `(types := true)` to reduce them.\nRecall that propositions are types in Lean.\n\n**Warning:** This can be a computationally expensive operation,\nespecially for complex expressions.\n\nConsider using `#eval &lt;expression&gt;` for simple evaluation/execution\nof expressions.\n</code>",
- "1044": "<code>Stlc.notB : Tm</code>",
- "1043": "<code>Stlc.k : Tm</code>",
- "1042": "<code>Stlc.idBBBB : Tm</code>",
- "1041": "<code>Stlc.idBB : Tm</code>",
- "1040": "<code>Stlc.idB : Tm</code>",
- "104": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1039": "<code>Stlc.delabTm : Delab</code>",
- "1038": "<code>Stlc.delabTy : Delab</code>",
- "1037":
+ "1051": "<code>Stlc.notB : Tm</code>",
+ "1050": "<code>Stlc.k : Tm</code>",
+ "105": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
+ "1049": "<code>Stlc.idBBBB : Tm</code>",
+ "1048": "<code>Stlc.idBB : Tm</code>",
+ "1047": "<code>Stlc.idB : Tm</code>",
+ "1046": "<code>Stlc.delabTm : Delab</code>",
+ "1045": "<code>Stlc.delabTy : Delab</code>",
+ "1044":
  "<code>Lean.Expr.getAppNumArgs (e : Expr) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Counts the number `n` of arguments for an expression `f a₁ .. aₙ`. </code>",
- "1036":
+ "1043":
  "<code>Lean.Expr.constName? : Expr → Option Name</code><span class=\"sep\"></span><code class=\"docstring\">If the expression is a constant, return that name.\nOtherwise return `Option.none`.\n</code>",
- "1035":
+ "1042":
  "<code>Lean.Expr.getAppFn : Expr → Expr</code><span class=\"sep\"></span><code class=\"docstring\">If the given expression is a sequence of\nfunction applications `f a₁ .. aₙ`, return `f`.\nOtherwise return the input expression.\n</code>",
- "1034": "<code>Expr</code>",
- "1033":
+ "1041": "<code>Expr</code>",
+ "1040":
  "<code>Stlc.delabTmInner : DelabM (TSyntax `stlcTm)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTm` concrete syntax from a `Tm` value. </code>",
- "1032":
+ "104": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
+ "1039":
  "<code>Lean.Name.mkSimple (s : String) : Name</code><span class=\"sep\"></span><code class=\"docstring\">Converts a `String` to a `Name` without performing any parsing. `mkSimple s` is short for `.str .anonymous s`.\n\nThis means that `mkSimple \"a.b\"` is the name `«a.b»`, not `a.b`.\n</code>",
- "1031":
+ "1038":
  "<code>Lean.TSyntax.getString (s : StrLit) : String</code><span class=\"sep\"></span><code class=\"docstring\">Decodes a string literal, removing quotation marks and unescaping escaped characters.\n\nReturns `\"\"` if the syntax is malformed.\n</code>",
- "1030": "<code>TSyntax `str</code>",
+ "1037": "<code>TSyntax `str</code>",
+ "1036":
+ "<code>Stlc.delabVarInner : DelabM (TSyntax `stlcVar)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcVar` concrete syntax from the string in a binding position. </code>",
+ "1035":
+ "<code>Stlc.isPlainTmVarName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? </code>",
+ "1034": "<code><span class=\"literal char\">'_'</span> : Char</code>",
+ "1033":
+ "<code>Char.isAlphanum (c : Char) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the character is an ASCII letter or digit.\n\nThe ASCII letters are the following: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`.\nThe ASCII digits are the following: `0123456789`.\n</code>",
+ "1032": "<code>Char</code>",
+ "1031":
+ "<code>String.all {ρ : Type} (s : String) (pat : ρ) [String.Slice.Pattern.ForwardPattern pat] : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Checks whether a string only consists of matches of the pattern `pat`.\n\nShort-circuits at the first pattern mis-match.\n\nThis function is generic over all currently supported patterns.\n\nExamples:\n\n* `\"brown\".all Char.isLower = true`\n\n* `\"brown and orange\".all Char.isLower = false`\n\n* `\"aaaaaa\".all 'a' = true`\n\n* `\"aaaaaa\".all \"aa\" = true`\n\n* `\"aaaaaaa\".all \"aa\" = false`\n</code>",
+ "1030":
+ "<code>Char.isDigit (c : Char) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the character is an ASCII digit.\n\nThe ASCII digits are the following: `0123456789`.\n</code>",
  "103": "<code>b₂✝.optimize0plusB.eval = b₂✝.eval</code>",
  "1029":
- "<code>Stlc.delabVarInner : DelabM (TSyntax `stlcVar)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcVar` concrete syntax from the string in a binding position. </code>",
- "1028":
- "<code>Stlc.isPlainTmVarName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? </code>",
- "1027": "<code><span class=\"literal char\">'_'</span> : Char</code>",
- "1026":
- "<code>Char.isAlphanum (c : Char) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the character is an ASCII letter or digit.\n\nThe ASCII letters are the following: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`.\nThe ASCII digits are the following: `0123456789`.\n</code>",
- "1025": "<code>Char</code>",
- "1024":
- "<code>String.all {ρ : Type} (s : String) (pat : ρ) [String.Slice.Pattern.ForwardPattern pat] : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Checks whether a string only consists of matches of the pattern `pat`.\n\nShort-circuits at the first pattern mis-match.\n\nThis function is generic over all currently supported patterns.\n\nExamples:\n\n* `\"brown\".all Char.isLower = true`\n\n* `\"brown and orange\".all Char.isLower = false`\n\n* `\"aaaaaa\".all 'a' = true`\n\n* `\"aaaaaa\".all \"aa\" = true`\n\n* `\"aaaaaaa\".all \"aa\" = false`\n</code>",
- "1023":
- "<code>Char.isDigit (c : Char) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the character is an ASCII digit.\n\nThe ASCII digits are the following: `0123456789`.\n</code>",
- "1022":
  "<code>String.front (s : String) : Char</code><span class=\"sep\"></span><code class=\"docstring\">Returns the first character in `s`. If `s = \"\"`, returns `(default : Char)`.\n\nExamples:\n\n* `\"abc\".front = 'a'`\n\n* `\"\".front = (default : Char)`\n</code>",
- "1021": "<code><span class=\"literal string\">\"_\"</span> : String</code>",
- "1020":
+ "1028": "<code><span class=\"literal string\">\"_\"</span> : String</code>",
+ "1027":
  "<code>String.isEmpty (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Checks whether a string is empty.\n\nEmpty strings are equal to `\"\"` and have length and end position `0`.\n\nExamples:\n* `\"\".isEmpty = true`\n* `\"empty\".isEmpty = false`\n* `\" \".isEmpty = false`\n</code>",
- "102": "<code>b₁✝.optimize0plusB.eval = b₁✝.eval</code>",
- "1019":
+ "1026":
  "<code>Stlc.isPlainName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare identifier in the object syntax? </code>",
- "1018":
+ "1025":
  "<code>Stlc.delabTyInner : DelabM (TSyntax `stlcTy)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTy` concrete syntax from a `Ty` value. </code>",
- "1017":
+ "1024":
  "<code>Stlc.stlcTm.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
- "1016":
+ "1023":
  "<code>Stlc.stlcTm.parenthesizer : CategoryParenthesizer</code><span class=\"sep\"></span><code class=\"docstring\">Re-inserts parentheses in `stlcTm` output according to the grammar's precedences. </code>",
- "1015": "<code>Lean.Parser.Category.stlcTm : Parser.Category</code>",
- "1014":
+ "1022": "<code>Lean.Parser.Category.stlcTm : Parser.Category</code>",
+ "1021":
  "<code>Stlc.stlcTy.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
- "1013":
+ "1020":
  "<code>Stlc.stlcTy.parenthesizer : CategoryParenthesizer</code><span class=\"sep\"></span><code class=\"docstring\">Re-inserts parentheses in `stlcTy` output according to the grammar's precedences. </code>",
- "1012": "<code>Lean.Parser.Category.stlcTy : Parser.Category</code>",
- "1011": "<code>TSyntax `stlcTy</code>",
- "1010":
+ "102": "<code>b₁✝.optimize0plusB.eval = b₁✝.eval</code>",
+ "1019": "<code>Lean.Parser.Category.stlcTy : Parser.Category</code>",
+ "1018": "<code>TSyntax `stlcTy</code>",
+ "1017":
  "<code><span class=\"literal string\">\"`Bool` is a type, not a term\"</span> : String</code>",
+ "1016": "<code>TSyntax `stlcTm</code>",
+ "1015": "<code>Stlc.tmBracket : Lean.ParserDescr</code>",
+ "1014": "<code><span class=\"literal string\">\"] \"</span> : String</code>",
+ "1013": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
+ "1012": "<code><span class=\"literal string\">\"[\"</span> : String</code>",
+ "1011": "<code><span class=\"literal string\">\" . \"</span> : String</code>",
+ "1010": "<code><span class=\"literal string\">\" : \"</span> : String</code>",
  "101": "<code>b✝.optimize0plusB.eval = b✝.eval</code>",
- "1009": "<code>TSyntax `stlcTm</code>",
- "1008": "<code>Stlc.tmBracket : Lean.ParserDescr</code>",
- "1007": "<code><span class=\"literal string\">\"] \"</span> : String</code>",
- "1006": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
- "1005": "<code><span class=\"literal string\">\"[\"</span> : String</code>",
- "1004": "<code><span class=\"literal string\">\" . \"</span> : String</code>",
- "1003": "<code><span class=\"literal string\">\" : \"</span> : String</code>",
- "1002": "<code><span class=\"literal string\">\"λ \"</span> : String</code>",
- "1001":
+ "1009": "<code><span class=\"literal string\">\"λ \"</span> : String</code>",
+ "1008":
  "<code>Lean.Parser.ppSpace : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser that advises the pretty printer to emit a space/soft line break. </code>",
- "1000": "<code>Lean.Parser.Category.stlcTm : Lean.Parser.Category</code>",
+ "1007": "<code>Lean.Parser.Category.stlcTm : Lean.Parser.Category</code>",
+ "1006":
+ "<code>Lean.Macro.throwUnsupported {α : Type} : MacroM α</code><span class=\"sep\"></span><code class=\"docstring\">Throw an `unsupportedSyntax` exception. </code>",
+ "1005":
+ "<code>Lean.Quote.quote {α : Type} {k : optParam SyntaxNodeKind `term} [self : Quote α k] : α → TSyntax k</code><span class=\"sep\"></span><code class=\"docstring\">Returns syntax for the given value.\n</code>",
+ "1004":
+ "<code>Lean.Syntax.Term : Type</code><span class=\"sep\"></span><code class=\"docstring\">Syntax that represents a Lean term.\n</code>",
+ "1003":
+ "<code>Lean.MacroM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The `MacroM` monad is the main monad for macro expansion. It has the\ninformation needed to handle hygienic name generation, and is the monad that\n`macro` definitions live in.\n\nNotably, this is a (relatively) pure monad: there is no `IO` and no access to\nthe `Environment`. That means that things like declaration lookup are\nimpossible here, as well as `IO.Ref` or other side-effecting operations.\nFor more capabilities, macros can instead be written as `elab` using `adaptExpander`.\n</code>",
+ "1002": "<code>TSyntax `stlcVar</code>",
+ "1001":
+ "<code>Stlc.varStr (x : TSyntax `stlcVar) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
+ "1000": "<code>Lean.Parser.Category.stlcVar : Lean.Parser.Category</code>",
  "100":
  "<code>Slang.optimize0plusB_sound (b : Bexp) : b.optimize0plusB.eval = b.eval</code>",
  "10": "<code>Slang.Bexp : Type</code>",
