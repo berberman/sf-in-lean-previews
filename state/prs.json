@@ -1,5 +1,5 @@
 {
-  "main_sha": "d729f511065e2b246007b9582269842779b9aa4b",
+  "main_sha": "0af8a1a49d4ecccfd21b836cb3155903e95fad3d",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -470,53 +470,6 @@
       "status": "published",
       "title": "Lists: Questions and some adjustments",
       "url": "https://github.com/plclub/sf-in-lean/pull/275"
-    },
-    "276": {
-      "base_sha": "68908d35effe49f11043f287887558e54c24ca52",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "017a8b2199ab377875e4984bcf8d916729b6b53e",
-      "preview_path": "pr/276/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32313239423",
-      "status": "published",
-      "title": "Polish Smallstep",
-      "url": "https://github.com/plclub/sf-in-lean/pull/276"
     },
     "281": {
       "base_sha": "066a5ece80eabcc31ecc25846bb0071d2eaeee23",
