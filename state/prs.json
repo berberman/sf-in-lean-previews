@@ -1,5 +1,5 @@
 {
-  "main_sha": "ad2d7daa28d6bf27b87df2d9000015c27029712a",
+  "main_sha": "5dde65c668774c7dd3c2d902105de1e2e8bd4692",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -527,6 +527,16 @@
       "status": "published",
       "title": "UsingLean explains irreducible; code actions to Induction.",
       "url": "https://github.com/plclub/sf-in-lean/pull/288"
+    },
+    "289": {
+      "base_sha": "5dde65c668774c7dd3c2d902105de1e2e8bd4692",
+      "changed_variants": [],
+      "head_sha": "8cc79f4a609e4b096062d454a594094639f2cf82",
+      "preview_path": "pr/289/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Allow inversion with no branches",
+      "url": "https://github.com/plclub/sf-in-lean/pull/289"
     }
   },
   "schema": 3
