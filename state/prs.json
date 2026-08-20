@@ -1,5 +1,5 @@
 {
-  "main_sha": "68908d35effe49f11043f287887558e54c24ca52",
+  "main_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -611,6 +611,53 @@
       "status": "published",
       "title": "Infra: Local-release packaging script for course webpage",
       "url": "https://github.com/plclub/sf-in-lean/pull/285"
+    },
+    "286": {
+      "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "89664253dca701c2e2652d0719b1152abe24d5bd",
+      "preview_path": "pr/286/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32370085311",
+      "status": "published",
+      "title": "Print the substitutions with braces instead",
+      "url": "https://github.com/plclub/sf-in-lean/pull/286"
     }
   },
   "schema": 3

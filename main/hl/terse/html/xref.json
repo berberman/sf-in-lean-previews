@@ -77,6 +77,19 @@
         "shortTitle": null,
         "number": "3"}]},
      "address": "/Imp/"}],
+   "Hoare2":
+   [{"id": "Hoare2",
+     "data":
+     {"title": "Hoare2: Hoare Logic, Part II",
+      "shortTitle": null,
+      "sectionNum": "5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Hoare2/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Inference-Rule-Notation":
    [{"id":
      "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Inference-Rule-Notation",
@@ -816,6 +829,363 @@
         "number": "4"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Hoare/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_",
+     "data":
+     {"title": "Weakest Preconditions (Optional)",
+      "shortTitle": null,
+      "sectionNum": "5.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Weakest Preconditions (Optional)",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Syntax":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Syntax",
+     "data":
+     {"title": "Syntax",
+      "shortTitle": null,
+      "sectionNum": "5.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Formal Decorated Programs",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Syntax", "shortTitle": null, "number": "1"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--More-Automation":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--More-Automation",
+     "data":
+     {"title": "More Automation",
+      "shortTitle": null,
+      "sectionNum": "5.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Formal Decorated Programs",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "More Automation", "shortTitle": null, "number": "3"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions",
+     "data":
+     {"title": "Extracting Verification Conditions",
+      "shortTitle": null,
+      "sectionNum": "5.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Formal Decorated Programs",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Extracting Verification Conditions",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs",
+     "data":
+     {"title": "Formal Decorated Programs",
+      "shortTitle": null,
+      "sectionNum": "5.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Formal Decorated Programs",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Two-Loops":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Two-Loops",
+     "data":
+     {"title": "Exercise: Two Loops",
+      "shortTitle": null,
+      "sectionNum": "5.3.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
+       {"title": "Exercise: Two Loops", "shortTitle": null, "number": "8"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Slow-Assignment":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Slow-Assignment",
+     "data":
+     {"title": "Exercise: Slow Assignment",
+      "shortTitle": null,
+      "sectionNum": "5.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
+       {"title": "Exercise: Slow Assignment",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Power-Series":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Power-Series",
+     "data":
+     {"title": "Exercise: Power Series",
+      "shortTitle": null,
+      "sectionNum": "5.3.9.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
+       {"title": "Exercise: Power Series", "shortTitle": null, "number": "9"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Minimum":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Minimum",
+     "data":
+     {"title": "Exercise: Minimum",
+      "shortTitle": null,
+      "sectionNum": "5.3.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
+       {"title": "Exercise: Minimum", "shortTitle": null, "number": "7"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Factorial":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Factorial",
+     "data":
+     {"title": "Exercise: Factorial",
+      "shortTitle": null,
+      "sectionNum": "5.3.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
+       {"title": "Exercise: Factorial", "shortTitle": null, "number": "6"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Squaring":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Squaring",
+     "data":
+     {"title": "Example: Squaring",
+      "shortTitle": null,
+      "sectionNum": "5.3.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
+       {"title": "Example: Squaring", "shortTitle": null, "number": "5"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Slow-Subtraction":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Slow-Subtraction",
+     "data":
+     {"title": "Example: Slow Subtraction",
+      "shortTitle": null,
+      "sectionNum": "5.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
+       {"title": "Example: Slow Subtraction",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Parity":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Parity",
+     "data":
+     {"title": "Example: Parity",
+      "shortTitle": null,
+      "sectionNum": "5.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
+       {"title": "Example: Parity", "shortTitle": null, "number": "3"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Finding-Square-Roots":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Finding-Square-Roots",
+     "data":
+     {"title": "Example: Finding Square Roots",
+      "shortTitle": null,
+      "sectionNum": "5.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
+       {"title": "Example: Finding Square Roots",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants",
+     "data":
+     {"title": "Finding Loop Invariants",
+      "shortTitle": null,
+      "sectionNum": "5.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Finding Loop Invariants",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--From-Decorated-Programs-to-Formal-Proofs":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--From-Decorated-Programs-to-Formal-Proofs",
+     "data":
+     {"title": "From Decorated Programs to Formal Proofs",
+      "shortTitle": null,
+      "sectionNum": "5.1.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
+       {"title": "From Decorated Programs to Formal Proofs",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Swapping":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Swapping",
+     "data":
+     {"title": "Example: Swapping",
+      "shortTitle": null,
+      "sectionNum": "5.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
+       {"title": "Example: Swapping", "shortTitle": null, "number": "1"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Simple-Conditionals":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Simple-Conditionals",
+     "data":
+     {"title": "Example: Simple Conditionals",
+      "shortTitle": null,
+      "sectionNum": "5.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
+       {"title": "Example: Simple Conditionals",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Reduce-to-Zero":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Reduce-to-Zero",
+     "data":
+     {"title": "Example: Reduce to Zero",
+      "shortTitle": null,
+      "sectionNum": "5.1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
+       {"title": "Example: Reduce to Zero",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Division":
+   [{"id":
+     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Division",
+     "data":
+     {"title": "Example: Division",
+      "shortTitle": null,
+      "sectionNum": "5.1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
+       {"title": "Example: Division", "shortTitle": null, "number": "4"}]},
+     "address": "/Hoare2/"}],
+   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs":
+   [{"id": "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs",
+     "data":
+     {"title": "Decorated Programs",
+      "shortTitle": null,
+      "sectionNum": "5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Hoare2: Hoare Logic, Part II",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Decorated Programs", "shortTitle": null, "number": "1"}]},
+     "address": "/Hoare2/"}],
    "Hoare-Logic":
    [{"id": "Hoare-Logic",
      "data":
@@ -843,7 +1213,29 @@
  {"title": "Verso.Genre.Manual.example",
   "description": null,
   "contents":
-  {"validHoareTriple_def":
+  {"verification_correct":
+   [{"id": "verification_correct",
+     "data":
+     {"/Hoare2/#verification_correct":
+      {"display": "verification_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Extracting Verification Conditions"]}},
+     "address": "/Hoare2/"}],
+   "verification_conditions_correct":
+   [{"id": "verification_conditions_correct",
+     "data":
+     {"/Hoare2/#verification_conditions_correct":
+      {"display": "verification_conditions_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Extracting Verification Conditions"]}},
+     "address": "/Hoare2/"}],
+   "validHoareTriple_def":
    [{"id": "validHoareTriple_def",
      "data":
      {"/Hoare/#validHoareTriple_def":
@@ -886,6 +1278,39 @@
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
+   "reduce_to_zero_correct'''":
+   [{"id": "reduce_to_zero_correct_________",
+     "data":
+     {"/Hoare2/#reduce_to_zero_correct_________":
+      {"display": "reduce_to_zero_correct'''",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Decorated Programs",
+        "From Decorated Programs to Formal Proofs"]}},
+     "address": "/Hoare2/"}],
+   "reduce_to_zero_correct'":
+   [{"id": "reduce_to_zero_correct___",
+     "data":
+     {"/Hoare2/#reduce_to_zero_correct___":
+      {"display": "reduce_to_zero_correct'",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Decorated Programs",
+        "From Decorated Programs to Formal Proofs"]}},
+     "address": "/Hoare2/"}],
+   "reduceToZero":
+   [{"id": "reduceToZero",
+     "data":
+     {"/Hoare2/#reduceToZero":
+      {"display": "reduceToZero",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Decorated Programs",
+        "From Decorated Programs to Formal Proofs"]}},
+     "address": "/Hoare2/"}],
    "quiz5_answer":
    [{"id": "quiz5_answer",
      "data":
@@ -1156,6 +1581,28 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "dec_while_correct":
+   [{"id": "dec_while_correct",
+     "data":
+     {"/Hoare2/#dec_while_correct":
+      {"display": "dec_while_correct",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "More Automation"]}},
+     "address": "/Hoare2/"}],
+   "decWhile":
+   [{"id": "decWhile",
+     "data":
+     {"/Hoare2/#decWhile":
+      {"display": "decWhile",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
    "ceval_deterministic":
    [{"id": "ceval_deterministic",
      "data":
@@ -1379,7 +1826,7 @@
    [{"id": "Slang___Bexp___eval_not",
      "data":
      {"/Slang/#Slang___Bexp___eval_not":
-      {"display": "Bexp.eval_not",
+      {"display": "eval_not",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1390,7 +1837,7 @@
    [{"id": "Slang___Bexp___eval_neq",
      "data":
      {"/Slang/#Slang___Bexp___eval_neq":
-      {"display": "Bexp.eval_neq",
+      {"display": "eval_neq",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1401,7 +1848,7 @@
    [{"id": "Slang___Bexp___eval_le",
      "data":
      {"/Slang/#Slang___Bexp___eval_le":
-      {"display": "Bexp.eval_le",
+      {"display": "eval_le",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1412,7 +1859,7 @@
    [{"id": "Slang___Bexp___eval_gt",
      "data":
      {"/Slang/#Slang___Bexp___eval_gt":
-      {"display": "Bexp.eval_gt",
+      {"display": "eval_gt",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1423,7 +1870,7 @@
    [{"id": "Slang___Bexp___eval_eq",
      "data":
      {"/Slang/#Slang___Bexp___eval_eq":
-      {"display": "Bexp.eval_eq",
+      {"display": "eval_eq",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1434,7 +1881,7 @@
    [{"id": "Slang___Bexp___eval_bool",
      "data":
      {"/Slang/#Slang___Bexp___eval_bool":
-      {"display": "Bexp.eval_bool",
+      {"display": "eval_bool",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1445,7 +1892,7 @@
    [{"id": "Slang___Bexp___eval_and",
      "data":
      {"/Slang/#Slang___Bexp___eval_and":
-      {"display": "Bexp.eval_and",
+      {"display": "eval_and",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1456,7 +1903,7 @@
    [{"id": "Slang___Bexp___eval",
      "data":
      {"/Slang/#Slang___Bexp___eval":
-      {"display": "Bexp.eval",
+      {"display": "eval",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1616,7 +2063,7 @@
    [{"id": "Slang___Aexp___eval_plus",
      "data":
      {"/Slang/#Slang___Aexp___eval_plus":
-      {"display": "Aexp.eval_plus",
+      {"display": "eval_plus",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1627,7 +2074,7 @@
    [{"id": "Slang___Aexp___eval_num",
      "data":
      {"/Slang/#Slang___Aexp___eval_num":
-      {"display": "Aexp.eval_num",
+      {"display": "eval_num",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1638,7 +2085,7 @@
    [{"id": "Slang___Aexp___eval_mult",
      "data":
      {"/Slang/#Slang___Aexp___eval_mult":
-      {"display": "Aexp.eval_mult",
+      {"display": "eval_mult",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1649,7 +2096,7 @@
    [{"id": "Slang___Aexp___eval_minus",
      "data":
      {"/Slang/#Slang___Aexp___eval_minus":
-      {"display": "Aexp.eval_minus",
+      {"display": "eval_minus",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1671,7 +2118,7 @@
    [{"id": "Slang___Aexp___eval",
      "data":
      {"/Slang/#Slang___Aexp___eval":
-      {"display": "Aexp.eval",
+      {"display": "eval",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -1915,6 +2362,17 @@
         "Evaluation as a Relation",
         "Computational vs. Relational Definitions"]}},
      "address": "/Slang/"}],
+   "Slang.AevalRDivision.Aexp.eval":
+   [{"id": "Slang___AevalRDivision___Aexp___eval",
+     "data":
+     {"/Slang/#Slang___AevalRDivision___Aexp___eval":
+      {"display": "eval",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Computational vs. Relational Definitions"]}},
+     "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.div":
    [{"id": "Slang___AevalRDivision___Aexp___div",
      "data":
@@ -2033,6 +2491,27 @@
         "Expressions With Variables",
         "Notations"]}},
      "address": "/Imp/"}],
+   "Lean.Parser.Category.dcom":
+   [{"id": "Lean___Parser___Category___dcom",
+     "data":
+     {"/Hoare2/#Lean___Parser___Category___dcom":
+      {"display": "dcom",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "IsWp":
+   [{"id": "IsWp",
+     "data":
+     {"/Hoare2/#IsWp":
+      {"display": "IsWp",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Weakest Preconditions (Optional)"]}},
+     "address": "/Hoare2/"}],
    "Imp.Delab.imp_bexp.parenthesizer.wrapParens":
    [{"id": "Imp___Delab___imp_bexp___parenthesizer___wrapParens",
      "data":
@@ -2308,6 +2787,303 @@
         "Assertions",
         "Example Assertions"]}},
      "address": "/Hoare/"}],
+   "Decorated.precondition":
+   [{"id": "Decorated___precondition",
+     "data":
+     {"/Hoare2/#Decorated___precondition":
+      {"display": "Decorated.precondition",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "Decorated.pre":
+   [{"id": "Decorated___pre",
+     "data":
+     {"/Hoare2/#Decorated___pre":
+      {"display": "pre",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "Decorated.postcondition":
+   [{"id": "Decorated___postcondition",
+     "data":
+     {"/Hoare2/#Decorated___postcondition":
+      {"display": "Decorated.postcondition",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "Decorated.erase":
+   [{"id": "Decorated___erase",
+     "data":
+     {"/Hoare2/#Decorated___erase":
+      {"display": "Decorated.erase",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "Decorated.body":
+   [{"id": "Decorated___body",
+     "data":
+     {"/Hoare2/#Decorated___body":
+      {"display": "body",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "Decorated.VerificationConditions":
+   [{"id": "Decorated___VerificationConditions",
+     "data":
+     {"/Hoare2/#Decorated___VerificationConditions":
+      {"display": "Decorated.VerificationConditions",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Extracting Verification Conditions"]}},
+     "address": "/Hoare2/"}],
+   "Decorated.OuterTripleValid":
+   [{"id": "Decorated___OuterTripleValid",
+     "data":
+     {"/Hoare2/#Decorated___OuterTripleValid":
+      {"display": "Decorated.OuterTripleValid",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "Decorated":
+   [{"id": "Decorated",
+     "data":
+     {"/Hoare2/#Decorated":
+      {"display": "Decorated",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DComFirstTry.DCom.whileDo":
+   [{"id": "DComFirstTry___DCom___whileDo",
+     "data":
+     {"/Hoare2/#DComFirstTry___DCom___whileDo":
+      {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DComFirstTry.DCom.weakenPost":
+   [{"id": "DComFirstTry___DCom___weakenPost",
+     "data":
+     {"/Hoare2/#DComFirstTry___DCom___weakenPost":
+      {"display": "weakenPost",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DComFirstTry.DCom.strengthenPre":
+   [{"id": "DComFirstTry___DCom___strengthenPre",
+     "data":
+     {"/Hoare2/#DComFirstTry___DCom___strengthenPre":
+      {"display": "strengthenPre",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DComFirstTry.DCom.skip":
+   [{"id": "DComFirstTry___DCom___skip",
+     "data":
+     {"/Hoare2/#DComFirstTry___DCom___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DComFirstTry.DCom.seq":
+   [{"id": "DComFirstTry___DCom___seq",
+     "data":
+     {"/Hoare2/#DComFirstTry___DCom___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DComFirstTry.DCom.cond":
+   [{"id": "DComFirstTry___DCom___cond",
+     "data":
+     {"/Hoare2/#DComFirstTry___DCom___cond":
+      {"display": "cond",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DComFirstTry.DCom.asgn":
+   [{"id": "DComFirstTry___DCom___asgn",
+     "data":
+     {"/Hoare2/#DComFirstTry___DCom___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DComFirstTry.DCom":
+   [{"id": "DComFirstTry___DCom",
+     "data":
+     {"/Hoare2/#DComFirstTry___DCom":
+      {"display": "DCom",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.whileDo":
+   [{"id": "DCom___whileDo",
+     "data":
+     {"/Hoare2/#DCom___whileDo":
+      {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.skip":
+   [{"id": "DCom___skip",
+     "data":
+     {"/Hoare2/#DCom___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.seq":
+   [{"id": "DCom___seq",
+     "data":
+     {"/Hoare2/#DCom___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.pre":
+   [{"id": "DCom___pre",
+     "data":
+     {"/Hoare2/#DCom___pre":
+      {"display": "pre",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.postcondition":
+   [{"id": "DCom___postcondition",
+     "data":
+     {"/Hoare2/#DCom___postcondition":
+      {"display": "DCom.postcondition",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.post":
+   [{"id": "DCom___post",
+     "data":
+     {"/Hoare2/#DCom___post":
+      {"display": "post",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.erase":
+   [{"id": "DCom___erase",
+     "data":
+     {"/Hoare2/#DCom___erase":
+      {"display": "DCom.erase",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.cond":
+   [{"id": "DCom___cond",
+     "data":
+     {"/Hoare2/#DCom___cond":
+      {"display": "cond",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.asgn":
+   [{"id": "DCom___asgn",
+     "data":
+     {"/Hoare2/#DCom___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.VerificationConditions":
+   [{"id": "DCom___VerificationConditions",
+     "data":
+     {"/Hoare2/#DCom___VerificationConditions":
+      {"display": "DCom.VerificationConditions",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Extracting Verification Conditions"]}},
+     "address": "/Hoare2/"}],
+   "DCom":
+   [{"id": "DCom",
+     "data":
+     {"/Hoare2/#DCom":
+      {"display": "DCom",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
    "Com.whileDo":
    [{"id": "Com___whileDo",
      "data":
