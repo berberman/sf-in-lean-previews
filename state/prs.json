@@ -574,6 +574,100 @@
       "status": "published",
       "title": "Print the substitutions with braces instead",
       "url": "https://github.com/plclub/sf-in-lean/pull/286"
+    },
+    "287": {
+      "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "01b5195a58611062581847ee7cbf85cdfbfec3ba",
+      "preview_path": "pr/287/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32406526142",
+      "status": "published",
+      "title": "Implement optional `with` tactics for inversion",
+      "url": "https://github.com/plclub/sf-in-lean/pull/287"
+    },
+    "288": {
+      "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "5562e5c35ef06f85595a3754be696f1499b1c84d",
+      "preview_path": "pr/288/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32406755158",
+      "status": "published",
+      "title": "UsingLean explains irreducible; code actions to Induction.",
+      "url": "https://github.com/plclub/sf-in-lean/pull/288"
     }
   },
   "schema": 3
