@@ -1094,18 +1094,15 @@ inductive Le : Nat → Nat → Prop where
 -- Some sanity checks...
 
 theorem test_le1 : 3 ≤ 3 := by
-  all_goals
-    apply Nat.le.refl
+  apply Nat.le.refl
 
 theorem test_le2 : 3 ≤ 6 := by
-  all_goals
-    apply Nat.le.step; apply Nat.le.step; apply Nat.le.step; apply Nat.le.refl
+  apply Nat.le.step; apply Nat.le.step; apply Nat.le.step; apply Nat.le.refl
 
 theorem test_le3 : (2 ≤ 1) → 2 + 2 = 5 := by
-  all_goals
-    intros h
-    inversion h
-    case step h' => inversion h'
+  intros h
+  inversion h
+  case step h' => inversion h'
 
 -- The "strictly less than" relation `n < m` can now be defined in terms of
 -- `Nat.le`.

@@ -547,9 +547,14 @@ theorem silly4 (n m p q : Nat) :
   apply eq1 at eq2
   exact eq2
 
--- Note to developers (Daniel Sainati @dsainati1, NOW):
---     this part has been changed from the original Rocq, let
---     me know what you think
+-- You can apply tactics in multiple places at the same time,
+-- including the goal:
+
+example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
+  Nat.ble (n, m).1 (n, m).2 := by
+  dsimp at h₁ h₂ ⊢
+  rw [h₁, h₂]
+  rfl
 
 -- ## Specializing Hypotheses
 

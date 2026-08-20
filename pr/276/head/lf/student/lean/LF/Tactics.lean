@@ -292,10 +292,9 @@ theorem injection_ex1 (n m o : Nat) :
     [n, m] = [o, o] →
     n = m := by
   intro h
-  all_goals
-    injection h with h1 h2
-    injection h2 with h3
-    rw [h1, h3]
+  injection h with h1 h2
+  injection h2 with h3
+  rw [h1, h3]
 
 -- There is also a related tactic, `injections`, that applies the `injection`
 -- tactic to all your hypotheses at once, as many times in a row as it can.
@@ -306,9 +305,8 @@ theorem injection_ex2 (n m o : Nat) :
     [n, m] = [o, o] →
     n = m := by
   intro h
-  all_goals
-    injections h1 _ h3
-    rw [h1, h3]
+  injections h1 _ h3
+  rw [h1, h3]
 
 -- ### Exercise (3 stars): injection_ex3 ⭐⭐⭐
 
@@ -600,9 +598,17 @@ theorem silly4 (n m p q : Nat) :
 -- very large development, so we won't import the whole thing here, but we
 -- have provided you `apply ... at ...` because it is quite useful.
 
--- Note to developers (Daniel Sainati @dsainati1, NOW):
---     this part has been changed from the original Rocq, let me know what you
---     think
+-- To apply a tactic in multiple places at the same time, you can list
+-- multiple hypotheses in a row after the `at`. You can also explicitly use a
+-- tactic on the goal (usually because you are applying the tactic to both a
+-- hypothesis and the goal) by including it after the `at` with the turnstile
+-- symbol `⊢`, written `\|-`, `\goal` or `\vdash`.
+
+example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
+  Nat.ble (n, m).1 (n, m).2 := by
+  dsimp at h₁ h₂ ⊢
+  rw [h₁, h₂]
+  rfl
 
 -- ## Specializing Hypotheses
 

@@ -390,14 +390,17 @@ sf_expect_failure
     intro b
       rfl
 
--- Lean complains because the `rfl` is not at the same level of indentation as
--- the `{tactic}intro b`, so Lean does not recognize these two tactics as
--- being sequential in the way they should be.
+-- To see the error message, comment out `sf_expect_failure` temporarily. You
+-- should see the following message.
 
 -- Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
 
 -- b : MyBool
 -- ⊢ (true && b) = b
+
+-- Lean complains because the `rfl` is not at the same level of indentation as
+-- the `{tactic}intro b`, so Lean does not recognize these two tactics as
+-- being sequential in the way they should be.
 
 -- In general, sequential tactics applied to the same goal must be on
 -- subsequent lines at the same level of indentation or separated on the same
@@ -411,9 +414,8 @@ theorem true_and' : ∀ (b : MyBool), (MyBool.true && b) = b := by
 -- Here's a simple proof for you to try. Remove `sorry` and fill in the proof.
 
 theorem false_or : ∀ (b : MyBool), (MyBool.false || b) = b := by
-  all_goals
-    intro b
-    rfl
+  intro b
+  rfl
 
 -- While in this book we often use `sorry` as a placeholder for you to replace
 -- with an actual proof, in general, `sorry` tells Lean that we want to skip
@@ -1141,12 +1143,11 @@ theorem add_zero_zero_explained : ∀  n : Nat, n + zero + zero = n := by
 -- Give this proof a try (it's similar):
 
 theorem add_zero_zero_zero : ∀ n : Nat, n + zero + zero + zero = n := by
-  all_goals
-    intro n
-    rewrite [add_zero]
-    rewrite [add_zero]
-    rewrite [add_zero]
-    rfl
+  intro n
+  rewrite [add_zero]
+  rewrite [add_zero]
+  rewrite [add_zero]
+  rfl
 
 -- ### The `rewrite` tactic
 
@@ -1310,19 +1311,17 @@ theorem four_eq_succ_three : four = succ three := by rfl
 
 theorem one_plus_one_eq_two : one + one = two := by
   rewrite [one_eq_succ_zero]
-  all_goals
-    rewrite [add_succ]
-    rewrite [add_zero]
-    rfl
+  rewrite [add_succ]
+  rewrite [add_zero]
+  rfl
 
 -- Try the same for `two + two = four`.
 
 theorem two_plus_two_eq_four : two + two = four := by
-  all_goals
-    rewrite [four_eq_succ_three, three_eq_succ_two,
-             two_eq_succ_one, one_eq_succ_zero]
-    rewrite [add_succ, add_succ, add_zero]
-    rfl
+  rewrite [four_eq_succ_three, three_eq_succ_two,
+           two_eq_succ_one, one_eq_succ_zero]
+  rewrite [add_succ, add_succ, add_zero]
+  rfl
 
 -- #### Multiplication
 
@@ -1350,14 +1349,12 @@ scoped infixl:70 " * " => mul
 --     *statements* inside a `solution!` block as well.
 
 theorem mul_zero : ∀ n : Nat, n * zero = zero := by
-  all_goals
-    intro n
-    rfl
+  intro n
+  rfl
 
 theorem mul_succ : ∀ n m : Nat, n * (succ m) = (n * m) + n := by
-  all_goals
-    intro n m
-    rfl
+  intro n m
+  rfl
 
 attribute [irreducible] mul
 
@@ -1376,38 +1373,33 @@ attribute [irreducible] mul
 
 theorem zero_add_one : (zero + one : Nat) = one := by
   rewrite [one_eq_succ_zero]
-  all_goals
-    rewrite [add_succ, add_zero]
-    rfl
+  rewrite [add_succ, add_zero]
+  rfl
 
 theorem one_add_one : (one + one : Nat) = two := by
   rewrite [one_eq_succ_zero]
-  all_goals
-    rewrite [add_succ, add_zero]
-    rfl
+  rewrite [add_succ, add_zero]
+  rfl
 
 
 theorem zero_mul_two : (zero * two : Nat) = zero := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
-  all_goals
-    rewrite [mul_succ, mul_succ, mul_zero]
-    rewrite [add_zero, add_zero]
-    rfl
+  rewrite [mul_succ, mul_succ, mul_zero]
+  rewrite [add_zero, add_zero]
+  rfl
 
 theorem one_mul_two : (one * two : Nat) = two := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
-  all_goals
-    rewrite [mul_succ, mul_succ, mul_zero]
-    rewrite [add_succ, add_zero, add_succ, add_zero]
-    rfl
+  rewrite [mul_succ, mul_succ, mul_zero]
+  rewrite [add_succ, add_zero, add_succ, add_zero]
+  rfl
 
 theorem two_mul_two : (two * two : Nat) = four := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
-  all_goals
-    rewrite [mul_succ, mul_succ, mul_zero]
-    rewrite [add_succ, add_succ, add_zero]
-    rewrite [add_succ, add_succ, add_zero]
-    rfl
+  rewrite [mul_succ, mul_succ, mul_zero]
+  rewrite [add_succ, add_succ, add_zero]
+  rewrite [add_succ, add_succ, add_zero]
+  rfl
 
 -- #### Equality and Ordering
 
@@ -1535,10 +1527,9 @@ theorem add_id_example : ∀ n m : Nat,
 
 theorem add_id_exercise : ∀ n m o : Nat,
     n = m → m = o → n + m = m + o := by
-  all_goals
-    intro n m o h1 h2
-    rewrite [h1, h2]
-    rfl
+  intro n m o h1 h2
+  rewrite [h1, h2]
+  rfl
 
 -- #### Displaying Theorem Statements
 
@@ -1700,7 +1691,7 @@ theorem and3_exchange (b c d : Bool) :
 
 -- The `rewrite ... at` tactic can be used to rewrite in a hypothesis instead
 -- of the goal. For example, if `hp : p` is in the context and we have a rule
--- `h : p = q`, then `rewrite [hp] at h` changes the hypothesis to `h : q`.
+-- `r : p = q`, then `rewrite [r] at hp` changes the hypothesis to `hp : q`.
 
 -- The `exact` tactic closes a goal by providing the exact proof of the goal.
 -- For example, if `hp : p` is in the context and the goal is `p`, then
@@ -1715,18 +1706,16 @@ theorem and3_exchange (b c d : Bool) :
 
 theorem or_false_true (b : Bool) (h: (b || false) = true) :
   b = true := by
-  all_goals
-    rewrite [Bool.or_false] at h
-    exact h
+  rewrite [Bool.or_false] at h
+  exact h
 
 -- ### Exercise (1 star): zero_neb_add_one ⭐
 
 theorem zero_neb_add_one (n : Nat) :
   (zero == (succ zero + n)) = false := by
-  all_goals
-    cases n with
-    | zero => rewrite [add_zero, zero_beq_succ]; rfl
-    | succ n' => rewrite [add_succ, zero_beq_succ]; rfl
+  cases n with
+  | zero => rewrite [add_zero, zero_beq_succ]; rfl
+  | succ n' => rewrite [add_succ, zero_beq_succ]; rfl
 
 -- ### Structural Recursion (Optional)
 
@@ -1872,10 +1861,9 @@ end Nat
 theorem identity_fn_applied_twice (f : Bool → Bool) :
     (∀ x : Bool, f x = x) →
     ∀ b : Bool, f (f b) = b := by
-  all_goals
-    intro h b
-    rewrite [h, h]
-    rfl
+  intro h b
+  rewrite [h, h]
+  rfl
 
 -- ### Exercise (1 star): negation_fn_applied_twice ⭐
 
@@ -1897,23 +1885,22 @@ theorem negation_fn_applied_twice (f : Bool → Bool) :
 -- Prove the following theorem.
 
 theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
-  all_goals
-    intro h
-    cases c with
-    | true =>
-      /-
-        h : (true && c) = true || c, i.e., h : c = true
-      -/
-      rewrite [Bool.and_true, Bool.or_true] at h
-      rewrite [h]
-      rfl
-    | false =>
-      /-
-        h : (false && c) = false || c, i.e., h : false = c
-      -/
-      rewrite [Bool.and_false, Bool.or_false] at h
-      rewrite [h]
-      rfl
+  intro h
+  cases c with
+  | true =>
+    /-
+      h : (true && c) = true || c, i.e., h : c = true
+    -/
+    rewrite [Bool.and_true, Bool.or_true] at h
+    rewrite [h]
+    rfl
+  | false =>
+    /-
+      h : (false && c) = false || c, i.e., h : false = c
+    -/
+    rewrite [Bool.and_false, Bool.or_false] at h
+    rewrite [h]
+    rfl
 
 -- ### Airport Exercise
 
@@ -2004,20 +1991,19 @@ attribute [irreducible] buyTicket
 
 theorem buyTicket_idempotent (t : Traveler) :
     buyTicket (buyTicket t) = buyTicket t := by
-  all_goals
-    cases t with
-    | noTicket =>
-        rewrite [buyTicket_noTicket]
-        rewrite [buyTicket_ticketed]
-        rfl
-    | ticketed =>
-        rewrite [buyTicket_ticketed]
-        rewrite [buyTicket_ticketed]
-        rfl
-    | checkedIn =>
-        rewrite [buyTicket_checkedIn]
-        rewrite [buyTicket_checkedIn]
-        rfl
+  cases t with
+  | noTicket =>
+      rewrite [buyTicket_noTicket]
+      rewrite [buyTicket_ticketed]
+      rfl
+  | ticketed =>
+      rewrite [buyTicket_ticketed]
+      rewrite [buyTicket_ticketed]
+      rfl
+  | checkedIn =>
+      rewrite [buyTicket_checkedIn]
+      rewrite [buyTicket_checkedIn]
+      rfl
 
 -- A traveler can check in only after buying a ticket. Checking in records
 -- that their carry-on bag still needs to be inspected. Calling `checkIn`
@@ -2057,10 +2043,9 @@ attribute [irreducible] checkIn
 
 theorem buyTicket_then_checkIn (bagContent : BagContent) :
     checkIn (buyTicket (.noTicket bagContent)) = .checkedIn bagContent .notScreened := by
-  all_goals
-    rewrite [buyTicket_noTicket]
-    rewrite [checkIn_ticketed]
-    rfl
+  rewrite [buyTicket_noTicket]
+  rewrite [checkIn_ticketed]
+  rfl
 
 -- Carry-on inspection happens only after check-in. A bag containing only
 -- ordinary items is cleared, while a bag containing a prohibited item is
@@ -2103,26 +2088,25 @@ attribute [irreducible] inspectBag
 -- as inspecting it once.
 
 theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspectBag t := by
-  all_goals
-    cases t with
-    | noTicket bagContent =>
-      rewrite [inspectBag_noTicket]
-      rewrite [inspectBag_noTicket]
+  cases t with
+  | noTicket bagContent =>
+    rewrite [inspectBag_noTicket]
+    rewrite [inspectBag_noTicket]
+    rfl
+  | ticketed bagContent =>
+    rewrite [inspectBag_ticketed]
+    rewrite [inspectBag_ticketed]
+    rfl
+  | checkedIn bagContent screeningStatus =>
+    cases bagContent with
+    | prohibited =>
+      rewrite [inspectBag_prohibited]
+      rewrite [inspectBag_prohibited]
       rfl
-    | ticketed bagContent =>
-      rewrite [inspectBag_ticketed]
-      rewrite [inspectBag_ticketed]
+    | ordinary =>
+      rewrite [inspectBag_ordinary]
+      rewrite [inspectBag_ordinary]
       rfl
-    | checkedIn bagContent screeningStatus =>
-      cases bagContent with
-      | prohibited =>
-        rewrite [inspectBag_prohibited]
-        rewrite [inspectBag_prohibited]
-        rfl
-      | ordinary =>
-        rewrite [inspectBag_ordinary]
-        rewrite [inspectBag_ordinary]
-        rfl
 
 -- A traveler may leave the screened area and return with a different carry-on
 -- bag. Since the previous screening result applied to the old bag, a new
@@ -2173,23 +2157,21 @@ theorem inspectBag_changeBag_comm_noTicket
     (oldContent newContent : BagContent) :
     inspectBag (changeBag newContent (.noTicket oldContent)) =
     changeBag newContent (inspectBag (.noTicket oldContent)) := by
-  all_goals
-    rewrite [changeBag_noTicket]
-    rewrite [inspectBag_noTicket]
-    rewrite [inspectBag_noTicket]
-    rewrite [changeBag_noTicket]
-    rfl
+  rewrite [changeBag_noTicket]
+  rewrite [inspectBag_noTicket]
+  rewrite [inspectBag_noTicket]
+  rewrite [changeBag_noTicket]
+  rfl
 
 theorem inspectBag_changeBag_comm_ticketed
     (oldContent newContent : BagContent) :
     inspectBag (changeBag newContent (.ticketed oldContent)) =
     changeBag newContent (inspectBag (.ticketed oldContent)) := by
-  all_goals
-    rewrite [changeBag_ticketed]
-    rewrite [inspectBag_ticketed]
-    rewrite [inspectBag_ticketed]
-    rewrite [changeBag_ticketed]
-    rfl
+  rewrite [changeBag_ticketed]
+  rewrite [inspectBag_ticketed]
+  rewrite [inspectBag_ticketed]
+  rewrite [changeBag_ticketed]
+  rfl
 
 end Airport
 
