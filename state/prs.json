@@ -1,5 +1,5 @@
 {
-  "main_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
+  "main_sha": "ad2d7daa28d6bf27b87df2d9000015c27029712a",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -387,100 +387,6 @@
       "title": "UsingLean: spit and polish (and questions)",
       "url": "https://github.com/plclub/sf-in-lean/pull/274"
     },
-    "275": {
-      "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "88d9e661372167a62f50f2961b98eb0789684423",
-      "preview_path": "pr/275/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32205888041",
-      "status": "published",
-      "title": "Lists: Questions and some adjustments",
-      "url": "https://github.com/plclub/sf-in-lean/pull/275"
-    },
-    "281": {
-      "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "7ed5a0a89a7fa635168ccdc58dadd6f28213eb3e",
-      "preview_path": "pr/281/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32387107177",
-      "status": "published",
-      "title": "Style pass over IndProp",
-      "url": "https://github.com/plclub/sf-in-lean/pull/281"
-    },
     "282": {
       "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
       "changed_variants": [
@@ -574,53 +480,6 @@
       "status": "published",
       "title": "Print the substitutions with braces instead",
       "url": "https://github.com/plclub/sf-in-lean/pull/286"
-    },
-    "287": {
-      "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "01b5195a58611062581847ee7cbf85cdfbfec3ba",
-      "preview_path": "pr/287/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32406526142",
-      "status": "published",
-      "title": "Implement optional `with` tactics for inversion",
-      "url": "https://github.com/plclub/sf-in-lean/pull/287"
     },
     "288": {
       "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",

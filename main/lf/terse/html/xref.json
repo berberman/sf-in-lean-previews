@@ -1932,11 +1932,11 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers":
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers":
    [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers",
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers",
      "data":
-     {"title": "Example: Binary relation for comparing numbers",
+     {"title": "Example: Binary Relation for Comparing Numbers",
       "shortTitle": null,
       "sectionNum": "9.1.2.",
       "searchPriority": 50,
@@ -1948,7 +1948,7 @@
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Example: Binary relation for comparing numbers",
+       {"title": "Example: Binary Relation for Comparing Numbers",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/IndProp/"}],
@@ -3856,17 +3856,6 @@
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
-   "ev_plus4":
-   [{"id": "ev_plus4",
-     "data":
-     {"/IndProp/#ev_plus4":
-      {"display": "ev_plus4",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
    "ev_inversion":
    [{"id": "ev_inversion",
      "data":
@@ -3877,39 +3866,6 @@
         "IndProp: Inductively Defined Propositions",
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
-   "ev_4''":
-   [{"id": "ev_4______",
-     "data":
-     {"/IndProp/#ev_4______":
-      {"display": "ev_4''",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "ev_4'":
-   [{"id": "ev_4___",
-     "data":
-     {"/IndProp/#ev_4___":
-      {"display": "ev_4'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "ev_4":
-   [{"id": "ev_4",
-     "data":
-     {"/IndProp/#ev_4":
-      {"display": "ev_4",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
    "eq_implies_succ_equal'":
    [{"id": "eq_implies_succ_equal___",
@@ -4659,7 +4615,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq-next",
+   [{"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -4668,7 +4624,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq",
+    {"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -4914,28 +4870,6 @@
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "Perm3_rev'":
-   [{"id": "Perm3_rev___",
-     "data":
-     {"/IndProp/#Perm3_rev___":
-      {"display": "Perm3_rev'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3_rev":
-   [{"id": "Perm3_rev",
-     "data":
-     {"/IndProp/#Perm3_rev":
-      {"display": "Perm3_rev",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
    "Perm3_In_shortest":
    [{"id": "Perm3_In_shortest",
      "data":
@@ -4995,6 +4929,28 @@
         "Automation: More Automation",
         "The  simp  Tactic"]}},
      "address": "/Automation/"}],
+   "Perm3.rev'":
+   [{"id": "Perm3___rev___",
+     "data":
+     {"/IndProp/#Perm3___rev___":
+      {"display": "rev'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3.rev":
+   [{"id": "Perm3___rev",
+     "data":
+     {"/IndProp/#Perm3___rev":
+      {"display": "rev",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
+     "address": "/IndProp/"}],
    "Perm3.perm3_trans":
    [{"id": "Perm3___perm3_trans",
      "data":
@@ -7126,7 +7082,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary relation for comparing numbers"]}},
+        "Example: Binary Relation for Comparing Numbers"]}},
      "address": "/IndProp/"}],
    "LePlayground.Le.refl":
    [{"id": "LePlayground___Le___refl",
@@ -7137,7 +7093,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary relation for comparing numbers"]}},
+        "Example: Binary Relation for Comparing Numbers"]}},
      "address": "/IndProp/"}],
    "LePlayground.Le":
    [{"id": "LePlayground___Le",
@@ -7148,7 +7104,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary relation for comparing numbers"]}},
+        "Example: Binary Relation for Comparing Numbers"]}},
      "address": "/IndProp/"}],
    "KVPair.value":
    [{"id": "KVPair___value",
@@ -7257,6 +7213,17 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
+   "Ev.plus4":
+   [{"id": "Ev___plus4",
+     "data":
+     {"/IndProp/#Ev___plus4":
+      {"display": "plus4",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
+     "address": "/IndProp/"}],
    "Ev.ev_succ_succ":
    [{"id": "Ev___ev_succ_succ",
      "data":
@@ -7545,6 +7512,28 @@
         "Example: The Collatz Conjecture"]},
       "/IndProp/#CollatzHoldsFor":
       {"display": "CollatzHoldsFor",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"}],
+   "Collatz0'":
+   [{"id": "Collatz0___",
+     "data":
+     {"/IndProp/#Collatz0___":
+      {"display": "Collatz0'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"}],
+   "Collatz0":
+   [{"id": "Collatz0",
+     "data":
+     {"/IndProp/#Collatz0":
+      {"display": "Collatz0",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
