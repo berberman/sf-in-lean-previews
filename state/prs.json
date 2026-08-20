@@ -285,49 +285,12 @@
     },
     "257": {
       "base_sha": "18089be9ae3269f18459d4b46fb68833223505c8",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "cdf796d9e5e21b5424f62e5f42671809a1eb6c5b",
+      "changed_variants": [],
+      "head_sha": "77fd8a5b2b395218726c0fd9dbc4b5d2c22f0641",
       "preview_path": "pr/257/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32060412710",
-      "status": "published",
-      "title": "Add AUTOMATED_GRADING.md",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Reimplement autograding",
       "url": "https://github.com/plclub/sf-in-lean/pull/257"
     },
     "262": {
