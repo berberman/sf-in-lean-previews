@@ -314,7 +314,7 @@ instance (priority := low) : BEq Nat where
 -- natural numbers.
 
 theorem List.elem_poly_eq_elem_nat (xs : List Nat) (n : Nat) : xs.elem_poly n = xs.elem_nat n := by
-  (
+  all_goals(
   induction xs with
   | nil =>
     rewrite [List.elem_poly_nil, List.elem_nat_nil]
@@ -524,9 +524,10 @@ instance : Group Int where
 -- same inverse as well.
 
 theorem inv_unique {α : Type} {g₁ g₂ : Group α} (h : g₁.op = g₂.op) : g₁.inv = g₂.inv := by
-  ext a
-  rw [←g₁.right_id (Group.inv a), ←g₁.right_inv a]
-  rw [g₁.assoc, h, g₂.left_inv a, g₂.left_id]
+  all_goals
+    ext a
+    rw [←g₁.right_id (Group.inv a), ←g₁.right_inv a]
+    rw [g₁.assoc, h, g₂.left_inv a, g₂.left_id]
 
 -- Note to developers (Daniel Sainati @dsainati1):
 --     Taking suggestions for additional simple group theory theorems to prove
@@ -868,9 +869,10 @@ theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a :
 @[simp]
 theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
     (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
-  rw [update_def, getElem_def, get_def]
-  dsimp only
-  rw [beq_false_of_ne h, cond_false]
+  all_goals
+    rw [update_def, getElem_def, get_def]
+    dsimp only
+    rw [beq_false_of_ne h, cond_false]
 
 -- The two remaining facts are equalities *between maps*, so we first need to
 -- say when two maps are equal. Since a total map is implemented as a
@@ -916,11 +918,12 @@ example : "bar" →ₜ true ; "foo" →ₜ true = "foo" →ₜ true ; "bar" →�
 
 @[simp]
 theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) : (a →ₜ m[a] ; m) = m := by
-  ext a'
-  by_cases h : a = a'
-  · subst h
-    simp
-  · simp [update_neq h]
+  all_goals
+    ext a'
+    by_cases h : a = a'
+    · subst h
+      simp
+    · simp [update_neq h]
 
 -- Similarly, if we update a map `m` at a key `a` with a value `b₁` and then
 -- update again with the same key `a` and another value `b₂`, the resulting
@@ -932,11 +935,12 @@ theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) 
 @[simp]
 theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
     (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
-  ext a'
-  by_cases h : a = a'
-  · subst h
-    simp
-  · simp [update_neq h]
+  all_goals
+    ext a'
+    by_cases h : a = a'
+    · subst h
+      simp
+    · simp [update_neq h]
 
 -- Note to developers (mwhicks1, NOW):
 --     Two things the Rocq source says here have been dropped.
@@ -1003,15 +1007,16 @@ theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β
 
 theorem update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :
     (a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m) = (a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m) := by
-  ext a'
-  by_cases h₁ : a₁ = a'
-  · subst h₁
-    rw [update_eq, update_neq h.symm, update_eq]
-  · rw [update_neq h₁]
-    by_cases h₂ : a₂ = a'
-    · subst h₂
-      rw [update_eq, update_eq]
-    · rw [update_neq h₂, update_neq h₂, update_neq h₁]
+  all_goals
+    ext a'
+    by_cases h₁ : a₁ = a'
+    · subst h₁
+      rw [update_eq, update_neq h.symm, update_eq]
+    · rw [update_neq h₁]
+      by_cases h₂ : a₂ = a'
+      · subst h₂
+        rw [update_eq, update_eq]
+      · rw [update_neq h₂, update_neq h₂, update_neq h₁]
 
 -- Note to developers:
 --     The Rocq source also has `getElem_empty` (originally `apply_empty`) and
@@ -1306,11 +1311,12 @@ theorem even_zero : even 0 = true := by rfl
 
 theorem even_succ (n : Nat) :
     even (n + 1) = !(even n) := by
-  induction n with
-  | zero =>
-    rfl
-  | succ n' ih =>
-    rw [even, ih, Bool.not_not]
+  all_goals
+    induction n with
+    | zero =>
+      rfl
+    | succ n' ih =>
+      rw [even, ih, Bool.not_not]
 
 def double (n : Nat) : Nat :=
   match n with
@@ -1398,7 +1404,7 @@ theorem even_double (k : Nat) : Nat.even (Nat.double k) = true := by
 -- ### Exercise (3 stars): even_double_exists ⭐⭐⭐
 
 theorem even_double_exists (n : Nat) :
-    ∃ (k : Nat), n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by (
+    ∃ (k : Nat), n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by all_goals(
   induction n with
   | zero =>
     exists 0

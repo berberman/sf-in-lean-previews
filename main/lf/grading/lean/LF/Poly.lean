@@ -414,27 +414,30 @@ theorem rev_cons {α : Type} (head : α) (tail : List α) :
 
 theorem append_nil {α : Type} (l : List α) :
     l ++ [] = l := by
-  induction l with
-  | nil => rw [List.nil_append]
-  | cons h t ih => rw [List.cons_append, ih]
+  all_goals
+    induction l with
+    | nil => rw [List.nil_append]
+    | cons h t ih => rw [List.cons_append, ih]
 
 theorem append_assoc {α : Type} (l m n : List α) :
     l ++ m ++ n = l ++ (m ++ n) := by
-  induction l with
-  | nil => rw [List.nil_append, List.nil_append]
-  | cons h t ih =>
-    dsimp [List.cons_append]
-    rw [ih]
+  all_goals
+    induction l with
+    | nil => rw [List.nil_append, List.nil_append]
+    | cons h t ih =>
+      dsimp [List.cons_append]
+      rw [ih]
 
 theorem append_length {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
-  induction l₁ with
-  | nil =>
-    dsimp [List.nil_append, append_nil]
-    rw [Nat.zero_add]
-  | cons h t ih =>
-    dsimp [List.cons_append, List.length_cons]
-    rw [Nat.succ_add, ih]
+  all_goals
+    induction l₁ with
+    | nil =>
+      dsimp [List.nil_append, append_nil]
+      rw [Nat.zero_add]
+    | cons h t ih =>
+      dsimp [List.cons_append, List.length_cons]
+      rw [Nat.succ_add, ih]
 
 attribute [autogradedProof 0.5] append_nil
 
@@ -448,21 +451,23 @@ attribute [autogradedProof 0.5] append_length
 
 theorem reverse_append {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev := by
-  induction l₁ with
-  | nil =>
-    dsimp [List.nil_append]
-    rw [rev_nil, append_nil]
-  | cons h t ih =>
-    dsimp [List.cons_append]
-    rw [rev_cons, rev_cons, ih, append_assoc]
+  all_goals
+    induction l₁ with
+    | nil =>
+      dsimp [List.nil_append]
+      rw [rev_nil, append_nil]
+    | cons h t ih =>
+      dsimp [List.cons_append]
+      rw [rev_cons, rev_cons, ih, append_assoc]
 
 theorem reverse_reverse {α : Type} (l : List α) :
     l.rev.rev = l := by
-  induction l with
-  | nil => rw [rev_nil, rev_nil]
-  | cons h t ih =>
-    rw [rev_cons, reverse_append, ih, rev_cons, rev_nil]
-    dsimp [List.nil_append, List.cons_append]
+  all_goals
+    induction l with
+    | nil => rw [rev_nil, rev_nil]
+    | cons h t ih =>
+      rw [rev_cons, reverse_append, ih, rev_cons, rev_nil]
+      dsimp [List.nil_append, List.cons_append]
 
 attribute [autogradedProof 1] reverse_append
 
@@ -825,12 +830,13 @@ theorem map_append {α β : Type} {f : α → β} {l l' : List α} :
 
 theorem map_rev {α : Type} {β : Type} : ∀ (f : α → β) (l : List α),
     map f l.rev = (map f l).rev := by
-  intro f l
-  induction l
-  case nil =>
-   rw [rev_nil, map_nil, rev_nil]
-  case cons h t ih =>
-   rw [rev_cons, map_cons, map_append, rev_cons, ih, map_cons, map_nil]
+  all_goals
+    intro f l
+    induction l
+    case nil =>
+     rw [rev_nil, map_nil, rev_nil]
+    case cons h t ih =>
+     rw [rev_cons, map_cons, map_append, rev_cons, ih, map_cons, map_nil]
 
 attribute [autogradedProof 3] map_rev
 
@@ -1030,13 +1036,14 @@ example : foldLength [4, 7, 0] = 3 := by rfl
 
 theorem fold_length_correct {α : Type} (l : List α) :
     foldLength l = l.length := by
-  induction l with
-  | nil =>
-    dsimp only [foldLength]
-    rw [fold_nil, List.length_nil]
-  | cons head tail ih =>
-    dsimp only [foldLength] at *
-    rw [List.length_cons, fold_cons, ih]
+  all_goals
+    induction l with
+    | nil =>
+      dsimp only [foldLength]
+      rw [fold_nil, List.length_nil]
+    | cons head tail ih =>
+      dsimp only [foldLength] at *
+      rw [List.length_cons, fold_cons, ih]
 
 attribute [autogradedProof 2] fold_length_correct
 
@@ -1110,11 +1117,13 @@ example : map (Nat.add 3) [2, 0, 2] = [5, 3, 5] := by rfl
 
 theorem uncurry_curry {α β γ : Type} (f : α → β → γ) (x : α) (y : β) :
     prodCurry (prodUncurry f) x y = f x y := by
-  rfl
+  all_goals
+    rfl
 
 theorem curry_uncurry {α β γ : Type} (f : α × β → γ) {p : α × β} :
     prodUncurry (prodCurry f) p = f p := by
-  rfl
+  all_goals
+    rfl
 
 attribute [autogradedProof 1] uncurry_curry curry_uncurry
 

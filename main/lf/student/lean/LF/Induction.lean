@@ -256,13 +256,14 @@ theorem zero_add (n : Nat) : zero + n = n := by
 -- numbers.
 
 theorem beq_self (n : Nat) : (n == n) = true := by
-  induction n with
-  | zero =>
-    rewrite [zero_beq_zero]
-    rfl
-  | succ n' ih =>
-    rewrite [succ_beq_succ]
-    exact ih
+  all_goals
+    induction n with
+    | zero =>
+      rewrite [zero_beq_zero]
+      rfl
+    | succ n' ih =>
+      rewrite [succ_beq_succ]
+      exact ih
 
 -- ### Exercise (2 stars): basic_induction ⭐⭐
 

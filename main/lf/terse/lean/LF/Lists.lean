@@ -17,14 +17,6 @@ inductive NatProd where
 
 #check (NatProd.pair 3 5)
 
--- Note to developers (Mike Hicks @mwhicks1):
---     I would have expected us to have `namespace NatProd`
---     here when defining the following functions, so we don't
---     need qualifiers. We've already full explained namespaces
---     back in Basics. Some of the text below mentions using
---     the `NatProd` prefix specifically, but I think you can
---     drop it and it will stick work.
-
 -- Functions for extracting the first and second components of
 -- a pair can then be defined by pattern matching.
 
@@ -60,6 +52,21 @@ def NatProd.snd' (p : NatProd) : Nat :=
 def NatProd.swap (p : NatProd) : NatProd :=
   ⟨snd p, fst p⟩
 
+-- Lean also provides a convenient way to define `inductive`
+-- structures like pairs that have a single constructor but
+-- multiple ways to access their data, using the `structure`
+-- keyword. The definition of `NatProd'` below is equivalent to
+-- the `NatProd` definition from earlier, except that Lean
+-- automatically generates the `fst` and `snd` accessors.
+
+structure NatProd' where
+  fst : Nat
+  snd : Nat
+
+#check (NatProd'.mk 3 5)
+example : (NatProd'.mk 3 5).fst = 3 := by rfl
+example : (⟨3, 5⟩ : NatProd').fst = 3 := by rfl
+
 -- To expose the structure of a pair, use `cases` (or
 -- destructuring).
 
@@ -70,19 +77,6 @@ theorem surjective_pairing : ∀ p : NatProd,
 theorem surjective_pairing_cases (p : NatProd) :
     p = ⟨p.fst, p.snd⟩ := by
   cases p; rfl
-
--- ## Structures
-
--- Lean's `structure` is shorthand for a single-constructor
--- `inductive` with the accessors auto-generated.
-
-structure NatProd' where
-  fst : Nat
-  snd : Nat
-
-#check (NatProd'.mk 3 5)
-example : (NatProd'.mk 3 5).fst = 3 := by rfl
-example : (⟨3, 5⟩ : NatProd').fst = 3 := by rfl
 
 -- ## Lists of Numbers
 
@@ -100,15 +94,7 @@ namespace NatList
 
 -- Some notation for lists to make our lives easier:
 
--- Don't worry too much about how this works.
-
--- THESE DETAILS CAN BE SKIPPED: List syntax
-
--- We first define `::` as right-associative notation for
--- `cons`, and then define list notation as a *macro*, allowing
--- us to write `[1, 2]` instead of `1 :: 2 :: []`. The
--- *unexpander* reverses the macro, translating list syntax
--- back to cons syntax.
+-- Don't worry too much about what this is doing:
 
 scoped infixr:65 (priority := high) " :: " => cons
 scoped macro (priority := high) "[" elems:term,* "]" : term => do
@@ -124,7 +110,10 @@ def unexpandCons : Lean.PrettyPrinter.Unexpander
   | `($_ $x [$xs,*]) => `([$x, $xs,*])
   | _ => throw ()
 
--- END DETAILS
+-- We first define `::` as right-associative *notation* for
+-- `cons`, and then define list notation *macro* with
+-- *unexpander*, allowing us to write `[1, 2]` instead of
+-- `1 :: 2 :: []`.
 
 -- Now these all mean exactly the same thing:
 
@@ -142,15 +131,6 @@ def myRepeat (n count : Nat) : NatList :=
   | count' + 1 => n :: myRepeat n count'
 
 -- Some simple facts about repetition:
-
--- Note to developers (Mike Hicks @mwhicks1):
---     This is the first time we've seen implicit arguments
---     like `{n : Nat}`, and they're used pervasively from here
---     on (`cons_append`, `head_cons`, `count_nil`, etc.). We
---     should either introduce implicit arguments explicitly
---     here (or earlier, e.g., an exercise in UsingLean) or
---     restructure so their proper explanation — currently in
---     Poly — comes before this chapter.
 
 theorem repeat_zero {n : Nat} : myRepeat n 0 = [] := rfl
 

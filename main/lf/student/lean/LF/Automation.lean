@@ -647,10 +647,11 @@ theorem regexp_match_of_list α (l : List α) : l =~ reg_exp_of_list l := by
 -- by `Star re`.
 
 theorem MStar1 α s (re : RegExp α) (h : s =~ re) : s =~ Star re := by
-  rw [← List.append_nil s]
-  constructor
-  . assumption
-  . constructor
+  all_goals
+    rw [← List.append_nil s]
+    constructor
+    . assumption
+    . constructor
 
 -- (Note the use of `List.append_nil` to change the goal of the theorem to
 -- exactly the shape expected by `mStarApp`.)
@@ -727,10 +728,11 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     _two_ induction hypotheses: One that applies when `x` occurs in
     `s₁` (which is matched by `re₁`), and a second one that applies when `x`
     occurs in `s₂` (matched by `re₂`). -/
-    simp only [reChars, List.mem_append] at *
-    cases hin with
-    | inl hin₁ => left; exact ih₁ hin₁
-    | inr hin₂ => right; exact ih₂ hin₂
+    all_goals
+      simp only [reChars, List.mem_append] at *
+      cases hin with
+      | inl hin₁ => left; exact ih₁ hin₁
+      | inr hin₂ => right; exact ih₂ hin₂
   | mUnionL _ _ _ _ ih =>
     simp only [reChars, List.mem_append]; left; exact ih hin
   | mUnionR _ _ _ h₂ ih =>
@@ -743,10 +745,11 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     induction on the regular expression `re`: The latter would only
     provide an induction hypothesis for strings that match `re`, which
     would not allow us to reason about the case `In x ∈ s₂`. -/
-    simp only [List.mem_append] at hin
-    cases hin with
-    | inl hin₁ => exact ih₁ hin₁
-    | inr hin₂ => exact ih₂ hin₂
+    all_goals
+      simp only [List.mem_append] at hin
+      cases hin with
+      | inl hin₁ => exact ih₁ hin₁
+      | inr hin₂ => exact ih₂ hin₂
 
 -- ### Exercise (1 star): reNotEmpty ⭐
 
