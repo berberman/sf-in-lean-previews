@@ -530,11 +530,48 @@
     },
     "290": {
       "base_sha": "c02594888acc88a1500c628e6b05f0eb2e6d86ec",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "aebfe3631c31100824082ab69c619e27c55d662a",
       "preview_path": "pr/290/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32429032246",
+      "status": "published",
       "title": "SFLMeta: remove stripGuardMsgs",
       "url": "https://github.com/plclub/sf-in-lean/pull/290"
     }
