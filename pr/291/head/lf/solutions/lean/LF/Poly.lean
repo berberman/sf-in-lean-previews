@@ -80,7 +80,7 @@ inductive MyList (α : Type) : Type where
 -- What is the full type of `MyList.nil`? We can read off the result type
 -- `MyList α` from the definition, but to state the full type we must also
 -- bind `α`. Since the type argument to the constructor is implicit, Lean
--- writes its type as `{α : Type} → MyList α`.
+-- writes its type as (the equivalent of) `{α : Type} → MyList α`.
 
 #check MyList.nil
 
@@ -106,7 +106,8 @@ def myRepeat (α : Type) (x : α) (count : Nat) : MyList α :=
 
 -- Some simple facts about `myRepeat`:
 
-theorem myRepeat_zero (α : Type) (v : α) : myRepeat α v 0 = MyList.nil := rfl
+theorem myRepeat_zero (α : Type) (v : α) :
+    myRepeat α v 0 = MyList.nil := rfl
 
 theorem myRepeat_succ (α : Type) (v : α) (count : Nat) :
     myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count) := rfl
@@ -180,14 +181,16 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
   | 0 => .nil
   | count' + 1 => .cons x (myRepeat' α x count')
 
--- Indeed it will. Lean infers that `α` is a type. The generated `u_1` is part
--- of Lean's bookkeeping for treating types more generally. We will not need
--- to interpret names like this for now — you can ignore them when they appear
--- in Lean's output unless we explicitly call attention to them.
+-- Indeed it will. Lean infers that `α` is a type.
 
 #check myRepeat'
 
 -- myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+
+-- The generated `u_1` is part of Lean's bookkeeping for treating types more
+-- generally. We will not need to interpret names like this for now — you can
+-- ignore them when they appear in Lean's output unless we explicitly call
+-- attention to them.
 
 -- Lean was able to use *type inference* to deduce what the type of `α` must
 -- be, based on how it is used. Since `α` is an argument to `List`, it must be
@@ -215,7 +218,7 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 -- application appears — to determine what concrete type should replace the
 -- `_`.
 
--- Using holes, the `myRepeat'` function can be written like this:
+-- Using holes, the `myRepeat'` function can be rewritten like this:
 
 def myRepeat'' (α : Type) (x : α) (count : Nat) : List α :=
   match count with
@@ -231,9 +234,11 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
   | 0 => []
   | count' + 1 => x :: myRepeat''' x count'
 
--- (Note that we didn't even have to provide a type argument to the recursive
--- call to `myRepeat'''`. Indeed, it would be invalid to provide one, because
--- Lean is not expecting it.)
+-- By making the type argument implicit, we no longer need to provide it to
+-- the recursive call to `myRepeat'''`. Indeed, it would be invalid to provide
+-- one, because Lean is not expecting it. For each implicit parameter, Lean
+-- automatically inserts a hidden hole `_` argument for us, which is then
+-- inferred as usual.
 
 -- #### Supplying Type Arguments Explicitly
 
@@ -668,17 +673,18 @@ theorem filter_cons_of_neg {α : Type} {test : α → Bool} {head : α}
 
 -- You might have noticed that `filter_cons_of_pos` and `filter_cons_of_neg`
 -- have implicit parameters, such as `head` and `tail`, that do not have type
--- `Type` like `α` does. This is a standard Lean convention for lemmas that
--- are likely to be used by `rw` or `dsimp` when their values can be inferred
--- by unification.
+-- `Type` like `α` does. As it turns out, Lean allows *any* parameter to be
+-- implicit, not just those of type `Type`. This is a standard Lean convention
+-- for lemmas that are likely to be used by `rw` or `dsimp` when their values
+-- can be inferred by unification.
 
 -- For example, suppose you were using this theorem to rewrite
 -- `filter Nat.even (3 :: rest)`. Matching that expression against the
 -- theorem's left-hand side `filter test (head :: tail)` establishes that
 -- `test = Nat.even`, `head = 3`, `tail = rest`, and `α = Nat`. By making
--- these arguments implicit, Lean automatically inserts a blank `_` for each
--- of them when you apply the theorem — you don't have to add the `_`
--- yourself.
+-- these arguments implicit, Lean automatically inserts a hole `_` for each of
+-- them when you apply the theorem, just as with implicit parameters of type
+-- `Type`, so they can be inferred from the context.
 
 -- Note that `h : test head` is not implicit, it's explicit. That's because it
 -- cannot be solved by unification, i.e., Lean can't prove that

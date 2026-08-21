@@ -1932,11 +1932,11 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers":
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers":
    [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers",
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers",
      "data":
-     {"title": "Example: Binary relation for comparing numbers",
+     {"title": "Example: Binary Relation for Comparing Numbers",
       "shortTitle": null,
       "sectionNum": "9.1.2.",
       "searchPriority": 50,
@@ -1948,7 +1948,7 @@
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Example: Binary relation for comparing numbers",
+       {"title": "Example: Binary Relation for Comparing Numbers",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/IndProp/"}],
@@ -3022,6 +3022,17 @@
         "The  apply  Tactic",
         "Supplying arguments to  apply"]}},
      "address": "/Tactics/"}],
+   "trans_eq_example'":
+   [{"id": "trans_eq_example___",
+     "data":
+     {"/Tactics/#trans_eq_example___":
+      {"display": "trans_eq_example'",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "The  apply  Tactic",
+        "Supplying arguments to  apply"]}},
+     "address": "/Tactics/"}],
    "trans_eq_example":
    [{"id": "trans_eq_example",
      "data":
@@ -3841,17 +3852,6 @@
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
-   "isDiagonal":
-   [{"id": "isDiagonal",
-     "data":
-     {"/IndProp/#isDiagonal":
-      {"display": "isDiagonal",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Multiple Induction Hypotheses"]}},
-     "address": "/IndProp/"}],
    "inversion_ex2":
    [{"id": "inversion_ex2",
      "data":
@@ -4107,17 +4107,6 @@
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
-   "ev_plus4":
-   [{"id": "ev_plus4",
-     "data":
-     {"/IndProp/#ev_plus4":
-      {"display": "ev_plus4",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
    "ev_inversion":
    [{"id": "ev_inversion",
      "data":
@@ -4129,50 +4118,16 @@
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
-   "ev_4_ev_n":
-   [{"id": "ev_4_ev_n",
+   "eq_implies_succ_proj_equal":
+   [{"id": "eq_implies_succ_proj_equal",
      "data":
-     {"/IndProp/#ev_4_ev_n":
-      {"display": "ev_4_ev_n",
+     {"/Tactics/#eq_implies_succ_proj_equal":
+      {"display": "eq_implies_succ_proj_equal",
        "context":
        ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
-   "ev_4''":
-   [{"id": "ev_4______",
-     "data":
-     {"/IndProp/#ev_4______":
-      {"display": "ev_4''",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "ev_4'":
-   [{"id": "ev_4___",
-     "data":
-     {"/IndProp/#ev_4___":
-      {"display": "ev_4'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "ev_4":
-   [{"id": "ev_4",
-     "data":
-     {"/IndProp/#ev_4":
-      {"display": "ev_4",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
+        "Tactics: More Basic Tactics",
+        "The  injection  and  contradiction  Tactics"]}},
+     "address": "/Tactics/"}],
    "eq_implies_succ_equal'":
    [{"id": "eq_implies_succ_equal___",
      "data":
@@ -4204,6 +4159,16 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
+   "double_injective_take2_FAILED":
+   [{"id": "double_injective_take2_FAILED",
+     "data":
+     {"/Tactics/#double_injective_take2_FAILED":
+      {"display": "double_injective_take2_FAILED",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Varying the Induction Hypothesis"]}},
+     "address": "/Tactics/"}],
    "double_injective_take2":
    [{"id": "double_injective_take2",
      "data":
@@ -4446,16 +4411,6 @@
         "The Logic of Lean",
         "Propositional Extensionality"]}},
      "address": "/Logic/"}],
-   "add_le":
-   [{"id": "add_le",
-     "data":
-     {"/IndProp/#add_le":
-      {"display": "add_le",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
    "add_comm_fun'":
    [{"id": "add_comm_fun___",
      "data":
@@ -5108,60 +5063,60 @@
         "Data and Functions",
         "New Types from Old"]}},
      "address": "/Basics/"}],
-   "R.R.c5":
-   [{"id": "R___R___c5",
+   "R.c5":
+   [{"id": "R___c5",
      "data":
-     {"/IndProp/#R___R___c5":
+     {"/IndProp/#R___c5":
       {"display": "c5",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R.c4":
-   [{"id": "R___R___c4",
+   "R.c4":
+   [{"id": "R___c4",
      "data":
-     {"/IndProp/#R___R___c4":
+     {"/IndProp/#R___c4":
       {"display": "c4",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R.c3":
-   [{"id": "R___R___c3",
+   "R.c3":
+   [{"id": "R___c3",
      "data":
-     {"/IndProp/#R___R___c3":
+     {"/IndProp/#R___c3":
       {"display": "c3",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R.c2":
-   [{"id": "R___R___c2",
+   "R.c2":
+   [{"id": "R___c2",
      "data":
-     {"/IndProp/#R___R___c2":
+     {"/IndProp/#R___c2":
       {"display": "c2",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R.c1":
-   [{"id": "R___R___c1",
+   "R.c1":
+   [{"id": "R___c1",
      "data":
-     {"/IndProp/#R___R___c1":
+     {"/IndProp/#R___c1":
       {"display": "c1",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R":
-   [{"id": "R___R",
+   "R":
+   [{"id": "R",
      "data":
-     {"/IndProp/#R___R":
+     {"/IndProp/#R":
       {"display": "R",
        "context":
        ["Logical Foundations",
@@ -5368,39 +5323,6 @@
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "Perm3_symm":
-   [{"id": "Perm3_symm",
-     "data":
-     {"/IndProp/#Perm3_symm":
-      {"display": "Perm3_symm",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Multiple Induction Hypotheses"]}},
-     "address": "/IndProp/"}],
-   "Perm3_rev'":
-   [{"id": "Perm3_rev___",
-     "data":
-     {"/IndProp/#Perm3_rev___":
-      {"display": "Perm3_rev'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3_rev":
-   [{"id": "Perm3_rev",
-     "data":
-     {"/IndProp/#Perm3_rev":
-      {"display": "Perm3_rev",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
    "Perm3_In_shortest":
    [{"id": "Perm3_In_shortest",
      "data":
@@ -5503,6 +5425,39 @@
         "IndProp: Inductively Defined Propositions",
         "Using Evidence in Proofs",
         "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
+   "Perm3.symm":
+   [{"id": "Perm3___symm",
+     "data":
+     {"/IndProp/#Perm3___symm":
+      {"display": "symm",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
+   "Perm3.rev'":
+   [{"id": "Perm3___rev___",
+     "data":
+     {"/IndProp/#Perm3___rev___":
+      {"display": "rev'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3.rev":
+   [{"id": "Perm3___rev",
+     "data":
+     {"/IndProp/#Perm3___rev":
+      {"display": "rev",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3.perm3_trans":
    [{"id": "Perm3___perm3_trans",
@@ -8012,7 +7967,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary relation for comparing numbers"]}},
+        "Example: Binary Relation for Comparing Numbers"]}},
      "address": "/IndProp/"}],
    "LePlayground.Le.refl":
    [{"id": "LePlayground___Le___refl",
@@ -8023,7 +7978,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary relation for comparing numbers"]}},
+        "Example: Binary Relation for Comparing Numbers"]}},
      "address": "/IndProp/"}],
    "LePlayground.Le":
    [{"id": "LePlayground___Le",
@@ -8034,7 +7989,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary relation for comparing numbers"]}},
+        "Example: Binary Relation for Comparing Numbers"]}},
      "address": "/IndProp/"}],
    "KVPair.value":
    [{"id": "KVPair___value",
@@ -8109,11 +8064,11 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
-   "In'":
-   [{"id": "In___",
+   "In":
+   [{"id": "In",
      "data":
-     {"/IndProp/#In___":
-      {"display": "In'",
+     {"/IndProp/#In":
+      {"display": "In",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -8256,6 +8211,17 @@
         "Inductively Defined Propositions",
         "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
+   "Ev.plus4":
+   [{"id": "Ev___plus4",
+     "data":
+     {"/IndProp/#Ev___plus4":
+      {"display": "plus4",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
+     "address": "/IndProp/"}],
    "Ev.ev_succ_succ":
    [{"id": "Ev___ev_succ_succ",
      "data":
@@ -8340,6 +8306,17 @@
       {"display": "DiscrFun",
        "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
      "address": "/Logic/"}],
+   "Diagonal":
+   [{"id": "Diagonal",
+     "data":
+     {"/IndProp/#Diagonal":
+      {"display": "Diagonal",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
    "DefaultValueScratch.natDefault":
    [{"id": "DefaultValueScratch___natDefault",
      "data":
@@ -8567,7 +8544,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -8584,7 +8561,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",

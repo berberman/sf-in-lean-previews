@@ -388,7 +388,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/274"
     },
     "282": {
-      "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
+      "base_sha": "1fc4850ae46757950274b91ee5a97b0bfd8ef804",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -427,9 +427,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "fb6be4d9229fdf44f93f4e3fb609460c4c74dcf7",
+      "head_sha": "c9fc00a403653e99b7f0f0ead11739f79526ba1b",
       "preview_path": "pr/282/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32395620159",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32484062445",
       "status": "published",
       "title": "Add remaining exercises to Imp",
       "url": "https://github.com/plclub/sf-in-lean/pull/282"
@@ -568,12 +568,59 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "91397b19974e78b4ded7c0e14747214ffe8d8cc7",
+      "head_sha": "e54ba50394b632840dad555b2169c93db0050025",
       "preview_path": "pr/291/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32436592034",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32477580238",
       "status": "published",
       "title": "Lists/Poly: Revert, then introduce, implicit args in theorems",
       "url": "https://github.com/plclub/sf-in-lean/pull/291"
+    },
+    "292": {
+      "base_sha": "1fc4850ae46757950274b91ee5a97b0bfd8ef804",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "61eab389087fbd8efce618a31f23e23ff6891a5a",
+      "preview_path": "pr/292/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32486252330",
+      "status": "published",
+      "title": "Move pp.fieldNotation out of header in Basics and Induction",
+      "url": "https://github.com/plclub/sf-in-lean/pull/292"
     }
   },
   "schema": 3

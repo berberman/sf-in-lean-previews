@@ -348,8 +348,12 @@ end Imp.Delab
 
 -- END DETAILS
 
+/-- info: aexp {3 + X * 2} : Aexp -/
+#guard_msgs in
 #check aexp { 3 + (X * 2) }
 
+/-- info: bexp {true ∧ ¬ (X ≤ 4)} : Bexp -/
+#guard_msgs in
 #check bexp { true ∧ ¬(X ≤ 4) }
 
 -- ### Evaluation
@@ -551,8 +555,14 @@ imp {
 
 -- ### Desugaring Notations
 
+/-- info: imp {
+  X := X + 1
+} : Com -/
+#guard_msgs in
 #check imp { X := X + 1 }
 
+/-- info: Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com -/
+#guard_msgs in
 set_option pp.notation false in
 #check imp { X := X + 1 }
 
