@@ -5,6 +5,8 @@ import LF.SFLCompat
 
 -- # Induction: Proof by Induction
 
+set_option pp.fieldNotation false
+
 -- Note to developers (before next release):
 --     `SOONER: We should also consider adding more examples to clarify
 --     the concepts introduced in this chapter. This could help in
