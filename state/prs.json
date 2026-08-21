@@ -1,5 +1,5 @@
 {
-  "main_sha": "d779ad7882034d5379b956469b8bb7c634392908",
+  "main_sha": "44094686ca69b43240b30ef9c5024cc78073000f",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -444,52 +444,15 @@
       "title": "Improve elaboration performance",
       "url": "https://github.com/plclub/sf-in-lean/pull/293"
     },
-    "294": {
-      "base_sha": "d779ad7882034d5379b956469b8bb7c634392908",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f3560d15b7afdd7817b20a3ba3fc327ce4f5d000",
-      "preview_path": "pr/294/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32513712271",
-      "status": "published",
-      "title": "Don't show field notation directive",
-      "url": "https://github.com/plclub/sf-in-lean/pull/294"
+    "295": {
+      "base_sha": "44094686ca69b43240b30ef9c5024cc78073000f",
+      "changed_variants": [],
+      "head_sha": "e0f71116814532c2024c64e01821e7928a0c1411",
+      "preview_path": "pr/295/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32516394497",
+      "status": "ci-failed",
+      "title": "Bibliography fixes",
+      "url": "https://github.com/plclub/sf-in-lean/pull/295"
     }
   },
   "schema": 3
