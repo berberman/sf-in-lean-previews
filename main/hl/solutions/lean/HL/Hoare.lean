@@ -2824,6 +2824,8 @@ theorem hoare_repeat_implies_hoare_repeat'
 even with a stronger initial precondition on `Y`. Here is a first
 failed proof attempt. -/
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs in
 example :
     {{ X > 0 ∧ Y > 0}}
       ~ex2_repeat
@@ -2847,6 +2849,8 @@ example :
 /- Here is a second failed attempt trying stronger loop invariant, but
 it is too strong. -/
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs in
 example :
     {{ X > 0 ∧ Y > 0}}
       ~ex2_repeat

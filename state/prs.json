@@ -1,5 +1,5 @@
 {
-  "main_sha": "c02594888acc88a1500c628e6b05f0eb2e6d86ec",
+  "main_sha": "1fc4850ae46757950274b91ee5a97b0bfd8ef804",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -528,7 +528,7 @@
       "title": "UsingLean explains irreducible; code actions to Induction.",
       "url": "https://github.com/plclub/sf-in-lean/pull/288"
     },
-    "290": {
+    "291": {
       "base_sha": "c02594888acc88a1500c628e6b05f0eb2e6d86ec",
       "changed_variants": [
         {
@@ -568,12 +568,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "aebfe3631c31100824082ab69c619e27c55d662a",
-      "preview_path": "pr/290/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32429032246",
+      "head_sha": "91397b19974e78b4ded7c0e14747214ffe8d8cc7",
+      "preview_path": "pr/291/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32436592034",
       "status": "published",
-      "title": "SFLMeta: remove stripGuardMsgs",
-      "url": "https://github.com/plclub/sf-in-lean/pull/290"
+      "title": "Lists/Poly: Revert, then introduce, implicit args in theorems",
+      "url": "https://github.com/plclub/sf-in-lean/pull/291"
     }
   },
   "schema": 3

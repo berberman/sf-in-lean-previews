@@ -132,6 +132,8 @@ theorem trans_eq {α : Type} (x y z : α) :
 
 -- But doing `apply trans_eq` doesn't finish the proof!
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs in
 theorem trans_eq_example' (a b c d e f : Nat) :
     [a, b] = [c, d] →
     [c, d] = [e, f] →
@@ -476,6 +478,8 @@ theorem eq_implies_succ_equal' (n m : Nat) :
 
 -- We can specify the recursion-depth with `congr n`.
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
 example (a b c d : Nat) :
     a = b → c = d → (a, c + 1) = (b, 1 + d) := by
   intro eq1 eq2
@@ -628,6 +632,8 @@ theorem trans_eq_example'''''' (a b c d e f : Nat) :
 -- maps different arguments to different results). The way we
 -- *start* this proof is a little bit delicate:
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
 example (n m : Nat) :
     n.double = m.double →
     n = m := by
@@ -728,6 +734,8 @@ theorem beq_eq : ∀ (n m : Nat),
 -- Suppose, for example, that we wanted to prove
 -- `double_injective` by induction on `m` instead of `n`.
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
 theorem double_injective_take2_FAILED (n m : Nat) :
     n.double = m.double →
     n = m := by
@@ -905,6 +913,8 @@ def sillyfun1 (n : Nat) : Bool :=
   else if n == 5 then true
   else false
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
 example (n : Nat) :
     sillyfun1 n = true →
     n.odd = true := by

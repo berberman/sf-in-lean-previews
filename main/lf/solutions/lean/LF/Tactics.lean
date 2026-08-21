@@ -202,6 +202,8 @@ theorem trans_eq {α : Type} (x y z : α) :
 -- determine an instantiation for `y`, nor does it know which hypothese to use
 -- for the premises to `trans_eq`.
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs in
 theorem trans_eq_example' (a b c d e f : Nat) :
     [a, b] = [c, d] →
     [c, d] = [e, f] →
@@ -622,6 +624,8 @@ theorem eq_implies_succ_equal' (n m : Nat) :
 -- trying to prove, deeper applications of `congr` may make our goal
 -- unprovable. Consider this example:
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
 example (a b c d : Nat) :
     a = b → c = d → (a, c + 1) = (b, 1 + d) := by
   intro eq1 eq2
@@ -830,6 +834,8 @@ theorem trans_eq_example'''''' (a b c d e f : Nat) :
 
 -- we get stuck in the middle of the inductive case...
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
 example (n m : Nat) :
     n.double = m.double →
     n = m := by
@@ -1076,6 +1082,8 @@ theorem plus_n_n_injective : ∀ (n m : Nat),
 -- quantified variables is needed. Suppose, for example, that we wanted to
 -- prove `double_injective` by induction on `m` instead of `n`.
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
 theorem double_injective_take2_FAILED (n m : Nat) :
     n.double = m.double →
     n = m := by
@@ -1350,6 +1358,8 @@ def sillyfun1 (n : Nat) : Bool :=
 -- only when `n` is odd. If we start the proof like this (with no `h:` on the
 -- `cases`)...
 
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
 example (n : Nat) :
     sillyfun1 n = true →
     n.odd = true := by
