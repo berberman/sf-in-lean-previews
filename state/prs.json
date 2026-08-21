@@ -443,6 +443,53 @@
       "status": "ci-failed",
       "title": "Improve elaboration performance",
       "url": "https://github.com/plclub/sf-in-lean/pull/293"
+    },
+    "294": {
+      "base_sha": "d779ad7882034d5379b956469b8bb7c634392908",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "f3560d15b7afdd7817b20a3ba3fc327ce4f5d000",
+      "preview_path": "pr/294/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32513712271",
+      "status": "published",
+      "title": "Don't show field notation directive",
+      "url": "https://github.com/plclub/sf-in-lean/pull/294"
     }
   },
   "schema": 3
