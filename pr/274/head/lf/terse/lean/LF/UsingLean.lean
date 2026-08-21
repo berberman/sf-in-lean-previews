@@ -311,14 +311,6 @@ def Nat.double (n : Nat) : Nat :=
 theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
   rfl
 
--- Note to developers (Mike Hicks @mwhicks1, NOW):
---     I'm *pretty* sure that we have seen field notation
---     before now, but not called attention to it. We did set
---     disable field notation in some cases (`Nat.succ`) but
---     not in general. Either fix this so field notation never
---     comes up, or mention it when it first appears (in the
---     Info View probably), by moving this text there.
-
 -- This printing style is called *field notation* and can be
 -- enabled or disabled with the `pp.fieldNotation` option.
 

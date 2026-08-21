@@ -365,13 +365,6 @@ theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
 -- As an example, observe the difference in how Lean prints the goal in the
 -- following two examples:
 
--- Note to developers (Mike Hicks @mwhicks1, NOW):
---     I'm *pretty* sure that we have seen field notation before now, but not
---     called attention to it. We did set disable field notation in some cases
---     (`Nat.succ`) but not in general. Either fix this so field notation
---     never comes up, or mention it when it first appears (in the Info View
---     probably), by moving this text there.
-
 set_option pp.fieldNotation false
 
 example (n : Nat) : Nat.double (n + 0) = Nat.double n := by

@@ -1,5 +1,5 @@
 {
-  "main_sha": "995d3c34b25e493725d89651ebc3061f48705ed8",
+  "main_sha": "6aa9cf1a26c15dcab04055969b05c84e2bd321a5",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -342,11 +342,48 @@
     },
     "274": {
       "base_sha": "513e3224a0610e99d4559c6c1e1c62d3bdf47720",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "eabeb2b1e6a84891828926de167b844907841719",
       "preview_path": "pr/274/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32495109077",
+      "status": "published",
       "title": "UsingLean: spit and polish (and questions)",
       "url": "https://github.com/plclub/sf-in-lean/pull/274"
     },
@@ -491,15 +528,15 @@
       "title": "UsingLean explains irreducible; code actions to Induction.",
       "url": "https://github.com/plclub/sf-in-lean/pull/288"
     },
-    "291": {
-      "base_sha": "995d3c34b25e493725d89651ebc3061f48705ed8",
+    "293": {
+      "base_sha": "6aa9cf1a26c15dcab04055969b05c84e2bd321a5",
       "changed_variants": [],
-      "head_sha": "ded8841d7a7e6bda557b4c74d6deb31e6ca6730b",
-      "preview_path": "pr/291/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Lists/Poly: Revert, then introduce, implicit args in theorems",
-      "url": "https://github.com/plclub/sf-in-lean/pull/291"
+      "head_sha": "33cefccfc8475832aacc85f08934b330fe25f70c",
+      "preview_path": "pr/293/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32496997136",
+      "status": "ci-failed",
+      "title": "Improve elaboration performance",
+      "url": "https://github.com/plclub/sf-in-lean/pull/293"
     }
   },
   "schema": 3
