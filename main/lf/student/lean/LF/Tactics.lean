@@ -140,8 +140,6 @@ theorem trans_eq {α : Type} (x y z : α) :
 -- determine an instantiation for `y`, nor does it know which hypothese to use
 -- for the premises to `trans_eq`.
 
-/-- warning: declaration uses `sorry` -/
-#guard_msgs in
 theorem trans_eq_example' (a b c d e f : Nat) :
     [a, b] = [c, d] →
     [c, d] = [e, f] →
@@ -294,9 +292,10 @@ theorem injection_ex1 (n m o : Nat) :
     [n, m] = [o, o] →
     n = m := by
   intro h
-  injection h with h1 h2
-  injection h2 with h3
-  rw [h1, h3]
+  all_goals
+    injection h with h1 h2
+    injection h2 with h3
+    rw [h1, h3]
 
 -- There is also a related tactic, `injections`, that applies the `injection`
 -- tactic to all your hypotheses at once, as many times in a row as it can.
@@ -307,8 +306,9 @@ theorem injection_ex2 (n m o : Nat) :
     [n, m] = [o, o] →
     n = m := by
   intro h
-  injections h1 _ h3
-  rw [h1, h3]
+  all_goals
+    injections h1 _ h3
+    rw [h1, h3]
 
 -- ### Exercise (3 stars): injection_ex3 ⭐⭐⭐
 
@@ -520,8 +520,6 @@ theorem eq_implies_succ_equal' (n m : Nat) :
 -- trying to prove, deeper applications of `congr` may make our goal
 -- unprovable. Consider this example:
 
-/-- warning: declaration uses `sorry` -/
-#guard_msgs(warning) in
 example (a b c d : Nat) :
     a = b → c = d → (a, c + 1) = (b, 1 + d) := by
   intro eq1 eq2
@@ -602,17 +600,9 @@ theorem silly4 (n m p q : Nat) :
 -- very large development, so we won't import the whole thing here, but we
 -- have provided you `apply ... at ...` because it is quite useful.
 
--- To apply a tactic in multiple places at the same time, you can list
--- multiple hypotheses in a row after the `at`. You can also explicitly use a
--- tactic on the goal (usually because you are applying the tactic to both a
--- hypothesis and the goal) by including it after the `at` with the turnstile
--- symbol `⊢`, written `\|-`, `\goal` or `\vdash`.
-
-example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
-  Nat.ble (n, m).1 (n, m).2 := by
-  dsimp at h₁ h₂ ⊢
-  rw [h₁, h₂]
-  rfl
+-- Note to developers (Daniel Sainati @dsainati1, NOW):
+--     this part has been changed from the original Rocq, let me know what you
+--     think
 
 -- ## Specializing Hypotheses
 
@@ -700,8 +690,6 @@ theorem trans_eq_example'''''' (a b c d e f : Nat) :
 
 -- we get stuck in the middle of the inductive case...
 
-/-- warning: declaration uses `sorry` -/
-#guard_msgs(warning) in
 example (n m : Nat) :
     n.double = m.double →
     n = m := by
@@ -852,8 +840,6 @@ theorem plus_n_n_injective : ∀ (n m : Nat),
 -- quantified variables is needed. Suppose, for example, that we wanted to
 -- prove `double_injective` by induction on `m` instead of `n`.
 
-/-- warning: declaration uses `sorry` -/
-#guard_msgs(warning) in
 theorem double_injective_take2_FAILED (n m : Nat) :
     n.double = m.double →
     n = m := by
@@ -1080,8 +1066,6 @@ def sillyfun1 (n : Nat) : Bool :=
 -- only when `n` is odd. If we start the proof like this (with no `h:` on the
 -- `cases`)...
 
-/-- warning: declaration uses `sorry` -/
-#guard_msgs(warning) in
 example (n : Nat) :
     sillyfun1 n = true →
     n.odd = true := by

@@ -21,7 +21,7 @@ import LF.SFLCompat
 -- different from our custom `Nat`, but these differences are mostly
 -- superficial. The built-in natural numbers are defined in the `Init` module,
 -- which is automatically imported by Lean. We will refer to them as `Nat` as
--- well.
+-- well, but they are not the same as the `Nat` we defined in Basics.
 
 -- In Lean, programmers and mathematicians don't re-prove the basic properties
 -- of natural numbers from scratch, nor do they tend to write out `rewrite`
@@ -36,6 +36,11 @@ example : (two * two : NatPlayground.Nat) = four := by
   rewrite [add_succ, add_succ, add_zero]
   rewrite [add_succ, add_succ, add_zero]
   rfl
+
+-- Note to developers (Benjamin Pierce @bcpierce00, NOW):
+--     The info viewed in the InfoView during this proof is kind of mysterious
+--     (to me) here. Have we already given people enough help to understand it
+--     here?
 
 -- This approach is useful in a textbook for understanding the structure of
 -- natural numbers and for providing early practice with writing proofs. But
@@ -58,7 +63,8 @@ example : (3 * 3 : Nat) = 9 := by rfl
 -- With Lean's `Nat`, much of the computation happens automatically, and `rfl`
 -- suffices to close any equality of computation on literals.
 
-example : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by rfl
+example : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by
+  rfl
 
 -- This quickly becomes necessary, as natural numbers quickly get large!
 
@@ -68,6 +74,13 @@ example : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by rfl
 example (n m : Nat) (h : n = m) : n = m := by
   -- `rfl` will not work here!
   -- First rewrite the goal with `h`; then the two sides are identical.
+  rewrite [h]
+  rfl
+
+-- The same proof can be written more compactly with `rw`. In this example,
+-- `rw [h]` rewrites with `h` and then closes the resulting reflexive goal.
+
+example (n m : Nat) (h : n = m) : n = m := by
   rw [h]
 
 -- We will continue to show more powerful tools for manipulating the context
@@ -77,14 +90,14 @@ example (n m : Nat) (h : n = m) : n = m := by
 
 -- As part of using Lean's standard `Nat` type, we will also begin using
 -- theorems about `Nat`s from the standard library. Because we did not write
--- or prove these theorems ourselves, we may not know (or remember) all the
--- available theorems.
+-- or prove these theorems ourselves, however, we may not know all the
+-- available theorems off the top of our heads.
 
 -- Lean provides a few ways to search through the standard library to find
--- theorems that may be useful during a particular proof. The first way is the
--- `exact?` tactic. This tactic searches the standard library for a theorem
--- that can be applied, along with the hypotheses in the context, to exactly
--- close the current goal.
+-- theorems that may be useful during a particular proof. The first such way
+-- is the `exact?` tactic. This tactic searches the standard library for a
+-- theorem that can be applied, along with the hypotheses in the context, to
+-- exactly close the current goal.
 
 example (n m : Nat) : n + m = m + n := by
   exact?
@@ -97,13 +110,14 @@ example (n m : Nat) : n + m = m + n := by
 -- Alternatively, VS Code may show an inline suggestion (lightbulb) button
 -- above the `exact?`. You can click either of these buttons to replace the
 -- occurrence of `exact?` with the tactic it found to complete the proof;
--- idiomatic Lean should not contain `exact?` tactics (or any other `?`
--- tactics) in the finished versions of proofs.
+-- idiomatic Lean does not leave `exact?` tactics (or any other `?` tactics,
+-- as we will see shortly) in the finished versions of proofs and instead
+-- replaces them with the tactics they found during search.
 
 -- The `exact?` tactic is useful when we just need a single library theorem to
 -- get us over the finish line of a proof, but it is not so helpful when we
 -- are deep in the middle of a proof or are wondering how to get started on
--- one. Fortunately, there are other tactics that can help in these cases.
+-- one. Luckily, there are other tactics that will help us with this.
 
 -- The `rw?` tactic works like `exact?`, except that it searches for any
 -- theorems that you could use to rewrite the current goal.
@@ -137,12 +151,14 @@ sf_expect_failure
 
 theorem mul_three (n : Nat) :
     3 * n = n + n + n := by
-  rw [Nat.add_one_mul, Nat.two_mul]
+  all_goals
+    rw [Nat.add_one_mul, Nat.two_mul]
 
 theorem mul_three_beq (n : Nat) :
     (3 * n == n + n + n) = true := by
-  rw [Nat.beq_eq_true_eq]
-  exact mul_three n
+  all_goals
+    rw [Nat.beq_eq_true_eq]
+    exact mul_three n
 
 -- ## Structuring Proofs with `calc`
 
@@ -202,16 +218,18 @@ theorem succ_mul_succ (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
   rw [Nat.add_mul, Nat.one_mul, Nat.mul_add, Nat.mul_one, ← Nat.add_assoc]
 
--- Given this proof with `rw`, rewrite it with `calc`.
+-- Given this proof with `rw`, rewrite it with `calc`. Recall that you can use
+-- `rw?` to find appropriate rules to rewrite by.
 
 theorem succ_mul_succ' (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
-  calc (n + 1) * (m + 1)
-  _ = n * (m + 1) + 1 * (m + 1) := by rw [Nat.add_mul]
-  _ = n * (m + 1) + (m + 1)     := by rw [Nat.one_mul]
-  _ = (n * m + n * 1) + (m + 1) := by rw [Nat.mul_add]
-  _ = (n * m + n) + (m + 1)     := by rw [Nat.mul_one]
-  _ = n * m + n + m + 1         := by rw [← Nat.add_assoc]
+  all_goals
+    calc (n + 1) * (m + 1)
+      _ = n * (m + 1) + 1 * (m + 1) := by rw [Nat.add_mul]
+      _ = n * (m + 1) + (m + 1)     := by rw [Nat.one_mul]
+      _ = (n * m + n * 1) + (m + 1) := by rw [Nat.mul_add]
+      _ = (n * m + n) + (m + 1)     := by rw [Nat.mul_one]
+      _ = n * m + n + m + 1         := by rw [← Nat.add_assoc]
 
 -- If you prefer `rw` to `calc`, that's fine! Each has particular uses, and
 -- both will be tools in your ever-growing toolbox of tactics.
@@ -258,9 +276,10 @@ example (n m : Nat) (h : n + n = m) : triple n = m + n := by
 -- Complete this proof, using `dsimp` or `rw` as appropriate.
 
 example (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
-  rw [h]
-  dsimp [triple]
-  rw [Nat.add_assoc]
+  all_goals
+    rw [h]
+    dsimp [triple]
+    rw [Nat.add_assoc]
 
 -- `dsimp at h` also works on hypotheses, which `rfl` can't touch.
 
@@ -279,16 +298,6 @@ example (n m : Nat) (h : 2 * n = m * 2) : n + n = m + m := by
 
 example (n : Nat) : square n + 0 = n * n := by
   dsimp [square]
-
--- In the above example, using `rw` would not have closed the proof:
-
-sf_expect_failure
-  example (n : Nat) : square n + 0 = n * n := by
-    rw [square]
-
--- unsolved goals
--- n✝ n : Nat
--- ⊢ n * n + 0 = n * n
 
 -- Like `rw` and `exact`, `dsimp` also has a `?` version that searches for
 -- functions to simplify by. Many Lean tactics have `?` versions; try it out
@@ -398,11 +407,12 @@ example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
 
 theorem Nat.even_succ (n : Nat) :
     (n + 1).even = !(n.even) := by
-  induction n with
-  | zero =>
-    rfl
-  | succ n' ih =>
-    rw [even, ih, Bool.not_not]
+  all_goals
+    induction n with
+    | zero =>
+      rfl
+    | succ n' ih =>
+      rw [even, ih, Bool.not_not]
 
 -- We reprove here for Lean's `Nat` some theorems about `Nat.even` and
 -- `Nat.double`, which we had previously proven for our custom
@@ -415,16 +425,18 @@ theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 -- ### Exercise (2 stars): double_add ⭐⭐
 
 theorem Nat.double_add (n : Nat) : n.double = n + n := by
-  induction n with
-  | zero =>
-    rw [double_zero]
-  | succ n' ih =>
-    rw [double_succ, ih, succ_add n' (n' + 1), add_succ n' n']
+  all_goals
+    induction n with
+    | zero =>
+      rw [double_zero]
+    | succ n' ih =>
+      rw [double_succ, ih, succ_add n' (n' + 1), add_succ n' n']
 
 -- ### Exercise (2 stars): double_mul ⭐⭐
 
 theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
-  rw [double_add, Nat.two_mul]
+  all_goals
+    rw [double_add, Nat.two_mul]
 
 -- ## Using Code Actions to Generate Match Skeletons
 
@@ -447,11 +459,6 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 sf_expect_failure
   example (n : Nat) : Nat.beq n n := by
     induction n
-
--- Note to developers (Mike Hicks @mwhicks1, NOW):
---     When I follow the instructions below in the student `.lean` files in
---     `_out` I do not get a lightbulb to do this code action. Instead I get a
---     couple of stars which if I click suggests a "quick fix".
 
 -- Put your cursor on `induction n` and open the code action menu. You should
 -- see "Generate an explicit pattern match for 'induction'." in the list. If

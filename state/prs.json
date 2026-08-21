@@ -1,5 +1,5 @@
 {
-  "main_sha": "b48831b09e84cf7b154a72820ac25f07c4bfc398",
+  "main_sha": "68908d35effe49f11043f287887558e54c24ca52",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -141,16 +141,6 @@
       "status": "published",
       "title": "Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
-    },
-    "216": {
-      "base_sha": "c02594888acc88a1500c628e6b05f0eb2e6d86ec",
-      "changed_variants": [],
-      "head_sha": "5f7171d56a11ca6302a826ed355aa8999ba96c7a",
-      "preview_path": "pr/216/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Refactor Tactics",
-      "url": "https://github.com/plclub/sf-in-lean/pull/216"
     },
     "250": {
       "base_sha": "f7a57a2d811b851e167cddec1352bfb2f166abdd",

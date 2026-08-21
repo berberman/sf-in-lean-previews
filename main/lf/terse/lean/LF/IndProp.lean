@@ -9,7 +9,7 @@ import LF.SFLCompat
 --     `HIDE: BCP 25: After teaching the chapter this semester, I feel
 --     that (a) the Ev example, while arguably suboptimal, actually works
 --     acceptably well. (I just wish that the n in ``ev_succ_succ` n H` was not
---     two smaller than the n that is being shown to be even — that's
+--     two smaller than the n that is being shown to be even -- that's
 --     always awkward.  Wonder if there is some clever way around that...)
 --
 --     However, (b) the chapter is very long, and quite a few of the
@@ -66,7 +66,7 @@ import LF.SFLCompat
 --     (I was not satisfied with my lecture on this part of the
 --     chapter, even after adding these examples, though I did
 --     do some further streamlining afterward and there are
---     some further opportunities for streamlining — perhaps
+--     some further opportunities for streamlining -- perhaps
 --     enough to make the present treatment palatible). I see
 --     three possible paths forward:
 --
@@ -74,7 +74,7 @@ import LF.SFLCompat
 --          stuff. (But which one is better? I don't think we've
 --          found it yet.)
 --
---     - 2. Mix and match ─ use different examples from the top of
+--     - 2. Mix and match -- use different examples from the top of
 --          the chapter to make different points.
 --
 --     - 3. Leave the examples as-is but streamline as much as
@@ -192,6 +192,13 @@ def div2 (n : Nat) : Nat :=
 def csf (n : Nat) : Nat :=
   if n.even then div2 n
   else (3 * n) + 1
+
+-- Note to developers:
+--     HIDE: CH: This is now called `csf` and not just `f` for
+--     a good reason. If one adds single letter global
+--     identifiers that badly interferes with inadvertently
+--     reusing the same names in pattern matching patterns,
+--     leading to confusing error messages from Lean.
 
 -- Next, we look at what happens when we repeatedly apply `csf`
 -- to some given starting number. For example, `csf 12` is `6`,
@@ -334,10 +341,12 @@ sf_expect_failure
 
 inductive CollatzHoldsFor : Nat → Prop where
   | chf_one  : CollatzHoldsFor 1
-  | chf_even {n : Nat} (h₁ : n.even = true)
-    (h₂ : CollatzHoldsFor (div2 n)) : CollatzHoldsFor n
-  | chf_odd  {n : Nat} (h₁ : n.even = false)
-    (h₂ : CollatzHoldsFor ((3 * n) + 1)) : CollatzHoldsFor n
+  | chf_even (n : Nat) : n.even = true →
+                         CollatzHoldsFor (div2 n) →
+                         CollatzHoldsFor n
+  | chf_odd  (n : Nat) : n.even = false →
+                         CollatzHoldsFor ((3 * n) + 1) →
+                         CollatzHoldsFor n
 
 -- For particular numbers, we can now prove that the Collatz
 -- sequence reaches `1` (we'll look more closely at how it
@@ -365,51 +374,43 @@ def Collatz := ∀ n, n ≠ 0 → CollatzHoldsFor n
 
 -- If you succeed in proving this conjecture, you've got a
 -- bright future as a number theorist! But don't spend too long
--- on it ─ it's been open since 1937.
+-- on it -- it's been open since 1937.
 
--- Note to developers (Chris Henson @chenson2018):
---     We may want to add an exercise later proving false if
---     one assumes Collatz' conjecture without the `n ≠ 0`
---     assumption. We had that mistake in the script for years
---     and no one noticed, wow!
---
---     `theorem Collatz0' {n} (h₀ : n = 0) : ¬ CollatzHoldsFor n := by
---       intro h; induction h
---       case chf_one => contradiction
---       case chf_even ih => apply ih; rw [h₀]; dsimp [div2]
---       case chf_odd h _ _ => rw [h₀] at h; dsimp [Nat.even] at h; contradiction
---
---     theorem Collatz0 : ¬ (∀ n, CollatzHoldsFor n) := by
---       intro h; apply Collatz0'; rfl; apply h`
+-- Note to developers:
+--     HIDE: CH: We may want to add an exercise later proving
+--     false if one assumes Collatz' conjecture without the
+--     `n ≠ 0` assumption. We had that mistake in the script
+--     for years and no one noticed, wow!
 
--- ### Example: Binary Relation for Comparing Numbers
+-- ### Example: Binary relation for comparing numbers
 
 -- A binary *relation* on a set `α` has Lean type
 -- `α → α → Prop`. This is a family of propositions
--- parameterized by two elements of `α` ─ i.e., a proposition
+-- parameterized by two elements of `α` -- i.e., a proposition
 -- about pairs of elements of `α`.
 
 -- For example, one familiar binary relation on `Nat` is
--- `Le : Nat → Nat → Prop`, the less-than-or-equal-to relation,
+-- `Le : Nat
+-- → Nat → Prop`, the less-than-or-equal-to relation,
 -- which can be inductively defined by the following two rules:
 
 --     ─────── (le_refl)
 --     Le n n
 
---     Le n m
---   ──────────── (le_step)
+--      Le n m
+--   ───────────── (le_step)
 --   Le n (m + 1)
 
 namespace LePlayground
 
 inductive Le : Nat → Nat → Prop where
-  | refl {n : Nat}                : Le n n
-  | step {n m : Nat} (h : Le n m) : Le n (m + 1)
+  | refl (n : Nat)   : Le n n
+  | step (n m : Nat) : Le n m → Le n (m + 1)
 
 scoped infix:50 (priority := high) " ≤ " => Le
 
 example : 3 ≤ 5 := by
-  apply Le.step; apply Le.step; exact Le.refl
+  apply Le.step; apply Le.step; exact Le.refl 3
 
 end LePlayground
 
@@ -430,11 +431,13 @@ end LePlayground
 -- In Lean this looks as follows:
 
 inductive ClosTrans {α : Type} (R : α → α → Prop) : α → α → Prop where
-  | t_step {x y : α} (h : R x y) : ClosTrans R x y
-  | t_trans {x y z : α}
-    (h₁ : ClosTrans R x y)
-    (h₂ : ClosTrans R y z) :
-    ClosTrans R x z
+  | t_step (x y : α) :
+      R x y →
+      ClosTrans R x y
+  | t_trans (x y z : α) :
+      ClosTrans R x y →
+      ClosTrans R y z →
+      ClosTrans R x z
 
 -- For example, suppose we define a "parent of" relation on a
 -- group of people...
@@ -450,19 +453,19 @@ inductive ParentOf : Person → Person → Prop where
   | po_SR : ParentOf .sage .ridley
   | po_CM : ParentOf .cleo .moss
 
--- The `ParentOf` relation is not transitive, but we can define
--- an "ancestor of" relation as its transitive closure:
+-- The `parent_of` relation is not transitive, but we can
+-- define an "ancestor of" relation as its transitive closure:
 
 def AncestorOf : Person → Person → Prop := ClosTrans ParentOf
 
--- Here is a derivation showing that `sage` is an ancestor of
--- `moss`:
+-- Here is a derivation showing that Sage is an ancestor of
+-- Moss:
 
---    ——————————————————— (po_SC)     ——————————————————— (po_CM)
+--    ———————————————————(po_SC)     ———————————————————(po_CM)
 --    ParentOf .sage .cleo            ParentOf .cleo .moss
---   ————————————————————— (t_step)  ————————————————————— (t_step)
+--   —————————————————————(t_step)  —————————————————————(t_step)
 --   AncestorOf .sage .cleo          AncestorOf .cleo .moss
---   ———————————————————————————————————————————————————— (t_trans)
+--   ————————————————————————————————————————————————————(t_trans)
 --                   AncestorOf .sage .moss
 
 example : AncestorOf .sage .moss := by
@@ -493,12 +496,15 @@ example : AncestorOf .sage .moss := by
 --              ClosReflTrans R x z
 
 inductive ClosReflTrans {α : Type} (R : α → α → Prop) : α → α → Prop where
-  | rt_step {x y : α} (h : R x y) : ClosReflTrans R x y
-  | rt_refl {x : α} : ClosReflTrans R x x
-  | rt_trans {x y z : α}
-    (h₁ : ClosReflTrans R x y)
-    (h₂ : ClosReflTrans R y z) :
-    ClosReflTrans R x z
+  | rt_step (x y : α) :
+      R x y →
+      ClosReflTrans R x y
+  | rt_refl (x : α) :
+      ClosReflTrans R x x
+  | rt_trans (x y z : α) :
+      ClosReflTrans R x y →
+      ClosReflTrans R y z →
+      ClosReflTrans R x z
 
 -- For instance, this enables an equivalent definition of the
 -- Collatz conjecture. First we define a binary relation
@@ -517,7 +523,7 @@ def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CMS n 1
 
 -- Note to developers:
 --     HIDE: CH: Would it be helpful to add an exercise later
---     proving CMS equivalent to CollatzHoldsFor?
+--     proving CMS equivalent to CollatzHoldsFor
 
 -- ### Example: Permutations
 
@@ -541,33 +547,32 @@ def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CMS n 1
 -- For instance we can derive `Perm3 [1, 2, 3] [3, 2, 1]` as
 -- follows:
 
---   ───────────────────────── (perm3_swap12)   ───────────────────────── (perm3_swap23)
---   Perm3 [1, 2, 3] [2, 1, 3]                  Perm3 [2, 1, 3] [2, 3, 1]
---   ──────────────────────────────────────────────────────────────────── (perm3_trans)   ───────────────────────── (perm3_swap12)
---   Perm3 [1, 2, 3] [2, 3, 1]                                                            Perm3 [2, 3, 1] [3, 2, 1]
---   ────────────────────────────────────────────────────────────────────────────────────────────────────────────── (perm3_trans)
+--   ─────────────────────────(perm3_swap12)   ─────────────────────────(perm3_swap23)
+--   Perm3 [1, 2, 3] [2, 1, 3]                 Perm3 [2, 1, 3] [2, 3, 1]
+--   ──────────────────────────────────────────────────(perm3_trans)   ─────────────────────────(perm3_swap12)
+--   Perm3 [1, 2, 3] [2, 3, 1]                                          Perm3 [2, 3, 1] [3, 2, 1]
+--   ──────────────────────────────────────────────────────────────────────────(perm3_trans)
 --   Perm3 [1, 2, 3] [3, 2, 1]
 
 -- In Lean, we can define `Perm3` as follows:
 
 inductive Perm3 {α : Type} : List α → List α → Prop where
-  | perm3_swap12 {x y z : α} : Perm3 [x, y, z] [y, x, z]
-  | perm3_swap23 {x y z : α} : Perm3 [x, y, z] [x, z, y]
-  | perm3_trans {l₁ l₂ l₃ : List α}
-    (h₁₂ : Perm3 l₁ l₂)
-    (h₂₃ : Perm3 l₂ l₃) :
-    Perm3 l₁ l₃
+  | perm3_swap12 (a b c : α) :
+      Perm3 [a, b, c] [b, a, c]
+  | perm3_swap23 (a b c : α) :
+      Perm3 [a, b, c] [a, c, b]
+  | perm3_trans (l₁ l₂ l₃ : List α) :
+      Perm3 l₁ l₂ → Perm3 l₂ l₃ → Perm3 l₁ l₃
 
 -- ### Example: Evenness (yet again)
 
 -- We've already seen two ways of stating a proposition that a
 -- number `n` is even: We can say
 
--- (1) `Nat.even n = true` (using the recursive boolean
--- function `Nat.even`), or
+-- (1) `even n = true` (using the recursive boolean function
+-- `even`), or
 
--- (2) `∃ k, n = Nat.double k` (using an existential
--- quantifier).
+-- (2) `∃ k, n = double k` (using an existential quantifier).
 
 -- A third possibility, which we'll use as a simple running
 -- example in this chapter, is to say that a number is even if
@@ -584,12 +589,12 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 -- To illustrate how this new definition of evenness works,
 -- let's imagine using it to show that `4` is even:
 
---                 ———— (ev_0)
---                 Ev 0
---          ———————————————————— (ev_succ_succ)
---          Ev (.succ (.succ 0))
---   ——————————————————————————————————— (ev_succ_succ)
---   Ev (.succ (.succ (.succ (.succ 0))))
+--           ———— (ev_0)
+--           Ev 0
+--       ———————————— (ev_succ_succ)
+--       Ev (S (S 0))
+--   ———————————————————— (ev_succ_succ)
+--   Ev (S (S (S (S 0))))
 
 -- We can translate the informal definition of evenness from
 -- above into a formal `inductive` declaration, where each "way
@@ -598,20 +603,19 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 
 inductive Ev : Nat → Prop where
   | ev_0                              : Ev 0
-  | ev_succ_succ {n : Nat} (h : Ev n) : Ev (n + 2)
+  | ev_succ_succ (n : Nat) (h : Ev n) : Ev (n + 2)
 
 -- There are both similarities and a few differences between
 -- inductive *properties* like `Ev` and the inductive *types*
 -- like `Nat` or `List` that we have been using throughout the
 -- course:
 
-sf_expect_failure
-  inductive List (α : Type) : Type where
-    | nil                       : List α
-    | cons (x : α) (l : List α) : List α
+--   inductive List (α : Type) : Type where
+--     | nil                       : List α
+--     | cons (x : α) (l : List α) : List α.
 
 -- The most important difference is that the constructors of
--- `Ev`, `Ev.ev_0` and `Ev.ev_succ_succ`, yield different types
+-- `Ev`, `ev_0` and `ev_succ_succ`, yield different types
 -- (`Ev 0` and `Ev (n + 2)`), whereas the `List` constructors
 -- both build `List α` values.
 
@@ -619,7 +623,7 @@ sf_expect_failure
 -- a Lean property `Ev : Nat → Prop`, together with two
 -- "evidence constructors":
 
-#check Ev.ev_0         -- Ev 0
+#check (Ev.ev_0) -- Ev 0
 #check Ev.ev_succ_succ -- ∀ (n : Nat) (h : Ev n) : Ev (n + 2)
 
 -- These evidence constructors can be thought of as "primitive
@@ -628,63 +632,57 @@ sf_expect_failure
 -- `apply` and `exact` tactics with the constructor names to
 -- obtain evidence for `Ev` of particular numbers...
 
-namespace Ev
-
-example : Ev 4 := by
-  apply ev_succ_succ; apply ev_succ_succ; exact ev_0
+theorem ev_4 : Ev 4 := by
+  apply Ev.ev_succ_succ; apply Ev.ev_succ_succ; exact Ev.ev_0
 
 -- ... or we can use function application syntax to combine
 -- several constructors:
 
-example : Ev 4 := by
-  exact ev_succ_succ (ev_succ_succ ev_0)
+theorem ev_4' : Ev 4 := by
+  exact Ev.ev_succ_succ 2 (Ev.ev_succ_succ 0 Ev.ev_0)
 
 -- ... or we can also use the `constructor` tactic we saw
--- earlier to select the appropriate inductive constructor:
+-- earlier to select the appropriate inductive constructor
 
-example : Ev 4 := by
+theorem ev_4'' : Ev 4 := by
   constructor; constructor; constructor
 
 -- In this way, we can also prove theorems that have hypotheses
 -- involving `Ev`.
 
-theorem plus4 (n : Nat) (h : Ev n) : Ev (4 + n) := by
+theorem ev_plus4 (n : Nat) (h : Ev n) : Ev (4 + n) := by
   rw [Nat.add_comm]
-  exact (ev_succ_succ (ev_succ_succ h))
-
-end Ev
+  exact (Ev.ev_succ_succ _ (Ev.ev_succ_succ _ h))
 
 -- ### Constructing Evidence for Permutations
 
 -- Similarly we can apply the evidence constructors to obtain
 -- evidence of `Perm3 [1, 2, 3] [3, 2, 1]`:
 
-namespace Perm3
-
-theorem rev : Perm3 [1, 2, 3] [3, 2, 1] := by
-  apply perm3_trans (l₂:= [2, 3, 1])
-  . apply perm3_trans (l₂ := [2, 1, 3])
-    . apply perm3_swap12
-    . apply perm3_swap23
-  . apply perm3_swap12
+theorem Perm3_rev : Perm3 [1, 2, 3] [3, 2, 1] := by
+  apply Perm3.perm3_trans (l₂:= [2, 3, 1])
+  . apply Perm3.perm3_trans (l₂:=[2, 1, 3])
+    . apply Perm3.perm3_swap12
+    . apply Perm3.perm3_swap23
+  . apply Perm3.perm3_swap12
 
 -- And again we can equivalently use function application
 -- syntax to combine several constructors. (Note that the Lean
--- type checker can infer not only types, but also `Nat`s and
--- `List`s, when they are clear from the context.)
+-- type checker can infer not only types, but also Nats and
+-- List, when they are clear from the context.)
 
-theorem rev' : Perm3 [1, 2, 3] [3, 2, 1] := by
-  exact (perm3_trans
-          (perm3_trans perm3_swap12 perm3_swap23)
-          perm3_swap12)
+theorem Perm3_rev' : Perm3 [1, 2, 3] [3, 2, 1] := by
+  exact (Perm3.perm3_trans _ [2, 3, 1] _
+          (Perm3.perm3_trans _ [2, 1, 3] _
+            (Perm3.perm3_swap12 _ _ _)
+            (Perm3.perm3_swap23 _ _ _))
+          (Perm3.perm3_swap12 _ _ _))
 
 -- So the informal derivation trees we drew above are not too
 -- far from what's happening formally. Formally we're using the
 -- evidence constructors to build *evidence trees*, similar to
 -- the finite trees we built using the constructors of data
--- types such as `Nat`, `List`, binary trees, etc.
-
-end Perm3
+-- types such as Nat, List, binary trees, etc.
 
 -- ## Using Evidence in Proofs
 
@@ -693,18 +691,18 @@ end Perm3
 -- could have been built.
 
 -- Defining `Ev` with an `inductive` declaration tells Lean not
--- only that the constructors `Ev.ev_0` and `Ev.ev_succ_succ`
--- are valid ways to build evidence that some number is `Ev`,
--- but also that these two constructors are the *only* ways to
+-- only that the constructors `ev_0` and `ev_succ_succ` are
+-- valid ways to build evidence that some number is `Ev`, but
+-- also that these two constructors are the *only* ways to
 -- build evidence that numbers are `Ev`.
 
--- In other words, if someone gives us evidence `e` for the
--- proposition `Ev n`, then we know that `e` must be one of two
+-- In other words, if someone gives us evidence `E` for the
+-- proposition `Ev n`, then we know that `E` must be one of two
 -- things:
 
--- - `e = ev_0` and `n = 0`, or
+-- - `E = ev_0` and `n = 0`, or
 
--- - `e = ev_succ_succ n' e'` and `n = n' + 2`, where `e'` is
+-- - `E = ev_succ_succ n' E'` and `n = n' + 2`, where `E'` is
 --   evidence for `Ev n'`.
 
 -- This suggests that it should be possible to do *case
@@ -715,57 +713,60 @@ end Perm3
 -- We can prove our characterization of evidence for `Ev n`,
 -- using `cases`.
 
-theorem ev_inversion (n : Nat) (h : Ev n) :
+theorem ev_inversion : ∀ (n : Nat),
+    Ev n →
     (n = 0) ∨ ∃ n', n = n' + 2 ∧ Ev n' := by
-  cases h with
-  | ev_0 => left; rfl
-  | @ev_succ_succ n h => right; exists n
+    intro n h
+    cases h
+    case ev_0 =>
+      left; rfl
+    case ev_succ_succ n h =>
+      right; exists n
 
 -- Facts like this are often called "inversion lemmas" because
 -- they allow us to "invert" some given information to reason
 -- about all the different ways it could have been derived.
 
--- _Quiz:_
-
--- Which tactics are needed to prove this goal?
-
---   ∀ (n : Nat), Ev n → n = 1 → true = false
-
--- (A) `cases` (B) `contradiction` (C) Both `cases` and
--- `contradiction` (D) these tactics are not sufficient to
--- solve the goal.
-
 -- We can use the inversion lemma that we proved above to help
 -- structure proofs:
 
-theorem ev_succ_succ_ev (n : Nat) (h : Ev (n + 2)) : Ev n := by
-  apply ev_inversion at h
-  obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁,  h₂⟩⟩ := h
-  injections h₁ heq
-  subst heq
-  exact h₂
+theorem ev_succ_succ_ev : ∀ n, Ev (n + 2) → Ev n := by
+  intro n H
+  apply ev_inversion at H
+  cases H
+  case inl _ => contradiction
+  case inr h =>
+    let ⟨n', ⟨h₁,  h₂⟩⟩ := h
+    injections h₁ heq
+    subst heq
+    exact  h₂
 
 -- We've provided a handy tactic called `inversion` that does
 -- the work of our inversion lemma and more besides.
 
-theorem ev_succ_succ_ev' (n : Nat) (h : Ev (n + 2)) : Ev n := by
+theorem ev_succ_succ_ev' : ∀ n, Ev (n + 2) → Ev n := by
+  intro n h
   inversion h; assumption
 
 -- We can use `inversion` to re-prove some theorems from
--- Tactics.
+-- `Tactics.lean`.
 
 -- Note that `inversion` also works on equality propositions.
 
-theorem inversion_ex1 (n m o : Nat) (h : [n, m] = [o, o]) : [n] = [m] := by
+theorem inversion_ex1 : ∀ (n m o : Nat),
+  [n, m] = [o, o] → [n] = [m] := by
+  intro n m o h
   inversion h; rfl
 
-theorem inversion_ex2 n (h : n + 1 = 0) : 2 + 2 = 5 := by
+theorem inversion_ex2 : ∀ (n : Nat),
+  n + 1 = 0 → 2 + 2 = 5 := by
+  intro n h
   inversion h
 
--- The `inversion` tactic works on any `h : p` where `p` is
+-- The `inversion` tactic works on any `H : P` where `P` is
 -- defined inductively:
 
--- - For each constructor of `p`, make a subgoal where `h` is
+-- - For each constructor of `P`, make a subgoal where `H` is
 --   constrained by the form of this constructor.
 
 -- - Discard contradictory subgoals (such as `ev_0` above).
@@ -776,66 +777,50 @@ theorem inversion_ex2 n (h : n + 1 = 0) : 2 + 2 = 5 := by
 -- Note to developers (before next release):
 --     The wording there is totally awkward!
 
--- _Quiz:_
-
--- Note to developers:
---     LY: Not quite a fair question because this is the first
---     time they are facing a situation where the index does
---     not start with a constructor.
-
--- Which tactics are needed to prove this goal, in addition to
--- `apply` or `exact`?
-
---   ∀ n, Ev (2 + n) → Ev n
-
--- (A) `inversion` (B) `inversion`, `injections` (C)
--- `inversion`, `rw [Nat.add_comm]` (D) `inversion`,
--- `rw [Nat.add_comm]`, `injections`
-
 -- Let's try to show that our new notion of evenness implies
--- our earlier notion (the one based on `Nat.double`).
+-- our earlier notion (the one based on `double`).
 
 -- Note to developers (before next release):
 --     This whole part of the section is a mess!!
 
-sf_expect_failure
-  example (n : Nat) : Ev n → Nat.Even n := by
-    /- We could try to proceed by case analysis or induction on `n`.  But
-        since `Ev` is mentioned in a premise, this strategy seems
-        unpromising, because (as we've noted before) the induction
-        hypothesis will talk about `n-1` (which is _not_ even!).  Thus, it
-        seems better to first try `inversion` on the evidence for `Ev`.
-        Indeed, the first case can be solved trivially. -/
-    intro h
-    inversion h with
-    /- h = ev_0 -/
-    | ev_0 => exists 0  -- (`0 = double 0` is closed by `exists`'s final `rfl`)
-    /- h = ev_succ_succ n' h' -/
-    | ev_succ_succ n' h' =>
-    /- Unfortunately, the second case is harder.  We need to show
-      `∃ n₀, n' + 2 = double n₀`, but the only available assumption is
-      `h'`, which states that `Ev n'` holds.  Since this isn't directly
-      useful, it seems that we are stuck and that performing case
-      analysis on `h` was a waste of time.
-  
-      If we look more closely at our second goal, however, we can see
-      that something interesting happened: By performing case analysis
-      on `h`, we were able to reduce the original result to a similar
-      one that involves a _different_ piece of evidence for `Ev`: namely
-      `h'`.  More formally, we could finish our proof if we could show
-      that
-      ```
-      ∃ k', n' = double k',
-      ```
-      which is the same as the original statement, but with `n'` instead
-      of `n`.  Indeed, it is not difficult to convince Lean that this
-      intermediate result would suffice. -/
-      have he : (∃ (k' : Nat), n' = k'.double) → (∃ (n₀ : Nat), n' + 2 = n₀.double) := by
-        intro ⟨k, hk⟩; exists (k + 1); rw [Nat.double_succ, hk]
-      apply he
-      /- Unfortunately, now we are stuck: we are trying to prove another instance
-          of the same theorem we set out to prove -- only here we are
-          talking about `n'` instead of `n`. -/
+example (n : Nat) : Ev n → Nat.Even n := by
+  /- We could try to proceed by case analysis or induction on `n`.  But
+      since `Ev` is mentioned in a premise, this strategy seems
+      unpromising, because (as we've noted before) the induction
+      hypothesis will talk about `n-1` (which is _not_ even!).  Thus, it
+      seems better to first try `inversion` on the evidence for `Ev`.
+      Indeed, the first case can be solved trivially. -/
+  intro h
+  inversion h
+  /- h = ev_0 -/
+  case ev_0 => exists 0  -- (`0 = double 0` is closed by `exists`'s final `rfl`)
+  /- h = ev_succ_succ n' h' -/
+  case ev_succ_succ n' h' =>
+  /- Unfortunately, the second case is harder.  We need to show
+    `∃ n₀, n' + 2 = double n₀`, but the only available assumption is
+    `h'`, which states that `Ev n'` holds.  Since this isn't directly
+    useful, it seems that we are stuck and that performing case
+    analysis on `h` was a waste of time.
+
+    If we look more closely at our second goal, however, we can see
+    that something interesting happened: By performing case analysis
+    on `h`, we were able to reduce the original result to a similar
+    one that involves a _different_ piece of evidence for `Ev`: namely
+    `h'`.  More formally, we could finish our proof if we could show
+    that
+[[
+        ∃ k', n' = double k',
+]]
+    which is the same as the original statement, but with `n'` instead
+    of `n`.  Indeed, it is not difficult to convince Lean that this
+    intermediate result would suffice. -/
+    have he : (∃ (k' : Nat), n' = k'.double) → (∃ (n₀ : Nat), n' + 2 = n₀.double) := by
+      intro ⟨k, hk⟩; exists (k + 1); rw [Nat.double_succ, hk]
+    apply he
+    /- Unfortunately, now we are stuck: we are trying to prove another instance
+        of the same theorem we set out to prove -- only here we are
+        talking about `n'` instead of `n`. -/
+    sorry
 
 -- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --     I agree that it's all pretty chewy. Wonder if we really
@@ -862,12 +847,13 @@ sf_expect_failure
 
 -- Let's try proving that lemma again:
 
-theorem Nat.ev_Even (n : Nat) (h : Ev n) : Even n := by
-  induction h with
-  -- h = ev_0
-  | ev_0 => exists 0 -- (`0 = double 0` is closed by `exists`'s final `rfl`)
-  -- h = ev_succ_succ n' h', with ih : Even n'
-  | ev_succ_succ h' ih =>
+theorem Nat.ev_Even : ∀ n, Ev n → Even n := by
+  intro n h
+  induction h
+  /- h = ev_0 -/
+  case ev_0 => exists 0  -- (`0 = double 0` is closed by `exists`'s final `rfl`)
+  /- h = ev_succ_succ n' h',  with ih : Even n' -/
+  case ev_succ_succ n' h' ih =>
     let ⟨k, hk⟩ := ih
     exists k + 1; rw [double_succ, hk]
 

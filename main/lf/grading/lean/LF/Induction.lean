@@ -5,8 +5,6 @@ import LF.SFLCompat
 
 -- # Induction: Proof by Induction
 
-set_option pp.fieldNotation false
-
 -- Note to developers (before next release):
 --     `SOONER: We should also consider adding more examples to clarify
 --     the concepts introduced in this chapter. This could help in
@@ -163,8 +161,9 @@ namespace NatPlayground.Nat
 -- Basics:
 
 theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
-  rewrite [one_eq_succ_zero, add_succ, add_zero]
-  rfl
+  all_goals
+    rewrite [one_eq_succ_zero, add_succ, add_zero]
+    rfl
 
 attribute [autogradedProof 1] NatPlayground.Nat.succ_eq_add_one
 
@@ -281,13 +280,14 @@ theorem zero_add (n : Nat) : zero + n = n := by
 -- numbers.
 
 theorem beq_self (n : Nat) : (n == n) = true := by
-  induction n with
-  | zero =>
-    rewrite [zero_beq_zero]
-    rfl
-  | succ n' ih =>
-    rewrite [succ_beq_succ]
-    exact ih
+  all_goals
+    induction n with
+    | zero =>
+      rewrite [zero_beq_zero]
+      rfl
+    | succ n' ih =>
+      rewrite [succ_beq_succ]
+      exact ih
 
 -- ### Exercise (2 stars): basic_induction ⭐⭐
 
@@ -296,49 +296,53 @@ theorem beq_self (n : Nat) : (n == n) = true := by
 
 theorem zero_mul (n : Nat) :
     zero * n = zero := by
-  induction n with
-  | zero =>
-    rewrite [mul_zero]
-    rfl
-  | succ n' ih =>
-    rewrite [mul_succ, ih, add_zero]
-    rfl
+  all_goals
+    induction n with
+    | zero =>
+      rewrite [mul_zero]
+      rfl
+    | succ n' ih =>
+      rewrite [mul_succ, ih, add_zero]
+      rfl
 
 attribute [autogradedProof 0.5] NatPlayground.Nat.zero_mul
 
 theorem succ_add (n m : Nat) :
     (succ n) + m = succ (n + m) := by
-  induction m
-  case zero =>
-    rewrite [add_zero, add_zero]
-    rfl
-  case succ m' ih =>
-    rewrite [add_succ, add_succ, ih]
-    rfl
+  all_goals
+    induction m
+    case zero =>
+      rewrite [add_zero, add_zero]
+      rfl
+    case succ m' ih =>
+      rewrite [add_succ, add_succ, ih]
+      rfl
 
 attribute [autogradedProof 0.5] NatPlayground.Nat.succ_add
 
 theorem add_comm (n m : Nat) :
     n + m = m + n := by
-  induction m with
-  | zero =>
-    rewrite [add_zero, zero_add]
-    rfl
-  | succ m' ih =>
-    rewrite [add_succ, ih, succ_add]
-    rfl
+  all_goals
+    induction m with
+    | zero =>
+      rewrite [add_zero, zero_add]
+      rfl
+    | succ m' ih =>
+      rewrite [add_succ, ih, succ_add]
+      rfl
 
 attribute [autogradedProof 0.5] NatPlayground.Nat.add_comm
 
 theorem add_assoc (n m p : Nat) :
     n + (m + p) = (n + m) + p := by
-  induction p with
-  | zero =>
-    rewrite [add_zero, add_zero]
-    rfl
-  | succ p' ih =>
-    rewrite [add_succ, add_succ, add_succ, ih]
-    rfl
+  all_goals
+    induction p with
+    | zero =>
+      rewrite [add_zero, add_zero]
+      rfl
+    | succ p' ih =>
+      rewrite [add_succ, add_succ, add_succ, ih]
+      rfl
 
 attribute [autogradedProof 0.5] NatPlayground.Nat.add_assoc
 
@@ -388,9 +392,10 @@ attribute [irreducible] double
 -- instead of `rewrite`.
 
 theorem double_add (n : Nat) : double n = n + n := by
-  induction n with
-  | zero       => rw [add_zero, double_zero]
-  | succ n' ih => rw [double_succ, ih, add_succ, succ_add]
+  all_goals
+    induction n with
+    | zero       => rw [add_zero, double_zero]
+    | succ n' ih => rw [double_succ, ih, add_succ, succ_add]
 
 attribute [autogradedProof 0.5] NatPlayground.Nat.double_add
 
@@ -623,9 +628,10 @@ theorem add_assoc'' (n m p : Nat) :
 
 theorem mul_one (p : Nat) :
     one * p = p := by
-  induction p with
-  | zero       => rw [mul_zero]
-  | succ p' ih => rw [mul_succ, ih, succ_eq_add_one]
+  all_goals
+    induction p with
+    | zero       => rw [mul_zero]
+    | succ p' ih => rw [mul_succ, ih, succ_eq_add_one]
 
 attribute [autogradedProof 1] NatPlayground.Nat.mul_one
 
@@ -633,12 +639,13 @@ attribute [autogradedProof 1] NatPlayground.Nat.mul_one
 
 theorem mul_two (p : Nat) :
     two * p = p + p := by
-  induction p with
-  | zero => rw [mul_zero, add_zero]
-  | succ p' ih =>
-    rw [mul_succ, ih, two_eq_succ_one, succ_eq_add_one, succ_eq_add_one]
-    rw [add_assoc, add_assoc, ←add_assoc p' p' one]
-    rw [add_comm p' one, add_comm p']
+  all_goals
+    induction p with
+    | zero => rw [mul_zero, add_zero]
+    | succ p' ih =>
+      rw [mul_succ, ih, two_eq_succ_one, succ_eq_add_one, succ_eq_add_one]
+      rw [add_assoc, add_assoc, ←add_assoc p' p' one]
+      rw [add_comm p' one, add_comm p']
 
 attribute [autogradedProof 1] NatPlayground.Nat.mul_two
 
@@ -649,27 +656,30 @@ attribute [autogradedProof 1] NatPlayground.Nat.mul_two
 
 theorem add_shuffle3 (n m p : Nat) :
     add (add n m) p = add (add n p) m := by
-  rw [← add_assoc, add_comm m p, add_assoc]
+  all_goals
+    rw [← add_assoc, add_comm m p, add_assoc]
 
 attribute [autogradedProof 1] NatPlayground.Nat.add_shuffle3
 
 theorem succ_mul (m n : Nat) :
     (succ n) * m = (n * m) + m := by
-  induction m with
-  | zero => rw [mul_zero, mul_zero, add_zero]
-  | succ m ih =>
-    rw [mul_succ, ih, add_succ, add_comm _ n,
-        add_assoc n _ m, add_comm n, mul_succ, add_succ]
+  all_goals
+    induction m with
+    | zero => rw [mul_zero, mul_zero, add_zero]
+    | succ m ih =>
+      rw [mul_succ, ih, add_succ, add_comm _ n,
+          add_assoc n _ m, add_comm n, mul_succ, add_succ]
 
 -- Now prove commutativity of multiplication.
 
 theorem mul_comm (m n : Nat) :
     m * n = n * m := by
-  induction n with
-  | zero =>
-    rw [mul_zero, zero_mul]
-  | succ n' ih =>
-    rw [mul_succ, ih, succ_mul]
+  all_goals
+    induction n with
+    | zero =>
+      rw [mul_zero, zero_mul]
+    | succ n' ih =>
+      rw [mul_succ, ih, succ_mul]
 
 attribute [autogradedProof 2] NatPlayground.Nat.mul_comm
 
@@ -684,44 +694,50 @@ attribute [autogradedProof 2] NatPlayground.Nat.mul_comm
 
 theorem ble_refl (n : Nat) :
     Nat.ble n n = true := by
-  induction n with
-  | zero       => rw [zero_ble]
-  | succ n' ih => rw [succ_ble_succ]; exact ih
+  all_goals
+    induction n with
+    | zero       => rw [zero_ble]
+    | succ n' ih => rw [succ_ble_succ]; exact ih
 
 theorem andb_false (b : Bool) :
     (b && false) = false := by
-  cases b with
-  | false => rw [Bool.false_and]
-  | true  => rw [Bool.true_and]
+  all_goals
+    cases b with
+    | false => rw [Bool.false_and]
+    | true  => rw [Bool.true_and]
 
 theorem all3_spec (b c : Bool) :
     ((b && c) || ((!b) || (!c))) = true := by
-  cases b with
-  | true => cases c with
+  all_goals
+    cases b with
+    | true => cases c with
+      | false => rfl
+      | true => rfl
     | false => rfl
-    | true => rfl
-  | false => rfl
 
 theorem right_distrib (n m p : Nat) :
     (n + m) * p = (n * p) + (m * p) := by
-  induction p with
-  | zero => rw [mul_zero, mul_zero, mul_zero, add_zero]
-  | succ p' ih =>
-    rw [mul_succ, mul_succ, mul_succ, ih]
-    rw [add_assoc ((n * p') + (m * p')),
-        add_shuffle3 (n * p') (m * p'),
-        add_assoc ((n * p') + n)]
+  all_goals
+    induction p with
+    | zero => rw [mul_zero, mul_zero, mul_zero, add_zero]
+    | succ p' ih =>
+      rw [mul_succ, mul_succ, mul_succ, ih]
+      rw [add_assoc ((n * p') + (m * p')),
+          add_shuffle3 (n * p') (m * p'),
+          add_assoc ((n * p') + n)]
 
 theorem left_distrib (n m p : Nat) :
     p * (n + m) = (p * n) + (p * m) := by
-  rw [mul_comm p, mul_comm p, mul_comm p]
-  rw [right_distrib]
+  all_goals
+    rw [mul_comm p, mul_comm p, mul_comm p]
+    rw [right_distrib]
 
 theorem mul_assoc (n m p : Nat) :
     n * (m * p) = (n * m) * p := by
-  induction p with
-  | zero       => rw [mul_zero, mul_zero, mul_zero]
-  | succ p' ih => rw [mul_succ, mul_succ, ← ih, left_distrib]
+  all_goals
+    induction p with
+    | zero       => rw [mul_zero, mul_zero, mul_zero]
+    | succ p' ih => rw [mul_succ, mul_succ, ← ih, left_distrib]
 
 -- ### A New Tactic Combinator
 
@@ -816,16 +832,17 @@ attribute [pp_nodot] Bin.b0 Bin.b1
 
 theorem bin_to_nat_pres_incr (b : Bin) :
     binToNat (incr b) = (binToNat b) + one := by
-  induction b with
-  | z =>
-    rw [incr_z, binToNat_b1, binToNat_z]
-    rw [zero_mul]
-  | b0 b' ih =>
-    rw [incr_b0, binToNat_b0, binToNat_b1]
-  | b1 b' ih =>
-    rw [incr_b1, binToNat_b1, binToNat_b0, ih]
-    rw [mul_comm, mul_two, mul_comm, mul_two, add_assoc]
-    rw [add_shuffle3 _ one]
+  all_goals
+    induction b with
+    | z =>
+      rw [incr_z, binToNat_b1, binToNat_z]
+      rw [zero_mul]
+    | b0 b' ih =>
+      rw [incr_b0, binToNat_b0, binToNat_b1]
+    | b1 b' ih =>
+      rw [incr_b1, binToNat_b1, binToNat_b0, ih]
+      rw [mul_comm, mul_two, mul_comm, mul_two, add_assoc]
+      rw [add_shuffle3 _ one]
 
 attribute [autogradedProof 3] NatPlayground.Nat.NatToBin.bin_to_nat_pres_incr
 
@@ -853,11 +870,12 @@ theorem natToBin_succ (m : Nat) : natToBin (succ m) = incr (natToBin m) := by rf
 
 theorem nat_bin_nat (n : Nat) :
     binToNat (natToBin n) = n := by
-  induction n with
-  | zero =>
-    rw [natToBin_zero, binToNat_z]
-  | succ n' ih =>
-    rw [natToBin_succ, bin_to_nat_pres_incr, ih, ← succ_eq_add_one]
+  all_goals
+    induction n with
+    | zero =>
+      rw [natToBin_zero, binToNat_z]
+    | succ n' ih =>
+      rw [natToBin_succ, bin_to_nat_pres_incr, ih, ← succ_eq_add_one]
 
 attribute [autogradedProof 3] NatPlayground.Nat.NatToBin.nat_bin_nat
 
@@ -880,8 +898,9 @@ sf_expect_failure
 
 theorem double_incr (n : Nat) :
     double (succ n) = (double n) + two := by
-  rw [double_succ]
-  rw [two_eq_succ_one, one_eq_succ_zero, add_succ, add_succ, add_zero]
+  all_goals
+    rw [double_succ]
+    rw [two_eq_succ_one, one_eq_succ_zero, add_succ, add_succ, add_zero]
 
 attribute [autogradedProof 0.5] NatPlayground.Nat.NatToBin.double_incr
 
@@ -908,10 +927,11 @@ attribute [autogradedProof 0.5] NatPlayground.Nat.NatToBin.double_bin_zero
 
 theorem double_incr_bin (b : Bin) :
     doubleBin (incr b) = incr (incr (doubleBin b)) := by
-  cases b with
-  | z =>    rw [incr_z, doubleBin_b1, doubleBin_z, incr_z, incr_b1, incr_z]
-  | b0 n => rw [incr_b0, doubleBin_b1, doubleBin_b0, incr_b0, incr_b1, incr_b0]
-  | b1 n => rw [incr_b1, doubleBin_b0, doubleBin_b1, incr_b0, incr_b1, incr_b1]
+  all_goals
+    cases b with
+    | z =>    rw [incr_z, doubleBin_b1, doubleBin_z, incr_z, incr_b1, incr_z]
+    | b0 n => rw [incr_b0, doubleBin_b1, doubleBin_b0, incr_b0, incr_b1, incr_b0]
+    | b1 n => rw [incr_b1, doubleBin_b0, doubleBin_b1, incr_b0, incr_b1, incr_b1]
 
 attribute [autogradedProof 1] NatPlayground.Nat.NatToBin.double_incr_bin
 
@@ -1022,18 +1042,19 @@ theorem natToBin_two_mul n :
 
 theorem bin_nat_bin (b : Bin) :
     natToBin (binToNat b) = normalize b := by
-  induction b with
-  | z =>
-    rw [binToNat_z, normalize_z, natToBin_zero]
-  | b0 b' ih =>
-    rw [binToNat_b0, normalize_b0]
-    rw [natToBin_two_mul, ih]
-  | b1 b' ih =>
-    rw [binToNat_b1, normalize_b1]
-    /- Goal: natToBin (binToNat b' * 2 + 1) = incr (doubleBin (normalize b')) -/
-    rw [← succ_eq_add_one]
-    rw [natToBin_succ]
-    rw [natToBin_two_mul, ih]
+  all_goals
+    induction b with
+    | z =>
+      rw [binToNat_z, normalize_z, natToBin_zero]
+    | b0 b' ih =>
+      rw [binToNat_b0, normalize_b0]
+      rw [natToBin_two_mul, ih]
+    | b1 b' ih =>
+      rw [binToNat_b1, normalize_b1]
+      /- Goal: natToBin (binToNat b' * 2 + 1) = incr (doubleBin (normalize b')) -/
+      rw [← succ_eq_add_one]
+      rw [natToBin_succ]
+      rw [natToBin_two_mul, ih]
 
 attribute [autogradedProof 6] NatPlayground.Nat.NatToBin.bin_nat_bin
 

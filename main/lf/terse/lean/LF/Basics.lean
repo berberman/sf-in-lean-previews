@@ -2,8 +2,6 @@ import LF.SFLCompat
 
 -- # Basics: Functional Programming in Lean
 
-set_option pp.fieldNotation false
-
 -- ## Data and Functions
 
 -- In Lean, we can build practically everything from first

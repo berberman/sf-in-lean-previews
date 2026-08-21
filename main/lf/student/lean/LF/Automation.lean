@@ -34,8 +34,8 @@ theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
     . right; right; left; assumption
     . right; left; assumption
     . contradiction
-  | perm3_trans _ _ ih₁₂ ih₂₃ =>
-    apply ih₂₃; apply ih₁₂; apply hIn
+  | perm3_trans _ _ _ _ _ ih₁2 ih₂3 =>
+    apply ih₂3; apply ih₁2; apply hIn
 
 -- In this file, we will introduce tactics that will shrink this proof from
 -- around eighteen lines to two.
@@ -79,7 +79,7 @@ example (a b c d : Prop) :
     (a → b) → (b → c) → (c → d) → (a → d) := by
   lia
 
--- `lia` can solve many of the cases of our old `Perm3.In` example.
+-- `lia` can solve many of the cases of our old `Perm3_In` example.
 
 theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
@@ -97,8 +97,8 @@ theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
   /- Here, we solve _all_ goals ─ and eschew the `obtain` ─ with
     the <;> tactic combinator, which we saw in the `Induction` chapter. -/
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
-  | perm3_trans _ _ ih₁₂ ih₂₃ =>
-    lia -- was apply ih₂₃; apply ih₁₂; apply hIn
+  | perm3_trans _ _ _ _ _ ih₁2 ih₂3 =>
+    lia -- was apply ih₂3; apply ih₁2; apply hIn
 
 -- ## Tactic Combinators
 
@@ -152,7 +152,7 @@ example {n} (h : silly n) : n ≠ 1 := by
   -- `lia` doesn't know that `1 ∈ []` is impossible, but we can use `contradiction`
   contradiction
 
--- We can further simplify our `Perm3.In` example with `try`.
+-- We can further simplify our `Perm3_In` example with `try`.
 
 theorem Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
@@ -174,17 +174,17 @@ sf_expect_failure
 -- α : Type
 -- x : α
 -- l₁ l₂ : List α
--- x✝ y✝ z✝ : α
--- hIn : x ∈ [x✝, y✝, z✝]
--- ⊢ x ∈ [y✝, x✝, z✝]
+-- a✝ b✝ c✝ : α
+-- hIn : x ∈ [a✝, b✝, c✝]
+-- ⊢ x ∈ [b✝, a✝, c✝]
 
 -- case perm3_swap23
 -- α : Type
 -- x : α
 -- l₁ l₂ : List α
--- x✝ y✝ z✝ : α
--- hIn : x ∈ [x✝, y✝, z✝]
--- ⊢ x ∈ [x✝, z✝, y✝]
+-- a✝ b✝ c✝ : α
+-- hIn : x ∈ [a✝, b✝, c✝]
+-- ⊢ x ∈ [a✝, c✝, b✝]
 
 -- ### The `repeat` Combinator
 
@@ -278,7 +278,7 @@ theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α)
     | rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
     | lia
 
--- Our `Perm3.In` example is getting quite short! But can we do better?
+-- Our `Perm3_In` example is getting quite short! But can we do better?
 
 -- ## The `simp` Tactic
 
@@ -333,7 +333,7 @@ end simp_lemmas_example
 -- writing a proof, but it should not show up in the final script.
 
 -- `simp` is quite a powerful automated tactic, and is used heavily in real
--- Lean developments. We can use `simp` to further simplify our `Perm3.In`
+-- Lean developments. We can use `simp` to further simplify our `Perm3_In`
 -- proof.
 
 theorem Perm3_In_almost_shortest (α : Type) (x : α) (l₁ l₂ : List α)
@@ -647,10 +647,11 @@ theorem regexp_match_of_list α (l : List α) : l =~ reg_exp_of_list l := by
 -- by `Star re`.
 
 theorem MStar1 α s (re : RegExp α) (h : s =~ re) : s =~ Star re := by
-  rw [← List.append_nil s]
-  constructor
-  . assumption
-  . constructor
+  all_goals
+    rw [← List.append_nil s]
+    constructor
+    . assumption
+    . constructor
 
 -- (Note the use of `List.append_nil` to change the goal of the theorem to
 -- exactly the shape expected by `mStarApp`.)
@@ -727,10 +728,11 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     _two_ induction hypotheses: One that applies when `x` occurs in
     `s₁` (which is matched by `re₁`), and a second one that applies when `x`
     occurs in `s₂` (matched by `re₂`). -/
-    simp only [reChars, List.mem_append] at *
-    cases hin with
-    | inl hin₁ => left; exact ih₁ hin₁
-    | inr hin₂ => right; exact ih₂ hin₂
+    all_goals
+      simp only [reChars, List.mem_append] at *
+      cases hin with
+      | inl hin₁ => left; exact ih₁ hin₁
+      | inr hin₂ => right; exact ih₂ hin₂
   | mUnionL _ _ _ _ ih =>
     simp only [reChars, List.mem_append]; left; exact ih hin
   | mUnionR _ _ _ h₂ ih =>
@@ -743,10 +745,11 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     induction on the regular expression `re`: The latter would only
     provide an induction hypothesis for strings that match `re`, which
     would not allow us to reason about the case `In x ∈ s₂`. -/
-    simp only [List.mem_append] at hin
-    cases hin with
-    | inl hin₁ => exact ih₁ hin₁
-    | inr hin₂ => exact ih₂ hin₂
+    all_goals
+      simp only [List.mem_append] at hin
+      cases hin with
+      | inl hin₁ => exact ih₁ hin₁
+      | inr hin₂ => exact ih₂ hin₂
 
 -- ### Exercise (1 star): reNotEmpty ⭐
 

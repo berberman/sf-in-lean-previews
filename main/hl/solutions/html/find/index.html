@@ -1752,242 +1752,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 </style><script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // Track whether any tippy is visible (O(1) check instead of DOM scan)
-    let visibleTippyCount = 0;
-    function blockedByTippy(elem) {
-      return visibleTippyCount > 0;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        if (inst.reference.className == 'tactic') {
-          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-          hideParentTooltips(inst.reference);
-          if (blockedByTippy(inst.reference)) { return false; }
-
-        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-          if (blockedByTactic(inst.reference)) { return false };
-          if (blockedByTippy(inst.reference)) { return false; }
-        } else { // Nothing to show here!
-          return false;
-        }
-      },
-      onShown(inst) { visibleTippyCount++; },
-      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverId) { // Docstrings from the table
-            // TODO stop doing an implicit conversion from string to number here
-            let data = versoDocData[hoverId];
-            if (data) {
-              const info = document.createElement("span");
-              info.className = "hover-info";
-              info.style.display = "block";
-              info.innerHTML = data;
-              content.appendChild(info);
-              /* Render docstrings - TODO server-side */
-              if ('undefined' !== typeof marked) {
-                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                      const str = d.innerText;
-                      const html = marked.parse(str);
-                      const rendered = document.createElement("div");
-                      rendered.classList.add("docstring");
-                      rendered.innerHTML = html;
-                      d.parentNode.replaceChild(rendered, d);
-                  }
-              }
-            } else {
-              content.innerHTML = "Failed to load doc ID: " + hoverId;
-            }
-          } else if (hoverInfo) { // The inline info, still used for compiler messages
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          const extraLinks = tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (!tok._tippy && tok.matches(tacticTippySelector)) {
-              tippy(tok, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (tok._tippy) tok._tippy.destroy();
-          });
-        }
-      });
-  });
-}
-</script>
-    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -2067,19 +1831,6 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "3"}]},
      "address": "/Imp/"}],
-   "Hoare2":
-   [{"id": "Hoare2",
-     "data":
-     {"title": "Hoare2: Hoare Logic, Part II",
-      "shortTitle": null,
-      "sectionNum": "5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"}]},
-     "address": "/Hoare2/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Inference-Rule-Notation":
    [{"id":
      "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Inference-Rule-Notation",
@@ -2819,363 +2570,6 @@ window.onload = async () => {
         "number": "4"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Hoare/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_",
-     "data":
-     {"title": "Weakest Preconditions (Optional)",
-      "shortTitle": null,
-      "sectionNum": "5.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Weakest Preconditions (Optional)",
-        "shortTitle": null,
-        "number": "4"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Syntax":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Syntax",
-     "data":
-     {"title": "Syntax",
-      "shortTitle": null,
-      "sectionNum": "5.2.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Formal Decorated Programs",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Syntax", "shortTitle": null, "number": "1"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--More-Automation":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--More-Automation",
-     "data":
-     {"title": "More Automation",
-      "shortTitle": null,
-      "sectionNum": "5.2.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Formal Decorated Programs",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "More Automation", "shortTitle": null, "number": "3"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs--Extracting-Verification-Conditions",
-     "data":
-     {"title": "Extracting Verification Conditions",
-      "shortTitle": null,
-      "sectionNum": "5.2.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Formal Decorated Programs",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Extracting Verification Conditions",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Formal-Decorated-Programs",
-     "data":
-     {"title": "Formal Decorated Programs",
-      "shortTitle": null,
-      "sectionNum": "5.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Formal Decorated Programs",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Two-Loops":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Two-Loops",
-     "data":
-     {"title": "Exercise: Two Loops",
-      "shortTitle": null,
-      "sectionNum": "5.3.8.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
-       {"title": "Exercise: Two Loops", "shortTitle": null, "number": "8"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Slow-Assignment":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Slow-Assignment",
-     "data":
-     {"title": "Exercise: Slow Assignment",
-      "shortTitle": null,
-      "sectionNum": "5.3.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
-       {"title": "Exercise: Slow Assignment",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Power-Series":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Power-Series",
-     "data":
-     {"title": "Exercise: Power Series",
-      "shortTitle": null,
-      "sectionNum": "5.3.9.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
-       {"title": "Exercise: Power Series", "shortTitle": null, "number": "9"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Minimum":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Minimum",
-     "data":
-     {"title": "Exercise: Minimum",
-      "shortTitle": null,
-      "sectionNum": "5.3.7.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
-       {"title": "Exercise: Minimum", "shortTitle": null, "number": "7"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Factorial":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Exercise___-Factorial",
-     "data":
-     {"title": "Exercise: Factorial",
-      "shortTitle": null,
-      "sectionNum": "5.3.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
-       {"title": "Exercise: Factorial", "shortTitle": null, "number": "6"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Squaring":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Squaring",
-     "data":
-     {"title": "Example: Squaring",
-      "shortTitle": null,
-      "sectionNum": "5.3.5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
-       {"title": "Example: Squaring", "shortTitle": null, "number": "5"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Slow-Subtraction":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Slow-Subtraction",
-     "data":
-     {"title": "Example: Slow Subtraction",
-      "shortTitle": null,
-      "sectionNum": "5.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
-       {"title": "Example: Slow Subtraction",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Parity":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Parity",
-     "data":
-     {"title": "Example: Parity",
-      "shortTitle": null,
-      "sectionNum": "5.3.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
-       {"title": "Example: Parity", "shortTitle": null, "number": "3"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Finding-Square-Roots":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants--Example___-Finding-Square-Roots",
-     "data":
-     {"title": "Example: Finding Square Roots",
-      "shortTitle": null,
-      "sectionNum": "5.3.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
-       {"title": "Example: Finding Square Roots",
-        "shortTitle": null,
-        "number": "4"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Finding-Loop-Invariants",
-     "data":
-     {"title": "Finding Loop Invariants",
-      "shortTitle": null,
-      "sectionNum": "5.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Finding Loop Invariants",
-        "shortTitle": null,
-        "number": "3"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--From-Decorated-Programs-to-Formal-Proofs":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--From-Decorated-Programs-to-Formal-Proofs",
-     "data":
-     {"title": "From Decorated Programs to Formal Proofs",
-      "shortTitle": null,
-      "sectionNum": "5.1.5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
-       {"title": "From Decorated Programs to Formal Proofs",
-        "shortTitle": null,
-        "number": "5"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Swapping":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Swapping",
-     "data":
-     {"title": "Example: Swapping",
-      "shortTitle": null,
-      "sectionNum": "5.1.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
-       {"title": "Example: Swapping", "shortTitle": null, "number": "1"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Simple-Conditionals":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Simple-Conditionals",
-     "data":
-     {"title": "Example: Simple Conditionals",
-      "shortTitle": null,
-      "sectionNum": "5.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
-       {"title": "Example: Simple Conditionals",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Reduce-to-Zero":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Reduce-to-Zero",
-     "data":
-     {"title": "Example: Reduce to Zero",
-      "shortTitle": null,
-      "sectionNum": "5.1.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
-       {"title": "Example: Reduce to Zero",
-        "shortTitle": null,
-        "number": "3"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Division":
-   [{"id":
-     "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs--Example___-Division",
-     "data":
-     {"title": "Example: Division",
-      "shortTitle": null,
-      "sectionNum": "5.1.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
-       {"title": "Example: Division", "shortTitle": null, "number": "4"}]},
-     "address": "/Hoare2/"}],
-   "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs":
-   [{"id": "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Decorated-Programs",
-     "data":
-     {"title": "Decorated Programs",
-      "shortTitle": null,
-      "sectionNum": "5.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare2: Hoare Logic, Part II",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Decorated Programs", "shortTitle": null, "number": "1"}]},
-     "address": "/Hoare2/"}],
    "Hoare-Logic":
    [{"id": "Hoare-Logic",
      "data":
@@ -3214,28 +2608,6 @@ window.onload = async () => {
         "Proof Rules",
         "While Loops"]}},
      "address": "/Hoare/"}],
-   "verification_correct":
-   [{"id": "verification_correct",
-     "data":
-     {"/Hoare2/#verification_correct":
-      {"display": "verification_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
-     "address": "/Hoare2/"}],
-   "verification_conditions_correct":
-   [{"id": "verification_conditions_correct",
-     "data":
-     {"/Hoare2/#verification_conditions_correct":
-      {"display": "verification_conditions_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
-     "address": "/Hoare2/"}],
    "validHoareTriple_def":
    [{"id": "validHoareTriple_def",
      "data":
@@ -3246,28 +2618,6 @@ window.onload = async () => {
         "Hoare: Hoare Logic, Part I",
         "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
-   "two_loops":
-   [{"id": "two_loops",
-     "data":
-     {"/Hoare2/#two_loops":
-      {"display": "two_loops",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Two Loops"]}},
-     "address": "/Hoare2/"}],
-   "twoLoopsDec":
-   [{"id": "twoLoopsDec",
-     "data":
-     {"/Hoare2/#twoLoopsDec":
-      {"display": "twoLoopsDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Two Loops"]}},
-     "address": "/Hoare2/"}],
    "swap_program":
    [{"id": "swap_program",
      "data":
@@ -3290,39 +2640,6 @@ window.onload = async () => {
         "Proof Rules",
         "Sequencing + Assignment"]}},
      "address": "/Hoare/"}],
-   "swap_correct":
-   [{"id": "swap_correct",
-     "data":
-     {"/Hoare2/#swap_correct":
-      {"display": "swap_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "More Automation"]}},
-     "address": "/Hoare2/"}],
-   "swapDec":
-   [{"id": "swapDec",
-     "data":
-     {"/Hoare2/#swapDec":
-      {"display": "swapDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "More Automation"]}},
-     "address": "/Hoare2/"}],
-   "subtract_slowly_outer_triple_valid":
-   [{"id": "subtract_slowly_outer_triple_valid",
-     "data":
-     {"/Hoare2/#subtract_slowly_outer_triple_valid":
-      {"display": "subtract_slowly_outer_triple_valid",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Example: Slow Subtraction"]}},
-     "address": "/Hoare2/"}],
    "subtract_slowly_body":
    [{"id": "subtract_slowly_body",
      "data":
@@ -3356,94 +2673,6 @@ window.onload = async () => {
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
-   "subtractSlowlyDec":
-   [{"id": "subtractSlowlyDec",
-     "data":
-     {"/Hoare2/#subtractSlowlyDec":
-      {"display": "subtractSlowlyDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Example: Slow Subtraction"]}},
-     "address": "/Hoare2/"}],
-   "sqrt_correct":
-   [{"id": "sqrt_correct",
-     "data":
-     {"/Hoare2/#sqrt_correct":
-      {"display": "sqrt_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Example: Finding Square Roots"]}},
-     "address": "/Hoare2/"}],
-   "sqrtDec":
-   [{"id": "sqrtDec",
-     "data":
-     {"/Hoare2/#sqrtDec":
-      {"display": "sqrtDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Example: Finding Square Roots"]}},
-     "address": "/Hoare2/"}],
-   "slow_assignment":
-   [{"id": "slow_assignment",
-     "data":
-     {"/Hoare2/#slow_assignment":
-      {"display": "slow_assignment",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Slow Assignment"]}},
-     "address": "/Hoare2/"}],
-   "slowAssignmentDec":
-   [{"id": "slowAssignmentDec",
-     "data":
-     {"/Hoare2/#slowAssignmentDec":
-      {"display": "slowAssignmentDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Slow Assignment"]}},
-     "address": "/Hoare2/"}],
-   "reduce_to_zero_correct'''":
-   [{"id": "reduce_to_zero_correct_________",
-     "data":
-     {"/Hoare2/#reduce_to_zero_correct_________":
-      {"display": "reduce_to_zero_correct'''",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Decorated Programs",
-        "From Decorated Programs to Formal Proofs"]}},
-     "address": "/Hoare2/"}],
-   "reduce_to_zero_correct'":
-   [{"id": "reduce_to_zero_correct___",
-     "data":
-     {"/Hoare2/#reduce_to_zero_correct___":
-      {"display": "reduce_to_zero_correct'",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Decorated Programs",
-        "From Decorated Programs to Formal Proofs"]}},
-     "address": "/Hoare2/"}],
-   "reduceToZero":
-   [{"id": "reduceToZero",
-     "data":
-     {"/Hoare2/#reduceToZero":
-      {"display": "reduceToZero",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Decorated Programs",
-        "From Decorated Programs to Formal Proofs"]}},
-     "address": "/Hoare2/"}],
    "quiz5_answer":
    [{"id": "quiz5_answer",
      "data":
@@ -3510,50 +2739,6 @@ window.onload = async () => {
         "Evaluating Commands",
         "Determinism of Evaluation"]}},
      "address": "/Imp/"}],
-   "pow2_add_one":
-   [{"id": "pow2_add_one",
-     "data":
-     {"/Hoare2/#pow2_add_one":
-      {"display": "pow2_add_one",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
-   "pow2":
-   [{"id": "pow2",
-     "data":
-     {"/Hoare2/#pow2":
-      {"display": "pow2",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
-   "positive_difference_correct":
-   [{"id": "positive_difference_correct",
-     "data":
-     {"/Hoare2/#positive_difference_correct":
-      {"display": "positive_difference_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "More Automation"]}},
-     "address": "/Hoare2/"}],
-   "positiveDifferenceDec":
-   [{"id": "positiveDifferenceDec",
-     "data":
-     {"/Hoare2/#positiveDifferenceDec":
-      {"display": "positiveDifferenceDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "More Automation"]}},
-     "address": "/Hoare2/"}],
    "plus2_spec":
    [{"id": "plus2_spec",
      "data":
@@ -3575,39 +2760,6 @@ window.onload = async () => {
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
-   "parityDec":
-   [{"id": "parityDec",
-     "data":
-     {"/Hoare2/#parityDec":
-      {"display": "parityDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Example: Parity"]}},
-     "address": "/Hoare2/"}],
-   "parity":
-   [{"id": "parity",
-     "data":
-     {"/Hoare2/#parity":
-      {"display": "parity",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Example: Parity"]}},
-     "address": "/Hoare2/"}],
-   "one_le_pow2":
-   [{"id": "one_le_pow2",
-     "data":
-     {"/Hoare2/#one_le_pow2":
-      {"display": "one_le_pow2",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
    "no_whiles_terminating'":
    [{"id": "no_whiles_terminating___",
      "data":
@@ -3638,28 +2790,6 @@ window.onload = async () => {
         "Imp: Simple Imperative Programs",
         "Reasoning About Imp Programs"]}},
      "address": "/Imp/"}],
-   "minimum_correct":
-   [{"id": "minimum_correct",
-     "data":
-     {"/Hoare2/#minimum_correct":
-      {"display": "minimum_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Minimum"]}},
-     "address": "/Hoare2/"}],
-   "minimumDec":
-   [{"id": "minimumDec",
-     "data":
-     {"/Hoare2/#minimumDec":
-      {"display": "minimumDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Minimum"]}},
-     "address": "/Hoare2/"}],
    "loop_never_stops":
    [{"id": "loop_never_stops",
      "data":
@@ -3681,16 +2811,6 @@ window.onload = async () => {
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
-   "is_wp_example":
-   [{"id": "is_wp_example",
-     "data":
-     {"/Hoare2/#is_wp_example":
-      {"display": "is_wp_example",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
-     "address": "/Hoare2/"}],
    "invalid_triple":
    [{"id": "invalid_triple",
      "data":
@@ -3702,17 +2822,6 @@ window.onload = async () => {
         "Proof Rules",
         "Sequencing + Assignment"]}},
      "address": "/Hoare/"}],
-   "if_minus_plus_correct":
-   [{"id": "if_minus_plus_correct",
-     "data":
-     {"/Hoare2/#if_minus_plus_correct":
-      {"display": "if_minus_plus_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "More Automation"]}},
-     "address": "/Hoare2/"}],
    "if_minus_plus":
    [{"id": "if_minus_plus",
      "data":
@@ -3749,17 +2858,6 @@ window.onload = async () => {
         "Conditionals",
         "Example"]}},
      "address": "/Hoare/"}],
-   "ifMinusPlusDec":
-   [{"id": "ifMinusPlusDec",
-     "data":
-     {"/Hoare2/#ifMinusPlusDec":
-      {"display": "ifMinusPlusDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "More Automation"]}},
-     "address": "/Hoare2/"}],
    "hoare_while":
    [{"id": "hoare_while",
      "data":
@@ -3898,16 +2996,6 @@ window.onload = async () => {
         "Proof Rules",
         "Assignment"]}},
      "address": "/Hoare/"}],
-   "hoare_asgn_weakest":
-   [{"id": "hoare_asgn_weakest",
-     "data":
-     {"/Hoare2/#hoare_asgn_weakest":
-      {"display": "hoare_asgn_weakest",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
-     "address": "/Hoare2/"}],
    "hoare_asgn_fwd_exists":
    [{"id": "hoare_asgn_fwd_exists",
      "data":
@@ -4029,61 +3117,6 @@ window.onload = async () => {
         "Proof Rules",
         "Assignment"]}},
      "address": "/Hoare/"}],
-   "fib_eqn":
-   [{"id": "fib_eqn",
-     "data":
-     {"/Hoare2/#fib_eqn":
-      {"display": "fib_eqn",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
-   "fib":
-   [{"id": "fib",
-     "data":
-     {"/Hoare2/#fib":
-      {"display": "fib",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
-   "factorial_correct":
-   [{"id": "factorial_correct",
-     "data":
-     {"/Hoare2/#factorial_correct":
-      {"display": "factorial_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Factorial"]}},
-     "address": "/Hoare2/"}],
-   "factorialDec":
-   [{"id": "factorialDec",
-     "data":
-     {"/Hoare2/#factorialDec":
-      {"display": "factorialDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Factorial"]}},
-     "address": "/Hoare2/"}],
-   "fact_sub_one":
-   [{"id": "fact_sub_one",
-     "data":
-     {"/Hoare2/#fact_sub_one":
-      {"display": "fact_sub_one",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Factorial"]}},
-     "address": "/Hoare2/"}],
    "fact_in_lean":
    [{"id": "fact_in_lean",
      "data":
@@ -4092,105 +3125,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
-   "fact":
-   [{"id": "fact",
-     "data":
-     {"/Hoare2/#fact":
-      {"display": "fact",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Factorial"]}},
-     "address": "/Hoare2/"}],
-   "dpow2_down_correct":
-   [{"id": "dpow2_down_correct",
-     "data":
-     {"/Hoare2/#dpow2_down_correct":
-      {"display": "dpow2_down_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
-   "dpow2Dec":
-   [{"id": "dpow2Dec",
-     "data":
-     {"/Hoare2/#dpow2Dec":
-      {"display": "dpow2Dec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
-   "div_mod_outer_triple_valid":
-   [{"id": "div_mod_outer_triple_valid",
-     "data":
-     {"/Hoare2/#div_mod_outer_triple_valid":
-      {"display": "div_mod_outer_triple_valid",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "More Automation"]}},
-     "address": "/Hoare2/"}],
-   "divModDec":
-   [{"id": "divModDec",
-     "data":
-     {"/Hoare2/#divModDec":
-      {"display": "divModDec",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "More Automation"]}},
-     "address": "/Hoare2/"}],
-   "dfib_correct":
-   [{"id": "dfib_correct",
-     "data":
-     {"/Hoare2/#dfib_correct":
-      {"display": "dfib_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
-   "dfib":
-   [{"id": "dfib",
-     "data":
-     {"/Hoare2/#dfib":
-      {"display": "dfib",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
-   "dec_while_correct":
-   [{"id": "dec_while_correct",
-     "data":
-     {"/Hoare2/#dec_while_correct":
-      {"display": "dec_while_correct",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "More Automation"]}},
-     "address": "/Hoare2/"}],
-   "decWhile":
-   [{"id": "decWhile",
-     "data":
-     {"/Hoare2/#decWhile":
-      {"display": "decWhile",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
    "ceval_deterministic":
    [{"id": "ceval_deterministic",
      "data":
@@ -4407,17 +3341,6 @@ window.onload = async () => {
         "Hoare: Hoare Logic, Part I",
         "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
-   "T":
-   [{"id": "T",
-     "data":
-     {"/Hoare2/#T":
-      {"display": "T",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Finding Loop Invariants",
-        "Exercise: Power Series"]}},
-     "address": "/Hoare2/"}],
    "State":
    [{"id": "State",
      "data":
@@ -4484,28 +3407,6 @@ window.onload = async () => {
         "Arithmetic and Boolean Expressions",
         "Optimization"]}},
      "address": "/Slang/"}],
-   "Slang.Nat.odd":
-   [{"id": "Slang___Nat___odd",
-     "data":
-     {"/Slang/#Slang___Nat___odd":
-      {"display": "Nat.odd",
-       "context":
-       ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
-   "Slang.Nat.even":
-   [{"id": "Slang___Nat___even",
-     "data":
-     {"/Slang/#Slang___Nat___even":
-      {"display": "Nat.even",
-       "context":
-       ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
    "Slang.Bexp.optimize0plusB":
    [{"id": "Slang___Bexp___optimize0plusB",
      "data":
@@ -4565,7 +3466,7 @@ window.onload = async () => {
    [{"id": "Slang___Bexp___eval_not",
      "data":
      {"/Slang/#Slang___Bexp___eval_not":
-      {"display": "eval_not",
+      {"display": "Bexp.eval_not",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4576,7 +3477,7 @@ window.onload = async () => {
    [{"id": "Slang___Bexp___eval_neq",
      "data":
      {"/Slang/#Slang___Bexp___eval_neq":
-      {"display": "eval_neq",
+      {"display": "Bexp.eval_neq",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4587,7 +3488,7 @@ window.onload = async () => {
    [{"id": "Slang___Bexp___eval_le",
      "data":
      {"/Slang/#Slang___Bexp___eval_le":
-      {"display": "eval_le",
+      {"display": "Bexp.eval_le",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4598,7 +3499,7 @@ window.onload = async () => {
    [{"id": "Slang___Bexp___eval_gt",
      "data":
      {"/Slang/#Slang___Bexp___eval_gt":
-      {"display": "eval_gt",
+      {"display": "Bexp.eval_gt",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4609,7 +3510,7 @@ window.onload = async () => {
    [{"id": "Slang___Bexp___eval_eq",
      "data":
      {"/Slang/#Slang___Bexp___eval_eq":
-      {"display": "eval_eq",
+      {"display": "Bexp.eval_eq",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4620,7 +3521,7 @@ window.onload = async () => {
    [{"id": "Slang___Bexp___eval_bool",
      "data":
      {"/Slang/#Slang___Bexp___eval_bool":
-      {"display": "eval_bool",
+      {"display": "Bexp.eval_bool",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4631,7 +3532,7 @@ window.onload = async () => {
    [{"id": "Slang___Bexp___eval_and",
      "data":
      {"/Slang/#Slang___Bexp___eval_and":
-      {"display": "eval_and",
+      {"display": "Bexp.eval_and",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4653,7 +3554,7 @@ window.onload = async () => {
    [{"id": "Slang___Bexp___eval",
      "data":
      {"/Slang/#Slang___Bexp___eval":
-      {"display": "eval",
+      {"display": "Bexp.eval",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4901,7 +3802,7 @@ window.onload = async () => {
    [{"id": "Slang___Aexp___eval_plus",
      "data":
      {"/Slang/#Slang___Aexp___eval_plus":
-      {"display": "eval_plus",
+      {"display": "Aexp.eval_plus",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4912,7 +3813,7 @@ window.onload = async () => {
    [{"id": "Slang___Aexp___eval_num",
      "data":
      {"/Slang/#Slang___Aexp___eval_num":
-      {"display": "eval_num",
+      {"display": "Aexp.eval_num",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4923,7 +3824,7 @@ window.onload = async () => {
    [{"id": "Slang___Aexp___eval_mult",
      "data":
      {"/Slang/#Slang___Aexp___eval_mult":
-      {"display": "eval_mult",
+      {"display": "Aexp.eval_mult",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4934,7 +3835,7 @@ window.onload = async () => {
    [{"id": "Slang___Aexp___eval_minus",
      "data":
      {"/Slang/#Slang___Aexp___eval_minus":
-      {"display": "eval_minus",
+      {"display": "Aexp.eval_minus",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4967,7 +3868,7 @@ window.onload = async () => {
    [{"id": "Slang___Aexp___eval",
      "data":
      {"/Slang/#Slang___Aexp___eval":
-      {"display": "eval",
+      {"display": "Aexp.eval",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -5205,17 +4106,6 @@ window.onload = async () => {
      "data":
      {"/Slang/#Slang___AevalRDivision___Aexp___minus":
       {"display": "minus",
-       "context":
-       ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
-     "address": "/Slang/"}],
-   "Slang.AevalRDivision.Aexp.eval":
-   [{"id": "Slang___AevalRDivision___Aexp___eval",
-     "data":
-     {"/Slang/#Slang___AevalRDivision___Aexp___eval":
-      {"display": "eval",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -5604,27 +4494,6 @@ window.onload = async () => {
         "Expressions With Variables",
         "Notations"]}},
      "address": "/Imp/"}],
-   "Lean.Parser.Category.dcom":
-   [{"id": "Lean___Parser___Category___dcom",
-     "data":
-     {"/Hoare2/#Lean___Parser___Category___dcom":
-      {"display": "dcom",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "IsWp":
-   [{"id": "IsWp",
-     "data":
-     {"/Hoare2/#IsWp":
-      {"display": "IsWp",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
-     "address": "/Hoare2/"}],
    "Imp.Delab.imp_bexp.parenthesizer.wrapParens":
    [{"id": "Imp___Delab___imp_bexp___parenthesizer___wrapParens",
      "data":
@@ -6502,16 +5371,6 @@ window.onload = async () => {
         "Additional Exercises",
         "Assert and Assume"]}},
      "address": "/Hoare/"}],
-   "Himp2.hoare_havoc_weakest":
-   [{"id": "Himp2___hoare_havoc_weakest",
-     "data":
-     {"/Hoare2/#Himp2___hoare_havoc_weakest":
-      {"display": "hoare_havoc_weakest",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Weakest Preconditions (Optional)"]}},
-     "address": "/Hoare2/"}],
    "Himp.validHoareTriple_def":
    [{"id": "Himp___validHoareTriple_def",
      "data":
@@ -6934,303 +5793,6 @@ window.onload = async () => {
       {"display": "assertion1",
        "context": ["Hoare Logic", "Hoare: Hoare Logic, Part I", "Assertions"]}},
      "address": "/Hoare/"}],
-   "Decorated.precondition":
-   [{"id": "Decorated___precondition",
-     "data":
-     {"/Hoare2/#Decorated___precondition":
-      {"display": "Decorated.precondition",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "Decorated.pre":
-   [{"id": "Decorated___pre",
-     "data":
-     {"/Hoare2/#Decorated___pre":
-      {"display": "pre",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "Decorated.postcondition":
-   [{"id": "Decorated___postcondition",
-     "data":
-     {"/Hoare2/#Decorated___postcondition":
-      {"display": "Decorated.postcondition",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "Decorated.erase":
-   [{"id": "Decorated___erase",
-     "data":
-     {"/Hoare2/#Decorated___erase":
-      {"display": "Decorated.erase",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "Decorated.body":
-   [{"id": "Decorated___body",
-     "data":
-     {"/Hoare2/#Decorated___body":
-      {"display": "body",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "Decorated.VerificationConditions":
-   [{"id": "Decorated___VerificationConditions",
-     "data":
-     {"/Hoare2/#Decorated___VerificationConditions":
-      {"display": "Decorated.VerificationConditions",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
-     "address": "/Hoare2/"}],
-   "Decorated.OuterTripleValid":
-   [{"id": "Decorated___OuterTripleValid",
-     "data":
-     {"/Hoare2/#Decorated___OuterTripleValid":
-      {"display": "Decorated.OuterTripleValid",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "Decorated":
-   [{"id": "Decorated",
-     "data":
-     {"/Hoare2/#Decorated":
-      {"display": "Decorated",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DComFirstTry.DCom.whileDo":
-   [{"id": "DComFirstTry___DCom___whileDo",
-     "data":
-     {"/Hoare2/#DComFirstTry___DCom___whileDo":
-      {"display": "whileDo",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DComFirstTry.DCom.weakenPost":
-   [{"id": "DComFirstTry___DCom___weakenPost",
-     "data":
-     {"/Hoare2/#DComFirstTry___DCom___weakenPost":
-      {"display": "weakenPost",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DComFirstTry.DCom.strengthenPre":
-   [{"id": "DComFirstTry___DCom___strengthenPre",
-     "data":
-     {"/Hoare2/#DComFirstTry___DCom___strengthenPre":
-      {"display": "strengthenPre",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DComFirstTry.DCom.skip":
-   [{"id": "DComFirstTry___DCom___skip",
-     "data":
-     {"/Hoare2/#DComFirstTry___DCom___skip":
-      {"display": "skip",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DComFirstTry.DCom.seq":
-   [{"id": "DComFirstTry___DCom___seq",
-     "data":
-     {"/Hoare2/#DComFirstTry___DCom___seq":
-      {"display": "seq",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DComFirstTry.DCom.cond":
-   [{"id": "DComFirstTry___DCom___cond",
-     "data":
-     {"/Hoare2/#DComFirstTry___DCom___cond":
-      {"display": "cond",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DComFirstTry.DCom.asgn":
-   [{"id": "DComFirstTry___DCom___asgn",
-     "data":
-     {"/Hoare2/#DComFirstTry___DCom___asgn":
-      {"display": "asgn",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DComFirstTry.DCom":
-   [{"id": "DComFirstTry___DCom",
-     "data":
-     {"/Hoare2/#DComFirstTry___DCom":
-      {"display": "DCom",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.whileDo":
-   [{"id": "DCom___whileDo",
-     "data":
-     {"/Hoare2/#DCom___whileDo":
-      {"display": "whileDo",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.skip":
-   [{"id": "DCom___skip",
-     "data":
-     {"/Hoare2/#DCom___skip":
-      {"display": "skip",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.seq":
-   [{"id": "DCom___seq",
-     "data":
-     {"/Hoare2/#DCom___seq":
-      {"display": "seq",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.pre":
-   [{"id": "DCom___pre",
-     "data":
-     {"/Hoare2/#DCom___pre":
-      {"display": "pre",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.postcondition":
-   [{"id": "DCom___postcondition",
-     "data":
-     {"/Hoare2/#DCom___postcondition":
-      {"display": "DCom.postcondition",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.post":
-   [{"id": "DCom___post",
-     "data":
-     {"/Hoare2/#DCom___post":
-      {"display": "post",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.erase":
-   [{"id": "DCom___erase",
-     "data":
-     {"/Hoare2/#DCom___erase":
-      {"display": "DCom.erase",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.cond":
-   [{"id": "DCom___cond",
-     "data":
-     {"/Hoare2/#DCom___cond":
-      {"display": "cond",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.asgn":
-   [{"id": "DCom___asgn",
-     "data":
-     {"/Hoare2/#DCom___asgn":
-      {"display": "asgn",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
-   "DCom.VerificationConditions":
-   [{"id": "DCom___VerificationConditions",
-     "data":
-     {"/Hoare2/#DCom___VerificationConditions":
-      {"display": "DCom.VerificationConditions",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Extracting Verification Conditions"]}},
-     "address": "/Hoare2/"}],
-   "DCom":
-   [{"id": "DCom",
-     "data":
-     {"/Hoare2/#DCom":
-      {"display": "DCom",
-       "context":
-       ["Hoare Logic",
-        "Hoare2: Hoare Logic, Part II",
-        "Formal Decorated Programs",
-        "Syntax"]}},
-     "address": "/Hoare2/"}],
    "Com.whileDo":
    [{"id": "Com___whileDo",
      "data":
@@ -8075,6 +6637,242 @@ if (paramName) {
     });
 }
 </script>
+    <script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // Track whether any tippy is visible (O(1) check instead of DOM scan)
+    let visibleTippyCount = 0;
+    function blockedByTippy(elem) {
+      return visibleTippyCount > 0;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        if (inst.reference.className == 'tactic') {
+          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+          hideParentTooltips(inst.reference);
+          if (blockedByTippy(inst.reference)) { return false; }
+
+        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
+          if (blockedByTactic(inst.reference)) { return false };
+          if (blockedByTippy(inst.reference)) { return false; }
+        } else { // Nothing to show here!
+          return false;
+        }
+      },
+      onShown(inst) { visibleTippyCount++; },
+      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverId) { // Docstrings from the table
+            // TODO stop doing an implicit conversion from string to number here
+            let data = versoDocData[hoverId];
+            if (data) {
+              const info = document.createElement("span");
+              info.className = "hover-info";
+              info.style.display = "block";
+              info.innerHTML = data;
+              content.appendChild(info);
+              /* Render docstrings - TODO server-side */
+              if ('undefined' !== typeof marked) {
+                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
+                      const str = d.innerText;
+                      const html = marked.parse(str);
+                      const rendered = document.createElement("div");
+                      rendered.classList.add("docstring");
+                      rendered.innerHTML = html;
+                      d.parentNode.replaceChild(rendered, d);
+                  }
+              }
+            } else {
+              content.innerHTML = "Failed to load doc ID: " + hoverId;
+            }
+          } else if (hoverInfo) { // The inline info, still used for compiler messages
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          const extraLinks = tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (!tok._tippy && tok.matches(tacticTippySelector)) {
+              tippy(tok, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (tok._tippy) tok._tippy.destroy();
+          });
+        }
+      });
+  });
+}
+</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -8101,7 +6899,7 @@ if (paramName) {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Hoare-Logic--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Imp/#Imp">Imp: Simple Imperative Programs</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Hoare/#Hoare">Hoare: Hoare Logic, Part I</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Hoare2/#Hoare2">Hoare2: Hoare Logic, Part II</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Hoare-Logic--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Imp/#Imp">Imp: Simple Imperative Programs</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Hoare/#Hoare">Hoare: Hoare Logic, Part I</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>

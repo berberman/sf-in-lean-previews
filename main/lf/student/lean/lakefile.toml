@@ -2,10 +2,5 @@ name = "lf-extracted"
 version = "0.1.0"
 defaultTargets = ["LF"]
 
-[[require]]
-name = "batteries"
-git = "https://github.com/leanprover-community/batteries"
-rev = "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d"
-
 [[lean_lib]]
 name = "LF"

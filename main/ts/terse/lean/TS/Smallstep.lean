@@ -92,14 +92,14 @@ import TS.SFLCompat
 
 inductive Tm where
   | c (n : Nat)          -- Constant
-  | p (t₁ t₂ : Tm)       -- Plus
+  | p (t1 t2 : Tm)       -- Plus
 
 -- A standard big-step evaluator, as a function.
 
 def evalF (t : Tm) : Nat :=
   match t with
   | .c n => n
-  | .p t₁ t₂ => evalF t₁ + evalF t₂
+  | .p t1 t2 => evalF t1 + evalF t2
 
 -- Here is the same evaluator, written in exactly the same
 -- style, but formulated as an inductively defined relation. We
@@ -116,28 +116,28 @@ def evalF (t : Tm) : Nat :=
 -- -------                (const)
 --                         c n ⇓ n
 
---                         t₁ ⇓ n₁
---                         t₂ ⇓ n₂
+--                         t1 ⇓ n1
+--                         t2 ⇓ n2
 --                     -----------------          (plus)
---                     p t₁ t₂ ⇓ n₁ + n₂
+--                     p t1 t2 ⇓ n1 + n2
 
 inductive Eval : Tm → Nat → Prop where
   | const (n : Nat) : Eval (.c n) n
-  | plus (t₁ t₂ : Tm) (n₁ n₂ : Nat) (h₁ : Eval t₁ n₁) (h₂ : Eval t₂ n₂) : Eval (.p t₁ t₂) (n₁ + n₂)
+  | plus (t1 t2 : Tm) (n1 n2 : Nat) (h1 : Eval t1 n1) (h2 : Eval t2 n2) : Eval (.p t1 t2) (n1 + n2)
 
 notation:50 t " ⇓ " n => Eval t n
 
 namespace SimpleArith1
 
 inductive Step : Tm → Tm → Prop where
-  | plus (n₁ n₂ : Nat) :
-      Step (.p (.c n₁) (.c n₂)) (.c (n₁ + n₂))
-  | plusLeft (t₁ t₁' t₂ : Tm)
-      (h : Step t₁ t₁') :
-      Step (.p t₁ t₂) (.p t₁' t₂)
-  | plusRight (n₁ : Nat) (t₂ t₂' : Tm)
-      (h : Step t₂ t₂') :
-      Step (.p (.c n₁) t₂) (.p (.c n₁) t₂')
+  | plus (n1 n2 : Nat) :
+      Step (.p (.c n1) (.c n2)) (.c (n1 + n2))
+  | plusLeft (t1 t1' t2 : Tm)
+      (h : Step t1 t1') :
+      Step (.p t1 t2) (.p t1' t2)
+  | plusRight (n1 : Nat) (t2 t2' : Tm)
+      (h : Step t2 t2') :
+      Step (.p (.c n1) t2) (.p (.c n1) t2')
 
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 
@@ -149,7 +149,7 @@ scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 -- Let's pause and check a couple of examples of reasoning with
 -- the step relation.
 
--- If `t₁` steps to `t₁'`, then `p t₁ t₂` steps to `p t₁' t₂`.
+-- If `t1` steps to `t1'`, then `p t1 t2` steps to `p t1' t2`.
 
 example :
     (.p
@@ -226,11 +226,11 @@ def Relation (X : Type) := X → X → Prop
 -- `t` steps to `t'`. We prove it by induction on the
 -- derivation of the first step.
 
--- *Proof sketch*: We show that if `x` steps to both `y₁` and
--- `y₂`, then `y₁` and `y₂` are equal, by induction on a
--- derivation of `x ⟶ y₁`. There are several cases, depending
+-- *Proof sketch*: We show that if `x` steps to both `y1` and
+-- `y2`, then `y1` and `y2` are equal, by induction on a
+-- derivation of `x ⟶ y1`. There are several cases, depending
 -- on the last rule used in this derivation and the last rule
--- in the given derivation of `x ⟶ y₂`.
+-- in the given derivation of `x ⟶ y2`.
 
 -- - If both are `plus`, the result is immediate.
 
@@ -239,33 +239,33 @@ def Relation (X : Type) := X → X → Prop
 
 -- - It cannot happen that one is `plus` and the other is
 --   `plusLeft`/`plusRight`, since this would imply that `x` has
---   the form `p t₁ t₂` where both `t₁` and `t₂` are constants
---   (by `plus`) *and* one of `t₁` or `t₂` has the form `p _`.
+--   the form `p t1 t2` where both `t1` and `t2` are constants
+--   (by `plus`) *and* one of `t1` or `t2` has the form `p _`.
 
 -- - Similarly, it cannot happen that one is `plusLeft` and the
 --   other is `plusRight`, since this would imply that `x` has
---   the form `p t₁ t₂` where `t₁` has both the form `p t₁₁ t₁₂`
+--   the form `p t1 t2` where `t1` has both the form `p t11 t12`
 --   and the form `c n`.
 
 -- Formally,
 
 def Deterministic {X : Type} (R : Relation X) : Prop :=
-  ∀ x y₁ y₂ : X, R x y₁ → R x y₂ → y₁ = y₂
+  ∀ x y1 y2 : X, R x y1 → R x y2 → y1 = y2
 
 namespace SimpleArith2
 
 theorem step_deterministic : Deterministic SimpleArith1.Step := by
-  intro x y₁ y₂ h₁
-  induction h₁ generalizing y₂ with
-  | plus n₁ n₂ =>
-      intro h₂
-      cases h₂ <;> first | rfl | cases ‹SimpleArith1.Step (.c _) _›
-  | plusLeft t₁ t₁' t₂ hs ih =>
-      intro h₂
-      cases h₂ <;> first | cases ‹SimpleArith1.Step (.c _) _› | rw [ih _ ‹SimpleArith1.Step t₁ _›]
-  | plusRight n₁ t₂ t₂' hs ih =>
-      intro h₂
-      cases h₂ <;> first | cases ‹SimpleArith1.Step (.c _) _› | rw [ih _ ‹SimpleArith1.Step t₂ _›]
+  intro x y1 y2 h1
+  induction h1 generalizing y2 with
+  | plus n1 n2 =>
+      intro h2
+      cases h2 <;> first | rfl | cases ‹SimpleArith1.Step (.c _) _›
+  | plusLeft t1 t1' t2 hs ih =>
+      intro h2
+      cases h2 <;> first | cases ‹SimpleArith1.Step (.c _) _› | rw [ih _ ‹SimpleArith1.Step t1 _›]
+  | plusRight n1 t2 t2' hs ih =>
+      intro h2
+      cases h2 <;> first | cases ‹SimpleArith1.Step (.c _) _› | rw [ih _ ‹SimpleArith1.Step t2 _›]
 
 end SimpleArith2
 
@@ -284,15 +284,15 @@ inductive IsValue : Tm → Prop where
 -- Here are the formal rules.
 
 inductive Step : Tm → Tm → Prop where
-  | plus (n₁ n₂ : Nat) :
-      Step (.p (.c n₁) (.c n₂)) (.c (n₁ + n₂))
-  | plusLeft (t₁ t₁' t₂ : Tm)
-      (h : Step t₁ t₁') :
-      Step (.p t₁ t₂) (.p t₁' t₂)
-  | plusRight (v₁ t₂ t₂' : Tm)
-      (hv : IsValue v₁)
-      (h : Step t₂ t₂') :
-      Step (.p v₁ t₂) (.p v₁ t₂')
+  | plus (n1 n2 : Nat) :
+      Step (.p (.c n1) (.c n2)) (.c (n1 + n2))
+  | plusLeft (t1 t1' t2 : Tm)
+      (h : Step t1 t1') :
+      Step (.p t1 t2) (.p t1' t2)
+  | plusRight (v1 t2 t2' : Tm)
+      (hv : IsValue v1)
+      (h : Step t2 t2') :
+      Step (.p v1 t2) (.p v1 t2')
 
 notation:40 t:41 " ⟶ " t':41 => Step t t'
 
@@ -301,9 +301,9 @@ notation:40 t:41 " ⟶ " t':41 => Step t t'
 -- As a sanity check on this change, let's re-verify
 -- determinism. Here's an informal proof:
 
--- *Proof sketch*: We must show that if `x` steps to both `y₁`
--- and `y₂`, then `y₁` and `y₂` are equal. Consider the final
--- rules used in the derivations of `x ⟶ y₁` and `x ⟶ y₂`.
+-- *Proof sketch*: We must show that if `x` steps to both `y1`
+-- and `y2`, then `y1` and `y2` are equal. Consider the final
+-- rules used in the derivations of `x ⟶ y1` and `x ⟶ y2`.
 
 -- - If both are `plus`, the result is immediate.
 
@@ -312,12 +312,12 @@ notation:40 t:41 " ⟶ " t':41 => Step t t'
 
 -- - It cannot happen that one is `plus` and the other is
 --   `plusLeft`/`plusRight`, since this would imply that `x` has
---   the form `p t₁ t₂` where both `t₁` and `t₂` are constants
---   (by `plus`) *and* one of `t₁` or `t₂` has the form `p _`.
+--   the form `p t1 t2` where both `t1` and `t2` are constants
+--   (by `plus`) *and* one of `t1` or `t2` has the form `p _`.
 
 -- - Similarly, it cannot happen that one is `plusLeft` and the
 --   other is `plusRight`, since this would imply that `x` has
---   the form `p t₁ t₂` where `t₁` both has the form `p t₁₁ t₁₂`
+--   the form `p t1 t2` where `t1` both has the form `p t11 t12`
 --   and is a value (hence has the form `c n`).
 
 -- Most of this proof is the same as the one above. But to get
@@ -334,22 +334,22 @@ theorem step_deterministic : Deterministic Step := by
 theorem strong_progress (t : Tm) : IsValue t ∨ ∃ t', t ⟶ t' := by
   induction t with
   | c n => left; exact .const n
-  | p t₁ t₂ ih₁ ih₂ =>
+  | p t1 t2 ih1 ih2 =>
       right
-      cases ih₁ with
-      | inl hv₁ =>
-          cases ih₂ with
-          | inl hv₂ =>
-              cases hv₁ with
-              | const n₁ =>
-                  cases hv₂ with
-                  | const n₂ => exact ⟨.c (n₁ + n₂), .plus n₁ n₂⟩
-          | inr h₂ =>
-              obtain ⟨t₂', ht₂⟩ := h₂
-              exact ⟨.p t₁ t₂', .plusRight t₁ t₂ t₂' hv₁ ht₂⟩
-      | inr h₁ =>
-          obtain ⟨t₁', ht₁⟩ := h₁
-          exact ⟨.p t₁' t₂, .plusLeft t₁ t₁' t₂ ht₁⟩
+      cases ih1 with
+      | inl hv1 =>
+          cases ih2 with
+          | inl hv2 =>
+              cases hv1 with
+              | const n1 =>
+                  cases hv2 with
+                  | const n2 => exact ⟨.c (n1 + n2), .plus n1 n2⟩
+          | inr h2 =>
+              obtain ⟨t2', ht2⟩ := h2
+              exact ⟨.p t1 t2', .plusRight t1 t2 t2' hv1 ht2⟩
+      | inr h1 =>
+          obtain ⟨t1', ht1⟩ := h1
+          exact ⟨.p t1' t2, .plusLeft t1 t1' t2 ht1⟩
 
 def IsNormalForm {X : Type} (R : Relation X) (t : X) : Prop :=
   ¬ ∃ t', R t t'
@@ -373,16 +373,6 @@ theorem nf_is_value (t : Tm) (h : IsNormalForm Step t) : IsValue t := by
 theorem nf_same_as_value (t : Tm) : IsNormalForm Step t ↔ IsValue t :=
   ⟨nf_is_value t, value_is_nf t⟩
 
--- Note to developers (Kihong Heo @KihongHeo):
---     Tactic `absurd` is first introduced here. Do we want to
---     explain it?
-
--- Note to developers (Daniel Sainati @dsainati1):
---     I think some of these proofs were originally
---     Claude-generated, so we probably want to redo them from
---     scratch, in which case introducing absurd is likely not
---     necessary.
-
 -- Why is this interesting? Because `IsValue` is a *syntactic*
 -- concept — it is defined by looking at the way a term is
 -- written — while `IsNormalForm` is a *semantic* one — it is
@@ -404,12 +394,12 @@ namespace Temp1
 
 inductive IsValue : Tm → Prop where
   | const (n : Nat) : IsValue (.c n)
-  | funny (t₁ : Tm) (n : Nat) : IsValue (.p t₁ (.c n))     -- <---
+  | funny (t1 : Tm) (n : Nat) : IsValue (.p t1 (.c n))     -- <---
 
 inductive Step : Tm → Tm → Prop where
-  | plus (n₁ n₂ : Nat) : Step (.p (.c n₁) (.c n₂)) (.c (n₁ + n₂))
-  | plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (.p t₁ t₂) (.p t₁' t₂)
-  | plusRight (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : Step t₂ t₂') : Step (.p v₁ t₂) (.p v₁ t₂')
+  | plus (n1 n2 : Nat) : Step (.p (.c n1) (.c n2)) (.c (n1 + n2))
+  | plusLeft (t1 t1' t2 : Tm) (h : Step t1 t1') : Step (.p t1 t2) (.p t1' t2)
+  | plusRight (v1 t2 t2' : Tm) (hv : IsValue v1) (h : Step t2 t2') : Step (.p v1 t2) (.p v1 t2')
 
 -- _Quiz:_
 
@@ -450,9 +440,9 @@ inductive IsValue : Tm → Prop where
 
 inductive Step : Tm → Tm → Prop where
   | funny (n : Nat) : Step (.c n) (.p (.c n) (.c 0))     -- <--- NEW
-  | plus (n₁ n₂ : Nat) : Step (.p (.c n₁) (.c n₂)) (.c (n₁ + n₂))
-  | plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (.p t₁ t₂) (.p t₁' t₂)
-  | plusRight (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : Step t₂ t₂') : Step (.p v₁ t₂) (.p v₁ t₂')
+  | plus (n1 n2 : Nat) : Step (.p (.c n1) (.c n2)) (.c (n1 + n2))
+  | plusLeft (t1 t1' t2 : Tm) (h : Step t1 t1') : Step (.p t1 t2) (.p t1' t2)
+  | plusRight (v1 t2 t2' : Tm) (hv : IsValue v1) (h : Step t2 t2') : Step (.p v1 t2) (.p v1 t2')
 
 -- _Quiz:_
 
@@ -485,8 +475,8 @@ inductive IsValue : Tm → Prop where
   | const (n : Nat) : IsValue (.c n)
 
 inductive Step : Tm → Tm → Prop where
-  | plus (n₁ n₂ : Nat) : Step (.p (.c n₁) (.c n₂)) (.c (n₁ + n₂))
-  | plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (.p t₁ t₂) (.p t₁' t₂)
+  | plus (n1 n2 : Nat) : Step (.p (.c n1) (.c n2)) (.c (n1 + n2))
+  | plusLeft (t1 t1' t2 : Tm) (h : Step t1 t1') : Step (.p t1 t2) (.p t1' t2)
 
 -- _Quiz:_
 
@@ -508,7 +498,7 @@ end Temp3
 
 inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
   | refl (x : X) : Multi R x x
-  | step (x y z : X) (h₁ : R x y) (h₂ : Multi R y z) : Multi R x z
+  | step (x y z : X) (h1 : R x y) (h2 : Multi R y z) : Multi R x z
 
 -- Note to developers (berberman):
 --     I would make some arguments implicit to proivde a
@@ -538,7 +528,7 @@ theorem multi_trans {X : Type} (R : Relation X) (x y z : X)
     (g : Multi R x y) (h : Multi R y z) : Multi R x z := by
   induction g with
   | refl a => exact h
-  | step a b c h₁ h₂ ih => exact .step a b z h₁ (ih h)
+  | step a b c h1 h2 ih => exact .step a b z h1 (ih h)
 
 -- _Quiz:_
 
@@ -596,9 +586,9 @@ def IsNormalFormOf {X : Type} (R : Relation X) (t t' : X) : Prop :=
 
 theorem normal_forms_unique : Deterministic (IsNormalFormOf Step) := by
   -- We recommend using this initial setup as-is!
-  intro x y₁ y₂ p₁ p₂
-  obtain ⟨p₁₁, p₁₂⟩ := p₁
-  obtain ⟨p₂₁, p₂₂⟩ := p₂
+  intro x y1 y2 p1 p2
+  obtain ⟨p11, p12⟩ := p1
+  obtain ⟨p21, p22⟩ := p2
   sorry
 
 -- The `Step` relation is *normalizing* it is deterministic and
@@ -607,31 +597,31 @@ theorem normal_forms_unique : Deterministic (IsNormalFormOf Step) := by
 def Normalizing {X : Type} (R : Relation X) : Prop :=
   ∀ t, ∃ t', IsNormalFormOf R t t'
 
-theorem multistep_congr_1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶* t₁') : (.p t₁ t₂) ⟶* (.p t₁' t₂) := by
+theorem multistep_congr_1 (t1 t1' t2 : Tm) (h : t1 ⟶* t1') : (.p t1 t2) ⟶* (.p t1' t2) := by
   induction h with
   | refl x => exact .refl _
-  | step x y z h₁ h₂ ih => exact .step _ (.p y t₂) _ (.plusLeft x y t₂ h₁) ih
+  | step x y z h1 h2 ih => exact .step _ (.p y t2) _ (.plusLeft x y t2 h1) ih
 
 -- ### Exercise (2 stars): multistep_congr_2 ⭐⭐
 
-theorem multistep_congr_2 (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : t₂ ⟶* t₂') :
-    (.p v₁ t₂) ⟶* (.p v₁ t₂') := by
+theorem multistep_congr_2 (v1 t2 t2' : Tm) (hv : IsValue v1) (h : t2 ⟶* t2') :
+    (.p v1 t2) ⟶* (.p v1 t2') := by
   sorry
 
 theorem step_normalizing : Normalizing Step := by
   intro t
   induction t with
   | c n => exact ⟨.c n, .refl _, (nf_same_as_value _).mpr (.const n)⟩
-  | p t₁ t₂ ih₁ ih₂ =>
-      obtain ⟨t₁', hs₁, hnf₁⟩ := ih₁
-      obtain ⟨t₂', hs₂, hnf₂⟩ := ih₂
-      obtain ⟨n₁⟩ := (nf_same_as_value _).mp hnf₁
-      obtain ⟨n₂⟩ := (nf_same_as_value _).mp hnf₂
-      apply Exists.intro (.c (n₁ + n₂))
+  | p t1 t2 ih1 ih2 =>
+      obtain ⟨t1', hs1, hnf1⟩ := ih1
+      obtain ⟨t2', hs2, hnf2⟩ := ih2
+      obtain ⟨n1⟩ := (nf_same_as_value _).mp hnf1
+      obtain ⟨n2⟩ := (nf_same_as_value _).mp hnf2
+      apply Exists.intro (.c (n1 + n2))
       apply And.intro _ ((nf_same_as_value _).mpr (.const _))
-      apply multi_trans _ _ _ _ (multistep_congr_1 t₁ (.c n₁) t₂ hs₁)
-      apply multi_trans _ _ _ _ (multistep_congr_2 (.c n₁) t₂ (.c n₂) (.const n₁) hs₂)
-      exact multi_single _ _ _ (.plus n₁ n₂)
+      apply multi_trans _ _ _ _ (multistep_congr_1 t1 (.c n1) t2 hs1)
+      apply multi_trans _ _ _ _ (multistep_congr_2 (.c n1) t2 (.c n2) (.const n1) hs2)
+      exact multi_single _ _ _ (.plus n1 n2)
 
 -- ### Equivalence of Big-Step and Small-Step
 
@@ -653,30 +643,30 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 -- The key ideas in the proof can be seen in the following
 -- picture:
 
--- p t₁ t₂ ⟶            (by plusLeft)
--- p t₁' t₂ ⟶           (by plusLeft)
--- p t₁'' t₂ ⟶          (by plusLeft)
+-- p t1 t2 ⟶            (by plusLeft)
+-- p t1' t2 ⟶           (by plusLeft)
+-- p t1'' t2 ⟶          (by plusLeft)
 -- ...
--- p (c n₁) t₂ ⟶        (by plusRight)
--- p (c n₁) t₂' ⟶       (by plusRight)
--- p (c n₁) t₂'' ⟶      (by plusRight)
+-- p (c n1) t2 ⟶        (by plusRight)
+-- p (c n1) t2' ⟶       (by plusRight)
+-- p (c n1) t2'' ⟶      (by plusRight)
 -- ...
--- p (c n₁) (c n₂) ⟶    (by plus)
--- c (n₁ + n₂)
+-- p (c n1) (c n2) ⟶    (by plus)
+-- c (n1 + n2)
 
 -- That is, the multi-step reduction of a term of the form
--- `p t₁ t₂` proceeds in three phases:
+-- `p t1 t2` proceeds in three phases:
 
--- - First, we use `plusLeft` some number of times to reduce `t₁`
+-- - First, we use `plusLeft` some number of times to reduce `t1`
 --   to a normal form, which must (by `nf_same_as_value`) be a
---   term of the form `c n₁` for some `n₁`.
+--   term of the form `c n1` for some `n1`.
 
--- - Next, we use `plusRight` some number of times to reduce `t₂`
+-- - Next, we use `plusRight` some number of times to reduce `t2`
 --   to a normal form, which must again be a term of the form
---   `c n₂` for some `n₂`.
+--   `c n2` for some `n2`.
 
--- - Finally, we use `plus` one time to reduce `p (c n₁) (c n₂)`
---   to `c (n₁ + n₂)`.
+-- - Finally, we use `plus` one time to reduce `p (c n1) (c n2)`
+--   to `c (n1 + n2)`.
 
 -- To formalize this intuition, you'll need the congruence
 -- lemmas from above, plus some basic properties of `⟶*` (that
@@ -744,18 +734,18 @@ inductive IsAValue : Aexp → Prop where
   | num (n : Nat) : IsAValue (.num n)
 
 inductive AStep : Aexp → Aexp → Prop where
-  | plusLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : AStep (.plus a₁ a₂) (.plus a₁' a₂)
-  | plusRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') :
-      AStep (.plus v₁ a₂) (.plus v₁ a₂')
-  | plus (n₁ n₂ : Nat) :  AStep (.plus (.num n₁) (.num n₂)) (.num (n₁ + n₂))
-  | minusLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : AStep (.minus a₁ a₂) (.minus a₁' a₂)
-  | minusRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') :
-      AStep (.minus v₁ a₂) (.minus v₁ a₂')
-  | minus (n₁ n₂ : Nat) : AStep (.minus (.num n₁) (.num n₂)) (.num (n₁ - n₂))
-  | multLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : AStep (.mult a₁ a₂) (.mult a₁' a₂)
-  | multRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') :
-      AStep (.mult v₁ a₂) (.mult v₁ a₂')
-  | mult (n₁ n₂ : Nat) : AStep (.mult (.num n₁) (.num n₂)) (.num (n₁ * n₂))
+  | plusLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : AStep (.plus a1 a2) (.plus a1' a2)
+  | plusRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') :
+      AStep (.plus v1 a2) (.plus v1 a2')
+  | plus (n1 n2 : Nat) :  AStep (.plus (.num n1) (.num n2)) (.num (n1 + n2))
+  | minusLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : AStep (.minus a1 a2) (.minus a1' a2)
+  | minusRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') :
+      AStep (.minus v1 a2) (.minus v1 a2')
+  | minus (n1 n2 : Nat) : AStep (.minus (.num n1) (.num n2)) (.num (n1 - n2))
+  | multLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : AStep (.mult a1 a2) (.mult a1' a2)
+  | multRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') :
+      AStep (.mult v1 a2) (.mult v1 a2')
+  | mult (n1 n2 : Nat) : AStep (.mult (.num n1) (.num n2)) (.num (n1 * n2))
 
 scoped notation:40 a:41 " ⟶a " a':41 => AStep a a'
 
@@ -780,29 +770,29 @@ theorem strong_progress_arith (a : Aexp) : IsAValue a ∨ ∃ a', a ⟶a a' := b
 -- ### Boolean Expressions
 
 inductive BStep : Bexp → Bexp → Prop where
-  | eqLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : BStep (.eq a₁ a₂) (.eq a₁' a₂)
-  | eqRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') :
-      BStep (.eq v₁ a₂) (.eq v₁ a₂')
-  | eq (n₁ n₂ : Nat) : BStep (.eq (.num n₁) (.num n₂)) (.bool (decide (n₁ = n₂)))
-  | neqLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : BStep (.neq a₁ a₂) (.neq a₁' a₂)
-  | neqRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') :
-      BStep (.neq v₁ a₂) (.neq v₁ a₂')
-  | neq (n₁ n₂ : Nat) : BStep (.neq (.num n₁) (.num n₂)) (.bool (decide (n₁ ≠ n₂)))
-  | leLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : BStep (.le a₁ a₂) (.le a₁' a₂)
-  | leRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') :
-      BStep (.le v₁ a₂) (.le v₁ a₂')
-  | le (n₁ n₂ : Nat) : BStep (.le (.num n₁) (.num n₂)) (.bool (decide (n₁ ≤ n₂)))
-  | gtLeft (a₁ a₁' a₂ : Aexp) (h : AStep a₁ a₁') : BStep (.gt a₁ a₂) (.gt a₁' a₂)
-  | gtRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : AStep a₂ a₂') :
-      BStep (.gt v₁ a₂) (.gt v₁ a₂')
-  | gt (n₁ n₂ : Nat) : BStep (.gt (.num n₁) (.num n₂)) (.bool (decide (n₁ > n₂)))
-  | notStep (b₁ b₁' : Bexp) (h : BStep b₁ b₁') : BStep (.not b₁) (.not b₁')
+  | eqLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : BStep (.eq a1 a2) (.eq a1' a2)
+  | eqRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') :
+      BStep (.eq v1 a2) (.eq v1 a2')
+  | eq (n1 n2 : Nat) : BStep (.eq (.num n1) (.num n2)) (.bool (decide (n1 = n2)))
+  | neqLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : BStep (.neq a1 a2) (.neq a1' a2)
+  | neqRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') :
+      BStep (.neq v1 a2) (.neq v1 a2')
+  | neq (n1 n2 : Nat) : BStep (.neq (.num n1) (.num n2)) (.bool (decide (n1 ≠ n2)))
+  | leLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : BStep (.le a1 a2) (.le a1' a2)
+  | leRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') :
+      BStep (.le v1 a2) (.le v1 a2')
+  | le (n1 n2 : Nat) : BStep (.le (.num n1) (.num n2)) (.bool (decide (n1 ≤ n2)))
+  | gtLeft (a1 a1' a2 : Aexp) (h : AStep a1 a1') : BStep (.gt a1 a2) (.gt a1' a2)
+  | gtRight (v1 a2 a2' : Aexp) (hv : IsAValue v1) (h : AStep a2 a2') :
+      BStep (.gt v1 a2) (.gt v1 a2')
+  | gt (n1 n2 : Nat) : BStep (.gt (.num n1) (.num n2)) (.bool (decide (n1 > n2)))
+  | notStep (b1 b1' : Bexp) (h : BStep b1 b1') : BStep (.not b1) (.not b1')
   | notTrue : BStep (.not (.bool true)) (.bool false)
   | notFalse : BStep (.not (.bool false)) (.bool true)
-  | andStep (b₁ b₁' b₂ : Bexp) (h : BStep b₁ b₁') : BStep (.and b₁ b₂) (.and b₁' b₂)
-  | andTrueStep (b₂ b₂' : Bexp) (h : BStep b₂ b₂') :
-      BStep (.and (.bool true) b₂) (.and (.bool true) b₂')
-  | andFalse (b₂ : Bexp) : BStep (.and (.bool false) b₂) (.bool false)
+  | andStep (b1 b1' b2 : Bexp) (h : BStep b1 b1') : BStep (.and b1 b2) (.and b1' b2)
+  | andTrueStep (b2 b2' : Bexp) (h : BStep b2 b2') :
+      BStep (.and (.bool true) b2) (.and (.bool true) b2')
+  | andFalse (b2 : Bexp) : BStep (.and (.bool false) b2) (.bool false)
   | andTrueTrue : BStep (.and (.bool true) (.bool true)) (.bool true)
   | andTrueFalse : BStep (.and (.bool true) (.bool false)) (.bool false)
 
@@ -858,15 +848,15 @@ theorem bstep_deterministic : Deterministic BStep := by
 -- nondeterministic.
 
 inductive ANStep : Aexp → Aexp → Prop where
-  | plusLeft (a₁ a₁' a₂ : Aexp) (h : ANStep a₁ a₁') :  ANStep (.plus a₁ a₂) (.plus a₁' a₂)
-  | plusRight (a₁ a₂ a₂' : Aexp) (h : ANStep a₂ a₂') : ANStep (.plus a₁ a₂) (.plus a₁ a₂')
-  | plus (n₁ n₂ : Nat) : ANStep (.plus (.num n₁) (.num n₂)) (.num (n₁ + n₂))
-  | minusLeft (a₁ a₁' a₂ : Aexp) (h : ANStep a₁ a₁') : ANStep (.minus a₁ a₂) (.minus a₁' a₂)
-  | minusRight (a₁ a₂ a₂' : Aexp) (h : ANStep a₂ a₂') : ANStep (.minus a₁ a₂) (.minus a₁ a₂')
-  | minus (n₁ n₂ : Nat) : ANStep (.minus (.num n₁) (.num n₂)) (.num (n₁ - n₂))
-  | multLeft (a₁ a₁' a₂ : Aexp) (h : ANStep a₁ a₁') : ANStep (.mult a₁ a₂) (.mult a₁' a₂)
-  | multRight (a₁ a₂ a₂' : Aexp) (h : ANStep a₂ a₂') : ANStep (.mult a₁ a₂) (.mult a₁ a₂')
-  | mult (n₁ n₂ : Nat) : ANStep (.mult (.num n₁) (.num n₂)) (.num (n₁ * n₂))
+  | plusLeft (a1 a1' a2 : Aexp) (h : ANStep a1 a1') :  ANStep (.plus a1 a2) (.plus a1' a2)
+  | plusRight (a1 a2 a2' : Aexp) (h : ANStep a2 a2') : ANStep (.plus a1 a2) (.plus a1 a2')
+  | plus (n1 n2 : Nat) : ANStep (.plus (.num n1) (.num n2)) (.num (n1 + n2))
+  | minusLeft (a1 a1' a2 : Aexp) (h : ANStep a1 a1') : ANStep (.minus a1 a2) (.minus a1' a2)
+  | minusRight (a1 a2 a2' : Aexp) (h : ANStep a2 a2') : ANStep (.minus a1 a2) (.minus a1 a2')
+  | minus (n1 n2 : Nat) : ANStep (.minus (.num n1) (.num n2)) (.num (n1 - n2))
+  | multLeft (a1 a1' a2 : Aexp) (h : ANStep a1 a1') : ANStep (.mult a1 a2) (.mult a1' a2)
+  | multRight (a1 a2 a2' : Aexp) (h : ANStep a2 a2') : ANStep (.mult a1 a2) (.mult a1 a2')
+  | mult (n1 n2 : Nat) : ANStep (.mult (.num n1) (.num n2)) (.num (n1 * n2))
 
 scoped notation:40 a:41 " ⟶n " a':41 => ANStep a a'
 
@@ -876,13 +866,13 @@ scoped notation:40 a:41 " ⟶n " a':41 => ANStep a a'
 
 theorem anstep_not_deterministic : ¬ Deterministic ANStep := by
   intro hd
-  have s₁ : ANStep (.plus (.plus (.num 1) (.num 1)) (.plus (.num 2) (.num 2)))
+  have s1 : ANStep (.plus (.plus (.num 1) (.num 1)) (.plus (.num 2) (.num 2)))
       (.plus (.num 2) (.plus (.num 2) (.num 2))) :=
     .plusLeft _ _ _ (.plus 1 1)
-  have s₂ : ANStep (.plus (.plus (.num 1) (.num 1)) (.plus (.num 2) (.num 2)))
+  have s2 : ANStep (.plus (.plus (.num 1) (.num 1)) (.plus (.num 2) (.num 2)))
       (.plus (.plus (.num 1) (.num 1)) (.num 4)) :=
     .plusRight _ _ _ (.plus 2 2)
-  have heq := hd _ _ _ s₁ s₂
+  have heq := hd _ _ _ s1 s2
   simp at heq
 
 -- ### Exercise (2 stars): anstep_preserves_eval ⭐⭐
@@ -901,38 +891,38 @@ theorem anstep_preserves_eval (a a' : Aexp) (h : a ⟶n a') : a.eval = a'.eval :
 theorem multi_anstep_preserves_eval (a a' : Aexp) (h : Multi ANStep a a') : a.eval = a'.eval := by
   induction h with
   | refl x => rfl
-  | step x y z h₁ _ ih => rw [anstep_preserves_eval x y h₁]; exact ih
+  | step x y z h1 _ ih => rw [anstep_preserves_eval x y h1]; exact ih
 
 theorem astep_imp_anstep (a a' : Aexp) (h : a ⟶a a') : a ⟶n a' := by
   induction h with
-  | plusLeft a₁ a₁' a₂ _ ih => exact .plusLeft a₁ a₁' a₂ ih
-  | plusRight v₁ a₂ a₂' _ _ ih => exact .plusRight v₁ a₂ a₂' ih
-  | plus n₁ n₂ => exact .plus n₁ n₂
-  | minusLeft a₁ a₁' a₂ _ ih => exact .minusLeft a₁ a₁' a₂ ih
-  | minusRight v₁ a₂ a₂' _ _ ih => exact .minusRight v₁ a₂ a₂' ih
-  | minus n₁ n₂ => exact .minus n₁ n₂
-  | multLeft a₁ a₁' a₂ _ ih => exact .multLeft a₁ a₁' a₂ ih
-  | multRight v₁ a₂ a₂' _ _ ih => exact .multRight v₁ a₂ a₂' ih
-  | mult n₁ n₂ => exact .mult n₁ n₂
+  | plusLeft a1 a1' a2 _ ih => exact .plusLeft a1 a1' a2 ih
+  | plusRight v1 a2 a2' _ _ ih => exact .plusRight v1 a2 a2' ih
+  | plus n1 n2 => exact .plus n1 n2
+  | minusLeft a1 a1' a2 _ ih => exact .minusLeft a1 a1' a2 ih
+  | minusRight v1 a2 a2' _ _ ih => exact .minusRight v1 a2 a2' ih
+  | minus n1 n2 => exact .minus n1 n2
+  | multLeft a1 a1' a2 _ ih => exact .multLeft a1 a1' a2 ih
+  | multRight v1 a2 a2' _ _ ih => exact .multRight v1 a2 a2' ih
+  | mult n1 n2 => exact .mult n1 n2
 
 theorem multi_astep_imp_anstep (a a' : Aexp) (h : Multi AStep a a') : Multi ANStep a a' := by
   induction h with
   | refl x => exact .refl x
-  | step x y z h₁ _ ih => exact .step x y z (astep_imp_anstep x y h₁) ih
+  | step x y z h1 _ ih => exact .step x y z (astep_imp_anstep x y h1) ih
 
 -- ### Exercise (3 stars): astep_anstep_agree ⭐⭐⭐
 
 -- Now put the pieces together: prove that the deterministic
 -- and nondeterministic semantics always compute the *same*
--- final result. That is, if `a` fully reduces to `.num n₁`
--- under `⟶a` and to `.num n₂` under `⟶n`, then `n₁ = n₂`.
+-- final result. That is, if `a` fully reduces to `.num n1`
+-- under `⟶a` and to `.num n2` under `⟶n`, then `n1 = n2`.
 
--- *Hint:* both `.num n₁` and `.num n₂` are reachable by `⟶n`
+-- *Hint:* both `.num n1` and `.num n2` are reachable by `⟶n`
 -- (use `multi_astep_imp_anstep` for the first), and `⟶n`
 -- preserves `eval`.
 
-theorem astep_anstep_agree (a : Aexp) (n₁ n₂ : Nat)
-    (hd : Multi AStep a (.num n₁)) (hn : Multi ANStep a (.num n₂)) : n₁ = n₂ := by
+theorem astep_anstep_agree (a : Aexp) (n1 n2 : Nat)
+    (hd : Multi AStep a (.num n1)) (hn : Multi ANStep a (.num n2)) : n1 = n2 := by
   sorry
 
 -- ### A Small-Step Stack Machine
@@ -959,9 +949,9 @@ abbrev Prog := List SInstr
 
 def compile : Aexp → Prog
   | .num n => [.push n]
-  | .plus a₁ a₂ => compile a₁ ++ compile a₂ ++ [.plus]
-  | .minus a₁ a₂ => compile a₁ ++ compile a₂ ++ [.minus]
-  | .mult a₁ a₂ => compile a₁ ++ compile a₂ ++ [.mult]
+  | .plus a1 a2 => compile a1 ++ compile a2 ++ [.plus]
+  | .minus a1 a2 => compile a1 ++ compile a2 ++ [.minus]
+  | .mult a1 a2 => compile a1 ++ compile a2 ++ [.mult]
 
 example : compile (.plus (.num 2) (.num 3)) = [.push 2, .push 3, .plus] := rfl
 
@@ -980,8 +970,8 @@ inductive StackStep : Prog × Stack → Prog × Stack → Prop where
 -- The machine is deterministic:
 
 theorem stack_step_deterministic : Deterministic StackStep := by
-  intro x y₁ y₂ h₁ h₂
-  cases h₁ <;> cases h₂ <;> rfl
+  intro x y1 y2 h1 h2
+  cases h1 <;> cases h2 <;> rfl
 
 -- ### Exercise (3 stars): compiler_is_correct (Advanced) ⭐⭐⭐
 

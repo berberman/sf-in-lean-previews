@@ -80,7 +80,7 @@ inductive MyList (α : Type) : Type where
 -- What is the full type of `MyList.nil`? We can read off the result type
 -- `MyList α` from the definition, but to state the full type we must also
 -- bind `α`. Since the type argument to the constructor is implicit, Lean
--- writes its type as (the equivalent of) `{α : Type} → MyList α`.
+-- writes its type as `{α : Type} → MyList α`.
 
 #check MyList.nil
 
@@ -106,8 +106,7 @@ def myRepeat (α : Type) (x : α) (count : Nat) : MyList α :=
 
 -- Some simple facts about `myRepeat`:
 
-theorem myRepeat_zero (α : Type) (v : α) :
-    myRepeat α v 0 = MyList.nil := rfl
+theorem myRepeat_zero (α : Type) (v : α) : myRepeat α v 0 = MyList.nil := rfl
 
 theorem myRepeat_succ (α : Type) (v : α) (count : Nat) :
     myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count) := rfl
@@ -181,16 +180,14 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
   | 0 => .nil
   | count' + 1 => .cons x (myRepeat' α x count')
 
--- Indeed it will. Lean infers that `α` is a type.
+-- Indeed it will. Lean infers that `α` is a type. The generated `u_1` is part
+-- of Lean's bookkeeping for treating types more generally. We will not need
+-- to interpret names like this for now — you can ignore them when they appear
+-- in Lean's output unless we explicitly call attention to them.
 
 #check myRepeat'
 
 -- myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
-
--- The generated `u_1` is part of Lean's bookkeeping for treating types more
--- generally. We will not need to interpret names like this for now — you can
--- ignore them when they appear in Lean's output unless we explicitly call
--- attention to them.
 
 -- Lean was able to use *type inference* to deduce what the type of `α` must
 -- be, based on how it is used. Since `α` is an argument to `List`, it must be
@@ -218,7 +215,7 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 -- application appears — to determine what concrete type should replace the
 -- `_`.
 
--- Using holes, the `myRepeat'` function can be rewritten like this:
+-- Using holes, the `myRepeat'` function can be written like this:
 
 def myRepeat'' (α : Type) (x : α) (count : Nat) : List α :=
   match count with
@@ -234,11 +231,9 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
   | 0 => []
   | count' + 1 => x :: myRepeat''' x count'
 
--- By making the type argument implicit, we no longer need to provide it to
--- the recursive call to `myRepeat'''`. Indeed, it would be invalid to provide
--- one, because Lean is not expecting it. For each implicit parameter, Lean
--- automatically inserts a hidden hole `_` argument for us, which is then
--- inferred as usual.
+-- (Note that we didn't even have to provide a type argument to the recursive
+-- call to `myRepeat'''`. Indeed, it would be invalid to provide one, because
+-- Lean is not expecting it.)
 
 -- #### Supplying Type Arguments Explicitly
 
@@ -418,27 +413,30 @@ theorem rev_cons {α : Type} (head : α) (tail : List α) :
 
 theorem append_nil {α : Type} (l : List α) :
     l ++ [] = l := by
-  induction l with
-  | nil => rw [List.nil_append]
-  | cons h t ih => rw [List.cons_append, ih]
+  all_goals
+    induction l with
+    | nil => rw [List.nil_append]
+    | cons h t ih => rw [List.cons_append, ih]
 
 theorem append_assoc {α : Type} (l m n : List α) :
     l ++ m ++ n = l ++ (m ++ n) := by
-  induction l with
-  | nil => rw [List.nil_append, List.nil_append]
-  | cons h t ih =>
-    dsimp [List.cons_append]
-    rw [ih]
+  all_goals
+    induction l with
+    | nil => rw [List.nil_append, List.nil_append]
+    | cons h t ih =>
+      dsimp [List.cons_append]
+      rw [ih]
 
 theorem append_length {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
-  induction l₁ with
-  | nil =>
-    dsimp [List.nil_append, append_nil]
-    rw [Nat.zero_add]
-  | cons h t ih =>
-    dsimp [List.cons_append, List.length_cons]
-    rw [Nat.succ_add, ih]
+  all_goals
+    induction l₁ with
+    | nil =>
+      dsimp [List.nil_append, append_nil]
+      rw [Nat.zero_add]
+    | cons h t ih =>
+      dsimp [List.cons_append, List.length_cons]
+      rw [Nat.succ_add, ih]
 
 -- ### Exercise (2 stars): more_poly_exercises ⭐⭐
 
@@ -446,21 +444,23 @@ theorem append_length {α : Type} {l₁ l₂ : List α} :
 
 theorem reverse_append {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev := by
-  induction l₁ with
-  | nil =>
-    dsimp [List.nil_append]
-    rw [rev_nil, append_nil]
-  | cons h t ih =>
-    dsimp [List.cons_append]
-    rw [rev_cons, rev_cons, ih, append_assoc]
+  all_goals
+    induction l₁ with
+    | nil =>
+      dsimp [List.nil_append]
+      rw [rev_nil, append_nil]
+    | cons h t ih =>
+      dsimp [List.cons_append]
+      rw [rev_cons, rev_cons, ih, append_assoc]
 
 theorem reverse_reverse {α : Type} (l : List α) :
     l.rev.rev = l := by
-  induction l with
-  | nil => rw [rev_nil, rev_nil]
-  | cons h t ih =>
-    rw [rev_cons, reverse_append, ih, rev_cons, rev_nil]
-    dsimp [List.nil_append, List.cons_append]
+  all_goals
+    induction l with
+    | nil => rw [rev_nil, rev_nil]
+    | cons h t ih =>
+      rw [rev_cons, reverse_append, ih, rev_cons, rev_nil]
+      dsimp [List.nil_append, List.cons_append]
 
 -- ### Polymorphic Pairs
 
@@ -646,8 +646,6 @@ def filter {α : Type} (test : α → Bool) (l : List α) : List α :=
 
 example : filter Nat.even [1, 2, 3, 4] = [2, 4] := by rfl
 
--- Here are some further examples and properties of `filter`.
-
 def isLength1 {α : Type} (l : List α) : Bool :=
   l.length == 1
 
@@ -670,27 +668,6 @@ theorem filter_cons_of_neg {α : Type} {test : α → Bool} {head : α}
    dsimp [filter]
    rw [h]
    dsimp
-
--- You might have noticed that `filter_cons_of_pos` and `filter_cons_of_neg`
--- have implicit parameters, such as `head` and `tail`, that do not have type
--- `Type` like `α` does. As it turns out, Lean allows *any* parameter to be
--- implicit, not just those of type `Type`. This is a standard Lean convention
--- for lemmas that are likely to be used by `rw` or `dsimp` when their values
--- can be inferred by unification.
-
--- For example, suppose you were using this theorem to rewrite
--- `filter Nat.even (3 :: rest)`. Matching that expression against the
--- theorem's left-hand side `filter test (head :: tail)` establishes that
--- `test = Nat.even`, `head = 3`, `tail = rest`, and `α = Nat`. By making
--- these arguments implicit, Lean automatically inserts a hole `_` for each of
--- them when you apply the theorem, just as with implicit parameters of type
--- `Type`, so they can be inferred from the context.
-
--- Note that `h : test head` is not implicit, it's explicit. That's because it
--- cannot be solved by unification, i.e., Lean can't prove that
--- `Nat.even 3 = true` that way. It's a general proof obligation.
-
--- We'll follow the Lean standard convention from now on.
 
 -- We can use `filter` to give a concise version of the `countOddMembers`
 -- function from the Lists chapter.
@@ -832,12 +809,13 @@ theorem map_append {α β : Type} {f : α → β} {l l' : List α} :
 
 theorem map_rev {α : Type} {β : Type} : ∀ (f : α → β) (l : List α),
     map f l.rev = (map f l).rev := by
-  intro f l
-  induction l
-  case nil =>
-   rw [rev_nil, map_nil, rev_nil]
-  case cons h t ih =>
-   rw [rev_cons, map_cons, map_append, rev_cons, ih, map_cons, map_nil]
+  all_goals
+    intro f l
+    induction l
+    case nil =>
+     rw [rev_nil, map_nil, rev_nil]
+    case cons h t ih =>
+     rw [rev_cons, map_cons, map_append, rev_cons, ih, map_cons, map_nil]
 
 -- ### Exercise (2 stars): flat_map ⭐⭐
 
@@ -1033,13 +1011,14 @@ example : foldLength [4, 7, 0] = 3 := by rfl
 
 theorem fold_length_correct {α : Type} (l : List α) :
     foldLength l = l.length := by
-  induction l with
-  | nil =>
-    dsimp only [foldLength]
-    rw [fold_nil, List.length_nil]
-  | cons head tail ih =>
-    dsimp only [foldLength] at *
-    rw [List.length_cons, fold_cons, ih]
+  all_goals
+    induction l with
+    | nil =>
+      dsimp only [foldLength]
+      rw [fold_nil, List.length_nil]
+    | cons head tail ih =>
+      dsimp only [foldLength] at *
+      rw [List.length_cons, fold_cons, ih]
 
 -- ### Exercise (3 stars): fold_map (manually graded) ⭐⭐⭐
 
@@ -1111,11 +1090,13 @@ example : map (Nat.add 3) [2, 0, 2] = [5, 3, 5] := by rfl
 
 theorem uncurry_curry {α β γ : Type} (f : α → β → γ) (x : α) (y : β) :
     prodCurry (prodUncurry f) x y = f x y := by
-  rfl
+  all_goals
+    rfl
 
 theorem curry_uncurry {α β γ : Type} (f : α × β → γ) {p : α × β} :
     prodUncurry (prodCurry f) p = f p := by
-  rfl
+  all_goals
+    rfl
 
 -- ### Exercise (2 stars): nth_error_informal (Advanced, manually graded) ⭐⭐
 

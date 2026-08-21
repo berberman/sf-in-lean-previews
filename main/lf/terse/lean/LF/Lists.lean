@@ -17,14 +17,6 @@ inductive NatProd where
 
 #check (NatProd.pair 3 5)
 
--- Note to developers (Mike Hicks @mwhicks1):
---     I would have expected us to have `namespace NatProd`
---     here when defining the following functions, so we don't
---     need qualifiers. We've already full explained namespaces
---     back in Basics. Some of the text below mentions using
---     the `NatProd` prefix specifically, but I think you can
---     drop it and it will stick work.
-
 -- Functions for extracting the first and second components of
 -- a pair can then be defined by pattern matching.
 
@@ -60,6 +52,21 @@ def NatProd.snd' (p : NatProd) : Nat :=
 def NatProd.swap (p : NatProd) : NatProd :=
   ⟨snd p, fst p⟩
 
+-- Lean also provides a convenient way to define `inductive`
+-- structures like pairs that have a single constructor but
+-- multiple ways to access their data, using the `structure`
+-- keyword. The definition of `NatProd'` below is equivalent to
+-- the `NatProd` definition from earlier, except that Lean
+-- automatically generates the `fst` and `snd` accessors.
+
+structure NatProd' where
+  fst : Nat
+  snd : Nat
+
+#check (NatProd'.mk 3 5)
+example : (NatProd'.mk 3 5).fst = 3 := by rfl
+example : (⟨3, 5⟩ : NatProd').fst = 3 := by rfl
+
 -- To expose the structure of a pair, use `cases` (or
 -- destructuring).
 
@@ -70,19 +77,6 @@ theorem surjective_pairing : ∀ p : NatProd,
 theorem surjective_pairing_cases (p : NatProd) :
     p = ⟨p.fst, p.snd⟩ := by
   cases p; rfl
-
--- ## Structures
-
--- Lean's `structure` is shorthand for a single-constructor
--- `inductive` with the accessors auto-generated.
-
-structure NatProd' where
-  fst : Nat
-  snd : Nat
-
-#check (NatProd'.mk 3 5)
-example : (NatProd'.mk 3 5).fst = 3 := by rfl
-example : (⟨3, 5⟩ : NatProd').fst = 3 := by rfl
 
 -- ## Lists of Numbers
 
@@ -100,15 +94,7 @@ namespace NatList
 
 -- Some notation for lists to make our lives easier:
 
--- Don't worry too much about how this works.
-
--- THESE DETAILS CAN BE SKIPPED: List syntax
-
--- We first define `::` as right-associative notation for
--- `cons`, and then define list notation as a *macro*, allowing
--- us to write `[1, 2]` instead of `1 :: 2 :: []`. The
--- *unexpander* reverses the macro, translating list syntax
--- back to cons syntax.
+-- Don't worry too much about what this is doing:
 
 scoped infixr:65 (priority := high) " :: " => cons
 scoped macro (priority := high) "[" elems:term,* "]" : term => do
@@ -124,7 +110,10 @@ def unexpandCons : Lean.PrettyPrinter.Unexpander
   | `($_ $x [$xs,*]) => `([$x, $xs,*])
   | _ => throw ()
 
--- END DETAILS
+-- We first define `::` as right-associative *notation* for
+-- `cons`, and then define list notation *macro* with
+-- *unexpander*, allowing us to write `[1, 2]` instead of
+-- `1 :: 2 :: []`.
 
 -- Now these all mean exactly the same thing:
 
@@ -143,9 +132,9 @@ def myRepeat (n count : Nat) : NatList :=
 
 -- Some simple facts about repetition:
 
-theorem repeat_zero (n : Nat) : myRepeat n 0 = [] := rfl
+theorem repeat_zero {n : Nat} : myRepeat n 0 = [] := rfl
 
-theorem repeat_succ (n count : Nat) : myRepeat n (count + 1) = n :: myRepeat n count := rfl
+theorem repeat_succ {n count : Nat} : myRepeat n (count + 1) = n :: myRepeat n count := rfl
 
 def length (l : NatList) : Nat :=
   match l with
@@ -156,7 +145,7 @@ def length (l : NatList) : Nat :=
 
 theorem length_nil : [].length = 0 := rfl
 
-theorem length_cons (n : Nat) (l : NatList) : (n :: l).length = l.length + 1 := rfl
+theorem length_cons {n : Nat} {l : NatList} : (n :: l).length = l.length + 1 := rfl
 
 -- ### Append
 
@@ -179,7 +168,7 @@ instance : HAppend NatList NatList NatList where
 
 theorem nil_append (l : NatList) : [] ++ l = l := rfl
 
-theorem cons_append (n : Nat) (l₁ l₂ : NatList) : (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := rfl
+theorem cons_append {n : Nat} {l₁ l₂ : NatList} : (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := rfl
 
 example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
@@ -196,9 +185,9 @@ def head (default : Nat) (l : NatList) : Nat :=
 
 -- Basic theorems about how `head` behaves:
 
-theorem head_cons (h x : Nat) (t : NatList) : (h :: t).head x = h := by rfl
+theorem head_cons {h x : Nat} {t : NatList} : (h :: t).head x = h := by rfl
 
-theorem head_nil (x : Nat) : [].head x = x := by rfl
+theorem head_nil {x : Nat} : [].head x = x := by rfl
 
 def tail (l : NatList) : NatList :=
   match l with
@@ -207,7 +196,7 @@ def tail (l : NatList) : NatList :=
 
 -- Basic theorems about how `tail` behaves:
 
-theorem tail_cons (h : Nat) (t : NatList) : (h :: t).tail = t := by rfl
+theorem tail_cons {h : Nat} {t : NatList} : (h :: t).tail = t := by rfl
 
 theorem tail_nil : [].tail = [] := by rfl
 
@@ -234,21 +223,21 @@ def count (n : Nat) (l : NatList) : Nat := sorry
 -- Now, prove these lemmas which should hold about your
 -- definition.
 
-theorem count_nil (n : Nat) : count n [] = 0 := sorry
+theorem count_nil {n : Nat} : count n [] = 0 := sorry
 
-theorem count_cons_def (n h : Nat) (t : NatList) :
+theorem count_cons_def {n h : Nat} {t : NatList} :
     count n (h :: t) = bif n == h then (count n t) + 1 else count n t := sorry
 
-theorem count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
+theorem count_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
     count n₁ (n₂ :: t) = count n₁ t + 1 := by
   sorry
 
-theorem count_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
+theorem count_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
     count n₁ (n₂ :: t) = count n₁ t := by
   sorry
 
 example : count 1 [1] = 1 := by
-  rw [count_cons_same _ _ _ rfl]
+  rw [count_cons_same rfl]
   rw [count_nil]
 
 example : count 2 [2, 2] = 2 := sorry
@@ -271,18 +260,18 @@ example : count 6 [1, 2, 3, 1, 4, 1] = 0 := sorry
 
 def member (n : Nat) (l : NatList) : Bool := sorry
 
-theorem member_nil (n : Nat) : member n [] = false := sorry
+theorem member_nil {n : Nat} : member n [] = false := sorry
 
-theorem member_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
+theorem member_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
     member n₁ (n₂ :: t) = true := by
   sorry
 
-theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
+theorem member_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
     member n₁ (n₂ :: t) = member n₁ t := by
   sorry
 
 example : member 1 [1] = true := by
-  rw [member_cons_same _ _ _ rfl]
+  rw [member_cons_same rfl]
 
 example : member 2 [1] = false := sorry -- rfl
 
@@ -302,19 +291,19 @@ theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
 def removeOne (n : Nat) (l : NatList) : NatList := sorry
 
-theorem removeOne_nil (n : Nat) : removeOne n nil = nil := sorry
+theorem removeOne_nil {n : Nat} : removeOne n nil = nil := sorry
 
-theorem removeOne_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
+theorem removeOne_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
     removeOne n₁ (n₂ :: t) = t := by
   sorry
 
-theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
+theorem removeOne_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
     removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t := by
   sorry
 
 example : removeOne 5 [1, 5, 4] = [1, 4] := by
-  rw [removeOne_cons_diff _ _ _ rfl]
-  rw [removeOne_cons_same _ _ _ rfl]
+  rw [removeOne_cons_diff rfl]
+  rw [removeOne_cons_same rfl]
 
 example : count 5 (removeOne 5 [1, 5, 4]) = 0 := sorry
 
@@ -324,21 +313,21 @@ theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
 
 def removeAll (n : Nat) (l : NatList) : NatList := sorry
 
-theorem removeAll_nil (n : Nat) : removeAll n [] = [] := sorry
+theorem removeAll_nil {n : Nat} : removeAll n [] = [] := sorry
 
-theorem removeAll_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
+theorem removeAll_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
     removeAll n₁ (n₂ :: t) = removeAll n₁ t := by
   sorry
 
-theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
+theorem removeAll_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
     removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t := by
   sorry
 
 example : count 5 (removeAll 5 [5, 1]) = 0 := by
-  rw [removeAll_cons_same _ _ _ rfl]
-  rw [removeAll_cons_diff _ _ _ rfl]
+  rw [removeAll_cons_same rfl]
+  rw [removeAll_cons_diff rfl]
   rw [removeAll_nil]
-  rw [count_cons_diff _ _ _ rfl]
+  rw [count_cons_diff rfl]
   rw [count_nil]
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := sorry
@@ -353,21 +342,21 @@ theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
 def included (l₁ l₂ : NatList) : Bool := sorry
 
-theorem included_nil (l₂ : NatList) : included nil l₂ = true := sorry
+theorem included_nil {l₂ : NatList} : included nil l₂ = true := sorry
 
-theorem included_cons_member (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = true) :
+theorem included_cons_member {n : Nat} {l₁ l₂ : NatList} (h : member n l₂ = true) :
     included (cons n l₁) l₂ = included l₁ (removeOne n l₂) := by
   sorry
 
-theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = false) :
+theorem included_cons_nonmember {n : Nat} {l₁ l₂ : NatList} (h : member n l₂ = false) :
     included (cons n l₁) l₂ = false := by
   sorry
 
 example : included [1] [2, 1] = true := by
   rw [included_cons_member]
-  · exact included_nil _
-  · rw [member_cons_diff _ _ _ rfl]
-    rw [member_cons_same _ _ _ rfl]
+  · exact included_nil
+  · rw [member_cons_diff rfl]
+    rw [member_cons_same rfl]
 
 example : included [1, 1] [2, 1, 4, 1] = true := sorry
 
@@ -441,7 +430,7 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 -- induction:
 
 sf_expect_failure
-  theorem myRepeat_append_fail (c n : Nat) :
+  theorem myRepeat_append_fail {c n : Nat} :
       myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
     induction c with
     | zero => rw [repeat_zero, nil_append]
@@ -459,7 +448,7 @@ sf_expect_failure
 
 -- A generalization that gives a stronger inductive hypothesis:
 
-theorem myRepeat_append_general (c₁ c₂ n : Nat) :
+theorem myRepeat_append_general {c₁ c₂ n : Nat} :
     myRepeat n c₁ ++ myRepeat n c₂ = myRepeat n (c₁ + c₂) := by
   induction c₁ with
   | zero =>
@@ -470,9 +459,9 @@ theorem myRepeat_append_general (c₁ c₂ n : Nat) :
 -- Then, we can use this more general theorem to prove the
 -- original goal:
 
-theorem myRepeat_append (c n : Nat) :
+theorem myRepeat_append {c n : Nat} :
     myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
-  exact myRepeat_append_general c c n
+  exact myRepeat_append_general
 
 -- #### Reversing a List
 
@@ -485,7 +474,7 @@ def reverse (l : NatList) : NatList :=
 
 theorem reverse_nil : [].reverse = [] := by rfl
 
-theorem reverse_cons (h : Nat) (t : NatList) : (h :: t).reverse = t.reverse ++ [h] := by rfl
+theorem reverse_cons {h : Nat} {t : NatList} : (h :: t).reverse = t.reverse ++ [h] := by rfl
 
 example : [1, 2, 3].reverse = [3, 2, 1] := by rfl
 
@@ -514,7 +503,7 @@ sf_expect_failure
 -- ⊢ (l'.reverse ++ [n]).length = (n :: l').length
 
 sf_expect_failure
-  theorem length_append_succ (l : NatList) (n : Nat) :
+  theorem length_append_succ {l : NatList} {n : Nat} :
       (l.reverse ++ [n]).length = l.reverse.length + 1 := by
     induction l with
     | nil =>
@@ -539,14 +528,14 @@ theorem append_length_succ (l : NatList) (n : Nat) :
 
 -- Now we can prove the main theorem.
 
-theorem length_reverse (l : NatList) :
+theorem length_reverse {l : NatList} :
     l.reverse.length = l.length := by
   induction l with
   | nil => rw [reverse_nil]
   | cons n l' ih =>
     rw [reverse_cons, append_length_succ, ih, length_cons]
 
-theorem length_append (l₁ l₂ : NatList) :
+theorem length_append {l₁ l₂ : NatList} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
   sorry
 
@@ -631,9 +620,9 @@ def NatOption.elim (d : Nat) (o : NatOption) : Nat :=
   | .some n => n
   | .none => d
 
-theorem NatOption.elim_none (d : Nat) : elim d .none = d := by rfl
+theorem NatOption.elim_none {d : Nat} : elim d .none = d := by rfl
 
-theorem NatOption.elim_some (d₁ d₂ : Nat) : elim d₁ (.some d₂) = d₂ := by rfl
+theorem NatOption.elim_some {d₁ d₂ : Nat} : elim d₁ (.some d₂) = d₂ := by rfl
 
 end NatList
 

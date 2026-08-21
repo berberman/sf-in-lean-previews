@@ -2,8 +2,6 @@ import LF.SFLCompat
 
 -- # Basics: Functional Programming in Lean
 
-set_option pp.fieldNotation false
-
 -- The *functional style* of programming is founded on simple mathematical
 -- intuitions: A program is essentially a concrete means for computing a
 -- mathematical function, which just maps inputs to outputs. Even when
@@ -386,17 +384,14 @@ sf_expect_failure
     intro b
       rfl
 
--- To see the error message, comment out `sf_expect_failure` temporarily. You
--- should see the following message.
+-- Lean complains because the `rfl` is not at the same level of indentation as
+-- the `{tactic}intro b`, so Lean does not recognize these two tactics as
+-- being sequential in the way they should be.
 
 -- Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
 
 -- b : MyBool
 -- ⊢ (true && b) = b
-
--- Lean complains because the `rfl` is not at the same level of indentation as
--- the `{tactic}intro b`, so Lean does not recognize these two tactics as
--- being sequential in the way they should be.
 
 -- In general, sequential tactics applied to the same goal must be on
 -- subsequent lines at the same level of indentation or separated on the same
@@ -1641,7 +1636,7 @@ theorem and3_exchange (b c d : Bool) :
 
 -- The `rewrite ... at` tactic can be used to rewrite in a hypothesis instead
 -- of the goal. For example, if `hp : p` is in the context and we have a rule
--- `r : p = q`, then `rewrite [r] at hp` changes the hypothesis to `hp : q`.
+-- `h : p = q`, then `rewrite [hp] at h` changes the hypothesis to `h : q`.
 
 -- The `exact` tactic closes a goal by providing the exact proof of the goal.
 -- For example, if `hp : p` is in the context and the goal is `p`, then

@@ -1280,35 +1280,20 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures",
-     "data":
-     {"title": "Structures",
-      "shortTitle": null,
-      "sectionNum": "5.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Structures", "shortTitle": null, "number": "2"}]},
-     "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
    [{"id":
      "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2",
      "data":
      {"title": "List Exercises, Part 2",
       "shortTitle": null,
-      "sectionNum": "5.4.3.",
+      "sectionNum": "5.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 2", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
@@ -1317,14 +1302,14 @@
      "data":
      {"title": "List Exercises, Part 1",
       "shortTitle": null,
-      "sectionNum": "5.4.2.",
+      "sectionNum": "5.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 1", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Induction-on-Lists--Reversing-a-List":
@@ -1333,14 +1318,14 @@
      "data":
      {"title": "Reversing a List",
       "shortTitle": null,
-      "sectionNum": "5.4.1.2.",
+      "sectionNum": "5.3.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Reversing a List", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
@@ -1350,14 +1335,14 @@
      "data":
      {"title": "Generalizing Statements",
       "shortTitle": null,
-      "sectionNum": "5.4.1.1.",
+      "sectionNum": "5.3.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Generalizing Statements",
         "shortTitle": null,
@@ -1369,14 +1354,14 @@
      "data":
      {"title": "Induction on Lists",
       "shortTitle": null,
-      "sectionNum": "5.4.1.",
+      "sectionNum": "5.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists":
@@ -1385,14 +1370,14 @@
      "data":
      {"title": "Reasoning About Lists",
       "shortTitle": null,
-      "sectionNum": "5.4.",
+      "sectionNum": "5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"}]},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Partial-Maps":
    [{"id":
@@ -1400,14 +1385,14 @@
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "5.6.",
+      "sectionNum": "5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Partial Maps", "shortTitle": null, "number": "6"}]},
+       {"title": "Partial Maps", "shortTitle": null, "number": "5"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers":
    [{"id":
@@ -1430,14 +1415,14 @@
      "data":
      {"title": "Options",
       "shortTitle": null,
-      "sectionNum": "5.5.",
+      "sectionNum": "5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Options", "shortTitle": null, "number": "5"}]},
+       {"title": "Options", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail":
    [{"id":
@@ -1445,14 +1430,14 @@
      "data":
      {"title": "Head and Tail",
       "shortTitle": null,
-      "sectionNum": "5.3.3.1.",
+      "sectionNum": "5.2.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
         "number": "3"},
@@ -1464,14 +1449,14 @@
      "data":
      {"title": "Exercises",
       "shortTitle": null,
-      "sectionNum": "5.3.3.2.",
+      "sectionNum": "5.2.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
         "number": "3"},
@@ -1483,14 +1468,14 @@
      "data":
      {"title": "Type Classes and Overloading",
       "shortTitle": null,
-      "sectionNum": "5.3.3.",
+      "sectionNum": "5.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
         "number": "3"}]},
@@ -1501,14 +1486,14 @@
      "data":
      {"title": "Repeat",
       "shortTitle": null,
-      "sectionNum": "5.3.1.",
+      "sectionNum": "5.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Repeat", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing":
@@ -1517,14 +1502,14 @@
      "data":
      {"title": "Removing",
       "shortTitle": null,
-      "sectionNum": "5.3.6.",
+      "sectionNum": "5.2.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Removing", "shortTitle": null, "number": "6"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Membership":
@@ -1533,14 +1518,14 @@
      "data":
      {"title": "Membership",
       "shortTitle": null,
-      "sectionNum": "5.3.5.",
+      "sectionNum": "5.2.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Membership", "shortTitle": null, "number": "5"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Included":
@@ -1549,14 +1534,14 @@
      "data":
      {"title": "Included",
       "shortTitle": null,
-      "sectionNum": "5.3.7.",
+      "sectionNum": "5.2.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Included", "shortTitle": null, "number": "7"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Counting":
@@ -1565,14 +1550,14 @@
      "data":
      {"title": "Counting",
       "shortTitle": null,
-      "sectionNum": "5.3.4.",
+      "sectionNum": "5.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Counting", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Append":
@@ -1581,14 +1566,14 @@
      "data":
      {"title": "Append",
       "shortTitle": null,
-      "sectionNum": "5.3.2.",
+      "sectionNum": "5.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
        {"title": "Append", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers":
@@ -1597,14 +1582,14 @@
      "data":
      {"title": "Lists of Numbers",
       "shortTitle": null,
-      "sectionNum": "5.3.",
+      "sectionNum": "5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Separate-Compilation":
    [{"id":
@@ -1932,11 +1917,11 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers":
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers":
    [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers",
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers",
      "data":
-     {"title": "Example: Binary Relation for Comparing Numbers",
+     {"title": "Example: Binary relation for comparing numbers",
       "shortTitle": null,
       "sectionNum": "9.1.2.",
       "searchPriority": 50,
@@ -1948,7 +1933,7 @@
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Example: Binary Relation for Comparing Numbers",
+       {"title": "Example: Binary relation for comparing numbers",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/IndProp/"}],
@@ -3163,6 +3148,16 @@
         "The Logic of Lean",
         "Functional Extensionality"]}},
      "address": "/Logic/"}],
+   "total_relation_is_total":
+   [{"id": "total_relation_is_total",
+     "data":
+     {"/IndProp/#total_relation_is_total":
+      {"display": "total_relation_is_total",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
    "test_partition2":
    [{"id": "test_partition2",
      "data":
@@ -3307,6 +3302,76 @@
         "Tactics: More Basic Tactics",
         "Rewriting with Conditional Statements"]}},
      "address": "/Tactics/"}],
+   "subseq_trans":
+   [{"id": "subseq_trans",
+     "data":
+     {"/IndProp/#subseq_trans":
+      {"display": "subseq_trans",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
+   "subseq_refl":
+   [{"id": "subseq_refl",
+     "data":
+     {"/IndProp/#subseq_refl":
+      {"display": "subseq_refl",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
+   "subseq_app":
+   [{"id": "subseq_app",
+     "data":
+     {"/IndProp/#subseq_app":
+      {"display": "subseq_app",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
+   "subseq.sub_take":
+   [{"id": "subseq___sub_take",
+     "data":
+     {"/IndProp/#subseq___sub_take":
+      {"display": "sub_take",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
+   "subseq.sub_skip":
+   [{"id": "subseq___sub_skip",
+     "data":
+     {"/IndProp/#subseq___sub_skip":
+      {"display": "sub_skip",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
+   "subseq.sub_nil":
+   [{"id": "subseq___sub_nil",
+     "data":
+     {"/IndProp/#subseq___sub_nil":
+      {"display": "sub_nil",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
+   "subseq":
+   [{"id": "subseq",
+     "data":
+     {"/IndProp/#subseq":
+      {"display": "subseq",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
    "sub_add_ble":
    [{"id": "sub_add_ble",
      "data":
@@ -3799,6 +3864,16 @@
         "Functions as Data",
         "Functions That Construct Functions"]}},
      "address": "/Poly/"}],
+   "pigeonhole_principle":
+   [{"id": "pigeonhole_principle",
+     "data":
+     {"/IndProp/#pigeonhole_principle":
+      {"display": "pigeonhole_principle",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
    "peirce_cm":
    [{"id": "peirce_cm",
      "data":
@@ -3821,6 +3896,26 @@
         "Functions as Data",
         "Anonymous Functions"]}},
      "address": "/Poly/"}],
+   "pal_reverse":
+   [{"id": "pal_reverse",
+     "data":
+     {"/IndProp/#pal_reverse":
+      {"display": "pal_reverse",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "pal_app_reverse":
+   [{"id": "pal_app_reverse",
+     "data":
+     {"/IndProp/#pal_app_reverse":
+      {"display": "pal_app_reverse",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
    "orb_true_iff":
    [{"id": "orb_true_iff",
      "data":
@@ -4243,6 +4338,26 @@
         "Data and Functions",
         "New Types from Old"]}},
      "address": "/Basics/"}],
+   "merge_filter":
+   [{"id": "merge_filter",
+     "data":
+     {"/IndProp/#merge_filter":
+      {"display": "merge_filter",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "mem_split":
+   [{"id": "mem_split",
+     "data":
+     {"/IndProp/#mem_split":
+      {"display": "mem_split",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
    "map_rev":
    [{"id": "map_rev",
      "data":
@@ -4416,7 +4531,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "isZero":
-   [{"id": "isZero",
+   [{"id": "isZero-next",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4431,7 +4546,7 @@
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Using Code Actions to Generate Match Skeletons"]}},
      "address": "/UsingLean/"},
-    {"id": "isZero-next",
+    {"id": "isZero",
      "data":
      {"/UsingLean/#isZero-next":
       {"display": "isZero",
@@ -4548,6 +4663,17 @@
         "Data and Functions",
         "New Types from Old"]}},
      "address": "/Basics/"}],
+   "isDiagonal":
+   [{"id": "isDiagonal",
+     "data":
+     {"/IndProp/#isDiagonal":
+      {"display": "isDiagonal",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
    "inversion_ex2":
    [{"id": "inversion_ex2",
      "data":
@@ -4936,16 +5062,6 @@
         "Functions as Data",
         "Functions That Construct Functions"]}},
      "address": "/Poly/"}],
-   "fR":
-   [{"id": "fR",
-     "data":
-     {"/IndProp/#fR":
-      {"display": "fR",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
    "existsb_existsb'":
    [{"id": "existsb_existsb___",
      "data":
@@ -5067,6 +5183,17 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
+   "ev_plus4":
+   [{"id": "ev_plus4",
+     "data":
+     {"/IndProp/#ev_plus4":
+      {"display": "ev_plus4",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
+     "address": "/IndProp/"}],
    "ev_inversion":
    [{"id": "ev_inversion",
      "data":
@@ -5089,6 +5216,17 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
+   "ev_double":
+   [{"id": "ev_double",
+     "data":
+     {"/IndProp/#ev_double":
+      {"display": "ev_double",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
+     "address": "/IndProp/"}],
    "ev_4_ev_n":
    [{"id": "ev_4_ev_n",
      "data":
@@ -5099,6 +5237,39 @@
         "IndProp: Inductively Defined Propositions",
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
+     "address": "/IndProp/"}],
+   "ev_4''":
+   [{"id": "ev_4______",
+     "data":
+     {"/IndProp/#ev_4______":
+      {"display": "ev_4''",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
+     "address": "/IndProp/"}],
+   "ev_4'":
+   [{"id": "ev_4___",
+     "data":
+     {"/IndProp/#ev_4___":
+      {"display": "ev_4'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
+     "address": "/IndProp/"}],
+   "ev_4":
+   [{"id": "ev_4",
+     "data":
+     {"/IndProp/#ev_4":
+      {"display": "ev_4",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
    "ev5_nonsense":
    [{"id": "ev5_nonsense",
@@ -5122,16 +5293,6 @@
         "Using Evidence in Proofs",
         "Multiple Induction Hypotheses"]}},
      "address": "/IndProp/"}],
-   "eq_implies_succ_proj_equal":
-   [{"id": "eq_implies_succ_proj_equal",
-     "data":
-     {"/Tactics/#eq_implies_succ_proj_equal":
-      {"display": "eq_implies_succ_proj_equal",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  injection  and  contradiction  Tactics"]}},
-     "address": "/Tactics/"}],
    "eq_implies_succ_equal'":
    [{"id": "eq_implies_succ_equal___",
      "data":
@@ -5152,6 +5313,16 @@
         "Tactics: More Basic Tactics",
         "The  injection  and  contradiction  Tactics"]}},
      "address": "/Tactics/"}],
+   "empty_relation_is_empty":
+   [{"id": "empty_relation_is_empty",
+     "data":
+     {"/IndProp/#empty_relation_is_empty":
+      {"display": "empty_relation_is_empty",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
    "em_not_not":
    [{"id": "em_not_not",
      "data":
@@ -5322,6 +5493,16 @@
         "Tactics: More Basic Tactics",
         "The  injection  and  contradiction  Tactics"]}},
      "address": "/Tactics/"}],
+   "disjoint":
+   [{"id": "disjoint",
+     "data":
+     {"/IndProp/#disjoint":
+      {"display": "disjoint",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
    "discr_example":
    [{"id": "discr_example",
      "data":
@@ -5525,16 +5706,6 @@
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "ble_sound":
-   [{"id": "ble_sound",
-     "data":
-     {"/IndProp/#ble_sound":
-      {"display": "ble_sound",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
    "ble_plus_exists":
    [{"id": "ble_plus_exists",
      "data":
@@ -5562,6 +5733,16 @@
      "data":
      {"/IndProp/#ble_iff":
       {"display": "ble_iff",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
+   "ble_correct":
+   [{"id": "ble_correct",
+     "data":
+     {"/IndProp/#ble_correct":
+      {"display": "ble_correct",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -5922,6 +6103,26 @@
         "Inductively Defined Propositions",
         "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
+   "TotalRelation.tot":
+   [{"id": "TotalRelation___tot",
+     "data":
+     {"/IndProp/#TotalRelation___tot":
+      {"display": "tot",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
+   "TotalRelation":
+   [{"id": "TotalRelation",
+     "data":
+     {"/IndProp/#TotalRelation":
+      {"display": "TotalRelation",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
    "TotalMap.update_shadow":
    [{"id": "TotalMap___update_shadow",
      "data":
@@ -6166,6 +6367,36 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Total Maps"]}},
      "address": "/Typeclasses/"}],
+   "Repeats.rep_later":
+   [{"id": "Repeats___rep_later",
+     "data":
+     {"/IndProp/#Repeats___rep_later":
+      {"display": "rep_later",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "Repeats.rep_here":
+   [{"id": "Repeats___rep_here",
+     "data":
+     {"/IndProp/#Repeats___rep_here":
+      {"display": "rep_here",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "Repeats":
+   [{"id": "Repeats",
+     "data":
+     {"/IndProp/#Repeats":
+      {"display": "Repeats",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
    "RegExp.star_app":
    [{"id": "RegExp___star_app",
      "data":
@@ -6844,430 +7075,80 @@
         "Data and Functions",
         "New Types from Old"]}},
      "address": "/Basics/"}],
-   "R.total_relation_is_total":
-   [{"id": "R___total_relation_is_total",
+   "R.fR":
+   [{"id": "R___fR",
      "data":
-     {"/IndProp/#R___total_relation_is_total":
-      {"display": "total_relation_is_total",
+     {"/IndProp/#R___fR":
+      {"display": "fR",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.pigeonhole_principle":
-   [{"id": "R___pigeonhole_principle",
+   "R.R_equiv_fR":
+   [{"id": "R___R_equiv_fR",
      "data":
-     {"/IndProp/#R___pigeonhole_principle":
-      {"display": "pigeonhole_principle",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.pal_reverse":
-   [{"id": "R___pal_reverse",
-     "data":
-     {"/IndProp/#R___pal_reverse":
-      {"display": "pal_reverse",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.pal_app_reverse":
-   [{"id": "R___pal_app_reverse",
-     "data":
-     {"/IndProp/#R___pal_app_reverse":
-      {"display": "pal_app_reverse",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.merge_filter":
-   [{"id": "R___merge_filter",
-     "data":
-     {"/IndProp/#R___merge_filter":
-      {"display": "merge_filter",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.mem_split":
-   [{"id": "R___mem_split",
-     "data":
-     {"/IndProp/#R___mem_split":
-      {"display": "mem_split",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.empty_relation_is_empty":
-   [{"id": "R___empty_relation_is_empty",
-     "data":
-     {"/IndProp/#R___empty_relation_is_empty":
-      {"display": "empty_relation_is_empty",
+     {"/IndProp/#R___R_equiv_fR":
+      {"display": "R_equiv_fR",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.c5":
-   [{"id": "R___c5",
+   "R.R.c5":
+   [{"id": "R___R___c5",
      "data":
-     {"/IndProp/#R___c5":
+     {"/IndProp/#R___R___c5":
       {"display": "c5",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.c4":
-   [{"id": "R___c4",
+   "R.R.c4":
+   [{"id": "R___R___c4",
      "data":
-     {"/IndProp/#R___c4":
+     {"/IndProp/#R___R___c4":
       {"display": "c4",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.c3":
-   [{"id": "R___c3",
+   "R.R.c3":
+   [{"id": "R___R___c3",
      "data":
-     {"/IndProp/#R___c3":
+     {"/IndProp/#R___R___c3":
       {"display": "c3",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.c2":
-   [{"id": "R___c2",
+   "R.R.c2":
+   [{"id": "R___R___c2",
      "data":
-     {"/IndProp/#R___c2":
+     {"/IndProp/#R___R___c2":
       {"display": "c2",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.c1":
-   [{"id": "R___c1",
+   "R.R.c1":
+   [{"id": "R___R___c1",
      "data":
-     {"/IndProp/#R___c1":
+     {"/IndProp/#R___R___c1":
       {"display": "c1",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.TotalRelation.tot":
-   [{"id": "R___TotalRelation___tot",
+   "R.R":
+   [{"id": "R___R",
      "data":
-     {"/IndProp/#R___TotalRelation___tot":
-      {"display": "tot",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.TotalRelation":
-   [{"id": "R___TotalRelation",
-     "data":
-     {"/IndProp/#R___TotalRelation":
-      {"display": "TotalRelation",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Subseq.trans":
-   [{"id": "R___Subseq___trans",
-     "data":
-     {"/IndProp/#R___Subseq___trans":
-      {"display": "trans",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Subseq.sub_take":
-   [{"id": "R___Subseq___sub_take",
-     "data":
-     {"/IndProp/#R___Subseq___sub_take":
-      {"display": "sub_take",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Subseq.sub_skip":
-   [{"id": "R___Subseq___sub_skip",
-     "data":
-     {"/IndProp/#R___Subseq___sub_skip":
-      {"display": "sub_skip",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Subseq.sub_nil":
-   [{"id": "R___Subseq___sub_nil",
-     "data":
-     {"/IndProp/#R___Subseq___sub_nil":
-      {"display": "sub_nil",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Subseq.refl":
-   [{"id": "R___Subseq___refl",
-     "data":
-     {"/IndProp/#R___Subseq___refl":
-      {"display": "refl",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Subseq.app":
-   [{"id": "R___Subseq___app",
-     "data":
-     {"/IndProp/#R___Subseq___app":
-      {"display": "app",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Subseq":
-   [{"id": "R___Subseq",
-     "data":
-     {"/IndProp/#R___Subseq":
-      {"display": "Subseq",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Repeats.rep_later":
-   [{"id": "R___Repeats___rep_later",
-     "data":
-     {"/IndProp/#R___Repeats___rep_later":
-      {"display": "rep_later",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.Repeats.rep_here":
-   [{"id": "R___Repeats___rep_here",
-     "data":
-     {"/IndProp/#R___Repeats___rep_here":
-      {"display": "rep_here",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.Repeats":
-   [{"id": "R___Repeats",
-     "data":
-     {"/IndProp/#R___Repeats":
-      {"display": "Repeats",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.R.equiv_fR":
-   [{"id": "R___R___equiv_fR",
-     "data":
-     {"/IndProp/#R___R___equiv_fR":
-      {"display": "R.equiv_fR",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Pal.pal_one":
-   [{"id": "R___Pal___pal_one",
-     "data":
-     {"/IndProp/#R___Pal___pal_one":
-      {"display": "pal_one",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.Pal.pal_nil":
-   [{"id": "R___Pal___pal_nil",
-     "data":
-     {"/IndProp/#R___Pal___pal_nil":
-      {"display": "pal_nil",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.Pal.pal_consnoc":
-   [{"id": "R___Pal___pal_consnoc",
-     "data":
-     {"/IndProp/#R___Pal___pal_consnoc":
-      {"display": "pal_consnoc",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.Pal":
-   [{"id": "R___Pal",
-     "data":
-     {"/IndProp/#R___Pal":
-      {"display": "Pal",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.NoStutter.nostutter2":
-   [{"id": "R___NoStutter___nostutter2",
-     "data":
-     {"/IndProp/#R___NoStutter___nostutter2":
-      {"display": "nostutter2",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.NoStutter.nostutter1":
-   [{"id": "R___NoStutter___nostutter1",
-     "data":
-     {"/IndProp/#R___NoStutter___nostutter1":
-      {"display": "nostutter1",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.NoStutter.nostutter0":
-   [{"id": "R___NoStutter___nostutter0",
-     "data":
-     {"/IndProp/#R___NoStutter___nostutter0":
-      {"display": "nostutter0",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.NoStutter":
-   [{"id": "R___NoStutter",
-     "data":
-     {"/IndProp/#R___NoStutter":
-      {"display": "NoStutter",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.NoDup.NoDup_nil":
-   [{"id": "R___NoDup___NoDup_nil",
-     "data":
-     {"/IndProp/#R___NoDup___NoDup_nil":
-      {"display": "NoDup_nil",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.NoDup.NoDup_cons":
-   [{"id": "R___NoDup___NoDup_cons",
-     "data":
-     {"/IndProp/#R___NoDup___NoDup_cons":
-      {"display": "NoDup_cons",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.NoDup":
-   [{"id": "R___NoDup",
-     "data":
-     {"/IndProp/#R___NoDup":
-      {"display": "NoDup",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.Merge.merge_right":
-   [{"id": "R___Merge___merge_right",
-     "data":
-     {"/IndProp/#R___Merge___merge_right":
-      {"display": "merge_right",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.Merge.merge_left":
-   [{"id": "R___Merge___merge_left",
-     "data":
-     {"/IndProp/#R___Merge___merge_left":
-      {"display": "merge_left",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.Merge.merge_empty":
-   [{"id": "R___Merge___merge_empty",
-     "data":
-     {"/IndProp/#R___Merge___merge_empty":
-      {"display": "merge_empty",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.Merge":
-   [{"id": "R___Merge",
-     "data":
-     {"/IndProp/#R___Merge":
-      {"display": "Merge",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R.EmptyRelation":
-   [{"id": "R___EmptyRelation",
-     "data":
-     {"/IndProp/#R___EmptyRelation":
-      {"display": "EmptyRelation",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
-   "R.Disjoint":
-   [{"id": "R___Disjoint",
-     "data":
-     {"/IndProp/#R___Disjoint":
-      {"display": "Disjoint",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Additional Exercises"]}},
-     "address": "/IndProp/"}],
-   "R":
-   [{"id": "R",
-     "data":
-     {"/IndProp/#R":
+     {"/IndProp/#R___R":
       {"display": "R",
        "context":
        ["Logical Foundations",
@@ -7504,6 +7385,72 @@
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "Perm3_symm":
+   [{"id": "Perm3_symm",
+     "data":
+     {"/IndProp/#Perm3_symm":
+      {"display": "Perm3_symm",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
+   "Perm3_rev'":
+   [{"id": "Perm3_rev___",
+     "data":
+     {"/IndProp/#Perm3_rev___":
+      {"display": "Perm3_rev'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3_rev":
+   [{"id": "Perm3_rev",
+     "data":
+     {"/IndProp/#Perm3_rev":
+      {"display": "Perm3_rev",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3_refl":
+   [{"id": "Perm3_refl",
+     "data":
+     {"/IndProp/#Perm3_refl":
+      {"display": "Perm3_refl",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3_ex1":
+   [{"id": "Perm3_ex1",
+     "data":
+     {"/IndProp/#Perm3_ex1":
+      {"display": "Perm3_ex1",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3_NotIn":
+   [{"id": "Perm3_NotIn",
+     "data":
+     {"/IndProp/#Perm3_NotIn":
+      {"display": "Perm3_NotIn",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
    "Perm3_In_shortest":
    [{"id": "Perm3_In_shortest",
      "data":
@@ -7563,6 +7510,17 @@
         "Automation: More Automation",
         "The  simp  Tactic"]}},
      "address": "/Automation/"}],
+   "Perm3_In":
+   [{"id": "Perm3_In",
+     "data":
+     {"/IndProp/#Perm3_In":
+      {"display": "Perm3_In",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
    "Perm3Reminder.Perm3.perm3_trans":
    [{"id": "Perm3Reminder___Perm3___perm3_trans",
      "data":
@@ -7607,50 +7565,6 @@
         "Using Evidence in Proofs",
         "Multiple Induction Hypotheses"]}},
      "address": "/IndProp/"}],
-   "Perm3.symm":
-   [{"id": "Perm3___symm",
-     "data":
-     {"/IndProp/#Perm3___symm":
-      {"display": "symm",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Multiple Induction Hypotheses"]}},
-     "address": "/IndProp/"}],
-   "Perm3.rev'":
-   [{"id": "Perm3___rev___",
-     "data":
-     {"/IndProp/#Perm3___rev___":
-      {"display": "rev'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3.rev":
-   [{"id": "Perm3___rev",
-     "data":
-     {"/IndProp/#Perm3___rev":
-      {"display": "rev",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3.refl":
-   [{"id": "Perm3___refl",
-     "data":
-     {"/IndProp/#Perm3___refl":
-      {"display": "refl",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
    "Perm3.perm3_trans":
    [{"id": "Perm3___perm3_trans",
      "data":
@@ -7683,39 +7597,6 @@
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3.ex1":
-   [{"id": "Perm3___ex1",
-     "data":
-     {"/IndProp/#Perm3___ex1":
-      {"display": "ex1",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3.NotIn":
-   [{"id": "Perm3___NotIn",
-     "data":
-     {"/IndProp/#Perm3___NotIn":
-      {"display": "NotIn",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Multiple Induction Hypotheses"]}},
-     "address": "/IndProp/"}],
-   "Perm3.In":
-   [{"id": "Perm3___In",
-     "data":
-     {"/IndProp/#Perm3___In":
-      {"display": "In",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Multiple Induction Hypotheses"]}},
      "address": "/IndProp/"}],
    "Perm3":
    [{"id": "Perm3",
@@ -7959,6 +7840,46 @@
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "Pal.pal_one":
+   [{"id": "Pal___pal_one",
+     "data":
+     {"/IndProp/#Pal___pal_one":
+      {"display": "pal_one",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "Pal.pal_nil":
+   [{"id": "Pal___pal_nil",
+     "data":
+     {"/IndProp/#Pal___pal_nil":
+      {"display": "pal_nil",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "Pal.pal_consnoc":
+   [{"id": "Pal___pal_consnoc",
+     "data":
+     {"/IndProp/#Pal___pal_consnoc":
+      {"display": "pal_consnoc",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "Pal":
+   [{"id": "Pal",
+     "data":
+     {"/IndProp/#Pal":
+      {"display": "Pal",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
    "OptionPlayground.Option.some":
    [{"id": "OptionPlayground___Option___some",
      "data":
@@ -8003,6 +7924,76 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
+   "NoStutter.nostutter2":
+   [{"id": "NoStutter___nostutter2",
+     "data":
+     {"/IndProp/#NoStutter___nostutter2":
+      {"display": "nostutter2",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "NoStutter.nostutter1":
+   [{"id": "NoStutter___nostutter1",
+     "data":
+     {"/IndProp/#NoStutter___nostutter1":
+      {"display": "nostutter1",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "NoStutter.nostutter0":
+   [{"id": "NoStutter___nostutter0",
+     "data":
+     {"/IndProp/#NoStutter___nostutter0":
+      {"display": "nostutter0",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "NoStutter":
+   [{"id": "NoStutter",
+     "data":
+     {"/IndProp/#NoStutter":
+      {"display": "NoStutter",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "NoDup.NoDup_nil":
+   [{"id": "NoDup___NoDup_nil",
+     "data":
+     {"/IndProp/#NoDup___NoDup_nil":
+      {"display": "NoDup_nil",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "NoDup.NoDup_cons":
+   [{"id": "NoDup___NoDup_cons",
+     "data":
+     {"/IndProp/#NoDup___NoDup_cons":
+      {"display": "NoDup_cons",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "NoDup":
+   [{"id": "NoDup",
+     "data":
+     {"/IndProp/#NoDup":
+      {"display": "NoDup",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
    "NibbleStruct.x3":
    [{"id": "NibbleStruct___x3",
      "data":
@@ -10590,6 +10581,46 @@
         "Polymorphic Lists",
         "Supplying Type Arguments Explicitly"]}},
      "address": "/Poly/"}],
+   "Merge.merge_right":
+   [{"id": "Merge___merge_right",
+     "data":
+     {"/IndProp/#Merge___merge_right":
+      {"display": "merge_right",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "Merge.merge_left":
+   [{"id": "Merge___merge_left",
+     "data":
+     {"/IndProp/#Merge___merge_left":
+      {"display": "merge_left",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "Merge.merge_empty":
+   [{"id": "Merge___merge_empty",
+     "data":
+     {"/IndProp/#Merge___merge_empty":
+      {"display": "merge_empty",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
+   "Merge":
+   [{"id": "Merge",
+     "data":
+     {"/IndProp/#Merge":
+      {"display": "Merge",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Additional Exercises"]}},
+     "address": "/IndProp/"}],
    "Lists.surjective_pairing_cases":
    [{"id": "Lists___surjective_pairing_cases",
      "data":
@@ -10818,7 +10849,7 @@
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
-        "Structures"]}},
+        "Pairs of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'.fst":
    [{"id": "Lists___NatProd______fst",
@@ -10828,7 +10859,7 @@
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
-        "Structures"]}},
+        "Pairs of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'":
    [{"id": "Lists___NatProd___",
@@ -10838,7 +10869,7 @@
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
-        "Structures"]}},
+        "Pairs of Numbers"]}},
      "address": "/Lists/"}],
    "Lists.NatProd":
    [{"id": "Lists___NatProd",
@@ -12254,7 +12285,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -12265,7 +12296,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -12457,7 +12488,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary Relation for Comparing Numbers"]}},
+        "Example: Binary relation for comparing numbers"]}},
      "address": "/IndProp/"}],
    "LePlayground.Le.refl":
    [{"id": "LePlayground___Le___refl",
@@ -12468,7 +12499,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary Relation for Comparing Numbers"]}},
+        "Example: Binary relation for comparing numbers"]}},
      "address": "/IndProp/"}],
    "LePlayground.Le":
    [{"id": "LePlayground___Le",
@@ -12479,7 +12510,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary Relation for Comparing Numbers"]}},
+        "Example: Binary relation for comparing numbers"]}},
      "address": "/IndProp/"}],
    "KVPair.value":
    [{"id": "KVPair___value",
@@ -12565,11 +12596,11 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
-   "In":
-   [{"id": "In",
+   "In'":
+   [{"id": "In___",
      "data":
-     {"/IndProp/#In":
-      {"display": "In",
+     {"/IndProp/#In___":
+      {"display": "In'",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -12790,17 +12821,6 @@
         "Inductively Defined Propositions",
         "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
-   "Ev.plus4":
-   [{"id": "Ev___plus4",
-     "data":
-     {"/IndProp/#Ev___plus4":
-      {"display": "plus4",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
    "Ev.ev_succ_succ":
    [{"id": "Ev___ev_succ_succ",
      "data":
@@ -12817,17 +12837,6 @@
      "data":
      {"/IndProp/#Ev___ev_0":
       {"display": "ev_0",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "Ev.double":
-   [{"id": "Ev___double",
-     "data":
-     {"/IndProp/#Ev___double":
-      {"display": "double",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -12889,6 +12898,16 @@
         "Inductively Defined Propositions",
         "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
+   "EmptyRelation":
+   [{"id": "EmptyRelation",
+     "data":
+     {"/IndProp/#EmptyRelation":
+      {"display": "EmptyRelation",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Exercising with Inductive Relations"]}},
+     "address": "/IndProp/"}],
    "DiscrFun":
    [{"id": "DiscrFun",
      "data":
@@ -12896,17 +12915,6 @@
       {"display": "DiscrFun",
        "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
      "address": "/Logic/"}],
-   "Diagonal":
-   [{"id": "Diagonal",
-     "data":
-     {"/IndProp/#Diagonal":
-      {"display": "Diagonal",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Multiple Induction Hypotheses"]}},
-     "address": "/IndProp/"}],
    "DefaultValueScratch.natDefault":
    [{"id": "DefaultValueScratch___natDefault",
      "data":
@@ -13194,28 +13202,6 @@
         "Example: The Collatz Conjecture"]},
       "/IndProp/#CollatzHoldsFor":
       {"display": "CollatzHoldsFor",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "Collatz0'":
-   [{"id": "Collatz0___",
-     "data":
-     {"/IndProp/#Collatz0___":
-      {"display": "Collatz0'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "Collatz0":
-   [{"id": "Collatz0",
-     "data":
-     {"/IndProp/#Collatz0":
-      {"display": "Collatz0",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
