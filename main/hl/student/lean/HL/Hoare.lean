@@ -1203,12 +1203,11 @@ theorem hoare_consequence_post {P Q Q' : Assertion} {c : Com}
 
 theorem hoare_asgn_example1 :
     {{True}} X := 1 {{X = 1}} := by
-  all_goals
-    apply hoare_consequence_pre (P' := {{ (X = 1) [X ↦ 1] }})
-    · exact hoare_asgn
-    · rw [assertImplies_def]
-      intro st _
-      simp
+  apply hoare_consequence_pre (P' := {{ (X = 1) [X ↦ 1] }})
+  · exact hoare_asgn
+  · rw [assertImplies_def]
+    intro st _
+    simp
 
 -- We can also use it to prove the example mentioned earlier.
 
@@ -1223,13 +1222,12 @@ theorem assertion_sub_example2 :
     {{X < 4}}
       X := X + 1
     {{X < 5}} := by
-  all_goals
-    apply hoare_consequence_pre (P' := {{ (X < 5) [X ↦ X + 1] }})
-    · exact hoare_asgn
-    · rw [assertImplies_def]
-      intro st h
-      simp_all
-      lia
+  apply hoare_consequence_pre (P' := {{ (X < 5) [X ↦ X + 1] }})
+  · exact hoare_asgn
+  · rw [assertImplies_def]
+    intro st h
+    simp_all
+    lia
 
 -- Finally, here is a combined rule of consequence that allows us to vary both
 -- the precondition and the postcondition.

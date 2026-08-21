@@ -292,15 +292,14 @@ def Tm.IsStuck (t : Tm) : Prop := Tm.IsNormalForm t ∧ ¬ Tm.IsValue t
 -- ### Exercise (2 stars): some_term_is_stuck ⭐⭐
 
 theorem some_term_is_stuck : ∃ t, Tm.IsStuck t := by
-  all_goals
-    refine ⟨<{ succ false }>, ?_, ?_⟩
-    · intro hc; obtain ⟨t', hstp⟩ := hc
-      cases hstp with
-      | succStep _ _ h => cases h
-    · intro h
-      cases h with
-      | inl hb => cases hb
-      | inr hn => cases hn with | succ _ h => cases h
+  refine ⟨<{ succ false }>, ?_, ?_⟩
+  · intro hc; obtain ⟨t', hstp⟩ := hc
+    cases hstp with
+    | succStep _ _ h => cases h
+  · intro h
+    cases h with
+    | inl hb => cases hb
+    | inr hn => cases hn with | succ _ h => cases h
 
 -- However, although values and normal forms are *not* the same in this
 -- language, the set of values is a subset of the set of normal forms.
@@ -326,47 +325,45 @@ theorem nvalue_is_nf (t : Tm) (h : Tm.IsNValue t) : Tm.IsNormalForm t := by
 -- of the exercise, try to complete the proof both ways.)
 
 theorem value_is_nf (t : Tm) (h : Tm.IsValue t) : Tm.IsNormalForm t := by
-  all_goals
-    cases h with
-    | inl hb => intro hc; obtain ⟨t', hstp⟩ := hc; cases hb <;> cases hstp
-    | inr hn => exact nvalue_is_nf t hn
+  cases h with
+  | inl hb => intro hc; obtain ⟨t', hstp⟩ := hc; cases hb <;> cases hstp
+  | inr hn => exact nvalue_is_nf t hn
 
 -- The "other way" mentioned in the hint proves the same fact by induction on
 -- the term itself rather than on the evidence that it is a numeric value. It
 -- goes through, but is a bit longer than the `nvalue_is_nf` route above.
 
 theorem value_is_nf' : ∀ t, Tm.IsValue t → Tm.IsNormalForm t := by
-  all_goals
-    intro t
-    induction t with
-    | tru => intro _ hc; obtain ⟨t', hstp⟩ := hc; cases hstp
-    | fls => intro _ hc; obtain ⟨t', hstp⟩ := hc; cases hstp
-    | ite c t0 e _ _ _ =>
-        intro h; cases h with
-        | inl hb => cases hb
-        | inr hn => cases hn
-    | zero => intro _ hc; obtain ⟨t', hstp⟩ := hc; cases hstp
-    | succ t0 ih =>
-        -- The `succ` case is the only one that doesn't immediately present a
-        -- contradiction.  Considering how a `succ` term can be a value, it is
-        -- syntactically not a boolean value, but the numeric value case
-        -- requires a bit more work.
-        intro h hc; obtain ⟨t', hstp⟩ := hc
-        cases hstp with
-        | succStep _ t1' hstp' =>
-            cases h with
-            | inl hb => cases hb
-            -- By the IH, if `t0` is a numeric value, then it can not step.
-            | inr hn => cases hn with
-              | succ _ hn0 => exact ih (.inr hn0) ⟨t1', hstp'⟩
-    | pred t0 _ =>
-        intro h; cases h with
-        | inl hb => cases hb
-        | inr hn => cases hn
-    | isZero t0 _ =>
-        intro h; cases h with
-        | inl hb => cases hb
-        | inr hn => cases hn
+  intro t
+  induction t with
+  | tru => intro _ hc; obtain ⟨t', hstp⟩ := hc; cases hstp
+  | fls => intro _ hc; obtain ⟨t', hstp⟩ := hc; cases hstp
+  | ite c t0 e _ _ _ =>
+      intro h; cases h with
+      | inl hb => cases hb
+      | inr hn => cases hn
+  | zero => intro _ hc; obtain ⟨t', hstp⟩ := hc; cases hstp
+  | succ t0 ih =>
+      -- The `succ` case is the only one that doesn't immediately present a
+      -- contradiction.  Considering how a `succ` term can be a value, it is
+      -- syntactically not a boolean value, but the numeric value case
+      -- requires a bit more work.
+      intro h hc; obtain ⟨t', hstp⟩ := hc
+      cases hstp with
+      | succStep _ t1' hstp' =>
+          cases h with
+          | inl hb => cases hb
+          -- By the IH, if `t0` is a numeric value, then it can not step.
+          | inr hn => cases hn with
+            | succ _ hn0 => exact ih (.inr hn0) ⟨t1', hstp'⟩
+  | pred t0 _ =>
+      intro h; cases h with
+      | inl hb => cases hb
+      | inr hn => cases hn
+  | isZero t0 _ =>
+      intro h; cases h with
+      | inl hb => cases hb
+      | inr hn => cases hn
 
 -- ### Exercise (3 stars): step_deterministic ⭐⭐⭐
 
@@ -374,51 +371,50 @@ theorem value_is_nf' : ∀ t, Tm.IsValue t → Tm.IsNormalForm t := by
 -- relation is also deterministic.
 
 theorem step_deterministic : Deterministic Tm.Step := by
-  all_goals
-    intro x y1 y2 h1
-    induction h1 generalizing y2 with
-    | ifTrue t1 t2 =>
-        intro h2; cases h2 with
-        | ifTrue => rfl
-        | ifStep _ _ _ _ hc => cases hc
-    | ifFalse t1 t2 =>
-        intro h2; cases h2 with
-        | ifFalse => rfl
-        | ifStep _ _ _ _ hc => cases hc
-    | ifStep c c' t2 t3 hc ih =>
-        intro h2; cases h2 with
-        | ifTrue => cases hc
-        | ifFalse => cases hc
-        | ifStep _ c'' _ _ hc2 => rw [ih _ hc2]
-    | succStep t1 t1' hs ih =>
-        intro h2; cases h2 with
-        | succStep _ _ hs2 => rw [ih _ hs2]
-    | predZero =>
-        intro h2; cases h2 with
-        | predZero => rfl
-        | predStep _ _ hs => cases hs
-    | predSucc v hv =>
-        intro h2; cases h2 with
-        | predSucc => rfl
-        | predStep _ _ hs => exact absurd ⟨_, hs⟩ (nvalue_is_nf _ (.succ v hv))
-    | predStep t1 t1' hs ih =>
-        intro h2; cases h2 with
-        | predZero => cases hs
-        | predSucc _ hv => exact absurd ⟨_, hs⟩ (nvalue_is_nf _ (.succ _ hv))
-        | predStep _ _ hs2 => rw [ih _ hs2]
-    | isZeroZero =>
-        intro h2; cases h2 with
-        | isZeroZero => rfl
-        | isZeroStep _ _ hs => cases hs
-    | isZeroSucc v hv =>
-        intro h2; cases h2 with
-        | isZeroSucc => rfl
-        | isZeroStep _ _ hs => exact absurd ⟨_, hs⟩ (nvalue_is_nf _ (.succ v hv))
-    | isZeroStep t1 t1' hs ih =>
-        intro h2; cases h2 with
-        | isZeroZero => cases hs
-        | isZeroSucc _ hv => exact absurd ⟨_, hs⟩ (nvalue_is_nf _ (.succ _ hv))
-        | isZeroStep _ _ hs2 => rw [ih _ hs2]
+  intro x y1 y2 h1
+  induction h1 generalizing y2 with
+  | ifTrue t1 t2 =>
+      intro h2; cases h2 with
+      | ifTrue => rfl
+      | ifStep _ _ _ _ hc => cases hc
+  | ifFalse t1 t2 =>
+      intro h2; cases h2 with
+      | ifFalse => rfl
+      | ifStep _ _ _ _ hc => cases hc
+  | ifStep c c' t2 t3 hc ih =>
+      intro h2; cases h2 with
+      | ifTrue => cases hc
+      | ifFalse => cases hc
+      | ifStep _ c'' _ _ hc2 => rw [ih _ hc2]
+  | succStep t1 t1' hs ih =>
+      intro h2; cases h2 with
+      | succStep _ _ hs2 => rw [ih _ hs2]
+  | predZero =>
+      intro h2; cases h2 with
+      | predZero => rfl
+      | predStep _ _ hs => cases hs
+  | predSucc v hv =>
+      intro h2; cases h2 with
+      | predSucc => rfl
+      | predStep _ _ hs => exact absurd ⟨_, hs⟩ (nvalue_is_nf _ (.succ v hv))
+  | predStep t1 t1' hs ih =>
+      intro h2; cases h2 with
+      | predZero => cases hs
+      | predSucc _ hv => exact absurd ⟨_, hs⟩ (nvalue_is_nf _ (.succ _ hv))
+      | predStep _ _ hs2 => rw [ih _ hs2]
+  | isZeroZero =>
+      intro h2; cases h2 with
+      | isZeroZero => rfl
+      | isZeroStep _ _ hs => cases hs
+  | isZeroSucc v hv =>
+      intro h2; cases h2 with
+      | isZeroSucc => rfl
+      | isZeroStep _ _ hs => exact absurd ⟨_, hs⟩ (nvalue_is_nf _ (.succ v hv))
+  | isZeroStep t1 t1' hs ih =>
+      intro h2; cases h2 with
+      | isZeroZero => cases hs
+      | isZeroSucc _ hv => exact absurd ⟨_, hs⟩ (nvalue_is_nf _ (.succ _ hv))
+      | isZeroStep _ _ hs2 => rw [ih _ hs2]
 
 -- _Quiz:_
 
@@ -680,8 +676,7 @@ example :
 -- ### Exercise (1 star): succ_hastype_nat__hastype_nat ⭐
 
 example (t : Tm) (h : <{ ⊢ succ t ⦂ Nat }>) : <{ ⊢ t ⦂ Nat }> := by
-  all_goals
-    cases h with | succ _ hh => exact hh
+  cases h with | succ _ hh => exact hh
 
 -- ### Canonical forms
 
@@ -716,40 +711,39 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : 
 -- exercise before starting — this will save you a lot of time.)
 
 theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
-  all_goals
-    induction hT with
-    | tru => exact .inl (.inl .tru)
-    | fls => exact .inl (.inl .fls)
-    | zero => exact .inl (.inr .zero)
-    | ite t1 t2 t3 T h1 h2 h3 ih1 ih2 ih3 =>
-        right
-        cases ih1 with
-        | inl hv1 =>
-            cases bool_canonical t1 h1 hv1 with
-            | tru => exact ⟨t2, .ifTrue t2 t3⟩
-            | fls => exact ⟨t3, .ifFalse t2 t3⟩
-        | inr hs1 => obtain ⟨t1', h⟩ := hs1
-                     exact ⟨<{ if t1' then t2 else t3 }>, .ifStep t1 t1' t2 t3 h⟩
-    | succ t1 h ih =>
-        cases ih with
-        | inl hv => exact .inl (.inr (.succ t1 (nat_canonical t1 h hv)))
-        | inr hs => obtain ⟨t', h'⟩ := hs; exact .inr ⟨<{ succ t' }>, .succStep t1 t' h'⟩
-    | pred t1 h ih =>
-        right
-        cases ih with
-        | inl hv =>
-            cases nat_canonical t1 h hv with
-            | zero => exact ⟨<{ 0 }>, .predZero⟩
-            | succ t0 hn0 => exact ⟨t0, .predSucc t0 hn0⟩
-        | inr hs => obtain ⟨t', h'⟩ := hs; exact ⟨<{ pred t' }>, .predStep t1 t' h'⟩
-    | isZero t1 h ih =>
-        right
-        cases ih with
-        | inl hv =>
-            cases nat_canonical t1 h hv with
-            | zero => exact ⟨<{ true }>, .isZeroZero⟩
-            | succ t0 hn0 => exact ⟨<{ false }>, .isZeroSucc t0 hn0⟩
-        | inr hs => obtain ⟨t', h'⟩ := hs; exact ⟨<{ iszero t' }>, .isZeroStep t1 t' h'⟩
+  induction hT with
+  | tru => exact .inl (.inl .tru)
+  | fls => exact .inl (.inl .fls)
+  | zero => exact .inl (.inr .zero)
+  | ite t1 t2 t3 T h1 h2 h3 ih1 ih2 ih3 =>
+      right
+      cases ih1 with
+      | inl hv1 =>
+          cases bool_canonical t1 h1 hv1 with
+          | tru => exact ⟨t2, .ifTrue t2 t3⟩
+          | fls => exact ⟨t3, .ifFalse t2 t3⟩
+      | inr hs1 => obtain ⟨t1', h⟩ := hs1
+                   exact ⟨<{ if t1' then t2 else t3 }>, .ifStep t1 t1' t2 t3 h⟩
+  | succ t1 h ih =>
+      cases ih with
+      | inl hv => exact .inl (.inr (.succ t1 (nat_canonical t1 h hv)))
+      | inr hs => obtain ⟨t', h'⟩ := hs; exact .inr ⟨<{ succ t' }>, .succStep t1 t' h'⟩
+  | pred t1 h ih =>
+      right
+      cases ih with
+      | inl hv =>
+          cases nat_canonical t1 h hv with
+          | zero => exact ⟨<{ 0 }>, .predZero⟩
+          | succ t0 hn0 => exact ⟨t0, .predSucc t0 hn0⟩
+      | inr hs => obtain ⟨t', h'⟩ := hs; exact ⟨<{ pred t' }>, .predStep t1 t' h'⟩
+  | isZero t1 h ih =>
+      right
+      cases ih with
+      | inl hv =>
+          cases nat_canonical t1 h hv with
+          | zero => exact ⟨<{ true }>, .isZeroZero⟩
+          | succ t0 hn0 => exact ⟨<{ false }>, .isZeroSucc t0 hn0⟩
+      | inr hs => obtain ⟨t', h'⟩ := hs; exact ⟨<{ iszero t' }>, .isZeroStep t1 t' h'⟩
 
 attribute [autogradedProof 3] TM.progress
 
@@ -886,29 +880,28 @@ attribute [autogradedProof 3] TM.progress
 -- first.)
 
 theorem preservation (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ T }> := by
-  all_goals
-    induction hT generalizing t' with
-    | tru => cases he
-    | fls => cases he
-    | zero => cases he
-    | ite t1 t2 t3 T h1 h2 h3 ih1 ih2 ih3 =>
-        cases he with
-        | ifTrue => exact h2
-        | ifFalse => exact h3
-        | ifStep _ c' _ _ hc => exact .ite c' t2 t3 T (ih1 c' hc) h2 h3
-    | succ t1 h ih =>
-        cases he with
-        | succStep _ t1' hs => exact .succ t1' (ih t1' hs)
-    | pred t1 h ih =>
-        cases he with
-        | predZero => exact .zero
-        | predSucc v hv => cases h with | succ _ hh => exact hh
-        | predStep _ t1' hs => exact .pred t1' (ih t1' hs)
-    | isZero t1 h ih =>
-        cases he with
-        | isZeroZero => exact .tru
-        | isZeroSucc v hv => exact .fls
-        | isZeroStep _ t1' hs => exact .isZero t1' (ih t1' hs)
+  induction hT generalizing t' with
+  | tru => cases he
+  | fls => cases he
+  | zero => cases he
+  | ite t1 t2 t3 T h1 h2 h3 ih1 ih2 ih3 =>
+      cases he with
+      | ifTrue => exact h2
+      | ifFalse => exact h3
+      | ifStep _ c' _ _ hc => exact .ite c' t2 t3 T (ih1 c' hc) h2 h3
+  | succ t1 h ih =>
+      cases he with
+      | succStep _ t1' hs => exact .succ t1' (ih t1' hs)
+  | pred t1 h ih =>
+      cases he with
+      | predZero => exact .zero
+      | predSucc v hv => cases h with | succ _ hh => exact hh
+      | predStep _ t1' hs => exact .pred t1' (ih t1' hs)
+  | isZero t1 h ih =>
+      cases he with
+      | isZeroZero => exact .tru
+      | isZeroSucc v hv => exact .fls
+      | isZeroStep _ t1' hs => exact .isZero t1' (ih t1' hs)
 
 attribute [autogradedProof 2] TM.preservation
 
@@ -989,19 +982,18 @@ attribute [autogradedProof 2] TM.preservation
 -- but not exactly the same.
 
 theorem preservation' (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ T }> := by
-  all_goals
-    induction he generalizing T with
-    | ifTrue t1 t2 => cases hT with | ite _ _ _ _ h1 h2 h3 => exact h2
-    | ifFalse t1 t2 => cases hT with | ite _ _ _ _ h1 h2 h3 => exact h3
-    | ifStep c c' t2 t3 hc ih =>
-        cases hT with | ite _ _ _ _ h1 h2 h3 => exact .ite c' t2 t3 T (ih .bool h1) h2 h3
-    | succStep t1 t1' hs ih => cases hT with | succ _ h => exact .succ t1' (ih .nat h)
-    | predZero => cases hT with | pred _ h => exact .zero
-    | predSucc v hv => cases hT with | pred _ h => cases h with | succ _ hh => exact hh
-    | predStep t1 t1' hs ih => cases hT with | pred _ h => exact .pred t1' (ih .nat h)
-    | isZeroZero => cases hT with | isZero _ h => exact .tru
-    | isZeroSucc v hv => cases hT with | isZero _ h => exact .fls
-    | isZeroStep t1 t1' hs ih => cases hT with | isZero _ h => exact .isZero t1' (ih .nat h)
+  induction he generalizing T with
+  | ifTrue t1 t2 => cases hT with | ite _ _ _ _ h1 h2 h3 => exact h2
+  | ifFalse t1 t2 => cases hT with | ite _ _ _ _ h1 h2 h3 => exact h3
+  | ifStep c c' t2 t3 hc ih =>
+      cases hT with | ite _ _ _ _ h1 h2 h3 => exact .ite c' t2 t3 T (ih .bool h1) h2 h3
+  | succStep t1 t1' hs ih => cases hT with | succ _ h => exact .succ t1' (ih .nat h)
+  | predZero => cases hT with | pred _ h => exact .zero
+  | predSucc v hv => cases hT with | pred _ h => cases h with | succ _ hh => exact hh
+  | predStep t1 t1' hs ih => cases hT with | pred _ h => exact .pred t1' (ih .nat h)
+  | isZeroZero => cases hT with | isZero _ h => exact .tru
+  | isZeroSucc v hv => cases hT with | isZero _ h => exact .fls
+  | isZeroStep t1 t1' hs ih => cases hT with | isZero _ h => exact .isZero t1' (ih .nat h)
 
 attribute [autogradedProof 3] TM.preservation'
 
@@ -1070,12 +1062,11 @@ theorem soundness (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (hm : t ⟶* t')
 theorem subject_expansion :
     (∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ <{ ⊢ t' ⦂ T }> → <{ ⊢ t ⦂ T }>)
     ∨ ¬ (∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ <{ ⊢ t' ⦂ T }> → <{ ⊢ t ⦂ T }>) := by
-  all_goals
-    right
-    intro hse
-    have hT : <{ ⊢ if false then true else 0 ⦂ Nat }> :=
-      hse <{ if false then true else 0 }> <{ 0 }> .nat ⟨.ifFalse <{ true }> <{ 0 }>, .zero⟩
-    cases hT with | ite _ _ _ _ h1 h2 h3 => cases h2
+  right
+  intro hse
+  have hT : <{ ⊢ if false then true else 0 ⦂ Nat }> :=
+    hse <{ if false then true else 0 }> <{ 0 }> .nat ⟨.ifFalse <{ true }> <{ 0 }>, .zero⟩
+  cases hT with | ite _ _ _ _ h1 h2 h3 => cases h2
 
 end TM
 

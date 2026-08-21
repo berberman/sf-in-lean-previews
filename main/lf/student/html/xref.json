@@ -390,43 +390,29 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Varying-the-Induction-Hypothesis":
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations":
    [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Varying-the-Induction-Hypothesis",
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations",
      "data":
-     {"title": "Varying the Induction Hypothesis",
+     {"title": "Splitting with Equations",
       "shortTitle": null,
-      "sectionNum": "7.5.",
+      "sectionNum": "7.7.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
         "number": "7"},
-       {"title": "Varying the Induction Hypothesis",
-        "shortTitle": null,
-        "number": "5"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using-Tactics-on-Hypotheses":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using-Tactics-on-Hypotheses",
-     "data":
-     {"title": "Using Tactics on Hypotheses",
-      "shortTitle": null,
-      "sectionNum": "7.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
+       {"title": "Using  cases  on Expressions",
         "shortTitle": null,
         "number": "7"},
-       {"title": "Using Tactics on Hypotheses",
+       {"title": "Splitting with Equations",
         "shortTitle": null,
-        "number": "3"}]},
+        "number": "2"}]},
      "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions--Destructing-Tuples":
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Destructing-Tuples":
    [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions--Destructing-Tuples",
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Destructing-Tuples",
      "data":
      {"title": "Destructing Tuples",
       "shortTitle": null,
@@ -437,16 +423,16 @@
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
         "number": "7"},
-       {"title": "Using  cases  on Compound Expressions",
+       {"title": "Using  cases  on Expressions",
         "shortTitle": null,
         "number": "7"},
        {"title": "Destructing Tuples", "shortTitle": null, "number": "1"}]},
      "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions":
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions":
    [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Compound-Expressions",
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions",
      "data":
-     {"title": "Using  cases  on Compound Expressions",
+     {"title": "Using  cases  on Expressions",
       "shortTitle": null,
       "sectionNum": "7.7.",
       "searchPriority": 50,
@@ -455,9 +441,62 @@
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
         "number": "7"},
-       {"title": "Using  cases  on Compound Expressions",
+       {"title": "Using  cases  on Expressions",
         "shortTitle": null,
         "number": "7"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--apply--on-Hypotheses":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--apply--on-Hypotheses",
+     "data":
+     {"title": "Using  apply  on Hypotheses",
+      "shortTitle": null,
+      "sectionNum": "7.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Using  apply  on Hypotheses",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics--Quizzes":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics--Quizzes",
+     "data":
+     {"title": "Quizzes",
+      "shortTitle": null,
+      "sectionNum": "7.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "The  injection  and  contradiction  Tactics",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Quizzes", "shortTitle": null, "number": "2"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics--Injectivity":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics--Injectivity",
+     "data":
+     {"title": "Injectivity",
+      "shortTitle": null,
+      "sectionNum": "7.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "The  injection  and  contradiction  Tactics",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Injectivity", "shortTitle": null, "number": "1"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--The--injection--and--contradiction--Tactics":
    [{"id":
@@ -543,6 +582,22 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Review--Additional-Exercises":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Review--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "7.8.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Review", "shortTitle": null, "number": "8"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
+     "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Review":
    [{"id": "Logical-Foundations--Tactics___-More-Basic-Tactics--Review",
      "data":
@@ -556,6 +611,23 @@
         "shortTitle": null,
         "number": "7"},
        {"title": "Review", "shortTitle": null, "number": "8"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Generalizing-the-Induction-Hypothesis":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Generalizing-the-Induction-Hypothesis",
+     "data":
+     {"title": "Generalizing the Induction Hypothesis",
+      "shortTitle": null,
+      "sectionNum": "7.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Generalizing the Induction Hypothesis",
+        "shortTitle": null,
+        "number": "5"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Preface--Welcome":
    [{"id": "Logical-Foundations--Preface--Welcome",
@@ -1280,20 +1352,35 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures",
      "data":
-     {"title": "List Exercises, Part 2",
+     {"title": "Structures",
       "shortTitle": null,
-      "sectionNum": "5.3.3.",
+      "sectionNum": "5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
+       {"title": "Structures", "shortTitle": null, "number": "2"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2",
+     "data":
+     {"title": "List Exercises, Part 2",
+      "shortTitle": null,
+      "sectionNum": "5.4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
        {"title": "List Exercises, Part 2", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
@@ -1302,14 +1389,14 @@
      "data":
      {"title": "List Exercises, Part 1",
       "shortTitle": null,
-      "sectionNum": "5.3.2.",
+      "sectionNum": "5.4.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
        {"title": "List Exercises, Part 1", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Induction-on-Lists--Reversing-a-List":
@@ -1318,14 +1405,14 @@
      "data":
      {"title": "Reversing a List",
       "shortTitle": null,
-      "sectionNum": "5.3.1.2.",
+      "sectionNum": "5.4.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Reversing a List", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
@@ -1335,14 +1422,14 @@
      "data":
      {"title": "Generalizing Statements",
       "shortTitle": null,
-      "sectionNum": "5.3.1.1.",
+      "sectionNum": "5.4.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Generalizing Statements",
         "shortTitle": null,
@@ -1354,14 +1441,14 @@
      "data":
      {"title": "Induction on Lists",
       "shortTitle": null,
-      "sectionNum": "5.3.1.",
+      "sectionNum": "5.4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists":
@@ -1370,14 +1457,14 @@
      "data":
      {"title": "Reasoning About Lists",
       "shortTitle": null,
-      "sectionNum": "5.3.",
+      "sectionNum": "5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"}]},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Partial-Maps":
    [{"id":
@@ -1385,14 +1472,14 @@
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "5.5.",
+      "sectionNum": "5.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Partial Maps", "shortTitle": null, "number": "5"}]},
+       {"title": "Partial Maps", "shortTitle": null, "number": "6"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers":
    [{"id":
@@ -1415,14 +1502,14 @@
      "data":
      {"title": "Options",
       "shortTitle": null,
-      "sectionNum": "5.4.",
+      "sectionNum": "5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Options", "shortTitle": null, "number": "4"}]},
+       {"title": "Options", "shortTitle": null, "number": "5"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail":
    [{"id":
@@ -1430,14 +1517,14 @@
      "data":
      {"title": "Head and Tail",
       "shortTitle": null,
-      "sectionNum": "5.2.3.1.",
+      "sectionNum": "5.3.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
         "number": "3"},
@@ -1449,14 +1536,14 @@
      "data":
      {"title": "Exercises",
       "shortTitle": null,
-      "sectionNum": "5.2.3.2.",
+      "sectionNum": "5.3.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
         "number": "3"},
@@ -1468,14 +1555,14 @@
      "data":
      {"title": "Type Classes and Overloading",
       "shortTitle": null,
-      "sectionNum": "5.2.3.",
+      "sectionNum": "5.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
        {"title": "Type Classes and Overloading",
         "shortTitle": null,
         "number": "3"}]},
@@ -1486,14 +1573,14 @@
      "data":
      {"title": "Repeat",
       "shortTitle": null,
-      "sectionNum": "5.2.1.",
+      "sectionNum": "5.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
        {"title": "Repeat", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing":
@@ -1502,14 +1589,14 @@
      "data":
      {"title": "Removing",
       "shortTitle": null,
-      "sectionNum": "5.2.6.",
+      "sectionNum": "5.3.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
        {"title": "Removing", "shortTitle": null, "number": "6"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Membership":
@@ -1518,14 +1605,14 @@
      "data":
      {"title": "Membership",
       "shortTitle": null,
-      "sectionNum": "5.2.5.",
+      "sectionNum": "5.3.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
        {"title": "Membership", "shortTitle": null, "number": "5"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Included":
@@ -1534,14 +1621,14 @@
      "data":
      {"title": "Included",
       "shortTitle": null,
-      "sectionNum": "5.2.7.",
+      "sectionNum": "5.3.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
        {"title": "Included", "shortTitle": null, "number": "7"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Counting":
@@ -1550,14 +1637,14 @@
      "data":
      {"title": "Counting",
       "shortTitle": null,
-      "sectionNum": "5.2.4.",
+      "sectionNum": "5.3.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
        {"title": "Counting", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Append":
@@ -1566,14 +1653,14 @@
      "data":
      {"title": "Append",
       "shortTitle": null,
-      "sectionNum": "5.2.2.",
+      "sectionNum": "5.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
        {"title": "Append", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers":
@@ -1582,14 +1669,14 @@
      "data":
      {"title": "Lists of Numbers",
       "shortTitle": null,
-      "sectionNum": "5.2.",
+      "sectionNum": "5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Separate-Compilation":
    [{"id":
@@ -1917,11 +2004,11 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers":
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers":
    [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-relation-for-comparing-numbers",
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers",
      "data":
-     {"title": "Example: Binary relation for comparing numbers",
+     {"title": "Example: Binary Relation for Comparing Numbers",
       "shortTitle": null,
       "sectionNum": "9.1.2.",
       "searchPriority": 50,
@@ -1933,7 +2020,7 @@
        {"title": "Inductively Defined Propositions",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Example: Binary relation for comparing numbers",
+       {"title": "Example: Binary Relation for Comparing Numbers",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/IndProp/"}],
@@ -2910,16 +2997,6 @@
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
-   "zero_ble":
-   [{"id": "zero_ble",
-     "data":
-     {"/Tactics/#zero_ble":
-      {"display": "zero_ble",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Rewriting with Conditional Statements"]}},
-     "address": "/Tactics/"}],
    "zeroNibble":
    [{"id": "zeroNibble",
      "data":
@@ -2942,82 +3019,6 @@
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Definitional Simplification:  dsimp"]}},
      "address": "/UsingLean/"}],
-   "trans_eq_example_exact":
-   [{"id": "trans_eq_example_exact",
-     "data":
-     {"/Tactics/#trans_eq_example_exact":
-      {"display": "trans_eq_example_exact",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic",
-        "Supplying arguments to  apply"]}},
-     "address": "/Tactics/"}],
-   "trans_eq_example''''''":
-   [{"id": "trans_eq_example__________________",
-     "data":
-     {"/Tactics/#trans_eq_example__________________":
-      {"display": "trans_eq_example''''''",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Specializing Hypotheses"]}},
-     "address": "/Tactics/"}],
-   "trans_eq_example'''''":
-   [{"id": "trans_eq_example_______________",
-     "data":
-     {"/Tactics/#trans_eq_example_______________":
-      {"display": "trans_eq_example'''''",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic",
-        "Supplying arguments to  apply"]}},
-     "address": "/Tactics/"}],
-   "trans_eq_example''''":
-   [{"id": "trans_eq_example____________",
-     "data":
-     {"/Tactics/#trans_eq_example____________":
-      {"display": "trans_eq_example''''",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic",
-        "Supplying arguments to  apply"]}},
-     "address": "/Tactics/"}],
-   "trans_eq_example'''":
-   [{"id": "trans_eq_example_________",
-     "data":
-     {"/Tactics/#trans_eq_example_________":
-      {"display": "trans_eq_example'''",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic",
-        "Supplying arguments to  apply"]}},
-     "address": "/Tactics/"}],
-   "trans_eq_example''":
-   [{"id": "trans_eq_example______",
-     "data":
-     {"/Tactics/#trans_eq_example______":
-      {"display": "trans_eq_example''",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic",
-        "Supplying arguments to  apply"]}},
-     "address": "/Tactics/"}],
-   "trans_eq_example":
-   [{"id": "trans_eq_example",
-     "data":
-     {"/Tactics/#trans_eq_example":
-      {"display": "trans_eq_example",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic",
-        "Supplying arguments to  apply"]}},
-     "address": "/Tactics/"}],
    "trans_eq":
    [{"id": "trans_eq",
      "data":
@@ -3050,16 +3051,6 @@
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Structuring Proofs with  calc"]}},
      "address": "/UsingLean/"}],
-   "succ_injective'":
-   [{"id": "succ_injective___",
-     "data":
-     {"/Tactics/#succ_injective___":
-      {"display": "succ_injective'",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  injection  and  contradiction  Tactics"]}},
-     "address": "/Tactics/"}],
    "succ_inj'":
    [{"id": "succ_inj___",
      "data":
@@ -3067,36 +3058,6 @@
       {"display": "succ_inj'",
        "context": ["Logical Foundations", "Logic in Lean", "The  Prop  Type"]}},
      "address": "/Logic/"}],
-   "succ_inj":
-   [{"id": "succ_inj",
-     "data":
-     {"/Tactics/#succ_inj":
-      {"display": "succ_inj",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using Tactics on Hypotheses"]}},
-     "address": "/Tactics/"}],
-   "succ_ble_succ":
-   [{"id": "succ_ble_succ",
-     "data":
-     {"/Tactics/#succ_ble_succ":
-      {"display": "succ_ble_succ",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Rewriting with Conditional Statements"]}},
-     "address": "/Tactics/"}],
-   "sub_add_ble":
-   [{"id": "sub_add_ble",
-     "data":
-     {"/Tactics/#sub_add_ble":
-      {"display": "sub_add_ble",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Rewriting with Conditional Statements"]}},
-     "address": "/Tactics/"}],
    "square":
    [{"id": "square",
      "data":
@@ -3107,17 +3068,6 @@
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Definitional Simplification:  dsimp"]}},
      "address": "/UsingLean/"}],
-   "split":
-   [{"id": "split",
-     "data":
-     {"/Tactics/#split":
-      {"display": "split",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using  cases  on Compound Expressions",
-        "Destructing Tuples"]}},
-     "address": "/Tactics/"}],
    "simp_lemmas_example.add_zero":
    [{"id": "simp_lemmas_example___add_zero",
      "data":
@@ -3168,98 +3118,6 @@
         "Automation: More Automation",
         "The  simp  Tactic"]}},
      "address": "/Automation/"}],
-   "sillyfun_false":
-   [{"id": "sillyfun_false",
-     "data":
-     {"/Tactics/#sillyfun_false":
-      {"display": "sillyfun_false",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using  cases  on Compound Expressions"]}},
-     "address": "/Tactics/"}],
-   "sillyfun1_odd":
-   [{"id": "sillyfun1_odd",
-     "data":
-     {"/Tactics/#sillyfun1_odd":
-      {"display": "sillyfun1_odd",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using  cases  on Compound Expressions",
-        "Destructing Tuples"]}},
-     "address": "/Tactics/"}],
-   "sillyfun1":
-   [{"id": "sillyfun1",
-     "data":
-     {"/Tactics/#sillyfun1":
-      {"display": "sillyfun1",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using  cases  on Compound Expressions",
-        "Destructing Tuples"]}},
-     "address": "/Tactics/"}],
-   "sillyfun":
-   [{"id": "sillyfun",
-     "data":
-     {"/Tactics/#sillyfun":
-      {"display": "sillyfun",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using  cases  on Compound Expressions"]}},
-     "address": "/Tactics/"}],
-   "silly4":
-   [{"id": "silly4",
-     "data":
-     {"/Tactics/#silly4":
-      {"display": "silly4",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Using Tactics on Hypotheses"]}},
-     "address": "/Tactics/"}],
-   "silly3":
-   [{"id": "silly3",
-     "data":
-     {"/Tactics/#silly3":
-      {"display": "silly3",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic"]}},
-     "address": "/Tactics/"}],
-   "silly2a":
-   [{"id": "silly2a",
-     "data":
-     {"/Tactics/#silly2a":
-      {"display": "silly2a",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic"]}},
-     "address": "/Tactics/"}],
-   "silly2":
-   [{"id": "silly2",
-     "data":
-     {"/Tactics/#silly2":
-      {"display": "silly2",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic"]}},
-     "address": "/Tactics/"}],
-   "silly1":
-   [{"id": "silly1",
-     "data":
-     {"/Tactics/#silly1":
-      {"display": "silly1",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic"]}},
-     "address": "/Tactics/"}],
    "silly.mk3":
    [{"id": "silly___mk3",
      "data":
@@ -3328,16 +3186,6 @@
         "Polymorphic Lists",
         "Exercises"]}},
      "address": "/Poly/"}],
-   "rev_exercise1":
-   [{"id": "rev_exercise1",
-     "data":
-     {"/Tactics/#rev_exercise1":
-      {"display": "rev_exercise1",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  apply  Tactic"]}},
-     "address": "/Tactics/"}],
    "rev_cons":
    [{"id": "rev_cons",
      "data":
@@ -3394,16 +3242,6 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "replace_example":
-   [{"id": "replace_example",
-     "data":
-     {"/Tactics/#replace_example":
-      {"display": "replace_example",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Specializing Hypotheses"]}},
-     "address": "/Tactics/"}],
    "reaches1In":
    [{"id": "reaches1In",
      "data":
@@ -3741,6 +3579,16 @@
         "Polymorphism",
         "Polymorphic Lists"]}},
      "address": "/Poly/"}],
+   "length_append_self":
+   [{"id": "length_append_self",
+     "data":
+     {"/Tactics/#length_append_self":
+      {"display": "length_append_self",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Rewriting with Conditional Statements"]}},
+     "address": "/Tactics/"}],
    "left":
    [{"id": "left",
      "data":
@@ -3752,6 +3600,52 @@
         "Logical Connectives",
         "Conjunction"]}},
      "address": "/Logic/"}],
+   "keepIf_some":
+   [{"id": "keepIf_some",
+     "data":
+     {"/Tactics/#keepIf_some-next":
+      {"display": "keepIf_some",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Using  cases  on Expressions",
+        "Splitting with Equations"]},
+      "/Tactics/#keepIf_some":
+      {"display": "keepIf_some",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Using  cases  on Expressions",
+        "Splitting with Equations"]}},
+     "address": "/Tactics/"},
+    {"id": "keepIf_some-next",
+     "data":
+     {"/Tactics/#keepIf_some-next":
+      {"display": "keepIf_some",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Using  cases  on Expressions",
+        "Splitting with Equations"]},
+      "/Tactics/#keepIf_some":
+      {"display": "keepIf_some",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Using  cases  on Expressions",
+        "Splitting with Equations"]}},
+     "address": "/Tactics/"}],
+   "keepIf":
+   [{"id": "keepIf",
+     "data":
+     {"/Tactics/#keepIf":
+      {"display": "keepIf",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Using  cases  on Expressions",
+        "Splitting with Equations"]}},
+     "address": "/Tactics/"}],
    "is_even_prime":
    [{"id": "is_even_prime",
      "data":
@@ -3826,17 +3720,6 @@
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
-   "isDiagonal":
-   [{"id": "isDiagonal",
-     "data":
-     {"/IndProp/#isDiagonal":
-      {"display": "isDiagonal",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Multiple Induction Hypotheses"]}},
-     "address": "/IndProp/"}],
    "inversion_ex2":
    [{"id": "inversion_ex2",
      "data":
@@ -3897,7 +3780,8 @@
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "The  injection  and  contradiction  Tactics"]}},
+        "The  injection  and  contradiction  Tactics",
+        "Injectivity"]}},
      "address": "/Tactics/"}],
    "identity":
    [{"id": "identity",
@@ -3909,26 +3793,6 @@
         "Logic in Lean",
         "Applying Theorems to Arguments"]}},
      "address": "/Logic/"}],
-   "have_example":
-   [{"id": "have_example",
-     "data":
-     {"/Tactics/#have_example":
-      {"display": "have_example",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Specializing Hypotheses"]}},
-     "address": "/Tactics/"}],
-   "function_congruence":
-   [{"id": "function_congruence",
-     "data":
-     {"/Tactics/#function_congruence":
-      {"display": "function_congruence",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  injection  and  contradiction  Tactics"]}},
-     "address": "/Tactics/"}],
    "fold_plus":
    [{"id": "fold_plus",
      "data":
@@ -4092,17 +3956,6 @@
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
-   "ev_plus4":
-   [{"id": "ev_plus4",
-     "data":
-     {"/IndProp/#ev_plus4":
-      {"display": "ev_plus4",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
    "ev_inversion":
    [{"id": "ev_inversion",
      "data":
@@ -4114,70 +3967,6 @@
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
-   "ev_4_ev_n":
-   [{"id": "ev_4_ev_n",
-     "data":
-     {"/IndProp/#ev_4_ev_n":
-      {"display": "ev_4_ev_n",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
-   "ev_4''":
-   [{"id": "ev_4______",
-     "data":
-     {"/IndProp/#ev_4______":
-      {"display": "ev_4''",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "ev_4'":
-   [{"id": "ev_4___",
-     "data":
-     {"/IndProp/#ev_4___":
-      {"display": "ev_4'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "ev_4":
-   [{"id": "ev_4",
-     "data":
-     {"/IndProp/#ev_4":
-      {"display": "ev_4",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "eq_implies_succ_equal'":
-   [{"id": "eq_implies_succ_equal___",
-     "data":
-     {"/Tactics/#eq_implies_succ_equal___":
-      {"display": "eq_implies_succ_equal'",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  injection  and  contradiction  Tactics"]}},
-     "address": "/Tactics/"}],
-   "eq_implies_succ_equal":
-   [{"id": "eq_implies_succ_equal",
-     "data":
-     {"/Tactics/#eq_implies_succ_equal":
-      {"display": "eq_implies_succ_equal",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  injection  and  contradiction  Tactics"]}},
-     "address": "/Tactics/"}],
    "em":
    [{"id": "em",
      "data":
@@ -4189,25 +3978,69 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "double_injective_take2":
-   [{"id": "double_injective_take2",
-     "data":
-     {"/Tactics/#double_injective_take2":
-      {"display": "double_injective_take2",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Varying the Induction Hypothesis"]}},
-     "address": "/Tactics/"}],
    "double_injective":
    [{"id": "double_injective",
      "data":
-     {"/Tactics/#double_injective":
+     {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "Varying the Induction Hypothesis"]}},
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective-next-next",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective-next",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"}],
    "doIt3Times":
    [{"id": "doIt3Times",
@@ -4231,26 +4064,6 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "disjoint_ex2":
-   [{"id": "disjoint_ex2",
-     "data":
-     {"/Tactics/#disjoint_ex2":
-      {"display": "disjoint_ex2",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  injection  and  contradiction  Tactics"]}},
-     "address": "/Tactics/"}],
-   "disjoint_ex1":
-   [{"id": "disjoint_ex1",
-     "data":
-     {"/Tactics/#disjoint_ex1":
-      {"display": "disjoint_ex1",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  injection  and  contradiction  Tactics"]}},
-     "address": "/Tactics/"}],
    "discr_example":
    [{"id": "discr_example",
      "data":
@@ -4316,23 +4129,25 @@
         "Using Evidence in Proofs",
         "Multiple Induction Hypotheses"]}},
      "address": "/IndProp/"}],
-   "beq_symm":
-   [{"id": "beq_symm",
+   "chooseIf_self":
+   [{"id": "chooseIf_self",
      "data":
-     {"/Tactics/#beq_symm":
-      {"display": "beq_symm",
-       "context":
-       ["Logical Foundations", "Tactics: More Basic Tactics", "Review"]}},
-     "address": "/Tactics/"}],
-   "beq_succ":
-   [{"id": "beq_succ",
-     "data":
-     {"/Tactics/#beq_succ":
-      {"display": "beq_succ",
+     {"/Tactics/#chooseIf_self":
+      {"display": "chooseIf_self",
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "Using Tactics on Hypotheses"]}},
+        "Using  cases  on Expressions"]}},
+     "address": "/Tactics/"}],
+   "chooseIf":
+   [{"id": "chooseIf",
+     "data":
+     {"/Tactics/#chooseIf":
+      {"display": "chooseIf",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Using  cases  on Expressions"]}},
      "address": "/Tactics/"}],
    "beq_eq_true":
    [{"id": "beq_eq_true",
@@ -4344,16 +4159,6 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
-   "beq_0_l":
-   [{"id": "beq_0_l",
-     "data":
-     {"/Tactics/#beq_0_l":
-      {"display": "beq_0_l",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "The  injection  and  contradiction  Tactics"]}},
-     "address": "/Tactics/"}],
    "and_is_false":
    [{"id": "and_is_false",
      "data":
@@ -4431,16 +4236,6 @@
         "The Logic of Lean",
         "Propositional Extensionality"]}},
      "address": "/Logic/"}],
-   "add_le":
-   [{"id": "add_le",
-     "data":
-     {"/IndProp/#add_le":
-      {"display": "add_le",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Exercising with Inductive Relations"]}},
-     "address": "/IndProp/"}],
    "add_comm_fun'":
    [{"id": "add_comm_fun___",
      "data":
@@ -5093,60 +4888,60 @@
         "Data and Functions",
         "New Types from Old"]}},
      "address": "/Basics/"}],
-   "R.R.c5":
-   [{"id": "R___R___c5",
+   "R.c5":
+   [{"id": "R___c5",
      "data":
-     {"/IndProp/#R___R___c5":
+     {"/IndProp/#R___c5":
       {"display": "c5",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R.c4":
-   [{"id": "R___R___c4",
+   "R.c4":
+   [{"id": "R___c4",
      "data":
-     {"/IndProp/#R___R___c4":
+     {"/IndProp/#R___c4":
       {"display": "c4",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R.c3":
-   [{"id": "R___R___c3",
+   "R.c3":
+   [{"id": "R___c3",
      "data":
-     {"/IndProp/#R___R___c3":
+     {"/IndProp/#R___c3":
       {"display": "c3",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R.c2":
-   [{"id": "R___R___c2",
+   "R.c2":
+   [{"id": "R___c2",
      "data":
-     {"/IndProp/#R___R___c2":
+     {"/IndProp/#R___c2":
       {"display": "c2",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R.c1":
-   [{"id": "R___R___c1",
+   "R.c1":
+   [{"id": "R___c1",
      "data":
-     {"/IndProp/#R___R___c1":
+     {"/IndProp/#R___c1":
       {"display": "c1",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "R.R":
-   [{"id": "R___R",
+   "R":
+   [{"id": "R",
      "data":
-     {"/IndProp/#R___R":
+     {"/IndProp/#R":
       {"display": "R",
        "context":
        ["Logical Foundations",
@@ -5353,39 +5148,6 @@
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "Perm3_symm":
-   [{"id": "Perm3_symm",
-     "data":
-     {"/IndProp/#Perm3_symm":
-      {"display": "Perm3_symm",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Multiple Induction Hypotheses"]}},
-     "address": "/IndProp/"}],
-   "Perm3_rev'":
-   [{"id": "Perm3_rev___",
-     "data":
-     {"/IndProp/#Perm3_rev___":
-      {"display": "Perm3_rev'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3_rev":
-   [{"id": "Perm3_rev",
-     "data":
-     {"/IndProp/#Perm3_rev":
-      {"display": "Perm3_rev",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
    "Perm3_In_shortest":
    [{"id": "Perm3_In_shortest",
      "data":
@@ -5488,6 +5250,39 @@
         "IndProp: Inductively Defined Propositions",
         "Using Evidence in Proofs",
         "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
+   "Perm3.symm":
+   [{"id": "Perm3___symm",
+     "data":
+     {"/IndProp/#Perm3___symm":
+      {"display": "symm",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
+   "Perm3.rev'":
+   [{"id": "Perm3___rev___",
+     "data":
+     {"/IndProp/#Perm3___rev___":
+      {"display": "rev'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3.rev":
+   [{"id": "Perm3___rev",
+     "data":
+     {"/IndProp/#Perm3___rev":
+      {"display": "rev",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Constructing Evidence for Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3.perm3_trans":
    [{"id": "Perm3___perm3_trans",
@@ -6677,11 +6472,11 @@
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
-   "Nat.minustwo":
-   [{"id": "Nat___minustwo",
+   "Nat.minusTwo":
+   [{"id": "Nat___minusTwo",
      "data":
-     {"/UsingLean/#Nat___minustwo":
-      {"display": "Nat.minustwo",
+     {"/UsingLean/#Nat___minusTwo":
+      {"display": "Nat.minusTwo",
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
@@ -7300,7 +7095,7 @@
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
-        "Pairs of Numbers"]}},
+        "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'.fst":
    [{"id": "Lists___NatProd______fst",
@@ -7310,7 +7105,7 @@
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
-        "Pairs of Numbers"]}},
+        "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'":
    [{"id": "Lists___NatProd___",
@@ -7320,7 +7115,7 @@
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
-        "Pairs of Numbers"]}},
+        "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd":
    [{"id": "Lists___NatProd",
@@ -7902,7 +7697,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -7913,7 +7708,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -7997,7 +7792,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary relation for comparing numbers"]}},
+        "Example: Binary Relation for Comparing Numbers"]}},
      "address": "/IndProp/"}],
    "LePlayground.Le.refl":
    [{"id": "LePlayground___Le___refl",
@@ -8008,7 +7803,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary relation for comparing numbers"]}},
+        "Example: Binary Relation for Comparing Numbers"]}},
      "address": "/IndProp/"}],
    "LePlayground.Le":
    [{"id": "LePlayground___Le",
@@ -8019,7 +7814,7 @@
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
-        "Example: Binary relation for comparing numbers"]}},
+        "Example: Binary Relation for Comparing Numbers"]}},
      "address": "/IndProp/"}],
    "KVPair.value":
    [{"id": "KVPair___value",
@@ -8094,11 +7889,11 @@
         "Using Evidence in Proofs",
         "Induction on Evidence"]}},
      "address": "/IndProp/"}],
-   "In'":
-   [{"id": "In___",
+   "In":
+   [{"id": "In",
      "data":
-     {"/IndProp/#In___":
-      {"display": "In'",
+     {"/IndProp/#In":
+      {"display": "In",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -8241,6 +8036,17 @@
         "Inductively Defined Propositions",
         "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
+   "Ev.plus4":
+   [{"id": "Ev___plus4",
+     "data":
+     {"/IndProp/#Ev___plus4":
+      {"display": "plus4",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
+     "address": "/IndProp/"}],
    "Ev.ev_succ_succ":
    [{"id": "Ev___ev_succ_succ",
      "data":
@@ -8325,6 +8131,17 @@
       {"display": "DiscrFun",
        "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
      "address": "/Logic/"}],
+   "Diagonal":
+   [{"id": "Diagonal",
+     "data":
+     {"/IndProp/#Diagonal":
+      {"display": "Diagonal",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
    "DefaultValueScratch.natDefault":
    [{"id": "DefaultValueScratch___natDefault",
      "data":

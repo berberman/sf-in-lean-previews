@@ -5,7 +5,12 @@ defaultTargets = ["LF"]
 [[require]]
 name = "autograder"
 git = "https://github.com/plclub/lean4-autograder-main"
-rev = "bump-4-32-0"
+rev = "6f454870bf67d2acdfa6f7f73957fe27fb739b38"
+
+[[require]]
+name = "batteries"
+git = "https://github.com/leanprover-community/batteries"
+rev = "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d"
 
 [[lean_lib]]
 name = "LF"

@@ -66,7 +66,8 @@ def myRepeat (α : Type) (x : α) (count : Nat) : MyList α :=
 
 -- Some simple facts about `myRepeat`:
 
-theorem myRepeat_zero (α : Type) (v : α) : myRepeat α v 0 = MyList.nil := rfl
+theorem myRepeat_zero (α : Type) (v : α) :
+    myRepeat α v 0 = MyList.nil := rfl
 
 theorem myRepeat_succ (α : Type) (v : α) (count : Nat) :
     myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count) := rfl
@@ -130,15 +131,17 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
   | 0 => .nil
   | count' + 1 => .cons x (myRepeat' α x count')
 
--- Indeed it will. Lean infers that `α` is a type. The
--- generated `u_1` is part of Lean's bookkeeping for treating
--- types more generally. We will not need to interpret names
--- like this for now — you can ignore them when they appear in
--- Lean's output unless we explicitly call attention to them.
+-- Indeed it will. Lean infers that `α` is a type.
 
 #check myRepeat'
 
 -- myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+
+-- The generated `u_1` is part of Lean's bookkeeping for
+-- treating types more generally. We will not need to interpret
+-- names like this for now — you can ignore them when they
+-- appear in Lean's output unless we explicitly call attention
+-- to them.
 
 -- Lean has used *type inference* to deduce a type for `α`.
 
@@ -382,6 +385,41 @@ theorem zip_nil_left {α β : Type} (lx : List α) : zip lx [] = ([] : List (α 
 theorem zip_cons_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} :
    zip (x :: lx) (y :: ly) = (x, y) :: zip lx ly := by rfl
 
+-- ### Exercise (1 star): zip_checks ⭐
+
+-- Try answering the following questions on paper and checking
+-- your answers in Lean:
+
+-- - What is the type of `zip` (i.e., what does `#check @zip`
+--   print?)
+
+-- - What does
+
+--   #eval zip [1, 2] [false, false, true, true]
+
+-- print?
+
+-- ### Exercise (2 stars): unzip ⭐⭐
+
+-- The function `unzip` goes in the other direction from `zip`:
+-- it takes a list of pairs and returns a pair of lists.
+
+-- Fill in the definition of `unzip` below. Make sure it passes
+-- the given unit test, and you can prove the simplification
+-- rules about it
+
+def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := sorry
+
+theorem unzip_nil {α β : Type} : unzip [] = (([], []) : List α × List β) := sorry
+
+theorem unzip_cons_fst {α β : Type} {l : List (α × β)} {x : α} {y : β} :
+   (unzip ((x, y) :: l)).fst = x :: (unzip l).fst := sorry
+
+theorem unzip_cons_snd {α β : Type} {l : List (α × β)} {x : α} {y : β} :
+   (unzip ((x, y) :: l)).snd = y :: (unzip l).snd := sorry
+
+theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := sorry
+
 -- ### Polymorphic Options
 
 def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
@@ -407,7 +445,7 @@ def doIt3Times {α : Type} (f : α → α) (n : α) : α :=
 
 #check doIt3Times
 
-example : doIt3Times Nat.minustwo 9 = 3 := by rfl
+example : doIt3Times Nat.minusTwo 9 = 3 := by rfl
 
 example : doIt3Times not true = false := by rfl
 
@@ -426,6 +464,8 @@ def filter {α : Type} (test : α → Bool) (l : List α) : List α :=
     else filter test tail
 
 example : filter Nat.even [1, 2, 3, 4] = [2, 4] := by rfl
+
+-- Here are some further examples and properties of `filter`.
 
 def isLength1 {α : Type} (l : List α) : Bool :=
   l.length == 1
@@ -449,6 +489,11 @@ theorem filter_cons_of_neg {α : Type} {test : α → Bool} {head : α}
    dsimp [filter]
    rw [h]
    dsimp
+
+-- Note that `head` and `tail` are implicit too, following a
+-- general convention: any argument an equation's shape
+-- determines when applied is made implicit, so using `rw` and
+-- `simp` lemmas requires no extra `_` arguments.
 
 -- The `filter` function (especially when combined with some
 -- other functions we'll see later) enables a powerful
