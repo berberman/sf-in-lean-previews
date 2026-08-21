@@ -23,8 +23,7 @@ import LF.SFLCompat
 -- differences are mostly superficial. The built-in natural
 -- numbers are defined in the `Init` module, which is
 -- automatically imported by Lean. We will refer to them as
--- `Nat` as well, but they are not the same as the `Nat` we
--- defined in Basics.
+-- `Nat` as well.
 
 -- In Lean, programmers and mathematicians don't re-prove the
 -- basic properties of natural numbers from scratch, nor do
@@ -40,11 +39,6 @@ example : (two * two : NatPlayground.Nat) = four := by
   rewrite [add_succ, add_succ, add_zero]
   rewrite [add_succ, add_succ, add_zero]
   rfl
-
--- Note to developers (Benjamin Pierce @bcpierce00, NOW):
---     The info viewed in the InfoView during this proof is
---     kind of mysterious (to me) here. Have we already given
---     people enough help to understand it here?
 
 -- This approach is useful in a textbook for understanding the
 -- structure of natural numbers and for providing early
@@ -71,8 +65,7 @@ example : (3 * 3 : Nat) = 9 := by rfl
 -- automatically, and `rfl` suffices to close any equality of
 -- computation on literals.
 
-example : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by
-  rfl
+example : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by rfl
 
 -- This quickly becomes necessary, as natural numbers quickly
 -- get large!
@@ -83,14 +76,6 @@ example : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by
 example (n m : Nat) (h : n = m) : n = m := by
   -- `rfl` will not work here!
   -- First rewrite the goal with `h`; then the two sides are identical.
-  rewrite [h]
-  rfl
-
--- The same proof can be written more compactly with `rw`. In
--- this example, `rw [h]` rewrites with `h` and then closes the
--- resulting reflexive goal.
-
-example (n m : Nat) (h : n = m) : n = m := by
   rw [h]
 
 -- We will continue to show more powerful tools for
@@ -201,9 +186,7 @@ theorem succ_mul_succ (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
   rw [Nat.add_mul, Nat.one_mul, Nat.mul_add, Nat.mul_one, ← Nat.add_assoc]
 
--- Given this proof with `rw`, rewrite it with `calc`. Recall
--- that you can use `rw?` to find appropriate rules to rewrite
--- by.
+-- Given this proof with `rw`, rewrite it with `calc`.
 
 theorem succ_mul_succ' (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
@@ -280,6 +263,17 @@ example (n m : Nat) (h : 2 * n = m * 2) : n + n = m + m := by
 
 example (n : Nat) : square n + 0 = n * n := by
   dsimp [square]
+
+-- In the above example, using `rw` would not have closed the
+-- proof:
+
+sf_expect_failure
+  example (n : Nat) : square n + 0 = n * n := by
+    rw [square]
+
+-- unsolved goals
+-- n✝ n : Nat
+-- ⊢ n * n + 0 = n * n
 
 -- Like `rw` and `exact`, `dsimp` also has a `?` version that
 -- searches for functions to simplify by. Many Lean tactics
