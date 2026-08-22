@@ -239,9 +239,9 @@
     "257": {
       "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
       "changed_variants": [],
-      "head_sha": "cdfa97c12b9d327318093e522bc559737c4b1d99",
+      "head_sha": "901732739dfc28f15104287f0d5465d7b39f83c8",
       "preview_path": "pr/257/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32584188088",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32595033536",
       "status": "ci-failed",
       "title": "Reimplement autograding",
       "url": "https://github.com/plclub/sf-in-lean/pull/257"
