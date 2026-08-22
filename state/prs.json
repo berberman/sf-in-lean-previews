@@ -500,6 +500,53 @@
       "status": "published",
       "title": "`recall` and  `recallSource` blocks",
       "url": "https://github.com/plclub/sf-in-lean/pull/299"
+    },
+    "300": {
+      "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "acc58e2b8b5b2fd99fcb2d6812c2e455b67a9d60",
+      "preview_path": "pr/300/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32601673020",
+      "status": "published",
+      "title": "Fix Logic quizzes and small reader-facing errors",
+      "url": "https://github.com/plclub/sf-in-lean/pull/300"
     }
   },
   "schema": 3
