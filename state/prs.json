@@ -96,49 +96,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/185"
     },
     "203": {
-      "base_sha": "ba52c1c54c11a9cd2c86605f0648e41bc8474591",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f7a57a2d811b851e167cddec1352bfb2f166abdd",
+      "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
+      "changed_variants": [],
+      "head_sha": "3f3915496578e198e74c7dc2b86eb37ac5f12303",
       "preview_path": "pr/203/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31939180382",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32578696379",
+      "status": "ci-failed",
       "title": "Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
     },
