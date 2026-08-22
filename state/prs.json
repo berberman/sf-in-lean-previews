@@ -239,7 +239,7 @@
     "257": {
       "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
       "changed_variants": [],
-      "head_sha": "30eb9af3ce5742d080d2d0f79ed64435427287aa",
+      "head_sha": "a682f4519680237e0469d4909ee8df30c7af6905",
       "preview_path": "pr/257/head/",
       "run_url": null,
       "status": "waiting-ci",
