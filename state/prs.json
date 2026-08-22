@@ -456,11 +456,48 @@
     },
     "299": {
       "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "2f1cedd3170396068a86362f774b10fae77fb584",
       "preview_path": "pr/299/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32570344495",
+      "status": "published",
       "title": "`recall` and  `recallSource` blocks",
       "url": "https://github.com/plclub/sf-in-lean/pull/299"
     }
