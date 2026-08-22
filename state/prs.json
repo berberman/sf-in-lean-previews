@@ -237,9 +237,9 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/256"
     },
     "257": {
-      "base_sha": "18089be9ae3269f18459d4b46fb68833223505c8",
+      "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
       "changed_variants": [],
-      "head_sha": "77fd8a5b2b395218726c0fd9dbc4b5d2c22f0641",
+      "head_sha": "30eb9af3ce5742d080d2d0f79ed64435427287aa",
       "preview_path": "pr/257/head/",
       "run_url": null,
       "status": "waiting-ci",
