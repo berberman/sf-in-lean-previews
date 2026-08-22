@@ -3412,17 +3412,6 @@
         "Functions as Data",
         "Map"]}},
      "address": "/Poly/"}],
-   "list123":
-   [{"id": "list123",
-     "data":
-     {"/Poly/#list123":
-      {"display": "list123",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
    "length_append_self":
    [{"id": "length_append_self",
      "data":
@@ -7312,7 +7301,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -7329,7 +7318,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",

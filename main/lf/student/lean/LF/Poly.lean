@@ -66,7 +66,7 @@ inductive MyList (α : Type) : Type where
 
 -- Similarly, `MyList.cons` adds an element of type `Nat` to a list of type
 -- `MyList Nat`. Here is an example of forming a list containing just the
--- natural number 3.
+-- natural number `3`.
 
 #check MyList.cons 3 MyList.nil
 
@@ -164,7 +164,7 @@ example : myRepeat Bool false 1 = .cons false .nil := by rfl
 -- Using Lean's built-in list notations, we can now write lists in the natural
 -- way:
 
-def list123 : List Nat := [1, 2, 3]
+example : List Nat := [1, 2, 3]
 
 -- #### Type Annotation Inference
 
@@ -362,12 +362,12 @@ inductive Mumble : Type where
   | b (x : Mumble) (y : Nat) : Mumble
   | c : Mumble
 
-inductive Grumble (X: Type) : Type where
-  | d (m : Mumble) : Grumble X
-  | e (x : X) : Grumble X
+inductive Grumble (α : Type) : Type where
+  | d (m : Mumble) : Grumble α
+  | e (x : α) : Grumble α
 
--- Which of the following are well-typed elements of `Grumble X` for some type
--- `X`? (Add YES or NO to each line.)
+-- Which of the following are well-typed elements of `Grumble α` for some type
+-- `α`? (Add YES or NO to each line.)
 
 -- - `Grumble.d (Mumble.b Mumble.a 5)`
 -- - `@Grumble.d Mumble (Mumble.b Mumble.a 5)`
@@ -386,8 +386,8 @@ def List.rev {α : Type} (l : List α) : List α :=
 
 theorem rev_nil {α : Type} : ([] : List α).rev = [] := by rfl
 
-theorem rev_cons {α : Type} (head : α) (tail : List α) :
-    (head :: tail).rev = tail.rev ++ [head] := by rfl
+theorem rev_cons {α : Type} {x : α} {l : List α} :
+    (x :: l).rev = l.rev ++ [x] := by rfl
 
 -- ### Exercise (2 stars): poly_exercises ⭐⭐
 
@@ -403,12 +403,12 @@ theorem rev_cons {α : Type} (head : α) (tail : List α) :
 
 -- List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
 
-theorem append_nil {α : Type} (l : List α) :
+theorem append_nil {α : Type} {l : List α} :
     l ++ [] = l := by
   sorry
 
-theorem append_assoc {α : Type} (l m n : List α) :
-    l ++ m ++ n = l ++ (m ++ n) := by
+theorem append_assoc {α : Type} {l₁ l₂ l₃ : List α} :
+    l₁ ++ l₂ ++ l₃ = l₁ ++ (l₂ ++ l₃) := by
   sorry
 
 theorem append_length {α : Type} {l₁ l₂ : List α} :
@@ -438,8 +438,8 @@ structure MyProd (α β : Type) where
   snd : β
 
 -- Lean's built-in product type `Prod` provides a `Prod.mk` constructor, and
--- `fst` and `snd` functions for accessing the first and second components of
--- the pair. It also has special syntax for creating products:
+-- `Prod.fst` and `Prod.snd` functions for accessing the first and second
+-- components of the pair. It also has special syntax for creating products:
 
 #check (1, true)
 #eval (1, true).fst
@@ -451,7 +451,7 @@ structure MyProd (α β : Type) where
 
 -- true
 
--- You can also use `.1` instead of `.fst` and `.2` instead of `.snd`
+-- You can also use `.1` instead of `.fst` and `.2` instead of `.snd`:
 
 example : (3, 5).1 = 3 := by rfl
 example : (3, 5).2 = 5 := by rfl
@@ -467,18 +467,18 @@ example : (3, 5).2 = 5 := by rfl
 -- The following function takes two lists and combines them into a list of
 -- pairs.
 
-def zip {α β : Type} (lx : List α) (ly : List β) : List (α × β) :=
-  match lx, ly with
+def zip {α β : Type} (l₁ : List α) (l₂ : List β) : List (α × β) :=
+  match l₁, l₂ with
   | [], _ => []
   | _, [] => []
-  | x :: tx, y :: ty => (x, y) :: zip tx ty
+  | x :: l₁', y :: l₂' => (x, y) :: zip l₁' l₂'
 
-theorem zip_nil_right {α β : Type} (ly : List β) : zip [] ly = ([] : List (α × β)) := by rfl
+theorem zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = ([] : List (α × β)) := by rfl
 
-theorem zip_nil_left {α β : Type} (lx : List α) : zip lx [] = ([] : List (α × β)) := by
-   cases lx <;> rfl
-theorem zip_cons_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} :
-   zip (x :: lx) (y :: ly) = (x, y) :: zip lx ly := by rfl
+theorem zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = ([] : List (α × β)) := by
+   cases l₁ <;> rfl
+theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : List β} :
+   zip (x :: l₁) (y :: l₂) = (x, y) :: zip l₁ l₂ := by rfl
 
 -- ### Exercise (1 star): zip_checks ⭐
 
@@ -486,28 +486,29 @@ theorem zip_cons_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y :
 -- Lean:
 
 -- - What is the type of `zip` (i.e., what does `#check @zip` print?)
+
 -- - What does
 
---   #eval zip [1, 2] [false, false, true, true]
+--   `#eval zip [1, 2] [false, false, true, true]`
 
--- print?
+--   print?
 
 -- ### Exercise (2 stars): unzip ⭐⭐
 
 -- The function `unzip` goes in the other direction from `zip`: it takes a
 -- list of pairs and returns a pair of lists.
 
--- Fill in the definition of `unzip` below. Make sure it passes the given unit
--- test, and you can prove the simplification rules about it
+-- Fill in the definition of `unzip` below. Make sure it that passes the given
+-- unit test, and that you can prove the simplification rules about it.
 
 def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := sorry
 
 theorem unzip_nil {α β : Type} : unzip [] = (([], []) : List α × List β) := sorry
 
-theorem unzip_cons_fst {α β : Type} {l : List (α × β)} {x : α} {y : β} :
+theorem unzip_cons_fst {α β : Type} {x : α} {y : β} {l : List (α × β)} :
    (unzip ((x, y) :: l)).fst = x :: (unzip l).fst := sorry
 
-theorem unzip_cons_snd {α β : Type} {l : List (α × β)} {x : α} {y : β} :
+theorem unzip_cons_snd {α β : Type} {x : α} {y : β} {l : List (α × β)} :
    (unzip ((x, y) :: l)).snd = y :: (unzip l).snd := sorry
 
 theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := sorry
@@ -533,8 +534,8 @@ end OptionPlayground
 def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
   match l with
   | [] => none
-  | a :: l' => match n with
-    | 0 => some a
+  | x :: l' => match n with
+    | 0 => some x
     | n' + 1 => nth? l' n'
 
 example : nth? [4, 5, 6, 7] 0 = some 4 := by rfl
@@ -570,11 +571,11 @@ theorem test_head?2 : head? [[1], [2]] = some [1] := sorry
 -- Functions that manipulate other functions are often called *higher-order*
 -- functions. Here's a simple one:
 
-def doIt3Times {α : Type} (f : α → α) (n : α) : α :=
-  f (f (f n))
+def doIt3Times {α : Type} (f : α → α) (x : α) : α :=
+  f (f (f x))
 
 -- The argument `f` here is itself a function (from `α` to `α`); the body of
--- `doIt3Times` applies `f` three times to some value `n`.
+-- `doIt3Times` applies `f` three times to some value `x`.
 
 #check doIt3Times
 
@@ -582,7 +583,7 @@ example : doIt3Times Nat.minusTwo 9 = 3 := by rfl
 
 example : doIt3Times not true = false := by rfl
 
--- doIt3Times {α : Type} (f : α → α) (n : α) : α
+-- doIt3Times {α : Type} (f : α → α) (x : α) : α
 
 -- ### Filter
 
@@ -594,9 +595,9 @@ example : doIt3Times not true = false := by rfl
 def filter {α : Type} (test : α → Bool) (l : List α) : List α :=
   match l with
   | [] => []
-  | head :: tail =>
-    bif test head then head :: filter test tail
-    else filter test tail
+  | x :: l' =>
+    bif test x then x :: filter test l'
+    else filter test l'
 
 -- For example, if we apply `filter` to the predicate `Nat.even` and a list of
 -- numbers, it returns a list containing just the even members.
@@ -614,16 +615,16 @@ example : filter isLength1
 
 theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by rfl
 
-theorem filter_cons_of_pos {α : Type} {test : α → Bool} {head : α}
-    {tail : List α} (h : test head) :
-    filter test (head :: tail) = head :: filter test tail := by
+theorem filter_cons_of_pos {α : Type} {test : α → Bool} {x : α}
+    {l : List α} (h : test x = true) :
+    filter test (x :: l) = x :: filter test l := by
   dsimp [filter]
   rw [h]
   dsimp
 
-theorem filter_cons_of_neg {α : Type} {test : α → Bool} {head : α}
-    {tail : List α} (h : test head = false) :
-    filter test (head :: tail) = filter test tail := by
+theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
+    {l : List α} (h : test x = false) :
+    filter test (x :: l) = filter test l := by
    dsimp [filter]
    rw [h]
    dsimp
@@ -698,7 +699,7 @@ example : filter (·.length == 1)
 
 -- Use `filter` (instead of a recursive `def`) to write a Lean function
 -- `filterEvenGt7` that takes a list of natural numbers as input and returns a
--- list of just those that are even and greater than 7.
+-- list of just those that are even and greater than `7`.
 
 def filterEvenGt7 (l : List Nat) : List Nat := sorry
 
@@ -771,17 +772,17 @@ example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
 
 theorem map_nil {α : Type} {β : Type} {f : α → β} : map f [] = [] := by rfl
 
-theorem map_cons {α : Type} {β : Type} {f : α → β} {head : α} {tail : List α} :
-    map f (head :: tail) = f head :: map f tail := by rfl
+theorem map_cons {α : Type} {β : Type} {f : α → β} {x : α} {l : List α} :
+    map f (x :: l) = f x :: map f l := by rfl
 
 -- ### Exercise (3 stars): map_rev ⭐⭐⭐
 
--- Show that `map` and `rev` commute. (Hint: You may need to define an
+-- Show that `map` and `List.rev` commute. (Hint: You may need to define an
 -- auxiliary lemma.)
 
 -- FILL IN HERE
 
-theorem map_rev {α : Type} {β : Type} : ∀ (f : α → β) (l : List α),
+theorem map_rev {α : Type} {β : Type} {f : α → β} {l : List α} :
     map f l.rev = (map f l).rev := by
   sorry
 
@@ -795,7 +796,7 @@ theorem map_rev {α : Type} {β : Type} : ∀ (f : α → β) (l : List α),
 --   flatMap (fun n => [n, n + 1, n + 2]) [1, 5, 10]
 --     = [1, 2, 3, 5, 6, 7, 10, 11, 12]
 
-def flatMap {α : Type} {β : Type} (f : α → List β) (l : List α) : List β := sorry
+def flatMap {α β : Type} (f : α → List β) (l : List α) : List β := sorry
 
 theorem test_flatMap : flatMap (fun n => [n, n, n]) [1, 5, 4]
   = [1, 1, 1, 5, 5, 5, 4, 4, 4] := sorry
@@ -832,7 +833,7 @@ def optionMap {α : Type} {β : Type} (f : α → β) (x? : Option α) : Option 
 def fold {α : Type} {β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
   match l with
   | [] => b
-  | head :: tail => f head (fold f tail b)
+  | a :: l => f a (fold f l b)
 
 -- Intuitively, the behavior of the `fold` operation is to insert a given
 -- binary operator `f` between every pair of elements in a given list. For
@@ -856,17 +857,17 @@ example : fold (fun l n => l.length + n) [[1], [], [2, 3, 2], [4]] 0 = 5 := by r
 
 theorem fold_nil {α : Type} {β : Type} {f : α → β → β} {b : β} : fold f [] b = b := by rfl
 
-theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {head : α} {tail : List α} {b : β} :
-    fold f (head :: tail) b = f head (fold f tail b) := by rfl
+theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {a : α} {l : List α} {b : β} :
+    fold f (a :: l) b = f a (fold f l b) := by rfl
 
 -- _Quiz:_
 
 -- Here is the definition of `fold` again:
 
---   def fold {α : Type} {β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
+--   def fold {α β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
 --     match l with
 --     | [] => b
---     | head :: tail => f head (fold f tail b)
+--     | a :: l => f a (fold f l b)
 
 -- What is the type of `@fold`?
 
@@ -962,7 +963,7 @@ def fold_plus : List Nat → Nat → Nat :=
 -- ### Exercise (2 stars): fold_length ⭐⭐
 
 -- Many common functions on lists can be implemented in terms of `fold`. For
--- example, here is an alternative definition of `length`:
+-- example, here is an alternative definition of `List.length`:
 
 def foldLength {α : Type} (l : List α) : Nat :=
   fold (fun _ n => n + 1) l 0
@@ -974,7 +975,7 @@ example : foldLength [4, 7, 0] = 3 := by rfl
 -- Hint: It may help to use `dsimp [foldLength, fold]` to unfold the
 -- definition.
 
-theorem fold_length_correct {α : Type} (l : List α) :
+theorem fold_length_correct {α : Type} {l : List α} :
     foldLength l = l.length := by
   sorry
 
@@ -982,7 +983,7 @@ theorem fold_length_correct {α : Type} (l : List α) :
 
 -- We can also define `map` in terms of `fold`. Finish `foldMap` below.
 
-def foldMap {α : Type} {β : Type} (f : α → β) (l : List α) : List β := sorry
+def foldMap {α β : Type} (f : α → β) (l : List α) : List β := sorry
 
 -- Write down a theorem `fold_map_correct` stating that `foldMap` is correct,
 -- and prove it in Lean.
@@ -1026,8 +1027,8 @@ def prodUncurry {α β γ : Type} (f : α → β → γ) (p : α × β) : γ := 
 
 example : map (Nat.add 3) [2, 0, 2] = [5, 3, 5] := by rfl
 
--- Thought exercise: before running the following commands, can you calculate
--- the types of `prodCurry` and `prodUncurry`?
+-- Thought exercise: before looking at the output of the following commands,
+-- can you calculate the types of `prodCurry` and `prodUncurry`?
 
 #check @prodCurry
 #check @prodUncurry
@@ -1036,11 +1037,11 @@ example : map (Nat.add 3) [2, 0, 2] = [5, 3, 5] := by rfl
 
 -- @prodUncurry : {α β γ : Type} → (α → β → γ) → α × β → γ
 
-theorem uncurry_curry {α β γ : Type} (f : α → β → γ) (x : α) (y : β) :
+theorem uncurry_curry {α β γ : Type} {x : α} {y : β} {f : α → β → γ} :
     prodCurry (prodUncurry f) x y = f x y := by
   sorry
 
-theorem curry_uncurry {α β γ : Type} (f : α × β → γ) {p : α × β} :
+theorem curry_uncurry {α β γ : Type} {p : α × β} {f : α × β → γ} :
     prodUncurry (prodCurry f) p = f p := by
   sorry
 
@@ -1051,8 +1052,8 @@ theorem curry_uncurry {α β γ : Type} (f : α × β → γ) {p : α × β} :
 --   def nth? (l : List α) (n : Nat) : Option α :=
 --     match l with
 --     | [] => none
---     | a :: l' => match n with
---       | 0 => some a
+--     | x :: l' => match n with
+--       | 0 => some x
 --       | n' + 1 => nth? l' n'
 
 -- Write a careful informal proof of the following theorem:
@@ -1071,34 +1072,34 @@ theorem curry_uncurry {α β γ : Type} (f : α × β → γ) {p : α × β} :
 
 namespace Church
 
-def CNat := (α : Type) → (α → α) → α → α
+def CNat := ∀ (α : Type), (α → α) → α → α
 
 -- Let's see how to write some numbers with this notation. Iterating a
 -- function once should be the same as just applying it. Thus:
 
 def one : CNat :=
-  fun (X : Type) (f : X → X) (x : X) => f x
+  fun (α : Type) (f : α → α) (x : α) => f x
 
 -- Similarly, `two` should apply `f` twice to its argument:
 
 def two : CNat :=
-  fun (X : Type) (f : X → X) (x : X) => f (f x)
+  fun (α : Type) (f : α → α) (x : α) => f (f x)
 
 -- Defining `zero` is somewhat trickier: how can we "apply a function zero
 -- times"? The answer is actually simple: just return the argument untouched.
 
 def zero : CNat :=
-  fun (X : Type) (_ : X → X) (x : X) => x
+  fun (α : Type) (_ : α → α) (x : α) => x
 
 -- More generally, a number `n` can be written as
--- `fun X f x => f (f ... (f x) ...)`, with `n` occurrences of `f`. Let's
--- informally notate that as `fun X f x => f^n x`, with the convention that
+-- `fun α f x => f (f ... (f x) ...)`, with `n` occurrences of `f`. Let's
+-- informally notate that as `fun α f x => f^n x`, with the convention that
 -- `f^0 x` is just `x`. Note how the `doIt3Times` function we've defined
 -- previously is actually just the Church representation of 3.
 
 def three : CNat := @doIt3Times
 
--- So `n X f x` represents "do it `n` times", where `n` is a Church numeral
+-- So `n α f x` represents "do it `n` times", where `n` is a Church numeral
 -- and "it" means applying `f` starting with `x`.
 
 -- Another way to think about the Church representation is that function `f`
@@ -1107,18 +1108,18 @@ def three : CNat := @doIt3Times
 -- clearer:
 
 def zero' : CNat :=
-  fun (X : Type) (_ : X → X) (zero : X) => zero
+  fun (α : Type) (_ : α → α) (zero : α) => zero
 def one' : CNat :=
-  fun (X : Type) (succ : X → X) (zero : X) => succ zero
+  fun (α : Type) (succ : α → α) (zero : α) => succ zero
 def two' : CNat :=
-  fun (X : Type) (succ : X → X) (zero : X) => succ (succ zero)
+  fun (α : Type) (succ : α → α) (zero : α) => succ (succ zero)
 
 -- If we passed in `Nat.succ` as `succ` and `0` as `zero`, we'd even get the
 -- Peano naturals as a result:
 
 example : zero Nat Nat.succ 0 = 0 := by rfl
-example : one Nat Nat.succ 0 = 1 := by rfl
-example : two Nat Nat.succ 0 = 2 := by rfl
+example : one  Nat Nat.succ 0 = 1 := by rfl
+example : two  Nat Nat.succ 0 = 2 := by rfl
 
 -- One very interesting implication of the Church numerals is that we don't
 -- strictly need the natural numbers to be built-in to a functional
@@ -1165,7 +1166,7 @@ theorem plus_3 : plus (plus two two) three = plus one (plus three three) := sorr
 
 -- Hint: the "successor" argument to a Church numeral need not be just `f`.
 
--- Warning: Lean will not let you pass `CNat` itself as the type `X` argument
+-- Warning: Lean will not let you pass `CNat` itself as the type `α` argument
 -- to a Church numeral; you will get a "sort mismatch" error between `Type 1`
 -- and `Type 2`. Don't worry too much about what this means right now, but
 -- know that this is Lean's way of preventing a paradox in which a type

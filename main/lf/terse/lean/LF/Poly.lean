@@ -5,6 +5,8 @@ import LF.SFLCompat
 
 -- # Poly: Polymorphism and Higher-Order Functions
 
+-- ## Polymorphism
+
 -- ### Polymorphic Lists
 
 -- Instead of defining new lists for each type, like this...
@@ -118,7 +120,7 @@ example : myRepeat Bool false 1 = .cons false .nil := by rfl
 -- From now on we'll use Lean's built-in `List α` type with
 -- notations `[]`, `::`, `[1, 2, 3]`, and `++`.
 
-def list123 : List Nat := [1, 2, 3]
+example : List Nat := [1, 2, 3]
 
 -- #### Type Annotation Inference
 
@@ -291,8 +293,8 @@ def List.rev {α : Type} (l : List α) : List α :=
 
 theorem rev_nil {α : Type} : ([] : List α).rev = [] := by rfl
 
-theorem rev_cons {α : Type} (head : α) (tail : List α) :
-    (head :: tail).rev = tail.rev ++ [head] := by rfl
+theorem rev_cons {α : Type} {x : α} {l : List α} :
+    (x :: l).rev = l.rev ++ [x] := by rfl
 
 -- ### Exercise (2 stars): poly_exercises ⭐⭐
 
@@ -309,12 +311,12 @@ theorem rev_cons {α : Type} (head : α) (tail : List α) :
 
 -- List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
 
-theorem append_nil {α : Type} (l : List α) :
+theorem append_nil {α : Type} {l : List α} :
     l ++ [] = l := by
   sorry
 
-theorem append_assoc {α : Type} (l m n : List α) :
-    l ++ m ++ n = l ++ (m ++ n) := by
+theorem append_assoc {α : Type} {l₁ l₂ l₃ : List α} :
+    l₁ ++ l₂ ++ l₃ = l₁ ++ (l₂ ++ l₃) := by
   sorry
 
 theorem append_length {α : Type} {l₁ l₂ : List α} :
@@ -345,9 +347,9 @@ structure MyProd (α β : Type) where
   snd : β
 
 -- Lean's built-in product type `Prod` provides a `Prod.mk`
--- constructor, and `fst` and `snd` functions for accessing the
--- first and second components of the pair. It also has special
--- syntax for creating products:
+-- constructor, and `Prod.fst` and `Prod.snd` functions for
+-- accessing the first and second components of the pair. It
+-- also has special syntax for creating products:
 
 #check (1, true)
 #eval (1, true).fst
@@ -360,7 +362,7 @@ structure MyProd (α β : Type) where
 -- true
 
 -- You can also use `.1` instead of `.fst` and `.2` instead of
--- `.snd`
+-- `.snd`:
 
 example : (3, 5).1 = 3 := by rfl
 example : (3, 5).2 = 5 := by rfl
@@ -372,18 +374,18 @@ example : (3, 5).2 = 5 := by rfl
 
 -- What does this function do?
 
-def zip {α β : Type} (lx : List α) (ly : List β) : List (α × β) :=
-  match lx, ly with
+def zip {α β : Type} (l₁ : List α) (l₂ : List β) : List (α × β) :=
+  match l₁, l₂ with
   | [], _ => []
   | _, [] => []
-  | x :: tx, y :: ty => (x, y) :: zip tx ty
+  | x :: l₁', y :: l₂' => (x, y) :: zip l₁' l₂'
 
-theorem zip_nil_right {α β : Type} (ly : List β) : zip [] ly = ([] : List (α × β)) := by rfl
+theorem zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = ([] : List (α × β)) := by rfl
 
-theorem zip_nil_left {α β : Type} (lx : List α) : zip lx [] = ([] : List (α × β)) := by
-   cases lx <;> rfl
-theorem zip_cons_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y : β} :
-   zip (x :: lx) (y :: ly) = (x, y) :: zip lx ly := by rfl
+theorem zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = ([] : List (α × β)) := by
+   cases l₁ <;> rfl
+theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : List β} :
+   zip (x :: l₁) (y :: l₂) = (x, y) :: zip l₁ l₂ := by rfl
 
 -- ### Exercise (1 star): zip_checks ⭐
 
@@ -395,27 +397,27 @@ theorem zip_cons_cons {α β : Type} {lx : List α} {ly : List β} {x : α} {y :
 
 -- - What does
 
---   #eval zip [1, 2] [false, false, true, true]
+--   `#eval zip [1, 2] [false, false, true, true]`
 
--- print?
+--   print?
 
 -- ### Exercise (2 stars): unzip ⭐⭐
 
 -- The function `unzip` goes in the other direction from `zip`:
 -- it takes a list of pairs and returns a pair of lists.
 
--- Fill in the definition of `unzip` below. Make sure it passes
--- the given unit test, and you can prove the simplification
--- rules about it
+-- Fill in the definition of `unzip` below. Make sure it that
+-- passes the given unit test, and that you can prove the
+-- simplification rules about it.
 
 def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := sorry
 
 theorem unzip_nil {α β : Type} : unzip [] = (([], []) : List α × List β) := sorry
 
-theorem unzip_cons_fst {α β : Type} {l : List (α × β)} {x : α} {y : β} :
+theorem unzip_cons_fst {α β : Type} {x : α} {y : β} {l : List (α × β)} :
    (unzip ((x, y) :: l)).fst = x :: (unzip l).fst := sorry
 
-theorem unzip_cons_snd {α β : Type} {l : List (α × β)} {x : α} {y : β} :
+theorem unzip_cons_snd {α β : Type} {x : α} {y : β} {l : List (α × β)} :
    (unzip ((x, y) :: l)).snd = y :: (unzip l).snd := sorry
 
 theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := sorry
@@ -425,8 +427,8 @@ theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) 
 def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
   match l with
   | [] => none
-  | a :: l' => match n with
-    | 0 => some a
+  | x :: l' => match n with
+    | 0 => some x
     | n' + 1 => nth? l' n'
 
 example : nth? [4, 5, 6, 7] 0 = some 4 := by rfl
@@ -440,8 +442,8 @@ example : nth? [true] 2 = none := by rfl
 -- Functions that take other functions as arguments or return
 -- them as results are called higher-order functions.
 
-def doIt3Times {α : Type} (f : α → α) (n : α) : α :=
-  f (f (f n))
+def doIt3Times {α : Type} (f : α → α) (x : α) : α :=
+  f (f (f x))
 
 #check doIt3Times
 
@@ -449,7 +451,7 @@ example : doIt3Times Nat.minusTwo 9 = 3 := by rfl
 
 example : doIt3Times not true = false := by rfl
 
--- doIt3Times {α : Type} (f : α → α) (n : α) : α
+-- doIt3Times {α : Type} (f : α → α) (x : α) : α
 
 -- ### Filter
 
@@ -459,9 +461,9 @@ example : doIt3Times not true = false := by rfl
 def filter {α : Type} (test : α → Bool) (l : List α) : List α :=
   match l with
   | [] => []
-  | head :: tail =>
-    bif test head then head :: filter test tail
-    else filter test tail
+  | x :: l' =>
+    bif test x then x :: filter test l'
+    else filter test l'
 
 example : filter Nat.even [1, 2, 3, 4] = [2, 4] := by rfl
 
@@ -476,16 +478,16 @@ example : filter isLength1
 
 theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by rfl
 
-theorem filter_cons_of_pos {α : Type} {test : α → Bool} {head : α}
-    {tail : List α} (h : test head) :
-    filter test (head :: tail) = head :: filter test tail := by
+theorem filter_cons_of_pos {α : Type} {test : α → Bool} {x : α}
+    {l : List α} (h : test x = true) :
+    filter test (x :: l) = x :: filter test l := by
   dsimp [filter]
   rw [h]
   dsimp
 
-theorem filter_cons_of_neg {α : Type} {test : α → Bool} {head : α}
-    {tail : List α} (h : test head = false) :
-    filter test (head :: tail) = filter test tail := by
+theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
+    {l : List α} (h : test x = false) :
+    filter test (x :: l) = filter test l := by
    dsimp [filter]
    rw [h]
    dsimp
@@ -563,8 +565,8 @@ example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
 
 theorem map_nil {α : Type} {β : Type} {f : α → β} : map f [] = [] := by rfl
 
-theorem map_cons {α : Type} {β : Type} {f : α → β} {head : α} {tail : List α} :
-    map f (head :: tail) = f head :: map f tail := by rfl
+theorem map_cons {α : Type} {β : Type} {f : α → β} {x : α} {l : List α} :
+    map f (x :: l) = f x :: map f l := by rfl
 
 -- Lists are not the only inductive type for which `map` makes
 -- sense. Here is a `map` for the `Option` type:
@@ -579,7 +581,7 @@ def optionMap {α : Type} {β : Type} (f : α → β) (x? : Option α) : Option 
 def fold {α : Type} {β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
   match l with
   | [] => b
-  | head :: tail => f head (fold f tail b)
+  | a :: l => f a (fold f l b)
 
 -- This is the "reduce" in map/reduce...
 
@@ -593,17 +595,17 @@ example : fold (fun l n => l.length + n) [[1], [], [2, 3, 2], [4]] 0 = 5 := by r
 
 theorem fold_nil {α : Type} {β : Type} {f : α → β → β} {b : β} : fold f [] b = b := by rfl
 
-theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {head : α} {tail : List α} {b : β} :
-    fold f (head :: tail) b = f head (fold f tail b) := by rfl
+theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {a : α} {l : List α} {b : β} :
+    fold f (a :: l) b = f a (fold f l b) := by rfl
 
 -- _Quiz:_
 
 -- Here is the definition of `fold` again:
 
---   def fold {α : Type} {β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
+--   def fold {α β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
 --     match l with
 --     | [] => b
---     | head :: tail => f head (fold f tail b)
+--     | a :: l => f a (fold f l b)
 
 -- What is the type of `@fold`?
 

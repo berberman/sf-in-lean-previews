@@ -3568,17 +3568,6 @@
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
-   "list123":
-   [{"id": "list123",
-     "data":
-     {"/Poly/#list123":
-      {"display": "list123",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
    "length_append_self":
    [{"id": "length_append_self",
      "data":
@@ -3979,7 +3968,7 @@
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective",
+   [{"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -4021,7 +4010,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective-next",
+    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -7697,7 +7686,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly",
+   [{"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -7708,7 +7697,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly-next",
+    {"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
