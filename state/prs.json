@@ -406,6 +406,53 @@
       "status": "ci-failed",
       "title": "Bibliography fixes",
       "url": "https://github.com/plclub/sf-in-lean/pull/295"
+    },
+    "298": {
+      "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "3bf04dabae85f3cb3c7c19233fb7bfcd57d0bfa2",
+      "preview_path": "pr/298/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32542354241",
+      "status": "published",
+      "title": "Basics: mention sf_expect_failure? command",
+      "url": "https://github.com/plclub/sf-in-lean/pull/298"
     }
   },
   "schema": 3
