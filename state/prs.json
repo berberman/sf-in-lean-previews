@@ -406,53 +406,6 @@
       "status": "ci-failed",
       "title": "Bibliography fixes",
       "url": "https://github.com/plclub/sf-in-lean/pull/295"
-    },
-    "296": {
-      "base_sha": "44094686ca69b43240b30ef9c5024cc78073000f",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "c9ca98cac38f02c66db80fc99c5e3c537ec37df4",
-      "preview_path": "pr/296/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32518616913",
-      "status": "published",
-      "title": "Style pass over Poly",
-      "url": "https://github.com/plclub/sf-in-lean/pull/296"
     }
   },
   "schema": 3
