@@ -97,11 +97,48 @@
     },
     "203": {
       "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
-      "changed_variants": [],
-      "head_sha": "3f3915496578e198e74c7dc2b86eb37ac5f12303",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "b3d33917330b007233810a082a267def325e6c78",
       "preview_path": "pr/203/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32578696379",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32580483044",
+      "status": "published",
       "title": "Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/203"
     },

@@ -5,7 +5,7 @@ import HL.SFLCompat
 
 -- # Equiv: Program Equivalence
 
-open scoped MyGetElem
+open scoped HasEval MyGetElem Com
 
 -- Note to developers (Sati @satiscugcat):
 --     At this point, the Rocq file provides instructions about
@@ -28,9 +28,6 @@ def Aexp.equiv (a₁ a₂ : Aexp) : Prop :=
 def Bexp.equiv (b₁ b₂ : Bexp) : Prop :=
   ∀ (st: State),
     b₁.eval st = b₂.eval st
-
--- -- ::::full -- Here are some simple examples of equivalences
--- of arithmetic -- and boolean expressions. -- ::::
 
 example : Aexp.equiv
           (aexp { X - X })
@@ -69,7 +66,7 @@ theorem skip_left: ∀ c,
 
 theorem skip_right : ∀ c,
   Com.equiv
-    (imp { ~c  skip; })
+    (imp { ~c; skip })
     c := by
   sorry
 
@@ -107,7 +104,7 @@ theorem if_true_equiv: ∀ b c₁ c₂,
   case mp =>
     cases h with
     | ifTrue => assumption
-    | ifFalse _ _ _ _ _ hb' hc =>
+    | ifFalse hb' hc =>
       unfold Bexp.equiv at hb; simp at hb
       rw [hb] at hb'
       contradiction
@@ -140,13 +137,13 @@ theorem while_false_equiv : ∀ b c,
   Bexp.equiv b (bexp {false}) ->
   Com.equiv
     (imp {while (~b) {~c}})
-    (imp {skip;}) := by
+    (imp {skip}) := by
   intro b c hb st st'
   constructor <;> intro h
   case mp =>
     cases h with
     | whileFalse => apply Com.EvalR.skip
-    | whileTrue _ _ _ _ _ hb' hc hloop =>
+    | whileTrue hb' hc hloop =>
       rw [hb] at hb'
       simp at hb'
   case mpr =>
@@ -178,14 +175,14 @@ theorem while_true : ∀ b c,
   Bexp.equiv b (bexp {true}) ->
   Com.equiv
     (imp {while (~b) {~c}})
-    (imp {while (true) {skip;}}) := by
+    (imp {while (true) {skip}}) := by
   sorry
 
 theorem loop_unrolling : ∀ b c,
   Com.equiv
     (imp {while (~b) {~c}})
     (imp {
-      if (~b) {~c} else {skip;}
+      if (~b) {~c} else {skip};
       while (~b) {~c}
     }) := by
   sorry
@@ -200,13 +197,13 @@ theorem loop_unrolling : ∀ b c,
 
 theorem identity_assignment : ∀ X,
   Com.equiv
-    (imp {X := X;})
-    (imp {skip;}) := by
+    (imp {X := X})
+    (imp {skip}) := by
   intro X st st'
   constructor <;> intro hce
   case mp =>
     cases hce with
-    | asgn _ _ n _ h =>
+    | asgn  h =>
       dsimp at h
       rw [← h, TotalMap.update_same]
       apply Com.EvalR.skip
@@ -214,7 +211,7 @@ theorem identity_assignment : ∀ X,
   case mpr =>
     cases hce with
     | skip =>
-      suffices st =[ X := X; ]=> X →ₜ st[X] ; st by
+      suffices st =[ X := X ]=> X →ₜ st[X] ; st by
         simp only [TotalMap.update_same] at this
         exact this
       apply Com.EvalR.asgn
@@ -225,8 +222,8 @@ theorem identity_assignment : ∀ X,
 theorem assign_equiv : ∀ (X : Ident) (a : Aexp),
   Aexp.equiv (aexp {X}) a ->
   Com.equiv
-    (imp {skip;})
-    (imp {X := ~a;}) := by
+    (imp {skip})
+    (imp {X := ~a}) := by
   sorry
 
 -- Note to developers (Sati @satiscugcat):
@@ -282,4 +279,28 @@ theorem Com.equiv.trans : ∀ (c₁ c₂ c₂ : Com),
   rw [h₁, h₂]
 
 -- ### Behavioral Equivalence is a Congruence
+
+theorem Com.congruence.asgn : ∀ x a a',
+  Aexp.equiv a a' ->
+  Com.equiv (imp {x := ~a}) (imp {x := ~a'}) := by
+  intro x a a' heqv st st'
+  constructor <;> intro hce
+  case mp =>
+    cases hce with
+    | asgn  h =>
+      subst h; apply Com.EvalR.asgn
+      rw [heqv]
+  case mpr =>
+    cases hce with
+    | asgn  h =>
+      subst h; apply Com.EvalR.asgn
+      rw [heqv]
+
+-- Note to developers (Sati @satiscugcat):
+--     `NOT PORTED YET - remaining portions of Equiv.v left (apart from the portions explicitly stated so far).
+--       - The rest of "Behavioural Equivalence is a Congruence"
+--       - The section on "Program Transformation"
+--       - Soundness of (0 + n) Elimination
+--       - Extended Exercise: Nondeterministic Imp
+--       - Additional Exercises`
 
