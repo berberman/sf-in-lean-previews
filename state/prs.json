@@ -491,7 +491,7 @@
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
-    "304": {
+    "305": {
       "base_sha": "ca2794230fd2efb8d4d6333aecf34501bdaf5b9c",
       "changed_variants": [
         {
@@ -531,20 +531,10 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "2a85e18a903dd4ae906f00693f267f20544379ea",
-      "preview_path": "pr/304/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32656276595",
-      "status": "published",
-      "title": "Partial progress on Equiv.lean",
-      "url": "https://github.com/plclub/sf-in-lean/pull/304"
-    },
-    "305": {
-      "base_sha": "ca2794230fd2efb8d4d6333aecf34501bdaf5b9c",
-      "changed_variants": [],
       "head_sha": "b6d12dc0b6255aba5bbf202bfb5e80cde296df10",
       "preview_path": "pr/305/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32660770306",
+      "status": "published",
       "title": "Carry SF's \"optional\" exercise flag over from Rocq ",
       "url": "https://github.com/plclub/sf-in-lean/pull/305"
     }
