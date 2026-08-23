@@ -365,7 +365,7 @@ theorem value_is_nf' : ∀ t, Tm.IsValue t → Tm.IsNormalForm t := by
       | inl hb => cases hb
       | inr hn => cases hn
 
--- ### Exercise (3 stars): step_deterministic ⭐⭐⭐
+-- ### Exercise (3 stars): step_deterministic (Optional) ⭐⭐⭐
 
 -- Use `value_is_nf` (here, `nvalue_is_nf`) to show that the `Tm.Step`
 -- relation is also deterministic.
@@ -673,7 +673,7 @@ example :
     ¬ <{ ⊢ if iszero (succ 0) then succ false else true ⦂ Bool }> := by
   intro hc; cases hc with | ite _ _ _ _ h1 h2 h3 => cases h2
 
--- ### Exercise (1 star): succ_hastype_nat__hastype_nat ⭐
+-- ### Exercise (1 star): succ_hastype_nat__hastype_nat (Optional) ⭐
 
 example (t : Tm) (h : <{ ⊢ succ t ⦂ Nat }>) : <{ ⊢ t ⦂ Nat }> := by
   cases h with | succ _ hh => exact hh
@@ -762,7 +762,7 @@ attribute [autogradedProof 3] TM.progress
 
 -- (E) Dunno
 
--- ### Exercise (3 stars): finish_progress_informal ⭐⭐⭐
+-- ### Exercise (3 stars): finish_progress_informal (Optional) ⭐⭐⭐
 
 -- Complete the corresponding informal proof.
 
@@ -905,7 +905,7 @@ theorem preservation (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t
 
 attribute [autogradedProof 2] TM.preservation
 
--- ### Exercise (3 stars): finish_preservation_informal ⭐⭐⭐
+-- ### Exercise (3 stars): finish_preservation_informal (Optional) ⭐⭐⭐
 
 -- Complete the following informal proof.
 
@@ -1119,7 +1119,7 @@ end TM
 --   to either `0` (ifTrue) or `succ 0` (funny1).
 -- - Progress and preservation: remain true.
 
--- ### Exercise (2 stars): variation3 ⭐⭐
+-- ### Exercise (2 stars): variation3 (Optional) ⭐⭐
 
 -- Suppose instead that we add this rule:
 
@@ -1132,7 +1132,7 @@ end TM
 -- can step by either `ifFalse` or the new rule).  Progress and
 -- preservation remain true.
 
--- ### Exercise (2 stars): variation4 ⭐⭐
+-- ### Exercise (2 stars): variation4 (Optional) ⭐⭐
 
 -- Suppose instead that we add this rule:
 
@@ -1143,7 +1143,7 @@ end TM
 
 -- All three properties remain true.
 
--- ### Exercise (2 stars): variation5 ⭐⭐
+-- ### Exercise (2 stars): variation5 (Optional) ⭐⭐
 
 -- Suppose instead that we add this rule:
 
@@ -1155,7 +1155,7 @@ end TM
 -- Progress becomes false: `if 0 then true else true` has type `Bool`, is a
 --    normal form, and is not a value.
 
--- ### Exercise (2 stars): variation6 ⭐⭐
+-- ### Exercise (2 stars): variation6 (Optional) ⭐⭐
 
 -- Suppose instead that we add this rule:
 
@@ -1167,7 +1167,7 @@ end TM
 -- Preservation becomes false: `pred 0` has type `Bool` and steps to `0`,
 --    which does not have type `Bool`.
 
--- ### Exercise (3 stars): more_variations ⭐⭐⭐
+-- ### Exercise (3 stars): more_variations (Optional) ⭐⭐⭐
 
 -- Make up some exercises of your own along the same lines as the ones above.
 -- Try to find ways of selectively breaking properties — i.e., ways of

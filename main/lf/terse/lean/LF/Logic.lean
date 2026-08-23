@@ -570,7 +570,7 @@ theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
   · apply not_true_is_false
   · intro h; rw [h]; intro h'; contradiction
 
--- ### Exercise (1 star): iff_properties ⭐
+-- ### Exercise (1 star): iff_properties (Optional) ⭐
 
 -- Using the above proof that `↔` is symmetric (`iff_sym`) as a
 -- guide, prove that it is also reflexive and transitive.

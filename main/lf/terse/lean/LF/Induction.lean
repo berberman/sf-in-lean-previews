@@ -297,7 +297,7 @@ theorem add_rearrange (n m p q : Nat) :
 
 -- "Informal proofs are algorithms; formal proofs are code."
 
--- ### Exercise (2 stars): add_comm_informal (Advanced, manually graded) ⭐⭐
+-- ### Exercise (2 stars): add_comm_informal (Advanced, Optional, manually graded) ⭐⭐
 
 -- Translate your solution for `add_comm` into an informal
 -- proof:
@@ -306,7 +306,7 @@ theorem add_rearrange (n m p q : Nat) :
 
 -- Proof:
 
--- ### Exercise (2 stars): beq_refl_informal ⭐⭐
+-- ### Exercise (2 stars): beq_refl_informal (Optional) ⭐⭐
 
 -- Write an informal proof of the following theorem, using the
 -- informal proof of `add_assoc` as a model. Don't just
@@ -358,7 +358,7 @@ theorem mul_comm (m n : Nat) :
     m * n = n * m := by
   sorry
 
--- ### Exercise (3 stars): more_exercises ⭐⭐⭐
+-- ### Exercise (3 stars): more_exercises (Optional) ⭐⭐⭐
 
 -- Take a piece of paper. For each of the following theorems,
 -- first *think* about whether (a) it can be proved using only

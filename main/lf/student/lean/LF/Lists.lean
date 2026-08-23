@@ -130,7 +130,7 @@ theorem snd_fst_is_swap (p : NatProd) :
     (⟨p.snd, p.fst⟩ : NatProd) = p.swap := by
   sorry
 
--- ### Exercise (1 star): fst_swap_is_snd ⭐
+-- ### Exercise (1 star): fst_swap_is_snd (Optional) ⭐
 
 theorem fst_swap_is_snd (p : NatProd) :
     p.swap.fst = p.snd := by
@@ -502,7 +502,7 @@ theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
 -- ### Removing
 
--- ### Exercise (3 stars): removing ⭐⭐⭐
+-- ### Exercise (3 stars): removing (Optional) ⭐⭐⭐
 
 -- Here are some more `NatList` functions for you to practice with.
 
@@ -558,7 +558,7 @@ theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
 -- ### Included
 
--- ### Exercise (3 stars): included ⭐⭐⭐
+-- ### Exercise (3 stars): included (Optional) ⭐⭐⭐
 
 def included (l₁ l₂ : NatList) : Bool := sorry
 
@@ -970,7 +970,7 @@ theorem remove_does_not_increase_count (l : NatList) :
     Nat.ble (count 0 (removeOne 0 l)) (count 0 l) = true := by
   sorry
 
--- ### Exercise (3 stars): count_append (manually graded) ⭐⭐⭐
+-- ### Exercise (3 stars): count_append (Optional, manually graded) ⭐⭐⭐
 
 -- Write down an interesting theorem `count_append` about lists involving the
 -- functions `count` and `append`, and prove it. (You may find that the
@@ -1064,7 +1064,7 @@ example : head? [] = .none := sorry
 theorem test_head?1 : head? [1] = .some 1 := sorry
 theorem test_head?2 : head? [5, 6] = .some 5 := sorry
 
--- ### Exercise (1 star): option_elim_head? ⭐
+-- ### Exercise (1 star): option_elim_head? (Optional) ⭐
 
 -- This exercise relates your new `head?` to the old `head`.
 

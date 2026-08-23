@@ -138,7 +138,7 @@ theorem snd_fst_is_swap (p : NatProd) :
     (⟨p.snd, p.fst⟩ : NatProd) = p.swap := by
   cases p; rfl
 
--- ### Exercise (1 star): fst_swap_is_snd ⭐
+-- ### Exercise (1 star): fst_swap_is_snd (Optional) ⭐
 
 theorem fst_swap_is_snd (p : NatProd) :
     p.swap.fst = p.snd := by
@@ -555,7 +555,7 @@ attribute [autogradedProof 0.5] Lists.NatList.test_member2
 
 -- ### Removing
 
--- ### Exercise (3 stars): removing ⭐⭐⭐
+-- ### Exercise (3 stars): removing (Optional) ⭐⭐⭐
 
 -- Here are some more `NatList` functions for you to practice with.
 
@@ -629,7 +629,7 @@ attribute [autogradedProof 0.5] Lists.NatList.test_removeAll2
 
 -- ### Included
 
--- ### Exercise (3 stars): included ⭐⭐⭐
+-- ### Exercise (3 stars): included (Optional) ⭐⭐⭐
 
 def included (l₁ l₂ : NatList) : Bool := (
   match l₁ with
@@ -1101,7 +1101,7 @@ theorem remove_does_not_increase_count (l : NatList) :
       rw [removeOne_cons_diff _ _ _ rfl, count_cons_diff _ _ _ rfl, count_cons_diff _ _ _ rfl]
       exact ih
 
--- ### Exercise (3 stars): count_append (manually graded) ⭐⭐⭐
+-- ### Exercise (3 stars): count_append (Optional, manually graded) ⭐⭐⭐
 
 -- Write down an interesting theorem `count_append` about lists involving the
 -- functions `count` and `append`, and prove it. (You may find that the
@@ -1219,7 +1219,7 @@ theorem head?_cons (h : Nat) (t : NatList) : head? (h :: t) = .some h := (by rfl
 
 attribute [autogradedProof 1] Lists.NatList.test_head?1 Lists.NatList.test_head?2
 
--- ### Exercise (1 star): option_elim_head? ⭐
+-- ### Exercise (1 star): option_elim_head? (Optional) ⭐
 
 -- This exercise relates your new `head?` to the old `head`.
 

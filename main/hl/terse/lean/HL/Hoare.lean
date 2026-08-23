@@ -794,7 +794,7 @@ theorem hoare_post_true {P Q : Assertion} {c : Com} (h : ∀ st, Q st) :
     {{ P }} ~c {{ Q }} := by
   sorry
 
--- ### Exercise (1 star): hoare_pre_false ⭐
+-- ### Exercise (1 star): hoare_pre_false (Optional) ⭐
 
 -- Prove that if `P` holds in no state, then any triple with
 -- `P` as its precondition is valid.

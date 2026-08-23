@@ -813,7 +813,7 @@ theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a :
 -- *different* key `a₂` in the resulting map, we get the same result that `m`
 -- would have given:
 
--- ### Exercise (2 stars): update_neq ⭐⭐
+-- ### Exercise (2 stars): update_neq (Optional) ⭐⭐
 
 @[simp]
 theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
@@ -871,7 +871,7 @@ theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) 
 -- map behaves the same (gives the same result when applied to any key) as the
 -- simpler map obtained by performing just the second `update` on `m`:
 
--- ### Exercise (2 stars): update_shadow ⭐⭐
+-- ### Exercise (2 stars): update_shadow (Optional) ⭐⭐
 
 @[simp]
 theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :

@@ -311,7 +311,7 @@ theorem value_is_nf (t : Tm) (h : Tm.IsValue t) : Tm.IsNormalForm t := by
 theorem value_is_nf' : ∀ t, Tm.IsValue t → Tm.IsNormalForm t := by
   sorry
 
--- ### Exercise (3 stars): step_deterministic ⭐⭐⭐
+-- ### Exercise (3 stars): step_deterministic (Optional) ⭐⭐⭐
 
 -- Use `value_is_nf` (here, `nvalue_is_nf`) to show that the `Tm.Step`
 -- relation is also deterministic.
@@ -571,7 +571,7 @@ example :
     ¬ <{ ⊢ if iszero (succ 0) then succ false else true ⦂ Bool }> := by
   intro hc; cases hc with | ite _ _ _ _ h1 h2 h3 => cases h2
 
--- ### Exercise (1 star): succ_hastype_nat__hastype_nat ⭐
+-- ### Exercise (1 star): succ_hastype_nat__hastype_nat (Optional) ⭐
 
 example (t : Tm) (h : <{ ⊢ succ t ⦂ Nat }>) : <{ ⊢ t ⦂ Nat }> := by
   sorry
@@ -626,7 +626,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 
 -- (E) Dunno
 
--- ### Exercise (3 stars): finish_progress_informal ⭐⭐⭐
+-- ### Exercise (3 stars): finish_progress_informal (Optional) ⭐⭐⭐
 
 -- Complete the corresponding informal proof.
 
@@ -700,7 +700,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 theorem preservation (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ T }> := by
   sorry
 
--- ### Exercise (3 stars): finish_preservation_informal ⭐⭐⭐
+-- ### Exercise (3 stars): finish_preservation_informal (Optional) ⭐⭐⭐
 
 -- Complete the following informal proof.
 
@@ -831,7 +831,7 @@ end TM
 -- Which of the above properties become false in the presence of this rule?
 -- For each one that does, give a counter-example.
 
--- ### Exercise (2 stars): variation3 ⭐⭐
+-- ### Exercise (2 stars): variation3 (Optional) ⭐⭐
 
 -- Suppose instead that we add this rule:
 
@@ -840,7 +840,7 @@ end TM
 -- Which of the above properties become false in the presence of this rule?
 -- For each one that does, give a counter-example.
 
--- ### Exercise (2 stars): variation4 ⭐⭐
+-- ### Exercise (2 stars): variation4 (Optional) ⭐⭐
 
 -- Suppose instead that we add this rule:
 
@@ -849,7 +849,7 @@ end TM
 -- Which of the above properties become false in the presence of this rule?
 -- For each one that does, give a counter-example.
 
--- ### Exercise (2 stars): variation5 ⭐⭐
+-- ### Exercise (2 stars): variation5 (Optional) ⭐⭐
 
 -- Suppose instead that we add this rule:
 
@@ -858,7 +858,7 @@ end TM
 -- Which of the above properties become false in the presence of this rule?
 -- For each one that does, give a counter-example.
 
--- ### Exercise (2 stars): variation6 ⭐⭐
+-- ### Exercise (2 stars): variation6 (Optional) ⭐⭐
 
 -- Suppose instead that we add this rule:
 
@@ -867,7 +867,7 @@ end TM
 -- Which of the above properties become false in the presence of this rule?
 -- For each one that does, give a counter-example.
 
--- ### Exercise (3 stars): more_variations ⭐⭐⭐
+-- ### Exercise (3 stars): more_variations (Optional) ⭐⭐⭐
 
 -- Make up some exercises of your own along the same lines as the ones above.
 -- Try to find ways of selectively breaking properties — i.e., ways of

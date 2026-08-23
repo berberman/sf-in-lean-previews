@@ -272,7 +272,7 @@ theorem proj1 (a b : Prop) (h : a ∧ b) : a := by
 theorem left (a b : Prop) (h : a ∧ b) : a := by
   exact h.left
 
--- ### Exercise (1 star): proj2 ⭐
+-- ### Exercise (1 star): proj2 (Optional) ⭐
 
 theorem right (a b : Prop) (h : a ∧ b) : b := by
   sorry
@@ -408,7 +408,7 @@ theorem ex_falso_quodlibet (a : Prop) (h : False) : a := by
 -- whatever you like"; this is another common name for the principle of
 -- explosion.
 
--- ### Exercise (2 stars): not_implies_other_not ⭐⭐
+-- ### Exercise (2 stars): not_implies_other_not (Optional) ⭐⭐
 
 theorem not_implies_other_not (a : Prop) (h : ¬ a) :
     (∀ c : Prop, a → c) := by
@@ -451,7 +451,7 @@ theorem contradiction_implies_anything (a b : Prop) (h : a ∧ ¬ a) : b := by
 theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
   intro h; apply h; exact ha
 
--- ### Exercise (2 stars): double_neg_informal (Advanced, manually graded) ⭐⭐
+-- ### Exercise (2 stars): double_neg_informal (Advanced, Optional, manually graded) ⭐⭐
 
 -- Write an *informal* proof of `double_neg`: *Theorem*: `a` implies `¬ ¬ a`,
 -- for any proposition `a`.
@@ -476,7 +476,7 @@ theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
 theorem de_morgan_not_or {a b : Prop} (h : ¬ (a ∨ b)) : ¬ a ∧ ¬ b := by
   sorry
 
--- ### Exercise (1 star): not_succ_inverse_pred ⭐
+-- ### Exercise (1 star): not_succ_inverse_pred (Optional) ⭐
 
 -- Since we are working with natural numbers, we can disprove that `Nat.succ`
 -- and `Nat.pred` are inverses of each other. This proof will require you to
@@ -627,7 +627,7 @@ theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
 -- we can use `exfalso` to replace them with `False`. The `contradiction`
 -- tactic takes care of all of this for us.
 
--- ### Exercise (2 stars): nil_is_not_cons (Advanced, manually graded) ⭐⭐
+-- ### Exercise (2 stars): nil_is_not_cons (Advanced, Optional, manually graded) ⭐⭐
 
 -- Use the same technique as above to show that `[] ≠ x :: xs`. Do not use the
 -- `contradiction` tactic.
@@ -679,7 +679,7 @@ theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
   · apply not_true_is_false
   · intro h; rw [h]; intro h'; contradiction
 
--- ### Exercise (1 star): iff_properties ⭐
+-- ### Exercise (1 star): iff_properties (Optional) ⭐
 
 -- Using the above proof that `↔` is symmetric (`iff_sym`) as a guide, prove
 -- that it is also reflexive and transitive.
@@ -904,7 +904,7 @@ theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
 --     3. I don't know how to nicely avoid `cases h : ...` syntax which IIRC we
 --        didn't mention before
 
--- ### Exercise (2 stars): CombineOddEven ⭐⭐
+-- ### Exercise (2 stars): CombineOddEven (Optional) ⭐⭐
 
 -- Complete the definition of `CombineOddEven` below. It takes as arguments
 -- two properties of numbers, `Odd` and `Even`, and it should return a
@@ -1778,7 +1778,7 @@ theorem not_exists_dist (α : Type) (p : α → Prop) :
     (¬ ∃ x : α, ¬ p x) → (∀ x : α, p x) := by
   sorry
 
--- ### Exercise (5 stars): classical_axioms ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): classical_axioms (Optional) ⭐⭐⭐⭐⭐
 
 -- For those who like a challenge, here is an exercise adapted from the
 -- Coq'Art book by Bertot and Casteran (p. 123). Each of the following five

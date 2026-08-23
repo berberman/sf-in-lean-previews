@@ -1046,7 +1046,7 @@ theorem ceval_deterministic (c : Com) (st st1 st2 : State)
           subst hst
           exact ih2 _ hl'
 
--- ### Exercise (3 stars): pup_to_n ⭐⭐⭐
+-- ### Exercise (3 stars): pup_to_n (Optional) ⭐⭐⭐
 
 -- Write an Imp program that sums the numbers from `1` to `X` (inclusive) in
 -- the variable `Y`. Your program should update the state as shown in
@@ -1098,7 +1098,7 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
       rw [TotalMap.update_eq]
       lia
 
--- ### Exercise (3 stars): XtimesYinZ_spec ⭐⭐⭐
+-- ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
 
 -- State and prove a specification of `XtimesYinZ`.
 

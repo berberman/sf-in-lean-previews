@@ -1,5 +1,5 @@
 {
-  "main_sha": "ca2794230fd2efb8d4d6333aecf34501bdaf5b9c",
+  "main_sha": "11e88fc6089614387a5bd638e210a32ea07b549b",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -490,53 +490,6 @@
       "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
-    },
-    "305": {
-      "base_sha": "ca2794230fd2efb8d4d6333aecf34501bdaf5b9c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b6d12dc0b6255aba5bbf202bfb5e80cde296df10",
-      "preview_path": "pr/305/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32660770306",
-      "status": "published",
-      "title": "Carry SF's \"optional\" exercise flag over from Rocq ",
-      "url": "https://github.com/plclub/sf-in-lean/pull/305"
     }
   },
   "schema": 3

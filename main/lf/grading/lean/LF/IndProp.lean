@@ -528,7 +528,7 @@ def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CMS n 1
 --     HIDE: CH: Would it be helpful to add an exercise later proving CMS
 --     equivalent to CollatzHoldsFor?
 
--- ### Exercise (1 star): clos_refl_trans_sym (manually graded) ⭐
+-- ### Exercise (1 star): clos_refl_trans_sym (Optional, manually graded) ⭐
 
 -- How would you modify the `ClosReflTrans` definition above so as to define
 -- the reflexive, symmetric, and transitive closure?
@@ -592,7 +592,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
     (h₂₃ : Perm3 l₂ l₃) :
     Perm3 l₁ l₃
 
--- ### Exercise (1 star): perm (manually graded) ⭐
+-- ### Exercise (1 star): perm (Optional, manually graded) ⭐
 
 -- According to this definition, is `[1, 2, 3]` a permutation of itself?
 
@@ -1119,7 +1119,7 @@ theorem ev_ev__ev (n m : Nat) (hₙₘ : Ev (n + m)) (hₙ : Ev n) : Ev m := by
     apply ih; rw [Nat.add_comm, ←Nat.add_assoc, Nat.add_comm m] at hₙₘ
     inversion hₙₘ; assumption
 
--- ### Exercise (3 stars): ev_plus_plus ⭐⭐⭐
+-- ### Exercise (3 stars): ev_plus_plus (Optional) ⭐⭐⭐
 
 -- This exercise can be completed without induction or case analysis. But, you
 -- will need a clever `have` and some tedious rewriting. Hint: Is
@@ -1233,7 +1233,7 @@ theorem closure_of_diagonal_is_diagonal {α} (R : α → α → Prop)
 --     could be an idea to consider, as the way people tend to write it on
 --     paper differs a bit from the mechanized proof. BCP 25: Yes.
 
--- ### Exercise (4 stars): ev'_ev (Advanced) ⭐⭐⭐⭐
+-- ### Exercise (4 stars): ev'_ev (Advanced, Optional) ⭐⭐⭐⭐
 
 -- In general, there may be multiple ways of defining a property inductively.
 -- For example, here's a (slightly contrived) alternative definition for `Ev`:
@@ -1310,7 +1310,7 @@ theorem In {α} (x : α) (l₁ l₂ : List α)
   | perm3_trans _ _  ih₁₂ ih₂₃ =>
     apply ih₂₃; apply ih₁₂; apply hIn
 
--- ### Exercise (1 star): Perm3_NotIn ⭐
+-- ### Exercise (1 star): Perm3_NotIn (Optional) ⭐
 
 theorem NotIn {α} (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∉ l₁) : x ∉ l₂ := by
@@ -1319,7 +1319,7 @@ theorem NotIn {α} (x : α) (l₁ l₂ : List α)
   . apply symm; exact hPerm
   . exact hContra
 
--- ### Exercise (2 stars): NotPerm3 ⭐⭐
+-- ### Exercise (2 stars): NotPerm3 (Optional) ⭐⭐
 
 -- Proving that something is NOT a permutation is quite tricky. Some of the
 -- lemmas above, like `Perm3.In` can be useful for this.
@@ -1539,7 +1539,7 @@ theorem le_plus_trans (n m p : Nat) (h : n ≤ m) : n ≤ m + p := by
 
 attribute [autogradedProof 1] le_plus_trans
 
--- ### Exercise (3 stars): lt_facts ⭐⭐⭐
+-- ### Exercise (3 stars): lt_facts (Optional) ⭐⭐⭐
 
 theorem lt_ge_cases (n m : Nat) : n < m ∨ n ≥ m := by
   induction n generalizing m with
@@ -1587,7 +1587,7 @@ theorem plus_lt (n₁ n₂ m : Nat) (h : n₁ + n₂ < m) : n₁ < m ∧ n₂ < 
 
 attribute [autogradedProof 1] plus_lt
 
--- ### Exercise (4 stars): ble_le ⭐⭐⭐⭐
+-- ### Exercise (4 stars): ble_le (Optional) ⭐⭐⭐⭐
 
 theorem ble_sound (n m : Nat) (h : Nat.ble n m = true) : n ≤ m := by
   induction n generalizing m with
@@ -1694,7 +1694,7 @@ inductive R : Nat → Nat → Nat → Prop where
 --   evidence for `R m n o`, so the latter must already hold. (This can be
 --   proved by induction, although the proof is surprisingly tedious.)
 
--- ### Exercise (3 stars): R_fact ⭐⭐⭐
+-- ### Exercise (3 stars): R_fact (Optional) ⭐⭐⭐
 
 -- The relation `R` above actually encodes a familiar function. Figure out
 -- which function; then state and prove this equivalence in Lean.
@@ -1835,7 +1835,7 @@ attribute [autogradedProof 2] R.Subseq.app
 
 attribute [autogradedProof 3] R.Subseq.trans
 
--- ### Exercise (2 stars): R_provability2 (manually graded) ⭐⭐
+-- ### Exercise (2 stars): R_provability2 (Optional, manually graded) ⭐⭐
 
 -- Suppose we give Lean the following definition:
 
@@ -1868,7 +1868,7 @@ attribute [autogradedProof 3] R.Subseq.trans
 -- If you do a few more of these yourself, you should see the pattern
 -- emerging.
 
--- ### Exercise (2 stars): total_relation ⭐⭐
+-- ### Exercise (2 stars): total_relation (Optional) ⭐⭐
 
 -- Define an inductive binary relation `total_relation` that holds between
 -- every pair of natural numbers.
@@ -1881,7 +1881,7 @@ theorem total_relation_is_total (n m : Nat) : TotalRelation n m := by
 
 attribute [autogradedProof 2] R.total_relation_is_total
 
--- ### Exercise (2 stars): empty_relation ⭐⭐
+-- ### Exercise (2 stars): empty_relation (Optional) ⭐⭐
 
 -- Define an inductive binary relation `empty_relation` (on numbers) that
 -- never holds.
@@ -2008,7 +2008,7 @@ theorem merge_filter (α : Type) (test : α → Bool) (l l₁ l₂ : List α)
 
 attribute [autogradedProof 6] R.merge_filter
 
--- ### Exercise (5 stars): filter_challenge_2 (Advanced) ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): filter_challenge_2 (Advanced, Optional) ⭐⭐⭐⭐⭐
 
 -- A different way to characterize the behavior of `filter` goes like this:
 -- Among all subsequences of `l` with the property that `test` evaluates to
@@ -2207,7 +2207,7 @@ theorem filter_spec2 (α : Type) (l lsub : List α) (test : α → Bool) :
             exact ih _ rfl _ hsub hall
 end Sol
 
--- ### Exercise (4 stars): palindromes ⭐⭐⭐⭐
+-- ### Exercise (4 stars): palindromes (Optional) ⭐⭐⭐⭐
 
 -- A palindrome is a sequence that reads the same backwards as forwards.
 
@@ -2291,7 +2291,7 @@ attribute [autogradedProof 3] R.pal_reverse
 --     This one is super annoying without simp. I propose we move it to the
 --     simp chapter
 
--- ### Exercise (5 stars): palindrome_converse ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): palindrome_converse (Optional) ⭐⭐⭐⭐⭐
 
 -- Again, the converse direction is significantly more difficult, due to the
 -- lack of evidence. Using your definition of `Pal` from the previous
@@ -2462,7 +2462,7 @@ theorem reverse_pal {α : Type} (n : Nat) (l : List α)
 theorem palindrome_converse {α : Type} (l : List α) (h : l = l.reverse) : Pal l := by
   exact reverse_pal _ _ rfl h
 
--- ### Exercise (4 stars): NoDup (Advanced) ⭐⭐⭐⭐
+-- ### Exercise (4 stars): NoDup (Advanced, Optional) ⭐⭐⭐⭐
 
 -- Use the `∈` property to define a proposition `Disjoint l₁ l₂`, which should
 -- be provable exactly when `l₁` and `l₂` are lists (with elements of type
@@ -2559,7 +2559,7 @@ theorem NoDup_Disjoint_app {α : Type} (l₁ l₂ : List α) :
   . intro ⟨h₁, ⟨h₂, h₃⟩⟩
     exact NoDup_append _ _ _ h₁ h₂ h₃
 
--- ### Exercise (5 stars): pigeonhole_principle (Advanced) ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): pigeonhole_principle (Advanced, Optional) ⭐⭐⭐⭐⭐
 
 -- The *pigeonhole principle* states a basic fact about counting: if we
 -- distribute more than `n` items into `n` pigeonholes, some pigeonhole must

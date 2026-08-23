@@ -303,7 +303,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --     space after it is removed. Maybe it's better to give up on all the
 --     unicode hacks in the generated HTML...?
 
--- ### Exercise (2 stars): if_minus_plus_reloaded (manually graded) ⭐⭐
+-- ### Exercise (2 stars): if_minus_plus_reloaded (Optional, manually graded) ⭐⭐
 
 -- N.b.: Although this exercise is marked optional, it is an excellent warm-up
 -- for the (non-optional) `if_minus_plus_correct` exercise below!
@@ -1069,7 +1069,7 @@ theorem if_minus_plus_correct :
     ifMinusPlusDec.OuterTripleValid := by
   sorry
 
--- ### Exercise (2 stars): div_mod_outer_triple_valid ⭐⭐
+-- ### Exercise (2 stars): div_mod_outer_triple_valid (Optional) ⭐⭐
 
 -- Fill in appropriate assertions for the division program from above.
 
@@ -1379,7 +1379,7 @@ def parity : Nat → Nat
 --      {{ X=0 <-> ev m }}
 --     ]]`
 
--- ### Exercise (3 stars): parity ⭐⭐⭐
+-- ### Exercise (3 stars): parity (Optional) ⭐⭐⭐
 
 -- Translate the above informal decorated program into a formal one and prove
 -- it correct.
@@ -1590,7 +1590,7 @@ theorem parity_correct (m : Nat) :
 -- changed by the loop), it is necessary to record the *fact* that it doesn't
 -- change in the loop invariant.
 
--- ### Exercise (3 stars): sqrt ⭐⭐⭐
+-- ### Exercise (3 stars): sqrt (Optional) ⭐⭐⭐
 
 -- Translate the above informal decorated program into a formal one and prove
 -- it correct.
@@ -2078,7 +2078,7 @@ theorem two_loops (a b c : Nat) :
 --
 --        BCP 21: Ditto my response above.  IMO this is not a problem.`
 
--- ### Exercise (4 stars): dpow2 ⭐⭐⭐⭐
+-- ### Exercise (4 stars): dpow2 (Optional) ⭐⭐⭐⭐
 
 -- Here is a program that computes the series:
 -- `1 + 2 + 2^2 + ... + 2^m = 2^(m+1) - 1`
@@ -2198,7 +2198,7 @@ theorem dpow2_down_correct (n : Nat) :
 --                       )
 --         {{ ? }}`
 
--- ### Exercise (2 stars): fib_eqn (Advanced) ⭐⭐
+-- ### Exercise (2 stars): fib_eqn (Advanced, Optional) ⭐⭐
 
 -- The Fibonacci function is characterized by the equations
 
@@ -2220,7 +2220,7 @@ theorem fib_eqn (n : Nat) (h : n > 0) :
     fib n + fib (Nat.pred n) = fib (1 + n) := by
   sorry
 
--- ### Exercise (4 stars): fib (Advanced) ⭐⭐⭐⭐
+-- ### Exercise (4 stars): fib (Advanced, Optional) ⭐⭐⭐⭐
 
 -- The following Imp program leaves the value of `fib n` in the variable `Y`
 -- when it terminates:
@@ -2314,7 +2314,7 @@ theorem dfib_correct (n : Nat) :
 --     more like the decorations earlier in the present chapter. All three
 --     should be aligned.
 
--- ### Exercise (5 stars): improve_dcom (Advanced) ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): improve_dcom (Advanced, Optional) ⭐⭐⭐⭐⭐
 
 -- The formal decorated programs defined above are intended to look as similar
 -- as possible to the informal ones defined earlier. If we drop this
@@ -2771,7 +2771,7 @@ def IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ValidHoareTriple P c Q ∧
   ∀ P' : Assertion, ValidHoareTriple P' c Q → P' ->> P
 
--- ### Exercise (1 star): wp ⭐
+-- ### Exercise (1 star): wp (Optional) ⭐
 
 -- What are weakest preconditions of the following commands for the following
 -- postconditions?
@@ -2801,7 +2801,7 @@ def IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
 --   5) False
 --   6) True
 
--- ### Exercise (3 stars): is_wp (Advanced) ⭐⭐⭐
+-- ### Exercise (3 stars): is_wp (Advanced, Optional) ⭐⭐⭐
 
 -- Prove formally, using the definition of `ValidHoareTriple`, that `Y <= 4`
 -- is indeed a weakest precondition of `X := Y + 1` with respect to
@@ -2812,7 +2812,7 @@ theorem is_wp_example :
       ({{ X ≤ 5 }}) := by
   sorry
 
--- ### Exercise (2 stars): hoare_asgn_weakest (Advanced) ⭐⭐
+-- ### Exercise (2 stars): hoare_asgn_weakest (Advanced, Optional) ⭐⭐
 
 -- Show that the precondition in the rule `hoare_asgn` is in fact the weakest
 -- precondition.
@@ -2824,7 +2824,7 @@ theorem hoare_asgn_weakest
 
 attribute [autogradedProof 2] hoare_asgn_weakest
 
--- ### Exercise (2 stars): hoare_havoc_weakest (Advanced) ⭐⭐
+-- ### Exercise (2 stars): hoare_havoc_weakest (Advanced, Optional) ⭐⭐
 
 -- Show that your `havoc_pre` function from the `himp_hoare` exercise in the
 -- Hoare chapter returns a weakest precondition.

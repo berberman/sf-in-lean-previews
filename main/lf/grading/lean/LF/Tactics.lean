@@ -72,7 +72,7 @@ example (n m : Nat) (h₁ : (n, n) = (m, m))
   apply h₂
   exact h₁
 
--- ### Exercise (2 stars): apply_exercise ⭐⭐
+-- ### Exercise (2 stars): apply_exercise (Optional) ⭐⭐
 
 -- Complete the following proof using only `apply`.
 
@@ -112,7 +112,7 @@ theorem rev_exercise1 {α : Type} (l l' : List α) (h : l = l'.rev) :
 
 attribute [autogradedProof 2] rev_exercise1
 
--- ### Exercise (1 star): apply_rewrite (manually graded) ⭐
+-- ### Exercise (1 star): apply_rewrite (Optional, manually graded) ⭐
 
 -- Briefly explain the difference between the tactics `apply` and `rw`. What
 -- are the situations where both can usefully be applied?
@@ -265,7 +265,7 @@ example (a b c d e f : Nat)
   [a, b] = [c, d] := by rw [h₁]
   [c, d] = [e, f] := by rw [h₂]
 
--- ### Exercise (3 stars): trans_eq_exercise ⭐⭐⭐
+-- ### Exercise (3 stars): trans_eq_exercise (Optional) ⭐⭐⭐
 
 theorem trans_eq_exercise (n m o p : Nat)
     (h₁ : m = o.minusTwo)
@@ -1038,7 +1038,7 @@ theorem nth?_after_last {α : Type}
 
 attribute [autogradedProof 3] nth?_after_last
 
--- ### Exercise (3 stars): length_append_cons ⭐⭐⭐
+-- ### Exercise (3 stars): length_append_cons (Optional) ⭐⭐⭐
 
 -- Prove this by induction on `l₁`, without using `List.length_append`.
 
@@ -1057,7 +1057,7 @@ theorem length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat}
 
 attribute [autogradedProof 3] length_append_cons
 
--- ### Exercise (3 stars): length_append_self ⭐⭐⭐
+-- ### Exercise (3 stars): length_append_self (Optional) ⭐⭐⭐
 
 -- Prove this by induction on `l₁`, without using `List.length_append`. Hint:
 -- you might need to use `length_append_cons` you just proved.
@@ -1077,7 +1077,7 @@ theorem length_append_self {α : Type} {n : Nat} {l : List α}
 
 attribute [autogradedProof 3] length_append_self
 
--- ### Exercise (3 stars): diagonal_induction ⭐⭐⭐
+-- ### Exercise (3 stars): diagonal_induction (Optional) ⭐⭐⭐
 
 -- Prove the following principle of induction over two naturals.
 
