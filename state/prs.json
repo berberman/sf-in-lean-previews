@@ -537,6 +537,16 @@
       "status": "published",
       "title": "Partial progress on Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/304"
+    },
+    "305": {
+      "base_sha": "ca2794230fd2efb8d4d6333aecf34501bdaf5b9c",
+      "changed_variants": [],
+      "head_sha": "b6d12dc0b6255aba5bbf202bfb5e80cde296df10",
+      "preview_path": "pr/305/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Carry SF's \"optional\" exercise flag over from Rocq ",
+      "url": "https://github.com/plclub/sf-in-lean/pull/305"
     }
   },
   "schema": 3
