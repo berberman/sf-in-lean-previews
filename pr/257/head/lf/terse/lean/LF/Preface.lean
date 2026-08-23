@@ -131,6 +131,15 @@ import LF.SFLCompat
 -- work](https://leanprover-community.github.io/papers.html)
 -- across computer science and mathematics:
 
+-- Note to developers (Benjamin Pierce @bcpierce00):
+--     The individual references above should be merged into
+--     the categories below. In particular, the first three
+--     should go in the bullet about math, and the last one
+--     should go in the bullet about modeling programming
+--     languages. (I see that that first bullet could also use
+--     citations for some of the points it already makes, but
+--     we can leave that for later...)
+
 -- - As a *platform for modeling programming languages*, proof
 --   assistants have become standard tools for researchers who
 --   need to describe and reason about complex language
@@ -287,7 +296,7 @@ import LF.SFLCompat
 --     unpack, open the folder in VS Code, accept the install
 --     prompt". Until that exists, this section should probably
 --     say plainly that readers get the files from their
---     instructor or by following `ALPHATESTERS.md`.
+--     instructor or by following `ALPHA-TESTERS.md`.
 
 -- ### Exercises
 
@@ -343,14 +352,14 @@ import LF.SFLCompat
 -- If you find things you'd like to help add or improve, your
 -- contributions are welcome! To get started, clone the
 -- [SF-in-Lean git repo](https://github.com/plclub/sf-in-lean)
--- and have a look at `ALPHATESTERS.md`.
+-- and have a look at `ALPHA-TESTERS.md`.
 
 -- ## For Instructors
 
 -- A large compendium of exams from many offerings of CIS5000
 -- ("Software Foundations") at the University of Pennsylvania
 -- can be found at
--- <https://www.seas.upenn.edu/~cis5000/current/exams/index.html>.
+-- [https://www.seas.upenn.edu/~cis5000/current/exams/index.html](https://www.seas.upenn.edu/~cis5000/current/exams/index.html).
 -- Until 2026, the course was offered in Rocq, but the ideas
 -- behind the problems are still relevant.
 

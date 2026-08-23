@@ -238,11 +238,48 @@
     },
     "257": {
       "base_sha": "c910484da1e27d874de2fd899b3624ef7ae1f611",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "44ec86a365eef8b5116f49edf568064573edd4bc",
       "preview_path": "pr/257/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32627338293",
+      "status": "published",
       "title": "Reimplement autograding",
       "url": "https://github.com/plclub/sf-in-lean/pull/257"
     },
@@ -537,6 +574,53 @@
       "status": "published",
       "title": "Slang: minor fixes and improvements",
       "url": "https://github.com/plclub/sf-in-lean/pull/301"
+    },
+    "302": {
+      "base_sha": "44ec86a365eef8b5116f49edf568064573edd4bc",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "26a031e148957a5cc79a8905523cc7e8ffea0151",
+      "preview_path": "pr/302/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32627951244",
+      "status": "published",
+      "title": "Start adding autogradedHoles, add some missing gradeTheorems",
+      "url": "https://github.com/plclub/sf-in-lean/pull/302"
     }
   },
   "schema": 3

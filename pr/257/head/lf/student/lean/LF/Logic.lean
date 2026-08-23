@@ -228,10 +228,9 @@ theorem Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
 -- can use `obtain` to obtain the components.
 
 example (n m : Nat) : n = 0 ∧ m = 0 → n + m = 0 := by
-  all_goals
-    intro h
-    obtain ⟨hn, hm⟩ := h
-    rw [hn, hm]
+  intro h
+  obtain ⟨hn, hm⟩ := h
+  rw [hn, hm]
 
 -- We can also match on `h` right at the point where we introduce it, instead
 -- of introducing and then destructing it:
@@ -254,11 +253,10 @@ example (n m : Nat) : n = 0 → m = 0 → n + m = 0 := by
 -- developments. Here's a simple example:
 
 example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
-  all_goals
-    apply Nat.add_is_zero at h
-    obtain ⟨hn, hm⟩ := h
-    rw [hm]
-    rfl
+  apply Nat.add_is_zero at h
+  obtain ⟨hn, hm⟩ := h
+  rw [hm]
+  rfl
 
 -- Another common situation is that we know `a ∧ b` but in some context we
 -- need just `a` or just `b`. In such cases we can use an underscore pattern
@@ -357,10 +355,9 @@ theorem or_intro_l (a b : Prop) (h : a) : a ∨ b := by
 -- and `right`:
 
 theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
-  all_goals
-    cases n with
-    | zero => left; rfl
-    | succ n => right; rw [Nat.pred_succ]
+  cases n with
+  | zero => left; rfl
+  | succ n => right; rw [Nat.pred_succ]
 
 -- ### Exercise (2 stars): mul_is_zero ⭐⭐
 
@@ -447,14 +444,12 @@ theorem not_False : ¬ False := by
   intro h; exact h
 
 theorem contradiction_implies_anything (a b : Prop) (h : a ∧ ¬ a) : b := by
-  all_goals
-    obtain ⟨ha, hna⟩ := h
-    apply hna at ha
-    cases ha
+  obtain ⟨ha, hna⟩ := h
+  apply hna at ha
+  cases ha
 
 theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
-  all_goals
-    intro h; apply h; exact ha
+  intro h; apply h; exact ha
 
 -- ### Exercise (2 stars): double_neg_informal (Advanced, manually graded) ⭐⭐
 
@@ -675,10 +670,9 @@ theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
 -- Iff.mpr {a b : Prop} (self : a ↔ b) : b → a
 
 theorem iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a := by
-  all_goals
-    constructor
-    · exact h.mpr
-    · exact h.mp
+  constructor
+  · exact h.mpr
+  · exact h.mp
 
 theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
   constructor
@@ -769,16 +763,6 @@ theorem dist_exists_or (α : Type) (p q : α → Prop) :
     (∃ x, p x ∨ q x) ↔ (∃ x, p x) ∨ (∃ x, q x) := by
   sorry
 
--- ### Exercise (3 stars): ble_plus_exists ⭐⭐⭐
-
-theorem ble_plus_exists (n m : Nat) : (Nat.ble n m = true) → ∃ x, m = x + n := by
-  sorry
-
--- FILL IN HERE
-
-theorem add_exists_ble (n m : Nat) (h : ∃ x, m = x + n) : Nat.ble n m = true := by
-  sorry
-
 -- ## Recap: Logical Connectives in Lean
 
 -- Connectives introduced in this chapter:
@@ -847,15 +831,13 @@ theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: x
 -- sequence of nested disjunctions.
 
 example : List.In 4 [1, 2, 3, 4, 5] := by
-  all_goals
-    dsimp [List.In]; right; right; right; left; rfl
+  dsimp [List.In]; right; right; right; left; rfl
 
 example (n : Nat) (h : List.In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
-  all_goals
-    dsimp [List.In] at h
-    obtain h | h | ⟨⟨⟩⟩ := h
-    · exists 1
-    · exists 2
+  dsimp [List.In] at h
+  obtain h | h | ⟨⟨⟩⟩ := h
+  · exists 1
+  · exists 2
     /- (Notice the use of the empty pattern to discharge the last case.) -/
 
 -- We can also reason about more generic statements involving `List.In`.
@@ -1222,13 +1204,13 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 
 -- (For the reverse direction we need the simple fact that `==` is reflexive.)
 
+-- Don't worry too much about `Nat.beq_eq_true_eq` yet, we need this from Lean
+-- because `n == m` is a wrapper of `DecidableEq Nat`. We will go over this in
+-- the Typeclasses chapter.
+
 theorem beq_eq_true (n m : Nat) :
     (n == m) = true ↔ n = m := by
-  constructor
-  · apply beq_eq
-  · intro h
-    rw [h]
-    apply BEq.rfl
+  rw [Nat.beq_eq_true_eq]
 
 -- So what should we do in situations where some claim could be formalized as
 -- either a proposition or a boolean computation? Which should we choose?
@@ -1299,9 +1281,8 @@ example : Nat.even 101 = false := rfl
 -- can let Lean do the work for us.
 
 example : ¬ Nat.Even 101 := by
-  all_goals
-    intro h; apply (Nat.even_bool_prop 101).mpr at h
-    dsimp [Nat.even] at h; contradiction
+  intro h; apply (Nat.even_bool_prop 101).mpr at h
+  dsimp [Nat.even] at h; contradiction
 
 -- Conversely, there are situations where it can be easier to work with
 -- propositions rather than booleans. In particular, knowing that
@@ -1311,9 +1292,8 @@ example : ¬ Nat.Even 101 := by
 
 theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
     (n + p == m + p) = true := by
-  all_goals
-    apply (beq_eq_true n m).mp at h
-    rw [h, BEq.rfl]
+  apply (beq_eq_true n m).mp at h
+  rw [h, BEq.rfl]
 
 -- We'll come back to reflection and decidable propositions in a later
 -- chapter, but it serves as a good example showing the different strengths of
@@ -1542,11 +1522,11 @@ theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
     List.In x (l ++ l') ↔ List.In x l ∨ List.In x l' := by
   sorry
 
--- ### Exercise (1 star): beq_neq ⭐
+-- ### Exercise (1 star): beq_neq_false ⭐
 
--- The following theorem is an alternative "negative" formulation of `beq_eq`
--- that is more convenient in certain situations. (We'll see examples in later
--- chapters.) Hint: `not_true_iff_false`.
+-- The following theorem is an alternative "negative" formulation of
+-- `beq_eq_true` that is more convenient in certain situations. (We'll see
+-- examples in later chapters.) Hint: `not_true_iff_false`.
 
 theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
   sorry

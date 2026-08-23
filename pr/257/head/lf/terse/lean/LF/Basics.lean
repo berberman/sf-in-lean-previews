@@ -2,6 +2,8 @@ import LF.SFLCompat
 
 -- # Basics: Functional Programming in Lean
 
+set_option pp.fieldNotation false
+
 -- ## Data and Functions
 
 -- In Lean, we can build practically everything from first
@@ -91,15 +93,8 @@ example : or MyBool.false MyBool.false = MyBool.false := by rfl
 example : or MyBool.false MyBool.true  = MyBool.true  := by rfl
 example : or MyBool.true  MyBool.true  = MyBool.true  := by rfl
 
--- Note to developers (mwhicks):
---     TODO: Seems wrong to not say anything about this
---     notation here. Our rule is to mention simple notations
---     like this, but not `macro_rules` etc. Do we actually
---     introduce this later?
-
--- We can define new symbolic notations for existing
--- definitions. Don't worry for now about how the notation is
--- defined.
+-- Lean allows us to define symbolic notation for our
+-- definitions.
 
 local prefix:40 (priority := high) "!" => not
 local infixl:35 (priority := high) " && " => and
@@ -109,6 +104,32 @@ example :
     (MyBool.false || MyBool.false || MyBool.true) = MyBool.true := by rfl
 
 example : (!MyBool.false) = MyBool.true := by rfl
+
+-- The technical details of how these symbolic notations work
+-- are not something you need to understand until quite a bit
+-- later in your Lean journey. We'll mark these details -- and
+-- similar material later on -- with
+-- `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and
+-- collapsed text segments in the HTML presentation. Click on
+-- the triangle in the HTML if you want to have a peek, or just
+-- move on to the following material, as you like.
+
+-- THESE DETAILS CAN BE SKIPPED: Details
+
+-- Lean has a very flexible notation system. Operators like
+-- `||` and `&&` are defined with specified precedence and
+-- associativity. For example, the `infixl` directive above
+-- states that `&&` is an infix operator, has precedence 35,
+-- and is left-associative, while `||` is also infix and
+-- left-associative and has precedence 30. This means that
+-- `MyBool.true || MyBool.false && MyBool.false` is parsed as
+-- `MyBool.true || (MyBool.false && MyBool.false)`.
+
+-- Custom notations are defined using the `notation`, `infixl`,
+-- `infixr`, `prefix`, and `postfix` commands, some of which we
+-- will see (again, in skippable sections) later on.
+
+-- END DETAILS
 
 -- ### Exercise (1 star): nand ⭐
 
@@ -130,6 +151,9 @@ theorem nand_test1 : nand MyBool.true  MyBool.false = MyBool.true  := sorry
 theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := sorry
 theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := sorry
 theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := sorry
+
+-- Note to developers:
+--     TODO: `nand` needs `@[autogradedHole]`
 
 -- ### Exercise (1 star): and3 ⭐
 
@@ -506,14 +530,8 @@ inductive Nat : Type where
 -- With a little Lean magic, we can also arrange that ordinary
 -- numerals such as 0, 1, and 2 will be interpreted as values
 -- of our new `Nat` type whenever this is sensible in context.
-
 -- The technical details of how this is done are not important
--- for present purposes, so we won't spend time explaining them
--- here. Instead, we'll mark them with
--- `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and
--- hide them in a collapsed text segment in the HTML
--- presentation. Click on the triangle in the HTML if you want
--- to have a look.
+-- for present purposes.
 
 -- THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
 
@@ -522,6 +540,7 @@ def ofNat : _root_.Nat → Nat
   | .succ n => .succ (ofNat n)
 
 instance (n : _root_.Nat) : OfNat Nat n := ⟨ofNat n⟩
+attribute [pp_nodot] Nat.succ
 
 -- END DETAILS
 
@@ -863,10 +882,10 @@ scoped infixl:30 " == " => beq
 -- Note that `==` and `=` are different; the former means `beq`
 -- whereas the latter is a logical claim.
 
-theorem zero_zero_beq_true : (zero == zero) = true := by rfl
-theorem zero_succ_beq_false (n : Nat) : (zero == (succ n)) = false := by rfl
-theorem succ_zero_beq_false (n : Nat) : ((succ n) == zero) = false := by rfl
-theorem succ_succ_beq (n m : Nat) : ((succ n) == (succ m)) = (n == m) := by rfl
+theorem zero_beq_zero : (zero == zero) = true := by rfl
+theorem zero_beq_succ (n : Nat) : (zero == (succ n)) = false := by rfl
+theorem succ_beq_zero (n : Nat) : ((succ n) == zero) = false := by rfl
+theorem succ_beq_succ (n m : Nat) : ((succ n) == (succ m)) = (n == m) := by rfl
 
 attribute [irreducible] beq
 
@@ -925,20 +944,21 @@ theorem add_id_exercise : ∀ n m o : Nat,
 -- Sometimes simple calculation and rewriting are not enough...
 
 sf_expect_failure
-  example (n : Nat) : (succ n == zero) = false := by
+  example (n : Nat) : (succ zero + n == zero) = false := by
     /-
-      We can't rewrite by any lemmas here because `n` is unknown!
+      We can't rewrite by any lemmas here: `add`'s definition matches on its
+      *second* argument, and here that argument is the unknown `n`!
     -/
 
 -- We can use `cases` to perform case analysis:
 
-theorem add_one_neb_zero (n : Nat) : (succ n == zero) = false := by
+theorem add_one_neb_zero (n : Nat) : (succ zero + n == zero) = false := by
   cases n with
   | zero =>
-    rewrite [succ_zero_beq_false]
+    rewrite [add_zero, succ_beq_zero]
     rfl
   | succ n' =>
-    rewrite [succ_zero_beq_false]
+    rewrite [add_succ, succ_beq_zero]
     rfl
 
 -- Another example, using booleans:
@@ -1019,7 +1039,7 @@ theorem and3_exchange (b c d : Bool) :
 
 -- As you can see, proofs by cases can become very verbose. We
 -- will introduce some tactics for writing shorter proofs by
--- case analysis in Tactics chapter.
+-- case analysis in the Tactics chapter.
 
 -- ### New Tactics: `rewrite ... at` and `exact`
 
@@ -1033,35 +1053,15 @@ theorem and3_exchange (b c d : Bool) :
 -- Tip: the rewrite rule to simplify `(b || false)` is called
 -- `Bool.or_false`.
 
-theorem or_false_true (b : Bool) :
-    (b || false) = true → b = true := by
+theorem or_false_true (b : Bool) (h: (b || false) = true) :
+  b = true := by
   sorry
 
 -- ### Exercise (1 star): zero_neb_add_one ⭐
 
 theorem zero_neb_add_one (n : Nat) :
-  (zero == succ n) = false := by
+  (zero == (succ zero + n)) = false := by
   sorry
-
--- Note to developers (Daniel Sainati @dsainati1):
---     I move that we just cut this section entirely and come
---     back to it when we've presented enough of the requisite
---     material that we can actually explain
-
--- Note to developers (Michael Hicks @mwhicks1, before next release):
---     I'm going to leave this here for now, but perhaps make a
---     note to fix later on — when you've fixed it, come back
---     and delete this, rather than delete it now.
-
--- Note to developers (Yipeng Liu @berberman, before next release):
---     I feel we could split this section and push the
---     typeclass stuff to `Typeclasses` chapter and complex
---     notation syntax definitions to TS/HL.
-
--- ### More on Notation (Optional)
-
--- Lean has commands like `notation`, `infixl`, `infixr`,
--- `prefix`, and `postfix` for defining new notation.
 
 -- ### Structural Recursion (Optional)
 

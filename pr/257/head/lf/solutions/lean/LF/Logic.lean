@@ -225,27 +225,25 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 -- ### Exercise (2 stars): add_is_zero ⭐⭐
 
 theorem Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
-  all_goals
-    intro h
-    cases m with
-    | zero =>
-      rw [Nat.add_zero] at h
-      constructor
-      · exact h
-      · rfl
-    | succ =>
-      rw [add_succ]
-      contradiction
+  intro h
+  cases m with
+  | zero =>
+    rw [Nat.add_zero] at h
+    constructor
+    · exact h
+    · rfl
+  | succ =>
+    rw [add_succ]
+    contradiction
 
 -- So much for proving conjunctive statements. To go in the other direction —
 -- i.e., to *use* a conjunctive hypothesis to help prove something else — we
 -- can use `obtain` to obtain the components.
 
 example (n m : Nat) : n = 0 ∧ m = 0 → n + m = 0 := by
-  all_goals
-    intro h
-    obtain ⟨hn, hm⟩ := h
-    rw [hn, hm]
+  intro h
+  obtain ⟨hn, hm⟩ := h
+  rw [hn, hm]
 
 -- We can also match on `h` right at the point where we introduce it, instead
 -- of introducing and then destructing it:
@@ -268,11 +266,10 @@ example (n m : Nat) : n = 0 → m = 0 → n + m = 0 := by
 -- developments. Here's a simple example:
 
 example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
-  all_goals
-    apply Nat.add_is_zero at h
-    obtain ⟨hn, hm⟩ := h
-    rw [hm]
-    rfl
+  apply Nat.add_is_zero at h
+  obtain ⟨hn, hm⟩ := h
+  rw [hm]
+  rfl
 
 -- Another common situation is that we know `a ∧ b` but in some context we
 -- need just `a` or just `b`. In such cases we can use an underscore pattern
@@ -291,8 +288,7 @@ theorem left (a b : Prop) (h : a ∧ b) : a := by
 -- ### Exercise (1 star): proj2 ⭐
 
 theorem right (a b : Prop) (h : a ∧ b) : b := by
-  all_goals
-    exact h.right
+  exact h.right
 
 -- Finally, we sometimes need to rearrange the order of conjunctions and/or
 -- the grouping of multi-way conjunctions. We can see this at work in the
@@ -316,10 +312,9 @@ theorem and_commute' (a b : Prop) (h : a ∧ b) : b ∧ a := by
 
 theorem and_associate (a b c : Prop) (h : a ∧ (b ∧ c)) : (a ∧ b) ∧ c := by
   constructor
-  · all_goals
-      constructor
-      · exact h.left
-      · exact h.right.left
+  · constructor
+    · exact h.left
+    · exact h.right.left
   · exact h.right.right
 
 -- The infix notation `∧` is actually just syntactic sugar for `And a b`. That
@@ -375,31 +370,28 @@ theorem or_intro_l (a b : Prop) (h : a) : a ∨ b := by
 -- and `right`:
 
 theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
-  all_goals
-    cases n with
-    | zero => left; rfl
-    | succ n => right; rw [Nat.pred_succ]
+  cases n with
+  | zero => left; rfl
+  | succ n => right; rw [Nat.pred_succ]
 
 -- ### Exercise (2 stars): mul_is_zero ⭐⭐
 
 theorem Nat.mul_is_zero (n m : Nat) (h : n * m = 0) : n = 0 ∨ m = 0 := by
-  all_goals
-    cases m with
-    | zero => right; rfl
-    | succ m' =>
-      cases n with
-      | zero => left; rfl
-      | succ n' =>
-        rw [mul_succ, add_succ] at h
-        contradiction
+  cases m with
+  | zero => right; rfl
+  | succ m' =>
+    cases n with
+    | zero => left; rfl
+    | succ n' =>
+      rw [mul_succ, add_succ] at h
+      contradiction
 
 -- ### Exercise (1 star): or_commute ⭐
 
 theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
-  all_goals
-    obtain ha | hb := h
-    · right; exact ha
-    · left; exact hb
+  obtain ha | hb := h
+  · right; exact ha
+  · left; exact hb
 
 -- ### Falsehood and Negation
 
@@ -444,11 +436,10 @@ theorem ex_falso_quodlibet (a : Prop) (h : False) : a := by
 
 theorem not_implies_other_not (a : Prop) (h : ¬ a) :
     (∀ c : Prop, a → c) := by
-  all_goals
-    intro c ha
-    apply ex_falso_quodlibet
-    apply h
-    exact ha
+  intro c ha
+  apply ex_falso_quodlibet
+  apply h
+  exact ha
 
 -- Inequality is a very common form of negated statement, so there is a
 -- special notation for it: `≠`, which is infix notation for `Ne`.
@@ -480,14 +471,12 @@ theorem not_False : ¬ False := by
   intro h; exact h
 
 theorem contradiction_implies_anything (a b : Prop) (h : a ∧ ¬ a) : b := by
-  all_goals
-    obtain ⟨ha, hna⟩ := h
-    apply hna at ha
-    cases ha
+  obtain ⟨ha, hna⟩ := h
+  apply hna at ha
+  cases ha
 
 theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
-  all_goals
-    intro h; apply h; exact ha
+  intro h; apply h; exact ha
 
 -- ### Exercise (2 stars): double_neg_informal (Advanced, manually graded) ⭐⭐
 
@@ -502,11 +491,10 @@ theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
 -- ### Exercise (1 star): contrapositive ⭐
 
 theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
-  all_goals
-    intro hnb ha
-    apply hnb
-    apply h
-    exact ha
+  intro hnb ha
+  apply hnb
+  apply h
+  exact ha
 
 -- ### Exercise (1 star): not_PNP_informal (Advanced, manually graded) ⭐
 
@@ -525,16 +513,15 @@ theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
 -- this chapter.
 
 theorem de_morgan_not_or {a b : Prop} (h : ¬ (a ∨ b)) : ¬ a ∧ ¬ b := by
-  all_goals
-    constructor
-    · intro ha
-      apply h
-      left
-      exact ha
-    · intro hb
-      apply h
-      right
-      exact hb
+  constructor
+  · intro ha
+    apply h
+    left
+    exact ha
+  · intro hb
+    apply h
+    right
+    exact hb
 
 -- ### Exercise (1 star): not_succ_inverse_pred ⭐
 
@@ -543,11 +530,10 @@ theorem de_morgan_not_or {a b : Prop} (h : ¬ (a ∨ b)) : ¬ a ∧ ¬ b := by
 -- come up with a specific *counterexample* to the claim being disproved:
 
 theorem not_succ_pred_n : ¬ (∀ n : Nat, n.pred + 1 = n) := by
-  all_goals
-    intro h
-    have h0 := h 0
-    rw [Nat.pred_zero] at h0
-    contradiction
+  intro h
+  have h0 := h 0
+  rw [Nat.pred_zero] at h0
+  contradiction
 
 -- Since inequality involves a negation, it also requires a little practice to
 -- be able to work with it fluently. Here is one useful trick.
@@ -761,12 +747,11 @@ theorem isNil_cons {α} (x : α) (l : List α) : ¬ List.IsNil (x :: l) := by
 
 theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
     ¬ ([] = x :: xs) := by
-  all_goals
-    intro h
-    have hn : List.IsNil ([] : List α) := isNil_nil
-    apply isNil_cons x xs
-    rw [←h]
-    exact hn
+  intro h
+  have hn : List.IsNil ([] : List α) := isNil_nil
+  apply isNil_cons x xs
+  rw [←h]
+  exact hn
 
 -- ### Logical Equivalence
 
@@ -800,10 +785,9 @@ theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
 -- Iff.mpr {a b : Prop} (self : a ↔ b) : b → a
 
 theorem iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a := by
-  all_goals
-    constructor
-    · exact h.mpr
-    · exact h.mp
+  constructor
+  · exact h.mpr
+  · exact h.mp
 
 theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
   constructor
@@ -816,60 +800,55 @@ theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
 -- that it is also reflexive and transitive.
 
 theorem iff_refl (a : Prop) : a ↔ a := by
-  all_goals
-    constructor
-    · intro h; exact h
-    · intro h; exact h
+  constructor
+  · intro h; exact h
+  · intro h; exact h
 
 theorem iff_trans (a b c : Prop) (h₁ : a ↔ b) (h₂ : b ↔ c) : a ↔ c := by
-  all_goals
-    constructor
-    · intro ha; apply h₂.mp; apply h₁.mp; exact ha
-    · intro hb; apply h₁.mpr; apply h₂.mpr; exact hb
+  constructor
+  · intro ha; apply h₂.mp; apply h₁.mp; exact ha
+  · intro hb; apply h₁.mpr; apply h₂.mpr; exact hb
 
 -- ### Exercise (3 stars): iff_practice ⭐⭐⭐
 
 -- Prove the following theorems about `Iff`:
 
 theorem or_associate (a b c : Prop) : a ∨ (b ∨ c) ↔ (a ∨ b) ∨ c := by
-  all_goals
-    constructor
-    · intro h
-      obtain ha | (hb | hc) := h
-      · left; left; exact ha
-      · left; right; exact hb
-      · right; exact hc
-    · intro h
-      obtain (ha | hb) | hc := h
-      · left; exact ha
-      · right; left; exact hb
-      · right; right; exact hc
+  constructor
+  · intro h
+    obtain ha | (hb | hc) := h
+    · left; left; exact ha
+    · left; right; exact hb
+    · right; exact hc
+  · intro h
+    obtain (ha | hb) | hc := h
+    · left; exact ha
+    · right; left; exact hb
+    · right; right; exact hc
 
 theorem mul_eq_0 (n m : Nat) :
     n * m = 0 ↔ n = 0 ∨ m = 0 := by
-  all_goals
-    constructor
-    · apply Nat.mul_is_zero
-    · apply Nat.factor_is_zero
+  constructor
+  · apply Nat.mul_is_zero
+  · apply Nat.factor_is_zero
 
 theorem or_distributes_over_and (a b c : Prop) :
     a ∨ (b ∧ c) ↔ (a ∨ b) ∧ (a ∨ c) := by
-  all_goals
-    constructor
-    · intro h
-      obtain ha | ⟨hb, hc⟩ := h
-      · constructor
-        · left; exact ha
-        · left; exact ha
-      · constructor
-        · right; exact hb
-        · right; exact hc
-    · intro h
-      obtain ⟨ha | hb, ha | hc⟩ := h
+  constructor
+  · intro h
+    obtain ha | ⟨hb, hc⟩ := h
+    · constructor
       · left; exact ha
       · left; exact ha
-      · left; exact ha
-      · right; exact ⟨hb, hc⟩
+    · constructor
+      · right; exact hb
+      · right; exact hc
+  · intro h
+    obtain ⟨ha | hb, ha | hc⟩ := h
+    · left; exact ha
+    · left; exact ha
+    · left; exact ha
+    · right; exact ⟨hb, hc⟩
 
 -- ### Existential Quantification
 
@@ -919,9 +898,8 @@ example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
 
 theorem dist_not_exists (α : Type) (p : α → Prop) (h : ∀ x, p x) :
     ¬ (∃ x, ¬ p x) := by
-  all_goals
-    intro ⟨x, hx⟩
-    apply hx; apply h
+  intro ⟨x, hx⟩
+  apply hx; apply h
 
 -- ### Exercise (2 stars): dist_exists_or ⭐⭐
 
@@ -929,45 +907,15 @@ theorem dist_not_exists (α : Type) (p : α → Prop) (h : ∀ x, p x) :
 
 theorem dist_exists_or (α : Type) (p q : α → Prop) :
     (∃ x, p x ∨ q x) ↔ (∃ x, p x) ∨ (∃ x, q x) := by
-  all_goals
-    constructor
-    · intro h
-      obtain ⟨x, hp | hq⟩ := h
-      · left; exists x
-      · right; exists x
-    · intro h
-      obtain ⟨x, hx⟩ | ⟨x, hx⟩ := h
-      · exists x; left; exact hx
-      · exists x; right; exact hx
-
--- ### Exercise (3 stars): ble_plus_exists ⭐⭐⭐
-
-theorem ble_plus_exists (n m : Nat) : (Nat.ble n m = true) → ∃ x, m = x + n := by
-  all_goals
-    induction n generalizing m with
-    | zero => intro h; exists m
-    | succ n' ih =>
-      cases m with
-      | zero => intro h; contradiction
-      | succ m' =>
-        intro h
-        rw [succ_ble_succ] at h
-        apply ih at h
-        obtain ⟨x, hx⟩ := h
-        exists x
-        rw [hx]
-        rfl
-
-theorem ble_plus (n m : Nat) : Nat.ble n (m + n) = true := by
-  induction n with
-  | zero => rfl
-  | succ n' ih => rw [Nat.add_succ m, succ_ble_succ]; exact ih
-
-theorem add_exists_ble (n m : Nat) (h : ∃ x, m = x + n) : Nat.ble n m = true := by
-  all_goals
-    obtain ⟨x, hx⟩ := h
-    rw [hx]
-    apply ble_plus
+  constructor
+  · intro h
+    obtain ⟨x, hp | hq⟩ := h
+    · left; exists x
+    · right; exists x
+  · intro h
+    obtain ⟨x, hx⟩ | ⟨x, hx⟩ := h
+    · exists x; left; exact hx
+    · exists x; right; exact hx
 
 -- ## Recap: Logical Connectives in Lean
 
@@ -1037,15 +985,13 @@ theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: x
 -- sequence of nested disjunctions.
 
 example : List.In 4 [1, 2, 3, 4, 5] := by
-  all_goals
-    dsimp [List.In]; right; right; right; left; rfl
+  dsimp [List.In]; right; right; right; left; rfl
 
 example (n : Nat) (h : List.In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
-  all_goals
-    dsimp [List.In] at h
-    obtain h | h | ⟨⟨⟩⟩ := h
-    · exists 1
-    · exists 2
+  dsimp [List.In] at h
+  obtain h | h | ⟨⟨⟩⟩ := h
+  · exists 1
+  · exists 2
     /- (Notice the use of the empty pattern to discharge the last case.) -/
 
 -- We can also reason about more generic statements involving `List.In`.
@@ -1074,27 +1020,25 @@ theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : 
 theorem List.In_map_iff {α β : Type} {f : α → β} {xs : List α} {y : β} :
     In y (map f xs) ↔ ∃ x, f x = y ∧ In x xs := by
   constructor
-  · all_goals
-      induction xs with
-      | nil =>
-        intro h; rw [map_nil] at h
-        exfalso; apply List.In_nil; assumption
-      | cons x' xs' ih =>
-        intro h
-        rw [List.map_cons, In_cons] at h
-        obtain h | h := h
-        · rw [h]; exists x'
-          constructor
-          · rfl
-          · rw [In_cons]; left; rfl
-        · obtain ⟨x', h₁, h₂⟩ := ih h
-          exists x'
-          constructor
-          · exact h₁
-          · rw [In_cons]; right; exact h₂
-  · all_goals
-      intro ⟨x, h₁, h₂⟩
-      rw [← h₁]; apply In_map; exact h₂
+  · induction xs with
+    | nil =>
+      intro h; rw [map_nil] at h
+      exfalso; apply List.In_nil; assumption
+    | cons x' xs' ih =>
+      intro h
+      rw [List.map_cons, In_cons] at h
+      obtain h | h := h
+      · rw [h]; exists x'
+        constructor
+        · rfl
+        · rw [In_cons]; left; rfl
+      · obtain ⟨x', h₁, h₂⟩ := ih h
+        exists x'
+        constructor
+        · exact h₁
+        · rw [In_cons]; right; exact h₂
+  · intro ⟨x, h₁, h₂⟩
+    rw [← h₁]; apply In_map; exact h₂
 
 -- ### Exercise (3 stars): All ⭐⭐⭐
 
@@ -1120,28 +1064,27 @@ theorem List.All_cons {α : Type} {p : α → Prop} {x : α} {l : List α} :
 
 theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
     (∀ x : α, In x l → p x) ↔ All p l := by
-  all_goals
-    induction l with
-    | nil =>
+  induction l with
+  | nil =>
+    constructor
+    · intro _; exact All_nil
+    · intro _ _ h; apply In_nil at h; contradiction
+  | cons x' xs' ih =>
+    obtain ⟨ih₁, ih₂⟩ := ih
+    constructor
+    · intro h
+      rw [All_cons]
       constructor
-      · intro _; exact All_nil
-      · intro _ _ h; apply In_nil at h; contradiction
-    | cons x' xs' ih =>
-      obtain ⟨ih₁, ih₂⟩ := ih
-      constructor
-      · intro h
-        rw [All_cons]
-        constructor
-        · apply h; rw [In_cons]; left; rfl
-        · apply ih₁
-          intro x' hx'; apply h
-          rw [In_cons]; right; exact hx'
-      · rw [All_cons]
-        intro ⟨hx, hp⟩ x' h
-        rw [In_cons] at h
-        obtain h₁ | h₂ := h
-        · rw [h₁]; exact hx
-        · apply ih₂; apply hp; exact h₂
+      · apply h; rw [In_cons]; left; rfl
+      · apply ih₁
+        intro x' hx'; apply h
+        rw [In_cons]; right; exact hx'
+    · rw [All_cons]
+      intro ⟨hx, hp⟩ x' h
+      rw [In_cons] at h
+      obtain h₁ | h₂ := h
+      · rw [h₁]; exact hx
+      · apply ih₂; apply hp; exact h₂
 
 -- Note to developers (Yipeng Liu @berberman, NOW):
 --     I found this exercise combining too many awkward details for too little
@@ -1172,38 +1115,35 @@ theorem combineOddEven_intro (Odd Even : Nat → Prop)
     (hOdd : Nat.odd n = true → Odd n)
     (hEven : Nat.odd n = false → Even n) :
     CombineOddEven Odd Even n := by
-  all_goals
-    dsimp [CombineOddEven]
-    /- `cases h : Nat.odd n` splits on `Nat.odd n` and records
-      the corresponding equation as `h`. -/
-    cases h : Nat.odd n with
-    | false =>
-      apply hEven
-      rw [h]
-    | true =>
-      dsimp
-      apply hOdd
-      exact h
+  dsimp [CombineOddEven]
+  /- `cases h : Nat.odd n` splits on `Nat.odd n` and records
+    the corresponding equation as `h`. -/
+  cases h : Nat.odd n with
+  | false =>
+    apply hEven
+    rw [h]
+  | true =>
+    dsimp
+    apply hOdd
+    exact h
 
 theorem combineOddEven_elim_odd
     (Odd Even : Nat → Prop)
     (n : Nat)
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = true) : Odd n := by
-  all_goals
-    dsimp [CombineOddEven] at h
-    rw [hOdd] at h
-    dsimp at h; exact h
+  dsimp [CombineOddEven] at h
+  rw [hOdd] at h
+  dsimp at h; exact h
 
 theorem combineOddEven_elim_even
     (Odd Even : Nat → Prop)
     (n : Nat)
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = false) : Even n := by
-  all_goals
-    dsimp [CombineOddEven] at h
-    rw [hOdd] at h
-    dsimp at h; exact h
+  dsimp [CombineOddEven] at h
+  rw [hOdd] at h
+  dsimp at h; exact h
 
 -- ## Applying Theorems to Arguments
 
@@ -1457,21 +1397,20 @@ theorem even_double (k : Nat) :
 
 theorem even_double_conv (n : Nat) : ∃ k : Nat,
     n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by
-  all_goals
-    induction n with
-    | zero =>
-      rw [Nat.even_zero]; dsimp
-      exists 0  -- (`0 = Nat.double 0` is closed by `exists`'s final `rfl`)
-    | succ n' ihn =>
-      obtain ⟨k', ihk⟩ := ihn
-      rw [Nat.even_succ]
-      cases h : Nat.even n' with
-      | false =>
-        rw [h] at ihk; rw [not] at *; dsimp at *
-        exists (k' + 1); rw [ihk, Nat.double_succ]
-      | true =>
-        rw [h] at ihk; rw [not] at *; dsimp at *
-        exists k'; congr
+  induction n with
+  | zero =>
+    rw [Nat.even_zero]; dsimp
+    exists 0  -- (`0 = Nat.double 0` is closed by `exists`'s final `rfl`)
+  | succ n' ihn =>
+    obtain ⟨k', ihk⟩ := ihn
+    rw [Nat.even_succ]
+    cases h : Nat.even n' with
+    | false =>
+      rw [h] at ihk; rw [not] at *; dsimp at *
+      exists (k' + 1); rw [ihk, Nat.double_succ]
+    | true =>
+      rw [h] at ihk; rw [not] at *; dsimp at *
+      exists k'; congr
 
 -- Now the main theorem:
 
@@ -1496,13 +1435,17 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 
 -- (For the reverse direction we need the simple fact that `==` is reflexive.)
 
+-- Note to developers (Yipeng Liu @berberman):
+--     Either get rid of the development of `beq` story or use our own `beq`
+--     on `Nat`.
+
+-- Don't worry too much about `Nat.beq_eq_true_eq` yet, we need this from Lean
+-- because `n == m` is a wrapper of `DecidableEq Nat`. We will go over this in
+-- the Typeclasses chapter.
+
 theorem beq_eq_true (n m : Nat) :
     (n == m) = true ↔ n = m := by
-  constructor
-  · apply beq_eq
-  · intro h
-    rw [h]
-    apply BEq.rfl
+  rw [Nat.beq_eq_true_eq]
 
 -- So what should we do in situations where some claim could be formalized as
 -- either a proposition or a boolean computation? Which should we choose?
@@ -1573,9 +1516,8 @@ example : Nat.even 101 = false := rfl
 -- can let Lean do the work for us.
 
 example : ¬ Nat.Even 101 := by
-  all_goals
-    intro h; apply (Nat.even_bool_prop 101).mpr at h
-    dsimp [Nat.even] at h; contradiction
+  intro h; apply (Nat.even_bool_prop 101).mpr at h
+  dsimp [Nat.even] at h; contradiction
 
 -- Conversely, there are situations where it can be easier to work with
 -- propositions rather than booleans. In particular, knowing that
@@ -1585,9 +1527,8 @@ example : ¬ Nat.Even 101 := by
 
 theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
     (n + p == m + p) = true := by
-  all_goals
-    apply (beq_eq_true n m).mp at h
-    rw [h, BEq.rfl]
+  apply (beq_eq_true n m).mp at h
+  rw [h, BEq.rfl]
 
 -- We'll come back to reflection and decidable propositions in a later
 -- chapter, but it serves as a good example showing the different strengths of
@@ -1602,32 +1543,30 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 
 theorem andb_true_iff (b1 b2 : Bool) :
     (b1 && b2) = true ↔ b1 = true ∧ b2 = true := by
-  all_goals
-    constructor
-    · intro h
-      cases b1 with
-      | false => rw [and] at h; contradiction
-      | true => rw [and] at h; exact ⟨rfl, h⟩
-    · intro h
-      cases b1 with
-      | false => exfalso; cases h.left
-      | true => rw [and]; exact h.right
+  constructor
+  · intro h
+    cases b1 with
+    | false => rw [and] at h; contradiction
+    | true => rw [and] at h; exact ⟨rfl, h⟩
+  · intro h
+    cases b1 with
+    | false => exfalso; cases h.left
+    | true => rw [and]; exact h.right
 
 theorem orb_true_iff (b1 b2 : Bool) :
     (b1 || b2) = true ↔ b1 = true ∨ b2 = true := by
-  all_goals
-    constructor
-    · intro h
-      cases b1 with
-      | false => rw [or] at h; right; exact h
-      | true => rw [or] at h; left; rfl
-    · intro h
-      cases b1 with
-      | false =>
-        obtain h | h := h
-        · contradiction
-        · rw [or]; exact h
-      | true => rw [or]
+  constructor
+  · intro h
+    cases b1 with
+    | false => rw [or] at h; right; exact h
+    | true => rw [or] at h; left; rfl
+  · intro h
+    cases b1 with
+    | false =>
+      obtain h | h := h
+      · contradiction
+      · rw [or]; exact h
+    | true => rw [or]
 
 -- ### Exercise (3 stars): beqList ⭐⭐⭐
 
@@ -1660,44 +1599,43 @@ theorem beqList_cons_nil {α : Type} {beq : α → α → Bool}
 theorem beqList_true_iff α (beq : α → α → Bool)
     (h : ∀ (x y : α), beq x y = true ↔ x = y) :
     ∀ {xs ys : List α}, beqList beq xs ys = true ↔ xs = ys := by
-  all_goals
-    intro xs;
-    induction xs with
+  intro xs;
+  induction xs with
+  | nil =>
+    intro ys
+    cases ys with
     | nil =>
-      intro ys
-      cases ys with
-      | nil =>
-        rw [beqList_nil_nil]
-        constructor
-        · intro; rfl
-        · intro; rfl
-      | cons y ys =>
-        rw [beqList_nil_cons]
-        constructor
-        · intro; contradiction
-        · intro; contradiction
-    | cons x xs ih =>
-      intro ys
-      cases ys with
-      | nil =>
-        rw [beqList_cons_nil]
-        constructor
-        · intro; contradiction
-        · intro; contradiction
-      | cons y ys =>
-        rw [beqList_cons_cons]
-        obtain ⟨h₁, h₂⟩ := andb_true_iff (beq x y) (beqList beq xs ys)
-        obtain ⟨hx, hy⟩ := h x y
-        obtain ⟨ih₁, ih₂⟩ := ih
-        constructor
-        · intro h
-          congr
-          · exact hx (h₁ h).left
-          · exact ih₁ (h₁ h).right
-        · intro h
-          injection h with hxy hxsys
-          apply h₂
-          exact ⟨hy hxy, ih₂ hxsys⟩
+      rw [beqList_nil_nil]
+      constructor
+      · intro; rfl
+      · intro; rfl
+    | cons y ys =>
+      rw [beqList_nil_cons]
+      constructor
+      · intro; contradiction
+      · intro; contradiction
+  | cons x xs ih =>
+    intro ys
+    cases ys with
+    | nil =>
+      rw [beqList_cons_nil]
+      constructor
+      · intro; contradiction
+      · intro; contradiction
+    | cons y ys =>
+      rw [beqList_cons_cons]
+      obtain ⟨h₁, h₂⟩ := andb_true_iff (beq x y) (beqList beq xs ys)
+      obtain ⟨hx, hy⟩ := h x y
+      obtain ⟨ih₁, ih₂⟩ := ih
+      constructor
+      · intro h
+        congr
+        · exact hx (h₁ h).left
+        · exact ih₁ (h₁ h).right
+      · intro h
+        injection h with hxy hxsys
+        apply h₂
+        exact ⟨hy hxy, ih₂ hxsys⟩
 
 -- ### Exercise (2 stars): List.allb ⭐⭐
 
@@ -1720,22 +1658,21 @@ theorem List.allb_cons {α : Type} {test : α → Bool} {x : α} {l : List α} :
 
 theorem List.allb_true_iff α {test : α → Bool} {l : List α} :
     allb test l = true ↔ All (fun x => test x = true) l := by
-  all_goals
-    induction l with
-    | nil =>
-      rw [allb_nil]
-      constructor
-      · intro _
-        apply All_nil
-      · intro _
-        rfl
-    | cons x xs' ih =>
-      obtain ⟨h₁, h₂⟩ := andb_true_iff (test x) (allb test xs')
-      obtain ⟨ih₁, ih₂⟩ := ih
-      rw [allb_cons, All_cons]
-      constructor
-      · intro h; exact ⟨(h₁ h).left, ih₁ (h₁ h).right⟩
-      · intro ⟨h₁', h₂'⟩; exact h₂ ⟨h₁', ih₂ h₂'⟩
+  induction l with
+  | nil =>
+    rw [allb_nil]
+    constructor
+    · intro _
+      apply All_nil
+    · intro _
+      rfl
+  | cons x xs' ih =>
+    obtain ⟨h₁, h₂⟩ := andb_true_iff (test x) (allb test xs')
+    obtain ⟨ih₁, ih₂⟩ := ih
+    rw [allb_cons, All_cons]
+    constructor
+    · intro h; exact ⟨(h₁ h).left, ih₁ (h₁ h).right⟩
+    · intro ⟨h₁', h₂'⟩; exact h₂ ⟨h₁', ih₂ h₂'⟩
 
 -- (Ungraded thought question) Are there any important properties often the
 -- function `List.allb` which are not captured by this specification?
@@ -1891,32 +1828,29 @@ theorem and_comm_flip' (a b c : Prop) : (a ∧ b ∧ c) ↔ (c ∧ b ∧ a) := b
 
 theorem mul_eq_0_ternary (n m p : Nat) :
     n * m * p = 0 ↔ n = 0 ∨ m = 0 ∨ p = 0 := by
-  all_goals
-    rw [mul_eq_0, mul_eq_0, or_associate]
+  rw [mul_eq_0, mul_eq_0, or_associate]
 
 -- ### Exercise (2 stars): In_append_iff ⭐⭐
 
 theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
     List.In x (l ++ l') ↔ List.In x l ∨ List.In x l' := by
-  all_goals
-    induction l with
-    | nil =>
-      constructor
-      · intro h; right; exact h
-      · intro h; obtain ⟨⟨⟩⟩ | h := h; exact h
-    | cons y ys ih => rw [List.cons_append, List.In_cons, List.In_cons, ih, or_assoc]
+  induction l with
+  | nil =>
+    constructor
+    · intro h; right; exact h
+    · intro h; obtain ⟨⟨⟩⟩ | h := h; exact h
+  | cons y ys ih => rw [List.cons_append, List.In_cons, List.In_cons, ih, or_assoc]
 
--- ### Exercise (1 star): beq_neq ⭐
+-- ### Exercise (1 star): beq_neq_false ⭐
 
--- The following theorem is an alternative "negative" formulation of `beq_eq`
--- that is more convenient in certain situations. (We'll see examples in later
--- chapters.) Hint: `not_true_iff_false`.
+-- The following theorem is an alternative "negative" formulation of
+-- `beq_eq_true` that is more convenient in certain situations. (We'll see
+-- examples in later chapters.) Hint: `not_true_iff_false`.
 
 theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
-  all_goals
-    rw [← not_true_iff_false]
-    dsimp [Ne]
-    rw [beq_eq_true n m]
+  rw [← not_true_iff_false]
+  dsimp [Ne]
+  rw [beq_eq_true n m]
 
 -- ### Functional Extensionality
 
@@ -2011,9 +1945,8 @@ theorem revAppend_rev {α : Type} {xs ys : List α} :
     apply ih
 
 theorem trRev_correct {α : Type} : @trRev α = @List.rev α := by
-  all_goals
-    ext1 xs; dsimp [trRev]
-    rw [revAppend_rev, List.append_nil]
+  ext1 xs; dsimp [trRev]
+  rw [revAppend_rev, List.append_nil]
 
 -- ### Classical vs. Constructive Logic
 
@@ -2155,10 +2088,9 @@ theorem em : ∀ a, a ∨ ¬ a := by
 -- any particular `a`.
 
 theorem excluded_middle_irrefutable (a : Prop) : ¬ ¬ (a ∨ ¬ a) := by
-  all_goals
-    intro h
-    obtain ⟨hna, hnna⟩ := de_morgan_not_or h
-    exact hnna hna
+  intro h
+  obtain ⟨hna, hnna⟩ := de_morgan_not_or h
+  exact hnna hna
 
 -- ### Exercise (3 stars): not_exists_dist (Advanced) ⭐⭐⭐
 
@@ -2174,11 +2106,10 @@ theorem excluded_middle_irrefutable (a : Prop) : ¬ ¬ (a ∨ ¬ a) := by
 
 theorem not_exists_dist (α : Type) (p : α → Prop) :
     (¬ ∃ x : α, ¬ p x) → (∀ x : α, p x) := by
-  all_goals
-    intro h x
-    by_cases hx : (p x)
-    · exact hx
-    · exfalso; apply h; exists x
+  intro h x
+  by_cases hx : (p x)
+  · exact hx
+  · exfalso; apply h; exists x
 
 -- ### Exercise (5 stars): classical_axioms ⭐⭐⭐⭐⭐
 

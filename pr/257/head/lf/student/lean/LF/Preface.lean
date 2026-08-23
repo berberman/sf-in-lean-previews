@@ -273,15 +273,15 @@ import LF.SFLCompat
 -- If you find things you'd like to help add or improve, your contributions
 -- are welcome! To get started, clone the [SF-in-Lean git
 -- repo](https://github.com/plclub/sf-in-lean) and have a look at
--- `ALPHATESTERS.md`.
+-- `ALPHA-TESTERS.md`.
 
 -- ## For Instructors
 
 -- A large compendium of exams from many offerings of CIS5000 ("Software
 -- Foundations") at the University of Pennsylvania can be found at
--- <https://www.seas.upenn.edu/~cis5000/current/exams/index.html>. Until 2026,
--- the course was offered in Rocq, but the ideas behind the problems are still
--- relevant.
+-- [https://www.seas.upenn.edu/~cis5000/current/exams/index.html](https://www.seas.upenn.edu/~cis5000/current/exams/index.html).
+-- Until 2026, the course was offered in Rocq, but the ideas behind the
+-- problems are still relevant.
 
 -- ### Credits
 
