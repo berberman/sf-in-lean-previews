@@ -1,5 +1,5 @@
 {
-  "main_sha": "c910484da1e27d874de2fd899b3624ef7ae1f611",
+  "main_sha": "ca2794230fd2efb8d4d6333aecf34501bdaf5b9c",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -387,53 +387,6 @@
       "title": "`recall` and  `recallSource` blocks",
       "url": "https://github.com/plclub/sf-in-lean/pull/299"
     },
-    "300": {
-      "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "acc58e2b8b5b2fd99fcb2d6812c2e455b67a9d60",
-      "preview_path": "pr/300/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32601673020",
-      "status": "published",
-      "title": "Fix Logic quizzes and small reader-facing errors",
-      "url": "https://github.com/plclub/sf-in-lean/pull/300"
-    },
     "301": {
       "base_sha": "c910484da1e27d874de2fd899b3624ef7ae1f611",
       "changed_variants": [
@@ -574,6 +527,53 @@
       "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
+    },
+    "304": {
+      "base_sha": "ca2794230fd2efb8d4d6333aecf34501bdaf5b9c",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "74e53db3b0d04fa311739f0815d97f47fc1ef197",
+      "preview_path": "pr/304/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32644582851",
+      "status": "published",
+      "title": "Partial progress on Equiv.lean",
+      "url": "https://github.com/plclub/sf-in-lean/pull/304"
     }
   },
   "schema": 3
