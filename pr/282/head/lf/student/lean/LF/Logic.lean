@@ -763,16 +763,6 @@ theorem dist_exists_or (α : Type) (p q : α → Prop) :
     (∃ x, p x ∨ q x) ↔ (∃ x, p x) ∨ (∃ x, q x) := by
   sorry
 
--- ### Exercise (3 stars): ble_plus_exists ⭐⭐⭐
-
-theorem ble_plus_exists (n m : Nat) : (Nat.ble n m = true) → ∃ x, m = x + n := by
-  sorry
-
--- FILL IN HERE
-
-theorem add_exists_ble (n m : Nat) (h : ∃ x, m = x + n) : Nat.ble n m = true := by
-  sorry
-
 -- ## Recap: Logical Connectives in Lean
 
 -- Connectives introduced in this chapter:
@@ -1214,13 +1204,13 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 
 -- (For the reverse direction we need the simple fact that `==` is reflexive.)
 
+-- Don't worry too much about `Nat.beq_eq_true_eq` yet, we need this from Lean
+-- because `n == m` is a wrapper of `DecidableEq Nat`. We will go over this in
+-- the Typeclasses chapter.
+
 theorem beq_eq_true (n m : Nat) :
     (n == m) = true ↔ n = m := by
-  constructor
-  · apply beq_eq
-  · intro h
-    rw [h]
-    apply BEq.rfl
+  rw [Nat.beq_eq_true_eq]
 
 -- So what should we do in situations where some claim could be formalized as
 -- either a proposition or a boolean computation? Which should we choose?
@@ -1532,11 +1522,11 @@ theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
     List.In x (l ++ l') ↔ List.In x l ∨ List.In x l' := by
   sorry
 
--- ### Exercise (1 star): beq_neq ⭐
+-- ### Exercise (1 star): beq_neq_false ⭐
 
--- The following theorem is an alternative "negative" formulation of `beq_eq`
--- that is more convenient in certain situations. (We'll see examples in later
--- chapters.) Hint: `not_true_iff_false`.
+-- The following theorem is an alternative "negative" formulation of
+-- `beq_eq_true` that is more convenient in certain situations. (We'll see
+-- examples in later chapters.) Hint: `not_true_iff_false`.
 
 theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
   sorry

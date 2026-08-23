@@ -2,6 +2,8 @@ import LF.SFLCompat
 
 -- # Basics: Functional Programming in Lean
 
+set_option pp.fieldNotation false
+
 -- The *functional style* of programming is founded on simple mathematical
 -- intuitions: A program is essentially a concrete means for computing a
 -- mathematical function, which just maps inputs to outputs. Even when
@@ -390,8 +392,8 @@ sf_expect_failure
     intro b
       rfl
 
--- To see the error message, comment out `sf_expect_failure` temporarily. You
--- should see the following message.
+-- To see the error message in the Lean file, change `sf_expect_failure` to
+-- `sf_expect_failure?` temporarily. You should see the following message.
 
 -- Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
 

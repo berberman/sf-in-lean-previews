@@ -917,33 +917,6 @@ theorem dist_exists_or (α : Type) (p q : α → Prop) :
     · exists x; left; exact hx
     · exists x; right; exact hx
 
--- ### Exercise (3 stars): ble_plus_exists ⭐⭐⭐
-
-theorem ble_plus_exists (n m : Nat) : (Nat.ble n m = true) → ∃ x, m = x + n := by
-  induction n generalizing m with
-  | zero => intro h; exists m
-  | succ n' ih =>
-    cases m with
-    | zero => intro h; contradiction
-    | succ m' =>
-      intro h
-      rw [succ_ble_succ] at h
-      apply ih at h
-      obtain ⟨x, hx⟩ := h
-      exists x
-      rw [hx]
-      rfl
-
-theorem ble_plus (n m : Nat) : Nat.ble n (m + n) = true := by
-  induction n with
-  | zero => rfl
-  | succ n' ih => rw [Nat.add_succ m, succ_ble_succ]; exact ih
-
-theorem add_exists_ble (n m : Nat) (h : ∃ x, m = x + n) : Nat.ble n m = true := by
-  obtain ⟨x, hx⟩ := h
-  rw [hx]
-  apply ble_plus
-
 -- ## Recap: Logical Connectives in Lean
 
 -- Connectives introduced in this chapter:
@@ -1462,13 +1435,17 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 
 -- (For the reverse direction we need the simple fact that `==` is reflexive.)
 
+-- Note to developers (Yipeng Liu @berberman):
+--     Either get rid of the development of `beq` story or use our own `beq`
+--     on `Nat`.
+
+-- Don't worry too much about `Nat.beq_eq_true_eq` yet, we need this from Lean
+-- because `n == m` is a wrapper of `DecidableEq Nat`. We will go over this in
+-- the Typeclasses chapter.
+
 theorem beq_eq_true (n m : Nat) :
     (n == m) = true ↔ n = m := by
-  constructor
-  · apply beq_eq
-  · intro h
-    rw [h]
-    apply BEq.rfl
+  rw [Nat.beq_eq_true_eq]
 
 -- So what should we do in situations where some claim could be formalized as
 -- either a proposition or a boolean computation? Which should we choose?
@@ -1864,11 +1841,11 @@ theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
     · intro h; obtain ⟨⟨⟩⟩ | h := h; exact h
   | cons y ys ih => rw [List.cons_append, List.In_cons, List.In_cons, ih, or_assoc]
 
--- ### Exercise (1 star): beq_neq ⭐
+-- ### Exercise (1 star): beq_neq_false ⭐
 
--- The following theorem is an alternative "negative" formulation of `beq_eq`
--- that is more convenient in certain situations. (We'll see examples in later
--- chapters.) Hint: `not_true_iff_false`.
+-- The following theorem is an alternative "negative" formulation of
+-- `beq_eq_true` that is more convenient in certain situations. (We'll see
+-- examples in later chapters.) Hint: `not_true_iff_false`.
 
 theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
   rw [← not_true_iff_false]

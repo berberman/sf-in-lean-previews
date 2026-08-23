@@ -4,6 +4,8 @@ import LF.SFLCompat
 
 -- # Induction: Proof by Induction
 
+set_option pp.fieldNotation false
+
 -- ## Separate Compilation
 
 -- Before getting started on this chapter, we need to import all of our

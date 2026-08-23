@@ -222,17 +222,9 @@ def myRepeat (n count : Nat) : NatList :=
 
 -- Some simple facts about repetition:
 
--- Note to developers (Mike Hicks @mwhicks1):
---     This is the first time we've seen implicit arguments like `{n : Nat}`,
---     and they're used pervasively from here on (`cons_append`, `head_cons`,
---     `count_nil`, etc.). We should either introduce implicit arguments
---     explicitly here (or earlier, e.g., an exercise in UsingLean) or
---     restructure so their proper explanation — currently in Poly — comes
---     before this chapter.
+theorem repeat_zero (n : Nat) : myRepeat n 0 = [] := rfl
 
-theorem repeat_zero {n : Nat} : myRepeat n 0 = [] := rfl
-
-theorem repeat_succ {n count : Nat} : myRepeat n (count + 1) = n :: myRepeat n count := rfl
+theorem repeat_succ (n count : Nat) : myRepeat n (count + 1) = n :: myRepeat n count := rfl
 
 -- The `length` function calculates the length of a list.
 
@@ -245,7 +237,7 @@ def length (l : NatList) : Nat :=
 
 theorem length_nil : [].length = 0 := rfl
 
-theorem length_cons {n : Nat} {l : NatList} : (n :: l).length = l.length + 1 := rfl
+theorem length_cons (n : Nat) (l : NatList) : (n :: l).length = l.length + 1 := rfl
 
 -- ### Append
 
@@ -280,7 +272,7 @@ instance : HAppend NatList NatList NatList where
 
 theorem nil_append (l : NatList) : [] ++ l = l := rfl
 
-theorem cons_append {n : Nat} {l₁ l₂ : NatList} : (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := rfl
+theorem cons_append (n : Nat) (l₁ l₂ : NatList) : (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := rfl
 
 example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
@@ -310,9 +302,9 @@ def head (default : Nat) (l : NatList) : Nat :=
 
 -- Basic theorems about how `head` behaves:
 
-theorem head_cons {h x : Nat} {t : NatList} : (h :: t).head x = h := by rfl
+theorem head_cons (h x : Nat) (t : NatList) : (h :: t).head x = h := by rfl
 
-theorem head_nil {x : Nat} : [].head x = x := by rfl
+theorem head_nil (x : Nat) : [].head x = x := by rfl
 
 def tail (l : NatList) : NatList :=
   match l with
@@ -321,7 +313,7 @@ def tail (l : NatList) : NatList :=
 
 -- Basic theorems about how `tail` behaves:
 
-theorem tail_cons {h : Nat} {t : NatList} : (h :: t).tail = t := by rfl
+theorem tail_cons (h : Nat) (t : NatList) : (h :: t).tail = t := by rfl
 
 theorem tail_nil : [].tail = [] := by rfl
 
@@ -357,13 +349,13 @@ def nonZeros (l : NatList) : NatList := (
 
 -- The following lemmas should hold about your definition
 
-theorem nonZeros_cons_zero {t : NatList} :
+theorem nonZeros_cons_zero (t : NatList) :
     nonZeros (0 :: t) = nonZeros t := (by rfl)
 
 theorem nonZeros_nil :
     nonZeros [] = [] := (by rfl)
 
-theorem nonZeros_cons_nonZero {h : Nat} {t : NatList} :
+theorem nonZeros_cons_nonZero (h : Nat) (t : NatList) :
     nonZeros ((h + 1) :: t) = (h + 1) :: nonZeros t := (by rfl)
 
 theorem test_nonZeros : nonZeros [0, 1, 0] = [1] := by
@@ -384,17 +376,17 @@ def oddMembers (l : NatList) : NatList := (
 theorem oddMembers_nil :
     oddMembers [] = [] := (by rfl)
 
-theorem oddMembers_cons {h : Nat} {t : NatList} :
+theorem oddMembers_cons (h : Nat) (t : NatList) :
     oddMembers (h :: t) =
       bif h.odd then h :: oddMembers t else oddMembers t :=
   (by rfl)
 
-theorem oddMembers_cons_odd {n : Nat} {l : NatList}
+theorem oddMembers_cons_odd (n : Nat) (l : NatList)
     (h : n.odd = true) :
     oddMembers (n :: l) = n :: oddMembers l := by
   rw [oddMembers_cons, h, cond_true]
 
-theorem oddMembers_cons_not_odd {n : Nat} {l : NatList}
+theorem oddMembers_cons_not_odd (n : Nat) (l : NatList)
     (h : n.odd = false) :
     oddMembers (n :: l) = oddMembers l := by
   rw [oddMembers_cons, h, cond_false]
@@ -482,21 +474,21 @@ def count (n : Nat) (l : NatList) : Nat := (
 
 -- Now, prove these lemmas which should hold about your definition.
 
-theorem count_nil {n : Nat} : count n [] = 0 := (by rfl)
+theorem count_nil (n : Nat) : count n [] = 0 := (by rfl)
 
-theorem count_cons_def {n h : Nat} {t : NatList} :
+theorem count_cons_def (n h : Nat) (t : NatList) :
     count n (h :: t) = bif n == h then (count n t) + 1 else count n t := (by rfl)
 
-theorem count_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+theorem count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     count n₁ (n₂ :: t) = count n₁ t + 1 := by
   rw [count_cons_def, h, cond_true]
 
-theorem count_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+theorem count_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     count n₁ (n₂ :: t) = count n₁ t := by
   rw [count_cons_def, h, cond_false]
 
 example : count 1 [1] = 1 := by
-  rw [count_cons_same rfl]
+  rw [count_cons_same _ _ _ rfl]
   rw [count_nil]
 
 example : count 2 [2, 2] = 2 := (by rfl)
@@ -521,20 +513,20 @@ def member (n : Nat) (l : NatList) : Bool := (
   | [] => false
   | h :: t => bif n == h then true else member n t)
 
-theorem member_nil {n : Nat} : member n [] = false := (by rfl)
+theorem member_nil (n : Nat) : member n [] = false := (by rfl)
 
-theorem member_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+theorem member_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     member n₁ (n₂ :: t) = true := by
   dsimp [member]
   rw [h, cond_true]
 
-theorem member_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     member n₁ (n₂ :: t) = member n₁ t := by
   dsimp [member]
   rw [h, cond_false]
 
 example : member 1 [1] = true := by
-  rw [member_cons_same rfl]
+  rw [member_cons_same _ _ _ rfl]
 
 example : member 2 [1] = false := (by rfl) -- rfl
 
@@ -556,21 +548,21 @@ def removeOne (n : Nat) (l : NatList) : NatList := (
   | [] => nil
   | h :: t => bif n == h then t else h :: removeOne n t)
 
-theorem removeOne_nil {n : Nat} : removeOne n nil = nil := (by rfl)
+theorem removeOne_nil (n : Nat) : removeOne n nil = nil := (by rfl)
 
-theorem removeOne_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+theorem removeOne_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     removeOne n₁ (n₂ :: t) = t := by
   dsimp [removeOne]
   rw [h, cond_true]
 
-theorem removeOne_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t := by
   dsimp [removeOne]
   rw [h, cond_false]
 
 example : removeOne 5 [1, 5, 4] = [1, 4] := by
-  rw [removeOne_cons_diff rfl]
-  rw [removeOne_cons_same rfl]
+  rw [removeOne_cons_diff _ _ _ rfl]
+  rw [removeOne_cons_same _ _ _ rfl]
 
 example : count 5 (removeOne 5 [1, 5, 4]) = 0 := (by rfl)
 
@@ -583,23 +575,23 @@ def removeAll (n : Nat) (l : NatList) : NatList := (
   | [] => []
   | h :: t => bif n == h then removeAll n t else h :: removeAll n t)
 
-theorem removeAll_nil {n : Nat} : removeAll n [] = [] := (by rfl)
+theorem removeAll_nil (n : Nat) : removeAll n [] = [] := (by rfl)
 
-theorem removeAll_cons_same {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = true) :
+theorem removeAll_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     removeAll n₁ (n₂ :: t) = removeAll n₁ t := by
   dsimp [removeAll]
   rw [h, cond_true]
 
-theorem removeAll_cons_diff {n₁ n₂ : Nat} {t : NatList} (h : (n₁ == n₂) = false) :
+theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t := by
   dsimp [removeAll]
   rw [h, cond_false]
 
 example : count 5 (removeAll 5 [5, 1]) = 0 := by
-  rw [removeAll_cons_same rfl]
-  rw [removeAll_cons_diff rfl]
+  rw [removeAll_cons_same _ _ _ rfl]
+  rw [removeAll_cons_diff _ _ _ rfl]
   rw [removeAll_nil]
-  rw [count_cons_diff rfl]
+  rw [count_cons_diff _ _ _ rfl]
   rw [count_nil]
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := (by rfl)
@@ -617,23 +609,23 @@ def included (l₁ l₂ : NatList) : Bool := (
   | [] => true
   | h :: t => member h l₂ && included t (removeOne h l₂))
 
-theorem included_nil {l₂ : NatList} : included nil l₂ = true := (by rfl)
+theorem included_nil (l₂ : NatList) : included nil l₂ = true := (by rfl)
 
-theorem included_cons_member {n : Nat} {l₁ l₂ : NatList} (h : member n l₂ = true) :
+theorem included_cons_member (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = true) :
     included (cons n l₁) l₂ = included l₁ (removeOne n l₂) := by
   dsimp [included]
   rw [h, Bool.true_and]
 
-theorem included_cons_nonmember {n : Nat} {l₁ l₂ : NatList} (h : member n l₂ = false) :
+theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = false) :
     included (cons n l₁) l₂ = false := by
   dsimp [included]
   rw [h, Bool.false_and]
 
 example : included [1] [2, 1] = true := by
   rw [included_cons_member]
-  · exact included_nil
-  · rw [member_cons_diff rfl]
-    rw [member_cons_same rfl]
+  · exact included_nil _
+  · rw [member_cons_diff _ _ _ rfl]
+    rw [member_cons_same _ _ _ rfl]
 
 example : included [1, 1] [2, 1, 4, 1] = true := (by rfl)
 
@@ -740,7 +732,7 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 -- the following statement is true, we cannot prove it directly:
 
 sf_expect_failure
-  theorem myRepeat_append_fail {c n : Nat} :
+  theorem myRepeat_append_fail (c n : Nat) :
       myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
     induction c with
     | zero => rw [repeat_zero, nil_append]
@@ -758,7 +750,7 @@ sf_expect_failure
 
 -- To get a more general inductive hypothesis, we can generalize:
 
-theorem myRepeat_append_general {c₁ c₂ n : Nat} :
+theorem myRepeat_append_general (c₁ c₂ n : Nat) :
     myRepeat n c₁ ++ myRepeat n c₂ = myRepeat n (c₁ + c₂) := by
   induction c₁ with
   | zero =>
@@ -768,9 +760,9 @@ theorem myRepeat_append_general {c₁ c₂ n : Nat} :
 
 -- Then, we can use this more general theorem to prove the original goal:
 
-theorem myRepeat_append {c n : Nat} :
+theorem myRepeat_append (c n : Nat) :
     myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
-  exact myRepeat_append_general
+  exact myRepeat_append_general c c n
 
 -- #### Reversing a List
 
@@ -784,7 +776,7 @@ def reverse (l : NatList) : NatList :=
 
 theorem reverse_nil : [].reverse = [] := by rfl
 
-theorem reverse_cons {h : Nat} {t : NatList} : (h :: t).reverse = t.reverse ++ [h] := by rfl
+theorem reverse_cons (h : Nat) (t : NatList) : (h :: t).reverse = t.reverse ++ [h] := by rfl
 
 example : [1, 2, 3].reverse = [3, 2, 1] := by rfl
 
@@ -818,7 +810,7 @@ sf_expect_failure
 -- inductive hypothesis is not general enough.
 
 sf_expect_failure
-  theorem length_append_succ {l : NatList} {n : Nat} :
+  theorem length_append_succ (l : NatList) (n : Nat) :
       (l.reverse ++ [n]).length = l.reverse.length + 1 := by
     induction l with
     | nil =>
@@ -847,7 +839,7 @@ theorem append_length_succ (l : NatList) (n : Nat) :
 
 -- Now we can prove the main theorem.
 
-theorem length_reverse {l : NatList} :
+theorem length_reverse (l : NatList) :
     l.reverse.length = l.length := by
   induction l with
   | nil => rw [reverse_nil]
@@ -857,7 +849,7 @@ theorem length_reverse {l : NatList} :
 -- We can also prove a more general form that gives the length of any two
 -- appended lists.
 
-theorem length_append {l₁ l₂ : NatList} :
+theorem length_append (l₁ l₂ : NatList) :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
   induction l₁ with
   | nil => rw [nil_append, length_nil, Nat.zero_add]
@@ -943,14 +935,14 @@ theorem length_append {l₁ l₂ : NatList} :
 
 -- More practice with lists:
 
-theorem append_nil {l : NatList} :
+theorem append_nil (l : NatList) :
     l ++ [] = l := by
   induction l with
   | nil => rw [nil_append]
   | cons n l' ih =>
     rw [cons_append, ih]
 
-theorem reverse_append {l₁ l₂ : NatList} :
+theorem reverse_append (l₁ l₂ : NatList) :
    (l₁ ++ l₂).reverse = l₂.reverse ++ l₁.reverse := by
   induction l₁ with
   | nil => rw [nil_append, reverse_nil, append_nil]
@@ -971,7 +963,7 @@ theorem reverse_involutive (l : NatList) :
 -- There is a short solution to the next one. If you find yourself getting
 -- tangled up, step back and try to look for a simpler way.
 
-theorem append_assoc4 {l₁ l₂ l₃ l4 : NatList} :
+theorem append_assoc4 (l₁ l₂ l₃ l4 : NatList) :
     l₁ ++ (l₂ ++ (l₃ ++ l4)) = ((l₁ ++ l₂) ++ l₃) ++ l4 := by
   rw [append_assoc, append_assoc]
 
@@ -1001,12 +993,12 @@ def beq (l₁ l₂ : NatList) : Bool := (
 
 theorem beq_nil : beq [] [] = true := (by rfl)
 
-theorem beq_cons_same {h₁ h₂ : Nat} {t₁ t₂ : NatList} (h : (h₁ == h₂) = true) :
+theorem beq_cons_same (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = true) :
     beq (h₁ :: t₁) (h₂ :: t₂) = beq t₁ t₂ := by
   dsimp [beq]
   rw [h, Bool.true_and]
 
-theorem beq_cons_diff {h₁ h₂ : Nat} {t₁ t₂ : NatList} (h : (h₁ == h₂) = false) :
+theorem beq_cons_diff (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = false) :
     beq (h₁ :: t₁) (h₂ :: t₂) = false := by
   dsimp [beq]
   rw [h, Bool.false_and]
@@ -1014,16 +1006,16 @@ theorem beq_cons_diff {h₁ h₂ : Nat} {t₁ t₂ : NatList} (h : (h₁ == h₂
 example : beq [] [] = true := (by rfl)
 example : beq [1, 2, 3] [1, 2, 3] = true := (by rfl)
 example : beq [1, 2, 3] [1, 2, 4] = false := by
-  rw [beq_cons_same rfl]
-  rw [beq_cons_same rfl]
-  rw [beq_cons_diff rfl]
+  rw [beq_cons_same _ _ _ _ rfl]
+  rw [beq_cons_same _ _ _ _ rfl]
+  rw [beq_cons_diff _ _ _ _ rfl]
 
-theorem beq_refl {l : NatList} :
+theorem beq_refl (l : NatList) :
     beq l l = true := by
   induction l with
   | nil => rw [beq_nil]
   | cons n l' ih =>
-    rw [beq_cons_same (BEq.refl n)]
+    rw [beq_cons_same _ _ _ _ (BEq.refl n)]
     exact ih
 
 -- ### List Exercises, Part 2
@@ -1061,9 +1053,9 @@ theorem remove_does_not_increase_count (l : NatList) :
   | cons n s' ih =>
     cases n with
     | zero =>
-      rw [removeOne_cons_same rfl, count_cons_same rfl, ble_self_succ]
+      rw [removeOne_cons_same _ _ _ rfl, count_cons_same _ _ _ rfl, ble_self_succ]
     | succ n' =>
-      rw [removeOne_cons_diff rfl, count_cons_diff rfl, count_cons_diff rfl]
+      rw [removeOne_cons_diff _ _ _ rfl, count_cons_diff _ _ _ rfl, count_cons_diff _ _ _ rfl]
       exact ih
 
 -- ### Exercise (3 stars): count_append (manually graded) ⭐⭐⭐
@@ -1081,10 +1073,10 @@ theorem count_append (l₁ l₂ : NatList) (n : Nat) :
     rw [cons_append]
     cases hv : (n == h) with
     | false =>
-      rw [count_cons_diff hv, count_cons_diff hv]
+      rw [count_cons_diff _ _ _ hv, count_cons_diff _ _ _ hv]
       exact ih
     | true =>
-      rw [count_cons_same hv, count_cons_same hv, Nat.succ_add, ← ih]
+      rw [count_cons_same _ _ _ hv, count_cons_same _ _ _ hv, Nat.succ_add, ← ih]
 
 -- ### Exercise (3 stars): involutive_injective (Advanced) ⭐⭐⭐
 
@@ -1160,9 +1152,9 @@ def NatOption.elim (d : Nat) (o : NatOption) : Nat :=
   | .some n => n
   | .none => d
 
-theorem NatOption.elim_none {d : Nat} : elim d .none = d := by rfl
+theorem NatOption.elim_none (d : Nat) : elim d .none = d := by rfl
 
-theorem NatOption.elim_some {d₁ d₂ : Nat} : elim d₁ (.some d₂) = d₂ := by rfl
+theorem NatOption.elim_some (d₁ d₂ : Nat) : elim d₁ (.some d₂) = d₂ := by rfl
 
 -- ### Exercise (2 stars): head? ⭐⭐
 
@@ -1180,7 +1172,7 @@ theorem test_head?2 : head? [5, 6] = .some 5 := (by rfl)
 
 theorem head?_nil : head? [] = .none := (by rfl)
 
-theorem head?_cons {h : Nat} {t : NatList} : head? (h :: t) = .some h := (by rfl)
+theorem head?_cons (h : Nat) (t : NatList) : head? (h :: t) = .some h := (by rfl)
 
 -- ### Exercise (1 star): option_elim_head? ⭐
 
