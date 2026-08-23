@@ -6,6 +6,8 @@ import HL.SFLCompat
 
 -- # Equiv: Program Equivalence
 
+open scoped HasEval MyGetElem Com
+
 -- Note to developers (Sati @satiscugcat):
 --     At this point, the Rocq file provides instructions about using a new
 --     directory, making sure the project is set up properly, and also
@@ -55,8 +57,8 @@ def Bexp.Equiv (b₁ b₂ : Bexp) : Prop :=
 theorem Bexp.equiv_def {b₁ b₂ : Bexp} :
     b₁.Equiv b₂ ↔ ∀ (st : State), b₁.eval st = b₂.eval st := by rfl
 
--- -- ::::full -- Here are some simple examples of equivalences of arithmetic
--- -- and boolean expressions. -- ::::
+-- Here are some simple examples of equivalences of arithmetic and boolean
+-- expressions.
 
 example : Aexp.Equiv
     (aexp { X - X })
@@ -99,17 +101,16 @@ namespace Com
 -- equivalence involving `skip`.
 
 theorem skip_left {c : Com} : (imp { skip; ~c }).Equiv c := by
-  all_goals
-    rw [equiv_def]
-    intro st st''
-    constructor
-    · intro h
-      inversion h with
-      | seq st' h1 h2 =>
-        inversion h1
-        exact h2
-    · intro h
-      exact EvalR.seq EvalR.skip h
+  rw [equiv_def]
+  intro st st''
+  constructor
+  · intro h
+    inversion h with
+    | seq st' h1 h2 =>
+      inversion h1
+      exact h2
+  · intro h
+    exact EvalR.seq EvalR.skip h
 
 -- ### Exercise (2 stars): skip_right ⭐⭐
 
@@ -117,17 +118,16 @@ theorem skip_left {c : Com} : (imp { skip; ~c }).Equiv c := by
 -- program.
 
 theorem skip_right {c : Com} : (imp { ~c; skip }).Equiv c := by
-  all_goals
-    rw [equiv_def]
-    intro st st''
-    constructor
-    · intro h
-      inversion h with
-      | seq st' h1 h2 =>
-        inversion h2
-        exact h1
-    · intro h
-      exact EvalR.seq h EvalR.skip
+  rw [equiv_def]
+  intro st st''
+  constructor
+  · intro h
+    inversion h with
+    | seq st' h1 h2 =>
+      inversion h2
+      exact h1
+  · intro h
+    exact EvalR.seq h EvalR.skip
 
 -- Similarly, here is a simple equivalence that optimises `if` commands.
 
@@ -211,22 +211,21 @@ theorem if_true {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {true})) :
 
 theorem if_false {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {false})) :
     (imp {if (~b) {~c₁} else {~c₂}}).Equiv c₂ := by
-  all_goals
-    rw [equiv_def]
-    rw [Bexp.equiv_def] at hb
-    intro st st'
-    constructor
-    · intro h
-      inversion h with
-      | ifTrue hb' hc =>
-        rw [hb] at hb'
-        simp at hb'
-      | ifFalse hb' hc =>
-        exact hc
-    · intro h
-      apply EvalR.ifFalse _ h
-      rw [hb]
-      simp
+  rw [equiv_def]
+  rw [Bexp.equiv_def] at hb
+  intro st st'
+  constructor
+  · intro h
+    inversion h with
+    | ifTrue hb' hc =>
+      rw [hb] at hb'
+      simp at hb'
+    | ifFalse hb' hc =>
+      exact hc
+  · intro h
+    apply EvalR.ifFalse _ h
+    rw [hb]
+    simp
 
 -- ### Exercise (3 stars): swap_if_branches ⭐⭐⭐
 
@@ -236,26 +235,25 @@ theorem if_false {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {false})) :
 theorem swap_if_branches {b : Bexp} {c₁ c₂ : Com} :
     (imp {if (~b) {~c₁} else {~c₂}}).Equiv
     (imp {if (¬ ~b) {~c₂} else {~c₁}}) := by
-  all_goals
-    rw [equiv_def]
-    intro st st'
-    constructor
-    · intro h
-      inversion h with
-      | ifTrue hb hc =>
-        apply EvalR.ifFalse _ hc
-        simp [hb]
-      | ifFalse hb hc =>
-        apply EvalR.ifTrue _ hc
-        simp [hb]
-    · intro h
-      inversion h with
-      | ifTrue hb hc =>
-        apply EvalR.ifFalse _ hc
-        simp_all
-      | ifFalse hb hc =>
-        apply EvalR.ifTrue _ hc
-        simp_all
+  rw [equiv_def]
+  intro st st'
+  constructor
+  · intro h
+    inversion h with
+    | ifTrue hb hc =>
+      apply EvalR.ifFalse _ hc
+      simp [hb]
+    | ifFalse hb hc =>
+      apply EvalR.ifTrue _ hc
+      simp [hb]
+  · intro h
+    inversion h with
+    | ifTrue hb hc =>
+      apply EvalR.ifFalse _ hc
+      simp_all
+    | ifFalse hb hc =>
+      apply EvalR.ifTrue _ hc
+      simp_all
 
 -- For `while` loops, we can give a similar pair of theorems. A loop whose
 -- guard is equivalent to `false` is equivalent to `skip`, while a loop whose
@@ -316,19 +314,18 @@ theorem while_false_equiv {b : Bexp} {c : Com} (hb : b.Equiv (bexp {false})) :
 
 theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State} (hb : b.Equiv (bexp {true})) :
     ¬ st =[ while (~b) {~c} ]=> st' := by
-  all_goals
-    intro contra
-    generalize heq : (imp {while (~b) {~c}}) = com at contra
-    induction contra with
-    | @whileFalse b' s0 c0 hb' =>
-      injection heq with hbeq hceq
-      subst hbeq
-      rw [Bexp.equiv_def] at hb
-      simp [hb] at hb'
-    | @whileTrue s0 s0' s0'' b' c0 hb' hc' hwhile ih1 ih2 =>
-      exact ih2 heq
-    | skip | asgn | seq | ifTrue | ifFalse =>
-      contradiction -- heq says that different commands are equal
+  intro contra
+  generalize heq : (imp {while (~b) {~c}}) = com at contra
+  induction contra with
+  | @whileFalse b' s0 c0 hb' =>
+    injection heq with hbeq hceq
+    subst hbeq
+    rw [Bexp.equiv_def] at hb
+    simp [hb] at hb'
+  | @whileTrue s0 s0' s0'' b' c0 hb' hc' hwhile ih1 ih2 =>
+    exact ih2 heq
+  | skip | asgn | seq | ifTrue | ifFalse =>
+    contradiction -- heq says that different commands are equal
 
 -- ### Exercise (2 stars): while_true_nonterm_informal (manually graded) ⭐⭐
 
@@ -342,19 +339,18 @@ theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State} (hb : b.Equiv (
 theorem while_true {b : Bexp} {c : Com} (hb : b.Equiv (bexp {true})) :
     (imp {while (~b) {~c}}).Equiv
     (imp {while (true) {skip}}) := by
-  all_goals
-    rw [equiv_def]
-    intro st st'
-    constructor
-    · intro h
-      exfalso
-      exact while_true_nonterm hb h
-    · intro h
-      exfalso
-      apply while_true_nonterm _ h
-      rw [Bexp.equiv_def]
-      intro
-      rfl
+  rw [equiv_def]
+  intro st st'
+  constructor
+  · intro h
+    exfalso
+    exact while_true_nonterm hb h
+  · intro h
+    exfalso
+    apply while_true_nonterm _ h
+    rw [Bexp.equiv_def]
+    intro
+    rfl
 
 -- A more interesting fact about `while` commands is that any number of copies
 -- of the body can be "unrolled" without changing meaning.
@@ -368,28 +364,27 @@ theorem loop_unrolling {b : Bexp} {c : Com} :
       if (~b) {~c} else {skip};
       while (~b) {~c}
     }) := by
-  all_goals
-    rw [equiv_def]
-    intro st st'
-    constructor
-    · intro h
-      inversion h with
-      | whileFalse hb =>
-        apply EvalR.seq (st' := st)
-        · exact EvalR.ifFalse hb EvalR.skip
-        · exact EvalR.whileFalse hb
-      | whileTrue stmid hb hc hloop =>
-        apply EvalR.seq _ hloop
-        exact EvalR.ifTrue hb hc
-    · intro h
-      inversion h with
-      | seq stmid h1 h2 =>
-        inversion h1 with
-        | ifTrue hb hc =>
-          exact EvalR.whileTrue hb hc h2
-        | ifFalse hb hc =>
-          inversion hc
-          exact h2
+  rw [equiv_def]
+  intro st st'
+  constructor
+  · intro h
+    inversion h with
+    | whileFalse hb =>
+      apply EvalR.seq (st' := st)
+      · exact EvalR.ifFalse hb EvalR.skip
+      · exact EvalR.whileFalse hb
+    | whileTrue stmid hb hc hloop =>
+      apply EvalR.seq _ hloop
+      exact EvalR.ifTrue hb hc
+  · intro h
+    inversion h with
+    | seq stmid h1 h2 =>
+      inversion h1 with
+      | ifTrue hb hc =>
+        exact EvalR.whileTrue hb hc h2
+      | ifFalse hb hc =>
+        inversion hc
+        exact h2
 
 -- Note to developers (Sati @satiscugcat):
 --     Leaving out optional exercise `seq_assoc` for now.
@@ -423,24 +418,23 @@ theorem identity_assignment {X : Ident} :
 theorem assign_equiv {X : Ident} {a : Aexp} (ha : Aexp.Equiv (aexp {X}) a) :
     (imp {skip}).Equiv
     (imp {X := ~a}) := by
-  all_goals
-    rw [equiv_def]
-    rw [Aexp.equiv_def] at ha
-    intro st st'
-    constructor
-    · intro h
-      inversion h
-      suffices st =[ X := ~a ]=> X →ₜ st[X]; st by
-        simp only [TotalMap.update_same] at this
-        exact this
-      apply Com.EvalR.asgn
-      simp [← ha]
-    · intro h
-      inversion h with
-      | asgn n h =>
-        subst h
-        simp only [← ha, Aexp.eval_id, TotalMap.update_same]
-        exact Com.EvalR.skip
+  rw [equiv_def]
+  rw [Aexp.equiv_def] at ha
+  intro st st'
+  constructor
+  · intro h
+    inversion h
+    suffices st =[ X := ~a ]=> X →ₜ st[X]; st by
+      simp only [TotalMap.update_same] at this
+      exact this
+    apply Com.EvalR.asgn
+    simp [← ha]
+  · intro h
+    inversion h with
+    | asgn n h =>
+      subst h
+      simp only [← ha, Aexp.eval_id, TotalMap.update_same]
+      exact Com.EvalR.skip
 
 -- Note to developers (Sati @satiscugcat):
 --     Leaving out optional exercise `equiv_classes` for now.
@@ -530,4 +524,62 @@ theorem Com.equiv_trans {c₁ c₂ c₃ : Com} (h₁ : c₁.Equiv c₂) (h₂ : 
 -- explicit proof about the parts that didn't change -- i.e., the "proof
 -- burden" of a small change to a large program is proportional to the size of
 -- the change, not the program!
+
+theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
+    (imp {x := ~a}).Equiv
+    (imp {x := ~a'}) := by
+  rw [equiv_def]
+  intro st st'
+  constructor <;>
+  · intro h
+    inversion h with
+    | asgn n h =>
+      subst h
+      apply Com.EvalR.asgn
+      rw [Aexp.equiv_def] at ha
+      rw [ha]
+
+-- The congruence property for loops is a little more interesting, since it
+-- requires induction.
+
+-- *Theorem*: Equivalence is a congruence for `while` -- that is, if `b` is
+-- equivalent to `b'` and `c` is equivalent to `c'`, then `while (~b) {~c}` is
+-- equivalent to `while (~b') {~c'}`.
+
+-- *Proof*: Suppose `b` is equivalent to `b'` and `c` is equivalent to `c'`.
+-- We must show, for every `st` and `st'`, that
+-- `st =[ while (~b) {~c} ]=> st'` iff `st = while (~b') {~c'}
+-- ]=> st'`. We
+-- consider the two directions separately.
+
+-- - (`->`) We show that `st =[ while (~b) {~c} ]=> st'` implies
+--   `st =[ while (~b') {~c'} ]=> st'`, by induction on a derivation of
+--   `st =[ while (~b) {~c} ]=> st'`. The only nontrivial cases are when the
+--   final rule in the derivation is `Com.EvalR.whileFalse` or
+--   `Com.EvalR.whileTrue`.
+
+--   - `Com.EvalR.whileFalse`: In this case, the form of the rule gives us
+--     `beval st b = false` and `st = st'`. But then, since `b` and `b'` are
+--     equivalent, we have `beval st b' =false`, and `Com.EvalR.whileFalse`
+--     applies, giving us `st =[ while (~b') {~c'} ]=> st'`, as required.
+
+--   - `Com.EvalR.whileTrue`: The form of the rule now gives us
+--     `beval st b = true`, with `st =[ c ]=> st'0` and
+--     `st'0 =[ while {~b} {~c} ]=> st'` for some state `st'0`, with the induction
+--     hypothesis `st'0 =[ while (~b') {~c'} ]=> st'`.
+
+--     Since `c` and `c'` are equivalent, we know that `st =[ c']=> st'0`. And
+--     since `b` and `b'` are equivalent, we have `beval st b' = true`. Now
+--     `Com.EvalR.whileTrue` applies, giving us `st =[ while (~b') {~c'} ]=> st'`,
+--     as required.
+
+-- - (`<-`) Similar.
+
+-- Note to developers (Sati @satiscugcat):
+--     `NOT PORTED YET - remaining portions of Equiv.v left (apart from the portions explicitly stated so far).
+--       - The rest of "Behavioural Equivalence is a Congruence"
+--       - The section on "Program Transformation"
+--       - Soundness of (0 + n) Elimination
+--       - Extended Exercise: Nondeterministic Imp
+--       - Additional Exercises`
 

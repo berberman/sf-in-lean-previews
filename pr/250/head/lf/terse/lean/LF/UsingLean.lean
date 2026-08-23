@@ -3,22 +3,19 @@ import LF.Induction
 
 import LF.SFLCompat
 
--- # UsingLean: Using the full power of a proof assistant
+-- # UsingLean: Using the Full Power of a Proof Assistant
 
--- Note to developers (NOW):
---     Chapter goals: Nats dsimp calc
+-- In this chapter, we will learn to write more idiomatic Lean
+-- using its more powerful tools. This includes the natural
+-- numbers from its standard library, tactics which can search
+-- for lemmas from the standard library, namespaces for
+-- organizing lemmas, and two new tactics, `calc` and `dsimp`,
+-- which enable more readable and concise proofs.
 
--- Note to developers (Benjamin Pierce @bcpierce00, NOW):
---     Did we intend for this section header to be in a "full"
---     block?
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Is Basics needed explicitly? And why are these here
---     instead of at the top of the file?
+-- ## More Powerful Natural Numbers
 
 -- Until now, we have been working with our own custom natural
--- numbers, using the `Nat` type that we defined in
--- `Basics.lean`.
+-- numbers, using the `Nat` type that we defined in Basics.
 
 -- However, Lean has a built-in type of natural numbers, which
 -- is more powerful and comes with many useful features. They
@@ -26,47 +23,22 @@ import LF.SFLCompat
 -- differences are mostly superficial. The built-in natural
 -- numbers are defined in the `Init` module, which is
 -- automatically imported by Lean. We will refer to them as
--- `Nat` as well, but they are not the same as the `Nat` we
--- defined in `Basics.lean`.
+-- `Nat` as well.
 
 -- In Lean, programmers and mathematicians don't re-prove the
 -- basic properties of natural numbers from scratch, nor do
 -- they tend to write out `rewrite` steps for basic properties
 -- of natural numbers by hand.
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Just making a note that we need to explain the
---     `zero.succ.succ` notation someplace well before this
---     file!
---
---     Have we already explained sections, and how they differ
---     from namespaces? Will it be clear to readers why we need
---     one here? Can we choose a better name than
---     `long_example`?
-
--- Note to developers (Daniel Sainati @dsainati1):
---     We turn off the postfix notation for our new definition
---     of succ in `Basics`, should we also turn it off here for
---     Nats? I really find it to be less readable, but maybe
---     that's just me.
-
-section long_example
-open NatPlayground.Nat
-
 -- Previously, we did computation like this...
 
-theorem test_mult1' : (two * two : NatPlayground.Nat) = four := by
+open NatPlayground.Nat in
+example : (two * two : NatPlayground.Nat) = four := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
   rewrite [mul_succ, mul_succ, mul_zero]
   rewrite [add_succ, add_succ, add_zero]
   rewrite [add_succ, add_succ, add_zero]
   rfl
-end long_example
-
--- Note to developers (Benjamin Pierce @bcpierce00, NOW):
---     The info viewed in the InfoView during this proof is
---     kind of mysterious (to me) here. Have we already given
---     people enough help to understand it here?
 
 -- This approach is useful in a textbook for understanding the
 -- structure of natural numbers and for providing early
@@ -78,33 +50,22 @@ end long_example
 -- *automatically* prove properties about natural numbers and
 -- to compute with them.
 
-theorem test_mult1_nat : (3 * 3 : Nat) = 9 := by
-  rfl
+example : (3 * 3 : Nat) = 9 := by rfl
 
 -- The annotation `: Nat` tells Lean that we are using its
--- built-in `Nat` type.
+-- built-in `Nat` type. In fact, from now on, we will use the
+-- built-in `Nat` type and its powerful features, writing
+-- `Nat.<theorem>` to reference Lean's version of `<theorem>`.
+-- (By convention, theorems about a type live in the namespace
+-- of that type, hence the need for the `Nat.` prefix.)
 
--- In this chapter we will learn how to use the built-in `Nat`
--- and some powerful features for computing with and proving
--- properties about natural numbers. Specifically, we will
--- learn about `dsimp`, `calc`, and `simp` annotations, which
--- enable more powerful and concise proofs.
-
--- In fact, from now on, we will use the built-in `Nat` type
--- and its powerful features, writing `Nat.<theorem>` to
--- reference Lean's version of `<theorem>`.
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Why can't we just write <theorem>?
-
--- ### `rfl` and computation with `Nat`
+-- ### `rfl` and Computation with `Nat`
 
 -- With Lean's `Nat`, much of the computation happens
 -- automatically, and `rfl` suffices to close any equality of
 -- computation on literals.
 
-theorem complicated_computation : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by
-  rfl
+example : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by rfl
 
 -- This quickly becomes necessary, as natural numbers quickly
 -- get large!
@@ -112,17 +73,9 @@ theorem complicated_computation : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by
 -- Of course, `rfl` can't close more complicated goals where
 -- the values of the terms are unknown.
 
-theorem rfl_not_enough (n m : Nat) (h : n = m) : n = m := by
-  -- rfl will not work here!
-  /- First rewrite the goal with `h`; then the two sides are identical. -/
-  rewrite [h]
-  rfl
-
--- The same proof can be written more compactly with `rw`. In
--- this example, `rw [h]` rewrites with `h` and then closes the
--- resulting reflexive goal.
-
-theorem rfl_not_enough' (n m : Nat) (h : n = m) : n = m := by
+example (n m : Nat) (h : n = m) : n = m := by
+  -- `rfl` will not work here!
+  -- First rewrite the goal with `h`; then the two sides are identical.
   rw [h]
 
 -- We will continue to show more powerful tools for
@@ -134,87 +87,92 @@ theorem rfl_not_enough' (n m : Nat) (h : n = m) : n = m := by
 -- Use the `exact?` tactic to search for relevant theorems in
 -- the standard library.
 
-example (a b : Nat) : a + b = b + a := by
-  /- this will suggest that we use `exact Nat.add_comm a b` to close this goal -/
+example (n m : Nat) : n + m = m + n := by
   exact?
 
--- You can also use `rw?` to look for theorems to rewrite by
+-- Try this:
+--   [apply] exact Nat.add_comm n m
 
-example (a b : Nat) : a + b = b + a := by
-  /- this will suggest that we use `rw [Nat.add_comm]` to close this goal -/
+-- You can also use `rw?` to look for theorems to rewrite by.
+
+example (n m : Nat) : n + m = m + n := by
   rw?
 
-example (n m q : Nat) :
-   (n + m) + q = m + (n + q) := by
-  -- lots of suggestions to look through here!
-  rw?
-  sorry
+-- Try this:
+--   [apply] rw [Nat.add_comm]
+
+-- Just because `rw?` suggests a theorem does not mean that it
+-- will be useful; choose carefully from its suggestions (if at
+-- all).
+
+sf_expect_failure
+  example (n m k : Nat) :
+     (n + m) + k = m + (n + k) := by
+    -- lots of suggestions to look through here!
+    rw?
 
 -- Prove the following theorems about `Nat`s. You should not
 -- need induction for any of these; you can find the theorems
 -- you need using `rw?` and `exact?`.
 
-theorem mul_three (p : Nat) :
-    3 * p = p + p + p := by
+theorem mul_three (n : Nat) :
+    3 * n = n + n + n := by
   sorry
 
-theorem mul_three_beq (p : Nat) :
-    (3 * p == p + p + p) = true := by
+theorem mul_three_beq (n : Nat) :
+    (3 * n == n + n + n) = true := by
   sorry
 
--- ## Structuring proofs with `calc`
+-- ## Structuring Proofs with `calc`
 
 -- In Lean proofs, long `rw` chains are useful, but they are
 -- sometimes hard to read because the intermediate goals are
 -- invisible. Furthermore, sometimes we *know* exactly how we
 -- want to manipulate the terms of a proof, but don't want to
--- have the tactics like `add_comm` and `add_assoc` "guess"
--- which subterms to rewrite.
+-- have the tactics like `Nat.add_comm` and `Nat.add_assoc`
+-- "guess" which subterms to rewrite.
 
 -- The `calc` tactic writes down the intermediate goals of a
 -- proof, and allows us to specify exactly which rewrite rules
--- to apply at each step. It is a powerful tool for structuring
--- proofs, and is often more readable than long `rw` chains.
+-- to apply at each step. It is designed to mimic the style of
+-- proofs in mathematics textbooks, which will often look
+-- something like this:
 
--- `calc` is designed to mimic the style of proofs in
--- mathematics textbooks, which will often look something like
--- this:
-
---   a + (b + c)
---   = (a + b) + c        ...   [by associativity of addition]
---   = (b + a) + c        ...   [by commutativity of addition]
---   = b + (a + c)        ...   [by associativity of addition]
+--   n + (m + k)
+--   = (n + m) + k        ...   [by associativity of addition]
+--   = (m + n) + k        ...   [by commutativity of addition]
+--   = m + (n + k)        ...   [by associativity of addition]
 
 -- Note how we can see each intermediate step of this proof
 -- when we look at it this way. Let's look at how we might
--- prove this theorem (i.e., that `a + (b + c) = b + (a + c)`)
+-- prove this theorem (i.e., that `n + (m + k) = m + (n + k)`)
 -- in Lean.
 
 -- First, a proof in the style we already know.
 
-theorem add_swap (a b c : Nat) : a + (b + c) = b + (a + c) := by
-  rw [← Nat.add_assoc, Nat.add_comm a b, Nat.add_assoc]
+example (n m k : Nat) : n + (m + k) = m + (n + k) := by
+  rw [← Nat.add_assoc, Nat.add_comm n m, Nat.add_assoc]
 
 -- Here we present the same theorem, written with `calc`. Note
 -- how each intermediate goal is visible in the source.
 
-theorem add_swap' (a b c : Nat) : a + (b + c) = b + (a + c) := by
-  calc a + (b + c) /- one side of the goal is the argument to `calc`... -/
-    /- ... and each subsequent line is a transformation, with a tactic. -/
-    a + (b + c) = (a + b) + c := by rw [Nat.add_assoc]
-    (a + b) + c = (b + a) + c := by rw [Nat.add_comm a b]
+example (n m k : Nat) : n + (m + k) = m + (n + k) := by
+  calc n + (m + k) /- one side of the goal is the argument to `calc`...
+       ... and each subsequent line is a transformation, with a tactic. -/
+    n + (m + k) = (n + m) + k := by rw [Nat.add_assoc]
+    (n + m) + k = (m + n) + k := by rw [Nat.add_comm n m]
     /- once a line matches the other side of the equality in the main goal
-       (in this case `(b + (a + c)`), the calc tactic succeeds. -/
-    (b + a) + c = b + (a + c) := by rw [Nat.add_assoc]
+       (in this case `m + (n + k)`), the calc tactic succeeds. -/
+    (m + n) + k = m + (n + k) := by rw [Nat.add_assoc]
 
 -- We can also write the proof like this to be a bit more
 -- concise:
 
-theorem add_swap'' (a b c : Nat) : a + (b + c) = b + (a + c) := by
-  calc a + (b + c)
-    _ = (a + b) + c := by rw [Nat.add_assoc]
-    _ = (b + a) + c := by rw [Nat.add_comm a b]
-    _ = b + (a + c) := by rw [Nat.add_assoc]
+example (n m k : Nat) : n + (m + k) = m + (n + k) := by
+  calc n + (m + k)
+    _ = (n + m) + k := by rw [Nat.add_assoc]
+    _ = (m + n) + k := by rw [Nat.add_comm n m]
+    _ = m + (n + k) := by rw [Nat.add_assoc]
 
 -- Whereas before, the left-hand side of each equality in the
 -- `calc` tactic was repeated from the right-hand side of the
@@ -228,9 +186,7 @@ theorem succ_mul_succ (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
   rw [Nat.add_mul, Nat.one_mul, Nat.mul_add, Nat.mul_one, ← Nat.add_assoc]
 
--- Given this proof with `rw`, rewrite it with `calc`. Reminder
--- that you can use `rw?` to find appropriate rules to rewrite
--- by.
+-- Given this proof with `rw`, rewrite it with `calc`.
 
 theorem succ_mul_succ' (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
@@ -243,14 +199,12 @@ theorem succ_mul_succ' (n m : Nat) :
 -- Note to developers (Benjamin Pierce @bcpierce00):
 --     Needs some exercises!!
 
--- ## Definitional simplification: `dsimp`
+-- ## Definitional Simplification: `dsimp`
 
 -- Often, rather than rewriting by a known equation like
-
--- `n + succ m = succ (n + m)` using `rw [add_succ]`,
-
--- we just want to simplify the function (here `add`)
--- automatically when we can.
+-- `n + succ m = succ (n + m)` using `rw [add_succ]`, we just
+-- want to simplify the function (here `Nat.add`) automatically
+-- when we can.
 
 -- The `dsimp` tactic ("definitionally simplify") unfolds
 -- definitions and performs definitional simplifications. You
@@ -270,7 +224,7 @@ def triple (n : Nat) : Nat := n + n + n
 example (n m : Nat) (h : n + n = m) : triple n = m + n := by
   -- rfl will not work here!
   dsimp [triple]
-  /- The goal can now be rewritten by `h`. -/
+  -- The goal can now be rewritten by `h`.
   rw [h]
 
 -- As we have seen, `rw` can also unfold definitions. In this
@@ -280,7 +234,7 @@ example (n m : Nat) (h : n + n = m) : triple n = m + n := by
 -- rewrites.
 
 example (n m : Nat) (h : n + n = m) : triple n = m + n := by
-  /- `rw [triple]` unfolds `triple n`. -/
+  -- `rw [triple]` unfolds `triple n`.
   rw [triple, h]
 
 -- ### Exercise (2 stars): dsimp1 ⭐⭐
@@ -290,7 +244,7 @@ example (n m : Nat) (h : n + n = m) : triple n = m + n := by
 example (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
   sorry
 
--- `dsimp at h` also works on hypotheses, which rfl can't
+-- `dsimp at h` also works on hypotheses, which `rfl` can't
 -- touch.
 
 example (n : Nat) (h : square n = 16) : n * n = 16 := by
@@ -305,23 +259,25 @@ example (n m : Nat) (h : 2 * n = m * 2) : n + n = m + m := by
   exact h
 
 -- `dsimp` also takes definitional steps such as `+ 0`, so it
--- can finish goals that rfl would close.
+-- can finish goals that `rfl` would close.
 
 example (n : Nat) : square n + 0 = n * n := by
   dsimp [square]
 
+-- In the above example, using `rw` would not have closed the
+-- proof:
+
+sf_expect_failure
+  example (n : Nat) : square n + 0 = n * n := by
+    rw [square]
+
+-- unsolved goals
+-- n✝ n : Nat
+-- ⊢ n * n + 0 = n * n
+
 -- Like `rw` and `exact`, `dsimp` also has a `?` version that
 -- searches for functions to simplify by. Many Lean tactics
 -- have `?` versions; try it out if you are unsure.
-
--- Note to developers (Roger Burtonpatel @rogerburtonpatel, NOW):
---     Hard pointer needed to this section once we versify.
---     Also, we may want a pointer to where we introduce `simp`
---     (and *maybe* `grind` in the next volume).
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     This section reference should be a live pointer, at
---     least in the HTML.
 
 -- ## Redefining Functions and Lemmas over Nats
 
@@ -338,15 +294,15 @@ def Nat.odd (n : Nat) := !(even n)
 
 theorem Nat.odd_def (n : Nat) : n.odd = !(n.even) := rfl
 
-def Nat.minustwo (n : Nat) : Nat :=
+def Nat.minusTwo (n : Nat) : Nat :=
   match n with
-  | 0    => 0
-  | 1    => 0
+  | 0      => 0
+  | 1      => 0
   | n' + 2 => n'
 
 def Nat.double (n : Nat) : Nat :=
   match n with
-  | 0    => 0
+  | 0      => 0
   | n' + 1 => double n' + 2
 
 -- Defining functions in the `Nat` namespace changes how they
@@ -356,32 +312,39 @@ theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
   rfl
 
 -- This printing style is called *field notation* and can be
--- disabled with the `pp_nodot` attribute.
+-- enabled or disabled with the `pp.fieldNotation` option.
+
+set_option pp.fieldNotation false
 
 example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
   rfl
 
-attribute [pp_nodot] Nat.double
+set_option pp.fieldNotation true
 
 example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
   rfl
 
 -- ### Exercise (2 stars): even_succ ⭐⭐
 
+-- One inconvenient aspect of our definition of `even n` is the
+-- recursive call on `n'` when `n = n' + 2`. This makes proofs
+-- about `even n` harder when done by induction on `n`, since
+-- we may need an induction hypothesis about `n' + 2`, while
+-- induction just gives us one about `n' + 1`. The following
+-- lemma proves `even (n + 1)` flips the parity, which gives an
+-- alternative characterization that works better with
+-- induction. We'll see uses of this theorem in Lists.
+
 theorem Nat.even_succ (n : Nat) :
     (n + 1).even = !(n.even) := by
   sorry
 
--- Note to developers (NOW):
---     talk about using `Nat.add_zero` and friends from now on.
-
--- (OA) : added lemmas proved for our Nat for Lean's Nat to
--- prevent later files from breaking.
+-- We reprove here for Lean's `Nat` some theorems about
+-- `Nat.even` and `Nat.double`, which we had previously proven
+-- for our custom `NatPlayground.Nat`.
 
 theorem Nat.even_zero : even 0 = true := by rfl
-
 theorem Nat.double_zero : double 0 = 0 := by rfl
-
 theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 
 -- ### Exercise (2 stars): double_add ⭐⭐
@@ -397,19 +360,16 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 -- ## Using Code Actions to Generate Match Skeletons
 
 -- Lean's language server can suggest *code actions*, which are
--- small editor commands that modify the source code. In
--- VSCode, a light-bulb icon appears on the left when a code
+-- small editor commands that modify the source code. In VS
+-- Code, a lightbulb icon appears on the left when a code
 -- action is available at your cursor. You can click the icon
 -- or open the code action menu with `Ctrl + .` on
--- Windows/Linux or `Command + .` on macOS.
-
--- For more information, see [Lean 4 VS Code extension
+-- Windows/Linux or `Command + .` on macOS. For more
+-- information, see the [Lean 4 VSCode extension
 -- manual](https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md#code-actions).
 
 -- Some code actions can generate the explicit branches needed
 -- for pattern matching. This is especially useful when working
 -- with `match` expressions, or with tactics such as `cases`
 -- and `induction`, which we saw in previous chapters.
-
--- Let's look at an example using `induction`.
 

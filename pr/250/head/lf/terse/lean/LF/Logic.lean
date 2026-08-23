@@ -417,6 +417,46 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 --     giving the "wrong" answer, even if it's a perfectly
 --     sensible one.
 
+-- Note to developers (Benjamin Pierce @bcpierce00):
+--     `INCOMING BOCHUM MATERIAL summarized by Claude (old/bochum-lf-updates/Logic.v): the five
+--        quizzes below were reworked in the Bochum LF updates -- addressing
+--        the concern in the dev note above.  Every option list was replaced
+--        by the following uniform one (with `discriminate` in place of
+--        `destruct` in the last quiz):
+--
+--          (A) intros and apply suffice
+--          (B) destruct
+--          (C) left and/or right
+--          (D) destruct, left and right
+--          (E) none of the above
+--
+--        and the answer proofs for quizzes 1 and 4 were changed to use an
+--        explicit destruct instead of destructing via an intro pattern:
+--
+--          Lemma quiz1: forall X, forall a b : X, (a=b) /\ (a<>b) -> False.
+--          Proof.
+--            intros X a b H.
+--            destruct H as [Hab Hnab]. apply Hnab. apply Hab.
+--          Qed.
+--
+--          Lemma quiz4 : forall P Q: Prop,  P \/ Q -> ~~P \/ ~~Q.
+--          Proof.
+--            intros P Q H.
+--            destruct H as [HP | HQ].
+--            - (* left *)
+--              left. intros HnP. apply HnP in HP. apply HP.
+--            - (* right *)
+--              right. intros HnQ. apply HnQ in HQ. apply HQ.
+--          Qed.
+--
+--        To incorporate: rewrite the option lists of the five quizzes below
+--        in the same uniform style (in Lean terms, e.g. "(A) intro and
+--        apply suffice / (B) cases / (C) left and/or right / (D) cases,
+--        left and right / (E) none of the above", with contradiction
+--        replacing cases in the last quiz) and make the solutions for
+--        quizzes 1 and 4 use an explicit cases rather than an intro
+--        pattern.`
+
 -- _Quiz:_
 
 -- To prove the following proposition, which tactics will we
@@ -945,13 +985,18 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 -- (For the reverse direction we need the simple fact that `==`
 -- is reflexive.)
 
+-- Note to developers (Yipeng Liu @berberman):
+--     Either get rid of the development of `beq` story or use
+--     our own `beq` on `Nat`.
+
+-- Don't worry too much about `Nat.beq_eq_true_eq` yet, we need
+-- this from Lean because `n == m` is a wrapper of
+-- `DecidableEq Nat`. We will go over this in the Typeclasses
+-- chapter.
+
 theorem beq_eq_true (n m : Nat) :
     (n == m) = true ↔ n = m := by
-  constructor
-  · apply beq_eq
-  · intro h
-    rw [h]
-    apply BEq.rfl
+  rw [Nat.beq_eq_true_eq]
 
 -- So what should we do in situations where some claim could be
 -- formalized as either a proposition or a boolean computation?
@@ -1170,12 +1215,12 @@ theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
     List.In x (l ++ l') ↔ List.In x l ∨ List.In x l' := by
   sorry
 
--- ### Exercise (1 star): beq_neq ⭐
+-- ### Exercise (1 star): beq_neq_false ⭐
 
 -- The following theorem is an alternative "negative"
--- formulation of `beq_eq` that is more convenient in certain
--- situations. (We'll see examples in later chapters.) Hint:
--- `not_true_iff_false`.
+-- formulation of `beq_eq_true` that is more convenient in
+-- certain situations. (We'll see examples in later chapters.)
+-- Hint: `not_true_iff_false`.
 
 theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
   sorry

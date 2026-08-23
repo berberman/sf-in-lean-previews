@@ -6,6 +6,8 @@ import HL.SFLCompat
 
 -- # Equiv: Program Equivalence
 
+open scoped HasEval MyGetElem Com
+
 -- Note to developers (Sati @satiscugcat):
 --     At this point, the Rocq file provides instructions about
 --     using a new directory, making sure the project is set up
@@ -32,9 +34,6 @@ def Bexp.Equiv (b₁ b₂ : Bexp) : Prop :=
 
 theorem Bexp.equiv_def {b₁ b₂ : Bexp} :
     b₁.Equiv b₂ ↔ ∀ (st : State), b₁.eval st = b₂.eval st := by rfl
-
--- -- ::::full -- Here are some simple examples of equivalences
--- of arithmetic -- and boolean expressions. -- ::::
 
 example : Aexp.Equiv
     (aexp { X - X })
@@ -259,4 +258,26 @@ theorem Com.equiv_trans {c₁ c₂ c₃ : Com} (h₁ : c₁.Equiv c₂) (h₂ : 
   rw [h₁, h₂]
 
 -- ### Behavioral Equivalence is a Congruence
+
+theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
+    (imp {x := ~a}).Equiv
+    (imp {x := ~a'}) := by
+  rw [equiv_def]
+  intro st st'
+  constructor <;>
+  · intro h
+    inversion h with
+    | asgn n h =>
+      subst h
+      apply Com.EvalR.asgn
+      rw [Aexp.equiv_def] at ha
+      rw [ha]
+
+-- Note to developers (Sati @satiscugcat):
+--     `NOT PORTED YET - remaining portions of Equiv.v left (apart from the portions explicitly stated so far).
+--       - The rest of "Behavioural Equivalence is a Congruence"
+--       - The section on "Program Transformation"
+--       - Soundness of (0 + n) Elimination
+--       - Extended Exercise: Nondeterministic Imp
+--       - Additional Exercises`
 
