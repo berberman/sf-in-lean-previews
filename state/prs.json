@@ -285,48 +285,11 @@
     },
     "288": {
       "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "5562e5c35ef06f85595a3754be696f1499b1c84d",
+      "changed_variants": [],
+      "head_sha": "cf45030d483bbd1e83c2edf4635f78b2f0f5d919",
       "preview_path": "pr/288/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32406755158",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "UsingLean explains irreducible; code actions to Induction.",
       "url": "https://github.com/plclub/sf-in-lean/pull/288"
     },
@@ -568,9 +531,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "74e53db3b0d04fa311739f0815d97f47fc1ef197",
+      "head_sha": "2a85e18a903dd4ae906f00693f267f20544379ea",
       "preview_path": "pr/304/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32644582851",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32656276595",
       "status": "published",
       "title": "Partial progress on Equiv.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/304"
