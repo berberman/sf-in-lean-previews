@@ -1,1 +1,0 @@
-window.docContents[149].resolve({"/Equiv/#Equiv":{"contents":"open scoped HasEval MyGetElem Com\n\n\n\n\n\n\n\n\n\n\n","context":"Hoare Logic","header":"4. Equiv: Program Equivalence","id":"/Equiv/#Equiv"}});
