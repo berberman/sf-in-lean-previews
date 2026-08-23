@@ -1,5 +1,5 @@
 {
-  "main_sha": "644d82edc8f791f454513874ccaa5435d21cb47e",
+  "main_sha": "c910484da1e27d874de2fd899b3624ef7ae1f611",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -396,53 +396,6 @@
       "status": "ci-failed",
       "title": "Improve elaboration performance",
       "url": "https://github.com/plclub/sf-in-lean/pull/293"
-    },
-    "295": {
-      "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "24fc709c7da117348bc27bdde300a1eda5e362c1",
-      "preview_path": "pr/295/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32608132311",
-      "status": "published",
-      "title": "Bibliography fixes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/295"
     },
     "299": {
       "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
