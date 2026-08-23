@@ -1,5 +1,5 @@
 {
-  "main_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
+  "main_sha": "644d82edc8f791f454513874ccaa5435d21cb47e",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -398,16 +398,6 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/293"
     },
     "295": {
-      "base_sha": "44094686ca69b43240b30ef9c5024cc78073000f",
-      "changed_variants": [],
-      "head_sha": "e0f71116814532c2024c64e01821e7928a0c1411",
-      "preview_path": "pr/295/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32516394497",
-      "status": "ci-failed",
-      "title": "Bibliography fixes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/295"
-    },
-    "298": {
       "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
       "changed_variants": [
         {
@@ -447,12 +437,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "3bf04dabae85f3cb3c7c19233fb7bfcd57d0bfa2",
-      "preview_path": "pr/298/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32542354241",
+      "head_sha": "24fc709c7da117348bc27bdde300a1eda5e362c1",
+      "preview_path": "pr/295/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32608132311",
       "status": "published",
-      "title": "Basics: mention sf_expect_failure? command",
-      "url": "https://github.com/plclub/sf-in-lean/pull/298"
+      "title": "Bibliography fixes",
+      "url": "https://github.com/plclub/sf-in-lean/pull/295"
     },
     "299": {
       "base_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
