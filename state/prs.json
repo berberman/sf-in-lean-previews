@@ -436,6 +436,53 @@
       "status": "ci-failed",
       "title": "Some last polishing (and a few comments!) on Basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/309"
+    },
+    "310": {
+      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "9c8321e691d073d7b301ba6e148fb3095d390b8d",
+      "preview_path": "pr/310/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32759520382",
+      "status": "published",
+      "title": "Documenting recall blocks",
+      "url": "https://github.com/plclub/sf-in-lean/pull/310"
     }
   },
   "schema": 3
