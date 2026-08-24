@@ -443,6 +443,16 @@
       "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
+    },
+    "306": {
+      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
+      "changed_variants": [],
+      "head_sha": "1aa53af6b16ca8ca783f2385e7091199ddf25720",
+      "preview_path": "pr/306/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Factor custom commands to SFLCompat library",
+      "url": "https://github.com/plclub/sf-in-lean/pull/306"
     }
   },
   "schema": 3
