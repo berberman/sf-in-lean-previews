@@ -402,8 +402,8 @@
       "changed_variants": [],
       "head_sha": "62f56924778b7db71a4741b4b648505b0f68f946",
       "preview_path": "pr/306/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32783572533",
+      "status": "ci-failed",
       "title": "Factor custom commands to SFLCompat library",
       "url": "https://github.com/plclub/sf-in-lean/pull/306"
     },
