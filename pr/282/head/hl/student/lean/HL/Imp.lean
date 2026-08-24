@@ -1156,7 +1156,7 @@ theorem s_compile_correct (st : State) (a : Aexp) :
 
 end StackCompiler
 
--- ### Exercise (3 stars): compiler_correct ⭐⭐⭐
+-- ### Exercise (3 stars): short_circuit (Optional) ⭐⭐⭐
 
 -- Most modern programming languages use a "short-circuit" evaluation rule for
 -- boolean `and`: to evaluate `BExp.and b₁ b₂`, first evaluate `b₁`. If it
@@ -1178,7 +1178,7 @@ theorem beval__beval_sc (st : State) (b : Bexp) :
   b.eval st = b.eval_sc st := by
   sorry
 
--- ### Exercise (3 stars): break_imp ⭐⭐⭐
+-- ### Exercise (3 stars): break_imp (Optional) ⭐⭐⭐
 
 -- Imperative languages like C and Java often include a `break` or similar
 -- statement for interrupting the execution of loops. In this exercise we
@@ -1355,7 +1355,7 @@ theorem seq_stops_on_break (c₁ c₂ : Com) (st st' : State)
   st =[ imp { ~c₁ ; ~c₂ } ]=> st' // sBreak := by
   sorry
 
--- ### Exercise (3 stars): while_break_true ⭐⭐⭐
+-- ### Exercise (3 stars): while_break_true (Optional) ⭐⭐⭐
 
 theorem while_break_true (b : Bexp) (c : Com) (st st' : State)
   (h₁ : st =[ imp { while (~b) {~c} } ]=> st' // sContinue)
@@ -1363,7 +1363,7 @@ theorem while_break_true (b : Bexp) (c : Com) (st st' : State)
   ∃ st'', st'' =[ imp { ~c } ]=> st' // sBreak := by
   sorry
 
--- ### Exercise (4 stars): ceval_deterministic ⭐⭐⭐⭐
+-- ### Exercise (4 stars): ceval_deterministic (Optional) ⭐⭐⭐⭐
 
 theorem ceval_deterministic (c : Com) (st st₁ st₂ : State) (s₁ s₂ : Result)
   (h₁ : st =[ imp { ~c } ]=> st₁ // s₁)
@@ -1372,4 +1372,17 @@ theorem ceval_deterministic (c : Com) (st st₁ st₂ : State) (s₁ s₂ : Resu
   sorry
 
 end BreakImp
+
+-- ### Exercise (4 stars): add_for_loop (Optional) ⭐⭐⭐⭐
+
+-- Add C-style `for` loops to the language of commands, update the `ceval`
+-- definition to define the semantics of `for` loops, and add cases for `for`
+-- loops as needed so that all the proofs in this file are accepted by Rocq.
+
+-- A `for` loop should be parameterized by (a) a statement executed initially,
+-- (b) a test that is run on each iteration of the loop to determine whether
+-- the loop should continue, (c) a statement executed at the end of each loop
+-- iteration, and (d) a statement that makes up the body of the loop. (You
+-- don't need to worry about making up a concrete Notation for `for` loops,
+-- but feel free to play with this too if you like.)
 
