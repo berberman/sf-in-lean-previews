@@ -446,50 +446,23 @@
     },
     "306": {
       "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "1aa53af6b16ca8ca783f2385e7091199ddf25720",
+      "changed_variants": [],
+      "head_sha": "03c2754ee3f43601a1dfb5a903f4ef0ab6ef91f5",
       "preview_path": "pr/306/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32694061652",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32701477380",
+      "status": "ci-failed",
       "title": "Factor custom commands to SFLCompat library",
       "url": "https://github.com/plclub/sf-in-lean/pull/306"
+    },
+    "307": {
+      "base_sha": "09b16232002194bee3651f600c3a93037a52d3c8",
+      "changed_variants": [],
+      "head_sha": "93d4914cd530624804325644efbe781fcc1cffca",
+      "preview_path": "pr/307/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32700472440",
+      "status": "ci-failed",
+      "title": "[WIP] Style pass over IndProp",
+      "url": "https://github.com/plclub/sf-in-lean/pull/307"
     }
   },
   "schema": 3
