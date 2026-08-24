@@ -1,5 +1,5 @@
 {
-  "main_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
+  "main_sha": "ccb59e75f410c9442f99d816cd36b91378a9a611",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -229,9 +229,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "84891a2565e0170fbf7d4d11fad7770bf2d16a2e",
+      "head_sha": "fab954bbfa3821666768bdcdc8e69365f433b4ac",
       "preview_path": "pr/282/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32756302492",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32766727375",
       "status": "published",
       "title": "Add remaining exercises to Imp",
       "url": "https://github.com/plclub/sf-in-lean/pull/282"
@@ -416,16 +416,6 @@
       "status": "ci-failed",
       "title": "[WIP] Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
-    },
-    "309": {
-      "base_sha": "f3498545078451fdc368a1a067eb70cef1fa88da",
-      "changed_variants": [],
-      "head_sha": "7b38d3912258f5835d107e8fb11073a94c57eb90",
-      "preview_path": "pr/309/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Some last polishing (and a few comments!) on Basics",
-      "url": "https://github.com/plclub/sf-in-lean/pull/309"
     }
   },
   "schema": 3

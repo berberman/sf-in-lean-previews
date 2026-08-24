@@ -1299,39 +1299,52 @@ open Sinstr
 -- it would be best to skip the offending instruction and continue with the
 -- next one.
 
-def s_execute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat :=
+def sExecute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat :=
   (match prog, stack with
     | [],                _           => stack
-    | sPush n :: prog',  _            => s_execute st (n       :: stack)  prog'
-    | sLoad x :: prog',  _            => s_execute st (st[x]   :: stack)  prog'
-    | sPlus   :: prog',  n::m::stack' => s_execute st ((m + n) :: stack') prog'
-    | sMinus  :: prog',  n::m::stack' => s_execute st ((m - n) :: stack') prog'
-    | sMult   :: prog',  n::m::stack' => s_execute st ((m * n) :: stack') prog'
-    | _       :: prog',  _            => s_execute st stack prog')
+    | sPush n :: prog',  _            => sExecute st (n       :: stack)  prog'
+    | sLoad x :: prog',  _            => sExecute st (st[x]   :: stack)  prog'
+    | sPlus   :: prog',  n::m::stack' => sExecute st ((m + n) :: stack') prog'
+    | sMinus  :: prog',  n::m::stack' => sExecute st ((m - n) :: stack') prog'
+    | sMult   :: prog',  n::m::stack' => sExecute st ((m * n) :: stack') prog'
+    | _       :: prog',  _            => sExecute st stack prog')
                                         -- Bad state: skip
 
-example : s_execute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
+example : sExecute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
   rfl
 
-example : s_execute (X →ₜ 3) [3, 4] [sPush 4, sLoad X, sMult, sPlus] = [15, 4] := by
+example : sExecute (X →ₜ 3) [3, 4] [sPush 4, sLoad X, sMult, sPlus] = [15, 4] := by
   rfl
 
 -- Next, write a function that compiles an `Aexp` into a stack machine
 -- program. The effect of running the program should be the same as pushing
 -- the value of the expression on the stack.
 
-def s_compile (a : Aexp) : List Sinstr :=
+def sCompile (a : Aexp) : List Sinstr :=
   (match a with
   | .num n        => [sPush n]
   | .id x         => [sLoad x]
-  | .plus a₁ a₂   => s_compile a₁ ++ s_compile a₂ ++ [sPlus]
-  | .minus a₁ a₂  => s_compile a₁ ++ s_compile a₂ ++ [sMinus]
-  | .mult a₁ a₂   => s_compile a₁ ++ s_compile a₂ ++ [sMult])
+  | .plus a₁ a₂   => sCompile a₁ ++ sCompile a₂ ++ [sPlus]
+  | .minus a₁ a₂  => sCompile a₁ ++ sCompile a₂ ++ [sMinus]
+  | .mult a₁ a₂   => sCompile a₁ ++ sCompile a₂ ++ [sMult])
 
--- After you've defined `s_compile`, prove the following to test that it
--- works.
+@[simp]
+theorem sCompile_num (n : Nat) : sCompile (Aexp.num n) = [sPush n] := rfl
+@[simp]
+theorem sCompile_id (x : String) : sCompile (Aexp.id x) = [sLoad x] := rfl
+@[simp]
+theorem sCompile_plus (a₁ a₂ : Aexp) :
+  sCompile (Aexp.plus a₁ a₂) = sCompile a₁ ++ sCompile a₂ ++ [sPlus] := rfl
+@[simp]
+theorem sCompile_minus (a₁ a₂ : Aexp) :
+  sCompile (Aexp.minus a₁ a₂) = sCompile a₁ ++ sCompile a₂ ++ [sMinus] := rfl
+@[simp]
+theorem sCompile_mult (a₁ a₂ : Aexp) :
+  sCompile (Aexp.mult a₁ a₂) = sCompile a₁ ++ sCompile a₂ ++ [sMult] := rfl
 
-example : s_compile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, sMinus] := by
+-- After you've defined `sCompile`, prove the following to test that it works.
+
+example : sCompile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, sMinus] := by
   rfl
 
 -- ### Exercise (3 stars): execute_app ⭐⭐⭐
@@ -1341,29 +1354,29 @@ example : s_compile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, 
 -- executing `p₂` from that stack. Prove that fact.
 
 theorem execute_app (st : State) (p₁ p₂ : List Sinstr) (stack : List Nat) :
-  s_execute st stack (p₁ ++ p₂) = s_execute st (s_execute st stack p₁) p₂ := by
+  sExecute st stack (p₁ ++ p₂) = sExecute st (sExecute st stack p₁) p₂ := by
   induction p₁ generalizing p₂ stack with
   | nil => rfl
-  | cons a p' ih => cases a <;> rcases stack with _ | ⟨_, _ | ⟨_, _⟩⟩ <;> simp_all [s_execute]
+  | cons a p' ih => cases a <;> rcases stack with _ | ⟨_, _ | ⟨_, _⟩⟩ <;> simp_all [sExecute]
 
 -- ### Exercise (3 stars): compiler_correct ⭐⭐⭐
 
 -- Now we'll prove the correctness of the compiler implemented in the previous
 -- exercise. Begin by proving the following lemma. If it becomes difficult,
--- consider whether your implementation of `s_execute` or `s_compile` could be
+-- consider whether your implementation of `sExecute` or `sCompile` could be
 -- simplified.
 
-theorem s_compile_correct_aux (st : State) (a : Aexp) (stack : List Nat) :
-  s_execute st stack (s_compile a) = Aexp.eval st a :: stack := by
+theorem sCompile_correct_aux (st : State) (a : Aexp) (stack : List Nat) :
+  sExecute st stack (sCompile a) = Aexp.eval st a :: stack := by
   induction a generalizing st stack <;>
-  simp_all [s_compile, List.append_assoc, execute_app] <;>
+  simp_all [List.append_assoc, execute_app] <;>
   rfl
 
 -- The main theorem should be a very easy corollary of that lemma.
 
-theorem s_compile_correct (st : State) (a : Aexp) :
-  s_execute st [] (s_compile a) = [ Aexp.eval st a ] := by
-  apply s_compile_correct_aux
+theorem sCompile_correct (st : State) (a : Aexp) :
+  sExecute st [] (sCompile a) = [ Aexp.eval st a ] := by
+  apply sCompile_correct_aux
 
 end StackCompiler
 
@@ -1382,22 +1395,45 @@ end StackCompiler
 -- diverge, the short-circuiting `and` would *not* be equivalent to the
 -- original, since it would make more programs terminate.)
 
-def Bexp.eval_sc (st : State) (b : Bexp) : Bool := (
+def Bexp.evalSC (st : State) (b : Bexp) : Bool := (
   match b with
   | .bool b      =>  b
   | .eq   a₁ a₂  =>  a₁.eval st == a₂.eval st
   | .neq  a₁ a₂  =>  a₁.eval st != a₂.eval st
-  | .le   a₁ a₂  =>  a₁.eval st ≤  a₂.eval st
-  | .gt   a₁ a₂  =>  a₁.eval st >  a₂.eval st
-  | .not  b₁     =>  !b₁.eval_sc st
-  | .and  b₁ b₂  =>  match (b₁.eval_sc st) with
+  | .le   a₁ a₂  =>  decide (a₁.eval st ≤ a₂.eval st)
+  | .gt   a₁ a₂  =>  decide (a₁.eval st > a₂.eval st)
+  | .not  b₁     =>  !b₁.evalSC st
+  | .and  b₁ b₂  =>  match (b₁.evalSC st) with
                     | false => false
-                    | true => b₂.eval_sc st)
+                    | true => b₂.evalSC st)
+
+@[simp]
+theorem Bexp.evalSC_bool (st : State) (b : Bool) : (Bexp.bool b).evalSC st = b := rfl
+@[simp]
+theorem Bexp.evalSC_eq (st : State) (a₁ a₂ : Aexp) :
+  (Bexp.eq a₁ a₂).evalSC st = (a₁.eval st == a₂.eval st) := rfl
+@[simp]
+theorem Bexp.evalSC_neq (st : State) (a₁ a₂ : Aexp) :
+  (Bexp.neq a₁ a₂).evalSC st = (a₁.eval st != a₂.eval st) := rfl
+@[simp]
+theorem Bexp.evalSC_le (st : State) (a₁ a₂ : Aexp) :
+  (Bexp.le a₁ a₂).evalSC st = decide (a₁.eval st ≤  a₂.eval st) := rfl
+@[simp]
+theorem Bexp.evalSC_gt (st : State) (a₁ a₂ : Aexp) :
+  (Bexp.gt a₁ a₂).evalSC st = decide (a₁.eval st >  a₂.eval st) := rfl
+@[simp]
+theorem Bexp.evalSC_not (st : State) (b : Bexp) :
+  (Bexp.not b).evalSC st = !b.evalSC st := rfl
+@[simp]
+theorem Bexp.evalSC_and (st : State) (b₁ b₂ : Bexp) :
+  (Bexp.and  b₁ b₂).evalSC st = match (b₁.evalSC st) with
+                                | false => false
+                                | true => b₂.evalSC st := rfl
 
 -- This exercise turned out to be easier than we intended!
-theorem beval__beval_sc (st : State) (b : Bexp) :
-  b.eval st = b.eval_sc st := by
-  induction b <;> simp_all [Bexp.eval_sc] <;> lia
+theorem Bexp.eval_eq_evalSc (st : State) (b : Bexp) :
+  b.eval st = b.evalSC st := by
+  induction b <;> simp_all <;> lia
 
 -- ### Exercise (3 stars): break_imp (Optional) ⭐⭐⭐
 

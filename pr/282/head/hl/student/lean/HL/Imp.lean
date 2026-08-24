@@ -1104,27 +1104,28 @@ open Sinstr
 -- it would be best to skip the offending instruction and continue with the
 -- next one.
 
-def s_execute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat :=
+def sExecute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat :=
   sorry
                                         -- Bad state: skip
 
-example : s_execute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
+example : sExecute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
   sorry
 
-example : s_execute (X →ₜ 3) [3, 4] [sPush 4, sLoad X, sMult, sPlus] = [15, 4] := by
+example : sExecute (X →ₜ 3) [3, 4] [sPush 4, sLoad X, sMult, sPlus] = [15, 4] := by
   sorry
 
 -- Next, write a function that compiles an `Aexp` into a stack machine
 -- program. The effect of running the program should be the same as pushing
 -- the value of the expression on the stack.
 
-def s_compile (a : Aexp) : List Sinstr :=
+def sCompile (a : Aexp) : List Sinstr :=
   sorry
 
--- After you've defined `s_compile`, prove the following to test that it
--- works.
+-- FILL IN HERE
 
-example : s_compile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, sMinus] := by
+-- After you've defined `sCompile`, prove the following to test that it works.
+
+example : sCompile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, sMinus] := by
   sorry
 
 -- ### Exercise (3 stars): execute_app ⭐⭐⭐
@@ -1134,24 +1135,24 @@ example : s_compile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, 
 -- executing `p₂` from that stack. Prove that fact.
 
 theorem execute_app (st : State) (p₁ p₂ : List Sinstr) (stack : List Nat) :
-  s_execute st stack (p₁ ++ p₂) = s_execute st (s_execute st stack p₁) p₂ := by
+  sExecute st stack (p₁ ++ p₂) = sExecute st (sExecute st stack p₁) p₂ := by
   sorry
 
 -- ### Exercise (3 stars): compiler_correct ⭐⭐⭐
 
 -- Now we'll prove the correctness of the compiler implemented in the previous
 -- exercise. Begin by proving the following lemma. If it becomes difficult,
--- consider whether your implementation of `s_execute` or `s_compile` could be
+-- consider whether your implementation of `sExecute` or `sCompile` could be
 -- simplified.
 
-theorem s_compile_correct_aux (st : State) (a : Aexp) (stack : List Nat) :
-  s_execute st stack (s_compile a) = Aexp.eval st a :: stack := by
+theorem sCompile_correct_aux (st : State) (a : Aexp) (stack : List Nat) :
+  sExecute st stack (sCompile a) = Aexp.eval st a :: stack := by
   sorry
 
 -- The main theorem should be a very easy corollary of that lemma.
 
-theorem s_compile_correct (st : State) (a : Aexp) :
-  s_execute st [] (s_compile a) = [ Aexp.eval st a ] := by
+theorem sCompile_correct (st : State) (a : Aexp) :
+  sExecute st [] (sCompile a) = [ Aexp.eval st a ] := by
   sorry
 
 end StackCompiler
@@ -1171,11 +1172,13 @@ end StackCompiler
 -- diverge, the short-circuiting `and` would *not* be equivalent to the
 -- original, since it would make more programs terminate.)
 
-def Bexp.eval_sc (st : State) (b : Bexp) : Bool := sorry
+def Bexp.evalSC (st : State) (b : Bexp) : Bool := sorry
+
+-- FILL IN HERE
 
 -- This exercise turned out to be easier than we intended!
-theorem beval__beval_sc (st : State) (b : Bexp) :
-  b.eval st = b.eval_sc st := by
+theorem Bexp.eval_eq_evalSc (st : State) (b : Bexp) :
+  b.eval st = b.evalSC st := by
   sorry
 
 -- ### Exercise (3 stars): break_imp (Optional) ⭐⭐⭐

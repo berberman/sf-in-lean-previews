@@ -2359,17 +2359,6 @@
         "Proof Rules",
         "Conditionals"]}},
      "address": "/Hoare/"}],
-   "beval__beval_sc":
-   [{"id": "beval__beval_sc",
-     "data":
-     {"/Imp/#beval__beval_sc":
-      {"display": "beval__beval_sc",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Reasoning About Imp Programs",
-        "Additional Exercises"]}},
-     "address": "/Imp/"}],
    "assertion_sub_example2''":
    [{"id": "assertion_sub_example2______",
      "data":
@@ -2586,44 +2575,99 @@
         "Expressions With Variables",
         "States"]}},
      "address": "/Imp/"}],
-   "StackCompiler.s_execute":
-   [{"id": "StackCompiler___s_execute",
+   "StackCompiler.sExecute":
+   [{"id": "StackCompiler___sExecute",
      "data":
-     {"/Imp/#StackCompiler___s_execute":
-      {"display": "s_execute",
+     {"/Imp/#StackCompiler___sExecute":
+      {"display": "sExecute",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
-   "StackCompiler.s_compile_correct_aux":
-   [{"id": "StackCompiler___s_compile_correct_aux",
+   "StackCompiler.sCompile_plus":
+   [{"id": "StackCompiler___sCompile_plus",
      "data":
-     {"/Imp/#StackCompiler___s_compile_correct_aux":
-      {"display": "s_compile_correct_aux",
+     {"/Imp/#StackCompiler___sCompile_plus":
+      {"display": "sCompile_plus",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
-   "StackCompiler.s_compile_correct":
-   [{"id": "StackCompiler___s_compile_correct",
+   "StackCompiler.sCompile_num":
+   [{"id": "StackCompiler___sCompile_num",
      "data":
-     {"/Imp/#StackCompiler___s_compile_correct":
-      {"display": "s_compile_correct",
+     {"/Imp/#StackCompiler___sCompile_num":
+      {"display": "sCompile_num",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
-   "StackCompiler.s_compile":
-   [{"id": "StackCompiler___s_compile",
+   "StackCompiler.sCompile_mult":
+   [{"id": "StackCompiler___sCompile_mult",
      "data":
-     {"/Imp/#StackCompiler___s_compile":
-      {"display": "s_compile",
+     {"/Imp/#StackCompiler___sCompile_mult":
+      {"display": "sCompile_mult",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sCompile_minus":
+   [{"id": "StackCompiler___sCompile_minus",
+     "data":
+     {"/Imp/#StackCompiler___sCompile_minus":
+      {"display": "sCompile_minus",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sCompile_id":
+   [{"id": "StackCompiler___sCompile_id",
+     "data":
+     {"/Imp/#StackCompiler___sCompile_id":
+      {"display": "sCompile_id",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sCompile_correct_aux":
+   [{"id": "StackCompiler___sCompile_correct_aux",
+     "data":
+     {"/Imp/#StackCompiler___sCompile_correct_aux":
+      {"display": "sCompile_correct_aux",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sCompile_correct":
+   [{"id": "StackCompiler___sCompile_correct",
+     "data":
+     {"/Imp/#StackCompiler___sCompile_correct":
+      {"display": "sCompile_correct",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sCompile":
+   [{"id": "StackCompiler___sCompile",
+     "data":
+     {"/Imp/#StackCompiler___sCompile":
+      {"display": "sCompile",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
@@ -6309,17 +6353,6 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
-   "Bexp.eval_sc":
-   [{"id": "Bexp___eval_sc",
-     "data":
-     {"/Imp/#Bexp___eval_sc":
-      {"display": "Bexp.eval_sc",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Reasoning About Imp Programs",
-        "Additional Exercises"]}},
-     "address": "/Imp/"}],
    "Bexp.eval_not":
    [{"id": "Bexp___eval_not",
      "data":
@@ -6364,6 +6397,17 @@
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.eval_eq_evalSc":
+   [{"id": "Bexp___eval_eq_evalSc",
+     "data":
+     {"/Imp/#Bexp___eval_eq_evalSc":
+      {"display": "Bexp.eval_eq_evalSc",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
    "Bexp.eval_eq":
    [{"id": "Bexp___eval_eq",
      "data":
@@ -6396,6 +6440,94 @@
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "Evaluation"]}},
+     "address": "/Imp/"}],
+   "Bexp.evalSC_not":
+   [{"id": "Bexp___evalSC_not",
+     "data":
+     {"/Imp/#Bexp___evalSC_not":
+      {"display": "Bexp.evalSC_not",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Bexp.evalSC_neq":
+   [{"id": "Bexp___evalSC_neq",
+     "data":
+     {"/Imp/#Bexp___evalSC_neq":
+      {"display": "Bexp.evalSC_neq",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Bexp.evalSC_le":
+   [{"id": "Bexp___evalSC_le",
+     "data":
+     {"/Imp/#Bexp___evalSC_le":
+      {"display": "Bexp.evalSC_le",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Bexp.evalSC_gt":
+   [{"id": "Bexp___evalSC_gt",
+     "data":
+     {"/Imp/#Bexp___evalSC_gt":
+      {"display": "Bexp.evalSC_gt",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Bexp.evalSC_eq":
+   [{"id": "Bexp___evalSC_eq",
+     "data":
+     {"/Imp/#Bexp___evalSC_eq":
+      {"display": "Bexp.evalSC_eq",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Bexp.evalSC_bool":
+   [{"id": "Bexp___evalSC_bool",
+     "data":
+     {"/Imp/#Bexp___evalSC_bool":
+      {"display": "Bexp.evalSC_bool",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Bexp.evalSC_and":
+   [{"id": "Bexp___evalSC_and",
+     "data":
+     {"/Imp/#Bexp___evalSC_and":
+      {"display": "Bexp.evalSC_and",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Bexp.evalSC":
+   [{"id": "Bexp___evalSC",
+     "data":
+     {"/Imp/#Bexp___evalSC":
+      {"display": "Bexp.evalSC",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.eval":
    [{"id": "Bexp___eval",

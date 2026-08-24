@@ -617,19 +617,19 @@
  "472": "<code>BreakImp.Com.skip : Com</code>",
  "471": "<code>BreakImp.Com : Type</code>",
  "470":
- "<code>beval__beval_sc (st : State) (b : Bexp) : Bexp.eval st b = Bexp.eval_sc st b</code>",
+ "<code>Bexp.eval_eq_evalSc (st : State) (b : Bexp) : eval st b = evalSC st b</code>",
  "47":
  "<code class=\"docstring\">This tactic applies to a goal whose target has the form `x ~ x`,\nwhere `~` is equality, heterogeneous equality or any relation that\nhas a reflexivity lemma tagged with the attribute @[refl].\n</code>",
- "469": "<code>Bexp.eval_sc (st : State) (b : Bexp) : Bool</code>",
+ "469": "<code>Bexp.evalSC (st : State) (b : Bexp) : Bool</code>",
  "468":
- "<code>StackCompiler.s_compile_correct (st : State) (a : Aexp) : s_execute st [] (s_compile a) = [Aexp.eval st a]</code>",
+ "<code>StackCompiler.sCompile_correct (st : State) (a : Aexp) : sExecute st [] (sCompile a) = [Aexp.eval st a]</code>",
  "467":
- "<code>StackCompiler.s_compile_correct_aux (st : State) (a : Aexp) (stack : List Nat) :\n  s_execute st stack (s_compile a) = Aexp.eval st a :: stack</code>",
+ "<code>StackCompiler.sCompile_correct_aux (st : State) (a : Aexp) (stack : List Nat) :\n  sExecute st stack (sCompile a) = Aexp.eval st a :: stack</code>",
  "466":
  "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
  "465":
- "<code>StackCompiler.execute_app (st : State) (p₁ p₂ : List Sinstr) (stack : List Nat) :\n  s_execute st stack (p₁ ++ p₂) = s_execute st (s_execute st stack p₁) p₂</code>",
- "464": "<code>StackCompiler.s_compile (a : Aexp) : List Sinstr</code>",
+ "<code>StackCompiler.execute_app (st : State) (p₁ p₂ : List Sinstr) (stack : List Nat) :\n  sExecute st stack (p₁ ++ p₂) = sExecute st (sExecute st stack p₁) p₂</code>",
+ "464": "<code>StackCompiler.sCompile (a : Aexp) : List Sinstr</code>",
  "463":
  "<code>List.cons.{u} {α : Type u} (head : α) (tail : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">The list whose first element is `head`, where `tail` is the rest of the list.\nUsually written `head :: tail`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `::` in identifiers is `cons`.\n\n * The recommended spelling of `[a]` in identifiers is `singleton`.</code>",
  "462":
@@ -640,7 +640,7 @@
  "46": "<code>Slang.Aexp.optimize0plus (a : Aexp) : Aexp</code>",
  "459": "<code>List Nat</code>",
  "458":
- "<code>StackCompiler.s_execute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat</code>",
+ "<code>StackCompiler.sExecute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat</code>",
  "457": "<code>StackCompiler.Sinstr.sMult : StackCompiler.Sinstr</code>",
  "456": "<code>StackCompiler.Sinstr.sMinus : StackCompiler.Sinstr</code>",
  "455": "<code>StackCompiler.Sinstr.sPlus : StackCompiler.Sinstr</code>",

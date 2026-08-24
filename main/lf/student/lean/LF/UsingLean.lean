@@ -29,13 +29,19 @@ import LF.SFLCompat
 
 -- Previously, we did computation like this...
 
-open NatPlayground.Nat in
+section OldNats
+open NatPlayground.Nat
 example : (two * two : NatPlayground.Nat) = four := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
   rewrite [mul_succ, mul_succ, mul_zero]
   rewrite [add_succ, add_succ, add_zero]
   rewrite [add_succ, add_succ, add_zero]
   rfl
+
+-- We made Lean enforce this pedagogical style using the `@irreducible`
+-- attribute on definitions like `mul` and `add`. This ensured that
+-- definitions be fully simplified using `rw` with simplification rules like
+-- `two_eq_succ_one`.
 
 -- This approach is useful in a textbook for understanding the structure of
 -- natural numbers and for providing early practice with writing proofs. But
@@ -45,6 +51,8 @@ example : (two * two : NatPlayground.Nat) = four := by
 -- `Nat` and the powerful features of Lean to *automatically* prove properties
 -- about natural numbers and to compute with them.
 
+end OldNats
+-- Now, we are using Lean's built-in natural numbers.
 example : (3 * 3 : Nat) = 9 := by rfl
 
 -- The annotation `: Nat` tells Lean that we are using its built-in `Nat`
@@ -53,7 +61,13 @@ example : (3 * 3 : Nat) = 9 := by rfl
 -- `<theorem>`. (By convention, theorems about a type live in the namespace of
 -- that type, hence the need for the `Nat.` prefix.)
 
--- ### `rfl` and Computation with `Nat`
+-- Definitions in the built-in `Nat` library are *not* marked
+-- `@[irreducible]`. This lets us use more powerful *automatic simplification*
+-- of functions on natural numbers, which is appropriate when their low-level
+-- behaviors are not the primary focus of proofs. This will be the case going
+-- forward.
+
+-- ### The `rfl` Tactic and Computation with `Nat`
 
 -- With Lean's `Nat`, much of the computation happens automatically, and `rfl`
 -- suffices to close any equality of computation on literals.
@@ -212,11 +226,12 @@ theorem succ_mul_succ' (n m : Nat) :
 
 -- ## Definitional Simplification: `dsimp`
 
--- Often, rather than rewriting by a known equation like
--- `n + succ m = succ (n + m)` using `rw [add_succ]`, we just want to simplify
--- the function (here `Nat.add`) automatically when we can.
+-- Often, rather than repeatedly rewriting by a known equation like
+-- `rw [Nat.mul_zero, Nat.mul_zero]` to solve a goal like `n * (m * 0) = 0`,
+-- we just want to simplify the function (here `Nat.mul`) automatically when
+-- we can.
 
--- The `dsimp` tactic ("definitionally simplify") unfolds definitions and
+-- The `dsimp` ("definitionally simplify") tactic unfolds definitions and
 -- performs definitional simplifications. You can give it hints in square
 -- brackets: `dsimp [f]` tells it to unfold the definition of `f`. You can
 -- also simplify a hypothesis `h` in the context by writing
@@ -261,6 +276,23 @@ example (n : Nat) (h : square n = 16) : n * n = 16 := by
 
 example (n m : Nat) (h : 2 * n = m * 2) : n + n = m + m := by
   rw [Nat.mul_comm, Nat.mul_two, Nat.mul_two] at h
+  exact h
+
+-- But `rw` rewrites only one instance of a definition at a time. When a
+-- hypothesis mentions the same function at several different arguments, each
+-- one needs its own rewrite.
+
+example (n m k : Nat) (h : square n + square m + square k = 0) :
+    n * n + m * m + k * k = 0 := by
+  rw [square, square, square] at h
+  exact h
+
+-- `dsimp` unfolds *every* instance at once, so one hint suffices no matter
+-- how many times the definition appears.
+
+example (n m k : Nat) (h : square n + square m + square k = 0) :
+    n * n + m * m + k * k = 0 := by
+  dsimp [square] at h
   exact h
 
 -- `dsimp` also takes definitional steps such as `+ 0`, so it can finish goals
@@ -407,72 +439,11 @@ theorem Nat.double_add (n : Nat) : n.double = n + n := by
 theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
   sorry
 
--- ## Using Code Actions to Generate Match Skeletons
+-- In the remainder of the book, we use Lean's built-in natural numbers
+-- everywhere. We use `dsimp` and `calc` in examples and solutions, and
+-- encourage their use. We also recommend using `rw?` and `exact?` to search
+-- for lemmas (though these should not appear in finished proofs).
 
--- Lean's language server can suggest *code actions*, which are small editor
--- commands that modify the source code. In VS Code, a lightbulb icon appears
--- on the left when a code action is available at your cursor. You can click
--- the icon or open the code action menu with `Ctrl + .` on Windows/Linux or
--- `Command + .` on macOS. For more information, see the [Lean 4 VSCode
--- extension
--- manual](https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md#code-actions).
-
--- Some code actions can generate the explicit branches needed for pattern
--- matching. This is especially useful when working with `match` expressions,
--- or with tactics such as `cases` and `induction`, which we saw in previous
--- chapters.
-
--- Let's look at an example using `induction`. For example, suppose we start
--- with the following incomplete proof:
-
-sf_expect_failure
-  example (n : Nat) : Nat.beq n n := by
-    induction n
-
--- Note to developers (Mike Hicks @mwhicks1, NOW):
---     When I follow the instructions below in the student `.lean` files in
---     `_out` I do not get a lightbulb to do this code action. Instead I get a
---     couple of stars which if I click suggests a "quick fix".
-
--- Put your cursor on `induction n` and open the code action menu. You should
--- see "Generate an explicit pattern match for 'induction'." in the list. If
--- you choose this action, Lean adds an explicit branch for each constructor:
-
-example (n : Nat) : Nat.beq n n := by
-  induction n with
-  | zero => sorry
-  | succ n _ => sorry
-
--- This gives us basic structure of the proof without requiring us to write
--- each branch by hand. We can then focus on proving each case.
-
--- One possible proof is:
-
-example (n : Nat) : Nat.beq n n := by
-  induction n with
-  | zero => rfl
-  | succ n ih => rw [Nat.beq, ih]
-
--- Note that Lean used `_` for the induction hypothesis in the generated
--- `succ` branch. At that point, Lean didn't know whether the unfinished proof
--- would need to refer to the hypothesis. Since we use it in `rw`, we replace
--- `_` with the name `ih`.
-
--- In later chapters, we will see some tactics that can make such inaccessible
--- names available again.
-
--- The same trick also works for `match` expressions. For example, suppose we
--- start with
-
-sf_expect_failure
-  def isZero (n : Nat) : Bool :=
-    match n
-
--- Lean can generate the missing branches:
-
-sf_expect_failure
-  def isZero (n : Nat) : Bool :=
-    match n with
-    | 0 => _
-    | n + 1 => _
+-- With these tools in hand, we can begin to prove properties about more
+-- sophisticated forms of data, beginning with `Lists`.
 
