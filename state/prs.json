@@ -294,11 +294,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/288"
     },
     "293": {
-      "base_sha": "6aa9cf1a26c15dcab04055969b05c84e2bd321a5",
+      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
       "changed_variants": [],
-      "head_sha": "33cefccfc8475832aacc85f08934b330fe25f70c",
+      "head_sha": "5404249dc839ea88bfe9cf971312da117ecfe4b5",
       "preview_path": "pr/293/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32496997136",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32714738865",
       "status": "ci-failed",
       "title": "Improve elaboration performance",
       "url": "https://github.com/plclub/sf-in-lean/pull/293"
