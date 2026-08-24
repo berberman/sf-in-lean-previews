@@ -539,7 +539,7 @@ theorem add_assoc'' (n m p : Nat) :
 -- whereas the informal proof reminds the reader several times where things
 -- stand).
 
--- ### Exercise (2 stars): add_comm_informal (Advanced, manually graded) ⭐⭐
+-- ### Exercise (2 stars): add_comm_informal (Advanced, Optional, manually graded) ⭐⭐
 
 -- Translate your solution for `add_comm` into an informal proof:
 
@@ -578,7 +578,7 @@ theorem add_assoc'' (n m p : Nat) :
 
 -- *Qed*.
 
--- ### Exercise (2 stars): beq_refl_informal ⭐⭐
+-- ### Exercise (2 stars): beq_refl_informal (Optional) ⭐⭐
 
 -- Write an informal proof of the following theorem, using the informal proof
 -- of `add_assoc` as a model. Don't just paraphrase the Lean tactics into
@@ -652,7 +652,7 @@ theorem mul_comm (m n : Nat) :
   | succ n' ih =>
     rw [mul_succ, ih, succ_mul]
 
--- ### Exercise (3 stars): more_exercises ⭐⭐⭐
+-- ### Exercise (3 stars): more_exercises (Optional) ⭐⭐⭐
 
 -- Take a piece of paper. For each of the following theorems, first *think*
 -- about whether (a) it can be proved using only simplification and rewriting,

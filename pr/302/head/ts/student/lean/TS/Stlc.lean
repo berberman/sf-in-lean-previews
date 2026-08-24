@@ -1230,7 +1230,7 @@ example :
     (.app _ _ Ty.bool _ _ (.var _ "y" _ rfl)
       (.app _ _ Ty.bool _ _ (.var _ "y" _ rfl) (.var _ "x" _ rfl))))
 
--- ### Exercise (2 stars): typing_example_2_full ⭐⭐
+-- ### Exercise (2 stars): typing_example_2_full (Optional) ⭐⭐
 
 -- Prove the same result in tactic mode, applying one rule at a time and
 -- naming the argument type of each application explicitly.

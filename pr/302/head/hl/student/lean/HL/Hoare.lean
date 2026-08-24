@@ -97,7 +97,7 @@ abbrev Assertion := State → Prop
 -- (C)
 -- `fun st => st[Z] * st[Z] ≤ st[X] ∧ ¬ ((st[Z] + 1) * (st[Z] + 1) ≤ st[X])`
 
--- ### Exercise (1 star): assertions ⭐
+-- ### Exercise (1 star): assertions (Optional) ⭐
 
 -- Paraphrase the following assertions in English (or your favorite natural
 -- language).
@@ -595,7 +595,7 @@ end Assertion.Delab
 
 -- (B) No
 
--- ### Exercise (1 star): valid_triples ⭐
+-- ### Exercise (1 star): valid_triples (Optional) ⭐
 
 -- Which of the following Hoare triples are *valid* -- i.e., the claimed
 -- relation between `P`, `c`, and `Q` is true?
@@ -700,7 +700,7 @@ theorem hoare_post_true {P Q : Assertion} {c : Com} (h : ∀ st, Q st) :
     {{ P }} ~c {{ Q }} := by
   sorry
 
--- ### Exercise (1 star): hoare_pre_false ⭐
+-- ### Exercise (1 star): hoare_pre_false (Optional) ⭐
 
 -- Prove that if `P` holds in no state, then any triple with `P` as its
 -- precondition is valid.
@@ -1046,7 +1046,7 @@ theorem assertion_sub_example :
 -- hoare_asgn`. If you find that tactic
 -- doesn't suffice, double check that you have completed the triple properly.
 
--- ### Exercise (2 stars): hoare_asgn_examples1 ⭐⭐
+-- ### Exercise (2 stars): hoare_asgn_examples1 (Optional) ⭐⭐
 
 theorem hoare_asgn_examples1 :
     ∃ P : Assertion,
@@ -1055,7 +1055,7 @@ theorem hoare_asgn_examples1 :
       {{ X ≤ 10 }} := by
   sorry
 
--- ### Exercise (2 stars): hoare_asgn_examples2 ⭐⭐
+-- ### Exercise (2 stars): hoare_asgn_examples2 (Optional) ⭐⭐
 
 theorem hoare_asgn_examples2 :
     ∃ P : Assertion,
@@ -1083,7 +1083,7 @@ theorem hoare_asgn_wrong : ∃ a : Aexp,
     ¬ {{ True }} X := ~a {{ X = a }} := by
   sorry
 
--- ### Exercise (3 stars): hoare_asgn_fwd (Advanced) ⭐⭐⭐
+-- ### Exercise (3 stars): hoare_asgn_fwd (Advanced, Optional) ⭐⭐⭐
 
 -- By using a *parameter* `m` (a Lean number) to remember the original value
 -- of `X` we can define a Hoare rule for assignment that does, intuitively,
@@ -1108,7 +1108,7 @@ theorem hoare_asgn_fwd {m : Nat} {a : Aexp} {P : Assertion} :
          ∧ st[X] = a.eval (X →ₜ m ; st) }} := by
   sorry
 
--- ### Exercise (2 stars): hoare_asgn_fwd_exists (Advanced) ⭐⭐
+-- ### Exercise (2 stars): hoare_asgn_fwd_exists (Advanced, Optional) ⭐⭐
 
 -- Another way to define a forward rule for assignment is to existentially
 -- quantify over the previous value of the assigned variable. Prove that it is
@@ -2144,7 +2144,7 @@ scoped macro_rules
   | `(imp { ~$c }) =>
     pure c
 
--- ### Exercise (4 stars): hoare_repeat (Advanced, manually graded) ⭐⭐⭐⭐
+-- ### Exercise (4 stars): hoare_repeat (Advanced, Optional, manually graded) ⭐⭐⭐⭐
 
 -- Add new rules for `repeat` to `Com.EvalR` below. You can use the rules for
 -- `while` as a guide, but remember that the body of a `repeat` should always

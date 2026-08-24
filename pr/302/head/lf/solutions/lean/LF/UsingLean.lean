@@ -389,7 +389,7 @@ set_option pp.fieldNotation true
 example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
   rfl
 
--- ### Exercise (2 stars): even_succ ⭐⭐
+-- ### Exercise (2 stars): even_succ (Optional) ⭐⭐
 
 -- One inconvenient aspect of our definition of `even n` is the recursive call
 -- on `n'` when `n = n' + 2`. This makes proofs about `even n` harder when

@@ -392,8 +392,8 @@ sf_expect_failure
     intro b
       rfl
 
--- To see the error message, comment out `sf_expect_failure` temporarily. You
--- should see the following message.
+-- To see the error message in the Lean file, change `sf_expect_failure` to
+-- `sf_expect_failure?` temporarily. You should see the following message.
 
 -- Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
 
@@ -816,7 +816,7 @@ sf_expect_failure
 
 -- !true : Bool
 
--- ### Exercise (0 stars): custom_namespace_checks
+-- ### Exercise (1 star): custom_namespace_checks ⭐
 
 -- Predict the output of each of the statements below. Do you think their
 -- results would change depending on which namespace the statements appear in?
@@ -1745,7 +1745,7 @@ def even' (n : Nat) : Bool :=
 -- not always able to figure things out automatically, it is sometimes
 -- necessary to provide hints or write functions in slightly different ways.
 
--- ### Exercise (2 stars): decreasing (manually graded) ⭐⭐
+-- ### Exercise (2 stars): decreasing (Optional, manually graded) ⭐⭐
 
 -- To get a concrete sense of how termination checking works in Lean, find a
 -- way to write a sensible recursive definition (of a simple function on
@@ -1882,7 +1882,7 @@ theorem negation_fn_applied_twice (f : Bool → Bool) :
   | true => rewrite [Bool.not_true, Bool.not_false]; rfl
   | false => rewrite [Bool.not_false, Bool.not_true]; rfl
 
--- ### Exercise (3 stars): and_eq_or ⭐⭐⭐
+-- ### Exercise (3 stars): and_eq_or (Optional) ⭐⭐⭐
 
 -- Prove the following theorem.
 
