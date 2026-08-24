@@ -304,49 +304,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/293"
     },
     "301": {
-      "base_sha": "c910484da1e27d874de2fd899b3624ef7ae1f611",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "32ee77faf7c2a48d9b15b895d549590d3cbb17bc",
+      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
+      "changed_variants": [],
+      "head_sha": "105bd7afeaaebbb78f944ca7f584503fe5f06cae",
       "preview_path": "pr/301/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32624109730",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Slang: minor fixes and improvements",
       "url": "https://github.com/plclub/sf-in-lean/pull/301"
     },
