@@ -866,20 +866,29 @@ inductive Com.EvalR : Com → State → State → Prop where
 --     Setting `In` and `Out` as `outParam`s is a hack to resolve various
 --     typeclass synthesis problems or at least I can't explain why it works.
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands
 
 class HasEval (Com : Type) (In : outParam <| Type) (Out : outParam <| Type) where
   Eval : Com → In → Out → Prop
 
 namespace HasEval
-scoped notation:40 st0:41 " =[ " c " ]=> " st1:41 => Eval c st0 st1
-
--- Also accept a bare Imp command between the brackets, so concrete programs can
--- be written without the `imp { … }` wrapper. Bare `Com` terms still work via the
--- notation above; splice a Lean term into the command with `~`.
-scoped syntax:40 term:41 " =[ " imp_com " ]=> " term:41 : term
+/-- Evaluation: `st =[ c ]=> st'` with `imp_com` command syntax -/
+scoped syntax:lead term " =[ " imp_com:lead " ]=> " term : term
 scoped macro_rules
-  | `($st0 =[ $c:imp_com ]=> $st1) => ``($st0 =[ imp { $c } ]=> $st1)
+  | `($st =[ $c:imp_com ]=> $st') => ``(HasEval.Eval (imp { $c }) $st $st')
+
+namespace Delab
+open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+@[delab app.HasEval.Eval]
+def delabTriple : Delab := whenPPOption getPPNotation do
+  guard <| (← getExpr).isAppOfArity ``HasEval.Eval 7
+  let c ← withNaryArg 4 delab
+  let st ← withNaryArg 5 delab
+  let st' ← withNaryArg 6 delab
+  match c with
+  | `(imp { $c:imp_com }) => ``($st =[ $c ]=> $st')
+  | c => ``($st =[ ~$c ]=> $st')
+end Delab
 end HasEval
 
 instance : HasEval Com State State where
@@ -887,35 +896,7 @@ instance : HasEval Com State State where
 
 open scoped HasEval
 
-@[app_unexpander Com.EvalR]
-def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
-  | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
-  | _ => throw ()
-
 -- END DETAILS
-
--- Note to developers (Niklas Halonen @xhalo32):
---     Currently in Hoare.lean the info view in
---
---     `theorem hoare_skip (P : Assertion) :
---         {{ P }} skip {{ P }} := by
---       intro st st' h hp`
---
---     displays
---
---     `P : Assertion
---     st st' : State
---     h : st =[
---       imp {
---         skip
---       } ]=>
---       st'
---     hst : P st
---     ⊢ P st'`
---
---     but we would like it to display `h : st =[ skip ]=> st'`.
---
---     This issue is also relevant for other `EvalR` present in Hoare.lean.
 
 -- The cost of defining evaluation as a relation instead of a function is that
 -- we now need to construct a *proof* that some program evaluates to some
@@ -1019,7 +1000,7 @@ example :
 -- happen: `ceval` *is* a partial function.
 
 theorem ceval_deterministic (c : Com) (st st1 st2 : State)
-    (e₁ : st =[ c ]=> st1) (e₂ : st =[ c ]=> st2) : st1 = st2 := by
+    (e₁ : st =[ ~c ]=> st1) (e₂ : st =[ ~c ]=> st2) : st1 = st2 := by
   induction e₁ generalizing st2 with
   | @skip st =>
       inversion e₂
@@ -1053,7 +1034,7 @@ theorem ceval_deterministic (c : Com) (st st1 st2 : State)
           subst hst
           exact ih₂ _ hl'
 
--- ### Exercise (3 stars): pup_to_n ⭐⭐⭐
+-- ### Exercise (3 stars): pup_to_n (Optional) ⭐⭐⭐
 
 -- Write an Imp program that sums the numbers from `1` to `X` (inclusive) in
 -- the variable `Y`. Your program should update the state as shown in
@@ -1070,7 +1051,7 @@ def pup_to_n : Com := (
   })
 
 theorem pup_to_2_ceval :
-    (X →ₜ 2 ; ∅) =[ pup_to_n ]=>
+    (X →ₜ 2 ; ∅) =[ ~pup_to_n ]=>
       (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅) := by
   unfold pup_to_n
   apply Com.EvalR.seq (st' := (Y →ₜ 0 ; X →ₜ 2 ; ∅))
@@ -1094,7 +1075,7 @@ theorem pup_to_2_ceval :
 -- definitions. This section explores some examples.
 
 theorem plus2_spec (st : State) (n : Nat) (st' : State)
-    (hx : st[X] = n) (heval : st =[ plus2 ]=> st') :
+    (hx : st[X] = n) (heval : st =[ ~plus2 ]=> st') :
     st'[X] = n + 2 := by
   -- Inverting `heval` forces one step of the `ceval` computation: since
   -- `plus2` is an assignment, `st'` must be `st` extended at `X`.
@@ -1104,13 +1085,13 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
       simp [Aexp.eval_plus, Aexp.eval_id, Aexp.eval_num, TotalMap.update_eq] at h ⊢
       lia
 
--- ### Exercise (3 stars): XtimesYinZ_spec ⭐⭐⭐
+-- ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
 
 -- State and prove a specification of `XtimesYinZ`.
 
 /- Here is a specification in the style of `plus2_spec`: -/
 theorem XtimesYinZ_spec₁ (st : State) (nx ny : Nat) (st' : State)
-    (hx : st[X] = nx) (hy : st[Y] = ny) (heval : st =[ XtimesYinZ ]=> st') :
+    (hx : st[X] = nx) (hy : st[Y] = ny) (heval : st =[ ~XtimesYinZ ]=> st') :
     st'[Z] = nx * ny := by
   unfold XtimesYinZ at heval
   inversion heval with
@@ -1121,13 +1102,13 @@ theorem XtimesYinZ_spec₁ (st : State) (nx ny : Nat) (st' : State)
 
 /- Though perhaps a cleaner specification would be: -/
 theorem XtimesYinZ_spec (st : State) :
-    st =[ XtimesYinZ ]=> (Z →ₜ st[X] * st[Y] ; st) := by
+    st =[ ~XtimesYinZ ]=> (Z →ₜ st[X] * st[Y] ; st) := by
   unfold XtimesYinZ
   apply Com.EvalR.asgn
   rfl
 
 /- A less informative specification would be ... -/
-theorem XtimesYinZ_spec₂ (st : State) : ∃ st', st =[ XtimesYinZ ]=> st' := by
+theorem XtimesYinZ_spec₂ (st : State) : ∃ st', st =[ ~XtimesYinZ ]=> st' := by
   exact ⟨(Z →ₜ st[X] * st[Y] ; st), by unfold XtimesYinZ; apply Com.EvalR.asgn; rfl⟩
 
 -- Note to developers (Niklas Halonen @xhalo32):
@@ -1142,10 +1123,10 @@ theorem XtimesYinZ_spec₂ (st : State) : ∃ st', st =[ XtimesYinZ ]=> st' := b
 -- solved in one step (by `simp`/`contradiction` on the impossible command
 -- equation).
 
-theorem loop_never_stops (st st' : State) : ¬ (st =[ loop ]=> st') := by
+theorem loop_never_stops (st st' : State) : ¬ (st =[ ~loop ]=> st') := by
   intro contra
   -- Generalize over the command so the induction remembers what `loop` is.
-  have key : ∀ (c : Com) (s s' : State), (s =[ c ]=> s') → c = loop → False := by
+  have key : ∀ (c : Com) (s s' : State), (s =[ ~c ]=> s') → c = loop → False := by
     intro c s s' hce
     induction hce with
     | @whileFalse b s₀ c₀ hb =>
@@ -1208,7 +1189,7 @@ theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
 -- `Com.no_whiles` or `Com.NoWhilesR`, as you prefer.
 
 theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
-    ∃ st', st =[ c ]=> st' := by
+    ∃ st', st =[ ~c ]=> st' := by
   induction h generalizing st with
   | @skip => exact ⟨st, .skip⟩
   | @asgn x a => exact ⟨(x →ₜ a.eval st ; st), .asgn rfl⟩
@@ -1229,7 +1210,7 @@ theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
 -- `Com.no_whiles` instead of `Com.NoWhilesR`):
 
 theorem no_whiles_terminating' (c : Com) (st1 : State)
-    (hb : c.no_whiles = true) : ∃ st2, st1 =[ c ]=> st2 := by
+    (hb : c.no_whiles = true) : ∃ st2, st1 =[ ~c ]=> st2 := by
   induction c generalizing st1 with
   | @skip => exact ⟨st1, .skip⟩
   | @asgn x a => exact ⟨(x →ₜ a.eval st1 ; st1), .asgn rfl⟩
@@ -1438,104 +1419,49 @@ inductive Com where
 
 -- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
-/-- Commands like `skip` or `brk` -/
-local syntax ident : imp_com
-/-- Sequencing: one command after another -/
-local syntax imp_com ";" ppDedent(ppLine imp_com) : imp_com
-/-- Assignment -/
-local syntax ident " := " imp_aexp : imp_com
-/-- Conditional -/
-local syntax "if " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine imp_com ppDedent(ppLine "}") : imp_com
-/-- Loop -/
-local syntax "while " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : imp_com
-/-- Escape to Lean -/
-local syntax:max "~" term:max : imp_com
-
-/-- Include an Imp command in Lean code -/
-local syntax:min "break_imp" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : term
-
 namespace Com
 
 open Lean in
 scoped macro_rules
-  | `(break_imp { $x:ident }) =>
+  | `(imp { $x:ident }) =>
     if x.getId == `skip then `(Com.skip)
     else if x.getId == `brk then `(Com.brk)
     else Macro.throwErrorAt x s!"expected 'skip' or 'break', got '{x.getId}'"
-  | `(break_imp { $c₁ ; $c₂ }) =>
-    `(Com.seq (break_imp {$c₁}) (break_imp {$c₂}))
-  | `(break_imp { $x:ident := $a }) =>
+  | `(imp { $c₁; $c₂ }) =>
+    `(Com.seq (imp {$c₁}) (imp {$c₂}))
+  | `(imp { $x:ident := $a }) =>
     `(Com.asgn $x (aexp {$a}))
-  | `(break_imp { if ($b) {$c₁} else {$c₂} }) =>
-    `(Com.cond (bexp {$b}) (break_imp {$c₁}) (break_imp {$c₂}))
-  | `(break_imp { while ($b) {$c} }) =>
-    `(Com.whileDo (bexp {$b}) (break_imp {$c}))
-  | `(break_imp { ~$c }) =>
+  | `(imp { if ($b) {$c₁} else {$c₂} }) =>
+    `(Com.cond (bexp {$b}) (imp {$c₁}) (imp {$c₂}))
+  | `(imp { while ($b) {$c} }) =>
+    `(Com.whileDo (bexp {$b}) (imp {$c}))
+  | `(imp { ~$c }) =>
     pure c
 
 end Com
 
-open scoped BreakImp.Com
+open scoped Com
 
-namespace Imp.Delab
-open Lean PrettyPrinter Delaborator SubExpr
+namespace Delab
+open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
 
-partial def delabComInnerFor (ns : Name) (extra : DelabM (TSyntax `imp_com)) :
-    DelabM (TSyntax `imp_com) := do
-  let e ← getExpr
-  let stx ←
-    -- Using `(imp_com| skip)` would delaborate as `skip✝`. `mkIdent` fixes this.
-    if e.isConstOf (ns ++ `skip) then
-      `(imp_com| $(mkIdent `skip):ident)
-    else if e.isConstOf (ns ++ `brk) then
-      `(imp_com| $(mkIdent `brk):ident)
-    else if e.isAppOfArity (ns ++ `asgn) 2 then
-      match ← withAppFn <| withAppArg getExpr with
-      | .lit (.strVal s) =>
-        let a ← withAppArg Imp.Delab.delabAexpInner
-        `(imp_com| $(mkIdent (.mkSimple s)):ident := $a)
-      | _ =>
-        let `($x:ident) ← withAppFn <| withAppArg delab | failure
-        let a ← withAppArg Imp.Delab.delabAexpInner
-        `(imp_com| $x:ident := $a)
-    else if e.isAppOfArity (ns ++ `seq) 2 then
-      let s₁ ← withAppFn <| withAppArg (delabComInnerFor ns extra)
-      let s₂ ← withAppArg (delabComInnerFor ns extra)
-      `(imp_com| $s₁; $s₂)
-    else if e.isAppOfArity (ns ++ `cond) 3 then
-      let b  ← withAppFn <| withAppFn <| withAppArg Imp.Delab.delabBexpInner
-      let c₁ ← withAppFn <| withAppArg (delabComInnerFor ns extra)
-      let c₂ ← withAppArg (delabComInnerFor ns extra)
-      `(imp_com| if ($b) {$c₁} else {$c₂})
-    else if e.isAppOfArity (ns ++ `whileDo) 2 then
-      let b ← withAppFn <| withAppArg Imp.Delab.delabBexpInner
-      let c ← withAppArg (delabComInnerFor ns extra)
-      `(imp_com| while ($b) {$c})
-    else
-      extra <|> `(imp_com| ~$(← delab))
-  Imp.Delab.annAsTerm stx
-
-/-- Rebuild `imp_com` concrete syntax from a `Com` term. -/
+/-- Rebuild `imp_com` syntax from a `BreakImp.Com` term. -/
 partial def delabComInner : DelabM (TSyntax `imp_com) :=
-  delabComInnerFor ``Com failure
+  delabComInnerFor ``Com do
+    let e ← getExpr
+    guard <| e.isConstOf ``Com.brk
+    annAsTerm (← `(imp_com| $(mkIdent `brk):ident))
 
 @[delab app.BreakImp.Com.skip, delab app.BreakImp.Com.asgn, delab app.BreakImp.Com.seq,
-  delab app.BreakImp.Com.cond, delab app.BreakImp.Com.whileDo, delab app.BreakImp.Com.brk]
+  delab app.BreakImp.Com.cond, delab app.BreakImp.Com.whileDo]
 partial def delabCom : Delab := whenPPOption getPPNotation do
-  guard <| match_expr ← getExpr with
-    | Com.skip => true
-    | Com.brk => true
-    | Com.asgn _ _ => true
-    | Com.seq _ _ => true
-    | Com.cond _ _ _ => true
-    | Com.whileDo _ _ => true
-    | _ => false
   match ← delabComInner with
   | `(imp_com| ~$e) => pure e
-  | e => `(term| break_imp { $e })
-end Imp.Delab
+  | e => `(term| imp { $e })
 
-#check break_imp {brk}
+end Delab
+
+#check imp {brk}
 
 -- END DETAILS
 
@@ -1617,64 +1543,37 @@ open Result
 -- relation:
 
 inductive Com.EvalR : Com → State → State → Result → Prop where
-  | skip {st : State} : EvalR (break_imp {skip}) st st sContinue
-  | brk {st : State}  : EvalR (break_imp {brk}) st st sBreak
+  | skip {st : State} : EvalR (imp {skip}) st st sContinue
+  | brk {st : State}  : EvalR (imp {brk}) st st sBreak
   | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : a.eval st = n) :
-      EvalR (break_imp {x := ~a}) st (x →ₜ n ; st) sContinue
+      EvalR (imp {x := ~a}) st (x →ₜ n ; st) sContinue
   | seqContinue {c₁ c₂ : Com} {st st' st'' : State} {s : Result}
       (h₁ : EvalR c₁ st st' sContinue)
       (h₂ : EvalR c₂ st' st'' s) :
-      EvalR (break_imp {~c₁; ~c₂}) st st'' s
+      EvalR (imp {~c₁; ~c₂}) st st'' s
   | seqBreak {c₁ c₂ : Com} {st st' : State} (h : EvalR c₁ st st' sBreak) :
-      EvalR (break_imp {~c₁; ~c₂}) st st' sBreak
+      EvalR (imp {~c₁; ~c₂}) st st' sBreak
   | ifTrue {st st' : State} {b : Bexp} {c₁ c₂ : Com} {s : Result} (hb : b.eval st = true)
       (hc : EvalR c₁ st st' s) :
-      EvalR (break_imp {if (~b) {~c₁} else {~c₂}}) st st' s
+      EvalR (imp {if (~b) {~c₁} else {~c₂}}) st st' s
   | ifFalse {st st' : State} {b : Bexp} {c₁ c₂ : Com} {s : Result} (hb : b.eval st = false)
       (hc : EvalR c₂ st st' s) :
-      EvalR (break_imp {if (~b) {~c₁} else {~c₂}}) st st' s
+      EvalR (imp {if (~b) {~c₁} else {~c₂}}) st st' s
   | whileFalse {b : Bexp} {st : State} {c : Com} (hb : b.eval st = false) :
-      EvalR (break_imp {while (~b) {~c}}) st st sContinue
+      EvalR (imp {while (~b) {~c}}) st st sContinue
   | whileContinue {st st' st'' : State} {b : Bexp} {c : Com} (hb : b.eval st = true)
       (hc : EvalR c st st' sContinue)
-      (hloop : EvalR (break_imp {while (~b) {~c}}) st' st'' sContinue) :
-      EvalR (break_imp {while (~b) {~c}}) st st'' sContinue
+      (hloop : EvalR (imp {while (~b) {~c}}) st' st'' sContinue) :
+      EvalR (imp {while (~b) {~c}}) st st'' sContinue
   | whileBreak {st st' : State} {b : Bexp} {c : Com} (hb : b.eval st = true)
       (hc : EvalR c st st' sBreak) :
-      EvalR (break_imp {while (~b) {~c}}) st st' sContinue
+      EvalR (imp {while (~b) {~c}}) st st' sContinue
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
-
-class HasEvalResult (Com : Type) (In : outParam <| Type)
-    (Out1 : outParam <| Type) (Out2 : outParam <| Type) where
-  Eval : Com → In → Out1 → Out2 → Prop
-
-namespace HasEvalResult
-scoped notation:40 (priority := high) st0:41 " =[ " c " ]=> " st1:41 " // " s:41 => Eval c st0 st1 s
-
--- Also accept a bare Imp command between the brackets, so concrete programs can
--- be written without the `break_imp { … }` wrapper. Bare `Com` terms still work via the
--- notation above; splice a Lean term into the command with `~`.
-scoped syntax:40 term:41 " =[ " imp_com " ]=> " term:41 " // " term:41 : term
-scoped macro_rules
-  | `($st0 =[ $c:imp_com ]=> $st1 // $s) => ``($st0 =[ break_imp { $c } ]=> $st1 // $s)
-end HasEvalResult
-
-instance : HasEvalResult Com State State Result where
-  Eval := Com.EvalR
-
-open scoped HasEvalResult
-
-@[app_unexpander Com.EvalR]
-def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
-  | `($_ $c $st0 $st1 $s) => ``($st0 =[ ~$c ]=> $st1 // $s)
-  | _ => throw ()
-
--- END DETAILS
+scoped notation:40 st0:41 " =[ " c " ]=> " st1:41 " // " s:41 => Com.EvalR c st0 st1 s
 
 -- Now prove the following properties of your definition:
 
-theorem break_ignore (c : Com) (st st' : State) (s : Result) (h : st =[ brk ; ~c ]=> st' // s) :
+theorem break_ignore (c : Com) (st st' : State) (s : Result) (h : st =[ imp { brk ; ~c } ]=> st' // s) :
   st = st' := by
   inversion h with
   | seqContinue st'' h₁ h₂ =>
@@ -1683,34 +1582,34 @@ theorem break_ignore (c : Com) (st st' : State) (s : Result) (h : st =[ brk ; ~c
       inversion h; rfl
 
 theorem while_continue (b : Bexp) (c : Com) (st st' : State) (s : Result)
-  (h : st =[ while (~b) {~c} ]=> st' // s) :
+  (h : st =[ imp { while (~b) {~c} } ]=> st' // s) :
   s = sContinue := by
   inversion h <;> rfl
 
 theorem while_stops_on_break (b : Bexp) (c : Com) (st st' : State)
   (h₁ : b.eval st = true)
-  (h₂ : st =[ c ]=> st' // sBreak) :
-  st =[ while (~b) {~c} ]=> st' // sContinue := by
+  (h₂ : st =[ imp { ~c } ]=> st' // sBreak) :
+  st =[ imp { while (~b) {~c} } ]=> st' // sContinue := by
   apply Com.EvalR.whileBreak <;> assumption
 
 theorem seq_continue (c₁ c₂ : Com) (st st' st'' : State)
-  (h₁ : st =[ c₁ ]=> st' // sContinue)
-  (h₂ : st' =[ c₂ ]=> st'' // sContinue) :
-  st =[ ~c₁ ; ~c₂ ]=> st'' // sContinue := by
+  (h₁ : st =[ imp { ~c₁ } ]=> st' // sContinue)
+  (h₂ : st' =[ imp { ~c₂ } ]=> st'' // sContinue) :
+  st =[ imp { ~c₁ ; ~c₂ } ]=> st'' // sContinue := by
   apply Com.EvalR.seqContinue (st' := st') <;> assumption
 
 theorem seq_stops_on_break (c₁ c₂ : Com) (st st' : State)
-  (h : st =[ c₁ ]=> st' // sBreak) :
-  st =[ ~c₁ ; ~c₂ ]=> st' // sBreak := by
+  (h : st =[ imp { ~c₁ } ]=> st' // sBreak) :
+  st =[ imp { ~c₁ ; ~c₂ } ]=> st' // sBreak := by
   apply Com.EvalR.seqBreak <;> assumption
 
 -- ### Exercise (3 stars): while_break_true ⭐⭐⭐
 
 theorem while_break_true (b : Bexp) (c : Com) (st st' : State)
-  (h₁ : st =[ while (~b) {~c} ]=> st' // sContinue)
+  (h₁ : st =[ imp { while (~b) {~c} } ]=> st' // sContinue)
   (h₂ : b.eval st' = true) :
-  ∃ st'', st'' =[ ~c ]=> st' // sBreak := by
-  generalize heq : (break_imp {while (~b) {~c}}) = c' at h₁ ⊢
+  ∃ st'', st'' =[ imp { ~c } ]=> st' // sBreak := by
+  generalize heq : (imp {while (~b) {~c}}) = c' at h₁
   generalize hr : sContinue = s at h₁ ⊢
   induction h₁ with (inversion heq; try lia)
   | whileContinue _ _ _ _ ih₂ =>
@@ -1721,8 +1620,8 @@ theorem while_break_true (b : Bexp) (c : Com) (st st' : State)
 -- ### Exercise (4 stars): ceval_deterministic ⭐⭐⭐⭐
 
 theorem ceval_deterministic (c : Com) (st st₁ st₂ : State) (s₁ s₂ : Result)
-  (h₁ : st =[ ~c ]=> st₁ // s₁)
-  (h₂ : st =[ ~c ]=> st₂ // s₂) :
+  (h₁ : st =[ imp { ~c } ]=> st₁ // s₁)
+  (h₂ : st =[ imp { ~c } ]=> st₂ // s₂) :
   st₁ = st₂ ∧ s₁ = s₂ := by
   induction h₁ generalizing st₂ s₂ with (try (inversion h₂ <;> lia))
   | seqContinue h₁' h₂' ih₁ ih₂ =>

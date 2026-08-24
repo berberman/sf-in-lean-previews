@@ -365,7 +365,7 @@ def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CMS n 1
 --              ——————————————————————————————————————————————————— (rt_trans)
 --                                    CMS 16 1
 
--- ### Exercise (1 star): clos_refl_trans_sym (manually graded) ⭐
+-- ### Exercise (1 star): clos_refl_trans_sym (Optional, manually graded) ⭐
 
 -- How would you modify the `ClosReflTrans` definition above so as to define
 -- the reflexive, symmetric, and transitive closure?
@@ -420,7 +420,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
     (h₂₃ : Perm3 l₂ l₃) :
     Perm3 l₁ l₃
 
--- ### Exercise (1 star): perm (manually graded) ⭐
+-- ### Exercise (1 star): perm (Optional, manually graded) ⭐
 
 -- According to this definition, is `[1, 2, 3]` a permutation of itself?
 
@@ -895,7 +895,7 @@ theorem ev_ev__ev (n m : Nat) (hₙₘ : Ev (n + m)) (hₙ : Ev n) : Ev m := by
       here. If one doesn't work, try the other. -/
   sorry
 
--- ### Exercise (3 stars): ev_plus_plus ⭐⭐⭐
+-- ### Exercise (3 stars): ev_plus_plus (Optional) ⭐⭐⭐
 
 -- This exercise can be completed without induction or case analysis. But, you
 -- will need a clever `have` and some tedious rewriting. Hint: Is
@@ -979,7 +979,7 @@ theorem closure_of_diagonal_is_diagonal {α} (R : α → α → Prop)
        the type being inducted over. -/
   | rt_trans _ _ ihxy ihyz => rw [ihxy, ihyz]
 
--- ### Exercise (4 stars): ev'_ev (Advanced) ⭐⭐⭐⭐
+-- ### Exercise (4 stars): ev'_ev (Advanced, Optional) ⭐⭐⭐⭐
 
 -- In general, there may be multiple ways of defining a property inductively.
 -- For example, here's a (slightly contrived) alternative definition for `Ev`:
@@ -1031,13 +1031,13 @@ theorem In {α} (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   sorry
 
--- ### Exercise (1 star): Perm3_NotIn ⭐
+-- ### Exercise (1 star): Perm3_NotIn (Optional) ⭐
 
 theorem NotIn {α} (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∉ l₁) : x ∉ l₂ := by
   sorry
 
--- ### Exercise (2 stars): NotPerm3 ⭐⭐
+-- ### Exercise (2 stars): NotPerm3 (Optional) ⭐⭐
 
 -- Proving that something is NOT a permutation is quite tricky. Some of the
 -- lemmas above, like `Perm3.In` can be useful for this.
@@ -1162,7 +1162,7 @@ theorem plus_le_compat_r (n m p : Nat) (h : n ≤ m) : n + p ≤ m + p := by
 theorem le_plus_trans (n m p : Nat) (h : n ≤ m) : n ≤ m + p := by
   sorry
 
--- ### Exercise (3 stars): lt_facts ⭐⭐⭐
+-- ### Exercise (3 stars): lt_facts (Optional) ⭐⭐⭐
 
 theorem lt_ge_cases (n m : Nat) : n < m ∨ n ≥ m := by
   sorry
@@ -1173,7 +1173,7 @@ theorem n_lt_m__n_le_m (n m : Nat) (h : n < m) : n ≤ m := by
 theorem plus_lt (n₁ n₂ m : Nat) (h : n₁ + n₂ < m) : n₁ < m ∧ n₂ < m := by
   sorry
 
--- ### Exercise (4 stars): ble_le ⭐⭐⭐⭐
+-- ### Exercise (4 stars): ble_le (Optional) ⭐⭐⭐⭐
 
 theorem ble_sound (n m : Nat) (h : Nat.ble n m = true) : n ≤ m := by
   sorry
@@ -1217,7 +1217,7 @@ inductive R : Nat → Nat → Nat → Prop where
 -- - If we dropped constructor `c4` from the definition of `R`, would the set of
 --   provable propositions change? Briefly (1 sentence) explain your answer.
 
--- ### Exercise (3 stars): R_fact ⭐⭐⭐
+-- ### Exercise (3 stars): R_fact (Optional) ⭐⭐⭐
 
 -- The relation `R` above actually encodes a familiar function. Figure out
 -- which function; then state and prove this equivalence in Lean.
@@ -1289,7 +1289,7 @@ theorem trans (l₁ l₂ l₃ : List Nat)
 
 end Subseq
 
--- ### Exercise (2 stars): R_provability2 (manually graded) ⭐⭐
+-- ### Exercise (2 stars): R_provability2 (Optional, manually graded) ⭐⭐
 
 -- Suppose we give Lean the following definition:
 
@@ -1304,7 +1304,7 @@ end Subseq
 -- - `R 1 [1, 2, 1, 0]`
 -- - `R 6 [3, 2, 1, 0]`
 
--- ### Exercise (2 stars): total_relation ⭐⭐
+-- ### Exercise (2 stars): total_relation (Optional) ⭐⭐
 
 -- Define an inductive binary relation `total_relation` that holds between
 -- every pair of natural numbers.
@@ -1315,7 +1315,7 @@ inductive TotalRelation : Nat → Nat → Prop where
 theorem total_relation_is_total (n m : Nat) : TotalRelation n m := by
   sorry
 
--- ### Exercise (2 stars): empty_relation ⭐⭐
+-- ### Exercise (2 stars): empty_relation (Optional) ⭐⭐
 
 -- Define an inductive binary relation `empty_relation` (on numbers) that
 -- never holds.
@@ -1423,7 +1423,7 @@ theorem merge_filter (α : Type) (test : α → Bool) (l l₁ l₂ : List α)
   List.filter test l = l₁ := by
   sorry
 
--- ### Exercise (5 stars): filter_challenge_2 (Advanced) ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): filter_challenge_2 (Advanced, Optional) ⭐⭐⭐⭐⭐
 
 -- A different way to characterize the behavior of `filter` goes like this:
 -- Among all subsequences of `l` with the property that `test` evaluates to
@@ -1432,7 +1432,7 @@ theorem merge_filter (α : Type) (test : α → Bool) (l l₁ l₂ : List α)
 
 -- FILL IN HERE
 
--- ### Exercise (4 stars): palindromes ⭐⭐⭐⭐
+-- ### Exercise (4 stars): palindromes (Optional) ⭐⭐⭐⭐
 
 -- A palindrome is a sequence that reads the same backwards as forwards.
 
@@ -1466,7 +1466,7 @@ theorem pal_reverse (α : Type) (l : List α) (hp : Pal l) : l = l.reverse := by
 --     This one is super annoying without simp. I propose we move it to the
 --     simp chapter
 
--- ### Exercise (5 stars): palindrome_converse ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): palindrome_converse (Optional) ⭐⭐⭐⭐⭐
 
 -- Again, the converse direction is significantly more difficult, due to the
 -- lack of evidence. Using your definition of `Pal` from the previous
@@ -1476,7 +1476,7 @@ theorem pal_reverse (α : Type) (l : List α) (hp : Pal l) : l = l.reverse := by
 
 -- FILL IN HERE
 
--- ### Exercise (4 stars): NoDup (Advanced) ⭐⭐⭐⭐
+-- ### Exercise (4 stars): NoDup (Advanced, Optional) ⭐⭐⭐⭐
 
 -- Use the `∈` property to define a proposition `Disjoint l₁ l₂`, which should
 -- be provable exactly when `l₁` and `l₂` are lists (with elements of type
@@ -1498,7 +1498,7 @@ theorem pal_reverse (α : Type) (l : List α) (hp : Pal l) : l = l.reverse := by
 
 -- FILL IN HERE
 
--- ### Exercise (5 stars): pigeonhole_principle (Advanced) ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): pigeonhole_principle (Advanced, Optional) ⭐⭐⭐⭐⭐
 
 -- The *pigeonhole principle* states a basic fact about counting: if we
 -- distribute more than `n` items into `n` pigeonholes, some pigeonhole must

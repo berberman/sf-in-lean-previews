@@ -469,7 +469,7 @@ def nextWorkingDay' (d : Day) : Day :=
   | .saturday  => .monday
   | .sunday    => .monday
 
--- ### Exercise (0 stars): custom_namespace_checks
+-- ### Exercise (1 star): custom_namespace_checks ⭐
 
 -- Predict the output of each of the statements below. Do you
 -- think their results would change depending on which
@@ -1062,7 +1062,7 @@ theorem zero_neb_add_one (n : Nat) :
 
 -- ### Structural Recursion (Optional)
 
--- ### Exercise (2 stars): decreasing ⭐⭐
+-- ### Exercise (2 stars): decreasing (Optional) ⭐⭐
 
 -- To get a concrete sense of how termination checking works in
 -- Lean, find a way to write a sensible recursive definition
@@ -1165,7 +1165,7 @@ theorem identity_fn_applied_twice (f : Bool → Bool) :
 
 -- FILL IN HERE
 
--- ### Exercise (3 stars): and_eq_or ⭐⭐⭐
+-- ### Exercise (3 stars): and_eq_or (Optional) ⭐⭐⭐
 
 -- Prove the following theorem.
 

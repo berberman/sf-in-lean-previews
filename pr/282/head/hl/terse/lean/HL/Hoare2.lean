@@ -1030,7 +1030,7 @@ def IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ValidHoareTriple P c Q ∧
   ∀ P' : Assertion, ValidHoareTriple P' c Q → P' ->> P
 
--- ### Exercise (1 star): wp ⭐
+-- ### Exercise (1 star): wp (Optional) ⭐
 
 -- What are weakest preconditions of the following commands for
 -- the following postconditions?

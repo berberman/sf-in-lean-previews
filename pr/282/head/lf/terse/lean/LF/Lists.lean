@@ -292,7 +292,7 @@ theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
 -- ### Removing
 
--- ### Exercise (3 stars): removing ⭐⭐⭐
+-- ### Exercise (3 stars): removing (Optional) ⭐⭐⭐
 
 -- Here are some more `NatList` functions for you to practice
 -- with.
@@ -349,7 +349,7 @@ theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
 -- ### Included
 
--- ### Exercise (3 stars): included ⭐⭐⭐
+-- ### Exercise (3 stars): included (Optional) ⭐⭐⭐
 
 def included (l₁ l₂ : NatList) : Bool := sorry
 

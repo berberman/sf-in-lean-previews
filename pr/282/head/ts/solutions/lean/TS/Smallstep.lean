@@ -581,7 +581,7 @@ inductive Step : Tm → Tm → Prop where
 
 -- .p (.p (.c 1) (.c 2)) (.p (.c 3) (.c 4))
 
--- ### Exercise (3 stars): value_not_same_as_normal_form1 ⭐⭐⭐
+-- ### Exercise (3 stars): value_not_same_as_normal_form1 (Optional) ⭐⭐⭐
 
 theorem value_not_same_as_normal_form :
     ∃ v, IsValue v ∧ ¬ IsNormalForm Step v := by
@@ -592,7 +592,7 @@ theorem value_not_same_as_normal_form :
 
 end Temp1
 
--- ### Exercise (2 stars): value_not_same_as_normal_form2 ⭐⭐
+-- ### Exercise (2 stars): value_not_same_as_normal_form2 (Optional) ⭐⭐
 
 -- Or we might (again, wrongly) define `Step` so that it permits something
 -- designated as a value to reduce further. We again lose the property that
@@ -625,7 +625,7 @@ theorem value_not_same_as_normal_form :
 
 end Temp2
 
--- ### Exercise (3 stars): value_not_same_as_normal_form3 ⭐⭐⭐
+-- ### Exercise (3 stars): value_not_same_as_normal_form3 (Optional) ⭐⭐⭐
 
 -- Finally, we might define `IsValue` and `Step` so that there is some term
 -- that is *not* a value but that *also* cannot take a step. Such terms are
@@ -771,11 +771,11 @@ example :
   · exact .plusRight _ _ _ (.const _) (.plus 2 4)
   · exact multi_single _ _ _ (.plus (0 + 3) (2 + 4))
 
--- ### Exercise (1 star): test_multistep_2 ⭐
+-- ### Exercise (1 star): test_multistep_2 (Optional) ⭐
 
 example : (.c 3 : Tm) ⟶* .c 3 := (.refl _)
 
--- ### Exercise (1 star): test_multistep_3 ⭐
+-- ### Exercise (1 star): test_multistep_3 (Optional) ⭐
 
 example : (.p (.c 0) (.c 3)) ⟶* .p (.c 0) (.c 3) := (.refl _)
 
@@ -816,7 +816,7 @@ def IsNormalFormOf {X : Type} (R : Relation X) (t t' : X) : Prop :=
 -- In other words, we can actually pronounce `IsNormalFormOf t t'` as "`t'` is
 -- *the* normal form of `t`."
 
--- ### Exercise (3 stars): normal_forms_unique ⭐⭐⭐
+-- ### Exercise (3 stars): normal_forms_unique (Optional) ⭐⭐⭐
 
 theorem normal_forms_unique : Deterministic (IsNormalFormOf Step) := by
   -- We recommend using this initial setup as-is!
@@ -943,7 +943,7 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 -- plus some basic properties of `⟶*` (that it is reflexive, transitive, and
 -- includes `⟶`).
 
--- ### Exercise (3 stars): multistep_of_eval_inf ⭐⭐⭐
+-- ### Exercise (3 stars): multistep_of_eval_inf (Optional) ⭐⭐⭐
 
 -- Write a detailed informal version of the proof of `multistep_of_eval`. (A
 -- paper exercise — there is no Lean proof to fill in here.)
@@ -1007,7 +1007,7 @@ theorem eval_of_multistep (t t' : Tm) (h : IsNormalFormOf Step t t') :
     | step b c d h₁ h₂ ih => intro heq; exact eval_of_step b c n h₁ (ih heq)
   exact ⟨n, rfl, H t (.c n) hs rfl⟩
 
--- ### Exercise (3 stars): interp_tm ⭐⭐⭐
+-- ### Exercise (3 stars): interp_tm (Optional) ⭐⭐⭐
 
 -- Remember that we also defined big-step evaluation of terms as a function
 -- `evalF`. Prove that it is equivalent to the relational semantics. (Hint: we

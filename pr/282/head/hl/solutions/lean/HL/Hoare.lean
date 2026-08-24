@@ -192,7 +192,7 @@ abbrev Assertion := State → Prop
 -- (C)
 -- `fun st => st[Z] * st[Z] ≤ st[X] ∧ ¬ ((st[Z] + 1) * (st[Z] + 1) ≤ st[X])`
 
--- ### Exercise (1 star): assertions ⭐
+-- ### Exercise (1 star): assertions (Optional) ⭐
 
 -- Paraphrase the following assertions in English (or your favorite natural
 -- language).
@@ -787,7 +787,7 @@ end Assertion.Delab
 
 -- (B) No
 
--- ### Exercise (1 star): valid_triples ⭐
+-- ### Exercise (1 star): valid_triples (Optional) ⭐
 
 -- Which of the following Hoare triples are *valid* -- i.e., the claimed
 -- relation between `P`, `c`, and `Q` is true?
@@ -825,35 +825,17 @@ open scoped HasEval
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st st' : State},
-    (st =[ c ]=> st') →
+    (st =[ ~c ]=> st') →
     P st →
     Q st'
-
--- Note to developers (Niklas Halonen @xhalo32):
---     Somethings strange is going on in `theorem if_example`, using
---     `apply hoare_consequence_pre` followed by `· exact hoare_asgn` works,
---     but `refine hoare_consequence_pre hoare_asgn ?_` or
---     `apply hoare_consequence_pre hoare_asgn` don't. The only solution I
---     found was to mark `ValidHoareTriple` irreducible.
---
---     It has to do something with `apply` and `refine` looking inside the
---     implication in `∀ {st st'}, ...`
-
--- Notation for Hoare triples. The command between the two assertions is
--- parsed with the same grammar as the `imp { … }` notation, so a command that
--- is a Lean variable (rather than concrete syntax) is spliced in with `~c`,
--- just as in the `st =[ c ]=> st'` notation.
 
 class HasTriple (Com : Type) where
   Triple : Assertion → Com → Assertion → Prop
 
 namespace HasTriple
 
-/-- Hoare triple: `{{ P }} c {{ Q }}` -/
-scoped notation:lead "{{" P "}} " c:lead " {{" Q "}}" => Triple ({{ P }}) c ({{ Q }})
-
-/-- Hoare triple with `imp_com` command syntax -/
-scoped syntax:lead (priority := high) "{{" term "}} " imp_com:lead " {{" term "}}" : term
+/-- Hoare triple: `{{ P }} c {{ Q }}` with `imp_com` command syntax -/
+scoped syntax:lead "{{" term "}} " imp_com:lead " {{" term "}}" : term
 scoped macro_rules
   | `({{ $P }} $c:imp_com {{ $Q }}) =>
       ``(HasTriple.Triple ({{ $P }}) (imp { $c }) ({{ $Q }}))
@@ -862,11 +844,24 @@ end HasTriple
 instance : HasTriple Com where
   Triple := ValidHoareTriple
 
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Something strange is going on in `theorem if_example`, using
+--     `apply hoare_consequence_pre` followed by `· exact hoare_asgn` works,
+--     but `refine hoare_consequence_pre hoare_asgn ?_` or
+--     `apply hoare_consequence_pre hoare_asgn` don't. The only solution I
+--     found was to mark `ValidHoareTriple` irreducible.
+--
+--     It has to do something with `apply` and `refine` looking inside the
+--     implication in `∀ {st st'}, ...`
+
+-- We make `ValidHoareTriple` irreducible for "technical reasons", and use it
+-- only via `validHoareTriple_def` in proofs.
+
 open scoped HasTriple
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
-      (st =[ c ]=> st') →
+      (st =[ ~c ]=> st') →
       P st →
       Q st' := by rfl
 
@@ -879,8 +874,17 @@ attribute [irreducible] ValidHoareTriple
 -- into the triple, so a language-extension chapter only has to register a
 -- printer for its own `Com`.
 
-namespace Assertion.Delab
-open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Can we use an unexpander for this? Something like
+--
+--     `@[app_unexpander HasTriple.Triple]
+--     def unexpandTriple : Lean.PrettyPrinter.Unexpander
+--       | `($_ ({{ $P }}) (imp { $c }) ({{ $Q }})) => ``({{ $P }} $c {{ $Q }})
+--       | _ => throw ()`
+
+namespace HasTriple.Delab
+
+open Lean PrettyPrinter Delaborator SubExpr Assertion.Delab Imp.Delab
 @[delab app.HasTriple.Triple]
 def delabTriple : Delab := whenPPOption getPPNotation do
   guard <| (← getExpr).isAppOfArity ``HasTriple.Triple 5
@@ -891,7 +895,7 @@ def delabTriple : Delab := whenPPOption getPPNotation do
   | `(imp { $c:imp_com }) => ``({{ $P }} $c:imp_com {{ $Q }})
   | c => ``({{ $P }} ~$c {{ $Q }})
 
-end Assertion.Delab
+end HasTriple.Delab
 
 -- END DETAILS
 
@@ -909,7 +913,7 @@ theorem hoare_post_true {P Q : Assertion} {c : Com} (h : ∀ st, Q st) :
   intro st st' hc hpre
   exact h st'
 
--- ### Exercise (1 star): hoare_pre_false ⭐
+-- ### Exercise (1 star): hoare_pre_false (Optional) ⭐
 
 -- Prove that if `P` holds in no state, then any triple with `P` as its
 -- precondition is valid.
@@ -1261,7 +1265,7 @@ theorem assertion_sub_example :
 -- hoare_asgn`. If you find that tactic
 -- doesn't suffice, double check that you have completed the triple properly.
 
--- ### Exercise (2 stars): hoare_asgn_examples1 ⭐⭐
+-- ### Exercise (2 stars): hoare_asgn_examples1 (Optional) ⭐⭐
 
 theorem hoare_asgn_examples1 :
     ∃ P : Assertion,
@@ -1271,7 +1275,7 @@ theorem hoare_asgn_examples1 :
   exists ({{ (X ≤ 10) [X ↦ 2 * X] }})
   exact hoare_asgn
 
--- ### Exercise (2 stars): hoare_asgn_examples2 ⭐⭐
+-- ### Exercise (2 stars): hoare_asgn_examples2 (Optional) ⭐⭐
 
 theorem hoare_asgn_examples2 :
     ∃ P : Assertion,
@@ -1322,7 +1326,7 @@ theorem hoare_asgn_wrong : ∃ a : Aexp,
 -- postcondition will be checked is different than the state in which `a` was
 -- evaluated when it was assigned to `X`.
 
--- ### Exercise (3 stars): hoare_asgn_fwd (Advanced) ⭐⭐⭐
+-- ### Exercise (3 stars): hoare_asgn_fwd (Advanced, Optional) ⭐⭐⭐
 
 -- By using a *parameter* `m` (a Lean number) to remember the original value
 -- of `X` we can define a Hoare rule for assignment that does, intuitively,
@@ -1361,7 +1365,7 @@ theorem hoare_asgn_fwd {m : Nat} {a : Aexp} {P : Assertion} :
     rw [TotalMap.update_eq, TotalMap.update_shadow, TotalMap.update_same]
     exact ⟨hp, rfl⟩
 
--- ### Exercise (2 stars): hoare_asgn_fwd_exists (Advanced) ⭐⭐
+-- ### Exercise (2 stars): hoare_asgn_fwd_exists (Advanced, Optional) ⭐⭐
 
 -- Another way to define a forward rule for assignment is to existentially
 -- quantify over the previous value of the assigned variable. Prove that it is
@@ -2055,14 +2059,6 @@ partial def delabComInner : DelabM (TSyntax `imp_com) :=
 @[delab app.If1.Com.skip, delab app.If1.Com.asgn, delab app.If1.Com.seq,
   delab app.If1.Com.cond, delab app.If1.Com.whileDo, delab app.If1.Com.if1]
 partial def delabCom : Delab := whenPPOption getPPNotation do
-  guard <| match_expr ← getExpr with
-    | Com.skip => true
-    | Com.asgn _ _ => true
-    | Com.seq _ _ => true
-    | Com.cond _ _ _ => true
-    | Com.whileDo _ _ => true
-    | Com.if1 _ _ => true
-    | _ => false
   match ← delabComInner with
   | `(imp_com| ~$e) => pure e
   | e => `(term| imp { $e })
@@ -2134,7 +2130,7 @@ theorem if1false_test :
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st st' : State},
-    (st =[ c ]=> st') →
+    (st =[ ~c ]=> st') →
     P st →
     Q st'
 
@@ -2143,7 +2139,7 @@ instance : HasTriple Com where
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
-      (st =[ c ]=> st') →
+      (st =[ ~c ]=> st') →
       P st →
       Q st' := by rfl
 
@@ -2570,7 +2566,7 @@ scoped macro_rules
   | `(imp { ~$c }) =>
     pure c
 
--- ### Exercise (4 stars): hoare_repeat (Advanced, manually graded) ⭐⭐⭐⭐
+-- ### Exercise (4 stars): hoare_repeat (Advanced, Optional, manually graded) ⭐⭐⭐⭐
 
 -- Add new rules for `repeat` to `Com.EvalR` below. You can use the rules for
 -- `while` as a guide, but remember that the body of a `repeat` should always
@@ -2618,7 +2614,7 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st st' : State},
-    (st =[ c ]=> st') →
+    (st =[ ~c ]=> st') →
     P st →
     Q st'
 
@@ -2627,7 +2623,7 @@ instance : HasTriple Com where
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
-      (st =[ c ]=> st') →
+      (st =[ ~c ]=> st') →
       P st →
       Q st' := by rfl
 
@@ -2645,7 +2641,7 @@ def ex1_repeat : Com :=
   }
 
 theorem ex1_repeat_works :
-    ∅ =[ ex1_repeat ]=> (Y →ₜ 1 ; X →ₜ 1) := by
+    ∅ =[ ~ex1_repeat ]=> (Y →ₜ 1 ; X →ₜ 1) := by
   apply Com.EvalR.repeatEnd
   · apply Com.EvalR.seq
     · apply Com.EvalR.asgn; rfl
@@ -2780,7 +2776,7 @@ theorem hoare_repeat' (P : Assertion) (b : Bexp) (c : Com)
     {{ P }} repeat { ~c } until (~b) {{ P ∧ b }} := by
   rw [validHoareTriple_def]
   intro st st' he hP
-  have key : ∀ (cmd : Com) (s s' : State), (s =[ cmd ]=> s') →
+  have key : ∀ (cmd : Com) (s s' : State), (s =[ ~cmd ]=> s') →
       cmd = (imp { repeat { ~c } until (~b) }) → P s →
       P s' ∧ b.eval s' := by
     intro cmd s s' hev
@@ -3001,7 +2997,7 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st st' : State},
-    (st =[ c ]=> st') →
+    (st =[ ~c ]=> st') →
     P st →
     Q st'
 
@@ -3010,7 +3006,7 @@ instance : HasTriple Com where
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
-      (st =[ c ]=> st') →
+      (st =[ ~c ]=> st') →
       P st →
       Q st' := by rfl
 
@@ -3196,7 +3192,7 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st : State} {r : Result},
-    (st =[ c ]=> r) → P st →
+    (st =[ ~c ]=> r) → P st →
     ∃ st', r = Result.normal st' ∧ Q st'
 
 instance : HasTriple Com where
@@ -3204,7 +3200,7 @@ instance : HasTriple Com where
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st : State} {r : Result},
-      (st =[ c ]=> r) → P st →
+      (st =[ ~c ]=> r) → P st →
       ∃ st', r = Result.normal st' ∧ Q st' := by rfl
 
 attribute [irreducible] ValidHoareTriple
