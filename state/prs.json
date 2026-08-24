@@ -283,16 +283,6 @@
       "title": "Print the substitutions with braces instead",
       "url": "https://github.com/plclub/sf-in-lean/pull/286"
     },
-    "288": {
-      "base_sha": "d2e3bf1a011c6dd5e25727bb4c9659b43e0da97f",
-      "changed_variants": [],
-      "head_sha": "a7ee8397047ef57f074a8b9016b2e2a96eeb2c17",
-      "preview_path": "pr/288/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "UsingLean explains irreducible; code actions to Induction.",
-      "url": "https://github.com/plclub/sf-in-lean/pull/288"
-    },
     "293": {
       "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
       "changed_variants": [],
@@ -410,9 +400,9 @@
     "306": {
       "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
       "changed_variants": [],
-      "head_sha": "6276cdee76ca9015d778be9bf035b9bec54d0c2f",
+      "head_sha": "b52b280634c8ea97fea5d8076d82ed65c6d59e5c",
       "preview_path": "pr/306/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32762721089",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32763981938",
       "status": "ci-failed",
       "title": "Factor custom commands to SFLCompat library",
       "url": "https://github.com/plclub/sf-in-lean/pull/306"
@@ -428,49 +418,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
     },
     "309": {
-      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "8bdf8b64901c9221fe0de5c0bf7736bbf733f423",
+      "base_sha": "f3498545078451fdc368a1a067eb70cef1fa88da",
+      "changed_variants": [],
+      "head_sha": "7b38d3912258f5835d107e8fb11073a94c57eb90",
       "preview_path": "pr/309/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32762214710",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Some last polishing (and a few comments!) on Basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/309"
     }
