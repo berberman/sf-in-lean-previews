@@ -358,7 +358,7 @@ def myNil' := @List.nil Nat
 
 -- (D) No type can be assigned
 
--- ### Exercise (2 stars): mumble_grumble (manually graded) ⭐⭐
+-- ### Exercise (2 stars): mumble_grumble (Optional, manually graded) ⭐⭐
 
 -- Consider the following two inductively defined types.
 
@@ -515,7 +515,7 @@ theorem zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = ([] : List 
 theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : List β} :
    zip (x :: l₁) (y :: l₂) = (x, y) :: zip l₁ l₂ := by rfl
 
--- ### Exercise (1 star): zip_checks ⭐
+-- ### Exercise (1 star): zip_checks (Optional) ⭐
 
 -- Try answering the following questions on paper and checking your answers in
 -- Lean:
@@ -582,7 +582,7 @@ example : nth? [4, 5, 6, 7] 0 = some 4 := by rfl
 example : nth? [[1], [2]] 1 = some [2] := by rfl
 example : nth? [true] 2 = none := by rfl
 
--- ### Exercise (1 star): head?_poly ⭐
+-- ### Exercise (1 star): head?_poly (Optional) ⭐
 
 -- Complete the definition of a polymorphic version of the `head?` function
 -- from the last chapter. Be sure that it passes the unit tests below.
@@ -871,7 +871,7 @@ def optionMap {α : Type} {β : Type} (f : α → β) (x? : Option α) : Option 
   | none => none
   | some x => some (f x)
 
--- ### Exercise (2 stars): implicit_args ⭐⭐
+-- ### Exercise (2 stars): implicit_args (Optional) ⭐⭐
 
 -- The definitions and uses of `filter` and `map` use implicit arguments in
 -- many places. Replace the curly braces around the implicit arguments with
@@ -947,7 +947,7 @@ theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {a : α} {l : L
 
 -- (D) `[3, 7, 0]`
 
--- ### Exercise (1 star): fold_types_different (manually graded) ⭐
+-- ### Exercise (1 star): fold_types_different (Optional, manually graded) ⭐
 
 -- Observe that the type of `fold` is parameterized by *two* type variables,
 -- `α` and `β`, and the parameter `f` is a binary operator that takes an `α`
@@ -1117,7 +1117,7 @@ theorem curry_uncurry {α β γ : Type} {p : α × β} {f : α × β → γ} :
     prodUncurry (prodCurry f) p = f p := by
   rfl
 
--- ### Exercise (2 stars): nth_error_informal (Advanced, manually graded) ⭐⭐
+-- ### Exercise (2 stars): nth_error_informal (Advanced, Optional, manually graded) ⭐⭐
 
 -- Recall the definition of the `nth?` function:
 

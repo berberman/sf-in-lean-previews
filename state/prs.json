@@ -143,7 +143,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/256"
     },
     "257": {
-      "base_sha": "c910484da1e27d874de2fd899b3624ef7ae1f611",
+      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -182,9 +182,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "44ec86a365eef8b5116f49edf568064573edd4bc",
+      "head_sha": "9cab6f900dd1abfb667bdd6ee1b11ac53f4f90f7",
       "preview_path": "pr/257/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32627338293",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32716881598",
       "status": "published",
       "title": "Reimplement autograding",
       "url": "https://github.com/plclub/sf-in-lean/pull/257"
@@ -351,7 +351,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/301"
     },
     "302": {
-      "base_sha": "44ec86a365eef8b5116f49edf568064573edd4bc",
+      "base_sha": "9cab6f900dd1abfb667bdd6ee1b11ac53f4f90f7",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -390,9 +390,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "26a031e148957a5cc79a8905523cc7e8ffea0151",
+      "head_sha": "8fa4a3aa022ba03cd52914e115893c7f0965fcf6",
       "preview_path": "pr/302/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32627951244",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32716882649",
       "status": "published",
       "title": "Start adding autogradedHoles, add some missing gradeTheorems",
       "url": "https://github.com/plclub/sf-in-lean/pull/302"

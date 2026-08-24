@@ -260,7 +260,7 @@ example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
 
 -- Another important connective is the *disjunction*, or
 -- *logical or*, of two propositions: `a ∨ b` is true when
--- either `a` or lean`b` is. This infix notation stands for
+-- either `a` or `b` is. This infix notation stands for
 -- `Or a b`, where `Or : Prop -> Prop -> Prop`.
 
 -- To use a disjunctive hypothesis in a proof, we proceed by
@@ -319,7 +319,7 @@ theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
 -- lists is associative, etc. We are sometimes also interested
 -- in negative results, demonstrating that some proposition is
 -- *not* true. Such statements are expressed with the logical
--- negation operator `¬`, which a prefix notation for `Not`.
+-- negation operator `¬`, which is a prefix notation for `Not`.
 
 -- To see how negation works, recall the *principle of
 -- explosion* from the `Tactics` chapter, which asserts that,
@@ -570,7 +570,7 @@ theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
   · apply not_true_is_false
   · intro h; rw [h]; intro h'; contradiction
 
--- ### Exercise (1 star): iff_properties ⭐
+-- ### Exercise (1 star): iff_properties (Optional) ⭐
 
 -- Using the above proof that `↔` is symmetric (`iff_sym`) as a
 -- guide, prove that it is also reflexive and transitive.
@@ -614,8 +614,8 @@ example : Even 4 := by exists 2
   -- but is proven automatically by `exists`
 
 -- Conversely, if we have an existential hypothesis `∃ x, a` in
--- the context, can destrucure it to obtain a witness `x` and a
--- hypothesis stating that `a` holds of `x`.
+-- the context, we can destructure it to obtain a witness `x`
+-- and a hypothesis stating that `a` holds of `x`.
 
 example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
   intro ⟨m, hm⟩
@@ -679,7 +679,7 @@ example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
 --   `l'`.
 
 -- We can translate this directly into a straightforward
--- recursive function taken an element and a list and
+-- recursive function taking an element and a list and
 -- returning... a proposition!
 
 def List.In {α : Type} (x : α) (xs : List α) : Prop :=
@@ -692,7 +692,7 @@ theorem List.In_nil {α : Type} {x : α} : ¬ (List.In x []) := by
 
 theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := rfl
 
--- When `List.In` is applied to a concrete list, it exapnds
+-- When `List.In` is applied to a concrete list, it expands
 -- into a concrete sequence of nested disjunctions.
 
 example : List.In 4 [1, 2, 3, 4, 5] := by
@@ -759,8 +759,8 @@ theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : 
 --   for.
 
 -- - If we have a term of type
---   `∀ n m : Nat, n = m → n + n = m + n`, and we provide it two
---   numbers `n` and `m` and a third "arugment" of type `n = m`,
+--   `∀ n m : Nat, n = m → n + n = m + m`, and we provide it two
+--   numbers `n` and `m` and a third "argument" of type `n = m`,
 --   we get back a proof object of type `n + n = m + m`.
 
 -- Lean actually allows us to *apply* a theorem as if it were a
@@ -793,7 +793,7 @@ sf_expect_failure
 -- ⊢ x + (y + z) = z + y + x
 
 -- It appears at first sight that we ought to be able to prove
--- this be rewriting with `Nat.add_comm` twice to make the two
+-- this by rewriting with `Nat.add_comm` twice to make the two
 -- sides match. The problem is that the second rewrite undoes
 -- the effect of the first, leaving us back where we started...
 
@@ -821,7 +821,7 @@ namespace FunctionTheoremQuiz
 
 --   n m : Nat
 --   h₁ : n = m
---   h₂ : b = 42
+--   h₂ : m = 42
 --   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this "proof object"?
@@ -839,7 +839,7 @@ namespace FunctionTheoremQuiz
 
 --   n m : Nat
 --   h₁ : n = m
---   h₂ : b = 42
+--   h₂ : m = 42
 --   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this proof object?
@@ -857,7 +857,7 @@ namespace FunctionTheoremQuiz
 
 --   n m : Nat
 --   h₁ : n = m
---   h₂ : b = 42
+--   h₂ : m = 42
 --   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this proof object?
@@ -875,7 +875,7 @@ namespace FunctionTheoremQuiz
 
 --   n m : Nat
 --   h₁ : n = m
---   h₂ : b = 42
+--   h₂ : m = 42
 --   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this proof object?
@@ -893,16 +893,16 @@ namespace FunctionTheoremQuiz
 
 --   n m : Nat
 --   h₁ : n = m
---   h₂ : b = 42
+--   h₂ : m = 42
 --   trans_eq : ∀ {α : Type} {x y z : α}, x = y → y = z → x = z
 
 -- What is the type of this proof object?
 
 --   trans_eq h₂ h₁
 
--- 1. `b = a`
--- 2. `42 = a`
--- 3. `a = 42`
+-- 1. `m = n`
+-- 2. `42 = n`
+-- 3. `n = 42`
 -- 4. Does not typecheck
 
 end FunctionTheoremQuiz
@@ -1019,11 +1019,11 @@ example : Nat.Even 100 := by
 -- because we don't have to invent the witness `50`:
 -- computation does it for us!
 
-example : Nat.even 100 := rfl
+example : Nat.even 100 = true := rfl
 
 -- Now, the useful observation is that, since the two notions
 -- are equivalent, we can use the boolean formulation to prove
--- the other one without mentioning the value 500 explicitly:
+-- the other one without mentioning the value 50 explicitly:
 
 example : Nat.Even 100 := by
   obtain ⟨h, _⟩ := Nat.even_bool_prop 100
@@ -1034,13 +1034,13 @@ example : Nat.Even 100 := by
 -- considerably simpler by the use of reflection.
 
 -- As an extreme example, a famous mechanized proof of the even
--- more famous *four colour theorem* uses reflection ot reduce
+-- more famous *four colour theorem* uses reflection to reduce
 -- the analysis of hundreds of different cases to a boolean
 -- computation.
 
 -- Another advantage of booleans is that the *negation* of a
 -- claim about booleans is straightforward to state and (when
--- true) to prove: simply slip the expected boolean result.
+-- true) to prove: simply flip the expected boolean result.
 
 example : Nat.even 101 = false := rfl
 
@@ -1080,7 +1080,7 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 
 -- ### Propositional Extensionality
 
--- Lean's logic is quite minimalistic. This means that on
+-- Lean's logic is quite minimalistic. This means that one
 -- occasionally encounters cases where translating standard
 -- mathematical reasoning into Lean is cumbersome - or even
 -- impossible - unless we enrich its core logic with additional
@@ -1171,13 +1171,13 @@ theorem and_assoc_eq (a b c : Prop) : ((a ∧ b) ∧ c) = (a ∧ (b ∧ c)) := b
 -- convenient: we show that it's possible to "flip" three
 -- conjoined propositions.
 
--- This can be proven by constructing the `↔`, then destructing
--- the `↔` in `Nat.add_comm` and `Nat.add_assoc`, then applying
--- them a few times. But this is a lot of hassle, when the
--- proof is conceptually simple: we flip `b` and `c`, then we
--- flip that conjunction with `a`, and we finish by
--- associativity. By using `and_comm_eq`, this is easily done
--- by rewriting equal propositions.
+-- One way to prove this is to construct the `↔`, destruct the
+-- `↔`s provided by `and_comm` and `and_assoc`, and apply the
+-- resulting implications a few times. But this is a lot of
+-- hassle, when the proof is conceptually simple: we flip `b`
+-- and `c`, then we flip that conjunction with `a`, and we
+-- finish by associativity. By using `and_comm_eq`, this is
+-- easily done by rewriting equal propositions.
 
 theorem and_comm_flip (a b c : Prop) : (a ∧ b ∧ c) ↔ (c ∧ b ∧ a) := by
   rw [and_comm_eq b c, and_comm_eq a, and_assoc_eq]

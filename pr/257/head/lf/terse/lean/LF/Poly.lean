@@ -387,7 +387,7 @@ theorem zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = ([] : List 
 theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : List β} :
    zip (x :: l₁) (y :: l₂) = (x, y) :: zip l₁ l₂ := by rfl
 
--- ### Exercise (1 star): zip_checks ⭐
+-- ### Exercise (1 star): zip_checks (Optional) ⭐
 
 -- Try answering the following questions on paper and checking
 -- your answers in Lean:

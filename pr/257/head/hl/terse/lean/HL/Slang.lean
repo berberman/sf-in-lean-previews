@@ -166,7 +166,7 @@ theorem optimize0plusB_sound (b : Bexp) :
     b.optimize0plusB.eval = b.eval := by
   sorry
 
--- ### Exercise (4 stars): optimize ⭐⭐⭐⭐
+-- ### Exercise (4 stars): optimize (Optional) ⭐⭐⭐⭐
 
 -- The optimization implemented by our `Aexp.optimize0plus` is
 -- only one of many possible optimizations on arithmetic and
@@ -230,7 +230,7 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 --     as an alternative, assuming there are no namespace
 --     issues..
 
--- ### Exercise (1 star): beval_rules ⭐
+-- ### Exercise (1 star): beval_rules (Optional) ⭐
 
 -- Here, again, is the definition of the `Bexp.eval` function:
 
