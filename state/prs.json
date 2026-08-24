@@ -315,48 +315,11 @@
     },
     "302": {
       "base_sha": "9cab6f900dd1abfb667bdd6ee1b11ac53f4f90f7",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "e24013638cdcbe1780e45a271cc55d87ef60db84",
+      "changed_variants": [],
+      "head_sha": "b63d78851f7bf67584eb9b6958348f680bb9f8bd",
       "preview_path": "pr/302/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32733356197",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Start adding autogradedHoles, add some missing gradeTheorems",
       "url": "https://github.com/plclub/sf-in-lean/pull/302"
     },
@@ -426,6 +389,16 @@
       "status": "ci-failed",
       "title": "[WIP] Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
+    },
+    "309": {
+      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
+      "changed_variants": [],
+      "head_sha": "8b3da8863040b588e6fb9bdb8f43b3d37dab97ca",
+      "preview_path": "pr/309/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32746300092",
+      "status": "ci-failed",
+      "title": "Some last polishing (and a few comments!) on Basics",
+      "url": "https://github.com/plclub/sf-in-lean/pull/309"
     }
   },
   "schema": 3
