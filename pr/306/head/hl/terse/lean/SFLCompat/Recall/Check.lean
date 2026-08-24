@@ -525,6 +525,39 @@ sf_recall
     | [] => []
     | x :: xs => f x :: map f xs
 
+
+-- `sorry` doesn't work
+
+/-- warning: declaration uses `sorry` -/
+#guard_msgs in
+noncomputable def Foo : Nat := by sorry
+/--
+error: the value of 'SFLCompat.Recall.Check.Tests.Foo' does not match.
+Original:
+  sorry
+Restated:
+  sorry
+
+Hint: Replace the restatement with the original:
+  noncomputable def Foo : Nat := by sorry
+---
+warning: declaration uses `sorry`
+-/
+#guard_msgs in
+sf_recall
+  noncomputable def Foo : Nat := by sorry
+
+-- field visibility is not checked
+
+structure Bar where
+  private x : Nat
+  y : Bool
+
+sf_recall
+  structure Bar where
+    x : Nat
+    y : Bool
+
 end Tests
 
 end  SFLCompat.Recall.Check

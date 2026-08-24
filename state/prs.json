@@ -399,11 +399,48 @@
     },
     "306": {
       "base_sha": "ccb59e75f410c9442f99d816cd36b91378a9a611",
-      "changed_variants": [],
-      "head_sha": "62f56924778b7db71a4741b4b648505b0f68f946",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "5ffbe0bba6c2a6362d277e8b9307e41c8146e141",
       "preview_path": "pr/306/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32783572533",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32787280332",
+      "status": "published",
       "title": "Factor custom commands to SFLCompat library",
       "url": "https://github.com/plclub/sf-in-lean/pull/306"
     },

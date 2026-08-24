@@ -529,7 +529,7 @@ example : filter (·.length == 1)
 
 -- ### Map
 
-def map {α : Type} {β : Type} (f : α → β) (l : List α) : List β :=
+def map {α β : Type} (f : α → β) (l : List α) : List β :=
   match l with
   | [] => []
   | head :: tail => f head :: map f tail
@@ -545,10 +545,11 @@ example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
 
 -- Recall the definition of `map`:
 
---   def map (f : α → β) (l : List α) : List β :=
---     match l with
---     | [] => []
---     | head :: tail => f head :: map f tail
+sf_recall
+  def map {α β : Type} (f : α → β) (l : List α) : List β :=
+    match l with
+    | [] => []
+    | head :: tail => f head :: map f tail
 
 -- What is the type of `@map`?
 
@@ -602,10 +603,11 @@ theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {a : α} {l : L
 
 -- Here is the definition of `fold` again:
 
---   def fold {α β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
---     match l with
---     | [] => b
---     | a :: l => f a (fold f l b)
+sf_recall
+  def fold {α β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
+    match l with
+    | [] => b
+    | a :: l => f a (fold f l b)
 
 -- What is the type of `@fold`?
 

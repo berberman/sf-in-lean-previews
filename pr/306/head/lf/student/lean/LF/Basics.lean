@@ -232,10 +232,9 @@ example : (!MyBool.false) = MyBool.true := by rfl
 -- The technical details of how these symbolic notations work are not
 -- something you need to understand until quite a bit later in your Lean
 -- journey. We'll mark these details -- and similar material later on -- with
--- `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and collapsed text
--- segments in the HTML presentation. Click on the triangle in the HTML if you
--- want to have a peek, or just move on to the following material, as you
--- like.
+-- `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and with collapsed
+-- text segments in the HTML presentation. Click on the triangle in the HTML
+-- if you want to have a peek, or just move on to the following material.
 
 -- THESE DETAILS CAN BE SKIPPED: Details
 
@@ -395,8 +394,8 @@ sf_expect_failure
 -- ⊢ (true && b) = b
 
 -- Lean complains because the `rfl` is not at the same level of indentation as
--- the `{tactic}intro b`, so Lean does not recognize these two tactics as
--- being sequential in the way they should be.
+-- the `{tactic}intro b`, so it does not recognize these two tactics as being
+-- sequential in the way they should be.
 
 -- In general, sequential tactics applied to the same goal must be on
 -- subsequent lines at the same level of indentation or separated on the same
@@ -948,8 +947,7 @@ inductive Nat : Type where
 
 -- With a little Lean magic, we can also arrange that ordinary numerals such
 -- as 0, 1, and 2 will be interpreted as values of our new `Nat` type whenever
--- this is sensible in context. The technical details of how this is done are
--- not important for present purposes.
+-- this is sensible in context. The technical details are not important.
 
 -- THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
 
@@ -1435,15 +1433,16 @@ theorem succ_beq_succ (n m : Nat) : ((succ n) == (succ m)) = (n == m) := by rfl
 
 attribute [irreducible] beq
 
--- As an aside, we point out that we have been following a naming convention
--- for simplification rules which aims to convey their meaning. For `add_zero`
--- and `add_succ` notice that `zero` and `succ` are after the `add` — this is
--- because they depend on `add`'s *second* argument and do not care about its
--- first. In the `beq` rules above, we write `zero_beq_zero` and
+-- Aside: Our naming convention for simplification rules encodes their
+-- meaning. For `add_zero` and `add_succ`, notice that the `zero` and `succ`
+-- come after the `add`; this is because they depend on `add`'s *second*
+-- argument and do not care about its first.
+
+-- Also, in the `beq` rules above, we write `zero_beq_zero` and
 -- `zero_beq_succ` because the rules apply to both the first and second
--- arguments of `beq`. We put `beq` in between the arguments because it
--- usually written in infix. There are not strict style conventions for naming
--- theorems like this in Lean, but many follow this approach.
+-- arguments of `beq`. We put `beq` between the arguments because it usually
+-- written in infix. There are no strict style conventions for naming theorems
+-- like this in Lean, but many developers follow this approach.
 
 -- ### General Proofs about Natural Numbers
 
@@ -1557,17 +1556,12 @@ theorem not_involutive (b : Bool) : (!!b) = b := by
     rewrite [Bool.not_true, Bool.not_false]
     rfl
 
--- In the proof above we have used some rewrite rules that we didn't
--- previously prove in this file. These rules come from Lean's standard
--- library, in particular from the section about booleans. Having access to
--- these already-proved theorems about booleans instead of needing to prove
--- them ourselves is an advantage of using Lean's built-in `Bool` type instead
--- of defining our own.
-
--- In the UsingLean chapter we will discuss how to search through the standard
--- library for theorems like these. For now, note that, if you hover over the
--- name of these theorems in VS Code, the Lean 4 extension will show you their
--- type, i.e., what the theorem proves.
+-- The proof above uses some rewrite rules that we didn't prove previously.
+-- These come from Lean's standard library, in particular from the section
+-- about booleans. In the UsingLean chapter we will discuss how to search
+-- through the standard library for theorems like these. For now, note that,
+-- if you hover over the name of these theorems in VS Code, the Lean extension
+-- will show you what the theorem proves.
 
 -- We can also have nested case analysis:
 
