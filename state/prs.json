@@ -191,48 +191,11 @@
     },
     "282": {
       "base_sha": "c910484da1e27d874de2fd899b3624ef7ae1f611",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f376ae7685f1378bc384a15f9d4b440088be16a8",
+      "changed_variants": [],
+      "head_sha": "179d3fabf2c20158b407fc9f4a7c20abdeca8967",
       "preview_path": "pr/282/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32648601957",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Add remaining exercises to Imp",
       "url": "https://github.com/plclub/sf-in-lean/pull/282"
     },
