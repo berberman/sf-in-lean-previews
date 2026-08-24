@@ -823,10 +823,10 @@
  "<code>st =[\n  imp {\n    while (~b) {\n      ~c\n    }\n  } ]=&gt;\n  st' // s</code>",
  "507":
  "<code>BreakImp.while_continue (b : Bexp) (c : Com) (st st' : State) (s : Result)\n  (h :\n    st =[\n      imp {\n        while (~b) {\n          ~c\n        }\n      } ]=&gt;\n      st' // s) :\n  s = sContinue</code>",
- "506": "<code>st =[\n  imp {\n    brk;\n    ~c\n  } ]=&gt;\n  st' // s</code>",
+ "506": "<code>⋯ =[\n  imp {\n    brk;\n    ~⋯\n  } ]=&gt;\n  ⋯ // ⋯</code>",
  "505": "<code>Result</code>",
  "504":
- "<code>BreakImp.break_ignore (c : Com) (st st' : State) (s : Result)\n  (h :\n    st =[\n      imp {\n        brk;\n        ~c\n      } ]=&gt;\n      st' // s) :\n  st = st'</code>",
+ "<code>BreakImp.break_ignore (c : Com) (st st' : State) (s : Result)\n  (h :\n    ⋯ =[\n      imp {\n        brk;\n        ~⋯\n      } ]=&gt;\n      ⋯ // ⋯) :\n  ⋯</code>",
  "503": "<code><span class=\"literal string\">\" // \"</span> : String</code>",
  "502":
  "<code>BreakImp.Com.EvalR.skip {st : State} :\n  imp {\n        skip\n      }.EvalR\n    st st sContinue</code>",
