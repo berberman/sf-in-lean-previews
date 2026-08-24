@@ -1745,7 +1745,7 @@ def even' (n : Nat) : Bool :=
 -- not always able to figure things out automatically, it is sometimes
 -- necessary to provide hints or write functions in slightly different ways.
 
--- ### Exercise (2 stars): decreasing ⭐⭐
+-- ### Exercise (2 stars): decreasing (manually graded) ⭐⭐
 
 -- To get a concrete sense of how termination checking works in Lean, find a
 -- way to write a sensible recursive definition (of a simple function on
@@ -1867,7 +1867,7 @@ theorem identity_fn_applied_twice (f : Bool → Bool) :
   rewrite [h, h]
   rfl
 
--- ### Exercise (1 star): negation_fn_applied_twice ⭐
+-- ### Exercise (1 star): negation_fn_applied_twice (manually graded) ⭐
 
 -- Now state and prove a theorem `negation_fn_applied_twice` similar to the
 -- previous one but where the hypothesis says that the function `f` has the
@@ -1968,8 +1968,8 @@ def buyTicket (t : Traveler) : Traveler := (
   | .noTicket bagContent => .ticketed bagContent
   | _ => t
 )
-example : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := (by rfl)
-example : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := (by rfl)
+theorem buyTicket_test1 : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := (by rfl)
+theorem buyTicket_test2 : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := (by rfl)
 
 -- Here are the simplification rules for `buyTicket`:
 
@@ -2019,9 +2019,9 @@ def checkIn (t : Traveler) : Traveler := (
   | _ => t
 )
 
-example : checkIn (.noTicket .ordinary) = .noTicket .ordinary := (by rfl)
-example : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := (by rfl)
-example : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := (by rfl)
+theorem checkIn_test1 : checkIn (.noTicket .ordinary) = .noTicket .ordinary := (by rfl)
+theorem checkIn_test2 : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := (by rfl)
+theorem checkIn_test3 : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := (by rfl)
 
 -- Again, we record one rewrite rule for each case:
 
@@ -2064,9 +2064,9 @@ def inspectBag (t : Traveler) : Traveler := (
   | _ => t
 )
 
-example : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := (by rfl)
-example : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := (by rfl)
-example : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := (by rfl)
+theorem inspectBag_test1 : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := (by rfl)
+theorem inspectBag_test2 : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := (by rfl)
+theorem inspectBag_test3 : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := (by rfl)
 
 -- Again, we record one characterization lemma for each case.
 
@@ -2125,8 +2125,8 @@ def changeBag (newContent : BagContent) (t : Traveler) : Traveler := (
   | .noTicket _ => .noTicket newContent
 )
 
-example : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := (by rfl)
-example : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := (by rfl)
+theorem changeBag_test1 : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := (by rfl)
+theorem changeBag_test2 : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := (by rfl)
 
 -- As before, we record the behavior of each case as a rewrite rule.
 

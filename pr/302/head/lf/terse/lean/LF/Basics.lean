@@ -1062,7 +1062,7 @@ theorem zero_neb_add_one (n : Nat) :
 
 -- ### Structural Recursion (Optional)
 
--- ### Exercise (2 stars): decreasing ⭐⭐
+-- ### Exercise (2 stars): decreasing (manually graded) ⭐⭐
 
 -- To get a concrete sense of how termination checking works in
 -- Lean, find a way to write a sensible recursive definition
@@ -1157,7 +1157,7 @@ theorem identity_fn_applied_twice (f : Bool → Bool) :
     ∀ b : Bool, f (f b) = b := by
   sorry
 
--- ### Exercise (1 star): negation_fn_applied_twice ⭐
+-- ### Exercise (1 star): negation_fn_applied_twice (manually graded) ⭐
 
 -- Now state and prove a theorem `negation_fn_applied_twice`
 -- similar to the previous one but where the hypothesis says

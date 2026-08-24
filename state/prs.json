@@ -191,48 +191,11 @@
     },
     "282": {
       "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b11dfb5c5a6a7dc5452df9fbdfc4a83a76b0bfd9",
+      "changed_variants": [],
+      "head_sha": "75f568abd9b39eda1094cbb93fbcf32e833c8c2d",
       "preview_path": "pr/282/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32707233015",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Add remaining exercises to Imp",
       "url": "https://github.com/plclub/sf-in-lean/pull/282"
     },
@@ -353,9 +316,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "8fa4a3aa022ba03cd52914e115893c7f0965fcf6",
+      "head_sha": "e24013638cdcbe1780e45a271cc55d87ef60db84",
       "preview_path": "pr/302/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32716882649",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32733356197",
       "status": "published",
       "title": "Start adding autogradedHoles, add some missing gradeTheorems",
       "url": "https://github.com/plclub/sf-in-lean/pull/302"
