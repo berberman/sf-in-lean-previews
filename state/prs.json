@@ -144,11 +144,48 @@
     },
     "257": {
       "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "b19e0dbd693a2bf77d3c8820a1ef6a5b6d57d2f3",
       "preview_path": "pr/257/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32854217357",
+      "status": "published",
       "title": "Reimplement autograding",
       "url": "https://github.com/plclub/sf-in-lean/pull/257"
     },
@@ -271,7 +308,7 @@
       "changed_variants": [],
       "head_sha": "adeec6b302bb8fb15af3d5569af9e6967d726e2c",
       "preview_path": "pr/302/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32854213570",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32854214680",
       "status": "ci-failed",
       "title": "Start adding autogradedHoles, add some missing gradeTheorems",
       "url": "https://github.com/plclub/sf-in-lean/pull/302"
