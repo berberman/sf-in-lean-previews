@@ -7,11 +7,11 @@ set_option pp.fieldNotation false
 -- ## Data and Functions
 
 -- In Lean, we can build practically everything from first
--- principles...
+-- principles using *inductive definitions*.
 
 -- ### Days of the Week (Enumerated Types)
 
--- A datatype definition:
+-- An inductive definition for an *enumerated type*:
 
 inductive Day : Type where
   | monday
@@ -105,32 +105,6 @@ example :
 
 example : (!MyBool.false) = MyBool.true := by rfl
 
--- The technical details of how these symbolic notations work
--- are not something you need to understand until quite a bit
--- later in your Lean journey. We'll mark these details -- and
--- similar material later on -- with
--- `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and
--- with collapsed text segments in the HTML presentation. Click
--- on the triangle in the HTML if you want to have a peek, or
--- just move on to the following material.
-
--- THESE DETAILS CAN BE SKIPPED: Details
-
--- Lean has a very flexible notation system. Operators like
--- `||` and `&&` are defined with specified precedence and
--- associativity. For example, the `infixl` directive above
--- states that `&&` is an infix operator, has precedence 35,
--- and is left-associative, while `||` is also infix and
--- left-associative and has precedence 30. This means that
--- `MyBool.true || MyBool.false && MyBool.false` is parsed as
--- `MyBool.true || (MyBool.false && MyBool.false)`.
-
--- Custom notations are defined using the `notation`, `infixl`,
--- `infixr`, `prefix`, and `postfix` commands, some of which we
--- will see (again, in skippable sections) later on.
-
--- END DETAILS
-
 -- ### Exercise (1 star): nand ⭐
 
 -- The `sorry` keyword is a placeholder for an incomplete proof
@@ -155,19 +129,10 @@ theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := sorry
 -- Note to developers:
 --     TODO: `nand` needs `@[autogradedHole]`
 
--- ### Exercise (1 star): and3 ⭐
-
--- Do the same for the `and3` function below. This function
--- should return `true` when all of its inputs are `true`, and
--- `false` otherwise.
-
-def and3 (b1 : MyBool) (b2 : MyBool) (b3 : MyBool) : MyBool
-  := sorry
-
-theorem and3_test1 : and3 MyBool.true  MyBool.true  MyBool.true  = MyBool.true  := sorry
-theorem and3_test2 : and3 MyBool.false MyBool.true  MyBool.true  = MyBool.false := sorry
-theorem and3_test3 : and3 MyBool.true  MyBool.false MyBool.true  = MyBool.false := sorry
-theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false := sorry
+-- Going forward, most exercises will be omitted from the
+-- "terse" version of the notes used in lecture. The "full"
+-- version (used on-line and for homeworks) contains both
+-- longer explanations and all the exercises.
 
 -- ### Basic Proofs
 
@@ -176,10 +141,6 @@ theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false 
 theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b := by
   intro b
   rfl
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     The typesetting here is bad -- most of the text has to
---     come out of the inline comments...
 
 -- And now let's see it in a bit more detail:
 
@@ -222,14 +183,6 @@ theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
   rfl
   /- The proof is now done! The Lean InfoView tells us there are "No goals". -/
 
--- ### Exercise (1 star): false_or_exercise ⭐
-
--- Here's a simple proof for you to try. Remove `sorry` and
--- fill in the proof.
-
-theorem false_or : ∀ (b : MyBool), (MyBool.false || b) = b := by
-  sorry
-
 -- Now we'll switch to Lean's definition of booleans.
 
 end MyBool
@@ -252,10 +205,6 @@ end MyBool
 #check Bool.not
 
 -- ### New Types from Old
-
--- Note to developers (Harrison Goldstein @hgoldstein95):
---     I feel like this section has too much content in terse,
---     but I don't want to unilaterally make that call. TODO
 
 -- A more interesting type definition:
 
@@ -309,48 +258,8 @@ def isRed' (c : Color) : Bool :=
     | RGB.red => Bool.true
     | _ => Bool.false
 
--- ### Exercise (1 star): is_weekend ⭐
-
--- Define a function that takes a `Day` and returns true if the
--- day is a weekend, and false otherwise.
-
--- Then, fill in right-hand sides of the `example` blocks
--- below. If you've done both correctly, the blocks will
--- produce no errors and contain no `sorry`.
-
--- Hint: You could write this function by pattern matching on
--- each possible day of the week, or you could try to come up
--- with a shorter solution...
-
-def is_weekend (d : Day) : Bool
-  := sorry
-
-theorem is_weekend_test1 : is_weekend Day.sunday = true := sorry
-theorem is_weekend_test2 : is_weekend Day.friday = false := sorry
-
--- ### Exercise (1 star): isInversion ⭐
-
--- Define a function that takes two colors and returns `true`
--- if the second color is an *inversion* of the first, and
--- false otherwise.
-
--- Inversion is defined by cases: Black is an inversion of
--- white, and vice versa. Red is an inversion of blue, and vice
--- versa. Green is not an inversion of anything.
-
--- As before, write the right-hand sides of the `example`
--- blocks to ensure they pass with no `sorry`.
-
-def isInversion (c1 c2 : Color) : Bool
-  := sorry
-
-
-theorem isInversion_test1 : isInversion Color.black Color.white = true := sorry
-theorem isInversion_test2 : isInversion Color.white Color.black = Bool.true := sorry
-theorem isInversion_test3 : isInversion (Color.primary RGB.red) (Color.primary RGB.blue) = Bool.true :=
-  sorry
-theorem isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = Bool.false :=
-  sorry
+-- This `isRed'` function produces the same result as `isRed`
+-- but illustrates the *use* of a pattern matching variable.
 
 -- ### Namespaces
 
@@ -472,20 +381,29 @@ def nextWorkingDay' (d : Day) : Day :=
   | .saturday  => .monday
   | .sunday    => .monday
 
--- ### Exercise (1 star): custom_namespace_checks ⭐
+-- Here, Lean can't figure out which version of `.true` we
+-- mean.
 
--- Predict the output of each of the statements below. Do you
--- think their results would change depending on which
--- namespace the statements appear in? How?
+sf_expect_failure
+  #check .true
 
--- #check .black -- Write your prediction here.
--- #check Color.black -- Write your prediction here.
--- #check RGB -- Write your prediction here.
--- #check Playground.myFoo -- Write your prediction here.
+-- Invalid dotted identifier notation: The expected type of `.true` could not be determined
 
--- Once you have written your predictions, copy the lines from
--- the comment into an active section of the book to evaluate
--- them.
+-- Hint: Using one of these would be unambiguous:
+--   [apply] `true`
+--   [apply] `MyBool.true`
+--   [apply] `Lake.Toml.true`
+--   [apply] `Lean.LBool.true`
+--   [apply] `Std.Do.ExceptConds.true`
+--   [apply] `Lean.Meta.Grind.Filter.true`
+
+-- Here, though, because `not` is a function that takes a
+-- `Bool` argument, Lean knows that `.true` must here be a
+-- `Bool`:
+
+#check (Bool.not .true)
+
+-- !true : Bool
 
 -- ### Constructors with Multiple Parameters (Tuple Types)
 
@@ -526,11 +444,6 @@ namespace NatPlayground
 inductive Nat : Type where
   | zero
   | succ (n : Nat)
-
--- With a little Lean magic, we can also arrange that ordinary
--- numerals such as 0, 1, and 2 will be interpreted as values
--- of our new `Nat` type whenever this is sensible in context.
--- The technical details are not important.
 
 -- THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
 
@@ -630,10 +543,6 @@ theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
   rewrite [add_zero]
   rewrite [add_zero]
   rfl
-
--- We'll walk through this proof in the next section.
-
--- ### Proof state and tactics
 
 -- Here is the previous proof in more detail:
 
@@ -746,19 +655,6 @@ theorem two_eq_succ_one : two = succ one := by rfl
 theorem three_eq_succ_two : three = succ two := by rfl
 theorem four_eq_succ_three : four = succ three := by rfl
 
--- ### Exercise (1 star): mul_simpl_rules ⭐
-
--- Finish the proof using the `add` rules:
-
-theorem one_plus_one_eq_two : one + one = two := by
-  rewrite [one_eq_succ_zero]
-  sorry
-
--- Try the same for `two + two = four`.
-
-theorem two_plus_two_eq_four : two + two = four := by
-  sorry
-
 -- #### Multiplication
 
 def mul (n m : Nat) : Nat :=
@@ -789,30 +685,11 @@ theorem mul_succ : ∀ n m : Nat, n * (succ m) = (n * m) + n := by
 
 attribute [irreducible] mul
 
--- Prove these thoerems using rewriting with the simplification
--- rules for addition and multiplication.
-
--- ### Exercise (2 stars): test_mul_add ⭐⭐
+-- Prove this theorem using rewriting with the simplification
+-- rules.
 
 theorem zero_add_one : (zero + one : Nat) = one := by
   rewrite [one_eq_succ_zero]
-  sorry
-
-theorem one_add_one : (one + one : Nat) = two := by
-  rewrite [one_eq_succ_zero]
-  sorry
-
-
-theorem zero_mul_two : (zero * two : Nat) = zero := by
-  rewrite [two_eq_succ_one, one_eq_succ_zero]
-  sorry
-
-theorem one_mul_two : (one * two : Nat) = two := by
-  rewrite [two_eq_succ_one, one_eq_succ_zero]
-  sorry
-
-theorem two_mul_two : (two * two : Nat) = four := by
-  rewrite [two_eq_succ_one, one_eq_succ_zero]
   sorry
 
 -- #### Equality and Ordering
@@ -861,25 +738,14 @@ example : ble two two = true  := by rfl
 example : ble two four = true := by rfl
 example : ble four two = false := by rfl
 
--- ### Exercise (1 star): blt ⭐
-
--- Define a less-than function in terms of `ble`.
-
-def blt (n m : Nat) : Bool := sorry
-
-example : blt two two = false := sorry
-example : blt two four = true  := sorry
-theorem blt_test3 : blt four two = false := sorry
-
-attribute [irreducible] blt ble
-
 -- We'll be using `beq` a lot, so let's give it an infix
 -- notation.
 
 scoped infixl:30 " == " => beq
 
 -- Note that `==` and `=` are different; the former means `beq`
--- whereas the latter is a logical claim.
+-- whereas the latter is a logical claim. Here are our
+-- simplification rules.
 
 theorem zero_beq_zero : (zero == zero) = true := by rfl
 theorem zero_beq_succ (n : Nat) : (zero == (succ n)) = false := by rfl
@@ -887,11 +753,6 @@ theorem succ_beq_zero (n : Nat) : ((succ n) == zero) = false := by rfl
 theorem succ_beq_succ (n m : Nat) : ((succ n) == (succ m)) = (n == m) := by rfl
 
 attribute [irreducible] beq
-
--- Note to developers (Benjamin Pierce @bcpierce00):
---     We haven't really articulated an "approach" -- just
---     given a couple of miscellaneous examples... TO DO: Let's
---     move this to UsingLean and broaden it.
 
 -- ### General Proofs about Natural Numbers
 
@@ -904,43 +765,20 @@ theorem add_id_example : ∀ n m : Nat,
   rewrite [h]
   rfl
 
--- ### Exercise (1 star): add_id_exercise ⭐
-
--- Remove `sorry` and fill in the proof.
-
-theorem add_id_exercise : ∀ n m o : Nat,
-    n = m → m = o → n + m = m + o := by
-  sorry
-
 -- #### Displaying Theorem Statements
 
 -- The `#check` command can also be used to examine the
 -- statements of previously declared lemmas and theorems.
 
-#check mul_zero  -- ∀ (n : Nat), n * 0 = 0
-#check mul_succ  -- ∀ (n m : Nat), n * Nat.succ m = n + n * m
+#check mul_zero
+#check mul_succ
 
 -- NatPlayground.Nat.mul_zero (n : Nat) : n * zero = zero
 
 -- NatPlayground.Nat.mul_succ (n m : Nat) : n * succ m = n * m + n
 
--- Lean may:
-
--- - print a fully qualified name, such as
---   `NatPlayground.Nat.mul_zero`;
-
--- - display universally quantified variables as binders before
---   the colon.
-
--- Thus,
-
---   mul_zero : ∀ (n : Nat), n * zero = zero
-
--- may be displayed as:
-
---   mul_zero (n : Nat) : n * zero = zero
-
--- The second form is the conventional *declaration-header
+-- Lean displays universally quantified variables as binders
+-- before the colon, which is the preferred *declaration-header
 -- style* in Lean.
 
 -- ## Proof by Case Analysis
@@ -1045,137 +883,8 @@ theorem and3_exchange (b c d : Bool) :
 -- will introduce some tactics for writing shorter proofs by
 -- case analysis in the Tactics chapter.
 
--- ### New Tactics: `rewrite ... at` and `exact`
-
 -- You will need the `rewrite ... at` and `exact` tactics to
--- complete the following exercises.
-
--- ### Exercise (2 stars): or_false_true ⭐⭐
-
--- Prove the following claim.
-
--- Tip: the rewrite rule to simplify `(b || false)` is called
--- `Bool.or_false`.
-
-theorem or_false_true (b : Bool) (h: (b || false) = true) :
-  b = true := by
-  sorry
-
--- ### Exercise (1 star): zero_neb_add_one ⭐
-
-theorem zero_neb_add_one (n : Nat) :
-  (zero == (succ zero + n)) = false := by
-  sorry
-
--- ### Structural Recursion (Optional)
-
--- ### Exercise (2 stars): decreasing (Optional) ⭐⭐
-
--- To get a concrete sense of how termination checking works in
--- Lean, find a way to write a sensible recursive definition
--- (of a simple function on numbers, say) that does actually
--- terminate on all inputs, but that Lean will reject because
--- it cannot automatically prove termination.
-
--- ### Binary Numerals
-
--- ### Exercise (3 stars): binary ⭐⭐⭐
-
--- We can generalize our unary representation of natural
--- numbers to the more efficient binary representation by
--- treating a binary number as a sequence of constructors `b0`
--- and `b1` (representing 0s and 1s), terminated by a `z`.
-
--- For example:
-
--- decimal                binary   unary
---       0                     z   zero
---       1                  b1 z   succ zero
---       2             b0 (b1 z)   succ (succ zero)
---       3             b1 (b1 z)   succ (succ (succ zero))
---       4        b0 (b0 (b1 z))   succ (succ (succ (succ zero)))
---       5        b1 (b0 (b1 z))   succ (succ (succ (succ (succ zero))))
---       6        b0 (b1 (b1 z))   succ (succ (succ (succ (succ (succ zero)))))
---       7        b1 (b1 (b1 z))   succ (succ (succ (succ (succ (succ (succ zero))))))
---       8   b0 (b0 (b0 (b1 z)))   succ (succ (succ (succ (succ (succ (succ (succ zero)))))))
-
--- Note that the low-order bit is on the left and the
--- high-order bit is on the right — the opposite of the way
--- binary numbers are usually written. This choice makes them
--- easier to manipulate.
-
--- (Comprehension check: What unary numeral does `b0 z`
--- represent?)
-
-inductive Bin : Type where
-  | z
-  | b0 (n : Bin)
-  | b1 (n : Bin)
-
-attribute [pp_nodot] Bin.b1 Bin.b0
-
-def incr (m : Bin) : Bin
-  := sorry
-
-def binToNat (m : Bin) : Nat
-  := sorry
-
-theorem incr_test1 : incr (.b1 .z) = .b0 (.b1 .z) := sorry
-theorem incr_test2 : incr (.b0 (.b1 .z)) = .b1 (.b1 .z) := sorry
-theorem incr_test3 : incr (.b1 (.b1 .z)) = .b0 (.b0 (.b1 .z)) := sorry
-
-theorem incr_z : incr .z = .b1 .z := sorry
-theorem incr_b0 (m : Bin) : incr (.b0 m) = .b1 m := sorry
-theorem incr_b1 (m : Bin) : incr (.b1 m) = .b0 (incr m) := sorry
-
-theorem binToNat_z : binToNat .z = zero := sorry
-theorem binToNat_b0 (m : Bin) : binToNat (.b0 m) = binToNat m * two := sorry
-theorem binToNat_b1 (m : Bin) : binToNat (.b1 m) = binToNat m * two + one := sorry
-
--- You may find your previous proofs of `zero_add_one`,
--- `one_add_one`, `zero_mul_two`, `one_mul_two`, and
--- `two_mul_two` useful here.
-
-example : binToNat (.b0 (.b1 .z)) = two := sorry
-theorem binToNat_test1 : binToNat (incr (.b1 .z)) = add one (binToNat (.b1 .z)) := sorry
-theorem binToNat_test2 : binToNat (incr (incr (.b1 .z))) = add two (binToNat (.b1 .z)) := sorry
-theorem binToNat_test3 : binToNat (.b0 (.b0 (.b1 .z))) = four := sorry
-
-attribute [irreducible] incr binToNat
+-- complete some exercises.
 
 end Nat
-
--- ## More Exercises
-
--- ### Warmups
-
--- ### Exercise (1 star): identity_fn_applied_twice ⭐
-
--- You now have a small but rather powerful suite of tactics at
--- your disposal. As a warmup for the last section of the
--- chapter, use the tactics you have learned so far to prove
--- the following theorem about boolean functions.
-
--- Hint: You can use `rewrite` with *any* hypothesis that has
--- an `=` in it as long as the types line up.
-
-theorem identity_fn_applied_twice (f : Bool → Bool) :
-    (∀ x : Bool, f x = x) →
-    ∀ b : Bool, f (f b) = b := by
-  sorry
-
--- ### Exercise (1 star): negation_fn_applied_twice ⭐
-
--- Now state and prove a theorem `negation_fn_applied_twice`
--- similar to the previous one but where the hypothesis says
--- that the function `f` has the property that `f x = !x`.
-
--- FILL IN HERE
-
--- ### Exercise (3 stars): and_eq_or (Optional) ⭐⭐⭐
-
--- Prove the following theorem.
-
-theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
-  sorry
 

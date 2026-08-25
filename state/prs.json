@@ -1,5 +1,5 @@
 {
-  "main_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",
+  "main_sha": "002ea85046236b5fc76f6c7c4cadee030c869116",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -258,11 +258,48 @@
     },
     "302": {
       "base_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "d5fb7c06df3339f21a5b26861394137267fd9fd0",
       "preview_path": "pr/302/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32876218881",
+      "status": "published",
       "title": "Start adding autogradedHoles, add some missing gradeTheorems",
       "url": "https://github.com/plclub/sf-in-lean/pull/302"
     },
@@ -326,59 +363,12 @@
     "311": {
       "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
       "changed_variants": [],
-      "head_sha": "c7c1d7eb9e743c1cc40ad6866d974403d293be87",
+      "head_sha": "ba29353cdd2ee600d9c7dc8b5687cbb8e30ed44d",
       "preview_path": "pr/311/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32872964275",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32878037747",
       "status": "ci-failed",
       "title": "Poly: make `unzip` a manually graded exercise about char lemmas",
       "url": "https://github.com/plclub/sf-in-lean/pull/311"
-    },
-    "312": {
-      "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "74a73e8320d509bcb383b797e82175fa3623cf57",
-      "preview_path": "pr/312/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32871746914",
-      "status": "published",
-      "title": "Pass over Basics to tidy up terse-mode text",
-      "url": "https://github.com/plclub/sf-in-lean/pull/312"
     },
     "314": {
       "base_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",
@@ -429,11 +419,48 @@
     },
     "315": {
       "base_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "3c8a02bfc58e9eb78c80f31885a12593b57e5948",
       "preview_path": "pr/315/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32876075484",
+      "status": "published",
       "title": "Verso compilation: Never put `:::dev` comments in terse output",
       "url": "https://github.com/plclub/sf-in-lean/pull/315"
     }
