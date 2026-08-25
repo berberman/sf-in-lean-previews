@@ -1,7 +1,7 @@
 import LF.Basics
 import LF.Induction
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # UsingLean: Using the Full Power of a Proof Assistant
 

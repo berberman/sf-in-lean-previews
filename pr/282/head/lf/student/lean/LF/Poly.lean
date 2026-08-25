@@ -1,7 +1,7 @@
 import LF.Induction
 import LF.UsingLean
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # Poly: Polymorphism and Higher-Order Functions
 
@@ -725,7 +725,7 @@ theorem test_partition2 : partition (fun _ => false) [5, 9, 0] = ([], [5, 9, 0])
 
 -- Another handy higher-order function is called `map`.
 
-def map {α : Type} {β : Type} (f : α → β) (l : List α) : List β :=
+def map {α β : Type} (f : α → β) (l : List α) : List β :=
   match l with
   | [] => []
   | head :: tail => f head :: map f tail
@@ -753,10 +753,11 @@ example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
 
 -- Recall the definition of `map`:
 
---   def map (f : α → β) (l : List α) : List β :=
---     match l with
---     | [] => []
---     | head :: tail => f head :: map f tail
+sf_recall
+  def map {α β : Type} (f : α → β) (l : List α) : List β :=
+    match l with
+    | [] => []
+    | head :: tail => f head :: map f tail
 
 -- What is the type of `@map`?
 
@@ -864,10 +865,11 @@ theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {a : α} {l : L
 
 -- Here is the definition of `fold` again:
 
---   def fold {α β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
---     match l with
---     | [] => b
---     | a :: l => f a (fold f l b)
+sf_recall
+  def fold {α β : Type} (f : α → β → β) (l : List α) (b : β) : β :=
+    match l with
+    | [] => b
+    | a :: l => f a (fold f l b)
 
 -- What is the type of `@fold`?
 
@@ -1049,12 +1051,13 @@ theorem curry_uncurry {α β γ : Type} {p : α × β} {f : α × β → γ} :
 
 -- Recall the definition of the `nth?` function:
 
---   def nth? (l : List α) (n : Nat) : Option α :=
---     match l with
---     | [] => none
---     | x :: l' => match n with
---       | 0 => some x
---       | n' + 1 => nth? l' n'
+sf_recall
+  def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
+    match l with
+    | [] => none
+    | x :: l' => match n with
+      | 0 => some x
+      | n' + 1 => nth? l' n'
 
 -- Write a careful informal proof of the following theorem:
 

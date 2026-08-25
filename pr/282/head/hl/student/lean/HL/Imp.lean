@@ -3,7 +3,7 @@ import LF.Typeclasses
 import Lean.PrettyPrinter.Delaborator
 import Lean.PrettyPrinter.Parenthesizer
 
-import HL.SFLCompat
+import SFLCompat
 
 -- # Imp: Simple Imperative Programs
 
@@ -1108,6 +1108,8 @@ def sExecute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat :=
   sorry
                                         -- Bad state: skip
 
+-- FILL IN HERE
+
 example : sExecute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
   sorry
 
@@ -1135,7 +1137,7 @@ example : sCompile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, s
 -- executing `p₂` from that stack. Prove that fact.
 
 theorem execute_app (st : State) (p₁ p₂ : List Sinstr) (stack : List Nat) :
-  sExecute st stack (p₁ ++ p₂) = sExecute st (sExecute st stack p₁) p₂ := by
+    sExecute st stack (p₁ ++ p₂) = sExecute st (sExecute st stack p₁) p₂ := by
   sorry
 
 -- ### Exercise (3 stars): compiler_correct ⭐⭐⭐

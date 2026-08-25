@@ -144,53 +144,16 @@
     },
     "257": {
       "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "0565c2e2d94c1b4aedc9b471ee5df996c44e2f60",
+      "changed_variants": [],
+      "head_sha": "b19e0dbd693a2bf77d3c8820a1ef6a5b6d57d2f3",
       "preview_path": "pr/257/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32817710049",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Reimplement autograding",
       "url": "https://github.com/plclub/sf-in-lean/pull/257"
     },
     "282": {
-      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
+      "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -229,9 +192,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "fab954bbfa3821666768bdcdc8e69365f433b4ac",
+      "head_sha": "78438ac684dedd04b9819a8decdcd21cd9cb9f47",
       "preview_path": "pr/282/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32766727375",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32851576653",
       "status": "published",
       "title": "Add remaining exercises to Imp",
       "url": "https://github.com/plclub/sf-in-lean/pull/282"
@@ -304,11 +267,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/301"
     },
     "302": {
-      "base_sha": "0565c2e2d94c1b4aedc9b471ee5df996c44e2f60",
+      "base_sha": "b19e0dbd693a2bf77d3c8820a1ef6a5b6d57d2f3",
       "changed_variants": [],
-      "head_sha": "d0833e177ea65d1b5982520727affa83c5d2339f",
+      "head_sha": "adeec6b302bb8fb15af3d5569af9e6967d726e2c",
       "preview_path": "pr/302/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32818153744",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32854213570",
       "status": "ci-failed",
       "title": "Start adding autogradedHoles, add some missing gradeTheorems",
       "url": "https://github.com/plclub/sf-in-lean/pull/302"

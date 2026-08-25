@@ -1,4 +1,4 @@
-import LF.SFLCompat
+import SFLCompat
 
 -- # Basics: Functional Programming in Lean
 
@@ -110,9 +110,9 @@ example : (!MyBool.false) = MyBool.true := by rfl
 -- later in your Lean journey. We'll mark these details -- and
 -- similar material later on -- with
 -- `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and
--- collapsed text segments in the HTML presentation. Click on
--- the triangle in the HTML if you want to have a peek, or just
--- move on to the following material, as you like.
+-- with collapsed text segments in the HTML presentation. Click
+-- on the triangle in the HTML if you want to have a peek, or
+-- just move on to the following material.
 
 -- THESE DETAILS CAN BE SKIPPED: Details
 
@@ -527,8 +527,7 @@ inductive Nat : Type where
 -- With a little Lean magic, we can also arrange that ordinary
 -- numerals such as 0, 1, and 2 will be interpreted as values
 -- of our new `Nat` type whenever this is sensible in context.
--- The technical details of how this is done are not important
--- for present purposes.
+-- The technical details are not important.
 
 -- THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
 
@@ -885,6 +884,11 @@ theorem succ_beq_zero (n : Nat) : ((succ n) == zero) = false := by rfl
 theorem succ_beq_succ (n m : Nat) : ((succ n) == (succ m)) = (n == m) := by rfl
 
 attribute [irreducible] beq
+
+-- Note to developers (Benjamin Pierce @bcpierce00):
+--     We haven't really articulated an "approach" -- just
+--     given a couple of miscellaneous examples... TO DO: Let's
+--     move this to UsingLean and broaden it.
 
 -- ### General Proofs about Natural Numbers
 

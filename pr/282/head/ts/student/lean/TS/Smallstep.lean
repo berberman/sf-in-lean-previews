@@ -1,6 +1,6 @@
 import TS.Slang
 
-import TS.SFLCompat
+import SFLCompat
 
 -- # Smallstep: Small-step Operational Semantics
 

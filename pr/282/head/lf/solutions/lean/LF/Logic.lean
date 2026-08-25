@@ -4,7 +4,7 @@ import LF.Poly
 import LF.Tactics
 import LF.CustomTactics
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # Logic in Lean
 

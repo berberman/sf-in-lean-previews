@@ -1,6 +1,6 @@
 import LF.Basics
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # Induction: Proof by Induction
 

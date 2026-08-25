@@ -2575,6 +2575,105 @@
         "Expressions With Variables",
         "States"]}},
      "address": "/Imp/"}],
+   "StackCompiler.sExecute_push":
+   [{"id": "StackCompiler___sExecute_push",
+     "data":
+     {"/Imp/#StackCompiler___sExecute_push":
+      {"display": "sExecute_push",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute_plus_bad":
+   [{"id": "StackCompiler___sExecute_plus_bad",
+     "data":
+     {"/Imp/#StackCompiler___sExecute_plus_bad":
+      {"display": "sExecute_plus_bad",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute_plus":
+   [{"id": "StackCompiler___sExecute_plus",
+     "data":
+     {"/Imp/#StackCompiler___sExecute_plus":
+      {"display": "sExecute_plus",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute_nil":
+   [{"id": "StackCompiler___sExecute_nil",
+     "data":
+     {"/Imp/#StackCompiler___sExecute_nil":
+      {"display": "sExecute_nil",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute_mult_bad":
+   [{"id": "StackCompiler___sExecute_mult_bad",
+     "data":
+     {"/Imp/#StackCompiler___sExecute_mult_bad":
+      {"display": "sExecute_mult_bad",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute_mult":
+   [{"id": "StackCompiler___sExecute_mult",
+     "data":
+     {"/Imp/#StackCompiler___sExecute_mult":
+      {"display": "sExecute_mult",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute_minus_bad":
+   [{"id": "StackCompiler___sExecute_minus_bad",
+     "data":
+     {"/Imp/#StackCompiler___sExecute_minus_bad":
+      {"display": "sExecute_minus_bad",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute_minus":
+   [{"id": "StackCompiler___sExecute_minus",
+     "data":
+     {"/Imp/#StackCompiler___sExecute_minus":
+      {"display": "sExecute_minus",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.sExecute_load":
+   [{"id": "StackCompiler___sExecute_load",
+     "data":
+     {"/Imp/#StackCompiler___sExecute_load":
+      {"display": "sExecute_load",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
    "StackCompiler.sExecute":
    [{"id": "StackCompiler___sExecute",
      "data":
