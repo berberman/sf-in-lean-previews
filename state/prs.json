@@ -369,6 +369,53 @@
       "status": "published",
       "title": "Verso compilation: Never put `:::dev` comments in terse output",
       "url": "https://github.com/plclub/sf-in-lean/pull/315"
+    },
+    "316": {
+      "base_sha": "5a15f9c1d292c4f2d88b3ab29c536be9a9765a93",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "10cbbdbd775478eb07a4cd672fb275543f07ce41",
+      "preview_path": "pr/316/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32895358248",
+      "status": "published",
+      "title": "Polishing on Preface and Basics",
+      "url": "https://github.com/plclub/sf-in-lean/pull/316"
     }
   },
   "schema": 3
