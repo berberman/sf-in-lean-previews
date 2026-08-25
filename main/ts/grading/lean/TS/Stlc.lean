@@ -4,7 +4,7 @@ import LF.Typeclasses
 import TS.Smallstep
 
 import AutograderLib
-import TS.SFLCompat
+import SFLCompat
 
 -- # Stlc: The Simply Typed Lambda-Calculus
 

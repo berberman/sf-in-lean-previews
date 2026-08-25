@@ -3,7 +3,7 @@ import LF.Typeclasses
 import HL.Imp
 
 import AutograderLib
-import HL.SFLCompat
+import SFLCompat
 
 -- # Equiv: Program Equivalence
 

@@ -2,7 +2,7 @@ import LF.CustomTactics
 import HL.Imp
 
 import AutograderLib
-import HL.SFLCompat
+import SFLCompat
 
 -- # Hoare: Hoare Logic, Part I
 

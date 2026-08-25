@@ -1,7 +1,7 @@
 import TS.Slang
 
 import AutograderLib
-import TS.SFLCompat
+import SFLCompat
 
 -- # Smallstep: Small-step Operational Semantics
 

@@ -4,7 +4,7 @@ import Lean.PrettyPrinter.Delaborator
 import Lean.PrettyPrinter.Parenthesizer
 
 import AutograderLib
-import HL.SFLCompat
+import SFLCompat
 
 -- # Imp: Simple Imperative Programs
 

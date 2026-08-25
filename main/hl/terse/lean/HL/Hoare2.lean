@@ -1,6 +1,6 @@
 import HL.Hoare
 
-import HL.SFLCompat
+import SFLCompat
 
 -- # Hoare2: Hoare Logic, Part II
 

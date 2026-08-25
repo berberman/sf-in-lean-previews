@@ -2,7 +2,7 @@ import Lean.PrettyPrinter.Delaborator
 import Lean.PrettyPrinter.Parenthesizer
 import TS.Smallstep
 
-import TS.SFLCompat
+import SFLCompat
 
 -- # Types: Type Systems
 

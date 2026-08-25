@@ -2,7 +2,7 @@ import LF.Logic
 import LF.CustomTactics
 
 import AutograderLib
-import LF.SFLCompat
+import SFLCompat
 
 -- # IndProp: Inductively Defined Propositions
 

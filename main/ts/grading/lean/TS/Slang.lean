@@ -1,5 +1,5 @@
 import AutograderLib
-import TS.SFLCompat
+import SFLCompat
 
 -- # Slang: Arithmetic and Boolean Expressions
 

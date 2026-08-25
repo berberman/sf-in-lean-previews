@@ -17,3 +17,6 @@ name = "HL"
 
 [[lean_lib]]
 name = "LF"
+
+[[lean_lib]]
+name = "SFLCompat"

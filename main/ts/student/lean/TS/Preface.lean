@@ -1,4 +1,4 @@
-import TS.SFLCompat
+import SFLCompat
 
 -- # Preface
 

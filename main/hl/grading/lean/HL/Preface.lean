@@ -1,5 +1,5 @@
 import AutograderLib
-import HL.SFLCompat
+import SFLCompat
 
 -- # Preface
 

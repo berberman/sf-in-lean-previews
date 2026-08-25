@@ -2,7 +2,7 @@ import LF.Induction
 import LF.UsingLean
 
 import AutograderLib
-import LF.SFLCompat
+import SFLCompat
 
 -- # Lists: Working with Structured Data
 

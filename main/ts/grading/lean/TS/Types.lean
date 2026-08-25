@@ -3,7 +3,7 @@ import Lean.PrettyPrinter.Parenthesizer
 import TS.Smallstep
 
 import AutograderLib
-import TS.SFLCompat
+import SFLCompat
 
 -- # Types: Type Systems
 

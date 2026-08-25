@@ -2943,11 +2943,11 @@
  {"title": "Verso.Genre.Manual.example",
   "description": null,
   "contents":
-  {"zip_unzip":
-   [{"id": "zip_unzip",
+  {"zip_unzip'":
+   [{"id": "zip_unzip___",
      "data":
-     {"/Tactics/#zip_unzip":
-      {"display": "zip_unzip",
+     {"/Tactics/#zip_unzip___":
+      {"display": "zip_unzip'",
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
@@ -3097,6 +3097,17 @@
         "Polymorphism",
         "Polymorphic Pairs"]}},
      "address": "/Poly/"}],
+   "unzip'":
+   [{"id": "unzip___",
+     "data":
+     {"/Tactics/#unzip___":
+      {"display": "unzip'",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Using  cases  on Expressions",
+        "Destructing Tuples"]}},
+     "address": "/Tactics/"}],
    "unzip":
    [{"id": "unzip",
      "data":
@@ -4229,7 +4240,7 @@
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
    "keepIf_some":
-   [{"id": "keepIf_some",
+   [{"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -4246,7 +4257,7 @@
         "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some-next",
+    {"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -4981,7 +4992,7 @@
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective",
+   [{"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5002,7 +5013,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective-next",
+    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",

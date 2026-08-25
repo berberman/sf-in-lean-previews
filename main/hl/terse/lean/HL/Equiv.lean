@@ -2,7 +2,7 @@ import LF.CustomTactics
 import LF.Typeclasses
 import HL.Imp
 
-import HL.SFLCompat
+import SFLCompat
 
 -- # Equiv: Program Equivalence
 

@@ -1,7 +1,7 @@
 import LF.Basics
 
 import AutograderLib
-import LF.SFLCompat
+import SFLCompat
 
 -- # Induction: Proof by Induction
 

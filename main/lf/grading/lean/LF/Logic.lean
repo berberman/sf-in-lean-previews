@@ -5,7 +5,7 @@ import LF.Tactics
 import LF.CustomTactics
 
 import AutograderLib
-import LF.SFLCompat
+import SFLCompat
 
 -- # Logic in Lean
 

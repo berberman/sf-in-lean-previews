@@ -1,7 +1,7 @@
 import LF.CustomTactics
 import HL.Imp
 
-import HL.SFLCompat
+import SFLCompat
 
 -- # Hoare: Hoare Logic, Part I
 

@@ -1,7 +1,7 @@
 import HL.Hoare
 
 import AutograderLib
-import HL.SFLCompat
+import SFLCompat
 
 -- # Hoare2: Hoare Logic, Part II
 

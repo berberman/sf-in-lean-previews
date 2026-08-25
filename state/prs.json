@@ -1,5 +1,5 @@
 {
-  "main_sha": "ccb59e75f410c9442f99d816cd36b91378a9a611",
+  "main_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -397,55 +397,8 @@
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
-    "306": {
-      "base_sha": "ccb59e75f410c9442f99d816cd36b91378a9a611",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "5ffbe0bba6c2a6362d277e8b9307e41c8146e141",
-      "preview_path": "pr/306/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32787280332",
-      "status": "published",
-      "title": "Factor custom commands to SFLCompat library",
-      "url": "https://github.com/plclub/sf-in-lean/pull/306"
-    },
     "307": {
-      "base_sha": "09b16232002194bee3651f600c3a93037a52d3c8",
+      "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
       "changed_variants": [],
       "head_sha": "93d4914cd530624804325644efbe781fcc1cffca",
       "preview_path": "pr/307/head/",

@@ -1,7 +1,7 @@
 import LF.IndProp
 
 import AutograderLib
-import LF.SFLCompat
+import SFLCompat
 
 -- # Automation: More Automation
 

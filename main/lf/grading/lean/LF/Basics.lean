@@ -1,5 +1,5 @@
 import AutograderLib
-import LF.SFLCompat
+import SFLCompat
 
 -- # Basics: Functional Programming in Lean
 
