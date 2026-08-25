@@ -306,10 +306,10 @@
     "302": {
       "base_sha": "b19e0dbd693a2bf77d3c8820a1ef6a5b6d57d2f3",
       "changed_variants": [],
-      "head_sha": "adeec6b302bb8fb15af3d5569af9e6967d726e2c",
+      "head_sha": "f1724d5854aeb1ea1af3b95d58f52b0db4f32d0d",
       "preview_path": "pr/302/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32854214680",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Start adding autogradedHoles, add some missing gradeTheorems",
       "url": "https://github.com/plclub/sf-in-lean/pull/302"
     },
