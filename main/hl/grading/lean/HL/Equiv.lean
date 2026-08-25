@@ -2,7 +2,7 @@ import LF.CustomTactics
 import LF.Typeclasses
 import HL.Imp
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Equiv: Program Equivalence
@@ -119,16 +119,7 @@ theorem skip_left {c : Com} : (imp { skip; ~c }).Equiv c := by
 -- program.
 
 theorem skip_right {c : Com} : (imp { ~c; skip }).Equiv c := by
-  rw [equiv_def]
-  intro st st''
-  constructor
-  · intro h
-    inversion h with
-    | seq st' h1 h2 =>
-      inversion h2
-      exact h1
-  · intro h
-    exact EvalR.seq h EvalR.skip
+  sorry
 
 -- Similarly, here is a simple equivalence that optimises `if` commands.
 
@@ -212,21 +203,7 @@ theorem if_true {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {true})) :
 
 theorem if_false {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {false})) :
     (imp {if (~b) {~c₁} else {~c₂}}).Equiv c₂ := by
-  rw [equiv_def]
-  rw [Bexp.equiv_def] at hb
-  intro st st'
-  constructor
-  · intro h
-    inversion h with
-    | ifTrue hb' hc =>
-      rw [hb] at hb'
-      simp at hb'
-    | ifFalse hb' hc =>
-      exact hc
-  · intro h
-    apply EvalR.ifFalse _ h
-    rw [hb]
-    simp
+  sorry
 
 -- ### Exercise (3 stars): swap_if_branches ⭐⭐⭐
 
@@ -236,25 +213,7 @@ theorem if_false {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {false})) :
 theorem swap_if_branches {b : Bexp} {c₁ c₂ : Com} :
     (imp {if (~b) {~c₁} else {~c₂}}).Equiv
     (imp {if (¬ ~b) {~c₂} else {~c₁}}) := by
-  rw [equiv_def]
-  intro st st'
-  constructor
-  · intro h
-    inversion h with
-    | ifTrue hb hc =>
-      apply EvalR.ifFalse _ hc
-      simp [hb]
-    | ifFalse hb hc =>
-      apply EvalR.ifTrue _ hc
-      simp [hb]
-  · intro h
-    inversion h with
-    | ifTrue hb hc =>
-      apply EvalR.ifFalse _ hc
-      simp_all
-    | ifFalse hb hc =>
-      apply EvalR.ifTrue _ hc
-      simp_all
+  sorry
 
 -- For `while` loops, we can give a similar pair of theorems. A loop whose
 -- guard is equivalent to `false` is equivalent to `skip`, while a loop whose
@@ -340,18 +299,7 @@ theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State} (hb : b.Equiv (
 theorem while_true {b : Bexp} {c : Com} (hb : b.Equiv (bexp {true})) :
     (imp {while (~b) {~c}}).Equiv
     (imp {while (true) {skip}}) := by
-  rw [equiv_def]
-  intro st st'
-  constructor
-  · intro h
-    exfalso
-    exact while_true_nonterm hb h
-  · intro h
-    exfalso
-    apply while_true_nonterm _ h
-    rw [Bexp.equiv_def]
-    intro
-    rfl
+  sorry
 
 -- A more interesting fact about `while` commands is that any number of copies
 -- of the body can be "unrolled" without changing meaning.
@@ -419,23 +367,7 @@ theorem identity_assignment {X : Ident} :
 theorem assign_equiv {X : Ident} {a : Aexp} (ha : Aexp.Equiv (aexp {X}) a) :
     (imp {skip}).Equiv
     (imp {X := ~a}) := by
-  rw [equiv_def]
-  rw [Aexp.equiv_def] at ha
-  intro st st'
-  constructor
-  · intro h
-    inversion h
-    suffices st =[ X := ~a ]=> X →ₜ st[X]; st by
-      simp only [TotalMap.update_same] at this
-      exact this
-    apply Com.EvalR.asgn
-    simp [← ha]
-  · intro h
-    inversion h with
-    | asgn n h =>
-      subst h
-      simp only [← ha, Aexp.eval_id, TotalMap.update_same]
-      exact Com.EvalR.skip
+  sorry
 
 -- Note to developers (Sati @satiscugcat):
 --     Leaving out optional exercise `equiv_classes` for now.

@@ -1,7 +1,7 @@
 import LF.Induction
 import LF.UsingLean
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Poly: Polymorphism and Higher-Order Functions
@@ -419,27 +419,15 @@ theorem rev_cons {α : Type} {x : α} {l : List α} :
 
 theorem append_nil {α : Type} {l : List α} :
     l ++ [] = l := by
-  induction l with
-  | nil => rw [List.nil_append]
-  | cons _ _ ih => rw [List.cons_append, ih]
+  sorry
 
 theorem append_assoc {α : Type} {l₁ l₂ l₃ : List α} :
     l₁ ++ l₂ ++ l₃ = l₁ ++ (l₂ ++ l₃) := by
-  induction l₁ with
-  | nil => rw [List.nil_append, List.nil_append]
-  | cons _ _ ih =>
-    dsimp [List.cons_append]
-    rw [ih]
+  sorry
 
 theorem append_length {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
-  induction l₁ with
-  | nil =>
-    dsimp [List.nil_append, append_nil]
-    rw [Nat.zero_add]
-  | cons _ _ ih =>
-    dsimp [List.cons_append, List.length_cons]
-    rw [Nat.succ_add, ih]
+  sorry
 
 attribute [autogradedProof 0.5] append_nil
 
@@ -453,21 +441,11 @@ attribute [autogradedProof 0.5] append_length
 
 theorem reverse_append {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev := by
-  induction l₁ with
-  | nil =>
-    dsimp [List.nil_append]
-    rw [rev_nil, append_nil]
-  | cons _ _ ih =>
-    dsimp [List.cons_append]
-    rw [rev_cons, rev_cons, ih, append_assoc]
+  sorry
 
 theorem reverse_reverse {α : Type} (l : List α) :
     l.rev.rev = l := by
-  induction l with
-  | nil => rw [rev_nil, rev_nil]
-  | cons _ _ ih =>
-    rw [rev_cons, reverse_append, ih, rev_cons, rev_nil]
-    dsimp [List.nil_append, List.cons_append]
+  sorry
 
 attribute [autogradedProof 1] reverse_append
 
@@ -547,22 +525,17 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 -- Fill in the definition of `unzip` below. Make sure it that passes the given
 -- unit test, and that you can prove the simplification rules about it.
 
-def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := (
-  match l with
-  | [] => ([], [])
-  | (x, y) :: l' =>
-    let (l₁, l₂) := unzip l'
-    (x :: l₁, y :: l₂))
+def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := sorry
 
-theorem unzip_nil {α β : Type} : unzip [] = (([], []) : List α × List β) := (by rfl)
+theorem unzip_nil {α β : Type} : unzip [] = (([], []) : List α × List β) := sorry
 
 theorem unzip_cons_fst {α β : Type} {x : α} {y : β} {l : List (α × β)} :
-   (unzip ((x, y) :: l)).fst = x :: (unzip l).fst := (by rfl)
+   (unzip ((x, y) :: l)).fst = x :: (unzip l).fst := sorry
 
 theorem unzip_cons_snd {α β : Type} {x : α} {y : β} {l : List (α × β)} :
-   (unzip ((x, y) :: l)).snd = y :: (unzip l).snd := (by rfl)
+   (unzip ((x, y) :: l)).snd = y :: (unzip l).snd := sorry
 
-theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := (by rfl)
+theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := sorry
 
 attribute [autogradedProof 0.25] unzip_nil unzip_cons_fst unzip_cons_snd unzip_test1
 
@@ -600,21 +573,18 @@ example : nth? [true] 2 = none := by rfl
 -- Complete the definition of a polymorphic version of the `head?` function
 -- from the last chapter. Be sure that it passes the unit tests below.
 
-def head? {α : Type} (l : List α) : Option α := (
-  match l with
-  | [] => none
-  | x :: _ => some x)
+def head? {α : Type} (l : List α) : Option α := sorry
 
-theorem head?_nil {α : Type} : head? ([] : List α) = none := (by rfl)
+theorem head?_nil {α : Type} : head? ([] : List α) = none := sorry
 
 theorem head?_cons {α : Type} {head : α} {tail : List α} : head? (head :: tail) = some head :=
-  (by rfl)
+  sorry
 
-theorem test_head?1 : head? [1, 2] = some 1 := (by rfl)
+theorem test_head?1 : head? [1, 2] = some 1 := sorry
 
 attribute [autogradedProof 0.5] test_head?1
 
-theorem test_head?2 : head? [[1], [2]] = some [1] := (by rfl)
+theorem test_head?2 : head? [[1], [2]] = some [1] := sorry
 
 attribute [autogradedProof 0.5] test_head?2
 
@@ -761,12 +731,11 @@ example : filter (·.length == 1)
 -- `filterEvenGt7` that takes a list of natural numbers as input and returns a
 -- list of just those that are even and greater than `7`.
 
-def filterEvenGt7 (l : List Nat) : List Nat := (
-  filter (fun n => n.even && n > 7) l)
+def filterEvenGt7 (l : List Nat) : List Nat := sorry
 
-theorem test_filterEvenGt7_1 : filterEvenGt7 [1, 2, 6, 9, 10, 3, 12, 8] = [10, 12, 8] := (by rfl)
+theorem test_filterEvenGt7_1 : filterEvenGt7 [1, 2, 6, 9, 10, 3, 12, 8] = [10, 12, 8] := sorry
 
-theorem test_filterEvenGt7_2 : filterEvenGt7 [5, 2, 6, 19, 129] = [] := (by rfl)
+theorem test_filterEvenGt7_2 : filterEvenGt7 [5, 2, 6, 19, 129] = [] := sorry
 
 attribute [autogradedProof 1] test_filterEvenGt7_1 test_filterEvenGt7_2
 
@@ -779,11 +748,10 @@ attribute [autogradedProof 1] test_filterEvenGt7_1 test_filterEvenGt7_2
 -- containing those that fail the test. The order of elements in the two
 -- sublists should be the same as their order in the original list.
 
-def partition {α : Type} (test : α → Bool) (l : List α) : List α × List α := (
-  (filter test l, filter (!test ·) l))
+def partition {α : Type} (test : α → Bool) (l : List α) : List α × List α := sorry
 
-theorem test_partition1 : partition (· % 2 != 0) [1, 2, 3, 4, 5] = ([1, 3, 5], [2, 4]) := (by rfl)
-theorem test_partition2 : partition (fun _ => false) [5, 9, 0] = ([], [5, 9, 0]) := (by rfl)
+theorem test_partition1 : partition (· % 2 != 0) [1, 2, 3, 4, 5] = ([1, 3, 5], [2, 4]) := sorry
+theorem test_partition2 : partition (fun _ => false) [5, 9, 0] = ([], [5, 9, 0]) := sorry
 
 attribute [autogradedProof 1.5] test_partition1 test_partition2
 
@@ -847,19 +815,11 @@ theorem map_cons {α : Type} {β : Type} {f : α → β} {x : α} {l : List α} 
 -- Show that `map` and `List.rev` commute. (Hint: You may need to define an
 -- auxiliary lemma.)
 
-theorem map_append {α β : Type} {f : α → β} {l l' : List α} :
-    map f (l ++ l') = map f l ++ map f l' := by
-  induction l with
-  | nil => rw [map_nil, List.nil_append, List.nil_append]
-  | cons _ _ ih => rw [List.cons_append, map_cons, map_cons, ih, List.cons_append]
+-- FILL IN HERE
 
 theorem map_rev {α : Type} {β : Type} {f : α → β} {l : List α} :
     map f l.rev = (map f l).rev := by
-  induction l
-  case nil =>
-   rw [rev_nil, map_nil, rev_nil]
-  case cons _ _ ih =>
-   rw [rev_cons, map_cons, map_append, rev_cons, ih, map_cons, map_nil]
+  sorry
 
 attribute [autogradedProof 3] map_rev
 
@@ -873,21 +833,18 @@ attribute [autogradedProof 3] map_rev
 --   flatMap (fun n => [n, n + 1, n + 2]) [1, 5, 10]
 --     = [1, 2, 3, 5, 6, 7, 10, 11, 12]
 
-def flatMap {α β : Type} (f : α → List β) (l : List α) : List β := (
-  match l with
-  | [] => []
-  | h :: t => f h ++ flatMap f t)
+def flatMap {α β : Type} (f : α → List β) (l : List α) : List β := sorry
 
 theorem test_flatMap : flatMap (fun n => [n, n, n]) [1, 5, 4]
-  = [1, 1, 1, 5, 5, 5, 4, 4, 4] := (by rfl)
+  = [1, 1, 1, 5, 5, 5, 4, 4, 4] := sorry
 
 attribute [autogradedProof 2] test_flatMap
 
 theorem flatMap_nil {α : Type} {β : Type} (f : α → List β) : flatMap f [] = [] :=
-   (by rfl)
+   sorry
 
 theorem flatMap_cons {α : Type} {β : Type} (f : α → List β) h t :
-   flatMap f (h :: t) = f h ++ flatMap f t := (by rfl)
+   flatMap f (h :: t) = f h ++ flatMap f t := sorry
 
 -- Lists are not the only inductive type for which `map` makes sense. Here is
 -- a `map` for the `Option` type:
@@ -1060,13 +1017,7 @@ example : foldLength [4, 7, 0] = 3 := by rfl
 
 theorem fold_length_correct {α : Type} {l : List α} :
     foldLength l = l.length := by
-  induction l with
-  | nil =>
-    dsimp only [foldLength]
-    rw [fold_nil, List.length_nil]
-  | cons _ _ ih =>
-    dsimp only [foldLength] at *
-    rw [List.length_cons, fold_cons, ih]
+  sorry
 
 attribute [autogradedProof 2] fold_length_correct
 
@@ -1074,21 +1025,12 @@ attribute [autogradedProof 2] fold_length_correct
 
 -- We can also define `map` in terms of `fold`. Finish `foldMap` below.
 
-def foldMap {α β : Type} (f : α → β) (l : List α) : List β := (
-  fold (fun x l' => f x :: l') l [])
+def foldMap {α β : Type} (f : α → β) (l : List α) : List β := sorry
 
 -- Write down a theorem `fold_map_correct` stating that `foldMap` is correct,
 -- and prove it in Lean.
 
-theorem fold_map_correct {α : Type} {β : Type} {f : α → β} {l : List α} :
-    foldMap f l = map f l := by
-  induction l with
-  | nil =>
-    dsimp only [foldMap]
-    rw [fold_nil, map_nil]
-  | cons _ _ ih =>
-    dsimp only [foldMap] at *
-    rw [fold_cons, map_cons, ih]
+-- FILL IN HERE
 
 -- ### Exercise (2 stars): currying (Advanced) ⭐⭐
 
@@ -1120,8 +1062,7 @@ def prodCurry {α β γ : Type} (f : α × β → γ) (x : α) (y : β) : γ := 
 -- As an exercise, define its inverse, `prodUncurry`. Then prove the theorems
 -- below to show that the two are really inverses.
 
-def prodUncurry {α β γ : Type} (f : α → β → γ) (p : α × β) : γ := (
-  f p.fst p.snd)
+def prodUncurry {α β γ : Type} (f : α → β → γ) (p : α × β) : γ := sorry
 
 -- As a (trivial) example of the usefulness of currying, we can use it to
 -- shorten one of the examples that we saw above:
@@ -1140,11 +1081,11 @@ example : map (Nat.add 3) [2, 0, 2] = [5, 3, 5] := by rfl
 
 theorem uncurry_curry {α β γ : Type} {x : α} {y : β} {f : α → β → γ} :
     prodCurry (prodUncurry f) x y = f x y := by
-  rfl
+  sorry
 
 theorem curry_uncurry {α β γ : Type} {p : α × β} {f : α × β → γ} :
     prodUncurry (prodCurry f) p = f p := by
-  rfl
+  sorry
 
 attribute [autogradedProof 1] uncurry_curry curry_uncurry
 
@@ -1261,12 +1202,11 @@ example : two  Nat Nat.succ 0 = 2 := by rfl
 -- `scc` should produce `fun X f x => f^(n+1) x` as output. In other words, do
 -- it `n` times, then do it once more.
 
-def scc (n : CNat) : CNat := (
-  fun (α : Type) (f : α → α) (x : α) => f (n α f x))
+def scc (n : CNat) : CNat := sorry
 
-example : scc zero = one := (by rfl)
-theorem scc_2 : scc one = two := (by rfl)
-theorem scc_3 : scc two = three := (by rfl)
+example : scc zero = one := sorry
+theorem scc_2 : scc one = two := sorry
+theorem scc_3 : scc two = three := sorry
 
 attribute [autogradedProof 1] Church.scc_2 Church.scc_3
 
@@ -1279,12 +1219,11 @@ attribute [autogradedProof 1] Church.scc_2 Church.scc_3
 
 -- Hint: the "zero" argument to a Church numeral need not be just `x`.
 
-def plus (n m : CNat) : CNat := (
-  fun (α : Type) (f : α → α) (x : α) => n α f (m α f x))
+def plus (n m : CNat) : CNat := sorry
 
-theorem plus_1 : plus zero one = one := (by rfl)
-theorem plus_2 : plus two three = plus three two := (by rfl)
-theorem plus_3 : plus (plus two two) three = plus one (plus three three) := (by rfl)
+theorem plus_1 : plus zero one = one := sorry
+theorem plus_2 : plus two three = plus three two := sorry
+theorem plus_3 : plus (plus two two) three = plus one (plus three three) := sorry
 
 attribute [autogradedProof 1] Church.plus_1 Church.plus_2 Church.plus_3
 
@@ -1300,12 +1239,11 @@ attribute [autogradedProof 1] Church.plus_1 Church.plus_2 Church.plus_3
 -- know that this is Lean's way of preventing a paradox in which a type
 -- contains itself. So leave the type argument unchanged.
 
-def mult (n m : CNat) : CNat := (
-  fun (α : Type) (f : α → α) (x : α) => n α (m α f) x)
+def mult (n m : CNat) : CNat := sorry
 
-theorem mult_1 : mult one one = one := (by rfl)
-theorem mult_2 : mult zero (plus three three) = zero := (by rfl)
-theorem mult_3 : mult two three = plus three three := (by rfl)
+theorem mult_1 : mult one one = one := sorry
+theorem mult_2 : mult zero (plus three three) = zero := sorry
+theorem mult_3 : mult two three = plus three three := sorry
 
 attribute [autogradedProof 1] Church.mult_1 Church.mult_2 Church.mult_3
 
@@ -1318,12 +1256,11 @@ attribute [autogradedProof 1] Church.mult_1 Church.mult_2 Church.mult_3
 -- Hint: the type argument to a Church numeral need not just be `α`. Finding
 -- the right type can be tricky.
 
-def exp (n m : CNat) : CNat := (
-  fun (α : Type) (f : α → α) (x : α) => m (α → α) (n α) f x)
+def exp (n m : CNat) : CNat := sorry
 
-theorem exp_1 : exp two two = plus two two := (by rfl)
-theorem exp_2 : exp three zero = one := (by rfl)
-theorem exp_3 : exp three two = plus (mult two (mult two two)) one := (by rfl)
+theorem exp_1 : exp two two = plus two two := sorry
+theorem exp_2 : exp three zero = one := sorry
+theorem exp_3 : exp three two = plus (mult two (mult two two)) one := sorry
 
 attribute [autogradedProof 1] Church.exp_1 Church.exp_3 Church.exp_2
 

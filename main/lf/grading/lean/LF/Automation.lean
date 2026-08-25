@@ -1,6 +1,6 @@
 import LF.IndProp
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Automation: More Automation
@@ -708,13 +708,7 @@ example : [1, 2, 3] =~ reg_exp_of_list [1, 2, 3] := by
 -- itself:
 
 theorem regexp_match_of_list α (l : List α) : l =~ reg_exp_of_list l := by
-  induction l with
-  | nil => constructor
-  | cons hd tl ih =>
-    simp only [reg_exp_of_list]
-    have h : hd :: tl = [hd] ++ tl := by simp
-    rw [h]
-    constructor; constructor; assumption
+  sorry
 
 attribute [autogradedProof 2] RegExp.regexp_match_of_list
 
@@ -738,8 +732,7 @@ theorem MStar1 α s (re : RegExp α) (h : s =~ re) : s =~ Star re := by
 -- ### Exercise (1 star): EmptySet_is_empty ⭐
 
 theorem EmptySet_is_empty α (s : List α) : ¬(s =~ EmptySet) := by
-  intro h
-  inversion h
+  sorry
 
 attribute [autogradedProof 0.5] RegExp.EmptySet_is_empty
 
@@ -748,9 +741,7 @@ attribute [autogradedProof 0.5] RegExp.EmptySet_is_empty
 theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
     s =~ re₁ ∨ s =~ re₂ →
     s =~ Union re₁ re₂ := by
-  rintro (_ | _)
-  case inl => apply mUnionL; assumption
-  case inr => apply mUnionR; assumption
+  sorry
 
 attribute [autogradedProof 0.5] RegExp.MUnion'
 
@@ -764,14 +755,7 @@ attribute [autogradedProof 0.5] RegExp.MUnion'
 theorem MStar' α (ss : List (List α)) (re : RegExp α)
     (h : ∀ s, s ∈ ss → s =~ re) :
     ss.foldr (· ++ ·) [] =~ Star re := by
-  induction ss with
-  | nil => constructor
-  | cons s ss' ih =>
-    simp only [List.foldr_cons]
-    constructor
-    · apply h; simp
-    · apply ih; intro s' hs'
-      apply h; right; assumption
+  sorry
 
 attribute [autogradedProof 2] RegExp.MStar'
 
@@ -978,18 +962,7 @@ theorem MStar'' α (s : List α) (re : RegExp α) (h : s =~ Star re) :
     exists ss : List (List α),
       s = List.foldr (· ++ ·) [] ss
       ∧ ∀ s', s' ∈ ss → s' =~ re := by
-  generalize heq : Star re = re' at h
-  induction h <;> try trivial
-  case mStar0 ih => exists []; simp
-  case mStarApp s₁ s₂ re h₁ h₂ ih₁ ih₂ =>
-    injections heq; subst heq
-    obtain ⟨ss, hfold, hall⟩ := ih₂ rfl
-    exists (s₁ :: ss)
-    simp only [List.foldr_cons, List.mem_cons, forall_eq_or_imp]; rw [← hfold]
-    repeat
-      constructor
-      trivial
-    intro s h; apply hall; trivial
+  sorry
 
 -- ### The "Weak" Pumping Lemma
 
@@ -1094,7 +1067,7 @@ theorem weak_pumping_char {α : Type} (x : α)
     ∃ s₁ s₂ s₃ : List α,
       [x] = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [ ] ∧
       (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Char x) := by
-  simp [pumpingConstant] at h
+  sorry
 
 -- ### Exercise (4 stars): weak_pumping_app ⭐⭐⭐⭐
 
@@ -1118,37 +1091,11 @@ theorem weak_pumping_app {α : Type} (s₁ s₂ : List α) (re₁ re₂ : RegExp
       (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ App re₁ re₂) := by
   obtain h | h :
     pumpingConstant re₁ ≤ s₁.length ∨ pumpingConstant re₂ ≤ s₂.length := by
-    rw [append_length] at hLen
-    apply add_le_cases
-    apply hLen
+    sorry
   case inl =>
-    specialize ih₁ h
-    let ⟨s₁₂, s₁₃, s₁₄, h₁, h₂, h₃⟩ := ih₁
-    rw [h₁]
-    exists s₁₂, s₁₃, s₁₄ ++ s₂
-    constructor
-    case left => simp
-    case right =>
-      constructor
-      case left => assumption
-      case right =>
-        intro m; specialize h₃ m
-        rw [← List.append_assoc]
-        constructor <;> trivial
+    sorry
   case inr =>
-    specialize ih₂ h
-    let ⟨s₂₁, s₂₂, s₂₃, h₁, h₂, h₃⟩ := ih₂
-    rw [h₁]
-    exists (s₁ ++ s₂₁), s₂₂, s₂₃
-    constructor
-    case left => simp
-    case right =>
-      constructor
-      case left => assumption
-      case right =>
-        intro m; specialize h₃ m
-        simp only [List.append_assoc] at *
-        constructor <;> assumption
+    sorry
 
 -- ### Exercise (3 stars): weak_pumping_union_l ⭐⭐⭐
 
@@ -1165,19 +1112,8 @@ theorem weak_pumping_union_l  {α : Type} (s₁ : List α) (re₁ re₂ : RegExp
       s₂ ≠ [ ] ∧
       (∀ m : Nat, s₀ ++ napp m s₂ ++ s₃ =~ Union re₁ re₂) := by
   have h : pumpingConstant re₁ ≤ s₁.length := by
-    simp only [pumpingConstant] at hLen; lia
-  specialize ih h
-  obtain ⟨s₁₁, s₁₂, s₁₃, h₁, h₂, h₃⟩ := ih
-  exists s₁₁; exists s₁₂; exists s₁₃
-  constructor
-  case left => assumption
-  case right =>
-    constructor
-    case left => assumption
-    case right =>
-      intro m; specialize h₃ m
-      apply mUnionL
-      assumption
+    sorry
+  sorry
 
 -- ### Exercise (3 stars): weak_pumping_union_r ⭐⭐⭐
 
@@ -1195,19 +1131,8 @@ theorem weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp 
     (∀ m : Nat, s₁ ++ napp m s₀ ++ s₃ =~ Union re₁ re₂) := by
   -- symmetric to the previous
   have h : pumpingConstant re₂ ≤ s₂.length := by
-   simp only [pumpingConstant] at hLen; lia
-  specialize ih h
-  let ⟨s₂₁, s₂₂, s₂₃, h₁, h₂, h₃⟩ := ih
-  exists s₂₁; exists s₂₂; exists s₂₃
-  constructor
-  case left => assumption
-  case right =>
-    constructor
-    case left => assumption
-    case right =>
-      intro m; specialize h₃ m
-      apply mUnionR
-      assumption
+   sorry
+  sorry
 
 -- ### Exercise (2 stars): weak_pumping_star_zero (Optional) ⭐⭐
 
@@ -1217,11 +1142,7 @@ theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
       [ ] = s₁ ++ s₂ ++ s₃ ∧
       s₂ ≠ [ ] ∧
       (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Star re) := by
-  simp only [List.length_nil] at h
-  inversion h with
-  | refl h h₁ =>
-    have h₂ := pumping_constant_ge_1 re
-    rw [← h₁] at h₂; inversion h₂
+  sorry
 
 -- ### Exercise (5 stars): weak_pumping_star_app (Optional) ⭐⭐⭐⭐⭐
 
@@ -1249,44 +1170,12 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
       ∨ (s₁.length ≠ 0 ∧ s₁.length < pumpingConstant re)
       ∨ pumpingConstant re ≤ s₁.length) := by
     cases s₁ with
-    | nil => (left; rfl)
+    | nil => sorry
     | cons h s₁' =>
-      right
-      have hcases : (List.length (h :: s₁') < pumpingConstant re
-                    ∨ pumpingConstant re ≤ List.length (h :: s₁')) := by
-        apply lt_ge_cases
-      cases hcases with
-      | inl =>
-        left; constructor
-        case left => intro contra; contradiction
-        case right => assumption
-      | inr => right; assumption
-  . have hs₁nil : s₁ = [] := by
-      cases s₁; rfl; contradiction
-    subst hs₁nil
-    simp only [List.length_nil, Nat.zero_add] at hLen
-    apply ih₂; apply hLen
-  . exists []; exists s₁; exists s₂
-    constructor; rfl
-    constructor
-    case left => intro contra; subst contra; contradiction
-    case right =>
-      intro m; apply napp_star
-      assumption
-      assumption
-  . specialize ih₁ hs₁re₁
-    let ⟨s₁₁, s₁₂, s₁₃, h₁, h₂, h₃⟩ := ih₁
-    exists s₁₁; exists s₁₂; exists (s₁₃ ++ s₂)
-    rw [h₁]
-    constructor
-    case left => simp
-    case right =>
-      constructor
-      case left => assumption
-      case right =>
-        intro m; specialize h₃ m
-        rw [← List.append_assoc]
-        apply mStarApp <;> assumption
+      sorry
+  . sorry
+  . sorry
+  . sorry
 
 -- ### Exercise (3 stars): weak_pumping ⭐⭐⭐
 
@@ -1295,14 +1184,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
     ∃ s₁ s₂ s₃ : List α,
       s = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [] ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
-  induction hmatch
-  case mEmpty   => simp [pumpingConstant] at hlen
-  case mChar    => apply weak_pumping_char; assumption
-  case mApp     => apply weak_pumping_app <;> assumption
-  case mUnionL  => apply weak_pumping_union_l <;> assumption
-  case mUnionR  => apply weak_pumping_union_r <;> assumption
-  case mStar0   => apply weak_pumping_star_zero <;> assumption
-  case mStarApp => apply weak_pumping_star_app <;> assumption
+  sorry
 
 -- ### The (Strong) Pumping Lemma
 

@@ -3,7 +3,7 @@ import LF.Typeclasses
 import Lean.PrettyPrinter.Delaborator
 import Lean.PrettyPrinter.Parenthesizer
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Imp: Simple Imperative Programs
@@ -939,11 +939,7 @@ example :
       Y := 1;
       Z := 2
     ]=> (Z →ₜ 2 ; Y →ₜ 1 ; X →ₜ 0 ; ∅) := by
-  apply Com.EvalR.seq (st' := (X →ₜ 0 ; ∅))
-  · apply Com.EvalR.asgn; rfl
-  · apply Com.EvalR.seq (st' := (Y →ₜ 1 ; X →ₜ 0 ; ∅))
-    · apply Com.EvalR.asgn; rfl
-    · apply Com.EvalR.asgn; rfl
+  sorry
 
 -- Note to developers:
 --     PR: I phrased these quizzes with the following alternatives: (A) Not
@@ -1053,31 +1049,12 @@ theorem ceval_deterministic (c : Com) (st st1 st2 : State)
 -- `pup_to_2_ceval`, which you can reverse-engineer to discover the program
 -- you should write. The proof of that theorem will be somewhat lengthy.
 
-def pup_to_n : Com := (
-  imp {
-    Y := 0;
-    while (1 ≤ X) {
-      Y := Y + X;
-      X := X - 1
-    }
-  })
+def pup_to_n : Com := sorry
 
 theorem pup_to_2_ceval :
     (X →ₜ 2 ; ∅) =[ pup_to_n ]=>
       (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅) := by
-  unfold pup_to_n
-  apply Com.EvalR.seq (st' := (Y →ₜ 0 ; X →ₜ 2 ; ∅))
-  · apply Com.EvalR.asgn; rfl
-  · apply Com.EvalR.whileTrue (st' := (X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
-    · rfl
-    · apply Com.EvalR.seq (st' := (Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
-        (apply Com.EvalR.asgn; rfl)
-    · apply Com.EvalR.whileTrue
-        (st' := (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅))
-      · rfl
-      · apply Com.EvalR.seq (st' := (Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅)) <;>
-          (apply Com.EvalR.asgn; rfl)
-      · apply Com.EvalR.whileFalse; rfl
+  sorry
 
 -- ## Reasoning About Imp Programs
 
@@ -1102,28 +1079,7 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
 
 -- State and prove a specification of `XtimesYinZ`.
 
-/- Here is a specification in the style of `plus2_spec`: -/
-theorem XtimesYinZ_spec1 (st : State) (nx ny : Nat) (st' : State)
-    (hx : st[X] = nx) (hy : st[Y] = ny) (heval : st =[ XtimesYinZ ]=> st') :
-    st'[Z] = nx * ny := by
-  unfold XtimesYinZ at heval
-  inversion heval with
-  | asgn n h =>
-      simp only [Aexp.eval_mult, Aexp.eval_id] at h
-      subst hx hy
-      rw [TotalMap.update_eq]
-      exact h.symm
-
-/- Though perhaps a cleaner specification would be: -/
-theorem XtimesYinZ_spec (st : State) :
-    st =[ XtimesYinZ ]=> (Z →ₜ st[X] * st[Y] ; st) := by
-  unfold XtimesYinZ
-  apply Com.EvalR.asgn
-  rfl
-
-/- A less informative specification would be ... -/
-theorem XtimesYinZ_spec2 (st : State) : ∃ st', st =[ XtimesYinZ ]=> st' := by
-  exact ⟨(Z →ₜ st[X] * st[Y] ; st), by unfold XtimesYinZ; apply Com.EvalR.asgn; rfl⟩
+-- FILL IN HERE
 
 -- Note to developers (Niklas Halonen @xhalo32):
 --     We should use the `generalize` tactic here instead of `have key`. I've
@@ -1138,22 +1094,7 @@ theorem XtimesYinZ_spec2 (st : State) : ∃ st', st =[ XtimesYinZ ]=> st' := by
 -- equation).
 
 theorem loop_never_stops (st st' : State) : ¬ (st =[ loop ]=> st') := by
-  intro contra
-  -- Generalize over the command so the induction remembers what `loop` is.
-  have key : ∀ (c : Com) (s s' : State), (s =[ c ]=> s') → c = loop → False := by
-    intro c s s' hce
-    induction hce with
-    | @whileFalse b s0 c0 hb =>
-        intro heq; unfold loop at heq; injection heq with e1 _
-        subst e1; simp at hb
-    | @whileTrue s0 s0' s0'' b c0 hb hc hloop ih1 ih2 =>
-        intro heq; exact ih2 heq
-    | @skip s0 => intro heq; simp [loop] at heq
-    | @asgn s0 a n x h => intro heq; simp [loop] at heq
-    | @seq c1 c2 s0 s0' s0'' h1 h2 ih1 ih2 => intro heq; simp [loop] at heq
-    | @ifTrue s0 s0' b c1 c2 hb hc ih => intro heq; simp [loop] at heq
-    | @ifFalse s0 s0' b c1 c2 hb hc ih => intro heq; simp [loop] at heq
-  exact key loop st st' contra rfl
+  sorry
 
 -- ### Exercise (3 stars): no_whiles_eqv ⭐⭐⭐
 
@@ -1170,31 +1111,10 @@ def Com.no_whiles (c : Com) : Bool :=
   | imp {while (~_) {~_}} => false
 
 inductive Com.NoWhilesR : Com → Prop where
-  | skip : Com.NoWhilesR (imp { skip })
-  | asgn (x : Ident) (a : Aexp) : Com.NoWhilesR (imp { x := ~a })
-  | seq (c1 c2 : Com) (h1 : Com.NoWhilesR c1) (h2 : Com.NoWhilesR c2) :
-      Com.NoWhilesR (imp { ~c1; ~c2 })
-  | cond (b : Bexp) (c1 c2 : Com) (h1 : Com.NoWhilesR c1) (h2 : Com.NoWhilesR c2) :
-      Com.NoWhilesR (imp { if (~b) { ~c1 } else { ~c2 } })
+  -- FILL IN HERE
 
 theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
-  constructor
-  · induction c with
-    | skip => intro _; exact .skip
-    | asgn x a => intro _; exact .asgn x a
-    | seq c1 c2 ih1 ih2 =>
-        intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
-        exact .seq _ _ (ih1 h.1) (ih2 h.2)
-    | cond b c1 c2 ih1 ih2 =>
-        intro h; simp only [Com.no_whiles, Bool.and_eq_true] at h
-        exact .cond _ _ _ (ih1 h.1) (ih2 h.2)
-    | whileDo b c ih => intro h; simp [Com.no_whiles] at h
-  · intro h
-    induction h with
-    | skip => rfl
-    | asgn x a => rfl
-    | seq c1 c2 h1 h2 ih1 ih2 => simp [Com.no_whiles, ih1, ih2]
-    | cond b c1 c2 h1 h2 ih1 ih2 => simp [Com.no_whiles, ih1, ih2]
+  sorry
 
 -- ### Exercise (4 stars): no_whiles_terminating ⭐⭐⭐⭐
 
@@ -1204,45 +1124,12 @@ theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
 
 theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
     ∃ st', st =[ c ]=> st' := by
-  induction h generalizing st with
-  | @skip => exact ⟨st, .skip⟩
-  | @asgn x a => exact ⟨(x →ₜ a.eval st ; st), .asgn rfl⟩
-  | @seq c1 c2 h1 h2 ih1 ih2 =>
-      obtain ⟨st', hc1⟩ := ih1 st
-      obtain ⟨st'', hc2⟩ := ih2 st'
-      exact ⟨st'', .seq hc1 hc2⟩
-  | @cond b c1 c2 h1 h2 ih1 ih2 =>
-      cases hb : b.eval st with
-      | true =>
-          obtain ⟨st', hc1⟩ := ih1 st
-          exact ⟨st', .ifTrue hb hc1⟩
-      | false =>
-          obtain ⟨st', hc2⟩ := ih2 st
-          exact ⟨st', .ifFalse hb hc2⟩
+  sorry
 
 -- And here is an alternative solution by induction on `c` (using
 -- `Com.no_whiles` instead of `Com.NoWhilesR`):
 
-theorem no_whiles_terminating' (c : Com) (st1 : State)
-    (hb : c.no_whiles = true) : ∃ st2, st1 =[ c ]=> st2 := by
-  induction c generalizing st1 with
-  | @skip => exact ⟨st1, .skip⟩
-  | @asgn x a => exact ⟨(x →ₜ a.eval st1 ; st1), .asgn rfl⟩
-  | @seq c1 c2 ih1 ih2 =>
-      simp only [Com.no_whiles, Bool.and_eq_true] at hb
-      obtain ⟨st1', hc1⟩ := ih1 st1 hb.1
-      obtain ⟨st1'', hc2⟩ := ih2 st1' hb.2
-      exact ⟨st1'', .seq hc1 hc2⟩
-  | @cond b ct cf ih1 ih2 =>
-      simp only [Com.no_whiles, Bool.and_eq_true] at hb
-      cases hbev : b.eval st1 with
-      | true =>
-          obtain ⟨st2, h⟩ := ih1 st1 hb.1
-          exact ⟨st2, .ifTrue hbev h⟩
-      | false =>
-          obtain ⟨st2, h⟩ := ih2 st1 hb.2
-          exact ⟨st2, .ifFalse hbev h⟩
-  | @whileDo b c ih => simp [Com.no_whiles] at hb
+-- FILL IN HERE
 
 -- Note to developers (Michael Hicks @mwhicks1):
 --     `NOT PORTED YET — remaining sections of sfdev/lf/Imp.v to port:

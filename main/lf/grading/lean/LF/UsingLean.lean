@@ -1,7 +1,7 @@
 import LF.Basics
 import LF.Induction
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # UsingLean: Using the Full Power of a Proof Assistant
@@ -157,14 +157,13 @@ sf_expect_failure
 
 theorem mul_three (n : Nat) :
     3 * n = n + n + n := by
-  rw [Nat.add_one_mul, Nat.two_mul]
+  sorry
 
 attribute [autogradedProof 1] mul_three
 
 theorem mul_three_beq (n : Nat) :
     (3 * n == n + n + n) = true := by
-  rw [Nat.beq_eq_true_eq]
-  exact mul_three n
+  sorry
 
 attribute [autogradedProof 1] mul_three_beq
 
@@ -230,12 +229,7 @@ theorem succ_mul_succ (n m : Nat) :
 
 theorem succ_mul_succ' (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
-  calc (n + 1) * (m + 1)
-  _ = n * (m + 1) + 1 * (m + 1) := by rw [Nat.add_mul]
-  _ = n * (m + 1) + (m + 1)     := by rw [Nat.one_mul]
-  _ = (n * m + n * 1) + (m + 1) := by rw [Nat.mul_add]
-  _ = (n * m + n) + (m + 1)     := by rw [Nat.mul_one]
-  _ = n * m + n + m + 1         := by rw [← Nat.add_assoc]
+  sorry
 
 -- If you prefer `rw` to `calc`, that's fine! Each has particular uses, and
 -- both will be tools in your ever-growing toolbox of tactics.
@@ -280,9 +274,7 @@ example (n m : Nat) (h : n + n = m) : triple n = m + n := by
 -- Complete this proof, using `dsimp` or `rw` as appropriate.
 
 example (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
-  rw [h]
-  dsimp [triple]
-  rw [Nat.add_assoc]
+  sorry
 
 -- `dsimp at h` also works on hypotheses, which `rfl` can't touch.
 
@@ -466,11 +458,7 @@ example (n : Nat) : Nat.double (n + 0) = Nat.double n := by
 
 theorem Nat.even_succ (n : Nat) :
     (n + 1).even = !(n.even) := by
-  induction n with
-  | zero =>
-    rfl
-  | succ n' ih =>
-    rw [even, ih, Bool.not_not]
+  sorry
 
 attribute [autogradedProof 1] Nat.even_succ
 
@@ -485,18 +473,14 @@ theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 -- ### Exercise (2 stars): double_add ⭐⭐
 
 theorem Nat.double_add (n : Nat) : n.double = n + n := by
-  induction n with
-  | zero =>
-    rw [double_zero]
-  | succ n' ih =>
-    rw [double_succ, ih, succ_add n' (n' + 1), add_succ n' n']
+  sorry
 
 attribute [autogradedProof 1] Nat.double_add
 
 -- ### Exercise (2 stars): double_mul ⭐⭐
 
 theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
-  rw [double_add, Nat.two_mul]
+  sorry
 
 attribute [autogradedProof 1] Nat.double_mul
 

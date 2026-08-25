@@ -3,7 +3,7 @@ import Lean.PrettyPrinter.Parenthesizer
 import LF.Typeclasses
 import TS.Smallstep
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Stlc: The Simply Typed Lambda-Calculus
@@ -783,46 +783,11 @@ variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty)
 inductive Substi (s : Tm) (x : String) : Tm → Tm → Prop where
   | var1 :
       Substi s x (.var x) s
-  | var2 (x' : String) (h : x ≠ x') :
-      Substi s x (.var x') (.var x')
-  | abs1 (T₂ : Ty) (t₁ : Tm) :
-      Substi s x <{ λ ~x : ~T₂ . ~t₁ }> <{ λ ~x : ~T₂ . ~t₁ }>
-  | abs2 (x' : String) (T₁ : Ty) (t₁ t₁' : Tm)
-      (hx : x ≠ x') (h : Substi s x t₁ t₁') :
-      Substi s x <{ λ ~x' : ~T₁ . ~t₁ }> <{ λ ~x' : ~T₁ . ~t₁' }>
-  | app (t₁ t₂ t₁' t₂' : Tm)
-      (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂') :
-      Substi s x <{ ~t₁ ~t₂ }> <{ ~t₁' ~t₂' }>
-  | tru :
-      Substi s x <{ true }> <{ true }>
-  | fls :
-      Substi s x <{ false }> <{ false }>
-  | ite (t₁ t₂ t₃ t₁' t₂' t₃' : Tm)
-      (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂') (h₃ : Substi s x t₃ t₃') :
-      Substi s x <{ if ~t₁ then ~t₂ else ~t₃ }> <{ if ~t₁' then ~t₂' else ~t₃' }>
+-- FILL IN HERE
 
 theorem substi_correct (s : Tm) (x : String) (t t' : Tm) :
     <{ [~x := ~s] ~t }> = t' ↔ Substi s x t t' := by
-  constructor
-  · -- →
-    intro h
-    subst h
-    induction t with
-    | var y =>
-        by_cases hxy : x = y
-        · subst hxy; simp; exact .var1
-        · simp [hxy]; exact .var2 y hxy
-    | app t₁ t₂ ih₁ ih₂ => exact .app _ _ _ _ ih₁ ih₂
-    | abs y T t₁ ih =>
-        by_cases hxy : x = y
-        · subst hxy; simp; exact .abs1 T t₁
-        · simp [hxy]; exact .abs2 y T t₁ _ hxy ih
-    | tru => exact .tru
-    | fls => exact .fls
-    | ite t₁ t₂ t₃ ih₁ ih₂ ih₃ => exact .ite _ _ _ _ _ _ ih₁ ih₂ ih₃
-  · -- ←
-    intro h
-    induction h <;> simp_all
+  sorry
 
 -- ### Reduction
 
@@ -1067,12 +1032,7 @@ example : <{ ~idBB (~notB true) }> ⟶* <{ false }> := by
 -- ### Exercise (2 stars): step_example5 ⭐⭐
 
 example : <{ ~idBBBB ~idBB ~idB }> ⟶* idB := by
-  apply Multi.step (y := <{ ~idBB ~idB }>)
-  · exact .app1 <{ ~idBBBB ~idBB }> idBB idB
-      (.appAbs "x" <{ (Bool → Bool) → Bool → Bool }> <{ x }> idBB idBB_value)
-  apply Multi.step (y := idB)
-  · exact .appAbs "x" <{ Bool → Bool }> <{ x }> idB idB_value
-  · rfl
+  sorry
 
 -- ## Typing
 
@@ -1315,13 +1275,7 @@ example :
 example :
     <{ ∅ ⊢ λ x : Bool . λ y : Bool → Bool . y (y x) ⦂
        Bool → (Bool → Bool) → Bool }> := by
-  apply HasType.abs
-  apply HasType.abs
-  apply HasType.app (T₂ := <{ Bool }>)
-  · apply HasType.var; rfl
-  · apply HasType.app (T₂ := <{ Bool }>)
-    · apply HasType.var; rfl
-    · apply HasType.var; rfl
+  sorry
 
 -- ### Exercise (2 stars): typing_example_3 ⭐⭐
 
@@ -1335,11 +1289,7 @@ example :
 example :
     ∃ T, <{ ∅ ⊢ λ x : Bool → Bool . λ y : Bool → Bool . λ z : Bool . y (x z)
             ⦂ ~T }> :=
-  (
-    ⟨<{ (Bool → Bool) → (Bool → Bool) → (Bool → Bool) }>,
-     .abs _ _ _ _ _ (.abs _ _ _ _ _ (.abs _ _ _ _ _
-       (.app _ _ Ty.bool _ _ (.var _ "y" _ rfl)
-         (.app _ _ Ty.bool _ _ (.var _ "x" _ rfl) (.var _ "z" _ rfl)))))⟩)
+  sorry
 
 -- We can also show that some terms are *not* typable. For example, we can
 -- check that there is no typing derivation assigning a type to the term
@@ -1368,21 +1318,7 @@ example : ¬ ∃ T, <{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~T }> := by
 --   ¬ ∃ S T, ∅ ⊢ λx:S. x x ⦂ T
 
 example : ¬ ∃ S T, <{ ∅ ⊢ λ x : ~S . x x ⦂ ~T }> := by
-  have arrow_ne : ∀ (T₁ T₂ : Ty), T₁ ≠ Ty.arrow T₁ T₂ := by
-    intro T₁
-    induction T₁ with
-    | bool => intro T₂ h; cases h
-    | arrow A B ihA _ => intro T₂ h; injection h with h₁ _; exact ihA B h₁
-  intro ⟨S, T, hc⟩
-  cases hc with
-  | abs _ _ _ _ _ h₁ =>
-    cases h₁ with
-    | app _ _ _ _ _ hf ha =>
-      cases hf with
-      | var _ _ _ hx =>
-        cases ha with
-        | var _ _ _ hy =>
-          exact arrow_ne _ _ ((Option.some.inj hy).symm.trans (Option.some.inj hx))
+  sorry
 
 -- Note to developers:
 --     The Rocq proof gets to the same contradiction through a chain of

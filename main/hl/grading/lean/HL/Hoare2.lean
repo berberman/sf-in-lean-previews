@@ -1,6 +1,6 @@
 import HL.Hoare
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Hoare2: Hoare Logic, Part II
@@ -1285,16 +1285,16 @@ theorem subtract_slowly_outer_triple_valid (m n : Nat) :
 def slowAssignmentDec (m : Nat) : Decorated where
   pre := ({{ X = m }})
   body := dcom {
-    Y := 0 {{ ({{ X = m ∧ Y = 0 }}) }};
-    (->> {{ ({{ Y + X = m }}) }}
+    Y := 0 {{ sorry }};
+    (->> {{ sorry }}
       while (X ≠ 0) do
-        {{ ({{ Y + X = m ∧ ¬ X = 0 }}) }}
-        ->> {{ ({{ Y + (X - 1) + 1 = m }}) }}
-        X := X - 1 {{ ({{ Y + X + 1 = m }}) }};
-        (->> {{ ({{ Y + X + 1 = m }}) }}
-          Y := Y + 1 {{ ({{ Y + X = m }}) }})
+        {{ sorry }}
+        ->> {{ sorry }}
+        X := X - 1 {{ sorry }};
+        (->> {{ sorry }}
+          Y := Y + 1 {{ sorry }})
       end
-        {{ ({{ Y + X = m ∧ X = 0 }}) }}
+        {{ sorry }}
       ->> {{ Y = m }})
   }
 
@@ -1410,15 +1410,13 @@ def parityDec (m : Nat) : Decorated where
   pre := ({{ X = m }})
   body :=
     let inv : Assertion :=
-      (fun st => parity st[X] = parity m)
+      sorry
     let guardedInv : Assertion :=
-      (fun st =>
-        parity st[X] = parity m ∧ 2 ≤ st[X])
+      sorry
     let bodyPre : Assertion :=
-      (fun st => parity (st[X] - 2) = parity m)
+      sorry
     let exit : Assertion :=
-      (fun st =>
-        parity st[X] = parity m ∧ ¬ 2 ≤ st[X])
+      sorry
     let post : Assertion :=
       fun st => st[X] = parity m
     dcom {
@@ -1447,83 +1445,7 @@ theorem parity_outer_triple_valid (m : Nat) :
     (parityDec m).OuterTripleValid := by
   sorry
 
-/- Here is another loop invariant — arguably a more natural
-one —
-which sadly leads to a rather long proof. -/
-inductive Even : Nat → Prop where
-  | zero : Even 0
-  | addTwo {n : Nat} : Even n → Even (Nat.succ (Nat.succ n))
-
-def findParityDec (m : Nat) : Decorated where
-  pre := ({{ X = m }})
-  body :=
-    let inv : Assertion :=
-      fun st => st[X] ≤ m ∧ Even (m - st[X])
-    let guardedInv : Assertion :=
-      fun st => (st[X] ≤ m ∧ Even (m - st[X])) ∧ 2 ≤ st[X]
-    let bodyPre : Assertion :=
-      fun st => st[X] - 2 ≤ m ∧ Even (m - (st[X] - 2))
-    let exit : Assertion :=
-      fun st => (st[X] ≤ m ∧ Even (m - st[X])) ∧ st[X] < 2
-    let post : Assertion := fun st => st[X] = 0 ↔ Even m
-    dcom {
-    ->> {{ inv }}
-    while (2 ≤ X) do
-      {{ guardedInv }}
-      ->> {{ bodyPre }}
-      X := X - 2 {{ inv }}
-    end
-      {{ exit }}
-    ->> {{ post }}
-  }
-
-theorem find_parity_correct (m : Nat) :
-    (findParityDec m).OuterTripleValid := by
-  -- Simplification is too aggressive here; recover the
-  -- folded guard before proving preservation and exit.
-  -- At loop exit, X can only be 0 or 1.
-  sorry
-
-/- Here is a more intuitive way of writing the loop
-invariant. -/
-def findParityDec' (m : Nat) : Decorated where
-  pre := ({{ X = m }})
-  body :=
-    let inv : Assertion := fun st => Even st[X] ↔ Even m
-    let guardedInv : Assertion :=
-      fun st => (Even st[X] ↔ Even m) ∧ 2 ≤ st[X]
-    let bodyPre : Assertion :=
-      fun st => Even (st[X] - 2) ↔ Even m
-    let exit : Assertion :=
-      fun st => (Even st[X] ↔ Even m) ∧ ¬ 2 ≤ st[X]
-    let post : Assertion := fun st => st[X] = 0 ↔ Even m
-    dcom {
-    ->> {{ inv }}
-    while (2 ≤ X) do
-      {{ guardedInv }}
-      ->> {{ bodyPre }}
-      X := X - 2 {{ inv }}
-    end
-      {{ exit }}
-    ->> {{ post }}
-  }
-
-theorem find_parity_correct' (m : Nat) :
-    (findParityDec' m).OuterTripleValid := by
-  -- Simplification is too aggressive here; recover the
-  -- folded guard before proving preservation and exit.
-  -- At loop exit, X can only be 0 or 1.
-  sorry
-
-/- Finally, just for fun, here is an old-style
-non-decorated-program proof. -/
-theorem parity_correct (m : Nat) :
-    {{ X = m }}
-        while (2 ≤ X) {
-          X := X - 2
-        }
-    {{ fun st => st[X] = parity m }} := by
-  sorry
+-- FILL IN HERE
 
 -- ### Example: Finding Square Roots
 
@@ -1601,22 +1523,14 @@ theorem parity_correct (m : Nat) :
 def sqrtDec (m : Nat) : Decorated where
   pre := ({{ X = m }})
   body := dcom {
-    ->> {{ ({{ X = m ∧ 0 * 0 ≤ m }}) }}
-    Z := 0 {{ ({{ X = m ∧ Z * Z ≤ m }}) }};
+    ->> {{ sorry }}
+    Z := 0 {{ sorry }};
     while ((Z + 1) * (Z + 1) ≤ X) do
-      {{ ({{
-        (X = m ∧ Z * Z ≤ m) ∧
-        (Z + 1) * (Z + 1) ≤ X
-      }}) }}
-      ->> {{ ({{
-        X = m ∧ (Z + 1) * (Z + 1) ≤ m
-      }}) }}
-      Z := Z + 1 {{ ({{ X = m ∧ Z * Z ≤ m }}) }}
+      {{ sorry }}
+      ->> {{ sorry }}
+      Z := Z + 1 {{ sorry }}
     end
-      {{ ({{
-        (X = m ∧ Z * Z ≤ m) ∧
-        ¬ (Z + 1) * (Z + 1) ≤ X
-      }}) }}
+      {{ sorry }}
     ->> {{ Z * Z ≤ m ∧ m < (Z + 1) * (Z + 1) }}
   }
 
@@ -1817,21 +1731,7 @@ def fact : Nat → Nat
 -- are more amenable to manipulation in Lean. For example, recall that
 -- `1 + ...` is easier to work with than `... + 1`.
 
-def factorialDec (m : Nat) : Decorated := ({
-  pre := ({{ X = m }})
-  body := dcom {
-    ->> {{ 1 * fact X = fact m }}
-    Y := 1 {{ Y * fact X = fact m }};
-    while (X ≠ 0) do
-      {{ Y * fact X = fact m ∧ ¬ X = 0 }}
-      ->> {{ (Y * X) * fact (X - 1) = fact m }}
-      Y := Y * X {{ Y * fact (X - 1) = fact m }};
-      X := X - 1 {{ Y * fact X = fact m }}
-    end
-      {{ Y * fact X = fact m ∧ X = 0 }}
-    ->> {{ Y = fact m }}
-  }
-})
+def factorialDec (m : Nat) : Decorated := sorry
 
 theorem fact_sub_one (m : Nat) (h : m ≠ 0) :
     m * fact (m - 1) = fact m := by
@@ -1876,39 +1776,30 @@ theorem factorial_correct (m : Nat) :
 def minimumDec (a b : Nat) : Decorated where
   pre := ({{ True }})
   body := dcom {
-    ->> {{ ({{ 0 + Nat.min a b = Nat.min a b }}) }}
+    ->> {{ sorry }}
     X := ~(Aexp.num a) {{
-      ({{ 0 + Nat.min X b = Nat.min a b }})
+      sorry
     }};
     Y := ~(Aexp.num b) {{
-      ({{ 0 + Nat.min X Y = Nat.min a b }})
+      sorry
     }};
     Z := 0 {{
-      ({{ Z + Nat.min X Y = Nat.min a b }})
+      sorry
     }};
     while (X ≠ 0 ∧ Y ≠ 0) do
-      {{ ({{
-        Z + Nat.min X Y = Nat.min a b ∧ (¬ X = 0 ∧ ¬ Y = 0)
-      }}) }}
-      ->> {{ ({{
-        Z + 1 + Nat.min (X - 1) (Y - 1) = Nat.min a b
-      }}) }}
+      {{ sorry }}
+      ->> {{ sorry }}
       X := X - 1 {{
-        ({{
-          Z + 1 + Nat.min X (Y - 1) = Nat.min a b
-        }})
+        sorry
       }};
       Y := Y - 1 {{
-        ({{ Z + 1 + Nat.min X Y = Nat.min a b }})
+        sorry
       }};
       Z := Z + 1 {{
-        ({{ Z + Nat.min X Y = Nat.min a b }})
+        sorry
       }}
     end
-      {{ ({{
-        Z + Nat.min X Y = Nat.min a b ∧
-        ¬ (¬ X = 0 ∧ ¬ Y = 0)
-      }}) }}
+      {{ sorry }}
     ->> {{ Z = Nat.min a b }}
   }
 
@@ -1961,29 +1852,29 @@ theorem minimum_correct (a b : Nat) :
 def twoLoopsDec (a b c : Nat) : Decorated where
   pre := ({{ True }})
   body := dcom {
-    ->> {{ ({{ c = 0 + c ∧ 0 = 0 }}) }}
-    X := 0 {{ ({{ c = X + c ∧ 0 = 0 }}) }};
-    Y := 0 {{ ({{ c = X + c ∧ Y = 0 }}) }};
+    ->> {{ sorry }}
+    X := 0 {{ sorry }};
+    Y := 0 {{ sorry }};
     Z := ~(Aexp.num c) {{
-      ({{ Z = X + c ∧ Y = 0 }})
+      sorry
     }};
     (while (X ≠ ~(Aexp.num a)) do
-      {{ ({{ (Z = X + c ∧ Y = 0) ∧ ¬ X = a }}) }}
-      ->> {{ ({{ Z + 1 = X + 1 + c ∧ Y = 0 }}) }}
+      {{ sorry }}
+      ->> {{ sorry }}
       X := X + 1 {{
-        ({{ Z + 1 = X + c ∧ Y = 0 }})
+        sorry
       }};
-      Z := Z + 1 {{ ({{ Z = X + c ∧ Y = 0 }}) }}
+      Z := Z + 1 {{ sorry }}
     end
-      {{ ({{ (Z = X + c ∧ Y = 0) ∧ X = a }}) }}
-    ->> {{ ({{ Z = a + Y + c }}) }});
+      {{ sorry }}
+    ->> {{ sorry }});
     while (Y ≠ ~(Aexp.num b)) do
-      {{ ({{ Z = a + Y + c ∧ ¬ Y = b }}) }}
-      ->> {{ ({{ Z + 1 = a + Y + 1 + c }}) }}
-      Y := Y + 1 {{ ({{ Z + 1 = a + Y + c }}) }};
-      Z := Z + 1 {{ ({{ Z = a + Y + c }}) }}
+      {{ sorry }}
+      ->> {{ sorry }}
+      Y := Y + 1 {{ sorry }};
+      Z := Z + 1 {{ sorry }}
     end
-      {{ ({{ Z = a + Y + c ∧ Y = b }}) }}
+      {{ sorry }}
     ->> {{ Z = a + b + c }}
   }
 
@@ -2101,45 +1992,30 @@ def pow2 : Nat → Nat
 def dpow2Dec (n : Nat) : Decorated where
   pre := ({{ True }})
   body := dcom {
-    ->> {{ ({{
-      1 = pow2 (0 + 1) - 1 ∧ 1 = pow2 0
-    }}) }}
+    ->> {{ sorry }}
     X := 0 {{
-      ({{ 1 = pow2 (X + 1) - 1 ∧ 1 = pow2 X }})
+      sorry
     }};
     Y := 1 {{
-      ({{ Y = pow2 (X + 1) - 1 ∧ 1 = pow2 X }})
+      sorry
     }};
     Z := 1 {{
-      ({{ Y = pow2 (X + 1) - 1 ∧ Z = pow2 X }})
+      sorry
     }};
     while (X ≠ ~(Aexp.num n)) do
-      {{ ({{
-        (Y = pow2 (X + 1) - 1 ∧ Z = pow2 X) ∧ ¬ X = n
-      }}) }}
-      ->> {{ ({{
-        Y + 2 * Z = pow2 (X + 2) - 1 ∧
-        2 * Z = pow2 (X + 1)
-      }}) }}
+      {{ sorry }}
+      ->> {{ sorry }}
       Z := 2 * Z {{
-        ({{
-          Y + Z = pow2 (X + 2) - 1 ∧ Z = pow2 (X + 1)
-        }})
+        sorry
       }};
       Y := Y + Z {{
-        ({{
-          Y = pow2 (X + 2) - 1 ∧ Z = pow2 (X + 1)
-        }})
+        sorry
       }};
       X := X + 1 {{
-        ({{
-          Y = pow2 (X + 1) - 1 ∧ Z = pow2 X
-        }})
+        sorry
       }}
     end
-      {{ ({{
-        (Y = pow2 (X + 1) - 1 ∧ Z = pow2 X) ∧ X = n
-      }}) }}
+      {{ sorry }}
     ->> {{ Y = pow2 (n + 1) - 1 }}
   }
 
@@ -2249,44 +2125,25 @@ def dfib (n : Nat) : Decorated where
   pre := ({{ True }})
   body :=
     let init : Assertion :=
-      (fun _ =>
-        1 = fib 0 ∧ 1 = fib (Nat.pred 0) ∧ 1 > 0)
+      sorry
     let afterX : Assertion :=
-      (fun st =>
-        1 = fib st[X] ∧
-        1 = fib (Nat.pred st[X]) ∧ st[X] > 0)
+      sorry
     let afterY : Assertion :=
-      (fun st =>
-        1 = fib st[X] ∧
-        st[Y] = fib (Nat.pred st[X]) ∧ st[X] > 0)
+      sorry
     let inv : Assertion :=
-      (fun st =>
-        st[Z] = fib st[X] ∧
-        st[Y] = fib (Nat.pred st[X]) ∧ st[X] > 0)
+      sorry
     let guardedInv : Assertion :=
-      (fun st =>
-        st[Z] = fib st[X] ∧ st[Y] = fib (Nat.pred st[X]) ∧
-        st[X] > 0 ∧ st[X] ≠ 1 + n)
+      sorry
     let bodyPre : Assertion :=
-      (fun st =>
-        st[Z] + st[Y] = fib (1 + st[X]) ∧
-        st[Z] = fib (Nat.pred (1 + st[X])) ∧ 1 + st[X] > 0)
+      sorry
     let afterT : Assertion :=
-      (fun st =>
-        st[Z] + st[Y] = fib (1 + st[X]) ∧
-        st[T] = fib (Nat.pred (1 + st[X])) ∧ 1 + st[X] > 0)
+      sorry
     let afterZ : Assertion :=
-      (fun st =>
-        st[Z] = fib (1 + st[X]) ∧
-        st[T] = fib (Nat.pred (1 + st[X])) ∧ 1 + st[X] > 0)
+      sorry
     let afterYBody : Assertion :=
-      (fun st =>
-        st[Z] = fib (1 + st[X]) ∧
-        st[Y] = fib (Nat.pred (1 + st[X])) ∧ 1 + st[X] > 0)
+      sorry
     let exit : Assertion :=
-      (fun st =>
-        st[Z] = fib st[X] ∧ st[Y] = fib (Nat.pred st[X]) ∧
-        st[X] > 0 ∧ st[X] = 1 + n)
+      sorry
     dcom {
       ->> {{ init }}
       X := 1 {{ afterX }};
@@ -2326,390 +2183,7 @@ theorem dfib_correct (n : Nat) :
 
 namespace SparseAnnotations
 
-/- (This solution also allows optional post-condition
-assertions at any point, since these are quite useful in
-practice when debugging the results of automated VC
-solvers.) -/
-
-inductive DCom where
-  | skip
-  | seq (first second : DCom)
-  | asgn (x : Ident) (a : Aexp)
-  | cond (b : Bexp) (thenBranch elseBranch : DCom)
-  | whileDo (b : Bexp) (invariant : Assertion) (body : DCom)
-  | assert (assertion : Assertion)
-
-structure Decorated where
-  pre : Assertion
-  body : DCom
-  post : Assertion
-
-declare_syntax_cat sparse_dcom
-
-syntax:max "(" sparse_dcom ")" : sparse_dcom
-syntax:max "skip" : sparse_dcom
-syntax:max ident " := " imp_aexp : sparse_dcom
-syntax:20 sparse_dcom:21 ";" ppLine
-  sparse_dcom:20 : sparse_dcom
-syntax:max "if " "(" imp_bexp ")" ppHardSpace "then" ppLine
-  sparse_dcom ppLine "else" ppLine sparse_dcom ppLine
-  "end" : sparse_dcom
-syntax:max "while " "(" imp_bexp ")" ppHardSpace "do" ppLine
-  "{{" term "}}" ppLine sparse_dcom ppLine
-  "end" : sparse_dcom
-syntax:max "assert" " {{" term "}}" : sparse_dcom
-
-syntax:min "sdcom" ppHardSpace "{" ppLine
-  sparse_dcom ppDedent(ppLine "}") : term
-
-macro_rules
-  | `(sdcom { ($body:sparse_dcom) }) =>
-      `(sdcom { $body })
-  | `(sdcom { skip }) =>
-      `(DCom.skip)
-  | `(sdcom { $x:ident := $a:imp_aexp }) =>
-      `(DCom.asgn $x (aexp { $a }))
-  | `(sdcom { $d1:sparse_dcom; $d2:sparse_dcom }) =>
-      `(DCom.seq (sdcom { $d1 }) (sdcom { $d2 }))
-  | `(sdcom {
-        if ($b:imp_bexp) then
-          $d1:sparse_dcom
-        else
-          $d2:sparse_dcom
-        end
-      }) =>
-      `(DCom.cond (bexp { $b })
-        (sdcom { $d1 }) (sdcom { $d2 }))
-  | `(sdcom {
-        while ($b:imp_bexp) do
-          {{ $inv }}
-          $body:sparse_dcom
-        end
-      }) =>
-      `(DCom.whileDo (bexp { $b }) ({{ $inv }})
-        (sdcom { $body }))
-  | `(sdcom { assert {{ $p }} }) =>
-      `(DCom.assert ({{ $p }}))
-
-/- Here's how our decorated programs look now: -/
-
-def decWhile : Decorated where
-  pre := ({{ True }})
-  body := sdcom {
-    while (X ≠ 0) do
-      {{ True }}
-      X := X - 1
-    end
-  }
-  post := ({{ X = 0 }})
-
-/- It is easy to go from a `DCom` to a `Com` by erasing all
-annotations. -/
-
-def DCom.erase (d : DCom) : Com :=
-  match d with
-  | .skip => .skip
-  | .seq d1 d2 => .seq d1.erase d2.erase
-  | .asgn x a => .asgn x a
-  | .cond b d1 d2 => .cond b d1.erase d2.erase
-  | .whileDo b _ body => .whileDo b body.erase
-  | .assert _ => .skip
-
-/- We can express what it means for a decorated program to
-be correct as follows: -/
-
-def Decorated.OuterTripleValid (dec : Decorated) : Prop :=
-  ValidHoareTriple dec.pre dec.body.erase dec.post
-
-/- This VC generator is derived from Mike Gordon,
-"Background reading on Hoare Logic,"
-https://www.cl.cam.ac.uk/archive/mjcg/HL/Notes/Notes.pdf -/
-
-def DCom.awp (post : Assertion) (d : DCom) : Assertion :=
-  match d with
-  | .skip => post
-  | .seq d1 d2 => d1.awp (d2.awp post)
-  | .asgn x a => {{ post [x ↦ ~a] }}
-  | .cond b d1 d2 =>
-      fun st =>
-        (b.eval st = true ∧ d1.awp post st) ∨
-        (b.eval st = false ∧ d2.awp post st)
-  | .whileDo _ invariant _ => invariant
-  | .assert assertion => fun st => assertion st ∧ post st
-
-def DCom.VerificationConditions
-    (post : Assertion) (d : DCom) : Prop :=
-  match d with
-  | .seq d1 d2 =>
-      d1.VerificationConditions (d2.awp post) ∧
-      d2.VerificationConditions post
-  | .cond _ d1 d2 =>
-      d1.VerificationConditions post ∧
-      d2.VerificationConditions post
-  | .whileDo b invariant body =>
-      (∀ st, invariant st ∧ b.eval st ≠ true → post st) ∧
-      (∀ st, invariant st ∧ b.eval st = true →
-        body.awp invariant st) ∧
-      body.VerificationConditions invariant
-  | _ => True
-
-theorem vc_correct (d : DCom) (post : Assertion)
-    (hvc : d.VerificationConditions post) :
-    ValidHoareTriple (d.awp post) d.erase post := by
-  sorry
-
-def Decorated.VerificationConditions
-    (dec : Decorated) : Prop :=
-  (dec.pre ->> dec.body.awp dec.post) ∧
-  dec.body.VerificationConditions dec.post
-
-theorem verification_correct (dec : Decorated)
-    (hvc : dec.VerificationConditions) :
-    dec.OuterTripleValid := by
-  sorry
-
-/- Let's redo all the examples to date. -/
-/- LATER: Fix indentation. -/
-theorem dec_while_correct :
-    decWhile.OuterTripleValid := by
-  sorry
-
-def swapDec (m n : Nat) : Decorated where
-  pre := ({{ X = m ∧ Y = n }})
-  body := sdcom {
-    X := X + Y;
-    Y := X - Y;
-    X := X - Y
-  }
-  post := ({{ X = n ∧ Y = m }})
-
-theorem swap_correct (m n : Nat) :
-    (swapDec m n).OuterTripleValid := by
-  sorry
-
-def ifMinusDec : Decorated where
-  pre := ({{ True }})
-  body := sdcom {
-    if (X ≤ Y) then
-      Z := Y - X
-    else
-      Z := X - Y
-    end
-  }
-  post := ({{ Z + X = Y ∨ Z + Y = X }})
-
-theorem if_minus_correct :
-    ifMinusDec.OuterTripleValid := by
-  sorry
-
-def ifMinusPlusDec : Decorated where
-  pre := ({{ True }})
-  body := sdcom {
-    if (X ≤ Y) then
-      Z := Y - X
-    else
-      Y := X + Z
-    end
-  }
-  post := ({{ Y = X + Z }})
-
-theorem if_minus_plus_correct :
-    ifMinusPlusDec.OuterTripleValid := by
-  sorry
-
-def divModDec (a b : Nat) : Decorated where
-  pre := ({{ True }})
-  body := sdcom {
-    X := ~(Aexp.num a);
-    Y := 0;
-    while (~(Aexp.num b) ≤ X) do
-      {{ b * Y + X = a }}
-      X := X - ~(Aexp.num b);
-      Y := Y + 1
-    end
-  }
-  post := ({{ b * Y + X = a ∧ X < b }})
-
-theorem div_mod_outer_triple_valid (a b : Nat) :
-    (divModDec a b).OuterTripleValid := by
-  sorry
-
-def parityDec (m : Nat) : Decorated where
-  pre := ({{ X = m }})
-  body := sdcom {
-    while (2 ≤ X) do
-      {{ parity X = parity m }}
-      X := X - 2
-    end
-  }
-  post := ({{ X = parity m }})
-
-theorem parity_outer_triple_valid (m : Nat) :
-    (parityDec m).OuterTripleValid := by
-  sorry
-
-def sqrtDec (m : Nat) : Decorated where
-  pre := ({{ X = m }})
-  body := sdcom {
-    Z := 0;
-    while ((Z + 1) * (Z + 1) ≤ X) do
-      {{ X = m ∧ Z * Z ≤ m }}
-      Z := Z + 1
-    end
-  }
-  post := ({{ Z * Z ≤ m ∧ m < (Z + 1) * (Z + 1) }})
-
-theorem sqrt_correct (m : Nat) :
-    (sqrtDec m).OuterTripleValid := by
-  sorry
-
-def squareDec (m : Nat) : Decorated where
-  pre := ({{ X = m }})
-  body := sdcom {
-    Y := X;
-    Z := 0;
-    while (Y ≠ 0) do
-      {{ Z + X * Y = m * m }}
-      Z := Z + X;
-      Y := Y - 1
-    end
-  }
-  post := ({{ Z = m * m }})
-
-theorem square_outer_triple_valid (m : Nat) :
-    (squareDec m).OuterTripleValid := by
-  sorry
-
-def squareDec' (n : Nat) : Decorated where
-  pre := ({{ True }})
-  body := sdcom {
-    X := ~(Aexp.num n);
-    Y := X;
-    Z := 0;
-    while (Y ≠ 0) do
-      {{ Z = X * (X - Y) ∧ X = n ∧ Y ≤ X }}
-      Z := Z + X;
-      Y := Y - 1
-    end
-  }
-  post := ({{ Z = n * n }})
-
-theorem square_dec'_correct (n : Nat) :
-    (squareDec' n).OuterTripleValid := by
-  sorry
-
-def squareSimplerDec (m : Nat) : Decorated where
-  pre := ({{ X = m }})
-  body := sdcom {
-    Y := 0;
-    Z := 0;
-    while (Y ≠ X) do
-      {{ Z = Y * m ∧ X = m }}
-      Z := Z + X;
-      Y := Y + 1
-    end
-  }
-  post := ({{ Z = m * m }})
-
-theorem square_simpler_outer_triple_valid (m : Nat) :
-    (squareSimplerDec m).OuterTripleValid := by
-  sorry
-
-def twoLoopsDec (a b c : Nat) : Decorated where
-  pre := ({{ True }})
-  body := sdcom {
-    X := 0;
-    Y := 0;
-    Z := ~(Aexp.num c);
-    (while (X ≠ ~(Aexp.num a)) do
-      {{ Z = X + c ∧ Y = 0 }}
-      X := X + 1;
-      Z := Z + 1
-    end);
-    while (Y ≠ ~(Aexp.num b)) do
-      {{ Z = a + Y + c }}
-      Y := Y + 1;
-      Z := Z + 1
-    end
-  }
-  post := ({{ Z = a + b + c }})
-
-theorem two_loops_correct (a b c : Nat) :
-    (twoLoopsDec a b c).OuterTripleValid := by
-  sorry
-
-def subtractSlowlyDec (m p : Nat) : Decorated where
-  pre := ({{ X = m ∧ Z = p }})
-  body := sdcom {
-    while (X ≠ 0) do
-      {{ Z - X = p - m }}
-      Z := Z - 1;
-      X := X - 1
-    end
-  }
-  post := ({{ Z = p - m }})
-
-theorem subtract_slowly_correct (m p : Nat) :
-    (subtractSlowlyDec m p).OuterTripleValid := by
-  sorry
-
-def dpow2Down (n : Nat) : Decorated where
-  pre := ({{ True }})
-  body := sdcom {
-    X := 0;
-    Y := 1;
-    Z := 1;
-    while (X ≠ ~(Aexp.num n)) do
-      {{ Y = pow2 (X + 1) - 1 ∧ Z = pow2 X }}
-      Z := 2 * Z;
-      Y := Y + Z;
-      X := X + 1
-    end
-  }
-  post := ({{ Y = pow2 (n + 1) - 1 }})
-
-theorem dpow2_down_correct (n : Nat) :
-    (dpow2Down n).OuterTripleValid := by
-  sorry
-
-def factorialDec (m : Nat) : Decorated where
-  pre := ({{ X = m }})
-  body := sdcom {
-    Y := 1;
-    while (X ≠ 0) do
-      {{ Y * fact X = fact m }}
-      Y := Y * X;
-      X := X - 1
-    end
-  }
-  post := ({{ Y = fact m }})
-
-theorem factorial_outer_triple_valid (m : Nat) :
-    (factorialDec m).OuterTripleValid := by
-  sorry
-
-def T : Ident := "T"
-
-def dfib (n : Nat) : Decorated where
-  pre := ({{ True }})
-  body := sdcom {
-    X := 1;
-    Y := 1;
-    Z := 1;
-    while (X ≠ ~(Aexp.num (1 + n))) do
-      {{ Z = fib X ∧ Y = fib (Nat.pred X) ∧ X > 0 }}
-      T := Z;
-      Z := Z + Y;
-      Y := T;
-      X := 1 + X
-    end
-  }
-  post := ({{ Y = fib n }})
-
-theorem dfib_correct (n : Nat) :
-    (dfib n).OuterTripleValid := by
-  sorry
-
+-- FILL IN HERE
 
 end SparseAnnotations
 

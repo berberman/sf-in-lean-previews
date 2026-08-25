@@ -1,4 +1,4 @@
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Basics: Functional Programming in Lean
@@ -265,16 +265,17 @@ example : (!MyBool.false) = MyBool.true := by rfl
 -- verified by Lean.
 
 def nand (b1 : MyBool) (b2 : MyBool) : MyBool
-  := (match b1 with
-  | MyBool.true => not b2
-  | MyBool.false => MyBool.true)
+  := sorry
 
-theorem nand_test1 : nand MyBool.true  MyBool.false = MyBool.true  := (by rfl)
-theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := (by rfl)
-theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := (by rfl)
-theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := (by rfl)
+theorem nand_test1 : nand MyBool.true  MyBool.false = MyBool.true  := sorry
+theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := sorry
+theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := sorry
+theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := sorry
 
 attribute [autogradedProof 0.25] MyBool.nand_test1 MyBool.nand_test2 MyBool.nand_test3 MyBool.nand_test4
+
+-- Note to developers:
+--     TODO: `nand` needs `@[autogradedHole]`
 
 -- ### Exercise (1 star): and3 ⭐
 
@@ -282,12 +283,12 @@ attribute [autogradedProof 0.25] MyBool.nand_test1 MyBool.nand_test2 MyBool.nand
 -- `true` when all of its inputs are `true`, and `false` otherwise.
 
 def and3 (b1 : MyBool) (b2 : MyBool) (b3 : MyBool) : MyBool
-  := (and b1 (and b2 b3))
+  := sorry
 
-theorem and3_test1 : and3 MyBool.true  MyBool.true  MyBool.true  = MyBool.true  := (by rfl)
-theorem and3_test2 : and3 MyBool.false MyBool.true  MyBool.true  = MyBool.false := (by rfl)
-theorem and3_test3 : and3 MyBool.true  MyBool.false MyBool.true  = MyBool.false := (by rfl)
-theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false := (by rfl)
+theorem and3_test1 : and3 MyBool.true  MyBool.true  MyBool.true  = MyBool.true  := sorry
+theorem and3_test2 : and3 MyBool.false MyBool.true  MyBool.true  = MyBool.false := sorry
+theorem and3_test3 : and3 MyBool.true  MyBool.false MyBool.true  = MyBool.false := sorry
+theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false := sorry
 
 attribute [autogradedProof 0.25] MyBool.and3_test1 MyBool.and3_test2 MyBool.and3_test3 MyBool.and3_test4
 
@@ -420,8 +421,7 @@ theorem true_and' : ∀ (b : MyBool), (MyBool.true && b) = b := by
 -- Here's a simple proof for you to try. Remove `sorry` and fill in the proof.
 
 theorem false_or : ∀ (b : MyBool), (MyBool.false || b) = b := by
-  intro b
-  rfl
+  sorry
 
 attribute [autogradedProof 1] MyBool.false_or
 
@@ -600,15 +600,10 @@ def isRed' (c : Color) : Bool :=
 -- day of the week, or you could try to come up with a shorter solution...
 
 def is_weekend (d : Day) : Bool
-  := 
-    (match d with
-    | Day.saturday => true
-    | Day.sunday => true
-    | _ => false
-    )
+  := sorry
 
-theorem is_weekend_test1 : is_weekend Day.sunday = true := (by rfl)
-theorem is_weekend_test2 : is_weekend Day.friday = false := (by rfl)
+theorem is_weekend_test1 : is_weekend Day.sunday = true := sorry
+theorem is_weekend_test2 : is_weekend Day.friday = false := sorry
 
 attribute [autogradedProof 0.5] is_weekend_test1 is_weekend_test2
 
@@ -625,22 +620,15 @@ attribute [autogradedProof 0.5] is_weekend_test1 is_weekend_test2
 -- they pass with no `sorry`.
 
 def isInversion (c1 c2 : Color) : Bool
-  := 
-    (match c1, c2 with
-    | Color.black, Color.white => Bool.true
-    | Color.white, Color.black => Bool.true
-    | Color.primary RGB.red, Color.primary RGB.blue => Bool.true
-    | Color.primary RGB.blue, Color.primary RGB.red => Bool.true
-    | _, _ => false
-    )
+  := sorry
 
 
-theorem isInversion_test1 : isInversion Color.black Color.white = true := (by rfl)
-theorem isInversion_test2 : isInversion Color.white Color.black = Bool.true := (by rfl)
+theorem isInversion_test1 : isInversion Color.black Color.white = true := sorry
+theorem isInversion_test2 : isInversion Color.white Color.black = Bool.true := sorry
 theorem isInversion_test3 : isInversion (Color.primary RGB.red) (Color.primary RGB.blue) = Bool.true :=
-  (by rfl)
+  sorry
 theorem isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = Bool.false :=
-  (by rfl)
+  sorry
 
 attribute [autogradedProof 0.25] isInversion_test1 isInversion_test2 isInversion_test3 isInversion_test4
 
@@ -1154,11 +1142,7 @@ theorem add_zero_zero_explained : ∀  n : Nat, n + zero + zero = n := by
 -- Give this proof a try (it's similar):
 
 theorem add_zero_zero_zero : ∀ n : Nat, n + zero + zero + zero = n := by
-  intro n
-  rewrite [add_zero]
-  rewrite [add_zero]
-  rewrite [add_zero]
-  rfl
+  sorry
 
 -- ### The `rewrite` tactic
 
@@ -1322,17 +1306,12 @@ theorem four_eq_succ_three : four = succ three := by rfl
 
 theorem one_plus_one_eq_two : one + one = two := by
   rewrite [one_eq_succ_zero]
-  rewrite [add_succ]
-  rewrite [add_zero]
-  rfl
+  sorry
 
 -- Try the same for `two + two = four`.
 
 theorem two_plus_two_eq_four : two + two = four := by
-  rewrite [four_eq_succ_three, three_eq_succ_two,
-           two_eq_succ_one, one_eq_succ_zero]
-  rewrite [add_succ, add_succ, add_zero]
-  rfl
+  sorry
 
 -- #### Multiplication
 
@@ -1360,12 +1339,10 @@ scoped infixl:70 " * " => mul
 --     *statements* inside a `solution!` block as well.
 
 theorem mul_zero : ∀ n : Nat, n * zero = zero := by
-  intro n
-  rfl
+  sorry
 
 theorem mul_succ : ∀ n m : Nat, n * (succ m) = (n * m) + n := by
-  intro n m
-  rfl
+  sorry
 
 attribute [irreducible] mul
 
@@ -1386,33 +1363,24 @@ attribute [autogradedProof 0.5] NatPlayground.Nat.mul_zero NatPlayground.Nat.mul
 
 theorem zero_add_one : (zero + one : Nat) = one := by
   rewrite [one_eq_succ_zero]
-  rewrite [add_succ, add_zero]
-  rfl
+  sorry
 
 theorem one_add_one : (one + one : Nat) = two := by
   rewrite [one_eq_succ_zero]
-  rewrite [add_succ, add_zero]
-  rfl
+  sorry
 
 
 theorem zero_mul_two : (zero * two : Nat) = zero := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
-  rewrite [mul_succ, mul_succ, mul_zero]
-  rewrite [add_zero, add_zero]
-  rfl
+  sorry
 
 theorem one_mul_two : (one * two : Nat) = two := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
-  rewrite [mul_succ, mul_succ, mul_zero]
-  rewrite [add_succ, add_zero, add_succ, add_zero]
-  rfl
+  sorry
 
 theorem two_mul_two : (two * two : Nat) = four := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
-  rewrite [mul_succ, mul_succ, mul_zero]
-  rewrite [add_succ, add_succ, add_zero]
-  rewrite [add_succ, add_succ, add_zero]
-  rfl
+  sorry
 
 attribute [autogradedProof 0.4] NatPlayground.Nat.zero_add_one NatPlayground.Nat.one_add_one NatPlayground.Nat.zero_mul_two NatPlayground.Nat.one_mul_two NatPlayground.Nat.two_mul_two
 
@@ -1469,11 +1437,11 @@ example : ble four two = false := by rfl
 
 -- Define a less-than function in terms of `ble`.
 
-def blt (n m : Nat) : Bool := (ble (succ n) m)
+def blt (n m : Nat) : Bool := sorry
 
-example : blt two two = false := (by rfl)
-example : blt two four = true  := (by rfl)
-theorem blt_test3 : blt four two = false := (by rfl)
+example : blt two two = false := sorry
+example : blt two four = true  := sorry
+theorem blt_test3 : blt four two = false := sorry
 
 attribute [irreducible] blt ble
 
@@ -1555,9 +1523,7 @@ theorem add_id_example : ∀ n m : Nat,
 
 theorem add_id_exercise : ∀ n m o : Nat,
     n = m → m = o → n + m = m + o := by
-  intro n m o h1 h2
-  rewrite [h1, h2]
-  rfl
+  sorry
 
 attribute [autogradedProof 1] NatPlayground.Nat.add_id_exercise
 
@@ -1731,8 +1697,7 @@ theorem and3_exchange (b c d : Bool) :
 
 theorem or_false_true (b : Bool) (h: (b || false) = true) :
   b = true := by
-  rewrite [Bool.or_false] at h
-  exact h
+  sorry
 
 attribute [autogradedProof 2] NatPlayground.Nat.or_false_true
 
@@ -1740,9 +1705,7 @@ attribute [autogradedProof 2] NatPlayground.Nat.or_false_true
 
 theorem zero_neb_add_one (n : Nat) :
   (zero == (succ zero + n)) = false := by
-  cases n with
-  | zero => rewrite [add_zero, zero_beq_succ]; rfl
-  | succ n' => rewrite [add_succ, zero_beq_succ]; rfl
+  sorry
 
 attribute [autogradedProof 1] NatPlayground.Nat.zero_neb_add_one
 
@@ -1823,52 +1786,30 @@ inductive Bin : Type where
 attribute [pp_nodot] Bin.b1 Bin.b0
 
 def incr (m : Bin) : Bin
-  := (match m with
-  | .z => .b1 .z
-  | .b0 m' => .b1 m'
-  | .b1 m' => .b0 (incr m'))
+  := sorry
 
 def binToNat (m : Bin) : Nat
-  := (match m with
-  | .z => zero
-  | .b0 m' => binToNat m' * two
-  | .b1 m' => binToNat m' * two + one)
+  := sorry
 
-theorem incr_test1 : incr (.b1 .z) = .b0 (.b1 .z) := (by rfl)
-theorem incr_test2 : incr (.b0 (.b1 .z)) = .b1 (.b1 .z) := (by rfl)
-theorem incr_test3 : incr (.b1 (.b1 .z)) = .b0 (.b0 (.b1 .z)) := (by rfl)
+theorem incr_test1 : incr (.b1 .z) = .b0 (.b1 .z) := sorry
+theorem incr_test2 : incr (.b0 (.b1 .z)) = .b1 (.b1 .z) := sorry
+theorem incr_test3 : incr (.b1 (.b1 .z)) = .b0 (.b0 (.b1 .z)) := sorry
 
-theorem incr_z : incr .z = .b1 .z := (by rfl)
-theorem incr_b0 (m : Bin) : incr (.b0 m) = .b1 m := (by rfl)
-theorem incr_b1 (m : Bin) : incr (.b1 m) = .b0 (incr m) := (by rfl)
+theorem incr_z : incr .z = .b1 .z := sorry
+theorem incr_b0 (m : Bin) : incr (.b0 m) = .b1 m := sorry
+theorem incr_b1 (m : Bin) : incr (.b1 m) = .b0 (incr m) := sorry
 
-theorem binToNat_z : binToNat .z = zero := (by rfl)
-theorem binToNat_b0 (m : Bin) : binToNat (.b0 m) = binToNat m * two := (by rfl)
-theorem binToNat_b1 (m : Bin) : binToNat (.b1 m) = binToNat m * two + one := (by rfl)
+theorem binToNat_z : binToNat .z = zero := sorry
+theorem binToNat_b0 (m : Bin) : binToNat (.b0 m) = binToNat m * two := sorry
+theorem binToNat_b1 (m : Bin) : binToNat (.b1 m) = binToNat m * two + one := sorry
 
 -- You may find your previous proofs of `zero_add_one`, `one_add_one`,
 -- `zero_mul_two`, `one_mul_two`, and `two_mul_two` useful here.
 
-example : binToNat (.b0 (.b1 .z)) = two := (by
-  rewrite [binToNat_b0, binToNat_b1, binToNat_z]
-  rewrite [zero_mul_two, zero_add_one, one_mul_two]
-  rfl
-)
-theorem binToNat_test1 : binToNat (incr (.b1 .z)) = add one (binToNat (.b1 .z)) := (by
-    rewrite [binToNat_b1, binToNat_z, incr_b1, binToNat_b0, incr_z, binToNat_b1, binToNat_z]
-    rewrite [zero_mul_two, zero_add_one, one_mul_two, one_add_one]
-    rfl
-)
-theorem binToNat_test2 : binToNat (incr (incr (.b1 .z))) = add two (binToNat (.b1 .z)) := (by
-  rewrite [binToNat_b1, binToNat_z, incr_b1, incr_b0, binToNat_b1, incr_z, binToNat_b1, binToNat_z]
-  rewrite [zero_mul_two, zero_add_one, one_mul_two]
-  rfl
-)
-theorem binToNat_test3 : binToNat (.b0 (.b0 (.b1 .z))) = four := (by
-  rewrite [binToNat_b0, binToNat_b0, binToNat_b1, binToNat_z]
-  rewrite [zero_mul_two, zero_add_one, one_mul_two, two_mul_two]
-  rfl
-)
+example : binToNat (.b0 (.b1 .z)) = two := sorry
+theorem binToNat_test1 : binToNat (incr (.b1 .z)) = add one (binToNat (.b1 .z)) := sorry
+theorem binToNat_test2 : binToNat (incr (incr (.b1 .z))) = add two (binToNat (.b1 .z)) := sorry
+theorem binToNat_test3 : binToNat (.b0 (.b0 (.b1 .z))) = four := sorry
 
 attribute [irreducible] incr binToNat
 
@@ -1892,9 +1833,7 @@ end Nat
 theorem identity_fn_applied_twice (f : Bool → Bool) :
     (∀ x : Bool, f x = x) →
     ∀ b : Bool, f (f b) = b := by
-  intro h b
-  rewrite [h, h]
-  rfl
+  sorry
 
 attribute [autogradedProof 1] NatPlayground.identity_fn_applied_twice
 
@@ -1904,36 +1843,14 @@ attribute [autogradedProof 1] NatPlayground.identity_fn_applied_twice
 -- previous one but where the hypothesis says that the function `f` has the
 -- property that `f x = !x`.
 
-theorem negation_fn_applied_twice (f : Bool → Bool) :
-    (∀ x : Bool, f x = !x) →
-    ∀ b : Bool, f (f b) = b := by
-  intro h b
-  rewrite [h, h]
-  cases b with
-  | true => rewrite [Bool.not_true, Bool.not_false]; rfl
-  | false => rewrite [Bool.not_false, Bool.not_true]; rfl
+-- FILL IN HERE
 
 -- ### Exercise (3 stars): and_eq_or (Optional) ⭐⭐⭐
 
 -- Prove the following theorem.
 
 theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
-  intro h
-  cases c with
-  | true =>
-    /-
-      h : (true && c) = true || c, i.e., h : c = true
-    -/
-    rewrite [Bool.and_true, Bool.or_true] at h
-    rewrite [h]
-    rfl
-  | false =>
-    /-
-      h : (false && c) = false || c, i.e., h : false = c
-    -/
-    rewrite [Bool.and_false, Bool.or_false] at h
-    rewrite [h]
-    rfl
+  sorry
 
 attribute [autogradedProof 3] NatPlayground.and_eq_or
 
@@ -1996,25 +1913,21 @@ inductive Traveler : Type where
 
 -- ### Exercise (1 star): buyTicket ⭐
 
-def buyTicket (t : Traveler) : Traveler := (
-  match t with
-  | .noTicket bagContent => .ticketed bagContent
-  | _ => t
-)
-example : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := (by rfl)
-example : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := (by rfl)
+def buyTicket (t : Traveler) : Traveler := sorry
+example : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := sorry
+example : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := sorry
 
 -- Here are the simplification rules for `buyTicket`:
 
 theorem buyTicket_noTicket (bagContent : BagContent) :
-    buyTicket (.noTicket bagContent) = .ticketed bagContent := (by rfl)
+    buyTicket (.noTicket bagContent) = .ticketed bagContent := sorry
 
 theorem buyTicket_ticketed (bagContent : BagContent) :
-    buyTicket (.ticketed bagContent) = .ticketed bagContent := (by rfl)
+    buyTicket (.ticketed bagContent) = .ticketed bagContent := sorry
 
 theorem buyTicket_checkedIn (bagContent : BagContent)
     (screeningStatus : ScreeningStatus) :
-    buyTicket (.checkedIn bagContent screeningStatus) = .checkedIn bagContent screeningStatus := (by rfl)
+    buyTicket (.checkedIn bagContent screeningStatus) = .checkedIn bagContent screeningStatus := sorry
 
 attribute [irreducible] buyTicket
 
@@ -2026,19 +1939,7 @@ attribute [irreducible] buyTicket
 
 theorem buyTicket_idempotent (t : Traveler) :
     buyTicket (buyTicket t) = buyTicket t := by
-  cases t with
-  | noTicket =>
-      rewrite [buyTicket_noTicket]
-      rewrite [buyTicket_ticketed]
-      rfl
-  | ticketed =>
-      rewrite [buyTicket_ticketed]
-      rewrite [buyTicket_ticketed]
-      rfl
-  | checkedIn =>
-      rewrite [buyTicket_checkedIn]
-      rewrite [buyTicket_checkedIn]
-      rfl
+  sorry
 
 -- A traveler can check in only after buying a ticket. Checking in records
 -- that their carry-on bag still needs to be inspected. Calling `checkIn`
@@ -2046,27 +1947,23 @@ theorem buyTicket_idempotent (t : Traveler) :
 
 -- ### Exercise (1 star): checkIn ⭐
 
-def checkIn (t : Traveler) : Traveler := (
-  match t with
-  | .ticketed bagContent => .checkedIn bagContent .notScreened
-  | _ => t
-)
+def checkIn (t : Traveler) : Traveler := sorry
 
-example : checkIn (.noTicket .ordinary) = .noTicket .ordinary := (by rfl)
-example : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := (by rfl)
-example : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := (by rfl)
+example : checkIn (.noTicket .ordinary) = .noTicket .ordinary := sorry
+example : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := sorry
+example : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := sorry
 
 -- Again, we record one rewrite rule for each case:
 
 theorem checkIn_noTicket (bagContent : BagContent) :
-    checkIn (.noTicket bagContent) = .noTicket bagContent := (by rfl)
+    checkIn (.noTicket bagContent) = .noTicket bagContent := sorry
 
 theorem checkIn_ticketed (bagContent : BagContent) :
-    checkIn (.ticketed bagContent) = .checkedIn bagContent .notScreened := (by rfl)
+    checkIn (.ticketed bagContent) = .checkedIn bagContent .notScreened := sorry
 
 theorem checkIn_checkedIn (bagContent : BagContent)
     (screeningStatus : ScreeningStatus) :
-    checkIn (.checkedIn bagContent screeningStatus) = .checkedIn bagContent screeningStatus := (by rfl)
+    checkIn (.checkedIn bagContent screeningStatus) = .checkedIn bagContent screeningStatus := sorry
 
 attribute [irreducible] checkIn
 
@@ -2078,9 +1975,7 @@ attribute [irreducible] checkIn
 
 theorem buyTicket_then_checkIn (bagContent : BagContent) :
     checkIn (buyTicket (.noTicket bagContent)) = .checkedIn bagContent .notScreened := by
-  rewrite [buyTicket_noTicket]
-  rewrite [checkIn_ticketed]
-  rfl
+  sorry
 
 -- Carry-on inspection happens only after check-in. A bag containing only
 -- ordinary items is cleared, while a bag containing a prohibited item is
@@ -2090,30 +1985,25 @@ theorem buyTicket_then_checkIn (bagContent : BagContent) :
 
 -- Define `inspectBag`.
 
-def inspectBag (t : Traveler) : Traveler := (
-  match t with
-  | .checkedIn .ordinary _ => .checkedIn .ordinary .cleared
-  | .checkedIn .prohibited _ => .checkedIn .prohibited .blocked
-  | _ => t
-)
+def inspectBag (t : Traveler) : Traveler := sorry
 
-example : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := (by rfl)
-example : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := (by rfl)
-example : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := (by rfl)
+example : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := sorry
+example : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := sorry
+example : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := sorry
 
 -- Again, we record one characterization lemma for each case.
 
 theorem inspectBag_noTicket (bagContent : BagContent) :
-    inspectBag (.noTicket bagContent) = .noTicket bagContent := (by rfl)
+    inspectBag (.noTicket bagContent) = .noTicket bagContent := sorry
 
 theorem inspectBag_ticketed (bagContent : BagContent) :
-    inspectBag (.ticketed bagContent) = .ticketed bagContent := (by rfl)
+    inspectBag (.ticketed bagContent) = .ticketed bagContent := sorry
 
 theorem inspectBag_ordinary (screeningStatus : ScreeningStatus) :
-    inspectBag (.checkedIn .ordinary screeningStatus) = .checkedIn .ordinary .cleared := (by rfl)
+    inspectBag (.checkedIn .ordinary screeningStatus) = .checkedIn .ordinary .cleared := sorry
 
 theorem inspectBag_prohibited (screeningStatus : ScreeningStatus) :
-    inspectBag (.checkedIn .prohibited screeningStatus) = .checkedIn .prohibited .blocked := (by rfl)
+    inspectBag (.checkedIn .prohibited screeningStatus) = .checkedIn .prohibited .blocked := sorry
 
 attribute [irreducible] inspectBag
 
@@ -2123,25 +2013,7 @@ attribute [irreducible] inspectBag
 -- as inspecting it once.
 
 theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspectBag t := by
-  cases t with
-  | noTicket bagContent =>
-    rewrite [inspectBag_noTicket]
-    rewrite [inspectBag_noTicket]
-    rfl
-  | ticketed bagContent =>
-    rewrite [inspectBag_ticketed]
-    rewrite [inspectBag_ticketed]
-    rfl
-  | checkedIn bagContent screeningStatus =>
-    cases bagContent with
-    | prohibited =>
-      rewrite [inspectBag_prohibited]
-      rewrite [inspectBag_prohibited]
-      rfl
-    | ordinary =>
-      rewrite [inspectBag_ordinary]
-      rewrite [inspectBag_ordinary]
-      rfl
+  sorry
 
 -- A traveler may leave the screened area and return with a different carry-on
 -- bag. Since the previous screening result applied to the old bag, a new
@@ -2151,28 +2023,23 @@ theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspe
 
 -- Define `changeBag`.
 
-def changeBag (newContent : BagContent) (t : Traveler) : Traveler := (
-  match t with
-  | .checkedIn _ _ => .checkedIn newContent .notScreened
-  | .ticketed _ => .ticketed newContent
-  | .noTicket _ => .noTicket newContent
-)
+def changeBag (newContent : BagContent) (t : Traveler) : Traveler := sorry
 
-example : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := (by rfl)
-example : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := (by rfl)
+example : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := sorry
+example : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := sorry
 
 -- As before, we record the behavior of each case as a rewrite rule.
 
 theorem changeBag_noTicket (newContent oldContent : BagContent) :
-    changeBag newContent (.noTicket oldContent) = .noTicket newContent := (by rfl)
+    changeBag newContent (.noTicket oldContent) = .noTicket newContent := sorry
 
 theorem changeBag_ticketed (newContent oldContent : BagContent) :
-    changeBag newContent (.ticketed oldContent) = .ticketed newContent := (by rfl)
+    changeBag newContent (.ticketed oldContent) = .ticketed newContent := sorry
 
 theorem changeBag_checkedIn (newContent oldContent : BagContent)
     (screeningStatus : ScreeningStatus) :
     changeBag newContent (.checkedIn oldContent screeningStatus) =
-    .checkedIn newContent .notScreened := (by rfl)
+    .checkedIn newContent .notScreened := sorry
 
 attribute [irreducible] changeBag
 
@@ -2192,21 +2059,13 @@ theorem inspectBag_changeBag_comm_noTicket
     (oldContent newContent : BagContent) :
     inspectBag (changeBag newContent (.noTicket oldContent)) =
     changeBag newContent (inspectBag (.noTicket oldContent)) := by
-  rewrite [changeBag_noTicket]
-  rewrite [inspectBag_noTicket]
-  rewrite [inspectBag_noTicket]
-  rewrite [changeBag_noTicket]
-  rfl
+  sorry
 
 theorem inspectBag_changeBag_comm_ticketed
     (oldContent newContent : BagContent) :
     inspectBag (changeBag newContent (.ticketed oldContent)) =
     changeBag newContent (inspectBag (.ticketed oldContent)) := by
-  rewrite [changeBag_ticketed]
-  rewrite [inspectBag_ticketed]
-  rewrite [inspectBag_ticketed]
-  rewrite [changeBag_ticketed]
-  rfl
+  sorry
 
 end Airport
 

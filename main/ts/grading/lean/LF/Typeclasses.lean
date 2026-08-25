@@ -1,4 +1,4 @@
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Typeclasses
@@ -327,14 +327,7 @@ instance (priority := low) : BEq Nat where
 -- natural numbers.
 
 theorem List.elem_poly_eq_elem_nat (xs : List Nat) (n : Nat) : xs.elem_poly n = xs.elem_nat n := by
-  (
-  induction xs with
-  | nil =>
-    rewrite [List.elem_poly_nil, List.elem_nat_nil]
-    rfl
-  | cons hd tl ih =>
-    rewrite [List.elem_poly_cons, List.elem_nat_cons, ih]
-    rfl)
+  sorry
 
 -- ## Proof-Carrying Typeclasses
 
@@ -382,16 +375,14 @@ class HasThree (α : Type) where
   two : α
   three : α
   one_neq_two : one ≠ two
-  one_neq_three : one ≠ three
-  two_neq_three : two ≠ three
+  -- FILL IN HERE
 
 instance : HasThree Nat where
   one := 1
   two := 2
   three := 3
-  one_neq_two := (by intro contra; contradiction)
-  one_neq_three := (by intro contra; contradiction)
-  two_neq_three := (by intro contra; contradiction)
+  one_neq_two := sorry
+  -- FILL IN HERE
 
 namespace Algebra
 
@@ -451,10 +442,10 @@ instance : Monoid Nat where
 
 instance : Monoid Nat where
   op := Nat.mul
-  id := (1)
-  left_id := (by lia)
-  right_id := (by lia)
-  assoc := (by lia)
+  id := sorry
+  left_id := sorry
+  right_id := sorry
+  assoc := sorry
 
 -- ### Exercise (1 star): ListMonoidAppend ⭐
 
@@ -464,10 +455,10 @@ instance : Monoid Nat where
 
 instance {α : Type} : Monoid (List α) where
   op := List.append
-  id := ([])
-  left_id := (by simp)
-  right_id := (by simp)
-  assoc := (by simp)
+  id := sorry
+  left_id := sorry
+  right_id := sorry
+  assoc := sorry
 
 -- In addition to defining instances of `Monoid`, we can also prove some
 -- properties about monoids in general, just based on the laws defined on the
@@ -517,13 +508,13 @@ class Group (α : Type) extends (Monoid α) where
 
 instance : Group Int where
   op := Int.add
-  id := (0)
-  inv := (Int.neg)
-  left_id := (by lia)
-  right_id := (by lia)
-  assoc := (by lia)
-  left_inv := (by lia)
-  right_inv := (by lia)
+  id := sorry
+  inv := sorry
+  left_id := sorry
+  right_id := sorry
+  assoc := sorry
+  left_inv := sorry
+  right_inv := sorry
 
 -- The study of groups is called *group theory* and is a rich area of
 -- mathematics. Here, we will only prove a handful of its simplest results:
@@ -537,9 +528,7 @@ instance : Group Int where
 -- same inverse as well.
 
 theorem inv_unique {α : Type} {g₁ g₂ : Group α} (h : g₁.op = g₂.op) : g₁.inv = g₂.inv := by
-  ext a
-  rw [←g₁.right_id (Group.inv a), ←g₁.right_inv a]
-  rw [g₁.assoc, h, g₂.left_inv a, g₂.left_id]
+  sorry
 
 -- Note to developers (Daniel Sainati @dsainati1):
 --     Taking suggestions for additional simple group theory theorems to prove
@@ -883,9 +872,7 @@ theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a :
 @[simp]
 theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
     (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
-  rw [update_def, getElem_def, get_def]
-  dsimp only
-  rw [beq_false_of_ne h, cond_false]
+  sorry
 
 -- The two remaining facts are equalities *between maps*, so we first need to
 -- say when two maps are equal. Since a total map is implemented as a
@@ -931,11 +918,7 @@ example : "bar" →ₜ true ; "foo" →ₜ true = "foo" →ₜ true ; "bar" →�
 
 @[simp]
 theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) : (a →ₜ m[a] ; m) = m := by
-  ext a'
-  by_cases h : a = a'
-  · subst h
-    simp
-  · simp [update_neq h]
+  sorry
 
 -- Similarly, if we update a map `m` at a key `a` with a value `b₁` and then
 -- update again with the same key `a` and another value `b₂`, the resulting
@@ -947,11 +930,7 @@ theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) 
 @[simp]
 theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
     (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
-  ext a'
-  by_cases h : a = a'
-  · subst h
-    simp
-  · simp [update_neq h]
+  sorry
 
 -- Note to developers (mwhicks1, NOW):
 --     Two things the Rocq source says here have been dropped.
@@ -1018,15 +997,7 @@ theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β
 
 theorem update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :
     (a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m) = (a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m) := by
-  ext a'
-  by_cases h₁ : a₁ = a'
-  · subst h₁
-    rw [update_eq, update_neq h.symm, update_eq]
-  · rw [update_neq h₁]
-    by_cases h₂ : a₂ = a'
-    · subst h₂
-      rw [update_eq, update_eq]
-    · rw [update_neq h₂, update_neq h₂, update_neq h₁]
+  sorry
 
 attribute [autogradedProof 3] TotalMap.update_permute
 
@@ -1323,11 +1294,7 @@ theorem even_zero : even 0 = true := by rfl
 
 theorem even_succ (n : Nat) :
     even (n + 1) = !(even n) := by
-  induction n with
-  | zero =>
-    rfl
-  | succ n' ih =>
-    rw [even, ih, Bool.not_not]
+  sorry
 
 def double (n : Nat) : Nat :=
   match n with
@@ -1415,24 +1382,7 @@ theorem even_double (k : Nat) : Nat.even (Nat.double k) = true := by
 -- ### Exercise (3 stars): even_double_exists ⭐⭐⭐
 
 theorem even_double_exists (n : Nat) :
-    ∃ (k : Nat), n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by (
-  induction n with
-  | zero =>
-    exists 0
-  | succ n ih =>
-    obtain ⟨k, ih⟩ := ih
-    rewrite [Nat.even_succ]
-    by_cases h : Nat.even n
-    · exists k
-      rewrite [h] at ih ⊢
-      subst ih
-      rfl
-    · exists k + 1
-      rewrite [Bool.not_eq_true] at h
-      rewrite [h] at ih ⊢
-      subst ih
-      rewrite [cond_false, Bool.not_false, cond_true]
-      rfl)
+    ∃ (k : Nat), n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by sorry
 
 -- Now the main theorem:
 

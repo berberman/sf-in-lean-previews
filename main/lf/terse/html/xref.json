@@ -5346,7 +5346,7 @@
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.isZero":
-   [{"id": "NatPlayground___Nat___isZero-next",
+   [{"id": "NatPlayground___Nat___isZero",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -5363,7 +5363,7 @@
         "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"},
-    {"id": "NatPlayground___Nat___isZero",
+    {"id": "NatPlayground___Nat___isZero-next",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -6840,7 +6840,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -6851,7 +6851,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",

@@ -1,4 +1,4 @@
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Preface

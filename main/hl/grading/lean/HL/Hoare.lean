@@ -1,7 +1,7 @@
 import LF.CustomTactics
 import HL.Imp
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Hoare: Hoare Logic, Part I
@@ -902,9 +902,7 @@ end Assertion.Delab
 
 theorem hoare_post_true {P Q : Assertion} {c : Com} (h : ∀ st, Q st) :
     {{ P }} ~c {{ Q }} := by
-  rw [validHoareTriple_def]
-  intro st st' hc hpre
-  exact h st'
+  sorry
 
 -- ### Exercise (1 star): hoare_pre_false (Optional) ⭐
 
@@ -913,10 +911,7 @@ theorem hoare_post_true {P Q : Assertion} {c : Com} (h : ∀ st, Q st) :
 
 theorem hoare_pre_false {P Q : Assertion} {c : Com} (h : ∀ st, ¬ (P st)) :
     {{ P }} ~c {{ Q }} := by
-  rw [validHoareTriple_def]
-  intro st st' hc hpre
-  specialize h st
-  contradiction
+  sorry
 
 -- ## Proof Rules
 
@@ -1265,8 +1260,7 @@ theorem hoare_asgn_examples1 :
       {{ P }}
         X := 2 * X
       {{ X ≤ 10 }} := by
-  exists ({{ (X ≤ 10) [X ↦ 2 * X] }})
-  exact hoare_asgn
+  sorry
 
 -- ### Exercise (2 stars): hoare_asgn_examples2 (Optional) ⭐⭐
 
@@ -1275,8 +1269,7 @@ theorem hoare_asgn_examples2 :
       {{ P }}
         X := 3
       {{ 0 ≤ X ∧ X ≤ 5 }} := by
-  exists ({{ (0 ≤ X ∧ X ≤ 5) [X ↦ 3] }})
-  exact hoare_asgn
+  sorry
 
 -- ### Exercise (2 stars): hoare_asgn_wrong ⭐⭐
 
@@ -1303,14 +1296,7 @@ theorem hoare_asgn_examples2 :
 
 theorem hoare_asgn_wrong : ∃ a : Aexp,
     ¬ {{ True }} X := ~a {{ X = a }} := by
-  exists aexp { X + 1 }
-  intro hc
-  rw [validHoareTriple_def] at hc
-  have h2 : (X →ₜ 1)[X] = (aexp { X + 1 }).eval (X →ₜ 1) := by
-    apply hc (st := ∅) (st' := X →ₜ 1)
-    · apply Com.EvalR.asgn; rfl
-    · exact True.intro
-  simp at h2
+  sorry
 
 -- If `a` itself mentions `X`, then the value of `a` may be different in the
 -- final state because of this update. For example, if `a` is `X + 1`, then
@@ -1350,13 +1336,7 @@ theorem hoare_asgn_fwd {m : Nat} {a : Aexp} {P : Assertion} :
       X := ~a
     {{ fun st => P (X →ₜ m ; st)
          ∧ st[X] = a.eval (X →ₜ m ; st) }} := by
-  rw [validHoareTriple_def]
-  intro st st' heval ⟨hp, hx⟩
-  inversion heval with
-  | asgn n h =>
-    subst h hx
-    rw [TotalMap.update_eq, TotalMap.update_shadow, TotalMap.update_same]
-    exact ⟨hp, rfl⟩
+  sorry
 
 -- ### Exercise (2 stars): hoare_asgn_fwd_exists (Advanced, Optional) ⭐⭐
 
@@ -1375,14 +1355,7 @@ theorem hoare_asgn_fwd_exists (a : Aexp) (P : Assertion) :
       X := ~a
     {{ fun st => ∃ m, P (X →ₜ m ; st) ∧
          st[X] = a.eval (X →ₜ m ; st) }} := by
-  rw [validHoareTriple_def]
-  intro st st' heval hpre
-  inversion heval with
-  | asgn n h =>
-    subst h
-    exists st[X]
-    rw [TotalMap.update_eq, TotalMap.update_shadow, TotalMap.update_same]
-    exact ⟨hpre, rfl⟩
+  sorry
 
 -- ### Consequence
 
@@ -1684,17 +1657,13 @@ theorem assertion_sub_ex1' :
     {{ X ≤ 5 }}
       X := 2 * X
     {{ X ≤ 10 }} := by
-  apply hoare_consequence_pre
-  · exact hoare_asgn
-  · assertion_auto
+  sorry
 
 theorem assertion_sub_ex2' :
     {{ 0 ≤ 3 ∧ 3 ≤ 5 }}
       X := 3
     {{ 0 ≤ X ∧ X ≤ 5 }} := by
-  apply hoare_consequence_pre
-  · exact hoare_asgn
-  · assertion_auto
+  sorry
 
 attribute [autogradedProof 1] assertion_sub_ex1' assertion_sub_ex2'
 
@@ -1755,13 +1724,9 @@ theorem hoare_asgn_example4 :
     {{ X = 1 ∧ Y = 2 }} := by
   apply hoare_seq (Q := {{ X = 1 }})
   · -- right part of seq
-    apply hoare_consequence_pre
-    · exact hoare_asgn
-    · assertion_auto
+    sorry
   · -- left part of seq
-    apply hoare_consequence_pre
-    · exact hoare_asgn
-    · assertion_auto
+    sorry
 
 -- ### Exercise (3 stars): swap_exercise ⭐⭐⭐
 
@@ -1798,20 +1763,13 @@ theorem hoare_asgn_example4 :
 --        Maybe move this decorated program to the decorated programs
 --        section, since it's a good warm-up exercise.`
 
-def swap_program : Com := (imp { Z := X; X := Y; Y := Z })
+def swap_program : Com := sorry
 
 theorem swap_exercise :
     {{X ≤ Y}}
       ~swap_program
     {{Y ≤ X}} := by
-  rw [swap_program]
-  apply hoare_seq
-  · apply hoare_seq
-    · exact hoare_asgn
-    · exact hoare_asgn
-  · apply hoare_consequence_pre
-    · exact hoare_asgn
-    · assertion_auto
+  sorry
 
 -- ### Exercise (4 stars): invalid_triple (Advanced) ⭐⭐⭐⭐
 
@@ -1852,11 +1810,7 @@ theorem invalid_triple : ¬ ∀ (a : Aexp) (n : Nat),
     {{ Y = n }} := by
   intro h
   simp only [validHoareTriple_def] at h
-  specialize h (aexp { X }) 2 (st := X →ₜ 2) (st' := Y →ₜ 3 ; X →ₜ 3 ; X →ₜ 2) ?_
-  · apply Com.EvalR.seq
-    · apply Com.EvalR.asgn; rfl
-    · apply Com.EvalR.asgn; rfl
-  simp at h
+  sorry
 
 -- ### Conditionals
 
@@ -1982,7 +1936,7 @@ theorem if_minus_plus :
         Y := X + Z
       }
     {{Y = X + Z}} := by
-  apply hoare_if <;> apply hoare_consequence_pre hoare_asgn (by assertion_auto)
+  sorry
 
 -- #### Exercise: One-sided conditionals
 
@@ -2095,11 +2049,7 @@ inductive Com.EvalR : Com → State → State → Prop where
       (hb : b.eval st = true) (hc : EvalR c st st')
       (hloop : EvalR (imp {while (~b) {~c} }) st' st'') :
       EvalR (imp {while (~b) {~c} }) st st''
-  | if1True {st st' : State} {b : Bexp} {c : Com} (hb : b.eval st = true)
-      (hc : EvalR c st st') :
-      EvalR (imp {if1 (~b) {~c} }) st st'
-  | if1False {st : State} {b : Bexp} {c : Com} (hb : b.eval st = false) :
-      EvalR (imp {if1 (~b) {~c} }) st st
+-- FILL IN HERE
 
 instance : HasEval Com State State where
   Eval := Com.EvalR
@@ -2115,14 +2065,11 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
 
 theorem if1true_test :
     ∅ =[ if1 (X = 0) { X := 1 } ]=> (X →ₜ 1) := by
-  apply Com.EvalR.if1True
-  · rfl
-  · apply Com.EvalR.asgn; rfl
+  sorry
 
 theorem if1false_test :
     (X →ₜ 2) =[ if1 (X = 0) { X := 1 } ]=> (X →ₜ 2) := by
-  apply Com.EvalR.if1False
-  rfl
+  sorry
 
 attribute [autogradedProof 1] If1.if1true_test If1.if1false_test
 
@@ -2165,18 +2112,7 @@ attribute [irreducible] ValidHoareTriple
 -- ascription. For example, if you want `e` to be parsed as an assertion,
 -- write it as `(e : Assertion)`.
 
-theorem hoare_if1 (b : Bexp) (c : Com) (P Q : Assertion)
-    (htrue : {{ P ∧ b }} ~c {{ Q }})
-    (hfalse : ({{ P ∧ ¬ b }}) ->> Q) :
-    {{ P }} if1 (~b) { ~c } {{ Q }} := by
-  rw [validHoareTriple_def] at htrue ⊢
-  intro st st' heval hpre
-  inversion heval with
-  | if1True hb hc =>
-    exact htrue hc ⟨hpre, hb⟩
-  | if1False hb =>
-    apply hfalse
-    simp [hpre, hb]
+-- FILL IN HERE
 
 -- For example (`hoare_if1_good`) your rule should be strong enough to show
 -- the following Hoare triple is valid:
@@ -2230,11 +2166,7 @@ theorem hoare_if1_good :
         X := X + Y
       }
     {{ X = Z }} := by
-  apply hoare_if1
-  · apply hoare_consequence_pre
-    · exact hoare_asgn
-    · assertion_auto
-  · assertion_auto
+  sorry
 
 end If1
 
@@ -2597,13 +2529,7 @@ inductive Com.EvalR : Com → State → State → Prop where
       (hb : b.eval st = true) (hc : EvalR c st st')
       (hloop : EvalR (imp {while (~b) {~c} }) st' st'') :
       EvalR (imp {while (~b) {~c} }) st st''
-  | repeatEnd {st st' : State} {b : Bexp} {c : Com} (hc : EvalR c st st')
-      (hb : b.eval st' = true) :
-      EvalR (imp {repeat {~c} until (~b) }) st st'
-  | repeatLoop {st st' st'' : State} {b : Bexp} {c : Com}
-      (hc : EvalR c st st') (hb : b.eval st' = false)
-      (hloop : EvalR (imp {repeat {~c} until (~b) }) st' st'') :
-      EvalR (imp {repeat {~c} until (~b) }) st st''
+-- FILL IN HERE
 
 instance : HasEval Com State State where
   Eval := Com.EvalR
@@ -2647,11 +2573,7 @@ def ex1_repeat : Com :=
 
 theorem ex1_repeat_works :
     ∅ =[ ex1_repeat ]=> (Y →ₜ 1 ; X →ₜ 1) := by
-  apply Com.EvalR.repeatEnd
-  · apply Com.EvalR.seq
-    · apply Com.EvalR.asgn; rfl
-    · apply Com.EvalR.asgn; rfl
-  · simp +decide
+  sorry
 
 -- Note to developers (Niklas Halonen @xhalo32):
 --     Do we want to `open Com.EvalR` to make the previous proof easier to
@@ -2661,32 +2583,7 @@ theorem ex1_repeat_works :
 -- appropriate proof rule for `repeat` commands. Use `hoare_while` as a model,
 -- and try to make your rule as precise as possible.
 
-/- Here is a very precise version of `hoare_repeat`. -/
-/- LATER: A student in 2013 pointed out that this rule is OK as far
-as it goes, but it isn't going to lead to a nice rule for decorated
-programs, when we get to that, because it uses c twice, perhaps in
-different ways! -/
-
-theorem hoare_repeat {P Q : Assertion} {b : Bexp} {c : Com}
-    (h1 : {{ P }} ~c {{ Q }}) (h2 : {{ Q ∧ ¬ b }} ~c {{ Q }}) :
-    {{ P }} repeat { ~c } until (~b) {{ Q ∧ b }} := by
-  rw [validHoareTriple_def] at h1 h2 ⊢
-  intro st st' heval hpre
-  generalize heq : (imp { repeat { ~c } until (~b) }) = cmd at heval
-  induction heval generalizing P with
-  | @repeatEnd s0 s0' b0 c0 hc hb ih =>
-    injection heq with hceq hbeq
-    subst hceq hbeq
-    exact ⟨h1 hc hpre, hb⟩
-  | @repeatLoop s0 s0' s0'' b0 c0 hc hb hloop ih1 ih2 =>
-    injection heq with hceq hbeq
-    subst hceq hbeq
-    apply ih2 h2 _ rfl
-    constructor
-    · exact h1 hc hpre
-    · simp [hb]
-  | skip | asgn | seq | ifTrue | ifFalse | whileFalse | whileTrue =>
-    contradiction
+-- FILL IN HERE
 
 -- For full credit, make sure (informally) that your rule can be used to prove
 -- the following valid Hoare triple:
@@ -2703,177 +2600,11 @@ theorem hoare_repeat {P Q : Assertion} {b : Bexp} {c : Com}
 --     here covers only the part up to the litmus-test display because Verso
 --     cannot compile the whole module as one block.
 
-/- Although it was not required by the exercise, we can show formally
-that `hoare_repeat` can handle this litmus test: -/
+-- FILL IN HERE
 
-def ex2_repeat : Com :=
-  imp {
-    repeat {
-      Y := X;
-      X := X - 1
-    } until (X = 0)
-  }
+-- FILL IN HERE
 
-/- Before we can show anything about this program we need to repeat
-the proofs of some more Hoare rules from above (remember we're in
-a separate namespace, with a different definition of commands). -/
-
-theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
-    {{Q [x ↦ ~a]}} x := ~a {{ Q }} := by
-  rw [validHoareTriple_def]
-  intro st st' hE hQ
-  rw [Assertion.subst_apply] at hQ
-  inversion hE with
-  | asgn n h =>
-    subst h
-    exact hQ
-
-theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
-    (hht : {{ P' }} ~c {{ Q' }}) (hPP' : P ->> P') (hQ'Q : Q' ->> Q) :
-    {{ P }} ~c {{ Q }} := by
-  rw [validHoareTriple_def] at hht ⊢
-  intro st st' hc hP
-  apply_rules
-
-theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
-    (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
-    {{ P }} ~c {{ Q }} := by
-  rw [validHoareTriple_def] at hhoare ⊢
-  intro st st' hc hP
-  apply_rules
-
-theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
-    (h1 : {{ Q }} ~c2 {{R}}) (h2 : {{ P }} ~c1 {{ Q }}) :
-    {{ P }} ~c1; ~c2 {{R}} := by
-  rw [validHoareTriple_def] at h1 h2 ⊢
-  intro st st' h12 pre
-  inversion h12 with
-  | seq st'' hc1 hc2 =>
-    apply_rules
-
-/- Now we are ready to show `ex2_repeat` correct using `hoare_repeat`. -/
-/- NOTATION: IY -- I've noticed this oddity in previous lemmas, but
-it's especially noticable here that an explicit state is given to
-the conditional statements. -/
-theorem ex2_repeat_hoare_repeat :
-    {{ X > 0 }}
-      ~ex2_repeat
-    {{ X = 0 ∧ Y > 0 }} := by
-  rw [ex2_repeat]
-  apply hoare_consequence
-  · apply hoare_repeat (Q := {{ Y > 0 }})
-    · apply hoare_seq hoare_asgn hoare_asgn
-    · apply hoare_seq hoare_asgn
-      apply hoare_consequence_pre hoare_asgn
-      assertion_auto
-  · -- body of repeat if exiting right away
-    assertion_auto
-  · -- final postcondition
-    assertion_auto
-
-/- A sound but less precise variant of the `hoare_repeat` rule looks
-like this: -/
-
-/- NOTATION: Here, too, the printing isn't as we write the notation.
-(As soon as we start the proof context). Is this intended? -/
-theorem hoare_repeat' (P : Assertion) (b : Bexp) (c : Com)
-    (h : {{ P }} ~c {{ P }}) :
-    {{ P }} repeat { ~c } until (~b) {{ P ∧ b }} := by
-  rw [validHoareTriple_def]
-  intro st st' he hP
-  have key : ∀ (cmd : Com) (s s' : State), (s =[ cmd ]=> s') →
-      cmd = (imp { repeat { ~c } until (~b) }) → P s →
-      P s' ∧ b.eval s' := by
-    intro cmd s s' hev
-    induction hev with
-    | @repeatEnd s0 s0' b0 c0 hc hb =>
-        intro heq hp
-        injection heq with e1 e2
-        subst e1 e2
-        rw [validHoareTriple_def] at h
-        exact ⟨h hc hp, hb⟩
-    | @repeatLoop s0 s0' s0'' b0 c0 hc hb hloop ih1 ih2 =>
-        intro heq hp
-        injection heq with e1 e2
-        subst e1 e2
-        rw [validHoareTriple_def] at h
-        exact ih2 rfl (h hc hp)
-    | @skip s0 => intro heq; simp at heq
-    | @asgn s0 a n x ha => intro heq; simp at heq
-    | @seq c1 c2 s0 s0' s0'' hh1 hh2 ih1 ih2 => intro heq; simp at heq
-    | @ifTrue s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
-    | @ifFalse s0 s0' b0 c1 c2 hb hc ih => intro heq; simp at heq
-    | @whileFalse b0 s0 c0 hb => intro heq; simp at heq
-    | @whileTrue s0 s0' s0'' b0 c0 hb hc hloop ih1 ih2 =>
-        intro heq; simp at heq
-  exact key _ st st' he rfl hP
-
-/- First, let's show that `hoare_repeat'` is implied by `hoare_repeat`. -/
-
-theorem hoare_repeat_implies_hoare_repeat'
-    (hoare_repeat : ∀ (P Q : Assertion) (b : Bexp) (c : Com),
-      ({{ P }} ~c {{ Q }}) →
-      ({{ Q ∧ ¬ b }} ~c {{ Q }}) →
-      {{ P }} repeat { ~c } until (~b) {{ Q ∧ b }}) :
-    ∀ (P : Assertion) (b : Bexp) (c : Com),
-      ({{ P }} ~c {{ P }}) →
-      {{ P }} repeat { ~c } until (~b) {{ P ∧ b }} := by
-  intro P b c h
-  apply hoare_repeat <;> try assumption
-  apply hoare_consequence_pre
-  · exact h
-  · intro st ⟨hp, _⟩
-    exact hp
-
-/- However, we can't prove `ex2_repeat` correct using `hoare_repeat'`,
-even with a stronger initial precondition on `Y`. Here is a first
-failed proof attempt. -/
-
-/-- warning: declaration uses `sorry` -/
-#guard_msgs in
-example :
-    {{ X > 0 ∧ Y > 0}}
-      ~ex2_repeat
-    {{ X = 0 ∧ Y > 0}} := by
-  apply hoare_consequence
-  · apply hoare_repeat' (P := {{ Y > 0 }})
-    apply hoare_seq hoare_asgn
-    apply hoare_consequence_pre hoare_asgn
-    intro st hy
-    simp
-    -- loop invariant too weak on its own,
-    -- we need the value of the previous guard
-    sorry
-  · -- initial precondition
-    intro st ⟨_, hy⟩
-    exact hy
-    -- this only works with an additional Y > 0 precondition
-  · -- final postcondition
-    assertion_auto
-
-/- Here is a second failed attempt trying stronger loop invariant, but
-it is too strong. -/
-
-/-- warning: declaration uses `sorry` -/
-#guard_msgs in
-example :
-    {{ X > 0 ∧ Y > 0}}
-      ~ex2_repeat
-    {{ X = 0 ∧ Y > 0}} := by
-  apply hoare_consequence
-  · apply hoare_repeat' (P := {{ X > 0 ∧ Y > 0 }})
-    apply hoare_seq hoare_asgn
-    apply hoare_consequence_pre hoare_asgn
-    intro st ⟨hx, hy⟩
-    simp
-    -- loop invariant too strong
-    sorry
-  · -- initial precondition
-    intro st hp
-    exact hp
-  · -- final postcondition
-    assertion_auto
-
+-- FILL IN HERE
 end RepeatExercise
 
 -- ## Summary
@@ -3037,18 +2768,11 @@ theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
 -- and prove that the resulting rule is correct.
 
 def havoc_pre (x : Ident) (Q : Assertion) (st : State) : Prop :=
-  (∀ (n : Nat), ({{ Q [x ↦ ~(.num n)] }}) st)
+  sorry
 
 theorem hoare_havoc {Q : Assertion} {x : Ident} :
     {{ fun st => havoc_pre x Q st }} havoc x {{ Q }} := by
-  rw [validHoareTriple_def]
-  intro st st' heval hpre
-  rw [havoc_pre] at hpre
-  inversion heval with
-  | havoc n =>
-    specialize hpre n
-    simp only [Assertion.subst_apply, Aexp.eval_num] at hpre
-    exact hpre
+  sorry
 
 -- ### Exercise (3 stars): havoc_post (Advanced) ⭐⭐⭐
 
@@ -3069,11 +2793,7 @@ theorem havoc_post {P : Assertion} {x : Ident} :
     {{ fun st => ∃ (n : Nat), ({{ P [x ↦ ~(.num n)] }}) st }} := by
   apply hoare_consequence_pre
   · apply hoare_havoc
-  · intro st hpre n
-    simp only [Assertion.subst_apply, Aexp.eval_num, TotalMap.update_shadow]
-    exists st[x]
-    rw [TotalMap.update_same]
-    exact hpre
+  · sorry
 
 end Himp
 
@@ -3219,19 +2939,7 @@ attribute [irreducible] ValidHoareTriple
 theorem assert_assume_differ : ∃ (P : Assertion) (b : Bexp) (Q : Assertion),
     ({{ P }} assume (~b) {{ Q }})
     ∧ ¬ ({{ P }} assert (~b) {{ Q }}) := by
-  exists {{ True }}, bexp { false }, ({{ False }})
-  constructor
-  · rw [validHoareTriple_def]
-    intro st r heval _
-    inversion heval with
-    | assume hb => simp at hb
-  · intro hC
-    rw [validHoareTriple_def] at hC
-    have h : ∅ =[ assert (false) ]=> Result.error := by
-      apply Com.EvalR.assertFalse
-      simp
-    obtain ⟨st', h1, h2⟩ := hC h True.intro
-    contradiction
+  sorry
 
 -- Note to developers (Niklas Halonen @xhalo32):
 --     For some reason, after `rw [validHoareTriple_def] at hC`, the existence
@@ -3246,18 +2954,7 @@ attribute [autogradedProof 1] HoareAssertAssume.assert_assume_differ
 theorem assert_implies_assume (P : Assertion) (b : Bexp) (Q : Assertion)
     (hhoare : {{ P }} assert (~b) {{ Q }}) :
     {{ P }} assume (~b) {{ Q }} := by
-  rw [validHoareTriple_def] at hhoare ⊢
-  intro st r heval hpre
-  inversion heval with
-  | assume hb =>
-    exists st
-    have h : st =[ assert (~b) ]=> Result.normal st := by
-      apply Com.EvalR.assertTrue
-      assumption
-    obtain ⟨st', h1, h2⟩ := hhoare h hpre
-    injection h1 with hsteq
-    subst hsteq
-    exact ⟨rfl, h2⟩
+  sorry
 
 attribute [autogradedProof 1] HoareAssertAssume.assert_implies_assume
 
@@ -3364,27 +3061,7 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 -- a simple program correct. Name your rules `hoare_assert` and
 -- `hoare_assume`.
 
-/- HIDE: Equivalently, we could make the postcondition Q ∧ b or the
-precondition Q → b ... -/
-theorem hoare_assert {Q : Assertion} {b : Bexp} :
-    {{Q ∧ b}} assert (~b) {{ Q }} := by
-  rw [validHoareTriple_def]
-  intro st r heval hpre
-  obtain ⟨hst, hb⟩ := hpre
-  exists st
-  inversion heval with
-  | assertTrue hb' => exact ⟨rfl, hst⟩
-  | assertFalse hb' => simp [hb'] at hb
-
-/- Stating this in a backwards-direction friendly way. -/
-/- HIDE: Equivalently, we could make the postcondition Q ∧ b... -/
-theorem hoare_assume {Q : Assertion} {b : Bexp} :
-    {{ b → Q }} assume (~b) {{ Q }} := by
-  rw [validHoareTriple_def]
-  intro st r heval hpre
-  exists st
-  inversion heval with
-  | assume hb => exact ⟨rfl, hpre hb⟩
+-- FILL IN HERE
 
 -- Use your rules to prove the following triple.
 
@@ -3394,13 +3071,7 @@ theorem assert_assume_example :
       X := X + 1;
       assert (X = 2)
     {{True}} := by
-  apply hoare_consequence_pre
-  · apply hoare_seq
-    · apply hoare_seq
-      · apply hoare_assert
-      · exact hoare_asgn
-    · apply hoare_assume
-  · assertion_auto
+  sorry
 
 attribute [autogradedProof 4] HoareAssertAssume.assert_assume_example
 

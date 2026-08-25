@@ -1,4 +1,4 @@
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Slang: Arithmetic and Boolean Expressions
@@ -272,34 +272,25 @@ theorem optimize0plus_sound' (a : Aexp) :
 -- combinators we've just seen to make the proof as short and elegant as
 -- possible.
 
-def Bexp.optimize0plusB (b : Bexp) : Bexp := (
-  match b with
-  | bool b    =>  bool b
-  | eq a₁ a₂  =>  eq a₁.optimize0plus a₂.optimize0plus
-  | neq a₁ a₂ =>  neq a₁.optimize0plus a₂.optimize0plus
-  | le a₁ a₂  =>  le a₁.optimize0plus a₂.optimize0plus
-  | gt a₁ a₂  =>  gt a₁.optimize0plus a₂.optimize0plus
-  | not b₁    =>  not (optimize0plusB b₁)
-  | and b₁ b₂ =>  and (optimize0plusB b₁) (optimize0plusB b₂))
+def Bexp.optimize0plusB (b : Bexp) : Bexp := sorry
 
 theorem optimize0plusB_test1 :
     Bexp.optimize0plusB
         (.not (.gt (.plus (.num 0) (.num 4)) (.num 8)))
-      = (.not (.gt (.num 4) (.num 8))) := (by rfl)
+      = (.not (.gt (.num 4) (.num 8))) := sorry
 
 attribute [autogradedProof 0.5] Slang.optimize0plusB_test1
 
 theorem optimize0plusB_test2 :
     Bexp.optimize0plusB
         (.and (.le (.plus (.num 0) (.num 4)) (.num 5)) (.bool true))
-      = (.and (.le (.num 4) (.num 5)) (.bool true)) := (by rfl)
+      = (.and (.le (.num 4) (.num 5)) (.bool true)) := sorry
 
 attribute [autogradedProof 0.5] Slang.optimize0plusB_test2
 
 theorem optimize0plusB_sound (b : Bexp) :
     b.optimize0plusB.eval = b.eval := by
-  induction b <;>
-  simp_all [Bexp.optimize0plusB, optimize0plus_sound]
+  sorry
 
 attribute [autogradedProof 2] Slang.optimize0plusB_sound
 
@@ -521,23 +512,13 @@ theorem Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) :
 -- that it is equivalent to `Bexp.eval`.
 
 inductive Bexp.EvalR : Bexp → Bool → Prop where
-  | bool (b : Bool) : EvalR (.bool b) b
-  | eq {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : EvalR (.eq a₁ a₂) (n₁ == n₂)
-  | neq {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : EvalR (.neq a₁ a₂) (n₁ != n₂)
-  | le {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : EvalR (.le a₁ a₂) (n₁ ≤ n₂)
-  | gt {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : EvalR (.gt a₁ a₂) (n₁ > n₂)
-  | not {b : Bexp} {bv : Bool} (h : EvalR b bv) : EvalR (.not b) (!bv)
-  | and {b₁ b₂ : Bexp} {bv₁ bv₂ : Bool} (h₁ : EvalR b₁ bv₁) (h₂ : EvalR b₂ bv₂) :
-      EvalR (.and b₁ b₂) (bv₁ && bv₂)
+  -- FILL IN HERE
 
 scoped notation:55 e:56 " ⇓ " b:56 => Bexp.EvalR e b
 
 theorem Bexp.evalR_iff_eval (b : Bexp) (bv : Bool) :
     b ⇓ bv ↔ b.eval = bv := by
-  constructor <;> intro h
-  · induction h <;> simp_all [Aexp.evalR_iff_eval]
-  · subst h
-    induction b <;> constructor <;> simp_all [Aexp.evalR_iff_eval]
+  sorry
 
 attribute [autogradedProof 3] Slang.Bexp.evalR_iff_eval
 

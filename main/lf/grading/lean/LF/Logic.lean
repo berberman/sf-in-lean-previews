@@ -4,7 +4,7 @@ import LF.Poly
 import LF.Tactics
 import LF.CustomTactics
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Logic in Lean
@@ -226,16 +226,7 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 -- ### Exercise (2 stars): add_is_zero ⭐⭐
 
 theorem Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
-  intro h
-  cases m with
-  | zero =>
-    rw [Nat.add_zero] at h
-    constructor
-    · exact h
-    · rfl
-  | succ =>
-    rw [add_succ]
-    contradiction
+  sorry
 
 -- So much for proving conjunctive statements. To go in the other direction —
 -- i.e., to *use* a conjunctive hypothesis to help prove something else — we
@@ -289,7 +280,7 @@ theorem left (a b : Prop) (h : a ∧ b) : a := by
 -- ### Exercise (1 star): proj2 (Optional) ⭐
 
 theorem right (a b : Prop) (h : a ∧ b) : b := by
-  exact h.right
+  sorry
 
 -- Finally, we sometimes need to rearrange the order of conjunctions and/or
 -- the grouping of multi-way conjunctions. We can see this at work in the
@@ -313,9 +304,7 @@ theorem and_commute' (a b : Prop) (h : a ∧ b) : b ∧ a := by
 
 theorem and_associate (a b c : Prop) (h : a ∧ (b ∧ c)) : (a ∧ b) ∧ c := by
   constructor
-  · constructor
-    · exact h.left
-    · exact h.right.left
+  · sorry
   · exact h.right.right
 
 -- The infix notation `∧` is actually just syntactic sugar for `And a b`. That
@@ -378,21 +367,12 @@ theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
 -- ### Exercise (2 stars): mul_is_zero ⭐⭐
 
 theorem Nat.mul_is_zero (n m : Nat) (h : n * m = 0) : n = 0 ∨ m = 0 := by
-  cases m with
-  | zero => right; rfl
-  | succ m' =>
-    cases n with
-    | zero => left; rfl
-    | succ n' =>
-      rw [mul_succ, add_succ] at h
-      contradiction
+  sorry
 
 -- ### Exercise (1 star): or_commute ⭐
 
 theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
-  obtain ha | hb := h
-  · right; exact ha
-  · left; exact hb
+  sorry
 
 -- ### Falsehood and Negation
 
@@ -437,10 +417,7 @@ theorem ex_falso_quodlibet (a : Prop) (h : False) : a := by
 
 theorem not_implies_other_not (a : Prop) (h : ¬ a) :
     (∀ c : Prop, a → c) := by
-  intro c ha
-  apply ex_falso_quodlibet
-  apply h
-  exact ha
+  sorry
 
 -- Inequality is a very common form of negated statement, so there is a
 -- special notation for it: `≠`, which is infix notation for `Ne`.
@@ -492,10 +469,7 @@ theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
 -- ### Exercise (1 star): contrapositive ⭐
 
 theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
-  intro hnb ha
-  apply hnb
-  apply h
-  exact ha
+  sorry
 
 -- ### Exercise (1 star): not_PNP_informal (Advanced, manually graded) ⭐
 
@@ -514,15 +488,7 @@ theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
 -- this chapter.
 
 theorem de_morgan_not_or {a b : Prop} (h : ¬ (a ∨ b)) : ¬ a ∧ ¬ b := by
-  constructor
-  · intro ha
-    apply h
-    left
-    exact ha
-  · intro hb
-    apply h
-    right
-    exact hb
+  sorry
 
 -- ### Exercise (1 star): not_succ_inverse_pred (Optional) ⭐
 
@@ -531,10 +497,7 @@ theorem de_morgan_not_or {a b : Prop} (h : ¬ (a ∨ b)) : ¬ a ∧ ¬ b := by
 -- come up with a specific *counterexample* to the claim being disproved:
 
 theorem not_succ_pred_n : ¬ (∀ n : Nat, n.pred + 1 = n) := by
-  intro h
-  have h0 := h 0
-  rw [Nat.pred_zero] at h0
-  contradiction
+  sorry
 
 -- Since inequality involves a negation, it also requires a little practice to
 -- be able to work with it fluently. Here is one useful trick.
@@ -734,25 +697,11 @@ theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
 -- Use the same technique as above to show that `[] ≠ x :: xs`. Do not use the
 -- `contradiction` tactic.
 
-def List.IsNil {α : Type} (l : List α) : Prop :=
-  match l with
-  | [] => True
-  | _ :: _ => False
-
-theorem isNil_nil {α : Type} : List.IsNil ([] : List α) := by constructor
-
-
-theorem isNil_cons {α} (x : α) (l : List α) : ¬ List.IsNil (x :: l) := by
-  dsimp [List.IsNil, Not]
-  intro h; assumption
+-- FILL IN HERE
 
 theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
     ¬ ([] = x :: xs) := by
-  intro h
-  have hn : List.IsNil ([] : List α) := isNil_nil
-  apply isNil_cons x xs
-  rw [←h]
-  exact hn
+  sorry
 
 -- ### Logical Equivalence
 
@@ -801,55 +750,25 @@ theorem not_true_iff_false (b : Bool) : b ≠ true ↔ b = false := by
 -- that it is also reflexive and transitive.
 
 theorem iff_refl (a : Prop) : a ↔ a := by
-  constructor
-  · intro h; exact h
-  · intro h; exact h
+  sorry
 
 theorem iff_trans (a b c : Prop) (h₁ : a ↔ b) (h₂ : b ↔ c) : a ↔ c := by
-  constructor
-  · intro ha; apply h₂.mp; apply h₁.mp; exact ha
-  · intro hb; apply h₁.mpr; apply h₂.mpr; exact hb
+  sorry
 
 -- ### Exercise (3 stars): iff_practice ⭐⭐⭐
 
 -- Prove the following theorems about `Iff`:
 
 theorem or_associate (a b c : Prop) : a ∨ (b ∨ c) ↔ (a ∨ b) ∨ c := by
-  constructor
-  · intro h
-    obtain ha | (hb | hc) := h
-    · left; left; exact ha
-    · left; right; exact hb
-    · right; exact hc
-  · intro h
-    obtain (ha | hb) | hc := h
-    · left; exact ha
-    · right; left; exact hb
-    · right; right; exact hc
+  sorry
 
 theorem mul_eq_0 (n m : Nat) :
     n * m = 0 ↔ n = 0 ∨ m = 0 := by
-  constructor
-  · apply Nat.mul_is_zero
-  · apply Nat.factor_is_zero
+  sorry
 
 theorem or_distributes_over_and (a b c : Prop) :
     a ∨ (b ∧ c) ↔ (a ∨ b) ∧ (a ∨ c) := by
-  constructor
-  · intro h
-    obtain ha | ⟨hb, hc⟩ := h
-    · constructor
-      · left; exact ha
-      · left; exact ha
-    · constructor
-      · right; exact hb
-      · right; exact hc
-  · intro h
-    obtain ⟨ha | hb, ha | hc⟩ := h
-    · left; exact ha
-    · left; exact ha
-    · left; exact ha
-    · right; exact ⟨hb, hc⟩
+  sorry
 
 -- ### Existential Quantification
 
@@ -899,8 +818,7 @@ example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
 
 theorem dist_not_exists (α : Type) (p : α → Prop) (h : ∀ x, p x) :
     ¬ (∃ x, ¬ p x) := by
-  intro ⟨x, hx⟩
-  apply hx; apply h
+  sorry
 
 attribute [autogradedProof 1] dist_not_exists
 
@@ -910,15 +828,7 @@ attribute [autogradedProof 1] dist_not_exists
 
 theorem dist_exists_or (α : Type) (p q : α → Prop) :
     (∃ x, p x ∨ q x) ↔ (∃ x, p x) ∨ (∃ x, q x) := by
-  constructor
-  · intro h
-    obtain ⟨x, hp | hq⟩ := h
-    · left; exists x
-    · right; exists x
-  · intro h
-    obtain ⟨x, hx⟩ | ⟨x, hx⟩ := h
-    · exists x; left; exact hx
-    · exists x; right; exact hx
+  sorry
 
 attribute [autogradedProof 2] dist_exists_or
 
@@ -1025,25 +935,8 @@ theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : 
 theorem List.In_map_iff {α β : Type} {f : α → β} {xs : List α} {y : β} :
     In y (map f xs) ↔ ∃ x, f x = y ∧ In x xs := by
   constructor
-  · induction xs with
-    | nil =>
-      intro h; rw [map_nil] at h
-      exfalso; apply List.In_nil; assumption
-    | cons x' xs' ih =>
-      intro h
-      rw [List.map_cons, In_cons] at h
-      obtain h | h := h
-      · rw [h]; exists x'
-        constructor
-        · rfl
-        · rw [In_cons]; left; rfl
-      · obtain ⟨x', h₁, h₂⟩ := ih h
-        exists x'
-        constructor
-        · exact h₁
-        · rw [In_cons]; right; exact h₂
-  · intro ⟨x, h₁, h₂⟩
-    rw [← h₁]; apply In_map; exact h₂
+  · sorry
+  · sorry
 
 -- ### Exercise (3 stars): All ⭐⭐⭐
 
@@ -1057,39 +950,16 @@ theorem List.In_map_iff {α β : Type} {f : α → β} {xs : List α} {y : β} :
 -- course, your definition should *not* just restate the left-hand side of
 -- `All_In`.)
 
-def List.All {α : Type} (p : α → Prop) (l : List α) : Prop := (
-  match l with
-  | [] => True
-  | x :: l' => p x ∧ List.All p l')
+def List.All {α : Type} (p : α → Prop) (l : List α) : Prop := sorry
 
-theorem List.All_nil {α : Type} {a : α → Prop} : List.All a [] := (by constructor)
+theorem List.All_nil {α : Type} {a : α → Prop} : List.All a [] := sorry
 
 theorem List.All_cons {α : Type} {p : α → Prop} {x : α} {l : List α} :
-    List.All p (x :: l) = (p x ∧ All p l) := (rfl)
+    List.All p (x :: l) = (p x ∧ All p l) := sorry
 
 theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
     (∀ x : α, In x l → p x) ↔ All p l := by
-  induction l with
-  | nil =>
-    constructor
-    · intro _; exact All_nil
-    · intro _ _ h; apply In_nil at h; contradiction
-  | cons x' xs' ih =>
-    obtain ⟨ih₁, ih₂⟩ := ih
-    constructor
-    · intro h
-      rw [All_cons]
-      constructor
-      · apply h; rw [In_cons]; left; rfl
-      · apply ih₁
-        intro x' hx'; apply h
-        rw [In_cons]; right; exact hx'
-    · rw [All_cons]
-      intro ⟨hx, hp⟩ x' h
-      rw [In_cons] at h
-      obtain h₁ | h₂ := h
-      · rw [h₁]; exact hx
-      · apply ih₂; apply hp; exact h₂
+  sorry
 
 attribute [autogradedProof 3] List.All_In
 
@@ -1112,8 +982,7 @@ attribute [autogradedProof 3] List.All_In
 -- predicate `p` such that `p n` is equivalent to `Odd n` when `n` is odd and
 -- equivalent to `Even n` otherwise.
 
-def CombineOddEven (Odd Even : Nat → Prop) : Nat → Prop := (
-  fun n => bif Nat.odd n then Odd n else Even n)
+def CombineOddEven (Odd Even : Nat → Prop) : Nat → Prop := sorry
 
 -- To test your definition, prove the following facts:
 
@@ -1122,35 +991,21 @@ theorem combineOddEven_intro (Odd Even : Nat → Prop)
     (hOdd : Nat.odd n = true → Odd n)
     (hEven : Nat.odd n = false → Even n) :
     CombineOddEven Odd Even n := by
-  dsimp [CombineOddEven]
-  /- `cases h : Nat.odd n` splits on `Nat.odd n` and records
-    the corresponding equation as `h`. -/
-  cases h : Nat.odd n with
-  | false =>
-    apply hEven
-    rw [h]
-  | true =>
-    dsimp
-    apply hOdd
-    exact h
+  sorry
 
 theorem combineOddEven_elim_odd
     (Odd Even : Nat → Prop)
     (n : Nat)
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = true) : Odd n := by
-  dsimp [CombineOddEven] at h
-  rw [hOdd] at h
-  dsimp at h; exact h
+  sorry
 
 theorem combineOddEven_elim_even
     (Odd Even : Nat → Prop)
     (n : Nat)
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = false) : Even n := by
-  dsimp [CombineOddEven] at h
-  rw [hOdd] at h
-  dsimp at h; exact h
+  sorry
 
 -- ## Applying Theorems to Arguments
 
@@ -1404,20 +1259,7 @@ theorem even_double (k : Nat) :
 
 theorem even_double_conv (n : Nat) : ∃ k : Nat,
     n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by
-  induction n with
-  | zero =>
-    rw [Nat.even_zero]; dsimp
-    exists 0  -- (`0 = Nat.double 0` is closed by `exists`'s final `rfl`)
-  | succ n' ihn =>
-    obtain ⟨k', ihk⟩ := ihn
-    rw [Nat.even_succ]
-    cases h : Nat.even n' with
-    | false =>
-      rw [h] at ihk; rw [not] at *; dsimp at *
-      exists (k' + 1); rw [ihk, Nat.double_succ]
-    | true =>
-      rw [h] at ihk; rw [not] at *; dsimp at *
-      exists k'; congr
+  sorry
 
 -- Now the main theorem:
 
@@ -1550,30 +1392,11 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 
 theorem andb_true_iff (b1 b2 : Bool) :
     (b1 && b2) = true ↔ b1 = true ∧ b2 = true := by
-  constructor
-  · intro h
-    cases b1 with
-    | false => rw [and] at h; contradiction
-    | true => rw [and] at h; exact ⟨rfl, h⟩
-  · intro h
-    cases b1 with
-    | false => exfalso; cases h.left
-    | true => rw [and]; exact h.right
+  sorry
 
 theorem orb_true_iff (b1 b2 : Bool) :
     (b1 || b2) = true ↔ b1 = true ∨ b2 = true := by
-  constructor
-  · intro h
-    cases b1 with
-    | false => rw [or] at h; right; exact h
-    | true => rw [or] at h; left; rfl
-  · intro h
-    cases b1 with
-    | false =>
-      obtain h | h := h
-      · contradiction
-      · rw [or]; exact h
-    | true => rw [or]
+  sorry
 
 attribute [autogradedProof 1] andb_true_iff
 
@@ -1587,66 +1410,26 @@ attribute [autogradedProof 2] orb_true_iff
 -- below. To make sure that your definition is correct, prove the lemma
 -- `beqList_true_iff`.
 
-def beqList {α : Type} (beq : α → α → Bool) (xs ys : List α) : Bool := (
-  match xs, ys with
-  | [], [] => true
-  | x :: xs, y :: ys => beq x y && beqList beq xs ys
-  | _, _ => false)
+def beqList {α : Type} (beq : α → α → Bool) (xs ys : List α) : Bool := sorry
 
 theorem beqList_nil_nil {α : Type} {beq : α → α → Bool} :
-    beqList beq [] [] = true := (rfl)
+    beqList beq [] [] = true := sorry
 
 theorem beqList_cons_cons {α : Type} {beq : α → α → Bool}
     {x y : α} {xs ys : List α} :
     beqList beq (x :: xs) (y :: ys) = (beq x y && beqList beq xs ys) :=
-  (rfl)
+  sorry
 
 theorem beqList_nil_cons {α : Type} {beq : α → α → Bool}
-    {x : α} {xs : List α} : beqList beq [] (x :: xs) = false := (rfl)
+    {x : α} {xs : List α} : beqList beq [] (x :: xs) = false := sorry
 
 theorem beqList_cons_nil {α : Type} {beq : α → α → Bool}
-    {x : α} {xs : List α} : beqList beq (x :: xs) [] = false := (rfl)
+    {x : α} {xs : List α} : beqList beq (x :: xs) [] = false := sorry
 
 theorem beqList_true_iff α (beq : α → α → Bool)
     (h : ∀ (x y : α), beq x y = true ↔ x = y) :
     ∀ {xs ys : List α}, beqList beq xs ys = true ↔ xs = ys := by
-  intro xs;
-  induction xs with
-  | nil =>
-    intro ys
-    cases ys with
-    | nil =>
-      rw [beqList_nil_nil]
-      constructor
-      · intro; rfl
-      · intro; rfl
-    | cons y ys =>
-      rw [beqList_nil_cons]
-      constructor
-      · intro; contradiction
-      · intro; contradiction
-  | cons x xs ih =>
-    intro ys
-    cases ys with
-    | nil =>
-      rw [beqList_cons_nil]
-      constructor
-      · intro; contradiction
-      · intro; contradiction
-    | cons y ys =>
-      rw [beqList_cons_cons]
-      obtain ⟨h₁, h₂⟩ := andb_true_iff (beq x y) (beqList beq xs ys)
-      obtain ⟨hx, hy⟩ := h x y
-      obtain ⟨ih₁, ih₂⟩ := ih
-      constructor
-      · intro h
-        congr
-        · exact hx (h₁ h).left
-        · exact ih₁ (h₁ h).right
-      · intro h
-        injection h with hxy hxsys
-        apply h₂
-        exact ⟨hy hxy, ih₂ hxsys⟩
+  sorry
 
 attribute [autogradedProof 3] beqList_true_iff
 
@@ -1659,33 +1442,16 @@ attribute [autogradedProof 3] beqList_true_iff
 -- Copy the definition of `List.allb` from Tactics here so that this file can
 -- be graded on its own.
 
-def List.allb {α : Type} (test : α → Bool) (l : List α) : Bool := (
-  match l with
-  | [] => true
-  | x :: xs' => test x && allb test xs')
+def List.allb {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
 
-theorem List.allb_nil {α : Type} {test : α → Bool} : allb test [] = true := (rfl)
+theorem List.allb_nil {α : Type} {test : α → Bool} : allb test [] = true := sorry
 
 theorem List.allb_cons {α : Type} {test : α → Bool} {x : α} {l : List α} :
-    allb test (x :: l) = (test x && allb test l) := (rfl)
+    allb test (x :: l) = (test x && allb test l) := sorry
 
 theorem List.allb_true_iff α {test : α → Bool} {l : List α} :
     allb test l = true ↔ All (fun x => test x = true) l := by
-  induction l with
-  | nil =>
-    rw [allb_nil]
-    constructor
-    · intro _
-      apply All_nil
-    · intro _
-      rfl
-  | cons x xs' ih =>
-    obtain ⟨h₁, h₂⟩ := andb_true_iff (test x) (allb test xs')
-    obtain ⟨ih₁, ih₂⟩ := ih
-    rw [allb_cons, All_cons]
-    constructor
-    · intro h; exact ⟨(h₁ h).left, ih₁ (h₁ h).right⟩
-    · intro ⟨h₁', h₂'⟩; exact h₂ ⟨h₁', ih₂ h₂'⟩
+  sorry
 
 -- (Ungraded thought question) Are there any important properties of the
 -- function `List.allb` which are not captured by this specification?
@@ -1843,18 +1609,13 @@ theorem and_comm_flip' (a b c : Prop) : (a ∧ b ∧ c) ↔ (c ∧ b ∧ a) := b
 
 theorem mul_eq_0_ternary (n m p : Nat) :
     n * m * p = 0 ↔ n = 0 ∨ m = 0 ∨ p = 0 := by
-  rw [mul_eq_0, mul_eq_0, or_associate]
+  sorry
 
 -- ### Exercise (2 stars): In_append_iff ⭐⭐
 
 theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
     List.In x (l ++ l') ↔ List.In x l ∨ List.In x l' := by
-  induction l with
-  | nil =>
-    constructor
-    · intro h; right; exact h
-    · intro h; obtain ⟨⟨⟩⟩ | h := h; exact h
-  | cons y ys ih => rw [List.cons_append, List.In_cons, List.In_cons, ih, or_assoc]
+  sorry
 
 -- ### Exercise (1 star): beq_neq_false ⭐
 
@@ -1863,9 +1624,7 @@ theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
 -- examples in later chapters.) Hint: `not_true_iff_false`.
 
 theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
-  rw [← not_true_iff_false]
-  dsimp [Ne]
-  rw [beq_eq_true n m]
+  sorry
 
 -- ### Functional Extensionality
 
@@ -1951,17 +1710,10 @@ def trRev {α} (xs : List α) : List α := revAppend xs []
 
 -- Prove that the two definitions are indeed equivalent.
 
-theorem revAppend_rev {α : Type} {xs ys : List α} :
-    revAppend xs ys = xs.rev ++ ys := by
-  induction xs generalizing ys with
-  | nil => rw [revAppend_nil]; rfl
-  | cons x xs ih =>
-    rw [revAppend_cons, List.rev, ← List.append_cons]
-    apply ih
+-- FILL IN HERE
 
 theorem trRev_correct {α : Type} : @trRev α = @List.rev α := by
-  ext1 xs; dsimp [trRev]
-  rw [revAppend_rev, List.append_nil]
+  sorry
 
 -- ### Classical vs. Constructive Logic
 
@@ -2103,9 +1855,7 @@ theorem em : ∀ a, a ∨ ¬ a := by
 -- any particular `a`.
 
 theorem excluded_middle_irrefutable (a : Prop) : ¬ ¬ (a ∨ ¬ a) := by
-  intro h
-  obtain ⟨hna, hnna⟩ := de_morgan_not_or h
-  exact hnna hna
+  sorry
 
 -- ### Exercise (3 stars): not_exists_dist (Advanced) ⭐⭐⭐
 
@@ -2121,10 +1871,7 @@ theorem excluded_middle_irrefutable (a : Prop) : ¬ ¬ (a ∨ ¬ a) := by
 
 theorem not_exists_dist (α : Type) (p : α → Prop) :
     (¬ ∃ x : α, ¬ p x) → (∀ x : α, p x) := by
-  intro h x
-  by_cases hx : (p x)
-  · exact hx
-  · exfalso; apply h; exists x
+  sorry
 
 -- ### Exercise (5 stars): classical_axioms (Optional) ⭐⭐⭐⭐⭐
 
@@ -2157,65 +1904,5 @@ def ImpOr := ∀ a b : Prop, (a → b) → (¬ a ∨ b)
 
 def ConsequentiaMirabilis := ∀ a : Prop, (¬ a → a) → a
 
-theorem ImpOr_em : ImpOr → ExcludedMiddle := by
-  intro h a
-  obtain hna | ha := h a a (fun ha => ha)
-  · right; exact hna
-  · left; exact ha
-
-theorem em_ImpOr : ExcludedMiddle → ImpOr := by
-  intro h a b hab
-  obtain ha | hna := h a
-  · right; exact hab ha
-  · left; exact hna
-
-theorem em_demorgan : ExcludedMiddle → DeMorganNotAndNot := by
-  intro h a b hnn
-  obtain ha | hna := h a
-  · left; exact ha
-  · obtain hb | hnb := h b
-    · right; exact hb
-    · exfalso; exact hnn ⟨hna, hnb⟩
-
-theorem demorgan_em : DeMorganNotAndNot → ExcludedMiddle := by
-  intro h a
-  apply h a (¬ a)
-  intro ⟨hna, hnna⟩
-  exact hnna hna
-theorem em_not_not : ExcludedMiddle → NotNot := by
-  intro h a hnna
-  obtain ha | hna := h a
-  · exact ha
-  · exfalso; exact hnna hna
-
-theorem not_not_em' : NotNot → ExcludedMiddle := by
-  intro h a; exact h _ (excluded_middle_irrefutable a)
-
-theorem em_cm : ExcludedMiddle → ConsequentiaMirabilis := by
-  intro h a hnaa
-  obtain ha | hna := h a
-  · exact ha
-  · exact (hnaa hna)
-
-theorem cm_em : ConsequentiaMirabilis → ExcludedMiddle := by
-  intro hc a; apply hc
-  intro h; right
-  intro ha; apply h
-  left; exact ha
-
-theorem cm_not_not : ConsequentiaMirabilis → NotNot := by
-  intro h a hnna; apply h
-  intro hna; exfalso; exact hnna hna
-
-theorem not_not_cm : NotNot → ConsequentiaMirabilis := by
-  intro h a hnaa; apply h
-  intro hna; exact hna (hnaa hna)
-
-theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
-  intro h a b haba; apply h
-  intro hna; apply haba
-  intro ha; contradiction
-
-theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
-  intro h a; exact h a False
+-- FILL IN HERE
 

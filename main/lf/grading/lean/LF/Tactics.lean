@@ -1,7 +1,7 @@
 import LF.Poly
 import LF.CustomTactics
 
-import AutograderLib
+import ComparatorAutograderLib
 import SFLCompat
 
 -- # Tactics: More Basic Tactics
@@ -81,9 +81,7 @@ theorem apply_exercise (m : Nat)
     (h₂ : ∀ (n : Nat), n.even = false → n.odd = true)
     (hEven : m.even = true) :
     (m + 1).odd = true := by
-  apply h₂
-  apply h₁
-  exact hEven
+  sorry
 
 -- To use the `apply` tactic, the conclusion of the fact being applied must
 -- match the goal. For example, `apply` will not work if the left and right
@@ -106,9 +104,7 @@ example (n m : Nat) (h : n = 0 → n = m) (hn : n = 0) : m = n := by
 
 theorem rev_exercise1 {α : Type} (l l' : List α) (h : l = l'.rev) :
     l' = l.rev := by
-  rw [h]
-  symm
-  apply reverse_reverse
+  sorry
 
 attribute [autogradedProof 2] rev_exercise1
 
@@ -271,9 +267,7 @@ theorem trans_eq_exercise (n m o p : Nat)
     (h₁ : m = o.minusTwo)
     (h₂ : (n + p) = m) :
     (n + p) = o.minusTwo := by
-  calc n + p
-  _ = m := by rw [h₂]
-  _ = o.minusTwo := by rw [h₁]
+  sorry
 
 -- ## The `injection` and `contradiction` Tactics
 
@@ -438,7 +432,7 @@ example (n : Nat)
 theorem disjoint_ex3 {α : Type} (x y z : α) (l : List α)
     (h : x :: y :: l = []) :
     x = z := by
-  contradiction
+  sorry
 
 attribute [autogradedProof 1] disjoint_ex3
 
@@ -717,12 +711,7 @@ example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
 
 theorem nth?_always_none (l : List Nat) (h : ∀ i, nth? l i = none) :
     l = [] := by
-  cases l with
-  | nil => rfl
-  | cons x xs =>
-    have h := h 0
-    dsimp [nth?] at h
-    contradiction
+  sorry
 
 -- Tactics like `have` and `replace` can also be used with lemmas and theorems
 -- we've already proven, not just things in our context. Using these tactis
@@ -945,21 +934,7 @@ theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := by
 theorem add_self_injective (n m : Nat)
     (h : n + n = m + m) :
     n = m := by
-  induction n generalizing m with
-  | zero =>
-    cases m with
-    | zero => rfl
-    | succ m' => dsimp at h; contradiction
-  | succ n' ih =>
-    cases m with
-    | zero => dsimp at h; contradiction
-    | succ m' =>
-      congr
-      apply ih
-      rw [Nat.add_succ, Nat.add_succ (m' + 1)] at h
-      injection h with h
-      rw [Nat.add_comm, Nat.add_comm (m' + 1)] at h
-      injections h
+  sorry
 
 attribute [autogradedProof 3] add_self_injective
 
@@ -1031,14 +1006,7 @@ example (n m p q : Nat)
 theorem nth?_after_last {α : Type}
     {n : Nat} {l : List α} (h : l.length = n) :
     nth? l n = none := by
-  induction l generalizing n with
-  | nil => rfl
-  | cons x xs ih =>
-    rw [List.length_cons] at h
-    rw [← h]
-    dsimp [nth?]
-    apply ih
-    rfl
+  sorry
 
 attribute [autogradedProof 3] nth?_after_last
 
@@ -1049,15 +1017,7 @@ attribute [autogradedProof 3] nth?_after_last
 theorem length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat}
     (h : (l₁ ++ (x :: l₂)).length = n) :
     ((l₁ ++ l₂).length) + 1 = n := by
-  induction l₁ generalizing n with
-  | nil => assumption
-  | cons y ys ih =>
-    rw [List.cons_append, List.length_cons] at *
-    /- A trick here: by using `rfl` to close `(ys ++ x :: l₂).length = n`
-       we effectively choose `n` to be `(ys ++ x :: l₂).length`
-    -/
-    rw [ih rfl]
-    assumption
+  sorry
 
 attribute [autogradedProof 3] length_append_cons
 
@@ -1091,22 +1051,7 @@ theorem diagonal_induction (p : Nat → Nat → Prop)
     (hzs : ∀ n, p 0 n → p 0 (n + 1))
     (hss : ∀ m n, p m n → p (m + 1) (n + 1)) :
     ∀ m n, p m n := by
-  intro m n
-  induction m generalizing n with
-  | zero =>
-    induction n with
-    | zero => exact hzz
-    | succ n' ih =>
-      apply hzs
-      apply ih
-  | succ m' ih =>
-    induction n with
-    | zero =>
-      apply hsz
-      apply ih
-    | succ n' ih' =>
-      apply hss
-      apply ih
+  sorry
 
 attribute [autogradedProof 3] diagonal_induction
 
@@ -1155,12 +1100,7 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 -- Here is an implementation of the `unzip` function mentioned in chapter
 -- Poly:
 
-def unzip' {α β : Type} (l : List (α × β)) : List α × List β := (
-  match l with
-  | [] => ([], [])
-  | (x, y) :: t =>
-    let (lx, ly) := unzip' t
-    (x :: lx, y :: ly))
+def unzip' {α β : Type} (l : List (α × β)) : List α × List β := sorry
 
 -- Prove that `unzip'` and `zip` are inverses in the following sense:
 
@@ -1168,20 +1108,7 @@ theorem zip_unzip' {α β : Type} (l : List (α × β))
     (l₁ : List α) (l₂ : List β)
     (h : unzip' l = (l₁, l₂)) :
     zip l₁ l₂ = l := by
-  induction l generalizing l₁ l₂ with
-  | nil =>
-    dsimp [unzip'] at h
-    injections h₁ h₂
-    rw [← h₁, ← h₂]
-    rfl
-  | cons x xs ih =>
-    let ⟨a, b⟩ := x
-    dsimp [unzip'] at h
-    injections h₁ h₂
-    rw [← h₁, ← h₂]
-    dsimp [zip]
-    rw [ih]
-    rfl
+  sorry
 
 attribute [autogradedProof 3] zip_unzip'
 
@@ -1248,21 +1175,7 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
 
 theorem bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) :
     f (f (f b)) = f b := by
-  cases b with
-  | false =>
-    cases h₁ : f false with
-    | false => rw [h₁]; assumption
-    | true =>
-      cases h₂ : f true with
-      | false => assumption
-      | true => assumption
-  | true =>
-    cases h₁ : f true with
-    | false =>
-      cases h₂ : f false with
-      | false => assumption
-      | true => assumption
-    | true => rw [h₁]; assumption
+  sorry
 
 attribute [autogradedProof 2] bool_fn_iterate_three_eq_one
 
@@ -1356,11 +1269,7 @@ attribute [autogradedProof 2] bool_fn_iterate_three_eq_one
 theorem append_left_cancel {α : Type} (l₁ l₂ l₃ : List α)
     (h : l₁ ++ l₂ = l₁ ++ l₃) :
     l₂ = l₃ := by
-  induction l₁ with
-  | nil => assumption
-  | cons x xs ih =>
-    injections _ eq
-    exact ih eq
+  sorry
 
 attribute [autogradedProof 2] append_left_cancel
 
@@ -1382,22 +1291,7 @@ theorem map_injective_of_injective {α β : Type}
     (l₁ l₂ : List α)
     (h : map f l₁ = map f l₂) :
     l₁ = l₂ := by
-  induction l₁ generalizing l₂ with
-  | nil =>
-    cases l₂ with
-    | nil => rfl
-    | cons y ys =>
-      rw [map_cons, map_nil] at h
-      contradiction
-  | cons x xs ih =>
-    cases l₂ with
-    | nil =>
-      rw [map_cons, map_nil] at h
-      contradiction
-    | cons y ys =>
-      rw [map_cons, map_cons] at h
-      injection h with hxy hxs
-      rw [hf x y hxy, ih ys hxs]
+  sorry
 
 attribute [autogradedProof 3] map_injective_of_injective
 
@@ -1416,45 +1310,7 @@ attribute [autogradedProof 3] map_injective_of_injective
 -- need to account for the behavior of `zip` in its base cases, which possibly
 -- drop some list elements.
 
-theorem unzip_zip {α β : Type}
-    {l₁ : List α} {l₂ : List β}
-    (h : l₁.length = l₂.length) :
-    unzip (zip l₁ l₂) = (l₁, l₂) := by
-  induction l₁ generalizing l₂ with
-  | nil =>
-    cases l₂ with
-    | nil => rfl
-    | cons => contradiction
-  | cons x xs ih =>
-    cases l₂ with
-    | nil => contradiction
-    | cons y ys =>
-      rw [zip_cons_cons]
-      dsimp [unzip]
-      rewrite [ih]
-      · rfl
-      · injections
-
-/- Here is one more approach -/
-theorem unzip_zip' {α β : Type}
-    {l₁ : List α} {l₂ : List β}
-    {l : List (α × β)} (h : (l₁, l₂) = unzip l) :
-    unzip (zip l₁ l₂) = (l₁, l₂) := by
-  induction l generalizing l₁ l₂ with
-  | nil =>
-    rw [unzip_nil] at h
-    injections h₁ h₂
-    rw [h₁, h₂]
-    rfl
-  | cons x xs ih =>
-    let ⟨a, b⟩ := x
-    dsimp [unzip] at h
-    injections h₁ h₂
-    rw [h₁, h₂]
-    dsimp [zip, unzip]
-    rewrite [ih]
-    · rfl
-    · rfl
+-- FILL IN HERE
 
 -- ### Exercise (3 stars): test_pos_of_filter_cons (Advanced) ⭐⭐⭐
 
@@ -1462,19 +1318,7 @@ theorem test_pos_of_filter_cons {α : Type}
     (test : α → Bool) (x : α) (l l' : List α)
     (h : filter test l = x :: l') :
     test x = true := by
-  induction l generalizing x l' test with
-  | nil => contradiction
-  | cons y ys ih =>
-    dsimp [filter] at h
-    cases hy : (test y)
-    · rw [hy] at h
-      dsimp at h
-      exact ih _ _ _ h
-    · rw [hy] at h
-      dsimp at h
-      injections h1 h2
-      rw [← h1]
-      exact hy
+  sorry
 
 attribute [autogradedProof 3] test_pos_of_filter_cons
 
@@ -1485,46 +1329,33 @@ attribute [autogradedProof 3] test_pos_of_filter_cons
 -- The first checks whether the given Boolean test returns `true` for every
 -- element of the list.
 
-def allTrue {α : Type} (test : α → Bool) (l : List α) : Bool := (
-  match l with
-  | [] => true
-  | x :: xs => (test x) && (allTrue test xs))
+def allTrue {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
 
-example : allTrue Nat.odd [1, 3, 5, 7, 9] = true := (by rfl)
-example : allTrue not [false, false] = true := (by rfl)
-example : allTrue Nat.even [0, 2, 4, 5] = false := (by rfl)
-example : allTrue Nat.even [] = true := (by rfl)
+example : allTrue Nat.odd [1, 3, 5, 7, 9] = true := sorry
+example : allTrue not [false, false] = true := sorry
+example : allTrue Nat.even [0, 2, 4, 5] = false := sorry
+example : allTrue Nat.even [] = true := sorry
 
 -- The second checks whether it returns `true` for at least one element.
 
-def anyTrue {α : Type} (test : α → Bool) (l : List α) : Bool := (
-  match l with
-  | [] => false
-  | x :: xs => (test x) || (anyTrue test xs))
+def anyTrue {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
 
-example : anyTrue Nat.even [1, 3, 4, 7] = true := (by rfl)
-example : anyTrue Nat.odd [0, 2, 4, 6] = false := (by rfl)
-example : anyTrue not [true, true, false] = true := (by rfl)
-example : anyTrue Nat.even [] = false := (by rfl)
+example : anyTrue Nat.even [1, 3, 4, 7] = true := sorry
+example : anyTrue Nat.odd [0, 2, 4, 6] = false := sorry
+example : anyTrue not [true, true, false] = true := sorry
+example : anyTrue Nat.even [] = false := sorry
 
 -- Next, define a *nonrecursive* version of `anyTrue` — call it `anyTrue'` —
 -- using `allTrue` and `not`.
 
-def anyTrue' {α : Type} (test : α → Bool) (l : List α) : Bool := (
-  !(allTrue (fun x => !(test x)) l))
+def anyTrue' {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
 
 -- Finally, prove a theorem `anyTrue_eq_anyTrue` stating that `anyTrue'` and
 -- `anyTrue` have the same behavior.
 
 theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     anyTrue test l = anyTrue' test l := by
-  induction l generalizing test with
-  | nil => rfl
-  | cons x xs ih =>
-    dsimp [anyTrue]
-    rw [ih]
-    dsimp [anyTrue', allTrue]
-    rw [Bool.not_and, Bool.not_not]
+  sorry
 
 attribute [autogradedProof 6] anyTrue_eq_anyTrue
 

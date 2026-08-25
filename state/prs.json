@@ -1,5 +1,5 @@
 {
-  "main_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
+  "main_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -142,53 +142,6 @@
       "title": "Fix infinite regress in Imp delaborator",
       "url": "https://github.com/plclub/sf-in-lean/pull/256"
     },
-    "257": {
-      "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b19e0dbd693a2bf77d3c8820a1ef6a5b6d57d2f3",
-      "preview_path": "pr/257/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32854217357",
-      "status": "published",
-      "title": "Reimplement autograding",
-      "url": "https://github.com/plclub/sf-in-lean/pull/257"
-    },
     "282": {
       "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
       "changed_variants": [
@@ -304,49 +257,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/301"
     },
     "302": {
-      "base_sha": "b19e0dbd693a2bf77d3c8820a1ef6a5b6d57d2f3",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f1724d5854aeb1ea1af3b95d58f52b0db4f32d0d",
+      "base_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",
+      "changed_variants": [],
+      "head_sha": "d5fb7c06df3339f21a5b26861394137267fd9fd0",
       "preview_path": "pr/302/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32859905878",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Start adding autogradedHoles, add some missing gradeTheorems",
       "url": "https://github.com/plclub/sf-in-lean/pull/302"
     },
@@ -463,6 +379,63 @@
       "status": "published",
       "title": "Pass over Basics to tidy up terse-mode text",
       "url": "https://github.com/plclub/sf-in-lean/pull/312"
+    },
+    "314": {
+      "base_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "ed24993d3cba11aaf5b9b9d4a26cc28438e938ea",
+      "preview_path": "pr/314/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32875227816",
+      "status": "published",
+      "title": "Revise `inversion` documentation and refactor `inversionCore`",
+      "url": "https://github.com/plclub/sf-in-lean/pull/314"
+    },
+    "315": {
+      "base_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",
+      "changed_variants": [],
+      "head_sha": "3c8a02bfc58e9eb78c80f31885a12593b57e5948",
+      "preview_path": "pr/315/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Verso compilation: Never put `:::dev` comments in terse output",
+      "url": "https://github.com/plclub/sf-in-lean/pull/315"
     }
   },
   "schema": 3

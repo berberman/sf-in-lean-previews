@@ -273,6 +273,9 @@ theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := (by rfl)
 theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := (by rfl)
 theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := (by rfl)
 
+-- Note to developers:
+--     TODO: `nand` needs `@[autogradedHole]`
+
 -- ### Exercise (1 star): and3 ⭐
 
 -- Do the same for the `and3` function below. This function should return
