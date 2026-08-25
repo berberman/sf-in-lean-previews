@@ -1,7 +1,7 @@
 import LF.Logic
 import LF.CustomTactics
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # IndProp: Inductively Defined Propositions
 

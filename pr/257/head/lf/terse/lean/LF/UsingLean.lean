@@ -1,7 +1,7 @@
 import LF.Basics
 import LF.Induction
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # UsingLean: Using the Full Power of a Proof Assistant
 
@@ -32,13 +32,24 @@ import LF.SFLCompat
 
 -- Previously, we did computation like this...
 
-open NatPlayground.Nat in
+section OldNats
+open NatPlayground.Nat
 example : (two * two : NatPlayground.Nat) = four := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
   rewrite [mul_succ, mul_succ, mul_zero]
   rewrite [add_succ, add_succ, add_zero]
   rewrite [add_succ, add_succ, add_zero]
   rfl
+
+-- We made Lean enforce this pedagogical style using the
+-- `@irreducible` attribute on definitions like `mul` and
+-- `add`. This ensured that definitions be fully simplified
+-- using `rw` with simplification rules like `two_eq_succ_one`.
+
+-- Note to developers (Benjamin Pierce @bcpierce00):
+--     That last sentence is not very clear. "that definitions
+--     be fully simplified" does not parse, but I'm not sure
+--     whether to add "will" or "can" or something else...
 
 -- This approach is useful in a textbook for understanding the
 -- structure of natural numbers and for providing early
@@ -50,6 +61,8 @@ example : (two * two : NatPlayground.Nat) = four := by
 -- *automatically* prove properties about natural numbers and
 -- to compute with them.
 
+end OldNats
+-- Now, we are using Lean's built-in natural numbers.
 example : (3 * 3 : Nat) = 9 := by rfl
 
 -- The annotation `: Nat` tells Lean that we are using its
@@ -59,7 +72,14 @@ example : (3 * 3 : Nat) = 9 := by rfl
 -- (By convention, theorems about a type live in the namespace
 -- of that type, hence the need for the `Nat.` prefix.)
 
--- ### `rfl` and Computation with `Nat`
+-- Definitions in the built-in `Nat` library are *not* marked
+-- `@[irreducible]`. This lets us use more powerful *automatic
+-- simplification* of functions on natural numbers, which is
+-- appropriate when their low-level behaviors are not the
+-- primary focus of proofs. This will be the case going
+-- forward.
+
+-- ### The `rfl` Tactic and Computation with `Nat`
 
 -- With Lean's `Nat`, much of the computation happens
 -- automatically, and `rfl` suffices to close any equality of
@@ -196,17 +216,14 @@ theorem succ_mul_succ' (n m : Nat) :
 -- particular uses, and both will be tools in your ever-growing
 -- toolbox of tactics.
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     Needs some exercises!!
-
 -- ## Definitional Simplification: `dsimp`
 
--- Often, rather than rewriting by a known equation like
--- `n + succ m = succ (n + m)` using `rw [add_succ]`, we just
--- want to simplify the function (here `Nat.add`) automatically
--- when we can.
+-- Often, rather than repeatedly rewriting by a known equation
+-- like `rw [Nat.mul_zero, Nat.mul_zero]` to solve a goal like
+-- `n * (m * 0) = 0`, we just want to simplify the function
+-- (here `Nat.mul`) automatically when we can.
 
--- The `dsimp` tactic ("definitionally simplify") unfolds
+-- The `dsimp` ("definitionally simplify") tactic unfolds
 -- definitions and performs definitional simplifications. You
 -- can give it hints in square brackets: `dsimp [f]` tells it
 -- to unfold the definition of `f`. You can also simplify a
@@ -258,6 +275,23 @@ example (n m : Nat) (h : 2 * n = m * 2) : n + n = m + m := by
   rw [Nat.mul_comm, Nat.mul_two, Nat.mul_two] at h
   exact h
 
+-- But `rw` rewrites only one instance of a definition at a
+-- time. When a hypothesis mentions the same function at
+-- several different arguments, each one needs its own rewrite.
+
+example (n m k : Nat) (h : square n + square m + square k = 0) :
+    n * n + m * m + k * k = 0 := by
+  rw [square, square, square] at h
+  exact h
+
+-- `dsimp` unfolds *every* instance at once, so one hint
+-- suffices no matter how many times the definition appears.
+
+example (n m k : Nat) (h : square n + square m + square k = 0) :
+    n * n + m * m + k * k = 0 := by
+  dsimp [square] at h
+  exact h
+
 -- `dsimp` also takes definitional steps such as `+ 0`, so it
 -- can finish goals that `rfl` would close.
 
@@ -278,6 +312,37 @@ sf_expect_failure
 -- Like `rw` and `exact`, `dsimp` also has a `?` version that
 -- searches for functions to simplify by. Many Lean tactics
 -- have `?` versions; try it out if you are unsure.
+
+-- Note to developers (Mike Hicks @mwhicks1):
+--     Yipeng said we can pass a theorem, e.g.
+--     `dsimp [Nat.mul_zero]`, which would rewrite
+--     `Nat.mul_zero` many times and then perform reductions,
+--     just like simp `[Nat.mul_zero]`. Also `@[defeq] lemmas`
+--     in the `simp` set are always used implicitly.
+--
+--     Should `dsimp [Nat.mul_zero]` be preferred over
+--     `dsimp [Nat.mul]`? An example:
+--
+--     `example (n : Nat) : n * (n * (n * 0)) = 0 := by
+--       rw [Nat.mul_zero, Nat.mul_zero, Nat.mul_zero]
+--
+--     example (n : Nat) : n * (n * (n * 0)) = 0 := by
+--       dsimp [Nat.mul]
+--
+--     example (n : Nat) : n * (n * (n * 0)) = 0 := by
+--       dsimp [Nat.mul_zero]`
+--
+--     This could be confusing though, because rewriting by
+--     `dsimp` only works for *definitional* equalities. The
+--     following doesn't work
+--
+--     `example (n : Nat) : (((0 * n) * n) * n) = 0 := by
+--       dsimp [Nat.zero_mul]`
+--
+--     This is because `Nat.zero_mul` is true by induction, not
+--     reduction. This is a bit confusing to explain, and also
+--     unfortunate since one may not know why an equality
+--     holds. Thus I'd prefer not to include this use here.
 
 -- ## Redefining Functions and Lemmas over Nats
 
@@ -357,19 +422,13 @@ theorem Nat.double_add (n : Nat) : n.double = n + n := by
 theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
   sorry
 
--- ## Using Code Actions to Generate Match Skeletons
+-- In the remainder of the book, we use Lean's built-in natural
+-- numbers everywhere. We use `dsimp` and `calc` in examples
+-- and solutions, and encourage their use. We also recommend
+-- using `rw?` and `exact?` to search for lemmas (though these
+-- should not appear in finished proofs).
 
--- Lean's language server can suggest *code actions*, which are
--- small editor commands that modify the source code. In VS
--- Code, a lightbulb icon appears on the left when a code
--- action is available at your cursor. You can click the icon
--- or open the code action menu with `Ctrl + .` on
--- Windows/Linux or `Command + .` on macOS. For more
--- information, see the [Lean 4 VSCode extension
--- manual](https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md#code-actions).
-
--- Some code actions can generate the explicit branches needed
--- for pattern matching. This is especially useful when working
--- with `match` expressions, or with tactics such as `cases`
--- and `induction`, which we saw in previous chapters.
+-- With these tools in hand, we can begin to prove properties
+-- about more sophisticated forms of data, beginning with
+-- `Lists`.
 
