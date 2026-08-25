@@ -406,6 +406,16 @@
       "status": "ci-failed",
       "title": "[WIP] Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
+    },
+    "311": {
+      "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
+      "changed_variants": [],
+      "head_sha": "f0b315c9545413c72eb94dbea6b272af6c7db30e",
+      "preview_path": "pr/311/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Poly: make `unzip` a manually graded exercise about char lemmas",
+      "url": "https://github.com/plclub/sf-in-lean/pull/311"
     }
   },
   "schema": 3
