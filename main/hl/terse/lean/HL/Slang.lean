@@ -2,12 +2,6 @@ import SFLCompat
 
 --  # Slang: Arithmetic and Boolean Expressions
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      We need to figure out our approach to text width,
---      especially for proofs. Quite a few proofs here don't
---      render into the chosen page width, and for terse
---      mode it will be worse.
-
 --  ## Arithmetic and Boolean Expressions
 
 --  ### Syntax
@@ -221,17 +215,6 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 
 --  (A) `num` and `plus` (B) `num` only (C) `num` and `mult`
 --  (D) `mult` and `plus` (E) `num`, `mult`, and `plus`
-
---  Note to developers (Michael Hicks @mwhicks1, before next release):
---      Not sure if we need ⇓b, or whether we can define ⇓
---      overloaded. Don't understand Lean notation yet!
-
---  Note to developers (Chris Henson @chenson₂018, before next release):
---      About `Bexp.eval` below: We should discuss a way to
---      recall definitions without having to write them out
---      manually like this. I think a simple `#print` may
---      work as an alternative, assuming there are no
---      namespace issues..
 
 --  ### Exercise (1 star): beval_rules (Optional) ⭐
 

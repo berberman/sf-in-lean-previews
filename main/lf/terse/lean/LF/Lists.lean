@@ -17,14 +17,6 @@ inductive NatProd where
 
 #check (NatProd.pair 3 5)
 
---  Note to developers (Mike Hicks @mwhicks1):
---      I would have expected us to have `namespace NatProd`
---      here when defining the following functions, so we
---      don't need qualifiers. We've already full explained
---      namespaces back in Basics. Some of the text below
---      mentions using the `NatProd` prefix specifically,
---      but I think you can drop it and it will stick work.
-
 --  Functions for extracting the first and second components
 --  of a pair can then be defined by pattern matching.
 
@@ -166,9 +158,6 @@ def append (l₁ l₂ : NatList) : NatList :=
   | h :: t => h :: append t l₂
 
 --  ### Type Classes and Overloading
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      One word, or two?
 
 instance : HAppend NatList NatList NatList where
   hAppend := append

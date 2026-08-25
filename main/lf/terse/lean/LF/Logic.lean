@@ -8,11 +8,6 @@ import SFLCompat
 
 --  # Logic in Lean
 
---  Note to developers (before next release):
---      Unlike earlier chapters, there are probably too many
---      WORKINCLASSes in this chapter. BCP 20: But
---      conversely some more quizzes would be great!
-
 --  So far, we have seen:
 
 --  - *propositions*: mathematical statements, so far only
@@ -409,60 +404,6 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
     apply h
     rfl
 
---  Note to developers:
---      HIDE: CH: I don't think this was the original
---      intention, but some of these quizzes got
---      unnecessarily tricky and pedantic. For instance, the
---      first quiz below makes a big distinction between
---      using the destruct tactic and destructing using an
---      intro pattern, even if conceptually there is no
---      difference. Could it be that these quizzes were
---      devised when intro patterns were not taught in the
---      course and an update would be helpful now? Since I
---      don't see the gain in tricking a majority of
---      students in giving the "wrong" answer, even if it's
---      a perfectly sensible one.
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      `INCOMING BOCHUM MATERIAL summarized by Claude (old/bochum-lf-updates/Logic.v): the five
---         quizzes below were reworked in the Bochum LF updates -- addressing
---         the concern in the dev note above.  Every option list was replaced
---         by the following uniform one (with `discriminate` in place of
---         `destruct` in the last quiz):
---
---           (A) intros and apply suffice
---           (B) destruct
---           (C) left and/or right
---           (D) destruct, left and right
---           (E) none of the above
---
---         and the answer proofs for quizzes 1 and 4 were changed to use an
---         explicit destruct instead of destructing via an intro pattern:
---
---           Lemma quiz1: forall X, forall a b : X, (a=b) /\ (a<>b) -> False.
---           Proof.
---             intros X a b H.
---             destruct H as [Hab Hnab]. apply Hnab. apply Hab.
---           Qed.
---
---           Lemma quiz4 : forall P Q: Prop,  P \/ Q -> ~~P \/ ~~Q.
---           Proof.
---             intros P Q H.
---             destruct H as [HP | HQ].
---             - (* left *)
---               left. intros HnP. apply HnP in HP. apply HP.
---             - (* right *)
---               right. intros HnQ. apply HnQ in HQ. apply HQ.
---           Qed.
---
---         To incorporate: rewrite the option lists of the five quizzes below
---         in the same uniform style (in Lean terms, e.g. "(A) intro and
---         apply suffice / (B) cases / (C) left and/or right / (D) cases,
---         left and right / (E) none of the above", with contradiction
---         replacing cases in the last quiz) and make the solutions for
---         quizzes 1 and 4 use an explicit cases rather than an intro
---         pattern.`
-
 --  _Quiz:_
 
 --  To prove the following proposition, which tactics will
@@ -786,13 +727,6 @@ sf_expect_failure_in
     rw [Nat.add_comm]
     rw [Nat.add_comm]
 
---  Note to developers (Yipeng Liu @berberman, before next release):
---      These hidden variables are only for inline prose,
---      but they currently leak into `leanOutput` error
---      contexts. Maybe we should implement a separate scope
---      for declaring variables only visible to `lean` role
---      instead of `lean` block.
-
 --  unsolved goals
 --  a b c : Prop
 --  n m : Nat
@@ -970,9 +904,6 @@ theorem even_double (k : Nat) :
   | zero => rw [Nat.double_zero]; rfl
   | succ k' ih => rw [Nat.double_succ]; exact ih
 
---  Note to developers (Yipeng Liu @berberman):
---      Same issue as `CombineOddEven`.
-
 theorem even_double_conv (n : Nat) : ∃ k : Nat,
     n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by
   sorry
@@ -1000,10 +931,6 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 
 --  (For the reverse direction we need the simple fact that
 --  `==` is reflexive.)
-
---  Note to developers (Yipeng Liu @berberman):
---      Either get rid of the development of `beq` story or
---      use our own `beq` on `Nat`.
 
 --  Don't worry too much about `Nat.beq_eq_true_eq` yet, we
 --  need this from Lean because `n == m` is a wrapper of

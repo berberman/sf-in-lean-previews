@@ -8,14 +8,6 @@ import SFLCompat
 
 open scoped HasEval MyGetElem Com
 
---  Note to developers (Sati @satiscugcat):
---      At this point, the Rocq file provides instructions
---      about using a new directory, making sure the project
---      is set up properly, and also instructions about how
---      to deal with the exercises. I am assuming these
---      things are being moved to Intro.lean? I am excluding
---      them for now.
-
 open scoped HasEval MyGetElem
 
 --  ## Behavioral Equivaleence
@@ -83,11 +75,6 @@ theorem if_true_simple {c₁ c₂ : Com} : (imp {if (true) {~c₁} else {~c₂}}
   · intro h
     apply EvalR.ifTrue _ h
     simp
-
---  Note to developers (Sati @satiscugcat):
---      The to_verso script seems to use `\[\]` blocks, but
---      these seem to cause problems with the tilde.
---      Currently skipping them and just using backticks.
 
 theorem if_true {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {true})) :
     (imp {if (~b) {~c₁} else {~c₂}}).Equiv c₁ := by
@@ -171,9 +158,6 @@ theorem loop_unrolling {b : Bexp} {c : Com} :
     }) := by
   sorry
 
---  Note to developers (Sati @satiscugcat):
---      Leaving out optional exercise `seq_assoc` for now.
-
 theorem identity_assignment {X : Ident} :
     (imp {X := X}).Equiv
     (imp {skip}) := by
@@ -200,10 +184,6 @@ theorem assign_equiv {X : Ident} {a : Aexp} (ha : Aexp.Equiv (aexp {X}) a) :
     (imp {skip}).Equiv
     (imp {X := ~a}) := by
   sorry
-
---  Note to developers (Sati @satiscugcat):
---      Leaving out optional exercise `equiv_classes` for
---      now.
 
 --  ## Properties of Behavior Equivalence
 
@@ -274,12 +254,4 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
       apply Com.EvalR.asgn
       rw [Aexp.equiv_def] at ha
       rw [ha]
-
---  Note to developers (Sati @satiscugcat):
---      `NOT PORTED YET - remaining portions of Equiv.v left (apart from the portions explicitly stated so far).
---        - The rest of "Behavioural Equivalence is a Congruence"
---        - The section on "Program Transformation"
---        - Soundness of (0 + n) Elimination
---        - Extended Exercise: Nondeterministic Imp
---        - Additional Exercises`
 

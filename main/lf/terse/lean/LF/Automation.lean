@@ -78,54 +78,6 @@ theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      `INCOMING BOCHUM MATERIAL summarized by Claude (old/bochum-lf-updates/AltAuto.v): the
---         Bochum LF updates extend AltAuto's discussion of the sequencing
---         tactical with new material on Rocq's "local form with `..`":
---
---           T; [T1 .. | Tn]
---
---         which applies T1 to the first goal, Tn to the last, and T1 to all
---         goals in between (variants: T; [T1 | .. | Tn] applies nothing in
---         between; the `..` may also appear first, last, or alone).  The new
---         material illustrates this by revisiting star_app from IndProp:
---
---           Lemma star_app'': forall T (s1 s2 : list T) (re : reg_exp T),
---             s1 =~ Star re ->
---             s2 =~ Star re ->
---             s1 ++ s2 =~ Star re.
---           Proof.
---             intros T s1 s2 re H1.
---             remember (Star re) as re' eqn:Eq.
---             induction H1
---               as [|x'|s1 re1 s2' re2 Hmatch1 IH1 Hmatch2 IH2
---                   |s1 re1 re2 Hmatch IH|re1 s2' re2 Hmatch IH
---                   |re''|s1 s2' re'' Hmatch1 IH1 Hmatch2 IH2];
---               [discriminate .. | intros H; apply H | idtac]. (* <=== *)
---             (* MStarApp *)
---             intros H1. rewrite <- app_assoc.
---             apply MStarApp.
---             + apply Hmatch1.
---             + apply IH2.
---               * apply Eq.
---               * apply H1.
---           Qed.
---
---         (first shown in its long form with all seven cases spelled out, then
---         shortened as above).  Bochum also adds a QUIETSOLUTION alternate
---         solution to AltAuto's re_opt exercise that uses nested `..` lists
---         instead of `try`, and rewords the introduction of `T; T'` to say
---         simply that it is "equivalent to locally performing T' on all the
---         subgoals".
---
---         To incorporate: Lean has no direct analogue of the positional
---         `[T1 .. | Tn]` goal-selector list; the closest idioms are
---         case-labelled alternatives (`case ... =>`/`next`), `all_goals`,
---         and `first`.  A future pass should decide whether to add a
---         parallel discussion here (e.g. using `star_app` below, proving the
---         six non-MStarApp cases uniformly) or to record the Rocq material
---         as intentionally unported.`
-
 --  ### The `try` Combinator
 
 --  The `try` combinator allows tactics to fail.
@@ -350,11 +302,6 @@ example α x (l₁ l₂ l₃ : List α)
   | inl h => left; left; exact h
   | inr h => right; exact h
 
---  Note to developers (Daniel Sainati @dsainati1):
---      Chris suggested using Mathlib's `linter.flexible`
---      option to enforce proper `simp` usage. How do we
---      feel about adding a Mathlib dependency for this?
-
 --  Another rule around proper `simp` usage applies to the
 --  appropriate definition of `simp` lemmas.
 
@@ -394,17 +341,6 @@ namespace RegExp
 --  characters drawn from `α` ─ which in this exercise we
 --  represent as *lists* with elements from `α`.
 
---  Note to developers (Daniel Sainati @dsainati1):
---      CH: Do you mean here that this is different because
---      the inductive type doesn't specify α is finite? In
---      Lean the convention is for inductives not to carry
---      Prop-valued typeclass assumptions, enforcing this
---      only at the theorems that use them. So this could
---      give off a slightly wrong impression. DHS:
---      @bcpierce00 What was the purpose of this aside in
---      the original Rocq text? Does it make sense to keep
---      here?
-
 --  We connect regular expressions and strings by defining
 --  when a regular expression *matches* some string.
 
@@ -436,10 +372,6 @@ namespace RegExp
 --  We can easily translate this intuition into a set of
 --  rules, where we write `s =~ re` to say that `re` matches
 --  `s`:
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Check typesetting here (rules should be centered, I
---      think):
 
 --    ─────────────── (mEmpty)
 --    [] =~ EmptyStr
@@ -953,15 +885,6 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
 
 --  ### The (Strong) Pumping Lemma
 
---  Note to developers (Daniel Sainati @dsainati1):
---      If this exercise is going to be optional we should
---      still fill in the solution but it's lower priority.
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      I've made it optional, following the original, but
---      we should think/talk about it. I also reduced the
---      rating from 10 to 5 (which I think is the maximum?).
-
 --  ### Exercise (5 stars): weak_pumping (Optional) ⭐⭐⭐⭐⭐
 
 --  Now here is the usual version of the pumping lemma. In
@@ -976,10 +899,6 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
       s₁.length + s₂.length ≤ pumpingConstant re ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
-
---  Note to developers (Niklas Halonen @xhalo32):
---      Add `gradeTheorem 10 pumping` once the proof is
---      filled in.
 
 end Pumping
 end RegExp

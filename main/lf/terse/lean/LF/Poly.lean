@@ -31,12 +31,6 @@ inductive MyList (α : Type) : Type where
 --  It is a *type constructor* — a function from types to
 --  types.
 
---  Note to developers (Yipeng Liu @berberman):
---      A trick used below: parenthesizing the declaration
---      makes it a term — Lean elaborates it and prints its
---      inferred function type, instead of the declaration
---      signature: `MyList (α : Type) : Type`.
-
 #check (MyList)
 
 --  MyList : Type → Type

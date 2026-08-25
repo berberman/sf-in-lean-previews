@@ -1,5 +1,5 @@
 {
-  "main_sha": "a7e4b252f55740a8f2e47a31c8dbc364ba2922bb",
+  "main_sha": "389c7ff3348769f91d293709650ecba340c30a2d",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -322,53 +322,6 @@
       "status": "ci-failed",
       "title": "Poly: make `unzip` a manually graded exercise about char lemmas",
       "url": "https://github.com/plclub/sf-in-lean/pull/311"
-    },
-    "315": {
-      "base_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "3c8a02bfc58e9eb78c80f31885a12593b57e5948",
-      "preview_path": "pr/315/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32876075484",
-      "status": "published",
-      "title": "Verso compilation: Never put `:::dev` comments in terse output",
-      "url": "https://github.com/plclub/sf-in-lean/pull/315"
     }
   },
   "schema": 3

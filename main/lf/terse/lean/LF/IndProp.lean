@@ -5,171 +5,6 @@ import SFLCompat
 
 --  # IndProp: Inductively Defined Propositions
 
---  Note to developers:
---      `HIDE: BCP 25: After teaching the chapter this semester, I feel
---      that (a) the Ev example, while arguably suboptimal, actually works
---      acceptably well. (I just wish that the n in ``ev_succ_succ` n H` was not
---      two smaller than the n that is being shown to be even — that's
---      always awkward.  Wonder if there is some clever way around that...)
---
---      However, (b) the chapter is very long, and quite a few of the
---      exercises are hard, especially if you do as I did this year and
---      require the advanced exercises for everybody (on the assumption
---      that they could get plenty of help from LLMs, etc.).  I think it
---      really needs to be at least significantly trimmed, if not split up.`
---
---      `HIDE: MRC 3/22: I offer a few remarks. I'm putting them here, above
---      the BCP'21 comment, not to say that they are in any way more
---      important; rather, just to preserve some chronological legibility.
---
---      - This chapter is an outlier in length. It now has the maximum line
---        length (in the FULL version) of any chapter in LF, at about 2300
---        LoC. That's a z-score of about 1.75 for the "blue arrow" chapters
---        in the dependency diagram.
---
---      - This chapter has 39 exercises, of which 25 (!) are optional.
---
---      - The running example of evenness is known to be uncompelling
---        because it is representable without inductively-defined
---        propositions. There do exist compelling examples:
---
---        + Functions like `factorial` whose "natural" definitions are not
---          structurally recursive. [Coq'Art 8.4]  [BCP 25: FWIW, I don't
---          find the "natural" definition of factorial suitable for present
---          purposes: the reasons it is better and more natural than a
---          simple fixpoint seem rather subtle.]
---
---        + Partial functions.
---
---        + Relations (that are not strictly functions).
---
---      I have a couple of personal opinions based on those observations:
---
---      - I favor BCP'21's "path 1" of de-emphasizing (to the extent
---        perhaps of eliminating) evenness.
---
---      - I favor re-factoring this chapter into two files, with a main
---        (blue) path that covers the essentials without cluttering
---        optional exercises throughout the file.`
---
---      HIDE: BCP '21: This chapter has been the subject of
---      a lot of discussion over the past couple of years,
---      with lots of people expressing dissatisfaction with
---      the use of evenness as a main example. In this
---      revision, I have attempted a compromise: keeping
---      evenness as the running example (because, aside from
---      the artificiality of the example, it is pretty well
---      polished) but preceding it with short discussions of
---      several better-motivated examples.
---
---      I'm not yet convinced that this goes far enough,
---      though (I was not satisfied with my lecture on this
---      part of the chapter, even after adding these
---      examples, though I did do some further streamlining
---      afterward and there are some further opportunities
---      for streamlining — perhaps enough to make the
---      present treatment palatible). I see three possible
---      paths forward:
---
---      - 1. Choose a better example and simply replace all
---           the even stuff. (But which one is better? I
---           don't think we've found it yet.)
---
---      - 2. Mix and match ─ use different examples from the
---           top of the chapter to make different points.
---
---      - 3. Leave the examples as-is but streamline as much
---           as possible so we don't get stuck in them.
---
---      Here, for reference, is the whole discussion from
---      before:
---
---      -----------------
---
---      CH: In my Lyon course it became obvious to pretty
---      much everyone that the inductive definition of
---      evenness that this chapter uses intensiviely is so
---      silly and artificial that it makes understanding
---      very hard for most students. There's zero need to
---      define evenness inductively, when `∃ k, n = 2*k`
---      does the job fine, so inductive propositions seem to
---      students not something useful, but just
---      self-inflicted pain. All the inductive propositions,
---      up to subsequences and the matching on Regular
---      Expressions at the end, have this useless
---      self-inflicted pain flavour. So I returned to this
---      the following morning and showed to the students how
---      to define reflexive-transitive closure as an
---      inductive relation, and afterwards the were able to
---      follow much better. The code I quickly hacked up for
---      this is at:
---      https://prosecco.gforge.inria.fr/personal/hritcu/teaching/lyon2019/Multi.v
---
---      BCP: Yes, this chapter needs a revamp! For the
---      moment I am going to just add a couple of sentences
---      to the opening sequence below, to warn students
---      about this potential confusion. Moving forward, I
---      wonder whether something like ordered binary trees
---      would be a simple enough running example.
---
---      BCP 20: I remain puzzled by what is the really right
---      example for this chapter. Ordered trees (and sorted
---      lists) don't feel quite right because students might
---      think we should define them with Fixpoint, not
---      inductive. APT 21: Ordered trees are also
---      surprisingly complex to describe (see
---      VFA/SearchTree.v). Maybe Permutations would be be a
---      good choice? The only problem is convincing students
---      that the standard Lean inductive definition is
---      actually correct (see VFA/Perm.v)!
---
---      We should also think about how to make the material
---      flow better between this chapter and ProofObjects.
---      When lecturing about this one I ended up introducing
---      a lot of the concepts from that one.
---
---      --------
---
---      LATER: BCP 19: After lecturing on the first part of
---      this chapter, I'm afraid I have to agree that the Ev
---      / even / evenb stuff is a total mess. Besides the
---      "why are there so many definitions of evenness?"
---      problem, evenness is just not a very natural
---      inductively defined proposition as a first example,
---      because we already have so many intuitions about
---      what evenness is, and they clash with the new
---      definition.
---
---      So what to do?
---
---      An early version of this chapter, years ago, used a
---      completely artificial inductively defined property
---      of numbers (0 is beautiful, twice a beautiful number
---      is beautiful, etc.). We could consider going back to
---      that. Or perhaps there is a more natural example,
---      either involving numbers or perhaps using some other
---      inductive structure like lists or binary trees. Not
---      sure what's best.
---
---      A related issue is that later chapters
---      (ProofObjects, IndPrinciples) also rely heavily on
---      this example. Sigh.
---
---      BCP 20: Tried to sort this out a bit better by
---      renaming the propositional definition from `Ev` to
---      `eveni`, for symmetry with `evenb`, and renaming the
---      definition that says "a number is even if it is
---      twice something" to `evend`. What do people think of
---      this?
---
---      BCP 20 update: In parallel, APT tried to sort it out
---      a different way; his is more consistent with the
---      standard library, so let's try to go with that one
---      consistently...
-
---  Note to developers (before next release):
---      This chapter needs more (and better!) quizzes
-
 --  ## Inductively Defined Propositions
 
 --  In the Logic chapter, we looked at several ways of
@@ -379,21 +214,6 @@ def Collatz := ∀ n, n ≠ 0 → CollatzHoldsFor n
 --  bright future as a number theorist! But don't spend too
 --  long on it ─ it's been open since 1937.
 
---  Note to developers (Chris Henson @chenson2018):
---      We may want to add an exercise later proving false
---      if one assumes Collatz' conjecture without the
---      `n ≠ 0` assumption. We had that mistake in the
---      script for years and no one noticed, wow!
---
---      `theorem Collatz0' {n} (h₀ : n = 0) : ¬ CollatzHoldsFor n := by
---        intro h; induction h
---        case chf_one => contradiction
---        case chf_even ih => apply ih; rw [h₀]; dsimp [div2]
---        case chf_odd h _ _ => rw [h₀] at h; dsimp [Nat.even] at h; contradiction
---
---      theorem Collatz0 : ¬ (∀ n, CollatzHoldsFor n) := by
---        intro h; apply Collatz0'; rfl; apply h`
-
 --  ### Example: Binary Relation for Comparing Numbers
 
 --  A binary *relation* on a set `α` has Lean type
@@ -485,9 +305,6 @@ example : AncestorOf .sage .moss := by
   . apply ClosTrans.t_step; apply ParentOf.po_SC
   . apply ClosTrans.t_step; apply ParentOf.po_CM
 
---  Note to developers:
---      HIDE: CH: A simple exercise could be nice here?
-
 --  ### Example: Reflexive and Transitive Closure
 
 --  As another example, the *reflexive and transitive
@@ -530,10 +347,6 @@ def CS (n m : Nat) : Prop := csf n = m
 
 def CMS (n m : Nat) : Prop := ClosReflTrans CS n m
 def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CMS n 1
-
---  Note to developers:
---      HIDE: CH: Would it be helpful to add an exercise
---      later proving CMS equivalent to CollatzHoldsFor?
 
 --  ### Example: Permutations
 
@@ -796,15 +609,7 @@ theorem inversion_ex2 n (h : n + 1 = 0) : 2 + 2 = 5 := by
 --  - Generate auxiliary equalities (as with `ev_succ_succ`
 --    above).
 
---  Note to developers (before next release):
---      The wording there is totally awkward!
-
 --  _Quiz:_
-
---  Note to developers:
---      LY: Not quite a fair question because this is the
---      first time they are facing a situation where the
---      index does not start with a constructor.
 
 --  Which tactics are needed to prove this goal, in addition
 --  to `apply` or `exact`?
@@ -818,9 +623,6 @@ theorem inversion_ex2 n (h : n + 1 = 0) : 2 + 2 = 5 := by
 --  Let's try to show that our new notion of evenness
 --  implies our earlier notion (the one based on
 --  `Nat.double`).
-
---  Note to developers (before next release):
---      This whole part of the section is a mess!!
 
 sf_expect_failure_in
   example (n : Nat) : Ev n → Nat.Even n := by
@@ -861,22 +663,6 @@ sf_expect_failure_in
           of the same theorem we set out to prove -- only here we are
           talking about `n'` instead of `n`. -/
 
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
---      I agree that it's all pretty chewy. Wonder if we
---      really need any of it or if the point could be made
---      just as well with less detail... When I explained it
---      in class this time, I just observed that the
---      destruct was giving us a hypothesis about 2 being
---      even, which just can't be what we want, and skipped
---      all the rest... After thinking about it for a bit,
---      though, I do think the full story here is useful (at
---      least for the FULL version -- the TERSE could still
---      be streamlined). So I'm going to leave it for now.
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
---      I think best just to shorten it! And maybe make it
---      not a WORKINCLASS.
-
 --  ### Induction on Evidence
 
 --  If this story feels familiar, it is no coincidence: We
@@ -895,11 +681,4 @@ theorem Nat.ev_Even (n : Nat) (h : Ev n) : Even n := by
   | ev_succ_succ h' ih =>
     let ⟨k, hk⟩ := ih
     exists k + 1; rw [double_succ, hk]
-
---  Note to developers (Chris Henson @chenson2018, before next release):
---      Bad flow + duplication needs fixing. Could move some
---      of this to the top. In the terse version this whole
---      section is useless, it only has a (mostly)
---      duplicated definition. For now FULLED the whole
---      thing, but better fix seems needed.
 

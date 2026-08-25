@@ -5,18 +5,6 @@ import SFLCompat
 
 --  # Tactics: More Basic Tactics
 
---  Note to developers (before next release):
---      This chapter could maybe use one or two more
---      WORKINCLASS tags...
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
---      General comment: All the previous chapters have felt
---      pretty smooth. This one suddenly feels like we're
---      throwing a huge amount of information at them, with
---      little scaffolding -- just a bunch of miscellaneous
---      tactics and examples. Wish it flowed better,
---      somehow.
-
 --  ## The `apply` Tactic
 
 --  The `apply` tactic is useful when the goal is instead
@@ -479,16 +467,6 @@ example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
   rw [Nat.add_comm]
   congr
 
---  Note to developers (Niklas Halonen @xhalo32):
---      The above proof can be made simpler by just
---      rewriting before the `congr`, so arguably it doesn't
---      require limiting the depth.
---
---      `example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
---          (a, c + 1) = (b, 1 + d) := by
---        rw [Nat.add_comm]
---        congr`
-
 --  ## Using `apply` on Hypotheses
 
 --  The ordinary `apply` tactic is a form of "backward
@@ -829,11 +807,6 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
 --  ### Additional Exercises
 
 --  ### Exercise (2 stars): append_left_cancel ⭐⭐
-
---  Note to developers (Niklas Halonen @xhalo32):
---      After `injections _ eq`, `eq`'s type uses `.append`
---      rather than `++` which is a bit confusing. Not sure
---      why that happens.
 
 theorem append_left_cancel {α : Type} (l₁ l₂ l₃ : List α)
     (h : l₁ ++ l₂ = l₁ ++ l₃) :

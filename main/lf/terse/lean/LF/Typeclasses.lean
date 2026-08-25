@@ -5,19 +5,6 @@ import SFLCompat
 --  Chapter Poly introduced **parametric polymorphism**,
 --  declaring a type variable with no constraint on it.
 
---  Note to developers (Michael Hicks @mwhicks1):
---      Students will run across universes, though. When
---      looking at List lemmas, for example, they will see
---      things like:
---
---      `List.reverse.{u} {α : Type u} (as : List α) : List α`
---
---      Are we explaining these things somewhere, maybe in
---      Poly ?
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Yes, in Poly!
-
 --  This lets us work with a type like `List α`, writing
 --  functions like `List.reverse` and `List.length` and
 --  proofs like `List.length_reverse`, which use only the
@@ -126,14 +113,6 @@ theorem List.elem_poly_cons {α : Type} [BEq α] (a b : α) (xs : List α) :
 --  equality function `Nat.beq` explicitly, in
 --  `[0, 1].elem_poly 0` Lean fills it in automatically
 --  based on the type `Nat` of the `List`.
-
---  Note to developers (xhalo32):
---      This is technically incorrect, the instance
---      `BEq Nat`, which comes from `DecidableEq`, does not
---      contain `Nat.beq`. You can see in proofs of
---      `List.elem_nat` versus `List.elem_poly_eq` versus
---      `List.elem_poly` and how `Nat.beq` and `==` play
---      different roles.
 
 --  Going back to the earlier version of `List.elem_poly`,
 --  without the instance implicit, we can now understand the
@@ -409,10 +388,6 @@ instance : HasTwo Nat where
 --  informally, that any required invariants are satisfied,
 --  which can lead to bugs.
 
---  Note to developers (Niklas Halonen @xhalo32):
---      HasThree needs either grading attributes or manual
---      grading
-
 --  ### Exercise (1 star): HasThree ⭐
 
 --  Following the pattern of `DefaultValue` and `HasTwo`,
@@ -493,12 +468,6 @@ instance : Monoid Nat where
   left_id := by lia
   right_id := by lia
   assoc := by lia
-
---  Note to developers (Niklas Halonen @xhalo32):
---      Need to come up with a way to grade the
---      data-carrying instances. What makes this more
---      complicated is that the `op` is fixed but the `id`
---      is not.
 
 --  ### Exercise (1 star): NatMonoidMul ⭐
 
@@ -592,9 +561,6 @@ instance : Group Int where
 --  rich area of mathematics. Here, we will only prove a
 --  handful of its simplest results:
 
---  Note to developers (Daniel Sainati @dsainati1):
---      This also prints weird.
-
 --  ### Exercise (1 star): InverseUnique ⭐
 
 --  Two groups defined with the same operation over the same
@@ -602,10 +568,6 @@ instance : Group Int where
 
 theorem inv_unique {α : Type} {g₁ g₂ : Group α} (h : g₁.op = g₂.op) : g₁.inv = g₂.inv := by
   sorry
-
---  Note to developers (Daniel Sainati @dsainati1):
---      Taking suggestions for additional simple group
---      theory theorems to prove here.
 
 end Algebra
 
@@ -772,16 +734,6 @@ example {n : Nat} : emptyNatMap.get n = 0 := by
 --  such as `Array`, `List`, and `Vector`. We develop it to
 --  illustrate the notation-as-typeclass approach.
 
---  Note to developers (Niklas Halonen @xhalo32):
---      A reason I can come up with why we use a notation
---      typeclass (in library code) over a plain notation is
---      that it makes it possible (for a downstream
---      consumer) to write `open scoped MyGetElem` instead
---      of writing `open scoped TotalMap` and
---      `open scoped PartialMap` individually. This wouldn't
---      be a good sell if `→ₜ` and `→ₚ` are scoped
---      notations, but they're currently global.
-
 end TotalMap
 
 --  The `MyGetElem` typeclass takes three type parameters:
@@ -835,10 +787,6 @@ open scoped MyGetElem
 --  the default `GetElem` everywhere, but only when
 --  `open scoped MyGetElem` is in force.
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Make sure we've really explained `open scoped`
---      somewhere...
-
 --  Since we provided a `MyGetElem` instance for `TotalMap`,
 --  we can now use the notation `m[a]` to access elements of
 --  a map `m`.
@@ -890,10 +838,6 @@ def exampleMap :=
 --  Here `|>` is Lean's **pipe** notation: `x |>.f y` means
 --  `x.f y`, letting us chain a sequence of function or
 --  method calls left to right without nested parentheses.
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Should we introduce this notation earlier? (Are
---      there good places to use it earlier?)
 
 --  We also introduce a notation for updating maps — this
 --  time, rather than going through a typeclass and its own
@@ -1055,69 +999,15 @@ theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β
     (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
   sorry
 
---  Note to developers (mwhicks1, NOW):
---      Two things the Rocq source says here have been
---      dropped.
---
---      Rocq frames this case analysis around
---      `destruct (eqb_spec x1 x2)`, which "simultaneously
---      performs case analysis on the result of
---      `String.eqb x1 x2` and generates hypotheses about
---      the equality (in the sense of `=`) of `x1` and `x2`"
---      — the boolean/propositional reflection idiom. The
---      paragraph above replaces that with
---      `by_cases`/`subst`, which is what the Lean proof
---      uses. But reflection is what the `Reflection`
---      section **below** is about, so the two may want to
---      be connected rather than have one silently displace
---      the other.
---
---      Rocq then says "With the example in chapter
---      **IndProp** as a template, use `String.eqb_spec` to
---      prove ...". That cross-reference is dropped, since
---      it is unclear what the Lean `IndProp` chapter will
---      end up containing. Revisit later.
-
---  Note to developers (Niklas Halonen @xhalo32):
---      Regarding reflection: I have used
---      `show ("bar" == "foo") = false by simp` in some of
---      the above sections which would be good to explain in
---      more detail in the reflection section. The `BEq`
---      instance is derived from `DecidableEq` in
---      `instBEqOfDecidableEq`. All of the following proofs
---      of the fact use `decide` internally.
---
---      `-- set_option trace.Meta.synthInstance true in
---      -- set_option trace.Meta.whnf true in
---      example : ("bar" == "foo") = false := by
---        simp -- goes through a simproc `String.reduceBEq` which reduces to `decide`
---      example : ("bar" == "foo") = false := by
---        rfl -- ends up calling `decide ("bar" = "foo")`
---      example : ("bar" == "foo") = false := by
---        decide`
-
 --  Similarly, prove one final property of the `update`
 --  function: if we update a map `m` at two distinct keys,
 --  it doesn't matter in which order we do the updates.
-
---  Note to developers (mwhicks1, NOW):
---      Rocq says "Similarly, use `String.eqb_spec` to prove
---      ..."; the instruction to use a specific lemma is
---      dropped here for the same reason as in the note
---      above.
 
 --  ### Exercise (3 stars): update_permute ⭐⭐⭐
 
 theorem update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :
     (a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m) = (a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m) := by
   sorry
-
---  Note to developers:
---      The Rocq source also has `getElem_empty` (originally
---      `apply_empty`) and `update_eq` as (optional)
---      exercises; here they are worked examples, since
---      `update_eq` was already presented that way.
---      Reconsider if this section is rebalanced.
 
 end TotalMap
 
@@ -1188,16 +1078,6 @@ sf_expect_failure_in
   example : ({ "foo" ↦ true })["foo"] = true := by rfl
 
 --  ### Partial Maps
-
---  Note to developers (Niklas Halonen @xhalo32):
---      We should spend some time discussing differences
---      between the inductive approach in Lists.lean and the
---      approach here. The inductive approach could be made
---      polymorphic and proven to be equivalent with partial
---      maps (I believe), so the point is not that the maps
---      are extensionally different. A question (that I
---      don't have an answer to) is then: what makes the new
---      partial map better?
 
 --  Lastly, we define *partial maps* on top of total maps. A
 --  partial map with elements of type `β` is simply a total
@@ -1447,9 +1327,6 @@ end Nat
 
 --  Here are the key differences between `Bool` and `Prop`:
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Check formatting:
-
 --  - ⠀
 --  - `Bool`
 --  - `Prop`
@@ -1552,10 +1429,6 @@ theorem even_iff_Even {n : Nat} : Nat.even n = true ↔ Nat.Even n where
 
 --  Again, these two notions are equivalent:
 
---  Note to developers:
---      This proof is from the typeclass version, which
---      makes more sense if maps are included — CGH
-
 example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := beq_iff_eq
 
 --  So what should we do in situations where some claim
@@ -1569,38 +1442,6 @@ example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := beq_iff_eq
 --  explicit indicate otherwise. As an example, consider
 --  trying to write a function `α → α → Bool` checking for
 --  equality on an arbitrary type:
-
---  Note to developers:
---      dsainati12 days ago We use regular if for the first
---      time here. It is probably necessary to explain at
---      this point what if is and how it differs from bif.
---
---      👍 1 berberman1 day ago Should we clarify the
---      difference between = and ==? Observably if and bif
---      can possibly accept both as the condition because of
---      Coe or DecidableEq instances, which IMO could be
---      confusing.
---
---      Probably we can talk a bit about the coercion system
---      in this file as well, since Coe could be an example
---      of typeclasses, so long as if we ignore the outParam
---      thing...
---
---      chenson20181 day ago I definitely intended for this
---      to cover = versus ==. Maps uses LawfulBEq (which
---      says = and == coincide). If that will now appear
---      here it's a good place to give some more detail?
---
---      rogerburtonpatel1 day ago I think right after this
---      part on decidability is good. It's a hefty chunk of
---      information already, so keeping distinct ideas
---      distinct is more likely than not a good call.
-
---  Note to developers:
---      @dsainati - commenting this out for the same reason
---      as above
---
---      `def eq {α : Type} (a₁ a₂ : α) : Bool := if a₁ = a₂ then true else false`
 
 --  Lean will complain here that it cannot find an instance
 --  of `Decidable`. This typeclass
@@ -1678,19 +1519,6 @@ sf_experiment
 
 --  ## TODO
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Needs finishing...
-
---  Note to developers:
---      Below are some stray examples from IndProp.
---      `Decidable` only carries the proposition and not the
---      boolean, so one direction of `reflect_iff` is easily
---      translated, but the other is a bit different. I list
---      some theorems below but you should Loogle and see if
---      that's what you want. Some the the proofs can be a
---      bit advanced if you follow core, or otherwise a bit
---      circular. — CGH
-
 #check decidable_of_bool
 
 example {P : Prop} (b : Bool) (h : b = true ↔ P) : Decidable P := by
@@ -1703,19 +1531,8 @@ example {P : Prop} (b : Bool) (h : b = true ↔ P) : Decidable P := by
 #check decide_eq_false_iff_not
 #check decide_eq_true_iff
 
---  Note to developers:
---      I'm not sure what part of the signature here is
---      important to translate. Is the point the
---      `Bool`/`Prop` mismatch? — CGH
-
 example {α β : Type} (a : α) [BEq α] [LawfulBEq α] (xs : List α) (neq : xs.filter (a == ·) ≠ []) : a ∈ xs := by
   sorry
-
---  Note to developers:
---      Burtonpatel: Some more examples would be good. It
---      might be good to start with Nat and then move to the
---      Indprop ones. This is a short chapter, so 5-6
---      well-chosen, informative exercises could easily fit.
 
 end Reflection
 

@@ -6,25 +6,6 @@ import SFLCompat
 
 set_option pp.fieldNotation false
 
---  Note to developers:
---      `SOONER: We should also consider adding more examples to clarify
---      the concepts introduced in this chapter. This could help in
---      reinforcing the understanding of induction principles.
---
---      LATER: In 3/22, MRC and BCP discussed "inlining" IndPrinciples
---      into earlier chapters, thus eliminating it as a chapter. This
---      chapter, Induction, is the first place a change would occur.  We
---      would present [nat_ind] here. Then in Lists/Poly we'd present
---      [list_ind], and the rest would go in IndProp and ProofObjects. The
---      main wrinkle is that we'd need to introduce [apply] here instead of
---      in Tactics if we want to preserve the presentation. The discussion
---      is preserved here: https://github.com/DeepSpec/sfdev/pull/471.
---
---      LATER: Now that we've added Steve's nice late-policy exercise in
---      Basics.v, the assignment for that chapter is probably hard enough.  Now
---      what about this chapter?  Can/should we make it a notch or two
---      harder?`
-
 --  ## Separate Compilation
 
 --  Lean will first need to compile `Basics.lean` so it can
@@ -220,9 +201,6 @@ theorem add_comm (n m : Nat) :
 theorem add_assoc (n m p : Nat) :
     n + (m + p) = (n + m) + p := by
   sorry
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      `We need better typesetting for displays like the following ones:`
 
 --  ### Tip: the `rw` tactic
 

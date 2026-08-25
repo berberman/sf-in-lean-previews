@@ -4,60 +4,6 @@ import SFLCompat
 
 --  # Smallstep: Small-step Operational Semantics
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      The `hiding lean` (above in the source file) should
---      not be needed any more and should be removed from
---      all files everywhere it exists.
-
---  Note to developers (Michael Hicks @mwhicks1):
---      This chapter adapts Smallstep to follow Slang, the
---      initial part of Imp, on just Aexp and Bexp (without
---      variables). This means that parts of this chapter
---      had to adjust: Concurrent Imp is dropped in favor of
---      Nondeterministic Aexp, and the stack machine is
---      simplified to just Aexps without variables.
-
---  Note to developers (before next release):
---      In this and later chapters, we are not very
---      consistent about presenting computation rules first
---      and congruence rules after...
-
---  Note to developers:
---      HIDE: Sometime in the early 2010s, we did some
---      mining past exams for exercises...
---
---      - Loris: No interesting exercise in Finals of
---        2007-2009-2010-2011. Nothing in second midterms
---        except for 2011.
---
---      - 2011 midterm proposes the following exercise: give
---        the small step relation of FLIP X (alternatively
---        HAVOC, ANYTHING). We could then ask to extend the
---        proof of equivalence of big step vs small step
---        (personally don't like it too much).
---
---      - Maybe we can ask how they would adapt the
---        definition of Hoare triple to small step (maybe in
---        the exam).
---
---      HIDE: BCP: I also have a bunch of slides from
---      earlier offerings of CIS500 that might be good
---      additions to the TERSE notes.
---
---      HIDE: Possible major restructuring: This chapter
---      might better be postponed to later in the course. A
---      big-step presentation of STLC (and maybe even some
---      of the extensions like subtyping?) could come first.
---      However, this would invite a much bigger change,
---      where **all** the variants of STLC (with refs, with
---      subtyping, ...) are done in big-step style. This
---      requires more thought...
---
---      HIDE: Wonder whether it would be interesting to show
---      them how to make a correspondence with a "real
---      abstract machine" at a lower level...? There's a
---      start at an exercise along these lines below.
-
 --  ## Big-step and Small-step Evaluation
 
 --  Our semantics for expressions is written in the
@@ -215,12 +161,6 @@ end SimpleArith1
 --  The step relation `⟶` is an example of a relation on
 --  `Tm`.
 
---  Note to developers (Michael Hicks @mwhicks1, before next release):
---      Should we be getting this (and `Deterministic`,
---      `Multi`, etc. if appropriate) from the Lean standard
---      library? If not, should we match the concepts in
---      CSLib, if they exists there?
-
 def Relation (X : Type) := X → X → Prop
 
 --  One simple property a relation may have is being
@@ -274,11 +214,6 @@ theorem step_deterministic : Deterministic SimpleArith1.Step := by
       cases h₂ <;> first | cases ‹SimpleArith1.Step (.c _) _› | rw [ih _ ‹SimpleArith1.Step t₂ _›]
 
 end SimpleArith2
-
---  Note to developers (Michael Hicks @mwhicks1):
---      In the Rocq there is the development of a special
---      tactic to make this proof simpler. Do we want that
---      here?
 
 --  ### Values
 
@@ -383,16 +318,6 @@ theorem nf_is_value (t : Tm) (h : IsNormalForm Step t) : IsValue t := by
 
 theorem nf_same_as_value (t : Tm) : IsNormalForm Step t ↔ IsValue t :=
   ⟨nf_is_value t, value_is_nf t⟩
-
---  Note to developers (Kihong Heo @KihongHeo):
---      Tactic `absurd` is first introduced here. Do we want
---      to explain it?
-
---  Note to developers (Daniel Sainati @dsainati1):
---      I think some of these proofs were originally
---      Claude-generated, so we probably want to redo them
---      from scratch, in which case introducing absurd is
---      likely not necessary.
 
 --  Why is this interesting? Because `IsValue` is a
 --  *syntactic* concept — it is defined by looking at the
@@ -523,11 +448,6 @@ end Temp3
 inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
   | refl (x : X) : Multi R x x
   | step (x y z : X) (h₁ : R x y) (h₂ : Multi R y z) : Multi R x z
-
---  Note to developers (berberman):
---      I would make some arguments implicit to proivde a
---      cleaner interface (FYI the [mathlib
---      version](https://leanprover-community.github.io/mathlib4_docs/Mathlib/Logic/Relation.html#Relation.ReflTransGen))
 
 --  We write `⟶*` for the `Multi Step` relation on terms
 

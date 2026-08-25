@@ -142,15 +142,6 @@ import SFLCompat
 --  work](https://leanprover-community.github.io/papers.html)
 --  across computer science and mathematics:
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      The individual references above should be merged
---      into the categories below. In particular, the first
---      three should go in the bullet about math, and the
---      last one should go in the bullet about modeling
---      programming languages. (I see that that first bullet
---      could also use citations for some of the points it
---      already makes, but we can leave that for later...)
-
 --  - As a *platform for modeling programming languages*,
 --    proof assistants have become standard tools for
 --    researchers who need to describe and reason about
@@ -299,32 +290,6 @@ import SFLCompat
 --  - Wait for Lean to build the project (it takes a few
 --    minutes).
 
---  Note to developers (Claude @AI assistant, before next release):
---      These steps send the reader to the **sources** repo,
---      but the files a reader is meant to work in are the
---      ones the build generates: `make lf-student` writes a
---      standalone Lake project (its own `lakefile.toml` and
---      `lean-toolchain`) to `_out/lf/student/lean`, and
---      that is where the exercises with `sorry`s live. The
---      `LF/*.lean` files in the repo are Verso documents —
---      prose plus code blocks — and building the repo
---      builds Verso and all three volumes, which is a good
---      deal more than "a few minutes".
---
---      There is also a chicken-and-egg problem in the
---      ordering: running `make` at all needs `elan`/`lake`
---      already installed, but the step above gets Lean via
---      the VS Code extension, which only offers it once a
---      Lean project is open.
---
---      Both go away once there is a released archive of the
---      student `.lean` files: the steps become "download
---      and unpack, open the folder in VS Code, accept the
---      install prompt". Until that exists, this section
---      should probably say plainly that readers get the
---      files from their instructor or by following
---      `ALPHA-TESTERS.md`.
-
 --  ### Exercises
 
 --  Each chapter includes numerous exercises. Each is marked
@@ -452,7 +417,4 @@ import SFLCompat
 --  Foundations* series was supported, in part, by the
 --  National Science Foundation under the NSF Expeditions
 --  grant 1521523, *The Science of Deep Specification*.
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Other funding should be acknowledged here...
 

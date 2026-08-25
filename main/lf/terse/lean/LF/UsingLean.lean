@@ -49,12 +49,6 @@ example : (two * two : NatPlayground.Nat) = four := by
 --  using `rw` with simplification rules like
 --  `two_eq_succ_one`.
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      That last sentence is not very clear. "that
---      definitions be fully simplified" does not parse, but
---      I'm not sure whether to add "will" or "can" or
---      something else...
-
 --  This approach is useful in a textbook for understanding
 --  the structure of natural numbers and for providing early
 --  practice with writing proofs. But it is also tedious in
@@ -207,10 +201,6 @@ example (n m k : Nat) : n + (m + k) = m + (n + k) := by
 --  entirely with an `_`. Now our Lean proof looks quite a
 --  bit like the textbook one we saw earlier!
 
---  Note to developers (Niklas Halonen @xhalo32):
---      How to grade that `succ_mul_succ'` uses `calc`
---      without cheating?
-
 --  ### Exercise (1 star): succ_mul_succ ⭐
 
 theorem succ_mul_succ (n m : Nat) :
@@ -327,39 +317,6 @@ sf_expect_failure_in
 --  Like `rw` and `exact`, `dsimp` also has a `?` version
 --  that searches for functions to simplify by. Many Lean
 --  tactics have `?` versions; try it out if you are unsure.
-
---  Note to developers (Mike Hicks @mwhicks1):
---      Yipeng said we can pass a theorem, e.g.
---      `dsimp [Nat.mul_zero]`, which would rewrite
---      `Nat.mul_zero` many times and then perform
---      reductions, just like simp `[Nat.mul_zero]`. Also
---      `@[defeq] lemmas` in the `simp` set are always used
---      implicitly.
---
---      Should `dsimp [Nat.mul_zero]` be preferred over
---      `dsimp [Nat.mul]`? An example:
---
---      `example (n : Nat) : n * (n * (n * 0)) = 0 := by
---        rw [Nat.mul_zero, Nat.mul_zero, Nat.mul_zero]
---
---      example (n : Nat) : n * (n * (n * 0)) = 0 := by
---        dsimp [Nat.mul]
---
---      example (n : Nat) : n * (n * (n * 0)) = 0 := by
---        dsimp [Nat.mul_zero]`
---
---      This could be confusing though, because rewriting by
---      `dsimp` only works for *definitional* equalities.
---      The following doesn't work
---
---      `example (n : Nat) : (((0 * n) * n) * n) = 0 := by
---        dsimp [Nat.zero_mul]`
---
---      This is because `Nat.zero_mul` is true by induction,
---      not reduction. This is a bit confusing to explain,
---      and also unfortunate since one may not know why an
---      equality holds. Thus I'd prefer not to include this
---      use here.
 
 --  ## Redefining Functions and Lemmas over Nats
 

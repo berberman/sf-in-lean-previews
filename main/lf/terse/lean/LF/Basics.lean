@@ -2,10 +2,6 @@ import SFLCompat
 
 --  # Basics: Functional Programming in Lean
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Could this directive live somewhere else? And
---      doesn't it belong in a `:::details` block?
-
 set_option pp.fieldNotation false
 
 --  This chapter introduces some of Lean's most essential
@@ -46,11 +42,6 @@ def nextWorkingDay (d : Day) : Day :=
 
 --  Evaluation:
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      There is probably not time to fix this, but the way
---      responses are displayed is confusing. They should be
---      marked as responses in some more explicit way.
-
 #eval nextWorkingDay Day.friday
 
 --  Day.monday
@@ -66,19 +57,10 @@ def nextWorkingDay (d : Day) : Day :=
 example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.tuesday := by
   rfl
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Do we really **have** to follow the Lean convention
---      of putting the `:= by` on the same line as the
---      theorem statement? It's awful.,
-
 --  The `rfl` tactic is used to observe that both sides of
 --  an equal sign evaluate to the same value.
 
 --  ### Booleans
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Why are our custom booleans called `MyBool` but our
---      custom nats are called `Nat`?
 
 --  Another familiar enumerated type; we'll switch to Lean's
 --  built-in `Bool` later:
@@ -86,10 +68,6 @@ example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.tuesday := by
 inductive MyBool : Type where
   | true
   | false
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Maybe this next bit belongs in a :::details block?
---      The explanation is a bit lacking...
 
 --  This command opens the namespace associated with the
 --  `MyBool` type:
@@ -154,9 +132,6 @@ theorem nand_test1 : nand MyBool.true  MyBool.false = MyBool.true  := sorry
 theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := sorry
 theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := sorry
 theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := sorry
-
---  Note to developers:
---      TODO: `nand` needs `@[autogradedHole]`
 
 --  Going forward, most exercises will be omitted from the
 --  "terse" version of the notes used in lecture. The "full"
@@ -703,11 +678,6 @@ scoped infixl:70 " * " => mul
 --  Remove `sorry` and prove the simplification rules for
 --  `mul` below. You will likely find the proofs of the
 --  simplification rules for `add` to be helpful as a model.
-
---  Note to developers:
---      @rogerburtonpatel: it would be nice if we could get
---      the theorem *statements* inside a `solution!` block
---      as well.
 
 theorem mul_zero : ∀ n : Nat, n * zero = zero := by
   sorry

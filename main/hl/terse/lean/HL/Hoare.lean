@@ -5,58 +5,6 @@ import SFLCompat
 
 --  # Hoare: Hoare Logic, Part I
 
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
---      There is an excellent and fairly polished problem on
---      a Hoare Logic for a little assembly language in the
---      materials for the 2025 CIS 5000 final exam at Penn.
---      We should turn it into an exercise in this chapter!
-
---  Note to developers (Niklas Halonen @xhalo32):
---      Reply to Benjamin's note above: The way we do it now
---      in Lean is to have a custom elaborater which avoids
---      all the coercions plus doesn't need the syntax
---      category for assertions.
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
---      Any chance we could move the (awkwardly placed)
---      weakest precondition discussion to this chapter
---      instead?
---
---      The terse version of the chapter needs serious work
---      -- it has gotten quite ragged after a bunch of
---      reorganization of the chapter over the past couple
---      years. BCP 23: Did some work on it. Bit better now.
---      But the notation issues make everything a bit heavy.
-
---  Note to developers:
---      `HIDE: What about typesetting multi-line triples as
---      {{ P }}
---         c
---      {{ Q }}
---      instead of
---        {{ P }}
---      c
---        {{ Q }}
---      when we print them?`
---
---      `HIDE: At some point we should try one more time to see if it's
---      possible to use single curly braces for Hoare triples.  The Rocq
---      manual says "For the sake of factorization with Rocq predefined
---      rules, simple rules have to be observed for notations starting with
---      a symbol: e.g., rules starting with { or ( should be put at level
---      0."  Maybe this suggests a way forward...?
---      BCP 10/18: Nope.  Writing
---         Notation "'{' P '}' c '{' Q '}'" :=
---           (ValidHoareTriple P c Q) (at level 0, c at next level)
---           : hoare_spec_scope.
---      yields
---          Error: A notation must include at least one symbol.`
---
---      HIDE: This file and all later ones should make a
---      habit of always presenting both syntax and semantics
---      of new language constructs in informal style as well
---      as formal. See MoreStlc.v for a template.
-
 --  Our goal in this chapter is to develop the tools to work
 --  through some simple examples of *program verification*
 --  -- i.e., to use the precise definition of Imp to prove
@@ -78,50 +26,6 @@ import SFLCompat
 --  directly mirrors the structure of the programs that they
 --  are about.
 
---  Note to developers:
---      `HIDE: MRC'20: The terse version used to start with just an outline of
---      what we've done and of this chapter, but it never mentioned Hoare logic!
---      The text above seems like a better intro.
---
---      MRC'20: this is the former terse intro.
---
---       What we've done so far:
---
---       - Formalized Imp
---            - identifiers and states
---            - abstract syntax trees
---            - evaluation functions (for [aexp]s and [bexp]s)
---            - evaluation relation (for commands)
---
---       - Proved some _metatheoretic_ properties
---           - determinism of evaluation
---           - equivalence of some different ways of writing down the
---             definitions (e.g., functional and relational definitions of
---             arithmetic expression evaluation)
---           - guaranteed termination of certain classes of programs
---           - meaning-preservation of some program transformations
---           - behavioral equivalence of programs ([Equiv])
---
---       We've dealt with a few sorts of properties of Imp programs:
---         - Termination
---         - Nontermination
---         - Equivalence
---
---       Topic:
---         - A systematic method for reasoning about the _functional
---           correctness_ of programs in Imp
---
---       Goals:
---         - a natural notation for _program specifications_ and
---         - a _compositional_ proof technique for program correctness
---
---       Plan:
---         - specifications (assertions / Hoare triples)
---         - proof rules
---         - loop invariants
---         - decorated programs
---         - examples`
-
 --  ## Assertions
 
 --  An *assertion* is a logical claim about the state of a
@@ -130,11 +34,6 @@ import SFLCompat
 open scoped Com MyGetElem
 
 abbrev Assertion := State → Prop
-
---  Note to developers:
---      HIDE: MRC'20: pulled up these examples from the
---      quiz/optional exercise so that there would be some
---      modeling of the kinds of answers we expect.
 
 --  For example,
 
@@ -170,83 +69,8 @@ abbrev Assertion := State → Prop
 
 --    {{ X = m }}
 
---  Note to developers (before next release):
---      RRand 2022: The coercion printing in recent updates
---      is making the Hoare logic statements we're aiming to
---      prove essentially unreadable. If the implicit
---      coercions are too hard to deal with (I don't see why
---      they would be, given the number of coercion
---      happening here and in Imp) I would roll back to a
---      previous version. I cannot read what's happening in
---      my Rocq buffer.
-
---  Note to developers:
---      `HIDE: SAZ  2024: I'm confused by the above discussion.  Doesn't
---      [Add Printing Coercion Aexp_of_nat Aexp_of_aexp assert_of_Prop]
---      request Rocq to _show_ those coercions?  I've removed it.`
---
---      `HIDE: SAZ 2024:
---      From what I can tell, the reason the notations expand during
---      the proofs is that they're writen in such a way that they
---      inlude type annotations [(a : Aexp)] and explicit lambdas
---      [(fun st => a st + b st)], neither of which is stable under
---      simplification.  For example:
---
---       [(fun st =>
---          (fun st => (X:Aexp) st + (Y:Aexp) st) st +
---          (fun st => (Z:Aexp) st) st)]
---
---      Will print as [X + Y + Z] until simplification, at which point
---      we have [(fun st => st X + st Y + st Z)] but there is no notation
---      that covers this case.`
-
 --  Here, the `{{ A }}` brackets delimit the scope of the
 --  assertion notation.
-
---  Note to developers:
---      HIDE: Make things easily unfoldable.
---
---      HIDE: MRC'20: Recording this here because it took a
---      merry chase through the Rocq manual to find it: this
---      version of the `Arguments` command is documented
---      under `simpl`.
-
---  Note to developers (One An @meluge):
---      The Rocq source here issues
---      `Arguments assert_of_Prop /.` (and likewise for the
---      other two lifting functions) so that `simpl` always
---      unfolds them, with this instructors note: "These
---      `Arguments` commands tell Rocq that these functions
---      should always be unfolded during simplification (by
---      `simpl`)."
---
---      `SAZ 2024 - Why do we want these functions to simplify?
---      Ans: If [a : aexp] then in the assertion_scope [(X →ₜ a st; st)] and
---      [(X →ₜ aeval st a; st)] look different but are actually identical
---      thanks to the coercion [Aexp_of_aexp].`
---
---      Claude suggested `@[simp]`-tagged characterizing
---      lemmas next to the three lifting functions, a global
---      simp attribute means every `simp` unfolds applied
---      occurrences. Is there a better way?
-
---  Note to developers:
---      NOTATION: BCP 20: It probably makes sense now to put
---      all these in a custom grammar, so that we can really
---      control how it looks and get rid of things like ap.
---
---      `NOTATION: SAZ 2024: I have tried to implement the suggestion above.
---
---      There is now a custom entry [assn] for defining the syntax of
---      assertions.  Like the delimiters <{ }> used for Imp programs,
---      we now also have {{ }} delimiters for use with Assertions.
---
---      Inside that scope, variables, arithmetic and boolean expressions,
---      propositions, and function arguments are interpreted in the current
---      state.  This replaces the need for [ap], [ap2], and explicit lifting
---      markers.
---
---      A raw Lean assertion can also be written directly inside {{ }}.`
 
 namespace Assertion
 
@@ -310,27 +134,6 @@ macro_rules
       result ← `($result assn($st; $arg))
     return result
 end
-
---  Note to developers (Niklas Halonen):
---      Mention (don't explain macro hygiene though) why
---
---      `#check {{ st[X] = st[Y] }}`
---
---      doesn't work, but instead one should write
---
---      `#check {{ fun st => st[X] = st[Y] }}`
---
---      And mention that when inside the brackets, one sees
---      in the infoview
---
---      `st✝ : State`
---
---      but outside the brackets, one sees
---      `fun st => st[X] = st[X] : State → Prop`
---
---      Also: should we introduce the terminology "pure" for
---      embedding propositions into assertions that are
---      constant functions?
 
 #check {{ 1 = 2 }}
 #check {{ X = X }}
@@ -716,19 +519,6 @@ def ValidHoareTriple
     P st →
     Q st'
 
---  Note to developers (Niklas Halonen @xhalo32):
---      Somethings strange is going on in
---      `theorem if_example`, using
---      `apply hoare_consequence_pre` followed by
---      `· exact hoare_asgn` works, but
---      `refine hoare_consequence_pre hoare_asgn ?_` or
---      `apply hoare_consequence_pre hoare_asgn` don't. The
---      only solution I found was to mark `ValidHoareTriple`
---      irreducible.
---
---      It has to do something with `apply` and `refine`
---      looking inside the implication in `∀ {st st'}, ...`
-
 --  Notation for Hoare triples. The command between the two
 --  assertions is parsed with the same grammar as the
 --  `imp { … }` notation, so a command that is a Lean
@@ -786,10 +576,6 @@ def delabTriple : Delab := whenPPOption getPPNotation do
 end Assertion.Delab
 
 --  END DETAILS
-
---  Note to developers (Niklas Halonen @xhalo32):
---      Is it possible to add a line break after the
---      `Y := Y`?
 
 --  ### Exercise (1 star): hoare_post_true ⭐
 
@@ -949,10 +735,6 @@ theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
 
 def Assertion.subst (x : Ident) (a : Aexp) (P : Assertion) : Assertion :=
   fun (st : State) => P (x →ₜ a.eval st ; st)
-
---  Note to developers (One An @meluge, before next release):
---      Introduce a notation typeclass for this (e.g.
---      HasSubst)
 
 namespace Assertion
 
@@ -1190,11 +972,6 @@ theorem assertion_sub_example2 :
     {{X < 5}} := by
   sorry
 
---  Note to developers (Niklas Halonen @xhalo32):
---      The above proof uses `simp_all` purely because `lia`
---      can't see that `X` and `"X"` are the same (they are
---      currently marked as `@[simp]` in Imp).
-
 --  Finally, here is a combined rule of consequence that
 --  allows us to vary both the precondition and the
 --  postcondition.
@@ -1204,12 +981,6 @@ theorem assertion_sub_example2 :
 --              Q' ->> Q
 --    -----------------------------   (hoare_consequence)
 --           {{P}} c {{Q}}
-
---  Note to developers (Niklas Halonen @xhalo32):
---      In the following proof, `(P' := P')` is not
---      necessary, however it avoids having a metavariable
---      in the first goal. Another option is to just write
---      `exact hoare_consequence_pre (hoare_consequence_post htriple hpost) hpre`.
 
 theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
     (htriple : {{ P' }} ~c {{ Q' }}) (hpre : P ->> P') (hpost : Q' ->> Q) :
@@ -1236,21 +1007,6 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
 --  We'll do that explicitly below (and shortly package the
 --  recipe up as a tactic of our own).
 
---  Note to developers (Claude):
---      The Rocq source here registers
---      `Hint Unfold assert_implies assertion_sub
---      t_update : core`
---      for `auto`. That only widens `auto`'s search (unlike
---      the `Arguments /.` commands, it does not affect
---      `simpl`), so its Lean counterpart is the
---      `assertion_auto` tactic's simp list below -- not
---      global `@[simp]` lemmas as for the notation
---      wrappers, whose folded names carry no meaning in
---      goals the way `->>` and `Assertion.subst` do.
-
---  Note to developers (Niklas Halonen @xhalo32, NOW):
---      The following paragraph is outdated.
-
 --  Here's a good candidate for automation:
 
 --    theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
@@ -1266,11 +1022,6 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
 --  `assertImplies_def` is a proof by definitional equality,
 --  we can skip the `rw [assertImplies_def] at himp` and use
 --  `P ->> P'` like an implication directly.
-
---  Note to developers (Niklas Halonen @xhalo32):
---      This needs a better explanation of when it's okay to
---      use definitions without using their characterizing
---      lemmas.
 
 theorem hoare_consequence_pre' (P P' Q : Assertion) (c : Com)
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
@@ -1349,18 +1100,6 @@ theorem assertion_sub_example2' :
 --  bullet and the bullet from example 1. A `macro`
 --  declaration gives a name to a canned sequence of
 --  tactics:
-
---  Note to developers (Niklas Halonen @xhalo32):
---      It's unfortunate that we need to unfold `X, Y, Z, W`
---      in `assertion_auto` as `simp` wouldn't otherwise
---      reduce `X == Y` to `false`. Note that `Ident` is an
---      `abbrev`. Making it an `implicit_reducible` def
---      breaks `lia` for some reason and doesn't resolve the
---      issue.
---
---      `@[implicit_reducible]
---      def Ident := String
---      deriving BEq, ReflBEq, LawfulBEq, DecidableEq`
 
 macro "assertion_auto" : tactic =>
   `(tactic| focus (simp +decide [assertImplies_def, assertIff_def, validHoareTriple_def,
@@ -1457,21 +1196,10 @@ theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
 --    ------------------------------------  (hoare_if)
 --    {{P}} if b then c1 else c2 end {{Q}}
 
---  Note to developers (Niklas Halonen @xhalo32):
---      I have removed `bassertion` as it's an unnecessary
---      abstraction and only adds overhead for the reader.
---
---      The following theorem is now unnecessary.
-
 theorem bexp_eval_false (b : Bexp) (st : State) (h : b.eval st = false) :
     ¬ ({{ b }}) st := by
   dsimp
   simp [h]
-
---  Note to developers (One An @meluge):
---      The Rocq proof is the single tactic `congruence`.
---      Using simp seems to work but should we build our own
---      `congruence` tactic?
 
 --  Now we can formalize the Hoare proof rule for
 --  conditionals and prove it correct.
@@ -1525,10 +1253,6 @@ theorem if_example' :
     {{X ≤ Y}} := by
   apply hoare_if <;> apply hoare_consequence_pre hoare_asgn (by assertion_auto)
 
---  Note to developers:
---      HIDE: Question from 2012, Midterm 2. One-sided
---      conditionals.
-
 --  ### While Loops
 
 --  The Hoare rule for `while` loops is based on the idea of
@@ -1553,13 +1277,6 @@ theorem if_example' :
 --    --------------------------------- (hoare_while)
 --    {{P}} while b do c end {{P ∧ ¬b}}
 
---  Note to developers:
---      HIDE: The big comment will not display nicely. But I
---      guess it's folded...
-
---  Note to developers (Niklas Halonen @xhalo32):
---      We need to explain the `generalize` tactic.
-
 theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
     (hhoare : {{P ∧ b}} ~c {{ P }}) :
     {{ P }} while (~b) { ~c } {{P ∧ ¬ b}} := by
@@ -1582,23 +1299,6 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
     exact ih2 (hhoare hc ⟨hpre, hb⟩) rfl
   | skip | asgn | seq | ifTrue | ifFalse =>
     contradiction
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
---      This definition / discussion could be clearer.
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2023):
---      `Maja says: The wording of "we will never enter the
---      loop" could definitely be improved. As is, it suggests a situation
---      where the loop condition itself can never be satisfied. I suspect that
---      a previous draft included a discussion that explicitly placed {{ P }}
---      before the while, perhaps along the lines of "a loop invariant P of
---      [while b do c end] is also an invariant of [while b do c end]" (which
---      is, FWIW, a (somewhat obtuse) way of stating a weaker variant of
---      hoare_while, without the ~b in the postcondition). Combined with the
---      fact that it is supposed to justify a somewhat surprising and
---      unexpected fact — [X = 0] is not what I would intuitively consider an
---      invariant of this loop — this sentence ends up being quite confusing.
---      I only understood it when I came back to find this excerpt.`
 
 --  We call `P` a *loop invariant* of `while b do c end` if
 
@@ -1673,26 +1373,6 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 
 --  (B) No
 
---  Note to developers (before next release):
---      This last quiz should be turned into a discussion in
---      the text, at least in the full version -- indeed,
---      maybe all these should be turned into a long
---      discussion of what it means to be a loop invariant
---      -- I think that would be pretty helpful.
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
---      What is this example doing here?? Needs some text.
-
---  Note to developers:
---      `HIDE: CJC: Maybe also a good place to talk about the structure of
---      our logic - that we've set up the hoare_* lemmas and they are all
---      the reasoning about Hoare triples that they should have to use (in
---      both formal or informal proofs)?  Probably should talk about this
---      somewhere or else we'll get back lots of proofs that unfold
---      ValidHoareTriple and reason at a low level everywhere.
---
---      BCP 21: I think we do this now?`
-
 --  _Quiz:_
 
 --  Is the assertion
@@ -1734,20 +1414,6 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 --  (A) Yes
 
 --  (B) No
-
---  Note to developers:
---      HIDE: I (BCP) think I see a much simpler way to do
---      the 'for' stuff. Instead of `for x from a to b do c`
---      define `for x downfrom a do c` that steps from a
---      down to 0. This will be much simpler to specify,
---      though still an interesting challenge. (CJC: This
---      still seemed hard to me, but I'm deleting it for now
---      to get things looking right)
---
---      HIDE: Coming up with the precise rule for REPEAT is
---      tricky, and so is proving formally that the precise
---      rule passes the litmus test (at this point we only
---      ask them to convince themselves informally there).
 
 --  ## Summary
 

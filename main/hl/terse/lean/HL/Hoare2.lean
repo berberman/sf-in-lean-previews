@@ -6,82 +6,6 @@ import SFLCompat
 
 open scoped Com MyGetElem Assertion HasTriple
 
---  Note to developers (before next release):
---      BCP 23,25: There are a lot of questions about the
---      flow of this material. Needs a deep look. In
---      particular:
---
---      - One feels that it takes a rather circuitous route
---        to get to formal decorated programs -- there might
---        be a way to just go straight there. More
---        importantly, it isn't very clear to me that the
---        version of decorated programs that we wound up
---        with is really the right one -- why spend all this
---        time writing annotations that we then say are
---        unnecessary? Seems like we could define decorated
---        programs with a lighter annotation burden (as in
---        the exercise at the end) and just add optional
---        annotations when we want to, to make particular
---        examples clearer.
---
---      - The rigidity of the Hoare rules as stated in the
---        last chapter is also annoying here at many points.
---        Building the rules of consequence into all the
---        other rules might make a lot of things smoother.
---        Would be a big change (also to Hoare.v), but
---        definitely worth a try.
---
---      And related...
-
---  Note to developers (Michael Clarkson @clarksmr, before next release, 2020):
---      Here are a bunch of improvements I wanted to make
---      but didn't have time to get to. Maybe next time if
---      no one else gets to them first.
---
---      - 1. This chapter feels largely disconnected from
---           the style of the rest of the series, which is
---           "100% Rocq script". There's a significant
---           amount of "just comments" here instead. I think
---           we could make this much better by introducing
---           formal decorated programs right after we
---           informally define them. Then in the examples
---           that follow do each informal decorated program
---           (to get students to find the right assertions,
---           more or less) followed immediately by a formal
---           version, instead of delaying formal so far to
---           the end. The `parity` exercise is a good
---           example of one that already almost does this
---           already. (BCP 21: Done!)
---
---      - 2. There are several places where we are verifying
---           Imp program schemas, not actual programs. We're
---           mixing Rocq variables with Imp variables.
---           That's confusing. One example is `two_loops`;
---           I've tried to mark others as I come across
---           them. (BCP: I've added some quizzes and such to
---           try to clarify the relation between programs /
---           triples and program/triple schemas. BCP 25: I
---           think this is a non-issue now.)
---
---      - 3. Weakest preconditions show up in this chapter
---           as completely optional, then are revisited (and
---           required) in HoareAsLogic. Consider moving the
---           entire treatment to that chapter. (BCP 23: Yes,
---           we should do that!)
---
---      - 4. It seems a shame that the SparseAnnotations
---           section is not visible in the full version, but
---           only in a solution. It's fantastic! It would be
---           great to show it off. (BCP 25: Yes! Indeed,
---           perhaps it should even replace the current
---           treatment!)
-
---  Note to developers:
---      HIDE: Some useful theorems about Imp are not being
---      redefined for the modified versions of Imp. We
---      should either re-prove them or add hints (or
---      exercises!) about this. BCP 20: Which ones???
-
 --  _Quiz:_
 
 --  On a piece of paper (or whatever), write down a
@@ -187,29 +111,6 @@ open scoped Com MyGetElem Assertion HasTriple
 --    {{ Z - X = p - m /\ ~ (X <> 0) }} ->>
 --    {{ Z = p - m }}
 
---  Note to developers:
---      `HIDE: MRC'20: It bothers me a little in the proof above (and
---      similarly throughout the whole file really when it comes to guards)
---      that when we get to this part:
---      [[
---       while X <> 0 do {{ Z - X = p - m /\ X <> 0 }} ->>
---      ]]
---      we are inconsistent about [X <> 0] vs. [~(X=0)].  I admit they
---      evaluate the same (er, sort of---the former is a [bexp] whereas the
---      latter is an assertion), but they aren't syntactically the same.
---      Since what we're teaching here (mechanized Hoare logic) is fussy
---      about syntax, it strikes me as something we ought to be precise
---      about. But it's an annoying change to propagate through the file,
---      so I haven't done it. Is it worth a comment, or do others not get
---      bothered by this?  Another way to fix this would be to add the [<>]
---      operator to Imp, so that we can write the guard in the nicer way.
---
---      BCP 20: I think adding in a few more boolean operators at the
---      outside is the way to go...
---
---      BCP 21: ... and I've now done this: <> is available in formal
---      bexps (also >).`
-
 --  Concretely, a decorated program consists of the
 --  program's text interleaved with assertions (sometimes
 --  multiple assertions separated by ->>).
@@ -238,18 +139,6 @@ open scoped Com MyGetElem Assertion HasTriple
 
 --  WORK IN CLASS
 
---  Note to developers:
---      HIDE: BCP 21: This side comment seems too technical:
---
---      - (Note that we are working with natural numbers
---        rather than fixed-width machine integers, so we
---        don't need to worry about the possibility of
---        arithmetic overflow anywhere in this argument.
---        This makes life quite a bit simpler!)
---
---      HIDE: A quick / optional exercise using just
---      assignment here would be good.
-
 --  ### Example: Simple Conditionals
 
 --  Here's a simple program using conditionals, along with a
@@ -266,12 +155,6 @@ open scoped Com MyGetElem Assertion HasTriple
 --  Let's turn it into a decorated program...
 
 --  WORK IN CLASS
-
---  Note to developers:
---      NOTATION: LATER: The `~` in that paragraph will
---      typeset wrong if the space after it is removed.
---      Maybe it's better to give up on all the unicode
---      hacks in the generated HTML...?
 
 --  ### Example: Reduce to Zero
 
@@ -454,13 +337,6 @@ end DComFirstTry
 
 --    if b then {{ P1 }} d1 else {{ P2 }} d2 end {{ Q }}
 
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
---      Maybe we need a note here about why we don't just
---      calculate P1 and P2 later, once we know the
---      precondition of the whole loop. Indeed, we could
---      (and perhaps should, as discussed elsewhere), but we
---      are doing something simpler for the moment.
-
 --  - A loop `while b do d end` is decorated with its final
 --    postcondition plus a precondition for the body:
 
@@ -573,9 +449,6 @@ structure Decorated where
   pre : Assertion
   body : DCom
 
---  Note to developers:
---      HIDE: Add FOLD here
-
 example : DCom :=
   .skip ({{ True }})
 
@@ -590,9 +463,6 @@ example : DCom :=
 --  The formal definitions can use either constructors
 --  directly or the decorated-command notation introduced
 --  above.
-
---  Note to developers:
---      HIDE: Add /FOLD here
 
 --  An example `decorated` program that decrements `X` to
 --  `0`:
@@ -629,13 +499,6 @@ def Decorated.erase (dec : Decorated) : Com :=
 
 def Decorated.precondition (dec : Decorated) : Assertion :=
   dec.pre
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
---      `It would be nice to use <{ ... }> notations
---      in this definition and the ones below...
---           | <{ skip {{P}} }>        => P
---           | <{ _; d2 }>             => post d2
---           | <{ _ := _ {{Q}} }>      => Q`
 
 def DCom.postcondition (d : DCom) : Assertion :=
   match d with
@@ -791,17 +654,6 @@ example :
 --  precondition" the main VC generator takes a `dcom` plus
 --  a given precondition as arguments.
 
---  Note to developers:
---      HIDE: There was some discussion in 2016 about
---      whether the VC generator should should use
---      equivalence or implication in a few places. I (BCP)
---      believe Phil (Wadler) changed some instances of the
---      former to the latter.
---
---      HIDE: MRC'20: a written explanation of each part of
---      this would be quite nice. BCP 21: Agreed!! (BCP 23:
---      But it's kind of what's just above...)
-
 def DCom.VerificationConditions
     (P : Assertion) (d : DCom) : Prop :=
   match d with
@@ -861,14 +713,6 @@ theorem verification_conditions_correct (dec : Decorated)
 --  The propositions generated by
 --  `DCom.VerificationConditions` are fairly big and contain
 --  many conjuncts that are essentially trivial.
-
---  Note to developers:
---      `HIDE: MRC'20: The conditions here used to be just [Eval]ed instead
---      of being duplicated in a comment.  They were actually incorrect
---      because of changes to notation.  Putting them in as an [Example]
---      will force us to keep them up-to-date. APT20: Yes, but but stating
---      this an equality completely misses the point about verify_assertion! So I
---      changed things back.`
 
 example : decWhile.VerificationConditions := by
   unfold Decorated.VerificationConditions decWhile
@@ -957,66 +801,7 @@ theorem dec_while_correct :
 
 --  WORK IN CLASS (by filling in the previous template)
 
---  Note to developers:
---      HIDE: CH: it might make sense to show all the
---      variants for future exercise builders, together with
---      some hints on how to write programs that are easier
---      to verify
-
---  Note to developers (before next release):
---      Move this later? Might be harder than some of the
---      others.
-
---  Note to developers:
---      `HIDE: LY: Many are tempted to use division in their propositions here,
---      with the loop invariant [Y = m!/X!].
---      Informally, such a decorated program can be correct if we assume
---      they use real division (in Q or R). The issue is that formally in Rocq,
---      the notation / is also in scope and means integer division, so a pedantic
---      interpretation would mark those answers wrong, even though that is most
---      likely *not* what students intended (thus making the grading unfair).
---      Should we explicitly forbid use of division for this exercise?
---      (I added a note to that effect in the problem statement).
---
---      MRC'20: I strengthened your note so that it explicitly advises
---      against division (and subtraction).`
-
---  Note to developers:
---      HIDE: Taken from midterm 2, 2012
-
---  Note to developers (Michael Clarkson @clarksmr, before next release, 2020):
---      `This is again a program schema rather than a program.  Why not...
---      [[
---            {{ True }}
---          X := 0;
---          Y := 1;
---          Z := 1;
---          while X <> W do
---            Z := 2 * Z;
---            Y := Y + Z;
---            X := X + 1
---          end
---            {{ Y = 2 ^ (W + 1) - 1 }}
---      ]]
---         ...?
---
---         BCP 21: Ditto my response above.  IMO this is not a problem.`
-
---  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
---      This exercise should really be expanded into its own
---      whole section. Moreover, there is a proposal to make
---      the decorations in Hoare look more like the
---      decorations earlier in the present chapter. All
---      three should be aligned.
-
 --  ## Weakest Preconditions (Optional)
-
---  Note to developers:
---      HIDE: BCP 21: We talked about moving this stuff to
---      the HoareAsLogic chapter to lighten this chapter,
---      but it fits awkwardly there, so I'm leaving it here.
---      It's optional anyway. We might consider assigning
---      one of the exercises as advanced-only though.
 
 --  A useless (though valid) Hoare triple:
 

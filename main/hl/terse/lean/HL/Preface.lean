@@ -80,6 +80,3 @@ import SFLCompat
 --  National Science Foundation under the NSF Expeditions
 --  grant 1521523, *The Science of Deep Specification*.
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Other funding should be acknowledged here...
-
