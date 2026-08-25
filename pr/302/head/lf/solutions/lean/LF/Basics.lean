@@ -341,10 +341,6 @@ theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b := by
 
 -- Let's walk through the example above with this terminology in mind.
 
--- Note to developers (Benjamin Pierce @bcpierce00):
---     The typesetting here is bad -- most of the text has to come out of the
---     inline comments...
-
 theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
   /- Move your cursor (click) here to see the initial proof state in
      the InfoView. If you are viewing the book online,
@@ -429,9 +425,6 @@ theorem false_or : ∀ (b : MyBool), (MyBool.false || b) = b := by
 -- Be careful, though: every time you say `sorry` you are leaving a door open
 -- for total nonsense to enter Lean's safe, formally checked world!
 
--- Note to developers (Harrison Goldstein @hgoldstein95):
---     In the terse .lean output this ends up looking like an exercise.
-
 sf_experiment
   theorem really_bad : MyBool.true = MyBool.false := by sorry
 
@@ -493,10 +486,6 @@ end MyBool
 -- `Bool`, this function produces an output of type `Bool`."
 
 -- ### New Types from Old
-
--- Note to developers (Harrison Goldstein @hgoldstein95):
---     I feel like this section has too much content in terse, but I don't
---     want to unilaterally make that call. TODO
 
 -- The enumerated types we have seen so far are so-named because their
 -- definitions explicitly enumerate a finite set of elements: their
@@ -579,9 +568,10 @@ def isRed' (c : Color) : Bool :=
     | _ => Bool.false
 
 -- This `isRed'` function produces the same result as `isRed` but illustrates
--- the *use* of a pattern matching variable: the `Color.primary r` pattern
--- stores the `RGB` argument into variable `r`, and then pattern matches on
--- that argument to produce the final result.
+-- the *use* of a pattern matching variable.
+
+-- The `Color.primary r` pattern stores the `RGB` argument into variable `r`,
+-- and then pattern matches on that argument to produce the final result.
 
 -- ### Exercise (1 star): is_weekend ⭐
 
@@ -1361,8 +1351,12 @@ theorem mul_succ : ∀ n m : Nat, n * (succ m) = (n * m) + n := by
 
 attribute [irreducible] mul
 
--- Prove these thoerems using rewriting with the simplification rules for
--- addition and multiplication.
+-- Prove this theorem using rewriting with the simplification rules.
+
+theorem zero_add_one : (zero + one : Nat) = one := by
+  rewrite [one_eq_succ_zero]
+  rewrite [add_succ, add_zero]
+  rfl
 
 -- Notice how `rewrite` can take any number of arguments. You can rewrite with
 -- all of the simplification rules at once, for example.
@@ -1374,16 +1368,10 @@ attribute [irreducible] mul
 
 -- ### Exercise (2 stars): test_mul_add ⭐⭐
 
-theorem zero_add_one : (zero + one : Nat) = one := by
-  rewrite [one_eq_succ_zero]
-  rewrite [add_succ, add_zero]
-  rfl
-
 theorem one_add_one : (one + one : Nat) = two := by
   rewrite [one_eq_succ_zero]
   rewrite [add_succ, add_zero]
   rfl
-
 
 theorem zero_mul_two : (zero * two : Nat) = zero := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
@@ -1550,8 +1538,8 @@ theorem add_id_exercise : ∀ n m o : Nat,
 -- The `#check` command can also be used to examine the statements of
 -- previously declared lemmas and theorems.
 
-#check mul_zero  -- ∀ (n : Nat), n * 0 = 0
-#check mul_succ  -- ∀ (n m : Nat), n * Nat.succ m = n + n * m
+#check mul_zero
+#check mul_succ
 
 -- NatPlayground.Nat.mul_zero (n : Nat) : n * zero = zero
 
