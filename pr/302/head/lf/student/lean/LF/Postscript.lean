@@ -1,4 +1,4 @@
-import LF.SFLCompat
+import SFLCompat
 
 -- # Postscript
 

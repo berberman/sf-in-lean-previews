@@ -4,7 +4,7 @@ import LF.Poly
 import LF.Tactics
 import LF.CustomTactics
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # Logic in Lean
 
@@ -2109,7 +2109,10 @@ theorem not_exists_dist (α : Type) (p : α → Prop) :
   · exact hx
   · exfalso; apply h; exists x
 
--- ### Exercise (5 stars): classical_axioms (Optional, manually graded) ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): classical_axioms (Optional) ⭐⭐⭐⭐⭐
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     The following exercise needs grading attributes or manual grading.
 
 -- For those who like a challenge, here is an exercise adapted from the
 -- Coq'Art book by Bertot and Casteran (p. 123). Each of the following five

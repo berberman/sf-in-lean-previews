@@ -1,6 +1,6 @@
 import LF.IndProp
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # Automation: More Automation
 

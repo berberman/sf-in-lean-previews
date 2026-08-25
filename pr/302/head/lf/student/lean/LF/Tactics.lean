@@ -1,7 +1,7 @@
 import LF.Poly
 import LF.CustomTactics
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # Tactics: More Basic Tactics
 
@@ -252,9 +252,10 @@ theorem trans_eq_exercise (n m o p : Nat)
 
 -- Recall the definition of natural numbers:
 
---   inductive Nat : Type :=
---     | zero
---     | succ (n : Nat)
+sf_recall
+  inductive Nat : Type where
+    | zero
+    | succ (n : Nat)
 
 -- It is obvious from this definition that every number has one of two forms:
 -- either it is the constructor `0` or it is built by applying the constructor
@@ -411,15 +412,17 @@ theorem disjoint_ex3 {α : Type} (x y z : α) (l : List α)
 
 -- Recall our `RGB` and `Color` types:
 
---   inductive RGB : Type where
---     | red
---     | green
---     | blue
+sf_recall
+  inductive RGB : Type where
+    | red
+    | green
+    | blue
 
---   inductive Color : Type where
---     | black
---     | white
---     | primary (p: RGB)
+sf_recall
+  inductive Color : Type where
+    | black
+    | white
+    | primary (p: RGB)
 
 -- _Quiz:_
 
@@ -695,10 +698,11 @@ example (a b c d e f : Nat)
 -- Recall this function for doubling a natural number from the Induction
 -- chapter:
 
---   def Nat.double (n : Nat) : Nat :=
---     match n with
---     | 0 => 0
---     | n' + 1 => (n'.double) + 2
+sf_recall
+  def Nat.double (n : Nat) : Nat :=
+    match n with
+    | 0 => 0
+    | n' + 1 => double n' + 2
 
 -- Sometimes `induction` gives us an an induction hypothesis too specific to
 -- be useful. This can happen when another varaible in the theorem is fixed
@@ -1023,23 +1027,18 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 
 --   let ⟨a, β⟩ := v
 
--- ### Exercise (3 stars): zip_unzip ⭐⭐⭐
+-- ### Exercise (3 stars): zip_unzip' ⭐⭐⭐
 
 -- Here is an implementation of the `unzip` function mentioned in chapter
 -- Poly:
 
---   def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := solution!(
---     match l with
---     | [] => ([], [])
---     | (x, y) :: t =>
---       let (lx, ly) := unzip t
---       (x :: lx, y :: ly))
+def unzip' {α β : Type} (l : List (α × β)) : List α × List β := sorry
 
--- Prove that `unzip` and `zip` are inverses in the following sense:
+-- Prove that `unzip'` and `zip` are inverses in the following sense:
 
-theorem zip_unzip {α β : Type} (l : List (α × β))
+theorem zip_unzip' {α β : Type} (l : List (α × β))
     (l₁ : List α) (l₂ : List β)
-    (h : unzip l = (l₁, l₂)) :
+    (h : unzip' l = (l₁, l₂)) :
     zip l₁ l₂ = l := by
   sorry
 
@@ -1200,10 +1199,11 @@ theorem append_left_cancel {α : Type} (l₁ l₂ l₃ : List α)
 
 -- Recall the `map` we've defined in Poly:
 
---   def map {α : Type} {β : Type} (f : α → β) (l : List α) : List β :=
---     match l with
---     | [] => []
---     | head :: tail => f head :: map f tail
+sf_recall
+  def map {α β : Type} (f : α → β) (l : List α) : List β :=
+    match l with
+    | [] => []
+    | head :: tail => f head :: map f tail
 
 -- Prove that `map` is injective whenever the function is injective.
 
@@ -1217,7 +1217,7 @@ theorem map_injective_of_injective {α β : Type}
 
 -- ### Exercise (3 stars): unzip_zip (Advanced, manually graded) ⭐⭐⭐
 
--- We proved `zip_unzip` that `zip`ping the result of `unzip` recovers the
+-- We proved `zip_unzip'` that `zip`ping the result of `unzip` recovers the
 -- original list. What about the other direction? Complete and prove the
 -- following `unzip_zip`:
 

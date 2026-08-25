@@ -1,12 +1,12 @@
 import LF.Basics
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # Induction: Proof by Induction
 
 set_option pp.fieldNotation false
 
--- Note to developers (before next release):
+-- Note to developers:
 --     `SOONER: We should also consider adding more examples to clarify
 --     the concepts introduced in this chapter. This could help in
 --     reinforcing the understanding of induction principles.
@@ -601,11 +601,6 @@ theorem add_assoc'' (n m p : Nat) :
 
 -- ## More Exercises
 
--- Tip: By default, `rewrite` and `rw` rewrite left to right, i.e., they
--- transform the hypothesis or goal being rewritten from the form on the left
--- side of the equality to the right side. To rewrite from right to left, use
--- `rewrite [← h]` or `rw [← h]`, where `←` is entered as `\l` or `\<-`.
-
 -- ### Exercise (1 star): mul_one ⭐
 
 theorem mul_one (p : Nat) :
@@ -613,6 +608,74 @@ theorem mul_one (p : Nat) :
   induction p with
   | zero       => rw [mul_zero]
   | succ p' ih => rw [mul_succ, ih, succ_eq_add_one]
+
+-- ### Aside: Using Code Actions to Generate Match Skeletons
+
+-- Lean's language server can suggest *code actions*, which are small editor
+-- commands that modify the source code.
+
+-- In VS Code, a lightbulb icon appears on the left when a code action is
+-- available at your cursor.
+
+-- You can click the icon or open the code action menu with `Ctrl + .` on
+-- Windows/Linux or `Command + .` on macOS. For more information, see the
+-- [Lean 4 VSCode extension
+-- manual](https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md#code-actions).
+
+-- For example, code actions can generate the explicit branches needed for
+-- pattern matching. This can be especially useful when working with `match`
+-- expressions or with tactics such as `cases` and `induction`, which we saw
+-- in previous chapters.
+
+-- Let's look at an example code action using `induction`. For example,
+-- suppose we start with the following incomplete proof:
+
+sf_expect_failure
+  example (n : Nat) : Nat.beq n n := by
+    induction n
+
+-- Put your cursor on `induction n` and open the code action menu. You should
+-- see "Generate an explicit pattern match for 'induction'." in the list. If
+-- you choose this action, Lean adds an explicit branch for each constructor:
+
+example (n : Nat) : Nat.beq n n := by
+  induction n with
+  | zero => sorry
+  | succ n ih => sorry
+
+-- This gives us basic structure of the proof without requiring us to write
+-- each branch by hand. We can then focus on proving each case.
+
+-- One possible proof is:
+
+example (n : Nat) : Nat.beq n n := by
+  induction n with
+  | zero => exact (beq_self zero)
+  | succ n ih => rw [Nat.beq, ih]
+
+-- The same trick also works for `match` expressions. For example, suppose we
+-- start with
+
+sf_expect_failure
+  def isZero (n : Nat) : Bool :=
+    match n
+
+-- Lean can generate the missing branches:
+
+sf_expect_failure
+  def isZero (n : Nat) : Bool :=
+    match n with
+    | .zero => _
+    | .succ n => _
+
+-- Now you just have to replace the holes `_` with your definition. You can
+-- use code actions freely to fill out `induction`, `case`, and `match`
+-- branches while working with this book.
+
+-- By default, `rewrite` and `rw` rewrite left to right, i.e., they transform
+-- the goal (or a hypothesis) from the form on the left side of the equality
+-- to the right side. To rewrite from right to left, use `rewrite [← h]` or
+-- `rw [← h]`, where `←` is entered as `\l` or `\<-`.
 
 -- ### Exercise (2 stars): mul_two ⭐⭐
 

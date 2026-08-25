@@ -3,7 +3,7 @@ import LF.Typeclasses
 import Lean.PrettyPrinter.Delaborator
 import Lean.PrettyPrinter.Parenthesizer
 
-import HL.SFLCompat
+import SFLCompat
 
 -- # Imp: Simple Imperative Programs
 

@@ -91,23 +91,6 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-Code-Actions-to-Generate-Match-Skeletons":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-Code-Actions-to-Generate-Match-Skeletons",
-     "data":
-     {"title": "Using Code Actions to Generate Match Skeletons",
-      "shortTitle": null,
-      "sectionNum": "4.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Using Code Actions to Generate Match Skeletons",
-        "shortTitle": null,
-        "number": "6"}]},
-     "address": "/UsingLean/"}],
    "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc":
    [{"id":
      "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc",
@@ -142,11 +125,11 @@
         "shortTitle": null,
         "number": "5"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--rfl--and-Computation-with--Nat":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--The--rfl--Tactic-and-Computation-with--Nat":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--rfl--and-Computation-with--Nat",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--The--rfl--Tactic-and-Computation-with--Nat",
      "data":
-     {"title": "rfl  and Computation with  Nat",
+     {"title": "The  rfl  Tactic and Computation with  Nat",
       "shortTitle": null,
       "sectionNum": "4.1.1.",
       "searchPriority": 50,
@@ -158,7 +141,7 @@
        {"title": "More Powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"},
-       {"title": "rfl  and Computation with  Nat",
+       {"title": "The  rfl  Tactic and Computation with  Nat",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/UsingLean/"}],
@@ -1770,11 +1753,11 @@
         "shortTitle": null,
         "number": "7"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
+   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator",
+     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons",
      "data":
-     {"title": "A New Tactic Combinator",
+     {"title": "Aside: Using Code Actions to Generate Match Skeletons",
       "shortTitle": null,
       "sectionNum": "3.6.1.",
       "searchPriority": 50,
@@ -1784,9 +1767,27 @@
         "shortTitle": null,
         "number": "3"},
        {"title": "More Exercises", "shortTitle": null, "number": "6"},
-       {"title": "A New Tactic Combinator",
+       {"title": "Aside: Using Code Actions to Generate Match Skeletons",
         "shortTitle": null,
         "number": "1"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator",
+     "data":
+     {"title": "A New Tactic Combinator",
+      "shortTitle": null,
+      "sectionNum": "3.6.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"},
+       {"title": "A New Tactic Combinator",
+        "shortTitle": null,
+        "number": "2"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises":
    [{"id":
@@ -3590,7 +3591,7 @@
         "Conjunction"]}},
      "address": "/Logic/"}],
    "keepIf_some":
-   [{"id": "keepIf_some",
+   [{"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -3607,7 +3608,7 @@
         "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some-next",
+    {"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -3645,37 +3646,6 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
-   "isZero":
-   [{"id": "isZero-next",
-     "data":
-     {"/UsingLean/#isZero-next":
-      {"display": "isZero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using Code Actions to Generate Match Skeletons"]},
-      "/UsingLean/#isZero":
-      {"display": "isZero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using Code Actions to Generate Match Skeletons"]}},
-     "address": "/UsingLean/"},
-    {"id": "isZero",
-     "data":
-     {"/UsingLean/#isZero-next":
-      {"display": "isZero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using Code Actions to Generate Match Skeletons"]},
-      "/UsingLean/#isZero":
-      {"display": "isZero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using Code Actions to Generate Match Skeletons"]}},
-     "address": "/UsingLean/"}],
    "isRed'":
    [{"id": "isRed___",
      "data":
@@ -3957,28 +3927,7 @@
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective-next-next",
-     "data":
-     {"/Tactics/#double_injective-next-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]}},
-     "address": "/Tactics/"},
-    {"id": "double_injective-next",
+   [{"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -4000,6 +3949,27 @@
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
     {"id": "double_injective",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5931,6 +5901,41 @@
         "Data and Functions",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.isZero":
+   [{"id": "NatPlayground___Nat___isZero",
+     "data":
+     {"/Induction/#NatPlayground___Nat___isZero-next":
+      {"display": "isZero",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]},
+      "/Induction/#NatPlayground___Nat___isZero":
+      {"display": "isZero",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
+     "address": "/Induction/"},
+    {"id": "NatPlayground___Nat___isZero-next",
+     "data":
+     {"/Induction/#NatPlayground___Nat___isZero-next":
+      {"display": "isZero",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]},
+      "/Induction/#NatPlayground___Nat___isZero":
+      {"display": "isZero",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.four_eq_succ_three":
    [{"id": "NatPlayground___Nat___four_eq_succ_three",
      "data":

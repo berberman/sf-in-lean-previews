@@ -4,7 +4,7 @@ import LF.Poly
 import LF.Tactics
 import LF.CustomTactics
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # Logic in Lean
 
@@ -1777,7 +1777,7 @@ theorem not_exists_dist (α : Type) (p : α → Prop) :
     (¬ ∃ x : α, ¬ p x) → (∀ x : α, p x) := by
   sorry
 
--- ### Exercise (5 stars): classical_axioms (Optional, manually graded) ⭐⭐⭐⭐⭐
+-- ### Exercise (5 stars): classical_axioms (Optional) ⭐⭐⭐⭐⭐
 
 -- For those who like a challenge, here is an exercise adapted from the
 -- Coq'Art book by Bertot and Casteran (p. 123). Each of the following five

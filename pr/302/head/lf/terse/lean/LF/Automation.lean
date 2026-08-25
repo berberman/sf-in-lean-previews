@@ -1,6 +1,6 @@
 import LF.IndProp
 
-import LF.SFLCompat
+import SFLCompat
 
 -- # Automation: More Automation
 
@@ -964,7 +964,7 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
   sorry
 
 -- Note to developers (Niklas Halonen @xhalo32):
---     Add `gradeTheorem 5 pumping` once the proof is filled
+--     Add `gradeTheorem 10 pumping` once the proof is filled
 --     in.
 
 end Pumping

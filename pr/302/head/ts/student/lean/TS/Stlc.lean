@@ -3,7 +3,7 @@ import Lean.PrettyPrinter.Parenthesizer
 import LF.Typeclasses
 import TS.Smallstep
 
-import TS.SFLCompat
+import SFLCompat
 
 -- # Stlc: The Simply Typed Lambda-Calculus
 
