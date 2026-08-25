@@ -410,12 +410,59 @@
     "311": {
       "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
       "changed_variants": [],
-      "head_sha": "f0b315c9545413c72eb94dbea6b272af6c7db30e",
+      "head_sha": "c7c1d7eb9e743c1cc40ad6866d974403d293be87",
       "preview_path": "pr/311/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32872964275",
+      "status": "ci-failed",
       "title": "Poly: make `unzip` a manually graded exercise about char lemmas",
       "url": "https://github.com/plclub/sf-in-lean/pull/311"
+    },
+    "312": {
+      "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "74a73e8320d509bcb383b797e82175fa3623cf57",
+      "preview_path": "pr/312/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32871746914",
+      "status": "published",
+      "title": "Pass over Basics to tidy up terse-mode text",
+      "url": "https://github.com/plclub/sf-in-lean/pull/312"
     }
   },
   "schema": 3
