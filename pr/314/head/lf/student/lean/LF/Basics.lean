@@ -562,9 +562,10 @@ def isRed' (c : Color) : Bool :=
     | _ => Bool.false
 
 -- This `isRed'` function produces the same result as `isRed` but illustrates
--- the *use* of a pattern matching variable: the `Color.primary r` pattern
--- stores the `RGB` argument into variable `r`, and then pattern matches on
--- that argument to produce the final result.
+-- the *use* of a pattern matching variable.
+
+-- The `Color.primary r` pattern stores the `RGB` argument into variable `r`,
+-- and then pattern matches on that argument to produce the final result.
 
 -- ### Exercise (1 star): is_weekend ⭐
 
@@ -1117,7 +1118,11 @@ theorem add_zero_zero_explained : ∀  n : Nat, n + zero + zero = n := by
 -- Give this proof a try (it's similar):
 
 theorem add_zero_zero_zero : ∀ n : Nat, n + zero + zero + zero = n := by
-  sorry
+  intro n
+  rewrite [add_zero]
+  rewrite [add_zero]
+  rewrite [add_zero]
+  rfl
 
 -- ### The `rewrite` tactic
 
@@ -1317,8 +1322,12 @@ theorem mul_succ : ∀ n m : Nat, n * (succ m) = (n * m) + n := by
 
 attribute [irreducible] mul
 
--- Prove these thoerems using rewriting with the simplification rules for
--- addition and multiplication.
+-- Prove this theorem using rewriting with the simplification rules.
+
+theorem zero_add_one : (zero + one : Nat) = one := by
+  rewrite [one_eq_succ_zero]
+  rewrite [add_succ, add_zero]
+  rfl
 
 -- Notice how `rewrite` can take any number of arguments. You can rewrite with
 -- all of the simplification rules at once, for example.
@@ -1329,10 +1338,6 @@ attribute [irreducible] mul
 -- multiple rules.
 
 -- ### Exercise (2 stars): test_mul_add ⭐⭐
-
-theorem zero_add_one : (zero + one : Nat) = one := by
-  rewrite [one_eq_succ_zero]
-  sorry
 
 theorem one_add_one : (one + one : Nat) = two := by
   rewrite [one_eq_succ_zero]
@@ -1485,8 +1490,8 @@ theorem add_id_exercise : ∀ n m o : Nat,
 -- The `#check` command can also be used to examine the statements of
 -- previously declared lemmas and theorems.
 
-#check mul_zero  -- ∀ (n : Nat), n * 0 = 0
-#check mul_succ  -- ∀ (n m : Nat), n * Nat.succ m = n + n * m
+#check mul_zero
+#check mul_succ
 
 -- NatPlayground.Nat.mul_zero (n : Nat) : n * zero = zero
 
