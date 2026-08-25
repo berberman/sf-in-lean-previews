@@ -190,7 +190,7 @@ theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
 --  `zero + n` is an arbitrary unknown number, so the `match` in the
 --  definition of `+` can't be reduced.
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : zero + n = n := by
     rfl    -- doesn't work here!
 
@@ -207,7 +207,7 @@ expect_failure_in
 --  goes through just fine, but in the branch where `n = n' + 1` for some
 --  `n'` we get stuck in exactly the same way.
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : zero + n = n := by
     cases n with
     | zero => /- n = zero -/
@@ -412,7 +412,7 @@ theorem mult_zero_add' (n m : Nat) :
 --  rewrite. There are three uses of `+` here, and `rw [add_comm]` may
 --  affect the wrong one...
 
-expect_failure_in
+sf_expect_failure_in
   example (n m p q : Nat) :
      (n + m) + (p + q) = (m + n) + (p + q) := by
     /-
@@ -638,7 +638,7 @@ theorem mul_one (p : Nat) :
 --  Let's look at an example code action using `induction`. For example,
 --  suppose we start with the following incomplete proof:
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : Nat.beq n n := by
     induction n
 
@@ -665,13 +665,13 @@ example (n : Nat) : Nat.beq n n := by
 --  The same trick also works for `match` expressions. For example, suppose
 --  we start with
 
-expect_failure_in
+sf_expect_failure_in
   def isZero (n : Nat) : Bool :=
     match n
 
 --  Lean can generate the missing branches:
 
-expect_failure_in
+sf_expect_failure_in
   def isZero (n : Nat) : Bool :=
     match n with
     | .zero => _
@@ -917,7 +917,7 @@ theorem nat_bin_nat (n : Nat) :
 --  then converting back to `Bin` — turns out to be problematic. That is,
 --  the following "theorem" does not hold.
 
-expect_failure_in
+sf_expect_failure_in
   example (b : Bin) : natToBin (binToNat b) = b := by
 
 --  Let's explore why this theorem fails and how to prove a modified
@@ -962,7 +962,7 @@ theorem double_incr_bin (b : Bin) :
 
 --  Let's return to our desired theorem:
 
-expect_failure_in
+sf_expect_failure_in
   example (b : Bin) : natToBin (binToNat b) = b := by
 
 --  The theorem fails because there are some `Bin` such that we won't

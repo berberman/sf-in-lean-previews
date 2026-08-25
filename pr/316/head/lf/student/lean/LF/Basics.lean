@@ -142,15 +142,15 @@ example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.tuesday := by
 --  the same value, so the assertion is true by reflexivity. If we had made
 --  a different assertion, such as
 
-expect_failure_in
+sf_expect_failure_in
   example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.monday := by rfl
 
 --  then Lean would not be able to verify it and would instead signal an
 --  error.
 
---  (The `expect_failure_in` annotation tells Lean that there is intended
---  to be an error in the following expression and it should not mark the
---  whole file as broken.)
+--  (The `sf_expect_failure_in` annotation tells Lean that there is
+--  intended to be an error in the following expression and it should not
+--  mark the whole file as broken.)
 
 --  ### Aside: Using the VS Code Lean Extension
 
@@ -396,14 +396,14 @@ theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
 --  proof, usually causing the proof to break. Suppose we had instead
 --  written the following:
 
-expect_failure_in
+sf_expect_failure_in
   theorem true_and_wrong : ∀ (b : MyBool), (MyBool.true && b) = b := by
     intro b
       rfl
 
---  To see the error message in the Lean file, change `expect_failure_in`
---  to `expect_failure_in?` temporarily. You should see the following
---  message.
+--  To see the error message in the Lean file, change
+--  `sf_expect_failure_in` to `sf_expect_failure_in?` temporarily. You
+--  should see the following message.
 
 --  Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
 
@@ -692,7 +692,7 @@ def RGB.myOtherBlue : RGB := myBlue
 
 --  RGB.myOtherBlue : RGB
 
-expect_failure_in
+sf_expect_failure_in
   -- this doesn't work; the identifier is undefined
   #check myBlue
 
@@ -743,7 +743,7 @@ open MyOtherNamespace (myVisibleDef)
 --  But `myHiddenDef`, which we did not `open`, still needs its full name;
 --  using it unqualified is an error:
 
-expect_failure_in
+sf_expect_failure_in
   #check myHiddenDef
 
 --  Unknown identifier `myHiddenDef`
@@ -794,7 +794,7 @@ def nextWorkingDay' (d : Day) : Day :=
 --  `.true` we mean, since it could either be `Bool.true` or `MyBool.true`.
 --  In this case, it will raise an error:
 
-expect_failure_in
+sf_expect_failure_in
   #check .true
 
 --  Invalid dotted identifier notation: The expected type of `.true` could not be determined
@@ -1557,7 +1557,7 @@ theorem add_id_exercise : ∀ n m o : Nat,
 --  rewriting: In general, the presence of unknown, hypothetical values
 --  (arbitrary numbers, booleans, etc.) can block a proof.
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : (succ zero + n == zero) = false := by
     /-
       We can't rewrite by any lemmas here: `add`'s definition matches on its

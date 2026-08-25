@@ -142,7 +142,7 @@ example (n m : Nat) : n + m = m + n := by
 --  theorem that implements it. If no such theorem exists, that may be a
 --  sign that you need to prove it yourself.
 
-expect_failure_in
+sf_expect_failure_in
   example (n m k : Nat) :
      (n + m) + k = m + (n + k) := by
     -- lots of suggestions to look through here!
@@ -307,7 +307,7 @@ example (n : Nat) : square n + 0 = n * n := by
 
 --  In the above example, using `rw` would not have closed the proof:
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : square n + 0 = n * n := by
     rw [square]
 

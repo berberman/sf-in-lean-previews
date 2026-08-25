@@ -143,7 +143,7 @@ theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
 --  But the proof that it is also a neutral element on the
 --  *left* gets stuck...
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : zero + n = n := by
     rfl    -- doesn't work here!
 
@@ -161,7 +161,7 @@ expect_failure_in
 --  branch where `n = n' + 1` for some `n'` we get stuck in
 --  exactly the same way.
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : zero + n = n := by
     cases n with
     | zero => /- n = zero -/
@@ -271,7 +271,7 @@ theorem mult_zero_add' (n m : Nat) :
     rw [zero_add, add_zero]
   rw [h]
 
-expect_failure_in
+sf_expect_failure_in
   example (n m p q : Nat) :
      (n + m) + (p + q) = (m + n) + (p + q) := by
     /-
@@ -339,7 +339,7 @@ theorem mul_one (p : Nat) :
 --  For example, suppose we start with the following
 --  incomplete proof:
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : Nat.beq n n := by
     induction n
 
@@ -368,13 +368,13 @@ example (n : Nat) : Nat.beq n n := by
 --  The same trick also works for `match` expressions. For
 --  example, suppose we start with
 
-expect_failure_in
+sf_expect_failure_in
   def isZero (n : Nat) : Bool :=
     match n
 
 --  Lean can generate the missing branches:
 
-expect_failure_in
+sf_expect_failure_in
   def isZero (n : Nat) : Bool :=
     match n with
     | .zero => _
@@ -558,7 +558,7 @@ theorem nat_bin_nat (n : Nat) :
 --  turns out to be problematic. That is, the following
 --  "theorem" does not hold.
 
-expect_failure_in
+sf_expect_failure_in
   example (b : Bin) : natToBin (binToNat b) = b := by
 
 --  Let's explore why this theorem fails and how to prove a
@@ -596,7 +596,7 @@ theorem double_incr_bin (b : Bin) :
 
 --  Let's return to our desired theorem:
 
-expect_failure_in
+sf_expect_failure_in
   example (b : Bin) : natToBin (binToNat b) = b := by
 
 --  The theorem fails because there are some `Bin` such that

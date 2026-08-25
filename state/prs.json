@@ -410,9 +410,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "10cbbdbd775478eb07a4cd672fb275543f07ce41",
+      "head_sha": "2376495e56f8722b1116478ddba3717a4187c7c5",
       "preview_path": "pr/316/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32895358248",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32901450048",
       "status": "published",
       "title": "Polishing on Preface and Basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/316"

@@ -115,7 +115,7 @@ theorem trans_eq {α : Type} (x y z : α) :
 
 --  Now let's use our `trans_eq` to prove the example above.
 
-expect_failure_in
+sf_expect_failure_in
   example (a b c d e f : Nat)
       (h₁ : [a, b] = [c, d])
       (h₂ : [c, d] = [e, f]) :
@@ -300,7 +300,7 @@ example (n : Nat)
 --  defined, deriving a contradiction from `1 + n = 0` is
 --  not as trivial as it seems.
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat)
       (h : 1 + n = 0) :
       2 + 2 = 5 := by
@@ -444,7 +444,7 @@ example (n m : Nat) (h : n = m) :
 
 --  We can specify the recursion-depth with `congr n`.
 
-expect_failure_in
+sf_expect_failure_in
   example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
       (a, c + 1) = (b, 1 + d) := by
     congr
@@ -602,7 +602,7 @@ sf_recall
 --  (i.e., it maps different arguments to different
 --  results).
 
-expect_failure_in
+sf_expect_failure_in
   theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := by
     induction n with
     | zero =>

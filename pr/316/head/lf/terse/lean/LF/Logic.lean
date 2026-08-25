@@ -781,7 +781,7 @@ theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : 
 --  were a function. This is often handy in proof scripts —
 --  e.g., suppose we want to prove the following:
 
-expect_failure_in
+sf_expect_failure_in
   example (x y z : Nat) : x + (y + z) = (z + y) + x := by
     rw [Nat.add_comm]
     rw [Nat.add_comm]
@@ -1120,7 +1120,7 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 --  don't compute to the same term, and we cannot proceed by
 --  cases on `a` or `b`, as they are not inductive.
 
-expect_failure_in
+sf_expect_failure_in
   example (a b : Prop) : a ∧ b = b ∧ a := by rfl
 
 --  Tactic `rfl` failed: The left-hand side
@@ -1140,7 +1140,7 @@ expect_failure_in
 --  a b : Prop
 --  ⊢ a ∧ b = b ∧ a
 
-expect_failure_in
+sf_expect_failure_in
   example (a b : Prop) : a ∧ b = b ∧ a := by cases a
 
 --  Tactic `cases` failed: major premise type is not an inductive type

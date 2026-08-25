@@ -39,7 +39,7 @@ theorem List.elem_nat_cons (a b : Nat) (xs : List Nat) :
 --  `Nat`? Parametric polymorphism suggests simply replacing `Nat` with a
 --  type variable `α`, but that produces a puzzling error:
 
-expect_failure_in
+sf_expect_failure_in
   def List.elem_poly {α : Type} (a : α) (xs : List α) : Bool :=
     match xs with
     | [] => false
@@ -1010,7 +1010,7 @@ example : ({ 1 ↦ 2, 1 ↦ 3 } : TotalMap Nat Nat)[1] = 2 := rfl
 --  `MyGetElem`, so typeclass resolution gets stuck in the following
 --  example:
 
-expect_failure_in
+sf_expect_failure_in
   example : ({ "foo" ↦ true })["foo"] = true := by rfl
 
 --  ### Partial Maps

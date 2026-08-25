@@ -1206,7 +1206,7 @@ theorem combineOddEven_elim_even
 --  to intermediate assertions. For example, suppose we wanted to prove the
 --  following result:
 
-expect_failure_in
+sf_expect_failure_in
   example (x y z : Nat) : x + (y + z) = (z + y) + x := by
     rw [Nat.add_comm]
     rw [Nat.add_comm]
@@ -1730,7 +1730,7 @@ theorem List.allb_true_iff α {test : α → Bool} {l : List α} :
 --  the two sides don't compute to the same term, and we cannot proceed by
 --  cases on `a` or `b`, as they are not inductive.
 
-expect_failure_in
+sf_expect_failure_in
   example (a b : Prop) : a ∧ b = b ∧ a := by rfl
 
 --  Tactic `rfl` failed: The left-hand side
@@ -1750,7 +1750,7 @@ expect_failure_in
 --  a b : Prop
 --  ⊢ a ∧ b = b ∧ a
 
-expect_failure_in
+sf_expect_failure_in
   example (a b : Prop) : a ∧ b = b ∧ a := by cases a
 
 --  Tactic `cases` failed: major premise type is not an inductive type

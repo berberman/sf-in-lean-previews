@@ -176,7 +176,7 @@ theorem trans_eq {α : Type} (x y z : α) :
 --  yet determined. Before we provide the hypothesis `h₂`, Lean doesn't
 --  know that this intermediate list shoud be `[c, d]`.
 
-expect_failure_in
+sf_expect_failure_in
   example (a b c d e f : Nat)
       (h₁ : [a, b] = [c, d])
       (h₂ : [c, d] = [e, f]) :
@@ -408,7 +408,7 @@ example (n : Nat)
 --  Notice that due to the way addition on naturals is defined, deriving a
 --  contradiction from `1 + n = 0` is not as trivial as it seems.
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat)
       (h : 1 + n = 0) :
       2 + 2 = 5 := by
@@ -574,7 +574,7 @@ example (n m : Nat) (h : n = m) :
 --  are trying to prove, deeper applications of `congr` may make our goal
 --  unprovable. Consider this example:
 
-expect_failure_in
+sf_expect_failure_in
   example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
       (a, c + 1) = (b, 1 + d) := by
     congr
@@ -769,7 +769,7 @@ sf_experiment
 
 --  The way we start this proof is a bit delicate: if we begin it with
 
-expect_failure_in
+sf_expect_failure_in
   theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := by
     induction n with
     | zero =>
@@ -1200,7 +1200,7 @@ def keepIf {α : Type} (test : α → Bool) (x : α) : Option α :=
 --  Now suppose that we want to prove `keepIf_some`. If we start the proof
 --  like this (with no `h : ⋯` on the `cases`)...
 
-expect_failure_in
+sf_expect_failure_in
   theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
       (h : keepIf test x = some y) :
       x = y := by

@@ -83,7 +83,7 @@ def sub (n m : Nat) : Nat :=
 --  The distinction is minor, but it is worth understanding that they are
 --  not the same. For instance, the following definitions are ill-formed:
 
-expect_failure_in
+sf_expect_failure_in
   -- Can't match on a pair with multiple patterns:
   def bad_fst (p : NatProd) : Nat :=
     match p with
@@ -92,7 +92,7 @@ expect_failure_in
 --  Too many patterns in match alternative: Expected 1, but found 2:
 --    x, y
 
-expect_failure_in
+sf_expect_failure_in
   -- Can't match on multiple values with pair patterns:
   def bad_sub (n m : Nat) : Nat :=
     match n, m with
@@ -692,7 +692,7 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --  hypothesis. While the following statement is true, we cannot prove it
 --  directly:
 
-expect_failure_in
+sf_expect_failure_in
   theorem myRepeat_append_fail (c n : Nat) :
       myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
     induction c with
@@ -747,7 +747,7 @@ example : [].reverse = [] := by rfl
 --  does not change its length. Our first attempt gets stuck in the
 --  successor case...
 
-expect_failure_in
+sf_expect_failure_in
   example (l : NatList) :
       l.reverse.length = l.length := by
     induction l with
@@ -770,7 +770,7 @@ expect_failure_in
 --  statement that we are missing at this point. But this attempt will fail
 --  because the inductive hypothesis is not general enough.
 
-expect_failure_in
+sf_expect_failure_in
   theorem length_append_succ (l : NatList) (n : Nat) :
       (l.reverse ++ [n]).length = l.reverse.length + 1 := by
     induction l with

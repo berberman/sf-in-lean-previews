@@ -225,7 +225,7 @@ def csf (n : Nat) : Nat :=
 --  termination checker, since the argument to the recursive
 --  call, `csf n`, is not "obviously smaller" than `n`.
 
-expect_failure_in
+sf_expect_failure_in
   def reaches1In (n : Nat) : Nat :=
     if n == 1 then 0
     else 1 + reaches1In (csf n)
@@ -265,7 +265,7 @@ expect_failure_in
 --  appropriate proof. However, we still can't convince it
 --  that `(3 * n) + 1` is smaller than `n`!
 
-expect_failure_in
+sf_expect_failure_in
   def CollatzHoldsFor (n : Nat) : Prop :=
     match n with
     | 0 => False
@@ -621,7 +621,7 @@ inductive Ev : Nat → Prop where
 --  inductive *types* like `Nat` or `List` that we have been
 --  using throughout the course:
 
-expect_failure_in
+sf_expect_failure_in
   inductive List (α : Type) : Type where
     | nil                       : List α
     | cons (x : α) (l : List α) : List α
@@ -822,7 +822,7 @@ theorem inversion_ex2 n (h : n + 1 = 0) : 2 + 2 = 5 := by
 --  Note to developers (before next release):
 --      This whole part of the section is a mess!!
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : Ev n → Nat.Even n := by
     /- We could try to proceed by case analysis or induction on `n`.  But
         since `Ev` is mentioned in a premise, this strategy seems

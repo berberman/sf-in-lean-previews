@@ -335,7 +335,7 @@ def RGB.myOtherBlue : RGB := myBlue
 
 --  RGB.myOtherBlue : RGB
 
-expect_failure_in
+sf_expect_failure_in
   -- this doesn't work; the identifier is undefined
   #check myBlue
 
@@ -382,7 +382,7 @@ open MyOtherNamespace (myVisibleDef)
 --  But `myHiddenDef`, which we did not `open`, still needs
 --  its full name; using it unqualified is an error:
 
-expect_failure_in
+sf_expect_failure_in
   #check myHiddenDef
 
 --  Unknown identifier `myHiddenDef`
@@ -413,7 +413,7 @@ def nextWorkingDay' (d : Day) : Day :=
 --  Here, Lean can't figure out which version of `.true` we
 --  mean.
 
-expect_failure_in
+sf_expect_failure_in
   #check .true
 
 --  Invalid dotted identifier notation: The expected type of `.true` could not be determined
@@ -818,7 +818,7 @@ theorem add_id_example : ∀ n m : Nat,
 --  Sometimes simple calculation and rewriting are not
 --  enough...
 
-expect_failure_in
+sf_expect_failure_in
   example (n : Nat) : (succ zero + n == zero) = false := by
     /-
       We can't rewrite by any lemmas here: `add`'s definition matches on its

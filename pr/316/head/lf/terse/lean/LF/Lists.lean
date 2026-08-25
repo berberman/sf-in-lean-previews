@@ -441,7 +441,7 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --  Sometimes statements need to be generalized to prove
 --  them by induction:
 
-expect_failure_in
+sf_expect_failure_in
   theorem myRepeat_append_fail (c n : Nat) :
       myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
     induction c with
@@ -496,7 +496,7 @@ example : [].reverse = [] := by rfl
 --  Let's try to prove
 --  `∀ l : NatList, length (reverse l) = length l`.
 
-expect_failure_in
+sf_expect_failure_in
   example (l : NatList) :
       l.reverse.length = l.length := by
     induction l with
@@ -515,7 +515,7 @@ expect_failure_in
 --  ih : l'.reverse.length = l'.length
 --  ⊢ (l'.reverse ++ [n]).length = (n :: l').length
 
-expect_failure_in
+sf_expect_failure_in
   theorem length_append_succ (l : NatList) (n : Nat) :
       (l.reverse ++ [n]).length = l.reverse.length + 1 := by
     induction l with

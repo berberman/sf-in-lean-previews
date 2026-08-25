@@ -169,7 +169,7 @@ theorem Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α)
 --  failure in a `<;>` sequence, the whole sequence will
 --  stop executing.
 
-expect_failure_in
+sf_expect_failure_in
   example (α : Type) (x : α) (l₁ l₂ : List α)
       (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
     induction hPerm <;> try lia <;>
@@ -210,7 +210,7 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
 
 --  `repeat` can loop forever.
 
-expect_failure_in
+sf_expect_failure_in
   example (m n : Nat) : m + n = n + m := by
     /- Uncomment the next line to see the infinite loop occur.  You will
        then need to recomment it make Lean listen to you again. -/
@@ -643,7 +643,7 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
 --  over a term that isn't sufficiently general. Here's an
 --  example:
 
-expect_failure_in
+sf_expect_failure_in
   example α (s₁ s₂ : List α) (re : RegExp α) :
       s₁ =~ Star re →
       s₂ =~ Star re →
@@ -667,7 +667,7 @@ expect_failure_in
 --  "manually generalizing" over the problematic expressions
 --  by adding explicit equality hypotheses to the lemma:
 
-expect_failure_in
+sf_expect_failure_in
   example α (s₁ s₂ : List α) (re re' : RegExp α) :
       re' = Star re →
       s₁ =~ re' →
