@@ -2143,14 +2143,14 @@ languages is assumed, though a degree of mathematical maturity will be
 helpful.</p>
               <p>
                 The principal novelty of the series is that it is one hundred percent
-formalized and machine-checked: each text is literally a script for
-Lean.  The books are intended to be read alongside (or inside) an
-interactive session with Lean.  All the details in the text are fully
-formalized in Lean, and almost all of the exercises are designed to be
+formalized and machine-checked: each chapter of each book is literally a script for
+the Lean prover, and the books are intended to be read alongside (or inside) an
+interactive session with Lean.  All the details are fully
+formalized, and almost all of the exercises are designed to be
 worked using Lean.</p>
               <p>
                 This book, <em>Logical Foundations in Lean</em>, lays groundwork for the
-others, introducing the reader to the basic ideas of functional
+others in the series, introducing the reader to the basic ideas of functional
 programming, formal logic, and Lean itself.</p>
               </section>
             <section>
@@ -2223,7 +2223,7 @@ so far.</p>
                   1.2.2. Proof Assistants<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Overview--Proof-Assistants" title="Permalink">🔗</a></span></h3>
                 <p>
                   The flow of ideas between logic and computer science over the years
-has run in both directions, with CS also making contributions to
+has run in both directions, with CS also making key contributions to
 logic. One of these has been the development of software tools for
 helping construct and validate proofs of logical statements.  These
 tools fall into two broad categories:</p>
@@ -2248,8 +2248,8 @@ tools fall into two broad categories:</p>
                     </li>
                   </ul>
                 <p>
-                  This course is based around Lean, a proof assistant that has been
-under development since 2013 and has attracted a large and active
+                  This course is based around Lean, a prover that has been
+under development since 2013 and that has attracted a large and active
 community of users in both research and at companies like DeepMind,
 OpenAI, Anthropic, MSR, and AWS.</p>
                 <p>
@@ -2284,7 +2284,8 @@ variety of work</a> across computer science and mathematics:</p>
   and hardware</em>, they have been used, for example, to build
   CompCert (Leroy <em>et al.</em>, 2016)<span class="marginalia"><span class="note"><span class="citation">Xavier Leroy, Sandrine Blazy, Daniel Kästner, Bernhard Schommer, Markus Pister,  and Christian Ferdinand, 2016. <a href="https://hal.science/hal-01238879">“CompCert - A Formally Verified Optimizing Compiler”</a>. In <em>ERTS 2016: Embedded Real Time Software and Systems, 8th European Congress.</em></span></span></span>, a fully-verified optimizing compiler for C,
   <a href="https://github.com/cedar-policy/cedar-spec">Cedar</a> (Disselkoen <em>et al.</em>, 2024)<span class="marginalia"><span class="note"><span class="citation">Craig Disselkoen, Aaron Eline, Shaobo He, Kyle Headley, Michael Hicks, Kesha Hietala, John Kaster, Anwar Mamat, Matt McCutchen, Neha Rungta,  and others, 2024. <a href="https://doi.org/10.1145/3663529.3663854">“How We Built Cedar: A Verification-Guided Approach”</a>. In <em>Companion Proceedings of the 32nd ACM International Conference on the Foundations of Software Engineering.</em></span></span></span>, a formally-specified policy language, and
-  CertiKOS (Gu <em>et al.</em>, 2016)<span class="marginalia"><span class="note"><span class="citation">Ronghui Gu, Zhong Shao, Hao Chen, Xiongnan Newman Wu, Jieung Kim, Vilhelm Sjöberg,  and David Costanzo, 2016. <a href="https://www.usenix.org/conference/osdi16/technical-sessions/presentation/gu">“CertiKOS: An extensible architecture for building certified concurrent OS kernels”</a>. In <em>12th USENIX Symposium on Operating Systems Design and Implementation (OSDI 16).</em></span></span></span>, a fully verified hypervisor, for proving the
+  CertiKOS (Gu <em>et al.</em>, 2016)<span class="marginalia"><span class="note"><span class="citation">Ronghui Gu, Zhong Shao, Hao Chen, Xiongnan Newman Wu, Jieung Kim, Vilhelm Sjöberg,  and David Costanzo, 2016. <a href="https://www.usenix.org/conference/osdi16/technical-sessions/presentation/gu">“CertiKOS: An extensible architecture for building certified concurrent OS kernels”</a>. In <em>12th USENIX Symposium on Operating Systems Design and Implementation (OSDI 16).</em></span></span></span>, a fully verified hypervisor,
+  and for proving the
   correctness of subtle algorithms involving floating point
   numbers, and as the basis for CertiCrypt, FCF, and SSProve,
   which are frameworks for proving cryptographic algorithms secure.
@@ -2297,15 +2298,17 @@ variety of work</a> across computer science and mathematics:</p>
   validate and help develop a number of important results.  For
   example, the ability to include complex computations inside proofs
   made it possible to develop the first formally verified proof of the
-  4-color theorem.  This proof had previously been controversial among
-  mathematicians because it required checking a large number of
+  4-color theorem, which had previously been controversial among
+  mathematicians because the argument required checking a large number of
   configurations using a program. More recently, an even more massive
   effort led to a formalization of the Feit-Thompson Theorem, the
-  first major step in the classification of finite simple groups.
-  Specifically, Lean is currently at the core of various formalization efforts in
+  first major step in the classification of finite simple groups.</p>
+                    <p>
+                      Lean, in particular, is now at the core of various formalization efforts in
   mathematics, such as the proof of <a href="https://github.com/ImperialCollegeLondon/FLT">Fermat's Last Theorem</a>,
   the <a href="https://github.com/thefundamentaltheor3m/Sphere-Packing-Lean">Sphere Packing Problem</a>.
-  and even DeepMind's AI model for IMO problems <a href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/">AlphaProof</a>.</p>
+  and even DeepMind's AI model for International Math Olympiad
+  problems, <a href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/">AlphaProof</a>.</p>
                     </li>
                   </ul>
                 </section>
@@ -2313,7 +2316,7 @@ variety of work</a> across computer science and mathematics:</p>
                 <h3 id="Logical-Foundations--Preface--Overview--Functional-Programming">
                   1.2.3. Functional Programming<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Overview--Functional-Programming" title="Permalink">🔗</a></span></h3>
                 <p>
-                  <em>Functional programming</em> refers both to a collection of idioms that
+                  <em>Functional programming</em> refers both to a collection of powerful coding idioms that
 can be used in almost any programming language and to a family of
 languages designed to foreground these idioms, including Haskell,
 OCaml, Standard ML, F#, Scala, Scheme, Racket, Common Lisp, Clojure,
@@ -2325,9 +2328,9 @@ its roots go back to Church's lambda-calculus from the 1930s, well
 has enjoyed a surge of interest among both software engineers and
 language designers.</p>
                 <p>
-                  The most basic tenet of functional programming is that, whenever
+                  The basic tenet of functional programming is that, whenever
 possible, computation should be <em>pure</em>, in the sense that the only
-effect of execution should be to produce a result: it should be
+effect of execution should be to produce a result. That is, it should be
 free from <em>side effects</em> such as I/O, assignments to mutable
 variables, redirecting pointers, etc.  For example, whereas an
 <em>imperative</em> sorting function might take a list of numbers and
@@ -2337,26 +2340,26 @@ containing the same numbers in sorted order.</p>
                 <p>
                   A significant benefit of this style of programming is that it makes
 programs easier to understand and reason about. If every operation on
-a data structure yields a new data structure, leaving the old one
+a data structure yields a new data structure and leaves the old one
 intact, then there is no need to worry about how that structure is
 being shared and whether a change by one part of the program might
-break an invariant relied on by another part of the program. These
-considerations are particularly critical in concurrent systems, where
+break an invariant relied on by another part of the program.
+This is particularly important when reasoning about concurrent systems, where
 every piece of mutable state shared between threads is a potential
 source of pernicious bugs.</p>
                 <p>
-                  Another reason for the popularity of functional programming is related
-to the first: functional programs are often much easier to parallelize
+                  Another reason for the popularity of functional programming, related
+to the first, is that functional programs are often much easier to parallelize
 and physically distribute than their imperative counterparts.  If
 running a computation has no effect other than producing a result,
-then it does not matter <em>where</em> it is run. Similarly, if a data
+then it does not matter <em>where</em> it is run. Likewise, if a data
 structure is never modified destructively, it can be copied freely,
 across cores or across the network. Indeed, the "Map-Reduce" idiom,
 which lies at the heart of massively distributed query processors like
 Hadoop and is used by Google to index the entire web, is a classic
 example of functional programming.</p>
                 <p>
-                  For purposes of these books, functional programming has yet another
+                  For these books, functional programming has yet another
 significant attraction: it serves as a bridge between logic and
 computer science. Indeed, Lean itself can be viewed as a combination
 of a small but extremely expressive functional programming language
@@ -2381,36 +2384,37 @@ suggestions for further reading in the <a href="Postscript/#Postscript">Postscri
                 <h3 id="Logical-Foundations--Preface--Practicalities--System-Requirements">
                   1.3.1. System Requirements<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--System-Requirements" title="Permalink">🔗</a></span></h3>
                 <p>
-                  Lean runs on Windows, Linux, and MacOS.  The files in this book
+                  Lean runs on Linux, MacOS, and Windows.  The files in this book
 have been tested with Lean version <code>4.33.0</code>.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Preface--Practicalities--Installation">
                   1.3.2. Installation<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Installation" title="Permalink">🔗</a></span></h3>
                 <p>
-                  The Visual Studio Code IDE is the recommended platform for using Lean.</p>
+                  The Visual Studio Code IDE is the recommended platform for using Lean. To get set up,
+follow these steps:</p>
                 <ul>
                   <li>
                     <p>
-                      Install VS Code if needed</p>
+                      Install VS Code if needed.</p>
                     </li>
                   <li>
                     <p>
-                      From the Extensions tab of VS Code, install the Lean 4 extension</p>
+                      From the Extensions tab of VS Code, install the Lean 4 extension.</p>
                     </li>
                   <li>
                     <p>
                       Clone the <a href="https://github.com/plclub/sf-in-lean">SF-in-Lean</a> git repo and open
-  it in VS Code</p>
+  it in VS Code.</p>
                     </li>
                   <li>
                     <p>
-                      The first time you open a Lean file, the extension will offer to install Lean
-  itself; accept, and it will fetch the version this book needs</p>
+                      Open a Lean file; the extension will offer to install Lean; accept, and it will fetch
+  the version this book needs.</p>
                     </li>
                   <li>
                     <p>
-                      Wait for Lean to build the project (it takes a few minutes)</p>
+                      Wait for Lean to build the project (it takes a few minutes).</p>
                     </li>
                   </ul>
                 </section>
@@ -2452,11 +2456,12 @@ assigns extra points to harder exercises:</p>
 5 stars = 10 points
 </pre><p>
                   Some exercises are marked "advanced," and some are marked "optional."
-Doing just the non-optional, non-advanced exercises should provide
-good coverage of the core material.  Optional exercises provide a bit
+Optional exercises provide a bit
 of extra practice with key concepts and introduce secondary themes
 that may be of interest to some readers.  Advanced exercises offer an
-extra challenge and a deeper cut at the ideas.</p>
+extra challenge and a deeper cut at the ideas.
+Doing just the non-optional, non-advanced exercises should provide
+good coverage of the core material.</p>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Preface--Practicalities--Citation-Format">
@@ -2511,7 +2516,7 @@ Chris Henson,
 Kihong Heo,
 Yipeng Liu,
 and
-Daniel Sainati,</p>
+Daniel Sainati</p>
                 <p>
                   <strong>... with contributions from</strong>
 Luisa Cicolini,
@@ -2519,13 +2524,13 @@ Michael Clarkson,
 Robert Joseph,
 Sati,
 and
-Shriya Thakur,</p>
+Shriya Thakur</p>
                 <p>
                   <strong>... and gratitude to</strong>
 David Thrane Christiansen, for helping us understand the intricacies of Lean's Verso document preparation system.</p>
                 <p>
                   <strong>SF in Rocq:</strong>
-The first three volumes of <em>Software Foundations in Lean</em> (<em>Logical Foundations</em>, <em>Type Systems</em>, and <em>Hoare Logic</em>) are adapted from the <em>Logical Foundations</em> and <em>Programming Language Foundations</em> volumes of the original <em>Software Foundations</em> series, developed from 2008 to 2026 by a large team of authors and contributors led by Benjamin C. Pierce.</p>
+The first three volumes of <em>Software Foundations in Lean</em> (<em>Logical Foundations in Lean</em>, <em>Type Systems in Lean</em>, and <em>Hoare Logic in Lean</em>) are adapted from the <em>Logical Foundations</em> and <em>Programming Language Foundations</em> volumes of the original <em>Software Foundations</em> series in Roqc, developed from 2008 to 2026 by a team of authors and contributors led by Benjamin C. Pierce.</p>
                 <p>
                   The original <em>Logical Foundations</em> was written by
     Benjamin C. Pierce,
@@ -2598,10 +2603,9 @@ with contributions from
     Steve Zdancewic.</p>
                 <p>
                   <strong>Funding:</strong>
-Development of the original <em>Software Foundations</em> series in Rocq was supported, in
+Development of the original <em>Software Foundations</em> series was supported, in
 part, by the National Science Foundation under the NSF Expeditions grant
-1521523, <em>The Science of Deep Specification</em>.
-</p>
+1521523, <em>The Science of Deep Specification</em>.</p>
                 </section>
               </section>
             </section>

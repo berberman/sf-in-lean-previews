@@ -1,5 +1,5 @@
 {
-  "main_sha": "5a15f9c1d292c4f2d88b3ab29c536be9a9765a93",
+  "main_sha": "a7e4b252f55740a8f2e47a31c8dbc364ba2922bb",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -369,53 +369,6 @@
       "status": "published",
       "title": "Verso compilation: Never put `:::dev` comments in terse output",
       "url": "https://github.com/plclub/sf-in-lean/pull/315"
-    },
-    "316": {
-      "base_sha": "5a15f9c1d292c4f2d88b3ab29c536be9a9765a93",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "2376495e56f8722b1116478ddba3717a4187c7c5",
-      "preview_path": "pr/316/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32901450048",
-      "status": "published",
-      "title": "Polishing on Preface and Basics",
-      "url": "https://github.com/plclub/sf-in-lean/pull/316"
     }
   },
   "schema": 3

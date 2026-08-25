@@ -1,17 +1,27 @@
 import SFLCompat
 
--- # Basics: Functional Programming in Lean
+--  # Basics: Functional Programming in Lean
+
+--  Note to developers (Benjamin Pierce @bcpierce00):
+--      Could this directive live somewhere else? And
+--      doesn't it belong in a `:::details` block?
 
 set_option pp.fieldNotation false
 
--- ## Data and Functions
+--  This chapter introduces some of Lean's most essential
+--  features for writing functional programs and proving
+--  things about how they behave.
 
--- In Lean, we can build practically everything from first
--- principles using *inductive definitions*.
+--  ## Introduction
 
--- ### Days of the Week (Enumerated Types)
+--  ## Data and Functions
 
--- An inductive definition for an *enumerated type*:
+--  In Lean, we can build practically everything from first
+--  principles using *inductive definitions*.
+
+--  ### Days of the Week (Enumerated Types)
+
+--  An inductive definition for an *enumerated type*:
 
 inductive Day : Type where
   | monday
@@ -22,7 +32,7 @@ inductive Day : Type where
   | saturday
   | sunday
 
--- A function on days:
+--  A function on days:
 
 def nextWorkingDay (d : Day) : Day :=
   match d with
@@ -34,41 +44,60 @@ def nextWorkingDay (d : Day) : Day :=
   | Day.saturday  => Day.monday
   | Day.sunday    => Day.monday
 
--- Evaluation:
+--  Evaluation:
+
+--  Note to developers (Benjamin Pierce @bcpierce00):
+--      There is probably not time to fix this, but the way
+--      responses are displayed is confusing. They should be
+--      marked as responses in some more explicit way.
 
 #eval nextWorkingDay Day.friday
 
--- Day.monday
+--  Day.monday
 
 #eval nextWorkingDay (nextWorkingDay Day.saturday)
 
--- Day.tuesday
+--  Day.tuesday
 
--- We can also record what we *expect* the result of calling a
--- function to be in the form of a Lean `example`:
+--  We can also record what we *expect* the result of
+--  calling a function to be in the form of a Lean
+--  `example`:
 
 example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.tuesday := by
   rfl
 
--- The `rfl` tactic is used to observe that both sides of an
--- equal sign evaluate to the same value.
+--  Note to developers (Benjamin Pierce @bcpierce00):
+--      Do we really **have** to follow the Lean convention
+--      of putting the `:= by` on the same line as the
+--      theorem statement? It's awful.,
 
--- ### Booleans
+--  The `rfl` tactic is used to observe that both sides of
+--  an equal sign evaluate to the same value.
 
--- Another familiar enumerated type; we'll switch to Lean's
--- built-in `Bool` later:
+--  ### Booleans
+
+--  Note to developers (Benjamin Pierce @bcpierce00):
+--      Why are our custom booleans called `MyBool` but our
+--      custom nats are called `Nat`?
+
+--  Another familiar enumerated type; we'll switch to Lean's
+--  built-in `Bool` later:
 
 inductive MyBool : Type where
   | true
   | false
 
--- This command opens the namespace associated with the
--- `MyBool` type:
+--  Note to developers (Benjamin Pierce @bcpierce00):
+--      Maybe this next bit belongs in a :::details block?
+--      The explanation is a bit lacking...
+
+--  This command opens the namespace associated with the
+--  `MyBool` type:
 
 namespace MyBool
 
--- Functions over booleans can be defined in the same way as
--- functions over days of the week.
+--  Functions over booleans can be defined in the same way
+--  as functions over days of the week.
 
 def not (b : MyBool) : MyBool :=
   match b with
@@ -85,16 +114,16 @@ def or (b1 : MyBool) (b2 : MyBool) : MyBool :=
   | MyBool.true => MyBool.true
   | MyBool.false => b2
 
--- Note the syntax for defining multi-argument functions (`and`
--- and `or`).
+--  Note the syntax for defining multi-argument functions
+--  (`and` and `or`).
 
 example : or MyBool.true  MyBool.false = MyBool.true  := by rfl
 example : or MyBool.false MyBool.false = MyBool.false := by rfl
 example : or MyBool.false MyBool.true  = MyBool.true  := by rfl
 example : or MyBool.true  MyBool.true  = MyBool.true  := by rfl
 
--- Lean allows us to define symbolic notation for our
--- definitions.
+--  Lean also allows us to define symbolic notations for
+--  these functions.
 
 local prefix:40 (priority := high) "!" => not
 local infixl:35 (priority := high) " && " => and
@@ -105,18 +134,18 @@ example :
 
 example : (!MyBool.false) = MyBool.true := by rfl
 
--- ### Exercise (1 star): nand ⭐
+--  ### Exercise (1 star): nand ⭐
 
--- The `sorry` keyword is a placeholder for an incomplete proof
--- or definition. We use it in exercises to indicate the parts
--- that we're leaving for you — i.e., your job is to replace
--- `sorry` with real definitions and proofs.
+--  The `sorry` keyword is a placeholder for an incomplete
+--  proof or definition. We use it in exercises to indicate
+--  the parts that we're leaving for you — i.e., your job is
+--  to replace `sorry` with real definitions and proofs.
 
--- Remove `sorry` below and complete the definition of the
--- following function. The function should return `MyBool.true`
--- if either or both of its inputs are `MyBool.false`. Make
--- sure that the `example` assertions below can be verified by
--- Lean.
+--  Remove `sorry` below and complete the definition of the
+--  function. The function should return `MyBool.true` if
+--  either or both of its inputs are `MyBool.false`. Make
+--  sure that the `example` assertions below can be verified
+--  by Lean.
 
 def nand (b1 : MyBool) (b2 : MyBool) : MyBool
   := sorry
@@ -126,23 +155,23 @@ theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := sorry
 theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := sorry
 theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := sorry
 
--- Note to developers:
---     TODO: `nand` needs `@[autogradedHole]`
+--  Note to developers:
+--      TODO: `nand` needs `@[autogradedHole]`
 
--- Going forward, most exercises will be omitted from the
--- "terse" version of the notes used in lecture. The "full"
--- version (used on-line and for homeworks) contains both
--- longer explanations and all the exercises.
+--  Going forward, most exercises will be omitted from the
+--  "terse" version of the notes used in lecture. The "full"
+--  version (used on-line and for homeworks) contains both
+--  longer explanations and all the exercises.
 
--- ### Basic Proofs
+--  ## A First Taste of Proofs
 
--- Let's prove something simple about booleans:
+--  Let's prove something simple about booleans:
 
 theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b := by
   intro b
   rfl
 
--- And now let's see it in a bit more detail:
+--  And now let's see it in a bit more detail:
 
 theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
   /- Move your cursor (click) here to see the initial proof state in
@@ -183,30 +212,30 @@ theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
   rfl
   /- The proof is now done! The Lean InfoView tells us there are "No goals". -/
 
--- Now we'll switch to Lean's definition of booleans.
+--  Now we'll switch to Lean's definition of booleans.
 
 end MyBool
 
--- ### Types
+--  ### Types
 
--- We can use `#check` to check the type of an expression:
+--  We can use `#check` to check the type of an expression:
 
 #check Bool.true
 
--- Bool.true : Bool
+--  Bool.true : Bool
 
 #check (Bool.true : Bool)
 #check (Bool.not Bool.true : Bool)
 
--- true : Bool
+--  true : Bool
 
--- !true : Bool
+--  !true : Bool
 
 #check Bool.not
 
--- ### New Types from Old
+--  ### New Types from Old
 
--- A more interesting type definition:
+--  A more interesting type definition:
 
 inductive RGB : Type where
   | red
@@ -218,8 +247,8 @@ inductive Color : Type where
   | white
   | primary (p : RGB)
 
--- We can define functions on colors using pattern matching,
--- just as we did for `Day` and `Bool`.
+--  We can define functions on colors using pattern
+--  matching, just as we did for `Day` and `Bool`.
 
 def monochrome (c : Color) : Bool :=
   match c with
@@ -227,8 +256,8 @@ def monochrome (c : Color) : Bool :=
   | Color.white => Bool.true
   | Color.primary p => Bool.false
 
--- We can use a *wildcard* pattern `_` to match something we
--- don't care about:
+--  We can use a *wildcard* pattern `_` to match something
+--  we don't care about:
 
 def monochrome' (c : Color) : Bool :=
   match c with
@@ -236,8 +265,8 @@ def monochrome' (c : Color) : Bool :=
   | Color.white => Bool.true
   | Color.primary _ => Bool.false
 
--- We can use a constant argument to `Color.primary` to match a
--- specific primary color:
+--  We can use a constant argument to `Color.primary` to
+--  match a specific primary color:
 
 def isRed (c : Color) : Bool :=
   match c with
@@ -246,8 +275,8 @@ def isRed (c : Color) : Bool :=
   | Color.primary RGB.red => Bool.true
   | Color.primary _ => Bool.false
 
--- An alternative way to write the same function would be to
--- explicitly nest match statements:
+--  An alternative way to write the same function would be
+--  to explicitly nest match statements:
 
 def isRed' (c : Color) : Bool :=
   match c with
@@ -258,12 +287,12 @@ def isRed' (c : Color) : Bool :=
     | RGB.red => Bool.true
     | _ => Bool.false
 
--- This `isRed'` function produces the same result as `isRed`
--- but illustrates the *use* of a pattern matching variable.
+--  This `isRed'` function produces the same result as
+--  `isRed` but illustrates the *use* of a pattern variable.
 
--- ### Namespaces
+--  ### Namespaces
 
--- `namespace` declarations create separate namespaces.
+--  `namespace` declarations create separate namespaces.
 
 def myFoo : Bool := true
 namespace Playground
@@ -273,9 +302,9 @@ end Playground
 #check myFoo
 #check Playground.myFoo
 
--- myFoo : Bool
+--  myFoo : Bool
 
--- Playground.myFoo : RGB
+--  Playground.myFoo : RGB
 
 namespace Playground
 -- this refers to the `myFoo` we defined in the `Playground` namespace previously
@@ -284,17 +313,17 @@ end Playground
 
 #check Playground.myBar
 
--- Playground.myBar : RGB
+--  Playground.myBar : RGB
 
--- Type definitions implicitly create namespaces.
+--  Type definitions implicitly create namespaces.
 
 namespace RGB
 def myBlue : RGB := blue
 end RGB
 
--- Top-level definitions can also be prefixed by a namespace,
--- which opens the namespace temporarily for the body of the
--- definition.
+--  Top-level definitions can also be prefixed by a
+--  namespace, which opens the namespace temporarily for the
+--  body of the definition.
 
 --- this works, because the definition is qualified by `RGB.`
 def RGB.myOtherBlue : RGB := myBlue
@@ -302,15 +331,15 @@ def RGB.myOtherBlue : RGB := myBlue
 #check RGB.myBlue
 #check RGB.myOtherBlue
 
--- RGB.myBlue : RGB
+--  RGB.myBlue : RGB
 
--- RGB.myOtherBlue : RGB
+--  RGB.myOtherBlue : RGB
 
-sf_expect_failure
+sf_expect_failure_in
   -- this doesn't work; the identifier is undefined
   #check myBlue
 
--- Unknown identifier `myBlue`
+--  Unknown identifier `myBlue`
 
 def Day.nextWorkingDay' (d : Day) : Day :=
   match d with
@@ -322,7 +351,7 @@ def Day.nextWorkingDay' (d : Day) : Day :=
   | saturday  => monday
   | sunday    => monday
 
--- `open` brings definitions from a namespace into scope.
+--  `open` brings definitions from a namespace into scope.
 
 namespace MyNamespace
 def myDef : Bool := Bool.true
@@ -332,11 +361,11 @@ open MyNamespace
 
 #check myDef
 
--- MyNamespace.myDef : Bool
+--  MyNamespace.myDef : Bool
 
--- If we only want to bring *some*, rather than all, of the
--- definitions of a namespace into the current scope, we can
--- use the `open (...)` form:
+--  If we only want to bring *some*, rather than all, of the
+--  definitions of a namespace into the current scope, we
+--  can use the `open (...)` form:
 
 namespace MyOtherNamespace
 def myHiddenDef : Bool := Bool.true
@@ -348,28 +377,28 @@ open MyOtherNamespace (myVisibleDef)
 -- `myVisibleDef` is now usable without qualification:
 #check myVisibleDef
 
--- MyOtherNamespace.myVisibleDef : Bool
+--  MyOtherNamespace.myVisibleDef : Bool
 
--- But `myHiddenDef`, which we did not `open`, still needs its
--- full name; using it unqualified is an error:
+--  But `myHiddenDef`, which we did not `open`, still needs
+--  its full name; using it unqualified is an error:
 
-sf_expect_failure
+sf_expect_failure_in
   #check myHiddenDef
 
--- Unknown identifier `myHiddenDef`
+--  Unknown identifier `myHiddenDef`
 
--- Names from the `Bool` `namespace` are `open`ed and thus
--- available without qualification.
+--  Names from the `Bool` `namespace` are `open`ed and thus
+--  available without qualification.
 
 #check Bool.true
 #check true
 
--- Bool.true : Bool
+--  Bool.true : Bool
 
--- Bool.true : Bool
+--  Bool.true : Bool
 
--- Lean can often guess which qualified name we mean if we
--- don't supply it explicitly:
+--  Lean can often guess which qualified name we mean if we
+--  don't supply it explicitly:
 
 def nextWorkingDay' (d : Day) : Day :=
   match d with
@@ -381,35 +410,35 @@ def nextWorkingDay' (d : Day) : Day :=
   | .saturday  => .monday
   | .sunday    => .monday
 
--- Here, Lean can't figure out which version of `.true` we
--- mean.
+--  Here, Lean can't figure out which version of `.true` we
+--  mean.
 
-sf_expect_failure
+sf_expect_failure_in
   #check .true
 
--- Invalid dotted identifier notation: The expected type of `.true` could not be determined
+--  Invalid dotted identifier notation: The expected type of `.true` could not be determined
 
--- Hint: Using one of these would be unambiguous:
---   [apply] `true`
---   [apply] `MyBool.true`
---   [apply] `Lake.Toml.true`
---   [apply] `Lean.LBool.true`
---   [apply] `Std.Do.ExceptConds.true`
---   [apply] `Lean.Meta.Grind.Filter.true`
+--  Hint: Using one of these would be unambiguous:
+--    [apply] `true`
+--    [apply] `MyBool.true`
+--    [apply] `Lake.Toml.true`
+--    [apply] `Lean.LBool.true`
+--    [apply] `Std.Do.ExceptConds.true`
+--    [apply] `Lean.Meta.Grind.Filter.true`
 
--- Here, though, because `not` is a function that takes a
--- `Bool` argument, Lean knows that `.true` must here be a
--- `Bool`:
+--  Here, though, because `not` is a function that takes a
+--  `Bool` argument, Lean knows that `.true` must here be a
+--  `Bool`:
 
 #check (Bool.not .true)
 
--- !true : Bool
+--  !true : Bool
 
--- ### Constructors with Multiple Parameters (Tuple Types)
+--  ### Constructors with Multiple Parameters (Tuple Types)
 
 namespace Playground
 
--- A Nibble is half a byte — four bits.
+--  A Nibble is half a byte — four bits.
 
 inductive Bit : Type where
   | b1
@@ -420,9 +449,9 @@ inductive Nibble : Type where
 
 #check Nibble.bits .b1 .b0 .b1 .b0
 
--- Nibble.bits Bit.b1 Bit.b0 Bit.b1 Bit.b0 : Nibble
+--  Nibble.bits Bit.b1 Bit.b0 Bit.b1 Bit.b0 : Nibble
 
--- We can deconstruct a Nibble by pattern-matching.
+--  We can deconstruct a Nibble by pattern-matching.
 
 def allZero (nb : Nibble) : Bool :=
   match nb with
@@ -434,18 +463,18 @@ example : allZero (.bits .b0 .b0 .b0 .b0) = true  := by rfl
 
 end Playground
 
--- ### Natural Numbers
+--  ### Natural Numbers
 
 namespace NatPlayground
 
--- For simplicity in proofs, we choose a *unary* representation
--- of natural numbers.
+--  For simplicity in proofs, we choose a *unary*
+--  representation of natural numbers.
 
 inductive Nat : Type where
   | zero
   | succ (n : Nat)
 
--- THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
+--  THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
 
 def ofNat : _root_.Nat → Nat
   | .zero => .zero
@@ -454,10 +483,10 @@ def ofNat : _root_.Nat → Nat
 instance (n : _root_.Nat) : OfNat Nat n := ⟨ofNat n⟩
 attribute [pp_nodot] Nat.succ
 
--- END DETAILS
+--  END DETAILS
 
--- Eventually we'll swap to Lean's definition of natural
--- numbers, which is very similar to this.
+--  Eventually we'll swap to Lean's definition of natural
+--  numbers, which is very similar to this.
 
 namespace Nat
 
@@ -466,7 +495,7 @@ def two   : Nat := succ one
 def three : Nat := succ two
 def four  : Nat := succ three
 
--- We can also write functions on `Nat`.
+--  We can also write functions on `Nat`.
 
 def pred (n : Nat) : Nat :=
   match n with
@@ -481,7 +510,7 @@ def minusTwo (n : Nat) : Nat :=
 
 #eval minusTwo four
 
--- Here are some recursive functions on natural numbers:
+--  Here are some recursive functions on natural numbers:
 
 def even (n : Nat) : Bool :=
   match n with
@@ -492,8 +521,8 @@ def even (n : Nat) : Bool :=
 example : even one = false := by rfl
 example : even four = true := by rfl
 
--- We could define `odd` by a similar recursive declaration,
--- but here is a simpler way:
+--  We could define `odd` by a similar recursive
+--  declaration, but here is a simpler way:
 
 def odd (n : Nat) : Bool :=
   not (even n)
@@ -501,8 +530,8 @@ def odd (n : Nat) : Bool :=
 example : odd one = true := by rfl
 example : odd four = false := by rfl
 
--- This function takes multiple parameters, recursing on the
--- second:
+--  This function takes multiple parameters, recursing on
+--  the second:
 
 def add (n : Nat) (m : Nat) : Nat :=
   match m with
@@ -511,21 +540,23 @@ def add (n : Nat) (m : Nat) : Nat :=
 
 #eval add one two -- succ (succ (succ zero)) -- aka, three!
 
--- NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.zero)))
+--  NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.zero)))
 
--- We can also define infix notation for our `add` functions.
+--  We can also define infix notation for our `add`
+--  functions.
 
 scoped infixl:65 " + " => add
 
 #eval one + two -- succ (succ (succ zero)) -- aka, three again.
 
--- NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.zero)))
+--  NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.succ (NatPlayground.Nat.zero)))
 
--- ## Proof by Rewriting
+--  ## Proof by Rewriting
 
--- ### Proving properties about functions in Lean
+--  ### Proving properties about functions in Lean
 
--- We can prove properties of recursive functions like `add`:
+--  We can prove properties of recursive functions like
+--  `add`:
 
 theorem add_zero : ∀ n : Nat, n + zero = n := by
   intro n
@@ -533,10 +564,10 @@ theorem add_zero : ∀ n : Nat, n + zero = n := by
 
 #check add_zero
 
--- NatPlayground.Nat.add_zero (n : Nat) : n + zero = n
+--  NatPlayground.Nat.add_zero (n : Nat) : n + zero = n
 
--- Using our simplification rule `add_zero`, we can carry out a
--- simple proof about natural numbers.
+--  Using our simplification rule `add_zero`, we can carry
+--  out a simple proof about natural numbers.
 
 theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
   intro n
@@ -544,7 +575,7 @@ theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
   rewrite [add_zero]
   rfl
 
--- Here is the previous proof in more detail:
+--  Here is the previous proof in more detail:
 
 theorem add_zero_zero_explained : ∀  n : Nat, n + zero + zero = n := by
   intro n
@@ -566,23 +597,23 @@ theorem add_zero_zero_explained : ∀  n : Nat, n + zero + zero = n := by
   /- The proof is now done! The Lean InfoView tells us there are
      "No goals". -/
 
--- Give this proof a try (it's similar):
+--  Give this proof a try (it's similar):
 
 theorem add_zero_zero_zero : ∀ n : Nat, n + zero + zero + zero = n := by
   sorry
 
--- The `rfl` closes a goal that looks like `a = a`, reducing
--- both sides of the equality in the process.
+--  The `rfl` closes a goal that looks like `a = a`,
+--  reducing both sides of the equality in the process.
 
--- ### A New `add` Rule
+--  ### A New `add` Rule
 
--- Here's another rule we can use for `add`:
+--  Here's another rule we can use for `add`:
 
 theorem add_succ : ∀ n m : Nat, n + (succ m) = succ (n + m) := by
   intro n m
   rfl
 
--- Now, let's use `add_succ` in a proof:
+--  Now, let's use `add_succ` in a proof:
 
 theorem add_one (n : Nat) : n + (succ zero) = succ n + zero := by
   rewrite [add_succ]
@@ -590,17 +621,17 @@ theorem add_one (n : Nat) : n + (succ zero) = succ n + zero := by
   rewrite [add_zero]
   rfl
 
--- ### Irreducibility, Rewriting, and Proof Engineering
+--  ### Irreducibility, Rewriting, and Proof Engineering
 
--- After proving the theorems that characterize a definition,
--- we mark the definition `irreducible` to require rewriting by
--- them instead of using `rfl`.
+--  After proving the theorems that characterize a
+--  definition, we mark the definition `irreducible` to
+--  require rewriting by them instead of using `rfl`.
 
 attribute [irreducible] add
 
--- These simplification rules also follow a particular pattern.
--- Let's look again at the definition of `add`, without the `+`
--- notation for maximum clarity:
+--  These simplification rules also follow a particular
+--  pattern. Let's look again at the definition of `add`,
+--  without the `+` notation for maximum clarity:
 
 namespace AddPlayground
 
@@ -619,20 +650,20 @@ theorem add_succ : ∀ (n m : Nat), add n (succ m) = succ (add n m) := by
 
 end AddPlayground
 
--- Each branch of a definition's control flow gets one
--- simplification rule. Here are the two for `pred`:
+--  Each branch of a definition's control flow gets one
+--  simplification rule. Here are the two for `pred`:
 
 theorem pred_zero : pred zero = zero := by rfl
 theorem pred_succ n : pred (succ n) = n := by rfl
 
--- Now that we have defined and proved `pred`'s simplification
--- rules, we can mark it `irreducible`, to enforce rewriting by
--- these lemmas.
+--  Now that we have defined and proved `pred`'s
+--  simplification rules, we can mark it `irreducible`, to
+--  enforce rewriting by these lemmas.
 
 attribute [irreducible] pred
 
--- Similarly, for each of the three branches of the definition
--- of `even`, we need one simplification rule:
+--  Similarly, for each of the three branches of the
+--  definition of `even`, we need one simplification rule:
 
 theorem even_zero : even zero = true := rfl
 theorem even_one : even (succ zero) = false := rfl
@@ -640,22 +671,22 @@ theorem even_succ_succ n : even (succ (succ n)) = even n := rfl
 
 attribute [irreducible] even odd
 
--- From here on, we pair each definition with its
--- simplification rules and rewrite by those rules rather than
--- `rfl`-ing through the definition.
+--  From here on, we pair each definition with its
+--  simplification rules and rewrite by those rules rather
+--  than `rfl`-ing through the definition.
 
--- ### Working with Numerals
+--  ### Working with Numerals
 
--- We know from our definitions above that `one` is just
--- `succ zero`, `two` is `succ one`, and so on. We can write
--- rules for these equalities too:
+--  We know from our definitions above that `one` is just
+--  `succ zero`, `two` is `succ one`, and so on. We can
+--  write rules for these equalities too:
 
 theorem one_eq_succ_zero : one = succ zero := by rfl
 theorem two_eq_succ_one : two = succ one := by rfl
 theorem three_eq_succ_two : three = succ two := by rfl
 theorem four_eq_succ_three : four = succ three := by rfl
 
--- #### Multiplication
+--  #### Multiplication
 
 def mul (n m : Nat) : Nat :=
   match m with
@@ -664,18 +695,19 @@ def mul (n m : Nat) : Nat :=
 
 scoped infixl:70 " * " => mul
 
--- ### Exercise (1 star): mul_simpl_rules ⭐
+--  ### Exercise (1 star): mul_simpl_rules ⭐
 
--- Multiplication, like any function we will prove properties
--- about, also has simplification rules.
+--  Multiplication, like any function we will prove
+--  properties about, also has simplification rules.
 
--- Remove `sorry` and prove the simplification rules for `mul`
--- below. You will likely find the proofs of the simplification
--- rules for `add` to be helpful as a model.
+--  Remove `sorry` and prove the simplification rules for
+--  `mul` below. You will likely find the proofs of the
+--  simplification rules for `add` to be helpful as a model.
 
--- Note to developers:
---     @rogerburtonpatel: it would be nice if we could get the
---     theorem *statements* inside a `solution!` block as well.
+--  Note to developers:
+--      @rogerburtonpatel: it would be nice if we could get
+--      the theorem *statements* inside a `solution!` block
+--      as well.
 
 theorem mul_zero : ∀ n : Nat, n * zero = zero := by
   sorry
@@ -685,17 +717,17 @@ theorem mul_succ : ∀ n m : Nat, n * (succ m) = (n * m) + n := by
 
 attribute [irreducible] mul
 
--- Prove this theorem using rewriting with the simplification
--- rules.
+--  Prove this theorem using rewriting with the
+--  simplification rules.
 
 theorem zero_add_one : (zero + one : Nat) = one := by
   rewrite [one_eq_succ_zero]
   sorry
 
--- #### Equality and Ordering
+--  #### Equality and Ordering
 
--- Here is a function `beq` that tests natural numbers for
--- equality, yielding a boolean.
+--  Here is a function `beq` that tests natural numbers for
+--  equality, yielding a boolean.
 
 def beq (n m : Nat) : Bool :=
   match n with
@@ -706,8 +738,8 @@ def beq (n m : Nat) : Bool :=
                | zero => false
                | succ m' => beq n' m'
 
--- We could also write this by pattern matching on both `n` and
--- `m` at the same time:
+--  We could also write this by pattern matching on both `n`
+--  and `m` at the same time:
 
 def beq' (n m : Nat) : Bool :=
   match n, m with
@@ -716,11 +748,11 @@ def beq' (n m : Nat) : Bool :=
   | succ _, zero => false
   | succ n', succ m' => beq n' m'
 
--- The definitions of `beq` and `beq'` are equivalent.
+--  The definitions of `beq` and `beq'` are equivalent.
 
--- Similarly, the `ble` function tests whether its first
--- argument is less than or equal to its second argument,
--- yielding a boolean.
+--  Similarly, the `ble` function tests whether its first
+--  argument is less than or equal to its second argument,
+--  yielding a boolean.
 
 def ble (n m : Nat) : Bool :=
   match n with
@@ -738,14 +770,14 @@ example : ble two two = true  := by rfl
 example : ble two four = true := by rfl
 example : ble four two = false := by rfl
 
--- We'll be using `beq` a lot, so let's give it an infix
--- notation.
+--  We'll be using `beq` a lot, so let's give it an infix
+--  notation.
 
 scoped infixl:30 " == " => beq
 
--- Note that `==` and `=` are different; the former means `beq`
--- whereas the latter is a logical claim. Here are our
--- simplification rules.
+--  Note that `==` and `=` are different; the former means
+--  `beq` whereas the latter is a logical claim. Here are
+--  our simplification rules.
 
 theorem zero_beq_zero : (zero == zero) = true := by rfl
 theorem zero_beq_succ (n : Nat) : (zero == (succ n)) = false := by rfl
@@ -754,9 +786,9 @@ theorem succ_beq_succ (n m : Nat) : ((succ n) == (succ m)) = (n == m) := by rfl
 
 attribute [irreducible] beq
 
--- ### General Proofs about Natural Numbers
+--  ### General Proofs about Natural Numbers
 
--- A (slightly) more interesting theorem:
+--  A (slightly) more interesting theorem:
 
 theorem add_id_example : ∀ n m : Nat,
     n = m → n + n = m + m := by
@@ -765,34 +797,35 @@ theorem add_id_example : ∀ n m : Nat,
   rewrite [h]
   rfl
 
--- #### Displaying Theorem Statements
+--  #### Displaying Theorem Statements
 
--- The `#check` command can also be used to examine the
--- statements of previously declared lemmas and theorems.
+--  The `#check` command can also be used to examine the
+--  statements of previously declared lemmas and theorems.
 
 #check mul_zero
 #check mul_succ
 
--- NatPlayground.Nat.mul_zero (n : Nat) : n * zero = zero
+--  NatPlayground.Nat.mul_zero (n : Nat) : n * zero = zero
 
--- NatPlayground.Nat.mul_succ (n m : Nat) : n * succ m = n * m + n
+--  NatPlayground.Nat.mul_succ (n m : Nat) : n * succ m = n * m + n
 
--- Lean displays universally quantified variables as binders
--- before the colon, which is the preferred *declaration-header
--- style* in Lean.
+--  Lean displays universally quantified variables as
+--  binders before the colon, which is the preferred
+--  *declaration-header style* in Lean.
 
--- ## Proof by Case Analysis
+--  ## Proof by Case Analysis
 
--- Sometimes simple calculation and rewriting are not enough...
+--  Sometimes simple calculation and rewriting are not
+--  enough...
 
-sf_expect_failure
+sf_expect_failure_in
   example (n : Nat) : (succ zero + n == zero) = false := by
     /-
       We can't rewrite by any lemmas here: `add`'s definition matches on its
       *second* argument, and here that argument is the unknown `n`!
     -/
 
--- We can use `cases` to perform case analysis:
+--  We can use `cases` to perform case analysis:
 
 theorem add_one_neb_zero (n : Nat) : (succ zero + n == zero) = false := by
   cases n with
@@ -803,7 +836,7 @@ theorem add_one_neb_zero (n : Nat) : (succ zero + n == zero) = false := by
     rewrite [add_succ, succ_beq_zero]
     rfl
 
--- Another example, using booleans:
+--  Another example, using booleans:
 
 theorem not_involutive (b : Bool) : (!!b) = b := by
   cases b with
@@ -814,10 +847,11 @@ theorem not_involutive (b : Bool) : (!!b) = b := by
     rewrite [Bool.not_true, Bool.not_false]
     rfl
 
--- Some of the above proofs use standard library lemmas; later
--- on we will discuss how to search for those yourself.
+--  Some of the above proofs use standard library lemmas;
+--  later on we will discuss how to search for those
+--  yourself.
 
--- We can also have nested case analysis:
+--  We can also have nested case analysis:
 
 theorem and_commutative (b c : Bool) :
     (b && c) = (c && b) := by
@@ -879,12 +913,12 @@ theorem and3_exchange (b c d : Bool) :
         rewrite [Bool.and_false, Bool.and_true, Bool.and_self]
         rfl
 
--- As you can see, proofs by cases can become very verbose. We
--- will introduce some tactics for writing shorter proofs by
--- case analysis in the Tactics chapter.
+--  As you can see, proofs by cases can become very verbose.
+--  We will introduce some tactics for writing shorter
+--  proofs by case analysis in the Tactics chapter.
 
--- You will need the `rewrite ... at` and `exact` tactics to
--- complete some exercises.
+--  You will need the `rewrite ... at` and `exact` tactics
+--  to complete some exercises.
 
 end Nat
 

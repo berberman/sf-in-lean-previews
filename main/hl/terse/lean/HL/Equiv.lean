@@ -4,22 +4,23 @@ import HL.Imp
 
 import SFLCompat
 
--- # Equiv: Program Equivalence
+--  # Equiv: Program Equivalence
 
 open scoped HasEval MyGetElem Com
 
--- Note to developers (Sati @satiscugcat):
---     At this point, the Rocq file provides instructions about
---     using a new directory, making sure the project is set up
---     properly, and also instructions about how to deal with
---     the exercises. I am assuming these things are being
---     moved to Intro.lean? I am excluding them for now.
+--  Note to developers (Sati @satiscugcat):
+--      At this point, the Rocq file provides instructions
+--      about using a new directory, making sure the project
+--      is set up properly, and also instructions about how
+--      to deal with the exercises. I am assuming these
+--      things are being moved to Intro.lean? I am excluding
+--      them for now.
 
 open scoped HasEval MyGetElem
 
--- ## Behavioral Equivaleence
+--  ## Behavioral Equivaleence
 
--- ### Definitions
+--  ### Definitions
 
 def Aexp.Equiv (a₁ a₂ : Aexp) : Prop :=
   ∀ (st : State),
@@ -56,17 +57,17 @@ def Com.Equiv (c₁ c₂ : Com) : Prop :=
 theorem Com.equiv_def {c₁ c₂ : Com} : c₁.Equiv c₂ ↔
     ∀ {st st' : State}, (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st') := by rfl
 
--- ### Simple Examples
+--  ### Simple Examples
 
 namespace Com
 
 theorem skip_left {c : Com} : (imp { skip; ~c }).Equiv c := by
   sorry
 
--- ### Exercise (2 stars): skip_right ⭐⭐
+--  ### Exercise (2 stars): skip_right ⭐⭐
 
--- Prove that adding a `skip` *after* a command also results in
--- an equivalent program.
+--  Prove that adding a `skip` *after* a command also
+--  results in an equivalent program.
 
 theorem skip_right {c : Com} : (imp { ~c; skip }).Equiv c := by
   sorry
@@ -83,10 +84,10 @@ theorem if_true_simple {c₁ c₂ : Com} : (imp {if (true) {~c₁} else {~c₂}}
     apply EvalR.ifTrue _ h
     simp
 
--- Note to developers (Sati @satiscugcat):
---     The to_verso script seems to use `\[\]` blocks, but
---     these seem to cause problems with the tilde. Currently
---     skipping them and just using backticks.
+--  Note to developers (Sati @satiscugcat):
+--      The to_verso script seems to use `\[\]` blocks, but
+--      these seem to cause problems with the tilde.
+--      Currently skipping them and just using backticks.
 
 theorem if_true {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {true})) :
     (imp {if (~b) {~c₁} else {~c₂}}).Equiv c₁ := by
@@ -106,16 +107,16 @@ theorem if_true {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {true})) :
     rw [hb]
     simp
 
--- ### Exercise (2 stars): if_false_equiv ⭐⭐
+--  ### Exercise (2 stars): if_false_equiv ⭐⭐
 
 theorem if_false {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {false})) :
     (imp {if (~b) {~c₁} else {~c₂}}).Equiv c₂ := by
   sorry
 
--- ### Exercise (3 stars): swap_if_branches ⭐⭐⭐
+--  ### Exercise (3 stars): swap_if_branches ⭐⭐⭐
 
--- Show that we can swap the branches of an `if` if we also
--- negate its condition.
+--  Show that we can swap the branches of an `if` if we also
+--  negate its condition.
 
 theorem swap_if_branches {b : Bexp} {c₁ c₂ : Com} :
     (imp {if (~b) {~c₁} else {~c₂}}).Equiv
@@ -139,23 +140,23 @@ theorem while_false_equiv {b : Bexp} {c : Com} (hb : b.Equiv (bexp {false})) :
     apply EvalR.whileFalse
     simp [hb]
 
--- ### Exercise (2 stars): while_false_informal (Advanced, manually graded) ⭐⭐
+--  ### Exercise (2 stars): while_false_informal (Advanced, manually graded) ⭐⭐
 
--- Write an informal proof of `while_false_equiv`.
+--  Write an informal proof of `while_false_equiv`.
 
 theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State} (hb : b.Equiv (bexp {true})) :
     ¬ st =[ while (~b) {~c} ]=> st' := by
   sorry -- heq says that different commands are equal
 
--- ### Exercise (2 stars): while_true_nonterm_informal (manually graded) ⭐⭐
+--  ### Exercise (2 stars): while_true_nonterm_informal (manually graded) ⭐⭐
 
--- Explain what the lemma `while_true_nonterm` means in
--- English.
+--  Explain what the lemma `while_true_nonterm` means in
+--  English.
 
--- ### Exercise (2 stars): while_true ⭐⭐
+--  ### Exercise (2 stars): while_true ⭐⭐
 
--- Prove the following theorem. *Hint*: You'll want to use
--- `while_true_nonterm` here.
+--  Prove the following theorem. *Hint*: You'll want to use
+--  `while_true_nonterm` here.
 
 theorem while_true {b : Bexp} {c : Com} (hb : b.Equiv (bexp {true})) :
     (imp {while (~b) {~c}}).Equiv
@@ -170,8 +171,8 @@ theorem loop_unrolling {b : Bexp} {c : Com} :
     }) := by
   sorry
 
--- Note to developers (Sati @satiscugcat):
---     Leaving out optional exercise `seq_assoc` for now.
+--  Note to developers (Sati @satiscugcat):
+--      Leaving out optional exercise `seq_assoc` for now.
 
 theorem identity_assignment {X : Ident} :
     (imp {X := X}).Equiv
@@ -193,19 +194,20 @@ theorem identity_assignment {X : Ident} :
     apply Com.EvalR.asgn
     simp
 
--- ### Exercise (2 stars): assign_equiv ⭐⭐
+--  ### Exercise (2 stars): assign_equiv ⭐⭐
 
 theorem assign_equiv {X : Ident} {a : Aexp} (ha : Aexp.Equiv (aexp {X}) a) :
     (imp {skip}).Equiv
     (imp {X := ~a}) := by
   sorry
 
--- Note to developers (Sati @satiscugcat):
---     Leaving out optional exercise `equiv_classes` for now.
+--  Note to developers (Sati @satiscugcat):
+--      Leaving out optional exercise `equiv_classes` for
+--      now.
 
--- ## Properties of Behavior Equivalence
+--  ## Properties of Behavior Equivalence
 
--- ### Behavioral Equivalence is an Equivalence
+--  ### Behavioral Equivalence is an Equivalence
 
 end Com
 
@@ -257,7 +259,7 @@ theorem Com.equiv_trans {c₁ c₂ c₃ : Com} (h₁ : c₁.Equiv c₂) (h₂ : 
   intro st st'
   rw [h₁, h₂]
 
--- ### Behavioral Equivalence is a Congruence
+--  ### Behavioral Equivalence is a Congruence
 
 theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
     (imp {x := ~a}).Equiv
@@ -273,11 +275,11 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
       rw [Aexp.equiv_def] at ha
       rw [ha]
 
--- Note to developers (Sati @satiscugcat):
---     `NOT PORTED YET - remaining portions of Equiv.v left (apart from the portions explicitly stated so far).
---       - The rest of "Behavioural Equivalence is a Congruence"
---       - The section on "Program Transformation"
---       - Soundness of (0 + n) Elimination
---       - Extended Exercise: Nondeterministic Imp
---       - Additional Exercises`
+--  Note to developers (Sati @satiscugcat):
+--      `NOT PORTED YET - remaining portions of Equiv.v left (apart from the portions explicitly stated so far).
+--        - The rest of "Behavioural Equivalence is a Congruence"
+--        - The section on "Program Transformation"
+--        - Soundness of (0 + n) Elimination
+--        - Extended Exercise: Nondeterministic Imp
+--        - Additional Exercises`
 

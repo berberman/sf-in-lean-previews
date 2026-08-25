@@ -5,70 +5,73 @@ import Lean.PrettyPrinter.Parenthesizer
 
 import SFLCompat
 
--- # Imp: Simple Imperative Programs
+--  # Imp: Simple Imperative Programs
 
--- In this chapter, we take a more serious look at how to use Lean as a tool
--- to study other things. Our case study is a *simple imperative programming
--- language* called Imp, embodying a tiny core fragment of conventional
--- mainstream languages such as C and Java.
+--  In this chapter, we take a more serious look at how to use Lean as a
+--  tool to study other things. Our case study is a *simple imperative
+--  programming language* called Imp, embodying a tiny core fragment of
+--  conventional mainstream languages such as C and Java.
 
--- Here is a familiar mathematical function written in Imp.
+--  Here is a familiar mathematical function written in Imp.
 
---   Z := X;
---   Y := 1;
---   while (Z ≠ 0) {
---     Y := Y * Z;
---     Z := Z - 1;
---   }
+--    Z := X;
+--    Y := 1;
+--    while (Z ≠ 0) {
+--      Y := Y * Z;
+--      Z := Z - 1;
+--    }
 
--- We concentrate here on defining the *syntax* and *semantics* of Imp; later
--- in this volume we develop a theory of *program equivalence* and introduce
--- *Hoare Logic*, a popular logic for reasoning about imperative programs.
+--  We concentrate here on defining the *syntax* and *semantics* of Imp;
+--  later in this volume we develop a theory of *program equivalence* and
+--  introduce *Hoare Logic*, a popular logic for reasoning about imperative
+--  programs.
 
--- We build Imp in three layers. The first — a core language of *arithmetic
--- and boolean expressions* — is developed in its own chapter, *Slang*; read
--- that one first. There you meet the abstract syntax of arithmetic
--- expressions (`Aexp`) and boolean expressions (`Bexp`), their evaluation
--- both as a recursive *function* and as an inductive *relation* (proved
--- equivalent), and a small `optimize0plus` program transformation together
--- with its correctness proof. Those expressions are *variable-free*.
+--  We build Imp in three layers. The first — a core language of
+--  *arithmetic and boolean expressions* — is developed in its own chapter,
+--  *Slang*; read that one first. There you meet the abstract syntax of
+--  arithmetic expressions (`Aexp`) and boolean expressions (`Bexp`), their
+--  evaluation both as a recursive *function* and as an inductive
+--  *relation* (proved equivalent), and a small `optimize0plus` program
+--  transformation together with its correctness proof. Those expressions
+--  are *variable-free*.
 
--- This chapter picks up from there. First we extend the expressions with
--- *variables*; then we add a language of *commands* — assignment,
--- conditionals, sequencing, and loops.
+--  This chapter picks up from there. First we extend the expressions with
+--  *variables*; then we add a language of *commands* — assignment,
+--  conditionals, sequencing, and loops.
 
--- ## Expressions With Variables
+--  ## Expressions With Variables
 
--- Let's return to defining Imp. The next thing we need to do is to enrich our
--- arithmetic and boolean expressions with variables. To keep things simple,
--- we'll assume that all variables are global and that they only hold numbers.
+--  Let's return to defining Imp. The next thing we need to do is to enrich
+--  our arithmetic and boolean expressions with variables. To keep things
+--  simple, we'll assume that all variables are global and that they only
+--  hold numbers.
 
--- ### States
+--  ### States
 
--- Since we'll want to look variables up to find out their current values,
--- we'll use total maps from the `Maps` chapter. A *machine state* (or just
--- *state*) represents the current values of all variables at some point in
--- the execution of a program.
+--  Since we'll want to look variables up to find out their current values,
+--  we'll use total maps from the `Maps` chapter. A *machine state* (or
+--  just *state*) represents the current values of all variables at some
+--  point in the execution of a program.
 
--- For simplicity, we assume that the state is defined for *all* variables,
--- even though any given program is only able to mention a finite number of
--- them. Because each variable stores a natural number, we represent the state
--- as a total map from strings (variable names) to `Nat`, and will use `0` as
--- the default value in the store.
+--  For simplicity, we assume that the state is defined for *all*
+--  variables, even though any given program is only able to mention a
+--  finite number of them. Because each variable stores a natural number,
+--  we represent the state as a total map from strings (variable names) to
+--  `Nat`, and will use `0` as the default value in the store.
 
--- We give the type of variable identifiers a name, `Ident`. For now it is
--- just `String`; naming it makes the intent clearer.
+--  We give the type of variable identifiers a name, `Ident`. For now it is
+--  just `String`; naming it makes the intent clearer.
 
 open scoped MyGetElem
 
 abbrev Ident := String
 abbrev State := TotalMap Ident Nat
 
--- ### Syntax
+--  ### Syntax
 
--- We can add variables to the arithmetic expressions we had before simply by
--- including one more constructor. (This is a fresh `Aexp`, replacing the
--- variable-free one from the *Slang* chapter.)
+--  We can add variables to the arithmetic expressions we had before simply
+--  by including one more constructor. (This is a fresh `Aexp`, replacing
+--  the variable-free one from the *Slang* chapter.)
 
 inductive Aexp where
   | num (n : Nat)
@@ -77,8 +80,8 @@ inductive Aexp where
   | minus (a1 a2 : Aexp)
   | mult (a1 a2 : Aexp)
 
--- The `Bexp` definition is unchanged, except that it now refers to the new
--- `Aexp`.
+--  The `Bexp` definition is unchanged, except that it now refers to the
+--  new `Aexp`.
 
 inductive Bexp where
   | bool (b : Bool)
@@ -89,36 +92,38 @@ inductive Bexp where
   | not (b : Bexp)
   | and (b1 b2 : Bexp)
 
--- Defining a few variable names as shorthands will make examples easier to
--- read.
+--  Defining a few variable names as shorthands will make examples easier
+--  to read.
 
 def W : Ident := "W"
 def X : Ident := "X"
 def Y : Ident := "Y"
 def Z : Ident := "Z"
 
--- ### Notations
+--  ### Notations
 
--- To make Imp programs easier to read and write, we introduce some notations.
+--  To make Imp programs easier to read and write, we introduce some
+--  notations.
 
--- You do not need to understand exactly what these declarations do. Briefly,
--- though, here is how the two blocks below fit together:
+--  You do not need to understand exactly what these declarations do.
+--  Briefly, though, here is how the two blocks below fit together:
 
--- - The `declare_syntax_cat` directive adds a new non-terminal to Lean's
---   grammar, called `imp_aexp`. We'll add additional non-terminals further
---   below.
+--  - The `declare_syntax_cat` directive adds a new non-terminal to Lean's
+--    grammar, called `imp_aexp`. We'll add additional non-terminals
+--    further below.
 
--- - Each `syntax` directive defines a grammar production, of which there are
---   eight in total. The first two define literals, `num` and `ident`, as
---   `imp_aexp`s. The next several directives define productions for building
---   larger expressions, with some annotations to define precedence, etc.
+--  - Each `syntax` directive defines a grammar production, of which there
+--    are eight in total. The first two define literals, `num` and `ident`,
+--    as `imp_aexp`s. The next several directives define productions for
+--    building larger expressions, with some annotations to define
+--    precedence, etc.
 
--- - Finally, `macro_rules` is used to translate each production of the
---   `imp_aexp` nonterminal into a Lean expression.
+--  - Finally, `macro_rules` is used to translate each production of the
+--    `imp_aexp` nonterminal into a Lean expression.
 
--- Boolean expressions and, later, commands follow this same pattern exactly,
--- so their declarations are collapsed where they appear: open one if you want
--- to see the pattern repeated, and skip them otherwise.
+--  Boolean expressions and, later, commands follow this same pattern
+--  exactly, so their declarations are collapsed where they appear: open
+--  one if you want to see the pattern repeated, and skip them otherwise.
 
 /-- Arithmetic expressions of Imp -/
 declare_syntax_cat imp_aexp
@@ -150,7 +155,7 @@ macro_rules
   | `(aexp { $a * $b }) => `(Aexp.mult (aexp {$a}) (aexp {$b}))
   | `(aexp { ($a) }) => `(aexp {$a})
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions
+--  THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions
 
 /-- Boolean expressions of Imp -/
 declare_syntax_cat imp_bexp
@@ -176,9 +181,9 @@ syntax:max "~" term:max : imp_bexp
 /-- Embed an Imp boolean expression into a Lean term -/
 syntax:min "bexp " "{" imp_bexp "}" : term
 
--- END DETAILS
+--  END DETAILS
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions, macro rules
+--  THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions, macro rules
 
 open Lean in
 macro_rules
@@ -196,40 +201,40 @@ macro_rules
   | `(bexp { $b1:imp_bexp ∧ $b2:imp_bexp }) => `(Bexp.and (bexp {$b1}) (bexp {$b2}))
   | `(bexp { ($b:imp_bexp) }) => `(bexp {$b})
 
--- END DETAILS
+--  END DETAILS
 
 #check aexp { 3 + (X * 2) }
 #check bexp { true ∧ ¬(X ≤ 4) }
 
--- ### Delaborators
+--  ### Delaborators
 
--- The notations above are *input* only: they teach Lean how to **read**
--- `aexp
--- { … }` and `bexp { … }`, but Lean still **prints** an expression
--- using its raw constructors -- `example_aexp` shows up as
--- `Aexp.plus (Aexp.num 3) …` rather than `aexp { 3 + X * 2 }`. A
--- *delaborator* closes the loop. Where a `macro` turns surface syntax into a
--- term (*elaboration*), a delaborator does the reverse: it turns an
--- elaborated term back into surface syntax so that Lean's own output uses our
--- concrete Imp notation.
+--  The notations above are *input* only: they teach Lean how to **read**
+--  `aexp
+--  { … }` and `bexp { … }`, but Lean still **prints** an expression
+--  using its raw constructors -- `example_aexp` shows up as
+--  `Aexp.plus (Aexp.num 3) …` rather than `aexp { 3 + X * 2 }`. A
+--  *delaborator* closes the loop. Where a `macro` turns surface syntax
+--  into a term (*elaboration*), a delaborator does the reverse: it turns
+--  an elaborated term back into surface syntax so that Lean's own output
+--  uses our concrete Imp notation.
 
--- Each delaborator walks a term of the given type and rebuilds the matching
--- piece of `imp_aexp`/`imp_bexp` syntax; a subterm Lean doesn't recognize is
--- printed with the `~` escape. The `@[delab …]` attribute registers the
--- top-level function to fire whenever Lean is about to display a term headed
--- by one of those constructors -- unless notation printing has been switched
--- off with `set_option pp.notation false`, which lets us fall back to the raw
--- constructors when debugging (see *Desugaring Notations* below). The
--- companion *category parenthesizer* re-inserts the parentheses the grammar's
--- precedences demand, so that, e.g., `(1 + 2) * 3` prints with its
--- parentheses intact.
+--  Each delaborator walks a term of the given type and rebuilds the
+--  matching piece of `imp_aexp`/`imp_bexp` syntax; a subterm Lean doesn't
+--  recognize is printed with the `~` escape. The `@[delab …]` attribute
+--  registers the top-level function to fire whenever Lean is about to
+--  display a term headed by one of those constructors -- unless notation
+--  printing has been switched off with `set_option pp.notation false`,
+--  which lets us fall back to the raw constructors when debugging (see
+--  *Desugaring Notations* below). The companion *category parenthesizer*
+--  re-inserts the parentheses the grammar's precedences demand, so that,
+--  e.g., `(1 + 2) * 3` prints with its parentheses intact.
 
--- You do not need to understand the details, and the code is collapsed below
--- for that reason. The result is that a `#check`, an `#eval`, or a proof goal
--- mentioning an Imp expression is displayed in readable Imp syntax rather
--- than as a pile of constructors.
+--  You do not need to understand the details, and the code is collapsed
+--  below for that reason. The result is that a `#check`, an `#eval`, or a
+--  proof goal mentioning an Imp expression is displayed in readable Imp
+--  syntax rather than as a pile of constructors.
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing expressions back
+--  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing expressions back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer
@@ -326,14 +331,14 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
     | _ => `(imp_bexp| ~$(← delab))
   annAsTerm stx
 
--- END DETAILS
+--  END DETAILS
 
--- The `whenPPOption getPPNotation` wrapper lets
--- `set_option pp.notation false` switch this delaborator off, revealing the
--- raw constructors (see the "Desugaring Notations" discussion, after the
--- commands are introduced).
+--  The `whenPPOption getPPNotation` wrapper lets
+--  `set_option pp.notation false` switch this delaborator off, revealing
+--  the raw constructors (see the "Desugaring Notations" discussion, after
+--  the commands are introduced).
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: registering the delaborators
+--  THESE DETAILS CAN BE SKIPPED: Notation encoding: registering the delaborators
 
 @[delab app.Aexp.num, delab app.Aexp.id, delab app.Aexp.plus,
   delab app.Aexp.minus, delab app.Aexp.mult]
@@ -368,15 +373,15 @@ partial def delabBexp : Delab := whenPPOption getPPNotation do
 
 end Imp.Delab
 
--- END DETAILS
+--  END DETAILS
 
--- With these delaborators in place, Lean pretty-prints Imp expressions with
--- the higher-level notations rather than their raw constructors.
+--  With these delaborators in place, Lean pretty-prints Imp expressions
+--  with the higher-level notations rather than their raw constructors.
 
--- The pretty-printed version of an expression might not exactly match its
--- original form. For example, the parentheses around `X * 2` in
--- `aexp { 3 + (X * 2) }` are not printed because they are redundant -- which
--- the parenthesizer knows.
+--  The pretty-printed version of an expression might not exactly match its
+--  original form. For example, the parentheses around `X * 2` in
+--  `aexp { 3 + (X * 2) }` are not printed because they are redundant --
+--  which the parenthesizer knows.
 
 /-- info: aexp {3 + X * 2} : Aexp -/
 #guard_msgs in
@@ -386,14 +391,14 @@ end Imp.Delab
 #guard_msgs in
 #check bexp { true ∧ ¬(X ≤ 4) }
 
--- ### Evaluation
+--  ### Evaluation
 
--- The arithmetic and boolean evaluators must now be extended to handle
--- variables, taking a state `st` as an extra argument. A variable is looked
--- up in the state with the map-indexing notation `st[x]` from the
--- `Typeclasses` chapter. For the notation to work, we used
--- `open scoped MyGetElem` earlier, which opens only the scoped items like
--- notation from the module.
+--  The arithmetic and boolean evaluators must now be extended to handle
+--  variables, taking a state `st` as an extra argument. A variable is
+--  looked up in the state with the map-indexing notation `st[x]` from the
+--  `Typeclasses` chapter. For the notation to work, we used
+--  `open scoped MyGetElem` earlier, which opens only the scoped items like
+--  notation from the module.
 
 def Aexp.eval (st : State) (a : Aexp) : Nat :=
   match a with
@@ -435,7 +440,7 @@ def Bexp.eval (st : State) (b : Bexp) : Bool :=
 @[simp] theorem Bexp.eval_and (st : State) (b1 b2 : Bexp) :
     (and b1 b2).eval st = (b1.eval st && b2.eval st) := rfl
 
--- We reuse the total-map notation (`x →ₜ v ; ∅` etc.) for states.
+--  We reuse the total-map notation (`x →ₜ v ; ∅` etc.) for states.
 
 example : aexp { 3 + (X * 2) }.eval (X →ₜ 5 ; ∅) = 13 := by rfl
 
@@ -443,19 +448,19 @@ example : aexp { Z + (X * Y) }.eval (X →ₜ 5 ; Y →ₜ 4 ; ∅) = 20 := by r
 
 example : bexp { true ∧ ¬(X ≤ 4) }.eval (X →ₜ 5 ; ∅) = true := by rfl
 
--- ## Commands
+--  ## Commands
 
--- Now we are ready to define the syntax and behavior of Imp *commands* (or
--- *statements*). Informally, commands `c` are described by the following BNF
--- grammar:
+--  Now we are ready to define the syntax and behavior of Imp *commands*
+--  (or *statements*). Informally, commands `c` are described by the
+--  following BNF grammar:
 
--- c ::= skip
---     | x := a
---     | c ; c
---     | if b then c else c end
---     | while b do c end
+--  c ::= skip
+--      | x := a
+--      | c ; c
+--      | if b then c else c end
+--      | while b do c end
 
--- Here is the formal definition of the abstract syntax of commands.
+--  Here is the formal definition of the abstract syntax of commands.
 
 inductive Com where
   | skip
@@ -464,7 +469,7 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
+--  THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
 /-- Imp commands -/
 declare_syntax_cat imp_com
@@ -506,15 +511,15 @@ end Com
 
 open scoped Com
 
--- END DETAILS
+--  END DETAILS
 
--- Just as we did for expressions, we add a delaborator so that Lean prints
--- commands back in the `imp { … }` concrete syntax (see the Delaborators
--- section above). It reuses the expression delaborators for the condition of
--- an `if`/`while` and for the right-hand side of an assignment, and prints an
--- unrecognized subcommand with the `~` escape.
+--  Just as we did for expressions, we add a delaborator so that Lean
+--  prints commands back in the `imp { … }` concrete syntax (see the
+--  Delaborators section above). It reuses the expression delaborators for
+--  the condition of an `if`/`while` and for the right-hand side of an
+--  assignment, and prints an unrecognized subcommand with the `~` escape.
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
+--  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
@@ -572,12 +577,12 @@ partial def delabCom : Delab := whenPPOption getPPNotation do
 
 end Imp.Delab
 
--- END DETAILS
+--  END DETAILS
 
--- As an example, here is the factorial function again, written as a formal
--- definition. When this command terminates, the variable `Y` will contain the
--- factorial of the initial value of `X`. (Compare this to the concrete Imp
--- program at the very start of the chapter.)
+--  As an example, here is the factorial function again, written as a
+--  formal definition. When this command terminates, the variable `Y` will
+--  contain the factorial of the initial value of `X`. (Compare this to the
+--  concrete Imp program at the very start of the chapter.)
 
 def fact_in_lean : Com := imp {
   Z := X;
@@ -588,8 +593,9 @@ def fact_in_lean : Com := imp {
   }
 }
 
--- Because we registered a delaborator, we can inspect a defined program with
--- `#print`, which pretty prints the stored definition using the same syntax:
+--  Because we registered a delaborator, we can inspect a defined program
+--  with `#print`, which pretty prints the stored definition using the same
+--  syntax:
 
 /--
 info: def fact_in_lean : Com :=
@@ -605,24 +611,25 @@ imp {
 #guard_msgs in
 #print fact_in_lean
 
--- ### Desugaring Notations
+--  ### Desugaring Notations
 
--- The `imp { … }` notation, together with the delaborators, is purely a
--- convenience for reading and writing programs. Occasionally, such as when
--- debugging a definition or a stuck proof, the concrete syntax `hide`s the
--- underlying structure we want to see. For those moments we can switch the
--- Imp notation off in Lean's output with `set_option pp.notation false`,
--- which our delaborators honor.
+--  The `imp { … }` notation, together with the delaborators, is purely a
+--  convenience for reading and writing programs. Occasionally, such as
+--  when debugging a definition or a stuck proof, the concrete syntax
+--  `hide`s the underlying structure we want to see. For those moments we
+--  can switch the Imp notation off in Lean's output with
+--  `set_option pp.notation false`, which our delaborators honor.
 
--- Note that unlike a `def`, `imp { … }` is a `macro` which is expanded during
--- elaboration, **before** the resulting term is type-checked. So
--- `fact_in_lean` is not a program hidden behind a layer of notation that a
--- proof must first peel back; it simply **is** the underlying tree of `Com`,
--- `Aexp`, and `Bexp` constructors. Consequently, when a proof goal mentions
--- an Imp program, tactics such as `cases`, `injection`, and `simp` already
--- act on those constructors directly -- there is nothing to "unfold". The
--- delaborators affect only how that tree is **displayed**. Nevertheless,
--- seeing the raw constructors is sometimes very helpful!
+--  Note that unlike a `def`, `imp { … }` is a `macro` which is expanded
+--  during elaboration, **before** the resulting term is type-checked. So
+--  `fact_in_lean` is not a program hidden behind a layer of notation that
+--  a proof must first peel back; it simply **is** the underlying tree of
+--  `Com`, `Aexp`, and `Bexp` constructors. Consequently, when a proof goal
+--  mentions an Imp program, tactics such as `cases`, `injection`, and
+--  `simp` already act on those constructors directly -- there is nothing
+--  to "unfold". The delaborators affect only how that tree is
+--  **displayed**. Nevertheless, seeing the raw constructors is sometimes
+--  very helpful!
 
 /-- info: imp {
   X := X + 1
@@ -635,16 +642,16 @@ imp {
 set_option pp.notation false in
 #check imp { X := X + 1 }
 
--- ### More Examples
+--  ### More Examples
 
--- A few more examples.
+--  A few more examples.
 
--- Assignment:
+--  Assignment:
 
 def plus2 : Com := imp { X := X + 2 }
 def XtimesYinZ : Com := imp { Z := X * Y }
 
--- Loops:
+--  Loops:
 
 def subtract_slowly_body : Com := imp {
   Z := Z - 1;
@@ -663,20 +670,20 @@ def subtract_3_from_5_slowly : Com := imp {
   ~subtract_slowly
 }
 
--- An infinite loop:
+--  An infinite loop:
 
 def loop : Com := imp { while (true) { skip } }
 
--- ## Evaluating Commands
+--  ## Evaluating Commands
 
--- Next we need to define what it means to evaluate an Imp command. The fact
--- that `while` loops don't necessarily terminate makes defining an evaluation
--- function tricky.
+--  Next we need to define what it means to evaluate an Imp command. The
+--  fact that `while` loops don't necessarily terminate makes defining an
+--  evaluation function tricky.
 
--- ### Evaluation as a Function (Failed Attempt)
+--  ### Evaluation as a Function (Failed Attempt)
 
--- Here's an attempt at defining an evaluation function for commands (with a
--- bogus `while` case).
+--  Here's an attempt at defining an evaluation function for commands (with
+--  a bogus `while` case).
 
 def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
   match c with
@@ -690,86 +697,87 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
       else ceval_fun_no_while st c2
   | imp {while (~_) {~_}} => st     -- bogus
 
--- In a more conventional functional language like OCaml or Haskell we could
--- add the `while` case as follows:
+--  In a more conventional functional language like OCaml or Haskell we
+--  could add the `while` case as follows:
 
--- | .whileDo b c =>
---     if b.eval st then ceval_fun st (.seq c (.whileDo b c))
---     else st
+--  | .whileDo b c =>
+--      if b.eval st then ceval_fun st (.seq c (.whileDo b c))
+--      else st
 
--- Lean doesn't accept such a definition ("fail to show termination") because
--- the function we want to define is not guaranteed to terminate. Indeed, it
--- *doesn't* always terminate: the full `ceval_fun` applied to the `loop`
--- program above would run forever. Since Lean aims to be not just a
--- programming language but also a consistent logic, any potentially
--- non-terminating function must be rejected. Here is what would go wrong if
--- Lean allowed non-terminating recursive functions:
+--  Lean doesn't accept such a definition ("fail to show termination")
+--  because the function we want to define is not guaranteed to terminate.
+--  Indeed, it *doesn't* always terminate: the full `ceval_fun` applied to
+--  the `loop` program above would run forever. Since Lean aims to be not
+--  just a programming language but also a consistent logic, any
+--  potentially non-terminating function must be rejected. Here is what
+--  would go wrong if Lean allowed non-terminating recursive functions:
 
--- def loop_false (n : Nat) : False := loop_false n
+--  def loop_false (n : Nat) : False := loop_false n
 
--- That is, propositions like `False` would become provable (`loop_false 0`
--- would be a proof of `False`), a disaster for logical consistency.
+--  That is, propositions like `False` would become provable
+--  (`loop_false 0` would be a proof of `False`), a disaster for logical
+--  consistency.
 
--- Thus, because it doesn't terminate on all inputs, the full `ceval_fun`
--- cannot be written in Lean -- at least not without additional tricks and
--- workarounds.
+--  Thus, because it doesn't terminate on all inputs, the full `ceval_fun`
+--  cannot be written in Lean -- at least not without additional tricks and
+--  workarounds.
 
--- ### Evaluation as a Relation
+--  ### Evaluation as a Relation
 
--- Here's a better way: define `ceval` as a *relation* rather than a
--- *function* -- i.e., make its result a `Prop` rather than a `State`, similar
--- to what we did for `Aexp.EvalR` above.
+--  Here's a better way: define `ceval` as a *relation* rather than a
+--  *function* -- i.e., make its result a `Prop` rather than a `State`,
+--  similar to what we did for `Aexp.EvalR` above.
 
--- This is an important change. Besides freeing us from awkward workarounds,
--- it gives us more flexibility in the definition. For example, if we add
--- nondeterministic features like `any` to the language, we want the
--- definition of evaluation to be nondeterministic -- i.e., not only will it
--- not be total, it will not even be a function!
+--  This is an important change. Besides freeing us from awkward
+--  workarounds, it gives us more flexibility in the definition. For
+--  example, if we add nondeterministic features like `any` to the
+--  language, we want the definition of evaluation to be nondeterministic
+--  -- i.e., not only will it not be total, it will not even be a function!
 
--- We'll use the notation `st =[ c ]=> st'` for the `Com.EvalR` relation:
--- `st =[ c ]=> st'` means that executing program `c` in a starting state `st`
--- results in an ending state `st'`. This can be pronounced "`c` takes state
--- `st` to `st'`".
+--  We'll use the notation `st =[ c ]=> st'` for the `Com.EvalR` relation:
+--  `st =[ c ]=> st'` means that executing program `c` in a starting state
+--  `st` results in an ending state `st'`. This can be pronounced "`c`
+--  takes state `st` to `st'`".
 
--- Operational Semantics
+--  Operational Semantics
 
--- Here is an informal definition of evaluation, presented as inference rules
--- for readability:
+--  Here is an informal definition of evaluation, presented as inference
+--  rules for readability:
 
---                         -----------------                  (skip)
---                         st =[ skip ]=> st
+--                          -----------------                  (skip)
+--                          st =[ skip ]=> st
 
---                         a.eval st = n
---                 --------------------------------           (asgn)
---                 st =[ x := a ]=> (x →ₜ n ; st)
+--                          a.eval st = n
+--                  --------------------------------           (asgn)
+--                  st =[ x := a ]=> (x →ₜ n ; st)
 
---                         st  =[ c1 ]=> st'
---                         st' =[ c2 ]=> st''
---                       ---------------------                (seq)
---                       st =[ c1;c2 ]=> st''
+--                          st  =[ c1 ]=> st'
+--                          st' =[ c2 ]=> st''
+--                        ---------------------                (seq)
+--                        st =[ c1;c2 ]=> st''
 
---                        b.eval st = true
---                         st =[ c1 ]=> st'
---              --------------------------------------        (ifTrue)
---              st =[ if b then c1 else c2 end ]=> st'
+--                         b.eval st = true
+--                          st =[ c1 ]=> st'
+--               --------------------------------------        (ifTrue)
+--               st =[ if b then c1 else c2 end ]=> st'
 
---                       b.eval st = false
---                         st =[ c2 ]=> st'
---              --------------------------------------        (ifFalse)
---              st =[ if b then c1 else c2 end ]=> st'
+--                        b.eval st = false
+--                          st =[ c2 ]=> st'
+--               --------------------------------------        (ifFalse)
+--               st =[ if b then c1 else c2 end ]=> st'
 
---                       b.eval st = false
---                  -----------------------------             (whileFalse)
---                  st =[ while b do c end ]=> st
+--                        b.eval st = false
+--                   -----------------------------             (whileFalse)
+--                   st =[ while b do c end ]=> st
 
---                        b.eval st = true
---                         st =[ c ]=> st'
---                st' =[ while b do c end ]=> st''
---                --------------------------------            (whileTrue)
---                st  =[ while b do c end ]=> st''
+--                         b.eval st = true
+--                          st =[ c ]=> st'
+--                 st' =[ while b do c end ]=> st''
+--                 --------------------------------            (whileTrue)
+--                 st  =[ while b do c end ]=> st''
 
--- Here is the formal definition. Make sure you understand how it corresponds
--- to the inference rules.
+--  Here is the formal definition. Make sure you understand how it
+--  corresponds to the inference rules.
 
 inductive Com.EvalR : Com → State → State → Prop where
   | skip {st : State} : EvalR (imp {skip}) st st
@@ -813,10 +821,10 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
   | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
   | _ => throw ()
 
--- The cost of defining evaluation as a relation instead of a function is that
--- we now need to construct a *proof* that some program evaluates to some
--- result state, rather than letting Lean's computation mechanism do it for
--- us.
+--  The cost of defining evaluation as a relation instead of a function is
+--  that we now need to construct a *proof* that some program evaluates to
+--  some result state, rather than letting Lean's computation mechanism do
+--  it for us.
 
 example :
     ∅ =[
@@ -834,7 +842,7 @@ example :
     · rfl
     · apply Com.EvalR.asgn; rfl
 
--- ### Exercise (2 stars): ceval_example2 ⭐⭐
+--  ### Exercise (2 stars): ceval_example2 ⭐⭐
 
 example :
     ∅ =[
@@ -844,66 +852,66 @@ example :
     ]=> (Z →ₜ 2 ; Y →ₜ 1 ; X →ₜ 0 ; ∅) := by
   sorry
 
--- _Quiz:_
+--  _Quiz:_
 
--- Is the following proposition provable?
+--  Is the following proposition provable?
 
---   ∀ (c : Com) (st st' : State),
---     st =[ skip; ~c ]=> st' →
---     st =[ c ]=> st'
+--    ∀ (c : Com) (st st' : State),
+--      st =[ skip; ~c ]=> st' →
+--      st =[ c ]=> st'
 
--- (A) Yes (B) No (C) Not sure
+--  (A) Yes (B) No (C) Not sure
 
--- _Quiz:_
+--  _Quiz:_
 
--- Is the following proposition provable?
+--  Is the following proposition provable?
 
---   ∀ (c1 c2 : Com) (st st' : State),
---     st =[ ~c1 ~c2 ]=> st' →
---     st =[ c1 ]=> st →
---     st =[ c2 ]=> st'
+--    ∀ (c1 c2 : Com) (st st' : State),
+--      st =[ ~c1 ~c2 ]=> st' →
+--      st =[ c1 ]=> st →
+--      st =[ c2 ]=> st'
 
--- (A) Yes (B) No (C) Not sure
+--  (A) Yes (B) No (C) Not sure
 
--- _Quiz:_
+--  _Quiz:_
 
--- Is the following proposition provable?
+--  Is the following proposition provable?
 
---   ∀ (b : Bexp) (c : Com) (st st' : State),
---     st =[ if (~b) { ~c } else { ~c } ]=> st' →
---     st =[ c ]=> st'
+--    ∀ (b : Bexp) (c : Com) (st st' : State),
+--      st =[ if (~b) { ~c } else { ~c } ]=> st' →
+--      st =[ c ]=> st'
 
--- (A) Yes (B) No (C) Not sure
+--  (A) Yes (B) No (C) Not sure
 
--- _Quiz:_
+--  _Quiz:_
 
--- Is the following proposition provable?
+--  Is the following proposition provable?
 
---   ∀ (b : Bexp),
---     (∀ st, b.eval st = true) →
---     ∀ (c : Com) (st : State),
---     ¬ ∃ st', st =[ while (~b) { ~c } ]=> st'
+--    ∀ (b : Bexp),
+--      (∀ st, b.eval st = true) →
+--      ∀ (c : Com) (st : State),
+--      ¬ ∃ st', st =[ while (~b) { ~c } ]=> st'
 
--- (A) Yes (B) No (C) Not sure
+--  (A) Yes (B) No (C) Not sure
 
--- _Quiz:_
+--  _Quiz:_
 
--- Is the following proposition provable?
+--  Is the following proposition provable?
 
---   ∀ (b : Bexp) (c : Com) (st : State),
---     (¬ ∃ st', st =[ while (~b) { ~c } ]=> st') →
---     ∀ st'', b.eval st'' = true
+--    ∀ (b : Bexp) (c : Com) (st : State),
+--      (¬ ∃ st', st =[ while (~b) { ~c } ]=> st') →
+--      ∀ st'', b.eval st'' = true
 
--- (A) Yes (B) No (C) Not sure
+--  (A) Yes (B) No (C) Not sure
 
--- ### Determinism of Evaluation
+--  ### Determinism of Evaluation
 
--- Changing from a computational to a relational definition of evaluation is a
--- good move because it frees us from the artificial requirement that
--- evaluation be a total function. But it raises a question: is the relational
--- definition really a partial *function*? Could the same command, from the
--- same state, evaluate to two different final states? In fact this cannot
--- happen: `ceval` *is* a partial function.
+--  Changing from a computational to a relational definition of evaluation
+--  is a good move because it frees us from the artificial requirement that
+--  evaluation be a total function. But it raises a question: is the
+--  relational definition really a partial *function*? Could the same
+--  command, from the same state, evaluate to two different final states?
+--  In fact this cannot happen: `ceval` *is* a partial function.
 
 theorem ceval_deterministic (c : Com) (st st1 st2 : State)
     (e1 : st =[ c ]=> st1) (e2 : st =[ c ]=> st2) : st1 = st2 := by
@@ -940,12 +948,13 @@ theorem ceval_deterministic (c : Com) (st st1 st2 : State)
           subst hst
           exact ih2 _ hl'
 
--- ### Exercise (3 stars): pup_to_n (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): pup_to_n (Optional) ⭐⭐⭐
 
--- Write an Imp program that sums the numbers from `1` to `X` (inclusive) in
--- the variable `Y`. Your program should update the state as shown in
--- `pup_to_2_ceval`, which you can reverse-engineer to discover the program
--- you should write. The proof of that theorem will be somewhat lengthy.
+--  Write an Imp program that sums the numbers from `1` to `X` (inclusive)
+--  in the variable `Y`. Your program should update the state as shown in
+--  `pup_to_2_ceval`, which you can reverse-engineer to discover the
+--  program you should write. The proof of that theorem will be somewhat
+--  lengthy.
 
 def pup_to_n : Com := sorry
 
@@ -954,12 +963,12 @@ theorem pup_to_2_ceval :
       (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅) := by
   sorry
 
--- ## Reasoning About Imp Programs
+--  ## Reasoning About Imp Programs
 
--- We'll get into more systematic and powerful techniques for reasoning about
--- Imp programs in the next chapter, but we can already do a few things
--- (albeit in a somewhat low-level way) just by working with the bare
--- definitions. This section explores some examples.
+--  We'll get into more systematic and powerful techniques for reasoning
+--  about Imp programs in the next chapter, but we can already do a few
+--  things (albeit in a somewhat low-level way) just by working with the
+--  bare definitions. This section explores some examples.
 
 theorem plus2_spec (st : State) (n : Nat) (st' : State)
     (hx : st[X] = n) (heval : st =[ plus2 ]=> st') :
@@ -973,27 +982,28 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
       rw [TotalMap.update_eq]
       lia
 
--- ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
 
--- State and prove a specification of `XtimesYinZ`.
+--  State and prove a specification of `XtimesYinZ`.
 
 -- FILL IN HERE
 
--- ### Exercise (3 stars): loop_never_stops ⭐⭐⭐
+--  ### Exercise (3 stars): loop_never_stops ⭐⭐⭐
 
--- Hint: proceed by induction on the assumed derivation showing that `loop`
--- terminates. Most of the cases are immediately contradictory and so can be
--- solved in one step (by `simp`/`discriminate` on the impossible command
--- equation).
+--  Hint: proceed by induction on the assumed derivation showing that
+--  `loop` terminates. Most of the cases are immediately contradictory and
+--  so can be solved in one step (by `simp`/`discriminate` on the
+--  impossible command equation).
 
 theorem loop_never_stops (st st' : State) : ¬ (st =[ loop ]=> st') := by
   sorry
 
--- ### Exercise (3 stars): no_whiles_eqv ⭐⭐⭐
+--  ### Exercise (3 stars): no_whiles_eqv ⭐⭐⭐
 
--- The following function yields `true` just on programs with no while loops.
--- Using `inductive`, write a property `Com.NoWhilesR` that holds exactly when
--- `c` is while-free, then prove it equivalent to `Com.no_whiles`.
+--  The following function yields `true` just on programs with no while
+--  loops. Using `inductive`, write a property `Com.NoWhilesR` that holds
+--  exactly when `c` is while-free, then prove it equivalent to
+--  `Com.no_whiles`.
 
 def Com.no_whiles (c : Com) : Bool :=
   match c with
@@ -1009,18 +1019,18 @@ inductive Com.NoWhilesR : Com → Prop where
 theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
   sorry
 
--- ### Exercise (4 stars): no_whiles_terminating ⭐⭐⭐⭐
+--  ### Exercise (4 stars): no_whiles_terminating ⭐⭐⭐⭐
 
--- Imp programs that don't involve while loops always terminate. State and
--- prove a theorem `no_whiles_terminating` that says this. Use either
--- `Com.no_whiles` or `Com.NoWhilesR`, as you prefer.
+--  Imp programs that don't involve while loops always terminate. State and
+--  prove a theorem `no_whiles_terminating` that says this. Use either
+--  `Com.no_whiles` or `Com.NoWhilesR`, as you prefer.
 
 theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
     ∃ st', st =[ c ]=> st' := by
   sorry
 
--- And here is an alternative solution by induction on `c` (using
--- `Com.no_whiles` instead of `Com.NoWhilesR`):
+--  And here is an alternative solution by induction on `c` (using
+--  `Com.no_whiles` instead of `Com.NoWhilesR`):
 
 -- FILL IN HERE
 
