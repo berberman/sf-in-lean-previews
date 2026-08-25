@@ -2059,6 +2059,8 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
   | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
   | _ => throw ()
 
+attribute [autogradedHole] If1.Com.EvalR
+
 -- The following unit tests should be provable simply by applying your new
 -- rules (plus `rfl` for the boolean side conditions) if you have defined them
 -- correctly.
@@ -2167,6 +2169,8 @@ theorem hoare_if1_good :
       }
     {{ X = Z }} := by
   sorry
+
+attribute [autogradedProof 2] If1.hoare_if1_good
 
 end If1
 
@@ -2539,6 +2543,8 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
   | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
   | _ => throw ()
 
+attribute [autogradedHole] RepeatExercise.Com.EvalR
+
 -- A couple of definitions from above, copied here so they use the new
 -- `Com.EvalR`.
 
@@ -2774,6 +2780,10 @@ theorem hoare_havoc {Q : Assertion} {x : Ident} :
     {{ fun st => havoc_pre x Q st }} havoc x {{ Q }} := by
   sorry
 
+attribute [autogradedHole] Himp.havoc_pre
+
+attribute [autogradedProof 3] Himp.hoare_havoc
+
 -- ### Exercise (3 stars): havoc_post (Advanced) ⭐⭐⭐
 
 -- Complete the following proof without changing any of the provided commands.
@@ -2794,6 +2804,8 @@ theorem havoc_post {P : Assertion} {x : Ident} :
   apply hoare_consequence_pre
   · apply hoare_havoc
   · sorry
+
+attribute [autogradedProof 3] Himp.havoc_post
 
 end Himp
 

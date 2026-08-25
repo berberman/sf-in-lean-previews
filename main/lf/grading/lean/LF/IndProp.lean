@@ -746,6 +746,8 @@ theorem plus4 (n : Nat) (h : Ev n) : Ev (4 + n) := by
 theorem double (n : Nat) : Ev n.double := by
   sorry
 
+attribute [autogradedProof 1] Ev.double
+
 end Ev
 
 -- ### Constructing Evidence for Permutations
@@ -845,6 +847,8 @@ theorem le_inversion (n m : Nat) (h : Le n m) :
     (n = m) ∨ (∃ m', m = m' + 1 ∧ Le n m') := by
   sorry
 
+attribute [autogradedProof 1] LePlayground.le_inversion
+
 end LePlayground
 
 -- _Quiz:_
@@ -917,6 +921,8 @@ attribute [autogradedProof 1] ev_4_ev_n
 
 theorem ev5_nonsense (h : Ev 5) : 2 + 2 = 9 := by
   sorry
+
+attribute [autogradedProof 1] ev5_nonsense
 
 -- We can use `inversion` to re-prove some theorems from Tactics.
 
@@ -1080,12 +1086,16 @@ theorem Nat.ev_Even_iff (n : Nat) : Ev n ↔ Even n := by
 theorem ev_sum (n m : Nat) (hₙ : Ev n) (hₘ : Ev m) : Ev (n + m) := by
   sorry
 
+attribute [autogradedProof 2] ev_sum
+
 -- ### Exercise (3 stars): ev_ev__ev (Advanced) ⭐⭐⭐
 
 theorem ev_ev__ev (n m : Nat) (hₙₘ : Ev (n + m)) (hₙ : Ev n) : Ev m := by
   /- Hint: There are two pieces of evidence you could attempt to induct upon
       here. If one doesn't work, try the other. -/
   sorry
+
+attribute [autogradedProof 3] ev_ev__ev
 
 -- ### Exercise (3 stars): ev_plus_plus (Optional) ⭐⭐⭐
 
@@ -1098,6 +1108,8 @@ theorem ev_plus_plus (n m k : Nat)
     (hₙₚ : Ev (n + k)) :
     Ev (m + k) := by
   sorry
+
+attribute [autogradedProof 3] ev_plus_plus
 
 -- Another example of a proposition that can be characterized both recursively
 -- and inductively is the `List.In` predicate we defined in the Logic chapter.
@@ -1125,6 +1137,8 @@ inductive In_Inductive {α : Type} (x : α) : List α → Prop
 
 theorem in_mem {α} (x : α) (l : List α) : List.In x l ↔ x ∈ l := by
   sorry
+
+attribute [autogradedProof 3] in_mem
 
 -- The characterizing lemmas for `∈` are called `List.mem_nil_iff` and
 -- `List.mem_cons`.
@@ -1200,6 +1214,8 @@ inductive Ev' : Nat → Prop where
 theorem ev'_ev n : Ev' n ↔ Ev n := by
   sorry
 
+attribute [autogradedProof 4] ev'_ev
+
 -- We can do similar inductive proofs on the `Perm3` relation, which we
 -- defined earlier as follows:
 
@@ -1234,19 +1250,25 @@ theorem In {α} (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   sorry
 
+attribute [autogradedProof 2] Perm3.In
+
 -- ### Exercise (1 star): Perm3_NotIn (Optional) ⭐
 
 theorem NotIn {α} (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∉ l₁) : x ∉ l₂ := by
   sorry
 
+attribute [autogradedProof 1] Perm3.NotIn
+
 -- ### Exercise (2 stars): NotPerm3 (Optional) ⭐⭐
 
 -- Proving that something is NOT a permutation is quite tricky. Some of the
 -- lemmas above, like `Perm3.In` can be useful for this.
 
-example : ¬ Perm3 [1, 2, 3] [1, 2, 4] := by
+theorem Not : ¬ Perm3 [1, 2, 3] [1, 2, 4] := by
   sorry
+
+attribute [autogradedProof 2] Perm3.Not
 
 end Perm3
 
@@ -1511,6 +1533,10 @@ namespace R
 theorem R.equiv_fR m n k : R m n k ↔ fR m n = k := by
   sorry
 
+attribute [autogradedHole] fR
+
+attribute [autogradedProof 3] R.R.equiv_fR
+
 -- ### Exercise (4 stars): subsequence (Advanced) ⭐⭐⭐⭐
 
 -- A list is a *subsequence* of another list if all of the elements in the
@@ -1578,6 +1604,8 @@ theorem refl (l : List Nat) : Subseq l l := by
 theorem app (l₁ l₂ l₃ : List Nat)
     (h : Subseq l₁ l₂) : Subseq l₁ (l₂ ++ l₃) := by
   sorry
+
+attribute [autogradedHole] R.Subseq
 
 -- Note to developers:
 --     HIDE: AC'21: this exercise should probably be marked as more
@@ -1647,6 +1675,8 @@ inductive TotalRelation : Nat → Nat → Prop where
 theorem total_relation_is_total (n m : Nat) : TotalRelation n m := by
   sorry
 
+attribute [autogradedHole] R.TotalRelation
+
 attribute [autogradedProof 2] R.total_relation_is_total
 
 -- ### Exercise (2 stars): empty_relation (Optional) ⭐⭐
@@ -1656,6 +1686,8 @@ attribute [autogradedProof 2] R.total_relation_is_total
 
 inductive EmptyRelation : Nat → Nat → Prop where
   -- FILL IN HERE
+
+attribute [autogradedHole] R.EmptyRelation
 
 theorem empty_relation_is_empty (n m : Nat) : ¬ EmptyRelation n m := by
   sorry
@@ -1677,6 +1709,8 @@ attribute [autogradedProof 2] R.empty_relation_is_empty
 
 inductive NoStutter {α : Type} : List α → Prop where
  -- FILL IN HERE
+
+attribute [autogradedHole] R.NoStutter
 
 -- Make sure each of these tests succeeds, but feel free to change the
 -- suggested proof (in comments) if the given one doesn't work for you. Your
@@ -1759,6 +1793,8 @@ theorem merge_filter (α : Type) (test : α → Bool) (l l₁ l₂ : List α)
   List.filter test l = l₁ := by
   sorry
 
+attribute [autogradedHole] R.Merge
+
 attribute [autogradedProof 6] R.merge_filter
 
 -- ### Exercise (5 stars): filter_challenge_2 (Advanced, Optional) ⭐⭐⭐⭐⭐
@@ -1826,6 +1862,8 @@ attribute [autogradedProof 6] R.merge_filter
 
 inductive Pal {α : Type} : List α → Prop where
 -- FILL IN HERE
+
+attribute [autogradedHole] R.Pal
 
 theorem pal_app_reverse (α : Type) (l : List α) :
     Pal (l ++ l.reverse) := by
@@ -1895,6 +1933,8 @@ attribute [autogradedProof 2] R.mem_split
 
 inductive Repeats {α : Type} : List α → Prop where
   -- FILL IN HERE
+
+attribute [autogradedHole] R.Repeats
 
 -- Now, here's a way to formalize the pigeonhole principle. Suppose list `l₂`
 -- represents a list of pigeonhole labels, and list `l₁` represents the labels

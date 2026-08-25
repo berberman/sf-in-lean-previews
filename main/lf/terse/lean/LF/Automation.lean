@@ -559,7 +559,7 @@ theorem MStar' α (ss : List (List α)) (re : RegExp α)
     ss.foldr (· ++ ·) [] =~ Star re := by
   sorry
 
--- ### Exercise (1 star): EmptyStr_not_needed (Optional) ⭐
+-- ### Exercise (1 star): EmptyStr_not_needed (Optional, manually graded) ⭐
 
 -- It turns out that the `EmptyStr` constructor is actually not
 -- needed, since the regular expression matching the empty
@@ -619,7 +619,7 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     would not allow us to reason about the case `In x ∈ s₂`. -/
     sorry
 
--- ### Exercise (1 star): reNotEmpty ⭐
+-- ### Exercise (1 star): reNotEmpty (manually graded) ⭐
 
 -- Write a recursive function `reNotEmpty` that tests whether a
 -- regular expression matches some string. Prove that your
@@ -962,6 +962,10 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
       s₁.length + s₂.length ≤ pumpingConstant re ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Add `gradeTheorem 10 pumping` once the proof is filled
+--     in.
 
 end Pumping
 end RegExp

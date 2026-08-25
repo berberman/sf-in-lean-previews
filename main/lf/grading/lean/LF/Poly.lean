@@ -537,6 +537,8 @@ theorem unzip_cons_snd {α β : Type} {x : α} {y : β} {l : List (α × β)} :
 
 theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := sorry
 
+attribute [autogradedHole] unzip
+
 attribute [autogradedProof 0.25] unzip_nil unzip_cons_fst unzip_cons_snd unzip_test1
 
 -- ### Polymorphic Options
@@ -580,13 +582,13 @@ theorem head?_nil {α : Type} : head? ([] : List α) = none := sorry
 theorem head?_cons {α : Type} {head : α} {tail : List α} : head? (head :: tail) = some head :=
   sorry
 
-theorem test_head?1 : head? [1, 2] = some 1 := sorry
+attribute [autogradedHole] head?
 
-attribute [autogradedProof 0.5] test_head?1
+theorem test_head?1 : head? [1, 2] = some 1 := sorry
 
 theorem test_head?2 : head? [[1], [2]] = some [1] := sorry
 
-attribute [autogradedProof 0.5] test_head?2
+attribute [autogradedProof 0.5] test_head?1 test_head?2
 
 -- ## Functions as Data
 
@@ -737,6 +739,8 @@ theorem test_filterEvenGt7_1 : filterEvenGt7 [1, 2, 6, 9, 10, 3, 12, 8] = [10, 1
 
 theorem test_filterEvenGt7_2 : filterEvenGt7 [5, 2, 6, 19, 129] = [] := sorry
 
+attribute [autogradedHole] filterEvenGt7
+
 attribute [autogradedProof 1] test_filterEvenGt7_1 test_filterEvenGt7_2
 
 -- ### Exercise (3 stars): partition ⭐⭐⭐
@@ -752,6 +756,8 @@ def partition {α : Type} (test : α → Bool) (l : List α) : List α × List �
 
 theorem test_partition1 : partition (· % 2 != 0) [1, 2, 3, 4, 5] = ([1, 3, 5], [2, 4]) := sorry
 theorem test_partition2 : partition (fun _ => false) [5, 9, 0] = ([], [5, 9, 0]) := sorry
+
+attribute [autogradedHole] partition
 
 attribute [autogradedProof 1.5] test_partition1 test_partition2
 
@@ -837,6 +843,8 @@ def flatMap {α β : Type} (f : α → List β) (l : List α) : List β := sorry
 
 theorem test_flatMap : flatMap (fun n => [n, n, n]) [1, 5, 4]
   = [1, 1, 1, 5, 5, 5, 4, 4, 4] := sorry
+
+attribute [autogradedHole] flatMap
 
 attribute [autogradedProof 2] test_flatMap
 
@@ -1027,6 +1035,12 @@ attribute [autogradedProof 2] fold_length_correct
 
 def foldMap {α β : Type} (f : α → β) (l : List α) : List β := sorry
 
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Even though `foldMap` is not autograded, we mark it as a hole just in
+--     case in the future something depended on it.
+
+attribute [autogradedHole] foldMap
+
 -- Write down a theorem `fold_map_correct` stating that `foldMap` is correct,
 -- and prove it in Lean.
 
@@ -1063,6 +1077,8 @@ def prodCurry {α β γ : Type} (f : α × β → γ) (x : α) (y : β) : γ := 
 -- below to show that the two are really inverses.
 
 def prodUncurry {α β γ : Type} (f : α → β → γ) (p : α × β) : γ := sorry
+
+attribute [autogradedHole] prodUncurry
 
 -- As a (trivial) example of the usefulness of currying, we can use it to
 -- shorten one of the examples that we saw above:
@@ -1208,6 +1224,8 @@ example : scc zero = one := sorry
 theorem scc_2 : scc one = two := sorry
 theorem scc_3 : scc two = three := sorry
 
+attribute [autogradedHole] Church.scc
+
 attribute [autogradedProof 1] Church.scc_2 Church.scc_3
 
 -- ### Exercise (3 stars): church_plus (Advanced) ⭐⭐⭐
@@ -1225,6 +1243,8 @@ theorem plus_1 : plus zero one = one := sorry
 theorem plus_2 : plus two three = plus three two := sorry
 theorem plus_3 : plus (plus two two) three = plus one (plus three three) := sorry
 
+attribute [autogradedHole] Church.plus
+
 attribute [autogradedProof 1] Church.plus_1 Church.plus_2 Church.plus_3
 
 -- ### Exercise (3 stars): church_mult (Advanced) ⭐⭐⭐
@@ -1241,9 +1261,12 @@ attribute [autogradedProof 1] Church.plus_1 Church.plus_2 Church.plus_3
 
 def mult (n m : CNat) : CNat := sorry
 
+
 theorem mult_1 : mult one one = one := sorry
 theorem mult_2 : mult zero (plus three three) = zero := sorry
 theorem mult_3 : mult two three = plus three three := sorry
+
+attribute [autogradedHole] Church.mult
 
 attribute [autogradedProof 1] Church.mult_1 Church.mult_2 Church.mult_3
 
@@ -1261,6 +1284,8 @@ def exp (n m : CNat) : CNat := sorry
 theorem exp_1 : exp two two = plus two two := sorry
 theorem exp_2 : exp three zero = one := sorry
 theorem exp_3 : exp three two = plus (mult two (mult two two)) one := sorry
+
+attribute [autogradedHole] Church.exp
 
 attribute [autogradedProof 1] Church.exp_1 Church.exp_3 Church.exp_2
 

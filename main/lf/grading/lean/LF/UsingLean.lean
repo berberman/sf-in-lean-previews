@@ -219,6 +219,9 @@ example (n m k : Nat) : n + (m + k) = m + (n + k) := by
 -- the left-hand side entirely with an `_`. Now our Lean proof looks quite a
 -- bit like the textbook one we saw earlier!
 
+-- Note to developers (Niklas Halonen @xhalo32):
+--     How to grade that `succ_mul_succ'` uses `calc` without cheating?
+
 -- ### Exercise (1 star): succ_mul_succ ⭐
 
 theorem succ_mul_succ (n m : Nat) :
@@ -273,8 +276,10 @@ example (n m : Nat) (h : n + n = m) : triple n = m + n := by
 
 -- Complete this proof, using `dsimp` or `rw` as appropriate.
 
-example (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
+theorem dsimp1 (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
   sorry
+
+attribute [autogradedProof 2] dsimp1
 
 -- `dsimp at h` also works on hypotheses, which `rfl` can't touch.
 
@@ -460,7 +465,7 @@ theorem Nat.even_succ (n : Nat) :
     (n + 1).even = !(n.even) := by
   sorry
 
-attribute [autogradedProof 1] Nat.even_succ
+attribute [autogradedProof 2] Nat.even_succ
 
 -- We reprove here for Lean's `Nat` some theorems about `Nat.even` and
 -- `Nat.double`, which we had previously proven for our custom
@@ -475,14 +480,14 @@ theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 theorem Nat.double_add (n : Nat) : n.double = n + n := by
   sorry
 
-attribute [autogradedProof 1] Nat.double_add
+attribute [autogradedProof 2] Nat.double_add
 
 -- ### Exercise (2 stars): double_mul ⭐⭐
 
 theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
   sorry
 
-attribute [autogradedProof 1] Nat.double_mul
+attribute [autogradedProof 2] Nat.double_mul
 
 -- In the remainder of the book, we use Lean's built-in natural numbers
 -- everywhere. We use `dsimp` and `calc` in examples and solutions, and

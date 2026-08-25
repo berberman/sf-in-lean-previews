@@ -83,6 +83,8 @@ theorem apply_exercise (m : Nat)
     (m + 1).odd = true := by
   sorry
 
+attribute [autogradedProof 2] apply_exercise
+
 -- To use the `apply` tactic, the conclusion of the fact being applied must
 -- match the goal. For example, `apply` will not work if the left and right
 -- sides of the equality are swapped.
@@ -269,6 +271,8 @@ theorem trans_eq_exercise (n m o p : Nat)
     (n + p) = o.minusTwo := by
   sorry
 
+attribute [autogradedProof 3] trans_eq_exercise
+
 -- ## The `injection` and `contradiction` Tactics
 
 -- Recall the definition of natural numbers:
@@ -363,10 +367,7 @@ theorem injection_ex3 {α : Type} (x y z : α) (l j : List α)
     (h₁ : x :: y :: l = z :: j)
     (h₂ : j = z :: l) :
     x = y := by
-  injections hxz hyl_j
-  rw [h₂] at hyl_j
-  injection hyl_j with hyz
-  rw [hyz, hxz]
+  sorry
 
 attribute [autogradedProof 3] injection_ex3
 
@@ -712,6 +713,8 @@ example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
 theorem nth?_always_none (l : List Nat) (h : ∀ i, nth? l i = none) :
     l = [] := by
   sorry
+
+attribute [autogradedProof 3] nth?_always_none
 
 -- Tactics like `have` and `replace` can also be used with lemmas and theorems
 -- we've already proven, not just things in our context. Using these tactis
@@ -1102,6 +1105,8 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 
 def unzip' {α β : Type} (l : List (α × β)) : List α × List β := sorry
 
+attribute [autogradedHole] unzip'
+
 -- Prove that `unzip'` and `zip` are inverses in the following sense:
 
 theorem zip_unzip' {α β : Type} (l : List (α × β))
@@ -1336,6 +1341,8 @@ example : allTrue not [false, false] = true := sorry
 example : allTrue Nat.even [0, 2, 4, 5] = false := sorry
 example : allTrue Nat.even [] = true := sorry
 
+attribute [autogradedHole] allTrue
+
 -- The second checks whether it returns `true` for at least one element.
 
 def anyTrue {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
@@ -1345,10 +1352,14 @@ example : anyTrue Nat.odd [0, 2, 4, 6] = false := sorry
 example : anyTrue not [true, true, false] = true := sorry
 example : anyTrue Nat.even [] = false := sorry
 
+attribute [autogradedHole] anyTrue
+
 -- Next, define a *nonrecursive* version of `anyTrue` — call it `anyTrue'` —
 -- using `allTrue` and `not`.
 
 def anyTrue' {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
+
+attribute [autogradedHole] anyTrue'
 
 -- Finally, prove a theorem `anyTrue_eq_anyTrue` stating that `anyTrue'` and
 -- `anyTrue` have the same behavior.

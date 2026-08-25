@@ -779,6 +779,8 @@ inductive Bin : Type where
 def incr (m : Bin) : Bin
   := sorry
 
+attribute [autogradedHole] NatPlayground.Nat.NatToBin.incr
+
 theorem incr_z : incr .z = .b1 .z := sorry
 theorem incr_b0 m : incr (.b0 m) = .b1 m := sorry
 theorem incr_b1 m : incr (.b1 m) = .b0 (incr m) := sorry
@@ -791,6 +793,8 @@ theorem binToNat_b0 m : binToNat (.b0 m) = mul (binToNat m) two := sorry
 theorem binToNat_b1 m : binToNat (.b1 m) = add (mul (binToNat m) two) one := sorry
 
 attribute [pp_nodot] Bin.b0 Bin.b1
+
+attribute [autogradedHole] NatPlayground.Nat.NatToBin.binToNat
 
 -- In Basics, we did some unit testing of `binToNat`, but we didn't prove its
 -- correctness. Now we'll do so.
@@ -824,6 +828,8 @@ attribute [autogradedProof 3] NatPlayground.Nat.NatToBin.bin_to_nat_pres_incr
 -- some simplification lemmas for it.
 
 def natToBin (n : Nat) : Bin := sorry
+
+attribute [autogradedHole] NatPlayground.Nat.NatToBin.natToBin
 
 -- FILL IN HERE
 
@@ -868,6 +874,8 @@ attribute [autogradedProof 0.5] NatPlayground.Nat.NatToBin.double_incr
 -- Now define a similar doubling function for `Bin`.
 
 def doubleBin (b : Bin) : Bin := sorry
+
+attribute [autogradedHole] NatPlayground.Nat.NatToBin.doubleBin
 
 -- Fill in the characterizing lemmas for this definition below:
 
@@ -927,6 +935,8 @@ sf_expect_failure
 -- future bits.
 
 def normalize (b : Bin) : Bin := sorry
+
+attribute [autogradedHole] NatPlayground.Nat.NatToBin.normalize
 
 -- Also specify the characterizing lemmas for this definition:
 

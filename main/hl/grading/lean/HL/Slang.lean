@@ -279,6 +279,8 @@ theorem optimize0plusB_test1 :
         (.not (.gt (.plus (.num 0) (.num 4)) (.num 8)))
       = (.not (.gt (.num 4) (.num 8))) := sorry
 
+attribute [autogradedHole] Slang.Bexp.optimize0plusB
+
 attribute [autogradedProof 0.5] Slang.optimize0plusB_test1
 
 theorem optimize0plusB_test2 :
@@ -515,6 +517,8 @@ inductive Bexp.EvalR : Bexp → Bool → Prop where
   -- FILL IN HERE
 
 scoped notation:55 e:56 " ⇓ " b:56 => Bexp.EvalR e b
+
+attribute [autogradedHole] Slang.Bexp.EvalR
 
 theorem Bexp.evalR_iff_eval (b : Bexp) (bv : Bool) :
     b ⇓ bv ↔ b.eval = bv := by

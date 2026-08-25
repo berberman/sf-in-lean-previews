@@ -262,10 +262,7 @@ theorem injection_ex3 {α : Type} (x y z : α) (l j : List α)
     (h₁ : x :: y :: l = z :: j)
     (h₂ : j = z :: l) :
     x = y := by
-  injections hxz hyl_j
-  rw [h₂] at hyl_j
-  injection hyl_j with hyz
-  rw [hyz, hxz]
+  sorry
 
 -- So much for injectivity of constructors. What about
 -- disjointness?

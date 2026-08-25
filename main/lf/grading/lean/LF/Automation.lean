@@ -710,7 +710,7 @@ example : [1, 2, 3] =~ reg_exp_of_list [1, 2, 3] := by
 theorem regexp_match_of_list α (l : List α) : l =~ reg_exp_of_list l := by
   sorry
 
-attribute [autogradedProof 2] RegExp.regexp_match_of_list
+attribute [autogradedProof 1] RegExp.regexp_match_of_list
 
 -- We can also prove general facts about `ExpMatch`. For instance, the
 -- following lemma shows that every string `s` matched by `re` is also matched
@@ -734,7 +734,7 @@ theorem MStar1 α s (re : RegExp α) (h : s =~ re) : s =~ Star re := by
 theorem EmptySet_is_empty α (s : List α) : ¬(s =~ EmptySet) := by
   sorry
 
-attribute [autogradedProof 0.5] RegExp.EmptySet_is_empty
+attribute [autogradedProof 1] RegExp.EmptySet_is_empty
 
 -- ### Exercise (1 star): MUnion' ⭐
 
@@ -743,7 +743,7 @@ theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
     s =~ Union re₁ re₂ := by
   sorry
 
-attribute [autogradedProof 0.5] RegExp.MUnion'
+attribute [autogradedProof 1] RegExp.MUnion'
 
 -- The next lemma is stated in terms of the `fold` function on Lists: If
 -- `ss : List (List α)` represents a sequence of strings `s₁, ..., sₙ`, then
@@ -759,7 +759,7 @@ theorem MStar' α (ss : List (List α)) (re : RegExp α)
 
 attribute [autogradedProof 2] RegExp.MStar'
 
--- ### Exercise (1 star): EmptyStr_not_needed (Optional) ⭐
+-- ### Exercise (1 star): EmptyStr_not_needed (Optional, manually graded) ⭐
 
 -- It turns out that the `EmptyStr` constructor is actually not needed, since
 -- the regular expression matching the empty string can also be defined from
@@ -832,7 +832,7 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     | inl hin₁ => exact ih₁ hin₁
     | inr hin₂ => exact ih₂ hin₂
 
--- ### Exercise (1 star): reNotEmpty ⭐
+-- ### Exercise (1 star): reNotEmpty (manually graded) ⭐
 
 -- Write a recursive function `reNotEmpty` that tests whether a regular
 -- expression matches some string. Prove that your function is correct.
@@ -964,6 +964,8 @@ theorem MStar'' α (s : List α) (re : RegExp α) (h : s =~ Star re) :
       ∧ ∀ s', s' ∈ ss → s' =~ re := by
   sorry
 
+attribute [autogradedProof 1] RegExp.MStar''
+
 -- ### The "Weak" Pumping Lemma
 
 -- One of the first really interesting theorems in the theory of regular
@@ -1069,6 +1071,8 @@ theorem weak_pumping_char {α : Type} (x : α)
       (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Char x) := by
   sorry
 
+attribute [autogradedProof 2] RegExp.Pumping.weak_pumping_char
+
 -- ### Exercise (4 stars): weak_pumping_app ⭐⭐⭐⭐
 
 theorem weak_pumping_app {α : Type} (s₁ s₂ : List α) (re₁ re₂ : RegExp α)
@@ -1097,6 +1101,8 @@ theorem weak_pumping_app {α : Type} (s₁ s₂ : List α) (re₁ re₂ : RegExp
   case inr =>
     sorry
 
+attribute [autogradedProof 4] RegExp.Pumping.weak_pumping_app
+
 -- ### Exercise (3 stars): weak_pumping_union_l ⭐⭐⭐
 
 theorem weak_pumping_union_l  {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α)
@@ -1114,6 +1120,8 @@ theorem weak_pumping_union_l  {α : Type} (s₁ : List α) (re₁ re₂ : RegExp
   have h : pumpingConstant re₁ ≤ s₁.length := by
     sorry
   sorry
+
+attribute [autogradedProof 3] RegExp.Pumping.weak_pumping_union_l
 
 -- ### Exercise (3 stars): weak_pumping_union_r ⭐⭐⭐
 
@@ -1134,6 +1142,8 @@ theorem weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp 
    sorry
   sorry
 
+attribute [autogradedProof 3] RegExp.Pumping.weak_pumping_union_r
+
 -- ### Exercise (2 stars): weak_pumping_star_zero (Optional) ⭐⭐
 
 theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
@@ -1143,6 +1153,8 @@ theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
       s₂ ≠ [ ] ∧
       (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Star re) := by
   sorry
+
+attribute [autogradedProof 2] RegExp.Pumping.weak_pumping_star_zero
 
 -- ### Exercise (5 stars): weak_pumping_star_app (Optional) ⭐⭐⭐⭐⭐
 
@@ -1177,6 +1189,8 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
   . sorry
   . sorry
 
+attribute [autogradedProof 5] RegExp.Pumping.weak_pumping_star_app
+
 -- ### Exercise (3 stars): weak_pumping ⭐⭐⭐
 
 theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
@@ -1185,6 +1199,8 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
       s = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [] ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
+
+attribute [autogradedProof 3] RegExp.Pumping.weak_pumping
 
 -- ### The (Strong) Pumping Lemma
 
@@ -1210,6 +1226,9 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
       s₁.length + s₂.length ≤ pumpingConstant re ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Add `gradeTheorem 10 pumping` once the proof is filled in.
 
 end Pumping
 end RegExp

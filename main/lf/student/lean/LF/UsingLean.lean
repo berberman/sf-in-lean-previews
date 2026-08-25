@@ -263,7 +263,7 @@ example (n m : Nat) (h : n + n = m) : triple n = m + n := by
 
 -- Complete this proof, using `dsimp` or `rw` as appropriate.
 
-example (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
+theorem dsimp1 (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
   sorry
 
 -- `dsimp at h` also works on hypotheses, which `rfl` can't touch.

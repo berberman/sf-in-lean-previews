@@ -228,6 +228,8 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 theorem Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
   sorry
 
+attribute [autogradedProof 2] Nat.add_is_zero
+
 -- So much for proving conjunctive statements. To go in the other direction —
 -- i.e., to *use* a conjunctive hypothesis to help prove something else — we
 -- can use `obtain` to obtain the components.
@@ -282,6 +284,8 @@ theorem left (a b : Prop) (h : a ∧ b) : a := by
 theorem right (a b : Prop) (h : a ∧ b) : b := by
   sorry
 
+attribute [autogradedProof 1] right
+
 -- Finally, we sometimes need to rearrange the order of conjunctions and/or
 -- the grouping of multi-way conjunctions. We can see this at work in the
 -- proofs of the following commutativity and associativity theorems.
@@ -306,6 +310,8 @@ theorem and_associate (a b c : Prop) (h : a ∧ (b ∧ c)) : (a ∧ b) ∧ c := 
   constructor
   · sorry
   · exact h.right.right
+
+attribute [autogradedProof 1] and_associate
 
 -- The infix notation `∧` is actually just syntactic sugar for `And a b`. That
 -- is, `And` is a Lean operator that takes two propositions as arguments and
@@ -369,10 +375,14 @@ theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
 theorem Nat.mul_is_zero (n m : Nat) (h : n * m = 0) : n = 0 ∨ m = 0 := by
   sorry
 
+attribute [autogradedProof 2] Nat.mul_is_zero
+
 -- ### Exercise (1 star): or_commute ⭐
 
 theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
   sorry
+
+attribute [autogradedProof 1] or_commute
 
 -- ### Falsehood and Negation
 
@@ -418,6 +428,8 @@ theorem ex_falso_quodlibet (a : Prop) (h : False) : a := by
 theorem not_implies_other_not (a : Prop) (h : ¬ a) :
     (∀ c : Prop, a → c) := by
   sorry
+
+attribute [autogradedProof 2] not_implies_other_not
 
 -- Inequality is a very common form of negated statement, so there is a
 -- special notation for it: `≠`, which is infix notation for `Ne`.
@@ -471,6 +483,8 @@ theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
 theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
   sorry
 
+attribute [autogradedProof 1] contrapositive
+
 -- ### Exercise (1 star): not_PNP_informal (Advanced, manually graded) ⭐
 
 -- Write an informal proof of the proposition `∀ a : Prop, ¬ (a ∧ ¬ a)`.
@@ -490,6 +504,8 @@ theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
 theorem de_morgan_not_or {a b : Prop} (h : ¬ (a ∨ b)) : ¬ a ∧ ¬ b := by
   sorry
 
+attribute [autogradedProof 2] de_morgan_not_or
+
 -- ### Exercise (1 star): not_succ_inverse_pred (Optional) ⭐
 
 -- Since we are working with natural numbers, we can disprove that `Nat.succ`
@@ -498,6 +514,8 @@ theorem de_morgan_not_or {a b : Prop} (h : ¬ (a ∨ b)) : ¬ a ∧ ¬ b := by
 
 theorem not_succ_pred_n : ¬ (∀ n : Nat, n.pred + 1 = n) := by
   sorry
+
+attribute [autogradedProof 1] not_succ_pred_n
 
 -- Since inequality involves a negation, it also requires a little practice to
 -- be able to work with it fluently. Here is one useful trick.
@@ -755,6 +773,8 @@ theorem iff_refl (a : Prop) : a ↔ a := by
 theorem iff_trans (a b c : Prop) (h₁ : a ↔ b) (h₂ : b ↔ c) : a ↔ c := by
   sorry
 
+attribute [autogradedProof 0.5] iff_refl iff_trans
+
 -- ### Exercise (3 stars): iff_practice ⭐⭐⭐
 
 -- Prove the following theorems about `Iff`:
@@ -769,6 +789,8 @@ theorem mul_eq_0 (n m : Nat) :
 theorem or_distributes_over_and (a b c : Prop) :
     a ∨ (b ∧ c) ↔ (a ∨ b) ∧ (a ∨ c) := by
   sorry
+
+attribute [autogradedProof 1] or_associate mul_eq_0 or_distributes_over_and
 
 -- ### Existential Quantification
 
@@ -938,6 +960,8 @@ theorem List.In_map_iff {α β : Type} {f : α → β} {xs : List α} {y : β} :
   · sorry
   · sorry
 
+attribute [autogradedProof 2] List.In_map_iff
+
 -- ### Exercise (3 stars): All ⭐⭐⭐
 
 -- We noted above that functions returning propositions can be seen as
@@ -951,7 +975,6 @@ theorem List.In_map_iff {α β : Type} {f : α → β} {xs : List α} {y : β} :
 -- `All_In`.)
 
 def List.All {α : Type} (p : α → Prop) (l : List α) : Prop := sorry
-
 theorem List.All_nil {α : Type} {a : α → Prop} : List.All a [] := sorry
 
 theorem List.All_cons {α : Type} {p : α → Prop} {x : α} {l : List α} :
@@ -960,6 +983,8 @@ theorem List.All_cons {α : Type} {p : α → Prop} {x : α} {l : List α} :
 theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
     (∀ x : α, In x l → p x) ↔ All p l := by
   sorry
+
+attribute [autogradedHole] List.All
 
 attribute [autogradedProof 3] List.All_In
 
@@ -984,6 +1009,8 @@ attribute [autogradedProof 3] List.All_In
 
 def CombineOddEven (Odd Even : Nat → Prop) : Nat → Prop := sorry
 
+attribute [autogradedHole] CombineOddEven
+
 -- To test your definition, prove the following facts:
 
 theorem combineOddEven_intro (Odd Even : Nat → Prop)
@@ -1006,6 +1033,8 @@ theorem combineOddEven_elim_even
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = false) : Even n := by
   sorry
+
+attribute [autogradedProof 2/3] combineOddEven_intro combineOddEven_elim_odd combineOddEven_elim_even
 
 -- ## Applying Theorems to Arguments
 
@@ -1431,6 +1460,8 @@ theorem beqList_true_iff α (beq : α → α → Bool)
     ∀ {xs ys : List α}, beqList beq xs ys = true ↔ xs = ys := by
   sorry
 
+attribute [autogradedHole] beqList
+
 attribute [autogradedProof 3] beqList_true_iff
 
 -- ### Exercise (2 stars): List.allb ⭐⭐
@@ -1458,6 +1489,8 @@ theorem List.allb_true_iff α {test : α → Bool} {l : List α} :
 
 -- This theorem exactly captures the input-output behavior of `List.allb`.
 -- However, it does not say anything about the running time.
+
+attribute [autogradedHole] List.allb
 
 attribute [autogradedProof 2] List.allb_true_iff
 
@@ -1611,11 +1644,15 @@ theorem mul_eq_0_ternary (n m p : Nat) :
     n * m * p = 0 ↔ n = 0 ∨ m = 0 ∨ p = 0 := by
   sorry
 
+attribute [autogradedProof 1] mul_eq_0_ternary
+
 -- ### Exercise (2 stars): In_append_iff ⭐⭐
 
 theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
     List.In x (l ++ l') ↔ List.In x l ∨ List.In x l' := by
   sorry
+
+attribute [autogradedProof 2] In_append_iff
 
 -- ### Exercise (1 star): beq_neq_false ⭐
 
@@ -1625,6 +1662,8 @@ theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
 
 theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
   sorry
+
+attribute [autogradedProof 1] beq_neq_false
 
 -- ### Functional Extensionality
 
@@ -1714,6 +1753,8 @@ def trRev {α} (xs : List α) : List α := revAppend xs []
 
 theorem trRev_correct {α : Type} : @trRev α = @List.rev α := by
   sorry
+
+attribute [autogradedProof 4] trRev_correct
 
 -- ### Classical vs. Constructive Logic
 
@@ -1857,6 +1898,8 @@ theorem em : ∀ a, a ∨ ¬ a := by
 theorem excluded_middle_irrefutable (a : Prop) : ¬ ¬ (a ∨ ¬ a) := by
   sorry
 
+attribute [autogradedProof 3] excluded_middle_irrefutable
+
 -- ### Exercise (3 stars): not_exists_dist (Advanced) ⭐⭐⭐
 
 -- It is a theorem of classical logic that the following two assertions are
@@ -1873,7 +1916,12 @@ theorem not_exists_dist (α : Type) (p : α → Prop) :
     (¬ ∃ x : α, ¬ p x) → (∀ x : α, p x) := by
   sorry
 
+attribute [autogradedProof 3] not_exists_dist
+
 -- ### Exercise (5 stars): classical_axioms (Optional) ⭐⭐⭐⭐⭐
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     The following exercise needs grading attributes or manual grading.
 
 -- For those who like a challenge, here is an exercise adapted from the
 -- Coq'Art book by Bertot and Casteran (p. 123). Each of the following five

@@ -683,7 +683,7 @@ theorem MStar' α (ss : List (List α)) (re : RegExp α)
     ss.foldr (· ++ ·) [] =~ Star re := by
   sorry
 
--- ### Exercise (1 star): EmptyStr_not_needed (Optional) ⭐
+-- ### Exercise (1 star): EmptyStr_not_needed (Optional, manually graded) ⭐
 
 -- It turns out that the `EmptyStr` constructor is actually not needed, since
 -- the regular expression matching the empty string can also be defined from
@@ -748,7 +748,7 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     | inl hin₁ => exact ih₁ hin₁
     | inr hin₂ => exact ih₂ hin₂
 
--- ### Exercise (1 star): reNotEmpty ⭐
+-- ### Exercise (1 star): reNotEmpty (manually graded) ⭐
 
 -- Write a recursive function `reNotEmpty` that tests whether a regular
 -- expression matches some string. Prove that your function is correct.

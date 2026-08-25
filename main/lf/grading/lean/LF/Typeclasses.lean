@@ -329,6 +329,8 @@ instance (priority := low) : BEq Nat where
 theorem List.elem_poly_eq_elem_nat (xs : List Nat) (n : Nat) : xs.elem_poly n = xs.elem_nat n := by
   sorry
 
+attribute [autogradedProof 1] List.elem_poly_eq_elem_nat
+
 -- ## Proof-Carrying Typeclasses
 
 -- The above examples enforce no conditions on the data an instance may carry
@@ -363,6 +365,9 @@ instance : HasTwo Nat where
 -- to formally enforce laws such as `one_neq_two`. Thus it falls to the author
 -- to check, informally, that any required invariants are satisfied, which can
 -- lead to bugs.
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     HasThree needs either grading attributes or manual grading
 
 -- ### Exercise (1 star): HasThree ⭐
 
@@ -434,6 +439,11 @@ instance : Monoid Nat where
   left_id := by lia
   right_id := by lia
   assoc := by lia
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Need to come up with a way to grade the data-carrying instances. What
+--     makes this more complicated is that the `op` is fixed but the `id` is
+--     not.
 
 -- ### Exercise (1 star): NatMonoidMul ⭐
 
@@ -529,6 +539,8 @@ instance : Group Int where
 
 theorem inv_unique {α : Type} {g₁ g₂ : Group α} (h : g₁.op = g₂.op) : g₁.inv = g₂.inv := by
   sorry
+
+attribute [autogradedProof 1] Algebra.inv_unique
 
 -- Note to developers (Daniel Sainati @dsainati1):
 --     Taking suggestions for additional simple group theory theorems to prove
@@ -874,6 +886,8 @@ theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {
     (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
   sorry
 
+attribute [autogradedProof 2] TotalMap.update_neq
+
 -- The two remaining facts are equalities *between maps*, so we first need to
 -- say when two maps are equal. Since a total map is implemented as a
 -- function, this is effectively the functional extensionality principle
@@ -920,6 +934,8 @@ example : "bar" →ₜ true ; "foo" →ₜ true = "foo" →ₜ true ; "bar" →�
 theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) : (a →ₜ m[a] ; m) = m := by
   sorry
 
+attribute [autogradedProof 2] TotalMap.update_same
+
 -- Similarly, if we update a map `m` at a key `a` with a value `b₁` and then
 -- update again with the same key `a` and another value `b₂`, the resulting
 -- map behaves the same (gives the same result when applied to any key) as the
@@ -931,6 +947,8 @@ theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) 
 theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
     (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
   sorry
+
+attribute [autogradedProof 2] TotalMap.update_shadow
 
 -- Note to developers (mwhicks1, NOW):
 --     Two things the Rocq source says here have been dropped.
@@ -1365,6 +1383,8 @@ theorem even_double (k : Nat) : Nat.even (Nat.double k) = true := by
 
 theorem even_double_exists (n : Nat) :
     ∃ (k : Nat), n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by sorry
+
+attribute [autogradedProof 3] Reflection.even_double_exists
 
 -- Now the main theorem:
 

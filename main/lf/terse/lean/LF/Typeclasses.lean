@@ -396,6 +396,10 @@ instance : HasTwo Nat where
 -- Thus it falls to the author to check, informally, that any
 -- required invariants are satisfied, which can lead to bugs.
 
+-- Note to developers (Niklas Halonen @xhalo32):
+--     HasThree needs either grading attributes or manual
+--     grading
+
 -- ### Exercise (1 star): HasThree ⭐
 
 -- Following the pattern of `DefaultValue` and `HasTwo`, define
@@ -472,6 +476,11 @@ instance : Monoid Nat where
   left_id := by lia
   right_id := by lia
   assoc := by lia
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Need to come up with a way to grade the data-carrying
+--     instances. What makes this more complicated is that the
+--     `op` is fixed but the `id` is not.
 
 -- ### Exercise (1 star): NatMonoidMul ⭐
 

@@ -1177,6 +1177,7 @@ theorem plus_3 : plus (plus two two) three = plus one (plus three three) := sorr
 
 def mult (n m : CNat) : CNat := sorry
 
+
 theorem mult_1 : mult one one = one := sorry
 theorem mult_2 : mult zero (plus three three) = zero := sorry
 theorem mult_3 : mult two three = plus three three := sorry

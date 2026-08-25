@@ -470,14 +470,14 @@ theorem test_alternate4 :
 def count (n : Nat) (l : NatList) : Nat := (
   match l with
   | [] => 0
-  | h :: t => bif n == h then (count n t) + 1 else count n t)
+  | h :: t => bif n == h then count n t + 1 else count n t)
 
 -- Now, prove these lemmas which should hold about your definition.
 
 theorem count_nil (n : Nat) : count n [] = 0 := (by rfl)
 
 theorem count_cons_def (n h : Nat) (t : NatList) :
-    count n (h :: t) = bif n == h then (count n t) + 1 else count n t := (by rfl)
+    count n (h :: t) = bif n == h then count n t + 1 else count n t := (by rfl)
 
 theorem count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     count n₁ (n₂ :: t) = count n₁ t + 1 := by
@@ -528,7 +528,7 @@ theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = f
 example : member 1 [1] = true := by
   rw [member_cons_same _ _ _ rfl]
 
-example : member 2 [1] = false := (by rfl) -- rfl
+example : member 2 [1] = false := (by rfl)
 
 theorem test_member1 : member 1 [1, 4, 1] = true := (by rfl)
 
@@ -596,7 +596,7 @@ example : count 5 (removeAll 5 [5, 1]) = 0 := by
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := (by rfl)
 
-theorem test_removeAll₁ : count 4 (removeAll 5 [4, 5, 4]) = 2 := (by rfl)
+theorem test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := (by rfl)
 
 theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := (by rfl)
 

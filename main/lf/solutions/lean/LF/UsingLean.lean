@@ -215,6 +215,9 @@ example (n m k : Nat) : n + (m + k) = m + (n + k) := by
 -- the left-hand side entirely with an `_`. Now our Lean proof looks quite a
 -- bit like the textbook one we saw earlier!
 
+-- Note to developers (Niklas Halonen @xhalo32):
+--     How to grade that `succ_mul_succ'` uses `calc` without cheating?
+
 -- ### Exercise (1 star): succ_mul_succ ⭐
 
 theorem succ_mul_succ (n m : Nat) :
@@ -274,7 +277,7 @@ example (n m : Nat) (h : n + n = m) : triple n = m + n := by
 
 -- Complete this proof, using `dsimp` or `rw` as appropriate.
 
-example (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
+theorem dsimp1 (n m : Nat) (h : m = n) : triple m = n + (n + n) := by
   rw [h]
   dsimp [triple]
   rw [Nat.add_assoc]

@@ -1441,14 +1441,21 @@
  "128": "<code>a₁✝.eval = n₁✝</code>",
  "127": "<code>a₂✝ ⇓ n₂✝</code>",
  "126": "<code>a₁✝ ⇓ n₁✝</code>",
+ "1252": "<code>Himp.Com.havoc : Ident → Himp.Com</code>",
+ "1251":
+ "<code>Himp.ValidHoareTriple (P : Assertion) (c : Himp.Com) (Q : Assertion) : Prop</code>",
+ "1250": "<code>Himp.ValidHoareTriple P (Himp.Com.havoc x) Q</code>",
  "125":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.plus a₂ ⇓ n₁ + n₂</code>",
- "1248": "<code>Himp.Com.havoc : Ident → Himp.Com</code>",
- "1247":
- "<code>Himp.ValidHoareTriple (P : Assertion) (c : Himp.Com) (Q : Assertion) : Prop</code>",
- "1246": "<code>Himp.ValidHoareTriple P (Himp.Com.havoc x) Q</code>",
- "1245":
+ "1249":
  "<code>Himp2.hoare_havoc_weakest (P Q : Assertion) (x : Ident) (h : Himp.ValidHoareTriple P (Himp.Com.havoc x) Q) :\n  P -&gt;&gt; Himp.havoc_pre x Q</code>",
+ "1248":
+ "<code>∀ {st st' : State},\n  HasEval.Eval\n      (imp {\n        x := ~a\n      })\n      st st' →\n    P st → Q st'</code>",
+ "1247":
+ "<code>validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :\n  {{P}} ~c {{Q}} ↔ ∀ {st st' : State}, HasEval.Eval c st st' → P st → Q st'</code>",
+ "1246": "<code>{{P}} x := ~a {{Q}}</code>",
+ "1245":
+ "<code class=\"docstring\">`refine e` behaves like `exact e`, except that named (`?x`) or unnamed (`?_`)\nholes in `e` that are not solved by unification with the main goal's target type\nare converted into new goals, using the hole's name, if any, as the goal case name.\n</code>",
  "1244":
  "<code>hoare_asgn_weakest (Q : Assertion) (x : Ident) (a : Aexp) :\n  IsWp ({{Q [x ↦ ~a]}})\n    (imp {\n      x := ~a\n    })\n    Q</code>",
  "1243":

@@ -2768,7 +2768,7 @@ end SparseAnnotations
 
 def IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ValidHoareTriple P c Q ∧
-  ∀ P' : Assertion, ValidHoareTriple P' c Q → P' ->> P
+  ∀ P' : Assertion, {{ P' }} ~c {{ Q }} → P' ->> P
 
 -- ### Exercise (1 star): wp (Optional) ⭐
 
@@ -2819,7 +2819,13 @@ theorem is_wp_example :
 theorem hoare_asgn_weakest
     (Q : Assertion) (x : Ident) (a : Aexp) :
     IsWp ({{ Q [x ↦ ~a] }}) (imp {x := ~a}) Q := by
-  sorry
+  refine ⟨hoare_asgn, ?_⟩
+  intro P hP
+  rw [validHoareTriple_def] at hP
+  intro st hst
+  rw [Assertion.subst_apply]
+  apply hP _ hst
+  exact Com.EvalR.asgn rfl
 
 -- ### Exercise (2 stars): hoare_havoc_weakest (Advanced, Optional) ⭐⭐
 

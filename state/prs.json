@@ -1,5 +1,5 @@
 {
-  "main_sha": "002ea85046236b5fc76f6c7c4cadee030c869116",
+  "main_sha": "d811ff35917d5c1fd9561bb09e3a1496acab9d48",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -256,53 +256,6 @@
       "title": "Slang: minor fixes and improvements",
       "url": "https://github.com/plclub/sf-in-lean/pull/301"
     },
-    "302": {
-      "base_sha": "002ea85046236b5fc76f6c7c4cadee030c869116",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "918c0c60de7a9b7f2f9f965409c97a73cc1bf2b1",
-      "preview_path": "pr/302/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32886136577",
-      "status": "published",
-      "title": "Start adding autogradedHoles, add some missing gradeTheorems",
-      "url": "https://github.com/plclub/sf-in-lean/pull/302"
-    },
     "303": {
       "base_sha": "c910484da1e27d874de2fd899b3624ef7ae1f611",
       "changed_variants": [
@@ -369,53 +322,6 @@
       "status": "ci-failed",
       "title": "Poly: make `unzip` a manually graded exercise about char lemmas",
       "url": "https://github.com/plclub/sf-in-lean/pull/311"
-    },
-    "314": {
-      "base_sha": "002ea85046236b5fc76f6c7c4cadee030c869116",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "43316a93eb3d5c3baf0a1ce359d68dc3ced2e7d2",
-      "preview_path": "pr/314/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32883561564",
-      "status": "published",
-      "title": "Revise `inversion` documentation and refactor `inversionCore`",
-      "url": "https://github.com/plclub/sf-in-lean/pull/314"
     },
     "315": {
       "base_sha": "5e5b229139f877b69eb6545446077751f7c3ea38",

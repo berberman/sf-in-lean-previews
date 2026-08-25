@@ -272,6 +272,8 @@ theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := sorry
 theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := sorry
 theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := sorry
 
+attribute [autogradedHole] MyBool.nand
+
 attribute [autogradedProof 0.25] MyBool.nand_test1 MyBool.nand_test2 MyBool.nand_test3 MyBool.nand_test4
 
 -- Note to developers:
@@ -289,6 +291,8 @@ theorem and3_test1 : and3 MyBool.true  MyBool.true  MyBool.true  = MyBool.true  
 theorem and3_test2 : and3 MyBool.false MyBool.true  MyBool.true  = MyBool.false := sorry
 theorem and3_test3 : and3 MyBool.true  MyBool.false MyBool.true  = MyBool.false := sorry
 theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false := sorry
+
+attribute [autogradedHole] MyBool.and3
 
 attribute [autogradedProof 0.25] MyBool.and3_test1 MyBool.and3_test2 MyBool.and3_test3 MyBool.and3_test4
 
@@ -595,6 +599,8 @@ def is_weekend (d : Day) : Bool
 theorem is_weekend_test1 : is_weekend Day.sunday = true := sorry
 theorem is_weekend_test2 : is_weekend Day.friday = false := sorry
 
+attribute [autogradedHole] is_weekend
+
 attribute [autogradedProof 0.5] is_weekend_test1 is_weekend_test2
 
 -- ### Exercise (1 star): isInversion ⭐
@@ -619,6 +625,8 @@ theorem isInversion_test3 : isInversion (Color.primary RGB.red) (Color.primary R
   sorry
 theorem isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = Bool.false :=
   sorry
+
+attribute [autogradedHole] isInversion
 
 attribute [autogradedProof 0.25] isInversion_test1 isInversion_test2 isInversion_test3 isInversion_test4
 
@@ -1307,6 +1315,8 @@ theorem one_plus_one_eq_two : one + one = two := by
 theorem two_plus_two_eq_four : two + two = four := by
   sorry
 
+attribute [autogradedProof 0.5] NatPlayground.Nat.one_plus_one_eq_two NatPlayground.Nat.two_plus_two_eq_four
+
 -- #### Multiplication
 
 -- Now that we know how addition is defined, we can use it to define
@@ -1363,7 +1373,6 @@ theorem one_add_one : (one + one : Nat) = two := by
   rewrite [one_eq_succ_zero]
   sorry
 
-
 theorem zero_mul_two : (zero * two : Nat) = zero := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
   sorry
@@ -1376,7 +1385,7 @@ theorem two_mul_two : (two * two : Nat) = four := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
   sorry
 
-attribute [autogradedProof 0.4] NatPlayground.Nat.zero_add_one NatPlayground.Nat.one_add_one NatPlayground.Nat.zero_mul_two NatPlayground.Nat.one_mul_two NatPlayground.Nat.two_mul_two
+attribute [autogradedProof 0.5] NatPlayground.Nat.one_add_one NatPlayground.Nat.zero_mul_two NatPlayground.Nat.one_mul_two NatPlayground.Nat.two_mul_two
 
 -- #### Equality and Ordering
 
@@ -1438,6 +1447,8 @@ example : blt two four = true  := sorry
 theorem blt_test3 : blt four two = false := sorry
 
 attribute [irreducible] blt ble
+
+attribute [autogradedHole] NatPlayground.Nat.blt
 
 attribute [autogradedProof 1] NatPlayground.Nat.blt_test3
 
@@ -1729,7 +1740,7 @@ def even' (n : Nat) : Bool :=
 -- not always able to figure things out automatically, it is sometimes
 -- necessary to provide hints or write functions in slightly different ways.
 
--- ### Exercise (2 stars): decreasing (Optional) ⭐⭐
+-- ### Exercise (2 stars): decreasing (Optional, manually graded) ⭐⭐
 
 -- To get a concrete sense of how termination checking works in Lean, find a
 -- way to write a sensible recursive definition (of a simple function on
@@ -1797,6 +1808,8 @@ theorem binToNat_z : binToNat .z = zero := sorry
 theorem binToNat_b0 (m : Bin) : binToNat (.b0 m) = binToNat m * two := sorry
 theorem binToNat_b1 (m : Bin) : binToNat (.b1 m) = binToNat m * two + one := sorry
 
+attribute [autogradedHole] NatPlayground.Nat.incr NatPlayground.Nat.binToNat
+
 -- You may find your previous proofs of `zero_add_one`, `one_add_one`,
 -- `zero_mul_two`, `one_mul_two`, and `two_mul_two` useful here.
 
@@ -1831,7 +1844,7 @@ theorem identity_fn_applied_twice (f : Bool → Bool) :
 
 attribute [autogradedProof 1] NatPlayground.identity_fn_applied_twice
 
--- ### Exercise (1 star): negation_fn_applied_twice ⭐
+-- ### Exercise (1 star): negation_fn_applied_twice (manually graded) ⭐
 
 -- Now state and prove a theorem `negation_fn_applied_twice` similar to the
 -- previous one but where the hypothesis says that the function `f` has the
@@ -1908,8 +1921,12 @@ inductive Traveler : Type where
 -- ### Exercise (1 star): buyTicket ⭐
 
 def buyTicket (t : Traveler) : Traveler := sorry
-example : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := sorry
-example : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := sorry
+theorem buyTicket_test1 : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := sorry
+theorem buyTicket_test2 : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := sorry
+
+attribute [autogradedHole] NatPlayground.Airport.buyTicket
+
+attribute [autogradedProof 0.5] NatPlayground.Airport.buyTicket_test1 NatPlayground.Airport.buyTicket_test2
 
 -- Here are the simplification rules for `buyTicket`:
 
@@ -1935,6 +1952,8 @@ theorem buyTicket_idempotent (t : Traveler) :
     buyTicket (buyTicket t) = buyTicket t := by
   sorry
 
+attribute [autogradedProof 2] NatPlayground.Airport.buyTicket_idempotent
+
 -- A traveler can check in only after buying a ticket. Checking in records
 -- that their carry-on bag still needs to be inspected. Calling `checkIn`
 -- before buying a ticket or after already checking in does nothing.
@@ -1943,9 +1962,13 @@ theorem buyTicket_idempotent (t : Traveler) :
 
 def checkIn (t : Traveler) : Traveler := sorry
 
-example : checkIn (.noTicket .ordinary) = .noTicket .ordinary := sorry
-example : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := sorry
-example : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := sorry
+theorem checkIn_test1 : checkIn (.noTicket .ordinary) = .noTicket .ordinary := sorry
+theorem checkIn_test2 : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := sorry
+theorem checkIn_test3 : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := sorry
+
+attribute [autogradedHole] NatPlayground.Airport.checkIn
+
+attribute [autogradedProof 1/3] NatPlayground.Airport.checkIn_test1 NatPlayground.Airport.checkIn_test2 NatPlayground.Airport.checkIn_test3
 
 -- Again, we record one rewrite rule for each case:
 
@@ -1971,6 +1994,8 @@ theorem buyTicket_then_checkIn (bagContent : BagContent) :
     checkIn (buyTicket (.noTicket bagContent)) = .checkedIn bagContent .notScreened := by
   sorry
 
+attribute [autogradedProof 1] NatPlayground.Airport.buyTicket_then_checkIn
+
 -- Carry-on inspection happens only after check-in. A bag containing only
 -- ordinary items is cleared, while a bag containing a prohibited item is
 -- blocked. If the traveler has not checked in, `inspectBag` does nothing.
@@ -1981,9 +2006,13 @@ theorem buyTicket_then_checkIn (bagContent : BagContent) :
 
 def inspectBag (t : Traveler) : Traveler := sorry
 
-example : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := sorry
-example : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := sorry
-example : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := sorry
+theorem inspectBag_test1 : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := sorry
+theorem inspectBag_test2 : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := sorry
+theorem inspectBag_test3 : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := sorry
+
+attribute [autogradedHole] NatPlayground.Airport.inspectBag
+
+attribute [autogradedProof 1/3] NatPlayground.Airport.inspectBag_test1 NatPlayground.Airport.inspectBag_test2 NatPlayground.Airport.inspectBag_test3
 
 -- Again, we record one characterization lemma for each case.
 
@@ -2009,6 +2038,8 @@ attribute [irreducible] inspectBag
 theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspectBag t := by
   sorry
 
+attribute [autogradedProof 2] NatPlayground.Airport.inspectBag_idempotent
+
 -- A traveler may leave the screened area and return with a different carry-on
 -- bag. Since the previous screening result applied to the old bag, a new
 -- carry-on must be screened again before the traveler can re-enter.
@@ -2019,8 +2050,12 @@ theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspe
 
 def changeBag (newContent : BagContent) (t : Traveler) : Traveler := sorry
 
-example : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := sorry
-example : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := sorry
+theorem changeBag_test1 : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := sorry
+theorem changeBag_test2 : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := sorry
+
+attribute [autogradedHole] NatPlayground.Airport.changeBag
+
+attribute [autogradedProof 0.5] NatPlayground.Airport.changeBag_test1 NatPlayground.Airport.changeBag_test2
 
 -- As before, we record the behavior of each case as a rewrite rule.
 
@@ -2060,6 +2095,8 @@ theorem inspectBag_changeBag_comm_ticketed
     inspectBag (changeBag newContent (.ticketed oldContent)) =
     changeBag newContent (inspectBag (.ticketed oldContent)) := by
   sorry
+
+attribute [autogradedProof 1] NatPlayground.Airport.inspectBag_changeBag_comm_noTicket NatPlayground.Airport.inspectBag_changeBag_comm_ticketed
 
 end Airport
 

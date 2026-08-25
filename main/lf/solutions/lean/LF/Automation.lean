@@ -766,7 +766,7 @@ theorem MStar' α (ss : List (List α)) (re : RegExp α)
     · apply ih; intro s' hs'
       apply h; right; assumption
 
--- ### Exercise (1 star): EmptyStr_not_needed (Optional) ⭐
+-- ### Exercise (1 star): EmptyStr_not_needed (Optional, manually graded) ⭐
 
 -- It turns out that the `EmptyStr` constructor is actually not needed, since
 -- the regular expression matching the empty string can also be defined from
@@ -839,7 +839,7 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     | inl hin₁ => exact ih₁ hin₁
     | inr hin₂ => exact ih₂ hin₂
 
--- ### Exercise (1 star): reNotEmpty ⭐
+-- ### Exercise (1 star): reNotEmpty (manually graded) ⭐
 
 -- Write a recursive function `reNotEmpty` that tests whether a regular
 -- expression matches some string. Prove that your function is correct.
@@ -1319,6 +1319,9 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
       s₁.length + s₂.length ≤ pumpingConstant re ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Add `gradeTheorem 10 pumping` once the proof is filled in.
 
 end Pumping
 end RegExp

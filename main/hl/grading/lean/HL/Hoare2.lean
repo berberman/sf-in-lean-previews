@@ -2243,7 +2243,7 @@ end SparseAnnotations
 
 def IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ValidHoareTriple P c Q ∧
-  ∀ P' : Assertion, ValidHoareTriple P' c Q → P' ->> P
+  ∀ P' : Assertion, {{ P' }} ~c {{ Q }} → P' ->> P
 
 -- ### Exercise (1 star): wp (Optional) ⭐
 

@@ -1042,7 +1042,7 @@ theorem NotIn {α} (x : α) (l₁ l₂ : List α)
 -- Proving that something is NOT a permutation is quite tricky. Some of the
 -- lemmas above, like `Perm3.In` can be useful for this.
 
-example : ¬ Perm3 [1, 2, 3] [1, 2, 4] := by
+theorem Not : ¬ Perm3 [1, 2, 3] [1, 2, 4] := by
   sorry
 
 end Perm3

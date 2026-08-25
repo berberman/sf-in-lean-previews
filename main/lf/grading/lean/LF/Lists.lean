@@ -138,11 +138,15 @@ theorem snd_fst_is_swap (p : NatProd) :
     (⟨p.snd, p.fst⟩ : NatProd) = p.swap := by
   sorry
 
+attribute [autogradedProof 1] Lists.snd_fst_is_swap
+
 -- ### Exercise (1 star): fst_swap_is_snd (Optional) ⭐
 
 theorem fst_swap_is_snd (p : NatProd) :
     p.swap.fst = p.snd := by
   sorry
+
+attribute [autogradedProof 1] Lists.fst_swap_is_snd
 
 -- ## Structures
 
@@ -343,6 +347,8 @@ def foo (n : Nat) : NatList :=
 
 def nonZeros (l : NatList) : NatList := sorry
 
+attribute [autogradedHole] Lists.NatList.nonZeros
+
 -- The following lemmas should hold about your definition
 
 theorem nonZeros_cons_zero (t : NatList) :
@@ -382,6 +388,8 @@ theorem oddMembers_cons_not_odd (n : Nat) (l : NatList)
     (h : n.odd = false) :
     oddMembers (n :: l) = oddMembers l := by
   sorry
+
+attribute [autogradedHole] Lists.NatList.oddMembers
 
 -- Now, we can prove that `oddMembers [1, 2]` returns `[1]` using the lemmas:
 
@@ -424,6 +432,8 @@ theorem test_countOddMembers1 : countOddMembers [0, 2, 4] = 0 := sorry
 
 theorem test_countOddMembers2 : countOddMembers [] = 0 := sorry
 
+attribute [autogradedHole] Lists.NatList.countOddMembers
+
 attribute [autogradedProof 0.5] Lists.NatList.test_countOddMembers1 Lists.NatList.test_countOddMembers2
 
 -- ### Exercise (3 stars): alternate (Advanced) ⭐⭐⭐
@@ -439,15 +449,13 @@ attribute [autogradedProof 0.5] Lists.NatList.test_countOddMembers1 Lists.NatLis
 
 def alternate (l₁ l₂ : NatList) : NatList := sorry
 
+attribute [autogradedHole] Lists.NatList.alternate
+
 theorem test_alternate1 :
     alternate [1, 2, 3] [4, 5, 6] = [1, 4, 2, 5, 3, 6] := sorry
 
-attribute [autogradedProof 1] Lists.NatList.test_alternate1
-
 theorem test_alternate2 :
     alternate [1] [4, 5, 6] = [1, 4, 5, 6] := sorry
-
-attribute [autogradedProof 1] Lists.NatList.test_alternate2
 
 theorem test_alternate3 :
     alternate [1, 2, 3] [4] = [1, 4, 2, 3] := sorry
@@ -455,7 +463,7 @@ theorem test_alternate3 :
 theorem test_alternate4 :
     alternate [] [20, 30] = [20, 30] := sorry
 
-attribute [autogradedProof 1] Lists.NatList.test_alternate4
+attribute [autogradedProof 3/4] Lists.NatList.test_alternate1 Lists.NatList.test_alternate2 Lists.NatList.test_alternate3 Lists.NatList.test_alternate4
 
 -- ### Counting
 
@@ -466,12 +474,14 @@ attribute [autogradedProof 1] Lists.NatList.test_alternate4
 
 def count (n : Nat) (l : NatList) : Nat := sorry
 
+attribute [autogradedHole] Lists.NatList.count
+
 -- Now, prove these lemmas which should hold about your definition.
 
 theorem count_nil (n : Nat) : count n [] = 0 := sorry
 
 theorem count_cons_def (n h : Nat) (t : NatList) :
-    count n (h :: t) = bif n == h then (count n t) + 1 else count n t := sorry
+    count n (h :: t) = bif n == h then count n t + 1 else count n t := sorry
 
 theorem count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     count n₁ (n₂ :: t) = count n₁ t + 1 := by
@@ -519,15 +529,15 @@ theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = f
 example : member 1 [1] = true := by
   rw [member_cons_same _ _ _ rfl]
 
-example : member 2 [1] = false := sorry -- rfl
+example : member 2 [1] = false := sorry
+
+attribute [autogradedHole] Lists.NatList.member
 
 theorem test_member1 : member 1 [1, 4, 1] = true := sorry
 
-attribute [autogradedProof 0.5] Lists.NatList.test_member1
-
 theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
-attribute [autogradedProof 0.5] Lists.NatList.test_member2
+attribute [autogradedProof 0.5] Lists.NatList.test_member1 Lists.NatList.test_member2
 
 -- ### Removing
 
@@ -550,6 +560,8 @@ theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) 
     removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t := by
   sorry
 
+attribute [autogradedHole] Lists.NatList.removeOne
+
 example : removeOne 5 [1, 5, 4] = [1, 4] := by
   rw [removeOne_cons_diff _ _ _ rfl]
   rw [removeOne_cons_same _ _ _ rfl]
@@ -558,11 +570,9 @@ example : count 5 (removeOne 5 [1, 5, 4]) = 0 := sorry
 
 theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
 
-attribute [autogradedProof 0.5] Lists.NatList.test_removeOne1
-
 theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
 
-attribute [autogradedProof 0.5] Lists.NatList.test_removeOne2
+attribute [autogradedProof 0.5] Lists.NatList.test_removeOne1 Lists.NatList.test_removeOne2
 
 def removeAll (n : Nat) (l : NatList) : NatList := sorry
 
@@ -576,6 +586,8 @@ theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) 
     removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t := by
   sorry
 
+attribute [autogradedHole] Lists.NatList.removeAll
+
 example : count 5 (removeAll 5 [5, 1]) = 0 := by
   rw [removeAll_cons_same _ _ _ rfl]
   rw [removeAll_cons_diff _ _ _ rfl]
@@ -585,19 +597,19 @@ example : count 5 (removeAll 5 [5, 1]) = 0 := by
 
 example : count 5 (removeAll 5 [5, 5]) = 0 := sorry
 
-theorem test_removeAll₁ : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
-
-attribute [autogradedProof 0.5] Lists.NatList.test_removeAll₁
+theorem test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
 
 theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
 
-attribute [autogradedProof 0.5] Lists.NatList.test_removeAll2
+attribute [autogradedProof 0.5] Lists.NatList.test_removeAll1 Lists.NatList.test_removeAll2
 
 -- ### Included
 
 -- ### Exercise (3 stars): included (Optional) ⭐⭐⭐
 
 def included (l₁ l₂ : NatList) : Bool := sorry
+
+attribute [autogradedHole] Lists.NatList.included
 
 theorem included_nil (l₂ : NatList) : included nil l₂ = true := sorry
 
@@ -619,11 +631,9 @@ example : included [1, 1] [2, 1, 4, 1] = true := sorry
 
 theorem test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
 
-attribute [autogradedProof 0.5] Lists.NatList.test_included1
-
 theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
 
-attribute [autogradedProof 0.5] Lists.NatList.test_included2
+attribute [autogradedProof 0.5] Lists.NatList.test_included1 Lists.NatList.test_included2
 
 -- ## Reasoning About Lists
 
@@ -991,6 +1001,8 @@ theorem beq_refl (l : NatList) :
     beq l l = true := by
   sorry
 
+attribute [autogradedHole] Lists.NatList.beq
+
 attribute [autogradedProof 2] Lists.NatList.beq_refl
 
 -- ### List Exercises, Part 2
@@ -1004,6 +1016,8 @@ open NatList
 theorem count_member_nonZero (l : NatList) :
     Nat.ble 1 (count 1 (1 :: l)) = true := by
   sorry
+
+attribute [autogradedProof 1] Lists.NatList.count_member_nonZero
 
 -- The following lemma about `Nat.ble` might help you in the next exercise (it
 -- will also be useful in later chapters).
@@ -1022,6 +1036,8 @@ theorem ble_self_succ (n : Nat) :
 theorem remove_does_not_increase_count (l : NatList) :
     Nat.ble (count 0 (removeOne 0 l)) (count 0 l) = true := by
   sorry
+
+attribute [autogradedProof 3] Lists.NatList.remove_does_not_increase_count
 
 -- ### Exercise (3 stars): count_append (Optional, manually graded) ⭐⭐⭐
 
@@ -1055,6 +1071,8 @@ theorem involutive_injective (f : Nat → Nat) (hInv : ∀ n : Nat, n = f (f n))
     (∀ n₁ n₂ : Nat, f n₁ = f n₂ → n₁ = n₂) := by
   sorry
 
+attribute [autogradedProof 3] Lists.NatList.involutive_injective
+
 -- ### Exercise (2 stars): reverse_injective (Advanced) ⭐⭐
 
 -- Prove that `reverse` is injective. Do not prove this by induction — that
@@ -1065,6 +1083,8 @@ theorem involutive_injective (f : Nat → Nat) (hInv : ∀ n : Nat, n = f (f n))
 theorem reverse_injective (l₁ l₂ : NatList)
     (h : l₁.reverse = l₂.reverse) : l₁ = l₂ := by
   sorry
+
+attribute [autogradedProof 2] Lists.NatList.reverse_injective
 
 -- ## Options
 
@@ -1130,6 +1150,8 @@ def head? (l : NatList) : NatOption := sorry
 example : head? [] = .none := sorry
 theorem test_head?1 : head? [1] = .some 1 := sorry
 theorem test_head?2 : head? [5, 6] = .some 5 := sorry
+
+attribute [autogradedHole] Lists.NatList.head?
 
 theorem head?_nil : head? [] = .none := sorry
 

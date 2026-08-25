@@ -1343,7 +1343,6 @@ theorem one_add_one : (one + one : Nat) = two := by
   rewrite [one_eq_succ_zero]
   sorry
 
-
 theorem zero_mul_two : (zero * two : Nat) = zero := by
   rewrite [two_eq_succ_one, one_eq_succ_zero]
   sorry
@@ -1689,7 +1688,7 @@ def even' (n : Nat) : Bool :=
 -- not always able to figure things out automatically, it is sometimes
 -- necessary to provide hints or write functions in slightly different ways.
 
--- ### Exercise (2 stars): decreasing (Optional) ⭐⭐
+-- ### Exercise (2 stars): decreasing (Optional, manually graded) ⭐⭐
 
 -- To get a concrete sense of how termination checking works in Lean, find a
 -- way to write a sensible recursive definition (of a simple function on
@@ -1779,7 +1778,7 @@ theorem identity_fn_applied_twice (f : Bool → Bool) :
     ∀ b : Bool, f (f b) = b := by
   sorry
 
--- ### Exercise (1 star): negation_fn_applied_twice ⭐
+-- ### Exercise (1 star): negation_fn_applied_twice (manually graded) ⭐
 
 -- Now state and prove a theorem `negation_fn_applied_twice` similar to the
 -- previous one but where the hypothesis says that the function `f` has the
@@ -1851,8 +1850,8 @@ inductive Traveler : Type where
 -- ### Exercise (1 star): buyTicket ⭐
 
 def buyTicket (t : Traveler) : Traveler := sorry
-example : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := sorry
-example : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := sorry
+theorem buyTicket_test1 : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := sorry
+theorem buyTicket_test2 : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := sorry
 
 -- Here are the simplification rules for `buyTicket`:
 
@@ -1886,9 +1885,9 @@ theorem buyTicket_idempotent (t : Traveler) :
 
 def checkIn (t : Traveler) : Traveler := sorry
 
-example : checkIn (.noTicket .ordinary) = .noTicket .ordinary := sorry
-example : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := sorry
-example : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := sorry
+theorem checkIn_test1 : checkIn (.noTicket .ordinary) = .noTicket .ordinary := sorry
+theorem checkIn_test2 : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := sorry
+theorem checkIn_test3 : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := sorry
 
 -- Again, we record one rewrite rule for each case:
 
@@ -1924,9 +1923,9 @@ theorem buyTicket_then_checkIn (bagContent : BagContent) :
 
 def inspectBag (t : Traveler) : Traveler := sorry
 
-example : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := sorry
-example : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := sorry
-example : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := sorry
+theorem inspectBag_test1 : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := sorry
+theorem inspectBag_test2 : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := sorry
+theorem inspectBag_test3 : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := sorry
 
 -- Again, we record one characterization lemma for each case.
 
@@ -1962,8 +1961,8 @@ theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspe
 
 def changeBag (newContent : BagContent) (t : Traveler) : Traveler := sorry
 
-example : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := sorry
-example : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := sorry
+theorem changeBag_test1 : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := sorry
+theorem changeBag_test2 : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := sorry
 
 -- As before, we record the behavior of each case as a rewrite rule.
 

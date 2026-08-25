@@ -736,10 +736,9 @@ theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
 def List.IsNil {α : Type} (l : List α) : Prop :=
   match l with
   | [] => True
-  | _ :: _ => False
+  | _ => False
 
 theorem isNil_nil {α : Type} : List.IsNil ([] : List α) := by constructor
-
 
 theorem isNil_cons {α} (x : α) (l : List α) : ¬ List.IsNil (x :: l) := by
   dsimp [List.IsNil, Not]
@@ -1056,7 +1055,6 @@ def List.All {α : Type} (p : α → Prop) (l : List α) : Prop := (
   match l with
   | [] => True
   | x :: l' => p x ∧ List.All p l')
-
 theorem List.All_nil {α : Type} {a : α → Prop} : List.All a [] := (by constructor)
 
 theorem List.All_cons {α : Type} {p : α → Prop} {x : α} {l : List α} :
@@ -2112,6 +2110,9 @@ theorem not_exists_dist (α : Type) (p : α → Prop) :
   · exfalso; apply h; exists x
 
 -- ### Exercise (5 stars): classical_axioms (Optional) ⭐⭐⭐⭐⭐
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     The following exercise needs grading attributes or manual grading.
 
 -- For those who like a challenge, here is an exercise adapted from the
 -- Coq'Art book by Bertot and Casteran (p. 123). Each of the following five

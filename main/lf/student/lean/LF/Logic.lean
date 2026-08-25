@@ -882,7 +882,6 @@ theorem List.In_map_iff {α β : Type} {f : α → β} {xs : List α} {y : β} :
 -- `All_In`.)
 
 def List.All {α : Type} (p : α → Prop) (l : List α) : Prop := sorry
-
 theorem List.All_nil {α : Type} {a : α → Prop} : List.All a [] := sorry
 
 theorem List.All_cons {α : Type} {p : α → Prop} {x : α} {l : List α} :

@@ -1050,6 +1050,10 @@ theorem fold_length_correct {α : Type} {l : List α} :
 def foldMap {α β : Type} (f : α → β) (l : List α) : List β := (
   fold (fun x l' => f x :: l') l [])
 
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Even though `foldMap` is not autograded, we mark it as a hole just in
+--     case in the future something depended on it.
+
 -- Write down a theorem `fold_map_correct` stating that `foldMap` is correct,
 -- and prove it in Lean.
 
@@ -1269,6 +1273,7 @@ theorem plus_3 : plus (plus two two) three = plus one (plus three three) := (by 
 
 def mult (n m : CNat) : CNat := (
   fun (α : Type) (f : α → α) (x : α) => n α (m α f) x)
+
 
 theorem mult_1 : mult one one = one := (by rfl)
 theorem mult_2 : mult zero (plus three three) = zero := (by rfl)
