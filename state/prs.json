@@ -363,9 +363,9 @@
     "307": {
       "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
       "changed_variants": [],
-      "head_sha": "93d4914cd530624804325644efbe781fcc1cffca",
+      "head_sha": "4918952d64a57840f0cde20a5a0fb1a6bc5c7481",
       "preview_path": "pr/307/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32700472440",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32820280434",
       "status": "ci-failed",
       "title": "[WIP] Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
