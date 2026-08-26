@@ -766,7 +766,9 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 def unzip' {α β : Type} (l : List (α × β)) : List α × List β := sorry
 
 --  Prove that `unzip'` and `zip` are inverses in the
---  following sense:
+--  following sense. Remember that you can use `dsimp only`
+--  to simplify expressions involving pairs and `fst` and
+--  `snd`.
 
 theorem zip_unzip' {α β : Type} (l : List (α × β))
     (l₁ : List α) (l₂ : List β)

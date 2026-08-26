@@ -447,9 +447,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "1aa0fbd769d2fc94751d59180a7dea8c7ec8c01c",
+      "head_sha": "61308d302b2535476cea5d52732f9947135244ff",
       "preview_path": "pr/321/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33008053843",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33016513575",
       "status": "published",
       "title": "Remove discussion of `dsimp` from LF",
       "url": "https://github.com/plclub/sf-in-lean/pull/321"

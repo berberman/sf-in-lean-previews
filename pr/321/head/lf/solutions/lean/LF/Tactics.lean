@@ -1161,7 +1161,9 @@ def unzip' {α β : Type} (l : List (α × β)) : List α × List β := (
     let (lx, ly) := unzip' t
     (x :: lx, y :: ly))
 
---  Prove that `unzip'` and `zip` are inverses in the following sense:
+--  Prove that `unzip'` and `zip` are inverses in the following sense.
+--  Remember that you can use `dsimp only` to simplify expressions
+--  involving pairs and `fst` and `snd`.
 
 theorem zip_unzip' {α β : Type} (l : List (α × β))
     (l₁ : List α) (l₂ : List β)
@@ -1177,7 +1179,7 @@ theorem zip_unzip' {α β : Type} (l : List (α × β))
     rw [unzip'] at h
     injections h₁ h₂
     rw [← h₁, ← h₂, zip, ih]
-    rfl
+    dsimp only
 
 --  ### Splitting with Equations
 
