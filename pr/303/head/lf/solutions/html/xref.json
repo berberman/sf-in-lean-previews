@@ -3069,11 +3069,88 @@
         "Review",
         "Additional Exercises"]}},
      "address": "/Tactics/"}],
+   "unzip_test_snd'":
+   [{"id": "unzip_test_snd___",
+     "data":
+     {"/Poly/#unzip_test_snd___":
+      {"display": "unzip_test_snd'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test_snd":
+   [{"id": "unzip_test_snd",
+     "data":
+     {"/Poly/#unzip_test_snd":
+      {"display": "unzip_test_snd",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test_fst'":
+   [{"id": "unzip_test_fst___",
+     "data":
+     {"/Poly/#unzip_test_fst___":
+      {"display": "unzip_test_fst'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test_fst":
+   [{"id": "unzip_test_fst",
+     "data":
+     {"/Poly/#unzip_test_fst":
+      {"display": "unzip_test_fst",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test2'":
+   [{"id": "unzip_test2___",
+     "data":
+     {"/Poly/#unzip_test2___":
+      {"display": "unzip_test2'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test2":
+   [{"id": "unzip_test2",
+     "data":
+     {"/Poly/#unzip_test2":
+      {"display": "unzip_test2",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
    "unzip_test1":
    [{"id": "unzip_test1",
      "data":
      {"/Poly/#unzip_test1":
       {"display": "unzip_test1",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_nil'":
+   [{"id": "unzip_nil___",
+     "data":
+     {"/Poly/#unzip_nil___":
+      {"display": "unzip_nil'",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -3107,6 +3184,17 @@
      "data":
      {"/Poly/#unzip_cons_fst":
       {"display": "unzip_cons_fst",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_cons":
+   [{"id": "unzip_cons",
+     "data":
+     {"/Poly/#unzip_cons":
+      {"display": "unzip_cons",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -4256,7 +4344,7 @@
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
    "keepIf_some":
-   [{"id": "keepIf_some",
+   [{"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -4273,7 +4361,7 @@
         "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some-next",
+    {"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -12254,7 +12342,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -12265,7 +12353,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -13166,7 +13254,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+   [{"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -13183,7 +13271,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor-next",
+    {"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",

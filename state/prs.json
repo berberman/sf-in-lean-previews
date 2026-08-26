@@ -249,9 +249,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "0711a4b348528dc125d33f37b12d537835f10a7c",
+      "head_sha": "c7232a011c06126ad625917b44cc726be7007dd3",
       "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32953361621",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32976956198",
       "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"

@@ -295,3 +295,73 @@ example :
 --  an equivalence and a counterexample showing it is not a
 --  congruence.
 
+--  ## Program Transformation
+
+def Aexp.trans_sound (trans : Aexp → Aexp) : Prop :=
+  ∀ (a : Aexp),
+    a.Equiv (trans a)
+
+def Bexp.trans_sound (trans : Bexp → Bexp) : Prop :=
+  ∀ (b : Bexp),
+    b.Equiv (trans b)
+
+def Com.trans_sound (trans : Com → Com) : Prop :=
+  ∀ (c : Com),
+    c.Equiv (trans c)
+
+--  ### The Constant-Folding Transformation
+
+def Aexp.fold_constants (a: Aexp) : Aexp :=
+  match a with
+  | .num n => .num n
+  | .id x => .id x
+  | aexp { ~a1 + ~a2 } => 
+    match a1.fold_constants, a2.fold_constants with
+    | .num n1, .num n2 => .num (n1 + n2)
+    | a1', a2' => aexp { ~a1' + ~a2'}
+  | aexp { ~a1 - ~a2 } => 
+    match a1.fold_constants, a2.fold_constants with
+    | .num n1, .num n2 => .num (n1 - n2)
+    | a1', a2' => aexp { ~a1' - ~a2'}
+  | aexp { ~a1 * ~a2 } => 
+    match a1.fold_constants, a2.fold_constants with
+    | .num n1, .num n2 => .num (n1 * n2)
+    | a1', a2' => aexp { ~a1' * ~a2'}
+
+example : (aexp { (1 + 2) * X}).fold_constants = (aexp { 3 * X }) := by rfl
+
+example : (aexp { X - ((0 * 6) + Y) }).fold_constants = (aexp { X - (0 + Y) }) := by rfl
+
+def Bexp.fold_constants (b : Bexp) : Bexp :=
+  match b with
+  | bexp { true } => bexp { true }
+  | bexp { false } => bexp { false }
+  | bexp { ~a1 = ~a2 } => 
+    match a1.fold_constants, a2.fold_constants with
+    | .num n1, .num n2 => if n1 = n2 then bexp { true } else bexp {false}
+    | a1', a2' => bexp { ~a1' = ~a2' }
+  | bexp { ~a1 ≠ ~a2 } => 
+    match a1.fold_constants, a2.fold_constants with
+    | .num n1, .num n2 => if n1 ≠ n2 then bexp { true } else bexp {false}
+    | a1', a2' => bexp { ~a1' ≠ ~a2' }
+  | bexp { ~a1 ≤ ~a2 } => 
+    match a1.fold_constants, a2.fold_constants with
+    | .num n1, .num n2 => if n1 ≤ n2 then bexp { true } else bexp {false}
+    | a1', a2' => bexp { ~a1' ≤ ~a2' }
+  | bexp { ~a1 > ~a2 } => 
+    match a1.fold_constants, a2.fold_constants with
+    | .num n1, .num n2 => if n1 > n2 then bexp { true } else bexp {false}
+    | a1', a2' => bexp { ~a1' > ~a2' }
+  | bexp { ¬~b1 } =>
+    match b1.fold_constants with
+    | bexp { true } => bexp { false }
+    | bexp { false } => bexp { true }
+    | b1' => bexp { ¬~b1' }
+  | bexp { ~b1 ∧ ~b2 } =>
+    match b1.fold_constants, b2.fold_constants with
+    | bexp { true }, bexp { true } => bexp { true }
+    | bexp { true }, bexp { false } => bexp { false }
+    | bexp { false }, bexp { true } => bexp { false }
+    | bexp { false }, bexp { false } => bexp { false }
+    | b1', b2' => bexp { ~b1' ∧ ~b2' }
+

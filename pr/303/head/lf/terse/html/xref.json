@@ -3720,7 +3720,7 @@
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
    "double_injective":
-   [{"id": "double_injective-next",
+   [{"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next":
       {"display": "double_injective",
@@ -3735,7 +3735,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective",
+    {"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next":
       {"display": "double_injective",

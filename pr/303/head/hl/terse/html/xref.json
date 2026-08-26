@@ -1261,6 +1261,38 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--The-Constant-Folding-Transformation":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--The-Constant-Folding-Transformation",
+     "data":
+     {"title": "The Constant-Folding Transformation",
+      "shortTitle": null,
+      "sectionNum": "4.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Program Transformation", "shortTitle": null, "number": "3"},
+       {"title": "The Constant-Folding Transformation",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation",
+     "data":
+     {"title": "Program Transformation",
+      "shortTitle": null,
+      "sectionNum": "4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Program Transformation", "shortTitle": null, "number": "3"}]},
+     "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Simple-Examples":
    [{"id":
      "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Simple-Examples",
@@ -3337,6 +3369,16 @@
         "Evaluating Commands",
         "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
+   "Com.trans_sound":
+   [{"id": "Com___trans_sound",
+     "data":
+     {"/Equiv/#Com___trans_sound":
+      {"display": "Com.trans_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "Com.skip":
    [{"id": "Com___skip",
      "data":
@@ -3707,6 +3749,16 @@
         "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
+   "Bexp.trans_sound":
+   [{"id": "Bexp___trans_sound",
+     "data":
+     {"/Equiv/#Bexp___trans_sound":
+      {"display": "Bexp.trans_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "Bexp.not":
    [{"id": "Bexp___not",
      "data":
@@ -3751,6 +3803,17 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "Bexp.fold_constants":
+   [{"id": "Bexp___fold_constants",
+     "data":
+     {"/Equiv/#Bexp___fold_constants":
+      {"display": "Bexp.fold_constants",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
    "Bexp.eval_not":
    [{"id": "Bexp___eval_not",
      "data":
@@ -4088,6 +4151,16 @@
         "Assertions",
         "Assertion Implication"]}},
      "address": "/Hoare/"}],
+   "Aexp.trans_sound":
+   [{"id": "Aexp___trans_sound",
+     "data":
+     {"/Equiv/#Aexp___trans_sound":
+      {"display": "Aexp.trans_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "Aexp.plus":
    [{"id": "Aexp___plus",
      "data":
@@ -4143,6 +4216,17 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "Aexp.fold_constants":
+   [{"id": "Aexp___fold_constants",
+     "data":
+     {"/Equiv/#Aexp___fold_constants":
+      {"display": "Aexp.fold_constants",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
    "Aexp.eval_plus":
    [{"id": "Aexp___eval_plus",
      "data":
