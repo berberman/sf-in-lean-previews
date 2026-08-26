@@ -409,12 +409,49 @@
     },
     "321": {
       "base_sha": "ef120ff8347628fd2f042fb7be11a5e71d80bbe2",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "63d1532d16f22cd2662f6368da66d66920d6e01b",
       "preview_path": "pr/321/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Remove discussion of `dsimp` from UsingLean and lists",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32996272318",
+      "status": "published",
+      "title": "Remove discussion of `dsimp` from LF",
       "url": "https://github.com/plclub/sf-in-lean/pull/321"
     }
   },
