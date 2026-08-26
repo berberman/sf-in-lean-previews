@@ -2,191 +2,190 @@ import LF.Basics
 
 import SFLCompat
 
--- # Induction: Proof by Induction
+--  # Induction: Proof by Induction
 
-set_option pp.fieldNotation false
+--  ## Separate Compilation
 
--- ## Separate Compilation
+--  Before getting started on this chapter, we need to import all of our
+--  definitions from the previous chapter:
 
--- Before getting started on this chapter, we need to import all of our
--- definitions from the previous chapter:
+--  For this `import` to work, Lean needs to be able to find a compiled
+--  version of the previous chapter (`Basics.lean`). This compiled version,
+--  called `Basics.olean`, is analogous to the `.class` files compiled from
+--  `.java` source files and the `.o` files compiled from `.c` files.
 
--- For this `import` to work, Lean needs to be able to find a compiled version
--- of the previous chapter (`Basics.lean`). This compiled version, called
--- `Basics.olean`, is analogous to the `.class` files compiled from `.java`
--- source files and the `.o` files compiled from `.c` files.
+--  When using Lake (Lean's build system), the `lakefile.lean` file
+--  specifies dependencies and build configuration. Running `lake build`
+--  will compile all necessary files in the correct order.
 
--- When using Lake (Lean's build system), the `lakefile.lean` file specifies
--- dependencies and build configuration. Running `lake build` will compile all
--- necessary files in the correct order.
+--  If you are using VS Code with the Lean 4 extension, compilation happens
+--  automatically in the background. When you open a file, the extension
+--  will compile its dependencies as needed.
 
--- If you are using VS Code with the Lean 4 extension, compilation happens
--- automatically in the background. When you open a file, the extension will
--- compile its dependencies as needed.
+--  Troubleshooting:
 
--- Troubleshooting:
+--  - If you get complaints about missing imports, make sure you have run
+--    `lake build` from the project root directory at least once.
 
--- - If you get complaints about missing imports, make sure you have run
---   `lake build` from the project root directory at least once.
+--  - If you modify `Basics.lean`, VS Code will automatically recompile it
+--    when you save. You may need to reopen this file or wait for
+--    recompilation to finish.
 
--- - If you modify `Basics.lean`, VS Code will automatically recompile it when
---   you save. You may need to reopen this file or wait for recompilation to
---   finish.
+--  - If you get errors that seem inconsistent with the source, try running
+--    `lake clean` followed by `lake build` to recompile everything from
+--    scratch.
 
--- - If you get errors that seem inconsistent with the source, try running
---   `lake clean` followed by `lake build` to recompile everything from scratch.
+--  - If you are using the Lean 4 extension for VS Code, you can also
+--    restart the extension on the current file via the `Restart File`
+--    button in the InfoView. The extension will often prompt you do this
+--    if you change things upstream in the dependency tree.
 
--- - If you are using the Lean 4 extension for VS Code, you can also restart the
---   extension on the current file via the `Restart File` button in the
---   InfoView. The extension will often prompt you do this if you change things
---   upstream in the dependency tree.
-
--- We reopen the namespace from the previous chapter to group this chapter's
--- definitions and theorems with the custom natural-number development and
--- keep their names distinct from the standard library.
+--  We reopen the namespace from the previous chapter to group this
+--  chapter's definitions and theorems with the custom natural-number
+--  development and keep their names distinct from the standard library.
 
 namespace NatPlayground.Nat
 
--- ## Review
+--  ## Review
 
--- _Quiz:_
+--  _Quiz:_
 
--- To prove the following theorem, which tactics will we need besides `rfl`?
--- (Recall that `||` recurses on its *first* argument: `true || b = true` and
--- `false || b = b`, by definition.)
+--  To prove the following theorem, which tactics will we need besides
+--  `rfl`? (Recall that `||` recurses on its *first* argument:
+--  `true || b = true` and `false || b = b`, by definition.)
 
---   theorem review₁ : (true || false) = true
+--    theorem review₁ : (true || false) = true
 
--- (A) none
+--  (A) none
 
--- (B) `rewrite`
+--  (B) `rewrite`
 
--- (C) `cases`
+--  (C) `cases`
 
--- (D) both `rewrite` and `cases`
+--  (D) both `rewrite` and `cases`
 
--- (E) can't be done with the tactics we've seen.
+--  (E) can't be done with the tactics we've seen.
 
--- _Quiz:_
+--  _Quiz:_
 
--- What about the next one?
+--  What about the next one?
 
---   theorem review₂ (b : Bool) : (true || b) = true
+--    theorem review₂ (b : Bool) : (true || b) = true
 
--- Which tactics do we need besides `rfl`?
+--  Which tactics do we need besides `rfl`?
 
--- (A) none
+--  (A) none
 
--- (B) `rewrite`
+--  (B) `rewrite`
 
--- (C) `cases`
+--  (C) `cases`
 
--- (D) both `rewrite` and `cases`
+--  (D) both `rewrite` and `cases`
 
--- (E) can't be done with the tactics we've seen.
+--  (E) can't be done with the tactics we've seen.
 
--- _Quiz:_
+--  _Quiz:_
 
--- What if we change the order of the arguments of `||`?
+--  What if we change the order of the arguments of `||`?
 
---   theorem review₃ (b : Bool) : (b || true) = true
+--    theorem review₃ (b : Bool) : (b || true) = true
 
--- Which tactics do we need besides `rfl`?
+--  Which tactics do we need besides `rfl`?
 
--- (A) none
+--  (A) none
 
--- (B) `rewrite`
+--  (B) `rewrite`
 
--- (C) `cases`
+--  (C) `cases`
 
--- (D) both `rewrite` and `cases`
+--  (D) both `rewrite` and `cases`
 
--- (E) can't be done with the tactics we've seen.
+--  (E) can't be done with the tactics we've seen.
 
--- _Quiz:_
+--  _Quiz:_
 
--- What about this one? (Recall that in Lean, `Nat.add` recurses on the
--- *second* argument: `n + zero = n` by definition, and
--- `n + (m + 1) = (n + m) + 1` by definition.)
+--  What about this one? (Recall that in Lean, `Nat.add` recurses on the
+--  *second* argument: `n + zero = n` by definition, and
+--  `n + (m + 1) = (n + m) + 1` by definition.)
 
---   theorem review₄ (n : Nat) : n + zero = n
+--    theorem review₄ (n : Nat) : n + zero = n
 
--- (A) none
+--  (A) none
 
--- (B) `rewrite`
+--  (B) `rewrite`
 
--- (C) `cases`
+--  (C) `cases`
 
--- (D) both `rewrite` and `cases`
+--  (D) both `rewrite` and `cases`
 
--- (E) can't be done with the tactics we've seen.
+--  (E) can't be done with the tactics we've seen.
 
--- _Quiz:_
+--  _Quiz:_
 
--- What about this?
+--  What about this?
 
---   theorem review₅ (n : Nat) : zero + n = n
+--    theorem review₅ (n : Nat) : zero + n = n
 
--- (A) none
+--  (A) none
 
--- (B) `rewrite`
+--  (B) `rewrite`
 
--- (C) `cases`
+--  (C) `cases`
 
--- (D) both `rewrite` and `cases`
+--  (D) both `rewrite` and `cases`
 
--- (E) can't be done with the tactics we've seen.
+--  (E) can't be done with the tactics we've seen.
 
--- ### Exercise (1 star): succ_eq_add_one ⭐
+--  ### Exercise (1 star): succ_eq_add_one ⭐
 
--- One more warm-up exercise. Prove the following theorem, using theorems from
--- Basics:
+--  One more warm-up exercise. Prove the following theorem, using theorems
+--  from Basics:
 
 theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
   sorry
 
--- ## Proof by Induction
+--  ## Proof by Induction
 
--- We defined `add` to recurse on its *second* argument:
+--  We defined `add` to recurse on its *second* argument:
 
---   def add (n : Nat) (m : Nat) : Nat :=
---     match m with
---     | zero => n
---     | succ m' => succ (add n m')
+--    def add (n : Nat) (m : Nat) : Nat :=
+--      match m with
+--      | zero => n
+--      | succ m' => succ (add n m')
 
--- This means `n + zero` reduces to `n` by definition, but `zero + n` does
--- *not*.
+--  This means `n + zero` reduces to `n` by definition, but `zero + n` does
+--  *not*.
 
--- For the `add_zero` simplification rule, we were able to prove that `zero`
--- is a neutral element for `+` on the *right* using just `rfl`:
+--  For the `add_zero` simplification rule, we were able to prove that
+--  `zero` is a neutral element for `+` on the *right* using just `rfl`:
 
---   theorem add_zero : ∀ (n : Nat), n + zero = n := by
---     intro n
---     rfl
+--    theorem add_zero : ∀ (n : Nat), n + zero = n := by
+--      intro n
+--      rfl
 
--- What if we wanted to prove a rule that `zero` is also a neutral element on
--- the *left*? Just applying `rfl` doesn't work, since the `n` in `zero + n`
--- is an arbitrary unknown number, so the `match` in the definition of `+`
--- can't be reduced.
+--  What if we wanted to prove a rule that `zero` is also a neutral element
+--  on the *left*? Just applying `rfl` doesn't work, since the `n` in
+--  `zero + n` is an arbitrary unknown number, so the `match` in the
+--  definition of `+` can't be reduced.
 
-sf_expect_failure
+sf_expect_failure_in
   example (n : Nat) : zero + n = n := by
     rfl    -- doesn't work here!
 
--- Tactic `rfl` failed: The left-hand side
---   zero + n
--- is not definitionally equal to the right-hand side
---   n
+--  Tactic `rfl` failed: The left-hand side
+--    zero + n
+--  is not definitionally equal to the right-hand side
+--    n
 
--- n : Nat
--- ⊢ zero + n = n
+--  n : Nat
+--  ⊢ zero + n = n
 
--- And reasoning by cases using `cases` on `n` doesn't get us much further:
--- the branch of the case analysis where we assume `n = zero` goes through
--- just fine, but in the branch where `n = n' + 1` for some `n'` we get stuck
--- in exactly the same way.
+--  And reasoning by cases using `cases` on `n` doesn't get us much
+--  further: the branch of the case analysis where we assume `n = zero`
+--  goes through just fine, but in the branch where `n = n' + 1` for some
+--  `n'` we get stuck in exactly the same way.
 
-sf_expect_failure
+sf_expect_failure_in
   example (n : Nat) : zero + n = n := by
     cases n with
     | zero => /- n = zero -/
@@ -196,33 +195,33 @@ sf_expect_failure
     | succ n' =>   /- n = succ n' -/
       _     -- ...but we're stuck on zero + n'
 
--- unsolved goals
--- case succ
--- n' : Nat
--- ⊢ zero + succ n' = succ n'
+--  unsolved goals
+--  case succ
+--  n' : Nat
+--  ⊢ zero + succ n' = succ n'
 
--- We could use `cases` on `n'` to get a bit further, but, since `n` can be
--- arbitrarily large, we'll never get all the way there if we just go on like
--- this.
+--  We could use `cases` on `n'` to get a bit further, but, since `n` can
+--  be arbitrarily large, we'll never get all the way there if we just go
+--  on like this.
 
--- To prove interesting facts about numbers, lists, and other inductively
--- defined sets, we often need a more powerful reasoning principle:
--- *induction*.
+--  To prove interesting facts about numbers, lists, and other inductively
+--  defined sets, we often need a more powerful reasoning principle:
+--  *induction*.
 
--- Recall (from a discrete math course, probably) the *principle of induction
--- over natural numbers*: If `P(n)` is some proposition involving a natural
--- number `n` and we want to show that `P` holds for all numbers `n`, we can
--- reason like this:
+--  Recall (from a discrete math course, probably) the *principle of
+--  induction over natural numbers*: If `P(n)` is some proposition
+--  involving a natural number `n` and we want to show that `P` holds for
+--  all numbers `n`, we can reason like this:
 
--- - show that `P(zero)` holds;
--- - show that, for any `n'`, if `P(n')` holds, then so does `P(succ n')`;
--- - conclude that `P(n)` holds for all `n`.
+--  - show that `P(zero)` holds;
+--  - show that, for any `n'`, if `P(n')` holds, then so does `P(succ n')`;
+--  - conclude that `P(n)` holds for all `n`.
 
--- In Lean, the steps are the same: we begin with the goal of proving `P(n)`
--- for all `n` and use the `induction` tactic to break it down into two
--- separate subgoals: one where we must show `P(zero)` and another where we
--- must show `P(n') → P(succ n')`. Here's how this works for the theorem at
--- hand...
+--  In Lean, the steps are the same: we begin with the goal of proving
+--  `P(n)` for all `n` and use the `induction` tactic to break it down into
+--  two separate subgoals: one where we must show `P(zero)` and another
+--  where we must show `P(n') → P(succ n')`. Here's how this works for the
+--  theorem at hand...
 
 theorem zero_add (n : Nat) : zero + n = n := by
   induction n with
@@ -238,24 +237,24 @@ theorem zero_add (n : Nat) : zero + n = n := by
     rewrite [add_succ, ih]
     rfl
 
--- Like `cases`, the `induction` tactic takes a `with` clause that specifies
--- the names of the variables to be introduced in the subgoals. Since there
--- are two subgoals (for `zero` and `succ`), the `with` clause has two
--- branches.
+--  Like `cases`, the `induction` tactic takes a `with` clause that
+--  specifies the names of the variables to be introduced in the subgoals.
+--  Since there are two subgoals (for `zero` and `succ`), the `with` clause
+--  has two branches.
 
--- In the first subgoal, `n` is replaced by `zero`. The goal becomes
--- `zero + zero = zero`, which follows by `rewrite [add_zero]` and `rfl`.
+--  In the first subgoal, `n` is replaced by `zero`. The goal becomes
+--  `zero + zero = zero`, which follows by `rewrite [add_zero]` and `rfl`.
 
--- In the second subgoal, `n` is replaced by `succ n'`, and the induction
--- hypothesis `ih : zero + n' = n'` is added to the context. The goal becomes
--- `zero + (succ n') = succ n'`. `add_succ` tells us that
--- `a + (succ b) = succ (a + b)`, so `rewrite [add_succ]` transforms the goal
--- to `succ (zero + n') = succ n'`. Then `rewrite [ih]` rewrites `zero + n'`
--- to `n'`, and the goal becomes `succ n' = succ n'`, which closes with
--- reflexivity.
+--  In the second subgoal, `n` is replaced by `succ n'`, and the induction
+--  hypothesis `ih : zero + n' = n'` is added to the context. The goal
+--  becomes `zero + (succ n') = succ n'`. `add_succ` tells us that
+--  `a + (succ b) = succ (a + b)`, so `rewrite [add_succ]` transforms the
+--  goal to `succ (zero + n') = succ n'`. Then `rewrite [ih]` rewrites
+--  `zero + n'` to `n'`, and the goal becomes `succ n' = succ n'`, which
+--  closes with reflexivity.
 
--- Here's another theorem to try, this time involving equality on natural
--- numbers.
+--  Here's another theorem to try, this time involving equality on natural
+--  numbers.
 
 theorem beq_self (n : Nat) : (n == n) = true := by
   induction n with
@@ -266,10 +265,10 @@ theorem beq_self (n : Nat) : (n == n) = true := by
     rewrite [succ_beq_succ]
     exact ih
 
--- ### Exercise (2 stars): basic_induction ⭐⭐
+--  ### Exercise (2 stars): basic_induction ⭐⭐
 
--- Prove the following using induction. You might need previously proven
--- results.
+--  Prove the following using induction. You might need previously proven
+--  results.
 
 theorem zero_mul (n : Nat) :
     zero * n = zero := by
@@ -287,22 +286,23 @@ theorem add_assoc (n m p : Nat) :
     n + (m + p) = (n + m) + p := by
   sorry
 
--- ### Tip: the `rw` tactic
+--  ### Tip: the `rw` tactic
 
--- As you've probably noticed, a common pattern in Lean proofs is
--- `rewrite [...]` followed by `rfl`. There is a tactic that combines these
--- two steps: `rw [...]` will automatically close the goal if the rewrite
--- makes the goal true by definition. For example, instead of writing
+--  As you've probably noticed, a common pattern in Lean proofs is
+--  `rewrite [...]` followed by `rfl`. There is a tactic that combines
+--  these two steps: `rw [...]` will automatically close the goal if the
+--  rewrite makes the goal true by definition. For example, instead of
+--  writing
 
---   rewrite [double_zero]; rfl
+--    rewrite [double_zero]; rfl
 
--- We could write this:
+--  We could write this:
 
---   rw [double_zero]
+--    rw [double_zero]
 
--- A small caveat: `rw [...]` only performs a quick reflexivity check after
--- rewriting; it does not unfold every definition. So, in rare cases, `rw` may
--- leave a goal that is solved immediately by `rfl`.
+--  A small caveat: `rw [...]` only performs a quick reflexivity check
+--  after rewriting; it does not unfold every definition. So, in rare
+--  cases, `rw` may leave a goal that is solved immediately by `rfl`.
 
 def aliasOfTwo := two
 
@@ -311,11 +311,17 @@ example (n : Nat) (h : n = aliasOfTwo) : n = two := by
   /- The remaining goal is `aliasOfTwo = two`. -/
   rfl
 
--- Let's get some practice with using `rw`.
+--  Let's get some practice with using `rw`.
 
--- ### Exercise (2 stars): double_add ⭐⭐
+--  THESE DETAILS CAN BE SKIPPED
 
--- Consider the following function, which doubles its argument:
+set_option pp.fieldNotation false
+
+--  END DETAILS
+
+--  ### Exercise (2 stars): double_add ⭐⭐
+
+--  Consider the following function, which doubles its argument:
 
 def double (n : Nat) : Nat :=
   match n with
@@ -326,20 +332,21 @@ theorem double_zero : double zero = zero := by rfl
 theorem double_succ n : double (succ n) = succ (succ (double n)) := by rfl
 attribute [irreducible] double
 
--- Use induction to prove this simple fact about `double`. Try using `rw`
--- instead of `rewrite`.
+--  Use induction to prove this simple fact about `double`. Try using `rw`
+--  instead of `rewrite`.
 
 theorem double_add (n : Nat) : double n = n + n := by
   sorry
 
--- ## Proofs Within Proofs
+--  ## Proofs Within Proofs
 
--- In Lean, as in informal mathematics, large proofs are often broken into a
--- sequence of theorems, with later proofs referring to earlier theorems. But
--- sometimes a proof will involve some miscellaneous fact that is too trivial
--- and of too little general interest to bother giving it its own top-level
--- name. In such cases, it is convenient to be able to simply state and prove
--- the required fact "in place". The `have` tactic allows us to do this.
+--  In Lean, as in informal mathematics, large proofs are often broken into
+--  a sequence of theorems, with later proofs referring to earlier
+--  theorems. But sometimes a proof will involve some miscellaneous fact
+--  that is too trivial and of too little general interest to bother giving
+--  it its own top-level name. In such cases, it is convenient to be able
+--  to simply state and prove the required fact "in place". The `have`
+--  tactic allows us to do this.
 
 theorem mult_zero_add' (n m : Nat) :
     ((zero + n) + zero) * m = n * m := by
@@ -347,18 +354,20 @@ theorem mult_zero_add' (n m : Nat) :
     rw [zero_add, add_zero]
   rw [h]
 
--- The `have` tactic introduces a local lemma into the proof. We prove it
--- immediately, and it's available as a hypothesis for the rest of the proof.
+--  The `have` tactic introduces a local lemma into the proof. We prove it
+--  immediately, and it's available as a hypothesis for the rest of the
+--  proof.
 
--- As another example, suppose we want to prove that
--- `(n + m) + (p + q) = (m + n) + (p + q)`. The only difference between the
--- two sides of the `=` is that the arguments `m` and `n` to the first inner
--- `+` are swapped, so it seems we should be able to use the commutativity of
--- addition (`add_comm`) to rewrite one into the other. However, the `rw`
--- tactic is not very smart about *where* it applies the rewrite. There are
--- three uses of `+` here, and `rw [add_comm]` may affect the wrong one...
+--  As another example, suppose we want to prove that
+--  `(n + m) + (p + q) = (m + n) + (p + q)`. The only difference between
+--  the two sides of the `=` is that the arguments `m` and `n` to the first
+--  inner `+` are swapped, so it seems we should be able to use the
+--  commutativity of addition (`add_comm`) to rewrite one into the other.
+--  However, the `rw` tactic is not very smart about *where* it applies the
+--  rewrite. There are three uses of `+` here, and `rw [add_comm]` may
+--  affect the wrong one...
 
-sf_expect_failure
+sf_expect_failure_in
   example (n m p q : Nat) :
      (n + m) + (p + q) = (m + n) + (p + q) := by
     /-
@@ -368,65 +377,68 @@ sf_expect_failure
     -/
     rw [add_comm]
 
--- unsolved goals
--- n m p q : Nat
--- ⊢ p + q + (n + m) = m + n + (p + q)
+--  unsolved goals
+--  n m p q : Nat
+--  ⊢ p + q + (n + m) = m + n + (p + q)
 
--- To use `add_comm` at the point where we need it, we can supply explicit
--- arguments: `rw [add_comm n m]` tells Lean exactly which `+` to rewrite. (We
--- can also use `have` to establish the specific equation we want, then
--- rewrite with it.)
+--  To use `add_comm` at the point where we need it, we can supply explicit
+--  arguments: `rw [add_comm n m]` tells Lean exactly which `+` to rewrite.
+--  (We can also use `have` to establish the specific equation we want,
+--  then rewrite with it.)
 
 theorem add_rearrange (n m p q : Nat) :
     (n + m) + (p + q) = (m + n) + (p + q) := by
   rw [add_comm n m]
 
--- ## Formal vs. Informal Proof
+--  ## Formal vs. Informal Proof
 
--- "Informal proofs are algorithms; formal proofs are code."
+--  "Informal proofs are algorithms; formal proofs are code."
 
--- What constitutes a successful proof of a mathematical claim?
+--  What constitutes a successful proof of a mathematical claim?
 
--- The question has challenged philosophers for millennia, but a rough and
--- ready answer could be this: A proof of a mathematical proposition `P` is a
--- text that instills in the reader the certainty that `P` is true. That is, a
--- proof is an act of *communication*.
+--  The question has challenged philosophers for millennia, but a rough and
+--  ready answer could be this: A proof of a mathematical proposition `P`
+--  is a text that instills in the reader the certainty that `P` is true.
+--  That is, a proof is an act of *communication*.
 
--- Acts of communication may involve different sorts of readers. On one hand,
--- the "reader" can be a program like Lean, in which case the "belief" that is
--- instilled is that `P` can be mechanically derived from a certain set of
--- formal logical rules, and the proof is a recipe that guides the program in
--- checking this fact. Such recipes are *formal* proofs.
+--  Acts of communication may involve different sorts of readers. On one
+--  hand, the "reader" can be a program like Lean, in which case the
+--  "belief" that is instilled is that `P` can be mechanically derived from
+--  a certain set of formal logical rules, and the proof is a recipe that
+--  guides the program in checking this fact. Such recipes are *formal*
+--  proofs.
 
--- Alternatively, the reader can be a human being, in which case the proof
--- will probably be written in English or some other natural language and will
--- thus necessarily be *informal*. Here, the criteria for success are less
--- clearly specified. A "valid" proof is one that makes the reader believe
--- `P`. But the same proof may be read by many different readers, some of whom
--- may be convinced by a particular way of phrasing the argument, while others
--- may not be. Some readers may be particularly inexperienced or just plain
--- thick-headed; the only way to convince them will be to make the argument in
--- painstaking detail. Other readers, more familiar in the area, may find all
--- this detail so overwhelming that they lose the overall thread; all they
--- want is to be told the main ideas, since it is easier for them to fill in
--- the details for themselves than to wade through a written presentation of
--- them. Ultimately, there is no universal standard, because there is no
--- single way of writing an informal proof that will convince every
--- conceivable reader.
+--  Alternatively, the reader can be a human being, in which case the proof
+--  will probably be written in English or some other natural language and
+--  will thus necessarily be *informal*. Here, the criteria for success are
+--  less clearly specified. A "valid" proof is one that makes the reader
+--  believe `P`. But the same proof may be read by many different readers,
+--  some of whom may be convinced by a particular way of phrasing the
+--  argument, while others may not be. Some readers may be particularly
+--  inexperienced or just plain thick-headed; the only way to convince them
+--  will be to make the argument in painstaking detail. Other readers, more
+--  familiar in the area, may find all this detail so overwhelming that
+--  they lose the overall thread; all they want is to be told the main
+--  ideas, since it is easier for them to fill in the details for
+--  themselves than to wade through a written presentation of them.
+--  Ultimately, there is no universal standard, because there is no single
+--  way of writing an informal proof that will convince every conceivable
+--  reader.
 
--- In practice, however, mathematicians have developed a rich set of
--- conventions and idioms for writing about complex mathematical objects that
--- — at least within a certain community — make communication fairly reliable.
--- The conventions of this stylized form of communication give a reasonably
--- clear standard for judging proofs good or bad.
+--  In practice, however, mathematicians have developed a rich set of
+--  conventions and idioms for writing about complex mathematical objects
+--  that — at least within a certain community — make communication fairly
+--  reliable. The conventions of this stylized form of communication give a
+--  reasonably clear standard for judging proofs good or bad.
 
--- Because we are using Lean in this course, we will be working heavily with
--- formal proofs. But this doesn't mean we can completely forget about
--- informal ones! Formal proofs are useful in many ways, but they are *not*
--- very efficient ways of communicating ideas between human beings.
+--  Because we are using Lean in this course, we will be working heavily
+--  with formal proofs. But this doesn't mean we can completely forget
+--  about informal ones! Formal proofs are useful in many ways, but they
+--  are *not* very efficient ways of communicating ideas between human
+--  beings.
 
--- For example, here is a proof that addition is associative (you might have
--- written it yourself, earlier in this chapter!):
+--  For example, here is a proof that addition is associative (you might
+--  have written it yourself, earlier in this chapter!):
 
 theorem add_assoc' (n m p : Nat) :
     n + (m + p) = (n + m) + p := by
@@ -434,9 +446,9 @@ theorem add_assoc' (n m p : Nat) :
   | zero       => rw [add_zero, add_zero]
   | succ p' ih => rw [add_succ, add_succ, add_succ, ih]
 
--- Lean is perfectly happy with this. For a human, however, it is difficult to
--- make much sense of it. We can pass arguments to the `add_succ` theorems to
--- show the structure more clearly...
+--  Lean is perfectly happy with this. For a human, however, it is
+--  difficult to make much sense of it. We can pass arguments to the
+--  `add_succ` theorems to show the structure more clearly...
 
 theorem add_assoc'' (n m p : Nat) :
     add n (add m p) = add (add n m) p := by
@@ -446,154 +458,155 @@ theorem add_assoc'' (n m p : Nat) :
   | succ p' ih => /- p = p' + 1 -/
     rw [add_succ m p', add_succ n (m + p'), add_succ (n + m) p', ih]
 
--- ... and if you're used to Lean you might be able to step through the
--- tactics one after the other in your mind and imagine the state of the
--- context and goal stack at each point, but if the proof were even a little
--- bit more complicated this would be next to impossible.
+--  ... and if you're used to Lean you might be able to step through the
+--  tactics one after the other in your mind and imagine the state of the
+--  context and goal stack at each point, but if the proof were even a
+--  little bit more complicated this would be next to impossible.
 
--- A (pedantic) mathematician might write the proof something like this:
+--  A (pedantic) mathematician might write the proof something like this:
 
--- - *Theorem*: For any `n`, `m` and `p`,
+--  - *Theorem*: For any `n`, `m` and `p`,
 
---     n + (m + p) = (n + m) + p.
+--      n + (m + p) = (n + m) + p.
 
--- *Proof*: By induction on `p`.
+--  *Proof*: By induction on `p`.
 
--- - First, suppose `p = zero`. We must show that
+--  - First, suppose `p = zero`. We must show that
 
---     n + (m + zero) = (n + m) + zero.
+--      n + (m + zero) = (n + m) + zero.
 
--- This follows directly from the definition of `+` (since `x + zero = x` for
--- any `x`).
+--  This follows directly from the definition of `+` (since `x + zero = x`
+--  for any `x`).
 
--- - Next, suppose `p = p' + 1`, where
+--  - Next, suppose `p = p' + 1`, where
 
---     n + (m + p') = (n + m) + p'.
+--      n + (m + p') = (n + m) + p'.
 
--- We must now show that
+--  We must now show that
 
---     n + (m + (p' + 1)) = (n + m) + (p' + 1).
+--      n + (m + (p' + 1)) = (n + m) + (p' + 1).
 
--- By the definition of `+`, both sides reduce to
+--  By the definition of `+`, both sides reduce to
 
---     (n + (m + p')) + 1   and   ((n + m) + p') + 1
+--      (n + (m + p')) + 1   and   ((n + m) + p') + 1
 
--- respectively, which are equal by the induction hypothesis. *Qed*.
+--  respectively, which are equal by the induction hypothesis. *Qed*.
 
--- The overall form of the proof is basically similar, and of course this is
--- no accident: Lean has been designed so that its `induction` tactic
--- generates the same sub-goals, in the same order, as the bullet points that
--- a mathematician would usually write. But there are significant differences
--- of detail: the formal proof is much more explicit in some ways (e.g., the
--- sequence of rewrites) but much less explicit in others (in particular, the
--- "proof state" at any given point in the Lean proof is completely implicit,
--- whereas the informal proof reminds the reader several times where things
--- stand).
+--  The overall form of the proof is basically similar, and of course this
+--  is no accident: Lean has been designed so that its `induction` tactic
+--  generates the same sub-goals, in the same order, as the bullet points
+--  that a mathematician would usually write. But there are significant
+--  differences of detail: the formal proof is much more explicit in some
+--  ways (e.g., the sequence of rewrites) but much less explicit in others
+--  (in particular, the "proof state" at any given point in the Lean proof
+--  is completely implicit, whereas the informal proof reminds the reader
+--  several times where things stand).
 
--- ### Exercise (2 stars): add_comm_informal (Advanced, Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): add_comm_informal (Advanced, Optional, manually graded) ⭐⭐
 
--- Translate your solution for `add_comm` into an informal proof:
+--  Translate your solution for `add_comm` into an informal proof:
 
--- Theorem: Addition is commutative.
+--  Theorem: Addition is commutative.
 
--- Proof:
+--  Proof:
 
--- ### Exercise (2 stars): beq_refl_informal (Optional) ⭐⭐
+--  ### Exercise (2 stars): beq_refl_informal (Optional) ⭐⭐
 
--- Write an informal proof of the following theorem, using the informal proof
--- of `add_assoc` as a model. Don't just paraphrase the Lean tactics into
--- English!
+--  Write an informal proof of the following theorem, using the informal
+--  proof of `add_assoc` as a model. Don't just paraphrase the Lean tactics
+--  into English!
 
--- Theorem: `(n == n) = true` for any `n`.
+--  Theorem: `(n == n) = true` for any `n`.
 
--- Proof:
+--  Proof:
 
--- ## More Exercises
+--  ## More Exercises
 
--- ### Exercise (1 star): mul_one ⭐
+--  ### Exercise (1 star): mul_one ⭐
 
 theorem mul_one (p : Nat) :
     one * p = p := by
   sorry
 
--- ### Aside: Using Code Actions to Generate Match Skeletons
+--  ### Aside: Using Code Actions to Generate Match Skeletons
 
--- Lean's language server can suggest *code actions*, which are small editor
--- commands that modify the source code.
+--  Lean's language server can suggest *code actions*, which are small
+--  editor commands that modify the source code.
 
--- In VS Code, a lightbulb icon appears on the left when a code action is
--- available at your cursor.
+--  In VS Code, a lightbulb icon appears on the left when a code action is
+--  available at your cursor.
 
--- You can click the icon or open the code action menu with `Ctrl + .` on
--- Windows/Linux or `Command + .` on macOS. For more information, see the
--- [Lean 4 VSCode extension
--- manual](https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md#code-actions).
+--  You can click the icon or open the code action menu with `Ctrl + .` on
+--  Windows/Linux or `Command + .` on macOS. For more information, see the
+--  [Lean 4 VSCode extension
+--  manual](https://github.com/leanprover/vscode-lean4/blob/master/vscode-lean4/manual/manual.md#code-actions).
 
--- For example, code actions can generate the explicit branches needed for
--- pattern matching. This can be especially useful when working with `match`
--- expressions or with tactics such as `cases` and `induction`, which we saw
--- in previous chapters.
+--  For example, code actions can generate the explicit branches needed for
+--  pattern matching. This can be especially useful when working with
+--  `match` expressions or with tactics such as `cases` and `induction`,
+--  which we saw in previous chapters.
 
--- Let's look at an example code action using `induction`. For example,
--- suppose we start with the following incomplete proof:
+--  Let's look at an example code action using `induction`. For example,
+--  suppose we start with the following incomplete proof:
 
-sf_expect_failure
+sf_expect_failure_in
   example (n : Nat) : Nat.beq n n := by
     induction n
 
--- Put your cursor on `induction n` and open the code action menu. You should
--- see "Generate an explicit pattern match for 'induction'." in the list. If
--- you choose this action, Lean adds an explicit branch for each constructor:
+--  Put your cursor on `induction n` and open the code action menu. You
+--  should see "Generate an explicit pattern match for 'induction'." in the
+--  list. If you choose this action, Lean adds an explicit branch for each
+--  constructor:
 
 example (n : Nat) : Nat.beq n n := by
   induction n with
   | zero => sorry
   | succ n ih => sorry
 
--- This gives us basic structure of the proof without requiring us to write
--- each branch by hand. We can then focus on proving each case.
+--  This gives us basic structure of the proof without requiring us to
+--  write each branch by hand. We can then focus on proving each case.
 
--- One possible proof is:
+--  One possible proof is:
 
 example (n : Nat) : Nat.beq n n := by
   induction n with
   | zero => exact (beq_self zero)
   | succ n ih => rw [Nat.beq, ih]
 
--- The same trick also works for `match` expressions. For example, suppose we
--- start with
+--  The same trick also works for `match` expressions. For example, suppose
+--  we start with
 
-sf_expect_failure
+sf_expect_failure_in
   def isZero (n : Nat) : Bool :=
     match n
 
--- Lean can generate the missing branches:
+--  Lean can generate the missing branches:
 
-sf_expect_failure
+sf_expect_failure_in
   def isZero (n : Nat) : Bool :=
     match n with
     | .zero => _
     | .succ n => _
 
--- Now you just have to replace the holes `_` with your definition. You can
--- use code actions freely to fill out `induction`, `case`, and `match`
--- branches while working with this book.
+--  Now you just have to replace the holes `_` with your definition. You
+--  can use code actions freely to fill out `induction`, `case`, and
+--  `match` branches while working with this book.
 
--- By default, `rewrite` and `rw` rewrite left to right, i.e., they transform
--- the goal (or a hypothesis) from the form on the left side of the equality
--- to the right side. To rewrite from right to left, use `rewrite [← h]` or
--- `rw [← h]`, where `←` is entered as `\l` or `\<-`.
+--  By default, `rewrite` and `rw` rewrite left to right, i.e., they
+--  transform the goal (or a hypothesis) from the form on the left side of
+--  the equality to the right side. To rewrite from right to left, use
+--  `rewrite [← h]` or `rw [← h]`, where `←` is entered as `\l` or `\<-`.
 
--- ### Exercise (2 stars): mul_two ⭐⭐
+--  ### Exercise (2 stars): mul_two ⭐⭐
 
 theorem mul_two (p : Nat) :
     two * p = p + p := by
   sorry
 
--- ### Exercise (3 stars): mul_comm ⭐⭐⭐
+--  ### Exercise (3 stars): mul_comm ⭐⭐⭐
 
--- Use `have` (or `rw` with explicit arguments) to help prove `add_shuffle3`.
--- You don't need to use induction.
+--  Use `have` (or `rw` with explicit arguments) to help prove
+--  `add_shuffle3`. You don't need to use induction.
 
 theorem add_shuffle3 (n m p : Nat) :
     add (add n m) p = add (add n p) m := by
@@ -603,20 +616,20 @@ theorem succ_mul (m n : Nat) :
     (succ n) * m = (n * m) + m := by
   sorry
 
--- Now prove commutativity of multiplication.
+--  Now prove commutativity of multiplication.
 
 theorem mul_comm (m n : Nat) :
     m * n = n * m := by
   sorry
 
--- ### Exercise (3 stars): more_exercises (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): more_exercises (Optional) ⭐⭐⭐
 
--- Take a piece of paper. For each of the following theorems, first *think*
--- about whether (a) it can be proved using only simplification and rewriting,
--- (b) it also requires case analysis (`cases`), or (c) it also requires
--- induction. Write down your prediction. Then fill in the proof. (There is no
--- need to turn in your piece of paper; this is just to encourage you to
--- reflect before you hack!)
+--  Take a piece of paper. For each of the following theorems, first
+--  *think* about whether (a) it can be proved using only simplification
+--  and rewriting, (b) it also requires case analysis (`cases`), or (c) it
+--  also requires induction. Write down your prediction. Then fill in the
+--  proof. (There is no need to turn in your piece of paper; this is just
+--  to encourage you to reflect before you hack!)
 
 theorem ble_refl (n : Nat) :
     Nat.ble n n = true := by
@@ -642,54 +655,55 @@ theorem mul_assoc (n m p : Nat) :
     n * (m * p) = (n * m) * p := by
   sorry
 
--- ### A New Tactic Combinator
+--  ### A New Tactic Combinator
 
--- Before moving on to the next batch of exercises, let's introduce a simple
--- *tactic combinator*. A tactic combinator combines tactics to form a larger
--- tactic.
+--  Before moving on to the next batch of exercises, let's introduce a
+--  simple *tactic combinator*. A tactic combinator combines tactics to
+--  form a larger tactic.
 
--- If `t₁` and `t₂` are tactics, then `t₁ <;> t₂` means: run `t₁`, then run
--- `t₂` on every subgoal produced by `t₁`.
+--  If `t₁` and `t₂` are tactics, then `t₁ <;> t₂` means: run `t₁`, then
+--  run `t₂` on every subgoal produced by `t₁`.
 
--- This is useful when one tactic splits the goal into several subgoals and
--- all of them can be finished in the same way.
+--  This is useful when one tactic splits the goal into several subgoals
+--  and all of them can be finished in the same way.
 
 example (b : Bool) : (b || true) = true := by
   cases b <;> rfl
 
--- This is short for:
+--  This is short for:
 
 example (b : Bool) : (b || true) = true := by
   cases b with
   | false => rfl
   | true  => rfl
 
--- We can also chain `<;>`s. In the next example, `cases` on `b` creates two
--- goals; in each of them, `cases` on `c` splits the goal again; then `rfl`
--- solves all four remaining goals.
+--  We can also chain `<;>`s. In the next example, `cases` on `b` creates
+--  two goals; in each of them, `cases` on `c` splits the goal again; then
+--  `rfl` solves all four remaining goals.
 
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
--- Use `<;>` when the generated subgoals really do have the same proof. If
--- different branches need different arguments, it is usually clearer to write
--- the cases explicitly. We'll discuss some other tactic combinators in the
--- Automation chapter.
+--  Use `<;>` when the generated subgoals really do have the same proof. If
+--  different branches need different arguments, it is usually clearer to
+--  write the cases explicitly. We'll discuss some other tactic combinators
+--  in the Automation chapter.
 
--- ## Nat to Bin and Back to Nat
+--  ## Nat to Bin and Back to Nat
 
 namespace NatToBin
 
--- Recall the `Bin` type we defined in Basics:
+--  Recall the `Bin` type we defined in Basics:
 
 inductive Bin : Type where
   | z
   | b0 (n : Bin)
   | b1 (n : Bin)
 
--- Before you start working on the next exercise, replace the stub definitions
--- of `incr` and `binToNat`, below, with your solution from Basics. That will
--- make it possible for this file to be graded on its own.
+--  Before you start working on the next exercise, replace the stub
+--  definitions of `incr` and `binToNat`, below, with your solution from
+--  Basics. That will make it possible for this file to be graded on its
+--  own.
 
 def incr (m : Bin) : Bin
   := sorry
@@ -707,147 +721,151 @@ theorem binToNat_b1 m : binToNat (.b1 m) = add (mul (binToNat m) two) one := sor
 
 attribute [pp_nodot] Bin.b0 Bin.b1
 
--- In Basics, we did some unit testing of `binToNat`, but we didn't prove its
--- correctness. Now we'll do so.
+--  In Basics, we did some unit testing of `binToNat`, but we didn't prove
+--  its correctness. Now we'll do so.
 
--- ### Exercise (3 stars): binary_commute ⭐⭐⭐
+--  ### Exercise (3 stars): binary_commute ⭐⭐⭐
 
--- Prove that the following diagram commutes — that is, incrementing a binary
--- number and then converting it to a (unary) natural number yields the same
--- result as first converting it to a natural number and then incrementing:
+--  Prove that the following diagram commutes — that is, incrementing a
+--  binary number and then converting it to a (unary) natural number yields
+--  the same result as first converting it to a natural number and then
+--  incrementing:
 
---          incr Bin ----------------------> Bin
---              |                             |
---   binToNat   |                             |  binToNat
---              |                             |
---              v                             v
---             Nat ------------------------> Nat
---                         succ
+--           incr Bin ----------------------> Bin
+--               |                             |
+--    binToNat   |                             |  binToNat
+--               |                             |
+--               v                             v
+--              Nat ------------------------> Nat
+--                          succ
 
--- If you want to change your previous definitions of `incr` or `binToNat` to
--- make the property easier to prove, feel free!
+--  If you want to change your previous definitions of `incr` or `binToNat`
+--  to make the property easier to prove, feel free!
 
 theorem bin_to_nat_pres_incr (b : Bin) :
     binToNat (incr b) = (binToNat b) + one := by
   sorry
 
--- ### Exercise (3 stars): nat_bin_nat ⭐⭐⭐
+--  ### Exercise (3 stars): nat_bin_nat ⭐⭐⭐
 
--- Write a function to convert natural numbers to binary numbers. Also write
--- some simplification lemmas for it.
+--  Write a function to convert natural numbers to binary numbers. Also
+--  write some simplification lemmas for it.
 
 def natToBin (n : Nat) : Bin := sorry
 
 -- FILL IN HERE
 
--- Prove that, if we start with any `Nat`, convert it to `Bin`, and convert it
--- back, we get the same `Nat` which we started with.
+--  Prove that, if we start with any `Nat`, convert it to `Bin`, and
+--  convert it back, we get the same `Nat` which we started with.
 
--- Hint: This proof should go through smoothly using the previous exercise
--- about `incr` as a lemma. If not, revisit your definitions of the functions
--- involved and consider whether they are more complicated than necessary: the
--- shape of a proof by induction will match the recursive structure of the
--- program being verified, so make the recursions as simple as possible.
+--  Hint: This proof should go through smoothly using the previous exercise
+--  about `incr` as a lemma. If not, revisit your definitions of the
+--  functions involved and consider whether they are more complicated than
+--  necessary: the shape of a proof by induction will match the recursive
+--  structure of the program being verified, so make the recursions as
+--  simple as possible.
 
 theorem nat_bin_nat (n : Nat) :
     binToNat (natToBin n) = n := by
   sorry
 
--- ## Bin to Nat and Back to Bin (Advanced)
+--  ## Bin to Nat and Back to Bin (Advanced)
 
--- The opposite direction — starting with a `Bin`, converting to `Nat`, then
--- converting back to `Bin` — turns out to be problematic. That is, the
--- following "theorem" does not hold.
+--  The opposite direction — starting with a `Bin`, converting to `Nat`,
+--  then converting back to `Bin` — turns out to be problematic. That is,
+--  the following "theorem" does not hold.
 
-sf_expect_failure
+sf_expect_failure_in
   example (b : Bin) : natToBin (binToNat b) = b := by
 
--- Let's explore why this theorem fails and how to prove a modified version of
--- it. We'll start with some lemmas that might seem unrelated but will turn
--- out to be relevant.
+--  Let's explore why this theorem fails and how to prove a modified
+--  version of it. We'll start with some lemmas that might seem unrelated
+--  but will turn out to be relevant.
 
--- ### Exercise (2 stars): double_bin (Advanced) ⭐⭐
+--  ### Exercise (2 stars): double_bin (Advanced) ⭐⭐
 
--- Prove this lemma about `double`, which we defined earlier in the chapter.
+--  Prove this lemma about `double`, which we defined earlier in the
+--  chapter.
 
 theorem double_incr (n : Nat) :
     double (succ n) = (double n) + two := by
   sorry
 
--- Now define a similar doubling function for `Bin`.
+--  Now define a similar doubling function for `Bin`.
 
 def doubleBin (b : Bin) : Bin := sorry
 
--- Fill in the characterizing lemmas for this definition below:
+--  Fill in the characterizing lemmas for this definition below:
 
 -- FILL IN HERE
 
--- Check that your function correctly doubles zero.
+--  Check that your function correctly doubles zero.
 
 theorem double_bin_zero : doubleBin .z = .z := sorry
 
--- Prove this lemma, which corresponds to `double_incr`.
+--  Prove this lemma, which corresponds to `double_incr`.
 
 theorem double_incr_bin (b : Bin) :
     doubleBin (incr b) = incr (incr (doubleBin b)) := by
   sorry
 
--- Let's return to our desired theorem:
+--  Let's return to our desired theorem:
 
-sf_expect_failure
+sf_expect_failure_in
   example (b : Bin) : natToBin (binToNat b) = b := by
 
--- The theorem fails because there are some `Bin` such that we won't
--- necessarily get back to the *original* `Bin`, but instead to an
--- "equivalent" `Bin`. (We deliberately leave that notion undefined here for
--- you to think about.)
+--  The theorem fails because there are some `Bin` such that we won't
+--  necessarily get back to the *original* `Bin`, but instead to an
+--  "equivalent" `Bin`. (We deliberately leave that notion undefined here
+--  for you to think about.)
 
--- Explain in a comment, below, why this failure occurs. Your explanation will
--- not be graded, but it's important that you get it clear in your mind before
--- going on to the next part. If you're stuck on this, think about alternative
--- implementations of `doubleBin` that might have failed to satisfy
--- `double_bin_zero` yet otherwise seem correct.
+--  Explain in a comment, below, why this failure occurs. Your explanation
+--  will not be graded, but it's important that you get it clear in your
+--  mind before going on to the next part. If you're stuck on this, think
+--  about alternative implementations of `doubleBin` that might have failed
+--  to satisfy `double_bin_zero` yet otherwise seem correct.
 
--- To solve that problem, we can introduce a *normalization* function that
--- selects the simplest `Bin` out of all the equivalent `Bin`. Then we can
--- prove that the conversion from `Bin` to `Nat` and back again produces that
--- normalized, simplest `Bin`.
+--  To solve that problem, we can introduce a *normalization* function that
+--  selects the simplest `Bin` out of all the equivalent `Bin`. Then we can
+--  prove that the conversion from `Bin` to `Nat` and back again produces
+--  that normalized, simplest `Bin`.
 
--- ### Exercise (4 stars): bin_nat_bin (Advanced) ⭐⭐⭐⭐
+--  ### Exercise (4 stars): bin_nat_bin (Advanced) ⭐⭐⭐⭐
 
--- Define `normalize`. You will need to keep its definition as simple as
--- possible for later proofs to go smoothly. Do not use `binToNat` or
--- `natToBin`, but do use `doubleBin`.
+--  Define `normalize`. You will need to keep its definition as simple as
+--  possible for later proofs to go smoothly. Do not use `binToNat` or
+--  `natToBin`, but do use `doubleBin`.
 
--- Hint: Structure the recursion such that it *always* reaches the end of the
--- `Bin` and *only* processes each bit once. Do not try to "look ahead" at
--- future bits.
+--  Hint: Structure the recursion such that it *always* reaches the end of
+--  the `Bin` and *only* processes each bit once. Do not try to "look
+--  ahead" at future bits.
 
 def normalize (b : Bin) : Bin := sorry
 
--- Also specify the characterizing lemmas for this definition:
+--  Also specify the characterizing lemmas for this definition:
 
 -- FILL IN HERE
 
--- It would be wise to do some `example` proofs to check that your definition
--- of `normalize` works the way you intend before you proceed. They won't be
--- graded, but do fill in a few below.
+--  It would be wise to do some `example` proofs to check that your
+--  definition of `normalize` works the way you intend before you proceed.
+--  They won't be graded, but do fill in a few below.
 
 -- FILL IN HERE
 
--- Now that we have defined all of our functions and their relevant
--- characterizing lemmas, we mark them irreducible as usual. From here on out,
--- our proofs about these definitions should use `rewrite` or `rw`.
+--  Now that we have defined all of our functions and their relevant
+--  characterizing lemmas, we mark them irreducible as usual. From here on
+--  out, our proofs about these definitions should use `rewrite` or `rw`.
 
 attribute [irreducible] normalize doubleBin natToBin incr binToNat
 
--- Finally, prove the main theorem. The inductive cases could be a bit tricky.
+--  Finally, prove the main theorem. The inductive cases could be a bit
+--  tricky.
 
--- Hint: Start by trying to prove the main statement, see where you get stuck,
--- and see if you can find a lemma — perhaps requiring its own inductive proof
--- — that will allow the main proof to make progress. We have one lemma for
--- the `b0` case (which also makes use of `double_incr_bin`) and another for
--- the `b1` case.
+--  Hint: Start by trying to prove the main statement, see where you get
+--  stuck, and see if you can find a lemma — perhaps requiring its own
+--  inductive proof — that will allow the main proof to make progress. We
+--  have one lemma for the `b0` case (which also makes use of
+--  `double_incr_bin`) and another for the `b1` case.
 
 -- FILL IN HERE
 

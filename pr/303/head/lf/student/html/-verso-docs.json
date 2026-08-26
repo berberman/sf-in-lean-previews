@@ -1881,13 +1881,13 @@
  "<code>NatPlayground.Nat.minusTwo (n : NatPlayground.Nat) : NatPlayground.Nat</code>",
  "1529": "<code>x ∈ s₁✝ → x ∈ re✝.reChars</code>",
  "1528":
- "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) (re : RegExp α) (h₁ : s₁ =~ re) (h₂ : s₂ =~ Star re) :\n  s₁ ++ s₂ =~ Star re</code>",
+ "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) {re : RegExp α} (h₁ : s₁ =~ re) (h₂ : s₂ =~ Star re) :\n  s₁ ++ s₂ =~ Star re</code>",
  "1527":
  "<code>RegExp.ExpMatch.mStar0 {α : Type} (re : RegExp α) : [] =~ Star re</code>",
  "1526":
- "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α) (h₂ : s₂ =~ re₂) : s₂ =~ Union re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) {re₁ re₂ : RegExp α} (h₂ : s₂ =~ re₂) : s₂ =~ Union re₁ re₂</code>",
  "1525":
- "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α) (h₁ : s₁ =~ re₁) : s₁ =~ Union re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) {re₁ re₂ : RegExp α} (h₁ : s₁ =~ re₁) : s₁ =~ Union re₁ re₂</code>",
  "1524": "<code>x ∈ s₂✝</code>",
  "1523": "<code>x ∈ s₁✝</code>",
  "1522": "<code>x ∈ s₁✝ ∨ x ∈ s₂✝</code>",
@@ -1925,23 +1925,23 @@
  "<code>RegExp.reg_exp_of_list {α : Type} (l : List α) : RegExp α</code>",
  "1501": "<code>[1, 2] =~ Char 1</code>",
  "1500":
- "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ : List α) (re₁ : RegExp α) (s₂ : List α) (re₂ : RegExp α) (h₁ : s₁ =~ re₁)\n  (h₂ : s₂ =~ re₂) : s₁ ++ s₂ =~ RegExp.App re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ s₂ : List α) {re₁ re₂ : RegExp α} (h₁ : s₁ =~ re₁) (h₂ : s₂ =~ re₂) :\n  s₁ ++ s₂ =~ RegExp.App re₁ re₂</code>",
  "150": "<code>NatPlayground.Nat.minusTwo (n : Nat) : Nat</code>",
  "15":
  "<code class=\"docstring\">`repeat tac` repeatedly applies `tac` so long as it succeeds.\nThe tactic `tac` may be a tactic sequence, and if `tac` fails at any point in its execution,\n`repeat` will revert any partial changes that `tac` made to the tactic state.\n\nThe tactic `tac` should eventually fail, otherwise `repeat tac` will run indefinitely.\n\nSee also:\n* `try tac` is like `repeat tac` but will apply `tac` at most once.\n* `repeat' tac` recursively applies `tac` to each goal.\n* `first | tac1 | tac2` implements the backtracking used by `repeat`\n</code>",
  "1499":
- "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ : List α) (re₁ : RegExp α) (s₂ : List α) (re₂ : RegExp α) (h₁ : s₁ =~ re₁)\n  (h₂ : s₂ =~ re₂) : s₁ ++ s₂ =~ App re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ s₂ : List α) {re₁ re₂ : RegExp α} (h₁ : s₁ =~ re₁) (h₂ : s₂ =~ re₂) :\n  s₁ ++ s₂ =~ App re₁ re₂</code>",
  "1498":
  "<code>RegExp.ExpMatch.mChar {α : Type} (c : α) : [c] =~ Char c</code>",
  "1497": "<code>List (List α)</code>",
  "1496":
- "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) (re : RegExp α) (h₁ : s₁ =~ re) (h₂ : s₂ =~ RegExp.Star re) :\n  s₁ ++ s₂ =~ RegExp.Star re</code>",
+ "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) {re : RegExp α} (h₁ : s₁ =~ re) (h₂ : s₂ =~ RegExp.Star re) :\n  s₁ ++ s₂ =~ RegExp.Star re</code>",
  "1495":
  "<code>RegExp.ExpMatch.mStar0 {α : Type} (re : RegExp α) : [] =~ RegExp.Star re</code>",
  "1494":
- "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α) (h₂ : s₂ =~ re₂) : s₂ =~ RegExp.Union re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) {re₁ re₂ : RegExp α} (h₂ : s₂ =~ re₂) : s₂ =~ RegExp.Union re₁ re₂</code>",
  "1493":
- "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α) (h₁ : s₁ =~ re₁) : s₁ =~ RegExp.Union re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) {re₁ re₂ : RegExp α} (h₁ : s₁ =~ re₁) : s₁ =~ RegExp.Union re₁ re₂</code>",
  "1492": "<code>s =~ EmptySet</code>",
  "1491": "<code>RegExp α✝</code>",
  "1490": "<code>List (List α✝)</code>",
@@ -1951,18 +1951,18 @@
  "1487": "<code>ExpMatch s₂ (Star re)</code>",
  "1486": "<code>ExpMatch s₁ re</code>",
  "1485":
- "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) (re : RegExp α) (h₁ : ExpMatch s₁ re)\n  (h₂ : ExpMatch s₂ (Star re)) : ExpMatch (s₁ ++ s₂) (Star re)</code>",
+ "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) {re : RegExp α} (h₁ : ExpMatch s₁ re)\n  (h₂ : ExpMatch s₂ (Star re)) : ExpMatch (s₁ ++ s₂) (Star re)</code>",
  "1484":
  "<code>RegExp.ExpMatch.mStar0 {α : Type} (re : RegExp α) : ExpMatch [] (Star re)</code>",
  "1483":
- "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α) (h₂ : ExpMatch s₂ re₂) :\n  ExpMatch s₂ (Union re₁ re₂)</code>",
+ "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) {re₁ re₂ : RegExp α} (h₂ : ExpMatch s₂ re₂) :\n  ExpMatch s₂ (Union re₁ re₂)</code>",
  "1482":
- "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α) (h₁ : ExpMatch s₁ re₁) :\n  ExpMatch s₁ (Union re₁ re₂)</code>",
+ "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) {re₁ re₂ : RegExp α} (h₁ : ExpMatch s₁ re₁) :\n  ExpMatch s₁ (Union re₁ re₂)</code>",
  "1481": "<code>ExpMatch s₂ re₂</code>",
  "1480": "<code>ExpMatch s₁ re₁</code>",
  "148": "<code>NatPlayground.Nat.four : Nat</code>",
  "1479":
- "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ : List α) (re₁ : RegExp α) (s₂ : List α) (re₂ : RegExp α) (h₁ : ExpMatch s₁ re₁)\n  (h₂ : ExpMatch s₂ re₂) : ExpMatch (s₁ ++ s₂) (App re₁ re₂)</code>",
+ "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ s₂ : List α) {re₁ re₂ : RegExp α} (h₁ : ExpMatch s₁ re₁) (h₂ : ExpMatch s₂ re₂) :\n  ExpMatch (s₁ ++ s₂) (App re₁ re₂)</code>",
  "1478":
  "<code>RegExp.ExpMatch.mChar {α : Type} (c : α) : ExpMatch [c] (Char c)</code>",
  "1477":

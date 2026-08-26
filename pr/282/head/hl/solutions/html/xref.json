@@ -5714,6 +5714,17 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Com.unexpandEvalR":
+   [{"id": "Com___unexpandEvalR",
+     "data":
+     {"/Imp/#Com___unexpandEvalR":
+      {"display": "Com.unexpandEvalR",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Evaluation as a Relation"]}},
+     "address": "/Imp/"}],
    "Com.swap_if_branches":
    [{"id": "Com___swap_if_branches",
      "data":

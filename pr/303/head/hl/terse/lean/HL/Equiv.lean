@@ -44,10 +44,10 @@ example : Bexp.Equiv
 
 def Com.Equiv (c₁ c₂ : Com) : Prop :=
     ∀ {st st' : State},
-      (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st')
+      (st =[ ~c₁ ]=> st') ↔ (st =[ ~c₂ ]=> st')
 
 theorem Com.equiv_def {c₁ c₂ : Com} : c₁.Equiv c₂ ↔
-    ∀ {st st' : State}, (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st') := by rfl
+    ∀ {st st' : State}, (st =[ ~c₁ ]=> st') ↔ (st =[ ~c₂ ]=> st') := by rfl
 
 --  ### Simple Examples
 
@@ -258,5 +258,11 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
 theorem Com.congruence.while {b b' : Bexp} {c c' : Com} (hb : b.Equiv b') (hc : c.Equiv c') :
     (imp {while (~b) {~c}}).Equiv
     (imp {while (~b') {~c'}}) := by
+  sorry
+
+--  ### Exercise (3 stars): Com.congruence.seq (Optional) ⭐⭐⭐
+
+theorem Com.congruence.seq {c1 c1' c2 c2' : Com} (hc1 : c1.Equiv c1') (hc2 : c2.Equiv c2') :
+    (imp {~c1 ; ~c2}).Equiv (imp {~c1' ; ~c2'}) := by
   sorry
 

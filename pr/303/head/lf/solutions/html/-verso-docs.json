@@ -1918,7 +1918,7 @@
  "2074": "<code>x ∈ s₂✝ → x ∈ (Star re✝).reChars</code>",
  "2073": "<code>x ∈ s₁✝ → x ∈ re✝.reChars</code>",
  "2072":
- "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) (re : RegExp α) (h₁ : s₁ =~ re) (h₂ : s₂ =~ Star re) :\n  s₁ ++ s₂ =~ Star re</code>",
+ "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) {re : RegExp α} (h₁ : s₁ =~ re) (h₂ : s₂ =~ Star re) :\n  s₁ ++ s₂ =~ Star re</code>",
  "2071":
  "<code>RegExp.ExpMatch.mStar0 {α : Type} (re : RegExp α) : [] =~ Star re</code>",
  "2070": "<code>x ∈ s₂✝</code>",
@@ -1959,9 +1959,9 @@
  "2045":
  "<code>List.foldr.{u, v} {α : Type u} {β : Type v} (f : α → β → β) (init : β) (l : List α) : β</code><span class=\"sep\"></span><code class=\"docstring\">Folds a function over a list from the right, accumulating a value starting with `init`. The\naccumulated value is combined with each element of the list in reverse order, using `f`.\n\n`O(|l|)`. Replaced at runtime with `List.foldrTR`.\n\nExamples:\n * `[a, b, c].foldr f init  = f a (f b (f c init))`\n * `[1, 2, 3].foldr (toString · ++ ·) \"\" = \"123\"`\n * `[1, 2, 3].foldr (s!\"({·} {·})\") \"!\" = \"(1 (2 (3 !)))\"`\n</code>",
  "2044":
- "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α) (h₂ : s₂ =~ re₂) : s₂ =~ Union re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) {re₁ re₂ : RegExp α} (h₂ : s₂ =~ re₂) : s₂ =~ Union re₁ re₂</code>",
  "2043":
- "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α) (h₁ : s₁ =~ re₁) : s₁ =~ Union re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) {re₁ re₂ : RegExp α} (h₁ : s₁ =~ re₁) : s₁ =~ Union re₁ re₂</code>",
  "2042": "<code>s =~ re₂</code>",
  "2041": "<code>s =~ re₁</code>",
  "2040":
@@ -1982,21 +1982,21 @@
  "<code>RegExp.reg_exp_of_list {α : Type} (l : List α) : RegExp α</code>",
  "2031": "<code>[1, 2] =~ Char 1</code>",
  "2030":
- "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ : List α) (re₁ : RegExp α) (s₂ : List α) (re₂ : RegExp α) (h₁ : s₁ =~ re₁)\n  (h₂ : s₂ =~ re₂) : s₁ ++ s₂ =~ RegExp.App re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ s₂ : List α) {re₁ re₂ : RegExp α} (h₁ : s₁ =~ re₁) (h₂ : s₂ =~ re₂) :\n  s₁ ++ s₂ =~ RegExp.App re₁ re₂</code>",
  "203": "<code>NatPlayground.Nat.beq (n m : NatPlayground.Nat) : Bool</code>",
  "2029":
- "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ : List α) (re₁ : RegExp α) (s₂ : List α) (re₂ : RegExp α) (h₁ : s₁ =~ re₁)\n  (h₂ : s₂ =~ re₂) : s₁ ++ s₂ =~ App re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ s₂ : List α) {re₁ re₂ : RegExp α} (h₁ : s₁ =~ re₁) (h₂ : s₂ =~ re₂) :\n  s₁ ++ s₂ =~ App re₁ re₂</code>",
  "2028":
  "<code>RegExp.ExpMatch.mChar {α : Type} (c : α) : [c] =~ Char c</code>",
  "2027": "<code>List (List α)</code>",
  "2026":
- "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) (re : RegExp α) (h₁ : s₁ =~ re) (h₂ : s₂ =~ RegExp.Star re) :\n  s₁ ++ s₂ =~ RegExp.Star re</code>",
+ "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) {re : RegExp α} (h₁ : s₁ =~ re) (h₂ : s₂ =~ RegExp.Star re) :\n  s₁ ++ s₂ =~ RegExp.Star re</code>",
  "2025":
  "<code>RegExp.ExpMatch.mStar0 {α : Type} (re : RegExp α) : [] =~ RegExp.Star re</code>",
  "2024":
- "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α) (h₂ : s₂ =~ re₂) : s₂ =~ RegExp.Union re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) {re₁ re₂ : RegExp α} (h₂ : s₂ =~ re₂) : s₂ =~ RegExp.Union re₁ re₂</code>",
  "2023":
- "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α) (h₁ : s₁ =~ re₁) : s₁ =~ RegExp.Union re₁ re₂</code>",
+ "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) {re₁ re₂ : RegExp α} (h₁ : s₁ =~ re₁) : s₁ =~ RegExp.Union re₁ re₂</code>",
  "2022": "<code>s =~ EmptySet</code>",
  "2021": "<code>RegExp α✝</code>",
  "2020": "<code>List (List α✝)</code>",
@@ -2006,18 +2006,18 @@
  "2017": "<code>ExpMatch s₂ (Star re)</code>",
  "2016": "<code>ExpMatch s₁ re</code>",
  "2015":
- "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) (re : RegExp α) (h₁ : ExpMatch s₁ re)\n  (h₂ : ExpMatch s₂ (Star re)) : ExpMatch (s₁ ++ s₂) (Star re)</code>",
+ "<code>RegExp.ExpMatch.mStarApp {α : Type} (s₁ s₂ : List α) {re : RegExp α} (h₁ : ExpMatch s₁ re)\n  (h₂ : ExpMatch s₂ (Star re)) : ExpMatch (s₁ ++ s₂) (Star re)</code>",
  "2014":
  "<code>RegExp.ExpMatch.mStar0 {α : Type} (re : RegExp α) : ExpMatch [] (Star re)</code>",
  "2013":
- "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α) (h₂ : ExpMatch s₂ re₂) :\n  ExpMatch s₂ (Union re₁ re₂)</code>",
+ "<code>RegExp.ExpMatch.mUnionR {α : Type} (s₂ : List α) {re₁ re₂ : RegExp α} (h₂ : ExpMatch s₂ re₂) :\n  ExpMatch s₂ (Union re₁ re₂)</code>",
  "2012":
- "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α) (h₁ : ExpMatch s₁ re₁) :\n  ExpMatch s₁ (Union re₁ re₂)</code>",
+ "<code>RegExp.ExpMatch.mUnionL {α : Type} (s₁ : List α) {re₁ re₂ : RegExp α} (h₁ : ExpMatch s₁ re₁) :\n  ExpMatch s₁ (Union re₁ re₂)</code>",
  "2011": "<code>ExpMatch s₂ re₂</code>",
  "2010": "<code>ExpMatch s₁ re₁</code>",
  "201": "<code>NatPlayground.Nat.blt (n m : Nat) : Bool</code>",
  "2009":
- "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ : List α) (re₁ : RegExp α) (s₂ : List α) (re₂ : RegExp α) (h₁ : ExpMatch s₁ re₁)\n  (h₂ : ExpMatch s₂ re₂) : ExpMatch (s₁ ++ s₂) (App re₁ re₂)</code>",
+ "<code>RegExp.ExpMatch.mApp {α : Type} (s₁ s₂ : List α) {re₁ re₂ : RegExp α} (h₁ : ExpMatch s₁ re₁) (h₂ : ExpMatch s₂ re₂) :\n  ExpMatch (s₁ ++ s₂) (App re₁ re₂)</code>",
  "2008":
  "<code>RegExp.ExpMatch.mChar {α : Type} (c : α) : ExpMatch [c] (Char c)</code>",
  "2007":

@@ -89,10 +89,10 @@ example : Bexp.Equiv
 
 def Com.Equiv (c₁ c₂ : Com) : Prop :=
     ∀ {st st' : State},
-      (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st')
+      (st =[ ~c₁ ]=> st') ↔ (st =[ ~c₂ ]=> st')
 
 theorem Com.equiv_def {c₁ c₂ : Com} : c₁.Equiv c₂ ↔
-    ∀ {st st' : State}, (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st') := by rfl
+    ∀ {st st' : State}, (st =[ ~c₁ ]=> st') ↔ (st =[ ~c₂ ]=> st') := by rfl
 
 --  ### Simple Examples
 
@@ -585,6 +585,7 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
 theorem Com.congruence.while {b b' : Bexp} {c c' : Com} (hb : b.Equiv b') (hc : c.Equiv c') :
     (imp {while (~b) {~c}}).Equiv
     (imp {while (~b') {~c'}}) := by
+  rw [equiv_def]
   intro st st'
   constructor
   · intro h
@@ -596,18 +597,56 @@ theorem Com.congruence.while {b b' : Bexp} {c c' : Com} (hb : b.Equiv b') (hc : 
       apply Com.EvalR.whileFalse
       rw [← hb]
       exact hb'
-    | whileTrue hb' hc' hwhile _ ih2 =>
+    | @whileTrue st₁ st₂ st₃ b₂ c₂ hb' hc' hwhile _ ih2 =>
       injection heq with beq ceq
       subst beq ceq
       rw [hb] at hb'
-      specialize ih2 (by rfl)
-      apply Com.EvalR.whileTrue <;> try assumption
-      · 
-        --- rw [← hc]
-        sorry
+      specialize ih2 rfl
+      apply Com.EvalR.whileTrue hb' _ ih2
+      · rw [equiv_def] at hc
+        exact hc.mp hc'
     | skip | asgn | seq | ifTrue | ifFalse =>
       contradiction
-  · sorry
+  · intro h
+    generalize heq : (imp {while (~b') {~c'}}) = com at h
+    induction h with
+    | whileFalse hb' =>
+      injection heq with hbeq hceq
+      subst hbeq
+      apply Com.EvalR.whileFalse
+      rw [hb]
+      exact hb'
+    | @whileTrue st₁ st₂ st₃ b₂ c₂ hb' hc' hwhile _ ih2 =>
+      injection heq with beq ceq
+      subst beq ceq
+      rw [← hb] at hb'
+      specialize ih2 rfl
+      apply Com.EvalR.whileTrue hb' _ ih2
+      · rw [equiv_def] at hc
+        exact hc.mpr hc'
+    | skip | asgn | seq | ifTrue | ifFalse =>
+      contradiction
+
+--  ### Exercise (3 stars): Com.congruence.seq (Optional) ⭐⭐⭐
+
+theorem Com.congruence.seq {c1 c1' c2 c2' : Com} (hc1 : c1.Equiv c1') (hc2 : c2.Equiv c2') :
+    (imp {~c1 ; ~c2}).Equiv (imp {~c1' ; ~c2'}) := by
+  (
+    intro st st'
+    constructor
+    · intro h
+      inversion h with
+      | seq hc1' hc2' =>
+        rw [equiv_def] at hc1
+        rw [equiv_def] at hc2
+        exact Com.EvalR.seq (hc1.mp hc1') (hc2.mp hc2')
+    · intro h
+      inversion h with
+      | seq hc1' hc2' =>
+        rw [equiv_def] at hc1
+        rw [equiv_def] at hc2
+        exact Com.EvalR.seq (hc1.mpr hc1') (hc2.mpr hc2')
+  )
 
 --  Note to developers (Sati @satiscugcat):
 --      `NOT PORTED YET - remaining portions of Equiv.v left (apart from the portions explicitly stated so far).

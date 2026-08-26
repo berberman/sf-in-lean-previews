@@ -5,206 +5,210 @@ import TS.Smallstep
 
 import SFLCompat
 
--- # Stlc: The Simply Typed Lambda-Calculus
+--  # Stlc: The Simply Typed Lambda-Calculus
 
--- The simply typed lambda-calculus (STLC) is a tiny core calculus embodying
--- the key concept of *functional abstraction*. This concept shows up in
--- pretty much every real-world programming language in some form (functions,
--- procedures, methods, etc.).
+--  The simply typed lambda-calculus (STLC) is a tiny core calculus
+--  embodying the key concept of *functional abstraction*. This concept
+--  shows up in pretty much every real-world programming language in some
+--  form (functions, procedures, methods, etc.).
 
--- We will follow exactly the same pattern as in the previous chapter when
--- formalizing this calculus (syntax, small-step semantics, typing rules) and
--- its main properties (progress and preservation). The new technical
--- challenges arise from the mechanisms of *variable binding* and
--- *substitution*. It will take some work to deal with these.
+--  We will follow exactly the same pattern as in the previous chapter when
+--  formalizing this calculus (syntax, small-step semantics, typing rules)
+--  and its main properties (progress and preservation). The new technical
+--  challenges arise from the mechanisms of *variable binding* and
+--  *substitution*. It will take some work to deal with these.
 
--- The STLC lives in the lower-left front corner of the famous *lambda cube*
--- (also called the *Barendregt Cube*), which visualizes three sets of
--- features that can be added to its simple core:
+--  The STLC lives in the lower-left front corner of the famous *lambda
+--  cube* (also called the *Barendregt Cube*), which visualizes three sets
+--  of features that can be added to its simple core:
 
--- Calculus of Constructions
---  type operators +--------+
---                /|       /|
---               / |      / |
--- polymorphism +--------+  |
---              |  |     |  |
---              |  +-----|--+
---              | /      | /
---              |/       |/
---              +--------+ dependent types
---            STLC
+--  Calculus of Constructions
+--   type operators +--------+
+--                 /|       /|
+--                / |      / |
+--  polymorphism +--------+  |
+--               |  |     |  |
+--               |  +-----|--+
+--               | /      | /
+--               |/       |/
+--               +--------+ dependent types
+--             STLC
 
--- Moving from bottom to top in the cube corresponds to adding *polymorphic
--- types* like `∀ α : Type, α → α`. Adding *just* polymorphism gives us the
--- famous Girard-Reynolds calculus, System F.
+--  Moving from bottom to top in the cube corresponds to adding
+--  *polymorphic types* like `∀ α : Type, α → α`. Adding *just*
+--  polymorphism gives us the famous Girard-Reynolds calculus, System F.
 
--- Moving from front to back corresponds to adding *type operators* like
--- `List`.
+--  Moving from front to back corresponds to adding *type operators* like
+--  `List`.
 
--- Moving from left to right corresponds to adding *dependent types* like
--- `∀ n, ArrayOfSize n`.
+--  Moving from left to right corresponds to adding *dependent types* like
+--  `∀ n, ArrayOfSize n`.
 
--- The top right corner on the back, which combines all three features, is
--- called the *Calculus of Constructions*. First studied by Coquand and Huet,
--- it forms the foundation of Lean's logic.
+--  The top right corner on the back, which combines all three features, is
+--  called the *Calculus of Constructions*. First studied by Coquand and
+--  Huet, it forms the foundation of Lean's logic.
 
--- ## Overview
+--  ## Overview
 
--- The STLC is built on some collection of *base types*: booleans, numbers,
--- strings, etc. The exact choice of base types doesn't matter much — the
--- definition of the language as well as its theoretical properties work out
--- the same no matter what we choose — so for the sake of brevity let's take
--- just `Bool` for the moment. In the next chapter we'll see how to add more
--- base types, and in later chapters we'll enrich the pure STLC with other
--- useful constructs like pairs, records, subtyping, and mutable state.
+--  The STLC is built on some collection of *base types*: booleans,
+--  numbers, strings, etc. The exact choice of base types doesn't matter
+--  much — the definition of the language as well as its theoretical
+--  properties work out the same no matter what we choose — so for the sake
+--  of brevity let's take just `Bool` for the moment. In the next chapter
+--  we'll see how to add more base types, and in later chapters we'll
+--  enrich the pure STLC with other useful constructs like pairs, records,
+--  subtyping, and mutable state.
 
--- Starting from boolean constants and conditionals, we add three things:
+--  Starting from boolean constants and conditionals, we add three things:
 
--- - variables
--- - function abstractions
--- - application
+--  - variables
+--  - function abstractions
+--  - application
 
--- This gives us the following collection of abstract syntax constructors
--- (written out first in informal BNF notation — we'll formalize it below) for
--- STLC terms `t`.
+--  This gives us the following collection of abstract syntax constructors
+--  (written out first in informal BNF notation — we'll formalize it below)
+--  for STLC terms `t`.
 
--- t ::= x                     (variable)
---     | λ x : T . t           (abstraction)
---     | t t                   (application)
---     | true                  (constant true)
---     | false                 (constant false)
---     | if t then t else t    (conditional)
+--  t ::= x                     (variable)
+--      | λ x : T . t           (abstraction)
+--      | t t                   (application)
+--      | true                  (constant true)
+--      | false                 (constant false)
+--      | if t then t else t    (conditional)
 
--- The Greek letter λ ("lambda") in a function abstraction `λx:T. t` is what
--- gives the calculus its name. The variable `x` is called the *parameter* to
--- the function; the term `t` is its *body*. The annotation `:T` specifies the
--- *type* of arguments that the function can be applied to.
+--  The Greek letter λ ("lambda") in a function abstraction `λx:T. t` is
+--  what gives the calculus its name. The variable `x` is called the
+--  *parameter* to the function; the term `t` is its *body*. The annotation
+--  `:T` specifies the *type* of arguments that the function can be applied
+--  to.
 
--- The types of the STLC include `Bool`, which classifies the boolean
--- constants `true` and `false` as well as more complex computations that
--- yield booleans, plus *arrow types* that classify functions (as is the case
--- in Lean).
+--  The types of the STLC include `Bool`, which classifies the boolean
+--  constants `true` and `false` as well as more complex computations that
+--  yield booleans, plus *arrow types* that classify functions (as is the
+--  case in Lean).
 
--- T ::= Bool
---     | T → T
+--  T ::= Bool
+--      | T → T
 
--- Some examples of STLC terms:
+--  Some examples of STLC terms:
 
--- `λx:Bool. x`
+--  `λx:Bool. x`
 
--- The identity function for booleans.
+--  The identity function for booleans.
 
--- `(λx:Bool. x) true`
+--  `(λx:Bool. x) true`
 
--- The identity function for booleans, applied to the boolean `true`.
+--  The identity function for booleans, applied to the boolean `true`.
 
--- `λx:Bool. if x then false else true`
+--  `λx:Bool. if x then false else true`
 
--- The boolean "not" function.
+--  The boolean "not" function.
 
--- `λx:Bool. true`
+--  `λx:Bool. true`
 
--- The constant function that takes every (boolean) argument to `true`.
+--  The constant function that takes every (boolean) argument to `true`.
 
--- `λx:Bool. λy:Bool. x`
+--  `λx:Bool. λy:Bool. x`
 
--- A two-argument function that takes two booleans and returns the first one.
+--  A two-argument function that takes two booleans and returns the first
+--  one.
 
--- (As in Lean, a two-argument function in the lambda-calculus is really a
--- one-argument function whose body is also a one-argument function.)
+--  (As in Lean, a two-argument function in the lambda-calculus is really a
+--  one-argument function whose body is also a one-argument function.)
 
--- `(λx:Bool. λy:Bool. x) false true`
+--  `(λx:Bool. λy:Bool. x) false true`
 
--- A two-argument function that takes two booleans and returns the first one,
--- applied to the booleans `false` and `true`.
+--  A two-argument function that takes two booleans and returns the first
+--  one, applied to the booleans `false` and `true`.
 
--- (As in Lean, application associates to the left — i.e., this expression is
--- parsed as `((λx:Bool. λy:Bool. x) false) true`.)
+--  (As in Lean, application associates to the left — i.e., this expression
+--  is parsed as `((λx:Bool. λy:Bool. x) false) true`.)
 
--- `λf:Bool → Bool. f (f true)`
+--  `λf:Bool → Bool. f (f true)`
 
--- A higher-order function that takes a *function* `f` (from booleans to
--- booleans) as an argument, applies `f` to `true`, and applies `f` again to
--- the result.
+--  A higher-order function that takes a *function* `f` (from booleans to
+--  booleans) as an argument, applies `f` to `true`, and applies `f` again
+--  to the result.
 
--- `(λf:Bool → Bool. f (f true)) (λx:Bool. false)`
+--  `(λf:Bool → Bool. f (f true)) (λx:Bool. false)`
 
--- The same higher-order function, applied to the constantly `false` function.
+--  The same higher-order function, applied to the constantly `false`
+--  function.
 
--- The last two examples show, the STLC is a language of *higher-order*
--- functions: we can write down functions that take other functions as
--- arguments and/or return other functions as results.
+--  The last two examples show, the STLC is a language of *higher-order*
+--  functions: we can write down functions that take other functions as
+--  arguments and/or return other functions as results.
 
--- The STLC doesn't provide any primitive syntax for defining *named*
--- functions: i.e., all functions are "anonymous." We'll see in chapter
--- `MoreStlc` that it is easy to add named functions — indeed, the fundamental
--- naming and binding mechanisms are exactly the same.
+--  The STLC doesn't provide any primitive syntax for defining *named*
+--  functions: i.e., all functions are "anonymous." We'll see in chapter
+--  `MoreStlc` that it is easy to add named functions — indeed, the
+--  fundamental naming and binding mechanisms are exactly the same.
 
--- Now reconsider our examples, each along with its type:
+--  Now reconsider our examples, each along with its type:
 
--- - `λx:Bool. x` has type `Bool → Bool`
+--  - `λx:Bool. x` has type `Bool → Bool`
 
--- - `(λx:Bool. x) true` has type `Bool`
+--  - `(λx:Bool. x) true` has type `Bool`
 
--- - `λx:Bool. if x then false else true` has type `Bool → Bool`
+--  - `λx:Bool. if x then false else true` has type `Bool → Bool`
 
--- - `λx:Bool. true` has type `Bool → Bool`
+--  - `λx:Bool. true` has type `Bool → Bool`
 
--- - `λx:Bool. λy:Bool. x` has type `Bool → Bool → Bool` (i.e.,
---   `Bool → (Bool → Bool)`)
+--  - `λx:Bool. λy:Bool. x` has type `Bool → Bool → Bool` (i.e.,
+--    `Bool → (Bool → Bool)`)
 
--- - `(λx:Bool. λy:Bool. x) false true` has type `Bool`
+--  - `(λx:Bool. λy:Bool. x) false true` has type `Bool`
 
--- The last two, higher-order examples are left off the list on purpose —
--- working out their types is the subject of the quizzes that follow.
+--  The last two, higher-order examples are left off the list on purpose —
+--  working out their types is the subject of the quizzes that follow.
 
--- _Quiz:_
+--  _Quiz:_
 
--- What is the type of the following term?
+--  What is the type of the following term?
 
---   λf:Bool → Bool. f (f true)
+--    λf:Bool → Bool. f (f true)
 
--- (A) `Bool → (Bool → Bool)`
+--  (A) `Bool → (Bool → Bool)`
 
--- (B) `(Bool → Bool) → Bool`
+--  (B) `(Bool → Bool) → Bool`
 
--- (C) `Bool → Bool`
+--  (C) `Bool → Bool`
 
--- (D) `Bool`
+--  (D) `Bool`
 
--- (E) none of the above
+--  (E) none of the above
 
--- _Quiz:_
+--  _Quiz:_
 
--- How about the type of this one?
+--  How about the type of this one?
 
---   (λf:Bool → Bool. f (f true)) (λx:Bool. false)
+--    (λf:Bool → Bool. f (f true)) (λx:Bool. false)
 
--- (A) `Bool → (Bool → Bool)`
+--  (A) `Bool → (Bool → Bool)`
 
--- (B) `(Bool → Bool) → Bool`
+--  (B) `(Bool → Bool) → Bool`
 
--- (C) `Bool → Bool`
+--  (C) `Bool → Bool`
 
--- (D) `Bool`
+--  (D) `Bool`
 
--- (E) none of the above
+--  (E) none of the above
 
--- ## Syntax
+--  ## Syntax
 
--- We next formalize the syntax of the STLC.
+--  We next formalize the syntax of the STLC.
 
 namespace Stlc
 
 open scoped MyGetElem
 
--- ### Types
+--  ### Types
 
 inductive Ty where
   | bool
   | arrow (T₁ T₂ : Ty)
 
--- ### Terms
+--  ### Terms
 
 inductive Tm where
   | var (x : String)
@@ -214,36 +218,36 @@ inductive Tm where
   | fls
   | ite (c t e : Tm)
 
--- We need some notation magic to set up the concrete syntax, as we did in the
--- Types chapter...
+--  We need some notation magic to set up the concrete syntax, as we did in
+--  the Types chapter...
 
--- The upshot of this section is that STLC types and terms are both written
--- inside one pair of brackets, `<{ … }>`, and that `~e` inside the brackets
--- escapes back to an arbitrary Lean expression:
+--  The upshot of this section is that STLC types and terms are both
+--  written inside one pair of brackets, `<{ … }>`, and that `~e` inside
+--  the brackets escapes back to an arbitrary Lean expression:
 
--- - `<{ Bool → Bool }>` is a type;
+--  - `<{ Bool → Bool }>` is a type;
 
--- - `<{ λ x : Bool . x }>` is a term — a bare identifier inside the brackets is
---   the object-language variable of that name, so `<{ x }>` is the variable
---   `x`;
+--  - `<{ λ x : Bool . x }>` is a term — a bare identifier inside the
+--    brackets is the object-language variable of that name, so `<{ x }>`
+--    is the variable `x`;
 
--- - `<{ ~t₁ ~t₂ }>` applies one Lean-level term to another.
+--  - `<{ ~t₁ ~t₂ }>` applies one Lean-level term to another.
 
--- Lean works out from context which of the two a given bracket holds, so the
--- same brackets serve for types, for terms, and — when we come to typing —
--- for typing judgments too. How that works is in the collapsed blocks below;
--- nothing later in the chapter depends on it.
+--  Lean works out from context which of the two a given bracket holds, so
+--  the same brackets serve for types, for terms, and — when we come to
+--  typing — for typing judgments too. How that works is in the collapsed
+--  blocks below; nothing later in the chapter depends on it.
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: types
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: types)
 
--- The `stlcTy` grammar covers `Bool`, arrows (written `→` or `->`,
--- associating to the right), parentheses, and `~e`. A bare identifier other
--- than `Bool` is spliced in as a Lean term, so a local `T` — or any Lean
--- expression of type `Ty` — can appear directly inside the brackets.
+--  The `stlcTy` grammar covers `Bool`, arrows (written `→` or `->`,
+--  associating to the right), parentheses, and `~e`. A bare identifier
+--  other than `Bool` is spliced in as a Lean term, so a local `T` — or any
+--  Lean expression of type `Ty` — can appear directly inside the brackets.
 
--- To extend the grammar, a later chapter adds a `syntax` line to the category
--- and a matching `macro_rules` case; that is all it takes to add a new type
--- construct.
+--  To extend the grammar, a later chapter adds a `syntax` line to the
+--  category and a matching `macro_rules` case; that is all it takes to add
+--  a new type construct.
 
 declare_syntax_cat stlcTy
 syntax:max "~" term:max : stlcTy
@@ -263,34 +267,34 @@ macro_rules (kind := tyBracket)
   | `(<{ $T₁:stlcTy → $T₂:stlcTy }>)  => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
   | `(<{ $T₁:stlcTy -> $T₂:stlcTy }>) => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
 
--- END DETAILS
+--  END DETAILS
 
--- We'll write types inside of `<{ ... }>` brackets:
+--  We'll write types inside of `<{ ... }>` brackets:
 
 #check <{ Bool }>
 #check <{ Bool -> Bool }>
 #check <{ (Bool -> Bool) -> Bool }>
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: terms
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: terms)
 
--- Terms are built from variables, application (associating to the left),
--- abstraction, the two boolean constants, and conditionals. A binding
--- occurrence — the `x` in `λ x : T . t` — has a small grammar of its own,
--- `stlcVar`, and `varStr` turns it into the string that `Tm.abs` stores.
+--  Terms are built from variables, application (associating to the left),
+--  abstraction, the two boolean constants, and conditionals. A binding
+--  occurrence — the `x` in `λ x : T . t` — has a small grammar of its own,
+--  `stlcVar`, and `varStr` turns it into the string that `Tm.abs` stores.
 
--- Because types and terms share the brackets, each `macro_rules` group says
--- which bracket it belongs to (`kind := tyBracket`, `kind := tmBracket`), and
--- each antiquote in a nested quotation says which grammar it came from. A
--- bare identifier is the one genuinely overlapping case: `Bool` in term
--- position would otherwise quietly become a variable named `Bool`, so that
--- rule rejects it, which also settles which grammar a lone `<{ Bool }>`
--- belongs to.
+--  Because types and terms share the brackets, each `macro_rules` group
+--  says which bracket it belongs to (`kind := tyBracket`,
+--  `kind := tmBracket`), and each antiquote in a nested quotation says
+--  which grammar it came from. A bare identifier is the one genuinely
+--  overlapping case: `Bool` in term position would otherwise quietly
+--  become a variable named `Bool`, so that rule rejects it, which also
+--  settles which grammar a lone `<{ Bool }>` belongs to.
 
--- The last production, `[x := s] t`, is the notation for substitution; we
--- give it its meaning when we define substitution below. It binds tighter
--- than application, so `[x:=s] t₁ t₂` is the application of `[x:=s] t₁` to
--- `t₂`, and a `λ` or `if` body must be parenthesized:
--- `[x:=s] (λ y : Bool . x)`.
+--  The last production, `[x := s] t`, is the notation for substitution; we
+--  give it its meaning when we define substitution below. It binds tighter
+--  than application, so `[x:=s] t₁ t₂` is the application of `[x:=s] t₁`
+--  to `t₂`, and a `λ` or `if` body must be parenthesized:
+--  `[x:=s] (λ y : Bool . x)`.
 
 declare_syntax_cat stlcVar
 syntax:max ident : stlcVar
@@ -330,15 +334,15 @@ macro_rules (kind := tmBracket)
   | `(<{ if $c then $t else $e }>) =>
       `(Tm.ite <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
 
--- END DETAILS
+--  END DETAILS
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing it back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
 
--- A *delaborator* runs the grammar backwards: it rebuilds the concrete syntax
--- from a `Ty` or `Tm` value, so that types and terms appearing in goals and
--- in `#check` output print as `<{ λ x : Bool . x }>` rather than as a pile of
--- constructors. (Setting `pp.notation false` turns it off, revealing the
--- underlying representation.)
+--  A *delaborator* runs the grammar backwards: it rebuilds the concrete
+--  syntax from a `Ty` or `Tm` value, so that types and terms appearing in
+--  goals and in `#check` output print as `<{ λ x : Bool . x }>` rather
+--  than as a pile of constructors. (Setting `pp.notation false` turns it
+--  off, revealing the underlying representation.)
 
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
 /-- Re-inserts parentheses in `stlcTy` output according to the grammar's precedences. -/
@@ -469,10 +473,10 @@ def delabTm : Delab := whenPPOption getPPNotation do
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
 
--- END DETAILS
+--  END DETAILS
 
--- Here are the terms we will use as running examples, written in the new
--- notation:
+--  Here are the terms we will use as running examples, written in the new
+--  notation:
 
 abbrev idB := <{ λ x : Bool . x }>
 
@@ -484,159 +488,162 @@ abbrev k := <{ λ x : Bool . λ y : Bool . x }>
 
 abbrev notB := <{ λ x : Bool . if x then false else true }>
 
--- Note that an abstraction `λ x : T . t` (formally, `Tm.abs` applied to `x`,
--- `T`, and `t`) is always annotated with the type `T` of its parameter, in
--- contrast to Lean (and other functional languages like ML, Haskell, etc.),
--- which use type inference to fill in missing annotations. We're not
--- considering type inference at all here.
+--  Note that an abstraction `λ x : T . t` (formally, `Tm.abs` applied to
+--  `x`, `T`, and `t`) is always annotated with the type `T` of its
+--  parameter, in contrast to Lean (and other functional languages like ML,
+--  Haskell, etc.), which use type inference to fill in missing
+--  annotations. We're not considering type inference at all here.
 
--- ## Operational Semantics
+--  ## Operational Semantics
 
--- To define the small-step semantics of STLC terms, we begin, as always, by
--- defining the set of values. Next, we define the critical notions of *free
--- variables* and *substitution*, which are used in the reduction rule for
--- application expressions. And finally we give the small-step relation
--- itself.
+--  To define the small-step semantics of STLC terms, we begin, as always,
+--  by defining the set of values. Next, we define the critical notions of
+--  *free variables* and *substitution*, which are used in the reduction
+--  rule for application expressions. And finally we give the small-step
+--  relation itself.
 
--- ### Values
+--  ### Values
 
--- To define the values of the STLC, we have a few cases to consider.
+--  To define the values of the STLC, we have a few cases to consider.
 
--- First, for the boolean part of the language, the situation is clear: `true`
--- and `false` are the only values. An `if` expression is never a value.
+--  First, for the boolean part of the language, the situation is clear:
+--  `true` and `false` are the only values. An `if` expression is never a
+--  value.
 
--- Second, an application is not a value: it represents a function being
--- invoked on some argument, which clearly still has work left to do.
+--  Second, an application is not a value: it represents a function being
+--  invoked on some argument, which clearly still has work left to do.
 
--- Third, for abstractions, we have a choice:
+--  Third, for abstractions, we have a choice:
 
--- - We can say that `λx:T. t` is a value only when `t` is a value — i.e., only
---   if the function's body has been reduced (as much as it can be without
---   knowing what argument it is going to be applied to).
+--  - We can say that `λx:T. t` is a value only when `t` is a value — i.e.,
+--    only if the function's body has been reduced (as much as it can be
+--    without knowing what argument it is going to be applied to).
 
--- - Or we can say that `λx:T. t` is always a value, no matter whether `t` is
---   one or not — in other words, we can say that reduction stops at
---   abstractions.
+--  - Or we can say that `λx:T. t` is always a value, no matter whether `t`
+--    is one or not — in other words, we can say that reduction stops at
+--    abstractions.
 
--- Our usual way of evaluating expressions in Lean makes the first choice —
--- for example,
+--  Our usual way of evaluating expressions in Lean makes the first choice
+--  — for example,
 
 #reduce fun _x : Bool => 3 + 4
 
--- yields:
+--  yields:
 
---   fun _x => 7
+--    fun _x => 7
 
--- But Lean is rather unusual in this respect. Most functional programming
--- languages make the second choice — reduction of a function's body only
--- begins when the function is actually applied to an argument.
+--  But Lean is rather unusual in this respect. Most functional programming
+--  languages make the second choice — reduction of a function's body only
+--  begins when the function is actually applied to an argument.
 
--- We also make the second choice here.
+--  We also make the second choice here.
 
 inductive Tm.IsValue : Tm → Prop where
   | abs (x : String) (T₂ : Ty) (t₁ : Tm) : Tm.IsValue <{ λ ~x : ~T₂ . ~t₁ }>
   | tru : Tm.IsValue <{ true }>
   | fls : Tm.IsValue <{ false }>
 
--- The example terms named above are all abstractions, hence all values. We
--- record that once each, so that the reduction examples can cite the fact by
--- name instead of unfolding the definition again at every use.
+--  The example terms named above are all abstractions, hence all values.
+--  We record that once each, so that the reduction examples can cite the
+--  fact by name instead of unfolding the definition again at every use.
 
 theorem idB_value : idB.IsValue := .abs ..
 theorem idBB_value : idBB.IsValue := .abs ..
 theorem notB_value : notB.IsValue := .abs ..
 
--- Note to developers:
---     The Rocq source follows each inductive definition in this chapter with
---     a `Hint Constructors … : core`, registering the constructors with
---     `auto`; the proofs then lean on `auto`/`eauto` to assemble derivations.
---     We have no counterpart here: the proofs below name their constructors
---     explicitly, in the style of the Types chapter. Lean's `grind` would be
---     the closest analogue if a later pass wants automation.
+--  Note to developers:
+--      The Rocq source follows each inductive definition in this chapter
+--      with a `Hint Constructors … : core`, registering the constructors
+--      with `auto`; the proofs then lean on `auto`/`eauto` to assemble
+--      derivations. We have no counterpart here: the proofs below name
+--      their constructors explicitly, in the style of the Types chapter.
+--      Lean's `grind` would be the closest analogue if a later pass wants
+--      automation.
 
--- ### STLC Programs
+--  ### STLC Programs
 
--- Finally, we must consider what constitutes a *complete* program.
+--  Finally, we must consider what constitutes a *complete* program.
 
--- Intuitively, a "complete program" must not refer to any undefined
--- variables. We'll see shortly how to define the *free* variables in a STLC
--- term. A complete program, then, is one that is *closed* — that is, that
--- contains no free variables.
+--  Intuitively, a "complete program" must not refer to any undefined
+--  variables. We'll see shortly how to define the *free* variables in a
+--  STLC term. A complete program, then, is one that is *closed* — that is,
+--  that contains no free variables.
 
--- (Conversely, a term that may contain free variables is often called an
--- *open term*.)
+--  (Conversely, a term that may contain free variables is often called an
+--  *open term*.)
 
--- Note to developers (Chris Henson @chenson2018, before next release):
---     Is the "shortly" above setting wrong expectations? Where exactly are we
---     defining the free variables in a STLC term? BCP 25: Indeed, we need to
---     define "free"!
+--  Note to developers (Chris Henson @chenson2018, before next release):
+--      Is the "shortly" above setting wrong expectations? Where exactly
+--      are we defining the free variables in a STLC term? BCP 25: Indeed,
+--      we need to define "free"!
 
--- Having made the choice not to reduce under abstractions, we don't need to
--- worry about whether variables are values, since we'll always be reducing
--- programs "from the outside in," and that means the `step` relation will
--- always be working with closed terms.
+--  Having made the choice not to reduce under abstractions, we don't need
+--  to worry about whether variables are values, since we'll always be
+--  reducing programs "from the outside in," and that means the `step`
+--  relation will always be working with closed terms.
 
--- ### Substitution
+--  ### Substitution
 
--- Now we come to the heart of the STLC: the operation of *substituting* one
--- term for a variable in another term. This operation is used below to define
--- the operational semantics of function application, where we will need to
--- substitute the argument term for the function parameter in the function's
--- body. For example, we reduce
+--  Now we come to the heart of the STLC: the operation of *substituting*
+--  one term for a variable in another term. This operation is used below
+--  to define the operational semantics of function application, where we
+--  will need to substitute the argument term for the function parameter in
+--  the function's body. For example, we reduce
 
---   (λx:Bool. if x then true else x) false
+--    (λx:Bool. if x then true else x) false
 
--- to
+--  to
 
---   if false then true else false
+--    if false then true else false
 
--- by substituting `false` for the parameter `x` in the body of the function.
+--  by substituting `false` for the parameter `x` in the body of the
+--  function.
 
--- In general, we need to be able to substitute some given term `s` for
--- occurrences of some variable `x` in another term `t`. Informally, this is
--- written `[x:=s]t` and pronounced "substitute `s` for `x` in `t`."
+--  In general, we need to be able to substitute some given term `s` for
+--  occurrences of some variable `x` in another term `t`. Informally, this
+--  is written `[x:=s]t` and pronounced "substitute `s` for `x` in `t`."
 
--- Here are some examples:
+--  Here are some examples:
 
--- - `[x:=true] (if x then true else false)` yields
---   `if true then true else false`
+--  - `[x:=true] (if x then true else false)` yields
+--    `if true then true else false`
 
--- - `[x:=true] x` yields `true`
+--  - `[x:=true] x` yields `true`
 
--- - `[x:=true] (if x then x else y)` yields `if true then true else y`
+--  - `[x:=true] (if x then x else y)` yields `if true then true else y`
 
--- - `[x:=true] y` yields `y`
+--  - `[x:=true] y` yields `y`
 
--- - `[x:=true] false` yields `false` (vacuous substitution)
+--  - `[x:=true] false` yields `false` (vacuous substitution)
 
--- - `[x:=true] (λy:Bool. if y then x else false)` yields
---   `λy:Bool. if y then true else false`
+--  - `[x:=true] (λy:Bool. if y then x else false)` yields
+--    `λy:Bool. if y then true else false`
 
--- - `[x:=true] (λy:Bool. x)` yields `λy:Bool. true`
+--  - `[x:=true] (λy:Bool. x)` yields `λy:Bool. true`
 
--- - `[x:=true] (λy:Bool. y)` yields `λy:Bool. y`
+--  - `[x:=true] (λy:Bool. y)` yields `λy:Bool. y`
 
--- - `[x:=true] (λx:Bool. x)` yields `λx:Bool. x`
+--  - `[x:=true] (λx:Bool. x)` yields `λx:Bool. x`
 
--- The last example is illuminating: substituting `x` with `true` in
--- `λx:Bool. x` does *not* yield `λx:Bool. true`! The reason for this is that
--- the `x` in the body of `λx:Bool. x` is *bound* by the abstraction: it is a
--- new, local name that just happens to be spelled the same as some global
--- name `x`.
+--  The last example is illuminating: substituting `x` with `true` in
+--  `λx:Bool. x` does *not* yield `λx:Bool. true`! The reason for this is
+--  that the `x` in the body of `λx:Bool. x` is *bound* by the abstraction:
+--  it is a new, local name that just happens to be spelled the same as
+--  some global name `x`.
 
--- Here is the definition, informally...
+--  Here is the definition, informally...
 
---   [x:=s]x               = s
---   [x:=s]y               = y                     if x ≠ y
---   [x:=s](λx:T. t)       = λx:T. t
---   [x:=s](λy:T. t)       = λy:T. [x:=s]t         if x ≠ y
---   [x:=s](t₁ t₂)         = ([x:=s]t₁) ([x:=s]t₂)
---   [x:=s]true            = true
---   [x:=s]false           = false
---   [x:=s](if t₁ then t₂ else t₃) =
---                   if [x:=s]t₁ then [x:=s]t₂ else [x:=s]t₃
+--    [x:=s]x               = s
+--    [x:=s]y               = y                     if x ≠ y
+--    [x:=s](λx:T. t)       = λx:T. t
+--    [x:=s](λy:T. t)       = λy:T. [x:=s]t         if x ≠ y
+--    [x:=s](t₁ t₂)         = ([x:=s]t₁) ([x:=s]t₂)
+--    [x:=s]true            = true
+--    [x:=s]false           = false
+--    [x:=s](if t₁ then t₂ else t₃) =
+--                    if [x:=s]t₁ then [x:=s]t₂ else [x:=s]t₃
 
--- ... and formally:
+--  ... and formally:
 
 section
 set_option hygiene false in
@@ -666,10 +673,11 @@ macro_rules (kind := tmBracket)
   | `(<{ [$x := $s] $t }>) => do
       `(subst $(← varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: substitution
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: substitution)
 
--- One more line registers substitutions with the printer, so that a goal
--- mentioning one reads as `[x := s] t` rather than as a `subst` application.
+--  One more line registers substitutions with the printer, so that a goal
+--  mentioning one reads as `[x := s] t` rather than as a `subst`
+--  application.
 
 open Lean PrettyPrinter Delaborator SubExpr in
 @[delab app.Stlc.subst]
@@ -678,13 +686,13 @@ def delabSubst : Delab := whenPPOption getPPNotation do
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
 
--- END DETAILS
+--  END DETAILS
 
--- As we did for the evaluators in the Slang chapter, we pair the definition
--- with one *simplification lemma* per constructor, saying how `subst` behaves
--- on that constructor. The variable and abstraction cases each need two
--- lemmas, since substitution treats a bound name differently depending on
--- whether it is the name being substituted for.
+--  As we did for the evaluators in the Slang chapter, we pair the
+--  definition with one *simplification lemma* per constructor, saying how
+--  `subst` behaves on that constructor. The variable and abstraction cases
+--  each need two lemmas, since substitution treats a bound name
+--  differently depending on whether it is the name being substituted for.
 
 variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty)
 
@@ -712,72 +720,75 @@ variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty)
     <{ [~x := ~s] (if ~t₁ then ~t₂ else ~t₃) }> =
       <{ if [~x := ~s] ~t₁ then [~x := ~s] ~t₂ else [~x := ~s] ~t₃ }> := rfl
 
--- _Quiz:_
+--  _Quiz:_
 
--- What is the result of the following substitution?
+--  What is the result of the following substitution?
 
---   [x:=s](λy:T₁. x (λx:T₂. x))
+--    [x:=s](λy:T₁. x (λx:T₂. x))
 
--- (1) `(λy:T₁. x (λx:T₂. x))`
+--  (1) `(λy:T₁. x (λx:T₂. x))`
 
--- (2) `(λy:T₁. s (λx:T₂. s))`
+--  (2) `(λy:T₁. s (λx:T₂. s))`
 
--- (3) `(λy:T₁. s (λx:T₂. x))`
+--  (3) `(λy:T₁. s (λx:T₂. x))`
 
--- (4) none of the above
+--  (4) none of the above
 
--- *Technical note*: Substitution becomes trickier to define if we consider
--- the case where `s`, the term being substituted for a variable in some other
--- term, may itself contain free variables. We say that `s` is an *open* term.
+--  *Technical note*: Substitution becomes trickier to define if we
+--  consider the case where `s`, the term being substituted for a variable
+--  in some other term, may itself contain free variables. We say that `s`
+--  is an *open* term.
 
--- Here is an example. Using the above definition to substitute the open term
+--  Here is an example. Using the above definition to substitute the open
+--  term
 
---   s = λx:Bool. r
+--    s = λx:Bool. r
 
--- (where `r` is a *free* reference to some global resource) for the free
--- variable `z` in the term
+--  (where `r` is a *free* reference to some global resource) for the free
+--  variable `z` in the term
 
---   t = λr:Bool. z
+--    t = λr:Bool. z
 
--- where `r` is a bound variable, we would get
+--  where `r` is a bound variable, we would get
 
---   λr:Bool. λx:Bool. r
+--    λr:Bool. λx:Bool. r
 
--- where the free reference to `r` in `s` has been "captured" by the binder at
--- the beginning of `t`.
+--  where the free reference to `r` in `s` has been "captured" by the
+--  binder at the beginning of `t`.
 
--- Why would this be bad? Because it violates the principle that the names of
--- bound variables do not matter. For example, if we rename the bound variable
--- in `t`, e.g., let
+--  Why would this be bad? Because it violates the principle that the names
+--  of bound variables do not matter. For example, if we rename the bound
+--  variable in `t`, e.g., let
 
---   t' = λw:Bool. z
+--    t' = λw:Bool. z
 
--- then `[z:=s]t'` is
+--  then `[z:=s]t'` is
 
---   λw:Bool. λx:Bool. r
+--    λw:Bool. λx:Bool. r
 
--- which does not behave the same as the substituting in the original `t`:
+--  which does not behave the same as the substituting in the original `t`:
 
---   [z:=s]t = λr:Bool. λx:Bool. r
+--    [z:=s]t = λr:Bool. λx:Bool. r
 
--- That is, renaming a bound variable in `t` would change how `t` behaves
--- under our simple substitution. So substitution gets more complicated in
--- that setting, but fortunately we don't have that problem in our STLC
--- variant.
+--  That is, renaming a bound variable in `t` would change how `t` behaves
+--  under our simple substitution. So substitution gets more complicated in
+--  that setting, but fortunately we don't have that problem in our STLC
+--  variant.
 
--- Fortunately, since we are only interested here in defining the `step`
--- relation on *closed* terms (i.e., terms like `λx:Bool. x` that include
--- binders for all of the variables they mention), we can sidestep this extra
--- complexity, but it must be dealt with when formalizing richer languages.
+--  Fortunately, since we are only interested here in defining the `step`
+--  relation on *closed* terms (i.e., terms like `λx:Bool. x` that include
+--  binders for all of the variables they mention), we can sidestep this
+--  extra complexity, but it must be dealt with when formalizing richer
+--  languages.
 
--- ### Exercise (3 stars): substi_correct ⭐⭐⭐
+--  ### Exercise (3 stars): substi_correct ⭐⭐⭐
 
--- The definition that we gave above defines substitution as a *function*.
--- Suppose, instead, we wanted to define substitution as an inductive
--- *relation* `Substi`. We've begun the definition by providing the
--- `inductive` header and one of the constructors; your job is to fill in the
--- rest of the constructors and prove that the relation you've defined
--- coincides with the function given above.
+--  The definition that we gave above defines substitution as a *function*.
+--  Suppose, instead, we wanted to define substitution as an inductive
+--  *relation* `Substi`. We've begun the definition by providing the
+--  `inductive` header and one of the constructors; your job is to fill in
+--  the rest of the constructors and prove that the relation you've defined
+--  coincides with the function given above.
 
 inductive Substi (s : Tm) (x : String) : Tm → Tm → Prop where
   | var1 :
@@ -823,55 +834,56 @@ theorem substi_correct (s : Tm) (x : String) (t t' : Tm) :
     intro h
     induction h <;> simp_all
 
--- ### Reduction
+--  ### Reduction
 
--- The small-step reduction relation for STLC now follows the same pattern as
--- the ones we have seen before. Intuitively, to reduce a function
--- application, we first reduce its left-hand side (the function) until it
--- becomes an abstraction; then we reduce its right-hand side (the argument)
--- until it is also a value; and finally we substitute the argument for the
--- bound variable in the body of the abstraction. This last rule, written
--- informally as
+--  The small-step reduction relation for STLC now follows the same pattern
+--  as the ones we have seen before. Intuitively, to reduce a function
+--  application, we first reduce its left-hand side (the function) until it
+--  becomes an abstraction; then we reduce its right-hand side (the
+--  argument) until it is also a value; and finally we substitute the
+--  argument for the bound variable in the body of the abstraction. This
+--  last rule, written informally as
 
---   (λx:T. t₁₂) v₂ ⟶ [x:=v₂] t₁₂
+--    (λx:T. t₁₂) v₂ ⟶ [x:=v₂] t₁₂
 
--- is traditionally called *beta-reduction*.
+--  is traditionally called *beta-reduction*.
 
--- v.IsValue
---                        -----------------------      (appAbs)
---                         (λx:T. t) v ⟶ [x:=v]t
+--  v.IsValue
+--                         -----------------------      (appAbs)
+--                          (λx:T. t) v ⟶ [x:=v]t
 
---                               t₁ ⟶ t₁'
---                           ----------------          (app1)
---                            t₁ t₂ ⟶ t₁' t₂
+--                                t₁ ⟶ t₁'
+--                            ----------------          (app1)
+--                             t₁ t₂ ⟶ t₁' t₂
 
---                               v.IsValue
---                               t₂ ⟶ t₂'
---                           ----------------          (app2)
---                            v₁ t₂ ⟶ v₁ t₂'
+--                                v.IsValue
+--                                t₂ ⟶ t₂'
+--                            ----------------          (app2)
+--                             v₁ t₂ ⟶ v₁ t₂'
 
--- ... plus the usual rules for conditionals:
+--  ... plus the usual rules for conditionals:
 
--- --------------------------------                (ifTrue)
---                    (if true then t₁ else t₂) ⟶ t₁
+--  --------------------------------                (ifTrue)
+--                     (if true then t₁ else t₂) ⟶ t₁
 
---                   ---------------------------------               (ifFalse)
---                    (if false then t₁ else t₂) ⟶ t₂
+--                    ---------------------------------               (ifFalse)
+--                     (if false then t₁ else t₂) ⟶ t₂
 
---                               t₁ ⟶ t₁'
---         ----------------------------------------------------      (ifStep)
---          (if t₁ then t₂ else t₃) ⟶ (if t₁' then t₂ else t₃)
+--                                t₁ ⟶ t₁'
+--          ----------------------------------------------------      (ifStep)
+--           (if t₁ then t₂ else t₃) ⟶ (if t₁' then t₂ else t₃)
 
--- This is *call by value* reduction: to reduce an application `(t₁ t₂)`, we
+--  This is *call by value* reduction: to reduce an application `(t₁ t₂)`,
+--  we
 
--- - first reduce `t₁` to a value: a function `λx:T. t`
+--  - first reduce `t₁` to a value: a function `λx:T. t`
 
--- - then reduce the argument `t₂` to a value `v`
+--  - then reduce the argument `t₂` to a value `v`
 
--- - then reduce the application itself by substituting `v` for the bound
---   variable `x` in the body `t`.
+--  - then reduce the application itself by substituting `v` for the bound
+--    variable `x` in the body `t`.
 
--- Formally:
+--  Formally:
 
 section
 set_option hygiene false in
@@ -895,100 +907,100 @@ end
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 scoped notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
--- As in the Smallstep chapter, `⟶*` is the multi-step closure of `⟶` — that
--- is, `Multi` applied to this chapter's step relation. We inherit its
--- reflexivity lemma along with it, so a zero-step execution goal `t ⟶* t` is
--- closed by `rfl`.
+--  As in the Smallstep chapter, `⟶*` is the multi-step closure of `⟶` —
+--  that is, `Multi` applied to this chapter's step relation. We inherit
+--  its reflexivity lemma along with it, so a zero-step execution goal
+--  `t ⟶* t` is closed by `rfl`.
 
--- _Quiz:_
+--  _Quiz:_
 
--- What does the following term step to?
+--  What does the following term step to?
 
---   (λx:Bool → Bool. x) (λx:Bool. x) ⟶ ???
+--    (λx:Bool → Bool. x) (λx:Bool. x) ⟶ ???
 
--- (A) `λx:Bool. x`
+--  (A) `λx:Bool. x`
 
--- (B) `λx:Bool → Bool. x`
+--  (B) `λx:Bool → Bool. x`
 
--- (C) `(λx:Bool → Bool. x) (λx:Bool. x)`
+--  (C) `(λx:Bool → Bool. x) (λx:Bool. x)`
 
--- (D) none of the above
+--  (D) none of the above
 
--- _Quiz:_
+--  _Quiz:_
 
--- What does the following term step to?
+--  What does the following term step to?
 
---   (λx:Bool → Bool. x)
---       ((λx:Bool → Bool. x) (λx:Bool. x))
---   ⟶ ???
+--    (λx:Bool → Bool. x)
+--        ((λx:Bool → Bool. x) (λx:Bool. x))
+--    ⟶ ???
 
--- (A) `λx:Bool. x`
+--  (A) `λx:Bool. x`
 
--- (B) `λx:Bool → Bool. x`
+--  (B) `λx:Bool → Bool. x`
 
--- (C) `(λx:Bool → Bool. x) (λx:Bool. x)`
+--  (C) `(λx:Bool → Bool. x) (λx:Bool. x)`
 
--- (D) `(λx:Bool → Bool. x) ((λx:Bool → Bool. x) (λx:Bool. x))`
+--  (D) `(λx:Bool → Bool. x) ((λx:Bool → Bool. x) (λx:Bool. x))`
 
--- (E) none of the above
+--  (E) none of the above
 
--- _Quiz:_
+--  _Quiz:_
 
--- What does the following term *normalize* to?
+--  What does the following term *normalize* to?
 
---   (λx:Bool → Bool. x) notB true  ⟶* ???
+--    (λx:Bool → Bool. x) notB true  ⟶* ???
 
--- where `notB` abbreviates `λx:Bool. if x then false else true`
+--  where `notB` abbreviates `λx:Bool. if x then false else true`
 
--- (A) `λx:Bool. x`
+--  (A) `λx:Bool. x`
 
--- (B) `true`
+--  (B) `true`
 
--- (C) `false`
+--  (C) `false`
 
--- (D) `notB`
+--  (D) `notB`
 
--- (E) none of the above
+--  (E) none of the above
 
--- _Quiz:_
+--  _Quiz:_
 
--- What does the following term normalize to?
+--  What does the following term normalize to?
 
---   (λx:Bool. x) (notB true) ⟶* ???
+--    (λx:Bool. x) (notB true) ⟶* ???
 
--- (A) `λx:Bool. x`
+--  (A) `λx:Bool. x`
 
--- (B) `true`
+--  (B) `true`
 
--- (C) `false`
+--  (C) `false`
 
--- (D) `notB true`
+--  (D) `notB true`
 
--- (E) none of the above
+--  (E) none of the above
 
--- ### Examples
+--  ### Examples
 
--- Example:
+--  Example:
 
---   (λx:Bool → Bool. x) (λx:Bool. x) ⟶* λx:Bool. x
+--    (λx:Bool → Bool. x) (λx:Bool. x) ⟶* λx:Bool. x
 
--- i.e.,
+--  i.e.,
 
---   idBB idB ⟶* idB
+--    idBB idB ⟶* idB
 
 example : <{ ~idBB ~idB }> ⟶* idB := by
   apply Multi.step (y := idB)
   · exact .appAbs "x" <{ Bool → Bool }> <{ x }> idB idB_value
   · rfl
 
--- Example:
+--  Example:
 
---   (λx:Bool → Bool. x) ((λx:Bool → Bool. x) (λx:Bool. x))
---         ⟶* λx:Bool. x
+--    (λx:Bool → Bool. x) ((λx:Bool → Bool. x) (λx:Bool. x))
+--          ⟶* λx:Bool. x
 
--- i.e.,
+--  i.e.,
 
---   (idBB (idBB idB)) ⟶* idB.
+--    (idBB (idBB idB)) ⟶* idB.
 
 example : <{ ~idBB (~idBB ~idB) }> ⟶* idB := by
   -- the same reduction happens twice, so we name it
@@ -1000,16 +1012,16 @@ example : <{ ~idBB (~idBB ~idB) }> ⟶* idB := by
   · exact step₁
   · rfl
 
--- Example:
+--  Example:
 
---   (λx:Bool → Bool. x)
---      (λx:Bool. if x then false else true)
---      true
---         ⟶* false
+--    (λx:Bool → Bool. x)
+--       (λx:Bool. if x then false else true)
+--       true
+--          ⟶* false
 
--- i.e.,
+--  i.e.,
 
---   (idBB notB) true ⟶* false.
+--    (idBB notB) true ⟶* false.
 
 example : <{ ~idBB ~notB true }> ⟶* <{ false }> := by
   apply Multi.step (y := <{ ~notB true }>)
@@ -1021,18 +1033,18 @@ example : <{ ~idBB ~notB true }> ⟶* <{ false }> := by
   · exact .ifTrue <{ false }> <{ true }>
   · rfl
 
--- Example:
+--  Example:
 
---   (λx:Bool → Bool. x)
---      ((λx:Bool. if x then false else true) true)
---         ⟶* false
+--    (λx:Bool → Bool. x)
+--       ((λx:Bool. if x then false else true) true)
+--          ⟶* false
 
--- i.e.,
+--  i.e.,
 
---   idBB (notB true) ⟶* false.
+--    idBB (notB true) ⟶* false.
 
--- (Note that this term doesn't actually typecheck; even so, we can ask how it
--- reduces.)
+--  (Note that this term doesn't actually typecheck; even so, we can ask
+--  how it reduces.)
 
 example : <{ ~idBB (~notB true) }> ⟶* <{ false }> := by
   apply Multi.step (y := <{ ~idBB (if true then false else true) }>)
@@ -1045,25 +1057,26 @@ example : <{ ~idBB (~notB true) }> ⟶* <{ false }> := by
   · exact .appAbs "x" <{ Bool → Bool }> <{ x }> <{ false }> .fls
   · rfl
 
--- _Quiz:_
+--  _Quiz:_
 
--- Do values and normal forms coincide in the language presented so far?
+--  Do values and normal forms coincide in the language presented so far?
 
--- (A) yes
+--  (A) yes
 
--- (B) no
+--  (B) no
 
--- Note to developers:
---     The Rocq source repeats the four examples above using the `normalize`
---     tactic defined in its `Smallstep` chapter, and the exercise below asks
---     for `step_example5` both with and without it. We have no such tactic:
---     the Smallstep chapter here does not define one, so the repeats are
---     dropped and the exercise is stated once, proved by hand. Writing a
---     `normalize` tactic — repeatedly applying `Multi.step` with the unique
---     available reduction, then closing with reflexivity — is the natural
---     follow-up, and it belongs in the Smallstep chapter, not here.
+--  Note to developers:
+--      The Rocq source repeats the four examples above using the
+--      `normalize` tactic defined in its `Smallstep` chapter, and the
+--      exercise below asks for `step_example5` both with and without it.
+--      We have no such tactic: the Smallstep chapter here does not define
+--      one, so the repeats are dropped and the exercise is stated once,
+--      proved by hand. Writing a `normalize` tactic — repeatedly applying
+--      `Multi.step` with the unique available reduction, then closing with
+--      reflexivity — is the natural follow-up, and it belongs in the
+--      Smallstep chapter, not here.
 
--- ### Exercise (2 stars): step_example5 ⭐⭐
+--  ### Exercise (2 stars): step_example5 ⭐⭐
 
 example : <{ ~idBBBB ~idBB ~idB }> ⟶* idB := by
   apply Multi.step (y := <{ ~idBB ~idB }>)
@@ -1073,108 +1086,112 @@ example : <{ ~idBBBB ~idBB ~idB }> ⟶* idB := by
   · exact .appAbs "x" <{ Bool → Bool }> <{ x }> idB idB_value
   · rfl
 
--- ## Typing
+--  ## Typing
 
--- Next we consider the typing relation of the STLC, which is meant to prevent
--- reduction from getting stuck.
+--  Next we consider the typing relation of the STLC, which is meant to
+--  prevent reduction from getting stuck.
 
--- For instance, the following two STLC terms are both stuck:
+--  For instance, the following two STLC terms are both stuck:
 
--- `if λx:Bool. x then true else false`
+--  `if λx:Bool. x then true else false`
 
--- Here we branch on a function as though it were a boolean.
+--  Here we branch on a function as though it were a boolean.
 
--- `true false`
+--  `true false`
 
--- Here we apply a boolean as though it were a function.
+--  Here we apply a boolean as though it were a function.
 
--- ### Contexts
+--  ### Contexts
 
--- Although we are primarily interested in the binary relation `⊢ t ⦂ T`,
--- relating a closed term `t` to its type `T`, we need to generalize a bit to
--- make the definitions work.
+--  Although we are primarily interested in the binary relation `⊢ t ⦂ T`,
+--  relating a closed term `t` to its type `T`, we need to generalize a bit
+--  to make the definitions work.
 
--- Consider checking that `λx:T₁₁. t₁₂` has type `T₁₁ → T₁₂`. Intuitively, we
--- need to check that `t₁₂` has type `T₁₂`. However, we have removed the
--- binder `λx`, so `x` may occur free in `t₁₂` (that is, `t₁₂` may be *open*).
--- While checking that `t₁₂` has type `T₁₂`, we must remember that `x` has
--- type `T₁₁`, in order to deal with these free occurrences of `x`. Similarly,
--- `t₁₂` itself could contain abstractions, and typechecking their bodies
--- could require looking up the declared types of yet more free variables.
+--  Consider checking that `λx:T₁₁. t₁₂` has type `T₁₁ → T₁₂`. Intuitively,
+--  we need to check that `t₁₂` has type `T₁₂`. However, we have removed
+--  the binder `λx`, so `x` may occur free in `t₁₂` (that is, `t₁₂` may be
+--  *open*). While checking that `t₁₂` has type `T₁₂`, we must remember
+--  that `x` has type `T₁₁`, in order to deal with these free occurrences
+--  of `x`. Similarly, `t₁₂` itself could contain abstractions, and
+--  typechecking their bodies could require looking up the declared types
+--  of yet more free variables.
 
--- To keep track of all this, we add a third element to the relation, a
--- *typing context* `Γ`, which records the types of the variables that may
--- occur free in a term — that is, Γ is a partial map from variables to types.
+--  To keep track of all this, we add a third element to the relation, a
+--  *typing context* `Γ`, which records the types of the variables that may
+--  occur free in a term — that is, Γ is a partial map from variables to
+--  types.
 
--- The new *typing judgment* is written `Γ ⊢ t ⦂ T` and informally read as
--- "term `t` has type `T`, given the types of free variables in `t` as
--- specified by `Γ`".
+--  The new *typing judgment* is written `Γ ⊢ t ⦂ T` and informally read as
+--  "term `t` has type `T`, given the types of free variables in `t` as
+--  specified by `Γ`".
 
--- We'll also write `x ↦ T ; Γ` for "update the partial map `Γ` so that it
--- maps `x` to `T`," following the notation from the `Typeclasses` chapter.
+--  We'll also write `x ↦ T ; Γ` for "update the partial map `Γ` so that it
+--  maps `x` to `T`," following the notation from the `Typeclasses`
+--  chapter.
 
--- With these refinements, we are ready to give informal and formal
--- specifications of the typing relation.
+--  With these refinements, we are ready to give informal and formal
+--  specifications of the typing relation.
 
--- Note to developers (Chris Henson @chenson2018, before next release):
---     I find the FULL explanation above much better than the TERSE one below,
---     since the question below seems ill-posed without extra context. Why
---     would one want to type a term `x y` if we've just said that we will
---     just look at closed terms as our programs?
+--  Note to developers (Chris Henson @chenson2018, before next release):
+--      I find the FULL explanation above much better than the TERSE one
+--      below, since the question below seems ill-posed without extra
+--      context. Why would one want to type a term `x y` if we've just said
+--      that we will just look at closed terms as our programs?
 
 abbrev Context := PartialMap String Ty
 
--- A context is a `PartialMap` from variable names to types — the partial maps
--- of the `Typeclasses` chapter, which are total maps whose values are
--- optional, so that `none` at a variable means "not bound here".
+--  A context is a `PartialMap` from variable names to types — the partial
+--  maps of the `Typeclasses` chapter, which are total maps whose values
+--  are optional, so that `none` at a variable means "not bound here".
 
--- ### Typing Relation
+--  ### Typing Relation
 
--- Γ x = T₁
---                             ------------                       (var)
---                              Γ ⊢ x ⦂ T₁
+--  Γ x = T₁
+--                              ------------                       (var)
+--                               Γ ⊢ x ⦂ T₁
 
---                         x ↦ T₂ ; Γ ⊢ t₁ ⦂ T₁
---                       -------------------------                (abs)
---                        Γ ⊢ λx:T₂. t₁ ⦂ T₂ → T₁
+--                          x ↦ T₂ ; Γ ⊢ t₁ ⦂ T₁
+--                        -------------------------                (abs)
+--                         Γ ⊢ λx:T₂. t₁ ⦂ T₂ → T₁
 
---                           Γ ⊢ t₁ ⦂ T₂ → T₁
---                             Γ ⊢ t₂ ⦂ T₂
---                          ------------------                    (app)
---                            Γ ⊢ t₁ t₂ ⦂ T₁
+--                            Γ ⊢ t₁ ⦂ T₂ → T₁
+--                              Γ ⊢ t₂ ⦂ T₂
+--                           ------------------                    (app)
+--                             Γ ⊢ t₁ t₂ ⦂ T₁
 
---                           -----------------                    (tru)
---                            Γ ⊢ true ⦂ Bool
+--                            -----------------                    (tru)
+--                             Γ ⊢ true ⦂ Bool
 
---                          ------------------                    (fls)
---                           Γ ⊢ false ⦂ Bool
+--                           ------------------                    (fls)
+--                            Γ ⊢ false ⦂ Bool
 
---              Γ ⊢ t₁ ⦂ Bool    Γ ⊢ t₂ ⦂ T₁    Γ ⊢ t₃ ⦂ T₁
---             ---------------------------------------------      (ite)
---                    Γ ⊢ if t₁ then t₂ else t₃ ⦂ T₁
+--               Γ ⊢ t₁ ⦂ Bool    Γ ⊢ t₂ ⦂ T₁    Γ ⊢ t₃ ⦂ T₁
+--              ---------------------------------------------      (ite)
+--                     Γ ⊢ if t₁ then t₂ else t₃ ⦂ T₁
 
--- We can read the three-place relation `Γ ⊢ t ⦂ T` as: "under the assumptions
--- in Γ, the term `t` has the type `T`."
+--  We can read the three-place relation `Γ ⊢ t ⦂ T` as: "under the
+--  assumptions in Γ, the term `t` has the type `T`."
 
--- In the formal development, we write this judgment inside the same
--- `<{ .. }>` brackets we use for types and terms, as introduced by the
--- following notational conventions.
+--  In the formal development, we write this judgment inside the same
+--  `<{ .. }>` brackets we use for types and terms, as introduced by the
+--  following notational conventions.
 
--- A context is written `∅` when empty and `x ↦ T ; Γ` when extended with a
--- binding, and `~e` escapes to a Lean expression of type `Context`. The whole
--- judgment then goes inside the same `<{ … }>` brackets as terms, written
--- with the turnstile and colon of the Types chapter: `<{ Γ ⊢ t ⦂ T }>`.
+--  A context is written `∅` when empty and `x ↦ T ; Γ` when extended with
+--  a binding, and `~e` escapes to a Lean expression of type `Context`. The
+--  whole judgment then goes inside the same `<{ … }>` brackets as terms,
+--  written with the turnstile and colon of the Types chapter:
+--  `<{ Γ ⊢ t ⦂ T }>`.
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: contexts and judgments
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: contexts and judgments)
 
--- Contexts get a grammar of their own, `stlcCtx`. The **meaning** is the map
--- update we already have — `x ↦ T ; Γ` expands to exactly the `Typeclasses`
--- chapter's partial-map update on `Γ` — but its surface syntax has to be our
--- own, because inside these brackets all three positions are in object
--- syntax. Writing the map notation directly would mean writing the binding as
--- `"x" →ₚ <{ Bool → Bool }> ; Γ`: the name quoted, and the type escaped back
--- out of the brackets it belongs in. The grammar hides those two encoding
--- details, and nothing else.
+--  Contexts get a grammar of their own, `stlcCtx`. The **meaning** is the
+--  map update we already have — `x ↦ T ; Γ` expands to exactly the
+--  `Typeclasses` chapter's partial-map update on `Γ` — but its surface
+--  syntax has to be our own, because inside these brackets all three
+--  positions are in object syntax. Writing the map notation directly would
+--  mean writing the binding as `"x" →ₚ <{ Bool → Bool }> ; Γ`: the name
+--  quoted, and the type escaped back out of the brackets it belongs in.
+--  The grammar hides those two encoding details, and nothing else.
 
 declare_syntax_cat stlcCtx
 syntax:max "∅" : stlcCtx
@@ -1193,11 +1210,11 @@ partial def ctxTerm (G : TSyntax `stlcCtx) : MacroM Term :=
       `(PartialMap.update $(← ctxTerm G) $(← varStr x) <{ $T:stlcTy }>)
   | _ => Macro.throwUnsupported
 
--- As with `subst`, the judgment notation is used inside the definition it
--- names, so it is introduced in two steps: the rule below is declared `local`
--- with hygiene off, so the `HasType` in its expansion resolves to the
--- relation being declared, and after the `section` closes it is declared
--- again for real use.
+--  As with `subst`, the judgment notation is used inside the definition it
+--  names, so it is introduced in two steps: the rule below is declared
+--  `local` with hygiene off, so the `HasType` in its expansion resolves to
+--  the relation being declared, and after the `section` closes it is
+--  declared again for real use.
 
 section
 set_option hygiene false in
@@ -1205,7 +1222,7 @@ local macro_rules (kind := judgeBracket)
   | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
 
--- END DETAILS
+--  END DETAILS
 
 inductive HasType : Context → Tm → Ty → Prop where
   | var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :
@@ -1225,10 +1242,10 @@ inductive HasType : Context → Tm → Ty → Prop where
       (h₃ : <{ ~Γ ⊢ ~t₃ ⦂ ~T₁ }>) :
       <{ ~Γ ⊢ if ~t₁ then ~t₂ else ~t₃ ⦂ ~T₁ }>
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: the judgment, for real
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
 
--- Closing the `section` retires the hygiene-free rule; the same rule is then
--- declared again, hygienically, for every later use.
+--  Closing the `section` retires the hygiene-free rule; the same rule is
+--  then declared again, hygienically, for every later use.
 
 end
 
@@ -1236,13 +1253,13 @@ macro_rules (kind := judgeBracket)
   | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
 
--- END DETAILS
+--  END DETAILS
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing judgments back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing judgments back)
 
--- As with terms, a judgment prints back in its own notation, so that a goal
--- reads as `<{ x ↦ Bool ; ∅ ⊢ x ⦂ Bool }>` rather than as a `HasType` applied
--- to a chain of map updates.
+--  As with terms, a judgment prints back in its own notation, so that a
+--  goal reads as `<{ x ↦ Bool ; ∅ ⊢ x ⦂ Bool }>` rather than as a
+--  `HasType` applied to a chain of map updates.
 
 open Lean PrettyPrinter in
 /-- Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a
@@ -1275,29 +1292,29 @@ def HasType.unexpand : Unexpander
       do `(<{ $(← unexpandCtx G) ⊢ ~($t) ⦂ ~($T) }>)
   | _ => throw ()
 
--- END DETAILS
+--  END DETAILS
 
--- ### Examples
+--  ### Examples
 
 example : <{ ∅ ⊢ λ x : Bool . x ⦂ Bool → Bool }> :=
   .abs _ "x" _ _ _ (.var _ "x" _ rfl)
 
--- The derivation is small enough to write out directly: an abstraction rule
--- whose premise is the variable rule, and the variable rule's premise — that
--- the extended context maps `x` to `Bool` — holds by computation, hence
--- `rfl`.
+--  The derivation is small enough to write out directly: an abstraction
+--  rule whose premise is the variable rule, and the variable rule's
+--  premise — that the extended context maps `x` to `Bool` — holds by
+--  computation, hence `rfl`.
 
--- Note to developers:
---     The Rocq source proves this one, and the next, by `eauto`, having
---     registered the `has_type` constructors in the `core` hint database; it
---     also observes that plain `auto` suffices here because the term contains
---     no application nodes. We have no hint database, so both derivations are
---     given explicitly.
+--  Note to developers:
+--      The Rocq source proves this one, and the next, by `eauto`, having
+--      registered the `has_type` constructors in the `core` hint database;
+--      it also observes that plain `auto` suffices here because the term
+--      contains no application nodes. We have no hint database, so both
+--      derivations are given explicitly.
 
--- More examples:
+--  More examples:
 
---   ∅ ⊢ λx:Bool. λy:Bool → Bool. y (y x)
---         ⦂ Bool → (Bool → Bool) → Bool.
+--    ∅ ⊢ λx:Bool. λy:Bool → Bool. y (y x)
+--          ⦂ Bool → (Bool → Bool) → Bool.
 
 example :
     <{ ∅ ⊢ λ x : Bool . λ y : Bool → Bool . y (y x) ⦂
@@ -1306,10 +1323,10 @@ example :
     (.app _ _ Ty.bool _ _ (.var _ "y" _ rfl)
       (.app _ _ Ty.bool _ _ (.var _ "y" _ rfl) (.var _ "x" _ rfl))))
 
--- ### Exercise (2 stars): typing_example_2_full (Optional) ⭐⭐
+--  ### Exercise (2 stars): typing_example_2_full (Optional) ⭐⭐
 
--- Prove the same result in tactic mode, applying one rule at a time and
--- naming the argument type of each application explicitly.
+--  Prove the same result in tactic mode, applying one rule at a time and
+--  naming the argument type of each application explicitly.
 
 example :
     <{ ∅ ⊢ λ x : Bool . λ y : Bool → Bool . y (y x) ⦂
@@ -1322,14 +1339,14 @@ example :
     · apply HasType.var; rfl
     · apply HasType.var; rfl
 
--- ### Exercise (2 stars): typing_example_3 ⭐⭐
+--  ### Exercise (2 stars): typing_example_3 ⭐⭐
 
--- Formally prove the following typing derivation holds:
+--  Formally prove the following typing derivation holds:
 
---   ∃ T,
---      ∅ ⊢ λ x : Bool → Bool . λ y : Bool → Bool . λ z : Bool .
---                  y (x z)
---            ⦂ T
+--    ∃ T,
+--       ∅ ⊢ λ x : Bool → Bool . λ y : Bool → Bool . λ z : Bool .
+--                   y (x z)
+--             ⦂ T
 
 example :
     ∃ T, <{ ∅ ⊢ λ x : Bool → Bool . λ y : Bool → Bool . λ z : Bool . y (x z)
@@ -1340,11 +1357,11 @@ example :
        (.app _ _ Ty.bool _ _ (.var _ "y" _ rfl)
          (.app _ _ Ty.bool _ _ (.var _ "x" _ rfl) (.var _ "z" _ rfl)))))⟩)
 
--- We can also show that some terms are *not* typable. For example, we can
--- check that there is no typing derivation assigning a type to the term
--- `λx:Bool. λy:Bool. x y` — i.e.,
+--  We can also show that some terms are *not* typable. For example, we can
+--  check that there is no typing derivation assigning a type to the term
+--  `λx:Bool. λy:Bool. x y` — i.e.,
 
---   ¬ ∃ T, ∅ ⊢ λx:Bool. λy:Bool. x y ⦂ T
+--    ¬ ∃ T, ∅ ⊢ λx:Bool. λy:Bool. x y ⦂ T
 
 example : ¬ ∃ T, <{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~T }> := by
   intro ⟨T, hc⟩
@@ -1362,9 +1379,9 @@ example : ¬ ∃ T, <{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~T }> := by
           -- needs it to have an arrow type.
           exact Ty.noConfusion (Option.some.inj hx)
 
--- Another nonexample:
+--  Another nonexample:
 
---   ¬ ∃ S T, ∅ ⊢ λx:S. x x ⦂ T
+--    ¬ ∃ S T, ∅ ⊢ λx:S. x x ⦂ T
 
 example : ¬ ∃ S T, <{ ∅ ⊢ λ x : ~S . x x ⦂ ~T }> := by
   have arrow_ne : ∀ (T₁ T₂ : Ty), T₁ ≠ Ty.arrow T₁ T₂ := by
@@ -1383,37 +1400,37 @@ example : ¬ ∃ S T, <{ ∅ ⊢ λ x : ~S . x x ⦂ ~T }> := by
         | var _ _ _ hy =>
           exact arrow_ne _ _ ((Option.some.inj hy).symm.trans (Option.some.inj hx))
 
--- Note to developers:
---     The Rocq proof gets to the same contradiction through a chain of
---     `inversion`s and then an induction on the offending type; the `LATER`
---     note there asks why `eauto 30` makes no progress on the previous
---     example, and a `NOTATION` note from Ori reports an error with the
---     associativity of the arrow in one of the inversion hypotheses. Neither
---     issue arises in this encoding.
+--  Note to developers:
+--      The Rocq proof gets to the same contradiction through a chain of
+--      `inversion`s and then an induction on the offending type; the
+--      `LATER` note there asks why `eauto 30` makes no progress on the
+--      previous example, and a `NOTATION` note from Ori reports an error
+--      with the associativity of the arrow in one of the inversion
+--      hypotheses. Neither issue arises in this encoding.
 
--- _Quiz:_
+--  _Quiz:_
 
--- Which of the following propositions is *not* provable?
+--  Which of the following propositions is *not* provable?
 
--- (A) `y ↦ Bool ; ∅ ⊢ λx:Bool. x ⦂ Bool → Bool`
+--  (A) `y ↦ Bool ; ∅ ⊢ λx:Bool. x ⦂ Bool → Bool`
 
--- (B) `∃ T,  ∅ ⊢ λy:Bool → Bool. λx:Bool. y x ⦂ T`
+--  (B) `∃ T,  ∅ ⊢ λy:Bool → Bool. λx:Bool. y x ⦂ T`
 
--- (C) `∃ T,  ∅ ⊢ λy:Bool → Bool. λx:Bool. x y ⦂ T`
+--  (C) `∃ T,  ∅ ⊢ λy:Bool → Bool. λx:Bool. x y ⦂ T`
 
--- (D) `∃ S, x ↦ S ; ∅ ⊢ λy:Bool → Bool. y x ⦂ (Bool → Bool) → S`
+--  (D) `∃ S, x ↦ S ; ∅ ⊢ λy:Bool → Bool. y x ⦂ (Bool → Bool) → S`
 
--- _Quiz:_
+--  _Quiz:_
 
--- Which of these is not provable?
+--  Which of these is not provable?
 
--- (A) `∃ T,  ∅ ⊢ λy:Bool → Bool → Bool. λx:Bool. y x ⦂ T`
+--  (A) `∃ T,  ∅ ⊢ λy:Bool → Bool → Bool. λx:Bool. y x ⦂ T`
 
--- (B) `∃ S T, x ↦ S ; ∅ ⊢ x x x ⦂ T`
+--  (B) `∃ S T, x ↦ S ; ∅ ⊢ x x x ⦂ T`
 
--- (C) `∃ S U T, x ↦ S ; y ↦ U ; ∅ ⊢ λz:Bool. x (y z) ⦂ T`
+--  (C) `∃ S U T, x ↦ S ; y ↦ U ; ∅ ⊢ λz:Bool. x (y z) ⦂ T`
 
--- (D) `∃ S T, x ↦ S ; ∅ ⊢ λy:Bool. x (x y) ⦂ T`
+--  (D) `∃ S T, x ↦ S ; ∅ ⊢ λy:Bool. x (x y) ⦂ T`
 
 end Stlc
 

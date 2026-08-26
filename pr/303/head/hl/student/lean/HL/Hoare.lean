@@ -156,6 +156,8 @@ end ExAssertions
 
 --  There is no need to understand the details of how these notations work.
 
+--  THESE DETAILS CAN BE SKIPPED (Notation: Assertions)
+
 namespace Assertion
 
 section
@@ -243,6 +245,8 @@ variable (f : Nat → Nat → Nat → Nat)
 
 end Assertion
 open scoped Assertion
+
+--  END DETAILS
 
 --  Function applications inside assertions automatically interpret their
 --  arguments in the current state. Thus, `{{ f e1 ... en }}` stands for
@@ -639,25 +643,17 @@ open scoped HasEval
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st st' : State},
-    (st =[ c ]=> st') →
+    (st =[ ~c ]=> st') →
     P st →
     Q st'
-
---  Notation for Hoare triples. The command between the two assertions is
---  parsed with the same grammar as the `imp { … }` notation, so a command
---  that is a Lean variable (rather than concrete syntax) is spliced in
---  with `~c`, just as in the `st =[ c ]=> st'` notation.
 
 class HasTriple (Com : Type) where
   Triple : Assertion → Com → Assertion → Prop
 
 namespace HasTriple
 
-/-- Hoare triple: `{{ P }} c {{ Q }}` -/
-scoped notation:lead "{{" P "}} " c:lead " {{" Q "}}" => Triple ({{ P }}) c ({{ Q }})
-
-/-- Hoare triple with `imp_com` command syntax -/
-scoped syntax:lead (priority := high) "{{" term "}} " imp_com:lead " {{" term "}}" : term
+/-- Hoare triple: `{{ P }} c {{ Q }}` with `imp_com` command syntax -/
+scoped syntax:lead "{{" term "}} " imp_com:lead " {{" term "}}" : term
 scoped macro_rules
   | `({{ $P }} $c:imp_com {{ $Q }}) =>
       ``(HasTriple.Triple ({{ $P }}) (imp { $c }) ({{ $Q }}))
@@ -666,11 +662,14 @@ end HasTriple
 instance : HasTriple Com where
   Triple := ValidHoareTriple
 
+--  We make `ValidHoareTriple` irreducible for "technical reasons", and use
+--  it only via `validHoareTriple_def` in proofs.
+
 open scoped HasTriple
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
-      (st =[ c ]=> st') →
+      (st =[ ~c ]=> st') →
       P st →
       Q st' := by rfl
 
@@ -683,8 +682,9 @@ attribute [irreducible] ValidHoareTriple
 --  the result into the triple, so a language-extension chapter only has to
 --  register a printer for its own `Com`.
 
-namespace Assertion.Delab
-open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+namespace HasTriple.Delab
+
+open Lean PrettyPrinter Delaborator SubExpr Assertion.Delab Imp.Delab
 @[delab app.HasTriple.Triple]
 def delabTriple : Delab := whenPPOption getPPNotation do
   guard <| (← getExpr).isAppOfArity ``HasTriple.Triple 5
@@ -695,7 +695,7 @@ def delabTriple : Delab := whenPPOption getPPNotation do
   | `(imp { $c:imp_com }) => ``({{ $P }} $c:imp_com {{ $Q }})
   | c => ``({{ $P }} ~$c {{ $Q }})
 
-end Assertion.Delab
+end HasTriple.Delab
 
 --  END DETAILS
 
@@ -1742,14 +1742,6 @@ partial def delabComInner : DelabM (TSyntax `imp_com) :=
 @[delab app.If1.Com.skip, delab app.If1.Com.asgn, delab app.If1.Com.seq,
   delab app.If1.Com.cond, delab app.If1.Com.whileDo, delab app.If1.Com.if1]
 partial def delabCom : Delab := whenPPOption getPPNotation do
-  guard <| match_expr ← getExpr with
-    | Com.skip => true
-    | Com.asgn _ _ => true
-    | Com.seq _ _ => true
-    | Com.cond _ _ _ => true
-    | Com.whileDo _ _ => true
-    | Com.if1 _ _ => true
-    | _ => false
   match ← delabComInner with
   | `(imp_com| ~$e) => pure e
   | e => `(term| imp { $e })
@@ -1811,7 +1803,7 @@ theorem if1false_test :
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st st' : State},
-    (st =[ c ]=> st') →
+    (st =[ ~c ]=> st') →
     P st →
     Q st'
 
@@ -1820,7 +1812,7 @@ instance : HasTriple Com where
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
-      (st =[ c ]=> st') →
+      (st =[ ~c ]=> st') →
       P st →
       Q st' := by rfl
 
@@ -2220,7 +2212,7 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st st' : State},
-    (st =[ c ]=> st') →
+    (st =[ ~c ]=> st') →
     P st →
     Q st'
 
@@ -2229,7 +2221,7 @@ instance : HasTriple Com where
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
-      (st =[ c ]=> st') →
+      (st =[ ~c ]=> st') →
       P st →
       Q st' := by rfl
 
@@ -2247,7 +2239,7 @@ def ex1_repeat : Com :=
   }
 
 theorem ex1_repeat_works :
-    ∅ =[ ex1_repeat ]=> (Y →ₜ 1 ; X →ₜ 1) := by
+    ∅ =[ ~ex1_repeat ]=> (Y →ₜ 1 ; X →ₜ 1) := by
   sorry
 
 --  Now state and prove a theorem, `hoare_repeat`, that expresses an
@@ -2399,7 +2391,7 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st st' : State},
-    (st =[ c ]=> st') →
+    (st =[ ~c ]=> st') →
     P st →
     Q st'
 
@@ -2408,7 +2400,7 @@ instance : HasTriple Com where
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
-      (st =[ c ]=> st') →
+      (st =[ ~c ]=> st') →
       P st →
       Q st' := by rfl
 
@@ -2569,7 +2561,7 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st : State} {r : Result},
-    (st =[ c ]=> r) → P st →
+    (st =[ ~c ]=> r) → P st →
     ∃ st', r = Result.normal st' ∧ Q st'
 
 instance : HasTriple Com where
@@ -2577,7 +2569,7 @@ instance : HasTriple Com where
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st : State} {r : Result},
-      (st =[ c ]=> r) → P st →
+      (st =[ ~c ]=> r) → P st →
       ∃ st', r = Result.normal st' ∧ Q st' := by rfl
 
 attribute [irreducible] ValidHoareTriple

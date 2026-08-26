@@ -144,11 +144,48 @@
     },
     "282": {
       "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "c8b13522f82b08bde8e42be8f46310bc91ccd08c",
       "preview_path": "pr/282/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32943173199",
+      "status": "published",
       "title": "Add remaining exercises to Imp",
       "url": "https://github.com/plclub/sf-in-lean/pull/282"
     },
@@ -221,11 +258,48 @@
     },
     "303": {
       "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
-      "changed_variants": [],
-      "head_sha": "6126c965d94897653dbc41f1291b82446a65c787",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "787d5fe927ac57a1452d0249c80524b2399edcc4",
       "preview_path": "pr/303/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32944932218",
+      "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
