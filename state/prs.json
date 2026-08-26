@@ -190,11 +190,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/286"
     },
     "293": {
-      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
+      "base_sha": "ef120ff8347628fd2f042fb7be11a5e71d80bbe2",
       "changed_variants": [],
-      "head_sha": "5404249dc839ea88bfe9cf971312da117ecfe4b5",
+      "head_sha": "4aa55fc5b1f2140864ae9a4b1b3b5c9ffd6282ec",
       "preview_path": "pr/293/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32714738865",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32981261724",
       "status": "ci-failed",
       "title": "Improve elaboration performance",
       "url": "https://github.com/plclub/sf-in-lean/pull/293"
@@ -249,9 +249,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "c7232a011c06126ad625917b44cc726be7007dd3",
+      "head_sha": "4b81070596997f827e68f409764f46e7aaf645a0",
       "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32976956198",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32979674658",
       "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
