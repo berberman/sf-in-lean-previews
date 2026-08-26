@@ -310,20 +310,8 @@ set_option pp.notation false in
 --  `BEq.beq`, a field of exactly the kind of typeclass we
 --  just learned to define:
 
-sf_recall_source
-  /--
-    `BEq α` is a typeclass for supplying a boolean-valued equality relation on
-    `α`, notated as `a == b`. Unlike `DecidableEq α` (which uses `a = b`), this
-    is `Bool` valued instead of `Prop` valued, and it also does not have any
-    axioms like being reflexive or agreeing with `=`. It is mainly intended for
-    programming applications. See `LawfulBEq` for a version that requires that
-    `==` and `=` coincide.
-  
-    Typically we prefer to put the "more variable" term on the left,
-    and the "more constant" term on the right.
-    -/
-    class BEq (α : Type u) where
-      /-- Boolean equality, notated as `a == b`. -/
+sf_recall
+  class BEq (α : Type) where
       beq : α → α → Bool
 
 --  Writing `a == b` makes Lean search for an **instance**
@@ -595,22 +583,12 @@ end Algebra
 --  seen, our key type `α` requires instances of the
 --  `ReflBEq` and `LawfulBEq` typeclasses:
 
-sf_recall_source
-  /-- `ReflBEq α` says that the `BEq` implementation is reflexive. -/
-    class ReflBEq (α) [BEq α] : Prop where
-      /-- `==` is reflexive, that is, `(a == a) = true`. -/
-      protected rfl {a : α} : a == a
+sf_recall
+  class ReflBEq (α : Type) [BEq α] : Prop where
+      rfl {a : α} : a == a
 
-sf_recall_source
-  /--
-    A Boolean equality test coincides with propositional equality.
-  
-    In other words:
-     * `a == b` implies `a = b`.
-     * `a == a` is true.
-    -/
-    class LawfulBEq (α : Type u) [BEq α] : Prop extends ReflBEq α where
-      /-- If `a == b` evaluates to `true`, then `a` and `b` are equal in the logic. -/
+sf_recall
+  class LawfulBEq (α : Type) [BEq α] : Prop extends ReflBEq α where
       eq_of_beq : {a b : α} → a == b → a = b
 
 --  These classes refine `BEq`, specifying that (`==`) is
