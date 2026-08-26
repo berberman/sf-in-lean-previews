@@ -1,5 +1,5 @@
 {
-  "main_sha": "36d05c248a8c0ea0f07a9e8921b3ec8494822328",
+  "main_sha": "b9c57ab538c06dee4ab5444b85646b7d46921948",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -267,49 +267,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
     },
     "318": {
-      "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "556630abd8326f69df63c6add5e8d7bb13ba5c8b",
+      "base_sha": "b9c57ab538c06dee4ab5444b85646b7d46921948",
+      "changed_variants": [],
+      "head_sha": "e1473fb9103c23fc737bca578583d0653f15abd2",
       "preview_path": "pr/318/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32927480602",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "SFLMeta: support universe-specialized recall",
       "url": "https://github.com/plclub/sf-in-lean/pull/318"
     },
@@ -406,53 +369,6 @@
       "status": "published",
       "title": "Quick pass over Typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/320"
-    },
-    "321": {
-      "base_sha": "36d05c248a8c0ea0f07a9e8921b3ec8494822328",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "61308d302b2535476cea5d52732f9947135244ff",
-      "preview_path": "pr/321/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33016513575",
-      "status": "published",
-      "title": "Remove discussion of `dsimp` from LF",
-      "url": "https://github.com/plclub/sf-in-lean/pull/321"
     }
   },
   "schema": 3

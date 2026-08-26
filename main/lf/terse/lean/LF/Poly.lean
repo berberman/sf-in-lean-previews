@@ -368,6 +368,9 @@ example : (3, 5).2 = 5 := by rfl
 --  VS Code you can type `\times` or `\x` to enter the `×`
 --  symbol.
 
+--  The `dsimp only` tactic can be used to simplify
+--  `(x, y).fst` into `x` and `(x, y).snd` into `y`.
+
 --  Be careful not to get `(x, y)` and `α × β` confused!
 
 --  What does this function do?
@@ -413,25 +416,6 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 
 --    print?
 
---  We can use `Prod.ext` to prove equality of pairs by
---  showing equality of their components:
-
-example {n : Nat} {p : Nat × Nat} (hx_fst : p.fst = n + 1) (hx_snd : p.snd = 0) :
-    (n + 1, 0) = p := by
-  apply Prod.ext
-  · rw [hx_fst]
-  · rw [hx_snd]
-
---  ### Exercise (2 stars): prod_ext_example ⭐⭐
-
---  Now, use `Prod.ext` to prove the following. Remember
---  that `dsimp` simplifies projections like `(a, b).fst` to
---  `a`.
-
-example {m : Nat} {p : Nat × Nat} (hp_snd : p.snd = 4) (hp_fst : p.fst = m) :
-    ((p.fst + 1, 2), (p.fst, 4)) = ((m + 1, p.snd - 2), p) := by
-  sorry
-
 --  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
 
 --  The function `unzip` goes in the other direction from
@@ -443,6 +427,9 @@ example {m : Nat} {p : Nat × Nat} (hp_snd : p.snd = 4) (hp_fst : p.fst = m) :
 --  that passes the given unit test. Prove `unzip_test_fst`
 --  and `unzip_test_snd` by rewriting with your
 --  simplification lemmas instead of using `rfl` directly.
+--  Remember that you can use `dsimp only` to simplify
+--  expressions accessing the `fst` or `snd` elements of a
+--  pair.
 
 def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := sorry
 
@@ -453,9 +440,6 @@ theorem unzip_test_fst : (unzip [(1, false), (2, true)]).fst = [1, 2] := by
   sorry
 
 theorem unzip_test_snd : (unzip [(1, false), (2, true)]).snd = [false, true] := by
-  sorry
-
-theorem unzip_test2 : unzip [(1, false), (2, true)] = ([1, 2], [false, true]) := by
   sorry
 
 --  ### Polymorphic Options
@@ -520,16 +504,12 @@ theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by 
 theorem filter_cons_of_pos {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = true) :
     filter test (x :: l) = x :: filter test l := by
-  dsimp [filter]
-  rw [h]
-  dsimp
+  rw [filter, h, cond_true]
 
 theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = false) :
     filter test (x :: l) = filter test l := by
-   dsimp [filter]
-   rw [h]
-   dsimp
+   rw [filter, h, cond_false]
 
 --  Note that `head` and `tail` are implicit too, following
 --  a general convention: any argument an equation's shape

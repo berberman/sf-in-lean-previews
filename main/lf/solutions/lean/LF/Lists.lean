@@ -530,13 +530,11 @@ theorem member_nil (n : Nat) : member n [] = false := (by rfl)
 
 theorem member_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     member n₁ (n₂ :: t) = true := by
-  dsimp [member]
-  rw [h, cond_true]
+  rw [member, h, cond_true]
 
 theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     member n₁ (n₂ :: t) = member n₁ t := by
-  dsimp [member]
-  rw [h, cond_false]
+  rw [member, h, cond_false]
 
 example : member 1 [1] = true := by
   rw [member_cons_same _ _ _ rfl]
@@ -565,13 +563,11 @@ theorem removeOne_nil (n : Nat) : removeOne n nil = nil := (by rfl)
 
 theorem removeOne_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     removeOne n₁ (n₂ :: t) = t := by
-  dsimp [removeOne]
-  rw [h, cond_true]
+  rw [removeOne, h, cond_true]
 
 theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t := by
-  dsimp [removeOne]
-  rw [h, cond_false]
+  rw [removeOne, h, cond_false]
 
 example : removeOne 5 [1, 5, 4] = [1, 4] := by
   rw [removeOne_cons_diff _ _ _ rfl]
@@ -592,13 +588,11 @@ theorem removeAll_nil (n : Nat) : removeAll n [] = [] := (by rfl)
 
 theorem removeAll_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     removeAll n₁ (n₂ :: t) = removeAll n₁ t := by
-  dsimp [removeAll]
-  rw [h, cond_true]
+  rw [removeAll, h, cond_true]
 
 theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t := by
-  dsimp [removeAll]
-  rw [h, cond_false]
+  rw [removeAll, h, cond_false]
 
 example : count 5 (removeAll 5 [5, 1]) = 0 := by
   rw [removeAll_cons_same _ _ _ rfl]
@@ -626,13 +620,11 @@ theorem included_nil (l₂ : NatList) : included nil l₂ = true := (by rfl)
 
 theorem included_cons_member (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = true) :
     included (cons n l₁) l₂ = included l₁ (removeOne n l₂) := by
-  dsimp [included]
-  rw [h, Bool.true_and]
+  rw [included, h, Bool.true_and]
 
 theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = false) :
     included (cons n l₁) l₂ = false := by
-  dsimp [included]
-  rw [h, Bool.false_and]
+  rw [included, h, Bool.false_and]
 
 example : included [1] [2, 1] = true := by
   rw [included_cons_member]
@@ -1014,13 +1006,11 @@ theorem beq_nil : beq [] [] = true := (by rfl)
 
 theorem beq_cons_same (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = true) :
     beq (h₁ :: t₁) (h₂ :: t₂) = beq t₁ t₂ := by
-  dsimp [beq]
-  rw [h, Bool.true_and]
+  rw [beq, h, Bool.true_and]
 
 theorem beq_cons_diff (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = false) :
     beq (h₁ :: t₁) (h₂ :: t₂) = false := by
-  dsimp [beq]
-  rw [h, Bool.false_and]
+  rw [beq, h, Bool.false_and]
 
 example : beq [] [] = true := (by rfl)
 example : beq [1, 2, 3] [1, 2, 3] = true := (by rfl)
@@ -1057,7 +1047,7 @@ theorem ble_self_succ (n : Nat) :
     Nat.ble n (n + 1) = true := by
   induction n with
   | zero       => rfl
-  | succ n' ih => dsimp [Nat.ble]; exact ih
+  | succ n' ih => rw [Nat.ble]; exact ih
 
 --  Before doing the next exercise, make sure you've filled in the
 --  definition of `removeOne` above.
@@ -1232,8 +1222,7 @@ def MyId.beq (x₁ x₂ : MyId) : Bool :=
 --  ### Exercise (1 star): MyId.beq_refl ⭐
 
 theorem MyId.beq_refl (x : MyId) : MyId.beq x x = true := by
-  dsimp [beq]
-  rw [BEq.refl]
+  rw [beq, BEq.refl]
 
 --  Now we define the type of partial maps:
 
@@ -1274,9 +1263,7 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
 
 theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
     find x (update d x n) = .some n := by
-  dsimp [update, find]
-  rw [MyId.beq_refl]
-  dsimp
+  rw [update, find, MyId.beq_refl, cond_true]
 
 --  (A) True (B) False (C) Not sure
 
@@ -1288,9 +1275,7 @@ theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
     MyId.beq x y = false →
     find x (update d y o) = find x d := by
   intro h
-  dsimp [update, find]
-  rw [h]
-  dsimp
+  rw [update, find, h, cond_false]
 
 --  (A) True (B) False (C) Not sure
 
@@ -1298,18 +1283,14 @@ theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
 
 theorem update_eq (d : PartialMap) (x : MyId) (n : Nat) :
     find x (update d x n) = .some n := by
-  dsimp [update, find]
-  rw [MyId.beq_refl]
-  dsimp
+  rw [update, find, MyId.beq_refl, cond_true]
 
 --  ### Exercise (1 star): update_neq ⭐
 
 theorem update_neq (d : PartialMap) (x y : MyId) (o : Nat) :
     MyId.beq x y = false → find x (update d y o) = find x d := by
   intro h
-  dsimp [update, find]
-  rw [h]
-  dsimp
+  rw [update, find, h, cond_false]
 
 end PartialMap
 

@@ -539,7 +539,7 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
   cases b with
   | false => rfl
   | true =>
-    dsimp [Ne, Not] at h
+    rw [Ne, Not] at h
     apply ex_falso_quodlibet
     apply h
     rfl
@@ -552,7 +552,7 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
   | false => rfl
   | true =>
     exfalso
-    dsimp [Ne, Not] at h
+    rw [Ne, Not] at h
     apply h
     rfl
 
@@ -706,7 +706,7 @@ def DiscrFun (n : Nat) : Prop :=
 theorem discrFun_zero : DiscrFun 0 := by constructor
 
 theorem discrFun_succ (n : Nat) : ¬ DiscrFun (n + 1) := by
-  dsimp [DiscrFun]; intro h; assumption
+  rw [DiscrFun]; intro h; assumption
 
 theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
   intro h
@@ -926,7 +926,7 @@ def List.In {α : Type} (x : α) (xs : List α) : Prop :=
   | x' :: xs' => x = x' ∨ In x xs'
 
 theorem List.In_nil {α : Type} {x : α} : ¬ (List.In x []) := by
-  dsimp [List.In]; intro h; assumption
+  rw [List.In]; intro h; assumption
 
 theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := rfl
 
@@ -934,10 +934,10 @@ theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: x
 --  concrete sequence of nested disjunctions.
 
 example : List.In 4 [1, 2, 3, 4, 5] := by
-  dsimp [List.In]; right; right; right; left; rfl
+  rw [List.In]; right; right; right; left; rfl
 
 example (n : Nat) (h : List.In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
-  dsimp [List.In] at h
+  rw [List.In] at h
   obtain h | h | ⟨⟨⟩⟩ := h
   · exists 1
   · exists 2
@@ -1007,8 +1007,8 @@ attribute [autogradedProof 3] List.All_In
 --
 --      1. the construction is artificial
 --
---      2. before `simp` is introduced, `bif` requires noisy `dsimp`, `rw`,
---         and Boolean case equations
+--      2. before `simp` is introduced, `bif` requires noisy `rw` and
+--         Boolean case equations
 --
 --      3. I don't know how to nicely avoid `cases h : ...` syntax which
 --         IIRC we didn't mention before
@@ -1283,7 +1283,7 @@ example : Nat.even 42 = true := rfl
 
 --  ... or that there exists some `k` such that `n = double k`.
 
-example : Nat.Even 42 := by dsimp [Nat.Even]; exists 21
+example : Nat.Even 42 := by rw [Nat.Even]; exists 21
 
 --  Of course, it would be deeply strange if these two characterizations of
 --  evenness did not describe the same set of natural numbers! Fortunately,
@@ -1310,7 +1310,7 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
   constructor
   · intro h
     obtain ⟨k, hk⟩ := even_double_conv n
-    rw [h] at hk; dsimp at hk; dsimp [Even]; exists k
+    rw [h] at hk; rw [cond_true] at hk; rw [Even]; exists k
   · intro ⟨k, hk⟩; rw [hk]; apply even_double
 
 --  In view of this theorem, we can say that the boolean computation
@@ -1414,7 +1414,7 @@ example : Nat.even 101 = false := rfl
 
 example : ¬ Nat.Even 101 := by
   intro h; apply (Nat.even_bool_prop 101).mpr at h
-  dsimp [Nat.even] at h; contradiction
+  rw [Nat.even] at h; contradiction
 
 --  Conversely, there are situations where it can be easier to work with
 --  propositions rather than booleans. In particular, knowing that
@@ -1744,6 +1744,26 @@ theorem add_comm_fun' : (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) 
 
 --  1. Yes
 --  2. No
+
+--  #### Other Extensionality Principles
+
+--  Functions and propositions are not the only things that have
+--  extensionality principles. Many structures like pairs also have them:
+
+example {n : Nat} {p : Nat × Nat} (hx_fst : p.fst = n + 1) (hx_snd : p.snd = 0) :
+    (n + 1, 0) = p := by
+  ext -- uses the `Prod.ext` lemma
+  · rw [hx_fst]
+  · rw [hx_snd]
+
+--  ### Exercise (2 stars): prod_ext_example ⭐⭐
+
+--  Now, use `ext1` to prove the following. Remember that `dsimp only`
+--  simplifies projections like `(a, b).fst` to `a`.
+
+example {m : Nat} {p : Nat × Nat} (hp_snd : p.snd = 4) (hp_fst : p.fst = m) :
+    ((p.fst + 1, 2), (p.fst, 4)) = ((m + 1, p.snd - 2), p) := by
+  sorry
 
 --  ### Exercise (4 stars): trRev_correct ⭐⭐⭐⭐
 

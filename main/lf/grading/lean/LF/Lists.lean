@@ -1046,7 +1046,7 @@ theorem ble_self_succ (n : Nat) :
     Nat.ble n (n + 1) = true := by
   induction n with
   | zero       => rfl
-  | succ n' ih => dsimp [Nat.ble]; exact ih
+  | succ n' ih => rw [Nat.ble]; exact ih
 
 --  Before doing the next exercise, make sure you've filled in the
 --  definition of `removeOne` above.
@@ -1259,9 +1259,7 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
 
 theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
     find x (update d x n) = .some n := by
-  dsimp [update, find]
-  rw [MyId.beq_refl]
-  dsimp
+  rw [update, find, MyId.beq_refl, cond_true]
 
 --  (A) True (B) False (C) Not sure
 
@@ -1273,9 +1271,7 @@ theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
     MyId.beq x y = false →
     find x (update d y o) = find x d := by
   intro h
-  dsimp [update, find]
-  rw [h]
-  dsimp
+  rw [update, find, h, cond_false]
 
 --  (A) True (B) False (C) Not sure
 

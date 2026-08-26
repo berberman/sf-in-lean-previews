@@ -368,7 +368,7 @@ theorem add_succ_nested (n m : Nat) :
 
 --  If you know what theorems you want `simp` to use for your goal proof,
 --  you can write `simp [<theorems>]`. If you want `simp` to *only* use
---  those, you can use `simp only [<theorems>]`. Like with `dsimp`, you can
+--  those, you can use `simp only [<theorems>]`. Like with `rw`, you can
 --  also supply a definition to `simp` to simplify using that definition.
 
 theorem add_succ_nested_2 (n m : Nat) :

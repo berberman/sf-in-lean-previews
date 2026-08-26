@@ -30,7 +30,7 @@ def div2 (n : Nat) : Nat :=
   | n' + 2 => div2 n' + 1
 
 def csf (n : Nat) : Nat :=
-  if n.even then div2 n
+  bif n.even then div2 n
   else (3 * n) + 1
 
 --  Next, we look at what happens when we repeatedly apply `csf` to some
@@ -56,7 +56,7 @@ def csf (n : Nat) : Nat :=
 
 sf_expect_failure_in
   def reaches1In (n : Nat) : Nat :=
-    if n == 1 then 0
+    bif n == 1 then 0
     else 1 + reaches1In (csf n)
 
 --  fail to show termination for
@@ -73,7 +73,6 @@ sf_expect_failure_in
 --    - Use `termination_by` to specify a different well-founded relation
 --    - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
 --  n : Nat
---  h✝ : ¬(n == 1) = true
 --  ⊢ csf n < n
 
 --  Indeed, this isn't just a pointless limitation: functions in Lean are
@@ -95,7 +94,7 @@ sf_expect_failure_in
     match n with
     | 0 => False
     | 1 => True
-    | _ => if n.even then CollatzHoldsFor (div2 n)
+    | _ => bif n.even then CollatzHoldsFor (div2 n)
                      else CollatzHoldsFor ((3 * n) + 1)
 
 --  fail to show termination for
@@ -112,7 +111,6 @@ sf_expect_failure_in
 --    - Use `termination_by` to specify a different well-founded relation
 --    - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
 --  n x✝ : Nat
---  h✝ : n.even = true
 --  ⊢ div2 n < x✝
 
 --  Fortunately, there is another way to do it: We can express the concept
@@ -1098,8 +1096,8 @@ inductive Le : Nat → Nat → Prop where
 --  Here are some sanity checks on the definition. (Notice that, although
 --  these are the same kind of simple "unit tests" as we gave for the
 --  testing functions we wrote in the first few lectures, we must construct
---  their proofs explicitly ─ `rw`, `dsimp`, and `rfl` don't do the job,
---  because the proofs aren't just a matter of simplifying computations.)
+--  their proofs explicitly ─ `rw` and `rfl` don't do the job, because the
+--  proofs aren't just a matter of simplifying computations.)
 
 --  Some sanity checks...
 
