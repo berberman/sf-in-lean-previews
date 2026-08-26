@@ -4481,11 +4481,11 @@
         "Behavioral Equivaleence",
         "Definitions"]}},
      "address": "/Equiv/"}],
-   "Com.congruence.asgn":
-   [{"id": "Com___congruence___asgn",
+   "Com.congruence_asgn":
+   [{"id": "Com___congruence_asgn",
      "data":
-     {"/Equiv/#Com___congruence___asgn":
-      {"display": "Com.congruence.asgn",
+     {"/Equiv/#Com___congruence_asgn":
+      {"display": "Com.congruence_asgn",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",

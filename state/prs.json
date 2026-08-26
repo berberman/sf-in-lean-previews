@@ -258,11 +258,48 @@
     },
     "303": {
       "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "0711a4b348528dc125d33f37b12d537835f10a7c",
       "preview_path": "pr/303/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32953361621",
+      "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
@@ -277,11 +314,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
     },
     "311": {
-      "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
+      "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
       "changed_variants": [],
-      "head_sha": "ba29353cdd2ee600d9c7dc8b5687cbb8e30ed44d",
+      "head_sha": "675e0ca818aae4724b7f8d2be634c15541e361c2",
       "preview_path": "pr/311/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32878037747",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32954819448",
       "status": "ci-failed",
       "title": "Poly: make `unzip` a manually graded exercise about char lemmas",
       "url": "https://github.com/plclub/sf-in-lean/pull/311"
@@ -332,6 +369,53 @@
       "status": "published",
       "title": "SFLMeta: support universe-specialized recall",
       "url": "https://github.com/plclub/sf-in-lean/pull/318"
+    },
+    "319": {
+      "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "6406c7301cfab97c55f745c3abda1e8672ece6c7",
+      "preview_path": "pr/319/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32954352145",
+      "status": "published",
+      "title": "`nth?` characterizing lemmas and `list_ext` exercise",
+      "url": "https://github.com/plclub/sf-in-lean/pull/319"
     }
   },
   "schema": 3

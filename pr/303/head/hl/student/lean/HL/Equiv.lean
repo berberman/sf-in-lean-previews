@@ -445,7 +445,7 @@ theorem Com.equiv_trans {c₁ c₂ c₃ : Com} (h₁ : c₁.Equiv c₂) (h₂ : 
 --  "proof burden" of a small change to a large program is proportional to
 --  the size of the change, not the program!
 
-theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
+theorem Com.congruence_asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
     (imp {x := ~a}).Equiv
     (imp {x := ~a'}) := by
   rw [equiv_def]
@@ -496,7 +496,7 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
 
 --  - (`<-`) Similar.
 
-theorem Com.congruence.while {b b' : Bexp} {c c' : Com} (hb : b.Equiv b') (hc : c.Equiv c') :
+theorem Com.congruence_while {b b' : Bexp} {c c' : Com} (hb : b.Equiv b') (hc : c.Equiv c') :
     (imp {while (~b) {~c}}).Equiv
     (imp {while (~b') {~c'}}) := by
   rw [equiv_def]
@@ -541,9 +541,39 @@ theorem Com.congruence.while {b b' : Bexp} {c c' : Com} (hb : b.Equiv b') (hc : 
     | skip | asgn | seq | ifTrue | ifFalse =>
       contradiction
 
---  ### Exercise (3 stars): Com.congruence.seq (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): Com.congruence_seq (Optional) ⭐⭐⭐
 
-theorem Com.congruence.seq {c1 c1' c2 c2' : Com} (hc1 : c1.Equiv c1') (hc2 : c2.Equiv c2') :
+theorem Com.congruence_seq {c1 c1' c2 c2' : Com} (hc1 : c1.Equiv c1') (hc2 : c2.Equiv c2') :
     (imp {~c1 ; ~c2}).Equiv (imp {~c1' ; ~c2'}) := by
   sorry
+
+--  ### Exercise (3 stars): Com.congruence_if ⭐⭐⭐
+
+theorem Com.congruence_if {b b' : Bexp} {c1 c1' c2 c2' : Com} (hb : b.Equiv b') (hc1 : c1.Equiv c1') (hc2 : c2.Equiv c2') :
+    (imp {if (~b) {~c1} else {~c2}}).Equiv
+    (imp {if (~b') {~c1'} else {~c2'}}) := by
+  sorry
+
+--  For example, here are two programs and a proof of their equivalence
+--  using their congruence theorems.
+
+example :
+    (imp {X := 0; if (X = 0) {Y := 0} else {Y := 42}}).Equiv
+    (imp {X := 0; if (X = 0) {Y := X - X} else {Y := 42}}) := by
+  apply Com.congruence_seq
+  · apply Com.equiv_refl
+  · apply Com.congruence_if
+    · apply Bexp.equiv_refl
+    · apply Com.congruence_asgn
+      rw [Aexp.equiv_def]
+      simp
+    · apply Com.equiv_refl
+
+--  ### Exercise (3 stars): not_congr (Advanced, manually graded) ⭐⭐⭐
+
+--  We've shown that the `Com.Equiv` relation is both an equivalence and a
+--  congruence on commands. Can you think of a relation on commands that is
+--  an equivalence but *not* a congruence? Write down the relation
+--  (formally), together with an informal sketch of a proof that it is an
+--  equivalence and a counterexample showing it is not a congruence.
 
