@@ -378,7 +378,7 @@ inductive DCom where
 --  category, `dcom`, so it can coexist with the ordinary
 --  Imp command syntax.
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: decorated commands
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: decorated commands)
 
 declare_syntax_cat dcom
 

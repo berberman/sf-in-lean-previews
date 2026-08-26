@@ -155,7 +155,7 @@ macro_rules
   | `(aexp { $a * $b }) => `(Aexp.mult (aexp {$a}) (aexp {$b}))
   | `(aexp { ($a) }) => `(aexp {$a})
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions)
 
 /-- Boolean expressions of Imp -/
 declare_syntax_cat imp_bexp
@@ -183,7 +183,7 @@ syntax:min "bexp " "{" imp_bexp "}" : term
 
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions, macro rules
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions, macro rules)
 
 open Lean in
 macro_rules
@@ -234,7 +234,7 @@ macro_rules
 --  proof goal mentioning an Imp expression is displayed in readable Imp
 --  syntax rather than as a pile of constructors.
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing expressions back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing expressions back)
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer
@@ -338,7 +338,7 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
 --  the raw constructors (see the "Desugaring Notations" discussion, after
 --  the commands are introduced).
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: registering the delaborators
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: registering the delaborators)
 
 @[delab app.Aexp.num, delab app.Aexp.id, delab app.Aexp.plus,
   delab app.Aexp.minus, delab app.Aexp.mult]
@@ -469,7 +469,7 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: commands, macro rules)
 
 /-- Imp commands -/
 declare_syntax_cat imp_com
@@ -519,7 +519,7 @@ open scoped Com
 --  the condition of an `if`/`while` and for the right-hand side of an
 --  assignment, and prints an unrecognized subcommand with the `~` escape.
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing commands back)
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr

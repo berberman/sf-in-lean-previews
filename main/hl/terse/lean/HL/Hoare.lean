@@ -198,7 +198,7 @@ end ExamplePrettyAssertions
 
 --  ### Printing Assertions
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing assertions back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing assertions back)
 
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
@@ -322,7 +322,7 @@ notation:26 P:27 " <<->> " Q:27 => AssertImplies P Q ∧ AssertImplies Q P
 theorem assertIff_def {P Q : Assertion} : P <<->> Q ↔ AssertImplies P Q ∧ AssertImplies Q P
     := by rfl
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing implications back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing implications back)
 
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr
@@ -553,7 +553,7 @@ theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
 
 attribute [irreducible] ValidHoareTriple
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing triples back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing triples back)
 
 --  The delaborator is agnostic to the command type: it
 --  prints the command with whatever printer is registered
@@ -767,7 +767,7 @@ end Assertion
 #check {{ (X ≤ 10) [X ↦ 2 * X] }}
 #check (∀ st, ({{ (X ≤ 10) [X ↦ 2 * X] }}) st)
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing substitutions back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing substitutions back)
 
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr Imp.Delab

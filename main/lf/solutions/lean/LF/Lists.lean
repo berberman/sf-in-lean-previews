@@ -183,7 +183,7 @@ namespace NatList
 
 --  Don't worry too much about how this works.
 
---  THESE DETAILS CAN BE SKIPPED: List syntax
+--  THESE DETAILS CAN BE SKIPPED (List syntax)
 
 --  We first define `::` as right-associative notation for `cons`, and then
 --  define list notation as a *macro*, allowing us to write `[1, 2]`

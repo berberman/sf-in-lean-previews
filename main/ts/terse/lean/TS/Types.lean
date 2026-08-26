@@ -86,7 +86,7 @@ macro_rules
   | `(<{ ~$e }>)  => pure e
   | `(<{ if $c then $t else $e }>) => `(Tm.ite <{ $c }> <{ $t }> <{ $e }>)
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing terms back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing terms back)
 
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
 /-- Re-inserts parentheses in `tm` output according to the grammar's precedences. -/

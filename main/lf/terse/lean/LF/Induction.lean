@@ -4,8 +4,6 @@ import SFLCompat
 
 --  # Induction: Proof by Induction
 
-set_option pp.fieldNotation false
-
 --  ## Separate Compilation
 
 --  Lean will first need to compile `Basics.lean` so it can
@@ -218,6 +216,12 @@ theorem add_assoc (n m p : Nat) :
 
 --  If `rw` leaves a goal that looks definitionally true,
 --  try adding `rfl` after it.
+
+--  THESE DETAILS CAN BE SKIPPED
+
+set_option pp.fieldNotation false
+
+--  END DETAILS
 
 --  ### Exercise (2 stars): double_add ⭐⭐
 

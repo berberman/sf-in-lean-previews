@@ -2,8 +2,6 @@ import SFLCompat
 
 --  # Basics: Functional Programming in Lean
 
-set_option pp.fieldNotation false
-
 --  This chapter introduces some of Lean's most essential
 --  features for writing functional programs and proving
 --  things about how they behave.
@@ -68,6 +66,13 @@ example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.tuesday := by
 inductive MyBool : Type where
   | true
   | false
+
+--  THESE DETAILS CAN BE SKIPPED
+
+variable (b : MyBool) (n m : Nat)
+set_option pp.fieldNotation false
+
+--  END DETAILS
 
 --  This command opens the namespace associated with the
 --  `MyBool` type:
@@ -449,7 +454,7 @@ inductive Nat : Type where
   | zero
   | succ (n : Nat)
 
---  THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
+--  THESE DETAILS CAN BE SKIPPED (Library Nat to SFL Nat coercion)
 
 def ofNat : _root_.Nat → Nat
   | .zero => .zero

@@ -129,7 +129,7 @@ macro_rules
 --  constructors. (Setting `pp.notation false` turns it off, revealing the
 --  raw constructors.) A `Ty` prints as `Bool` or `Nat`.
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing terms back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing terms back)
 
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer in
 /-- Re-inserts parentheses in `tm` output according to the grammar's precedences. -/

@@ -2,8 +2,6 @@ import SFLCompat
 
 --  # Basics: Functional Programming in Lean
 
-set_option pp.fieldNotation false
-
 --  This chapter introduces some of Lean's most essential features for
 --  writing functional programs and proving things about how they behave.
 
@@ -191,6 +189,22 @@ inductive MyBool : Type where
   | true
   | false
 
+--  We next invoke a couple of Lean directives to help control formatting.
+--  Exactly what these directives mean is not important for present
+--  purposes -- you can understand everything in the rest of the book
+--  without knowing -- so we will mark these commands -- and similar bits
+--  later on -- with `THESE DETAILS CAN BE SKIPPED` comments in `.lean`
+--  files, and with folded-up segments in the HTML presentation. Feel free
+--  to have a peek if you want (click on the triangle in the HTML to unfold
+--  it), or just jump down to the following material and keep going.
+
+--  THESE DETAILS CAN BE SKIPPED
+
+variable (b : MyBool) (n m : Nat)
+set_option pp.fieldNotation false
+
+--  END DETAILS
+
 --  The next command opens the namespace associated with the `MyBool` type,
 --  so subsequent definitions will be part of the `MyBool` namespace. In
 --  Lean, functions on a type are typically defined in that type's
@@ -242,13 +256,9 @@ example : (!MyBool.false) = MyBool.true := by rfl
 
 --  The technical details of how these symbolic notations work are not
 --  something you need to understand until quite a bit later in your Lean
---  journey. We'll mark these details -- and similar material later on --
---  with `THESE DETAILS CAN BE SKIPPED` comments in `.lean` files and with
---  collapsed text segments in the HTML presentation. Click on the triangle
---  in the HTML if you want to have a peek, or just move on to the
---  following material.
+--  journey.
 
---  THESE DETAILS CAN BE SKIPPED: Details
+--  THESE DETAILS CAN BE SKIPPED
 
 --  Lean has a very flexible notation system. Operators like `||` and `&&`
 --  are defined with specified precedence and associativity. For example,
@@ -979,7 +989,7 @@ inductive Nat : Type where
 --  whenever this is sensible in context. The technical details are not
 --  important.
 
---  THESE DETAILS CAN BE SKIPPED: Library Nat to SFL Nat coercion
+--  THESE DETAILS CAN BE SKIPPED (Library Nat to SFL Nat coercion)
 
 def ofNat : _root_.Nat → Nat
   | .zero => .zero

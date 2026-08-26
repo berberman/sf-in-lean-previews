@@ -5,8 +5,6 @@ import SFLCompat
 
 --  # Induction: Proof by Induction
 
-set_option pp.fieldNotation false
-
 --  Note to developers:
 --      `SOONER: We should also consider adding more examples to clarify
 --      the concepts introduced in this chapter. This could help in
@@ -347,6 +345,12 @@ example (n : Nat) (h : n = aliasOfTwo) : n = two := by
   rfl
 
 --  Let's get some practice with using `rw`.
+
+--  THESE DETAILS CAN BE SKIPPED
+
+set_option pp.fieldNotation false
+
+--  END DETAILS
 
 --  ### Exercise (2 stars): double_add ⭐⭐
 

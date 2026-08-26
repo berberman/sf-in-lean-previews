@@ -238,7 +238,7 @@ inductive Tm where
 --  typing — for typing judgments too. How that works is in the collapsed
 --  blocks below; nothing later in the chapter depends on it.
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: types
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: types)
 
 --  The `stlcTy` grammar covers `Bool`, arrows (written `→` or `->`,
 --  associating to the right), parentheses, and `~e`. A bare identifier
@@ -275,7 +275,7 @@ macro_rules (kind := tyBracket)
 #check <{ Bool -> Bool }>
 #check <{ (Bool -> Bool) -> Bool }>
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: terms
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: terms)
 
 --  Terms are built from variables, application (associating to the left),
 --  abstraction, the two boolean constants, and conditionals. A binding
@@ -336,7 +336,7 @@ macro_rules (kind := tmBracket)
 
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing it back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
 
 --  A *delaborator* runs the grammar backwards: it rebuilds the concrete
 --  syntax from a `Ty` or `Tm` value, so that types and terms appearing in
@@ -673,7 +673,7 @@ macro_rules (kind := tmBracket)
   | `(<{ [$x := $s] $t }>) => do
       `(subst $(← varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: substitution
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: substitution)
 
 --  One more line registers substitutions with the printer, so that a goal
 --  mentioning one reads as `[x := s] t` rather than as a `subst`
@@ -1182,7 +1182,7 @@ abbrev Context := PartialMap String Ty
 --  written with the turnstile and colon of the Types chapter:
 --  `<{ Γ ⊢ t ⦂ T }>`.
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: contexts and judgments
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: contexts and judgments)
 
 --  Contexts get a grammar of their own, `stlcCtx`. The **meaning** is the
 --  map update we already have — `x ↦ T ; Γ` expands to exactly the
@@ -1242,7 +1242,7 @@ inductive HasType : Context → Tm → Ty → Prop where
       (h₃ : <{ ~Γ ⊢ ~t₃ ⦂ ~T₁ }>) :
       <{ ~Γ ⊢ if ~t₁ then ~t₂ else ~t₃ ⦂ ~T₁ }>
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: the judgment, for real
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
 
 --  Closing the `section` retires the hygiene-free rule; the same rule is
 --  then declared again, hygienically, for every later use.
@@ -1255,7 +1255,7 @@ macro_rules (kind := judgeBracket)
 
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing judgments back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing judgments back)
 
 --  As with terms, a judgment prints back in its own notation, so that a
 --  goal reads as `<{ x ↦ Bool ; ∅ ⊢ x ⦂ Bool }>` rather than as a

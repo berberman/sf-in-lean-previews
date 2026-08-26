@@ -207,7 +207,7 @@ inductive Tm where
 --  Types and terms are both written inside `<{ … }>`; `~e`
 --  escapes to Lean.
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: types
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: types)
 
 --  The `stlcTy` grammar covers `Bool`, arrows (written `→`
 --  or `->`, associating to the right), parentheses, and
@@ -245,7 +245,7 @@ macro_rules (kind := tyBracket)
 #check <{ Bool -> Bool }>
 #check <{ (Bool -> Bool) -> Bool }>
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: terms
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: terms)
 
 --  Terms are built from variables, application (associating
 --  to the left), abstraction, the two boolean constants,
@@ -311,7 +311,7 @@ macro_rules (kind := tmBracket)
 
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing it back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
 
 --  A *delaborator* runs the grammar backwards: it rebuilds
 --  the concrete syntax from a `Ty` or `Tm` value, so that
@@ -649,7 +649,7 @@ macro_rules (kind := tmBracket)
   | `(<{ [$x := $s] $t }>) => do
       `(subst $(← varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: substitution
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: substitution)
 
 --  One more line registers substitutions with the printer,
 --  so that a goal mentioning one reads as `[x := s] t`
@@ -1020,7 +1020,7 @@ abbrev Context := PartialMap String Ty
 --  In the formal development, we write this judgment inside
 --  the same `<{ .. }>` brackets.
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: contexts and judgments
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: contexts and judgments)
 
 --  Contexts get a grammar of their own, `stlcCtx`. The
 --  **meaning** is the map update we already have —
@@ -1084,7 +1084,7 @@ inductive HasType : Context → Tm → Ty → Prop where
       (h₃ : <{ ~Γ ⊢ ~t₃ ⦂ ~T₁ }>) :
       <{ ~Γ ⊢ if ~t₁ then ~t₂ else ~t₃ ⦂ ~T₁ }>
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: the judgment, for real
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
 
 --  Closing the `section` retires the hygiene-free rule; the
 --  same rule is then declared again, hygienically, for
@@ -1098,7 +1098,7 @@ macro_rules (kind := judgeBracket)
 
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED: Notation encoding: printing judgments back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing judgments back)
 
 --  As with terms, a judgment prints back in its own
 --  notation, so that a goal reads as
