@@ -399,7 +399,7 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
   cases b with
   | false => rfl
   | true =>
-    dsimp [Ne, Not] at h
+    rw [Ne, Not] at h
     apply ex_falso_quodlibet
     apply h
     rfl
@@ -642,7 +642,7 @@ def List.In {α : Type} (x : α) (xs : List α) : Prop :=
   | x' :: xs' => x = x' ∨ In x xs'
 
 theorem List.In_nil {α : Type} {x : α} : ¬ (List.In x []) := by
-  dsimp [List.In]; intro h; assumption
+  rw [List.In]; intro h; assumption
 
 theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := rfl
 
@@ -890,7 +890,7 @@ example : Nat.even 42 = true := rfl
 --  ... or that there exists some `k` such that
 --  `n = double k`.
 
-example : Nat.Even 42 := by dsimp [Nat.Even]; exists 21
+example : Nat.Even 42 := by rw [Nat.Even]; exists 21
 
 --  Of course, it would be deeply strange if these two
 --  characterizations of evenness did not describe the same
@@ -914,7 +914,7 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
   constructor
   · intro h
     obtain ⟨k, hk⟩ := even_double_conv n
-    rw [h] at hk; dsimp at hk; dsimp [Even]; exists k
+    rw [h] at hk; rw [cond_true] at hk; rw [Even]; exists k
   · intro ⟨k, hk⟩; rw [hk]; apply even_double
 
 --  In view of this theorem, we can say that the boolean
@@ -1224,6 +1224,26 @@ theorem add_comm_fun' : (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) 
 
 --  1. Yes
 --  2. No
+
+--  #### Other Extensionality Principles
+
+--  We can use `ext` on pairs as:
+
+example {n : Nat} {p : Nat × Nat} (hx_fst : p.fst = n + 1) (hx_snd : p.snd = 0) :
+    (n + 1, 0) = p := by
+  ext -- uses the `Prod.ext` lemma
+  · rw [hx_fst]
+  · rw [hx_snd]
+
+--  ### Exercise (2 stars): prod_ext_example ⭐⭐
+
+--  Now, use `ext1` to prove the following. Remember that
+--  `dsimp only` simplifies projections like `(a, b).fst` to
+--  `a`.
+
+example {m : Nat} {p : Nat × Nat} (hp_snd : p.snd = 4) (hp_fst : p.fst = m) :
+    ((p.fst + 1, 2), (p.fst, 4)) = ((m + 1, p.snd - 2), p) := by
+  sorry
 
 --  ### Classical vs. Constructive Logic
 

@@ -9,9 +9,8 @@ import SFLCompat
 --  Lean using its more powerful tools. This includes the
 --  natural numbers from its standard library, tactics which
 --  can search for lemmas from the standard library,
---  namespaces for organizing lemmas, and two new tactics,
---  `calc` and `dsimp`, which enable more readable and
---  concise proofs.
+--  namespaces for organizing lemmas, and a new tactic,
+--  `calc`, which enables more readable and concise proofs.
 
 --  ## More Powerful Natural Numbers
 
@@ -250,11 +249,13 @@ sf_expect_failure_in
 --  we are trying to rewrite `Nat.add_assoc` isn't of the
 --  form `n + m + k`, so we can't proceed. What then, should
 --  we do? To proceed here, we need to reveal to Lean the
---  underlying structure of `addThrice` and `addTwice`,
---  which we can do by rewriting by those definitions:
+--  underlying definitions of `addThrice` and `addTwice`, so
+--  that `rw`, which only operates on syntax, can see the
+--  addition. We can do this by rewriting by those
+--  definitions:
 
 example (n : Nat) : addThrice n = n + addTwice n := by
-  -- `rw addThrice]` unfolds `addThrice`, replacing it with its definition
+  -- `rw [addThrice]` unfolds `addThrice`, replacing it with its definition
   rw [addThrice]
   -- this likewise unfolds `addTwice`
   rw [addTwice]
@@ -273,8 +274,8 @@ example (n : Nat) : addThrice n = n + addTwice n := by
 theorem rwUnfold (n m : Nat) (h : m = n) : addThrice m = n + (n + n) := by
   sorry
 
---  Rewriting by definitions also works in hypotheses, which
---  `rfl` can't touch.
+--  Rewriting can also be used in places where `rfl` can't,
+--  like hypotheses.
 
 def square (n : Nat) : Nat := n * n
 
@@ -290,7 +291,7 @@ example (n m : Nat) (h : 2 * n = m * 2) : n + n = m + m := by
 
 --  But `rw` rewrites only one instance of a definition at a
 --  time. When a hypothesis or goal mentions the same
---  function at several different arguments, each one needs
+--  function applied to different arguments, each one needs
 --  its own rewrite.
 
 example (n m k : Nat) (h : square n + square m + square k = 0) :
@@ -298,17 +299,35 @@ example (n m k : Nat) (h : square n + square m + square k = 0) :
   rw [square, square, square] at h
   exact h
 
---  We have previously seen the same issue with lemmas,
---  leading to situations in which we have to rewrite
---  multiple times in a row by lemmas like `add_zero`. To
---  make this situation a bit better, we can use the
---  `repeat` tactic combinator, which repeats the same
---  tactic as many time as it can:
+--  Use `repeat` to repeat a tactic multiple times:
 
 example (n m k : Nat) (h : square n + square m + square k = 0) :
     n * n + m * m + k * k = 0 := by
   repeat rw [square] at h
   exact h
+
+--  ### Definitional Simplification
+
+--  `dsimp only` can perform basic simplification:
+
+example : (fun x => x + 0) n = n := by
+  dsimp only -- applies the function to its argument
+  rw [Nat.add_zero]
+
+--  If we did not simplify here before attempting to
+--  rewrite, we would get an error:
+
+sf_expect_failure_in
+  example : (fun x => x + 0) n = n := by
+    rw [Nat.add_zero]
+
+--  Tactic `rewrite` failed: Did not find an occurrence of the pattern
+--    ?n + 0
+--  in the target expression
+--    (fun x => x + 0) n = n
+
+--  n : Nat
+--  ⊢ (fun x => x + 0) n = n
 
 --  ## Redefining Functions and Lemmas over Nats
 
@@ -391,10 +410,9 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
   sorry
 
 --  In the remainder of the book, we use Lean's built-in
---  natural numbers everywhere. We use `dsimp` and `calc` in
---  examples and solutions, and encourage their use. We also
---  recommend using `rw?` and `exact?` to search for lemmas
---  (though these should not appear in finished proofs).
+--  natural numbers everywhere. We also recommend using
+--  `rw?` and `exact?` to search for lemmas (though these
+--  should not appear in finished proofs).
 
 --  With these tools in hand, we can begin to prove
 --  properties about more sophisticated forms of data,

@@ -631,11 +631,9 @@ example (n m p q : Nat)
 --  to both a hypothesis and the goal) by including it after the `at` with
 --  the turnstile symbol `⊢`, written `\|-`, `\goal` or `\vdash`.
 
-example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
-  Nat.ble (n, m).1 (n, m).2 := by
-  dsimp at h₁ h₂ ⊢
-  rw [h₁, h₂]
-  rfl
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
 
 --  ## Specializing Hypotheses
 
@@ -1015,7 +1013,7 @@ def chooseIf {α : Type} (test : α → Bool) (x y : α) : α :=
 
 theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
     chooseIf test x x = x := by
-  dsimp [chooseIf]
+  rw [chooseIf]
   cases test x <;> rfl
 
 --  After *unfolding* `chooseIf` in the above proof, we find that we are
@@ -1078,7 +1076,7 @@ sf_expect_failure_in
   theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
       (h : keepIf test x = some y) :
       x = y := by
-    dsimp [keepIf] at h
+    rw [keepIf] at h
     cases (test x)
 
 --  unsolved goals
@@ -1107,7 +1105,7 @@ sf_expect_failure_in
 theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
     (h : keepIf test x = some y) :
     x = y := by
-  dsimp [keepIf] at h
+  rw [keepIf] at h
   cases hTest : test x
   -- Now we have the same state as at the point where we got stuck
   -- above, except that the context contains an extra equality
@@ -1157,15 +1155,19 @@ theorem bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) :
 --  - `contradiction`: close the current goal when the context contains
 --    contradictory assumptions
 
---  Equality and rewriting:
+--  Equality, rewriting, and unfolding:
 
 --  - `rfl`: close an equality that holds by reflexivity (possibly after
 --    computation)
 
 --  - `rw [h]`: rewrite the goal using an equality hypothesis or theorem
 
+--  - `rw [d]`: unfold a definition in the goal
+
 --  - `rw [h] at h'`: rewrite a hypothesis using an equality hypothesis or
 --    theorem
+
+--  - `rw [d] at h'`: unfold a definition in a hypothesis
 
 --  - `symm`: reverse an equality goal, changing `t = u` to `u = t`
 
@@ -1183,11 +1185,6 @@ theorem bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) :
 
 --  - `injections`: repeatedly use constructor injectivity on suitable
 --    equalities in the context
-
---  Simplifying and unfolding definitions:
-
---  - `dsimp`: simplify definitional computations in the goal
---  - `dsimp at h`: simplify definitional computations in a hypothesis
 
 --  Case analysis:
 

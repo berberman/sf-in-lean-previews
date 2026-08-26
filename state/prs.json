@@ -409,11 +409,48 @@
     },
     "321": {
       "base_sha": "36d05c248a8c0ea0f07a9e8921b3ec8494822328",
-      "changed_variants": [],
-      "head_sha": "213a16bc3d65bbc64030e78ae5ffab42b560922d",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "1aa0fbd769d2fc94751d59180a7dea8c7ec8c01c",
       "preview_path": "pr/321/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33008053843",
+      "status": "published",
       "title": "Remove discussion of `dsimp` from LF",
       "url": "https://github.com/plclub/sf-in-lean/pull/321"
     }
