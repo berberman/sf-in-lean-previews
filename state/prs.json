@@ -211,48 +211,11 @@
     },
     "303": {
       "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "4b81070596997f827e68f409764f46e7aaf645a0",
+      "changed_variants": [],
+      "head_sha": "66999db5c26fc10e8efa8d4f131446afdd02a763",
       "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32979674658",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
