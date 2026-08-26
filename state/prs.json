@@ -1,5 +1,5 @@
 {
-  "main_sha": "ef120ff8347628fd2f042fb7be11a5e71d80bbe2",
+  "main_sha": "36d05c248a8c0ea0f07a9e8921b3ec8494822328",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -408,49 +408,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/320"
     },
     "321": {
-      "base_sha": "ef120ff8347628fd2f042fb7be11a5e71d80bbe2",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "63d1532d16f22cd2662f6368da66d66920d6e01b",
+      "base_sha": "36d05c248a8c0ea0f07a9e8921b3ec8494822328",
+      "changed_variants": [],
+      "head_sha": "682c863b75a719b59c77b4714496db1563d39120",
       "preview_path": "pr/321/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32996272318",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Remove discussion of `dsimp` from LF",
       "url": "https://github.com/plclub/sf-in-lean/pull/321"
     }

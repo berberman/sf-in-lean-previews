@@ -371,7 +371,14 @@ attribute [autogradedProof 0.5] Lists.NatList.test_nonZeros
 
 --  The next definition uses `bif`, Lean's conditional for Boolean tests.
 --  The expression `bif b then x else y` evaluates to `x` when `b` is
---  `true` and to `y` when `b` is `false`.
+--  `true` and to `y` when `b` is `false`. Its characterizing lemmas are
+--  `cond_true` and `cond_false`.
+
+sf_recall
+  theorem cond_true {α} (x y : α) : (bif true then x else y) = x := by rfl
+
+sf_recall
+  theorem cond_false {α} (x y : α) : (bif false then x else y) = y := by rfl
 
 def oddMembers (l : NatList) : NatList := sorry
 

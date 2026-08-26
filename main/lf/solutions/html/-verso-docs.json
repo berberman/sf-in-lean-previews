@@ -1,628 +1,627 @@
 {"999":
- "<code>nth?_always_none (l : List Nat) (h : ∀ (i : Nat), nth? l i = none) : l = []</code>",
- "998":
  "<code class=\"docstring\">`specialize h a₁ ... aₙ` is equivalent to `replace h := h a₁ ... aₙ`.\nIt specializes the local hypothesis `h` by instantiating\nuniversal quantifications and implications using the concrete terms `a₁` ... `aₙ`.\nThe tactic adds a new hypothesis with the same name and tries to remove\nthe original `h` if possible.\n\nExample: given `h : ∀ (n : Nat), p n → q n` and `h' : p 2`,\nthen `specialize h 2 h'` replaces `h` with `h : q 2`.\n\nThe tactic also supports instantiating particular universal quantifiers\nusing named argument syntax. Example: given `h : ∀ (m n : Nat), p m n`,\nthen `specialize h (n := 2)` replaces `h` with `h : ∀ (m : Nat), p m 2`.\n</code>",
- "997":
+ "998":
  "<code class=\"docstring\">`replace h := e` is like `have h := e`, but it removes a previous hypothesis\nof the same name as this one if possible. For example, if the state is:\n\n```lean\nf : α → β\nh : α\n⊢ goal\n```\n\nThen after `replace h := f h` the state will be:\n\n```lean\nf : α → β\nh : β\n⊢ goal\n```\n\nwhereas `have h := f h` would result in:\n\n```lean\nf : α → β\nh† : α\nh : β\n⊢ goal\n```\n\nThe tactic `specialize h a₁ ... aₙ` is a way to write `replace h := h a₁ ... aₙ`,\nautomatically inferring which hypothesis should be replaced.\n\nThe `replace` tactic can be used to simulate Rocq's `apply at` tactic.\n</code>",
- "996": "<code>m = 0</code>",
- "995": "<code>m * 1 = 0</code>",
- "994": "<code>∀ (n : Nat), m * n = 0</code>",
- "993": "<code>m = 3</code>",
- "992": "<code>n = 2</code>",
- "991": "<code>m = 1 + 2</code>",
- "990": "<code>n = 1 + 1</code>",
+ "997": "<code>m = 0</code>",
+ "996": "<code>m * 1 = 0</code>",
+ "995": "<code>∀ (n : Nat), m * n = 0</code>",
+ "994": "<code>m = 3</code>",
+ "993": "<code>n = 2</code>",
+ "992": "<code>m = 1 + 2</code>",
+ "991": "<code>n = 1 + 1</code>",
+ "990": "<code>p = q</code>",
  "99": "<code>Playground.myBar : RGB</code>",
- "989": "<code>p = q</code>",
- "988":
+ "989":
  "<code class=\"docstring\">`apply t at i` uses forward reasoning with `t` at the hypothesis `i`.\nExplicitly, if `t : α₁ → ⋯ → αᵢ → ⋯ → αₙ` and `i` has type `αᵢ`, then this tactic adds\nmetavariables/goals for any terms of `αⱼ` for `j = 1, …, i-1`,\nthen replaces the type of `i` with `αᵢ₊₁ → ⋯ → αₙ` by applying those metavariables and the\noriginal `i`.\n\nLifted from [https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Tactic/ApplyAt.lean].\n</code>",
- "987": "<code>n = m → p = q</code>",
- "986": "<code>c = d</code>",
- "985":
+ "988": "<code>n = m → p = q</code>",
+ "987": "<code>c = d</code>",
+ "986":
  "<code class=\"docstring\">Apply congruence (recursively) to goals of the form `⊢ f as = f bs` and `⊢ f as ≍ f bs`.\nThe optional parameter is the depth of the recursive applications.\nThis is useful when `congr` is too aggressive in breaking down the goal.\nFor example, given `⊢ f (g (x + y)) = f (g (y + x))`,\n`congr` produces the goals `⊢ x = y` and `⊢ y = x`,\nwhile `congr 2` produces the intended `⊢ x + y = y + x`.\n</code>",
- "984": "<code>1 + x = 1 + y</code>",
- "983":
+ "985": "<code>1 + x = 1 + y</code>",
+ "984":
  "<code class=\"docstring\">`assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.\nNote also the `‹t›` term notation, which is a shorthand for `show t by assumption`.\n</code>",
- "982": "<code>x + 1 = y + 1</code>",
- "981":
+ "983": "<code>x + 1 = y + 1</code>",
+ "982":
  "<code>Decidable.decide (p : Prop) [h : Decidable p] : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Converts a decidable proposition into a `Bool`.\n\nIf `p : Prop` is decidable, then `decide p : Bool` is the Boolean value\nthat is `true` if `p` is true and `false` if `p` is false.\n</code>",
- "980": "<code>(!decide (x = !y)) = true</code>",
+ "981": "<code>(!decide (x = !y)) = true</code>",
+ "980": "<code>Color.primary x = Color.primary y</code>",
  "98": "<code>Playground.myFoo : RGB</code>",
- "979": "<code>Color.primary x = Color.primary y</code>",
- "978": "<code>x :: y :: l = []</code>",
- "977":
+ "979": "<code>x :: y :: l = []</code>",
+ "978":
  "<code>disjoint_ex3 {α : Type} (x y z : α) (l : List α) (h : x :: y :: l = []) : x = z</code>",
- "976": "<code>n.succ = 0</code>",
- "975": "<code>Nat.one_add (n : Nat) : 1 + n = n.succ</code>",
- "974": "<code>1 + n = 0</code>",
- "973": "<code>n + 1 = 0</code>",
- "972": "<code>false = true</code>",
- "971":
+ "977": "<code>n.succ = 0</code>",
+ "976": "<code>Nat.one_add (n : Nat) : 1 + n = n.succ</code>",
+ "975": "<code>1 + n = 0</code>",
+ "974": "<code>n + 1 = 0</code>",
+ "973": "<code>false = true</code>",
+ "972":
  "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
- "970": "<code>l = l</code>",
+ "971": "<code>l = l</code>",
+ "970": "<code>y :: l = z :: l</code>",
  "97": "<code>myFoo : Bool</code>",
- "969": "<code>y :: l = z :: l</code>",
- "968": "<code>y :: l = j</code>",
- "967": "<code>x = z</code>",
- "966": "<code>j = z :: l</code>",
- "965": "<code>x :: y :: l = z :: j</code>",
- "964":
+ "969": "<code>y :: l = j</code>",
+ "968": "<code>x = z</code>",
+ "967": "<code>j = z :: l</code>",
+ "966": "<code>x :: y :: l = z :: j</code>",
+ "965":
  "<code>injection_ex3 {α : Type} (x y z : α) (l j : List α) (h₁ : x :: y :: l = z :: j) (h₂ : j = z :: l) : x = y</code>",
- "963":
+ "964":
  "<code class=\"docstring\">`injections` applies `injection` to all hypotheses recursively\n(since `injection` can produce new hypotheses). Useful for destructing nested\nconstructor equalities like `(a::b::c) = (d::e::f)`. </code>",
- "962": "<code>[] = []</code>",
- "961": "<code>[m] = [o]</code>",
- "960": "<code>n = o</code>",
+ "963": "<code>[] = []</code>",
+ "962": "<code>[m] = [o]</code>",
+ "961": "<code>n = o</code>",
+ "960": "<code>[n, m] = [o, o]</code>",
  "96":
  "<code>isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = false</code>",
- "959": "<code>[n, m] = [o, o]</code>",
- "958": "<code>Nat.pred_succ (n : Nat) : n.succ.pred = n</code>",
- "957": "<code>n = (n + 1).pred</code>",
- "956": "<code>n + 1 = m + 1</code>",
- "955": "<code>n + p = m</code>",
- "954": "<code>m = o.minusTwo</code>",
- "953":
+ "959": "<code>Nat.pred_succ (n : Nat) : n.succ.pred = n</code>",
+ "958": "<code>n = (n + 1).pred</code>",
+ "957": "<code>n + 1 = m + 1</code>",
+ "956": "<code>n + p = m</code>",
+ "955": "<code>m = o.minusTwo</code>",
+ "954":
  "<code>trans_eq_exercise (n m o p : Nat) (h₁ : m = o.minusTwo) (h₂ : n + p = m) : n + p = o.minusTwo</code>",
- "952": "<code>b = c</code>",
- "951": "<code>a = b</code>",
+ "953": "<code>b = c</code>",
+ "952": "<code>a = b</code>",
+ "951": "<code>Sort u</code>",
  "950":
- "<code class=\"docstring\">A specific universe in Lean's infinite hierarchy of universes. </code>",
+ "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
  "95":
  "<code>isInversion_test3 : isInversion (Color.primary RGB.red) (Color.primary RGB.blue) = true</code>",
- "949": "<code>Sort u</code>",
- "948":
- "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "947": "<code>y = z</code>",
- "946": "<code>x = y</code>",
- "945": "<code>trans_eq {α : Type} (x y z : α) : x = y → y = z → x = z</code>",
- "944": "<code>[c, d] = [e, f]</code>",
- "943": "<code>[a, b] = [c, d]</code>",
- "942": "<code>l = l'.rev</code>",
- "941":
+ "949": "<code>y = z</code>",
+ "948": "<code>x = y</code>",
+ "947": "<code>trans_eq {α : Type} (x y z : α) : x = y → y = z → x = z</code>",
+ "946": "<code>[c, d] = [e, f]</code>",
+ "945": "<code>[a, b] = [c, d]</code>",
+ "944": "<code>l = l'.rev</code>",
+ "943":
  "<code>rev_exercise1 {α : Type} (l l' : List α) (h : l = l'.rev) : l' = l.rev</code>",
- "940":
+ "942":
  "<code class=\"docstring\">* `symm` applies to a goal whose target has the form `t ~ u` where `~` is a symmetric relation,\n  that is, a relation which has a symmetry lemma tagged with the attribute [symm].\n  It replaces the target with `u ~ t`.\n* `symm at h` will rewrite a hypothesis `h : t ~ u` to `h : u ~ t`.\n</code>",
+ "941": "<code>n = 0</code>",
+ "940": "<code>n = 0 → n = m</code>",
  "94":
  "<code>isInversion_test2 : isInversion Color.white Color.black = true</code>",
- "939": "<code>n = 0</code>",
- "938": "<code>n = 0 → n = m</code>",
- "937": "<code>m.even = true</code>",
- "936": "<code>∀ (n : Nat), n.even = false → n.odd = true</code>",
- "935": "<code>∀ (n : Nat), n.even = true → (n + 1).even = false</code>",
- "934":
+ "939": "<code>m.even = true</code>",
+ "938": "<code>∀ (n : Nat), n.even = false → n.odd = true</code>",
+ "937": "<code>∀ (n : Nat), n.even = true → (n + 1).even = false</code>",
+ "936":
  "<code>apply_exercise (m : Nat) (h₁ : ∀ (n : Nat), n.even = true → (n + 1).even = false)\n  (h₂ : ∀ (n : Nat), n.even = false → n.odd = true) (hEven : m.even = true) : (m + 1).odd = true</code>",
- "933": "<code>∀ (q r : Nat), (q, q) = (r, r) → [q] = [r]</code>",
- "932": "<code>(n, n) = (m, m)</code>",
- "931": "<code>n = m → [n, o] = [m, p]</code>",
- "930": "<code>p</code>",
+ "935": "<code>∀ (q r : Nat), (q, q) = (r, r) → [q] = [r]</code>",
+ "934": "<code>(n, n) = (m, m)</code>",
+ "933": "<code>n = m → [n, o] = [m, p]</code>",
+ "932": "<code>p</code>",
+ "931": "<code>p → q</code>",
+ "930": "<code>Prop</code>",
  "93":
  "<code>isInversion_test1 : isInversion Color.black Color.white = true</code>",
- "929": "<code>p → q</code>",
- "928": "<code>Prop</code>",
- "927":
+ "929":
  "<code>Church.exp_3 : exp three two = plus (mult two (mult two two)) one</code>",
- "926": "<code>Church.exp_2 : exp three zero = one</code>",
- "925": "<code>Church.exp_1 : exp two two = plus two two</code>",
- "924": "<code>Church.exp (n m : CNat) : CNat</code>",
- "923": "<code>Church.mult_3 : mult two three = plus three three</code>",
- "922": "<code>Church.mult_2 : mult zero (plus three three) = zero</code>",
- "921": "<code>Church.mult_1 : mult one one = one</code>",
- "920": "<code>Church.mult (n m : CNat) : CNat</code>",
+ "928": "<code>Church.exp_2 : exp three zero = one</code>",
+ "927": "<code>Church.exp_1 : exp two two = plus two two</code>",
+ "926": "<code>Church.exp (n m : CNat) : CNat</code>",
+ "925": "<code>Church.mult_3 : mult two three = plus three three</code>",
+ "924": "<code>Church.mult_2 : mult zero (plus three three) = zero</code>",
+ "923": "<code>Church.mult_1 : mult one one = one</code>",
+ "922": "<code>Church.mult (n m : CNat) : CNat</code>",
+ "921": "<code class=\"docstring\">The universe level 2</code>",
+ "920": "<code class=\"docstring\">The universe level 1</code>",
  "92": "<code>isInversion (c1 c2 : Color) : Bool</code>",
- "919": "<code class=\"docstring\">The universe level 2</code>",
- "918": "<code class=\"docstring\">The universe level 1</code>",
- "917":
+ "919":
  "<code>Church.plus_3 : plus (plus two two) three = plus one (plus three three)</code>",
- "916": "<code>Church.plus_2 : plus two three = plus three two</code>",
- "915": "<code>Church.plus_1 : plus zero one = one</code>",
- "914": "<code>Church.plus (n m : CNat) : CNat</code>",
- "913": "<code>Church.scc_3 : scc two = three</code>",
- "912": "<code>Church.scc_2 : scc one = two</code>",
- "911": "<code>CNat</code>",
- "910": "<code>Church.scc (n : CNat) : CNat</code>",
+ "918": "<code>Church.plus_2 : plus two three = plus three two</code>",
+ "917": "<code>Church.plus_1 : plus zero one = one</code>",
+ "916": "<code>Church.plus (n m : CNat) : CNat</code>",
+ "915": "<code>Church.scc_3 : scc two = three</code>",
+ "914": "<code>Church.scc_2 : scc one = two</code>",
+ "913": "<code>CNat</code>",
+ "912": "<code>Church.scc (n : CNat) : CNat</code>",
+ "911": "<code>Church.two' : CNat</code>",
+ "910": "<code>Church.one' : CNat</code>",
  "91": "<code>is_weekend_test2 : is_weekend Day.friday = false</code>",
- "909": "<code>Church.two' : CNat</code>",
- "908": "<code>Church.one' : CNat</code>",
- "907": "<code>Church.zero' : CNat</code>",
- "906": "<code>Church.three : CNat</code>",
- "905": "<code>Church.zero : CNat</code>",
- "904": "<code>Church.two : CNat</code>",
- "903": "<code>Church.one : CNat</code>",
- "902": "<code>Church.CNat : Type 1</code>",
- "901":
+ "909": "<code>Church.zero' : CNat</code>",
+ "908": "<code>Church.three : CNat</code>",
+ "907": "<code>Church.zero : CNat</code>",
+ "906": "<code>Church.two : CNat</code>",
+ "905": "<code>Church.one : CNat</code>",
+ "904": "<code>Church.CNat : Type 1</code>",
+ "903":
  "<code>curry_uncurry {α β γ : Type} {p : α × β} {f : α × β → γ} : prodUncurry (prodCurry f) p = f p</code>",
- "900":
+ "902":
  "<code>uncurry_curry {α β γ : Type} {x : α} {y : β} {f : α → β → γ} : prodCurry (prodUncurry f) x y = f x y</code>",
+ "901": "<code>α × β</code>",
+ "900": "<code>α → β → γ</code>",
  "90": "<code>is_weekend_test1 : is_weekend Day.sunday = true</code>",
  "9":
  "<code class=\"docstring\">The `injection` tactic is based on the fact that constructors of inductive data\ntypes are injections.\nThat means that if `c` is a constructor of an inductive datatype, and if `(c t₁)`\nand `(c t₂)` are two terms that are equal then  `t₁` and `t₂` are equal too.\nIf `q` is a proof of a statement of conclusion `t₁ = t₂`, then injection applies\ninjectivity to derive the equality of all arguments of `t₁` and `t₂` placed in\nthe same positions. For example, from `(a::b) = (c::d)` we derive `a=c` and `b=d`.\nTo use this tactic `t₁` and `t₂` should be constructor applications of the same constructor.\nGiven `h : a::b = c::d`, the tactic `injection h` adds two new hypothesis with types\n`a = c` and `b = d` to the main goal.\nThe tactic `injection h with h₁ h₂` uses the names `h₁` and `h₂` to name the new hypotheses.\n</code>",
- "899": "<code>α × β</code>",
- "898": "<code>α → β → γ</code>",
- "897":
+ "899":
  "<code>prodUncurry {α β γ : Type} (f : α → β → γ) (p : α × β) : γ</code>",
- "896": "<code>α × β → γ</code>",
- "895":
+ "898": "<code>α × β → γ</code>",
+ "897":
  "<code>prodCurry {α β γ : Type} (f : α × β → γ) (x : α) (y : β) : γ</code>",
- "894": "<code>fold (fun x l' =&gt; f x :: l') tail✝ [] = map f tail✝</code>",
- "893": "<code>foldMap f tail✝ = map f tail✝</code>",
- "892":
+ "896": "<code>fold (fun x l' =&gt; f x :: l') tail✝ [] = map f tail✝</code>",
+ "895": "<code>foldMap f tail✝ = map f tail✝</code>",
+ "894":
  "<code>fold_map_correct {α β : Type} {f : α → β} {l : List α} : foldMap f l = map f l</code>",
- "891": "<code>foldMap {α β : Type} (f : α → β) (l : List α) : List β</code>",
- "890": "<code>fold (fun x n =&gt; n + 1) tail✝ 0 = tail✝.length</code>",
+ "893": "<code>foldMap {α β : Type} (f : α → β) (l : List α) : List β</code>",
+ "892": "<code>fold (fun x n =&gt; n + 1) tail✝ 0 = tail✝.length</code>",
+ "891": "<code>foldLength tail✝ = tail✝.length</code>",
+ "890": "<code>List.length_nil.{u} {α : Type u} : [].length = 0</code>",
  "89": "<code>is_weekend (d : Day) : Bool</code>",
- "889": "<code>foldLength tail✝ = tail✝.length</code>",
- "888": "<code>List.length_nil.{u} {α : Type u} : [].length = 0</code>",
- "887":
+ "889":
  "<code>fold_length_correct {α : Type} {l : List α} : foldLength l = l.length</code>",
- "886": "<code>foldLength {α : Type} (l : List α) : Nat</code>",
- "885": "<code>fold_plus : List Nat → Nat → Nat</code>",
- "884": "<code>plus3 : Nat → Nat</code>",
- "883": "<code>fTrue : Nat → Bool</code>",
- "882": "<code>constFun {α : Type} (x : α) : Nat → α</code>",
- "881":
+ "888": "<code>foldLength {α : Type} (l : List α) : Nat</code>",
+ "887": "<code>fold_plus : List Nat → Nat → Nat</code>",
+ "886": "<code>plus3 : Nat → Nat</code>",
+ "885": "<code>fTrue : Nat → Bool</code>",
+ "884": "<code>constFun {α : Type} (x : α) : Nat → α</code>",
+ "883":
  "<code>fold_cons {α β : Type} {f : α → β → β} {a : α} {l : List α} {b : β} : fold f (a :: l) b = f a (fold f l b)</code>",
- "880":
+ "882":
  "<code>fold_nil {α β : Type} {f : α → β → β} {b : β} : fold f [] b = b</code>",
- "88": "<code>isRed' (c : Color) : Bool</code>",
- "879": "<code>α → β → β</code>",
- "878":
+ "881": "<code>α → β → β</code>",
+ "880":
  "<code>fold {α β : Type} (f : α → β → β) (l : List α) (b : β) : β</code>",
- "877": "<code>Option α</code>",
- "876":
+ "88": "<code>isRed' (c : Color) : Bool</code>",
+ "879": "<code>Option α</code>",
+ "878":
  "<code>optionMap {α β : Type} (f : α → β) (x? : Option α) : Option β</code>",
- "875":
+ "877":
  "<code>flatMap_cons {α β : Type} (f : α → List β) (h : α) (t : List α) : flatMap f (h :: t) = f h ++ flatMap f t</code>",
- "874":
+ "876":
  "<code>flatMap_nil {α β : Type} (f : α → List β) : flatMap f [] = []</code>",
- "873":
+ "875":
  "<code>test_flatMap : flatMap (fun n =&gt; [n, n, n]) [1, 5, 4] = [1, 1, 1, 5, 5, 5, 4, 4, 4]</code>",
- "872": "<code>α → List β</code>",
- "871":
+ "874": "<code>α → List β</code>",
+ "873":
  "<code>flatMap {α β : Type} (f : α → List β) (l : List α) : List β</code>",
- "870": "<code>map f tail✝.rev = (map f tail✝).rev</code>",
+ "872": "<code>map f tail✝.rev = (map f tail✝).rev</code>",
+ "871":
+ "<code>map_rev {α β : Type} {f : α → β} {l : List α} : map f l.rev = (map f l).rev</code>",
+ "870": "<code>map f (tail✝ ++ l') = map f tail✝ ++ map f l'</code>",
  "87": "<code>isRed (c : Color) : Bool</code>",
  "869":
- "<code>map_rev {α β : Type} {f : α → β} {l : List α} : map f l.rev = (map f l).rev</code>",
- "868": "<code>map f (tail✝ ++ l') = map f tail✝ ++ map f l'</code>",
- "867":
  "<code>map_append {α β : Type} {f : α → β} {l l' : List α} : map f (l ++ l') = map f l ++ map f l'</code>",
- "866":
+ "868":
  "<code>map_cons {α β : Type} {f : α → β} {x : α} {l : List α} : map f (x :: l) = f x :: map f l</code>",
- "865": "<code>map_nil {α β : Type} {f : α → β} : map f [] = []</code>",
- "864": "<code>α → β</code>",
- "863": "<code>map {α β : Type} (f : α → β) (l : List α) : List β</code>",
- "862":
+ "867": "<code>map_nil {α β : Type} {f : α → β} : map f [] = []</code>",
+ "866": "<code>α → β</code>",
+ "865": "<code>map {α β : Type} (f : α → β) (l : List α) : List β</code>",
+ "864":
  "<code>test_partition2 : partition (fun x =&gt; false) [5, 9, 0] = ([], [5, 9, 0])</code>",
- "861":
+ "863":
  "<code>bne.{u} {α : Type u} [BEq α] (a b : α) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">`x != y` is boolean not-equal. It is the negation of `x == y` which is supplied by\nthe `BEq` typeclass.\n\nUnlike `x ≠ y` (which is notation for `Ne x y`), this is `Bool` valued instead of\n`Prop` valued. It is mainly intended for programming applications.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `!=` in identifiers is `bne`.</code>",
- "860":
+ "862":
  "<code>test_partition1 : partition (fun x =&gt; x % 2 != 0) [1, 2, 3, 4, 5] = ([1, 3, 5], [2, 4])</code>",
+ "861":
+ "<code>partition {α : Type} (test : α → Bool) (l : List α) : List α × List α</code>",
+ "860":
+ "<code>test_filterEvenGt7_2 : filterEvenGt7 [5, 2, 6, 19, 129] = []</code>",
  "86": "<code>monochrome' (c : Color) : Bool</code>",
  "859":
- "<code>partition {α : Type} (test : α → Bool) (l : List α) : List α × List α</code>",
- "858":
- "<code>test_filterEvenGt7_2 : filterEvenGt7 [5, 2, 6, 19, 129] = []</code>",
- "857":
  "<code>test_filterEvenGt7_1 : filterEvenGt7 [1, 2, 6, 9, 10, 3, 12, 8] = [10, 12, 8]</code>",
- "856": "<code>filterEvenGt7 (l : List Nat) : List Nat</code>",
- "855": "<code>List Nat</code>",
- "854": "<code>countOddMembers (l : List Nat) : Nat</code>",
- "853": "<code>test x = false</code>",
- "852":
+ "858": "<code>filterEvenGt7 (l : List Nat) : List Nat</code>",
+ "857": "<code>List Nat</code>",
+ "856": "<code>countOddMembers (l : List Nat) : Nat</code>",
+ "855": "<code>test x = false</code>",
+ "854":
  "<code>filter_cons_of_neg {α : Type} {test : α → Bool} {x : α} {l : List α} (h : test x = false) :\n  filter test (x :: l) = filter test l</code>",
- "851": "<code>test x = true</code>",
- "850":
+ "853": "<code>test x = true</code>",
+ "852":
  "<code>filter_cons_of_pos {α : Type} {test : α → Bool} {x : α} {l : List α} (h : test x = true) :\n  filter test (x :: l) = x :: filter test l</code>",
- "85": "<code>Color</code>",
- "849":
+ "851":
  "<code>filter_nil {α : Type} {test : α → Bool} : filter test [] = []</code>",
- "848": "<code>isLength1 {α : Type} (l : List α) : Bool</code>",
- "847": "<code>α → Bool</code>",
- "846":
+ "850": "<code>isLength1 {α : Type} (l : List α) : Bool</code>",
+ "85": "<code>Color</code>",
+ "849": "<code>α → Bool</code>",
+ "848":
  "<code>filter {α : Type} (test : α → Bool) (l : List α) : List α</code>",
- "845": "<code>α → a</code>",
- "844": "<code>α → α</code>",
- "843": "<code>doIt3Times {α : Type} (f : α → α) (x : α) : α</code>",
- "842": "<code>test_head?2 : head? [[1], [2]] = some [1]</code>",
- "841": "<code>test_head?1 : head? [1, 2] = some 1</code>",
- "840":
+ "847": "<code>α → a</code>",
+ "846": "<code>α → α</code>",
+ "845": "<code>doIt3Times {α : Type} (f : α → α) (x : α) : α</code>",
+ "844": "<code>test_head?2 : head? [[1], [2]] = some [1]</code>",
+ "843": "<code>test_head?1 : head? [1, 2] = some 1</code>",
+ "842":
  "<code>head?_cons {α : Type} {head : α} {tail : List α} : head? (head :: tail) = some head</code>",
+ "841": "<code>head?_nil {α : Type} : head? [] = none</code>",
+ "840": "<code>head? {α : Type} (l : List α) : Option α</code>",
  "84": "<code>monochrome (c : Color) : Bool</code>",
- "839": "<code>head?_nil {α : Type} : head? [] = none</code>",
- "838": "<code>head? {α : Type} (l : List α) : Option α</code>",
- "837": "<code>nth? {α : Type} (l : List α) (n : Nat) : Option α</code>",
- "836":
+ "839": "<code>nth? {α : Type} (l : List α) (n : Nat) : Option α</code>",
+ "838":
  "<code>OptionPlayground.Option.some {α : Type} (x : α) : Option α</code>",
- "835": "<code>OptionPlayground.Option.none {α : Type} : Option α</code>",
- "834": "<code>OptionPlayground.Option (α : Type) : Type</code>",
- "833":
+ "837": "<code>OptionPlayground.Option.none {α : Type} : Option α</code>",
+ "836": "<code>OptionPlayground.Option (α : Type) : Type</code>",
+ "835":
  "<code>Option.some.{u} {α : Type u} (val : α) : Option α</code><span class=\"sep\"></span><code class=\"docstring\">Some value of type `α`. </code>",
- "832":
+ "834":
  "<code>Option.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Optional values, which are either `some` around a value from the underlying type or `none`.\n\n`Option` can represent nullable types or computations that might fail. In the codomain of a function\ntype, it can also represent partiality.\n</code>",
- "831":
+ "833":
  "<code>unzip_test2' : unzip [(1, false), (2, true)] = ([1, 2], [false, true])</code>",
- "830":
+ "832":
  "<code>unzip_test_snd' : (unzip [(1, false), (2, true)]).snd = [false, true]</code>",
+ "831":
+ "<code>unzip_test_fst' : (unzip [(1, false), (2, true)]).fst = [1, 2]</code>",
+ "830":
+ "<code>unzip_test2 : unzip [(1, false), (2, true)] = ([1, 2], [false, true])</code>",
  "83": "<code>RGB</code>",
  "829":
- "<code>unzip_test_fst' : (unzip [(1, false), (2, true)]).fst = [1, 2]</code>",
- "828":
- "<code>unzip_test2 : unzip [(1, false), (2, true)] = ([1, 2], [false, true])</code>",
- "827":
  "<code>unzip_test_snd : (unzip [(1, false), (2, true)]).snd = [false, true]</code>",
- "826":
+ "828":
  "<code>unzip_test_fst : (unzip [(1, false), (2, true)]).fst = [1, 2]</code>",
- "825":
+ "827":
  "<code>unzip_test1 : unzip [(1, false), (2, true)] = ([1, 2], [false, true])</code>",
- "824":
+ "826":
  "<code>unzip_cons_snd {α β : Type} {x : α} {y : β} {l : List (α × β)} : (unzip ((x, y) :: l)).snd = y :: (unzip l).snd</code>",
- "823":
+ "825":
  "<code>unzip_cons_fst {α β : Type} {x : α} {y : β} {l : List (α × β)} : (unzip ((x, y) :: l)).fst = x :: (unzip l).fst</code>",
- "822":
+ "824":
  "<code>unzip_cons {α β : Type} {x : α} {y : β} {l : List (α × β)} :\n  unzip ((x, y) :: l) = (x :: (unzip l).fst, y :: (unzip l).snd)</code>",
- "821": "<code>unzip_nil' {α β : Type} : unzip [] = ([], [])</code>",
- "820": "<code>unzip_nil {α β : Type} : unzip [] = ([], [])</code>",
- "82": "<code>Color.primary (p : RGB) : Color</code>",
- "819":
+ "823": "<code>unzip_nil' {α β : Type} : unzip [] = ([], [])</code>",
+ "822": "<code>unzip_nil {α β : Type} : unzip [] = ([], [])</code>",
+ "821":
  "<code class=\"docstring\">`let` is used to declare a local definition. Example:\n```\nlet x := 1\nlet y := x + 1\nx + y\n```\nSince functions are first class citizens in Lean, you can use `let` to declare\nlocal functions too.\n```\nlet double := fun x =&gt; 2*x\ndouble (double 3)\n```\nFor recursive definitions, you should use `let rec`.\nYou can also perform pattern matching using `let`. For example,\nassume `p` has type `Nat × Nat`, then you can write\n```\nlet (x, y) := p\nx + y\n```\n\nThe *anaphoric let* `let := v` defines a variable called `this`.\n</code>",
- "818": "<code>List (α × β)</code>",
- "817": "<code>unzip {α β : Type} (l : List (α × β)) : List α × List β</code>",
- "816": "<code>p.fst = m</code>",
- "815": "<code>p.snd = 4</code>",
- "814":
+ "820": "<code>List (α × β)</code>",
+ "82": "<code>Color.primary (p : RGB) : Color</code>",
+ "819": "<code>unzip {α β : Type} (l : List (α × β)) : List α × List β</code>",
+ "818": "<code>p.fst = m</code>",
+ "817": "<code>p.snd = 4</code>",
+ "816":
  "<code>Prod.ext.{u, v} {α : Type u} {β : Type v} {x y : α × β} (fst : x.fst = y.fst) (snd : x.snd = y.snd) : x = y</code>",
- "813": "<code>p.snd = 0</code>",
- "812": "<code>p.fst = n + 1</code>",
- "811": "<code>Nat × Nat</code>",
- "810":
+ "815": "<code>p.snd = 0</code>",
+ "814": "<code>p.fst = n + 1</code>",
+ "813": "<code>Nat × Nat</code>",
+ "812":
  "<code>Prod.eta.{u_1, u_2} {α : Type u_1} {β : Type u_2} (p : α × β) : (p.fst, p.snd) = p</code>",
- "81": "<code>Color.white : Color</code>",
- "809":
+ "811":
  "<code>zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : List β} : zip (x :: l₁) (y :: l₂) = (x, y) :: zip l₁ l₂</code>",
- "808":
+ "810":
  "<code>zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = []</code>",
- "807": "<code>zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = []</code>",
- "806": "<code>List β</code>",
- "805":
+ "81": "<code>Color.white : Color</code>",
+ "809": "<code>zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = []</code>",
+ "808": "<code>List β</code>",
+ "807":
  "<code>zip {α β : Type} (l₁ : List α) (l₂ : List β) : List (α × β)</code>",
- "804":
+ "806":
  "<code>Prod.snd.{u, v} {α : Type u} {β : Type v} (self : α × β) : β</code><span class=\"sep\"></span><code class=\"docstring\">The second element of a pair. </code>",
- "803":
+ "805":
  "<code>Prod.fst.{u, v} {α : Type u} {β : Type v} (self : α × β) : α</code><span class=\"sep\"></span><code class=\"docstring\">The first element of a pair. </code>",
- "802":
+ "804":
  "<code>Prod.mk.{u, v} {α : Type u} {β : Type v} (fst : α) (snd : β) : α × β</code><span class=\"sep\"></span><code class=\"docstring\">Constructs a pair. This is usually written `(x, y)` instead of `Prod.mk x y`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `(a, b)` in identifiers is `mk`.</code>",
- "801":
+ "803":
  "<code>Prod.{u, v} (α : Type u) (β : Type v) : Type (max u v)</code><span class=\"sep\"></span><code class=\"docstring\">The product type, usually written `α × β`. Product types are also called pair or tuple types.\nElements of this type are pairs in which the first element is an `α` and the second element is a\n`β`.\n\nProducts nest to the right, so `(x, y, z) : α × β × γ` is equivalent to `(x, (y, z)) : α × (β × γ)`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `×` in identifiers is `Prod`.</code>",
- "800": "<code>MyProd.snd {α β : Type} (self : MyProd α β) : β</code>",
+ "802": "<code>MyProd.snd {α β : Type} (self : MyProd α β) : β</code>",
+ "801": "<code>MyProd.fst {α β : Type} (self : MyProd α β) : α</code>",
+ "800": "<code>MyProd (α β : Type) : Type</code>",
  "80": "<code>Color.black : Color</code>",
  "8":
  "<code class=\"docstring\">`apply e` tries to match the current goal against the conclusion of `e`'s type.\nIf it succeeds, then the tactic returns as many subgoals as the number of premises that\nhave not been fixed by type inference or type class resolution.\nNon-dependent premises are added before dependent ones.\n\nThe `apply` tactic uses higher-order pattern matching, type class resolution,\nand first-order unification with dependent types.\n</code>",
- "799": "<code>MyProd.fst {α β : Type} (self : MyProd α β) : α</code>",
- "798": "<code>MyProd (α β : Type) : Type</code>",
- "797": "<code>tail✝.rev.rev = tail✝</code>",
- "796": "<code>reverse_reverse {α : Type} (l : List α) : l.rev.rev = l</code>",
- "795": "<code>(tail✝ ++ l₂).rev = l₂.rev ++ tail✝.rev</code>",
- "794":
+ "799": "<code>tail✝.rev.rev = tail✝</code>",
+ "798": "<code>reverse_reverse {α : Type} (l : List α) : l.rev.rev = l</code>",
+ "797": "<code>(tail✝ ++ l₂).rev = l₂.rev ++ tail✝.rev</code>",
+ "796":
  "<code>reverse_append {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev</code>",
- "793":
+ "795":
  "<code>List.length_cons.{u} {α : Type u} {a : α} {as : List α} : (a :: as).length = as.length + 1</code>",
- "792": "<code>(tail✝ ++ l₂).length = tail✝.length + l₂.length</code>",
- "791":
+ "794": "<code>(tail✝ ++ l₂).length = tail✝.length + l₂.length</code>",
+ "793":
  "<code>List.length.{u_1} {α : Type u_1} : List α → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The length of a list.\n\nThis function is overridden in the compiler to `lengthTR`, which uses constant stack space.\n\nExamples:\n* `([] : List String).length = 0`\n* `[\"green\", \"brown\"].length = 2`\n</code>",
- "790":
+ "792":
  "<code>append_length {α : Type} {l₁ l₂ : List α} : (l₁ ++ l₂).length = l₁.length + l₂.length</code>",
- "79": "<code>Color : Type</code>",
- "789": "<code>tail✝ ++ l₂ ++ l₃ = tail✝ ++ (l₂ ++ l₃)</code>",
- "788":
+ "791": "<code>tail✝ ++ l₂ ++ l₃ = tail✝ ++ (l₂ ++ l₃)</code>",
+ "790":
  "<code>append_assoc {α : Type} {l₁ l₂ l₃ : List α} : l₁ ++ l₂ ++ l₃ = l₁ ++ (l₂ ++ l₃)</code>",
- "787": "<code>tail✝ ++ [] = tail✝</code>",
- "786": "<code>append_nil {α : Type} {l : List α} : l ++ [] = l</code>",
- "785":
+ "79": "<code>Color : Type</code>",
+ "789": "<code>tail✝ ++ [] = tail✝</code>",
+ "788": "<code>append_nil {α : Type} {l : List α} : l ++ [] = l</code>",
+ "787":
  "<code>List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)</code>",
- "784": "<code>Type u</code>",
- "783":
+ "786": "<code>Type u</code>",
+ "785":
  "<code>List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as</code>",
- "782":
+ "784":
  "<code>rev_cons {α : Type} {x : α} {l : List α} : (x :: l).rev = l.rev ++ [x]</code>",
- "781": "<code>rev_nil {α : Type} : [].rev = []</code>",
- "780": "<code>List α</code>",
+ "783": "<code>rev_nil {α : Type} : [].rev = []</code>",
+ "782": "<code>List α</code>",
+ "781": "<code>List.rev {α : Type} (l : List α) : List α</code>",
+ "780": "<code>Grumble.e {α : Type} (x : α) : Grumble α</code>",
  "78": "<code>RGB.blue : RGB</code>",
- "779": "<code>List.rev {α : Type} (l : List α) : List α</code>",
- "778": "<code>Grumble.e {α : Type} (x : α) : Grumble α</code>",
- "777": "<code>Grumble.d {α : Type} (m : Mumble) : Grumble α</code>",
- "776": "<code>Grumble (α : Type) : Type</code>",
- "775": "<code>Mumble.c : Mumble</code>",
- "774": "<code>Mumble</code>",
- "773": "<code>Mumble.b (x : Mumble) (y : Nat) : Mumble</code>",
- "772": "<code>Mumble.a : Mumble</code>",
- "771": "<code>Mumble : Type</code>",
- "770": "<code>myNil' : List Nat</code>",
+ "779": "<code>Grumble.d {α : Type} (m : Mumble) : Grumble α</code>",
+ "778": "<code>Grumble (α : Type) : Type</code>",
+ "777": "<code>Mumble.c : Mumble</code>",
+ "776": "<code>Mumble</code>",
+ "775": "<code>Mumble.b (x : Mumble) (y : Nat) : Mumble</code>",
+ "774": "<code>Mumble.a : Mumble</code>",
+ "773": "<code>Mumble : Type</code>",
+ "772": "<code>myNil' : List Nat</code>",
+ "771": "<code>myRepeat''' {α : Type} (x : α) (count : Nat) : List α</code>",
+ "770": "<code>myRepeat'' (α : Type) (x : α) (count : Nat) : List α</code>",
  "77": "<code>RGB.green : RGB</code>",
- "769": "<code>myRepeat''' {α : Type} (x : α) (count : Nat) : List α</code>",
- "768": "<code>myRepeat'' (α : Type) (x : α) (count : Nat) : List α</code>",
- "767": "<code>Type u_1</code>",
- "766":
+ "769": "<code>Type u_1</code>",
+ "768":
  "<code>myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α</code>",
- "765":
+ "767":
  "<code>List.cons.{u} {α : Type u} (head : α) (tail : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">The list whose first element is `head`, where `tail` is the rest of the list.\nUsually written `head :: tail`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `::` in identifiers is `cons`.\n\n * The recommended spelling of `[a]` in identifiers is `singleton`.</code>",
- "764":
+ "766":
  "<code>List.nil.{u} {α : Type u} : List α</code><span class=\"sep\"></span><code class=\"docstring\">The empty list, usually written `[]`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `[]` in identifiers is `nil`.</code>",
- "763":
+ "765":
  "<code>List.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Linked lists: ordered lists, in which each element has a reference to the next element.\n\nMost operations on linked lists take time proportional to the length of the list, because each\nelement must be traversed to find the next element.\n\n`List α` is isomorphic to `Array α`, but they are useful for different things:\n* `List α` is easier for reasoning, and `Array α` is modeled as a wrapper around `List α`.\n* `List α` works well as a persistent data structure, when many copies of the tail are shared. When\n  the value is not shared, `Array α` will have better performance because it can do destructive\n  updates.\n</code>",
- "762": "<code>β</code>",
- "761":
+ "764": "<code>β</code>",
+ "763":
  "<code>myRepeat_succ (α : Type) (v : α) (count : Nat) : myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count)</code>",
- "760":
+ "762":
  "<code>myRepeat_zero (α : Type) (v : α) : myRepeat α v 0 = MyList.nil</code>",
+ "761": "<code>myRepeat (α : Type) (x : α) (count : Nat) : MyList α</code>",
+ "760": "<code>MyList α</code>",
  "76": "<code>RGB.red : RGB</code>",
- "759": "<code>myRepeat (α : Type) (x : α) (count : Nat) : MyList α</code>",
- "758": "<code>MyList α</code>",
- "757": "<code>α</code>",
- "756": "<code>MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α</code>",
- "755": "<code>MyList.nil {α : Type} : MyList α</code>",
- "754": "<code>Type</code>",
- "753": "<code>MyList (α : Type) : Type</code>",
- "752": "<code>BoolList</code>",
- "751": "<code>BoolList.cons (b : Bool) (l : BoolList) : BoolList</code>",
- "750": "<code>BoolList.nil : BoolList</code>",
- "75": "<code>RGB : Type</code>",
- "749": "<code>BoolList : Type</code>",
- "748":
+ "759": "<code>MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α</code>",
+ "758": "<code>MyList.nil {α : Type} : MyList α</code>",
+ "757": "<code>Type</code>",
+ "756": "<code>MyList (α : Type) : Type</code>",
+ "755": "<code>BoolList</code>",
+ "754": "<code>BoolList.cons (b : Bool) (l : BoolList) : BoolList</code>",
+ "753": "<code>BoolList.nil : BoolList</code>",
+ "752": "<code>BoolList : Type</code>",
+ "751":
  "<code>Lists.PartialMap.update_neq (d : PartialMap) (x y : MyId) (o : Nat) : x.beq y = false → find x (d.update y o) = find x d</code>",
- "747":
+ "750":
  "<code>Lists.PartialMap.update_eq (d : PartialMap) (x : MyId) (n : Nat) : find x (d.update x n) = NatOption.some n</code>",
- "746": "<code>x.beq y = false</code>",
- "745":
+ "75": "<code>RGB : Type</code>",
+ "749": "<code>x.beq y = false</code>",
+ "748":
  "<code>Lists.PartialMap.quiz2 (d : PartialMap) (x y : MyId) (o : Nat) : x.beq y = false → find x (d.update y o) = find x d</code>",
- "744":
+ "747":
  "<code>Lists.PartialMap.quiz1 (d : PartialMap) (x : MyId) (n : Nat) : find x (d.update x n) = NatOption.some n</code>",
- "743":
+ "746":
  "<code>Lists.PartialMap.find (x : MyId) (d : PartialMap) : NatOption</code>",
- "742":
+ "745":
  "<code>Option.none.{u} {α : Type u} : Option α</code><span class=\"sep\"></span><code class=\"docstring\">No value. </code>",
- "741":
+ "744":
  "<code>Lists.PartialMap.update (d : PartialMap) (x : MyId) (value : Nat) : PartialMap</code>",
- "740": "<code>PartialMap</code>",
+ "743": "<code>PartialMap</code>",
+ "742":
+ "<code>Lists.PartialMap.record (i : MyId) (n : Nat) (m : PartialMap) : PartialMap</code>",
+ "741": "<code>Lists.PartialMap.empty : PartialMap</code>",
+ "740": "<code>Lists.PartialMap : Type</code>",
  "74":
  "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x && y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&&` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
- "739":
- "<code>Lists.PartialMap.record (i : MyId) (n : Nat) (m : PartialMap) : PartialMap</code>",
- "738": "<code>Lists.PartialMap.empty : PartialMap</code>",
- "737": "<code>Lists.PartialMap : Type</code>",
- "736": "<code>Lists.MyId.beq_refl (x : MyId) : x.beq x = true</code>",
- "735": "<code>MyId</code>",
- "734": "<code>Lists.MyId.beq (x₁ x₂ : MyId) : Bool</code>",
- "733": "<code>Lists.MyId.val (self : MyId) : Nat</code>",
- "732": "<code>Lists.MyId : Type</code>",
- "731":
+ "739": "<code>Lists.MyId.beq_refl (x : MyId) : x.beq x = true</code>",
+ "738": "<code>MyId</code>",
+ "737": "<code>Lists.MyId.beq (x₁ x₂ : MyId) : Bool</code>",
+ "736": "<code>Lists.MyId.val (self : MyId) : Nat</code>",
+ "735": "<code>Lists.MyId : Type</code>",
+ "734":
  "<code>Lists.NatList.NatOption.elim_some (d₁ d₂ : Nat) : NatOption.elim d₁ (NatOption.some d₂) = d₂</code>",
- "730":
+ "733":
  "<code>Lists.NatList.NatOption.elim_none (d : Nat) : NatOption.elim d NatOption.none = d</code>",
+ "732":
+ "<code>Lists.NatList.option_elim_head? (l : NatList) (default : Nat) : head default l = NatOption.elim default l.head?</code>",
+ "731":
+ "<code>Lists.NatList.head?_cons (h : Nat) (t : NatList) : (h :: t).head? = NatOption.some h</code>",
+ "730": "<code>Lists.NatList.head?_nil : [].head? = NatOption.none</code>",
  "73":
  "<code>Bool.false : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `false`, not to be confused with the proposition `False`. </code>",
  "729":
- "<code>Lists.NatList.option_elim_head? (l : NatList) (default : Nat) : head default l = NatOption.elim default l.head?</code>",
- "728":
- "<code>Lists.NatList.head?_cons (h : Nat) (t : NatList) : (h :: t).head? = NatOption.some h</code>",
- "727": "<code>Lists.NatList.head?_nil : [].head? = NatOption.none</code>",
- "726":
  "<code>Lists.NatList.test_head?2 : [5, 6].head? = NatOption.some 5</code>",
- "725": "<code>Lists.NatList.test_head?1 : [1].head? = NatOption.some 1</code>",
- "724": "<code>Lists.NatList.head? (l : NatList) : NatOption</code>",
- "723":
+ "728": "<code>Lists.NatList.test_head?1 : [1].head? = NatOption.some 1</code>",
+ "727": "<code>Lists.NatList.head? (l : NatList) : NatOption</code>",
+ "726":
  "<code>Lists.NatList.NatOption.elim_some (d₁ d₂ : Nat) : elim d₁ (NatOption.some d₂) = d₂</code>",
- "722":
+ "725":
  "<code>Lists.NatList.NatOption.elim_none (d : Nat) : elim d NatOption.none = d</code>",
- "721": "<code>NatOption</code>",
- "720":
+ "724": "<code>NatOption</code>",
+ "723":
  "<code>Lists.NatList.NatOption.elim (d : Nat) (o : NatOption) : Nat</code>",
+ "722": "<code>Lists.NatList.nth? (l : NatList) (n : Nat) : NatOption</code>",
+ "721": "<code>Lists.NatOption.none : Lists.NatOption</code>",
+ "720": "<code>Lists.NatList.nthBad (l : Lists.NatList) (n : Nat) : Nat</code>",
  "72":
  "<code>Bool.not : Bool → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean negation, also known as Boolean complement. `not x` can be written `!x`.\n\nThis is a function that maps the value `true` to `false` and the value `false` to `true`. The\npropositional connective is `Not : Prop → Prop`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `!` in identifiers is `not`.</code>",
- "719": "<code>Lists.NatList.nth? (l : NatList) (n : Nat) : NatOption</code>",
- "718": "<code>Lists.NatOption.none : Lists.NatOption</code>",
- "717": "<code>Lists.NatList.nthBad (l : Lists.NatList) (n : Nat) : Nat</code>",
- "716": "<code>Lists.NatOption.none : NatOption</code>",
- "715": "<code>Lists.NatOption.some (n : Nat) : NatOption</code>",
- "714": "<code>Lists.NatOption : Type</code>",
- "713": "<code>Lists.NatList.nthBad (l : NatList) (n : Nat) : Nat</code>",
- "712": "<code>l₁.reverse = l₂.reverse</code>",
- "711":
+ "719": "<code>Lists.NatOption.none : NatOption</code>",
+ "718": "<code>Lists.NatOption.some (n : Nat) : NatOption</code>",
+ "717": "<code>Lists.NatOption : Type</code>",
+ "716": "<code>Lists.NatList.nthBad (l : NatList) (n : Nat) : Nat</code>",
+ "715": "<code>l₁.reverse = l₂.reverse</code>",
+ "714":
  "<code>Lists.NatList.reverse_injective (l₁ l₂ : NatList) (h : l₁.reverse = l₂.reverse) : l₁ = l₂</code>",
- "710":
+ "713":
  "<code>Lists.NatList.reverse (l : Lists.NatList) : Lists.NatList</code>",
+ "712": "<code>f n₁ = f n₂</code>",
+ "711": "<code>∀ (n : Nat), n = f (f n)</code>",
+ "710": "<code>Nat → Nat</code>",
  "71":
  "<code>Bool.true : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `true`, not to be confused with the proposition `True`. </code>",
- "709": "<code>f n₁ = f n₂</code>",
- "708": "<code>∀ (n : Nat), n = f (f n)</code>",
- "707": "<code>Nat → Nat</code>",
- "706":
+ "709":
  "<code>Lists.NatList.involutive_injective (f : Nat → Nat) (hInv : ∀ (n : Nat), n = f (f n)) (n₁ n₂ : Nat) :\n  f n₁ = f n₂ → n₁ = n₂</code>",
- "705":
+ "708":
  "<code>Lists.NatList.reverse_involutive (l : Lists.NatList) : l.reverse.reverse = l</code>",
- "704": "<code>(n == h) = true</code>",
- "703": "<code>(n == h) = false</code>",
- "702": "<code>count n (s1' ++ l₂) = count n s1' + count n l₂</code>",
- "701":
+ "707": "<code>(n == h) = true</code>",
+ "706": "<code>(n == h) = false</code>",
+ "705": "<code>count n (s1' ++ l₂) = count n s1' + count n l₂</code>",
+ "704":
  "<code>Lists.NatList.count_append (l₁ l₂ : NatList) (n : Nat) : count n (l₁ ++ l₂) = count n l₁ + count n l₂</code>",
- "700": "<code>Lists.NatList.count (n : Nat) (l : Lists.NatList) : Nat</code>",
+ "703": "<code>Lists.NatList.count (n : Nat) (l : Lists.NatList) : Nat</code>",
+ "702": "<code>(count 0 (removeOne 0 s')).ble (count 0 s') = true</code>",
+ "701":
+ "<code>Lists.NatList.remove_does_not_increase_count (l : NatList) : (count 0 (removeOne 0 l)).ble (count 0 l) = true</code>",
+ "700": "<code>n'.ble (n' + 1) = true</code>",
  "70":
  "<code class=\"docstring\">`end` closes a `section` or `namespace` scope. If the scope is named `&lt;id&gt;`, it has to be closed\nwith `end &lt;id&gt;`. The `end` command is optional at the end of a file.\n</code>",
  "7":
  "<code class=\"docstring\">The `dsimp` tactic is the definitional simplifier. It is similar to `simp` but only\napplies theorems that hold by reflexivity. Thus, the result is guaranteed to be\ndefinitionally equal to the input.\n</code>",
- "699": "<code>(count 0 (removeOne 0 s')).ble (count 0 s') = true</code>",
- "698":
- "<code>Lists.NatList.remove_does_not_increase_count (l : NatList) : (count 0 (removeOne 0 l)).ble (count 0 l) = true</code>",
- "697": "<code>n'.ble (n' + 1) = true</code>",
- "696":
+ "699":
  "<code>Lists.NatList.ble_self_succ (n : Nat) : n.ble (n + 1) = true</code>",
- "695":
+ "698":
  "<code>Nat.ble : Nat → Nat → Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean less-than-or-equal-to comparison on natural numbers.\n\nThis function is overridden in both the kernel and the compiler to efficiently evaluate using the\narbitrary-precision arithmetic library. The definition provided here is the logical model.\n\nExamples:\n * `Nat.ble 2 5 = true`\n * `Nat.ble 5 2 = false`\n * `Nat.ble 5 5 = true`\n</code>",
- "694":
+ "697":
  "<code>Lists.NatList.count_member_nonZero (l : NatList) : Nat.ble 1 (count 1 (1 :: l)) = true</code>",
- "693":
+ "696":
  "<code>BEq.refl.{u_1} {α : Type u_1} [BEq α] [ReflBEq α] (a : α) : (a == a) = true</code>",
- "692": "<code>l'.beq l' = true</code>",
- "691": "<code>Lists.NatList.beq_refl (l : NatList) : l.beq l = true</code>",
- "690": "<code>(h₁ == h₂) = false</code>",
- "69": "<code>MyBool.really_bad : true = false</code>",
- "689":
+ "695": "<code>l'.beq l' = true</code>",
+ "694": "<code>Lists.NatList.beq_refl (l : NatList) : l.beq l = true</code>",
+ "693": "<code>(h₁ == h₂) = false</code>",
+ "692":
  "<code>Lists.NatList.beq_cons_diff (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = false) : (h₁ :: t₁).beq (h₂ :: t₂) = false</code>",
- "688": "<code>(h₁ == h₂) = true</code>",
- "687":
+ "691": "<code>(h₁ == h₂) = true</code>",
+ "690":
  "<code>Lists.NatList.beq_cons_same (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = true) :\n  (h₁ :: t₁).beq (h₂ :: t₂) = t₁.beq t₂</code>",
- "686": "<code>Lists.NatList.beq_nil : [].beq [] = true</code>",
- "685": "<code>Lists.NatList.beq (l₁ l₂ : NatList) : Bool</code>",
- "684": "<code>(l₁' ++ l₂).nonZeros = l₁'.nonZeros ++ l₂.nonZeros</code>",
- "683":
+ "69": "<code>MyBool.really_bad : true = false</code>",
+ "689": "<code>Lists.NatList.beq_nil : [].beq [] = true</code>",
+ "688": "<code>Lists.NatList.beq (l₁ l₂ : NatList) : Bool</code>",
+ "687": "<code>(l₁' ++ l₂).nonZeros = l₁'.nonZeros ++ l₂.nonZeros</code>",
+ "686":
  "<code>Lists.NatList.nonZeros_append (l₁ l₂ : NatList) : (l₁ ++ l₂).nonZeros = l₁.nonZeros ++ l₂.nonZeros</code>",
- "682":
+ "685":
  "<code>Lists.NatList.nonZeros (l : Lists.NatList) : Lists.NatList</code>",
- "681":
+ "684":
  "<code>Lists.NatList.append_assoc4 (l₁ l₂ l₃ l4 : NatList) : l₁ ++ (l₂ ++ (l₃ ++ l4)) = l₁ ++ l₂ ++ l₃ ++ l4</code>",
- "680": "<code>l'.reverse.reverse = l'</code>",
- "68": "<code>MyBool.false_or (b : MyBool) : (false || b) = b</code>",
- "679":
+ "683": "<code>l'.reverse.reverse = l'</code>",
+ "682":
  "<code>Lists.NatList.reverse_involutive (l : NatList) : l.reverse.reverse = l</code>",
- "678": "<code>(l₁' ++ l₂).reverse = l₂.reverse ++ l₁'.reverse</code>",
- "677":
+ "681": "<code>(l₁' ++ l₂).reverse = l₂.reverse ++ l₁'.reverse</code>",
+ "680":
  "<code>Lists.NatList.reverse_append (l₁ l₂ : NatList) : (l₁ ++ l₂).reverse = l₂.reverse ++ l₁.reverse</code>",
- "676": "<code>l' ++ [] = l'</code>",
- "675": "<code>Lists.NatList.append_nil (l : NatList) : l ++ [] = l</code>",
- "674": "<code>(l₁' ++ l₂).length = l₁'.length + l₂.length</code>",
- "673":
+ "68": "<code>MyBool.false_or (b : MyBool) : (false || b) = b</code>",
+ "679": "<code>l' ++ [] = l'</code>",
+ "678": "<code>Lists.NatList.append_nil (l : NatList) : l ++ [] = l</code>",
+ "677": "<code>(l₁' ++ l₂).length = l₁'.length + l₂.length</code>",
+ "676":
  "<code>Lists.NatList.length_append (l₁ l₂ : NatList) : (l₁ ++ l₂).length = l₁.length + l₂.length</code>",
- "672":
+ "675":
  "<code>Lists.NatList.length_reverse (l : NatList) : l.reverse.length = l.length</code>",
- "671": "<code>(l' ++ [n]).length = l'.length + 1</code>",
- "670":
+ "674": "<code>(l' ++ [n]).length = l'.length + 1</code>",
+ "673":
  "<code>Lists.NatList.append_length_succ (l : NatList) (n : Nat) : (l ++ [n]).length = l.length + 1</code>",
- "67": "<code>MyBool.true_and' (b : MyBool) : (true && b) = b</code>",
- "669": "<code>(l'.reverse ++ [n]).length = l'.reverse.length + 1</code>",
- "668":
+ "672": "<code>(l'.reverse ++ [n]).length = l'.reverse.length + 1</code>",
+ "671":
  "<code>Lists.NatList.length_append_succ (l : NatList) (n : Nat) : (l.reverse ++ [n]).length = l.reverse.length + 1</code>",
- "667": "<code>l'.reverse.length = l'.length</code>",
- "666":
+ "670": "<code>l'.reverse.length = l'.length</code>",
+ "67": "<code>MyBool.true_and' (b : MyBool) : (true && b) = b</code>",
+ "669":
  "<code>Lists.NatList.reverse_cons (h : Nat) (t : NatList) : (h :: t).reverse = t.reverse ++ [h]</code>",
- "665": "<code>Lists.NatList.reverse_nil : [].reverse = []</code>",
- "664": "<code>Lists.NatList.reverse (l : NatList) : NatList</code>",
- "663":
+ "668": "<code>Lists.NatList.reverse_nil : [].reverse = []</code>",
+ "667": "<code>Lists.NatList.reverse (l : NatList) : NatList</code>",
+ "666":
  "<code>Lists.NatList.myRepeat_append (c n : Nat) : myRepeat n c ++ myRepeat n c = myRepeat n (c + c)</code>",
- "662": "<code>myRepeat n c1' ++ myRepeat n c₂ = myRepeat n (c1' + c₂)</code>",
- "661": "<code>Nat.zero_add (n : Nat) : 0 + n = n</code>",
- "660":
+ "665": "<code>myRepeat n c1' ++ myRepeat n c₂ = myRepeat n (c1' + c₂)</code>",
+ "664": "<code>Nat.zero_add (n : Nat) : 0 + n = n</code>",
+ "663":
  "<code>Lists.NatList.myRepeat_append_general (c₁ c₂ n : Nat) : myRepeat n c₁ ++ myRepeat n c₂ = myRepeat n (c₁ + c₂)</code>",
- "66": "<code>MyBool.true_and_wrong (b : MyBool) : (true && b) = b</code>",
- "659": "<code>myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')</code>",
- "658":
+ "662": "<code>myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')</code>",
+ "661":
  "<code>Lists.NatList.myRepeat_append_fail (c n : Nat) : myRepeat n c ++ myRepeat n c = myRepeat n (c + c)</code>",
- "657": "<code>l₁' ++ l₂ ++ l₃ = l₁' ++ (l₂ ++ l₃)</code>",
- "656":
+ "660": "<code>l₁' ++ l₂ ++ l₃ = l₁' ++ (l₂ ++ l₃)</code>",
+ "66": "<code>MyBool.true_and_wrong (b : MyBool) : (true && b) = b</code>",
+ "659":
  "<code>Lists.NatList.append_assoc (l₁ l₂ l₃ : NatList) : l₁ ++ l₂ ++ l₃ = l₁ ++ (l₂ ++ l₃)</code>",
- "655": "<code>Lists.NatList.nil : Lists.NatList</code>",
- "654":
+ "658": "<code>Lists.NatList.nil : Lists.NatList</code>",
+ "657":
  "<code>Nat.pred : Nat → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The predecessor of a natural number is one less than it. The predecessor of `0` is defined to be\n`0`.\n\nThis definition is overridden in the compiler with an efficient implementation. This definition is\nthe logical model.\n</code>",
- "653":
+ "656":
  "<code>Lists.NatList.tail_length_pred (l : NatList) : l.length.pred = l.tail.length</code>",
- "652":
+ "655":
  "<code>Lists.NatList.nil_append (l : Lists.NatList) : [] ++ l = l</code>",
- "651":
+ "654":
  "<code>Lists.NatList.test_included2 : [1, 2, 2].included [2, 1, 4, 1] = false</code>",
- "650":
+ "653":
  "<code>Lists.NatList.test_included1 : [1, 2].included [2, 1, 4, 1] = true</code>",
- "65": "<code>MyBool.true_and_explained (b : MyBool) : (true && b) = b</code>",
- "649": "<code>member n l₂ = false</code>",
- "648":
+ "652": "<code>member n l₂ = false</code>",
+ "651":
  "<code>Lists.NatList.included_cons_nonmember (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = false) :\n  (n :: l₁).included l₂ = false</code>",
- "647": "<code>member n l₂ = true</code>",
- "646":
+ "650": "<code>member n l₂ = true</code>",
+ "65": "<code>MyBool.true_and_explained (b : MyBool) : (true && b) = b</code>",
+ "649":
  "<code>Lists.NatList.included_cons_member (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = true) :\n  (n :: l₁).included l₂ = l₁.included (removeOne n l₂)</code>",
- "645":
+ "648":
  "<code>Lists.NatList.included_nil (l₂ : NatList) : [].included l₂ = true</code>",
- "644": "<code>Lists.NatList.included (l₁ l₂ : NatList) : Bool</code>",
- "643":
+ "647": "<code>Lists.NatList.included (l₁ l₂ : NatList) : Bool</code>",
+ "646":
  "<code>Lists.NatList.test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0</code>",
- "642":
+ "645":
  "<code>Lists.NatList.test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2</code>",
- "641":
+ "644":
  "<code>Lists.NatList.removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :\n  removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t</code>",
- "640":
+ "643":
  "<code>Lists.NatList.removeAll_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :\n  removeAll n₁ (n₂ :: t) = removeAll n₁ t</code>",
+ "642":
+ "<code>Lists.NatList.removeAll_nil (n : Nat) : removeAll n [] = []</code>",
+ "641":
+ "<code>Lists.NatList.removeAll (n : Nat) (l : NatList) : NatList</code>",
+ "640":
+ "<code>Lists.NatList.test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1</code>",
  "64":
  "<code class=\"docstring\">Introduces one or more hypotheses, optionally naming and/or pattern-matching them.\nFor each hypothesis to be introduced, the remaining main goal's target type must\nbe a `let` or function type.\n\n* `intro` by itself introduces one anonymous hypothesis, which can be accessed\n  by e.g. `assumption`. It is equivalent to `intro _`.\n* `intro x y` introduces two hypotheses and names them. Individual hypotheses\n  can be anonymized via `_`, given a type ascription, or matched against a pattern:\n  ```lean\n  -- ... ⊢ α × β → ...\n  intro (a, b)\n  -- ..., a : α, b : β ⊢ ...\n  ```\n* `intro rfl` is short for `intro h; subst h`, if `h` is an equality where the left-hand or right-hand side\n  is a variable.\n* Alternatively, `intro` can be combined with pattern matching much like `fun`:\n  ```lean\n  intro\n  | n + 1, 0 =&gt; tac\n  | ...\n  ```\n</code>",
  "639":
- "<code>Lists.NatList.removeAll_nil (n : Nat) : removeAll n [] = []</code>",
- "638":
- "<code>Lists.NatList.removeAll (n : Nat) (l : NatList) : NatList</code>",
- "637":
- "<code>Lists.NatList.test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1</code>",
- "636":
  "<code>Lists.NatList.test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2</code>",
- "635":
+ "638":
  "<code>Lists.NatList.removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :\n  removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t</code>",
- "634":
+ "637":
  "<code>Lists.NatList.removeOne_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) : removeOne n₁ (n₂ :: t) = t</code>",
- "633":
+ "636":
  "<code>Lists.NatList.removeOne_nil (n : Nat) : removeOne n [] = []</code>",
- "632":
+ "635":
  "<code>Lists.NatList.removeOne (n : Nat) (l : NatList) : NatList</code>",
- "631": "<code>Lists.NatList.test_member2 : member 2 [1, 4, 1] = false</code>",
- "630": "<code>Lists.NatList.test_member1 : member 1 [1, 4, 1] = true</code>",
- "63": "<code>MyBool.true_and (b : MyBool) : (true && b) = b</code>",
- "629":
+ "634": "<code>Lists.NatList.test_member2 : member 2 [1, 4, 1] = false</code>",
+ "633": "<code>Lists.NatList.test_member1 : member 1 [1, 4, 1] = true</code>",
+ "632":
  "<code>Lists.NatList.member_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) : member n₁ (n₂ :: t) = member n₁ t</code>",
- "628":
+ "631":
  "<code>Lists.NatList.member_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) : member n₁ (n₂ :: t) = true</code>",
- "627": "<code>Lists.NatList.member_nil (n : Nat) : member n [] = false</code>",
- "626": "<code>Lists.NatList.member (n : Nat) (l : NatList) : Bool</code>",
- "625": "<code>Lists.NatList.test_count2 : count 5 [1, 1, 4] = 0</code>",
- "624": "<code>Lists.NatList.test_count1 : count 1 [1, 1, 4] = 2</code>",
- "623": "<code>(n₁ == n₂) = false</code>",
- "622":
+ "630": "<code>Lists.NatList.member_nil (n : Nat) : member n [] = false</code>",
+ "63": "<code>MyBool.true_and (b : MyBool) : (true && b) = b</code>",
+ "629": "<code>Lists.NatList.member (n : Nat) (l : NatList) : Bool</code>",
+ "628": "<code>Lists.NatList.test_count2 : count 5 [1, 1, 4] = 0</code>",
+ "627": "<code>Lists.NatList.test_count1 : count 1 [1, 1, 4] = 2</code>",
+ "626": "<code>(n₁ == n₂) = false</code>",
+ "625":
  "<code>Lists.NatList.count_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) : count n₁ (n₂ :: t) = count n₁ t</code>",
- "621": "<code>(n₁ == n₂) = true</code>",
- "620":
+ "624": "<code>(n₁ == n₂) = true</code>",
+ "623":
  "<code>Lists.NatList.count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) : count n₁ (n₂ :: t) = count n₁ t + 1</code>",
+ "622":
+ "<code>Lists.NatList.count_cons_def (n h : Nat) (t : NatList) : count n (h :: t) = bif n == h then count n t + 1 else count n t</code>",
+ "621": "<code>Lists.NatList.count_nil (n : Nat) : count n [] = 0</code>",
+ "620": "<code>Lists.NatList.count (n : Nat) (l : NatList) : Nat</code>",
  "62": "<code>MyBool.and3_test4 : and3 true true false = false</code>",
  "619":
- "<code>Lists.NatList.count_cons_def (n h : Nat) (t : NatList) : count n (h :: t) = bif n == h then count n t + 1 else count n t</code>",
- "618": "<code>Lists.NatList.count_nil (n : Nat) : count n [] = 0</code>",
- "617": "<code>Lists.NatList.count (n : Nat) (l : NatList) : Nat</code>",
- "616":
  "<code>Lists.NatList.test_alternate4 : [].alternate [20, 30] = [20, 30]</code>",
- "615":
+ "618":
  "<code>Lists.NatList.test_alternate3 : [1, 2, 3].alternate [4] = [1, 4, 2, 3]</code>",
- "614":
+ "617":
  "<code>Lists.NatList.test_alternate2 : [1].alternate [4, 5, 6] = [1, 4, 5, 6]</code>",
- "613":
+ "616":
  "<code>Lists.NatList.test_alternate1 : [1, 2, 3].alternate [4, 5, 6] = [1, 4, 2, 5, 3, 6]</code>",
- "612": "<code>Lists.NatList.alternate (l₁ l₂ : NatList) : NatList</code>",
- "611":
+ "615": "<code>Lists.NatList.alternate (l₁ l₂ : NatList) : NatList</code>",
+ "614":
  "<code>Lists.NatList.test_countOddMembers2 : [].countOddMembers = 0</code>",
- "610":
+ "613":
  "<code>Lists.NatList.test_countOddMembers1 : [0, 2, 4].countOddMembers = 0</code>",
- "61": "<code>MyBool.and3_test3 : and3 true false true = false</code>",
- "609": "<code>Lists.NatList.countOddMembers (l : NatList) : Nat</code>",
- "608":
+ "612": "<code>Lists.NatList.countOddMembers (l : NatList) : Nat</code>",
+ "611":
  "<code>Lists.NatList.test_oddMembers : [0, 1, 2, 3, 0].oddMembers = [1, 3]</code>",
- "607": "<code>Nat.even_zero : Nat.even 0 = true</code>",
- "606":
- "<code>cond_false.{u_1} {α : Sort u_1} (a b : α) : (bif false then a else b) = b</code>",
- "605": "<code>n.odd = false</code>",
- "604":
+ "610": "<code>Nat.even_zero : Nat.even 0 = true</code>",
+ "61": "<code>MyBool.and3_test3 : and3 true false true = false</code>",
+ "609": "<code>n.odd = false</code>",
+ "608":
  "<code>Lists.NatList.oddMembers_cons_not_odd (n : Nat) (l : NatList) (h : n.odd = false) : (n :: l).oddMembers = l.oddMembers</code>",
- "603":
- "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
- "602": "<code>n.odd = true</code>",
- "601":
+ "607": "<code>n.odd = true</code>",
+ "606":
  "<code>Lists.NatList.oddMembers_cons_odd (n : Nat) (l : NatList) (h : n.odd = true) : (n :: l).oddMembers = n :: l.oddMembers</code>",
- "600":
+ "605":
  "<code>Lists.NatList.oddMembers_cons (h : Nat) (t : NatList) :\n  (h :: t).oddMembers = bif h.odd then h :: t.oddMembers else t.oddMembers</code>",
+ "604": "<code>Lists.NatList.oddMembers_nil : [].oddMembers = []</code>",
+ "603": "<code>Lists.NatList.oddMembers (l : NatList) : NatList</code>",
+ "602":
+ "<code>cond_false.{u_1} {α : Sort u_1} (a b : α) : (bif false then a else b) = b</code>",
+ "601":
+ "<code class=\"docstring\">A specific universe in Lean's infinite hierarchy of universes. </code>",
+ "600":
+ "<code class=\"docstring\">The conditional function.\n\n`cond c x y` is the same as `if c then x else y`, but optimized for a Boolean condition rather than\na decidable proposition. It can also be written using the notation `bif c then x else y`.\n\nJust like `ite`, `cond` is declared `@[macro_inline]`, which causes applications of `cond` to be\nunfolded. As a result, `x` and `y` are not evaluated at runtime until one of them is selected, and\nonly the selected branch is evaluated.\n</code>",
  "60": "<code>MyBool.and3_test2 : and3 false true true = false</code>",
  "6":
  "<code class=\"docstring\">Step-wise reasoning over transitive relations.\n```\ncalc\n  a = b := pab\n  b = c := pbc\n  ...\n  y = z := pyz\n```\nproves `a = z` from the given step-wise proofs. `=` can be replaced with any\nrelation implementing the typeclass `Trans`. Instead of repeating the right-\nhand sides, subsequent left-hand sides can be replaced with `_`.\n```\ncalc\n  a = b := pab\n  _ = c := pbc\n  ...\n  _ = z := pyz\n```\nIt is also possible to write the *first* relation as `&lt;lhs&gt;\\n  _ = &lt;rhs&gt; :=\n&lt;proof&gt;`. This is useful for aligning relation symbols, especially on longer\nidentifiers:\n```\ncalc abc\n  _ = bce := pabce\n  _ = cef := pbcef\n  ...\n  _ = xyz := pwxyz\n```\n\n`calc` works as a term, as a tactic or as a `conv` tactic.\n\nSee [Theorem Proving in Lean 4][tpil4] for more information.\n\n[tpil4]: https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#calculational-proofs\n</code>",
- "599": "<code>Lists.NatList.oddMembers_nil : [].oddMembers = []</code>",
- "598":
- "<code class=\"docstring\">The conditional function.\n\n`cond c x y` is the same as `if c then x else y`, but optimized for a Boolean condition rather than\na decidable proposition. It can also be written using the notation `bif c then x else y`.\n\nJust like `ite`, `cond` is declared `@[macro_inline]`, which causes applications of `cond` to be\nunfolded. As a result, `x` and `y` are not evaluated at runtime until one of them is selected, and\nonly the selected branch is evaluated.\n</code>",
- "597": "<code>Lists.NatList.oddMembers (l : NatList) : NatList</code>",
+ "599": "<code>α</code>",
+ "598": "<code>Sort u_1</code>",
+ "597":
+ "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
  "596": "<code>Lists.NatList.test_nonZeros : [0, 1, 0].nonZeros = [1]</code>",
  "595":
  "<code>Lists.NatList.nonZeros_cons_nonZero (h : Nat) (t : NatList) : ((h + 1) :: t).nonZeros = (h + 1) :: t.nonZeros</code>",
@@ -3224,237 +3223,238 @@
  "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
  "1174":
  "<code>HAdd.{u, v, w} (α : Type u) (β : Type v) (γ : outParam (Type w)) : Type (max (max u v) w)</code><span class=\"sep\"></span><code class=\"docstring\">The notation typeclass for heterogeneous addition.\nThis enables the notation `a + b : γ` where `a : α`, `b : β`.\n</code>",
- "1173": "<code>Sort u_1</code>",
- "1172": "<code>x.succ = y.succ</code>",
- "1171": "<code>succ_inj' : Injective Nat.succ</code>",
- "1170": "<code>Injective {α β : Type} (f : α → β) : Prop</code>",
+ "1173": "<code>x.succ = y.succ</code>",
+ "1172": "<code>succ_inj' : Injective Nat.succ</code>",
+ "1171": "<code>Injective {α β : Type} (f : α → β) : Prop</code>",
+ "1170": "<code>Nat.IsThree (n : Nat) : Prop</code>",
  "117": "<code>Bit</code>",
- "1169": "<code>Nat.IsThree (n : Nat) : Prop</code>",
- "1168": "<code>plusClaim_is_true : PlusClaim</code>",
- "1167": "<code>PlusClaim : Prop</code>",
- "1166": "<code>plus_2_2_is_4 : 2 + 2 = 4</code>",
- "1165": "<code>?m.2</code>",
- "1164":
+ "1169": "<code>plusClaim_is_true : PlusClaim</code>",
+ "1168": "<code>PlusClaim : Prop</code>",
+ "1167": "<code>plus_2_2_is_4 : 2 + 2 = 4</code>",
+ "1166": "<code>?m.2</code>",
+ "1165":
  "<code>Bool.not_and (x y : Bool) : (!(x && y)) = (!x || !y)</code><span class=\"sep\"></span><code class=\"docstring\">De Morgan's law for boolean and </code>",
- "1163": "<code>∀ (test : α → Bool), anyTrue test xs = anyTrue' test xs</code>",
- "1162":
+ "1164": "<code>∀ (test : α → Bool), anyTrue test xs = anyTrue' test xs</code>",
+ "1163":
  "<code>anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) : anyTrue test l = anyTrue' test l</code>",
- "1161":
+ "1162":
  "<code>anyTrue' {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
- "1160":
+ "1161":
  "<code>anyTrue {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
- "116": "<code>Playground.Nibble.bits (x0 x1 x2 x3 : Bit) : Nibble</code>",
- "1159":
+ "1160":
  "<code>allTrue {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
- "1158": "<code>filter test ys = l'</code>",
- "1157": "<code>y = x</code>",
- "1156": "<code>y :: filter test ys = x :: l'</code>",
- "1155":
+ "116": "<code>Playground.Nibble.bits (x0 x1 x2 x3 : Bit) : Nibble</code>",
+ "1159": "<code>filter test ys = l'</code>",
+ "1158": "<code>y = x</code>",
+ "1157": "<code>y :: filter test ys = x :: l'</code>",
+ "1156":
  "<code>(bif true then y :: filter test ys else filter test ys) = x :: l'</code>",
- "1154": "<code>filter test ys = x :: l'</code>",
- "1153":
+ "1155": "<code>filter test ys = x :: l'</code>",
+ "1154":
  "<code>(bif false then y :: filter test ys else filter test ys) = x :: l'</code>",
- "1152": "<code>test y = true</code>",
- "1151": "<code>test y = false</code>",
- "1150":
+ "1153": "<code>test y = true</code>",
+ "1152": "<code>test y = false</code>",
+ "1151":
  "<code>(bif test y then y :: filter test ys else filter test ys) = x :: l'</code>",
+ "1150": "<code>filter test (y :: ys) = x :: l'</code>",
  "115": "<code>Playground.Nibble : Type</code>",
- "1149": "<code>filter test (y :: ys) = x :: l'</code>",
- "1148":
+ "1149":
  "<code>∀ (test : α → Bool) (x : α) (l' : List α), filter test ys = x :: l' → test x = true</code>",
- "1147": "<code>filter test [] = x :: l'</code>",
- "1146": "<code>filter test l = x :: l'</code>",
- "1145":
+ "1148": "<code>filter test [] = x :: l'</code>",
+ "1147": "<code>filter test l = x :: l'</code>",
+ "1146":
  "<code>test_pos_of_filter_cons {α : Type} (test : α → Bool) (x : α) (l l' : List α) (h : filter test l = x :: l') :\n  test x = true</code>",
- "1144": "<code>l₂ = b :: (unzip xs).snd</code>",
- "1143": "<code>l₁ = a :: (unzip xs).fst</code>",
- "1142": "<code>(l₁, l₂) = (a :: (unzip xs).fst, b :: (unzip xs).snd)</code>",
- "1141": "<code>(l₁, l₂) = unzip ((a, b) :: xs)</code>",
- "1140": "<code>(l₁, l₂) = unzip (x :: xs)</code>",
- "114": "<code>Playground.Bit.b0 : Bit</code>",
- "1139":
+ "1145": "<code>l₂ = b :: (unzip xs).snd</code>",
+ "1144": "<code>l₁ = a :: (unzip xs).fst</code>",
+ "1143": "<code>(l₁, l₂) = (a :: (unzip xs).fst, b :: (unzip xs).snd)</code>",
+ "1142": "<code>(l₁, l₂) = unzip ((a, b) :: xs)</code>",
+ "1141": "<code>(l₁, l₂) = unzip (x :: xs)</code>",
+ "1140":
  "<code>∀ {l₁ : List α} {l₂ : List β}, (l₁, l₂) = unzip xs → unzip (zip l₁ l₂) = (l₁, l₂)</code>",
- "1138": "<code>l₂ = []</code>",
- "1137": "<code>l₁ = []</code>",
- "1136": "<code>(l₁, l₂) = ([], [])</code>",
- "1135": "<code>(l₁, l₂) = unzip []</code>",
- "1134": "<code>(l₁, l₂) = unzip l</code>",
- "1133":
+ "114": "<code>Playground.Bit.b0 : Bit</code>",
+ "1139": "<code>l₂ = []</code>",
+ "1138": "<code>l₁ = []</code>",
+ "1137": "<code>(l₁, l₂) = ([], [])</code>",
+ "1136": "<code>(l₁, l₂) = unzip []</code>",
+ "1135": "<code>(l₁, l₂) = unzip l</code>",
+ "1134":
  "<code>unzip_zip' {α β : Type} {l₁ : List α} {l₂ : List β} {l : List (α × β)} (h : (l₁, l₂) = unzip l) :\n  unzip (zip l₁ l₂) = (l₁, l₂)</code>",
- "1132": "<code>(x :: xs).length = (y :: ys).length</code>",
- "1131": "<code>(x :: xs).length = [].length</code>",
- "1130": "<code>(x :: xs).length = l₂.length</code>",
- "113": "<code>Playground.Bit.b1 : Bit</code>",
- "1129":
+ "1133": "<code>(x :: xs).length = (y :: ys).length</code>",
+ "1132": "<code>(x :: xs).length = [].length</code>",
+ "1131": "<code>(x :: xs).length = l₂.length</code>",
+ "1130":
  "<code>∀ {l₂ : List β}, xs.length = l₂.length → unzip (zip xs l₂) = (xs, l₂)</code>",
- "1128": "<code>[].length = (head✝ :: tail✝).length</code>",
- "1127": "<code>[].length = [].length</code>",
- "1126": "<code>[].length = l₂.length</code>",
- "1125": "<code>l₁.length = l₂.length</code>",
- "1124":
+ "113": "<code>Playground.Bit.b1 : Bit</code>",
+ "1129": "<code>[].length = (head✝ :: tail✝).length</code>",
+ "1128": "<code>[].length = [].length</code>",
+ "1127": "<code>[].length = l₂.length</code>",
+ "1126": "<code>l₁.length = l₂.length</code>",
+ "1125":
  "<code>unzip_zip {α β : Type} {l₁ : List α} {l₂ : List β} (h : l₁.length = l₂.length) : unzip (zip l₁ l₂) = (l₁, l₂)</code>",
- "1123": "<code>map f xs = map f ys</code>",
- "1122": "<code>f x = f y</code>",
- "1121": "<code>f x :: map f xs = f y :: map f ys</code>",
- "1120": "<code>f x :: map f xs = map f (y :: ys)</code>",
+ "1124": "<code>map f xs = map f ys</code>",
+ "1123": "<code>f x = f y</code>",
+ "1122": "<code>f x :: map f xs = f y :: map f ys</code>",
+ "1121": "<code>f x :: map f xs = map f (y :: ys)</code>",
+ "1120": "<code>map f (x :: xs) = map f (y :: ys)</code>",
  "112": "<code>Playground.Bit : Type</code>",
- "1119": "<code>map f (x :: xs) = map f (y :: ys)</code>",
- "1118": "<code>f x :: map f xs = []</code>",
- "1117": "<code>f x :: map f xs = map f []</code>",
- "1116": "<code>map f (x :: xs) = map f []</code>",
- "1115": "<code>map f (x :: xs) = map f l₂</code>",
- "1114": "<code>∀ (l₂ : List α), map f xs = map f l₂ → xs = l₂</code>",
- "1113": "<code>[] = f y :: map f ys</code>",
- "1112": "<code>map f [] = f y :: map f ys</code>",
- "1111": "<code>map f [] = map f (y :: ys)</code>",
- "1110": "<code>map f [] = map f []</code>",
+ "1119": "<code>f x :: map f xs = []</code>",
+ "1118": "<code>f x :: map f xs = map f []</code>",
+ "1117": "<code>map f (x :: xs) = map f []</code>",
+ "1116": "<code>map f (x :: xs) = map f l₂</code>",
+ "1115": "<code>∀ (l₂ : List α), map f xs = map f l₂ → xs = l₂</code>",
+ "1114": "<code>[] = f y :: map f ys</code>",
+ "1113": "<code>map f [] = f y :: map f ys</code>",
+ "1112": "<code>map f [] = map f (y :: ys)</code>",
+ "1111": "<code>map f [] = map f []</code>",
+ "1110": "<code>map f [] = map f l₂</code>",
  "111": "<code>Lean.Meta.Grind.Filter.true : Lean.Meta.Grind.Filter</code>",
- "1109": "<code>map f [] = map f l₂</code>",
- "1108": "<code>map f l₁ = map f l₂</code>",
- "1107": "<code>∀ (x y : α), f x = f y → x = y</code>",
- "1106":
+ "1109": "<code>map f l₁ = map f l₂</code>",
+ "1108": "<code>∀ (x y : α), f x = f y → x = y</code>",
+ "1107":
  "<code>map_injective_of_injective {α β : Type} (f : α → β) (hf : ∀ (x y : α), f x = f y → x = y) (l₁ l₂ : List α)\n  (h : map f l₁ = map f l₂) : l₁ = l₂</code>",
- "1105": "<code>xs.append l₂ = xs.append l₃</code>",
- "1104": "<code>x = x</code>",
- "1103": "<code>x :: xs ++ l₂ = x :: xs ++ l₃</code>",
- "1102": "<code>xs ++ l₂ = xs ++ l₃ → l₂ = l₃</code>",
- "1101": "<code>[] ++ l₂ = [] ++ l₃</code>",
- "1100": "<code>l₁ ++ l₂ = l₁ ++ l₃</code>",
+ "1106": "<code>xs.append l₂ = xs.append l₃</code>",
+ "1105": "<code>x = x</code>",
+ "1104": "<code>x :: xs ++ l₂ = x :: xs ++ l₃</code>",
+ "1103": "<code>xs ++ l₂ = xs ++ l₃ → l₂ = l₃</code>",
+ "1102": "<code>[] ++ l₂ = [] ++ l₃</code>",
+ "1101": "<code>l₁ ++ l₂ = l₁ ++ l₃</code>",
+ "1100":
+ "<code>append_left_cancel {α : Type} (l₁ l₂ l₃ : List α) (h : l₁ ++ l₂ = l₁ ++ l₃) : l₂ = l₃</code>",
  "110":
  "<code>Std.Do.ExceptConds.true.{u} {ps : Std.Do.PostShape} : Std.Do.ExceptConds ps</code><span class=\"sep\"></span><code class=\"docstring\">An assertion about the possible exceptions in `ps` that always holds.\n</code>",
  "11":
  "<code class=\"docstring\">Assuming `x` is a variable in the local context with an inductive type,\n`cases x` splits the main goal, producing one goal for each constructor of the\ninductive type, in which the target is replaced by a general instance of that constructor.\nIf the type of an element in the local context depends on `x`,\nthat element is reverted and reintroduced afterward,\nso that the case split affects that hypothesis as well.\n`cases` detects unreachable cases and closes them automatically.\n\nFor example, given `n : Nat` and a goal with a hypothesis `h : P n` and target `Q n`,\n`cases n` produces one goal with hypothesis `h : P 0` and target `Q 0`,\nand one goal with hypothesis `h : P (Nat.succ a)` and target `Q (Nat.succ a)`.\nHere the name `a` is chosen automatically and is not accessible.\nYou can use `with` to provide the variables names for each constructor.\n- `cases e`, where `e` is an expression instead of a variable, generalizes `e` in the goal,\n  and then cases on the resulting variable.\n- Given `as : List α`, `cases as with | nil =&gt; tac₁ | cons a as' =&gt; tac₂`,\n  uses tactic `tac₁` for the `nil` case, and `tac₂` for the `cons` case,\n  and `a` and `as'` are used as names for the new variables introduced.\n- `cases h : e`, where `e` is a variable or an expression,\n  performs cases on `e` as above, but also adds a hypothesis `h : e = ...` to each goal,\n  where `...` is the constructor instance for that particular case.\n</code>",
- "1099":
- "<code>append_left_cancel {α : Type} (l₁ l₂ l₃ : List α) (h : l₁ ++ l₂ = l₁ ++ l₃) : l₂ = l₃</code>",
- "1098": "<code>f true = true</code>",
- "1097": "<code>f true = false</code>",
- "1096": "<code>f false = true</code>",
- "1095": "<code>f false = false</code>",
- "1094":
+ "1099": "<code>f true = true</code>",
+ "1098": "<code>f true = false</code>",
+ "1097": "<code>f false = true</code>",
+ "1096": "<code>f false = false</code>",
+ "1095":
  "<code>bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) : f (f (f b)) = f b</code>",
- "1093": "<code>(if true = true then some x else none) = some y</code>",
- "1092": "<code>(if false = true then some x else none) = some y</code>",
- "1091": "<code>(if test x = true then some x else none) = some y</code>",
- "1090": "<code>keepIf test x = some y</code>",
- "109": "<code>Lean.LBool.true : Lean.LBool</code>",
- "1089":
+ "1094": "<code>(if true = true then some x else none) = some y</code>",
+ "1093": "<code>(if false = true then some x else none) = some y</code>",
+ "1092": "<code>(if test x = true then some x else none) = some y</code>",
+ "1091": "<code>keepIf test x = some y</code>",
+ "1090":
  "<code>keepIf_some {α : Type} (test : α → Bool) (x y : α) (h : keepIf test x = some y) : x = y</code>",
- "1088": "<code>keepIf {α : Type} (test : α → Bool) (x : α) : Option α</code>",
- "1087": "<code>b :: (unzip' xs).snd = l₂</code>",
- "1086": "<code>a :: (unzip' xs).fst = l₁</code>",
- "1085": "<code>(a :: (unzip' xs).fst, b :: (unzip' xs).snd) = (l₁, l₂)</code>",
- "1084": "<code>unzip' ((a, b) :: xs) = (l₁, l₂)</code>",
- "1083":
+ "109": "<code>Lean.LBool.true : Lean.LBool</code>",
+ "1089": "<code>keepIf {α : Type} (test : α → Bool) (x : α) : Option α</code>",
+ "1088": "<code>b :: (unzip' xs).snd = l₂</code>",
+ "1087": "<code>a :: (unzip' xs).fst = l₁</code>",
+ "1086": "<code>(a :: (unzip' xs).fst, b :: (unzip' xs).snd) = (l₁, l₂)</code>",
+ "1085": "<code>unzip' ((a, b) :: xs) = (l₁, l₂)</code>",
+ "1084":
  "<code class=\"docstring\">The `let` tactic is for adding definitions to the local context of the main goal.\nThe definition can be unfolded, unlike definitions introduced by `have`.\n\n* `let x : t := e` adds the definition `x : t := e` if `e` is a term of type `t`.\n* `let x := e` uses the type of `e` for `t`.\n* `let : t := e` and `let := e` use `this` for the name of the hypothesis.\n* `let pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that let only one applicable constructor.\n  For example, given `p : α × β × γ`, `let ⟨x, y, z⟩ := p` produces the\n  local variables `x : α`, `y : β`, and `z : γ`.\n* The syntax `let (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `let` term.\n\n## Properties and relations\n\n* Unlike `have`, it is possible to unfold definitions introduced using `let`, using tactics\n  such as `simp`, `dsimp`, `unfold`, and `subst`.\n* The `clear_value` tactic turns a `let` definition into a `have` definition after the fact.\n  The tactic might fail if the local context depends on the value of the variable.\n* The `let` tactic is preferred for data (non-propositions).\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n</code>",
- "1082": "<code>unzip' (x :: xs) = (l₁, l₂)</code>",
- "1081":
+ "1083": "<code>unzip' (x :: xs) = (l₁, l₂)</code>",
+ "1082":
  "<code>∀ (l₁ : List α) (l₂ : List β), unzip' xs = (l₁, l₂) → zip l₁ l₂ = xs</code>",
- "1080": "<code>[] = l₂</code>",
+ "1081": "<code>[] = l₂</code>",
+ "1080": "<code>[] = l₁</code>",
  "108": "<code>Lake.Toml.true : Lean.Parser.Parser</code>",
- "1079": "<code>[] = l₁</code>",
- "1078": "<code>([], []) = (l₁, l₂)</code>",
- "1077": "<code>unzip' [] = (l₁, l₂)</code>",
- "1076": "<code>unzip' l = (l₁, l₂)</code>",
- "1075":
+ "1079": "<code>([], []) = (l₁, l₂)</code>",
+ "1078": "<code>unzip' [] = (l₁, l₂)</code>",
+ "1077": "<code>unzip' l = (l₁, l₂)</code>",
+ "1076":
  "<code>zip_unzip' {α β : Type} (l : List (α × β)) (l₁ : List α) (l₂ : List β) (h : unzip' l = (l₁, l₂)) : zip l₁ l₂ = l</code>",
- "1074":
+ "1075":
  "<code>unzip' {α β : Type} (l : List (α × β)) : List α × List β</code>",
- "1073":
+ "1074":
  "<code>ite.{u} {α : Sort u} (c : Prop) [h : Decidable c] (t e : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n</code>",
- "1072":
+ "1073":
  "<code>chooseIf_self {α : Type} (test : α → Bool) (x : α) : chooseIf test x x = x</code>",
- "1071":
+ "1072":
  "<code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n</code>",
- "1070": "<code>chooseIf {α : Type} (test : α → Bool) (x y : α) : α</code>",
+ "1071": "<code>chooseIf {α : Type} (test : α → Bool) (x y : α) : α</code>",
+ "1070": "<code>p (m' + 1) n'</code>",
  "107": "<code>nextWorkingDay' (d : Day) : Day</code>",
- "1069": "<code>p (m' + 1) n'</code>",
- "1068": "<code>∀ (n : Nat), p m' n</code>",
- "1067": "<code>p 0 n'</code>",
- "1066": "<code>∀ (m n : Nat), p m n → p (m + 1) (n + 1)</code>",
- "1065": "<code>∀ (n : Nat), p 0 n → p 0 (n + 1)</code>",
- "1064": "<code>∀ (m : Nat), p m 0 → p (m + 1) 0</code>",
- "1063": "<code>p 0 0</code>",
- "1062": "<code>Nat → Nat → Prop</code>",
- "1061":
+ "1069": "<code>∀ (n : Nat), p m' n</code>",
+ "1068": "<code>p 0 n'</code>",
+ "1067": "<code>∀ (m n : Nat), p m n → p (m + 1) (n + 1)</code>",
+ "1066": "<code>∀ (n : Nat), p 0 n → p 0 (n + 1)</code>",
+ "1065": "<code>∀ (m : Nat), p m 0 → p (m + 1) 0</code>",
+ "1064": "<code>p 0 0</code>",
+ "1063": "<code>Nat → Nat → Prop</code>",
+ "1062":
  "<code>diagonal_induction (p : Nat → Nat → Prop) (hzz : p 0 0) (hsz : ∀ (m : Nat), p m 0 → p (m + 1) 0)\n  (hzs : ∀ (n : Nat), p 0 n → p 0 (n + 1)) (hss : ∀ (m n : Nat), p m n → p (m + 1) (n + 1)) (m n : Nat) : p m n</code>",
- "1060":
+ "1061":
  "<code>Nat.add_add_add_comm (a b c d : Nat) : a + b + (c + d) = a + c + (b + d)</code>",
+ "1060": "<code>∀ {n : Nat}, xs.length = n → (xs ++ xs).length = n + n</code>",
  "106": "<code>MyOtherNamespace.myVisibleDef : Bool</code>",
- "1059": "<code>∀ {n : Nat}, xs.length = n → (xs ++ xs).length = n + n</code>",
- "1058": "<code>0 = n</code>",
- "1057":
+ "1059": "<code>0 = n</code>",
+ "1058":
  "<code>List.append_nil.{u} {α : Type u} (as : List α) : as ++ [] = as</code>",
- "1056":
+ "1057":
  "<code>length_append_self {α : Type} {n : Nat} {l : List α} (h : l.length = n) : (l ++ l).length = n + n</code>",
- "1055": "<code>(ys ++ x :: l₂).length + 1 = n</code>",
- "1054": "<code>(y :: (ys ++ x :: l₂)).length = n</code>",
- "1053": "<code>(y :: ys ++ x :: l₂).length = n</code>",
- "1052":
+ "1056": "<code>(ys ++ x :: l₂).length + 1 = n</code>",
+ "1055": "<code>(y :: (ys ++ x :: l₂)).length = n</code>",
+ "1054": "<code>(y :: ys ++ x :: l₂).length = n</code>",
+ "1053":
  "<code>∀ {n : Nat}, (ys ++ x :: l₂).length = n → (ys ++ l₂).length + 1 = n</code>",
- "1051": "<code>([] ++ x :: l₂).length = n</code>",
- "1050": "<code>(l₁ ++ x :: l₂).length = n</code>",
+ "1052": "<code>([] ++ x :: l₂).length = n</code>",
+ "1051": "<code>(l₁ ++ x :: l₂).length = n</code>",
+ "1050":
+ "<code>length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat} (h : (l₁ ++ x :: l₂).length = n) :\n  (l₁ ++ l₂).length + 1 = n</code>",
  "105": "<code>MyOtherNamespace.myHiddenDef : Bool</code>",
  "1049":
- "<code>length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat} (h : (l₁ ++ x :: l₂).length = n) :\n  (l₁ ++ l₂).length + 1 = n</code>",
- "1048":
  "<code>List.length_append.{u} {α : Type u} {as bs : List α} : (as ++ bs).length = as.length + bs.length</code>",
- "1047": "<code>xs.length + 1 = n</code>",
- "1046": "<code>(x :: xs).length = n</code>",
- "1045": "<code>∀ {n : Nat}, xs.length = n → nth? xs n = none</code>",
- "1044": "<code>[].length = n</code>",
- "1043": "<code>l.length = n</code>",
- "1042":
+ "1048": "<code>xs.length + 1 = n</code>",
+ "1047": "<code>(x :: xs).length = n</code>",
+ "1046": "<code>∀ {n : Nat}, xs.length = n → nth? xs n = none</code>",
+ "1045": "<code>[].length = n</code>",
+ "1044": "<code>l.length = n</code>",
+ "1043":
  "<code>nth?_after_last {α : Type} {n : Nat} {l : List α} (h : l.length = n) : nth? l n = none</code>",
- "1041": "<code>m + p = q</code>",
- "1040": "<code>n' + (n' + 1) = m' + (m' + 1)</code>",
+ "1042": "<code>m + p = q</code>",
+ "1041": "<code>n' + (n' + 1) = m' + (m' + 1)</code>",
+ "1040": "<code>n' + (n' + 1) = m' + 1 + m'</code>",
  "104":
  "<code class=\"docstring\">Makes names from other namespaces visible without writing the namespace prefix.\n\nNames that are made available with `open` are visible within the current `section` or `namespace`\nblock. This makes referring to (type) definitions and theorems easier, but note that it can also\nmake [scoped instances], notations, and attributes from a different namespace available.\n\nThe `open` command can be used in a few different ways:\n\n* `open Some.Namespace.Path1 Some.Namespace.Path2` makes all non-protected names in\n  `Some.Namespace.Path1` and `Some.Namespace.Path2` available without the prefix, so that\n  `Some.Namespace.Path1.x` and `Some.Namespace.Path2.y` can be referred to by writing only `x` and\n  `y`.\n\n* `open Some.Namespace.Path hiding def1 def2` opens all non-protected names in `Some.Namespace.Path`\n  except `def1` and `def2`.\n\n* `open Some.Namespace.Path (def1 def2)` only makes `Some.Namespace.Path.def1` and\n  `Some.Namespace.Path.def2` available without the full prefix, so `Some.Namespace.Path.def3` would\n  be unaffected.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open Some.Namespace.Path renaming def1 → def1', def2 → def2'` same as `open Some.Namespace.Path\n  (def1 def2)` but `def1`/`def2`'s names are changed to `def1'`/`def2'`.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open scoped Some.Namespace.Path1 Some.Namespace.Path2` **only** opens [scoped instances],\n  notations, and attributes from `Namespace1` and `Namespace2`; it does **not** make any other name\n  available.\n\n* `open &lt;any of the open shapes above&gt; in` makes the names `open`-ed visible only in the next\n  command or expression.\n\n[scoped instance]: https://lean-lang.org/theorem_proving_in_lean4/type_classes.html#scoped-instances\n(Scoped instances in Theorem Proving in Lean)\n\n\n## Examples\n\n```lean\n/-- SKI combinators https://en.wikipedia.org/wiki/SKI_combinator_calculus -/\nnamespace Combinator.Calculus\n  def I (a : α) : α := a\n  def K (a : α) : β → α := fun _ =&gt; a\n  def S (x : α → β → γ) (y : α → β) (z : α) : γ := x z (y z)\nend Combinator.Calculus\n\nsection\n  -- open everything under `Combinator.Calculus`, *i.e.* `I`, `K` and `S`,\n  -- until the section ends\n  open Combinator.Calculus\n\n  theorem SKx_eq_K : S K x = I := rfl\nend\n\n-- open everything under `Combinator.Calculus` only for the next command (the next `theorem`, here)\nopen Combinator.Calculus in\ntheorem SKx_eq_K' : S K x = I := rfl\n\nsection\n  -- open only `S` and `K` under `Combinator.Calculus`\n  open Combinator.Calculus (S K)\n\n  theorem SKxy_eq_y : S K x y = y := rfl\n\n  -- `I` is not in scope, we have to use its full path\n  theorem SKxy_eq_Iy : S K x y = Combinator.Calculus.I y := rfl\nend\n\nsection\n  open Combinator.Calculus\n    renaming\n      I → identity,\n      K → konstant\n\n  #check identity\n  #check konstant\nend\n\nsection\n  open Combinator.Calculus\n    hiding S\n\n  #check I\n  #check K\nend\n\nsection\n  namespace Demo\n    inductive MyType\n    | val\n\n    namespace N1\n      scoped infix:68 \" ≋ \" =&gt; BEq.beq\n\n      scoped instance : BEq MyType where\n        beq _ _ := true\n\n      def Alias := MyType\n    end N1\n  end Demo\n\n  -- bring `≋` and the instance in scope, but not `Alias`\n  open scoped Demo.N1\n\n  #check Demo.MyType.val == Demo.MyType.val\n  #check Demo.MyType.val ≋ Demo.MyType.val\n  -- #check Alias -- unknown identifier 'Alias'\nend\n```\n</code>",
- "1039": "<code>n' + (n' + 1) = m' + 1 + m'</code>",
- "1038": "<code>n' + 1 + n' = m' + 1 + m'</code>",
- "1037": "<code>(n' + 1 + n').succ = (m' + 1 + m').succ</code>",
- "1036": "<code>(n' + 1 + n').succ = m' + 1 + (m' + 1)</code>",
- "1035": "<code>n' + 1 + (n' + 1) = m' + 1 + (m' + 1)</code>",
- "1034": "<code>n' + 1 + (n' + 1) = 0</code>",
- "1033": "<code>n' + 1 + (n' + 1) = 0 + 0</code>",
- "1032": "<code>n' + 1 + (n' + 1) = m + m</code>",
- "1031": "<code>∀ (m : Nat), n' + n' = m + m → n' = m</code>",
- "1030": "<code>0 = m' + 1 + (m' + 1)</code>",
+ "1039": "<code>n' + 1 + n' = m' + 1 + m'</code>",
+ "1038": "<code>(n' + 1 + n').succ = (m' + 1 + m').succ</code>",
+ "1037": "<code>(n' + 1 + n').succ = m' + 1 + (m' + 1)</code>",
+ "1036": "<code>n' + 1 + (n' + 1) = m' + 1 + (m' + 1)</code>",
+ "1035": "<code>n' + 1 + (n' + 1) = 0</code>",
+ "1034": "<code>n' + 1 + (n' + 1) = 0 + 0</code>",
+ "1033": "<code>n' + 1 + (n' + 1) = m + m</code>",
+ "1032": "<code>∀ (m : Nat), n' + n' = m + m → n' = m</code>",
+ "1031": "<code>0 = m' + 1 + (m' + 1)</code>",
+ "1030": "<code>0 + 0 = m' + 1 + (m' + 1)</code>",
  "103": "<code>MyNamespace.myDef : Bool</code>",
- "1029": "<code>0 + 0 = m' + 1 + (m' + 1)</code>",
- "1028": "<code>0 + 0 = 0 + 0</code>",
- "1027": "<code>0 + 0 = m + m</code>",
- "1026":
+ "1029": "<code>0 + 0 = 0 + 0</code>",
+ "1028": "<code>0 + 0 = m + m</code>",
+ "1027":
  "<code>add_self_injective (n m : Nat) (h : n + n = m + m) : n = m</code>",
- "1025": "<code>n'.double + 2 = m'.double + 2</code>",
- "1024": "<code>n'.double + 2 = (m' + 1).double</code>",
- "1023": "<code>∀ (m : Nat), n'.double = m.double → n' = m</code>",
- "1022": "<code>(n' + 1).double = (m' + 1).double</code>",
- "1021": "<code>n'.double = (m' + 1).double → n' = m' + 1</code>",
- "1020": "<code>n'.double + 2 = 0</code>",
+ "1026": "<code>n'.double + 2 = m'.double + 2</code>",
+ "1025": "<code>n'.double + 2 = (m' + 1).double</code>",
+ "1024": "<code>∀ (m : Nat), n'.double = m.double → n' = m</code>",
+ "1023": "<code>(n' + 1).double = (m' + 1).double</code>",
+ "1022": "<code>n'.double = (m' + 1).double → n' = m' + 1</code>",
+ "1021": "<code>n'.double + 2 = 0</code>",
+ "1020": "<code>(n' + 1).double = 0</code>",
  "102": "<code>Day.nextWorkingDay' (d : Day) : Day</code>",
- "1019": "<code>(n' + 1).double = 0</code>",
- "1018": "<code>(n' + 1).double = Nat.double 0</code>",
- "1017": "<code>n'.double = Nat.double 0 → n' = 0</code>",
- "1016": "<code>(n' + 1).double = m.double</code>",
- "1015": "<code>n'.double = m.double → n' = m</code>",
- "1014": "<code>0 = m'.double + 2</code>",
- "1013": "<code>0 = (m' + 1).double</code>",
- "1012": "<code>Nat.double_zero : Nat.double 0 = 0</code>",
- "1011": "<code>Nat.double 0 = (m' + 1).double</code>",
- "1010": "<code>Nat.double 0 = Nat.double 0</code>",
+ "1019": "<code>(n' + 1).double = Nat.double 0</code>",
+ "1018": "<code>n'.double = Nat.double 0 → n' = 0</code>",
+ "1017": "<code>(n' + 1).double = m.double</code>",
+ "1016": "<code>n'.double = m.double → n' = m</code>",
+ "1015": "<code>0 = m'.double + 2</code>",
+ "1014": "<code>0 = (m' + 1).double</code>",
+ "1013": "<code>Nat.double_zero : Nat.double 0 = 0</code>",
+ "1012": "<code>Nat.double 0 = (m' + 1).double</code>",
+ "1011": "<code>Nat.double 0 = Nat.double 0</code>",
+ "1010": "<code>Nat.double 0 = m.double</code>",
  "101": "<code>RGB.myOtherBlue : RGB</code>",
- "1009": "<code>Nat.double 0 = m.double</code>",
- "1008":
+ "1009":
  "<code class=\"docstring\">The `sorry` term is a temporary placeholder for a missing proof or value.\n\nThe syntax is intended for stubbing-out incomplete parts of a value or proof while still having a syntactically correct skeleton.\nLean will give a warning whenever a declaration uses `sorry`, so you aren't likely to miss it,\nbut you can double check if a declaration depends on `sorry` by looking for `sorryAx` in the output\nof the `#print axioms my_thm` command, the axiom used by the implementation of `sorry`.\n\n\"Go to definition\" on `sorry` in the Infoview will go to the source position where it was introduced, if such information is available.\n\nEach `sorry` is guaranteed to be unique, so for example the following fails:\n```lean\nexample : (sorry : Nat) = sorry := rfl -- fails\n```\n\nSee also the `sorry` tactic, which is short for `exact sorry`.\n</code>",
- "1007": "<code>n.double = m.double</code>",
- "1006":
+ "1008": "<code>n.double = m.double</code>",
+ "1007":
  "<code>double_injective (n m : Nat) (h : n.double = m.double) : n = m</code>",
- "1005": "<code>∀ (x z : List Nat), x = [c, d] → [c, d] = z → x = z</code>",
- "1004": "<code>some x = none</code>",
- "1003": "<code>nth? (x :: xs) 0 = none</code>",
- "1002": "<code>∀ (i : Nat), nth? (x :: xs) i = none</code>",
- "1001": "<code>∀ (i : Nat), nth? [] i = none</code>",
- "1000": "<code>∀ (i : Nat), nth? l i = none</code>",
+ "1006": "<code>∀ (x z : List Nat), x = [c, d] → [c, d] = z → x = z</code>",
+ "1005": "<code>some x = none</code>",
+ "1004": "<code>nth? (x :: xs) 0 = none</code>",
+ "1003": "<code>∀ (i : Nat), nth? (x :: xs) i = none</code>",
+ "1002": "<code>∀ (i : Nat), nth? [] i = none</code>",
+ "1001": "<code>∀ (i : Nat), nth? l i = none</code>",
+ "1000":
+ "<code>nth?_always_none (l : List Nat) (h : ∀ (i : Nat), nth? l i = none) : l = []</code>",
  "100": "<code>RGB.myBlue : RGB</code>",
  "10":
  "<code class=\"docstring\">`contradiction` closes the main goal if its hypotheses are \"trivially contradictory\".\n\n- Inductive type/family with no applicable constructors\n  ```lean\n  example (h : False) : p := by contradiction\n  ```\n- Injectivity of constructors\n  ```lean\n  example (h : none = some true) : p := by contradiction  --\n  ```\n- Decidable false proposition\n  ```lean\n  example (h : 2 + 2 = 3) : p := by contradiction\n  ```\n- Contradictory hypotheses\n  ```lean\n  example (h : p) (h' : ¬ p) : q := by contradiction\n  ```\n- Other simple contradictions such as\n  ```lean\n  example (x : Nat) (h : x ≠ x) : p := by contradiction\n  ```\n</code>",
