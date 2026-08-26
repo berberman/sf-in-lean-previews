@@ -3,9 +3,9 @@ version = "0.1.0"
 defaultTargets = ["LF"]
 
 [[require]]
-name = "autograder"
-git = "https://github.com/plclub/lean4-autograder-main"
-rev = "6f454870bf67d2acdfa6f7f73957fe27fb739b38"
+name = "comparator-autograder-lib"
+git = "https://github.com/plclub/comparator-autograder-lib"
+rev = "e79bef2904899a0b8f84ed975310ad4875d765bc"
 
 [[require]]
 name = "batteries"
@@ -14,3 +14,6 @@ rev = "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d"
 
 [[lean_lib]]
 name = "LF"
+
+[[lean_lib]]
+name = "SFLCompat"
