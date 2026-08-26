@@ -257,12 +257,49 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/301"
     },
     "303": {
-      "base_sha": "c910484da1e27d874de2fd899b3624ef7ae1f611",
-      "changed_variants": [],
-      "head_sha": "fb6d2def9d21a583bfbef23d5e8c2df53aaf7a3f",
+      "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "6352c430a0fb0fdb3ad4d60b19dad6432cfba811",
       "preview_path": "pr/303/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32939500920",
+      "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
