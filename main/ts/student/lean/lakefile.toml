@@ -12,6 +12,3 @@ name = "TS"
 
 [[lean_lib]]
 name = "LF"
-
-[[lean_lib]]
-name = "SFLCompat"

@@ -1,5 +1,5 @@
 {
-  "main_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
+  "main_sha": "d2396fd9388ad895d9c2e864507d4dff6424108a",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -265,53 +265,6 @@
       "status": "ci-failed",
       "title": "[WIP] Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
-    },
-    "311": {
-      "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "d301f0bbb32885bd80040344d134db8dffe1259f",
-      "preview_path": "pr/311/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32967945318",
-      "status": "published",
-      "title": "Poly: make `unzip` a manually graded exercise about char lemmas",
-      "url": "https://github.com/plclub/sf-in-lean/pull/311"
     },
     "318": {
       "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",

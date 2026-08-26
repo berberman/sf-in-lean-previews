@@ -1772,6 +1772,242 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 </style><script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // Track whether any tippy is visible (O(1) check instead of DOM scan)
+    let visibleTippyCount = 0;
+    function blockedByTippy(elem) {
+      return visibleTippyCount > 0;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        if (inst.reference.className == 'tactic') {
+          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+          hideParentTooltips(inst.reference);
+          if (blockedByTippy(inst.reference)) { return false; }
+
+        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
+          if (blockedByTactic(inst.reference)) { return false };
+          if (blockedByTippy(inst.reference)) { return false; }
+        } else { // Nothing to show here!
+          return false;
+        }
+      },
+      onShown(inst) { visibleTippyCount++; },
+      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverId) { // Docstrings from the table
+            // TODO stop doing an implicit conversion from string to number here
+            let data = versoDocData[hoverId];
+            if (data) {
+              const info = document.createElement("span");
+              info.className = "hover-info";
+              info.style.display = "block";
+              info.innerHTML = data;
+              content.appendChild(info);
+              /* Render docstrings - TODO server-side */
+              if ('undefined' !== typeof marked) {
+                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
+                      const str = d.innerText;
+                      const html = marked.parse(str);
+                      const rendered = document.createElement("div");
+                      rendered.classList.add("docstring");
+                      rendered.innerHTML = html;
+                      d.parentNode.replaceChild(rendered, d);
+                  }
+              }
+            } else {
+              content.innerHTML = "Failed to load doc ID: " + hoverId;
+            }
+          } else if (hoverInfo) { // The inline info, still used for compiler messages
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          const extraLinks = tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (!tok._tippy && tok.matches(tacticTippySelector)) {
+              tippy(tok, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll('.token').forEach(tok => {
+            if (tok._tippy) tok._tippy.destroy();
+          });
+        }
+      });
+  });
+}
+</script>
+    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -2691,6 +2927,28 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Multi-Step Reduction",
         "Normal Forms Again"]}},
      "address": "/Smallstep/"}],
+   "step_deterministic":
+   [{"id": "step_deterministic",
+     "data":
+     {"/Smallstep/#step_deterministic":
+      {"display": "step_deterministic",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Relations",
+        "Values"]}},
+     "address": "/Smallstep/"}],
+   "normal_forms_unique":
+   [{"id": "normal_forms_unique",
+     "data":
+     {"/Smallstep/#normal_forms_unique":
+      {"display": "normal_forms_unique",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Normal Forms Again"]}},
+     "address": "/Smallstep/"}],
    "nf_same_as_value":
    [{"id": "nf_same_as_value",
      "data":
@@ -2712,6 +2970,28 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Smallstep: Small-step Operational Semantics",
         "Relations",
         "Strong Progress and Normal Forms"]}},
+     "address": "/Smallstep/"}],
+   "multistep_of_eval":
+   [{"id": "multistep_of_eval",
+     "data":
+     {"/Smallstep/#multistep_of_eval":
+      {"display": "multistep_of_eval",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Equivalence of Big-Step and Small-Step"]}},
+     "address": "/Smallstep/"}],
+   "multistep_congr_2":
+   [{"id": "multistep_congr_2",
+     "data":
+     {"/Smallstep/#multistep_congr_2":
+      {"display": "multistep_congr_2",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Normal Forms Again"]}},
      "address": "/Smallstep/"}],
    "multistep_congr_1":
    [{"id": "multistep_congr_1",
@@ -2743,6 +3023,39 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
         "Multi-Step Reduction"]}},
+     "address": "/Smallstep/"}],
+   "eval_of_step":
+   [{"id": "eval_of_step",
+     "data":
+     {"/Smallstep/#eval_of_step":
+      {"display": "eval_of_step",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Equivalence of Big-Step and Small-Step"]}},
+     "address": "/Smallstep/"}],
+   "eval_of_multistep":
+   [{"id": "eval_of_multistep",
+     "data":
+     {"/Smallstep/#eval_of_multistep":
+      {"display": "eval_of_multistep",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Equivalence of Big-Step and Small-Step"]}},
+     "address": "/Smallstep/"}],
+   "evalF_eval":
+   [{"id": "evalF_eval",
+     "data":
+     {"/Smallstep/#evalF_eval":
+      {"display": "evalF_eval",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Equivalence of Big-Step and Small-Step"]}},
      "address": "/Smallstep/"}],
    "evalF":
    [{"id": "evalF",
@@ -2783,6 +3096,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
         "A Toy Language"]}},
+     "address": "/Smallstep/"}],
+   "Temp3.value_not_same_as_normal_form":
+   [{"id": "Temp3___value_not_same_as_normal_form",
+     "data":
+     {"/Smallstep/#Temp3___value_not_same_as_normal_form":
+      {"display": "value_not_same_as_normal_form",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Relations",
+        "Strong Progress and Normal Forms"]}},
      "address": "/Smallstep/"}],
    "Temp3.Step.plusLeft":
    [{"id": "Temp3___Step___plusLeft",
@@ -2833,6 +3157,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"/Smallstep/#Temp3___IsValue":
       {"display": "IsValue",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Relations",
+        "Strong Progress and Normal Forms"]}},
+     "address": "/Smallstep/"}],
+   "Temp2.value_not_same_as_normal_form":
+   [{"id": "Temp2___value_not_same_as_normal_form",
+     "data":
+     {"/Smallstep/#Temp2___value_not_same_as_normal_form":
+      {"display": "value_not_same_as_normal_form",
        "context":
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
@@ -2916,6 +3251,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Relations",
         "Strong Progress and Normal Forms"]}},
      "address": "/Smallstep/"}],
+   "Temp1.value_not_same_as_normal_form":
+   [{"id": "Temp1___value_not_same_as_normal_form",
+     "data":
+     {"/Smallstep/#Temp1___value_not_same_as_normal_form":
+      {"display": "value_not_same_as_normal_form",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Relations",
+        "Strong Progress and Normal Forms"]}},
+     "address": "/Smallstep/"}],
    "Temp1.Step.plusRight":
    [{"id": "Temp1___Step___plusRight",
      "data":
@@ -2993,6 +3339,28 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Relations",
         "Strong Progress and Normal Forms"]}},
      "address": "/Smallstep/"}],
+   "TM.value_is_nf'":
+   [{"id": "TM___value_is_nf___",
+     "data":
+     {"/Types/#TM___value_is_nf___":
+      {"display": "value_is_nf'",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Normal Forms and Values"]}},
+     "address": "/Types/"}],
+   "TM.value_is_nf":
+   [{"id": "TM___value_is_nf",
+     "data":
+     {"/Types/#TM___value_is_nf":
+      {"display": "value_is_nf",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Normal Forms and Values"]}},
+     "address": "/Types/"}],
    "TM.tm.parenthesizer.wrapParens":
    [{"id": "TM___tm___parenthesizer___wrapParens",
      "data":
@@ -3017,6 +3385,25 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Syntax",
         "Notation"]}},
      "address": "/Types/"}],
+   "TM.subject_expansion":
+   [{"id": "TM___subject_expansion",
+     "data":
+     {"/Types/#TM___subject_expansion":
+      {"display": "subject_expansion",
+       "context":
+       ["Type Systems", "Types: Type Systems", "Additional Exercises"]}},
+     "address": "/Types/"}],
+   "TM.step_deterministic":
+   [{"id": "TM___step_deterministic",
+     "data":
+     {"/Types/#TM___step_deterministic":
+      {"display": "step_deterministic",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Normal Forms and Values"]}},
+     "address": "/Types/"}],
    "TM.soundness":
    [{"id": "TM___soundness",
      "data":
@@ -3027,6 +3414,50 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Types: Type Systems",
         "Typed Arithmetic Expressions",
         "Type Soundness"]}},
+     "address": "/Types/"}],
+   "TM.some_term_is_stuck":
+   [{"id": "TM___some_term_is_stuck",
+     "data":
+     {"/Types/#TM___some_term_is_stuck":
+      {"display": "some_term_is_stuck",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Normal Forms and Values"]}},
+     "address": "/Types/"}],
+   "TM.progress":
+   [{"id": "TM___progress",
+     "data":
+     {"/Types/#TM___progress":
+      {"display": "progress",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Progress"]}},
+     "address": "/Types/"}],
+   "TM.preservation'":
+   [{"id": "TM___preservation___",
+     "data":
+     {"/Types/#TM___preservation___":
+      {"display": "preservation'",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Type Preservation"]}},
+     "address": "/Types/"}],
+   "TM.preservation":
+   [{"id": "TM___preservation",
+     "data":
+     {"/Types/#TM___preservation":
+      {"display": "preservation",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Type Preservation"]}},
      "address": "/Types/"}],
    "TM.nvalue_is_nf":
    [{"id": "TM___nvalue_is_nf",
@@ -3730,6 +4161,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Syntax",
         "Terms"]}},
      "address": "/Stlc/"}],
+   "Stlc.substi_correct":
+   [{"id": "Stlc___substi_correct",
+     "data":
+     {"/Stlc/#Stlc___substi_correct":
+      {"display": "substi_correct",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
    "Stlc.subst_var_ne":
    [{"id": "Stlc___subst_var_ne",
      "data":
@@ -4225,6 +4667,105 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Syntax",
         "Terms"]}},
      "address": "/Stlc/"}],
+   "Stlc.Substi.var2":
+   [{"id": "Stlc___Substi___var2",
+     "data":
+     {"/Stlc/#Stlc___Substi___var2":
+      {"display": "var2",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.var1":
+   [{"id": "Stlc___Substi___var1",
+     "data":
+     {"/Stlc/#Stlc___Substi___var1":
+      {"display": "var1",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.tru":
+   [{"id": "Stlc___Substi___tru",
+     "data":
+     {"/Stlc/#Stlc___Substi___tru":
+      {"display": "tru",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.ite":
+   [{"id": "Stlc___Substi___ite",
+     "data":
+     {"/Stlc/#Stlc___Substi___ite":
+      {"display": "ite",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.fls":
+   [{"id": "Stlc___Substi___fls",
+     "data":
+     {"/Stlc/#Stlc___Substi___fls":
+      {"display": "fls",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.app":
+   [{"id": "Stlc___Substi___app",
+     "data":
+     {"/Stlc/#Stlc___Substi___app":
+      {"display": "app",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.abs2":
+   [{"id": "Stlc___Substi___abs2",
+     "data":
+     {"/Stlc/#Stlc___Substi___abs2":
+      {"display": "abs2",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.abs1":
+   [{"id": "Stlc___Substi___abs1",
+     "data":
+     {"/Stlc/#Stlc___Substi___abs1":
+      {"display": "abs1",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi":
+   [{"id": "Stlc___Substi",
+     "data":
+     {"/Stlc/#Stlc___Substi":
+      {"display": "Substi",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
    "Stlc.Step.ifTrue":
    [{"id": "Stlc___Step___ifTrue",
      "data":
@@ -4445,6 +4986,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Relations",
         "Values"]}},
      "address": "/Smallstep/"}],
+   "Slang.strong_progress_arith":
+   [{"id": "Slang___strong_progress_arith",
+     "data":
+     {"/Smallstep/#Slang___strong_progress_arith":
+      {"display": "strong_progress_arith",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Arithmetic Expressions"]}},
+     "address": "/Smallstep/"}],
    "Slang.stack_step_deterministic":
    [{"id": "Slang___stack_step_deterministic",
      "data":
@@ -4478,6 +5030,39 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Arithmetic and Boolean Expressions",
         "Optimization"]}},
      "address": "/Slang/"}],
+   "Slang.optimize0plusB_test2":
+   [{"id": "Slang___optimize0plusB_test2",
+     "data":
+     {"/Slang/#Slang___optimize0plusB_test2":
+      {"display": "optimize0plusB_test2",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.optimize0plusB_test1":
+   [{"id": "Slang___optimize0plusB_test1",
+     "data":
+     {"/Slang/#Slang___optimize0plusB_test1":
+      {"display": "optimize0plusB_test1",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.optimize0plusB_sound":
+   [{"id": "Slang___optimize0plusB_sound",
+     "data":
+     {"/Slang/#Slang___optimize0plusB_sound":
+      {"display": "optimize0plusB_sound",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.multi_astep_imp_anstep":
    [{"id": "Slang___multi_astep_imp_anstep",
      "data":
@@ -4500,6 +5085,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Small-Step Slang",
         "Nondeterministic Evaluation"]}},
      "address": "/Smallstep/"}],
+   "Slang.compiler_is_correct":
+   [{"id": "Slang___compiler_is_correct",
+     "data":
+     {"/Smallstep/#Slang___compiler_is_correct":
+      {"display": "compiler_is_correct",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "A Small-Step Stack Machine"]}},
+     "address": "/Smallstep/"}],
    "Slang.compile":
    [{"id": "Slang___compile",
      "data":
@@ -4511,11 +5107,55 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Small-Step Slang",
         "A Small-Step Stack Machine"]}},
      "address": "/Smallstep/"}],
+   "Slang.bstep_deterministic":
+   [{"id": "Slang___bstep_deterministic",
+     "data":
+     {"/Smallstep/#Slang___bstep_deterministic":
+      {"display": "bstep_deterministic",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Boolean Expressions"]}},
+     "address": "/Smallstep/"}],
    "Slang.astep_imp_anstep":
    [{"id": "Slang___astep_imp_anstep",
      "data":
      {"/Smallstep/#Slang___astep_imp_anstep":
       {"display": "astep_imp_anstep",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Nondeterministic Evaluation"]}},
+     "address": "/Smallstep/"}],
+   "Slang.astep_deterministic":
+   [{"id": "Slang___astep_deterministic",
+     "data":
+     {"/Smallstep/#Slang___astep_deterministic":
+      {"display": "astep_deterministic",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Boolean Expressions"]}},
+     "address": "/Smallstep/"}],
+   "Slang.astep_anstep_agree":
+   [{"id": "Slang___astep_anstep_agree",
+     "data":
+     {"/Smallstep/#Slang___astep_anstep_agree":
+      {"display": "astep_anstep_agree",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Nondeterministic Evaluation"]}},
+     "address": "/Smallstep/"}],
+   "Slang.anstep_preserves_eval":
+   [{"id": "Slang___anstep_preserves_eval",
+     "data":
+     {"/Smallstep/#Slang___anstep_preserves_eval":
+      {"display": "anstep_preserves_eval",
        "context":
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
@@ -4709,6 +5349,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Small-Step Slang",
         "Arithmetic Expressions"]}},
      "address": "/Smallstep/"}],
+   "Slang.Bexp.optimize0plusB":
+   [{"id": "Slang___Bexp___optimize0plusB",
+     "data":
+     {"/Slang/#Slang___Bexp___optimize0plusB":
+      {"display": "Bexp.optimize0plusB",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.Bexp.not":
    [{"id": "Slang___Bexp___not",
      "data":
@@ -4830,6 +5481,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Arithmetic and Boolean Expressions",
         "Evaluation"]}},
      "address": "/Slang/"}],
+   "Slang.Bexp.evalR_iff_eval":
+   [{"id": "Slang___Bexp___evalR_iff_eval",
+     "data":
+     {"/Slang/#Slang___Bexp___evalR_iff_eval":
+      {"display": "Bexp.evalR_iff_eval",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
    "Slang.Bexp.eval":
    [{"id": "Slang___Bexp___eval",
      "data":
@@ -4873,6 +5535,94 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
         "Syntax"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.not":
+   [{"id": "Slang___Bexp___EvalR___not",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___not":
+      {"display": "not",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.neq":
+   [{"id": "Slang___Bexp___EvalR___neq",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___neq":
+      {"display": "neq",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.le":
+   [{"id": "Slang___Bexp___EvalR___le",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___le":
+      {"display": "le",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.gt":
+   [{"id": "Slang___Bexp___EvalR___gt",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___gt":
+      {"display": "gt",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.eq":
+   [{"id": "Slang___Bexp___EvalR___eq",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___eq":
+      {"display": "eq",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.bool":
+   [{"id": "Slang___Bexp___EvalR___bool",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___bool":
+      {"display": "bool",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.and":
+   [{"id": "Slang___Bexp___EvalR___and",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___and":
+      {"display": "and",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR":
+   [{"id": "Slang___Bexp___EvalR",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR":
+      {"display": "Bexp.EvalR",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
      "address": "/Slang/"}],
    "Slang.Bexp":
    [{"id": "Slang___Bexp",
@@ -5264,6 +6014,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
         "Evaluation"]}},
+     "address": "/Slang/"}],
+   "Slang.Aexp.evalR_iff_eval'":
+   [{"id": "Slang___Aexp___evalR_iff_eval___",
+     "data":
+     {"/Slang/#Slang___Aexp___evalR_iff_eval___":
+      {"display": "Aexp.evalR_iff_eval'",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.evalR_iff_eval":
    [{"id": "Slang___Aexp___evalR_iff_eval",
@@ -6296,242 +7057,6 @@ if (paramName) {
             `;
         }
     });
-}
-</script>
-    <script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // Track whether any tippy is visible (O(1) check instead of DOM scan)
-    let visibleTippyCount = 0;
-    function blockedByTippy(elem) {
-      return visibleTippyCount > 0;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        if (inst.reference.className == 'tactic') {
-          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-          hideParentTooltips(inst.reference);
-          if (blockedByTippy(inst.reference)) { return false; }
-
-        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-          if (blockedByTactic(inst.reference)) { return false };
-          if (blockedByTippy(inst.reference)) { return false; }
-        } else { // Nothing to show here!
-          return false;
-        }
-      },
-      onShown(inst) { visibleTippyCount++; },
-      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverId) { // Docstrings from the table
-            // TODO stop doing an implicit conversion from string to number here
-            let data = versoDocData[hoverId];
-            if (data) {
-              const info = document.createElement("span");
-              info.className = "hover-info";
-              info.style.display = "block";
-              info.innerHTML = data;
-              content.appendChild(info);
-              /* Render docstrings - TODO server-side */
-              if ('undefined' !== typeof marked) {
-                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                      const str = d.innerText;
-                      const html = marked.parse(str);
-                      const rendered = document.createElement("div");
-                      rendered.classList.add("docstring");
-                      rendered.innerHTML = html;
-                      d.parentNode.replaceChild(rendered, d);
-                  }
-              }
-            } else {
-              content.innerHTML = "Failed to load doc ID: " + hoverId;
-            }
-          } else if (hoverInfo) { // The inline info, still used for compiler messages
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          const extraLinks = tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (!tok._tippy && tok.matches(tacticTippySelector)) {
-              tippy(tok, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (tok._tippy) tok._tippy.destroy();
-          });
-        }
-      });
-  });
 }
 </script>
     <style data-previewctl-verso-code-links>

@@ -1,1 +1,0 @@
-window.docContents[63].resolve({"/Equiv/#Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence":{"contents":"\n\n\n\n\n\n","context":"Hoare Logic\u0009Equiv: Program Equivalence","header":"4.2. Properties of Behavior Equivalence","id":"/Equiv/#Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence"}});

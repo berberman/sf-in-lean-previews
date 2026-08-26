@@ -917,6 +917,28 @@
         "Multi-Step Reduction",
         "Normal Forms Again"]}},
      "address": "/Smallstep/"}],
+   "step_deterministic":
+   [{"id": "step_deterministic",
+     "data":
+     {"/Smallstep/#step_deterministic":
+      {"display": "step_deterministic",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Relations",
+        "Values"]}},
+     "address": "/Smallstep/"}],
+   "normal_forms_unique":
+   [{"id": "normal_forms_unique",
+     "data":
+     {"/Smallstep/#normal_forms_unique":
+      {"display": "normal_forms_unique",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Normal Forms Again"]}},
+     "address": "/Smallstep/"}],
    "nf_same_as_value":
    [{"id": "nf_same_as_value",
      "data":
@@ -938,6 +960,28 @@
         "Smallstep: Small-step Operational Semantics",
         "Relations",
         "Strong Progress and Normal Forms"]}},
+     "address": "/Smallstep/"}],
+   "multistep_of_eval":
+   [{"id": "multistep_of_eval",
+     "data":
+     {"/Smallstep/#multistep_of_eval":
+      {"display": "multistep_of_eval",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Equivalence of Big-Step and Small-Step"]}},
+     "address": "/Smallstep/"}],
+   "multistep_congr_2":
+   [{"id": "multistep_congr_2",
+     "data":
+     {"/Smallstep/#multistep_congr_2":
+      {"display": "multistep_congr_2",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Normal Forms Again"]}},
      "address": "/Smallstep/"}],
    "multistep_congr_1":
    [{"id": "multistep_congr_1",
@@ -969,6 +1013,39 @@
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
         "Multi-Step Reduction"]}},
+     "address": "/Smallstep/"}],
+   "eval_of_step":
+   [{"id": "eval_of_step",
+     "data":
+     {"/Smallstep/#eval_of_step":
+      {"display": "eval_of_step",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Equivalence of Big-Step and Small-Step"]}},
+     "address": "/Smallstep/"}],
+   "eval_of_multistep":
+   [{"id": "eval_of_multistep",
+     "data":
+     {"/Smallstep/#eval_of_multistep":
+      {"display": "eval_of_multistep",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Equivalence of Big-Step and Small-Step"]}},
+     "address": "/Smallstep/"}],
+   "evalF_eval":
+   [{"id": "evalF_eval",
+     "data":
+     {"/Smallstep/#evalF_eval":
+      {"display": "evalF_eval",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Multi-Step Reduction",
+        "Equivalence of Big-Step and Small-Step"]}},
      "address": "/Smallstep/"}],
    "evalF":
    [{"id": "evalF",
@@ -1009,6 +1086,17 @@
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
         "A Toy Language"]}},
+     "address": "/Smallstep/"}],
+   "Temp3.value_not_same_as_normal_form":
+   [{"id": "Temp3___value_not_same_as_normal_form",
+     "data":
+     {"/Smallstep/#Temp3___value_not_same_as_normal_form":
+      {"display": "value_not_same_as_normal_form",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Relations",
+        "Strong Progress and Normal Forms"]}},
      "address": "/Smallstep/"}],
    "Temp3.Step.plusLeft":
    [{"id": "Temp3___Step___plusLeft",
@@ -1059,6 +1147,17 @@
      "data":
      {"/Smallstep/#Temp3___IsValue":
       {"display": "IsValue",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Relations",
+        "Strong Progress and Normal Forms"]}},
+     "address": "/Smallstep/"}],
+   "Temp2.value_not_same_as_normal_form":
+   [{"id": "Temp2___value_not_same_as_normal_form",
+     "data":
+     {"/Smallstep/#Temp2___value_not_same_as_normal_form":
+      {"display": "value_not_same_as_normal_form",
        "context":
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
@@ -1142,6 +1241,17 @@
         "Relations",
         "Strong Progress and Normal Forms"]}},
      "address": "/Smallstep/"}],
+   "Temp1.value_not_same_as_normal_form":
+   [{"id": "Temp1___value_not_same_as_normal_form",
+     "data":
+     {"/Smallstep/#Temp1___value_not_same_as_normal_form":
+      {"display": "value_not_same_as_normal_form",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Relations",
+        "Strong Progress and Normal Forms"]}},
+     "address": "/Smallstep/"}],
    "Temp1.Step.plusRight":
    [{"id": "Temp1___Step___plusRight",
      "data":
@@ -1219,6 +1329,28 @@
         "Relations",
         "Strong Progress and Normal Forms"]}},
      "address": "/Smallstep/"}],
+   "TM.value_is_nf'":
+   [{"id": "TM___value_is_nf___",
+     "data":
+     {"/Types/#TM___value_is_nf___":
+      {"display": "value_is_nf'",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Normal Forms and Values"]}},
+     "address": "/Types/"}],
+   "TM.value_is_nf":
+   [{"id": "TM___value_is_nf",
+     "data":
+     {"/Types/#TM___value_is_nf":
+      {"display": "value_is_nf",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Normal Forms and Values"]}},
+     "address": "/Types/"}],
    "TM.tm.parenthesizer.wrapParens":
    [{"id": "TM___tm___parenthesizer___wrapParens",
      "data":
@@ -1243,6 +1375,25 @@
         "Syntax",
         "Notation"]}},
      "address": "/Types/"}],
+   "TM.subject_expansion":
+   [{"id": "TM___subject_expansion",
+     "data":
+     {"/Types/#TM___subject_expansion":
+      {"display": "subject_expansion",
+       "context":
+       ["Type Systems", "Types: Type Systems", "Additional Exercises"]}},
+     "address": "/Types/"}],
+   "TM.step_deterministic":
+   [{"id": "TM___step_deterministic",
+     "data":
+     {"/Types/#TM___step_deterministic":
+      {"display": "step_deterministic",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Normal Forms and Values"]}},
+     "address": "/Types/"}],
    "TM.soundness":
    [{"id": "TM___soundness",
      "data":
@@ -1253,6 +1404,50 @@
         "Types: Type Systems",
         "Typed Arithmetic Expressions",
         "Type Soundness"]}},
+     "address": "/Types/"}],
+   "TM.some_term_is_stuck":
+   [{"id": "TM___some_term_is_stuck",
+     "data":
+     {"/Types/#TM___some_term_is_stuck":
+      {"display": "some_term_is_stuck",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Normal Forms and Values"]}},
+     "address": "/Types/"}],
+   "TM.progress":
+   [{"id": "TM___progress",
+     "data":
+     {"/Types/#TM___progress":
+      {"display": "progress",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Progress"]}},
+     "address": "/Types/"}],
+   "TM.preservation'":
+   [{"id": "TM___preservation___",
+     "data":
+     {"/Types/#TM___preservation___":
+      {"display": "preservation'",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Type Preservation"]}},
+     "address": "/Types/"}],
+   "TM.preservation":
+   [{"id": "TM___preservation",
+     "data":
+     {"/Types/#TM___preservation":
+      {"display": "preservation",
+       "context":
+       ["Type Systems",
+        "Types: Type Systems",
+        "Typed Arithmetic Expressions",
+        "Type Preservation"]}},
      "address": "/Types/"}],
    "TM.nvalue_is_nf":
    [{"id": "TM___nvalue_is_nf",
@@ -1956,6 +2151,17 @@
         "Syntax",
         "Terms"]}},
      "address": "/Stlc/"}],
+   "Stlc.substi_correct":
+   [{"id": "Stlc___substi_correct",
+     "data":
+     {"/Stlc/#Stlc___substi_correct":
+      {"display": "substi_correct",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
    "Stlc.subst_var_ne":
    [{"id": "Stlc___subst_var_ne",
      "data":
@@ -2451,6 +2657,105 @@
         "Syntax",
         "Terms"]}},
      "address": "/Stlc/"}],
+   "Stlc.Substi.var2":
+   [{"id": "Stlc___Substi___var2",
+     "data":
+     {"/Stlc/#Stlc___Substi___var2":
+      {"display": "var2",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.var1":
+   [{"id": "Stlc___Substi___var1",
+     "data":
+     {"/Stlc/#Stlc___Substi___var1":
+      {"display": "var1",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.tru":
+   [{"id": "Stlc___Substi___tru",
+     "data":
+     {"/Stlc/#Stlc___Substi___tru":
+      {"display": "tru",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.ite":
+   [{"id": "Stlc___Substi___ite",
+     "data":
+     {"/Stlc/#Stlc___Substi___ite":
+      {"display": "ite",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.fls":
+   [{"id": "Stlc___Substi___fls",
+     "data":
+     {"/Stlc/#Stlc___Substi___fls":
+      {"display": "fls",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.app":
+   [{"id": "Stlc___Substi___app",
+     "data":
+     {"/Stlc/#Stlc___Substi___app":
+      {"display": "app",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.abs2":
+   [{"id": "Stlc___Substi___abs2",
+     "data":
+     {"/Stlc/#Stlc___Substi___abs2":
+      {"display": "abs2",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi.abs1":
+   [{"id": "Stlc___Substi___abs1",
+     "data":
+     {"/Stlc/#Stlc___Substi___abs1":
+      {"display": "abs1",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Substi":
+   [{"id": "Stlc___Substi",
+     "data":
+     {"/Stlc/#Stlc___Substi":
+      {"display": "Substi",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Substitution"]}},
+     "address": "/Stlc/"}],
    "Stlc.Step.ifTrue":
    [{"id": "Stlc___Step___ifTrue",
      "data":
@@ -2671,6 +2976,17 @@
         "Relations",
         "Values"]}},
      "address": "/Smallstep/"}],
+   "Slang.strong_progress_arith":
+   [{"id": "Slang___strong_progress_arith",
+     "data":
+     {"/Smallstep/#Slang___strong_progress_arith":
+      {"display": "strong_progress_arith",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Arithmetic Expressions"]}},
+     "address": "/Smallstep/"}],
    "Slang.stack_step_deterministic":
    [{"id": "Slang___stack_step_deterministic",
      "data":
@@ -2704,6 +3020,39 @@
         "Arithmetic and Boolean Expressions",
         "Optimization"]}},
      "address": "/Slang/"}],
+   "Slang.optimize0plusB_test2":
+   [{"id": "Slang___optimize0plusB_test2",
+     "data":
+     {"/Slang/#Slang___optimize0plusB_test2":
+      {"display": "optimize0plusB_test2",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.optimize0plusB_test1":
+   [{"id": "Slang___optimize0plusB_test1",
+     "data":
+     {"/Slang/#Slang___optimize0plusB_test1":
+      {"display": "optimize0plusB_test1",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.optimize0plusB_sound":
+   [{"id": "Slang___optimize0plusB_sound",
+     "data":
+     {"/Slang/#Slang___optimize0plusB_sound":
+      {"display": "optimize0plusB_sound",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.multi_astep_imp_anstep":
    [{"id": "Slang___multi_astep_imp_anstep",
      "data":
@@ -2726,6 +3075,17 @@
         "Small-Step Slang",
         "Nondeterministic Evaluation"]}},
      "address": "/Smallstep/"}],
+   "Slang.compiler_is_correct":
+   [{"id": "Slang___compiler_is_correct",
+     "data":
+     {"/Smallstep/#Slang___compiler_is_correct":
+      {"display": "compiler_is_correct",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "A Small-Step Stack Machine"]}},
+     "address": "/Smallstep/"}],
    "Slang.compile":
    [{"id": "Slang___compile",
      "data":
@@ -2737,11 +3097,55 @@
         "Small-Step Slang",
         "A Small-Step Stack Machine"]}},
      "address": "/Smallstep/"}],
+   "Slang.bstep_deterministic":
+   [{"id": "Slang___bstep_deterministic",
+     "data":
+     {"/Smallstep/#Slang___bstep_deterministic":
+      {"display": "bstep_deterministic",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Boolean Expressions"]}},
+     "address": "/Smallstep/"}],
    "Slang.astep_imp_anstep":
    [{"id": "Slang___astep_imp_anstep",
      "data":
      {"/Smallstep/#Slang___astep_imp_anstep":
       {"display": "astep_imp_anstep",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Nondeterministic Evaluation"]}},
+     "address": "/Smallstep/"}],
+   "Slang.astep_deterministic":
+   [{"id": "Slang___astep_deterministic",
+     "data":
+     {"/Smallstep/#Slang___astep_deterministic":
+      {"display": "astep_deterministic",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Boolean Expressions"]}},
+     "address": "/Smallstep/"}],
+   "Slang.astep_anstep_agree":
+   [{"id": "Slang___astep_anstep_agree",
+     "data":
+     {"/Smallstep/#Slang___astep_anstep_agree":
+      {"display": "astep_anstep_agree",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Nondeterministic Evaluation"]}},
+     "address": "/Smallstep/"}],
+   "Slang.anstep_preserves_eval":
+   [{"id": "Slang___anstep_preserves_eval",
+     "data":
+     {"/Smallstep/#Slang___anstep_preserves_eval":
+      {"display": "anstep_preserves_eval",
        "context":
        ["Type Systems",
         "Smallstep: Small-step Operational Semantics",
@@ -2935,6 +3339,17 @@
         "Small-Step Slang",
         "Arithmetic Expressions"]}},
      "address": "/Smallstep/"}],
+   "Slang.Bexp.optimize0plusB":
+   [{"id": "Slang___Bexp___optimize0plusB",
+     "data":
+     {"/Slang/#Slang___Bexp___optimize0plusB":
+      {"display": "Bexp.optimize0plusB",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.Bexp.not":
    [{"id": "Slang___Bexp___not",
      "data":
@@ -3056,6 +3471,17 @@
         "Arithmetic and Boolean Expressions",
         "Evaluation"]}},
      "address": "/Slang/"}],
+   "Slang.Bexp.evalR_iff_eval":
+   [{"id": "Slang___Bexp___evalR_iff_eval",
+     "data":
+     {"/Slang/#Slang___Bexp___evalR_iff_eval":
+      {"display": "Bexp.evalR_iff_eval",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
    "Slang.Bexp.eval":
    [{"id": "Slang___Bexp___eval",
      "data":
@@ -3099,6 +3525,94 @@
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
         "Syntax"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.not":
+   [{"id": "Slang___Bexp___EvalR___not",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___not":
+      {"display": "not",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.neq":
+   [{"id": "Slang___Bexp___EvalR___neq",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___neq":
+      {"display": "neq",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.le":
+   [{"id": "Slang___Bexp___EvalR___le",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___le":
+      {"display": "le",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.gt":
+   [{"id": "Slang___Bexp___EvalR___gt",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___gt":
+      {"display": "gt",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.eq":
+   [{"id": "Slang___Bexp___EvalR___eq",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___eq":
+      {"display": "eq",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.bool":
+   [{"id": "Slang___Bexp___EvalR___bool",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___bool":
+      {"display": "bool",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR.and":
+   [{"id": "Slang___Bexp___EvalR___and",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR___and":
+      {"display": "and",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
+     "address": "/Slang/"}],
+   "Slang.Bexp.EvalR":
+   [{"id": "Slang___Bexp___EvalR",
+     "data":
+     {"/Slang/#Slang___Bexp___EvalR":
+      {"display": "Bexp.EvalR",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
      "address": "/Slang/"}],
    "Slang.Bexp":
    [{"id": "Slang___Bexp",
@@ -3490,6 +4004,17 @@
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
         "Evaluation"]}},
+     "address": "/Slang/"}],
+   "Slang.Aexp.evalR_iff_eval'":
+   [{"id": "Slang___Aexp___evalR_iff_eval___",
+     "data":
+     {"/Slang/#Slang___Aexp___evalR_iff_eval___":
+      {"display": "Aexp.evalR_iff_eval'",
+       "context":
+       ["Type Systems",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Evaluation as a Relation",
+        "Equivalence of the Definitions"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.evalR_iff_eval":
    [{"id": "Slang___Aexp___evalR_iff_eval",

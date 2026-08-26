@@ -3,41 +3,75 @@ import LF.Typeclasses
 import Lean.PrettyPrinter.Delaborator
 import Lean.PrettyPrinter.Parenthesizer
 
-import SFLCompat
+import HL.SFLCompat
 
---  # Imp: Simple Imperative Programs
+-- # Imp: Simple Imperative Programs
 
---  We concentrate here on defining the *syntax* and
---  *semantics* of Imp; later in this volume we develop a
---  theory of *program equivalence* and introduce *Hoare
---  Logic*, a popular logic for reasoning about imperative
---  programs.
+-- Note to developers (before next release):
+--     Needs some WORKINCLASSes and some quizzes
+--
+--     LATER: Another nice challenge exercise at some point
+--     would be to add C-style arrays (i.e., indirect
+--     read/write). This sets up some really nice challenge
+--     problems in Hoare (reasoning about arrays / aliasing /
+--     etc.).
+--
+--     SOONER: BCP 25: Maybe we should write / instead of && in
+--     assertions, to save a mismatch in the `dec_minimum`
+--     exercise in Hoare2?
+--
+--     At some point we could consider moving material from the
+--     old HoareLists to this chapter (and into later files, as
+--     appropriate). We haven't done it yet because it's a
+--     shame to complicate the nice simple presentation here
+--     when it's used as the basis for applications like
+--     Xavier's static analysis lectures. Also, we now have a
+--     whole volume on real separation logic...
+--
+--     MWH (port note): The Rocq chapter's "Rocq Automation"
+--     tour has been retooled here for Lean. The tactic
+--     combinators `try` and `repeat` (and the custom-tactic
+--     `macro`) are introduced in this chapter; `<;>` and
+--     `simp` were already introduced in Logical Foundations
+--     (`<;>` in `Induction`) so we use them freely and the
+--     `<;>` section below is a recap. For linear arithmetic we
+--     use `lia`; NOTE that LF currently introduces `omega`,
+--     not `lia`, so this needs to be reconciled volume-wide
+--     (either introduce `lia` in LF, or keep `omega`).
 
---  ## Expressions With Variables
+-- We concentrate here on defining the *syntax* and *semantics*
+-- of Imp; later in this volume we develop a theory of *program
+-- equivalence* and introduce *Hoare Logic*, a popular logic
+-- for reasoning about imperative programs.
 
---  ### States
+-- ## Expressions With Variables
 
---  Since we'll want to look variables up to find out their
---  current values, we'll use total maps from the `Maps`
---  chapter. A *machine state* (or just *state*) represents
---  the current values of all variables at some point in the
---  execution of a program.
+-- ### States
 
---  We give the type of variable identifiers a name,
---  `Ident`. For now it is just `String`; naming it makes
---  the intent clearer.
+-- Since we'll want to look variables up to find out their
+-- current values, we'll use total maps from the `Maps`
+-- chapter. A *machine state* (or just *state*) represents the
+-- current values of all variables at some point in the
+-- execution of a program.
+
+-- We give the type of variable identifiers a name, `Ident`.
+-- For now it is just `String`; naming it makes the intent
+-- clearer.
 
 open scoped MyGetElem
 
 abbrev Ident := String
 abbrev State := TotalMap Ident Nat
 
---  ### Syntax
+-- ### Syntax
 
---  We can add variables to the arithmetic expressions we
---  had before simply by including one more constructor.
---  (This is a fresh `Aexp`, replacing the variable-free one
---  from the *Slang* chapter.)
+-- We can add variables to the arithmetic expressions we had
+-- before simply by including one more constructor. (This is a
+-- fresh `Aexp`, replacing the variable-free one from the
+-- *Slang* chapter.)
+
+-- Note to developers (Benjamin Pierce @bcpierce00):
+--     That should be a live chapter link.
 
 inductive Aexp where
   | num (n : Nat)
@@ -46,8 +80,26 @@ inductive Aexp where
   | minus (a1 a2 : Aexp)
   | mult (a1 a2 : Aexp)
 
---  The `Bexp` definition is unchanged, except that it now
---  refers to the new `Aexp`.
+-- Note to developers (Chris Henson @chenson2018):
+--     Rather than define identifiers as Ident, a more general
+--     approach is to use a **type variable** with
+--     `DecidableEq` (as the `Maps` chapter does), threaded
+--     through `Aexp`/`Bexp`/`Com`/`State`. Stashed for a
+--     future decision; the parameterized version would look
+--     like:
+--
+--     `inductive Aexp (V : Type) where
+--       | num (n : Nat)
+--       | id (x : V)
+--       | plus (a1 a2 : Aexp V)
+--       | minus (a1 a2 : Aexp V)
+--       | mult (a1 a2 : Aexp V)
+--     -- … then `Bexp V`, `Com V`, `abbrev State (V) [DecidableEq V] :=
+--     -- TotalMap V Nat`, and `[DecidableEq V]` wherever a lookup/update is
+--     -- performed.`
+
+-- The `Bexp` definition is unchanged, except that it now
+-- refers to the new `Aexp`.
 
 inductive Bexp where
   | bool (b : Bool)
@@ -58,15 +110,15 @@ inductive Bexp where
   | not (b : Bexp)
   | and (b1 b2 : Bexp)
 
---  Defining a few variable names as shorthands will make
---  examples easier to read.
+-- Defining a few variable names as shorthands will make
+-- examples easier to read.
 
 def W : Ident := "W"
 def X : Ident := "X"
 def Y : Ident := "Y"
 def Z : Ident := "Z"
 
---  ### Notations
+-- ### Notations
 
 /-- Arithmetic expressions of Imp -/
 declare_syntax_cat imp_aexp
@@ -98,7 +150,7 @@ macro_rules
   | `(aexp { $a * $b }) => `(Aexp.mult (aexp {$a}) (aexp {$b}))
   | `(aexp { ($a) }) => `(aexp {$a})
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions)
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions
 
 /-- Boolean expressions of Imp -/
 declare_syntax_cat imp_bexp
@@ -124,9 +176,9 @@ syntax:max "~" term:max : imp_bexp
 /-- Embed an Imp boolean expression into a Lean term -/
 syntax:min "bexp " "{" imp_bexp "}" : term
 
---  END DETAILS
+-- END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions, macro rules)
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: boolean expressions, macro rules
 
 open Lean in
 macro_rules
@@ -144,14 +196,14 @@ macro_rules
   | `(bexp { $b1:imp_bexp ∧ $b2:imp_bexp }) => `(Bexp.and (bexp {$b1}) (bexp {$b2}))
   | `(bexp { ($b:imp_bexp) }) => `(bexp {$b})
 
---  END DETAILS
+-- END DETAILS
 
 #check aexp { 3 + (X * 2) }
 #check bexp { true ∧ ¬(X ≤ 4) }
 
---  ### Delaborators
+-- ### Delaborators
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing expressions back)
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing expressions back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer
@@ -248,15 +300,14 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
     | _ => `(imp_bexp| ~$(← delab))
   annAsTerm stx
 
---  END DETAILS
+-- END DETAILS
 
---  The `whenPPOption getPPNotation` wrapper lets
---  `set_option pp.notation false` switch this delaborator
---  off, revealing the raw constructors (see the "Desugaring
---  Notations" discussion, after the commands are
---  introduced).
+-- The `whenPPOption getPPNotation` wrapper lets
+-- `set_option pp.notation false` switch this delaborator off,
+-- revealing the raw constructors (see the "Desugaring
+-- Notations" discussion, after the commands are introduced).
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: registering the delaborators)
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: registering the delaborators
 
 @[delab app.Aexp.num, delab app.Aexp.id, delab app.Aexp.plus,
   delab app.Aexp.minus, delab app.Aexp.mult]
@@ -291,7 +342,7 @@ partial def delabBexp : Delab := whenPPOption getPPNotation do
 
 end Imp.Delab
 
---  END DETAILS
+-- END DETAILS
 
 /-- info: aexp {3 + X * 2} : Aexp -/
 #guard_msgs in
@@ -301,10 +352,10 @@ end Imp.Delab
 #guard_msgs in
 #check bexp { true ∧ ¬(X ≤ 4) }
 
---  ### Evaluation
+-- ### Evaluation
 
---  Now we need to add an `st` parameter to both evaluation
---  functions:
+-- Now we need to add an `st` parameter to both evaluation
+-- functions:
 
 def Aexp.eval (st : State) (a : Aexp) : Nat :=
   match a with
@@ -346,8 +397,8 @@ def Bexp.eval (st : State) (b : Bexp) : Bool :=
 @[simp] theorem Bexp.eval_and (st : State) (b1 b2 : Bexp) :
     (and b1 b2).eval st = (b1.eval st && b2.eval st) := rfl
 
---  We reuse the total-map notation (`x →ₜ v ; ∅` etc.) for
---  states.
+-- We reuse the total-map notation (`x →ₜ v ; ∅` etc.) for
+-- states.
 
 example : aexp { 3 + (X * 2) }.eval (X →ₜ 5 ; ∅) = 13 := by rfl
 
@@ -355,7 +406,14 @@ example : aexp { Z + (X * Y) }.eval (X →ₜ 5 ; Y →ₜ 4 ; ∅) = 20 := by r
 
 example : bexp { true ∧ ¬(X ≤ 4) }.eval (X →ₜ 5 ; ∅) = true := by rfl
 
---  ## Commands
+-- Note to developers:
+--     dsainati: Bikeshedding: I'm not sure how I feel about
+--     this arrow subscript for maps. Easy to change later but
+--     just flagging to discuss. mwhicks1: This comes from the
+--     Maps chapter, which chenson2018 is working on. There is
+--     a keyboard shortcut for ↦ we could use (mapsto).
+
+-- ## Commands
 
 inductive Com where
   | skip
@@ -364,7 +422,7 @@ inductive Com where
   | cond (b : Bexp) (c1 c2 : Com)
   | whileDo (b : Bexp) (c : Com)
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: commands, macro rules)
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: commands, macro rules
 
 /-- Imp commands -/
 declare_syntax_cat imp_com
@@ -406,9 +464,9 @@ end Com
 
 open scoped Com
 
---  END DETAILS
+-- END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing commands back)
+-- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing commands back
 
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
@@ -466,7 +524,7 @@ partial def delabCom : Delab := whenPPOption getPPNotation do
 
 end Imp.Delab
 
---  END DETAILS
+-- END DETAILS
 
 def fact_in_lean : Com := imp {
   Z := X;
@@ -491,7 +549,7 @@ imp {
 #guard_msgs in
 #print fact_in_lean
 
---  ### Desugaring Notations
+-- ### Desugaring Notations
 
 /-- info: imp {
   X := X + 1
@@ -504,16 +562,16 @@ imp {
 set_option pp.notation false in
 #check imp { X := X + 1 }
 
---  ### More Examples
+-- ### More Examples
 
---  A few more examples.
+-- A few more examples.
 
---  Assignment:
+-- Assignment:
 
 def plus2 : Com := imp { X := X + 2 }
 def XtimesYinZ : Com := imp { Z := X * Y }
 
---  Loops:
+-- Loops:
 
 def subtract_slowly_body : Com := imp {
   Z := Z - 1;
@@ -532,16 +590,16 @@ def subtract_3_from_5_slowly : Com := imp {
   ~subtract_slowly
 }
 
---  An infinite loop:
+-- An infinite loop:
 
 def loop : Com := imp { while (true) { skip } }
 
---  ## Evaluating Commands
+-- ## Evaluating Commands
 
---  ### Evaluation as a Function (Failed Attempt)
+-- ### Evaluation as a Function (Failed Attempt)
 
---  Here's an attempt at defining an evaluation function for
---  commands (with a bogus `while` case).
+-- Here's an attempt at defining an evaluation function for
+-- commands (with a bogus `while` case).
 
 def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
   match c with
@@ -555,62 +613,78 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
       else ceval_fun_no_while st c2
   | imp {while (~_) {~_}} => st     -- bogus
 
---  A nonterminating
---  `def loop_false (n) : False := loop_false n` would make
---  `False` provable, so Lean rejects it.
+-- Note to developers:
+--     Perhaps that discussion should be moved to -- or
+--     previewed in -- Logic.v? MRC'20: It's already in
+--     ProofObjects (which not everyone sees).
 
---  ### Evaluation as a Relation
+-- A nonterminating
+-- `def loop_false (n) : False := loop_false n` would make
+-- `False` provable, so Lean rejects it.
 
---  Here's a better way: define `ceval` as a *relation*
---  rather than a *function* -- i.e., make its result a
---  `Prop` rather than a `State`, similar to what we did for
---  `Aexp.EvalR` above.
+-- ### Evaluation as a Relation
 
---  We'll use the notation `st =[ c ]=> st'` for the
---  `Com.EvalR` relation: `st =[ c ]=> st'` means that
---  executing program `c` in a starting state `st` results
---  in an ending state `st'`. This can be pronounced "`c`
---  takes state `st` to `st'`".
+-- Here's a better way: define `ceval` as a *relation* rather
+-- than a *function* -- i.e., make its result a `Prop` rather
+-- than a `State`, similar to what we did for `Aexp.EvalR`
+-- above.
 
---  Operational Semantics
+-- Note to developers (Michael Hicks @mwhicks1):
+--     I kind of hate this notation. Is there something more
+--     standard in Lean? CSLib precedent maybe?
 
---  Here is an informal definition of evaluation, presented
---  as inference rules for readability:
+-- We'll use the notation `st =[ c ]=> st'` for the `Com.EvalR`
+-- relation: `st =[ c ]=> st'` means that executing program `c`
+-- in a starting state `st` results in an ending state `st'`.
+-- This can be pronounced "`c` takes state `st` to `st'`".
 
---                          -----------------                  (skip)
---                          st =[ skip ]=> st
+-- Operational Semantics
 
---                          a.eval st = n
---                  --------------------------------           (asgn)
---                  st =[ x := a ]=> (x →ₜ n ; st)
+-- Note to developers (before next release):
+--     BCP 21: I wonder if `seq` would be easier to work with
+--     if st' and st'' were swapped...
 
---                          st  =[ c1 ]=> st'
---                          st' =[ c2 ]=> st''
---                        ---------------------                (seq)
---                        st =[ c1;c2 ]=> st''
+-- Here is an informal definition of evaluation, presented as
+-- inference rules for readability:
 
---                         b.eval st = true
---                          st =[ c1 ]=> st'
---               --------------------------------------        (ifTrue)
---               st =[ if b then c1 else c2 end ]=> st'
+--                         -----------------                  (skip)
+--                         st =[ skip ]=> st
 
---                        b.eval st = false
---                          st =[ c2 ]=> st'
---               --------------------------------------        (ifFalse)
---               st =[ if b then c1 else c2 end ]=> st'
+--                         a.eval st = n
+--                 --------------------------------           (asgn)
+--                 st =[ x := a ]=> (x →ₜ n ; st)
 
---                        b.eval st = false
---                   -----------------------------             (whileFalse)
---                   st =[ while b do c end ]=> st
+--                         st  =[ c1 ]=> st'
+--                         st' =[ c2 ]=> st''
+--                       ---------------------                (seq)
+--                       st =[ c1;c2 ]=> st''
 
---                         b.eval st = true
---                          st =[ c ]=> st'
---                 st' =[ while b do c end ]=> st''
---                 --------------------------------            (whileTrue)
---                 st  =[ while b do c end ]=> st''
+--                        b.eval st = true
+--                         st =[ c1 ]=> st'
+--              --------------------------------------        (ifTrue)
+--              st =[ if b then c1 else c2 end ]=> st'
 
---  Here is the formal definition. Make sure you understand
---  how it corresponds to the inference rules.
+--                       b.eval st = false
+--                         st =[ c2 ]=> st'
+--              --------------------------------------        (ifFalse)
+--              st =[ if b then c1 else c2 end ]=> st'
+
+--                       b.eval st = false
+--                  -----------------------------             (whileFalse)
+--                  st =[ while b do c end ]=> st
+
+--                        b.eval st = true
+--                         st =[ c ]=> st'
+--                st' =[ while b do c end ]=> st''
+--                --------------------------------            (whileTrue)
+--                st  =[ while b do c end ]=> st''
+
+-- Here is the formal definition. Make sure you understand how
+-- it corresponds to the inference rules.
+
+-- Note to developers (Chris Henson @chenson2018):
+--     TODO Propose you use inline notation such as
+--     `Com.EvalR (imp {skip;}) st st`
 
 inductive Com.EvalR : Com → State → State → Prop where
   | skip {st : State} : EvalR (imp {skip}) st st
@@ -629,6 +703,11 @@ inductive Com.EvalR : Com → State → State → Prop where
   | whileTrue {st st' st'' : State} {b : Bexp} {c : Com} (hb : b.eval st = true)
       (hc : EvalR c st st') (hloop : Com.EvalR (imp {while (~b) {~c}}) st' st'') :
       EvalR (imp {while (~b) {~c}}) st st''
+
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Setting `In` and `Out` as `outParam`s is a hack to
+--     resolve various typeclass synthesis problems or at least
+--     I can't explain why it works.
 
 class HasEval (Com : Type) (In : outParam <| Type) (Out : outParam <| Type) where
   Eval : Com → In → Out → Prop
@@ -654,10 +733,35 @@ def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
   | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
   | _ => throw ()
 
---  The cost of defining evaluation as a relation instead of
---  a function is that we now need to construct a *proof*
---  that some program evaluates to some result state, rather
---  than letting Lean's computation mechanism do it for us.
+-- Note to developers (Niklas Halonen @xhalo32):
+--     Currently in Hoare.lean the info view in
+--
+--     `theorem hoare_skip (P : Assertion) :
+--         {{ P }} skip {{ P }} := by
+--       intro st st' h hp`
+--
+--     displays
+--
+--     `P : Assertion
+--     st st' : State
+--     h : st =[
+--       imp {
+--         skip
+--       } ]=>
+--       st'
+--     hst : P st
+--     ⊢ P st'`
+--
+--     but we would like it to display
+--     `h : st =[ skip ]=> st'`.
+--
+--     This issue is also relevant for other `EvalR` present in
+--     Hoare.lean.
+
+-- The cost of defining evaluation as a relation instead of a
+-- function is that we now need to construct a *proof* that
+-- some program evaluates to some result state, rather than
+-- letting Lean's computation mechanism do it for us.
 
 example :
     ∅ =[
@@ -675,7 +779,7 @@ example :
     · rfl
     · apply Com.EvalR.asgn; rfl
 
---  ### Exercise (2 stars): ceval_example2 ⭐⭐
+-- ### Exercise (2 stars): ceval_example2 ⭐⭐
 
 example :
     ∅ =[
@@ -685,65 +789,71 @@ example :
     ]=> (Z →ₜ 2 ; Y →ₜ 1 ; X →ₜ 0 ; ∅) := by
   sorry
 
---  What sorts of things might we want to prove using these
---  definitions? Here are some simple examples...
+-- What sorts of things might we want to prove using these
+-- definitions? Here are some simple examples...
 
---  _Quiz:_
+-- Note to developers:
+--     PR: I phrased these quizzes with the following
+--     alternatives: (A) Not true (B) True and easily provable
+--     (C) True and takes more work to prove (D) True and
+--     cannot be proved without additional axioms
 
---  Is the following proposition provable?
+-- _Quiz:_
 
---    ∀ (c : Com) (st st' : State),
---      st =[ skip; ~c ]=> st' →
---      st =[ c ]=> st'
+-- Is the following proposition provable?
 
---  (A) Yes (B) No (C) Not sure
+--   ∀ (c : Com) (st st' : State),
+--     st =[ skip; ~c ]=> st' →
+--     st =[ c ]=> st'
 
---  _Quiz:_
+-- (A) Yes (B) No (C) Not sure
 
---  Is the following proposition provable?
+-- _Quiz:_
 
---    ∀ (c1 c2 : Com) (st st' : State),
---      st =[ ~c1 ~c2 ]=> st' →
---      st =[ c1 ]=> st →
---      st =[ c2 ]=> st'
+-- Is the following proposition provable?
 
---  (A) Yes (B) No (C) Not sure
+--   ∀ (c1 c2 : Com) (st st' : State),
+--     st =[ ~c1 ~c2 ]=> st' →
+--     st =[ c1 ]=> st →
+--     st =[ c2 ]=> st'
 
---  _Quiz:_
+-- (A) Yes (B) No (C) Not sure
 
---  Is the following proposition provable?
+-- _Quiz:_
 
---    ∀ (b : Bexp) (c : Com) (st st' : State),
---      st =[ if (~b) { ~c } else { ~c } ]=> st' →
---      st =[ c ]=> st'
+-- Is the following proposition provable?
 
---  (A) Yes (B) No (C) Not sure
+--   ∀ (b : Bexp) (c : Com) (st st' : State),
+--     st =[ if (~b) { ~c } else { ~c } ]=> st' →
+--     st =[ c ]=> st'
 
---  _Quiz:_
+-- (A) Yes (B) No (C) Not sure
 
---  Is the following proposition provable?
+-- _Quiz:_
 
---    ∀ (b : Bexp),
---      (∀ st, b.eval st = true) →
---      ∀ (c : Com) (st : State),
---      ¬ ∃ st', st =[ while (~b) { ~c } ]=> st'
+-- Is the following proposition provable?
 
---  (A) Yes (B) No (C) Not sure
+--   ∀ (b : Bexp),
+--     (∀ st, b.eval st = true) →
+--     ∀ (c : Com) (st : State),
+--     ¬ ∃ st', st =[ while (~b) { ~c } ]=> st'
 
---  _Quiz:_
+-- (A) Yes (B) No (C) Not sure
 
---  Is the following proposition provable?
+-- _Quiz:_
 
---    ∀ (b : Bexp) (c : Com) (st : State),
---      (¬ ∃ st', st =[ while (~b) { ~c } ]=> st') →
---      ∀ st'', b.eval st'' = true
+-- Is the following proposition provable?
 
---  (A) Yes (B) No (C) Not sure
+--   ∀ (b : Bexp) (c : Com) (st : State),
+--     (¬ ∃ st', st =[ while (~b) { ~c } ]=> st') →
+--     ∀ st'', b.eval st'' = true
 
---  ### Determinism of Evaluation
+-- (A) Yes (B) No (C) Not sure
 
---  Finally, we should pause to check that our evaluation
---  relation really is a (partial) function...
+-- ### Determinism of Evaluation
+
+-- Finally, we should pause to check that our evaluation
+-- relation really is a (partial) function...
 
 theorem ceval_deterministic (c : Com) (st st1 st2 : State)
     (e1 : st =[ c ]=> st1) (e2 : st =[ c ]=> st2) : st1 = st2 := by
@@ -780,14 +890,13 @@ theorem ceval_deterministic (c : Com) (st st1 st2 : State)
           subst hst
           exact ih2 _ hl'
 
---  ### Exercise (3 stars): pup_to_n (Optional) ⭐⭐⭐
+-- ### Exercise (3 stars): pup_to_n ⭐⭐⭐
 
---  Write an Imp program that sums the numbers from `1` to
---  `X` (inclusive) in the variable `Y`. Your program should
---  update the state as shown in `pup_to_2_ceval`, which you
---  can reverse-engineer to discover the program you should
---  write. The proof of that theorem will be somewhat
---  lengthy.
+-- Write an Imp program that sums the numbers from `1` to `X`
+-- (inclusive) in the variable `Y`. Your program should update
+-- the state as shown in `pup_to_2_ceval`, which you can
+-- reverse-engineer to discover the program you should write.
+-- The proof of that theorem will be somewhat lengthy.
 
 def pup_to_n : Com := sorry
 
@@ -796,7 +905,7 @@ theorem pup_to_2_ceval :
       (X →ₜ 0 ; Y →ₜ 3 ; X →ₜ 1 ; Y →ₜ 2 ; Y →ₜ 0 ; X →ₜ 2 ; ∅) := by
   sorry
 
---  ## Reasoning About Imp Programs
+-- ## Reasoning About Imp Programs
 
 theorem plus2_spec (st : State) (n : Nat) (st' : State)
     (hx : st[X] = n) (heval : st =[ plus2 ]=> st') :
@@ -810,29 +919,34 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
       rw [TotalMap.update_eq]
       lia
 
---  ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
+-- ### Exercise (3 stars): XtimesYinZ_spec ⭐⭐⭐
 
---  State and prove a specification of `XtimesYinZ`.
+-- State and prove a specification of `XtimesYinZ`.
 
 -- FILL IN HERE
 
---  ### Exercise (3 stars): loop_never_stops ⭐⭐⭐
+-- Note to developers (Niklas Halonen @xhalo32):
+--     We should use the `generalize` tactic here instead of
+--     `have key`. I've changed some Hoare proofs from
+--     `have key` to `generalize` but the tactic hasn't been
+--     explained yet.
 
---  Hint: proceed by induction on the assumed derivation
---  showing that `loop` terminates. Most of the cases are
---  immediately contradictory and so can be solved in one
---  step (by `simp`/`discriminate` on the impossible command
---  equation).
+-- ### Exercise (3 stars): loop_never_stops ⭐⭐⭐
+
+-- Hint: proceed by induction on the assumed derivation showing
+-- that `loop` terminates. Most of the cases are immediately
+-- contradictory and so can be solved in one step (by
+-- `simp`/`discriminate` on the impossible command equation).
 
 theorem loop_never_stops (st st' : State) : ¬ (st =[ loop ]=> st') := by
   sorry
 
---  ### Exercise (3 stars): no_whiles_eqv ⭐⭐⭐
+-- ### Exercise (3 stars): no_whiles_eqv ⭐⭐⭐
 
---  The following function yields `true` just on programs
---  with no while loops. Using `inductive`, write a property
---  `Com.NoWhilesR` that holds exactly when `c` is
---  while-free, then prove it equivalent to `Com.no_whiles`.
+-- The following function yields `true` just on programs with
+-- no while loops. Using `inductive`, write a property
+-- `Com.NoWhilesR` that holds exactly when `c` is while-free,
+-- then prove it equivalent to `Com.no_whiles`.
 
 def Com.no_whiles (c : Com) : Bool :=
   match c with
@@ -848,19 +962,64 @@ inductive Com.NoWhilesR : Com → Prop where
 theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
   sorry
 
---  ### Exercise (4 stars): no_whiles_terminating ⭐⭐⭐⭐
+-- ### Exercise (4 stars): no_whiles_terminating ⭐⭐⭐⭐
 
---  Imp programs that don't involve while loops always
---  terminate. State and prove a theorem
---  `no_whiles_terminating` that says this. Use either
---  `Com.no_whiles` or `Com.NoWhilesR`, as you prefer.
+-- Imp programs that don't involve while loops always
+-- terminate. State and prove a theorem `no_whiles_terminating`
+-- that says this. Use either `Com.no_whiles` or
+-- `Com.NoWhilesR`, as you prefer.
 
 theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
     ∃ st', st =[ c ]=> st' := by
   sorry
 
---  And here is an alternative solution by induction on `c`
---  (using `Com.no_whiles` instead of `Com.NoWhilesR`):
+-- And here is an alternative solution by induction on `c`
+-- (using `Com.no_whiles` instead of `Com.NoWhilesR`):
 
 -- FILL IN HERE
+
+-- Note to developers (Michael Hicks @mwhicks1):
+--     `NOT PORTED YET — remaining sections of sfdev/lf/Imp.v to port:
+--       - Case Study (Optional), Imp.v:2774
+--           * subtract_slowly_spec (EX4?, Imp.v:2919): loop-invariant style proof
+--             about `subtract_slowly`.
+--       - Additional Exercises, Imp.v:2986
+--           * stack_compiler (EX3, Imp.v:2988): define `s_execute` (stack machine)
+--             and `s_compile : aexp -> list sinstr`; needs a `SInstr` inductive
+--             (SPush/SLoad/SPlus/SMinus/SMult) and a list-based stack.
+--           * execute_app (EX3, Imp.v:3114)
+--           * stack_compiler_correct (EX3, Imp.v:3134): the correctness theorem;
+--             the standard proof needs a strengthened lemma over an arbitrary
+--             initial stack (generalize the stack before inducting).
+--           * short_circuit (EX3?, Imp.v:3184): short-circuiting `Bexp.eval`.
+--           * break_imp (EX4?, Imp.v:3227): extends Com with `CBreak`; new
+--             relational semantics `ceval` carrying a `result` (SContinue/SBreak).
+--             Large. See verso-book branch (lf/Imp.lean ~line 1141, CEvalBreak) for
+--             a prior take on the signal type.
+--           * while_break_true (EX3A?, Imp.v:3454)
+--           * ceval_deterministic for break (EX4A?, Imp.v:3477)
+--           * exn_imp (EX4A?, Imp.v:3524): exceptions variant. Large.
+--           * add_for_loop (EX4?, Imp.v:3728): add a C-style `for` loop to Com,
+--             its notation, and extend ceval.`
+
+-- Note to developers:
+--     `HTML polish — deferred Verso-markup opportunities for a later pass (see
+--     CONTRIBUTING.md, "Verso markup for nicer HTML"):
+--     * {name} was applied to resolvable declaration references in visible prose.
+--       More could be added, but bare type names were linked only selectively (avoid
+--       over-linking; mind forward references and namespace scope — a name must
+--       already be defined and in scope at that point in the document, or {name} fails
+--       to build).
+--     * {ref "tag"} cross-references link "see the X section" phrasings; add a
+--       `%%% tag := "…" %%%` block under a heading to make it a target. Done for the
+--       Notations and Delaborators sections; more internal "above/below" phrasings
+--       could get the same treatment.
+--     * {tactic}`simp` — link tactic names in the automation/tactics prose (`try`,
+--       `repeat`, `<;>`, `simp`, `lia`, `cases`, `induction`).
+--     * {deftech}/{tech} — a small glossary: define Imp's core terms once with
+--       {deftech} (abstract syntax, state, big-step, relation, partial function, …)
+--       and link later uses with {tech}.
+--     * {lean}`expr` — inline elaborated expressions/types where a whole expression,
+--       not just a single name, reads better with hover types (e.g. the
+--       `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 
