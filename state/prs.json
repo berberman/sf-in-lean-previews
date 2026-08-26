@@ -211,11 +211,48 @@
     },
     "303": {
       "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "66999db5c26fc10e8efa8d4f131446afdd02a763",
       "preview_path": "pr/303/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32992033205",
+      "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
@@ -322,6 +359,16 @@
       "status": "published",
       "title": "`nth?` characterizing lemmas and `list_ext` exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/319"
+    },
+    "320": {
+      "base_sha": "ef120ff8347628fd2f042fb7be11a5e71d80bbe2",
+      "changed_variants": [],
+      "head_sha": "0a58e0b62f73d5e3b57dad703e31e5f4832fda8d",
+      "preview_path": "pr/320/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Quick pass over Typeclasses",
+      "url": "https://github.com/plclub/sf-in-lean/pull/320"
     }
   },
   "schema": 3
