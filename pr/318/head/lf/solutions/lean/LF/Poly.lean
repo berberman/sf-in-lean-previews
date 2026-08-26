@@ -434,18 +434,16 @@ theorem append_assoc {α : Type} {l₁ l₂ l₃ : List α} :
   induction l₁ with
   | nil => rw [List.nil_append, List.nil_append]
   | cons _ _ ih =>
-    dsimp [List.cons_append]
+    repeat rw [List.cons_append]
     rw [ih]
 
 theorem append_length {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
   induction l₁ with
   | nil =>
-    dsimp [List.nil_append, append_nil]
-    rw [Nat.zero_add]
+    rw [List.nil_append, List.length_nil, Nat.zero_add]
   | cons _ _ ih =>
-    dsimp [List.cons_append, List.length_cons]
-    rw [Nat.succ_add, ih]
+    rw [List.length_cons, List.cons_append, List.length_cons, Nat.succ_add, ih]
 
 --  ### Exercise (2 stars): more_poly_exercises ⭐⭐
 
@@ -455,11 +453,9 @@ theorem reverse_append {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev := by
   induction l₁ with
   | nil =>
-    dsimp [List.nil_append]
-    rw [rev_nil, append_nil]
+    rw [List.nil_append, rev_nil, append_nil]
   | cons _ _ ih =>
-    dsimp [List.cons_append]
-    rw [rev_cons, rev_cons, ih, append_assoc]
+    rw [List.cons_append, rev_cons, rev_cons, ih, append_assoc]
 
 theorem reverse_reverse {α : Type} (l : List α) :
     l.rev.rev = l := by
@@ -467,7 +463,7 @@ theorem reverse_reverse {α : Type} (l : List α) :
   | nil => rw [rev_nil, rev_nil]
   | cons _ _ ih =>
     rw [rev_cons, reverse_append, ih, rev_cons, rev_nil]
-    dsimp [List.nil_append, List.cons_append]
+    rw [List.nil_append, List.cons_append, List.nil_append]
 
 --  ### Polymorphic Pairs
 
@@ -502,6 +498,9 @@ example : (3, 5).2 = 5 := by rfl
 --  Lean writes the product type `Prod α β` as `α × β`. In VS Code you can
 --  type `\times` or `\x` to enter the `×` symbol.
 
+--  The `dsimp only` tactic can be used to simplify `(x, y).fst` into `x`
+--  and `(x, y).snd` into `y`.
+
 --  It is easy at first to get `(x, y)` and `α × β` confused. Remember that
 --  `(x, y)` is a *value* built from two other values, while `α × β` is a
 --  *type* built from two other types. If `x` has type `α` and `y` has type
@@ -512,18 +511,30 @@ example : (3, 5).2 = 5 := by rfl
 
 def zip {α β : Type} (l₁ : List α) (l₂ : List β) : List (α × β) :=
   match l₁, l₂ with
-  | [], _ => []
-  | _, [] => []
+  | [], [] => []
+  | _ :: _, [] => []
+  | [], _ :: _ => []
   | x :: l₁', y :: l₂' => (x, y) :: zip l₁' l₂'
 
-theorem zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = ([] : List (α × β)) := by rfl
-
 theorem zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = ([] : List (α × β)) := by
-   cases l₁ <;> rfl
+  cases l₁ with
+  | nil => rfl
+  | cons h t => rfl
+
+theorem zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = ([] : List (α × β)) := by
+  cases l₂ <;> rfl
+
 theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : List β} :
    zip (x :: l₁) (y :: l₂) = (x, y) :: zip l₁ l₂ := by rfl
 
---  ### Exercise (1 star): zip_checks (Optional) ⭐
+--  Notice that the simplification lemmas `zip_nil_left` and
+--  `zip_nil_right` are not proofs by `rfl`. The reason is that `l₁` and
+--  `l₂` are variables, and matching on a variable usually gets stuck, like
+--  we have seen before in Induction when proving the `zero_add` theorem.
+--  To overcome this, we destruct the list so that the `match` knows which
+--  branch to take during the computation done by the `rfl` tactic.
+
+--  ### Exercise (1 star): zip_checks (Optional, manually graded) ⭐
 
 --  Try answering the following questions on paper and checking your
 --  answers in Lean:
@@ -536,14 +547,17 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 
 --    print?
 
---  ### Exercise (2 stars): unzip ⭐⭐
+--  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
 
 --  The function `unzip` goes in the other direction from `zip`: it takes a
 --  list of pairs and returns a pair of lists.
 
---  Fill in the definition of `unzip` below. Make sure it that passes the
---  given unit test, and that you can prove the simplification rules about
---  it.
+--  Fill in the definition of `unzip` below and write simplification rules
+--  that characterize it. Make sure it that passes the given unit test.
+--  Prove `unzip_test_fst` and `unzip_test_snd` by rewriting with your
+--  simplification lemmas instead of using `rfl` directly. Remember that
+--  you can use `dsimp only` to simplify expressions accessing the `fst` or
+--  `snd` elements of a pair.
 
 def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := (
   match l with
@@ -552,15 +566,42 @@ def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := 
     let (l₁, l₂) := unzip l'
     (x :: l₁, y :: l₂))
 
-theorem unzip_nil {α β : Type} : unzip [] = (([], []) : List α × List β) := (by rfl)
+-- This is a must have. One has to explicitly specify the types of the empty lists, which
+-- can be done in two equivalent ways
+theorem unzip_nil {α β : Type} : unzip [] = (([], []) : List α × List β) := by
+  rfl
+theorem unzip_nil' {α β : Type} : unzip ([] : List (α × β)) = ([], []) := by
+  rfl
 
+-- To characterize the cons branch, we can introduce a single `unzip_cons`...
+theorem unzip_cons {α β : Type} {x : α} {y : β} {l : List (α × β)} :
+    (unzip ((x, y) :: l)) = (x :: (unzip l).fst, y :: (unzip l).snd) := by
+    rfl
+
+-- ... or introduce lemmas `unzip_cons_fst/snd` which individually give both sides of `unzip_cons`
 theorem unzip_cons_fst {α β : Type} {x : α} {y : β} {l : List (α × β)} :
-   (unzip ((x, y) :: l)).fst = x :: (unzip l).fst := (by rfl)
+    (unzip ((x, y) :: l)).fst = x :: (unzip l).fst := by
+    rfl
 
 theorem unzip_cons_snd {α β : Type} {x : α} {y : β} {l : List (α × β)} :
-   (unzip ((x, y) :: l)).snd = y :: (unzip l).snd := (by rfl)
+    (unzip ((x, y) :: l)).snd = y :: (unzip l).snd := by
+    rfl
 
-theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := (by rfl)
+theorem unzip_test1 : unzip [(1, false), (2, true)] = ([1, 2], [false, true]) := by
+  rfl
+
+theorem unzip_test_fst : (unzip [(1, false), (2, true)]).fst = [1, 2] := by
+  rw [unzip_cons_fst, unzip_cons_fst, unzip_nil]
+
+theorem unzip_test_snd : (unzip [(1, false), (2, true)]).snd = [false, true] := by
+  · rw [unzip_cons_snd, unzip_cons_snd, unzip_nil]
+
+-- These are the same tests but with `unzip_cons` instead
+theorem unzip_test_fst' : (unzip [(1, false), (2, true)]).fst = [1, 2] := by
+  rw [unzip_cons, unzip_cons, unzip_nil]
+
+theorem unzip_test_snd' : (unzip [(1, false), (2, true)]).snd = [false, true] := by
+  rw [unzip_cons, unzip_cons, unzip_nil]
 
 --  ### Polymorphic Options
 
@@ -671,24 +712,19 @@ theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by 
 theorem filter_cons_of_pos {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = true) :
     filter test (x :: l) = x :: filter test l := by
-  dsimp [filter]
-  rw [h]
-  dsimp
+  rw [filter, h, cond_true]
 
 theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = false) :
     filter test (x :: l) = filter test l := by
-   dsimp [filter]
-   rw [h]
-   dsimp
+   rw [filter, h, cond_false]
 
 --  You might have noticed that `filter_cons_of_pos` and
 --  `filter_cons_of_neg` have implicit parameters, such as `head` and
 --  `tail`, that do not have type `Type` like `α` does. As it turns out,
 --  Lean allows *any* parameter to be implicit, not just those of type
 --  `Type`. This is a standard Lean convention for lemmas that are likely
---  to be used by `rw` or `dsimp` when their values can be inferred by
---  unification.
+--  to be used by `rw` when their values can be inferred by unification.
 
 --  For example, suppose you were using this theorem to rewrite
 --  `filter Nat.even (3 :: rest)`. Matching that expression against the
@@ -1043,17 +1079,16 @@ example : foldLength [4, 7, 0] = 3 := by rfl
 
 --  Prove the correctness of `foldLength`.
 
---  Hint: It may help to use `dsimp [foldLength, fold]` to unfold the
+--  Hint: It may help to use `rw [foldLength, fold]` to unfold the
 --  definition.
 
 theorem fold_length_correct {α : Type} {l : List α} :
     foldLength l = l.length := by
   induction l with
   | nil =>
-    dsimp only [foldLength]
-    rw [fold_nil, List.length_nil]
+    rw [foldLength, fold_nil, List.length_nil]
   | cons _ _ ih =>
-    dsimp only [foldLength] at *
+    rw [foldLength] at *
     rw [List.length_cons, fold_cons, ih]
 
 --  ### Exercise (3 stars): fold_map (manually graded) ⭐⭐⭐
@@ -1074,10 +1109,9 @@ theorem fold_map_correct {α : Type} {β : Type} {f : α → β} {l : List α} :
     foldMap f l = map f l := by
   induction l with
   | nil =>
-    dsimp only [foldMap]
-    rw [fold_nil, map_nil]
+    rw [foldMap, fold_nil, map_nil]
   | cons _ _ ih =>
-    dsimp only [foldMap] at *
+    rw [foldMap] at *
     rw [fold_cons, map_cons, ih]
 
 --  ### Exercise (2 stars): currying (Advanced) ⭐⭐

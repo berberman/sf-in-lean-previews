@@ -368,24 +368,41 @@ example : (3, 5).2 = 5 := by rfl
 --  VS Code you can type `\times` or `\x` to enter the `×`
 --  symbol.
 
+--  The `dsimp only` tactic can be used to simplify
+--  `(x, y).fst` into `x` and `(x, y).snd` into `y`.
+
 --  Be careful not to get `(x, y)` and `α × β` confused!
 
 --  What does this function do?
 
 def zip {α β : Type} (l₁ : List α) (l₂ : List β) : List (α × β) :=
   match l₁, l₂ with
-  | [], _ => []
-  | _, [] => []
+  | [], [] => []
+  | _ :: _, [] => []
+  | [], _ :: _ => []
   | x :: l₁', y :: l₂' => (x, y) :: zip l₁' l₂'
 
-theorem zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = ([] : List (α × β)) := by rfl
-
 theorem zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = ([] : List (α × β)) := by
-   cases l₁ <;> rfl
+  cases l₁ with
+  | nil => rfl
+  | cons h t => rfl
+
+theorem zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = ([] : List (α × β)) := by
+  cases l₂ <;> rfl
+
 theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : List β} :
    zip (x :: l₁) (y :: l₂) = (x, y) :: zip l₁ l₂ := by rfl
 
---  ### Exercise (1 star): zip_checks (Optional) ⭐
+--  Notice that the simplification lemmas `zip_nil_left` and
+--  `zip_nil_right` are not proofs by `rfl`. The reason is
+--  that `l₁` and `l₂` are variables, and matching on a
+--  variable usually gets stuck, like we have seen before in
+--  Induction when proving the `zero_add` theorem. To
+--  overcome this, we destruct the list so that the `match`
+--  knows which branch to take during the computation done
+--  by the `rfl` tactic.
+
+--  ### Exercise (1 star): zip_checks (Optional, manually graded) ⭐
 
 --  Try answering the following questions on paper and
 --  checking your answers in Lean:
@@ -399,27 +416,31 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 
 --    print?
 
---  ### Exercise (2 stars): unzip ⭐⭐
+--  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
 
 --  The function `unzip` goes in the other direction from
 --  `zip`: it takes a list of pairs and returns a pair of
 --  lists.
 
---  Fill in the definition of `unzip` below. Make sure it
---  that passes the given unit test, and that you can prove
---  the simplification rules about it.
+--  Fill in the definition of `unzip` below and write
+--  simplification rules that characterize it. Make sure it
+--  that passes the given unit test. Prove `unzip_test_fst`
+--  and `unzip_test_snd` by rewriting with your
+--  simplification lemmas instead of using `rfl` directly.
+--  Remember that you can use `dsimp only` to simplify
+--  expressions accessing the `fst` or `snd` elements of a
+--  pair.
 
 def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := sorry
 
-theorem unzip_nil {α β : Type} : unzip [] = (([], []) : List α × List β) := sorry
+theorem unzip_test1 : unzip [(1, false), (2, true)] = ([1, 2], [false, true]) := by
+  sorry
 
-theorem unzip_cons_fst {α β : Type} {x : α} {y : β} {l : List (α × β)} :
-   (unzip ((x, y) :: l)).fst = x :: (unzip l).fst := sorry
+theorem unzip_test_fst : (unzip [(1, false), (2, true)]).fst = [1, 2] := by
+  sorry
 
-theorem unzip_cons_snd {α β : Type} {x : α} {y : β} {l : List (α × β)} :
-   (unzip ((x, y) :: l)).snd = y :: (unzip l).snd := sorry
-
-theorem unzip_test1 : unzip [(1, false), (2, false)] = ([1, 2], [false, false]) := sorry
+theorem unzip_test_snd : (unzip [(1, false), (2, true)]).snd = [false, true] := by
+  sorry
 
 --  ### Polymorphic Options
 
@@ -483,16 +504,12 @@ theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by 
 theorem filter_cons_of_pos {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = true) :
     filter test (x :: l) = x :: filter test l := by
-  dsimp [filter]
-  rw [h]
-  dsimp
+  rw [filter, h, cond_true]
 
 theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = false) :
     filter test (x :: l) = filter test l := by
-   dsimp [filter]
-   rw [h]
-   dsimp
+   rw [filter, h, cond_false]
 
 --  Note that `head` and `tail` are implicit too, following
 --  a general convention: any argument an equation's shape

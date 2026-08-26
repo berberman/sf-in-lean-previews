@@ -91,6 +91,63 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--Definitional-Simplification":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--Definitional-Simplification",
+     "data":
+     {"title": "Definitional Simplification",
+      "shortTitle": null,
+      "sectionNum": "4.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Unfolding definitions with  rw",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Definitional Simplification",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--A-First-Step-Towards-Automation":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--A-First-Step-Towards-Automation",
+     "data":
+     {"title": "A First Step Towards Automation",
+      "shortTitle": null,
+      "sectionNum": "4.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Unfolding definitions with  rw",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "A First Step Towards Automation",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw",
+     "data":
+     {"title": "Unfolding definitions with  rw",
+      "shortTitle": null,
+      "sectionNum": "4.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Unfolding definitions with  rw",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/UsingLean/"}],
    "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc":
    [{"id":
      "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc",
@@ -161,43 +218,6 @@
        {"title": "More Powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation",
-     "data":
-     {"title": "A New Step Towards Automation",
-      "shortTitle": null,
-      "sectionNum": "4.4.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Definitional Simplification:  dsimp",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "A New Step Towards Automation",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp",
-     "data":
-     {"title": "Definitional Simplification:  dsimp",
-      "shortTitle": null,
-      "sectionNum": "4.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Definitional Simplification:  dsimp",
-        "shortTitle": null,
-        "number": "4"}]},
      "address": "/UsingLean/"}],
    "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses",
@@ -1179,6 +1199,25 @@
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
        {"title": "Propositional Extensionality",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles":
+   [{"id":
+     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles",
+     "data":
+     {"title": "Other Extensionality Principles",
+      "shortTitle": null,
+      "sectionNum": "8.8.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
+       {"title": "Functional Extensionality",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Other Extensionality Principles",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Logic/"}],
@@ -3069,11 +3108,66 @@
         "Review",
         "Additional Exercises"]}},
      "address": "/Tactics/"}],
+   "unzip_test_snd'":
+   [{"id": "unzip_test_snd___",
+     "data":
+     {"/Poly/#unzip_test_snd___":
+      {"display": "unzip_test_snd'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test_snd":
+   [{"id": "unzip_test_snd",
+     "data":
+     {"/Poly/#unzip_test_snd":
+      {"display": "unzip_test_snd",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test_fst'":
+   [{"id": "unzip_test_fst___",
+     "data":
+     {"/Poly/#unzip_test_fst___":
+      {"display": "unzip_test_fst'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test_fst":
+   [{"id": "unzip_test_fst",
+     "data":
+     {"/Poly/#unzip_test_fst":
+      {"display": "unzip_test_fst",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
    "unzip_test1":
    [{"id": "unzip_test1",
      "data":
      {"/Poly/#unzip_test1":
       {"display": "unzip_test1",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_nil'":
+   [{"id": "unzip_nil___",
+     "data":
+     {"/Poly/#unzip_nil___":
+      {"display": "unzip_nil'",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -3113,6 +3207,17 @@
         "Polymorphism",
         "Polymorphic Pairs"]}},
      "address": "/Poly/"}],
+   "unzip_cons":
+   [{"id": "unzip_cons",
+     "data":
+     {"/Poly/#unzip_cons":
+      {"display": "unzip_cons",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
    "unzip'":
    [{"id": "unzip___",
      "data":
@@ -3145,16 +3250,6 @@
         "Poly: Polymorphism and Higher-Order Functions",
         "Additional Exercises"]}},
      "address": "/Poly/"}],
-   "triple":
-   [{"id": "triple",
-     "data":
-     {"/UsingLean/#triple":
-      {"display": "triple",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Definitional Simplification:  dsimp"]}},
-     "address": "/UsingLean/"}],
    "trans_eq_exercise":
    [{"id": "trans_eq_exercise",
      "data":
@@ -3186,7 +3281,8 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "trRev":
    [{"id": "trRev",
@@ -3197,7 +3293,8 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "test_pos_of_filter_cons":
    [{"id": "test_pos_of_filter_cons",
@@ -3332,7 +3429,7 @@
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Definitional Simplification:  dsimp"]}},
+        "Unfolding definitions with  rw"]}},
      "address": "/UsingLean/"}],
    "simp_lemmas_example.add_zero":
    [{"id": "simp_lemmas_example___add_zero",
@@ -3440,6 +3537,16 @@
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
+   "rwUnfold":
+   [{"id": "rwUnfold",
+     "data":
+     {"/UsingLean/#rwUnfold":
+      {"display": "rwUnfold",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions with  rw"]}},
+     "address": "/UsingLean/"}],
    "right":
    [{"id": "right",
      "data":
@@ -3518,7 +3625,8 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend_nil":
    [{"id": "revAppend_nil",
@@ -3529,7 +3637,8 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend_cons":
    [{"id": "revAppend_cons",
@@ -3540,7 +3649,8 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend":
    [{"id": "revAppend",
@@ -3551,7 +3661,8 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "restricted_excluded_middle":
    [{"id": "restricted_excluded_middle",
@@ -4996,16 +5107,6 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "dsimp1":
-   [{"id": "dsimp1",
-     "data":
-     {"/UsingLean/#dsimp1":
-      {"display": "dsimp1",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Definitional Simplification:  dsimp"]}},
-     "address": "/UsingLean/"}],
    "double_neg":
    [{"id": "double_neg",
      "data":
@@ -5018,28 +5119,7 @@
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective-next-next",
-     "data":
-     {"/Tactics/#double_injective-next-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]}},
-     "address": "/Tactics/"},
-    {"id": "double_injective-next",
+   [{"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5061,6 +5141,27 @@
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
     {"id": "double_injective",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5751,6 +5852,26 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
+   "addTwice":
+   [{"id": "addTwice",
+     "data":
+     {"/UsingLean/#addTwice":
+      {"display": "addTwice",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions with  rw"]}},
+     "address": "/UsingLean/"}],
+   "addThrice":
+   [{"id": "addThrice",
+     "data":
+     {"/UsingLean/#addThrice":
+      {"display": "addThrice",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions with  rw"]}},
+     "address": "/UsingLean/"}],
    "WrongEv":
    [{"id": "WrongEv",
      "data":
@@ -6530,7 +6651,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq",
+   [{"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6539,7 +6660,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
+    {"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -12254,7 +12375,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -12265,7 +12386,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",

@@ -191,11 +191,48 @@
     },
     "293": {
       "base_sha": "ef120ff8347628fd2f042fb7be11a5e71d80bbe2",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "4aa55fc5b1f2140864ae9a4b1b3b5c9ffd6282ec",
       "preview_path": "pr/293/head/",
       "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32981261724",
-      "status": "ci-failed",
+      "status": "published",
       "title": "Improve elaboration performance",
       "url": "https://github.com/plclub/sf-in-lean/pull/293"
     },
@@ -268,11 +305,48 @@
     },
     "318": {
       "base_sha": "b9c57ab538c06dee4ab5444b85646b7d46921948",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "e1473fb9103c23fc737bca578583d0653f15abd2",
       "preview_path": "pr/318/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33020025445",
+      "status": "published",
       "title": "SFLMeta: support universe-specialized recall",
       "url": "https://github.com/plclub/sf-in-lean/pull/318"
     },
@@ -369,6 +443,16 @@
       "status": "published",
       "title": "Quick pass over Typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/320"
+    },
+    "323": {
+      "base_sha": "b9c57ab538c06dee4ab5444b85646b7d46921948",
+      "changed_variants": [],
+      "head_sha": "ba6bc3f18a661186e8a7b1b08480f688502a3c77",
+      "preview_path": "pr/323/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Make quiz options in Logic uniform",
+      "url": "https://github.com/plclub/sf-in-lean/pull/323"
     }
   },
   "schema": 3

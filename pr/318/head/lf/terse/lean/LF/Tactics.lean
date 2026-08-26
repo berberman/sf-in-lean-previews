@@ -487,11 +487,9 @@ example (n m p q : Nat)
 --  You can apply tactics in multiple places at the same
 --  time, including the goal:
 
-example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
-  Nat.ble (n, m).1 (n, m).2 := by
-  dsimp at h₁ h₂ ⊢
-  rw [h₁, h₂]
-  rfl
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
 
 --  ## Specializing Hypotheses
 
@@ -741,7 +739,7 @@ def chooseIf {α : Type} (test : α → Bool) (x y : α) : α :=
 
 theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
     chooseIf test x x = x := by
-  dsimp [chooseIf]
+  rw [chooseIf]
   cases test x <;> rfl
 
 --  ### Destructing Tuples
@@ -768,7 +766,9 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 def unzip' {α β : Type} (l : List (α × β)) : List α × List β := sorry
 
 --  Prove that `unzip'` and `zip` are inverses in the
---  following sense:
+--  following sense. Remember that you can use `dsimp only`
+--  to simplify expressions involving pairs and `fst` and
+--  `snd`.
 
 theorem zip_unzip' {α β : Type} (l : List (α × β))
     (l₁ : List α) (l₂ : List β)
@@ -794,7 +794,7 @@ def keepIf {α : Type} (test : α → Bool) (x : α) : Option α :=
 theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
     (h : keepIf test x = some y) :
     x = y := by
-  dsimp [keepIf] at h
+  rw [keepIf] at h
   cases hTest : test x
   -- Now we have the same state as at the point where we got stuck
   -- above, except that the context contains an extra equality
