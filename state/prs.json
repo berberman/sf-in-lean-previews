@@ -142,53 +142,6 @@
       "title": "Fix infinite regress in Imp delaborator",
       "url": "https://github.com/plclub/sf-in-lean/pull/256"
     },
-    "282": {
-      "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "c8b13522f82b08bde8e42be8f46310bc91ccd08c",
-      "preview_path": "pr/282/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32943173199",
-      "status": "published",
-      "title": "Add remaining exercises to Imp",
-      "url": "https://github.com/plclub/sf-in-lean/pull/282"
-    },
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
       "changed_variants": [
@@ -315,11 +268,48 @@
     },
     "311": {
       "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
-      "changed_variants": [],
-      "head_sha": "675e0ca818aae4724b7f8d2be634c15541e361c2",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "d301f0bbb32885bd80040344d134db8dffe1259f",
       "preview_path": "pr/311/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32954819448",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32967945318",
+      "status": "published",
       "title": "Poly: make `unzip` a manually graded exercise about char lemmas",
       "url": "https://github.com/plclub/sf-in-lean/pull/311"
     },
