@@ -322,6 +322,53 @@
       "status": "ci-failed",
       "title": "Poly: make `unzip` a manually graded exercise about char lemmas",
       "url": "https://github.com/plclub/sf-in-lean/pull/311"
+    },
+    "317": {
+      "base_sha": "389c7ff3348769f91d293709650ecba340c30a2d",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "d60e044c5f866608020050db10ae8da044b4791c",
+      "preview_path": "pr/317/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32913884720",
+      "status": "published",
+      "title": "move pp.fieldNotation into details blocks",
+      "url": "https://github.com/plclub/sf-in-lean/pull/317"
     }
   },
   "schema": 3
