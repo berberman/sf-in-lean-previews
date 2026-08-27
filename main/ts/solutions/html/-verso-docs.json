@@ -531,7 +531,7 @@
  "641": "<code>StackStep x y₂</code>",
  "640": "<code>StackStep x y₁</code>",
  "64":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "639": "<code>Prog × Stack</code>",
  "638": "<code>Slang.stack_step_deterministic : Deterministic StackStep</code>",
  "637":
@@ -605,7 +605,7 @@
  "590":
  "<code>Slang.anstep_preserves_eval (a a' : Aexp) (h : a ⟶n a') : a.eval = a'.eval</code>",
  "59":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "589":
  "<code>(Aexp.num 2).plus ((Aexp.num 2).plus (Aexp.num 2)) = ((Aexp.num 1).plus (Aexp.num 1)).plus (Aexp.num 4)</code>",
  "588":
@@ -873,7 +873,7 @@
  "411": "<code>t' ⇓ n</code>",
  "410": "<code>t ⟶ t'</code>",
  "41":
- "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval && b₂.eval)</code>",
+ "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval &amp;&amp; b₂.eval)</code>",
  "409":
  "<code>eval_of_step (t t' : Tm) (n : Nat) (hs : t ⟶ t') (he : t' ⇓ n) : t ⇓ n</code>",
  "408": "<code>t₂ ⇓ n₂</code>",
@@ -1238,7 +1238,7 @@
  "169": "<code>b₁✝ ⇓ b₁✝.eval</code>",
  "168": "<code>b✝ ⇓ b✝.eval</code>",
  "167":
- "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x && y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&&` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
+ "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x &amp;&amp; y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&amp;&amp;` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
  "166": "<code>b₂✝.eval = bv₂✝</code>",
  "165": "<code>b₁✝.eval = bv₁✝</code>",
  "164": "<code>b₂✝ ⇓ bv₂✝</code>",
@@ -1263,7 +1263,7 @@
  "152": "<code>EvalR b₂ bv₂</code>",
  "151": "<code>EvalR b₁ bv₁</code>",
  "150":
- "<code>Slang.Bexp.EvalR.and {b₁ b₂ : Bexp} {bv₁ bv₂ : Bool} (h₁ : b₁.EvalR bv₁) (h₂ : b₂.EvalR bv₂) :\n  (b₁.and b₂).EvalR (bv₁ && bv₂)</code>",
+ "<code>Slang.Bexp.EvalR.and {b₁ b₂ : Bexp} {bv₁ bv₂ : Bool} (h₁ : b₁.EvalR bv₁) (h₂ : b₂.EvalR bv₂) :\n  (b₁.and b₂).EvalR (bv₁ &amp;&amp; bv₂)</code>",
  "15": "<code>Slang.Bexp.neq (a₁ a₂ : Aexp) : Bexp</code>",
  "149": "<code>EvalR b bv</code>",
  "148":

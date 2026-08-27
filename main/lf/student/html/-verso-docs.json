@@ -374,7 +374,7 @@
  "740":
  "<code>zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : List β} : zip (x :: l₁) (y :: l₂) = (x, y) :: zip l₁ l₂</code>",
  "74":
- "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x && y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&&` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
+ "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x &amp;&amp; y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&amp;&amp;` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
  "739":
  "<code>zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = []</code>",
  "738": "<code>zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = []</code>",
@@ -484,7 +484,7 @@
  "672": "<code>Lists.MyId.beq (x₁ x₂ : MyId) : Bool</code>",
  "671": "<code>Lists.MyId.val (self : MyId) : Nat</code>",
  "670": "<code>Lists.MyId : Type</code>",
- "67": "<code>MyBool.true_and' (b : MyBool) : (true && b) = b</code>",
+ "67": "<code>MyBool.true_and' (b : MyBool) : (true &amp;&amp; b) = b</code>",
  "669":
  "<code>Lists.NatList.option_elim_head? (l : NatList) (default : Nat) : head default l = NatOption.elim default l.head?</code>",
  "668":
@@ -500,7 +500,8 @@
  "<code>Lists.NatList.NatOption.elim (d : Nat) (o : NatOption) : Nat</code>",
  "661": "<code>Lists.NatList.nth? (l : NatList) (n : Nat) : NatOption</code>",
  "660": "<code>Lists.NatOption.none : Lists.NatOption</code>",
- "66": "<code>MyBool.true_and_wrong (b : MyBool) : (true && b) = b</code>",
+ "66":
+ "<code>MyBool.true_and_wrong (b : MyBool) : (true &amp;&amp; b) = b</code>",
  "659": "<code>Lists.NatList.nthBad (l : Lists.NatList) (n : Nat) : Nat</code>",
  "658": "<code>Lists.NatOption.none : NatOption</code>",
  "657": "<code>Lists.NatOption.some (n : Nat) : NatOption</code>",
@@ -513,7 +514,8 @@
  "<code>Lists.NatList.reverse (l : Lists.NatList) : Lists.NatList</code>",
  "651": "<code>∀ (n : Nat), n = f (f n)</code>",
  "650": "<code>Nat → Nat</code>",
- "65": "<code>MyBool.true_and_explained (b : MyBool) : (true && b) = b</code>",
+ "65":
+ "<code>MyBool.true_and_explained (b : MyBool) : (true &amp;&amp; b) = b</code>",
  "649":
  "<code>Lists.NatList.involutive_injective (f : Nat → Nat) (hInv : ∀ (n : Nat), n = f (f n)) (n₁ n₂ : Nat) :\n  f n₁ = f n₂ → n₁ = n₂</code>",
  "648":
@@ -549,7 +551,7 @@
  "<code>Lists.NatList.reverse_involutive (l : NatList) : l.reverse.reverse = l</code>",
  "630":
  "<code>Lists.NatList.reverse_append (l₁ l₂ : NatList) : (l₁ ++ l₂).reverse = l₂.reverse ++ l₁.reverse</code>",
- "63": "<code>MyBool.true_and (b : MyBool) : (true && b) = b</code>",
+ "63": "<code>MyBool.true_and (b : MyBool) : (true &amp;&amp; b) = b</code>",
  "629": "<code>Lists.NatList.append_nil (l : NatList) : l ++ [] = l</code>",
  "628": "<code>(l₁' ++ l₂).length = l₁'.length + l₂.length</code>",
  "627":
@@ -781,7 +783,8 @@
  "492": "<code>Lists.NatProd'.snd (self : NatProd') : Nat</code>",
  "491": "<code>Lists.NatProd'.fst (self : NatProd') : Nat</code>",
  "490": "<code>Lists.NatProd' : Type</code>",
- "49": "<code><span class=\"literal string\">\" && \"</span> : String</code>",
+ "49":
+ "<code><span class=\"literal string\">\" &amp;&amp; \"</span> : String</code>",
  "489": "<code>Lists.fst_swap_is_snd (p : NatProd) : p.swap.fst = p.snd</code>",
  "488":
  "<code>Lists.snd_fst_is_swap (p : NatProd) : NatProd.pair p.snd p.fst = p.swap</code>",
@@ -819,7 +822,7 @@
  "463": "<code>Nat.odd (n : Nat) : Bool</code>",
  "462": "<code>Nat.even (n : Nat) : Bool</code>",
  "461":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "460": "<code>Nat.add_zero (n : Nat) : n + 0 = n</code>",
  "46":
  "<code class=\"docstring\">The standardized \"high\" priority `high = 10000`, for things that should be higher than default priority. </code>",
@@ -881,7 +884,7 @@
  "422":
  "<code>Nat.max_add_left_self {a b : Nat} : max a (b + a) = b + a</code>",
  "421":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "420":
  "<code>Nat.succ_add_sub_one (n m : Nat) : m.succ + n - 1 = m + n</code>",
  "42": "<code>MyBool.and (b1 b2 : MyBool) : MyBool</code>",
@@ -920,7 +923,7 @@
  "403":
  "<code>Nat.ext_div_mod_iff (n a b : Nat) : a = b ↔ a / n = b / n ∧ a % n = b % n</code>",
  "402":
- "<code>propext {a b : Prop} : (a ↔ b) → a = b</code><span class=\"sep\"></span><code class=\"docstring\">The [axiom](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=axioms) of **propositional extensionality**. It asserts that if\npropositions `a` and `b` are logically equivalent (that is, if `a` can be proved from `b` and vice\nversa), then `a` and `b` are *equal*, meaning `a` can be replaced with `b` in all contexts.\n\nThe standard logical connectives provably respect propositional extensionality. However, an axiom is\nneeded for higher order expressions like `P a` where `P : Prop → Prop` is unknown, as well as for\nequality. Propositional extensionality is intuitionistically valid.\n</code>",
+ "<code>propext {a b : Prop} : (a ↔ b) → a = b</code><span class=\"sep\"></span><code class=\"docstring\">The [axiom](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=axioms) of **propositional extensionality**. It asserts that if\npropositions `a` and `b` are logically equivalent (that is, if `a` can be proved from `b` and vice\nversa), then `a` and `b` are *equal*, meaning `a` can be replaced with `b` in all contexts.\n\nThe standard logical connectives provably respect propositional extensionality. However, an axiom is\nneeded for higher order expressions like `P a` where `P : Prop → Prop` is unknown, as well as for\nequality. Propositional extensionality is intuitionistically valid.\n</code>",
  "401":
  "<code>Nat.testBit (m n : Nat) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the `(n+1)`th least significant bit is `1`, or `false` if it is `0`.\n</code>",
  "400":
@@ -1017,9 +1020,9 @@
  "352":
  "<code>NatPlayground.Nat.right_distrib (n m p : Nat) : (n + m) * p = n * p + m * p</code>",
  "351":
- "<code>NatPlayground.Nat.all3_spec (b c : Bool) : (b && c || (!b || !c)) = true</code>",
+ "<code>NatPlayground.Nat.all3_spec (b c : Bool) : (b &amp;&amp; c || (!b || !c)) = true</code>",
  "350":
- "<code>NatPlayground.Nat.andb_false (b : Bool) : (b && false) = false</code>",
+ "<code>NatPlayground.Nat.andb_false (b : Bool) : (b &amp;&amp; false) = false</code>",
  "35":
  "<code>Bool : Type</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean values, `true` and `false`.\n\nLogically speaking, this is equivalent to `Prop` (the type of propositions). The distinction is\npublic important for programming: both propositions and their proofs are erased in the code generator,\nwhile `Bool` corresponds to the Boolean type in most programming languages and carries precisely one\nbit of run-time information.\n</code>",
  "349": "<code>NatPlayground.Nat.ble_refl (n : Nat) : ble n n = true</code>",
@@ -1191,7 +1194,7 @@
  "259": "<code>NatPlayground.Airport.BagContent.prohibited : BagContent</code>",
  "258": "<code>NatPlayground.Airport.BagContent : Type</code>",
  "257":
- "<code>NatPlayground.and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c</code>",
+ "<code>NatPlayground.and_eq_or (b c : Bool) : (b &amp;&amp; c) = (b || c) → b = c</code>",
  "256": "<code>Bool → Bool</code>",
  "255":
  "<code>NatPlayground.identity_fn_applied_twice (f : Bool → Bool) : (∀ (x : Bool), f x = x) → ∀ (b : Bool), f (f b) = b</code>",
@@ -1248,13 +1251,13 @@
  "<code>NatPlayground.Nat.or_false_true (b : Bool) (h : (b || false) = true) : b = true</code>",
  "224": "<code>Bool.or_false (b : Bool) : (b || false) = b</code>",
  "223":
- "<code>NatPlayground.Nat.and3_exchange (b c d : Bool) : (b && c && d) = (b && d && c)</code>",
- "222": "<code>Bool.and_true (b : Bool) : (b && true) = b</code>",
- "221": "<code>Bool.and_false (b : Bool) : (b && false) = false</code>",
- "220": "<code>Bool.and_self (b : Bool) : (b && b) = b</code>",
+ "<code>NatPlayground.Nat.and3_exchange (b c d : Bool) : (b &amp;&amp; c &amp;&amp; d) = (b &amp;&amp; d &amp;&amp; c)</code>",
+ "222": "<code>Bool.and_true (b : Bool) : (b &amp;&amp; true) = b</code>",
+ "221": "<code>Bool.and_false (b : Bool) : (b &amp;&amp; false) = false</code>",
+ "220": "<code>Bool.and_self (b : Bool) : (b &amp;&amp; b) = b</code>",
  "22": "<code>Day.monday : Day</code>",
  "219":
- "<code>NatPlayground.Nat.and_commutative (b c : Bool) : (b && c) = (c && b)</code>",
+ "<code>NatPlayground.Nat.and_commutative (b c : Bool) : (b &amp;&amp; c) = (c &amp;&amp; b)</code>",
  "218": "<code>Bool.not_true : (!true) = false</code>",
  "217": "<code>Bool.not_false : (!false) = true</code>",
  "216": "<code>Bool</code>",
@@ -1864,19 +1867,19 @@
  "<code>RegExp.star_app (α : Type) (s₁ s₂ : List α) (re : RegExp α) : s₁ =~ Star re → s₂ =~ Star re → s₁ ++ s₂ =~ Star re</code>",
  "155":
  "<code>NatPlayground.Nat.add (n m : NatPlayground.Nat) : NatPlayground.Nat</code>",
- "1549": "<code>s₁ =~ re'</code>",
- "1548": "<code>re' = Star re</code>",
- "1547": "<code>Star re✝ = Star re → s₂✝ ++ s₂ =~ Star re</code>",
- "1546": "<code>re✝ = Star re → s₁✝ ++ s₂ =~ Star re</code>",
- "1545": "<code>Star re✝ = Star re</code>",
- "1544": "<code>Union re₁✝ re₂✝ = Star re</code>",
- "1543": "<code>App re₁✝ re₂✝ = Star re</code>",
- "1542": "<code>re₂✝ = Star re → s₂✝ ++ s₂ =~ Star re</code>",
- "1541": "<code>re₁✝ = Star re → s₁✝ ++ s₂ =~ Star re</code>",
- "1540": "<code>Char c✝ = Star re</code>",
+ "1549": "<code>Star re✝ = Star re → s₂✝ ++ s₂ =~ Star re</code>",
+ "1548": "<code>re✝ = Star re → s₁✝ ++ s₂ =~ Star re</code>",
+ "1547": "<code>Star re✝ = Star re</code>",
+ "1546": "<code>Union re₁✝ re₂✝ = Star re</code>",
+ "1545": "<code>App re₁✝ re₂✝ = Star re</code>",
+ "1544": "<code>re₂✝ = Star re → s₂✝ ++ s₂ =~ Star re</code>",
+ "1543": "<code>re₁✝ = Star re → s₁✝ ++ s₂ =~ Star re</code>",
+ "1542": "<code>Char c✝ = Star re</code>",
+ "1541": "<code>EmptyStr = Star re</code>",
+ "1540": "<code>s₂ =~ Star re</code>",
  "154": "<code>NatPlayground.Nat.odd (n : Nat) : Bool</code>",
- "1539": "<code>EmptyStr = Star re</code>",
- "1538": "<code>s₂ =~ Star re</code>",
+ "1539": "<code>s₁ =~ re'</code>",
+ "1538": "<code>re' = Star re</code>",
  "1537": "<code>s₁ =~ Star re</code>",
  "1536": "<code>s₂✝ =~ Star re✝</code>",
  "1535": "<code>s₁✝ =~ re✝</code>",
@@ -2040,7 +2043,7 @@
  "1436":
  "<code>Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α) (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂</code>",
  "1435":
- "<code class=\"docstring\">`grind` is a tactic inspired by modern SMT solvers. **Picture a virtual whiteboard**:\nevery time grind discovers a new equality, inequality, or logical fact,\nit writes it on the board, groups together terms known to be equal,\nand lets each reasoning engine read from and contribute to the shared workspace.\nThese engines work together to handle equality reasoning, apply known theorems,\npropagate new facts, perform case analysis, and run specialized solvers\nfor domains like linear arithmetic and commutative rings.\n\nSee [the reference manual's chapter on `grind`](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=grind-tactic) for more information.\n\n`grind` is *not* designed for goals whose search space explodes combinatorially,\nthink large pigeonhole instances, graph‑coloring reductions, high‑order N‑queens boards,\nor a 200‑variable Sudoku encoded as Boolean constraints.  Such encodings require\n thousands (or millions) of case‑splits that overwhelm `grind`’s branching search.\n\nFor **bit‑level or combinatorial problems**, consider using **`bv_decide`**.\n`bv_decide` calls a state‑of‑the‑art SAT solver (CaDiCaL) and then returns a\n*compact, machine‑checkable certificate*.\n\n### Equality reasoning\n\n`grind` uses **congruence closure** to track equalities between terms.\nWhen two terms are known to be equal, congruence closure automatically deduces\nequalities between more complex expressions built from them.\nFor example, if `a = b`, then congruence closure will also conclude that `f a` = `f b`\nfor any function `f`. This forms the foundation for efficient equality reasoning in `grind`.\nHere is an example:\n```\nexample (f : Nat → Nat) (h : a = b) : f (f b) = f (f a) := by\n  grind\n```\n\n### Applying theorems using E-matching\n\nTo apply existing theorems, `grind` uses a technique called **E-matching**,\nwhich finds matches for known theorem patterns while taking equalities into account.\nCombined with congruence closure, E-matching helps `grind` discover\nnon-obvious consequences of theorems and equalities automatically.\n\nConsider the following functions and theorems:\n```\ndef f (a : Nat) : Nat :=\n  a + 1\n\ndef g (a : Nat) : Nat :=\n  a - 1\n\n@[grind =]\ntheorem gf (x : Nat) : g (f x) = x := by\n  simp [f, g]\n```\nThe theorem `gf` asserts that `g (f x) = x` for all natural numbers `x`.\nThe attribute `[grind =]` instructs `grind` to use the left-hand side of the equation,\n`g (f x)`, as a pattern for E-matching.\nSuppose we now have a goal involving:\n```\nexample {a b} (h : f b = a) : g a = b := by\n  grind\n```\nAlthough `g a` is not an instance of the pattern `g (f x)`,\nit becomes one modulo the equation `f b = a`. By substituting `a`\nwith `f b` in `g a`, we obtain the term `g (f b)`,\nwhich matches the pattern `g (f x)` with the assignment `x := b`.\nThus, the theorem `gf` is instantiated with `x := b`,\nand the new equality `g (f b) = b` is asserted.\n`grind` then uses congruence closure to derive the implied equality\n`g a = g (f b)` and completes the proof.\n\nThe pattern used to instantiate theorems affects the effectiveness of `grind`.\nFor example, the pattern `g (f x)` is too restrictive in the following case:\nthe theorem `gf` will not be instantiated because the goal does not even\ncontain the function symbol `g`.\n\n```\nexample (h₁ : f b = a) (h₂ : f c = a) : b = c := by\n  grind\n```\n\nYou can use the command `grind_pattern` to manually select a pattern for a given theorem.\nIn the following example, we instruct `grind` to use `f x` as the pattern,\nallowing it to solve the goal automatically:\n```\ngrind_pattern gf =&gt; f x\n\nexample {a b c} (h₁ : f b = a) (h₂ : f c = a) : b = c := by\n  grind\n```\nYou can enable the option `trace.grind.ematch.instance` to make `grind` print a\ntrace message for each theorem instance it generates.\n\nYou can also specify a **multi-pattern** to control when `grind` should apply a theorem.\nA multi-pattern requires that all specified patterns are matched in the current context\nbefore the theorem is applied. This is useful for theorems such as transitivity rules,\nwhere multiple premises must be simultaneously present for the rule to apply.\nThe following example demonstrates this feature using a transitivity axiom for a binary relation `R`:\n```\nopaque R : Int → Int → Prop\naxiom Rtrans {x y z : Int} : R x y → R y z → R x z\n\ngrind_pattern Rtrans =&gt; R x y, R y z\n\nexample {a b c d} : R a b → R b c → R c d → R a d := by\n  grind\n```\nBy specifying the multi-pattern `R x y, R y z`, we instruct `grind` to\ninstantiate `Rtrans` only when both `R x y` and `R y z` are available in the context.\nIn the example, `grind` applies `Rtrans` to derive `R a c` from `R a b` and `R b c`,\nand can then repeat the same reasoning to deduce `R a d` from `R a c` and `R c d`.\n\nInstead of using `grind_pattern` to explicitly specify a pattern,\nyou can use the `@[grind]` attribute or one of its variants, which will use a heuristic to\ngenerate a (multi-)pattern. The complete list is available in the reference manual. The main ones are:\n\n- `@[grind →]` will select a multi-pattern from the hypotheses of the theorem (i.e. it will use the theorem for forwards reasoning).\n  In more detail, it will traverse the hypotheses of the theorem from left-to-right, and each time it encounters a minimal indexable\n  (i.e. has a constant as its head) subexpression which \"covers\" (i.e. fixes the value of) an argument which was not\n  previously covered, it will add that subexpression as a pattern, until all arguments have been covered.\n- `@[grind ←]` will select a multi-pattern from the conclusion of theorem (i.e. it will use the theorem for backwards reasoning).\n  This may fail if not all the arguments to the theorem appear in the conclusion.\n- `@[grind]` will traverse the conclusion and then the hypotheses left-to-right, adding patterns as they increase the coverage,\n  stopping when all arguments are covered.\n- `@[grind =]` checks that the conclusion of the theorem is an equality, and then uses the left-hand-side of the equality as a pattern.\n  This may fail if not all of the arguments appear in the left-hand-side.\n\nHere is the previous example again but using the attribute `[grind →]`\n```\nopaque R : Int → Int → Prop\n@[grind →] axiom Rtrans {x y z : Int} : R x y → R y z → R x z\n\nexample {a b c d} : R a b → R b c → R c d → R a d := by\n  grind\n```\n\nTo control theorem instantiation and avoid generating an unbounded number of instances,\n`grind` uses a generation counter. Terms in the original goal are assigned generation zero.\nWhen `grind` applies a theorem using terms of generation `≤ n`, any new terms it creates\nare assigned generation `n + 1`. This limits how far the tactic explores when applying\ntheorems and helps prevent an excessive number of instantiations.\n\n#### Key options:\n- `grind (ematch := &lt;num&gt;)` controls the number of E-matching rounds.\n- `grind [&lt;name&gt;, ...]` instructs `grind` to use the declaration `name` during E-matching.\n- `grind only [&lt;name&gt;, ...]` is like `grind [&lt;name&gt;, ...]` but does not use theorems tagged with `@[grind]`.\n- `grind (gen := &lt;num&gt;)` sets the maximum generation.\n\n### Linear integer arithmetic (`lia`)\n\n`grind` can solve goals that reduce to **linear integer arithmetic (LIA)** using an\nintegrated decision procedure called **`lia`**.  It understands\n\n* equalities   `p = 0`\n* inequalities  `p ≤ 0`\n* disequalities `p ≠ 0`\n* divisibility  `d ∣ p`\n\nThe solver incrementally assigns integer values to variables; when a partial\nassignment violates a constraint it adds a new, implied constraint and retries.\nThis *model-based* search is **complete for LIA**.\n\n#### Key options:\n\n* `grind -lia` disable the solver (useful for debugging)\n* `grind +qlia` accept rational models (shrinks the search space but is incomplete for ℤ)\n* `grind (liaSteps := n)` cap the number of steps performed by the model search (the solver becomes incomplete when the threshold is reached)\n\n#### Examples:\n\n```\n-- Even + even is never odd.\nexample {x y : Int} : 2 * x + 4 * y ≠ 5 := by\n  grind\n\n-- Mixing equalities and inequalities.\nexample {x y : Int} :\n    2 * x + 3 * y = 0 → 1 ≤ x → y &lt; 1 := by\n  grind\n\n-- Reasoning with divisibility.\nexample (a b : Int) :\n    2 ∣ a + 1 → 2 ∣ b + a → ¬ 2 ∣ b + 2 * a := by\n  grind\n\nexample (x y : Int) :\n    27 ≤ 11*x + 13*y →\n    11*x + 13*y ≤ 45 →\n    -10 ≤ 7*x - 9*y →\n    7*x - 9*y ≤ 4 → False := by\n  grind\n\n-- Types that implement the `ToInt` type-class.\nexample (a b c : UInt64)\n    : a ≤ 2 → b ≤ 3 → c - a - b = 0 → c ≤ 5 := by\n  grind\n```\n\n### Algebraic solver (`ring`)\n\n`grind` ships with an algebraic solver nick-named **`ring`** for goals that can\nbe phrased as polynomial equations (or disequations) over commutative rings,\nsemirings, or fields.\n\n*Works out of the box*\nAll core numeric types and relevant Mathlib types already provide the required\ntype-class instances, so the solver is ready to use in most developments.\n\nWhat it can decide:\n\n* equalities of the form `p = q`\n* disequalities `p ≠ q`\n* basic reasoning under field inverses (`a / b := a * b⁻¹`)\n* goals that mix ring facts with other `grind` engines\n\n#### Key options:\n\n* `grind -ring` turn the solver off (useful when debugging)\n* `grind (ringSteps := n)` cap the number of steps performed by this procedure.\n\n#### Examples\n\n```\nopen Lean Grind\n\nexample [CommRing α] (x : α) : (x + 1) * (x - 1) = x^2 - 1 := by\n  grind\n\n-- Characteristic 256 means 16 * 16 = 0.\nexample [CommRing α] [IsCharP α 256] (x : α) :\n    (x + 16) * (x - 16) = x^2 := by\n  grind\n\n-- Works on built-in rings such as `UInt8`.\nexample (x : UInt8) : (x + 16) * (x - 16) = x^2 := by\n  grind\n\nexample [CommRing α] (a b c : α) :\n    a + b + c = 3 →\n    a^2 + b^2 + c^2 = 5 →\n    a^3 + b^3 + c^3 = 7 →\n    a^4 + b^4 = 9 - c^4 := by\n  grind\n\nexample [Field α] [NoNatZeroDivisors α] (a : α) :\n    1 / a + 1 / (2 * a) = 3 / (2 * a) := by\n  grind\n```\n\n### Other options\n\n- `grind (splits := &lt;num&gt;)` caps the *depth* of the search tree.  Once a branch performs `num` splits\n  `grind` stops splitting further in that branch.\n- `grind -splitIte` disables case splitting on if-then-else expressions.\n- `grind -splitMatch` disables case splitting on `match` expressions.\n- `grind +splitImp` instructs `grind` to split on any hypothesis `A → B` whose antecedent `A` is **propositional**.\n- `grind -linarith` disables the linear arithmetic solver for (ordered) modules and rings.\n\n### Additional Examples\n\n```\nexample {a b} {as bs : List α} : (as ++ bs ++ [b]).getLastD a = b := by\n  grind\n\nexample (x : BitVec (w+1)) : (BitVec.cons x.msb (x.setWidth w)) = x := by\n  grind\n\nexample (as : Array α) (lo hi i j : Nat) :\n    lo ≤ i → i &lt; j → j ≤ hi → j &lt; as.size → min lo (as.size - 1) ≤ i := by\n  grind\n```\n</code>",
+ "<code class=\"docstring\">`grind` is a tactic inspired by modern SMT solvers. **Picture a virtual whiteboard**:\nevery time grind discovers a new equality, inequality, or logical fact,\nit writes it on the board, groups together terms known to be equal,\nand lets each reasoning engine read from and contribute to the shared workspace.\nThese engines work together to handle equality reasoning, apply known theorems,\npropagate new facts, perform case analysis, and run specialized solvers\nfor domains like linear arithmetic and commutative rings.\n\nSee [the reference manual's chapter on `grind`](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=grind-tactic) for more information.\n\n`grind` is *not* designed for goals whose search space explodes combinatorially,\nthink large pigeonhole instances, graph‑coloring reductions, high‑order N‑queens boards,\nor a 200‑variable Sudoku encoded as Boolean constraints.  Such encodings require\n thousands (or millions) of case‑splits that overwhelm `grind`’s branching search.\n\nFor **bit‑level or combinatorial problems**, consider using **`bv_decide`**.\n`bv_decide` calls a state‑of‑the‑art SAT solver (CaDiCaL) and then returns a\n*compact, machine‑checkable certificate*.\n\n### Equality reasoning\n\n`grind` uses **congruence closure** to track equalities between terms.\nWhen two terms are known to be equal, congruence closure automatically deduces\nequalities between more complex expressions built from them.\nFor example, if `a = b`, then congruence closure will also conclude that `f a` = `f b`\nfor any function `f`. This forms the foundation for efficient equality reasoning in `grind`.\nHere is an example:\n```\nexample (f : Nat → Nat) (h : a = b) : f (f b) = f (f a) := by\n  grind\n```\n\n### Applying theorems using E-matching\n\nTo apply existing theorems, `grind` uses a technique called **E-matching**,\nwhich finds matches for known theorem patterns while taking equalities into account.\nCombined with congruence closure, E-matching helps `grind` discover\nnon-obvious consequences of theorems and equalities automatically.\n\nConsider the following functions and theorems:\n```\ndef f (a : Nat) : Nat :=\n  a + 1\n\ndef g (a : Nat) : Nat :=\n  a - 1\n\n@[grind =]\ntheorem gf (x : Nat) : g (f x) = x := by\n  simp [f, g]\n```\nThe theorem `gf` asserts that `g (f x) = x` for all natural numbers `x`.\nThe attribute `[grind =]` instructs `grind` to use the left-hand side of the equation,\n`g (f x)`, as a pattern for E-matching.\nSuppose we now have a goal involving:\n```\nexample {a b} (h : f b = a) : g a = b := by\n  grind\n```\nAlthough `g a` is not an instance of the pattern `g (f x)`,\nit becomes one modulo the equation `f b = a`. By substituting `a`\nwith `f b` in `g a`, we obtain the term `g (f b)`,\nwhich matches the pattern `g (f x)` with the assignment `x := b`.\nThus, the theorem `gf` is instantiated with `x := b`,\nand the new equality `g (f b) = b` is asserted.\n`grind` then uses congruence closure to derive the implied equality\n`g a = g (f b)` and completes the proof.\n\nThe pattern used to instantiate theorems affects the effectiveness of `grind`.\nFor example, the pattern `g (f x)` is too restrictive in the following case:\nthe theorem `gf` will not be instantiated because the goal does not even\ncontain the function symbol `g`.\n\n```\nexample (h₁ : f b = a) (h₂ : f c = a) : b = c := by\n  grind\n```\n\nYou can use the command `grind_pattern` to manually select a pattern for a given theorem.\nIn the following example, we instruct `grind` to use `f x` as the pattern,\nallowing it to solve the goal automatically:\n```\ngrind_pattern gf =&gt; f x\n\nexample {a b c} (h₁ : f b = a) (h₂ : f c = a) : b = c := by\n  grind\n```\nYou can enable the option `trace.grind.ematch.instance` to make `grind` print a\ntrace message for each theorem instance it generates.\n\nYou can also specify a **multi-pattern** to control when `grind` should apply a theorem.\nA multi-pattern requires that all specified patterns are matched in the current context\nbefore the theorem is applied. This is useful for theorems such as transitivity rules,\nwhere multiple premises must be simultaneously present for the rule to apply.\nThe following example demonstrates this feature using a transitivity axiom for a binary relation `R`:\n```\nopaque R : Int → Int → Prop\naxiom Rtrans {x y z : Int} : R x y → R y z → R x z\n\ngrind_pattern Rtrans =&gt; R x y, R y z\n\nexample {a b c d} : R a b → R b c → R c d → R a d := by\n  grind\n```\nBy specifying the multi-pattern `R x y, R y z`, we instruct `grind` to\ninstantiate `Rtrans` only when both `R x y` and `R y z` are available in the context.\nIn the example, `grind` applies `Rtrans` to derive `R a c` from `R a b` and `R b c`,\nand can then repeat the same reasoning to deduce `R a d` from `R a c` and `R c d`.\n\nInstead of using `grind_pattern` to explicitly specify a pattern,\nyou can use the `@[grind]` attribute or one of its variants, which will use a heuristic to\ngenerate a (multi-)pattern. The complete list is available in the reference manual. The main ones are:\n\n- `@[grind →]` will select a multi-pattern from the hypotheses of the theorem (i.e. it will use the theorem for forwards reasoning).\n  In more detail, it will traverse the hypotheses of the theorem from left-to-right, and each time it encounters a minimal indexable\n  (i.e. has a constant as its head) subexpression which \"covers\" (i.e. fixes the value of) an argument which was not\n  previously covered, it will add that subexpression as a pattern, until all arguments have been covered.\n- `@[grind ←]` will select a multi-pattern from the conclusion of theorem (i.e. it will use the theorem for backwards reasoning).\n  This may fail if not all the arguments to the theorem appear in the conclusion.\n- `@[grind]` will traverse the conclusion and then the hypotheses left-to-right, adding patterns as they increase the coverage,\n  stopping when all arguments are covered.\n- `@[grind =]` checks that the conclusion of the theorem is an equality, and then uses the left-hand-side of the equality as a pattern.\n  This may fail if not all of the arguments appear in the left-hand-side.\n\nHere is the previous example again but using the attribute `[grind →]`\n```\nopaque R : Int → Int → Prop\n@[grind →] axiom Rtrans {x y z : Int} : R x y → R y z → R x z\n\nexample {a b c d} : R a b → R b c → R c d → R a d := by\n  grind\n```\n\nTo control theorem instantiation and avoid generating an unbounded number of instances,\n`grind` uses a generation counter. Terms in the original goal are assigned generation zero.\nWhen `grind` applies a theorem using terms of generation `≤ n`, any new terms it creates\nare assigned generation `n + 1`. This limits how far the tactic explores when applying\ntheorems and helps prevent an excessive number of instantiations.\n\n#### Key options:\n- `grind (ematch := &lt;num&gt;)` controls the number of E-matching rounds.\n- `grind [&lt;name&gt;, ...]` instructs `grind` to use the declaration `name` during E-matching.\n- `grind only [&lt;name&gt;, ...]` is like `grind [&lt;name&gt;, ...]` but does not use theorems tagged with `@[grind]`.\n- `grind (gen := &lt;num&gt;)` sets the maximum generation.\n\n### Linear integer arithmetic (`lia`)\n\n`grind` can solve goals that reduce to **linear integer arithmetic (LIA)** using an\nintegrated decision procedure called **`lia`**.  It understands\n\n* equalities   `p = 0`\n* inequalities  `p ≤ 0`\n* disequalities `p ≠ 0`\n* divisibility  `d ∣ p`\n\nThe solver incrementally assigns integer values to variables; when a partial\nassignment violates a constraint it adds a new, implied constraint and retries.\nThis *model-based* search is **complete for LIA**.\n\n#### Key options:\n\n* `grind -lia` disable the solver (useful for debugging)\n* `grind +qlia` accept rational models (shrinks the search space but is incomplete for ℤ)\n* `grind (liaSteps := n)` cap the number of steps performed by the model search (the solver becomes incomplete when the threshold is reached)\n\n#### Examples:\n\n```\n-- Even + even is never odd.\nexample {x y : Int} : 2 * x + 4 * y ≠ 5 := by\n  grind\n\n-- Mixing equalities and inequalities.\nexample {x y : Int} :\n    2 * x + 3 * y = 0 → 1 ≤ x → y &lt; 1 := by\n  grind\n\n-- Reasoning with divisibility.\nexample (a b : Int) :\n    2 ∣ a + 1 → 2 ∣ b + a → ¬ 2 ∣ b + 2 * a := by\n  grind\n\nexample (x y : Int) :\n    27 ≤ 11*x + 13*y →\n    11*x + 13*y ≤ 45 →\n    -10 ≤ 7*x - 9*y →\n    7*x - 9*y ≤ 4 → False := by\n  grind\n\n-- Types that implement the `ToInt` type-class.\nexample (a b c : UInt64)\n    : a ≤ 2 → b ≤ 3 → c - a - b = 0 → c ≤ 5 := by\n  grind\n```\n\n### Algebraic solver (`ring`)\n\n`grind` ships with an algebraic solver nick-named **`ring`** for goals that can\nbe phrased as polynomial equations (or disequations) over commutative rings,\nsemirings, or fields.\n\n*Works out of the box*\nAll core numeric types and relevant Mathlib types already provide the required\ntype-class instances, so the solver is ready to use in most developments.\n\nWhat it can decide:\n\n* equalities of the form `p = q`\n* disequalities `p ≠ q`\n* basic reasoning under field inverses (`a / b := a * b⁻¹`)\n* goals that mix ring facts with other `grind` engines\n\n#### Key options:\n\n* `grind -ring` turn the solver off (useful when debugging)\n* `grind (ringSteps := n)` cap the number of steps performed by this procedure.\n\n#### Examples\n\n```\nopen Lean Grind\n\nexample [CommRing α] (x : α) : (x + 1) * (x - 1) = x^2 - 1 := by\n  grind\n\n-- Characteristic 256 means 16 * 16 = 0.\nexample [CommRing α] [IsCharP α 256] (x : α) :\n    (x + 16) * (x - 16) = x^2 := by\n  grind\n\n-- Works on built-in rings such as `UInt8`.\nexample (x : UInt8) : (x + 16) * (x - 16) = x^2 := by\n  grind\n\nexample [CommRing α] (a b c : α) :\n    a + b + c = 3 →\n    a^2 + b^2 + c^2 = 5 →\n    a^3 + b^3 + c^3 = 7 →\n    a^4 + b^4 = 9 - c^4 := by\n  grind\n\nexample [Field α] [NoNatZeroDivisors α] (a : α) :\n    1 / a + 1 / (2 * a) = 3 / (2 * a) := by\n  grind\n```\n\n### Other options\n\n- `grind (splits := &lt;num&gt;)` caps the *depth* of the search tree.  Once a branch performs `num` splits\n  `grind` stops splitting further in that branch.\n- `grind -splitIte` disables case splitting on if-then-else expressions.\n- `grind -splitMatch` disables case splitting on `match` expressions.\n- `grind +splitImp` instructs `grind` to split on any hypothesis `A → B` whose antecedent `A` is **propositional**.\n- `grind -linarith` disables the linear arithmetic solver for (ordered) modules and rings.\n\n### Additional Examples\n\n```\nexample {a b} {as bs : List α} : (as ++ bs ++ [b]).getLastD a = b := by\n  grind\n\nexample (x : BitVec (w+1)) : (BitVec.cons x.msb (x.setWidth w)) = x := by\n  grind\n\nexample (as : Array α) (lo hi i j : Nat) :\n    lo ≤ i → i &lt; j → j ≤ hi → j &lt; as.size → min lo (as.size - 1) ≤ i := by\n  grind\n```\n</code>",
  "1434": "<code>x ∈ l₁✝</code>",
  "1433": "<code>x ∈ l₂✝ → x ∈ l₃✝</code>",
  "1432": "<code>x ∈ l₁✝ → x ∈ l₂✝</code>",
@@ -2079,7 +2082,7 @@
  "1410": "<code>(l₂.all fun x =&gt; !test x) = true</code>",
  "141": "<code>_root_.Nat</code>",
  "1409":
- "<code>List.all.{u} {α : Type u} : List α → (α → Bool) → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if `p` returns `true` for every element of `l`.\n\n`O(|l|)`. Short-circuits upon encountering the first `false`.\n\nExamples:\n* `[a, b, c].all p = (p a && (p b && p c))`\n* `[2, 4, 6].all (· % 2 = 0) = true`\n* `[2, 4, 5, 6].all (· % 2 = 0) = false`\n</code>",
+ "<code>List.all.{u} {α : Type u} : List α → (α → Bool) → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if `p` returns `true` for every element of `l`.\n\n`O(|l|)`. Short-circuits upon encountering the first `false`.\n\nExamples:\n* `[a, b, c].all p = (p a &amp;&amp; (p b &amp;&amp; p c))`\n* `[2, 4, 6].all (· % 2 = 0) = true`\n* `[2, 4, 5, 6].all (· % 2 = 0) = false`\n</code>",
  "1408": "<code>l₁.all test = true</code>",
  "1407": "<code>Merge l₁ l₂ l</code>",
  "1406":
@@ -2093,7 +2096,7 @@
  "<code>R.total_relation_is_total (n m : Nat) : TotalRelation n m</code>",
  "1400": "<code>R.TotalRelation : Nat → Nat → Prop</code>",
  "140":
- "<code>_root_.Nat.succ (n : _root_.Nat) : _root_.Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>_root_.Nat.succ (n : _root_.Nat) : _root_.Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "14":
  "<code class=\"docstring\">`repeat tac` repeatedly applies `tac` so long as it succeeds.\nThe tactic `tac` may be a tactic sequence, and if `tac` fails at any point in its execution,\n`repeat` will revert any partial changes that `tac` made to the tactic state.\n\nThe tactic `tac` should eventually fail, otherwise `repeat tac` will run indefinitely.\n\nSee also:\n* `try tac` is like `repeat tac` but will apply `tac` at most once.\n* `repeat' tac` recursively applies `tac` to each goal.\n* `first | tac1 | tac2` implements the backtracking used by `repeat`\n</code>",
  "1399": "<code>Subseq l₂ l₃</code>",
@@ -2109,7 +2112,7 @@
  "1391": "<code>R.c5 {m n k : Nat} (h : R m n k) : R n m k</code>",
  "1390": "<code>R (m + 1) (n + 1) (k + 2)</code>",
  "139":
- "<code>_root_.Nat.zero : _root_.Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>_root_.Nat.zero : _root_.Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "1389":
  "<code>R.c4 {m n k : Nat} (h : R (m + 1) (n + 1) (k + 2)) : R m n k</code>",
  "1388": "<code>R.c3 {m n k : Nat} (h : R m n k) : R m (n + 1) (k + 1)</code>",
@@ -2443,18 +2446,18 @@
  "1161":
  "<code>add_comm_fun : (fun n m =&gt; n + m) = fun n m =&gt; m + n</code>",
  "1160":
- "<code>Quot.sound.{u} {α : Sort u} {r : α → α → Prop} {a b : α} : r a b → Quot.mk r a = Quot.mk r b</code><span class=\"sep\"></span><code class=\"docstring\">The **quotient axiom**, which asserts the equality of elements related by the quotient's relation.\n\nThe relation `r` does not need to be an equivalence relation to use this axiom. When `r` is not an\nequivalence relation, the quotient is with respect to the equivalence relation generated by `r`.\n\n`Quot.sound` is part of the built-in primitive quotient type:\n * `Quot` is the built-in quotient type.\n * `Quot.mk` places elements of the underlying type `α` into the quotient.\n * `Quot.lift` allows the definition of functions from the quotient to some other type.\n * `Quot.ind` is used to write proofs about quotients by assuming that all elements are constructed\n   with `Quot.mk`; it is analogous to the [recursor](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=recursors) for a\n   structure.\n\n[Quotient types](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=quotients) are described in more detail in the Lean Language\nReference.\n</code>",
+ "<code>Quot.sound.{u} {α : Sort u} {r : α → α → Prop} {a b : α} : r a b → Quot.mk r a = Quot.mk r b</code><span class=\"sep\"></span><code class=\"docstring\">The **quotient axiom**, which asserts the equality of elements related by the quotient's relation.\n\nThe relation `r` does not need to be an equivalence relation to use this axiom. When `r` is not an\nequivalence relation, the quotient is with respect to the equivalence relation generated by `r`.\n\n`Quot.sound` is part of the built-in primitive quotient type:\n * `Quot` is the built-in quotient type.\n * `Quot.mk` places elements of the underlying type `α` into the quotient.\n * `Quot.lift` allows the definition of functions from the quotient to some other type.\n * `Quot.ind` is used to write proofs about quotients by assuming that all elements are constructed\n   with `Quot.mk`; it is analogous to the [recursor](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=recursors) for a\n   structure.\n\n[Quotient types](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=quotients) are described in more detail in the Lean Language\nReference.\n</code>",
  "116": "<code>Playground.Nibble.bits (x0 x1 x2 x3 : Bit) : Nibble</code>",
  "1159": "<code>α✝ → β✝</code>",
  "1158":
- "<code>funext.{u, v} {α : Sort u} {β : α → Sort v} {f g : (x : α) → β x} (h : ∀ (x : α), f x = g x) : f = g</code><span class=\"sep\"></span><code class=\"docstring\">**Function extensionality.** If two functions return equal results for all possible arguments, then\nthey are equal.\n\nIt is called “extensionality” because it provides a way to prove two objects equal based on the\nproperties of the underlying mathematical functions, rather than based on the syntax used to denote\nthem. Function extensionality is a theorem that can be [proved using quotient\ntypes](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=quotient-funext).\n</code>",
+ "<code>funext.{u, v} {α : Sort u} {β : α → Sort v} {f g : (x : α) → β x} (h : ∀ (x : α), f x = g x) : f = g</code><span class=\"sep\"></span><code class=\"docstring\">**Function extensionality.** If two functions return equal results for all possible arguments, then\nthey are equal.\n\nIt is called “extensionality” because it provides a way to prove two objects equal based on the\nproperties of the underlying mathematical functions, rather than based on the syntax used to denote\nthem. Function extensionality is a theorem that can be [proved using quotient\ntypes](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=quotient-funext).\n</code>",
  "1157": "<code>beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m</code>",
  "1156":
  "<code>In_append_iff (α : Type) (l l' : List α) (x : α) : List.In x (l ++ l') ↔ List.In x l ∨ List.In x l'</code>",
  "1155":
  "<code>mul_eq_0_ternary (n m p : Nat) : n * m * p = 0 ↔ n = 0 ∨ m = 0 ∨ p = 0</code>",
  "1154":
- "<code class=\"docstring\">Prints the axioms used by a declaration, directly or indirectly.\nPlease consult [the reference manual](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=validating-proofs) to understand the significance of the output. </code>",
+ "<code class=\"docstring\">Prints the axioms used by a declaration, directly or indirectly.\nPlease consult [the reference manual](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=validating-proofs) to understand the significance of the output. </code>",
  "1153": "<code>and_comm_flip' (a b c : Prop) : a ∧ b ∧ c ↔ c ∧ b ∧ a</code>",
  "1152": "<code>and_comm_flip (a b c : Prop) : a ∧ b ∧ c ↔ c ∧ b ∧ a</code>",
  "1151": "<code>and_assoc {a b c : Prop} : (a ∧ b) ∧ c ↔ a ∧ b ∧ c</code>",
@@ -2470,7 +2473,7 @@
  "1144":
  "<code>List.allb_true_iff (α : Type) {test : α → Bool} {l : List α} : allb test l = true ↔ All (fun x =&gt; test x = true) l</code>",
  "1143":
- "<code>List.allb_cons {α : Type} {test : α → Bool} {x : α} {l : List α} : allb test (x :: l) = (test x && allb test l)</code>",
+ "<code>List.allb_cons {α : Type} {test : α → Bool} {x : α} {l : List α} : allb test (x :: l) = (test x &amp;&amp; allb test l)</code>",
  "1142":
  "<code>List.allb_nil {α : Type} {test : α → Bool} : allb test [] = true</code>",
  "1141":
@@ -2484,7 +2487,7 @@
  "1137":
  "<code>beqList_nil_cons {α : Type} {beq : α → α → Bool} {x : α} {xs : List α} : beqList beq [] (x :: xs) = false</code>",
  "1136":
- "<code>beqList_cons_cons {α : Type} {beq : α → α → Bool} {x y : α} {xs ys : List α} :\n  beqList beq (x :: xs) (y :: ys) = (beq x y && beqList beq xs ys)</code>",
+ "<code>beqList_cons_cons {α : Type} {beq : α → α → Bool} {x y : α} {xs ys : List α} :\n  beqList beq (x :: xs) (y :: ys) = (beq x y &amp;&amp; beqList beq xs ys)</code>",
  "1135":
  "<code>beqList_nil_nil {α : Type} {beq : α → α → Bool} : beqList beq [] [] = true</code>",
  "1134": "<code>α → α → Bool</code>",
@@ -2493,7 +2496,7 @@
  "1132":
  "<code>orb_true_iff (b1 b2 : Bool) : (b1 || b2) = true ↔ b1 = true ∨ b2 = true</code>",
  "1131":
- "<code>andb_true_iff (b1 b2 : Bool) : (b1 && b2) = true ↔ b1 = true ∧ b2 = true</code>",
+ "<code>andb_true_iff (b1 b2 : Bool) : (b1 &amp;&amp; b2) = true ↔ b1 = true ∧ b2 = true</code>",
  "1130":
  "<code>BEq.rfl.{u_1} {α : Type u_1} [BEq α] [ReflBEq α] {a : α} : (a == a) = true</code>",
  "113": "<code>Playground.Bit.b1 : Bit</code>",
@@ -2675,12 +2678,13 @@
  "<code class=\"docstring\">Applies the second constructor when\nthe goal is an inductive type with exactly two constructors, or fails otherwise.\n```\nexample {p q : Prop} (h : q) : p ∨ q := by\n  right\n  exact h\n```\n</code>",
  "1005":
  "<code class=\"docstring\">Applies the first constructor when\nthe goal is an inductive type with exactly two constructors, or fails otherwise.\n```\nexample : True ∨ False := by\n  left\n  trivial\n```\n</code>",
- "1004": "<code>Bool.false_and (b : Bool) : (false && b) = false</code>",
+ "1004":
+ "<code>Bool.false_and (b : Bool) : (false &amp;&amp; b) = false</code>",
  "1003": "<code>b2 = false</code>",
  "1002": "<code>b1 = false</code>",
  "1001": "<code>b1 = false ∨ b2 = false</code>",
  "1000":
- "<code>and_is_false (b1 b2 : Bool) (h : b1 = false ∨ b2 = false) : (b1 && b2) = false</code>",
+ "<code>and_is_false (b1 b2 : Bool) (h : b1 = false ∨ b2 = false) : (b1 &amp;&amp; b2) = false</code>",
  "100": "<code>RGB.myBlue : RGB</code>",
  "10":
  "<code class=\"docstring\">Assuming `x` is a variable in the local context with an inductive type,\n`cases x` splits the main goal, producing one goal for each constructor of the\ninductive type, in which the target is replaced by a general instance of that constructor.\nIf the type of an element in the local context depends on `x`,\nthat element is reverted and reintroduced afterward,\nso that the case split affects that hypothesis as well.\n`cases` detects unreachable cases and closes them automatically.\n\nFor example, given `n : Nat` and a goal with a hypothesis `h : P n` and target `Q n`,\n`cases n` produces one goal with hypothesis `h : P 0` and target `Q 0`,\nand one goal with hypothesis `h : P (Nat.succ a)` and target `Q (Nat.succ a)`.\nHere the name `a` is chosen automatically and is not accessible.\nYou can use `with` to provide the variables names for each constructor.\n- `cases e`, where `e` is an expression instead of a variable, generalizes `e` in the goal,\n  and then cases on the resulting variable.\n- Given `as : List α`, `cases as with | nil =&gt; tac₁ | cons a as' =&gt; tac₂`,\n  uses tactic `tac₁` for the `nil` case, and `tac₂` for the `cons` case,\n  and `a` and `as'` are used as names for the new variables introduced.\n- `cases h : e`, where `e` is a variable or an expression,\n  performs cases on `e` as above, but also adds a hypothesis `h : e = ...` to each goal,\n  where `...` is the constructor instance for that particular case.\n</code>",

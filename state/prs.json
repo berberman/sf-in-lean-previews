@@ -1,5 +1,5 @@
 {
-  "main_sha": "3b61ee9b042574758224c0b05a08fc81579cb8fc",
+  "main_sha": "7b89b69a3d61e14875670e4fa97c8c144f5946e0",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -190,9 +190,9 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/286"
     },
     "301": {
-      "base_sha": "36835d31557e11660b17f5848cc9550f51fe98e0",
+      "base_sha": "7b89b69a3d61e14875670e4fa97c8c144f5946e0",
       "changed_variants": [],
-      "head_sha": "105bd7afeaaebbb78f944ca7f584503fe5f06cae",
+      "head_sha": "0a32a5a4964d3c6eec877e417c379912065bbe44",
       "preview_path": "pr/301/head/",
       "run_url": null,
       "status": "waiting-ci",
@@ -247,11 +247,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
     "307": {
-      "base_sha": "b7934ffc33f9b9d19981f3407c2ef6083dfdabdc",
+      "base_sha": "7b89b69a3d61e14875670e4fa97c8c144f5946e0",
       "changed_variants": [],
-      "head_sha": "4918952d64a57840f0cde20a5a0fb1a6bc5c7481",
+      "head_sha": "0a784652e3e7802b6bbf992df37db132cd2970ff",
       "preview_path": "pr/307/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32820280434",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33025438333",
       "status": "ci-failed",
       "title": "[WIP] Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"

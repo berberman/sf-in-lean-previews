@@ -585,7 +585,7 @@
  "640":
  "<code>Bexp.evalSC_and (st : State) (b₁ b₂ : Bexp) :\n  evalSC st (bexp {~b₁ ∧ ~b₂}) =\n    match evalSC st b₁ with\n    | false =&gt; false\n    | true =&gt; evalSC st b₂</code>",
  "64":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "639":
  "<code>Bexp.evalSC_not (st : State) (b : Bexp) : evalSC st (bexp {¬ ~b}) = !evalSC st b</code>",
  "638":
@@ -680,7 +680,7 @@
  "590":
  "<code>StackCompiler.sExecute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat</code>",
  "59":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "589": "<code>StackCompiler.Sinstr.sMult : StackCompiler.Sinstr</code>",
  "588": "<code>StackCompiler.Sinstr.sMinus : StackCompiler.Sinstr</code>",
  "587": "<code>StackCompiler.Sinstr.sPlus : StackCompiler.Sinstr</code>",
@@ -741,7 +741,7 @@
  "550": "<code>c₁.no_whiles = true ∧ c₂.no_whiles = true</code>",
  "55": "<code>a₁.optimize0plus.eval = a₁.eval</code>",
  "549":
- "<code>Bool.and_eq_true (a b : Bool) : ((a && b) = true) = (a = true ∧ b = true)</code>",
+ "<code>Bool.and_eq_true (a b : Bool) : ((a &amp;&amp; b) = true) = (a = true ∧ b = true)</code>",
  "548": "<code>imp {\n      ~c₁;\n      ~c₂\n    }.no_whiles =\n  true</code>",
  "547": "<code>c₂.no_whiles = true → c₂.NoWhilesR</code>",
  "546": "<code>c₁.no_whiles = true → c₁.NoWhilesR</code>",
@@ -966,7 +966,7 @@
  "410":
  "<code>Com.EvalR.asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : Aexp.eval st a = n) :\n  st =[\n    ~(imp {\n        x := ~a\n      }) ]=&gt;\n    x →ₜ n ; st</code>",
  "41":
- "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval && b₂.eval)</code>",
+ "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval &amp;&amp; b₂.eval)</code>",
  "409":
  "<code>Com.EvalR.seq {c₁ c₂ : Com} {st st' st'' : State} (h₁ : st =[ ~c₁ ]=&gt; st') (h₂ : st' =[ ~c₂ ]=&gt; st'') :\n  st =[\n    ~(imp {\n        ~c₁;\n        ~c₂\n      }) ]=&gt;\n    st''</code>",
  "408":
@@ -1098,7 +1098,7 @@
  "33":
  "<code class=\"docstring\">`end` closes a `section` or `namespace` scope. If the scope is named `&lt;id&gt;`, it has to be closed\nwith `end &lt;id&gt;`. The `end` command is optional at the end of a file.\n</code>",
  "329":
- "<code>Bexp.eval_and (st : State) (b₁ b₂ : Bexp) : eval st (bexp {~b₁ ∧ ~b₂}) = (eval st b₁ && eval st b₂)</code>",
+ "<code>Bexp.eval_and (st : State) (b₁ b₂ : Bexp) : eval st (bexp {~b₁ ∧ ~b₂}) = (eval st b₁ &amp;&amp; eval st b₂)</code>",
  "328":
  "<code>Bexp.eval_not (st : State) (b : Bexp) : eval st (bexp {¬ ~b}) = !eval st b</code>",
  "327":
@@ -1364,7 +1364,7 @@
  "169": "<code>b₁✝ ⇓ b₁✝.eval</code>",
  "168": "<code>b✝ ⇓ b✝.eval</code>",
  "167":
- "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x && y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&&` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
+ "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x &amp;&amp; y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&amp;&amp;` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
  "166": "<code>b₂✝.eval = bv₂✝</code>",
  "165": "<code>b₁✝.eval = bv₁✝</code>",
  "164": "<code>b₂✝ ⇓ bv₂✝</code>",
@@ -1389,7 +1389,7 @@
  "152": "<code>EvalR b₂ bv₂</code>",
  "151": "<code>EvalR b₁ bv₁</code>",
  "150":
- "<code>Slang.Bexp.EvalR.and {b₁ b₂ : Bexp} {bv₁ bv₂ : Bool} (h₁ : b₁.EvalR bv₁) (h₂ : b₂.EvalR bv₂) :\n  (b₁.and b₂).EvalR (bv₁ && bv₂)</code>",
+ "<code>Slang.Bexp.EvalR.and {b₁ b₂ : Bexp} {bv₁ bv₂ : Bool} (h₁ : b₁.EvalR bv₁) (h₂ : b₂.EvalR bv₂) :\n  (b₁.and b₂).EvalR (bv₁ &amp;&amp; bv₂)</code>",
  "15": "<code>Slang.Bexp.neq (a₁ a₂ : Aexp) : Bexp</code>",
  "149": "<code>EvalR b bv</code>",
  "148":

@@ -348,7 +348,7 @@
  "600":
  "<code>Lean.TSyntax.raw {ks : Lean.SyntaxNodeKinds} (self : Lean.TSyntax ks) : Lean.Syntax</code><span class=\"sep\"></span><code class=\"docstring\">The underlying `Syntax` value. </code>",
  "60":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "6": "<code>Slang.Aexp.plus (a₁ a₂ : Aexp) : Aexp</code>",
  "599":
  "<code>Lean.TSyntax.mk {ks : Lean.SyntaxNodeKinds} (raw : Lean.Syntax) : Lean.TSyntax ks</code>",
@@ -426,7 +426,7 @@
  "<code>TM.Tm.Step.succStep (t1 t1' : Tm) (h : t1 ⟶ t1') : &lt;{ succ t1 }&gt; ⟶ &lt;{ succ t1' }&gt;</code>",
  "550": "<code>&lt;{ succ t0 }&gt; ⟶ t'</code>",
  "55":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "549": "<code>∃ t', &lt;{ succ t0 }&gt; ⟶ t'</code>",
  "548": "<code>t0.IsNormalForm</code>",
  "547": "<code>t0.IsNValue</code>",
@@ -677,7 +677,7 @@
  "400":
  "<code>Slang.AStep.minusRight (v₁ a₂ a₂' : Aexp) (hv : IsAValue v₁) (h : a₂ ⟶a a₂') : v₁.minus a₂ ⟶a v₁.minus a₂'</code>",
  "40":
- "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval && b₂.eval)</code>",
+ "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval &amp;&amp; b₂.eval)</code>",
  "4": "<code>Nat</code>",
  "399":
  "<code>Slang.ANStep.minusLeft (a₁ a₁' a₂ : Aexp) (h : a₁ ⟶n a₁') : a₁.minus a₂ ⟶n a₁'.minus a₂</code>",

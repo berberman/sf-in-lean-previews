@@ -241,14 +241,14 @@
  "<code>add_comm_fun : (fun n m =&gt; n + m) = fun n m =&gt; m + n</code>",
  "827": "<code>α✝ → β✝</code>",
  "826":
- "<code>funext.{u, v} {α : Sort u} {β : α → Sort v} {f g : (x : α) → β x} (h : ∀ (x : α), f x = g x) : f = g</code><span class=\"sep\"></span><code class=\"docstring\">**Function extensionality.** If two functions return equal results for all possible arguments, then\nthey are equal.\n\nIt is called “extensionality” because it provides a way to prove two objects equal based on the\nproperties of the underlying mathematical functions, rather than based on the syntax used to denote\nthem. Function extensionality is a theorem that can be [proved using quotient\ntypes](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=quotient-funext).\n</code>",
+ "<code>funext.{u, v} {α : Sort u} {β : α → Sort v} {f g : (x : α) → β x} (h : ∀ (x : α), f x = g x) : f = g</code><span class=\"sep\"></span><code class=\"docstring\">**Function extensionality.** If two functions return equal results for all possible arguments, then\nthey are equal.\n\nIt is called “extensionality” because it provides a way to prove two objects equal based on the\nproperties of the underlying mathematical functions, rather than based on the syntax used to denote\nthem. Function extensionality is a theorem that can be [proved using quotient\ntypes](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=quotient-funext).\n</code>",
  "825": "<code>beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m</code>",
  "824":
  "<code>In_append_iff (α : Type) (l l' : List α) (x : α) : List.In x (l ++ l') ↔ List.In x l ∨ List.In x l'</code>",
  "823":
  "<code>mul_eq_0_ternary (n m p : Nat) : n * m * p = 0 ↔ n = 0 ∨ m = 0 ∨ p = 0</code>",
  "822":
- "<code class=\"docstring\">Prints the axioms used by a declaration, directly or indirectly.\nPlease consult [the reference manual](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=validating-proofs) to understand the significance of the output. </code>",
+ "<code class=\"docstring\">Prints the axioms used by a declaration, directly or indirectly.\nPlease consult [the reference manual](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=validating-proofs) to understand the significance of the output. </code>",
  "821": "<code>and_comm_flip' (a b c : Prop) : a ∧ b ∧ c ↔ c ∧ b ∧ a</code>",
  "820": "<code>and_comm_flip (a b c : Prop) : a ∧ b ∧ c ↔ c ∧ b ∧ a</code>",
  "82": "<code>RGB.myBlue : RGB</code>",
@@ -384,12 +384,12 @@
  "<code class=\"docstring\">Applies the second constructor when\nthe goal is an inductive type with exactly two constructors, or fails otherwise.\n```\nexample {p q : Prop} (h : q) : p ∨ q := by\n  right\n  exact h\n```\n</code>",
  "727":
  "<code class=\"docstring\">Applies the first constructor when\nthe goal is an inductive type with exactly two constructors, or fails otherwise.\n```\nexample : True ∨ False := by\n  left\n  trivial\n```\n</code>",
- "726": "<code>Bool.false_and (b : Bool) : (false && b) = false</code>",
+ "726": "<code>Bool.false_and (b : Bool) : (false &amp;&amp; b) = false</code>",
  "725": "<code>b2 = false</code>",
  "724": "<code>b1 = false</code>",
  "723": "<code>b1 = false ∨ b2 = false</code>",
  "722":
- "<code>and_is_false (b1 b2 : Bool) (h : b1 = false ∨ b2 = false) : (b1 && b2) = false</code>",
+ "<code>and_is_false (b1 b2 : Bool) (h : b1 = false ∨ b2 = false) : (b1 &amp;&amp; b2) = false</code>",
  "721": "<code>Nat.mul_zero (n : Nat) : n * 0 = 0</code>",
  "720":
  "<code>Or.inr {a b : Prop} (h : b) : a ∨ b</code><span class=\"sep\"></span><code class=\"docstring\">`Or.inr` is \"right injection\" into an `Or`. If `h : b` then `Or.inr h : a ∨ b`. </code>",
@@ -584,7 +584,8 @@
  "591":
  "<code class=\"docstring\">A specific universe in Lean's infinite hierarchy of universes. </code>",
  "590": "<code>Sort u</code>",
- "59": "<code>MyBool.true_and_explained (b : MyBool) : (true && b) = b</code>",
+ "59":
+ "<code>MyBool.true_and_explained (b : MyBool) : (true &amp;&amp; b) = b</code>",
  "589":
  "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
  "588": "<code>y = z</code>",
@@ -611,7 +612,7 @@
  "572": "<code>n = m → [n, o] = [m, p]</code>",
  "571": "<code>p</code>",
  "570": "<code>p → q</code>",
- "57": "<code>MyBool.true_and (b : MyBool) : (true && b) = b</code>",
+ "57": "<code>MyBool.true_and (b : MyBool) : (true &amp;&amp; b) = b</code>",
  "569": "<code>Prop</code>",
  "568": "<code>fold_plus : List Nat → Nat → Nat</code>",
  "567": "<code>plus3 : Nat → Nat</code>",
@@ -754,7 +755,8 @@
  "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
  "480":
  "<code>Lists.PartialMap.quiz1 (d : PartialMap) (x : MyId) (n : Nat) : find x (d.update x n) = NatOption.some n</code>",
- "48": "<code><span class=\"literal string\">\" && \"</span> : String</code>",
+ "48":
+ "<code><span class=\"literal string\">\" &amp;&amp; \"</span> : String</code>",
  "479":
  "<code>Lists.PartialMap.find (x : MyId) (d : PartialMap) : NatOption</code>",
  "478":
@@ -814,7 +816,7 @@
  "<code>Lists.NatList.myRepeat_append_general (c₁ c₂ n : Nat) : myRepeat n c₁ ++ myRepeat n c₂ = myRepeat n (c₁ + c₂)</code>",
  "441": "<code>myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')</code>",
  "440":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "44":
  "<code class=\"docstring\">`prefix:prec \"op\" =&gt; f` is equivalent to `notation:prec \"op\" x:prec =&gt; f x`.\n</code>",
  "439":
@@ -1058,7 +1060,7 @@
  "289":
  "<code>Nat.max_add_left_self {a b : Nat} : max a (b + a) = b + a</code>",
  "288":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "287":
  "<code>Nat.succ_add_sub_one (n m : Nat) : m.succ + n - 1 = m + n</code>",
  "286":
@@ -1097,7 +1099,7 @@
  "<code>Nat.ext_div_mod_iff (n a b : Nat) : a = b ↔ a / n = b / n ∧ a % n = b % n</code>",
  "27": "<code>Day.saturday : Day</code>",
  "269":
- "<code>propext {a b : Prop} : (a ↔ b) → a = b</code><span class=\"sep\"></span><code class=\"docstring\">The [axiom](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=axioms) of **propositional extensionality**. It asserts that if\npropositions `a` and `b` are logically equivalent (that is, if `a` can be proved from `b` and vice\nversa), then `a` and `b` are *equal*, meaning `a` can be replaced with `b` in all contexts.\n\nThe standard logical connectives provably respect propositional extensionality. However, an axiom is\nneeded for higher order expressions like `P a` where `P : Prop → Prop` is unknown, as well as for\nequality. Propositional extensionality is intuitionistically valid.\n</code>",
+ "<code>propext {a b : Prop} : (a ↔ b) → a = b</code><span class=\"sep\"></span><code class=\"docstring\">The [axiom](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=axioms) of **propositional extensionality**. It asserts that if\npropositions `a` and `b` are logically equivalent (that is, if `a` can be proved from `b` and vice\nversa), then `a` and `b` are *equal*, meaning `a` can be replaced with `b` in all contexts.\n\nThe standard logical connectives provably respect propositional extensionality. However, an axiom is\nneeded for higher order expressions like `P a` where `P : Prop → Prop` is unknown, as well as for\nequality. Propositional extensionality is intuitionistically valid.\n</code>",
  "268":
  "<code>Nat.testBit (m n : Nat) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the `(n+1)`th least significant bit is `1`, or `false` if it is `0`.\n</code>",
  "267":
@@ -1196,9 +1198,9 @@
  "215":
  "<code>NatPlayground.Nat.right_distrib (n m p : Nat) : (n + m) * p = n * p + m * p</code>",
  "214":
- "<code>NatPlayground.Nat.all3_spec (b c : Bool) : (b && c || (!b || !c)) = true</code>",
+ "<code>NatPlayground.Nat.all3_spec (b c : Bool) : (b &amp;&amp; c || (!b || !c)) = true</code>",
  "213":
- "<code>NatPlayground.Nat.andb_false (b : Bool) : (b && false) = false</code>",
+ "<code>NatPlayground.Nat.andb_false (b : Bool) : (b &amp;&amp; false) = false</code>",
  "212": "<code>NatPlayground.Nat.ble_refl (n : Nat) : ble n n = true</code>",
  "211": "<code>NatPlayground.Nat.mul_comm (m n : Nat) : m * n = n * m</code>",
  "210":
@@ -1261,14 +1263,14 @@
  "<code class=\"docstring\">* `generalize ([h :] e = x),+` replaces all occurrences `e`s in the main goal\n  with a fresh hypothesis `x`s. If `h` is given, `h : e = x` is introduced as well.\n* `generalize e = x at h₁ ... hₙ` also generalizes occurrences of `e`\n  inside `h₁`, ..., `hₙ`.\n* `generalize e = x at *` will generalize occurrences of `e` everywhere.\n</code>",
  "179": "<code>NatPlayground.Nat.review₁ : (true || false) = true</code>",
  "178":
- "<code>NatPlayground.Nat.and3_exchange (b c d : Bool) : (b && c && d) = (b && d && c)</code>",
- "177": "<code>Bool.and_true (b : Bool) : (b && true) = b</code>",
- "176": "<code>Bool.and_false (b : Bool) : (b && false) = false</code>",
- "175": "<code>Bool.and_self (b : Bool) : (b && b) = b</code>",
+ "<code>NatPlayground.Nat.and3_exchange (b c d : Bool) : (b &amp;&amp; c &amp;&amp; d) = (b &amp;&amp; d &amp;&amp; c)</code>",
+ "177": "<code>Bool.and_true (b : Bool) : (b &amp;&amp; true) = b</code>",
+ "176": "<code>Bool.and_false (b : Bool) : (b &amp;&amp; false) = false</code>",
+ "175": "<code>Bool.and_self (b : Bool) : (b &amp;&amp; b) = b</code>",
  "174":
- "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x && y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&&` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
+ "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x &amp;&amp; y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&amp;&amp;` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
  "173":
- "<code>NatPlayground.Nat.and_commutative (b c : Bool) : (b && c) = (c && b)</code>",
+ "<code>NatPlayground.Nat.and_commutative (b c : Bool) : (b &amp;&amp; c) = (c &amp;&amp; b)</code>",
  "172": "<code>Bool.not_true : (!true) = false</code>",
  "171": "<code>Bool.not_false : (!false) = true</code>",
  "170": "<code>Bool</code>",
@@ -1873,7 +1875,7 @@
  "1080":
  "<code>RegExp.Pumping.pumpingConstant {α : Type} (re : RegExp α) : Nat</code>",
  "108":
- "<code>_root_.Nat.succ (n : _root_.Nat) : _root_.Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>_root_.Nat.succ (n : _root_.Nat) : _root_.Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "1079": "<code>s =~ Star re</code>",
  "1078":
  "<code>RegExp.MStar'' (α : Type) (s : List α) (re : RegExp α) (h : s =~ Star re) :\n  ∃ ss, s = List.foldr (fun x1 x2 =&gt; x1 ++ x2) [] ss ∧ ∀ (s' : List α), s' ∈ ss → s' =~ re</code>",
@@ -1889,7 +1891,7 @@
  "1070":
  "<code>Star re = Star re✝ → s₂ =~ Star re✝ → s₂✝ ++ s₂ =~ Star re✝</code>",
  "107":
- "<code>_root_.Nat.zero : _root_.Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>_root_.Nat.zero : _root_.Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "1069": "<code>Star re = re✝ → s₂ =~ re✝ → s₁✝ ++ s₂ =~ re✝</code>",
  "1068": "<code>Star re = Star re✝</code>",
  "1067": "<code>Star re = Union re₁✝ re₂✝</code>",
@@ -1903,19 +1905,19 @@
  "<code>RegExp.star_app (α : Type) (s₁ s₂ : List α) (re : RegExp α) : s₁ =~ Star re → s₂ =~ Star re → s₁ ++ s₂ =~ Star re</code>",
  "106":
  "<code>_root_.Nat : Type</code><span class=\"sep\"></span><code class=\"docstring\">The natural numbers, starting at zero.\n\nThis type is special-cased by both the kernel and the compiler, and overridden with an efficient\nimplementation. Both use a fast arbitrary-precision arithmetic library (usually\n[GMP](https://gmplib.org/)); at runtime, `Nat` values that are sufficiently small are unboxed.\n</code>",
- "1059": "<code>s₁ =~ re'</code>",
- "1058": "<code>re' = Star re</code>",
- "1057": "<code>Star re✝ = Star re → s₂✝ ++ s₂ =~ Star re</code>",
- "1056": "<code>re✝ = Star re → s₁✝ ++ s₂ =~ Star re</code>",
- "1055": "<code>Star re✝ = Star re</code>",
- "1054": "<code>Union re₁✝ re₂✝ = Star re</code>",
- "1053": "<code>App re₁✝ re₂✝ = Star re</code>",
- "1052": "<code>re₂✝ = Star re → s₂✝ ++ s₂ =~ Star re</code>",
- "1051": "<code>re₁✝ = Star re → s₁✝ ++ s₂ =~ Star re</code>",
- "1050": "<code>Char c✝ = Star re</code>",
+ "1059": "<code>Star re✝ = Star re → s₂✝ ++ s₂ =~ Star re</code>",
+ "1058": "<code>re✝ = Star re → s₁✝ ++ s₂ =~ Star re</code>",
+ "1057": "<code>Star re✝ = Star re</code>",
+ "1056": "<code>Union re₁✝ re₂✝ = Star re</code>",
+ "1055": "<code>App re₁✝ re₂✝ = Star re</code>",
+ "1054": "<code>re₂✝ = Star re → s₂✝ ++ s₂ =~ Star re</code>",
+ "1053": "<code>re₁✝ = Star re → s₁✝ ++ s₂ =~ Star re</code>",
+ "1052": "<code>Char c✝ = Star re</code>",
+ "1051": "<code>EmptyStr = Star re</code>",
+ "1050": "<code>s₂ =~ Star re</code>",
  "105": "<code>NatPlayground.ofNat : _root_.Nat → Nat</code>",
- "1049": "<code>EmptyStr = Star re</code>",
- "1048": "<code>s₂ =~ Star re</code>",
+ "1049": "<code>s₁ =~ re'</code>",
+ "1048": "<code>re' = Star re</code>",
  "1047": "<code>s₁ =~ Star re</code>",
  "1046": "<code>s₂✝ =~ Star re✝</code>",
  "1045": "<code>s₁✝ =~ re✝</code>",

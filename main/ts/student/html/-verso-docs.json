@@ -316,7 +316,7 @@
  "640":
  "<code>TM.nat_canonical (t : Tm) (hT : &lt;{ ⊢ t ⦂ Nat }&gt;) (hv : t.IsValue) : t.IsNValue</code>",
  "64":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "639": "<code>&lt;{ ⊢ succ t0 ⦂ Bool }&gt;</code>",
  "638": "<code>t.IsBValue</code>",
  "637": "<code>&lt;{ ⊢ t ⦂ Bool }&gt;</code>",
@@ -389,7 +389,7 @@
  "591": "<code>TM.Ty.bool : Ty</code>",
  "590": "<code>TM.Ty : Type</code>",
  "59":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "589": "<code>TM.alt_simplify_step (t : Tm) : Option Tm</code>",
  "588":
  "<code>TM.Tm.AltStep.isZeroStep (t1 t1' : Tm) : t1.AltStep t1' → &lt;{ iszero t1 }&gt;.AltStep &lt;{ iszero t1' }&gt;</code>",
@@ -688,7 +688,7 @@
  "411": "<code>Multi ANStep y z</code>",
  "410": "<code>y.eval = z.eval</code>",
  "41":
- "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval && b₂.eval)</code>",
+ "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval &amp;&amp; b₂.eval)</code>",
  "409": "<code>x ⟶n y</code>",
  "408": "<code>Multi ANStep a a'</code>",
  "407":

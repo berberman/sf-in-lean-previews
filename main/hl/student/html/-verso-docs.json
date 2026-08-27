@@ -606,7 +606,7 @@
  "<code>Lean.Parser.ident : Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">The parser `ident` parses a single identifier, possibly with namespaces, such as `foo` or\n`bar.baz`. The identifier must not be a declared token, so for example it will not match `\"def\"`\nbecause `def` is a keyword token. Tokens are implicitly declared by using them in string literals\nin parser declarations, so `syntax foo := \"bla\"` will make `bla` no longer legal as an identifier.\n\nIdentifiers can contain special characters or keywords if they are escaped using the `«»` characters:\n`«def»` is an identifier named `def`, and `«x»` is treated the same as `x`. This is useful for\nusing disallowed characters in identifiers such as `«foo.bar».baz` or `«hello world»`.\n\nThis parser has arity 1: it produces a `Syntax.ident` node containing the parsed identifier.\nYou can use `TSyntax.getId` to extract the name from the resulting syntax object. </code>",
  "640": "<code><span class=\"literal string\">\"assn(\"</span> : String</code>",
  "64":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "639": "<code>Assertion.assn : ParserDescr</code>",
  "638":
  "<code class=\"docstring\">A `section`/`end` pair delimits the scope of `variable`, `include`, `open`, `set_option`, and `local`\ncommands. Sections can be nested. `section &lt;id&gt;` provides a label to the section that has to appear\nwith the matching `end`. In either case, the `end` can be omitted, in which case the section is\nclosed at the end of the file.\n</code>",
@@ -685,7 +685,7 @@
  "<code>stmid =[\n  ~(imp {\n      while (~b) {\n        ~c\n      }\n    }) ]=&gt;\n  st'</code>",
  "590": "<code>st =[ ~c ]=&gt; stmid</code>",
  "59":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "589":
  "<code>Com.loop_unrolling {b : Bexp} {c : Com} :\n  imp {\n        while (~b) {\n          ~c\n        }\n      }.Equiv\n    (imp {\n      if (~b) {\n          ~c\n        } else {\n          skip\n        };\n      while (~b) {\n        ~c\n      }\n    })</code>",
  "588":
@@ -977,7 +977,7 @@
  "410":
  "<code>s0' =[\n  ~(imp {\n      while (~b₀) {\n        ~c₀\n      }\n    }) ]=&gt;\n  s0''</code>",
  "41":
- "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval && b₂.eval)</code>",
+ "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval &amp;&amp; b₂.eval)</code>",
  "409": "<code>s₀ =[ ~c₀ ]=&gt; s0'</code>",
  "408": "<code>Bexp.eval s₀ b₀ = true</code>",
  "407":
@@ -1161,7 +1161,7 @@
  "<code class=\"docstring\">`by tac` constructs a term of the expected type by running the tactic(s) `tac`. </code>",
  "3": "<code>Slang.Aexp.num (n : Nat) : Aexp</code>",
  "299":
- "<code>Bexp.eval_and (st : State) (b₁ b₂ : Bexp) : eval st (bexp {~b₁ ∧ ~b₂}) = (eval st b₁ && eval st b₂)</code>",
+ "<code>Bexp.eval_and (st : State) (b₁ b₂ : Bexp) : eval st (bexp {~b₁ ∧ ~b₂}) = (eval st b₁ &amp;&amp; eval st b₂)</code>",
  "298":
  "<code>Bexp.eval_not (st : State) (b : Bexp) : eval st (bexp {¬ ~b}) = !eval st b</code>",
  "297":

@@ -420,7 +420,7 @@
  "600":
  "<code>MyGetElem (coll idx : Type) (elem : outParam Type) : Type</code>",
  "60":
- "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "6": "<code>Slang.Aexp.plus (a₁ a₂ : Aexp) : Aexp</code>",
  "599": "<code>Lean.mkApp3 (f a b c : Expr) : Expr</code>",
  "598":
@@ -497,7 +497,7 @@
  "550":
  "<code class=\"docstring\">This is the same as `byTactic`, but it uses a different syntax kind. This is\nused by `show` and `suffices` instead of `byTactic` because these syntaxes don't\nsupport arbitrary terms where `byTactic` is accepted. Mathport uses this to e.g.\nsafely find-replace `by exact $e` by `$e` in any context without causing\nincorrect syntax when the full expression is `show $T by exact $e`.\n</code>",
  "55":
- "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&name=simp-normal-forms).\n</code>",
+ "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.33.0/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "549":
  "<code class=\"docstring\">Given a main goal `ctx ⊢ t`, `suffices h : t' from e` replaces the main goal with `ctx ⊢ t'`,\n`e` must have type `t` in the context `ctx, h : t'`.\n\nThe variant `suffices h : t' by tac` is a shorthand for `suffices h : t' from by tac`.\nIf `h :` is omitted, the name `this` is used.\n </code>",
  "548": "<code>st =[ skip ]=&gt; st'</code>",
@@ -744,7 +744,7 @@
  "400":
  "<code>d1 =\n    (imp {\n      while (~b) {\n        ~c\n      }\n    }) →\n  False</code>",
  "40":
- "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval && b₂.eval)</code>",
+ "<code>Slang.Bexp.eval_and (b₁ b₂ : Bexp) : (b₁.and b₂).eval = (b₁.eval &amp;&amp; b₂.eval)</code>",
  "4": "<code>Nat</code>",
  "399": "<code>s0' =[ ~d2 ]=&gt; s0''</code>",
  "398": "<code>s₀ =[ ~d1 ]=&gt; s0'</code>",
@@ -943,7 +943,7 @@
  "281":
  "<code>TotalMap.update {α β : Type} (m : TotalMap α β) [BEq α] (a : α) (b : β) : TotalMap α β</code>",
  "280":
- "<code>Bexp.eval_and (st : State) (b₁ b₂ : Bexp) : eval st (bexp {~b₁ ∧ ~b₂}) = (eval st b₁ && eval st b₂)</code>",
+ "<code>Bexp.eval_and (st : State) (b₁ b₂ : Bexp) : eval st (bexp {~b₁ ∧ ~b₂}) = (eval st b₁ &amp;&amp; eval st b₂)</code>",
  "28":
  "<code>Slang.Aexp.eval_mult (a₁ a₂ : Aexp) : (a₁.mult a₂).eval = a₁.eval * a₂.eval</code>",
  "279":
