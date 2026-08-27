@@ -229,9 +229,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "865cf69a0289a25928b8583eedba3b0f69742540",
+      "head_sha": "70b26c1aea87bd39658fbb7706dff49bd2c44906",
       "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33055862338",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33091433151",
       "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
@@ -386,53 +386,6 @@
       "status": "published",
       "title": "Make quiz options in Logic uniform",
       "url": "https://github.com/plclub/sf-in-lean/pull/323"
-    },
-    "324": {
-      "base_sha": "7b89b69a3d61e14875670e4fa97c8c144f5946e0",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "c6c047f2dfbecb03eeeb43adb650cf3d27cab656",
-      "preview_path": "pr/324/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33027127164",
-      "status": "published",
-      "title": "Tactics: wrap some exercises in :::full",
-      "url": "https://github.com/plclub/sf-in-lean/pull/324"
     },
     "326": {
       "base_sha": "f21efcd782da3f5aedf05cc66545e8e74baef8e5",
