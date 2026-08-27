@@ -174,7 +174,7 @@ def div2 (n : Nat) : Nat :=
   | n' + 2 => div2 n' + 1
 
 def csf (n : Nat) : Nat :=
-  if n.even then div2 n
+  bif n.even then div2 n
   else (3 * n) + 1
 
 --  Next, we look at what happens when we repeatedly apply `csf` to some
@@ -200,7 +200,7 @@ def csf (n : Nat) : Nat :=
 
 sf_expect_failure_in
   def reaches1In (n : Nat) : Nat :=
-    if n == 1 then 0
+    bif n == 1 then 0
     else 1 + reaches1In (csf n)
 
 --  fail to show termination for
@@ -217,7 +217,6 @@ sf_expect_failure_in
 --    - Use `termination_by` to specify a different well-founded relation
 --    - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
 --  n : Nat
---  h✝ : ¬(n == 1) = true
 --  ⊢ csf n < n
 
 --  Indeed, this isn't just a pointless limitation: functions in Lean are
@@ -239,7 +238,7 @@ sf_expect_failure_in
     match n with
     | 0 => False
     | 1 => True
-    | _ => if n.even then CollatzHoldsFor (div2 n)
+    | _ => bif n.even then CollatzHoldsFor (div2 n)
                      else CollatzHoldsFor ((3 * n) + 1)
 
 --  fail to show termination for
@@ -256,7 +255,6 @@ sf_expect_failure_in
 --    - Use `termination_by` to specify a different well-founded relation
 --    - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
 --  n x✝ : Nat
---  h✝ : n.even = true
 --  ⊢ div2 n < x✝
 
 --  Fortunately, there is another way to do it: We can express the concept
@@ -1396,8 +1394,8 @@ inductive Le : Nat → Nat → Prop where
 --  Here are some sanity checks on the definition. (Notice that, although
 --  these are the same kind of simple "unit tests" as we gave for the
 --  testing functions we wrote in the first few lectures, we must construct
---  their proofs explicitly ─ `rw`, `dsimp`, and `rfl` don't do the job,
---  because the proofs aren't just a matter of simplifying computations.)
+--  their proofs explicitly ─ `rw` and `rfl` don't do the job, because the
+--  proofs aren't just a matter of simplifying computations.)
 
 --  Some sanity checks...
 
@@ -1589,18 +1587,18 @@ theorem ble_sound (n m : Nat) (h : Nat.ble n m = true) : n ≤ m := by
     | zero =>
       contradiction
     | succ m' =>
-      dsimp [Nat.ble] at h
+      rw [Nat.ble] at h
       apply n_le_m__succ_n_le_succ_m
       apply ih; apply h
 
 theorem ble_complete n m (h : n ≤ m) : Nat.ble n m = true := by
   induction n generalizing m with
-  | zero => dsimp [Nat.ble]
+  | zero => rw [Nat.ble]
   | succ n' ih =>
     cases m with
     | zero => contradiction
     | succ m' =>
-      dsimp [Nat.ble]
+      rw [Nat.ble]
       apply succ_n_le_succ_m__n_le_m at h
       apply ih at h
       assumption
@@ -1975,7 +1973,7 @@ theorem merge_filter (α : Type) (test : α → Bool) (l l₁ l₂ : List α)
   | merge_left h' ih =>
     rw [List.all_cons, Bool.and_eq_true] at h₁
     obtain ⟨htest, h₁⟩ := h₁
-    rw [List.filter_cons, htest]; dsimp
+    rw [List.filter_cons_of_pos htest];
     congr 1; apply ih
     . assumption
     . assumption
@@ -1983,7 +1981,7 @@ theorem merge_filter (α : Type) (test : α → Bool) (l l₁ l₂ : List α)
     rw [List.all_cons, Bool.and_eq_true,
       Bool.not_eq_eq_eq_not, Bool.not_true] at h₂
     obtain ⟨htest, h₂⟩ := h₂
-    rw [List.filter_cons, htest]; dsimp
+    rw [List.filter_cons_of_neg (ne_true_of_eq_false htest)]
     congr 1; apply ih
     . assumption
     . assumption
@@ -2080,19 +2078,18 @@ theorem filter_subseq (α : Type) (l : List α) (test : α → Bool) :
   induction l with
   | nil => rw [List.filter_nil]; constructor
   | cons hd tl ih =>
-    rw [List.filter_cons]; cases (test hd)
-    . dsimp [Bool.false_eq_true]
-      constructor; assumption
-    . dsimp; constructor; assumption
+    cases h : (test hd)
+    . rw [List.filter_cons_of_neg (ne_true_of_eq_false h)]; constructor; assumption
+    . rw [List.filter_cons_of_pos h]; constructor; assumption
 
 theorem filter_all (α : Type) (l : List α) (test : α → Bool) :
     List.all (List.filter test l) test := by
   induction l with
   | nil => rfl
   | cons hd tl ih =>
-    rw [List.filter_cons]; cases h : (test hd)
-    . dsimp [Bool.false_eq_true]; assumption
-    . dsimp; rw [Bool.and_eq_true]; constructor
+    cases h : (test hd)
+    . rw [List.filter_cons_of_neg (ne_true_of_eq_false h)]; assumption
+    . rw [List.filter_cons_of_pos h, List.all_cons, Bool.and_eq_true]; constructor
       . assumption
       . assumption
 
@@ -2108,16 +2105,17 @@ theorem filter_spec2 (α : Type) (l lsub : List α) (test : α → Bool) :
       inversion hsub
       rw [List.filter_nil]
     | cons hd tl ih =>
-      rw [List.filter_cons]
       cases htest : test hd with
       | false =>
-        dsimp [Bool.false_eq_true]
-        intro hmax; apply ih
-        apply maximal_strengthening _ _ _ _ _ _ hmax
-        rw [Bool.not_eq_eq_eq_not, Bool.not_true]
-        assumption
+        rw [List.filter_cons_of_neg]
+        . intro hmax; apply ih
+          apply maximal_strengthening _ _ _ _ _ _ hmax
+          rw [Bool.not_eq_eq_eq_not, Bool.not_true]
+          assumption
+        . exact ne_true_of_eq_false htest
       | true =>
-        intro ⟨⟨hsub, hall⟩, hlen⟩; dsimp
+        intro ⟨⟨hsub, hall⟩, hlen⟩
+        rw [List.filter_cons_of_pos htest]
         /- in this case, lsub must begin with hd, since otherwise it
         wouldn't be maximal. -/
         cases lsub with
@@ -2156,26 +2154,27 @@ theorem filter_spec2 (α : Type) (l lsub : List α) (test : α → Bool) :
     . intro l' ⟨hsub, hall⟩
       induction l generalizing l' lsub with
       | nil =>
-        inversion hsub; dsimp
+        inversion hsub; rw [List.length_nil]
         apply zero_le_n
       | cons hd tl ih =>
-        rw [List.filter_cons] at hfilter
         cases htest : test hd with
         | false =>
-          rw [htest] at hfilter; dsimp [Bool.false_eq_true] at hfilter
-          apply ih _ hfilter _ _ hall
-          inversion hsub with
-          | sub_nil => constructor
-          | sub_take l hsub =>
-            rw [List.all_cons, Bool.and_eq_true] at hall
-            obtain ⟨ht, _⟩ := hall
-            rw [ht] at htest
-            contradiction
-          | sub_skip hsub => assumption
+          rw [List.filter_cons_of_neg] at hfilter
+          . apply ih _ hfilter _ _ hall
+            inversion hsub with
+            | sub_nil => constructor
+            | sub_take l hsub =>
+              rw [List.all_cons, Bool.and_eq_true] at hall
+              obtain ⟨ht, _⟩ := hall
+              rw [ht] at htest
+              contradiction
+            | sub_skip hsub => assumption
+          . exact ne_true_of_eq_false htest
         | true =>
-          rw [← hfilter, htest]; dsimp
+          rw [List.filter_cons_of_pos htest] at hfilter
+          rw [← hfilter, List.length_cons]
           inversion hsub with
-          | sub_nil => dsimp; apply zero_le_n
+          | sub_nil => rw [List.length_nil]; apply zero_le_n
           | sub_take l hsub =>
             rw [List.length_cons]; apply n_le_m__succ_n_le_succ_m
             apply ih _ rfl _ hsub

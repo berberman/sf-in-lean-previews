@@ -2151,50 +2151,6 @@
         "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
-   "Slang.optimize0plus_sound'":
-   [{"id": "Slang___optimize0plus_sound___",
-     "data":
-     {"/Slang/#Slang___optimize0plus_sound___":
-      {"display": "optimize0plus_sound'",
-       "context":
-       ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
-   "Slang.optimize0plus_sound":
-   [{"id": "Slang___optimize0plus_sound",
-     "data":
-     {"/Slang/#Slang___optimize0plus_sound":
-      {"display": "optimize0plus_sound",
-       "context":
-       ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
-   "Slang.Nat.odd":
-   [{"id": "Slang___Nat___odd",
-     "data":
-     {"/Slang/#Slang___Nat___odd":
-      {"display": "Nat.odd",
-       "context":
-       ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
-   "Slang.Nat.even":
-   [{"id": "Slang___Nat___even",
-     "data":
-     {"/Slang/#Slang___Nat___even":
-      {"display": "Nat.even",
-       "context":
-       ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
    "Slang.Bexp.not":
    [{"id": "Slang___Bexp___not",
      "data":
@@ -2432,11 +2388,33 @@
         "Arithmetic and Boolean Expressions",
         "Syntax"]}},
      "address": "/Slang/"}],
+   "Slang.Aexp.optimize0plus_sound'":
+   [{"id": "Slang___Aexp___optimize0plus_sound___",
+     "data":
+     {"/Slang/#Slang___Aexp___optimize0plus_sound___":
+      {"display": "optimize0plus_sound'",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.Aexp.optimize0plus_sound":
+   [{"id": "Slang___Aexp___optimize0plus_sound",
+     "data":
+     {"/Slang/#Slang___Aexp___optimize0plus_sound":
+      {"display": "optimize0plus_sound",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.Aexp.optimize0plus":
    [{"id": "Slang___Aexp___optimize0plus",
      "data":
      {"/Slang/#Slang___Aexp___optimize0plus":
-      {"display": "Aexp.optimize0plus",
+      {"display": "optimize0plus",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -2524,7 +2502,7 @@
    [{"id": "Slang___Aexp___evalR_iff_eval",
      "data":
      {"/Slang/#Slang___Aexp___evalR_iff_eval":
-      {"display": "Aexp.evalR_iff_eval",
+      {"display": "evalR_iff_eval",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -2541,6 +2519,28 @@
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
         "Evaluation"]}},
+     "address": "/Slang/"}],
+   "Slang.Aexp.Nat.odd":
+   [{"id": "Slang___Aexp___Nat___odd",
+     "data":
+     {"/Slang/#Slang___Aexp___Nat___odd":
+      {"display": "Nat.odd",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.Aexp.Nat.even":
+   [{"id": "Slang___Aexp___Nat___even",
+     "data":
+     {"/Slang/#Slang___Aexp___Nat___even":
+      {"display": "Nat.even",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.EvalR.plus":
    [{"id": "Slang___Aexp___EvalR___plus",
@@ -4438,11 +4438,11 @@
         "Evaluating Commands",
         "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
-   "Com.trans_sound":
-   [{"id": "Com___trans_sound",
+   "Com.transSound_def":
+   [{"id": "Com___transSound_def",
      "data":
-     {"/Equiv/#Com___trans_sound":
-      {"display": "Com.trans_sound",
+     {"/Equiv/#Com___transSound_def":
+      {"display": "Com.transSound_def",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -4497,11 +4497,11 @@
         "Behavioral Equivaleence",
         "Simple Examples"]}},
      "address": "/Equiv/"}],
-   "Com.fold_constants":
-   [{"id": "Com___fold_constants",
+   "Com.foldConstants":
+   [{"id": "Com___foldConstants",
      "data":
-     {"/Equiv/#Com___fold_constants":
-      {"display": "Com.fold_constants",
+     {"/Equiv/#Com___foldConstants":
+      {"display": "Com.foldConstants",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -4590,6 +4590,16 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Com.TransSound":
+   [{"id": "Com___TransSound",
+     "data":
+     {"/Equiv/#Com___TransSound":
+      {"display": "Com.TransSound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "Com.EvalR.whileTrue":
    [{"id": "Com___EvalR___whileTrue",
      "data":
@@ -4829,11 +4839,11 @@
         "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
-   "Bexp.trans_sound":
-   [{"id": "Bexp___trans_sound",
+   "Bexp.transSound_def":
+   [{"id": "Bexp___transSound_def",
      "data":
-     {"/Equiv/#Bexp___trans_sound":
-      {"display": "Bexp.trans_sound",
+     {"/Equiv/#Bexp___transSound_def":
+      {"display": "Bexp.transSound_def",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -4883,11 +4893,11 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
-   "Bexp.fold_constants":
-   [{"id": "Bexp___fold_constants",
+   "Bexp.foldConstants":
+   [{"id": "Bexp___foldConstants",
      "data":
-     {"/Equiv/#Bexp___fold_constants":
-      {"display": "Bexp.fold_constants",
+     {"/Equiv/#Bexp___foldConstants":
+      {"display": "Bexp.foldConstants",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -5059,6 +5069,16 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "Bexp.TransSound":
+   [{"id": "Bexp___TransSound",
+     "data":
+     {"/Equiv/#Bexp___TransSound":
+      {"display": "Bexp.TransSound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "Bexp.Equiv":
    [{"id": "Bexp___Equiv",
      "data":
@@ -5231,11 +5251,11 @@
         "Assertions",
         "Assertion Implication"]}},
      "address": "/Hoare/"}],
-   "Aexp.trans_sound":
-   [{"id": "Aexp___trans_sound",
+   "Aexp.transSound_def":
+   [{"id": "Aexp___transSound_def",
      "data":
-     {"/Equiv/#Aexp___trans_sound":
-      {"display": "Aexp.trans_sound",
+     {"/Equiv/#Aexp___transSound_def":
+      {"display": "Aexp.transSound_def",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -5296,55 +5316,66 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
-   "Aexp.fold_constants_sound":
-   [{"id": "Aexp___fold_constants_sound",
+   "Aexp.foldConstants_sound'":
+   [{"id": "Aexp___foldConstants_sound___",
      "data":
-     {"/Equiv/#Aexp___fold_constants_sound":
-      {"display": "Aexp.fold_constants_sound",
+     {"/Equiv/#Aexp___foldConstants_sound___":
+      {"display": "Aexp.foldConstants_sound'",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
         "Program Transformation",
         "Soundness of Constant Folding"]}},
      "address": "/Equiv/"}],
-   "Aexp.fold_constants_plus":
-   [{"id": "Aexp___fold_constants_plus",
+   "Aexp.foldConstants_sound":
+   [{"id": "Aexp___foldConstants_sound",
      "data":
-     {"/Equiv/#Aexp___fold_constants_plus":
-      {"display": "Aexp.fold_constants_plus",
+     {"/Equiv/#Aexp___foldConstants_sound":
+      {"display": "Aexp.foldConstants_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of Constant Folding"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_num":
+   [{"id": "Aexp___foldConstants_num",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_num":
+      {"display": "Aexp.foldConstants_num",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
         "Program Transformation",
         "The Constant-Folding Transformation"]}},
      "address": "/Equiv/"}],
-   "Aexp.fold_constants_num":
-   [{"id": "Aexp___fold_constants_num",
+   "Aexp.foldConstants_id":
+   [{"id": "Aexp___foldConstants_id",
      "data":
-     {"/Equiv/#Aexp___fold_constants_num":
-      {"display": "Aexp.fold_constants_num",
+     {"/Equiv/#Aexp___foldConstants_id":
+      {"display": "Aexp.foldConstants_id",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
         "Program Transformation",
         "The Constant-Folding Transformation"]}},
      "address": "/Equiv/"}],
-   "Aexp.fold_constants_id":
-   [{"id": "Aexp___fold_constants_id",
+   "Aexp.foldConstants_cases":
+   [{"id": "Aexp___foldConstants_cases",
      "data":
-     {"/Equiv/#Aexp___fold_constants_id":
-      {"display": "Aexp.fold_constants_id",
+     {"/Equiv/#Aexp___foldConstants_cases":
+      {"display": "Aexp.foldConstants_cases",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
         "Program Transformation",
         "The Constant-Folding Transformation"]}},
      "address": "/Equiv/"}],
-   "Aexp.fold_constants":
-   [{"id": "Aexp___fold_constants",
+   "Aexp.foldConstants":
+   [{"id": "Aexp___foldConstants",
      "data":
-     {"/Equiv/#Aexp___fold_constants":
-      {"display": "Aexp.fold_constants",
+     {"/Equiv/#Aexp___foldConstants":
+      {"display": "Aexp.foldConstants",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -5460,6 +5491,16 @@
         "Equiv: Program Equivalence",
         "Behavioral Equivaleence",
         "Definitions"]}},
+     "address": "/Equiv/"}],
+   "Aexp.TransSound":
+   [{"id": "Aexp___TransSound",
+     "data":
+     {"/Equiv/#Aexp___TransSound":
+      {"display": "Aexp.TransSound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
      "address": "/Equiv/"}],
    "Aexp.Equiv":
    [{"id": "Aexp___Equiv",

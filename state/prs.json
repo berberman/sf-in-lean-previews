@@ -229,9 +229,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "66999db5c26fc10e8efa8d4f131446afdd02a763",
+      "head_sha": "865cf69a0289a25928b8583eedba3b0f69742540",
       "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32992033205",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33055862338",
       "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
@@ -490,53 +490,6 @@
       "status": "ci-failed",
       "title": "Imp: support sequencing using newlines, pretty print on a single line",
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
-    },
-    "327": {
-      "base_sha": "66999db5c26fc10e8efa8d4f131446afdd02a763",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "720793f74c5037a5e98b324aabed12bf554f5fec",
-      "preview_path": "pr/327/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33054713701",
-      "status": "published",
-      "title": "Equiv: prove foldConstants_sound using foldConstants_cases",
-      "url": "https://github.com/plclub/sf-in-lean/pull/327"
     }
   },
   "schema": 3

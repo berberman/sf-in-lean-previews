@@ -583,17 +583,23 @@ example :
 --  and produces a modified program as output. Compiler optimizations such
 --  as constant folding are canonical examples, but there are many others.
 
-def Aexp.trans_sound (trans : Aexp → Aexp) : Prop :=
-  ∀ (a : Aexp),
-    a.Equiv (trans a)
+def Aexp.TransSound (trans : Aexp → Aexp) : Prop :=
+  ∀ (a : Aexp), a.Equiv (trans a)
 
-def Bexp.trans_sound (trans : Bexp → Bexp) : Prop :=
-  ∀ (b : Bexp),
-    b.Equiv (trans b)
+theorem Aexp.transSound_def {trans : Aexp → Aexp} :
+    TransSound trans ↔ ∀ (a : Aexp), a.Equiv (trans a) := by rfl
 
-def Com.trans_sound (trans : Com → Com) : Prop :=
-  ∀ (c : Com),
-    c.Equiv (trans c)
+def Bexp.TransSound (trans : Bexp → Bexp) : Prop :=
+  ∀ (b : Bexp), b.Equiv (trans b)
+
+theorem Bexp.transSound_def {trans : Bexp → Bexp} :
+    TransSound trans ↔ ∀ (b : Bexp), b.Equiv (trans b) := by rfl
+
+def Com.TransSound (trans : Com → Com) : Prop :=
+  ∀ (c : Com), c.Equiv (trans c)
+
+theorem Com.transSound_def {trans : Com → Com} :
+    TransSound trans ↔ ∀ (c : Com), c.Equiv (trans c) := by rfl
 
 --  ### The Constant-Folding Transformation
 
@@ -602,32 +608,45 @@ def Com.trans_sound (trans : Com → Com) : Prop :=
 --  Constant folding is an optimization that finds constant expressions and
 --  replaces them by their values.
 
-def Aexp.fold_constants (a: Aexp) : Aexp :=
+def Aexp.foldConstants (a : Aexp) : Aexp :=
   match a with
   | .num n => .num n
   | .id x => .id x
-  | aexp { ~a1 + ~a2 } => 
-    match a1.fold_constants, a2.fold_constants with
-    | .num n1, .num n2 => .num (n1 + n2)
-    | a1', a2' => aexp { ~a1' + ~a2' }
-  | aexp { ~a1 - ~a2 } => 
-    match a1.fold_constants, a2.fold_constants with
-    | .num n1, .num n2 => .num (n1 - n2)
-    | a1', a2' => aexp { ~a1' - ~a2' }
-  | aexp { ~a1 * ~a2 } => 
-    match a1.fold_constants, a2.fold_constants with
-    | .num n1, .num n2 => .num (n1 * n2)
-    | a1', a2' => aexp { ~a1' * ~a2' }
+  | aexp { ~a₁ + ~a₂ } =>
+    match a₁.foldConstants, a₂.foldConstants with
+    | .num n₁, .num n₂ => .num (n₁ + n₂)
+    | a₁', a₂' => aexp { ~a₁' + ~a₂' }
+  | aexp { ~a₁ - ~a₂ } =>
+    match a₁.foldConstants, a₂.foldConstants with
+    | .num n₁, .num n₂ => .num (n₁ - n₂)
+    | a₁', a₂' => aexp { ~a₁' - ~a₂' }
+  | aexp { ~a₁ * ~a₂ } =>
+    match a₁.foldConstants, a₂.foldConstants with
+    | .num n₁, .num n₂ => .num (n₁ * n₂)
+    | a₁', a₂' => aexp { ~a₁' * ~a₂' }
 
-theorem Aexp.fold_constants_num (n: Nat) : (Aexp.num n).fold_constants = .num n := rfl
-theorem Aexp.fold_constants_id (x : Ident) : (Aexp.id x).fold_constants = .id x := rfl
-theorem Aexp.fold_constants_plus (a1 a2 : Aexp) : 
-  (aexp {~a1 + ~a2}).fold_constants =
-  match a1.fold_constants, a2.fold_constants with
-  | .num n1, .num n2 => .num (n1 + n2)
-  | a1', a2' => aexp { ~a1' + ~a2' } := rfl
+@[simp]
+theorem Aexp.foldConstants_num (n : Nat) : (Aexp.num n).foldConstants = .num n := rfl
+@[simp]
+theorem Aexp.foldConstants_id (x : Ident) : (Aexp.id x).foldConstants = .id x := rfl
 
-example : (aexp { (1 + 2) * X}).fold_constants = (aexp { 3 * X }) := by rfl
+theorem Aexp.foldConstants_cases (a₁ a₂ : Aexp) :
+    (∃ n₁ n₂, a₁.foldConstants = .num n₁ ∧ a₂.foldConstants = .num n₂) ∨
+    (aexp {~a₁ + ~a₂}).foldConstants = (aexp {~a₁.foldConstants + ~a₂.foldConstants}) ∧
+    (aexp {~a₁ - ~a₂}).foldConstants = (aexp {~a₁.foldConstants - ~a₂.foldConstants}) ∧
+    (aexp {~a₁ * ~a₂}).foldConstants = (aexp {~a₁.foldConstants * ~a₂.foldConstants}) := by
+  cases ha₁ : a₁.foldConstants with
+  | num n₁ =>
+    cases ha₂ : a₂.foldConstants with
+    | num n₂ =>
+      left
+      exists n₁, n₂
+    | _ =>
+      simp [foldConstants, ha₁, ha₂]
+  | _ =>
+    simp [foldConstants, ha₁]
+
+example : (aexp { (1 + 2) * X }).foldConstants = (aexp { 3 * X }) := by rfl
 
 --  Note that this version of constant folding doesn't do other "obvious"
 --  things like eliminating trivial additions (e.g., rewriting `0 + X` to
@@ -638,66 +657,66 @@ example : (aexp { (1 + 2) * X}).fold_constants = (aexp { 3 * X }) := by rfl
 --  the definitions and proofs just get longer. We'll consider some in the
 --  exercises.
 
-example : (aexp { X - ((0 * 6) + Y) }).fold_constants = (aexp { X - (0 + Y) }) := by rfl
+example : (aexp { X - ((0 * 6) + Y) }).foldConstants = (aexp { X - (0 + Y) }) := by rfl
 
---  Not only can we lift `Aexp.fold_constants` to `Bexp` in the `Bexp.eq`,
+--  Not only can we lift `Aexp.foldConstants` to `Bexp` in the `Bexp.eq`,
 --  `Bexp.neq`, and `Bexp.le` cases, we can also look for constant
 --  *boolean* expressions and evaluate them in place as well.
 
-def Bexp.fold_constants (b : Bexp) : Bexp :=
+def Bexp.foldConstants (b : Bexp) : Bexp :=
   match b with
   | bexp { true } => bexp { true }
   | bexp { false } => bexp { false }
-  | bexp { ~a1 = ~a2 } => 
-    match a1.fold_constants, a2.fold_constants with
-    | .num n1, .num n2 => if n1 = n2 then bexp { true } else bexp {false}
-    | a1', a2' => bexp { ~a1' = ~a2' }
-  | bexp { ~a1 ≠ ~a2 } => 
-    match a1.fold_constants, a2.fold_constants with
-    | .num n1, .num n2 => if n1 ≠ n2 then bexp { true } else bexp {false}
-    | a1', a2' => bexp { ~a1' ≠ ~a2' }
-  | bexp { ~a1 ≤ ~a2 } => 
-    match a1.fold_constants, a2.fold_constants with
-    | .num n1, .num n2 => if n1 ≤ n2 then bexp { true } else bexp {false}
-    | a1', a2' => bexp { ~a1' ≤ ~a2' }
-  | bexp { ~a1 > ~a2 } => 
-    match a1.fold_constants, a2.fold_constants with
-    | .num n1, .num n2 => if n1 > n2 then bexp { true } else bexp {false}
-    | a1', a2' => bexp { ~a1' > ~a2' }
-  | bexp { ¬~b1 } =>
-    match b1.fold_constants with
+  | bexp { ~a₁ = ~a₂ } =>
+    match a₁.foldConstants, a₂.foldConstants with
+    | .num n₁, .num n₂ => if n₁ = n₂ then bexp { true } else bexp {false}
+    | a₁', a₂' => bexp { ~a₁' = ~a₂' }
+  | bexp { ~a₁ ≠ ~a₂ } =>
+    match a₁.foldConstants, a₂.foldConstants with
+    | .num n₁, .num n₂ => if n₁ ≠ n₂ then bexp { true } else bexp {false}
+    | a₁', a₂' => bexp { ~a₁' ≠ ~a₂' }
+  | bexp { ~a₁ ≤ ~a₂ } =>
+    match a₁.foldConstants, a₂.foldConstants with
+    | .num n₁, .num n₂ => if n₁ ≤ n₂ then bexp { true } else bexp {false}
+    | a₁', a₂' => bexp { ~a₁' ≤ ~a₂' }
+  | bexp { ~a₁ > ~a₂ } =>
+    match a₁.foldConstants, a₂.foldConstants with
+    | .num n₁, .num n₂ => if n₁ > n₂ then bexp { true } else bexp {false}
+    | a₁', a₂' => bexp { ~a₁' > ~a₂' }
+  | bexp { ¬ ~b₁ } =>
+    match b₁.foldConstants with
     | bexp { true } => bexp { false }
     | bexp { false } => bexp { true }
-    | b1' => bexp { ¬~b1' }
-  | bexp { ~b1 ∧ ~b2 } =>
-    match b1.fold_constants, b2.fold_constants with
+    | b₁' => bexp { ¬ ~b₁' }
+  | bexp { ~b₁ ∧ ~b₂ } =>
+    match b₁.foldConstants, b₂.foldConstants with
     | bexp { true }, bexp { true } => bexp { true }
     | bexp { true }, bexp { false } => bexp { false }
     | bexp { false }, bexp { true } => bexp { false }
     | bexp { false }, bexp { false } => bexp { false }
-    | b1', b2' => bexp { ~b1' ∧ ~b2' }
+    | b₁', b₂' => bexp { ~b₁' ∧ ~b₂' }
 
-example : (bexp { true ∧ ¬( false ∧ true) }).fold_constants = (bexp { true }) := by rfl
-example : (bexp { (X = Y) ∧ ( 0 = (2 - (1 + 1))) }).fold_constants = (bexp { (X = Y) ∧ true }) := by rfl
+example : (bexp { true ∧ ¬( false ∧ true) }).foldConstants = (bexp { true }) := by rfl
+example : (bexp { (X = Y) ∧ ( 0 = (2 - (1 + 1))) }).foldConstants = (bexp { (X = Y) ∧ true }) := by rfl
 
 --  To fold constants in a command, we simply apply the appropriate folding
 --  functions on all embedded expressions.
 
-def Com.fold_constants (c : Com) : Com :=
+def Com.foldConstants (c : Com) : Com :=
   match c with
   | imp { skip } => imp { skip }
-  | imp { x := ~a } => imp { x := ~a.fold_constants }
-  | imp { ~c1 ; ~c2 } =>  imp { ~c1.fold_constants ; ~c2.fold_constants }
-  | imp { if (~b) {~c1} else {~c2}} =>
-    match b.fold_constants with
-    | bexp { true } => c1.fold_constants
-    | bexp { false } => c2.fold_constants
-    | b' => imp { if (~b') {~c1.fold_constants} else {~c2.fold_constants}}
+  | imp { x := ~a } => imp { x := ~a.foldConstants }
+  | imp { ~c₁ ; ~c₂ } =>  imp { ~c₁.foldConstants ; ~c₂.foldConstants }
+  | imp { if (~b) {~c₁} else {~c₂}} =>
+    match b.foldConstants with
+    | bexp { true } => c₁.foldConstants
+    | bexp { false } => c₂.foldConstants
+    | b' => imp { if (~b') {~c₁.foldConstants} else {~c₂.foldConstants}}
   | imp { while (~b) {~c}} =>
-    match b.fold_constants with
+    match b.foldConstants with
     | bexp { true } => imp { while (true) { skip }}
     | bexp { false } => imp { skip }
-    | b' => imp { while (~b') {~c.fold_constants}}
+    | b' => imp { while (~b') {~c.foldConstants}}
 
 example :
   (imp {
@@ -706,7 +725,7 @@ example :
     if ((X - Y) = (2 + 4)) {skip} else {Y := 0};
     if (0 ≤ (4 - (2 - 1))) {Y := 0} else {skip};
     while (Y = 0) {X := X+1}
-  }).fold_constants =
+  }).foldConstants =
   (imp {
     X := 9;
     Y := X - 3;
@@ -721,19 +740,27 @@ example :
 
 --  Here's the proof for arithmetic expressions.
 
-theorem Aexp.fold_constants_sound :
-    Aexp.trans_sound Aexp.fold_constants := by
-  intro a st
+theorem Aexp.foldConstants_sound : TransSound foldConstants := by
+  rw [transSound_def]
+  intro a
+  rw [equiv_def]
+  intro st
   induction a with
   | num n | id x => rfl
-  | plus a1 a2 ih1 ih2  =>
-    rw [Aexp.fold_constants_plus]
-    split
-    case h_1 n1 n2 heq1 heq2 =>
-      rw [Aexp.eval_plus, ih1, ih2, heq1, heq2]
-      simp
-    case h_2 h =>
-      rw [Aexp.eval_plus, Aexp.eval_plus, ih1, ih2]
-    
-  | _ => sorry
+  | _ a₁ a₂ _ _ =>
+    cases foldConstants_cases a₁ a₂ with
+    | inl h =>
+      obtain ⟨n₁, n₂, h₁, h₂⟩ := h
+      rw [foldConstants]
+      simp_all
+    | inr h =>
+      simp_all
+
+-- Golfed version with `fun_induction`
+theorem Aexp.foldConstants_sound' : TransSound foldConstants := by
+  rw [transSound_def]
+  intro a
+  rw [equiv_def]
+  intro st
+  fun_induction foldConstants a <;> simp_all
 

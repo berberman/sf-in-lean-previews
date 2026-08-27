@@ -544,7 +544,7 @@ theorem length_append (l₁ l₂ : NatList) :
 --  _Quiz:_
 
 --  To prove the following theorem, which tactics will we
---  need besides `intro`, `dsimp`, `rw`, and `rfl`?
+--  need besides `intro`, `rw`, and `rfl`?
 
 --  (A) none
 
@@ -566,7 +566,7 @@ theorem length_append (l₁ l₂ : NatList) :
 --    example (n m : Nat) : (myRepeat n m).length = m
 
 --  To prove the following theorem, which tactics will we
---  need besides `intro`, `dsimp`, `rw`, and `rfl`?
+--  need besides `intro`, `rw`, and `rfl`?
 
 --  (A) none
 
@@ -688,9 +688,7 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
 
 theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
     find x (update d x n) = .some n := by
-  dsimp [update, find]
-  rw [MyId.beq_refl]
-  dsimp
+  rw [update, find, MyId.beq_refl, cond_true]
 
 --  (A) True (B) False (C) Not sure
 
@@ -702,9 +700,7 @@ theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
     MyId.beq x y = false →
     find x (update d y o) = find x d := by
   intro h
-  dsimp [update, find]
-  rw [h]
-  dsimp
+  rw [update, find, h, cond_false]
 
 --  (A) True (B) False (C) Not sure
 

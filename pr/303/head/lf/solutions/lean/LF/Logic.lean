@@ -557,7 +557,7 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
   cases b with
   | false => rfl
   | true =>
-    dsimp [Ne, Not] at h
+    rw [Ne, Not] at h
     apply ex_falso_quodlibet
     apply h
     rfl
@@ -570,7 +570,7 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
   | false => rfl
   | true =>
     exfalso
-    dsimp [Ne, Not] at h
+    rw [Ne, Not] at h
     apply h
     rfl
 
@@ -724,7 +724,7 @@ def DiscrFun (n : Nat) : Prop :=
 theorem discrFun_zero : DiscrFun 0 := by constructor
 
 theorem discrFun_succ (n : Nat) : ¬ DiscrFun (n + 1) := by
-  dsimp [DiscrFun]; intro h; assumption
+  rw [DiscrFun]; intro h; assumption
 
 theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
   intro h
@@ -751,8 +751,9 @@ def List.IsNil {α : Type} (l : List α) : Prop :=
 theorem isNil_nil {α : Type} : List.IsNil ([] : List α) := by constructor
 
 theorem isNil_cons {α} (x : α) (l : List α) : ¬ List.IsNil (x :: l) := by
-  dsimp [List.IsNil, Not]
-  intro h; assumption
+  rw [List.IsNil, Not]
+  . intro h; assumption
+  . intro h; contradiction
 
 theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
     ¬ ([] = x :: xs) := by
@@ -988,7 +989,7 @@ def List.In {α : Type} (x : α) (xs : List α) : Prop :=
   | x' :: xs' => x = x' ∨ In x xs'
 
 theorem List.In_nil {α : Type} {x : α} : ¬ (List.In x []) := by
-  dsimp [List.In]; intro h; assumption
+  rw [List.In]; intro h; assumption
 
 theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := rfl
 
@@ -996,10 +997,10 @@ theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: x
 --  concrete sequence of nested disjunctions.
 
 example : List.In 4 [1, 2, 3, 4, 5] := by
-  dsimp [List.In]; right; right; right; left; rfl
+  rw [List.In]; right; right; right; left; rfl
 
 example (n : Nat) (h : List.In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
-  dsimp [List.In] at h
+  rw [List.In] at h
   obtain h | h | ⟨⟨⟩⟩ := h
   · exists 1
   · exists 2
@@ -1103,8 +1104,8 @@ theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
 --
 --      1. the construction is artificial
 --
---      2. before `simp` is introduced, `bif` requires noisy `dsimp`, `rw`,
---         and Boolean case equations
+--      2. before `simp` is introduced, `bif` requires noisy `rw` and
+--         Boolean case equations
 --
 --      3. I don't know how to nicely avoid `cases h : ...` syntax which
 --         IIRC we didn't mention before
@@ -1126,7 +1127,7 @@ theorem combineOddEven_intro (Odd Even : Nat → Prop)
     (hOdd : Nat.odd n = true → Odd n)
     (hEven : Nat.odd n = false → Even n) :
     CombineOddEven Odd Even n := by
-  dsimp [CombineOddEven]
+  rw [CombineOddEven]
   /- `cases h : Nat.odd n` splits on `Nat.odd n` and records
     the corresponding equation as `h`. -/
   cases h : Nat.odd n with
@@ -1134,7 +1135,6 @@ theorem combineOddEven_intro (Odd Even : Nat → Prop)
     apply hEven
     rw [h]
   | true =>
-    dsimp
     apply hOdd
     exact h
 
@@ -1143,18 +1143,16 @@ theorem combineOddEven_elim_odd
     (n : Nat)
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = true) : Odd n := by
-  dsimp [CombineOddEven] at h
-  rw [hOdd] at h
-  dsimp at h; exact h
+  rw [CombineOddEven, hOdd, cond_true] at h
+  exact h
 
 theorem combineOddEven_elim_even
     (Odd Even : Nat → Prop)
     (n : Nat)
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = false) : Even n := by
-  dsimp [CombineOddEven] at h
-  rw [hOdd] at h
-  dsimp at h; exact h
+  rw [CombineOddEven, hOdd, cond_false] at h
+  exact h
 
 --  ## Applying Theorems to Arguments
 
@@ -1390,7 +1388,7 @@ example : Nat.even 42 = true := rfl
 
 --  ... or that there exists some `k` such that `n = double k`.
 
-example : Nat.Even 42 := by dsimp [Nat.Even]; exists 21
+example : Nat.Even 42 := by rw [Nat.Even]; exists 21
 
 --  Of course, it would be deeply strange if these two characterizations of
 --  evenness did not describe the same set of natural numbers! Fortunately,
@@ -1411,17 +1409,17 @@ theorem even_double_conv (n : Nat) : ∃ k : Nat,
     n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by
   induction n with
   | zero =>
-    rw [Nat.even_zero]; dsimp
+    rw [Nat.even_zero]
     exists 0  -- (`0 = Nat.double 0` is closed by `exists`'s final `rfl`)
   | succ n' ihn =>
     obtain ⟨k', ihk⟩ := ihn
     rw [Nat.even_succ]
     cases h : Nat.even n' with
     | false =>
-      rw [h] at ihk; rw [not] at *; dsimp at *
-      exists (k' + 1); rw [ihk, Nat.double_succ]
+      rw [h] at ihk; rw [not] at *; rw [cond_false] at ihk
+      exists (k' + 1); rw [ihk, cond_true, Nat.double_succ]
     | true =>
-      rw [h] at ihk; rw [not] at *; dsimp at *
+      rw [h] at ihk; rw [not] at *; rw [cond_true] at ihk
       exists k'; congr
 
 --  Now the main theorem:
@@ -1430,7 +1428,7 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
   constructor
   · intro h
     obtain ⟨k, hk⟩ := even_double_conv n
-    rw [h] at hk; dsimp at hk; dsimp [Even]; exists k
+    rw [h] at hk; rw [cond_true] at hk; rw [Even]; exists k
   · intro ⟨k, hk⟩; rw [hk]; apply even_double
 
 --  In view of this theorem, we can say that the boolean computation
@@ -1534,7 +1532,7 @@ example : Nat.even 101 = false := rfl
 
 example : ¬ Nat.Even 101 := by
   intro h; apply (Nat.even_bool_prop 101).mpr at h
-  dsimp [Nat.even] at h; contradiction
+  rw [Nat.even] at h; contradiction
 
 --  Conversely, there are situations where it can be easier to work with
 --  propositions rather than booleans. In particular, knowing that
@@ -1869,9 +1867,7 @@ theorem In_append_iff (α : Type) (l l' : List α) (x : α) :
 --  examples in later chapters.) Hint: `not_true_iff_false`.
 
 theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
-  rw [← not_true_iff_false]
-  dsimp [Ne]
-  rw [beq_eq_true n m]
+  rw [← not_true_iff_false, Ne, beq_eq_true n m]
 
 --  ### Functional Extensionality
 
@@ -1930,6 +1926,37 @@ theorem add_comm_fun' : (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) 
 --  1. Yes
 --  2. No
 
+--  #### Other Extensionality Principles
+
+--  Functions and propositions are not the only things that have
+--  extensionality principles. Many structures like pairs also have them:
+
+example {n : Nat} {p : Nat × Nat} (hx_fst : p.fst = n + 1) (hx_snd : p.snd = 0) :
+    (n + 1, 0) = p := by
+  ext -- uses the `Prod.ext` lemma
+  · rw [hx_fst]
+  · rw [hx_snd]
+
+--  ### Exercise (2 stars): prod_ext_example ⭐⭐
+
+--  Now, use `ext1` to prove the following. Remember that `dsimp only`
+--  simplifies projections like `(a, b).fst` to `a`.
+
+example {m : Nat} {p : Nat × Nat} (hp_snd : p.snd = 4) (hp_fst : p.fst = m) :
+    ((p.fst + 1, 2), (p.fst, 4)) = ((m + 1, p.snd - 2), p) := by
+  ext1
+  · dsimp only
+    ext1
+    · dsimp only
+      rw [hp_fst]
+    · dsimp only
+      rw [hp_snd]
+  · dsimp only
+    ext1
+    · rfl
+    · dsimp only
+      rw [hp_snd]
+
 --  ### Exercise (4 stars): trRev_correct ⭐⭐⭐⭐
 
 --  One problem with the definition of the list-reversing function
@@ -1968,8 +1995,7 @@ theorem revAppend_rev {α : Type} {xs ys : List α} :
     apply ih
 
 theorem trRev_correct {α : Type} : @trRev α = @List.rev α := by
-  ext1 xs; dsimp [trRev]
-  rw [revAppend_rev, List.append_nil]
+  ext1 xs; rw [trRev, revAppend_rev, List.append_nil]
 
 --  ### Classical vs. Constructive Logic
 
