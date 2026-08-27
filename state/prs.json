@@ -500,6 +500,53 @@
       "status": "published",
       "title": "Bump comparator-autograder to v4.34.0-rc2",
       "url": "https://github.com/plclub/sf-in-lean/pull/331"
+    },
+    "332": {
+      "base_sha": "1dec61dae44a86c44d268d3a0783d66fc52fa737",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "fe286f979bb8d305e3813946f1b1d0edeb587716",
+      "preview_path": "pr/332/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33109230491",
+      "status": "published",
+      "title": "Clean up resolved Basics developer notes",
+      "url": "https://github.com/plclub/sf-in-lean/pull/332"
     }
   },
   "schema": 3
