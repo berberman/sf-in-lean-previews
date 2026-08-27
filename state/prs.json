@@ -433,6 +433,63 @@
       "status": "published",
       "title": "Tactics: wrap some exercises in :::full",
       "url": "https://github.com/plclub/sf-in-lean/pull/324"
+    },
+    "325": {
+      "base_sha": "f21efcd782da3f5aedf05cc66545e8e74baef8e5",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "5d96ae31500331818696f406e214fcddc36095eb",
+      "preview_path": "pr/325/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33046043394",
+      "status": "published",
+      "title": "Typeclasses: dev note about API and encapsulation",
+      "url": "https://github.com/plclub/sf-in-lean/pull/325"
+    },
+    "326": {
+      "base_sha": "f21efcd782da3f5aedf05cc66545e8e74baef8e5",
+      "changed_variants": [],
+      "head_sha": "adab637f4a4eb89171e07fa472de8c3c805dba54",
+      "preview_path": "pr/326/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33046834293",
+      "status": "ci-failed",
+      "title": "Imp: support sequencing using newlines, pretty print on a single line",
+      "url": "https://github.com/plclub/sf-in-lean/pull/326"
     }
   },
   "schema": 3
