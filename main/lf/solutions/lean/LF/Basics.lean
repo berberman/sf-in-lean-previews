@@ -940,9 +940,10 @@ structure NibbleStruct : Type where
 
 --  { x0 := Playground.Bit.b0, x1 := Playground.Bit.b0, x2 := Playground.Bit.b0, x3 := Playground.Bit.b0 } : NibbleStruct
 
---  The `.mk` constructor is created for us. Structures are more commonly
---  constructed by assigning values to their *fields*. Each field name is
---  paired with its value using `:=`:
+--  The `.mk` constructor is created for us.
+
+--  Structures are more commonly constructed by assigning values to their
+--  *fields*. Each field name is paired with its value using `:=`:
 
 def zeroNibble : NibbleStruct := {
     x0 := .b0
@@ -1075,9 +1076,10 @@ def minusTwo (n : Nat) : Nat :=
 --  minusTwo : Nat → Nat
 
 --  These are all things that can be applied to a number to yield a number.
---  However, there is a fundamental difference between `succ` and the other
---  two: functions like `pred` and `minusTwo` are defined by giving
---  *computation rules* — e.g., the definition of `pred` says that
+--  But there is a difference between `succ` and the other two.
+
+--  Functions like `pred` and `minusTwo` are defined by giving *computation
+--  rules* — e.g., the definition of `pred` says that
 --  `pred (succ (succ zero))` can be simplified to `succ zero` — while the
 --  definition of `succ` has no such behavior attached. Although it is like
 --  a function in the sense that it can be applied to an argument, it does
@@ -1360,7 +1362,7 @@ theorem four_eq_succ_three : four = succ three := by rfl
 --  definitions, which allows us to use our `add` rules. Here's an example
 --  of how to start a proof this way.
 
---  ### Exercise (1 star): mul_simpl_rules ⭐
+--  ### Exercise (1 star): nat_eq_rules ⭐
 
 --  Finish the proof using the `add` rules:
 

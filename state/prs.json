@@ -1,5 +1,5 @@
 {
-  "main_sha": "1dec61dae44a86c44d268d3a0783d66fc52fa737",
+  "main_sha": "49623528923e3f2db095b4b8f8cfd6dd3df9f42a",
   "prs": {
     "181": {
       "base_sha": "1dec61dae44a86c44d268d3a0783d66fc52fa737",
@@ -361,145 +361,14 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
     },
     "328": {
-      "base_sha": "15dd37f2f99d6a094f3476d65eec9293868e95b4",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "bfd9950b96744703d096d2435877da5348e42e0b",
+      "base_sha": "49623528923e3f2db095b4b8f8cfd6dd3df9f42a",
+      "changed_variants": [],
+      "head_sha": "a7ddae5a07f2917fa771520252765ef3f5ecaf49",
       "preview_path": "pr/328/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33078395253",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Claude: Toolchain updated (renamed requires --> reqs)",
       "url": "https://github.com/plclub/sf-in-lean/pull/328"
-    },
-    "330": {
-      "base_sha": "1dec61dae44a86c44d268d3a0783d66fc52fa737",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "006a94ab6998c6d67cfb01c415d7ef84f547d915",
-      "preview_path": "pr/330/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33098280689",
-      "status": "published",
-      "title": "Basics: Tweaks to terse; exercise naming typo",
-      "url": "https://github.com/plclub/sf-in-lean/pull/330"
-    },
-    "331": {
-      "base_sha": "bfd9950b96744703d096d2435877da5348e42e0b",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "079c66415caa8b92630cc0a1343217d84f9b97d9",
-      "preview_path": "pr/331/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33102167229",
-      "status": "published",
-      "title": "Bump comparator-autograder to v4.34.0-rc2",
-      "url": "https://github.com/plclub/sf-in-lean/pull/331"
     },
     "332": {
       "base_sha": "1dec61dae44a86c44d268d3a0783d66fc52fa737",

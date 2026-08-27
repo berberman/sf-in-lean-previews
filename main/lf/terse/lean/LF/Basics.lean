@@ -443,6 +443,41 @@ example : allZero (.bits .b0 .b0 .b0 .b0) = true  := by rfl
 
 end Playground
 
+--  When defining an inductive type with just one
+--  constructor, we can instead use a `structure`:
+
+structure NibbleStruct : Type where
+  x0 : Playground.Bit
+  x1 : Playground.Bit
+  x2 : Playground.Bit
+  x3 : Playground.Bit
+
+#check NibbleStruct.mk .b0 .b0 .b0 .b0
+
+--  { x0 := Playground.Bit.b0, x1 := Playground.Bit.b0, x2 := Playground.Bit.b0, x3 := Playground.Bit.b0 } : NibbleStruct
+
+--  The `.mk` constructor is created for us.
+
+def zeroNibble : NibbleStruct := {
+    x0 := .b0
+    x1 := .b0
+    x2 := .b0
+    x3 := .b0
+  }
+
+--  How can we "update" a structure?
+
+def setFirstTwoBits (old : NibbleStruct)
+    (newX0 : Playground.Bit)
+    (newX1 : Playground.Bit) : NibbleStruct :=
+  { old with x0 := newX0, x1 := newX1 }
+
+--  When variables and field names match, construction is
+--  easier.
+
+def makeNibbleStruct (x0 x1 x2 x3 : Playground.Bit) : NibbleStruct :=
+  { x0, x1, x2, x3 }
+
 --  ### Natural Numbers
 
 namespace NatPlayground
@@ -489,6 +524,22 @@ def minusTwo (n : Nat) : Nat :=
   | succ (succ n') => n'
 
 #eval minusTwo four
+
+--  Look the types of `succ`, `pred`, and `minusTwo`:
+
+#check (succ)
+#check (pred)
+#check (minusTwo)
+
+--  succ : Nat → Nat
+
+--  pred : Nat → Nat
+
+--  minusTwo : Nat → Nat
+
+--  These are all things that can be applied to a number to
+--  yield a number. But there is a difference between `succ`
+--  and the other two.
 
 --  Here are some recursive functions on natural numbers:
 
