@@ -402,20 +402,6 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --  knows which branch to take during the computation done
 --  by the `rfl` tactic.
 
---  ### Exercise (1 star): zip_checks (Optional, manually graded) ⭐
-
---  Try answering the following questions on paper and
---  checking your answers in Lean:
-
---  - What is the type of `zip` (i.e., what does
---    `#check @zip` print?)
-
---  - What does
-
---    `#eval zip [1, 2] [false, false, true, true]`
-
---    print?
-
 --  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
 
 --  The function `unzip` goes in the other direction from
