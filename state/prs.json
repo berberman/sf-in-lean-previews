@@ -406,6 +406,16 @@
       "status": "published",
       "title": "Clean up resolved Basics developer notes",
       "url": "https://github.com/plclub/sf-in-lean/pull/332"
+    },
+    "333": {
+      "base_sha": "4b6f86c88a5ee9517a426b51ac6d7581020a6687",
+      "changed_variants": [],
+      "head_sha": "a62c6ade67e31497600476c66686355f6990068c",
+      "preview_path": "pr/333/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Add visibility linting for exercises",
+      "url": "https://github.com/plclub/sf-in-lean/pull/333"
     }
   },
   "schema": 3
