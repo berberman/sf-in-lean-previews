@@ -446,11 +446,48 @@
     },
     "328": {
       "base_sha": "15dd37f2f99d6a094f3476d65eec9293868e95b4",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "bfd9950b96744703d096d2435877da5348e42e0b",
       "preview_path": "pr/328/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33078395253",
+      "status": "published",
       "title": "Claude: Toolchain updated (renamed requires --> reqs)",
       "url": "https://github.com/plclub/sf-in-lean/pull/328"
     }
