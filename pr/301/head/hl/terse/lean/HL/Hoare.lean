@@ -1,248 +1,78 @@
 import LF.CustomTactics
 import HL.Imp
 
-import HL.SFLCompat
+import SFLCompat
 
--- # Hoare: Hoare Logic, Part I
+--  # Hoare: Hoare Logic, Part I
 
--- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2025):
---     There is an excellent and fairly polished problem on a
---     Hoare Logic for a little assembly language in the
---     materials for the 2025 CIS 5000 final exam at Penn. We
---     should turn it into an exercise in this chapter!
+--  Our goal in this chapter is to develop the tools to work
+--  through some simple examples of *program verification*
+--  -- i.e., to use the precise definition of Imp to prove
+--  formally that particular programs satisfy particular
+--  specifications of their behavior.
 
--- Note to developers (Niklas Halonen @xhalo32):
---     Reply to Benjamin's note above: The way we do it now in
---     Lean is to have a custom elaborater which avoids all the
---     coercions plus doesn't need the syntax category for
---     assertions.
+--  We'll develop a reasoning system called *Floyd-Hoare
+--  Logic* -- often shortened to just *Hoare Logic* -- in
+--  which each of the syntactic constructs of Imp is
+--  equipped with a generic "proof rule" that can be used to
+--  reason compositionally about the correctness of programs
+--  involving this construct.
 
--- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
---     Any chance we could move the (awkwardly placed) weakest
---     precondition discussion to this chapter instead?
---
---     The terse version of the chapter needs serious work --
---     it has gotten quite ragged after a bunch of
---     reorganization of the chapter over the past couple
---     years. BCP 23: Did some work on it. Bit better now. But
---     the notation issues make everything a bit heavy.
+--  Hoare Logic combines two beautiful ideas: a natural way
+--  of writing down *specifications* of programs, and a
+--  *structured proof technique* for proving that programs
+--  are correct with respect to such specifications -- where
+--  by "structured" we mean that the structure of proofs
+--  directly mirrors the structure of the programs that they
+--  are about.
 
--- Note to developers:
---     `HIDE: What about typesetting multi-line triples as
---     {{ P }}
---        c
---     {{ Q }}
---     instead of
---       {{ P }}
---     c
---       {{ Q }}
---     when we print them?`
---
---     `HIDE: At some point we should try one more time to see if it's
---     possible to use single curly braces for Hoare triples.  The Rocq
---     manual says "For the sake of factorization with Rocq predefined
---     rules, simple rules have to be observed for notations starting with
---     a symbol: e.g., rules starting with { or ( should be put at level
---     0."  Maybe this suggests a way forward...?
---     BCP 10/18: Nope.  Writing
---        Notation "'{' P '}' c '{' Q '}'" :=
---          (ValidHoareTriple P c Q) (at level 0, c at next level)
---          : hoare_spec_scope.
---     yields
---         Error: A notation must include at least one symbol.`
---
---     HIDE: This file and all later ones should make a habit
---     of always presenting both syntax and semantics of new
---     language constructs in informal style as well as formal.
---     See MoreStlc.v for a template.
+--  ## Assertions
 
--- Our goal in this chapter is to develop the tools to work
--- through some simple examples of *program verification* --
--- i.e., to use the precise definition of Imp to prove formally
--- that particular programs satisfy particular specifications
--- of their behavior.
-
--- We'll develop a reasoning system called *Floyd-Hoare Logic*
--- -- often shortened to just *Hoare Logic* -- in which each of
--- the syntactic constructs of Imp is equipped with a generic
--- "proof rule" that can be used to reason compositionally
--- about the correctness of programs involving this construct.
-
--- Hoare Logic combines two beautiful ideas: a natural way of
--- writing down *specifications* of programs, and a *structured
--- proof technique* for proving that programs are correct with
--- respect to such specifications -- where by "structured" we
--- mean that the structure of proofs directly mirrors the
--- structure of the programs that they are about.
-
--- Note to developers:
---     `HIDE: MRC'20: The terse version used to start with just an outline of
---     what we've done and of this chapter, but it never mentioned Hoare logic!
---     The text above seems like a better intro.
---
---     MRC'20: this is the former terse intro.
---
---      What we've done so far:
---
---      - Formalized Imp
---           - identifiers and states
---           - abstract syntax trees
---           - evaluation functions (for [aexp]s and [bexp]s)
---           - evaluation relation (for commands)
---
---      - Proved some _metatheoretic_ properties
---          - determinism of evaluation
---          - equivalence of some different ways of writing down the
---            definitions (e.g., functional and relational definitions of
---            arithmetic expression evaluation)
---          - guaranteed termination of certain classes of programs
---          - meaning-preservation of some program transformations
---          - behavioral equivalence of programs ([Equiv])
---
---      We've dealt with a few sorts of properties of Imp programs:
---        - Termination
---        - Nontermination
---        - Equivalence
---
---      Topic:
---        - A systematic method for reasoning about the _functional
---          correctness_ of programs in Imp
---
---      Goals:
---        - a natural notation for _program specifications_ and
---        - a _compositional_ proof technique for program correctness
---
---      Plan:
---        - specifications (assertions / Hoare triples)
---        - proof rules
---        - loop invariants
---        - decorated programs
---        - examples`
-
--- ## Assertions
-
--- An *assertion* is a logical claim about the state of a
--- program's memory -- formally, a predicate of `State`s.
+--  An *assertion* is a logical claim about the state of a
+--  program's memory -- formally, a predicate of `State`s.
 
 open scoped Com MyGetElem
 
 abbrev Assertion := State → Prop
 
--- Note to developers:
---     HIDE: MRC'20: pulled up these examples from the
---     quiz/optional exercise so that there would be some
---     modeling of the kinds of answers we expect.
+--  For example,
 
--- For example,
+--  - `fun st => st[X] = 3` holds for states `st` in which
+--    value of `X` is `3`,
 
--- - `fun st => st[X] = 3` holds for states `st` in which value
---   of `X` is `3`,
+--  - `fun st => True` hold for all states, and
 
--- - `fun st => True` hold for all states, and
+--  - `fun st => False` holds for no states.
 
--- - `fun st => False` holds for no states.
+--  _Quiz:_
 
--- _Quiz:_
+--  Paraphrase the following assertions in English (i.e.,
+--  say which states satisfy them)
 
--- Paraphrase the following assertions in English (i.e., say
--- which states satisfy them)
+--  (A) `fun st => st[X] ≤ st[Y]`
 
--- (A) `fun st => st[X] ≤ st[Y]`
+--  (B) `fun st => st[X] = 3 ∨ st[X] ≤ st[Y]`
 
--- (B) `fun st => st[X] = 3 ∨ st[X] ≤ st[Y]`
+--  (C)
+--  `fun st => st[Z] * st[Z] ≤ st[X] ∧ ¬ ((st[Z] + 1) * (st[Z] + 1) ≤ st[X])`
 
--- (C)
--- `fun st => st[Z] * st[Z] ≤ st[X] ∧ ¬ ((st[Z] + 1) * (st[Z] + 1) ≤ st[X])`
+--  ### Notations for Assertions
 
--- ### Notations for Assertions
+--  We'll use Lean's notation features to make assertions
+--  look as much like informal math as possible.
 
--- We'll use Lean's notation features to make assertions look
--- as much like informal math as possible.
+--  For example, instead of writing
 
--- For example, instead of writing
+--    fun st => st[X] = m
 
---   fun st => st[X] = m
+--  we'll usually write just
 
--- we'll usually write just
+--    {{ X = m }}
 
---   {{ X = m }}
+--  Here, the `{{ A }}` brackets delimit the scope of the
+--  assertion notation.
 
--- Note to developers (before next release):
---     RRand 2022: The coercion printing in recent updates is
---     making the Hoare logic statements we're aiming to prove
---     essentially unreadable. If the implicit coercions are
---     too hard to deal with (I don't see why they would be,
---     given the number of coercion happening here and in Imp)
---     I would roll back to a previous version. I cannot read
---     what's happening in my Rocq buffer.
-
--- Note to developers:
---     `HIDE: SAZ  2024: I'm confused by the above discussion.  Doesn't
---     [Add Printing Coercion Aexp_of_nat Aexp_of_aexp assert_of_Prop]
---     request Rocq to _show_ those coercions?  I've removed it.`
---
---     `HIDE: SAZ 2024:
---     From what I can tell, the reason the notations expand during
---     the proofs is that they're writen in such a way that they
---     inlude type annotations [(a : Aexp)] and explicit lambdas
---     [(fun st => a st + b st)], neither of which is stable under
---     simplification.  For example:
---
---      [(fun st =>
---         (fun st => (X:Aexp) st + (Y:Aexp) st) st +
---         (fun st => (Z:Aexp) st) st)]
---
---     Will print as [X + Y + Z] until simplification, at which point
---     we have [(fun st => st X + st Y + st Z)] but there is no notation
---     that covers this case.`
-
--- Here, the `{{ A }}` brackets delimit the scope of the
--- assertion notation.
-
--- Note to developers:
---     HIDE: Make things easily unfoldable.
---
---     HIDE: MRC'20: Recording this here because it took a
---     merry chase through the Rocq manual to find it: this
---     version of the `Arguments` command is documented under
---     `simpl`.
-
--- Note to developers (One An @meluge):
---     The Rocq source here issues
---     `Arguments assert_of_Prop /.` (and likewise for the
---     other two lifting functions) so that `simpl` always
---     unfolds them, with this instructors note: "These
---     `Arguments` commands tell Rocq that these functions
---     should always be unfolded during simplification (by
---     `simpl`)."
---
---     `SAZ 2024 - Why do we want these functions to simplify?
---     Ans: If [a : aexp] then in the assertion_scope [(X →ₜ a st; st)] and
---     [(X →ₜ aeval st a; st)] look different but are actually identical
---     thanks to the coercion [Aexp_of_aexp].`
---
---     Claude suggested `@[simp]`-tagged characterizing lemmas
---     next to the three lifting functions, a global simp
---     attribute means every `simp` unfolds applied
---     occurrences. Is there a better way?
-
--- Note to developers:
---     NOTATION: BCP 20: It probably makes sense now to put all
---     these in a custom grammar, so that we can really control
---     how it looks and get rid of things like ap.
---
---     `NOTATION: SAZ 2024: I have tried to implement the suggestion above.
---
---     There is now a custom entry [assn] for defining the syntax of
---     assertions.  Like the delimiters <{ }> used for Imp programs,
---     we now also have {{ }} delimiters for use with Assertions.
---
---     Inside that scope, variables, arithmetic and boolean expressions,
---     propositions, and function arguments are interpreted in the current
---     state.  This replaces the need for [ap], [ap2], and explicit lifting
---     markers.
---
---     A raw Lean assertion can also be written directly inside {{ }}.`
+--  THESE DETAILS CAN BE SKIPPED (Notation: Assertions)
 
 namespace Assertion
 
@@ -307,27 +137,6 @@ macro_rules
     return result
 end
 
--- Note to developers (Niklas Halonen):
---     Mention (don't explain macro hygiene though) why
---
---     `#check {{ st[X] = st[Y] }}`
---
---     doesn't work, but instead one should write
---
---     `#check {{ fun st => st[X] = st[Y] }}`
---
---     And mention that when inside the brackets, one sees in
---     the infoview
---
---     `st✝ : State`
---
---     but outside the brackets, one sees
---     `fun st => st[X] = st[X] : State → Prop`
---
---     Also: should we introduce the terminology "pure" for
---     embedding propositions into assertions that are constant
---     functions?
-
 #check {{ 1 = 2 }}
 #check {{ X = X }}
 #check {{ X = 2 * X }} -- X is the constant "X" defined in Imp
@@ -353,18 +162,20 @@ variable (f : Nat → Nat → Nat → Nat)
 end Assertion
 open scoped Assertion
 
--- Function applications inside assertions automatically
--- interpret their arguments in the current state:
+--  END DETAILS
 
--- `{{ f e1 ... en }}` stands for
--- `(fun st => f (e1 st) ... (en st))`.
+--  Function applications inside assertions automatically
+--  interpret their arguments in the current state:
 
--- We can place a raw Lean function directly inside assertion
--- notation:
+--  `{{ f e1 ... en }}` stands for
+--  `(fun st => f (e1 st) ... (en st))`.
 
--- For example: `{{ fun st => ∀ x, st[x] = 0 }}`
+--  We can place a raw Lean function directly inside
+--  assertion notation:
 
--- ### Example Assertions
+--  For example: `{{ fun st => ∀ x, st[x] = 0 }}`
+
+--  ### Example Assertions
 
 namespace ExamplePrettyAssertions
 
@@ -389,9 +200,9 @@ fun st => st[Z] * st[Z] ≤ st[X] ∧ ¬st[Z].succ * st[Z].succ ≤ st[X]
 
 end ExamplePrettyAssertions
 
--- ### Printing Assertions
+--  ### Printing Assertions
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing assertions back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing assertions back)
 
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
@@ -489,33 +300,33 @@ def delabAssertion : Delab := whenPPOption getPPNotation do
 
 end Assertion.Delab
 
--- END DETAILS
+--  END DETAILS
 
--- ### Assertion Implication
+--  ### Assertion Implication
 
--- Given two assertions `P` and `Q`, we say that `P` *implies*
--- `Q`, written `P ->> Q`, if, whenever `P` holds in some state
--- `st`, `Q` also holds.
+--  Given two assertions `P` and `Q`, we say that `P`
+--  *implies* `Q`, written `P ->> Q`, if, whenever `P` holds
+--  in some state `st`, `Q` also holds.
 
 def AssertImplies (P Q : Assertion) : Prop :=
   ∀ st, P st → Q st
 
--- Note that the notation for *assertion implication* is
--- analogous to the "usual" Lean implication `→`.
+--  Note that the notation for *assertion implication* is
+--  analogous to the "usual" Lean implication `→`.
 
 notation:26 P:27 " ->> " Q:27 => AssertImplies P Q
 
 theorem assertImplies_def {P Q : Assertion} : P ->> Q ↔ ∀ st, P st → Q st := by rfl
 
--- We'll also want the "iff" variant of implication between
--- assertions:
+--  We'll also want the "iff" variant of implication between
+--  assertions:
 
 notation:26 P:27 " <<->> " Q:27 => AssertImplies P Q ∧ AssertImplies Q P
 
 theorem assertIff_def {P Q : Assertion} : P <<->> Q ↔ AssertImplies P Q ∧ AssertImplies Q P
     := by rfl
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing implications back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing implications back)
 
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr
@@ -540,206 +351,185 @@ def delabAssertIff : Delab := whenPPOption getPPNotation do
 
 end Assertion.Delab
 
--- END DETAILS
+--  END DETAILS
 
--- ## Hoare Triples, Informally
+--  ## Hoare Triples, Informally
 
--- A *Hoare triple* is a claim about the state before and after
--- executing a command. A commond notation for Hoare triples,
--- and the one we use in this book, is
+--  A *Hoare triple* is a claim about the state before and
+--  after executing a command. A commond notation for Hoare
+--  triples, and the one we use in this book, is
 
---   {{P}} c {{Q}}
+--    {{P}} c {{Q}}
 
--- meaning:
+--  meaning:
 
--- - If command `c` begins execution in a state satisfying
---   assertion `P`,
+--  - If command `c` begins execution in a state satisfying
+--    assertion `P`,
 
--- - and if `c` eventually terminates in some final state,
+--  - and if `c` eventually terminates in some final state,
 
--- - then that final state will satisfy the assertion `Q`.
+--  - then that final state will satisfy the assertion `Q`.
 
--- Assertion `P` is called the *precondition* of the triple,
--- and `Q` is the *postcondition*.
+--  Assertion `P` is called the *precondition* of the
+--  triple, and `Q` is the *postcondition*.
 
--- For example,
+--  For example,
 
--- - The Hoare triple
+--  - The Hoare triple
 
---   {{X = 0}} X := X + 1 {{X = 1}}
+--    {{X = 0}} X := X + 1 {{X = 1}}
 
--- states that command `X := X + 1` will transform a state in
--- which `X = 0` to a state in which `X = 1`.
+--  states that command `X := X + 1` will transform a state
+--  in which `X = 0` to a state in which `X = 1`.
 
--- - On the other hand,
+--  - On the other hand,
 
---   ∀ m, {{X = m}} X := X + 1 {{X = m + 1}}
+--    ∀ m, {{X = m}} X := X + 1 {{X = m + 1}}
 
--- is a *proposition* stating that the Hoare triple
--- `{{X = m}} X :=
--- X + 1 {{X = m + 1}}` is valid for any choice
--- of `m`. Note that `m` in the two assertions is a reference
--- to the *Lean* variable `m`, which is bound outside the Hoare
--- triple.
+--  is a *proposition* stating that the Hoare triple
+--  `{{X = m}} X :=
+--  X + 1 {{X = m + 1}}` is valid for any
+--  choice of `m`. Note that `m` in the two assertions is a
+--  reference to the *Lean* variable `m`, which is bound
+--  outside the Hoare triple.
 
--- _Quiz:_
+--  _Quiz:_
 
--- Paraphrase the following in English.
+--  Paraphrase the following in English.
 
---   1) {{True}} c {{X = 5}}
+--    1) {{True}} c {{X = 5}}
 
---   2) ∀ m, {{X = m}} c {{X = m + 5}}
+--    2) ∀ m, {{X = m}} c {{X = m + 5}}
 
---   3) {{X ≤ Y}} c {{Y ≤ X}}
+--    3) {{X ≤ Y}} c {{Y ≤ X}}
 
---   4) {{True}} c {{False}}
+--    4) {{True}} c {{False}}
 
---   5) ∀ m,
---        {{X = m}}
---        c
---        {{Y = real_fact m}}
+--    5) ∀ m,
+--         {{X = m}}
+--         c
+--         {{Y = real_fact m}}
 
---   6) ∀ m,
---        {{X = m}}
---        c
---        {{(Z * Z) ≤ m ∧ ¬ ((Z + 1) * (Z + 1) ≤ m)}}
+--    6) ∀ m,
+--         {{X = m}}
+--         c
+--         {{(Z * Z) ≤ m ∧ ¬ ((Z + 1) * (Z + 1) ≤ m)}}
 
--- _Quiz:_
+--  _Quiz:_
 
--- Is the following Hoare triple *valid* -- i.e., is the
--- claimed relation between `P`, `c`, and `Q` true?
+--  Is the following Hoare triple *valid* -- i.e., is the
+--  claimed relation between `P`, `c`, and `Q` true?
 
---   {{True}} X := 5 {{X = 5}}
+--    {{True}} X := 5 {{X = 5}}
 
--- (A) Yes
+--  (A) Yes
 
--- (B) No
+--  (B) No
 
--- _Quiz:_
+--  _Quiz:_
 
--- What about this one?
+--  What about this one?
 
---   {{X = 2}} X := X + 1 {{X = 3}}
+--    {{X = 2}} X := X + 1 {{X = 3}}
 
--- (A) Yes
+--  (A) Yes
 
--- (B) No
+--  (B) No
 
--- _Quiz:_
+--  _Quiz:_
 
--- What about this one?
+--  What about this one?
 
---   {{True}} X := 5; Y := 0 {{X = 5}}
+--    {{True}} X := 5; Y := 0 {{X = 5}}
 
--- (A) Yes
+--  (A) Yes
 
--- (B) No
+--  (B) No
 
--- _Quiz:_
+--  _Quiz:_
 
--- What about this one?
+--  What about this one?
 
---   {{X = 2 ∧ X = 3}} X := 5 {{X = 0}}
+--    {{X = 2 ∧ X = 3}} X := 5 {{X = 0}}
 
--- (A) Yes
+--  (A) Yes
 
--- (B) No
+--  (B) No
 
--- _Quiz:_
+--  _Quiz:_
 
--- What about this one?
+--  What about this one?
 
---   {{True}} skip {{False}}
+--    {{True}} skip {{False}}
 
--- (A) Yes
+--  (A) Yes
 
--- (B) No
+--  (B) No
 
--- _Quiz:_
+--  _Quiz:_
 
--- What about this one?
+--  What about this one?
 
---   {{False}} skip {{True}}
+--    {{False}} skip {{True}}
 
--- (A) Yes
+--  (A) Yes
 
--- (B) No
+--  (B) No
 
--- _Quiz:_
+--  _Quiz:_
 
--- What about this one?
+--  What about this one?
 
---   {{True}} while true do skip end {{False}}
+--    {{True}} while true do skip end {{False}}
 
--- (A) Yes
+--  (A) Yes
 
--- (B) No
+--  (B) No
 
--- _Quiz:_
+--  _Quiz:_
 
--- This one?
+--  This one?
 
---   {{X = 0}}
---     while X = 0 do X := X + 1 end
---   {{X = 1}}
+--    {{X = 0}}
+--      while X = 0 do X := X + 1 end
+--    {{X = 1}}
 
--- (A) Yes
+--  (A) Yes
 
--- (B) No
+--  (B) No
 
--- _Quiz:_
+--  _Quiz:_
 
--- This one?
+--  This one?
 
---   {{X = 1}}
---     while X ≠ 0 do X := X + 1 end
---   {{X = 100}}
+--    {{X = 1}}
+--      while X ≠ 0 do X := X + 1 end
+--    {{X = 100}}
 
--- (A) Yes
+--  (A) Yes
 
--- (B) No
+--  (B) No
 
--- ## Hoare Triples, Formally
+--  ## Hoare Triples, Formally
 
--- We formalize valid Hoare triples in Lean as follows:
+--  We formalize valid Hoare triples in Lean as follows:
 
 open scoped HasEval
 
 def ValidHoareTriple
     (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
   ∀ {st st' : State},
-    (st =[ c ]=> st') →
+    (st =[ ~c ]=> st') →
     P st →
     Q st'
-
--- Note to developers (Niklas Halonen @xhalo32):
---     Somethings strange is going on in `theorem if_example`,
---     using `apply hoare_consequence_pre` followed by
---     `· exact hoare_asgn` works, but
---     `refine hoare_consequence_pre hoare_asgn ?_` or
---     `apply hoare_consequence_pre hoare_asgn` don't. The only
---     solution I found was to mark `ValidHoareTriple`
---     irreducible.
---
---     It has to do something with `apply` and `refine` looking
---     inside the implication in `∀ {st st'}, ...`
-
--- Notation for Hoare triples. The command between the two
--- assertions is parsed with the same grammar as the
--- `imp { … }` notation, so a command that is a Lean variable
--- (rather than concrete syntax) is spliced in with `~c`, just
--- as in the `st =[ c ]=> st'` notation.
 
 class HasTriple (Com : Type) where
   Triple : Assertion → Com → Assertion → Prop
 
 namespace HasTriple
 
-/-- Hoare triple: `{{ P }} c {{ Q }}` -/
-scoped notation:lead "{{" P "}} " c:lead " {{" Q "}}" => Triple ({{ P }}) c ({{ Q }})
-
-/-- Hoare triple with `imp_com` command syntax -/
-scoped syntax:lead (priority := high) "{{" term "}} " imp_com:lead " {{" term "}}" : term
+/-- Hoare triple: `{{ P }} c {{ Q }}` with `imp_com` command syntax -/
+scoped syntax:lead "{{" term "}} " imp_com:lead " {{" term "}}" : term
 scoped macro_rules
   | `({{ $P }} $c:imp_com {{ $Q }}) =>
       ``(HasTriple.Triple ({{ $P }}) (imp { $c }) ({{ $Q }}))
@@ -748,26 +538,31 @@ end HasTriple
 instance : HasTriple Com where
   Triple := ValidHoareTriple
 
+--  We make `ValidHoareTriple` irreducible for "technical
+--  reasons", and use it only via `validHoareTriple_def` in
+--  proofs.
+
 open scoped HasTriple
 
 theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
     {{ P }} ~c {{ Q }} ↔ ∀ {st st' : State},
-      (st =[ c ]=> st') →
+      (st =[ ~c ]=> st') →
       P st →
       Q st' := by rfl
 
 attribute [irreducible] ValidHoareTriple
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing triples back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing triples back)
 
--- The delaborator is agnostic to the command type: it prints
--- the command with whatever printer is registered for its
--- constructors and splices the result into the triple, so a
--- language-extension chapter only has to register a printer
--- for its own `Com`.
+--  The delaborator is agnostic to the command type: it
+--  prints the command with whatever printer is registered
+--  for its constructors and splices the result into the
+--  triple, so a language-extension chapter only has to
+--  register a printer for its own `Com`.
 
-namespace Assertion.Delab
-open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+namespace HasTriple.Delab
+
+open Lean PrettyPrinter Delaborator SubExpr Assertion.Delab Imp.Delab
 @[delab app.HasTriple.Triple]
 def delabTriple : Delab := whenPPOption getPPNotation do
   guard <| (← getExpr).isAppOfArity ``HasTriple.Triple 5
@@ -778,55 +573,53 @@ def delabTriple : Delab := whenPPOption getPPNotation do
   | `(imp { $c:imp_com }) => ``({{ $P }} $c:imp_com {{ $Q }})
   | c => ``({{ $P }} ~$c {{ $Q }})
 
-end Assertion.Delab
+end HasTriple.Delab
 
--- END DETAILS
+--  END DETAILS
 
--- Note to developers (Niklas Halonen @xhalo32):
---     Is it possible to add a line break after the `Y := Y`?
+--  ### Exercise (1 star): hoare_post_true ⭐
 
--- ### Exercise (1 star): hoare_post_true ⭐
-
--- Prove that if `Q` holds in every state, then any triple with
--- `Q` as its postcondition is valid.
+--  Prove that if `Q` holds in every state, then any triple
+--  with `Q` as its postcondition is valid.
 
 theorem hoare_post_true {P Q : Assertion} {c : Com} (h : ∀ st, Q st) :
     {{ P }} ~c {{ Q }} := by
   sorry
 
--- ### Exercise (1 star): hoare_pre_false ⭐
+--  ### Exercise (1 star): hoare_pre_false (Optional) ⭐
 
--- Prove that if `P` holds in no state, then any triple with
--- `P` as its precondition is valid.
+--  Prove that if `P` holds in no state, then any triple
+--  with `P` as its precondition is valid.
 
 theorem hoare_pre_false {P Q : Assertion} {c : Com} (h : ∀ st, ¬ (P st)) :
     {{ P }} ~c {{ Q }} := by
   sorry
 
--- ## Proof Rules
+--  ## Proof Rules
 
--- We want to be able to *prove* Hoare triples formally.
+--  We want to be able to *prove* Hoare triples formally.
 
--- Here's our plan:
+--  Here's our plan:
 
--- - introduce one "proof rule" for each Imp syntactic form
+--  - introduce one "proof rule" for each Imp syntactic form
 
--- - plus a couple of "structural rules" that help glue proofs
---   together
+--  - plus a couple of "structural rules" that help glue
+--    proofs together
 
--- - prove these rules correct in terms of the definition of
---   `ValidHoareTriple`
+--  - prove these rules correct in terms of the definition
+--    of `ValidHoareTriple`
 
--- - prove programs correct using these proof rules, without ever
---   unfolding the definition of `ValidHoareTriple`
+--  - prove programs correct using these proof rules,
+--    without ever unfolding the definition of
+--    `ValidHoareTriple`
 
--- ### Skip
+--  ### Skip
 
--- Since `skip` doesn't change the state, it preserves any
--- assertion `P`:
+--  Since `skip` doesn't change the state, it preserves any
+--  assertion `P`:
 
---   --------------------  (hoare_skip)
---   {{ P }} skip {{ P }}
+--    --------------------  (hoare_skip)
+--    {{ P }} skip {{ P }}
 
 theorem hoare_skip {P : Assertion} :
     {{ P }} skip {{ P }} := by
@@ -835,17 +628,18 @@ theorem hoare_skip {P : Assertion} :
   inversion h
   exact hpre
 
--- ### Sequencing
+--  ### Sequencing
 
--- If command `c1` takes any state where `P` holds to a state
--- where `Q` holds, and if `c2` takes any state where `Q` holds
--- to one where `R` holds, then doing `c1` followed by `c2`
--- will take any state where `P` holds to one where `R` holds:
+--  If command `c1` takes any state where `P` holds to a
+--  state where `Q` holds, and if `c2` takes any state where
+--  `Q` holds to one where `R` holds, then doing `c1`
+--  followed by `c2` will take any state where `P` holds to
+--  one where `R` holds:
 
---    {{ P }} c1 {{ Q }}
---    {{ Q }} c2 {{ R }}
---   ----------------------  (hoare_seq)
---   {{ P }} c1; c2 {{ R }}
+--     {{ P }} c1 {{ Q }}
+--     {{ Q }} c2 {{ R }}
+--    ----------------------  (hoare_seq)
+--    {{ P }} c1; c2 {{ R }}
 
 theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
     (h1 : {{ Q }} ~c2 {{ R }}) (h2 : {{ P }} ~c1 {{ Q }}) :
@@ -857,92 +651,90 @@ theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
     rw [validHoareTriple_def] at h1 h2
     exact h1 hc2 (h2 hc1 hpre)
 
--- ### Assignment
+--  ### Assignment
 
--- How can we complete this triple?
+--  How can we complete this triple?
 
---   {{ ??? }}  X := Y  {{ X = 1 }}
+--    {{ ??? }}  X := Y  {{ X = 1 }}
 
--- One natural possibility is:
+--  One natural possibility is:
 
---   {{ Y = 1 }}  X := Y  {{ X = 1 }}
+--    {{ Y = 1 }}  X := Y  {{ X = 1 }}
 
--- The precondition is just the postcondition, but with `X`
--- replaced by `Y`.
+--  The precondition is just the postcondition, but with `X`
+--  replaced by `Y`.
 
--- How about this one?
+--  How about this one?
 
---   {{ ??? }}  X := X + Y  {{ X = 1 }}
+--    {{ ??? }}  X := X + Y  {{ X = 1 }}
 
--- Replace `X` with `X + Y`:
+--  Replace `X` with `X + Y`:
 
---   {{ X + Y = 1 }}  X := X + Y  {{ X = 1 }}
+--    {{ X + Y = 1 }}  X := X + Y  {{ X = 1 }}
 
--- This works because "equals 1" holding of `X` is guaranteed
--- by the property "equals 1" holding of whatever is being
--- assigned to `X`.
+--  This works because "equals 1" holding of `X` is
+--  guaranteed by the property "equals 1" holding of
+--  whatever is being assigned to `X`.
 
--- In general, the postcondition could be some arbitrary
--- assertion `Q`, and the right-hand side of the assignment
--- could be some arbitrary arithmetic expression `a`:
+--  In general, the postcondition could be some arbitrary
+--  assertion `Q`, and the right-hand side of the assignment
+--  could be some arbitrary arithmetic expression `a`:
 
---   {{ ??? }}  X := a  {{ Q }}
+--    {{ ??? }}  X := a  {{ Q }}
 
--- The precondition would then be `Q`, but with any occurrences
--- of `X` in it replaced by `a`.
+--  The precondition would then be `Q`, but with any
+--  occurrences of `X` in it replaced by `a`.
 
--- Let's introduce a notation for this idea of replacing
--- occurrences: Define `Q \[X ↦ a`] to mean "`Q` where `a` is
--- substituted in place of `X`".
+--  Let's introduce a notation for this idea of replacing
+--  occurrences: Define `Q \[X ↦ a`] to mean "`Q` where `a`
+--  is substituted in place of `X`".
 
--- This yields the Hoare logic rule for assignment:
+--  This yields the Hoare logic rule for assignment:
 
---   {{ Q [X ↦ a] }}  X := a  {{ Q }}
+--    {{ Q [X ↦ a] }}  X := a  {{ Q }}
 
--- One way of reading this rule is: If you want statement
--- `X := a` to terminate in a state that satisfies assertion
--- `Q`, then it suffices to start in a state that also
--- satisfies `Q`, except where `a` is substituted for every
--- occurrence of `X`.
+--  One way of reading this rule is: If you want statement
+--  `X := a` to terminate in a state that satisfies
+--  assertion `Q`, then it suffices to start in a state that
+--  also satisfies `Q`, except where `a` is substituted for
+--  every occurrence of `X`.
 
--- Here are some valid instances of the assignment rule:
+--  Here are some valid instances of the assignment rule:
 
---   {{ (X ≤ 5) [X ↦ X + 1] }}         (that is, X + 1 ≤ 5)
---     X := X + 1
---   {{ X ≤ 5 }}
+--    {{ (X ≤ 5) [X ↦ X + 1] }}         (that is, X + 1 ≤ 5)
+--      X := X + 1
+--    {{ X ≤ 5 }}
 
---   {{ (X = 3) [X ↦ 3] }}              (that is, 3 = 3)
---     X := 3
---   {{ X = 3 }}
+--    {{ (X = 3) [X ↦ 3] }}              (that is, 3 = 3)
+--      X := 3
+--    {{ X = 3 }}
 
---   {{ (0 ≤ X ∧ X ≤ 5) [X ↦ 3] }}.  (that is, 0 ≤ 3 ∧ 3 ≤ 5)
---     X := 3
---   {{ 0 ≤ X ∧ X ≤ 5 }}
+--    {{ (0 ≤ X ∧ X ≤ 5) [X ↦ 3] }}.  (that is, 0 ≤ 3 ∧ 3 ≤ 5)
+--      X := 3
+--    {{ 0 ≤ X ∧ X ≤ 5 }}
 
--- To formalize the rule, we must first formalize the idea of
--- "substituting an expression for an Imp variable in an
--- assertion", which we refer to as assertion substitution, or
--- `Assertion.subst`.
+--  To formalize the rule, we must first formalize the idea
+--  of "substituting an expression for an Imp variable in an
+--  assertion", which we refer to as assertion substitution,
+--  or `Assertion.subst`.
 
--- Intuitively, given a proposition `P`, a variable `X`, and an
--- arithmetic expression `a`, we want to derive another
--- proposition `P'` that is just the same as `P` except that
--- `P'` should mention `a` wherever `P` mentions `X`.
+--  Intuitively, given a proposition `P`, a variable `X`,
+--  and an arithmetic expression `a`, we want to derive
+--  another proposition `P'` that is just the same as `P`
+--  except that `P'` should mention `a` wherever `P`
+--  mentions `X`.
 
--- This operation is related to the idea of substituting Imp
--- expressions for Imp variables that we saw in *Equiv*
--- (`subst_aexp` and friends). The difference is that, here,
--- `P` is an arbitrary Lean assertion, so we can't directly
--- "edit" its text.
+--  This operation is related to the idea of substituting
+--  Imp expressions for Imp variables that we saw in *Equiv*
+--  (`subst_aexp` and friends). The difference is that,
+--  here, `P` is an arbitrary Lean assertion, so we can't
+--  directly "edit" its text.
 
--- However, we can achieve the same effect by evaluating `P` in
--- an updated state, defined as follows:
+--  However, we can achieve the same effect by evaluating
+--  `P` in an updated state, defined as follows:
 
 def Assertion.subst (x : Ident) (a : Aexp) (P : Assertion) : Assertion :=
   fun (st : State) => P (x →ₜ a.eval st ; st)
-
--- Note to developers (One An @meluge, before next release):
---     Introduce a notation typeclass for this (e.g. HasSubst)
 
 namespace Assertion
 
@@ -967,15 +759,15 @@ theorem subst_apply {x : Ident} {a : Aexp} {P : Assertion} {st : State} :
 
 end Assertion
 
--- This notation allows us to write this operation as:
+--  This notation allows us to write this operation as:
 
---   P [ X ↦ a ]
+--    P [ X ↦ a ]
 
 #check (fun st => Assertion.subst X (aexp { 2 * X }) ({{ X ≤ 10 }}) st)
 #check {{ (X ≤ 10) [X ↦ 2 * X] }}
 #check (∀ st, ({{ (X ≤ 10) [X ↦ 2 * X] }}) st)
 
--- THESE DETAILS CAN BE SKIPPED: Notation encoding: printing substitutions back
+--  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing substitutions back)
 
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
@@ -998,16 +790,17 @@ def delabSub : Delab := whenPPOption getPPNotation do
 
 end Assertion.Delab
 
--- END DETAILS
+--  END DETAILS
 
--- That is, `P [X ↦ a]` stands for an assertion -- let's call
--- it `P'` -- that behaves just like `P` except that, wherever
--- `P` looks up the variable `X` in the current state, `P'`
--- instead uses the value of the expression `a`.
+--  That is, `P [X ↦ a]` stands for an assertion -- let's
+--  call it `P'` -- that behaves just like `P` except that,
+--  wherever `P` looks up the variable `X` in the current
+--  state, `P'` instead uses the value of the expression
+--  `a`.
 
--- We can demonstrate formally that we have captured intuitive
--- meaning of "assertion subsitution" by proving some example
--- logical equivalences:
+--  We can demonstrate formally that we have captured
+--  intuitive meaning of "assertion subsitution" by proving
+--  some example logical equivalences:
 
 namespace ExampleAssertionSub
 example :
@@ -1033,17 +826,18 @@ example :
 
 end ExampleAssertionSub
 
--- Most of the `simp` calls rely on `Assertion.subst_apply`,
--- `TotalMap.update_eq` plus some `Aexp` characterizing lemmas
--- like `Aexp.eval_num`.
+--  Most of the `simp` calls rely on
+--  `Assertion.subst_apply`, `TotalMap.update_eq` plus some
+--  `Aexp` characterizing lemmas like `Aexp.eval_num`.
 
--- Now, using the substitution operation we've just defined, we
--- can give the precise proof rule for assignment:
+--  Now, using the substitution operation we've just
+--  defined, we can give the precise proof rule for
+--  assignment:
 
---   ---------------------------- (hoare_asgn)
---   {{Q [X ↦ a]}} X := a {{Q}}
+--    ---------------------------- (hoare_asgn)
+--    {{Q [X ↦ a]}} X := a {{Q}}
 
--- We can prove formally that this rule is indeed valid.
+--  We can prove formally that this rule is indeed valid.
 
 theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
     {{ Q [x ↦ ~a] }} x := ~a {{ Q }} := by
@@ -1055,8 +849,8 @@ theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
     rw [Assertion.subst_def] at hQ
     exact hQ
 
--- Here's a first formal proof of a Hoare triple using this
--- rule.
+--  Here's a first formal proof of a Hoare triple using this
+--  rule.
 
 theorem assertion_sub_example :
     {{ (X < 5) [X ↦ X + 1] }}
@@ -1064,67 +858,71 @@ theorem assertion_sub_example :
     {{ X < 5 }} := by
   exact hoare_asgn
 
--- Of course, we'd probably prefer to work with this simpler
--- triple:
+--  Of course, we'd probably prefer to work with this
+--  simpler triple:
 
---   {{X < 4}} X := X + 1 {{X < 5}}
+--    {{X < 4}} X := X + 1 {{X < 5}}
 
--- We will see how to do so in the next section.
+--  We will see how to do so in the next section.
 
--- Several proofs below use the facts about total-map updates
--- proved in the *Typeclasses* chapter -- `TotalMap.update_eq`,
--- `TotalMap.update_neq`, `TotalMap.update_shadow`,
--- `TotalMap.update_same`, and `TotalMap.update_permute`. Make
--- sure you understand their statements.
+--  Several proofs below use the facts about total-map
+--  updates proved in the *Typeclasses* chapter --
+--  `TotalMap.update_eq`, `TotalMap.update_neq`,
+--  `TotalMap.update_shadow`, `TotalMap.update_same`, and
+--  `TotalMap.update_permute`. Make sure you understand
+--  their statements.
 
--- ### Consequence
+--  ### Consequence
 
--- Sometimes the preconditions and postconditions we get from
--- the Hoare rules won't quite be the ones we want in the
--- particular situation at hand -- they may be logically
--- equivalent but have a different syntactic form that fails to
--- unify with the goal we are trying to prove, or they actually
--- may be logically weaker (for preconditions) or stronger (for
--- postconditions) than what we need.
+--  Sometimes the preconditions and postconditions we get
+--  from the Hoare rules won't quite be the ones we want in
+--  the particular situation at hand -- they may be
+--  logically equivalent but have a different syntactic form
+--  that fails to unify with the goal we are trying to
+--  prove, or they actually may be logically weaker (for
+--  preconditions) or stronger (for postconditions) than
+--  what we need.
 
--- For instance,
+--  For instance,
 
---   {{(X = 3) [X ↦ 3]}} X := 3 {{X = 3}},
+--    {{(X = 3) [X ↦ 3]}} X := 3 {{X = 3}},
 
--- follows directly from the assignment rule, but
+--  follows directly from the assignment rule, but
 
---   {{True}} X := 3 {{X = 3}}
+--    {{True}} X := 3 {{X = 3}}
 
--- does not. This triple is valid, but it is not an instance of
--- `hoare_asgn` because `True` and `(X = 3) \[X ↦ 3`] are not
--- syntactically equal assertions.
+--  does not. This triple is valid, but it is not an
+--  instance of `hoare_asgn` because `True` and
+--  `(X = 3) \[X ↦ 3`] are not syntactically equal
+--  assertions.
 
--- However, they are logically *equivalent*, so if one triple
--- is valid, then the other must certainly be as well. We can
--- capture this observation with the following rule:
+--  However, they are logically *equivalent*, so if one
+--  triple is valid, then the other must certainly be as
+--  well. We can capture this observation with the following
+--  rule:
 
---      {{P'}} c {{Q}}
---        P <<->> P'
---   ---------------------
---      {{P}} c {{Q}}
+--       {{P'}} c {{Q}}
+--         P <<->> P'
+--    ---------------------
+--       {{P}} c {{Q}}
 
--- Taking this line of thought a bit further, we can see that
--- strengthening the precondition or weakening the
--- postcondition of a valid triple always produces another
--- valid triple. This observation is captured by two *Rules of
--- Consequence*.
+--  Taking this line of thought a bit further, we can see
+--  that strengthening the precondition or weakening the
+--  postcondition of a valid triple always produces another
+--  valid triple. This observation is captured by two *Rules
+--  of Consequence*.
 
---          {{P'}} c {{Q}}
---             P ->> P'
---   -----------------------------   (hoare_consequence_pre)
---          {{P}} c {{Q}}
+--           {{P'}} c {{Q}}
+--              P ->> P'
+--    -----------------------------   (hoare_consequence_pre)
+--           {{P}} c {{Q}}
 
---          {{P}} c {{Q'}}
---            Q' ->> Q
---   -----------------------------    (hoare_consequence_post)
---          {{P}} c {{Q}}
+--           {{P}} c {{Q'}}
+--             Q' ->> Q
+--    -----------------------------    (hoare_consequence_post)
+--           {{P}} c {{Q}}
 
--- Here are the formal versions:
+--  Here are the formal versions:
 
 theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
@@ -1144,28 +942,29 @@ theorem hoare_consequence_post {P Q Q' : Assertion} {c : Com}
   apply himp
   exact hhoare heval hpre
 
--- For example, we can use the first consequence rule like
--- this:
+--  For example, we can use the first consequence rule like
+--  this:
 
---   {{ True }} ->>
---   {{ (X = 1) [X ↦ 1] }}
---     X := 1
---   {{ X = 1 }}
+--    {{ True }} ->>
+--    {{ (X = 1) [X ↦ 1] }}
+--      X := 1
+--    {{ X = 1 }}
 
--- Or, formally...
+--  Or, formally...
 
 theorem hoare_asgn_example1 :
     {{True}} X := 1 {{X = 1}} := by
   sorry
 
--- We can also use it to prove the example mentioned earlier.
+--  We can also use it to prove the example mentioned
+--  earlier.
 
---   {{ X < 4 }} ->>
---   {{ (X < 5)[X ↦ X + 1] }}
---     X := X + 1
---   {{ X < 5 }}
+--    {{ X < 4 }} ->>
+--    {{ (X < 5)[X ↦ X + 1] }}
+--      X := X + 1
+--    {{ X < 5 }}
 
--- Or, formally ...
+--  Or, formally ...
 
 theorem assertion_sub_example2 :
     {{X < 4}}
@@ -1173,25 +972,15 @@ theorem assertion_sub_example2 :
     {{X < 5}} := by
   sorry
 
--- Note to developers (Niklas Halonen @xhalo32):
---     The above proof uses `simp_all` purely because `lia`
---     can't see that `X` and `"X"` are the same (they are
---     currently marked as `@[simp]` in Imp).
+--  Finally, here is a combined rule of consequence that
+--  allows us to vary both the precondition and the
+--  postcondition.
 
--- Finally, here is a combined rule of consequence that allows
--- us to vary both the precondition and the postcondition.
-
---          {{P'}} c {{Q'}}
---             P ->> P'
---             Q' ->> Q
---   -----------------------------   (hoare_consequence)
---          {{P}} c {{Q}}
-
--- Note to developers (Niklas Halonen @xhalo32):
---     In the following proof, `(P' := P')` is not necessary,
---     however it avoids having a metavariable in the first
---     goal. Another option is to just write
---     `exact hoare_consequence_pre (hoare_consequence_post htriple hpost) hpre`.
+--           {{P'}} c {{Q'}}
+--              P ->> P'
+--              Q' ->> Q
+--    -----------------------------   (hoare_consequence)
+--           {{P}} c {{Q}}
 
 theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
     (htriple : {{ P' }} ~c {{ Q' }}) (hpre : P ->> P') (hpost : Q' ->> Q) :
@@ -1200,57 +989,39 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
   · exact hoare_consequence_post htriple hpost
   · exact hpre
 
--- ### Automation
+--  ### Automation
 
--- Many of the proofs we have done so far with Hoare triples
--- can be streamlined using the automation techniques that we
--- introduced in the *Automation* chapter of *Logical
--- Foundations*.
+--  Many of the proofs we have done so far with Hoare
+--  triples can be streamlined using the automation
+--  techniques that we introduced in the *Automation*
+--  chapter of *Logical Foundations*.
 
--- Recall that `simp` rewrites with any lemmas we pass it. The
--- definitions whose meaning we keep needing to expose in this
--- chapter -- `ValidHoareTriple`, `AssertImplies`, and
--- `Assertion.subst` -- each come with a characterizing lemma
--- (`validHoareTriple_def`, `assertImplies_def`,
--- `Assertion.subst_def`) restating the definition as an
--- equation. Passing these lemmas to `simp` replaces the
--- defined notions by their meanings wherever they appear.
--- We'll do that explicitly below (and shortly package the
--- recipe up as a tactic of our own).
+--  Recall that `simp` rewrites with any lemmas we pass it.
+--  The definitions whose meaning we keep needing to expose
+--  in this chapter -- `ValidHoareTriple`, `AssertImplies`,
+--  and `Assertion.subst` -- each come with a characterizing
+--  lemma (`validHoareTriple_def`, `assertImplies_def`,
+--  `Assertion.subst_def`) restating the definition as an
+--  equation. Passing these lemmas to `simp` replaces the
+--  defined notions by their meanings wherever they appear.
+--  We'll do that explicitly below (and shortly package the
+--  recipe up as a tactic of our own).
 
--- Note to developers (Claude):
---     The Rocq source here registers
---     `Hint Unfold assert_implies assertion_sub
---     t_update : core`
---     for `auto`. That only widens `auto`'s search (unlike the
---     `Arguments /.` commands, it does not affect `simpl`), so
---     its Lean counterpart is the `assertion_auto` tactic's
---     simp list below -- not global `@[simp]` lemmas as for
---     the notation wrappers, whose folded names carry no
---     meaning in goals the way `->>` and `Assertion.subst` do.
+--  Here's a good candidate for automation:
 
--- Note to developers (Niklas Halonen @xhalo32, NOW):
---     The following paragraph is outdated.
+--    theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
+--        (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
+--        {{ P }} ~c {{ Q }} := by
+--      rw [validHoareTriple_def] at hhoare ⊢
+--      intro st st' heval hpre
+--      apply hhoare heval
+--      rw [assertImplies_def] at himp
+--      exact himp _ hpre
 
--- Here's a good candidate for automation:
-
---   theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
---       (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
---       {{ P }} ~c {{ Q }} := by
---     rw [validHoareTriple_def] at hhoare ⊢
---     intro st st' heval hpre
---     apply hhoare heval
---     rw [assertImplies_def] at himp
---     exact himp _ hpre
-
--- Since `AssertImplies` is not marked `irreducible`, and
--- `assertImplies_def` is a proof by definitional equality, we
--- can skip the `rw [assertImplies_def] at himp` and use
--- `P ->> P'` like an implication directly.
-
--- Note to developers (Niklas Halonen @xhalo32):
---     This needs a better explanation of when it's okay to use
---     definitions without using their characterizing lemmas.
+--  Since `AssertImplies` is not marked `irreducible`, and
+--  `assertImplies_def` is a proof by definitional equality,
+--  we can skip the `rw [assertImplies_def] at himp` and use
+--  `P ->> P'` like an implication directly.
 
 theorem hoare_consequence_pre' (P P' Q : Assertion) (c : Com)
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
@@ -1260,12 +1031,13 @@ theorem hoare_consequence_pre' (P P' Q : Assertion) (c : Com)
   apply hhoare heval
   exact himp _ hpre
 
--- From now on, we will not usually rewrite `assertImplies_def`
--- explicitly.
+--  From now on, we will not usually rewrite
+--  `assertImplies_def` explicitly.
 
--- Since, after the `rw` and `intro`, the remaining steps just
--- apply hypotheses to the goal (and each other), the remaining
--- proof can be compressed into a single tactic: `apply_rules`.
+--  Since, after the `rw` and `intro`, the remaining steps
+--  just apply hypotheses to the goal (and each other), the
+--  remaining proof can be compressed into a single tactic:
+--  `apply_rules`.
 
 theorem hoare_consequence_pre'' (P P' Q : Assertion) (c : Com)
     (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
@@ -1274,7 +1046,7 @@ theorem hoare_consequence_pre'' (P P' Q : Assertion) (c : Com)
   intro st st' heval hpre
   apply_rules
 
--- The same trick works for `hoare_consequence_post`.
+--  The same trick works for `hoare_consequence_post`.
 
 theorem hoare_consequence_post' (P Q Q' : Assertion) (c : Com)
     (hhoare : {{ P }} ~c {{ Q' }}) (himp : Q' ->> Q) :
@@ -1283,9 +1055,9 @@ theorem hoare_consequence_post' (P Q Q' : Assertion) (c : Com)
   intro st st' heval hpre
   apply_rules
 
--- We can also leave a metavariable for `P'` in
--- `hoare_asgn_example1`, that we did earlier as an example of
--- using the consequence rule:
+--  We can also leave a metavariable for `P'` in
+--  `hoare_asgn_example1`, that we did earlier as an example
+--  of using the consequence rule:
 
 theorem hoare_asgn_example1' :
     {{True}} X := 1 {{X = 1}} := by
@@ -1295,8 +1067,8 @@ theorem hoare_asgn_example1' :
   · intro st _ -- Since `->>` is an implication, we can just use `intro` directly.
     simp
 
--- The final bullet of that proof also looks like a candidate
--- for automation.
+--  The final bullet of that proof also looks like a
+--  candidate for automation.
 
 theorem hoare_asgn_example1'' :
     {{True}} X := 1 {{X = 1}} := by
@@ -1304,15 +1076,16 @@ theorem hoare_asgn_example1'' :
   · exact hoare_asgn
   · simp [assertImplies_def]
 
--- Now we have quite a nice proof script: it simply identifies
--- the Hoare rules that need to be used and leaves the
--- remaining low-level details up to Lean to figure out.
+--  Now we have quite a nice proof script: it simply
+--  identifies the Hoare rules that need to be used and
+--  leaves the remaining low-level details up to Lean to
+--  figure out.
 
--- The other example of using consequence that we did earlier,
--- `hoare_asgn_example2`, requires a little more work to
--- automate. `simp` simplifies the assertion implication in the
--- final bullet, but cannot finish it: the leftover goal is
--- arithmetic, so it needs `lia`.
+--  The other example of using consequence that we did
+--  earlier, `hoare_asgn_example2`, requires a little more
+--  work to automate. `simp` simplifies the assertion
+--  implication in the final bullet, but cannot finish it:
+--  the leftover goal is arithmetic, so it needs `lia`.
 
 theorem assertion_sub_example2' :
     {{X < 4}}
@@ -1323,20 +1096,10 @@ theorem assertion_sub_example2' :
   · simp [assertImplies_def] -- an arithmetic goal remains
     lia
 
--- Let's introduce our own tactic to handle both that bullet
--- and the bullet from example 1. A `macro` declaration gives a
--- name to a canned sequence of tactics:
-
--- Note to developers (Niklas Halonen @xhalo32):
---     It's unfortunate that we need to unfold `X, Y, Z, W` in
---     `assertion_auto` as `simp` wouldn't otherwise reduce
---     `X == Y` to `false`. Note that `Ident` is an `abbrev`.
---     Making it an `implicit_reducible` def breaks `lia` for
---     some reason and doesn't resolve the issue.
---
---     `@[implicit_reducible]
---     def Ident := String
---     deriving BEq, ReflBEq, LawfulBEq, DecidableEq`
+--  Let's introduce our own tactic to handle both that
+--  bullet and the bullet from example 1. A `macro`
+--  declaration gives a name to a canned sequence of
+--  tactics:
 
 macro "assertion_auto" : tactic =>
   `(tactic| focus (simp +decide [assertImplies_def, assertIff_def, validHoareTriple_def,
@@ -1357,17 +1120,19 @@ theorem hoare_asgn_example1''' :
   · exact hoare_asgn
   · assertion_auto
 
--- Again, we have quite a nice proof script. All the low-level
--- details of proofs about assertions have been taken care of
--- automatically. Of course, `assertion_auto` isn't able to
--- prove everything we could possibly want to know about
--- assertions -- there's no magic here! But it's pretty good.
+--  Again, we have quite a nice proof script. All the
+--  low-level details of proofs about assertions have been
+--  taken care of automatically. Of course, `assertion_auto`
+--  isn't able to prove everything we could possibly want to
+--  know about assertions -- there's no magic here! But it's
+--  pretty good.
 
--- ### Sequencing + Assignment
+--  ### Sequencing + Assignment
 
--- Here's an example of a program involving both sequencing and
--- assignment. Note the use of `hoare_seq` in conjunction with
--- `hoare_consequence_pre` and `apply`'s metavariables.
+--  Here's an example of a program involving both sequencing
+--  and assignment. Note the use of `hoare_seq` in
+--  conjunction with `hoare_consequence_pre` and `apply`'s
+--  metavariables.
 
 theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
     {{a = n}}
@@ -1382,77 +1147,67 @@ theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
     · exact hoare_asgn
     · assertion_auto
 
--- Informally, a nice way of displaying a proof using the
--- sequencing rule is as a "decorated program" where the
--- intermediate assertion `Q` is written between `c1` and `c2`:
+--  Informally, a nice way of displaying a proof using the
+--  sequencing rule is as a "decorated program" where the
+--  intermediate assertion `Q` is written between `c1` and
+--  `c2`:
 
---            {{ a = n }}
---   X := a
---            {{ X = n }};    <--- decoration for Q
---   skip
---            {{ X = n }}
+--             {{ a = n }}
+--    X := a
+--             {{ X = n }};    <--- decoration for Q
+--    skip
+--             {{ X = n }}
 
--- We'll come back to the idea of decorated programs in much
--- more detail in the next chapter.
+--  We'll come back to the idea of decorated programs in
+--  much more detail in the next chapter.
 
--- ### Conditionals
+--  ### Conditionals
 
--- What sort of rule do we want for reasoning about conditional
--- commands?
+--  What sort of rule do we want for reasoning about
+--  conditional commands?
 
--- Certainly, if the same assertion `Q` holds after executing
--- either of the branches, then it holds after the whole
--- conditional. So we might be tempted to write:
+--  Certainly, if the same assertion `Q` holds after
+--  executing either of the branches, then it holds after
+--  the whole conditional. So we might be tempted to write:
 
---           {{P}} c1 {{Q}}
---           {{P}} c2 {{Q}}
---   ---------------------------------
---   {{P}} if b then c1 else c2 {{Q}}
+--            {{P}} c1 {{Q}}
+--            {{P}} c2 {{Q}}
+--    ---------------------------------
+--    {{P}} if b then c1 else c2 {{Q}}
 
--- However, this is rather weak. For example, using this rule,
--- we cannot show
+--  However, this is rather weak. For example, using this
+--  rule, we cannot show
 
---   {{ True }}
---     if X = 0
---       then Y := 2
---       else Y := X + 1
---     end
---   {{ X ≤ Y }}
+--    {{ True }}
+--      if X = 0
+--        then Y := 2
+--        else Y := X + 1
+--      end
+--    {{ X ≤ Y }}
 
--- since the rule doesn't tell us enough about the state in
--- which the assignments take place in the "then" and "else"
--- branches.
+--  since the rule doesn't tell us enough about the state in
+--  which the assignments take place in the "then" and
+--  "else" branches.
 
--- Better:
+--  Better:
 
---   {{P ∧   b}} c1 {{Q}}
---   {{P ∧ ¬ b}} c2 {{Q}}
---   ------------------------------------  (hoare_if)
---   {{P}} if b then c1 else c2 end {{Q}}
-
--- Note to developers (Niklas Halonen @xhalo32):
---     I have removed `bassertion` as it's an unnecessary
---     abstraction and only adds overhead for the reader.
---
---     The following theorem is now unnecessary.
+--    {{P ∧   b}} c1 {{Q}}
+--    {{P ∧ ¬ b}} c2 {{Q}}
+--    ------------------------------------  (hoare_if)
+--    {{P}} if b then c1 else c2 end {{Q}}
 
 theorem bexp_eval_false (b : Bexp) (st : State) (h : b.eval st = false) :
     ¬ ({{ b }}) st := by
   dsimp
   simp [h]
 
--- Note to developers (One An @meluge):
---     The Rocq proof is the single tactic `congruence`. Using
---     simp seems to work but should we build our own
---     `congruence` tactic?
+--  Now we can formalize the Hoare proof rule for
+--  conditionals and prove it correct.
 
--- Now we can formalize the Hoare proof rule for conditionals
--- and prove it correct.
-
--- The statement of the rule reads: given
--- `htrue : {{ P ∧ b }} ~c1 {{Q}}` and
--- `hfalse : {{ P ∧ ¬b }} ~c2 {{Q}}`, we can conclude
--- `{{P}} if (~b) { ~c1 } else { ~c2 } {{Q}}`.
+--  The statement of the rule reads: given
+--  `htrue : {{ P ∧ b }} ~c1 {{Q}}` and
+--  `hfalse : {{ P ∧ ¬b }} ~c2 {{Q}}`, we can conclude
+--  `{{P}} if (~b) { ~c1 } else { ~c2 } {{Q}}`.
 
 theorem hoare_if {P Q : Assertion} {b : Bexp} {c1 c2 : Com}
     (htrue : {{ P ∧ b }} ~c1 {{ Q }}) (hfalse : {{ P ∧ ¬ b }} ~c2 {{ Q }}) :
@@ -1466,7 +1221,7 @@ theorem hoare_if {P Q : Assertion} {b : Bexp} {c1 c2 : Com}
     rw [← Bool.not_eq_true] at hb
     exact hfalse hc ⟨hpre, hb⟩
 
--- #### Example
+--  #### Example
 
 theorem if_example :
     {{True}}
@@ -1486,7 +1241,7 @@ theorem if_example :
     · exact hoare_asgn
     · assertion_auto
 
--- We can even shorten it a little bit more.
+--  We can even shorten it a little bit more.
 
 theorem if_example' :
     {{True}}
@@ -1498,39 +1253,29 @@ theorem if_example' :
     {{X ≤ Y}} := by
   apply hoare_if <;> apply hoare_consequence_pre hoare_asgn (by assertion_auto)
 
--- Note to developers:
---     HIDE: Question from 2012, Midterm 2. One-sided
---     conditionals.
+--  ### While Loops
 
--- ### While Loops
+--  The Hoare rule for `while` loops is based on the idea of
+--  a *command invariant* (or just *invariant*): an
+--  assertion whose truth is guaranteed after executing a
+--  command, assuming it is true before.
 
--- The Hoare rule for `while` loops is based on the idea of a
--- *command invariant* (or just *invariant*): an assertion
--- whose truth is guaranteed after executing a command,
--- assuming it is true before.
+--  That is, an assertion `P` is a command invariant of `c`
+--  if
 
--- That is, an assertion `P` is a command invariant of `c` if
+--    {{P}} c {{P}}
 
---   {{P}} c {{P}}
+--  holds. Note that the command invariant might temporarily
+--  become false in the middle of executing `c`, but by the
+--  end of `c` it must be restored.
 
--- holds. Note that the command invariant might temporarily
--- become false in the middle of executing `c`, but by the end
--- of `c` it must be restored.
+--  The Hoare while rule combines the idea of a command
+--  invariant with information about when guard `b` does or
+--  does not hold.
 
--- The Hoare while rule combines the idea of a command
--- invariant with information about when guard `b` does or does
--- not hold.
-
---         {{P ∧ b}} c {{P}}
---   --------------------------------- (hoare_while)
---   {{P}} while b do c end {{P ∧ ¬b}}
-
--- Note to developers:
---     HIDE: The big comment will not display nicely. But I
---     guess it's folded...
-
--- Note to developers (Niklas Halonen @xhalo32):
---     We need to explain the `generalize` tactic.
+--          {{P ∧ b}} c {{P}}
+--    --------------------------------- (hoare_while)
+--    {{P}} while b do c end {{P ∧ ¬b}}
 
 theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
     (hhoare : {{P ∧ b}} ~c {{ P }}) :
@@ -1555,211 +1300,162 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
   | skip | asgn | seq | ifTrue | ifFalse =>
     contradiction
 
--- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
---     This definition / discussion could be clearer.
+--  We call `P` a *loop invariant* of `while b do c end` if
 
--- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2023):
---     `Maja says: The wording of "we will never enter the
---     loop" could definitely be improved. As is, it suggests a situation
---     where the loop condition itself can never be satisfied. I suspect that
---     a previous draft included a discussion that explicitly placed {{ P }}
---     before the while, perhaps along the lines of "a loop invariant P of
---     [while b do c end] is also an invariant of [while b do c end]" (which
---     is, FWIW, a (somewhat obtuse) way of stating a weaker variant of
---     hoare_while, without the ~b in the postcondition). Combined with the
---     fact that it is supposed to justify a somewhat surprising and
---     unexpected fact — [X = 0] is not what I would intuitively consider an
---     invariant of this loop — this sentence ends up being quite confusing.
---     I only understood it when I came back to find this excerpt.`
+--    {{P ∧ b}} c {{P}}
 
--- We call `P` a *loop invariant* of `while b do c end` if
+--  is a valid Hoare triple.
 
---   {{P ∧ b}} c {{P}}
+--  This means that `P` will be true at the end of the loop
+--  body whenever the loop body executes. If `P` contradicts
+--  `b`, this holds trivially since the precondition is
+--  false.
 
--- is a valid Hoare triple.
+--  For instance, `X = 0` is a loop invariant of
 
--- This means that `P` will be true at the end of the loop body
--- whenever the loop body executes. If `P` contradicts `b`,
--- this holds trivially since the precondition is false.
+--    while X = 2 do X := 1 end
 
--- For instance, `X = 0` is a loop invariant of
+--  since the program will never enter the loop.
 
---   while X = 2 do X := 1 end
+--  _Quiz:_
 
--- since the program will never enter the loop.
+--  Is the assertion
 
--- _Quiz:_
+--    Y = 0
 
--- Is the assertion
+--  a loop invariant of the following?
 
---   Y = 0
+--    while X < 100 do X := X + 1 end
 
--- a loop invariant of the following?
+--  (A) Yes
 
---   while X < 100 do X := X + 1 end
+--  (B) No
 
--- (A) Yes
+--  _Quiz:_
 
--- (B) No
+--  Is the assertion
 
--- _Quiz:_
+--    X = 0
 
--- Is the assertion
+--  a loop invariant of the following?
 
---   X = 0
+--    while X < 100 do X := X + 1 end
 
--- a loop invariant of the following?
+--  (A) Yes
 
---   while X < 100 do X := X + 1 end
+--  (B) No
 
--- (A) Yes
+--  _Quiz:_
 
--- (B) No
+--  Is the assertion
 
--- _Quiz:_
+--    X < Y
 
--- Is the assertion
+--  a loop invariant of the following?
 
---   X < Y
+--    while true do X := X + 1; Y := Y + 1 end
 
--- a loop invariant of the following?
+--  (A) Yes
 
---   while true do X := X + 1; Y := Y + 1 end
+--  (B) No
 
--- (A) Yes
+--  _Quiz:_
 
--- (B) No
+--  Is the assertion
 
--- _Quiz:_
+--    X = Y + Z
 
--- Is the assertion
+--  a loop invariant of the following?
 
---   X = Y + Z
+--    while Y > 10 do Y := Y - 1; Z := Z + 1 end
 
--- a loop invariant of the following?
+--  (A) Yes
 
---   while Y > 10 do Y := Y - 1; Z := Z + 1 end
+--  (B) No
 
--- (A) Yes
+--  _Quiz:_
 
--- (B) No
+--  Is the assertion
 
--- Note to developers (before next release):
---     This last quiz should be turned into a discussion in the
---     text, at least in the full version -- indeed, maybe all
---     these should be turned into a long discussion of what it
---     means to be a loop invariant -- I think that would be
---     pretty helpful.
+--    X > 0
 
--- Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
---     What is this example doing here?? Needs some text.
+--  a loop invariant of the following?
 
--- Note to developers:
---     `HIDE: CJC: Maybe also a good place to talk about the structure of
---     our logic - that we've set up the hoare_* lemmas and they are all
---     the reasoning about Hoare triples that they should have to use (in
---     both formal or informal proofs)?  Probably should talk about this
---     somewhere or else we'll get back lots of proofs that unfold
---     ValidHoareTriple and reason at a low level everywhere.
---
---     BCP 21: I think we do this now?`
+--    while X = 0 do X := X - 1 end
 
--- _Quiz:_
+--  (A) Yes
 
--- Is the assertion
+--  (B) No
 
---   X > 0
+--  _Quiz:_
 
--- a loop invariant of the following?
+--  Is the assertion
 
---   while X = 0 do X := X - 1 end
+--    X < 100
 
--- (A) Yes
+--  a loop invariant of the following?
 
--- (B) No
+--    while X < 100 do X := X + 1 end
 
--- _Quiz:_
+--  (A) Yes
 
--- Is the assertion
+--  (B) No
 
---   X < 100
+--  _Quiz:_
 
--- a loop invariant of the following?
+--  Is the assertion
 
---   while X < 100 do X := X + 1 end
+--    X > 10
 
--- (A) Yes
+--  a loop invariant of the following?
 
--- (B) No
+--    while X > 10 do X := X + 1 end
 
--- _Quiz:_
+--  (A) Yes
 
--- Is the assertion
+--  (B) No
 
---   X > 10
+--  ## Summary
 
--- a loop invariant of the following?
+--  The rules of Hoare Logic are:
 
---   while X > 10 do X := X + 1 end
+--           --------------------------- (hoare_asgn)
+--           {{Q [X ↦ a]}} X:=a {{Q}}
 
--- (A) Yes
+--           --------------------  (hoare_skip)
+--           {{ P }} skip {{ P }}
 
--- (B) No
+--             {{ P }} c1 {{ Q }}
+--             {{ Q }} c2 {{ R }}
+--            ----------------------  (hoare_seq)
+--            {{ P }} c1;c2 {{ R }}
 
--- Note to developers:
---     HIDE: I (BCP) think I see a much simpler way to do the
---     'for' stuff. Instead of `for x from a to b do c` define
---     `for x downfrom a do c` that steps from a down to 0.
---     This will be much simpler to specify, though still an
---     interesting challenge. (CJC: This still seemed hard to
---     me, but I'm deleting it for now to get things looking
---     right)
---
---     HIDE: Coming up with the precise rule for REPEAT is
---     tricky, and so is proving formally that the precise rule
---     passes the litmus test (at this point we only ask them
---     to convince themselves informally there).
+--            {{P ∧   b}} c1 {{Q}}
+--            {{P ∧ ¬ b}} c2 {{Q}}
+--    ------------------------------------  (hoare_if)
+--    {{P}} if b then c1 else c2 end {{Q}}
 
--- ## Summary
+--             {{P ∧ b}} c {{P}}
+--      -----------------------------------  (hoare_while)
+--      {{P}} while b do c end {{P ∧ ¬ b}}
 
--- The rules of Hoare Logic are:
+--              {{P'}} c {{Q'}}
+--                 P ->> P'
+--                 Q' ->> Q
+--       -----------------------------   (hoare_consequence)
+--              {{P}} c {{Q}}
 
---          --------------------------- (hoare_asgn)
---          {{Q [X ↦ a]}} X:=a {{Q}}
+--  Our main task in this chapter has been to *define* the
+--  rules of Hoare logic, and prove that the definitions are
+--  sound. Having done so, we can go on and work *within*
+--  Hoare logic to prove that particular programs satisfy
+--  particular Hoare triples. In the next chapter, we'll see
+--  how Hoare logic is can be used to prove that more
+--  interesting programs satisfy interesting specifications
+--  of their behavior.
 
---          --------------------  (hoare_skip)
---          {{ P }} skip {{ P }}
-
---            {{ P }} c1 {{ Q }}
---            {{ Q }} c2 {{ R }}
---           ----------------------  (hoare_seq)
---           {{ P }} c1;c2 {{ R }}
-
---           {{P ∧   b}} c1 {{Q}}
---           {{P ∧ ¬ b}} c2 {{Q}}
---   ------------------------------------  (hoare_if)
---   {{P}} if b then c1 else c2 end {{Q}}
-
---            {{P ∧ b}} c {{P}}
---     -----------------------------------  (hoare_while)
---     {{P}} while b do c end {{P ∧ ¬ b}}
-
---             {{P'}} c {{Q'}}
---                P ->> P'
---                Q' ->> Q
---      -----------------------------   (hoare_consequence)
---             {{P}} c {{Q}}
-
--- Our main task in this chapter has been to *define* the rules
--- of Hoare logic, and prove that the definitions are sound.
--- Having done so, we can go on and work *within* Hoare logic
--- to prove that particular programs satisfy particular Hoare
--- triples. In the next chapter, we'll see how Hoare logic is
--- can be used to prove that more interesting programs satisfy
--- interesting specifications of their behavior.
-
--- Crucially, we will do so without ever again `unfold`ing the
--- definition of Hoare triples -- i.e., we will take the rules
--- of Hoare logic as a closed world for reasoning about
--- programs.
+--  Crucially, we will do so without ever again `unfold`ing
+--  the definition of Hoare triples -- i.e., we will take
+--  the rules of Hoare logic as a closed world for reasoning
+--  about programs.
 

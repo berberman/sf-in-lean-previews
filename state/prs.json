@@ -191,11 +191,48 @@
     },
     "301": {
       "base_sha": "7b89b69a3d61e14875670e4fa97c8c144f5946e0",
-      "changed_variants": [],
-      "head_sha": "0a32a5a4964d3c6eec877e417c379912065bbe44",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "2818afa04e471a1af1890a676b48e41b88982613",
       "preview_path": "pr/301/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33025984151",
+      "status": "published",
       "title": "Slang: minor fixes and improvements",
       "url": "https://github.com/plclub/sf-in-lean/pull/301"
     },
@@ -249,10 +286,10 @@
     "307": {
       "base_sha": "7b89b69a3d61e14875670e4fa97c8c144f5946e0",
       "changed_variants": [],
-      "head_sha": "0a784652e3e7802b6bbf992df37db132cd2970ff",
+      "head_sha": "a10822c1a242e684c21788cf6ece44ba8c2d1951",
       "preview_path": "pr/307/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33025438333",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "[WIP] Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
     },
@@ -396,6 +433,16 @@
       "status": "published",
       "title": "Make quiz options in Logic uniform",
       "url": "https://github.com/plclub/sf-in-lean/pull/323"
+    },
+    "324": {
+      "base_sha": "7b89b69a3d61e14875670e4fa97c8c144f5946e0",
+      "changed_variants": [],
+      "head_sha": "c6c047f2dfbecb03eeeb43adb650cf3d27cab656",
+      "preview_path": "pr/324/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Tactics: wrap some exercises in :::full",
+      "url": "https://github.com/plclub/sf-in-lean/pull/324"
     }
   },
   "schema": 3

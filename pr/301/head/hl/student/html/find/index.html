@@ -1142,6 +1142,11 @@ table.bnf td.bnf-note {
   text-decoration: currentcolor underline solid;
 }
 
+/* Links inside tooltips show their underline only when hovered. */
+.tippy-box .hl.lean a {
+  text-decoration: none;
+}
+
 .hl.lean .hover-info {
   white-space: normal;
 }
@@ -1149,8 +1154,9 @@ table.bnf td.bnf-note {
 .hl.lean .token .hover-info {
   display: none;
   position: absolute;
-  background-color: #e5e5e5;
-  border: 1px solid black;
+  color: var(--verso-tooltip-color, black);
+  background-color: var(--verso-tooltip-bg-color, #e5e5e5);
+  border: 1px solid var(--verso-tooltip-border-color, black);
   padding: 0.5rem;
   z-index: 300;
 }
@@ -1167,7 +1173,10 @@ table.bnf td.bnf-note {
 .hl.lean .hover-info code {
   white-space: pre-wrap;
   background: none;
-  color: black;
+}
+
+.hl.lean .hover-info code:not(.verso-message) {
+  color: var(--verso-tooltip-color, black);
 }
 
 .hl.lean .hover-info.messages > code {
@@ -1208,10 +1217,24 @@ table.bnf td.bnf-note {
 }
 
 @media (hover: hover) {
-  .hl.lean .token.binding-hl, .hl.lean .literal:hover, .hl.lean .token.typed:hover {
-    background-color: #eee;
+  /* Hovered content nested in a collapsed tactic region keeps its plain background: the
+     region's proof state is the tooltip that appears there, and its label is what
+     highlights. `:where` keeps the exclusion out of the specificity computation. */
+  .hl.lean .token.binding-hl,
+  .hl.lean :is(.literal, .token.typed, .token[data-verso-hover]):hover:not(:where(.tactic:has(> .tactic-toggle:not(:checked)) > label *)) {
+    background-color: var(--verso-code-hover-bg-color, #eeeeee);
     border-radius: 2px;
     transition: none;
+  }
+
+  /* Within a hovered message span, token hover backgrounds are removed so the span's own
+     hover background shows across the whole span. The exception is a hovered documented
+     token, which keeps its background because its tooltip is the one shown. */
+  .hl.lean .has-info:hover .token.binding-hl:not(:hover),
+  .hl.lean .has-info:hover .token.binding-hl:not([data-verso-hover]),
+  .hl.lean .has-info:hover .literal:hover:not([data-verso-hover]),
+  .hl.lean .has-info:hover .token.typed:hover:not([data-verso-hover]) {
+    background-color: transparent;
   }
 }
 
@@ -1223,56 +1246,93 @@ table.bnf td.bnf-note {
   text-decoration-skip-ink: none;
 }
 
+/*
+The underline color comes from the nearest enclosing message span: each severity's span rule
+sets `--verso--region-indicator-color`, which inherits, so a region nested inside one of
+another severity keeps its own indicator color.
+*/
+.hl.lean .has-info :not(.tactic-state):not(.tactic-state *) {
+  text-decoration-color: var(--verso--region-indicator-color);
+}
+
 .hl.lean .has-info .hover-info {
   display: none;
   position: absolute;
   transform: translate(0.25rem, 0.3rem);
-  border: 1px solid black;
+  color: var(--verso-tooltip-color, black);
+  border: 1px solid var(--verso-tooltip-border-color, black);
   padding: 0.5rem;
   z-index: 400;
   text-align: left;
 }
 
-.hl.lean .has-info.error :not(.tactic-state):not(.tactic-state *){
-  text-decoration-color: red;
+.hl.lean .has-info.error {
+  --verso--region-indicator-color: var(--verso-error-indicator-color, #ff0000);
+  --verso--region-hover-color: var(--verso-code-error-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-error-hover-bg-color, #ffb3b3);
+  color: var(--verso-code-error-color, currentcolor);
+  background-color: var(--verso-code-error-bg-color, transparent);
 }
 
+/*
+The hover highlight follows the tooltip: a message span highlights only when its own tooltip
+is the one that appears. When a hovered nested message span, a hovered documented token, or
+a hovered collapsed tactic label shows its own tooltip instead, the message span does not
+highlight. A span nested in a collapsed tactic region likewise stays plain, because hovering
+it shows the region's proof state; `:where` keeps that exclusion out of the specificity
+computation.
+
+The hover colors come from `--verso--region-hover-color` and `--verso--region-hover-bg-color`,
+which each severity's span rule sets. This keeps the hover conditions in this one rule, and
+because the properties inherit, a region nested inside one of another severity keeps its own
+hover colors.
+*/
 @media (hover: hover) {
-  .hl.lean .has-info.error:hover {
-    background-color: #ffb3b3;
+  .hl.lean .has-info:hover:not(:has(.has-info:hover)):not(:has([data-verso-hover]:hover)):not(:has(.tactic > label:hover + .tactic-toggle:not(:checked))):not(:where(.tactic:has(> .tactic-toggle:not(:checked)) > label *)) {
+    color: var(--verso--region-hover-color, currentcolor);
+    background-color: var(--verso--region-hover-bg-color, transparent);
   }
 }
 
 .hl.lean .hover-info.messages > code.error {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid #ffb3b3;
+  background-color: var(--verso-tooltip-error-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-error-border-color, #ffb3b3);
 }
 
-.tippy-box[data-theme~='error'] .hl.lean .hover-info.messages > code.error {
+/*
+A tooltip that shows only messages of the box's own severity leaves severity styling to the
+box itself. When messages of several severities share the tooltip, or a `mixed` tooltip
+combines messages with other content (such as documentation), each message keeps its
+severity accent to distinguish them.
+*/
+.tippy-box .hl.lean.mixed > .hover-info.messages {
+  margin-bottom: 0.5rem;
+}
+
+.tippy-box[data-theme~='error'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.warning)):not(:has(> code.information)) > code.error {
   background: none;
   border: none;
 }
 
 .error .verso-message, .error .verso-message .token, .error .verso-message label {
-  color: var(--verso-error-color);
+  color: var(--verso-message-error-color, #cc0000);
 }
 
 .error .verso-message .case-label:has(input[type="checkbox"])::before {
-  background-color: var(--verso-error-color) !important;
+  background-color: var(--verso-message-error-color, #cc0000) !important;
 }
 
-.hl.lean .has-info.warning :not(.tactic-state):not(.tactic-state *) {
-  text-decoration-color: var(--verso-warning-indicator-color);
-}
-
-@media (hover: hover) {
-  .hl.lean .has-info.warning:hover {
-    background-color:var(--verso-warning-color);
-  }
+.hl.lean .has-info.warning {
+  --verso--region-indicator-color: var(--verso-warning-indicator-color, #e7a71d);
+  --verso--region-hover-color: var(--verso-code-warning-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-warning-hover-bg-color, #ffd580);
+  color: var(--verso-code-warning-color, currentcolor);
+  background-color: var(--verso-code-warning-bg-color, transparent);
 }
 
 .hl.lean .hover-info.messages > code.warning {
-  background-color: var(--verso-warning-color);
+  background-color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-warning-border-color, #ffd580);
 }
 
 .lean-output {
@@ -1283,47 +1343,56 @@ table.bnf td.bnf-note {
 }
 
 .lean-output.error {
-  border-color: var(--verso-error-indicator-color);
+  border-color: var(--verso-output-error-color, var(--verso-error-indicator-color, #ff0000));
 }
 
 .lean-output.information {
-  border-color: var(--verso-info-indicator-color);
+  border-color: var(--verso-output-info-color, var(--verso-info-indicator-color, #4777ff));
 }
 
 .lean-output.warning {
-  border-color: var(--verso-warning-indicator-color);
+  border-color: var(--verso-output-warning-color, var(--verso-warning-indicator-color, #e7a71d));
 }
 
-.hl.lean .hover-info.messages > code.error {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid var(--verso-warning-color);
-}
-
-.tippy-box[data-theme~='warning'] .hl.lean .hover-info.messages > code.warning {
+.tippy-box[data-theme~='warning'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.error)):not(:has(> code.information)) > code.warning {
   background: none;
   border: none;
 }
 
-
-.hl.lean .has-info.information :not(.tactic-state):not(.tactic-state *) {
-  text-decoration-color: var(--verso-info-indicator-color, blue);
+.warning .verso-message, .warning .verso-message .token, .warning .verso-message label {
+  color: var(--verso-message-warning-color, black);
 }
 
-@media (hover: hover) {
-  .hl.lean .has-info.information:hover {
-    background-color: #4777ff;
-  }
+.warning .verso-message .case-label:has(input[type="checkbox"])::before {
+  background-color: var(--verso-message-warning-color, black) !important;
+}
+
+
+.hl.lean .has-info.information {
+  --verso--region-indicator-color: var(--verso-info-indicator-color, #4777ff);
+  --verso--region-hover-color: var(--verso-code-info-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-info-hover-bg-color, #4777ff);
+  color: var(--verso-code-info-color, currentcolor);
+  background-color: var(--verso-code-info-bg-color, transparent);
 }
 
 
 .hl.lean .hover-info.messages > code.information {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid #4777ff;
+  background-color: var(--verso-tooltip-info-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-info-border-color, #4777ff);
 }
 
-.tippy-box[data-theme~='info'] .hl.lean .hover-info.messages > code.information {
+.tippy-box[data-theme~='info'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.error)):not(:has(> code.warning)) > code.information {
   background: none;
   border: none;
+}
+
+.information .verso-message, .information .verso-message .token, .information .verso-message label {
+  color: var(--verso-message-info-color, black);
+}
+
+.information .verso-message .case-label:has(input[type="checkbox"])::before {
+  background-color: var(--verso-message-info-color, black) !important;
 }
 
 .hl.lean div.docstring {
@@ -1350,7 +1419,7 @@ table.bnf td.bnf-note {
   margin-bottom: 0.5rem;
   padding: 0;
   height: 1px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--verso-tooltip-separator-color, #ccc);
 }
 
 .hl.lean code {
@@ -1361,11 +1430,12 @@ table.bnf td.bnf-note {
   display: none;
   position: relative;
   width: fit-content;
-  border: 1px solid #888888;
+  border: 1px solid var(--verso-tactic-state-border-color, #888888);
   border-radius: 0.1rem;
   padding: 0.5rem;
   font-family: sans-serif;
-  background-color: #ffffff;
+  color: var(--verso-tactic-state-color, black);
+  background-color: var(--verso-tactic-state-bg-color, white);
 }
 
 .hl.lean.popup .tactic-state {
@@ -1375,7 +1445,7 @@ table.bnf td.bnf-note {
   border: none;
   padding: 0.5rem;
   font-family: sans-serif;
-  background-color: #ffffff;
+  background-color: var(--verso-tactic-state-bg-color, white);
 }
 
 
@@ -1409,9 +1479,11 @@ table.bnf td.bnf-note {
 @media (hover: hover) {
   /* Highlight a region on hover only when its own toggle is unchecked, and only the innermost
      hovered region: `label:hover` bubbles to ancestor labels, so suppress the highlight on a region
-     whose label contains a more deeply nested hovered tactic label. */
+     whose label contains a more deeply nested hovered tactic label. The region's proof state is the
+     tooltip for everything else in its label, so the label keeps its highlight while any of that
+     content is hovered. */
   .hl.lean .tactic:has(> .tactic-toggle:not(:checked)) > label:hover:not(:has(.tactic > label:hover)) {
-    background-color: #eeeeee;
+    background-color: var(--verso-code-hover-bg-color, #eeeeee);
   }
 }
 
@@ -1427,7 +1499,7 @@ table.bnf td.bnf-note {
 
 .hl.lean .tactic > label::after {
   content: "";
-  border: 1px solid #bbbbbb;
+  border: 1px solid var(--verso-tactic-toggle-color, #bbbbbb);
   /* These need to be em, not rem, to scale with the font */
   border-radius: 1em;
   height: 0.25em;
@@ -1450,8 +1522,8 @@ table.bnf td.bnf-note {
 */
 
 .hl.lean .tactic > label:has(+ .tactic-toggle:checked)::after {
-  border: 1px solid #999999;
-  background-color: #999999;
+  border: 1px solid var(--verso-tactic-toggle-checked-color, #999999);
+  background-color: var(--verso-tactic-toggle-checked-color, #999999);
   transition: all 0.5s;
 }
 
@@ -1529,7 +1601,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 
 .hl.lean .case-label:has(input[type="checkbox"])::before {
   display: inline-block;
-  background-color: black;
+  background-color: currentcolor;
   content: ' ';
   transition: ease 0.2s;
   margin-right: 0.7em;
@@ -1613,26 +1685,22 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
   text-size-adjust: 100%;
 }
 
+/*
+Tippy's stylesheet paints each arrow's fill triangle with the arrow element's `color` (its
+placement-specific `::before` rules use `border-color: initial`, which is `currentcolor`),
+and its border extension paints the outline triangle with the box's border color. Setting
+`color` on the arrow therefore matches it to the tooltip background for every placement.
+*/
 .tippy-box[data-theme~='lean'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 1px solid black;
+  background-color: var(--verso-tooltip-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-color, black);
+  border: 1px solid var(--verso-tooltip-border-color, black);
 }
-.tippy-box[data-theme~='lean'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='bottom'] > .tippy-arrow::before {
-  border-bottom-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: #e5e5e5;
+.tippy-box[data-theme~='lean'] > .tippy-arrow {
+  color: var(--verso-tooltip-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: #e5e5e5;
   border-width: 11px 11px 0;
 }
 .tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::after {
@@ -1647,7 +1715,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
   border-width: 0 11px 11px;
 }
 .tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: #e5e5e5;
   border-width: 11px 0 11px 11px;
 }
 .tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::after {
@@ -1656,7 +1723,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 .tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: #e5e5e5;
   border-width: 11px 11px 11px 0;
 }
 .tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::after {
@@ -1667,39 +1733,39 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 
 
 .tippy-box[data-theme~='warning'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid var(--verso-warning-color);
+  background-color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-warning-color, black);
+  border: 3px solid var(--verso-tooltip-warning-border-color, #ffd580);
+}
+.tippy-box[data-theme~='warning'] > .tippy-arrow {
+  color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='error'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid #f7a7af;
+  background-color: var(--verso-tooltip-error-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-error-color, black);
+  border: 3px solid var(--verso-tooltip-error-border-color, #ffb3b3);
+}
+.tippy-box[data-theme~='error'] > .tippy-arrow {
+  color: var(--verso-tooltip-error-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='info'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid #99b3c2;
+  background-color: var(--verso-tooltip-info-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-info-color, black);
+  border: 3px solid var(--verso-tooltip-info-border-color, #4777ff);
+}
+.tippy-box[data-theme~='info'] > .tippy-arrow {
+  color: var(--verso-tooltip-info-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='tactic'] {
-  background-color: white;
-  color: black;
-  border: 1px solid black;
+  background-color: var(--verso-tactic-state-bg-color, white);
+  color: var(--verso-tactic-state-color, black);
+  border: 1px solid var(--verso-tactic-state-border-color, #888888);
 }
-.tippy-box[data-theme~='tactic'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='bottom'] > .tippy-arrow::before {
-  border-bottom-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: white;
+.tippy-box[data-theme~='tactic'] > .tippy-arrow {
+  color: var(--verso-tactic-state-bg-color, white);
 }
 
 .extra-doc-links {
@@ -1723,7 +1789,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 .verso-message .trace > summary::marker {
-  color: var(--verso-text-color);
+  color: var(--verso-text-color, black);
 }
 
 .verso-message .trace-children {
@@ -1752,6 +1818,305 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 </style><script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
+    function blockedByTippy(elem) {
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
+        } else { // Nothing to show here!
+          return false;
+        }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
+      },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverInfo) {
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
+          });
+        }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
+      });
+  });
+}
+</script>
+    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -1795,13 +2160,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Printing Assertions",
       "shortTitle": null,
-      "sectionNum": "4.1.3.",
+      "sectionNum": "5.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Assertions", "shortTitle": null, "number": "1"},
        {"title": "Printing Assertions", "shortTitle": null, "number": "3"}]},
      "address": "/Hoare/"}],
@@ -1836,13 +2201,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Hoare2: Hoare Logic, Part II",
       "shortTitle": null,
-      "sectionNum": "5.",
+      "sectionNum": "6.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"}]},
+        "number": "6"}]},
      "address": "/Hoare2/"}],
    "Hoare-Logic--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Inference-Rule-Notation":
    [{"id":
@@ -2026,6 +2391,24 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
+   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs--Additional-Exercises":
+   [{"id":
+     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "3.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Imp: Simple Imperative Programs",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Reasoning About Imp Programs",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
+     "address": "/Imp/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs":
    [{"id":
      "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs",
@@ -2234,13 +2617,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Summary",
       "shortTitle": null,
-      "sectionNum": "4.5.",
+      "sectionNum": "5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Summary", "shortTitle": null, "number": "5"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Proof-Rules--While-Loops--Exercise___--repeat":
@@ -2249,13 +2632,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Exercise:  repeat",
       "shortTitle": null,
-      "sectionNum": "4.4.8.1.",
+      "sectionNum": "5.4.8.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "While Loops", "shortTitle": null, "number": "8"},
        {"title": "Exercise:  repeat", "shortTitle": null, "number": "1"}]},
@@ -2266,13 +2649,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "While Loops",
       "shortTitle": null,
-      "sectionNum": "4.4.8.",
+      "sectionNum": "5.4.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "While Loops", "shortTitle": null, "number": "8"}]},
      "address": "/Hoare/"}],
@@ -2281,13 +2664,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Skip",
       "shortTitle": null,
-      "sectionNum": "4.4.1.",
+      "sectionNum": "5.4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Skip", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare/"}],
@@ -2297,13 +2680,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Sequencing + Assignment",
       "shortTitle": null,
-      "sectionNum": "4.4.6.",
+      "sectionNum": "5.4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Sequencing + Assignment",
         "shortTitle": null,
@@ -2315,13 +2698,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Sequencing",
       "shortTitle": null,
-      "sectionNum": "4.4.2.",
+      "sectionNum": "5.4.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Sequencing", "shortTitle": null, "number": "2"}]},
      "address": "/Hoare/"}],
@@ -2331,13 +2714,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Consequence",
       "shortTitle": null,
-      "sectionNum": "4.4.4.",
+      "sectionNum": "5.4.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Consequence", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare/"}],
@@ -2347,13 +2730,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Exercise: One-sided conditionals",
       "shortTitle": null,
-      "sectionNum": "4.4.7.2.",
+      "sectionNum": "5.4.7.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Conditionals", "shortTitle": null, "number": "7"},
        {"title": "Exercise: One-sided conditionals",
@@ -2366,13 +2749,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example",
       "shortTitle": null,
-      "sectionNum": "4.4.7.1.",
+      "sectionNum": "5.4.7.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Conditionals", "shortTitle": null, "number": "7"},
        {"title": "Example", "shortTitle": null, "number": "1"}]},
@@ -2383,13 +2766,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Conditionals",
       "shortTitle": null,
-      "sectionNum": "4.4.7.",
+      "sectionNum": "5.4.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Conditionals", "shortTitle": null, "number": "7"}]},
      "address": "/Hoare/"}],
@@ -2399,13 +2782,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Automation",
       "shortTitle": null,
-      "sectionNum": "4.4.5.",
+      "sectionNum": "5.4.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Automation", "shortTitle": null, "number": "5"}]},
      "address": "/Hoare/"}],
@@ -2415,13 +2798,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Assignment",
       "shortTitle": null,
-      "sectionNum": "4.4.3.",
+      "sectionNum": "5.4.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"},
        {"title": "Assignment", "shortTitle": null, "number": "3"}]},
      "address": "/Hoare/"}],
@@ -2430,13 +2813,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Proof Rules",
       "shortTitle": null,
-      "sectionNum": "4.4.",
+      "sectionNum": "5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Proof Rules", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Hoare-Triples___-Informally":
@@ -2445,13 +2828,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Hoare Triples, Informally",
       "shortTitle": null,
-      "sectionNum": "4.2.",
+      "sectionNum": "5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Hoare Triples, Informally",
         "shortTitle": null,
         "number": "2"}]},
@@ -2462,13 +2845,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Hoare Triples, Formally",
       "shortTitle": null,
-      "sectionNum": "4.3.",
+      "sectionNum": "5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Hoare Triples, Formally",
         "shortTitle": null,
         "number": "3"}]},
@@ -2479,13 +2862,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Notations for Assertions",
       "shortTitle": null,
-      "sectionNum": "4.1.1.",
+      "sectionNum": "5.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Assertions", "shortTitle": null, "number": "1"},
        {"title": "Notations for Assertions",
         "shortTitle": null,
@@ -2497,13 +2880,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example Assertions",
       "shortTitle": null,
-      "sectionNum": "4.1.2.",
+      "sectionNum": "5.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Assertions", "shortTitle": null, "number": "1"},
        {"title": "Example Assertions", "shortTitle": null, "number": "2"}]},
      "address": "/Hoare/"}],
@@ -2513,13 +2896,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Assertion Implication",
       "shortTitle": null,
-      "sectionNum": "4.1.4.",
+      "sectionNum": "5.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Assertions", "shortTitle": null, "number": "1"},
        {"title": "Assertion Implication", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare/"}],
@@ -2528,13 +2911,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Assertions",
       "shortTitle": null,
-      "sectionNum": "4.1.",
+      "sectionNum": "5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Assertions", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Additional-Exercises--Havoc":
@@ -2543,13 +2926,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Havoc",
       "shortTitle": null,
-      "sectionNum": "4.6.1.",
+      "sectionNum": "5.6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "6"},
        {"title": "Havoc", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare/"}],
@@ -2559,13 +2942,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Assert and Assume",
       "shortTitle": null,
-      "sectionNum": "4.6.2.",
+      "sectionNum": "5.6.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "6"},
        {"title": "Assert and Assume", "shortTitle": null, "number": "2"}]},
      "address": "/Hoare/"}],
@@ -2574,13 +2957,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "4.6.",
+      "sectionNum": "5.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
-        "number": "4"},
+        "number": "5"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare2___-Hoare-Logic___-Part-II--Weakest-Preconditions-_LPAR_Optional_RPAR_":
@@ -2589,13 +2972,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Weakest Preconditions (Optional)",
       "shortTitle": null,
-      "sectionNum": "5.4.",
+      "sectionNum": "6.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Weakest Preconditions (Optional)",
         "shortTitle": null,
         "number": "4"}]},
@@ -2606,13 +2989,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Syntax",
       "shortTitle": null,
-      "sectionNum": "5.2.1.",
+      "sectionNum": "6.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Formal Decorated Programs",
         "shortTitle": null,
         "number": "2"},
@@ -2624,13 +3007,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "More Automation",
       "shortTitle": null,
-      "sectionNum": "5.2.3.",
+      "sectionNum": "6.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Formal Decorated Programs",
         "shortTitle": null,
         "number": "2"},
@@ -2642,13 +3025,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Extracting Verification Conditions",
       "shortTitle": null,
-      "sectionNum": "5.2.2.",
+      "sectionNum": "6.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Formal Decorated Programs",
         "shortTitle": null,
         "number": "2"},
@@ -2662,13 +3045,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Formal Decorated Programs",
       "shortTitle": null,
-      "sectionNum": "5.2.",
+      "sectionNum": "6.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Formal Decorated Programs",
         "shortTitle": null,
         "number": "2"}]},
@@ -2679,13 +3062,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Exercise: Two Loops",
       "shortTitle": null,
-      "sectionNum": "5.3.8.",
+      "sectionNum": "6.3.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
        {"title": "Exercise: Two Loops", "shortTitle": null, "number": "8"}]},
      "address": "/Hoare2/"}],
@@ -2695,13 +3078,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Exercise: Slow Assignment",
       "shortTitle": null,
-      "sectionNum": "5.3.2.",
+      "sectionNum": "6.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
        {"title": "Exercise: Slow Assignment",
         "shortTitle": null,
@@ -2713,13 +3096,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Exercise: Power Series",
       "shortTitle": null,
-      "sectionNum": "5.3.9.",
+      "sectionNum": "6.3.9.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
        {"title": "Exercise: Power Series", "shortTitle": null, "number": "9"}]},
      "address": "/Hoare2/"}],
@@ -2729,13 +3112,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Exercise: Minimum",
       "shortTitle": null,
-      "sectionNum": "5.3.7.",
+      "sectionNum": "6.3.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
        {"title": "Exercise: Minimum", "shortTitle": null, "number": "7"}]},
      "address": "/Hoare2/"}],
@@ -2745,13 +3128,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Exercise: Factorial",
       "shortTitle": null,
-      "sectionNum": "5.3.6.",
+      "sectionNum": "6.3.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
        {"title": "Exercise: Factorial", "shortTitle": null, "number": "6"}]},
      "address": "/Hoare2/"}],
@@ -2761,13 +3144,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example: Squaring",
       "shortTitle": null,
-      "sectionNum": "5.3.5.",
+      "sectionNum": "6.3.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
        {"title": "Example: Squaring", "shortTitle": null, "number": "5"}]},
      "address": "/Hoare2/"}],
@@ -2777,13 +3160,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example: Slow Subtraction",
       "shortTitle": null,
-      "sectionNum": "5.3.1.",
+      "sectionNum": "6.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
        {"title": "Example: Slow Subtraction",
         "shortTitle": null,
@@ -2795,13 +3178,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example: Parity",
       "shortTitle": null,
-      "sectionNum": "5.3.3.",
+      "sectionNum": "6.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
        {"title": "Example: Parity", "shortTitle": null, "number": "3"}]},
      "address": "/Hoare2/"}],
@@ -2811,13 +3194,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example: Finding Square Roots",
       "shortTitle": null,
-      "sectionNum": "5.3.4.",
+      "sectionNum": "6.3.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants", "shortTitle": null, "number": "3"},
        {"title": "Example: Finding Square Roots",
         "shortTitle": null,
@@ -2829,13 +3212,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Finding Loop Invariants",
       "shortTitle": null,
-      "sectionNum": "5.3.",
+      "sectionNum": "6.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Finding Loop Invariants",
         "shortTitle": null,
         "number": "3"}]},
@@ -2846,13 +3229,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "From Decorated Programs to Formal Proofs",
       "shortTitle": null,
-      "sectionNum": "5.1.5.",
+      "sectionNum": "6.1.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
        {"title": "From Decorated Programs to Formal Proofs",
         "shortTitle": null,
@@ -2864,13 +3247,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example: Swapping",
       "shortTitle": null,
-      "sectionNum": "5.1.1.",
+      "sectionNum": "6.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
        {"title": "Example: Swapping", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare2/"}],
@@ -2880,13 +3263,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example: Simple Conditionals",
       "shortTitle": null,
-      "sectionNum": "5.1.2.",
+      "sectionNum": "6.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
        {"title": "Example: Simple Conditionals",
         "shortTitle": null,
@@ -2898,13 +3281,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example: Reduce to Zero",
       "shortTitle": null,
-      "sectionNum": "5.1.3.",
+      "sectionNum": "6.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
        {"title": "Example: Reduce to Zero",
         "shortTitle": null,
@@ -2916,13 +3299,13 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Example: Division",
       "shortTitle": null,
-      "sectionNum": "5.1.4.",
+      "sectionNum": "6.1.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"},
        {"title": "Example: Division", "shortTitle": null, "number": "4"}]},
      "address": "/Hoare2/"}],
@@ -2931,15 +3314,120 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Decorated Programs",
       "shortTitle": null,
-      "sectionNum": "5.1.",
+      "sectionNum": "6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare2: Hoare Logic, Part II",
         "shortTitle": null,
-        "number": "5"},
+        "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare2/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
+     "data":
+     {"title": "Behavioral Equivalence is an Equivalence",
+      "shortTitle": null,
+      "sectionNum": "4.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Properties of Behavior Equivalence",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Behavioral Equivalence is an Equivalence",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence",
+     "data":
+     {"title": "Behavioral Equivalence is a Congruence",
+      "shortTitle": null,
+      "sectionNum": "4.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Properties of Behavior Equivalence",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Behavioral Equivalence is a Congruence",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence",
+     "data":
+     {"title": "Properties of Behavior Equivalence",
+      "shortTitle": null,
+      "sectionNum": "4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Properties of Behavior Equivalence",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Simple-Examples":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Simple-Examples",
+     "data":
+     {"title": "Simple Examples",
+      "shortTitle": null,
+      "sectionNum": "4.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Behavioral Equivaleence", "shortTitle": null, "number": "1"},
+       {"title": "Simple Examples", "shortTitle": null, "number": "2"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Definitions":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Definitions",
+     "data":
+     {"title": "Definitions",
+      "shortTitle": null,
+      "sectionNum": "4.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Behavioral Equivaleence", "shortTitle": null, "number": "1"},
+       {"title": "Definitions", "shortTitle": null, "number": "1"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence",
+     "data":
+     {"title": "Behavioral Equivaleence",
+      "shortTitle": null,
+      "sectionNum": "4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Behavioral Equivaleence",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Equiv/"}],
    "Hoare-Logic":
    [{"id": "Hoare-Logic",
      "data":
@@ -2955,14 +3443,27 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Hoare: Hoare Logic, Part I",
       "shortTitle": null,
-      "sectionNum": "4.",
+      "sectionNum": "5.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Hoare: Hoare Logic, Part I",
         "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Hoare/"}],
+   "Equiv":
+   [{"id": "Equiv",
+     "data":
+     {"title": "Equiv: Program Equivalence",
+      "shortTitle": null,
+      "sectionNum": "4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
         "number": "4"}]},
-     "address": "/Hoare/"}]}},
+     "address": "/Equiv/"}]}},
  "Verso.Genre.Manual.example":
  {"title": "Verso.Genre.Manual.example",
   "description": null,
@@ -3652,6 +4153,72 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "States"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr.sPush":
+   [{"id": "StackCompiler___Sinstr___sPush",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr___sPush":
+      {"display": "sPush",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr.sPlus":
+   [{"id": "StackCompiler___Sinstr___sPlus",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr___sPlus":
+      {"display": "sPlus",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr.sMult":
+   [{"id": "StackCompiler___Sinstr___sMult",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr___sMult":
+      {"display": "sMult",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr.sMinus":
+   [{"id": "StackCompiler___Sinstr___sMinus",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr___sMinus":
+      {"display": "sMinus",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr.sLoad":
+   [{"id": "StackCompiler___Sinstr___sLoad",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr___sLoad":
+      {"display": "sLoad",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr":
+   [{"id": "StackCompiler___Sinstr",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr":
+      {"display": "Sinstr",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Slang.Bexp.not":
    [{"id": "Slang___Bexp___not",
@@ -5433,6 +6000,16 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Hoare: Hoare Logic, Part I",
         "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
+   "HasTriple.Delab.delabTriple":
+   [{"id": "HasTriple___Delab___delabTriple",
+     "data":
+     {"/Hoare/#HasTriple___Delab___delabTriple":
+      {"display": "delabTriple",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
+     "address": "/Hoare/"}],
    "HasTriple":
    [{"id": "HasTriple",
      "data":
@@ -5448,6 +6025,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"/Imp/#HasEval___Eval":
       {"display": "Eval",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Evaluation as a Relation"]}},
+     "address": "/Imp/"}],
+   "HasEval.Delab.delabTriple":
+   [{"id": "HasEval___Delab___delabTriple",
+     "data":
+     {"/Imp/#HasEval___Delab___delabTriple":
+      {"display": "delabTriple",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
@@ -5889,6 +6477,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Formal Decorated Programs",
         "Syntax"]}},
      "address": "/Hoare2/"}],
+   "Com.while_false_equiv":
+   [{"id": "Com___while_false_equiv",
+     "data":
+     {"/Equiv/#Com___while_false_equiv":
+      {"display": "while_false_equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
    "Com.whileDo":
    [{"id": "Com___whileDo",
      "data":
@@ -5924,6 +6523,94 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Com.if_true_simple":
+   [{"id": "Com___if_true_simple",
+     "data":
+     {"/Equiv/#Com___if_true_simple":
+      {"display": "if_true_simple",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.if_true":
+   [{"id": "Com___if_true",
+     "data":
+     {"/Equiv/#Com___if_true":
+      {"display": "if_true",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.identity_assignment":
+   [{"id": "Com___identity_assignment",
+     "data":
+     {"/Equiv/#Com___identity_assignment":
+      {"display": "identity_assignment",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.equiv_trans":
+   [{"id": "Com___equiv_trans",
+     "data":
+     {"/Equiv/#Com___equiv_trans":
+      {"display": "Com.equiv_trans",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
+   "Com.equiv_symm":
+   [{"id": "Com___equiv_symm",
+     "data":
+     {"/Equiv/#Com___equiv_symm":
+      {"display": "Com.equiv_symm",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
+   "Com.equiv_refl":
+   [{"id": "Com___equiv_refl",
+     "data":
+     {"/Equiv/#Com___equiv_refl":
+      {"display": "Com.equiv_refl",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
+   "Com.equiv_def":
+   [{"id": "Com___equiv_def",
+     "data":
+     {"/Equiv/#Com___equiv_def":
+      {"display": "Com.equiv_def",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
+   "Com.congruence.asgn":
+   [{"id": "Com___congruence___asgn",
+     "data":
+     {"/Equiv/#Com___congruence___asgn":
+      {"display": "Com.congruence.asgn",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is a Congruence"]}},
+     "address": "/Equiv/"}],
    "Com.cond":
    [{"id": "Com___cond",
      "data":
@@ -6039,6 +6726,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Evaluating Commands",
         "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
+   "Com.Equiv":
+   [{"id": "Com___Equiv",
+     "data":
+     {"/Equiv/#Com___Equiv":
+      {"display": "Com.Equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
    "Com":
    [{"id": "Com",
      "data":
@@ -6046,6 +6744,138 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       {"display": "Com",
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Result.sContinue":
+   [{"id": "BreakImp___Result___sContinue",
+     "data":
+     {"/Imp/#BreakImp___Result___sContinue":
+      {"display": "sContinue",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Result.sBreak":
+   [{"id": "BreakImp___Result___sBreak",
+     "data":
+     {"/Imp/#BreakImp___Result___sBreak":
+      {"display": "sBreak",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Result":
+   [{"id": "BreakImp___Result",
+     "data":
+     {"/Imp/#BreakImp___Result":
+      {"display": "Result",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Delab.delabComInner":
+   [{"id": "BreakImp___Delab___delabComInner",
+     "data":
+     {"/Imp/#BreakImp___Delab___delabComInner":
+      {"display": "delabComInner",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Delab.delabCom":
+   [{"id": "BreakImp___Delab___delabCom",
+     "data":
+     {"/Imp/#BreakImp___Delab___delabCom":
+      {"display": "delabCom",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Com.whileDo":
+   [{"id": "BreakImp___Com___whileDo",
+     "data":
+     {"/Imp/#BreakImp___Com___whileDo":
+      {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Com.skip":
+   [{"id": "BreakImp___Com___skip",
+     "data":
+     {"/Imp/#BreakImp___Com___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Com.seq":
+   [{"id": "BreakImp___Com___seq",
+     "data":
+     {"/Imp/#BreakImp___Com___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Com.cond":
+   [{"id": "BreakImp___Com___cond",
+     "data":
+     {"/Imp/#BreakImp___Com___cond":
+      {"display": "cond",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Com.brk":
+   [{"id": "BreakImp___Com___brk",
+     "data":
+     {"/Imp/#BreakImp___Com___brk":
+      {"display": "brk",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Com.asgn":
+   [{"id": "BreakImp___Com___asgn",
+     "data":
+     {"/Imp/#BreakImp___Com___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "BreakImp.Com":
+   [{"id": "BreakImp___Com",
+     "data":
+     {"/Imp/#BreakImp___Com":
+      {"display": "Com",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.not":
    [{"id": "Bexp___not",
@@ -6179,6 +7009,50 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Bexp.equiv_trans":
+   [{"id": "Bexp___equiv_trans",
+     "data":
+     {"/Equiv/#Bexp___equiv_trans":
+      {"display": "Bexp.equiv_trans",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
+   "Bexp.equiv_symm":
+   [{"id": "Bexp___equiv_symm",
+     "data":
+     {"/Equiv/#Bexp___equiv_symm":
+      {"display": "Bexp.equiv_symm",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
+   "Bexp.equiv_refl":
+   [{"id": "Bexp___equiv_refl",
+     "data":
+     {"/Equiv/#Bexp___equiv_refl":
+      {"display": "Bexp.equiv_refl",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
+   "Bexp.equiv_def":
+   [{"id": "Bexp___equiv_def",
+     "data":
+     {"/Equiv/#Bexp___equiv_def":
+      {"display": "Bexp.equiv_def",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
    "Bexp.eq":
    [{"id": "Bexp___eq",
      "data":
@@ -6212,6 +7086,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "Bexp.Equiv":
+   [{"id": "Bexp___Equiv",
+     "data":
+     {"/Equiv/#Bexp___Equiv":
+      {"display": "Bexp.Equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
    "Bexp":
    [{"id": "Bexp",
      "data":
@@ -6277,16 +7162,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Hoare: Hoare Logic, Part I",
         "Assertions",
         "Notations for Assertions"]}},
-     "address": "/Hoare/"}],
-   "Assertion.Delab.delabTriple":
-   [{"id": "Assertion___Delab___delabTriple",
-     "data":
-     {"/Hoare/#Assertion___Delab___delabTriple":
-      {"display": "delabTriple",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabSub":
    [{"id": "Assertion___Delab___delabSub",
@@ -6504,6 +7379,61 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
+   "Aexp.equiv_trans":
+   [{"id": "Aexp___equiv_trans",
+     "data":
+     {"/Equiv/#Aexp___equiv_trans":
+      {"display": "Aexp.equiv_trans",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
+   "Aexp.equiv_symm":
+   [{"id": "Aexp___equiv_symm",
+     "data":
+     {"/Equiv/#Aexp___equiv_symm":
+      {"display": "Aexp.equiv_symm",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
+   "Aexp.equiv_refl":
+   [{"id": "Aexp___equiv_refl",
+     "data":
+     {"/Equiv/#Aexp___equiv_refl":
+      {"display": "Aexp.equiv_refl",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
+   "Aexp.equiv_def":
+   [{"id": "Aexp___equiv_def",
+     "data":
+     {"/Equiv/#Aexp___equiv_def":
+      {"display": "Aexp.equiv_def",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
+   "Aexp.Equiv":
+   [{"id": "Aexp___Equiv",
+     "data":
+     {"/Equiv/#Aexp___Equiv":
+      {"display": "Aexp.Equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivaleence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
    "Aexp":
    [{"id": "Aexp",
      "data":
@@ -6673,242 +7603,6 @@ if (paramName) {
     });
 }
 </script>
-    <script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // Track whether any tippy is visible (O(1) check instead of DOM scan)
-    let visibleTippyCount = 0;
-    function blockedByTippy(elem) {
-      return visibleTippyCount > 0;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        if (inst.reference.className == 'tactic') {
-          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-          hideParentTooltips(inst.reference);
-          if (blockedByTippy(inst.reference)) { return false; }
-
-        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-          if (blockedByTactic(inst.reference)) { return false };
-          if (blockedByTippy(inst.reference)) { return false; }
-        } else { // Nothing to show here!
-          return false;
-        }
-      },
-      onShown(inst) { visibleTippyCount++; },
-      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverId) { // Docstrings from the table
-            // TODO stop doing an implicit conversion from string to number here
-            let data = versoDocData[hoverId];
-            if (data) {
-              const info = document.createElement("span");
-              info.className = "hover-info";
-              info.style.display = "block";
-              info.innerHTML = data;
-              content.appendChild(info);
-              /* Render docstrings - TODO server-side */
-              if ('undefined' !== typeof marked) {
-                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                      const str = d.innerText;
-                      const html = marked.parse(str);
-                      const rendered = document.createElement("div");
-                      rendered.classList.add("docstring");
-                      rendered.innerHTML = html;
-                      d.parentNode.replaceChild(rendered, d);
-                  }
-              }
-            } else {
-              content.innerHTML = "Failed to load doc ID: " + hoverId;
-            }
-          } else if (hoverInfo) { // The inline info, still used for compiler messages
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          const extraLinks = tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (!tok._tippy && tok.matches(tacticTippySelector)) {
-              tippy(tok, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (tok._tippy) tok._tippy.destroy();
-          });
-        }
-      });
-  });
-}
-</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -6935,7 +7629,7 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Hoare-Logic--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Imp/#Imp">Imp: Simple Imperative Programs</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Hoare/#Hoare">Hoare: Hoare Logic, Part I</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Hoare2/#Hoare2">Hoare2: Hoare Logic, Part II</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Hoare-Logic--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Imp/#Imp">Imp: Simple Imperative Programs</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Equiv/#Equiv">Equiv: Program Equivalence</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Hoare/#Hoare">Hoare: Hoare Logic, Part I</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Hoare2/#Hoare2">Hoare2: Hoare Logic, Part II</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>

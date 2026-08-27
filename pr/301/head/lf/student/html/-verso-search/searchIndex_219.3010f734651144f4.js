@@ -1,0 +1,1 @@
+window.docContents[219].resolve({"/Induction/#Induction":{"contents":"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"3. Induction: Proof by Induction","id":"/Induction/#Induction"}});

@@ -1239,6 +1239,11 @@ details.sf-details[open] {
   text-decoration: currentcolor underline solid;
 }
 
+/* Links inside tooltips show their underline only when hovered. */
+.tippy-box .hl.lean a {
+  text-decoration: none;
+}
+
 .hl.lean .hover-info {
   white-space: normal;
 }
@@ -1246,8 +1251,9 @@ details.sf-details[open] {
 .hl.lean .token .hover-info {
   display: none;
   position: absolute;
-  background-color: #e5e5e5;
-  border: 1px solid black;
+  color: var(--verso-tooltip-color, black);
+  background-color: var(--verso-tooltip-bg-color, #e5e5e5);
+  border: 1px solid var(--verso-tooltip-border-color, black);
   padding: 0.5rem;
   z-index: 300;
 }
@@ -1264,7 +1270,10 @@ details.sf-details[open] {
 .hl.lean .hover-info code {
   white-space: pre-wrap;
   background: none;
-  color: black;
+}
+
+.hl.lean .hover-info code:not(.verso-message) {
+  color: var(--verso-tooltip-color, black);
 }
 
 .hl.lean .hover-info.messages > code {
@@ -1305,10 +1314,24 @@ details.sf-details[open] {
 }
 
 @media (hover: hover) {
-  .hl.lean .token.binding-hl, .hl.lean .literal:hover, .hl.lean .token.typed:hover {
-    background-color: #eee;
+  /* Hovered content nested in a collapsed tactic region keeps its plain background: the
+     region's proof state is the tooltip that appears there, and its label is what
+     highlights. `:where` keeps the exclusion out of the specificity computation. */
+  .hl.lean .token.binding-hl,
+  .hl.lean :is(.literal, .token.typed, .token[data-verso-hover]):hover:not(:where(.tactic:has(> .tactic-toggle:not(:checked)) > label *)) {
+    background-color: var(--verso-code-hover-bg-color, #eeeeee);
     border-radius: 2px;
     transition: none;
+  }
+
+  /* Within a hovered message span, token hover backgrounds are removed so the span's own
+     hover background shows across the whole span. The exception is a hovered documented
+     token, which keeps its background because its tooltip is the one shown. */
+  .hl.lean .has-info:hover .token.binding-hl:not(:hover),
+  .hl.lean .has-info:hover .token.binding-hl:not([data-verso-hover]),
+  .hl.lean .has-info:hover .literal:hover:not([data-verso-hover]),
+  .hl.lean .has-info:hover .token.typed:hover:not([data-verso-hover]) {
+    background-color: transparent;
   }
 }
 
@@ -1320,56 +1343,93 @@ details.sf-details[open] {
   text-decoration-skip-ink: none;
 }
 
+/*
+The underline color comes from the nearest enclosing message span: each severity's span rule
+sets `--verso--region-indicator-color`, which inherits, so a region nested inside one of
+another severity keeps its own indicator color.
+*/
+.hl.lean .has-info :not(.tactic-state):not(.tactic-state *) {
+  text-decoration-color: var(--verso--region-indicator-color);
+}
+
 .hl.lean .has-info .hover-info {
   display: none;
   position: absolute;
   transform: translate(0.25rem, 0.3rem);
-  border: 1px solid black;
+  color: var(--verso-tooltip-color, black);
+  border: 1px solid var(--verso-tooltip-border-color, black);
   padding: 0.5rem;
   z-index: 400;
   text-align: left;
 }
 
-.hl.lean .has-info.error :not(.tactic-state):not(.tactic-state *){
-  text-decoration-color: red;
+.hl.lean .has-info.error {
+  --verso--region-indicator-color: var(--verso-error-indicator-color, #ff0000);
+  --verso--region-hover-color: var(--verso-code-error-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-error-hover-bg-color, #ffb3b3);
+  color: var(--verso-code-error-color, currentcolor);
+  background-color: var(--verso-code-error-bg-color, transparent);
 }
 
+/*
+The hover highlight follows the tooltip: a message span highlights only when its own tooltip
+is the one that appears. When a hovered nested message span, a hovered documented token, or
+a hovered collapsed tactic label shows its own tooltip instead, the message span does not
+highlight. A span nested in a collapsed tactic region likewise stays plain, because hovering
+it shows the region's proof state; `:where` keeps that exclusion out of the specificity
+computation.
+
+The hover colors come from `--verso--region-hover-color` and `--verso--region-hover-bg-color`,
+which each severity's span rule sets. This keeps the hover conditions in this one rule, and
+because the properties inherit, a region nested inside one of another severity keeps its own
+hover colors.
+*/
 @media (hover: hover) {
-  .hl.lean .has-info.error:hover {
-    background-color: #ffb3b3;
+  .hl.lean .has-info:hover:not(:has(.has-info:hover)):not(:has([data-verso-hover]:hover)):not(:has(.tactic > label:hover + .tactic-toggle:not(:checked))):not(:where(.tactic:has(> .tactic-toggle:not(:checked)) > label *)) {
+    color: var(--verso--region-hover-color, currentcolor);
+    background-color: var(--verso--region-hover-bg-color, transparent);
   }
 }
 
 .hl.lean .hover-info.messages > code.error {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid #ffb3b3;
+  background-color: var(--verso-tooltip-error-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-error-border-color, #ffb3b3);
 }
 
-.tippy-box[data-theme~='error'] .hl.lean .hover-info.messages > code.error {
+/*
+A tooltip that shows only messages of the box's own severity leaves severity styling to the
+box itself. When messages of several severities share the tooltip, or a `mixed` tooltip
+combines messages with other content (such as documentation), each message keeps its
+severity accent to distinguish them.
+*/
+.tippy-box .hl.lean.mixed > .hover-info.messages {
+  margin-bottom: 0.5rem;
+}
+
+.tippy-box[data-theme~='error'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.warning)):not(:has(> code.information)) > code.error {
   background: none;
   border: none;
 }
 
 .error .verso-message, .error .verso-message .token, .error .verso-message label {
-  color: var(--verso-error-color);
+  color: var(--verso-message-error-color, #cc0000);
 }
 
 .error .verso-message .case-label:has(input[type="checkbox"])::before {
-  background-color: var(--verso-error-color) !important;
+  background-color: var(--verso-message-error-color, #cc0000) !important;
 }
 
-.hl.lean .has-info.warning :not(.tactic-state):not(.tactic-state *) {
-  text-decoration-color: var(--verso-warning-indicator-color);
-}
-
-@media (hover: hover) {
-  .hl.lean .has-info.warning:hover {
-    background-color:var(--verso-warning-color);
-  }
+.hl.lean .has-info.warning {
+  --verso--region-indicator-color: var(--verso-warning-indicator-color, #e7a71d);
+  --verso--region-hover-color: var(--verso-code-warning-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-warning-hover-bg-color, #ffd580);
+  color: var(--verso-code-warning-color, currentcolor);
+  background-color: var(--verso-code-warning-bg-color, transparent);
 }
 
 .hl.lean .hover-info.messages > code.warning {
-  background-color: var(--verso-warning-color);
+  background-color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-warning-border-color, #ffd580);
 }
 
 .lean-output {
@@ -1380,47 +1440,56 @@ details.sf-details[open] {
 }
 
 .lean-output.error {
-  border-color: var(--verso-error-indicator-color);
+  border-color: var(--verso-output-error-color, var(--verso-error-indicator-color, #ff0000));
 }
 
 .lean-output.information {
-  border-color: var(--verso-info-indicator-color);
+  border-color: var(--verso-output-info-color, var(--verso-info-indicator-color, #4777ff));
 }
 
 .lean-output.warning {
-  border-color: var(--verso-warning-indicator-color);
+  border-color: var(--verso-output-warning-color, var(--verso-warning-indicator-color, #e7a71d));
 }
 
-.hl.lean .hover-info.messages > code.error {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid var(--verso-warning-color);
-}
-
-.tippy-box[data-theme~='warning'] .hl.lean .hover-info.messages > code.warning {
+.tippy-box[data-theme~='warning'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.error)):not(:has(> code.information)) > code.warning {
   background: none;
   border: none;
 }
 
-
-.hl.lean .has-info.information :not(.tactic-state):not(.tactic-state *) {
-  text-decoration-color: var(--verso-info-indicator-color, blue);
+.warning .verso-message, .warning .verso-message .token, .warning .verso-message label {
+  color: var(--verso-message-warning-color, black);
 }
 
-@media (hover: hover) {
-  .hl.lean .has-info.information:hover {
-    background-color: #4777ff;
-  }
+.warning .verso-message .case-label:has(input[type="checkbox"])::before {
+  background-color: var(--verso-message-warning-color, black) !important;
+}
+
+
+.hl.lean .has-info.information {
+  --verso--region-indicator-color: var(--verso-info-indicator-color, #4777ff);
+  --verso--region-hover-color: var(--verso-code-info-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-info-hover-bg-color, #4777ff);
+  color: var(--verso-code-info-color, currentcolor);
+  background-color: var(--verso-code-info-bg-color, transparent);
 }
 
 
 .hl.lean .hover-info.messages > code.information {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid #4777ff;
+  background-color: var(--verso-tooltip-info-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-info-border-color, #4777ff);
 }
 
-.tippy-box[data-theme~='info'] .hl.lean .hover-info.messages > code.information {
+.tippy-box[data-theme~='info'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.error)):not(:has(> code.warning)) > code.information {
   background: none;
   border: none;
+}
+
+.information .verso-message, .information .verso-message .token, .information .verso-message label {
+  color: var(--verso-message-info-color, black);
+}
+
+.information .verso-message .case-label:has(input[type="checkbox"])::before {
+  background-color: var(--verso-message-info-color, black) !important;
 }
 
 .hl.lean div.docstring {
@@ -1447,7 +1516,7 @@ details.sf-details[open] {
   margin-bottom: 0.5rem;
   padding: 0;
   height: 1px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--verso-tooltip-separator-color, #ccc);
 }
 
 .hl.lean code {
@@ -1458,11 +1527,12 @@ details.sf-details[open] {
   display: none;
   position: relative;
   width: fit-content;
-  border: 1px solid #888888;
+  border: 1px solid var(--verso-tactic-state-border-color, #888888);
   border-radius: 0.1rem;
   padding: 0.5rem;
   font-family: sans-serif;
-  background-color: #ffffff;
+  color: var(--verso-tactic-state-color, black);
+  background-color: var(--verso-tactic-state-bg-color, white);
 }
 
 .hl.lean.popup .tactic-state {
@@ -1472,7 +1542,7 @@ details.sf-details[open] {
   border: none;
   padding: 0.5rem;
   font-family: sans-serif;
-  background-color: #ffffff;
+  background-color: var(--verso-tactic-state-bg-color, white);
 }
 
 
@@ -1506,9 +1576,11 @@ details.sf-details[open] {
 @media (hover: hover) {
   /* Highlight a region on hover only when its own toggle is unchecked, and only the innermost
      hovered region: `label:hover` bubbles to ancestor labels, so suppress the highlight on a region
-     whose label contains a more deeply nested hovered tactic label. */
+     whose label contains a more deeply nested hovered tactic label. The region's proof state is the
+     tooltip for everything else in its label, so the label keeps its highlight while any of that
+     content is hovered. */
   .hl.lean .tactic:has(> .tactic-toggle:not(:checked)) > label:hover:not(:has(.tactic > label:hover)) {
-    background-color: #eeeeee;
+    background-color: var(--verso-code-hover-bg-color, #eeeeee);
   }
 }
 
@@ -1524,7 +1596,7 @@ details.sf-details[open] {
 
 .hl.lean .tactic > label::after {
   content: "";
-  border: 1px solid #bbbbbb;
+  border: 1px solid var(--verso-tactic-toggle-color, #bbbbbb);
   /* These need to be em, not rem, to scale with the font */
   border-radius: 1em;
   height: 0.25em;
@@ -1547,8 +1619,8 @@ details.sf-details[open] {
 */
 
 .hl.lean .tactic > label:has(+ .tactic-toggle:checked)::after {
-  border: 1px solid #999999;
-  background-color: #999999;
+  border: 1px solid var(--verso-tactic-toggle-checked-color, #999999);
+  background-color: var(--verso-tactic-toggle-checked-color, #999999);
   transition: all 0.5s;
 }
 
@@ -1626,7 +1698,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 
 .hl.lean .case-label:has(input[type="checkbox"])::before {
   display: inline-block;
-  background-color: black;
+  background-color: currentcolor;
   content: ' ';
   transition: ease 0.2s;
   margin-right: 0.7em;
@@ -1710,26 +1782,22 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
   text-size-adjust: 100%;
 }
 
+/*
+Tippy's stylesheet paints each arrow's fill triangle with the arrow element's `color` (its
+placement-specific `::before` rules use `border-color: initial`, which is `currentcolor`),
+and its border extension paints the outline triangle with the box's border color. Setting
+`color` on the arrow therefore matches it to the tooltip background for every placement.
+*/
 .tippy-box[data-theme~='lean'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 1px solid black;
+  background-color: var(--verso-tooltip-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-color, black);
+  border: 1px solid var(--verso-tooltip-border-color, black);
 }
-.tippy-box[data-theme~='lean'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='bottom'] > .tippy-arrow::before {
-  border-bottom-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: #e5e5e5;
+.tippy-box[data-theme~='lean'] > .tippy-arrow {
+  color: var(--verso-tooltip-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: #e5e5e5;
   border-width: 11px 11px 0;
 }
 .tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::after {
@@ -1744,7 +1812,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
   border-width: 0 11px 11px;
 }
 .tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: #e5e5e5;
   border-width: 11px 0 11px 11px;
 }
 .tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::after {
@@ -1753,7 +1820,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 .tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: #e5e5e5;
   border-width: 11px 11px 11px 0;
 }
 .tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::after {
@@ -1764,39 +1830,39 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 
 
 .tippy-box[data-theme~='warning'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid var(--verso-warning-color);
+  background-color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-warning-color, black);
+  border: 3px solid var(--verso-tooltip-warning-border-color, #ffd580);
+}
+.tippy-box[data-theme~='warning'] > .tippy-arrow {
+  color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='error'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid #f7a7af;
+  background-color: var(--verso-tooltip-error-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-error-color, black);
+  border: 3px solid var(--verso-tooltip-error-border-color, #ffb3b3);
+}
+.tippy-box[data-theme~='error'] > .tippy-arrow {
+  color: var(--verso-tooltip-error-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='info'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid #99b3c2;
+  background-color: var(--verso-tooltip-info-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-info-color, black);
+  border: 3px solid var(--verso-tooltip-info-border-color, #4777ff);
+}
+.tippy-box[data-theme~='info'] > .tippy-arrow {
+  color: var(--verso-tooltip-info-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='tactic'] {
-  background-color: white;
-  color: black;
-  border: 1px solid black;
+  background-color: var(--verso-tactic-state-bg-color, white);
+  color: var(--verso-tactic-state-color, black);
+  border: 1px solid var(--verso-tactic-state-border-color, #888888);
 }
-.tippy-box[data-theme~='tactic'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='bottom'] > .tippy-arrow::before {
-  border-bottom-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: white;
+.tippy-box[data-theme~='tactic'] > .tippy-arrow {
+  color: var(--verso-tactic-state-bg-color, white);
 }
 
 .extra-doc-links {
@@ -1820,7 +1886,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 .verso-message .trace > summary::marker {
-  color: var(--verso-text-color);
+  color: var(--verso-text-color, black);
 }
 
 .verso-message .trace-children {
@@ -1867,10 +1933,39 @@ window.onload = async () => {
       return false;
     }
 
-    // Track whether any tippy is visible (O(1) check instead of DOM scan)
-    let visibleTippyCount = 0;
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
     function blockedByTippy(elem) {
-      return visibleTippyCount > 0;
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
     }
 
     // Binding highlights via event delegation with cached lookups
@@ -1937,6 +2032,40 @@ window.onload = async () => {
       }
     }
 
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
 
 
     const defaultTippyProps = {
@@ -1952,23 +2081,27 @@ window.onload = async () => {
       /* ignoreAttributes: true, */
       followCursor: 'initial',
       onShow(inst) {
-        if (inst.reference.className == 'tactic') {
-          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
           if (toggle && toggle.checked) {
             return false;
           }
-          hideParentTooltips(inst.reference);
-          if (blockedByTippy(inst.reference)) { return false; }
-
-        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-          if (blockedByTactic(inst.reference)) { return false };
-          if (blockedByTippy(inst.reference)) { return false; }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
         } else { // Nothing to show here!
           return false;
         }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
       },
-      onShown(inst) { visibleTippyCount++; },
-      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
       content (tgt) {
         const content = document.createElement("span");
         if (tgt.className == 'tactic') {
@@ -1983,35 +2116,22 @@ window.onload = async () => {
           content.style.maxHeight = "300px";
           content.style.overflowY = "auto";
           content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
           const hoverId = tgt.dataset.versoHover;
           const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverId) { // Docstrings from the table
-            // TODO stop doing an implicit conversion from string to number here
-            let data = versoDocData[hoverId];
-            if (data) {
-              const info = document.createElement("span");
-              info.className = "hover-info";
-              info.style.display = "block";
-              info.innerHTML = data;
-              content.appendChild(info);
-              /* Render docstrings - TODO server-side */
-              if ('undefined' !== typeof marked) {
-                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                      const str = d.innerText;
-                      const html = marked.parse(str);
-                      const rendered = document.createElement("div");
-                      rendered.classList.add("docstring");
-                      rendered.innerHTML = html;
-                      d.parentNode.replaceChild(rendered, d);
-                  }
-              }
-            } else {
-              content.innerHTML = "Failed to load doc ID: " + hoverId;
-            }
-          } else if (hoverInfo) { // The inline info, still used for compiler messages
+          if (hoverInfo) {
             content.appendChild(hoverInfo.cloneNode(true));
           }
-          const extraLinks = tgt.parentElement.dataset['versoLinks'];
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
           if (extraLinks) {
             try {
               const extras = JSON.parse(extraLinks);
@@ -2069,17 +2189,26 @@ window.onload = async () => {
       if (toggle) toggle.addEventListener('change', () => {
         if (toggle.checked) {
           closedTactics.delete(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (!tok._tippy && tok.matches(tacticTippySelector)) {
-              tippy(tok, defaultTippyProps);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
             }
           });
         } else {
           closedTactics.add(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (tok._tippy) tok._tippy.destroy();
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
           });
         }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
       });
   });
 }
@@ -2178,22 +2307,62 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "2"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-Code-Actions-to-Generate-Match-Skeletons":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--Definitional-Simplification":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-Code-Actions-to-Generate-Match-Skeletons",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--Definitional-Simplification",
      "data":
-     {"title": "Using Code Actions to Generate Match Skeletons",
+     {"title": "Definitional Simplification",
       "shortTitle": null,
-      "sectionNum": "4.6.",
+      "sectionNum": "4.4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Using Code Actions to Generate Match Skeletons",
+       {"title": "Unfolding definitions with  rw",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "4"},
+       {"title": "Definitional Simplification",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--A-First-Step-Towards-Automation":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--A-First-Step-Towards-Automation",
+     "data":
+     {"title": "A First Step Towards Automation",
+      "shortTitle": null,
+      "sectionNum": "4.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Unfolding definitions with  rw",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "A First Step Towards Automation",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw",
+     "data":
+     {"title": "Unfolding definitions with  rw",
+      "shortTitle": null,
+      "sectionNum": "4.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Unfolding definitions with  rw",
+        "shortTitle": null,
+        "number": "4"}]},
      "address": "/UsingLean/"}],
    "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc":
    [{"id":
@@ -2229,11 +2398,11 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "5"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--rfl--and-Computation-with--Nat":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--The--rfl--Tactic-and-Computation-with--Nat":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--rfl--and-Computation-with--Nat",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--The--rfl--Tactic-and-Computation-with--Nat",
      "data":
-     {"title": "rfl  and Computation with  Nat",
+     {"title": "The  rfl  Tactic and Computation with  Nat",
       "shortTitle": null,
       "sectionNum": "4.1.1.",
       "searchPriority": 50,
@@ -2245,7 +2414,7 @@ window.onload = async () => {
        {"title": "More Powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"},
-       {"title": "rfl  and Computation with  Nat",
+       {"title": "The  rfl  Tactic and Computation with  Nat",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/UsingLean/"}],
@@ -2265,43 +2434,6 @@ window.onload = async () => {
        {"title": "More Powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation",
-     "data":
-     {"title": "A New Step Towards Automation",
-      "shortTitle": null,
-      "sectionNum": "4.4.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Definitional Simplification:  dsimp",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "A New Step Towards Automation",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp",
-     "data":
-     {"title": "Definitional Simplification:  dsimp",
-      "shortTitle": null,
-      "sectionNum": "4.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Definitional Simplification:  dsimp",
-        "shortTitle": null,
-        "number": "4"}]},
      "address": "/UsingLean/"}],
    "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses",
@@ -3286,6 +3418,25 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles":
+   [{"id":
+     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles",
+     "data":
+     {"title": "Other Extensionality Principles",
+      "shortTitle": null,
+      "sectionNum": "8.8.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
+       {"title": "Functional Extensionality",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Other Extensionality Principles",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality":
    [{"id":
      "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality",
@@ -3857,11 +4008,11 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "7"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
+   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator",
+     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons",
      "data":
-     {"title": "A New Tactic Combinator",
+     {"title": "Aside: Using Code Actions to Generate Match Skeletons",
       "shortTitle": null,
       "sectionNum": "3.6.1.",
       "searchPriority": 50,
@@ -3871,9 +4022,27 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "3"},
        {"title": "More Exercises", "shortTitle": null, "number": "6"},
-       {"title": "A New Tactic Combinator",
+       {"title": "Aside: Using Code Actions to Generate Match Skeletons",
         "shortTitle": null,
         "number": "1"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator",
+     "data":
+     {"title": "A New Tactic Combinator",
+      "shortTitle": null,
+      "sectionNum": "3.6.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"},
+       {"title": "A New Tactic Combinator",
+        "shortTitle": null,
+        "number": "2"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises":
    [{"id":
@@ -4186,14 +4355,14 @@ window.onload = async () => {
      "data":
      {"title": "Multiplication",
       "shortTitle": null,
-      "sectionNum": "2.2.7.1.",
+      "sectionNum": "2.4.7.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "Working with Numerals", "shortTitle": null, "number": "7"},
        {"title": "Multiplication", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
@@ -4203,14 +4372,14 @@ window.onload = async () => {
      "data":
      {"title": "Equality and Ordering",
       "shortTitle": null,
-      "sectionNum": "2.2.7.2.",
+      "sectionNum": "2.4.7.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "Working with Numerals", "shortTitle": null, "number": "7"},
        {"title": "Equality and Ordering", "shortTitle": null, "number": "2"}]},
      "address": "/Basics/"}],
@@ -4220,14 +4389,14 @@ window.onload = async () => {
      "data":
      {"title": "Working with Numerals",
       "shortTitle": null,
-      "sectionNum": "2.2.7.",
+      "sectionNum": "2.4.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "Working with Numerals", "shortTitle": null, "number": "7"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--The--rfl--tactic":
@@ -4236,14 +4405,14 @@ window.onload = async () => {
      "data":
      {"title": "The  rfl  tactic",
       "shortTitle": null,
-      "sectionNum": "2.2.4.",
+      "sectionNum": "2.4.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "The  rfl  tactic", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--The--rewrite--tactic":
@@ -4252,14 +4421,14 @@ window.onload = async () => {
      "data":
      {"title": "The  rewrite  tactic",
       "shortTitle": null,
-      "sectionNum": "2.2.3.",
+      "sectionNum": "2.4.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "The  rewrite  tactic", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-properties-about-functions-in-Lean":
@@ -4268,14 +4437,14 @@ window.onload = async () => {
      "data":
      {"title": "Proving properties about functions in Lean",
       "shortTitle": null,
-      "sectionNum": "2.2.1.",
+      "sectionNum": "2.4.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "Proving properties about functions in Lean",
         "shortTitle": null,
         "number": "1"}]},
@@ -4286,14 +4455,14 @@ window.onload = async () => {
      "data":
      {"title": "Proof state and tactics",
       "shortTitle": null,
-      "sectionNum": "2.2.2.",
+      "sectionNum": "2.4.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "Proof state and tactics",
         "shortTitle": null,
         "number": "2"}]},
@@ -4304,14 +4473,14 @@ window.onload = async () => {
      "data":
      {"title": "Irreducibility, Rewriting, and Proof Engineering",
       "shortTitle": null,
-      "sectionNum": "2.2.6.",
+      "sectionNum": "2.4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "Irreducibility, Rewriting, and Proof Engineering",
         "shortTitle": null,
         "number": "6"}]},
@@ -4322,14 +4491,14 @@ window.onload = async () => {
      "data":
      {"title": "Displaying Theorem Statements",
       "shortTitle": null,
-      "sectionNum": "2.2.8.1.",
+      "sectionNum": "2.4.8.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "General Proofs about Natural Numbers",
         "shortTitle": null,
         "number": "8"},
@@ -4343,14 +4512,14 @@ window.onload = async () => {
      "data":
      {"title": "General Proofs about Natural Numbers",
       "shortTitle": null,
-      "sectionNum": "2.2.8.",
+      "sectionNum": "2.4.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "General Proofs about Natural Numbers",
         "shortTitle": null,
         "number": "8"}]},
@@ -4361,14 +4530,14 @@ window.onload = async () => {
      "data":
      {"title": "A New  add  Rule",
       "shortTitle": null,
-      "sectionNum": "2.2.5.",
+      "sectionNum": "2.4.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "A New  add  Rule", "shortTitle": null, "number": "5"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting":
@@ -4377,14 +4546,14 @@ window.onload = async () => {
      "data":
      {"title": "Proof by Rewriting",
       "shortTitle": null,
-      "sectionNum": "2.2.",
+      "sectionNum": "2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Rewriting", "shortTitle": null, "number": "2"}]},
+       {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis--Structural-Recursion-_LPAR_Optional_RPAR_":
    [{"id":
@@ -4392,14 +4561,14 @@ window.onload = async () => {
      "data":
      {"title": "Structural Recursion (Optional)",
       "shortTitle": null,
-      "sectionNum": "2.3.2.",
+      "sectionNum": "2.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "5"},
        {"title": "Structural Recursion (Optional)",
         "shortTitle": null,
         "number": "2"}]},
@@ -4410,14 +4579,14 @@ window.onload = async () => {
      "data":
      {"title": "New Tactics:  rewrite ... at  and  exact",
       "shortTitle": null,
-      "sectionNum": "2.3.1.",
+      "sectionNum": "2.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "5"},
        {"title": "New Tactics:  rewrite ... at  and  exact",
         "shortTitle": null,
         "number": "1"}]},
@@ -4428,14 +4597,14 @@ window.onload = async () => {
      "data":
      {"title": "Binary Numerals",
       "shortTitle": null,
-      "sectionNum": "2.3.3.",
+      "sectionNum": "2.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "5"},
        {"title": "Binary Numerals", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Case-Analysis":
@@ -4444,14 +4613,14 @@ window.onload = async () => {
      "data":
      {"title": "Proof by Case Analysis",
       "shortTitle": null,
-      "sectionNum": "2.3.",
+      "sectionNum": "2.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "3"}]},
+       {"title": "Proof by Case Analysis", "shortTitle": null, "number": "5"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Warmups":
    [{"id":
@@ -4459,14 +4628,14 @@ window.onload = async () => {
      "data":
      {"title": "Warmups",
       "shortTitle": null,
-      "sectionNum": "2.4.1.",
+      "sectionNum": "2.6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "4"},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"},
        {"title": "Warmups", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises--Airport-Exercise":
@@ -4475,14 +4644,14 @@ window.onload = async () => {
      "data":
      {"title": "Airport Exercise",
       "shortTitle": null,
-      "sectionNum": "2.4.2.",
+      "sectionNum": "2.6.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "4"},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"},
        {"title": "Airport Exercise", "shortTitle": null, "number": "2"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Basics___-Functional-Programming-in-Lean--More-Exercises":
@@ -4491,205 +4660,20 @@ window.onload = async () => {
      "data":
      {"title": "More Exercises",
       "shortTitle": null,
-      "sectionNum": "2.4.",
+      "sectionNum": "2.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "More Exercises", "shortTitle": null, "number": "4"}]},
+       {"title": "More Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Types":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Introduction":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Types",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Introduction",
      "data":
-     {"title": "Types",
-      "shortTitle": null,
-      "sectionNum": "2.1.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Types", "shortTitle": null, "number": "6"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--New-Types-from-Old":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--New-Types-from-Old",
-     "data":
-     {"title": "New Types from Old",
-      "shortTitle": null,
-      "sectionNum": "2.1.7.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "New Types from Old", "shortTitle": null, "number": "7"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Natural-Numbers":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Natural-Numbers",
-     "data":
-     {"title": "Natural Numbers",
-      "shortTitle": null,
-      "sectionNum": "2.1.10.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Natural Numbers", "shortTitle": null, "number": "10"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Namespaces":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Namespaces",
-     "data":
-     {"title": "Namespaces",
-      "shortTitle": null,
-      "sectionNum": "2.1.8.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Namespaces", "shortTitle": null, "number": "8"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Days-of-the-Week-_LPAR_Enumerated-Types_RPAR_":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Days-of-the-Week-_LPAR_Enumerated-Types_RPAR_",
-     "data":
-     {"title": "Days of the Week (Enumerated Types)",
-      "shortTitle": null,
-      "sectionNum": "2.1.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Days of the Week (Enumerated Types)",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures",
-     "data":
-     {"title": "Structures",
-      "shortTitle": null,
-      "sectionNum": "2.1.9.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Constructors with Multiple Parameters (Tuple Types)",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Structures", "shortTitle": null, "number": "1"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_",
-     "data":
-     {"title": "Constructors with Multiple Parameters (Tuple Types)",
-      "shortTitle": null,
-      "sectionNum": "2.1.9.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Constructors with Multiple Parameters (Tuple Types)",
-        "shortTitle": null,
-        "number": "9"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Booleans":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Booleans",
-     "data":
-     {"title": "Booleans",
-      "shortTitle": null,
-      "sectionNum": "2.1.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Booleans", "shortTitle": null, "number": "3"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Basic-Proofs":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Basic-Proofs",
-     "data":
-     {"title": "Basic Proofs",
-      "shortTitle": null,
-      "sectionNum": "2.1.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Basic Proofs", "shortTitle": null, "number": "4"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Using-the-VS-Code-Lean-Extension":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Using-the-VS-Code-Lean-Extension",
-     "data":
-     {"title": "Aside: Using the VS Code Lean Extension",
-      "shortTitle": null,
-      "sectionNum": "2.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Aside: Using the VS Code Lean Extension",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Unicode-in-Lean":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Unicode-in-Lean",
-     "data":
-     {"title": "Aside: Unicode in Lean",
-      "shortTitle": null,
-      "sectionNum": "2.1.5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Basics: Functional Programming in Lean",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"},
-       {"title": "Aside: Unicode in Lean", "shortTitle": null, "number": "5"}]},
-     "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions":
-   [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions",
-     "data":
-     {"title": "Data and Functions",
+     {"title": "Introduction",
       "shortTitle": null,
       "sectionNum": "2.1.",
       "searchPriority": 50,
@@ -4698,7 +4682,208 @@ window.onload = async () => {
        {"title": "Basics: Functional Programming in Lean",
         "shortTitle": null,
         "number": "2"},
-       {"title": "Data and Functions", "shortTitle": null, "number": "1"}]},
+       {"title": "Introduction", "shortTitle": null, "number": "1"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Days-of-the-Week-_LPAR_Enumerated-Types_RPAR_":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Days-of-the-Week-_LPAR_Enumerated-Types_RPAR_",
+     "data":
+     {"title": "Days of the Week (Enumerated Types)",
+      "shortTitle": null,
+      "sectionNum": "2.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Data and Functions", "shortTitle": null, "number": "2"},
+       {"title": "Days of the Week (Enumerated Types)",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Booleans":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Booleans",
+     "data":
+     {"title": "Booleans",
+      "shortTitle": null,
+      "sectionNum": "2.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Data and Functions", "shortTitle": null, "number": "2"},
+       {"title": "Booleans", "shortTitle": null, "number": "3"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Using-the-VS-Code-Lean-Extension":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions--Aside___-Using-the-VS-Code-Lean-Extension",
+     "data":
+     {"title": "Aside: Using the VS Code Lean Extension",
+      "shortTitle": null,
+      "sectionNum": "2.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Data and Functions", "shortTitle": null, "number": "2"},
+       {"title": "Aside: Using the VS Code Lean Extension",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Data-and-Functions",
+     "data":
+     {"title": "Data and Functions",
+      "shortTitle": null,
+      "sectionNum": "2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Data and Functions", "shortTitle": null, "number": "2"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Types":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Types",
+     "data":
+     {"title": "Types",
+      "shortTitle": null,
+      "sectionNum": "2.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
+       {"title": "Types", "shortTitle": null, "number": "2"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--New-Types-from-Old":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--New-Types-from-Old",
+     "data":
+     {"title": "New Types from Old",
+      "shortTitle": null,
+      "sectionNum": "2.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
+       {"title": "New Types from Old", "shortTitle": null, "number": "3"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Natural-Numbers":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Natural-Numbers",
+     "data":
+     {"title": "Natural Numbers",
+      "shortTitle": null,
+      "sectionNum": "2.3.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
+       {"title": "Natural Numbers", "shortTitle": null, "number": "6"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Namespaces":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Namespaces",
+     "data":
+     {"title": "Namespaces",
+      "shortTitle": null,
+      "sectionNum": "2.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
+       {"title": "Namespaces", "shortTitle": null, "number": "4"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures",
+     "data":
+     {"title": "Structures",
+      "shortTitle": null,
+      "sectionNum": "2.3.5.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
+       {"title": "Constructors with Multiple Parameters (Tuple Types)",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Structures", "shortTitle": null, "number": "1"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_",
+     "data":
+     {"title": "Constructors with Multiple Parameters (Tuple Types)",
+      "shortTitle": null,
+      "sectionNum": "2.3.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
+       {"title": "Constructors with Multiple Parameters (Tuple Types)",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Aside___-Unicode-in-Lean":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Aside___-Unicode-in-Lean",
+     "data":
+     {"title": "Aside: Unicode in Lean",
+      "shortTitle": null,
+      "sectionNum": "2.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
+       {"title": "Aside: Unicode in Lean", "shortTitle": null, "number": "1"}]},
+     "address": "/Basics/"}],
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs":
+   [{"id":
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs",
+     "data":
+     {"title": "A First Taste of Proofs",
+      "shortTitle": null,
+      "sectionNum": "2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Basics: Functional Programming in Lean",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "A First Taste of Proofs",
+        "shortTitle": null,
+        "number": "3"}]},
      "address": "/Basics/"}],
    "Logical-Foundations--Automation___-More-Automation--The--trivial--Tactic":
    [{"id":
@@ -5029,11 +5214,11 @@ window.onload = async () => {
  {"title": "Verso.Genre.Manual.example",
   "description": null,
   "contents":
-  {"zip_unzip":
-   [{"id": "zip_unzip",
+  {"zip_unzip'":
+   [{"id": "zip_unzip___",
      "data":
-     {"/Tactics/#zip_unzip":
-      {"display": "zip_unzip",
+     {"/Tactics/#zip_unzip___":
+      {"display": "zip_unzip'",
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
@@ -5113,7 +5298,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
@@ -5139,11 +5324,66 @@ window.onload = async () => {
         "Review",
         "Additional Exercises"]}},
      "address": "/Tactics/"}],
+   "unzip_test_snd'":
+   [{"id": "unzip_test_snd___",
+     "data":
+     {"/Poly/#unzip_test_snd___":
+      {"display": "unzip_test_snd'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test_snd":
+   [{"id": "unzip_test_snd",
+     "data":
+     {"/Poly/#unzip_test_snd":
+      {"display": "unzip_test_snd",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test_fst'":
+   [{"id": "unzip_test_fst___",
+     "data":
+     {"/Poly/#unzip_test_fst___":
+      {"display": "unzip_test_fst'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_test_fst":
+   [{"id": "unzip_test_fst",
+     "data":
+     {"/Poly/#unzip_test_fst":
+      {"display": "unzip_test_fst",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
    "unzip_test1":
    [{"id": "unzip_test1",
      "data":
      {"/Poly/#unzip_test1":
       {"display": "unzip_test1",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip_nil'":
+   [{"id": "unzip_nil___",
+     "data":
+     {"/Poly/#unzip_nil___":
+      {"display": "unzip_nil'",
        "context":
        ["Logical Foundations",
         "Poly: Polymorphism and Higher-Order Functions",
@@ -5183,6 +5423,28 @@ window.onload = async () => {
         "Polymorphism",
         "Polymorphic Pairs"]}},
      "address": "/Poly/"}],
+   "unzip_cons":
+   [{"id": "unzip_cons",
+     "data":
+     {"/Poly/#unzip_cons":
+      {"display": "unzip_cons",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Pairs"]}},
+     "address": "/Poly/"}],
+   "unzip'":
+   [{"id": "unzip___",
+     "data":
+     {"/Tactics/#unzip___":
+      {"display": "unzip'",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Using  cases  on Expressions",
+        "Destructing Tuples"]}},
+     "address": "/Tactics/"}],
    "unzip":
    [{"id": "unzip",
      "data":
@@ -5204,16 +5466,6 @@ window.onload = async () => {
         "Poly: Polymorphism and Higher-Order Functions",
         "Additional Exercises"]}},
      "address": "/Poly/"}],
-   "triple":
-   [{"id": "triple",
-     "data":
-     {"/UsingLean/#triple":
-      {"display": "triple",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Definitional Simplification:  dsimp"]}},
-     "address": "/UsingLean/"}],
    "trans_eq_exercise":
    [{"id": "trans_eq_exercise",
      "data":
@@ -5245,7 +5497,8 @@ window.onload = async () => {
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "trRev":
    [{"id": "trRev",
@@ -5256,7 +5509,8 @@ window.onload = async () => {
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "test_pos_of_filter_cons":
    [{"id": "test_pos_of_filter_cons",
@@ -5391,7 +5645,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Definitional Simplification:  dsimp"]}},
+        "Unfolding definitions with  rw"]}},
      "address": "/UsingLean/"}],
    "simp_lemmas_example.add_zero":
    [{"id": "simp_lemmas_example___add_zero",
@@ -5495,10 +5749,20 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
+   "rwUnfold":
+   [{"id": "rwUnfold",
+     "data":
+     {"/UsingLean/#rwUnfold":
+      {"display": "rwUnfold",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions with  rw"]}},
+     "address": "/UsingLean/"}],
    "right":
    [{"id": "right",
      "data":
@@ -5577,7 +5841,8 @@ window.onload = async () => {
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend_nil":
    [{"id": "revAppend_nil",
@@ -5588,7 +5853,8 @@ window.onload = async () => {
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend_cons":
    [{"id": "revAppend_cons",
@@ -5599,7 +5865,8 @@ window.onload = async () => {
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend":
    [{"id": "revAppend",
@@ -5610,7 +5877,8 @@ window.onload = async () => {
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality"]}},
+        "Functional Extensionality",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "restricted_excluded_middle":
    [{"id": "restricted_excluded_middle",
@@ -5975,7 +6243,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "nextWorkingDay":
@@ -6098,7 +6366,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "mul_three_beq":
@@ -6151,7 +6419,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "monochrome":
@@ -6162,7 +6430,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "map_rev":
@@ -6239,7 +6507,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
@@ -6368,7 +6636,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "is_weekend_test1":
@@ -6379,7 +6647,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "is_weekend":
@@ -6390,7 +6658,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "is_even_prime":
@@ -6403,37 +6671,6 @@ window.onload = async () => {
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
-   "isZero":
-   [{"id": "isZero",
-     "data":
-     {"/UsingLean/#isZero-next":
-      {"display": "isZero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using Code Actions to Generate Match Skeletons"]},
-      "/UsingLean/#isZero":
-      {"display": "isZero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using Code Actions to Generate Match Skeletons"]}},
-     "address": "/UsingLean/"},
-    {"id": "isZero-next",
-     "data":
-     {"/UsingLean/#isZero-next":
-      {"display": "isZero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using Code Actions to Generate Match Skeletons"]},
-      "/UsingLean/#isZero":
-      {"display": "isZero",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using Code Actions to Generate Match Skeletons"]}},
-     "address": "/UsingLean/"}],
    "isRed'":
    [{"id": "isRed___",
      "data":
@@ -6442,7 +6679,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "isRed":
@@ -6453,7 +6690,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "isNil_nil":
@@ -6489,7 +6726,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "isInversion_test3":
@@ -6500,7 +6737,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "isInversion_test2":
@@ -6511,7 +6748,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "isInversion_test1":
@@ -6522,7 +6759,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "isInversion":
@@ -6533,7 +6770,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "inversion_ex2":
@@ -7098,7 +7335,7 @@ window.onload = async () => {
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective-next-next",
+   [{"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -7140,7 +7377,7 @@ window.onload = async () => {
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective-next",
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -7831,6 +8068,26 @@ window.onload = async () => {
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
+   "addTwice":
+   [{"id": "addTwice",
+     "data":
+     {"/UsingLean/#addTwice":
+      {"display": "addTwice",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions with  rw"]}},
+     "address": "/UsingLean/"}],
+   "addThrice":
+   [{"id": "addThrice",
+     "data":
+     {"/UsingLean/#addThrice":
+      {"display": "addThrice",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions with  rw"]}},
+     "address": "/UsingLean/"}],
    "WrongEv":
    [{"id": "WrongEv",
      "data":
@@ -8610,7 +8867,7 @@ window.onload = async () => {
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq",
+   [{"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -8619,7 +8876,7 @@ window.onload = async () => {
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
+    {"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -8706,7 +8963,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "RGB.myOtherBlue":
@@ -8717,7 +8974,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "RGB.myBlue":
@@ -8728,7 +8985,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "RGB.green":
@@ -8739,7 +8996,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "RGB.blue":
@@ -8750,7 +9007,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "RGB":
@@ -8761,7 +9018,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "R.total_relation_is_total":
@@ -9239,7 +9496,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "Playground.myBar":
@@ -9250,7 +9507,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "Playground.lt":
@@ -9281,7 +9538,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Nibble.bits":
@@ -9292,7 +9549,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Nibble":
@@ -9303,7 +9560,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Le.succ":
@@ -9344,7 +9601,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Bit.b0":
@@ -9355,7 +9612,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Bit":
@@ -9366,7 +9623,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Person.sage":
@@ -9620,6 +9877,17 @@ window.onload = async () => {
      "data":
      {"/IndProp/#Perm3___NotIn":
       {"display": "NotIn",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Multiple Induction Hypotheses"]}},
+     "address": "/IndProp/"}],
+   "Perm3.Not":
+   [{"id": "Perm3___Not",
+     "data":
+     {"/IndProp/#Perm3___Not":
+      {"display": "Not",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -9931,7 +10199,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
@@ -9943,7 +10211,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
@@ -9955,7 +10223,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
@@ -9967,7 +10235,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
@@ -9979,7 +10247,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
@@ -9991,7 +10259,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.negation_fn_applied_twice":
@@ -10126,7 +10394,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.two_plus_two_eq_four":
@@ -10171,7 +10439,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.three_eq_succ_two":
@@ -10193,7 +10461,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.succ_mul":
@@ -10204,7 +10472,8 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.succ_eq_add_one":
    [{"id": "NatPlayground___Nat___succ_eq_add_one",
@@ -10280,7 +10549,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.right_distrib":
@@ -10291,7 +10560,8 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.review₄":
    [{"id": "NatPlayground___Nat___review___-next-next-next",
@@ -10355,7 +10625,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.or_false_true":
@@ -10423,7 +10693,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.odd":
@@ -10434,7 +10704,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.not_involutive":
@@ -10477,7 +10747,8 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.mul_succ":
    [{"id": "NatPlayground___Nat___mul_succ",
@@ -10509,7 +10780,8 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.mul_assoc":
    [{"id": "NatPlayground___Nat___mul_assoc",
@@ -10519,7 +10791,8 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.mul":
    [{"id": "NatPlayground___Nat___mul",
@@ -10541,7 +10814,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.left_distrib":
@@ -10552,7 +10825,43 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
+     "address": "/Induction/"}],
+   "NatPlayground.Nat.isZero":
+   [{"id": "NatPlayground___Nat___isZero-next",
+     "data":
+     {"/Induction/#NatPlayground___Nat___isZero-next":
+      {"display": "isZero",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]},
+      "/Induction/#NatPlayground___Nat___isZero":
+      {"display": "isZero",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
+     "address": "/Induction/"},
+    {"id": "NatPlayground___Nat___isZero",
+     "data":
+     {"/Induction/#NatPlayground___Nat___isZero-next":
+      {"display": "isZero",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]},
+      "/Induction/#NatPlayground___Nat___isZero":
+      {"display": "isZero",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.incr_z":
    [{"id": "NatPlayground___Nat___incr_z",
@@ -10650,7 +10959,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.factorial_bad":
@@ -10716,7 +11025,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.double_zero":
@@ -10795,7 +11104,8 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.ble":
    [{"id": "NatPlayground___Nat___ble",
@@ -10928,7 +11238,8 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.and_commutative":
    [{"id": "NatPlayground___Nat___and_commutative",
@@ -10958,7 +11269,8 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.aliasOfTwo":
    [{"id": "NatPlayground___Nat___aliasOfTwo",
@@ -11034,7 +11346,8 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises"]}},
+        "More Exercises",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.add_rearrange":
    [{"id": "NatPlayground___Nat___add_rearrange",
@@ -11137,7 +11450,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.NatToBin.normalize_z":
@@ -11505,7 +11818,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Airport.inspectBag_ticketed":
@@ -11513,6 +11826,39 @@ window.onload = async () => {
      "data":
      {"/Basics/#NatPlayground___Airport___inspectBag_ticketed":
       {"display": "inspectBag_ticketed",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.inspectBag_test3":
+   [{"id": "NatPlayground___Airport___inspectBag_test3",
+     "data":
+     {"/Basics/#NatPlayground___Airport___inspectBag_test3":
+      {"display": "inspectBag_test3",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.inspectBag_test2":
+   [{"id": "NatPlayground___Airport___inspectBag_test2",
+     "data":
+     {"/Basics/#NatPlayground___Airport___inspectBag_test2":
+      {"display": "inspectBag_test2",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.inspectBag_test1":
+   [{"id": "NatPlayground___Airport___inspectBag_test1",
+     "data":
+     {"/Basics/#NatPlayground___Airport___inspectBag_test1":
+      {"display": "inspectBag_test1",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -11607,6 +11953,39 @@ window.onload = async () => {
         "More Exercises",
         "Airport Exercise"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Airport.checkIn_test3":
+   [{"id": "NatPlayground___Airport___checkIn_test3",
+     "data":
+     {"/Basics/#NatPlayground___Airport___checkIn_test3":
+      {"display": "checkIn_test3",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.checkIn_test2":
+   [{"id": "NatPlayground___Airport___checkIn_test2",
+     "data":
+     {"/Basics/#NatPlayground___Airport___checkIn_test2":
+      {"display": "checkIn_test2",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.checkIn_test1":
+   [{"id": "NatPlayground___Airport___checkIn_test1",
+     "data":
+     {"/Basics/#NatPlayground___Airport___checkIn_test1":
+      {"display": "checkIn_test1",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
    "NatPlayground.Airport.checkIn_noTicket":
    [{"id": "NatPlayground___Airport___checkIn_noTicket",
      "data":
@@ -11645,6 +12024,28 @@ window.onload = async () => {
      "data":
      {"/Basics/#NatPlayground___Airport___changeBag_ticketed":
       {"display": "changeBag_ticketed",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.changeBag_test2":
+   [{"id": "NatPlayground___Airport___changeBag_test2",
+     "data":
+     {"/Basics/#NatPlayground___Airport___changeBag_test2":
+      {"display": "changeBag_test2",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.changeBag_test1":
+   [{"id": "NatPlayground___Airport___changeBag_test1",
+     "data":
+     {"/Basics/#NatPlayground___Airport___changeBag_test1":
+      {"display": "changeBag_test1",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -11700,6 +12101,28 @@ window.onload = async () => {
      "data":
      {"/Basics/#NatPlayground___Airport___buyTicket_then_checkIn":
       {"display": "buyTicket_then_checkIn",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.buyTicket_test2":
+   [{"id": "NatPlayground___Airport___buyTicket_test2",
+     "data":
+     {"/Basics/#NatPlayground___Airport___buyTicket_test2":
+      {"display": "buyTicket_test2",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "More Exercises",
+        "Airport Exercise"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Airport.buyTicket_test1":
+   [{"id": "NatPlayground___Airport___buyTicket_test1",
+     "data":
+     {"/Basics/#NatPlayground___Airport___buyTicket_test1":
+      {"display": "buyTicket_test1",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
@@ -12126,7 +12549,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "MyOtherNamespace.myHiddenDef":
@@ -12137,7 +12560,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "MyNamespace.myDef":
@@ -12148,7 +12571,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "MyList.nil":
@@ -12228,8 +12651,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
-        "Basic Proofs"]}},
+        "A First Taste of Proofs"]}},
      "address": "/Basics/"}],
    "MyBool.true_and_explained":
    [{"id": "MyBool___true_and_explained",
@@ -12239,8 +12661,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
-        "Basic Proofs"]}},
+        "A First Taste of Proofs"]}},
      "address": "/Basics/"}],
    "MyBool.true_and'":
    [{"id": "MyBool___true_and___",
@@ -12250,8 +12671,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
-        "Basic Proofs"]}},
+        "A First Taste of Proofs"]}},
      "address": "/Basics/"}],
    "MyBool.true_and":
    [{"id": "MyBool___true_and",
@@ -12261,8 +12681,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
-        "Basic Proofs"]}},
+        "A First Taste of Proofs"]}},
      "address": "/Basics/"}],
    "MyBool.true":
    [{"id": "MyBool___true",
@@ -12283,8 +12702,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
-        "Basic Proofs"]}},
+        "A First Taste of Proofs"]}},
      "address": "/Basics/"}],
    "MyBool.or":
    [{"id": "MyBool___or",
@@ -12371,8 +12789,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
-        "Basic Proofs"]}},
+        "A First Taste of Proofs"]}},
      "address": "/Basics/"}],
    "MyBool.false":
    [{"id": "MyBool___false",
@@ -12842,22 +13259,22 @@ window.onload = async () => {
         "Lists of Numbers",
         "Removing"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.test_removeAll₁":
-   [{"id": "Lists___NatList___test_removeAll___",
+   "Lists.NatList.test_removeAll2":
+   [{"id": "Lists___NatList___test_removeAll2",
      "data":
-     {"/Lists/#Lists___NatList___test_removeAll___":
-      {"display": "test_removeAll₁",
+     {"/Lists/#Lists___NatList___test_removeAll2":
+      {"display": "test_removeAll2",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
         "Removing"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.test_removeAll2":
-   [{"id": "Lists___NatList___test_removeAll2",
+   "Lists.NatList.test_removeAll1":
+   [{"id": "Lists___NatList___test_removeAll1",
      "data":
-     {"/Lists/#Lists___NatList___test_removeAll2":
-      {"display": "test_removeAll2",
+     {"/Lists/#Lists___NatList___test_removeAll1":
+      {"display": "test_removeAll1",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
@@ -14174,7 +14591,7 @@ window.onload = async () => {
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_poly":
-   [{"id": "List___elem_poly-next",
+   [{"id": "List___elem_poly",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -14185,7 +14602,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
+    {"id": "List___elem_poly-next",
      "data":
      {"/Typeclasses/#List___elem_poly-next":
       {"display": "List.elem_poly",
@@ -14951,7 +15368,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "Namespaces"]}},
      "address": "/Basics/"}],
    "Day.monday":
@@ -15016,7 +15433,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "Color.primary":
@@ -15027,7 +15444,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "Color.black":
@@ -15038,7 +15455,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "Color":
@@ -15049,7 +15466,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
-        "Data and Functions",
+        "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
    "CollatzHoldsFor.chf_one":
@@ -15086,7 +15503,7 @@ window.onload = async () => {
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -15103,7 +15520,7 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
