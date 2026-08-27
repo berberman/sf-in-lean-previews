@@ -232,7 +232,7 @@ import SFLCompat
 --  ### System Requirements
 
 --  Lean runs on Linux, MacOS, and Windows. The files in this book have
---  been tested with Lean version `4.33.0`.
+--  been tested with Lean version `4.34.0-rc2`.
 
 --  ### Installation
 
