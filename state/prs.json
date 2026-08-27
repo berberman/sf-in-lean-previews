@@ -443,6 +443,16 @@
       "status": "ci-failed",
       "title": "Imp: support sequencing using newlines, pretty print on a single line",
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
+    },
+    "328": {
+      "base_sha": "15dd37f2f99d6a094f3476d65eec9293868e95b4",
+      "changed_variants": [],
+      "head_sha": "bfd9950b96744703d096d2435877da5348e42e0b",
+      "preview_path": "pr/328/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Claude: Toolchain updated (renamed requires --> reqs)",
+      "url": "https://github.com/plclub/sf-in-lean/pull/328"
     }
   },
   "schema": 3
