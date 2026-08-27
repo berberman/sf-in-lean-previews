@@ -1,5 +1,5 @@
 {
-  "main_sha": "f21efcd782da3f5aedf05cc66545e8e74baef8e5",
+  "main_sha": "15dd37f2f99d6a094f3476d65eec9293868e95b4",
   "prs": {
     "181": {
       "base_sha": "13e958991286af5a8ff1be723c86d51aba8c729d",
@@ -433,53 +433,6 @@
       "status": "published",
       "title": "Tactics: wrap some exercises in :::full",
       "url": "https://github.com/plclub/sf-in-lean/pull/324"
-    },
-    "325": {
-      "base_sha": "f21efcd782da3f5aedf05cc66545e8e74baef8e5",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "5d96ae31500331818696f406e214fcddc36095eb",
-      "preview_path": "pr/325/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33046043394",
-      "status": "published",
-      "title": "Typeclasses: dev note about API and encapsulation",
-      "url": "https://github.com/plclub/sf-in-lean/pull/325"
     },
     "326": {
       "base_sha": "f21efcd782da3f5aedf05cc66545e8e74baef8e5",

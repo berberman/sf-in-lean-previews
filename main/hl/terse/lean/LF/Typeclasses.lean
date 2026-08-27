@@ -559,6 +559,8 @@ theorem inv_unique {α : Type} {g₁ g₂ : Group α} (h : g₁.op = g₂.op) : 
 
 end Algebra
 
+--  ## API and Encapsulation
+
 --  ## Maps
 
 --  *Maps* (or "dictionaries") are ubiquitous data
