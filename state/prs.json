@@ -58,53 +58,6 @@
       "title": "Fixed paren divergence in STLC unparser; HT @Robert Joseph",
       "url": "https://github.com/plclub/sf-in-lean/pull/185"
     },
-    "256": {
-      "base_sha": "ed3449ff543edb6da267f67de5027e59cb359e71",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "ef4d2fc56c634d35ef3009009b215c7777b79d35",
-      "preview_path": "pr/256/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/31970111758",
-      "status": "published",
-      "title": "Fix infinite regress in Imp delaborator",
-      "url": "https://github.com/plclub/sf-in-lean/pull/256"
-    },
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
       "changed_variants": [
@@ -510,6 +463,16 @@
       "status": "published",
       "title": "Induction: clean up resolved developer notes",
       "url": "https://github.com/plclub/sf-in-lean/pull/336"
+    },
+    "337": {
+      "base_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
+      "changed_variants": [],
+      "head_sha": "e7b82296d221b26fdb801e3ea3b9607d1d19af41",
+      "preview_path": "pr/337/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Imp: improve delabrator and reduce antiquotation noise",
+      "url": "https://github.com/plclub/sf-in-lean/pull/337"
     }
   },
   "schema": 3
