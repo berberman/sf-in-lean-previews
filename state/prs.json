@@ -4,9 +4,9 @@
     "181": {
       "base_sha": "1dec61dae44a86c44d268d3a0783d66fc52fa737",
       "changed_variants": [],
-      "head_sha": "a203612a2f0b9063500e2824fd75750cb3d930ea",
+      "head_sha": "9447fb10fa265ba1083b1e7ff50e723b3ff053f3",
       "preview_path": "pr/181/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33098534422",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33129255894",
       "status": "ci-failed",
       "title": "StlcProp -- initial conversion",
       "url": "https://github.com/plclub/sf-in-lean/pull/181"
@@ -456,11 +456,48 @@
     },
     "334": {
       "base_sha": "4b6f86c88a5ee9517a426b51ac6d7581020a6687",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "0ba96587af52a56262a46550c3fbbb4c038429ca",
       "preview_path": "pr/334/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33128498060",
+      "status": "published",
       "title": "branch watcher",
       "url": "https://github.com/plclub/sf-in-lean/pull/334"
     }
