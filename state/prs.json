@@ -574,6 +574,16 @@
       "status": "published",
       "title": "Preface: Updated installation instructions",
       "url": "https://github.com/plclub/sf-in-lean/pull/338"
+    },
+    "339": {
+      "base_sha": "ea0a890562875ac2bbcc389a4dc2f8f7e4ef14f3",
+      "changed_variants": [],
+      "head_sha": "70f57d89d8f7a675eeb5e27f0d86a043cf0630e1",
+      "preview_path": "pr/339/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33213593710",
+      "status": "ci-failed",
+      "title": "Initial Port of MoreStlc",
+      "url": "https://github.com/plclub/sf-in-lean/pull/339"
     }
   },
   "schema": 3
