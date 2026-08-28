@@ -42,9 +42,13 @@ def nextWorkingDay (d : Day) : Day :=
 
 #eval nextWorkingDay Day.friday
 
+--  Lean prints:
+
 --  Day.monday
 
 #eval nextWorkingDay (nextWorkingDay Day.saturday)
+
+--  Lean prints:
 
 --  Day.tuesday
 
