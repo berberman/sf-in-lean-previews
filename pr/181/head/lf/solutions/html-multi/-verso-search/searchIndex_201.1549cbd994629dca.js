@@ -1,1 +1,0 @@
-window.docContents[201].resolve({"/Poly/#Poly":{"contents":"\n\n\n\nimport LF.Induction\nimport LF.UsingLean\n\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"5. Poly: Polymorphism and Higher-Order Functions","id":"/Poly/#Poly"}});

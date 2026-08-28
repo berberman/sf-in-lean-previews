@@ -1,16 +1,6 @@
 {
-  "main_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
+  "main_sha": "758672964a497b860706092a28e9ce6457c845af",
   "prs": {
-    "181": {
-      "base_sha": "1dec61dae44a86c44d268d3a0783d66fc52fa737",
-      "changed_variants": [],
-      "head_sha": "0bc4dc52a16cea3cc378a47e22953560dd8c49a6",
-      "preview_path": "pr/181/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "StlcProp -- initial conversion",
-      "url": "https://github.com/plclub/sf-in-lean/pull/181"
-    },
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
       "changed_variants": [
@@ -304,12 +294,49 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/323"
     },
     "326": {
-      "base_sha": "f21efcd782da3f5aedf05cc66545e8e74baef8e5",
-      "changed_variants": [],
-      "head_sha": "80435ea0d664a0797b5074677e70c3446b3b9d48",
+      "base_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "10daf0364cf1ae03af1261bfc30f3cff28415b0e",
       "preview_path": "pr/326/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33047156509",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33146883259",
+      "status": "published",
       "title": "Imp: support sequencing using newlines, pretty print on a single line",
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
     },
