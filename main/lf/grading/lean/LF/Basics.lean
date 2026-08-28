@@ -114,18 +114,17 @@ def nextWorkingDay (d : Day) : Day :=
 --  Having defined a function, we should check that it works on some
 --  examples. There are a few different ways to do this in Lean. One is to
 --  use the `#eval` command to evaluate a compound expression involving
---  `nextWorkingDay`. (Lean's responses are shown just below.)
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      There is probably not time to fix this, but the way responses are
---      displayed is confusing. They should be marked as responses in some
---      more explicit way.
+--  `nextWorkingDay`.
 
 #eval nextWorkingDay Day.friday
+
+--  Lean prints:
 
 --  Day.monday
 
 #eval nextWorkingDay (nextWorkingDay Day.saturday)
+
+--  Lean prints:
 
 --  Day.tuesday
 
@@ -134,10 +133,6 @@ def nextWorkingDay (d : Day) : Day :=
 
 example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.tuesday := by
   rfl
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Do we really **have** to follow the Lean convention of putting the
---      `:= by` on the same line as the theorem statement? It's awful.,
 
 --  This declaration asserts that the second working day after `saturday`
 --  is `tuesday`. Having made the assertion, we can also ask Lean to
@@ -172,12 +167,9 @@ sf_expect_failure_in
 --  particular `#eval` to see), as well as the current goal state when
 --  working on proofs. The InfoView content always follows your cursor.
 
---  You can command-click on a type or variable name to navigate to its
---  definition. Try this with the mention of `nextWorkingDay` in the above
---  `#eval`.
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Is it called command-click on Linux and Windows?
+--  On Windows and Linux, Ctrl-click a type or variable name to navigate to
+--  its definition. On macOS, Command-click instead. Try this with the
+--  mention of `nextWorkingDay` in the above `#eval`.
 
 --  You can also hover over expressions in the source code to see their
 --  types. Try this with mentions of `nextWorkingDay` and `Day.saturday` in
@@ -196,11 +188,15 @@ sf_expect_failure_in
 --  standard type `Bool` of booleans by enumerating its members `true` and
 --  `false`. We define our own `MyBool` to teach the concept of building
 --  booleans from scratch. Our definition `MyBool` is equivalent to Lean's
---  built-in `Bool`, which we'll switch to later.
+--  built-in `Bool`, which we'll switch to later. We call it `MyBool` to
+--  avoid clashing with the built-in name. Later in the chapter, will show
+--  a different way of avoiding such clashes: we will place our custom
+--  natural numbers in a fresh `NatPlayground` namespace, where they can be
+--  called `Nat` without clashing with Lean's built-in `Nat`.
 
 --  Note to developers (Benjamin Pierce @bcpierce00):
---      Why are our custom booleans called `MyBool` but our custom nats are
---      called `Nat`?
+--      This still doesn't explain WHY we are doing things two different
+--      ways. And I don't understand why myself, so I can't explain it. :-)
 
 inductive MyBool : Type where
   | true
@@ -315,9 +311,6 @@ attribute [autogradedHole] MyBool.nand
 
 attribute [autogradedProof 0.25] MyBool.nand_test1 MyBool.nand_test2 MyBool.nand_test3 MyBool.nand_test4
 
---  Note to developers:
---      TODO: `nand` needs `@[autogradedHole]`
-
 --  ### Exercise (1 star): and3 ⭐
 
 --  Do the same for the `and3` function below. This function should return
@@ -341,7 +334,7 @@ attribute [autogradedProof 0.25] MyBool.and3_test1 MyBool.and3_test2 MyBool.and3
 --  to *prove* some simple properties of those functions. Here is a simple
 --  rule about `&&`:
 
---  - for any boolean value `b`, `(MyBool.true && b) = b`
+--    For any boolean value b, (MyBool.true && b) = b
 
 --  This is an example of a *proposition*, a logical claim that we can try
 --  to prove. It says that `MyBool.true && b` is equal to `b` for every
@@ -349,10 +342,7 @@ attribute [autogradedProof 0.25] MyBool.and3_test1 MyBool.and3_test2 MyBool.and3
 
 --  How do we write this proposition in Lean? Like this:
 
---  - `theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b`
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Could it (and the one above) be displayed instead of bulleted?
+--    theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b
 
 --  The keyword `theorem` indicates that we are stating (and eventually
 --  proving) a proposition; the text after the first `:` is the proposition
@@ -1262,28 +1252,27 @@ theorem add_one (n : Nat) : n + (succ zero) = succ n + zero := by
 --  complex codebases, it is the only way to maintain crucial invariants
 --  that prevent a system from becoming unmaintainable.
 
---  The same principle applies to programs and proofs in Lean. In idiomatic
---  Lean, it is considered poor style to *unfold* — that is, "peek through"
---  — definitions by using `rfl` to implicitly simplify expressions that
---  aren't syntactically identical. If you take a look at the proofs of
---  `add_zero` and `add_succ` above, you will notice this is exactly what
---  we did when we used the `rfl` tactic.
+--  The same principle applies to programs and proofs in Lean. In this
+--  chapter, we will be proving facts about functions entirely through
+--  their simplification rules, rather than using `rfl` to unfold their
+--  implementations invisibly. This makes every computation step visible
+--  and lets a proof rely on a function's interface rather than its
+--  definition.
 
---  Fortunately, the foundational theorems `add_zero` and `add_succ`
---  provide a characterization of the behavior of `add` that makes using
---  `rfl` to simplify expressions unnecessary; instead, we can rewrite by
---  these theorems anywhere we want to describe how `add` evaluates. In
---  real-world Lean developments, the style of writing proofs using
---  simplification rules is both standard and expected.
+--  We can do this because the foundational theorems `add_zero` and
+--  `add_succ` provide a characterization of the behavior of `add` that
+--  makes using `rfl` to simplify expressions unnecessary; instead, we can
+--  rewrite by these theorems anywhere we want to describe how `add`
+--  evaluates. In real-world Lean developments, the style of writing proofs
+--  using simplification rules is both standard and expected.
 
 --  For the next few chapters, we mark definitions with
---  `attribute [irreducible]` to prevent this peeking, also called
---  **definitional equality abuse** (**defeq abuse**, for short). We place
---  this attribute after the proofs of `add_zero` and `add_succ`, and can
---  then rewrite by these theorems anywhere we want to describe how `add`
---  evaluates. We use `attribute [irreducible]` for now to enforce the
---  style of using simplification rules, so that it is natural to you
---  moving forward. We will relax this discipline in later chapters.
+--  `attribute [irreducible]` to prevent this kind of unfolding. This means
+--  that `rfl` cannot unfold these definitions behind the scenes: after
+--  rewriting by their simplification rules, it closes only the remaining
+--  straightforward equality. We use `attribute [irreducible]` for now to
+--  enforce the style of using simplification rules, so that it is natural
+--  to you moving forward. We will relax this discipline in later chapters.
 
 attribute [irreducible] add
 
@@ -1401,10 +1390,6 @@ scoped infixl:70 " * " => mul
 --  Remove `sorry` and prove the simplification rules for `mul` below. You
 --  will likely find the proofs of the simplification rules for `add` to be
 --  helpful as a model.
-
---  Note to developers:
---      @rogerburtonpatel: it would be nice if we could get the theorem
---      *statements* inside a `solution!` block as well.
 
 theorem mul_zero : ∀ n : Nat, n * zero = zero := by
   sorry
@@ -1936,9 +1921,6 @@ theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
 attribute [autogradedProof 3] NatPlayground.and_eq_or
 
 --  ### Airport Exercise
-
---  Note to developers (Yipeng Liu @berberman, before next release):
---      Add grading attributes.
 
 --  Now that we have learned some basic features of Lean, let's close the
 --  chapter with an exercise that brings them together.
