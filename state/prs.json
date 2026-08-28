@@ -4,10 +4,10 @@
     "181": {
       "base_sha": "1dec61dae44a86c44d268d3a0783d66fc52fa737",
       "changed_variants": [],
-      "head_sha": "9447fb10fa265ba1083b1e7ff50e723b3ff053f3",
+      "head_sha": "0bc4dc52a16cea3cc378a47e22953560dd8c49a6",
       "preview_path": "pr/181/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33129255894",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "StlcProp -- initial conversion",
       "url": "https://github.com/plclub/sf-in-lean/pull/181"
     },
