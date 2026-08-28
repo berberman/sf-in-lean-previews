@@ -453,6 +453,16 @@
       "status": "published",
       "title": "Add visibility linting for exercises",
       "url": "https://github.com/plclub/sf-in-lean/pull/333"
+    },
+    "335": {
+      "base_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
+      "changed_variants": [],
+      "head_sha": "490ec669bd59b0e772b213fadcd80f20ed6af3cf",
+      "preview_path": "pr/335/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33135192788",
+      "status": "ci-failed",
+      "title": "Add devcontainer configuration",
+      "url": "https://github.com/plclub/sf-in-lean/pull/335"
     }
   },
   "schema": 3
