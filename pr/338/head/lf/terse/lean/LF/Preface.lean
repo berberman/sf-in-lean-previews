@@ -294,7 +294,7 @@ import SFLCompat
 
 --  #### Downloading and using the book for a class
 
---  If you are using this book as part of a class, your
+--  If you are **using this book as part of a class**, your
 --  instructor will have created a "student" release for
 --  you. Download the `.zip` file for that release, unzip
 --  it, and then open the resulting directory in VS Code.
@@ -302,7 +302,7 @@ import SFLCompat
 --  started.
 
 --  If you would like to read the HTML version of the book,
---  it should be hosted no your course website (you may be
+--  it should be hosted on your course website (you may be
 --  reading it now!).
 
 --  Note that as the book is changing while you are taking

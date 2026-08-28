@@ -578,9 +578,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "3fde5b153d640e8666a36845f3fff1f38e559529",
+      "head_sha": "6d4aa6a3b3cac0a81473f67c3295b6102c82c016",
       "preview_path": "pr/338/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33177200650",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33182828399",
       "status": "published",
       "title": "Preface: Updated installation instructions",
       "url": "https://github.com/plclub/sf-in-lean/pull/338"
