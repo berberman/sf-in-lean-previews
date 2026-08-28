@@ -1,5 +1,5 @@
 {
-  "main_sha": "4b6f86c88a5ee9517a426b51ac6d7581020a6687",
+  "main_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
   "prs": {
     "181": {
       "base_sha": "1dec61dae44a86c44d268d3a0783d66fc52fa737",
@@ -453,53 +453,6 @@
       "status": "published",
       "title": "Add visibility linting for exercises",
       "url": "https://github.com/plclub/sf-in-lean/pull/333"
-    },
-    "334": {
-      "base_sha": "4b6f86c88a5ee9517a426b51ac6d7581020a6687",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "0ba96587af52a56262a46550c3fbbb4c038429ca",
-      "preview_path": "pr/334/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33128498060",
-      "status": "published",
-      "title": "branch watcher",
-      "url": "https://github.com/plclub/sf-in-lean/pull/334"
     }
   },
   "schema": 3
