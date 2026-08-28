@@ -340,16 +340,6 @@
       "title": "Imp: support sequencing using newlines, pretty print on a single line",
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
     },
-    "332": {
-      "base_sha": "758672964a497b860706092a28e9ce6457c845af",
-      "changed_variants": [],
-      "head_sha": "bb22b626bbc5be46d6280680afb710c68ee8ecd1",
-      "preview_path": "pr/332/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Clean up resolved Basics developer notes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/332"
-    },
     "333": {
       "base_sha": "4b6f86c88a5ee9517a426b51ac6d7581020a6687",
       "changed_variants": [
@@ -540,11 +530,48 @@
     },
     "338": {
       "base_sha": "758672964a497b860706092a28e9ce6457c845af",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "6da3e7a8d648295e2acf37b03f0680e3582efd4f",
       "preview_path": "pr/338/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33186195274",
+      "status": "published",
       "title": "Preface: Updated installation instructions",
       "url": "https://github.com/plclub/sf-in-lean/pull/338"
     }
