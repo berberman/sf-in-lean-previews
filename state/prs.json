@@ -1,5 +1,5 @@
 {
-  "main_sha": "b70a57604da04536ccecf1921a7a5bdec09f81fd",
+  "main_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -434,53 +434,6 @@
       "title": "Add devcontainer configuration",
       "url": "https://github.com/plclub/sf-in-lean/pull/335"
     },
-    "336": {
-      "base_sha": "ea0a890562875ac2bbcc389a4dc2f8f7e4ef14f3",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "29428c3d896b8096bf818882fb20c66fc45a95f5",
-      "preview_path": "pr/336/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33260668280",
-      "status": "published",
-      "title": "Induction: clean up resolved developer notes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/336"
-    },
     "337": {
       "base_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
       "changed_variants": [
@@ -537,6 +490,53 @@
       "status": "ci-failed",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/339"
+    },
+    "340": {
+      "base_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "bf1ef13f4c4aff0d3313b7027ef1a53b98676859",
+      "preview_path": "pr/340/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33266127911",
+      "status": "published",
+      "title": "Logic: Stored Yipeng's cases vs. induction example ",
+      "url": "https://github.com/plclub/sf-in-lean/pull/340"
     }
   },
   "schema": 3
