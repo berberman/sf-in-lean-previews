@@ -91,6 +91,63 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--Definitional-Simplification":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--Definitional-Simplification",
+     "data":
+     {"title": "Definitional Simplification",
+      "shortTitle": null,
+      "sectionNum": "4.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Unfolding definitions with  rw",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Definitional Simplification",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--A-First-Step-Towards-Automation":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--A-First-Step-Towards-Automation",
+     "data":
+     {"title": "A First Step Towards Automation",
+      "shortTitle": null,
+      "sectionNum": "4.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Unfolding definitions with  rw",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "A First Step Towards Automation",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw",
+     "data":
+     {"title": "Unfolding definitions with  rw",
+      "shortTitle": null,
+      "sectionNum": "4.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Unfolding definitions with  rw",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/UsingLean/"}],
    "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc":
    [{"id":
      "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc",
@@ -162,43 +219,6 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation",
-     "data":
-     {"title": "A New Step Towards Automation",
-      "shortTitle": null,
-      "sectionNum": "4.4.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Definitional Simplification:  dsimp",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "A New Step Towards Automation",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp",
-     "data":
-     {"title": "Definitional Simplification:  dsimp",
-      "shortTitle": null,
-      "sectionNum": "4.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Definitional Simplification:  dsimp",
-        "shortTitle": null,
-        "number": "4"}]},
-     "address": "/UsingLean/"}],
    "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses",
      "data":
@@ -230,24 +250,24 @@
      "data":
      {"title": "TODO",
       "shortTitle": null,
-      "sectionNum": "11.7.",
+      "sectionNum": "11.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "TODO", "shortTitle": null, "number": "7"}]},
+       {"title": "TODO", "shortTitle": null, "number": "8"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Reflection":
    [{"id": "Logical-Foundations--Typeclasses--Reflection",
      "data":
      {"title": "Reflection",
       "shortTitle": null,
-      "sectionNum": "11.6.",
+      "sectionNum": "11.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Reflection", "shortTitle": null, "number": "6"}]},
+       {"title": "Reflection", "shortTitle": null, "number": "7"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses",
@@ -269,12 +289,12 @@
      "data":
      {"title": "Updating Elements",
       "shortTitle": null,
-      "sectionNum": "11.5.2.2.",
+      "sectionNum": "11.6.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"},
        {"title": "Updating Elements", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
@@ -284,12 +304,12 @@
      "data":
      {"title": "Getting Elements",
       "shortTitle": null,
-      "sectionNum": "11.5.2.1.",
+      "sectionNum": "11.6.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"},
        {"title": "Getting Elements", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
@@ -298,12 +318,12 @@
      "data":
      {"title": "Total Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.2.",
+      "sectionNum": "11.6.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Partial-Maps":
@@ -311,12 +331,12 @@
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.4.",
+      "sectionNum": "11.6.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Partial Maps", "shortTitle": null, "number": "4"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Notation-for-Concrete-Maps":
@@ -324,12 +344,12 @@
      "data":
      {"title": "Notation for Concrete Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.3.",
+      "sectionNum": "11.6.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Notation for Concrete Maps",
         "shortTitle": null,
         "number": "3"}]},
@@ -339,12 +359,12 @@
      "data":
      {"title": "Key and Value Types",
       "shortTitle": null,
-      "sectionNum": "11.5.1.",
+      "sectionNum": "11.6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Key and Value Types", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps":
@@ -352,12 +372,12 @@
      "data":
      {"title": "Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.",
+      "sectionNum": "11.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"}]},
+       {"title": "Maps", "shortTitle": null, "number": "6"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses",
@@ -372,6 +392,18 @@
        {"title": "Defining Your Own Typeclasses",
         "shortTitle": null,
         "number": "2"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--API-and-Encapsulation":
+   [{"id": "Logical-Foundations--Typeclasses--API-and-Encapsulation",
+     "data":
+     {"title": "API and Encapsulation",
+      "shortTitle": null,
+      "sectionNum": "11.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "API and Encapsulation", "shortTitle": null, "number": "5"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations":
    [{"id":
@@ -1179,6 +1211,25 @@
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
        {"title": "Propositional Extensionality",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles":
+   [{"id":
+     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles",
+     "data":
+     {"title": "Other Extensionality Principles",
+      "shortTitle": null,
+      "sectionNum": "8.8.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
+       {"title": "Functional Extensionality",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Other Extensionality Principles",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Logic/"}],
@@ -3014,16 +3065,18 @@
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
-   "triple":
-   [{"id": "triple",
+   "zeroNibble":
+   [{"id": "zeroNibble",
      "data":
-     {"/UsingLean/#triple":
-      {"display": "triple",
+     {"/Basics/#zeroNibble":
+      {"display": "zeroNibble",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Definitional Simplification:  dsimp"]}},
-     "address": "/UsingLean/"}],
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
    "trans_eq":
    [{"id": "trans_eq",
      "data":
@@ -3060,7 +3113,7 @@
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Definitional Simplification:  dsimp"]}},
+        "Unfolding definitions with  rw"]}},
      "address": "/UsingLean/"}],
    "simp_lemmas_example.add_zero":
    [{"id": "simp_lemmas_example___add_zero",
@@ -3156,6 +3209,18 @@
         "Tactic Combinators",
         "The  try  Combinator"]}},
      "address": "/Automation/"}],
+   "setFirstTwoBits":
+   [{"id": "setFirstTwoBits",
+     "data":
+     {"/Basics/#setFirstTwoBits":
+      {"display": "setFirstTwoBits",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
    "rev_nil":
    [{"id": "rev_nil",
      "data":
@@ -3429,6 +3494,18 @@
         "Functions as Data",
         "Map"]}},
      "address": "/Poly/"}],
+   "makeNibbleStruct":
+   [{"id": "makeNibbleStruct",
+     "data":
+     {"/Basics/#makeNibbleStruct":
+      {"display": "makeNibbleStruct",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
    "length_append_self":
    [{"id": "length_append_self",
      "data":
@@ -3912,6 +3989,26 @@
         "The Logic of Lean",
         "Functional Extensionality"]}},
      "address": "/Logic/"}],
+   "addTwice":
+   [{"id": "addTwice",
+     "data":
+     {"/UsingLean/#addTwice":
+      {"display": "addTwice",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions with  rw"]}},
+     "address": "/UsingLean/"}],
+   "addThrice":
+   [{"id": "addThrice",
+     "data":
+     {"/UsingLean/#addThrice":
+      {"display": "addThrice",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions with  rw"]}},
+     "address": "/UsingLean/"}],
    "TotalMap.update_eq":
    [{"id": "TotalMap___update_eq",
      "data":
@@ -5017,6 +5114,66 @@
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "NibbleStruct.x3":
+   [{"id": "NibbleStruct___x3",
+     "data":
+     {"/Basics/#NibbleStruct___x3":
+      {"display": "x3",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
+   "NibbleStruct.x2":
+   [{"id": "NibbleStruct___x2",
+     "data":
+     {"/Basics/#NibbleStruct___x2":
+      {"display": "x2",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
+   "NibbleStruct.x1":
+   [{"id": "NibbleStruct___x1",
+     "data":
+     {"/Basics/#NibbleStruct___x1":
+      {"display": "x1",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
+   "NibbleStruct.x0":
+   [{"id": "NibbleStruct___x0",
+     "data":
+     {"/Basics/#NibbleStruct___x0":
+      {"display": "x0",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
+   "NibbleStruct":
+   [{"id": "NibbleStruct",
+     "data":
+     {"/Basics/#NibbleStruct":
+      {"display": "NibbleStruct",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
    "NatPlayground.ofNat":
    [{"id": "NatPlayground___ofNat",
      "data":
@@ -6777,11 +6934,11 @@
         "Polymorphic Lists",
         "Exercises"]}},
      "address": "/Poly/"}],
-   "List.headOr_ex":
-   [{"id": "List___headOr_ex",
+   "List.headOrEx":
+   [{"id": "List___headOrEx",
      "data":
-     {"/Typeclasses/#List___headOr_ex":
-      {"display": "List.headOr_ex",
+     {"/Typeclasses/#List___headOrEx":
+      {"display": "List.headOrEx",
        "context":
        ["Logical Foundations",
         "Typeclasses",
@@ -6796,53 +6953,6 @@
        ["Logical Foundations",
         "Typeclasses",
         "Defining Your Own Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly_nil":
-   [{"id": "List___elem_poly_nil",
-     "data":
-     {"/Typeclasses/#List___elem_poly_nil":
-      {"display": "List.elem_poly_nil",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly_eq":
-   [{"id": "List___elem_poly_eq",
-     "data":
-     {"/Typeclasses/#List___elem_poly_eq":
-      {"display": "List.elem_poly_eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly_cons":
-   [{"id": "List___elem_poly_cons",
-     "data":
-     {"/Typeclasses/#List___elem_poly_cons":
-      {"display": "List.elem_poly_cons",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly":
-   [{"id": "List___elem_poly-next",
-     "data":
-     {"/Typeclasses/#List___elem_poly-next":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
-      "/Typeclasses/#List___elem_poly":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
-     "data":
-     {"/Typeclasses/#List___elem_poly-next":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
-      "/Typeclasses/#List___elem_poly":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_nat_nil":
    [{"id": "List___elem_nat_nil",
@@ -6860,11 +6970,58 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
-   "List.elem_nat":
-   [{"id": "List___elem_nat",
+   "List.elemPoly_nil":
+   [{"id": "List___elemPoly_nil",
      "data":
-     {"/Typeclasses/#List___elem_nat":
-      {"display": "List.elem_nat",
+     {"/Typeclasses/#List___elemPoly_nil":
+      {"display": "List.elemPoly_nil",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPoly_cons":
+   [{"id": "List___elemPoly_cons",
+     "data":
+     {"/Typeclasses/#List___elemPoly_cons":
+      {"display": "List.elemPoly_cons",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPolyEq":
+   [{"id": "List___elemPolyEq",
+     "data":
+     {"/Typeclasses/#List___elemPolyEq":
+      {"display": "List.elemPolyEq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPoly":
+   [{"id": "List___elemPoly-next",
+     "data":
+     {"/Typeclasses/#List___elemPoly-next":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
+      "/Typeclasses/#List___elemPoly":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"},
+    {"id": "List___elemPoly",
+     "data":
+     {"/Typeclasses/#List___elemPoly-next":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
+      "/Typeclasses/#List___elemPoly":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemNat":
+   [{"id": "List___elemNat",
+     "data":
+     {"/Typeclasses/#List___elemNat":
+      {"display": "List.elemNat",
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
@@ -7319,7 +7476,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+   [{"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -7336,7 +7493,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor-next",
+    {"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",

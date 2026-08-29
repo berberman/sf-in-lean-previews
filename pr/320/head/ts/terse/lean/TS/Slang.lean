@@ -86,7 +86,9 @@ end Bexp
 
 --  ### Optimization
 
-def Aexp.optimize0plus (a : Aexp) : Aexp :=
+namespace Aexp
+
+def optimize0plus (a : Aexp) : Aexp :=
   match a with
   | num   n          => num n
   | plus  (num 0) e₂ => optimize0plus e₂
@@ -109,25 +111,25 @@ theorem optimize0plus_sound (a : Aexp) :
     | num n =>
       cases n with
       | zero =>
-        simp only [Aexp.optimize0plus, Aexp.eval_plus, Aexp.eval_num, Nat.zero_add]
+        simp only [optimize0plus, eval_plus, eval_num, Nat.zero_add]
         exact ih₂
       | succ n =>
-        simp only [Aexp.optimize0plus, Aexp.eval_plus, Aexp.eval_num]
+        simp only [optimize0plus, eval_plus, eval_num]
         rw [ih₂]
     | plus b₁ b₂ =>
-      simp only [Aexp.optimize0plus, Aexp.eval_plus] at ih₁ ⊢
+      simp only [optimize0plus, eval_plus] at ih₁ ⊢
       rw [ih₁, ih₂]
     | minus b₁ b₂ =>
-      simp only [Aexp.optimize0plus, Aexp.eval_plus] at ih₁ ⊢
+      simp only [optimize0plus, eval_plus] at ih₁ ⊢
       rw [ih₁, ih₂]
     | mult b₁ b₂ =>
-      simp only [Aexp.optimize0plus, Aexp.eval_plus] at ih₁ ⊢
+      simp only [optimize0plus, eval_plus] at ih₁ ⊢
       rw [ih₁, ih₂]
   | minus a₁ a₂ ih₁ ih₂ =>
-    simp only [Aexp.optimize0plus, Aexp.eval_minus]
+    simp only [optimize0plus, eval_minus]
     rw [ih₁, ih₂]
   | mult a₁ a₂ ih₁ ih₂ =>
-    simp only [Aexp.optimize0plus, Aexp.eval_mult]
+    simp only [optimize0plus, eval_mult]
     rw [ih₁, ih₂]
 
 --  We can use `fun_induction` to achieve a much shorter
@@ -137,7 +139,9 @@ theorem optimize0plus_sound' (a : Aexp) :
     a.optimize0plus.eval = a.eval := by
   fun_induction Aexp.optimize0plus a <;> simp_all
 
---  ### Exercise (3 stars): optimize0plusB_sound ⭐⭐⭐
+end Aexp
+
+--  ### Exercise (3 stars): optimize0plus_sound ⭐⭐⭐
 
 --  Since the `Aexp.optimize0plus` transformation doesn't
 --  change the value of an `Aexp`, we should be able to
@@ -147,20 +151,20 @@ theorem optimize0plus_sound' (a : Aexp) :
 --  it sound. Use the combinators we've just seen to make
 --  the proof as short and elegant as possible.
 
-def Bexp.optimize0plusB (b : Bexp) : Bexp := sorry
+def Bexp.optimize0plus (b : Bexp) : Bexp := sorry
 
-theorem optimize0plusB_test1 :
-    Bexp.optimize0plusB
+theorem Bexp.optimize0plus_test1 :
+    Bexp.optimize0plus
         (.not (.gt (.plus (.num 0) (.num 4)) (.num 8)))
       = (.not (.gt (.num 4) (.num 8))) := sorry
 
-theorem optimize0plusB_test2 :
-    Bexp.optimize0plusB
+theorem Bexp.optimize0plus_test2 :
+    Bexp.optimize0plus
         (.and (.le (.plus (.num 0) (.num 4)) (.num 5)) (.bool true))
       = (.and (.le (.num 4) (.num 5)) (.bool true)) := sorry
 
-theorem optimize0plusB_sound (b : Bexp) :
-    b.optimize0plusB.eval = b.eval := by
+theorem Bexp.optimize0plus_sound (b : Bexp) :
+    b.optimize0plus.eval = b.eval := by
   sorry
 
 --  ### Exercise (4 stars): optimize (Optional) ⭐⭐⭐⭐
@@ -203,7 +207,8 @@ end ArithUnnamed
 --  arithmetic expression `e` evaluates to value `n`. The
 --  `⇓` symbol is typed `\Downarrow`.
 
-scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
+namespace Aexp
+scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 
 --  ### Inference Rule Notation
 
@@ -216,7 +221,7 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 --  (A) `num` and `plus` (B) `num` only (C) `num` and `mult`
 --  (D) `mult` and `plus` (E) `num`, `mult`, and `plus`
 
---  ### Exercise (1 star): beval_rules (Optional) ⭐
+--  ### Exercise (1 star): beval_rules (Optional, manually graded) ⭐
 
 --  Here, again, is the definition of the `Bexp.eval`
 --  function:
@@ -239,15 +244,15 @@ scoped notation:55 e:56 " ⇓ " n:56 => Aexp.EvalR e n
 --  It is straightforward to prove that the relational and
 --  functional definitions of evaluation agree.
 
-theorem Aexp.evalR_iff_eval (a : Aexp) (n : Nat) :
+theorem evalR_iff_eval (a : Aexp) (n : Nat) :
     a ⇓ n ↔ a.eval = n := by
   constructor
   · intro h
     induction h with
     | num n => rfl
-    | plus h₁ h₂ ih₁ ih₂ => simp only [Aexp.eval_plus]; rw [ih₁, ih₂]
-    | minus h₁ h₂ ih₁ ih₂ => simp only [Aexp.eval_minus]; rw [ih₁, ih₂]
-    | mult h₁ h₂ ih₁ ih₂ => simp only [Aexp.eval_mult]; rw [ih₁, ih₂]
+    | plus h₁ h₂ ih₁ ih₂ => simp only [eval_plus]; rw [ih₁, ih₂]
+    | minus h₁ h₂ ih₁ ih₂ => simp only [eval_minus]; rw [ih₁, ih₂]
+    | mult h₁ h₂ ih₁ ih₂ => simp only [eval_mult]; rw [ih₁, ih₂]
   · intro h
     subst h
     induction a with
@@ -259,9 +264,11 @@ theorem Aexp.evalR_iff_eval (a : Aexp) (n : Nat) :
 --  We can make the proof quite a bit shorter using more
 --  automation like we did in the previous section.
 
-theorem Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) :
+theorem evalR_iff_eval' (a : Aexp) (n : Nat) :
     a ⇓ n ↔ a.eval = n := by
   sorry
+
+end Aexp
 
 --  ### Exercise (3 stars): bevalR ⭐⭐⭐
 
@@ -269,15 +276,19 @@ theorem Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) :
 --  `Aexp.EvalR`, and prove that it is equivalent to
 --  `Bexp.eval`.
 
-inductive Bexp.EvalR : Bexp → Bool → Prop where
+namespace Bexp
+open scoped Aexp -- opens the ⇓ notation for Aexp.EvalR
+
+inductive EvalR : Bexp → Bool → Prop where
   -- FILL IN HERE
 
-scoped notation:55 e:56 " ⇓ " b:56 => Bexp.EvalR e b
+scoped notation:55 e:56 " ⇓ " b:56 => EvalR e b
 
-theorem Bexp.evalR_iff_eval (b : Bexp) (bv : Bool) :
+theorem evalR_iff_eval (b : Bexp) (bv : Bool) :
     b ⇓ bv ↔ b.eval = bv := by
   sorry
 
+end Bexp
 end Slang
 
 --  ### Computational vs. Relational Definitions
@@ -320,7 +331,7 @@ def eval (a : Aexp) : Option Nat :=
                     | _, _ => none
   | div   a₁ a₂ =>  match a₁.eval, a₂.eval with
                     | _, some 0 => none
-                    | some n₁, some n₂ => some (n₁ * n₂)
+                    | some n₁, some n₂ => if n₂ ∣ n₁ then some (n₁ / n₂) else none
                     | _, _ => none
 end Aexp
 
@@ -379,8 +390,6 @@ inductive Aexp where
 --  problem.
 
 --  What should `Aexp.eval` do with nondeterminism??
-
---  h₂
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
   | any (n : Nat) : EvalR .any n                   -- NEW

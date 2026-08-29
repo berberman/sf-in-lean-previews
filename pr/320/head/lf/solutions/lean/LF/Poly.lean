@@ -434,18 +434,16 @@ theorem append_assoc {α : Type} {l₁ l₂ l₃ : List α} :
   induction l₁ with
   | nil => rw [List.nil_append, List.nil_append]
   | cons _ _ ih =>
-    dsimp [List.cons_append]
+    repeat rw [List.cons_append]
     rw [ih]
 
 theorem append_length {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
   induction l₁ with
   | nil =>
-    dsimp [List.nil_append, append_nil]
-    rw [Nat.zero_add]
+    rw [List.nil_append, List.length_nil, Nat.zero_add]
   | cons _ _ ih =>
-    dsimp [List.cons_append, List.length_cons]
-    rw [Nat.succ_add, ih]
+    rw [List.length_cons, List.cons_append, List.length_cons, Nat.succ_add, ih]
 
 --  ### Exercise (2 stars): more_poly_exercises ⭐⭐
 
@@ -455,11 +453,9 @@ theorem reverse_append {α : Type} {l₁ l₂ : List α} :
     (l₁ ++ l₂).rev = l₂.rev ++ l₁.rev := by
   induction l₁ with
   | nil =>
-    dsimp [List.nil_append]
-    rw [rev_nil, append_nil]
+    rw [List.nil_append, rev_nil, append_nil]
   | cons _ _ ih =>
-    dsimp [List.cons_append]
-    rw [rev_cons, rev_cons, ih, append_assoc]
+    rw [List.cons_append, rev_cons, rev_cons, ih, append_assoc]
 
 theorem reverse_reverse {α : Type} (l : List α) :
     l.rev.rev = l := by
@@ -467,7 +463,7 @@ theorem reverse_reverse {α : Type} (l : List α) :
   | nil => rw [rev_nil, rev_nil]
   | cons _ _ ih =>
     rw [rev_cons, reverse_append, ih, rev_cons, rev_nil]
-    dsimp [List.nil_append, List.cons_append]
+    rw [List.nil_append, List.cons_append, List.nil_append]
 
 --  ### Polymorphic Pairs
 
@@ -501,6 +497,9 @@ example : (3, 5).2 = 5 := by rfl
 
 --  Lean writes the product type `Prod α β` as `α × β`. In VS Code you can
 --  type `\times` or `\x` to enter the `×` symbol.
+
+--  The `dsimp only` tactic can be used to simplify `(x, y).fst` into `x`
+--  and `(x, y).snd` into `y`.
 
 --  It is easy at first to get `(x, y)` and `α × β` confused. Remember that
 --  `(x, y)` is a *value* built from two other values, while `α × β` is a
@@ -548,78 +547,6 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 
 --    print?
 
---  When working with pairs, we often wish to prove them equal. When they
---  compute to the same value, we can use `rfl` as usual:
-
-example : (1 + 2, 5) = (3, 2 + 3) := by
-  rfl
-
---  However, we don't always have concrete values available. For example,
---  here both pairs are equal, but not definitionally:
-
-sf_expect_failure_in
-  example {n : Nat} : (n + 1, 0) = (1 + n, 0) := by
-    rfl
-
---  Tactic `rfl` failed: The left-hand side
---    (n + 1, 0)
---  is not definitionally equal to the right-hand side
---    (1 + n, 0)
-
---  α β γ : Type
---  x : α
---  y : β
---  n : Nat
---  ⊢ (n + 1, 0) = (1 + n, 0)
-
---  One way to prove this would be to rewrite by `Nat.add_comm` inside the
---  pair:
-
-example {n : Nat} : (n + 1, 0) = (1 + n, 0) := by
-  rw [Nat.add_comm]
-
---  But this won't always work in general. Let's look at a more involved
---  example. Remember `surjective_pairing` from Lists? In Lean's standard
---  library, this lemma is called `Prod.eta`, and we can use it to rewrite
---  `p` into `(p.fst, p.snd)` like this:
-
-example {n : Nat} {p : Nat × Nat} (hx_fst : p.fst = n + 1) (hx_snd : p.snd = 0) :
-    (n + 1, 0) = p := by
-  rw [← Prod.eta p]
-  rw [hx_fst, hx_snd]
-
---  However, `Prod.eta` is rarely used directly, since the theorem
---  `Prod.ext`, the *extensionality principle* for products, is often
---  easier to work with. `Prod.ext` splits the proof into two goals: first,
---  to show that the `fst` elements are equal, and second, to show that the
---  `snd` elements are equal. Here's an example:
-
-example {n : Nat} {p : Nat × Nat} (hx_fst : p.fst = n + 1) (hx_snd : p.snd = 0) :
-    (n + 1, 0) = p := by
-  apply Prod.ext
-  · rw [hx_fst]
-  · rw [hx_snd]
-
---  ### Exercise (2 stars): prod_ext_example ⭐⭐
-
---  Now, use `Prod.ext` to prove the following. Remember that `dsimp`
---  simplifies projections like `(a, b).fst` to `a`.
-
-example {m : Nat} {p : Nat × Nat} (hp_snd : p.snd = 4) (hp_fst : p.fst = m) :
-    ((p.fst + 1, 2), (p.fst, 4)) = ((m + 1, p.snd - 2), p) := by
-  apply Prod.ext
-  · dsimp
-    apply Prod.ext
-    · dsimp
-      rw [hp_fst]
-    · dsimp
-      rw [hp_snd]
-  · dsimp
-    apply Prod.ext
-    · rfl
-    · dsimp
-      rw [hp_snd]
-
 --  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
 
 --  The function `unzip` goes in the other direction from `zip`: it takes a
@@ -628,7 +555,9 @@ example {m : Nat} {p : Nat × Nat} (hp_snd : p.snd = 4) (hp_fst : p.fst = m) :
 --  Fill in the definition of `unzip` below and write simplification rules
 --  that characterize it. Make sure it that passes the given unit test.
 --  Prove `unzip_test_fst` and `unzip_test_snd` by rewriting with your
---  simplification lemmas instead of using `rfl` directly.
+--  simplification lemmas instead of using `rfl` directly. Remember that
+--  you can use `dsimp only` to simplify expressions accessing the `fst` or
+--  `snd` elements of a pair.
 
 def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := (
   match l with
@@ -667,26 +596,12 @@ theorem unzip_test_fst : (unzip [(1, false), (2, true)]).fst = [1, 2] := by
 theorem unzip_test_snd : (unzip [(1, false), (2, true)]).snd = [false, true] := by
   · rw [unzip_cons_snd, unzip_cons_snd, unzip_nil]
 
-theorem unzip_test2 : unzip [(1, false), (2, true)] = ([1, 2], [false, true]) := by
-  exact Prod.ext unzip_test_fst unzip_test_snd
-
 -- These are the same tests but with `unzip_cons` instead
 theorem unzip_test_fst' : (unzip [(1, false), (2, true)]).fst = [1, 2] := by
-  rw [unzip_cons]
-  dsimp
-  rw [unzip_cons]
-  dsimp
-  rw [unzip_nil]
+  rw [unzip_cons, unzip_cons, unzip_nil]
 
 theorem unzip_test_snd' : (unzip [(1, false), (2, true)]).snd = [false, true] := by
-  rw [unzip_cons]
-  dsimp
-  rw [unzip_cons]
-  dsimp
-  rw [unzip_nil]
-
-theorem unzip_test2' : unzip [(1, false), (2, true)] = ([1, 2], [false, true]) := by
-  exact Prod.ext unzip_test_fst unzip_test_snd
+  rw [unzip_cons, unzip_cons, unzip_nil]
 
 --  ### Polymorphic Options
 
@@ -797,24 +712,19 @@ theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by 
 theorem filter_cons_of_pos {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = true) :
     filter test (x :: l) = x :: filter test l := by
-  dsimp [filter]
-  rw [h]
-  dsimp
+  rw [filter, h, cond_true]
 
 theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = false) :
     filter test (x :: l) = filter test l := by
-   dsimp [filter]
-   rw [h]
-   dsimp
+   rw [filter, h, cond_false]
 
 --  You might have noticed that `filter_cons_of_pos` and
 --  `filter_cons_of_neg` have implicit parameters, such as `head` and
 --  `tail`, that do not have type `Type` like `α` does. As it turns out,
 --  Lean allows *any* parameter to be implicit, not just those of type
 --  `Type`. This is a standard Lean convention for lemmas that are likely
---  to be used by `rw` or `dsimp` when their values can be inferred by
---  unification.
+--  to be used by `rw` when their values can be inferred by unification.
 
 --  For example, suppose you were using this theorem to rewrite
 --  `filter Nat.even (3 :: rest)`. Matching that expression against the
@@ -1169,17 +1079,16 @@ example : foldLength [4, 7, 0] = 3 := by rfl
 
 --  Prove the correctness of `foldLength`.
 
---  Hint: It may help to use `dsimp [foldLength, fold]` to unfold the
+--  Hint: It may help to use `rw [foldLength, fold]` to unfold the
 --  definition.
 
 theorem fold_length_correct {α : Type} {l : List α} :
     foldLength l = l.length := by
   induction l with
   | nil =>
-    dsimp only [foldLength]
-    rw [fold_nil, List.length_nil]
+    rw [foldLength, fold_nil, List.length_nil]
   | cons _ _ ih =>
-    dsimp only [foldLength] at *
+    rw [foldLength] at *
     rw [List.length_cons, fold_cons, ih]
 
 --  ### Exercise (3 stars): fold_map (manually graded) ⭐⭐⭐
@@ -1200,10 +1109,9 @@ theorem fold_map_correct {α : Type} {β : Type} {f : α → β} {l : List α} :
     foldMap f l = map f l := by
   induction l with
   | nil =>
-    dsimp only [foldMap]
-    rw [fold_nil, map_nil]
+    rw [foldMap, fold_nil, map_nil]
   | cons _ _ ih =>
-    dsimp only [foldMap] at *
+    rw [foldMap] at *
     rw [fold_cons, map_cons, ih]
 
 --  ### Exercise (2 stars): currying (Advanced) ⭐⭐

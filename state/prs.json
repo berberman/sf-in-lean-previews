@@ -200,7 +200,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/319"
     },
     "320": {
-      "base_sha": "ef120ff8347628fd2f042fb7be11a5e71d80bbe2",
+      "base_sha": "ea0a890562875ac2bbcc389a4dc2f8f7e4ef14f3",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -239,9 +239,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "0a58e0b62f73d5e3b57dad703e31e5f4832fda8d",
+      "head_sha": "3cef259823000a8f8f018a052ce745bc4adf59dd",
       "preview_path": "pr/320/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32992534700",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33226948506",
       "status": "published",
       "title": "Quick pass over Typeclasses",
       "url": "https://github.com/plclub/sf-in-lean/pull/320"

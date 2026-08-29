@@ -32,29 +32,29 @@ import SFLCompat
 --  Consider the following function, which checks whether a natural number
 --  occurs in a list:
 
-def List.elem_nat (n : Nat) (l : List Nat) : Bool :=
+def List.elemNat (n : Nat) (l : List Nat) : Bool :=
   match l with
   | [] => false
-  | m :: l' => bif n == m then true else elem_nat n l'
+  | m :: l' => bif n == m then true else elemNat n l'
 
-theorem List.elem_nat_nil (n : Nat) : [].elem_nat n = false := rfl
+theorem List.elem_nat_nil (n : Nat) : [].elemNat n = false := rfl
 
 theorem List.elem_nat_cons (n m : Nat) (l : List Nat) :
-    (m :: l).elem_nat n = bif n == m then true else elem_nat n l := rfl
+    (m :: l).elemNat n = bif n == m then true else elemNat n l := rfl
 
-#eval [0, 1].elem_nat 0
-#eval [0, 1].elem_nat 1
-#eval [0, 1].elem_nat 2
+#eval [0, 1].elemNat 0
+#eval [0, 1].elemNat 1
+#eval [0, 1].elemNat 2
 
 --  What if we want this to work for lists of *any* element type, not just
 --  `Nat`? Parametric polymorphism suggests simply replacing `Nat` with a
 --  type variable `α`, but that produces a puzzling error:
 
 sf_expect_failure_in
-  def List.elem_poly {α : Type} (x : α) (l : List α) : Bool :=
+  def List.elemPoly {α : Type} (x : α) (l : List α) : Bool :=
     match l with
     | [] => false
-    | y :: l' => bif x == y then true else elem_poly x l'
+    | y :: l' => bif x == y then true else elemPoly x l'
 
 --  failed to synthesize instance of type class
 --    BEq α
@@ -66,12 +66,12 @@ sf_expect_failure_in
 --  way to sidestep the problem: have the caller supply the equality test
 --  to use.
 
-def List.elem_poly_eq {α : Type} (eq : α → α → Bool) (x : α) (l : List α) : Bool :=
+def List.elemPolyEq {α : Type} (eq : α → α → Bool) (x : α) (l : List α) : Bool :=
   match l with
   | [] => false
-  | y :: l' => bif eq x y then true else elem_poly_eq eq x l'
+  | y :: l' => bif eq x y then true else elemPolyEq eq x l'
 
-#eval [0, 1].elem_poly_eq Nat.beq 0
+#eval [0, 1].elemPolyEq Nat.beq 0
 
 --  This works, but it's tedious: every caller has to know, and remember to
 --  supply, the right equality function.
@@ -88,30 +88,30 @@ def List.elem_poly_eq {α : Type} (eq : α → α → Bool) (x : α) (l : List �
 --  inside the function, and to find and fill in the appropriate instance
 --  when the function is called.
 
---  Here is what this looks like for `List.elem_poly`:
+--  Here is what this looks like for `List.elemPoly`:
 
-def List.elem_poly {α : Type} [BEq α] (x : α) (l : List α) : Bool :=
+def List.elemPoly {α : Type} [BEq α] (x : α) (l : List α) : Bool :=
   match l with
   | [] => false
-  | y :: l' => bif x == y then true else elem_poly x l'
+  | y :: l' => bif x == y then true else elemPoly x l'
 
-theorem List.elem_poly_nil {α : Type} [BEq α] (x : α) : [].elem_poly x = false := rfl
+theorem List.elemPoly_nil {α : Type} [BEq α] (x : α) : [].elemPoly x = false := rfl
 
-theorem List.elem_poly_cons {α : Type} [BEq α] (x y : α) (l : List α) :
-    (y :: l).elem_poly x = bif x == y then true else elem_poly x l := rfl
+theorem List.elemPoly_cons {α : Type} [BEq α] (x y : α) (l : List α) :
+    (y :: l).elemPoly x = bif x == y then true else elemPoly x l := rfl
 
-#eval [0, 1].elem_poly 0
+#eval [0, 1].elemPoly 0
 
---  Comparing `List.elem_poly_eq` with `List.elem_poly`, we see three
---  differences. First, `List.elem_poly_eq` takes an *explicit* parameter
---  `eq`, whereas `List.elem_poly` specifies an instance implicit
---  `[BEq α]`. The instance implicit indicates that an instance of `BEq`
---  must be provided at call sites for the particular type `α` that is
---  used. Second, whereas `List.elem_poly_eq` invokes parameter `eq` to
---  test equality, `List.elem_poly` uses `==` instead. As Lists noted when
---  we first used it, `==` on `Nat` comes from the `BEq` typeclass.
---  Finally, whereas `[0, 1].elem_poly_eq Nat.beq 0` passes the equality
---  function `Nat.beq` explicitly, in `[0, 1].elem_poly 0` Lean fills it in
+--  Comparing `List.elemPolyEq` with `List.elemPoly`, we see three
+--  differences. First, `List.elemPolyEq` takes an *explicit* parameter
+--  `eq`, whereas `List.elemPoly` specifies an instance implicit `[BEq α]`.
+--  The instance implicit indicates that an instance of `BEq` must be
+--  provided at call sites for the particular type `α` that is used.
+--  Second, whereas `List.elemPolyEq` invokes parameter `eq` to test
+--  equality, `List.elemPoly` uses `==` instead. As Lists noted when we
+--  first used it, `==` on `Nat` comes from the `BEq` typeclass. Finally,
+--  whereas `[0, 1].elemPolyEq Nat.beq 0` passes the equality function
+--  `Nat.beq` explicitly, in `[0, 1].elemPoly 0` Lean fills it in
 --  automatically based on the type `Nat` of the `List`.
 
 --  Note to developers (xhalo32):
@@ -120,7 +120,7 @@ theorem List.elem_poly_cons {α : Type} [BEq α] (x y : α) (l : List α) :
 --      proofs of `List.elem_nat` versus `List.elem_poly_eq` versus
 --      `List.elem_poly` and how `Nat.beq` and `==` play different roles.
 
---  Going back to the earlier version of `List.elem_poly`, without the
+--  Going back to the earlier version of `List.elemPoly`, without the
 --  instance implicit, we can now understand the error message: `α` was
 --  fully generic, so the `==` in its body would have needed to work for
 --  *every* type `α`, and no single `BEq` instance can do that. So Lean's
@@ -138,16 +138,16 @@ theorem List.elem_poly_cons {α : Type} [BEq α] (x y : α) (l : List α) :
 
 --  Suppose we want a function that returns the first element of a list,
 --  defaulting to a given value if the list is empty. As with
---  `List.elem_poly_eq` above, here is a version that makes the default
---  value an explicit parameter:
+--  `List.elemPolyEq` above, here is a version that makes the default value
+--  an explicit parameter:
 
-def List.headOr_ex {α : Type} (defaultValue : α) (l : List α) : α :=
+def List.headOrEx {α : Type} (defaultValue : α) (l : List α) : α :=
   match l with
   | [] => defaultValue
   | x :: _ => x
 
-#eval [1, 2, 3].headOr_ex 0
-#eval ([] : List Nat).headOr_ex 0
+#eval [1, 2, 3].headOrEx 0
+#eval ([] : List Nat).headOrEx 0
 
 --  This works, but again it's tedious: every caller has to supply an
 --  element of `α` to default to, even when there's an obvious choice based
@@ -190,8 +190,8 @@ end DefaultValueScratch
 
 --  Now for the marking: we need to tell Lean that `DefaultValue` is the
 --  sort of structure it should search for automatically, the way it needs
---  to for `List.headOr_ex`'s `defaultValue` argument. We do this by
---  writing `class` in place of `structure`:
+--  to for `List.headOrEx`'s `defaultValue` argument. We do this by writing
+--  `class` in place of `structure`:
 
 class DefaultValue (α : Type) where
   value : α
@@ -204,8 +204,8 @@ instance instDefaultValueNat : DefaultValue Nat where
 
 --  Lean can now find this instance on its own, via *typeclass synthesis*
 --  (or *typeclass inference*) — the same process that found `BEq Nat`
---  earlier. That means we can rewrite `List.headOr_ex` the same way we
---  rewrote `List.elem_poly_eq` into `List.elem_poly` above, replacing the
+--  earlier. That means we can rewrite `List.headOrEx` the same way we
+--  rewrote `List.elemPolyEq` into `List.elemPoly` above, replacing the
 --  explicit `defaultValue` parameter with an instance implicit:
 
 def List.headOr {α : Type} [DefaultValue α] (l : List α) : α :=
@@ -283,12 +283,12 @@ set_option pp.all true in
 --  We'll put `DefaultValue`'s standard-library equivalent, `Inhabited`, to
 --  work later in this chapter, when we define maps that need a default
 --  value for a generic type. First, though, let's go back to
---  `List.elem_poly` and see how its `[BEq α]` argument actually gets
+--  `List.elemPoly` and see how its `[BEq α]` argument actually gets
 --  resolved.
 
 --  ## Using Typeclasses
 
---  Let's check what `==` meant for `List.elem_nat`, with notation display
+--  Let's check what `==` meant for `List.elemNat`, with notation display
 --  turned off:
 
 set_option pp.notation false in
@@ -299,20 +299,8 @@ set_option pp.notation false in
 --  Rather than `Nat.beq`, `==` turns out to be notation for `BEq.beq`, a
 --  field of exactly the kind of typeclass we just learned to define:
 
-sf_recall_source
-  /--
-    `BEq α` is a typeclass for supplying a boolean-valued equality relation on
-    `α`, notated as `a == b`. Unlike `DecidableEq α` (which uses `a = b`), this
-    is `Bool` valued instead of `Prop` valued, and it also does not have any
-    axioms like being reflexive or agreeing with `=`. It is mainly intended for
-    programming applications. See `LawfulBEq` for a version that requires that
-    `==` and `=` coincide.
-  
-    Typically we prefer to put the "more variable" term on the left,
-    and the "more constant" term on the right.
-    -/
-    class BEq (α : Type u) where
-      /-- Boolean equality, notated as `a == b`. -/
+sf_recall
+  class BEq (α : Type) where
       beq : α → α → Bool
 
 --  Writing `x == y` makes Lean search for an **instance** of `BEq` for the
@@ -326,24 +314,24 @@ sf_recall_source
 instance (priority := low) : BEq Nat where
   beq := Nat.beq
 
---  This is the instance Lean supplies for `[BEq α]` when `List.elem_poly`
+--  This is the instance Lean supplies for `[BEq α]` when `List.elemPoly`
 --  is called on a `List Nat` — no different from Lean choosing
 --  `instDefaultValueNat` for `DefaultValue.value` earlier when it was
 --  equated with `(1 : Nat)`.
 
 --  ### Exercise (1 star): List.elem_poly_eq_elem_nat ⭐
 
---  Prove that `List.elem_poly` agrees with `List.elem_nat` when
---  specialized to natural numbers.
+--  Prove that `List.elemPoly` agrees with `List.elemNat` when specialized
+--  to natural numbers.
 
-theorem List.elem_poly_eq_elem_nat (xs : List Nat) (n : Nat) : xs.elem_poly n = xs.elem_nat n := by
+theorem List.elemPoly_eq_elemNat (xs : List Nat) (n : Nat) : xs.elemPoly n = xs.elemNat n := by
   (
   induction xs with
   | nil =>
-    rewrite [List.elem_poly_nil, List.elem_nat_nil]
+    rewrite [List.elemPoly_nil, List.elem_nat_nil]
     rfl
   | cons hd tl ih =>
-    rewrite [List.elem_poly_cons, List.elem_nat_cons, ih]
+    rewrite [List.elemPoly_cons, List.elem_nat_cons, ih]
     rfl)
 
 --  ## Proof-Carrying Typeclasses
@@ -602,6 +590,59 @@ theorem inv_inv {α : Type} {g : Group α} (x : α) : g.inv (g.inv x) = x := by
 
 end Algebra
 
+--  ## API and Encapsulation
+
+--  Note to developers (Niklas Halonen @xhalo32):
+--      Here, we should tie back the story from early chapters about
+--      characterizing lemmas and definition unfolding. When unfolding a
+--      definition directly without characterizing lemmas, the
+--      implementation details are exposed. When downstream code can depend
+--      on implementation details of upstream library code, it makes it
+--      more difficult for the upstream library to evolve.
+--
+--      Explain the following items:
+--
+--      - What is API and how does it relate to typeclasses
+--
+--      - What is encapsulation: public and private API
+--
+--        - Function definitions and one-field structures are encapsulation
+--          boundaries
+--
+--        - Definitions and structures are usually private, characterizing
+--          lemmas are public
+--
+--        - Constructors of inductives are public
+--
+--        - Mention `public`, `private` keywords and that we don't use them
+--          on the course?
+--
+--        - One can mostly ignore proof terms due to proof irrelevance
+--
+--      Here is an example where the proof term is blocking a rewrite. The
+--      solution is to simplify it away.
+--
+--      `-- set_option pp.proofs true in
+--      example {n m : Nat} {a : Fin n} {b : Fin m} (h₁ : n = m) (h₂ : a.val = b.val) :
+--          a = ⟨b.val, h₁ ▸ b.isLt⟩ := by
+--        -- ext
+--        -- dsimp only
+--        rw [← h₂]`
+--
+--      `-- set_option pp.proofs true in
+--      example {n m : Nat} {a : Fin n} {b : Fin m} (h₁ : n = m) (h₂ : a.val = b.val) :
+--          a = ⟨b.val, h₁ ▸ b.isLt⟩ := by
+--        -- ext
+--        -- dsimp only
+--        rw [← h₂]`
+--
+--      `-- set_option pp.proofs true in
+--      example {n m : Nat} {a : Fin n} {b : Fin m} (h₁ : n = m) (h₂ : a.val = b.val) :
+--          a = ⟨b.val, h₁ ▸ b.isLt⟩ := by
+--        -- ext
+--        -- dsimp only
+--        rw [← h₂]`
+
 --  ## Maps
 
 --  *Maps* (or "dictionaries") are ubiquitous data structures both in
@@ -623,22 +664,12 @@ end Algebra
 --  type `α` requires instances of the `ReflBEq` and `LawfulBEq`
 --  typeclasses:
 
-sf_recall_source
-  /-- `ReflBEq α` says that the `BEq` implementation is reflexive. -/
-    class ReflBEq (α) [BEq α] : Prop where
-      /-- `==` is reflexive, that is, `(a == a) = true`. -/
-      protected rfl {a : α} : a == a
+sf_recall
+  class ReflBEq (α : Type) [BEq α] : Prop where
+      rfl {a : α} : a == a
 
-sf_recall_source
-  /--
-    A Boolean equality test coincides with propositional equality.
-  
-    In other words:
-     * `a == b` implies `a = b`.
-     * `a == a` is true.
-    -/
-    class LawfulBEq (α : Type u) [BEq α] : Prop extends ReflBEq α where
-      /-- If `a == b` evaluates to `true`, then `a` and `b` are equal in the logic. -/
+sf_recall
+  class LawfulBEq (α : Type) [BEq α] : Prop extends ReflBEq α where
       eq_of_beq : {a b : α} → a == b → a = b
 
 --  These classes refine `BEq`, specifying that (`==`) is reflexive and
@@ -1251,7 +1282,7 @@ def examplePmap : PartialMap String Bool := "Church" →ₚ true ; "Turing" →�
 theorem toTotal_empty {α β : Type} : (∅ : PartialMap α β).toTotal = (∅ : TotalMap α (Option β)) := rfl
 
 @[simp]
-theorem toTotal_update{α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) :
+theorem toTotal_update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) :
     (a →ₚ b ; m).toTotal = a →ₜ some b ; m.toTotal := rfl
 
 --  As an example, here's how we can use these on some concrete maps:
