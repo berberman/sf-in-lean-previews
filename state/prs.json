@@ -537,6 +537,53 @@
       "status": "published",
       "title": "Logic: Stored Yipeng's cases vs. induction example ",
       "url": "https://github.com/plclub/sf-in-lean/pull/340"
+    },
+    "341": {
+      "base_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "8d4cb297f3cb967a2572d0311be5d87d22bfcd86",
+      "preview_path": "pr/341/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33276605028",
+      "status": "published",
+      "title": "Polishing on Basics",
+      "url": "https://github.com/plclub/sf-in-lean/pull/341"
     }
   },
   "schema": 3
