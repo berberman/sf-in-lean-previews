@@ -1,5 +1,5 @@
 {
-  "main_sha": "ea0a890562875ac2bbcc389a4dc2f8f7e4ef14f3",
+  "main_sha": "b70a57604da04536ccecf1921a7a5bdec09f81fd",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -527,53 +527,6 @@
       "status": "published",
       "title": "Imp: improve delabrator and reduce antiquotation noise",
       "url": "https://github.com/plclub/sf-in-lean/pull/337"
-    },
-    "338": {
-      "base_sha": "ea0a890562875ac2bbcc389a4dc2f8f7e4ef14f3",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "9c8186ba4e8b1a8355fde673f8776ad329c60760",
-      "preview_path": "pr/338/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33259876281",
-      "status": "published",
-      "title": "Preface: Updated installation instructions",
-      "url": "https://github.com/plclub/sf-in-lean/pull/338"
     },
     "339": {
       "base_sha": "ea0a890562875ac2bbcc389a4dc2f8f7e4ef14f3",
