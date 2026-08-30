@@ -59,21 +59,22 @@ sf_expect_failure_in
     bif n == 1 then 0
     else 1 + reaches1In (collatzStep n)
 
---  fail to show termination for
---    reaches1In
---  with errors
---  failed to infer structural recursion:
---  Cannot use parameter n:
---    failed to eliminate recursive application
---      reaches1In (collatzStep n)
-
-
---  failed to prove termination, possible solutions:
---    - Use `have`-expressions to prove the remaining goals
---    - Use `termination_by` to specify a different well-founded relation
---    - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
---  n : Nat
---  ⊢ collatzStep n < n
+--  Output:
+--    fail to show termination for
+--      reaches1In
+--    with errors
+--    failed to infer structural recursion:
+--    Cannot use parameter n:
+--      failed to eliminate recursive application
+--        reaches1In (collatzStep n)
+--
+--
+--    failed to prove termination, possible solutions:
+--      - Use `have`-expressions to prove the remaining goals
+--      - Use `termination_by` to specify a different well-founded relation
+--      - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
+--    n : Nat
+--    ⊢ collatzStep n < n
 
 --  Indeed, this isn't just a pointless limitation: functions in Lean are
 --  required to be total, to ensure logical consistency.
@@ -97,21 +98,22 @@ sf_expect_failure_in
     | _ => bif n.even then CollatzHoldsFor (div2 n)
                      else CollatzHoldsFor ((3 * n) + 1)
 
---  fail to show termination for
---    CollatzHoldsFor
---  with errors
---  failed to infer structural recursion:
---  Cannot use parameter n:
---    failed to eliminate recursive application
---      CollatzHoldsFor (div2 n)
-
-
---  failed to prove termination, possible solutions:
---    - Use `have`-expressions to prove the remaining goals
---    - Use `termination_by` to specify a different well-founded relation
---    - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
---  n x✝ : Nat
---  ⊢ div2 n < x✝
+--  Output:
+--    fail to show termination for
+--      CollatzHoldsFor
+--    with errors
+--    failed to infer structural recursion:
+--    Cannot use parameter n:
+--      failed to eliminate recursive application
+--        CollatzHoldsFor (div2 n)
+--
+--
+--    failed to prove termination, possible solutions:
+--      - Use `have`-expressions to prove the remaining goals
+--      - Use `termination_by` to specify a different well-founded relation
+--      - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
+--    n x✝ : Nat
+--    ⊢ div2 n < x✝
 
 --  Fortunately, there is another way to do it: We can express the concept
 --  "reaches `1` eventually in the Collatz sequence" as an *inductively
@@ -483,7 +485,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 
 inductive Even : Nat → Prop where
   | zero : Even 0
-  | succ_succ {n : Nat} (h : Even n) : Even (.succ (.succ n))
+  | succ_succ {n : Nat} (h : Even n) : Even (n + 2)
 
 --  Such definitions are interestingly different from previous uses of
 --  `inductive` for defining inductive datatypes like `Nat` or `List`. For
@@ -522,14 +524,15 @@ sf_expect_failure_in
     | zero : WrongEven 0
     | succ_succ (h : WrongEven n) : WrongEven (.succ (.succ n))
 
---  Mismatched inductive type parameter in
---    WrongEven 0
---  The provided argument
---    0
---  is not definitionally equal to the expected parameter
---    n
-
---  Note: The value of parameter `n` must be fixed throughout the inductive declaration. Consider making this parameter an index if it must vary.
+--  Output:
+--    Mismatched inductive type parameter in
+--      WrongEven 0
+--    The provided argument
+--      0
+--    is not definitionally equal to the expected parameter
+--      n
+--
+--    Note: The value of parameter `n` must be fixed throughout the inductive declaration. Consider making this parameter an index if it must vary.
 
 --  In an `inductive` definition, an argument to the type constructor on
 --  the left of the colon is called a "parameter", whereas an argument on
@@ -547,11 +550,14 @@ sf_expect_failure_in
 #check Even.zero
 #check Even.succ_succ
 
---  Even : Nat → Prop
+--  Output:
+--    Even : Nat → Prop
 
---  Even.zero : Even 0
+--  Output:
+--    Even.zero : Even 0
 
---  Even.succ_succ {n : Nat} (h : Even n) : Even n.succ.succ
+--  Output:
+--    Even.succ_succ {n : Nat} (h : Even n) : Even (n + 2)
 
 --  These evidence constructors can be thought of as "primitive evidence of
 --  evenness", and they can be used later on just like proven theorems. In
@@ -583,7 +589,7 @@ theorem plus4 (n : Nat) (h : Even n) : Even (4 + n) := by
   rw [Nat.add_comm]
   exact (succ_succ (succ_succ h))
 
---  ### Exercise (1 star): ev_double ⭐
+--  ### Exercise (1 star): double ⭐
 
 theorem double (n : Nat) : Even n.double := by
   sorry
@@ -666,7 +672,7 @@ end Perm3
 --  characterization that we gave above for evidence of `Even n`, using
 --  `cases`.
 
-theorem even_inversion (n : Nat) (h : Even n) :
+theorem Even.even_inversion (n : Nat) (h : Even n) :
     (n = 0) ∨ ∃ n', n = n' + 2 ∧ Even n' := by
   cases h with
   | zero => left; rfl
@@ -703,7 +709,7 @@ end LePlayground
 --  We can use the inversion lemma that we proved above to help structure
 --  proofs:
 
-theorem Even.succ_succ_even (n : Nat) (h : Even (.succ (.succ n))) : Even n := by
+theorem Even.succ_succ_even (n : Nat) (h : Even (n + 2)) : Even n := by
   apply even_inversion at h
   obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁,  h₂⟩⟩ := h
   injections h₁ heq
@@ -739,7 +745,7 @@ example (n : Nat) (h : Even (n + 2)) : Even n := by
 --  lemma. Compare:
 
 example : ¬ Even 1 := by
-  intro h; apply even_inversion at h
+  intro h; apply Even.even_inversion at h
   obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁,  h₂⟩⟩ := h
   injections
 
@@ -761,9 +767,15 @@ theorem Even.even_add_four {n : Nat} (h : Even (n + 4)) : Even n := by
 theorem Even.even5_nonsense (h : Even 5) : 2 + 2 = 9 := by
   sorry
 
---  We can use `inversion` to re-prove some theorems from Tactics.
+--  Note to developers (Yipeng Liu @berberman, NOW):
+--      Explain how `cases` works on equalities in Tactics or Logic!
+--
+--      (The following text assums we've alrady done that.)
 
---  Note that `inversion` also works on equality propositions.
+--  Recall that equality (`Eq`) is itself an inductively defined
+--  proposition, so `inversion` can also be used on equality propositions.
+
+--  We can use `inversion` to re-prove some theorems from Tactics.
 
 example (n m o : Nat) (h : [n, m] = [o, o]) : [n] = [m] := by
   inversion h; rfl
@@ -771,22 +783,40 @@ example (n m o : Nat) (h : [n, m] = [o, o]) : [n] = [m] := by
 example (n : Nat) (h : n + 1 = 0) : 2 + 2 = 5 := by
   inversion h
 
---  Here's how `inversion` works in general.
+--  For the inductively defined propositions we use, `inversion` behaves
+--  much like `cases`: it performs case analysis on the constructors of the
+--  hypothesis's inductive type. However, when the case analysis on an
+--  indexed proposition gives *unsolvable* equations between its indices,
+--  `cases` itself fails, whereas `inversion` leaves such equations in the
+--  context.
 
---  - Suppose the name `h` refers to an assumption `p` in the current
---    context, where `p` has been defined by an `inductive` declaration.
+--  For example, `cases` would immediately fail on `h`:
 
---  - Then, for each of the constructors of `p`, `inversion h` generates a
---    subgoal in which `h` has been replaced by the specific conditions
---    under which this constructor could have been used to prove `p`.
+sf_expect_failure_in
+  example (n : Nat) (h : Even (n * n)) :
+    n * n = 0 ∨ ∃ m, n * n = m + 2 := by
+    cases h
 
---  - Some of these subgoals will be self-contradictory; `inversion` throws
---    these away.
+--  Output:
+--    Dependent elimination failed: Failed to solve equation
+--      n.mul n = 0
 
---  - The ones that are left represent the cases that must be proved to
---    establish the original goal. For those, `inversion` adds to the proof
---    context all equations that must hold of the arguments given to `p` ─
---    e.g., `n' = n` in the proof of `Even.succ_succ_even`.
+--  `inversion` instead leaves the equations in the context, where we can
+--  use them directly:
+
+example (n : Nat) (h : Even (n * n)) :
+  n * n = 0 ∨ ∃ m, n * n = m + 2 := by
+  inversion h with
+  | zero => left; assumption
+  | succ_succ m' _ _ _ => right; exists m'
+
+--  Here is useful way to think about `inversion`. For an inductively
+--  defined hypothesis `h`, `inversion h` starts with one case for each
+--  constructor, then uses the indices of the type of `h` to eliminate
+--  impossible cases, and simplifies the remaining ones. In the remaining
+--  cases, it solves these equations to foce some expressions or substeitue
+--  some variables. If an equation cannot be solved, `inversion` leaves it
+--  in the context and we can use tie in the rest of the proof.
 
 --  _Quiz:_
 
@@ -799,49 +829,28 @@ example (n : Nat) (h : n + 1 = 0) : 2 + 2 = 5 := by
 --  `rw [Nat.add_comm]` (D) `inversion`, `rw [Nat.add_comm]`, `injections`
 
 --  The `Even.double` exercise above allows us to easily show that our new
---  notion of evenness is implied by the two earlier ones (since, by
+--  notion of evenness is implied by the two earlier ones. In fact, by
 --  `Nat.even_bool_prop` in the Logic chapter, we already know that those
---  are equivalent to each other). To show that all three coincide, we just
---  need the following lemma.
+--  are equivalent to each other. To show that `Nat.Even`, `Even`, and
+--  `Nat.even` coincide, we just need the following lemma.
 
 sf_expect_failure_in
-  example (n : Nat) : Even n → Nat.Even n := by
+  example (n : Nat) (h : Even n) : Nat.Even n := by
     /- We could try to proceed by case analysis or induction on `n`.  But
-        since `Ev` is mentioned in a premise, this strategy seems
+        since `Even` is mentioned in a premise, this strategy seems
         unpromising, because (as we've noted before) the induction
         hypothesis will talk about `n-1` (which is _not_ even!).  Thus, it
-        seems better to first try `inversion` on the evidence for `Ev`.
+        seems better to first try `inversion` on the evidence for `Even`.
         Indeed, the first case can be solved trivially. -/
-    intro h
     inversion h with
-    /- h = ev_0 -/
-    | ev_0 => exists 0  -- (`0 = double 0` is closed by `exists`'s final `rfl`)
-    /- h = ev_succ_succ n' h' -/
-    | ev_succ_succ n' h' =>
-    /- Unfortunately, the second case is harder.  We need to show
+    | zero => exists 0
+    | succ_succ n' h' =>
+      /- Unfortunately, the second case is harder.  We need to show
       `∃ n₀, n' + 2 = double n₀`, but the only available assumption is
-      `h'`, which states that `Ev n'` holds.  Since this isn't directly
-      useful, it seems that we are stuck and that performing case
-      analysis on `h` was a waste of time.
-  
-      If we look more closely at our second goal, however, we can see
-      that something interesting happened: By performing case analysis
-      on `h`, we were able to reduce the original result to a similar
-      one that involves a _different_ piece of evidence for `Ev`: namely
-      `h'`.  More formally, we could finish our proof if we could show
-      that
-      ```
-      ∃ k', n' = double k',
-      ```
-      which is the same as the original statement, but with `n'` instead
-      of `n`.  Indeed, it is not difficult to convince Lean that this
-      intermediate result would suffice. -/
-      have he : (∃ (k' : Nat), n' = k'.double) → (∃ (n₀ : Nat), n' + 2 = n₀.double) := by
-        intro ⟨k, hk⟩; exists (k + 1); rw [Nat.double_succ, hk]
-      apply he
-      /- Unfortunately, now we are stuck: we are trying to prove another instance
-          of the same theorem we set out to prove -- only here we are
-          talking about `n'` instead of `n`. -/
+      `h'`, which states that `Even n'` holds.
+      In other words, what we need here is precisely the result we
+      are trying to prove, but applied to the smaller evidence `h'`.
+      -/
 
 --  ### Induction on Evidence
 
@@ -870,9 +879,7 @@ sf_expect_failure_in
 
 theorem even_even (n : Nat) (h : Even n) : Nat.Even n := by
   induction h with
-  -- h = ev_0
   | zero => exists 0 -- (`0 = double 0` is closed by `exists`'s final `rfl`)
-  -- h = ev_succ_succ n' h', with ih : Even n'
   | succ_succ h' ih =>
     let ⟨k, hk⟩ := ih
     exists k + 1; rw [Nat.double_succ, hk]

@@ -53,7 +53,8 @@ def PlusClaim : Prop := 2 + 2 = 4
 
 #check PlusClaim
 
---  PlusClaim : Prop
+--  Output:
+--    PlusClaim : Prop
 
 --  We can later use this name in any situation where a proposition is
 --  expected — for example, as the claim in a `theorem` declaration.
@@ -70,7 +71,8 @@ def Nat.IsThree (n : Nat) : Prop := n = 3
 
 #check (Nat.IsThree)
 
---  Nat.IsThree : Nat → Prop
+--  Output:
+--    Nat.IsThree : Nat → Prop
 
 --  In Lean, functions that return propositions are said to define
 --  *properties* of their arguments.
@@ -91,7 +93,8 @@ theorem succ_inj' : Injective Nat.succ := by
 
 #check Eq
 
---  Eq.{u_1} {α : Sort u_1} : α → α → Prop
+--  Output:
+--    Eq.{u_1} {α : Sort u_1} : α → α → Prop
 
 --  As a convenience, Lean will cast booleans by equating them to `true`,
 --  which is why checking them against `Prop` succeeds. It also casts
@@ -101,11 +104,13 @@ theorem succ_inj' : Injective Nat.succ := by
 
 #check (false : Prop)
 
---  false = true : Prop
+--  Output:
+--    false = true : Prop
 
 #check (true : Prop)
 
---  true = true : Prop
+--  Output:
+--    true = true : Prop
 
 --  _Quiz:_
 
@@ -198,7 +203,8 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 
 #check And.intro
 
---  And.intro {a b : Prop} (left : a) (right : b) : a ∧ b
+--  Output:
+--    And.intro {a b : Prop} (left : a) (right : b) : a ∧ b
 
 --  We can also apply the constructor for the conjunction explicitly.
 
@@ -311,7 +317,8 @@ theorem and_associate (a b c : Prop) (h : a ∧ (b ∧ c)) : (a ∧ b) ∧ c := 
 
 #check And
 
---  And (a b : Prop) : Prop
+--  Output:
+--    And (a b : Prop) : Prop
 
 --  ### Disjunction
 
@@ -397,10 +404,12 @@ theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
 example (a : Prop) : Not a = (a → False) := rfl
 example (a : Prop) : (¬ a) = (a → False) := rfl
 
---  Not (a : Prop) : Prop
+--  Output:
+--    Not (a : Prop) : Prop
 
---  @[implicit_reducible] def Not : Prop → Prop :=
---  fun a => a → False
+--  Output:
+--    @[implicit_reducible] def Not : Prop → Prop :=
+--    fun a => a → False
 
 --  Since `False` is a contradictory proposition, the principle of
 --  explosion also applies to it. If we can get `False` into the context,
@@ -424,8 +433,9 @@ theorem not_implies_other_not (a : Prop) (h : ¬ a) :
 
 #print Ne
 
---  @[reducible] def Ne.{u} : {α : Sort u} → α → α → Prop :=
---  fun {α} a b => ¬a = b
+--  Output:
+--    @[reducible] def Ne.{u} : {α : Sort u} → α → α → Prop :=
+--    fun {α} a b => ¬a = b
 
 theorem zero_not_one : 0 ≠ 1 := by
   /- The proposition `0 ≠ 1` is exactly the same as `¬ (0 = 1)`
@@ -671,13 +681,17 @@ theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
 #check Iff.mp
 #check Iff.mpr
 
---  Iff (a b : Prop) : Prop
+--  Output:
+--    Iff (a b : Prop) : Prop
 
---  Iff.intro {a b : Prop} (mp : a → b) (mpr : b → a) : a ↔ b
+--  Output:
+--    Iff.intro {a b : Prop} (mp : a → b) (mpr : b → a) : a ↔ b
 
---  Iff.mp {a b : Prop} (self : a ↔ b) : a → b
+--  Output:
+--    Iff.mp {a b : Prop} (self : a ↔ b) : a → b
 
---  Iff.mpr {a b : Prop} (self : a ↔ b) : b → a
+--  Output:
+--    Iff.mpr {a b : Prop} (self : a ↔ b) : b → a
 
 theorem iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a := by
   constructor
@@ -735,13 +749,15 @@ theorem or_distributes_over_and (a b c : Prop) :
 
 #check Exists
 
---  Exists.{u} {α : Sort u} (p : α → Prop) : Prop
+--  Output:
+--    Exists.{u} {α : Sort u} (p : α → Prop) : Prop
 
 def Nat.Even x := ∃ n : Nat, x = Nat.double n
 
 #check (Nat.Even)
 
---  Nat.Even : Nat → Prop
+--  Output:
+--    Nat.Even : Nat → Prop
 
 open Nat in
 example : Even 4 := by exists 2
@@ -963,11 +979,13 @@ theorem combineOddEven_elim_even
 
 #check Nat.add_comm
 
---  Nat.add_comm (n m : Nat) : n + m = m + n
+--  Output:
+--    Nat.add_comm (n m : Nat) : n + m = m + n
 
 #check Nat.add_assoc
 
---  Nat.add_assoc (n m k : Nat) : n + m + k = n + (m + k)
+--  Output:
+--    Nat.add_assoc (n m k : Nat) : n + m + k = n + (m + k)
 
 --  Lean checks the *statements* of the `Nat.add_comm` and `Nat.add_assoc`
 --  theorems in the same way that it checks the *type* of any term (e.g.
@@ -1002,18 +1020,19 @@ sf_expect_failure_in
     rw [Nat.add_comm]
     rw [Nat.add_comm]
 
---  unsolved goals
---  a b c : Prop
---  n m : Nat
---  α✝ : Type
---  e1 e2 x✝¹ y✝¹ : α✝
---  α β : Type
---  x✝ x' y✝ : α
---  l l' : List α
---  f g : α → β
---  p : α → Prop
---  x y z : Nat
---  ⊢ x + (y + z) = z + y + x
+--  Output:
+--    unsolved goals
+--    a b c : Prop
+--    n m : Nat
+--    α✝ : Type
+--    e1 e2 x✝¹ y✝¹ : α✝
+--    α β : Type
+--    x✝ x' y✝ : α
+--    l l' : List α
+--    f g : α → β
+--    p : α → Prop
+--    x y z : Nat
+--    ⊢ x + (y + z) = z + y + x
 
 --  It appears at first sight that we ought to be able to prove this by
 --  rewriting with `Nat.add_comm` twice to make the two sides match. The
@@ -1419,51 +1438,54 @@ theorem List.allb_true_iff α {test : α → Bool} {l : List α} :
 sf_expect_failure_in
   example (a b : Prop) : a ∧ b = b ∧ a := by rfl
 
---  Tactic `rfl` failed: The left-hand side
---    a
---  is not definitionally equal to the right-hand side
---    b = b ∧ a
-
---  a✝ b✝ c : Prop
---  n m : Nat
---  α✝ : Type
---  e1 e2 x✝ y✝ : α✝
---  α β : Type
---  x x' y : α
---  l l' : List α
---  f g : α → β
---  p : α → Prop
---  a b : Prop
---  ⊢ a ∧ b = b ∧ a
+--  Output:
+--    Tactic `rfl` failed: The left-hand side
+--      a
+--    is not definitionally equal to the right-hand side
+--      b = b ∧ a
+--
+--    a✝ b✝ c : Prop
+--    n m : Nat
+--    α✝ : Type
+--    e1 e2 x✝ y✝ : α✝
+--    α β : Type
+--    x x' y : α
+--    l l' : List α
+--    f g : α → β
+--    p : α → Prop
+--    a b : Prop
+--    ⊢ a ∧ b = b ∧ a
 
 sf_expect_failure_in
   example (a b : Prop) : a ∧ b = b ∧ a := by cases a
 
---  Tactic `cases` failed: major premise type is not an inductive type
---    Prop
-
---  Explanation: the `cases` tactic is for constructor-based reasoning as well as for applying custom cases principles with a 'using' clause or a registered '@[cases_eliminator]' theorem. The above type neither is an inductive type nor has a registered theorem.
-
---  Consider using the 'by_cases' tactic, which does true/false reasoning for propositions.
-
---  a✝ b✝ c : Prop
---  n m : Nat
---  α✝ : Type
---  e1 e2 x✝ y✝ : α✝
---  α β : Type
---  x x' y : α
---  l l' : List α
---  f g : α → β
---  p : α → Prop
---  a b : Prop
---  ⊢ a ∧ b = b ∧ a
+--  Output:
+--    Tactic `cases` failed: major premise type is not an inductive type
+--      Prop
+--
+--    Explanation: the `cases` tactic is for constructor-based reasoning as well as for applying custom cases principles with a 'using' clause or a registered '@[cases_eliminator]' theorem. The above type neither is an inductive type nor has a registered theorem.
+--
+--    Consider using the 'by_cases' tactic, which does true/false reasoning for propositions.
+--
+--    a✝ b✝ c : Prop
+--    n m : Nat
+--    α✝ : Type
+--    e1 e2 x✝ y✝ : α✝
+--    α β : Type
+--    x x' y : α
+--    l l' : List α
+--    f g : α → β
+--    p : α → Prop
+--    a b : Prop
+--    ⊢ a ∧ b = b ∧ a
 
 --  However, we *can* prove that `a ∧ b` implies `b ∧ a`, and vice versa --
 --  this is the commutativity of conjunction that we have seen earlier.
 
 #check and_comm
 
---  and_comm {a b : Prop} : a ∧ b ↔ b ∧ a
+--  Output:
+--    and_comm {a b : Prop} : a ∧ b ↔ b ∧ a
 
 --  Since it would be convenient to be able to rewrite propositions from
 --  one side of `↔` to the other, Lean provides an axiom to turn `↔` into
@@ -1471,7 +1493,8 @@ sf_expect_failure_in
 
 #print propext
 
---  axiom propext : ∀ {a b : Prop}, (a ↔ b) → a = b
+--  Output:
+--    axiom propext : ∀ {a b : Prop}, (a ↔ b) → a = b
 
 --  (Informally, an *extensional* property is one that pertains to
 --  observable behavior. Thus, propositional extensionality means that a
@@ -1525,11 +1548,13 @@ theorem and_comm_flip' (a b c : Prop) : (a ∧ b ∧ c) ↔ (c ∧ b ∧ a) := b
 
 #print axioms and_comm_flip
 
---  'and_comm_flip' depends on axioms: [propext]
+--  Output:
+--    'and_comm_flip' depends on axioms: [propext]
 
 #print axioms and_comm_flip'
 
---  'and_comm_flip'' depends on axioms: [propext]
+--  Output:
+--    'and_comm_flip'' depends on axioms: [propext]
 
 --  ### Exercise (1 star): mul_eq_0_ternary ⭐
 
@@ -1583,7 +1608,8 @@ example : (fun x => x + 2) = (fun x => x + (Nat.pred 3)) := rfl
 
 #print axioms funext
 
---  'funext' depends on axioms: [Quot.sound]
+--  Output:
+--    'funext' depends on axioms: [Quot.sound]
 
 --  Now we can prove some intuitively obvious equalities about functions
 --  that would otherwise not be provable without `funext`.
@@ -1711,18 +1737,21 @@ theorem excluded_middle_nat_eq (n m : Nat) : n = m ∨ n ≠ m := by
 
 #check Classical.em
 
---  Classical.em (p : Prop) : p ∨ ¬p
+--  Output:
+--    Classical.em (p : Prop) : p ∨ ¬p
 
 --  All classical reasoning principles in `Classical` are derived from one
 --  axiom, the axiom of choice. This is the C in ZFC.
 
 #print Classical.choice
 
---  axiom Classical.choice.{u} : {α : Sort u} → Nonempty α → α
+--  Output:
+--    axiom Classical.choice.{u} : {α : Sort u} → Nonempty α → α
 
 #print axioms Classical.em
 
---  'Classical.em' depends on axioms: [propext, Classical.choice, Quot.sound]
+--  Output:
+--    'Classical.em' depends on axioms: [propext, Classical.choice, Quot.sound]
 
 --  Lean also provides a `by_cases` tactic that applies `Classical.em` on a
 --  given proposition. Theorems proven using this tactic implicitly use
@@ -1738,7 +1767,8 @@ theorem em : ∀ a, a ∨ ¬ a := by
 
 #print axioms em
 
---  'em' depends on axioms: [propext, Classical.choice, Quot.sound]
+--  Output:
+--    'em' depends on axioms: [propext, Classical.choice, Quot.sound]
 
 --  The following example illustrates why assuming the excluded middle may
 --  lead to nonconstructive proofs:
@@ -1790,9 +1820,11 @@ theorem em : ∀ a, a ∨ ¬ a := by
 
 #print axioms Classical.not_not
 
---  Classical.not_not {a : Prop} : ¬¬a ↔ a
+--  Output:
+--    Classical.not_not {a : Prop} : ¬¬a ↔ a
 
---  'Classical.not_not' depends on axioms: [propext, Classical.choice, Quot.sound]
+--  Output:
+--    'Classical.not_not' depends on axioms: [propext, Classical.choice, Quot.sound]
 
 --  ### Exercise (3 stars): excluded_middle_irrefutable ⭐⭐⭐
 

@@ -94,8 +94,7 @@ namespace NatList
 
 --  Don't worry too much about how this works.
 
---  THESE DETAILS CAN BE SKIPPED (List syntax)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (List syntax)
 --  We first define `::` as right-associative notation for
 --  `cons`, and then define list notation as a *macro*,
 --  allowing us to write `[1, 2]` instead of `1 :: 2 :: []`.
@@ -115,7 +114,6 @@ def unexpandCons : Lean.PrettyPrinter.Unexpander
   | `($_ $x []) => `([$x])
   | `($_ $x [$xs,*]) => `([$x, $xs,*])
   | _ => throw ()
-
 --  END DETAILS
 
 --  Now these all mean exactly the same thing:
@@ -441,11 +439,12 @@ sf_expect_failure_in
       -- The `ih` only works for `c' + c'`,
       -- but we need `c' + 1 + (c' + 1)`.
 
---  unsolved goals
---  case succ
---  n c' : Nat
---  ih : myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')
---  ⊢ (n :: myRepeat n c') ++ (n :: myRepeat n c') = myRepeat n (c' + 1 + (c' + 1))
+--  Output:
+--    unsolved goals
+--    case succ
+--    n c' : Nat
+--    ih : myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')
+--    ⊢ (n :: myRepeat n c') ++ (n :: myRepeat n c') = myRepeat n (c' + 1 + (c' + 1))
 
 --  A generalization that gives a stronger inductive
 --  hypothesis:
@@ -497,12 +496,13 @@ sf_expect_failure_in
       -- in either the immediate context or in the global
       -- environment!
 
---  unsolved goals
---  case cons
---  n : Nat
---  l' : NatList
---  ih : l'.reverse.length = l'.length
---  ⊢ (l'.reverse ++ [n]).length = (n :: l').length
+--  Output:
+--    unsolved goals
+--    case cons
+--    n : Nat
+--    l' : NatList
+--    ih : l'.reverse.length = l'.length
+--    ⊢ (l'.reverse ++ [n]).length = (n :: l').length
 
 sf_expect_failure_in
   theorem length_append_succ (l : NatList) (n : Nat) :
@@ -514,12 +514,13 @@ sf_expect_failure_in
       rw [reverse_cons]
       -- `ih` not applicable
 
---  unsolved goals
---  case cons
---  n m : Nat
---  l' : NatList
---  ih : (l'.reverse ++ [n]).length = l'.reverse.length + 1
---  ⊢ (l'.reverse ++ [m] ++ [n]).length = (l'.reverse ++ [m]).length + 1
+--  Output:
+--    unsolved goals
+--    case cons
+--    n m : Nat
+--    l' : NatList
+--    ih : (l'.reverse ++ [n]).length = l'.reverse.length + 1
+--    ⊢ (l'.reverse ++ [m] ++ [n]).length = (l'.reverse ++ [m]).length + 1
 
 theorem append_length_succ (l : NatList) (n : Nat) :
     (l ++ [n]).length = l.length + 1 := by

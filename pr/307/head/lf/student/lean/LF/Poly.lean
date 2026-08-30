@@ -54,7 +54,8 @@ inductive MyList (α : Type) : Type where
 
 #check (MyList)
 
---  MyList : Type → Type
+--  Output:
+--    MyList : Type → Type
 
 --  The `α` in the definition of `MyList` automatically becomes a parameter
 --  to the constructors `nil` and `cons` — that is, `nil` and `cons` are
@@ -65,7 +66,8 @@ inductive MyList (α : Type) : Type where
 
 #check MyList.nil
 
---  MyList.nil {α : Type} : MyList α
+--  Output:
+--    MyList.nil {α : Type} : MyList α
 
 --  Similarly, `MyList.cons` adds an element of type `Nat` to a list of
 --  type `MyList Nat`. Here is an example of forming a list containing just
@@ -73,7 +75,8 @@ inductive MyList (α : Type) : Type where
 
 #check MyList.cons 3 MyList.nil
 
---  MyList.cons 3 MyList.nil : MyList Nat
+--  Output:
+--    MyList.cons 3 MyList.nil : MyList Nat
 
 --  What is the full type of `MyList.nil`? We can read off the result type
 --  `MyList α` from the definition, but to state the full type we must also
@@ -82,14 +85,16 @@ inductive MyList (α : Type) : Type where
 
 #check MyList.nil
 
---  MyList.nil {α : Type} : MyList α
+--  Output:
+--    MyList.nil {α : Type} : MyList α
 
 --  Similarly, the type of `MyList.cons` includes the implicit type
 --  parameter:
 
 #check MyList.cons
 
---  MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
+--  Output:
+--    MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
 
 --  Having to supply a type argument for every single use of a list
 --  constructor would be rather burdensome. Fortunately, the type argument
@@ -185,7 +190,8 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 
 #check myRepeat'
 
---  myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+--  Output:
+--    myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
 
 --  The generated `u_1` is part of Lean's bookkeeping for treating types
 --  more generally. We will not need to interpret names like this for now —
@@ -259,7 +265,8 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
 
 def myNil' := @List.nil Nat
 
---  @List.nil : {α : Type u_1} → List α
+--  Output:
+--    @List.nil : {α : Type u_1} → List α
 
 --  _Quiz:_
 
@@ -406,9 +413,11 @@ theorem rev_cons {α : Type} {x : α} {l : List α} :
 #check List.nil_append
 #check List.cons_append
 
---  List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
+--  Output:
+--    List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
 
---  List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
+--  Output:
+--    List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
 
 theorem append_nil {α : Type} {l : List α} :
     l ++ [] = l := by
@@ -453,11 +462,14 @@ structure MyProd (α β : Type) where
 #eval (1, true).fst
 #eval (1, true).snd
 
---  (1, true) : Nat × Bool
+--  Output:
+--    (1, true) : Nat × Bool
 
---  1
+--  Output:
+--    1
 
---  true
+--  Output:
+--    true
 
 --  You can also use `.1` instead of `.fst` and `.2` instead of `.snd`:
 
@@ -610,7 +622,8 @@ example : doIt3Times Nat.minusTwo 9 = 3 := by rfl
 
 example : doIt3Times not true = false := by rfl
 
---  doIt3Times {α : Type} (f : α → α) (x : α) : α
+--  Output:
+--    doIt3Times {α : Type} (f : α → α) (x : α) : α
 
 --  ### Filter
 
@@ -949,7 +962,8 @@ example : constFun 5 99 = 5 := by rfl
 
 #check Nat.add
 
---  Nat.add : Nat → Nat → Nat
+--  Output:
+--    Nat.add : Nat → Nat → Nat
 
 def plus3 := Nat.add 3
 #check plus3
@@ -958,7 +972,8 @@ example : plus3 4 = 7 := by rfl
 example : doIt3Times plus3 0 = 9 := by rfl
 example : doIt3Times (Nat.add 3) 0 = 9 := by rfl
 
---  plus3 : Nat → Nat
+--  Output:
+--    plus3 : Nat → Nat
 
 --  Similarly, we can write:
 
@@ -967,7 +982,8 @@ def fold_plus : List Nat → Nat → Nat :=
 
 #check fold_plus
 
---  fold_plus : List Nat → Nat → Nat
+--  Output:
+--    fold_plus : List Nat → Nat → Nat
 
 --  What's happening here is called *partial application*. In Lean, the
 --  type constructor `→` is right-associative, meaning a function type like
@@ -1060,9 +1076,11 @@ example : map (Nat.add 3) [2, 0, 2] = [5, 3, 5] := by rfl
 #check @prodCurry
 #check @prodUncurry
 
---  @prodCurry : {α β γ : Type} → (α × β → γ) → α → β → γ
+--  Output:
+--    @prodCurry : {α β γ : Type} → (α × β → γ) → α → β → γ
 
---  @prodUncurry : {α β γ : Type} → (α → β → γ) → α × β → γ
+--  Output:
+--    @prodUncurry : {α β γ : Type} → (α → β → γ) → α × β → γ
 
 theorem uncurry_curry {α β γ : Type} {x : α} {y : β} {f : α → β → γ} :
     prodCurry (prodUncurry f) x y = f x y := by

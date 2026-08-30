@@ -378,8 +378,7 @@ inductive DCom where
 --  category, `dcom`, so it can coexist with the ordinary
 --  Imp command syntax.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: decorated commands)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: decorated commands)
 declare_syntax_cat dcom
 
 syntax:max "(" dcom ")" : dcom
@@ -435,7 +434,6 @@ macro_rules
       `(DCom.pre ({{ $p }}) (dcom { $body }))
   | `(dcom { $body:dcom ->> {{ $q }} }) =>
       `(DCom.post (dcom { $body }) ({{ $q }}))
-
 --  END DETAILS
 
 --  (We then need to redefine all our Notations to get nice

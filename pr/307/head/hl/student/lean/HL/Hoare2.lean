@@ -517,8 +517,7 @@ inductive DCom where
 --  Lean keeps decorated-command notation in its own syntax category,
 --  `dcom`, so it can coexist with the ordinary Imp command syntax.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: decorated commands)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: decorated commands)
 declare_syntax_cat dcom
 
 syntax:max "(" dcom ")" : dcom
@@ -574,7 +573,6 @@ macro_rules
       `(DCom.pre ({{ $p }}) (dcom { $body }))
   | `(dcom { $body:dcom ->> {{ $q }} }) =>
       `(DCom.post (dcom { $body }) ({{ $q }}))
-
 --  END DETAILS
 
 --  To provide the initial precondition that goes at the very top of a

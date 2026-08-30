@@ -1958,28 +1958,6 @@
         "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
-   "Slang.optimize0plus_sound'":
-   [{"id": "Slang___optimize0plus_sound___",
-     "data":
-     {"/Slang/#Slang___optimize0plus_sound___":
-      {"display": "optimize0plus_sound'",
-       "context":
-       ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
-   "Slang.optimize0plus_sound":
-   [{"id": "Slang___optimize0plus_sound",
-     "data":
-     {"/Slang/#Slang___optimize0plus_sound":
-      {"display": "optimize0plus_sound",
-       "context":
-       ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
    "Slang.Bexp.not":
    [{"id": "Slang___Bexp___not",
      "data":
@@ -2217,11 +2195,33 @@
         "Arithmetic and Boolean Expressions",
         "Syntax"]}},
      "address": "/Slang/"}],
+   "Slang.Aexp.optimize0plus_sound'":
+   [{"id": "Slang___Aexp___optimize0plus_sound___",
+     "data":
+     {"/Slang/#Slang___Aexp___optimize0plus_sound___":
+      {"display": "optimize0plus_sound'",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.Aexp.optimize0plus_sound":
+   [{"id": "Slang___Aexp___optimize0plus_sound",
+     "data":
+     {"/Slang/#Slang___Aexp___optimize0plus_sound":
+      {"display": "optimize0plus_sound",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.Aexp.optimize0plus":
    [{"id": "Slang___Aexp___optimize0plus",
      "data":
      {"/Slang/#Slang___Aexp___optimize0plus":
-      {"display": "Aexp.optimize0plus",
+      {"display": "optimize0plus",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -2309,7 +2309,7 @@
    [{"id": "Slang___Aexp___evalR_iff_eval",
      "data":
      {"/Slang/#Slang___Aexp___evalR_iff_eval":
-      {"display": "Aexp.evalR_iff_eval",
+      {"display": "evalR_iff_eval",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",

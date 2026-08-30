@@ -4,25 +4,6 @@ import SFLCompat
 
 --  # Induction: Proof by Induction
 
---  Note to developers:
---      `SOONER: We should also consider adding more examples to clarify
---      the concepts introduced in this chapter. This could help in
---      reinforcing the understanding of induction principles.
---
---      LATER: In 3/22, MRC and BCP discussed "inlining" IndPrinciples
---      into earlier chapters, thus eliminating it as a chapter. This
---      chapter, Induction, is the first place a change would occur.  We
---      would present [nat_ind] here. Then in Lists/Poly we'd present
---      [list_ind], and the rest would go in IndProp and ProofObjects. The
---      main wrinkle is that we'd need to introduce [apply] here instead of
---      in Tactics if we want to preserve the presentation. The discussion
---      is preserved here: https://github.com/DeepSpec/sfdev/pull/471.
---
---      LATER: Now that we've added Steve's nice late-policy exercise in
---      Basics.v, the assignment for that chapter is probably hard enough.  Now
---      what about this chapter?  Can/should we make it a notch or two
---      harder?`
-
 --  ## Separate Compilation
 
 --  Before getting started on this chapter, we need to import all of our
@@ -123,9 +104,9 @@ namespace NatPlayground.Nat
 
 --  _Quiz:_
 
---  What about this one? (Recall that in Lean, `Nat.add` recurses on the
---  *second* argument: `n + zero = n` by definition, and
---  `n + (m + 1) = (n + m) + 1` by definition.)
+--  What about this one? (Recall that our `add` function recurses on its
+--  *second* argument. Its simplification rules include `n + zero = n` and
+--  `n + (m + 1) = (n + m) + 1`.)
 
 --    theorem review₄ (n : Nat) : n + zero = n
 
@@ -192,13 +173,14 @@ sf_expect_failure_in
   example (n : Nat) : zero + n = n := by
     rfl    -- doesn't work here!
 
---  Tactic `rfl` failed: The left-hand side
---    zero + n
---  is not definitionally equal to the right-hand side
---    n
-
---  n : Nat
---  ⊢ zero + n = n
+--  Output:
+--    Tactic `rfl` failed: The left-hand side
+--      zero + n
+--    is not definitionally equal to the right-hand side
+--      n
+--
+--    n : Nat
+--    ⊢ zero + n = n
 
 --  And reasoning by cases using `cases` on `n` doesn't get us much
 --  further: the branch of the case analysis where we assume `n = zero`
@@ -215,10 +197,11 @@ sf_expect_failure_in
     | succ n' =>   /- n = succ n' -/
       _     -- ...but we're stuck on zero + n'
 
---  unsolved goals
---  case succ
---  n' : Nat
---  ⊢ zero + succ n' = succ n'
+--  Output:
+--    unsolved goals
+--    case succ
+--    n' : Nat
+--    ⊢ zero + succ n' = succ n'
 
 --  We could use `cases` on `n'` to get a bit further, but, since `n` can
 --  be arbitrarily large, we'll never get all the way there if we just go
@@ -330,9 +313,6 @@ theorem add_assoc (n m p : Nat) :
     rewrite [add_succ, add_succ, add_succ, ih]
     rfl
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      `We need better typesetting for displays like the following ones:`
-
 --  ### Tip: the `rw` tactic
 
 --  As you've probably noticed, a common pattern in Lean proofs is
@@ -360,10 +340,8 @@ example (n : Nat) (h : n = aliasOfTwo) : n = two := by
 
 --  Let's get some practice with using `rw`.
 
---  THESE DETAILS CAN BE SKIPPED
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED
 set_option pp.fieldNotation false
-
 --  END DETAILS
 
 --  ### Exercise (2 stars): double_add ⭐⭐
@@ -426,9 +404,10 @@ sf_expect_failure_in
     -/
     rw [add_comm]
 
---  unsolved goals
---  n m p q : Nat
---  ⊢ p + q + (n + m) = m + n + (p + q)
+--  Output:
+--    unsolved goals
+--    n m p q : Nat
+--    ⊢ p + q + (n + m) = m + n + (p + q)
 
 --  To use `add_comm` at the point where we need it, we can supply explicit
 --  arguments: `rw [add_comm n m]` tells Lean exactly which `+` to rewrite.
@@ -463,11 +442,10 @@ theorem add_rearrange (n m p q : Nat) :
 --  less clearly specified. A "valid" proof is one that makes the reader
 --  believe `P`. But the same proof may be read by many different readers,
 --  some of whom may be convinced by a particular way of phrasing the
---  argument, while others may not be. Some readers may be particularly
---  inexperienced or just plain thick-headed; the only way to convince them
---  will be to make the argument in painstaking detail. Other readers, more
---  familiar in the area, may find all this detail so overwhelming that
---  they lose the overall thread; all they want is to be told the main
+--  argument, while others may not be. Some readers may be unfamiliar with
+--  the area and need the argument spelled out in detail. Other readers,
+--  more familiar in the area, may find all this detail so overwhelming
+--  that they lose the overall thread; all they want is to be told the main
 --  ideas, since it is easier for them to fill in the details for
 --  themselves than to wade through a written presentation of them.
 --  Ultimately, there is no universal standard, because there is no single
@@ -539,7 +517,7 @@ theorem add_assoc'' (n m p : Nat) :
 
 --      (n + (m + p')) + 1   and   ((n + m) + p') + 1
 
---  respectively, which are equal by the induction hypothesis. *Qed*.
+--  respectively, which are equal by the induction hypothesis. *QED*.
 
 --  The overall form of the proof is basically similar, and of course this
 --  is no accident: Lean has been designed so that its `induction` tactic
@@ -588,7 +566,7 @@ theorem add_assoc'' (n m p : Nat) :
 --  `(n + m') + 1 = (m' + n) + 1`. This follows from the induction
 --  hypothesis `n + m' = m' + n`.
 
---  *Qed*.
+--  *QED*.
 
 --  ### Exercise (2 stars): beq_refl_informal (Optional) ⭐⭐
 
@@ -609,7 +587,7 @@ theorem add_assoc'' (n m p : Nat) :
 --    `(n' + 1 == n' + 1) = true`. This follows directly from the induction
 --    hypothesis and the definition of `beq`.
 
---  *Qed*.
+--  *QED*.
 
 --  ## More Exercises
 
@@ -637,10 +615,10 @@ theorem mul_one (p : Nat) :
 --  For example, code actions can generate the explicit branches needed for
 --  pattern matching. This can be especially useful when working with
 --  `match` expressions or with tactics such as `cases` and `induction`,
---  which we saw in previous chapters.
+--  which we saw earlier in the book.
 
---  Let's look at an example code action using `induction`. For example,
---  suppose we start with the following incomplete proof:
+--  Let's look at a code action for `induction`. Suppose we start with the
+--  following incomplete proof:
 
 sf_expect_failure_in
   example (n : Nat) : Nat.beq n n := by
@@ -656,7 +634,7 @@ example (n : Nat) : Nat.beq n n := by
   | zero => sorry
   | succ n ih => sorry
 
---  This gives us basic structure of the proof without requiring us to
+--  This gives us the basic structure of the proof without requiring us to
 --  write each branch by hand. We can then focus on proving each case.
 
 --  One possible proof is:

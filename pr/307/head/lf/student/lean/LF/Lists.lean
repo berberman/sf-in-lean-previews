@@ -89,8 +89,9 @@ sf_expect_failure_in
     match p with
     | x, y => x
 
---  Too many patterns in match alternative: Expected 1, but found 2:
---    x, y
+--  Output:
+--    Too many patterns in match alternative: Expected 1, but found 2:
+--      x, y
 
 sf_expect_failure_in
   -- Can't match on multiple values with pair patterns:
@@ -100,9 +101,10 @@ sf_expect_failure_in
     | ⟨.succ _,  0⟩        => n
     | ⟨.succ n', .succ m'⟩ => sub n' m'
 
---  Invalid `⟨...⟩` notation: The expected type `Nat` has more than one constructor
-
---  Note: This notation can only be used when the expected type is an inductive type with a single constructor
+--  Output:
+--    Invalid `⟨...⟩` notation: The expected type `Nat` has more than one constructor
+--
+--    Note: This notation can only be used when the expected type is an inductive type with a single constructor
 
 --  As with the multi-argument `match n, m with` style used above in `sub`,
 --  matching jointly on several values can combine what would otherwise be
@@ -176,8 +178,7 @@ namespace NatList
 
 --  Don't worry too much about how this works.
 
---  THESE DETAILS CAN BE SKIPPED (List syntax)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (List syntax)
 --  We first define `::` as right-associative notation for `cons`, and then
 --  define list notation as a *macro*, allowing us to write `[1, 2]`
 --  instead of `1 :: 2 :: []`. The *unexpander* reverses the macro,
@@ -196,7 +197,6 @@ def unexpandCons : Lean.PrettyPrinter.Unexpander
   | `($_ $x []) => `([$x])
   | `($_ $x [$xs,*]) => `([$x, $xs,*])
   | _ => throw ()
-
 --  END DETAILS
 
 --  Now these all mean exactly the same thing:
@@ -710,11 +710,12 @@ sf_expect_failure_in
       -- The `ih` only works for `c' + c'`,
       -- but we need `c' + 1 + (c' + 1)`.
 
---  unsolved goals
---  case succ
---  n c' : Nat
---  ih : myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')
---  ⊢ (n :: myRepeat n c') ++ (n :: myRepeat n c') = myRepeat n (c' + 1 + (c' + 1))
+--  Output:
+--    unsolved goals
+--    case succ
+--    n c' : Nat
+--    ih : myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')
+--    ⊢ (n :: myRepeat n c') ++ (n :: myRepeat n c') = myRepeat n (c' + 1 + (c' + 1))
 
 --  To get a more general inductive hypothesis, we can generalize:
 
@@ -766,12 +767,13 @@ sf_expect_failure_in
       -- in either the immediate context or in the global
       -- environment!
 
---  unsolved goals
---  case cons
---  n : Nat
---  l' : NatList
---  ih : l'.reverse.length = l'.length
---  ⊢ (l'.reverse ++ [n]).length = (n :: l').length
+--  Output:
+--    unsolved goals
+--    case cons
+--    n : Nat
+--    l' : NatList
+--    ih : l'.reverse.length = l'.length
+--    ⊢ (l'.reverse ++ [n]).length = (n :: l').length
 
 --  A first attempt to make progress would be to prove exactly the
 --  statement that we are missing at this point. But this attempt will fail
@@ -787,12 +789,13 @@ sf_expect_failure_in
       rw [reverse_cons]
       -- `ih` not applicable
 
---  unsolved goals
---  case cons
---  n m : Nat
---  l' : NatList
---  ih : (l'.reverse ++ [n]).length = l'.reverse.length + 1
---  ⊢ (l'.reverse ++ [m] ++ [n]).length = (l'.reverse ++ [m]).length + 1
+--  Output:
+--    unsolved goals
+--    case cons
+--    n m : Nat
+--    l' : NatList
+--    ih : (l'.reverse ++ [n]).length = l'.reverse.length + 1
+--    ⊢ (l'.reverse ++ [m] ++ [n]).length = (l'.reverse ++ [m]).length + 1
 
 --  It turns out that the above lemma is more specific than it needs to be.
 --  We can strengthen the lemma to work not only on reversed lists but on

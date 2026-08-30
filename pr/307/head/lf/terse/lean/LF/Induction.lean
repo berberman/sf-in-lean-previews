@@ -76,10 +76,10 @@ namespace NatPlayground.Nat
 
 --  _Quiz:_
 
---  What about this one? (Recall that in Lean, `Nat.add`
---  recurses on the *second* argument: `n + zero = n` by
---  definition, and `n + (m + 1) = (n + m) + 1` by
---  definition.)
+--  What about this one? (Recall that our `add` function
+--  recurses on its *second* argument. Its simplification
+--  rules include `n + zero = n` and
+--  `n + (m + 1) = (n + m) + 1`.)
 
 --    theorem review₄ (n : Nat) : n + zero = n
 
@@ -126,13 +126,14 @@ sf_expect_failure_in
   example (n : Nat) : zero + n = n := by
     rfl    -- doesn't work here!
 
---  Tactic `rfl` failed: The left-hand side
---    zero + n
---  is not definitionally equal to the right-hand side
---    n
-
---  n : Nat
---  ⊢ zero + n = n
+--  Output:
+--    Tactic `rfl` failed: The left-hand side
+--      zero + n
+--    is not definitionally equal to the right-hand side
+--      n
+--
+--    n : Nat
+--    ⊢ zero + n = n
 
 --  And reasoning by cases using `cases` on `n` doesn't get
 --  us much further: the branch of the case analysis where
@@ -150,10 +151,11 @@ sf_expect_failure_in
     | succ n' =>   /- n = succ n' -/
       _     -- ...but we're stuck on zero + n'
 
---  unsolved goals
---  case succ
---  n' : Nat
---  ⊢ zero + succ n' = succ n'
+--  Output:
+--    unsolved goals
+--    case succ
+--    n' : Nat
+--    ⊢ zero + succ n' = succ n'
 
 --  We need a bigger hammer: the *principle of induction*
 --  over natural numbers...
@@ -217,10 +219,8 @@ theorem add_assoc (n m p : Nat) :
 --  If `rw` leaves a goal that looks definitionally true,
 --  try adding `rfl` after it.
 
---  THESE DETAILS CAN BE SKIPPED
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED
 set_option pp.fieldNotation false
-
 --  END DETAILS
 
 --  ### Exercise (2 stars): double_add ⭐⭐
@@ -263,9 +263,10 @@ sf_expect_failure_in
     -/
     rw [add_comm]
 
---  unsolved goals
---  n m p q : Nat
---  ⊢ p + q + (n + m) = m + n + (p + q)
+--  Output:
+--    unsolved goals
+--    n m p q : Nat
+--    ⊢ p + q + (n + m) = m + n + (p + q)
 
 --  To use `add_comm` at the point where we need it, we can
 --  supply explicit arguments: `rw [add_comm n m]` tells
@@ -317,9 +318,8 @@ theorem mul_one (p : Nat) :
 --  In VS Code, a lightbulb icon appears on the left when a
 --  code action is available at your cursor.
 
---  Let's look at an example code action using `induction`.
---  For example, suppose we start with the following
---  incomplete proof:
+--  Let's look at a code action for `induction`. Suppose we
+--  start with the following incomplete proof:
 
 sf_expect_failure_in
   example (n : Nat) : Nat.beq n n := by
@@ -336,7 +336,7 @@ example (n : Nat) : Nat.beq n n := by
   | zero => sorry
   | succ n ih => sorry
 
---  This gives us basic structure of the proof without
+--  This gives us the basic structure of the proof without
 --  requiring us to write each branch by hand. We can then
 --  focus on proving each case.
 

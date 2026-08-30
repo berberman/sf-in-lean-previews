@@ -33,7 +33,8 @@ inductive MyList (α : Type) : Type where
 
 #check (MyList)
 
---  MyList : Type → Type
+--  Output:
+--    MyList : Type → Type
 
 --  The `α` in the definition of `MyList` becomes an
 --  implicit parameter to the list constructors `nil` and
@@ -41,19 +42,23 @@ inductive MyList (α : Type) : Type where
 
 #check MyList.nil
 
---  MyList.nil {α : Type} : MyList α
+--  Output:
+--    MyList.nil {α : Type} : MyList α
 
 #check MyList.cons 3 MyList.nil
 
---  MyList.cons 3 MyList.nil : MyList Nat
+--  Output:
+--    MyList.cons 3 MyList.nil : MyList Nat
 
 #check MyList.nil
 
---  MyList.nil {α : Type} : MyList α
+--  Output:
+--    MyList.nil {α : Type} : MyList α
 
 #check MyList.cons
 
---  MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
+--  Output:
+--    MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
 
 --  We can now define polymorphic versions of the functions
 --  we've already seen...
@@ -134,7 +139,8 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 
 #check myRepeat'
 
---  myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+--  Output:
+--    myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
 
 --  The generated `u_1` is part of Lean's bookkeeping for
 --  treating types more generally. We will not need to
@@ -179,7 +185,8 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
 
 def myNil' := @List.nil Nat
 
---  @List.nil : {α : Type u_1} → List α
+--  Output:
+--    @List.nil : {α : Type u_1} → List α
 
 --  _Quiz:_
 
@@ -304,9 +311,11 @@ theorem rev_cons {α : Type} {x : α} {l : List α} :
 #check List.nil_append
 #check List.cons_append
 
---  List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
+--  Output:
+--    List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
 
---  List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
+--  Output:
+--    List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
 
 theorem append_nil {α : Type} {l : List α} :
     l ++ [] = l := by
@@ -352,11 +361,14 @@ structure MyProd (α β : Type) where
 #eval (1, true).fst
 #eval (1, true).snd
 
---  (1, true) : Nat × Bool
+--  Output:
+--    (1, true) : Nat × Bool
 
---  1
+--  Output:
+--    1
 
---  true
+--  Output:
+--    true
 
 --  You can also use `.1` instead of `.fst` and `.2` instead
 --  of `.snd`:
@@ -401,20 +413,6 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --  overcome this, we destruct the list so that the `match`
 --  knows which branch to take during the computation done
 --  by the `rfl` tactic.
-
---  ### Exercise (1 star): zip_checks (Optional, manually graded) ⭐
-
---  Try answering the following questions on paper and
---  checking your answers in Lean:
-
---  - What is the type of `zip` (i.e., what does
---    `#check @zip` print?)
-
---  - What does
-
---    `#eval zip [1, 2] [false, false, true, true]`
-
---    print?
 
 --  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
 
@@ -472,7 +470,8 @@ example : doIt3Times Nat.minusTwo 9 = 3 := by rfl
 
 example : doIt3Times not true = false := by rfl
 
---  doIt3Times {α : Type} (f : α → α) (x : α) : α
+--  Output:
+--    doIt3Times {α : Type} (f : α → α) (x : α) : α
 
 --  ### Filter
 
@@ -670,7 +669,8 @@ example : constFun 5 99 = 5 := by rfl
 
 #check Nat.add
 
---  Nat.add : Nat → Nat → Nat
+--  Output:
+--    Nat.add : Nat → Nat → Nat
 
 def plus3 := Nat.add 3
 #check plus3
@@ -679,7 +679,8 @@ example : plus3 4 = 7 := by rfl
 example : doIt3Times plus3 0 = 9 := by rfl
 example : doIt3Times (Nat.add 3) 0 = 9 := by rfl
 
---  plus3 : Nat → Nat
+--  Output:
+--    plus3 : Nat → Nat
 
 --  Similarly, we can write:
 
@@ -688,5 +689,6 @@ def fold_plus : List Nat → Nat → Nat :=
 
 #check fold_plus
 
---  fold_plus : List Nat → Nat → Nat
+--  Output:
+--    fold_plus : List Nat → Nat → Nat
 

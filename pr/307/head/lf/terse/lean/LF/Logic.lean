@@ -53,7 +53,8 @@ def PlusClaim : Prop := 2 + 2 = 4
 
 #check PlusClaim
 
---  PlusClaim : Prop
+--  Output:
+--    PlusClaim : Prop
 
 theorem plusClaim_is_true : PlusClaim := rfl
 
@@ -65,7 +66,8 @@ def Nat.IsThree (n : Nat) : Prop := n = 3
 
 #check (Nat.IsThree)
 
---  Nat.IsThree : Nat → Prop
+--  Output:
+--    Nat.IsThree : Nat → Prop
 
 --  In Lean, functions that return propositions are said to
 --  define *properties* of their arguments.
@@ -87,7 +89,8 @@ theorem succ_inj' : Injective Nat.succ := by
 
 #check Eq
 
---  Eq.{u_1} {α : Sort u_1} : α → α → Prop
+--  Output:
+--    Eq.{u_1} {α : Sort u_1} : α → α → Prop
 
 --  As a convenience, Lean will cast booleans by equating
 --  them to `true`, which is why checking them against
@@ -98,11 +101,13 @@ theorem succ_inj' : Injective Nat.succ := by
 
 #check (false : Prop)
 
---  false = true : Prop
+--  Output:
+--    false = true : Prop
 
 #check (true : Prop)
 
---  true = true : Prop
+--  Output:
+--    true = true : Prop
 
 --  _Quiz:_
 
@@ -196,7 +201,8 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 
 #check And.intro
 
---  And.intro {a b : Prop} (left : a) (right : b) : a ∧ b
+--  Output:
+--    And.intro {a b : Prop} (left : a) (right : b) : a ∧ b
 
 --  We can also apply the constructor for the conjunction
 --  explicitly.
@@ -250,7 +256,8 @@ example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
 
 #check And
 
---  And (a b : Prop) : Prop
+--  Output:
+--    And (a b : Prop) : Prop
 
 --  ### Disjunction
 
@@ -335,10 +342,12 @@ theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
 example (a : Prop) : Not a = (a → False) := rfl
 example (a : Prop) : (¬ a) = (a → False) := rfl
 
---  Not (a : Prop) : Prop
+--  Output:
+--    Not (a : Prop) : Prop
 
---  @[implicit_reducible] def Not : Prop → Prop :=
---  fun a => a → False
+--  Output:
+--    @[implicit_reducible] def Not : Prop → Prop :=
+--    fun a => a → False
 
 --  Since `False` is a contradictory proposition, the
 --  principle of explosion also applies to it. If we can get
@@ -354,8 +363,9 @@ theorem ex_falso_quodlibet (a : Prop) (h : False) : a := by
 
 #print Ne
 
---  @[reducible] def Ne.{u} : {α : Sort u} → α → α → Prop :=
---  fun {α} a b => ¬a = b
+--  Output:
+--    @[reducible] def Ne.{u} : {α : Sort u} → α → α → Prop :=
+--    fun {α} a b => ¬a = b
 
 theorem zero_not_one : 0 ≠ 1 := by
   /- The proposition `0 ≠ 1` is exactly the same as `¬ (0 = 1)`
@@ -502,13 +512,17 @@ example : True := by constructor
 #check Iff.mp
 #check Iff.mpr
 
---  Iff (a b : Prop) : Prop
+--  Output:
+--    Iff (a b : Prop) : Prop
 
---  Iff.intro {a b : Prop} (mp : a → b) (mpr : b → a) : a ↔ b
+--  Output:
+--    Iff.intro {a b : Prop} (mp : a → b) (mpr : b → a) : a ↔ b
 
---  Iff.mp {a b : Prop} (self : a ↔ b) : a → b
+--  Output:
+--    Iff.mp {a b : Prop} (self : a ↔ b) : a → b
 
---  Iff.mpr {a b : Prop} (self : a ↔ b) : b → a
+--  Output:
+--    Iff.mpr {a b : Prop} (self : a ↔ b) : b → a
 
 theorem iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a := by
   sorry
@@ -549,13 +563,15 @@ theorem or_distributes_over_and (a b c : Prop) :
 
 #check Exists
 
---  Exists.{u} {α : Sort u} (p : α → Prop) : Prop
+--  Output:
+--    Exists.{u} {α : Sort u} (p : α → Prop) : Prop
 
 def Nat.Even x := ∃ n : Nat, x = Nat.double n
 
 #check (Nat.Even)
 
---  Nat.Even : Nat → Prop
+--  Output:
+--    Nat.Even : Nat → Prop
 
 open Nat in
 example : Even 4 := by exists 2
@@ -684,11 +700,13 @@ theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : 
 
 #check Nat.add_comm
 
---  Nat.add_comm (n m : Nat) : n + m = m + n
+--  Output:
+--    Nat.add_comm (n m : Nat) : n + m = m + n
 
 #check Nat.add_assoc
 
---  Nat.add_assoc (n m k : Nat) : n + m + k = n + (m + k)
+--  Output:
+--    Nat.add_assoc (n m k : Nat) : n + m + k = n + (m + k)
 
 --  Lean checks the *statements* of the `Nat.add_comm` and
 --  `Nat.add_assoc` theorems in the same way that it checks
@@ -727,18 +745,19 @@ sf_expect_failure_in
     rw [Nat.add_comm]
     rw [Nat.add_comm]
 
---  unsolved goals
---  a b c : Prop
---  n m : Nat
---  α✝ : Type
---  e1 e2 x✝¹ y✝¹ : α✝
---  α β : Type
---  x✝ x' y✝ : α
---  l l' : List α
---  f g : α → β
---  p : α → Prop
---  x y z : Nat
---  ⊢ x + (y + z) = z + y + x
+--  Output:
+--    unsolved goals
+--    a b c : Prop
+--    n m : Nat
+--    α✝ : Type
+--    e1 e2 x✝¹ y✝¹ : α✝
+--    α β : Type
+--    x✝ x' y✝ : α
+--    l l' : List α
+--    f g : α → β
+--    p : α → Prop
+--    x y z : Nat
+--    ⊢ x + (y + z) = z + y + x
 
 --  It appears at first sight that we ought to be able to
 --  prove this by rewriting with `Nat.add_comm` twice to
@@ -1050,44 +1069,46 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 sf_expect_failure_in
   example (a b : Prop) : a ∧ b = b ∧ a := by rfl
 
---  Tactic `rfl` failed: The left-hand side
---    a
---  is not definitionally equal to the right-hand side
---    b = b ∧ a
-
---  a✝ b✝ c : Prop
---  n m : Nat
---  α✝ : Type
---  e1 e2 x✝ y✝ : α✝
---  α β : Type
---  x x' y : α
---  l l' : List α
---  f g : α → β
---  p : α → Prop
---  a b : Prop
---  ⊢ a ∧ b = b ∧ a
+--  Output:
+--    Tactic `rfl` failed: The left-hand side
+--      a
+--    is not definitionally equal to the right-hand side
+--      b = b ∧ a
+--
+--    a✝ b✝ c : Prop
+--    n m : Nat
+--    α✝ : Type
+--    e1 e2 x✝ y✝ : α✝
+--    α β : Type
+--    x x' y : α
+--    l l' : List α
+--    f g : α → β
+--    p : α → Prop
+--    a b : Prop
+--    ⊢ a ∧ b = b ∧ a
 
 sf_expect_failure_in
   example (a b : Prop) : a ∧ b = b ∧ a := by cases a
 
---  Tactic `cases` failed: major premise type is not an inductive type
---    Prop
-
---  Explanation: the `cases` tactic is for constructor-based reasoning as well as for applying custom cases principles with a 'using' clause or a registered '@[cases_eliminator]' theorem. The above type neither is an inductive type nor has a registered theorem.
-
---  Consider using the 'by_cases' tactic, which does true/false reasoning for propositions.
-
---  a✝ b✝ c : Prop
---  n m : Nat
---  α✝ : Type
---  e1 e2 x✝ y✝ : α✝
---  α β : Type
---  x x' y : α
---  l l' : List α
---  f g : α → β
---  p : α → Prop
---  a b : Prop
---  ⊢ a ∧ b = b ∧ a
+--  Output:
+--    Tactic `cases` failed: major premise type is not an inductive type
+--      Prop
+--
+--    Explanation: the `cases` tactic is for constructor-based reasoning as well as for applying custom cases principles with a 'using' clause or a registered '@[cases_eliminator]' theorem. The above type neither is an inductive type nor has a registered theorem.
+--
+--    Consider using the 'by_cases' tactic, which does true/false reasoning for propositions.
+--
+--    a✝ b✝ c : Prop
+--    n m : Nat
+--    α✝ : Type
+--    e1 e2 x✝ y✝ : α✝
+--    α β : Type
+--    x x' y : α
+--    l l' : List α
+--    f g : α → β
+--    p : α → Prop
+--    a b : Prop
+--    ⊢ a ∧ b = b ∧ a
 
 --  However, we *can* prove that `a ∧ b` implies `b ∧ a`,
 --  and vice versa -- this is the commutativity of
@@ -1095,7 +1116,8 @@ sf_expect_failure_in
 
 #check and_comm
 
---  and_comm {a b : Prop} : a ∧ b ↔ b ∧ a
+--  Output:
+--    and_comm {a b : Prop} : a ∧ b ↔ b ∧ a
 
 --  Since it would be convenient to be able to rewrite
 --  propositions from one side of `↔` to the other, Lean
@@ -1104,7 +1126,8 @@ sf_expect_failure_in
 
 #print propext
 
---  axiom propext : ∀ {a b : Prop}, (a ↔ b) → a = b
+--  Output:
+--    axiom propext : ∀ {a b : Prop}, (a ↔ b) → a = b
 
 --  Lean provides an `ext` tactic that applies `propext` for
 --  us. We can use it to show that commuted conjoined
@@ -1149,11 +1172,13 @@ theorem and_comm_flip' (a b c : Prop) : (a ∧ b ∧ c) ↔ (c ∧ b ∧ a) := b
 
 #print axioms and_comm_flip
 
---  'and_comm_flip' depends on axioms: [propext]
+--  Output:
+--    'and_comm_flip' depends on axioms: [propext]
 
 #print axioms and_comm_flip'
 
---  'and_comm_flip'' depends on axioms: [propext]
+--  Output:
+--    'and_comm_flip'' depends on axioms: [propext]
 
 --  ### Exercise (1 star): mul_eq_0_ternary ⭐
 
@@ -1265,5 +1290,6 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 
 #check Classical.em
 
---  Classical.em (p : Prop) : p ∨ ¬p
+--  Output:
+--    Classical.em (p : Prop) : p ∨ ¬p
 

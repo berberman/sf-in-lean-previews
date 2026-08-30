@@ -104,8 +104,9 @@ example (n m : Nat) (h : n = m) : n = m := by
 example (n m : Nat) : n + m = m + n := by
   exact?
 
---  Try this:
---    [apply] exact Nat.add_comm n m
+--  Output:
+--    Try this:
+--      [apply] exact Nat.add_comm n m
 
 --  If you are using the Lean extension in VS Code, the InfoView will have
 --  a blue `[apply]` button that shows the suggested theorem to close the
@@ -127,8 +128,9 @@ example (n m : Nat) : n + m = m + n := by
 example (n m : Nat) : n + m = m + n := by
   rw?
 
---  Try this:
---    [apply] rw [Nat.add_comm]
+--  Output:
+--    Try this:
+--      [apply] rw [Nat.add_comm]
 
 --  However, unlike `exact?`, just because `rw?` suggests a theorem to you
 --  does not automatically imply that it will be useful. In the example
@@ -242,13 +244,14 @@ sf_expect_failure_in
   example (n : Nat) : addThrice n = n + addTwice n := by
     rfl
 
---  Tactic `rfl` failed: The left-hand side
---    addThrice n
---  is not definitionally equal to the right-hand side
---    n + addTwice n
-
---  n✝ n : Nat
---  ⊢ addThrice n = n + addTwice n
+--  Output:
+--    Tactic `rfl` failed: The left-hand side
+--      addThrice n
+--    is not definitionally equal to the right-hand side
+--      n + addTwice n
+--
+--    n✝ n : Nat
+--    ⊢ addThrice n = n + addTwice n
 
 --  What happened here? If we are careful with our parentheses here, we can
 --  write the goal we'd like to prove as
@@ -271,13 +274,14 @@ sf_expect_failure_in
   example (n : Nat) : addThrice n = n + addTwice n := by
     rw [Nat.add_assoc]
 
---  Tactic `rewrite` failed: Did not find an occurrence of the pattern
---    ?n + ?m + ?k
---  in the target expression
---    addThrice n = n + addTwice n
-
---  n✝ n : Nat
---  ⊢ addThrice n = n + addTwice n
+--  Output:
+--    Tactic `rewrite` failed: Did not find an occurrence of the pattern
+--      ?n + ?m + ?k
+--    in the target expression
+--      addThrice n = n + addTwice n
+--
+--    n✝ n : Nat
+--    ⊢ addThrice n = n + addTwice n
 
 --  But again we encounter an error! The expression in which we are trying
 --  to rewrite `Nat.add_assoc` isn't of the form `n + m + k`, so we can't
@@ -370,13 +374,14 @@ sf_expect_failure_in
   example : (fun x => x + 0) n = n := by
     rw [Nat.add_zero]
 
---  Tactic `rewrite` failed: Did not find an occurrence of the pattern
---    ?n + 0
---  in the target expression
---    (fun x => x + 0) n = n
-
---  n : Nat
---  ⊢ (fun x => x + 0) n = n
+--  Output:
+--    Tactic `rewrite` failed: Did not find an occurrence of the pattern
+--      ?n + 0
+--    in the target expression
+--      (fun x => x + 0) n = n
+--
+--    n : Nat
+--    ⊢ (fun x => x + 0) n = n
 
 --  ### A First Step Towards Automation
 

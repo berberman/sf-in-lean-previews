@@ -126,7 +126,8 @@ theorem trans_eq {α : Type} (x y z : α) :
 
 #check Eq.trans
 
---  Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c
+--  Output:
+--    Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c
 
 --  In Lean's version, the arguments corresponding to `x`, `y`, and `z` are
 --  implicit, since they can usually be inferred from the equality
@@ -160,24 +161,25 @@ sf_expect_failure_in
       [a, b] = [e, f] := by
     apply trans_eq
 
---  unsolved goals
---  case a
---  a b c d e f : Nat
---  h₁ : [a, b] = [c, d]
---  h₂ : [c, d] = [e, f]
---  ⊢ [a, b] = ?y
-
---  case a
---  a b c d e f : Nat
---  h₁ : [a, b] = [c, d]
---  h₂ : [c, d] = [e, f]
---  ⊢ ?y = [e, f]
-
---  case y
---  a b c d e f : Nat
---  h₁ : [a, b] = [c, d]
---  h₂ : [c, d] = [e, f]
---  ⊢ List Nat
+--  Output:
+--    unsolved goals
+--    case a
+--    a b c d e f : Nat
+--    h₁ : [a, b] = [c, d]
+--    h₂ : [c, d] = [e, f]
+--    ⊢ [a, b] = ?y
+--
+--    case a
+--    a b c d e f : Nat
+--    h₁ : [a, b] = [c, d]
+--    h₂ : [c, d] = [e, f]
+--    ⊢ ?y = [e, f]
+--
+--    case y
+--    a b c d e f : Nat
+--    h₁ : [a, b] = [c, d]
+--    h₂ : [c, d] = [e, f]
+--    ⊢ List Nat
 
 --  One way to resolve this is to supply all the arguments and hypotheses
 --  explicity:
@@ -554,24 +556,25 @@ sf_expect_failure_in
 --  We now have three goals: `c = 1`, `1 = d`, and `1 = d`, but these are
 --  not provable from our hypotheses! `congr` has gone too deep.
 
---  unsolved goals
---  case e_snd.e_a
---  a b c d : Nat
---  hab : a = b
---  hcd : c = d
---  ⊢ c = 1
-
---  case e_snd.e_a.e_2
---  a b c d : Nat
---  hab : a = b
---  hcd : c = d
---  ⊢ 1 = d
-
---  case e_snd.e_a.e_3
---  a b c d : Nat
---  hab : a = b
---  hcd : c = d
---  ⊢ 1 = d
+--  Output:
+--    unsolved goals
+--    case e_snd.e_a
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ c = 1
+--
+--    case e_snd.e_a.e_2
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ 1 = d
+--
+--    case e_snd.e_a.e_3
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ 1 = d
 
 example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
     (a, c + 1) = (b, 1 + d) := by
@@ -742,12 +745,13 @@ sf_expect_failure_in
       | succ m' =>
         congr
 
---  unsolved goals
---  case succ.succ.e_a
---  n' m' : Nat
---  ih : n'.double = (m' + 1).double → n' = m' + 1
---  h : (n' + 1).double = (m' + 1).double
---  ⊢ n' = m'
+--  Output:
+--    unsolved goals
+--    case succ.succ.e_a
+--    n' m' : Nat
+--    ih : n'.double = (m' + 1).double → n' = m' + 1
+--    h : (n' + 1).double = (m' + 1).double
+--    ⊢ n' = m'
 
 --  We get stuck — `m` is fixed during the induction, so in the successor
 --  case the induction hypothesis `ih` is specialized to the current value
@@ -925,7 +929,8 @@ theorem add_self_injective (n m : Nat)
 
 #check double_injective
 
---  double_injective (n m : Nat) (h : n.double = m.double) : n = m
+--  Output:
+--    double_injective (n m : Nat) (h : n.double = m.double) : n = m
 
 --  For example, we can prove:
 
@@ -1081,20 +1086,21 @@ sf_expect_failure_in
     rw [keepIf] at h
     cases (test x)
 
---  unsolved goals
---  case false
---  α : Type
---  test : α → Bool
---  x y : α
---  h : (if test x = true then some x else none) = some y
---  ⊢ x = y
-
---  case true
---  α : Type
---  test : α → Bool
---  x y : α
---  h : (if test x = true then some x else none) = some y
---  ⊢ x = y
+--  Output:
+--    unsolved goals
+--    case false
+--    α : Type
+--    test : α → Bool
+--    x y : α
+--    h : (if test x = true then some x else none) = some y
+--    ⊢ x = y
+--
+--    case true
+--    α : Type
+--    test : α → Bool
+--    x y : α
+--    h : (if test x = true then some x else none) = some y
+--    ⊢ x = y
 
 --  ... then we are stuck at this point because the context does not
 --  contain enough information to prove the goal. Because `test x` appears

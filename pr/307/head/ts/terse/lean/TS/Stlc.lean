@@ -207,8 +207,7 @@ inductive Tm where
 --  Types and terms are both written inside `<{ … }>`; `~e`
 --  escapes to Lean.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: types)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: types)
 --  The `stlcTy` grammar covers `Bool`, arrows (written `→`
 --  or `->`, associating to the right), parentheses, and
 --  `~e`. A bare identifier other than `Bool` is spliced in
@@ -236,7 +235,6 @@ macro_rules (kind := tyBracket)
       | _ => `(($x : Ty))
   | `(<{ $T₁:stlcTy → $T₂:stlcTy }>)  => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
   | `(<{ $T₁:stlcTy -> $T₂:stlcTy }>) => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
-
 --  END DETAILS
 
 --  We'll write types inside of `<{ ... }>` brackets:
@@ -245,8 +243,7 @@ macro_rules (kind := tyBracket)
 #check <{ Bool -> Bool }>
 #check <{ (Bool -> Bool) -> Bool }>
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: terms)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: terms)
 --  Terms are built from variables, application (associating
 --  to the left), abstraction, the two boolean constants,
 --  and conditionals. A binding occurrence — the `x` in
@@ -308,11 +305,9 @@ macro_rules (kind := tmBracket)
       `(Tm.abs $(← varStr x) <{ $T:stlcTy }> <{ $t:stlcTm }>)
   | `(<{ if $c then $t else $e }>) =>
       `(Tm.ite <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
-
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
 --  A *delaborator* runs the grammar backwards: it rebuilds
 --  the concrete syntax from a `Ty` or `Tm` value, so that
 --  types and terms appearing in goals and in `#check`
@@ -448,7 +443,6 @@ def delabTm : Delab := whenPPOption getPPNotation do
   | `(stlcTm| ~($e)) => pure e
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
-
 --  END DETAILS
 
 --  Here are the terms we will use as running examples,
@@ -649,8 +643,7 @@ macro_rules (kind := tmBracket)
   | `(<{ [$x := $s] $t }>) => do
       `(subst $(← varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: substitution)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: substitution)
 --  One more line registers substitutions with the printer,
 --  so that a goal mentioning one reads as `[x := s] t`
 --  rather than as a `subst` application.
@@ -661,7 +654,6 @@ def delabSubst : Delab := whenPPOption getPPNotation do
   match ← delabTmInner with
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
-
 --  END DETAILS
 
 variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty)
@@ -1020,8 +1012,7 @@ abbrev Context := PartialMap String Ty
 --  In the formal development, we write this judgment inside
 --  the same `<{ .. }>` brackets.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: contexts and judgments)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: contexts and judgments)
 --  Contexts get a grammar of their own, `stlcCtx`. The
 --  **meaning** is the map update we already have —
 --  `x ↦ T ; Γ` expands to exactly the `Typeclasses`
@@ -1063,7 +1054,6 @@ set_option hygiene false in
 local macro_rules (kind := judgeBracket)
   | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
-
 --  END DETAILS
 
 inductive HasType : Context → Tm → Ty → Prop where
@@ -1084,8 +1074,7 @@ inductive HasType : Context → Tm → Ty → Prop where
       (h₃ : <{ ~Γ ⊢ ~t₃ ⦂ ~T₁ }>) :
       <{ ~Γ ⊢ if ~t₁ then ~t₂ else ~t₃ ⦂ ~T₁ }>
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
 --  Closing the `section` retires the hygiene-free rule; the
 --  same rule is then declared again, hygienically, for
 --  every later use.
@@ -1095,11 +1084,9 @@ end
 macro_rules (kind := judgeBracket)
   | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
-
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing judgments back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing judgments back)
 --  As with terms, a judgment prints back in its own
 --  notation, so that a goal reads as
 --  `<{ x ↦ Bool ; ∅ ⊢ x ⦂ Bool }>` rather than as a
@@ -1135,7 +1122,6 @@ def HasType.unexpand : Unexpander
   | `($_ $G $t $T) =>
       do `(<{ $(← unexpandCtx G) ⊢ ~($t) ⦂ ~($T) }>)
   | _ => throw ()
-
 --  END DETAILS
 
 --  ### Examples
