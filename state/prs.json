@@ -574,6 +574,16 @@
       "status": "published",
       "title": "Follow up on Basics cleanup",
       "url": "https://github.com/plclub/sf-in-lean/pull/343"
+    },
+    "344": {
+      "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
+      "changed_variants": [],
+      "head_sha": "282a0c1ae0685074093784042b8eaf60f3a165f5",
+      "preview_path": "pr/344/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Polishing pass on Induction",
+      "url": "https://github.com/plclub/sf-in-lean/pull/344"
     }
   },
   "schema": 3
