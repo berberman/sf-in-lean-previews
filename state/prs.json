@@ -1,5 +1,5 @@
 {
-  "main_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
+  "main_sha": "add989eb1bb13b6c2ada323c09feee4b11c93048",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -199,18 +199,8 @@
       "title": "`nth?` characterizing lemmas and `list_ext` exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/319"
     },
-    "320": {
-      "base_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
-      "changed_variants": [],
-      "head_sha": "354decfd477a2a208081fb9da29c46d62efd685f",
-      "preview_path": "pr/320/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Quick pass over Typeclasses",
-      "url": "https://github.com/plclub/sf-in-lean/pull/320"
-    },
     "323": {
-      "base_sha": "b9c57ab538c06dee4ab5444b85646b7d46921948",
+      "base_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -249,9 +239,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "ba6bc3f18a661186e8a7b1b08480f688502a3c77",
+      "head_sha": "7a392f56929c44eeab712d5aaf494df4a334be0f",
       "preview_path": "pr/323/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33021184062",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33320314205",
       "status": "published",
       "title": "Make quiz options in Logic uniform",
       "url": "https://github.com/plclub/sf-in-lean/pull/323"
@@ -547,53 +537,6 @@
       "status": "published",
       "title": "Polishing on Basics",
       "url": "https://github.com/plclub/sf-in-lean/pull/341"
-    },
-    "342": {
-      "base_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "3bff3e265c1a1cc908365c48ae99809724db26d9",
-      "preview_path": "pr/342/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33319123129",
-      "status": "published",
-      "title": "Style clarification",
-      "url": "https://github.com/plclub/sf-in-lean/pull/342"
     }
   },
   "schema": 3

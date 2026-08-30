@@ -464,9 +464,9 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 --    ∀ a : Prop, 1 = 0 → (a ∨ ¬ a)
 
 --  1. `intro`, `apply`, and `exact` suffice
---  2. `cases`
+--  2. `contradiction`
 --  3. `left` and/or `right`
---  4. `cases` and `left` and/or `right`
+--  4. `contradiction` and `left` and/or `right`
 --  5. none of the above
 
 --  ## Truth

@@ -76,10 +76,10 @@ namespace NatPlayground.Nat
 
 --  _Quiz:_
 
---  What about this one? (Recall that in Lean, `Nat.add`
---  recurses on the *second* argument: `n + zero = n` by
---  definition, and `n + (m + 1) = (n + m) + 1` by
---  definition.)
+--  What about this one? (Recall that our `add` function
+--  recurses on its *second* argument. Its simplification
+--  rules include `n + zero = n` and
+--  `n + (m + 1) = (n + m) + 1`.)
 
 --    theorem review₄ (n : Nat) : n + zero = n
 
@@ -317,9 +317,8 @@ theorem mul_one (p : Nat) :
 --  In VS Code, a lightbulb icon appears on the left when a
 --  code action is available at your cursor.
 
---  Let's look at an example code action using `induction`.
---  For example, suppose we start with the following
---  incomplete proof:
+--  Let's look at a code action for `induction`. Suppose we
+--  start with the following incomplete proof:
 
 sf_expect_failure_in
   example (n : Nat) : Nat.beq n n := by
@@ -336,7 +335,7 @@ example (n : Nat) : Nat.beq n n := by
   | zero => sorry
   | succ n ih => sorry
 
---  This gives us basic structure of the proof without
+--  This gives us the basic structure of the proof without
 --  requiring us to write each branch by hand. We can then
 --  focus on proving each case.
 

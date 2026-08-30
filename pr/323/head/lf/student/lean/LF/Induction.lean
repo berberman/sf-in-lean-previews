@@ -104,9 +104,9 @@ namespace NatPlayground.Nat
 
 --  _Quiz:_
 
---  What about this one? (Recall that in Lean, `Nat.add` recurses on the
---  *second* argument: `n + zero = n` by definition, and
---  `n + (m + 1) = (n + m) + 1` by definition.)
+--  What about this one? (Recall that our `add` function recurses on its
+--  *second* argument. Its simplification rules include `n + zero = n` and
+--  `n + (m + 1) = (n + m) + 1`.)
 
 --    theorem review₄ (n : Nat) : n + zero = n
 
@@ -414,11 +414,10 @@ theorem add_rearrange (n m p q : Nat) :
 --  less clearly specified. A "valid" proof is one that makes the reader
 --  believe `P`. But the same proof may be read by many different readers,
 --  some of whom may be convinced by a particular way of phrasing the
---  argument, while others may not be. Some readers may be particularly
---  inexperienced or just plain thick-headed; the only way to convince them
---  will be to make the argument in painstaking detail. Other readers, more
---  familiar in the area, may find all this detail so overwhelming that
---  they lose the overall thread; all they want is to be told the main
+--  argument, while others may not be. Some readers may be unfamiliar with
+--  the area and need the argument spelled out in detail. Other readers,
+--  more familiar in the area, may find all this detail so overwhelming
+--  that they lose the overall thread; all they want is to be told the main
 --  ideas, since it is easier for them to fill in the details for
 --  themselves than to wade through a written presentation of them.
 --  Ultimately, there is no universal standard, because there is no single
@@ -490,7 +489,7 @@ theorem add_assoc'' (n m p : Nat) :
 
 --      (n + (m + p')) + 1   and   ((n + m) + p') + 1
 
---  respectively, which are equal by the induction hypothesis. *Qed*.
+--  respectively, which are equal by the induction hypothesis. *QED*.
 
 --  The overall form of the proof is basically similar, and of course this
 --  is no accident: Lean has been designed so that its `induction` tactic
@@ -544,10 +543,10 @@ theorem mul_one (p : Nat) :
 --  For example, code actions can generate the explicit branches needed for
 --  pattern matching. This can be especially useful when working with
 --  `match` expressions or with tactics such as `cases` and `induction`,
---  which we saw in previous chapters.
+--  which we saw earlier in the book.
 
---  Let's look at an example code action using `induction`. For example,
---  suppose we start with the following incomplete proof:
+--  Let's look at a code action for `induction`. Suppose we start with the
+--  following incomplete proof:
 
 sf_expect_failure_in
   example (n : Nat) : Nat.beq n n := by
@@ -563,7 +562,7 @@ example (n : Nat) : Nat.beq n n := by
   | zero => sorry
   | succ n ih => sorry
 
---  This gives us basic structure of the proof without requiring us to
+--  This gives us the basic structure of the proof without requiring us to
 --  write each branch by hand. We can then focus on proving each case.
 
 --  One possible proof is:

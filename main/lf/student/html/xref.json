@@ -4843,20 +4843,6 @@
       {"display": "nat_eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.even_iff_Even":
-   [{"id": "Reflection___even_iff_Even",
-     "data":
-     {"/Typeclasses/#Reflection___even_iff_Even":
-      {"display": "even_iff_Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.even_double":
-   [{"id": "Reflection___even_double",
-     "data":
-     {"/Typeclasses/#Reflection___even_double":
-      {"display": "even_double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
    "Reflection.eq":
    [{"id": "Reflection___eq",
      "data":
@@ -4864,25 +4850,18 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Decidable.isTrue":
-   [{"id": "Reflection___Decidable___isTrue",
+   "Reflection.Nat.even_iff_Even":
+   [{"id": "Reflection___Nat___even_iff_Even",
      "data":
-     {"/Typeclasses/#Reflection___Decidable___isTrue":
-      {"display": "isTrue",
+     {"/Typeclasses/#Reflection___Nat___even_iff_Even":
+      {"display": "even_iff_Even",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Decidable.isFalse":
-   [{"id": "Reflection___Decidable___isFalse",
+   "Reflection.Nat.even_double":
+   [{"id": "Reflection___Nat___even_double",
      "data":
-     {"/Typeclasses/#Reflection___Decidable___isFalse":
-      {"display": "isFalse",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.Decidable":
-   [{"id": "Reflection___Decidable",
-     "data":
-     {"/Typeclasses/#Reflection___Decidable":
-      {"display": "Decidable",
+     {"/Typeclasses/#Reflection___Nat___even_double":
+      {"display": "even_double",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "RGB.red":
@@ -7745,11 +7724,11 @@
         "Polymorphic Lists",
         "Exercises"]}},
      "address": "/Poly/"}],
-   "List.headOr_ex":
-   [{"id": "List___headOr_ex",
+   "List.headOrEx":
+   [{"id": "List___headOrEx",
      "data":
-     {"/Typeclasses/#List___headOr_ex":
-      {"display": "List.headOr_ex",
+     {"/Typeclasses/#List___headOrEx":
+      {"display": "List.headOrEx",
        "context":
        ["Logical Foundations",
         "Typeclasses",
@@ -7764,53 +7743,6 @@
        ["Logical Foundations",
         "Typeclasses",
         "Defining Your Own Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly_nil":
-   [{"id": "List___elem_poly_nil",
-     "data":
-     {"/Typeclasses/#List___elem_poly_nil":
-      {"display": "List.elem_poly_nil",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly_eq":
-   [{"id": "List___elem_poly_eq",
-     "data":
-     {"/Typeclasses/#List___elem_poly_eq":
-      {"display": "List.elem_poly_eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly_cons":
-   [{"id": "List___elem_poly_cons",
-     "data":
-     {"/Typeclasses/#List___elem_poly_cons":
-      {"display": "List.elem_poly_cons",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly":
-   [{"id": "List___elem_poly-next",
-     "data":
-     {"/Typeclasses/#List___elem_poly-next":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
-      "/Typeclasses/#List___elem_poly":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"},
-    {"id": "List___elem_poly",
-     "data":
-     {"/Typeclasses/#List___elem_poly-next":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
-      "/Typeclasses/#List___elem_poly":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_nat_nil":
    [{"id": "List___elem_nat_nil",
@@ -7828,11 +7760,58 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
-   "List.elem_nat":
-   [{"id": "List___elem_nat",
+   "List.elemPoly_nil":
+   [{"id": "List___elemPoly_nil",
      "data":
-     {"/Typeclasses/#List___elem_nat":
-      {"display": "List.elem_nat",
+     {"/Typeclasses/#List___elemPoly_nil":
+      {"display": "List.elemPoly_nil",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPoly_cons":
+   [{"id": "List___elemPoly_cons",
+     "data":
+     {"/Typeclasses/#List___elemPoly_cons":
+      {"display": "List.elemPoly_cons",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPolyEq":
+   [{"id": "List___elemPolyEq",
+     "data":
+     {"/Typeclasses/#List___elemPolyEq":
+      {"display": "List.elemPolyEq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPoly":
+   [{"id": "List___elemPoly",
+     "data":
+     {"/Typeclasses/#List___elemPoly-next":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
+      "/Typeclasses/#List___elemPoly":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"},
+    {"id": "List___elemPoly-next",
+     "data":
+     {"/Typeclasses/#List___elemPoly-next":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
+      "/Typeclasses/#List___elemPoly":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemNat":
+   [{"id": "List___elemNat",
+     "data":
+     {"/Typeclasses/#List___elemNat":
+      {"display": "List.elemNat",
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
