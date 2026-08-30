@@ -328,8 +328,7 @@ end ExAssertions
 --
 --      A raw Lean assertion can also be written directly inside {{ }}.`
 
---  THESE DETAILS CAN BE SKIPPED (Notation: Assertions)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation: Assertions)
 namespace Assertion
 
 section
@@ -436,7 +435,6 @@ variable (f : Nat → Nat → Nat → Nat)
 
 end Assertion
 open scoped Assertion
-
 --  END DETAILS
 
 --  Function applications inside assertions automatically interpret their
@@ -492,8 +490,7 @@ end ExamplePrettyAssertions
 --  will extend this printing to cover it. As before, there is no need to
 --  understand the details.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing assertions back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing assertions back)
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
 
@@ -589,7 +586,6 @@ def delabAssertion : Delab := whenPPOption getPPNotation do
   `({{ $P }})
 
 end Assertion.Delab
-
 --  END DETAILS
 
 --  ### Assertion Implication
@@ -618,8 +614,7 @@ theorem assertIff_def {P Q : Assertion} : P <<->> Q ↔ AssertImplies P Q ∧ As
 --  The matching delaborators print implications and equivalences between
 --  assertions back in `->>` and `<<->>` notation.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing implications back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing implications back)
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr
 
@@ -642,7 +637,6 @@ def delabAssertIff : Delab := whenPPOption getPPNotation do
   `($(← withNaryArg 0 <| delabAssnArg 0) <<->> $(← withNaryArg 0 <| delabAssnArg 1))
 
 end Assertion.Delab
-
 --  END DETAILS
 
 --  ## Hoare Triples, Informally
@@ -878,8 +872,7 @@ theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
 
 attribute [irreducible] ValidHoareTriple
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing triples back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing triples back)
 --  The delaborator is agnostic to the command type: it prints the command
 --  with whatever printer is registered for its constructors and splices
 --  the result into the triple, so a language-extension chapter only has to
@@ -907,7 +900,6 @@ def delabTriple : Delab := whenPPOption getPPNotation do
   | c => ``({{ $P }} ~$c {{ $Q }})
 
 end HasTriple.Delab
-
 --  END DETAILS
 
 --  Note to developers (Niklas Halonen @xhalo32):
@@ -1128,8 +1120,7 @@ end Assertion
 #check {{ (X ≤ 10) [X ↦ 2 * X] }}
 #check (∀ st, ({{ (X ≤ 10) [X ↦ 2 * X] }}) st)
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing substitutions back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing substitutions back)
 namespace Assertion.Delab
 open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
 
@@ -1150,7 +1141,6 @@ def delabSub : Delab := whenPPOption getPPNotation do
     | P => `(($P) [$x:ident ↦ $a:imp_aexp])
 
 end Assertion.Delab
-
 --  END DETAILS
 
 --  That is, `P [X ↦ a]` stands for an assertion -- let's call it `P'` --
@@ -2032,8 +2022,7 @@ scoped macro_rules
 --  parameterized over the namespace of the command constructors, so the
 --  extended printer is that printer at `If1.Com` plus one case for `if1`.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing the extended commands back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing the extended commands back)
 namespace Delab
 open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
 
@@ -2054,7 +2043,6 @@ partial def delabCom : Delab := whenPPOption getPPNotation do
   | e => `(term| imp { $e })
 
 end Delab
-
 --  END DETAILS
 
 --  ### Exercise (2 stars): if1_ceval ⭐⭐

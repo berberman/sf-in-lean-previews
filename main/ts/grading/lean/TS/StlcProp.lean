@@ -903,8 +903,7 @@ inductive Tm where
 --  written inside the same `<{ … }>` brackets, with the same `~e` escape
 --  back to Lean.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: types)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: types)
 --  The type grammar needs no new productions: `Nat` is a bare identifier,
 --  which the template already accepts, and arrows and parentheses are
 --  unchanged. Only the `macro_rules` are new, and they differ from the
@@ -920,11 +919,9 @@ scoped macro_rules (kind := Stlc.tyBracket)
       | _ => `(($x : Ty))
   | `(<{ $T₁:stlcTy → $T₂:stlcTy }>)  => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
   | `(<{ $T₁:stlcTy -> $T₂:stlcTy }>) => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
-
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: terms)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: terms)
 --  Terms do need new productions: a numeral, an infix `*`, and the zero
 --  test. Multiplication binds looser than application and tighter than
 --  `λ`, so `x * y z` multiplies `x` by the application `y z`; it
@@ -967,11 +964,9 @@ scoped macro_rules (kind := Stlc.tmBracket)
   | `(<{ $t₁:stlcTm * $t₂:stlcTm }>) => `(Tm.mult <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
   | `(<{ if0 $c then $t else $e }>) =>
       `(Tm.ite0 <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
-
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
 --  As in the Stlc chapter, a delaborator runs the grammar backwards, so
 --  that goals mentioning these terms and types read in the concrete
 --  syntax. The parenthesizers registered there are for the whole syntax
@@ -1084,7 +1079,6 @@ def delabTm : Delab := whenPPOption getPPNotation do
   | `(stlcTm| ~($e)) => pure e
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
-
 --  END DETAILS
 
 --  Note to developers (Claude):
@@ -1114,14 +1108,12 @@ def delabTm : Delab := whenPPOption getPPNotation do
 --  Substitution is defined exactly as it was for the STLC, with one clause
 --  per new constructor.
 
---  THESE DETAILS CAN BE SKIPPED (Why the definition is wrapped in a section)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Why the definition is wrapped in a section)
 --  Substitution is written using its own `[x := s] t` notation, which is
 --  being defined at the same time, so — as in the Stlc chapter — the rule
 --  is first declared `local`, with hygiene off so that the `subst` in its
 --  expansion refers to the function being defined, and then declared again
 --  for real once the section closes.
-
 --  END DETAILS
 
 section
@@ -1139,8 +1131,7 @@ macro_rules (kind := Stlc.tmBracket)
 
 attribute [autogradedHole] StlcArith.subst
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: substitution)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: substitution)
 --  One more line registers substitutions with the printer, so that a goal
 --  mentioning one reads as `[x := s] t` rather than as a `subst`
 --  application.
@@ -1151,7 +1142,6 @@ def delabSubst : Delab := whenPPOption getPPNotation do
   match ← delabTmInner with
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
-
 --  END DETAILS
 
 --  You will also want one `@[simp]` simplification lemma per constructor,
@@ -1211,8 +1201,7 @@ attribute [autogradedProof 5] StlcArith.Nat_step_example
 
 abbrev Context := PartialMap String Ty
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: contexts and judgments)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: contexts and judgments)
 --  The context grammar `stlcCtx` is reused as well; only the map it
 --  denotes is new, since the types it stores are this language's. As with
 --  `subst`, the judgment rule is introduced twice: `local` and
@@ -1233,7 +1222,6 @@ set_option hygiene false in
 local macro_rules (kind := Stlc.judgeBracket)
   | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
       `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
-
 --  END DETAILS
 
 --  The typing rules for variables, abstraction, and application are the
@@ -1245,8 +1233,7 @@ inductive HasType : Context → Tm → Ty → Prop where
 
 attribute [autogradedHole] StlcArith.HasType
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
 --  Closing the section retires the hygiene-free rule; the same rule is
 --  then declared again, hygienically, for every later use, and a pair of
 --  unexpanders prints judgments back in their own notation.
@@ -1287,7 +1274,6 @@ def HasType.unexpand : Unexpander
   | `($_ $G $t $T) =>
       do `(<{ $(← unexpandCtx G) ⊢ ~($t) ⦂ ~($T) }>)
   | _ => throw ()
-
 --  END DETAILS
 
 --  An example:

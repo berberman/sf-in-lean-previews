@@ -49,10 +49,11 @@ sf_expect_failure_in
     | [] => false
     | y :: ys' => bif x == y then true else elemPoly x ys'
 
---  failed to synthesize instance of type class
---    BEq α
-
---  Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+--  Output:
+--    failed to synthesize instance of type class
+--      BEq α
+--
+--    Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
 
 --  Lean is trying to use typeclasses to work out how `==`
 --  should behave on a value of type `α`. We'll see exactly
@@ -269,12 +270,14 @@ example : instDefaultValueOption.value = (none : Option Nat) := by rfl
 set_option pp.all true in
 #check (DefaultValue.value : Nat)
 
---  @DefaultValue.value Nat instDefaultValueNat : Nat
+--  Output:
+--    @DefaultValue.value Nat instDefaultValueNat : Nat
 
 set_option pp.all true in
 #check (DefaultValue.value : Int)
 
---  @DefaultValue.value Int instDefaultValueInt : Int
+--  Output:
+--    @DefaultValue.value Int instDefaultValueInt : Int
 
 --  This reveals `instDefaultValueNat` and
 --  `instDefaultValueInt` as the instances Lean picked. The
@@ -282,7 +285,8 @@ set_option pp.all true in
 
 #synth DefaultValue Nat
 
---  instDefaultValueNat
+--  Output:
+--    instDefaultValueNat
 
 --  For a typeclass like `DefaultValue` that carries data —
 --  a term, such as the `1` above, rather than only proofs
@@ -304,7 +308,8 @@ set_option pp.all true in
 set_option pp.notation false in
 #check 1 == 2
 
---  BEq.beq 1 2 : Bool
+--  Output:
+--    BEq.beq 1 2 : Bool
 
 --  Rather than `Nat.beq`, `==` turns out to be notation for
 --  `BEq.beq`, a field of exactly the kind of typeclass we
@@ -1068,7 +1073,8 @@ example : ({ 1 ↦ 2, 1 ↦ 3 } : TotalMap Nat Nat)[1] = 2 := rfl
 
 #check { "foo" ↦ true }
 
---  {"foo" ↦ true} : ?m.4
+--  Output:
+--    {"foo" ↦ true} : ?m.4
 
 --  The type shows a `?m.4`, which indicates that Lean can't
 --  infer the type. A type which can't be inferred doesn't

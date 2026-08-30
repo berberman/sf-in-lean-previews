@@ -1,5 +1,5 @@
 {
-  "main_sha": "add989eb1bb13b6c2ada323c09feee4b11c93048",
+  "main_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -490,6 +490,53 @@
       "status": "published",
       "title": "Logic: Stored Yipeng's cases vs. induction example ",
       "url": "https://github.com/plclub/sf-in-lean/pull/340"
+    },
+    "343": {
+      "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "ce9f02e72bca93c489cf8d51a692b50a981b1e49",
+      "preview_path": "pr/343/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33324998385",
+      "status": "published",
+      "title": "Follow up on Basics cleanup",
+      "url": "https://github.com/plclub/sf-in-lean/pull/343"
     }
   },
   "schema": 3

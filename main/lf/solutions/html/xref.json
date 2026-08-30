@@ -2261,11 +2261,11 @@
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "The  rewrite  tactic", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-properties-about-functions-in-Lean":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-Properties-about-Functions-in-Lean":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-properties-about-functions-in-Lean",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-Properties-about-Functions-in-Lean",
      "data":
-     {"title": "Proving properties about functions in Lean",
+     {"title": "Proving Properties about Functions in Lean",
       "shortTitle": null,
       "sectionNum": "2.4.1.",
       "searchPriority": 50,
@@ -2275,15 +2275,15 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
-       {"title": "Proving properties about functions in Lean",
+       {"title": "Proving Properties about Functions in Lean",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-state-and-tactics":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-State-and-Tactics":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-state-and-tactics",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-State-and-Tactics",
      "data":
-     {"title": "Proof state and tactics",
+     {"title": "Proof State and Tactics",
       "shortTitle": null,
       "sectionNum": "2.4.2.",
       "searchPriority": 50,
@@ -2293,7 +2293,7 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
-       {"title": "Proof state and tactics",
+       {"title": "Proof State and Tactics",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Basics/"}],
@@ -4413,7 +4413,7 @@
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
    "keepIf_some":
-   [{"id": "keepIf_some",
+   [{"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -4430,7 +4430,7 @@
         "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some-next",
+    {"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -5165,7 +5165,28 @@
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective",
+   [{"id": "double_injective-next",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5187,27 +5208,6 @@
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
     {"id": "double_injective-next-next",
-     "data":
-     {"/Tactics/#double_injective-next-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]}},
-     "address": "/Tactics/"},
-    {"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -8638,7 +8638,7 @@
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.isZero":
-   [{"id": "NatPlayground___Nat___isZero-next",
+   [{"id": "NatPlayground___Nat___isZero",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -8655,7 +8655,7 @@
         "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"},
-    {"id": "NatPlayground___Nat___isZero",
+    {"id": "NatPlayground___Nat___isZero-next",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -9101,7 +9101,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Proof state and tactics"]}},
+        "Proof State and Tactics"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_zero_zero_explained":
    [{"id": "NatPlayground___Nat___add_zero_zero_explained",
@@ -9112,7 +9112,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Proof state and tactics"]}},
+        "Proof State and Tactics"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_zero_zero":
    [{"id": "NatPlayground___Nat___add_zero_zero",
@@ -9123,7 +9123,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Proving properties about functions in Lean"]}},
+        "Proving Properties about Functions in Lean"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_zero":
    [{"id": "NatPlayground___Nat___add_zero",
@@ -9134,7 +9134,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Proving properties about functions in Lean"]}},
+        "Proving Properties about Functions in Lean"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_succ":
    [{"id": "NatPlayground___Nat___add_succ",
@@ -12416,7 +12416,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly",
+   [{"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -12427,7 +12427,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly-next",
+    {"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",

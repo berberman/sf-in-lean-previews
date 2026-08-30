@@ -175,8 +175,7 @@ def Z : Ident := "Z"
 --  exactly, so their declarations are collapsed where they appear: open
 --  one if you want to see the pattern repeated, and skip them otherwise.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: arithmetic expressions)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: arithmetic expressions)
 /-- Arithmetic expressions of Imp -/
 declare_syntax_cat imp_aexp
 /-- Numeric literal -/
@@ -196,7 +195,6 @@ syntax:max "~" term:max : imp_aexp
 
 /-- Embed an Imp arithmetic expression into a Lean term -/
 syntax:min "aexp " "{" imp_aexp "}" : term
-
 --  END DETAILS
 
 open Lean in
@@ -209,8 +207,7 @@ macro_rules
   | `(aexp { $a * $b }) => `(Aexp.mult (aexp {$a}) (aexp {$b}))
   | `(aexp { ($a) }) => `(aexp {$a})
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions)
 /-- Boolean expressions of Imp -/
 declare_syntax_cat imp_bexp
 /-- Boolean literal (`true` or `false`) -/
@@ -234,11 +231,9 @@ syntax:max "~" term:max : imp_bexp
 
 /-- Embed an Imp boolean expression into a Lean term -/
 syntax:min "bexp " "{" imp_bexp "}" : term
-
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions, macro rules)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions, macro rules)
 open Lean in
 macro_rules
   | `(bexp { $x:ident }) =>
@@ -254,7 +249,6 @@ macro_rules
   | `(bexp { ¬ $b:imp_bexp }) => `(Bexp.not (bexp {$b}))
   | `(bexp { $b₁:imp_bexp ∧ $b₂:imp_bexp }) => `(Bexp.and (bexp {$b₁}) (bexp {$b₂}))
   | `(bexp { ($b:imp_bexp) }) => `(bexp {$b})
-
 --  END DETAILS
 
 #check aexp { 3 + (X * 2) }
@@ -288,8 +282,7 @@ macro_rules
 --  proof goal mentioning an Imp expression is displayed in readable Imp
 --  syntax rather than as a pile of constructors.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing expressions back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing expressions back)
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer
 
@@ -384,7 +377,6 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
       `(imp_bexp| $s₁ ∧ $s₂)
     | _ => `(imp_bexp| ~$(← delab))
   annAsTerm stx
-
 --  END DETAILS
 
 --  The `whenPPOption getPPNotation` wrapper lets
@@ -392,8 +384,7 @@ partial def delabBexpInner : DelabM (TSyntax `imp_bexp) := do
 --  the raw constructors (see the "Desugaring Notations" discussion, after
 --  the commands are introduced).
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: registering the delaborators)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: registering the delaborators)
 @[delab app.Aexp.num, delab app.Aexp.id, delab app.Aexp.plus,
   delab app.Aexp.minus, delab app.Aexp.mult]
 partial def delabAexp : Delab := whenPPOption getPPNotation do
@@ -426,7 +417,6 @@ partial def delabBexp : Delab := whenPPOption getPPNotation do
   | e => `(term| bexp { $e })
 
 end Imp.Delab
-
 --  END DETAILS
 
 --  With these delaborators in place, Lean pretty-prints Imp expressions
@@ -530,8 +520,7 @@ inductive Com where
   | cond (b : Bexp) (c₁ c₂ : Com)
   | whileDo (b : Bexp) (c : Com)
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: commands, macro rules)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: commands, macro rules)
 /-- Imp commands -/
 declare_syntax_cat imp_com
 /-- The command that does nothing (`skip`) -/
@@ -571,7 +560,6 @@ scoped macro_rules
 end Com
 
 open scoped Com
-
 --  END DETAILS
 
 --  Just as we did for expressions, we add a delaborator so that Lean
@@ -580,8 +568,7 @@ open scoped Com
 --  the condition of an `if`/`while` and for the right-hand side of an
 --  assignment, and prints an unrecognized subcommand with the `~` escape.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing commands back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing commands back)
 namespace Imp.Delab
 open Lean PrettyPrinter Delaborator SubExpr
 
@@ -637,7 +624,6 @@ partial def delabCom : Delab := whenPPOption getPPNotation do
   | e => `(term| imp { $e })
 
 end Imp.Delab
-
 --  END DETAILS
 
 --  As an example, here is the factorial function again, written as a
@@ -880,8 +866,7 @@ inductive Com.EvalR : Com → State → State → Prop where
 --      typeclass synthesis problems or at least I can't explain why it
 --      works.
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: commands)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: commands)
 class HasEval (Com : Type) (In : outParam <| Type) (Out : outParam <| Type) where
   Eval : Com → In → Out → Prop
 
@@ -914,7 +899,6 @@ instance : HasEval Com State State where
 def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
   | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
   | _ => throw ()
-
 --  END DETAILS
 
 --  The cost of defining evaluation as a relation instead of a function is
@@ -1308,8 +1292,7 @@ inductive Com where
   | cond (b : Bexp) (c₁ c₂ : Com)
   | whileDo (b : Bexp) (c : Com)
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: commands, macro rules)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: commands, macro rules)
 namespace Com
 
 open Lean in
@@ -1359,7 +1342,6 @@ info: imp {
 -/
 #guard_msgs in
 #check imp {brk}
-
 --  END DETAILS
 
 --  Next, we need to define the behavior of `brk`. Informally, whenever

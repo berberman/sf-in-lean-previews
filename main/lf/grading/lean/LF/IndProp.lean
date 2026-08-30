@@ -204,21 +204,22 @@ sf_expect_failure_in
     bif n == 1 then 0
     else 1 + reaches1In (csf n)
 
---  fail to show termination for
---    reaches1In
---  with errors
---  failed to infer structural recursion:
---  Cannot use parameter n:
---    failed to eliminate recursive application
---      reaches1In (csf n)
-
-
---  failed to prove termination, possible solutions:
---    - Use `have`-expressions to prove the remaining goals
---    - Use `termination_by` to specify a different well-founded relation
---    - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
---  n : Nat
---  ⊢ csf n < n
+--  Output:
+--    fail to show termination for
+--      reaches1In
+--    with errors
+--    failed to infer structural recursion:
+--    Cannot use parameter n:
+--      failed to eliminate recursive application
+--        reaches1In (csf n)
+--
+--
+--    failed to prove termination, possible solutions:
+--      - Use `have`-expressions to prove the remaining goals
+--      - Use `termination_by` to specify a different well-founded relation
+--      - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
+--    n : Nat
+--    ⊢ csf n < n
 
 --  Indeed, this isn't just a pointless limitation: functions in Lean are
 --  required to be total, to ensure logical consistency.
@@ -242,21 +243,22 @@ sf_expect_failure_in
     | _ => bif n.even then CollatzHoldsFor (div2 n)
                      else CollatzHoldsFor ((3 * n) + 1)
 
---  fail to show termination for
---    CollatzHoldsFor
---  with errors
---  failed to infer structural recursion:
---  Cannot use parameter n:
---    failed to eliminate recursive application
---      CollatzHoldsFor (div2 n)
-
-
---  failed to prove termination, possible solutions:
---    - Use `have`-expressions to prove the remaining goals
---    - Use `termination_by` to specify a different well-founded relation
---    - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
---  n x✝ : Nat
---  ⊢ div2 n < x✝
+--  Output:
+--    fail to show termination for
+--      CollatzHoldsFor
+--    with errors
+--    failed to infer structural recursion:
+--    Cannot use parameter n:
+--      failed to eliminate recursive application
+--        CollatzHoldsFor (div2 n)
+--
+--
+--    failed to prove termination, possible solutions:
+--      - Use `have`-expressions to prove the remaining goals
+--      - Use `termination_by` to specify a different well-founded relation
+--      - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
+--    n x✝ : Nat
+--    ⊢ div2 n < x✝
 
 --  Fortunately, there is another way to do it: We can express the concept
 --  "reaches `1` eventually in the Collatz sequence" as an *inductively
@@ -685,14 +687,15 @@ sf_expect_failure_in
     | wrong_ev_0 : WrongEv 0
     | wrong_ev_succ_succ (h : WrongEv n) : WrongEv (n + 2)
 
---  Mismatched inductive type parameter in
---    WrongEv 0
---  The provided argument
---    0
---  is not definitionally equal to the expected parameter
---    n
-
---  Note: The value of parameter `n` must be fixed throughout the inductive declaration. Consider making this parameter an index if it must vary.
+--  Output:
+--    Mismatched inductive type parameter in
+--      WrongEv 0
+--    The provided argument
+--      0
+--    is not definitionally equal to the expected parameter
+--      n
+--
+--    Note: The value of parameter `n` must be fixed throughout the inductive declaration. Consider making this parameter an index if it must vary.
 
 --  In an `inductive` definition, an argument to the type constructor on
 --  the left of the colon is called a "parameter", whereas an argument on

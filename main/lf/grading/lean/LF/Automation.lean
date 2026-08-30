@@ -222,22 +222,23 @@ sf_expect_failure_in
     induction hPerm <;> try lia <;>
       try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
 
---  unsolved goals
---  case perm3_swap12
---  α : Type
---  x : α
---  l₁ l₂ : List α
---  x✝ y✝ z✝ : α
---  hIn : x ∈ [x✝, y✝, z✝]
---  ⊢ x ∈ [y✝, x✝, z✝]
-
---  case perm3_swap23
---  α : Type
---  x : α
---  l₁ l₂ : List α
---  x✝ y✝ z✝ : α
---  hIn : x ∈ [x✝, y✝, z✝]
---  ⊢ x ∈ [x✝, z✝, y✝]
+--  Output:
+--    unsolved goals
+--    case perm3_swap12
+--    α : Type
+--    x : α
+--    l₁ l₂ : List α
+--    x✝ y✝ z✝ : α
+--    hIn : x ∈ [x✝, y✝, z✝]
+--    ⊢ x ∈ [y✝, x✝, z✝]
+--
+--    case perm3_swap23
+--    α : Type
+--    x : α
+--    l₁ l₂ : List α
+--    x✝ y✝ z✝ : α
+--    hIn : x ∈ [x✝, y✝, z✝]
+--    ⊢ x ∈ [x✝, z✝, y✝]
 
 --  ### The `repeat` Combinator
 
@@ -907,8 +908,9 @@ sf_expect_failure_in
       evidence). We might try this, but Lean won't let us: -/
     induction h₁
 
---  Invalid target: Index in target's type is not a variable (consider using the `cases` tactic instead)
---    Star re
+--  Output:
+--    Invalid target: Index in target's type is not a variable (consider using the `cases` tactic instead)
+--      Star re
 
 --  The problem here is that `induction` over a `Prop` hypothesis only
 --  works properly with hypotheses that are "fully general," i.e., ones in
