@@ -471,16 +471,6 @@
       "title": "Imp: improve delabrator and reduce antiquotation noise",
       "url": "https://github.com/plclub/sf-in-lean/pull/337"
     },
-    "339": {
-      "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
-      "changed_variants": [],
-      "head_sha": "d6b813437086f7e946d72173f6e497bfd9ecb66d",
-      "preview_path": "pr/339/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33423145658",
-      "status": "ci-failed",
-      "title": "Initial Port of MoreStlc",
-      "url": "https://github.com/plclub/sf-in-lean/pull/339"
-    },
     "340": {
       "base_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
       "changed_variants": [
@@ -568,9 +558,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "ce9f02e72bca93c489cf8d51a692b50a981b1e49",
+      "head_sha": "97499db0e5a5167218e8753aafa1b04260f7309f",
       "preview_path": "pr/343/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33324998385",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33430375002",
       "status": "published",
       "title": "Follow up on Basics cleanup",
       "url": "https://github.com/plclub/sf-in-lean/pull/343"

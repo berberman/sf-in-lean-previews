@@ -694,11 +694,10 @@ end Playground
 --  Output:
 --    Playground.myBar : RGB
 
---  The constructors of an inductive type are placed in the `namespace`
---  named after the type. When we enter that `namespace`, we can use those
---  constructors without a prefix. For example, we can use the `blue`
---  constructor without qualification below because we are inside the `RGB`
---  `namespace`.
+--  Lean gives each constructor of an inductive type a name prefixed by the
+--  type's name, such as `RGB.blue`. When we enter the `RGB` `namespace`,
+--  we can use its constructors without the `RGB` prefix. For example, we
+--  can write just `blue` below.
 
 namespace RGB
 def myBlue : RGB := blue
@@ -779,10 +778,13 @@ sf_expect_failure_in
 --  Output:
 --    Unknown identifier `myHiddenDef`
 
---  In fact, Lean's prelude explicitly exports commonly used names from the
---  standard `Bool` `namespace`. This means we can use constructors like
---  `true` and `false` and functions like `not` without qualifying them
---  with `Bool`.
+--  You might be wondering why we can use constructors like `true` and
+--  `false` and functions like `not` without qualifying them with `Bool`,
+--  and without explicitly `open`ing the `Bool` `namespace`. Lean provides
+--  a way to *export* unprefixed names from a `namespace`, with the same
+--  effect as selectively `open`ing that `namespace` downstream, and the
+--  Lean prelude does that for commonly used names from the standard
+--  library. We don't explain this mechanism here because it's rarely used.
 
 #check Bool.true
 #check true
@@ -794,12 +796,12 @@ sf_expect_failure_in
 --    Bool.true : Bool
 
 --  Finally, Lean can often use an expression's expected type to fill in
---  the missing prefix of a name that begins with `.`. Instead of the fully
---  qualified style (e.g., `Day.monday`), we can write just `.monday`.
+--  the missing prefix of a name that begins with `.`. So, instead of the
+--  fully qualified style `Day.monday`, we can write just `.monday`.
 
---  For example, when the expected type is `Day`, Lean resolves `.monday`
+--  For example, when the expected type is `Day`, Lean interprets `.monday`
 --  as `Day.monday`. If the context does not determine an expected type,
---  dotted notation may be ambiguous.
+--  Lean reports an error.
 
 --  So, for example, we can also write `nextWorkingDay` like this, using
 --  the shorter style for both the value being matched and the value being
@@ -818,10 +820,9 @@ def nextWorkingDay' (d : Day) : Day :=
 --  Here, both the type of `d` and the return type of the function are
 --  declared to be `Day`s. When we use the `.monday` style in the function
 --  body, Lean can figure out that we must mean `Day.monday`. However, in
---  the example below, Lean can't figure out which version of `.true` we
---  mean, since both `Bool.true` and `MyBool.true` are in scope and the
---  context doesn't tell us which one we want. In this case, it will raise
---  an error:
+--  the example below, there is no expected type, so Lean cannot determine
+--  which declaration named `.true` is intended. In this case, it raises an
+--  error:
 
 sf_expect_failure_in
   #check .true
@@ -858,18 +859,17 @@ sf_expect_failure_in
 --  Once you have written your predictions, copy the lines from the comment
 --  into an active section of the book to evaluate them.
 
---  ### Constructors with Multiple Arguments
+--  ### Constructors with Multiple Parameters (Tuple Types)
 
 namespace Playground
 
---  A constructor of an inductive type can take multiple arguments, not
---  just zero or one.
+--  A constructor of an inductive type can have multiple parameters, not
+--  just zero or one. This feature lets us define *tuple types* in Lean.
 
 --  As an example, consider representing the four bits in a nibble (half a
 --  byte). We first define a datatype `Bit` that resembles `Bool` (using
 --  the constructors `b1` and `b0` for the two possible bit values) and
---  then define the datatype `Nibble`, whose constructor packages four
---  bits.
+--  then define the datatype `Nibble`, which is a tuple of four bits.
 
 inductive Bit : Type where
   | b1
@@ -973,10 +973,10 @@ def makeNibbleStruct (x0 x1 x2 x3 : Playground.Bit) : NibbleStruct :=
 namespace NatPlayground
 
 --  All the types we have defined so far — both enumerated types such as
---  `Day`, `MyBool`, and `Playground.Bit`, and types carrying a fixed
---  amount of data such as `Playground.Nibble` — are finite. The natural
---  numbers, on the other hand, are an infinite set, so we'll need to use a
---  slightly richer form of inductive type declaration to represent them:
+--  `Day`, `MyBool`, and `Playground.Bit`, and tuple types such as
+--  `Playground.Nibble` built from them — are finite. The natural numbers,
+--  on the other hand, are an infinite set, so we'll need to use a slightly
+--  richer form of inductive type declaration to represent them:
 --  *recursive* inductive types.
 
 --  While the need for recursion is unequivocal, there are many recursively
@@ -1169,7 +1169,7 @@ theorem add_zero_zero_explained : ∀ n : Nat, n + zero + zero = n := by
      What can we do to simplify this expression? If you hover
      your cursor over the `add_zero` in the rewrite below, you
      can see its type: `n + zero = n`. So, we can use that
-     rewrite rule to transform an appearance of `n + zero`
+     simplification rule to transform an appearance of `n + zero`
      in the goal to `n`. -/
   rewrite [add_zero]
   /- Now click here to see the new proof state that results
@@ -1428,9 +1428,8 @@ theorem two_mul_two : (two * two : Nat) = four := by
 --  #### Equality and Ordering
 
 --  When we say that Lean relies on almost nothing that's truly built-in,
---  we really mean it: even a Boolean equality test is not a primitive
---  operation, but an ordinary function that we could reimplement ourselves
---  as users.
+--  we really mean it: even testing equality is not a primitive operation,
+--  but an ordinary function that we could reimplement ourselves as users.
 
 --  Here is a function `beq` that tests natural numbers for equality,
 --  yielding a boolean.
@@ -1636,7 +1635,7 @@ theorem not_involutive (b : Bool) : (!!b) = b := by
     rewrite [Bool.not_true, Bool.not_false]
     rfl
 
---  The proof above uses some rewrite rules that we didn't prove
+--  The proof above uses some simplification rules that we didn't prove
 --  previously. These come from Lean's standard library, in particular from
 --  the section about booleans. In the UsingLean chapter we will discuss
 --  how to search through the standard library for theorems like these. For
@@ -1728,7 +1727,7 @@ theorem and3_exchange (b c d : Bool) :
 
 --  Prove the following claim.
 
---  Tip: the rewrite rule to simplify `(b || false)` is called
+--  Tip: the simplification rule for `(b || false)` is called
 --  `Bool.or_false`.
 
 theorem or_false_true (b : Bool) (h : (b || false) = true) :
@@ -1752,15 +1751,15 @@ def even' (n : Nat) : Bool :=
   | succ (succ n') => even' n'
 
 --  When Lean checks this definition, it verifies that the recursion
---  terminates. For this definition, it does so by checking that the
---  recursive argument is *structurally decreasing* — each recursive call
---  made in the body of the definition is made on an argument that is
---  smaller than the original input. In the `even'` example above, the
---  argument to the recursive call to `even'` is the variable `n'`. Because
---  of our pattern match, we know that `n` is equal to `succ (succ n')`,
---  and therefore that `n'` is smaller than `n`. This makes `n'` an
---  acceptable argument to `even'` for Lean's termination checker, and so
---  this recursive definition is accepted.
+--  terminates. Specifically, it checks that the recursive argument is
+--  *structurally decreasing* — each recursive call made in the body of the
+--  definition is made on an argument that is smaller than the original
+--  input. In the `even'` example above, the argument to the recursive call
+--  to `even'` is the variable `n'`. Because of our pattern match, we know
+--  that `n` is equal to `succ (succ n')`, and therefore that `n'` is
+--  smaller than `n`. This makes `n'` an acceptable argument to `even'` for
+--  Lean's termination checker, and so this recursive definition is
+--  accepted.
 
 --  This requirement is a fundamental feature of Lean's design: it
 --  guarantees that every ordinary recursive definition accepted into
@@ -2009,7 +2008,7 @@ theorem inspectBag_test1 : inspectBag (.ticketed .prohibited) = .ticketed .prohi
 theorem inspectBag_test2 : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := sorry
 theorem inspectBag_test3 : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := sorry
 
---  Again, we record one simplification rule for each case.
+--  Again, we record one characterization lemma for each case.
 
 theorem inspectBag_noTicket (bagContent : BagContent) :
     inspectBag (.noTicket bagContent) = .noTicket bagContent := sorry

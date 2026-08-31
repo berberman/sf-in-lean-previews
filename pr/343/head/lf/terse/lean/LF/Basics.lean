@@ -302,8 +302,8 @@ end Playground
 --  Output:
 --    Playground.myBar : RGB
 
---  An inductive type's constructors are placed in the
---  `namespace` named after the type.
+--  The names of an inductive type's constructors are
+--  prefixed by the type's name.
 
 namespace RGB
 def myBlue : RGB := blue
@@ -381,8 +381,8 @@ sf_expect_failure_in
 --  Output:
 --    Unknown identifier `myHiddenDef`
 
---  Common names from the `Bool` `namespace` are exported
---  and available without qualification.
+--  Lean's prelude exports common names from the `Bool`
+--  `namespace`.
 
 #check Bool.true
 #check true
@@ -432,7 +432,7 @@ sf_expect_failure_in
 --  Output:
 --    !true : Bool
 
---  ### Constructors with Multiple Arguments
+--  ### Constructors with Multiple Parameters (Tuple Types)
 
 namespace Playground
 
@@ -639,7 +639,7 @@ theorem add_zero_zero_explained : ∀ n : Nat, n + zero + zero = n := by
      What can we do to simplify this expression? If you hover
      your cursor over the `add_zero` in the rewrite below, you
      can see its type: `n + zero = n`. So, we can use that
-     rewrite rule to transform an appearance of `n + zero`
+     simplification rule to transform an appearance of `n + zero`
      in the goal to `n`. -/
   rewrite [add_zero]
   /- Now click here to see the new proof state that results

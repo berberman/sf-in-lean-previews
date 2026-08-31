@@ -2645,9 +2645,9 @@
        {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
        {"title": "Namespaces", "shortTitle": null, "number": "4"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Arguments--Structures":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Arguments--Structures",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_--Structures",
      "data":
      {"title": "Structures",
       "shortTitle": null,
@@ -2659,16 +2659,16 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
-       {"title": "Constructors with Multiple Arguments",
+       {"title": "Constructors with Multiple Parameters (Tuple Types)",
         "shortTitle": null,
         "number": "5"},
        {"title": "Structures", "shortTitle": null, "number": "1"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Arguments":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Arguments",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--A-First-Taste-of-Proofs--Constructors-with-Multiple-Parameters-_LPAR_Tuple-Types_RPAR_",
      "data":
-     {"title": "Constructors with Multiple Arguments",
+     {"title": "Constructors with Multiple Parameters (Tuple Types)",
       "shortTitle": null,
       "sectionNum": "2.3.5.",
       "searchPriority": 50,
@@ -2678,7 +2678,7 @@
         "shortTitle": null,
         "number": "2"},
        {"title": "A First Taste of Proofs", "shortTitle": null, "number": "3"},
-       {"title": "Constructors with Multiple Arguments",
+       {"title": "Constructors with Multiple Parameters (Tuple Types)",
         "shortTitle": null,
         "number": "5"}]},
      "address": "/Basics/"}],
@@ -3108,7 +3108,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments",
+        "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
    "trans_eq":
@@ -3264,7 +3264,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments",
+        "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
    "rev_nil":
@@ -3661,7 +3661,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments",
+        "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
    "length_append_self":
@@ -3686,7 +3686,7 @@
         "Conjunction"]}},
      "address": "/Logic/"}],
    "keepIf_some":
-   [{"id": "keepIf_some",
+   [{"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -3703,7 +3703,7 @@
         "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some-next",
+    {"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -4022,7 +4022,28 @@
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective-next-next",
+   [{"id": "double_injective-next",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -4044,27 +4065,6 @@
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
     {"id": "double_injective",
-     "data":
-     {"/Tactics/#double_injective-next-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]}},
-     "address": "/Tactics/"},
-    {"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5048,7 +5048,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments"]}},
+        "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Nibble.bits":
    [{"id": "Playground___Nibble___bits",
@@ -5059,7 +5059,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments"]}},
+        "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Nibble":
    [{"id": "Playground___Nibble",
@@ -5070,7 +5070,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments"]}},
+        "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Le.succ":
    [{"id": "Playground___Le___succ",
@@ -5111,7 +5111,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments"]}},
+        "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Bit.b0":
    [{"id": "Playground___Bit___b0",
@@ -5122,7 +5122,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments"]}},
+        "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Playground.Bit":
    [{"id": "Playground___Bit",
@@ -5133,7 +5133,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments"]}},
+        "Constructors with Multiple Parameters (Tuple Types)"]}},
      "address": "/Basics/"}],
    "Person.sage":
    [{"id": "Person___sage",
@@ -5632,7 +5632,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments",
+        "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
    "NibbleStruct.x2":
@@ -5644,7 +5644,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments",
+        "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
    "NibbleStruct.x1":
@@ -5656,7 +5656,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments",
+        "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
    "NibbleStruct.x0":
@@ -5668,7 +5668,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments",
+        "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
    "NibbleStruct":
@@ -5680,7 +5680,7 @@
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "A First Taste of Proofs",
-        "Constructors with Multiple Arguments",
+        "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
    "NatPlayground.ofNat":
@@ -8441,7 +8441,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+   [{"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -8458,7 +8458,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor-next",
+    {"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
