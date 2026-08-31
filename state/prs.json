@@ -615,9 +615,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "8dade25eeae14b8d3ff02a900244f06d0c40df1c",
+      "head_sha": "c5130525599347e2aa1d5359f100174334fc2caa",
       "preview_path": "pr/344/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33385657095",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33389567071",
       "status": "published",
       "title": "Polishing pass on Induction",
       "url": "https://github.com/plclub/sf-in-lean/pull/344"

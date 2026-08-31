@@ -384,6 +384,21 @@ sf_expect_failure_in
 --  definition. You can use code actions freely to fill out
 --  `induction`, `case`, and `match` branches while working
 --  with this book.
+--
+--  One note: Sometimes the variables the code action
+--  chooses are not ideal, so you might want to change them.
+--  For example, here is what we get from the code action
+--  for `add_comm`
+
+theorem add_comm' (n m : Nat) : n + m = m + n := by
+  induction m with
+  | zero => sorry
+  | succ n ih => sorry -- bad choice of variable `n`, want `m` or `m'` !
+
+--  Notice that the action chose `n` for the `succ` case,
+--  even though we are inducting on `m`. Manually updating
+--  this variable to either `m` or `m'` will make your proof
+--  easier to read.
 
 --  ## More Exercises
 
@@ -682,4 +697,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-08-31 11:17 UTC
+-- Built on 2026-08-31 12:07 UTC

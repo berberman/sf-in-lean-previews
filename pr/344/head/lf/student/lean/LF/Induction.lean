@@ -484,7 +484,7 @@ theorem add_assoc'' (n m p : Nat) :
   induction p with
   | zero => /- p = zero -/
     rw [add_zero, add_zero]
-  | succ p' ih => /- p = p' + 1 -/
+  | succ p' ih => /- p = succ p', in other words p = p' + 1 -/
     rw [add_succ m p', add_succ n (m + p'), add_succ (n + m) p', ih]
 
 --  ... and if you're used to Lean you might be able to step through the
@@ -508,7 +508,7 @@ theorem add_assoc'' (n m p : Nat) :
 --  This follows directly from the definition of `+` (since `x + zero = x`
 --  for any `x`).
 --
---  - Next, suppose `p = p' + 1`, where
+--  - Next, suppose `p = p' + 1` (i.e., `p = succ p'`), where
 --
 --        n + (m + p') = (n + m) + p'.
 --
@@ -516,7 +516,7 @@ theorem add_assoc'' (n m p : Nat) :
 --
 --        n + (m + (p' + 1)) = (n + m) + (p' + 1).
 --
---  By the definition of `+`, both sides reduce to
+--  By definition of `+`, both sides rewrite (via `add_succ`) to
 --
 --        (n + (m + p')) + 1   and   ((n + m) + p') + 1
 --
@@ -613,6 +613,19 @@ sf_expect_failure_in
 --  Now you just have to replace the holes `_` with your definition. You
 --  can use code actions freely to fill out `induction`, `case`, and
 --  `match` branches while working with this book.
+--
+--  One note: Sometimes the variables the code action chooses are not
+--  ideal, so you might want to change them. For example, here is what we
+--  get from the code action for `add_comm`
+
+theorem add_comm' (n m : Nat) : n + m = m + n := by
+  induction m with
+  | zero => sorry
+  | succ n ih => sorry -- bad choice of variable `n`, want `m` or `m'` !
+
+--  Notice that the action chose `n` for the `succ` case, even though we
+--  are inducting on `m`. Manually updating this variable to either `m` or
+--  `m'` will make your proof easier to read.
 
 --  ## More Exercises
 
@@ -908,4 +921,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-08-31 11:17 UTC
+-- Built on 2026-08-31 12:07 UTC

@@ -1205,4 +1205,4 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 
 end StlcArith
 
--- Built on 2026-08-31 11:19 UTC
+-- Built on 2026-08-31 12:09 UTC
