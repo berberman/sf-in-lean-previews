@@ -331,7 +331,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
     },
     "333": {
-      "base_sha": "4b6f86c88a5ee9517a426b51ac6d7581020a6687",
+      "base_sha": "28b97041df1406e61ac66a2d0d24db474d45128f",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -370,11 +370,11 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "a62c6ade67e31497600476c66686355f6990068c",
+      "head_sha": "9ede4a044cb1e5167b432ee5b7ecd402f9c14809",
       "preview_path": "pr/333/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33126941462",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33448737780",
       "status": "published",
-      "title": "Add visibility linting for exercises",
+      "title": "Add a few doc linters",
       "url": "https://github.com/plclub/sf-in-lean/pull/333"
     },
     "337": {

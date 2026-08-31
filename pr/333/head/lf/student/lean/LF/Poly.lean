@@ -46,7 +46,7 @@ inductive MyList (α : Type) : Type where
 --  added to the header on the first line, and the occurrences of `Natlist`
 --  in the types of the constructors have been replaced by `MyList α`. We
 --  can now write `MyList Nat` instead of a dedicated nat-list type.
-
+--
 --  What sort of thing is `MyList` itself? A good way to think about it is
 --  as a *type constructor* — that is, a function from `Type`s to `Type`s.
 --  For any particular type `α`, the type `MyList α` is the inductively
@@ -54,7 +54,8 @@ inductive MyList (α : Type) : Type where
 
 #check (MyList)
 
---  MyList : Type → Type
+--  Output:
+--    MyList : Type → Type
 
 --  The `α` in the definition of `MyList` automatically becomes a parameter
 --  to the constructors `nil` and `cons` — that is, `nil` and `cons` are
@@ -65,7 +66,8 @@ inductive MyList (α : Type) : Type where
 
 #check MyList.nil
 
---  MyList.nil {α : Type} : MyList α
+--  Output:
+--    MyList.nil {α : Type} : MyList α
 
 --  Similarly, `MyList.cons` adds an element of type `Nat` to a list of
 --  type `MyList Nat`. Here is an example of forming a list containing just
@@ -73,7 +75,8 @@ inductive MyList (α : Type) : Type where
 
 #check MyList.cons 3 MyList.nil
 
---  MyList.cons 3 MyList.nil : MyList Nat
+--  Output:
+--    MyList.cons 3 MyList.nil : MyList Nat
 
 --  What is the full type of `MyList.nil`? We can read off the result type
 --  `MyList α` from the definition, but to state the full type we must also
@@ -82,19 +85,21 @@ inductive MyList (α : Type) : Type where
 
 #check MyList.nil
 
---  MyList.nil {α : Type} : MyList α
+--  Output:
+--    MyList.nil {α : Type} : MyList α
 
 --  Similarly, the type of `MyList.cons` includes the implicit type
 --  parameter:
 
 #check MyList.cons
 
---  MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
+--  Output:
+--    MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
 
 --  Having to supply a type argument for every single use of a list
 --  constructor would be rather burdensome. Fortunately, the type argument
 --  is implicit, so Lean will normally infer it from context.
-
+--
 --  We can now go back and make polymorphic versions of all the
 --  list-processing functions that we wrote before. Here is `myRepeat`, for
 --  example:
@@ -122,43 +127,51 @@ example : myRepeat Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
 
 example : myRepeat Bool false 1 = .cons false .nil := by rfl
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  What is the type of `MyList.cons true (MyList.cons 3 MyList.nil)`?
-
+--
 --  (A) `MyList Nat`
-
+--
 --  (B) `{α : Type} → α → MyList α → MyList α`
-
+--
 --  (C) `MyList Bool`
-
+--
 --  (D) `MyList (Nat × Bool)`
-
+--
 --  (E) Ill-typed
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What is the type of `myRepeat`?
-
+--
 --  (A) `Nat → Nat → MyList Nat`
-
+--
 --  (B) `(α : Type) → α → Nat → MyList α`
-
+--
 --  (C) `(α : Type) → {β : Type} → α → Nat → MyList β`
-
+--
 --  (D) Ill-typed
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What is the type of `myRepeat 1 2`?
-
+--
 --  (A) `MyList Nat`
-
+--
 --  (B) `(α : Type) → α → Nat → MyList α`
-
+--
 --  (C) `MyList Bool`
-
+--
 --  (D) Ill-typed
+
+--   ----------------------------------------
 
 --  From now on, we'll use Lean's built-in `List` type and its associated
 --  notation. The built-in `List` is defined just like our `MyList` above,
@@ -185,7 +198,8 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 
 #check myRepeat'
 
---  myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+--  Output:
+--    myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
 
 --  The generated `u_1` is part of Lean's bookkeeping for treating types
 --  more generally. We will not need to interpret names like this for now —
@@ -195,7 +209,7 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 --  Lean was able to use *type inference* to deduce what the type of `α`
 --  must be, based on how it is used. Since `α` is an argument to `List`,
 --  it must be a `Type`, since `List` expects a `Type` as its argument.
-
+--
 --  This facility means we don't always have to write explicit type
 --  annotations everywhere, although explicit type annotations can still be
 --  quite useful as documentation, so we will continue to use them much of
@@ -209,7 +223,7 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 --  since the second argument to `myRepeat` is an element of `α`, it seems
 --  entirely obvious that the first argument can only be `α` — why should
 --  we have to write it explicitly?
-
+--
 --  Fortunately, Lean permits us to avoid this kind of redundancy. In place
 --  of any type argument we can write a "hole" `_`, which can be read as
 --  "Please try to figure out for yourself what belongs here." More
@@ -218,7 +232,7 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 --  the types of the other arguments, and the type expected by the context
 --  in which the application appears — to determine what concrete type
 --  should replace the `_`.
-
+--
 --  Using holes, the `myRepeat'` function can be rewritten like this:
 
 def myRepeat'' (α : Type) (x : α) (count : Nat) : List α :=
@@ -251,7 +265,7 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
 --  This fails because Lean can't figure out the type of the empty list:
 --  `def mynil := []` — error: type not known We can fix this with an
 --  explicit type annotation:
-
+--
 --  We can use the `@` prefix to supply the type argument explicitly. The
 --  `@` makes all implicit arguments of a function explicit:
 
@@ -259,106 +273,123 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
 
 def myNil' := @List.nil Nat
 
---  @List.nil : {α : Type u_1} → List α
+--  Output:
+--    @List.nil : {α : Type u_1} → List α
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Which type does Lean assign to the following expression? (The square
 --  brackets in this quiz and the following ones are list brackets.)
-
---    [1, 2, 3]
-
+--
+--      [1, 2, 3]
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List Bool`
-
+--
 --  (C) `Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    [3 + 4] ++ []
-
+--
+--      [3 + 4] ++ []
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List Bool`
-
+--
 --  (C) `Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    (true && false) :: []
-
+--
+--      (true && false) :: []
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List Bool`
-
+--
 --  (C) `Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    [1, []]
-
+--
+--      [1, []]
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List (List Nat)`
-
+--
 --  (C) `List Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    [[1], []]
-
+--
+--      [[1], []]
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List (List Nat)`
-
+--
 --  (C) `List Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  And what about this one?
-
---    [1] :: [[]]
-
+--
+--      [1] :: [[]]
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List (List Nat)`
-
+--
 --  (C) `List Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  This one?
-
---    @List.nil Bool
-
+--
+--      @List.nil Bool
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List (List Nat)`
-
+--
 --  (C) `List Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  ### Exercise (2 stars): mumble_grumble (Optional, Manually graded) ⭐⭐
 
@@ -375,7 +406,7 @@ inductive Grumble (α : Type) : Type where
 
 --  Which of the following are well-typed elements of `Grumble α` for some
 --  type `α`? (Add YES or NO to each line.)
-
+--
 --  - `Grumble.d (Mumble.b Mumble.a 5)`
 --  - `@Grumble.d Mumble (Mumble.b Mumble.a 5)`
 --  - `@Grumble.d Bool (Mumble.b Mumble.a 5)`
@@ -406,9 +437,11 @@ theorem rev_cons {α : Type} {x : α} {l : List α} :
 #check List.nil_append
 #check List.cons_append
 
---  List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
+--  Output:
+--    List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
 
---  List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
+--  Output:
+--    List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
 
 theorem append_nil {α : Type} {l : List α} :
     l ++ [] = l := by
@@ -453,11 +486,14 @@ structure MyProd (α β : Type) where
 #eval (1, true).fst
 #eval (1, true).snd
 
---  (1, true) : Nat × Bool
+--  Output:
+--    (1, true) : Nat × Bool
 
---  1
+--  Output:
+--    1
 
---  true
+--  Output:
+--    true
 
 --  You can also use `.1` instead of `.fst` and `.2` instead of `.snd`:
 
@@ -466,7 +502,7 @@ example : (3, 5).2 = 5 := by rfl
 
 --  Lean writes the product type `Prod α β` as `α × β`. In VS Code you can
 --  type `\times` or `\x` to enter the `×` symbol.
-
+--
 --  The `dsimp only` tactic can be used to simplify `(x, y).fst` into `x`
 --  and `(x, y).snd` into `y`.
 
@@ -507,20 +543,20 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 
 --  Try answering the following questions on paper and checking your
 --  answers in Lean:
-
+--
 --  - What is the type of `zip` (i.e., what does `#check @zip` print?)
-
+--
 --  - What does
-
+--
 --    `#eval zip [1, 2] [false, false, true, true]`
-
+--
 --    print?
 
 --  ### Exercise (3 stars): unzip (Manually graded) ⭐⭐⭐
 
 --  The function `unzip` goes in the other direction from `zip`: it takes a
 --  list of pairs and returns a pair of lists.
-
+--
 --  Fill in the definition of `unzip` below and write simplification rules
 --  that characterize it. Make sure it that passes the given unit test.
 --  Prove `unzip_test_fst` and `unzip_test_snd` by rewriting with your
@@ -610,7 +646,8 @@ example : doIt3Times Nat.minusTwo 9 = 3 := by rfl
 
 example : doIt3Times not true = false := by rfl
 
---  doIt3Times {α : Type} (f : α → α) (x : α) : α
+--  Output:
+--    doIt3Times {α : Type} (f : α → α) (x : α) : α
 
 --  ### Filter
 
@@ -658,7 +695,7 @@ theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
 --  Lean allows *any* parameter to be implicit, not just those of type
 --  `Type`. This is a standard Lean convention for lemmas that are likely
 --  to be used by `rw` when their values can be inferred by unification.
-
+--
 --  For example, suppose you were using this theorem to rewrite
 --  `filter Nat.even (3 :: rest)`. Matching that expression against the
 --  theorem's left-hand side `filter test (head :: tail)` establishes that
@@ -666,11 +703,11 @@ theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
 --  these arguments implicit, Lean automatically inserts a hole `_` for
 --  each of them when you apply the theorem, just as with implicit
 --  parameters of type `Type`, so they can be inferred from the context.
-
+--
 --  Note that `h : test head` is not implicit, it's explicit. That's
 --  because it cannot be solved by unification, i.e., Lean can't prove that
 --  `Nat.even 3 = true` that way. It's a general proof obligation.
-
+--
 --  We'll follow the Lean standard convention from now on.
 
 --  We can use `filter` to give a concise version of the `countOddMembers`
@@ -690,11 +727,11 @@ example : countOddMembers [] = 0 := by rfl
 --  again. Indeed, when using higher-order functions, we *often* want to
 --  pass as arguments "one-off" functions that we will never use again;
 --  having to give each of these functions a name would be tedious.
-
+--
 --  Fortunately, there is a better way. We can construct a function "on the
 --  fly" without declaring it at the top level or giving it a name. Lean
 --  provides two syntaxes for anonymous functions:
-
+--
 --  - `fun n => n * n` — traditional lambda syntax
 --  - `(· * ·)` — "term with holes" syntax, where `·` marks arguments
 
@@ -702,7 +739,7 @@ example : doIt3Times (fun n => n * n) 2 = 256 := by rfl
 
 --  The expression `fun n => n * n` can be read as "the function that,
 --  given a number `n`, yields `n * n`."
-
+--
 --  Lean also supports a shorter notation using `·` as a placeholder for
 --  the argument:
 
@@ -773,6 +810,8 @@ example : map Nat.odd [2, 1, 2, 5] = [false, true, false, true] := by rfl
 example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
   = [[true, false], [false, true], [true, false], [false, true]] := by rfl
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Recall the definition of `map`:
@@ -784,14 +823,16 @@ sf_recall
     | head :: tail => f head :: map f tail
 
 --  What is the type of `@map`?
-
+--
 --  (A) `{α β : Type} → α → β → List α → List β`
-
+--
 --  (B) `α → β → List α → List β`
-
+--
 --  (C) `{α β : Type} → (α → β) → List α → List β`
-
+--
 --  (D) `{α : Type} → (α → α) → List α → List α`
+
+--   ----------------------------------------
 
 --  As usual, we define the following simplification rules for `map`:
 
@@ -805,7 +846,7 @@ theorem map_cons {α : Type} {β : Type} {f : α → β} {x : α} {l : List α} 
 --  Show that `map` and `List.rev` commute. (Hint: You may need to define
 --  an auxiliary lemma.)
 
--- FILL IN HERE
+--  FILL IN HERE
 
 theorem map_rev {α : Type} {β : Type} {f : α → β} {l : List α} :
     map f l.rev = (map f l).rev := by
@@ -817,9 +858,9 @@ theorem map_rev {α : Type} {β : Type} {f : α → β} {l : List α} :
 --  type `α → β`. We can define a similar function, `flatMap`, which maps a
 --  `List α` to a `List β` using a function `f` of type `α → List β`. Your
 --  definition should work by 'flattening' the results of `f`, like so:
-
---    flatMap (fun n => [n, n + 1, n + 2]) [1, 5, 10]
---      = [1, 2, 3, 5, 6, 7, 10, 11, 12]
+--
+--      flatMap (fun n => [n, n + 1, n + 2]) [1, 5, 10]
+--        = [1, 2, 3, 5, 6, 7, 10, 11, 12]
 
 def flatMap {α β : Type} (f : α → List β) (l : List α) : List β := sorry
 
@@ -865,12 +906,12 @@ def fold {α : Type} {β : Type} (f : α → β → β) (l : List α) (b : β) :
 --  example, `fold (· + ·) [1, 2, 3, 4]` intuitively means `1 + 2 + 3 + 4`.
 --  To make this precise, we also need a "starting element" that serves as
 --  the initial second input to `f`. So, for example,
-
---    fold (· + ·) [1, 2, 3, 4] 0
-
+--
+--      fold (· + ·) [1, 2, 3, 4] 0
+--
 --  yields
-
---    1 + (2 + (3 + (4 + 0))).
+--
+--      1 + (2 + (3 + (4 + 0))).
 
 example : fold (· && ·) [true, true, false, true] true = false := by rfl
 
@@ -885,6 +926,8 @@ theorem fold_nil {α : Type} {β : Type} {f : α → β → β} {b : β} : fold 
 theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {a : α} {l : List α} {b : β} :
     fold f (a :: l) b = f a (fold f l b) := by rfl
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Here is the definition of `fold` again:
@@ -896,26 +939,30 @@ sf_recall
     | a :: l => f a (fold f l b)
 
 --  What is the type of `@fold`?
-
+--
 --  (A) `{α β : Type} → (α → β → β) → List α → β → β`
-
+--
 --  (B) `α → β → (α → β → β) → List α → β → β`
-
+--
 --  (C) `{α β : Type} → α → β → β → List α → β → β`
-
+--
 --  (D) `α → β → α → β → β → List α → β → β`
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What does `fold (· + ·) [1, 2, 3, 4] 0` simplify to?
-
+--
 --  (A) `[1, 2, 3, 4]`
-
+--
 --  (B) `0`
-
+--
 --  (C) `10`
-
+--
 --  (D) `[3, 7, 0]`
+
+--   ----------------------------------------
 
 --  ### Exercise (1 star): fold_types_different (Optional, Manually graded) ⭐
 
@@ -949,7 +996,8 @@ example : constFun 5 99 = 5 := by rfl
 
 #check Nat.add
 
---  Nat.add : Nat → Nat → Nat
+--  Output:
+--    Nat.add : Nat → Nat → Nat
 
 def plus3 := Nat.add 3
 #check plus3
@@ -958,7 +1006,8 @@ example : plus3 4 = 7 := by rfl
 example : doIt3Times plus3 0 = 9 := by rfl
 example : doIt3Times (Nat.add 3) 0 = 9 := by rfl
 
---  plus3 : Nat → Nat
+--  Output:
+--    plus3 : Nat → Nat
 
 --  Similarly, we can write:
 
@@ -967,19 +1016,20 @@ def fold_plus : List Nat → Nat → Nat :=
 
 #check fold_plus
 
---  fold_plus : List Nat → Nat → Nat
+--  Output:
+--    fold_plus : List Nat → Nat → Nat
 
 --  What's happening here is called *partial application*. In Lean, the
 --  type constructor `→` is right-associative, meaning a function type like
 --  `α → β → γ` is parsed like `α → (β → γ)`, or "a function from `α` to a
 --  function from `β` to `γ`."
-
+--
 --  We can think of `fold` not as a three-argument function, but as a
 --  one-argument function that:
-
+--
 --  1. Takes an argument `f` of type `α → β → β`
 --  2. Returns a function of type `List α → β → β` that "remembers" `f`
-
+--
 --  When we write `fold (· + ·)`, we're giving `fold` its first argument,
 --  `(· + ·)`, and getting back a specialized function that can sum up the
 --  elements of any list of numbers. This new function still expects two
@@ -998,7 +1048,7 @@ def foldLength {α : Type} (l : List α) : Nat :=
 example : foldLength [4, 7, 0] = 3 := by rfl
 
 --  Prove the correctness of `foldLength`.
-
+--
 --  Hint: It may help to use `rw [foldLength, fold]` to unfold the
 --  definition.
 
@@ -1015,7 +1065,7 @@ def foldMap {α β : Type} (f : α → β) (l : List α) : List β := sorry
 --  Write down a theorem `fold_map_correct` stating that `foldMap` is
 --  correct, and prove it in Lean.
 
--- FILL IN HERE
+--  FILL IN HERE
 
 --  ### Exercise (2 stars): currying (Advanced) ⭐⭐
 
@@ -1029,17 +1079,17 @@ def foldMap {α β : Type} (f : α → β) (l : List α) : List β := sorry
 --  `γ`. That is, every function in Lean takes only one input, but some
 --  functions return a function as output. This is precisely what enables
 --  partial application, as we saw above with `plus3`.
-
+--
 --  By contrast, functions of type `α × β → γ` — which when fully
 --  parenthesized is written `(α × β) → γ` — require their single input to
 --  be a pair. Both arguments must be given at once; there is no
 --  possibility of partial application.
-
+--
 --  It is possible to convert a function between these two types.
 --  Converting from `α × β → γ` to `α → β → γ` is called *currying*, in
 --  honor of the logician Haskell Curry. Converting from `α → β → γ` to
 --  `α × β → γ` is called *uncurrying*.
-
+--
 --  We can define currying as follows:
 
 def prodCurry {α β γ : Type} (f : α × β → γ) (x : α) (y : β) : γ := f (x, y)
@@ -1060,9 +1110,11 @@ example : map (Nat.add 3) [2, 0, 2] = [5, 3, 5] := by rfl
 #check @prodCurry
 #check @prodUncurry
 
---  @prodCurry : {α β γ : Type} → (α × β → γ) → α → β → γ
+--  Output:
+--    @prodCurry : {α β γ : Type} → (α × β → γ) → α → β → γ
 
---  @prodUncurry : {α β γ : Type} → (α → β → γ) → α × β → γ
+--  Output:
+--    @prodUncurry : {α β γ : Type} → (α → β → γ) → α × β → γ
 
 theorem uncurry_curry {α β γ : Type} {x : α} {y : β} {f : α → β → γ} :
     prodCurry (prodUncurry f) x y = f x y := by
@@ -1085,9 +1137,9 @@ sf_recall
       | n' + 1 => nth? l' n'
 
 --  Write a careful informal proof of the following theorem:
-
---    ∀ (l : List α) (n : Nat), l.length = n → nth? l n = none
-
+--
+--      ∀ (l : List α) (n : Nat), l.length = n → nth? l n = none
+--
 --  Make sure to state the induction hypothesis *explicitly*.
 
 --  ### Church Numerals (Advanced)
@@ -1130,7 +1182,7 @@ def three : CNat := @doIt3Times
 
 --  So `n α f x` represents "do it `n` times", where `n` is a Church
 --  numeral and "it" means applying `f` starting with `x`.
-
+--
 --  Another way to think about the Church representation is that function
 --  `f` represents the successor operation on `α`, and value `x` represents
 --  the zero element of `α`. We could even rewrite with those names to make
@@ -1155,7 +1207,7 @@ example : two  Nat Nat.succ 0 = 2 := by rfl
 --  programming language, or even to be definable with an inductive data
 --  type. It's possible to represent them purely (if not efficiently) with
 --  functions.
-
+--
 --  Of course, it's not enough just to "represent" numerals; we need to be
 --  able to do arithmetic with the representation. Show that we can by
 --  completing the definitions of the following functions. Make sure that
@@ -1182,7 +1234,7 @@ theorem scc_3 : scc two = three := sorry
 --  Given `fun X f x => f^n x` and `fun X f x => f^m x` as input, `plus`
 --  should produce `fun X f x => f^(n + m) x` as output. In other words, do
 --  it `n` times, then do it `m` more times.
-
+--
 --  Hint: the "zero" argument to a Church numeral need not be just `x`.
 
 def plus (n m : CNat) : CNat := sorry
@@ -1195,10 +1247,10 @@ theorem plus_3 : plus (plus two two) three = plus one (plus three three) := sorr
 
 --  Define a function that computes the multiplication of two Church
 --  numerals.
-
+--
 --  Hint: the "successor" argument to a Church numeral need not be just
 --  `f`.
-
+--
 --  Warning: Lean will not let you pass `CNat` itself as the type `α`
 --  argument to a Church numeral; you will get a "sort mismatch" error
 --  between `Type 1` and `Type 2`. Don't worry too much about what this
@@ -1216,10 +1268,10 @@ theorem mult_3 : mult two three = plus three three := sorry
 --  ### Exercise (3 stars): church_exp (Advanced) ⭐⭐⭐
 
 --  Exponentiation:
-
+--
 --  Define a function that computes the exponentiation of two Church
 --  numerals.
-
+--
 --  Hint: the type argument to a Church numeral need not just be `α`.
 --  Finding the right type can be tricky.
 
@@ -1231,3 +1283,4 @@ theorem exp_3 : exp three two = plus (mult two (mult two two)) one := sorry
 
 end Church
 
+-- Built on 2026-08-31 23:05 UTC

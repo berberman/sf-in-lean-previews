@@ -94,8 +94,7 @@ namespace NatList
 
 --  Don't worry too much about how this works.
 
---  THESE DETAILS CAN BE SKIPPED (List syntax)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (List syntax)
 --  We first define `::` as right-associative notation for
 --  `cons`, and then define list notation as a *macro*,
 --  allowing us to write `[1, 2]` instead of `1 :: 2 :: []`.
@@ -115,7 +114,6 @@ def unexpandCons : Lean.PrettyPrinter.Unexpander
   | `($_ $x []) => `([$x])
   | `($_ $x [$xs,*]) => `([$x, $xs,*])
   | _ => throw ()
-
 --  END DETAILS
 
 --  Now these all mean exactly the same thing:
@@ -163,7 +161,7 @@ instance : HAppend NatList NatList NatList where
   hAppend := append
 
 --  Now `l₁ ++ l₂` means `append l₁ l₂` within `NatList`.
-
+--
 --  Some simple facts about appending lists:
 
 theorem nil_append (l : NatList) : [] ++ l = l := rfl
@@ -200,6 +198,8 @@ theorem tail_cons (h : Nat) (t : NatList) : (h :: t).tail = t := by rfl
 
 theorem tail_nil : [].tail = [] := by rfl
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  What does the following function do?
@@ -208,6 +208,8 @@ def foo (n : Nat) : NatList :=
   match n with
   | 0 => []
   | n' + 1 => (n' + 1) :: foo n'
+
+--   ----------------------------------------
 
 --  #### Exercises
 
@@ -285,7 +287,7 @@ theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
 --  Here are some more `NatList` functions for you to
 --  practice with.
-
+--
 --  When `removeOne` is applied to a list without the number
 --  to remove, it should return the same list unchanged.
 
@@ -400,29 +402,29 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --  theorem.
 
 --  *Theorem*: For all lists `l₁`, `l₂`, and `l₃`,
-
---    (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
-
+--
+--      (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
+--
 --  *Proof*: By induction on `l₁`.
-
+--
 --  - First, suppose `l₁ = []`. We must show
-
---    ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
-
+--
+--      ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
+--
 --  which follows directly from the definition of `append`.
-
+--
 --  - Next, suppose `l₁ = n :: l₁'`, with
-
---    (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
-
+--
+--      (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
+--
 --  (the induction hypothesis). We must show
-
---    ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
-
+--
+--      ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
+--
 --  By the definition of `append`, this follows from
-
---    n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
-
+--
+--      n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
+--
 --  which is immediate from the induction hypothesis. *Qed*.
 
 --  #### Generalizing Statements
@@ -441,11 +443,12 @@ sf_expect_failure_in
       -- The `ih` only works for `c' + c'`,
       -- but we need `c' + 1 + (c' + 1)`.
 
---  unsolved goals
---  case succ
---  n c' : Nat
---  ih : myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')
---  ⊢ (n :: myRepeat n c') ++ (n :: myRepeat n c') = myRepeat n (c' + 1 + (c' + 1))
+--  Output:
+--    unsolved goals
+--    case succ
+--    n c' : Nat
+--    ih : myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')
+--    ⊢ (n :: myRepeat n c') ++ (n :: myRepeat n c') = myRepeat n (c' + 1 + (c' + 1))
 
 --  A generalization that gives a stronger inductive
 --  hypothesis:
@@ -497,12 +500,13 @@ sf_expect_failure_in
       -- in either the immediate context or in the global
       -- environment!
 
---  unsolved goals
---  case cons
---  n : Nat
---  l' : NatList
---  ih : l'.reverse.length = l'.length
---  ⊢ (l'.reverse ++ [n]).length = (n :: l').length
+--  Output:
+--    unsolved goals
+--    case cons
+--    n : Nat
+--    l' : NatList
+--    ih : l'.reverse.length = l'.length
+--    ⊢ (l'.reverse ++ [n]).length = (n :: l').length
 
 sf_expect_failure_in
   theorem length_append_succ (l : NatList) (n : Nat) :
@@ -514,12 +518,13 @@ sf_expect_failure_in
       rw [reverse_cons]
       -- `ih` not applicable
 
---  unsolved goals
---  case cons
---  n m : Nat
---  l' : NatList
---  ih : (l'.reverse ++ [n]).length = l'.reverse.length + 1
---  ⊢ (l'.reverse ++ [m] ++ [n]).length = (l'.reverse ++ [m]).length + 1
+--  Output:
+--    unsolved goals
+--    case cons
+--    n m : Nat
+--    l' : NatList
+--    ih : (l'.reverse ++ [n]).length = l'.reverse.length + 1
+--    ⊢ (l'.reverse ++ [m] ++ [n]).length = (l'.reverse ++ [m]).length + 1
 
 theorem append_length_succ (l : NatList) (n : Nat) :
     (l ++ [n]).length = l.length + 1 := by
@@ -541,42 +546,48 @@ theorem length_append (l₁ l₂ : NatList) :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
   sorry
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  To prove the following theorem, which tactics will we
 --  need besides `intro`, `rw`, and `rfl`?
-
+--
 --  (A) none
-
+--
 --  (B) `cases`
-
+--
 --  (C) `induction` on `n`
-
+--
 --  (D) `induction` on `l`
-
+--
 --  (E) can't be done with the tactics we've seen.
+--
+--      example (n : Nat) (l : NatList) :
+--          myRepeat n 0 = l → l.length = 0
 
---    example (n : Nat) (l : NatList) :
---        myRepeat n 0 = l → l.length = 0
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about the next one?
-
---    example (n m : Nat) : (myRepeat n m).length = m
-
+--
+--      example (n m : Nat) : (myRepeat n m).length = m
+--
 --  To prove the following theorem, which tactics will we
 --  need besides `intro`, `rw`, and `rfl`?
-
+--
 --  (A) none
-
+--
 --  (B) `cases`
-
+--
 --  (C) `induction` on `n`
-
+--
 --  (D) `induction` on `m`
-
+--
 --  (E) can't be done with the tactics we've seen.
+
+--   ----------------------------------------
 
 --  ### List Exercises, Part 1
 
@@ -634,7 +645,7 @@ end NatList
 --  defined in Lean, here is a simple *partial map* data
 --  type, analogous to the map or dictionary data structures
 --  found in most programming languages.
-
+--
 --  First, we define a new type `MyId` to serve as the
 --  "keys" of our partial maps.
 
@@ -682,6 +693,8 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
     bif MyId.beq x y then .some n
     else find x d'
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Is the following claim true or false?
@@ -691,6 +704,8 @@ theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
   rw [update, find, MyId.beq_refl, cond_true]
 
 --  (A) True (B) False (C) Not sure
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
@@ -704,7 +719,10 @@ theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
 
 --  (A) True (B) False (C) Not sure
 
+--   ----------------------------------------
+
 end PartialMap
 
 end Lists
 
+-- Built on 2026-08-31 23:06 UTC

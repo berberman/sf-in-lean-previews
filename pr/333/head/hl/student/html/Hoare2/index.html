@@ -859,36 +859,6 @@
   color: #a00;
 }
 </style><style>
-div.sf-quiz {
-  margin: 1em 0;
-  padding: 0.4em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 2px;
-}
-div.sf-quiz > .sf-quiz-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.4em;
-}
-</style><style>
-div.sf-dev-note {
-  margin: 1em 0;
-  padding: 0.5em 0.9em;
-  border: 1px solid #e6a700;
-  border-left: 6px solid #e6a700;
-  background: #fff3b0;
-  border-radius: 3px;
-}
-div.sf-dev-note > .sf-dev-note-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 700;
-  font-size: 0.85em;
-  letter-spacing: 0.03em;
-  color: #7a5800;
-  margin-bottom: 0.3em;
-}
-</style><style>
 :root {
   --sf-bg: #fffdf6;
   --sf-text: #1a1208;
@@ -987,10 +957,54 @@ blockquote {
   color: #2b2b28;
 }
 
+/* Build stamp: when this page was generated, matching the trailing comment in
+   the generated .lean file of the same chapter (SFLMeta/BuildStamp.lean).  It
+   is a provenance note, not something to read, so it is small, gray, and set
+   off below a rule. */
+.sf-build-stamp {
+  margin-top: 2.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--sf-rule);
+  font-size: 0.8em;
+  font-style: italic;
+  text-align: right;
+  color: #8c8c88;
+}
+
 /* Tighten the exercise box to share the same palette */
 .exercise {
   background: var(--sf-surface);
   border-left: 3px solid var(--sf-accent);
+}
+</style><style>
+div.sf-quiz {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+}
+div.sf-quiz > .sf-quiz-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.4em;
+}
+</style><style>
+div.sf-dev-note {
+  margin: 1em 0;
+  padding: 0.5em 0.9em;
+  border: 1px solid #e6a700;
+  border-left: 6px solid #e6a700;
+  background: #fff3b0;
+  border-radius: 3px;
+}
+div.sf-dev-note > .sf-dev-note-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+  color: #7a5800;
+  margin-bottom: 0.3em;
 }
 </style><style>
 details.sf-quiz-solution {
@@ -3623,7 +3637,7 @@ two lemmas helpful.</p>
     </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-222">(</span><span class="const token" data-binding="const-parityDec" data-verso-hover="1115">parityDec</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.167" data-verso-hover="4">m</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-222">)</span><span class="built-in delim token" data-binding="">.</span><a href="Hoare2/#Decorated___OuterTripleValid" title="Definition of example"><span class="const token" data-binding="const-Decorated.OuterTripleValid" data-verso-hover="1092">OuterTripleValid</span></a><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-253">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-18127669347323071076-256-258-1607"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-256" data-verso-hover="30">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-18127669347323071076-256-258-1607"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.167" data-verso-hover="4">m</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-Nat" data-verso-hover="5">Nat</span><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-parityDec" data-verso-hover="1115">parityDec</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.167" data-verso-hover="4">m</span><span class="unknown token" data-binding="">)</span><span class="unknown token" data-binding="">.</span><a href="Hoare2/#Decorated___OuterTripleValid" title="Definition of example"><span class="const token" data-binding="const-Decorated.OuterTripleValid" data-verso-hover="1092">OuterTripleValid</span></a></span></span></span></span></span><span class="inter-text">
   </span><span class="tactic"><label for="tactic-state-7-261-266-1609"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticSorry-261" data-verso-hover="101">sorry</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-261-266-1609"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 
-</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
+</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding="">  FILL IN HERE</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code></div>
                 </section>
               <section>
@@ -4137,9 +4151,9 @@ the rest of the formal development leading up to the
 <code>verification_correct</code> theorem.</p>
                   <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.namespace-0" data-verso-hover="0">namespace</span><span class="inter-text"> </span><span class="unknown token" data-binding="">SparseAnnotations</span><span class="inter-text">
 
-</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
+</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding="">  FILL IN HERE</span><span class="inter-text">
 
-</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-46" data-verso-hover="33">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">SparseAnnotations</span><span class="inter-text">
+</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-47" data-verso-hover="33">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">SparseAnnotations</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code></div>
                 </section>
               </section>
@@ -4281,6 +4295,8 @@ in the <a href="Hoare/#Hoare">Hoare</a> chapter returns a weakest precondition.<
 </span><span class="unknown token" data-binding=""></span></code></div>
               </section>
             </section>
+          <div class="sf-build-stamp">
+            Built on 2026-08-31 23:06 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Hoare/#Hoare" rel="prev" title="5. Hoare: Hoare Logic, Part I"><span class="arrow">←</span><span class="where">5. Hoare: Hoare Logic, Part I</span></a><div></div>
             </nav>
