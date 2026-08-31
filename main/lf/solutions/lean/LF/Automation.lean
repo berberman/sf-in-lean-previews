@@ -12,7 +12,7 @@ import SFLCompat
 --  facilities will enable us to make some of our proofs startlingly short!
 --  Used properly, they can also make proofs more maintainable and robust
 --  to changes in underlying definitions.
-
+--
 --  Our motivating example will be the following proof, repeated with just
 --  a few small changes from the IndProp chapter. We will simplify this
 --  proof in several stages.
@@ -50,15 +50,15 @@ theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
 --      Should we explain first-order logic? do they know what this is?
 
 --  If the goal is a universally quantified formula made out of
-
+--
 --  - numeric constants, addition (`+` and `succ`), subtraction (`-` and
 --    `pred`) and multiplication by constants (this is what makes it
 --    Presburger arithmetic),
-
+--
 --  - equality (`=` and `≠`) and ordering (`≤` and `<`), and
-
+--
 --  - the logical connectives `∧`, `∨`, `¬`, and `→`,
-
+--
 --  then invoking `lia` will either solve the goal or fail, meaning that
 --  the goal is actually false. If the goal is *not* of this form, `lia`
 --  will fail. Note that when failing, `lia`, may mention another tactic,
@@ -243,7 +243,7 @@ sf_expect_failure_in
 
 --  The `repeat` combinator takes another tactic or parenthesized sequence
 --  of tactics and keeps applying it until it fails.
-
+--
 --  Here is an example proving that `10` is in a long list using `repeat`:
 
 example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
@@ -276,9 +276,9 @@ sf_expect_failure_in
     -- repeat rewrite [Nat.add_comm]
 
 --  Wait — did we just write an infinite loop in Lean?!?!
-
+--
 --  Sort of.
-
+--
 --  While evaluation in Lean's term language is guaranteed to terminate,
 --  *tactic* evaluation is not. This does not affect Lean's logical
 --  consistency, however, since the job of `repeat` and other tactics is to
@@ -341,7 +341,7 @@ theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α)
 --  powerful tools in the language. Given a set of lemmas ─ some built-in,
 --  some user-provided ─ `simp` attempts to reduce a goal or hypothesis by
 --  rewriting with those lemmas as much as possible.
-
+--
 --  Indeed, the characterizing lemmas we've been writing for our
 --  definitions all throughout this book are examples of these
 --  *simplification lemmas*, or *`simp` lemmas* as they're called by Lean
@@ -388,7 +388,7 @@ end simp_lemmas_example
 --  You should always do this for your final proof scripts: `simp?` is
 --  helpful for writing a proof, but it should not show up in the final
 --  script.
-
+--
 --  `simp` is quite a powerful automated tactic, and is used heavily in
 --  real Lean developments. We can use `simp` to further simplify our
 --  `Perm3.In` proof.
@@ -431,14 +431,14 @@ theorem Perm3_In_shortest (α : Type) (x : α) (l₁ l₂ : List α)
 --  Because `simp` is such a powerful tactic, the Lean community has
 --  developed a number of conventions surrounding appropriate usage. One
 --  such convention is around *terminal* `simp` usage.
-
+--
 --  A call to `simp` is considered terminal either when it is the last
 --  tactic used to close a goal or when it is followed only by other
 --  automatic (also called "flexible") tactics like `simp` or `lia`. In
 --  idiomatic Lean, all non-terminal uses of `simp` should use the `only`
 --  qualifier and specify exactly which lemmas are being used to simplify.
 --  Use of `simp` without `only` should only occur in terminal positions.
-
+--
 --  In our example from before, the use of `simp` is terminal (and
 --  therefore okay) because it is followed only by other `simp`s and `lia`:
 
@@ -495,7 +495,7 @@ example α x (l₁ l₂ l₃ : List α)
 --  library compose the *simp set* for that library, and the result of
 --  simplifying an expression iteratively using all of the theorems in the
 --  simp set is the *simp normal form* of that expression.
-
+--
 --  It's important for the stability of proofs using `simp` that all the
 --  theorems in the simp set progress towards this normal form.
 --  Accordingly, library designers often first consider what they want that
@@ -504,14 +504,14 @@ example α x (l₁ l₂ l₃ : List α)
 --  prefers to use the `++` notation instead of `List.append`, so there is
 --  a `simp` theorem `List.append_eq` whose type is
 --  `List.append_eq {α : Type u} {as bs : List α} : as.append bs = as ++ bs`.
-
+--
 --  In this case, the `simp` normal form appears on the right, while the
 --  expression in need of simplification appears on the left. We can thus
 --  think of this theorem as simplifying from left to right. Not every
 --  `simp` lemma in the standard library has a `simp` normal form on its
 --  right-hand side, but all make progress towards `simp` normal form when
 --  applied.
-
+--
 --  For our purposes, in this textbook and in later ones, we will take care
 --  to define our `simp` lemmas such that they respect this left-to-right
 --  simplification behavior.
@@ -573,57 +573,57 @@ namespace RegExp
 --  expression *matches* some string.
 
 --  Informally this looks as follows:
-
+--
 --  - The regular expression `EmptySet` does not match any string.
-
+--
 --  - `EmptyStr` matches the empty string `[]`.
-
+--
 --  - `Char x` matches the one-character string `x`.
-
+--
 --  - If `re₁` matches `s₁`, and `re₂` matches `s₂`, then `App re₁ re₂`
 --    matches `s₁ ++ s₂`.
-
+--
 --  - If at least one of `re₁` and `re₂` matches `s`, then `Union re₁ re₂`
 --    matches `s`.
-
+--
 --  - Finally, if we can write some string `s` as the concatenation of a
 --    sequence of strings `s = s₁ ++ ... ++ sₖ`, and the expression `re`
 --    matches each one of the strings `sᵢ`, then `Star re` matches `s`.
-
+--
 --    In particular, the sequence of strings may be empty, so `Star re`
 --    always matches the empty string `[]` no matter what `re` is.
-
+--
 --  We can easily translate this intuition into a set of rules, where we
 --  write `s =~ re` to say that `re` matches `s`:
 
 --  Note to developers (Benjamin Pierce @bcpierce00):
 --      Check typesetting here (rules should be centered, I think):
 
---    ─────────────── (mEmpty)
---    [] =~ EmptyStr
-
---    ─────────────── (mChar)
---    [x] =~ (Char x)
-
---    s₁ =~ re₁     s₂ =~ re₂
---    ─────────────────────────── (mApp)
---    (s₁ ++ s₂) =~ (App re₁ re₂)
-
---    s₁ =~ re₁
---    ───────────────────── (mUnionL)
---    s₁ =~ (Union re₁ re₂)
-
---    s₂ =~ re₂
---    ───────────────────── (mUnionR)
---    s₂ =~ (Union re₁ re₂)
-
---    ──────────────── (mStar0)
---    [] =~ (Star re)
-
---    s₁ =~ re     s₂ =~ (Star re)
---    ──────────────────────────── (mStarApp)
---    (s₁ ++ s₂) =~ (Star re)
-
+--      ─────────────── (mEmpty)
+--      [] =~ EmptyStr
+--
+--      ─────────────── (mChar)
+--      [x] =~ (Char x)
+--
+--      s₁ =~ re₁     s₂ =~ re₂
+--      ─────────────────────────── (mApp)
+--      (s₁ ++ s₂) =~ (App re₁ re₂)
+--
+--      s₁ =~ re₁
+--      ───────────────────── (mUnionL)
+--      s₁ =~ (Union re₁ re₂)
+--
+--      s₂ =~ re₂
+--      ───────────────────── (mUnionR)
+--      s₂ =~ (Union re₁ re₂)
+--
+--      ──────────────── (mStar0)
+--      [] =~ (Star re)
+--
+--      s₁ =~ re     s₂ =~ (Star re)
+--      ──────────────────────────── (mStarApp)
+--      (s₁ ++ s₂) =~ (Star re)
+--
 --  This directly corresponds to the following inductive definition:
 
 inductive ExpMatch {α : Type} : List α → RegExp α → Prop where
@@ -644,6 +644,8 @@ open ExpMatch
 
 infix:40 " =~ " => ExpMatch
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Notice that this clause in our informal definition...
@@ -652,10 +654,12 @@ infix:40 " =~ " => ExpMatch
 
 --  ... is not explicitly reflected in the above definition. Do we need to
 --  add something?
-
+--
 --  (A) Yes, we should add a rule for this. (B) No, one of the other rules
 --  already covers this case. (C) No, the *lack* of a rule actually gives
 --  us the behavior we want.
+
+--   ----------------------------------------
 
 --  Notice that these rules are not *quite* the same as the intuition that
 --  we gave at the beginning of the section. First, we don't need to
@@ -664,7 +668,7 @@ infix:40 " =~ " => ExpMatch
 --  *allow* us to give such a "negative rule." We just don't happen to
 --  include any rule that would have the effect of `EmptySet` matching some
 --  string.
-
+--
 --  Second, the intuition we gave for `Union` and `Star` correspond to two
 --  constructors each: `mUnionL` / `mUnionR`, and `mStar0` / `mStarApp`.
 --  The result is logically equivalent to the original intuition but more
@@ -674,7 +678,7 @@ infix:40 " =~ " => ExpMatch
 --  to prove that the constructors given in the inductive declaration and
 --  the ones that would arise from a more literal transcription of the
 --  intuition is indeed equivalent.)
-
+--
 --  Let's illustrate these rules with a few examples.
 
 --  ### Examples
@@ -688,7 +692,7 @@ example : [1, 2] =~ App (Char 1) (Char 2):= by
 --  Notice how the last example applies `mApp` to the string `[1]`
 --  directly. Since the goal mentions `[1, 2]` instead of `[1] ++ [2]`,
 --  Lean wouldn't be able to figure out how to split the string on its own.
-
+--
 --  Using `inversion`, we can also show that certain strings do *not* match
 --  a regular expression:
 
@@ -801,7 +805,7 @@ theorem empty_equiv {α : Type} (s : List α) :
 --  For example, suppose we want to prove the following intuitive fact: If
 --  a string `s` is matched by a regular expression `re`, then all elements
 --  of `s` must occur as character literals somewhere in `re`.
-
+--
 --  To state this as a theorem, we first define a function `re_chars` that
 --  lists all characters that occur in a regular expression:
 
@@ -923,7 +927,7 @@ sf_expect_failure_in
 --  works properly with hypotheses that are "fully general," i.e., ones in
 --  which all the arguments are just variables, as opposed to more specific
 --  expressions like `Star re`.
-
+--
 --  A possible, but awkward, way to solve this problem is "manually
 --  generalizing" over the problematic expressions by adding explicit
 --  equality hypotheses to the lemma:
@@ -1002,7 +1006,7 @@ theorem MStar'' α (s : List α) (re : RegExp α) (h : s =~ Star re) :
 --  For the sake of simplicity, this exercise considers a slightly weaker
 --  theorem than is usually stated in courses on automata theory ─ hence
 --  the name `weak_pumping`. The stronger one can be found below.
-
+--
 --  To get started, we need to define "sufficiently long." Since we are
 --  working in a constructive logic, we actually need to be able to
 --  *calculate*, for each regular expression `re`, a minimum length for
@@ -1078,11 +1082,11 @@ theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
 --  `s₁` and `s₃`, will still match `re`. Since `s₂` is also guaranteed not
 --  to be the empty string, this gives us a (constructive!) way to generate
 --  strings matching `re` that are as long as we like.
-
+--
 --  This proof is quite long, so to make it more tractable we've broken it
 --  up into a number of sub-proofs, which we then assemble to prove the
 --  main lemma.
-
+--
 --  Your job is to complete the proofs of the helper lemmas; the main lemma
 --  relies on these. Several of the lemmas about `Nat.ble` that were in an
 --  optional exercise earlier in the IndProp chapter may be useful here ─
@@ -1336,3 +1340,4 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
 end Pumping
 end RegExp
 
+-- Built on 2026-08-31 20:51 UTC

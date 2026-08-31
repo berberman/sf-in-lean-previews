@@ -1,5 +1,5 @@
 {
-  "main_sha": "d7eee682eb6a23f4b72428a75553dc98f3b849ec",
+  "main_sha": "84d97c0c8c396ab492c6c8cfff753bfffd8ed19b",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -377,53 +377,6 @@
       "title": "Add visibility linting for exercises",
       "url": "https://github.com/plclub/sf-in-lean/pull/333"
     },
-    "335": {
-      "base_sha": "758672964a497b860706092a28e9ce6457c845af",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "ec6b46287d1acc56fa8df5512c66014031c71858",
-      "preview_path": "pr/335/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33180054794",
-      "status": "published",
-      "title": "Add devcontainer configuration",
-      "url": "https://github.com/plclub/sf-in-lean/pull/335"
-    },
     "337": {
       "base_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
       "changed_variants": [
@@ -517,53 +470,6 @@
       "status": "published",
       "title": "Logic: Stored Yipeng's cases vs. induction example ",
       "url": "https://github.com/plclub/sf-in-lean/pull/340"
-    },
-    "344": {
-      "base_sha": "d7eee682eb6a23f4b72428a75553dc98f3b849ec",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "774e69a41b8eefed4887c8ebcbe2ddefd9e94296",
-      "preview_path": "pr/344/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33399884166",
-      "status": "published",
-      "title": "Polishing pass on Induction",
-      "url": "https://github.com/plclub/sf-in-lean/pull/344"
     },
     "345": {
       "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",

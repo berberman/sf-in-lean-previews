@@ -40,15 +40,15 @@ import SFLCompat
 --  tool to study other things. Our case study is a *simple imperative
 --  programming language* called Imp, embodying a tiny core fragment of
 --  conventional mainstream languages such as C and Java.
-
+--
 --  Here is a familiar mathematical function written in Imp.
-
---    Z := X;
---    Y := 1;
---    while (Z ≠ 0) {
---      Y := Y * Z;
---      Z := Z - 1;
---    }
+--
+--      Z := X;
+--      Y := 1;
+--      while (Z ≠ 0) {
+--        Y := Y * Z;
+--        Z := Z - 1;
+--      }
 
 --  We concentrate here on defining the *syntax* and *semantics* of Imp;
 --  later in this volume we develop a theory of *program equivalence* and
@@ -63,7 +63,7 @@ import SFLCompat
 --  *relation* (proved equivalent), and a small `optimize0plus` program
 --  transformation together with its correctness proof. Those expressions
 --  are *variable-free*.
-
+--
 --  This chapter picks up from there. First we extend the expressions with
 --  *variables*; then we add a language of *commands* — assignment,
 --  conditionals, sequencing, and loops.
@@ -153,23 +153,23 @@ def Z : Ident := "Z"
 
 --  To make Imp programs easier to read and write, we introduce some
 --  notations.
-
+--
 --  You do not need to understand exactly what these declarations do.
 --  Briefly, though, here is how the two blocks below fit together:
-
+--
 --  - The `declare_syntax_cat` directive adds a new non-terminal to Lean's
 --    grammar, called `imp_aexp`. We'll add additional non-terminals
 --    further below.
-
+--
 --  - Each `syntax` directive defines a grammar production, of which there
 --    are eight in total. The first two define literals, `num` and `ident`,
 --    as `imp_aexp`s. The next several directives define productions for
 --    building larger expressions, with some annotations to define
 --    precedence, etc.
-
+--
 --  - Finally, `macro_rules` is used to translate each production of the
 --    `imp_aexp` nonterminal into a Lean expression.
-
+--
 --  Boolean expressions and, later, commands follow this same pattern
 --  exactly, so their declarations are collapsed where they appear: open
 --  one if you want to see the pattern repeated, and skip them otherwise.
@@ -264,7 +264,7 @@ macro_rules
 --  into a term (*elaboration*), a delaborator does the reverse: it turns
 --  an elaborated term back into surface syntax so that Lean's own output
 --  uses our concrete Imp notation.
-
+--
 --  Each delaborator walks a term of the given type and rebuilds the
 --  matching piece of `imp_aexp`/`imp_bexp` syntax; a subterm Lean doesn't
 --  recognize is printed with the `~` escape. The `@[delab …]` attribute
@@ -275,7 +275,7 @@ macro_rules
 --  *Desugaring Notations* below). The companion *category parenthesizer*
 --  re-inserts the parentheses the grammar's precedences demand, so that,
 --  e.g., `(1 + 2) * 3` prints with its parentheses intact.
-
+--
 --  You do not need to understand the details, and the code is collapsed
 --  below for that reason. The result is that a `#check`, an `#eval`, or a
 --  proof goal mentioning an Imp expression is displayed in readable Imp
@@ -420,7 +420,7 @@ end Imp.Delab
 
 --  With these delaborators in place, Lean pretty-prints Imp expressions
 --  with the higher-level notations rather than their raw constructors.
-
+--
 --  The pretty-printed version of an expression might not exactly match its
 --  original form. For example, the parentheses around `X * 2` in
 --  `aexp { 3 + (X * 2) }` are not printed because they are redundant --
@@ -665,7 +665,7 @@ imp {
 --  `hide`s the underlying structure we want to see. For those moments we
 --  can switch the Imp notation off in Lean's output with
 --  `set_option pp.notation false`, which our delaborators honor.
-
+--
 --  Note that unlike a `def`, `imp { … }` is a `macro` which is expanded
 --  during elaboration, **before** the resulting term is type-checked. So
 --  `fact_in_lean` is not a program hidden behind a layer of notation that
@@ -691,7 +691,7 @@ set_option pp.notation false in
 --  ### More Examples
 
 --  A few more examples.
-
+--
 --  Assignment:
 
 def plus2 : Com := imp { X := X + 2 }
@@ -763,7 +763,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 --  That is, propositions like `False` would become provable
 --  (`loop_false 0` would be a proof of `False`), a disaster for logical
 --  consistency.
-
+--
 --  Thus, because it doesn't terminate on all inputs, the full `ceval_fun`
 --  cannot be written in Lean -- at least not without additional tricks and
 --  workarounds.
@@ -793,7 +793,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 --  `st =[ c ]=> st'` means that executing program `c` in a starting state
 --  `st` results in an ending state `st'`. This can be pronounced "`c`
 --  takes state `st` to `st'`".
-
+--
 --  Operational Semantics
 
 --  Note to developers (before next release):
@@ -802,39 +802,39 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 
 --  Here is an informal definition of evaluation, presented as inference
 --  rules for readability:
-
---                          -----------------                  (skip)
---                          st =[ skip ]=> st
-
---                          a.eval st = n
---                  --------------------------------           (asgn)
---                  st =[ x := a ]=> (x →ₜ n ; st)
-
---                          st  =[ c₁ ]=> st'
---                          st' =[ c₂ ]=> st''
---                        ---------------------                (seq)
---                        st =[ c₁;c₂ ]=> st''
-
---                         b.eval st = true
---                          st =[ c₁ ]=> st'
---               --------------------------------------        (ifTrue)
---               st =[ if b then c₁ else c₂ end ]=> st'
-
---                        b.eval st = false
---                          st =[ c₂ ]=> st'
---               --------------------------------------        (ifFalse)
---               st =[ if b then c₁ else c₂ end ]=> st'
-
---                        b.eval st = false
---                   -----------------------------             (whileFalse)
---                   st =[ while b do c end ]=> st
-
---                         b.eval st = true
---                          st =[ c ]=> st'
---                 st' =[ while b do c end ]=> st''
---                 --------------------------------            (whileTrue)
---                 st  =[ while b do c end ]=> st''
-
+--
+--                            -----------------                  (skip)
+--                            st =[ skip ]=> st
+--
+--                            a.eval st = n
+--                    --------------------------------           (asgn)
+--                    st =[ x := a ]=> (x →ₜ n ; st)
+--
+--                            st  =[ c₁ ]=> st'
+--                            st' =[ c₂ ]=> st''
+--                          ---------------------                (seq)
+--                          st =[ c₁;c₂ ]=> st''
+--
+--                           b.eval st = true
+--                            st =[ c₁ ]=> st'
+--                 --------------------------------------        (ifTrue)
+--                 st =[ if b then c₁ else c₂ end ]=> st'
+--
+--                          b.eval st = false
+--                            st =[ c₂ ]=> st'
+--                 --------------------------------------        (ifFalse)
+--                 st =[ if b then c₁ else c₂ end ]=> st'
+--
+--                          b.eval st = false
+--                     -----------------------------             (whileFalse)
+--                     st =[ while b do c end ]=> st
+--
+--                           b.eval st = true
+--                            st =[ c ]=> st'
+--                   st' =[ while b do c end ]=> st''
+--                   --------------------------------            (whileTrue)
+--                   st  =[ while b do c end ]=> st''
+--
 --  Here is the formal definition. Make sure you understand how it
 --  corresponds to the inference rules.
 
@@ -940,57 +940,69 @@ example :
 --      Not true (B) True and easily provable (C) True and takes more work
 --      to prove (D) True and cannot be proved without additional axioms
 
---  _Quiz:_
-
---  Is the following proposition provable?
-
---    ∀ (c : Com) (st st' : State),
---      st =[ skip; ~c ]=> st' →
---      st =[ c ]=> st'
-
---  (A) Yes (B) No (C) Not sure
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the following proposition provable?
-
---    ∀ (c₁ c₂ : Com) (st st' : State),
---      st =[ ~c₁ ~c₂ ]=> st' →
---      st =[ c₁ ]=> st →
---      st =[ c₂ ]=> st'
-
+--
+--      ∀ (c : Com) (st st' : State),
+--        st =[ skip; ~c ]=> st' →
+--        st =[ c ]=> st'
+--
 --  (A) Yes (B) No (C) Not sure
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the following proposition provable?
-
---    ∀ (b : Bexp) (c : Com) (st st' : State),
---      st =[ if (~b) { ~c } else { ~c } ]=> st' →
---      st =[ c ]=> st'
-
+--
+--      ∀ (c₁ c₂ : Com) (st st' : State),
+--        st =[ ~c₁ ~c₂ ]=> st' →
+--        st =[ c₁ ]=> st →
+--        st =[ c₂ ]=> st'
+--
 --  (A) Yes (B) No (C) Not sure
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the following proposition provable?
-
---    ∀ (b : Bexp),
---      (∀ st, b.eval st = true) →
---      ∀ (c : Com) (st : State),
---      ¬ ∃ st', st =[ while (~b) { ~c } ]=> st'
-
+--
+--      ∀ (b : Bexp) (c : Com) (st st' : State),
+--        st =[ if (~b) { ~c } else { ~c } ]=> st' →
+--        st =[ c ]=> st'
+--
 --  (A) Yes (B) No (C) Not sure
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the following proposition provable?
-
---    ∀ (b : Bexp) (c : Com) (st : State),
---      (¬ ∃ st', st =[ while (~b) { ~c } ]=> st') →
---      ∀ st'', b.eval st'' = true
-
+--
+--      ∀ (b : Bexp),
+--        (∀ st, b.eval st = true) →
+--        ∀ (c : Com) (st : State),
+--        ¬ ∃ st', st =[ while (~b) { ~c } ]=> st'
+--
 --  (A) Yes (B) No (C) Not sure
+
+--   ----------------------------------------
+
+--  _Quiz:_
+
+--  Is the following proposition provable?
+--
+--      ∀ (b : Bexp) (c : Com) (st : State),
+--        (¬ ∃ st', st =[ while (~b) { ~c } ]=> st') →
+--        ∀ st'', b.eval st'' = true
+--
+--  (A) Yes (B) No (C) Not sure
+
+--   ----------------------------------------
 
 --  ### Determinism of Evaluation
 
@@ -1241,13 +1253,13 @@ theorem no_whiles_terminating' (c : Com) (st1 : State)
 --  Old HP Calculators, programming languages like Forth and Postscript,
 --  and abstract machines like the Java Virtual Machine all evaluate
 --  arithmetic expressions using a *stack*. For instance, the expression
-
---    (2*3)+(3*(4-2))
-
+--
+--      (2*3)+(3*(4-2))
+--
 --  would be written as
-
---          2 3 * 3 4 2 - * +
-
+--
+--            2 3 * 3 4 2 - * +
+--
 --  and evaluated like this (where we show the program being evaluated on
 --  the right and the contents of the stack on the left):
 
@@ -1264,20 +1276,20 @@ theorem no_whiles_terminating' (c : Com) (st1 : State)
 
 --  The goal of this exercise is to write a small compiler that translates
 --  `aexp`s into stack machine instructions.
-
+--
 --  The instruction set for our stack language will consist of the
 --  following instructions:
-
+--
 --  - `sPush n`: Push the number `n` on the stack.
-
+--
 --  - `sLoad x`: Load the identifier `x` from the store and push it on the
 --    stack
-
+--
 --  - `sPlus`: Pop the two top numbers from the stack, add them, and push
 --    the result onto the stack.
-
+--
 --  - `sMinus`: Similar, but subtract the first number from the second.
-
+--
 --  - `sMult`: Similar, but multiply.
 
 namespace StackCompiler
@@ -1296,7 +1308,7 @@ open Sinstr
 --  stack item is the head of the list), and a program represented as a
 --  list of instructions, and it should return the stack after executing
 --  the program. Test your function on the examples below.
-
+--
 --  Note that it is unspecified what to do when encountering an `sPlus`,
 --  `sMinus`, or `sMult` instruction if the stack contains fewer than two
 --  elements. In a sense, it is immaterial what we do, since a correct
@@ -1428,7 +1440,7 @@ end StackCompiler
 --  If it evaluates to `false`, then the entire `and` expression evaluates
 --  to `false` immediately, without evaluating `b₂`. Otherwise, `b₂` is
 --  evaluated to determine the result of the `and` expression.
-
+--
 --  Write an alternate version of `BExp.eval` that performs short-circuit
 --  evaluation of `BAnd` in this manner, and prove that it is equivalent to
 --  `BExp.eval`. (N.b. This is only true because expression evaluation in
@@ -1553,23 +1565,23 @@ info: imp {
 --  terminate. (If there aren't any enclosing loops, then the whole program
 --  simply terminates.) The final state should be the same as the one in
 --  which the `brk` statement was executed.
-
+--
 --  One important point is what to do when there are multiple loops
 --  enclosing a given `brk`. In those cases, `brk` should only terminate
 --  the *innermost* loop. Thus, after executing the following...
-
---        X := 0;
---        Y := 1;
---        while (0 <> Y) {
---          while (true) {
---            break
---          };
---          X := 1;
---          Y := Y - 1
---        }
-
+--
+--          X := 0;
+--          Y := 1;
+--          while (0 <> Y) {
+--            while (true) {
+--              break
+--            };
+--            X := 1;
+--            Y := Y - 1
+--          }
+--
 --  ... the value of `X` should be `1`, and not `0`.
-
+--
 --  One way of expressing this behavior is to add another parameter to the
 --  evaluation relation that specifies whether evaluation of a command
 --  executes a `brk` statement:
@@ -1585,34 +1597,34 @@ open Result
 --  signals that the innermost surrounding loop (or the whole program)
 --  should exit immediately (`s = sBreak`) or that execution should
 --  continue normally (`s = sContinue`).
-
+--
 --  The definition of the `st =[ c ]=> st' // s` relation is very similar
 --  to the one we gave above for the regular evaluation relation
 --  (`st =[ c ]=> st'`) -- we just need to handle the termination signals
 --  appropriately:
-
+--
 --  - If the command is `skip`, then the state doesn't change and execution
 --    of any enclosing loop can continue normally.
-
+--
 --  - If the command is `brk`, the state stays unchanged but we signal a
 --    `sBreak`.
-
+--
 --  - If the command is an assignment, then we update the binding for that
 --    variable in the state accordingly and signal that execution can
 --    continue normally.
-
+--
 --  - If the command is of the form `if (b) {c₁} {c₂}`, then the state is
 --    updated as in the original semantics of Imp, except that we also
 --    propagate the signal from the execution of whichever branch was
 --    taken.
-
+--
 --  - If the command is a sequence `c₁ ; c₂`, we first execute `c₁`. If
 --    this yields a `sBreak`, we skip the execution of `c₂` and propagate
 --    the `sBreak` signal to the surrounding context; the resulting state
 --    is the same as the one obtained by executing `c₁` alone. Otherwise,
 --    we execute `c₂` on the state obtained after executing `c₁`, and
 --    propagate the signal generated there.
-
+--
 --  - Finally, for a loop of the form `while (b) {c}`, the semantics is
 --    almost the same as before. The only difference is that, when `b`
 --    evaluates to `true`, we execute `c` and check the signal that it
@@ -1621,7 +1633,7 @@ open Result
 --    loop, and the resulting state is the same as the one resulting from
 --    the execution of the current iteration. In either case, since `break`
 --    only terminates the innermost loop, `while` signals `sContinue`.
-
+--
 --  Based on the above description, complete the definition of the
 --  `Com.EvalR` relation:
 
@@ -1763,7 +1775,7 @@ end BreakImp
 --  definition to define the semantics of `for` loops, and add cases for
 --  `for` loops as needed so that all the proofs in this file are accepted
 --  by Rocq.
-
+--
 --  A `for` loop should be parameterized by (a) a statement executed
 --  initially, (b) a test that is run on each iteration of the loop to
 --  determine whether the loop should continue, (c) a statement executed at
@@ -1799,3 +1811,4 @@ end BreakImp
 --        not just a single name, reads better with hover types (e.g. the
 --        `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 
+-- Built on 2026-08-31 20:51 UTC

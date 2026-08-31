@@ -10,3 +10,5 @@ import LF.IndProp
 import LF.Automation
 import LF.Typeclasses
 import LF.Postscript
+
+-- Built on 2026-08-31 20:50 UTC

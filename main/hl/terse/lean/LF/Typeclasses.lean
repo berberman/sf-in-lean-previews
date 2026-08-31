@@ -4,13 +4,13 @@ import SFLCompat
 
 --  Chapter Poly introduced **parametric polymorphism**,
 --  declaring a type variable with no constraint on it.
-
+--
 --  This lets us work with a type like `List α`, writing
 --  functions like `List.reverse` and `List.length` and
 --  proofs like `List.length_reverse`, which use only the
 --  list's structure and never inspect any particular
 --  `a : α`.
-
+--
 --  Sometimes, though, we want less freedom: rather than
 --  leaving `α` completely generic, we want to partially
 --  specify its behavior. In Lean, this is done through a
@@ -70,7 +70,7 @@ def List.elemPolyEq {α : Type} (eq : α → α → Bool) (x : α) (ys : List α
 
 --  This works, but it's tedious: every caller has to know,
 --  and remember to supply, the right equality function.
-
+--
 --  Typeclasses automate this — instead of the programmer
 --  passing the function explicitly, Lean searches for one
 --  and provides it on its own. We specify something we want
@@ -85,7 +85,7 @@ def List.elemPolyEq {α : Type} (eq : α → α → Bool) (x : α) (ys : List α
 --  applies to. This directs Lean to rely on the class
 --  inside the function, and to find and fill in the
 --  appropriate instance when the function is called.
-
+--
 --  Here is what this looks like for `List.elemPoly`:
 
 def List.elemPoly {α : Type} [BEq α] (x : α) (ys : List α) : Bool :=
@@ -121,7 +121,7 @@ theorem List.elemPoly_cons {α : Type} [BEq α] (x y : α) (ys : List α) :
 --  body would have needed to work for *every* type `α`, and
 --  no single `BEq` instance can do that. So Lean's search
 --  failed.
-
+--
 --  Now it is time to dig into the details of what we have
 --  seen so far. We'll see exactly how `[BEq α]` gets filled
 --  in below, starting with how to define a typeclass in the
@@ -133,7 +133,7 @@ theorem List.elemPoly_cons {α : Type} [BEq α] (x y : α) (ys : List α) :
 --  typeclass of our own, to see the mechanism — classes,
 --  instances, and synthesis — that made `==` resolve
 --  automatically above.
-
+--
 --  Suppose we want a function that returns the first
 --  element of a list, defaulting to a given value if the
 --  list is empty. As with `List.elemPolyEq` above, here is
@@ -152,13 +152,13 @@ def List.headOrEx {α : Type} (defaultValue : α) (xs : List α) : α :=
 --  supply an element of `α` to default to, even when
 --  there's an obvious choice based on the type of the
 --  things in the list, like `0` for `Nat`.
-
+--
 --  Getting Lean to fill in `defaultValue` automatically
 --  takes two things. One is marking the parameter as
 --  "searchable," rather than something the caller always
 --  supplies explicitly. The other is giving Lean some
 --  information about what it should search *for*.
-
+--
 --  Considering the second problem first: the way to provide
 --  this information is to *name* the data we're after — the
 --  **default value** of a type. In particular, a
@@ -166,12 +166,12 @@ def List.headOrEx {α : Type} (defaultValue : α) (xs : List α) : α :=
 --  information a name; structures can also bundle together
 --  more than one piece of data, which will come in handy
 --  later, though we only need a single field here.
-
+--
 --  To address the first problem, we need to mark this
 --  particular structure as one Lean should search for
 --  automatically — not every `structure`-typed argument
 --  should be.
-
+--
 --  Let's build up to what we want in two steps: first the
 --  naming, as a plain `structure`; then the marking, by
 --  upgrading it to a `class`. Here's the structure — we'll
@@ -232,7 +232,7 @@ example : DefaultValue.value = (0 : Nat) := by rfl
 --  `instDefaultValueNat`, the instance for
 --  `DefaultValue Nat`. We know this because we are able to
 --  prove that `DefaultValue.value` is equal to `0`.
-
+--
 --  Let's declare a second instance, for `Int`, the type of
 --  integers `... -2, -1, 0, 1, 2, ...`:
 
@@ -292,7 +292,7 @@ set_option pp.all true in
 --  a term, such as the `1` above, rather than only proofs
 --  (which we will see below) — we expect at most one
 --  instance per type, so this search has a unique answer.
-
+--
 --  We'll put `DefaultValue`'s standard-library equivalent,
 --  `Inhabited`, to work later in this chapter, when we
 --  define maps that need a default value for a generic
@@ -393,14 +393,14 @@ class HasThree (α : Type) where
   two : α
   three : α
   one_neq_two : one ≠ two
-  -- FILL IN HERE
+  --  FILL IN HERE
 
 instance : HasThree Nat where
   one := 1
   two := 2
   three := 3
   one_neq_two := sorry
-  -- FILL IN HERE
+  --  FILL IN HERE
 
 namespace Algebra
 
@@ -410,23 +410,23 @@ namespace Algebra
 --  interact. As a simple example, let's use a typeclass to
 --  define a *monoid*, a simple algebraic structure that
 --  includes four things:
-
+--
 --  - an underlying set of data, represented by a type `α`,
-
+--
 --  - an operator (which we'll write `⊗`, typed otimes) that
 --    combines two elements of type `α` into one,
-
+--
 --  - a particular element `id` of type `α`, which we call
 --    the "identity element", and
-
+--
 --  - some laws about the interaction of `⊗` and `id`,
 --    namely that:
-
+--
 --    - `∀ x, id ⊗ x = x = x ⊗ id`, and
-
+--
 --    - `∀ x y z, x ⊗ (y ⊗ z) = (x ⊗ y) ⊗ z` (i.e., that `⊗`
 --      is associative)
-
+--
 --  We can express these requirements in the form of a
 --  typeclass:
 
@@ -448,7 +448,7 @@ class Monoid (α : Type) extends (OpSet α) where
 --  The `Monoid` typeclass "inherits" the fields of `OpSet`,
 --  similar to how a class would in an object-oriented
 --  language.
-
+--
 --  As one might expect, the `+` operator over `Nat`s forms
 --  a monoid, where `0` is the identity element. Note that
 --  we don't have to define `Nat`'s `OpSet` instance
@@ -522,7 +522,7 @@ theorem id_unique {α : Type} {m₁ m₂ : Monoid α} (h : m₁.op = m₂.op) : 
 --  `m₁` and `m₂` are implicit arguments to `Monoid.id`.
 --  Setting `pp.explicit true` displays the goal as
 --  `@Eq α (@Monoid.id α m₁) (@Monoid.id α m₂)`.
-
+--
 --  A *group* is a special kind of monoid with an *inverse*
 --  operation `inv`, which has the property that
 --  `∀ x, inv x ⊗ x = id = x ⊗ inv x`. We can extend the
@@ -594,7 +594,7 @@ end Algebra
 --  structures both in ordinary programming and in the
 --  theory of programming languages; we're going to need
 --  them in many places in later volumes.
-
+--
 --  We'll define two flavors of maps: *total maps*, which
 --  include a "default" element to be returned when a key
 --  being looked up doesn't exist, and *partial maps*, which
@@ -622,7 +622,7 @@ sf_recall
 
 --  These classes refine `BEq`, specifying that (`==`) is
 --  reflexive and coincides with proposition equality `=`.
-
+--
 --  In general, we place no constraints on the value type
 --  `β`.
 
@@ -638,7 +638,7 @@ sf_recall
 --  in the same way will be represented as exactly the same
 --  function, rather than just as "equivalent" list
 --  structures. This simplifies proofs that use maps.
-
+--
 --  Instead of using functions directly, we encapsulate them
 --  inside a `structure` which we call `TotalMap`.
 --  Intuitively, a total map just contains a function
@@ -653,7 +653,7 @@ namespace TotalMap
 --  the `Inhabited` typeclass, which is the standard
 --  library's implementation of our `DefaultValue` example
 --  from above:
-
+--
 --  The function `TotalMap.empty` yields an empty total map,
 --  given a default element; this map always returns the
 --  default element when applied to any key.
@@ -663,7 +663,7 @@ def empty {α β : Type} [Inhabited β] : TotalMap α β where
 
 --  These types and implicit instances are now available
 --  automatically to all the definitions in this section.
-
+--
 --  Just as declaring `BEq`/`DefaultValue` instances above
 --  hooked `==` and `DefaultValue.value` up to our types, we
 --  can declare an instance of the standard library's
@@ -713,13 +713,13 @@ example {n : Nat} : emptyNatMap.get n = 0 := by
 --  which we can solve with `rfl`. This is because the
 --  projection `.inner` on a structure of the form
 --  `{ inner := x }` is definitionally equal to `x`.
-
+--
 --  `get` is the public API counterpart to `inner` which is
 --  an implementation-specific detail of `TotalMap`. Because
 --  `get_def` "peeks" through the abstraction, it should be
 --  used sparingly, and only inside the `TotalMap`
 --  namespace.
-
+--
 --  To make element-getting more convenient, let's define
 --  notation so we can write `emptyNatMap[2]` rather than
 --  `emptyNatMap.get`. We could notate `get` directly —
@@ -728,7 +728,7 @@ example {n : Nat} : emptyNatMap.get n = 0 := by
 --  typeclass, `MyGetElem`, and notate it. Doing so means
 --  `m[a]` resolves to `MyGetElem.getElem m a` for any type
 --  with a `MyGetElem` instance, not just `TotalMap`.
-
+--
 --  Using typeclasses to define notation is typical in Lean
 --  when the same notation is useful for many different
 --  types. We have seen the approach already with `==`:
@@ -752,7 +752,7 @@ class MyGetElem (coll : Type) (idx : Type) (elem : outParam Type) where
 
 --  (Don't worry about the `outParam` qualifier; it is a
 --  hint to Lean that helps typeclass inference.)
-
+--
 --  The appropriate instance of `MyGetElem` for our
 --  `TotalMap` is:
 
@@ -768,7 +768,7 @@ instance {α β : Type} : MyGetElem (TotalMap α β) α β where
 --  `scoped macro`; this is the first time we reach for the
 --  more general `notation`/`macro_rules` forms for getting
 --  the `m[a]` syntax to work.
-
+--
 --  Don't worry about following the mechanism in detail —
 --  the `macro_rules` and the `app_unexpander` below are
 --  minor technicalities. However, if you do wish to learn
@@ -902,14 +902,14 @@ example : exampleMap'["quux"] = false := by
 
 --  When we use maps in later volumes, we'll need several
 --  fundamental facts about how they behave.
-
+--
 --  Even if you don't work the following exercises, make
 --  sure you thoroughly understand the statements of the
 --  lemmas!
-
+--
 --  (Some of the proofs require the extensionality tactic
 --  `ext`, discussed in the Logic chapter.)
-
+--
 --  First, the empty map returns its default element for all
 --  keys:
 
@@ -919,7 +919,7 @@ theorem getElem_empty {α β : Type} [BEq α] [Inhabited β] (a : α) : (∅ : T
 
 --  Notice that in the example `exampleMap'["quux"] = false`
 --  the last rewrite is effectively just `getElem_empty`.
-
+--
 --  Next, if we update a map `m` at a key `a` with a new
 --  value `b` and then look up `a` in the map resulting from
 --  the `update`, we get back `b`:
@@ -950,7 +950,7 @@ theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {
 --  maps, and tagging it `@[ext]` lets the `ext` tactic
 --  reduce a goal `m₁ = m₂` to the pointwise one in the
 --  proofs below.
-
+--
 --  The fact that `TotalMap` is a structure complicates
 --  things slightly. We need to use injectivity of its
 --  constructor `mk` which Lean automatically provides for
@@ -1137,12 +1137,12 @@ theorem toTotal_eq_getElem {α β : Type} (m : PartialMap α β) (a : α) :
 --  principle with `PartialMap`s, and define
 --  `PartialMap.toTotal` to be the public API counterpart to
 --  `PartialMap.inner`.
-
+--
 --  We again want the public API to use the `m[a]` notation
 --  instead of `m.toTotal[a]`, so we provide the reverse
 --  direction of `getElem_def` as a `simp` lemma to specify
 --  that the `simp` normal form is `m[a]`.
-
+--
 --  Updating a partial map at a key means storing a `some`
 --  value there. To update, we create a new partial map from
 --  `a →ₜ some b ; m.toTotal` by wrapping it in angle
@@ -1329,7 +1329,7 @@ def Even x := ∃ n : Nat, x = Nat.double n
 --  We've seen two different ways of expressing logical
 --  claims in Lean: with booleans (of type `Bool`), and with
 --  propositions (of type `Prop`).
-
+--
 --  Here are the key differences between `Bool` and `Prop`:
 
 --  |                       | `Bool` | `Prop` |
@@ -1344,7 +1344,7 @@ def Even x := ∃ n : Nat, x = Nat.double n
 --  either `true` or `false` — i.e., there is a terminating
 --  mechanical procedure for deciding whether or not it is
 --  true.
-
+--
 --  This means that, for example, the type `Nat → Bool` is
 --  inhabited only by functions that, given a `Nat`, always
 --  yield either `true` or `false` in finite time; and this,
@@ -1352,7 +1352,7 @@ def Even x := ∃ n : Nat, x = Nat.double n
 --  that there is no function in `Nat → Bool` that checks
 --  whether a given number is the code of a terminating
 --  Turing machine.
-
+--
 --  By contrast, the type `Prop` includes both decidable and
 --  undecidable mathematical propositions; in particular,
 --  the type `Nat → Prop` does contain functions
@@ -1362,7 +1362,7 @@ def Even x := ∃ n : Nat, x = Nat.double n
 --  match (or conditional) on a boolean, we need to know
 --  whether the scrutinee evaluates to `true` or `false`;
 --  this only works for `Bool`, not `Prop`.
-
+--
 --  The third row highlights an important practical
 --  difference: equality functions like `Nat.beq` that
 --  return a boolean cannot be used directly to justify
@@ -1372,7 +1372,7 @@ def Even x := ∃ n : Nat, x = Nat.double n
 --  options when we want to formalize a property that
 --  happens to be decidable: we can express it either as a
 --  boolean computation or as a function into Prop.
-
+--
 --  As an example, we can write
 
 example : even 42 := rfl
@@ -1384,7 +1384,7 @@ example : Even 42 := by exists 21
 --  Of course, it would be deeply strange if these two
 --  characterizations of evenness did not describe the same
 --  set of natural numbers!
-
+--
 --  Fortunately, they do! To prove this, we first need two
 --  helper lemmas.
 
@@ -1420,13 +1420,13 @@ end Nat
 --  In view of this theorem, we can say that the boolean
 --  computation `Nat.even n` is reflected in the truth of
 --  the proposition `∃ (k : Nat), n = Nat.double k`.
-
+--
 --  Similarly, to state that two numbers n and m are equal,
 --  we can say either
-
+--
 --  - that `n == m` returns `true`, or
 --  - that `n = m`
-
+--
 --  Again, these two notions are equivalent:
 
 example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := beq_iff_eq
@@ -1434,7 +1434,7 @@ example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := beq_iff_eq
 --  So what should we do in situations where some claim
 --  could be formalized as either a proposition or a boolean
 --  computation? Which should we choose?
-
+--
 --  In general, both can be useful. Which we choose has to
 --  do with the *computational* nature of Lean's core
 --  language, which is designed so that every function it
@@ -1492,7 +1492,7 @@ set_option pp.all true in
 #print nat_eq
 
 --  which proves that this equality is decidable.
-
+--
 --  This is only half the story however: while Lean's core
 --  theory enables this computation, Lean is also often used
 --  in applications where we don't care about computability,
@@ -1538,3 +1538,4 @@ example {α : Type} (x : α) [BEq α] [LawfulBEq α] (xs : List α)
 
 end Reflection
 
+-- Built on 2026-08-31 20:52 UTC

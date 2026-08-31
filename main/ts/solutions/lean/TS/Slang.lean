@@ -15,7 +15,7 @@ import SFLCompat
 --  us introduce key concepts for specifying the *syntax* and *semantics*
 --  of programming languages and show how those concepts are realized in
 --  Lean.
-
+--
 --  (This chapter is shared, word for word, between two volumes: **Type
 --  Systems** (TS) and **Hoare Logic** (HL). If you have already worked
 --  through it in the other volume, you can safely skip ahead to the next
@@ -52,7 +52,7 @@ inductive Bexp where
 --  syntax* that a programmer would actually write to these abstract syntax
 --  trees -- the process that, for example, would translate the string
 --  `"1 + 2 * 3"` to the AST `.plus (.num 1) (.mult (.num 2) (.num 3))`.
-
+--
 --  For comparison, here's a conventional BNF (Backus-Naur Form) grammar
 --  defining the same abstract syntax:
 
@@ -69,7 +69,7 @@ inductive Bexp where
 --      | b ∧ b
 
 --  Compared to the Lean version above...
-
+--
 --  - The BNF is more informal -- for example, it gives some suggestions
 --    about the surface syntax of expressions (like the fact that the
 --    addition operation is written with an infix `+`) while leaving other
@@ -80,17 +80,17 @@ inductive Bexp where
 --    formal definition, e.g., for implementing a compiler. The Lean
 --    version consistently omits all this information and concentrates on
 --    the abstract syntax only.
-
+--
 --  - Conversely, the BNF version is lighter and easier to read. Its
 --    informality makes it flexible, a big advantage in situations like
 --    discussions at the blackboard, where conveying general ideas is more
 --    important than nailing down every detail precisely.
-
+--
 --    Indeed, there are dozens of BNF-like notations and people switch
 --    freely among them -- usually without bothering to say which kind of
 --    BNF they're using, because there is no need to: a rough-and-ready
 --    informal understanding is all that's important.
-
+--
 --  It's good to be comfortable with both sorts of notations: informal ones
 --  for communicating between humans and formal ones for carrying out
 --  implementations and proofs.
@@ -143,6 +143,8 @@ end Bexp
 --  the call to `decide` by hovering over `Bexp.eval_le` and
 --  `Bexp.eval_gt`.
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  What does the following expression evaluate to?
@@ -150,6 +152,8 @@ end Bexp
 --  Aexp.eval (.plus (.num 3) (.minus (.num 4) (.num 1)))
 
 --  (A) true (B) false (C) 0 (D) 3 (E) 6
+
+--   ----------------------------------------
 
 --  ### Optimization
 
@@ -180,7 +184,7 @@ example :
 --  But if we want to be certain the optimization is correct -- that
 --  evaluating an optimized expression *always* gives the same result as
 --  the original -- we should prove it!
-
+--
 --  Here is a first, deliberately explicit, proof, by induction on `a`. The
 --  interesting case is `Aexp.plus`: because `Aexp.optimize0plus` treats
 --  `plus (num 0) e` specially, we case-split on the left operand `a₁` --
@@ -224,13 +228,13 @@ theorem optimize0plus_sound (a : Aexp) :
 --  We can do much better. The case analysis we performed by hand --
 --  peeling `plus` apart to reach the `plus (num 0) e` branch -- is exactly
 --  the case analysis that `Aexp.optimize0plus` itself performs.
-
+--
 --  The `fun_induction` tactic inducts along a function's **own** recursion
 --  structure: `fun_induction
 --  Aexp.optimize0plus a` hands us one goal per
 --  branch of `optimize0plus` -- the special `plus (num 0) e` branch
 --  included -- so the nested `cases` disappear.
-
+--
 --  Before applying `fun_induction` to a function as complex as
 --  `Aexp.optimize0plus`, let's see how it works on somthing simpler.
 --  Recall the definition of `Nat.even` and `Nat.odd`:
@@ -393,7 +397,7 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --  wrapped, implicitly, in an inductive declaration. In informal prose,
 --  this is sometimes indicated by saying something like "Let `Aexp.EvalR`
 --  be the smallest relation closed under the following rules...".
-
+--
 --  To summarize: a group of inference rules corresponds to a single
 --  inductive definition; each rule's name corresponds to a constructor
 --  name; above the line are the premises, below the line the conclusion;
@@ -403,21 +407,23 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 
 --  ---------                (num)
 --                          num n ⇓ n
-
+--
 --                           a₁ ⇓ n₁
 --                           a₂ ⇓ n₂
 --                      ------------------           (plus)
 --                      plus a₁ a₂ ⇓ n₁ + n₂
-
+--
 --                           a₁ ⇓ n₁
 --                           a₂ ⇓ n₂
 --                     -------------------           (minus)
 --                     minus a₁ a₂ ⇓ n₁ - n₂
-
+--
 --                           a₁ ⇓ n₁
 --                           a₂ ⇓ n₂
 --                      ------------------           (mult)
 --                      mult a₁ a₂ ⇓ n₁*n₂
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
@@ -427,6 +433,8 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 
 --  (A) `num` and `plus` (B) `num` only (C) `num` and `mult` (D) `mult` and
 --  `plus` (E) `num`, `mult`, and `plus`
+
+--   ----------------------------------------
 
 --  Note to developers (Michael Hicks @mwhicks1, before next release):
 --      Not sure if we need ⇓b, or whether we can define ⇓ overloaded.
@@ -441,49 +449,49 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --  ### Exercise (1 star): beval_rules (Optional, manually graded) ⭐
 
 --  Here, again, is the definition of the `Bexp.eval` function:
-
---    def Bexp.eval (b : Bexp) : Bool :=
---      match b with
---      | bool b     => b
---      | eq   a₁ a₂ => a₁.eval == a₂.eval
---      | neq  a₁ a₂ => a₁.eval != a₂.eval
---      | le   a₁ a₂ => a₁.eval ≤ a₂.eval
---      | gt   a₁ a₂ => a₁.eval > a₂.eval
---      | not  b₁    => !eval b₁
---      | and  b₁ b₂ => eval b₁ && eval b₂
-
+--
+--      def Bexp.eval (b : Bexp) : Bool :=
+--        match b with
+--        | bool b     => b
+--        | eq   a₁ a₂ => a₁.eval == a₂.eval
+--        | neq  a₁ a₂ => a₁.eval != a₂.eval
+--        | le   a₁ a₂ => a₁.eval ≤ a₂.eval
+--        | gt   a₁ a₂ => a₁.eval > a₂.eval
+--        | not  b₁    => !eval b₁
+--        | and  b₁ b₂ => eval b₁ && eval b₂
+--
 --  Write out a corresponding definition of boolean evaluation as a
 --  relation in inference rule notation.
 
 --  Answer (`⇓` is defined below):
-
+--
 --                    -------------                (bool)
 --                     bool bv ⇓ bv
-
+--
 --                          a₁ ⇓ n₁
 --                          a₂ ⇓ n₂
 --                    ---------------------        (eq)
 --                    eq a₁ a₂ ⇓ (n₁ == n₂)
-
+--
 --                          a₁ ⇓ n₁
 --                          a₂ ⇓ n₂
 --                  ---------------------          (neq)
 --                   neq a₁ a₂ ⇓ n₁ != n₂
-
+--
 --                          a₁ ⇓ n₁
 --                          a₂ ⇓ n₂
 --                    --------------------------   (le)
 --                    le a₁ a₂ ⇓ (Nat.ble n₁ n₂)
-
+--
 --                          a₁ ⇓ n₁
 --                          a₂ ⇓ n₂
 --                    ---------------------------  (gt)
 --                    gt a₁ a₂ ⇓ !(Nat.ble n₁ n₂)
-
+--
 --                           b ⇓ bv
 --                       -----------               (not)
 --                       not b ⇓ !bv
-
+--
 --                          b₁ ⇓ bv₁
 --                          b₂ ⇓ bv₂
 --                   ----------------------        (and)
@@ -603,7 +611,7 @@ end Aexp
 --  these in Software Foundations in Lean. Curious readers can learn more
 --  about them from [Functional Programming in
 --  Lean](https://lean-lang.org/functional_programming_in_lean/Monads/).
-
+--
 --  By contrast, partiality is no problem for the relational version of the
 --  definition.
 
@@ -657,7 +665,7 @@ end Slang.AevalRExtended
 
 --  At this point you may be wondering: which of these styles should I use
 --  by default?
-
+--
 --  Where the thing being defined is not easy to express as a function,
 --  definitions are often simpler. When both styles are workable,
 --  relational definitions can be more elegant and easier to understand,
@@ -666,9 +674,10 @@ end Slang.AevalRExtended
 --  deterministic and total -- whereas, for a relation, we must *prove*
 --  these if we need them -- and we can use Lean's computation mechanism to
 --  simplify them during proofs.
-
+--
 --  In large developments it is common to give a definition in *both*
 --  styles plus a lemma that the two coincide, allowing later proofs to
 --  switch between points of view at will -- exactly what we did above in
 --  `Slang.Aexp.evalR_iff_eval` and `Slang.Bexp.evalR_iff_eval`.
 
+-- Built on 2026-08-31 20:52 UTC

@@ -10,7 +10,7 @@ import SFLCompat
 --  -- i.e., to use the precise definition of Imp to prove
 --  formally that particular programs satisfy particular
 --  specifications of their behavior.
-
+--
 --  We'll develop a reasoning system called *Floyd-Hoare
 --  Logic* -- often shortened to just *Hoare Logic* -- in
 --  which each of the syntactic constructs of Imp is
@@ -36,38 +36,42 @@ open scoped Com MyGetElem
 abbrev Assertion := State → Prop
 
 --  For example,
-
+--
 --  - `fun st => st[X] = 3` holds for states `st` in which
 --    value of `X` is `3`,
-
+--
 --  - `fun st => True` hold for all states, and
-
+--
 --  - `fun st => False` holds for no states.
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Paraphrase the following assertions in English (i.e.,
 --  say which states satisfy them)
-
+--
 --  (A) `fun st => st[X] ≤ st[Y]`
-
+--
 --  (B) `fun st => st[X] = 3 ∨ st[X] ≤ st[Y]`
-
+--
 --  (C)
 --  `fun st => st[Z] * st[Z] ≤ st[X] ∧ ¬ ((st[Z] + 1) * (st[Z] + 1) ≤ st[X])`
+
+--   ----------------------------------------
 
 --  ### Notations for Assertions
 
 --  We'll use Lean's notation features to make assertions
 --  look as much like informal math as possible.
-
+--
 --  For example, instead of writing
-
---    fun st => st[X] = m
-
+--
+--      fun st => st[X] = m
+--
 --  we'll usually write just
-
---    {{ X = m }}
+--
+--      {{ X = m }}
 
 --  Here, the `{{ A }}` brackets delimit the scope of the
 --  assertion notation.
@@ -164,13 +168,13 @@ open scoped Assertion
 
 --  Function applications inside assertions automatically
 --  interpret their arguments in the current state:
-
+--
 --  `{{ f e1 ... en }}` stands for
 --  `(fun st => f (e1 st) ... (en st))`.
 
 --  We can place a raw Lean function directly inside
 --  assertion notation:
-
+--
 --  For example: `{{ fun st => ∀ x, st[x] = 0 }}`
 
 --  ### Example Assertions
@@ -352,34 +356,34 @@ end Assertion.Delab
 --  A *Hoare triple* is a claim about the state before and
 --  after executing a command. A commond notation for Hoare
 --  triples, and the one we use in this book, is
-
---    {{P}} c {{Q}}
-
+--
+--      {{P}} c {{Q}}
+--
 --  meaning:
-
+--
 --  - If command `c` begins execution in a state satisfying
 --    assertion `P`,
-
+--
 --  - and if `c` eventually terminates in some final state,
-
+--
 --  - then that final state will satisfy the assertion `Q`.
-
+--
 --  Assertion `P` is called the *precondition* of the
 --  triple, and `Q` is the *postcondition*.
 
 --  For example,
-
+--
 --  - The Hoare triple
-
---    {{X = 0}} X := X + 1 {{X = 1}}
-
+--
+--      {{X = 0}} X := X + 1 {{X = 1}}
+--
 --  states that command `X := X + 1` will transform a state
 --  in which `X = 0` to a state in which `X = 1`.
-
+--
 --  - On the other hand,
-
---    ∀ m, {{X = m}} X := X + 1 {{X = m + 1}}
-
+--
+--      ∀ m, {{X = m}} X := X + 1 {{X = m + 1}}
+--
 --  is a *proposition* stating that the Hoare triple
 --  `{{X = m}} X :=
 --  X + 1 {{X = m + 1}}` is valid for any
@@ -387,122 +391,144 @@ end Assertion.Delab
 --  reference to the *Lean* variable `m`, which is bound
 --  outside the Hoare triple.
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Paraphrase the following in English.
+--
+--      1) {{True}} c {{X = 5}}
+--
+--      2) ∀ m, {{X = m}} c {{X = m + 5}}
+--
+--      3) {{X ≤ Y}} c {{Y ≤ X}}
+--
+--      4) {{True}} c {{False}}
+--
+--      5) ∀ m,
+--           {{X = m}}
+--           c
+--           {{Y = real_fact m}}
+--
+--      6) ∀ m,
+--           {{X = m}}
+--           c
+--           {{(Z * Z) ≤ m ∧ ¬ ((Z + 1) * (Z + 1) ≤ m)}}
 
---    1) {{True}} c {{X = 5}}
-
---    2) ∀ m, {{X = m}} c {{X = m + 5}}
-
---    3) {{X ≤ Y}} c {{Y ≤ X}}
-
---    4) {{True}} c {{False}}
-
---    5) ∀ m,
---         {{X = m}}
---         c
---         {{Y = real_fact m}}
-
---    6) ∀ m,
---         {{X = m}}
---         c
---         {{(Z * Z) ≤ m ∧ ¬ ((Z + 1) * (Z + 1) ≤ m)}}
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the following Hoare triple *valid* -- i.e., is the
 --  claimed relation between `P`, `c`, and `Q` true?
-
---    {{True}} X := 5 {{X = 5}}
-
+--
+--      {{True}} X := 5 {{X = 5}}
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    {{X = 2}} X := X + 1 {{X = 3}}
-
+--
+--      {{X = 2}} X := X + 1 {{X = 3}}
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    {{True}} X := 5; Y := 0 {{X = 5}}
-
+--
+--      {{True}} X := 5; Y := 0 {{X = 5}}
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    {{X = 2 ∧ X = 3}} X := 5 {{X = 0}}
-
+--
+--      {{X = 2 ∧ X = 3}} X := 5 {{X = 0}}
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    {{True}} skip {{False}}
-
+--
+--      {{True}} skip {{False}}
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    {{False}} skip {{True}}
-
+--
+--      {{False}} skip {{True}}
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    {{True}} while true do skip end {{False}}
-
+--
+--      {{True}} while true do skip end {{False}}
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  This one?
-
---    {{X = 0}}
---      while X = 0 do X := X + 1 end
---    {{X = 1}}
-
+--
+--      {{X = 0}}
+--        while X = 0 do X := X + 1 end
+--      {{X = 1}}
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  This one?
-
---    {{X = 1}}
---      while X ≠ 0 do X := X + 1 end
---    {{X = 100}}
-
+--
+--      {{X = 1}}
+--        while X ≠ 0 do X := X + 1 end
+--      {{X = 100}}
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  ## Hoare Triples, Formally
 
@@ -590,17 +616,17 @@ theorem hoare_pre_false {P Q : Assertion} {c : Com} (h : ∀ st, ¬ (P st)) :
 --  ## Proof Rules
 
 --  We want to be able to *prove* Hoare triples formally.
-
+--
 --  Here's our plan:
-
+--
 --  - introduce one "proof rule" for each Imp syntactic form
-
+--
 --  - plus a couple of "structural rules" that help glue
 --    proofs together
-
+--
 --  - prove these rules correct in terms of the definition
 --    of `ValidHoareTriple`
-
+--
 --  - prove programs correct using these proof rules,
 --    without ever unfolding the definition of
 --    `ValidHoareTriple`
@@ -609,9 +635,9 @@ theorem hoare_pre_false {P Q : Assertion} {c : Com} (h : ∀ st, ¬ (P st)) :
 
 --  Since `skip` doesn't change the state, it preserves any
 --  assertion `P`:
-
---    --------------------  (hoare_skip)
---    {{ P }} skip {{ P }}
+--
+--      --------------------  (hoare_skip)
+--      {{ P }} skip {{ P }}
 
 theorem hoare_skip {P : Assertion} :
     {{ P }} skip {{ P }} := by
@@ -627,11 +653,11 @@ theorem hoare_skip {P : Assertion} :
 --  `Q` holds to one where `R` holds, then doing `c1`
 --  followed by `c2` will take any state where `P` holds to
 --  one where `R` holds:
-
---     {{ P }} c1 {{ Q }}
---     {{ Q }} c2 {{ R }}
---    ----------------------  (hoare_seq)
---    {{ P }} c1; c2 {{ R }}
+--
+--       {{ P }} c1 {{ Q }}
+--       {{ Q }} c2 {{ R }}
+--      ----------------------  (hoare_seq)
+--      {{ P }} c1; c2 {{ R }}
 
 theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
     (h1 : {{ Q }} ~c2 {{ R }}) (h2 : {{ P }} ~c1 {{ Q }}) :
@@ -646,24 +672,24 @@ theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
 --  ### Assignment
 
 --  How can we complete this triple?
-
---    {{ ??? }}  X := Y  {{ X = 1 }}
-
+--
+--      {{ ??? }}  X := Y  {{ X = 1 }}
+--
 --  One natural possibility is:
-
---    {{ Y = 1 }}  X := Y  {{ X = 1 }}
-
+--
+--      {{ Y = 1 }}  X := Y  {{ X = 1 }}
+--
 --  The precondition is just the postcondition, but with `X`
 --  replaced by `Y`.
 
 --  How about this one?
-
---    {{ ??? }}  X := X + Y  {{ X = 1 }}
-
+--
+--      {{ ??? }}  X := X + Y  {{ X = 1 }}
+--
 --  Replace `X` with `X + Y`:
-
---    {{ X + Y = 1 }}  X := X + Y  {{ X = 1 }}
-
+--
+--      {{ X + Y = 1 }}  X := X + Y  {{ X = 1 }}
+--
 --  This works because "equals 1" holding of `X` is
 --  guaranteed by the property "equals 1" holding of
 --  whatever is being assigned to `X`.
@@ -671,20 +697,20 @@ theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
 --  In general, the postcondition could be some arbitrary
 --  assertion `Q`, and the right-hand side of the assignment
 --  could be some arbitrary arithmetic expression `a`:
-
---    {{ ??? }}  X := a  {{ Q }}
-
+--
+--      {{ ??? }}  X := a  {{ Q }}
+--
 --  The precondition would then be `Q`, but with any
 --  occurrences of `X` in it replaced by `a`.
 
 --  Let's introduce a notation for this idea of replacing
 --  occurrences: Define `Q \[X ↦ a`] to mean "`Q` where `a`
 --  is substituted in place of `X`".
-
+--
 --  This yields the Hoare logic rule for assignment:
-
---    {{ Q [X ↦ a] }}  X := a  {{ Q }}
-
+--
+--      {{ Q [X ↦ a] }}  X := a  {{ Q }}
+--
 --  One way of reading this rule is: If you want statement
 --  `X := a` to terminate in a state that satisfies
 --  assertion `Q`, then it suffices to start in a state that
@@ -692,24 +718,24 @@ theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
 --  every occurrence of `X`.
 
 --  Here are some valid instances of the assignment rule:
-
---    {{ (X ≤ 5) [X ↦ X + 1] }}         (that is, X + 1 ≤ 5)
---      X := X + 1
---    {{ X ≤ 5 }}
-
---    {{ (X = 3) [X ↦ 3] }}              (that is, 3 = 3)
---      X := 3
---    {{ X = 3 }}
-
---    {{ (0 ≤ X ∧ X ≤ 5) [X ↦ 3] }}.  (that is, 0 ≤ 3 ∧ 3 ≤ 5)
---      X := 3
---    {{ 0 ≤ X ∧ X ≤ 5 }}
+--
+--      {{ (X ≤ 5) [X ↦ X + 1] }}         (that is, X + 1 ≤ 5)
+--        X := X + 1
+--      {{ X ≤ 5 }}
+--
+--      {{ (X = 3) [X ↦ 3] }}              (that is, 3 = 3)
+--        X := 3
+--      {{ X = 3 }}
+--
+--      {{ (0 ≤ X ∧ X ≤ 5) [X ↦ 3] }}.  (that is, 0 ≤ 3 ∧ 3 ≤ 5)
+--        X := 3
+--      {{ 0 ≤ X ∧ X ≤ 5 }}
 
 --  To formalize the rule, we must first formalize the idea
 --  of "substituting an expression for an Imp variable in an
 --  assertion", which we refer to as assertion substitution,
 --  or `Assertion.subst`.
-
+--
 --  Intuitively, given a proposition `P`, a variable `X`,
 --  and an arithmetic expression `a`, we want to derive
 --  another proposition `P'` that is just the same as `P`
@@ -752,8 +778,8 @@ theorem subst_apply {x : Ident} {a : Aexp} {P : Assertion} {st : State} :
 end Assertion
 
 --  This notation allows us to write this operation as:
-
---    P [ X ↦ a ]
+--
+--      P [ X ↦ a ]
 
 #check (fun st => Assertion.subst X (aexp { 2 * X }) ({{ X ≤ 10 }}) st)
 #check {{ (X ≤ 10) [X ↦ 2 * X] }}
@@ -823,10 +849,10 @@ end ExampleAssertionSub
 --  Now, using the substitution operation we've just
 --  defined, we can give the precise proof rule for
 --  assignment:
-
---    ---------------------------- (hoare_asgn)
---    {{Q [X ↦ a]}} X := a {{Q}}
-
+--
+--      ---------------------------- (hoare_asgn)
+--      {{Q [X ↦ a]}} X := a {{Q}}
+--
 --  We can prove formally that this rule is indeed valid.
 
 theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
@@ -850,11 +876,11 @@ theorem assertion_sub_example :
 
 --  Of course, we'd probably prefer to work with this
 --  simpler triple:
-
---    {{X < 4}} X := X + 1 {{X < 5}}
-
+--
+--      {{X < 4}} X := X + 1 {{X < 5}}
+--
 --  We will see how to do so in the next section.
-
+--
 --  Several proofs below use the facts about total-map
 --  updates proved in the *Typeclasses* chapter --
 --  `TotalMap.update_eq`, `TotalMap.update_neq`,
@@ -874,43 +900,43 @@ theorem assertion_sub_example :
 --  what we need.
 
 --  For instance,
-
---    {{(X = 3) [X ↦ 3]}} X := 3 {{X = 3}},
-
+--
+--      {{(X = 3) [X ↦ 3]}} X := 3 {{X = 3}},
+--
 --  follows directly from the assignment rule, but
-
---    {{True}} X := 3 {{X = 3}}
-
+--
+--      {{True}} X := 3 {{X = 3}}
+--
 --  does not. This triple is valid, but it is not an
 --  instance of `hoare_asgn` because `True` and
 --  `(X = 3) \[X ↦ 3`] are not syntactically equal
 --  assertions.
-
+--
 --  However, they are logically *equivalent*, so if one
 --  triple is valid, then the other must certainly be as
 --  well. We can capture this observation with the following
 --  rule:
-
---       {{P'}} c {{Q}}
---         P <<->> P'
---    ---------------------
---       {{P}} c {{Q}}
+--
+--         {{P'}} c {{Q}}
+--           P <<->> P'
+--      ---------------------
+--         {{P}} c {{Q}}
 
 --  Taking this line of thought a bit further, we can see
 --  that strengthening the precondition or weakening the
 --  postcondition of a valid triple always produces another
 --  valid triple. This observation is captured by two *Rules
 --  of Consequence*.
-
---           {{P'}} c {{Q}}
---              P ->> P'
---    -----------------------------   (hoare_consequence_pre)
---           {{P}} c {{Q}}
-
---           {{P}} c {{Q'}}
---             Q' ->> Q
---    -----------------------------    (hoare_consequence_post)
---           {{P}} c {{Q}}
+--
+--             {{P'}} c {{Q}}
+--                P ->> P'
+--      -----------------------------   (hoare_consequence_pre)
+--             {{P}} c {{Q}}
+--
+--             {{P}} c {{Q'}}
+--               Q' ->> Q
+--      -----------------------------    (hoare_consequence_post)
+--             {{P}} c {{Q}}
 
 --  Here are the formal versions:
 
@@ -934,12 +960,12 @@ theorem hoare_consequence_post {P Q Q' : Assertion} {c : Com}
 
 --  For example, we can use the first consequence rule like
 --  this:
-
---    {{ True }} ->>
---    {{ (X = 1) [X ↦ 1] }}
---      X := 1
---    {{ X = 1 }}
-
+--
+--      {{ True }} ->>
+--      {{ (X = 1) [X ↦ 1] }}
+--        X := 1
+--      {{ X = 1 }}
+--
 --  Or, formally...
 
 theorem hoare_asgn_example1 :
@@ -948,12 +974,12 @@ theorem hoare_asgn_example1 :
 
 --  We can also use it to prove the example mentioned
 --  earlier.
-
---    {{ X < 4 }} ->>
---    {{ (X < 5)[X ↦ X + 1] }}
---      X := X + 1
---    {{ X < 5 }}
-
+--
+--      {{ X < 4 }} ->>
+--      {{ (X < 5)[X ↦ X + 1] }}
+--        X := X + 1
+--      {{ X < 5 }}
+--
 --  Or, formally ...
 
 theorem assertion_sub_example2 :
@@ -965,12 +991,12 @@ theorem assertion_sub_example2 :
 --  Finally, here is a combined rule of consequence that
 --  allows us to vary both the precondition and the
 --  postcondition.
-
---           {{P'}} c {{Q'}}
---              P ->> P'
---              Q' ->> Q
---    -----------------------------   (hoare_consequence)
---           {{P}} c {{Q}}
+--
+--             {{P'}} c {{Q'}}
+--                P ->> P'
+--                Q' ->> Q
+--      -----------------------------   (hoare_consequence)
+--             {{P}} c {{Q}}
 
 theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
     (htriple : {{ P' }} ~c {{ Q' }}) (hpre : P ->> P') (hpost : Q' ->> Q) :
@@ -985,7 +1011,7 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
 --  triples can be streamlined using the automation
 --  techniques that we introduced in the *Automation*
 --  chapter of *Logical Foundations*.
-
+--
 --  Recall that `simp` rewrites with any lemmas we pass it.
 --  The definitions whose meaning we keep needing to expose
 --  in this chapter -- `ValidHoareTriple`, `AssertImplies`,
@@ -999,14 +1025,14 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
 
 --  Here's a good candidate for automation:
 
---    theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
---        (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
---        {{ P }} ~c {{ Q }} := by
---      rw [validHoareTriple_def] at hhoare ⊢
---      intro st st' heval hpre
---      apply hhoare heval
---      rw [assertImplies_def] at himp
---      exact himp _ hpre
+--      theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
+--          (hhoare : {{ P' }} ~c {{ Q }}) (himp : P ->> P') :
+--          {{ P }} ~c {{ Q }} := by
+--        rw [validHoareTriple_def] at hhoare ⊢
+--        intro st st' heval hpre
+--        apply hhoare heval
+--        rw [assertImplies_def] at himp
+--        exact himp _ hpre
 
 --  Since `AssertImplies` is not marked `irreducible`, and
 --  `assertImplies_def` is a proof by definitional equality,
@@ -1023,7 +1049,7 @@ theorem hoare_consequence_pre' (P P' Q : Assertion) (c : Com)
 
 --  From now on, we will not usually rewrite
 --  `assertImplies_def` explicitly.
-
+--
 --  Since, after the `rw` and `intro`, the remaining steps
 --  just apply hypotheses to the goal (and each other), the
 --  remaining proof can be compressed into a single tactic:
@@ -1141,13 +1167,13 @@ theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
 --  sequencing rule is as a "decorated program" where the
 --  intermediate assertion `Q` is written between `c1` and
 --  `c2`:
-
---             {{ a = n }}
---    X := a
---             {{ X = n }};    <--- decoration for Q
---    skip
---             {{ X = n }}
-
+--
+--               {{ a = n }}
+--      X := a
+--               {{ X = n }};    <--- decoration for Q
+--      skip
+--               {{ X = n }}
+--
 --  We'll come back to the idea of decorated programs in
 --  much more detail in the next chapter.
 
@@ -1155,36 +1181,36 @@ theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
 
 --  What sort of rule do we want for reasoning about
 --  conditional commands?
-
+--
 --  Certainly, if the same assertion `Q` holds after
 --  executing either of the branches, then it holds after
 --  the whole conditional. So we might be tempted to write:
-
---            {{P}} c1 {{Q}}
---            {{P}} c2 {{Q}}
---    ---------------------------------
---    {{P}} if b then c1 else c2 {{Q}}
+--
+--              {{P}} c1 {{Q}}
+--              {{P}} c2 {{Q}}
+--      ---------------------------------
+--      {{P}} if b then c1 else c2 {{Q}}
 
 --  However, this is rather weak. For example, using this
 --  rule, we cannot show
-
---    {{ True }}
---      if X = 0
---        then Y := 2
---        else Y := X + 1
---      end
---    {{ X ≤ Y }}
-
+--
+--      {{ True }}
+--        if X = 0
+--          then Y := 2
+--          else Y := X + 1
+--        end
+--      {{ X ≤ Y }}
+--
 --  since the rule doesn't tell us enough about the state in
 --  which the assignments take place in the "then" and
 --  "else" branches.
 
 --  Better:
 
---    {{P ∧   b}} c1 {{Q}}
---    {{P ∧ ¬ b}} c2 {{Q}}
---    ------------------------------------  (hoare_if)
---    {{P}} if b then c1 else c2 end {{Q}}
+--      {{P ∧   b}} c1 {{Q}}
+--      {{P ∧ ¬ b}} c2 {{Q}}
+--      ------------------------------------  (hoare_if)
+--      {{P}} if b then c1 else c2 end {{Q}}
 
 theorem bexp_eval_false (b : Bexp) (st : State) (h : b.eval st = false) :
     ¬ ({{ b }}) st := by
@@ -1193,7 +1219,7 @@ theorem bexp_eval_false (b : Bexp) (st : State) (h : b.eval st = false) :
 
 --  Now we can formalize the Hoare proof rule for
 --  conditionals and prove it correct.
-
+--
 --  The statement of the rule reads: given
 --  `htrue : {{ P ∧ b }} ~c1 {{Q}}` and
 --  `hfalse : {{ P ∧ ¬b }} ~c2 {{Q}}`, we can conclude
@@ -1249,12 +1275,12 @@ theorem if_example' :
 --  a *command invariant* (or just *invariant*): an
 --  assertion whose truth is guaranteed after executing a
 --  command, assuming it is true before.
-
+--
 --  That is, an assertion `P` is a command invariant of `c`
 --  if
-
---    {{P}} c {{P}}
-
+--
+--      {{P}} c {{P}}
+--
 --  holds. Note that the command invariant might temporarily
 --  become false in the middle of executing `c`, but by the
 --  end of `c` it must be restored.
@@ -1262,10 +1288,10 @@ theorem if_example' :
 --  The Hoare while rule combines the idea of a command
 --  invariant with information about when guard `b` does or
 --  does not hold.
-
---          {{P ∧ b}} c {{P}}
---    --------------------------------- (hoare_while)
---    {{P}} while b do c end {{P ∧ ¬b}}
+--
+--            {{P ∧ b}} c {{P}}
+--      --------------------------------- (hoare_while)
+--      {{P}} while b do c end {{P ∧ ¬b}}
 
 theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
     (hhoare : {{P ∧ b}} ~c {{ P }}) :
@@ -1291,149 +1317,165 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
     contradiction
 
 --  We call `P` a *loop invariant* of `while b do c end` if
-
---    {{P ∧ b}} c {{P}}
-
+--
+--      {{P ∧ b}} c {{P}}
+--
 --  is a valid Hoare triple.
-
+--
 --  This means that `P` will be true at the end of the loop
 --  body whenever the loop body executes. If `P` contradicts
 --  `b`, this holds trivially since the precondition is
 --  false.
-
+--
 --  For instance, `X = 0` is a loop invariant of
-
---    while X = 2 do X := 1 end
-
+--
+--      while X = 2 do X := 1 end
+--
 --  since the program will never enter the loop.
 
---  _Quiz:_
-
---  Is the assertion
-
---    Y = 0
-
---  a loop invariant of the following?
-
---    while X < 100 do X := X + 1 end
-
---  (A) Yes
-
---  (B) No
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the assertion
-
---    X = 0
-
+--
+--      Y = 0
+--
 --  a loop invariant of the following?
-
---    while X < 100 do X := X + 1 end
-
+--
+--      while X < 100 do X := X + 1 end
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the assertion
-
---    X < Y
-
+--
+--      X = 0
+--
 --  a loop invariant of the following?
-
---    while true do X := X + 1; Y := Y + 1 end
-
+--
+--      while X < 100 do X := X + 1 end
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the assertion
-
---    X = Y + Z
-
+--
+--      X < Y
+--
 --  a loop invariant of the following?
-
---    while Y > 10 do Y := Y - 1; Z := Z + 1 end
-
+--
+--      while true do X := X + 1; Y := Y + 1 end
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the assertion
-
---    X > 0
-
+--
+--      X = Y + Z
+--
 --  a loop invariant of the following?
-
---    while X = 0 do X := X - 1 end
-
+--
+--      while Y > 10 do Y := Y - 1; Z := Z + 1 end
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the assertion
-
---    X < 100
-
+--
+--      X > 0
+--
 --  a loop invariant of the following?
-
---    while X < 100 do X := X + 1 end
-
+--
+--      while X = 0 do X := X - 1 end
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Is the assertion
-
---    X > 10
-
+--
+--      X < 100
+--
 --  a loop invariant of the following?
-
---    while X > 10 do X := X + 1 end
-
+--
+--      while X < 100 do X := X + 1 end
+--
 --  (A) Yes
-
+--
 --  (B) No
+
+--   ----------------------------------------
+
+--  _Quiz:_
+
+--  Is the assertion
+--
+--      X > 10
+--
+--  a loop invariant of the following?
+--
+--      while X > 10 do X := X + 1 end
+--
+--  (A) Yes
+--
+--  (B) No
+
+--   ----------------------------------------
 
 --  ## Summary
 
 --  The rules of Hoare Logic are:
-
---           --------------------------- (hoare_asgn)
---           {{Q [X ↦ a]}} X:=a {{Q}}
-
---           --------------------  (hoare_skip)
---           {{ P }} skip {{ P }}
-
---             {{ P }} c1 {{ Q }}
---             {{ Q }} c2 {{ R }}
---            ----------------------  (hoare_seq)
---            {{ P }} c1;c2 {{ R }}
-
---            {{P ∧   b}} c1 {{Q}}
---            {{P ∧ ¬ b}} c2 {{Q}}
---    ------------------------------------  (hoare_if)
---    {{P}} if b then c1 else c2 end {{Q}}
-
---             {{P ∧ b}} c {{P}}
---      -----------------------------------  (hoare_while)
---      {{P}} while b do c end {{P ∧ ¬ b}}
-
---              {{P'}} c {{Q'}}
---                 P ->> P'
---                 Q' ->> Q
---       -----------------------------   (hoare_consequence)
---              {{P}} c {{Q}}
+--
+--             --------------------------- (hoare_asgn)
+--             {{Q [X ↦ a]}} X:=a {{Q}}
+--
+--             --------------------  (hoare_skip)
+--             {{ P }} skip {{ P }}
+--
+--               {{ P }} c1 {{ Q }}
+--               {{ Q }} c2 {{ R }}
+--              ----------------------  (hoare_seq)
+--              {{ P }} c1;c2 {{ R }}
+--
+--              {{P ∧   b}} c1 {{Q}}
+--              {{P ∧ ¬ b}} c2 {{Q}}
+--      ------------------------------------  (hoare_if)
+--      {{P}} if b then c1 else c2 end {{Q}}
+--
+--               {{P ∧ b}} c {{P}}
+--        -----------------------------------  (hoare_while)
+--        {{P}} while b do c end {{P ∧ ¬ b}}
+--
+--                {{P'}} c {{Q'}}
+--                   P ->> P'
+--                   Q' ->> Q
+--         -----------------------------   (hoare_consequence)
+--                {{P}} c {{Q}}
 
 --  Our main task in this chapter has been to *define* the
 --  rules of Hoare logic, and prove that the definitions are
@@ -1443,9 +1485,10 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 --  how Hoare logic is can be used to prove that more
 --  interesting programs satisfy interesting specifications
 --  of their behavior.
-
+--
 --  Crucially, we will do so without ever again `unfold`ing
 --  the definition of Hoare triples -- i.e., we will take
 --  the rules of Hoare logic as a closed world for reasoning
 --  about programs.
 
+-- Built on 2026-08-31 20:52 UTC
