@@ -423,4 +423,4 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 --  properties about more sophisticated forms of data,
 --  beginning with `Lists`.
 
--- Built on 2026-08-31 12:07 UTC
+-- Built on 2026-08-31 12:29 UTC

@@ -422,8 +422,7 @@ theorem mul_one (p : Nat) :
 --  Use `have` (or `rw` with explicit arguments) to help
 --  prove `add_shuffle3`. You don't need to use induction.
 
-theorem add_shuffle3 (n m p : Nat) :
-    add (add n m) p = add (add n p) m := by
+theorem add_shuffle3 (n m p : Nat) : n + m + p = n + p + m := by
   sorry
 
 theorem succ_mul (m n : Nat) :
@@ -697,4 +696,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-08-31 12:07 UTC
+-- Built on 2026-08-31 12:29 UTC
