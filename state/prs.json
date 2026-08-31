@@ -472,11 +472,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/337"
     },
     "339": {
-      "base_sha": "ea0a890562875ac2bbcc389a4dc2f8f7e4ef14f3",
+      "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
       "changed_variants": [],
-      "head_sha": "42a8f6bc8624f869b43a3165622cd0712bfccfa0",
+      "head_sha": "49a2851a323b9bd72ab6c6f20adcfb1c9f1a6da6",
       "preview_path": "pr/339/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33409501978",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33421865285",
       "status": "ci-failed",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/339"
