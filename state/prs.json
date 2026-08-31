@@ -752,6 +752,16 @@
       "status": "published",
       "title": "Imp: proof polishing, remove EvalR unexpanders",
       "url": "https://github.com/plclub/sf-in-lean/pull/347"
+    },
+    "349": {
+      "base_sha": "fa8c9278311998d2344bbb61a9359984343ac593",
+      "changed_variants": [],
+      "head_sha": "32edf9f8b9b50e6e10b04fd8f7753904d39536e4",
+      "preview_path": "pr/349/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Initial Port of MoreStlc",
+      "url": "https://github.com/plclub/sf-in-lean/pull/349"
     }
   },
   "schema": 3
