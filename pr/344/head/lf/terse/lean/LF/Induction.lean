@@ -144,6 +144,10 @@ theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
 
 --  ### Motivation
 
+--  For the `add_zero` simplification rule, we were able to
+--  prove that `zero` is a neutral element for `+` on the
+--  *right* using just `rfl`.
+
 --  But the proof that it is also a neutral element on the
 --  *left* gets stuck...
 
@@ -216,15 +220,13 @@ theorem zero_add (n : Nat) : zero + n = n := by
 theorem beq_self (n : Nat) : (n == n) = true := by
   sorry
 
+--  ### Exercise (2 stars): basic_induction ⭐⭐
+
 --  Here's another related fact about addition, which we'll
 --  need later. (The proof is left as an exercise.)
 
 theorem add_comm (n m : Nat) :
     n + m = m + n := by
-  sorry
-
-theorem add_assoc (n m p : Nat) :
-    n + (m + p) = (n + m) + p := by
   sorry
 
 --  ### Tip: The `rw` Tactic
@@ -248,26 +250,6 @@ theorem add_assoc (n m p : Nat) :
 --  THE FOLLOWING DETAILS CAN BE SKIPPED
 set_option pp.fieldNotation false
 --  END DETAILS
-
---  ### Exercise (2 stars): double_add ⭐⭐
-
---  Consider the following function, which doubles its
---  argument:
-
-def double (n : Nat) : Nat :=
-  match n with
-  | zero    => zero
-  | succ n' => succ (succ (double n'))
-
-theorem double_zero : double zero = zero := by rfl
-theorem double_succ n : double (succ n) = succ (succ (double n)) := by rfl
-attribute [irreducible] double
-
---  Use induction to prove this simple fact about `double`.
---  Try using `rw` instead of `rewrite`.
-
-theorem double_add (n : Nat) : double n = n + n := by
-  sorry
 
 --  ## Proofs Within Proofs
 
@@ -309,25 +291,6 @@ theorem add_rearrange (n m p q : Nat) :
 --  "Informal proofs are algorithms; formal proofs are
 --  code."
 
---  ### Exercise (2 stars): add_comm_informal (Advanced, Optional, manually graded) ⭐⭐
-
---  Translate your solution for `add_comm` into an informal
---  proof:
---
---  Theorem: Addition is commutative.
---
---  Proof: ...
-
---  ### Exercise (2 stars): beq_refl_informal (Optional) ⭐⭐
-
---  Write an informal proof of the following theorem, using
---  the informal proof of `add_assoc` as a model. Don't just
---  paraphrase the Lean tactics into English!
---
---  Theorem: `(n == n) = true` for any `n`.
---
---  Proof:
-
 --  ## Aside: Using Code Actions to Generate Match Skeletons
 
 --  Lean's language server can suggest *code actions*, which
@@ -344,26 +307,18 @@ sf_expect_failure_in
     induction n
 
 --  Put your cursor on `induction n` and open the code
---  action menu. You should see "Generate an explicit
---  pattern match for 'induction'." in the list. If you
---  choose this action, Lean adds an explicit branch for
---  each constructor:
+--  action menu.
 
-example (n : Nat) : Nat.beq n n := by
-  induction n with
-  | zero => sorry
-  | succ n ih => sorry
+--  Click the lightbulb.
 
 --  This gives us the basic structure of the proof without
 --  requiring us to write each branch by hand. We can then
 --  focus on proving each case.
---
---  One possible proof is:
+
+--  Let's do the proof!
 
 example (n : Nat) : Nat.beq n n := by
-  induction n with
-  | zero => exact (beq_self zero)
-  | succ n ih => rw [Nat.beq, ih]
+  sorry
 
 --  The same trick also works for `match` expressions. For
 --  example, suppose we start with
@@ -380,25 +335,8 @@ sf_expect_failure_in
     | .zero => _
     | .succ n => _
 
---  Now you just have to replace the holes `_` with your
---  definition. You can use code actions freely to fill out
---  `induction`, `case`, and `match` branches while working
---  with this book.
---
 --  One note: Sometimes the variables the code action
 --  chooses are not ideal, so you might want to change them.
---  For example, here is what we get from the code action
---  for `add_comm`
-
-theorem add_comm' (n m : Nat) : n + m = m + n := by
-  induction m with
-  | zero => sorry
-  | succ n ih => sorry -- bad choice of variable `n`, want `m` or `m'` !
-
---  Notice that the action chose `n` for the `succ` case,
---  even though we are inducting on `m`. Manually updating
---  this variable to either `m` or `m'` will make your proof
---  easier to read.
 
 --  ## More Exercises
 
@@ -490,210 +428,4 @@ example (b : Bool) : (b || true) = true := by
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
---  ## Nat to Bin and Back
-
-namespace NatToBin
-
---  Recall the `Bin` type we defined in Basics:
-
-inductive Bin : Type where
-  | z
-  | b0 (n : Bin)
-  | b1 (n : Bin)
-
---  Before you start working on the next exercise, replace
---  the stub definitions of `incr` and `binToNat`, below,
---  with your solution from Basics, so that this file can be
---  graded on its own.
-
-def incr (m : Bin) : Bin
-  := sorry
-
-theorem incr_z : incr .z = .b1 .z := sorry
-theorem incr_b0 m : incr (.b0 m) = .b1 m := sorry
-theorem incr_b1 m : incr (.b1 m) = .b0 (incr m) := sorry
-
-def binToNat (m : Bin) : Nat
-  := sorry
-
-theorem binToNat_z : binToNat .z = zero := sorry
-theorem binToNat_b0 m : binToNat (.b0 m) = mul (binToNat m) two := sorry
-theorem binToNat_b1 m : binToNat (.b1 m) = add (mul (binToNat m) two) one := sorry
-
---  THE FOLLOWING DETAILS CAN BE SKIPPED
-attribute [pp_nodot] Bin.b0 Bin.b1
---  END DETAILS
-
---  In Basics, we did some unit testing of `binToNat`, but
---  we didn't prove its correctness. Now we'll do so.
-
---  ### Exercise (3 stars): binary_commute ⭐⭐⭐
-
---  Prove that the following diagram commutes — that is,
---  incrementing a binary number and then converting it to a
---  (standard, unary) natural number yields the same result
---  as first converting it to a natural number and then
---  incrementing:
---
---                            incr
---                Bin ------------------------> Bin
---                 |                             |
---      binToNat   |                             |  binToNat
---                 |                             |
---                 v                             v
---                Nat ------------------------> Nat
---                            succ
---
---  If you want to change your previous definitions of
---  `incr` or `binToNat` to make the property easier to
---  prove, feel free!
-
-theorem bin_to_nat_pres_incr (b : Bin) :
-    binToNat (incr b) = (binToNat b) + one := by
-  sorry
-
---  ### Exercise (3 stars): nat_bin_nat ⭐⭐⭐
-
---  Write a function to convert natural numbers to binary
---  numbers. Also write some simplification lemmas for it.
-
-def natToBin (n : Nat) : Bin := sorry
-
---  FILL IN HERE
-
---  Prove that, if we start with any `Nat`, convert it to
---  `Bin`, and convert it back, we get the `Nat` that we
---  started with.
---
---  Hint: This proof should go through smoothly using the
---  previous exercise about `incr` as a lemma. If not,
---  revisit your definitions of the functions involved and
---  consider whether they are more complicated than
---  necessary: the shape of a proof by induction will match
---  the recursive structure of the program being verified,
---  so make the recursion as simple as possible.
-
-theorem nat_bin_nat (n : Nat) :
-    binToNat (natToBin n) = n := by
-  sorry
-
---  ## Bin to Nat and Back (Advanced)
-
---  The opposite direction — starting with a `Bin`,
---  converting to `Nat`, then converting back to `Bin` —
---  turns out to be problematic: the expected "theorem" does
---  not hold.
-
-sf_expect_failure_in
-  example (b : Bin) : natToBin (binToNat b) = b := by
-
---  Let's explore why it fails and how to prove a modified
---  version of it. We'll start with some lemmas that might
---  seem unrelated but will turn out to be relevant.
-
---  ### Exercise (2 stars): double_bin (Advanced) ⭐⭐
-
---  Prove this lemma about `double`, which we defined
---  earlier in the chapter.
-
-theorem double_incr (n : Nat) :
-    double (succ n) = (double n) + two := by
-  sorry
-
---  Now define a similar doubling function for `Bin`.
-
-def doubleBin (b : Bin) : Bin := sorry
-
---  Fill in the characterizing lemmas for this definition
---  below:
-
---  FILL IN HERE
-
---  Check that your function correctly doubles zero.
-
-theorem double_bin_zero : doubleBin .z = .z := sorry
-
---  Prove this lemma, which corresponds to `double_incr`.
-
-theorem double_incr_bin (b : Bin) :
-    doubleBin (incr b) = incr (incr (doubleBin b)) := by
-  sorry
-
---  Let's return to our desired theorem:
-
-sf_expect_failure_in
-  example (b : Bin) : natToBin (binToNat b) = b := by
-
---  The theorem fails because there are some `Bin`s for
---  which we won't necessarily get back to the *original*
---  `Bin`, but instead to an "equivalent" `Bin`. (We
---  deliberately leave this notion informal here so that you
---  can think about it.)
---
---  Explain in a comment, below, why this failure occurs.
---  Your explanation will not be graded, but it's important
---  that you get it clear in your mind before going on to
---  the next part. If you're stuck on this, think about
---  alternative implementations of `doubleBin` that might
---  have failed to satisfy `double_bin_zero` yet otherwise
---  seem correct.
---
---  To solve this problem, we can introduce a
---  *normalization* function that selects the simplest `Bin`
---  out of all the equivalent `Bin`s. Then we can prove that
---  the conversion from `Bin` to `Nat` and back again
---  produces that normalized, simplest `Bin`.
-
---  ### Exercise (4 stars): bin_nat_bin (Advanced) ⭐⭐⭐⭐
-
---  Define `normalize`. Keep its definition as simple as
---  possible so that later proofs go through smoothly. Do
---  not use `binToNat` or `natToBin`, but do use
---  `doubleBin`.
---
---  Hint: Structure the recursion such that it *always*
---  reaches the end of the `Bin` and *only* processes each
---  bit once. Do not try to "look ahead" at future bits, as
---  this will complicate the proof.
-
-def normalize (b : Bin) : Bin := sorry
-
---  Also specify the characterizing lemmas for this
---  definition:
-
---  FILL IN HERE
-
---  Next, it would be a good idea to do some `example`
---  proofs to check that your definition of `normalize`
---  works the way you intend before you proceed. They won't
---  be graded, but do fill in a few below.
-
---  FILL IN HERE
-
---  Now that we have defined all of our functions and their
---  characterizing lemmas, we mark the definitions
---  irreducible as usual. From here on, proofs about these
---  definitions should use `rewrite` or `rw`, not `rfl`.
-
-attribute [irreducible] normalize doubleBin natToBin incr binToNat
-
---  Finally, prove the main theorem. The inductive cases
---  could be a bit tricky.
---
---  Hint: Start by trying to prove the main statement, see
---  where you get stuck, and see if you can find a lemma —
---  perhaps requiring its own inductive proof — that will
---  allow the main proof to make progress. We have one lemma
---  for the `b0` case (which also makes use of
---  `double_incr_bin`) and another for the `b1` case.
-
---  FILL IN HERE
-
-theorem bin_nat_bin (b : Bin) :
-    natToBin (binToNat b) = normalize b := by
-  sorry
-
-end NatToBin
-end NatPlayground.Nat
-
--- Built on 2026-08-31 12:29 UTC
+-- Built on 2026-08-31 14:06 UTC

@@ -1811,4 +1811,4 @@ end BreakImp
 --        not just a single name, reads better with hover types (e.g. the
 --        `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 
--- Built on 2026-08-31 12:30 UTC
+-- Built on 2026-08-31 14:07 UTC

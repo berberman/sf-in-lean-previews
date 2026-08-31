@@ -182,8 +182,8 @@ sf_recall
     | succ m' => succ (add n m')
 
 --  For the `add_zero` simplification rule, we were able to prove that
---  `zero` is a neutral element for `+` on the *right* using just `rfl`:
---
+--  `zero` is a neutral element for `+` on the *right* using just `rfl`.
+
 --      theorem add_zero : ∀ (n : Nat), n + zero = n := by
 --        intro n
 --        rfl
@@ -643,10 +643,11 @@ sf_expect_failure_in
   example (n : Nat) : Nat.beq n n := by
     induction n
 
---  Put your cursor on `induction n` and open the code action menu. You
---  should see "Generate an explicit pattern match for 'induction'." in the
---  list. If you choose this action, Lean adds an explicit branch for each
---  constructor:
+--  Put your cursor on `induction n` and open the code action menu.
+
+--  You should see "Generate an explicit pattern match for 'induction'." in
+--  the list. If you choose this action, Lean adds an explicit branch for
+--  each constructor:
 
 example (n : Nat) : Nat.beq n n := by
   induction n with
@@ -655,8 +656,8 @@ example (n : Nat) : Nat.beq n n := by
 
 --  This gives us the basic structure of the proof without requiring us to
 --  write each branch by hand. We can then focus on proving each case.
---
---  One possible proof is:
+
+--  One possible proof is the following.
 
 example (n : Nat) : Nat.beq n n := by
   induction n with
@@ -681,10 +682,11 @@ sf_expect_failure_in
 --  Now you just have to replace the holes `_` with your definition. You
 --  can use code actions freely to fill out `induction`, `case`, and
 --  `match` branches while working with this book.
---
+
 --  One note: Sometimes the variables the code action chooses are not
---  ideal, so you might want to change them. For example, here is what we
---  get from the code action for `add_comm`
+--  ideal, so you might want to change them.
+
+--  For example, here is what we get from the code action for `add_comm`
 
 theorem add_comm' (n m : Nat) : n + m = m + n := by
   induction m with
@@ -1109,4 +1111,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-08-31 12:29 UTC
+-- Built on 2026-08-31 14:05 UTC
