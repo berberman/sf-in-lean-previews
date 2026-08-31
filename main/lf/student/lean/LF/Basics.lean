@@ -555,7 +555,7 @@ inductive Color : Type where
 --  - `Color.primary (Color.primary RGB.red)`
 
 --  We can define functions on colors using pattern matching, just as we
---  did for `Day` and `Bool`.
+--  did for `Day` and `MyBool`.
 
 def monochrome (c : Color) : Bool :=
   match c with
@@ -694,11 +694,10 @@ end Playground
 --  Output:
 --    Playground.myBar : RGB
 
---  When a new type is declared, a `namespace` with the same name is
---  implicitly created as well; definitions on that type are available
---  inside the `namespace` without a prefix. For example, we can use the
---  `blue` constructor without qualification below because we are inside
---  the `RGB` `namespace`.
+--  Lean gives each constructor of an inductive type a name prefixed by the
+--  type's name, such as `RGB.blue`. When we enter the `RGB` `namespace`,
+--  we can use its constructors without the `RGB` prefix. For example, we
+--  can write just `blue` below.
 
 namespace RGB
 def myBlue : RGB := blue
@@ -779,11 +778,13 @@ sf_expect_failure_in
 --  Output:
 --    Unknown identifier `myHiddenDef`
 
---  In fact, this is exactly what Lean does with the standard `Bool` type
---  by default. Since it is an important part of many proofs and programs,
---  Lean implicitly `open`s many of `Bool`'s functions and constructors.
---  This means we can use constructors like `true` and `false` and
---  functions like `not` without qualifying them with `Bool`.
+--  You might be wondering why we can use constructors like `true` and
+--  `false` and functions like `not` without qualifying them with `Bool`,
+--  and without explicitly `open`ing the `Bool` `namespace`. Lean provides
+--  a way to *export* unprefixed names from a `namespace`, with the same
+--  effect as selectively `open`ing that `namespace` downstream, and the
+--  Lean prelude does that for commonly used names from the standard
+--  library. We don't explain this mechanism here because it's rarely used.
 
 #check Bool.true
 #check true
@@ -794,17 +795,13 @@ sf_expect_failure_in
 --  Output:
 --    Bool.true : Bool
 
---  Finally, Lean can often automatically figure out which namespace a
---  qualified name lives in, saving us the need to explicitly specify it
---  every time we use the name. Instead of the fully qualified style (e.g.,
---  `Day.monday`), we can opt for an implicitly qualified style, writing
---  just `.monday`.
+--  Finally, Lean can often use an expression's expected type to fill in
+--  the missing prefix of a name that begins with `.`. So, instead of the
+--  fully qualified style `Day.monday`, we can write just `.monday`.
 
---  Lean tries to resolve `.monday` by checking what type is expected by
---  the context in which this expression appears and inferring the
---  namespace from that type. If there is only one such namespace (i.e., if
---  it is unambiguous which constructor we're referring to), then it will
---  automatically resolve to the expected value.
+--  For example, when the expected type is `Day`, Lean interprets `.monday`
+--  as `Day.monday`. If the context does not determine an expected type,
+--  Lean reports an error.
 
 --  So, for example, we can also write `nextWorkingDay` like this, using
 --  the shorter style for both the value being matched and the value being
@@ -823,10 +820,9 @@ def nextWorkingDay' (d : Day) : Day :=
 --  Here, both the type of `d` and the return type of the function are
 --  declared to be `Day`s. When we use the `.monday` style in the function
 --  body, Lean can figure out that we must mean `Day.monday`. However, in
---  the example below, Lean can't figure out which version of `.true` we
---  mean, since both `Bool.true` and `MyBool.true` are in scope and the
---  context doesn't tell us which one we want. In this case, it will raise
---  an error:
+--  the example below, there is no expected type, so Lean cannot determine
+--  which declaration named `.true` is intended. In this case, it raises an
+--  error:
 
 sf_expect_failure_in
   #check .true
@@ -867,9 +863,8 @@ sf_expect_failure_in
 
 namespace Playground
 
---  A given constructor of an inductive type can have multiple parameters,
---  not just zero or one. This feature is one way to define *tuple types*
---  in Lean.
+--  A constructor of an inductive type can have multiple parameters, not
+--  just zero or one. This feature lets us define *tuple types* in Lean.
 
 --  As an example, consider representing the four bits in a nibble (half a
 --  byte). We first define a datatype `Bit` that resembles `Bool` (using
@@ -1174,7 +1169,7 @@ theorem add_zero_zero_explained : ∀ n : Nat, n + zero + zero = n := by
      What can we do to simplify this expression? If you hover
      your cursor over the `add_zero` in the rewrite below, you
      can see its type: `n + zero = n`. So, we can use that
-     rewrite rule to transform an appearance of `n + zero`
+     simplification rule to transform an appearance of `n + zero`
      in the goal to `n`. -/
   rewrite [add_zero]
   /- Now click here to see the new proof state that results
@@ -1303,8 +1298,8 @@ end AddPlayground
 --  `add n zero` evaluates, while `add_succ` describes (symbolically) how
 --  `add n (succ m)` evaluates.
 
---  These are instances of a general pattern: each definition operating
---  over enumerated types like `Nat`, `Bool`, `Day`, or `Color` needs a
+--  These are instances of a general pattern: for each definition that
+--  pattern matches on an inductive type, we will provide one
 --  simplification rule for each branch of control flow through the
 --  function.
 
@@ -1312,7 +1307,7 @@ end AddPlayground
 --  `pred`:
 
 theorem pred_zero : pred zero = zero := by rfl
-theorem pred_succ n : pred (succ n) = n := by rfl
+theorem pred_succ (n : Nat) : pred (succ n) = n := by rfl
 
 --  Now that we have defined and proved `pred`'s simplification rules, we
 --  can mark it `irreducible` to enforce rewriting by these lemmas.
@@ -1324,7 +1319,7 @@ attribute [irreducible] pred
 
 theorem even_zero : even zero = true := rfl
 theorem even_one : even (succ zero) = false := rfl
-theorem even_succ_succ n : even (succ (succ n)) = even n := rfl
+theorem even_succ_succ (n : Nat) : even (succ (succ n)) = even n := rfl
 
 attribute [irreducible] even odd
 
@@ -1640,7 +1635,7 @@ theorem not_involutive (b : Bool) : (!!b) = b := by
     rewrite [Bool.not_true, Bool.not_false]
     rfl
 
---  The proof above uses some rewrite rules that we didn't prove
+--  The proof above uses some simplification rules that we didn't prove
 --  previously. These come from Lean's standard library, in particular from
 --  the section about booleans. In the UsingLean chapter we will discuss
 --  how to search through the standard library for theorems like these. For
@@ -1732,7 +1727,7 @@ theorem and3_exchange (b c d : Bool) :
 
 --  Prove the following claim.
 
---  Tip: the rewrite rule to simplify `(b || false)` is called
+--  Tip: the simplification rule for `(b || false)` is called
 --  `Bool.or_false`.
 
 theorem or_false_true (b : Bool) (h : (b || false) = true) :
@@ -1756,7 +1751,7 @@ def even' (n : Nat) : Bool :=
   | succ (succ n') => even' n'
 
 --  When Lean checks this definition, it verifies that the recursion
---  terminates. Specifically, it checks that one of the parameters is
+--  terminates. Specifically, it checks that the recursive argument is
 --  *structurally decreasing* — each recursive call made in the body of the
 --  definition is made on an argument that is smaller than the original
 --  input. In the `even'` example above, the argument to the recursive call
@@ -1766,12 +1761,12 @@ def even' (n : Nat) : Bool :=
 --  Lean's termination checker, and so this recursive definition is
 --  accepted.
 
---  This requirement is a fundamental feature of Lean's design: in
---  particular, it guarantees that every function that can be defined in
---  Lean will terminate on all inputs. However, because Lean's termination
---  analysis is not always able to figure things out automatically, it is
---  sometimes necessary to provide hints or write functions in slightly
---  different ways.
+--  This requirement is a fundamental feature of Lean's design: it
+--  guarantees that every ordinary recursive definition accepted into
+--  Lean's logic terminates on all inputs. However, because Lean's
+--  termination analysis is not always able to figure things out
+--  automatically, it is sometimes necessary to provide hints or write
+--  functions in slightly different ways.
 
 --  ### Exercise (2 stars): decreasing (Optional, manually graded) ⭐⭐
 
@@ -1975,7 +1970,7 @@ theorem checkIn_test1 : checkIn (.noTicket .ordinary) = .noTicket .ordinary := s
 theorem checkIn_test2 : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := sorry
 theorem checkIn_test3 : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := sorry
 
---  Again, we record one rewrite rule for each case:
+--  Again, we record one simplification rule for each case:
 
 theorem checkIn_noTicket (bagContent : BagContent) :
     checkIn (.noTicket bagContent) = .noTicket bagContent := sorry
@@ -2051,7 +2046,7 @@ def changeBag (newContent : BagContent) (t : Traveler) : Traveler := sorry
 theorem changeBag_test1 : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := sorry
 theorem changeBag_test2 : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := sorry
 
---  As before, we record the behavior of each case as a rewrite rule.
+--  As before, we record one simplification rule for each case.
 
 theorem changeBag_noTicket (newContent oldContent : BagContent) :
     changeBag newContent (.noTicket oldContent) = .noTicket newContent := sorry

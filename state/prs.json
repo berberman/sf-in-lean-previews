@@ -1,5 +1,5 @@
 {
-  "main_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
+  "main_sha": "d7eee682eb6a23f4b72428a75553dc98f3b849ec",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -518,55 +518,8 @@
       "title": "Logic: Stored Yipeng's cases vs. induction example ",
       "url": "https://github.com/plclub/sf-in-lean/pull/340"
     },
-    "343": {
-      "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "97499db0e5a5167218e8753aafa1b04260f7309f",
-      "preview_path": "pr/343/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33430375002",
-      "status": "published",
-      "title": "Follow up on Basics cleanup",
-      "url": "https://github.com/plclub/sf-in-lean/pull/343"
-    },
     "344": {
-      "base_sha": "40e256235f7e9d1c69452947329efd8ce4be1f47",
+      "base_sha": "d7eee682eb6a23f4b72428a75553dc98f3b849ec",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -659,53 +612,6 @@
       "title": "Polish Types",
       "url": "https://github.com/plclub/sf-in-lean/pull/345"
     },
-    "346": {
-      "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "40e256235f7e9d1c69452947329efd8ce4be1f47",
-      "preview_path": "pr/346/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33379075835",
-      "status": "published",
-      "title": "Fix recall's hidden-namespace name resolution silently falling back to root",
-      "url": "https://github.com/plclub/sf-in-lean/pull/346"
-    },
     "347": {
       "base_sha": "10daf0364cf1ae03af1261bfc30f3cff28415b0e",
       "changed_variants": [
@@ -758,8 +664,8 @@
       "changed_variants": [],
       "head_sha": "32edf9f8b9b50e6e10b04fd8f7753904d39536e4",
       "preview_path": "pr/349/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33434234489",
+      "status": "ci-failed",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/349"
     }

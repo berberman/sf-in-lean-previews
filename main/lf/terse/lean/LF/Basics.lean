@@ -232,7 +232,7 @@ inductive Color : Type where
   | primary (p : RGB)
 
 --  We can define functions on colors using pattern
---  matching, just as we did for `Day` and `Bool`.
+--  matching, just as we did for `Day` and `MyBool`.
 
 def monochrome (c : Color) : Bool :=
   match c with
@@ -302,7 +302,8 @@ end Playground
 --  Output:
 --    Playground.myBar : RGB
 
---  Type definitions implicitly create namespaces.
+--  The names of an inductive type's constructors are
+--  prefixed by the type's name.
 
 namespace RGB
 def myBlue : RGB := blue
@@ -380,8 +381,8 @@ sf_expect_failure_in
 --  Output:
 --    Unknown identifier `myHiddenDef`
 
---  Names from the `Bool` `namespace` are `open`ed and thus
---  available without qualification.
+--  Lean's prelude exports common names from the `Bool`
+--  `namespace`.
 
 #check Bool.true
 #check true
@@ -392,8 +393,8 @@ sf_expect_failure_in
 --  Output:
 --    Bool.true : Bool
 
---  Lean can often guess which qualified name we mean if we
---  don't supply it explicitly:
+--  Lean can often use the expected type to resolve a name
+--  beginning with `.`:
 
 def nextWorkingDay' (d : Day) : Day :=
   match d with
@@ -638,7 +639,7 @@ theorem add_zero_zero_explained : ∀ n : Nat, n + zero + zero = n := by
      What can we do to simplify this expression? If you hover
      your cursor over the `add_zero` in the rewrite below, you
      can see its type: `n + zero = n`. So, we can use that
-     rewrite rule to transform an appearance of `n + zero`
+     simplification rule to transform an appearance of `n + zero`
      in the goal to `n`. -/
   rewrite [add_zero]
   /- Now click here to see the new proof state that results
@@ -709,7 +710,7 @@ end AddPlayground
 --  simplification rule. Here are the two for `pred`:
 
 theorem pred_zero : pred zero = zero := by rfl
-theorem pred_succ n : pred (succ n) = n := by rfl
+theorem pred_succ (n : Nat) : pred (succ n) = n := by rfl
 
 --  Now that we have defined and proved `pred`'s
 --  simplification rules, we can mark it `irreducible` to
@@ -722,7 +723,7 @@ attribute [irreducible] pred
 
 theorem even_zero : even zero = true := rfl
 theorem even_one : even (succ zero) = false := rfl
-theorem even_succ_succ n : even (succ (succ n)) = even n := rfl
+theorem even_succ_succ (n : Nat) : even (succ (succ n)) = even n := rfl
 
 attribute [irreducible] even odd
 
