@@ -1796,6 +1796,22 @@
      "data":
      {"title": "Tip: The  rw  Tactic",
       "shortTitle": null,
+      "sectionNum": "3.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
+       {"title": "Tip: The  rw  Tactic", "shortTitle": null, "number": "3"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Motivation":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Motivation",
+     "data":
+     {"title": "Motivation",
+      "shortTitle": null,
       "sectionNum": "3.3.1.",
       "searchPriority": 50,
       "context":
@@ -1804,7 +1820,25 @@
         "shortTitle": null,
         "number": "3"},
        {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
-       {"title": "Tip: The  rw  Tactic", "shortTitle": null, "number": "1"}]},
+       {"title": "Motivation", "shortTitle": null, "number": "1"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Induction___-In-Principle-and-in-Lean":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Induction___-In-Principle-and-in-Lean",
+     "data":
+     {"title": "Induction: In Principle and in Lean",
+      "shortTitle": null,
+      "sectionNum": "3.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
+       {"title": "Induction: In Principle and in Lean",
+        "shortTitle": null,
+        "number": "2"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction":
    [{"id":
@@ -1827,50 +1861,14 @@
      "data":
      {"title": "Nat to Bin and Back",
       "shortTitle": null,
-      "sectionNum": "3.7.",
+      "sectionNum": "3.9.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "Nat to Bin and Back", "shortTitle": null, "number": "7"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons",
-     "data":
-     {"title": "Aside: Using Code Actions to Generate Match Skeletons",
-      "shortTitle": null,
-      "sectionNum": "3.6.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "6"},
-       {"title": "Aside: Using Code Actions to Generate Match Skeletons",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator",
-     "data":
-     {"title": "A New Tactic Combinator",
-      "shortTitle": null,
-      "sectionNum": "3.6.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "6"},
-       {"title": "A New Tactic Combinator",
-        "shortTitle": null,
-        "number": "2"}]},
+       {"title": "Nat to Bin and Back", "shortTitle": null, "number": "9"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises":
    [{"id":
@@ -1878,14 +1876,14 @@
      "data":
      {"title": "More Exercises",
       "shortTitle": null,
-      "sectionNum": "3.6.",
+      "sectionNum": "3.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "6"}]},
+       {"title": "More Exercises", "shortTitle": null, "number": "7"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Formal-vs___-Informal-Proof":
    [{"id":
@@ -1910,7 +1908,7 @@
      "data":
      {"title": "Bin to Nat and Back (Advanced)",
       "shortTitle": null,
-      "sectionNum": "3.8.",
+      "sectionNum": "3.10.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -1918,6 +1916,40 @@
         "shortTitle": null,
         "number": "3"},
        {"title": "Bin to Nat and Back (Advanced)",
+        "shortTitle": null,
+        "number": "10"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons",
+     "data":
+     {"title": "Aside: Using Code Actions to Generate Match Skeletons",
+      "shortTitle": null,
+      "sectionNum": "3.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Aside: Using Code Actions to Generate Match Skeletons",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--A-New-Tactic-Combinator___--_LT__SEMI__GT_":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--A-New-Tactic-Combinator___--_LT__SEMI__GT_",
+     "data":
+     {"title": "A New Tactic Combinator:  <;>",
+      "shortTitle": null,
+      "sectionNum": "3.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "A New Tactic Combinator:  <;>",
         "shortTitle": null,
         "number": "8"}]},
      "address": "/Induction/"}],
@@ -4020,28 +4052,7 @@
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective-next-next",
-     "data":
-     {"/Tactics/#double_injective-next-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]}},
-     "address": "/Tactics/"},
-    {"id": "double_injective-next",
+   [{"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -4063,6 +4074,27 @@
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
     {"id": "double_injective",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5736,7 +5768,8 @@
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Proof by Induction"]}},
+        "Proof by Induction",
+        "Induction: In Principle and in Lean"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.zero":
    [{"id": "NatPlayground___Nat___zero",
@@ -5960,11 +5993,11 @@
         "Basics: Functional Programming in Lean",
         "Proof by Case Analysis"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Nat.mult_zero_add'":
-   [{"id": "NatPlayground___Nat___mult_zero_add___",
+   "NatPlayground.Nat.mul_zero_add'":
+   [{"id": "NatPlayground___Nat___mul_zero_add___",
      "data":
-     {"/Induction/#NatPlayground___Nat___mult_zero_add___":
-      {"display": "mult_zero_add'",
+     {"/Induction/#NatPlayground___Nat___mul_zero_add___":
+      {"display": "mul_zero_add'",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
@@ -5994,38 +6027,34 @@
         "Natural Numbers"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.isZero":
-   [{"id": "NatPlayground___Nat___isZero",
+   [{"id": "NatPlayground___Nat___isZero-next",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]},
       "/Induction/#NatPlayground___Nat___isZero":
       {"display": "isZero",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"},
-    {"id": "NatPlayground___Nat___isZero-next",
+    {"id": "NatPlayground___Nat___isZero",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]},
       "/Induction/#NatPlayground___Nat___isZero":
       {"display": "isZero",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.four_eq_succ_three":
@@ -6362,6 +6391,50 @@
         "Induction: Proof by Induction",
         "Nat to Bin and Back"]}},
      "address": "/Induction/"}],
+   "NatPlayground.Nat.Bin.z":
+   [{"id": "NatPlayground___Nat___Bin___z",
+     "data":
+     {"/Basics/#NatPlayground___Nat___Bin___z":
+      {"display": "z",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Case Analysis",
+        "Binary Numerals"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.Bin.b1":
+   [{"id": "NatPlayground___Nat___Bin___b1",
+     "data":
+     {"/Basics/#NatPlayground___Nat___Bin___b1":
+      {"display": "b1",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Case Analysis",
+        "Binary Numerals"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.Bin.b0":
+   [{"id": "NatPlayground___Nat___Bin___b0",
+     "data":
+     {"/Basics/#NatPlayground___Nat___Bin___b0":
+      {"display": "b0",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Case Analysis",
+        "Binary Numerals"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.Bin":
+   [{"id": "NatPlayground___Nat___Bin",
+     "data":
+     {"/Basics/#NatPlayground___Nat___Bin":
+      {"display": "Bin",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Case Analysis",
+        "Binary Numerals"]}},
+     "address": "/Basics/"}],
    "NatPlayground.Nat.AddPlayground.add_zero":
    [{"id": "NatPlayground___Nat___AddPlayground___add_zero",
      "data":
@@ -7783,7 +7856,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly-next",
+   [{"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -7794,7 +7867,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly",
+    {"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -8439,7 +8512,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+   [{"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -8456,7 +8529,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor-next",
+    {"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",

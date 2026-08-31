@@ -997,11 +997,11 @@
  "370": "<code>two * p' = p' + p'</code>",
  "37": "<code>MyBool.true : MyBool</code>",
  "369": "<code>NatPlayground.Nat.mul_two (p : Nat) : two * p = p + p</code>",
- "368": "<code>NatPlayground.Nat.isZero (n : Nat) : Bool</code>",
- "367": "<code>(n == n) = true</code>",
- "366": "<code>(n✝ == n✝) = true</code>",
- "365": "<code>one * p' = p'</code>",
- "364": "<code>NatPlayground.Nat.mul_one (p : Nat) : one * p = p</code>",
+ "368": "<code>one * p' = p'</code>",
+ "367": "<code>NatPlayground.Nat.mul_one (p : Nat) : one * p = p</code>",
+ "366": "<code>NatPlayground.Nat.isZero (n : Nat) : Bool</code>",
+ "365": "<code>(n == n) = true</code>",
+ "364": "<code>(n✝ == n✝) = true</code>",
  "363":
  "<code>NatPlayground.Nat.add_assoc (n m p : NatPlayground.Nat) : n + (m + p) = n + m + p</code>",
  "362":
@@ -1019,7 +1019,7 @@
  "<code>NatPlayground.Nat.add_comm (n m : NatPlayground.Nat) : n + m = m + n</code>",
  "356": "<code>zero + n + zero = n</code>",
  "355":
- "<code>NatPlayground.Nat.mult_zero_add' (n m : Nat) : (zero + n + zero) * m = n * m</code>",
+ "<code>NatPlayground.Nat.mul_zero_add' (n m : Nat) : (zero + n + zero) * m = n * m</code>",
  "354":
  "<code class=\"docstring\">The `have` tactic is for adding opaque definitions and hypotheses to the local context of the main goal.\nThe definitions forget their associated value and cannot be unfolded, unlike definitions added by the `let` tactic.\n\n* `have h : t := e` adds the hypothesis `h : t` if `e` is a term of type `t`.\n* `have h := e` uses the type of `e` for `t`.\n* `have : t := e` and `have := e` use `this` for the name of the hypothesis.\n* `have pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that have only one applicable constructor.\n  For example, given `h : p ∧ q ∧ r`, `have ⟨h₁, h₂, h₃⟩ := h` produces the\n  hypotheses `h₁ : p`, `h₂ : q`, and `h₃ : r`.\n* The syntax `have (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `have` term.\n\n## Properties and relations\n\n* It is not possible to unfold a variable introduced using `have`, since the definition's value is forgotten.\n  The `let` tactic introduces definitions that can be unfolded.\n* The `have h : t := e` is like doing `let h : t := e; clear_value h`.\n* The `have` tactic is preferred for propositions, and `let` is preferred for non-propositions.\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n    Consider using the equivalent `let +nondep` to indicate the intent.\n\n</code>",
  "353": "<code>double n' = n' + n'</code>",

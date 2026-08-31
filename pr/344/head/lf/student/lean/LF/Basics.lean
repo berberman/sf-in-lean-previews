@@ -1813,7 +1813,9 @@ inductive Bin : Type where
   | b0 (n : Bin)
   | b1 (n : Bin)
 
+--  THE FOLLOWING DETAILS CAN BE SKIPPED
 attribute [pp_nodot] Bin.b1 Bin.b0
+--  END DETAILS
 
 def incr (m : Bin) : Bin
   := sorry
@@ -2091,5 +2093,6 @@ theorem inspectBag_changeBag_comm_ticketed
   sorry
 
 end Airport
+end NatPlayground
 
--- Built on 2026-08-31 10:34 UTC
+-- Built on 2026-08-31 11:17 UTC

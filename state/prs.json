@@ -577,11 +577,48 @@
     },
     "344": {
       "base_sha": "40e256235f7e9d1c69452947329efd8ce4be1f47",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "8dade25eeae14b8d3ff02a900244f06d0c40df1c",
       "preview_path": "pr/344/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33385657095",
+      "status": "published",
       "title": "Polishing pass on Induction",
       "url": "https://github.com/plclub/sf-in-lean/pull/344"
     },

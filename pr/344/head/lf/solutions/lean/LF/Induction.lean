@@ -8,10 +8,6 @@ import SFLCompat
 --  most fundamental reasoning tools in computer science and mathematics,
 --  in Lean.
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Somebody needs to scan through the generated .html for this chapter
---      (and Basics) before it's marked 100% finished.
-
 --  ## Separate Compilation
 
 --  Before getting started on this chapter, we need to import all of our
@@ -49,17 +45,16 @@ import SFLCompat
 --    button in the InfoView. The extension should prompt you to do this if
 --    you change things upstream in the dependency tree.)
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      This next comment doesn't belong in the Separate Compilation
---      section...
+--  ## Review
 
 --  We reopen the namespace from the previous chapter to group this
 --  chapter's definitions and theorems with the custom natural-number
 --  development and keep their names distinct from the standard library.
+--
+--  Now let's review what we learned in Basics using some quiz questions
+--  and an exercise.
 
 namespace NatPlayground.Nat
-
---  ## Review
 
 --   ----------------------------------------
 
@@ -172,16 +167,20 @@ theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
 
 --  ## Proof by Induction
 
+--  We will introduce proofs by induction on natural numbers, first
+--  motivating why induction is needed, and then explaining what it is and
+--  how you do it in Lean.
+
+--  ### Motivation
+
 --  We defined `add` to recurse on its *second* argument:
---
---      def add (n : Nat) (m : Nat) : Nat :=
---        match m with
---        | zero => n
---        | succ m' => succ (add n m')
---
---  This means `n + zero` reduces to `n` by definition, but `zero + n` does
---  *not*.
---
+
+sf_recall
+  def add (n : Nat) (m : Nat) : Nat :=
+    match m with
+    | zero => n
+    | succ m' => succ (add n m')
+
 --  For the `add_zero` simplification rule, we were able to prove that
 --  `zero` is a neutral element for `+` on the *right* using just `rfl`:
 --
@@ -189,10 +188,11 @@ theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
 --        intro n
 --        rfl
 --
---  What if we wanted to prove a rule that `zero` is also a neutral element
---  on the *left*? Just applying `rfl` doesn't work, since the `n` in
---  `zero + n` is an arbitrary unknown number, so the `match` in the
---  definition of `+` can't be reduced.
+--  This worked because `n + zero` reduces to `n` by definition. What if we
+--  wanted to prove a rule that `zero` is also a neutral element on the
+--  *left*? Just applying `rfl` doesn't work, since the `n` in `zero + n`
+--  is an arbitrary unknown number, so the `match` in the definition of `+`
+--  can't be reduced.
 
 sf_expect_failure_in
   example (n : Nat) : zero + n = n := by
@@ -231,6 +231,8 @@ sf_expect_failure_in
 --  We could use `cases` on `n'` to get a bit further, but, since `n` can
 --  be arbitrarily large, we'll never get all the way there if we just go
 --  on like this.
+
+--  ### Induction: In Principle and in Lean
 
 --  To prove interesting facts about numbers, lists, and other inductively
 --  defined sets, we often need a more powerful reasoning principle:
@@ -353,12 +355,10 @@ theorem add_assoc (n m p : Nat) :
 --      rw [double_zero]
 
 --  One small caveat: `rw [...]` only performs a quick reflexivity check
---  after rewriting; it does not unfold every definition. So, in rare
+--  after rewriting; it does not unfold every definition. So, in some
 --  cases, `rw` may leave a goal that can actually be solved immediately by
---  `rfl`.
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Missing transition / introduction of the next bit.
+--  `rfl`. For example, `rw` does not unfold the definition of `aliasOfTwo`
+--  in the following example, and thus needs an explicit `rfl`.
 
 def aliasOfTwo := two
 
@@ -404,12 +404,7 @@ theorem double_add (n : Nat) : double n = n + n := by
 --  prove the required fact "in place." The `have` tactic allows us to do
 --  this.
 
---  Note to developers (Claude):
---      Naming: `mult_zero_add'` is the only `mult_`-prefixed name in the
---      chapter; everything else (and Basics) uses the `mul_` prefix. —
---      Claude
-
-theorem mult_zero_add' (n m : Nat) :
+theorem mul_zero_add' (n m : Nat) :
     ((zero + n) + zero) * m = n * m := by
   have h : (zero + n) + zero = n := by
     rw [zero_add, add_zero]
@@ -525,7 +520,7 @@ theorem add_assoc'' (n m p : Nat) :
 --  little bit more complicated, this would be next to impossible.
 --
 --  On paper, a (somewhat pedantic) mathematician might write the proof
---  something like this:
+--  like this:
 --
 --  - *Theorem*: For any `n`, `m`, and `p`,
 --
@@ -623,17 +618,7 @@ theorem add_assoc'' (n m p : Nat) :
 --
 --  *QED*.
 
---  ## More Exercises
-
---  ### Exercise (1 star): mul_one ⭐
-
-theorem mul_one (p : Nat) :
-    one * p = p := by
-  induction p with
-  | zero       => rw [mul_zero]
-  | succ p' ih => rw [mul_succ, ih, succ_eq_add_one]
-
---  ### Aside: Using Code Actions to Generate Match Skeletons
+--  ## Aside: Using Code Actions to Generate Match Skeletons
 
 --  Lean's language server can suggest *code actions*, which are small
 --  editor commands that modify the source code.
@@ -696,18 +681,21 @@ sf_expect_failure_in
 --  Now you just have to replace the holes `_` with your definition. You
 --  can use code actions freely to fill out `induction`, `case`, and
 --  `match` branches while working with this book.
---
+
+--  ## More Exercises
+
+--  ### Exercise (1 star): mul_one ⭐
+
+theorem mul_one (p : Nat) :
+    one * p = p := by
+  induction p with
+  | zero       => rw [mul_zero]
+  | succ p' ih => rw [mul_succ, ih, succ_eq_add_one]
+
 --  By default, `rewrite` and `rw` rewrite left to right, i.e., they
 --  transform the goal (or a hypothesis) from the form on the left side of
 --  the equality to the right side. To rewrite from right to left, use
 --  `rewrite [← h]` or `rw [← h]`, where `←` is entered as `\l` or `\<-`.
-
---  Note to developers (Claude):
---      This paragraph on rewrite direction sits at the tail of the "Using
---      Code Actions" aside, with no connection to code actions. It
---      probably belongs with the "Tip: the rw tactic" section, or as a
---      lead-in to the `mul_two` exercise just below, which is the first
---      place the left-arrow is used. — Claude
 
 --  ### Exercise (2 stars): mul_two ⭐⭐
 
@@ -797,7 +785,7 @@ theorem mul_assoc (n m p : Nat) :
   | zero       => rw [mul_zero, mul_zero, mul_zero]
   | succ p' ih => rw [mul_succ, mul_succ, ← ih, left_distrib]
 
---  ### A New Tactic Combinator
+--  ## A New Tactic Combinator: `<;>`
 
 --  Before moving on to the next batch of exercises, let's introduce a
 --  simple *tactic combinator*. A tactic combinator combines tactics to
@@ -826,11 +814,10 @@ example (b : Bool) : (b || true) = true := by
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
---  For the moment, you should reach for `<;>` only when the generated
---  subgoals really do have the same proof. If different branches need
---  different arguments, it is usually clearer to write the cases
---  explicitly. We'll discuss some other tactic combinators in the
---  Automation chapter.
+--  For the moment, you should use `<;>` only when the generated subgoals
+--  really do have the same proof. If different branches need different
+--  arguments, it is usually clearer to write the cases explicitly. We'll
+--  discuss some other tactic combinators in the Automation chapter.
 
 --  ## Nat to Bin and Back
 
@@ -867,10 +854,9 @@ theorem binToNat_z : binToNat .z = zero := (by rfl)
 theorem binToNat_b0 m : binToNat (.b0 m) = mul (binToNat m) two := (by rfl)
 theorem binToNat_b1 m : binToNat (.b1 m) = add (mul (binToNat m) two) one := (by rfl)
 
+--  THE FOLLOWING DETAILS CAN BE SKIPPED
 attribute [pp_nodot] Bin.b0 Bin.b1
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Should the `attribute` declaration be in a :::details block?
+--  END DETAILS
 
 --  In Basics, we did some unit testing of `binToNat`, but we didn't prove
 --  its correctness. Now we'll do so.
@@ -1111,4 +1097,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-08-31 10:34 UTC
+-- Built on 2026-08-31 11:17 UTC

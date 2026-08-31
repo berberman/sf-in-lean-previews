@@ -1181,12 +1181,12 @@
  "<code>NatPlayground.Nat.succ_mul (m n : Nat) : succ n * m = n * m + m</code>",
  "225":
  "<code>NatPlayground.Nat.add_shuffle3 (n m p : Nat) : n + m + p = n + p + m</code>",
- "224":
+ "224": "<code>NatPlayground.Nat.mul_one (p : Nat) : one * p = p</code>",
+ "223":
  "<code class=\"docstring\">* `case tag =&gt; tac` focuses on the goal with case name `tag` and solves it using `tac`,\n  or else fails.\n* `case tag x₁ ... xₙ =&gt; tac` additionally renames the `n` most recent hypotheses\n  with inaccessible names to the given names.\n* `case tag₁ | tag₂ =&gt; tac` is equivalent to `(case tag₁ =&gt; tac); (case tag₂ =&gt; tac)`.\n</code>",
- "223": "<code>NatPlayground.Nat.isZero (n : Nat) : Bool</code>",
- "222": "<code>(n == n) = true</code>",
- "221": "<code>(n✝ == n✝) = true</code>",
- "220": "<code>NatPlayground.Nat.mul_one (p : Nat) : one * p = p</code>",
+ "222": "<code>NatPlayground.Nat.isZero (n : Nat) : Bool</code>",
+ "221": "<code>(n == n) = true</code>",
+ "220": "<code>(n✝ == n✝) = true</code>",
  "22": "<code>Day.monday : Day</code>",
  "219":
  "<code>NatPlayground.Nat.add_assoc (n m p : NatPlayground.Nat) : n + (m + p) = n + m + p</code>",
@@ -1196,7 +1196,7 @@
  "<code>NatPlayground.Nat.add_comm (n m : NatPlayground.Nat) : n + m = m + n</code>",
  "216": "<code>zero + n + zero = n</code>",
  "215":
- "<code>NatPlayground.Nat.mult_zero_add' (n m : Nat) : (zero + n + zero) * m = n * m</code>",
+ "<code>NatPlayground.Nat.mul_zero_add' (n m : Nat) : (zero + n + zero) * m = n * m</code>",
  "214":
  "<code class=\"docstring\">The `have` tactic is for adding opaque definitions and hypotheses to the local context of the main goal.\nThe definitions forget their associated value and cannot be unfolded, unlike definitions added by the `let` tactic.\n\n* `have h : t := e` adds the hypothesis `h : t` if `e` is a term of type `t`.\n* `have h := e` uses the type of `e` for `t`.\n* `have : t := e` and `have := e` use `this` for the name of the hypothesis.\n* `have pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that have only one applicable constructor.\n  For example, given `h : p ∧ q ∧ r`, `have ⟨h₁, h₂, h₃⟩ := h` produces the\n  hypotheses `h₁ : p`, `h₂ : q`, and `h₃ : r`.\n* The syntax `have (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `have` term.\n\n## Properties and relations\n\n* It is not possible to unfold a variable introduced using `have`, since the definition's value is forgotten.\n  The `let` tactic introduces definitions that can be unfolded.\n* The `have h : t := e` is like doing `let h : t := e; clear_value h`.\n* The `have` tactic is preferred for propositions, and `let` is preferred for non-propositions.\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n    Consider using the equivalent `let +nondep` to indicate the intent.\n\n</code>",
  "213":

@@ -1526,4 +1526,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Built on 2026-08-31 10:34 UTC
+-- Built on 2026-08-31 11:17 UTC

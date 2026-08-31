@@ -14,14 +14,17 @@ import SFLCompat
 --  be imported here — detailed instructions are in the full
 --  version of this chapter...
 
+--  ## Review
+
 --  We reopen the namespace from the previous chapter to
 --  group this chapter's definitions and theorems with the
 --  custom natural-number development and keep their names
 --  distinct from the standard library.
+--
+--  Now let's review what we learned in Basics using some
+--  quiz questions and an exercise.
 
 namespace NatPlayground.Nat
-
---  ## Review
 
 --   ----------------------------------------
 
@@ -135,6 +138,12 @@ theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
 
 --  ## Proof by Induction
 
+--  We will introduce proofs by induction on natural
+--  numbers, first motivating why induction is needed, and
+--  then explaining what it is and how you do it in Lean.
+
+--  ### Motivation
+
 --  But the proof that it is also a neutral element on the
 --  *left* gets stuck...
 
@@ -172,6 +181,8 @@ sf_expect_failure_in
 --    case succ
 --    n' : Nat
 --    ⊢ zero + succ n' = succ n'
+
+--  ### Induction: In Principle and in Lean
 
 --  We need a bigger hammer: the *principle of induction*
 --  over natural numbers:
@@ -262,7 +273,7 @@ theorem double_add (n : Nat) : double n = n + n := by
 
 --  New tactic: `have`.
 
-theorem mult_zero_add' (n m : Nat) :
+theorem mul_zero_add' (n m : Nat) :
     ((zero + n) + zero) * m = n * m := by
   have h : (zero + n) + zero = n := by
     rw [zero_add, add_zero]
@@ -317,15 +328,7 @@ theorem add_rearrange (n m p q : Nat) :
 --
 --  Proof:
 
---  ## More Exercises
-
---  ### Exercise (1 star): mul_one ⭐
-
-theorem mul_one (p : Nat) :
-    one * p = p := by
-  sorry
-
---  ### Aside: Using Code Actions to Generate Match Skeletons
+--  ## Aside: Using Code Actions to Generate Match Skeletons
 
 --  Lean's language server can suggest *code actions*, which
 --  are small editor commands that modify the source code.
@@ -381,7 +384,15 @@ sf_expect_failure_in
 --  definition. You can use code actions freely to fill out
 --  `induction`, `case`, and `match` branches while working
 --  with this book.
---
+
+--  ## More Exercises
+
+--  ### Exercise (1 star): mul_one ⭐
+
+theorem mul_one (p : Nat) :
+    one * p = p := by
+  sorry
+
 --  By default, `rewrite` and `rw` rewrite left to right,
 --  i.e., they transform the goal (or a hypothesis) from the
 --  form on the left side of the equality to the right side.
@@ -445,7 +456,7 @@ theorem mul_assoc (n m p : Nat) :
     n * (m * p) = (n * m) * p := by
   sorry
 
---  ### A New Tactic Combinator
+--  ## A New Tactic Combinator: `<;>`
 
 --  New tactic combinator: `t₁ <;> t₂` runs `t₁`, then runs
 --  `t₂` on every subgoal produced by `t₁`.
@@ -495,7 +506,9 @@ theorem binToNat_z : binToNat .z = zero := sorry
 theorem binToNat_b0 m : binToNat (.b0 m) = mul (binToNat m) two := sorry
 theorem binToNat_b1 m : binToNat (.b1 m) = add (mul (binToNat m) two) one := sorry
 
+--  THE FOLLOWING DETAILS CAN BE SKIPPED
 attribute [pp_nodot] Bin.b0 Bin.b1
+--  END DETAILS
 
 --  In Basics, we did some unit testing of `binToNat`, but
 --  we didn't prove its correctness. Now we'll do so.
@@ -669,4 +682,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-08-31 10:34 UTC
+-- Built on 2026-08-31 11:17 UTC
