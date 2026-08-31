@@ -5,4 +5,4 @@ import TS.Types
 import TS.Stlc
 import TS.StlcProp
 
--- Built on 2026-08-31 20:52 UTC
+-- Built on 2026-08-31 21:29 UTC

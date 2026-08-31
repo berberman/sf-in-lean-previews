@@ -303,7 +303,7 @@ theorem add_rearrange (n m p q : Nat) :
 --  start with the following incomplete proof:
 
 sf_expect_failure_in
-  example (n : Nat) : Nat.beq n n := by
+  example (n : Nat) : Nat.beq n n = true := by
     induction n
 
 --  Put your cursor on `induction n` and open the code
@@ -317,7 +317,7 @@ sf_expect_failure_in
 
 --  Let's do the proof!
 
-example (n : Nat) : Nat.beq n n := by
+example (n : Nat) : Nat.beq n n = true := by
   sorry
 
 --  The same trick also works for `match` expressions. For
@@ -428,4 +428,4 @@ example (b : Bool) : (b || true) = true := by
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
--- Built on 2026-08-31 20:51 UTC
+-- Built on 2026-08-31 21:27 UTC

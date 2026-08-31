@@ -626,7 +626,7 @@ theorem add_assoc'' (n m p : Nat) :
 --  following incomplete proof:
 
 sf_expect_failure_in
-  example (n : Nat) : Nat.beq n n := by
+  example (n : Nat) : Nat.beq n n = true := by
     induction n
 
 --  Put your cursor on `induction n` and open the code action menu.
@@ -635,7 +635,7 @@ sf_expect_failure_in
 --  the list. If you choose this action, Lean adds an explicit branch for
 --  each constructor:
 
-example (n : Nat) : Nat.beq n n := by
+example (n : Nat) : Nat.beq n n= true := by
   induction n with
   | zero => sorry
   | succ n ih => sorry
@@ -645,7 +645,7 @@ example (n : Nat) : Nat.beq n n := by
 
 --  One possible proof is the following.
 
-example (n : Nat) : Nat.beq n n := by
+example (n : Nat) : Nat.beq n n = true := by
   induction n with
   | zero => exact (beq_self zero)
   | succ n ih => rw [Nat.beq, ih]
@@ -1014,4 +1014,4 @@ attribute [autogradedProof 6] NatPlayground.Nat.NatToBin.bin_nat_bin
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-08-31 20:51 UTC
+-- Built on 2026-08-31 21:27 UTC
