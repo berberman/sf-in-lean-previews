@@ -574,6 +574,53 @@
       "status": "ci-failed",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/349"
+    },
+    "351": {
+      "base_sha": "28b97041df1406e61ac66a2d0d24db474d45128f",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "8a747692826af09e04f5231d0b5bcae5f550b428",
+      "preview_path": "pr/351/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33443121959",
+      "status": "published",
+      "title": "Release script: Updated to simplify usage",
+      "url": "https://github.com/plclub/sf-in-lean/pull/351"
     }
   },
   "schema": 3
