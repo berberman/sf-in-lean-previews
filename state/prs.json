@@ -715,6 +715,53 @@
       "status": "published",
       "title": "Fix recall's hidden-namespace name resolution silently falling back to root",
       "url": "https://github.com/plclub/sf-in-lean/pull/346"
+    },
+    "347": {
+      "base_sha": "10daf0364cf1ae03af1261bfc30f3cff28415b0e",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "df57420e24685628af1c46e851bfea670f76208a",
+      "preview_path": "pr/347/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33415534520",
+      "status": "published",
+      "title": "Imp: proof polishing, remove EvalR unexpanders",
+      "url": "https://github.com/plclub/sf-in-lean/pull/347"
     }
   },
   "schema": 3
