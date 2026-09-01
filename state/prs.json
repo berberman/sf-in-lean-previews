@@ -1,5 +1,5 @@
 {
-  "main_sha": "739002c3eacd4e126b3635b46505d57c847be856",
+  "main_sha": "7963434b2e0af28dcf17cd3ba33c295a27d30829",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -382,8 +382,8 @@
       "changed_variants": [],
       "head_sha": "b3ffb619f61c0e6f7d9a2a5388b04281ae9d0cee",
       "preview_path": "pr/349/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33522510545",
+      "status": "ci-failed",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/349"
     },

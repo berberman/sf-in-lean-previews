@@ -773,23 +773,23 @@
  "466": "<code>myNil' : List Nat</code>",
  "465":
  "<code>List.nil.{u} {α : Type u} : List α</code><span class=\"sep\"></span><code class=\"docstring\">The empty list, usually written `[]`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `[]` in identifiers is `nil`.</code>",
- "464": "<code>myRepeat''' {α : Type} (x : α) (count : Nat) : List α</code>",
- "463": "<code>myRepeat'' (α : Type) (x : α) (count : Nat) : List α</code>",
+ "464": "<code>replicate''' {α : Type} (x : α) (count : Nat) : List α</code>",
+ "463": "<code>replicate'' (α : Type) (x : α) (count : Nat) : List α</code>",
  "462":
  "<code>List.cons.{u} {α : Type u} (head : α) (tail : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">The list whose first element is `head`, where `tail` is the rest of the list.\nUsually written `head :: tail`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `::` in identifiers is `cons`.\n\n * The recommended spelling of `[a]` in identifiers is `singleton`.</code>",
  "461": "<code>Type u_1</code>",
  "460":
- "<code>myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α</code>",
+ "<code>replicate'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α</code>",
  "46":
  "<code class=\"docstring\">The standardized \"high\" priority `high = 10000`, for things that should be higher than default priority. </code>",
  "459":
  "<code>List.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Linked lists: ordered lists, in which each element has a reference to the next element.\n\nMost operations on linked lists take time proportional to the length of the list, because each\nelement must be traversed to find the next element.\n\n`List α` is isomorphic to `Array α`, but they are useful for different things:\n* `List α` is easier for reasoning, and `Array α` is modeled as a wrapper around `List α`.\n* `List α` works well as a persistent data structure, when many copies of the tail are shared. When\n  the value is not shared, `Array α` will have better performance because it can do destructive\n  updates.\n</code>",
  "458": "<code>β</code>",
  "457":
- "<code>myRepeat_succ (α : Type) (v : α) (count : Nat) : myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count)</code>",
+ "<code>replicate_succ (α : Type) (v : α) (count : Nat) : replicate α v (count + 1) = MyList.cons v (replicate α v count)</code>",
  "456":
- "<code>myRepeat_zero (α : Type) (v : α) : myRepeat α v 0 = MyList.nil</code>",
- "455": "<code>myRepeat (α : Type) (x : α) (count : Nat) : MyList α</code>",
+ "<code>replicate_zero (α : Type) (v : α) : replicate α v 0 = MyList.nil</code>",
+ "455": "<code>replicate (α : Type) (x : α) (count : Nat) : MyList α</code>",
  "454": "<code>MyList α</code>",
  "453": "<code>MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α</code>",
  "452": "<code>MyList.nil {α : Type} : MyList α</code>",
@@ -849,10 +849,10 @@
  "417": "<code>Lists.NatOption.some (n : Nat) : NatOption</code>",
  "416": "<code>Lists.NatOption : Type</code>",
  "415": "<code>Lists.NatList.nthBad (l : NatList) (n : Nat) : Nat</code>",
- "414": "<code>(myRepeat n m').length = m'</code>",
- "413": "<code>myRepeat n 0 = l</code>",
+ "414": "<code>(replicate n m').length = m'</code>",
+ "413": "<code>replicate n 0 = l</code>",
  "412":
- "<code>Lists.NatList.foo1 (n : Nat) (l : NatList) : myRepeat n 0 = l → l.length = 0</code>",
+ "<code>Lists.NatList.foo1 (n : Nat) (l : NatList) : replicate n 0 = l → l.length = 0</code>",
  "411":
  "<code>Lists.NatList.length_append (l₁ l₂ : NatList) : (l₁ ++ l₂).length = l₁.length + l₂.length</code>",
  "410":
@@ -870,20 +870,21 @@
  "403": "<code>Lists.NatList.reverse_nil : [].reverse = []</code>",
  "402": "<code>Lists.NatList.reverse (l : NatList) : NatList</code>",
  "401":
- "<code>Lists.NatList.myRepeat_append (c n : Nat) : myRepeat n c ++ myRepeat n c = myRepeat n (c + c)</code>",
+ "<code>Lists.NatList.replicate_append (c n : Nat) : replicate n c ++ replicate n c = replicate n (c + c)</code>",
  "400": "<code>Nat.succ_add (n m : Nat) : n.succ + m = (n + m).succ</code>",
  "40": "<code>MyBool</code>",
  "4":
  "<code class=\"docstring\">`rw` is like `rewrite`, but also tries to close the goal by \"cheap\" (reducible) `rfl` afterwards.\n</code>",
- "399": "<code>myRepeat n c1' ++ myRepeat n c₂ = myRepeat n (c1' + c₂)</code>",
+ "399":
+ "<code>replicate n c1' ++ replicate n c₂ = replicate n (c1' + c₂)</code>",
  "398": "<code>Nat.zero_add (n : Nat) : 0 + n = n</code>",
  "397":
- "<code>Lists.NatList.myRepeat_append_general (c₁ c₂ n : Nat) : myRepeat n c₁ ++ myRepeat n c₂ = myRepeat n (c₁ + c₂)</code>",
- "396": "<code>myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')</code>",
+ "<code>Lists.NatList.replicate_append_general (c₁ c₂ n : Nat) : replicate n c₁ ++ replicate n c₂ = replicate n (c₁ + c₂)</code>",
+ "396": "<code>replicate n c' ++ replicate n c' = replicate n (c' + c')</code>",
  "395":
  "<code>Nat.zero : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
  "394":
- "<code>Lists.NatList.myRepeat_append_fail (c n : Nat) : myRepeat n c ++ myRepeat n c = myRepeat n (c + c)</code>",
+ "<code>Lists.NatList.replicate_append_fail (c n : Nat) : replicate n c ++ replicate n c = replicate n (c + c)</code>",
  "393": "<code>l₁' ++ l₂ ++ l₃ = l₁' ++ (l₂ ++ l₃)</code>",
  "392":
  "<code>Lists.NatList.append_assoc (l₁ l₂ l₃ : NatList) : l₁ ++ l₂ ++ l₃ = l₁ ++ (l₂ ++ l₃)</code>",
@@ -971,9 +972,9 @@
  "<code>Lists.NatList.head (default : Nat) (l : Lists.NatList) : Nat</code>",
  "344": "<code>Lists.NatList.head (default : Nat) (l : NatList) : Nat</code>",
  "343":
- "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
- "342":
  "<code>Lists.NatList.cons_append (n : Nat) (l₁ l₂ : NatList) : (n :: l₁) ++ l₂ = n :: l₁ ++ l₂</code>",
+ "342":
+ "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
  "341": "<code>Lists.NatList.nil_append (l : NatList) : [] ++ l = l</code>",
  "340":
  "<code>NatList → NatList → NatList</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
@@ -987,9 +988,10 @@
  "336": "<code>Lists.NatList.length_nil : [].length = 0</code>",
  "335": "<code>Lists.NatList.length (l : NatList) : Nat</code>",
  "334":
- "<code>Lists.NatList.repeat_succ (n count : Nat) : myRepeat n (count + 1) = n :: myRepeat n count</code>",
- "333": "<code>Lists.NatList.repeat_zero (n : Nat) : myRepeat n 0 = []</code>",
- "332": "<code>Lists.NatList.myRepeat (n count : Nat) : NatList</code>",
+ "<code>Lists.NatList.replicate_succ (n count : Nat) : replicate n (count + 1) = n :: replicate n count</code>",
+ "333":
+ "<code>Lists.NatList.replicate_zero (n : Nat) : replicate n 0 = []</code>",
+ "332": "<code>Lists.NatList.replicate (n count : Nat) : NatList</code>",
  "331": "<code>Lists.NatList.mylist3 : NatList</code>",
  "330": "<code>Lists.NatList.mylist2 : NatList</code>",
  "33":

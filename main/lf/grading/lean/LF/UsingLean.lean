@@ -517,4 +517,4 @@ attribute [autogradedProof 2] Nat.double_mul
 --  With these tools in hand, we can begin to prove properties about more
 --  sophisticated forms of data, beginning with `Lists`.
 
--- Built on 2026-09-01 14:20 UTC
+-- Built on 2026-09-01 15:23 UTC

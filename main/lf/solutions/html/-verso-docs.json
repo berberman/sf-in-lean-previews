@@ -329,11 +329,11 @@
  "776": "<code>Mumble.a : Mumble</code>",
  "775": "<code>Mumble : Type</code>",
  "774": "<code>myNil' : List Nat</code>",
- "773": "<code>myRepeat''' {α : Type} (x : α) (count : Nat) : List α</code>",
- "772": "<code>myRepeat'' (α : Type) (x : α) (count : Nat) : List α</code>",
+ "773": "<code>replicate''' {α : Type} (x : α) (count : Nat) : List α</code>",
+ "772": "<code>replicate'' (α : Type) (x : α) (count : Nat) : List α</code>",
  "771": "<code>Type u_1</code>",
  "770":
- "<code>myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α</code>",
+ "<code>replicate'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α</code>",
  "77": "<code>RGB.red : RGB</code>",
  "769":
  "<code>List.cons.{u} {α : Type u} (head : α) (tail : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">The list whose first element is `head`, where `tail` is the rest of the list.\nUsually written `head :: tail`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `::` in identifiers is `cons`.\n\n * The recommended spelling of `[a]` in identifiers is `singleton`.</code>",
@@ -343,10 +343,10 @@
  "<code>List.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">Linked lists: ordered lists, in which each element has a reference to the next element.\n\nMost operations on linked lists take time proportional to the length of the list, because each\nelement must be traversed to find the next element.\n\n`List α` is isomorphic to `Array α`, but they are useful for different things:\n* `List α` is easier for reasoning, and `Array α` is modeled as a wrapper around `List α`.\n* `List α` works well as a persistent data structure, when many copies of the tail are shared. When\n  the value is not shared, `Array α` will have better performance because it can do destructive\n  updates.\n</code>",
  "766": "<code>β</code>",
  "765":
- "<code>myRepeat_succ (α : Type) (v : α) (count : Nat) : myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count)</code>",
+ "<code>replicate_succ (α : Type) (v : α) (count : Nat) : replicate α v (count + 1) = MyList.cons v (replicate α v count)</code>",
  "764":
- "<code>myRepeat_zero (α : Type) (v : α) : myRepeat α v 0 = MyList.nil</code>",
- "763": "<code>myRepeat (α : Type) (x : α) (count : Nat) : MyList α</code>",
+ "<code>replicate_zero (α : Type) (v : α) : replicate α v 0 = MyList.nil</code>",
+ "763": "<code>replicate (α : Type) (x : α) (count : Nat) : MyList α</code>",
  "762": "<code>MyList α</code>",
  "761": "<code>MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α</code>",
  "760": "<code>MyList.nil {α : Type} : MyList α</code>",
@@ -450,209 +450,210 @@
  "<code class=\"docstring\">`repeat tac` repeatedly applies `tac` so long as it succeeds.\nThe tactic `tac` may be a tactic sequence, and if `tac` fails at any point in its execution,\n`repeat` will revert any partial changes that `tac` made to the tactic state.\n\nThe tactic `tac` should eventually fail, otherwise `repeat tac` will run indefinitely.\n\nSee also:\n* `try tac` is like `repeat tac` but will apply `tac` at most once.\n* `repeat' tac` recursively applies `tac` to each goal.\n* `first | tac1 | tac2` implements the backtracking used by `repeat`\n</code>",
  "699":
  "<code>Lists.NatList.count_member_nonZero (l : NatList) : Nat.ble 1 (count 1 (1 :: l)) = true</code>",
- "698":
- "<code>BEq.refl.{u_1} {α : Type u_1} [BEq α] [ReflBEq α] (a : α) : (a == a) = true</code>",
- "697": "<code>l'.beq l' = true</code>",
- "696": "<code>Lists.NatList.beq_refl (l : NatList) : l.beq l = true</code>",
- "695": "<code>(h₁ == h₂) = false</code>",
- "694":
+ "698": "<code>l'.beq l' = true</code>",
+ "697": "<code>Lists.NatList.beq_refl (l : NatList) : l.beq l = true</code>",
+ "696": "<code>(h₁ == h₂) = false</code>",
+ "695":
  "<code>Lists.NatList.beq_cons_diff (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = false) : (h₁ :: t₁).beq (h₂ :: t₂) = false</code>",
- "693": "<code>(h₁ == h₂) = true</code>",
- "692":
+ "694": "<code>(h₁ == h₂) = true</code>",
+ "693":
  "<code>Lists.NatList.beq_cons_same (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = true) :\n  (h₁ :: t₁).beq (h₂ :: t₂) = t₁.beq t₂</code>",
- "691": "<code>Lists.NatList.beq_nil : [].beq [] = true</code>",
- "690": "<code>Lists.NatList.beq (l₁ l₂ : NatList) : Bool</code>",
+ "692": "<code>Lists.NatList.beq_nil : [].beq [] = true</code>",
+ "691": "<code>Lists.NatList.beq (l₁ l₂ : NatList) : Bool</code>",
+ "690": "<code>(l₁' ++ l₂).nonZeros = l₁'.nonZeros ++ l₂.nonZeros</code>",
  "69": "<code>MyBool.really_bad : true = false</code>",
- "689": "<code>(l₁' ++ l₂).nonZeros = l₁'.nonZeros ++ l₂.nonZeros</code>",
- "688":
+ "689":
  "<code>Lists.NatList.nonZeros_append (l₁ l₂ : NatList) : (l₁ ++ l₂).nonZeros = l₁.nonZeros ++ l₂.nonZeros</code>",
- "687":
+ "688":
  "<code>Lists.NatList.nonZeros (l : Lists.NatList) : Lists.NatList</code>",
- "686":
+ "687":
  "<code>Lists.NatList.append_assoc4 (l₁ l₂ l₃ l4 : NatList) : l₁ ++ (l₂ ++ (l₃ ++ l4)) = l₁ ++ l₂ ++ l₃ ++ l4</code>",
- "685": "<code>l'.reverse.reverse = l'</code>",
- "684":
+ "686": "<code>l'.reverse.reverse = l'</code>",
+ "685":
  "<code>Lists.NatList.reverse_involutive (l : NatList) : l.reverse.reverse = l</code>",
- "683": "<code>(l₁' ++ l₂).reverse = l₂.reverse ++ l₁'.reverse</code>",
- "682":
+ "684": "<code>(l₁' ++ l₂).reverse = l₂.reverse ++ l₁'.reverse</code>",
+ "683":
  "<code>Lists.NatList.reverse_append (l₁ l₂ : NatList) : (l₁ ++ l₂).reverse = l₂.reverse ++ l₁.reverse</code>",
- "681": "<code>l' ++ [] = l'</code>",
- "680": "<code>Lists.NatList.append_nil (l : NatList) : l ++ [] = l</code>",
+ "682": "<code>l' ++ [] = l'</code>",
+ "681": "<code>Lists.NatList.append_nil (l : NatList) : l ++ [] = l</code>",
+ "680": "<code>(l₁' ++ l₂).length = l₁'.length + l₂.length</code>",
  "68": "<code>MyBool.false_or (b : MyBool) : (false || b) = b</code>",
- "679": "<code>(l₁' ++ l₂).length = l₁'.length + l₂.length</code>",
- "678":
+ "679":
  "<code>Lists.NatList.length_append (l₁ l₂ : NatList) : (l₁ ++ l₂).length = l₁.length + l₂.length</code>",
- "677":
+ "678":
  "<code>Lists.NatList.length_reverse (l : NatList) : l.reverse.length = l.length</code>",
- "676": "<code>(l' ++ [n]).length = l'.length + 1</code>",
- "675":
+ "677": "<code>(l' ++ [n]).length = l'.length + 1</code>",
+ "676":
  "<code>Lists.NatList.append_length_succ (l : NatList) (n : Nat) : (l ++ [n]).length = l.length + 1</code>",
- "674": "<code>(l'.reverse ++ [n]).length = l'.reverse.length + 1</code>",
- "673":
+ "675": "<code>(l'.reverse ++ [n]).length = l'.reverse.length + 1</code>",
+ "674":
  "<code>Lists.NatList.length_append_succ (l : NatList) (n : Nat) : (l.reverse ++ [n]).length = l.reverse.length + 1</code>",
- "672": "<code>l'.reverse.length = l'.length</code>",
- "671":
+ "673": "<code>l'.reverse.length = l'.length</code>",
+ "672":
  "<code>Lists.NatList.reverse_cons (h : Nat) (t : NatList) : (h :: t).reverse = t.reverse ++ [h]</code>",
- "670": "<code>Lists.NatList.reverse_nil : [].reverse = []</code>",
+ "671": "<code>Lists.NatList.reverse_nil : [].reverse = []</code>",
+ "670": "<code>Lists.NatList.reverse (l : NatList) : NatList</code>",
  "67": "<code>MyBool.true_and' (b : MyBool) : (true &amp;&amp; b) = b</code>",
- "669": "<code>Lists.NatList.reverse (l : NatList) : NatList</code>",
+ "669":
+ "<code>Lists.NatList.replicate_append (c n : Nat) : replicate n c ++ replicate n c = replicate n (c + c)</code>",
  "668":
- "<code>Lists.NatList.myRepeat_append (c n : Nat) : myRepeat n c ++ myRepeat n c = myRepeat n (c + c)</code>",
- "667": "<code>myRepeat n c1' ++ myRepeat n c₂ = myRepeat n (c1' + c₂)</code>",
- "666": "<code>Nat.zero_add (n : Nat) : 0 + n = n</code>",
- "665":
- "<code>Lists.NatList.myRepeat_append_general (c₁ c₂ n : Nat) : myRepeat n c₁ ++ myRepeat n c₂ = myRepeat n (c₁ + c₂)</code>",
- "664": "<code>myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')</code>",
- "663":
- "<code>Lists.NatList.myRepeat_append_fail (c n : Nat) : myRepeat n c ++ myRepeat n c = myRepeat n (c + c)</code>",
- "662": "<code>l₁' ++ l₂ ++ l₃ = l₁' ++ (l₂ ++ l₃)</code>",
- "661":
+ "<code>replicate n c1' ++ replicate n c₂ = replicate n (c1' + c₂)</code>",
+ "667": "<code>Nat.zero_add (n : Nat) : 0 + n = n</code>",
+ "666":
+ "<code>Lists.NatList.replicate_append_general (c₁ c₂ n : Nat) : replicate n c₁ ++ replicate n c₂ = replicate n (c₁ + c₂)</code>",
+ "665": "<code>replicate n c' ++ replicate n c' = replicate n (c' + c')</code>",
+ "664":
+ "<code>Lists.NatList.replicate_append_fail (c n : Nat) : replicate n c ++ replicate n c = replicate n (c + c)</code>",
+ "663": "<code>l₁' ++ l₂ ++ l₃ = l₁' ++ (l₂ ++ l₃)</code>",
+ "662":
  "<code>Lists.NatList.append_assoc (l₁ l₂ l₃ : NatList) : l₁ ++ l₂ ++ l₃ = l₁ ++ (l₂ ++ l₃)</code>",
- "660": "<code>Lists.NatList.nil : Lists.NatList</code>",
+ "661": "<code>Lists.NatList.nil : Lists.NatList</code>",
+ "660":
+ "<code>Nat.pred : Nat → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The predecessor of a natural number is one less than it. The predecessor of `0` is defined to be\n`0`.\n\nThis definition is overridden in the compiler with an efficient implementation. This definition is\nthe logical model.\n</code>",
  "66":
  "<code>MyBool.true_and_wrong (b : MyBool) : (true &amp;&amp; b) = b</code>",
  "659":
- "<code>Nat.pred : Nat → Nat</code><span class=\"sep\"></span><code class=\"docstring\">The predecessor of a natural number is one less than it. The predecessor of `0` is defined to be\n`0`.\n\nThis definition is overridden in the compiler with an efficient implementation. This definition is\nthe logical model.\n</code>",
- "658":
  "<code>Lists.NatList.tail_length_pred (l : NatList) : l.length.pred = l.tail.length</code>",
- "657":
+ "658":
  "<code>Lists.NatList.nil_append (l : Lists.NatList) : [] ++ l = l</code>",
- "656":
+ "657":
  "<code>Lists.NatList.test_included2 : [1, 2, 2].included [2, 1, 4, 1] = false</code>",
- "655":
+ "656":
  "<code>Lists.NatList.test_included1 : [1, 2].included [2, 1, 4, 1] = true</code>",
- "654": "<code>member n l₂ = false</code>",
- "653":
+ "655": "<code>member n l₂ = false</code>",
+ "654":
  "<code>Lists.NatList.included_cons_nonmember (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = false) :\n  (n :: l₁).included l₂ = false</code>",
- "652": "<code>member n l₂ = true</code>",
- "651":
+ "653": "<code>member n l₂ = true</code>",
+ "652":
  "<code>Lists.NatList.included_cons_member (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = true) :\n  (n :: l₁).included l₂ = l₁.included (removeOne n l₂)</code>",
- "650":
+ "651":
  "<code>Lists.NatList.included_nil (l₂ : NatList) : [].included l₂ = true</code>",
+ "650": "<code>Lists.NatList.included (l₁ l₂ : NatList) : Bool</code>",
  "65":
  "<code>MyBool.true_and_explained (b : MyBool) : (true &amp;&amp; b) = b</code>",
- "649": "<code>Lists.NatList.included (l₁ l₂ : NatList) : Bool</code>",
- "648":
+ "649":
  "<code>Lists.NatList.test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0</code>",
- "647":
+ "648":
  "<code>Lists.NatList.test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2</code>",
- "646":
+ "647":
  "<code>Lists.NatList.removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :\n  removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t</code>",
- "645":
+ "646":
  "<code>Lists.NatList.removeAll_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :\n  removeAll n₁ (n₂ :: t) = removeAll n₁ t</code>",
- "644":
+ "645":
  "<code>Lists.NatList.removeAll_nil (n : Nat) : removeAll n [] = []</code>",
- "643":
+ "644":
  "<code>Lists.NatList.removeAll (n : Nat) (l : NatList) : NatList</code>",
- "642":
+ "643":
  "<code>Lists.NatList.test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1</code>",
- "641":
+ "642":
  "<code>Lists.NatList.test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2</code>",
- "640":
+ "641":
  "<code>Lists.NatList.removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :\n  removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t</code>",
+ "640":
+ "<code>Lists.NatList.removeOne_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) : removeOne n₁ (n₂ :: t) = t</code>",
  "64":
  "<code class=\"docstring\">Introduces one or more hypotheses, optionally naming and/or pattern-matching them.\nFor each hypothesis to be introduced, the remaining main goal's target type must\nbe a `let` or function type.\n\n* `intro` by itself introduces one anonymous hypothesis, which can be accessed\n  by e.g. `assumption`. It is equivalent to `intro _`.\n* `intro x y` introduces two hypotheses and names them. Individual hypotheses\n  can be anonymized via `_`, given a type ascription, or matched against a pattern:\n  ```lean\n  -- ... ⊢ α × β → ...\n  intro (a, b)\n  -- ..., a : α, b : β ⊢ ...\n  ```\n* `intro rfl` is short for `intro h; subst h`, if `h` is an equality where the left-hand or right-hand side\n  is a variable.\n* Alternatively, `intro` can be combined with pattern matching much like `fun`:\n  ```lean\n  intro\n  | n + 1, 0 =&gt; tac\n  | ...\n  ```\n</code>",
  "639":
- "<code>Lists.NatList.removeOne_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) : removeOne n₁ (n₂ :: t) = t</code>",
- "638":
  "<code>Lists.NatList.removeOne_nil (n : Nat) : removeOne n [] = []</code>",
- "637":
+ "638":
  "<code>Lists.NatList.removeOne (n : Nat) (l : NatList) : NatList</code>",
- "636": "<code>Lists.NatList.test_member2 : member 2 [1, 4, 1] = false</code>",
- "635": "<code>Lists.NatList.test_member1 : member 1 [1, 4, 1] = true</code>",
- "634":
+ "637": "<code>Lists.NatList.test_member2 : member 2 [1, 4, 1] = false</code>",
+ "636": "<code>Lists.NatList.test_member1 : member 1 [1, 4, 1] = true</code>",
+ "635":
  "<code>Lists.NatList.member_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) : member n₁ (n₂ :: t) = member n₁ t</code>",
- "633":
+ "634":
  "<code>Lists.NatList.member_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) : member n₁ (n₂ :: t) = true</code>",
- "632": "<code>Lists.NatList.member_nil (n : Nat) : member n [] = false</code>",
- "631": "<code>Lists.NatList.member (n : Nat) (l : NatList) : Bool</code>",
- "630": "<code>Lists.NatList.test_count2 : count 5 [1, 1, 4] = 0</code>",
+ "633": "<code>Lists.NatList.member_nil (n : Nat) : member n [] = false</code>",
+ "632": "<code>Lists.NatList.member (n : Nat) (l : NatList) : Bool</code>",
+ "631": "<code>Lists.NatList.test_count2 : count 5 [1, 1, 4] = 0</code>",
+ "630": "<code>Lists.NatList.test_count1 : count 1 [1, 1, 4] = 2</code>",
  "63": "<code>MyBool.true_and (b : MyBool) : (true &amp;&amp; b) = b</code>",
- "629": "<code>Lists.NatList.test_count1 : count 1 [1, 1, 4] = 2</code>",
- "628": "<code>(n₁ == n₂) = false</code>",
- "627":
+ "629": "<code>(n₁ == n₂) = false</code>",
+ "628":
  "<code>Lists.NatList.count_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) : count n₁ (n₂ :: t) = count n₁ t</code>",
- "626": "<code>(n₁ == n₂) = true</code>",
- "625":
+ "627": "<code>(n₁ == n₂) = true</code>",
+ "626":
  "<code>Lists.NatList.count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) : count n₁ (n₂ :: t) = count n₁ t + 1</code>",
- "624":
+ "625":
  "<code>Lists.NatList.count_cons_def (n h : Nat) (t : NatList) : count n (h :: t) = bif n == h then count n t + 1 else count n t</code>",
- "623": "<code>Lists.NatList.count_nil (n : Nat) : count n [] = 0</code>",
- "622": "<code>Lists.NatList.count (n : Nat) (l : NatList) : Nat</code>",
- "621":
+ "624": "<code>Lists.NatList.count_nil (n : Nat) : count n [] = 0</code>",
+ "623": "<code>Lists.NatList.count (n : Nat) (l : NatList) : Nat</code>",
+ "622":
  "<code>Lists.NatList.test_alternate4 : [].alternate [20, 30] = [20, 30]</code>",
- "620":
+ "621":
  "<code>Lists.NatList.test_alternate3 : [1, 2, 3].alternate [4] = [1, 4, 2, 3]</code>",
+ "620":
+ "<code>Lists.NatList.test_alternate2 : [1].alternate [4, 5, 6] = [1, 4, 5, 6]</code>",
  "62": "<code>MyBool.and3_test4 : and3 true true false = false</code>",
  "619":
- "<code>Lists.NatList.test_alternate2 : [1].alternate [4, 5, 6] = [1, 4, 5, 6]</code>",
- "618":
  "<code>Lists.NatList.test_alternate1 : [1, 2, 3].alternate [4, 5, 6] = [1, 4, 2, 5, 3, 6]</code>",
- "617": "<code>Lists.NatList.alternate (l₁ l₂ : NatList) : NatList</code>",
- "616":
+ "618": "<code>Lists.NatList.alternate (l₁ l₂ : NatList) : NatList</code>",
+ "617":
  "<code>Lists.NatList.test_countOddMembers2 : [].countOddMembers = 0</code>",
- "615":
+ "616":
  "<code>Lists.NatList.test_countOddMembers1 : [0, 2, 4].countOddMembers = 0</code>",
- "614": "<code>Lists.NatList.countOddMembers (l : NatList) : Nat</code>",
- "613":
+ "615": "<code>Lists.NatList.countOddMembers (l : NatList) : Nat</code>",
+ "614":
  "<code>Lists.NatList.test_oddMembers : [0, 1, 2, 3, 0].oddMembers = [1, 3]</code>",
- "612": "<code>Nat.even_zero : Nat.even 0 = true</code>",
- "611":
+ "613": "<code>Nat.even_zero : Nat.even 0 = true</code>",
+ "612":
  "<code>Bool.cond_false.{u} {α : Sort u} {a b : α} : (bif false then a else b) = b</code>",
- "610": "<code>n.odd = false</code>",
- "61": "<code>MyBool.and3_test3 : and3 true false true = false</code>",
- "609":
+ "611": "<code>n.odd = false</code>",
+ "610":
  "<code>Lists.NatList.oddMembers_cons_not_odd (n : Nat) (l : NatList) (h : n.odd = false) : (n :: l).oddMembers = l.oddMembers</code>",
- "608": "<code>Sort u</code>",
- "607":
+ "61": "<code>MyBool.and3_test3 : and3 true false true = false</code>",
+ "609": "<code>Sort u</code>",
+ "608":
  "<code>Bool.cond_true.{u} {α : Sort u} {a b : α} : (bif true then a else b) = a</code>",
- "606": "<code>n.odd = true</code>",
- "605":
+ "607": "<code>n.odd = true</code>",
+ "606":
  "<code>Lists.NatList.oddMembers_cons_odd (n : Nat) (l : NatList) (h : n.odd = true) : (n :: l).oddMembers = n :: l.oddMembers</code>",
- "604":
+ "605":
  "<code>Lists.NatList.oddMembers_cons (h : Nat) (t : NatList) :\n  (h :: t).oddMembers = bif h.odd then h :: t.oddMembers else t.oddMembers</code>",
- "603": "<code>Lists.NatList.oddMembers_nil : [].oddMembers = []</code>",
- "602": "<code>Lists.NatList.oddMembers (l : NatList) : NatList</code>",
- "601":
+ "604": "<code>Lists.NatList.oddMembers_nil : [].oddMembers = []</code>",
+ "603": "<code>Lists.NatList.oddMembers (l : NatList) : NatList</code>",
+ "602":
  "<code>cond_false.{u_1} {α : Sort u_1} (a b : α) : (bif false then a else b) = b</code>",
- "600":
+ "601":
  "<code class=\"docstring\">A specific universe in Lean's infinite hierarchy of universes. </code>",
+ "600":
+ "<code class=\"docstring\">The conditional function.\n\n`cond c x y` is the same as `if c then x else y`, but optimized for a Boolean condition rather than\na decidable proposition. It can also be written using the notation `bif c then x else y`.\n\nJust like `ite`, `cond` is declared `@[macro_inline]`, which causes applications of `cond` to be\nunfolded. As a result, `x` and `y` are not evaluated at runtime until one of them is selected, and\nonly the selected branch is evaluated.\n</code>",
  "60": "<code>MyBool.and3_test2 : and3 false true true = false</code>",
  "6":
  "<code class=\"docstring\">The `dsimp` tactic is the definitional simplifier. It is similar to `simp` but only\napplies theorems that hold by reflexivity. Thus, the result is guaranteed to be\ndefinitionally equal to the input.\n</code>",
- "599":
- "<code class=\"docstring\">The conditional function.\n\n`cond c x y` is the same as `if c then x else y`, but optimized for a Boolean condition rather than\na decidable proposition. It can also be written using the notation `bif c then x else y`.\n\nJust like `ite`, `cond` is declared `@[macro_inline]`, which causes applications of `cond` to be\nunfolded. As a result, `x` and `y` are not evaluated at runtime until one of them is selected, and\nonly the selected branch is evaluated.\n</code>",
- "598": "<code>α</code>",
- "597": "<code>Sort u_1</code>",
- "596":
+ "599": "<code>α</code>",
+ "598": "<code>Sort u_1</code>",
+ "597":
  "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
- "595": "<code>Lists.NatList.test_nonZeros : [0, 1, 0].nonZeros = [1]</code>",
- "594":
+ "596": "<code>Lists.NatList.test_nonZeros : [0, 1, 0].nonZeros = [1]</code>",
+ "595":
  "<code>Lists.NatList.nonZeros_cons_nonZero (h : Nat) (t : NatList) : ((h + 1) :: t).nonZeros = (h + 1) :: t.nonZeros</code>",
- "593": "<code>Lists.NatList.nonZeros_nil : [].nonZeros = []</code>",
- "592":
+ "594": "<code>Lists.NatList.nonZeros_nil : [].nonZeros = []</code>",
+ "593":
  "<code>Lists.NatList.nonZeros_cons_zero (t : NatList) : (0 :: t).nonZeros = t.nonZeros</code>",
- "591": "<code>Lists.NatList.nonZeros (l : NatList) : NatList</code>",
- "590": "<code>Lists.NatList.foo (n : Nat) : NatList</code>",
+ "592": "<code>Lists.NatList.nonZeros (l : NatList) : NatList</code>",
+ "591": "<code>Lists.NatList.foo (n : Nat) : NatList</code>",
+ "590": "<code>Lists.NatList.tail_nil : [].tail = []</code>",
  "59": "<code>MyBool.and3_test1 : and3 true true true = true</code>",
- "589": "<code>Lists.NatList.tail_nil : [].tail = []</code>",
- "588":
+ "589":
  "<code>Lists.NatList.tail_cons (h : Nat) (t : NatList) : (h :: t).tail = t</code>",
- "587": "<code>Lists.NatList.tail (l : Lists.NatList) : Lists.NatList</code>",
- "586": "<code>Lists.NatList.tail (l : NatList) : NatList</code>",
- "585": "<code>Lists.NatList.head_nil (x : Nat) : head x [] = x</code>",
- "584":
+ "588": "<code>Lists.NatList.tail (l : Lists.NatList) : Lists.NatList</code>",
+ "587": "<code>Lists.NatList.tail (l : NatList) : NatList</code>",
+ "586": "<code>Lists.NatList.head_nil (x : Nat) : head x [] = x</code>",
+ "585":
  "<code>Lists.NatList.head_cons (h x : Nat) (t : NatList) : head x (h :: t) = h</code>",
- "583":
+ "584":
  "<code>Lists.NatList.head (default : Nat) (l : Lists.NatList) : Nat</code>",
- "582": "<code>Lists.NatList.head (default : Nat) (l : NatList) : Nat</code>",
+ "583": "<code>Lists.NatList.head (default : Nat) (l : NatList) : Nat</code>",
+ "582":
+ "<code>BEq.refl.{u_1} {α : Type u_1} [BEq α] [ReflBEq α] (a : α) : (a == a) = true</code>",
  "581":
  "<code>BEq.{u} (α : Type u) : Type u</code><span class=\"sep\"></span><code class=\"docstring\">`BEq α` is a typeclass for supplying a boolean-valued equality relation on\n`α`, notated as `a == b`. Unlike `DecidableEq α` (which uses `a = b`), this\nis `Bool` valued instead of `Prop` valued, and it also does not have any\naxioms like being reflexive or agreeing with `=`. It is mainly intended for\nprogramming applications. See `LawfulBEq` for a version that requires that\n`==` and `=` coincide.\n\nTypically we prefer to put the \"more variable\" term on the left,\nand the \"more constant\" term on the right.\n</code>",
  "580":
- "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
+ "<code>Lists.NatList.cons_append (n : Nat) (l₁ l₂ : NatList) : (n :: l₁) ++ l₂ = n :: l₁ ++ l₂</code>",
  "58": "<code>MyBool.and3 (b1 b2 b3 : MyBool) : MyBool</code>",
  "579":
- "<code>Lists.NatList.cons_append (n : Nat) (l₁ l₂ : NatList) : (n :: l₁) ++ l₂ = n :: l₁ ++ l₂</code>",
+ "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
  "578": "<code>Lists.NatList.nil_append (l : NatList) : [] ++ l = l</code>",
  "577":
  "<code>NatList → NatList → NatList</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
@@ -669,9 +670,10 @@
  "570": "<code>Lists.NatList.length (l : NatList) : Nat</code>",
  "57": "<code>MyBool.nand_test4 : nand true true = false</code>",
  "569":
- "<code>Lists.NatList.repeat_succ (n count : Nat) : myRepeat n (count + 1) = n :: myRepeat n count</code>",
- "568": "<code>Lists.NatList.repeat_zero (n : Nat) : myRepeat n 0 = []</code>",
- "567": "<code>Lists.NatList.myRepeat (n count : Nat) : NatList</code>",
+ "<code>Lists.NatList.replicate_succ (n count : Nat) : replicate n (count + 1) = n :: replicate n count</code>",
+ "568":
+ "<code>Lists.NatList.replicate_zero (n : Nat) : replicate n 0 = []</code>",
+ "567": "<code>Lists.NatList.replicate (n count : Nat) : NatList</code>",
  "566": "<code>Lists.NatList.mylist3 : NatList</code>",
  "565": "<code>Lists.NatList.mylist2 : NatList</code>",
  "564": "<code>Lists.NatList.mylist1 : NatList</code>",

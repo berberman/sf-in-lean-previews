@@ -1394,35 +1394,20 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures",
-     "data":
-     {"title": "Structures",
-      "shortTitle": null,
-      "sectionNum": "5.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Structures", "shortTitle": null, "number": "2"}]},
-     "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
    [{"id":
      "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2",
      "data":
      {"title": "List Exercises, Part 2",
       "shortTitle": null,
-      "sectionNum": "5.4.3.",
+      "sectionNum": "5.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 2", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
@@ -1431,14 +1416,14 @@
      "data":
      {"title": "List Exercises, Part 1",
       "shortTitle": null,
-      "sectionNum": "5.4.2.",
+      "sectionNum": "5.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 1", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Induction-on-Lists--Reversing-a-List":
@@ -1447,14 +1432,14 @@
      "data":
      {"title": "Reversing a List",
       "shortTitle": null,
-      "sectionNum": "5.4.1.2.",
+      "sectionNum": "5.3.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Reversing a List", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
@@ -1464,14 +1449,14 @@
      "data":
      {"title": "Generalizing Statements",
       "shortTitle": null,
-      "sectionNum": "5.4.1.1.",
+      "sectionNum": "5.3.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Generalizing Statements",
         "shortTitle": null,
@@ -1483,14 +1468,14 @@
      "data":
      {"title": "Induction on Lists",
       "shortTitle": null,
-      "sectionNum": "5.4.1.",
+      "sectionNum": "5.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists":
@@ -1499,14 +1484,14 @@
      "data":
      {"title": "Reasoning About Lists",
       "shortTitle": null,
-      "sectionNum": "5.4.",
+      "sectionNum": "5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"}]},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Partial-Maps":
    [{"id":
@@ -1514,14 +1499,30 @@
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "5.6.",
+      "sectionNum": "5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Partial Maps", "shortTitle": null, "number": "6"}]},
+       {"title": "Partial Maps", "shortTitle": null, "number": "5"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers--Structures":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers--Structures",
+     "data":
+     {"title": "Structures",
+      "shortTitle": null,
+      "sectionNum": "5.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Pairs of Numbers", "shortTitle": null, "number": "1"},
+       {"title": "Structures", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers":
    [{"id":
@@ -1544,102 +1545,64 @@
      "data":
      {"title": "Options",
       "shortTitle": null,
-      "sectionNum": "5.5.",
+      "sectionNum": "5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Options", "shortTitle": null, "number": "5"}]},
+       {"title": "Options", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading-Notation":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading-Notation",
      "data":
-     {"title": "Head and Tail",
+     {"title": "Type Classes and Overloading Notation",
       "shortTitle": null,
-      "sectionNum": "5.3.3.1.",
+      "sectionNum": "5.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Type Classes and Overloading",
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Type Classes and Overloading Notation",
         "shortTitle": null,
-        "number": "3"},
-       {"title": "Head and Tail", "shortTitle": null, "number": "1"}]},
+        "number": "4"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Exercises":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Replicate":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Exercises",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Replicate",
      "data":
-     {"title": "Exercises",
+     {"title": "Replicate",
       "shortTitle": null,
-      "sectionNum": "5.3.3.2.",
+      "sectionNum": "5.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Type Classes and Overloading",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Exercises", "shortTitle": null, "number": "2"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Replicate", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removal":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removal",
      "data":
-     {"title": "Type Classes and Overloading",
+     {"title": "Removal",
       "shortTitle": null,
-      "sectionNum": "5.3.3.",
+      "sectionNum": "5.2.9.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Type Classes and Overloading",
-        "shortTitle": null,
-        "number": "3"}]},
-     "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Repeat":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Repeat",
-     "data":
-     {"title": "Repeat",
-      "shortTitle": null,
-      "sectionNum": "5.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Repeat", "shortTitle": null, "number": "1"}]},
-     "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing",
-     "data":
-     {"title": "Removing",
-      "shortTitle": null,
-      "sectionNum": "5.3.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Removing", "shortTitle": null, "number": "6"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Removal", "shortTitle": null, "number": "9"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Membership":
    [{"id":
@@ -1647,15 +1610,31 @@
      "data":
      {"title": "Membership",
       "shortTitle": null,
-      "sectionNum": "5.3.5.",
+      "sectionNum": "5.2.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Membership", "shortTitle": null, "number": "5"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Membership", "shortTitle": null, "number": "8"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Length":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Length",
+     "data":
+     {"title": "Length",
+      "shortTitle": null,
+      "sectionNum": "5.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Length", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Included":
    [{"id":
@@ -1663,15 +1642,47 @@
      "data":
      {"title": "Included",
       "shortTitle": null,
-      "sectionNum": "5.3.7.",
+      "sectionNum": "5.2.10.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Included", "shortTitle": null, "number": "7"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Included", "shortTitle": null, "number": "10"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Head-and-Tail":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Head-and-Tail",
+     "data":
+     {"title": "Head and Tail",
+      "shortTitle": null,
+      "sectionNum": "5.2.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Head and Tail", "shortTitle": null, "number": "5"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Exercises":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Exercises",
+     "data":
+     {"title": "Exercises",
+      "shortTitle": null,
+      "sectionNum": "5.2.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Counting":
    [{"id":
@@ -1679,15 +1690,15 @@
      "data":
      {"title": "Counting",
       "shortTitle": null,
-      "sectionNum": "5.3.4.",
+      "sectionNum": "5.2.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Counting", "shortTitle": null, "number": "4"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Counting", "shortTitle": null, "number": "7"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Append":
    [{"id":
@@ -1695,15 +1706,15 @@
      "data":
      {"title": "Append",
       "shortTitle": null,
-      "sectionNum": "5.3.2.",
+      "sectionNum": "5.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Append", "shortTitle": null, "number": "2"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Append", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers":
    [{"id":
@@ -1711,14 +1722,14 @@
      "data":
      {"title": "Lists of Numbers",
       "shortTitle": null,
-      "sectionNum": "5.3.",
+      "sectionNum": "5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Separate-Compilation":
    [{"id":
@@ -3364,6 +3375,75 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
+   "replicate_zero":
+   [{"id": "replicate_zero",
+     "data":
+     {"/Poly/#replicate_zero":
+      {"display": "replicate_zero",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
+   "replicate_succ":
+   [{"id": "replicate_succ",
+     "data":
+     {"/Poly/#replicate_succ":
+      {"display": "replicate_succ",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
+   "replicate'''":
+   [{"id": "replicate_________",
+     "data":
+     {"/Poly/#replicate_________":
+      {"display": "replicate'''",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Type Argument Synthesis"]}},
+     "address": "/Poly/"}],
+   "replicate''":
+   [{"id": "replicate______",
+     "data":
+     {"/Poly/#replicate______":
+      {"display": "replicate''",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Type Argument Synthesis"]}},
+     "address": "/Poly/"}],
+   "replicate'":
+   [{"id": "replicate___",
+     "data":
+     {"/Poly/#replicate___":
+      {"display": "replicate'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Type Annotation Inference"]}},
+     "address": "/Poly/"}],
+   "replicate":
+   [{"id": "replicate",
+     "data":
+     {"/Poly/#replicate":
+      {"display": "replicate",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
    "reaches1In":
    [{"id": "reaches1In",
      "data":
@@ -3531,75 +3611,6 @@
         "Data and Functions",
         "Days of the Week (Enumerated Types)"]}},
      "address": "/Basics/"}],
-   "myRepeat_zero":
-   [{"id": "myRepeat_zero",
-     "data":
-     {"/Poly/#myRepeat_zero":
-      {"display": "myRepeat_zero",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
-   "myRepeat_succ":
-   [{"id": "myRepeat_succ",
-     "data":
-     {"/Poly/#myRepeat_succ":
-      {"display": "myRepeat_succ",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
-   "myRepeat'''":
-   [{"id": "myRepeat_________",
-     "data":
-     {"/Poly/#myRepeat_________":
-      {"display": "myRepeat'''",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Argument Synthesis"]}},
-     "address": "/Poly/"}],
-   "myRepeat''":
-   [{"id": "myRepeat______",
-     "data":
-     {"/Poly/#myRepeat______":
-      {"display": "myRepeat''",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Argument Synthesis"]}},
-     "address": "/Poly/"}],
-   "myRepeat'":
-   [{"id": "myRepeat___",
-     "data":
-     {"/Poly/#myRepeat___":
-      {"display": "myRepeat'",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Annotation Inference"]}},
-     "address": "/Poly/"}],
-   "myRepeat":
-   [{"id": "myRepeat",
-     "data":
-     {"/Poly/#myRepeat":
-      {"display": "myRepeat",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
    "myNil'":
    [{"id": "myNil___",
      "data":
@@ -4048,7 +4059,28 @@
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective-next-next",
+   [{"id": "double_injective",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -4070,27 +4102,6 @@
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
     {"id": "double_injective-next",
-     "data":
-     {"/Tactics/#double_injective-next-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]}},
-     "address": "/Tactics/"},
-    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -7300,6 +7311,7 @@
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
+        "Pairs of Numbers",
         "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'.fst":
@@ -7310,6 +7322,7 @@
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
+        "Pairs of Numbers",
         "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'":
@@ -7320,6 +7333,7 @@
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
+        "Pairs of Numbers",
         "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd":
@@ -7391,7 +7405,6 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.tail_length_pred":
@@ -7413,7 +7426,6 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.tail":
@@ -7425,7 +7437,6 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.reverse_nil":
@@ -7464,27 +7475,74 @@
         "Induction on Lists",
         "Reversing a List"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.repeat_zero":
-   [{"id": "Lists___NatList___repeat_zero",
+   "Lists.NatList.replicate_zero":
+   [{"id": "Lists___NatList___replicate_zero",
      "data":
-     {"/Lists/#Lists___NatList___repeat_zero":
-      {"display": "repeat_zero",
+     {"/Lists/#Lists___NatList___replicate_zero":
+      {"display": "replicate_zero",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Replicate"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.repeat_succ":
-   [{"id": "Lists___NatList___repeat_succ",
+   "Lists.NatList.replicate_succ":
+   [{"id": "Lists___NatList___replicate_succ",
      "data":
-     {"/Lists/#Lists___NatList___repeat_succ":
-      {"display": "repeat_succ",
+     {"/Lists/#Lists___NatList___replicate_succ":
+      {"display": "replicate_succ",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Replicate"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate_append_general":
+   [{"id": "Lists___NatList___replicate_append_general",
+     "data":
+     {"/Lists/#Lists___NatList___replicate_append_general":
+      {"display": "replicate_append_general",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate_append_fail":
+   [{"id": "Lists___NatList___replicate_append_fail",
+     "data":
+     {"/Lists/#Lists___NatList___replicate_append_fail":
+      {"display": "replicate_append_fail",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate_append":
+   [{"id": "Lists___NatList___replicate_append",
+     "data":
+     {"/Lists/#Lists___NatList___replicate_append":
+      {"display": "replicate_append",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate":
+   [{"id": "Lists___NatList___replicate",
+     "data":
+     {"/Lists/#Lists___NatList___replicate":
+      {"display": "replicate",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Lists of Numbers",
+        "Replicate"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nthBad":
    [{"id": "Lists___NatList___nthBad",
@@ -7515,7 +7573,7 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading"]}},
+        "Type Classes and Overloading Notation"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nil":
    [{"id": "Lists___NatList___nil",
@@ -7557,53 +7615,6 @@
         "Lists: Working with Structured Data",
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append_general":
-   [{"id": "Lists___NatList___myRepeat_append_general",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat_append_general":
-      {"display": "myRepeat_append_general",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append_fail":
-   [{"id": "Lists___NatList___myRepeat_append_fail",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat_append_fail":
-      {"display": "myRepeat_append_fail",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat_append":
-      {"display": "myRepeat_append",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat":
-   [{"id": "Lists___NatList___myRepeat",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat":
-      {"display": "myRepeat",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Repeat"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.length_reverse":
    [{"id": "Lists___NatList___length_reverse",
      "data":
@@ -7625,7 +7636,7 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Length"]}},
      "address": "/Lists/"}],
    "Lists.NatList.length_cons":
    [{"id": "Lists___NatList___length_cons",
@@ -7636,7 +7647,7 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Length"]}},
      "address": "/Lists/"}],
    "Lists.NatList.length_append_succ":
    [{"id": "Lists___NatList___length_append_succ",
@@ -7659,7 +7670,7 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Length"]}},
      "address": "/Lists/"}],
    "Lists.NatList.head_nil":
    [{"id": "Lists___NatList___head_nil",
@@ -7670,7 +7681,6 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.head_cons":
@@ -7682,7 +7692,6 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.head":
@@ -7694,7 +7703,6 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.foo":
@@ -7706,7 +7714,6 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.count_append":
@@ -7729,7 +7736,7 @@
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading"]}},
+        "Type Classes and Overloading Notation"]}},
      "address": "/Lists/"}],
    "Lists.NatList.cons":
    [{"id": "Lists___NatList___cons",
@@ -7929,7 +7936,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly-next",
+   [{"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -7940,7 +7947,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly",
+    {"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
