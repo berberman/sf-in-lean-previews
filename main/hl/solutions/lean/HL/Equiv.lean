@@ -590,4 +590,4 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
 --        - Extended Exercise: Nondeterministic Imp
 --        - Additional Exercises`
 
--- Built on 2026-09-01 07:50 UTC
+-- Built on 2026-09-01 09:03 UTC
