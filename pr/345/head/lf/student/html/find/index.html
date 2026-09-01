@@ -884,6 +884,124 @@ table.tabular td > p:last-child, table.tabular th > p:first-child {
   color: #a00;
 }
 </style><style>
+:root {
+  --sf-bg: #fffdf6;
+  --sf-text: #1a1208;
+  --sf-heading: #6b0d0d;
+  --sf-accent: #a00;
+  --sf-link: #7a1a1a;
+  --sf-link-hover: #a00;
+  /* Block-level surfaces (code blocks, the TOC column, callouts) are a neutral
+     light gray rather than a tint of the warm page color, so highlighted Lean
+     reads against a plain backdrop. */
+  --sf-code-bg: #f1f1f0;
+  --sf-rule: #dcdcda;
+  --sf-toc-bg: #f6f6f5;
+  --sf-surface: #f4f4f3;
+
+  /* Override Verso's syntax highlighting palette */
+  --verso-code-keyword-color: #697f2f;
+  --verso-code-const-color: #416DFF;
+}
+
+body {
+  /* Software Foundations LF background — same image and layout as the
+     original site (no-repeat, full width, scrolls with the page so it
+     fades off the top as you read down). The body color is plain white,
+     matching the original SF site, so the area below the image (once it
+     has scrolled off) shows the same neutral backdrop the SF book uses. */
+  background-color: white;
+  background-image: url('assets/prog_lang_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: top left;
+  background-attachment: scroll;
+  color: var(--sf-text);
+}
+
+/* Solid card behind the actual prose so the background image never bleeds
+   through the text itself. */
+main .content-wrapper {
+  background: var(--sf-bg);
+  padding: 1.5rem var(--verso--content-padding-x);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  border-radius: 2px;
+}
+
+main h1, main h2, main h3, main h4, main h5, main h6,
+.header-title, .toc-title h1 {
+  color: var(--sf-heading);
+}
+
+/* A section whose heading is full-only (see
+   SFLMeta.Block.suppressPreviousHeaderWhenTerse): the marker div is present
+   only in the terse build, where the heading hides. */
+section:has(> .suppress-previous-header-when-terse)
+    > :is(h1, h2, h3, h4, h5, h6):first-child {
+  display: none;
+}
+
+a, a:visited { color: var(--sf-link); }
+a:hover, a:active { color: var(--sf-link-hover); }
+
+header {
+  background: var(--sf-bg);
+  border-bottom: 1px solid var(--sf-rule);
+  box-shadow: none;
+}
+
+#toc {
+  background: var(--sf-toc-bg) !important;
+  border-right: 1px solid var(--sf-rule);
+}
+
+code:not(.hl), pre:not(.hl) {
+  background: var(--sf-code-bg);
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}
+
+pre:not(.hl) {
+  padding: 0.6em 0.9em;
+  border-left: 3px solid var(--sf-accent);
+  background: var(--sf-code-bg);
+}
+
+.hl.lean.block {
+  background: var(--sf-code-bg);
+  border-left: 3px solid var(--sf-accent);
+  padding: 0.6em 0.9em;
+  border-radius: 2px;
+}
+
+blockquote {
+  border-left: 3px solid var(--sf-accent);
+  background: var(--sf-surface);
+  margin-left: 0;
+  padding: 0.4em 1em;
+  color: #2b2b28;
+}
+
+/* Build stamp: when this page was generated, matching the trailing comment in
+   the generated .lean file of the same chapter (SFLMeta/BuildStamp.lean).  It
+   is a provenance note, not something to read, so it is small, gray, and set
+   off below a rule. */
+.sf-build-stamp {
+  margin-top: 2.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--sf-rule);
+  font-size: 0.8em;
+  font-style: italic;
+  text-align: right;
+  color: #8c8c88;
+}
+
+/* Tighten the exercise box to share the same palette */
+.exercise {
+  background: var(--sf-surface);
+  border-left: 3px solid var(--sf-accent);
+}
+</style><style>
 div.sf-quote {
   font-style: italic;
   margin: 1em 0;
@@ -1013,110 +1131,6 @@ div.sf-dev-note > .sf-dev-note-label {
   letter-spacing: 0.03em;
   color: #7a5800;
   margin-bottom: 0.3em;
-}
-</style><style>
-:root {
-  --sf-bg: #fffdf6;
-  --sf-text: #1a1208;
-  --sf-heading: #6b0d0d;
-  --sf-accent: #a00;
-  --sf-link: #7a1a1a;
-  --sf-link-hover: #a00;
-  /* Block-level surfaces (code blocks, the TOC column, callouts) are a neutral
-     light gray rather than a tint of the warm page color, so highlighted Lean
-     reads against a plain backdrop. */
-  --sf-code-bg: #f1f1f0;
-  --sf-rule: #dcdcda;
-  --sf-toc-bg: #f6f6f5;
-  --sf-surface: #f4f4f3;
-
-  /* Override Verso's syntax highlighting palette */
-  --verso-code-keyword-color: #697f2f;
-  --verso-code-const-color: #416DFF;
-}
-
-body {
-  /* Software Foundations LF background — same image and layout as the
-     original site (no-repeat, full width, scrolls with the page so it
-     fades off the top as you read down). The body color is plain white,
-     matching the original SF site, so the area below the image (once it
-     has scrolled off) shows the same neutral backdrop the SF book uses. */
-  background-color: white;
-  background-image: url('assets/prog_lang_bg.jpg');
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: top left;
-  background-attachment: scroll;
-  color: var(--sf-text);
-}
-
-/* Solid card behind the actual prose so the background image never bleeds
-   through the text itself. */
-main .content-wrapper {
-  background: var(--sf-bg);
-  padding: 1.5rem var(--verso--content-padding-x);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
-  border-radius: 2px;
-}
-
-main h1, main h2, main h3, main h4, main h5, main h6,
-.header-title, .toc-title h1 {
-  color: var(--sf-heading);
-}
-
-/* A section whose heading is full-only (see
-   SFLMeta.Block.suppressPreviousHeaderWhenTerse): the marker div is present
-   only in the terse build, where the heading hides. */
-section:has(> .suppress-previous-header-when-terse)
-    > :is(h1, h2, h3, h4, h5, h6):first-child {
-  display: none;
-}
-
-a, a:visited { color: var(--sf-link); }
-a:hover, a:active { color: var(--sf-link-hover); }
-
-header {
-  background: var(--sf-bg);
-  border-bottom: 1px solid var(--sf-rule);
-  box-shadow: none;
-}
-
-#toc {
-  background: var(--sf-toc-bg) !important;
-  border-right: 1px solid var(--sf-rule);
-}
-
-code:not(.hl), pre:not(.hl) {
-  background: var(--sf-code-bg);
-  padding: 0.1em 0.3em;
-  border-radius: 2px;
-}
-
-pre:not(.hl) {
-  padding: 0.6em 0.9em;
-  border-left: 3px solid var(--sf-accent);
-  background: var(--sf-code-bg);
-}
-
-.hl.lean.block {
-  background: var(--sf-code-bg);
-  border-left: 3px solid var(--sf-accent);
-  padding: 0.6em 0.9em;
-  border-radius: 2px;
-}
-
-blockquote {
-  border-left: 3px solid var(--sf-accent);
-  background: var(--sf-surface);
-  margin-left: 0;
-  padding: 0.4em 1em;
-  color: #2b2b28;
-}
-
-/* Tighten the exercise box to share the same palette */
-.exercise {
-  background: var(--sf-surface);
-  border-left: 3px solid var(--sf-accent);
 }
 </style><style>
 details.sf-quiz-solution {
@@ -3707,11 +3721,27 @@ and its border extension paints the outline triangle with the box's border color
         "number": "3"},
        {"title": "Proofs Within Proofs", "shortTitle": null, "number": "4"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic":
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-The--rw--Tactic":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic",
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-The--rw--Tactic",
      "data":
-     {"title": "Tip: the  rw  tactic",
+     {"title": "Tip: The  rw  Tactic",
+      "shortTitle": null,
+      "sectionNum": "3.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
+       {"title": "Tip: The  rw  Tactic", "shortTitle": null, "number": "3"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Motivation":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Motivation",
+     "data":
+     {"title": "Motivation",
       "shortTitle": null,
       "sectionNum": "3.3.1.",
       "searchPriority": 50,
@@ -3721,7 +3751,25 @@ and its border extension paints the outline triangle with the box's border color
         "shortTitle": null,
         "number": "3"},
        {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
-       {"title": "Tip: the  rw  tactic", "shortTitle": null, "number": "1"}]},
+       {"title": "Motivation", "shortTitle": null, "number": "1"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Induction___-In-Principle-and-in-Lean":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Induction___-In-Principle-and-in-Lean",
+     "data":
+     {"title": "Induction: In Principle and in Lean",
+      "shortTitle": null,
+      "sectionNum": "3.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
+       {"title": "Induction: In Principle and in Lean",
+        "shortTitle": null,
+        "number": "2"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction":
    [{"id":
@@ -3738,11 +3786,26 @@ and its border extension paints the outline triangle with the box's border color
         "number": "3"},
        {"title": "Proof by Induction", "shortTitle": null, "number": "3"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat":
+   "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat",
+     "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back",
      "data":
-     {"title": "Nat to Bin and Back to Nat",
+     {"title": "Nat to Bin and Back",
+      "shortTitle": null,
+      "sectionNum": "3.9.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Nat to Bin and Back", "shortTitle": null, "number": "9"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises",
+     "data":
+     {"title": "More Exercises",
       "shortTitle": null,
       "sectionNum": "3.7.",
       "searchPriority": 50,
@@ -3751,60 +3814,7 @@ and its border extension paints the outline triangle with the box's border color
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "Nat to Bin and Back to Nat",
-        "shortTitle": null,
-        "number": "7"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons",
-     "data":
-     {"title": "Aside: Using Code Actions to Generate Match Skeletons",
-      "shortTitle": null,
-      "sectionNum": "3.6.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "6"},
-       {"title": "Aside: Using Code Actions to Generate Match Skeletons",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator",
-     "data":
-     {"title": "A New Tactic Combinator",
-      "shortTitle": null,
-      "sectionNum": "3.6.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "6"},
-       {"title": "A New Tactic Combinator",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises",
-     "data":
-     {"title": "More Exercises",
-      "shortTitle": null,
-      "sectionNum": "3.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "6"}]},
+       {"title": "More Exercises", "shortTitle": null, "number": "7"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Formal-vs___-Informal-Proof":
    [{"id":
@@ -3823,11 +3833,45 @@ and its border extension paints the outline triangle with the box's border color
         "shortTitle": null,
         "number": "5"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_":
+   "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-_LPAR_Advanced_RPAR_":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_",
+     "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-_LPAR_Advanced_RPAR_",
      "data":
-     {"title": "Bin to Nat and Back to Bin (Advanced)",
+     {"title": "Bin to Nat and Back (Advanced)",
+      "shortTitle": null,
+      "sectionNum": "3.10.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Bin to Nat and Back (Advanced)",
+        "shortTitle": null,
+        "number": "10"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons",
+     "data":
+     {"title": "Aside: Using Code Actions to Generate Match Skeletons",
+      "shortTitle": null,
+      "sectionNum": "3.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Aside: Using Code Actions to Generate Match Skeletons",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--A-New-Tactic-Combinator___--_LT__SEMI__GT_":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--A-New-Tactic-Combinator___--_LT__SEMI__GT_",
+     "data":
+     {"title": "A New Tactic Combinator:  <;>",
       "shortTitle": null,
       "sectionNum": "3.8.",
       "searchPriority": 50,
@@ -3836,7 +3880,7 @@ and its border extension paints the outline triangle with the box's border color
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "Bin to Nat and Back to Bin (Advanced)",
+       {"title": "A New Tactic Combinator:  <;>",
         "shortTitle": null,
         "number": "8"}]},
      "address": "/Induction/"}],
@@ -5960,7 +6004,7 @@ and its border extension paints the outline triangle with the box's border color
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective-next-next",
+    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5981,7 +6025,7 @@ and its border extension paints the outline triangle with the box's border color
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective",
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -7655,7 +7699,8 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Proof by Induction"]}},
+        "Proof by Induction",
+        "Induction: In Principle and in Lean"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.zero":
    [{"id": "NatPlayground___Nat___zero",
@@ -7879,11 +7924,11 @@ and its border extension paints the outline triangle with the box's border color
         "Basics: Functional Programming in Lean",
         "Proof by Case Analysis"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Nat.mult_zero_add'":
-   [{"id": "NatPlayground___Nat___mult_zero_add___",
+   "NatPlayground.Nat.mul_zero_add'":
+   [{"id": "NatPlayground___Nat___mul_zero_add___",
      "data":
-     {"/Induction/#NatPlayground___Nat___mult_zero_add___":
-      {"display": "mult_zero_add'",
+     {"/Induction/#NatPlayground___Nat___mul_zero_add___":
+      {"display": "mul_zero_add'",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
@@ -7920,14 +7965,12 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]},
       "/Induction/#NatPlayground___Nat___isZero":
       {"display": "isZero",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"},
     {"id": "NatPlayground___Nat___isZero-next",
@@ -7937,14 +7980,12 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]},
       "/Induction/#NatPlayground___Nat___isZero":
       {"display": "isZero",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.four_eq_succ_three":
@@ -8033,7 +8074,7 @@ and its border extension paints the outline triangle with the box's border color
        ["Logical Foundations",
         "Induction: Proof by Induction",
         "Proof by Induction",
-        "Tip: the  rw  tactic"]}},
+        "Tip: The  rw  Tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.double_succ":
    [{"id": "NatPlayground___Nat___double_succ",
@@ -8044,7 +8085,7 @@ and its border extension paints the outline triangle with the box's border color
        ["Logical Foundations",
         "Induction: Proof by Induction",
         "Proof by Induction",
-        "Tip: the  rw  tactic"]}},
+        "Tip: The  rw  Tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.double":
    [{"id": "NatPlayground___Nat___double",
@@ -8055,7 +8096,7 @@ and its border extension paints the outline triangle with the box's border color
        ["Logical Foundations",
         "Induction: Proof by Induction",
         "Proof by Induction",
-        "Tip: the  rw  tactic"]}},
+        "Tip: The  rw  Tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.ble":
    [{"id": "NatPlayground___Nat___ble",
@@ -8122,7 +8163,7 @@ and its border extension paints the outline triangle with the box's border color
        ["Logical Foundations",
         "Induction: Proof by Induction",
         "Proof by Induction",
-        "Tip: the  rw  tactic"]}},
+        "Tip: The  rw  Tactic"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.add_zero_zero_explained":
    [{"id": "NatPlayground___Nat___add_zero_zero_explained",
@@ -8210,6 +8251,16 @@ and its border extension paints the outline triangle with the box's border color
         "Proof by Rewriting",
         "General Proofs about Natural Numbers"]}},
      "address": "/Basics/"}],
+   "NatPlayground.Nat.add_comm'":
+   [{"id": "NatPlayground___Nat___add_comm___",
+     "data":
+     {"/Induction/#NatPlayground___Nat___add_comm___":
+      {"display": "add_comm'",
+       "context":
+       ["Logical Foundations",
+        "Induction: Proof by Induction",
+        "Aside: Using Code Actions to Generate Match Skeletons"]}},
+     "address": "/Induction/"}],
    "NatPlayground.Nat.add_assoc''":
    [{"id": "NatPlayground___Nat___add_assoc______",
      "data":
@@ -8249,7 +8300,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Nat to Bin and Back to Nat"]}},
+        "Nat to Bin and Back"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin.b1":
    [{"id": "NatPlayground___Nat___NatToBin___Bin___b1",
@@ -8259,7 +8310,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Nat to Bin and Back to Nat"]}},
+        "Nat to Bin and Back"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin.b0":
    [{"id": "NatPlayground___Nat___NatToBin___Bin___b0",
@@ -8269,7 +8320,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Nat to Bin and Back to Nat"]}},
+        "Nat to Bin and Back"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.NatToBin.Bin":
    [{"id": "NatPlayground___Nat___NatToBin___Bin",
@@ -8279,8 +8330,52 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Nat to Bin and Back to Nat"]}},
+        "Nat to Bin and Back"]}},
      "address": "/Induction/"}],
+   "NatPlayground.Nat.Bin.z":
+   [{"id": "NatPlayground___Nat___Bin___z",
+     "data":
+     {"/Basics/#NatPlayground___Nat___Bin___z":
+      {"display": "z",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Case Analysis",
+        "Binary Numerals"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.Bin.b1":
+   [{"id": "NatPlayground___Nat___Bin___b1",
+     "data":
+     {"/Basics/#NatPlayground___Nat___Bin___b1":
+      {"display": "b1",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Case Analysis",
+        "Binary Numerals"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.Bin.b0":
+   [{"id": "NatPlayground___Nat___Bin___b0",
+     "data":
+     {"/Basics/#NatPlayground___Nat___Bin___b0":
+      {"display": "b0",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Case Analysis",
+        "Binary Numerals"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.Bin":
+   [{"id": "NatPlayground___Nat___Bin",
+     "data":
+     {"/Basics/#NatPlayground___Nat___Bin":
+      {"display": "Bin",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Case Analysis",
+        "Binary Numerals"]}},
+     "address": "/Basics/"}],
    "NatPlayground.Nat.AddPlayground.add_zero":
    [{"id": "NatPlayground___Nat___AddPlayground___add_zero",
      "data":
@@ -11287,6 +11382,8 @@ window.onload = async () => {
             <h1 id="title"></h1>
             <div id="message"></div>
             </section>
+          <div class="sf-build-stamp">
+            Built on 2026-09-01 12:43 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

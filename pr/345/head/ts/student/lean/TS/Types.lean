@@ -23,7 +23,7 @@ import SFLCompat
 --  data — numbers and booleans — where not every operation is defined on
 --  both types of data. For example, program terms like `5 + true` and
 --  `if 42 then 0 else 1` use undefined operator/data-type combinations.
-
+--
 --  The language definition is completely routine.
 
 --  ### Syntax
@@ -60,18 +60,18 @@ inductive Tm where
 --  above. A bare identifier is spliced as a Lean term (so a variable `t`
 --  is written just `t`); `~e` escapes an arbitrary Lean expression, and
 --  `( … )` groups.
-
+--
 --  You do not need to understand exactly how the declarations below work;
 --  every object language in this book is given its syntax the same way, so
 --  it is worth seeing the pattern once:
-
+--
 --  - `declare_syntax_cat` adds a new non-terminal to Lean's grammar — here
 --    `tm`, the terms of this chapter's language.
-
+--
 --  - Each `syntax` directive declares one production of that non-terminal,
 --    with annotations fixing precedence, and the last one declares the
 --    `<{ … }>` brackets that let a `tm` appear where Lean expects a term.
-
+--
 --  - `macro_rules` then translates the resulting syntax forms into the
 --    corresponding constructors of `Tm`.
 
@@ -185,36 +185,36 @@ def Tm.IsValue (t : Tm) : Prop := Tm.IsBValue t ∨ Tm.IsNValue t
 
 --  -----------------------------                 (ifTrue)
 --                     if true then t₁ else t₂ ⟶ t₁
-
+--
 --                     ------------------------------                (ifFalse)
 --                     if false then t₁ else t₂ ⟶ t₂
-
+--
 --                                t₁ ⟶ t₁'
 --              -----------------------------------------------      (ifStep)
 --              if t₁ then t₂ else t₃ ⟶ if t₁' then t₂ else t₃
-
+--
 --                                t₁ ⟶ t₁'
 --                           -------------------                     (succStep)
 --                           succ t₁ ⟶ succ t₁'
-
+--
 --                             -----------                           (predZero)
 --                             pred 0 ⟶ 0
-
+--
 --                              IsNValue v
 --                          ------------------                       (predSucc)
 --                          pred (succ v) ⟶ v
-
+--
 --                                t₁ ⟶ t₁'
 --                           -------------------                     (predStep)
 --                           pred t₁ ⟶ pred t₁'
-
+--
 --                            ----------------                       (isZeroZero)
 --                            iszero 0 ⟶ true
-
+--
 --                               IsNValue v
 --                        ------------------------                   (isZeroSucc)
 --                        iszero (succ v) ⟶ false
-
+--
 --                                t₁ ⟶ t₁'
 --                         -----------------------                   (isZeroStep)
 --                         iszero t₁ ⟶ iszero t₁'
@@ -265,7 +265,7 @@ scoped notation:40 t:41 " ⟶ " t':41 => Tm.Step t t'
 --  That is, there are terms that are normal forms (they can't take a step)
 --  but not values (they are not included in our definition of possible
 --  "results of reduction").
-
+--
 --  Such terms are *stuck*.
 
 def Tm.IsNormalForm (t : Tm) : Prop := _root_.IsNormalForm Tm.Step t
@@ -279,7 +279,7 @@ theorem some_term_is_stuck : ∃ t, Tm.IsStuck t := by
 
 --  However, although values and normal forms are *not* the same in this
 --  language, the set of values is a subset of the set of normal forms.
-
+--
 --  This is important because it shows we did not accidentally define
 --  things so that some value could still take a step.
 
@@ -320,6 +320,8 @@ theorem value_is_nf' (t : Tm) (h : Tm.IsValue t) : Tm.IsNormalForm t := by
 theorem step_deterministic : Deterministic Tm.Step := by
   sorry
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Is the following term stuck?
@@ -327,6 +329,8 @@ theorem step_deterministic : Deterministic Tm.Step := by
 --  iszero (if true then (succ 0) else 0)
 
 --  (A) Yes (B) No
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
@@ -336,6 +340,8 @@ theorem step_deterministic : Deterministic Tm.Step := by
 
 --  (A) Yes (B) No
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  What about this one? Is it stuck?
@@ -344,6 +350,8 @@ theorem step_deterministic : Deterministic Tm.Step := by
 
 --  (A) Yes (B) No
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  What about this one? Is it stuck?
@@ -351,11 +359,13 @@ theorem step_deterministic : Deterministic Tm.Step := by
 --  succ (if true then true else true)
 
 --  (A) Yes (B) No
-
+--
 --  (Hint: Notice that the `Tm.Step` relation doesn't care about whether
 --  the expression being stepped makes global sense — it just checks that
 --  the operation in the *next* reduction step is being applied to the
 --  right kinds of operands.)
+
+--   ----------------------------------------
 
 --  *Optional aside, good practice with step relations but tangential to
 --  the main development.* We define an alternate step relation `⇢` and a
@@ -388,25 +398,25 @@ end
 scoped notation:40 t:41 " ⇢ " t':41 => Tm.AltStep t t'
 
 --  Some questions about this relation (answers inline):
-
+--
 --  - Is `⇢` deterministic (`∀ t t' t'', t ⇢ t' → t ⇢ t'' → t' = t''`)? No:
 --    `pred (succ (pred 0))` steps to both `pred 0` (by `predSucc`) and
 --    `pred (succ 0)` (by `predStep`, since `pred 0 ⇢ 0`).
-
+--
 --  - Is every `Tm.Step` normal form also a `⇢` normal form? No:
 --    `pred (succ true)` is stuck for `Tm.Step` but steps under `⇢` (to
 --    `true`, by `predSucc`, now that the `Tm.IsNValue` premise is gone).
-
+--
 --  - Is every `⇢` normal form also a `Tm.Step` normal form? Yes —
 --    `Tm.Step` is a subrelation of `⇢`, so anything stuck for `⇢` is stuck
 --    for `Tm.Step`.
-
+--
 --  - Is every value reachable by `Tm.Step` (in many steps) also reachable
 --    by `⇢` (in many steps)? Yes, for the same subrelation reason.
-
+--
 --  - Conversely? No: `iszero (succ true)` reaches the value `false` under
 --    `⇢` but is stuck under `Tm.Step`.
-
+--
 --  A *functional* version computes a single `⇢` step of a term, returning
 --  `none` when the term is a `⇢` normal form. This is a nice chance to see
 --  a step *function*, which the chapter otherwise gives only as a
@@ -470,25 +480,25 @@ example : alt_simplify_step <{ 0 }> = none := rfl
 
 --  -------------                (tru)
 --                       ⊢ true ⦂ Bool
-
+--
 --                       --------------               (fls)
 --                       ⊢ false ⦂ Bool
-
+--
 --            ⊢ t₁ ⦂ Bool    ⊢ t₂ ⦂ T    ⊢ t₃ ⦂ T
 --            -----------------------------------     (ite)
 --                ⊢ if t₁ then t₂ else t₃ ⦂ T
-
+--
 --                         ---------                  (zero)
 --                         ⊢ 0 ⦂ Nat
-
+--
 --                        ⊢ t₁ ⦂ Nat
 --                      ---------------               (succ)
 --                      ⊢ succ t₁ ⦂ Nat
-
+--
 --                        ⊢ t₁ ⦂ Nat
 --                      ---------------               (pred)
 --                      ⊢ pred t₁ ⦂ Nat
-
+--
 --                        ⊢ t₁ ⦂ Nat
 --                     ------------------             (isZero)
 --                     ⊢ iszero t₁ ⦂ Bool
@@ -533,9 +543,9 @@ local macro_rules
 inductive Tm.HasType : Tm → Ty → Prop where
   | tru : <{ ⊢ true ⦂ Bool }>
   | fls : <{ ⊢ false ⦂ Bool }>
-  | ite (t₁ t₂ t₃ : Tm) (T : Ty)
-      (h₁ : <{ ⊢ t₁ ⦂ Bool }>) (h₂ : <{ ⊢ t₂ ⦂ T }>) (h₃ : <{ ⊢ t₃ ⦂ T }>) :
-      <{ ⊢ if t₁ then t₂ else t₃ ⦂ T }>
+  | ite (t₁ t₂ t₃ : Tm) (τ : Ty)
+      (h₁ : <{ ⊢ t₁ ⦂ Bool }>) (h₂ : <{ ⊢ t₂ ⦂ τ }>) (h₃ : <{ ⊢ t₃ ⦂ τ }>) :
+      <{ ⊢ if t₁ then t₂ else t₃ ⦂ τ }>
   | zero : <{ ⊢ 0 ⦂ Nat }>
   | succ (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ succ t₁ ⦂ Nat }>
   | pred (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ pred t₁ ⦂ Nat }>
@@ -611,7 +621,7 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : 
 --  ### Progress
 
 --  The typing relation enjoys two critical properties.
-
+--
 --  The first is that well-typed normal forms are not stuck — or
 --  conversely, if a term is well typed, then either it is a value or it
 --  can take at least one step. We call this *progress*.
@@ -622,84 +632,98 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : 
 --  understand the parts we've given of the informal proof in the following
 --  exercise before starting — this will save you a lot of time.)
 
-theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
+theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
   sorry
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What is the relation between the *progress* property defined here and
 --  the *strong progress* from the Smallstep chapter?
-
+--
 --  (A) No difference — they mean the same thing
-
+--
 --  (B) Progress implies strong progress
-
+--
 --  (C) Strong progress implies progress
-
+--
 --  (D) No relationship
-
+--
 --  (E) Dunno
+
+--   ----------------------------------------
 
 --  ### Exercise (3 stars): finish_progress_informal (Optional) ⭐⭐⭐
 
 --  Complete the corresponding informal proof.
-
+--
 --  *Theorem*: If `⊢ t ⦂ T`, then either `t` is a value or else `t ⟶ t'`
 --  for some `t'`.
-
+--
 --  *Proof*: By induction on a derivation of `⊢ t ⦂ T`.
-
+--
 --  - If the last rule in the derivation is `ite`, then
 --    `t = if t₁ then t₂
 --        else t₃`, with `⊢ t₁ ⦂ Bool`, `⊢ t₂ ⦂ T` and
 --    `⊢ t₃ ⦂ T`. By the IH, either `t₁` is a value or else `t₁` can step
 --    to some `t₁'`.
-
+--
 --    - If `t₁` is a value, then by the canonical forms lemmas and the fact
 --      that `⊢ t₁ ⦂ Bool` we have that `t₁` is a boolean value
 --      (`Tm.IsBValue`) — i.e., it is either `true` or `false`. If
 --      `t₁ = true`, then `t` steps to `t₂` by `ifTrue`, while if
 --      `t₁ = false`, then `t` steps to `t₃` by `ifFalse`. Either way, `t`
 --      can step, which is what we wanted to show.
-
+--
 --    - If `t₁` itself can take a step, then, by `ifStep`, so can `t`.
 
 --  This theorem is more interesting than the strong progress theorem that
 --  we saw in the Smallstep chapter, where *all* normal forms were values.
 --  Here a term can be stuck, but only if it is ill typed.
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Quick review: in the language defined at the start of this chapter...
-
+--
 --  - Every well-typed normal form is a value.
-
+--
 --  (A) True (B) False
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  In this language...
-
+--
 --  - Every value is a normal form.
-
+--
 --  (A) True (B) False
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  In this language...
-
+--
 --  - The single-step reduction relation is a partial function (i.e., it is
 --    deterministic).
-
+--
 --  (A) True (B) False
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  In this language...
-
+--
 --  - The single-step reduction relation is a *total* function.
-
+--
 --  (A) True (B) False
+
+--   ----------------------------------------
 
 --  ### Type Preservation
 
@@ -712,33 +736,33 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 --  sure you understand the informal proof fragment in the following
 --  exercise first.)
 
-theorem preservation (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ T }> := by
+theorem preservation (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ T }> := by
   sorry
 
 --  ### Exercise (3 stars): finish_preservation_informal (Optional) ⭐⭐⭐
 
 --  Complete the following informal proof.
-
+--
 --  *Theorem*: If `⊢ t ⦂ T` and `t ⟶ t'`, then `⊢ t' ⦂ T`.
-
+--
 --  *Proof*: By induction on a derivation of `⊢ t ⦂ T`.
-
+--
 --  - If the last rule in the derivation is `ite`, then
 --    `t = if t₁ then t₂
 --        else t₃`, with `⊢ t₁ ⦂ Bool`, `⊢ t₂ ⦂ T` and
 --    `⊢ t₃ ⦂ T`.
-
+--
 --    Inspecting the rules for the small-step reduction relation and
 --    remembering that `t` has the form `if ...`, we see that the only ones
 --    that could have been used to prove `t ⟶ t'` are `ifTrue`, `ifFalse`,
 --    or `ifStep`.
-
+--
 --    - If the last rule was `ifTrue`, then `t' = t₂`. But we know that
 --      `⊢ t₂ ⦂ T`, so we are done.
-
+--
 --    - If the last rule was `ifFalse`, then `t' = t₃`. But we know that
 --      `⊢ t₃ ⦂ T`, so we are done.
-
+--
 --    - If the last rule was `ifStep`, then `t' = if t₁' then t₂ else t₃`,
 --      where `t₁ ⟶ t₁'`. We know `⊢ t₁ ⦂ Bool` so, by the IH,
 --      `⊢ t₁' ⦂
@@ -753,7 +777,7 @@ theorem preservation (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t
 --  make sure you understand what each one is doing. The set-up for this
 --  proof is similar, but not exactly the same.
 
-theorem preservation' (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ T }> := by
+theorem preservation' (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ τ }> := by
   sorry
 
 --  The preservation theorem is often called *subject reduction*, because
@@ -770,14 +794,16 @@ def Tm.MultiStep (t₁ t₂ : Tm) : Prop := Multi Tm.Step t₁ t₂
 
 scoped notation:40 t₁:41 " ⟶* " t₂:41 => Tm.MultiStep t₁ t₂
 
-theorem soundness (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (hm : t ⟶* t') : ¬ Tm.IsStuck t' := by
-  induction hm generalizing T with
+theorem soundness (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) (hm : t ⟶* t') : ¬ Tm.IsStuck t' := by
+  induction hm generalizing τ with
   | refl a =>
       intro hst; obtain ⟨hnf, hnv⟩ := hst
-      cases progress a T hT with
+      cases progress a τ hT with
       | inl hv => exact hnv hv
       | inr hs => exact hnf hs
-  | step a b c h₁ h₂ ih => exact ih T (preservation a b T hT h₁)
+  | step a b c h₁ h₂ ih => exact ih τ (preservation a b τ hT h₁)
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
@@ -788,10 +814,12 @@ theorem soundness (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (hm : t ⟶* t')
 
 --  Which of the following properties remain true in the presence of these
 --  rules? (Choose 1 for yes, 2 for no.)
-
+--
 --  - Determinism of `Tm.Step`
 --  - Progress
 --  - Preservation
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
@@ -801,10 +829,12 @@ theorem soundness (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (hm : t ⟶* t')
 
 --  Which of the following properties remain true in the presence of this
 --  rule?
-
+--
 --  - Determinism of `Tm.Step`
 --  - Progress
 --  - Preservation
+
+--   ----------------------------------------
 
 --  ## Additional Exercises
 
@@ -816,8 +846,8 @@ theorem soundness (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (hm : t ⟶* t')
 --  so, prove it. If not, give a counter-example.
 
 theorem subject_expansion :
-    (∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ <{ ⊢ t' ⦂ T }> → <{ ⊢ t ⦂ T }>)
-    ∨ ¬ (∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ <{ ⊢ t' ⦂ T }> → <{ ⊢ t ⦂ T }>) := by
+    (∀ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ <{ ⊢ t' ⦂ τ }> → <{ ⊢ t ⦂ τ }>)
+    ∨ ¬ (∀ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ <{ ⊢ t' ⦂ τ }> → <{ ⊢ t ⦂ τ }>) := by
   sorry
 
 end TM
@@ -827,7 +857,7 @@ end TM
 --  counterexample if one breaks. (These are graded manually; there is no
 --  Lean code to complete.)
 
---  ### Exercise (2 stars): variation1 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): variation1 (Manually graded) ⭐⭐
 
 --  Suppose that we add this new rule to the typing relation:
 
@@ -836,12 +866,12 @@ end TM
 --  Which of the following properties remain true in the presence of this
 --  rule? For each one, write either "remains true" or else "becomes
 --  false." If a property becomes false, give a counterexample.
-
+--
 --  - Determinism of `Tm.Step`
 --  - Progress
 --  - Preservation
 
---  ### Exercise (2 stars): variation2 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): variation2 (Manually graded) ⭐⭐
 
 --  Suppose, instead, that we add this new rule to the `Tm.Step` relation:
 
@@ -893,7 +923,7 @@ end TM
 --  of changing the definitions that break just one of the properties and
 --  leave the others alone.
 
---  ### Exercise (1 star): remove_pred0 (manually graded) ⭐
+--  ### Exercise (1 star): remove_pred0 (Manually graded) ⭐
 
 --  The reduction rule `predZero` is a bit counter-intuitive: we might feel
 --  that it makes more sense for the predecessor of `0` to be undefined,
@@ -901,13 +931,14 @@ end TM
 --  removing the rule from the definition of `Tm.Step`? Would doing so
 --  create any problems elsewhere?
 
---  ### Exercise (4 stars): prog_pres_bigstep (Advanced, manually graded) ⭐⭐⭐⭐
+--  ### Exercise (4 stars): prog_pres_bigstep (Advanced, Manually graded) ⭐⭐⭐⭐
 
 --  Suppose our evaluation relation is defined in the big-step style. State
 --  appropriate analogs of the progress and preservation properties. (You
 --  do not need to prove them.)
-
+--
 --  Can you see any limitations of either of your properties? Do they allow
 --  for nonterminating programs? Why might we prefer the small-step
 --  semantics for stating preservation and progress?
 
+-- Built on 2026-09-01 12:45 UTC

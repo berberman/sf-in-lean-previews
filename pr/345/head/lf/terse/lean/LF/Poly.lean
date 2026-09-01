@@ -27,7 +27,7 @@ inductive MyList (α : Type) : Type where
 --  list-of-numbers type.
 
 --  What is `MyList` itself?
-
+--
 --  It is a *type constructor* — a function from types to
 --  types.
 
@@ -80,44 +80,52 @@ example : myRepeat Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
 
 example : myRepeat Bool false 1 = .cons false .nil := by rfl
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  What is the type of
 --  `MyList.cons true (MyList.cons 3 MyList.nil)`?
-
+--
 --  (A) `MyList Nat`
-
+--
 --  (B) `{α : Type} → α → MyList α → MyList α`
-
+--
 --  (C) `MyList Bool`
-
+--
 --  (D) `MyList (Nat × Bool)`
-
+--
 --  (E) Ill-typed
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What is the type of `myRepeat`?
-
+--
 --  (A) `Nat → Nat → MyList Nat`
-
+--
 --  (B) `(α : Type) → α → Nat → MyList α`
-
+--
 --  (C) `(α : Type) → {β : Type} → α → Nat → MyList β`
-
+--
 --  (D) Ill-typed
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What is the type of `myRepeat 1 2`?
-
+--
 --  (A) `MyList Nat`
-
+--
 --  (B) `(α : Type) → α → Nat → MyList α`
-
+--
 --  (C) `MyList Bool`
-
+--
 --  (D) Ill-typed
+
+--   ----------------------------------------
 
 --  From now on we'll use Lean's built-in `List α` type with
 --  notations `[]`, `::`, `[1, 2, 3]`, and `++`.
@@ -176,7 +184,7 @@ def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
 --  This fails because Lean can't figure out the type of the
 --  empty list: `def mynil := []` — error: type not known We
 --  can fix this with an explicit type annotation:
-
+--
 --  We can use the `@` prefix to supply the type argument
 --  explicitly. The `@` makes all implicit arguments of a
 --  function explicit:
@@ -188,105 +196,121 @@ def myNil' := @List.nil Nat
 --  Output:
 --    @List.nil : {α : Type u_1} → List α
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Which type does Lean assign to the following expression?
 --  (The square brackets in this quiz and the following ones
 --  are list brackets.)
-
---    [1, 2, 3]
-
+--
+--      [1, 2, 3]
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List Bool`
-
+--
 --  (C) `Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    [3 + 4] ++ []
-
+--
+--      [3 + 4] ++ []
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List Bool`
-
+--
 --  (C) `Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    (true && false) :: []
-
+--
+--      (true && false) :: []
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List Bool`
-
+--
 --  (C) `Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    [1, []]
-
+--
+--      [1, []]
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List (List Nat)`
-
+--
 --  (C) `List Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What about this one?
-
---    [[1], []]
-
+--
+--      [[1], []]
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List (List Nat)`
-
+--
 --  (C) `List Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  And what about this one?
-
---    [1] :: [[]]
-
+--
+--      [1] :: [[]]
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List (List Nat)`
-
+--
 --  (C) `List Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  This one?
-
---    @List.nil Bool
-
+--
+--      @List.nil Bool
+--
 --  (A) `List Nat`
-
+--
 --  (B) `List (List Nat)`
-
+--
 --  (C) `List Bool`
-
+--
 --  (D) No type can be assigned
+
+--   ----------------------------------------
 
 --  #### Exercises
 
@@ -379,7 +403,7 @@ example : (3, 5).2 = 5 := by rfl
 --  Lean writes the product type `Prod α β` as `α × β`. In
 --  VS Code you can type `\times` or `\x` to enter the `×`
 --  symbol.
-
+--
 --  The `dsimp only` tactic can be used to simplify
 --  `(x, y).fst` into `x` and `(x, y).snd` into `y`.
 
@@ -414,12 +438,12 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --  knows which branch to take during the computation done
 --  by the `rfl` tactic.
 
---  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): unzip (Manually graded) ⭐⭐⭐
 
 --  The function `unzip` goes in the other direction from
 --  `zip`: it takes a list of pairs and returns a pair of
 --  lists.
-
+--
 --  Fill in the definition of `unzip` below and write
 --  simplification rules that characterize it. Make sure it
 --  that passes the given unit test. Prove `unzip_test_fst`
@@ -560,6 +584,8 @@ example : map Nat.odd [2, 1, 2, 5] = [false, true, false, true] := by rfl
 example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
   = [[true, false], [false, true], [true, false], [false, true]] := by rfl
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Recall the definition of `map`:
@@ -571,14 +597,16 @@ sf_recall
     | head :: tail => f head :: map f tail
 
 --  What is the type of `@map`?
-
+--
 --  (A) `{α β : Type} → α → β → List α → List β`
-
+--
 --  (B) `α → β → List α → List β`
-
+--
 --  (C) `{α β : Type} → (α → β) → List α → List β`
-
+--
 --  (D) `{α : Type} → (α → α) → List α → List α`
+
+--   ----------------------------------------
 
 --  As usual, we define the following simplification rules
 --  for `map`:
@@ -618,6 +646,8 @@ theorem fold_nil {α : Type} {β : Type} {f : α → β → β} {b : β} : fold 
 theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {a : α} {l : List α} {b : β} :
     fold f (a :: l) b = f a (fold f l b) := by rfl
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Here is the definition of `fold` again:
@@ -629,26 +659,30 @@ sf_recall
     | a :: l => f a (fold f l b)
 
 --  What is the type of `@fold`?
-
+--
 --  (A) `{α β : Type} → (α → β → β) → List α → β → β`
-
+--
 --  (B) `α → β → (α → β → β) → List α → β → β`
-
+--
 --  (C) `{α β : Type} → α → β → β → List α → β → β`
-
+--
 --  (D) `α → β → α → β → β → List α → β → β`
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  What does `fold (· + ·) [1, 2, 3, 4] 0` simplify to?
-
+--
 --  (A) `[1, 2, 3, 4]`
-
+--
 --  (B) `0`
-
+--
 --  (C) `10`
-
+--
 --  (D) `[3, 7, 0]`
+
+--   ----------------------------------------
 
 --  ### Functions That Construct Functions
 
@@ -692,3 +726,4 @@ def fold_plus : List Nat → Nat → Nat :=
 --  Output:
 --    fold_plus : List Nat → Nat → Nat
 
+-- Built on 2026-09-01 12:44 UTC

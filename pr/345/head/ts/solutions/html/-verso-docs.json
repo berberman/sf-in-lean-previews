@@ -1,82 +1,80 @@
 {"999":
- "<code>Lean.Parser.ppSpace : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser that advises the pretty printer to emit a space/soft line break. </code>",
- "998": "<code>Lean.Parser.Category.stlcTm : Lean.Parser.Category</code>",
- "997":
- "<code>Lean.Macro.throwUnsupported {α : Type} : MacroM α</code><span class=\"sep\"></span><code class=\"docstring\">Throw an `unsupportedSyntax` exception. </code>",
- "996":
  "<code>Lean.Quote.quote {α : Type} {k : optParam SyntaxNodeKind `term} [self : Quote α k] : α → TSyntax k</code><span class=\"sep\"></span><code class=\"docstring\">Returns syntax for the given value.\n</code>",
- "995":
+ "998":
  "<code>Lean.Syntax.Term : Type</code><span class=\"sep\"></span><code class=\"docstring\">Syntax that represents a Lean term.\n</code>",
- "994":
+ "997":
  "<code>Lean.MacroM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The `MacroM` monad is the main monad for macro expansion. It has the\ninformation needed to handle hygienic name generation, and is the monad that\n`macro` definitions live in.\n\nNotably, this is a (relatively) pure monad: there is no `IO` and no access to\nthe `Environment`. That means that things like declaration lookup are\nimpossible here, as well as `IO.Ref` or other side-effecting operations.\nFor more capabilities, macros can instead be written as `elab` using `adaptExpander`.\n</code>",
- "993": "<code>TSyntax `stlcVar</code>",
- "992":
+ "996": "<code>TSyntax `stlcVar</code>",
+ "995":
  "<code>Stlc.varStr (x : TSyntax `stlcVar) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
- "991": "<code>Lean.Parser.Category.stlcVar : Lean.Parser.Category</code>",
- "990":
+ "994": "<code>Lean.Parser.Category.stlcVar : Lean.Parser.Category</code>",
+ "993":
  "<code>Stlc.Tm.abs (x : String) (T : Stlc.Ty) (t : Stlc.Tm) : Stlc.Tm</code>",
+ "992": "<code>Lean.TSyntax `stlcTy</code>",
+ "991": "<code>Stlc.tyBracket : Lean.ParserDescr</code>",
+ "990":
+ "<code><span class=\"literal string\">\" -&gt; \"</span> : String</code>",
  "99":
  "<code>Slang.Bexp.optimize0plus_sound (b : Bexp) : b.optimize0plus.eval = b.eval</code>",
- "989": "<code>Lean.TSyntax `stlcTy</code>",
- "988": "<code>Stlc.tyBracket : Lean.ParserDescr</code>",
- "987":
- "<code><span class=\"literal string\">\" -&gt; \"</span> : String</code>",
- "986": "<code><span class=\"literal string\">\" → \"</span> : String</code>",
- "985": "<code>Lean.Parser.Category.stlcTy : Lean.Parser.Category</code>",
- "984": "<code>Stlc.Tm.ite (c t e : Tm) : Tm</code>",
- "983": "<code>Stlc.Tm.fls : Tm</code>",
- "982": "<code>Stlc.Tm.tru : Tm</code>",
- "981": "<code>Stlc.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
- "980": "<code>Stlc.Tm.app (t₁ t₂ : Tm) : Tm</code>",
+ "989": "<code><span class=\"literal string\">\" → \"</span> : String</code>",
+ "988": "<code>Lean.Parser.Category.stlcTy : Lean.Parser.Category</code>",
+ "987": "<code>Stlc.Tm.ite (c t e : Tm) : Tm</code>",
+ "986": "<code>Stlc.Tm.fls : Tm</code>",
+ "985": "<code>Stlc.Tm.tru : Tm</code>",
+ "984": "<code>Stlc.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
+ "983": "<code>Stlc.Tm.app (t₁ t₂ : Tm) : Tm</code>",
+ "982":
+ "<code>String : Type</code><span class=\"sep\"></span><code class=\"docstring\">A string is a sequence of Unicode scalar values.\n\nAt runtime, strings are represented by [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)\nof bytes using the UTF-8 encoding. Both the size in bytes (`String.utf8ByteSize`) and in characters\n(`String.length`) are cached and take constant time. Many operations on strings perform in-place\nmodifications when the reference to the string is unique.\n</code>",
+ "981": "<code>String</code>",
+ "980": "<code>Stlc.Tm.var (x : String) : Tm</code>",
  "98":
  "<code>Slang.Bexp.optimize0plus_test2 :\n  ((le ((Aexp.num 0).plus (Aexp.num 4)) (Aexp.num 5)).and (bool true)).optimize0plus =\n    (le (Aexp.num 4) (Aexp.num 5)).and (bool true)</code>",
- "979":
- "<code>String : Type</code><span class=\"sep\"></span><code class=\"docstring\">A string is a sequence of Unicode scalar values.\n\nAt runtime, strings are represented by [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)\nof bytes using the UTF-8 encoding. Both the size in bytes (`String.utf8ByteSize`) and in characters\n(`String.length`) are cached and take constant time. Many operations on strings perform in-place\nmodifications when the reference to the string is unique.\n</code>",
- "978": "<code>String</code>",
- "977": "<code>Stlc.Tm.var (x : String) : Tm</code>",
- "976": "<code>Stlc.Tm : Type</code>",
- "975": "<code>Stlc.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
- "974": "<code>Stlc.Ty.bool : Ty</code>",
- "973": "<code>Stlc.Ty : Type</code>",
- "972":
+ "979": "<code>Stlc.Tm : Type</code>",
+ "978": "<code>Stlc.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
+ "977": "<code>Stlc.Ty.bool : Ty</code>",
+ "976": "<code>Stlc.Ty : Type</code>",
+ "975":
  "<code>ArrayOfSize (n : Nat) : Type</code><span class=\"sep\"></span><code class=\"docstring\">An array that contains precisely `n` numbers.  Used only as an example of a\ndependent type in the opening discussion of the lambda cube. </code>",
- "971": "<code>&lt;{ ⊢ if false then true else 0 ⦂ Nat }&gt;</code>",
- "970":
- "<code>∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;</code>",
+ "974": "<code>&lt;{ ⊢ if false then true else 0 ⦂ Nat }&gt;</code>",
+ "973":
+ "<code>∀ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ τ }&gt; → &lt;{ ⊢ t ⦂ τ }&gt;</code>",
+ "972":
+ "<code>TM.subject_expansion :\n  (∀ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ τ }&gt; → &lt;{ ⊢ t ⦂ τ }&gt;) ∨\n    ¬∀ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ τ }&gt; → &lt;{ ⊢ t ⦂ τ }&gt;</code>",
+ "971": "<code>∀ (τ : Ty), &lt;{ ⊢ b ⦂ τ }&gt; → ¬c.IsStuck</code>",
+ "970": "<code>Multi Tm.Step b c</code>",
  "97":
  "<code>Slang.Bexp.optimize0plus_test1 :\n  (gt ((Aexp.num 0).plus (Aexp.num 4)) (Aexp.num 8)).not.optimize0plus = (gt (Aexp.num 4) (Aexp.num 8)).not</code>",
- "969":
- "<code>TM.subject_expansion :\n  (∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;) ∨\n    ¬∀ (t t' : Tm) (T : Ty), t ⟶ t' ∧ &lt;{ ⊢ t' ⦂ T }&gt; → &lt;{ ⊢ t ⦂ T }&gt;</code>",
- "968": "<code>∀ (T : Ty), &lt;{ ⊢ b ⦂ T }&gt; → ¬c.IsStuck</code>",
- "967": "<code>Multi Tm.Step b c</code>",
- "966": "<code>∃ t', a ⟶ t'</code>",
- "965": "<code>a.IsValue</code>",
- "964": "<code>¬a.IsValue</code>",
- "963": "<code>a.IsNormalForm</code>",
- "962": "<code>a.IsStuck</code>",
- "961": "<code>&lt;{ ⊢ a ⦂ T }&gt;</code>",
- "960":
- "<code>TM.soundness (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (hm : t ⟶* t') : ¬t'.IsStuck</code>",
+ "969": "<code>∃ t', a ⟶ t'</code>",
+ "968": "<code>a.IsValue</code>",
+ "967": "<code>¬a.IsValue</code>",
+ "966": "<code>a.IsNormalForm</code>",
+ "965": "<code>a.IsStuck</code>",
+ "964": "<code>&lt;{ ⊢ a ⦂ τ }&gt;</code>",
+ "963":
+ "<code>TM.soundness (t t' : Tm) (τ : Ty) (hT : &lt;{ ⊢ t ⦂ τ }&gt;) (hm : t ⟶* t') : ¬t'.IsStuck</code>",
+ "962": "<code>TM.Tm.MultiStep (t₁ t₂ : Tm) : Prop</code>",
+ "961": "<code>&lt;{ ⊢ iszero t₁ ⦂ τ }&gt;</code>",
+ "960": "<code>&lt;{ ⊢ iszero (succ v) ⦂ τ }&gt;</code>",
  "96": "<code>Slang.Bexp.optimize0plus (b : Bexp) : Bexp</code>",
- "959": "<code>TM.Tm.MultiStep (t₁ t₂ : Tm) : Prop</code>",
- "958": "<code>&lt;{ ⊢ iszero t₁ ⦂ T }&gt;</code>",
- "957": "<code>&lt;{ ⊢ iszero (succ v) ⦂ T }&gt;</code>",
- "956": "<code>&lt;{ ⊢ iszero 0 ⦂ T }&gt;</code>",
- "955": "<code>&lt;{ ⊢ pred t₁ ⦂ T }&gt;</code>",
- "954": "<code>&lt;{ ⊢ v ⦂ Nat }&gt;</code>",
- "953": "<code>&lt;{ ⊢ pred (succ v) ⦂ T }&gt;</code>",
- "952": "<code>&lt;{ ⊢ pred 0 ⦂ T }&gt;</code>",
- "951": "<code>&lt;{ ⊢ succ t₁ ⦂ T }&gt;</code>",
- "950": "<code>∀ (T : Ty), &lt;{ ⊢ t₁ ⦂ T }&gt; → &lt;{ ⊢ t₁' ⦂ T }&gt;</code>",
+ "959": "<code>&lt;{ ⊢ iszero 0 ⦂ τ }&gt;</code>",
+ "958": "<code>&lt;{ ⊢ pred t₁ ⦂ τ }&gt;</code>",
+ "957": "<code>&lt;{ ⊢ v ⦂ Nat }&gt;</code>",
+ "956": "<code>&lt;{ ⊢ pred (succ v) ⦂ τ }&gt;</code>",
+ "955": "<code>&lt;{ ⊢ pred 0 ⦂ τ }&gt;</code>",
+ "954": "<code>&lt;{ ⊢ succ t₁ ⦂ τ }&gt;</code>",
+ "953": "<code>∀ (τ : Ty), &lt;{ ⊢ t₁ ⦂ τ }&gt; → &lt;{ ⊢ t₁' ⦂ τ }&gt;</code>",
+ "952": "<code>&lt;{ ⊢ t₃ ⦂ τ }&gt;</code>",
+ "951": "<code>&lt;{ ⊢ c ⦂ Bool }&gt;</code>",
+ "950": "<code>&lt;{ ⊢ if c then t₂ else t₃ ⦂ τ }&gt;</code>",
  "95": "<code>e₁✝.optimize0plus.eval = e₁✝.eval</code>",
- "949": "<code>&lt;{ ⊢ c ⦂ Bool }&gt;</code>",
- "948": "<code>&lt;{ ⊢ if c then t₂ else t₃ ⦂ T }&gt;</code>",
- "947": "<code>∀ (T : Ty), &lt;{ ⊢ c ⦂ T }&gt; → &lt;{ ⊢ c' ⦂ T }&gt;</code>",
- "946": "<code>&lt;{ ⊢ if false then t₁ else t₂ ⦂ T }&gt;</code>",
- "945": "<code>&lt;{ ⊢ t₁ ⦂ T }&gt;</code>",
- "944": "<code>&lt;{ ⊢ if true then t₁ else t₂ ⦂ T }&gt;</code>",
+ "949": "<code>∀ (τ : Ty), &lt;{ ⊢ c ⦂ τ }&gt; → &lt;{ ⊢ c' ⦂ τ }&gt;</code>",
+ "948": "<code>&lt;{ ⊢ if false then t₁ else t₂ ⦂ τ }&gt;</code>",
+ "947": "<code>&lt;{ ⊢ t₂ ⦂ τ }&gt;</code>",
+ "946": "<code>&lt;{ ⊢ t₁ ⦂ τ }&gt;</code>",
+ "945": "<code>&lt;{ ⊢ if true then t₁ else t₂ ⦂ τ }&gt;</code>",
+ "944": "<code>&lt;{ ⊢ t ⦂ τ }&gt;</code>",
  "943":
- "<code>TM.preservation' (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ T }&gt;</code>",
+ "<code>TM.preservation' (t t' : Tm) (τ : Ty) (hT : &lt;{ ⊢ t ⦂ τ }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ τ }&gt;</code>",
  "942":
  "<code>∀ (t' : Tm), &lt;{ succ v }&gt; ⟶ t' → &lt;{ ⊢ t' ⦂ Nat }&gt;</code>",
  "941": "<code>&lt;{ ⊢ succ v ⦂ Nat }&gt;</code>",
@@ -104,7 +102,7 @@
  "925": "<code>∀ (t' : Tm), t₂ ⟶ t' → &lt;{ ⊢ t' ⦂ T }&gt;</code>",
  "924": "<code>∀ (t' : Tm), t₁ ⟶ t' → &lt;{ ⊢ t' ⦂ Bool }&gt;</code>",
  "923":
- "<code>TM.preservation (t t' : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ T }&gt;</code>",
+ "<code>TM.preservation {T : Ty} (t t' : Tm) (τ : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) (he : t ⟶ t') : &lt;{ ⊢ t' ⦂ T }&gt;</code>",
  "922":
  "<code>TM.Tm.HasType.isZero (t₁ : Tm) (h : &lt;{ ⊢ t₁ ⦂ Nat }&gt;) : &lt;{ ⊢ iszero t₁ ⦂ Bool }&gt;</code>",
  "921": "<code>&lt;{ ⊢ succ t₀ ⦂ Nat }&gt;</code>",
@@ -126,7 +124,7 @@
  "909": "<code>TM.Tm.HasType.tru : &lt;{ ⊢ true ⦂ Bool }&gt;</code>",
  "908": "<code>&lt;{ ⊢ t ⦂ T }&gt;</code>",
  "907":
- "<code>TM.progress (t : Tm) (T : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
+ "<code>TM.progress {T : Ty} (t : Tm) (τ : Ty) (hT : &lt;{ ⊢ t ⦂ T }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
  "906": "<code>&lt;{ ⊢ false ⦂ Nat }&gt;</code>",
  "905": "<code>&lt;{ ⊢ true ⦂ Nat }&gt;</code>",
  "904":
@@ -148,8 +146,8 @@
  "894": "<code>&lt;{ ⊢ true ⦂ Bool }&gt;</code>",
  "893": "<code>&lt;{ ⊢ 0 ⦂ Bool }&gt;</code>",
  "892": "<code>&lt;{ ⊢ false ⦂ Bool }&gt;</code>",
- "891": "<code>&lt;{ ⊢ t₃✝ ⦂ T✝ }&gt;</code>",
- "890": "<code>&lt;{ ⊢ t₂✝ ⦂ T✝ }&gt;</code>",
+ "891": "<code>&lt;{ ⊢ t₃✝ ⦂ τ✝ }&gt;</code>",
+ "890": "<code>&lt;{ ⊢ t₂✝ ⦂ τ✝ }&gt;</code>",
  "89":
  "<code class=\"docstring\">`tac &lt;;&gt; tac'` runs `tac` on the main goal and `tac'` on each produced goal,\nconcatenating all goals produced by `tac'`.\n</code>",
  "889": "<code>&lt;{ ⊢ t₁✝ ⦂ Bool }&gt;</code>",
@@ -159,7 +157,7 @@
  "886": "<code>TM.Tm.HasType.zero : &lt;{ ⊢ 0 ⦂ Nat }&gt;</code>",
  "885": "<code>TM.Tm.HasType.fls : &lt;{ ⊢ false ⦂ Bool }&gt;</code>",
  "884":
- "<code>TM.Tm.HasType.ite (t₁ t₂ t₃ : Tm) (T : Ty) (h₁ : &lt;{ ⊢ t₁ ⦂ Bool }&gt;) (h₂ : &lt;{ ⊢ t₂ ⦂ T }&gt;) (h₃ : &lt;{ ⊢ t₃ ⦂ T }&gt;) :\n  &lt;{ ⊢ if t₁ then t₂ else t₃ ⦂ T }&gt;</code>",
+ "<code>TM.Tm.HasType.ite (t₁ t₂ t₃ : Tm) (τ : Ty) (h₁ : &lt;{ ⊢ t₁ ⦂ Bool }&gt;) (h₂ : &lt;{ ⊢ t₂ ⦂ τ }&gt;) (h₃ : &lt;{ ⊢ t₃ ⦂ τ }&gt;) :\n  &lt;{ ⊢ if t₁ then t₂ else t₃ ⦂ τ }&gt;</code>",
  "883":
  "<code>MonadExcept.throw.{u, v, w} {ε : outParam (Type u)} {m : Type v → Type w} [self : MonadExcept ε m] {α : Type v} :\n  ε → m α</code><span class=\"sep\"></span><code class=\"docstring\">Throws an exception of type `ε` to the nearest enclosing handler.\n</code>",
  "882":
@@ -182,13 +180,13 @@
  "873":
  "<code>TM.Tm.HasType.succ (t₁ : Tm) (h : t₁.HasType Ty.nat) : &lt;{ succ t₁ }&gt;.HasType Ty.nat</code>",
  "872": "<code>TM.Tm.HasType.zero : &lt;{ 0 }&gt;.HasType Ty.nat</code>",
- "871": "<code>HasType t₃ T</code>",
- "870": "<code>HasType t₂ T</code>",
+ "871": "<code>HasType t₃ τ</code>",
+ "870": "<code>HasType t₂ τ</code>",
  "87": "<code>Nat.even n'✝ = true → Nat.even (n'✝ + 1) = false</code>",
  "869": "<code>HasType t₁ Ty.bool</code>",
  "868": "<code>Ty</code>",
  "867":
- "<code>TM.Tm.HasType.ite (t₁ t₂ t₃ : Tm) (T : Ty) (h₁ : t₁.HasType Ty.bool) (h₂ : t₂.HasType T) (h₃ : t₃.HasType T) :\n  &lt;{ if t₁ then t₂ else t₃ }&gt;.HasType T</code>",
+ "<code>TM.Tm.HasType.ite (t₁ t₂ t₃ : Tm) (τ : Ty) (h₁ : t₁.HasType Ty.bool) (h₂ : t₂.HasType τ) (h₃ : t₃.HasType τ) :\n  &lt;{ if t₁ then t₂ else t₃ }&gt;.HasType τ</code>",
  "866": "<code>TM.Tm.HasType.fls : &lt;{ false }&gt;.HasType Ty.bool</code>",
  "865": "<code>TM.Tm.HasType.tru : &lt;{ true }&gt;.HasType Ty.bool</code>",
  "864": "<code>TM.Tm.HasType : Tm → Ty → Prop</code>",
@@ -1248,1020 +1246,1025 @@
  "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x &amp;&amp; y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&amp;&amp;` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
  "165": "<code>b₂✝.eval = bv₂✝</code>",
  "164": "<code>b₁✝.eval = bv₁✝</code>",
- "163": "<code>b₂✝ ⇓ bv₂✝</code>",
- "1628":
+ "1631":
  "<code>∅ = ∅ → (StlcArith.Tm.const (n' + 1)).IsValue ∨ ∃ t', StlcArith.Tm.const (n' + 1) ⟶ t'</code>",
- "1627": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const (n' + 1)) ⦂ Nat }&gt;</code>",
- "1626":
+ "1630": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const (n' + 1)) ⦂ Nat }&gt;</code>",
+ "163": "<code>b₂✝ ⇓ bv₂✝</code>",
+ "1629":
  "<code>∅ = ∅ → &lt;{ 0 }&gt;.IsValue ∨ ∃ t', &lt;{ 0 }&gt; ⟶ t'</code>",
- "1625": "<code>∅ = ∅ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
- "1624":
+ "1628": "<code>∅ = ∅ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "1627":
  "<code>∅ = ∅ → (StlcArith.Tm.const n₂).IsValue ∨ ∃ t', StlcArith.Tm.const n₂ ⟶ t'</code>",
- "1623": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n₂) ⦂ Nat }&gt;</code>",
- "1622":
+ "1626": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n₂) ⦂ Nat }&gt;</code>",
+ "1625":
  "<code>∅ = ∅ → (StlcArith.Tm.const n₁).IsValue ∨ ∃ t', StlcArith.Tm.const n₁ ⟶ t'</code>",
- "1621": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n₁) ⦂ Nat }&gt;</code>",
- "1620":
+ "1624": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n₁) ⦂ Nat }&gt;</code>",
+ "1623":
  "<code>∅ = ∅ → &lt;{ λ ~x✝ : T₂✝ . t₁✝ }&gt;.IsValue ∨ ∃ t', &lt;{ λ ~x✝ : T₂✝ . t₁✝ }&gt; ⟶ t'</code>",
- "162": "<code>b₁✝ ⇓ bv₁✝</code>",
- "1619": "<code>&lt;{ ∅ ⊢ λ ~x✝ : T₂✝ . t₁✝ ⦂ Nat }&gt;</code>",
- "1618":
+ "1622": "<code>&lt;{ ∅ ⊢ λ ~x✝ : T₂✝ . t₁✝ ⦂ Nat }&gt;</code>",
+ "1621":
  "<code>∅ = ∅ → (StlcArith.Tm.const n).IsValue ∨ ∃ t', StlcArith.Tm.const n ⟶ t'</code>",
- "1617": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n) ⦂ T₂ → T₁ }&gt;</code>",
- "1616":
+ "1620": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n) ⦂ T₂ → T₁ }&gt;</code>",
+ "162": "<code>b₁✝ ⇓ bv₁✝</code>",
+ "1619":
  "<code>∅ = ∅ → &lt;{ λ ~x : T . u }&gt;.IsValue ∨ ∃ t', &lt;{ λ ~x : T . u }&gt; ⟶ t'</code>",
- "1615": "<code>&lt;{ ∅ ⊢ λ ~x : T . u ⦂ T₂ → T₁ }&gt;</code>",
- "1614": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "1613": "<code>∅ = ∅ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "1612":
+ "1618": "<code>&lt;{ ∅ ⊢ λ ~x : T . u ⦂ T₂ → T₁ }&gt;</code>",
+ "1617": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "1616": "<code>∅ = ∅ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
+ "1615":
  "<code>StlcArith.progress (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
- "1611":
+ "1614":
  "<code>∀ (t' : Tm), StlcArith.Tm.const (n✝ + 1) ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
- "1610": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const (n✝ + 1)) ⦂ Nat }&gt;</code>",
+ "1613": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const (n✝ + 1)) ⦂ Nat }&gt;</code>",
+ "1612":
+ "<code>StlcArith.Step.if0Nonzero (n : Nat) (t₂ t₃ : Tm) : &lt;{ if0 ~(StlcArith.Tm.const (n + 1)) then t₂ else t₃ }&gt; ⟶ t₃</code>",
+ "1611":
+ "<code>∀ (t' : Tm), &lt;{ 0 }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
+ "1610": "<code>&lt;{ ∅ ⊢ 0 ⦂ Nat }&gt;</code>",
  "161":
  "<code>Bool.not (x : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean negation, also known as Boolean complement. `not x` can be written `!x`.\n\nThis is a function that maps the value `true` to `false` and the value `false` to `true`. The\npropositional connective is `Not : Prop → Prop`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `!` in identifiers is `not`.</code>",
  "1609":
- "<code>StlcArith.Step.if0Nonzero (n : Nat) (t₂ t₃ : Tm) : &lt;{ if0 ~(StlcArith.Tm.const (n + 1)) then t₂ else t₃ }&gt; ⟶ t₃</code>",
- "1608":
- "<code>∀ (t' : Tm), &lt;{ 0 }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
- "1607": "<code>&lt;{ ∅ ⊢ 0 ⦂ Nat }&gt;</code>",
- "1606":
  "<code>StlcArith.Step.if0Zero (t₂ t₃ : Tm) : &lt;{ if0 0 then t₂ else t₃ }&gt; ⟶ t₂</code>",
- "1605":
+ "1608":
  "<code>StlcArith.Step.if0Step (t₁ t₁' t₂ t₃ : Tm) (h : t₁ ⟶ t₁') : &lt;{ if0 t₁ then t₂ else t₃ }&gt; ⟶ &lt;{ if0 t₁' then t₂ else t₃ }&gt;</code>",
- "1604":
+ "1607":
  "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(T₀) }&gt;</code>",
- "1603":
+ "1606":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(T₀) }&gt;</code>",
- "1602": "<code>&lt;{ ∅ ⊢ ~(t₃) ⦂ ~(T₀) }&gt;</code>",
- "1601": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₀) }&gt;</code>",
- "1600": "<code>&lt;{ if0 t₁ then t₂ else t₃ }&gt; ⟶ t'</code>",
+ "1605": "<code>&lt;{ ∅ ⊢ ~(t₃) ⦂ ~(T₀) }&gt;</code>",
+ "1604": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₀) }&gt;</code>",
+ "1603": "<code>&lt;{ if0 t₁ then t₂ else t₃ }&gt; ⟶ t'</code>",
+ "1602":
+ "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₀) }&gt;</code>",
+ "1601":
+ "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₀) }&gt;</code>",
+ "1600": "<code>&lt;{ ~(Γ) ⊢ ~(t₃) ⦂ ~(T₀) }&gt;</code>",
  "160": "<code>b✝.eval = bv✝</code>",
  "16": "<code>Slang.Bexp.le (a₁ a₂ : Aexp) : Bexp</code>",
- "1599":
- "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₀) }&gt;</code>",
+ "1599": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₀) }&gt;</code>",
  "1598":
- "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₀) }&gt;</code>",
- "1597": "<code>&lt;{ ~(Γ) ⊢ ~(t₃) ⦂ ~(T₀) }&gt;</code>",
- "1596": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₀) }&gt;</code>",
- "1595":
  "<code>StlcArith.Step.mult2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ * t₂ }&gt; ⟶ &lt;{ v₁ * t₂' }&gt;</code>",
- "1594":
+ "1597":
  "<code>StlcArith.Step.mult1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ * t₂ }&gt; ⟶ &lt;{ t₁' * t₂ }&gt;</code>",
- "1593":
+ "1596":
  "<code>∀ (t' : Tm), StlcArith.Tm.const n₂✝ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
- "1592": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n₂✝) ⦂ Nat }&gt;</code>",
- "1591":
+ "1595": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n₂✝) ⦂ Nat }&gt;</code>",
+ "1594":
  "<code>∀ (t' : Tm), StlcArith.Tm.const n₁✝ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
- "1590": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n₁✝) ⦂ Nat }&gt;</code>",
+ "1593": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n₁✝) ⦂ Nat }&gt;</code>",
+ "1592":
+ "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
+ "1591": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ Nat }&gt;</code>",
+ "1590": "<code>&lt;{ t₁ * t₂ }&gt; ⟶ t'</code>",
  "159": "<code>b✝ ⇓ bv✝</code>",
  "1589":
- "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
- "1588": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ Nat }&gt;</code>",
- "1587": "<code>&lt;{ t₁ * t₂ }&gt; ⟶ t'</code>",
- "1586":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ Nat }&gt;</code>",
- "1585": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ Nat }&gt;</code>",
- "1584":
+ "1588": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ Nat }&gt;</code>",
+ "1587":
  "<code>StlcArith.Step.predConst (n : Nat) : &lt;{ pred ~(StlcArith.Tm.const n) }&gt; ⟶ StlcArith.Tm.const (n - 1)</code>",
- "1583":
+ "1586":
  "<code>StlcArith.Step.pred (t₁ t₁' : Tm) (h : t₁ ⟶ t₁') : &lt;{ pred t₁ }&gt; ⟶ &lt;{ pred t₁' }&gt;</code>",
- "1582":
+ "1585":
  "<code>∀ (t' : Tm), StlcArith.Tm.const n ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
- "1581": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n) ⦂ Nat }&gt;</code>",
- "1580":
+ "1584": "<code>&lt;{ ∅ ⊢ ~(StlcArith.Tm.const n) ⦂ Nat }&gt;</code>",
+ "1583":
  "<code>StlcArith.Step.succConst (n : Nat) : &lt;{ succ ~(StlcArith.Tm.const n) }&gt; ⟶ StlcArith.Tm.const (1 + n)</code>",
+ "1582":
+ "<code>StlcArith.Step.succ (t₁ t₁' : Tm) (h : t₁ ⟶ t₁') : &lt;{ succ t₁ }&gt; ⟶ &lt;{ succ t₁' }&gt;</code>",
+ "1581":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
+ "1580": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ Nat }&gt;</code>",
  "158":
  "<code>GT.gt.{u} {α : Type u} [LT α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a &gt; b` is an abbreviation for `b &lt; a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&gt;` in identifiers is `gt`.</code>",
  "1579":
- "<code>StlcArith.Step.succ (t₁ t₁' : Tm) (h : t₁ ⟶ t₁') : &lt;{ succ t₁ }&gt; ⟶ &lt;{ succ t₁' }&gt;</code>",
- "1578":
- "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
- "1577": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ Nat }&gt;</code>",
- "1576":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ Nat }&gt;</code>",
- "1575": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;</code>",
- "1574":
+ "1578": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;</code>",
+ "1577":
  "<code>StlcArith.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
- "1573": "<code>StlcArith.Tm.const n✝ ⟶ t'</code>",
- "1572": "<code>StlcArith.Tm.var x✝ ⟶ t'</code>",
- "1571":
+ "1576": "<code>StlcArith.Tm.const n✝ ⟶ t'</code>",
+ "1575": "<code>StlcArith.Tm.var x✝ ⟶ t'</code>",
+ "1574":
  "<code>StlcArith.preservation (t t' : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ ~(t') ⦂ ~(T) }&gt;</code>",
- "1570": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₃) ⦂ ~(T) }&gt;</code>",
+ "1573": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₃) ⦂ ~(T) }&gt;</code>",
+ "1572": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T) }&gt;</code>",
+ "1571":
+ "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ if0 t₁ then t₂ else t₃ ⦂ ~(T) }&gt;</code>",
+ "1570":
+ "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₃) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t₃ ⦂ ~(T) }&gt;</code>",
  "157":
  "<code>LE.le.{u} {α : Type u} [self : LE α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-equal relation: `x ≤ y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≤` in identifiers is `le`.</code>",
- "1569": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T) }&gt;</code>",
- "1568":
- "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ if0 t₁ then t₂ else t₃ ⦂ ~(T) }&gt;</code>",
- "1567":
- "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₃) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t₃ ⦂ ~(T) }&gt;</code>",
- "1566": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ Nat }&gt;</code>",
- "1565": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ t₁ * t₂ ⦂ ~(T) }&gt;</code>",
- "1564": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ pred t₁ ⦂ ~(T) }&gt;</code>",
- "1563": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ Nat }&gt;</code>",
- "1562": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ succ t₁ ⦂ ~(T) }&gt;</code>",
- "1561":
+ "1569": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ Nat }&gt;</code>",
+ "1568": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ t₁ * t₂ ⦂ ~(T) }&gt;</code>",
+ "1567": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ pred t₁ ⦂ ~(T) }&gt;</code>",
+ "1566": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ Nat }&gt;</code>",
+ "1565": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ succ t₁ ⦂ ~(T) }&gt;</code>",
+ "1564":
  "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(StlcArith.Tm.const n) ⦂ ~(T) }&gt;</code>",
- "1560":
+ "1563":
  "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(StlcArith.Tm.var y) ⦂ ~(T) }&gt;</code>",
+ "1562":
+ "<code>StlcArith.substitution_preserves_typing (Γ : Context) (x : String) (U : Ty) (t v : Tm) (T : Ty)\n  (hT : &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;) : &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
+ "1561":
+ "<code>StlcArith.weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1560": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃✝) ⦂ ~(T₀✝) }&gt;</code>",
  "156":
  "<code>bne.{u} {α : Type u} [BEq α] (a b : α) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">`x != y` is boolean not-equal. It is the negation of `x == y` which is supplied by\nthe `BEq` typeclass.\n\nUnlike `x ≠ y` (which is notation for `Ne x y`), this is `Bool` valued instead of\n`Prop` valued. It is mainly intended for programming applications.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `!=` in identifiers is `bne`.</code>",
- "1559":
- "<code>StlcArith.substitution_preserves_typing (Γ : Context) (x : String) (U : Ty) (t v : Tm) (T : Ty)\n  (hT : &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;) : &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
+ "1559": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₀✝) }&gt;</code>",
  "1558":
- "<code>StlcArith.weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "1557": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃✝) ⦂ ~(T₀✝) }&gt;</code>",
- "1556": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₀✝) }&gt;</code>",
- "1555":
  "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₃✝) ⦂ ~(T₀✝) }&gt;</code>",
- "1554":
+ "1557":
  "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ ~(T₀✝) }&gt;</code>",
- "1553":
+ "1556":
  "<code>StlcArith.HasType.ite0 (Γ : Context) (t₁ t₂ t₃ : Tm) (T₀ : Ty) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₀) }&gt;) (h₃ : &lt;{ ~(Γ) ⊢ ~(t₃) ⦂ ~(T₀) }&gt;) : &lt;{ ~(Γ) ⊢ if0 t₁ then t₂ else t₃ ⦂ ~(T₀) }&gt;</code>",
- "1552": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ Nat }&gt;</code>",
- "1551":
+ "1555": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ Nat }&gt;</code>",
+ "1554":
  "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ Nat }&gt;</code>",
- "1550":
+ "1553":
  "<code>StlcArith.HasType.pred (Γ : Context) (t₁ : Tm) (h : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;) : &lt;{ ~(Γ) ⊢ pred t₁ ⦂ Nat }&gt;</code>",
+ "1552": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ Nat }&gt;</code>",
+ "1551":
+ "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ Nat }&gt;</code>",
+ "1550":
+ "<code>StlcArith.HasType.succ (Γ : Context) (t₁ : Tm) (h : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;) : &lt;{ ~(Γ) ⊢ succ t₁ ⦂ Nat }&gt;</code>",
  "155":
  "<code>BEq.beq.{u} {α : Type u} [self : BEq α] : α → α → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean equality, notated as `a == b`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `==` in identifiers is `beq`.</code>",
- "1549": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ Nat }&gt;</code>",
- "1548":
- "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ Nat }&gt;</code>",
- "1547":
- "<code>StlcArith.HasType.succ (Γ : Context) (t₁ : Tm) (h : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;) : &lt;{ ~(Γ) ⊢ succ t₁ ⦂ Nat }&gt;</code>",
- "1546":
+ "1549":
  "<code>StlcArith.weakening (Γ Γ' : Context) (t : Tm) (T : Ty) (hi : Γ ⊆ Γ') (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) :\n  &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "1545":
+ "1548":
  "<code>StlcArith.HasType.const (Γ : Context) (n : Nat) : &lt;{ ~(Γ) ⊢ ~(StlcArith.Tm.const n) ⦂ Nat }&gt;</code>",
- "1544":
+ "1547":
  "<code>StlcArith.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) :\n  &lt;{ ~(Γ) ⊢ ~(StlcArith.Tm.var x) ⦂ ~(T₁) }&gt;</code>",
- "1543":
+ "1546":
  "<code>StlcArith.HasType.mult (Γ : Context) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;) (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ Nat }&gt;) :\n  &lt;{ ~(Γ) ⊢ t₁ * t₂ ⦂ Nat }&gt;</code>",
- "1542":
+ "1545":
  "<code>StlcArith.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ T₂ ; Γ) ⊢ ~(t₁) ⦂ ~(T₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T₂ . t₁ ⦂ T₂ → T₁ }&gt;</code>",
- "1541":
+ "1544":
  "<code>StlcArith.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(T₁) }&gt;</code>",
- "1540":
+ "1543":
  "<code>StlcArith.Nat_typing_example : &lt;{ ∅ ⊢ (λ x : Nat . λ y : Nat . x * y) 3 2 ⦂ Nat }&gt;</code>",
- "154": "<code>b.eval = bv</code>",
- "1539": "<code>StlcArith.HasType.unexpand : Unexpander</code>",
- "1538":
+ "1542": "<code>StlcArith.HasType.unexpand : Unexpander</code>",
+ "1541":
  "<code>StlcArith.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Nat ; Γ` rather than as a chain of map updates. </code>",
- "1537": "<code>HasType Γ t₃ T₀</code>",
- "1536": "<code>HasType Γ t₂ T₀</code>",
- "1535":
+ "1540": "<code>HasType Γ t₃ T₀</code>",
+ "154": "<code>b.eval = bv</code>",
+ "1539": "<code>HasType Γ t₂ T₀</code>",
+ "1538":
  "<code>StlcArith.HasType.ite0 (Γ : Context) (t₁ t₂ t₃ : Tm) (T₀ : Ty) (h₁ : HasType Γ t₁ &lt;{ Nat }&gt;) (h₂ : HasType Γ t₂ T₀)\n  (h₃ : HasType Γ t₃ T₀) : HasType Γ &lt;{ if0 t₁ then t₂ else t₃ }&gt; T₀</code>",
- "1534": "<code>HasType Γ t₂ &lt;{ Nat }&gt;</code>",
- "1533":
+ "1537": "<code>HasType Γ t₂ &lt;{ Nat }&gt;</code>",
+ "1536":
  "<code>StlcArith.HasType.mult (Γ : Context) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ Nat }&gt;) (h₂ : HasType Γ t₂ &lt;{ Nat }&gt;) :\n  HasType Γ &lt;{ t₁ * t₂ }&gt; &lt;{ Nat }&gt;</code>",
- "1532":
+ "1535":
  "<code>StlcArith.HasType.pred (Γ : Context) (t₁ : Tm) (h : HasType Γ t₁ &lt;{ Nat }&gt;) : HasType Γ &lt;{ pred t₁ }&gt; &lt;{ Nat }&gt;</code>",
- "1531": "<code>HasType Γ t₁ &lt;{ Nat }&gt;</code>",
- "1530":
+ "1534": "<code>HasType Γ t₁ &lt;{ Nat }&gt;</code>",
+ "1533":
  "<code>StlcArith.HasType.succ (Γ : Context) (t₁ : Tm) (h : HasType Γ t₁ &lt;{ Nat }&gt;) : HasType Γ &lt;{ succ t₁ }&gt; &lt;{ Nat }&gt;</code>",
+ "1532":
+ "<code>StlcArith.HasType.const (Γ : Context) (n : Nat) : HasType Γ (StlcArith.Tm.const n) &lt;{ Nat }&gt;</code>",
+ "1531":
+ "<code>StlcArith.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;) (h₂ : HasType Γ t₂ T₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; T₁</code>",
+ "1530":
+ "<code>StlcArith.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
  "153": "<code>b ⇓ bv</code>",
  "1529":
- "<code>StlcArith.HasType.const (Γ : Context) (n : Nat) : HasType Γ (StlcArith.Tm.const n) &lt;{ Nat }&gt;</code>",
- "1528":
- "<code>StlcArith.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;) (h₂ : HasType Γ t₂ T₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; T₁</code>",
- "1527":
- "<code>StlcArith.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
- "1526":
  "<code>StlcArith.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) : HasType Γ (StlcArith.Tm.var x) T₁</code>",
- "1525": "<code>StlcArith.HasType : Context → Tm → Ty → Prop</code>",
- "1524":
+ "1528": "<code>StlcArith.HasType : Context → Tm → Ty → Prop</code>",
+ "1527":
  "<code>StlcArith.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1523":
+ "1526":
  "<code>StlcArith.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1522": "<code>StlcArith.Context : Type</code>",
- "1521":
+ "1525": "<code>StlcArith.Context : Type</code>",
+ "1524":
  "<code>StlcArith.Step.multConst (n₁ n₂ : Nat) :\n  &lt;{ ~(StlcArith.Tm.const n₁) * ~(StlcArith.Tm.const n₂) }&gt; ⟶ StlcArith.Tm.const (n₁ * n₂)</code>",
- "1520":
+ "1523":
  "<code>StlcArith.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
+ "1522":
+ "<code>StlcArith.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
+ "1521":
+ "<code>StlcArith.Nat_step_example : ∃ t, &lt;{ (λ x : Nat . λ y : Nat . x * y) 3 2 }&gt; ⟶* t</code>",
+ "1520":
+ "<code>StlcArith.Step.if0Nonzero (n : Nat) (t₂ t₃ : Tm) : Step &lt;{ if0 ~(StlcArith.Tm.const (n + 1)) then t₂ else t₃ }&gt; t₃</code>",
  "152":
  "<code>Slang.Bexp.evalR_iff_eval (b : Bexp) (bv : Bool) : b ⇓ bv ↔ b.eval = bv</code>",
  "1519":
- "<code>StlcArith.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
- "1518":
- "<code>StlcArith.Nat_step_example : ∃ t, &lt;{ (λ x : Nat . λ y : Nat . x * y) 3 2 }&gt; ⟶* t</code>",
- "1517":
- "<code>StlcArith.Step.if0Nonzero (n : Nat) (t₂ t₃ : Tm) : Step &lt;{ if0 ~(StlcArith.Tm.const (n + 1)) then t₂ else t₃ }&gt; t₃</code>",
- "1516":
  "<code>StlcArith.Step.if0Zero (t₂ t₃ : Tm) : Step &lt;{ if0 0 then t₂ else t₃ }&gt; t₂</code>",
- "1515":
+ "1518":
  "<code>StlcArith.Step.if0Step (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') :\n  Step &lt;{ if0 t₁ then t₂ else t₃ }&gt; &lt;{ if0 t₁' then t₂ else t₃ }&gt;</code>",
- "1514":
+ "1517":
  "<code>StlcArith.Step.mult2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ * t₂ }&gt; &lt;{ v₁ * t₂' }&gt;</code>",
- "1513":
+ "1516":
  "<code>StlcArith.Step.mult1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ * t₂ }&gt; &lt;{ t₁' * t₂ }&gt;</code>",
- "1512":
+ "1515":
  "<code>StlcArith.Step.multConst (n₁ n₂ : Nat) :\n  Step &lt;{ ~(StlcArith.Tm.const n₁) * ~(StlcArith.Tm.const n₂) }&gt; (StlcArith.Tm.const (n₁ * n₂))</code>",
- "1511":
+ "1514":
  "<code>StlcArith.Step.predConst (n : Nat) : Step &lt;{ pred ~(StlcArith.Tm.const n) }&gt; (StlcArith.Tm.const (n - 1))</code>",
- "1510":
+ "1513":
  "<code>StlcArith.Step.pred (t₁ t₁' : Tm) (h : Step t₁ t₁') : Step &lt;{ pred t₁ }&gt; &lt;{ pred t₁' }&gt;</code>",
+ "1512":
+ "<code>StlcArith.Step.succConst (n : Nat) : Step &lt;{ succ ~(StlcArith.Tm.const n) }&gt; (StlcArith.Tm.const (1 + n))</code>",
+ "1511":
+ "<code>StlcArith.Step.succ (t₁ t₁' : Tm) (h : Step t₁ t₁') : Step &lt;{ succ t₁ }&gt; &lt;{ succ t₁' }&gt;</code>",
+ "1510":
+ "<code>StlcArith.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
  "151": "<code>EvalR b₂ bv₂</code>",
  "1509":
- "<code>StlcArith.Step.succConst (n : Nat) : Step &lt;{ succ ~(StlcArith.Tm.const n) }&gt; (StlcArith.Tm.const (1 + n))</code>",
- "1508":
- "<code>StlcArith.Step.succ (t₁ t₁' : Tm) (h : Step t₁ t₁') : Step &lt;{ succ t₁ }&gt; &lt;{ succ t₁' }&gt;</code>",
- "1507":
- "<code>StlcArith.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
- "1506":
  "<code>StlcArith.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
- "1505":
+ "1508":
  "<code>StlcArith.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
- "1504": "<code>StlcArith.Step : Tm → Tm → Prop</code>",
- "1503":
+ "1507": "<code>StlcArith.Step : Tm → Tm → Prop</code>",
+ "1506":
  "<code>StlcArith.Tm.IsValue.const (n : Nat) : (StlcArith.Tm.const n).IsValue</code>",
- "1502":
+ "1505":
  "<code>StlcArith.Tm.IsValue.abs (x : String) (T₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : T₂ . t₁ }&gt;.IsValue</code>",
- "1501": "<code>StlcArith.Tm.IsValue : Tm → Prop</code>",
- "1500":
+ "1504": "<code>StlcArith.Tm.IsValue : Tm → Prop</code>",
+ "1503":
  "<code>StlcArith.subst_ite0 (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if0 t₁ then t₂ else t₃) }&gt; = &lt;{ if0 [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
+ "1502":
+ "<code>StlcArith.subst_mult (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ * t₂) }&gt; = &lt;{ [~x := s] t₁ * [~x := s] t₂ }&gt;</code>",
+ "1501":
+ "<code>StlcArith.subst_pred (x : String) (s t₁ : Tm) : &lt;{ [~x := s] (pred t₁) }&gt; = &lt;{ pred [~x := s] t₁ }&gt;</code>",
+ "1500":
+ "<code>StlcArith.subst_succ (x : String) (s t₁ : Tm) : &lt;{ [~x := s] (succ t₁) }&gt; = &lt;{ succ [~x := s] t₁ }&gt;</code>",
  "150": "<code>EvalR b₁ bv₁</code>",
  "15": "<code>Slang.Bexp.neq (a₁ a₂ : Aexp) : Bexp</code>",
  "1499":
- "<code>StlcArith.subst_mult (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ * t₂) }&gt; = &lt;{ [~x := s] t₁ * [~x := s] t₂ }&gt;</code>",
- "1498":
- "<code>StlcArith.subst_pred (x : String) (s t₁ : Tm) : &lt;{ [~x := s] (pred t₁) }&gt; = &lt;{ pred [~x := s] t₁ }&gt;</code>",
- "1497":
- "<code>StlcArith.subst_succ (x : String) (s t₁ : Tm) : &lt;{ [~x := s] (succ t₁) }&gt; = &lt;{ succ [~x := s] t₁ }&gt;</code>",
- "1496":
  "<code>StlcArith.subst_const (x : String) (s : Tm) (n : Nat) : &lt;{ [~x := s] ~(StlcArith.Tm.const n) }&gt; = StlcArith.Tm.const n</code>",
- "1495":
+ "1498":
  "<code>StlcArith.subst_app (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ t₂) }&gt; = &lt;{ [~x := s] t₁ [~x := s] t₂ }&gt;</code>",
- "1494":
+ "1497":
  "<code>StlcArith.subst_abs_ne (x y : String) (s t : Tm) (T : Ty) (h : x ≠ y) :\n  &lt;{ [~x := s] (λ ~y : T . t) }&gt; = &lt;{ λ ~y : T . [~x := s] t }&gt;</code>",
- "1493":
+ "1496":
  "<code>StlcArith.subst_abs_eq (x : String) (s t : Tm) (T : Ty) : &lt;{ [~x := s] (λ ~x : T . t) }&gt; = &lt;{ λ ~x : T . t }&gt;</code>",
- "1492":
+ "1495":
  "<code>StlcArith.subst_var_ne (x y : String) (s : Tm) (h : x ≠ y) : &lt;{ [~x := s] ~(StlcArith.Tm.var y) }&gt; = StlcArith.Tm.var y</code>",
- "1491":
+ "1494":
  "<code>StlcArith.subst_var_eq (x : String) (s : Tm) : &lt;{ [~x := s] ~(StlcArith.Tm.var x) }&gt; = s</code>",
- "1490": "<code>StlcArith.delabSubst : Delab</code>",
+ "1493": "<code>StlcArith.delabSubst : Delab</code>",
+ "1492": "<code>StlcArith.subst (x : String) (s t : Tm) : Tm</code>",
+ "1491": "<code>StlcArith.delabTm : Delab</code>",
+ "1490": "<code>StlcArith.delabTy : Delab</code>",
  "149":
  "<code>Slang.Bexp.EvalR.and {b₁ b₂ : Bexp} {bv₁ bv₂ : Bool} (h₁ : b₁.EvalR bv₁) (h₂ : b₂.EvalR bv₂) :\n  (b₁.and b₂).EvalR (bv₁ &amp;&amp; bv₂)</code>",
- "1489": "<code>StlcArith.subst (x : String) (s t : Tm) : Tm</code>",
- "1488": "<code>StlcArith.delabTm : Delab</code>",
- "1487": "<code>StlcArith.delabTy : Delab</code>",
- "1486":
+ "1489":
  "<code>StlcArith.delabTmInner : DelabM (TSyntax `stlcTm)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTm` concrete syntax from a `Tm` value. </code>",
- "1485":
+ "1488":
  "<code>StlcArith.delabTyInner : DelabM (TSyntax `stlcTy)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTy` concrete syntax from a `Ty` value. </code>",
- "1484":
+ "1487":
  "<code>StlcArith.isPlainTmVarName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? </code>",
- "1483":
+ "1486":
  "<code><span class=\"literal string\">\"`pred` must be applied to an argument\"</span> : String</code>",
- "1482":
+ "1485":
  "<code><span class=\"literal string\">\"`succ` must be applied to an argument\"</span> : String</code>",
- "1481":
+ "1484":
  "<code><span class=\"literal string\">\"`Nat` is a type, not a term\"</span> : String</code>",
- "1480": "<code><span class=\"literal string\">\"if0 \"</span> : String</code>",
+ "1483": "<code><span class=\"literal string\">\"if0 \"</span> : String</code>",
+ "1482": "<code><span class=\"literal string\">\" * \"</span> : String</code>",
+ "1481": "<code>Stlc.Tm.ite (c t e : Stlc.Tm) : Stlc.Tm</code>",
+ "1480": "<code>StlcArith.Tm.ite0 (c t e : StlcArith.Tm) : StlcArith.Tm</code>",
  "148": "<code>EvalR b bv</code>",
- "1479": "<code><span class=\"literal string\">\" * \"</span> : String</code>",
- "1478": "<code>Stlc.Tm.ite (c t e : Stlc.Tm) : Stlc.Tm</code>",
- "1477": "<code>StlcArith.Tm.ite0 (c t e : StlcArith.Tm) : StlcArith.Tm</code>",
- "1476":
+ "1479":
  "<code>StlcArith.Ty.arrow (T₁ T₂ : StlcArith.Ty) : StlcArith.Ty</code>",
- "1475": "<code>StlcArith.Tm.ite0 (c t e : Tm) : Tm</code>",
- "1474": "<code>StlcArith.Tm.mult (t₁ t₂ : Tm) : Tm</code>",
- "1473": "<code>StlcArith.Tm.pred (t : Tm) : Tm</code>",
- "1472": "<code>StlcArith.Tm.succ (t : Tm) : Tm</code>",
- "1471": "<code>StlcArith.Tm.const (n : Nat) : Tm</code>",
- "1470": "<code>StlcArith.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
+ "1478": "<code>StlcArith.Tm.ite0 (c t e : Tm) : Tm</code>",
+ "1477": "<code>StlcArith.Tm.mult (t₁ t₂ : Tm) : Tm</code>",
+ "1476": "<code>StlcArith.Tm.pred (t : Tm) : Tm</code>",
+ "1475": "<code>StlcArith.Tm.succ (t : Tm) : Tm</code>",
+ "1474": "<code>StlcArith.Tm.const (n : Nat) : Tm</code>",
+ "1473": "<code>StlcArith.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
+ "1472": "<code>StlcArith.Tm.app (t₁ t₂ : Tm) : Tm</code>",
+ "1471": "<code>StlcArith.Tm.var (x : String) : Tm</code>",
+ "1470": "<code>StlcArith.Tm : Type</code>",
  "147":
  "<code>Slang.Bexp.EvalR.not {b : Bexp} {bv : Bool} (h : b.EvalR bv) : b.not.EvalR !bv</code>",
- "1469": "<code>StlcArith.Tm.app (t₁ t₂ : Tm) : Tm</code>",
- "1468": "<code>StlcArith.Tm.var (x : String) : Tm</code>",
- "1467": "<code>StlcArith.Tm : Type</code>",
- "1466": "<code>StlcArith.Ty.nat : Ty</code>",
- "1465": "<code>StlcArith.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
- "1464": "<code>StlcArith.Ty : Type</code>",
- "1463": "<code>z ∈ᶠ t₃</code>",
- "1462":
+ "1469": "<code>StlcArith.Ty.nat : Ty</code>",
+ "1468": "<code>StlcArith.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
+ "1467": "<code>StlcArith.Ty : Type</code>",
+ "1466": "<code>z ∈ᶠ t₃</code>",
+ "1465":
  "<code>∀ (x : String), x ∈ᶠ &lt;{ if t₁ then t₂ else t₃ }&gt; → Γ✝[x] = Γ'[x]</code>",
- "1461": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃) ⦂ ~(T₁✝) }&gt;</code>",
- "1460": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(T₁✝) }&gt;</code>",
+ "1464": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃) ⦂ ~(T₁✝) }&gt;</code>",
+ "1463": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(T₁✝) }&gt;</code>",
+ "1462": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ Bool }&gt;</code>",
+ "1461":
+ "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₃ → Γ✝[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₃) ⦂ ~(T₁✝) }&gt;</code>",
+ "1460":
+ "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₂ → Γ✝[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₂) ⦂ ~(T₁✝) }&gt;</code>",
  "146":
  "<code>Slang.Bexp.EvalR.gt {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : (gt a₁ a₂).EvalR (decide (n₁ &gt; n₂))</code>",
- "1459": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ Bool }&gt;</code>",
- "1458":
- "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₃ → Γ✝[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₃) ⦂ ~(T₁✝) }&gt;</code>",
- "1457":
- "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₂ → Γ✝[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₂) ⦂ ~(T₁✝) }&gt;</code>",
- "1456":
+ "1459":
  "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₁ → Γ✝[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₁) ⦂ Bool }&gt;</code>",
- "1455": "<code>∀ (x : String), x ∈ᶠ &lt;{ false }&gt; → Γ✝[x] = Γ'[x]</code>",
- "1454": "<code>∀ (x : String), x ∈ᶠ &lt;{ true }&gt; → Γ✝[x] = Γ'[x]</code>",
- "1453": "<code>z ∈ᶠ t₂</code>",
- "1452": "<code>z ∈ᶠ t₁</code>",
- "1451": "<code>∀ (x : String), x ∈ᶠ &lt;{ t₁ t₂ }&gt; → Γ✝[x] = Γ'[x]</code>",
- "1450": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(T₂✝) }&gt;</code>",
+ "1458": "<code>∀ (x : String), x ∈ᶠ &lt;{ false }&gt; → Γ✝[x] = Γ'[x]</code>",
+ "1457": "<code>∀ (x : String), x ∈ᶠ &lt;{ true }&gt; → Γ✝[x] = Γ'[x]</code>",
+ "1456": "<code>z ∈ᶠ t₂</code>",
+ "1455": "<code>z ∈ᶠ t₁</code>",
+ "1454": "<code>∀ (x : String), x ∈ᶠ &lt;{ t₁ t₂ }&gt; → Γ✝[x] = Γ'[x]</code>",
+ "1453": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(T₂✝) }&gt;</code>",
+ "1452": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1451":
+ "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₂ → Γ✝[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₂) ⦂ ~(T₂✝) }&gt;</code>",
+ "1450":
+ "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₁ → Γ✝[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₁) ⦂ T₂✝ → T₁✝ }&gt;</code>",
  "145":
  "<code>Slang.Bexp.EvalR.le {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : (le a₁ a₂).EvalR (decide (n₁ ≤ n₂))</code>",
- "1449": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1448":
- "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₂ → Γ✝[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₂) ⦂ ~(T₂✝) }&gt;</code>",
- "1447":
- "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₁ → Γ✝[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₁) ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1446": "<code>y ∈ᶠ t₁✝</code>",
- "1445": "<code>¬y = z</code>",
- "1444": "<code>y = z</code>",
- "1443": "<code>z ∈ᶠ t₁✝</code>",
- "1442":
+ "1449": "<code>y ∈ᶠ t₁✝</code>",
+ "1448": "<code>¬y = z</code>",
+ "1447": "<code>y = z</code>",
+ "1446": "<code>z ∈ᶠ t₁✝</code>",
+ "1445":
  "<code>∀ (x : String), x ∈ᶠ &lt;{ λ ~y : T₂✝ . t₁✝ }&gt; → Γ✝[x] = Γ'[x]</code>",
- "1441":
+ "1444":
  "<code>∀ (Γ' : Context), (∀ (x : String), x ∈ᶠ t₁✝ → (y →ₚ T₂✝ ; Γ✝)[x] = Γ'[x]) → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1440":
+ "1443":
  "<code>∀ (x_1 : String), x_1 ∈ᶠ Stlc.Tm.var x → Γ✝[x_1] = Γ'[x_1]</code>",
+ "1442": "<code>∀ (x : String), x ∈ᶠ t → Γ[x] = Γ'[x]</code>",
+ "1441":
+ "<code>Stlc.context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty) (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;)\n  (hf : ∀ (x : String), x ∈ᶠ t → Γ[x] = Γ'[x]) : &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1440": "<code>none = some T'</code>",
  "144":
  "<code>Slang.Bexp.EvalR.neq {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : (neq a₁ a₂).EvalR (n₁ != n₂)</code>",
- "1439": "<code>∀ (x : String), x ∈ᶠ t → Γ[x] = Γ'[x]</code>",
+ "1439": "<code>∅[x] = some T'</code>",
  "1438":
- "<code>Stlc.context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty) (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;)\n  (hf : ∀ (x : String), x ∈ᶠ t → Γ[x] = Γ'[x]) : &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "1437": "<code>none = some T'</code>",
- "1436": "<code>∅[x] = some T'</code>",
- "1435":
  "<code>Stlc.typable_empty_closed (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.Closed</code>",
- "1434": "<code>x ∈ᶠ t₃✝</code>",
- "1433":
+ "1437": "<code>x ∈ᶠ t₃✝</code>",
+ "1436":
  "<code>∀ (T : Ty) (Γ : Context), &lt;{ ~(Γ) ⊢ ~(t₃✝) ⦂ ~(T) }&gt; → ∃ T', Γ[x] = some T'</code>",
- "1432":
+ "1435":
  "<code>Stlc.AppearsFreeIn.ite3 {x : String} (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₃) : x ∈ᶠ &lt;{ if t₁ then t₂ else t₃ }&gt;</code>",
- "1431":
+ "1434":
  "<code>Stlc.AppearsFreeIn.ite2 {x : String} (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₂) : x ∈ᶠ &lt;{ if t₁ then t₂ else t₃ }&gt;</code>",
- "1430": "<code>&lt;{ ~(Γ) ⊢ ~(t₃✝) ⦂ ~(T) }&gt;</code>",
+ "1433": "<code>&lt;{ ~(Γ) ⊢ ~(t₃✝) ⦂ ~(T) }&gt;</code>",
+ "1432": "<code>&lt;{ ~(Γ) ⊢ ~(t₂✝) ⦂ ~(T) }&gt;</code>",
+ "1431": "<code>&lt;{ ~(Γ) ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
+ "1430": "<code>&lt;{ ~(Γ) ⊢ if t₁✝ then t₂✝ else t₃✝ ⦂ ~(T) }&gt;</code>",
  "143": "<code>a₂ ⇓ n₂</code>",
- "1429": "<code>&lt;{ ~(Γ) ⊢ ~(t₂✝) ⦂ ~(T) }&gt;</code>",
- "1428": "<code>&lt;{ ~(Γ) ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
- "1427": "<code>&lt;{ ~(Γ) ⊢ if t₁✝ then t₂✝ else t₃✝ ⦂ ~(T) }&gt;</code>",
- "1426":
+ "1429":
  "<code>Stlc.AppearsFreeIn.ite1 {x : String} (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₁) : x ∈ᶠ &lt;{ if t₁ then t₂ else t₃ }&gt;</code>",
- "1425": "<code>Γ[x] = some T'</code>",
- "1424": "<code>(y →ₚ T₁✝¹ ; Γ)[x] = some T'</code>",
- "1423": "<code>&lt;{ ~(y →ₚ T₁✝¹ ; Γ) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1422": "<code>&lt;{ ~(Γ) ⊢ λ ~y : T₁✝ . t₁✝ ⦂ ~(T) }&gt;</code>",
- "1421":
+ "1428": "<code>Γ[x] = some T'</code>",
+ "1427": "<code>(y →ₚ T₁✝¹ ; Γ)[x] = some T'</code>",
+ "1426": "<code>&lt;{ ~(y →ₚ T₁✝¹ ; Γ) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1425": "<code>&lt;{ ~(Γ) ⊢ λ ~y : T₁✝ . t₁✝ ⦂ ~(T) }&gt;</code>",
+ "1424":
  "<code>Stlc.AppearsFreeIn.abs {x : String} (y : String) (T₁ : Ty) (t₁ : Tm) (hne : y ≠ x) (h : x ∈ᶠ t₁) :\n  x ∈ᶠ &lt;{ λ ~y : T₁ . t₁ }&gt;</code>",
- "1420": "<code>x ∈ᶠ t₂✝</code>",
- "142": "<code>a₁ ⇓ n₁</code>",
- "1419":
+ "1423": "<code>x ∈ᶠ t₂✝</code>",
+ "1422":
  "<code>∀ (T : Ty) (Γ : Context), &lt;{ ~(Γ) ⊢ ~(t₂✝) ⦂ ~(T) }&gt; → ∃ T', Γ[x] = some T'</code>",
- "1418":
+ "1421":
  "<code>Stlc.AppearsFreeIn.app2 {x : String} (t₁ t₂ : Tm) (h : x ∈ᶠ t₂) : x ∈ᶠ &lt;{ t₁ t₂ }&gt;</code>",
- "1417": "<code>&lt;{ ~(Γ) ⊢ ~(t₁✝) ⦂ T₂✝ → T }&gt;</code>",
- "1416": "<code>&lt;{ ~(Γ) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
- "1415": "<code>&lt;{ ~(Γ) ⊢ t₁✝ t₂✝ ⦂ ~(T) }&gt;</code>",
- "1414": "<code>x ∈ᶠ t₁✝</code>",
- "1413":
+ "1420": "<code>&lt;{ ~(Γ) ⊢ ~(t₁✝) ⦂ T₂✝ → T }&gt;</code>",
+ "142": "<code>a₁ ⇓ n₁</code>",
+ "1419": "<code>&lt;{ ~(Γ) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
+ "1418": "<code>&lt;{ ~(Γ) ⊢ t₁✝ t₂✝ ⦂ ~(T) }&gt;</code>",
+ "1417": "<code>x ∈ᶠ t₁✝</code>",
+ "1416":
  "<code>∀ (T : Ty) (Γ : Context), &lt;{ ~(Γ) ⊢ ~(t₁✝) ⦂ ~(T) }&gt; → ∃ T', Γ[x] = some T'</code>",
- "1412":
+ "1415":
  "<code>Stlc.AppearsFreeIn.app1 {x : String} (t₁ t₂ : Tm) (h : x ∈ᶠ t₁) : x ∈ᶠ &lt;{ t₁ t₂ }&gt;</code>",
- "1411": "<code>Γ[x] = some T</code>",
- "1410": "<code>&lt;{ ~(Γ) ⊢ ~(Stlc.Tm.var x) ⦂ ~(T) }&gt;</code>",
+ "1414": "<code>Γ[x] = some T</code>",
+ "1413": "<code>&lt;{ ~(Γ) ⊢ ~(Stlc.Tm.var x) ⦂ ~(T) }&gt;</code>",
+ "1412":
+ "<code>Stlc.AppearsFreeIn.var {x : String} : x ∈ᶠ Stlc.Tm.var x</code>",
+ "1411": "<code>x ∈ᶠ t</code>",
+ "1410":
+ "<code>Stlc.free_in_context (x : String) (t : Tm) (T : Ty) (Γ : Context) (ha : x ∈ᶠ t) (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) :\n  ∃ T', Γ[x] = some T'</code>",
  "141":
  "<code>Slang.Bexp.EvalR.eq {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : (eq a₁ a₂).EvalR (n₁ == n₂)</code>",
- "1409":
- "<code>Stlc.AppearsFreeIn.var {x : String} : x ∈ᶠ Stlc.Tm.var x</code>",
- "1408": "<code>x ∈ᶠ t</code>",
+ "1409": "<code>Stlc.Tm.Closed (t : Tm) : Prop</code>",
+ "1408": "<code>AppearsFreeIn x t₃</code>",
  "1407":
- "<code>Stlc.free_in_context (x : String) (t : Tm) (T : Ty) (Γ : Context) (ha : x ∈ᶠ t) (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) :\n  ∃ T', Γ[x] = some T'</code>",
- "1406": "<code>Stlc.Tm.Closed (t : Tm) : Prop</code>",
- "1405": "<code>AppearsFreeIn x t₃</code>",
- "1404":
  "<code>Stlc.AppearsFreeIn.ite3 {x : String} (t₁ t₂ t₃ : Tm) (h : AppearsFreeIn x t₃) :\n  AppearsFreeIn x &lt;{ if t₁ then t₂ else t₃ }&gt;</code>",
- "1403":
+ "1406":
  "<code>Stlc.AppearsFreeIn.ite2 {x : String} (t₁ t₂ t₃ : Tm) (h : AppearsFreeIn x t₂) :\n  AppearsFreeIn x &lt;{ if t₁ then t₂ else t₃ }&gt;</code>",
- "1402":
+ "1405":
  "<code>Stlc.AppearsFreeIn.ite1 {x : String} (t₁ t₂ t₃ : Tm) (h : AppearsFreeIn x t₁) :\n  AppearsFreeIn x &lt;{ if t₁ then t₂ else t₃ }&gt;</code>",
- "1401": "<code>y ≠ x</code>",
- "1400":
+ "1404": "<code>y ≠ x</code>",
+ "1403":
  "<code>Stlc.AppearsFreeIn.abs {x : String} (y : String) (T₁ : Ty) (t₁ : Tm) (hne : y ≠ x) (h : AppearsFreeIn x t₁) :\n  AppearsFreeIn x &lt;{ λ ~y : T₁ . t₁ }&gt;</code>",
+ "1402": "<code>AppearsFreeIn x t₂</code>",
+ "1401":
+ "<code>Stlc.AppearsFreeIn.app2 {x : String} (t₁ t₂ : Tm) (h : AppearsFreeIn x t₂) : AppearsFreeIn x &lt;{ t₁ t₂ }&gt;</code>",
+ "1400": "<code>AppearsFreeIn x t₁</code>",
  "140": "<code>Slang.Bexp.EvalR.bool (b : Bool) : (bool b).EvalR b</code>",
  "14": "<code>Slang.Bexp.eq (a₁ a₂ : Aexp) : Bexp</code>",
- "1399": "<code>AppearsFreeIn x t₂</code>",
- "1398":
- "<code>Stlc.AppearsFreeIn.app2 {x : String} (t₁ t₂ : Tm) (h : AppearsFreeIn x t₂) : AppearsFreeIn x &lt;{ t₁ t₂ }&gt;</code>",
- "1397": "<code>AppearsFreeIn x t₁</code>",
- "1396":
+ "1399":
  "<code>Stlc.AppearsFreeIn.app1 {x : String} (t₁ t₂ : Tm) (h : AppearsFreeIn x t₁) : AppearsFreeIn x &lt;{ t₁ t₂ }&gt;</code>",
- "1395":
+ "1398":
  "<code>Stlc.AppearsFreeIn.var {x : String} : AppearsFreeIn x (Stlc.Tm.var x)</code>",
- "1394": "<code>Stlc.AppearsFreeIn (x : String) : Tm → Prop</code>",
- "1393": "<code><span class=\"literal string\">\" ∈ᶠ \"</span> : String</code>",
- "1392":
+ "1397": "<code>Stlc.AppearsFreeIn (x : String) : Tm → Prop</code>",
+ "1396": "<code><span class=\"literal string\">\" ∈ᶠ \"</span> : String</code>",
+ "1395":
  "<code class=\"docstring\">`infix:prec \"op\" =&gt; f` is equivalent to `notation:prec x:prec1 \"op\" y:prec1 =&gt; f x y`, where `prec1 := prec + 1`.\n</code>",
- "1391": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃✝) ⦂ ~(T') }&gt;</code>",
- "1390": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T') }&gt;</code>",
- "139": "<code>Slang.Bexp.EvalR : Bexp → Bool → Prop</code>",
- "1389": "<code>&lt;{ ~(Γ✝) ⊢ if t₁✝ then t₂✝ else t₃✝ ⦂ ~(T') }&gt;</code>",
- "1388":
+ "1394": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃✝) ⦂ ~(T') }&gt;</code>",
+ "1393": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T') }&gt;</code>",
+ "1392": "<code>&lt;{ ~(Γ✝) ⊢ if t₁✝ then t₂✝ else t₃✝ ⦂ ~(T') }&gt;</code>",
+ "1391":
  "<code>∀ (T' : Ty), &lt;{ ~(Γ✝) ⊢ ~(t₃✝) ⦂ ~(T') }&gt; → T₁✝ = T'</code>",
- "1387":
+ "1390":
  "<code>∀ (T' : Ty), &lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ ~(T') }&gt; → &lt;{ Bool }&gt; = T'</code>",
- "1386":
+ "139": "<code>Slang.Bexp.EvalR : Bexp → Bool → Prop</code>",
+ "1389":
  "<code>∀ (T' : Ty), &lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T') }&gt; → T₁✝ = T'</code>",
- "1385": "<code>&lt;{ ~(Γ✝) ⊢ false ⦂ ~(T') }&gt;</code>",
- "1384": "<code>&lt;{ ~(Γ✝) ⊢ true ⦂ ~(T') }&gt;</code>",
- "1383":
+ "1388": "<code>&lt;{ ~(Γ✝) ⊢ false ⦂ ~(T') }&gt;</code>",
+ "1387": "<code>&lt;{ ~(Γ✝) ⊢ true ⦂ ~(T') }&gt;</code>",
+ "1386":
  "<code>And.right {a b : Prop} (self : a ∧ b) : b</code><span class=\"sep\"></span><code class=\"docstring\">Extract the right conjunct from a conjunction. `h : a ∧ b` then\n`h.right`, also notated as `h.2`, is a proof of `b`. </code>",
- "1382":
+ "1385":
  "<code>Stlc.Ty.arrow.inj {T₁ T₂ T₁✝ T₂✝ : Ty} : &lt;{ T₁ → T₂ }&gt; = &lt;{ T₁✝ → T₂✝ }&gt; → T₁ = T₁✝ ∧ T₂ = T₂✝</code>",
- "1381": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T' }&gt;</code>",
- "1380":
+ "1384": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T' }&gt;</code>",
+ "1383":
  "<code>∀ (T' : Ty), &lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T') }&gt; → T₂✝¹ = T'</code>",
+ "1382":
+ "<code>∀ (T' : Ty), &lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ ~(T') }&gt; → &lt;{ T₂✝¹ → T₁✝ }&gt; = T'</code>",
+ "1381": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝¹) }&gt;</code>",
+ "1380": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝¹ → T₁✝ }&gt;</code>",
  "138":
  "<code class=\"docstring\">Makes names from other namespaces visible without writing the namespace prefix.\n\nNames that are made available with `open` are visible within the current `section` or `namespace`\nblock. This makes referring to (type) definitions and theorems easier, but note that it can also\nmake [scoped instances], notations, and attributes from a different namespace available.\n\nThe `open` command can be used in a few different ways:\n\n* `open Some.Namespace.Path1 Some.Namespace.Path2` makes all non-protected names in\n  `Some.Namespace.Path1` and `Some.Namespace.Path2` available without the prefix, so that\n  `Some.Namespace.Path1.x` and `Some.Namespace.Path2.y` can be referred to by writing only `x` and\n  `y`.\n\n* `open Some.Namespace.Path hiding def1 def2` opens all non-protected names in `Some.Namespace.Path`\n  except `def1` and `def2`.\n\n* `open Some.Namespace.Path (def1 def2)` only makes `Some.Namespace.Path.def1` and\n  `Some.Namespace.Path.def2` available without the full prefix, so `Some.Namespace.Path.def3` would\n  be unaffected.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open Some.Namespace.Path renaming def1 → def1', def2 → def2'` same as `open Some.Namespace.Path\n  (def1 def2)` but `def1`/`def2`'s names are changed to `def1'`/`def2'`.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open scoped Some.Namespace.Path1 Some.Namespace.Path2` **only** opens [scoped instances],\n  notations, and attributes from `Namespace1` and `Namespace2`; it does **not** make any other name\n  available.\n\n* `open &lt;any of the open shapes above&gt; in` makes the names `open`-ed visible only in the next\n  command or expression.\n\n[scoped instance]: https://lean-lang.org/theorem_proving_in_lean4/type_classes.html#scoped-instances\n(Scoped instances in Theorem Proving in Lean)\n\n\n## Examples\n\n```lean\n/-- SKI combinators https://en.wikipedia.org/wiki/SKI_combinator_calculus -/\nnamespace Combinator.Calculus\n  def I (a : α) : α := a\n  def K (a : α) : β → α := fun _ =&gt; a\n  def S (x : α → β → γ) (y : α → β) (z : α) : γ := x z (y z)\nend Combinator.Calculus\n\nsection\n  -- open everything under `Combinator.Calculus`, *i.e.* `I`, `K` and `S`,\n  -- until the section ends\n  open Combinator.Calculus\n\n  theorem SKx_eq_K : S K x = I := rfl\nend\n\n-- open everything under `Combinator.Calculus` only for the next command (the next `theorem`, here)\nopen Combinator.Calculus in\ntheorem SKx_eq_K' : S K x = I := rfl\n\nsection\n  -- open only `S` and `K` under `Combinator.Calculus`\n  open Combinator.Calculus (S K)\n\n  theorem SKxy_eq_y : S K x y = y := rfl\n\n  -- `I` is not in scope, we have to use its full path\n  theorem SKxy_eq_Iy : S K x y = Combinator.Calculus.I y := rfl\nend\n\nsection\n  open Combinator.Calculus\n    renaming\n      I → identity,\n      K → konstant\n\n  #check identity\n  #check konstant\nend\n\nsection\n  open Combinator.Calculus\n    hiding S\n\n  #check I\n  #check K\nend\n\nsection\n  namespace Demo\n    inductive MyType\n    | val\n\n    namespace N1\n      scoped infix:68 \" ≋ \" =&gt; BEq.beq\n\n      scoped instance : BEq MyType where\n        beq _ _ := true\n\n      def Alias := MyType\n    end N1\n  end Demo\n\n  -- bring `≋` and the instance in scope, but not `Alias`\n  open scoped Demo.N1\n\n  #check Demo.MyType.val == Demo.MyType.val\n  #check Demo.MyType.val ≋ Demo.MyType.val\n  -- #check Alias -- unknown identifier 'Alias'\nend\n```\n</code>",
- "1379":
- "<code>∀ (T' : Ty), &lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ ~(T') }&gt; → &lt;{ T₂✝¹ → T₁✝ }&gt; = T'</code>",
- "1378": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝¹) }&gt;</code>",
- "1377": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝¹ → T₁✝ }&gt;</code>",
- "1376": "<code>&lt;{ ~(Γ✝) ⊢ t₁✝ t₂✝ ⦂ ~(T') }&gt;</code>",
- "1375":
+ "1379": "<code>&lt;{ ~(Γ✝) ⊢ t₁✝ t₂✝ ⦂ ~(T') }&gt;</code>",
+ "1378":
  "<code>∀ (T' : Ty), &lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T') }&gt; → T₂✝ = T'</code>",
- "1374":
+ "1377":
  "<code>∀ (T' : Ty), &lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ ~(T') }&gt; → &lt;{ T₂✝ → T₁✝ }&gt; = T'</code>",
- "1373":
+ "1376":
  "<code>∀ (T' : Ty), &lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T') }&gt; → T₁✝¹ = T'</code>",
- "1372": "<code>&lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝¹) }&gt;</code>",
- "1371": "<code>&lt;{ ~(Γ✝) ⊢ λ ~x✝ : T₂✝ . t₁✝ ⦂ ~(T') }&gt;</code>",
- "1370":
+ "1375": "<code>&lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝¹) }&gt;</code>",
+ "1374": "<code>&lt;{ ~(Γ✝) ⊢ λ ~x✝ : T₂✝ . t₁✝ ⦂ ~(T') }&gt;</code>",
+ "1373":
  "<code>∀ (T' : Ty), &lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T') }&gt; → T₁✝ = T'</code>",
+ "1372": "<code>Γ✝[x✝] = some T'</code>",
+ "1371": "<code>&lt;{ ~(Γ✝) ⊢ ~(Stlc.Tm.var x✝) ⦂ ~(T') }&gt;</code>",
+ "1370": "<code>&lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T') }&gt;</code>",
  "137":
  "<code class=\"docstring\">`assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.\nNote also the `‹t›` term notation, which is a shorthand for `show t by assumption`.\n</code>",
- "1369": "<code>Γ✝[x✝] = some T'</code>",
- "1368": "<code>&lt;{ ~(Γ✝) ⊢ ~(Stlc.Tm.var x✝) ⦂ ~(T') }&gt;</code>",
- "1367": "<code>&lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T') }&gt;</code>",
- "1366": "<code>&lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T) }&gt;</code>",
- "1365":
+ "1369": "<code>&lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T) }&gt;</code>",
+ "1368":
  "<code>Stlc.unique_types (Γ : Context) (e : Tm) (T T' : Ty) (h : &lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T) }&gt;) (h' : &lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T') }&gt;) :\n  T = T'</code>",
- "1364": "<code>¬z.IsValue</code>",
- "1363": "<code>IsNormalForm Step z</code>",
- "1362": "<code>w ⟶* z</code>",
- "1361":
+ "1367": "<code>¬z.IsValue</code>",
+ "1366": "<code>IsNormalForm Step z</code>",
+ "1365": "<code>w ⟶* z</code>",
+ "1364":
  "<code>&lt;{ ∅ ⊢ ~(w) ⦂ ~(T) }&gt; → IsNormalForm Step z → ¬z.IsValue → False</code>",
- "1360": "<code>u ⟶ w</code>",
+ "1363": "<code>u ⟶ w</code>",
+ "1362": "<code>∃ t', u ⟶ t'</code>",
+ "1361": "<code>u.IsValue</code>",
+ "1360": "<code>¬u.IsValue</code>",
  "136": "<code>a₂✝ ⇓ a₂✝.eval</code>",
- "1359": "<code>∃ t', u ⟶ t'</code>",
- "1358": "<code>u.IsValue</code>",
- "1357": "<code>¬u.IsValue</code>",
- "1356": "<code>IsNormalForm Step u</code>",
- "1355": "<code>&lt;{ ∅ ⊢ ~(u) ⦂ ~(T) }&gt;</code>",
- "1354": "<code>¬t'.IsValue</code>",
- "1353": "<code>t'.IsStuck</code>",
- "1352":
+ "1359": "<code>IsNormalForm Step u</code>",
+ "1358": "<code>&lt;{ ∅ ⊢ ~(u) ⦂ ~(T) }&gt;</code>",
+ "1357": "<code>¬t'.IsValue</code>",
+ "1356": "<code>t'.IsStuck</code>",
+ "1355":
  "<code>Stlc.type_soundness (t t' : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) (hm : t ⟶* t') : ¬t'.IsStuck</code>",
- "1351": "<code>Stlc.Tm.IsStuck (t : Tm) : Prop</code>",
- "1350": "<code>&lt;{ x ↦ Bool → Bool ; ∅ ⊢ true ⦂ Bool }&gt;</code>",
- "135": "<code>a₁✝ ⇓ a₁✝.eval</code>",
- "1349": "<code>&lt;{ ∅ ⊢ true ⦂ Bool → Bool }&gt;</code>",
- "1348": "<code>&lt;{ ∅ ⊢ λ x : Bool → Bool . true ⦂ T → Bool }&gt;</code>",
- "1347":
+ "1354": "<code>Stlc.Tm.IsStuck (t : Tm) : Prop</code>",
+ "1353": "<code>&lt;{ x ↦ Bool → Bool ; ∅ ⊢ true ⦂ Bool }&gt;</code>",
+ "1352": "<code>&lt;{ ∅ ⊢ true ⦂ Bool → Bool }&gt;</code>",
+ "1351": "<code>&lt;{ ∅ ⊢ λ x : Bool → Bool . true ⦂ T → Bool }&gt;</code>",
+ "1350":
  "<code class=\"docstring\">`inversion h` behaves like `cases h` except that where `cases` would fail with\n&gt; \"Dependent elimination failed: Failed to solve equation ...\",\n\n`inversion` instead leaves behind those unsolveable equations in the context.\nThese equations arise from generalizing the indices of `h`'s type.\nIn such cases, `h` itself is generalized with a heterogenenous equality `heq`\nto the corresponding constructor in each branch.\n\nFor instance, given a hypothesis `h : f n ≤ 0`,\n`inversion h` will produce one goal for the case `Nat.le.refl {n} : n ≤ n`\nwith the equations `eq : f n = 0` and `heq : h ≍ Nat.le.refl`,\nrather than failing to solve `f n = 0`.\n\n* If `inversion +clear h` is set, then `heq` will be `clear`ed from the context if present,\n  along with `h` if there are no dependencies on it.\n  This is the usual behavior of `cases`.\n* The form `inversion t with (tac ...) | tag₁ x ... =&gt; tac ... | ... | tagₙ z ... =&gt; tac ...`\n  is supported, similar to that of `cases` and `induction`.\n</code>",
- "1346": "<code>&lt;{ ∅ ⊢ (λ x : Bool → Bool . true) true ⦂ Bool }&gt;</code>",
- "1345":
+ "135": "<code>a₁✝ ⇓ a₁✝.eval</code>",
+ "1349": "<code>&lt;{ ∅ ⊢ (λ x : Bool → Bool . true) true ⦂ Bool }&gt;</code>",
+ "1348":
  "<code>Stlc.not_subject_expansion : ∃ t t' T, t ⟶ t' ∧ &lt;{ ∅ ⊢ ~(t') ⦂ ~(T) }&gt; ∧ ¬&lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "1344":
+ "1347":
  "<code>∀ (t' : Tm), &lt;{ false }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Bool }&gt;</code>",
- "1343":
+ "1346":
  "<code>∀ (t' : Tm), &lt;{ true }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Bool }&gt;</code>",
- "1342":
+ "1345":
  "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(T₁) }&gt;</code>",
- "1341":
+ "1344":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(T₁) }&gt;</code>",
- "1340":
+ "1343":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Bool }&gt;</code>",
+ "1342": "<code>&lt;{ ∅ ⊢ ~(t₃) ⦂ ~(T₁) }&gt;</code>",
+ "1341": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₁) }&gt;</code>",
+ "1340":
+ "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₁) }&gt;</code>",
  "134":
  "<code>Slang.Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
- "1339": "<code>&lt;{ ∅ ⊢ ~(t₃) ⦂ ~(T₁) }&gt;</code>",
- "1338": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₁) }&gt;</code>",
- "1337":
- "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₁) }&gt;</code>",
- "1336":
+ "1339":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₁) }&gt;</code>",
- "1335":
+ "1338":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ Bool }&gt;</code>",
- "1334": "<code>t₂✝ ⟶ t₂'</code>",
- "1333": "<code>&lt;{ ~(x✝ →ₚ T₂) ⊢ ~(t✝) ⦂ ~(T₁) }&gt;</code>",
- "1332":
+ "1337": "<code>t₂✝ ⟶ t₂'</code>",
+ "1336": "<code>&lt;{ ~(x✝ →ₚ T₂) ⊢ ~(t✝) ⦂ ~(T₁) }&gt;</code>",
+ "1335":
  "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : T₂ . t✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ T₂ → T₁ }&gt;</code>",
- "1331":
+ "1334":
  "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : T✝ . t✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ T₂ → T₁ }&gt;</code>",
- "1330": "<code>&lt;{ ∅ ⊢ λ ~x✝ : T✝ . t✝ ⦂ T₂ → T₁ }&gt;</code>",
- "133": "<code>a₂ ⇓ a₂.eval</code>",
- "1329":
+ "1333": "<code>&lt;{ ∅ ⊢ λ ~x✝ : T✝ . t✝ ⦂ T₂ → T₁ }&gt;</code>",
+ "1332":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(T₂) }&gt;</code>",
- "1328":
+ "1331":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ T₂ → T₁ }&gt;</code>",
- "1327": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;</code>",
- "1326": "<code>&lt;{ t₁ t₂ }&gt; ⟶ t'</code>",
- "1325":
+ "1330": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;</code>",
+ "133": "<code>a₂ ⇓ a₂.eval</code>",
+ "1329": "<code>&lt;{ t₁ t₂ }&gt; ⟶ t'</code>",
+ "1328":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₂) }&gt;</code>",
- "1324":
+ "1327":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ T₂ → T₁ }&gt;</code>",
- "1323": "<code>&lt;{ λ ~x✝ : T₂✝ . t₁✝ }&gt; ⟶ t'</code>",
- "1322":
+ "1326": "<code>&lt;{ λ ~x✝ : T₂✝ . t₁✝ }&gt; ⟶ t'</code>",
+ "1325":
  "<code>∀ (t' : Tm), t₁✝ ⟶ t' → ∅ = x✝ →ₚ T₂✝ ; Γ✝ → &lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t') ⦂ ~(T₁✝) }&gt;</code>",
- "1321": "<code>Stlc.Tm.var x✝ ⟶ t'</code>",
- "1320":
+ "1324": "<code>Stlc.Tm.var x✝ ⟶ t'</code>",
+ "1323":
  "<code>Stlc.preservation (t t' : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ ~(t') ⦂ ~(T) }&gt;</code>",
+ "1322":
+ "<code>∀ (Γ : Context), x →ₚ U ; Γ = Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₃✝ ⦂ ~(T₁✝) }&gt;</code>",
+ "1321":
+ "<code>∀ (Γ : Context), x →ₚ U ; Γ = Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₂✝ ⦂ ~(T₁✝) }&gt;</code>",
+ "1320":
+ "<code>∀ (Γ : Context), x →ₚ U ; Γ = Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₁✝ ⦂ Bool }&gt;</code>",
  "132": "<code>a₁ ⇓ a₁.eval</code>",
  "1319":
- "<code>∀ (Γ : Context), x →ₚ U ; Γ = Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₃✝ ⦂ ~(T₁✝) }&gt;</code>",
- "1318":
- "<code>∀ (Γ : Context), x →ₚ U ; Γ = Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₂✝ ⦂ ~(T₁✝) }&gt;</code>",
- "1317":
- "<code>∀ (Γ : Context), x →ₚ U ; Γ = Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₁✝ ⦂ Bool }&gt;</code>",
- "1316":
  "<code>∀ (Γ : Context), x →ₚ U ; Γ = Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₂✝ ⦂ ~(T₂✝) }&gt;</code>",
- "1315":
+ "1318":
  "<code>∀ (Γ : Context), x →ₚ U ; Γ = Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₁✝ ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1314": "<code>&lt;{ ~(x →ₚ T₂✝ ; Γ) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1313":
+ "1317": "<code>&lt;{ ~(x →ₚ T₂✝ ; Γ) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1316":
  "<code>∀ (Γ_1 : Context), x →ₚ U ; Γ_1 = x →ₚ T₂✝ ; x →ₚ U ; Γ → &lt;{ ~(Γ_1) ⊢ [~x := v] t₁✝ ⦂ ~(T₁✝) }&gt;</code>",
- "1312": "<code>&lt;{ ~(x →ₚ T₂✝ ; x →ₚ U ; Γ) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1311":
+ "1315": "<code>&lt;{ ~(x →ₚ T₂✝ ; x →ₚ U ; Γ) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1314":
  "<code>∀ (Γ_1 : Context), x →ₚ U ; Γ_1 = y →ₚ T₂✝ ; x →ₚ U ; Γ → &lt;{ ~(Γ_1) ⊢ [~x := v] t₁✝ ⦂ ~(T₁✝) }&gt;</code>",
- "1310": "<code>&lt;{ ~(y →ₚ T₂✝ ; x →ₚ U ; Γ) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1313": "<code>&lt;{ ~(y →ₚ T₂✝ ; x →ₚ U ; Γ) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1312":
+ "<code>∀ (Γ : Context), x →ₚ U ; Γ = y →ₚ T₂✝ ; Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₁✝ ⦂ ~(T₁✝) }&gt;</code>",
+ "1311": "<code>&lt;{ ~(y →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1310": "<code>Γ[y] = some T₁</code>",
  "131":
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
- "1309":
- "<code>∀ (Γ : Context), x →ₚ U ; Γ = y →ₚ T₂✝ ; Γ✝ → &lt;{ ~(Γ) ⊢ [~x := v] t₁✝ ⦂ ~(T₁✝) }&gt;</code>",
- "1308": "<code>&lt;{ ~(y →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1307": "<code>Γ[y] = some T₁</code>",
- "1306": "<code>U = T₁</code>",
- "1305": "<code>some U = some T₁</code>",
- "1304": "<code>(x →ₚ U ; Γ)[x] = some T₁</code>",
- "1303": "<code>(x →ₚ U ; Γ)[y] = some T₁</code>",
- "1302": "<code>x →ₚ U ; Γ = Γ✝</code>",
- "1301": "<code>Γ✝[y] = some T₁</code>",
- "1300": "<code>&lt;{ ~(Γ₀) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1309": "<code>U = T₁</code>",
+ "1308": "<code>some U = some T₁</code>",
+ "1307": "<code>(x →ₚ U ; Γ)[x] = some T₁</code>",
+ "1306": "<code>(x →ₚ U ; Γ)[y] = some T₁</code>",
+ "1305": "<code>x →ₚ U ; Γ = Γ✝</code>",
+ "1304": "<code>Γ✝[y] = some T₁</code>",
+ "1303": "<code>&lt;{ ~(Γ₀) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1302": "<code>PartialMap String Ty</code>",
+ "1301": "<code>x →ₚ U ; Γ = Γ₀</code>",
+ "1300":
+ "<code>Stlc.substitution_preserves_typing_from_typing_ind (Γ : Context) (x : String) (U : Ty) (t v : Tm) (T : Ty)\n  (hT : &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;) : &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
  "130": "<code>a.eval = n</code>",
  "13":
  "<code>Bool : Type</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean values, `true` and `false`.\n\nLogically speaking, this is equivalent to `Prop` (the type of propositions). The distinction is\npublic important for programming: both propositions and their proofs are erased in the code generator,\nwhile `Bool` corresponds to the Boolean type in most programming languages and carries precisely one\nbit of run-time information.\n</code>",
- "1299": "<code>PartialMap String Ty</code>",
- "1298": "<code>x →ₚ U ; Γ = Γ₀</code>",
- "1297":
- "<code>Stlc.substitution_preserves_typing_from_typing_ind (Γ : Context) (x : String) (U : Ty) (t v : Tm) (T : Ty)\n  (hT : &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;) : &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
- "1296": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(e) ⦂ ~(T) }&gt;</code>",
- "1295": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(c) ⦂ Bool }&gt;</code>",
- "1294": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ if c then t else e ⦂ ~(T) }&gt;</code>",
- "1293":
+ "1299": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(e) ⦂ ~(T) }&gt;</code>",
+ "1298": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(c) ⦂ Bool }&gt;</code>",
+ "1297": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ if c then t else e ⦂ ~(T) }&gt;</code>",
+ "1296":
  "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(e) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] e ⦂ ~(T) }&gt;</code>",
- "1292":
+ "1295":
  "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
- "1291":
+ "1294":
  "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(c) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] c ⦂ ~(T) }&gt;</code>",
- "1290": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ false ⦂ ~(T) }&gt;</code>",
+ "1293": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ false ⦂ ~(T) }&gt;</code>",
+ "1292": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ true ⦂ ~(T) }&gt;</code>",
+ "1291": "<code>&lt;{ ~(x →ₚ U ; y →ₚ S ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
+ "1290": "<code>Ne.symm.{u} {α : Sort u} {a b : α} (h : a ≠ b) : b ≠ a</code>",
  "129":
  "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.mult a₂ ⇓ n₁ * n₂</code>",
- "1289": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ true ⦂ ~(T) }&gt;</code>",
- "1288": "<code>&lt;{ ~(x →ₚ U ; y →ₚ S ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
- "1287": "<code>Ne.symm.{u} {α : Sort u} {a b : α} (h : a ≠ b) : b ≠ a</code>",
- "1286":
+ "1289":
  "<code>PartialMap.update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α} {b₁ b₂ : β}\n  (h : a₁ ≠ a₂) : a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m = a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m</code>",
- "1285": "<code>&lt;{ ~(x →ₚ S ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
- "1284":
+ "1288": "<code>&lt;{ ~(x →ₚ S ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
+ "1287":
  "<code>PartialMap.update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : PartialMap α β) (a : α) (b₁ b₂ : β) :\n  a →ₚ b₂ ; a →ₚ b₁ ; m = a →ₚ b₂ ; m</code>",
- "1283": "<code>&lt;{ ~(x →ₚ S ; x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
- "1282": "<code>&lt;{ ~(y →ₚ S ; x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
- "1281": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ λ ~y : S . t₁ ⦂ ~(T) }&gt;</code>",
- "1280": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ T₂✝ → T }&gt;</code>",
+ "1286": "<code>&lt;{ ~(x →ₚ S ; x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
+ "1285": "<code>&lt;{ ~(y →ₚ S ; x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
+ "1284": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ λ ~y : S . t₁ ⦂ ~(T) }&gt;</code>",
+ "1283": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ T₂✝ → T }&gt;</code>",
+ "1282": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T₂✝) }&gt;</code>",
+ "1281": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ t₁ t₂ ⦂ ~(T) }&gt;</code>",
+ "1280":
+ "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t₂ ⦂ ~(T) }&gt;</code>",
  "128":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.minus a₂ ⇓ n₁ - n₂</code>",
- "1279": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T₂✝) }&gt;</code>",
- "1278": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ t₁ t₂ ⦂ ~(T) }&gt;</code>",
- "1277":
- "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t₂ ⦂ ~(T) }&gt;</code>",
- "1276":
+ "1279":
  "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t₁ ⦂ ~(T) }&gt;</code>",
- "1275": "<code>Γ[y] = some T</code>",
- "1274":
+ "1278": "<code>Γ[y] = some T</code>",
+ "1277":
  "<code>PartialMap.update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :\n  (a₁ →ₚ b ; m)[a₂] = m[a₂]</code>",
- "1273": "<code>some U = some U</code>",
- "1272": "<code>U = T</code>",
- "1271": "<code>some U = some T</code>",
- "1270":
+ "1276": "<code>some U = some U</code>",
+ "1275": "<code>U = T</code>",
+ "1274": "<code>some U = some T</code>",
+ "1273":
  "<code>PartialMap.update_eq {α β : Type} [BEq α] [ReflBEq α] (m : PartialMap α β) (a : α) (b : β) : (a →ₚ b ; m)[a] = some b</code>",
+ "1272": "<code>(x →ₚ U ; Γ)[x] = some T</code>",
+ "1271": "<code>(x →ₚ U ; Γ)[y] = some T</code>",
+ "1270": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(Stlc.Tm.var y) ⦂ ~(T) }&gt;</code>",
  "127": "<code>a₂✝.eval = n₂✝</code>",
- "1269": "<code>(x →ₚ U ; Γ)[x] = some T</code>",
- "1268": "<code>(x →ₚ U ; Γ)[y] = some T</code>",
- "1267": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(Stlc.Tm.var y) ⦂ ~(T) }&gt;</code>",
- "1266": "<code>&lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;</code>",
- "1265": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "1264":
+ "1269": "<code>&lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;</code>",
+ "1268": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1267":
  "<code>Stlc.substitution_preserves_typing (Γ : Context) (x : String) (U : Ty) (t v : Tm) (T : Ty)\n  (hT : &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;) : &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
- "1263": "<code>none = some b✝</code>",
- "1262": "<code>∅[a✝] = some b✝</code>",
- "1261":
+ "1266": "<code>none = some b✝</code>",
+ "1265": "<code>∅[a✝] = some b✝</code>",
+ "1264":
  "<code>Stlc.weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "1260":
+ "1263":
  "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₃✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1262":
+ "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1261":
+ "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
+ "1260":
+ "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
  "126": "<code>a₁✝.eval = n₁✝</code>",
  "1259":
- "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1258":
- "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
- "1257":
- "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
- "1256":
  "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1255":
+ "1258":
  "<code>PartialMap.update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :\n  a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
- "1254": "<code>&lt;{ ~(x →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1253":
+ "1257": "<code>&lt;{ ~(x →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1256":
  "<code>∀ (Γ' : Context), x →ₚ T₂✝ ; Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1252": "<code>Γ✝ ⊆ Γ'</code>",
- "1251": "<code>Γ✝[x] = some T₁✝</code>",
- "1250":
+ "1255": "<code>Γ✝ ⊆ Γ'</code>",
+ "1254": "<code>Γ✝[x] = some T₁✝</code>",
+ "1253":
  "<code>HasSubset.Subset.{u} {α : Type u} [self : HasSubset α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
- "125": "<code>a₂✝ ⇓ n₂✝</code>",
- "1249": "<code>Γ ⊆ Γ'</code>",
- "1248":
+ "1252": "<code>Γ ⊆ Γ'</code>",
+ "1251":
  "<code>Stlc.weakening (Γ Γ' : Context) (t : Tm) (T : Ty) (hi : Γ ⊆ Γ') (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) :\n  &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "1247":
+ "1250":
  "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : t₁ ⟶ t₁') : &lt;{ if t₁ then t₂ else t₃ }&gt; ⟶ &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
- "1246":
+ "125": "<code>a₂✝ ⇓ n₂✝</code>",
+ "1249":
  "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : &lt;{ if false then t₁ else t₂ }&gt; ⟶ t₂</code>",
- "1245":
+ "1248":
  "<code>∀ (T : Ty), &lt;{ ∅ ⊢ false ⦂ ~(T) }&gt; → &lt;{ false }&gt;.IsValue ∨ ∃ t', &lt;{ false }&gt; ⟶ t'</code>",
- "1244":
+ "1247":
  "<code>∀ (T : Ty), &lt;{ ∅ ⊢ true ⦂ ~(T) }&gt; → &lt;{ true }&gt;.IsValue ∨ ∃ t', &lt;{ true }&gt; ⟶ t'</code>",
- "1243": "<code>&lt;{ ∅ ⊢ ~(t₃) ⦂ ~(T) }&gt;</code>",
- "1242": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T) }&gt;</code>",
- "1241": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ Bool }&gt;</code>",
- "1240": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1246": "<code>&lt;{ ∅ ⊢ ~(t₃) ⦂ ~(T) }&gt;</code>",
+ "1245": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T) }&gt;</code>",
+ "1244": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ Bool }&gt;</code>",
+ "1243": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1242": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1241": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
+ "1240": "<code>&lt;{ ∅ ⊢ if t₁ then t₂ else t₃ ⦂ ~(T) }&gt;</code>",
  "124": "<code>a₁✝ ⇓ n₁✝</code>",
- "1239": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1238": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
- "1237": "<code>&lt;{ ∅ ⊢ if t₁ then t₂ else t₃ ⦂ ~(T) }&gt;</code>",
- "1236":
+ "1239":
  "<code>∀ (T : Ty), &lt;{ ∅ ⊢ ~(t₃) ⦂ ~(T) }&gt; → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
- "1235": "<code>&lt;{ ∅ ⊢ λ ~x : T₂ . u ⦂ T₂ → T }&gt;</code>",
- "1234":
+ "1238": "<code>&lt;{ ∅ ⊢ λ ~x : T₂ . u ⦂ T₂ → T }&gt;</code>",
+ "1237":
  "<code>∀ (T : Ty), &lt;{ ∅ ⊢ λ ~x : T₂ . u ⦂ ~(T) }&gt; → &lt;{ λ ~x : T₂ . u }&gt;.IsValue ∨ ∃ t', &lt;{ λ ~x : T₂ . u }&gt; ⟶ t'</code>",
- "1233": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ T₂ → T }&gt;</code>",
- "1232": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₂) }&gt;</code>",
- "1231": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂) }&gt;</code>",
- "1230": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂ → T₁✝ }&gt;</code>",
+ "1236": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ T₂ → T }&gt;</code>",
+ "1235": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₂) }&gt;</code>",
+ "1234": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂) }&gt;</code>",
+ "1233": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂ → T₁✝ }&gt;</code>",
+ "1232": "<code>&lt;{ ∅ ⊢ t₁ t₂ ⦂ ~(T) }&gt;</code>",
+ "1231":
+ "<code>∀ (T : Ty), &lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T) }&gt; → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "1230": "<code>&lt;{ ∅ ⊢ false ⦂ ~(T) }&gt;</code>",
  "123":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.plus a₂ ⇓ n₁ + n₂</code>",
- "1229": "<code>&lt;{ ∅ ⊢ t₁ t₂ ⦂ ~(T) }&gt;</code>",
- "1228":
- "<code>∀ (T : Ty), &lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T) }&gt; → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "1227": "<code>&lt;{ ∅ ⊢ false ⦂ ~(T) }&gt;</code>",
- "1226": "<code>&lt;{ ∅ ⊢ true ⦂ ~(T) }&gt;</code>",
- "1225": "<code>&lt;{ ∅ ⊢ λ ~x : T₂ . t₁ ⦂ ~(T) }&gt;</code>",
- "1224":
+ "1229": "<code>&lt;{ ∅ ⊢ true ⦂ ~(T) }&gt;</code>",
+ "1228": "<code>&lt;{ ∅ ⊢ λ ~x : T₂ . t₁ ⦂ ~(T) }&gt;</code>",
+ "1227":
  "<code>∀ (T : Ty), &lt;{ ∅ ⊢ ~(t₁) ⦂ ~(T) }&gt; → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "1223": "<code>none = some T</code>",
- "1222": "<code>∅[x] = some T</code>",
- "1221": "<code>&lt;{ ∅ ⊢ ~(Stlc.Tm.var x) ⦂ ~(T) }&gt;</code>",
- "1220":
+ "1226": "<code>none = some T</code>",
+ "1225": "<code>∅[x] = some T</code>",
+ "1224": "<code>&lt;{ ∅ ⊢ ~(Stlc.Tm.var x) ⦂ ~(T) }&gt;</code>",
+ "1223":
  "<code>Stlc.progress' (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
+ "1222":
+ "<code>∅ = Γ → &lt;{ false }&gt;.IsValue ∨ ∃ t', &lt;{ false }&gt; ⟶ t'</code>",
+ "1221": "<code>&lt;{ ~(Γ) ⊢ false ⦂ Bool }&gt;</code>",
+ "1220": "<code>t₁ = &lt;{ false }&gt;</code>",
  "122": "<code>Slang.Aexp.EvalR.num (n : Nat) : num n ⇓ n</code>",
  "1219":
- "<code>∅ = Γ → &lt;{ false }&gt;.IsValue ∨ ∃ t', &lt;{ false }&gt; ⟶ t'</code>",
- "1218": "<code>&lt;{ ~(Γ) ⊢ false ⦂ Bool }&gt;</code>",
- "1217": "<code>t₁ = &lt;{ false }&gt;</code>",
- "1216":
  "<code>∅ = Γ → &lt;{ true }&gt;.IsValue ∨ ∃ t', &lt;{ true }&gt; ⟶ t'</code>",
- "1215": "<code>&lt;{ ~(Γ) ⊢ true ⦂ Bool }&gt;</code>",
- "1214": "<code>t₁ = &lt;{ true }&gt;</code>",
- "1213": "<code>∅ = Γ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
- "1212": "<code>&lt;{ ~(Γ) ⊢ ~(t₃) ⦂ ~(T₁) }&gt;</code>",
- "1211": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₁) }&gt;</code>",
- "1210": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Bool }&gt;</code>",
- "121": "<code>a ⇓ n</code>",
- "1209":
+ "1218": "<code>&lt;{ ~(Γ) ⊢ true ⦂ Bool }&gt;</code>",
+ "1217": "<code>t₁ = &lt;{ true }&gt;</code>",
+ "1216": "<code>∅ = Γ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "1215": "<code>&lt;{ ~(Γ) ⊢ ~(t₃) ⦂ ~(T₁) }&gt;</code>",
+ "1214": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₁) }&gt;</code>",
+ "1213": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Bool }&gt;</code>",
+ "1212":
  "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (T₁ : Ty) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Bool }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₁) }&gt;) (h₃ : &lt;{ ~(Γ) ⊢ ~(t₃) ⦂ ~(T₁) }&gt;) : &lt;{ ~(Γ) ⊢ if t₁ then t₂ else t₃ ⦂ ~(T₁) }&gt;</code>",
- "1208": "<code>&lt;{ λ ~x : T₂ . u }&gt;.IsValue</code>",
- "1207":
+ "1211": "<code>&lt;{ λ ~x : T₂ . u }&gt;.IsValue</code>",
+ "1210":
  "<code>∅ = Γ → &lt;{ λ ~x : T₂ . u }&gt;.IsValue ∨ ∃ t', &lt;{ λ ~x : T₂ . u }&gt; ⟶ t'</code>",
- "1206": "<code>&lt;{ ~(Γ) ⊢ λ ~x : T₂ . u ⦂ T₂ → T₁ }&gt;</code>",
- "1205": "<code>t₁ = &lt;{ λ ~x : T₂ . u }&gt;</code>",
- "1204": "<code>t₂.IsValue</code>",
- "1203": "<code>∅ = Γ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
- "1202": "<code>∅ = Γ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
- "1201": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;</code>",
- "1200": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;</code>",
+ "121": "<code>a ⇓ n</code>",
+ "1209": "<code>&lt;{ ~(Γ) ⊢ λ ~x : T₂ . u ⦂ T₂ → T₁ }&gt;</code>",
+ "1208": "<code>t₁ = &lt;{ λ ~x : T₂ . u }&gt;</code>",
+ "1207": "<code>t₂.IsValue</code>",
+ "1206": "<code>∅ = Γ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "1205": "<code>∅ = Γ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
+ "1204": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;</code>",
+ "1203": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;</code>",
+ "1202":
+ "<code>Stlc.HasType.fls (Γ : Context) : &lt;{ ~(Γ) ⊢ false ⦂ Bool }&gt;</code>",
+ "1201":
+ "<code>Stlc.HasType.tru (Γ : Context) : &lt;{ ~(Γ) ⊢ true ⦂ Bool }&gt;</code>",
+ "1200": "<code>∅ = Γ✝</code>",
  "120":
  "<code class=\"docstring\">Introduces one or more hypotheses, optionally naming and/or pattern-matching them.\nFor each hypothesis to be introduced, the remaining main goal's target type must\nbe a `let` or function type.\n\n* `intro` by itself introduces one anonymous hypothesis, which can be accessed\n  by e.g. `assumption`. It is equivalent to `intro _`.\n* `intro x y` introduces two hypotheses and names them. Individual hypotheses\n  can be anonymized via `_`, given a type ascription, or matched against a pattern:\n  ```lean\n  -- ... ⊢ α × β → ...\n  intro (a, b)\n  -- ..., a : α, b : β ⊢ ...\n  ```\n* `intro rfl` is short for `intro h; subst h`, if `h` is an equality where the left-hand or right-hand side\n  is a variable.\n* Alternatively, `intro` can be combined with pattern matching much like `fun`:\n  ```lean\n  intro\n  | n + 1, 0 =&gt; tac\n  | ...\n  ```\n</code>",
  "12": "<code>Bool</code>",
- "1199":
- "<code>Stlc.HasType.fls (Γ : Context) : &lt;{ ~(Γ) ⊢ false ⦂ Bool }&gt;</code>",
- "1198":
- "<code>Stlc.HasType.tru (Γ : Context) : &lt;{ ~(Γ) ⊢ true ⦂ Bool }&gt;</code>",
- "1197": "<code>∅ = Γ✝</code>",
- "1196": "<code>∅ = x✝ →ₚ T₂✝ ; Γ✝ → t₁✝.IsValue ∨ ∃ t', t₁✝ ⟶ t'</code>",
- "1195": "<code>none = some T₁</code>",
- "1194":
+ "1199": "<code>∅ = x✝ →ₚ T₂✝ ; Γ✝ → t₁✝.IsValue ∨ ∃ t', t₁✝ ⟶ t'</code>",
+ "1198": "<code>none = some T₁</code>",
+ "1197":
  "<code>PartialMap.getElem_empty {α β : Type} [BEq α] (a : α) : ∅[a] = none</code>",
- "1193": "<code>∅[x] = some T₁</code>",
- "1192": "<code>&lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "1191":
+ "1196": "<code>∅[x] = some T₁</code>",
+ "1195": "<code>&lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1194":
  "<code>EmptyCollection.emptyCollection.{u} {α : Type u} [self : EmptyCollection α] : α</code><span class=\"sep\"></span><code class=\"docstring\">`∅` or `{}` is the empty set or empty collection.\nIt is supported by the `EmptyCollection` typeclass. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `{}` in identifiers is `empty`.\n\n * The recommended spelling of `∅` in identifiers is `empty`.</code>",
- "1190": "<code>∅ = Γ</code>",
+ "1193": "<code>∅ = Γ</code>",
+ "1192":
+ "<code class=\"docstring\">* `generalize ([h :] e = x),+` replaces all occurrences `e`s in the main goal\n  with a fresh hypothesis `x`s. If `h` is given, `h : e = x` is introduced as well.\n* `generalize e = x at h₁ ... hₙ` also generalizes occurrences of `e`\n  inside `h₁`, ..., `hₙ`.\n* `generalize e = x at *` will generalize occurrences of `e` everywhere.\n</code>",
+ "1191": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1190":
+ "<code>Stlc.progress (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
  "119":
  "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
- "1189":
- "<code class=\"docstring\">* `generalize ([h :] e = x),+` replaces all occurrences `e`s in the main goal\n  with a fresh hypothesis `x`s. If `h` is given, `h : e = x` is introduced as well.\n* `generalize e = x at h₁ ... hₙ` also generalizes occurrences of `e`\n  inside `h₁`, ..., `hₙ`.\n* `generalize e = x at *` will generalize occurrences of `e` everywhere.\n</code>",
- "1188": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1189": "<code>&lt;{ ∅ ⊢ false ⦂ T₁ → T₂ }&gt;</code>",
+ "1188": "<code>&lt;{ ∅ ⊢ true ⦂ T₁ → T₂ }&gt;</code>",
  "1187":
- "<code>Stlc.progress (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
- "1186": "<code>&lt;{ ∅ ⊢ false ⦂ T₁ → T₂ }&gt;</code>",
- "1185": "<code>&lt;{ ∅ ⊢ true ⦂ T₁ → T₂ }&gt;</code>",
- "1184":
  "<code class=\"docstring\">`exists e₁, e₂, ...` is shorthand for `refine ⟨e₁, e₂, ...⟩; try trivial`.\nIt is useful for existential goals.\n</code>",
- "1183": "<code>&lt;{ ~(x →ₚ T₁) ⊢ ~(t₁) ⦂ ~(T₂) }&gt;</code>",
- "1182": "<code>&lt;{ ∅ ⊢ λ ~x : T . t₁ ⦂ T₁ → T₂ }&gt;</code>",
- "1181": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ T₁ → T₂ }&gt;</code>",
- "1180":
+ "1186": "<code>&lt;{ ~(x →ₚ T₁) ⊢ ~(t₁) ⦂ ~(T₂) }&gt;</code>",
+ "1185": "<code>&lt;{ ∅ ⊢ λ ~x : T . t₁ ⦂ T₁ → T₂ }&gt;</code>",
+ "1184": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ T₁ → T₂ }&gt;</code>",
+ "1183":
  "<code>Stlc.canonical_forms_fun (t : Tm) (T₁ T₂ : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ T₁ → T₂ }&gt;) (hv : t.IsValue) :\n  ∃ x u, t = &lt;{ λ ~x : T₁ . u }&gt;</code>",
+ "1182": "<code>&lt;{ ∅ ⊢ false ⦂ Bool }&gt;</code>",
+ "1181": "<code>&lt;{ ∅ ⊢ true ⦂ Bool }&gt;</code>",
+ "1180": "<code>&lt;{ ∅ ⊢ λ ~x : T . t₁ ⦂ Bool }&gt;</code>",
  "118":
  "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
- "1179": "<code>&lt;{ ∅ ⊢ false ⦂ Bool }&gt;</code>",
- "1178": "<code>&lt;{ ∅ ⊢ true ⦂ Bool }&gt;</code>",
- "1177": "<code>&lt;{ ∅ ⊢ λ ~x : T . t₁ ⦂ Bool }&gt;</code>",
- "1176": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ Bool }&gt;</code>",
- "1175":
+ "1179": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ Bool }&gt;</code>",
+ "1178":
  "<code>Stlc.canonical_forms_bool (t : Tm) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ Bool }&gt;) (hv : t.IsValue) : t = &lt;{ true }&gt; ∨ t = &lt;{ false }&gt;</code>",
- "1174":
+ "1177":
  "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "1173":
+ "1176":
  "<code>Eq.symm.{u} {α : Sort u} {a b : α} (h : a = b) : b = a</code><span class=\"sep\"></span><code class=\"docstring\">Equality is symmetric: if `a = b` then `b = a`.\n\nBecause this is in the `Eq` namespace, if you have a variable `h : a = b`,\n`h.symm` can be used as shorthand for `Eq.symm h` as a proof of `b = a`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "1172": "<code>(\"x\" →ₚ S)[\"x\"] = some T₂✝</code>",
- "1171": "<code>(\"x\" →ₚ S)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
- "1170": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1175": "<code>(\"x\" →ₚ S)[\"x\"] = some T₂✝</code>",
+ "1174": "<code>(\"x\" →ₚ S)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
+ "1173": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1172": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ ~(T₂✝) }&gt;</code>",
+ "1171": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
+ "1170": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x x ⦂ ~(T₁✝) }&gt;</code>",
  "117":
  "<code>Slang.Aexp.evalR_iff_eval (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
- "1169": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x ⦂ ~(T₂✝) }&gt;</code>",
- "1168": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
- "1167": "<code>&lt;{ x ↦ ~(S) ; ∅ ⊢ x x ⦂ ~(T₁✝) }&gt;</code>",
- "1166": "<code>&lt;{ ∅ ⊢ λ x : S . x x ⦂ ~(T) }&gt;</code>",
- "1165": "<code>B = T₂</code>",
- "1164": "<code>A = &lt;{ A → B }&gt;</code>",
- "1163":
+ "1169": "<code>&lt;{ ∅ ⊢ λ x : S . x x ⦂ ~(T) }&gt;</code>",
+ "1168": "<code>B = T₂</code>",
+ "1167": "<code>A = &lt;{ A → B }&gt;</code>",
+ "1166":
  "<code class=\"docstring\">The `injection` tactic is based on the fact that constructors of inductive data\ntypes are injections.\nThat means that if `c` is a constructor of an inductive datatype, and if `(c t₁)`\nand `(c t₂)` are two terms that are equal then  `t₁` and `t₂` are equal too.\nIf `q` is a proof of a statement of conclusion `t₁ = t₂`, then injection applies\ninjectivity to derive the equality of all arguments of `t₁` and `t₂` placed in\nthe same positions. For example, from `(a::b) = (c::d)` we derive `a=c` and `b=d`.\nTo use this tactic `t₁` and `t₂` should be constructor applications of the same constructor.\nGiven `h : a::b = c::d`, the tactic `injection h` adds two new hypothesis with types\n`a = c` and `b = d` to the main goal.\nThe tactic `injection h with h₁ h₂` uses the names `h₁` and `h₂` to name the new hypotheses.\n</code>",
- "1162": "<code>&lt;{ A → B }&gt; = &lt;{ (A → B) → T₂ }&gt;</code>",
- "1161": "<code>∀ (T₂ : Ty), B ≠ &lt;{ B → T₂ }&gt;</code>",
- "1160": "<code>∀ (T₂ : Ty), A ≠ &lt;{ A → T₂ }&gt;</code>",
- "116": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
- "1159": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → T₂ }&gt;</code>",
- "1158": "<code>∀ (T₁ T₂ : Ty), T₁ ≠ &lt;{ T₁ → T₂ }&gt;</code>",
- "1157":
+ "1165": "<code>&lt;{ A → B }&gt; = &lt;{ (A → B) → T₂ }&gt;</code>",
+ "1164": "<code>∀ (T₂ : Ty), B ≠ &lt;{ B → T₂ }&gt;</code>",
+ "1163": "<code>∀ (T₂ : Ty), A ≠ &lt;{ A → T₂ }&gt;</code>",
+ "1162": "<code>&lt;{ Bool }&gt; = &lt;{ Bool → T₂ }&gt;</code>",
+ "1161": "<code>∀ (T₁ T₂ : Ty), T₁ ≠ &lt;{ T₁ → T₂ }&gt;</code>",
+ "1160":
  "<code>Option.some.inj.{u} {α : Type u} {val val✝ : α} : some val = some val✝ → val = val✝</code>",
- "1156":
+ "116": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
+ "1159":
  "<code>Stlc.Ty.noConfusion.{u} {P : Sort u} {t t' : Ty} (eq : t = t') : Ty.noConfusionType P t t'</code>",
- "1155":
+ "1158":
  "<code>(\"y\" →ₚ &lt;{ Bool }&gt; ; \"x\" →ₚ &lt;{ Bool }&gt;)[\"x\"] = some &lt;{ T₂✝ → T₁✝ }&gt;</code>",
- "1154": "<code>Γ✝[x✝] = some T₁✝</code>",
- "1153": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1152": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
- "1151": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
- "1150": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
+ "1157": "<code>Γ✝[x✝] = some T₁✝</code>",
+ "1156": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1155": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ y ⦂ ~(T₂✝) }&gt;</code>",
+ "1154": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "1153": "<code>&lt;{ y ↦ Bool ; x ↦ Bool ; ∅ ⊢ x y ⦂ ~(T₁✝) }&gt;</code>",
+ "1152": "<code>&lt;{ x ↦ Bool ; ∅ ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
+ "1151": "<code>&lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "1150": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
  "115": "<code>Lean.TSyntax `term</code>",
- "1149": "<code>&lt;{ x ↦ Bool ; ∅ ⊢ λ y : Bool . x y ⦂ ~(T₁✝) }&gt;</code>",
- "1148": "<code>&lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
- "1147": "<code>&lt;{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~(T) }&gt;</code>",
- "1146": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
- "1145":
+ "1149": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
+ "1148":
  "<code>MyGetElem.getElem {coll idx : Type} {elem : outParam Type} [self : MyGetElem coll idx elem] (xs : coll) (i : idx) : elem</code>",
- "1144":
+ "1147":
  "<code>PartialMap.update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) : PartialMap α β</code>",
- "1143": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
- "1142":
+ "1146": "<code><span class=\"literal string\">\"y\"</span> : String</code>",
+ "1145":
  "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(T₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(T₁) }&gt;</code>",
- "1141":
+ "1144":
  "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) : &lt;{ ~(Γ) ⊢ ~(Stlc.Tm.var x) ⦂ ~(T₁) }&gt;</code>",
- "1140":
+ "1143":
  "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ T₂ ; Γ) ⊢ ~(t₁) ⦂ ~(T₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : T₂ . t₁ ⦂ T₂ → T₁ }&gt;</code>",
- "114": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
- "1139": "<code>Stlc.HasType.unexpand : Unexpander</code>",
- "1138":
+ "1142": "<code>Stlc.HasType.unexpand : Unexpander</code>",
+ "1141":
  "<code>Lean.PrettyPrinter.UnexpandM (α : Type) : Type</code><span class=\"sep\"></span><code class=\"docstring\">The unexpander monad, essentially `Syntax → Option α`. The `Syntax` is the `ref`,\nand it has the possibility of failure without an error message.\n</code>",
- "1137":
+ "1140":
  "<code>Stlc.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Bool ; Γ` rather than as a chain of map updates. </code>",
- "1136": "<code>HasType Γ t₃ T₁</code>",
- "1135": "<code>HasType Γ t₂ T₁</code>",
- "1134": "<code>HasType Γ t₁ &lt;{ Bool }&gt;</code>",
- "1133":
+ "114": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
+ "1139": "<code>HasType Γ t₃ T₁</code>",
+ "1138": "<code>HasType Γ t₂ T₁</code>",
+ "1137": "<code>HasType Γ t₁ &lt;{ Bool }&gt;</code>",
+ "1136":
  "<code>Stlc.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (T₁ : Ty) (h₁ : HasType Γ t₁ &lt;{ Bool }&gt;) (h₂ : HasType Γ t₂ T₁)\n  (h₃ : HasType Γ t₃ T₁) : HasType Γ &lt;{ if t₁ then t₂ else t₃ }&gt; T₁</code>",
- "1132":
+ "1135":
  "<code>Stlc.HasType.fls (Γ : Context) : HasType Γ &lt;{ false }&gt; &lt;{ Bool }&gt;</code>",
- "1131":
+ "1134":
  "<code>Stlc.HasType.tru (Γ : Context) : HasType Γ &lt;{ true }&gt; &lt;{ Bool }&gt;</code>",
- "1130": "<code>HasType Γ t₂ T₂</code>",
+ "1133": "<code>HasType Γ t₂ T₂</code>",
+ "1132": "<code>HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;</code>",
+ "1131":
+ "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;) (h₂ : HasType Γ t₂ T₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; T₁</code>",
+ "1130": "<code>HasType (x →ₚ T₂ ; Γ) t₁ T₁</code>",
  "113":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.mult a₂) (n₁ * n₂)</code>",
- "1129": "<code>HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;</code>",
- "1128":
- "<code>Stlc.HasType.app (Γ : Context) (T₁ T₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ T₂ → T₁ }&gt;) (h₂ : HasType Γ t₂ T₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; T₁</code>",
- "1127": "<code>HasType (x →ₚ T₂ ; Γ) t₁ T₁</code>",
- "1126":
+ "1129":
  "<code>Stlc.HasType.abs (Γ : Context) (x : String) (T₁ T₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ T₂ ; Γ) t₁ T₁) :\n  HasType Γ &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ T₂ → T₁ }&gt;</code>",
- "1125": "<code>Γ[x] = some T₁</code>",
- "1124": "<code>Context</code>",
- "1123":
+ "1128": "<code>Γ[x] = some T₁</code>",
+ "1127": "<code>Context</code>",
+ "1126":
  "<code>Stlc.HasType.var (Γ : Context) (x : String) (T₁ : Ty) (h : Γ[x] = some T₁) : HasType Γ (Stlc.Tm.var x) T₁</code>",
- "1122": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
- "1121":
+ "1125": "<code>Stlc.HasType : Context → Tm → Ty → Prop</code>",
+ "1124":
  "<code>Stlc.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1120": "<code>Lean.TSyntax `stlcCtx</code>",
+ "1123": "<code>Lean.TSyntax `stlcCtx</code>",
+ "1122": "<code>TSyntax `stlcCtx</code>",
+ "1121":
+ "<code>Stlc.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
+ "1120": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
  "112":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.minus a₂) (n₁ - n₂)</code>",
- "1119": "<code>TSyntax `stlcCtx</code>",
- "1118":
- "<code>Stlc.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1117": "<code><span class=\"literal string\">\" ⊢ \"</span> : String</code>",
- "1116": "<code>Stlc.judgeBracket : Lean.ParserDescr</code>",
- "1115": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
- "1114": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
- "1113": "<code><span class=\"literal string\">\"∅\"</span> : String</code>",
- "1112": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
- "1111": "<code>PartialMap (α β : Type) : Type</code>",
- "1110": "<code>Stlc.Context : Type</code>",
+ "1119": "<code>Stlc.judgeBracket : Lean.ParserDescr</code>",
+ "1118": "<code><span class=\"literal string\">\" ; \"</span> : String</code>",
+ "1117": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
+ "1116": "<code><span class=\"literal string\">\"∅\"</span> : String</code>",
+ "1115": "<code>Lean.Parser.Category.stlcCtx : Lean.Parser.Category</code>",
+ "1114": "<code>PartialMap (α β : Type) : Type</code>",
+ "1113": "<code>Stlc.Context : Type</code>",
+ "1112":
+ "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : &lt;{ if true then t₁ else t₂ }&gt; ⟶ t₁</code>",
+ "1111":
+ "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
+ "1110":
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
  "111":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.plus a₂) (n₁ + n₂)</code>",
- "1109":
- "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : &lt;{ if true then t₁ else t₂ }&gt; ⟶ t₁</code>",
- "1108":
- "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : &lt;{ t₁ t₂ }&gt; ⟶ &lt;{ t₁' t₂ }&gt;</code>",
+ "1109": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
+ "1108": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
  "1107":
- "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : t₂ ⟶ t₂') : &lt;{ v₁ t₂ }&gt; ⟶ &lt;{ v₁ t₂' }&gt;</code>",
- "1106": "<code>&lt;{ idBB idB }&gt; ⟶ idB</code>",
- "1105": "<code><span class=\"literal string\">\"x\"</span> : String</code>",
- "1104":
  "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : &lt;{ (λ ~x : T . t) v }&gt; ⟶ &lt;{ [~x := v] t }&gt;</code>",
- "1103":
+ "1106":
  "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') : Step &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
- "1102":
+ "1105":
  "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : Step &lt;{ if false then t₁ else t₂ }&gt; t₂</code>",
- "1101":
+ "1104":
  "<code>Stlc.Step.ifTrue (t₁ t₂ : Tm) : Step &lt;{ if true then t₁ else t₂ }&gt; t₁</code>",
- "1100": "<code>v₁.IsValue</code>",
+ "1103": "<code>v₁.IsValue</code>",
+ "1102":
+ "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
+ "1101":
+ "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
+ "1100": "<code>v.IsValue</code>",
  "110":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
  "11": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
  "1099":
- "<code>Stlc.Step.app2 (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
- "1098":
- "<code>Stlc.Step.app1 (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
- "1097": "<code>v.IsValue</code>",
- "1096":
  "<code>Stlc.Step.appAbs (x : String) (T : Ty) (t v : Tm) (hv : v.IsValue) : Step &lt;{ (λ ~x : T . t) v }&gt; &lt;{ [~x := v] t }&gt;</code>",
- "1095": "<code>Stlc.Step : Tm → Tm → Prop</code>",
- "1094": "<code>&lt;{ [~x := s] t₃✝ }&gt; = t₃'✝</code>",
- "1093": "<code>Substi s x t₃✝ t₃'✝</code>",
- "1092": "<code>&lt;{ [~x := s] t₂✝ }&gt; = t₂'✝</code>",
- "1091": "<code>Substi s x t₂✝ t₂'✝</code>",
- "1090": "<code>&lt;{ [~x := s] t₁✝ }&gt; = t₁'✝</code>",
+ "1098": "<code>Stlc.Step : Tm → Tm → Prop</code>",
+ "1097": "<code>&lt;{ [~x := s] t₃✝ }&gt; = t₃'✝</code>",
+ "1096": "<code>Substi s x t₃✝ t₃'✝</code>",
+ "1095": "<code>&lt;{ [~x := s] t₂✝ }&gt; = t₂'✝</code>",
+ "1094": "<code>Substi s x t₂✝ t₂'✝</code>",
+ "1093": "<code>&lt;{ [~x := s] t₁✝ }&gt; = t₁'✝</code>",
+ "1092": "<code>Substi s x t₁✝ t₁'✝</code>",
+ "1091": "<code>x ≠ x'✝</code>",
+ "1090": "<code>Substi s x t t'</code>",
  "109": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1089": "<code>Substi s x t₁✝ t₁'✝</code>",
- "1088": "<code>x ≠ x'✝</code>",
- "1087": "<code>Substi s x t t'</code>",
- "1086": "<code>Substi s x t₃ &lt;{ [~x := s] t₃ }&gt;</code>",
- "1085": "<code>Substi s x t₂ &lt;{ [~x := s] t₂ }&gt;</code>",
- "1084": "<code>Substi s x t₁ &lt;{ [~x := s] t₁ }&gt;</code>",
- "1083": "<code>¬x = y</code>",
- "1082": "<code>x = y</code>",
- "1081":
+ "1089": "<code>Substi s x t₃ &lt;{ [~x := s] t₃ }&gt;</code>",
+ "1088": "<code>Substi s x t₂ &lt;{ [~x := s] t₂ }&gt;</code>",
+ "1087": "<code>Substi s x t₁ &lt;{ [~x := s] t₁ }&gt;</code>",
+ "1086": "<code>¬x = y</code>",
+ "1085": "<code>x = y</code>",
+ "1084":
  "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
- "1080": "<code>&lt;{ [~x := s] t }&gt; = t'</code>",
+ "1083": "<code>&lt;{ [~x := s] t }&gt; = t'</code>",
+ "1082":
+ "<code>Stlc.substi_correct (s : Tm) (x : String) (t t' : Tm) : &lt;{ [~x := s] t }&gt; = t' ↔ Substi s x t t'</code>",
+ "1081": "<code>Substi s x t₃ t₃'</code>",
+ "1080":
+ "<code>Stlc.Substi.ite {s : Tm} {x : String} (t₁ t₂ t₃ t₁' t₂' t₃' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂')\n  (h₃ : Substi s x t₃ t₃') : Substi s x &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂' else t₃' }&gt;</code>",
  "108":
  "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
  "1079":
- "<code>Stlc.substi_correct (s : Tm) (x : String) (t t' : Tm) : &lt;{ [~x := s] t }&gt; = t' ↔ Substi s x t t'</code>",
- "1078": "<code>Substi s x t₃ t₃'</code>",
- "1077":
- "<code>Stlc.Substi.ite {s : Tm} {x : String} (t₁ t₂ t₃ t₁' t₂' t₃' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂')\n  (h₃ : Substi s x t₃ t₃') : Substi s x &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂' else t₃' }&gt;</code>",
- "1076":
  "<code>Stlc.Substi.fls {s : Tm} {x : String} : Substi s x &lt;{ false }&gt; &lt;{ false }&gt;</code>",
- "1075":
+ "1078":
  "<code>Stlc.Substi.tru {s : Tm} {x : String} : Substi s x &lt;{ true }&gt; &lt;{ true }&gt;</code>",
- "1074": "<code>Substi s x t₂ t₂'</code>",
- "1073":
+ "1077": "<code>Substi s x t₂ t₂'</code>",
+ "1076":
  "<code>Stlc.Substi.app {s : Tm} {x : String} (t₁ t₂ t₁' t₂' : Tm) (h₁ : Substi s x t₁ t₁') (h₂ : Substi s x t₂ t₂') :\n  Substi s x &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂' }&gt;</code>",
- "1072": "<code>Substi s x t₁ t₁'</code>",
- "1071":
+ "1075": "<code>Substi s x t₁ t₁'</code>",
+ "1074":
  "<code>Stlc.Substi.abs2 {s : Tm} {x : String} (x' : String) (T₁ : Ty) (t₁ t₁' : Tm) (hx : x ≠ x') (h : Substi s x t₁ t₁') :\n  Substi s x &lt;{ λ ~x' : T₁ . t₁ }&gt; &lt;{ λ ~x' : T₁ . t₁' }&gt;</code>",
- "1070":
+ "1073":
  "<code>Stlc.Substi.abs1 {s : Tm} {x : String} (T₂ : Ty) (t₁ : Tm) : Substi s x &lt;{ λ ~x : T₂ . t₁ }&gt; &lt;{ λ ~x : T₂ . t₁ }&gt;</code>",
+ "1072": "<code>x ≠ x'</code>",
+ "1071":
+ "<code>Stlc.Substi.var2 {s : Tm} {x : String} (x' : String) (h : x ≠ x') : Substi s x (Stlc.Tm.var x') (Stlc.Tm.var x')</code>",
+ "1070":
+ "<code>Stlc.Substi.var1 {s : Tm} {x : String} : Substi s x (Stlc.Tm.var x) s</code>",
  "107":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
- "1069": "<code>x ≠ x'</code>",
+ "1069": "<code>Stlc.Substi (s : Tm) (x : String) : Tm → Tm → Prop</code>",
  "1068":
- "<code>Stlc.Substi.var2 {s : Tm} {x : String} (x' : String) (h : x ≠ x') : Substi s x (Stlc.Tm.var x') (Stlc.Tm.var x')</code>",
- "1067":
- "<code>Stlc.Substi.var1 {s : Tm} {x : String} : Substi s x (Stlc.Tm.var x) s</code>",
- "1066": "<code>Stlc.Substi (s : Tm) (x : String) : Tm → Tm → Prop</code>",
- "1065":
  "<code>Stlc.subst_ite (x : String) (s t₁ t₂ t₃ : Tm) :\n  &lt;{ [~x := s] (if t₁ then t₂ else t₃) }&gt; = &lt;{ if [~x := s] t₁ then [~x := s] t₂ else [~x := s] t₃ }&gt;</code>",
- "1064":
+ "1067":
  "<code>Stlc.subst_fls (x : String) (s : Tm) : &lt;{ [~x := s] false }&gt; = &lt;{ false }&gt;</code>",
- "1063":
+ "1066":
  "<code>Stlc.subst_tru (x : String) (s : Tm) : &lt;{ [~x := s] true }&gt; = &lt;{ true }&gt;</code>",
- "1062":
+ "1065":
  "<code>Stlc.subst_app (x : String) (s t₁ t₂ : Tm) : &lt;{ [~x := s] (t₁ t₂) }&gt; = &lt;{ [~x := s] t₁ [~x := s] t₂ }&gt;</code>",
- "1061":
+ "1064":
  "<code>Stlc.subst_abs_ne (x y : String) (s t : Tm) (T : Ty) (h : x ≠ y) :\n  &lt;{ [~x := s] (λ ~y : T . t) }&gt; = &lt;{ λ ~y : T . [~x := s] t }&gt;</code>",
- "1060":
+ "1063":
  "<code>Stlc.subst_abs_eq (x : String) (s t : Tm) (T : Ty) : &lt;{ [~x := s] (λ ~x : T . t) }&gt; = &lt;{ λ ~x : T . t }&gt;</code>",
- "106": "<code>EvalR a₂ n₂</code>",
- "1059": "<code>x ≠ y</code>",
- "1058":
+ "1062": "<code>x ≠ y</code>",
+ "1061":
  "<code>Stlc.subst_var_ne (x y : String) (s : Tm) (h : x ≠ y) : &lt;{ [~x := s] ~(Stlc.Tm.var y) }&gt; = Stlc.Tm.var y</code>",
- "1057":
+ "1060":
  "<code>Stlc.subst_var_eq (x : String) (s : Tm) : &lt;{ [~x := s] ~(Stlc.Tm.var x) }&gt; = s</code>",
- "1056":
+ "106": "<code>EvalR a₂ n₂</code>",
+ "1059":
  "<code class=\"docstring\">Declares one or more typed variables, or modifies whether already-declared variables are\n  implicit.\n\nIntroduces variables that can be used in definitions within the same `namespace` or `section` block.\nWhen a definition mentions a variable, Lean will add it as an argument of the definition. This is\nuseful in particular when writing many definitions that have parameters in common (see below for an\nexample).\n\nVariable declarations have the same flexibility as regular function parameters. In particular they\ncan be [explicit, implicit][binder docs], or [instance implicit][tpil classes] (in which case they\ncan be anonymous). This can be changed, for instance one can turn explicit variable `x` into an\nimplicit one with `variable {x}`. Note that currently, you should avoid changing how variables are\nbound and declare new variables at the same time; see [issue 2789] for more on this topic.\n\nIn *theorem bodies* (i.e. proofs), variables are not included based on usage in order to ensure that\nchanges to the proof cannot change the statement of the overall theorem. Instead, variables are only\navailable to the proof if they have been mentioned in the theorem header or in an `include` command\nor are instance implicit and depend only on such variables.\n\nSee [*Variables and Sections* from Theorem Proving in Lean][tpil vars] for a more detailed\ndiscussion.\n\n[tpil vars]:\nhttps://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html#variables-and-sections\n(Variables and Sections on Theorem Proving in Lean) [tpil classes]:\nhttps://lean-lang.org/theorem_proving_in_lean4/type_classes.html (Type classes on Theorem Proving in\nLean) [binder docs]:\nhttps://leanprover-community.github.io/mathlib4_docs/Lean/Expr.html#Lean.BinderInfo (Documentation\nfor the BinderInfo type) [issue 2789]: https://github.com/leanprover/lean4/issues/2789 (Issue 2789\non github)\n\n## Examples\n\n```lean\nsection\n  variable\n    {α : Type u}      -- implicit\n    (a : α)           -- explicit\n    [instBEq : BEq α] -- instance implicit, named\n    [Hashable α]      -- instance implicit, anonymous\n\n  def isEqual (b : α) : Bool :=\n    a == b\n\n  #check isEqual\n  -- isEqual.{u} {α : Type u} (a : α) [instBEq : BEq α] (b : α) : Bool\n\n  variable\n    {a} -- `a` is implicit now\n\n  def eqComm {b : α} := a == b ↔ b == a\n\n  #check eqComm\n  -- eqComm.{u} {α : Type u} {a : α} [instBEq : BEq α] {b : α} : Prop\nend\n```\n\nThe following shows a typical use of `variable` to factor out definition arguments:\n\n```lean\nvariable (Src : Type)\n\nstructure Logger where\n  trace : List (Src × String)\n#check Logger\n-- Logger (Src : Type) : Type\n\nnamespace Logger\n  -- switch `Src : Type` to be implicit until the `end Logger`\n  variable {Src}\n\n  def empty : Logger Src where\n    trace := []\n  #check empty\n  -- Logger.empty {Src : Type} : Logger Src\n\n  variable (log : Logger Src)\n\n  def len :=\n    log.trace.length\n  #check len\n  -- Logger.len {Src : Type} (log : Logger Src) : Nat\n\n  variable (src : Src) [BEq Src]\n\n  -- at this point all of `log`, `src`, `Src` and the `BEq` instance can all become arguments\n\n  def filterSrc :=\n    log.trace.filterMap\n      fun (src', str') =&gt; if src' == src then some str' else none\n  #check filterSrc\n  -- Logger.filterSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : List String\n\n  def lenSrc :=\n    log.filterSrc src |&gt;.length\n  #check lenSrc\n  -- Logger.lenSrc {Src : Type} (log : Logger Src) (src : Src) [inst✝ : BEq Src] : Nat\nend Logger\n```\n\nThe following example demonstrates availability of variables in proofs:\n```lean\nvariable\n  {α : Type}    -- available in the proof as indirectly mentioned through `a`\n  [ToString α]  -- available in the proof as `α` is included\n  (a : α)       -- available in the proof as mentioned in the header\n  {β : Type}    -- not available in the proof\n  [ToString β]  -- not available in the proof\n\ntheorem ex : a = a := rfl\n```\nAfter elaboration of the proof, the following warning will be generated to highlight the unused\nhypothesis:\n```\nincluded section variable '[ToString α]' is not used in 'ex', consider excluding it\n```\nIn such cases, the offending variable declaration should be moved down or into a section so that\nonly theorems that do depend on it follow it until the end of the section.\n</code>",
- "1055": "<code>Stlc.delabSubst : Delab</code>",
- "1054": "<code>Stlc.subst (x : String) (s t : Tm) : Tm</code>",
- "1053":
+ "1058": "<code>Stlc.delabSubst : Delab</code>",
+ "1057": "<code>Stlc.subst (x : String) (s t : Tm) : Tm</code>",
+ "1056":
  "<code>Stlc.varStr (x : Lean.TSyntax `stlcVar) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The string named by a variable in binding position. </code>",
- "1052": "<code>Lean.TSyntax `stlcTm</code>",
- "1051": "<code>Lean.TSyntax `stlcVar</code>",
- "1050": "<code>Stlc.notB_value : notB.IsValue</code>",
+ "1055": "<code>Lean.TSyntax `stlcTm</code>",
+ "1054": "<code>Lean.TSyntax `stlcVar</code>",
+ "1053": "<code>Stlc.notB_value : notB.IsValue</code>",
+ "1052": "<code>Stlc.idBB_value : idBB.IsValue</code>",
+ "1051": "<code>Stlc.idB_value : idB.IsValue</code>",
+ "1050": "<code>Stlc.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
  "105": "<code>EvalR a₁ n₁</code>",
- "1049": "<code>Stlc.idBB_value : idBB.IsValue</code>",
- "1048": "<code>Stlc.idB_value : idB.IsValue</code>",
- "1047": "<code>Stlc.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
- "1046": "<code>Stlc.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
- "1045":
+ "1049": "<code>Stlc.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
+ "1048":
  "<code>Stlc.Tm.IsValue.abs (x : String) (T₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : T₂ . t₁ }&gt;.IsValue</code>",
- "1044": "<code>Stlc.Tm.IsValue : Tm → Prop</code>",
- "1043":
+ "1047": "<code>Stlc.Tm.IsValue : Tm → Prop</code>",
+ "1046":
  "<code class=\"docstring\">`#reduce &lt;expression&gt;` reduces the expression `&lt;expression&gt;` to its normal form. This\ninvolves applying reduction rules until no further reduction is possible.\n\nBy default, proofs and types within the expression are not reduced. Use modifiers\n`(proofs := true)`  and `(types := true)` to reduce them.\nRecall that propositions are types in Lean.\n\n**Warning:** This can be a computationally expensive operation,\nespecially for complex expressions.\n\nConsider using `#eval &lt;expression&gt;` for simple evaluation/execution\nof expressions.\n</code>",
- "1042": "<code>Stlc.notB : Tm</code>",
- "1041": "<code>Stlc.k : Tm</code>",
- "1040": "<code>Stlc.idBBBB : Tm</code>",
+ "1045": "<code>Stlc.notB : Tm</code>",
+ "1044": "<code>Stlc.k : Tm</code>",
+ "1043": "<code>Stlc.idBBBB : Tm</code>",
+ "1042": "<code>Stlc.idBB : Tm</code>",
+ "1041": "<code>Stlc.idB : Tm</code>",
+ "1040": "<code>Stlc.delabTm : Delab</code>",
  "104":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
- "1039": "<code>Stlc.idBB : Tm</code>",
- "1038": "<code>Stlc.idB : Tm</code>",
- "1037": "<code>Stlc.delabTm : Delab</code>",
- "1036": "<code>Stlc.delabTy : Delab</code>",
- "1035":
+ "1039": "<code>Stlc.delabTy : Delab</code>",
+ "1038":
  "<code>Lean.Expr.getAppNumArgs (e : Expr) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Counts the number `n` of arguments for an expression `f a₁ .. aₙ`. </code>",
- "1034":
+ "1037":
  "<code>Lean.Expr.constName? : Expr → Option Name</code><span class=\"sep\"></span><code class=\"docstring\">If the expression is a constant, return that name.\nOtherwise return `Option.none`.\n</code>",
- "1033":
+ "1036":
  "<code>Lean.Expr.getAppFn : Expr → Expr</code><span class=\"sep\"></span><code class=\"docstring\">If the given expression is a sequence of\nfunction applications `f a₁ .. aₙ`, return `f`.\nOtherwise return the input expression.\n</code>",
- "1032": "<code>Expr</code>",
- "1031":
+ "1035": "<code>Expr</code>",
+ "1034":
  "<code>Stlc.delabTmInner : DelabM (TSyntax `stlcTm)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTm` concrete syntax from a `Tm` value. </code>",
- "1030":
+ "1033":
  "<code>Lean.Name.mkSimple (s : String) : Name</code><span class=\"sep\"></span><code class=\"docstring\">Converts a `String` to a `Name` without performing any parsing. `mkSimple s` is short for `.str .anonymous s`.\n\nThis means that `mkSimple \"a.b\"` is the name `«a.b»`, not `a.b`.\n</code>",
+ "1032":
+ "<code>Lean.TSyntax.getString (s : StrLit) : String</code><span class=\"sep\"></span><code class=\"docstring\">Decodes a string literal, removing quotation marks and unescaping escaped characters.\n\nReturns `\"\"` if the syntax is malformed.\n</code>",
+ "1031": "<code>TSyntax `str</code>",
+ "1030":
+ "<code>Stlc.delabVarInner : DelabM (TSyntax `stlcVar)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcVar` concrete syntax from the string in a binding position. </code>",
  "103": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
  "1029":
- "<code>Lean.TSyntax.getString (s : StrLit) : String</code><span class=\"sep\"></span><code class=\"docstring\">Decodes a string literal, removing quotation marks and unescaping escaped characters.\n\nReturns `\"\"` if the syntax is malformed.\n</code>",
- "1028": "<code>TSyntax `str</code>",
- "1027":
- "<code>Stlc.delabVarInner : DelabM (TSyntax `stlcVar)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcVar` concrete syntax from the string in a binding position. </code>",
- "1026":
  "<code>Stlc.isPlainTmVarName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? </code>",
- "1025": "<code><span class=\"literal char\">'_'</span> : Char</code>",
- "1024":
+ "1028": "<code><span class=\"literal char\">'_'</span> : Char</code>",
+ "1027":
  "<code>Char.isAlphanum (c : Char) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the character is an ASCII letter or digit.\n\nThe ASCII letters are the following: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`.\nThe ASCII digits are the following: `0123456789`.\n</code>",
- "1023": "<code>Char</code>",
- "1022":
+ "1026": "<code>Char</code>",
+ "1025":
  "<code>String.all {ρ : Type} (s : String) (pat : ρ) [String.Slice.Pattern.ForwardPattern pat] : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Checks whether a string only consists of matches of the pattern `pat`.\n\nShort-circuits at the first pattern mis-match.\n\nThis function is generic over all currently supported patterns.\n\nExamples:\n\n* `\"brown\".all Char.isLower = true`\n\n* `\"brown and orange\".all Char.isLower = false`\n\n* `\"aaaaaa\".all 'a' = true`\n\n* `\"aaaaaa\".all \"aa\" = true`\n\n* `\"aaaaaaa\".all \"aa\" = false`\n</code>",
- "1021":
+ "1024":
  "<code>Char.isDigit (c : Char) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Returns `true` if the character is an ASCII digit.\n\nThe ASCII digits are the following: `0123456789`.\n</code>",
- "1020":
+ "1023":
  "<code>String.front (s : String) : Char</code><span class=\"sep\"></span><code class=\"docstring\">Returns the first character in `s`. If `s = \"\"`, returns `(default : Char)`.\n\nExamples:\n\n* `\"abc\".front = 'a'`\n\n* `\"\".front = (default : Char)`\n</code>",
- "102": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1019": "<code><span class=\"literal string\">\"_\"</span> : String</code>",
- "1018":
+ "1022": "<code><span class=\"literal string\">\"_\"</span> : String</code>",
+ "1021":
  "<code>String.isEmpty (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Checks whether a string is empty.\n\nEmpty strings are equal to `\"\"` and have length and end position `0`.\n\nExamples:\n* `\"\".isEmpty = true`\n* `\"empty\".isEmpty = false`\n* `\" \".isEmpty = false`\n</code>",
- "1017":
+ "1020":
  "<code>Stlc.isPlainName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare identifier in the object syntax? </code>",
- "1016":
+ "102": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
+ "1019":
  "<code>Stlc.delabTyInner : DelabM (TSyntax `stlcTy)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTy` concrete syntax from a `Ty` value. </code>",
- "1015":
+ "1018":
  "<code>Stlc.stlcTm.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
- "1014":
+ "1017":
  "<code>Stlc.stlcTm.parenthesizer : CategoryParenthesizer</code><span class=\"sep\"></span><code class=\"docstring\">Re-inserts parentheses in `stlcTm` output according to the grammar's precedences. </code>",
- "1013": "<code>Lean.Parser.Category.stlcTm : Parser.Category</code>",
- "1012":
+ "1016": "<code>Lean.Parser.Category.stlcTm : Parser.Category</code>",
+ "1015":
  "<code>Stlc.stlcTy.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
- "1011":
+ "1014":
  "<code>Stlc.stlcTy.parenthesizer : CategoryParenthesizer</code><span class=\"sep\"></span><code class=\"docstring\">Re-inserts parentheses in `stlcTy` output according to the grammar's precedences. </code>",
- "1010": "<code>Lean.Parser.Category.stlcTy : Parser.Category</code>",
- "101": "<code>b₂✝.optimize0plus.eval = b₂✝.eval</code>",
- "1009": "<code>TSyntax `stlcTy</code>",
- "1008":
+ "1013": "<code>Lean.Parser.Category.stlcTy : Parser.Category</code>",
+ "1012": "<code>TSyntax `stlcTy</code>",
+ "1011":
  "<code><span class=\"literal string\">\"`Bool` is a type, not a term\"</span> : String</code>",
- "1007": "<code>TSyntax `stlcTm</code>",
- "1006": "<code>Stlc.tmBracket : Lean.ParserDescr</code>",
- "1005": "<code><span class=\"literal string\">\"] \"</span> : String</code>",
- "1004": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
- "1003": "<code><span class=\"literal string\">\"[\"</span> : String</code>",
- "1002": "<code><span class=\"literal string\">\" . \"</span> : String</code>",
- "1001": "<code><span class=\"literal string\">\" : \"</span> : String</code>",
- "1000": "<code><span class=\"literal string\">\"λ \"</span> : String</code>",
+ "1010": "<code>TSyntax `stlcTm</code>",
+ "101": "<code>b₂✝.optimize0plus.eval = b₂✝.eval</code>",
+ "1009": "<code>Stlc.tmBracket : Lean.ParserDescr</code>",
+ "1008": "<code><span class=\"literal string\">\"] \"</span> : String</code>",
+ "1007": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
+ "1006": "<code><span class=\"literal string\">\"[\"</span> : String</code>",
+ "1005": "<code><span class=\"literal string\">\" . \"</span> : String</code>",
+ "1004": "<code><span class=\"literal string\">\" : \"</span> : String</code>",
+ "1003": "<code><span class=\"literal string\">\"λ \"</span> : String</code>",
+ "1002":
+ "<code>Lean.Parser.ppSpace : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser that advises the pretty printer to emit a space/soft line break. </code>",
+ "1001": "<code>Lean.Parser.Category.stlcTm : Lean.Parser.Category</code>",
+ "1000":
+ "<code>Lean.Macro.throwUnsupported {α : Type} : MacroM α</code><span class=\"sep\"></span><code class=\"docstring\">Throw an `unsupportedSyntax` exception. </code>",
  "100": "<code>b₁✝.optimize0plus.eval = b₁✝.eval</code>",
  "10": "<code>Slang.Bexp : Type</code>",
  "1":

@@ -250,7 +250,7 @@ def append (l₁ l₂ : NatList) : NatList :=
 --  In Lean, operators like `++`, `==`, and `+` are not hardwired to
 --  particular types. Instead, they are defined using *type classes* — a
 --  mechanism that lets us overload operations for different types.
-
+--
 --  For example, `++` is defined via the `HAppend` type class. Any type
 --  that provides an `HAppend` instance gets to use `++`. Lean's built-in
 --  `List` already has such an instance (using `List.append`), but since
@@ -261,7 +261,7 @@ instance : HAppend NatList NatList NatList where
   hAppend := append
 
 --  Now `l₁ ++ l₂` means `append l₁ l₂` within `NatList`.
-
+--
 --  Some simple facts about appending lists:
 
 theorem nil_append (l : NatList) : [] ++ l = l := rfl
@@ -275,7 +275,7 @@ example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
 --  The equality test `==` on `Nat`s is another example: it comes from the
 --  `BEq` ("boolean equality") type class. One small but handy fact about
 --  it, which several proofs below will need, is that `==` is reflexive:
-
+--
 --  `BEq.refl : (a == a) = true`
 
 --  We'll learn more about type classes in chapter Typeclasses. For now,
@@ -317,6 +317,8 @@ theorem tail_nil : [].tail = [] := by rfl
 --  example : head 0 [] = 0 := by rw [head_nil]
 --  example : [1, 2, 3].tail = [2, 3] := by rw [tail_cons]
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  What does the following function do?
@@ -325,6 +327,8 @@ def foo (n : Nat) : NatList :=
   match n with
   | 0 => []
   | n' + 1 => (n' + 1) :: foo n'
+
+--   ----------------------------------------
 
 --  #### Exercises
 
@@ -426,7 +430,7 @@ theorem test_countOddMembers2 : countOddMembers [] = 0 := sorry
 --  Complete the following definition of `alternate`, which interleaves two
 --  lists into one, alternating between elements taken from the first list
 --  and elements from the second.
-
+--
 --  Hint: there are natural ways of writing `alternate` that fail to
 --  satisfy Lean's requirement that all recursive definitions be
 --  *structurally recursive*, as mentioned in Basics. If you encounter this
@@ -518,7 +522,7 @@ theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 --  ### Exercise (3 stars): removing (Optional) ⭐⭐⭐
 
 --  Here are some more `NatList` functions for you to practice with.
-
+--
 --  When `removeOne` is applied to a list without the number to remove, it
 --  should return the same list unchanged.
 
@@ -636,7 +640,7 @@ theorem tail_length_pred (l : NatList) :
 --  be either `[]` or else `::` applied to a number and a list. Moreover,
 --  applications of the declared constructors to one another are the *only*
 --  possible shapes that elements of an inductively defined set can have.
-
+--
 --  This last fact directly gives rise to a way of reasoning about
 --  inductively defined sets: a number is either `0` or else it is
 --  `Nat.succ` applied to some *smaller* number; a list is either `[]` or
@@ -644,17 +648,17 @@ theorem tail_length_pred (l : NatList) :
 --  Thus, if we have in mind some proposition `P` that mentions a list `l`
 --  and we want to argue that `P` holds for *all* lists, we can reason as
 --  follows:
-
+--
 --  - First, show that `P` is true of `l` when `l` is `[]`.
-
+--
 --  - Then show that `P` is true of `l` when `l` is `n :: l'` for some
 --    number `n` and some smaller list `l'`, assuming that `P` is true for
 --    `l'`.
-
+--
 --  Since larger lists can always be broken down into smaller ones,
 --  eventually reaching `[]`, these two arguments together establish the
 --  truth of `P` for all lists `l`.
-
+--
 --  Here's a concrete example:
 
 theorem append_assoc (l₁ l₂ l₃ : NatList) :
@@ -666,29 +670,29 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
     rw [cons_append, cons_append, cons_append, ih]
 
 --  *Theorem*: For all lists `l₁`, `l₂`, and `l₃`,
-
---    (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
-
+--
+--      (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
+--
 --  *Proof*: By induction on `l₁`.
-
+--
 --  - First, suppose `l₁ = []`. We must show
-
---    ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
-
+--
+--      ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
+--
 --  which follows directly from the definition of `append`.
-
+--
 --  - Next, suppose `l₁ = n :: l₁'`, with
-
---    (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
-
+--
+--      (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
+--
 --  (the induction hypothesis). We must show
-
---    ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
-
+--
+--      ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
+--
 --  By the definition of `append`, this follows from
-
---    n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
-
+--
+--      n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
+--
 --  which is immediate from the induction hypothesis. *Qed*.
 
 --  #### Generalizing Statements
@@ -828,74 +832,74 @@ theorem length_append (l₁ l₂ : NatList) :
     rw [cons_append, length_cons, ih, length_cons, Nat.succ_add]
 
 --  For comparison, here are informal proofs of these two theorems:
-
+--
 --  *Theorem*: For all lists `l₁` and `l₂`,
-
---    (l₁ ++ l₂).length = l₁.length + l₂.length.
-
+--
+--      (l₁ ++ l₂).length = l₁.length + l₂.length.
+--
 --  *Proof*: By induction on `l₁`.
-
+--
 --  - First, suppose `l₁ = []`. We must show
-
---    ([] ++ l₂).length = [].length + l₂.length,
-
+--
+--      ([] ++ l₂).length = [].length + l₂.length,
+--
 --  which follows directly from the definitions of `length`, `++`, and `+`.
-
+--
 --  - Next, suppose `l₁ = n::l₁'`, with
-
---    (l₁' ++ l₂).length = l₁'.length + l₂.length
-
+--
+--      (l₁' ++ l₂).length = l₁'.length + l₂.length
+--
 --  We must show
-
---    ((n::l₁') ++ l₂).length = (n::l₁').length + l₂.length.
-
+--
+--      ((n::l₁') ++ l₂).length = (n::l₁').length + l₂.length.
+--
 --  This follows directly from the definitions of `length` and `++`
 --  together with the induction hypothesis. *Qed*.
-
+--
 --  *Theorem*: For all lists `l`, `l.reverse.length = l.length`.
-
+--
 --  *Proof*: By induction on `l`.
-
+--
 --  - First, suppose `l = []`. We must show
-
---    [].reverse.length = [].length,
-
+--
+--      [].reverse.length = [].length,
+--
 --  which follows directly from the definitions of `length` and `reverse`.
-
+--
 --  - Next, suppose `l = n::l'`, with
-
---    l'.reverse.length = l'.length
-
+--
+--      l'.reverse.length = l'.length
+--
 --  We must show
-
---    (n :: l').reverse.length = (n :: l').length.
-
+--
+--      (n :: l').reverse.length = (n :: l').length.
+--
 --  By the definition of `reverse`, this follows from
-
---    (l'.reverse ++ [n]).length = l'.length + 1,
-
+--
+--      (l'.reverse ++ [n]).length = l'.length + 1,
+--
 --  which, by the previous lemma, is the same as
-
---    l'.reverse.length + [n].length = l'.length + 1.
-
+--
+--      l'.reverse.length + [n].length = l'.length + 1.
+--
 --  This follows directly from the induction hypothesis and the definition
 --  of `length`. *Qed*.
-
+--
 --  The style of these proofs is rather longwinded and pedantic. After
 --  reading a couple like this, we might find it easier to follow proofs
 --  that give fewer details (which we can easily work out in our own minds
 --  or on scratch paper if necessary) and just highlight the non-obvious
 --  steps. In this more compressed style, the above proof might look like
 --  this:
-
+--
 --  *Theorem*: For all lists `l`, `l.reverse.length = l.length`.
-
+--
 --  *Proof*: First observe, by a straightforward induction on `l`, that
 --  `(l ++ [n]).length = .succ l.length` for any `l`. The main property
 --  then follows by another induction on `l`, using the observation
 --  together with the induction hypothesis in the case where `l = n'::l'`.
 --  *Qed*
-
+--
 --  Which style is preferable in a given situation depends on the
 --  sophistication of the expected audience and how similar the proof at
 --  hand is to ones that they will already be familiar with. The more
@@ -993,7 +997,7 @@ theorem remove_does_not_increase_count (l : NatList) :
     Nat.ble (count 0 (removeOne 0 l)) (count 0 l) = true := by
   sorry
 
---  ### Exercise (3 stars): count_append (Optional, manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): count_append (Optional, Manually graded) ⭐⭐⭐
 
 --  Write down an interesting theorem `count_append` about lists involving
 --  the functions `count` and `append`, and prove it. (You may find that
@@ -1002,7 +1006,7 @@ theorem remove_does_not_increase_count (l : NatList) :
 --  ### Exercise (3 stars): involutive_injective (Advanced) ⭐⭐⭐
 
 --  Prove that every involution is injective.
-
+--
 --  Involutions were defined above in `reverse_involutive`. An *injective*
 --  function is one-to-one: it maps distinct inputs to distinct outputs,
 --  without any collisions.
@@ -1103,7 +1107,7 @@ end NatList
 --  As a final illustration of how data structures can be defined in Lean,
 --  here is a simple *partial map* data type, analogous to the map or
 --  dictionary data structures found in most programming languages.
-
+--
 --  First, we define a new type `MyId` to serve as the "keys" of our
 --  partial maps.
 
@@ -1113,7 +1117,7 @@ structure MyId where
 --  Internally, a `MyId` is just a number. Introducing a separate type by
 --  wrapping each `Nat` makes definitions more readable and gives us
 --  flexibility to change representations later if we want to.
-
+--
 --  We'll also need an equality test for `MyId`s:
 
 def MyId.beq (x₁ x₂ : MyId) : Bool :=
@@ -1157,6 +1161,8 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
     bif MyId.beq x y then .some n
     else find x d'
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Is the following claim true or false?
@@ -1166,6 +1172,8 @@ theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
   rw [update, find, MyId.beq_refl, cond_true]
 
 --  (A) True (B) False (C) Not sure
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
@@ -1178,6 +1186,8 @@ theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
   rw [update, find, h, cond_false]
 
 --  (A) True (B) False (C) Not sure
+
+--   ----------------------------------------
 
 --  ### Exercise (1 star): update_eq ⭐
 
@@ -1195,3 +1205,4 @@ end PartialMap
 
 end Lists
 
+-- Built on 2026-09-01 12:43 UTC

@@ -15,18 +15,18 @@ import SFLCompat
 
 --  Until now, we have been working with our own custom natural numbers,
 --  using the `Nat` type that we defined in Basics.
-
+--
 --  However, Lean has a built-in type of natural numbers, which is more
 --  powerful and comes with many useful features. They are very slightly
 --  different from our custom `Nat`, but these differences are mostly
 --  superficial. The built-in natural numbers are defined in the `Init`
 --  module, which is automatically imported by Lean. We will refer to them
 --  as `Nat` as well.
-
+--
 --  In Lean, programmers and mathematicians don't re-prove the basic
 --  properties of natural numbers from scratch, nor do they tend to write
 --  out `rewrite` steps for basic properties of natural numbers by hand.
-
+--
 --  Previously, we did computation like this...
 
 section OldNats
@@ -42,11 +42,11 @@ example : (two * two : NatPlayground.Nat) = four := by
 --  `attribute [irreducible]` on definitions like `mul` and `add`. This
 --  forced us to write proofs using tactics like `rw` rather than
 --  simplifying definitions.
-
+--
 --  This approach is useful in a textbook for understanding the structure
 --  of natural numbers and for providing early practice with writing
 --  proofs. But it is also tedious in the long term.
-
+--
 --  Instead of doing this, programmers and mathematicians use the built-in
 --  `Nat` and the powerful features of Lean to *automatically* prove
 --  properties about natural numbers and to compute with them.
@@ -60,7 +60,7 @@ example : (3 * 3 : Nat) = 9 := by rfl
 --  powerful features, writing `Nat.<theorem>` to reference Lean's version
 --  of `<theorem>`. (By convention, theorems about a type live in the
 --  namespace of that type, hence the need for the `Nat.` prefix.)
-
+--
 --  Definitions in the built-in `Nat` library are *not* marked
 --  `@[irreducible]`. This lets us use more powerful *automatic
 --  simplification* of functions on natural numbers, which is appropriate
@@ -75,7 +75,7 @@ example : (3 * 3 : Nat) = 9 := by rfl
 example : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by rfl
 
 --  This quickly becomes necessary, as natural numbers quickly get large!
-
+--
 --  Of course, `rfl` can't close more complicated goals where the values of
 --  the terms are unknown.
 
@@ -94,7 +94,7 @@ example (n m : Nat) (h : n = m) : n = m := by
 --  theorems about `Nat`s from the standard library. Because we did not
 --  write or prove these theorems ourselves, we may not know (or remember)
 --  all the available theorems.
-
+--
 --  Lean provides a few ways to search through the standard library to find
 --  theorems that may be useful during a particular proof. The first way is
 --  the `exact?` tactic. This tactic searches the standard library for a
@@ -115,13 +115,13 @@ example (n m : Nat) : n + m = m + n := by
 --  replace the occurrence of `exact?` with the tactic it found to complete
 --  the proof; idiomatic Lean should not contain `exact?` tactics (or any
 --  other `?` tactics) in the finished versions of proofs.
-
+--
 --  The `exact?` tactic is useful when we just need a single library
 --  theorem to get us over the finish line of a proof, but it is not so
 --  helpful when we are deep in the middle of a proof or are wondering how
 --  to get started on one. Fortunately, there are other tactics that can
 --  help in these cases.
-
+--
 --  The `rw?` tactic works like `exact?`, except that it searches for any
 --  theorems that you could use to rewrite the current goal.
 
@@ -169,21 +169,21 @@ theorem mul_three_beq (n : Nat) :
 --  sometimes we *know* exactly how we want to manipulate the terms of a
 --  proof, but don't want to have the tactics like `Nat.add_comm` and
 --  `Nat.add_assoc` "guess" which subterms to rewrite.
-
+--
 --  The `calc` tactic writes down the intermediate goals of a proof, and
 --  allows us to specify exactly which rewrite rules to apply at each step.
 --  It is designed to mimic the style of proofs in mathematics textbooks,
 --  which will often look something like this:
-
---    n + (m + k)
---    = (n + m) + k        ...   [by associativity of addition]
---    = (m + n) + k        ...   [by commutativity of addition]
---    = m + (n + k)        ...   [by associativity of addition]
-
+--
+--      n + (m + k)
+--      = (n + m) + k        ...   [by associativity of addition]
+--      = (m + n) + k        ...   [by commutativity of addition]
+--      = m + (n + k)        ...   [by associativity of addition]
+--
 --  Note how we can see each intermediate step of this proof when we look
 --  at it this way. Let's look at how we might prove this theorem (i.e.,
 --  that `n + (m + k) = m + (n + k)`) in Lean.
-
+--
 --  First, a proof in the style we already know.
 
 example (n m k : Nat) : n + (m + k) = m + (n + k) := by
@@ -257,14 +257,14 @@ sf_expect_failure_in
 --  write the goal we'd like to prove as
 --  `(addThrice n) = n + (addTwice n)`. Unfolding definitions, we can see
 --  that this is equivalent to:
-
---    n + n + n = n + (n + n)
-
+--
+--      n + n + n = n + (n + n)
+--
 --  which, when we are more explicit about parenthesization, is equivalent
 --  to:
-
---    (n + n) + n = n + (n + n)
-
+--
+--      (n + n) + n = n + (n + n)
+--
 --  These two things are not definitionally equal, so we cannot use `rfl`
 --  here, hence our error from earlier. The next thing we might want to try
 --  is rewriting by `Nat.add_assoc`; which would give us a syntactically
@@ -391,13 +391,13 @@ sf_expect_failure_in
 --  simplify terms when using tactics like `rfl` or after unfolding via
 --  `rw`, we allow Lean to introduce a small amount of its own automatic
 --  reasoning.
-
+--
 --  Later in the Automation chapter, we will introduce the more powerful
 --  automated tactic `simp`, which can sometimes solve complex goals by
 --  itself and is accordingly extremely common in real-world Lean
 --  developments. We'll also talk more about tactic combinators like
 --  `repeat`.
-
+--
 --  But, using these tools now does not help (in fact, it hurts!) the
 --  process of learning logical reasoning, formal theorem proving, and
 --  Lean. Additionally, real Lean programmers are careful when using
@@ -415,7 +415,7 @@ sf_expect_failure_in
 --  Note that, for the built-in `Nat` type, the patterns `0` and `n + 1`
 --  correspond to `Nat.zero` and `Nat.succ n`. Likewise, the pattern
 --  `n + 2` is equivalent to `n + 1 + 1`.
-
+--
 --  Prove some of these theorems using the techniques we've discussed this
 --  chapter.
 
@@ -443,7 +443,7 @@ def Nat.double (n : Nat) : Nat :=
 --  Note that we defined these functions in the `Nat` namespace; Lean's
 --  naming conventions advise that functions on a type should be defined in
 --  that type's namespace in almost all circumstances.
-
+--
 --  When we define functions this way, something interesting happens to the
 --  way Lean's InfoView prints them. Take a look at the InfoView inside the
 --  proof of this theorem before the `rfl` tactic:
@@ -460,12 +460,12 @@ theorem Nat.even_add_three (n : Nat) : even (n + 3) = even (n + 1) := by
 --  variation on the normal function-application style we've seen so far.
 --  That is, `Nat.even n` and `n.even` are just different ways to write the
 --  exact same term.
-
+--
 --  In previous chapters we disabled this notation by putting
 --  `set_option pp.fieldNotation false` at the top of each file, but from
 --  now on we will leave it enabled, since field notation is recommended in
 --  idiomatic Lean developments.
-
+--
 --  As an example, observe the difference in how Lean prints the goal in
 --  the following two examples:
 
@@ -514,7 +514,8 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 --  In the remainder of the book, we use Lean's built-in natural numbers
 --  everywhere. We also recommend using `rw?` and `exact?` to search for
 --  lemmas (though these should not appear in finished proofs).
-
+--
 --  With these tools in hand, we can begin to prove properties about more
 --  sophisticated forms of data, beginning with `Lists`.
 
+-- Built on 2026-09-01 12:43 UTC

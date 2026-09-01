@@ -26,20 +26,20 @@ import SFLCompat
 
 --  **Leadership:** Mike Hicks and Benjamin C. Pierce lead
 --  the SF-in-Lean project.
-
+--
 --  **Authors:** The Lean adaptation of *Software
 --  Foundations* was created by Mike Hicks, Benjamin C.
 --  Pierce, One An, Roger Burtonpatel, Jonathan Chan, Harry
 --  Goldstein, Niklas Halonen, Chris Henson, Kihong Heo,
 --  Yipeng Liu, and Daniel Sainati
-
+--
 --  **... with contributions from** Luisa Cicolini, Michael
 --  Clarkson, Robert Joseph, Sati, and Shriya Thakur
-
+--
 --  **... and gratitude to** David Thrane Christiansen, for
 --  helping us understand the intricacies of Lean's Verso
 --  document preparation system.
-
+--
 --  **SF in Rocq:** The first three volumes of *Software
 --  Foundations in Lean* (*Logical Foundations in Lean*,
 --  *Type Systems in Lean*, and *Hoare Logic in Lean*) are
@@ -48,7 +48,7 @@ import SFLCompat
 --  Foundations* series in Roqc, developed from 2008 to 2026
 --  by a team of authors and contributors led by Benjamin C.
 --  Pierce.
-
+--
 --  The original *Logical Foundations* was written by
 --  Benjamin C. Pierce, Arthur Azevedo de Amorim, Chris
 --  Casinghino, Marco Gaboardi, Michael Greenberg, Cătălin
@@ -61,7 +61,7 @@ import SFLCompat
 --  Chung-chieh Shan, Leonid Spesivtsev, Caleb Stanford,
 --  Andrew Tolmach, Philip Wadler, Stephanie Weirich, Li-Yao
 --  Xia, and Steve Zdancewic.
-
+--
 --  The original *Programming Language Foundations* was
 --  written by Benjamin C. Pierce, Arthur Azevedo de Amorim,
 --  Chris Casinghino, Marco Gaboardi, Michael Greenberg,
@@ -74,9 +74,10 @@ import SFLCompat
 --  Chung-Chieh Shan, Leonid Spesivtsev, Caleb Stanford,
 --  Philip Wadler, Stephanie Weirich, Li-Yao Xia, and Steve
 --  Zdancewic.
-
+--
 --  **Funding:** Development of the original *Software
 --  Foundations* series was supported, in part, by the
 --  National Science Foundation under the NSF Expeditions
 --  grant 1521523, *The Science of Deep Specification*.
 
+-- Built on 2026-09-01 12:45 UTC
