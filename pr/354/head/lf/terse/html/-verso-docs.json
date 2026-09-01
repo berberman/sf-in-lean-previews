@@ -946,9 +946,9 @@
  "<code>Lists.NatList.head (default : Nat) (l : Lists.NatList) : Nat</code>",
  "363": "<code>Lists.NatList.head (default : Nat) (l : NatList) : Nat</code>",
  "362":
- "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
- "361":
  "<code>Lists.NatList.cons_append (n : Nat) (l₁ l₂ : NatList) : (n :: l₁) ++ l₂ = n :: l₁ ++ l₂</code>",
+ "361":
+ "<code>HAppend.hAppend.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAppend α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ++ b` is the result of concatenation of `a` and `b`, usually read \"append\".\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `++` in identifiers is `append`.</code>",
  "360": "<code>Lists.NatList.nil_append (l : NatList) : [] ++ l = l</code>",
  "36": "<code>MyBool.true : MyBool</code>",
  "359":

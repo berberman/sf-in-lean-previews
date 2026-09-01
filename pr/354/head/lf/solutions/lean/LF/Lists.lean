@@ -214,9 +214,11 @@ def mylist1 : NatList := 1 :: (2 :: (3 :: []))
 def mylist2 : NatList := 1 :: 2 :: 3 :: []
 def mylist3 : NatList := [1, 2, 3]
 
+--  Let's define some functions on lists.
+
 --  ### Replicate
 
---  First is the `replicate` function, which takes a number `n` and a
+--  Our first is the `replicate` function, which takes a number `n` and a
 --  `count` and returns a list of length `count` in which every element is
 --  `n`.
 
@@ -225,11 +227,14 @@ def replicate (n count : Nat) : NatList :=
   | 0 => []
   | count' + 1 => n :: replicate n count'
 
---  Some simple facts about repetition:
+--  Some simple facts about replication:
 
-theorem replicate_zero (n : Nat) : replicate n 0 = [] := rfl
+theorem replicate_zero (n : Nat) : replicate n 0 = [] := by rfl
 
-theorem replicate_succ (n count : Nat) : replicate n (count + 1) = n :: replicate n count := rfl
+theorem replicate_succ (n count : Nat) :
+  replicate n (count + 1) = n :: replicate n count := by rfl
+
+--  ### Length
 
 --  The `length` function calculates the length of a list.
 
@@ -240,9 +245,10 @@ def length (l : NatList) : Nat :=
 
 --  Some simple facts about list lengths:
 
-theorem length_nil : [].length = 0 := rfl
+theorem length_nil : [].length = 0 := by rfl
 
-theorem length_cons (n : Nat) (l : NatList) : (n :: l).length = l.length + 1 := rfl
+theorem length_cons (n : Nat) (l : NatList) :
+  (n :: l).length = l.length + 1 := by rfl
 
 --  ### Append
 
@@ -253,14 +259,21 @@ def append (l₁ l₂ : NatList) : NatList :=
   | [] => l₂
   | h :: t => h :: append t l₂
 
---  ### Type Classes and Overloading
+--  ### Type Classes and Overloading Notation
 
 --  Note to developers (Benjamin Pierce @bcpierce00):
 --      One word, or two?
 
---  In Lean, operators like `++`, `==`, and `+` are not hardwired to
---  particular types. Instead, they are defined using *type classes* — a
---  mechanism that lets us overload operations for different types.
+--  In Lean, notation like `++`, `==`, and `+` is not hardwired to
+--  particular definitions, which is the way we have been defining notation
+--  so far. Instead, Lean defines this notation using *type classes* — a
+--  mechanism that lets us *overload* operations for different types.
+--
+--  We'll learn more about type classes in chapter Typeclasses. For now,
+--  the key idea is just this: a type class is like an Java-style
+--  interface, and an *instance* is an implementation of that interface for
+--  a particular type. We associate notation with a particular type class
+--  member, and then instances of that typeclass inherit the notation.
 --
 --  For example, `++` is defined via the `HAppend` type class. Any type
 --  that provides an `HAppend` instance gets to use `++`. Lean's built-in
@@ -275,9 +288,10 @@ instance : HAppend NatList NatList NatList where
 --
 --  Some simple facts about appending lists:
 
-theorem nil_append (l : NatList) : [] ++ l = l := rfl
+theorem nil_append (l : NatList) : [] ++ l = l := by rfl
 
-theorem cons_append (n : Nat) (l₁ l₂ : NatList) : (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := rfl
+theorem cons_append (n : Nat) (l₁ l₂ : NatList) :
+  (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := by rfl
 
 example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
@@ -292,11 +306,7 @@ example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
 --  Output:
 --    BEq.refl : ∀ (a : Nat), (a == a) = true
 
---  We'll learn more about type classes in chapter Typeclasses. For now,
---  the key idea is just this: a type class is like an *interface*, and an
---  instance is an implementation of that interface for a particular type.
-
---  #### Head and Tail
+--  ### Head and Tail
 
 --  The `head` function returns the first element (the "head") of the list,
 --  while `tail` returns everything but the first element (the "tail").
@@ -344,7 +354,12 @@ def foo (n : Nat) : NatList :=
 
 --   ----------------------------------------
 
---  #### Exercises
+--  ### Exercises
+
+--  Note to developers (Michael Hicks @mwhicks1):
+--      The exercises below are kind of massive, with many parts. Is that
+--      really what we want, rather than separating out the graded parts
+--      into separate exercises?
 
 --  ### Exercise (2 stars): list_funs ⭐⭐
 
@@ -382,10 +397,12 @@ theorem test_nonZeros : nonZeros [0, 1, 0] = [1] := by
 --  `cond_true` and `cond_false`.
 
 sf_recall
-  theorem cond_true {α} (x y : α) : (bif true then x else y) = x := by rfl
+  theorem cond_true {α} (x y : α) : (bif true then x else y) = x := by
+    rfl
 
 sf_recall
-  theorem cond_false {α} (x y : α) : (bif false then x else y) = y := by rfl
+  theorem cond_false {α} (x y : α) : (bif false then x else y) = y := by
+    rfl
 
 def oddMembers (l : NatList) : NatList := (
   match l with
@@ -418,8 +435,10 @@ example : oddMembers [1, 2] = [1] := by
   · rw [oddMembers_cons_not_odd]
     · rw [oddMembers_nil]
     · rw [Nat.odd_def]
-      rw [Nat.even_succ, Nat.even_succ, Nat.even_zero, Bool.not_true, Bool.not_false, Bool.not_true]
-  · rw [Nat.odd, Nat.even_succ, Nat.even_zero, Bool.not_true, Bool.not_false]
+      rw [Nat.even_succ, Nat.even_succ, Nat.even_zero]
+      rw [Bool.not_true, Bool.not_false, Bool.not_true]
+  · rw [Nat.odd, Nat.even_succ, Nat.even_zero]
+    rw [Bool.not_true, Bool.not_false]
 
 --  This gets pretty verbose quite fast, however we can use `rfl` to deal
 --  with subgoals such as `Nat.odd 2 = false`:
@@ -498,13 +517,16 @@ def count (n : Nat) (l : NatList) : Nat := (
 theorem count_nil (n : Nat) : count n [] = 0 := (by rfl)
 
 theorem count_cons_def (n h : Nat) (t : NatList) :
-    count n (h :: t) = bif n == h then count n t + 1 else count n t := (by rfl)
+    count n (h :: t) =
+      bif n == h then count n t + 1 else count n t := (by rfl)
 
-theorem count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
+theorem count_cons_same (n₁ n₂ : Nat) (t : NatList)
+  (h : (n₁ == n₂) = true) :
     count n₁ (n₂ :: t) = count n₁ t + 1 := by
   rw [count_cons_def, h, cond_true]
 
-theorem count_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
+theorem count_cons_diff (n₁ n₂ : Nat) (t : NatList)
+  (h : (n₁ == n₂) = false) :
     count n₁ (n₂ :: t) = count n₁ t := by
   rw [count_cons_def, h, cond_false]
 
@@ -536,11 +558,13 @@ def member (n : Nat) (l : NatList) : Bool := (
 
 theorem member_nil (n : Nat) : member n [] = false := (by rfl)
 
-theorem member_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
+theorem member_cons_same (n₁ n₂ : Nat) (t : NatList)
+  (h : (n₁ == n₂) = true) :
     member n₁ (n₂ :: t) = true := by
   rw [member, h, cond_true]
 
-theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
+theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList)
+  (h : (n₁ == n₂) = false) :
     member n₁ (n₂ :: t) = member n₁ t := by
   rw [member, h, cond_false]
 
@@ -553,7 +577,7 @@ theorem test_member1 : member 1 [1, 4, 1] = true := (by rfl)
 
 theorem test_member2 : member 2 [1, 4, 1] = false := (by rfl)
 
---  ### Removing
+--  ### Removal
 
 --  ### Exercise (3 stars): removing (Optional) ⭐⭐⭐
 
@@ -569,11 +593,13 @@ def removeOne (n : Nat) (l : NatList) : NatList := (
 
 theorem removeOne_nil (n : Nat) : removeOne n nil = nil := (by rfl)
 
-theorem removeOne_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
+theorem removeOne_cons_same (n₁ n₂ : Nat) (t : NatList)
+  (h : (n₁ == n₂) = true) :
     removeOne n₁ (n₂ :: t) = t := by
   rw [removeOne, h, cond_true]
 
-theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
+theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList)
+  (h : (n₁ == n₂) = false) :
     removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t := by
   rw [removeOne, h, cond_false]
 
@@ -594,11 +620,13 @@ def removeAll (n : Nat) (l : NatList) : NatList := (
 
 theorem removeAll_nil (n : Nat) : removeAll n [] = [] := (by rfl)
 
-theorem removeAll_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
+theorem removeAll_cons_same (n₁ n₂ : Nat) (t : NatList)
+  (h : (n₁ == n₂) = true) :
     removeAll n₁ (n₂ :: t) = removeAll n₁ t := by
   rw [removeAll, h, cond_true]
 
-theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
+theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList)
+  (h : (n₁ == n₂) = false) :
     removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t := by
   rw [removeAll, h, cond_false]
 
@@ -626,11 +654,13 @@ def included (l₁ l₂ : NatList) : Bool := (
 
 theorem included_nil (l₂ : NatList) : included nil l₂ = true := (by rfl)
 
-theorem included_cons_member (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = true) :
+theorem included_cons_member (n : Nat) (l₁ l₂ : NatList)
+  (h : member n l₂ = true) :
     included (cons n l₁) l₂ = included l₁ (removeOne n l₂) := by
   rw [included, h, Bool.true_and]
 
-theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = false) :
+theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList)
+  (h : member n l₂ = false) :
     included (cons n l₁) l₂ = false := by
   rw [included, h, Bool.false_and]
 
@@ -651,7 +681,7 @@ theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := (by rfl)
 --  As with numbers, simple facts about list-processing functions can
 --  sometimes be proved entirely by rewriting. For example, just rewriting
 --  the left-hand side of the following equality using the theorem
---  `nil_append` is enough for this theorem...
+--  `nil_append` is enough for this theorem.
 
 theorem tail_length_pred (l : NatList) :
     l.length.pred = l.tail.length := by
@@ -1015,11 +1045,13 @@ def beq (l₁ l₂ : NatList) : Bool := (
 
 theorem beq_nil : beq [] [] = true := (by rfl)
 
-theorem beq_cons_same (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = true) :
+theorem beq_cons_same (h₁ h₂ : Nat) (t₁ t₂ : NatList)
+  (h : (h₁ == h₂) = true) :
     beq (h₁ :: t₁) (h₂ :: t₂) = beq t₁ t₂ := by
   rw [beq, h, Bool.true_and]
 
-theorem beq_cons_diff (h₁ h₂ : Nat) (t₁ t₂ : NatList) (h : (h₁ == h₂) = false) :
+theorem beq_cons_diff (h₁ h₂ : Nat) (t₁ t₂ : NatList)
+  (h : (h₁ == h₂) = false) :
     beq (h₁ :: t₁) (h₂ :: t₂) = false := by
   rw [beq, h, Bool.false_and]
 
@@ -1107,7 +1139,8 @@ theorem count_append (l₁ l₂ : NatList) (n : Nat) :
 --  function is one-to-one: it maps distinct inputs to distinct outputs,
 --  without any collisions.
 
-theorem involutive_injective (f : Nat → Nat) (hInv : ∀ n : Nat, n = f (f n)) :
+theorem involutive_injective (f : Nat → Nat)
+  (hInv : ∀ n : Nat, n = f (f n)) :
     (∀ n₁ n₂ : Nat, f n₁ = f n₂ → n₁ = n₂) := by
   intro n₁ n₂ h
   rw [hInv n₁, hInv n₂, h]
@@ -1313,4 +1346,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-01 12:14 UTC
+-- Built on 2026-09-01 13:18 UTC

@@ -483,48 +483,11 @@
     },
     "353": {
       "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "96c7ea54fad64b591d75f576b0e1d24b774eb734",
+      "changed_variants": [],
+      "head_sha": "9a843def4cce759f4824464e999f55ceed301e66",
       "preview_path": "pr/353/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33499086857",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "UsingLean: Full pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/353"
     },
@@ -568,12 +531,22 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "61496831fcc75033686a4554f593db0e193bcb60",
+      "head_sha": "4dcc3b23c01422e1bd6755a437d1cfaf37e32868",
       "preview_path": "pr/354/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33505879952",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33511848555",
       "status": "published",
       "title": "Lists: Polishing pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/354"
+    },
+    "355": {
+      "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
+      "changed_variants": [],
+      "head_sha": "abe1a4161b38e2bf853794f58d50c7334972512b",
+      "preview_path": "pr/355/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33513410642",
+      "status": "ci-failed",
+      "title": "Add normalize tactic using `solve_by_elim`.",
+      "url": "https://github.com/plclub/sf-in-lean/pull/355"
     }
   },
   "schema": 3
