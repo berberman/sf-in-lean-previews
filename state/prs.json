@@ -378,12 +378,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/347"
     },
     "349": {
-      "base_sha": "fa8c9278311998d2344bbb61a9359984343ac593",
+      "base_sha": "292c8d46767745f9defbcfabfe81e6015365d3f8",
       "changed_variants": [],
-      "head_sha": "32edf9f8b9b50e6e10b04fd8f7753904d39536e4",
+      "head_sha": "b3ffb619f61c0e6f7d9a2a5388b04281ae9d0cee",
       "preview_path": "pr/349/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33434234489",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/349"
     },
@@ -480,53 +480,6 @@
       "status": "published",
       "title": "Build: Install devcontainer in built artifacts",
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
-    },
-    "354": {
-      "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "4dcc3b23c01422e1bd6755a437d1cfaf37e32868",
-      "preview_path": "pr/354/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33511848555",
-      "status": "published",
-      "title": "Lists: Polishing pass",
-      "url": "https://github.com/plclub/sf-in-lean/pull/354"
     },
     "355": {
       "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
