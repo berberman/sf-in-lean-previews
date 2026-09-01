@@ -123,7 +123,7 @@ example : (!MyBool.false) = MyBool.true := by rfl
 --  proof or definition. We use it in exercises to indicate
 --  the parts that we're leaving for you — i.e., your job is
 --  to replace `sorry` with real definitions and proofs.
-
+--
 --  Remove `sorry` below and complete the definition of the
 --  function. The function should return `MyBool.true` if
 --  either or both of its inputs are `MyBool.false`. Make
@@ -755,7 +755,7 @@ scoped infixl:70 " * " => mul
 
 --  Multiplication, like any function we will prove
 --  properties about, also has simplification rules.
-
+--
 --  Remove `sorry` and prove the simplification rules for
 --  `mul` below. You will likely find the proofs of the
 --  simplification rules for `add` to be helpful as a model.
@@ -975,3 +975,4 @@ theorem and3_exchange (b c d : Bool) :
 
 end Nat
 
+-- Built on 2026-09-01 15:23 UTC

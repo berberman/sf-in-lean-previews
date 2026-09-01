@@ -866,49 +866,6 @@
   color: #a00;
 }
 </style><style>
-a.technical-term {
-  color: inherit;
-  text-decoration: currentcolor underline dotted;
-}
-a.technical-term:hover {
-  text-decoration: currentcolor underline solid;
-}
-/* Highlight the clicked term */
-.def-technical-term:target {
-  background-color: var(--verso-selected-color);
-  outline: auto;
-}
-</style><style>
-div.sf-quiz {
-  margin: 1em 0;
-  padding: 0.4em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 2px;
-}
-div.sf-quiz > .sf-quiz-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.4em;
-}
-</style><style>
-div.sf-dev-note {
-  margin: 1em 0;
-  padding: 0.5em 0.9em;
-  border: 1px solid #e6a700;
-  border-left: 6px solid #e6a700;
-  background: #fff3b0;
-  border-radius: 3px;
-}
-div.sf-dev-note > .sf-dev-note-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 700;
-  font-size: 0.85em;
-  letter-spacing: 0.03em;
-  color: #7a5800;
-  margin-bottom: 0.3em;
-}
-</style><style>
 :root {
   --sf-bg: #fffdf6;
   --sf-text: #1a1208;
@@ -1007,10 +964,67 @@ blockquote {
   color: #2b2b28;
 }
 
+/* Build stamp: when this page was generated, matching the trailing comment in
+   the generated .lean file of the same chapter (SFLMeta/BuildStamp.lean).  It
+   is a provenance note, not something to read, so it is small, gray, and set
+   off below a rule. */
+.sf-build-stamp {
+  margin-top: 2.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--sf-rule);
+  font-size: 0.8em;
+  font-style: italic;
+  text-align: right;
+  color: #8c8c88;
+}
+
 /* Tighten the exercise box to share the same palette */
 .exercise {
   background: var(--sf-surface);
   border-left: 3px solid var(--sf-accent);
+}
+</style><style>
+a.technical-term {
+  color: inherit;
+  text-decoration: currentcolor underline dotted;
+}
+a.technical-term:hover {
+  text-decoration: currentcolor underline solid;
+}
+/* Highlight the clicked term */
+.def-technical-term:target {
+  background-color: var(--verso-selected-color);
+  outline: auto;
+}
+</style><style>
+div.sf-quiz {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+}
+div.sf-quiz > .sf-quiz-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.4em;
+}
+</style><style>
+div.sf-dev-note {
+  margin: 1em 0;
+  padding: 0.5em 0.9em;
+  border: 1px solid #e6a700;
+  border-left: 6px solid #e6a700;
+  background: #fff3b0;
+  border-radius: 3px;
+}
+div.sf-dev-note > .sf-dev-note-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+  color: #7a5800;
+  margin-bottom: 0.3em;
 }
 </style><style>
 details.sf-quiz-solution {
@@ -2668,7 +2682,7 @@ the small-step reduction relation preserves types.</p>
                   </ul>
                 <div class="exercise stars-2">
                   <div class="exercise-header">
-                    <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(subject_expansion_stlc)</span><span class="exercise-level"> (manually graded)</span></div>
+                    <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(subject_expansion_stlc)</span><span class="exercise-level"> (Manually graded)</span></div>
                   <p>
                     An exercise in the <a href="Types/#Types">Types</a> chapter asked about the <em>subject
 expansion</em> property for the simple language of arithmetic and
@@ -2963,7 +2977,7 @@ following template.  BCP 21: Yes, do this!!</p>
                 </div>
               <div class="exercise stars-2">
                 <div class="exercise-header">
-                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(stlc_variation1)</span><span class="exercise-level"> (manually graded)</span></div>
+                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(stlc_variation1)</span><span class="exercise-level"> (Manually graded)</span></div>
                 <p>
                   Suppose we add a new term <code>zap</code> with the following reduction rule</p>
                 <div class="sf-display">
@@ -3021,7 +3035,7 @@ and <code>(if true then false else true) ⟶ zap</code>.</p>
                 </div>
               <div class="exercise stars-2">
                 <div class="exercise-header">
-                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(stlc_variation2)</span><span class="exercise-level"> (manually graded)</span></div>
+                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(stlc_variation2)</span><span class="exercise-level"> (Manually graded)</span></div>
                 <p>
                   Suppose instead that we add a new term <code>foo</code> with the following
 reduction rules:</p>
@@ -3072,7 +3086,7 @@ but, since we have no typing rules for foo, we cannot prove that
 </pre></div>
               <div class="exercise stars-2">
                 <div class="exercise-header">
-                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(stlc_variation3)</span><span class="exercise-level"> (manually graded)</span></div>
+                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(stlc_variation3)</span><span class="exercise-level"> (Manually graded)</span></div>
                 <p>
                   Suppose instead that we remove the rule <code>Step.app1</code> from the <code>step</code>
 relation. Which of the following properties of the STLC remain
@@ -3621,13 +3635,13 @@ constructors need two lemmas apiece, since substitution treats a bound name
 differently depending on whether it is the name being substituted for.</p>
                   <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.section-0" data-verso-hover="540">section</span><span class="inter-text">
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.variable-8" data-verso-hover="744">variable</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-17">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="666">x</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.4" data-verso-hover="666">y</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-17">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-String" data-verso-hover="667">String</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-17">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-32">(</span><span class="var token" data-binding="var-_uniq.6" data-verso-hover="177">s</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.8" data-verso-hover="177">t</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.10" data-verso-hover="177">t₁</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12" data-verso-hover="177">t₂</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.14" data-verso-hover="177">t₃</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-32">:</span><span class="inter-text"> </span><a href="StlcProp/#StlcArith___Tm" title="Definition of example"><span class="const token" data-binding="const-StlcArith.Tm" data-verso-hover="991">Tm</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-32">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-58">(</span><span class="var token" data-binding="var-_uniq.16" data-verso-hover="604">T</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-58">:</span><span class="inter-text"> </span><a href="StlcProp/#StlcArith___Ty" title="Definition of example"><span class="const token" data-binding="const-StlcArith.Ty" data-verso-hover="988">Ty</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-58">)</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-67">(</span><span class="var token" data-binding="var-_uniq.18" data-verso-hover="4">n</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-67">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-Nat" data-verso-hover="5">Nat</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-67">)</span><span class="inter-text">
-</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
-</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-93" data-verso-hover="33">end</span><span class="inter-text">
+</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding="">  FILL IN HERE</span><span class="inter-text">
+</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-94" data-verso-hover="33">end</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                     Next, the values.  In the pure STLC, function abstractions were the only
 values; now the numbers are values too.</p>
                   <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-0" data-verso-hover="1">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-StlcArith.Tm.IsValue" data-verso-hover="1015">Tm.IsValue</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-21">:</span><span class="inter-text"> </span><a href="StlcProp/#StlcArith___Tm" title="Definition of example"><span class="const token" data-binding="const-StlcArith.Tm" data-verso-hover="991">Tm</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-23">→</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="42">Prop</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-0" data-verso-hover="1">where</span><span class="inter-text">
-</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
+</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding="">  FILL IN HERE</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                     Now the reduction relation.  The three rules for application are the STLC's;
 the rest say how the arithmetic operators evaluate their arguments and what
@@ -3637,11 +3651,11 @@ they compute once those arguments are numbers.</p>
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.local-36">local</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.notation-36">notation</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-50">:</span><span class="literal number token" data-binding="">40</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.214" data-verso-hover="115">t</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-55">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="190">" ⟶ "</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.207" data-verso-hover="115">t'</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-69">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.notation-36">=&gt;</span><span class="inter-text"> </span><span class="unknown token" data-binding="">Step</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.214" data-verso-hover="115">t</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.207" data-verso-hover="115">t'</span><span class="inter-text">
 
 </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-87" data-verso-hover="1">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-StlcArith.Step" data-verso-hover="1016">Step</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-102">:</span><span class="inter-text"> </span><a href="StlcProp/#StlcArith___Tm" title="Definition of example"><span class="const token" data-binding="const-StlcArith.Tm" data-verso-hover="991">Tm</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-104">→</span><span class="inter-text"> </span><a href="StlcProp/#StlcArith___Tm" title="Definition of example"><span class="const token" data-binding="const-StlcArith.Tm" data-verso-hover="991">Tm</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-111">→</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="42">Prop</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-87" data-verso-hover="1">where</span><span class="inter-text">
-</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
-</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-145" data-verso-hover="33">end</span><span class="inter-text">
+</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding="">  FILL IN HERE</span><span class="inter-text">
+</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-146" data-verso-hover="33">end</span><span class="inter-text">
 
-</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.scoped-150">scoped</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.notation-150">notation</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-165">:</span><span class="literal number token" data-binding="">40</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6530" data-verso-hover="115">t</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-170">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="190">" ⟶ "</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6523" data-verso-hover="115">t'</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-184">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.notation-150">=&gt;</span><span class="inter-text"> </span><span class="const token" data-binding="const-StlcArith.Step" data-verso-hover="1016">Step</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6530" data-verso-hover="115">t</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6523" data-verso-hover="115">t'</span><span class="inter-text">
-</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.scoped-201">scoped</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.notation-201">notation</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-216">:</span><span class="literal number token" data-binding="">40</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12571" data-verso-hover="115">t</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-221">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="292">" ⟶* "</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12564" data-verso-hover="115">t'</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-236">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.notation-201">=&gt;</span><span class="inter-text"> </span><a href="Smallstep/#Multi" title="Definition of example"><span class="const token" data-binding="const-Multi" data-verso-hover="287">Multi</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-StlcArith.Step" data-verso-hover="1016">Step</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12571" data-verso-hover="115">t</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12564" data-verso-hover="115">t'</span><span class="inter-text">
+</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.scoped-151">scoped</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.notation-151">notation</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-166">:</span><span class="literal number token" data-binding="">40</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6530" data-verso-hover="115">t</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-171">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="190">" ⟶ "</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6523" data-verso-hover="115">t'</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-185">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.notation-151">=&gt;</span><span class="inter-text"> </span><span class="const token" data-binding="const-StlcArith.Step" data-verso-hover="1016">Step</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6530" data-verso-hover="115">t</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.6523" data-verso-hover="115">t'</span><span class="inter-text">
+</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.scoped-202">scoped</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.notation-202">notation</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-217">:</span><span class="literal number token" data-binding="">40</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12571" data-verso-hover="115">t</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-222">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="literal string token" data-binding="" data-verso-hover="292">" ⟶* "</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12564" data-verso-hover="115">t'</span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.precedence-237">:</span><span class="literal number token" data-binding="">41</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.notation-202">=&gt;</span><span class="inter-text"> </span><a href="Smallstep/#Multi" title="Definition of example"><span class="const token" data-binding="const-Multi" data-verso-hover="287">Multi</span></a><span class="inter-text"> </span><span class="const token" data-binding="const-StlcArith.Step" data-verso-hover="1016">Step</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12571" data-verso-hover="115">t</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.12564" data-verso-hover="115">t'</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                     An example:</p>
                   <code class="hl lean block" data-lean-context="examples"><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> AI</span><span class="inter-text">
@@ -3682,7 +3696,7 @@ declared, then again for real.</p>
                     The typing rules for variables, abstraction, and application are the STLC's.
 The remaining four are the typing rules for arithmetic expressions.</p>
                   <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-0" data-verso-hover="1">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-StlcArith.HasType" data-verso-hover="1021">HasType</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-18">:</span><span class="inter-text"> </span><a href="StlcProp/#StlcArith___Context" title="Definition of example"><span class="const token" data-binding="const-StlcArith.Context" data-verso-hover="1018">Context</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-20">→</span><span class="inter-text"> </span><a href="StlcProp/#StlcArith___Tm" title="Definition of example"><span class="const token" data-binding="const-StlcArith.Tm" data-verso-hover="991">Tm</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-32">→</span><span class="inter-text"> </span><a href="StlcProp/#StlcArith___Ty" title="Definition of example"><span class="const token" data-binding="const-StlcArith.Ty" data-verso-hover="988">Ty</span></a><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-39">→</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="42">Prop</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-0" data-verso-hover="1">where</span><span class="inter-text">
-</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding=""> FILL IN HERE</span><span class="inter-text">
+</span><span class="comment delimiter token" data-binding="">--</span><span class="comment line token" data-binding="">  FILL IN HERE</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><details class="sf-details"><summary>Notation encoding: the judgment, for real</summary><p>
                       Closing the section retires the hygiene-free rule; the same rule is then
 declared again, hygienically, for every later use, and a pair of unexpanders
@@ -3804,6 +3818,8 @@ so the grader can tell them apart from this chapter's own <code>progress</code> 
                 </section>
               </section>
             </section>
+          <div class="sf-build-stamp">
+            Built on 2026-09-01 15:25 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Stlc/#Stlc" rel="prev" title="5. Stlc: The Simply Typed Lambda-Calculus"><span class="arrow">←</span><span class="where">5. Stlc: The Simply Typed Lambda-Calculus</span></a><div></div>
             </nav>
