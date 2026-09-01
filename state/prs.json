@@ -285,48 +285,11 @@
     },
     "345": {
       "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "d6b36d626b89d632f5cc11e7f80dee462fef3302",
+      "changed_variants": [],
+      "head_sha": "754a5aa57bbc572f3ef4b648bac55d7dfcff4593",
       "preview_path": "pr/345/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33370934862",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Polish Types",
       "url": "https://github.com/plclub/sf-in-lean/pull/345"
     },
@@ -530,11 +493,48 @@
     },
     "354": {
       "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "61496831fcc75033686a4554f593db0e193bcb60",
       "preview_path": "pr/354/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33505879952",
+      "status": "published",
       "title": "Lists: Polishing pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/354"
     }
