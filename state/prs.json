@@ -1,5 +1,5 @@
 {
-  "main_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
+  "main_sha": "739002c3eacd4e126b3635b46505d57c847be856",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -530,11 +530,48 @@
     },
     "355": {
       "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "292c8d46767745f9defbcfabfe81e6015365d3f8",
       "preview_path": "pr/355/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33517012928",
+      "status": "published",
       "title": "Add normalize tactic using `solve_by_elim`.",
       "url": "https://github.com/plclub/sf-in-lean/pull/355"
     }
