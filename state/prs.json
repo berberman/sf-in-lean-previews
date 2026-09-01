@@ -283,53 +283,6 @@
       "title": "Imp: support sequencing using newlines, pretty print on a single line",
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
     },
-    "340": {
-      "base_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "bf1ef13f4c4aff0d3313b7027ef1a53b98676859",
-      "preview_path": "pr/340/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33266127911",
-      "status": "published",
-      "title": "Logic: Stored Yipeng's cases vs. induction example ",
-      "url": "https://github.com/plclub/sf-in-lean/pull/340"
-    },
     "345": {
       "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
       "changed_variants": [
@@ -480,6 +433,53 @@
       "status": "published",
       "title": "Release script: Updated to simplify usage",
       "url": "https://github.com/plclub/sf-in-lean/pull/351"
+    },
+    "352": {
+      "base_sha": "e6c791393e9d7fac06ca68ff719cd3022744d2b1",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "8327c16ff2bcec9863045038cf63b97527419217",
+      "preview_path": "pr/352/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33488036166",
+      "status": "published",
+      "title": "Build: Install devcontainer in built artifacts",
+      "url": "https://github.com/plclub/sf-in-lean/pull/352"
     }
   },
   "schema": 3
