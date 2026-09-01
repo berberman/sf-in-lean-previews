@@ -285,48 +285,11 @@
     },
     "337": {
       "base_sha": "65ca99a1f0c95772fe085fb28f49dc0bee029e38",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "4c9b7bfe9e503d5c6cf0dbf2a7ddd316853f7acd",
+      "changed_variants": [],
+      "head_sha": "5a466a424e98e74bc59ec2ee3cb11a9d4d25e5b2",
       "preview_path": "pr/337/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33472039564",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Imp: improve delabrator and reduce antiquotation noise",
       "url": "https://github.com/plclub/sf-in-lean/pull/337"
     },
