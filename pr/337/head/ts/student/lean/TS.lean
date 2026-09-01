@@ -3,3 +3,6 @@ import TS.Slang
 import TS.Smallstep
 import TS.Types
 import TS.Stlc
+import TS.StlcProp
+
+-- Built on 2026-09-01 05:08 UTC

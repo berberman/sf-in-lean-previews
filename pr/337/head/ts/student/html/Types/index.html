@@ -866,49 +866,6 @@
   color: #a00;
 }
 </style><style>
-a.technical-term {
-  color: inherit;
-  text-decoration: currentcolor underline dotted;
-}
-a.technical-term:hover {
-  text-decoration: currentcolor underline solid;
-}
-/* Highlight the clicked term */
-.def-technical-term:target {
-  background-color: var(--verso-selected-color);
-  outline: auto;
-}
-</style><style>
-div.sf-quiz {
-  margin: 1em 0;
-  padding: 0.4em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 2px;
-}
-div.sf-quiz > .sf-quiz-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.4em;
-}
-</style><style>
-div.sf-dev-note {
-  margin: 1em 0;
-  padding: 0.5em 0.9em;
-  border: 1px solid #e6a700;
-  border-left: 6px solid #e6a700;
-  background: #fff3b0;
-  border-radius: 3px;
-}
-div.sf-dev-note > .sf-dev-note-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 700;
-  font-size: 0.85em;
-  letter-spacing: 0.03em;
-  color: #7a5800;
-  margin-bottom: 0.3em;
-}
-</style><style>
 :root {
   --sf-bg: #fffdf6;
   --sf-text: #1a1208;
@@ -1007,10 +964,67 @@ blockquote {
   color: #2b2b28;
 }
 
+/* Build stamp: when this page was generated, matching the trailing comment in
+   the generated .lean file of the same chapter (SFLMeta/BuildStamp.lean).  It
+   is a provenance note, not something to read, so it is small, gray, and set
+   off below a rule. */
+.sf-build-stamp {
+  margin-top: 2.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--sf-rule);
+  font-size: 0.8em;
+  font-style: italic;
+  text-align: right;
+  color: #8c8c88;
+}
+
 /* Tighten the exercise box to share the same palette */
 .exercise {
   background: var(--sf-surface);
   border-left: 3px solid var(--sf-accent);
+}
+</style><style>
+a.technical-term {
+  color: inherit;
+  text-decoration: currentcolor underline dotted;
+}
+a.technical-term:hover {
+  text-decoration: currentcolor underline solid;
+}
+/* Highlight the clicked term */
+.def-technical-term:target {
+  background-color: var(--verso-selected-color);
+  outline: auto;
+}
+</style><style>
+div.sf-quiz {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+}
+div.sf-quiz > .sf-quiz-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.4em;
+}
+</style><style>
+div.sf-dev-note {
+  margin: 1em 0;
+  padding: 0.5em 0.9em;
+  border: 1px solid #e6a700;
+  border-left: 6px solid #e6a700;
+  background: #fff3b0;
+  border-radius: 3px;
+}
+div.sf-dev-note > .sf-dev-note-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+  color: #7a5800;
+  margin-bottom: 0.3em;
 }
 </style><style>
 details.sf-quiz-solution {
@@ -2163,7 +2177,7 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Type-Systems--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Smallstep/#Smallstep">Smallstep: Small-step Operational Semantics</a></td></tr><tr class="current numbered"><td class="num">4.</td><td><a href="Types/#Types">Types: Type Systems</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Stlc/#Stlc">Stlc: The Simply Typed Lambda-Calculus</a></td></tr></table></div>
+              <table><tr class="numbered"><td class="num">1.</td><td><a href="Preface/#Type-Systems--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Smallstep/#Smallstep">Smallstep: Small-step Operational Semantics</a></td></tr><tr class="current numbered"><td class="num">4.</td><td><a href="Types/#Types">Types: Type Systems</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Stlc/#Stlc">Stlc: The Simply Typed Lambda-Calculus</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="StlcProp/#StlcProp">StlcProp: Properties of STLC</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
                 <label for="--verso-manual-toc-Types" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Types" checked="checked"></label><span class="number">4.</span> <span class="current"><a href="Types/#Types">Types: Type Systems</a></span></div>
@@ -3135,7 +3149,7 @@ counterexample if one breaks.  (These are graded manually; there is no
 Lean code to complete.)</p>
               <div class="exercise stars-2">
                 <div class="exercise-header">
-                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(variation1)</span><span class="exercise-level"> (manually graded)</span></div>
+                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(variation1)</span><span class="exercise-level"> (Manually graded)</span></div>
                 <p>
                   Suppose that we add this new rule to the typing relation:</p>
                 <pre>succBool : ⊢ t ⦂ Bool → ⊢ succ t ⦂ Bool
@@ -3160,7 +3174,7 @@ If a property becomes false, give a counterexample.</p>
                 </div>
               <div class="exercise stars-2">
                 <div class="exercise-header">
-                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(variation2)</span><span class="exercise-level"> (manually graded)</span></div>
+                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★</span><span class="exercise-name">(variation2)</span><span class="exercise-level"> (Manually graded)</span></div>
                 <p>
                   Suppose, instead, that we add this new rule to the <code>Tm.Step</code> relation:</p>
                 <pre>funny1 : if true then t2 else t3 ⟶ t3
@@ -3219,7 +3233,7 @@ leave the others alone.</p>
                 </div>
               <div class="exercise stars-1">
                 <div class="exercise-header">
-                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★</span><span class="exercise-name">(remove_pred0)</span><span class="exercise-level"> (manually graded)</span></div>
+                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★</span><span class="exercise-name">(remove_pred0)</span><span class="exercise-level"> (Manually graded)</span></div>
                 <p>
                   The reduction rule <code>predZero</code> is a bit counter-intuitive: we might feel
 that it makes more sense for the predecessor of <code>0</code> to be undefined,
@@ -3229,7 +3243,7 @@ any problems elsewhere?</p>
                 </div>
               <div class="exercise stars-4">
                 <div class="exercise-header">
-                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★★★</span><span class="exercise-name">(prog_pres_bigstep)</span><span class="exercise-level"> (Advanced, manually graded)</span></div>
+                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★★★</span><span class="exercise-name">(prog_pres_bigstep)</span><span class="exercise-level"> (Advanced, Manually graded)</span></div>
                 <p>
                   Suppose our evaluation relation is defined in the big-step style.  State
 appropriate analogs of the progress and preservation properties.  (You do
@@ -3241,6 +3255,8 @@ for stating preservation and progress?</p>
                 </div>
               </section>
             </section>
+          <div class="sf-build-stamp">
+            Built on 2026-09-01 05:08 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Smallstep/#Smallstep" rel="prev" title="3. Smallstep: Small-step Operational Semantics"><span class="arrow">←</span><span class="where">3. Smallstep: Small-step Operational Semantics</span></a><a class="local-button active" href="Stlc/#Stlc" rel="next" title="5. Stlc: The Simply Typed Lambda-Calculus"><span class="where">5. Stlc: The Simply Typed Lambda-Calculus</span><span class="arrow">→</span></a></nav>
           </div>

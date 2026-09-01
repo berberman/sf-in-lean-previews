@@ -885,6 +885,124 @@ table.tabular td > p:last-child, table.tabular th > p:first-child {
   color: #a00;
 }
 </style><style>
+:root {
+  --sf-bg: #fffdf6;
+  --sf-text: #1a1208;
+  --sf-heading: #6b0d0d;
+  --sf-accent: #a00;
+  --sf-link: #7a1a1a;
+  --sf-link-hover: #a00;
+  /* Block-level surfaces (code blocks, the TOC column, callouts) are a neutral
+     light gray rather than a tint of the warm page color, so highlighted Lean
+     reads against a plain backdrop. */
+  --sf-code-bg: #f1f1f0;
+  --sf-rule: #dcdcda;
+  --sf-toc-bg: #f6f6f5;
+  --sf-surface: #f4f4f3;
+
+  /* Override Verso's syntax highlighting palette */
+  --verso-code-keyword-color: #697f2f;
+  --verso-code-const-color: #416DFF;
+}
+
+body {
+  /* Software Foundations LF background — same image and layout as the
+     original site (no-repeat, full width, scrolls with the page so it
+     fades off the top as you read down). The body color is plain white,
+     matching the original SF site, so the area below the image (once it
+     has scrolled off) shows the same neutral backdrop the SF book uses. */
+  background-color: white;
+  background-image: url('assets/prog_lang_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: top left;
+  background-attachment: scroll;
+  color: var(--sf-text);
+}
+
+/* Solid card behind the actual prose so the background image never bleeds
+   through the text itself. */
+main .content-wrapper {
+  background: var(--sf-bg);
+  padding: 1.5rem var(--verso--content-padding-x);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  border-radius: 2px;
+}
+
+main h1, main h2, main h3, main h4, main h5, main h6,
+.header-title, .toc-title h1 {
+  color: var(--sf-heading);
+}
+
+/* A section whose heading is full-only (see
+   SFLMeta.Block.suppressPreviousHeaderWhenTerse): the marker div is present
+   only in the terse build, where the heading hides. */
+section:has(> .suppress-previous-header-when-terse)
+    > :is(h1, h2, h3, h4, h5, h6):first-child {
+  display: none;
+}
+
+a, a:visited { color: var(--sf-link); }
+a:hover, a:active { color: var(--sf-link-hover); }
+
+header {
+  background: var(--sf-bg);
+  border-bottom: 1px solid var(--sf-rule);
+  box-shadow: none;
+}
+
+#toc {
+  background: var(--sf-toc-bg) !important;
+  border-right: 1px solid var(--sf-rule);
+}
+
+code:not(.hl), pre:not(.hl) {
+  background: var(--sf-code-bg);
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}
+
+pre:not(.hl) {
+  padding: 0.6em 0.9em;
+  border-left: 3px solid var(--sf-accent);
+  background: var(--sf-code-bg);
+}
+
+.hl.lean.block {
+  background: var(--sf-code-bg);
+  border-left: 3px solid var(--sf-accent);
+  padding: 0.6em 0.9em;
+  border-radius: 2px;
+}
+
+blockquote {
+  border-left: 3px solid var(--sf-accent);
+  background: var(--sf-surface);
+  margin-left: 0;
+  padding: 0.4em 1em;
+  color: #2b2b28;
+}
+
+/* Build stamp: when this page was generated, matching the trailing comment in
+   the generated .lean file of the same chapter (SFLMeta/BuildStamp.lean).  It
+   is a provenance note, not something to read, so it is small, gray, and set
+   off below a rule. */
+.sf-build-stamp {
+  margin-top: 2.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--sf-rule);
+  font-size: 0.8em;
+  font-style: italic;
+  text-align: right;
+  color: #8c8c88;
+}
+
+/* Tighten the exercise box to share the same palette */
+.exercise {
+  background: var(--sf-surface);
+  border-left: 3px solid var(--sf-accent);
+}
+</style><style>
 div.sf-quote {
   font-style: italic;
   margin: 1em 0;
@@ -1014,110 +1132,6 @@ div.sf-dev-note > .sf-dev-note-label {
   letter-spacing: 0.03em;
   color: #7a5800;
   margin-bottom: 0.3em;
-}
-</style><style>
-:root {
-  --sf-bg: #fffdf6;
-  --sf-text: #1a1208;
-  --sf-heading: #6b0d0d;
-  --sf-accent: #a00;
-  --sf-link: #7a1a1a;
-  --sf-link-hover: #a00;
-  /* Block-level surfaces (code blocks, the TOC column, callouts) are a neutral
-     light gray rather than a tint of the warm page color, so highlighted Lean
-     reads against a plain backdrop. */
-  --sf-code-bg: #f1f1f0;
-  --sf-rule: #dcdcda;
-  --sf-toc-bg: #f6f6f5;
-  --sf-surface: #f4f4f3;
-
-  /* Override Verso's syntax highlighting palette */
-  --verso-code-keyword-color: #697f2f;
-  --verso-code-const-color: #416DFF;
-}
-
-body {
-  /* Software Foundations LF background — same image and layout as the
-     original site (no-repeat, full width, scrolls with the page so it
-     fades off the top as you read down). The body color is plain white,
-     matching the original SF site, so the area below the image (once it
-     has scrolled off) shows the same neutral backdrop the SF book uses. */
-  background-color: white;
-  background-image: url('assets/prog_lang_bg.jpg');
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: top left;
-  background-attachment: scroll;
-  color: var(--sf-text);
-}
-
-/* Solid card behind the actual prose so the background image never bleeds
-   through the text itself. */
-main .content-wrapper {
-  background: var(--sf-bg);
-  padding: 1.5rem var(--verso--content-padding-x);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
-  border-radius: 2px;
-}
-
-main h1, main h2, main h3, main h4, main h5, main h6,
-.header-title, .toc-title h1 {
-  color: var(--sf-heading);
-}
-
-/* A section whose heading is full-only (see
-   SFLMeta.Block.suppressPreviousHeaderWhenTerse): the marker div is present
-   only in the terse build, where the heading hides. */
-section:has(> .suppress-previous-header-when-terse)
-    > :is(h1, h2, h3, h4, h5, h6):first-child {
-  display: none;
-}
-
-a, a:visited { color: var(--sf-link); }
-a:hover, a:active { color: var(--sf-link-hover); }
-
-header {
-  background: var(--sf-bg);
-  border-bottom: 1px solid var(--sf-rule);
-  box-shadow: none;
-}
-
-#toc {
-  background: var(--sf-toc-bg) !important;
-  border-right: 1px solid var(--sf-rule);
-}
-
-code:not(.hl), pre:not(.hl) {
-  background: var(--sf-code-bg);
-  padding: 0.1em 0.3em;
-  border-radius: 2px;
-}
-
-pre:not(.hl) {
-  padding: 0.6em 0.9em;
-  border-left: 3px solid var(--sf-accent);
-  background: var(--sf-code-bg);
-}
-
-.hl.lean.block {
-  background: var(--sf-code-bg);
-  border-left: 3px solid var(--sf-accent);
-  padding: 0.6em 0.9em;
-  border-radius: 2px;
-}
-
-blockquote {
-  border-left: 3px solid var(--sf-accent);
-  background: var(--sf-surface);
-  margin-left: 0;
-  padding: 0.4em 1em;
-  color: #2b2b28;
-}
-
-/* Tighten the exercise box to share the same palette */
-.exercise {
-  background: var(--sf-surface);
-  border-left: 3px solid var(--sf-accent);
 }
 </style><style>
 details.sf-quiz-solution {
@@ -2542,8 +2556,11 @@ follow these steps:</p>
                     </li>
                   <li>
                     <p>
-                      Clone the <a href="https://github.com/plclub/sf-in-lean">SF-in-Lean</a> git repo and open
-  it in VS Code.</p>
+                      Download the book, build it if necessary — more below.</p>
+                    </li>
+                  <li>
+                    <p>
+                      Open the built book directory in a VS Code window.</p>
                     </li>
                   <li>
                     <p>
@@ -2555,28 +2572,83 @@ follow these steps:</p>
                       Wait for Lean to build the project (it takes a few minutes).</p>
                     </li>
                   </ul>
-                <div class="sf-dev-note">
-                  <div class="sf-dev-note-label">
-                    Note to developers (Claude @AI assistant, before next release)</div>
+                <section>
+                  <h4 id="Logical-Foundations--Preface--Practicalities--Installation--Downloading-and-using-the-book-for-a-class">
+                    1.3.2.1. Downloading and using the book for a class<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Installation--Downloading-and-using-the-book-for-a-class" title="Permalink">🔗</a></span></h4>
                   <p>
-                    These steps send the reader to the <strong>sources</strong> repo, but the files a reader is
-meant to work in are the ones the build generates: <code>make lf-student</code> writes a
-standalone Lake project (its own <code>lakefile.toml</code> and <code>lean-toolchain</code>) to
-<code>_out/lf/student/lean</code>, and that is where the exercises with <code>sorry</code>s live.  The
-<code>LF/*.lean</code> files in the repo are Verso documents — prose plus code blocks — and
-building the repo builds Verso and all three volumes, which is a good deal more
-than "a few minutes".</p>
+                    If you are <strong>using this book as part of a class</strong>, your instructor will have created
+a "student" release for you. Download the <code>.zip</code> file for that release, unzip it,
+and then open the resulting directory in VS Code. Open any <code>.lean</code> file (e.g., <code>LF/Basics.lean</code>) to get started.</p>
                   <p>
-                    There is also a chicken-and-egg problem in the ordering: running <code>make</code> at all
-needs <code>elan</code>/<code>lake</code> already installed, but the step above gets Lean via the VS
-Code extension, which only offers it once a Lean project is open.</p>
+                    If you would like to read the HTML version of the book, it should be hosted on your
+course website (you may be reading it now!).</p>
                   <p>
-                    Both go away once there is a released archive of the student <code>.lean</code> files: the
-steps become "download and unpack, open the folder in VS Code, accept the
-install prompt".  Until that exists, this section should probably say plainly
-that readers get the files from their instructor or by following
-<code>ALPHA-TESTERS.md</code>.</p>
-                  </div>
+                    Note that, as the book is changing while you are taking your class, you should download
+a fresh <code>.zip</code> for each homework you do, opening it in a fresh directory. This way
+you will have access to prior solutions, and you will automatically get any Lean
+updates. More on exercises below.</p>
+                  </section>
+                <section>
+                  <h4 id="Logical-Foundations--Preface--Practicalities--Installation--Downloading-and-building-the-book-from-Git___-for-self-study">
+                    1.3.2.2. Downloading and building the book from Git, for self study<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--Preface--Practicalities--Installation--Downloading-and-building-the-book-from-Git___-for-self-study" title="Permalink">🔗</a></span></h4>
+                  <p>
+                    If you are <strong>reading Software Foundations on your own</strong>, you can get the most
+up-to-date version from the <a href="https://github.com/plclub/sf-in-lean">SF-in-Lean</a> GitHub
+repository. Clone that repository and then build it by typing <code>make lf-student</code> from
+the root directory. Doing so will construct the student version (full prose, with solutions elided) of the <em>Logical Foundations</em> book.</p>
+                  <p>
+                    Building the book requires that you have Lean installed. If you do not, follow the
+instructions <a href="https://lean-lang.org/install/manual/">here</a> to install the Lean toolchain
+manager <code>elan</code> which will then manage your Lean installation. Alternatively, once you
+have added the Lean 4 extension to VS Code, you can open a Lean file in the repository
+(for example, <code>LF.lean</code> from the top level directory) and it will install <code>elan</code>
+and Lean automatically. Both installation methods have the same effect, putting the
+Lean toolchain in the same place on your filesystem.</p>
+                  <p>
+                    With Lean installed, <code>make lf-student</code> writes two things to <code>_out/lf/student/</code>:</p>
+                  <ul>
+                    <li>
+                      <p>
+                        <code>html/</code>, an HTML-formatted version of the whole book; and</p>
+                      </li>
+                    <li>
+                      <p>
+                        <code>lean/</code>, a standalone Lean project holding the same chapters as <code>.lean</code> files, with solutions to exercises omitted.</p>
+                      </li>
+                    </ul>
+                  <p>
+                    Use <code>make student</code> instead if you also want <em>Type Systems</em> (<code>ts</code>) and
+<em>Hoare Logic</em> (<code>hl</code>). The first build compiles the whole dependency tree and
+takes a while; later builds are incremental.</p>
+                  <p>
+                    Now you can open the generated Lean project as its own folder — not as a file
+inside your clone:</p>
+                  <div class="sf-display">
+                    <pre><code>code _out/lf/student/lean
+</code></pre></div>
+                  <p>
+                    or</p>
+                  <div class="sf-display">
+                    <pre><code>cd _out/lf/student/lean
+code .
+</code></pre></div>
+                  <p>
+                    You can also use File → Open Folder.</p>
+                  <p>
+                    Treat this as a scratch copy: <strong>every <code>make</code> regenerates it from the
+Verso sources, overwriting whatever is there.</strong>  Work on your proofs
+here, but keep anything you want to survive somewhere else.</p>
+                  <p>
+                    If you would like to read the book HTML, start a local HTTP server and point it
+at the generated HTML files:</p>
+                  <div class="sf-display">
+                    <pre><code>python3 -m http.server 8000 -d _out/lf/student/html
+</code></pre></div>
+                  <p>
+                    Then visit <code>http://localhost:8000</code> and start reading.</p>
+                  <p>
+                    If you want to build everything — student version, "terse" instructor version, solutions, and grading versions — type <code>make</code>, <code>make lf</code>, etc.</p>
+                  </section>
                 </section>
               <section>
                 <h3 id="Logical-Foundations--Preface--Practicalities--Exercises">
@@ -2775,6 +2847,8 @@ part, by the National Science Foundation under the NSF Expeditions grant
                 </section>
               </section>
             </section>
+          <div class="sf-build-stamp">
+            Built on 2026-09-01 05:07 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="#" rel="prev" title=" Logical Foundations"><span class="arrow">←</span><span class="where"> Logical Foundations</span></a><a class="local-button active" href="Basics/#Basics" rel="next" title="2. Basics: Functional Programming in Lean"><span class="where">2. Basics: Functional Programming in Lean</span><span class="arrow">→</span></a></nav>
           </div>

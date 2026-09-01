@@ -66,12 +66,13 @@ theorem trans_eq {α : Type} (x y z : α) :
 
 #check Eq.trans
 
---  Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c
+--  Output:
+--    Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c
 
 --  In Lean's version, the arguments corresponding to `x`,
 --  `y`, and `z` are implicit, since they can usually be
 --  inferred from the equality hypotheses and the goal.
-
+--
 --  Now let's use our `trans_eq` to prove the example above.
 
 sf_expect_failure_in
@@ -81,24 +82,25 @@ sf_expect_failure_in
       [a, b] = [e, f] := by
     apply trans_eq
 
---  unsolved goals
---  case a
---  a b c d e f : Nat
---  h₁ : [a, b] = [c, d]
---  h₂ : [c, d] = [e, f]
---  ⊢ [a, b] = ?y
-
---  case a
---  a b c d e f : Nat
---  h₁ : [a, b] = [c, d]
---  h₂ : [c, d] = [e, f]
---  ⊢ ?y = [e, f]
-
---  case y
---  a b c d e f : Nat
---  h₁ : [a, b] = [c, d]
---  h₂ : [c, d] = [e, f]
---  ⊢ List Nat
+--  Output:
+--    unsolved goals
+--    case a
+--    a b c d e f : Nat
+--    h₁ : [a, b] = [c, d]
+--    h₂ : [c, d] = [e, f]
+--    ⊢ [a, b] = ?y
+--
+--    case a
+--    a b c d e f : Nat
+--    h₁ : [a, b] = [c, d]
+--    h₂ : [c, d] = [e, f]
+--    ⊢ ?y = [e, f]
+--
+--    case y
+--    a b c d e f : Nat
+--    h₁ : [a, b] = [c, d]
+--    h₂ : [c, d] = [e, f]
+--    ⊢ List Nat
 
 --  One way to resolve this is to supply all the arguments
 --  and hypotheses explicity:
@@ -163,9 +165,9 @@ theorem trans_eq_exercise (n m o p : Nat)
 
 --  The constructors of inductive types are *injective* (or
 --  *one-to-one*) and *disjoint*.
-
+--
 --  E.g., for `Nat`:
-
+--
 --  - if `n + 1 = m + 1` then it must be that `n = m`
 --  - `0` is not equal to `n + 1` for any `n`
 
@@ -254,7 +256,7 @@ example (n : Nat)
 --  known as the *principle of explosion*, which asserts
 --  that a contradictory hypothesis entails anything (even
 --  manifestly false things!).
-
+--
 --  Notice that due to the way addition on naturals is
 --  defined, deriving a contradiction from `1 + n = 0` is
 --  not as trivial as it seems.
@@ -291,89 +293,99 @@ sf_recall
     | white
     | primary (p: RGB)
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Suppose Lean's proof state looks like
-
---    x : RGB
---    y : RGB
---    h : .primary x = .primary y
---    ------------------------------
---    ⊢ y = x
-
+--
+--      x : RGB
+--      y : RGB
+--      h : .primary x = .primary y
+--      ------------------------------
+--      ⊢ y = x
+--
 --  and we apply the tactic `injection h with hxy`. What
 --  will happen?
-
+--
 --  (1) "No goals."
-
+--
 --  (2) The tactic fails.
-
+--
 --  (3) Hypothesis `h` becomes `hxy : x = y`.
-
+--
 --  (4) None of the above.
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Suppose Lean's proof state looks like
-
---    x : Bool
---    y : Bool
---    h : !x = !y
---    --------------
---    ⊢ y = x
-
+--
+--      x : Bool
+--      y : Bool
+--      h : !x = !y
+--      --------------
+--      ⊢ y = x
+--
 --  and we apply the tactic `injection h with hxy`. What
 --  will happen?
-
+--
 --  (A) "No more goals."
-
+--
 --  (B) The tactic fails.
-
+--
 --  (C) Hypothesis `h` becomes `hxy : x = y`.
-
+--
 --  (D) None of the above.
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Now suppose Lean's proof state looks like
-
---    x : Nat
---    y : Nat
---    h : x + 1 = y + 1
---    -------------------
---    ⊢ y = x
-
+--
+--      x : Nat
+--      y : Nat
+--      h : x + 1 = y + 1
+--      -------------------
+--      ⊢ y = x
+--
 --  and we apply the tactic `injection h with hxy`. What
 --  will happen?
-
+--
 --  (A) "No more goals."
-
+--
 --  (B) The tactic fails.
-
+--
 --  (C) Hypothesis `h` becomes `hxy : x = y`.
-
+--
 --  (D) None of the above.
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Finally, suppose Lean's proof state looks like
-
---    x : Nat
---    y : Nat
---    h : 1 + x = 1 + y
---    -------------------
---    ⊢ y = x
-
+--
+--      x : Nat
+--      y : Nat
+--      h : 1 + x = 1 + y
+--      -------------------
+--      ⊢ y = x
+--
 --  and we apply the tactic `injection h with hxy`. What
 --  will happen?
-
+--
 --  (A) "No more goals."
-
+--
 --  (B) The tactic fails.
-
+--
 --  (C) Hypothesis `h` becomes `hxy : x = y`.
-
+--
 --  (D) None of the above.
+
+--   ----------------------------------------
 
 --  The injectivity of constructors allows us to reason that
 --  `∀ (n m : Nat), n + 1 = m + 1 → n = m`. The converse of
@@ -405,24 +417,25 @@ sf_expect_failure_in
 --  but these are not provable from our hypotheses! `congr`
 --  has gone too deep.
 
---  unsolved goals
---  case e_snd.e_a
---  a b c d : Nat
---  hab : a = b
---  hcd : c = d
---  ⊢ c = 1
-
---  case e_snd.e_a.e_2
---  a b c d : Nat
---  hab : a = b
---  hcd : c = d
---  ⊢ 1 = d
-
---  case e_snd.e_a.e_3
---  a b c d : Nat
---  hab : a = b
---  hcd : c = d
---  ⊢ 1 = d
+--  Output:
+--    unsolved goals
+--    case e_snd.e_a
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ c = 1
+--
+--    case e_snd.e_a.e_2
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ 1 = d
+--
+--    case e_snd.e_a.e_3
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ 1 = d
 
 example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
     (a, c + 1) = (b, 1 + d) := by
@@ -436,7 +449,7 @@ example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
 --  The ordinary `apply` tactic is a form of "backward
 --  reasoning." It says "We are trying to prove `a` and we
 --  know `b → a`, so if we can prove `b` we'll be done."
-
+--
 --  By contrast, the variant `apply ... at ...` is "forward
 --  reasoning": it says "We know `b` and we know `b → a`, so
 --  we also know `a`."
@@ -462,13 +475,13 @@ example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
 --  that get us closer to the main goal we're trying to
 --  prove. Often, though, these facts are just special cases
 --  of more general hypotheses we already have.
-
+--
 --  If `h` is a quantified hypothesis in the current context
 --  — i.e., `h : ∀ (x : α), P x` — then we can use `have` to
 --  obtain a special case of `h` by supplying a value for
 --  `x`. For example, `have h := h e` introduces a new `h`
 --  which `x` has been instantiated with `e`.
-
+--
 --  For example:
 
 example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
@@ -549,23 +562,24 @@ sf_expect_failure_in
       | succ m' =>
         congr
 
---  unsolved goals
---  case succ.succ.e_a
---  n' m' : Nat
---  ih : n'.double = (m' + 1).double → n' = m' + 1
---  h : (n' + 1).double = (m' + 1).double
---  ⊢ n' = m'
+--  Output:
+--    unsolved goals
+--    case succ.succ.e_a
+--    n' m' : Nat
+--    ih : n'.double = (m' + 1).double → n' = m' + 1
+--    h : (n' + 1).double = (m' + 1).double
+--    ⊢ n' = m'
 
 --  We get stuck, because the induction hypothesis `ih` is
 --  too specific to be useful.
 
 --  We can obtain a more generalized induction hypothesis by
 --  writing
-
---    induction n generalizing m with
+--
+--      induction n generalizing m with
 
 --  What went wrong?
-
+--
 --  Trying to carry out this proof by induction on `n` with
 --  `m` fixed doesn't work, because we are then trying to
 --  prove a statement involving *every* `n` but just a
@@ -696,12 +710,12 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 --  inductively defined types that are products of multiple
 --  things, we instead want a way to get the pieces of that
 --  value out from it.
-
+--
 --  When we have a value `v : α × β` in our context, we can
 --  get the first and second projections of `v` using this
 --  tactic:
-
---    let ⟨a, β⟩ := v
+--
+--      let ⟨a, β⟩ := v
 
 --  ### Splitting with Equations
 
@@ -731,3 +745,4 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
   · rw [hTest] at h
     injections
 
+-- Built on 2026-09-01 05:07 UTC

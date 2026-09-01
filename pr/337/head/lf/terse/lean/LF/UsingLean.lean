@@ -17,7 +17,7 @@ import SFLCompat
 --  Until now, we have been working with our own custom
 --  natural numbers, using the `Nat` type that we defined in
 --  Basics.
-
+--
 --  However, Lean has a built-in type of natural numbers,
 --  which is more powerful and comes with many useful
 --  features. They are very slightly different from our
@@ -25,12 +25,12 @@ import SFLCompat
 --  superficial. The built-in natural numbers are defined in
 --  the `Init` module, which is automatically imported by
 --  Lean. We will refer to them as `Nat` as well.
-
+--
 --  In Lean, programmers and mathematicians don't re-prove
 --  the basic properties of natural numbers from scratch,
 --  nor do they tend to write out `rewrite` steps for basic
 --  properties of natural numbers by hand.
-
+--
 --  Previously, we did computation like this...
 
 section OldNats
@@ -46,12 +46,12 @@ example : (two * two : NatPlayground.Nat) = four := by
 --  `attribute [irreducible]` on definitions like `mul` and
 --  `add`. This forced us to write proofs using tactics like
 --  `rw` rather than simplifying definitions.
-
+--
 --  This approach is useful in a textbook for understanding
 --  the structure of natural numbers and for providing early
 --  practice with writing proofs. But it is also tedious in
 --  the long term.
-
+--
 --  Instead of doing this, programmers and mathematicians
 --  use the built-in `Nat` and the powerful features of Lean
 --  to *automatically* prove properties about natural
@@ -68,7 +68,7 @@ example : (3 * 3 : Nat) = 9 := by rfl
 --  `<theorem>`. (By convention, theorems about a type live
 --  in the namespace of that type, hence the need for the
 --  `Nat.` prefix.)
-
+--
 --  Definitions in the built-in `Nat` library are *not*
 --  marked `@[irreducible]`. This lets us use more powerful
 --  *automatic simplification* of functions on natural
@@ -86,7 +86,7 @@ example : (2 * 3 + 4 * 5 : Nat) * 6 = 156 := by rfl
 
 --  This quickly becomes necessary, as natural numbers
 --  quickly get large!
-
+--
 --  Of course, `rfl` can't close more complicated goals
 --  where the values of the terms are unknown.
 
@@ -107,8 +107,9 @@ example (n m : Nat) (h : n = m) : n = m := by
 example (n m : Nat) : n + m = m + n := by
   exact?
 
---  Try this:
---    [apply] exact Nat.add_comm n m
+--  Output:
+--    Try this:
+--      [apply] exact Nat.add_comm n m
 
 --  You can also use `rw?` to look for theorems to rewrite
 --  by.
@@ -116,8 +117,9 @@ example (n m : Nat) : n + m = m + n := by
 example (n m : Nat) : n + m = m + n := by
   rw?
 
---  Try this:
---    [apply] rw [Nat.add_comm]
+--  Output:
+--    Try this:
+--      [apply] rw [Nat.add_comm]
 
 --  Just because `rw?` suggests a theorem does not mean that
 --  it will be useful; choose carefully from its suggestions
@@ -207,26 +209,27 @@ sf_expect_failure_in
   example (n : Nat) : addThrice n = n + addTwice n := by
     rfl
 
---  Tactic `rfl` failed: The left-hand side
---    addThrice n
---  is not definitionally equal to the right-hand side
---    n + addTwice n
-
---  n✝ n : Nat
---  ⊢ addThrice n = n + addTwice n
+--  Output:
+--    Tactic `rfl` failed: The left-hand side
+--      addThrice n
+--    is not definitionally equal to the right-hand side
+--      n + addTwice n
+--
+--    n✝ n : Nat
+--    ⊢ addThrice n = n + addTwice n
 
 --  What happened here? If we are careful with our
 --  parentheses here, we can write the goal we'd like to
 --  prove as `(addThrice n) = n + (addTwice n)`. Unfolding
 --  definitions, we can see that this is equivalent to:
-
---    n + n + n = n + (n + n)
-
+--
+--      n + n + n = n + (n + n)
+--
 --  which, when we are more explicit about parenthesization,
 --  is equivalent to:
-
---    (n + n) + n = n + (n + n)
-
+--
+--      (n + n) + n = n + (n + n)
+--
 --  These two things are not definitionally equal, so we
 --  cannot use `rfl` here, hence our error from earlier. The
 --  next thing we might want to try is rewriting by
@@ -237,13 +240,14 @@ sf_expect_failure_in
   example (n : Nat) : addThrice n = n + addTwice n := by
     rw [Nat.add_assoc]
 
---  Tactic `rewrite` failed: Did not find an occurrence of the pattern
---    ?n + ?m + ?k
---  in the target expression
---    addThrice n = n + addTwice n
-
---  n✝ n : Nat
---  ⊢ addThrice n = n + addTwice n
+--  Output:
+--    Tactic `rewrite` failed: Did not find an occurrence of the pattern
+--      ?n + ?m + ?k
+--    in the target expression
+--      addThrice n = n + addTwice n
+--
+--    n✝ n : Nat
+--    ⊢ addThrice n = n + addTwice n
 
 --  But again we encounter an error! The expression in which
 --  we are trying to rewrite `Nat.add_assoc` isn't of the
@@ -321,13 +325,14 @@ sf_expect_failure_in
   example : (fun x => x + 0) n = n := by
     rw [Nat.add_zero]
 
---  Tactic `rewrite` failed: Did not find an occurrence of the pattern
---    ?n + 0
---  in the target expression
---    (fun x => x + 0) n = n
-
---  n : Nat
---  ⊢ (fun x => x + 0) n = n
+--  Output:
+--    Tactic `rewrite` failed: Did not find an occurrence of the pattern
+--      ?n + 0
+--    in the target expression
+--      (fun x => x + 0) n = n
+--
+--    n : Nat
+--    ⊢ (fun x => x + 0) n = n
 
 --  ## Redefining Functions and Lemmas over Nats
 
@@ -413,8 +418,9 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 --  natural numbers everywhere. We also recommend using
 --  `rw?` and `exact?` to search for lemmas (though these
 --  should not appear in finished proofs).
-
+--
 --  With these tools in hand, we can begin to prove
 --  properties about more sophisticated forms of data,
 --  beginning with `Lists`.
 
+-- Built on 2026-09-01 05:07 UTC
