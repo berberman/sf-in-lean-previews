@@ -63,7 +63,7 @@ theorem surjective_pairing_cases (p : NatProd) :
     p = ⟨p.fst, p.snd⟩ := by
   cases p; rfl
 
---  ### Structures
+--  ## Structures
 
 --  Lean's `structure` is shorthand for a single-constructor
 --  `inductive` with the accessors auto-generated.
@@ -90,9 +90,9 @@ inductive NatList : Type where
 
 namespace NatList
 
---  Some notation for lists to make our lives easier: `::`
---  as an infix `cons` operator and square brackets as an
---  "outfix" notation.
+--  Some notation for lists to make our lives easier:
+
+--  Don't worry too much about how this works.
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (List syntax)
 --  We first define `::` as right-associative notation for
@@ -124,19 +124,18 @@ def mylist3 : NatList := [1, 2, 3]
 
 --  Some useful list-manipulation functions...
 
---  Let's define some functions on lists.
+--  ### Repeat
 
-def replicate (n count : Nat) : NatList :=
+def myRepeat (n count : Nat) : NatList :=
   match count with
   | 0 => []
-  | count' + 1 => n :: replicate n count'
+  | count' + 1 => n :: myRepeat n count'
 
---  Some simple facts about replication:
+--  Some simple facts about repetition:
 
-theorem replicate_zero (n : Nat) : replicate n 0 = [] := by rfl
+theorem repeat_zero (n : Nat) : myRepeat n 0 = [] := rfl
 
-theorem replicate_succ (n count : Nat) :
-  replicate n (count + 1) = n :: replicate n count := by rfl
+theorem repeat_succ (n count : Nat) : myRepeat n (count + 1) = n :: myRepeat n count := rfl
 
 def length (l : NatList) : Nat :=
   match l with
@@ -145,29 +144,29 @@ def length (l : NatList) : Nat :=
 
 --  Some simple facts about list lengths:
 
-theorem length_nil : [].length = 0 := by rfl
+theorem length_nil : [].length = 0 := rfl
 
-theorem length_cons (n : Nat) (l : NatList) :
-  (n :: l).length = l.length + 1 := by rfl
+theorem length_cons (n : Nat) (l : NatList) : (n :: l).length = l.length + 1 := rfl
+
+--  ### Append
 
 def append (l₁ l₂ : NatList) : NatList :=
   match l₁ with
   | [] => l₂
   | h :: t => h :: append t l₂
 
---  ### Type Classes and Overloading Notation
+--  ### Type Classes and Overloading
 
 instance : HAppend NatList NatList NatList where
   hAppend := append
 
 --  Now `l₁ ++ l₂` means `append l₁ l₂` within `NatList`.
---
+
 --  Some simple facts about appending lists:
 
-theorem nil_append (l : NatList) : [] ++ l = l := by rfl
+theorem nil_append (l : NatList) : [] ++ l = l := rfl
 
-theorem cons_append (n : Nat) (l₁ l₂ : NatList) :
-  (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := by rfl
+theorem cons_append (n : Nat) (l₁ l₂ : NatList) : (n :: l₁) ++ l₂ = n :: (l₁ ++ l₂) := rfl
 
 example : [1, 2, 3] ++ [4, 5] = [1, 2, 3, 4, 5] := by rfl
 example : [] ++ [4, 5] = [4, 5] := by rfl
@@ -175,7 +174,7 @@ example : [1, 2, 3] ++ [] = [1, 2, 3] := by rfl
 
 --  `BEq.refl : (a == a) = true` is worth knowing by name.
 
---  ### Head and Tail
+--  #### Head and Tail
 
 def head (default : Nat) (l : NatList) : Nat :=
   match l with
@@ -199,8 +198,6 @@ theorem tail_cons (h : Nat) (t : NatList) : (h :: t).tail = t := by rfl
 
 theorem tail_nil : [].tail = [] := by rfl
 
---   ----------------------------------------
-
 --  _Quiz:_
 
 --  What does the following function do?
@@ -210,9 +207,7 @@ def foo (n : Nat) : NatList :=
   | 0 => []
   | n' + 1 => (n' + 1) :: foo n'
 
---   ----------------------------------------
-
---  ### Exercises
+--  #### Exercises
 
 --  ### Counting
 
@@ -229,16 +224,13 @@ def count (n : Nat) (l : NatList) : Nat := sorry
 theorem count_nil (n : Nat) : count n [] = 0 := sorry
 
 theorem count_cons_def (n h : Nat) (t : NatList) :
-    count n (h :: t) =
-      bif n == h then count n t + 1 else count n t := sorry
+    count n (h :: t) = bif n == h then count n t + 1 else count n t := sorry
 
-theorem count_cons_same (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = true) :
+theorem count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     count n₁ (n₂ :: t) = count n₁ t + 1 := by
   sorry
 
-theorem count_cons_diff (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = false) :
+theorem count_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     count n₁ (n₂ :: t) = count n₁ t := by
   sorry
 
@@ -268,13 +260,11 @@ def member (n : Nat) (l : NatList) : Bool := sorry
 
 theorem member_nil (n : Nat) : member n [] = false := sorry
 
-theorem member_cons_same (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = true) :
+theorem member_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     member n₁ (n₂ :: t) = true := by
   sorry
 
-theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = false) :
+theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     member n₁ (n₂ :: t) = member n₁ t := by
   sorry
 
@@ -287,13 +277,13 @@ theorem test_member1 : member 1 [1, 4, 1] = true := sorry
 
 theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
---  ### Removal
+--  ### Removing
 
 --  ### Exercise (3 stars): removing (Optional) ⭐⭐⭐
 
 --  Here are some more `NatList` functions for you to
 --  practice with.
---
+
 --  When `removeOne` is applied to a list without the number
 --  to remove, it should return the same list unchanged.
 
@@ -301,13 +291,11 @@ def removeOne (n : Nat) (l : NatList) : NatList := sorry
 
 theorem removeOne_nil (n : Nat) : removeOne n nil = nil := sorry
 
-theorem removeOne_cons_same (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = true) :
+theorem removeOne_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     removeOne n₁ (n₂ :: t) = t := by
   sorry
 
-theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = false) :
+theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t := by
   sorry
 
@@ -325,13 +313,11 @@ def removeAll (n : Nat) (l : NatList) : NatList := sorry
 
 theorem removeAll_nil (n : Nat) : removeAll n [] = [] := sorry
 
-theorem removeAll_cons_same (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = true) :
+theorem removeAll_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) :
     removeAll n₁ (n₂ :: t) = removeAll n₁ t := by
   sorry
 
-theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = false) :
+theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) :
     removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t := by
   sorry
 
@@ -356,13 +342,11 @@ def included (l₁ l₂ : NatList) : Bool := sorry
 
 theorem included_nil (l₂ : NatList) : included nil l₂ = true := sorry
 
-theorem included_cons_member (n : Nat) (l₁ l₂ : NatList)
-  (h : member n l₂ = true) :
+theorem included_cons_member (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = true) :
     included (cons n l₁) l₂ = included l₁ (removeOne n l₂) := by
   sorry
 
-theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList)
-  (h : member n l₂ = false) :
+theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList) (h : member n l₂ = false) :
     included (cons n l₁) l₂ = false := by
   sorry
 
@@ -381,7 +365,7 @@ theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
 --  ## Reasoning About Lists
 
 --  As with numbers, some proofs about list functions need
---  only rewriting.
+--  only rewriting...
 
 --  ...and some need case analysis.
 
@@ -414,29 +398,29 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --  theorem.
 
 --  *Theorem*: For all lists `l₁`, `l₂`, and `l₃`,
---
---      (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
---
+
+--    (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
+
 --  *Proof*: By induction on `l₁`.
---
+
 --  - First, suppose `l₁ = []`. We must show
---
---      ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
---
+
+--    ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
+
 --  which follows directly from the definition of `append`.
---
+
 --  - Next, suppose `l₁ = n :: l₁'`, with
---
---      (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
---
+
+--    (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
+
 --  (the induction hypothesis). We must show
---
---      ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
---
+
+--    ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
+
 --  By the definition of `append`, this follows from
---
---      n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
---
+
+--    n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
+
 --  which is immediate from the induction hypothesis. *Qed*.
 
 --  #### Generalizing Statements
@@ -445,12 +429,12 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --  them by induction:
 
 sf_expect_failure_in
-  theorem replicate_append_fail (c n : Nat) :
-      replicate n c ++ replicate n c = replicate n (c + c) := by
+  theorem myRepeat_append_fail (c n : Nat) :
+      myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
     induction c with
-    | zero => rw [replicate_zero, nil_append]
+    | zero => rw [repeat_zero, nil_append]
     | succ c' ih =>
-      rw [replicate_succ]
+      rw [repeat_succ]
       -- Now we seem to be stuck.
       -- The `ih` only works for `c' + c'`,
       -- but we need `c' + 1 + (c' + 1)`.
@@ -459,26 +443,26 @@ sf_expect_failure_in
 --    unsolved goals
 --    case succ
 --    n c' : Nat
---    ih : replicate n c' ++ replicate n c' = replicate n (c' + c')
---    ⊢ (n :: replicate n c') ++ (n :: replicate n c') = replicate n (c' + 1 + (c' + 1))
+--    ih : myRepeat n c' ++ myRepeat n c' = myRepeat n (c' + c')
+--    ⊢ (n :: myRepeat n c') ++ (n :: myRepeat n c') = myRepeat n (c' + 1 + (c' + 1))
 
 --  A generalization that gives a stronger inductive
 --  hypothesis:
 
-theorem replicate_append_general (c₁ c₂ n : Nat) :
-    replicate n c₁ ++ replicate n c₂ = replicate n (c₁ + c₂) := by
+theorem myRepeat_append_general (c₁ c₂ n : Nat) :
+    myRepeat n c₁ ++ myRepeat n c₂ = myRepeat n (c₁ + c₂) := by
   induction c₁ with
   | zero =>
-    rw [replicate_zero, Nat.zero_add, nil_append]
+    rw [repeat_zero, Nat.zero_add, nil_append]
   | succ c1' ih =>
-    rw [Nat.succ_add, replicate_succ, replicate_succ, cons_append, ih]
+    rw [Nat.succ_add, repeat_succ, repeat_succ, cons_append, ih]
 
 --  Then, we can use this more general theorem to prove the
 --  original goal:
 
-theorem replicate_append (c n : Nat) :
-    replicate n c ++ replicate n c = replicate n (c + c) := by
-  exact replicate_append_general c c n
+theorem myRepeat_append (c n : Nat) :
+    myRepeat n c ++ myRepeat n c = myRepeat n (c + c) := by
+  exact myRepeat_append_general c c n
 
 --  #### Reversing a List
 
@@ -558,48 +542,42 @@ theorem length_append (l₁ l₂ : NatList) :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
   sorry
 
---   ----------------------------------------
-
 --  _Quiz:_
 
 --  To prove the following theorem, which tactics will we
 --  need besides `intro`, `rw`, and `rfl`?
---
---  (A) none
---
---  (B) `cases`
---
---  (C) `induction` on `n`
---
---  (D) `induction` on `l`
---
---  (E) can't be done with the tactics we've seen.
---
---      example (n : Nat) (l : NatList) :
---          replicate n 0 = l → l.length = 0
 
---   ----------------------------------------
+--  (A) none
+
+--  (B) `cases`
+
+--  (C) `induction` on `n`
+
+--  (D) `induction` on `l`
+
+--  (E) can't be done with the tactics we've seen.
+
+--    example (n : Nat) (l : NatList) :
+--        myRepeat n 0 = l → l.length = 0
 
 --  _Quiz:_
 
 --  What about the next one?
---
---      example (n m : Nat) : (replicate n m).length = m
---
+
+--    example (n m : Nat) : (myRepeat n m).length = m
+
 --  To prove the following theorem, which tactics will we
 --  need besides `intro`, `rw`, and `rfl`?
---
---  (A) none
---
---  (B) `cases`
---
---  (C) `induction` on `n`
---
---  (D) `induction` on `m`
---
---  (E) can't be done with the tactics we've seen.
 
---   ----------------------------------------
+--  (A) none
+
+--  (B) `cases`
+
+--  (C) `induction` on `n`
+
+--  (D) `induction` on `m`
+
+--  (E) can't be done with the tactics we've seen.
 
 --  ### List Exercises, Part 1
 
@@ -657,7 +635,7 @@ end NatList
 --  defined in Lean, here is a simple *partial map* data
 --  type, analogous to the map or dictionary data structures
 --  found in most programming languages.
---
+
 --  First, we define a new type `MyId` to serve as the
 --  "keys" of our partial maps.
 
@@ -705,8 +683,6 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
     bif MyId.beq x y then .some n
     else find x d'
 
---   ----------------------------------------
-
 --  _Quiz:_
 
 --  Is the following claim true or false?
@@ -716,8 +692,6 @@ theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
   rw [update, find, MyId.beq_refl, cond_true]
 
 --  (A) True (B) False (C) Not sure
-
---   ----------------------------------------
 
 --  _Quiz:_
 
@@ -731,10 +705,7 @@ theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
 
 --  (A) True (B) False (C) Not sure
 
---   ----------------------------------------
-
 end PartialMap
 
 end Lists
 
--- Built on 2026-09-01 15:23 UTC

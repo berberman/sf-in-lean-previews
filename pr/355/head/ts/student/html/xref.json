@@ -2420,6 +2420,17 @@
         "Preservation",
         "The Weakening Lemma"]}},
      "address": "/StlcProp/"}],
+   "Stlc.weakening'":
+   [{"id": "Stlc___weakening___",
+     "data":
+     {"/StlcProp/#Stlc___weakening___":
+      {"display": "weakening'",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Preservation",
+        "The Weakening Lemma"]}},
+     "address": "/StlcProp/"}],
    "Stlc.weakening":
    [{"id": "Stlc___weakening",
      "data":

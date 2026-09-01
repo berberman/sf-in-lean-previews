@@ -15,14 +15,14 @@ import SFLCompat
 --  readers, from advanced undergraduates to PhD students and researchers.
 --  No specific background in logic or programming languages is assumed,
 --  though a degree of mathematical maturity will be helpful.
---
+
 --  The principal novelty of the series is that it is one hundred percent
 --  formalized and machine-checked: each chapter of each book is literally
 --  a script for the Lean prover, and the books are intended to be read
 --  alongside (or inside) an interactive session with Lean. All the details
 --  are fully formalized, and almost all of the exercises are designed to
 --  be worked using Lean.
---
+
 --  This book, *Logical Foundations in Lean*, lays groundwork for the
 --  others in the series, introducing the reader to the basic ideas of
 --  functional programming, formal logic, and Lean itself.
@@ -36,7 +36,7 @@ import SFLCompat
 --  time, the increasing degree to which information processing is woven
 --  into every aspect of society greatly amplifies the cost of bugs and
 --  insecurities.
---
+
 --  Computer scientists and software engineers have responded to these
 --  challenges with a host of techniques for improving software
 --  reliability, ranging from recommendations about managing software
@@ -47,15 +47,15 @@ import SFLCompat
 --  and reasoning about properties of software and tools for helping
 --  validate these properties. The *Software Foundations* books are focused
 --  on this last set of tools.
---
+
 --  The present volume weaves together three conceptual threads:
---
+
 --  - basic tools from *logic* for making and justifying precise claims
 --    about programs;
---
+
 --  - the use of *provers* (or *proof assistants*) to construct rigorous
 --    logical arguments;
---
+
 --  - *functional programming*, both as a programming method that
 --    simplifies reasoning about programs and as a bridge between
 --    programming and logic.
@@ -74,7 +74,7 @@ import SFLCompat
 --  This is quite remarkable, especially since much of the impetus for the
 --  development of logic during the past one hundred years came from
 --  mathematics."
---
+
 --  In particular, the fundamental tools of *inductive proof* are
 --  ubiquitous across computer science. You have surely seen them before,
 --  perhaps in a course on discrete math or analysis of algorithms, but in
@@ -88,25 +88,25 @@ import SFLCompat
 --  One of these has been the development of software tools for helping
 --  construct and validate proofs of logical statements. These tools fall
 --  into two broad categories:
---
+
 --  - *Automated theorem provers* provide "push-button" operation: you give
 --    them a proposition and they return either *true* or *false* (or,
 --    sometimes, *don't know: ran out of time*). Although their reasoning
 --    capabilities are limited, they have matured tremendously in recent
 --    decades and are used now in a multitude of settings. Examples of such
 --    tools include SAT solvers, SMT solvers, and model checkers.
---
+
 --  - *Proof assistants* — or just *provers* — are hybrid tools that
 --    automate the more routine aspects of creating proofs while depending
 --    on human guidance for more difficult aspects. Widely used proof
 --    assistants include Isabelle, Agda, Twelf, ACL2, PVS, F*, HOL4, Rocq,
 --    and Lean, among many others.
---
+
 --  This course is based around Lean, a prover that has been under
 --  development since 2013 and that has attracted a large and active
 --  community of users in both research and at companies like DeepMind,
 --  OpenAI, Anthropic, MSR, and AWS.
---
+
 --  Lean provides a rich environment for interactive development of
 --  machine-checked formal reasoning. The kernel of the Lean system is a
 --  simple proof-checker, which guarantees that only correct deduction
@@ -116,7 +116,7 @@ import SFLCompat
 --  constructing complex proofs semi-automatically, and a highly extensible
 --  system for defining new proof-automation tactics and notations for
 --  specific situations.
---
+
 --  Lean and its relatives have become critical enablers for a [huge
 --  variety of work](https://leanprover-community.github.io/papers.html)
 --  across computer science and mathematics:
@@ -148,7 +148,7 @@ import SFLCompat
 --    frameworks for proving cryptographic algorithms secure. They are also
 --    being used to build verified implementations of the open-source
 --    RISC-V processor architecture.
---
+
 --  - As *proof assistants for mathematics*, they have been used to
 --    validate and help develop a number of important results. For example,
 --    the ability to include complex computations inside proofs made it
@@ -158,7 +158,7 @@ import SFLCompat
 --    configurations using a program. More recently, an even more massive
 --    effort led to a formalization of the Feit-Thompson Theorem, the first
 --    major step in the classification of finite simple groups.
---
+
 --    Lean, in particular, is now at the core of various formalization
 --    efforts in mathematics, such as the proof of [Fermat's Last
 --    Theorem](https://github.com/ImperialCollegeLondon/FLT), the [Sphere
@@ -175,13 +175,13 @@ import SFLCompat
 --  family of languages designed to foreground these idioms, including
 --  Haskell, OCaml, Standard ML, F#, Scala, Scheme, Racket, Common Lisp,
 --  Clojure, Erlang, F*, and Lean itself.
---
+
 --  Functional programming has been developed over many decades — indeed,
 --  its roots go back to Church's lambda-calculus from the 1930s, well
 --  *before* the first electronic computers! But since the early '90s it
 --  has enjoyed a surge of interest among both software engineers and
 --  language designers.
---
+
 --  The basic tenet of functional programming is that, whenever possible,
 --  computation should be *pure*, in the sense that the only effect of
 --  execution should be to produce a result. That is, it should be free
@@ -190,7 +190,7 @@ import SFLCompat
 --  function might take a list of numbers and rearrange its pointers to put
 --  the list in order, a pure sorting function would take the original list
 --  and return a fresh list containing the same numbers in sorted order.
---
+
 --  A significant benefit of this style of programming is that it makes
 --  programs easier to understand and reason about. If every operation on a
 --  data structure yields a new data structure and leaves the old one
@@ -200,7 +200,7 @@ import SFLCompat
 --  particularly important when reasoning about concurrent systems, where
 --  every piece of mutable state shared between threads is a potential
 --  source of pernicious bugs.
---
+
 --  Another reason for the popularity of functional programming, related to
 --  the first, is that functional programs are often much easier to
 --  parallelize and physically distribute than their imperative
@@ -211,7 +211,7 @@ import SFLCompat
 --  "Map-Reduce" idiom, which lies at the heart of massively distributed
 --  query processors like Hadoop and is used by Google to index the entire
 --  web, is a classic example of functional programming.
---
+
 --  For these books, functional programming has yet another significant
 --  attraction: it serves as a bridge between logic and computer science.
 --  Indeed, Lean itself can be viewed as a combination of a small but
@@ -238,18 +238,18 @@ import SFLCompat
 
 --  The Visual Studio Code IDE is the recommended platform for using Lean.
 --  To get set up, follow these steps:
---
+
 --  - Install VS Code if needed.
---
+
 --  - From the Extensions tab of VS Code, install the Lean 4 extension.
---
+
 --  - Download the book, build it if necessary — more below.
---
+
 --  - Open the built book directory in a VS Code window.
---
+
 --  - Open a Lean file; the extension will offer to install Lean; accept,
 --    and it will fetch the version this book needs.
---
+
 --  - Wait for Lean to build the project (it takes a few minutes).
 
 --  #### Downloading and using the book for a class
@@ -258,10 +258,10 @@ import SFLCompat
 --  have created a "student" release for you. Download the `.zip` file for
 --  that release, unzip it, and then open the resulting directory in VS
 --  Code. Open any `.lean` file (e.g., `LF/Basics.lean`) to get started.
---
+
 --  If you would like to read the HTML version of the book, it should be
 --  hosted on your course website (you may be reading it now!).
---
+
 --  Note that, as the book is changing while you are taking your class, you
 --  should download a fresh `.zip` for each homework you do, opening it in
 --  a fresh directory. This way you will have access to prior solutions,
@@ -276,7 +276,7 @@ import SFLCompat
 --  Clone that repository and then build it by typing `make lf-student`
 --  from the root directory. Doing so will construct the student version
 --  (full prose, with solutions elided) of the *Logical Foundations* book.
---
+
 --  Building the book requires that you have Lean installed. If you do not,
 --  follow the instructions [here](https://lean-lang.org/install/manual/)
 --  to install the Lean toolchain manager `elan` which will then manage
@@ -286,42 +286,42 @@ import SFLCompat
 --  `elan` and Lean automatically. Both installation methods have the same
 --  effect, putting the Lean toolchain in the same place on your
 --  filesystem.
---
+
 --  With Lean installed, `make lf-student` writes two things to
 --  `_out/lf/student/`:
---
+
 --  - `html/`, an HTML-formatted version of the whole book; and
---
+
 --  - `lean/`, a standalone Lean project holding the same chapters as
 --    `.lean` files, with solutions to exercises omitted.
---
+
 --  Use `make student` instead if you also want *Type Systems* (`ts`) and
 --  *Hoare Logic* (`hl`). The first build compiles the whole dependency
 --  tree and takes a while; later builds are incremental.
---
+
 --  Now you can open the generated Lean project as its own folder — not as
 --  a file inside your clone:
---
---      code _out/lf/student/lean
---
+
+--    code _out/lf/student/lean
+
 --  or
---
---      cd _out/lf/student/lean
---      code .
---
+
+--    cd _out/lf/student/lean
+--    code .
+
 --  You can also use File → Open Folder.
---
+
 --  Treat this as a scratch copy: **every `make` regenerates it from the
 --  Verso sources, overwriting whatever is there.** Work on your proofs
 --  here, but keep anything you want to survive somewhere else.
---
+
 --  If you would like to read the book HTML, start a local HTTP server and
 --  point it at the generated HTML files:
---
---      python3 -m http.server 8000 -d _out/lf/student/html
---
+
+--    python3 -m http.server 8000 -d _out/lf/student/html
+
 --  Then visit `http://localhost:8000` and start reading.
---
+
 --  If you want to build everything — student version, "terse" instructor
 --  version, solutions, and grading versions — type `make`, `make lf`, etc.
 
@@ -329,18 +329,18 @@ import SFLCompat
 
 --  Each chapter includes numerous exercises. Each is marked with a "star
 --  rating," which can be interpreted as follows:
---
+
 --  - One star: easy exercises that underscore points in the text and that,
 --    for most readers, should take only a minute or two. Get in the habit
 --    of working these as you reach them.
---
+
 --  - Two stars: straightforward exercises (five or ten minutes).
---
+
 --  - Three stars: exercises requiring a bit of thought (ten minutes to
 --    half an hour).
---
+
 --  - Four and five stars: more difficult exercises (half an hour and up).
---
+
 --  Those using SF in a classroom setting should note that the autograder
 --  assigns extra points to harder exercises:
 
@@ -391,25 +391,25 @@ import SFLCompat
 
 --  **Leadership:** Mike Hicks and Benjamin C. Pierce lead the SF-in-Lean
 --  project.
---
+
 --  **Authors:** The Lean adaptation of *Software Foundations* was created
 --  by Mike Hicks, Benjamin C. Pierce, One An, Roger Burtonpatel, Jonathan
 --  Chan, Harry Goldstein, Niklas Halonen, Chris Henson, Kihong Heo, Yipeng
 --  Liu, and Daniel Sainati
---
+
 --  **... with contributions from** Luisa Cicolini, Michael Clarkson,
 --  Robert Joseph, Sati, and Shriya Thakur
---
+
 --  **... and gratitude to** David Thrane Christiansen, for helping us
 --  understand the intricacies of Lean's Verso document preparation system.
---
+
 --  **SF in Rocq:** The first three volumes of *Software Foundations in
 --  Lean* (*Logical Foundations in Lean*, *Type Systems in Lean*, and
 --  *Hoare Logic in Lean*) are adapted from the *Logical Foundations* and
 --  *Programming Language Foundations* volumes of the original *Software
 --  Foundations* series in Roqc, developed from 2008 to 2026 by a team of
 --  authors and contributors led by Benjamin C. Pierce.
---
+
 --  The original *Logical Foundations* was written by Benjamin C. Pierce,
 --  Arthur Azevedo de Amorim, Chris Casinghino, Marco Gaboardi, Michael
 --  Greenberg, Cătălin Hriţcu, Vilhelm Sjöberg, and Brent Yorgey, with
@@ -419,7 +419,7 @@ import SFLCompat
 --  Morrisett, Jennifer Paykin, Mukund Raghothaman, Chung-chieh Shan,
 --  Leonid Spesivtsev, Caleb Stanford, Andrew Tolmach, Philip Wadler,
 --  Stephanie Weirich, Li-Yao Xia, and Steve Zdancewic.
---
+
 --  The original *Programming Language Foundations* was written by Benjamin
 --  C. Pierce, Arthur Azevedo de Amorim, Chris Casinghino, Marco Gaboardi,
 --  Michael Greenberg, Cătălin Hriţcu, Vilhelm Sjöberg, Andrew Tolmach, and
@@ -429,7 +429,7 @@ import SFLCompat
 --  Greg Morrisett, Jennifer Paykin, Mukund Raghothaman, Chung-Chieh Shan,
 --  Leonid Spesivtsev, Caleb Stanford, Philip Wadler, Stephanie Weirich,
 --  Li-Yao Xia, and Steve Zdancewic.
---
+
 --  **Funding:** Development of the original *Software Foundations* series
 --  was supported, in part, by the National Science Foundation under the
 --  NSF Expeditions grant 1521523, *The Science of Deep Specification*.
@@ -437,4 +437,3 @@ import SFLCompat
 --  Note to developers (Benjamin Pierce @bcpierce00):
 --      Other funding should be acknowledged here...
 
--- Built on 2026-09-01 15:23 UTC

@@ -1269,4 +1269,4 @@ example : ¬ ∃ T, <{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~T }> := by
 
 end Stlc
 
--- Built on 2026-09-01 14:10 UTC
+-- Built on 2026-09-01 20:49 UTC

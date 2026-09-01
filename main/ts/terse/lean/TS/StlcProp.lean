@@ -6,7 +6,7 @@ import SFLCompat
 --  # StlcProp: Properties of STLC
 
 --  THE SIMPLY TYPED LAMBDA CALCULUS
---
+
 --  Syntax:
 
 --  t ::= x                     (variable)
@@ -23,38 +23,38 @@ import SFLCompat
 --      | false
 
 --  Substitution:
---
---      [x:=s]x               = s
---      [x:=s]y               = y                     if x ≠ y
---      [x:=s](λx:T. t)       = λx:T. t
---      [x:=s](λy:T. t)       = λy:T. [x:=s]t         if x ≠ y
---      [x:=s](t₁ t₂)         = ([x:=s]t₁) ([x:=s]t₂)
---      [x:=s]true            = true
---      [x:=s]false           = false
---      [x:=s](if t₁ then t₂ else t₃) =
---                      if [x:=s]t₁ then [x:=s]t₂ else [x:=s]t₃
---
+
+--    [x:=s]x               = s
+--    [x:=s]y               = y                     if x ≠ y
+--    [x:=s](λx:T. t)       = λx:T. t
+--    [x:=s](λy:T. t)       = λy:T. [x:=s]t         if x ≠ y
+--    [x:=s](t₁ t₂)         = ([x:=s]t₁) ([x:=s]t₂)
+--    [x:=s]true            = true
+--    [x:=s]false           = false
+--    [x:=s](if t₁ then t₂ else t₃) =
+--                    if [x:=s]t₁ then [x:=s]t₂ else [x:=s]t₃
+
 --  Small-step operational semantics:
 
 --  v.IsValue
 --                         -----------------------                    (appAbs)
 --                          (λx:T. t) v ⟶ [x:=v]t
---
+
 --                                t₁ ⟶ t₁'
 --                            ----------------                        (app1)
 --                             t₁ t₂ ⟶ t₁' t₂
---
+
 --                               v₁.IsValue
 --                                t₂ ⟶ t₂'
 --                            ----------------                        (app2)
 --                             v₁ t₂ ⟶ v₁ t₂'
---
+
 --                    --------------------------------                (ifTrue)
 --                     (if true then t₁ else t₂) ⟶ t₁
---
+
 --                    ---------------------------------               (ifFalse)
 --                     (if false then t₁ else t₂) ⟶ t₂
---
+
 --                                t₁ ⟶ t₁'
 --          ----------------------------------------------------      (ifStep)
 --           (if t₁ then t₂ else t₃) ⟶ (if t₁' then t₂ else t₃)
@@ -64,22 +64,22 @@ import SFLCompat
 --  Γ x = T₁
 --                              ------------                       (var)
 --                               Γ ⊢ x ⦂ T₁
---
+
 --                          x ↦ T₂ ; Γ ⊢ t₁ ⦂ T₁
 --                        -------------------------                (abs)
 --                         Γ ⊢ λx:T₂. t₁ ⦂ T₂ → T₁
---
+
 --                            Γ ⊢ t₁ ⦂ T₂ → T₁
 --                              Γ ⊢ t₂ ⦂ T₂
 --                           ------------------                    (app)
 --                             Γ ⊢ t₁ t₂ ⦂ T₁
---
+
 --                            -----------------                    (tru)
 --                             Γ ⊢ true ⦂ Bool
---
+
 --                           ------------------                    (fls)
 --                            Γ ⊢ false ⦂ Bool
---
+
 --               Γ ⊢ t₁ ⦂ Bool    Γ ⊢ t₂ ⦂ T₁    Γ ⊢ t₃ ⦂ T₁
 --              ---------------------------------------------      (ite)
 --                     Γ ⊢ if t₁ then t₂ else t₃ ⦂ T₁
@@ -87,7 +87,7 @@ import SFLCompat
 --  In this chapter, we develop the fundamental theory of
 --  the Simply Typed Lambda Calculus — in particular, the
 --  type safety theorem.
---
+
 --  We pick up where the Stlc chapter left off, so
 --  everything below lives in the same namespace as the
 --  definitions it is about.
@@ -177,14 +177,14 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 
 --  For preservation, we need some technical machinery for
 --  reasoning about variables and substitution.
---
+
 --  - The *preservation theorem* is proved by induction on a
 --    typing derivation and case analysis on the step
 --    relation, pretty much as we did in the Types chapter.
---
+
 --    Main novelty: `Step.appAbs` uses the substitution
 --    operation.
---
+
 --    To see that this step preserves typing, we need to
 --    know that the substitution itself does. So we prove
 --    a...
@@ -192,17 +192,17 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --  - *substitution lemma*, stating that substituting a
 --    (closed, well-typed) term `s` for a variable `x` in a
 --    term `t` preserves the type of `t`.
---
+
 --  The proof goes by induction on the form of `t` and
 --  requires looking at all the different cases in the
 --  definition of substitution.
---
+
 --  Tricky case: variables.
---
+
 --  In this case, we need to deduce from the fact that a
 --  term `s` has type S in the empty context the fact that
 --  `s` has type S in every context.
---
+
 --  For this we prove a...
 
 --  - *weakening* lemma, showing that typing is preserved
@@ -245,14 +245,14 @@ theorem weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂
 --  *substitution* preserves types.
 
 --  The *substitution lemma* says:
---
+
 --  - Suppose we have a term `t` with a free variable `x`,
 --    and suppose we've been able to assign a type `T` to
 --    `t` under the assumption that `x` has some type `U`.
---
+
 --  - Also, suppose that we have some other term `v` and
 --    that we've shown that `v` has type `U`.
---
+
 --  - Then we can substitute `v` for each of the occurrences
 --    of `x` in `t` and obtain a new term that still has
 --    type `T`.
@@ -388,7 +388,7 @@ scoped macro_rules (kind := Stlc.tyBracket)
 --  application and tighter than `λ`, so `x * y z`
 --  multiplies `x` by the application `y z`; it associates
 --  to the right, so `x * y * z` is `x * (y * z)`.
---
+
 --  `succ` and `pred` get no production of their own. Making
 --  them keywords would reserve those words globally — and
 --  we would then be unable to write `succ` as a case name
@@ -549,4 +549,3 @@ def delabTm : Delab := whenPPOption getPPNotation do
 
 end StlcArith
 
--- Built on 2026-09-01 15:25 UTC

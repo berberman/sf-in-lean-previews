@@ -885,124 +885,6 @@ table.tabular td > p:last-child, table.tabular th > p:first-child {
   color: #a00;
 }
 </style><style>
-:root {
-  --sf-bg: #fffdf6;
-  --sf-text: #1a1208;
-  --sf-heading: #6b0d0d;
-  --sf-accent: #a00;
-  --sf-link: #7a1a1a;
-  --sf-link-hover: #a00;
-  /* Block-level surfaces (code blocks, the TOC column, callouts) are a neutral
-     light gray rather than a tint of the warm page color, so highlighted Lean
-     reads against a plain backdrop. */
-  --sf-code-bg: #f1f1f0;
-  --sf-rule: #dcdcda;
-  --sf-toc-bg: #f6f6f5;
-  --sf-surface: #f4f4f3;
-
-  /* Override Verso's syntax highlighting palette */
-  --verso-code-keyword-color: #697f2f;
-  --verso-code-const-color: #416DFF;
-}
-
-body {
-  /* Software Foundations LF background — same image and layout as the
-     original site (no-repeat, full width, scrolls with the page so it
-     fades off the top as you read down). The body color is plain white,
-     matching the original SF site, so the area below the image (once it
-     has scrolled off) shows the same neutral backdrop the SF book uses. */
-  background-color: white;
-  background-image: url('assets/prog_lang_bg.jpg');
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: top left;
-  background-attachment: scroll;
-  color: var(--sf-text);
-}
-
-/* Solid card behind the actual prose so the background image never bleeds
-   through the text itself. */
-main .content-wrapper {
-  background: var(--sf-bg);
-  padding: 1.5rem var(--verso--content-padding-x);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
-  border-radius: 2px;
-}
-
-main h1, main h2, main h3, main h4, main h5, main h6,
-.header-title, .toc-title h1 {
-  color: var(--sf-heading);
-}
-
-/* A section whose heading is full-only (see
-   SFLMeta.Block.suppressPreviousHeaderWhenTerse): the marker div is present
-   only in the terse build, where the heading hides. */
-section:has(> .suppress-previous-header-when-terse)
-    > :is(h1, h2, h3, h4, h5, h6):first-child {
-  display: none;
-}
-
-a, a:visited { color: var(--sf-link); }
-a:hover, a:active { color: var(--sf-link-hover); }
-
-header {
-  background: var(--sf-bg);
-  border-bottom: 1px solid var(--sf-rule);
-  box-shadow: none;
-}
-
-#toc {
-  background: var(--sf-toc-bg) !important;
-  border-right: 1px solid var(--sf-rule);
-}
-
-code:not(.hl), pre:not(.hl) {
-  background: var(--sf-code-bg);
-  padding: 0.1em 0.3em;
-  border-radius: 2px;
-}
-
-pre:not(.hl) {
-  padding: 0.6em 0.9em;
-  border-left: 3px solid var(--sf-accent);
-  background: var(--sf-code-bg);
-}
-
-.hl.lean.block {
-  background: var(--sf-code-bg);
-  border-left: 3px solid var(--sf-accent);
-  padding: 0.6em 0.9em;
-  border-radius: 2px;
-}
-
-blockquote {
-  border-left: 3px solid var(--sf-accent);
-  background: var(--sf-surface);
-  margin-left: 0;
-  padding: 0.4em 1em;
-  color: #2b2b28;
-}
-
-/* Build stamp: when this page was generated, matching the trailing comment in
-   the generated .lean file of the same chapter (SFLMeta/BuildStamp.lean).  It
-   is a provenance note, not something to read, so it is small, gray, and set
-   off below a rule. */
-.sf-build-stamp {
-  margin-top: 2.5em;
-  padding-top: 0.5em;
-  border-top: 1px solid var(--sf-rule);
-  font-size: 0.8em;
-  font-style: italic;
-  text-align: right;
-  color: #8c8c88;
-}
-
-/* Tighten the exercise box to share the same palette */
-.exercise {
-  background: var(--sf-surface);
-  border-left: 3px solid var(--sf-accent);
-}
-</style><style>
 div.sf-quote {
   font-style: italic;
   margin: 1em 0;
@@ -1132,6 +1014,110 @@ div.sf-dev-note > .sf-dev-note-label {
   letter-spacing: 0.03em;
   color: #7a5800;
   margin-bottom: 0.3em;
+}
+</style><style>
+:root {
+  --sf-bg: #fffdf6;
+  --sf-text: #1a1208;
+  --sf-heading: #6b0d0d;
+  --sf-accent: #a00;
+  --sf-link: #7a1a1a;
+  --sf-link-hover: #a00;
+  /* Block-level surfaces (code blocks, the TOC column, callouts) are a neutral
+     light gray rather than a tint of the warm page color, so highlighted Lean
+     reads against a plain backdrop. */
+  --sf-code-bg: #f1f1f0;
+  --sf-rule: #dcdcda;
+  --sf-toc-bg: #f6f6f5;
+  --sf-surface: #f4f4f3;
+
+  /* Override Verso's syntax highlighting palette */
+  --verso-code-keyword-color: #697f2f;
+  --verso-code-const-color: #416DFF;
+}
+
+body {
+  /* Software Foundations LF background — same image and layout as the
+     original site (no-repeat, full width, scrolls with the page so it
+     fades off the top as you read down). The body color is plain white,
+     matching the original SF site, so the area below the image (once it
+     has scrolled off) shows the same neutral backdrop the SF book uses. */
+  background-color: white;
+  background-image: url('assets/prog_lang_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: top left;
+  background-attachment: scroll;
+  color: var(--sf-text);
+}
+
+/* Solid card behind the actual prose so the background image never bleeds
+   through the text itself. */
+main .content-wrapper {
+  background: var(--sf-bg);
+  padding: 1.5rem var(--verso--content-padding-x);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  border-radius: 2px;
+}
+
+main h1, main h2, main h3, main h4, main h5, main h6,
+.header-title, .toc-title h1 {
+  color: var(--sf-heading);
+}
+
+/* A section whose heading is full-only (see
+   SFLMeta.Block.suppressPreviousHeaderWhenTerse): the marker div is present
+   only in the terse build, where the heading hides. */
+section:has(> .suppress-previous-header-when-terse)
+    > :is(h1, h2, h3, h4, h5, h6):first-child {
+  display: none;
+}
+
+a, a:visited { color: var(--sf-link); }
+a:hover, a:active { color: var(--sf-link-hover); }
+
+header {
+  background: var(--sf-bg);
+  border-bottom: 1px solid var(--sf-rule);
+  box-shadow: none;
+}
+
+#toc {
+  background: var(--sf-toc-bg) !important;
+  border-right: 1px solid var(--sf-rule);
+}
+
+code:not(.hl), pre:not(.hl) {
+  background: var(--sf-code-bg);
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}
+
+pre:not(.hl) {
+  padding: 0.6em 0.9em;
+  border-left: 3px solid var(--sf-accent);
+  background: var(--sf-code-bg);
+}
+
+.hl.lean.block {
+  background: var(--sf-code-bg);
+  border-left: 3px solid var(--sf-accent);
+  padding: 0.6em 0.9em;
+  border-radius: 2px;
+}
+
+blockquote {
+  border-left: 3px solid var(--sf-accent);
+  background: var(--sf-surface);
+  margin-left: 0;
+  padding: 0.4em 1em;
+  color: #2b2b28;
+}
+
+/* Tighten the exercise box to share the same palette */
+.exercise {
+  background: var(--sf-surface);
+  border-left: 3px solid var(--sf-accent);
 }
 </style><style>
 details.sf-quiz-solution {
@@ -2847,8 +2833,6 @@ part, by the National Science Foundation under the NSF Expeditions grant
                 </section>
               </section>
             </section>
-          <div class="sf-build-stamp">
-            Built on 2026-09-01 15:23 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="#" rel="prev" title=" Logical Foundations"><span class="arrow">←</span><span class="where"> Logical Foundations</span></a><a class="local-button active" href="Basics/#Basics" rel="next" title="2. Basics: Functional Programming in Lean"><span class="where">2. Basics: Functional Programming in Lean</span><span class="arrow">→</span></a></nav>
           </div>

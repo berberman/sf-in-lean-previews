@@ -1929,305 +1929,6 @@ and its border extension paints the outline triangle with the box's border color
 }
 
 </style><script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // The innermost element under the pointer, used to show only the most specific hover
-    let hoverTarget = null;
-    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
-
-    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
-    const visibleTippies = new Set();
-    function blockedByTippy(elem) {
-      for (const ref of visibleTippies) {
-        if (!ref.contains(elem) && !elem.contains(ref)) return true;
-      }
-      return false;
-    }
-
-    // Whether the element's tooltip would have content to show. Content nested in a
-    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
-    // not a tippy instance is currently attached to it.
-    function showsContent(el) {
-      if (!el._tippy) return false;
-      if (el.classList.contains('tactic')) {
-        const toggle = el.querySelector(':scope > input.tactic-toggle');
-        return !!toggle && !toggle.checked;
-      }
-      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
-        !blockedByTactic(el);
-    }
-
-    // The nearest enclosing element whose tooltip has content
-    function innermostShowable(el) {
-      while (el && el.nodeType === Node.ELEMENT_NODE) {
-        if (showsContent(el)) return el;
-        el = el.parentElement;
-      }
-      return null;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-    function hideDescendantTooltips(element) {
-      for (const ref of visibleTippies) {
-        if (ref !== element && element.contains(ref)) {
-          ref._tippy.hide();
-        }
-      }
-    }
-
-    // Renders the documentation for a hover ID from the doc table
-    function docHoverContent(hoverId) {
-      const info = document.createElement('span');
-      info.className = 'hover-info';
-      info.style.display = 'block';
-      const data = versoDocData[hoverId];
-      if (data) {
-        info.innerHTML = data;
-        /* Render docstrings - TODO server-side */
-        if ('undefined' !== typeof marked) {
-          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement('div');
-            rendered.classList.add('docstring');
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-          }
-        }
-      } else {
-        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
-      }
-      return info;
-    }
-
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        const ref = inst.reference;
-        if (ref.className == 'tactic') {
-          const toggle = ref.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
-          if (blockedByTactic(ref)) { return false };
-        } else { // Nothing to show here!
-          return false;
-        }
-        // Show only the most specific hover under the pointer
-        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
-          return false;
-        }
-        hideParentTooltips(ref);
-        hideDescendantTooltips(ref);
-        if (blockedByTippy(ref)) { return false; }
-      },
-      onShown(inst) { visibleTippies.add(inst.reference); },
-      onHidden(inst) { visibleTippies.delete(inst.reference); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          // Messages come from the inline hover-info; documentation comes from the doc
-          // table. An element with both (a message span sharing a documented token's
-          // extent) shows both in one tooltip.
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverInfo) {
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          if (hoverId) {
-            // TODO stop doing an implicit conversion from string to number here
-            content.appendChild(docHoverContent(hoverId));
-          }
-          if (hoverInfo && hoverId) {
-            content.classList.add('mixed');
-          }
-          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (!el._tippy) {
-              tippy(el, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (el._tippy) el._tippy.destroy();
-          });
-        }
-        // The toggle changes which element's tooltip belongs to the pointer's position,
-        // but the pointer stays put, so no hover event announces the change. Show the
-        // right tooltip once the click that flipped the toggle has hidden the old one.
-        setTimeout(() => {
-          if (hoverTarget && hoverTarget.isConnected) {
-            const showable = innermostShowable(hoverTarget);
-            if (showable && showable._tippy) showable._tippy.show();
-          }
-        }, 0);
-      });
-  });
-}
-</script>
-    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -2304,68 +2005,11 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Poly/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-the-Standard-Library":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-using--rw":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-the-Standard-Library",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-using--rw",
      "data":
-     {"title": "Using the Standard Library",
-      "shortTitle": null,
-      "sectionNum": "4.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Using the Standard Library",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--Definitional-Simplification":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--Definitional-Simplification",
-     "data":
-     {"title": "Definitional Simplification",
-      "shortTitle": null,
-      "sectionNum": "4.4.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Unfolding definitions with  rw",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Definitional Simplification",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--A-First-Step-Towards-Automation":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw--A-First-Step-Towards-Automation",
-     "data":
-     {"title": "A First Step Towards Automation",
-      "shortTitle": null,
-      "sectionNum": "4.4.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Unfolding definitions with  rw",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "A First Step Towards Automation",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-with--rw",
-     "data":
-     {"title": "Unfolding definitions with  rw",
+     {"title": "Unfolding definitions using  rw",
       "shortTitle": null,
       "sectionNum": "4.4.",
       "searchPriority": 50,
@@ -2374,7 +2018,7 @@ window.onload = async () => {
        {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Unfolding definitions with  rw",
+       {"title": "Unfolding definitions using  rw",
         "shortTitle": null,
         "number": "4"}]},
      "address": "/UsingLean/"}],
@@ -2395,13 +2039,30 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "3"}]},
      "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Searching-for-Standard-Library-Theorems":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Searching-for-Standard-Library-Theorems",
+     "data":
+     {"title": "Searching for Standard Library Theorems",
+      "shortTitle": null,
+      "sectionNum": "4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Searching for Standard Library Theorems",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/UsingLean/"}],
    "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Redefining-Functions-and-Lemmas-over-Nats":
    [{"id":
      "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Redefining-Functions-and-Lemmas-over-Nats",
      "data":
      {"title": "Redefining Functions and Lemmas over Nats",
       "shortTitle": null,
-      "sectionNum": "4.5.",
+      "sectionNum": "4.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -2410,27 +2071,7 @@ window.onload = async () => {
         "number": "4"},
        {"title": "Redefining Functions and Lemmas over Nats",
         "shortTitle": null,
-        "number": "5"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--The--rfl--Tactic-and-Computation-with--Nat":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--The--rfl--Tactic-and-Computation-with--Nat",
-     "data":
-     {"title": "The  rfl  Tactic and Computation with  Nat",
-      "shortTitle": null,
-      "sectionNum": "4.1.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "More Powerful Natural Numbers",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "The  rfl  Tactic and Computation with  Nat",
-        "shortTitle": null,
-        "number": "1"}]},
+        "number": "7"}]},
      "address": "/UsingLean/"}],
    "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers":
    [{"id":
@@ -2448,6 +2089,40 @@ window.onload = async () => {
        {"title": "More Powerful Natural Numbers",
         "shortTitle": null,
         "number": "1"}]},
+     "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification-with--dsimp":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification-with--dsimp",
+     "data":
+     {"title": "Definitional Simplification with  dsimp",
+      "shortTitle": null,
+      "sectionNum": "4.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Definitional Simplification with  dsimp",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--A-First-Automation-Tactic___--repeat":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--A-First-Automation-Tactic___--repeat",
+     "data":
+     {"title": "A First Automation Tactic:  repeat",
+      "shortTitle": null,
+      "sectionNum": "4.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "A First Automation Tactic:  repeat",
+        "shortTitle": null,
+        "number": "6"}]},
      "address": "/UsingLean/"}],
    "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses",
@@ -3650,35 +3325,20 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures",
-     "data":
-     {"title": "Structures",
-      "shortTitle": null,
-      "sectionNum": "5.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Structures", "shortTitle": null, "number": "2"}]},
-     "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
    [{"id":
      "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2",
      "data":
      {"title": "List Exercises, Part 2",
       "shortTitle": null,
-      "sectionNum": "5.4.3.",
+      "sectionNum": "5.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 2", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
@@ -3687,14 +3347,14 @@ window.onload = async () => {
      "data":
      {"title": "List Exercises, Part 1",
       "shortTitle": null,
-      "sectionNum": "5.4.2.",
+      "sectionNum": "5.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 1", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Induction-on-Lists--Reversing-a-List":
@@ -3703,14 +3363,14 @@ window.onload = async () => {
      "data":
      {"title": "Reversing a List",
       "shortTitle": null,
-      "sectionNum": "5.4.1.2.",
+      "sectionNum": "5.3.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Reversing a List", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
@@ -3720,14 +3380,14 @@ window.onload = async () => {
      "data":
      {"title": "Generalizing Statements",
       "shortTitle": null,
-      "sectionNum": "5.4.1.1.",
+      "sectionNum": "5.3.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Generalizing Statements",
         "shortTitle": null,
@@ -3739,14 +3399,14 @@ window.onload = async () => {
      "data":
      {"title": "Induction on Lists",
       "shortTitle": null,
-      "sectionNum": "5.4.1.",
+      "sectionNum": "5.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists":
@@ -3755,14 +3415,14 @@ window.onload = async () => {
      "data":
      {"title": "Reasoning About Lists",
       "shortTitle": null,
-      "sectionNum": "5.4.",
+      "sectionNum": "5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"}]},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Partial-Maps":
    [{"id":
@@ -3770,14 +3430,30 @@ window.onload = async () => {
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "5.6.",
+      "sectionNum": "5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Partial Maps", "shortTitle": null, "number": "6"}]},
+       {"title": "Partial Maps", "shortTitle": null, "number": "5"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers--Structures":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers--Structures",
+     "data":
+     {"title": "Structures",
+      "shortTitle": null,
+      "sectionNum": "5.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Pairs of Numbers", "shortTitle": null, "number": "1"},
+       {"title": "Structures", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers":
    [{"id":
@@ -3800,102 +3476,64 @@ window.onload = async () => {
      "data":
      {"title": "Options",
       "shortTitle": null,
-      "sectionNum": "5.5.",
+      "sectionNum": "5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Options", "shortTitle": null, "number": "5"}]},
+       {"title": "Options", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading-Notation":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading-Notation",
      "data":
-     {"title": "Head and Tail",
+     {"title": "Type Classes and Overloading Notation",
       "shortTitle": null,
-      "sectionNum": "5.3.3.1.",
+      "sectionNum": "5.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Type Classes and Overloading",
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Type Classes and Overloading Notation",
         "shortTitle": null,
-        "number": "3"},
-       {"title": "Head and Tail", "shortTitle": null, "number": "1"}]},
+        "number": "4"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Exercises":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Replicate":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Exercises",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Replicate",
      "data":
-     {"title": "Exercises",
+     {"title": "Replicate",
       "shortTitle": null,
-      "sectionNum": "5.3.3.2.",
+      "sectionNum": "5.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Type Classes and Overloading",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Exercises", "shortTitle": null, "number": "2"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Replicate", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removal":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removal",
      "data":
-     {"title": "Type Classes and Overloading",
+     {"title": "Removal",
       "shortTitle": null,
-      "sectionNum": "5.3.3.",
+      "sectionNum": "5.2.9.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Type Classes and Overloading",
-        "shortTitle": null,
-        "number": "3"}]},
-     "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Repeat":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Repeat",
-     "data":
-     {"title": "Repeat",
-      "shortTitle": null,
-      "sectionNum": "5.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Repeat", "shortTitle": null, "number": "1"}]},
-     "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing",
-     "data":
-     {"title": "Removing",
-      "shortTitle": null,
-      "sectionNum": "5.3.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Removing", "shortTitle": null, "number": "6"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Removal", "shortTitle": null, "number": "9"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Membership":
    [{"id":
@@ -3903,15 +3541,31 @@ window.onload = async () => {
      "data":
      {"title": "Membership",
       "shortTitle": null,
-      "sectionNum": "5.3.5.",
+      "sectionNum": "5.2.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Membership", "shortTitle": null, "number": "5"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Membership", "shortTitle": null, "number": "8"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Length":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Length",
+     "data":
+     {"title": "Length",
+      "shortTitle": null,
+      "sectionNum": "5.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Length", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Included":
    [{"id":
@@ -3919,15 +3573,47 @@ window.onload = async () => {
      "data":
      {"title": "Included",
       "shortTitle": null,
-      "sectionNum": "5.3.7.",
+      "sectionNum": "5.2.10.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Included", "shortTitle": null, "number": "7"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Included", "shortTitle": null, "number": "10"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Head-and-Tail":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Head-and-Tail",
+     "data":
+     {"title": "Head and Tail",
+      "shortTitle": null,
+      "sectionNum": "5.2.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Head and Tail", "shortTitle": null, "number": "5"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Exercises":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Exercises",
+     "data":
+     {"title": "Exercises",
+      "shortTitle": null,
+      "sectionNum": "5.2.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Counting":
    [{"id":
@@ -3935,15 +3621,15 @@ window.onload = async () => {
      "data":
      {"title": "Counting",
       "shortTitle": null,
-      "sectionNum": "5.3.4.",
+      "sectionNum": "5.2.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Counting", "shortTitle": null, "number": "4"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Counting", "shortTitle": null, "number": "7"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Append":
    [{"id":
@@ -3951,15 +3637,15 @@ window.onload = async () => {
      "data":
      {"title": "Append",
       "shortTitle": null,
-      "sectionNum": "5.3.2.",
+      "sectionNum": "5.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Append", "shortTitle": null, "number": "2"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Append", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers":
    [{"id":
@@ -3967,14 +3653,14 @@ window.onload = async () => {
      "data":
      {"title": "Lists of Numbers",
       "shortTitle": null,
-      "sectionNum": "5.3.",
+      "sectionNum": "5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Separate-Compilation":
    [{"id":
@@ -5735,7 +5421,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Unfolding definitions with  rw"]}},
+        "Unfolding definitions using  rw"]}},
      "address": "/UsingLean/"}],
    "simp_lemmas_example.add_zero":
    [{"id": "simp_lemmas_example___add_zero",
@@ -5851,7 +5537,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Unfolding definitions with  rw"]}},
+        "Unfolding definitions using  rw"]}},
      "address": "/UsingLean/"}],
    "right":
    [{"id": "right",
@@ -5981,6 +5667,75 @@ window.onload = async () => {
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
+   "replicate_zero":
+   [{"id": "replicate_zero",
+     "data":
+     {"/Poly/#replicate_zero":
+      {"display": "replicate_zero",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
+   "replicate_succ":
+   [{"id": "replicate_succ",
+     "data":
+     {"/Poly/#replicate_succ":
+      {"display": "replicate_succ",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
+   "replicate'''":
+   [{"id": "replicate_________",
+     "data":
+     {"/Poly/#replicate_________":
+      {"display": "replicate'''",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Type Argument Synthesis"]}},
+     "address": "/Poly/"}],
+   "replicate''":
+   [{"id": "replicate______",
+     "data":
+     {"/Poly/#replicate______":
+      {"display": "replicate''",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Type Argument Synthesis"]}},
+     "address": "/Poly/"}],
+   "replicate'":
+   [{"id": "replicate___",
+     "data":
+     {"/Poly/#replicate___":
+      {"display": "replicate'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Type Annotation Inference"]}},
+     "address": "/Poly/"}],
+   "replicate":
+   [{"id": "replicate",
+     "data":
+     {"/Poly/#replicate":
+      {"display": "replicate",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
    "reaches1In":
    [{"id": "reaches1In",
      "data":
@@ -6367,75 +6122,6 @@ window.onload = async () => {
         "IndProp: Inductively Defined Propositions",
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
-   "myRepeat_zero":
-   [{"id": "myRepeat_zero",
-     "data":
-     {"/Poly/#myRepeat_zero":
-      {"display": "myRepeat_zero",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
-   "myRepeat_succ":
-   [{"id": "myRepeat_succ",
-     "data":
-     {"/Poly/#myRepeat_succ":
-      {"display": "myRepeat_succ",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
-   "myRepeat'''":
-   [{"id": "myRepeat_________",
-     "data":
-     {"/Poly/#myRepeat_________":
-      {"display": "myRepeat'''",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Argument Synthesis"]}},
-     "address": "/Poly/"}],
-   "myRepeat''":
-   [{"id": "myRepeat______",
-     "data":
-     {"/Poly/#myRepeat______":
-      {"display": "myRepeat''",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Argument Synthesis"]}},
-     "address": "/Poly/"}],
-   "myRepeat'":
-   [{"id": "myRepeat___",
-     "data":
-     {"/Poly/#myRepeat___":
-      {"display": "myRepeat'",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Annotation Inference"]}},
-     "address": "/Poly/"}],
-   "myRepeat":
-   [{"id": "myRepeat",
-     "data":
-     {"/Poly/#myRepeat":
-      {"display": "myRepeat",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
    "myNil'":
    [{"id": "myNil___",
      "data":
@@ -6467,7 +6153,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using the Standard Library"]}},
+        "Searching for Standard Library Theorems"]}},
      "address": "/UsingLean/"}],
    "mul_three":
    [{"id": "mul_three",
@@ -6477,7 +6163,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Using the Standard Library"]}},
+        "Searching for Standard Library Theorems"]}},
      "address": "/UsingLean/"}],
    "mul_eq_0_ternary":
    [{"id": "mul_eq_0_ternary",
@@ -6673,7 +6359,7 @@ window.onload = async () => {
         "Exercising with Inductive Relations"]}},
      "address": "/IndProp/"}],
    "keepIf_some":
-   [{"id": "keepIf_some-next",
+   [{"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -6690,7 +6376,7 @@ window.onload = async () => {
         "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some",
+    {"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -7425,7 +7111,7 @@ window.onload = async () => {
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective-next",
+   [{"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -7446,7 +7132,7 @@ window.onload = async () => {
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective",
+    {"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -8166,7 +7852,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Unfolding definitions with  rw"]}},
+        "Unfolding definitions using  rw"]}},
      "address": "/UsingLean/"}],
    "addThrice":
    [{"id": "addThrice",
@@ -8176,7 +7862,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Unfolding definitions with  rw"]}},
+        "Unfolding definitions using  rw"]}},
      "address": "/UsingLean/"}],
    "WrongEv":
    [{"id": "WrongEv",
@@ -13226,6 +12912,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
+        "Pairs of Numbers",
         "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'.fst":
@@ -13236,6 +12923,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
+        "Pairs of Numbers",
         "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'":
@@ -13246,6 +12934,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
+        "Pairs of Numbers",
         "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd":
@@ -13317,7 +13006,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_removeOne1":
    [{"id": "Lists___NatList___test_removeOne1",
@@ -13328,7 +13017,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_removeAll2":
    [{"id": "Lists___NatList___test_removeAll2",
@@ -13339,7 +13028,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_removeAll1":
    [{"id": "Lists___NatList___test_removeAll1",
@@ -13350,7 +13039,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_oddMembers":
    [{"id": "Lists___NatList___test_oddMembers",
@@ -13361,7 +13050,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_nonZeros":
@@ -13373,7 +13061,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_member2":
@@ -13449,7 +13136,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_countOddMembers1":
@@ -13461,7 +13147,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_count2":
@@ -13495,7 +13180,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_alternate3":
@@ -13507,7 +13191,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_alternate2":
@@ -13519,7 +13202,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.test_alternate1":
@@ -13531,7 +13213,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.tail_nil":
@@ -13543,7 +13224,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.tail_length_pred":
@@ -13565,7 +13245,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.tail":
@@ -13577,7 +13256,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.reverse_nil":
@@ -13649,27 +13327,74 @@ window.onload = async () => {
         "Induction on Lists",
         "Reversing a List"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.repeat_zero":
-   [{"id": "Lists___NatList___repeat_zero",
+   "Lists.NatList.replicate_zero":
+   [{"id": "Lists___NatList___replicate_zero",
      "data":
-     {"/Lists/#Lists___NatList___repeat_zero":
-      {"display": "repeat_zero",
+     {"/Lists/#Lists___NatList___replicate_zero":
+      {"display": "replicate_zero",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Replicate"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.repeat_succ":
-   [{"id": "Lists___NatList___repeat_succ",
+   "Lists.NatList.replicate_succ":
+   [{"id": "Lists___NatList___replicate_succ",
      "data":
-     {"/Lists/#Lists___NatList___repeat_succ":
-      {"display": "repeat_succ",
+     {"/Lists/#Lists___NatList___replicate_succ":
+      {"display": "replicate_succ",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Replicate"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate_append_general":
+   [{"id": "Lists___NatList___replicate_append_general",
+     "data":
+     {"/Lists/#Lists___NatList___replicate_append_general":
+      {"display": "replicate_append_general",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate_append_fail":
+   [{"id": "Lists___NatList___replicate_append_fail",
+     "data":
+     {"/Lists/#Lists___NatList___replicate_append_fail":
+      {"display": "replicate_append_fail",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate_append":
+   [{"id": "Lists___NatList___replicate_append",
+     "data":
+     {"/Lists/#Lists___NatList___replicate_append":
+      {"display": "replicate_append",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate":
+   [{"id": "Lists___NatList___replicate",
+     "data":
+     {"/Lists/#Lists___NatList___replicate":
+      {"display": "replicate",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Lists of Numbers",
+        "Replicate"]}},
      "address": "/Lists/"}],
    "Lists.NatList.remove_does_not_increase_count'":
    [{"id": "Lists___NatList___remove_does_not_increase_count___",
@@ -13702,7 +13427,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.removeOne_cons_same":
    [{"id": "Lists___NatList___removeOne_cons_same",
@@ -13713,7 +13438,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.removeOne_cons_diff":
    [{"id": "Lists___NatList___removeOne_cons_diff",
@@ -13724,7 +13449,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.removeOne":
    [{"id": "Lists___NatList___removeOne",
@@ -13735,7 +13460,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.removeAll_nil":
    [{"id": "Lists___NatList___removeAll_nil",
@@ -13746,7 +13471,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.removeAll_cons_same":
    [{"id": "Lists___NatList___removeAll_cons_same",
@@ -13757,7 +13482,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.removeAll_cons_diff":
    [{"id": "Lists___NatList___removeAll_cons_diff",
@@ -13768,7 +13493,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.removeAll":
    [{"id": "Lists___NatList___removeAll",
@@ -13779,7 +13504,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Removing"]}},
+        "Removal"]}},
      "address": "/Lists/"}],
    "Lists.NatList.option_elim_head?":
    [{"id": "Lists___NatList___option_elim_head___",
@@ -13800,7 +13525,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.oddMembers_cons_odd":
@@ -13812,7 +13536,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.oddMembers_cons_not_odd":
@@ -13824,7 +13547,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.oddMembers_cons":
@@ -13836,7 +13558,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.oddMembers":
@@ -13848,7 +13569,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nthBad":
@@ -13880,7 +13600,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nonZeros_cons_zero":
@@ -13892,7 +13611,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nonZeros_cons_nonZero":
@@ -13904,7 +13622,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nonZeros_append":
@@ -13927,7 +13644,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nil_append":
@@ -13939,7 +13655,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading"]}},
+        "Type Classes and Overloading Notation"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nil":
    [{"id": "Lists___NatList___nil",
@@ -13980,53 +13696,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append_general":
-   [{"id": "Lists___NatList___myRepeat_append_general",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat_append_general":
-      {"display": "myRepeat_append_general",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append_fail":
-   [{"id": "Lists___NatList___myRepeat_append_fail",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat_append_fail":
-      {"display": "myRepeat_append_fail",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat_append":
-      {"display": "myRepeat_append",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat":
-   [{"id": "Lists___NatList___myRepeat",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat":
-      {"display": "myRepeat",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Repeat"]}},
      "address": "/Lists/"}],
    "Lists.NatList.member_nil":
    [{"id": "Lists___NatList___member_nil",
@@ -14093,7 +13762,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Length"]}},
      "address": "/Lists/"}],
    "Lists.NatList.length_cons":
    [{"id": "Lists___NatList___length_cons",
@@ -14104,7 +13773,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Length"]}},
      "address": "/Lists/"}],
    "Lists.NatList.length_append_succ":
    [{"id": "Lists___NatList___length_append_succ",
@@ -14139,7 +13808,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Length"]}},
      "address": "/Lists/"}],
    "Lists.NatList.involutive_injective":
    [{"id": "Lists___NatList___involutive_injective",
@@ -14205,7 +13874,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.head_cons":
@@ -14217,7 +13885,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.head?_nil":
@@ -14259,7 +13926,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.foo":
@@ -14271,7 +13937,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.count_nil":
@@ -14349,7 +14014,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.count":
@@ -14372,7 +14036,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading"]}},
+        "Type Classes and Overloading Notation"]}},
      "address": "/Lists/"}],
    "Lists.NatList.cons":
    [{"id": "Lists___NatList___cons",
@@ -14515,7 +14179,6 @@ window.onload = async () => {
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Exercises"]}},
      "address": "/Lists/"}],
    "Lists.NatList.NatOption.elim_some":
@@ -14678,7 +14341,7 @@ window.onload = async () => {
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly",
+   [{"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -14689,7 +14352,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly-next",
+    {"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -15574,7 +15237,7 @@ window.onload = async () => {
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor",
+   [{"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -15591,7 +15254,7 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor-next",
+    {"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -16437,6 +16100,305 @@ if (paramName) {
     });
 }
 </script>
+    <script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
+    function blockedByTippy(elem) {
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
+        } else { // Nothing to show here!
+          return false;
+        }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
+      },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverInfo) {
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
+          });
+        }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
+      });
+  });
+}
+</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -16479,7 +16441,7 @@ if (paramName) {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Built on 2026-09-01 14:09 UTC</div>
+            Built on 2026-09-01 20:46 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

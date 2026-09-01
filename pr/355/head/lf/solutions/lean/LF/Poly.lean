@@ -106,31 +106,31 @@ inductive MyList (α : Type) : Type where
 --  is implicit, so Lean will normally infer it from context.
 --
 --  We can now go back and make polymorphic versions of all the
---  list-processing functions that we wrote before. Here is `myRepeat`, for
---  example:
+--  list-processing functions that we wrote before. Here is `replicate`,
+--  for example:
 
-def myRepeat (α : Type) (x : α) (count : Nat) : MyList α :=
+def replicate (α : Type) (x : α) (count : Nat) : MyList α :=
   match count with
   | 0 => .nil
-  | count' + 1 => .cons x (myRepeat α x count')
+  | count' + 1 => .cons x (replicate α x count')
 
---  Some simple facts about `myRepeat`:
+--  Some simple facts about `replicate`:
 
-theorem myRepeat_zero (α : Type) (v : α) :
-    myRepeat α v 0 = MyList.nil := rfl
+theorem replicate_zero (α : Type) (v : α) :
+    replicate α v 0 = MyList.nil := rfl
 
-theorem myRepeat_succ (α : Type) (v : α) (count : Nat) :
-    myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count) := rfl
+theorem replicate_succ (α : Type) (v : α) (count : Nat) :
+    replicate α v (count + 1) = MyList.cons v (replicate α v count) := rfl
 
---  We can use `myRepeat` by applying it first to a type and then to an
+--  We can use `replicate` by applying it first to a type and then to an
 --  element of this type (and a number):
 
-example : myRepeat Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
+example : replicate Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
 
---  To use `myRepeat` to build other kinds of lists, we simply pass a
+--  To use `replicate` to build other kinds of lists, we simply pass a
 --  different type and an element of that type:
 
-example : myRepeat Bool false 1 = .cons false .nil := by rfl
+example : replicate Bool false 1 = .cons false .nil := by rfl
 
 --   ----------------------------------------
 
@@ -152,7 +152,7 @@ example : myRepeat Bool false 1 = .cons false .nil := by rfl
 
 --  _Quiz:_
 
---  What is the type of `myRepeat`?
+--  What is the type of `replicate`?
 --
 --  (A) `Nat → Nat → MyList Nat`
 --
@@ -166,7 +166,7 @@ example : myRepeat Bool false 1 = .cons false .nil := by rfl
 
 --  _Quiz:_
 
---  What is the type of `myRepeat 1 2`?
+--  What is the type of `replicate 1 2`?
 --
 --  (A) `MyList Nat`
 --
@@ -191,20 +191,20 @@ example : List Nat := [1, 2, 3]
 
 --  #### Type Annotation Inference
 
---  Let's write the definition of `myRepeat` again, but this time we won't
+--  Let's write the definition of `replicate` again, but this time we won't
 --  specify the type of the parameter `α`. Will Lean still accept it?
 
-def myRepeat' α (x : α) (count : Nat) : List α :=
+def replicate' α (x : α) (count : Nat) : List α :=
   match count with
   | 0 => .nil
-  | count' + 1 => .cons x (myRepeat' α x count')
+  | count' + 1 => .cons x (replicate' α x count')
 
 --  Indeed it will. Lean infers that `α` is a type.
 
-#check myRepeat'
+#check replicate'
 
 --  Output:
---    myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+--    replicate'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
 
 --  The generated `u_1` is part of Lean's bookkeeping for treating types
 --  more generally. We will not need to interpret names like this for now —
@@ -224,10 +224,10 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 
 --  To use a polymorphic function, we need to pass it one or more types in
 --  addition to its other arguments. For example, the recursive call in the
---  body of the `myRepeat` function above must pass along the type `α`. But
---  since the second argument to `myRepeat` is an element of `α`, it seems
---  entirely obvious that the first argument can only be `α` — why should
---  we have to write it explicitly?
+--  body of the `replicate` function above must pass along the type `α`.
+--  But since the second argument to `replicate` is an element of `α`, it
+--  seems entirely obvious that the first argument can only be `α` — why
+--  should we have to write it explicitly?
 --
 --  Fortunately, Lean permits us to avoid this kind of redundancy. In place
 --  of any type argument we can write a "hole" `_`, which can be read as
@@ -238,24 +238,24 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 --  in which the application appears — to determine what concrete type
 --  should replace the `_`.
 --
---  Using holes, the `myRepeat'` function can be rewritten like this:
+--  Using holes, the `replicate'` function can be rewritten like this:
 
-def myRepeat'' (α : Type) (x : α) (count : Nat) : List α :=
+def replicate'' (α : Type) (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: myRepeat'' _ x count'
+  | count' + 1 => x :: replicate'' _ x count'
 
 --  Alternatively, we can declare an argument to be implicit when defining
 --  the function itself, by surrounding it in curly braces instead of
 --  parentheses. For example:
 
-def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
+def replicate''' {α : Type} (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: myRepeat''' x count'
+  | count' + 1 => x :: replicate''' x count'
 
 --  By making the type argument implicit, we no longer need to provide it
---  to the recursive call to `myRepeat'''`. Indeed, it would be invalid to
+--  to the recursive call to `replicate'''`. Indeed, it would be invalid to
 --  provide one, because Lean is not expecting it. For each implicit
 --  parameter, Lean automatically inserts a hidden hole `_` argument for
 --  us, which is then inferred as usual.
@@ -1404,4 +1404,4 @@ theorem exp_3 : exp three two = plus (mult two (mult two two)) one := (by rfl)
 
 end Church
 
--- Built on 2026-09-01 14:09 UTC
+-- Built on 2026-09-01 20:46 UTC

@@ -63,22 +63,22 @@ inductive MyList (α : Type) : Type where
 --  We can now define polymorphic versions of the functions
 --  we've already seen...
 
-def myRepeat (α : Type) (x : α) (count : Nat) : MyList α :=
+def replicate (α : Type) (x : α) (count : Nat) : MyList α :=
   match count with
   | 0 => .nil
-  | count' + 1 => .cons x (myRepeat α x count')
+  | count' + 1 => .cons x (replicate α x count')
 
---  Some simple facts about `myRepeat`:
+--  Some simple facts about `replicate`:
 
-theorem myRepeat_zero (α : Type) (v : α) :
-    myRepeat α v 0 = MyList.nil := rfl
+theorem replicate_zero (α : Type) (v : α) :
+    replicate α v 0 = MyList.nil := rfl
 
-theorem myRepeat_succ (α : Type) (v : α) (count : Nat) :
-    myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count) := rfl
+theorem replicate_succ (α : Type) (v : α) (count : Nat) :
+    replicate α v (count + 1) = MyList.cons v (replicate α v count) := rfl
 
-example : myRepeat Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
+example : replicate Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
 
-example : myRepeat Bool false 1 = .cons false .nil := by rfl
+example : replicate Bool false 1 = .cons false .nil := by rfl
 
 --   ----------------------------------------
 
@@ -101,7 +101,7 @@ example : myRepeat Bool false 1 = .cons false .nil := by rfl
 
 --  _Quiz:_
 
---  What is the type of `myRepeat`?
+--  What is the type of `replicate`?
 --
 --  (A) `Nat → Nat → MyList Nat`
 --
@@ -115,7 +115,7 @@ example : myRepeat Bool false 1 = .cons false .nil := by rfl
 
 --  _Quiz:_
 
---  What is the type of `myRepeat 1 2`?
+--  What is the type of `replicate 1 2`?
 --
 --  (A) `MyList Nat`
 --
@@ -134,21 +134,21 @@ example : List Nat := [1, 2, 3]
 
 --  #### Type Annotation Inference
 
---  Let's write the definition of `myRepeat` again, but this
---  time we won't specify the type of the parameter `α`.
---  Will Lean still accept it?
+--  Let's write the definition of `replicate` again, but
+--  this time we won't specify the type of the parameter
+--  `α`. Will Lean still accept it?
 
-def myRepeat' α (x : α) (count : Nat) : List α :=
+def replicate' α (x : α) (count : Nat) : List α :=
   match count with
   | 0 => .nil
-  | count' + 1 => .cons x (myRepeat' α x count')
+  | count' + 1 => .cons x (replicate' α x count')
 
 --  Indeed it will. Lean infers that `α` is a type.
 
-#check myRepeat'
+#check replicate'
 
 --  Output:
---    myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+--    replicate'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
 
 --  The generated `u_1` is part of Lean's bookkeeping for
 --  treating types more generally. We will not need to
@@ -163,18 +163,18 @@ def myRepeat' α (x : α) (count : Nat) : List α :=
 --  Supplying every type *argument* is also boring, but Lean
 --  can usually infer them:
 
-def myRepeat'' (α : Type) (x : α) (count : Nat) : List α :=
+def replicate'' (α : Type) (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: myRepeat'' _ x count'
+  | count' + 1 => x :: replicate'' _ x count'
 
 --  Alternatively, we can declare arguments implicit by
 --  surrounding them with curly braces instead of parens:
 
-def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
+def replicate''' {α : Type} (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: myRepeat''' x count'
+  | count' + 1 => x :: replicate''' x count'
 
 --  #### Supplying Type Arguments Explicitly
 
@@ -726,4 +726,4 @@ def fold_plus : List Nat → Nat → Nat :=
 --  Output:
 --    fold_plus : List Nat → Nat → Nat
 
--- Built on 2026-09-01 14:09 UTC
+-- Built on 2026-09-01 20:47 UTC

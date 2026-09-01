@@ -1,192 +1,192 @@
-{"999":
- "<code>Stlc.typable_empty_closed (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.Closed</code>",
- "998": "<code>x ∈ᶠ t</code>",
- "997":
+{"999": "<code>x ∈ᶠ t</code>",
+ "998":
  "<code>Stlc.free_in_context (x : String) (t : Tm) (T : Ty) (Γ : Context) (ha : x ∈ᶠ t) (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) :\n  ∃ T', Γ[x] = some T'</code>",
- "996": "<code>Stlc.Tm.Closed (t : Tm) : Prop</code>",
- "995": "<code>AppearsFreeIn x t₃</code>",
- "994":
+ "997": "<code>Stlc.Tm.Closed (t : Tm) : Prop</code>",
+ "996": "<code>AppearsFreeIn x t₃</code>",
+ "995":
  "<code>Stlc.AppearsFreeIn.ite3 {x : String} (t₁ t₂ t₃ : Tm) (h : AppearsFreeIn x t₃) :\n  AppearsFreeIn x &lt;{ if t₁ then t₂ else t₃ }&gt;</code>",
- "993":
+ "994":
  "<code>Stlc.AppearsFreeIn.ite2 {x : String} (t₁ t₂ t₃ : Tm) (h : AppearsFreeIn x t₂) :\n  AppearsFreeIn x &lt;{ if t₁ then t₂ else t₃ }&gt;</code>",
- "992":
+ "993":
  "<code>Stlc.AppearsFreeIn.ite1 {x : String} (t₁ t₂ t₃ : Tm) (h : AppearsFreeIn x t₁) :\n  AppearsFreeIn x &lt;{ if t₁ then t₂ else t₃ }&gt;</code>",
- "991": "<code>y ≠ x</code>",
- "990":
+ "992": "<code>y ≠ x</code>",
+ "991":
  "<code>Stlc.AppearsFreeIn.abs {x : String} (y : String) (T₁ : Ty) (t₁ : Tm) (hne : y ≠ x) (h : AppearsFreeIn x t₁) :\n  AppearsFreeIn x &lt;{ λ ~y : T₁ . t₁ }&gt;</code>",
+ "990": "<code>AppearsFreeIn x t₂</code>",
  "99":
  "<code>Slang.Bexp.optimize0plus_test1 :\n  (gt ((Aexp.num 0).plus (Aexp.num 4)) (Aexp.num 8)).not.optimize0plus = (gt (Aexp.num 4) (Aexp.num 8)).not</code>",
- "989": "<code>AppearsFreeIn x t₂</code>",
- "988":
+ "989":
  "<code>Stlc.AppearsFreeIn.app2 {x : String} (t₁ t₂ : Tm) (h : AppearsFreeIn x t₂) : AppearsFreeIn x &lt;{ t₁ t₂ }&gt;</code>",
- "987": "<code>AppearsFreeIn x t₁</code>",
- "986":
+ "988": "<code>AppearsFreeIn x t₁</code>",
+ "987":
  "<code>Stlc.AppearsFreeIn.app1 {x : String} (t₁ t₂ : Tm) (h : AppearsFreeIn x t₁) : AppearsFreeIn x &lt;{ t₁ t₂ }&gt;</code>",
- "985":
+ "986":
  "<code>Stlc.AppearsFreeIn.var {x : String} : AppearsFreeIn x (Stlc.Tm.var x)</code>",
- "984": "<code>Stlc.AppearsFreeIn (x : String) : Tm → Prop</code>",
- "983": "<code><span class=\"literal string\">\" ∈ᶠ \"</span> : String</code>",
- "982":
+ "985": "<code>Stlc.AppearsFreeIn (x : String) : Tm → Prop</code>",
+ "984": "<code><span class=\"literal string\">\" ∈ᶠ \"</span> : String</code>",
+ "983":
  "<code class=\"docstring\">`infix:prec \"op\" =&gt; f` is equivalent to `notation:prec x:prec1 \"op\" y:prec1 =&gt; f x y`, where `prec1 := prec + 1`.\n</code>",
- "981": "<code>&lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T') }&gt;</code>",
- "980": "<code>&lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T) }&gt;</code>",
+ "982": "<code>&lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T') }&gt;</code>",
+ "981": "<code>&lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T) }&gt;</code>",
+ "980":
+ "<code>Stlc.unique_types (Γ : Context) (e : Tm) (T T' : Ty) (h : &lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T) }&gt;) (h' : &lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T') }&gt;) :\n  T = T'</code>",
  "98":
  "<code class=\"docstring\">The `sorry` term is a temporary placeholder for a missing proof or value.\n\nThe syntax is intended for stubbing-out incomplete parts of a value or proof while still having a syntactically correct skeleton.\nLean will give a warning whenever a declaration uses `sorry`, so you aren't likely to miss it,\nbut you can double check if a declaration depends on `sorry` by looking for `sorryAx` in the output\nof the `#print axioms my_thm` command, the axiom used by the implementation of `sorry`.\n\n\"Go to definition\" on `sorry` in the Infoview will go to the source position where it was introduced, if such information is available.\n\nEach `sorry` is guaranteed to be unique, so for example the following fails:\n```lean\nexample : (sorry : Nat) = sorry := rfl -- fails\n```\n\nSee also the `sorry` tactic, which is short for `exact sorry`.\n</code>",
- "979":
- "<code>Stlc.unique_types (Γ : Context) (e : Tm) (T T' : Ty) (h : &lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T) }&gt;) (h' : &lt;{ ~(Γ) ⊢ ~(e) ⦂ ~(T') }&gt;) :\n  T = T'</code>",
- "978": "<code>¬t'.IsValue</code>",
- "977": "<code>IsNormalForm Step t'</code>",
- "976": "<code>t'.IsStuck</code>",
- "975":
+ "979": "<code>¬t'.IsValue</code>",
+ "978": "<code>IsNormalForm Step t'</code>",
+ "977": "<code>t'.IsStuck</code>",
+ "976":
  "<code>Stlc.type_soundness (t t' : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) (hm : t ⟶* t') : ¬t'.IsStuck</code>",
- "974": "<code>Stlc.Tm.IsStuck (t : Tm) : Prop</code>",
- "973":
+ "975": "<code>Stlc.Tm.IsStuck (t : Tm) : Prop</code>",
+ "974":
  "<code>Stlc.not_subject_expansion : ∃ t t' T, t ⟶ t' ∧ &lt;{ ∅ ⊢ ~(t') ⦂ ~(T) }&gt; ∧ ¬&lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "972":
+ "973":
  "<code>Stlc.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : t₁ ⟶ t₁') : &lt;{ if t₁ then t₂ else t₃ }&gt; ⟶ &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
- "971":
+ "972":
  "<code>∀ (t' : Tm), &lt;{ false }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Bool }&gt;</code>",
- "970":
+ "971":
  "<code>Stlc.Step.ifFalse (t₁ t₂ : Tm) : &lt;{ if false then t₁ else t₂ }&gt; ⟶ t₂</code>",
+ "970":
+ "<code>∀ (t' : Tm), &lt;{ true }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Bool }&gt;</code>",
  "97": "<code>Slang.Bexp.optimize0plus (b : Bexp) : Bexp</code>",
  "969":
- "<code>∀ (t' : Tm), &lt;{ true }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Bool }&gt;</code>",
- "968":
  "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(T₁) }&gt;</code>",
- "967":
+ "968":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(T₁) }&gt;</code>",
- "966":
+ "967":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Bool }&gt;</code>",
- "965": "<code>&lt;{ ∅ ⊢ ~(t₃) ⦂ ~(T₁) }&gt;</code>",
- "964": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₁) }&gt;</code>",
- "963": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ Bool }&gt;</code>",
- "962": "<code>&lt;{ if t₁ then t₂ else t₃ }&gt; ⟶ t'</code>",
- "961":
+ "966": "<code>&lt;{ ∅ ⊢ ~(t₃) ⦂ ~(T₁) }&gt;</code>",
+ "965": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₁) }&gt;</code>",
+ "964": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ Bool }&gt;</code>",
+ "963": "<code>&lt;{ if t₁ then t₂ else t₃ }&gt; ⟶ t'</code>",
+ "962":
  "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₁) }&gt;</code>",
- "960":
+ "961":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₁) }&gt;</code>",
- "96": "<code>e₁✝.optimize0plus.eval = e₁✝.eval</code>",
- "959":
+ "960":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ Bool }&gt;</code>",
- "958": "<code>t₂✝ ⟶ t₂'</code>",
- "957": "<code>t₁✝ ⟶ t₁'</code>",
- "956": "<code>&lt;{ ~(x✝ →ₚ T₂) ⊢ ~(t✝) ⦂ ~(T₁) }&gt;</code>",
- "955":
+ "96": "<code>e₁✝.optimize0plus.eval = e₁✝.eval</code>",
+ "959": "<code>t₂✝ ⟶ t₂'</code>",
+ "958": "<code>t₁✝ ⟶ t₁'</code>",
+ "957": "<code>&lt;{ ~(x✝ →ₚ T₂) ⊢ ~(t✝) ⦂ ~(T₁) }&gt;</code>",
+ "956":
  "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : T₂ . t✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ T₂ → T₁ }&gt;</code>",
- "954":
+ "955":
  "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : T✝ . t✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ T₂ → T₁ }&gt;</code>",
- "953": "<code>&lt;{ ∅ ⊢ λ ~x✝ : T✝ . t✝ ⦂ T₂ → T₁ }&gt;</code>",
- "952":
+ "954": "<code>&lt;{ ∅ ⊢ λ ~x✝ : T✝ . t✝ ⦂ T₂ → T₁ }&gt;</code>",
+ "953":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(T₂) }&gt;</code>",
- "951":
+ "952":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ T₂ → T₁ }&gt;</code>",
- "950": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₂) }&gt;</code>",
+ "951": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(T₂) }&gt;</code>",
+ "950": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;</code>",
  "95":
  "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
- "949": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ T₂ → T₁ }&gt;</code>",
- "948": "<code>&lt;{ t₁ t₂ }&gt; ⟶ t'</code>",
- "947":
+ "949": "<code>&lt;{ t₁ t₂ }&gt; ⟶ t'</code>",
+ "948":
  "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(T₂) }&gt;</code>",
- "946":
+ "947":
  "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ T₂ → T₁ }&gt;</code>",
- "945": "<code>&lt;{ false }&gt; ⟶ t'</code>",
- "944": "<code>&lt;{ true }&gt; ⟶ t'</code>",
- "943": "<code>&lt;{ λ ~x✝ : T₂✝ . t₁✝ }&gt; ⟶ t'</code>",
- "942":
+ "946": "<code>&lt;{ false }&gt; ⟶ t'</code>",
+ "945": "<code>&lt;{ true }&gt; ⟶ t'</code>",
+ "944": "<code>&lt;{ λ ~x✝ : T₂✝ . t₁✝ }&gt; ⟶ t'</code>",
+ "943":
  "<code>∀ (t' : Tm), t₁✝ ⟶ t' → ∅ = x✝ →ₚ T₂✝ ; Γ✝ → &lt;{ ~(x✝ →ₚ T₂✝ ; Γ✝) ⊢ ~(t') ⦂ ~(T₁✝) }&gt;</code>",
- "941": "<code>Stlc.Tm.var x✝ ⟶ t'</code>",
- "940":
+ "942": "<code>Stlc.Tm.var x✝ ⟶ t'</code>",
+ "941":
  "<code>Stlc.preservation (t t' : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ ~(t') ⦂ ~(T) }&gt;</code>",
- "94": "<code>e₁✝ = num 0 → False</code>",
- "939":
+ "940":
  "<code>Stlc.substitution_preserves_typing_from_typing_ind (Γ : Context) (x : String) (U : Ty) (t v : Tm) (T : Ty)\n  (hT : &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;) : &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
- "938": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(e) ⦂ ~(T) }&gt;</code>",
- "937": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(c) ⦂ Bool }&gt;</code>",
- "936": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ if c then t else e ⦂ ~(T) }&gt;</code>",
- "935":
+ "94": "<code>e₁✝ = num 0 → False</code>",
+ "939": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(e) ⦂ ~(T) }&gt;</code>",
+ "938": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(c) ⦂ Bool }&gt;</code>",
+ "937": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ if c then t else e ⦂ ~(T) }&gt;</code>",
+ "936":
  "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(e) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] e ⦂ ~(T) }&gt;</code>",
- "934":
+ "935":
  "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
- "933":
+ "934":
  "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(c) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] c ⦂ ~(T) }&gt;</code>",
- "932": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ false ⦂ ~(T) }&gt;</code>",
- "931": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ true ⦂ ~(T) }&gt;</code>",
- "930": "<code>&lt;{ ~(x →ₚ U ; y →ₚ S ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
+ "933": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ false ⦂ ~(T) }&gt;</code>",
+ "932": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ true ⦂ ~(T) }&gt;</code>",
+ "931": "<code>&lt;{ ~(x →ₚ U ; y →ₚ S ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
+ "930": "<code>Ne.symm.{u} {α : Sort u} {a b : α} (h : a ≠ b) : b ≠ a</code>",
  "93": "<code>e₂✝.optimize0plus.eval = e₂✝.eval</code>",
- "929": "<code>Ne.symm.{u} {α : Sort u} {a b : α} (h : a ≠ b) : b ≠ a</code>",
- "928":
+ "929":
  "<code>PartialMap.update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α} {b₁ b₂ : β}\n  (h : a₁ ≠ a₂) : a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m = a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m</code>",
- "927": "<code>&lt;{ ~(x →ₚ S ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
- "926":
+ "928": "<code>&lt;{ ~(x →ₚ S ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
+ "927":
  "<code>PartialMap.update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : PartialMap α β) (a : α) (b₁ b₂ : β) :\n  a →ₚ b₂ ; a →ₚ b₁ ; m = a →ₚ b₂ ; m</code>",
- "925": "<code>&lt;{ ~(x →ₚ S ; x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
- "924": "<code>&lt;{ ~(y →ₚ S ; x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
- "923": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ λ ~y : S . t₁ ⦂ ~(T) }&gt;</code>",
- "922": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ T₂✝ → T }&gt;</code>",
- "921": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T₂✝) }&gt;</code>",
- "920": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ t₁ t₂ ⦂ ~(T) }&gt;</code>",
+ "926": "<code>&lt;{ ~(x →ₚ S ; x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
+ "925": "<code>&lt;{ ~(y →ₚ S ; x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T₁✝) }&gt;</code>",
+ "924": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ λ ~y : S . t₁ ⦂ ~(T) }&gt;</code>",
+ "923": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ T₂✝ → T }&gt;</code>",
+ "922": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T₂✝) }&gt;</code>",
+ "921": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ t₁ t₂ ⦂ ~(T) }&gt;</code>",
+ "920":
+ "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t₂ ⦂ ~(T) }&gt;</code>",
  "92":
  "<code>Slang.Aexp.optimize0plus_sound' (a : Aexp) : a.optimize0plus.eval = a.eval</code>",
  "919":
- "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₂) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t₂ ⦂ ~(T) }&gt;</code>",
- "918":
  "<code>∀ (Γ : Context) (T : Ty), &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t₁) ⦂ ~(T) }&gt; → &lt;{ ~(Γ) ⊢ [~x := v] t₁ ⦂ ~(T) }&gt;</code>",
- "917": "<code>Γ[y] = some T</code>",
- "916":
+ "918": "<code>Γ[y] = some T</code>",
+ "917":
  "<code>PartialMap.update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :\n  (a₁ →ₚ b ; m)[a₂] = m[a₂]</code>",
- "915": "<code>some U = some U</code>",
- "914": "<code>U = T</code>",
- "913": "<code>some U = some T</code>",
- "912":
+ "916": "<code>some U = some U</code>",
+ "915": "<code>U = T</code>",
+ "914": "<code>some U = some T</code>",
+ "913":
  "<code>PartialMap.update_eq {α β : Type} [BEq α] [ReflBEq α] (m : PartialMap α β) (a : α) (b : β) : (a →ₚ b ; m)[a] = some b</code>",
- "911": "<code>(x →ₚ U ; Γ)[x] = some T</code>",
- "910": "<code>¬x = y</code>",
+ "912": "<code>(x →ₚ U ; Γ)[x] = some T</code>",
+ "911": "<code>¬x = y</code>",
+ "910": "<code>x = y</code>",
  "91":
  "<code class=\"docstring\">`simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target\nare simplified multiple times until no simplification is applicable.\nOnly non-dependent propositional hypotheses are considered.\n</code>",
- "909": "<code>x = y</code>",
- "908":
+ "909":
  "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
- "907": "<code>(x →ₚ U ; Γ)[y] = some T</code>",
- "906": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(Stlc.Tm.var y) ⦂ ~(T) }&gt;</code>",
- "905": "<code>&lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;</code>",
- "904": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "903":
+ "908": "<code>(x →ₚ U ; Γ)[y] = some T</code>",
+ "907": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(Stlc.Tm.var y) ⦂ ~(T) }&gt;</code>",
+ "906": "<code>&lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;</code>",
+ "905": "<code>&lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "904":
  "<code>Stlc.substitution_preserves_typing (Γ : Context) (x : String) (U : Ty) (t v : Tm) (T : Ty)\n  (hT : &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;) : &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
- "902": "<code>none = some b✝</code>",
- "901": "<code>∅[a✝] = some b✝</code>",
+ "903": "<code>none = some b✝</code>",
+ "902": "<code>∅[a✝] = some b✝</code>",
+ "901": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
  "900":
- "<code>Stlc.weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "<code>Stlc.weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ ~(t) ⦂ ~(τ) }&gt;) : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
  "90":
  "<code class=\"docstring\">`tac &lt;;&gt; tac'` runs `tac` on the main goal and `tac'` on each produced goal,\nconcatenating all goals produced by `tac'`.\n</code>",
  "9": "<code>Slang.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
- "899": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃✝) ⦂ ~(T₁✝) }&gt;</code>",
- "898": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₁✝) }&gt;</code>",
- "897": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
- "896":
- "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₃✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "899":
+ "<code>Stlc.weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;) :\n  &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
+ "898": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₃✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "897": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "896": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
  "895":
- "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₃✝) ⦂ ~(T₁✝) }&gt;</code>",
  "894":
- "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
- "893": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
- "892":
- "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
+ "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "893":
+ "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ Bool }&gt;</code>",
+ "892": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
  "891":
- "<code>∀ (Γ' : Context), Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
+ "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₂✝) ⦂ ~(T₂✝) }&gt;</code>",
  "890":
- "<code>PartialMap.update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :\n  a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
+ "<code>∀ {Γ' : Context}, Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ T₂✝ → T₁✝ }&gt;</code>",
  "89":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
- "889": "<code>&lt;{ ~(x →ₚ T₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "889":
+ "<code>PartialMap.update_subset {α β : Type} [BEq α] [LawfulBEq α] (m₁ m₂ : PartialMap α β) (a : α) (b : β) (h : m₁ ⊆ m₂) :\n  a →ₚ b ; m₁ ⊆ a →ₚ b ; m₂</code>",
  "888":
- "<code>∀ (Γ' : Context), x →ₚ T₂✝ ; Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
+ "<code>∀ {Γ' : Context}, x✝ →ₚ T₂✝ ; Γ✝ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁✝) ⦂ ~(T₁✝) }&gt;</code>",
  "887": "<code>Γ✝ ⊆ Γ'</code>",
- "886": "<code>Γ✝[x] = some T₁✝</code>",
- "885":
+ "886":
  "<code>HasSubset.Subset.{u} {α : Type u} [self : HasSubset α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Subset relation: `a ⊆ b`  \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `⊆` in identifiers is `subset`.</code>",
+ "885": "<code>&lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
  "884": "<code>Γ ⊆ Γ'</code>",
  "883":
- "<code>Stlc.weakening (Γ Γ' : Context) (t : Tm) (T : Ty) (hi : Γ ⊆ Γ') (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) :\n  &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "<code>Stlc.weakening {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;) :\n  &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
  "882":
  "<code>Stlc.progress' (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
  "881": "<code>&lt;{ false }&gt;.IsValue</code>",
@@ -1444,74 +1444,76 @@
  "106": "<code>EvalR a₁ n₁</code>",
  "105":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
- "1043":
+ "1044":
  "<code>StlcArith.progress (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
- "1042":
+ "1043":
  "<code>StlcArith.preservation (t t' : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ ~(t') ⦂ ~(T) }&gt;</code>",
- "1041":
+ "1042":
  "<code>StlcArith.substitution_preserves_typing (Γ : Context) (x : String) (U : Ty) (t v : Tm) (T : Ty)\n  (hT : &lt;{ ~(x →ₚ U ; Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(U) }&gt;) : &lt;{ ~(Γ) ⊢ [~x := v] t ⦂ ~(T) }&gt;</code>",
- "1040":
+ "1041":
  "<code>StlcArith.weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1040":
+ "<code>StlcArith.weakening (Γ Γ' : Context) (t : Tm) (T : Ty) (hi : Γ ⊆ Γ') (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) :\n  &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
  "104": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
  "1039":
- "<code>StlcArith.weakening (Γ Γ' : Context) (t : Tm) (T : Ty) (hi : Γ ⊆ Γ') (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;) :\n  &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
- "1038":
  "<code>StlcArith.Nat_typing_example : &lt;{ ∅ ⊢ (λ x : Nat . λ y : Nat . x * y) 3 2 ⦂ Nat }&gt;</code>",
- "1037": "<code>StlcArith.HasType.unexpand : Unexpander</code>",
- "1036":
+ "1038": "<code>StlcArith.HasType.unexpand : Unexpander</code>",
+ "1037":
  "<code>StlcArith.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Nat ; Γ` rather than as a chain of map updates. </code>",
- "1035": "<code>StlcArith.HasType : Context → Tm → Ty → Prop</code>",
- "1034":
+ "1036": "<code>StlcArith.HasType : Context → Tm → Ty → Prop</code>",
+ "1035":
  "<code>StlcArith.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1033":
+ "1034":
  "<code>StlcArith.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
- "1032": "<code>StlcArith.Context : Type</code>",
- "1031":
+ "1033": "<code>StlcArith.Context : Type</code>",
+ "1032":
  "<code>StlcArith.Nat_step_example : ∃ t, &lt;{ (λ x : Nat . λ y : Nat . x * y) 3 2 }&gt; ⟶* t</code>",
- "1030": "<code>StlcArith.Step : Tm → Tm → Prop</code>",
+ "1031": "<code>StlcArith.Step : Tm → Tm → Prop</code>",
+ "1030": "<code>StlcArith.Tm.IsValue : Tm → Prop</code>",
  "103": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "1029": "<code>StlcArith.Tm.IsValue : Tm → Prop</code>",
- "1028": "<code>StlcArith.delabSubst : Delab</code>",
- "1027": "<code>StlcArith.subst (x : String) (s t : Tm) : Tm</code>",
- "1026": "<code>StlcArith.delabTm : Delab</code>",
- "1025": "<code>StlcArith.delabTy : Delab</code>",
- "1024":
+ "1029": "<code>StlcArith.delabSubst : Delab</code>",
+ "1028": "<code>StlcArith.subst (x : String) (s t : Tm) : Tm</code>",
+ "1027": "<code>StlcArith.delabTm : Delab</code>",
+ "1026": "<code>StlcArith.delabTy : Delab</code>",
+ "1025":
  "<code>StlcArith.delabTmInner : DelabM (TSyntax `stlcTm)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTm` concrete syntax from a `Tm` value. </code>",
- "1023":
+ "1024":
  "<code>StlcArith.delabTyInner : DelabM (TSyntax `stlcTy)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTy` concrete syntax from a `Ty` value. </code>",
- "1022":
+ "1023":
  "<code>StlcArith.isPlainTmVarName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? </code>",
- "1021":
+ "1022":
  "<code><span class=\"literal string\">\"`pred` must be applied to an argument\"</span> : String</code>",
- "1020":
+ "1021":
  "<code><span class=\"literal string\">\"`succ` must be applied to an argument\"</span> : String</code>",
+ "1020":
+ "<code><span class=\"literal string\">\"`Nat` is a type, not a term\"</span> : String</code>",
  "102":
  "<code class=\"docstring\">The `sorry` tactic is a temporary placeholder for an incomplete tactic proof,\nclosing the main goal using `exact sorry`.\n\nThis is intended for stubbing-out incomplete parts of a proof while still having a syntactically correct proof skeleton.\nLean will give a warning whenever a proof uses `sorry`, so you aren't likely to miss it,\nbut you can double check if a theorem depends on `sorry` by looking for `sorryAx` in the output\nof the `#print axioms my_thm` command, the axiom used by the implementation of `sorry`.\n</code>",
- "1019":
- "<code><span class=\"literal string\">\"`Nat` is a type, not a term\"</span> : String</code>",
- "1018": "<code><span class=\"literal string\">\"if0 \"</span> : String</code>",
- "1017": "<code><span class=\"literal string\">\" * \"</span> : String</code>",
- "1016": "<code>Stlc.Tm.ite (c t e : Stlc.Tm) : Stlc.Tm</code>",
- "1015": "<code>StlcArith.Tm.ite0 (c t e : StlcArith.Tm) : StlcArith.Tm</code>",
- "1014":
+ "1019": "<code><span class=\"literal string\">\"if0 \"</span> : String</code>",
+ "1018": "<code><span class=\"literal string\">\" * \"</span> : String</code>",
+ "1017": "<code>Stlc.Tm.ite (c t e : Stlc.Tm) : Stlc.Tm</code>",
+ "1016": "<code>StlcArith.Tm.ite0 (c t e : StlcArith.Tm) : StlcArith.Tm</code>",
+ "1015":
  "<code>StlcArith.Ty.arrow (T₁ T₂ : StlcArith.Ty) : StlcArith.Ty</code>",
- "1013": "<code>StlcArith.Tm.ite0 (c t e : Tm) : Tm</code>",
- "1012": "<code>StlcArith.Tm.mult (t₁ t₂ : Tm) : Tm</code>",
- "1011": "<code>StlcArith.Tm.pred (t : Tm) : Tm</code>",
- "1010": "<code>StlcArith.Tm.succ (t : Tm) : Tm</code>",
+ "1014": "<code>StlcArith.Tm.ite0 (c t e : Tm) : Tm</code>",
+ "1013": "<code>StlcArith.Tm.mult (t₁ t₂ : Tm) : Tm</code>",
+ "1012": "<code>StlcArith.Tm.pred (t : Tm) : Tm</code>",
+ "1011": "<code>StlcArith.Tm.succ (t : Tm) : Tm</code>",
+ "1010": "<code>StlcArith.Tm.const (n : Nat) : Tm</code>",
  "101":
  "<code>Slang.Bexp.optimize0plus_sound (b : Bexp) : b.optimize0plus.eval = b.eval</code>",
- "1009": "<code>StlcArith.Tm.const (n : Nat) : Tm</code>",
- "1008": "<code>StlcArith.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
- "1007": "<code>StlcArith.Tm.app (t₁ t₂ : Tm) : Tm</code>",
- "1006": "<code>StlcArith.Tm.var (x : String) : Tm</code>",
- "1005": "<code>StlcArith.Tm : Type</code>",
- "1004": "<code>StlcArith.Ty.nat : Ty</code>",
- "1003": "<code>StlcArith.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
- "1002": "<code>StlcArith.Ty : Type</code>",
- "1001": "<code>∀ (x : String), x ∈ᶠ t → Γ[x] = Γ'[x]</code>",
- "1000":
+ "1009": "<code>StlcArith.Tm.abs (x : String) (T : Ty) (t : Tm) : Tm</code>",
+ "1008": "<code>StlcArith.Tm.app (t₁ t₂ : Tm) : Tm</code>",
+ "1007": "<code>StlcArith.Tm.var (x : String) : Tm</code>",
+ "1006": "<code>StlcArith.Tm : Type</code>",
+ "1005": "<code>StlcArith.Ty.nat : Ty</code>",
+ "1004": "<code>StlcArith.Ty.arrow (T₁ T₂ : Ty) : Ty</code>",
+ "1003": "<code>StlcArith.Ty : Type</code>",
+ "1002": "<code>∀ (x : String), x ∈ᶠ t → Γ[x] = Γ'[x]</code>",
+ "1001":
  "<code>Stlc.context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty) (hT : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(T) }&gt;)\n  (hf : ∀ (x : String), x ∈ᶠ t → Γ[x] = Γ'[x]) : &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(T) }&gt;</code>",
+ "1000":
+ "<code>Stlc.typable_empty_closed (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.Closed</code>",
  "100":
  "<code>Slang.Bexp.optimize0plus_test2 :\n  ((le ((Aexp.num 0).plus (Aexp.num 4)) (Aexp.num 5)).and (bool true)).optimize0plus =\n    (le (Aexp.num 4) (Aexp.num 5)).and (bool true)</code>",
  "10": "<code>Slang.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",

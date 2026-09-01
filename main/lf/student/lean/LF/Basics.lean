@@ -15,20 +15,20 @@ import SFLCompat
 --  connection between programs and mathematical functions makes it
 --  possible to reason both precisely and formally about a program's
 --  behavior, i.e., to *prove properties* about programs.
---
+
 --  This functional style is one sense of the word "functional" in
 --  "functional programming." The other sense is that it emphasizes the use
 --  of functions as *first-class* values — i.e., values that can be passed
 --  as arguments to other functions, returned as results, included in data
 --  structures, etc. The recognition that functions can be treated as data
 --  gives rise to a host of useful and powerful programming idioms.
---
+
 --  Other common features of functional languages include *algebraic data
 --  types* and *pattern matching*, which make it easy to construct and
 --  manipulate rich data structures, and *polymorphic types* supporting
 --  abstraction and code reuse. Lean offers all of these features, and we
 --  will see them often in this book.
---
+
 --  The first part of this chapter introduces some key elements of Lean's
 --  functional programming language. The second part shows how to use
 --  *tactics* to prove properties about programs.
@@ -44,7 +44,7 @@ import SFLCompat
 --  definition is called an *inductive type*, and the word "inductive"
 --  hints at the use of mathematical induction to reason about its values
 --  (as we will see in the next chapter).
---
+
 --  To demonstrate how inductive definitions work and illustrate their
 --  expressive power, we will start by defining most of the datatypes we
 --  use in this course from scratch, rather than importing the ones in the
@@ -71,7 +71,7 @@ inductive Day : Type where
 --  often call this sort of inductive type an *enumerated type* since the
 --  values belonging to the type are explicitly enumerated in its
 --  definition.
---
+
 --  Having defined `Day`, we can write Lean functions that operate on days.
 
 def nextWorkingDay (d : Day) : Day :=
@@ -89,7 +89,7 @@ def nextWorkingDay (d : Day) : Day :=
 --  languages, Lean can often figure out these types for itself when they
 --  are not given explicitly — i.e., it can do *type inference* — but we'll
 --  generally include them to make reading easier.
---
+
 --  The `match` on the second line is Lean's keyword for *pattern
 --  matching*, the functional programming way of examining and making
 --  decisions on data. To evaluate `match d with...`, Lean will examine the
@@ -98,14 +98,14 @@ def nextWorkingDay (d : Day) : Day :=
 --  if `d` is `Day.friday`, it will evaluate the fifth case. (There is much
 --  more to say about pattern matching! We'll introduce more of its
 --  features as the need arises.)
---
+
 --  You may notice that we *qualified* `Day`'s constructors when using
 --  them, writing `Day.monday` instead of just `monday`, for example. Lean
 --  places all constructors into a *namespace* associated with their type,
 --  and generally requires those constructors to be prefixed with their
 --  namespace when they are used, though we will see later that this
 --  requirement can sometimes be relaxed.
---
+
 --  If you ever need to know the type of *any* pattern, object, or
 --  function, you can hover over it with your mouse, either in VS Code or
 --  in the HTML version of the chapter.
@@ -136,7 +136,7 @@ example : nextWorkingDay (nextWorkingDay Day.saturday) = Day.tuesday := by
 --  *verify* it. The `by rfl` can be read as "The assertion we've just made
 --  can be proved by observing that both sides of the equality evaluate to
 --  the same term."
---
+
 --  Here, `rfl` is pronounced "reflexivity," the principle that any value
 --  is equal to itself. After evaluation, both sides of the equality are
 --  the same value, so the assertion is true by reflexivity. If we had made
@@ -147,7 +147,7 @@ sf_expect_failure_in
 
 --  then Lean would not be able to verify it and would instead signal an
 --  error.
---
+
 --  (The `sf_expect_failure_in` annotation tells Lean that there is
 --  intended to be an error in the following expression and it should not
 --  mark the whole file as broken.)
@@ -159,22 +159,22 @@ sf_expect_failure_in
 --  Extension](https://marketplace.visualstudio.com/items?itemName=leanprover.lean4)
 --  and load this file, `Basics.lean`, from the book's Lean sources. Locate
 --  the above example and observe its result in the Lean InfoView panel.
---
+
 --  This panel displays the results of commands like `#eval` (click on a
 --  particular `#eval` to see), as well as the current goal state when you
 --  are working on proofs. The InfoView content always follows your cursor.
---
+
 --  On Windows and Linux, Ctrl-click a type or variable name to navigate to
 --  its definition. On macOS, Command-click instead. Try this with the
 --  mention of `nextWorkingDay` in the above `#eval`.
---
+
 --  You can also hover over expressions in the source code to see their
 --  types. Try this with mentions of `nextWorkingDay` and `Day.saturday` in
 --  the above `#eval`. If you hover over the `#eval` command itself, you
 --  will see the popup that contains its output (at the top). Sometimes we
 --  show Lean's responses to commands in the text below them; by hovering
 --  over the command, you can check against that text.
---
+
 --  Experiment with adding your own `#eval` commands to test other inputs.
 --  Lean typechecks the file as you edit it, so you can see the results of
 --  your changes immediately.
@@ -272,7 +272,7 @@ example : (!MyBool.false) = MyBool.true := by rfl
 --  left-associative and has precedence 30. This means that
 --  `MyBool.true || MyBool.false && MyBool.false` is parsed as
 --  `MyBool.true || (MyBool.false && MyBool.false)`.
---
+
 --  Custom notations are defined using the `notation`, `infixl`, `infixr`,
 --  `prefix`, and `postfix` commands, some of which we will see (again, in
 --  skippable sections) later on.
@@ -284,7 +284,7 @@ example : (!MyBool.false) = MyBool.true := by rfl
 --  definition. We use it in exercises to indicate the parts that we're
 --  leaving for you — i.e., your job is to replace `sorry` with real
 --  definitions and proofs.
---
+
 --  Remove `sorry` below and complete the definition of the function. The
 --  function should return `MyBool.true` if either or both of its inputs
 --  are `MyBool.false`. Make sure that the `example` assertions below can
@@ -317,21 +317,21 @@ theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false 
 --  Now that we've defined some basic functions on booleans, let's see how
 --  to *prove* some simple properties of those functions. Here is a simple
 --  rule about `&&`:
---
---      For any boolean value b, (MyBool.true && b) = b
---
+
+--    For any boolean value b, (MyBool.true && b) = b
+
 --  This is an example of a *proposition*, a logical claim that we can try
 --  to prove. It says that `MyBool.true && b` is equal to `b` for every
 --  `MyBool` `b`.
---
+
 --  How do we write this proposition in Lean? Like this:
---
---      theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b
---
+
+--    theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b
+
 --  The keyword `theorem` indicates that we are stating (and eventually
 --  proving) a proposition; the text after the first `:` is the proposition
 --  we want to prove.
---
+
 --  You'll notice that this proposition looks a lot like the informal one
 --  we began with, with some additional symbols in front. The `∀` symbol,
 --  pronounced "forall," is a *universal quantifier*: it "quantifies" the
@@ -339,7 +339,7 @@ theorem and3_test4 : and3 MyBool.true  MyBool.true  MyBool.false = MyBool.false 
 --  with a `∀` means that the proposition applies to all possible values of
 --  its type; we annotate `b` with the type `MyBool` to signify that the
 --  proposition holds for all `b`s of type `MyBool`.
---
+
 --  Now that we've stated the theorem we'd like to prove, let's see the
 --  proof.
 
@@ -348,23 +348,23 @@ theorem true_and : ∀ (b : MyBool), (MyBool.true && b) = b := by
   rfl
 
 --  What does this mean?
---
+
 --  First, the `by` keyword signals that what follows is a sequence of
 --  *tactics*. The `intro b` and `rfl` after the `by` are examples of
 --  tactics. If you hover over a tactic's name, Lean shows its
 --  documentation.
---
+
 --  Tactics manipulate the *proof state*, which you can see in the Lean
 --  InfoView panel. The proof state is divided by the symbol ⊢, pronounced
 --  *turnstile*. The part before the turnstile is the *context*; the part
 --  after it is the *goal*. The context records what we know — the current
 --  assumptions — at some given point in the proof; the goal is what we are
 --  trying to prove at that point.
---
+
 --  Each tactic manipulates the goal, the context, or both to move things
 --  toward a configuration that is closer to being "solved." A tactic can
 --  also *close* (solve) the current goal, finishing its proof.
---
+
 --  Let's walk through the example above with this terminology in mind.
 
 theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
@@ -411,7 +411,7 @@ theorem true_and_explained : ∀ (b : MyBool), (MyBool.true && b) = b := by
 --  *whitespace-sensitive*. That is, the indentation in proofs is
 --  important, and changing it can change the meaning of the proof, usually
 --  causing it to break.
---
+
 --  If we had written the following, we'd see an error:
 
 sf_expect_failure_in
@@ -432,7 +432,7 @@ sf_expect_failure_in
 --  Lean complains because the `rfl` is not at the same level of
 --  indentation as the `intro b`, so it does not recognize these two
 --  tactics as being sequential in the way they should be.
---
+
 --  In general, sequential tactics applied to the same goal must either be
 --  on subsequent lines at the same level of indentation or else be
 --  separated on the same line by a `;` like so:
@@ -452,7 +452,7 @@ theorem false_or : ∀ (b : MyBool), (MyBool.false || b) = b := by
 --  with an actual proof. This tells Lean that we want to skip trying to
 --  prove the theorem and just accept it as a given. This can be useful for
 --  developing longer proofs.
---
+
 --  Be careful, though: every time you say `sorry` you are leaving a door
 --  open for total nonsense to enter Lean's safe, formally checked world!
 
@@ -463,7 +463,7 @@ sf_experiment
 --  tactics we need to prove them are also quite simple. Over the course of
 --  this book, we are going to introduce new tactics and proof techniques
 --  gradually, enriching the propositions we can prove along the way.
---
+
 --  Now that we've seen how to define our own booleans and prove some basic
 --  properties about them, let's switch over to Lean's built-in `Bool`
 --  type, which has the same structure but comes with a lot of useful
@@ -543,13 +543,13 @@ inductive Color : Type where
 --  or more other constructors or constructor expressions, obeying the
 --  declared number and types of the constructor arguments. E.g., these are
 --  valid constructor expressions...
---
+
 --  - `RGB.red`
 --  - `Bool.true`
 --  - `Color.primary` `RGB.red`
---
+
 --  ...but these are not:
---
+
 --  - `RGB.red Color.primary`
 --  - `Bool.true RGB.red`
 --  - `Color.primary (Color.primary RGB.red)`
@@ -616,11 +616,11 @@ def isRed' (c : Color) : Bool :=
 
 --  Define a function that takes a `Day` and returns `true` iff the day is
 --  a weekend.
---
+
 --  Then fill in the right-hand sides of the `example` blocks below. If
 --  you've done both correctly, the blocks will produce no errors and
 --  contain no uses of `sorry`.
---
+
 --  Hint: You could write this function by pattern matching on each
 --  possible day of the week, or you could try to come up with a shorter
 --  solution...
@@ -635,11 +635,11 @@ theorem is_weekend_test2 : is_weekend Day.friday = false := sorry
 
 --  Define a function that takes two colors and returns `true` if the
 --  second color is an *inversion* of the first, and `false` otherwise.
---
+
 --  Inversion is defined by cases: Black is an inversion of white and vice
 --  versa. Red is an inversion of blue and vice versa. Green is not an
 --  inversion of anything.
---
+
 --  As before, write the right-hand sides of the `example` blocks to ensure
 --  they pass with no `sorry`.
 
@@ -658,7 +658,7 @@ theorem isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary
 --  This chapter has already used Lean's system of *namespaces* for
 --  managing potentially conflicting names in a few places. Now we have
 --  seen enough that we can look more closely at how it works.
---
+
 --  When we enclose a collection of declarations in
 --  `namespace X ... end X`, references from outside this collection to
 --  names declared within it are referred to with prefix `X.`, like `X.foo`
@@ -798,11 +798,11 @@ sf_expect_failure_in
 --  Finally, Lean can often use an expression's expected type to fill in
 --  the missing prefix of a name that begins with `.`. So, instead of the
 --  fully qualified style `Day.monday`, we can write just `.monday`.
---
+
 --  For example, when the expected type is `Day`, Lean interprets `.monday`
 --  as `Day.monday`. If the context does not determine an expected type,
 --  Lean reports an error.
---
+
 --  So, for example, we can also write `nextWorkingDay` like this, using
 --  the shorter style for both the value being matched and the value being
 --  returned:
@@ -865,7 +865,7 @@ namespace Playground
 
 --  A constructor of an inductive type can have multiple parameters, not
 --  just zero or one. This feature lets us define *tuple types* in Lean.
---
+
 --  As an example, consider representing the four bits in a nibble (half a
 --  byte). We first define a datatype `Bit` that resembles `Bool` (using
 --  the constructors `b1` and `b0` for the two possible bit values) and
@@ -890,7 +890,7 @@ inductive Nibble : Type where
 --  could have done the same with the function definition `MyBool.or`
 --  above, writing `or (b1 b2 : MyBool)` rather than
 --  `or (b1 : MyBool) (b2 : MyBool)`.
---
+
 --  The `bits` constructor acts as a wrapper for its contents. Unwrapping
 --  happens during pattern matching, as in the `allZero` function below,
 --  which tests a `Nibble` to see if all its bits are `b0`.
@@ -940,7 +940,7 @@ def zeroNibble : NibbleStruct := {
 --  Since the result type is declared to be `NibbleStruct`, Lean knows
 --  which structure and fields we mean. Unlike `NibbleStruct.mk`, this
 --  construction syntax doesn't depend on the order of fields.
---
+
 --  Besides constructing structures from scratch, we can also "update" an
 --  existing structure — i.e., construct a new structure while reusing some
 --  of the old fields.
@@ -978,7 +978,7 @@ namespace NatPlayground
 --  on the other hand, are an infinite set, so we'll need to use a slightly
 --  richer form of inductive type declaration to represent them:
 --  *recursive* inductive types.
---
+
 --  While the need for recursion is unequivocal, there are many recursively
 --  defined representations of numbers to choose from. You are certainly
 --  familiar with decimal notation (base 10), using the digits 0 through 9,
@@ -987,12 +987,12 @@ namespace NatPlayground
 --  as 7B, or octal (base 8), where it is 173, or binary (base 2), where it
 --  is 1111011. Using an enumerated type to represent digits, we could use
 --  any of these as our representation of natural numbers.
---
+
 --  There are circumstances in which each of these choices is useful. The
 --  binary representation is valuable in computer hardware because the
 --  digits can be represented with just two distinct voltage levels,
 --  resulting in simple circuitry.
---
+
 --  Here we choose an even simpler *unary* (base 1) representation, for the
 --  sake of streamlining proofs. As a Lean datatype, it uses two
 --  constructors. The `zero` constructor represents the number zero. The
@@ -1000,7 +1000,7 @@ namespace NatPlayground
 --  number `n`, yielding the representation of `n + 1`, where `succ` stands
 --  for "successor." The number `n` is then represented by `n` applications
 --  of `succ` to `zero`.
---
+
 --  Here is the complete datatype definition:
 
 inductive Nat : Type where
@@ -1075,7 +1075,7 @@ def minusTwo (n : Nat) : Nat :=
 --  themselves repeatedly down to a base case. Recursion is the essence of
 --  repeated computation in functional programming; in this course, we will
 --  make extensive use of recursive functions.
---
+
 --  We first define a simple recursive function, `even`, then a slightly
 --  more sophisticated recursive function, `add`.
 
@@ -1128,11 +1128,11 @@ scoped infixl:65 " + " => add
 --  functions like `add` over inductive datatypes like `Nat`, using
 --  *simplification rules*, also known as *characterizing lemmas*, about
 --  their behavior.
---
+
 --  Here is a simplification rule about `add`:
---
+
 --  - `n + zero = n`
---
+
 --  In Lean, this rule looks like this:
 
 theorem add_zero : ∀ n : Nat, n + zero = n := by
@@ -1160,7 +1160,7 @@ theorem add_zero_zero : ∀ n : Nat, n + zero + zero = n := by
 --  The `rewrite` tactic in the proof of `add_zero_zero` is used to
 --  transform the goal of the proof according to an equality. The
 --  `add_zero` in brackets is an *argument* to the `rewrite` tactic.
---
+
 --  Let's walk through the theorem again in detail.
 
 theorem add_zero_zero_explained : ∀ n : Nat, n + zero + zero = n := by
@@ -1210,11 +1210,11 @@ theorem add_zero_zero_zero : ∀ n : Nat, n + zero + zero + zero = n := by
 --  ### A New `add` Rule
 
 --  Here is another fundamental rule about addition:
---
+
 --  `n + (succ m) = succ (n + m)`.
---
+
 --  This is the rule we need to push `succ` around.
---
+
 --  Here it is in Lean:
 
 theorem add_succ : ∀ n m : Nat, n + (succ m) = succ (n + m) := by
@@ -1246,21 +1246,21 @@ theorem add_one (n : Nat) : n + (succ zero) = succ n + zero := by
 --  In simple examples, such conventions may seem overly pedantic; in
 --  complex codebases, they are the only way to maintain crucial invariants
 --  that prevent a system from becoming unmaintainable.
---
+
 --  The same principle applies to programs and proofs in Lean. In this
 --  chapter, we will be proving facts about functions entirely through
 --  their simplification rules, rather than using `rfl` to unfold their
 --  implementations invisibly. This makes every computation step visible
 --  and lets a proof rely on a function's interface rather than its
 --  definition.
---
+
 --  We can do this because the foundational theorems `add_zero` and
 --  `add_succ` provide a characterization of the behavior of `add` that
 --  makes using `rfl` to simplify expressions unnecessary; instead, we can
 --  rewrite by these theorems anywhere we want to describe how `add`
 --  evaluates. In real-world Lean developments, the style of writing proofs
 --  using simplification rules is both standard and expected.
---
+
 --  For the next few chapters, we mark definitions with
 --  `attribute [irreducible]` to prevent this kind of unfolding. This means
 --  that `rfl` cannot unfold these definitions behind the scenes: after
@@ -1297,12 +1297,12 @@ end AddPlayground
 --  `add` proceeds in that case. The `add_zero` theorem describes how
 --  `add n zero` evaluates, while `add_succ` describes (symbolically) how
 --  `add n (succ m)` evaluates.
---
+
 --  These are instances of a general pattern: for each definition that
 --  pattern matches on an inductive type, we will provide one
 --  simplification rule for each branch of control flow through the
 --  function.
---
+
 --  So, for example, we need two simplification rules for the definition of
 --  `pred`:
 
@@ -1326,7 +1326,7 @@ attribute [irreducible] even odd
 --  In the remainder of this textbook, we will pair definitions with
 --  simplification rules. After proving these rules, instead of using `rfl`
 --  to peek through the definitions, we will `rewrite` using the rules.
---
+
 --  Eventually, we will introduce a way to *automatically* apply these
 --  simplification rules. Real-world Lean developments use automation
 --  extensively, and you will learn to do so gradually throughout this
@@ -1379,7 +1379,7 @@ scoped infixl:70 " * " => mul
 
 --  Multiplication, like any function we will prove properties about, also
 --  has simplification rules.
---
+
 --  Remove `sorry` and prove the simplification rules for `mul` below. You
 --  will likely find the proofs of the simplification rules for `add` to be
 --  helpful as a model.
@@ -1401,7 +1401,7 @@ theorem zero_add_one : (zero + one : Nat) = one := by
 
 --  Notice how `rewrite` can take any number of arguments. You can rewrite
 --  with all of the simplification rules at once, for example.
---
+
 --  After each rewrite, check the proof state by placing the cursor
 --  immediately after a rule to see how the goal is changing. This happens
 --  naturally as you write the proof, which makes it convenient to use
@@ -1454,7 +1454,7 @@ def beq' (n m : Nat) : Bool :=
   | succ n', succ m' => beq n' m'
 
 --  The definitions of `beq` and `beq'` are equivalent.
---
+
 --  Similarly, the `ble` function tests whether its first argument is less
 --  than or equal to its second argument, yielding a boolean.
 
@@ -1511,7 +1511,7 @@ attribute [irreducible] beq
 --  meaning. For `add_zero` and `add_succ`, notice that the `zero` and
 --  `succ` come after the `add`; this is because they depend on `add`'s
 --  *second* argument and do not care about its first.
---
+
 --  Also, in the `beq` rules above, we write `zero_beq_zero` and
 --  `zero_beq_succ` because the rules apply to both the first and second
 --  arguments of `beq`. We put `beq` between the arguments because it is
@@ -1522,21 +1522,21 @@ attribute [irreducible] beq
 --  ### General Proofs about Natural Numbers
 
 --  We now begin to make claims about *general* natural numbers.
---
+
 --  We begin by making a universal claim about all numbers `n` and `m` that
 --  are equal to each other (`n = m`). The arrow symbol is pronounced
 --  "implies." Enter it with `\to` or `\->` or `\r`.
---
+
 --  The `intro` tactic moves the universally quantified variables and the
 --  hypothesis into the context, giving them names. The goal is now to
 --  prove `n + n = m + m` under the assumption `h : n = m`.
---
+
 --  The tactic that tells Lean to perform replacement is one we have seen
 --  before: `rewrite`. It can take a hypothesis from the context as an
 --  argument, just like it can take a previously proved theorem. In this
 --  case, we want to rewrite with the hypothesis `h`, which says that `n`
 --  and `m` are equal, so that we can replace `n` with `m` in the goal.
---
+
 --  After the rewrite, the goal is `m + m = m + m`, which can be closed by
 --  `rfl`.
 
@@ -1571,20 +1571,20 @@ theorem add_id_exercise : ∀ n m o : Nat,
 
 --  Note that you may see a slight discrepancy in the output: `#check`
 --  shows the theorem differently from the way it was introduced earlier.
---
+
 --  First, Lean may print the theorem's fully qualified name
 --  `NatPlayground.Nat.mul_zero`. The qualification identifies the
 --  namespace containing the theorem, though the shorter name `mul_zero` is
 --  usually sufficient when Lean can determine which declaration we mean.
---
+
 --  Second, Lean displays the theorem's arguments before the colon, as in
 --  `mul_zero (n : Nat) : n * zero = zero`. Writing arguments as binders
 --  before the colon is called *declaration-header style*. The same
 --  statement can be written using an explicit universal quantifier, as we
 --  have seen before:
---
---      mul_zero : ∀ (n : Nat), n * zero = zero
---
+
+--    mul_zero : ∀ (n : Nat), n * zero = zero
+
 --  Writing statements in declaration-header style shortens proofs because
 --  Lean automatically adds declared variables to the context, rather than
 --  requiring them to be added with `intro`. The declaration-header style
@@ -1621,7 +1621,7 @@ theorem add_one_neb_zero (n : Nat) : (succ zero + n == zero) = false := by
 --  `| succ n' =>` select which subgoal to work on next and introduce
 --  variable names. Note also that when we enter a subcase, we increase the
 --  level of indentation at which we are working by two spaces.
---
+
 --  The `cases` tactic can be used with any inductively defined datatype.
 --  For example, we use it next to prove that boolean negation is
 --  involutive (that is, that negation is its own inverse).
@@ -1711,12 +1711,12 @@ theorem and3_exchange (b c d : Bool) :
 --  ### New Tactics: `rewrite ... at` and `exact`
 
 --  Some new tactics will be useful for the exercises ahead.
---
+
 --  The `rewrite ... at` tactic can be used to rewrite in a hypothesis
 --  instead of the goal. For example, if `hp : p` is in the context and we
 --  have a rule `r : p = q`, then `rewrite [r] at hp` changes the
 --  hypothesis to `hp : q`.
---
+
 --  The `exact` tactic closes a goal by providing the exact proof of the
 --  goal. For example, if `hp : p` is in the context and the goal is `p`,
 --  then `exact hp` closes the goal. You can also transform `hp` slightly
@@ -1726,7 +1726,7 @@ theorem and3_exchange (b c d : Bool) :
 --  ### Exercise (2 stars): or_false_true ⭐⭐
 
 --  Prove the following claim.
---
+
 --  Tip: the simplification rule for `(b || false)` is called
 --  `Bool.or_false`.
 
@@ -1760,7 +1760,7 @@ def even' (n : Nat) : Bool :=
 --  smaller than `n`. This makes `n'` an acceptable argument to `even'` for
 --  Lean's termination checker, and so this recursive definition is
 --  accepted.
---
+
 --  This requirement is a fundamental feature of Lean's design: it
 --  guarantees that every ordinary recursive definition accepted into
 --  Lean's logic terminates on all inputs. However, because Lean's
@@ -1768,7 +1768,7 @@ def even' (n : Nat) : Bool :=
 --  automatically, it is sometimes necessary to provide hints or write
 --  functions in slightly different ways.
 
---  ### Exercise (2 stars): decreasing (Optional, Manually graded) ⭐⭐
+--  ### Exercise (2 stars): decreasing (Optional, manually graded) ⭐⭐
 
 --  To get a concrete sense of how termination checking works in Lean, find
 --  a way to write a sensible recursive definition (of a simple function on
@@ -1783,7 +1783,7 @@ def even' (n : Nat) : Bool :=
 --  more efficient binary representation by treating a binary number as a
 --  sequence of constructors `b0` and `b1` (representing 0s and 1s),
 --  terminated by a `z`.
---
+
 --  For example:
 
 --  decimal                binary   unary
@@ -1800,7 +1800,7 @@ def even' (n : Nat) : Bool :=
 --  Note that the low-order bit is on the left and the high-order bit is on
 --  the right — the opposite of the way binary numbers are usually written.
 --  This choice makes them easier to manipulate.
---
+
 --  (Comprehension check: What unary numeral does `b0 z` represent?)
 
 inductive Bin : Type where
@@ -1808,9 +1808,7 @@ inductive Bin : Type where
   | b0 (n : Bin)
   | b1 (n : Bin)
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED
 attribute [pp_nodot] Bin.b1 Bin.b0
---  END DETAILS
 
 def incr (m : Bin) : Bin
   := sorry
@@ -1852,7 +1850,7 @@ end Nat
 --  disposal. As a warmup for the last section of the chapter, use the
 --  tactics you have learned so far to prove the following theorem about
 --  boolean functions.
---
+
 --  Hint: You can use `rewrite` with *any* hypothesis that has an `=` in it
 --  as long as the types line up.
 
@@ -1861,13 +1859,13 @@ theorem identity_fn_applied_twice (f : Bool → Bool) :
     ∀ b : Bool, f (f b) = b := by
   sorry
 
---  ### Exercise (1 star): negation_fn_applied_twice (Manually graded) ⭐
+--  ### Exercise (1 star): negation_fn_applied_twice (manually graded) ⭐
 
 --  Now state and prove a theorem `negation_fn_applied_twice` similar to
 --  the previous one but where the hypothesis says that the function `f`
 --  has the property that `f x = !x`.
 
---  FILL IN HERE
+-- FILL IN HERE
 
 --  ### Exercise (3 stars): and_eq_or (Optional) ⭐⭐⭐
 
@@ -1880,12 +1878,12 @@ theorem and_eq_or (b c : Bool) : (b && c) = (b || c) → b = c := by
 
 --  Now that we have learned some basic features of Lean, let's close the
 --  chapter with an exercise that brings them together.
---
+
 --  In this exercise, we will model part of a database storing information
 --  about travelers passing through an airport. The database contains one
 --  entry per traveler, recording information about where the traveler is
 --  in the airport process and the contents of their current carry-on bag.
---
+
 --  We will implement several operations on these entries, state intended
 --  properties of the database's behavior, and prove that the
 --  implementation satisfies them.
@@ -1910,14 +1908,14 @@ inductive ScreeningStatus : Type where
 
 --  Next, we define the possible stages of the airport process a traveler
 --  can inhabit:
---
+
 --  - they have not yet purchased a ticket;
---
+
 --  - they have a ticket but have not yet checked in;
---
+
 --  - they have checked in, in which case the database also stores the
 --    screening status of their carry-on bag.
---
+
 --  We can represent these possible database entries directly with an
 --  inductive type.
 
@@ -2067,7 +2065,7 @@ attribute [irreducible] changeBag
 --  resets its screening status. In other words, `inspectBag` and
 --  `changeBag` do not, in general, commute: the order in which the two
 --  operations are performed can affect the result.
---
+
 --  However, if the traveler has not checked in, `inspectBag` does nothing,
 --  so changing and inspecting the carry-on can be performed in either
 --  order. There are two such cases: the traveler may not yet have a
@@ -2088,6 +2086,4 @@ theorem inspectBag_changeBag_comm_ticketed
   sorry
 
 end Airport
-end NatPlayground
 
--- Built on 2026-09-01 15:22 UTC
