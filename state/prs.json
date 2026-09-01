@@ -480,6 +480,16 @@
       "status": "published",
       "title": "Build: Install devcontainer in built artifacts",
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
+    },
+    "353": {
+      "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
+      "changed_variants": [],
+      "head_sha": "02c9351cf57600eb24d63f2ae4ea833d086c2ebb",
+      "preview_path": "pr/353/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "UsingLean: Full pass",
+      "url": "https://github.com/plclub/sf-in-lean/pull/353"
     }
   },
   "schema": 3
