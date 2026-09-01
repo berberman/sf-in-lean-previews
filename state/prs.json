@@ -284,49 +284,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
     },
     "337": {
-      "base_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "e7b82296d221b26fdb801e3ea3b9607d1d19af41",
+      "base_sha": "65ca99a1f0c95772fe085fb28f49dc0bee029e38",
+      "changed_variants": [],
+      "head_sha": "a23f1cf028c144f5fdb9fe28435bd74f0ec26d7a",
       "preview_path": "pr/337/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33139882341",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33456340271",
+      "status": "ci-failed",
       "title": "Imp: improve delabrator and reduce antiquotation noise",
       "url": "https://github.com/plclub/sf-in-lean/pull/337"
     },
