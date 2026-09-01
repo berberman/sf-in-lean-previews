@@ -527,6 +527,16 @@
       "status": "published",
       "title": "UsingLean: Full pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/353"
+    },
+    "354": {
+      "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
+      "changed_variants": [],
+      "head_sha": "61496831fcc75033686a4554f593db0e193bcb60",
+      "preview_path": "pr/354/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Lists: Polishing pass",
+      "url": "https://github.com/plclub/sf-in-lean/pull/354"
     }
   },
   "schema": 3
