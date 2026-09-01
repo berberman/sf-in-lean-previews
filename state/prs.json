@@ -481,16 +481,6 @@
       "title": "Build: Install devcontainer in built artifacts",
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
     },
-    "353": {
-      "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
-      "changed_variants": [],
-      "head_sha": "9a843def4cce759f4824464e999f55ceed301e66",
-      "preview_path": "pr/353/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "UsingLean: Full pass",
-      "url": "https://github.com/plclub/sf-in-lean/pull/353"
-    },
     "354": {
       "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
       "changed_variants": [
@@ -541,10 +531,10 @@
     "355": {
       "base_sha": "c8e679ce0d978cdc24e4d9289231b5c494fe2d4c",
       "changed_variants": [],
-      "head_sha": "abe1a4161b38e2bf853794f58d50c7334972512b",
+      "head_sha": "292c8d46767745f9defbcfabfe81e6015365d3f8",
       "preview_path": "pr/355/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33513410642",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Add normalize tactic using `solve_by_elim`.",
       "url": "https://github.com/plclub/sf-in-lean/pull/355"
     }
