@@ -1,5 +1,5 @@
 {
-  "main_sha": "c979193facdca786036fc0a501805985ee8aa2be",
+  "main_sha": "e6c791393e9d7fac06ca68ff719cd3022744d2b1",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -282,16 +282,6 @@
       "status": "published",
       "title": "Imp: support sequencing using newlines, pretty print on a single line",
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
-    },
-    "337": {
-      "base_sha": "c979193facdca786036fc0a501805985ee8aa2be",
-      "changed_variants": [],
-      "head_sha": "66105fd6b98348caebeb84b3086c0b227abfefd7",
-      "preview_path": "pr/337/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Imp: improve delabrator and reduce antiquotation noise",
-      "url": "https://github.com/plclub/sf-in-lean/pull/337"
     },
     "340": {
       "base_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
