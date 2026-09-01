@@ -396,7 +396,7 @@ def myNil' := @List.nil Nat
 
 --   ----------------------------------------
 
---  ### Exercise (2 stars): mumble_grumble (Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): mumble_grumble (Optional, Manually graded) ⭐⭐
 
 --  Consider the following two inductively defined types.
 
@@ -570,7 +570,7 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --  To overcome this, we destruct the list so that the `match` knows which
 --  branch to take during the computation done by the `rfl` tactic.
 
---  ### Exercise (1 star): zip_checks (Optional, manually graded) ⭐
+--  ### Exercise (1 star): zip_checks (Optional, Manually graded) ⭐
 
 --  Try answering the following questions on paper and checking your
 --  answers in Lean:
@@ -583,7 +583,7 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --
 --    print?
 
---  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): unzip (Manually graded) ⭐⭐⭐
 
 --  The function `unzip` goes in the other direction from `zip`: it takes a
 --  list of pairs and returns a pair of lists.
@@ -1044,7 +1044,7 @@ sf_recall
 
 --   ----------------------------------------
 
---  ### Exercise (1 star): fold_types_different (Optional, manually graded) ⭐
+--  ### Exercise (1 star): fold_types_different (Optional, Manually graded) ⭐
 
 --  Observe that the type of `fold` is parameterized by *two* type
 --  variables, `α` and `β`, and the parameter `f` is a binary operator that
@@ -1141,7 +1141,7 @@ theorem fold_length_correct {α : Type} {l : List α} :
     rw [foldLength] at *
     rw [List.length_cons, fold_cons, ih]
 
---  ### Exercise (3 stars): fold_map (manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): fold_map (Manually graded) ⭐⭐⭐
 
 --  We can also define `map` in terms of `fold`. Finish `foldMap` below.
 
@@ -1222,7 +1222,7 @@ theorem curry_uncurry {α β γ : Type} {p : α × β} {f : α × β → γ} :
     prodUncurry (prodCurry f) p = f p := by
   rfl
 
---  ### Exercise (2 stars): nth_error_informal (Advanced, Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): nth_error_informal (Advanced, Optional, Manually graded) ⭐⭐
 
 --  Recall the definition of the `nth?` function:
 
@@ -1404,4 +1404,4 @@ theorem exp_3 : exp three two = plus (mult two (mult two two)) one := (by rfl)
 
 end Church
 
--- Built on 2026-08-31 21:26 UTC
+-- Built on 2026-08-31 23:55 UTC

@@ -850,7 +850,7 @@ end TM
 --  counterexample if one breaks. (These are graded manually; there is no
 --  Lean code to complete.)
 
---  ### Exercise (2 stars): variation1 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): variation1 (Manually graded) ⭐⭐
 
 --  Suppose that we add this new rule to the typing relation:
 
@@ -864,7 +864,7 @@ end TM
 --  - Progress
 --  - Preservation
 
---  ### Exercise (2 stars): variation2 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): variation2 (Manually graded) ⭐⭐
 
 --  Suppose, instead, that we add this new rule to the `Tm.Step` relation:
 
@@ -916,7 +916,7 @@ end TM
 --  of changing the definitions that break just one of the properties and
 --  leave the others alone.
 
---  ### Exercise (1 star): remove_pred0 (manually graded) ⭐
+--  ### Exercise (1 star): remove_pred0 (Manually graded) ⭐
 
 --  The reduction rule `predZero` is a bit counter-intuitive: we might feel
 --  that it makes more sense for the predecessor of `0` to be undefined,
@@ -924,7 +924,7 @@ end TM
 --  removing the rule from the definition of `Tm.Step`? Would doing so
 --  create any problems elsewhere?
 
---  ### Exercise (4 stars): prog_pres_bigstep (Advanced, manually graded) ⭐⭐⭐⭐
+--  ### Exercise (4 stars): prog_pres_bigstep (Advanced, Manually graded) ⭐⭐⭐⭐
 
 --  Suppose our evaluation relation is defined in the big-step style. State
 --  appropriate analogs of the progress and preservation properties. (You
@@ -934,4 +934,4 @@ end TM
 --  for nonterminating programs? Why might we prefer the small-step
 --  semantics for stating preservation and progress?
 
--- Built on 2026-08-31 21:28 UTC
+-- Built on 2026-08-31 23:57 UTC

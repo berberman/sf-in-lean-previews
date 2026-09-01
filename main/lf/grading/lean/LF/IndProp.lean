@@ -535,7 +535,7 @@ def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CMS n 1
 --      HIDE: CH: Would it be helpful to add an exercise later proving CMS
 --      equivalent to CollatzHoldsFor?
 
---  ### Exercise (1 star): clos_refl_trans_sym (Optional, manually graded) ⭐
+--  ### Exercise (1 star): clos_refl_trans_sym (Optional, Manually graded) ⭐
 
 --  How would you modify the `ClosReflTrans` definition above so as to
 --  define the reflexive, symmetric, and transitive closure?
@@ -590,7 +590,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
     (h₂₃ : Perm3 l₂ l₃) :
     Perm3 l₁ l₃
 
---  ### Exercise (1 star): perm (Optional, manually graded) ⭐
+--  ### Exercise (1 star): perm (Optional, Manually graded) ⭐
 
 --  According to this definition, is `[1, 2, 3]` a permutation of itself?
 
@@ -1493,7 +1493,7 @@ theorem ble_true_trans (n m k : Nat) :
 
 attribute [autogradedProof 1] ble_true_trans
 
---  ### Exercise (3 stars): R_provability (manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): R_provability (Manually graded) ⭐⭐⭐
 
 --  We can define three-place relations, four-place relations, etc., in
 --  just the same way as binary relations. For example, consider the
@@ -1668,7 +1668,7 @@ attribute [autogradedProof 2] R.Subseq.app
 
 attribute [autogradedProof 3] R.Subseq.trans
 
---  ### Exercise (2 stars): R_provability2 (Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): R_provability2 (Optional, Manually graded) ⭐⭐
 
 --  Suppose we give Lean the following definition:
 --
@@ -2451,4 +2451,4 @@ attribute [autogradedProof 6] R.pigeonhole_principle
 --
 --  End Pigeon.
 
--- Built on 2026-08-31 21:27 UTC
+-- Built on 2026-08-31 23:56 UTC

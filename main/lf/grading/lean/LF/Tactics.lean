@@ -112,7 +112,7 @@ theorem rev_exercise1 {α : Type} (l l' : List α) (h : l = l'.rev) :
 
 attribute [autogradedProof 2] rev_exercise1
 
---  ### Exercise (1 star): apply_rewrite (Optional, manually graded) ⭐
+--  ### Exercise (1 star): apply_rewrite (Optional, Manually graded) ⭐
 
 --  Briefly explain the difference between the tactics `apply` and `rw`.
 --  What are the situations where both can usefully be applied?
@@ -1336,7 +1336,7 @@ theorem map_injective_of_injective {α β : Type}
 
 attribute [autogradedProof 3] map_injective_of_injective
 
---  ### Exercise (3 stars): unzip_zip (Advanced, manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): unzip_zip (Advanced, Manually graded) ⭐⭐⭐
 
 --  We proved `zip_unzip'` that `zip`ping the result of `unzip` recovers
 --  the original list. What about the other direction? Complete and prove
@@ -1406,4 +1406,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
 
 attribute [autogradedProof 6] anyTrue_eq_anyTrue
 
--- Built on 2026-08-31 21:27 UTC
+-- Built on 2026-08-31 23:56 UTC

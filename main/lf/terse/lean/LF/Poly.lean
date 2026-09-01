@@ -438,7 +438,7 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --  knows which branch to take during the computation done
 --  by the `rfl` tactic.
 
---  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): unzip (Manually graded) ⭐⭐⭐
 
 --  The function `unzip` goes in the other direction from
 --  `zip`: it takes a list of pairs and returns a pair of
@@ -726,4 +726,4 @@ def fold_plus : List Nat → Nat → Nat :=
 --  Output:
 --    fold_plus : List Nat → Nat → Nat
 
--- Built on 2026-08-31 21:27 UTC
+-- Built on 2026-08-31 23:56 UTC

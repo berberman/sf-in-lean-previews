@@ -997,7 +997,7 @@ theorem remove_does_not_increase_count (l : NatList) :
     Nat.ble (count 0 (removeOne 0 l)) (count 0 l) = true := by
   sorry
 
---  ### Exercise (3 stars): count_append (Optional, manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): count_append (Optional, Manually graded) ⭐⭐⭐
 
 --  Write down an interesting theorem `count_append` about lists involving
 --  the functions `count` and `append`, and prove it. (You may find that
@@ -1205,4 +1205,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-08-31 21:26 UTC
+-- Built on 2026-08-31 23:55 UTC

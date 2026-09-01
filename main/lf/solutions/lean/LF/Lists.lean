@@ -1075,7 +1075,7 @@ theorem remove_does_not_increase_count (l : NatList) :
       rw [removeOne_cons_diff _ _ _ rfl, count_cons_diff _ _ _ rfl, count_cons_diff _ _ _ rfl]
       exact ih
 
---  ### Exercise (3 stars): count_append (Optional, manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): count_append (Optional, Manually graded) ⭐⭐⭐
 
 --  Write down an interesting theorem `count_append` about lists involving
 --  the functions `count` and `append`, and prove it. (You may find that
@@ -1309,4 +1309,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-08-31 21:26 UTC
+-- Built on 2026-08-31 23:55 UTC

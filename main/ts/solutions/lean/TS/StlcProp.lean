@@ -461,7 +461,7 @@ theorem preservation (t t' : Tm) (T : Ty)
 --    - Otherwise, `t` steps by `Step.ifStep`, and the desired conclusion
 --      follows directly from the first induction hypothesis.
 
---  ### Exercise (2 stars): subject_expansion_stlc (manually graded) ⭐⭐
+--  ### Exercise (2 stars): subject_expansion_stlc (Manually graded) ⭐⭐
 
 --  An exercise in the Types chapter asked about the *subject expansion*
 --  property for the simple language of arithmetic and boolean expressions.
@@ -754,7 +754,7 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --      Maybe a better way to solve this would be to have the following
 --      template. BCP 21: Yes, do this!!
 
---  ### Exercise (2 stars): stlc_variation1 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): stlc_variation1 (Manually graded) ⭐⭐
 
 --  Suppose we add a new term `zap` with the following reduction rule
 --
@@ -783,7 +783,7 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 
 --  - Remains true. `zap` can have any type.
 
---  ### Exercise (2 stars): stlc_variation2 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): stlc_variation2 (Manually graded) ⭐⭐
 
 --  Suppose instead that we add a new term `foo` with the following
 --  reduction rules:
@@ -817,7 +817,7 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --  but, since we have no typing rules for foo, we cannot prove that
 --  [⊢ foo ⦂ Bool->Bool].
 
---  ### Exercise (2 stars): stlc_variation3 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): stlc_variation3 (Manually graded) ⭐⭐
 
 --  Suppose instead that we remove the rule `Step.app1` from the `step`
 --  relation. Which of the following properties of the STLC remain true in
@@ -1696,4 +1696,4 @@ end StlcArith
 --      the grader can tell them apart from this chapter's own `progress`
 --      and `preservation`.
 
--- Built on 2026-08-31 21:28 UTC
+-- Built on 2026-08-31 23:58 UTC

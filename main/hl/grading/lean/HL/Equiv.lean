@@ -245,7 +245,7 @@ theorem while_false_equiv {b : Bexp} {c : Com} (hb : b.Equiv (bexp {false})) :
     apply EvalR.whileFalse
     simp [hb]
 
---  ### Exercise (2 stars): while_false_informal (Advanced, manually graded) ⭐⭐
+--  ### Exercise (2 stars): while_false_informal (Advanced, Manually graded) ⭐⭐
 
 --  Write an informal proof of `while_false_equiv`.
 
@@ -293,7 +293,7 @@ theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State} (hb : b.Equiv (
   | skip | asgn | seq | ifTrue | ifFalse =>
     contradiction -- heq says that different commands are equal
 
---  ### Exercise (2 stars): while_true_nonterm_informal (manually graded) ⭐⭐
+--  ### Exercise (2 stars): while_true_nonterm_informal (Manually graded) ⭐⭐
 
 --  Explain what the lemma `while_true_nonterm` means in English.
 
@@ -523,4 +523,4 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
 --        - Extended Exercise: Nondeterministic Imp
 --        - Additional Exercises`
 
--- Built on 2026-08-31 21:28 UTC
+-- Built on 2026-08-31 23:57 UTC

@@ -2146,7 +2146,7 @@ theorem validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :
 
 attribute [irreducible] ValidHoareTriple
 
---  ### Exercise (2 stars): hoare_if1 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): hoare_if1 (Manually graded) ⭐⭐
 
 --  Invent a Hoare logic proof rule for `if1`. State and prove a theorem
 --  named `hoare_if1` that shows the validity of your rule. Use `hoare_if`
@@ -2576,7 +2576,7 @@ scoped macro_rules
   | `(imp { ~$c }) =>
     pure c
 
---  ### Exercise (4 stars): hoare_repeat (Advanced, Optional, manually graded) ⭐⭐⭐⭐
+--  ### Exercise (4 stars): hoare_repeat (Advanced, Optional, Manually graded) ⭐⭐⭐⭐
 
 --  Add new rules for `repeat` to `Com.EvalR` below. You can use the rules
 --  for `while` as a guide, but remember that the body of a `repeat` should
@@ -3161,4 +3161,4 @@ attribute [autogradedProof 4] HoareAssertAssume.assert_assume_example
 
 end HoareAssertAssume
 
--- Built on 2026-08-31 21:28 UTC
+-- Built on 2026-08-31 23:57 UTC

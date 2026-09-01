@@ -545,7 +545,7 @@ theorem add_assoc'' (n m p : Nat) :
 --  point in the Lean proof is completely implicit, whereas the informal
 --  proof reminds the reader several times where things stand.
 
---  ### Exercise (2 stars): add_comm_informal (Advanced, Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): add_comm_informal (Advanced, Optional, Manually graded) ⭐⭐
 
 --  Translate your solution for `add_comm` into an informal proof:
 --
@@ -1014,4 +1014,4 @@ attribute [autogradedProof 6] NatPlayground.Nat.NatToBin.bin_nat_bin
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-08-31 21:27 UTC
+-- Built on 2026-08-31 23:56 UTC

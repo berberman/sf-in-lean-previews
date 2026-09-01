@@ -1,5 +1,5 @@
 {
-  "main_sha": "28b97041df1406e61ac66a2d0d24db474d45128f",
+  "main_sha": "c979193facdca786036fc0a501805985ee8aa2be",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -235,53 +235,6 @@
       "status": "published",
       "title": "`nth?` characterizing lemmas and `list_ext` exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/319"
-    },
-    "323": {
-      "base_sha": "bc08deb8c1bbf7332d309c4ea15badc49d047c86",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "7a392f56929c44eeab712d5aaf494df4a334be0f",
-      "preview_path": "pr/323/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33320314205",
-      "status": "published",
-      "title": "Make quiz options in Logic uniform",
-      "url": "https://github.com/plclub/sf-in-lean/pull/323"
     },
     "326": {
       "base_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",

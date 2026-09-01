@@ -437,10 +437,11 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ α : Type, ∀ x y : α, x = y ∧ x ≠ y → False
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -451,10 +452,11 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a b : Prop, a ∨ b → ¬ ¬ (a ∨ b)
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -465,10 +467,11 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a b : Prop, a → (a ∨ ¬ ¬ b)
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -479,10 +482,11 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a b : Prop, a ∨ b → (¬ ¬ a) ∨ (¬ ¬ b)
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -493,10 +497,11 @@ theorem not_true_is_false (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a : Prop, 1 = 0 → (a ∨ ¬ a)
 --
---  1. `contradiction` `left`, and `right`
---  2. only `contradiction`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `contradiction`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `contradiction` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -1335,4 +1340,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Built on 2026-08-31 21:27 UTC
+-- Built on 2026-08-31 23:56 UTC

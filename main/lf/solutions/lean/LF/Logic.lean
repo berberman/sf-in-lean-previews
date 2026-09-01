@@ -508,7 +508,7 @@ theorem contradiction_implies_anything (a b : Prop) (h : a ∧ ¬ a) : b := by
 theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
   intro h; apply h; exact ha
 
---  ### Exercise (2 stars): double_neg_informal (Advanced, Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): double_neg_informal (Advanced, Optional, Manually graded) ⭐⭐
 
 --  Write an *informal* proof of `double_neg`: *Theorem*: `a` implies
 --  `¬ ¬ a`, for any proposition `a`.
@@ -526,7 +526,7 @@ theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
   apply h
   exact ha
 
---  ### Exercise (1 star): not_PNP_informal (Advanced, manually graded) ⭐
+--  ### Exercise (1 star): not_PNP_informal (Advanced, Manually graded) ⭐
 
 --  Write an informal proof of the proposition `∀ a : Prop, ¬ (a ∧ ¬ a)`.
 
@@ -598,57 +598,6 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
     apply h
     rfl
 
---  Note to developers:
---      HIDE: CH: I don't think this was the original intention, but some
---      of these quizzes got unnecessarily tricky and pedantic. For
---      instance, the first quiz below makes a big distinction between
---      using the destruct tactic and destructing using an intro pattern,
---      even if conceptually there is no difference. Could it be that these
---      quizzes were devised when intro patterns were not taught in the
---      course and an update would be helpful now? Since I don't see the
---      gain in tricking a majority of students in giving the "wrong"
---      answer, even if it's a perfectly sensible one.
-
---  Note to developers (Benjamin Pierce @bcpierce00):
---      `INCOMING BOCHUM MATERIAL summarized by Claude (old/bochum-lf-updates/Logic.v): the five
---         quizzes below were reworked in the Bochum LF updates -- addressing
---         the concern in the dev note above.  Every option list was replaced
---         by the following uniform one (with `discriminate` in place of
---         `destruct` in the last quiz):
---
---           (A) intros and apply suffice
---           (B) destruct
---           (C) left and/or right
---           (D) destruct, left and right
---           (E) none of the above
---
---         and the answer proofs for quizzes 1 and 4 were changed to use an
---         explicit destruct instead of destructing via an intro pattern:
---
---           Lemma quiz1: forall X, forall a b : X, (a=b) /\ (a<>b) -> False.
---           Proof.
---             intros X a b H.
---             destruct H as [Hab Hnab]. apply Hnab. apply Hab.
---           Qed.
---
---           Lemma quiz4 : forall P Q: Prop,  P \/ Q -> ~~P \/ ~~Q.
---           Proof.
---             intros P Q H.
---             destruct H as [HP | HQ].
---             - (* left *)
---               left. intros HnP. apply HnP in HP. apply HP.
---             - (* right *)
---               right. intros HnQ. apply HnQ in HQ. apply HQ.
---           Qed.
---
---         To incorporate: rewrite the option lists of the five quizzes below
---         in the same uniform style (in Lean terms, e.g. "(A) intro and
---         apply suffice / (B) cases / (C) left and/or right / (D) cases,
---         left and right / (E) none of the above", with contradiction
---         replacing cases in the last quiz) and make the solutions for
---         quizzes 1 and 4 use an explicit cases rather than an intro
---         pattern.`
-
 --   ----------------------------------------
 
 --  _Quiz:_
@@ -658,10 +607,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ α : Type, ∀ x y : α, x = y ∧ x ≠ y → False
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -672,10 +622,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a b : Prop, a ∨ b → ¬ ¬ (a ∨ b)
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -686,10 +637,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a b : Prop, a → (a ∨ ¬ ¬ b)
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -700,10 +652,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a b : Prop, a ∨ b → (¬ ¬ a) ∨ (¬ ¬ b)
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -714,10 +667,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a : Prop, 1 = 0 → (a ∨ ¬ a)
 --
---  1. `contradiction` `left`, and `right`
---  2. only `contradiction`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `contradiction`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `contradiction` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -774,7 +728,7 @@ theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
 --  conclusions, we can use `exfalso` to replace them with `False`. The
 --  `contradiction` tactic takes care of all of this for us.
 
---  ### Exercise (2 stars): nil_is_not_cons (Advanced, Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): nil_is_not_cons (Advanced, Optional, Manually graded) ⭐⭐
 
 --  Use the same technique as above to show that `[] ≠ x :: xs`. Do not use
 --  the `contradiction` tactic.
@@ -2332,4 +2286,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Built on 2026-08-31 21:26 UTC
+-- Built on 2026-08-31 23:55 UTC

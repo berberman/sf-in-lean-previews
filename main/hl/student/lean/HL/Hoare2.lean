@@ -223,7 +223,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --    that `n - m + m = n` does *not* hold for arbitrary natural numbers
 --    `n` and `m` (for example, [3 - 5 + 5 = 5]).
 
---  ### Exercise (2 stars): if_minus_plus_reloaded (Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): if_minus_plus_reloaded (Optional, Manually graded) ⭐⭐
 
 --  N.b.: Although this exercise is marked optional, it is an excellent
 --  warm-up for the (non-optional) `if_minus_plus_correct` exercise below!
@@ -1886,4 +1886,4 @@ theorem hoare_havoc_weakest (P Q : Assertion) (x : Ident)
 
 end Himp2
 
--- Built on 2026-08-31 21:27 UTC
+-- Built on 2026-08-31 23:56 UTC
