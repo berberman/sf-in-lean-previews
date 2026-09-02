@@ -378,49 +378,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/347"
     },
     "349": {
-      "base_sha": "a077931d6396cf8fa4abc43a5b35931f2a663a25",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "39a99193b08dd991765bbadd0aa380f295d1f36e",
+      "base_sha": "9210f5295481aa0908a711472794e8f9bf33d288",
+      "changed_variants": [],
+      "head_sha": "dc6a950594849fb1c7468d813ef370f76578fd1a",
       "preview_path": "pr/349/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33556617620",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/349"
     },
@@ -520,48 +483,11 @@
     },
     "355": {
       "base_sha": "7963434b2e0af28dcf17cd3ba33c295a27d30829",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "a077931d6396cf8fa4abc43a5b35931f2a663a25",
+      "changed_variants": [],
+      "head_sha": "9210f5295481aa0908a711472794e8f9bf33d288",
       "preview_path": "pr/355/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33556498318",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Add normalize tactic using `solve_by_elim`.",
       "url": "https://github.com/plclub/sf-in-lean/pull/355"
     }
