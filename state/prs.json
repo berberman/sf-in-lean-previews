@@ -379,11 +379,48 @@
     },
     "349": {
       "base_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "154ec6e08bd964f3909333e3486c0877af746832",
       "preview_path": "pr/349/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33664199347",
+      "status": "published",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/349"
     },
@@ -435,7 +472,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
     },
     "357": {
-      "base_sha": "3e80b9e843000759ee3bd0b1df5011c66b0016c5",
+      "base_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -474,12 +511,22 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "635deb9ea116b95fd9c1b8cae1708189d28d86ac",
+      "head_sha": "67f67ae36446a50e04184f39163fd25f24c9fdb4",
       "preview_path": "pr/357/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33648926379",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33664833824",
       "status": "published",
       "title": "Gradescope autograder",
       "url": "https://github.com/plclub/sf-in-lean/pull/357"
+    },
+    "360": {
+      "base_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
+      "changed_variants": [],
+      "head_sha": "27f477e2867d8589dc8ea1f816bbfc23d2eec7f8",
+      "preview_path": "pr/360/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Linter performance: pre-index each command's info trees",
+      "url": "https://github.com/plclub/sf-in-lean/pull/360"
     }
   },
   "schema": 3

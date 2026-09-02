@@ -568,4 +568,4 @@ def delabTm : Delab := whenPPOption getPPNotation do
 
 end StlcArith
 
--- Built on 2026-09-02 15:32 UTC
+-- Built on 2026-09-02 18:07 UTC

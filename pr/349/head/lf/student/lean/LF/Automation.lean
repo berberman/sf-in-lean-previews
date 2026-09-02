@@ -1089,4 +1089,4 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
 end Pumping
 end RegExp
 
--- Built on 2026-09-02 15:30 UTC
+-- Built on 2026-09-02 18:05 UTC

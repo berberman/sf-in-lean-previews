@@ -640,4 +640,386 @@ import SFLCompat
 
 --  ### Exercise: Formalizing the Extensions
 
--- Built on 2026-09-02 15:32 UTC
+--  Syntax:
+
+namespace StlcExtended
+
+open scoped MyGetElem
+
+inductive Ty : Type where
+  | arrow : Ty → Ty → Ty
+  | nat  : Ty
+  | sum  : Ty → Ty → Ty
+  | list : Ty → Ty
+  | unit : Ty
+  | prod : Ty → Ty → Ty
+
+inductive Tm : Type where
+  -- pure STLC
+  | var : String → Tm
+  | app : Tm → Tm → Tm
+  | abs : String → Ty → Tm → Tm
+  -- numbers
+  | const: Nat → Tm
+  | succ : Tm → Tm
+  | pred : Tm → Tm
+  | mult : Tm → Tm → Tm
+  | ite0  : Tm → Tm → Tm → Tm
+  -- sums
+  | sumInl : Ty → Tm → Tm
+  | sumInr : Ty → Tm → Tm
+  | sumCase : Tm → String → Tm → String → Tm → Tm
+          -- i.e., `case t of inl x₁ => t₁ | inr x₂ => t₂`
+  -- lists
+  | listNil : Ty → Tm
+  | listCons : Tm → Tm → Tm
+  | listCase : Tm → Tm → String → String → Tm → Tm
+          -- i.e., [case t₁ of | nil => t₂ | x::y => t₃]
+  -- unit
+  | unit : Tm
+
+  -- You are going to be working on the following extensions:
+
+  -- pairs
+  | pair : Tm → Tm → Tm
+  | fst : Tm → Tm
+  | snd : Tm → Tm
+  -- let
+  | letIn : String → Tm → Tm → Tm
+         -- i.e., [let x = t₁ in t₂]
+  -- fix
+  | fix  : Tm → Tm
+
+--  Note that, for brevity, we've omitted booleans and
+--  instead provided a single `if0` form combining a zero
+--  test and a conditional. That is, instead of writing
+--
+--             if x = 0 then ... else ...
+--
+--  we'll write this:
+--
+--             if0 x then ... else ...
+
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation)
+syntax:50 stlcTy:51 " × " stlcTy:50 : stlcTy
+syntax:50 stlcTy:51 " + " stlcTy:50 : stlcTy
+syntax:51 " [ " stlcTy:50  " ] " : stlcTy
+
+scoped macro_rules (kind := Stlc.tyBracket)
+  | `(<{ ~$τ:term }>)    => pure τ
+  | `(<{ ($τ:stlcTy) }>) => `(<{ $τ:stlcTy }>)
+  | `(<{ $x:ident }>) =>
+      match x.getId.toString with
+      | "Nat" => `(Ty.nat)
+      | "Unit" => `(Ty.unit)
+      | _ => `(($x : Ty))
+  | `(<{ [ $τ₁:stlcTy ] }>) => `(Ty.list <{ $τ₁:stlcTy }>)
+  | `(<{ $τ₁:stlcTy → $τ₂:stlcTy }>)  => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
+  | `(<{ $τ₁:stlcTy × $τ₂:stlcTy }>)  => `(Ty.prod <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
+  | `(<{ $τ₁:stlcTy + $τ₂:stlcTy }>)  => `(Ty.sum <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
+  | `(<{ $τ₁:stlcTy -> $τ₂:stlcTy }>) => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
+
+#check <{ Nat -> Nat }>
+#check <{ List Nat }>
+#check <{ (Nat × Nat) -> Nat }>
+#check <{ (Nat + Nat) → Nat }>
+
+scoped syntax:max num : stlcTm
+scoped syntax:60 stlcTm:61 " * " stlcTm:60 : stlcTm
+scoped syntax:50 "if0 " stlcTm:51 " then " stlcTm:50 " else " stlcTm:50 : stlcTm
+
+scoped syntax:60 " inr " stlcTy:60 ppSpace stlcTm:60 : stlcTm
+scoped syntax:60 " inl " stlcTy:60 ppSpace stlcTm:60 : stlcTm
+scoped syntax:50 "case " stlcTm:50 " of " "inl" stlcVar " => " stlcTm:50 " | "
+  "inr" stlcVar " => " stlcTm:50 : stlcTm
+
+scoped syntax:60 " nil " stlcTy:60 : stlcTm
+scoped syntax:60 stlcTm:61 " :: " stlcTm:60 : stlcTm
+scoped syntax:50 "case " stlcTm:50 " of " "nil" " => " stlcTm:50 " | "
+  stlcVar " :: " stlcVar " => " stlcTm:50 : stlcTm
+
+scoped syntax:max " ( " stlcTm:60 " , " stlcTm:60 " ) " : stlcTm
+
+scoped syntax:50 "let " stlcVar " = " stlcTm:50 " in " stlcTm:50 : stlcTm
+
+open Lean in
+scoped macro_rules (kind := Stlc.tmBracket)
+  | `(<{ ~$e:term }>)    => pure e
+  | `(<{ ($t:stlcTm) }>) => `(<{ $t:stlcTm }>)
+  | `(<{ $x:ident }>) =>
+      match x.getId.toString with
+      | "Nat"  => Macro.throwErrorAt x "`Nat` is a type, not a term"
+      | "Unit"  => Macro.throwErrorAt x "`Unit` is a type, not a term"
+      | "succ" => Macro.throwErrorAt x "`succ` must be applied to an argument"
+      | "fst" => Macro.throwErrorAt x "`fst` must be applied to an argument"
+      | "snd" => Macro.throwErrorAt x "`snd` must be applied to an argument"
+      | "nil" => Macro.throwErrorAt x  "`nil` must be applied to an argument"
+      | "pred" => Macro.throwErrorAt x "`pred` must be applied to an argument"
+      | "inl" => Macro.throwErrorAt x "`inl` must be applied to two arguments"
+      | "inr" => Macro.throwErrorAt x "`inr` must be applied to two arguments"
+      | "fix" => Macro.throwErrorAt x  "`fix` must be applied to an argument"
+      | "unit" =>  `(Tm.unit)
+      | _      => `(Tm.var $(quote x.getId.toString))
+  | `(<{ λ $x : $τ . $t }>) => do
+      `(Tm.abs $(← Stlc.varStr x) <{ $τ:stlcTy }> <{ $t:stlcTm }>)
+  | `(<{ $t₁:stlcTm $t₂:stlcTm }>) =>
+      match t₁ with
+      | `(stlcTm| $f:ident) =>
+          match f.getId.toString with
+          | "succ" => `(Tm.succ <{ $t₂:stlcTm }>)
+          | "pred" => `(Tm.pred <{ $t₂:stlcTm }>)
+          | "fst" => `(Tm.fst <{ $t₂:stlcTm }>)
+          | "snd" => `(Tm.snd <{ $t₂:stlcTm }>)
+          | "inl" => Macro.throwErrorAt f  "`inl` must be applied to two arguments"
+          | "inr" => Macro.throwErrorAt f  "`inr` must be applied to two arguments"
+          | "fix" =>  `(Tm.fix  <{ $t₂:stlcTm }>)
+          | _      => `(Tm.app  <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
+      | _ => `(Tm.app <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
+
+  | `(<{ $n:num }>)      => `(Tm.const $n)
+  | `(<{ $t₁:stlcTm * $t₂:stlcTm }>) => `(Tm.mult <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
+  | `(<{ if0 $c then $t else $e }>) =>
+      `(Tm.ite0 <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
+
+  | `(<{ inl $τ $t}>) => `(Tm.sumInl <{ $τ:stlcTy }> <{ $t:stlcTm }>)
+  | `(<{ inr $τ $t}>) => `(Tm.sumInr <{ $τ:stlcTy }> <{ $t:stlcTm }>)
+  | `(<{ case $t of inl $x₁ => $t₁ | inr $x₂ => $t₂}>) => do
+      `(Tm.sumCase <{ $t:stlcTm }> $(← Stlc.varStr x₁) <{ $t₁:stlcTm }>
+          $(← Stlc.varStr x₂) <{ $t₂:stlcTm }>)
+
+  | `(<{ nil $τ }>) => `(Tm.listNil <{ $τ:stlcTy }>)
+  | `(<{ $t₁:stlcTm :: $t₂:stlcTm }>) => `(Tm.listCons <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
+  | `(<{ case $t of nil => $t₁ | $x₁ :: $x₂ => $t₂}>) => do
+      `(Tm.listCase <{ $t:stlcTm }> <{ $t₁:stlcTm }>
+          $(← Stlc.varStr x₁) $(← Stlc.varStr x₂) <{ $t₂:stlcTm }>)
+
+  | `(<{ ( $t₁:stlcTm , $t₂:stlcTm ) }>) => `(Tm.pair <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
+
+  | `(<{ let $x = $t₁ in $t₂ }>) => do
+    `(Tm.letIn $(← Stlc.varStr x) <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
+
+#check <{ case x :: y of nil => 0 | x :: y => 1 }>
+#check <{ inl Nat (3, 4) }>
+
+open Lean in
+/-- Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? -/
+def isPlainTmVarName (s : String) : Bool :=
+  Stlc.isPlainName s && s != "Nat" && s != "succ" && s != "pred" && s != "unit"
+    && s != "Unit" && s != "inl" && s != "inr" && s != "if0" && s != "case" && s != "nil"
+    && s != "fix"
+
+open Lean PrettyPrinter Delaborator SubExpr in
+/-- Rebuild `stlcTy` concrete syntax from a `Ty` value. -/
+partial def delabTyInner : DelabM (TSyntax `stlcTy) := do
+  let stx ←
+    match_expr ← getExpr with
+    | Ty.nat => `(stlcTy| $(mkIdent `Nat):ident)
+    | Ty.unit => `(stlcTy| $(mkIdent `Unit):ident)
+    | Ty.arrow _ _ => do
+        let a ← withAppFn <| withAppArg delabTyInner
+        let b ← withAppArg delabTyInner
+        `(stlcTy| $a → $b)
+    | Ty.prod _ _ => do
+        let a ← withAppFn <| withAppArg delabTyInner
+        let b ← withAppArg delabTyInner
+        `(stlcTy| $a × $b)
+    | Ty.sum _ _ => do
+        let a ← withAppFn <| withAppArg delabTyInner
+        let b ← withAppArg delabTyInner
+        `(stlcTy| $a + $b)
+    | Ty.list _ => do
+        let b ← withAppArg delabTyInner
+        `(stlcTy| [$b] )
+    | _ => do
+        match ← delab with
+        | `($i:ident) => `(stlcTy| $i:ident)
+        | e => `(stlcTy| ~$e)
+  (⟨·⟩) <$> annotateTermInfo ⟨stx.raw⟩
+
+open Lean PrettyPrinter Delaborator SubExpr in
+/-- Rebuild `stlcTm` concrete syntax from a `Tm` value. -/
+partial def delabTmInner : DelabM (TSyntax `stlcTm) := do
+  let stx ←
+    match_expr ← getExpr with
+    | Tm.var _ => do
+        let x ← withAppArg delab
+        match x with
+        | `($s:str) =>
+            if isPlainTmVarName s.getString then
+              `(stlcTm| $(mkIdent (Name.mkSimple s.getString)):ident)
+            else
+              let var : Term := mkIdent ``Tm.var
+              `(stlcTm| ~($var $x))
+        | _ =>
+            let var : Term := mkIdent ``Tm.var
+            `(stlcTm| ~($var $x))
+    | Tm.const _ => do
+        let n ← withAppArg delab
+        match n with
+        | `($n:num) => `(stlcTm| $n:num)
+        | _ =>
+            let const : Term := mkIdent ``Tm.const
+            `(stlcTm| ~($const $n))
+    | Tm.app _ _ => do
+        let f ← withAppFn <| withAppArg delabTmInner
+        let a ← withAppArg delabTmInner
+        `(stlcTm| $f $a)
+    | Tm.abs _ _ _ => do
+        let x ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
+        let τ ← withAppFn <| withAppArg delabTyInner
+        let t ← withAppArg delabTmInner
+        `(stlcTm| λ $x : $τ . $t)
+    | Tm.letIn _ _ _ => do
+        let x ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
+        let t₁ ← withAppFn <| withAppArg delabTmInner
+        let t₂ ← withAppArg delabTmInner
+        `(stlcTm| let $x = $t₁ in $t₂)
+    | Tm.succ _ => do
+        let t ← withAppArg delabTmInner
+        `(stlcTm| $(mkIdent `succ):ident $t)
+    | Tm.pred _ => do
+        let t ← withAppArg delabTmInner
+        `(stlcTm| $(mkIdent `pred):ident $t)
+    | Tm.mult _ _ => do
+        let a ← withAppFn <| withAppArg delabTmInner
+        let b ← withAppArg delabTmInner
+        `(stlcTm| $a * $b)
+    | Tm.ite0 _ _ _ => do
+        let c ← withAppFn <| withAppFn <| withAppArg delabTmInner
+        let t ← withAppFn <| withAppArg delabTmInner
+        let e ← withAppArg delabTmInner
+        `(stlcTm| if0 $c then $t else $e)
+    | Tm.sumInl _ _ => do
+        let τ ← withAppFn <| withAppArg delabTyInner
+        let t ← withAppArg delabTmInner
+        `(stlcTm| inl $τ $t)
+    | Tm.sumInr _ _ => do
+        let τ ← withAppFn <| withAppArg delabTyInner
+        let t ← withAppArg delabTmInner
+        `(stlcTm| inr $τ $t)
+    | Tm.sumCase _ _ _ _ _ => do
+        let c  ← withAppFn <| withAppFn <| withAppFn <| withAppFn <| withAppArg delabTmInner
+        let x₁ ← withAppFn <| withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
+        let t₁ ← withAppFn <| withAppFn <| withAppArg delabTmInner
+        let x₂ ← withAppFn <| withAppArg Stlc.delabVarInner
+        let t₂ ← withAppArg delabTmInner
+        `(stlcTm| case $c of inl $x₁ => $t₁ | inr $x₂ => $t₂)
+    | Tm.listNil _ => do
+        let t ← withAppArg delabTyInner
+        `(stlcTm| nil $t)
+    | Tm.listCons _ _ => do
+        let a ← withAppFn <| withAppArg delabTmInner
+        let b ← withAppArg delabTmInner
+        `(stlcTm| $a :: $b)
+    | Tm.pair _ _ => do
+        let a ← withAppFn <| withAppArg delabTmInner
+        let b ← withAppArg delabTmInner
+        `(stlcTm| ( $a , $b ) )
+    | Tm.fst _ => do
+        let b ← withAppArg delabTmInner
+        `(stlcTm| $(mkIdent `fst):ident $b )
+    | Tm.snd _ => do
+        let b ← withAppArg delabTmInner
+        `(stlcTm| $(mkIdent `snd):ident $b )
+    | Tm.listCase _ _ _ _ _ => do
+        let c ←  withAppFn <| withAppFn <| withAppFn <| withAppFn <| withAppArg delabTmInner
+        let t₁ ← withAppFn <| withAppFn <| withAppFn <| withAppArg delabTmInner
+        let x₁ ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
+        let x₂ ← withAppFn <| withAppArg Stlc.delabVarInner
+        let t₂ ← withAppArg delabTmInner
+        `(stlcTm| case $c of nil => $t₁ | $x₁ :: $x₂ => $t₂)
+    | Tm.fix _ => do
+        let t ← withAppArg delabTmInner
+        `(stlcTm| $(mkIdent `fix):ident $t)
+    | Tm.unit => do
+        `(stlcTm| $(mkIdent `unit):ident)
+    | _ => do
+        -- `subst` is defined below, so it is matched by name rather than with
+        -- `match_expr`; a substitution prints in its own bracket notation.
+        let e ← getExpr
+        if e.getAppFn.constName? == some `SltcExtended.subst && e.getAppNumArgs == 3 then
+          let x ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
+          let s ← withAppFn <| withAppArg delabTmInner
+          let t ← withAppArg delabTmInner
+          `(stlcTm| [$x := $s] $t)
+        else
+          match ← delab with
+          | `($i:ident) => `(stlcTm| $i:ident)
+          | e => `(stlcTm| ~$e)
+  (⟨·⟩) <$> annotateTermInfo ⟨stx.raw⟩
+
+open Lean PrettyPrinter Delaborator SubExpr in
+@[delab app.StlcExtended.Ty.nat, delab app.StlcExtended.Ty.arrow, delab app.StlcExtended.Ty.unit,
+  delab app.StlcExtended.Ty.prod, delab app.StlcExtended.Ty.sum, delab app.StlcExtended.Ty.list]
+def delabTy : Delab := whenPPOption getPPNotation do
+  guard <| match_expr ← getExpr with
+    | Ty.nat => true | Ty.arrow _ _ => true
+    | Ty.prod _ _ => true | Ty.sum _ _ => true
+    | Ty.list _ => true | Ty.unit => true | _ => false
+  match ← delabTyInner with
+  | `(stlcTy| ~$e) => pure e
+  | e => `(<{ $e:stlcTy }>)
+
+open Lean PrettyPrinter Delaborator SubExpr in
+@[delab app.StlcExtended.Tm.var, delab app.StlcExtended.Tm.app, delab app.StlcExtended.Tm.abs,
+  delab app.StlcExtended.Tm.const, delab app.StlcExtended.Tm.succ, delab app.StlcExtended.Tm.pred,
+  delab app.StlcExtended.Tm.mult, delab app.StlcExtended.Tm.ite0, delab app.StlcExtended.Tm.listNil,
+  delab app.StlcExtended.Tm.listCons, delab app.StlcExtended.Tm.listCase,
+  delab app.StlcExtended.Tm.sumInl, delab app.StlcExtended.Tm.sumInr,
+  delab app.StlcExtended.Tm.sumCase, delab app.StlcExtended.Tm.pair,
+  delab app.StlcExtended.Tm.fst, delab app.StlcExtended.Tm.snd, delab app.StlcExtended.Tm.unit,
+  delab app.StlcExtended.Tm.letIn, delab app.StlcExtended.Tm.fix ]
+def delabTm : Delab := whenPPOption getPPNotation do
+  guard <| match_expr ← getExpr with
+    | Tm.var _ => true | Tm.app _ _ => true | Tm.abs _ _ _ => true
+    | Tm.const _ => true | Tm.succ _ => true | Tm.pred _ => true
+    | Tm.mult _ _ => true | Tm.ite0 _ _ _ => true
+    | Tm.unit => true | Tm.fix _ => true | Tm.letIn _ _ _ => true
+    | Tm.sumInl _ _ => true | Tm.sumInr _ _ => true | Tm.sumCase _ _ _ _ _ => true
+    | Tm.listNil _ => true | Tm.listCons _ _ => true | Tm.listCase _ _ _ _ _ => true
+    | Tm.pair _ _ => true | Tm.fst _ => true | Tm.snd _ => true
+    | _ => false
+  match ← delabTmInner with
+  | `(stlcTm| ~($e)) => pure e
+  | `(stlcTm| ~$e) => pure e
+  | e => `(<{ $e:stlcTm }>)
+--  END DETAILS
+
+--  Next we define the values of our language.
+
+inductive Tm.IsValue : Tm → Prop where
+  -- In pure STLC, function abstractions are values:
+  | abs (x : String) (τ₂ : Ty) (t₁ : Tm) : IsValue <{λ ~x : ~τ₂ . ~t₁}>
+  -- Numbers are values:
+  | nat (n : Nat) : IsValue (.const n)
+  -- A tagged value is a value:
+  | sumInl (v : Tm) (τ₁ : Ty) :
+      IsValue v →
+      IsValue <{inl ~τ₁ ~v}>
+  | sumInr  (v : Tm) (τ₁ : Ty) :
+      IsValue v →
+      IsValue <{inr ~τ₁ ~v}>
+  -- A list is a value iff its head and tail are values:
+  | listNil (τ₁ : Ty) : IsValue <{nil ~τ₁}>
+  | listCons (v₁ v₂ : Tm) :
+      IsValue v₁ →
+      IsValue v₂ →
+      IsValue <{~v₁ :: ~v₂}>
+  -- A unit is always a value
+  | unit : IsValue .unit
+  -- A pair is a value if both components are:
+  | pair (v₁ v₂ : Tm) :
+      IsValue v₁ →
+      IsValue v₂ →
+      IsValue <{(~v₁, ~v₂)}>
+
+attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl Tm.IsValue.sumInr
+    Tm.IsValue.listNil Tm.IsValue.listCons Tm.IsValue.unit Tm.IsValue.pair
+
+--  The proofs of progress and preservation for this
+--  enriched system are essentially the same (though of
+--  course longer) as for the pure STLC.
+
+end StlcExtended
+
+-- Built on 2026-09-02 18:07 UTC
