@@ -1406,4 +1406,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
 
 attribute [autogradedProof 6] anyTrue_eq_anyTrue
 
--- Built on 2026-09-02 17:26 UTC
+-- Built on 2026-09-02 17:48 UTC
