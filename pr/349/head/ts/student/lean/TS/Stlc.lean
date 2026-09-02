@@ -543,6 +543,8 @@ inductive Tm.IsValue : Tm → Prop where
   | tru : Tm.IsValue <{ true }>
   | fls : Tm.IsValue <{ false }>
 
+attribute [StlcEval] Tm.IsValue.abs Tm.IsValue.tru Tm.IsValue.fls
+
 --  The example terms named above are all abstractions, hence all values.
 --  We record that once each, so that the reduction examples can cite the
 --  fact by name instead of unfolding the definition again at every use.
@@ -1381,4 +1383,4 @@ example : ¬ ∃ S T, <{ ∅ ⊢ λ x : ~S . x x ⦂ ~T }> := by
 
 end Stlc
 
--- Built on 2026-09-01 20:51 UTC
+-- Built on 2026-09-02 02:49 UTC

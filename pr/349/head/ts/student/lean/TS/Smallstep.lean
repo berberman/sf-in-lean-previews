@@ -1286,12 +1286,12 @@ end Slang
 
 example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
   apply Multi.step (y := .p (.c 3) (.c 7))
-  . apply Step.plusRight
-    . apply IsValue.const
-    . apply Step.plus
-  . apply Multi.step (y := .c 10)
-    . apply Step.plus
-    . apply Multi.refl
+  · apply Step.plusRight
+    · apply IsValue.const
+    · apply Step.plus
+  · apply Multi.step (y := .c 10)
+    · apply Step.plus
+    · apply Multi.refl
 
 --  Proofs that one term normalizes to another must repeatedly apply
 --  `Multi.step` until the term reaches a normal form, with some very
@@ -1344,7 +1344,12 @@ syntax "normalize" " using " ident,+ : tactic
 
 macro_rules
   | `(tactic| normalize using $xs,*) =>
-    `(tactic| repeat apply Multi.step <;> try solve_by_elim (maxDepth:=15) using $xs,*)
+    `(tactic|
+      first
+      | apply Multi.refl
+      | (apply Multi.step
+         · solve_by_elim (maxDepth := 15) (constructor := false) only using $xs,*
+         · normalize using $xs,*))
 
 --  And voilà:
 
@@ -1359,4 +1364,4 @@ example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
 theorem normalize_ex : exists e', (.p (.c 3) (.p (.c 2) (.c 1))) ⟶* e' ∧ IsValue e' := by
   sorry
 
--- Built on 2026-09-01 20:51 UTC
+-- Built on 2026-09-02 02:49 UTC

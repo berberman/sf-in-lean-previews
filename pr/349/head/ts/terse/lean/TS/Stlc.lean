@@ -529,6 +529,8 @@ inductive Tm.IsValue : Tm → Prop where
   | tru : Tm.IsValue <{ true }>
   | fls : Tm.IsValue <{ false }>
 
+attribute [StlcEval] Tm.IsValue.abs Tm.IsValue.tru Tm.IsValue.fls
+
 theorem idB_value : idB.IsValue := .abs ..
 theorem idBB_value : idBB.IsValue := .abs ..
 theorem notB_value : notB.IsValue := .abs ..
@@ -1269,4 +1271,4 @@ example : ¬ ∃ T, <{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~T }> := by
 
 end Stlc
 
--- Built on 2026-09-01 20:52 UTC
+-- Built on 2026-09-02 02:50 UTC

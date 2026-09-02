@@ -2101,8 +2101,8 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ ~t ⦂ ~τ }>) :
         apply canonical_forms_nat at h₁
         let ⟨n₁, h₁⟩ := h₁ ht₁
         rw [h₁]; cases n₁
-        . exists t₂; apply_rules using ExtStlcEval
-        . exists t₃; apply_rules using ExtStlcEval
+        · exists t₂; apply_rules using ExtStlcEval
+        · exists t₃; apply_rules using ExtStlcEval
       -- t₁ is not a value
       case _ ht₁ =>
         obtain ⟨t₁', ht₁⟩ := ht₁
@@ -2131,8 +2131,8 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ ~t ⦂ ~τ }>) :
       case _ ht =>
         apply canonical_forms_sum at h₁
         obtain ⟨v, hv, hl | hr⟩ := h₁ ht
-        . rw [hl]; exists <{ [~x₁ := ~v] ~t₁ }>; apply_rules using ExtStlcEval
-        . rw [hr]; exists <{ [~x₂ := ~v] ~t₂ }>; apply_rules using ExtStlcEval
+        · rw [hl]; exists <{ [~x₁ := ~v] ~t₁ }>; apply_rules using ExtStlcEval
+        · rw [hr]; exists <{ [~x₂ := ~v] ~t₂ }>; apply_rules using ExtStlcEval
       -- t₁ is not a value
       case _ ht =>
         obtain ⟨t', ht⟩ := ht
@@ -2159,8 +2159,8 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ ~t ⦂ ~τ }>) :
         case _ ht =>
           apply canonical_forms_list at h₁
           obtain hnil | ⟨v₁, v₂, hv₁, hv₂, h⟩ := h₁ ht
-          . rw [hnil]; exists t₂; apply_rules using ExtStlcEval
-          . rw [h]; exists <{ [~x₂ := ~v₂] [~x₁ := ~v₁] ~t₃ }>; apply_rules using ExtStlcEval
+          · rw [hnil]; exists t₂; apply_rules using ExtStlcEval
+          · rw [h]; exists <{ [~x₂ := ~v₂] [~x₁ := ~v₁] ~t₃ }>; apply_rules using ExtStlcEval
         -- t₁ is not a value
         case _ ht =>
           obtain ⟨t', ht⟩ := ht
@@ -2255,18 +2255,18 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (τ₁ : Ty) (
   | var y =>
       inversion ht with | _ h =>
       by_cases h₁ : x = y
-      . subst h₁; simp at h; subst h;
+      · subst h₁; simp at h; subst h;
         apply weakening_empty at hv
         simp; assumption
-      . rw [PartialMap.update_neq] at h <;> simp_all
+      · rw [PartialMap.update_neq] at h <;> simp_all
         apply_rules using ExtStlcTyping
   | abs y _ _ ih =>
       inversion ht with | _ h =>
       by_cases h₁ : x = y
-      . simp_all [PartialMap.update_shadow]; apply_rules using ExtStlcTyping
-      . rw [PartialMap.update_permute] at h
-        . simp_all; apply_rules using ExtStlcTyping
-        . lia
+      · simp_all [PartialMap.update_shadow]; apply_rules using ExtStlcTyping
+      · rw [PartialMap.update_permute] at h
+        · simp_all; apply_rules using ExtStlcTyping
+        · lia
   | sumCase _ y₁ _ y₂ _ ih ih₁ ih₂ =>
       inversion ht with | _ h₁ h₂ h₃ =>
       by_cases x = y₁ <;> by_cases x = y₂ <;> constructor <;> first
@@ -2302,8 +2302,8 @@ theorem preservation (t t' : Tm) (τ : Ty)
       inversion he with (try (constructor <;> apply_rules; done))
       | appAbs _ h =>
           apply substitution_preserves_typing (τ₁:=τ₂)
-          . inversion h₁; assumption
-          . simp_all
+          · inversion h₁; assumption
+          · simp_all
     | ite0 Γ t₁ t₂ t₃ τ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
       inversion he <;> first
       | constructor <;> simp_all
@@ -2340,8 +2340,8 @@ theorem preservation (t t' : Tm) (τ : Ty)
       inversion he with
       | let₁ =>
         constructor
-        . apply ih₁ <;> trivial
-        . assumption
+        · apply ih₁ <;> trivial
+        · assumption
       | letValue =>
         apply substitution_preserves_typing (τ₁:=τ₁) <;> trivial
     | fix Γ t₁ τ₁ h ih =>
@@ -2350,9 +2350,9 @@ theorem preservation (t t' : Tm) (τ : Ty)
         constructor; apply ih <;> trivial
       | fixAbs =>
         apply substitution_preserves_typing (τ₁:=τ₁)
-        . inversion h; trivial
-        . constructor; trivial
+        · inversion h; trivial
+        · constructor; trivial
 
 end STLCExtended
 
--- Built on 2026-09-01 20:51 UTC
+-- Built on 2026-09-02 02:49 UTC

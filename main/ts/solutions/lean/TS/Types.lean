@@ -290,7 +290,7 @@ def Tm.IsStuck (t : Tm) : Prop := Tm.IsNormalForm t ∧ ¬ Tm.IsValue t
 --  ### Exercise (2 stars): some_term_is_stuck ⭐⭐
 
 theorem some_term_is_stuck : ∃ t, Tm.IsStuck t := by
-  refine ⟨<{ succ false }>, ?_, ?_⟩
+  exists <{ succ false }>; constructor
   · intro hc; obtain ⟨t', hstp⟩ := hc
     cases hstp with
     | succStep _ _ h => cases h
@@ -1262,4 +1262,4 @@ end TM
 --      throughout (and maybe in Smallstep and Imp?)... `dev` block headers
 --      too, if we want to be really consistent.
 
--- Built on 2026-09-01 15:25 UTC
+-- Built on 2026-09-02 02:38 UTC

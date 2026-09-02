@@ -1050,34 +1050,6 @@ details.sf-quiz-solution > .sf-quiz-solution-body {
   border-left: 3px solid var(--sf-rule, #ccc);
 }
 </style><style>
-details.sf-details {
-  margin: 1em 0;
-  padding: 0.4em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-  background: rgba(0, 0, 0, 0.015);
-  border-radius: 2px;
-}
-details.sf-details > summary {
-  cursor: pointer;
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  color: var(--sf-heading, inherit);
-  list-style: none;
-}
-details.sf-details > summary::-webkit-details-marker { display: none; }
-details.sf-details > summary::before {
-  content: "▸ ";
-  display: inline-block;
-  width: 1em;
-  transition: transform 120ms ease-in-out;
-}
-details.sf-details[open] > summary::before {
-  content: "▾ ";
-}
-details.sf-details[open] {
-  background: rgba(0, 0, 0, 0.03);
-}
-</style><style>
 table.bnf {
   margin: 1em auto;
   border-collapse: collapse;
@@ -1106,6 +1078,34 @@ table.bnf td.bnf-note {
   font-family: inherit;
   font-style: italic;
   opacity: 0.65;
+}
+</style><style>
+details.sf-details {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.015);
+  border-radius: 2px;
+}
+details.sf-details > summary {
+  cursor: pointer;
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  color: var(--sf-heading, inherit);
+  list-style: none;
+}
+details.sf-details > summary::-webkit-details-marker { display: none; }
+details.sf-details > summary::before {
+  content: "▸ ";
+  display: inline-block;
+  width: 1em;
+  transition: transform 120ms ease-in-out;
+}
+details.sf-details[open] > summary::before {
+  content: "▾ ";
+}
+details.sf-details[open] {
+  background: rgba(0, 0, 0, 0.03);
 }
 </style><style>
 
@@ -2331,7 +2331,7 @@ part, by the National Science Foundation under the NSF Expeditions grant
               </section>
             </section>
           <div class="sf-build-stamp">
-            Built on 2026-09-01 15:25 UTC</div>
+            Built on 2026-09-02 02:38 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="#" rel="prev" title=" Type Systems"><span class="arrow">←</span><span class="where"> Type Systems</span></a><a class="local-button active" href="Slang/#Slang" rel="next" title="2. Slang: Arithmetic and Boolean Expressions"><span class="where">2. Slang: Arithmetic and Boolean Expressions</span><span class="arrow">→</span></a></nav>
           </div>

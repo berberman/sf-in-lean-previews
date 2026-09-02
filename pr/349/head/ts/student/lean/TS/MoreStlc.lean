@@ -2014,8 +2014,8 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ ~t ⦂ ~τ }>) :
         apply canonical_forms_nat at h₁
         let ⟨n₁, h₁⟩ := h₁ ht₁
         rw [h₁]; cases n₁
-        . exists t₂; apply_rules using ExtStlcEval
-        . exists t₃; apply_rules using ExtStlcEval
+        · exists t₂; apply_rules using ExtStlcEval
+        · exists t₃; apply_rules using ExtStlcEval
       -- t₁ is not a value
       case _ ht₁ =>
         obtain ⟨t₁', ht₁⟩ := ht₁
@@ -2044,8 +2044,8 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ ~t ⦂ ~τ }>) :
       case _ ht =>
         apply canonical_forms_sum at h₁
         obtain ⟨v, hv, hl | hr⟩ := h₁ ht
-        . rw [hl]; exists <{ [~x₁ := ~v] ~t₁ }>; apply_rules using ExtStlcEval
-        . rw [hr]; exists <{ [~x₂ := ~v] ~t₂ }>; apply_rules using ExtStlcEval
+        · rw [hl]; exists <{ [~x₁ := ~v] ~t₁ }>; apply_rules using ExtStlcEval
+        · rw [hr]; exists <{ [~x₂ := ~v] ~t₂ }>; apply_rules using ExtStlcEval
       -- t₁ is not a value
       case _ ht =>
         obtain ⟨t', ht⟩ := ht
@@ -2072,8 +2072,8 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ ~t ⦂ ~τ }>) :
         case _ ht =>
           apply canonical_forms_list at h₁
           obtain hnil | ⟨v₁, v₂, hv₁, hv₂, h⟩ := h₁ ht
-          . rw [hnil]; exists t₂; apply_rules using ExtStlcEval
-          . rw [h]; exists <{ [~x₂ := ~v₂] [~x₁ := ~v₁] ~t₃ }>; apply_rules using ExtStlcEval
+          · rw [hnil]; exists t₂; apply_rules using ExtStlcEval
+          · rw [h]; exists <{ [~x₂ := ~v₂] [~x₁ := ~v₁] ~t₃ }>; apply_rules using ExtStlcEval
         -- t₁ is not a value
         case _ ht =>
           obtain ⟨t', ht⟩ := ht
@@ -2126,8 +2126,8 @@ theorem preservation (t t' : Tm) (τ : Ty)
       inversion he with (try (constructor <;> apply_rules; done))
       | appAbs _ h =>
           apply substitution_preserves_typing (τ₁:=τ₂)
-          . inversion h₁; assumption
-          . simp_all
+          · inversion h₁; assumption
+          · simp_all
     | ite0 Γ t₁ t₂ t₃ τ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
       inversion he <;> first
       | constructor <;> simp_all
@@ -2158,4 +2158,4 @@ theorem preservation (t t' : Tm) (τ : Ty)
 
 end STLCExtended
 
--- Built on 2026-09-01 20:51 UTC
+-- Built on 2026-09-02 02:49 UTC

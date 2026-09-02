@@ -1,5 +1,5 @@
 {
-  "main_sha": "7963434b2e0af28dcf17cd3ba33c295a27d30829",
+  "main_sha": "c9dd9d40f52020709a69b682caef1aa91338f6c8",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -379,11 +379,48 @@
     },
     "349": {
       "base_sha": "c9dd9d40f52020709a69b682caef1aa91338f6c8",
-      "changed_variants": [],
-      "head_sha": "bd32c80776cb00808ade667fcf5e0d6150de6525",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "492b1d8947926b1347e38d9d747b7a41bc175736",
       "preview_path": "pr/349/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33583983219",
+      "status": "published",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/349"
     },
