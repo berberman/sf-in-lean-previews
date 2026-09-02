@@ -678,6 +678,24 @@
        {"title": "Small-Step Slang", "shortTitle": null, "number": "5"},
        {"title": "Boolean Expressions", "shortTitle": null, "number": "2"}]},
      "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Automation-with--solve_by_elim":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Automation-with--solve_by_elim",
+     "data":
+     {"title": "Automation with  solve_by_elim",
+      "shortTitle": null,
+      "sectionNum": "3.5.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Small-Step Slang", "shortTitle": null, "number": "5"},
+       {"title": "Automation with  solve_by_elim",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Smallstep/"}],
    "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Arithmetic-Expressions":
    [{"id":
      "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Arithmetic-Expressions",
@@ -2396,6 +2414,17 @@
      "data":
      {"/StlcProp/#Stlc___weakening_empty":
       {"display": "weakening_empty",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Preservation",
+        "The Weakening Lemma"]}},
+     "address": "/StlcProp/"}],
+   "Stlc.weakening'":
+   [{"id": "Stlc___weakening___",
+     "data":
+     {"/StlcProp/#Stlc___weakening___":
+      {"display": "weakening'",
        "context":
        ["Type Systems",
         "StlcProp: Properties of STLC",

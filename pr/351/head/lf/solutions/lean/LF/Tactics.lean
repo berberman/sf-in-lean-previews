@@ -111,7 +111,7 @@ theorem rev_exercise1 {α : Type} (l l' : List α) (h : l = l'.rev) :
   symm
   apply reverse_reverse
 
---  ### Exercise (1 star): apply_rewrite (Optional, manually graded) ⭐
+--  ### Exercise (1 star): apply_rewrite (Optional, Manually graded) ⭐
 
 --  Briefly explain the difference between the tactics `apply` and `rw`.
 --  What are the situations where both can usefully be applied?
@@ -1409,7 +1409,7 @@ theorem map_injective_of_injective {α β : Type}
       injection h with hxy hxs
       rw [hf x y hxy, ih ys hxs]
 
---  ### Exercise (3 stars): unzip_zip (Advanced, manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): unzip_zip (Advanced, Manually graded) ⭐⭐⭐
 
 --  We proved `zip_unzip'` that `zip`ping the result of `unzip` recovers
 --  the original list. What about the other direction? Complete and prove
@@ -1526,4 +1526,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Built on 2026-08-31 21:53 UTC
+-- Built on 2026-09-02 14:26 UTC

@@ -290,7 +290,7 @@ def Tm.IsStuck (t : Tm) : Prop := Tm.IsNormalForm t ∧ ¬ Tm.IsValue t
 --  ### Exercise (2 stars): some_term_is_stuck ⭐⭐
 
 theorem some_term_is_stuck : ∃ t, Tm.IsStuck t := by
-  refine ⟨<{ succ false }>, ?_, ?_⟩
+  exists <{ succ false }>; constructor
   · intro hc; obtain ⟨t', hstp⟩ := hc
     cases hstp with
     | succStep _ _ h => cases h
@@ -1122,7 +1122,7 @@ end TM
 --        ifFunny : ⊢ t2 ⦂ Nat → ⊢ if true then t2 else t3 ⦂ Nat
 --      -- Determinism, Progress, and Preservation all remain true.`
 
---  ### Exercise (2 stars): variation1 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): variation1 (Manually graded) ⭐⭐
 
 --  Suppose that we add this new rule to the typing relation:
 
@@ -1141,7 +1141,7 @@ end TM
 --    Bool`) but is stuck.
 --  - Preservation: remains true.
 
---  ### Exercise (2 stars): variation2 (manually graded) ⭐⭐
+--  ### Exercise (2 stars): variation2 (Manually graded) ⭐⭐
 
 --  Suppose, instead, that we add this new rule to the `Tm.Step` relation:
 
@@ -1209,7 +1209,7 @@ end TM
 --  of changing the definitions that break just one of the properties and
 --  leave the others alone.
 
---  ### Exercise (1 star): remove_pred0 (manually graded) ⭐
+--  ### Exercise (1 star): remove_pred0 (Manually graded) ⭐
 
 --  The reduction rule `predZero` is a bit counter-intuitive: we might feel
 --  that it makes more sense for the predecessor of `0` to be undefined,
@@ -1221,7 +1221,7 @@ end TM
 --  be to raise an exception in this case, but this requires that we add
 --  exceptions to the language we're formalizing!
 
---  ### Exercise (4 stars): prog_pres_bigstep (Advanced, manually graded) ⭐⭐⭐⭐
+--  ### Exercise (4 stars): prog_pres_bigstep (Advanced, Manually graded) ⭐⭐⭐⭐
 
 --  Suppose our evaluation relation is defined in the big-step style. State
 --  appropriate analogs of the progress and preservation properties. (You
@@ -1262,4 +1262,4 @@ end TM
 --      throughout (and maybe in Smallstep and Imp?)... `dev` block headers
 --      too, if we want to be really consistent.
 
--- Built on 2026-08-31 21:55 UTC
+-- Built on 2026-09-02 14:28 UTC

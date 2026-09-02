@@ -506,7 +506,7 @@ theorem MStar' α (ss : List (List α)) (re : RegExp α)
     ss.foldr (· ++ ·) [] =~ Star re := by
   sorry
 
---  ### Exercise (1 star): EmptyStr_not_needed (Optional, manually graded) ⭐
+--  ### Exercise (1 star): EmptyStr_not_needed (Optional, Manually graded) ⭐
 
 --  It turns out that the `EmptyStr` constructor is actually
 --  not needed, since the regular expression matching the
@@ -567,7 +567,7 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     would not allow us to reason about the case `In x ∈ s₂`. -/
     sorry
 
---  ### Exercise (1 star): reNotEmpty (manually graded) ⭐
+--  ### Exercise (1 star): reNotEmpty (Manually graded) ⭐
 
 --  Write a recursive function `reNotEmpty` that tests
 --  whether a regular expression matches some string. Prove
@@ -909,4 +909,4 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
 end Pumping
 end RegExp
 
--- Built on 2026-08-31 21:53 UTC
+-- Built on 2026-09-02 14:26 UTC

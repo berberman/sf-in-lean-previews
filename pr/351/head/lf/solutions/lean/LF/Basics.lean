@@ -1817,7 +1817,7 @@ def even' (n : Nat) : Bool :=
 --  automatically, it is sometimes necessary to provide hints or write
 --  functions in slightly different ways.
 
---  ### Exercise (2 stars): decreasing (Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): decreasing (Optional, Manually graded) ⭐⭐
 
 --  To get a concrete sense of how termination checking works in Lean, find
 --  a way to write a sensible recursive definition (of a simple function on
@@ -1943,7 +1943,7 @@ theorem identity_fn_applied_twice (f : Bool → Bool) :
   rewrite [h, h]
   rfl
 
---  ### Exercise (1 star): negation_fn_applied_twice (manually graded) ⭐
+--  ### Exercise (1 star): negation_fn_applied_twice (Manually graded) ⭐
 
 --  Now state and prove a theorem `negation_fn_applied_twice` similar to
 --  the previous one but where the hypothesis says that the function `f`
@@ -2252,4 +2252,4 @@ theorem inspectBag_changeBag_comm_ticketed
 end Airport
 end NatPlayground
 
--- Built on 2026-08-31 21:53 UTC
+-- Built on 2026-09-02 14:26 UTC

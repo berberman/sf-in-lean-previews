@@ -423,7 +423,7 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 
 --   ----------------------------------------
 
---  ### Exercise (1 star): beval_rules (Optional, manually graded) ⭐
+--  ### Exercise (1 star): beval_rules (Optional, Manually graded) ⭐
 
 --  Here, again, is the definition of the `Bexp.eval` function:
 --
@@ -613,4 +613,4 @@ end Slang.AevalRExtended
 --  switch between points of view at will -- exactly what we did above in
 --  `Slang.Aexp.evalR_iff_eval` and `Slang.Bexp.evalR_iff_eval`.
 
--- Built on 2026-08-31 21:55 UTC
+-- Built on 2026-09-02 14:28 UTC

@@ -505,4 +505,4 @@ import SFLCompat
 --  National Science Foundation under the NSF Expeditions
 --  grant 1521523, *The Science of Deep Specification*.
 
--- Built on 2026-08-31 21:53 UTC
+-- Built on 2026-09-02 14:26 UTC

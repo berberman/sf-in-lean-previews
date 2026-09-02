@@ -229,7 +229,7 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 
 --   ----------------------------------------
 
---  ### Exercise (1 star): beval_rules (Optional, manually graded) ⭐
+--  ### Exercise (1 star): beval_rules (Optional, Manually graded) ⭐
 
 --  Here, again, is the definition of the `Bexp.eval`
 --  function:
@@ -414,4 +414,4 @@ end Slang.AevalRExtended
 --  Functional: computation. Relational: expressive. Best:
 --  both, proved equivalent.
 
--- Built on 2026-08-31 21:55 UTC
+-- Built on 2026-09-02 14:28 UTC

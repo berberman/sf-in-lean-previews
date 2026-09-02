@@ -480,7 +480,7 @@ theorem contradiction_implies_anything (a b : Prop) (h : a ∧ ¬ a) : b := by
 theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
   intro h; apply h; exact ha
 
---  ### Exercise (2 stars): double_neg_informal (Advanced, Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): double_neg_informal (Advanced, Optional, Manually graded) ⭐⭐
 
 --  Write an *informal* proof of `double_neg`: *Theorem*: `a` implies
 --  `¬ ¬ a`, for any proposition `a`.
@@ -490,7 +490,7 @@ theorem double_neg (a : Prop) (ha : a) : ¬ ¬ a := by
 theorem contrapositive (a b : Prop) (h : a → b) : (¬ b → ¬ a) := by
   sorry
 
---  ### Exercise (1 star): not_PNP_informal (Advanced, manually graded) ⭐
+--  ### Exercise (1 star): not_PNP_informal (Advanced, Manually graded) ⭐
 
 --  Write an informal proof of the proposition `∀ a : Prop, ¬ (a ∧ ¬ a)`.
 
@@ -556,10 +556,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ α : Type, ∀ x y : α, x = y ∧ x ≠ y → False
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -570,10 +571,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a b : Prop, a ∨ b → ¬ ¬ (a ∨ b)
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -584,10 +586,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a b : Prop, a → (a ∨ ¬ ¬ b)
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -598,10 +601,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a b : Prop, a ∨ b → (¬ ¬ a) ∨ (¬ ¬ b)
 --
---  1. `cases`, `left`, and `right`
---  2. only `cases`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `cases`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `cases` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -612,10 +616,11 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --
 --      ∀ a : Prop, 1 = 0 → (a ∨ ¬ a)
 --
---  1. `contradiction` `left`, and `right`
---  2. only `contradiction`
+--  1. `intro`, `apply`, and `exact` suffice
+--  2. `contradiction`
 --  3. `left` and/or `right`
---  4. none of the above
+--  4. `contradiction` and `left` and/or `right`
+--  5. none of the above
 
 --   ----------------------------------------
 
@@ -672,7 +677,7 @@ theorem discr_example (n : Nat) : ¬ (0 = n + 1) := by
 --  conclusions, we can use `exfalso` to replace them with `False`. The
 --  `contradiction` tactic takes care of all of this for us.
 
---  ### Exercise (2 stars): nil_is_not_cons (Advanced, Optional, manually graded) ⭐⭐
+--  ### Exercise (2 stars): nil_is_not_cons (Advanced, Optional, Manually graded) ⭐⭐
 
 --  Use the same technique as above to show that `[] ≠ x :: xs`. Do not use
 --  the `contradiction` tactic.
@@ -1926,4 +1931,4 @@ def ConsequentiaMirabilis := ∀ a : Prop, (¬ a → a) → a
 
 --  FILL IN HERE
 
--- Built on 2026-08-31 21:53 UTC
+-- Built on 2026-09-02 14:26 UTC
