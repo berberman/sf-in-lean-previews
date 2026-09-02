@@ -1,5 +1,5 @@
 {
-  "main_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
+  "main_sha": "2fe3c82f5edf445a030bb62b62f9876bd5bcf251",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -518,7 +518,7 @@
       "title": "Gradescope autograder",
       "url": "https://github.com/plclub/sf-in-lean/pull/357"
     },
-    "360": {
+    "361": {
       "base_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
       "changed_variants": [
         {
@@ -558,20 +558,10 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "27f477e2867d8589dc8ea1f816bbfc23d2eec7f8",
-      "preview_path": "pr/360/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33666164687",
-      "status": "published",
-      "title": "Linter performance: pre-index each command's info trees",
-      "url": "https://github.com/plclub/sf-in-lean/pull/360"
-    },
-    "361": {
-      "base_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
-      "changed_variants": [],
       "head_sha": "cba7de778c786fc0bd17e775e312c6ae3bf7a9f3",
       "preview_path": "pr/361/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33682445388",
+      "status": "published",
       "title": "Grading: add some missing attributes for non-optional exercises in LF",
       "url": "https://github.com/plclub/sf-in-lean/pull/361"
     }
