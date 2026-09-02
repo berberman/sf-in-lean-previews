@@ -518,7 +518,7 @@
       "title": "Gradescope autograder",
       "url": "https://github.com/plclub/sf-in-lean/pull/357"
     },
-    "358": {
+    "359": {
       "base_sha": "e7dce21acefd0d5b4aeac62455bb556c5d14f7f4",
       "changed_variants": [
         {
@@ -558,20 +558,10 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "3eafe099c1ecf17c96c850a8c68eeb080a3d115a",
-      "preview_path": "pr/358/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33653507370",
-      "status": "published",
-      "title": "Lists: Terse friendliness",
-      "url": "https://github.com/plclub/sf-in-lean/pull/358"
-    },
-    "359": {
-      "base_sha": "e7dce21acefd0d5b4aeac62455bb556c5d14f7f4",
-      "changed_variants": [],
       "head_sha": "c65da6088b38291c7a776bcb856b04f03f905e4b",
       "preview_path": "pr/359/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33658420715",
+      "status": "published",
       "title": "Poly: Terse-friendliness",
       "url": "https://github.com/plclub/sf-in-lean/pull/359"
     }
