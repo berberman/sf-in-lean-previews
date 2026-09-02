@@ -425,49 +425,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/349"
     },
     "351": {
-      "base_sha": "28b97041df1406e61ac66a2d0d24db474d45128f",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "8a747692826af09e04f5231d0b5bcae5f550b428",
+      "base_sha": "c9dd9d40f52020709a69b682caef1aa91338f6c8",
+      "changed_variants": [],
+      "head_sha": "d3ce5936cc9928e9cbfe9b2f0a82ea68806e2092",
       "preview_path": "pr/351/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33443121959",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Release script: Updated to simplify usage",
       "url": "https://github.com/plclub/sf-in-lean/pull/351"
     },
@@ -517,6 +480,53 @@
       "status": "published",
       "title": "Build: Install devcontainer in built artifacts",
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
+    },
+    "356": {
+      "base_sha": "c9dd9d40f52020709a69b682caef1aa91338f6c8",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "c6cdc806a2b6cec606982ff28c5527765940757c",
+      "preview_path": "pr/356/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33639375663",
+      "status": "published",
+      "title": "Induction: Updated quizzes with more context",
+      "url": "https://github.com/plclub/sf-in-lean/pull/356"
     }
   },
   "schema": 3
