@@ -1,5 +1,5 @@
 {
-  "main_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
+  "main_sha": "a37b31b8d6d0e3e7bc34f1f69d759c708294fd91",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -520,11 +520,48 @@
     },
     "360": {
       "base_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "27f477e2867d8589dc8ea1f816bbfc23d2eec7f8",
       "preview_path": "pr/360/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33666164687",
+      "status": "published",
       "title": "Linter performance: pre-index each command's info trees",
       "url": "https://github.com/plclub/sf-in-lean/pull/360"
     }

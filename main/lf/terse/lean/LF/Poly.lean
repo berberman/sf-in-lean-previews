@@ -150,6 +150,12 @@ def replicate' α (x : α) (count : Nat) : List α :=
 --  Output:
 --    replicate'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
 
+--  The generated `u_1` is part of Lean's bookkeeping for
+--  treating types more generally. We will not need to
+--  interpret names like this for now — you can ignore them
+--  when they appear in Lean's output unless we explicitly
+--  call attention to them.
+
 --  Lean has used *type inference* to deduce a type for `α`.
 
 --  #### Type Argument Synthesis
@@ -432,6 +438,32 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --  knows which branch to take during the computation done
 --  by the `rfl` tactic.
 
+--  ### Exercise (3 stars): unzip (Manually graded) ⭐⭐⭐
+
+--  The function `unzip` goes in the other direction from
+--  `zip`: it takes a list of pairs and returns a pair of
+--  lists.
+--
+--  Fill in the definition of `unzip` below and write
+--  simplification rules that characterize it. Make sure it
+--  that passes the given unit test. Prove `unzip_test_fst`
+--  and `unzip_test_snd` by rewriting with your
+--  simplification lemmas instead of using `rfl` directly.
+--  Remember that you can use `dsimp only` to simplify
+--  expressions accessing the `fst` or `snd` elements of a
+--  pair.
+
+def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := sorry
+
+theorem unzip_test1 : unzip [(1, false), (2, true)] = ([1, 2], [false, true]) := by
+  sorry
+
+theorem unzip_test_fst : (unzip [(1, false), (2, true)]).fst = [1, 2] := by
+  sorry
+
+theorem unzip_test_snd : (unzip [(1, false), (2, true)]).snd = [false, true] := by
+  sorry
+
 --  ### Polymorphic Options
 
 def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
@@ -694,4 +726,4 @@ def fold_plus : List Nat → Nat → Nat :=
 --  Output:
 --    fold_plus : List Nat → Nat → Nat
 
--- Built on 2026-09-02 17:47 UTC
+-- Built on 2026-09-02 17:26 UTC
