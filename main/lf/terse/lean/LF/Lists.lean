@@ -157,6 +157,10 @@ def append (l₁ l₂ : NatList) : NatList :=
 
 --  ### Type Classes and Overloading Notation
 
+--  Lean overloads notation like `++` via *type classes*:
+--  registering an `HAppend` instance lets `++` mean
+--  `append` for `NatList`.
+
 instance : HAppend NatList NatList NatList where
   hAppend := append
 
@@ -211,172 +215,6 @@ def foo (n : Nat) : NatList :=
   | n' + 1 => (n' + 1) :: foo n'
 
 --   ----------------------------------------
-
---  ### Exercises
-
---  ### Counting
-
---  ### Exercise (1 star): counting ⭐
-
---  Define a `count` function for `NatList`s that counts the
---  number of times an element `n` appears in the list.
-
-def count (n : Nat) (l : NatList) : Nat := sorry
-
---  Now, prove these lemmas which should hold about your
---  definition.
-
-theorem count_nil (n : Nat) : count n [] = 0 := sorry
-
-theorem count_cons_def (n h : Nat) (t : NatList) :
-    count n (h :: t) =
-      bif n == h then count n t + 1 else count n t := sorry
-
-theorem count_cons_same (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = true) :
-    count n₁ (n₂ :: t) = count n₁ t + 1 := by
-  sorry
-
-theorem count_cons_diff (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = false) :
-    count n₁ (n₂ :: t) = count n₁ t := by
-  sorry
-
-example : count 1 [1] = 1 := by
-  rw [count_cons_same _ _ _ rfl]
-  rw [count_nil]
-
-example : count 2 [2, 2] = 2 := sorry
-
-theorem test_count1 : count 1 [1, 1, 4] = 2 := sorry
-
-theorem test_count2 : count 5 [1, 1, 4] = 0 := sorry
-
---  Again, all these proofs could be completed with just
---  `rfl`, because the proof is computationally
---  straight-forward -- compute both sides of the equality
---  and check if they are the same.
-
-example : count 1 [1, 2, 3, 1, 4, 1] = 3 := sorry
-example : count 6 [1, 2, 3, 1, 4, 1] = 0 := sorry
-
---  ### Membership
-
---  ### Exercise (1 star): membership ⭐
-
-def member (n : Nat) (l : NatList) : Bool := sorry
-
-theorem member_nil (n : Nat) : member n [] = false := sorry
-
-theorem member_cons_same (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = true) :
-    member n₁ (n₂ :: t) = true := by
-  sorry
-
-theorem member_cons_diff (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = false) :
-    member n₁ (n₂ :: t) = member n₁ t := by
-  sorry
-
-example : member 1 [1] = true := by
-  rw [member_cons_same _ _ _ rfl]
-
-example : member 2 [1] = false := sorry
-
-theorem test_member1 : member 1 [1, 4, 1] = true := sorry
-
-theorem test_member2 : member 2 [1, 4, 1] = false := sorry
-
---  ### Removal
-
---  ### Exercise (3 stars): removing (Optional) ⭐⭐⭐
-
---  Here are some more `NatList` functions for you to
---  practice with.
---
---  When `removeOne` is applied to a list without the number
---  to remove, it should return the same list unchanged.
-
-def removeOne (n : Nat) (l : NatList) : NatList := sorry
-
-theorem removeOne_nil (n : Nat) : removeOne n nil = nil := sorry
-
-theorem removeOne_cons_same (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = true) :
-    removeOne n₁ (n₂ :: t) = t := by
-  sorry
-
-theorem removeOne_cons_diff (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = false) :
-    removeOne n₁ (n₂ :: t) = n₂ :: removeOne n₁ t := by
-  sorry
-
-example : removeOne 5 [1, 5, 4] = [1, 4] := by
-  rw [removeOne_cons_diff _ _ _ rfl]
-  rw [removeOne_cons_same _ _ _ rfl]
-
-example : count 5 (removeOne 5 [1, 5, 4]) = 0 := sorry
-
-theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
-
-theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
-
-def removeAll (n : Nat) (l : NatList) : NatList := sorry
-
-theorem removeAll_nil (n : Nat) : removeAll n [] = [] := sorry
-
-theorem removeAll_cons_same (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = true) :
-    removeAll n₁ (n₂ :: t) = removeAll n₁ t := by
-  sorry
-
-theorem removeAll_cons_diff (n₁ n₂ : Nat) (t : NatList)
-  (h : (n₁ == n₂) = false) :
-    removeAll n₁ (n₂ :: t) = n₂ :: removeAll n₁ t := by
-  sorry
-
-example : count 5 (removeAll 5 [5, 1]) = 0 := by
-  rw [removeAll_cons_same _ _ _ rfl]
-  rw [removeAll_cons_diff _ _ _ rfl]
-  rw [removeAll_nil]
-  rw [count_cons_diff _ _ _ rfl]
-  rw [count_nil]
-
-example : count 5 (removeAll 5 [5, 5]) = 0 := sorry
-
-theorem test_removeAll1 : count 4 (removeAll 5 [4, 5, 4]) = 2 := sorry
-
-theorem test_removeAll2 : count 5 (removeAll 5 [2, 5, 5, 5, 1]) = 0 := sorry
-
---  ### Included
-
---  ### Exercise (3 stars): included (Optional) ⭐⭐⭐
-
-def included (l₁ l₂ : NatList) : Bool := sorry
-
-theorem included_nil (l₂ : NatList) : included nil l₂ = true := sorry
-
-theorem included_cons_member (n : Nat) (l₁ l₂ : NatList)
-  (h : member n l₂ = true) :
-    included (cons n l₁) l₂ = included l₁ (removeOne n l₂) := by
-  sorry
-
-theorem included_cons_nonmember (n : Nat) (l₁ l₂ : NatList)
-  (h : member n l₂ = false) :
-    included (cons n l₁) l₂ = false := by
-  sorry
-
-example : included [1] [2, 1] = true := by
-  rw [included_cons_member]
-  · exact included_nil _
-  · rw [member_cons_diff _ _ _ rfl]
-    rw [member_cons_same _ _ _ rfl]
-
-example : included [1, 1] [2, 1, 4, 1] = true := sorry
-
-theorem test_included1 : included [1, 2] [2, 1, 4, 1] = true := sorry
-
-theorem test_included2 : included [1, 2, 2] [2, 1, 4, 1] = false := sorry
 
 --  ## Reasoning About Lists
 
@@ -601,10 +439,6 @@ theorem length_append (l₁ l₂ : NatList) :
 
 --   ----------------------------------------
 
---  ### List Exercises, Part 1
-
---  ### List Exercises, Part 2
-
 open NatList
 
 --  ## Options
@@ -737,4 +571,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-02 16:11 UTC
+-- Built on 2026-09-02 17:47 UTC
