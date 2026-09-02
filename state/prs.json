@@ -1,5 +1,5 @@
 {
-  "main_sha": "3e80b9e843000759ee3bd0b1df5011c66b0016c5",
+  "main_sha": "e7dce21acefd0d5b4aeac62455bb556c5d14f7f4",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -379,16 +379,6 @@
     },
     "349": {
       "base_sha": "c9dd9d40f52020709a69b682caef1aa91338f6c8",
-      "changed_variants": [],
-      "head_sha": "79f0910a2c2619c9c9913d4306db675c4e2027eb",
-      "preview_path": "pr/349/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Initial Port of MoreStlc",
-      "url": "https://github.com/plclub/sf-in-lean/pull/349"
-    },
-    "351": {
-      "base_sha": "c9dd9d40f52020709a69b682caef1aa91338f6c8",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -427,12 +417,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "d3ce5936cc9928e9cbfe9b2f0a82ea68806e2092",
-      "preview_path": "pr/351/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33641192509",
+      "head_sha": "79f0910a2c2619c9c9913d4306db675c4e2027eb",
+      "preview_path": "pr/349/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33648070896",
       "status": "published",
-      "title": "Release script: Updated to simplify usage",
-      "url": "https://github.com/plclub/sf-in-lean/pull/351"
+      "title": "Initial Port of MoreStlc",
+      "url": "https://github.com/plclub/sf-in-lean/pull/349"
     },
     "352": {
       "base_sha": "e6c791393e9d7fac06ca68ff719cd3022744d2b1",
@@ -480,6 +470,100 @@
       "status": "published",
       "title": "Build: Install devcontainer in built artifacts",
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
+    },
+    "357": {
+      "base_sha": "3e80b9e843000759ee3bd0b1df5011c66b0016c5",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "635deb9ea116b95fd9c1b8cae1708189d28d86ac",
+      "preview_path": "pr/357/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33648926379",
+      "status": "published",
+      "title": "Gradescope autograder",
+      "url": "https://github.com/plclub/sf-in-lean/pull/357"
+    },
+    "358": {
+      "base_sha": "e7dce21acefd0d5b4aeac62455bb556c5d14f7f4",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "3eafe099c1ecf17c96c850a8c68eeb080a3d115a",
+      "preview_path": "pr/358/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33653507370",
+      "status": "published",
+      "title": "Lists: Terse friendliness",
+      "url": "https://github.com/plclub/sf-in-lean/pull/358"
     }
   },
   "schema": 3

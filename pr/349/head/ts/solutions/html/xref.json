@@ -2544,6 +2544,1612 @@
         "Typed Arithmetic Expressions",
         "Syntax"]}},
      "address": "/Types/"}],
+   "StlcExtended.weakening_empty":
+   [{"id": "StlcExtended___weakening_empty",
+     "data":
+     {"/MoreStlc/#StlcExtended___weakening_empty":
+      {"display": "weakening_empty",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.weakening":
+   [{"id": "StlcExtended___weakening",
+     "data":
+     {"/MoreStlc/#StlcExtended___weakening":
+      {"display": "weakening",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.unexpandCtx":
+   [{"id": "StlcExtended___unexpandCtx",
+     "data":
+     {"/MoreStlc/#StlcExtended___unexpandCtx":
+      {"display": "unexpandCtx",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.substitution_preserves_typing":
+   [{"id": "StlcExtended___substitution_preserves_typing",
+     "data":
+     {"/MoreStlc/#StlcExtended___substitution_preserves_typing":
+      {"display": "substitution_preserves_typing",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.subst":
+   [{"id": "StlcExtended___subst",
+     "data":
+     {"/MoreStlc/#StlcExtended___subst":
+      {"display": "subst",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.progress":
+   [{"id": "StlcExtended___progress",
+     "data":
+     {"/MoreStlc/#StlcExtended___progress":
+      {"display": "progress",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.preservation":
+   [{"id": "StlcExtended___preservation",
+     "data":
+     {"/MoreStlc/#StlcExtended___preservation":
+      {"display": "preservation",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.isPlainTmVarName":
+   [{"id": "StlcExtended___isPlainTmVarName",
+     "data":
+     {"/MoreStlc/#StlcExtended___isPlainTmVarName":
+      {"display": "isPlainTmVarName",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.delabTyInner":
+   [{"id": "StlcExtended___delabTyInner",
+     "data":
+     {"/MoreStlc/#StlcExtended___delabTyInner":
+      {"display": "delabTyInner",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.delabTy":
+   [{"id": "StlcExtended___delabTy",
+     "data":
+     {"/MoreStlc/#StlcExtended___delabTy":
+      {"display": "delabTy",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.delabTmInner":
+   [{"id": "StlcExtended___delabTmInner",
+     "data":
+     {"/MoreStlc/#StlcExtended___delabTmInner":
+      {"display": "delabTmInner",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.delabTm":
+   [{"id": "StlcExtended___delabTm",
+     "data":
+     {"/MoreStlc/#StlcExtended___delabTm":
+      {"display": "delabTm",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.ctxTerm":
+   [{"id": "StlcExtended___ctxTerm",
+     "data":
+     {"/MoreStlc/#StlcExtended___ctxTerm":
+      {"display": "ctxTerm",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.canonical_forms_sum":
+   [{"id": "StlcExtended___canonical_forms_sum",
+     "data":
+     {"/MoreStlc/#StlcExtended___canonical_forms_sum":
+      {"display": "canonical_forms_sum",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.canonical_forms_prod":
+   [{"id": "StlcExtended___canonical_forms_prod",
+     "data":
+     {"/MoreStlc/#StlcExtended___canonical_forms_prod":
+      {"display": "canonical_forms_prod",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.canonical_forms_nat":
+   [{"id": "StlcExtended___canonical_forms_nat",
+     "data":
+     {"/MoreStlc/#StlcExtended___canonical_forms_nat":
+      {"display": "canonical_forms_nat",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.canonical_forms_list":
+   [{"id": "StlcExtended___canonical_forms_list",
+     "data":
+     {"/MoreStlc/#StlcExtended___canonical_forms_list":
+      {"display": "canonical_forms_list",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.canonical_forms_fun":
+   [{"id": "StlcExtended___canonical_forms_fun",
+     "data":
+     {"/MoreStlc/#StlcExtended___canonical_forms_fun":
+      {"display": "canonical_forms_fun",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Ty.unit":
+   [{"id": "StlcExtended___Ty___unit",
+     "data":
+     {"/MoreStlc/#StlcExtended___Ty___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Ty.sum":
+   [{"id": "StlcExtended___Ty___sum",
+     "data":
+     {"/MoreStlc/#StlcExtended___Ty___sum":
+      {"display": "sum",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Ty.prod":
+   [{"id": "StlcExtended___Ty___prod",
+     "data":
+     {"/MoreStlc/#StlcExtended___Ty___prod":
+      {"display": "prod",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Ty.nat":
+   [{"id": "StlcExtended___Ty___nat",
+     "data":
+     {"/MoreStlc/#StlcExtended___Ty___nat":
+      {"display": "nat",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Ty.list":
+   [{"id": "StlcExtended___Ty___list",
+     "data":
+     {"/MoreStlc/#StlcExtended___Ty___list":
+      {"display": "list",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Ty.arrow":
+   [{"id": "StlcExtended___Ty___arrow",
+     "data":
+     {"/MoreStlc/#StlcExtended___Ty___arrow":
+      {"display": "arrow",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Ty":
+   [{"id": "StlcExtended___Ty",
+     "data":
+     {"/MoreStlc/#StlcExtended___Ty":
+      {"display": "Ty",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.var":
+   [{"id": "StlcExtended___Tm___var",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___var":
+      {"display": "var",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.unit":
+   [{"id": "StlcExtended___Tm___unit",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.sumInr":
+   [{"id": "StlcExtended___Tm___sumInr",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___sumInr":
+      {"display": "sumInr",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.sumInl":
+   [{"id": "StlcExtended___Tm___sumInl",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___sumInl":
+      {"display": "sumInl",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.sumCase":
+   [{"id": "StlcExtended___Tm___sumCase",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___sumCase":
+      {"display": "sumCase",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.succ":
+   [{"id": "StlcExtended___Tm___succ",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___succ":
+      {"display": "succ",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.snd":
+   [{"id": "StlcExtended___Tm___snd",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___snd":
+      {"display": "snd",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.pred":
+   [{"id": "StlcExtended___Tm___pred",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___pred":
+      {"display": "pred",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.pair":
+   [{"id": "StlcExtended___Tm___pair",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___pair":
+      {"display": "pair",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.mult":
+   [{"id": "StlcExtended___Tm___mult",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___mult":
+      {"display": "mult",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.listNil":
+   [{"id": "StlcExtended___Tm___listNil",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___listNil":
+      {"display": "listNil",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.listCons":
+   [{"id": "StlcExtended___Tm___listCons",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___listCons":
+      {"display": "listCons",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.listCase":
+   [{"id": "StlcExtended___Tm___listCase",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___listCase":
+      {"display": "listCase",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.letIn":
+   [{"id": "StlcExtended___Tm___letIn",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___letIn":
+      {"display": "letIn",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.ite0":
+   [{"id": "StlcExtended___Tm___ite0",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___ite0":
+      {"display": "ite0",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.fst":
+   [{"id": "StlcExtended___Tm___fst",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___fst":
+      {"display": "fst",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.fix":
+   [{"id": "StlcExtended___Tm___fix",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___fix":
+      {"display": "fix",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.const":
+   [{"id": "StlcExtended___Tm___const",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___const":
+      {"display": "const",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.app":
+   [{"id": "StlcExtended___Tm___app",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___app":
+      {"display": "app",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.abs":
+   [{"id": "StlcExtended___Tm___abs",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.IsValue.unit":
+   [{"id": "StlcExtended___Tm___IsValue___unit",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___IsValue___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.IsValue.sumInr":
+   [{"id": "StlcExtended___Tm___IsValue___sumInr",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___IsValue___sumInr":
+      {"display": "sumInr",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.IsValue.sumInl":
+   [{"id": "StlcExtended___Tm___IsValue___sumInl",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___IsValue___sumInl":
+      {"display": "sumInl",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.IsValue.pair":
+   [{"id": "StlcExtended___Tm___IsValue___pair",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___IsValue___pair":
+      {"display": "pair",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.IsValue.nat":
+   [{"id": "StlcExtended___Tm___IsValue___nat",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___IsValue___nat":
+      {"display": "nat",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.IsValue.listNil":
+   [{"id": "StlcExtended___Tm___IsValue___listNil",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___IsValue___listNil":
+      {"display": "listNil",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.IsValue.listCons":
+   [{"id": "StlcExtended___Tm___IsValue___listCons",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___IsValue___listCons":
+      {"display": "listCons",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.IsValue.abs":
+   [{"id": "StlcExtended___Tm___IsValue___abs",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___IsValue___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm.IsValue":
+   [{"id": "StlcExtended___Tm___IsValue",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm___IsValue":
+      {"display": "Tm.IsValue",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Tm":
+   [{"id": "StlcExtended___Tm",
+     "data":
+     {"/MoreStlc/#StlcExtended___Tm":
+      {"display": "Tm",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.sumInr":
+   [{"id": "StlcExtended___Step___sumInr",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___sumInr":
+      {"display": "sumInr",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.sumInl":
+   [{"id": "StlcExtended___Step___sumInl",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___sumInl":
+      {"display": "sumInl",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.sumCaseInr":
+   [{"id": "StlcExtended___Step___sumCaseInr",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___sumCaseInr":
+      {"display": "sumCaseInr",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.sumCaseInl":
+   [{"id": "StlcExtended___Step___sumCaseInl",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___sumCaseInl":
+      {"display": "sumCaseInl",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.sumCase":
+   [{"id": "StlcExtended___Step___sumCase",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___sumCase":
+      {"display": "sumCase",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.succNat":
+   [{"id": "StlcExtended___Step___succNat",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___succNat":
+      {"display": "succNat",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.succ":
+   [{"id": "StlcExtended___Step___succ",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___succ":
+      {"display": "succ",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.snd₁":
+   [{"id": "StlcExtended___Step___snd___",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___snd___":
+      {"display": "snd₁",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.sndPair":
+   [{"id": "StlcExtended___Step___sndPair",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___sndPair":
+      {"display": "sndPair",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.predConst":
+   [{"id": "StlcExtended___Step___predConst",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___predConst":
+      {"display": "predConst",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.pred":
+   [{"id": "StlcExtended___Step___pred",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___pred":
+      {"display": "pred",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.pair₂":
+   [{"id": "StlcExtended___Step___pair___-next",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___pair___-next":
+      {"display": "pair₂",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.pair₁":
+   [{"id": "StlcExtended___Step___pair___",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___pair___":
+      {"display": "pair₁",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.mult₂":
+   [{"id": "StlcExtended___Step___mult___-next",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___mult___-next":
+      {"display": "mult₂",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.mult₁":
+   [{"id": "StlcExtended___Step___mult___",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___mult___":
+      {"display": "mult₁",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.multConst":
+   [{"id": "StlcExtended___Step___multConst",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___multConst":
+      {"display": "multConst",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.listCase₁":
+   [{"id": "StlcExtended___Step___listCase___",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___listCase___":
+      {"display": "listCase₁",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.listCaseNil":
+   [{"id": "StlcExtended___Step___listCaseNil",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___listCaseNil":
+      {"display": "listCaseNil",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.listCaseCons":
+   [{"id": "StlcExtended___Step___listCaseCons",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___listCaseCons":
+      {"display": "listCaseCons",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.let₁":
+   [{"id": "StlcExtended___Step___let___",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___let___":
+      {"display": "let₁",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.letValue":
+   [{"id": "StlcExtended___Step___letValue",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___letValue":
+      {"display": "letValue",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.if0Zero":
+   [{"id": "StlcExtended___Step___if0Zero",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___if0Zero":
+      {"display": "if0Zero",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.if0Step":
+   [{"id": "StlcExtended___Step___if0Step",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___if0Step":
+      {"display": "if0Step",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.if0Nonzero":
+   [{"id": "StlcExtended___Step___if0Nonzero",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___if0Nonzero":
+      {"display": "if0Nonzero",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.fst₁":
+   [{"id": "StlcExtended___Step___fst___",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___fst___":
+      {"display": "fst₁",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.fstPair":
+   [{"id": "StlcExtended___Step___fstPair",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___fstPair":
+      {"display": "fstPair",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.fix₁":
+   [{"id": "StlcExtended___Step___fix___",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___fix___":
+      {"display": "fix₁",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.fixAbs":
+   [{"id": "StlcExtended___Step___fixAbs",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___fixAbs":
+      {"display": "fixAbs",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.cons₂":
+   [{"id": "StlcExtended___Step___cons___-next",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___cons___-next":
+      {"display": "cons₂",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.cons₁":
+   [{"id": "StlcExtended___Step___cons___",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___cons___":
+      {"display": "cons₁",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.app₂":
+   [{"id": "StlcExtended___Step___app___-next",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___app___-next":
+      {"display": "app₂",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.app₁":
+   [{"id": "StlcExtended___Step___app___",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___app___":
+      {"display": "app₁",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step.appAbs":
+   [{"id": "StlcExtended___Step___appAbs",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step___appAbs":
+      {"display": "appAbs",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Step":
+   [{"id": "StlcExtended___Step",
+     "data":
+     {"/MoreStlc/#StlcExtended___Step":
+      {"display": "Step",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.var":
+   [{"id": "StlcExtended___HasType___var",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___var":
+      {"display": "var",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.unit":
+   [{"id": "StlcExtended___HasType___unit",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.unexpand":
+   [{"id": "StlcExtended___HasType___unexpand",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___unexpand":
+      {"display": "HasType.unexpand",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.sumInr":
+   [{"id": "StlcExtended___HasType___sumInr",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___sumInr":
+      {"display": "sumInr",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.sumInl":
+   [{"id": "StlcExtended___HasType___sumInl",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___sumInl":
+      {"display": "sumInl",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.sumCase":
+   [{"id": "StlcExtended___HasType___sumCase",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___sumCase":
+      {"display": "sumCase",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.succ":
+   [{"id": "StlcExtended___HasType___succ",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___succ":
+      {"display": "succ",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.snd":
+   [{"id": "StlcExtended___HasType___snd",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___snd":
+      {"display": "snd",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.pred":
+   [{"id": "StlcExtended___HasType___pred",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___pred":
+      {"display": "pred",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.pair":
+   [{"id": "StlcExtended___HasType___pair",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___pair":
+      {"display": "pair",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.mult":
+   [{"id": "StlcExtended___HasType___mult",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___mult":
+      {"display": "mult",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.listNil":
+   [{"id": "StlcExtended___HasType___listNil",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___listNil":
+      {"display": "listNil",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.listCons":
+   [{"id": "StlcExtended___HasType___listCons",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___listCons":
+      {"display": "listCons",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.listCase":
+   [{"id": "StlcExtended___HasType___listCase",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___listCase":
+      {"display": "listCase",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.letIn":
+   [{"id": "StlcExtended___HasType___letIn",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___letIn":
+      {"display": "letIn",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.ite0":
+   [{"id": "StlcExtended___HasType___ite0",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___ite0":
+      {"display": "ite0",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.fst":
+   [{"id": "StlcExtended___HasType___fst",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___fst":
+      {"display": "fst",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.fix":
+   [{"id": "StlcExtended___HasType___fix",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___fix":
+      {"display": "fix",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.const":
+   [{"id": "StlcExtended___HasType___const",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___const":
+      {"display": "const",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.app":
+   [{"id": "StlcExtended___HasType___app",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___app":
+      {"display": "app",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType.abs":
+   [{"id": "StlcExtended___HasType___abs",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.HasType":
+   [{"id": "StlcExtended___HasType",
+     "data":
+     {"/MoreStlc/#StlcExtended___HasType":
+      {"display": "HasType",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Sums2.typechecks":
+   [{"id": "StlcExtended___Examples___Sums2___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Sums2___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Sums2.tm_test":
+   [{"id": "StlcExtended___Examples___Sums2___tm_test",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Sums2___tm_test":
+      {"display": "tm_test",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Sums2.reduces":
+   [{"id": "StlcExtended___Examples___Sums2___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Sums2___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Sums1.typechecks":
+   [{"id": "StlcExtended___Examples___Sums1___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Sums1___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Sums1.tm_test":
+   [{"id": "StlcExtended___Examples___Sums1___tm_test",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Sums1___tm_test":
+      {"display": "tm_test",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Sums1.reduces":
+   [{"id": "StlcExtended___Examples___Sums1___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Sums1___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Prod.typechecks":
+   [{"id": "StlcExtended___Examples___Prod___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Prod___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Prod.tm_test":
+   [{"id": "StlcExtended___Examples___Prod___tm_test",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Prod___tm_test":
+      {"display": "tm_test",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Prod.reduces":
+   [{"id": "StlcExtended___Examples___Prod___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Prod___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Numbers.typechecks":
+   [{"id": "StlcExtended___Examples___Numbers___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Numbers___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Numbers.tm_test":
+   [{"id": "StlcExtended___Examples___Numbers___tm_test",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Numbers___tm_test":
+      {"display": "tm_test",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Numbers.reduces":
+   [{"id": "StlcExtended___Examples___Numbers___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Numbers___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Lists.typechecks":
+   [{"id": "StlcExtended___Examples___Lists___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Lists___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Lists.tm_test":
+   [{"id": "StlcExtended___Examples___Lists___tm_test",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Lists___tm_test":
+      {"display": "tm_test",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Lists.reduces":
+   [{"id": "StlcExtended___Examples___Lists___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Lists___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Let1.typechecks":
+   [{"id": "StlcExtended___Examples___Let1___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Let1___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Let1.tm_test":
+   [{"id": "StlcExtended___Examples___Let1___tm_test",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Let1___tm_test":
+      {"display": "tm_test",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Let1.reduces":
+   [{"id": "StlcExtended___Examples___Let1___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Let1___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Let.typechecks":
+   [{"id": "StlcExtended___Examples___Let___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Let___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Let.tm_test":
+   [{"id": "StlcExtended___Examples___Let___tm_test",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Let___tm_test":
+      {"display": "tm_test",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Let.reduces":
+   [{"id": "StlcExtended___Examples___Let___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Let___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix4.typechecks":
+   [{"id": "StlcExtended___Examples___Fix4___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix4___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix4.reduces":
+   [{"id": "StlcExtended___Examples___Fix4___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix4___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix4.eotest":
+   [{"id": "StlcExtended___Examples___Fix4___eotest",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix4___eotest":
+      {"display": "eotest",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix3.typechecks":
+   [{"id": "StlcExtended___Examples___Fix3___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix3___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix3.reduces2":
+   [{"id": "StlcExtended___Examples___Fix3___reduces2",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix3___reduces2":
+      {"display": "reduces2",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix3.reduces":
+   [{"id": "StlcExtended___Examples___Fix3___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix3___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix3.equal":
+   [{"id": "StlcExtended___Examples___Fix3___equal",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix3___equal":
+      {"display": "equal",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix2.typechecks":
+   [{"id": "StlcExtended___Examples___Fix2___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix2___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix2.reduces":
+   [{"id": "StlcExtended___Examples___Fix2___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix2___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix2.map":
+   [{"id": "StlcExtended___Examples___Fix2___map",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix2___map":
+      {"display": "map",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix1.typechecks":
+   [{"id": "StlcExtended___Examples___Fix1___typechecks",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix1___typechecks":
+      {"display": "typechecks",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix1.reduces":
+   [{"id": "StlcExtended___Examples___Fix1___reduces",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix1___reduces":
+      {"display": "reduces",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Examples.Fix1.fact":
+   [{"id": "StlcExtended___Examples___Fix1___fact",
+     "data":
+     {"/MoreStlc/#StlcExtended___Examples___Fix1___fact":
+      {"display": "fact",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Context":
+   [{"id": "StlcExtended___Context",
+     "data":
+     {"/MoreStlc/#StlcExtended___Context":
+      {"display": "Context",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
    "StlcArith.weakening_empty":
    [{"id": "StlcArith___weakening_empty",
      "data":
@@ -6089,1612 +7695,6 @@
         "Smallstep: Small-step Operational Semantics",
         "A Toy Language"]}},
      "address": "/Smallstep/"}],
-   "STLCExtended.weakening_empty":
-   [{"id": "STLCExtended___weakening_empty",
-     "data":
-     {"/MoreStlc/#STLCExtended___weakening_empty":
-      {"display": "weakening_empty",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.weakening":
-   [{"id": "STLCExtended___weakening",
-     "data":
-     {"/MoreStlc/#STLCExtended___weakening":
-      {"display": "weakening",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.unexpandCtx":
-   [{"id": "STLCExtended___unexpandCtx",
-     "data":
-     {"/MoreStlc/#STLCExtended___unexpandCtx":
-      {"display": "unexpandCtx",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.substitution_preserves_typing":
-   [{"id": "STLCExtended___substitution_preserves_typing",
-     "data":
-     {"/MoreStlc/#STLCExtended___substitution_preserves_typing":
-      {"display": "substitution_preserves_typing",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.subst":
-   [{"id": "STLCExtended___subst",
-     "data":
-     {"/MoreStlc/#STLCExtended___subst":
-      {"display": "subst",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.progress":
-   [{"id": "STLCExtended___progress",
-     "data":
-     {"/MoreStlc/#STLCExtended___progress":
-      {"display": "progress",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.preservation":
-   [{"id": "STLCExtended___preservation",
-     "data":
-     {"/MoreStlc/#STLCExtended___preservation":
-      {"display": "preservation",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.isPlainTmVarName":
-   [{"id": "STLCExtended___isPlainTmVarName",
-     "data":
-     {"/MoreStlc/#STLCExtended___isPlainTmVarName":
-      {"display": "isPlainTmVarName",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.delabTyInner":
-   [{"id": "STLCExtended___delabTyInner",
-     "data":
-     {"/MoreStlc/#STLCExtended___delabTyInner":
-      {"display": "delabTyInner",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.delabTy":
-   [{"id": "STLCExtended___delabTy",
-     "data":
-     {"/MoreStlc/#STLCExtended___delabTy":
-      {"display": "delabTy",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.delabTmInner":
-   [{"id": "STLCExtended___delabTmInner",
-     "data":
-     {"/MoreStlc/#STLCExtended___delabTmInner":
-      {"display": "delabTmInner",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.delabTm":
-   [{"id": "STLCExtended___delabTm",
-     "data":
-     {"/MoreStlc/#STLCExtended___delabTm":
-      {"display": "delabTm",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.ctxTerm":
-   [{"id": "STLCExtended___ctxTerm",
-     "data":
-     {"/MoreStlc/#STLCExtended___ctxTerm":
-      {"display": "ctxTerm",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.canonical_forms_sum":
-   [{"id": "STLCExtended___canonical_forms_sum",
-     "data":
-     {"/MoreStlc/#STLCExtended___canonical_forms_sum":
-      {"display": "canonical_forms_sum",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.canonical_forms_prod":
-   [{"id": "STLCExtended___canonical_forms_prod",
-     "data":
-     {"/MoreStlc/#STLCExtended___canonical_forms_prod":
-      {"display": "canonical_forms_prod",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.canonical_forms_nat":
-   [{"id": "STLCExtended___canonical_forms_nat",
-     "data":
-     {"/MoreStlc/#STLCExtended___canonical_forms_nat":
-      {"display": "canonical_forms_nat",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.canonical_forms_list":
-   [{"id": "STLCExtended___canonical_forms_list",
-     "data":
-     {"/MoreStlc/#STLCExtended___canonical_forms_list":
-      {"display": "canonical_forms_list",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.canonical_forms_fun":
-   [{"id": "STLCExtended___canonical_forms_fun",
-     "data":
-     {"/MoreStlc/#STLCExtended___canonical_forms_fun":
-      {"display": "canonical_forms_fun",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Ty.unit":
-   [{"id": "STLCExtended___Ty___unit",
-     "data":
-     {"/MoreStlc/#STLCExtended___Ty___unit":
-      {"display": "unit",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Ty.sum":
-   [{"id": "STLCExtended___Ty___sum",
-     "data":
-     {"/MoreStlc/#STLCExtended___Ty___sum":
-      {"display": "sum",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Ty.prod":
-   [{"id": "STLCExtended___Ty___prod",
-     "data":
-     {"/MoreStlc/#STLCExtended___Ty___prod":
-      {"display": "prod",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Ty.nat":
-   [{"id": "STLCExtended___Ty___nat",
-     "data":
-     {"/MoreStlc/#STLCExtended___Ty___nat":
-      {"display": "nat",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Ty.list":
-   [{"id": "STLCExtended___Ty___list",
-     "data":
-     {"/MoreStlc/#STLCExtended___Ty___list":
-      {"display": "list",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Ty.arrow":
-   [{"id": "STLCExtended___Ty___arrow",
-     "data":
-     {"/MoreStlc/#STLCExtended___Ty___arrow":
-      {"display": "arrow",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Ty":
-   [{"id": "STLCExtended___Ty",
-     "data":
-     {"/MoreStlc/#STLCExtended___Ty":
-      {"display": "Ty",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.var":
-   [{"id": "STLCExtended___Tm___var",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___var":
-      {"display": "var",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.unit":
-   [{"id": "STLCExtended___Tm___unit",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___unit":
-      {"display": "unit",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.sumInr":
-   [{"id": "STLCExtended___Tm___sumInr",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___sumInr":
-      {"display": "sumInr",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.sumInl":
-   [{"id": "STLCExtended___Tm___sumInl",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___sumInl":
-      {"display": "sumInl",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.sumCase":
-   [{"id": "STLCExtended___Tm___sumCase",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___sumCase":
-      {"display": "sumCase",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.succ":
-   [{"id": "STLCExtended___Tm___succ",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___succ":
-      {"display": "succ",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.snd":
-   [{"id": "STLCExtended___Tm___snd",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___snd":
-      {"display": "snd",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.pred":
-   [{"id": "STLCExtended___Tm___pred",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___pred":
-      {"display": "pred",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.pair":
-   [{"id": "STLCExtended___Tm___pair",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___pair":
-      {"display": "pair",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.mult":
-   [{"id": "STLCExtended___Tm___mult",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___mult":
-      {"display": "mult",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.listNil":
-   [{"id": "STLCExtended___Tm___listNil",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___listNil":
-      {"display": "listNil",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.listCons":
-   [{"id": "STLCExtended___Tm___listCons",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___listCons":
-      {"display": "listCons",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.listCase":
-   [{"id": "STLCExtended___Tm___listCase",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___listCase":
-      {"display": "listCase",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.letIn":
-   [{"id": "STLCExtended___Tm___letIn",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___letIn":
-      {"display": "letIn",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.ite0":
-   [{"id": "STLCExtended___Tm___ite0",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___ite0":
-      {"display": "ite0",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.fst":
-   [{"id": "STLCExtended___Tm___fst",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___fst":
-      {"display": "fst",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.fix":
-   [{"id": "STLCExtended___Tm___fix",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___fix":
-      {"display": "fix",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.const":
-   [{"id": "STLCExtended___Tm___const",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___const":
-      {"display": "const",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.app":
-   [{"id": "STLCExtended___Tm___app",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___app":
-      {"display": "app",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.abs":
-   [{"id": "STLCExtended___Tm___abs",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___abs":
-      {"display": "abs",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.IsValue.unit":
-   [{"id": "STLCExtended___Tm___IsValue___unit",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___IsValue___unit":
-      {"display": "unit",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.IsValue.sumInr":
-   [{"id": "STLCExtended___Tm___IsValue___sumInr",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___IsValue___sumInr":
-      {"display": "sumInr",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.IsValue.sumInl":
-   [{"id": "STLCExtended___Tm___IsValue___sumInl",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___IsValue___sumInl":
-      {"display": "sumInl",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.IsValue.pair":
-   [{"id": "STLCExtended___Tm___IsValue___pair",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___IsValue___pair":
-      {"display": "pair",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.IsValue.nat":
-   [{"id": "STLCExtended___Tm___IsValue___nat",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___IsValue___nat":
-      {"display": "nat",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.IsValue.listNil":
-   [{"id": "STLCExtended___Tm___IsValue___listNil",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___IsValue___listNil":
-      {"display": "listNil",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.IsValue.listCons":
-   [{"id": "STLCExtended___Tm___IsValue___listCons",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___IsValue___listCons":
-      {"display": "listCons",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.IsValue.abs":
-   [{"id": "STLCExtended___Tm___IsValue___abs",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___IsValue___abs":
-      {"display": "abs",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm.IsValue":
-   [{"id": "STLCExtended___Tm___IsValue",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm___IsValue":
-      {"display": "Tm.IsValue",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Tm":
-   [{"id": "STLCExtended___Tm",
-     "data":
-     {"/MoreStlc/#STLCExtended___Tm":
-      {"display": "Tm",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.sumInr":
-   [{"id": "STLCExtended___Step___sumInr",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___sumInr":
-      {"display": "sumInr",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.sumInl":
-   [{"id": "STLCExtended___Step___sumInl",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___sumInl":
-      {"display": "sumInl",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.sumCaseInr":
-   [{"id": "STLCExtended___Step___sumCaseInr",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___sumCaseInr":
-      {"display": "sumCaseInr",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.sumCaseInl":
-   [{"id": "STLCExtended___Step___sumCaseInl",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___sumCaseInl":
-      {"display": "sumCaseInl",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.sumCase":
-   [{"id": "STLCExtended___Step___sumCase",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___sumCase":
-      {"display": "sumCase",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.succNat":
-   [{"id": "STLCExtended___Step___succNat",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___succNat":
-      {"display": "succNat",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.succ":
-   [{"id": "STLCExtended___Step___succ",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___succ":
-      {"display": "succ",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.snd₁":
-   [{"id": "STLCExtended___Step___snd___",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___snd___":
-      {"display": "snd₁",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.sndPair":
-   [{"id": "STLCExtended___Step___sndPair",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___sndPair":
-      {"display": "sndPair",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.predConst":
-   [{"id": "STLCExtended___Step___predConst",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___predConst":
-      {"display": "predConst",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.pred":
-   [{"id": "STLCExtended___Step___pred",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___pred":
-      {"display": "pred",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.pair₂":
-   [{"id": "STLCExtended___Step___pair___-next",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___pair___-next":
-      {"display": "pair₂",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.pair₁":
-   [{"id": "STLCExtended___Step___pair___",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___pair___":
-      {"display": "pair₁",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.mult₂":
-   [{"id": "STLCExtended___Step___mult___-next",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___mult___-next":
-      {"display": "mult₂",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.mult₁":
-   [{"id": "STLCExtended___Step___mult___",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___mult___":
-      {"display": "mult₁",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.multConst":
-   [{"id": "STLCExtended___Step___multConst",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___multConst":
-      {"display": "multConst",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.listCase₁":
-   [{"id": "STLCExtended___Step___listCase___",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___listCase___":
-      {"display": "listCase₁",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.listCaseNil":
-   [{"id": "STLCExtended___Step___listCaseNil",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___listCaseNil":
-      {"display": "listCaseNil",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.listCaseCons":
-   [{"id": "STLCExtended___Step___listCaseCons",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___listCaseCons":
-      {"display": "listCaseCons",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.let₁":
-   [{"id": "STLCExtended___Step___let___",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___let___":
-      {"display": "let₁",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.letValue":
-   [{"id": "STLCExtended___Step___letValue",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___letValue":
-      {"display": "letValue",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.if0Zero":
-   [{"id": "STLCExtended___Step___if0Zero",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___if0Zero":
-      {"display": "if0Zero",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.if0Step":
-   [{"id": "STLCExtended___Step___if0Step",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___if0Step":
-      {"display": "if0Step",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.if0Nonzero":
-   [{"id": "STLCExtended___Step___if0Nonzero",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___if0Nonzero":
-      {"display": "if0Nonzero",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.fst₁":
-   [{"id": "STLCExtended___Step___fst___",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___fst___":
-      {"display": "fst₁",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.fstPair":
-   [{"id": "STLCExtended___Step___fstPair",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___fstPair":
-      {"display": "fstPair",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.fix₁":
-   [{"id": "STLCExtended___Step___fix___",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___fix___":
-      {"display": "fix₁",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.fixAbs":
-   [{"id": "STLCExtended___Step___fixAbs",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___fixAbs":
-      {"display": "fixAbs",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.cons₂":
-   [{"id": "STLCExtended___Step___cons___-next",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___cons___-next":
-      {"display": "cons₂",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.cons₁":
-   [{"id": "STLCExtended___Step___cons___",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___cons___":
-      {"display": "cons₁",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.app₂":
-   [{"id": "STLCExtended___Step___app___-next",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___app___-next":
-      {"display": "app₂",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.app₁":
-   [{"id": "STLCExtended___Step___app___",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___app___":
-      {"display": "app₁",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step.appAbs":
-   [{"id": "STLCExtended___Step___appAbs",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step___appAbs":
-      {"display": "appAbs",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Step":
-   [{"id": "STLCExtended___Step",
-     "data":
-     {"/MoreStlc/#STLCExtended___Step":
-      {"display": "Step",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.var":
-   [{"id": "STLCExtended___HasType___var",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___var":
-      {"display": "var",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.unit":
-   [{"id": "STLCExtended___HasType___unit",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___unit":
-      {"display": "unit",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.unexpand":
-   [{"id": "STLCExtended___HasType___unexpand",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___unexpand":
-      {"display": "HasType.unexpand",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.sumInr":
-   [{"id": "STLCExtended___HasType___sumInr",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___sumInr":
-      {"display": "sumInr",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.sumInl":
-   [{"id": "STLCExtended___HasType___sumInl",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___sumInl":
-      {"display": "sumInl",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.sumCase":
-   [{"id": "STLCExtended___HasType___sumCase",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___sumCase":
-      {"display": "sumCase",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.succ":
-   [{"id": "STLCExtended___HasType___succ",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___succ":
-      {"display": "succ",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.snd":
-   [{"id": "STLCExtended___HasType___snd",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___snd":
-      {"display": "snd",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.pred":
-   [{"id": "STLCExtended___HasType___pred",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___pred":
-      {"display": "pred",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.pair":
-   [{"id": "STLCExtended___HasType___pair",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___pair":
-      {"display": "pair",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.mult":
-   [{"id": "STLCExtended___HasType___mult",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___mult":
-      {"display": "mult",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.listNil":
-   [{"id": "STLCExtended___HasType___listNil",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___listNil":
-      {"display": "listNil",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.listCons":
-   [{"id": "STLCExtended___HasType___listCons",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___listCons":
-      {"display": "listCons",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.listCase":
-   [{"id": "STLCExtended___HasType___listCase",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___listCase":
-      {"display": "listCase",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.letIn":
-   [{"id": "STLCExtended___HasType___letIn",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___letIn":
-      {"display": "letIn",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.ite0":
-   [{"id": "STLCExtended___HasType___ite0",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___ite0":
-      {"display": "ite0",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.fst":
-   [{"id": "STLCExtended___HasType___fst",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___fst":
-      {"display": "fst",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.fix":
-   [{"id": "STLCExtended___HasType___fix",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___fix":
-      {"display": "fix",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.const":
-   [{"id": "STLCExtended___HasType___const",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___const":
-      {"display": "const",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.app":
-   [{"id": "STLCExtended___HasType___app",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___app":
-      {"display": "app",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType.abs":
-   [{"id": "STLCExtended___HasType___abs",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType___abs":
-      {"display": "abs",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.HasType":
-   [{"id": "STLCExtended___HasType",
-     "data":
-     {"/MoreStlc/#STLCExtended___HasType":
-      {"display": "HasType",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Sums2.typechecks":
-   [{"id": "STLCExtended___Examples___Sums2___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Sums2___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Sums2.tm_test":
-   [{"id": "STLCExtended___Examples___Sums2___tm_test",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Sums2___tm_test":
-      {"display": "tm_test",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Sums2.reduces":
-   [{"id": "STLCExtended___Examples___Sums2___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Sums2___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Sums1.typechecks":
-   [{"id": "STLCExtended___Examples___Sums1___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Sums1___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Sums1.tm_test":
-   [{"id": "STLCExtended___Examples___Sums1___tm_test",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Sums1___tm_test":
-      {"display": "tm_test",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Sums1.reduces":
-   [{"id": "STLCExtended___Examples___Sums1___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Sums1___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Prod.typechecks":
-   [{"id": "STLCExtended___Examples___Prod___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Prod___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Prod.tm_test":
-   [{"id": "STLCExtended___Examples___Prod___tm_test",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Prod___tm_test":
-      {"display": "tm_test",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Prod.reduces":
-   [{"id": "STLCExtended___Examples___Prod___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Prod___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Numbers.typechecks":
-   [{"id": "STLCExtended___Examples___Numbers___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Numbers___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Numbers.tm_test":
-   [{"id": "STLCExtended___Examples___Numbers___tm_test",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Numbers___tm_test":
-      {"display": "tm_test",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Numbers.reduces":
-   [{"id": "STLCExtended___Examples___Numbers___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Numbers___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Lists.typechecks":
-   [{"id": "STLCExtended___Examples___Lists___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Lists___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Lists.tm_test":
-   [{"id": "STLCExtended___Examples___Lists___tm_test",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Lists___tm_test":
-      {"display": "tm_test",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Lists.reduces":
-   [{"id": "STLCExtended___Examples___Lists___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Lists___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Let1.typechecks":
-   [{"id": "STLCExtended___Examples___Let1___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Let1___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Let1.tm_test":
-   [{"id": "STLCExtended___Examples___Let1___tm_test",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Let1___tm_test":
-      {"display": "tm_test",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Let1.reduces":
-   [{"id": "STLCExtended___Examples___Let1___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Let1___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Let.typechecks":
-   [{"id": "STLCExtended___Examples___Let___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Let___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Let.tm_test":
-   [{"id": "STLCExtended___Examples___Let___tm_test",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Let___tm_test":
-      {"display": "tm_test",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Let.reduces":
-   [{"id": "STLCExtended___Examples___Let___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Let___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix4.typechecks":
-   [{"id": "STLCExtended___Examples___Fix4___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix4___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix4.reduces":
-   [{"id": "STLCExtended___Examples___Fix4___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix4___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix4.eotest":
-   [{"id": "STLCExtended___Examples___Fix4___eotest",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix4___eotest":
-      {"display": "eotest",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix3.typechecks":
-   [{"id": "STLCExtended___Examples___Fix3___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix3___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix3.reduces2":
-   [{"id": "STLCExtended___Examples___Fix3___reduces2",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix3___reduces2":
-      {"display": "reduces2",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix3.reduces":
-   [{"id": "STLCExtended___Examples___Fix3___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix3___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix3.equal":
-   [{"id": "STLCExtended___Examples___Fix3___equal",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix3___equal":
-      {"display": "equal",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix2.typechecks":
-   [{"id": "STLCExtended___Examples___Fix2___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix2___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix2.reduces":
-   [{"id": "STLCExtended___Examples___Fix2___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix2___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix2.map":
-   [{"id": "STLCExtended___Examples___Fix2___map",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix2___map":
-      {"display": "map",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix1.typechecks":
-   [{"id": "STLCExtended___Examples___Fix1___typechecks",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix1___typechecks":
-      {"display": "typechecks",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix1.reduces":
-   [{"id": "STLCExtended___Examples___Fix1___reduces",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix1___reduces":
-      {"display": "reduces",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Examples.Fix1.fact":
-   [{"id": "STLCExtended___Examples___Fix1___fact",
-     "data":
-     {"/MoreStlc/#STLCExtended___Examples___Fix1___fact":
-      {"display": "fact",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "STLCExtended.Context":
-   [{"id": "STLCExtended___Context",
-     "data":
-     {"/MoreStlc/#STLCExtended___Context":
-      {"display": "Context",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
    "Relation":
    [{"id": "Relation",
      "data":

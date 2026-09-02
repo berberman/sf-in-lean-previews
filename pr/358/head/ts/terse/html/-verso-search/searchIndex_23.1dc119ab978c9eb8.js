@@ -1,0 +1,1 @@
+window.docContents[23].resolve({"/StlcProp/#Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises":{"contents":"\n\n\n\n\n\nend Stlc\n\n\n\n\n","context":"Type Systems\u0009StlcProp: Properties of STLC","header":"6.7. Additional Exercises","id":"/StlcProp/#Type-Systems--StlcProp___-Properties-of-STLC--Additional-Exercises"}});

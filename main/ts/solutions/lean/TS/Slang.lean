@@ -680,4 +680,4 @@ end Slang.AevalRExtended
 --  switch between points of view at will -- exactly what we did above in
 --  `Slang.Aexp.evalR_iff_eval` and `Slang.Bexp.evalR_iff_eval`.
 
--- Built on 2026-09-02 14:54 UTC
+-- Built on 2026-09-02 16:12 UTC
