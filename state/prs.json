@@ -564,6 +564,16 @@
       "status": "published",
       "title": "Linter performance: pre-index each command's info trees",
       "url": "https://github.com/plclub/sf-in-lean/pull/360"
+    },
+    "361": {
+      "base_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
+      "changed_variants": [],
+      "head_sha": "cba7de778c786fc0bd17e775e312c6ae3bf7a9f3",
+      "preview_path": "pr/361/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Grading: add some missing attributes for non-optional exercises in LF",
+      "url": "https://github.com/plclub/sf-in-lean/pull/361"
     }
   },
   "schema": 3
