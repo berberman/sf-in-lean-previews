@@ -578,22 +578,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "bc721e7af15e306a9dfb15a698ac5633b08f7992",
+      "head_sha": "3327da1c4233c872d7d0529ae7e44aaf8034f642",
       "preview_path": "pr/364/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33755073989",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33769514652",
       "status": "published",
       "title": "Poly: Presentation polish",
       "url": "https://github.com/plclub/sf-in-lean/pull/364"
-    },
-    "365": {
-      "base_sha": "44ec83db8ddba3f4d66d19ec602b4332dd9c9f27",
-      "changed_variants": [],
-      "head_sha": "1ef8b01f59f1cceff6e2db25f725d33983d8b019",
-      "preview_path": "pr/365/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Proofreading on Lists (and some proofreading infrastructure)",
-      "url": "https://github.com/plclub/sf-in-lean/pull/365"
     }
   },
   "schema": 3
