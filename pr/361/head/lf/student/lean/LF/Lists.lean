@@ -253,15 +253,17 @@ def append (l₁ l₂ : NatList) : NatList :=
 --  mechanism that lets us *overload* operations for different types.
 --
 --  We'll learn more about type classes in chapter Typeclasses. For now,
---  the key idea is just this: a type class is like an Java-style
---  interface, and an *instance* is an implementation of that interface for
---  a particular type. We associate notation with a particular type class
---  member, and then instances of that typeclass inherit the notation.
+--  the key idea is just this: a type class is like a Java-style interface,
+--  and an *instance* is an implementation of that interface for a
+--  particular type. We associate notation with a particular type class
+--  member, and then instances of that typeclass inherit the notation for
+--  that member.
 --
---  For example, `++` is defined via the `HAppend` type class. Any type
---  that provides an `HAppend` instance gets to use `++`. Lean's built-in
---  `List` already has such an instance (using `List.append`), but since
---  we've defined our own `append` function, we can register it as the `++`
+--  For example, `++` is defined via the `HAppend` type class's `hAppend`
+--  member. Any type that provides an `HAppend` instance gets to use `++`
+--  for its implementation of `hAppend`. Lean's built-in `List` already has
+--  such an instance (using `List.append` for `hAppend`), but since we've
+--  defined our own `append` function, we can register it as the `++`
 --  operator within our namespace:
 
 instance : HAppend NatList NatList NatList where
@@ -320,9 +322,9 @@ theorem tail_nil : [].tail = [] := by rfl
 
 --  And some examples:
 
---  example : head 0 [1, 2, 3] = 1 := by rw [head_cons]
---  example : head 0 [] = 0 := by rw [head_nil]
---  example : [1, 2, 3].tail = [2, 3] := by rw [tail_cons]
+example : head 0 [1, 2, 3] = 1 := by rw [head_cons]
+example : head 0 [] = 0 := by rw [head_nil]
+example : [1, 2, 3].tail = [2, 3] := by rw [tail_cons]
 
 --   ----------------------------------------
 
@@ -367,11 +369,11 @@ theorem test_nonZeros : nonZeros [0, 1, 0] = [1] := by
 --  `cond_true` and `cond_false`.
 
 sf_recall
-  theorem cond_true {α} (x y : α) : (bif true then x else y) = x := by
+  theorem Bool.cond_true {α} (x y : α) : (bif true then x else y) = x := by
     rfl
 
 sf_recall
-  theorem cond_false {α} (x y : α) : (bif false then x else y) = y := by
+  theorem Bool.cond_false {α} (x y : α) : (bif false then x else y) = y := by
     rfl
 
 def oddMembers (l : NatList) : NatList := sorry
@@ -703,11 +705,12 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --
 --  which follows directly from the definition of `append`.
 --
---  - Next, suppose `l₁ = n :: l₁'`, with
+--  - Next, suppose `l₁ = n :: l₁'`, which gives us the following inductive
+--    hypothesis.
 --
 --      (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
 --
---  (the induction hypothesis). We must show
+--  We must show
 --
 --      ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
 --
@@ -731,7 +734,7 @@ sf_expect_failure_in
     induction c with
     | zero => rw [replicate_zero, nil_append]
     | succ c' ih =>
-      rw [replicate_succ]
+      rw [replicate_succ, cons_append]
       -- Now we seem to be stuck.
       -- The `ih` only works for `c' + c'`,
       -- but we need `c' + 1 + (c' + 1)`.
@@ -741,7 +744,7 @@ sf_expect_failure_in
 --    case succ
 --    n c' : Nat
 --    ih : replicate n c' ++ replicate n c' = replicate n (c' + c')
---    ⊢ (n :: replicate n c') ++ (n :: replicate n c') = replicate n (c' + 1 + (c' + 1))
+--    ⊢ n :: replicate n c' ++ (n :: replicate n c') = replicate n (c' + 1 + (c' + 1))
 
 --  To get a more general inductive hypothesis, we can generalize:
 
@@ -777,9 +780,8 @@ example : [1, 2, 3].reverse = [3, 2, 1] := by rfl
 
 example : [].reverse = [] := by rfl
 
---  For something a bit more challenging, let's prove that reversing a list
---  does not change its length. Our first attempt gets stuck in the
---  successor case...
+--  Let's prove that reversing a list does not change its length. Our first
+--  attempt gets stuck in the successor case...
 
 sf_expect_failure_in
   example (l : NatList) :
@@ -867,7 +869,7 @@ theorem length_append (l₁ l₂ : NatList) :
 --
 --  which follows directly from the definitions of `length`, `++`, and `+`.
 --
---  - Next, suppose `l₁ = n::l₁'`, with
+--  - Next, suppose `l₁ = n::l₁'`, with I.H.
 --
 --      (l₁' ++ l₂).length = l₁'.length + l₂.length
 --
@@ -917,16 +919,15 @@ theorem length_append (l₁ l₂ : NatList) :
 --  *Theorem*: For all lists `l`, `l.reverse.length = l.length`.
 --
 --  *Proof*: First observe, by a straightforward induction on `l`, that
---  `(l ++ [n]).length = .succ l.length` for any `l`. The main property
---  then follows by another induction on `l`, using the observation
---  together with the induction hypothesis in the case where `l = n'::l'`.
---  *Qed*
+--  `(l ++ [n]).length = l.length + 1` for any `l`. The main property then
+--  follows by another induction on `l`, using this observation together
+--  with the induction hypothesis in the case where `l = n'::l'`. *Qed*
 --
 --  Which style is preferable in a given situation depends on the
 --  sophistication of the expected audience and how similar the proof at
 --  hand is to ones that they will already be familiar with. The more
 --  pedantic style is a good default for our present purposes because we're
---  trying to be ultra-clear about the details.
+--  trying to be very clear about the details.
 
 --  ### List Exercises, Part 1
 
@@ -1064,11 +1065,11 @@ def nthBad (l : NatList) (n : Nat) : Nat :=
     | 0 => a
     | n' + 1 => nthBad l' n'
 
---  This solution is not so good: If `nthBad` returns 42, we don't know
---  whether that value actually appears in the input or whether we gave bad
---  arguments. A better alternative is to change the return type to include
---  an error value as a possible outcome. We call this new type
---  `NatOption`.
+--  This solution is not so good, since in some cases this default value of
+--  `42` could appear in the input list, and thus will not clearly indicate
+--  that `n` was greater than the length of the list. A better alternative
+--  is to change the return type to include an error value as a possible
+--  outcome. We call this new type `NatOption`.
 
 end NatList
 
@@ -1230,4 +1231,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-02 21:55 UTC
+-- Built on 2026-09-03 13:55 UTC

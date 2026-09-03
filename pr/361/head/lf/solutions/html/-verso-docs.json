@@ -568,43 +568,43 @@
  "631": "<code>Lists.NatList.test_count2 : count 5 [1, 1, 4] = 0</code>",
  "630": "<code>Lists.NatList.test_count1 : count 1 [1, 1, 4] = 2</code>",
  "63": "<code>MyBool.true_and (b : MyBool) : (true &amp;&amp; b) = b</code>",
- "629": "<code>(n₁ == n₂) = false</code>",
- "628":
+ "629":
+ "<code>cond_false.{u_1} {α : Sort u_1} (a b : α) : (bif false then a else b) = b</code>",
+ "628": "<code>(n₁ == n₂) = false</code>",
+ "627":
  "<code>Lists.NatList.count_cons_diff (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = false) : count n₁ (n₂ :: t) = count n₁ t</code>",
- "627": "<code>(n₁ == n₂) = true</code>",
- "626":
- "<code>Lists.NatList.count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) : count n₁ (n₂ :: t) = count n₁ t + 1</code>",
+ "626": "<code>Sort u</code>",
  "625":
- "<code>Lists.NatList.count_cons_def (n h : Nat) (t : NatList) : count n (h :: t) = bif n == h then count n t + 1 else count n t</code>",
- "624": "<code>Lists.NatList.count_nil (n : Nat) : count n [] = 0</code>",
- "623": "<code>Lists.NatList.count (n : Nat) (l : NatList) : Nat</code>",
+ "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
+ "624": "<code>(n₁ == n₂) = true</code>",
+ "623":
+ "<code>Lists.NatList.count_cons_same (n₁ n₂ : Nat) (t : NatList) (h : (n₁ == n₂) = true) : count n₁ (n₂ :: t) = count n₁ t + 1</code>",
  "622":
- "<code>Lists.NatList.test_alternate4 : [].alternate [20, 30] = [20, 30]</code>",
- "621":
- "<code>Lists.NatList.test_alternate3 : [1, 2, 3].alternate [4] = [1, 4, 2, 3]</code>",
- "620":
- "<code>Lists.NatList.test_alternate2 : [1].alternate [4, 5, 6] = [1, 4, 5, 6]</code>",
+ "<code>Lists.NatList.count_cons_def (n h : Nat) (t : NatList) : count n (h :: t) = bif n == h then count n t + 1 else count n t</code>",
+ "621": "<code>Lists.NatList.count_nil (n : Nat) : count n [] = 0</code>",
+ "620": "<code>Lists.NatList.count (n : Nat) (l : NatList) : Nat</code>",
  "62": "<code>MyBool.and3_test4 : and3 true true false = false</code>",
  "619":
- "<code>Lists.NatList.test_alternate1 : [1, 2, 3].alternate [4, 5, 6] = [1, 4, 2, 5, 3, 6]</code>",
- "618": "<code>Lists.NatList.alternate (l₁ l₂ : NatList) : NatList</code>",
+ "<code>Lists.NatList.test_alternate4 : [].alternate [20, 30] = [20, 30]</code>",
+ "618":
+ "<code>Lists.NatList.test_alternate3 : [1, 2, 3].alternate [4] = [1, 4, 2, 3]</code>",
  "617":
- "<code>Lists.NatList.test_countOddMembers2 : [].countOddMembers = 0</code>",
+ "<code>Lists.NatList.test_alternate2 : [1].alternate [4, 5, 6] = [1, 4, 5, 6]</code>",
  "616":
- "<code>Lists.NatList.test_countOddMembers1 : [0, 2, 4].countOddMembers = 0</code>",
- "615": "<code>Lists.NatList.countOddMembers (l : NatList) : Nat</code>",
+ "<code>Lists.NatList.test_alternate1 : [1, 2, 3].alternate [4, 5, 6] = [1, 4, 2, 5, 3, 6]</code>",
+ "615": "<code>Lists.NatList.alternate (l₁ l₂ : NatList) : NatList</code>",
  "614":
+ "<code>Lists.NatList.test_countOddMembers2 : [].countOddMembers = 0</code>",
+ "613":
+ "<code>Lists.NatList.test_countOddMembers1 : [0, 2, 4].countOddMembers = 0</code>",
+ "612": "<code>Lists.NatList.countOddMembers (l : NatList) : Nat</code>",
+ "611":
  "<code>Lists.NatList.test_oddMembers : [0, 1, 2, 3, 0].oddMembers = [1, 3]</code>",
- "613": "<code>Nat.even_zero : Nat.even 0 = true</code>",
- "612":
- "<code>Bool.cond_false.{u} {α : Sort u} {a b : α} : (bif false then a else b) = b</code>",
- "611": "<code>n.odd = false</code>",
- "610":
- "<code>Lists.NatList.oddMembers_cons_not_odd (n : Nat) (l : NatList) (h : n.odd = false) : (n :: l).oddMembers = l.oddMembers</code>",
+ "610": "<code>Nat.even_zero : Nat.even 0 = true</code>",
  "61": "<code>MyBool.and3_test3 : and3 true false true = false</code>",
- "609": "<code>Sort u</code>",
+ "609": "<code>n.odd = false</code>",
  "608":
- "<code>Bool.cond_true.{u} {α : Sort u} {a b : α} : (bif true then a else b) = a</code>",
+ "<code>Lists.NatList.oddMembers_cons_not_odd (n : Nat) (l : NatList) (h : n.odd = false) : (n :: l).oddMembers = l.oddMembers</code>",
  "607": "<code>n.odd = true</code>",
  "606":
  "<code>Lists.NatList.oddMembers_cons_odd (n : Nat) (l : NatList) (h : n.odd = true) : (n :: l).oddMembers = n :: l.oddMembers</code>",
@@ -613,7 +613,7 @@
  "604": "<code>Lists.NatList.oddMembers_nil : [].oddMembers = []</code>",
  "603": "<code>Lists.NatList.oddMembers (l : NatList) : NatList</code>",
  "602":
- "<code>cond_false.{u_1} {α : Sort u_1} (a b : α) : (bif false then a else b) = b</code>",
+ "<code>Bool.cond_false.{u} {α : Sort u} {a b : α} : (bif false then a else b) = b</code>",
  "601":
  "<code class=\"docstring\">A specific universe in Lean's infinite hierarchy of universes. </code>",
  "600":
@@ -624,7 +624,7 @@
  "599": "<code>α</code>",
  "598": "<code>Sort u_1</code>",
  "597":
- "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
+ "<code>Bool.cond_true.{u} {α : Sort u} {a b : α} : (bif true then a else b) = a</code>",
  "596": "<code>Lists.NatList.test_nonZeros : [0, 1, 0].nonZeros = [1]</code>",
  "595":
  "<code>Lists.NatList.nonZeros_cons_nonZero (h : Nat) (t : NatList) : ((h + 1) :: t).nonZeros = (h + 1) :: t.nonZeros</code>",
