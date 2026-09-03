@@ -263,11 +263,12 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --
 --  which follows directly from the definition of `append`.
 --
---  - Next, suppose `l₁ = n :: l₁'`, with
+--  - Next, suppose `l₁ = n :: l₁'`, which gives us the
+--    following inductive hypothesis.
 --
 --      (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
 --
---  (the induction hypothesis). We must show
+--  We must show
 --
 --      ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
 --
@@ -288,7 +289,7 @@ sf_expect_failure_in
     induction c with
     | zero => rw [replicate_zero, nil_append]
     | succ c' ih =>
-      rw [replicate_succ]
+      rw [replicate_succ, cons_append]
       -- Now we seem to be stuck.
       -- The `ih` only works for `c' + c'`,
       -- but we need `c' + 1 + (c' + 1)`.
@@ -298,7 +299,7 @@ sf_expect_failure_in
 --    case succ
 --    n c' : Nat
 --    ih : replicate n c' ++ replicate n c' = replicate n (c' + c')
---    ⊢ (n :: replicate n c') ++ (n :: replicate n c') = replicate n (c' + 1 + (c' + 1))
+--    ⊢ n :: replicate n c' ++ (n :: replicate n c') = replicate n (c' + 1 + (c' + 1))
 
 --  A generalization that gives a stronger inductive
 --  hypothesis:
@@ -571,4 +572,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-02 21:22 UTC
+-- Built on 2026-09-03 11:55 UTC

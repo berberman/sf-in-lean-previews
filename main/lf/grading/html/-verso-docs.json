@@ -438,7 +438,7 @@
  "702":
  "<code>Lists.PartialMap.update_eq (d : PartialMap) (x : MyId) (n : Nat) : find x (d.update x n) = NatOption.some n</code>",
  "701":
- "<code>Bool.cond_false.{u} {α : Sort u} {a b : α} : (bif false then a else b) = b</code>",
+ "<code>cond_false.{u_1} {α : Sort u_1} (a b : α) : (bif false then a else b) = b</code>",
  "700": "<code>x.beq y = false</code>",
  "70": "<code>MyBool.really_bad : true = false</code>",
  "7":
@@ -447,7 +447,7 @@
  "<code>Lists.PartialMap.quiz2 (d : PartialMap) (x y : MyId) (o : Nat) : x.beq y = false → find x (d.update y o) = find x d</code>",
  "698": "<code>Sort u</code>",
  "697":
- "<code>Bool.cond_true.{u} {α : Sort u} {a b : α} : (bif true then a else b) = a</code>",
+ "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
  "696":
  "<code>Lists.PartialMap.quiz1 (d : PartialMap) (x : MyId) (n : Nat) : find x (d.update x n) = NatOption.some n</code>",
  "695":
@@ -675,7 +675,7 @@
  "562": "<code>Lists.NatList.oddMembers_nil : [].oddMembers = []</code>",
  "561": "<code>Lists.NatList.oddMembers (l : NatList) : NatList</code>",
  "560":
- "<code>cond_false.{u_1} {α : Sort u_1} (a b : α) : (bif false then a else b) = b</code>",
+ "<code>Bool.cond_false.{u} {α : Sort u} {a b : α} : (bif false then a else b) = b</code>",
  "56": "<code>MyBool.nand_test2 : nand false false = true</code>",
  "559":
  "<code class=\"docstring\">A specific universe in Lean's infinite hierarchy of universes. </code>",
@@ -684,7 +684,7 @@
  "557": "<code>α</code>",
  "556": "<code>Sort u_1</code>",
  "555":
- "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
+ "<code>Bool.cond_true.{u} {α : Sort u} {a b : α} : (bif true then a else b) = a</code>",
  "554": "<code>Lists.NatList.test_nonZeros : [0, 1, 0].nonZeros = [1]</code>",
  "553":
  "<code>Lists.NatList.nonZeros_cons_nonZero (h : Nat) (t : NatList) : ((h + 1) :: t).nonZeros = (h + 1) :: t.nonZeros</code>",

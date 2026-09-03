@@ -1456,4 +1456,4 @@ theorem normalize_ex : exists e', (.p (.c 3) (.p (.c 2) (.c 1))) ⟶* e' ∧ IsV
 
 attribute [autogradedProof 3] normalize_ex
 
--- Built on 2026-09-02 21:24 UTC
+-- Built on 2026-09-03 11:57 UTC
