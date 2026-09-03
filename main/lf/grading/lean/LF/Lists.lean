@@ -16,16 +16,15 @@ namespace Lists
 --  ## Pairs of Numbers
 
 --  Note to developers (Mike Hicks @mwhicks1):
---      This content is a redundant with what's in Basics, which introduces
+--      This content is redundant with what's in Basics, which introduces
 --      the idea of tuple types and structures as shorthand for them. I
 --      suspect we can drop most of the Basics content and rely on what's
 --      here instead. If we do that, we can introduce the term "Tuple"
---      here.
+--      here. (We do not need structures in the airport exercise, either.)
 
 --  In an `inductive` type definition, each constructor can take any number
---  of arguments -- none (as with `true` and `0`), one (as with
---  `Nat.succ`), or more than one (as with `Playground.Nibble` and the
---  following):
+--  of arguments — none (as with `true` and `0`), one (as with `Nat.succ`),
+--  or more than one (as with `Playground.Nibble` and the following):
 
 inductive NatProd where
   | pair (n1 n2 : Nat)
@@ -39,9 +38,9 @@ inductive NatProd where
 --  Note to developers (Mike Hicks @mwhicks1):
 --      I would have expected us to have `namespace NatProd` here when
 --      defining the following functions, so we don't need qualifiers.
---      We've already full explained namespaces back in Basics. Some of the
---      text below mentions using the `NatProd` prefix specifically, but I
---      think you can drop it and it will stick work.
+--      We've already fully explained namespaces back in Basics. Some of
+--      the text below mentions using the `NatProd` prefix specifically,
+--      but I think you can drop it and it will still work.
 
 --  Functions for extracting the first and second components of a pair can
 --  then be defined by pattern matching.
@@ -55,12 +54,12 @@ def NatProd.snd (p : NatProd) : Nat :=
   | .pair _ y => y
 
 --  Defining these functions with the `NatProd` type name qualifying their
---  name allows us to use them with `.` notation:
+--  names allows us to use them with `.` notation:
 
 example : (NatProd.pair 3 5).fst = 3 := by rfl
 
 --  Since pairs will be used heavily in what follows, it will be convenient
---  to write them with angle bracket notation `⟨n, m⟩` instead of
+--  to write them with angle-bracket notation `⟨n, m⟩` instead of
 --  `NatProd.pair n m`. This notation is built into Lean and is called
 --  "anonymous constructor syntax". It is available for any inductive type
 --  with a single constructor, as long as the expected type is declared or
@@ -68,7 +67,7 @@ example : (NatProd.pair 3 5).fst = 3 := by rfl
 
 example : (⟨3, 5⟩ : NatProd).fst = 3 := by rfl
 
---  The anonymous constructor can be used in both expressions and in
+--  The anonymous constructor can be used both in expressions and in
 --  pattern matches.
 
 def NatProd.fst' (p : NatProd) : Nat :=
@@ -266,9 +265,6 @@ def append (l₁ l₂ : NatList) : NatList :=
 
 --  ### Type Classes and Overloading Notation
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      One word, or two?
-
 --  In Lean, notation like `++`, `==`, and `+` is not hardwired to
 --  particular definitions, which is the way we have been defining notation
 --  so far. Instead, Lean defines this notation using *type classes* — a
@@ -378,7 +374,7 @@ def nonZeros (l : NatList) : NatList := sorry
 
 attribute [autogradedHole] Lists.NatList.nonZeros
 
---  The following lemmas should hold about your definition
+--  The following lemmas should hold about your definition.
 
 theorem nonZeros_cons_zero (t : NatList) :
     nonZeros (0 :: t) = nonZeros t := sorry
@@ -394,7 +390,7 @@ theorem test_nonZeros : nonZeros [0, 1, 0] = [1] := by
 
 attribute [autogradedProof 0.5] Lists.NatList.test_nonZeros
 
---  The next definition uses `bif`, Lean's conditional for Boolean tests.
+--  The next definition uses `bif`, Lean's conditional for boolean tests.
 --  The expression `bif b then x else y` evaluates to `x` when `b` is
 --  `true` and to `y` when `b` is `false`. Its characterizing lemmas are
 --  `cond_true` and `cond_false`.
@@ -442,8 +438,8 @@ example : oddMembers [1, 2] = [1] := by
   · rw [Nat.odd, Nat.even_succ, Nat.even_zero]
     rw [Bool.not_true, Bool.not_false]
 
---  This gets pretty verbose quite fast, however we can use `rfl` to deal
---  with subgoals such as `Nat.odd 2 = false`:
+--  This gets verbose pretty fast; however, we can use `rfl` to deal with
+--  subgoals such as `Nat.odd 2 = false`:
 
 example : oddMembers [1, 2] = [1] := by
   rw [oddMembers_cons_odd]
@@ -454,7 +450,7 @@ example : oddMembers [1, 2] = [1] := by
 
 --  In fact, as the entire proof is just plain computation, it can be done
 --  with a single `rfl`. This is possible because all of the elements and
---  lists are concrete -- there are no variables involved.
+--  lists are concrete — there are no variables involved.
 
 example : oddMembers [1, 2] = [1] := sorry
 
@@ -518,7 +514,7 @@ def count (n : Nat) (l : NatList) : Nat := sorry
 
 attribute [autogradedHole] Lists.NatList.count
 
---  Now, prove these lemmas which should hold about your definition.
+--  Now prove these lemmas, which should hold about your definition.
 
 theorem count_nil (n : Nat) : count n [] = 0 := sorry
 
@@ -549,8 +545,8 @@ theorem test_count2 : count 5 [1, 1, 4] = 0 := sorry
 attribute [autogradedProof 0.5] Lists.NatList.test_count1 Lists.NatList.test_count2
 
 --  Again, all these proofs could be completed with just `rfl`, because the
---  proof is computationally straight-forward -- compute both sides of the
---  equality and check if they are the same.
+--  proof is computationally straightforward — compute both sides of the
+--  equality and check whether they are the same.
 
 example : count 1 [1, 2, 3, 1, 4, 1] = 3 := sorry
 example : count 6 [1, 2, 3, 1, 4, 1] = 0 := sorry
@@ -691,9 +687,8 @@ attribute [autogradedProof 0.5] Lists.NatList.test_included1 Lists.NatList.test_
 --  ## Reasoning About Lists
 
 --  As with numbers, simple facts about list-processing functions can
---  sometimes be proved entirely by rewriting. For example, just rewriting
---  the left-hand side of the following equality using the theorem
---  `nil_append` is enough for this theorem.
+--  sometimes be proved entirely by cases and rewriting, as shown for the
+--  following theorem.
 
 theorem tail_length_pred (l : NatList) :
     l.length.pred = l.tail.length := by
@@ -781,13 +776,13 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --
 --      n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
 --
---  which is immediate from the induction hypothesis. *Qed*.
+--  which is immediate from the induction hypothesis. *QED*.
 
 --  #### Generalizing Statements
 
 --  In some situations, it is necessary to generalize a statement in order
 --  to prove it by induction. Intuitively, the reason is that a more
---  general statement also yields a more general (stronger) inductive
+--  general statement also yields a more general (stronger) induction
 --  hypothesis. While the following statement is true, we cannot prove it
 --  directly:
 
@@ -809,7 +804,7 @@ sf_expect_failure_in
 --    ih : replicate n c' ++ replicate n c' = replicate n (c' + c')
 --    ⊢ n :: replicate n c' ++ (n :: replicate n c') = replicate n (c' + 1 + (c' + 1))
 
---  To get a more general inductive hypothesis, we can generalize:
+--  To get a more general induction hypothesis, we can generalize:
 
 theorem replicate_append_general (c₁ c₂ n : Nat) :
     replicate n c₁ ++ replicate n c₂ = replicate n (c₁ + c₂) := by
@@ -868,7 +863,7 @@ sf_expect_failure_in
 
 --  A first attempt to make progress would be to prove exactly the
 --  statement that we are missing at this point. But this attempt will fail
---  because the inductive hypothesis is not general enough.
+--  because the induction hypothesis is not general enough.
 
 sf_expect_failure_in
   theorem length_append_succ (l : NatList) (n : Nat) :
@@ -932,16 +927,16 @@ theorem length_append (l₁ l₂ : NatList) :
 --
 --  which follows directly from the definitions of `length`, `++`, and `+`.
 --
---  - Next, suppose `l₁ = n::l₁'`, with I.H.
+--  - Next, suppose `l₁ = n :: l₁'`, with
 --
 --      (l₁' ++ l₂).length = l₁'.length + l₂.length
 --
 --  We must show
 --
---      ((n::l₁') ++ l₂).length = (n::l₁').length + l₂.length.
+--      ((n :: l₁') ++ l₂).length = (n :: l₁').length + l₂.length.
 --
 --  This follows directly from the definitions of `length` and `++`
---  together with the induction hypothesis. *Qed*.
+--  together with the induction hypothesis. *QED*.
 --
 --  *Theorem*: For all lists `l`, `l.reverse.length = l.length`.
 --
@@ -953,7 +948,7 @@ theorem length_append (l₁ l₂ : NatList) :
 --
 --  which follows directly from the definitions of `length` and `reverse`.
 --
---  - Next, suppose `l = n::l'`, with
+--  - Next, suppose `l = n :: l'`, with
 --
 --      l'.reverse.length = l'.length
 --
@@ -970,9 +965,9 @@ theorem length_append (l₁ l₂ : NatList) :
 --      l'.reverse.length + [n].length = l'.length + 1.
 --
 --  This follows directly from the induction hypothesis and the definition
---  of `length`. *Qed*.
+--  of `length`. *QED*.
 --
---  The style of these proofs is rather longwinded and pedantic. After
+--  The style of these proofs is rather long-winded and pedantic. After
 --  reading a couple like this, we might find it easier to follow proofs
 --  that give fewer details (which we can easily work out in our own minds
 --  or on scratch paper if necessary) and just highlight the non-obvious
@@ -982,10 +977,19 @@ theorem length_append (l₁ l₂ : NatList) :
 --  *Theorem*: For all lists `l`, `l.reverse.length = l.length`.
 --
 --  *Proof*: First observe, by a straightforward induction on `l`, that
---  `(l ++ [n]).length = l.length + 1` for any `l`. The main property then
---  follows by another induction on `l`, using this observation together
---  with the induction hypothesis in the case where `l = n'::l'`. *Qed*
---
+--  `(l ++ [n]).length = .succ l.length` for any `l`. The main property
+--  then follows by another induction on `l`, using the observation
+--  together with the induction hypothesis in the case where
+--  `l = n' :: l'`. *QED*.
+
+--  Note to developers (Claude, before next release):
+--      Two problems in this compressed proof. First, `.succ l.length` is
+--      Rocq-flavored; the chapter's Lean writes this as `l.length + 1`,
+--      and the lemma actually proved above is `append_length_succ`.
+--      Second, "by the previous lemma" points at `length_append`, which is
+--      not proved until later in the chapter — the step that is available
+--      here is `append_length_succ`.
+
 --  Which style is preferable in a given situation depends on the
 --  sophistication of the expected audience and how similar the proof at
 --  hand is to ones that they will already be familiar with. The more
@@ -1141,7 +1145,7 @@ attribute [autogradedProof 3] Lists.NatList.involutive_injective
 --  ### Exercise (2 stars): reverse_injective (Advanced) ⭐⭐
 
 --  Prove that `reverse` is injective. Do not prove this by induction —
---  that would be hard. Instead, re-use the same proof technique that you
+--  that would be hard. Instead, reuse the same proof technique that you
 --  used for `involutive_injective`. (But: Don't try to use that exercise
 --  directly as a lemma: the types are not the same!)
 
@@ -1316,7 +1320,7 @@ theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
 
 --  Is the following claim true or false?
 
-theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
+theorem quiz2 (d : PartialMap) (x y : MyId) (o : Nat) :
     MyId.beq x y = false →
     find x (update d y o) = find x d := by
   intro h
@@ -1346,4 +1350,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-03 11:55 UTC
+-- Built on 2026-09-03 15:33 UTC

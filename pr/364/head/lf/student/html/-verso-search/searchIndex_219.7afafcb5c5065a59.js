@@ -1,1 +1,0 @@
-window.docContents[219].resolve({"/Induction/#Induction":{"contents":"This chapter shows how to carry out proofs by induction, one of the most fundamental reasoning\ntools in computer science and mathematics, in Lean.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Logical Foundations","header":"3. Induction: Proof by Induction","id":"/Induction/#Induction"}});

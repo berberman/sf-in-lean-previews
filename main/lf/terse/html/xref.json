@@ -899,11 +899,11 @@
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Options", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
-   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Argument-Synthesis":
+   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly":
    [{"id":
-     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Argument-Synthesis",
+     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly",
      "data":
-     {"title": "Type Argument Synthesis",
+     {"title": "Supplying Type Arguments Explicitly",
       "shortTitle": null,
       "sectionNum": "6.1.1.2.",
       "searchPriority": 50,
@@ -914,15 +914,15 @@
         "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
-       {"title": "Type Argument Synthesis",
+       {"title": "Supplying Type Arguments Explicitly",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Poly/"}],
-   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Annotation-Inference":
+   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Implicit-Type-Arguments-and-Argument-Synthesis":
    [{"id":
-     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Annotation-Inference",
+     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Implicit-Type-Arguments-and-Argument-Synthesis",
      "data":
-     {"title": "Type Annotation Inference",
+     {"title": "Implicit Type Arguments and Argument Synthesis",
       "shortTitle": null,
       "sectionNum": "6.1.1.1.",
       "searchPriority": 50,
@@ -933,15 +933,15 @@
         "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
-       {"title": "Type Annotation Inference",
+       {"title": "Implicit Type Arguments and Argument Synthesis",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Poly/"}],
-   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly":
+   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises":
    [{"id":
-     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly",
+     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises",
      "data":
-     {"title": "Supplying Type Arguments Explicitly",
+     {"title": "Exercises",
       "shortTitle": null,
       "sectionNum": "6.1.1.3.",
       "searchPriority": 50,
@@ -952,26 +952,7 @@
         "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
-       {"title": "Supplying Type Arguments Explicitly",
-        "shortTitle": null,
-        "number": "3"}]},
-     "address": "/Poly/"}],
-   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises":
-   [{"id":
-     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises",
-     "data":
-     {"title": "Exercises",
-      "shortTitle": null,
-      "sectionNum": "6.1.1.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Poly: Polymorphism and Higher-Order Functions",
-        "shortTitle": null,
-        "number": "6"},
-       {"title": "Polymorphism", "shortTitle": null, "number": "1"},
-       {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
-       {"title": "Exercises", "shortTitle": null, "number": "4"}]},
+       {"title": "Exercises", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists":
    [{"id":
@@ -3306,18 +3287,6 @@
         "Polymorphism",
         "Polymorphic Lists"]}},
      "address": "/Poly/"}],
-   "replicate'''":
-   [{"id": "replicate_________",
-     "data":
-     {"/Poly/#replicate_________":
-      {"display": "replicate'''",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Argument Synthesis"]}},
-     "address": "/Poly/"}],
    "replicate''":
    [{"id": "replicate______",
      "data":
@@ -3328,7 +3297,7 @@
         "Poly: Polymorphism and Higher-Order Functions",
         "Polymorphism",
         "Polymorphic Lists",
-        "Type Argument Synthesis"]}},
+        "Implicit Type Arguments and Argument Synthesis"]}},
      "address": "/Poly/"}],
    "replicate'":
    [{"id": "replicate___",
@@ -3340,7 +3309,7 @@
         "Poly: Polymorphism and Higher-Order Functions",
         "Polymorphism",
         "Polymorphic Lists",
-        "Type Annotation Inference"]}},
+        "Implicit Type Arguments and Argument Synthesis"]}},
      "address": "/Poly/"}],
    "replicate":
    [{"id": "replicate",
@@ -6954,7 +6923,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly-next",
+   [{"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -6965,7 +6934,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly",
+    {"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -7435,7 +7404,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -7452,7 +7421,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",

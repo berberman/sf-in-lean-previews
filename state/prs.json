@@ -1,5 +1,5 @@
 {
-  "main_sha": "44ec83db8ddba3f4d66d19ec602b4332dd9c9f27",
+  "main_sha": "d7b66d53883cece073da3a195ab63b828a9ec185",
   "prs": {
     "185": {
       "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
@@ -537,53 +537,6 @@
       "status": "ci-failed",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
-    },
-    "364": {
-      "base_sha": "44ec83db8ddba3f4d66d19ec602b4332dd9c9f27",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "3327da1c4233c872d7d0529ae7e44aaf8034f642",
-      "preview_path": "pr/364/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33769514652",
-      "status": "published",
-      "title": "Poly: Presentation polish",
-      "url": "https://github.com/plclub/sf-in-lean/pull/364"
     }
   },
   "schema": 3
