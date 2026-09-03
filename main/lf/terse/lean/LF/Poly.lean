@@ -27,14 +27,13 @@ inductive MyList (α : Type) : Type where
 --  list-of-numbers type.
 
 --  What is `MyList` itself?
---
+
 --  It is a *type constructor* — a function from types to
 --  types.
 
 #check (MyList)
 
---  Output:
---    MyList : Type → Type
+--  MyList : Type → Type
 
 --  The `α` in the definition of `MyList` becomes an
 --  implicit parameter to the list constructors `nil` and
@@ -42,90 +41,78 @@ inductive MyList (α : Type) : Type where
 
 #check MyList.nil
 
---  Output:
---    MyList.nil {α : Type} : MyList α
+--  MyList.nil {α : Type} : MyList α
 
 #check MyList.cons 3 MyList.nil
 
---  Output:
---    MyList.cons 3 MyList.nil : MyList Nat
+--  MyList.cons 3 MyList.nil : MyList Nat
 
 #check MyList.nil
 
---  Output:
---    MyList.nil {α : Type} : MyList α
+--  MyList.nil {α : Type} : MyList α
 
 #check MyList.cons
 
---  Output:
---    MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
+--  MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
 
 --  We can now define polymorphic versions of the functions
 --  we've already seen...
 
-def replicate (α : Type) (x : α) (count : Nat) : MyList α :=
+def myRepeat (α : Type) (x : α) (count : Nat) : MyList α :=
   match count with
   | 0 => .nil
-  | count' + 1 => .cons x (replicate α x count')
+  | count' + 1 => .cons x (myRepeat α x count')
 
---  Some simple facts about `replicate`:
+--  Some simple facts about `myRepeat`:
 
-theorem replicate_zero (α : Type) (v : α) :
-    replicate α v 0 = MyList.nil := rfl
+theorem myRepeat_zero (α : Type) (v : α) :
+    myRepeat α v 0 = MyList.nil := rfl
 
-theorem replicate_succ (α : Type) (v : α) (count : Nat) :
-    replicate α v (count + 1) = MyList.cons v (replicate α v count) := rfl
+theorem myRepeat_succ (α : Type) (v : α) (count : Nat) :
+    myRepeat α v (count + 1) = MyList.cons v (myRepeat α v count) := rfl
 
-example : replicate Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
+example : myRepeat Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
 
-example : replicate Bool false 1 = .cons false .nil := by rfl
-
---   ----------------------------------------
+example : myRepeat Bool false 1 = .cons false .nil := by rfl
 
 --  _Quiz:_
 
 --  What is the type of
 --  `MyList.cons true (MyList.cons 3 MyList.nil)`?
---
+
 --  (A) `MyList Nat`
---
+
 --  (B) `{α : Type} → α → MyList α → MyList α`
---
+
 --  (C) `MyList Bool`
---
+
 --  (D) `MyList (Nat × Bool)`
---
+
 --  (E) Ill-typed
 
---   ----------------------------------------
-
 --  _Quiz:_
 
---  What is the type of `replicate`?
---
+--  What is the type of `myRepeat`?
+
 --  (A) `Nat → Nat → MyList Nat`
---
---  (B) `(α : Type) → α → Nat → MyList α`
---
---  (C) `(α : Type) → {β : Type} → α → Nat → MyList β`
---
---  (D) Ill-typed
 
---   ----------------------------------------
+--  (B) `(α : Type) → α → Nat → MyList α`
+
+--  (C) `(α : Type) → {β : Type} → α → Nat → MyList β`
+
+--  (D) Ill-typed
 
 --  _Quiz:_
 
---  What is the type of `replicate 1 2`?
---
---  (A) `MyList Nat`
---
---  (B) `(α : Type) → α → Nat → MyList α`
---
---  (C) `MyList Bool`
---
---  (D) Ill-typed
+--  What is the type of `myRepeat 1 2`?
 
---   ----------------------------------------
+--  (A) `MyList Nat`
+
+--  (B) `(α : Type) → α → Nat → MyList α`
+
+--  (C) `MyList Bool`
+
+--  (D) Ill-typed
 
 --  From now on we'll use Lean's built-in `List α` type with
 --  notations `[]`, `::`, `[1, 2, 3]`, and `++`.
@@ -134,21 +121,26 @@ example : List Nat := [1, 2, 3]
 
 --  #### Type Annotation Inference
 
---  Let's write the definition of `replicate` again, but
---  this time we won't specify the type of the parameter
---  `α`. Will Lean still accept it?
+--  Let's write the definition of `myRepeat` again, but this
+--  time we won't specify the type of the parameter `α`.
+--  Will Lean still accept it?
 
-def replicate' α (x : α) (count : Nat) : List α :=
+def myRepeat' α (x : α) (count : Nat) : List α :=
   match count with
   | 0 => .nil
-  | count' + 1 => .cons x (replicate' α x count')
+  | count' + 1 => .cons x (myRepeat' α x count')
 
 --  Indeed it will. Lean infers that `α` is a type.
 
-#check replicate'
+#check myRepeat'
 
---  Output:
---    replicate'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+--  myRepeat'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+
+--  The generated `u_1` is part of Lean's bookkeeping for
+--  treating types more generally. We will not need to
+--  interpret names like this for now — you can ignore them
+--  when they appear in Lean's output unless we explicitly
+--  call attention to them.
 
 --  Lean has used *type inference* to deduce a type for `α`.
 
@@ -157,18 +149,18 @@ def replicate' α (x : α) (count : Nat) : List α :=
 --  Supplying every type *argument* is also boring, but Lean
 --  can usually infer them:
 
-def replicate'' (α : Type) (x : α) (count : Nat) : List α :=
+def myRepeat'' (α : Type) (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: replicate'' _ x count'
+  | count' + 1 => x :: myRepeat'' _ x count'
 
 --  Alternatively, we can declare arguments implicit by
 --  surrounding them with curly braces instead of parens:
 
-def replicate''' {α : Type} (x : α) (count : Nat) : List α :=
+def myRepeat''' {α : Type} (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: replicate''' x count'
+  | count' + 1 => x :: myRepeat''' x count'
 
 --  #### Supplying Type Arguments Explicitly
 
@@ -178,7 +170,7 @@ def replicate''' {α : Type} (x : α) (count : Nat) : List α :=
 --  This fails because Lean can't figure out the type of the
 --  empty list: `def mynil := []` — error: type not known We
 --  can fix this with an explicit type annotation:
---
+
 --  We can use the `@` prefix to supply the type argument
 --  explicitly. The `@` makes all implicit arguments of a
 --  function explicit:
@@ -187,124 +179,107 @@ def replicate''' {α : Type} (x : α) (count : Nat) : List α :=
 
 def myNil' := @List.nil Nat
 
---  Output:
---    @List.nil : {α : Type u_1} → List α
-
---   ----------------------------------------
+--  @List.nil : {α : Type u_1} → List α
 
 --  _Quiz:_
 
 --  Which type does Lean assign to the following expression?
 --  (The square brackets in this quiz and the following ones
 --  are list brackets.)
---
---      [1, 2, 3]
---
---  (A) `List Nat`
---
---  (B) `List Bool`
---
---  (C) `Bool`
---
---  (D) No type can be assigned
 
---   ----------------------------------------
+--    [1, 2, 3]
+
+--  (A) `List Nat`
+
+--  (B) `List Bool`
+
+--  (C) `Bool`
+
+--  (D) No type can be assigned
 
 --  _Quiz:_
 
 --  What about this one?
---
---      [3 + 4] ++ []
---
---  (A) `List Nat`
---
---  (B) `List Bool`
---
---  (C) `Bool`
---
---  (D) No type can be assigned
 
---   ----------------------------------------
+--    [3 + 4] ++ []
+
+--  (A) `List Nat`
+
+--  (B) `List Bool`
+
+--  (C) `Bool`
+
+--  (D) No type can be assigned
 
 --  _Quiz:_
 
 --  What about this one?
---
---      (true && false) :: []
---
---  (A) `List Nat`
---
---  (B) `List Bool`
---
---  (C) `Bool`
---
---  (D) No type can be assigned
 
---   ----------------------------------------
+--    (true && false) :: []
+
+--  (A) `List Nat`
+
+--  (B) `List Bool`
+
+--  (C) `Bool`
+
+--  (D) No type can be assigned
 
 --  _Quiz:_
 
 --  What about this one?
---
---      [1, []]
---
+
+--    [1, []]
+
 --  (A) `List Nat`
---
+
 --  (B) `List (List Nat)`
---
---  (C) `List Bool`
---
---  (D) No type can be assigned
 
---   ----------------------------------------
+--  (C) `List Bool`
+
+--  (D) No type can be assigned
 
 --  _Quiz:_
 
 --  What about this one?
---
---      [[1], []]
---
---  (A) `List Nat`
---
---  (B) `List (List Nat)`
---
---  (C) `List Bool`
---
---  (D) No type can be assigned
 
---   ----------------------------------------
+--    [[1], []]
+
+--  (A) `List Nat`
+
+--  (B) `List (List Nat)`
+
+--  (C) `List Bool`
+
+--  (D) No type can be assigned
 
 --  _Quiz:_
 
 --  And what about this one?
---
---      [1] :: [[]]
---
---  (A) `List Nat`
---
---  (B) `List (List Nat)`
---
---  (C) `List Bool`
---
---  (D) No type can be assigned
 
---   ----------------------------------------
+--    [1] :: [[]]
+
+--  (A) `List Nat`
+
+--  (B) `List (List Nat)`
+
+--  (C) `List Bool`
+
+--  (D) No type can be assigned
 
 --  _Quiz:_
 
 --  This one?
---
---      @List.nil Bool
---
---  (A) `List Nat`
---
---  (B) `List (List Nat)`
---
---  (C) `List Bool`
---
---  (D) No type can be assigned
 
---   ----------------------------------------
+--    @List.nil Bool
+
+--  (A) `List Nat`
+
+--  (B) `List (List Nat)`
+
+--  (C) `List Bool`
+
+--  (D) No type can be assigned
 
 --  #### Exercises
 
@@ -329,11 +304,9 @@ theorem rev_cons {α : Type} {x : α} {l : List α} :
 #check List.nil_append
 #check List.cons_append
 
---  Output:
---    List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
+--  List.cons_append.{u} {α : Type u} {a : α} {as bs : List α} : a :: as ++ bs = a :: (as ++ bs)
 
---  Output:
---    List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
+--  List.nil_append.{u} {α : Type u} (as : List α) : [] ++ as = as
 
 theorem append_nil {α : Type} {l : List α} :
     l ++ [] = l := by
@@ -379,14 +352,11 @@ structure MyProd (α β : Type) where
 #eval (1, true).fst
 #eval (1, true).snd
 
---  Output:
---    (1, true) : Nat × Bool
+--  (1, true) : Nat × Bool
 
---  Output:
---    1
+--  1
 
---  Output:
---    true
+--  true
 
 --  You can also use `.1` instead of `.fst` and `.2` instead
 --  of `.snd`:
@@ -397,7 +367,7 @@ example : (3, 5).2 = 5 := by rfl
 --  Lean writes the product type `Prod α β` as `α × β`. In
 --  VS Code you can type `\times` or `\x` to enter the `×`
 --  symbol.
---
+
 --  The `dsimp only` tactic can be used to simplify
 --  `(x, y).fst` into `x` and `(x, y).snd` into `y`.
 
@@ -432,6 +402,32 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --  knows which branch to take during the computation done
 --  by the `rfl` tactic.
 
+--  ### Exercise (3 stars): unzip (manually graded) ⭐⭐⭐
+
+--  The function `unzip` goes in the other direction from
+--  `zip`: it takes a list of pairs and returns a pair of
+--  lists.
+
+--  Fill in the definition of `unzip` below and write
+--  simplification rules that characterize it. Make sure it
+--  that passes the given unit test. Prove `unzip_test_fst`
+--  and `unzip_test_snd` by rewriting with your
+--  simplification lemmas instead of using `rfl` directly.
+--  Remember that you can use `dsimp only` to simplify
+--  expressions accessing the `fst` or `snd` elements of a
+--  pair.
+
+def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := sorry
+
+theorem unzip_test1 : unzip [(1, false), (2, true)] = ([1, 2], [false, true]) := by
+  sorry
+
+theorem unzip_test_fst : (unzip [(1, false), (2, true)]).fst = [1, 2] := by
+  sorry
+
+theorem unzip_test_snd : (unzip [(1, false), (2, true)]).snd = [false, true] := by
+  sorry
+
 --  ### Polymorphic Options
 
 def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
@@ -462,8 +458,7 @@ example : doIt3Times Nat.minusTwo 9 = 3 := by rfl
 
 example : doIt3Times not true = false := by rfl
 
---  Output:
---    doIt3Times {α : Type} (f : α → α) (x : α) : α
+--  doIt3Times {α : Type} (f : α → α) (x : α) : α
 
 --  ### Filter
 
@@ -552,8 +547,6 @@ example : map Nat.odd [2, 1, 2, 5] = [false, true, false, true] := by rfl
 example : map (fun n => [n.even, n.odd]) [2, 1, 2, 5]
   = [[true, false], [false, true], [true, false], [false, true]] := by rfl
 
---   ----------------------------------------
-
 --  _Quiz:_
 
 --  Recall the definition of `map`:
@@ -565,16 +558,14 @@ sf_recall
     | head :: tail => f head :: map f tail
 
 --  What is the type of `@map`?
---
---  (A) `{α β : Type} → α → β → List α → List β`
---
---  (B) `α → β → List α → List β`
---
---  (C) `{α β : Type} → (α → β) → List α → List β`
---
---  (D) `{α : Type} → (α → α) → List α → List α`
 
---   ----------------------------------------
+--  (A) `{α β : Type} → α → β → List α → List β`
+
+--  (B) `α → β → List α → List β`
+
+--  (C) `{α β : Type} → (α → β) → List α → List β`
+
+--  (D) `{α : Type} → (α → α) → List α → List α`
 
 --  As usual, we define the following simplification rules
 --  for `map`:
@@ -614,8 +605,6 @@ theorem fold_nil {α : Type} {β : Type} {f : α → β → β} {b : β} : fold 
 theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {a : α} {l : List α} {b : β} :
     fold f (a :: l) b = f a (fold f l b) := by rfl
 
---   ----------------------------------------
-
 --  _Quiz:_
 
 --  Here is the definition of `fold` again:
@@ -627,30 +616,26 @@ sf_recall
     | a :: l => f a (fold f l b)
 
 --  What is the type of `@fold`?
---
---  (A) `{α β : Type} → (α → β → β) → List α → β → β`
---
---  (B) `α → β → (α → β → β) → List α → β → β`
---
---  (C) `{α β : Type} → α → β → β → List α → β → β`
---
---  (D) `α → β → α → β → β → List α → β → β`
 
---   ----------------------------------------
+--  (A) `{α β : Type} → (α → β → β) → List α → β → β`
+
+--  (B) `α → β → (α → β → β) → List α → β → β`
+
+--  (C) `{α β : Type} → α → β → β → List α → β → β`
+
+--  (D) `α → β → α → β → β → List α → β → β`
 
 --  _Quiz:_
 
 --  What does `fold (· + ·) [1, 2, 3, 4] 0` simplify to?
---
---  (A) `[1, 2, 3, 4]`
---
---  (B) `0`
---
---  (C) `10`
---
---  (D) `[3, 7, 0]`
 
---   ----------------------------------------
+--  (A) `[1, 2, 3, 4]`
+
+--  (B) `0`
+
+--  (C) `10`
+
+--  (D) `[3, 7, 0]`
 
 --  ### Functions That Construct Functions
 
@@ -671,8 +656,7 @@ example : constFun 5 99 = 5 := by rfl
 
 #check Nat.add
 
---  Output:
---    Nat.add : Nat → Nat → Nat
+--  Nat.add : Nat → Nat → Nat
 
 def plus3 := Nat.add 3
 #check plus3
@@ -681,8 +665,7 @@ example : plus3 4 = 7 := by rfl
 example : doIt3Times plus3 0 = 9 := by rfl
 example : doIt3Times (Nat.add 3) 0 = 9 := by rfl
 
---  Output:
---    plus3 : Nat → Nat
+--  plus3 : Nat → Nat
 
 --  Similarly, we can write:
 
@@ -691,7 +674,5 @@ def fold_plus : List Nat → Nat → Nat :=
 
 #check fold_plus
 
---  Output:
---    fold_plus : List Nat → Nat → Nat
+--  fold_plus : List Nat → Nat → Nat
 
--- Built on 2026-09-02 21:22 UTC
