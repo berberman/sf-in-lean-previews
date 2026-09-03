@@ -647,7 +647,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 
 --   ----------------------------------------
 
---  ### Exercise (3 stars): finish_progress_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_progress_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the corresponding informal proof.
 --
@@ -732,7 +732,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 theorem preservation (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ T }> := by
   sorry
 
---  ### Exercise (3 stars): finish_preservation_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_preservation_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the following informal proof.
 --
@@ -934,4 +934,4 @@ end TM
 --  for nonterminating programs? Why might we prefer the small-step
 --  semantics for stating preservation and progress?
 
--- Built on 2026-09-03 19:10 UTC
+-- Built on 2026-09-03 20:06 UTC

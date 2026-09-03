@@ -780,7 +780,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 
 --   ----------------------------------------
 
---  ### Exercise (3 stars): finish_progress_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_progress_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the corresponding informal proof.
 
@@ -932,7 +932,7 @@ theorem preservation (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t
       | isZeroSucc v hv => exact .fls
       | isZeroStep _ t1' hs => exact .isZero t1' (ih t1' hs)
 
---  ### Exercise (3 stars): finish_preservation_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_preservation_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the following informal proof.
 --
@@ -1262,4 +1262,4 @@ end TM
 --      throughout (and maybe in Smallstep and Imp?)... `dev` block headers
 --      too, if we want to be really consistent.
 
--- Built on 2026-09-03 19:10 UTC
+-- Built on 2026-09-03 20:06 UTC

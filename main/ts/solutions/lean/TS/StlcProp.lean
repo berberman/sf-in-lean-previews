@@ -603,7 +603,7 @@ def Tm.Closed (t : Tm) : Prop := ∀ x, ¬ x ∈ᶠ t
 --  open ones. "Open" precisely means "possibly containing free
 --  variables.")
 
---  ### Exercise (1 star): afi ⭐
+--  ### Exercise (1 star): afi (Manually graded) ⭐
 
 --  (Officially optional, but strongly recommended!) In the space below,
 --  write out the rules of the `∈ᶠ` relation in informal inference-rule
@@ -757,7 +757,7 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 
 --  ## Additional Exercises
 
---  ### Exercise (1 star): progress_preservation_statement ⭐
+--  ### Exercise (1 star): progress_preservation_statement (Manually graded) ⭐
 
 --  (Officially optional, but strongly recommended!) Without peeking at
 --  their statements above, write down the progress and preservation
@@ -1714,4 +1714,4 @@ end StlcArith
 --      the grader can tell them apart from this chapter's own `progress`
 --      and `preservation`.
 
--- Built on 2026-09-03 19:10 UTC
+-- Built on 2026-09-03 20:06 UTC

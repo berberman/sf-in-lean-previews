@@ -946,7 +946,7 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 --  above, plus some basic properties of `⟶*` (that it is reflexive,
 --  transitive, and includes `⟶`).
 
---  ### Exercise (3 stars): multistep_of_eval_inf (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): multistep_of_eval_inf (Optional, Manually graded) ⭐⭐⭐
 
 --  Write a detailed informal version of the proof of `multistep_of_eval`.
 --  (A paper exercise — there is no Lean proof to fill in here.)
@@ -1456,4 +1456,4 @@ theorem normalize_ex : exists e', (.p (.c 3) (.p (.c 2) (.c 1))) ⟶* e' ∧ IsV
 
 attribute [autogradedProof 3] normalize_ex
 
--- Built on 2026-09-03 19:11 UTC
+-- Built on 2026-09-03 20:06 UTC

@@ -1885,7 +1885,7 @@ theorem empty_relation_is_empty (n m : Nat) : ¬ EmptyRelation n m := by
 
 --  ## Additional Exercises
 
---  ### Exercise (3 stars): nostutter_defn ⭐⭐⭐
+--  ### Exercise (3 stars): nostutter_defn (Manually graded) ⭐⭐⭐
 
 --  Formulating inductive definitions of properties is an important skill
 --  you'll need in this course. Try to solve this exercise without any
@@ -2448,7 +2448,7 @@ theorem reverse_pal {α : Type} (n : Nat) (l : List α)
 theorem palindrome_converse {α : Type} (l : List α) (h : l = l.reverse) : Pal l := by
   exact reverse_pal _ _ rfl h
 
---  ### Exercise (4 stars): NoDup (Advanced, Optional) ⭐⭐⭐⭐
+--  ### Exercise (4 stars): NoDup (Advanced, Optional, Manually graded) ⭐⭐⭐⭐
 
 --  Use the `∈` property to define a proposition `Disjoint l₁ l₂`, which
 --  should be provable exactly when `l₁` and `l₂` are lists (with elements
@@ -3080,4 +3080,4 @@ theorem pigeonhole_principle (α : Type) (l₁ l₂ : List α)
 --
 --  End Pigeon.
 
--- Built on 2026-09-03 19:08 UTC
+-- Built on 2026-09-03 20:04 UTC

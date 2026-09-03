@@ -1,5 +1,5 @@
 {
-  "main_sha": "54d5a8fbfeff63b563c366b9c891146771d30c69",
+  "main_sha": "afa1f53bbd680732406fbe33439905441bc206a7",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -340,57 +340,10 @@
       "title": "Build: Install devcontainer in built artifacts",
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
     },
-    "357": {
-      "base_sha": "54d5a8fbfeff63b563c366b9c891146771d30c69",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "1608957ea9ca5f02323fddf0e0496a9c195649c3",
-      "preview_path": "pr/357/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33795607518",
-      "status": "published",
-      "title": "Gradescope autograder",
-      "url": "https://github.com/plclub/sf-in-lean/pull/357"
-    },
     "362": {
       "base_sha": "2e1aa0247b10a6b881b610a24137d9299e1a753c",
       "changed_variants": [],
-      "head_sha": "c4a0da03c7eb4d09d6669bb293acfe2c27c13cf5",
+      "head_sha": "d0a5de88317b958d38041e26b9fdd4f4bfb3dd45",
       "preview_path": "pr/362/head/",
       "run_url": null,
       "status": "waiting-ci",
@@ -443,6 +396,53 @@
       "status": "published",
       "title": "Dev notes: Some changes to make later",
       "url": "https://github.com/plclub/sf-in-lean/pull/366"
+    },
+    "368": {
+      "base_sha": "afa1f53bbd680732406fbe33439905441bc206a7",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "6e957f0e2004241c7c167d3715f8834afb7e9e43",
+      "preview_path": "pr/368/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33799756552",
+      "status": "published",
+      "title": "Lists: Some fixups following lecture",
+      "url": "https://github.com/plclub/sf-in-lean/pull/368"
     }
   },
   "schema": 3

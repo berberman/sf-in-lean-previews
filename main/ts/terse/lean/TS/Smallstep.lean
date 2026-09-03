@@ -644,7 +644,7 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 --  lemmas from above, plus some basic properties of `⟶*`
 --  (that it is reflexive, transitive, and includes `⟶`).
 
---  ### Exercise (3 stars): multistep_of_eval_inf (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): multistep_of_eval_inf (Optional, Manually graded) ⭐⭐⭐
 
 --  Write a detailed informal version of the proof of
 --  `multistep_of_eval`. (A paper exercise — there is no
@@ -1051,4 +1051,4 @@ macro_rules
 example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
   normalize using SimpleArith
 
--- Built on 2026-09-03 19:11 UTC
+-- Built on 2026-09-03 20:06 UTC

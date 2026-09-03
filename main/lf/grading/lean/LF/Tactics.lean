@@ -968,7 +968,7 @@ theorem add_self_injective (n m : Nat)
 
 attribute [autogradedProof 3] add_self_injective
 
---  ### Exercise (2 stars): add_self_injective_informal ⭐⭐
+--  ### Exercise (2 stars): add_self_injective_informal (Manually graded) ⭐⭐
 
 --  Give a careful informal proof of `add_self_injective`, stating the
 --  induction hypothesis explicitly and being as explicit as possible about
@@ -1406,4 +1406,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
 
 attribute [autogradedProof 6] anyTrue_eq_anyTrue
 
--- Built on 2026-09-03 19:08 UTC
+-- Built on 2026-09-03 20:04 UTC

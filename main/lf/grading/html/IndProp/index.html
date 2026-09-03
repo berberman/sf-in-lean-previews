@@ -4136,7 +4136,7 @@ that never holds.</p>
                 9.4. Additional Exercises<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Additional-Exercises" title="Permalink">🔗</a></span></h2>
               <div class="exercise stars-3">
                 <div class="exercise-header">
-                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★★</span><span class="exercise-name">(nostutter_defn)</span></div>
+                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★★</span><span class="exercise-name">(nostutter_defn)</span><span class="exercise-level"> (Manually graded)</span></div>
                 <p>
                   Formulating inductive definitions of properties is an important
 skill you'll need in this course.  Try to solve this exercise
@@ -4144,7 +4144,7 @@ without any help.</p>
                 <p>
                   We say that a list "stutters" if it repeats the same element
 consecutively.  (This is different from not containing duplicates:
-the sequence <code class="hl lean inline" data-lean-context="examples"><span class="punctuation bracket token" data-binding="kw-occ-«term[_]»-100667">[</span><span class="literal number token" data-binding="" data-verso-hover="45">1</span><span class="punctuation separator token" data-binding="kw-occ-«term[_]»-100667">,</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="45">4</span><span class="punctuation separator token" data-binding="kw-occ-«term[_]»-100667">,</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="45">1</span><span class="punctuation bracket token" data-binding="kw-occ-«term[_]»-100667">]</span></code> has two occurrences of the element <code class="hl lean inline" data-lean-context="examples"><span class="literal number token" data-binding="" data-verso-hover="45">1</span></code> but
+the sequence <code class="hl lean inline" data-lean-context="examples"><span class="punctuation bracket token" data-binding="kw-occ-«term[_]»-100684">[</span><span class="literal number token" data-binding="" data-verso-hover="45">1</span><span class="punctuation separator token" data-binding="kw-occ-«term[_]»-100684">,</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="45">4</span><span class="punctuation separator token" data-binding="kw-occ-«term[_]»-100684">,</span><span class="inter-text"> </span><span class="literal number token" data-binding="" data-verso-hover="45">1</span><span class="punctuation bracket token" data-binding="kw-occ-«term[_]»-100684">]</span></code> has two occurrences of the element <code class="hl lean inline" data-lean-context="examples"><span class="literal number token" data-binding="" data-verso-hover="45">1</span></code> but
 does not stutter.)  The property <code>NoStutter l</code> means that <code>l</code> does
 not stutter. Formulate an inductive definition for <code>NoStutter</code>.</p>
                 <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-0" data-verso-hover="19">inductive</span><span class="inter-text"> </span><span class="const token" data-binding="const-R.NoStutter" data-verso-hover="1448">NoStutter</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-20">{</span><span class="var token" data-binding="var-_uniq.58" data-verso-hover="708">α</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-20">:</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-7243200735919010059" data-verso-hover="21">Type</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.implicitBinder-20">}</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-32">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-List" data-verso-hover="716">List</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.58" data-verso-hover="708">α</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-Lean.Parser.Term.arrow-34">→</span><span class="inter-text"> </span><span class="sort token" data-binding="sort-14430969920833713138" data-verso-hover="12">Prop</span><span class="inter-text"> </span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.inductive-0" data-verso-hover="19">where</span><span class="inter-text">
@@ -4347,7 +4347,7 @@ previous exercise, prove that</p>
 </span><span class="has-info error"><span class="hover-container"><span class="hover-info messages"><code class="verso-message error"><span class="text"></span><span class="text">unexpected end of input</span></code></span></span><span class="unknown token" data-binding=""></span></span></code></div>
               <div class="exercise stars-4">
                 <div class="exercise-header">
-                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★★★</span><span class="exercise-name">(NoDup)</span><span class="exercise-level"> (Advanced, Optional)</span></div>
+                  <span class="exercise-label">Exercise</span><span class="exercise-stars">★★★★</span><span class="exercise-name">(NoDup)</span><span class="exercise-level"> (Advanced, Optional, Manually graded)</span></div>
                 <p>
                   Use the <code>∈</code> property to define a proposition <code>Disjoint l₁ l₂</code>,
 which should be provable exactly when <code>l₁</code> and <code>l₂</code> are
@@ -4867,7 +4867,7 @@ End Pigeon.
 </pre></section>
             </section>
           <div class="sf-build-stamp">
-            Built on 2026-09-03 19:08 UTC</div>
+            Built on 2026-09-03 20:04 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Logic/#Logic" rel="prev" title="8. Logic in Lean"><span class="arrow">←</span><span class="where">8. Logic in Lean</span></a><a class="local-button active" href="Automation/#Automation" rel="next" title="10. Automation: More Automation"><span class="where">10. Automation: More Automation</span><span class="arrow">→</span></a></nav>
           </div>
