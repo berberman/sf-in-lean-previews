@@ -537,6 +537,16 @@
       "status": "ci-failed",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
+    },
+    "363": {
+      "base_sha": "2fe3c82f5edf445a030bb62b62f9876bd5bcf251",
+      "changed_variants": [],
+      "head_sha": "1797f2f955880d24bde8e030c331badd16399637",
+      "preview_path": "pr/363/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Lists: Small text tweaks",
+      "url": "https://github.com/plclub/sf-in-lean/pull/363"
     }
   },
   "schema": 3
