@@ -345,8 +345,8 @@
       "changed_variants": [],
       "head_sha": "d0a5de88317b958d38041e26b9fdd4f4bfb3dd45",
       "preview_path": "pr/362/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33801540333",
+      "status": "ci-failed",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
     },
