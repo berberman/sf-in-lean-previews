@@ -1,4 +1,5 @@
 import TS.Slang
+import TS.AttributeDecls
 
 import SFLCompat
 
@@ -65,7 +66,7 @@ import SFLCompat
 --  but also the intermediate states that it passes through along the way;
 --  this is crucial, since these states can also be observed by
 --  concurrently executing code.
-
+--
 --  Another shortcoming of the big-step style is more technical but equally
 --  critical in many situations. Suppose we want to define a variant of our
 --  expression language where a value could be *either* a number *or* a
@@ -77,13 +78,13 @@ import SFLCompat
 --  some way of viewing a list as a number — e.g., by specifying that a
 --  list should be interpreted as `0` when it occurs in a context expecting
 --  a number. But this would be a bit of a hack.
-
+--
 --  A much more natural approach is simply to say that the behavior of the
 --  expression `2 + nil` is *undefined* — i.e., it doesn't evaluate to any
 --  result at all. And we can easily do this: we just have to formulate
 --  `aeval` and `beval` as inductive propositions rather than functions, so
 --  that we can make them partial functions instead of total ones.
-
+--
 --  Now, however, we encounter a subtlety that will become important once
 --  we move to a full programming language with looping. There, a program
 --  might fail to produce a result for *two quite different reasons*:
@@ -91,7 +92,7 @@ import SFLCompat
 --  some point, the program tries to do an operation that makes no sense,
 --  such as adding a number to a list, so that none of the evaluation rules
 --  can be applied.
-
+--
 --  These two outcomes — nontermination vs. getting stuck in an erroneous
 --  configuration — should not be confused. In particular, we want to
 --  *allow* the first (because permitting the possibility of infinite loops
@@ -101,7 +102,7 @@ import SFLCompat
 --  this will be a major topic of the next chapter, on *types*. As a first
 --  step, we need a way of presenting the semantics that allows us to
 --  distinguish nontermination from erroneous "stuck states."
-
+--
 --  So, for lots of reasons, we'd like to have a finer-grained way of
 --  defining and reasoning about program behaviors. This is the topic of
 --  the present chapter. Our goal is to replace the "big-step" `Eval`
@@ -136,7 +137,7 @@ def evalF (t : Tm) : Nat :=
 --  Here is the same evaluator, written in exactly the same style, but
 --  formulated as an inductively defined relation. We use the notation
 --  `t ⇓ n` for "`t` evaluates to `n`."
-
+--
 --  The `notation` command below is how that is declared: it introduces `⇓`
 --  as infix syntax for the `Eval` relation defined with it, with a
 --  precedence saying how tightly it binds. This is the lightweight way to
@@ -146,7 +147,7 @@ def evalF (t : Tm) : Nat :=
 
 --  -------                (const)
 --                          c n ⇓ n
-
+--
 --                          t₁ ⇓ n₁
 --                          t₂ ⇓ n₂
 --                      -----------------          (plus)
@@ -162,11 +163,11 @@ notation:50 t " ⇓ " n => Eval t n
 
 --  -------------------------------      (plus)
 --                  p (c n₁) (c n₂) ⟶ c (n₁ + n₂)
-
+--
 --                           t₁ ⟶ t₁'
 --                      --------------------             (plusLeft)
 --                      p t₁ t₂ ⟶ p t₁' t₂
-
+--
 --                           t₂ ⟶ t₂'
 --                   ----------------------------        (plusRight)
 --                   p (c n₁) t₂ ⟶ p (c n₁) t₂'
@@ -186,20 +187,20 @@ inductive Step : Tm → Tm → Prop where
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 
 --  Things to notice:
-
+--
 --  - We are defining a single reduction step, in which just one `p` node
 --    is replaced by its value.
-
+--
 --  - Each step finds the *leftmost* `p` node that is ready to go (both of
 --    its operands are constants) and rewrites it in place. The first rule
 --    tells how to rewrite this `p` node itself; the other two rules tell
 --    how to find it.
-
+--
 --  - A term that is just a constant cannot take a step.
 
 --  Let's pause and check a couple of examples of reasoning with the step
 --  relation.
-
+--
 --  If `t₁` steps to `t₁'`, then `p t₁ t₂` steps to `p t₁' t₂`.
 
 example :
@@ -231,6 +232,8 @@ example :
         (.c 4))) := by
   apply Step.plusRight; apply Step.plusRight; apply Step.plus
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  To what does the following term step?
@@ -247,6 +250,8 @@ example :
 --  `.p (.p (.c 1) (.c 2)) (.c 3)` (D) `.p (.c 3) (.c 3)` (E) None of the
 --  above
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  What about this one?
@@ -254,6 +259,8 @@ example :
 --  .c 1
 
 --  (A) `.c 1` (B) `.p (.c 0) (.c 1)` (C) None of the above
+
+--   ----------------------------------------
 
 end SimpleArith1
 
@@ -265,7 +272,7 @@ end SimpleArith1
 --  Foundations* develops some of these ideas in a bit more detail;
 --  reviewing that chapter may be useful if the treatment here feels too
 --  terse.)
-
+--
 --  A *binary relation* on a type `X` is a family of propositions
 --  parameterized by two elements of `X` — i.e., a proposition about pairs
 --  of elements of `X`.
@@ -286,29 +293,29 @@ def Relation (X : Type) := X → X → Prop
 --  One simple property a relation may have is being *deterministic*: like
 --  Slang's big-step evaluation, each element is related to at most one
 --  other.
-
+--
 --  *Theorem*: For each `t`, there is at most one `t'` such that `t` steps
 --  to `t'`. We prove it by induction on the derivation of the first step.
-
+--
 --  *Proof sketch*: We show that if `x` steps to both `y₁` and `y₂`, then
 --  `y₁` and `y₂` are equal, by induction on a derivation of `x ⟶ y₁`.
 --  There are several cases, depending on the last rule used in this
 --  derivation and the last rule in the given derivation of `x ⟶ y₂`.
-
+--
 --  - If both are `plus`, the result is immediate.
-
+--
 --  - The cases when both derivations end with `plusLeft` or `plusRight`
 --    follow by the induction hypothesis.
-
+--
 --  - It cannot happen that one is `plus` and the other is
 --    `plusLeft`/`plusRight`, since this would imply that `x` has the form
 --    `p t₁ t₂` where both `t₁` and `t₂` are constants (by `plus`) *and*
 --    one of `t₁` or `t₂` has the form `p _`.
-
+--
 --  - Similarly, it cannot happen that one is `plusLeft` and the other is
 --    `plusRight`, since this would imply that `x` has the form `p t₁ t₂`
 --    where `t₁` has both the form `p t₁₁ t₁₂` and the form `c n`.
-
+--
 --  Formally,
 
 def Deterministic {X : Type} (R : Relation X) : Prop :=
@@ -339,28 +346,28 @@ end SimpleArith2
 
 --  Next, it will be useful to slightly reformulate the definition of
 --  single-step reduction by stating it in terms of "values."
-
+--
 --  It can be useful to think of the `⟶` relation as defining an *abstract
 --  machine*:
-
+--
 --  - At any moment, the *state* of the machine is a term.
-
+--
 --  - A *step* of the machine is an atomic unit of computation — here, a
 --    single "add" operation.
-
+--
 --  - The *halting states* of the machine are ones where there is no more
 --    computation to be done.
-
+--
 --  We can then *execute* a term `t` as follows:
-
+--
 --  - Take `t` as the starting state of the machine.
-
+--
 --  - Repeatedly use the `⟶` relation to find a sequence of machine states,
 --    starting with `t`, where each state steps to the next.
-
+--
 --  - When no more reduction is possible, "read out" the final state of the
 --    machine as the result of execution.
-
+--
 --  Intuitively, it is clear that the final states of our machine are
 --  always terms of the form `c n` for some `n`. We call such terms
 --  *values*.
@@ -374,11 +381,11 @@ inductive IsValue : Tm → Prop where
 
 --  ------------------------------      (plus)
 --                  p (c n₁) (c n₂) ⟶ c (n₁ + n₂)
-
+--
 --                           t₁ ⟶ t₁'
 --                      -------------------             (plusLeft)
 --                      p t₁ t₂ ⟶ p t₁' t₂
-
+--
 --                           IsValue v₁
 --                           t₂ ⟶ t₂'
 --                      -------------------             (plusRight)
@@ -387,7 +394,7 @@ inductive IsValue : Tm → Prop where
 --  Again, the variable names in the informal presentation carry important
 --  information: by convention, `v₁` ranges only over values, while `t₁`
 --  and `t₂` range over arbitrary terms.
-
+--
 --  (Given this convention, the explicit `IsValue` hypothesis is arguably
 --  redundant, since the naming convention tells us where to add it when
 --  translating the informal rule to Lean. We'll keep it for now, to
@@ -414,26 +421,26 @@ notation:40 t:41 " ⟶ " t':41 => Step t t'
 
 --  As a sanity check on this change, let's re-verify determinism. Here's
 --  an informal proof:
-
+--
 --  *Proof sketch*: We must show that if `x` steps to both `y₁` and `y₂`,
 --  then `y₁` and `y₂` are equal. Consider the final rules used in the
 --  derivations of `x ⟶ y₁` and `x ⟶ y₂`.
-
+--
 --  - If both are `plus`, the result is immediate.
-
+--
 --  - The cases when both derivations end with `plusLeft` or `plusRight`
 --    follow by the induction hypothesis.
-
+--
 --  - It cannot happen that one is `plus` and the other is
 --    `plusLeft`/`plusRight`, since this would imply that `x` has the form
 --    `p t₁ t₂` where both `t₁` and `t₂` are constants (by `plus`) *and*
 --    one of `t₁` or `t₂` has the form `p _`.
-
+--
 --  - Similarly, it cannot happen that one is `plusLeft` and the other is
 --    `plusRight`, since this would imply that `x` has the form `p t₁ t₂`
 --    where `t₁` both has the form `p t₁₁ t₁₂` and is a value (hence has
 --    the form `c n`).
-
+--
 --  Most of this proof is the same as the one above. But to get maximum
 --  benefit from the exercise you should try to write your formal version
 --  from scratch and just use the earlier one if you get stuck. The
@@ -467,27 +474,27 @@ theorem step_deterministic : Deterministic Step := by
 --  step even though it has not been completely reduced to a value. The
 --  following theorem shows that we did not, in fact, make such a mistake
 --  here.
-
+--
 --  *Theorem* (*Strong Progress*): If `t` is a term, then either `t` is a
 --  value or else there exists a term `t'` such that `t ⟶ t'`.
-
+--
 --  *Proof*: By induction on `t`.
-
+--
 --  - Suppose `t = c n`. Then `t` is a value.
-
+--
 --  - Suppose `t = p t₁ t₂`, where (by the IH) `t₁` either is a value or
 --    can step to some `t₁'`, and where `t₂` is either a value or can step
 --    to some `t₂'`. We must show `p t₁ t₂` is either a value or steps to
 --    some `t'`.
-
+--
 --    - If `t₁` and `t₂` are both values, then `t` can take a step, by
 --      `plus`.
-
+--
 --    - If `t₁` is a value and `t₂` can take a step, then so can `t`, by
 --      `plusRight`.
-
+--
 --    - If `t₁` can take a step, then so can `t`, by `plusLeft`.
-
+--
 --  Or, formally:
 
 theorem strong_progress (t : Tm) : IsValue t ∨ ∃ t', t ⟶ t' := by
@@ -514,7 +521,7 @@ theorem strong_progress (t : Tm) : IsValue t ∨ ∃ t', t ⟶ t' := by
 --  either is a value or can "make progress" by stepping to some other
 --  term. (The qualifier "strong" distinguishes it from a more refined
 --  version that we'll see in later chapters, called simply *progress*.)
-
+--
 --  The idea of "making progress" can be extended to tell us something
 --  interesting about values in this language: they are exactly the terms
 --  that do *not* make progress in this sense. Let's give a name to "terms
@@ -559,13 +566,13 @@ theorem nf_same_as_value (t : Tm) : IsNormalForm Step t ↔ IsValue t :=
 --  it is defined by looking at the way a term is written — while
 --  `IsNormalForm` is a *semantic* one — it is defined by looking at how
 --  the term steps.
-
+--
 --  It is not obvious that these concepts should characterize the same set
 --  of terms!
-
+--
 --  Indeed, we could easily have written the definitions (incorrectly) so
 --  that they would *not* coincide.
-
+--
 --  Suppose, for example, we define `IsValue` so that it includes some
 --  terms that are not finished reducing. (Even if you don't work the
 --  exercise `value_not_same_as_normal_form1` below and the following ones,
@@ -582,6 +589,8 @@ inductive Step : Tm → Tm → Prop where
   | plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (.p t₁ t₂) (.p t₁' t₂)
   | plusRight (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : Step t₂ t₂') : Step (.p v₁ t₂) (.p v₁ t₂')
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Using this wrong definition of `IsValue`, to how many different values
@@ -589,12 +598,16 @@ inductive Step : Tm → Tm → Prop where
 
 --  .p (.p (.c 1) (.c 2)) (.c 3)
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  To how many different terms does the following term `Step` (in one
 --  step)?
 
 --  .p (.p (.c 1) (.c 2)) (.p (.c 3) (.c 4))
+
+--   ----------------------------------------
 
 --  ### Exercise (3 stars): value_not_same_as_normal_form1 (Optional) ⭐⭐⭐
 
@@ -624,12 +637,16 @@ inductive Step : Tm → Tm → Prop where
   | plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (.p t₁ t₂) (.p t₁' t₂)
   | plusRight (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : Step t₂ t₂') : Step (.p v₁ t₂) (.p v₁ t₂')
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  With this definition, to how many different terms does the following
 --  term step (in exactly one step)?
 
 --  .p (.c 1) (.c 3)
+
+--   ----------------------------------------
 
 theorem value_not_same_as_normal_form :
     ∃ v, IsValue v ∧ ¬ IsNormalForm Step v := by
@@ -658,12 +675,16 @@ inductive Step : Tm → Tm → Prop where
   | plus (n₁ n₂ : Nat) : Step (.p (.c n₁) (.c n₂)) (.c (n₁ + n₂))
   | plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (.p t₁ t₂) (.p t₁' t₂)
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  With this definition, to how many terms does the following term step
 --  (in one step)?
 
 --  .p (.c 1) (.p (.c 1) (.c 2))
+
+--   ----------------------------------------
 
 theorem value_not_same_as_normal_form :
     ∃ t, ¬ IsValue t ∧ IsNormalForm Step t := by
@@ -684,14 +705,14 @@ end Temp3
 --  executing programs. We can use the same machine to reduce programs to
 --  completion — to find out what final result they yield. This can be
 --  formalized as follows:
-
+--
 --  - First, we define a *multi-step reduction relation* `⟶*`, which
 --    relates terms `t` and `t'` if `t` can reach `t'` by any number
 --    (including zero) of single reduction steps.
-
+--
 --  - Then we define a "result" of a term `t` as a normal form that `t` can
 --    reach by multi-step reduction.
-
+--
 --  Since we'll want to reuse the idea of multi-step reduction many times
 --  with many different single-step relations, let's define the concept
 --  generically. Given a relation `R` (e.g., the step relation `⟶`), we
@@ -709,18 +730,18 @@ inductive Multi {X : Type} (R : Relation X) : X → X → Prop where
 
 --  The effect of this definition is that `Multi R` relates two elements
 --  `x` and `y` if
-
+--
 --  - `x = y`, or
-
+--
 --  - `R x y`, or
-
+--
 --  - there is some nonempty sequence `z₁`, `z₂` , ..., `zₙ` such that
-
+--
 --    `R x₁ z₁,
 --    R z₁ z₂,
 --    ...,
 --    R zₙ y.`
-
+--
 --  Intuitively, if `R` describes a single-step of computation, then
 --  `z₁ ... zₙ` are the intermediate steps of computation that get us from
 --  `x` to `y`.
@@ -770,13 +791,17 @@ theorem multi_trans {X : Type} (R : Relation X) (x y z : X)
 --  In particular, for the `Multi Step` relation on terms, if `t₁ ⟶* t₂`
 --  and `t₂ ⟶* t₃`, then `t₁ ⟶* t₃`.
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Which of the following relations on numbers *cannot* be expressed as
 --  `Multi R` for some `R`?
-
+--
 --  (A) less than or equal (B) strictly less than (C) equal (D) none of the
 --  above
+
+--   ----------------------------------------
 
 --  ### Examples
 
@@ -829,7 +854,7 @@ def IsNormalFormOf {X : Type} (R : Relation X) (t t' : X) : Prop :=
 --  deterministic — i.e., a given term can take a single step in at most
 --  one way. It follows that, if `t` can reach a normal form, then this
 --  normal form is unique.
-
+--
 --  In other words, we can actually pronounce `IsNormalFormOf t t'` as
 --  "`t'` is *the* normal form of `t`."
 
@@ -877,18 +902,18 @@ theorem multistep_congr_2 (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : t₂ �
 
 --  With these lemmas in hand, the main proof is a straightforward
 --  induction.
-
+--
 --  *Theorem*: The `Step` relation is normalizing — i.e., for every `t`
 --  there exists some `t'` such that `t` reduces to `t'` and `t'` is a
 --  normal form.
-
+--
 --  *Proof sketch*: By induction on terms. There are two cases:
-
+--
 --  - `t = c n` for some `n`. Here `t` doesn't take a step, and we have
 --    `t' = t`. We derive the left-hand side by reflexivity and the
 --    right-hand side by observing (a) that values are normal forms (by
 --    `nf_same_as_value`) and (b) that `t` is a value (by `const`).
-
+--
 --  - `t = p t₁ t₂` for some `t₁` and `t₂`. By the IH, `t₁` and `t₂` reduce
 --    to normal forms `t₁'` and `t₂'`. Recall that normal forms are values
 --    (by `nf_same_as_value`); we therefore know that `t₁' = c n₁` and
@@ -917,7 +942,7 @@ theorem step_normalizing : Normalizing Step := by
 --  Having defined the operational semantics of our tiny programming
 --  language in two different ways (big-step and small-step), it makes
 --  sense to ask whether these definitions actually define the same thing!
-
+--
 --  They do, though it takes a little work to show it. The details are left
 --  as an exercise. We consider the two implications separately. First,
 --  big-step evaluation implies multi-step reduction to a value.
@@ -947,18 +972,18 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 
 --  That is, the multi-step reduction of a term of the form `p t₁ t₂`
 --  proceeds in three phases:
-
+--
 --  - First, we use `plusLeft` some number of times to reduce `t₁` to a
 --    normal form, which must (by `nf_same_as_value`) be a term of the form
 --    `c n₁` for some `n₁`.
-
+--
 --  - Next, we use `plusRight` some number of times to reduce `t₂` to a
 --    normal form, which must again be a term of the form `c n₂` for some
 --    `n₂`.
-
+--
 --  - Finally, we use `plus` one time to reduce `p (c n₁) (c n₂)` to
 --    `c (n₁ + n₂)`.
-
+--
 --  To formalize this intuition, you'll need the congruence lemmas from
 --  above, plus some basic properties of `⟶*` (that it is reflexive,
 --  transitive, and includes `⟶`).
@@ -969,17 +994,17 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 --  (A paper exercise — there is no Lean proof to fill in here.)
 
 --  _Theorem_: for all `t`, `n`, if `t ⇓ n` then `t ⟶* c n`.
-
+--
 --  _Proof_: By induction on a derivation of `t ⇓ n`.
-
+--
 --    - Suppose the final rule used to show `t ⇓ n` is `const`.  Then `t = c n`.
 --      We must show `c n ⟶* c n`.  This holds by `refl`.
-
+--
 --    - Suppose the final rule used to show `t ⇓ n` is `plus`.  Then
 --      `t = p t₁ t₂`, and we know that `t₁ ⇓ c n₁` and `t₂ ⇓ c n₂` for some
 --      `n₁` and `n₂`, with `n = n₁ + n₂`.  The IH tells us that `t₁ ⟶* c n₁` and
 --      `t₂ ⟶* c n₂`.  We must show that `p t₁ t₂ ⟶* c (n₁ + n₂)`.
-
+--
 --      First, `p t₁ t₂ ⟶* p (c n₁) t₂` by `multistep_congr_1` and the multistep
 --      derivation for `t₁`.  Observing that `c n₁` is a value, we also have
 --      `p (c n₁) t₂ ⟶* p (c n₁) (c n₂)` by `multistep_congr_2` and the multistep
@@ -1053,7 +1078,7 @@ theorem evalF_eval (t : Tm) (n : Nat) : evalF t = n ↔ t ⇓ n := by
 --  arithmetic and boolean expressions of the Slang chapter (with
 --  subtraction, multiplication, and the boolean operators) rather than the
 --  two-constructor toy language we have used so far.
-
+--
 --  The small-step reduction relations for these expressions are
 --  straightforward extensions of the tiny language we've been working up
 --  to now. To make them easier to read, we introduce the symbolic
@@ -1082,11 +1107,11 @@ inductive IsAValue : Aexp → Prop where
 --  a₁ ⟶a a₁'
 --                     --------------------             (plusLeft)
 --                     a₁ + a₂ ⟶a a₁' + a₂
-
+--
 --                   IsAValue v₁      a₂ ⟶a a₂'
 --                   ---------------------------        (plusRight)
 --                     v₁ + a₂ ⟶a v₁ + a₂'
-
+--
 --                   -------------------------          (plus)
 --                   n₁ + n₂ ⟶a num (n₁ + n₂)
 
@@ -1164,32 +1189,32 @@ theorem strong_progress_arith (a : Aexp) : IsAValue a ∨ ∃ a', a ⟶a a' := b
 --  The small-step relation for boolean expressions reduces the arithmetic
 --  subexpressions of a comparison (using `⟶a`) and then applies the
 --  comparison, and it short-circuits `¬` and `∧` on boolean literals.
-
+--
 --  We are not actually going to bother to define boolean values, since
 --  they aren't needed in the definition of `⟶b` below (why?), though they
 --  might be if our language were a bit more complicated (why?).
-
+--
 --  Again we show a representative sample; `neq`, `le`, and `gt` follow the
 --  same pattern as `eq`.
 
 --  a₁ ⟶a a₁'
 --                    --------------------             (eqLeft)
 --                    a₁ = a₂ ⟶b a₁' = a₂
-
+--
 --                  IsAValue v₁      a₂ ⟶a a₂'
 --                  ---------------------------        (eqRight)
 --                    v₁ = a₂ ⟶b v₁ = a₂'
-
+--
 --                    ---------------------            (eq)
 --                    n₁ = n₂ ⟶b (n₁ = n₂)
-
+--
 --                          b₁ ⟶b b₁'
 --                        --------------               (notStep)
 --                        ¬ b₁ ⟶b ¬ b₁'
-
+--
 --                      ----------------               (notTrue)
 --                      ¬ true ⟶b false
-
+--
 --                    ---------------------            (andFalse)
 --                    false ∧ b₂ ⟶b false
 
@@ -1230,15 +1255,19 @@ example :
     (Bexp.le (.plus (.num 1) (.num 1)) (.num 3)) ⟶b (.le (.num 2) (.num 3)) :=
   .leLeft _ _ _ (.plus 1 1)
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Which of these properties does this small-step semantics for `Slang`
 --  expressions satisfy? (Yes or No for each.)
-
+--
 --  - determinism
 --  - strong progress (every non-value takes a step)
 --  - values and normal forms coincide (i.e., there are no "stuck" terms)
 --  - the step relation is normalizing (i.e., evaluation always terminates)
+
+--   ----------------------------------------
 
 --  Let us make good on the first of those answers. Both step relations are
 --  *deterministic*: the value guards on the "step the right operand" rules
@@ -1286,7 +1315,7 @@ theorem bstep_deterministic : Deterministic BStep := by
 --  interleave the two. Different orders are exactly what a concurrent or
 --  optimizing implementation might choose, so it is natural to ask whether
 --  the choice can affect the final answer.
-
+--
 --  Let's find out. We define a second small-step relation, `⟶n`, that is
 --  identical to `⟶a` except that we *drop* the `IsAValue` side-condition:
 --  either operand may take a step at any time.
@@ -1368,7 +1397,7 @@ theorem multi_astep_imp_anstep (a a' : Aexp) (h : Multi AStep a a') : Multi ANSt
 --  nondeterministic semantics always compute the *same* final result. That
 --  is, if `a` fully reduces to `.num n₁` under `⟶a` and to `.num n₂` under
 --  `⟶n`, then `n₁ = n₂`.
-
+--
 --  *Hint:* both `.num n₁` and `.num n₂` are reachable by `⟶n` (use
 --  `multi_astep_imp_anstep` for the first), and `⟶n` preserves `eval`.
 
@@ -1392,7 +1421,7 @@ theorem astep_anstep_agree (a : Aexp) (n₁ n₂ : Nat)
 --  evaluates arithmetic expressions. The machine's instructions push a
 --  constant or combine the top two stack entries. The machine's behavior
 --  should match the big-step `Aexp.eval` function defined earlier.
-
+--
 --  A *program* is a list of instructions, and the *stack* is a list of
 --  numbers.
 
@@ -1438,7 +1467,7 @@ theorem stack_step_deterministic : Deterministic StackStep := by
 --  Prove the compiler correct: running the compiled program from the empty
 --  stack reduces, in some number of steps, to a stack holding exactly the
 --  value of the expression.
-
+--
 --  *Hint:* this will not go through by a direct induction — the induction
 --  hypothesis is too weak. Prove a more general statement first, about
 --  running `compile a` followed by *any* leftover program `p`, starting
@@ -1480,3 +1509,94 @@ theorem compiler_is_correct (a : Aexp) :
 
 end Slang
 
+--  ### Automation with `solve_by_elim`
+
+--  When experimenting with definitions of programming languages in Lean,
+--  we often want to see what a particular term steps to - i.e., we want to
+--  find proofs for goals of the form `t ⟶* t'`. Consider, for example,
+--  reducing an arithmetic expression using the small-step relation
+--  `AStep`.
+
+example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
+  apply Multi.step (y := .p (.c 3) (.c 7))
+  · apply Step.plusRight
+    · apply IsValue.const
+    · apply Step.plus
+  · apply Multi.step (y := .c 10)
+    · apply Step.plus
+    · apply Multi.refl
+
+--  Proofs that one term normalizes to another must repeatedly apply
+--  `Multi.step` until the term reaches a normal form, with some very
+--  simple intermediate steps along the way. Thankfully, we can automate
+--  this process with a new tactic: `solve_by_elim`. When supplied with a
+--  list of constructors, `solve_by_elim [c₁, c₂, c₃, ...]` will attempt to
+--  apply these constructors repeatedly to a goal. It will also
+--  automatically attempt to use simple tactics like `rfl`, `trivial`,
+--  `congr` and hypotheses from the context in order to solve simple goals.
+--  So, for example, the proof above also be written:
+
+example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
+  repeat apply Multi.step <;>
+    try solve_by_elim [Step.plusRight, Step.plusLeft, Step.plus, IsValue.const]
+
+--  This one script would suffice to prove most concrete reduction
+--  sequences for this simple language. To make it work for others, we
+--  would need to supply constructors for those other languages to
+--  `solve_by_elim`. The languages we will study in this book can grow to a
+--  large number of constructors for their `Step` relations, so we'd like a
+--  way to supply all of them to `solve_by_elim` more easily. Luckily, Lean
+--  supports this. We can register a constructor (or lemma) for use with
+--  `solve_by_elim` with an `attribute` command:
+
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Attributes)
+--  The command below tags all of these constructors with the `SimpleArith`
+--  attribute, which we can then use to automatically pull all of these
+--  constructors in when we use `solve_by_elim`. However, due to a
+--  limitation of Lean, this attribute needs to be pre-declared in a
+--  different file; we can't create it here and then immediately use it.
+--
+--  For this book, we've predeclared all the attributes we'll use in a file
+--  called `AttributeDecls.lean`, following the typical pattern from
+--  libraries like Mathlib.
+--  END DETAILS
+
+attribute [SimpleArith] Step.plusRight Step.plusLeft Step.plus IsValue.const
+
+--  This `using` option then tells `solve_by_elim` to try to use every
+--  constructor we've registered with the supplied attribute:
+
+example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
+  repeat apply Multi.step <;>
+    try solve_by_elim using SimpleArith
+
+--  We can package all this up into a dedicated tactic for solving
+--  reduction sequences, which we'll call `normalize`:
+
+syntax "normalize" " using " ident,+ : tactic
+
+macro_rules
+  | `(tactic| normalize using $xs,*) =>
+    `(tactic|
+      first
+      | apply Multi.refl
+      | (apply Multi.step
+         · solve_by_elim (maxDepth := 15) (constructor := false) only using $xs,*
+         · normalize using $xs,*))
+
+--  And voilà:
+
+example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
+  normalize using SimpleArith
+
+--  ### Exercise (1 star): normalize_ex ⭐
+
+--  Use the `normalize` tactic to prove the following. You will need to
+--  supply the term `e'` yourself.
+
+theorem normalize_ex : exists e', (.p (.c 3) (.p (.c 2) (.c 1))) ⟶* e' ∧ IsValue e' := by
+  exists (.c 6); constructor
+  · normalize using SimpleArith
+  · constructor
+
+-- Built on 2026-09-02 21:24 UTC

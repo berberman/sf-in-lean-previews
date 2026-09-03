@@ -6,7 +6,7 @@ import SFLCompat
 --  # StlcProp: Properties of STLC
 
 --  THE SIMPLY TYPED LAMBDA CALCULUS
-
+--
 --  Syntax:
 
 --  t ::= x                     (variable)
@@ -23,38 +23,38 @@ import SFLCompat
 --      | false
 
 --  Substitution:
-
---    [x:=s]x               = s
---    [x:=s]y               = y                     if x ≠ y
---    [x:=s](λx:T. t)       = λx:T. t
---    [x:=s](λy:T. t)       = λy:T. [x:=s]t         if x ≠ y
---    [x:=s](t₁ t₂)         = ([x:=s]t₁) ([x:=s]t₂)
---    [x:=s]true            = true
---    [x:=s]false           = false
---    [x:=s](if t₁ then t₂ else t₃) =
---                    if [x:=s]t₁ then [x:=s]t₂ else [x:=s]t₃
-
+--
+--      [x:=s]x               = s
+--      [x:=s]y               = y                     if x ≠ y
+--      [x:=s](λx:T. t)       = λx:T. t
+--      [x:=s](λy:T. t)       = λy:T. [x:=s]t         if x ≠ y
+--      [x:=s](t₁ t₂)         = ([x:=s]t₁) ([x:=s]t₂)
+--      [x:=s]true            = true
+--      [x:=s]false           = false
+--      [x:=s](if t₁ then t₂ else t₃) =
+--                      if [x:=s]t₁ then [x:=s]t₂ else [x:=s]t₃
+--
 --  Small-step operational semantics:
 
 --  v.IsValue
 --                         -----------------------                    (appAbs)
 --                          (λx:T. t) v ⟶ [x:=v]t
-
+--
 --                                t₁ ⟶ t₁'
 --                            ----------------                        (app1)
 --                             t₁ t₂ ⟶ t₁' t₂
-
+--
 --                               v₁.IsValue
 --                                t₂ ⟶ t₂'
 --                            ----------------                        (app2)
 --                             v₁ t₂ ⟶ v₁ t₂'
-
+--
 --                    --------------------------------                (ifTrue)
 --                     (if true then t₁ else t₂) ⟶ t₁
-
+--
 --                    ---------------------------------               (ifFalse)
 --                     (if false then t₁ else t₂) ⟶ t₂
-
+--
 --                                t₁ ⟶ t₁'
 --          ----------------------------------------------------      (ifStep)
 --           (if t₁ then t₂ else t₃) ⟶ (if t₁' then t₂ else t₃)
@@ -64,22 +64,22 @@ import SFLCompat
 --  Γ x = T₁
 --                              ------------                       (var)
 --                               Γ ⊢ x ⦂ T₁
-
+--
 --                          x ↦ T₂ ; Γ ⊢ t₁ ⦂ T₁
 --                        -------------------------                (abs)
 --                         Γ ⊢ λx:T₂. t₁ ⦂ T₂ → T₁
-
+--
 --                            Γ ⊢ t₁ ⦂ T₂ → T₁
 --                              Γ ⊢ t₂ ⦂ T₂
 --                           ------------------                    (app)
 --                             Γ ⊢ t₁ t₂ ⦂ T₁
-
+--
 --                            -----------------                    (tru)
 --                             Γ ⊢ true ⦂ Bool
-
+--
 --                           ------------------                    (fls)
 --                            Γ ⊢ false ⦂ Bool
-
+--
 --               Γ ⊢ t₁ ⦂ Bool    Γ ⊢ t₂ ⦂ T₁    Γ ⊢ t₃ ⦂ T₁
 --              ---------------------------------------------      (ite)
 --                     Γ ⊢ if t₁ then t₂ else t₃ ⦂ T₁
@@ -87,7 +87,7 @@ import SFLCompat
 --  In this chapter, we develop the fundamental theory of
 --  the Simply Typed Lambda Calculus — in particular, the
 --  type safety theorem.
-
+--
 --  We pick up where the Stlc chapter left off, so
 --  everything below lives in the same namespace as the
 --  definitions it is about.
@@ -177,14 +177,14 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 
 --  For preservation, we need some technical machinery for
 --  reasoning about variables and substitution.
-
+--
 --  - The *preservation theorem* is proved by induction on a
 --    typing derivation and case analysis on the step
 --    relation, pretty much as we did in the Types chapter.
-
+--
 --    Main novelty: `Step.appAbs` uses the substitution
 --    operation.
-
+--
 --    To see that this step preserves typing, we need to
 --    know that the substitution itself does. So we prove
 --    a...
@@ -192,17 +192,17 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --  - *substitution lemma*, stating that substituting a
 --    (closed, well-typed) term `s` for a variable `x` in a
 --    term `t` preserves the type of `t`.
-
+--
 --  The proof goes by induction on the form of `t` and
 --  requires looking at all the different cases in the
 --  definition of substitution.
-
+--
 --  Tricky case: variables.
-
+--
 --  In this case, we need to deduce from the fact that a
 --  term `s` has type S in the empty context the fact that
 --  `s` has type S in every context.
-
+--
 --  For this we prove a...
 
 --  - *weakening* lemma, showing that typing is preserved
@@ -217,26 +217,45 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --  "extensions" to the context `Γ`. (Recall map inclusion,
 --  `Γ ⊆ Γ'`, from the `Typeclasses` chapter.)
 
--- IN PROGRESS
-theorem weakening (Γ Γ' : Context) (t : Tm) (T : Ty)
-    (hi : Γ ⊆ Γ') (hT : <{ ~Γ ⊢ ~t ⦂ ~T }>) : <{ ~Γ' ⊢ ~t ⦂ ~T }> := by
-  induction hT generalizing Γ' with
-  | var _ x _ h => exact .var _ x _ (hi h)
-  | abs _ x _ _ _ _ ih => exact .abs _ x _ _ _ (ih _ (PartialMap.update_subset _ _ _ _ hi))
-  | app _ _ _ _ _ _ _ ih₁ ih₂ => exact .app _ _ _ _ _ (ih₁ _ hi) (ih₂ _ hi)
-  | tru => exact .tru _
-  | fls => exact .fls _
-  | ite _ _ _ _ _ _ _ _ ih₁ ih₂ ih₃ => exact .ite _ _ _ _ _ (ih₁ _ hi) (ih₂ _ hi) (ih₃ _ hi)
+theorem weakening {Γ Γ' : Context} {t : Tm} {τ : Ty}
+    (hi : Γ ⊆ Γ') (ht : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
+  induction ht generalizing Γ' with
+  | var =>
+      constructor; apply hi; assumption
+  | abs _ _ _ _ _ _ ih =>
+      constructor; apply ih; apply PartialMap.update_subset; assumption
+  | app _ _ _ _ _ _ _ ih₁ ih₂ =>
+      constructor
+      . exact ih₁ hi
+      . exact ih₂ hi
+  | tru => constructor
+  | fls => constructor
+  | ite _ _ _ _ _ _ _ _ ih₁ ih₂ ih₃ =>
+      constructor
+      . exact ih₁ hi
+      . exact ih₂ hi
+      . exact ih₃ hi
+
+--  Through judicious use of `apply_rules`, we can heavily
+--  automate this proof. The tactic after `with` is applied
+--  to every case of the `induction` and handles all the
+--  cases using `apply_rules`'s automation. We must give the
+--  tactic access to all the `HasType` constructors and the
+--  `PartialMap.update_subset` lemma for this to work:
+
+theorem weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty}
+    (hi : Γ ⊆ Γ') (ht : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
+  induction ht generalizing Γ' with (apply_rules [PartialMap.update_subset] using StlcTyping)
 
 --  The following simple corollary is what we actually need
 --  below.
 
-theorem weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
-    <{ ~Γ ⊢ ~t ⦂ ~T }> :=
-  weakening _ _ _ _
-    (fun h => by
-      rw [PartialMap.getElem_empty] at h
-      cases h) hT
+theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
+    <{ ~Γ ⊢ ~t ⦂ ~τ }> := by
+  apply weakening _ ht
+  intro _ _ h
+  rw [PartialMap.getElem_empty] at h
+  contradiction
 
 --  ### The Substitution Lemma
 
@@ -245,14 +264,14 @@ theorem weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂
 --  *substitution* preserves types.
 
 --  The *substitution lemma* says:
-
+--
 --  - Suppose we have a term `t` with a free variable `x`,
 --    and suppose we've been able to assign a type `T` to
 --    `t` under the assumption that `x` has some type `U`.
-
+--
 --  - Also, suppose that we have some other term `v` and
 --    that we've shown that `v` has type `U`.
-
+--
 --  - Then we can substitute `v` for each of the occurrences
 --    of `x` in `t` and obtain a new term that still has
 --    type `T`.
@@ -273,7 +292,7 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
         rw [subst_var_eq]
         have hUT : U = T := Option.some.inj h
         subst hUT
-        exact weakening_empty _ _ _ hv
+        exact weakening_empty hv
       · rw [PartialMap.update_neq hxy] at h
         rw [subst_var_ne _ _ _ hxy]
         exact .var _ y _ h
@@ -362,8 +381,7 @@ inductive Tm where
   | mult (t₁ t₂ : Tm)
   | ite0 (c t e : Tm)
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: types)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: types)
 --  The type grammar needs no new productions: `Nat` is a
 --  bare identifier, which the template already accepts, and
 --  arrows and parentheses are unchanged. Only the
@@ -381,17 +399,15 @@ scoped macro_rules (kind := Stlc.tyBracket)
       | _ => `(($x : Ty))
   | `(<{ $T₁:stlcTy → $T₂:stlcTy }>)  => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
   | `(<{ $T₁:stlcTy -> $T₂:stlcTy }>) => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
-
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: terms)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: terms)
 --  Terms do need new productions: a numeral, an infix `*`,
 --  and the zero test. Multiplication binds looser than
 --  application and tighter than `λ`, so `x * y z`
 --  multiplies `x` by the application `y z`; it associates
 --  to the right, so `x * y * z` is `x * (y * z)`.
-
+--
 --  `succ` and `pred` get no production of their own. Making
 --  them keywords would reserve those words globally — and
 --  we would then be unable to write `succ` as a case name
@@ -432,11 +448,9 @@ scoped macro_rules (kind := Stlc.tmBracket)
   | `(<{ $t₁:stlcTm * $t₂:stlcTm }>) => `(Tm.mult <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
   | `(<{ if0 $c then $t else $e }>) =>
       `(Tm.ite0 <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
-
 --  END DETAILS
 
---  THESE DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
 --  As in the Stlc chapter, a delaborator runs the grammar
 --  backwards, so that goals mentioning these terms and
 --  types read in the concrete syntax. The parenthesizers
@@ -550,8 +564,8 @@ def delabTm : Delab := whenPPOption getPPNotation do
   | `(stlcTm| ~($e)) => pure e
   | `(stlcTm| ~$e) => pure e
   | e => `(<{ $e:stlcTm }>)
-
 --  END DETAILS
 
 end StlcArith
 
+-- Built on 2026-09-02 21:24 UTC

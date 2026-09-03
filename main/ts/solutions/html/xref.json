@@ -678,6 +678,24 @@
        {"title": "Small-Step Slang", "shortTitle": null, "number": "5"},
        {"title": "Boolean Expressions", "shortTitle": null, "number": "2"}]},
      "address": "/Smallstep/"}],
+   "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Automation-with--solve_by_elim":
+   [{"id":
+     "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Automation-with--solve_by_elim",
+     "data":
+     {"title": "Automation with  solve_by_elim",
+      "shortTitle": null,
+      "sectionNum": "3.5.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Smallstep: Small-step Operational Semantics",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Small-Step Slang", "shortTitle": null, "number": "5"},
+       {"title": "Automation with  solve_by_elim",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Smallstep/"}],
    "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Arithmetic-Expressions":
    [{"id":
      "Type-Systems--Smallstep___-Small-step-Operational-Semantics--Small-Step-Slang--Arithmetic-Expressions",
@@ -1164,6 +1182,17 @@
         "Smallstep: Small-step Operational Semantics",
         "Relations",
         "Values"]}},
+     "address": "/Smallstep/"}],
+   "normalize_ex":
+   [{"id": "normalize_ex",
+     "data":
+     {"/Smallstep/#normalize_ex":
+      {"display": "normalize_ex",
+       "context":
+       ["Type Systems",
+        "Smallstep: Small-step Operational Semantics",
+        "Small-Step Slang",
+        "Automation with  solve_by_elim"]}},
      "address": "/Smallstep/"}],
    "normal_forms_unique":
    [{"id": "normal_forms_unique",
@@ -3086,6 +3115,17 @@
         "Preservation",
         "The Weakening Lemma"]}},
      "address": "/StlcProp/"}],
+   "Stlc.weakening'":
+   [{"id": "Stlc___weakening___",
+     "data":
+     {"/StlcProp/#Stlc___weakening___":
+      {"display": "weakening'",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Preservation",
+        "The Weakening Lemma"]}},
+     "address": "/StlcProp/"}],
    "Stlc.weakening":
    [{"id": "Stlc___weakening",
      "data":
@@ -3344,6 +3384,28 @@
         "Stlc: The Simply Typed Lambda-Calculus",
         "Syntax",
         "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.stepExample5'":
+   [{"id": "Stlc___stepExample5___",
+     "data":
+     {"/Stlc/#Stlc___stepExample5___":
+      {"display": "stepExample5'",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Examples"]}},
+     "address": "/Stlc/"}],
+   "Stlc.stepExample5":
+   [{"id": "Stlc___stepExample5",
+     "data":
+     {"/Stlc/#Stlc___stepExample5":
+      {"display": "stepExample5",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Operational Semantics",
+        "Examples"]}},
      "address": "/Stlc/"}],
    "Stlc.progress'":
    [{"id": "Stlc___progress___",
