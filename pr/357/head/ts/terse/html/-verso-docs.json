@@ -1,7 +1,37 @@
-{"99":
+{"999": "<code>StlcExtended.Tm.fix : Tm → Tm</code>",
+ "998": "<code>StlcExtended.Tm.letIn : String → Tm → Tm → Tm</code>",
+ "997": "<code>StlcExtended.Tm.snd : Tm → Tm</code>",
+ "996": "<code>StlcExtended.Tm.fst : Tm → Tm</code>",
+ "995": "<code>StlcExtended.Tm.pair : Tm → Tm → Tm</code>",
+ "994": "<code>StlcExtended.Tm.unit : Tm</code>",
+ "993":
+ "<code>StlcExtended.Tm.listCase : Tm → Tm → String → String → Tm → Tm</code>",
+ "992": "<code>StlcExtended.Tm.listCons : Tm → Tm → Tm</code>",
+ "991": "<code>StlcExtended.Tm.listNil : Ty → Tm</code>",
+ "990":
+ "<code>StlcExtended.Tm.sumCase : Tm → String → Tm → String → Tm → Tm</code>",
+ "99":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.mult a₂) (n₁ * n₂)</code>",
+ "989": "<code>StlcExtended.Tm.sumInr : Ty → Tm → Tm</code>",
+ "988": "<code>StlcExtended.Tm.sumInl : Ty → Tm → Tm</code>",
+ "987": "<code>StlcExtended.Tm.ite0 : Tm → Tm → Tm → Tm</code>",
+ "986": "<code>StlcExtended.Tm.mult : Tm → Tm → Tm</code>",
+ "985": "<code>StlcExtended.Tm.pred : Tm → Tm</code>",
+ "984": "<code>StlcExtended.Tm.succ : Tm → Tm</code>",
+ "983": "<code>StlcExtended.Tm.const : Nat → Tm</code>",
+ "982": "<code>StlcExtended.Tm.abs : String → Ty → Tm → Tm</code>",
+ "981": "<code>StlcExtended.Tm.app : Tm → Tm → Tm</code>",
+ "980": "<code>StlcExtended.Tm.var : String → Tm</code>",
  "98":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.minus a₂) (n₁ - n₂)</code>",
+ "979": "<code>StlcExtended.Tm : Type</code>",
+ "978": "<code>StlcExtended.Ty.prod : Ty → Ty → Ty</code>",
+ "977": "<code>StlcExtended.Ty.unit : Ty</code>",
+ "976": "<code>StlcExtended.Ty.list : Ty → Ty</code>",
+ "975": "<code>StlcExtended.Ty.sum : Ty → Ty → Ty</code>",
+ "974": "<code>StlcExtended.Ty.nat : Ty</code>",
+ "973": "<code>StlcExtended.Ty.arrow : Ty → Ty → Ty</code>",
+ "972": "<code>StlcExtended.Ty : Type</code>",
  "971": "<code>StlcArith.delabTm : Delab</code>",
  "970": "<code>StlcArith.delabTy : Delab</code>",
  "97":
@@ -1399,12 +1429,83 @@
  "<code class=\"docstring\">Introduces one or more hypotheses, optionally naming and/or pattern-matching them.\nFor each hypothesis to be introduced, the remaining main goal's target type must\nbe a `let` or function type.\n\n* `intro` by itself introduces one anonymous hypothesis, which can be accessed\n  by e.g. `assumption`. It is equivalent to `intro _`.\n* `intro x y` introduces two hypotheses and names them. Individual hypotheses\n  can be anonymized via `_`, given a type ascription, or matched against a pattern:\n  ```lean\n  -- ... ⊢ α × β → ...\n  intro (a, b)\n  -- ..., a : α, b : β ⊢ ...\n  ```\n* `intro rfl` is short for `intro h; subst h`, if `h` is an equality where the left-hand or right-hand side\n  is a variable.\n* Alternatively, `intro` can be combined with pattern matching much like `fun`:\n  ```lean\n  intro\n  | n + 1, 0 =&gt; tac\n  | ...\n  ```\n</code>",
  "105":
  "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
+ "1048":
+ "<code>StlcExtended.Tm.IsValue.pair (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → &lt;{ ( v₁ , v₂ ) }&gt;.IsValue</code>",
+ "1047": "<code>StlcExtended.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
+ "1046":
+ "<code>StlcExtended.Tm.IsValue.listCons (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → &lt;{ v₁ :: v₂ }&gt;.IsValue</code>",
+ "1045":
+ "<code>StlcExtended.Tm.IsValue.listNil (τ₁ : Ty) : &lt;{ nil τ₁ }&gt;.IsValue</code>",
+ "1044":
+ "<code>StlcExtended.Tm.IsValue.sumInr (v : Tm) (τ₁ : Ty) : v.IsValue → &lt;{ inr τ₁ v }&gt;.IsValue</code>",
+ "1043":
+ "<code>StlcExtended.Tm.IsValue.sumInl (v : Tm) (τ₁ : Ty) : v.IsValue → &lt;{ inl τ₁ v }&gt;.IsValue</code>",
+ "1042":
+ "<code>StlcExtended.Tm.IsValue.nat (n : Nat) : (StlcExtended.Tm.const n).IsValue</code>",
+ "1041":
+ "<code>StlcExtended.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
+ "1040": "<code>StlcExtended.Tm.IsValue : Tm → Prop</code>",
  "104":
  "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
+ "1039": "<code>StlcExtended.delabTm : Delab</code>",
+ "1038": "<code>StlcExtended.delabTy : Delab</code>",
+ "1037":
+ "<code>StlcExtended.delabTmInner : DelabM (TSyntax `stlcTm)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTm` concrete syntax from a `Tm` value. </code>",
+ "1036":
+ "<code>StlcExtended.delabTyInner : DelabM (TSyntax `stlcTy)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTy` concrete syntax from a `Ty` value. </code>",
+ "1035": "<code><span class=\"literal string\">\"case\"</span> : String</code>",
+ "1034": "<code><span class=\"literal string\">\"if0\"</span> : String</code>",
+ "1033":
+ "<code>StlcExtended.isPlainTmVarName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? </code>",
+ "1032": "<code><span class=\"literal string\">\"unit\"</span> : String</code>",
+ "1031":
+ "<code><span class=\"literal string\">\"`fix` must be applied to an argument\"</span> : String</code>",
+ "1030": "<code><span class=\"literal string\">\"fix\"</span> : String</code>",
  "103":
  "<code>Slang.Aexp.evalR_iff_eval (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
+ "1029":
+ "<code><span class=\"literal string\">\"`inr` must be applied to two arguments\"</span> : String</code>",
+ "1028":
+ "<code><span class=\"literal string\">\"`inl` must be applied to two arguments\"</span> : String</code>",
+ "1027":
+ "<code><span class=\"literal string\">\"`nil` must be applied to an argument\"</span> : String</code>",
+ "1026":
+ "<code><span class=\"literal string\">\"`snd` must be applied to an argument\"</span> : String</code>",
+ "1025": "<code><span class=\"literal string\">\"snd\"</span> : String</code>",
+ "1024":
+ "<code><span class=\"literal string\">\"`fst` must be applied to an argument\"</span> : String</code>",
+ "1023": "<code><span class=\"literal string\">\"fst\"</span> : String</code>",
+ "1022":
+ "<code><span class=\"literal string\">\"`Unit` is a type, not a term\"</span> : String</code>",
+ "1021": "<code><span class=\"literal string\">\" in \"</span> : String</code>",
+ "1020": "<code><span class=\"literal string\">\" = \"</span> : String</code>",
  "102": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
+ "1019": "<code><span class=\"literal string\">\"let \"</span> : String</code>",
+ "1018": "<code><span class=\"literal string\">\" ) \"</span> : String</code>",
+ "1017": "<code><span class=\"literal string\">\" , \"</span> : String</code>",
+ "1016": "<code><span class=\"literal string\">\" ( \"</span> : String</code>",
+ "1015": "<code><span class=\"literal string\">\"nil\"</span> : String</code>",
+ "1014": "<code><span class=\"literal string\">\" :: \"</span> : String</code>",
+ "1013":
+ "<code><span class=\"literal string\">\" nil \"</span> : String</code>",
+ "1012": "<code><span class=\"literal string\">\"inr\"</span> : String</code>",
+ "1011": "<code><span class=\"literal string\">\" | \"</span> : String</code>",
+ "1010":
+ "<code><span class=\"literal string\">\" =&gt; \"</span> : String</code>",
  "101": "<code>Lean.TSyntax `term</code>",
+ "1009": "<code><span class=\"literal string\">\"inl\"</span> : String</code>",
+ "1008": "<code><span class=\"literal string\">\" of \"</span> : String</code>",
+ "1007":
+ "<code><span class=\"literal string\">\"case \"</span> : String</code>",
+ "1006":
+ "<code><span class=\"literal string\">\" inl \"</span> : String</code>",
+ "1005":
+ "<code><span class=\"literal string\">\" inr \"</span> : String</code>",
+ "1004": "<code><span class=\"literal string\">\"Unit\"</span> : String</code>",
+ "1003": "<code><span class=\"literal string\">\" ] \"</span> : String</code>",
+ "1002": "<code><span class=\"literal string\">\" [ \"</span> : String</code>",
+ "1001": "<code><span class=\"literal string\">\" + \"</span> : String</code>",
+ "1000": "<code><span class=\"literal string\">\" × \"</span> : String</code>",
  "100": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
  "10": "<code>Slang.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
  "1":

@@ -342,16 +342,6 @@
     },
     "357": {
       "base_sha": "54d5a8fbfeff63b563c366b9c891146771d30c69",
-      "changed_variants": [],
-      "head_sha": "1608957ea9ca5f02323fddf0e0496a9c195649c3",
-      "preview_path": "pr/357/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Gradescope autograder",
-      "url": "https://github.com/plclub/sf-in-lean/pull/357"
-    },
-    "361": {
-      "base_sha": "44ec83db8ddba3f4d66d19ec602b4332dd9c9f27",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -390,20 +380,20 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "8fbc79264659acccfdfcfaf444a47a2bac47c26e",
-      "preview_path": "pr/361/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33763180143",
+      "head_sha": "1608957ea9ca5f02323fddf0e0496a9c195649c3",
+      "preview_path": "pr/357/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33795607518",
       "status": "published",
-      "title": "Grading: add some missing attributes for non-optional exercises in LF",
-      "url": "https://github.com/plclub/sf-in-lean/pull/361"
+      "title": "Gradescope autograder",
+      "url": "https://github.com/plclub/sf-in-lean/pull/357"
     },
     "362": {
-      "base_sha": "2fe3c82f5edf445a030bb62b62f9876bd5bcf251",
+      "base_sha": "2e1aa0247b10a6b881b610a24137d9299e1a753c",
       "changed_variants": [],
-      "head_sha": "8a8f1b1bc59364bdb2808452c9e7c0bff36053ae",
+      "head_sha": "c4a0da03c7eb4d09d6669bb293acfe2c27c13cf5",
       "preview_path": "pr/362/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33762327108",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
     },
