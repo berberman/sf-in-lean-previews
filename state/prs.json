@@ -1,5 +1,5 @@
 {
-  "main_sha": "d7b66d53883cece073da3a195ab63b828a9ec185",
+  "main_sha": "faca195ceb69f06a5454b6b00322c091f54f0743",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -106,49 +106,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
     },
     "319": {
-      "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "6406c7301cfab97c55f745c3abda1e8672ece6c7",
+      "base_sha": "faca195ceb69f06a5454b6b00322c091f54f0743",
+      "changed_variants": [],
+      "head_sha": "a501826dc1ca416524cc520dcc9c6341e4084ce4",
       "preview_path": "pr/319/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32954352145",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "`nth?` characterizing lemmas and `list_ext` exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/319"
     },
@@ -443,6 +406,16 @@
       "status": "ci-failed",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
+    },
+    "366": {
+      "base_sha": "faca195ceb69f06a5454b6b00322c091f54f0743",
+      "changed_variants": [],
+      "head_sha": "3eadb9e25280d3d2a3343fdc19cdbfcad5f69f6b",
+      "preview_path": "pr/366/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Dev notes: Some changes to make later",
+      "url": "https://github.com/plclub/sf-in-lean/pull/366"
     }
   },
   "schema": 3

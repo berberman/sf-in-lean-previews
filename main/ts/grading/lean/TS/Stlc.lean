@@ -1416,4 +1416,4 @@ example : ¬ ∃ S T, <{ ∅ ⊢ λ x : ~S . x x ⦂ ~T }> := by
 
 end Stlc
 
--- Built on 2026-09-03 15:35 UTC
+-- Built on 2026-09-03 16:48 UTC

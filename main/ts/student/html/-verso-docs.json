@@ -1393,57 +1393,533 @@
  "138":
  "<code class=\"docstring\">`assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.\nNote also the `‹t›` term notation, which is a shorthand for `show t by assumption`.\n</code>",
  "137": "<code>a₂✝ ⇓ a₂✝.eval</code>",
+ "1364": "<code>&lt;{ ∅ ⊢ ~(vl✝) ⦂ [ τ₁ ] }&gt;</code>",
+ "1363": "<code>&lt;{ ∅ ⊢ ~(v₁✝) ⦂ ~(τ₁) }&gt;</code>",
+ "1362":
+ "<code>∀ (t' : Tm), &lt;{ v₁✝ :: vl✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ [ τ₁ ] }&gt;</code>",
+ "1361": "<code>&lt;{ ∅ ⊢ v₁✝ :: vl✝ ⦂ [ τ₁ ] }&gt;</code>",
+ "1360": "<code>vl✝.IsValue</code>",
  "136": "<code>a₁✝ ⇓ a₁✝.eval</code>",
+ "1359": "<code>v₁✝.IsValue</code>",
+ "1358":
+ "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt; → &lt;{ ~(x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt;) ⊢ ~(t') ⦂ ~(τ₂) }&gt;</code>",
+ "1357":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ [ τ₁ ] }&gt;</code>",
+ "1356":
+ "<code>&lt;{ case t₁ of nil =&gt; t₂ | ~x₁ :: ~x₂ =&gt; t₃ }&gt; ⟶ t'</code>",
+ "1355":
+ "<code>∀ (t' : Tm),\n  t₃ ⟶ t' → ∅ = x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt; ; Γ → &lt;{ ~(x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt; ; Γ) ⊢ ~(t') ⦂ ~(τ₂) }&gt;</code>",
+ "1354":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ [ τ₁ ] }&gt;</code>",
+ "1353": "<code>&lt;{ ∅ ⊢ ~(v✝) ⦂ ~(τ₂) }&gt;</code>",
+ "1352":
+ "<code>∀ (t' : Tm), &lt;{ inr τ₁ v✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₁ + τ₂ }&gt;</code>",
+ "1351":
+ "<code>∀ (t' : Tm), &lt;{ inr τ₁✝ v✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₁ + τ₂ }&gt;</code>",
+ "1350": "<code>&lt;{ ∅ ⊢ inr τ₁✝ v✝ ⦂ τ₁ + τ₂ }&gt;</code>",
  "135":
  "<code>Slang.Aexp.evalR_iff_eval' (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
+ "1349":
+ "<code>∀ (t' : Tm), &lt;{ inl τ₂ v✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₁ + τ₂ }&gt;</code>",
+ "1348": "<code>&lt;{ ∅ ⊢ ~(v✝) ⦂ ~(τ₁) }&gt;</code>",
+ "1347":
+ "<code>∀ (t' : Tm), &lt;{ inl τ₂✝ v✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₁ + τ₂ }&gt;</code>",
+ "1346": "<code>&lt;{ ∅ ⊢ inl τ₂✝ v✝ ⦂ τ₁ + τ₂ }&gt;</code>",
+ "1345": "<code>v✝.IsValue</code>",
+ "1344": "<code>t ⟶ t'✝</code>",
+ "1343":
+ "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = x₂ →ₚ τ₂ → &lt;{ ~(x₂ →ₚ τ₂) ⊢ ~(t') ⦂ ~(τ₃) }&gt;</code>",
+ "1342":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = x₁ →ₚ τ₁ → &lt;{ ~(x₁ →ₚ τ₁) ⊢ ~(t') ⦂ ~(τ₃) }&gt;</code>",
+ "1341":
+ "<code>∀ (t' : Tm), t ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₁ + τ₂ }&gt;</code>",
+ "1340":
+ "<code>&lt;{ case t of inl~x₁ =&gt; t₁ | inr~x₂ =&gt; t₂ }&gt; ⟶ t'</code>",
  "134": "<code>a₂ ⇓ a₂.eval</code>",
+ "1339":
+ "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = x₂ →ₚ τ₂ ; Γ → &lt;{ ~(x₂ →ₚ τ₂ ; Γ) ⊢ ~(t') ⦂ ~(τ₃) }&gt;</code>",
+ "1338":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = x₁ →ₚ τ₁ ; Γ → &lt;{ ~(x₁ →ₚ τ₁ ; Γ) ⊢ ~(t') ⦂ ~(τ₃) }&gt;</code>",
+ "1337":
+ "<code>∀ (t' : Tm), t ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ τ₁ + τ₂ }&gt;</code>",
+ "1336":
+ "<code>∀ (t' : Tm), StlcExtended.Tm.const (n✝ + 1) ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
+ "1335": "<code>&lt;{ ∅ ⊢ ~(StlcExtended.Tm.const (n✝ + 1)) ⦂ Nat }&gt;</code>",
+ "1334":
+ "<code>∀ (t' : Tm), &lt;{ 0 }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
+ "1333": "<code>&lt;{ ∅ ⊢ 0 ⦂ Nat }&gt;</code>",
+ "1332": "<code>t₁ ⟶ t₁'✝</code>",
+ "1331":
+ "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "1330":
+ "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
  "133": "<code>a₁ ⇓ a₁.eval</code>",
+ "1329":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Nat }&gt;</code>",
+ "1328": "<code>&lt;{ if0 t₁ then t₂ else t₃ }&gt; ⟶ t'</code>",
+ "1327":
+ "<code>∀ (t' : Tm), t₃ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "1326":
+ "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "1325":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ Nat }&gt;</code>",
+ "1324": "<code>&lt;{ ~(x✝ →ₚ τ₂) ⊢ ~(t₁✝) ⦂ ~(τ₁) }&gt;</code>",
+ "1323":
+ "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : τ₂ . t₁✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1322":
+ "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : τ₂✝ . t₁✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1321": "<code>&lt;{ ∅ ⊢ λ ~x✝ : τ₂✝ . t₁✝ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1320": "<code>t₂ ⟶ t₂'✝</code>",
  "132":
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
+ "1319":
+ "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ₂) }&gt;</code>",
+ "1318":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1317":
+ "<code>∀ (t' : Tm), t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(τ₂) }&gt;</code>",
+ "1316":
+ "<code>∀ (t' : Tm), t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1315": "<code>t₂✝ ⟶ t₂'✝</code>",
+ "1314": "<code>t₁✝.IsValue</code>",
+ "1313":
+ "<code>∀ (t' : Tm), t₂✝ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ₂✝) }&gt;</code>",
+ "1312":
+ "<code>∀ (t' : Tm), t₁✝ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ₁✝) }&gt;</code>",
+ "1311": "<code>&lt;{ ∅ ⊢ ~(t₂✝) ⦂ ~(τ₂✝) }&gt;</code>",
+ "1310": "<code>&lt;{ ∅ ⊢ ~(t₁✝) ⦂ ~(τ₁✝) }&gt;</code>",
  "131": "<code>a.eval = n</code>",
+ "1309":
+ "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : τ₁✝ . t₁✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₁✝¹ → τ₁✝¹ }&gt;</code>",
+ "1308": "<code>&lt;{ ∅ ⊢ λ ~x✝ : τ₁✝ . t₁✝ ⦂ τ₁✝¹ → τ₁✝¹ }&gt;</code>",
+ "1307": "<code>t₁✝ ⟶ t₁'✝</code>",
+ "1306":
+ "<code>∀ (t' : Tm), t₁✝ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₁✝ → τ₁✝ }&gt;</code>",
+ "1305": "<code>&lt;{ fix t₁✝ }&gt; ⟶ t'</code>",
+ "1304":
+ "<code>StlcExtended.preservation (t t' : Tm) (τ : Ty) (ht : &lt;{ ∅ ⊢ ~(t) ⦂ ~(τ) }&gt;) (he : t ⟶ t') : &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "1303": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
+ "1302":
+ "<code>StlcExtended.substitution_preserves_typing (Γ : Context) (x : String) (τ₁ : Ty) (t v : Tm) (τ : Ty)\n  (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(τ₁) }&gt;) : &lt;{ ~(Γ) ⊢ ~(subst x v t) ⦂ ~(τ) }&gt;</code>",
+ "1301":
+ "<code>StlcExtended.weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ ~(t) ⦂ ~(τ) }&gt;) : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
+ "1300":
+ "<code>StlcExtended.weakening {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;) :\n  &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
  "130":
  "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.mult a₂ ⇓ n₁ * n₂</code>",
  "13": "<code>Bool</code>",
+ "1299": "<code>t₁ ⟶ t'</code>",
+ "1298": "<code>t₁ = &lt;{ v₁ :: v₂ }&gt;</code>",
+ "1297": "<code>t₁ = &lt;{ nil τ₁ }&gt;</code>",
+ "1296":
+ "<code>t₁.IsValue → t₁ = &lt;{ nil τ₁ }&gt; ∨ ∃ v₁ v₂, v₁.IsValue ∧ v₂.IsValue ∧ t₁ = &lt;{ v₁ :: v₂ }&gt;</code>",
+ "1295":
+ "<code>∅ = x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt; → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "1294":
+ "<code>&lt;{ ~(x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt;) ⊢ ~(t₃) ⦂ ~(τ₂) }&gt;</code>",
+ "1293": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ [ τ₁ ] }&gt;</code>",
+ "1292":
+ "<code>∅ = x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt; ; Γ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "1291":
+ "<code>&lt;{ ~(x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt; ; Γ) ⊢ ~(t₃) ⦂ ~(τ₂) }&gt;</code>",
+ "1290": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ [ τ₁ ] }&gt;</code>",
  "129":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.minus a₂ ⇓ n₁ - n₂</code>",
+ "1289":
+ "<code>StlcExtended.HasType.listCase (Γ : Context) (t₁ t₂ t₃ : Tm) (x₁ x₂ : String) (τ₁ τ₂ : Ty) :\n  &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ [ τ₁ ] }&gt; →\n    &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt; →\n      &lt;{ ~(x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt; ; Γ) ⊢ ~(t₃) ⦂ ~(τ₂) }&gt; →\n        &lt;{ ~(Γ) ⊢ case t₁ of nil =&gt; t₂ | ~x₁ :: ~x₂ =&gt; t₃ ⦂ ~(τ₂) }&gt;</code>",
+ "1288": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ [ τ₁ ] }&gt;</code>",
+ "1287": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ [ τ₁ ] }&gt;</code>",
+ "1286":
+ "<code>StlcExtended.HasType.listCons (Γ : Context) (t₁ t₂ : Tm) (τ₁ : Ty) :\n  &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt; → &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ [ τ₁ ] }&gt; → &lt;{ ~(Γ) ⊢ t₁ :: t₂ ⦂ [ τ₁ ] }&gt;</code>",
+ "1285": "<code>t = &lt;{ inr τ₁ v }&gt;</code>",
+ "1284": "<code>t = &lt;{ inl τ₂ v }&gt;</code>",
+ "1283":
+ "<code>t.IsValue → ∃ v, v.IsValue ∧ (t = &lt;{ inl τ₂ v }&gt; ∨ t = &lt;{ inr τ₁ v }&gt;)</code>",
+ "1282": "<code>∅ = x₂ →ₚ τ₂ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "1281": "<code>∅ = x₁ →ₚ τ₁ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
+ "1280": "<code>∅ = ∅ → t.IsValue ∨ ∃ t', t ⟶ t'</code>",
  "128": "<code>a₂✝.eval = n₂✝</code>",
+ "1279": "<code>&lt;{ ~(x₂ →ₚ τ₂) ⊢ ~(t₂) ⦂ ~(τ₃) }&gt;</code>",
+ "1278": "<code>&lt;{ ~(x₁ →ₚ τ₁) ⊢ ~(t₁) ⦂ ~(τ₃) }&gt;</code>",
+ "1277": "<code>∅ = x₂ →ₚ τ₂ ; Γ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "1276": "<code>∅ = x₁ →ₚ τ₁ ; Γ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
+ "1275": "<code>∅ = Γ → t.IsValue ∨ ∃ t', t ⟶ t'</code>",
+ "1274": "<code>&lt;{ ~(x₂ →ₚ τ₂ ; Γ) ⊢ ~(t₂) ⦂ ~(τ₃) }&gt;</code>",
+ "1273": "<code>&lt;{ ~(x₁ →ₚ τ₁ ; Γ) ⊢ ~(t₁) ⦂ ~(τ₃) }&gt;</code>",
+ "1272": "<code>&lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁ + τ₂ }&gt;</code>",
+ "1271":
+ "<code>StlcExtended.HasType.sumCase (Γ : Context) (x₁ x₂ : String) (τ₁ τ₂ τ₃ : Ty) (t t₁ t₂ : Tm) :\n  &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁ + τ₂ }&gt; →\n    &lt;{ ~(x₁ →ₚ τ₁ ; Γ) ⊢ ~(t₁) ⦂ ~(τ₃) }&gt; →\n      &lt;{ ~(x₂ →ₚ τ₂ ; Γ) ⊢ ~(t₂) ⦂ ~(τ₃) }&gt; → &lt;{ ~(Γ) ⊢ case t of inl~x₁ =&gt; t₁ | inr~x₂ =&gt; t₂ ⦂ ~(τ₃) }&gt;</code>",
+ "1270":
+ "<code>StlcExtended.HasType.sumInr (Γ : Context) (t₂ : Tm) (τ₁ τ₂ : Ty) :\n  &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt; → &lt;{ ~(Γ) ⊢ inr τ₁ t₂ ⦂ τ₁ + τ₂ }&gt;</code>",
  "127": "<code>a₁✝.eval = n₁✝</code>",
+ "1269": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ ~(τ₁) }&gt;</code>",
+ "1268": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt;</code>",
+ "1267":
+ "<code>StlcExtended.HasType.sumInl (Γ : Context) (t₁ : Tm) (τ₁ τ₂ : Ty) :\n  &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt; → &lt;{ ~(Γ) ⊢ inl τ₂ t₁ ⦂ τ₁ + τ₂ }&gt;</code>",
+ "1266": "<code>t₁ = StlcExtended.Tm.const (n✝ + 1)</code>",
+ "1265": "<code>t₁ = &lt;{ 0 }&gt;</code>",
+ "1264": "<code>∅ = ∅ → t₃.IsValue ∨ ∃ t', t₃ ⟶ t'</code>",
+ "1263": "<code>&lt;{ ∅ ⊢ ~(t₃) ⦂ ~(τ) }&gt;</code>",
+ "1262": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(τ) }&gt;</code>",
+ "1261": "<code>&lt;{ ~(Γ) ⊢ ~(t₃) ⦂ ~(τ) }&gt;</code>",
+ "1260": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ) }&gt;</code>",
  "126": "<code>a₂✝ ⇓ n₂✝</code>",
+ "1259":
+ "<code>StlcExtended.HasType.ite0 (Γ : Context) (t₁ t₂ t₃ : Tm) (τ : Ty) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ) }&gt;) (h₃ : &lt;{ ~(Γ) ⊢ ~(t₃) ⦂ ~(τ) }&gt;) : &lt;{ ~(Γ) ⊢ if0 t₁ then t₂ else t₃ ⦂ ~(τ) }&gt;</code>",
+ "1258": "<code>t₂ = StlcExtended.Tm.const n₂</code>",
+ "1257": "<code>t₁ = StlcExtended.Tm.const n₁</code>",
+ "1256": "<code>t₂.IsValue → ∃ n, t₂ = StlcExtended.Tm.const n</code>",
+ "1255": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ Nat }&gt;</code>",
+ "1254": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ Nat }&gt;</code>",
+ "1253":
+ "<code>StlcExtended.HasType.mult (Γ : Context) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;) (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ Nat }&gt;) :\n  &lt;{ ~(Γ) ⊢ t₁ * t₂ ⦂ Nat }&gt;</code>",
+ "1252":
+ "<code>StlcExtended.HasType.pred (Γ : Context) (t₁ : Tm) (h : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;) : &lt;{ ~(Γ) ⊢ pred t₁ ⦂ Nat }&gt;</code>",
+ "1251": "<code>t₁ = StlcExtended.Tm.const n</code>",
+ "1250": "<code>t₁.IsValue → ∃ n, t₁ = StlcExtended.Tm.const n</code>",
  "125": "<code>a₁✝ ⇓ n₁✝</code>",
+ "1249": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ Nat }&gt;</code>",
+ "1248": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;</code>",
+ "1247":
+ "<code>StlcExtended.HasType.succ (Γ : Context) (t₁ : Tm) (h : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Nat }&gt;) : &lt;{ ~(Γ) ⊢ succ t₁ ⦂ Nat }&gt;</code>",
+ "1246": "<code>t₁ = &lt;{ λ ~x : τ₂ . v }&gt;</code>",
+ "1245":
+ "<code class=\"docstring\">The `let` tactic is for adding definitions to the local context of the main goal.\nThe definition can be unfolded, unlike definitions introduced by `have`.\n\n* `let x : t := e` adds the definition `x : t := e` if `e` is a term of type `t`.\n* `let x := e` uses the type of `e` for `t`.\n* `let : t := e` and `let := e` use `this` for the name of the hypothesis.\n* `let pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that let only one applicable constructor.\n  For example, given `p : α × β × γ`, `let ⟨x, y, z⟩ := p` produces the\n  local variables `x : α`, `y : β`, and `z : γ`.\n* The syntax `let (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `let` term.\n\n## Properties and relations\n\n* Unlike `have`, it is possible to unfold definitions introduced using `let`, using tactics\n  such as `simp`, `dsimp`, `unfold`, and `subst`.\n* The `clear_value` tactic turns a `let` definition into a `have` definition after the fact.\n  The tactic might fail if the local context depends on the value of the variable.\n* The `let` tactic is preferred for data (non-propositions).\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n</code>",
+ "1244": "<code>t₁.IsValue → ∃ x u, t₁ = &lt;{ λ ~x : τ₂ . u }&gt;</code>",
+ "1243":
+ "<code class=\"docstring\">`apply t at i` uses forward reasoning with `t` at the hypothesis `i`.\nExplicitly, if `t : α₁ → ⋯ → αᵢ → ⋯ → αₙ` and `i` has type `αᵢ`, then this tactic adds\nmetavariables/goals for any terms of `αⱼ` for `j = 1, …, i-1`,\nthen replaces the type of `i` with `αᵢ₊₁ → ⋯ → αₙ` by applying those metavariables and the\noriginal `i`.\n\nLifted from [https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Tactic/ApplyAt.lean].\n</code>",
+ "1242":
+ "<code class=\"docstring\">* `case tag =&gt; tac` focuses on the goal with case name `tag` and solves it using `tac`,\n  or else fails.\n* `case tag x₁ ... xₙ =&gt; tac` additionally renames the `n` most recent hypotheses\n  with inaccessible names to the given names.\n* `case tag₁ | tag₂ =&gt; tac` is equivalent to `(case tag₁ =&gt; tac); (case tag₂ =&gt; tac)`.\n</code>",
+ "1241": "<code>∅ = ∅ → t₂.IsValue ∨ ∃ t', t₂ ⟶ t'</code>",
+ "1240": "<code>∅ = ∅ → t₁.IsValue ∨ ∃ t', t₁ ⟶ t'</code>",
  "124":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.plus a₂ ⇓ n₁ + n₂</code>",
+ "1239": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;</code>",
+ "1238": "<code>&lt;{ ∅ ⊢ ~(t₁) ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1237": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;</code>",
+ "1236": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ τ₂ → τ₁ }&gt;</code>",
+ "1235":
+ "<code>StlcExtended.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ τ₂ → τ₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(τ₁) }&gt;</code>",
+ "1234": "<code>∅[x✝] = some τ₁✝</code>",
+ "1233":
+ "<code>StlcExtended.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) :\n  &lt;{ ~(Γ) ⊢ ~(StlcExtended.Tm.var x) ⦂ ~(τ₁) }&gt;</code>",
+ "1232":
+ "<code class=\"docstring\">`done` succeeds iff there are no remaining goals. </code>",
+ "1231": "<code>∅ = ∅ → t₁✝.IsValue ∨ ∃ t', t₁✝ ⟶ t'</code>",
+ "1230": "<code>&lt;{ ∅ ⊢ ~(t₁✝) ⦂ τ₁✝ → τ₁✝ }&gt;</code>",
  "123": "<code>Slang.Aexp.EvalR.num (n : Nat) : num n ⇓ n</code>",
+ "1229":
+ "<code class=\"docstring\">Applies `subst` to all hypotheses of the form `h : x = t` or `h : t = x`.\n</code>",
+ "1228":
+ "<code>StlcExtended.progress (t : Tm) (τ : Ty) (ht : &lt;{ ∅ ⊢ ~(t) ⦂ ~(τ) }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
+ "1227": "<code>v₂.IsValue</code>",
+ "1226": "<code>&lt;{ ∅ ⊢ ~(v₂) ⦂ [ τ ] }&gt;</code>",
+ "1225": "<code>&lt;{ ∅ ⊢ ~(v₁) ⦂ ~(τ) }&gt;</code>",
+ "1224": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ [ τ ] }&gt;</code>",
+ "1223":
+ "<code>StlcExtended.canonical_forms_list {t : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ ~(t) ⦂ [ τ ] }&gt;) (hv : t.IsValue) :\n  t = &lt;{ nil τ }&gt; ∨ ∃ v₁ v₂, v₁.IsValue ∧ v₂.IsValue ∧ t = &lt;{ v₁ :: v₂ }&gt;</code>",
+ "1222": "<code>&lt;{ ∅ ⊢ ~(v) ⦂ ~(τ₂) }&gt;</code>",
+ "1221": "<code>&lt;{ ∅ ⊢ ~(v) ⦂ ~(τ₁) }&gt;</code>",
+ "1220": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ τ₁ + τ₂ }&gt;</code>",
  "122": "<code>a ⇓ n</code>",
+ "1219":
+ "<code>StlcExtended.canonical_forms_sum {t : Tm} {τ₁ τ₂ : Ty} (ht : &lt;{ ∅ ⊢ ~(t) ⦂ τ₁ + τ₂ }&gt;) (hv : t.IsValue) :\n  ∃ v, v.IsValue ∧ (t = &lt;{ inl τ₂ v }&gt; ∨ t = &lt;{ inr τ₁ v }&gt;)</code>",
+ "1218": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ Nat }&gt;</code>",
+ "1217":
+ "<code>StlcExtended.canonical_forms_nat (t : Tm) (ht : &lt;{ ∅ ⊢ ~(t) ⦂ Nat }&gt;) (hv : t.IsValue) :\n  ∃ n, t = StlcExtended.Tm.const n</code>",
+ "1216": "<code>&lt;{ ~(x →ₚ τ₁) ⊢ ~(t) ⦂ ~(τ₂) }&gt;</code>",
+ "1215": "<code>(StlcExtended.Tm.var x✝).IsValue</code>",
+ "1214":
+ "<code class=\"docstring\">`inversion h` behaves like `cases h` except that where `cases` would fail with\n&gt; \"Dependent elimination failed: Failed to solve equation ...\",\n\n`inversion` instead leaves behind those unsolveable equations in the context.\nThese equations arise from generalizing the indices of `h`'s type.\nIn such cases, `h` itself is generalized with a heterogenenous equality `heq`\nto the corresponding constructor in each branch.\n\nFor instance, given a hypothesis `h : f n ≤ 0`,\n`inversion h` will produce one goal for the case `Nat.le.refl {n} : n ≤ n`\nwith the equations `eq : f n = 0` and `heq : h ≍ Nat.le.refl`,\nrather than failing to solve `f n = 0`.\n\n* If `inversion +clear h` is set, then `heq` will be `clear`ed from the context if present,\n  along with `h` if there are no dependencies on it.\n  This is the usual behavior of `cases`.\n* The form `inversion t with (tac ...) | tag₁ x ... =&gt; tac ... | ... | tagₙ z ... =&gt; tac ...`\n  is supported, similar to that of `cases` and `induction`.\n</code>",
+ "1213": "<code>&lt;{ ∅ ⊢ ~(t) ⦂ τ₁ → τ₂ }&gt;</code>",
+ "1212":
+ "<code>StlcExtended.canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty) (ht : &lt;{ ∅ ⊢ ~(t) ⦂ τ₁ → τ₂ }&gt;) (hv : t.IsValue) :\n  ∃ x u, t = &lt;{ λ ~x : τ₁ . u }&gt;</code>",
+ "1211":
+ "<code>StlcExtended.Examples.Fix4.reduces : eotest ⟶* &lt;{ ( 0 , 1 ) }&gt;</code>",
+ "1210":
+ "<code>StlcExtended.Examples.Fix4.typechecks : &lt;{ ∅ ⊢ ~(eotest) ⦂ Nat × Nat }&gt;</code>",
  "121":
  "<code class=\"docstring\">Introduces one or more hypotheses, optionally naming and/or pattern-matching them.\nFor each hypothesis to be introduced, the remaining main goal's target type must\nbe a `let` or function type.\n\n* `intro` by itself introduces one anonymous hypothesis, which can be accessed\n  by e.g. `assumption`. It is equivalent to `intro _`.\n* `intro x y` introduces two hypotheses and names them. Individual hypotheses\n  can be anonymized via `_`, given a type ascription, or matched against a pattern:\n  ```lean\n  -- ... ⊢ α × β → ...\n  intro (a, b)\n  -- ..., a : α, b : β ⊢ ...\n  ```\n* `intro rfl` is short for `intro h; subst h`, if `h` is an equality where the left-hand or right-hand side\n  is a variable.\n* Alternatively, `intro` can be combined with pattern matching much like `fun`:\n  ```lean\n  intro\n  | n + 1, 0 =&gt; tac\n  | ...\n  ```\n</code>",
+ "1209": "<code>StlcExtended.Examples.Fix4.eotest : Tm</code>",
+ "1208":
+ "<code>StlcExtended.Examples.Fix3.reduces2 : &lt;{ equal 4 5 }&gt; ⟶* &lt;{ 0 }&gt;</code>",
+ "1207":
+ "<code>StlcExtended.Examples.Fix3.reduces : &lt;{ equal 4 4 }&gt; ⟶* &lt;{ 1 }&gt;</code>",
+ "1206":
+ "<code>StlcExtended.Examples.Fix3.typechecks : &lt;{ ∅ ⊢ ~(equal) ⦂ Nat → Nat → Nat }&gt;</code>",
+ "1205": "<code>StlcExtended.Examples.Fix3.equal : Tm</code>",
+ "1204":
+ "<code>StlcExtended.Examples.Fix2.reduces : &lt;{ map (λ a : Nat . succ a) (1 :: 2 :: nil Nat) }&gt; ⟶* &lt;{ 2 :: 3 :: nil Nat }&gt;</code>",
+ "1203":
+ "<code>StlcExtended.Examples.Fix2.typechecks : &lt;{ ∅ ⊢ ~(map) ⦂ (Nat → Nat) → [ Nat ] → [ Nat ] }&gt;</code>",
+ "1202": "<code>StlcExtended.Examples.Fix2.map : Tm</code>",
+ "1201":
+ "<code>StlcExtended.Examples.Fix1.reduces : &lt;{ fact 4 }&gt; ⟶* &lt;{ 24 }&gt;</code>",
+ "1200":
+ "<code>StlcExtended.Examples.Fix1.typechecks : &lt;{ ∅ ⊢ ~(fact) ⦂ Nat → Nat }&gt;</code>",
  "120":
  "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
  "12": "<code>Slang.Bexp.bool (b : Bool) : Bexp</code>",
+ "1199": "<code>StlcExtended.Examples.Fix1.fact : Tm</code>",
+ "1198":
+ "<code>StlcExtended.Examples.Lists.reduces : tm_test ⟶* &lt;{ 25 }&gt;</code>",
+ "1197":
+ "<code>StlcExtended.Examples.Lists.typechecks : &lt;{ ∅ ⊢ ~(tm_test) ⦂ Nat }&gt;</code>",
+ "1196": "<code>StlcExtended.Examples.Lists.tm_test : Tm</code>",
+ "1195":
+ "<code>StlcExtended.Examples.Sums2.reduces : tm_test ⟶* &lt;{ ( 5 , 0 ) }&gt;</code>",
+ "1194":
+ "<code>StlcExtended.Examples.Sums2.typechecks : &lt;{ ∅ ⊢ ~(tm_test) ⦂ Nat × Nat }&gt;</code>",
+ "1193": "<code>StlcExtended.Examples.Sums2.tm_test : Tm</code>",
+ "1192":
+ "<code>StlcExtended.Examples.Sums1.reduces : tm_test ⟶* &lt;{ 5 }&gt;</code>",
+ "1191":
+ "<code>StlcExtended.Examples.Sums1.typechecks : &lt;{ ∅ ⊢ ~(tm_test) ⦂ Nat }&gt;</code>",
+ "1190": "<code>StlcExtended.Examples.Sums1.tm_test : Tm</code>",
  "119":
  "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
+ "1189":
+ "<code>StlcExtended.Examples.Let1.reduces : tm_test ⟶* &lt;{ 6 }&gt;</code>",
+ "1188":
+ "<code>StlcExtended.Examples.Let1.typechecks : &lt;{ ∅ ⊢ ~(tm_test) ⦂ Nat }&gt;</code>",
+ "1187": "<code>StlcExtended.Examples.Let1.tm_test : Tm</code>",
+ "1186":
+ "<code>StlcExtended.Examples.Let.reduces : tm_test ⟶* &lt;{ 6 }&gt;</code>",
+ "1185":
+ "<code>StlcExtended.Examples.Let.typechecks : &lt;{ ∅ ⊢ ~(tm_test) ⦂ Nat }&gt;</code>",
+ "1184": "<code>StlcExtended.Examples.Let.tm_test : Tm</code>",
+ "1183":
+ "<code>StlcExtended.Examples.Prod.reduces : tm_test ⟶* &lt;{ 6 }&gt;</code>",
+ "1182":
+ "<code>StlcExtended.Examples.Prod.typechecks : &lt;{ ∅ ⊢ ~(tm_test) ⦂ Nat }&gt;</code>",
+ "1181": "<code>StlcExtended.Examples.Prod.tm_test : Tm</code>",
+ "1180":
+ "<code>StlcExtended.Examples.Numbers.reduces : tm_test ⟶* &lt;{ 5 }&gt;</code>",
  "118":
  "<code>Slang.Aexp.evalR_iff_eval (a : Aexp) (n : Nat) : a ⇓ n ↔ a.eval = n</code>",
+ "1179":
+ "<code>StlcExtended.Examples.Numbers.typechecks : &lt;{ ∅ ⊢ ~(tm_test) ⦂ Nat }&gt;</code>",
+ "1178": "<code>StlcExtended.Examples.Numbers.tm_test : Tm</code>",
+ "1177": "<code>StlcExtended.HasType.unexpand : Unexpander</code>",
+ "1176":
+ "<code>StlcExtended.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Nat ; Γ` rather than as a chain of map updates. </code>",
+ "1175":
+ "<code>StlcExtended.HasType.unit (Γ : Context) : HasType Γ &lt;{ unit }&gt; &lt;{ Unit }&gt;</code>",
+ "1174":
+ "<code>StlcExtended.HasType.listCase (Γ : Context) (t₁ t₂ t₃ : Tm) (x₁ x₂ : String) (τ₁ τ₂ : Ty) :\n  HasType Γ t₁ &lt;{ [ τ₁ ] }&gt; →\n    HasType Γ t₂ τ₂ →\n      HasType (x₁ →ₚ τ₁ ; x₂ →ₚ &lt;{ [ τ₁ ] }&gt; ; Γ) t₃ τ₂ → HasType Γ &lt;{ case t₁ of nil =&gt; t₂ | ~x₁ :: ~x₂ =&gt; t₃ }&gt; τ₂</code>",
+ "1173":
+ "<code>StlcExtended.HasType.listCons (Γ : Context) (t₁ t₂ : Tm) (τ₁ : Ty) :\n  HasType Γ t₁ τ₁ → HasType Γ t₂ &lt;{ [ τ₁ ] }&gt; → HasType Γ &lt;{ t₁ :: t₂ }&gt; &lt;{ [ τ₁ ] }&gt;</code>",
+ "1172":
+ "<code>StlcExtended.HasType.listNil (Γ : Context) (τ₁ : Ty) : HasType Γ &lt;{ nil τ₁ }&gt; &lt;{ [ τ₁ ] }&gt;</code>",
+ "1171":
+ "<code>StlcExtended.HasType.sumCase (Γ : Context) (x₁ x₂ : String) (τ₁ τ₂ τ₃ : Ty) (t t₁ t₂ : Tm) :\n  HasType Γ t &lt;{ τ₁ + τ₂ }&gt; →\n    HasType (x₁ →ₚ τ₁ ; Γ) t₁ τ₃ →\n      HasType (x₂ →ₚ τ₂ ; Γ) t₂ τ₃ → HasType Γ &lt;{ case t of inl~x₁ =&gt; t₁ | inr~x₂ =&gt; t₂ }&gt; τ₃</code>",
+ "1170":
+ "<code>StlcExtended.HasType.sumInr (Γ : Context) (t₂ : Tm) (τ₁ τ₂ : Ty) :\n  HasType Γ t₂ τ₂ → HasType Γ &lt;{ inr τ₁ t₂ }&gt; &lt;{ τ₁ + τ₂ }&gt;</code>",
  "117": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
+ "1169":
+ "<code>StlcExtended.HasType.sumInl (Γ : Context) (t₁ : Tm) (τ₁ τ₂ : Ty) :\n  HasType Γ t₁ τ₁ → HasType Γ &lt;{ inl τ₂ t₁ }&gt; &lt;{ τ₁ + τ₂ }&gt;</code>",
+ "1168": "<code>HasType Γ t₃ τ</code>",
+ "1167": "<code>HasType Γ t₂ τ</code>",
+ "1166":
+ "<code>StlcExtended.HasType.ite0 (Γ : Context) (t₁ t₂ t₃ : Tm) (τ : Ty) (h₁ : HasType Γ t₁ &lt;{ Nat }&gt;) (h₂ : HasType Γ t₂ τ)\n  (h₃ : HasType Γ t₃ τ) : HasType Γ &lt;{ if0 t₁ then t₂ else t₃ }&gt; τ</code>",
+ "1165": "<code>HasType Γ t₂ &lt;{ Nat }&gt;</code>",
+ "1164":
+ "<code>StlcExtended.HasType.mult (Γ : Context) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ Nat }&gt;) (h₂ : HasType Γ t₂ &lt;{ Nat }&gt;) :\n  HasType Γ &lt;{ t₁ * t₂ }&gt; &lt;{ Nat }&gt;</code>",
+ "1163":
+ "<code>StlcExtended.HasType.pred (Γ : Context) (t₁ : Tm) (h : HasType Γ t₁ &lt;{ Nat }&gt;) : HasType Γ &lt;{ pred t₁ }&gt; &lt;{ Nat }&gt;</code>",
+ "1162": "<code>HasType Γ t₁ &lt;{ Nat }&gt;</code>",
+ "1161":
+ "<code>StlcExtended.HasType.succ (Γ : Context) (t₁ : Tm) (h : HasType Γ t₁ &lt;{ Nat }&gt;) : HasType Γ &lt;{ succ t₁ }&gt; &lt;{ Nat }&gt;</code>",
+ "1160":
+ "<code>StlcExtended.HasType.const (Γ : Context) (n : Nat) : HasType Γ (StlcExtended.Tm.const n) &lt;{ Nat }&gt;</code>",
  "116": "<code>Lean.TSyntax `term</code>",
+ "1159": "<code>HasType Γ t₂ τ₂</code>",
+ "1158": "<code>HasType Γ t₁ &lt;{ τ₂ → τ₁ }&gt;</code>",
+ "1157":
+ "<code>StlcExtended.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ τ₂ → τ₁ }&gt;)\n  (h₂ : HasType Γ t₂ τ₂) : HasType Γ &lt;{ t₁ t₂ }&gt; τ₁</code>",
+ "1156": "<code>HasType (x →ₚ τ₂ ; Γ) t₁ τ₁</code>",
+ "1155":
+ "<code>StlcExtended.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ τ₂ ; Γ) t₁ τ₁) :\n  HasType Γ &lt;{ λ ~x : τ₂ . t₁ }&gt; &lt;{ τ₂ → τ₁ }&gt;</code>",
+ "1154": "<code>Γ[x] = some τ₁</code>",
+ "1153":
+ "<code>StlcExtended.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) :\n  HasType Γ (StlcExtended.Tm.var x) τ₁</code>",
+ "1152": "<code>StlcExtended.HasType : Context → Tm → Ty → Prop</code>",
+ "1151":
+ "<code>StlcExtended.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
+ "1150":
+ "<code>StlcExtended.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
  "115": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
+ "1149": "<code>StlcExtended.Context : Type</code>",
+ "1148":
+ "<code>StlcExtended.Step.listCaseCons (v₁ vl t₂ : Tm) (x₁ x₂ : String) (t₃ : Tm) :\n  v₁.IsValue → vl.IsValue → Step &lt;{ case v₁ :: vl of nil =&gt; t₂ | ~x₁ :: ~x₂ =&gt; t₃ }&gt; (subst x₂ vl (subst x₁ v₁ t₃))</code>",
+ "1147":
+ "<code>StlcExtended.Step.listCaseNil (τ₁ : Ty) (t₂ : Tm) (x₁ x₂ : String) (t₃ : Tm) :\n  Step &lt;{ case nil τ₁ of nil =&gt; t₂ | ~x₁ :: ~x₂ =&gt; t₃ }&gt; t₂</code>",
+ "1146":
+ "<code>StlcExtended.Step.listCase₁ (t₁ t₁' t₂ : Tm) (x₁ x₂ : String) (t₃ : Tm) :\n  Step t₁ t₁' → Step &lt;{ case t₁ of nil =&gt; t₂ | ~x₁ :: ~x₂ =&gt; t₃ }&gt; &lt;{ case t₁' of nil =&gt; t₂ | ~x₁ :: ~x₂ =&gt; t₃ }&gt;</code>",
+ "1145":
+ "<code>StlcExtended.Step.cons₂ (v₁ t₂ t₂' : Tm) : v₁.IsValue → Step t₂ t₂' → Step &lt;{ v₁ :: t₂ }&gt; &lt;{ v₁ :: t₂' }&gt;</code>",
+ "1144":
+ "<code>StlcExtended.Step.cons₁ (t₁ t₁' t₂ : Tm) : Step t₁ t₁' → Step &lt;{ t₁ :: t₂ }&gt; &lt;{ t₁' :: t₂ }&gt;</code>",
+ "1143":
+ "<code>StlcExtended.Step.sumCaseInr (v : Tm) (x₁ : String) (t₁ : Tm) (x₂ : String) (t₂ : Tm) (τ₁ : Ty) :\n  v.IsValue → Step &lt;{ case inr τ₁ v of inl~x₁ =&gt; t₁ | inr~x₂ =&gt; t₂ }&gt; (subst x₂ v t₂)</code>",
+ "1142":
+ "<code>StlcExtended.Step.sumCaseInl (v : Tm) (x₁ : String) (t₁ : Tm) (x₂ : String) (t₂ : Tm) (τ₂ : Ty) :\n  v.IsValue → Step &lt;{ case inl τ₂ v of inl~x₁ =&gt; t₁ | inr~x₂ =&gt; t₂ }&gt; (subst x₁ v t₁)</code>",
+ "1141":
+ "<code>StlcExtended.Step.sumCase (t t' : Tm) (x₁ : String) (t₁ : Tm) (x₂ : String) (t₂ : Tm) :\n  Step t t' → Step &lt;{ case t of inl~x₁ =&gt; t₁ | inr~x₂ =&gt; t₂ }&gt; &lt;{ case t' of inl~x₁ =&gt; t₁ | inr~x₂ =&gt; t₂ }&gt;</code>",
+ "1140":
+ "<code>StlcExtended.Step.sumInr (t₂ t₂' : Tm) (τ₁ : Ty) : Step t₂ t₂' → Step &lt;{ inr τ₁ t₂ }&gt; &lt;{ inr τ₁ t₂' }&gt;</code>",
  "114":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.mult a₂) (n₁ * n₂)</code>",
+ "1139":
+ "<code>StlcExtended.Step.sumInl (t₁ t₁' : Tm) (τ₂ : Ty) : Step t₁ t₁' → Step &lt;{ inl τ₂ t₁ }&gt; &lt;{ inl τ₂ t₁' }&gt;</code>",
+ "1138":
+ "<code>StlcExtended.Step.if0Nonzero (n : Nat) (t₂ t₃ : Tm) : Step &lt;{ if0 ~(StlcExtended.Tm.const (n + 1)) then t₂ else t₃ }&gt; t₃</code>",
+ "1137":
+ "<code>StlcExtended.Step.if0Zero (t₂ t₃ : Tm) : Step &lt;{ if0 0 then t₂ else t₃ }&gt; t₂</code>",
+ "1136":
+ "<code>StlcExtended.Step.if0Step (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') :\n  Step &lt;{ if0 t₁ then t₂ else t₃ }&gt; &lt;{ if0 t₁' then t₂ else t₃ }&gt;</code>",
+ "1135":
+ "<code>StlcExtended.Step.mult₂ (v₁ t₂ t₂' : Tm) (hv : v₁.IsValue) (h : Step t₂ t₂') : Step &lt;{ v₁ * t₂ }&gt; &lt;{ v₁ * t₂' }&gt;</code>",
+ "1134":
+ "<code>StlcExtended.Step.mult₁ (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step &lt;{ t₁ * t₂ }&gt; &lt;{ t₁' * t₂ }&gt;</code>",
+ "1133":
+ "<code>StlcExtended.Step.multConst (n₁ n₂ : Nat) :\n  Step &lt;{ ~(StlcExtended.Tm.const n₁) * ~(StlcExtended.Tm.const n₂) }&gt; (StlcExtended.Tm.const (n₁ * n₂))</code>",
+ "1132":
+ "<code>StlcExtended.Step.predConst (n : Nat) : Step &lt;{ pred ~(StlcExtended.Tm.const n) }&gt; (StlcExtended.Tm.const (n - 1))</code>",
+ "1131":
+ "<code>StlcExtended.Step.pred (t₁ t₁' : Tm) (h : Step t₁ t₁') : Step &lt;{ pred t₁ }&gt; &lt;{ pred t₁' }&gt;</code>",
+ "1130":
+ "<code>StlcExtended.Step.succNat (n : Nat) : Step &lt;{ succ ~(StlcExtended.Tm.const n) }&gt; (StlcExtended.Tm.const (n + 1))</code>",
  "113":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.minus a₂) (n₁ - n₂)</code>",
+ "1129":
+ "<code>StlcExtended.Step.succ (t₁ t₁' : Tm) : Step t₁ t₁' → Step &lt;{ succ t₁ }&gt; &lt;{ succ t₁' }&gt;</code>",
+ "1128":
+ "<code>StlcExtended.Step.app₂ (v₁ t₂ t₂' : Tm) : v₁.IsValue → Step t₂ t₂' → Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
+ "1127":
+ "<code>StlcExtended.Step.app₁ (t₁ t₁' t₂ : Tm) : Step t₁ t₁' → Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
+ "1126":
+ "<code>StlcExtended.Step.appAbs (x : String) (τ₂ : Ty) (t₁ v₂ : Tm) :\n  v₂.IsValue → Step &lt;{ (λ ~x : τ₂ . t₁) v₂ }&gt; (subst x v₂ t₁)</code>",
+ "1125": "<code>StlcExtended.Step : Tm → Tm → Prop</code>",
+ "1124":
+ "<code>StlcExtended.Tm.IsValue.pair (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → &lt;{ ( v₁ , v₂ ) }&gt;.IsValue</code>",
+ "1123": "<code>StlcExtended.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
+ "1122":
+ "<code>StlcExtended.Tm.IsValue.listCons (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → &lt;{ v₁ :: v₂ }&gt;.IsValue</code>",
+ "1121":
+ "<code>StlcExtended.Tm.IsValue.listNil (τ₁ : Ty) : &lt;{ nil τ₁ }&gt;.IsValue</code>",
+ "1120":
+ "<code>StlcExtended.Tm.IsValue.sumInr (v : Tm) (τ₁ : Ty) : v.IsValue → &lt;{ inr τ₁ v }&gt;.IsValue</code>",
  "112":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.plus a₂) (n₁ + n₂)</code>",
+ "1119":
+ "<code>StlcExtended.Tm.IsValue.sumInl (v : Tm) (τ₁ : Ty) : v.IsValue → &lt;{ inl τ₁ v }&gt;.IsValue</code>",
+ "1118":
+ "<code>StlcExtended.Tm.IsValue.nat (n : Nat) : (StlcExtended.Tm.const n).IsValue</code>",
+ "1117":
+ "<code>StlcExtended.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
+ "1116": "<code>StlcExtended.Tm.IsValue : Tm → Prop</code>",
+ "1115": "<code><span class=\"literal string\">\"z\"</span> : String</code>",
+ "1114":
+ "<code class=\"docstring\">`let` is used to declare a local definition. Example:\n```\nlet x := 1\nlet y := x + 1\nx + y\n```\nSince functions are first class citizens in Lean, you can use `let` to declare\nlocal functions too.\n```\nlet double := fun x =&gt; 2*x\ndouble (double 3)\n```\nFor recursive definitions, you should use `let rec`.\nYou can also perform pattern matching using `let`. For example,\nassume `p` has type `Nat × Nat`, then you can write\n```\nlet (x, y) := p\nx + y\n```\n\nThe *anaphoric let* `let := v` defines a variable called `this`.\n</code>",
+ "1113": "<code>StlcExtended.subst (x : String) (s t : Tm) : Tm</code>",
+ "1112": "<code>StlcExtended.delabTm : Delab</code>",
+ "1111": "<code>StlcExtended.delabTy : Delab</code>",
+ "1110":
+ "<code>StlcExtended.delabTmInner : DelabM (TSyntax `stlcTm)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTm` concrete syntax from a `Tm` value. </code>",
  "111":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
+ "1109":
+ "<code>StlcExtended.delabTyInner : DelabM (TSyntax `stlcTy)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTy` concrete syntax from a `Ty` value. </code>",
+ "1108": "<code><span class=\"literal string\">\"case\"</span> : String</code>",
+ "1107": "<code><span class=\"literal string\">\"if0\"</span> : String</code>",
+ "1106":
+ "<code>StlcExtended.isPlainTmVarName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? </code>",
+ "1105": "<code><span class=\"literal string\">\"unit\"</span> : String</code>",
+ "1104":
+ "<code><span class=\"literal string\">\"`fix` must be applied to an argument\"</span> : String</code>",
+ "1103": "<code><span class=\"literal string\">\"fix\"</span> : String</code>",
+ "1102":
+ "<code><span class=\"literal string\">\"`inr` must be applied to two arguments\"</span> : String</code>",
+ "1101":
+ "<code><span class=\"literal string\">\"`inl` must be applied to two arguments\"</span> : String</code>",
+ "1100":
+ "<code><span class=\"literal string\">\"`nil` must be applied to an argument\"</span> : String</code>",
  "110": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
  "11": "<code>Slang.Bexp : Type</code>",
+ "1099":
+ "<code><span class=\"literal string\">\"`snd` must be applied to an argument\"</span> : String</code>",
+ "1098": "<code><span class=\"literal string\">\"snd\"</span> : String</code>",
+ "1097":
+ "<code><span class=\"literal string\">\"`fst` must be applied to an argument\"</span> : String</code>",
+ "1096": "<code><span class=\"literal string\">\"fst\"</span> : String</code>",
+ "1095":
+ "<code><span class=\"literal string\">\"`Unit` is a type, not a term\"</span> : String</code>",
+ "1094": "<code><span class=\"literal string\">\" in \"</span> : String</code>",
+ "1093": "<code><span class=\"literal string\">\" = \"</span> : String</code>",
+ "1092": "<code><span class=\"literal string\">\"let \"</span> : String</code>",
+ "1091": "<code><span class=\"literal string\">\" ) \"</span> : String</code>",
+ "1090": "<code><span class=\"literal string\">\" , \"</span> : String</code>",
  "109":
  "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
+ "1089": "<code><span class=\"literal string\">\" ( \"</span> : String</code>",
+ "1088": "<code><span class=\"literal string\">\"nil\"</span> : String</code>",
+ "1087": "<code><span class=\"literal string\">\" :: \"</span> : String</code>",
+ "1086":
+ "<code><span class=\"literal string\">\" nil \"</span> : String</code>",
+ "1085": "<code><span class=\"literal string\">\"inr\"</span> : String</code>",
+ "1084": "<code><span class=\"literal string\">\" | \"</span> : String</code>",
+ "1083":
+ "<code><span class=\"literal string\">\" =&gt; \"</span> : String</code>",
+ "1082": "<code><span class=\"literal string\">\"inl\"</span> : String</code>",
+ "1081": "<code><span class=\"literal string\">\" of \"</span> : String</code>",
+ "1080":
+ "<code><span class=\"literal string\">\"case \"</span> : String</code>",
  "108":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
+ "1079":
+ "<code><span class=\"literal string\">\" inl \"</span> : String</code>",
+ "1078":
+ "<code><span class=\"literal string\">\" inr \"</span> : String</code>",
+ "1077": "<code><span class=\"literal string\">\"Unit\"</span> : String</code>",
+ "1076": "<code><span class=\"literal string\">\" ] \"</span> : String</code>",
+ "1075": "<code><span class=\"literal string\">\" [ \"</span> : String</code>",
+ "1074": "<code><span class=\"literal string\">\" + \"</span> : String</code>",
+ "1073": "<code><span class=\"literal string\">\" × \"</span> : String</code>",
+ "1072": "<code>StlcExtended.Tm.fix : Tm → Tm</code>",
+ "1071": "<code>StlcExtended.Tm.letIn : String → Tm → Tm → Tm</code>",
+ "1070": "<code>StlcExtended.Tm.snd : Tm → Tm</code>",
  "107": "<code>EvalR a₂ n₂</code>",
+ "1069": "<code>StlcExtended.Tm.fst : Tm → Tm</code>",
+ "1068": "<code>StlcExtended.Tm.pair : Tm → Tm → Tm</code>",
+ "1067": "<code>StlcExtended.Tm.unit : Tm</code>",
+ "1066":
+ "<code>StlcExtended.Tm.listCase : Tm → Tm → String → String → Tm → Tm</code>",
+ "1065": "<code>StlcExtended.Tm.listCons : Tm → Tm → Tm</code>",
+ "1064": "<code>StlcExtended.Tm.listNil : Ty → Tm</code>",
+ "1063":
+ "<code>StlcExtended.Tm.sumCase : Tm → String → Tm → String → Tm → Tm</code>",
+ "1062": "<code>StlcExtended.Tm.sumInr : Ty → Tm → Tm</code>",
+ "1061": "<code>StlcExtended.Tm.sumInl : Ty → Tm → Tm</code>",
+ "1060": "<code>StlcExtended.Tm.ite0 : Tm → Tm → Tm → Tm</code>",
  "106": "<code>EvalR a₁ n₁</code>",
+ "1059": "<code>StlcExtended.Tm.mult : Tm → Tm → Tm</code>",
+ "1058": "<code>StlcExtended.Tm.pred : Tm → Tm</code>",
+ "1057": "<code>StlcExtended.Tm.succ : Tm → Tm</code>",
+ "1056": "<code>StlcExtended.Tm.const : Nat → Tm</code>",
+ "1055": "<code>StlcExtended.Tm.abs : String → Ty → Tm → Tm</code>",
+ "1054": "<code>StlcExtended.Tm.app : Tm → Tm → Tm</code>",
+ "1053": "<code>StlcExtended.Tm.var : String → Tm</code>",
+ "1052": "<code>StlcExtended.Tm : Type</code>",
+ "1051": "<code>StlcExtended.Ty.prod : Ty → Ty → Ty</code>",
+ "1050": "<code>StlcExtended.Ty.unit : Ty</code>",
  "105":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
+ "1049": "<code>StlcExtended.Ty.list : Ty → Ty</code>",
+ "1048": "<code>StlcExtended.Ty.sum : Ty → Ty → Ty</code>",
+ "1047": "<code>StlcExtended.Ty.nat : Ty</code>",
+ "1046": "<code>StlcExtended.Ty.arrow : Ty → Ty → Ty</code>",
+ "1045": "<code>StlcExtended.Ty : Type</code>",
  "1044":
  "<code>StlcArith.progress (t : Tm) (T : Ty) (hT : &lt;{ ∅ ⊢ ~(t) ⦂ ~(T) }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
  "1043":
