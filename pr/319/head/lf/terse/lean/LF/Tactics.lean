@@ -31,17 +31,6 @@ example (n m : Nat) (h₁ : (n, n) = (m, m))
   apply h₂
   exact h₁
 
---  ### Exercise (2 stars): apply_exercise (Optional) ⭐⭐
-
---  Complete the following proof using only `apply`.
-
-theorem apply_exercise (m : Nat)
-    (h₁ : ∀ (n : Nat), n.even = true → (n + 1).even = false)
-    (h₂ : ∀ (n : Nat), n.even = false → n.odd = true)
-    (hEven : m.even = true) :
-    (m + 1).odd = true := by
-  sorry
-
 --  The goal must match the hypothesis for `apply` to work:
 
 example (n m : Nat) (h : n = 0 → n = m) (hn : n = 0) : m = n := by
@@ -51,24 +40,6 @@ example (n m : Nat) (h : n = 0 → n = m) (hn : n = 0) : m = n := by
   symm
   apply h
   exact hn
-
---  ### Exercise (2 stars): apply_exercise1 ⭐⭐
-
---  You can use `apply` with previously defined theorems,
---  not just hypotheses in the context. Use a
---  previously-defined theorem about `rev` from Poly. Use
---  that theorem as part of your (relatively short) solution
---  to this exercise. You do not need `induction`.
-
-theorem rev_exercise1 {α : Type} (l l' : List α) (h : l = l'.rev) :
-    l' = l.rev := by
-  sorry
-
---  ### Exercise (1 star): apply_rewrite (Optional, manually graded) ⭐
-
---  Briefly explain the difference between the tactics
---  `apply` and `rw`. What are the situations where both can
---  usefully be applied?
 
 --  ### Supplying arguments to `apply`
 
@@ -95,12 +66,13 @@ theorem trans_eq {α : Type} (x y z : α) :
 
 #check Eq.trans
 
---  Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c
+--  Output:
+--    Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c
 
 --  In Lean's version, the arguments corresponding to `x`,
 --  `y`, and `z` are implicit, since they can usually be
 --  inferred from the equality hypotheses and the goal.
-
+--
 --  Now let's use our `trans_eq` to prove the example above.
 
 sf_expect_failure_in
@@ -110,24 +82,25 @@ sf_expect_failure_in
       [a, b] = [e, f] := by
     apply trans_eq
 
---  unsolved goals
---  case a
---  a b c d e f : Nat
---  h₁ : [a, b] = [c, d]
---  h₂ : [c, d] = [e, f]
---  ⊢ [a, b] = ?y
-
---  case a
---  a b c d e f : Nat
---  h₁ : [a, b] = [c, d]
---  h₂ : [c, d] = [e, f]
---  ⊢ ?y = [e, f]
-
---  case y
---  a b c d e f : Nat
---  h₁ : [a, b] = [c, d]
---  h₂ : [c, d] = [e, f]
---  ⊢ List Nat
+--  Output:
+--    unsolved goals
+--    case a
+--    a b c d e f : Nat
+--    h₁ : [a, b] = [c, d]
+--    h₂ : [c, d] = [e, f]
+--    ⊢ [a, b] = ?y
+--
+--    case a
+--    a b c d e f : Nat
+--    h₁ : [a, b] = [c, d]
+--    h₂ : [c, d] = [e, f]
+--    ⊢ ?y = [e, f]
+--
+--    case y
+--    a b c d e f : Nat
+--    h₁ : [a, b] = [c, d]
+--    h₂ : [c, d] = [e, f]
+--    ⊢ List Nat
 
 --  One way to resolve this is to supply all the arguments
 --  and hypotheses explicity:
@@ -192,9 +165,9 @@ theorem trans_eq_exercise (n m o p : Nat)
 
 --  The constructors of inductive types are *injective* (or
 --  *one-to-one*) and *disjoint*.
-
+--
 --  E.g., for `Nat`:
-
+--
 --  - if `n + 1 = m + 1` then it must be that `n = m`
 --  - `0` is not equal to `n + 1` for any `n`
 
@@ -283,7 +256,7 @@ example (n : Nat)
 --  known as the *principle of explosion*, which asserts
 --  that a contradictory hypothesis entails anything (even
 --  manifestly false things!).
-
+--
 --  Notice that due to the way addition on naturals is
 --  defined, deriving a contradiction from `1 + n = 0` is
 --  not as trivial as it seems.
@@ -304,13 +277,6 @@ example (n : Nat)
   rw [Nat.one_add] at h
   contradiction
 
---  ### Exercise (1 star): disjoint_ex3 ⭐
-
-theorem disjoint_ex3 {α : Type} (x y z : α) (l : List α)
-    (h : x :: y :: l = []) :
-    x = z := by
-  sorry
-
 --  ### Quizzes
 
 --  Recall our `RGB` and `Color` types:
@@ -327,89 +293,99 @@ sf_recall
     | white
     | primary (p: RGB)
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Suppose Lean's proof state looks like
-
---    x : RGB
---    y : RGB
---    h : .primary x = .primary y
---    ------------------------------
---    ⊢ y = x
-
+--
+--      x : RGB
+--      y : RGB
+--      h : .primary x = .primary y
+--      ------------------------------
+--      ⊢ y = x
+--
 --  and we apply the tactic `injection h with hxy`. What
 --  will happen?
-
+--
 --  (1) "No goals."
-
+--
 --  (2) The tactic fails.
-
+--
 --  (3) Hypothesis `h` becomes `hxy : x = y`.
-
+--
 --  (4) None of the above.
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Suppose Lean's proof state looks like
-
---    x : Bool
---    y : Bool
---    h : !x = !y
---    --------------
---    ⊢ y = x
-
+--
+--      x : Bool
+--      y : Bool
+--      h : !x = !y
+--      --------------
+--      ⊢ y = x
+--
 --  and we apply the tactic `injection h with hxy`. What
 --  will happen?
-
+--
 --  (A) "No more goals."
-
+--
 --  (B) The tactic fails.
-
+--
 --  (C) Hypothesis `h` becomes `hxy : x = y`.
-
+--
 --  (D) None of the above.
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Now suppose Lean's proof state looks like
-
---    x : Nat
---    y : Nat
---    h : x + 1 = y + 1
---    -------------------
---    ⊢ y = x
-
+--
+--      x : Nat
+--      y : Nat
+--      h : x + 1 = y + 1
+--      -------------------
+--      ⊢ y = x
+--
 --  and we apply the tactic `injection h with hxy`. What
 --  will happen?
-
+--
 --  (A) "No more goals."
-
+--
 --  (B) The tactic fails.
-
+--
 --  (C) Hypothesis `h` becomes `hxy : x = y`.
-
+--
 --  (D) None of the above.
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
 --  Finally, suppose Lean's proof state looks like
-
---    x : Nat
---    y : Nat
---    h : 1 + x = 1 + y
---    -------------------
---    ⊢ y = x
-
+--
+--      x : Nat
+--      y : Nat
+--      h : 1 + x = 1 + y
+--      -------------------
+--      ⊢ y = x
+--
 --  and we apply the tactic `injection h with hxy`. What
 --  will happen?
-
+--
 --  (A) "No more goals."
-
+--
 --  (B) The tactic fails.
-
+--
 --  (C) Hypothesis `h` becomes `hxy : x = y`.
-
+--
 --  (D) None of the above.
+
+--   ----------------------------------------
 
 --  The injectivity of constructors allows us to reason that
 --  `∀ (n m : Nat), n + 1 = m + 1 → n = m`. The converse of
@@ -441,24 +417,25 @@ sf_expect_failure_in
 --  but these are not provable from our hypotheses! `congr`
 --  has gone too deep.
 
---  unsolved goals
---  case e_snd.e_a
---  a b c d : Nat
---  hab : a = b
---  hcd : c = d
---  ⊢ c = 1
-
---  case e_snd.e_a.e_2
---  a b c d : Nat
---  hab : a = b
---  hcd : c = d
---  ⊢ 1 = d
-
---  case e_snd.e_a.e_3
---  a b c d : Nat
---  hab : a = b
---  hcd : c = d
---  ⊢ 1 = d
+--  Output:
+--    unsolved goals
+--    case e_snd.e_a
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ c = 1
+--
+--    case e_snd.e_a.e_2
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ 1 = d
+--
+--    case e_snd.e_a.e_3
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ 1 = d
 
 example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
     (a, c + 1) = (b, 1 + d) := by
@@ -472,7 +449,7 @@ example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
 --  The ordinary `apply` tactic is a form of "backward
 --  reasoning." It says "We are trying to prove `a` and we
 --  know `b → a`, so if we can prove `b` we'll be done."
-
+--
 --  By contrast, the variant `apply ... at ...` is "forward
 --  reasoning": it says "We know `b` and we know `b → a`, so
 --  we also know `a`."
@@ -487,11 +464,9 @@ example (n m p q : Nat)
 --  You can apply tactics in multiple places at the same
 --  time, including the goal:
 
-example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
-  Nat.ble (n, m).1 (n, m).2 := by
-  dsimp at h₁ h₂ ⊢
-  rw [h₁, h₂]
-  rfl
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
 
 --  ## Specializing Hypotheses
 
@@ -500,13 +475,13 @@ example (n m : Nat) (h₁ : n = 1 + 1) (h₂ : m = 1 + 2) :
 --  that get us closer to the main goal we're trying to
 --  prove. Often, though, these facts are just special cases
 --  of more general hypotheses we already have.
-
+--
 --  If `h` is a quantified hypothesis in the current context
 --  — i.e., `h : ∀ (x : α), P x` — then we can use `have` to
 --  obtain a special case of `h` by supplying a value for
 --  `x`. For example, `have h := h e` introduces a new `h`
 --  which `x` has been instantiated with `e`.
-
+--
 --  For example:
 
 example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
@@ -536,16 +511,6 @@ example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
   specialize h 1
   rw [Nat.mul_one] at h
   exact h
-
---  ### Exercise (2 stars): nth?_always_none ⭐⭐
-
---  Use `have`, `replace`, or `specialize` to prove the the
---  following lemma, following the model of the examples
---  above. Do not use `induction`.
-
-theorem nth?_always_none {l : List α} (h : ∀ i, nth? l i = none) :
-    l = [] := by
-  sorry
 
 --  Tactics like `have` and `replace` can also be used with
 --  lemmas and theorems we've already proven, not just
@@ -597,23 +562,24 @@ sf_expect_failure_in
       | succ m' =>
         congr
 
---  unsolved goals
---  case succ.succ.e_a
---  n' m' : Nat
---  ih : n'.double = (m' + 1).double → n' = m' + 1
---  h : (n' + 1).double = (m' + 1).double
---  ⊢ n' = m'
+--  Output:
+--    unsolved goals
+--    case succ.succ.e_a
+--    n' m' : Nat
+--    ih : n'.double = (m' + 1).double → n' = m' + 1
+--    h : (n' + 1).double = (m' + 1).double
+--    ⊢ n' = m'
 
 --  We get stuck, because the induction hypothesis `ih` is
 --  too specific to be useful.
 
 --  We can obtain a more generalized induction hypothesis by
 --  writing
-
---    induction n generalizing m with
+--
+--      induction n generalizing m with
 
 --  What went wrong?
-
+--
 --  Trying to carry out this proof by induction on `n` with
 --  `m` fixed doesn't work, because we are then trying to
 --  prove a statement involving *every* `n` but just a
@@ -680,15 +646,6 @@ example (n m p q : Nat)
 --  statement has more than one assumption, then we get one
 --  subgoal for each assumption.
 
---  ### Exercise (3 stars): nth?_after_last ⭐⭐⭐
-
---  Prove this by induction on `l`.
-
-theorem nth?_after_last {α : Type}
-    {n : Nat} {l : List α} (h : l.length = n) :
-    nth? l n = none := by
-  sorry
-
 --  ### Exercise (3 stars): length_append_cons (Optional) ⭐⭐⭐
 
 --  Prove this by induction on `l₁`, without using
@@ -749,7 +706,7 @@ def chooseIf {α : Type} (test : α → Bool) (x y : α) : α :=
 
 theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
     chooseIf test x x = x := by
-  dsimp [chooseIf]
+  rw [chooseIf]
   cases test x <;> rfl
 
 --  ### Destructing Tuples
@@ -761,28 +718,12 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 --  inductively defined types that are products of multiple
 --  things, we instead want a way to get the pieces of that
 --  value out from it.
-
+--
 --  When we have a value `v : α × β` in our context, we can
 --  get the first and second projections of `v` using this
 --  tactic:
-
---    let ⟨a, β⟩ := v
-
---  ### Exercise (3 stars): zip_unzip' ⭐⭐⭐
-
---  Here is an implementation of the `unzip` function
---  mentioned in chapter Poly:
-
-def unzip' {α β : Type} (l : List (α × β)) : List α × List β := sorry
-
---  Prove that `unzip'` and `zip` are inverses in the
---  following sense:
-
-theorem zip_unzip' {α β : Type} (l : List (α × β))
-    (l₁ : List α) (l₂ : List β)
-    (h : unzip' l = (l₁, l₂)) :
-    zip l₁ l₂ = l := by
-  sorry
+--
+--      let ⟨a, β⟩ := v
 
 --  ### Splitting with Equations
 
@@ -802,7 +743,7 @@ def keepIf {α : Type} (test : α → Bool) (x : α) : Option α :=
 theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
     (h : keepIf test x = some y) :
     x = y := by
-  dsimp [keepIf] at h
+  rw [keepIf] at h
   cases hTest : test x
   -- Now we have the same state as at the point where we got stuck
   -- above, except that the context contains an extra equality
@@ -812,95 +753,4 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
   · rw [hTest] at h
     injections
 
---  ### Additional Exercises
-
---  ### Exercise (2 stars): append_left_cancel ⭐⭐
-
-theorem append_left_cancel {α : Type} (l₁ l₂ l₃ : List α)
-    (h : l₁ ++ l₂ = l₁ ++ l₃) :
-    l₂ = l₃ := by
-  sorry
-
---  ### Exercise (3 stars): map_injective_of_injective ⭐⭐⭐
-
---  Recall the `map` we've defined in Poly:
-
-sf_recall
-  def map {α β : Type} (f : α → β) (l : List α) : List β :=
-    match l with
-    | [] => []
-    | head :: tail => f head :: map f tail
-
---  Prove that `map` is injective whenever the function is
---  injective.
-
-theorem map_injective_of_injective {α β : Type}
-    (f : α → β)
-    (hf : ∀ x y, f x = f y → x = y)
-    (l₁ l₂ : List α)
-    (h : map f l₁ = map f l₂) :
-    l₁ = l₂ := by
-  sorry
-
---  ### Exercise (3 stars): unzip_zip (Advanced, manually graded) ⭐⭐⭐
-
---  We proved `zip_unzip'` that `zip`ping the result of
---  `unzip` recovers the original list. What about the other
---  direction? Complete and prove the following `unzip_zip`:
-
---    theorem unzip_zip {α β : Type}
---        {l₁ : List α} {l₂ : List β}
---        /- add appropriate parameters and hypotheses here -/ :
---        unzip (zip l₁ l₂) = (l₁, l₂) := sorry
-
---  Hint: Take a look at the definition of `zip` in Poly.
---  Your definition will need to account for the behavior of
---  `zip` in its base cases, which possibly drop some list
---  elements.
-
--- FILL IN HERE
-
---  ### Exercise (3 stars): test_pos_of_filter_cons (Advanced) ⭐⭐⭐
-
-theorem test_pos_of_filter_cons {α : Type}
-    (test : α → Bool) (x : α) (l l' : List α)
-    (h : filter test l = x :: l') :
-    test x = true := by
-  sorry
-
---  ### Exercise (4 stars): forall_exists_challenge (Advanced) ⭐⭐⭐⭐
-
---  Define two recursive functions, `allTrue` and `anyTrue`.
-
---  The first checks whether the given Boolean test returns
---  `true` for every element of the list.
-
-def allTrue {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
-
-example : allTrue Nat.odd [1, 3, 5, 7, 9] = true := sorry
-example : allTrue not [false, false] = true := sorry
-example : allTrue Nat.even [0, 2, 4, 5] = false := sorry
-example : allTrue Nat.even [] = true := sorry
-
---  The second checks whether it returns `true` for at least
---  one element.
-
-def anyTrue {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
-
-example : anyTrue Nat.even [1, 3, 4, 7] = true := sorry
-example : anyTrue Nat.odd [0, 2, 4, 6] = false := sorry
-example : anyTrue not [true, true, false] = true := sorry
-example : anyTrue Nat.even [] = false := sorry
-
---  Next, define a *nonrecursive* version of `anyTrue` —
---  call it `anyTrue'` — using `allTrue` and `not`.
-
-def anyTrue' {α : Type} (test : α → Bool) (l : List α) : Bool := sorry
-
---  Finally, prove a theorem `anyTrue_eq_anyTrue` stating
---  that `anyTrue'` and `anyTrue` have the same behavior.
-
-theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
-    anyTrue test l = anyTrue' test l := by
-  sorry
-
+-- Built on 2026-09-03 17:08 UTC

@@ -127,29 +127,30 @@ sf_expect_failure_in
     induction hPerm <;> try lia <;>
       try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
 
---  unsolved goals
---  case perm3_swap12
---  α : Type
---  x : α
---  l₁ l₂ : List α
---  x✝ y✝ z✝ : α
---  hIn : x ∈ [x✝, y✝, z✝]
---  ⊢ x ∈ [y✝, x✝, z✝]
-
---  case perm3_swap23
---  α : Type
---  x : α
---  l₁ l₂ : List α
---  x✝ y✝ z✝ : α
---  hIn : x ∈ [x✝, y✝, z✝]
---  ⊢ x ∈ [x✝, z✝, y✝]
+--  Output:
+--    unsolved goals
+--    case perm3_swap12
+--    α : Type
+--    x : α
+--    l₁ l₂ : List α
+--    x✝ y✝ z✝ : α
+--    hIn : x ∈ [x✝, y✝, z✝]
+--    ⊢ x ∈ [y✝, x✝, z✝]
+--
+--    case perm3_swap23
+--    α : Type
+--    x : α
+--    l₁ l₂ : List α
+--    x✝ y✝ z✝ : α
+--    hIn : x ∈ [x✝, y✝, z✝]
+--    ⊢ x ∈ [x✝, z✝, y✝]
 
 --  ### The `repeat` Combinator
 
 --  The `repeat` combinator takes another tactic or
 --  parenthesized sequence of tactics and keeps applying it
 --  until it fails.
-
+--
 --  Here is an example proving that `10` is in a long list
 --  using `repeat`:
 
@@ -345,79 +346,81 @@ namespace RegExp
 --  when a regular expression *matches* some string.
 
 --  Informally this looks as follows:
-
+--
 --  - The regular expression `EmptySet` does not match any
 --    string.
-
+--
 --  - `EmptyStr` matches the empty string `[]`.
-
+--
 --  - `Char x` matches the one-character string `x`.
-
+--
 --  - If `re₁` matches `s₁`, and `re₂` matches `s₂`, then
 --    `App re₁ re₂` matches `s₁ ++ s₂`.
-
+--
 --  - If at least one of `re₁` and `re₂` matches `s`, then
 --    `Union re₁ re₂` matches `s`.
-
+--
 --  - Finally, if we can write some string `s` as the
 --    concatenation of a sequence of strings
 --    `s = s₁ ++ ... ++ sₖ`, and the expression `re` matches
 --    each one of the strings `sᵢ`, then `Star re` matches
 --    `s`.
-
+--
 --    In particular, the sequence of strings may be empty,
 --    so `Star re` always matches the empty string `[]` no
 --    matter what `re` is.
-
+--
 --  We can easily translate this intuition into a set of
 --  rules, where we write `s =~ re` to say that `re` matches
 --  `s`:
 
---    ─────────────── (mEmpty)
---    [] =~ EmptyStr
-
---    ─────────────── (mChar)
---    [x] =~ (Char x)
-
---    s₁ =~ re₁     s₂ =~ re₂
---    ─────────────────────────── (mApp)
---    (s₁ ++ s₂) =~ (App re₁ re₂)
-
---    s₁ =~ re₁
---    ───────────────────── (mUnionL)
---    s₁ =~ (Union re₁ re₂)
-
---    s₂ =~ re₂
---    ───────────────────── (mUnionR)
---    s₂ =~ (Union re₁ re₂)
-
---    ──────────────── (mStar0)
---    [] =~ (Star re)
-
---    s₁ =~ re     s₂ =~ (Star re)
---    ──────────────────────────── (mStarApp)
---    (s₁ ++ s₂) =~ (Star re)
-
+--      ─────────────── (mEmpty)
+--      [] =~ EmptyStr
+--
+--      ─────────────── (mChar)
+--      [x] =~ (Char x)
+--
+--      s₁ =~ re₁     s₂ =~ re₂
+--      ─────────────────────────── (mApp)
+--      (s₁ ++ s₂) =~ (App re₁ re₂)
+--
+--      s₁ =~ re₁
+--      ───────────────────── (mUnionL)
+--      s₁ =~ (Union re₁ re₂)
+--
+--      s₂ =~ re₂
+--      ───────────────────── (mUnionR)
+--      s₂ =~ (Union re₁ re₂)
+--
+--      ──────────────── (mStar0)
+--      [] =~ (Star re)
+--
+--      s₁ =~ re     s₂ =~ (Star re)
+--      ──────────────────────────── (mStarApp)
+--      (s₁ ++ s₂) =~ (Star re)
+--
 --  This directly corresponds to the following inductive
 --  definition:
 
 inductive ExpMatch {α : Type} : List α → RegExp α → Prop where
   | mEmpty : ExpMatch [] EmptyStr
   | mChar (c : α) : ExpMatch [c] (Char c)
-  | mApp (s₁ : List α) (re₁ : RegExp α) (s₂ : List α) (re₂ : RegExp α)
+  | mApp (s₁ s₂ : List α) {re₁ re₂ : RegExp α}
          (h₁ : ExpMatch s₁ re₁) (h₂ : ExpMatch s₂ re₂)
        : ExpMatch (s₁ ++ s₂) (App re₁ re₂)
-  | mUnionL (s₁ : List α) (re₁ : RegExp α) (re₂ : RegExp α)
+  | mUnionL (s₁ : List α) {re₁ re₂ : RegExp α}
             (h₁ : ExpMatch s₁ re₁) : ExpMatch s₁ (Union re₁ re₂)
-  | mUnionR (s₂ : List α) (re₁ : RegExp α) (re₂ : RegExp α)
+  | mUnionR (s₂ : List α) {re₁ re₂ : RegExp α}
             (h₂ : ExpMatch s₂ re₂) : ExpMatch s₂ (Union re₁ re₂)
   | mStar0 (re : RegExp α) : ExpMatch [] (Star re)
-  | mStarApp (s₁ s₂ : List α) (re : RegExp α)
+  | mStarApp (s₁ s₂ : List α) {re : RegExp α}
              (h₁ : ExpMatch s₁ re) (h₂ : ExpMatch s₂ (Star re))
            : ExpMatch (s₁ ++ s₂) (Star re)
 open ExpMatch
 
 infix:40 " =~ " => ExpMatch
+
+--   ----------------------------------------
 
 --  _Quiz:_
 
@@ -427,10 +430,12 @@ infix:40 " =~ " => ExpMatch
 
 --  ... is not explicitly reflected in the above definition.
 --  Do we need to add something?
-
+--
 --  (A) Yes, we should add a rule for this. (B) No, one of
 --  the other rules already covers this case. (C) No, the
 --  *lack* of a rule actually gives us the behavior we want.
+
+--   ----------------------------------------
 
 --  ### Examples
 
@@ -501,7 +506,7 @@ theorem MStar' α (ss : List (List α)) (re : RegExp α)
     ss.foldr (· ++ ·) [] =~ Star re := by
   sorry
 
---  ### Exercise (1 star): EmptyStr_not_needed (Optional, manually graded) ⭐
+--  ### Exercise (1 star): EmptyStr_not_needed (Optional, Manually graded) ⭐
 
 --  It turns out that the `EmptyStr` constructor is actually
 --  not needed, since the regular expression matching the
@@ -520,7 +525,7 @@ def EmptyStr' {α : Type} := @Star α (EmptySet)
 --  intuitive fact: If a string `s` is matched by a regular
 --  expression `re`, then all elements of `s` must occur as
 --  character literals somewhere in `re`.
-
+--
 --  To state this as a theorem, we first define a function
 --  `re_chars` that lists all characters that occur in a
 --  regular expression:
@@ -541,19 +546,19 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
   induction hmatch with
   | mEmpty => simp at hin
   | mChar c => simp only [reChars]; assumption
-  | mApp _ _ _ _ _ _ ih₁ ih₂ =>
+  | mApp _ _ _ _ ih₁ ih₂ =>
 
   /- Something interesting happens in the `mApp` case.  We obtain
     _two_ induction hypotheses: One that applies when `x` occurs in
     `s₁` (which is matched by `re₁`), and a second one that applies when `x`
     occurs in `s₂` (matched by `re₂`). -/
     sorry
-  | mUnionL _ _ _ _ ih =>
+  | mUnionL _ _ ih =>
     simp only [reChars, List.mem_append]; left; exact ih hin
-  | mUnionR _ _ _ h₂ ih =>
+  | mUnionR _ _ ih =>
     simp only [reChars, List.mem_append]; right; exact ih hin
   | mStar0 => simp at hin
-  | mStarApp _ _ _ _ _ ih₁ ih₂ =>
+  | mStarApp _ _ _ _ ih₁ ih₂ =>
 
   /- Here again we get two induction hypotheses, and they illustrate
     why we need induction on evidence for `ExpMatch`, rather than
@@ -562,7 +567,7 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     would not allow us to reason about the case `In x ∈ s₂`. -/
     sorry
 
---  ### Exercise (1 star): reNotEmpty (manually graded) ⭐
+--  ### Exercise (1 star): reNotEmpty (Manually graded) ⭐
 
 --  Write a recursive function `reNotEmpty` that tests
 --  whether a regular expression matches some string. Prove
@@ -586,15 +591,16 @@ sf_expect_failure_in
       evidence). We might try this, but Lean won't let us: -/
     induction h₁
 
---  Invalid target: Index in target's type is not a variable (consider using the `cases` tactic instead)
---    Star re
+--  Output:
+--    Invalid target: Index in target's type is not a variable (consider using the `cases` tactic instead)
+--      Star re
 
 --  The problem here is that `induction` over a `Prop`
 --  hypothesis only works properly with hypotheses that are
 --  "fully general," i.e., ones in which all the arguments
 --  are just variables, as opposed to more specific
 --  expressions like `Star re`.
-
+--
 --  A possible, but awkward, way to solve this problem is
 --  "manually generalizing" over the problematic expressions
 --  by adding explicit equality hypotheses to the lemma:
@@ -666,7 +672,7 @@ theorem MStar'' α (s : List α) (re : RegExp α) (h : s =~ Star re) :
 --  considers a slightly weaker theorem than is usually
 --  stated in courses on automata theory ─ hence the name
 --  `weak_pumping`. The stronger one can be found below.
-
+--
 --  To get started, we need to define "sufficiently long."
 --  Since we are working in a constructive logic, we
 --  actually need to be able to *calculate*, for each
@@ -746,11 +752,11 @@ theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
 --  Since `s₂` is also guaranteed not to be the empty
 --  string, this gives us a (constructive!) way to generate
 --  strings matching `re` that are as long as we like.
-
+--
 --  This proof is quite long, so to make it more tractable
 --  we've broken it up into a number of sub-proofs, which we
 --  then assemble to prove the main lemma.
-
+--
 --  Your job is to complete the proofs of the helper lemmas;
 --  the main lemma relies on these. Several of the lemmas
 --  about `Nat.ble` that were in an optional exercise
@@ -903,3 +909,4 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
 end Pumping
 end RegExp
 
+-- Built on 2026-09-03 17:08 UTC

@@ -884,6 +884,124 @@ table.tabular td > p:last-child, table.tabular th > p:first-child {
   color: #a00;
 }
 </style><style>
+:root {
+  --sf-bg: #fffdf6;
+  --sf-text: #1a1208;
+  --sf-heading: #6b0d0d;
+  --sf-accent: #a00;
+  --sf-link: #7a1a1a;
+  --sf-link-hover: #a00;
+  /* Block-level surfaces (code blocks, the TOC column, callouts) are a neutral
+     light gray rather than a tint of the warm page color, so highlighted Lean
+     reads against a plain backdrop. */
+  --sf-code-bg: #f1f1f0;
+  --sf-rule: #dcdcda;
+  --sf-toc-bg: #f6f6f5;
+  --sf-surface: #f4f4f3;
+
+  /* Override Verso's syntax highlighting palette */
+  --verso-code-keyword-color: #697f2f;
+  --verso-code-const-color: #416DFF;
+}
+
+body {
+  /* Software Foundations LF background — same image and layout as the
+     original site (no-repeat, full width, scrolls with the page so it
+     fades off the top as you read down). The body color is plain white,
+     matching the original SF site, so the area below the image (once it
+     has scrolled off) shows the same neutral backdrop the SF book uses. */
+  background-color: white;
+  background-image: url('assets/prog_lang_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: top left;
+  background-attachment: scroll;
+  color: var(--sf-text);
+}
+
+/* Solid card behind the actual prose so the background image never bleeds
+   through the text itself. */
+main .content-wrapper {
+  background: var(--sf-bg);
+  padding: 1.5rem var(--verso--content-padding-x);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  border-radius: 2px;
+}
+
+main h1, main h2, main h3, main h4, main h5, main h6,
+.header-title, .toc-title h1 {
+  color: var(--sf-heading);
+}
+
+/* A section whose heading is full-only (see
+   SFLMeta.Block.suppressPreviousHeaderWhenTerse): the marker div is present
+   only in the terse build, where the heading hides. */
+section:has(> .suppress-previous-header-when-terse)
+    > :is(h1, h2, h3, h4, h5, h6):first-child {
+  display: none;
+}
+
+a, a:visited { color: var(--sf-link); }
+a:hover, a:active { color: var(--sf-link-hover); }
+
+header {
+  background: var(--sf-bg);
+  border-bottom: 1px solid var(--sf-rule);
+  box-shadow: none;
+}
+
+#toc {
+  background: var(--sf-toc-bg) !important;
+  border-right: 1px solid var(--sf-rule);
+}
+
+code:not(.hl), pre:not(.hl) {
+  background: var(--sf-code-bg);
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}
+
+pre:not(.hl) {
+  padding: 0.6em 0.9em;
+  border-left: 3px solid var(--sf-accent);
+  background: var(--sf-code-bg);
+}
+
+.hl.lean.block {
+  background: var(--sf-code-bg);
+  border-left: 3px solid var(--sf-accent);
+  padding: 0.6em 0.9em;
+  border-radius: 2px;
+}
+
+blockquote {
+  border-left: 3px solid var(--sf-accent);
+  background: var(--sf-surface);
+  margin-left: 0;
+  padding: 0.4em 1em;
+  color: #2b2b28;
+}
+
+/* Build stamp: when this page was generated, matching the trailing comment in
+   the generated .lean file of the same chapter (SFLMeta/BuildStamp.lean).  It
+   is a provenance note, not something to read, so it is small, gray, and set
+   off below a rule. */
+.sf-build-stamp {
+  margin-top: 2.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--sf-rule);
+  font-size: 0.8em;
+  font-style: italic;
+  text-align: right;
+  color: #8c8c88;
+}
+
+/* Tighten the exercise box to share the same palette */
+.exercise {
+  background: var(--sf-surface);
+  border-left: 3px solid var(--sf-accent);
+}
+</style><style>
 div.sf-quote {
   font-style: italic;
   margin: 1em 0;
@@ -1015,110 +1133,6 @@ div.sf-dev-note > .sf-dev-note-label {
   margin-bottom: 0.3em;
 }
 </style><style>
-:root {
-  --sf-bg: #fffdf6;
-  --sf-text: #1a1208;
-  --sf-heading: #6b0d0d;
-  --sf-accent: #a00;
-  --sf-link: #7a1a1a;
-  --sf-link-hover: #a00;
-  /* Block-level surfaces (code blocks, the TOC column, callouts) are a neutral
-     light gray rather than a tint of the warm page color, so highlighted Lean
-     reads against a plain backdrop. */
-  --sf-code-bg: #f1f1f0;
-  --sf-rule: #dcdcda;
-  --sf-toc-bg: #f6f6f5;
-  --sf-surface: #f4f4f3;
-
-  /* Override Verso's syntax highlighting palette */
-  --verso-code-keyword-color: #697f2f;
-  --verso-code-const-color: #416DFF;
-}
-
-body {
-  /* Software Foundations LF background — same image and layout as the
-     original site (no-repeat, full width, scrolls with the page so it
-     fades off the top as you read down). The body color is plain white,
-     matching the original SF site, so the area below the image (once it
-     has scrolled off) shows the same neutral backdrop the SF book uses. */
-  background-color: white;
-  background-image: url('assets/prog_lang_bg.jpg');
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: top left;
-  background-attachment: scroll;
-  color: var(--sf-text);
-}
-
-/* Solid card behind the actual prose so the background image never bleeds
-   through the text itself. */
-main .content-wrapper {
-  background: var(--sf-bg);
-  padding: 1.5rem var(--verso--content-padding-x);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
-  border-radius: 2px;
-}
-
-main h1, main h2, main h3, main h4, main h5, main h6,
-.header-title, .toc-title h1 {
-  color: var(--sf-heading);
-}
-
-/* A section whose heading is full-only (see
-   SFLMeta.Block.suppressPreviousHeaderWhenTerse): the marker div is present
-   only in the terse build, where the heading hides. */
-section:has(> .suppress-previous-header-when-terse)
-    > :is(h1, h2, h3, h4, h5, h6):first-child {
-  display: none;
-}
-
-a, a:visited { color: var(--sf-link); }
-a:hover, a:active { color: var(--sf-link-hover); }
-
-header {
-  background: var(--sf-bg);
-  border-bottom: 1px solid var(--sf-rule);
-  box-shadow: none;
-}
-
-#toc {
-  background: var(--sf-toc-bg) !important;
-  border-right: 1px solid var(--sf-rule);
-}
-
-code:not(.hl), pre:not(.hl) {
-  background: var(--sf-code-bg);
-  padding: 0.1em 0.3em;
-  border-radius: 2px;
-}
-
-pre:not(.hl) {
-  padding: 0.6em 0.9em;
-  border-left: 3px solid var(--sf-accent);
-  background: var(--sf-code-bg);
-}
-
-.hl.lean.block {
-  background: var(--sf-code-bg);
-  border-left: 3px solid var(--sf-accent);
-  padding: 0.6em 0.9em;
-  border-radius: 2px;
-}
-
-blockquote {
-  border-left: 3px solid var(--sf-accent);
-  background: var(--sf-surface);
-  margin-left: 0;
-  padding: 0.4em 1em;
-  color: #2b2b28;
-}
-
-/* Tighten the exercise box to share the same palette */
-.exercise {
-  background: var(--sf-surface);
-  border-left: 3px solid var(--sf-accent);
-}
-</style><style>
 details.sf-quiz-solution {
   margin: 0.6em 0;
 }
@@ -1239,6 +1253,11 @@ details.sf-details[open] {
   text-decoration: currentcolor underline solid;
 }
 
+/* Links inside tooltips show their underline only when hovered. */
+.tippy-box .hl.lean a {
+  text-decoration: none;
+}
+
 .hl.lean .hover-info {
   white-space: normal;
 }
@@ -1246,8 +1265,9 @@ details.sf-details[open] {
 .hl.lean .token .hover-info {
   display: none;
   position: absolute;
-  background-color: #e5e5e5;
-  border: 1px solid black;
+  color: var(--verso-tooltip-color, black);
+  background-color: var(--verso-tooltip-bg-color, #e5e5e5);
+  border: 1px solid var(--verso-tooltip-border-color, black);
   padding: 0.5rem;
   z-index: 300;
 }
@@ -1264,7 +1284,10 @@ details.sf-details[open] {
 .hl.lean .hover-info code {
   white-space: pre-wrap;
   background: none;
-  color: black;
+}
+
+.hl.lean .hover-info code:not(.verso-message) {
+  color: var(--verso-tooltip-color, black);
 }
 
 .hl.lean .hover-info.messages > code {
@@ -1305,10 +1328,24 @@ details.sf-details[open] {
 }
 
 @media (hover: hover) {
-  .hl.lean .token.binding-hl, .hl.lean .literal:hover, .hl.lean .token.typed:hover {
-    background-color: #eee;
+  /* Hovered content nested in a collapsed tactic region keeps its plain background: the
+     region's proof state is the tooltip that appears there, and its label is what
+     highlights. `:where` keeps the exclusion out of the specificity computation. */
+  .hl.lean .token.binding-hl,
+  .hl.lean :is(.literal, .token.typed, .token[data-verso-hover]):hover:not(:where(.tactic:has(> .tactic-toggle:not(:checked)) > label *)) {
+    background-color: var(--verso-code-hover-bg-color, #eeeeee);
     border-radius: 2px;
     transition: none;
+  }
+
+  /* Within a hovered message span, token hover backgrounds are removed so the span's own
+     hover background shows across the whole span. The exception is a hovered documented
+     token, which keeps its background because its tooltip is the one shown. */
+  .hl.lean .has-info:hover .token.binding-hl:not(:hover),
+  .hl.lean .has-info:hover .token.binding-hl:not([data-verso-hover]),
+  .hl.lean .has-info:hover .literal:hover:not([data-verso-hover]),
+  .hl.lean .has-info:hover .token.typed:hover:not([data-verso-hover]) {
+    background-color: transparent;
   }
 }
 
@@ -1320,56 +1357,93 @@ details.sf-details[open] {
   text-decoration-skip-ink: none;
 }
 
+/*
+The underline color comes from the nearest enclosing message span: each severity's span rule
+sets `--verso--region-indicator-color`, which inherits, so a region nested inside one of
+another severity keeps its own indicator color.
+*/
+.hl.lean .has-info :not(.tactic-state):not(.tactic-state *) {
+  text-decoration-color: var(--verso--region-indicator-color);
+}
+
 .hl.lean .has-info .hover-info {
   display: none;
   position: absolute;
   transform: translate(0.25rem, 0.3rem);
-  border: 1px solid black;
+  color: var(--verso-tooltip-color, black);
+  border: 1px solid var(--verso-tooltip-border-color, black);
   padding: 0.5rem;
   z-index: 400;
   text-align: left;
 }
 
-.hl.lean .has-info.error :not(.tactic-state):not(.tactic-state *){
-  text-decoration-color: red;
+.hl.lean .has-info.error {
+  --verso--region-indicator-color: var(--verso-error-indicator-color, #ff0000);
+  --verso--region-hover-color: var(--verso-code-error-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-error-hover-bg-color, #ffb3b3);
+  color: var(--verso-code-error-color, currentcolor);
+  background-color: var(--verso-code-error-bg-color, transparent);
 }
 
+/*
+The hover highlight follows the tooltip: a message span highlights only when its own tooltip
+is the one that appears. When a hovered nested message span, a hovered documented token, or
+a hovered collapsed tactic label shows its own tooltip instead, the message span does not
+highlight. A span nested in a collapsed tactic region likewise stays plain, because hovering
+it shows the region's proof state; `:where` keeps that exclusion out of the specificity
+computation.
+
+The hover colors come from `--verso--region-hover-color` and `--verso--region-hover-bg-color`,
+which each severity's span rule sets. This keeps the hover conditions in this one rule, and
+because the properties inherit, a region nested inside one of another severity keeps its own
+hover colors.
+*/
 @media (hover: hover) {
-  .hl.lean .has-info.error:hover {
-    background-color: #ffb3b3;
+  .hl.lean .has-info:hover:not(:has(.has-info:hover)):not(:has([data-verso-hover]:hover)):not(:has(.tactic > label:hover + .tactic-toggle:not(:checked))):not(:where(.tactic:has(> .tactic-toggle:not(:checked)) > label *)) {
+    color: var(--verso--region-hover-color, currentcolor);
+    background-color: var(--verso--region-hover-bg-color, transparent);
   }
 }
 
 .hl.lean .hover-info.messages > code.error {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid #ffb3b3;
+  background-color: var(--verso-tooltip-error-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-error-border-color, #ffb3b3);
 }
 
-.tippy-box[data-theme~='error'] .hl.lean .hover-info.messages > code.error {
+/*
+A tooltip that shows only messages of the box's own severity leaves severity styling to the
+box itself. When messages of several severities share the tooltip, or a `mixed` tooltip
+combines messages with other content (such as documentation), each message keeps its
+severity accent to distinguish them.
+*/
+.tippy-box .hl.lean.mixed > .hover-info.messages {
+  margin-bottom: 0.5rem;
+}
+
+.tippy-box[data-theme~='error'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.warning)):not(:has(> code.information)) > code.error {
   background: none;
   border: none;
 }
 
 .error .verso-message, .error .verso-message .token, .error .verso-message label {
-  color: var(--verso-error-color);
+  color: var(--verso-message-error-color, #cc0000);
 }
 
 .error .verso-message .case-label:has(input[type="checkbox"])::before {
-  background-color: var(--verso-error-color) !important;
+  background-color: var(--verso-message-error-color, #cc0000) !important;
 }
 
-.hl.lean .has-info.warning :not(.tactic-state):not(.tactic-state *) {
-  text-decoration-color: var(--verso-warning-indicator-color);
-}
-
-@media (hover: hover) {
-  .hl.lean .has-info.warning:hover {
-    background-color:var(--verso-warning-color);
-  }
+.hl.lean .has-info.warning {
+  --verso--region-indicator-color: var(--verso-warning-indicator-color, #e7a71d);
+  --verso--region-hover-color: var(--verso-code-warning-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-warning-hover-bg-color, #ffd580);
+  color: var(--verso-code-warning-color, currentcolor);
+  background-color: var(--verso-code-warning-bg-color, transparent);
 }
 
 .hl.lean .hover-info.messages > code.warning {
-  background-color: var(--verso-warning-color);
+  background-color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-warning-border-color, #ffd580);
 }
 
 .lean-output {
@@ -1380,47 +1454,56 @@ details.sf-details[open] {
 }
 
 .lean-output.error {
-  border-color: var(--verso-error-indicator-color);
+  border-color: var(--verso-output-error-color, var(--verso-error-indicator-color, #ff0000));
 }
 
 .lean-output.information {
-  border-color: var(--verso-info-indicator-color);
+  border-color: var(--verso-output-info-color, var(--verso-info-indicator-color, #4777ff));
 }
 
 .lean-output.warning {
-  border-color: var(--verso-warning-indicator-color);
+  border-color: var(--verso-output-warning-color, var(--verso-warning-indicator-color, #e7a71d));
 }
 
-.hl.lean .hover-info.messages > code.error {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid var(--verso-warning-color);
-}
-
-.tippy-box[data-theme~='warning'] .hl.lean .hover-info.messages > code.warning {
+.tippy-box[data-theme~='warning'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.error)):not(:has(> code.information)) > code.warning {
   background: none;
   border: none;
 }
 
-
-.hl.lean .has-info.information :not(.tactic-state):not(.tactic-state *) {
-  text-decoration-color: var(--verso-info-indicator-color, blue);
+.warning .verso-message, .warning .verso-message .token, .warning .verso-message label {
+  color: var(--verso-message-warning-color, black);
 }
 
-@media (hover: hover) {
-  .hl.lean .has-info.information:hover {
-    background-color: #4777ff;
-  }
+.warning .verso-message .case-label:has(input[type="checkbox"])::before {
+  background-color: var(--verso-message-warning-color, black) !important;
+}
+
+
+.hl.lean .has-info.information {
+  --verso--region-indicator-color: var(--verso-info-indicator-color, #4777ff);
+  --verso--region-hover-color: var(--verso-code-info-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-info-hover-bg-color, #4777ff);
+  color: var(--verso-code-info-color, currentcolor);
+  background-color: var(--verso-code-info-bg-color, transparent);
 }
 
 
 .hl.lean .hover-info.messages > code.information {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid #4777ff;
+  background-color: var(--verso-tooltip-info-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-info-border-color, #4777ff);
 }
 
-.tippy-box[data-theme~='info'] .hl.lean .hover-info.messages > code.information {
+.tippy-box[data-theme~='info'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.error)):not(:has(> code.warning)) > code.information {
   background: none;
   border: none;
+}
+
+.information .verso-message, .information .verso-message .token, .information .verso-message label {
+  color: var(--verso-message-info-color, black);
+}
+
+.information .verso-message .case-label:has(input[type="checkbox"])::before {
+  background-color: var(--verso-message-info-color, black) !important;
 }
 
 .hl.lean div.docstring {
@@ -1447,7 +1530,7 @@ details.sf-details[open] {
   margin-bottom: 0.5rem;
   padding: 0;
   height: 1px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--verso-tooltip-separator-color, #ccc);
 }
 
 .hl.lean code {
@@ -1458,11 +1541,12 @@ details.sf-details[open] {
   display: none;
   position: relative;
   width: fit-content;
-  border: 1px solid #888888;
+  border: 1px solid var(--verso-tactic-state-border-color, #888888);
   border-radius: 0.1rem;
   padding: 0.5rem;
   font-family: sans-serif;
-  background-color: #ffffff;
+  color: var(--verso-tactic-state-color, black);
+  background-color: var(--verso-tactic-state-bg-color, white);
 }
 
 .hl.lean.popup .tactic-state {
@@ -1472,7 +1556,7 @@ details.sf-details[open] {
   border: none;
   padding: 0.5rem;
   font-family: sans-serif;
-  background-color: #ffffff;
+  background-color: var(--verso-tactic-state-bg-color, white);
 }
 
 
@@ -1506,9 +1590,11 @@ details.sf-details[open] {
 @media (hover: hover) {
   /* Highlight a region on hover only when its own toggle is unchecked, and only the innermost
      hovered region: `label:hover` bubbles to ancestor labels, so suppress the highlight on a region
-     whose label contains a more deeply nested hovered tactic label. */
+     whose label contains a more deeply nested hovered tactic label. The region's proof state is the
+     tooltip for everything else in its label, so the label keeps its highlight while any of that
+     content is hovered. */
   .hl.lean .tactic:has(> .tactic-toggle:not(:checked)) > label:hover:not(:has(.tactic > label:hover)) {
-    background-color: #eeeeee;
+    background-color: var(--verso-code-hover-bg-color, #eeeeee);
   }
 }
 
@@ -1524,7 +1610,7 @@ details.sf-details[open] {
 
 .hl.lean .tactic > label::after {
   content: "";
-  border: 1px solid #bbbbbb;
+  border: 1px solid var(--verso-tactic-toggle-color, #bbbbbb);
   /* These need to be em, not rem, to scale with the font */
   border-radius: 1em;
   height: 0.25em;
@@ -1547,8 +1633,8 @@ details.sf-details[open] {
 */
 
 .hl.lean .tactic > label:has(+ .tactic-toggle:checked)::after {
-  border: 1px solid #999999;
-  background-color: #999999;
+  border: 1px solid var(--verso-tactic-toggle-checked-color, #999999);
+  background-color: var(--verso-tactic-toggle-checked-color, #999999);
   transition: all 0.5s;
 }
 
@@ -1626,7 +1712,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 
 .hl.lean .case-label:has(input[type="checkbox"])::before {
   display: inline-block;
-  background-color: black;
+  background-color: currentcolor;
   content: ' ';
   transition: ease 0.2s;
   margin-right: 0.7em;
@@ -1710,26 +1796,22 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
   text-size-adjust: 100%;
 }
 
+/*
+Tippy's stylesheet paints each arrow's fill triangle with the arrow element's `color` (its
+placement-specific `::before` rules use `border-color: initial`, which is `currentcolor`),
+and its border extension paints the outline triangle with the box's border color. Setting
+`color` on the arrow therefore matches it to the tooltip background for every placement.
+*/
 .tippy-box[data-theme~='lean'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 1px solid black;
+  background-color: var(--verso-tooltip-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-color, black);
+  border: 1px solid var(--verso-tooltip-border-color, black);
 }
-.tippy-box[data-theme~='lean'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='bottom'] > .tippy-arrow::before {
-  border-bottom-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: #e5e5e5;
+.tippy-box[data-theme~='lean'] > .tippy-arrow {
+  color: var(--verso-tooltip-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: #e5e5e5;
   border-width: 11px 11px 0;
 }
 .tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::after {
@@ -1744,7 +1826,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
   border-width: 0 11px 11px;
 }
 .tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: #e5e5e5;
   border-width: 11px 0 11px 11px;
 }
 .tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::after {
@@ -1753,7 +1834,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 .tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: #e5e5e5;
   border-width: 11px 11px 11px 0;
 }
 .tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::after {
@@ -1764,39 +1844,39 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 
 
 .tippy-box[data-theme~='warning'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid var(--verso-warning-color);
+  background-color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-warning-color, black);
+  border: 3px solid var(--verso-tooltip-warning-border-color, #ffd580);
+}
+.tippy-box[data-theme~='warning'] > .tippy-arrow {
+  color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='error'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid #f7a7af;
+  background-color: var(--verso-tooltip-error-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-error-color, black);
+  border: 3px solid var(--verso-tooltip-error-border-color, #ffb3b3);
+}
+.tippy-box[data-theme~='error'] > .tippy-arrow {
+  color: var(--verso-tooltip-error-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='info'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid #99b3c2;
+  background-color: var(--verso-tooltip-info-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-info-color, black);
+  border: 3px solid var(--verso-tooltip-info-border-color, #4777ff);
+}
+.tippy-box[data-theme~='info'] > .tippy-arrow {
+  color: var(--verso-tooltip-info-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='tactic'] {
-  background-color: white;
-  color: black;
-  border: 1px solid black;
+  background-color: var(--verso-tactic-state-bg-color, white);
+  color: var(--verso-tactic-state-color, black);
+  border: 1px solid var(--verso-tactic-state-border-color, #888888);
 }
-.tippy-box[data-theme~='tactic'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='bottom'] > .tippy-arrow::before {
-  border-bottom-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: white;
+.tippy-box[data-theme~='tactic'] > .tippy-arrow {
+  color: var(--verso-tactic-state-bg-color, white);
 }
 
 .extra-doc-links {
@@ -1820,7 +1900,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 .verso-message .trace > summary::marker {
-  color: var(--verso-text-color);
+  color: var(--verso-text-color, black);
 }
 
 .verso-message .trace-children {
@@ -1925,22 +2005,22 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Poly/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-the-Standard-Library":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-using--rw":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Using-the-Standard-Library",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Unfolding-definitions-using--rw",
      "data":
-     {"title": "Using the Standard Library",
+     {"title": "Unfolding definitions using  rw",
       "shortTitle": null,
-      "sectionNum": "4.2.",
+      "sectionNum": "4.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Using the Standard Library",
+       {"title": "Unfolding definitions using  rw",
         "shortTitle": null,
-        "number": "2"}]},
+        "number": "4"}]},
      "address": "/UsingLean/"}],
    "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Structuring-Proofs-with--calc":
    [{"id":
@@ -1959,13 +2039,30 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "3"}]},
      "address": "/UsingLean/"}],
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Searching-for-Standard-Library-Theorems":
+   [{"id":
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Searching-for-Standard-Library-Theorems",
+     "data":
+     {"title": "Searching for Standard Library Theorems",
+      "shortTitle": null,
+      "sectionNum": "4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Searching for Standard Library Theorems",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/UsingLean/"}],
    "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Redefining-Functions-and-Lemmas-over-Nats":
    [{"id":
      "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Redefining-Functions-and-Lemmas-over-Nats",
      "data":
      {"title": "Redefining Functions and Lemmas over Nats",
       "shortTitle": null,
-      "sectionNum": "4.5.",
+      "sectionNum": "4.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -1974,27 +2071,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "number": "4"},
        {"title": "Redefining Functions and Lemmas over Nats",
         "shortTitle": null,
-        "number": "5"}]},
-     "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--The--rfl--Tactic-and-Computation-with--Nat":
-   [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers--The--rfl--Tactic-and-Computation-with--Nat",
-     "data":
-     {"title": "The  rfl  Tactic and Computation with  Nat",
-      "shortTitle": null,
-      "sectionNum": "4.1.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "UsingLean: Using the Full Power of a Proof Assistant",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "More Powerful Natural Numbers",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "The  rfl  Tactic and Computation with  Nat",
-        "shortTitle": null,
-        "number": "1"}]},
+        "number": "7"}]},
      "address": "/UsingLean/"}],
    "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--More-Powerful-Natural-Numbers":
    [{"id":
@@ -2013,42 +2090,39 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "1"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification-with--dsimp":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp--A-New-Step-Towards-Automation",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification-with--dsimp",
      "data":
-     {"title": "A New Step Towards Automation",
+     {"title": "Definitional Simplification with  dsimp",
       "shortTitle": null,
-      "sectionNum": "4.4.1.",
+      "sectionNum": "4.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Definitional Simplification:  dsimp",
+       {"title": "Definitional Simplification with  dsimp",
         "shortTitle": null,
-        "number": "4"},
-       {"title": "A New Step Towards Automation",
-        "shortTitle": null,
-        "number": "1"}]},
+        "number": "5"}]},
      "address": "/UsingLean/"}],
-   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp":
+   "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--A-First-Automation-Tactic___--repeat":
    [{"id":
-     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--Definitional-Simplification___--dsimp",
+     "Logical-Foundations--UsingLean___-Using-the-Full-Power-of-a-Proof-Assistant--A-First-Automation-Tactic___--repeat",
      "data":
-     {"title": "Definitional Simplification:  dsimp",
+     {"title": "A First Automation Tactic:  repeat",
       "shortTitle": null,
-      "sectionNum": "4.4.",
+      "sectionNum": "4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "UsingLean: Using the Full Power of a Proof Assistant",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Definitional Simplification:  dsimp",
+       {"title": "A First Automation Tactic:  repeat",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "6"}]},
      "address": "/UsingLean/"}],
    "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Why-We-Need-Typeclasses",
@@ -2081,24 +2155,24 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "TODO",
       "shortTitle": null,
-      "sectionNum": "11.7.",
+      "sectionNum": "11.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "TODO", "shortTitle": null, "number": "7"}]},
+       {"title": "TODO", "shortTitle": null, "number": "8"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Reflection":
    [{"id": "Logical-Foundations--Typeclasses--Reflection",
      "data":
      {"title": "Reflection",
       "shortTitle": null,
-      "sectionNum": "11.6.",
+      "sectionNum": "11.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Reflection", "shortTitle": null, "number": "6"}]},
+       {"title": "Reflection", "shortTitle": null, "number": "7"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses",
@@ -2120,12 +2194,12 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Updating Elements",
       "shortTitle": null,
-      "sectionNum": "11.5.2.2.",
+      "sectionNum": "11.6.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"},
        {"title": "Updating Elements", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
@@ -2135,12 +2209,12 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Getting Elements",
       "shortTitle": null,
-      "sectionNum": "11.5.2.1.",
+      "sectionNum": "11.6.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"},
        {"title": "Getting Elements", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
@@ -2149,12 +2223,12 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Total Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.2.",
+      "sectionNum": "11.6.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Partial-Maps":
@@ -2162,12 +2236,12 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.4.",
+      "sectionNum": "11.6.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Partial Maps", "shortTitle": null, "number": "4"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Notation-for-Concrete-Maps":
@@ -2175,12 +2249,12 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Notation for Concrete Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.3.",
+      "sectionNum": "11.6.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Notation for Concrete Maps",
         "shortTitle": null,
         "number": "3"}]},
@@ -2190,12 +2264,12 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Key and Value Types",
       "shortTitle": null,
-      "sectionNum": "11.5.1.",
+      "sectionNum": "11.6.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"},
+       {"title": "Maps", "shortTitle": null, "number": "6"},
        {"title": "Key and Value Types", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps":
@@ -2203,12 +2277,12 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Maps",
       "shortTitle": null,
-      "sectionNum": "11.5.",
+      "sectionNum": "11.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "5"}]},
+       {"title": "Maps", "shortTitle": null, "number": "6"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses",
@@ -2223,6 +2297,18 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        {"title": "Defining Your Own Typeclasses",
         "shortTitle": null,
         "number": "2"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--API-and-Encapsulation":
+   [{"id": "Logical-Foundations--Typeclasses--API-and-Encapsulation",
+     "data":
+     {"title": "API and Encapsulation",
+      "shortTitle": null,
+      "sectionNum": "11.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "API and Encapsulation", "shortTitle": null, "number": "5"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations":
    [{"id":
@@ -2488,6 +2574,40 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        {"title": "Practicalities", "shortTitle": null, "number": "3"},
        {"title": "System Requirements", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Installation--Downloading-and-using-the-book-for-a-class":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--Installation--Downloading-and-using-the-book-for-a-class",
+     "data":
+     {"title": "Downloading and using the book for a class",
+      "shortTitle": null,
+      "sectionNum": "1.3.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Installation", "shortTitle": null, "number": "2"},
+       {"title": "Downloading and using the book for a class",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Preface/"}],
+   "Logical-Foundations--Preface--Practicalities--Installation--Downloading-and-building-the-book-from-Git___-for-self-study":
+   [{"id":
+     "Logical-Foundations--Preface--Practicalities--Installation--Downloading-and-building-the-book-from-Git___-for-self-study",
+     "data":
+     {"title": "Downloading and building the book from Git, for self study",
+      "shortTitle": null,
+      "sectionNum": "1.3.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Preface", "shortTitle": null, "number": "1"},
+       {"title": "Practicalities", "shortTitle": null, "number": "3"},
+       {"title": "Installation", "shortTitle": null, "number": "2"},
+       {"title": "Downloading and building the book from Git, for self study",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Preface/"}],
    "Logical-Foundations--Preface--Practicalities--Installation":
    [{"id": "Logical-Foundations--Preface--Practicalities--Installation",
      "data":
@@ -2710,11 +2830,11 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Options", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
-   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Argument-Synthesis":
+   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly":
    [{"id":
-     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Argument-Synthesis",
+     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly",
      "data":
-     {"title": "Type Argument Synthesis",
+     {"title": "Supplying Type Arguments Explicitly",
       "shortTitle": null,
       "sectionNum": "6.1.1.2.",
       "searchPriority": 50,
@@ -2725,15 +2845,15 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
-       {"title": "Type Argument Synthesis",
+       {"title": "Supplying Type Arguments Explicitly",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Poly/"}],
-   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Annotation-Inference":
+   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Implicit-Type-Arguments-and-Argument-Synthesis":
    [{"id":
-     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Type-Annotation-Inference",
+     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Implicit-Type-Arguments-and-Argument-Synthesis",
      "data":
-     {"title": "Type Annotation Inference",
+     {"title": "Implicit Type Arguments and Argument Synthesis",
       "shortTitle": null,
       "sectionNum": "6.1.1.1.",
       "searchPriority": 50,
@@ -2744,15 +2864,15 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
-       {"title": "Type Annotation Inference",
+       {"title": "Implicit Type Arguments and Argument Synthesis",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Poly/"}],
-   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly":
+   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises":
    [{"id":
-     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Supplying-Type-Arguments-Explicitly",
+     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises",
      "data":
-     {"title": "Supplying Type Arguments Explicitly",
+     {"title": "Exercises",
       "shortTitle": null,
       "sectionNum": "6.1.1.3.",
       "searchPriority": 50,
@@ -2763,26 +2883,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "number": "6"},
        {"title": "Polymorphism", "shortTitle": null, "number": "1"},
        {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
-       {"title": "Supplying Type Arguments Explicitly",
-        "shortTitle": null,
-        "number": "3"}]},
-     "address": "/Poly/"}],
-   "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises":
-   [{"id":
-     "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists--Exercises",
-     "data":
-     {"title": "Exercises",
-      "shortTitle": null,
-      "sectionNum": "6.1.1.4.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Poly: Polymorphism and Higher-Order Functions",
-        "shortTitle": null,
-        "number": "6"},
-       {"title": "Polymorphism", "shortTitle": null, "number": "1"},
-       {"title": "Polymorphic Lists", "shortTitle": null, "number": "1"},
-       {"title": "Exercises", "shortTitle": null, "number": "4"}]},
+       {"title": "Exercises", "shortTitle": null, "number": "3"}]},
      "address": "/Poly/"}],
    "Logical-Foundations--Poly___-Polymorphism-and-Higher-Order-Functions--Polymorphism--Polymorphic-Lists":
    [{"id":
@@ -3033,6 +3134,25 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles":
+   [{"id":
+     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles",
+     "data":
+     {"title": "Other Extensionality Principles",
+      "shortTitle": null,
+      "sectionNum": "8.8.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
+       {"title": "Functional Extensionality",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Other Extensionality Principles",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality":
    [{"id":
      "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality",
@@ -3186,35 +3306,20 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Structures",
-     "data":
-     {"title": "Structures",
-      "shortTitle": null,
-      "sectionNum": "5.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Structures", "shortTitle": null, "number": "2"}]},
-     "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
    [{"id":
      "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2",
      "data":
      {"title": "List Exercises, Part 2",
       "shortTitle": null,
-      "sectionNum": "5.4.3.",
+      "sectionNum": "5.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 2", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-1":
@@ -3223,14 +3328,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "List Exercises, Part 1",
       "shortTitle": null,
-      "sectionNum": "5.4.2.",
+      "sectionNum": "5.3.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "List Exercises, Part 1", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--Induction-on-Lists--Reversing-a-List":
@@ -3239,14 +3344,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Reversing a List",
       "shortTitle": null,
-      "sectionNum": "5.4.1.2.",
+      "sectionNum": "5.3.1.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Reversing a List", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
@@ -3256,14 +3361,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Generalizing Statements",
       "shortTitle": null,
-      "sectionNum": "5.4.1.1.",
+      "sectionNum": "5.3.1.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"},
        {"title": "Generalizing Statements",
         "shortTitle": null,
@@ -3275,14 +3380,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Induction on Lists",
       "shortTitle": null,
-      "sectionNum": "5.4.1.",
+      "sectionNum": "5.3.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"},
        {"title": "Induction on Lists", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists":
@@ -3291,14 +3396,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Reasoning About Lists",
       "shortTitle": null,
-      "sectionNum": "5.4.",
+      "sectionNum": "5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Reasoning About Lists", "shortTitle": null, "number": "4"}]},
+       {"title": "Reasoning About Lists", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Partial-Maps":
    [{"id":
@@ -3306,14 +3411,30 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "5.6.",
+      "sectionNum": "5.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Partial Maps", "shortTitle": null, "number": "6"}]},
+       {"title": "Partial Maps", "shortTitle": null, "number": "5"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers--Structures":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers--Structures",
+     "data":
+     {"title": "Structures",
+      "shortTitle": null,
+      "sectionNum": "5.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Pairs of Numbers", "shortTitle": null, "number": "1"},
+       {"title": "Structures", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Pairs-of-Numbers":
    [{"id":
@@ -3336,102 +3457,64 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Options",
       "shortTitle": null,
-      "sectionNum": "5.5.",
+      "sectionNum": "5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Options", "shortTitle": null, "number": "5"}]},
+       {"title": "Options", "shortTitle": null, "number": "4"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading-Notation":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Head-and-Tail",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading-Notation",
      "data":
-     {"title": "Head and Tail",
+     {"title": "Type Classes and Overloading Notation",
       "shortTitle": null,
-      "sectionNum": "5.3.3.1.",
+      "sectionNum": "5.2.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Type Classes and Overloading",
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Type Classes and Overloading Notation",
         "shortTitle": null,
-        "number": "3"},
-       {"title": "Head and Tail", "shortTitle": null, "number": "1"}]},
+        "number": "4"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Exercises":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Replicate":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading--Exercises",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Replicate",
      "data":
-     {"title": "Exercises",
+     {"title": "Replicate",
       "shortTitle": null,
-      "sectionNum": "5.3.3.2.",
+      "sectionNum": "5.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Type Classes and Overloading",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Exercises", "shortTitle": null, "number": "2"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Replicate", "shortTitle": null, "number": "1"}]},
      "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading":
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removal":
    [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Type-Classes-and-Overloading",
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removal",
      "data":
-     {"title": "Type Classes and Overloading",
+     {"title": "Removal",
       "shortTitle": null,
-      "sectionNum": "5.3.3.",
+      "sectionNum": "5.2.9.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Type Classes and Overloading",
-        "shortTitle": null,
-        "number": "3"}]},
-     "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Repeat":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Repeat",
-     "data":
-     {"title": "Repeat",
-      "shortTitle": null,
-      "sectionNum": "5.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Repeat", "shortTitle": null, "number": "1"}]},
-     "address": "/Lists/"}],
-   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing":
-   [{"id":
-     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Removing",
-     "data":
-     {"title": "Removing",
-      "shortTitle": null,
-      "sectionNum": "5.3.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Lists: Working with Structured Data",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Removing", "shortTitle": null, "number": "6"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Removal", "shortTitle": null, "number": "9"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Membership":
    [{"id":
@@ -3439,15 +3522,31 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Membership",
       "shortTitle": null,
-      "sectionNum": "5.3.5.",
+      "sectionNum": "5.2.8.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Membership", "shortTitle": null, "number": "5"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Membership", "shortTitle": null, "number": "8"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Length":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Length",
+     "data":
+     {"title": "Length",
+      "shortTitle": null,
+      "sectionNum": "5.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Length", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Included":
    [{"id":
@@ -3455,15 +3554,47 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Included",
       "shortTitle": null,
-      "sectionNum": "5.3.7.",
+      "sectionNum": "5.2.10.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Included", "shortTitle": null, "number": "7"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Included", "shortTitle": null, "number": "10"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Head-and-Tail":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Head-and-Tail",
+     "data":
+     {"title": "Head and Tail",
+      "shortTitle": null,
+      "sectionNum": "5.2.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Head and Tail", "shortTitle": null, "number": "5"}]},
+     "address": "/Lists/"}],
+   "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Exercises":
+   [{"id":
+     "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Exercises",
+     "data":
+     {"title": "Exercises",
+      "shortTitle": null,
+      "sectionNum": "5.2.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Lists: Working with Structured Data",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Counting":
    [{"id":
@@ -3471,15 +3602,15 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Counting",
       "shortTitle": null,
-      "sectionNum": "5.3.4.",
+      "sectionNum": "5.2.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Counting", "shortTitle": null, "number": "4"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Counting", "shortTitle": null, "number": "7"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers--Append":
    [{"id":
@@ -3487,15 +3618,15 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Append",
       "shortTitle": null,
-      "sectionNum": "5.3.2.",
+      "sectionNum": "5.2.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"},
-       {"title": "Append", "shortTitle": null, "number": "2"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"},
+       {"title": "Append", "shortTitle": null, "number": "3"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Lists-of-Numbers":
    [{"id":
@@ -3503,14 +3634,14 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"title": "Lists of Numbers",
       "shortTitle": null,
-      "sectionNum": "5.3.",
+      "sectionNum": "5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Lists: Working with Structured Data",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Lists of Numbers", "shortTitle": null, "number": "3"}]},
+       {"title": "Lists of Numbers", "shortTitle": null, "number": "2"}]},
      "address": "/Lists/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Separate-Compilation":
    [{"id":
@@ -3556,11 +3687,27 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "number": "3"},
        {"title": "Proofs Within Proofs", "shortTitle": null, "number": "4"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic":
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-The--rw--Tactic":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-the--rw--tactic",
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Tip___-The--rw--Tactic",
      "data":
-     {"title": "Tip: the  rw  tactic",
+     {"title": "Tip: The  rw  Tactic",
+      "shortTitle": null,
+      "sectionNum": "3.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
+       {"title": "Tip: The  rw  Tactic", "shortTitle": null, "number": "3"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Motivation":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Motivation",
+     "data":
+     {"title": "Motivation",
       "shortTitle": null,
       "sectionNum": "3.3.1.",
       "searchPriority": 50,
@@ -3570,7 +3717,25 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "3"},
        {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
-       {"title": "Tip: the  rw  tactic", "shortTitle": null, "number": "1"}]},
+       {"title": "Motivation", "shortTitle": null, "number": "1"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Induction___-In-Principle-and-in-Lean":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction--Induction___-In-Principle-and-in-Lean",
+     "data":
+     {"title": "Induction: In Principle and in Lean",
+      "shortTitle": null,
+      "sectionNum": "3.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Proof by Induction", "shortTitle": null, "number": "3"},
+       {"title": "Induction: In Principle and in Lean",
+        "shortTitle": null,
+        "number": "2"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Proof-by-Induction":
    [{"id":
@@ -3587,11 +3752,26 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "number": "3"},
        {"title": "Proof by Induction", "shortTitle": null, "number": "3"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat":
+   "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back-to-Nat",
+     "Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back",
      "data":
-     {"title": "Nat to Bin and Back to Nat",
+     {"title": "Nat to Bin and Back",
+      "shortTitle": null,
+      "sectionNum": "3.9.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Nat to Bin and Back", "shortTitle": null, "number": "9"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises",
+     "data":
+     {"title": "More Exercises",
       "shortTitle": null,
       "sectionNum": "3.7.",
       "searchPriority": 50,
@@ -3600,60 +3780,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "Nat to Bin and Back to Nat",
-        "shortTitle": null,
-        "number": "7"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons",
-     "data":
-     {"title": "Aside: Using Code Actions to Generate Match Skeletons",
-      "shortTitle": null,
-      "sectionNum": "3.6.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "6"},
-       {"title": "Aside: Using Code Actions to Generate Match Skeletons",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises--A-New-Tactic-Combinator",
-     "data":
-     {"title": "A New Tactic Combinator",
-      "shortTitle": null,
-      "sectionNum": "3.6.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "6"},
-       {"title": "A New Tactic Combinator",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises":
-   [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--More-Exercises",
-     "data":
-     {"title": "More Exercises",
-      "shortTitle": null,
-      "sectionNum": "3.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Induction: Proof by Induction",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Exercises", "shortTitle": null, "number": "6"}]},
+       {"title": "More Exercises", "shortTitle": null, "number": "7"}]},
      "address": "/Induction/"}],
    "Logical-Foundations--Induction___-Proof-by-Induction--Formal-vs___-Informal-Proof":
    [{"id":
@@ -3672,11 +3799,45 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "5"}]},
      "address": "/Induction/"}],
-   "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_":
+   "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-_LPAR_Advanced_RPAR_":
    [{"id":
-     "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-to-Bin-_LPAR_Advanced_RPAR_",
+     "Logical-Foundations--Induction___-Proof-by-Induction--Bin-to-Nat-and-Back-_LPAR_Advanced_RPAR_",
      "data":
-     {"title": "Bin to Nat and Back to Bin (Advanced)",
+     {"title": "Bin to Nat and Back (Advanced)",
+      "shortTitle": null,
+      "sectionNum": "3.10.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Bin to Nat and Back (Advanced)",
+        "shortTitle": null,
+        "number": "10"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--Aside___-Using-Code-Actions-to-Generate-Match-Skeletons",
+     "data":
+     {"title": "Aside: Using Code Actions to Generate Match Skeletons",
+      "shortTitle": null,
+      "sectionNum": "3.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Induction: Proof by Induction",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Aside: Using Code Actions to Generate Match Skeletons",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/Induction/"}],
+   "Logical-Foundations--Induction___-Proof-by-Induction--A-New-Tactic-Combinator___--_LT__SEMI__GT_":
+   [{"id":
+     "Logical-Foundations--Induction___-Proof-by-Induction--A-New-Tactic-Combinator___--_LT__SEMI__GT_",
+     "data":
+     {"title": "A New Tactic Combinator:  <;>",
       "shortTitle": null,
       "sectionNum": "3.8.",
       "searchPriority": 50,
@@ -3685,7 +3846,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        {"title": "Induction: Proof by Induction",
         "shortTitle": null,
         "number": "3"},
-       {"title": "Bin to Nat and Back to Bin (Advanced)",
+       {"title": "A New Tactic Combinator:  <;>",
         "shortTitle": null,
         "number": "8"}]},
      "address": "/Induction/"}],
@@ -4027,11 +4188,11 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
        {"title": "The  rewrite  tactic", "shortTitle": null, "number": "3"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-properties-about-functions-in-Lean":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-Properties-about-Functions-in-Lean":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-properties-about-functions-in-Lean",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proving-Properties-about-Functions-in-Lean",
      "data":
-     {"title": "Proving properties about functions in Lean",
+     {"title": "Proving Properties about Functions in Lean",
       "shortTitle": null,
       "sectionNum": "2.4.1.",
       "searchPriority": 50,
@@ -4041,15 +4202,15 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
-       {"title": "Proving properties about functions in Lean",
+       {"title": "Proving Properties about Functions in Lean",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Basics/"}],
-   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-state-and-tactics":
+   "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-State-and-Tactics":
    [{"id":
-     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-state-and-tactics",
+     "Logical-Foundations--Basics___-Functional-Programming-in-Lean--Proof-by-Rewriting--Proof-State-and-Tactics",
      "data":
-     {"title": "Proof state and tactics",
+     {"title": "Proof State and Tactics",
       "shortTitle": null,
       "sectionNum": "2.4.2.",
       "searchPriority": 50,
@@ -4059,7 +4220,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "shortTitle": null,
         "number": "2"},
        {"title": "Proof by Rewriting", "shortTitle": null, "number": "4"},
-       {"title": "Proof state and tactics",
+       {"title": "Proof State and Tactics",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Basics/"}],
@@ -4865,16 +5026,18 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Logical Connectives",
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
-   "triple":
-   [{"id": "triple",
+   "zeroNibble":
+   [{"id": "zeroNibble",
      "data":
-     {"/UsingLean/#triple":
-      {"display": "triple",
+     {"/Basics/#zeroNibble":
+      {"display": "zeroNibble",
        "context":
        ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Definitional Simplification:  dsimp"]}},
-     "address": "/UsingLean/"}],
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
    "trans_eq":
    [{"id": "trans_eq",
      "data":
@@ -4886,16 +5049,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "The  apply  Tactic",
         "Supplying arguments to  apply"]}},
      "address": "/Tactics/"}],
-   "succ_mul_succ":
-   [{"id": "succ_mul_succ",
-     "data":
-     {"/UsingLean/#succ_mul_succ":
-      {"display": "succ_mul_succ",
-       "context":
-       ["Logical Foundations",
-        "UsingLean: Using the Full Power of a Proof Assistant",
-        "Structuring Proofs with  calc"]}},
-     "address": "/UsingLean/"}],
    "succ_inj'":
    [{"id": "succ_inj___",
      "data":
@@ -4911,7 +5064,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations",
         "UsingLean: Using the Full Power of a Proof Assistant",
-        "Definitional Simplification:  dsimp"]}},
+        "Unfolding definitions using  rw"]}},
      "address": "/UsingLean/"}],
    "simp_lemmas_example.add_zero":
    [{"id": "simp_lemmas_example___add_zero",
@@ -5007,6 +5160,18 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Tactic Combinators",
         "The  try  Combinator"]}},
      "address": "/Automation/"}],
+   "setFirstTwoBits":
+   [{"id": "setFirstTwoBits",
+     "data":
+     {"/Basics/#setFirstTwoBits":
+      {"display": "setFirstTwoBits",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
    "rev_nil":
    [{"id": "rev_nil",
      "data":
@@ -5030,6 +5195,63 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Polymorphism",
         "Polymorphic Lists",
         "Exercises"]}},
+     "address": "/Poly/"}],
+   "replicate_zero":
+   [{"id": "replicate_zero",
+     "data":
+     {"/Poly/#replicate_zero":
+      {"display": "replicate_zero",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
+   "replicate_succ":
+   [{"id": "replicate_succ",
+     "data":
+     {"/Poly/#replicate_succ":
+      {"display": "replicate_succ",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
+     "address": "/Poly/"}],
+   "replicate''":
+   [{"id": "replicate______",
+     "data":
+     {"/Poly/#replicate______":
+      {"display": "replicate''",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Implicit Type Arguments and Argument Synthesis"]}},
+     "address": "/Poly/"}],
+   "replicate'":
+   [{"id": "replicate___",
+     "data":
+     {"/Poly/#replicate___":
+      {"display": "replicate'",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists",
+        "Implicit Type Arguments and Argument Synthesis"]}},
+     "address": "/Poly/"}],
+   "replicate":
+   [{"id": "replicate",
+     "data":
+     {"/Poly/#replicate":
+      {"display": "replicate",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Lists"]}},
      "address": "/Poly/"}],
    "reaches1In":
    [{"id": "reaches1In",
@@ -5166,75 +5388,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Data and Functions",
         "Days of the Week (Enumerated Types)"]}},
      "address": "/Basics/"}],
-   "myRepeat_zero":
-   [{"id": "myRepeat_zero",
-     "data":
-     {"/Poly/#myRepeat_zero":
-      {"display": "myRepeat_zero",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
-   "myRepeat_succ":
-   [{"id": "myRepeat_succ",
-     "data":
-     {"/Poly/#myRepeat_succ":
-      {"display": "myRepeat_succ",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
-   "myRepeat'''":
-   [{"id": "myRepeat_________",
-     "data":
-     {"/Poly/#myRepeat_________":
-      {"display": "myRepeat'''",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Argument Synthesis"]}},
-     "address": "/Poly/"}],
-   "myRepeat''":
-   [{"id": "myRepeat______",
-     "data":
-     {"/Poly/#myRepeat______":
-      {"display": "myRepeat''",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Argument Synthesis"]}},
-     "address": "/Poly/"}],
-   "myRepeat'":
-   [{"id": "myRepeat___",
-     "data":
-     {"/Poly/#myRepeat___":
-      {"display": "myRepeat'",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists",
-        "Type Annotation Inference"]}},
-     "address": "/Poly/"}],
-   "myRepeat":
-   [{"id": "myRepeat",
-     "data":
-     {"/Poly/#myRepeat":
-      {"display": "myRepeat",
-       "context":
-       ["Logical Foundations",
-        "Poly: Polymorphism and Higher-Order Functions",
-        "Polymorphism",
-        "Polymorphic Lists"]}},
-     "address": "/Poly/"}],
    "myNil'":
    [{"id": "myNil___",
      "data":
@@ -5313,6 +5466,18 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Functions as Data",
         "Map"]}},
      "address": "/Poly/"}],
+   "makeNibbleStruct":
+   [{"id": "makeNibbleStruct",
+     "data":
+     {"/Basics/#makeNibbleStruct":
+      {"display": "makeNibbleStruct",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
    "length_append_self":
    [{"id": "length_append_self",
      "data":
@@ -5604,7 +5769,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
    "double_injective":
-   [{"id": "double_injective-next",
+   [{"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next":
       {"display": "double_injective",
@@ -5619,7 +5784,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective",
+    {"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next":
       {"display": "double_injective",
@@ -5796,6 +5961,26 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "The Logic of Lean",
         "Functional Extensionality"]}},
      "address": "/Logic/"}],
+   "addTwice":
+   [{"id": "addTwice",
+     "data":
+     {"/UsingLean/#addTwice":
+      {"display": "addTwice",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions using  rw"]}},
+     "address": "/UsingLean/"}],
+   "addThrice":
+   [{"id": "addThrice",
+     "data":
+     {"/UsingLean/#addThrice":
+      {"display": "addThrice",
+       "context":
+       ["Logical Foundations",
+        "UsingLean: Using the Full Power of a Proof Assistant",
+        "Unfolding definitions using  rw"]}},
+     "address": "/UsingLean/"}],
    "TotalMap.update_eq":
    [{"id": "TotalMap___update_eq",
      "data":
@@ -6307,22 +6492,8 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       {"display": "nat_eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.even_iff_Even":
-   [{"id": "Reflection___even_iff_Even",
-     "data":
-     {"/Typeclasses/#Reflection___even_iff_Even":
-      {"display": "even_iff_Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.even_double":
-   [{"id": "Reflection___even_double",
-     "data":
-     {"/Typeclasses/#Reflection___even_double":
-      {"display": "even_double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq",
+   [{"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6331,7 +6502,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
+    {"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6340,25 +6511,18 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Decidable.isTrue":
-   [{"id": "Reflection___Decidable___isTrue",
+   "Reflection.Nat.even_iff_Even":
+   [{"id": "Reflection___Nat___even_iff_Even",
      "data":
-     {"/Typeclasses/#Reflection___Decidable___isTrue":
-      {"display": "isTrue",
+     {"/Typeclasses/#Reflection___Nat___even_iff_Even":
+      {"display": "even_iff_Even",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Decidable.isFalse":
-   [{"id": "Reflection___Decidable___isFalse",
+   "Reflection.Nat.even_double":
+   [{"id": "Reflection___Nat___even_double",
      "data":
-     {"/Typeclasses/#Reflection___Decidable___isFalse":
-      {"display": "isFalse",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"}],
-   "Reflection.Decidable":
-   [{"id": "Reflection___Decidable",
-     "data":
-     {"/Typeclasses/#Reflection___Decidable":
-      {"display": "Decidable",
+     {"/Typeclasses/#Reflection___Nat___even_double":
+      {"display": "even_double",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "RGB.red":
@@ -6922,6 +7086,66 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "NibbleStruct.x3":
+   [{"id": "NibbleStruct___x3",
+     "data":
+     {"/Basics/#NibbleStruct___x3":
+      {"display": "x3",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
+   "NibbleStruct.x2":
+   [{"id": "NibbleStruct___x2",
+     "data":
+     {"/Basics/#NibbleStruct___x2":
+      {"display": "x2",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
+   "NibbleStruct.x1":
+   [{"id": "NibbleStruct___x1",
+     "data":
+     {"/Basics/#NibbleStruct___x1":
+      {"display": "x1",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
+   "NibbleStruct.x0":
+   [{"id": "NibbleStruct___x0",
+     "data":
+     {"/Basics/#NibbleStruct___x0":
+      {"display": "x0",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
+   "NibbleStruct":
+   [{"id": "NibbleStruct",
+     "data":
+     {"/Basics/#NibbleStruct":
+      {"display": "NibbleStruct",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "A First Taste of Proofs",
+        "Constructors with Multiple Parameters (Tuple Types)",
+        "Structures"]}},
+     "address": "/Basics/"}],
    "NatPlayground.ofNat":
    [{"id": "NatPlayground___ofNat",
      "data":
@@ -6977,7 +7201,8 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "Proof by Induction"]}},
+        "Proof by Induction",
+        "Induction: In Principle and in Lean"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.zero":
    [{"id": "NatPlayground___Nat___zero",
@@ -7201,11 +7426,11 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Basics: Functional Programming in Lean",
         "Proof by Case Analysis"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Nat.mult_zero_add'":
-   [{"id": "NatPlayground___Nat___mult_zero_add___",
+   "NatPlayground.Nat.mul_zero_add'":
+   [{"id": "NatPlayground___Nat___mul_zero_add___",
      "data":
-     {"/Induction/#NatPlayground___Nat___mult_zero_add___":
-      {"display": "mult_zero_add'",
+     {"/Induction/#NatPlayground___Nat___mul_zero_add___":
+      {"display": "mul_zero_add'",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
@@ -7242,14 +7467,12 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]},
       "/Induction/#NatPlayground___Nat___isZero":
       {"display": "isZero",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"},
     {"id": "NatPlayground___Nat___isZero-next",
@@ -7259,14 +7482,12 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]},
       "/Induction/#NatPlayground___Nat___isZero":
       {"display": "isZero",
        "context":
        ["Logical Foundations",
         "Induction: Proof by Induction",
-        "More Exercises",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.four_eq_succ_three":
@@ -7335,39 +7556,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Nat.double_zero":
-   [{"id": "NatPlayground___Nat___double_zero",
-     "data":
-     {"/Induction/#NatPlayground___Nat___double_zero":
-      {"display": "double_zero",
-       "context":
-       ["Logical Foundations",
-        "Induction: Proof by Induction",
-        "Proof by Induction",
-        "Tip: the  rw  tactic"]}},
-     "address": "/Induction/"}],
-   "NatPlayground.Nat.double_succ":
-   [{"id": "NatPlayground___Nat___double_succ",
-     "data":
-     {"/Induction/#NatPlayground___Nat___double_succ":
-      {"display": "double_succ",
-       "context":
-       ["Logical Foundations",
-        "Induction: Proof by Induction",
-        "Proof by Induction",
-        "Tip: the  rw  tactic"]}},
-     "address": "/Induction/"}],
-   "NatPlayground.Nat.double":
-   [{"id": "NatPlayground___Nat___double",
-     "data":
-     {"/Induction/#NatPlayground___Nat___double":
-      {"display": "double",
-       "context":
-       ["Logical Foundations",
-        "Induction: Proof by Induction",
-        "Proof by Induction",
-        "Tip: the  rw  tactic"]}},
-     "address": "/Induction/"}],
    "NatPlayground.Nat.ble":
    [{"id": "NatPlayground___Nat___ble",
      "data":
@@ -7433,7 +7621,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Proof state and tactics"]}},
+        "Proof State and Tactics"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_zero_zero":
    [{"id": "NatPlayground___Nat___add_zero_zero",
@@ -7444,7 +7632,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Proving properties about functions in Lean"]}},
+        "Proving Properties about Functions in Lean"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_zero":
    [{"id": "NatPlayground___Nat___add_zero",
@@ -7455,7 +7643,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",
         "Proof by Rewriting",
-        "Proving properties about functions in Lean"]}},
+        "Proving Properties about Functions in Lean"]}},
      "address": "/Basics/"}],
    "NatPlayground.Nat.add_succ":
    [{"id": "NatPlayground___Nat___add_succ",
@@ -7521,46 +7709,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "A First Taste of Proofs",
         "Natural Numbers"]}},
      "address": "/Basics/"}],
-   "NatPlayground.Nat.NatToBin.Bin.z":
-   [{"id": "NatPlayground___Nat___NatToBin___Bin___z",
-     "data":
-     {"/Induction/#NatPlayground___Nat___NatToBin___Bin___z":
-      {"display": "z",
-       "context":
-       ["Logical Foundations",
-        "Induction: Proof by Induction",
-        "Nat to Bin and Back to Nat"]}},
-     "address": "/Induction/"}],
-   "NatPlayground.Nat.NatToBin.Bin.b1":
-   [{"id": "NatPlayground___Nat___NatToBin___Bin___b1",
-     "data":
-     {"/Induction/#NatPlayground___Nat___NatToBin___Bin___b1":
-      {"display": "b1",
-       "context":
-       ["Logical Foundations",
-        "Induction: Proof by Induction",
-        "Nat to Bin and Back to Nat"]}},
-     "address": "/Induction/"}],
-   "NatPlayground.Nat.NatToBin.Bin.b0":
-   [{"id": "NatPlayground___Nat___NatToBin___Bin___b0",
-     "data":
-     {"/Induction/#NatPlayground___Nat___NatToBin___Bin___b0":
-      {"display": "b0",
-       "context":
-       ["Logical Foundations",
-        "Induction: Proof by Induction",
-        "Nat to Bin and Back to Nat"]}},
-     "address": "/Induction/"}],
-   "NatPlayground.Nat.NatToBin.Bin":
-   [{"id": "NatPlayground___Nat___NatToBin___Bin",
-     "data":
-     {"/Induction/#NatPlayground___Nat___NatToBin___Bin":
-      {"display": "Bin",
-       "context":
-       ["Logical Foundations",
-        "Induction: Proof by Induction",
-        "Nat to Bin and Back to Nat"]}},
-     "address": "/Induction/"}],
    "NatPlayground.Nat.AddPlayground.add_zero":
    [{"id": "NatPlayground___Nat___AddPlayground___add_zero",
      "data":
@@ -8124,6 +8272,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
+        "Pairs of Numbers",
         "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'.fst":
@@ -8134,6 +8283,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
+        "Pairs of Numbers",
         "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd'":
@@ -8144,6 +8294,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
+        "Pairs of Numbers",
         "Structures"]}},
      "address": "/Lists/"}],
    "Lists.NatProd":
@@ -8215,7 +8366,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.tail_length_pred":
@@ -8237,7 +8387,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.tail":
@@ -8249,7 +8398,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.reverse_nil":
@@ -8288,27 +8436,74 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Induction on Lists",
         "Reversing a List"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.repeat_zero":
-   [{"id": "Lists___NatList___repeat_zero",
+   "Lists.NatList.replicate_zero":
+   [{"id": "Lists___NatList___replicate_zero",
      "data":
-     {"/Lists/#Lists___NatList___repeat_zero":
-      {"display": "repeat_zero",
+     {"/Lists/#Lists___NatList___replicate_zero":
+      {"display": "replicate_zero",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Replicate"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.repeat_succ":
-   [{"id": "Lists___NatList___repeat_succ",
+   "Lists.NatList.replicate_succ":
+   [{"id": "Lists___NatList___replicate_succ",
      "data":
-     {"/Lists/#Lists___NatList___repeat_succ":
-      {"display": "repeat_succ",
+     {"/Lists/#Lists___NatList___replicate_succ":
+      {"display": "replicate_succ",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Replicate"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate_append_general":
+   [{"id": "Lists___NatList___replicate_append_general",
+     "data":
+     {"/Lists/#Lists___NatList___replicate_append_general":
+      {"display": "replicate_append_general",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate_append_fail":
+   [{"id": "Lists___NatList___replicate_append_fail",
+     "data":
+     {"/Lists/#Lists___NatList___replicate_append_fail":
+      {"display": "replicate_append_fail",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate_append":
+   [{"id": "Lists___NatList___replicate_append",
+     "data":
+     {"/Lists/#Lists___NatList___replicate_append":
+      {"display": "replicate_append",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Reasoning About Lists",
+        "Induction on Lists",
+        "Generalizing Statements"]}},
+     "address": "/Lists/"}],
+   "Lists.NatList.replicate":
+   [{"id": "Lists___NatList___replicate",
+     "data":
+     {"/Lists/#Lists___NatList___replicate":
+      {"display": "replicate",
+       "context":
+       ["Logical Foundations",
+        "Lists: Working with Structured Data",
+        "Lists of Numbers",
+        "Replicate"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nthBad":
    [{"id": "Lists___NatList___nthBad",
@@ -8339,7 +8534,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading"]}},
+        "Type Classes and Overloading Notation"]}},
      "address": "/Lists/"}],
    "Lists.NatList.nil":
    [{"id": "Lists___NatList___nil",
@@ -8381,53 +8576,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Lists: Working with Structured Data",
         "Lists of Numbers"]}},
      "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append_general":
-   [{"id": "Lists___NatList___myRepeat_append_general",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat_append_general":
-      {"display": "myRepeat_append_general",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append_fail":
-   [{"id": "Lists___NatList___myRepeat_append_fail",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat_append_fail":
-      {"display": "myRepeat_append_fail",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat_append":
-   [{"id": "Lists___NatList___myRepeat_append",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat_append":
-      {"display": "myRepeat_append",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Reasoning About Lists",
-        "Induction on Lists",
-        "Generalizing Statements"]}},
-     "address": "/Lists/"}],
-   "Lists.NatList.myRepeat":
-   [{"id": "Lists___NatList___myRepeat",
-     "data":
-     {"/Lists/#Lists___NatList___myRepeat":
-      {"display": "myRepeat",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Lists of Numbers",
-        "Repeat"]}},
-     "address": "/Lists/"}],
    "Lists.NatList.length_reverse":
    [{"id": "Lists___NatList___length_reverse",
      "data":
@@ -8449,7 +8597,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Length"]}},
      "address": "/Lists/"}],
    "Lists.NatList.length_cons":
    [{"id": "Lists___NatList___length_cons",
@@ -8460,7 +8608,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Length"]}},
      "address": "/Lists/"}],
    "Lists.NatList.length_append_succ":
    [{"id": "Lists___NatList___length_append_succ",
@@ -8483,7 +8631,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Repeat"]}},
+        "Length"]}},
      "address": "/Lists/"}],
    "Lists.NatList.head_nil":
    [{"id": "Lists___NatList___head_nil",
@@ -8494,7 +8642,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.head_cons":
@@ -8506,7 +8653,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.head":
@@ -8518,7 +8664,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.foo1":
@@ -8542,7 +8687,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading",
         "Head and Tail"]}},
      "address": "/Lists/"}],
    "Lists.NatList.cons_append":
@@ -8554,7 +8698,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Lists: Working with Structured Data",
         "Lists of Numbers",
-        "Type Classes and Overloading"]}},
+        "Type Classes and Overloading Notation"]}},
      "address": "/Lists/"}],
    "Lists.NatList.cons":
    [{"id": "Lists___NatList___cons",
@@ -8682,11 +8826,11 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Polymorphic Lists",
         "Exercises"]}},
      "address": "/Poly/"}],
-   "List.headOr_ex":
-   [{"id": "List___headOr_ex",
+   "List.headOrEx":
+   [{"id": "List___headOrEx",
      "data":
-     {"/Typeclasses/#List___headOr_ex":
-      {"display": "List.headOr_ex",
+     {"/Typeclasses/#List___headOrEx":
+      {"display": "List.headOrEx",
        "context":
        ["Logical Foundations",
         "Typeclasses",
@@ -8701,53 +8845,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        ["Logical Foundations",
         "Typeclasses",
         "Defining Your Own Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly_nil":
-   [{"id": "List___elem_poly_nil",
-     "data":
-     {"/Typeclasses/#List___elem_poly_nil":
-      {"display": "List.elem_poly_nil",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly_eq":
-   [{"id": "List___elem_poly_eq",
-     "data":
-     {"/Typeclasses/#List___elem_poly_eq":
-      {"display": "List.elem_poly_eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly_cons":
-   [{"id": "List___elem_poly_cons",
-     "data":
-     {"/Typeclasses/#List___elem_poly_cons":
-      {"display": "List.elem_poly_cons",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"}],
-   "List.elem_poly":
-   [{"id": "List___elem_poly",
-     "data":
-     {"/Typeclasses/#List___elem_poly-next":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
-      "/Typeclasses/#List___elem_poly":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
-     "address": "/Typeclasses/"},
-    {"id": "List___elem_poly-next",
-     "data":
-     {"/Typeclasses/#List___elem_poly-next":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
-      "/Typeclasses/#List___elem_poly":
-      {"display": "List.elem_poly",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elem_nat_nil":
    [{"id": "List___elem_nat_nil",
@@ -8765,11 +8862,58 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
-   "List.elem_nat":
-   [{"id": "List___elem_nat",
+   "List.elemPoly_nil":
+   [{"id": "List___elemPoly_nil",
      "data":
-     {"/Typeclasses/#List___elem_nat":
-      {"display": "List.elem_nat",
+     {"/Typeclasses/#List___elemPoly_nil":
+      {"display": "List.elemPoly_nil",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPoly_cons":
+   [{"id": "List___elemPoly_cons",
+     "data":
+     {"/Typeclasses/#List___elemPoly_cons":
+      {"display": "List.elemPoly_cons",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPolyEq":
+   [{"id": "List___elemPolyEq",
+     "data":
+     {"/Typeclasses/#List___elemPolyEq":
+      {"display": "List.elemPolyEq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemPoly":
+   [{"id": "List___elemPoly-next",
+     "data":
+     {"/Typeclasses/#List___elemPoly-next":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
+      "/Typeclasses/#List___elemPoly":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"},
+    {"id": "List___elemPoly",
+     "data":
+     {"/Typeclasses/#List___elemPoly-next":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]},
+      "/Typeclasses/#List___elemPoly":
+      {"display": "List.elemPoly",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
+     "address": "/Typeclasses/"}],
+   "List.elemNat":
+   [{"id": "List___elemNat",
+     "data":
+     {"/Typeclasses/#List___elemNat":
+      {"display": "List.elemNat",
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
@@ -9718,10 +9862,39 @@ window.onload = async () => {
       return false;
     }
 
-    // Track whether any tippy is visible (O(1) check instead of DOM scan)
-    let visibleTippyCount = 0;
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
     function blockedByTippy(elem) {
-      return visibleTippyCount > 0;
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
     }
 
     // Binding highlights via event delegation with cached lookups
@@ -9788,6 +9961,40 @@ window.onload = async () => {
       }
     }
 
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
 
 
     const defaultTippyProps = {
@@ -9803,23 +10010,27 @@ window.onload = async () => {
       /* ignoreAttributes: true, */
       followCursor: 'initial',
       onShow(inst) {
-        if (inst.reference.className == 'tactic') {
-          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
           if (toggle && toggle.checked) {
             return false;
           }
-          hideParentTooltips(inst.reference);
-          if (blockedByTippy(inst.reference)) { return false; }
-
-        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-          if (blockedByTactic(inst.reference)) { return false };
-          if (blockedByTippy(inst.reference)) { return false; }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
         } else { // Nothing to show here!
           return false;
         }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
       },
-      onShown(inst) { visibleTippyCount++; },
-      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
       content (tgt) {
         const content = document.createElement("span");
         if (tgt.className == 'tactic') {
@@ -9834,35 +10045,22 @@ window.onload = async () => {
           content.style.maxHeight = "300px";
           content.style.overflowY = "auto";
           content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
           const hoverId = tgt.dataset.versoHover;
           const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverId) { // Docstrings from the table
-            // TODO stop doing an implicit conversion from string to number here
-            let data = versoDocData[hoverId];
-            if (data) {
-              const info = document.createElement("span");
-              info.className = "hover-info";
-              info.style.display = "block";
-              info.innerHTML = data;
-              content.appendChild(info);
-              /* Render docstrings - TODO server-side */
-              if ('undefined' !== typeof marked) {
-                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                      const str = d.innerText;
-                      const html = marked.parse(str);
-                      const rendered = document.createElement("div");
-                      rendered.classList.add("docstring");
-                      rendered.innerHTML = html;
-                      d.parentNode.replaceChild(rendered, d);
-                  }
-              }
-            } else {
-              content.innerHTML = "Failed to load doc ID: " + hoverId;
-            }
-          } else if (hoverInfo) { // The inline info, still used for compiler messages
+          if (hoverInfo) {
             content.appendChild(hoverInfo.cloneNode(true));
           }
-          const extraLinks = tgt.parentElement.dataset['versoLinks'];
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
           if (extraLinks) {
             try {
               const extras = JSON.parse(extraLinks);
@@ -9920,17 +10118,26 @@ window.onload = async () => {
       if (toggle) toggle.addEventListener('change', () => {
         if (toggle.checked) {
           closedTactics.delete(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (!tok._tippy && tok.matches(tacticTippySelector)) {
-              tippy(tok, defaultTippyProps);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
             }
           });
         } else {
           closedTactics.add(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (tok._tippy) tok._tippy.destroy();
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
           });
         }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
       });
   });
 }
@@ -9976,6 +10183,8 @@ window.onload = async () => {
             <h1 id="title"></h1>
             <div id="message"></div>
             </section>
+          <div class="sf-build-stamp">
+            Built on 2026-09-03 17:08 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

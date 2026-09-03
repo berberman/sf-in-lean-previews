@@ -107,11 +107,48 @@
     },
     "319": {
       "base_sha": "faca195ceb69f06a5454b6b00322c091f54f0743",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "a501826dc1ca416524cc520dcc9c6341e4084ce4",
       "preview_path": "pr/319/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33781747108",
+      "status": "published",
       "title": "`nth?` characterizing lemmas and `list_ext` exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/319"
     },
@@ -409,11 +446,48 @@
     },
     "366": {
       "base_sha": "faca195ceb69f06a5454b6b00322c091f54f0743",
-      "changed_variants": [],
-      "head_sha": "3eadb9e25280d3d2a3343fdc19cdbfcad5f69f6b",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "09c3348fadf989085e9d419be88bec1307401c93",
       "preview_path": "pr/366/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33783891052",
+      "status": "published",
       "title": "Dev notes: Some changes to make later",
       "url": "https://github.com/plclub/sf-in-lean/pull/366"
     }

@@ -858,36 +858,6 @@
   color: #a00;
 }
 </style><style>
-div.sf-quiz {
-  margin: 1em 0;
-  padding: 0.4em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 2px;
-}
-div.sf-quiz > .sf-quiz-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.4em;
-}
-</style><style>
-div.sf-dev-note {
-  margin: 1em 0;
-  padding: 0.5em 0.9em;
-  border: 1px solid #e6a700;
-  border-left: 6px solid #e6a700;
-  background: #fff3b0;
-  border-radius: 3px;
-}
-div.sf-dev-note > .sf-dev-note-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 700;
-  font-size: 0.85em;
-  letter-spacing: 0.03em;
-  color: #7a5800;
-  margin-bottom: 0.3em;
-}
-</style><style>
 :root {
   --sf-bg: #fffdf6;
   --sf-text: #1a1208;
@@ -986,10 +956,54 @@ blockquote {
   color: #2b2b28;
 }
 
+/* Build stamp: when this page was generated, matching the trailing comment in
+   the generated .lean file of the same chapter (SFLMeta/BuildStamp.lean).  It
+   is a provenance note, not something to read, so it is small, gray, and set
+   off below a rule. */
+.sf-build-stamp {
+  margin-top: 2.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--sf-rule);
+  font-size: 0.8em;
+  font-style: italic;
+  text-align: right;
+  color: #8c8c88;
+}
+
 /* Tighten the exercise box to share the same palette */
 .exercise {
   background: var(--sf-surface);
   border-left: 3px solid var(--sf-accent);
+}
+</style><style>
+div.sf-quiz {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+}
+div.sf-quiz > .sf-quiz-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.4em;
+}
+</style><style>
+div.sf-dev-note {
+  margin: 1em 0;
+  padding: 0.5em 0.9em;
+  border: 1px solid #e6a700;
+  border-left: 6px solid #e6a700;
+  background: #fff3b0;
+  border-radius: 3px;
+}
+div.sf-dev-note > .sf-dev-note-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+  color: #7a5800;
+  margin-bottom: 0.3em;
 }
 </style><style>
 details.sf-quiz-solution {
@@ -1112,6 +1126,11 @@ details.sf-details[open] {
   text-decoration: currentcolor underline solid;
 }
 
+/* Links inside tooltips show their underline only when hovered. */
+.tippy-box .hl.lean a {
+  text-decoration: none;
+}
+
 .hl.lean .hover-info {
   white-space: normal;
 }
@@ -1119,8 +1138,9 @@ details.sf-details[open] {
 .hl.lean .token .hover-info {
   display: none;
   position: absolute;
-  background-color: #e5e5e5;
-  border: 1px solid black;
+  color: var(--verso-tooltip-color, black);
+  background-color: var(--verso-tooltip-bg-color, #e5e5e5);
+  border: 1px solid var(--verso-tooltip-border-color, black);
   padding: 0.5rem;
   z-index: 300;
 }
@@ -1137,7 +1157,10 @@ details.sf-details[open] {
 .hl.lean .hover-info code {
   white-space: pre-wrap;
   background: none;
-  color: black;
+}
+
+.hl.lean .hover-info code:not(.verso-message) {
+  color: var(--verso-tooltip-color, black);
 }
 
 .hl.lean .hover-info.messages > code {
@@ -1178,10 +1201,24 @@ details.sf-details[open] {
 }
 
 @media (hover: hover) {
-  .hl.lean .token.binding-hl, .hl.lean .literal:hover, .hl.lean .token.typed:hover {
-    background-color: #eee;
+  /* Hovered content nested in a collapsed tactic region keeps its plain background: the
+     region's proof state is the tooltip that appears there, and its label is what
+     highlights. `:where` keeps the exclusion out of the specificity computation. */
+  .hl.lean .token.binding-hl,
+  .hl.lean :is(.literal, .token.typed, .token[data-verso-hover]):hover:not(:where(.tactic:has(> .tactic-toggle:not(:checked)) > label *)) {
+    background-color: var(--verso-code-hover-bg-color, #eeeeee);
     border-radius: 2px;
     transition: none;
+  }
+
+  /* Within a hovered message span, token hover backgrounds are removed so the span's own
+     hover background shows across the whole span. The exception is a hovered documented
+     token, which keeps its background because its tooltip is the one shown. */
+  .hl.lean .has-info:hover .token.binding-hl:not(:hover),
+  .hl.lean .has-info:hover .token.binding-hl:not([data-verso-hover]),
+  .hl.lean .has-info:hover .literal:hover:not([data-verso-hover]),
+  .hl.lean .has-info:hover .token.typed:hover:not([data-verso-hover]) {
+    background-color: transparent;
   }
 }
 
@@ -1193,56 +1230,93 @@ details.sf-details[open] {
   text-decoration-skip-ink: none;
 }
 
+/*
+The underline color comes from the nearest enclosing message span: each severity's span rule
+sets `--verso--region-indicator-color`, which inherits, so a region nested inside one of
+another severity keeps its own indicator color.
+*/
+.hl.lean .has-info :not(.tactic-state):not(.tactic-state *) {
+  text-decoration-color: var(--verso--region-indicator-color);
+}
+
 .hl.lean .has-info .hover-info {
   display: none;
   position: absolute;
   transform: translate(0.25rem, 0.3rem);
-  border: 1px solid black;
+  color: var(--verso-tooltip-color, black);
+  border: 1px solid var(--verso-tooltip-border-color, black);
   padding: 0.5rem;
   z-index: 400;
   text-align: left;
 }
 
-.hl.lean .has-info.error :not(.tactic-state):not(.tactic-state *){
-  text-decoration-color: red;
+.hl.lean .has-info.error {
+  --verso--region-indicator-color: var(--verso-error-indicator-color, #ff0000);
+  --verso--region-hover-color: var(--verso-code-error-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-error-hover-bg-color, #ffb3b3);
+  color: var(--verso-code-error-color, currentcolor);
+  background-color: var(--verso-code-error-bg-color, transparent);
 }
 
+/*
+The hover highlight follows the tooltip: a message span highlights only when its own tooltip
+is the one that appears. When a hovered nested message span, a hovered documented token, or
+a hovered collapsed tactic label shows its own tooltip instead, the message span does not
+highlight. A span nested in a collapsed tactic region likewise stays plain, because hovering
+it shows the region's proof state; `:where` keeps that exclusion out of the specificity
+computation.
+
+The hover colors come from `--verso--region-hover-color` and `--verso--region-hover-bg-color`,
+which each severity's span rule sets. This keeps the hover conditions in this one rule, and
+because the properties inherit, a region nested inside one of another severity keeps its own
+hover colors.
+*/
 @media (hover: hover) {
-  .hl.lean .has-info.error:hover {
-    background-color: #ffb3b3;
+  .hl.lean .has-info:hover:not(:has(.has-info:hover)):not(:has([data-verso-hover]:hover)):not(:has(.tactic > label:hover + .tactic-toggle:not(:checked))):not(:where(.tactic:has(> .tactic-toggle:not(:checked)) > label *)) {
+    color: var(--verso--region-hover-color, currentcolor);
+    background-color: var(--verso--region-hover-bg-color, transparent);
   }
 }
 
 .hl.lean .hover-info.messages > code.error {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid #ffb3b3;
+  background-color: var(--verso-tooltip-error-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-error-border-color, #ffb3b3);
 }
 
-.tippy-box[data-theme~='error'] .hl.lean .hover-info.messages > code.error {
+/*
+A tooltip that shows only messages of the box's own severity leaves severity styling to the
+box itself. When messages of several severities share the tooltip, or a `mixed` tooltip
+combines messages with other content (such as documentation), each message keeps its
+severity accent to distinguish them.
+*/
+.tippy-box .hl.lean.mixed > .hover-info.messages {
+  margin-bottom: 0.5rem;
+}
+
+.tippy-box[data-theme~='error'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.warning)):not(:has(> code.information)) > code.error {
   background: none;
   border: none;
 }
 
 .error .verso-message, .error .verso-message .token, .error .verso-message label {
-  color: var(--verso-error-color);
+  color: var(--verso-message-error-color, #cc0000);
 }
 
 .error .verso-message .case-label:has(input[type="checkbox"])::before {
-  background-color: var(--verso-error-color) !important;
+  background-color: var(--verso-message-error-color, #cc0000) !important;
 }
 
-.hl.lean .has-info.warning :not(.tactic-state):not(.tactic-state *) {
-  text-decoration-color: var(--verso-warning-indicator-color);
-}
-
-@media (hover: hover) {
-  .hl.lean .has-info.warning:hover {
-    background-color:var(--verso-warning-color);
-  }
+.hl.lean .has-info.warning {
+  --verso--region-indicator-color: var(--verso-warning-indicator-color, #e7a71d);
+  --verso--region-hover-color: var(--verso-code-warning-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-warning-hover-bg-color, #ffd580);
+  color: var(--verso-code-warning-color, currentcolor);
+  background-color: var(--verso-code-warning-bg-color, transparent);
 }
 
 .hl.lean .hover-info.messages > code.warning {
-  background-color: var(--verso-warning-color);
+  background-color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-warning-border-color, #ffd580);
 }
 
 .lean-output {
@@ -1253,47 +1327,56 @@ details.sf-details[open] {
 }
 
 .lean-output.error {
-  border-color: var(--verso-error-indicator-color);
+  border-color: var(--verso-output-error-color, var(--verso-error-indicator-color, #ff0000));
 }
 
 .lean-output.information {
-  border-color: var(--verso-info-indicator-color);
+  border-color: var(--verso-output-info-color, var(--verso-info-indicator-color, #4777ff));
 }
 
 .lean-output.warning {
-  border-color: var(--verso-warning-indicator-color);
+  border-color: var(--verso-output-warning-color, var(--verso-warning-indicator-color, #e7a71d));
 }
 
-.hl.lean .hover-info.messages > code.error {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid var(--verso-warning-color);
-}
-
-.tippy-box[data-theme~='warning'] .hl.lean .hover-info.messages > code.warning {
+.tippy-box[data-theme~='warning'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.error)):not(:has(> code.information)) > code.warning {
   background: none;
   border: none;
 }
 
-
-.hl.lean .has-info.information :not(.tactic-state):not(.tactic-state *) {
-  text-decoration-color: var(--verso-info-indicator-color, blue);
+.warning .verso-message, .warning .verso-message .token, .warning .verso-message label {
+  color: var(--verso-message-warning-color, black);
 }
 
-@media (hover: hover) {
-  .hl.lean .has-info.information:hover {
-    background-color: #4777ff;
-  }
+.warning .verso-message .case-label:has(input[type="checkbox"])::before {
+  background-color: var(--verso-message-warning-color, black) !important;
+}
+
+
+.hl.lean .has-info.information {
+  --verso--region-indicator-color: var(--verso-info-indicator-color, #4777ff);
+  --verso--region-hover-color: var(--verso-code-info-hover-color, currentcolor);
+  --verso--region-hover-bg-color: var(--verso-code-info-hover-bg-color, #4777ff);
+  color: var(--verso-code-info-color, currentcolor);
+  background-color: var(--verso-code-info-bg-color, transparent);
 }
 
 
 .hl.lean .hover-info.messages > code.information {
-  background-color: #e5e5e5;
-  border-left: 0.2rem solid #4777ff;
+  background-color: var(--verso-tooltip-info-bg-color, #e5e5e5);
+  border-left: 0.2rem solid var(--verso-tooltip-info-border-color, #4777ff);
 }
 
-.tippy-box[data-theme~='info'] .hl.lean .hover-info.messages > code.information {
+.tippy-box[data-theme~='info'] .hl.lean:not(.mixed) .hover-info.messages:not(:has(> code.error)):not(:has(> code.warning)) > code.information {
   background: none;
   border: none;
+}
+
+.information .verso-message, .information .verso-message .token, .information .verso-message label {
+  color: var(--verso-message-info-color, black);
+}
+
+.information .verso-message .case-label:has(input[type="checkbox"])::before {
+  background-color: var(--verso-message-info-color, black) !important;
 }
 
 .hl.lean div.docstring {
@@ -1320,7 +1403,7 @@ details.sf-details[open] {
   margin-bottom: 0.5rem;
   padding: 0;
   height: 1px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--verso-tooltip-separator-color, #ccc);
 }
 
 .hl.lean code {
@@ -1331,11 +1414,12 @@ details.sf-details[open] {
   display: none;
   position: relative;
   width: fit-content;
-  border: 1px solid #888888;
+  border: 1px solid var(--verso-tactic-state-border-color, #888888);
   border-radius: 0.1rem;
   padding: 0.5rem;
   font-family: sans-serif;
-  background-color: #ffffff;
+  color: var(--verso-tactic-state-color, black);
+  background-color: var(--verso-tactic-state-bg-color, white);
 }
 
 .hl.lean.popup .tactic-state {
@@ -1345,7 +1429,7 @@ details.sf-details[open] {
   border: none;
   padding: 0.5rem;
   font-family: sans-serif;
-  background-color: #ffffff;
+  background-color: var(--verso-tactic-state-bg-color, white);
 }
 
 
@@ -1379,9 +1463,11 @@ details.sf-details[open] {
 @media (hover: hover) {
   /* Highlight a region on hover only when its own toggle is unchecked, and only the innermost
      hovered region: `label:hover` bubbles to ancestor labels, so suppress the highlight on a region
-     whose label contains a more deeply nested hovered tactic label. */
+     whose label contains a more deeply nested hovered tactic label. The region's proof state is the
+     tooltip for everything else in its label, so the label keeps its highlight while any of that
+     content is hovered. */
   .hl.lean .tactic:has(> .tactic-toggle:not(:checked)) > label:hover:not(:has(.tactic > label:hover)) {
-    background-color: #eeeeee;
+    background-color: var(--verso-code-hover-bg-color, #eeeeee);
   }
 }
 
@@ -1397,7 +1483,7 @@ details.sf-details[open] {
 
 .hl.lean .tactic > label::after {
   content: "";
-  border: 1px solid #bbbbbb;
+  border: 1px solid var(--verso-tactic-toggle-color, #bbbbbb);
   /* These need to be em, not rem, to scale with the font */
   border-radius: 1em;
   height: 0.25em;
@@ -1420,8 +1506,8 @@ details.sf-details[open] {
 */
 
 .hl.lean .tactic > label:has(+ .tactic-toggle:checked)::after {
-  border: 1px solid #999999;
-  background-color: #999999;
+  border: 1px solid var(--verso-tactic-toggle-checked-color, #999999);
+  background-color: var(--verso-tactic-toggle-checked-color, #999999);
   transition: all 0.5s;
 }
 
@@ -1499,7 +1585,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 
 .hl.lean .case-label:has(input[type="checkbox"])::before {
   display: inline-block;
-  background-color: black;
+  background-color: currentcolor;
   content: ' ';
   transition: ease 0.2s;
   margin-right: 0.7em;
@@ -1583,26 +1669,22 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
   text-size-adjust: 100%;
 }
 
+/*
+Tippy's stylesheet paints each arrow's fill triangle with the arrow element's `color` (its
+placement-specific `::before` rules use `border-color: initial`, which is `currentcolor`),
+and its border extension paints the outline triangle with the box's border color. Setting
+`color` on the arrow therefore matches it to the tooltip background for every placement.
+*/
 .tippy-box[data-theme~='lean'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 1px solid black;
+  background-color: var(--verso-tooltip-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-color, black);
+  border: 1px solid var(--verso-tooltip-border-color, black);
 }
-.tippy-box[data-theme~='lean'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='bottom'] > .tippy-arrow::before {
-  border-bottom-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: #e5e5e5;
-}
-.tippy-box[data-theme~='lean'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: #e5e5e5;
+.tippy-box[data-theme~='lean'] > .tippy-arrow {
+  color: var(--verso-tooltip-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: #e5e5e5;
   border-width: 11px 11px 0;
 }
 .tippy-box[data-theme~='message'][data-placement^='top'] > .tippy-arrow::after {
@@ -1617,7 +1699,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
   border-width: 0 11px 11px;
 }
 .tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: #e5e5e5;
   border-width: 11px 0 11px 11px;
 }
 .tippy-box[data-theme~='message'][data-placement^='left'] > .tippy-arrow::after {
@@ -1626,7 +1707,6 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 .tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: #e5e5e5;
   border-width: 11px 11px 11px 0;
 }
 .tippy-box[data-theme~='message'][data-placement^='right'] > .tippy-arrow::after {
@@ -1637,39 +1717,39 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 
 
 .tippy-box[data-theme~='warning'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid var(--verso-warning-color);
+  background-color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-warning-color, black);
+  border: 3px solid var(--verso-tooltip-warning-border-color, #ffd580);
+}
+.tippy-box[data-theme~='warning'] > .tippy-arrow {
+  color: var(--verso-tooltip-warning-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='error'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid #f7a7af;
+  background-color: var(--verso-tooltip-error-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-error-color, black);
+  border: 3px solid var(--verso-tooltip-error-border-color, #ffb3b3);
+}
+.tippy-box[data-theme~='error'] > .tippy-arrow {
+  color: var(--verso-tooltip-error-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='info'] {
-  background-color: #e5e5e5;
-  color: black;
-  border: 3px solid #99b3c2;
+  background-color: var(--verso-tooltip-info-bg-color, #e5e5e5);
+  color: var(--verso-tooltip-info-color, black);
+  border: 3px solid var(--verso-tooltip-info-border-color, #4777ff);
+}
+.tippy-box[data-theme~='info'] > .tippy-arrow {
+  color: var(--verso-tooltip-info-bg-color, #e5e5e5);
 }
 
 .tippy-box[data-theme~='tactic'] {
-  background-color: white;
-  color: black;
-  border: 1px solid black;
+  background-color: var(--verso-tactic-state-bg-color, white);
+  color: var(--verso-tactic-state-color, black);
+  border: 1px solid var(--verso-tactic-state-border-color, #888888);
 }
-.tippy-box[data-theme~='tactic'][data-placement^='top'] > .tippy-arrow::before {
-  border-top-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='bottom'] > .tippy-arrow::before {
-  border-bottom-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='left'] > .tippy-arrow::before {
-  border-left-color: white;
-}
-.tippy-box[data-theme~='tactic'][data-placement^='right'] > .tippy-arrow::before {
-  border-right-color: white;
+.tippy-box[data-theme~='tactic'] > .tippy-arrow {
+  color: var(--verso-tactic-state-bg-color, white);
 }
 
 .extra-doc-links {
@@ -1693,7 +1773,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 .verso-message .trace > summary::marker {
-  color: var(--verso-text-color);
+  color: var(--verso-text-color, black);
 }
 
 .verso-message .trace-children {
@@ -1722,6 +1802,305 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
 }
 
 </style><script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
+    function blockedByTippy(elem) {
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
+        } else { // Nothing to show here!
+          return false;
+        }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
+      },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverInfo) {
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
+          });
+        }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
+      });
+  });
+}
+</script>
+    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -1996,6 +2375,24 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
+   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs--Additional-Exercises":
+   [{"id":
+     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "3.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Imp: Simple Imperative Programs",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Reasoning About Imp Programs",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
+     "address": "/Imp/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs":
    [{"id":
      "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs",
@@ -3456,6 +3853,28 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Evaluating Commands",
         "Determinism of Evaluation"]}},
      "address": "/Imp/"}],
+   "b₂":
+   [{"id": "b___-next",
+     "data":
+     {"/Imp/#b___-next":
+      {"display": "b₂",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "b₁":
+   [{"id": "b___",
+     "data":
+     {"/Imp/#b___":
+      {"display": "b₁",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
    "bexp_eval_false":
    [{"id": "bexp_eval_false",
      "data":
@@ -3467,6 +3886,28 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Proof Rules",
         "Conditionals"]}},
      "address": "/Hoare/"}],
+   "a₂":
+   [{"id": "a___-next",
+     "data":
+     {"/Imp/#a___-next":
+      {"display": "a₂",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "a₁":
+   [{"id": "a___",
+     "data":
+     {"/Imp/#a___":
+      {"display": "a₁",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
    "assertion_sub_example2''":
    [{"id": "assertion_sub_example2______",
      "data":
@@ -3521,6 +3962,171 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Hoare: Hoare Logic, Part I",
         "Assertions",
         "Assertion Implication"]}},
+     "address": "/Hoare/"}],
+   "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandNot":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandNot",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Bexp___unexpandNot":
+      {"display": "Bexp.unexpandNot",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandNeq":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandNeq",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Bexp___unexpandNeq":
+      {"display": "Bexp.unexpandNeq",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandLe":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandLe",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Bexp___unexpandLe":
+      {"display": "Bexp.unexpandLe",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandGt":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandGt",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Bexp___unexpandGt":
+      {"display": "Bexp.unexpandGt",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandEq":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandEq",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Bexp___unexpandEq":
+      {"display": "Bexp.unexpandEq",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Bexp.unexpandAnd":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Bexp___unexpandAnd",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Bexp___unexpandAnd":
+      {"display": "Bexp.unexpandAnd",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.BExp.delabBool":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___BExp___delabBool",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___BExp___delabBool":
+      {"display": "BExp.delabBool",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandPlus":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandPlus",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Aexp___unexpandPlus":
+      {"display": "Aexp.unexpandPlus",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandNum":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandNum",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Aexp___unexpandNum":
+      {"display": "Aexp.unexpandNum",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandMult":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandMult",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Aexp___unexpandMult":
+      {"display": "Aexp.unexpandMult",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandMinus":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandMinus",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Aexp___unexpandMinus":
+      {"display": "Aexp.unexpandMinus",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Delab.Aexp.unexpandId":
+   [{"id": "_private___HL___Imp___0___Imp___Delab___Aexp___unexpandId",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Delab___Aexp___unexpandId":
+      {"display": "Aexp.unexpandId",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Delaborators"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Imp.0.Imp.Break.Delab.unexpandComBrk":
+   [{"id": "_private___HL___Imp___0___Imp___Break___Delab___unexpandComBrk",
+     "data":
+     {"/Imp/#_private___HL___Imp___0___Imp___Break___Delab___unexpandComBrk":
+      {"display": "unexpandComBrk",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "_private.HL.Hoare2.0.DCom.Delab.getDCom?":
+   [{"id": "_private___HL___Hoare2___0___DCom___Delab___getDCom___",
+     "data":
+     {"/Hoare2/#_private___HL___Hoare2___0___DCom___Delab___getDCom___":
+      {"display": "getDCom?",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "_private.HL.Hoare.0.Assertion.Delab.getAssn":
+   [{"id": "_private___HL___Hoare___0___Assertion___Delab___getAssn",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___Assertion___Delab___getAssn":
+      {"display": "getAssn",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
+        "Printing Assertions"]}},
      "address": "/Hoare/"}],
    "Z":
    [{"id": "Z",
@@ -3598,28 +4204,72 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Expressions With Variables",
         "States"]}},
      "address": "/Imp/"}],
-   "Slang.optimize0plus_sound'":
-   [{"id": "Slang___optimize0plus_sound___",
+   "StackCompiler.Sinstr.sPush":
+   [{"id": "StackCompiler___Sinstr___sPush",
      "data":
-     {"/Slang/#Slang___optimize0plus_sound___":
-      {"display": "optimize0plus_sound'",
+     {"/Imp/#StackCompiler___Sinstr___sPush":
+      {"display": "sPush",
        "context":
        ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
-   "Slang.optimize0plus_sound":
-   [{"id": "Slang___optimize0plus_sound",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr.sPlus":
+   [{"id": "StackCompiler___Sinstr___sPlus",
      "data":
-     {"/Slang/#Slang___optimize0plus_sound":
-      {"display": "optimize0plus_sound",
+     {"/Imp/#StackCompiler___Sinstr___sPlus":
+      {"display": "sPlus",
        "context":
        ["Hoare Logic",
-        "Slang: Arithmetic and Boolean Expressions",
-        "Arithmetic and Boolean Expressions",
-        "Optimization"]}},
-     "address": "/Slang/"}],
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr.sMult":
+   [{"id": "StackCompiler___Sinstr___sMult",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr___sMult":
+      {"display": "sMult",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr.sMinus":
+   [{"id": "StackCompiler___Sinstr___sMinus",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr___sMinus":
+      {"display": "sMinus",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr.sLoad":
+   [{"id": "StackCompiler___Sinstr___sLoad",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr___sLoad":
+      {"display": "sLoad",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "StackCompiler.Sinstr":
+   [{"id": "StackCompiler___Sinstr",
+     "data":
+     {"/Imp/#StackCompiler___Sinstr":
+      {"display": "Sinstr",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
    "Slang.Bexp.not":
    [{"id": "Slang___Bexp___not",
      "data":
@@ -3857,11 +4507,33 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Arithmetic and Boolean Expressions",
         "Syntax"]}},
      "address": "/Slang/"}],
+   "Slang.Aexp.optimize0plus_sound'":
+   [{"id": "Slang___Aexp___optimize0plus_sound___",
+     "data":
+     {"/Slang/#Slang___Aexp___optimize0plus_sound___":
+      {"display": "optimize0plus_sound'",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.Aexp.optimize0plus_sound":
+   [{"id": "Slang___Aexp___optimize0plus_sound",
+     "data":
+     {"/Slang/#Slang___Aexp___optimize0plus_sound":
+      {"display": "optimize0plus_sound",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.Aexp.optimize0plus":
    [{"id": "Slang___Aexp___optimize0plus",
      "data":
      {"/Slang/#Slang___Aexp___optimize0plus":
-      {"display": "Aexp.optimize0plus",
+      {"display": "optimize0plus",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -3949,7 +4621,7 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
    [{"id": "Slang___Aexp___evalR_iff_eval",
      "data":
      {"/Slang/#Slang___Aexp___evalR_iff_eval":
-      {"display": "Aexp.evalR_iff_eval",
+      {"display": "evalR_iff_eval",
        "context":
        ["Hoare Logic",
         "Slang: Arithmetic and Boolean Expressions",
@@ -4354,6 +5026,57 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Hoare2: Hoare Logic, Part II",
         "Weakest Preconditions (Optional)"]}},
      "address": "/Hoare2/"}],
+   "Imp.Elab.withSourceInfoOf":
+   [{"id": "Imp___Elab___withSourceInfoOf",
+     "data":
+     {"/Imp/#Imp___Elab___withSourceInfoOf":
+      {"display": "withSourceInfoOf",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notations"]}},
+     "address": "/Imp/"}],
+   "Imp.Delab.unexpandComWhileDo":
+   [{"id": "Imp___Delab___unexpandComWhileDo",
+     "data":
+     {"/Imp/#Imp___Delab___unexpandComWhileDo":
+      {"display": "unexpandComWhileDo",
+       "context":
+       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
+   "Imp.Delab.unexpandComSkip":
+   [{"id": "Imp___Delab___unexpandComSkip",
+     "data":
+     {"/Imp/#Imp___Delab___unexpandComSkip":
+      {"display": "unexpandComSkip",
+       "context":
+       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
+   "Imp.Delab.unexpandComSeq":
+   [{"id": "Imp___Delab___unexpandComSeq",
+     "data":
+     {"/Imp/#Imp___Delab___unexpandComSeq":
+      {"display": "unexpandComSeq",
+       "context":
+       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
+   "Imp.Delab.unexpandComCond":
+   [{"id": "Imp___Delab___unexpandComCond",
+     "data":
+     {"/Imp/#Imp___Delab___unexpandComCond":
+      {"display": "unexpandComCond",
+       "context":
+       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
+   "Imp.Delab.unexpandComAsgn":
+   [{"id": "Imp___Delab___unexpandComAsgn",
+     "data":
+     {"/Imp/#Imp___Delab___unexpandComAsgn":
+      {"display": "unexpandComAsgn",
+       "context":
+       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
    "Imp.Delab.imp_bexp.parenthesizer.wrapParens":
    [{"id": "Imp___Delab___imp_bexp___parenthesizer___wrapParens",
      "data":
@@ -4398,84 +5121,145 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Expressions With Variables",
         "Delaborators"]}},
      "address": "/Imp/"}],
-   "Imp.Delab.delabComInnerFor":
-   [{"id": "Imp___Delab___delabComInnerFor",
+   "Imp.Delab.getImp":
+   [{"id": "Imp___Delab___getImp",
      "data":
-     {"/Imp/#Imp___Delab___delabComInnerFor":
-      {"display": "delabComInnerFor",
+     {"/Imp/#Imp___Delab___getImp":
+      {"display": "getImp",
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
-   "Imp.Delab.delabComInner":
-   [{"id": "Imp___Delab___delabComInner",
+   "Imp.Delab.getBexp":
+   [{"id": "Imp___Delab___getBexp",
      "data":
-     {"/Imp/#Imp___Delab___delabComInner":
-      {"display": "delabComInner",
-       "context":
-       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
-     "address": "/Imp/"}],
-   "Imp.Delab.delabCom":
-   [{"id": "Imp___Delab___delabCom",
-     "data":
-     {"/Imp/#Imp___Delab___delabCom":
-      {"display": "delabCom",
-       "context":
-       ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
-     "address": "/Imp/"}],
-   "Imp.Delab.delabBexpInner":
-   [{"id": "Imp___Delab___delabBexpInner",
-     "data":
-     {"/Imp/#Imp___Delab___delabBexpInner":
-      {"display": "delabBexpInner",
+     {"/Imp/#Imp___Delab___getBexp":
+      {"display": "getBexp",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "Delaborators"]}},
      "address": "/Imp/"}],
-   "Imp.Delab.delabBexp":
-   [{"id": "Imp___Delab___delabBexp",
+   "Imp.Delab.getAexp":
+   [{"id": "Imp___Delab___getAexp",
      "data":
-     {"/Imp/#Imp___Delab___delabBexp":
-      {"display": "delabBexp",
+     {"/Imp/#Imp___Delab___getAexp":
+      {"display": "getAexp",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "Delaborators"]}},
      "address": "/Imp/"}],
-   "Imp.Delab.delabAexpInner":
-   [{"id": "Imp___Delab___delabAexpInner",
+   "Imp.Break.Result.sContinue":
+   [{"id": "Imp___Break___Result___sContinue",
      "data":
-     {"/Imp/#Imp___Delab___delabAexpInner":
-      {"display": "delabAexpInner",
+     {"/Imp/#Imp___Break___Result___sContinue":
+      {"display": "sContinue",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Delaborators"]}},
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
      "address": "/Imp/"}],
-   "Imp.Delab.delabAexp":
-   [{"id": "Imp___Delab___delabAexp",
+   "Imp.Break.Result.sBreak":
+   [{"id": "Imp___Break___Result___sBreak",
      "data":
-     {"/Imp/#Imp___Delab___delabAexp":
-      {"display": "delabAexp",
+     {"/Imp/#Imp___Break___Result___sBreak":
+      {"display": "sBreak",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Delaborators"]}},
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
      "address": "/Imp/"}],
-   "Imp.Delab.annAsTerm":
-   [{"id": "Imp___Delab___annAsTerm",
+   "Imp.Break.Result":
+   [{"id": "Imp___Break___Result",
      "data":
-     {"/Imp/#Imp___Delab___annAsTerm":
-      {"display": "annAsTerm",
+     {"/Imp/#Imp___Break___Result":
+      {"display": "Result",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Delaborators"]}},
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.Com.whileDo":
+   [{"id": "Imp___Break___Com___whileDo",
+     "data":
+     {"/Imp/#Imp___Break___Com___whileDo":
+      {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.Com.skip":
+   [{"id": "Imp___Break___Com___skip",
+     "data":
+     {"/Imp/#Imp___Break___Com___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.Com.seq":
+   [{"id": "Imp___Break___Com___seq",
+     "data":
+     {"/Imp/#Imp___Break___Com___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.Com.cond":
+   [{"id": "Imp___Break___Com___cond",
+     "data":
+     {"/Imp/#Imp___Break___Com___cond":
+      {"display": "cond",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.Com.brk":
+   [{"id": "Imp___Break___Com___brk",
+     "data":
+     {"/Imp/#Imp___Break___Com___brk":
+      {"display": "brk",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.Com.asgn":
+   [{"id": "Imp___Break___Com___asgn",
+     "data":
+     {"/Imp/#Imp___Break___Com___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
+     "address": "/Imp/"}],
+   "Imp.Break.Com":
+   [{"id": "Imp___Break___Com",
+     "data":
+     {"/Imp/#Imp___Break___Com":
+      {"display": "Com",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Reasoning About Imp Programs",
+        "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Ident":
    [{"id": "Ident",
@@ -4498,6 +5282,16 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Hoare: Hoare Logic, Part I",
         "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
+   "HasTriple.Delab.delabTriple":
+   [{"id": "HasTriple___Delab___delabTriple",
+     "data":
+     {"/Hoare/#HasTriple___Delab___delabTriple":
+      {"display": "delabTriple",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
+     "address": "/Hoare/"}],
    "HasTriple":
    [{"id": "HasTriple",
      "data":
@@ -4513,6 +5307,17 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
      "data":
      {"/Imp/#HasEval___Eval":
       {"display": "Eval",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Evaluation as a Relation"]}},
+     "address": "/Imp/"}],
+   "HasEval.Delab.delabTriple":
+   [{"id": "HasEval___Delab___delabTriple",
+     "data":
+     {"/Imp/#HasEval___Delab___delabTriple":
+      {"display": "delabTriple",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
@@ -4914,6 +5719,116 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Hoare2: Hoare Logic, Part II",
         "Formal Decorated Programs",
         "Extracting Verification Conditions"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.unexpandWhileDo":
+   [{"id": "DCom___Delab___unexpandWhileDo",
+     "data":
+     {"/Hoare2/#DCom___Delab___unexpandWhileDo":
+      {"display": "unexpandWhileDo",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.unexpandSkip":
+   [{"id": "DCom___Delab___unexpandSkip",
+     "data":
+     {"/Hoare2/#DCom___Delab___unexpandSkip":
+      {"display": "unexpandSkip",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.unexpandSeq":
+   [{"id": "DCom___Delab___unexpandSeq",
+     "data":
+     {"/Hoare2/#DCom___Delab___unexpandSeq":
+      {"display": "unexpandSeq",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.unexpandPre":
+   [{"id": "DCom___Delab___unexpandPre",
+     "data":
+     {"/Hoare2/#DCom___Delab___unexpandPre":
+      {"display": "unexpandPre",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.unexpandPost":
+   [{"id": "DCom___Delab___unexpandPost",
+     "data":
+     {"/Hoare2/#DCom___Delab___unexpandPost":
+      {"display": "unexpandPost",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.unexpandCond":
+   [{"id": "DCom___Delab___unexpandCond",
+     "data":
+     {"/Hoare2/#DCom___Delab___unexpandCond":
+      {"display": "unexpandCond",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.unexpandAsgn":
+   [{"id": "DCom___Delab___unexpandAsgn",
+     "data":
+     {"/Hoare2/#DCom___Delab___unexpandAsgn":
+      {"display": "unexpandAsgn",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.getAssnBody":
+   [{"id": "DCom___Delab___getAssnBody",
+     "data":
+     {"/Hoare2/#DCom___Delab___getAssnBody":
+      {"display": "getAssnBody",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.dcom.parenthesizer.wrapParens":
+   [{"id": "DCom___Delab___dcom___parenthesizer___wrapParens",
+     "data":
+     {"/Hoare2/#DCom___Delab___dcom___parenthesizer___wrapParens":
+      {"display": "wrapParens",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
+     "address": "/Hoare2/"}],
+   "DCom.Delab.dcom.parenthesizer":
+   [{"id": "DCom___Delab___dcom___parenthesizer",
+     "data":
+     {"/Hoare2/#DCom___Delab___dcom___parenthesizer":
+      {"display": "dcom.parenthesizer",
+       "context":
+       ["Hoare Logic",
+        "Hoare2: Hoare Logic, Part II",
+        "Formal Decorated Programs",
+        "Syntax"]}},
      "address": "/Hoare2/"}],
    "DCom":
    [{"id": "DCom",
@@ -5458,43 +6373,11 @@ Some CSS frameworks customize details/summary in ways not compatible with Verso'
         "Proof Rules",
         "Assignment"]}},
      "address": "/Hoare/"}],
-   "Assertion.assnElab":
-   [{"id": "Assertion___assnElab",
+   "Assertion.Delab.unexpandSubst":
+   [{"id": "Assertion___Delab___unexpandSubst",
      "data":
-     {"/Hoare/#Assertion___assnElab":
-      {"display": "assnElab",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Assertions",
-        "Notations for Assertions"]}},
-     "address": "/Hoare/"}],
-   "Assertion.assn":
-   [{"id": "Assertion___assn",
-     "data":
-     {"/Hoare/#Assertion___assn":
-      {"display": "assn",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Assertions",
-        "Notations for Assertions"]}},
-     "address": "/Hoare/"}],
-   "Assertion.Delab.delabTriple":
-   [{"id": "Assertion___Delab___delabTriple",
-     "data":
-     {"/Hoare/#Assertion___Delab___delabTriple":
-      {"display": "delabTriple",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Hoare Triples, Formally"]}},
-     "address": "/Hoare/"}],
-   "Assertion.Delab.delabSub":
-   [{"id": "Assertion___Delab___delabSub",
-     "data":
-     {"/Hoare/#Assertion___Delab___delabSub":
-      {"display": "delabSub",
+     {"/Hoare/#Assertion___Delab___unexpandSubst":
+      {"display": "unexpandSubst",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -5930,242 +6813,6 @@ if (paramName) {
     });
 }
 </script>
-    <script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // Track whether any tippy is visible (O(1) check instead of DOM scan)
-    let visibleTippyCount = 0;
-    function blockedByTippy(elem) {
-      return visibleTippyCount > 0;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        if (inst.reference.className == 'tactic') {
-          const toggle = inst.reference.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-          hideParentTooltips(inst.reference);
-          if (blockedByTippy(inst.reference)) { return false; }
-
-        } else if (inst.reference.querySelector(".hover-info") || "versoHover" in inst.reference.dataset) {
-          if (blockedByTactic(inst.reference)) { return false };
-          if (blockedByTippy(inst.reference)) { return false; }
-        } else { // Nothing to show here!
-          return false;
-        }
-      },
-      onShown(inst) { visibleTippyCount++; },
-      onHidden(inst) { visibleTippyCount = Math.max(0, visibleTippyCount - 1); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverId) { // Docstrings from the table
-            // TODO stop doing an implicit conversion from string to number here
-            let data = versoDocData[hoverId];
-            if (data) {
-              const info = document.createElement("span");
-              info.className = "hover-info";
-              info.style.display = "block";
-              info.innerHTML = data;
-              content.appendChild(info);
-              /* Render docstrings - TODO server-side */
-              if ('undefined' !== typeof marked) {
-                  for (const d of content.querySelectorAll("code.docstring, pre.docstring")) {
-                      const str = d.innerText;
-                      const html = marked.parse(str);
-                      const rendered = document.createElement("div");
-                      rendered.classList.add("docstring");
-                      rendered.innerHTML = html;
-                      d.parentNode.replaceChild(rendered, d);
-                  }
-              }
-            } else {
-              content.innerHTML = "Failed to load doc ID: " + hoverId;
-            }
-          } else if (hoverInfo) { // The inline info, still used for compiler messages
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          const extraLinks = tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (!tok._tippy && tok.matches(tacticTippySelector)) {
-              tippy(tok, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll('.token').forEach(tok => {
-            if (tok._tippy) tok._tippy.destroy();
-          });
-        }
-      });
-  });
-}
-</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -6207,6 +6854,8 @@ window.onload = async () => {
             <h1 id="title"></h1>
             <div id="message"></div>
             </section>
+          <div class="sf-build-stamp">
+            Built on 2026-09-03 17:09 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>
