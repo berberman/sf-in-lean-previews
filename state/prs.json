@@ -540,11 +540,48 @@
     },
     "364": {
       "base_sha": "44ec83db8ddba3f4d66d19ec602b4332dd9c9f27",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "bc721e7af15e306a9dfb15a698ac5633b08f7992",
       "preview_path": "pr/364/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33755073989",
+      "status": "published",
       "title": "Poly: Presentation polish",
       "url": "https://github.com/plclub/sf-in-lean/pull/364"
     }
