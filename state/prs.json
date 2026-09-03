@@ -540,11 +540,48 @@
     },
     "363": {
       "base_sha": "2fe3c82f5edf445a030bb62b62f9876bd5bcf251",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "1797f2f955880d24bde8e030c331badd16399637",
       "preview_path": "pr/363/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33744509556",
+      "status": "published",
       "title": "Lists: Small text tweaks",
       "url": "https://github.com/plclub/sf-in-lean/pull/363"
     }
