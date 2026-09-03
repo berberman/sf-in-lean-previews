@@ -1,5 +1,5 @@
 {
-  "main_sha": "faca195ceb69f06a5454b6b00322c091f54f0743",
+  "main_sha": "54d5a8fbfeff63b563c366b9c891146771d30c69",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -341,49 +341,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
     },
     "357": {
-      "base_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f9718813f20581420b6a0543174488e257812288",
+      "base_sha": "54d5a8fbfeff63b563c366b9c891146771d30c69",
+      "changed_variants": [],
+      "head_sha": "1608957ea9ca5f02323fddf0e0496a9c195649c3",
       "preview_path": "pr/357/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33672235083",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Gradescope autograder",
       "url": "https://github.com/plclub/sf-in-lean/pull/357"
     },
