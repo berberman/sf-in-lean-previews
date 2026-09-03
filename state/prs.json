@@ -1,53 +1,6 @@
 {
   "main_sha": "d7b66d53883cece073da3a195ab63b828a9ec185",
   "prs": {
-    "185": {
-      "base_sha": "f12759ed010c8697ce04275186ceb72bdd844570",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b7729749fa486ef359e0e782f923609ebb813556",
-      "preview_path": "pr/185/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/30766102910",
-      "status": "published",
-      "title": "Fixed paren divergence in STLC unparser; HT @Robert Joseph",
-      "url": "https://github.com/plclub/sf-in-lean/pull/185"
-    },
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
       "changed_variants": [
@@ -341,49 +294,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/347"
     },
     "349": {
-      "base_sha": "3012784f9e570049eb060034f748d4f20c9707c8",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "154ec6e08bd964f3909333e3486c0877af746832",
+      "base_sha": "d7b66d53883cece073da3a195ab63b828a9ec185",
+      "changed_variants": [],
+      "head_sha": "202fabc60fbbd14a556e8b8fbe576763f3099cd7",
       "preview_path": "pr/349/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33664199347",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Initial Port of MoreStlc",
       "url": "https://github.com/plclub/sf-in-lean/pull/349"
     },
