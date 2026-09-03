@@ -531,9 +531,9 @@
     "362": {
       "base_sha": "2fe3c82f5edf445a030bb62b62f9876bd5bcf251",
       "changed_variants": [],
-      "head_sha": "e20bcdf17569535aa6700b031fffceba3fc583a5",
+      "head_sha": "8a8f1b1bc59364bdb2808452c9e7c0bff36053ae",
       "preview_path": "pr/362/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33688293742",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33762327108",
       "status": "ci-failed",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
