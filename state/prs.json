@@ -105,53 +105,6 @@
       "title": "[WIP] Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
     },
-    "319": {
-      "base_sha": "faca195ceb69f06a5454b6b00322c091f54f0743",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "a501826dc1ca416524cc520dcc9c6341e4084ce4",
-      "preview_path": "pr/319/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33781747108",
-      "status": "published",
-      "title": "`nth?` characterizing lemmas and `list_ext` exercise",
-      "url": "https://github.com/plclub/sf-in-lean/pull/319"
-    },
     "326": {
       "base_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
       "changed_variants": [
@@ -387,53 +340,6 @@
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
     },
-    "366": {
-      "base_sha": "faca195ceb69f06a5454b6b00322c091f54f0743",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "09c3348fadf989085e9d419be88bec1307401c93",
-      "preview_path": "pr/366/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33783891052",
-      "status": "published",
-      "title": "Dev notes: Some changes to make later",
-      "url": "https://github.com/plclub/sf-in-lean/pull/366"
-    },
     "368": {
       "base_sha": "afa1f53bbd680732406fbe33439905441bc206a7",
       "changed_variants": [
@@ -474,9 +380,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "83a9827d869291fea944fc185f2cc16b7bc66613",
+      "head_sha": "caab85d4f157c1f9747862563879d226e151c9c9",
       "preview_path": "pr/368/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33833160508",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33835655878",
       "status": "published",
       "title": "Lists: Some fixups following lecture",
       "url": "https://github.com/plclub/sf-in-lean/pull/368"

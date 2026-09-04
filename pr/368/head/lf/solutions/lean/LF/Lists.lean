@@ -1306,11 +1306,11 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
 
 --  Is the following claim true or false?
 
---  ∀ (d : PartialMap) (x : MyId) (n : Nat), find x (update d x n) = .some n
+--  ∀ (d : PartialMap) (x : MyId) (n : Nat),
+--  -----------------------------------------
+--    find x (update d x n) = .some n
 
 --  (A) True (B) False (C) Not sure
-
---   ----------------------------------------
 
 example (d : PartialMap) (x : MyId) (n : Nat) :
     find x (update d x n) = .some n := by
@@ -1322,19 +1322,19 @@ example (d : PartialMap) (x : MyId) (n : Nat) :
 
 --  Is the following claim true or false?
 
---  ∀ (d : PartialMap) (x y : MyId) (o : Nat),
---      MyId.beq x y = false →
---      find x (update d y o) = find x d
+--  ∀ (d : PartialMap) (x y : MyId) (o : Nat)
+--    (h : MyId.beq x y = false),
+--  -----------------------------------------
+--    find x (update d y o) = find x d
 
 --  (A) True (B) False (C) Not sure
 
---   ----------------------------------------
-
-example (d : PartialMap) (x y : MyId) (o : Nat) :
-    MyId.beq x y = false →
+example (d : PartialMap) (x y : MyId) (o : Nat)
+    (h : MyId.beq x y = false) :
     find x (update d y o) = find x d := by
-  intro h
   rw [update, find, h, Bool.cond_false]
+
+--   ----------------------------------------
 
 --  ### Exercise (1 star): update_eq ⭐
 
@@ -1353,4 +1353,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-04 03:33 UTC
+-- Built on 2026-09-04 04:16 UTC

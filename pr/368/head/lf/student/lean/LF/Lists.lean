@@ -1194,7 +1194,9 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
 
 --  Is the following claim true or false?
 
---  ∀ (d : PartialMap) (x : MyId) (n : Nat), find x (update d x n) = .some n
+--  ∀ (d : PartialMap) (x : MyId) (n : Nat),
+--  -----------------------------------------
+--    find x (update d x n) = .some n
 
 --  (A) True (B) False (C) Not sure
 
@@ -1204,9 +1206,10 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
 
 --  Is the following claim true or false?
 
---  ∀ (d : PartialMap) (x y : MyId) (o : Nat),
---      MyId.beq x y = false →
---      find x (update d y o) = find x d
+--  ∀ (d : PartialMap) (x y : MyId) (o : Nat)
+--    (h : MyId.beq x y = false),
+--  -----------------------------------------
+--    find x (update d y o) = find x d
 
 --  (A) True (B) False (C) Not sure
 
@@ -1228,4 +1231,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-04 03:33 UTC
+-- Built on 2026-09-04 04:16 UTC

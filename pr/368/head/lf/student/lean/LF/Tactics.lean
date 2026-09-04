@@ -1309,4 +1309,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     anyTrue test l = anyTrue' test l := by
   sorry
 
--- Built on 2026-09-04 03:33 UTC
+-- Built on 2026-09-04 04:16 UTC
