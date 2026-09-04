@@ -106,7 +106,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
     },
     "326": {
-      "base_sha": "5ccca762998f95df76b394ffc0e7f9cb89af3791",
+      "base_sha": "118510cdb566aca848ac2984be6ef51c241a2447",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -145,9 +145,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "10daf0364cf1ae03af1261bfc30f3cff28415b0e",
+      "head_sha": "8b1390960afc4d52e7c423cddd620ec30948a2f3",
       "preview_path": "pr/326/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33146883259",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33906599488",
       "status": "published",
       "title": "Imp: support sequencing using newlines, pretty print on a single line",
       "url": "https://github.com/plclub/sf-in-lean/pull/326"
