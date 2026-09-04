@@ -1,5 +1,5 @@
 {
-  "main_sha": "118510cdb566aca848ac2984be6ef51c241a2447",
+  "main_sha": "e0e2f9a24405759d662fb8210c9845b63b92e4de",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -339,53 +339,6 @@
       "status": "published",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
-    },
-    "369": {
-      "base_sha": "118510cdb566aca848ac2984be6ef51c241a2447",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "2e1f97b8b1765eee86dba0b111401ab64d43b588",
-      "preview_path": "pr/369/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33853335142",
-      "status": "published",
-      "title": "Speed up CI by staging building and grading",
-      "url": "https://github.com/plclub/sf-in-lean/pull/369"
     }
   },
   "schema": 3

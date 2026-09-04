@@ -1598,4 +1598,4 @@ theorem pigeonhole_principle (α : Type) (l₁ l₂ : List α)
           apply (IHl1' l2' IN2 LEN2).
   Qed. -/
 
--- Built on 2026-09-04 04:53 UTC
+-- Built on 2026-09-04 20:33 UTC
