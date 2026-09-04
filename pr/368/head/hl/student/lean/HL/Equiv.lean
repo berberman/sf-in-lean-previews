@@ -496,4 +496,4 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
 --
 --  - (`<-`) Similar.
 
--- Built on 2026-09-03 20:10 UTC
+-- Built on 2026-09-04 03:34 UTC

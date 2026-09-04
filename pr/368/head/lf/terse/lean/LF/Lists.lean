@@ -551,8 +551,7 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
 
 --  Is the following claim true or false?
 
-example (d : PartialMap) (x : MyId) (n : Nat) :
-    find x (update d x n) = .some n := by sorry
+--  ∀ (d : PartialMap) (x : MyId) (n : Nat), find x (update d x n) = .some n
 
 --  (A) True (B) False (C) Not sure
 
@@ -562,9 +561,9 @@ example (d : PartialMap) (x : MyId) (n : Nat) :
 
 --  Is the following claim true or false?
 
-example (d : PartialMap) (x y : MyId) (o : Nat) :
-    MyId.beq x y = false →
-    find x (update d y o) = find x d := by sorry
+--  ∀ (d : PartialMap) (x y : MyId) (o : Nat),
+--      MyId.beq x y = false →
+--      find x (update d y o) = find x d
 
 --  (A) True (B) False (C) Not sure
 
@@ -574,4 +573,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-03 20:09 UTC
+-- Built on 2026-09-04 03:33 UTC

@@ -359,13 +359,13 @@
  "753": "<code>BoolList.cons (b : Bool) (l : BoolList) : BoolList</code>",
  "752": "<code>BoolList.nil : BoolList</code>",
  "751": "<code>BoolList : Type</code>",
- "750": "<code>x.beq y = false</code>",
+ "750":
+ "<code>Lists.PartialMap.update_neq (d : PartialMap) (x y : MyId) (o : Nat) : x.beq y = false → find x (d.update y o) = find x d</code>",
  "75":
  "<code>Bool.and (x y : Bool) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Boolean “and”, also known as conjunction. `and x y` can be written `x &amp;&amp; y`.\n\nThe corresponding propositional connective is `And : Prop → Prop → Prop`, written with the `∧`\noperator.\n\nThe Boolean `and` is a `@[macro_inline]` function in order to give it short-circuiting evaluation:\nif `x` is `false` then `y` is not evaluated at runtime.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&amp;&amp;` in identifiers is `and`.\n\n * The recommended spelling of `||` in identifiers is `or`.</code>",
  "749":
- "<code>Lists.PartialMap.update_neq (d : PartialMap) (x y : MyId) (o : Nat) : x.beq y = false → find x (d.update y o) = find x d</code>",
- "748":
  "<code>Lists.PartialMap.update_eq (d : PartialMap) (x : MyId) (n : Nat) : find x (d.update x n) = NatOption.some n</code>",
+ "748": "<code>x.beq y = false</code>",
  "747":
  "<code>Lists.PartialMap.find (x : MyId) (d : PartialMap) : NatOption</code>",
  "746":
