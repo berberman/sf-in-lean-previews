@@ -436,48 +436,11 @@
     },
     "368": {
       "base_sha": "afa1f53bbd680732406fbe33439905441bc206a7",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "6e957f0e2004241c7c167d3715f8834afb7e9e43",
+      "changed_variants": [],
+      "head_sha": "83a9827d869291fea944fc185f2cc16b7bc66613",
       "preview_path": "pr/368/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33799756552",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Lists: Some fixups following lecture",
       "url": "https://github.com/plclub/sf-in-lean/pull/368"
     }
