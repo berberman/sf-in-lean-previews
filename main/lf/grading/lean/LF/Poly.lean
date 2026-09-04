@@ -41,12 +41,13 @@ inductive MyList (α : Type) : Type where
   | nil : MyList α
   | cons (x : α) (l : MyList α) : MyList α
 
---  This is exactly like the definition of `Natlist` from the previous
---  chapter, except that the `Nat` argument to the `cons` constructor has
---  been replaced by an arbitrary type `α`, a type parameter `α` has been
---  added to the header on the first line, and the occurrences of `Natlist`
---  in the types of the constructors have been replaced by `MyList α`. We
---  can now write `MyList Nat` instead of a dedicated nat-list type.
+--  This is exactly like the definition of `Natlist` from the Lists
+--  chapter, except that a type parameter `α` has been added to the header
+--  on the first line, the `Nat` argument to the `cons` constructor has
+--  been replaced by this arbitrary type `α`, and the occurrences of
+--  `Natlist` in the types of the constructors have been replaced by
+--  `MyList α`. We can now write `MyList Nat` instead of a dedicated
+--  `NatList` type.
 --
 --  What sort of thing is `MyList` itself? A good way to think about it is
 --  as a *type constructor* — that is, a function from `Type`s to `Type`s.
@@ -75,9 +76,13 @@ inductive MyList (α : Type) : Type where
 --  Output:
 --    MyList.nil {α : Type} : MyList α
 
---  Similarly, `MyList.cons` adds an element of type `Nat` to a list of
---  type `MyList Nat`. Here is an example of forming a list containing just
---  the natural number `3`.
+--  Notice the use of curly braces in `{α : Type}`, rather than normal
+--  parentheses (as in `(α : Type)`); this is Lean telling us that `α` is
+--  an implicit parameter.
+--
+--  The `MyList.cons` constructor also adds an element of type `Nat` to a
+--  list of type `MyList Nat`. Here is an example of forming a list
+--  containing just the natural number `3`.
 
 #check MyList.cons 3 MyList.nil
 
@@ -86,16 +91,17 @@ inductive MyList (α : Type) : Type where
 
 --  What is the full type of `MyList.nil`? We can read off the result type
 --  `MyList α` from the definition, but to state the full type we must also
---  bind `α`. Since the type argument to the constructor is implicit, Lean
---  writes its type as (the equivalent of) `{α : Type} → MyList α`.
+--  bind `α`. Since the type argument to the constructor is implicit, it is
+--  presented with curly braces.
 
 #check MyList.nil
 
 --  Output:
 --    MyList.nil {α : Type} : MyList α
 
---  Similarly, the type of `MyList.cons` includes the implicit type
---  parameter:
+--  Recall that this type is equivalent to `{α : Type} → MyList α`.
+--
+--  The type of `MyList.cons` also includes an implicit type parameter:
 
 #check MyList.cons
 
@@ -103,8 +109,9 @@ inductive MyList (α : Type) : Type where
 --    MyList.cons {α : Type} (x : α) (l : MyList α) : MyList α
 
 --  Having to supply a type argument for every single use of a list
---  constructor would be rather burdensome. Fortunately, the type argument
---  is implicit, so Lean will normally infer it from context.
+--  constructor would be rather burdensome. Fortunately, when a type
+--  argument is implicit, Lean will try to automatically infer it from
+--  context.
 --
 --  We can now go back and make polymorphic versions of all the
 --  list-processing functions that we wrote before. Here is `replicate`,
@@ -117,11 +124,11 @@ def replicate (α : Type) (x : α) (count : Nat) : MyList α :=
 
 --  Some simple facts about `replicate`:
 
-theorem replicate_zero (α : Type) (v : α) :
-    replicate α v 0 = MyList.nil := rfl
+theorem replicate_zero (α : Type) (a : α) :
+    replicate α a 0 = MyList.nil := rfl
 
-theorem replicate_succ (α : Type) (v : α) (count : Nat) :
-    replicate α v (count + 1) = MyList.cons v (replicate α v count) := rfl
+theorem replicate_succ (α : Type) (a : α) (count : Nat) :
+    replicate α a (count + 1) = MyList.cons a (replicate α a count) := rfl
 
 --  We can use `replicate` by applying it first to a type and then to an
 --  element of this type (and a number):
@@ -180,55 +187,27 @@ example : replicate Bool false 1 = .cons false .nil := by rfl
 --   ----------------------------------------
 
 --  From now on, we'll use Lean's built-in `List` type and its associated
---  notation. The built-in `List` is defined just like our `MyList` above,
---  but with notation `[]` for `List.nil`, `::` for `List.cons`, and
---  `[1, 2, 3]` for list literals. The `++` operator is list append. The
---  type arguments to the list constructors are implicit.
+--  notation.
+--
+--  The built-in `List` is defined just like our `MyList` above, but with
+--  notation `[]` for `List.nil`, `::` for `List.cons`, and `[1, 2, 3]` for
+--  list literals. The `++` operator is list append. The type arguments to
+--  the list constructors are implicit.
 
 --  Using Lean's built-in list notations, we can now write lists in the
 --  natural way:
 
 example : List Nat := [1, 2, 3]
 
---  #### Type Annotation Inference
+--  #### Implicit Type Arguments and Argument Synthesis
 
---  Let's write the definition of `replicate` again, but this time we won't
---  specify the type of the parameter `α`. Will Lean still accept it?
-
-def replicate' α (x : α) (count : Nat) : List α :=
-  match count with
-  | 0 => .nil
-  | count' + 1 => .cons x (replicate' α x count')
-
---  Indeed it will. Lean infers that `α` is a type.
-
-#check replicate'
-
---  Output:
---    replicate'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
-
---  The generated `u_1` is part of Lean's bookkeeping for treating types
---  more generally. We will not need to interpret names like this for now —
---  you can ignore them when they appear in Lean's output unless we
---  explicitly call attention to them.
-
---  Lean was able to use *type inference* to deduce what the type of `α`
---  must be, based on how it is used. Since `α` is an argument to `List`,
---  it must be a `Type`, since `List` expects a `Type` as its argument.
---
---  This facility means we don't always have to write explicit type
---  annotations everywhere, although explicit type annotations can still be
---  quite useful as documentation, so we will continue to use them much of
---  the time.
-
---  #### Type Argument Synthesis
-
---  To use a polymorphic function, we need to pass it one or more types in
---  addition to its other arguments. For example, the recursive call in the
---  body of the `replicate` function above must pass along the type `α`.
---  But since the second argument to `replicate` is an element of `α`, it
---  seems entirely obvious that the first argument can only be `α` — why
---  should we have to write it explicitly?
+--  In our `replicate` function above we wrote the type parameter
+--  `(α : Type)` explicitly, with normal parentheses. Doing so means that
+--  we need to pass in type argument explicitly, in addition to its other
+--  arguments. We see this in its own recursive call, which must pass along
+--  the type `α`. But since the second argument to `replicate` is an
+--  element of `α`, it seems entirely obvious that the first argument can
+--  only be `α` — why should we have to write it explicitly?
 --
 --  Fortunately, Lean permits us to avoid this kind of redundancy. In place
 --  of any type argument we can write a "hole" `_`, which can be read as
@@ -239,41 +218,46 @@ def replicate' α (x : α) (count : Nat) : List α :=
 --  in which the application appears — to determine what concrete type
 --  should replace the `_`.
 --
---  Using holes, the `replicate'` function can be rewritten like this:
+--  Using holes, the `replicate` function can be rewritten like this:
 
-def replicate'' (α : Type) (x : α) (count : Nat) : List α :=
+def replicate' (α : Type) (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: replicate'' _ x count'
+  | count' + 1 => x :: replicate' _ x count'
 
---  Alternatively, we can declare an argument to be implicit when defining
---  the function itself, by surrounding it in curly braces instead of
---  parentheses. For example:
+--  Alternatively, and more typically for Lean, we can declare an argument
+--  to be implicit when defining the function itself, by surrounding it in
+--  curly braces instead of parentheses.
 
-def replicate''' {α : Type} (x : α) (count : Nat) : List α :=
+def replicate'' {α : Type} (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: replicate''' x count'
+  | count' + 1 => x :: replicate'' x count'
 
---  By making the type argument implicit, we no longer need to provide it
---  to the recursive call to `replicate'''`. Indeed, it would be invalid to
---  provide one, because Lean is not expecting it. For each implicit
---  parameter, Lean automatically inserts a hidden hole `_` argument for
---  us, which is then inferred as usual.
+--  By making the type argument implicit, we no longer need to provide `α`
+--  to the recursive call to `replicate''`. For each implicit parameter,
+--  Lean automatically inserts a hidden hole `_` argument for us, which is
+--  then inferred as usual.
 
 --  #### Supplying Type Arguments Explicitly
 
 --  One small problem with implicit arguments is that, once in a while,
 --  Lean does not have enough local information to determine a type
 --  argument; in such cases, we need to tell Lean the type explicitly. For
---  example:
+--  example, the following definition fails because Lean can't figure out
+--  the type of the empty list:
 
---  This fails because Lean can't figure out the type of the empty list:
---  `def mynil := []` — error: type not known We can fix this with an
---  explicit type annotation:
+sf_expect_failure_in
+  def mynil := []
+
+--  Output:
+--    Failed to infer type of definition `mynil`
+
+--  We can fix this with an explicit type annotation.
 --
---  We can use the `@` prefix to supply the type argument explicitly. The
---  `@` makes all implicit arguments of a function explicit:
+--  We use the `@` prefix when we want to supply the type argument
+--  explicitly. The `@` makes all implicit arguments of a function
+--  explicit:
 
 #check @List.nil
 
@@ -445,8 +429,8 @@ theorem rev_cons {α : Type} {x : α} {l : List α} :
 
 --  Here are a few simple exercises, just like ones in the Lists chapter,
 --  for practice with polymorphism. Complete the proofs below. You will
---  likely find useful the following characterizing lemmas for
---  `List.append` in Lean standard library:
+--  find the following characterizing lemmas for `List.append` in Lean
+--  standard library to be useful:
 
 #check List.nil_append
 #check List.cons_append
@@ -546,9 +530,7 @@ def zip {α β : Type} (l₁ : List α) (l₂ : List β) : List (α × β) :=
   | x :: l₁', y :: l₂' => (x, y) :: zip l₁' l₂'
 
 theorem zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = ([] : List (α × β)) := by
-  cases l₁ with
-  | nil => rfl
-  | cons h t => rfl
+  cases l₁ <;> rfl
 
 theorem zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = ([] : List (α × β)) := by
   cases l₂ <;> rfl
@@ -652,6 +634,12 @@ def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
     | 0 => some x
     | n' + 1 => nth? l' n'
 
+theorem nth?_nil {α : Type} {n : Nat} : nth? ([] : List α) n = none := by rfl
+
+theorem nth?_cons_zero {α : Type} {x : α} {l' : List α} : nth? (x :: l') 0 = some x := by rfl
+
+theorem nth?_cons_succ {α : Type} {x : α} {l' : List α} {n : Nat} : nth? (x :: l') (n + 1) = nth? l' n := by rfl
+
 example : nth? [4, 5, 6, 7] 0 = some 4 := by rfl
 example : nth? [[1], [2]] 1 = some [2] := by rfl
 example : nth? [true] 2 = none := by rfl
@@ -680,10 +668,10 @@ attribute [autogradedProof 0.5] test_head?1 test_head?2
 --  ## Functions as Data
 
 --  Like most modern programming languages — especially other "functional"
---  languages, including OCaml, Haskell, Racket, Scala, Clojure, etc. —
---  Lean treats functions as first-class citizens, allowing them to be
---  passed as arguments to other functions, returned as results, stored in
---  data structures, etc.
+--  languages, including OCaml, Haskell, Racket, Scala, and Clojure, among
+--  others — Lean treats functions as first-class citizens, allowing them
+--  to be passed as arguments to other functions, returned as results,
+--  stored in data structures, etc.
 
 --  ### Higher-Order Functions
 
@@ -733,7 +721,8 @@ example : filter isLength1
     [[1, 2], [3], [4], [5, 6, 7], [], [8]]
   = [[3], [4], [8]] := by rfl
 
-theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by rfl
+theorem filter_nil {α : Type} {test : α → Bool} :
+  filter test [] = [] := by rfl
 
 theorem filter_cons_of_pos {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = true) :
@@ -746,22 +735,25 @@ theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
    rw [filter, h, cond_false]
 
 --  You might have noticed that `filter_cons_of_pos` and
---  `filter_cons_of_neg` have implicit parameters, such as `head` and
---  `tail`, that do not have type `Type` like `α` does. As it turns out,
---  Lean allows *any* parameter to be implicit, not just those of type
---  `Type`. This is a standard Lean convention for lemmas that are likely
---  to be used by `rw` when their values can be inferred by unification.
+--  `filter_cons_of_neg` have implicit parameters, such as `x` and `l`,
+--  that do not have type `Type` like `α` does. As it turns out, Lean
+--  allows *any* parameter to be implicit, not just those of type `Type`.
+--  This is a standard Lean convention for lemmas that are likely to be
+--  used by `rw` when their values can be inferred from the context.
 --
---  For example, suppose you were using this theorem to rewrite
---  `filter Nat.even (3 :: rest)`. Matching that expression against the
---  theorem's left-hand side `filter test (head :: tail)` establishes that
---  `test = Nat.even`, `head = 3`, `tail = rest`, and `α = Nat`. By making
---  these arguments implicit, Lean automatically inserts a hole `_` for
---  each of them when you apply the theorem, just as with implicit
+--  For example, suppose you were using theorem `filter_cons_of_pos` to
+--  rewrite `filter Nat.even (3 :: rest)`. Matching the latter expression
+--  against the theorem's left-hand side `filter test (x :: l)` establishes
+--  that `test = Nat.even`, `x = 3`, `l = rest`, and `α = Nat`. If
+--  arguments `α`, `test`, `x`, and `l` were *not* implicit, you'd have to
+--  write `rewrite [filter_cons_of_pos Nat Nat.even 3 rest]` in your proof.
+--  Since the arguments are implicit, Lean automatically inserts a hole `_`
+--  for each of them when you apply the theorem, just as with implicit
 --  parameters of type `Type`, so they can be inferred from the context.
+--  Thus you can write `rewrite [filter_cons_of_pos]` instead.
 --
---  Note that `h : test head` is not implicit, it's explicit. That's
---  because it cannot be solved by unification, i.e., Lean can't prove that
+--  Note that `h : test x` is not implicit, it's explicit. That's because
+--  it cannot be solved by unification, i.e., Lean can't prove that
 --  `Nat.even 3 = true` that way. It's a general proof obligation.
 --
 --  We'll follow the Lean standard convention from now on.
@@ -1400,4 +1392,4 @@ attribute [autogradedProof 1] Church.exp_1 Church.exp_3 Church.exp_2
 
 end Church
 
--- Built on 2026-09-01 15:23 UTC
+-- Built on 2026-09-04 04:54 UTC

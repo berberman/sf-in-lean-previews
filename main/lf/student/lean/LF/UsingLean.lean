@@ -204,7 +204,7 @@ example (n m k : Nat) : n + (m + k) = m + (n + k) := by
 --  can replace the left-hand side entirely with an `_`. Now our Lean proof
 --  looks quite a bit like the textbook one we saw earlier!
 
---  ### Exercise (1 star): succ_mul_succ ⭐
+--  ### Exercise (1 star): succ_mul_succ (Manually graded) ⭐
 
 --  Consider this proof, which uses `rw`.
 
@@ -501,4 +501,4 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 --  With these tools in hand, we can begin to prove properties about more
 --  sophisticated forms of data, beginning with `Lists`.
 
--- Built on 2026-09-01 15:22 UTC
+-- Built on 2026-09-04 04:53 UTC

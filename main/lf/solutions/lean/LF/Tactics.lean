@@ -730,13 +730,13 @@ example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
 --  lemma, following the model of the examples above. Do not use
 --  `induction`.
 
-theorem nth?_always_none (l : List Nat) (h : ∀ i, nth? l i = none) :
+theorem nth?_always_none {l : List α} (h : ∀ i, nth? l i = none) :
     l = [] := by
   cases l with
   | nil => rfl
   | cons x xs =>
     have h := h 0
-    rw [nth?] at h
+    rw [nth?_cons_zero] at h
     contradiction
 
 --  Tactics like `have` and `replace` can also be used with lemmas and
@@ -981,7 +981,7 @@ theorem add_self_injective (n m : Nat)
       rw [Nat.add_comm, Nat.add_comm (m' + 1)] at h
       injections h
 
---  ### Exercise (2 stars): add_self_injective_informal ⭐⭐
+--  ### Exercise (2 stars): add_self_injective_informal (Manually graded) ⭐⭐
 
 --  Give a careful informal proof of `add_self_injective`, stating the
 --  induction hypothesis explicitly and being as explicit as possible about
@@ -1055,8 +1055,7 @@ theorem nth?_after_last {α : Type}
   | nil => rfl
   | cons x xs ih =>
     rw [List.length_cons] at h
-    rw [← h]
-    rw [nth?]
+    rw [← h, nth?_cons_succ]
     apply ih
     rfl
 
@@ -1094,6 +1093,36 @@ theorem length_append_self {α : Type} {n : Nat} {l : List α}
     rw [← length_append_cons rfl]
     rw [ih rfl, ← h]
     rw [Nat.add_add_add_comm]
+
+--  ### Exercise (3 stars): list_ext ⭐⭐⭐
+
+--  Prove the *extensionality principle* for lists. `nth?_always_none`
+--  should be useful.
+
+theorem list_ext {l₁ l₂ : List α} (h : ∀ n, nth? l₁ n = nth? l₂ n) : l₁ = l₂ := by
+  induction l₂ generalizing l₁ with
+  | nil =>
+    apply nth?_always_none
+    intro n
+    rw [h, nth?_nil]
+  | cons x l₂' ih =>
+    cases l₁ with
+    | nil =>
+      rw [nth?_always_none (l := x :: l₂')]
+      intro n
+      specialize h n
+      rw [nth?_nil] at h
+      rw [h]
+    | cons y l₁' =>
+      have hyx := h 0
+      rw [nth?_cons_zero, nth?_cons_zero] at hyx
+      injection hyx with hyx
+      subst hyx
+      have h' (n) : nth? l₁' n = nth? l₂' n := by
+        specialize h (n + 1)
+        rw [nth?_cons_succ, nth?_cons_succ] at h
+        exact h
+      rw [ih h']
 
 --  ### Exercise (3 stars): diagonal_induction (Optional) ⭐⭐⭐
 
@@ -1526,4 +1555,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Built on 2026-09-01 15:23 UTC
+-- Built on 2026-09-04 04:54 UTC

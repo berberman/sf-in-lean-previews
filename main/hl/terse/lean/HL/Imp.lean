@@ -832,7 +832,7 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
       simp [Aexp.eval_plus, Aexp.eval_id, Aexp.eval_num, TotalMap.update_eq] at h ⊢
       lia
 
---  ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): XtimesYinZ_spec (Optional, Manually graded) ⭐⭐⭐
 
 --  State and prove a specification of `XtimesYinZ`.
 
@@ -1278,4 +1278,4 @@ end Imp.Break
 --  making up a concrete Notation for `for` loops, but feel
 --  free to play with this too if you like.)
 
--- Built on 2026-09-01 15:24 UTC
+-- Built on 2026-09-04 04:55 UTC

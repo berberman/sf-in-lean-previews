@@ -556,6 +556,8 @@ theorem Monoid.id_unique_left {α : Type} [Monoid α] (x : α)
     (hₗ : ∀ y, x ⊗ y = y) : x = id := by
   sorry
 
+attribute [autogradedProof 1] Algebra.Monoid.id_unique_left
+
 --  ### Exercise (2 stars): InverseInverse ⭐⭐
 
 --  The inverse of the inverse of an element is itself; we prove this using
@@ -567,6 +569,8 @@ theorem inv_inv' {α : Type} {g : Group α} (x y z : α)
 
 theorem inv_inv {α : Type} {g : Group α} (x : α) : g.inv (g.inv x) = x := by
   sorry
+
+attribute [autogradedProof 1] Algebra.inv_inv' Algebra.inv_inv
 
 end Algebra
 
@@ -1628,4 +1632,4 @@ example {α : Type} (x : α) [BEq α] [LawfulBEq α] (xs : List α)
 
 end Reflection
 
--- Built on 2026-09-01 15:23 UTC
+-- Built on 2026-09-04 04:54 UTC

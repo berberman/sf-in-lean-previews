@@ -1,4 +1,5 @@
 import TS.Slang
+import TS.AttributeDecls
 
 import SFLCompat
 
@@ -643,7 +644,7 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 --  lemmas from above, plus some basic properties of `⟶*`
 --  (that it is reflexive, transitive, and includes `⟶`).
 
---  ### Exercise (3 stars): multistep_of_eval_inf (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): multistep_of_eval_inf (Optional, Manually graded) ⭐⭐⭐
 
 --  Write a detailed informal version of the proof of
 --  `multistep_of_eval`. (A paper exercise — there is no
@@ -973,4 +974,81 @@ theorem compiler_is_correct (a : Aexp) :
 
 end Slang
 
--- Built on 2026-09-01 15:25 UTC
+--  ### Automation with `solve_by_elim`
+
+--  Proofs that one expression multisteps to another can be
+--  tedious...
+
+example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
+  apply Multi.step (y := .p (.c 3) (.c 7))
+  · apply Step.plusRight
+    · apply IsValue.const
+    · apply Step.plus
+  · apply Multi.step (y := .c 10)
+    · apply Step.plus
+    · apply Multi.refl
+
+--  We can automate such tedious proofs with
+--  `solve_by_elim`:
+
+example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
+  repeat apply Multi.step <;>
+    try solve_by_elim [Step.plusRight, Step.plusLeft, Step.plus, IsValue.const]
+
+--  This one script would suffice to prove most concrete
+--  reduction sequences for this simple language. To make it
+--  work for others, we would need to supply constructors
+--  for those other languages to `solve_by_elim`. The
+--  languages we will study in this book can grow to a large
+--  number of constructors for their `Step` relations, so
+--  we'd like a way to supply all of them to `solve_by_elim`
+--  more easily. Luckily, Lean supports this. We can
+--  register a constructor (or lemma) for use with
+--  `solve_by_elim` with an `attribute` command:
+
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Attributes)
+--  The command below tags all of these constructors with
+--  the `SimpleArith` attribute, which we can then use to
+--  automatically pull all of these constructors in when we
+--  use `solve_by_elim`. However, due to a limitation of
+--  Lean, this attribute needs to be pre-declared in a
+--  different file; we can't create it here and then
+--  immediately use it.
+--
+--  For this book, we've predeclared all the attributes
+--  we'll use in a file called `AttributeDecls.lean`,
+--  following the typical pattern from libraries like
+--  Mathlib.
+--  END DETAILS
+
+attribute [SimpleArith] Step.plusRight Step.plusLeft Step.plus IsValue.const
+
+--  This `using` option then tells `solve_by_elim` to try to
+--  use every constructor we've registered with the supplied
+--  attribute:
+
+example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
+  repeat apply Multi.step <;>
+    try solve_by_elim using SimpleArith
+
+--  We can package all this up into a dedicated tactic for
+--  solving reduction sequences, which we'll call
+--  `normalize`:
+
+syntax "normalize" " using " ident,+ : tactic
+
+macro_rules
+  | `(tactic| normalize using $xs,*) =>
+    `(tactic|
+      first
+      | apply Multi.refl
+      | (apply Multi.step
+         · solve_by_elim (maxDepth := 15) (constructor := false) only using $xs,*
+         · normalize using $xs,*))
+
+--  And voilà:
+
+example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
+  normalize using SimpleArith
+
+-- Built on 2026-09-04 04:56 UTC

@@ -693,7 +693,7 @@ example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
 --  lemma, following the model of the examples above. Do not use
 --  `induction`.
 
-theorem nth?_always_none (l : List Nat) (h : ∀ i, nth? l i = none) :
+theorem nth?_always_none {l : List α} (h : ∀ i, nth? l i = none) :
     l = [] := by
   sorry
 
@@ -925,7 +925,7 @@ theorem add_self_injective (n m : Nat)
     n = m := by
   sorry
 
---  ### Exercise (2 stars): add_self_injective_informal ⭐⭐
+--  ### Exercise (2 stars): add_self_injective_informal (Manually graded) ⭐⭐
 
 --  Give a careful informal proof of `add_self_injective`, stating the
 --  induction hypothesis explicitly and being as explicit as possible about
@@ -1001,6 +1001,14 @@ theorem length_append_self {α : Type} {n : Nat} {l : List α}
     rw [← length_append_cons rfl]
     rw [ih rfl, ← h]
     rw [Nat.add_add_add_comm]
+
+--  ### Exercise (3 stars): list_ext ⭐⭐⭐
+
+--  Prove the *extensionality principle* for lists. `nth?_always_none`
+--  should be useful.
+
+theorem list_ext {l₁ l₂ : List α} (h : ∀ n, nth? l₁ n = nth? l₂ n) : l₁ = l₂ := by
+  sorry
 
 --  ### Exercise (3 stars): diagonal_induction (Optional) ⭐⭐⭐
 
@@ -1309,4 +1317,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     anyTrue test l = anyTrue' test l := by
   sorry
 
--- Built on 2026-09-01 15:22 UTC
+-- Built on 2026-09-04 04:53 UTC

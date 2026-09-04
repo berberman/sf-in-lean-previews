@@ -4,5 +4,6 @@ import TS.Smallstep
 import TS.Types
 import TS.Stlc
 import TS.StlcProp
+import TS.MoreStlc
 
--- Built on 2026-09-01 15:25 UTC
+-- Built on 2026-09-04 04:55 UTC

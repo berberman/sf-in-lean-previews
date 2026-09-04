@@ -290,7 +290,7 @@ def Tm.IsStuck (t : Tm) : Prop := Tm.IsNormalForm t ∧ ¬ Tm.IsValue t
 --  ### Exercise (2 stars): some_term_is_stuck ⭐⭐
 
 theorem some_term_is_stuck : ∃ t, Tm.IsStuck t := by
-  refine ⟨<{ succ false }>, ?_, ?_⟩
+  exists <{ succ false }>; constructor
   · intro hc; obtain ⟨t', hstp⟩ := hc
     cases hstp with
     | succStep _ _ h => cases h
@@ -780,7 +780,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ �
 
 --   ----------------------------------------
 
---  ### Exercise (3 stars): finish_progress_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_progress_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the corresponding informal proof.
 
@@ -932,7 +932,7 @@ theorem preservation (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t
       | isZeroSucc v hv => exact .fls
       | isZeroStep _ t1' hs => exact .isZero t1' (ih t1' hs)
 
---  ### Exercise (3 stars): finish_preservation_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_preservation_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the following informal proof.
 --
@@ -1262,4 +1262,4 @@ end TM
 --      throughout (and maybe in Smallstep and Imp?)... `dev` block headers
 --      too, if we want to be really consistent.
 
--- Built on 2026-09-01 15:25 UTC
+-- Built on 2026-09-04 04:56 UTC

@@ -624,7 +624,7 @@ theorem add_self_injective (n m : Nat)
     n = m := by
   sorry
 
---  ### Exercise (2 stars): add_self_injective_informal ⭐⭐
+--  ### Exercise (2 stars): add_self_injective_informal (Manually graded) ⭐⭐
 
 --  Give a careful informal proof of `add_self_injective`,
 --  stating the induction hypothesis explicitly and being as
@@ -674,6 +674,14 @@ theorem length_append_self {α : Type} {n : Nat} {l : List α}
     rw [← length_append_cons rfl]
     rw [ih rfl, ← h]
     rw [Nat.add_add_add_comm]
+
+--  ### Exercise (3 stars): list_ext ⭐⭐⭐
+
+--  Prove the *extensionality principle* for lists.
+--  `nth?_always_none` should be useful.
+
+theorem list_ext {l₁ l₂ : List α} (h : ∀ n, nth? l₁ n = nth? l₂ n) : l₁ = l₂ := by
+  sorry
 
 --  ### Exercise (3 stars): diagonal_induction (Optional) ⭐⭐⭐
 
@@ -745,4 +753,4 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
   · rw [hTest] at h
     injections
 
--- Built on 2026-09-01 15:23 UTC
+-- Built on 2026-09-04 04:54 UTC

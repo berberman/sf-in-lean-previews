@@ -1734,7 +1734,7 @@ attribute [autogradedProof 2] R.empty_relation_is_empty
 
 --  ## Additional Exercises
 
---  ### Exercise (3 stars): nostutter_defn ⭐⭐⭐
+--  ### Exercise (3 stars): nostutter_defn (Manually graded) ⭐⭐⭐
 
 --  Formulating inductive definitions of properties is an important skill
 --  you'll need in this course. Try to solve this exercise without any
@@ -1930,7 +1930,7 @@ attribute [autogradedProof 3] R.pal_reverse
 
 --  FILL IN HERE
 
---  ### Exercise (4 stars): NoDup (Advanced, Optional) ⭐⭐⭐⭐
+--  ### Exercise (4 stars): NoDup (Advanced, Optional, Manually graded) ⭐⭐⭐⭐
 
 --  Use the `∈` property to define a proposition `Disjoint l₁ l₂`, which
 --  should be provable exactly when `l₁` and `l₂` are lists (with elements
@@ -2451,4 +2451,4 @@ attribute [autogradedProof 6] R.pigeonhole_principle
 --
 --  End Pigeon.
 
--- Built on 2026-09-01 15:23 UTC
+-- Built on 2026-09-04 04:54 UTC

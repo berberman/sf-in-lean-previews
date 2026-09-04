@@ -869,7 +869,7 @@ sf_expect_failure_in
 --  Output:
 --    !true : Bool
 
---  ### Exercise (1 star): custom_namespace_checks ⭐
+--  ### Exercise (1 star): custom_namespace_checks (Manually graded) ⭐
 
 --  Predict the output of each of the statements below. Would their results
 --  change depending on which namespace the statements appear in? How?
@@ -2180,4 +2180,4 @@ attribute [autogradedProof 1] NatPlayground.Airport.inspectBag_changeBag_comm_no
 end Airport
 end NatPlayground
 
--- Built on 2026-09-01 15:23 UTC
+-- Built on 2026-09-04 04:54 UTC
