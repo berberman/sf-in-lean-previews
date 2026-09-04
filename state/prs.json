@@ -339,6 +339,16 @@
       "status": "published",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
+    },
+    "369": {
+      "base_sha": "118510cdb566aca848ac2984be6ef51c241a2447",
+      "changed_variants": [],
+      "head_sha": "bde219950a033d9e2b844712adf6860270a1c722",
+      "preview_path": "pr/369/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Speed up CI by staging building and grading",
+      "url": "https://github.com/plclub/sf-in-lean/pull/369"
     }
   },
   "schema": 3
