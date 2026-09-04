@@ -220,43 +220,25 @@ theorem progress' (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --  context `Γ`. (Recall map inclusion, `Γ ⊆ Γ'`, from the `Typeclasses`
 --  chapter.)
 
-theorem weakening {Γ Γ' : Context} {t : Tm} {τ : Ty}
-    (hi : Γ ⊆ Γ') (ht : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
-  induction ht generalizing Γ' with
-  | var =>
-      constructor; apply hi; assumption
-  | abs _ _ _ _ _ _ ih =>
-      constructor; apply ih; apply PartialMap.update_subset; assumption
-  | app _ _ _ _ _ _ _ ih₁ ih₂ =>
-      constructor
-      . exact ih₁ hi
-      . exact ih₂ hi
-  | tru => constructor
-  | fls => constructor
-  | ite _ _ _ _ _ _ _ _ ih₁ ih₂ ih₃ =>
-      constructor
-      . exact ih₁ hi
-      . exact ih₂ hi
-      . exact ih₃ hi
-
---  Through judicious use of `apply_rules`, we can heavily automate this
---  proof. The tactic after `with` is applied to every case of the
---  `induction` and handles all the cases using `apply_rules`'s automation.
---  We must give the tactic access to all the `HasType` constructors and
---  the `PartialMap.update_subset` lemma for this to work:
-
-theorem weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty}
-    (hi : Γ ⊆ Γ') (ht : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
-  induction ht generalizing Γ' with (apply_rules [PartialMap.update_subset] using StlcTyping)
+-- IN PROGRESS
+theorem weakening (Γ Γ' : Context) (t : Tm) (T : Ty)
+    (hi : Γ ⊆ Γ') (hT : <{ ~Γ ⊢ ~t ⦂ ~T }>) : <{ ~Γ' ⊢ ~t ⦂ ~T }> := by
+  induction hT generalizing Γ' with
+  | var _ x _ h => exact .var _ x _ (hi h)
+  | abs _ x _ _ _ _ ih => exact .abs _ x _ _ _ (ih _ (PartialMap.update_subset _ _ _ _ hi))
+  | app _ _ _ _ _ _ _ ih₁ ih₂ => exact .app _ _ _ _ _ (ih₁ _ hi) (ih₂ _ hi)
+  | tru => exact .tru _
+  | fls => exact .fls _
+  | ite _ _ _ _ _ _ _ _ ih₁ ih₂ ih₃ => exact .ite _ _ _ _ _ (ih₁ _ hi) (ih₂ _ hi) (ih₃ _ hi)
 
 --  The following simple corollary is what we actually need below.
 
-theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
-    <{ ~Γ ⊢ ~t ⦂ ~τ }> := by
-  apply weakening _ ht
-  intro _ _ h
-  rw [PartialMap.getElem_empty] at h
-  contradiction
+theorem weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
+    <{ ~Γ ⊢ ~t ⦂ ~T }> :=
+  weakening _ _ _ _
+    (fun h => by
+      rw [PartialMap.getElem_empty] at h
+      cases h) hT
 
 --  ### The Substitution Lemma
 
@@ -288,7 +270,7 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
         rw [subst_var_eq]
         have hUT : U = T := Option.some.inj h
         subst hUT
-        exact weakening_empty hv
+        exact weakening_empty _ _ _ hv
       · rw [PartialMap.update_neq hxy] at h
         rw [subst_var_ne _ _ _ hxy]
         exact .var _ y _ h
@@ -387,7 +369,7 @@ theorem substitution_preserves_typing_from_typing_ind (Γ : Context) (x : String
       rw [subst_var_eq]
       have hUT : U = T₁ := Option.some.inj h
       subst hUT
-      exact weakening_empty hv
+      exact weakening_empty _ _ _ hv
     · rw [PartialMap.update_neq hxy] at h
       rw [subst_var_ne _ _ _ hxy]
       exact .var _ y _ h
@@ -603,7 +585,7 @@ def Tm.Closed (t : Tm) : Prop := ∀ x, ¬ x ∈ᶠ t
 --  open ones. "Open" precisely means "possibly containing free
 --  variables.")
 
---  ### Exercise (1 star): afi (Manually graded) ⭐
+--  ### Exercise (1 star): afi ⭐
 
 --  (Officially optional, but strongly recommended!) In the space below,
 --  write out the rules of the `∈ᶠ` relation in informal inference-rule
@@ -757,7 +739,7 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 
 --  ## Additional Exercises
 
---  ### Exercise (1 star): progress_preservation_statement (Manually graded) ⭐
+--  ### Exercise (1 star): progress_preservation_statement ⭐
 
 --  (Officially optional, but strongly recommended!) Without peeking at
 --  their statements above, write down the progress and preservation
@@ -1714,4 +1696,4 @@ end StlcArith
 --      the grader can tell them apart from this chapter's own `progress`
 --      and `preservation`.
 
--- Built on 2026-09-03 20:06 UTC
+-- Built on 2026-09-01 15:25 UTC

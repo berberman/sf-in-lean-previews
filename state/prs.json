@@ -1,5 +1,5 @@
 {
-  "main_sha": "afa1f53bbd680732406fbe33439905441bc206a7",
+  "main_sha": "7963434b2e0af28dcf17cd3ba33c295a27d30829",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -339,53 +339,6 @@
       "status": "published",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
-    },
-    "368": {
-      "base_sha": "afa1f53bbd680732406fbe33439905441bc206a7",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "caab85d4f157c1f9747862563879d226e151c9c9",
-      "preview_path": "pr/368/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33835655878",
-      "status": "published",
-      "title": "Lists: Some fixups following lecture",
-      "url": "https://github.com/plclub/sf-in-lean/pull/368"
     }
   },
   "schema": 3

@@ -925,7 +925,7 @@ theorem add_self_injective (n m : Nat)
     n = m := by
   sorry
 
---  ### Exercise (2 stars): add_self_injective_informal (Manually graded) ⭐⭐
+--  ### Exercise (2 stars): add_self_injective_informal ⭐⭐
 
 --  Give a careful informal proof of `add_self_injective`, stating the
 --  induction hypothesis explicitly and being as explicit as possible about
@@ -1309,4 +1309,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     anyTrue test l = anyTrue' test l := by
   sorry
 
--- Built on 2026-09-03 20:04 UTC
+-- Built on 2026-09-01 15:22 UTC

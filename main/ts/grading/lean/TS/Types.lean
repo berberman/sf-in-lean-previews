@@ -670,7 +670,7 @@ attribute [autogradedProof 3] TM.progress
 
 --   ----------------------------------------
 
---  ### Exercise (3 stars): finish_progress_informal (Optional, Manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_progress_informal (Optional) ⭐⭐⭐
 
 --  Complete the corresponding informal proof.
 
@@ -803,7 +803,7 @@ theorem preservation (t t' : Tm) (T : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t
 
 attribute [autogradedProof 2] TM.preservation
 
---  ### Exercise (3 stars): finish_preservation_informal (Optional, Manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_preservation_informal (Optional) ⭐⭐⭐
 
 --  Complete the following informal proof.
 --
@@ -1120,4 +1120,4 @@ end TM
 --      throughout (and maybe in Smallstep and Imp?)... `dev` block headers
 --      too, if we want to be really consistent.
 
--- Built on 2026-09-03 20:06 UTC
+-- Built on 2026-09-01 15:25 UTC

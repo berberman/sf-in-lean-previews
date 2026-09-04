@@ -28,8 +28,8 @@ inductive MyList (α : Type) : Type where
 
 --  What is `MyList` itself?
 --
---  It is a *type constructor* — a function from `Type`s to
---  `Type`s.
+--  It is a *type constructor* — a function from types to
+--  types.
 
 #check (MyList)
 
@@ -70,11 +70,11 @@ def replicate (α : Type) (x : α) (count : Nat) : MyList α :=
 
 --  Some simple facts about `replicate`:
 
-theorem replicate_zero (α : Type) (a : α) :
-    replicate α a 0 = MyList.nil := rfl
+theorem replicate_zero (α : Type) (v : α) :
+    replicate α v 0 = MyList.nil := rfl
 
-theorem replicate_succ (α : Type) (a : α) (count : Nat) :
-    replicate α a (count + 1) = MyList.cons a (replicate α a count) := rfl
+theorem replicate_succ (α : Type) (v : α) (count : Nat) :
+    replicate α v (count + 1) = MyList.cons v (replicate α v count) := rfl
 
 example : replicate Nat 4 2 = .cons 4 (.cons 4 .nil) := by rfl
 
@@ -132,40 +132,62 @@ example : replicate Bool false 1 = .cons false .nil := by rfl
 
 example : List Nat := [1, 2, 3]
 
---  #### Implicit Type Arguments and Argument Synthesis
+--  #### Type Annotation Inference
+
+--  Let's write the definition of `replicate` again, but
+--  this time we won't specify the type of the parameter
+--  `α`. Will Lean still accept it?
+
+def replicate' α (x : α) (count : Nat) : List α :=
+  match count with
+  | 0 => .nil
+  | count' + 1 => .cons x (replicate' α x count')
+
+--  Indeed it will. Lean infers that `α` is a type.
+
+#check replicate'
+
+--  Output:
+--    replicate'.{u_1} (α : Type u_1) (x : α) (count : Nat) : List α
+
+--  The generated `u_1` is part of Lean's bookkeeping for
+--  treating types more generally. We will not need to
+--  interpret names like this for now — you can ignore them
+--  when they appear in Lean's output unless we explicitly
+--  call attention to them.
+
+--  Lean has used *type inference* to deduce a type for `α`.
+
+--  #### Type Argument Synthesis
 
 --  Supplying every type *argument* is also boring, but Lean
 --  can usually infer them:
 
-def replicate' (α : Type) (x : α) (count : Nat) : List α :=
+def replicate'' (α : Type) (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: replicate' _ x count'
+  | count' + 1 => x :: replicate'' _ x count'
 
 --  Alternatively, we can declare arguments implicit by
 --  surrounding them with curly braces instead of parens:
 
-def replicate'' {α : Type} (x : α) (count : Nat) : List α :=
+def replicate''' {α : Type} (x : α) (count : Nat) : List α :=
   match count with
   | 0 => []
-  | count' + 1 => x :: replicate'' x count'
+  | count' + 1 => x :: replicate''' x count'
 
 --  #### Supplying Type Arguments Explicitly
 
 --  In general, it's fine to just let Lean infer all type
 --  arguments. But occasionally this can lead to problems:
 
-sf_expect_failure_in
-  def mynil := []
-
---  Output:
---    Failed to infer type of definition `mynil`
-
---  We can fix this with an explicit type annotation.
+--  This fails because Lean can't figure out the type of the
+--  empty list: `def mynil := []` — error: type not known We
+--  can fix this with an explicit type annotation:
 --
---  We use the `@` prefix when we want to supply the type
---  argument explicitly. The `@` makes all implicit
---  arguments of a function explicit:
+--  We can use the `@` prefix to supply the type argument
+--  explicitly. The `@` makes all implicit arguments of a
+--  function explicit:
 
 #check @List.nil
 
@@ -306,9 +328,9 @@ theorem rev_cons {α : Type} {x : α} {l : List α} :
 
 --  Here are a few simple exercises, just like ones in the
 --  Lists chapter, for practice with polymorphism. Complete
---  the proofs below. You will find the following
---  characterizing lemmas for `List.append` in Lean standard
---  library to be useful:
+--  the proofs below. You will likely find useful the
+--  following characterizing lemmas for `List.append` in
+--  Lean standard library:
 
 #check List.nil_append
 #check List.cons_append
@@ -397,7 +419,9 @@ def zip {α β : Type} (l₁ : List α) (l₂ : List β) : List (α × β) :=
   | x :: l₁', y :: l₂' => (x, y) :: zip l₁' l₂'
 
 theorem zip_nil_left {α β : Type} (l₁ : List α) : zip l₁ [] = ([] : List (α × β)) := by
-  cases l₁ <;> rfl
+  cases l₁ with
+  | nil => rfl
+  | cons h t => rfl
 
 theorem zip_nil_right {α β : Type} (l₂ : List β) : zip [] l₂ = ([] : List (α × β)) := by
   cases l₂ <;> rfl
@@ -413,6 +437,32 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 --  overcome this, we destruct the list so that the `match`
 --  knows which branch to take during the computation done
 --  by the `rfl` tactic.
+
+--  ### Exercise (3 stars): unzip (Manually graded) ⭐⭐⭐
+
+--  The function `unzip` goes in the other direction from
+--  `zip`: it takes a list of pairs and returns a pair of
+--  lists.
+--
+--  Fill in the definition of `unzip` below and write
+--  simplification rules that characterize it. Make sure it
+--  that passes the given unit test. Prove `unzip_test_fst`
+--  and `unzip_test_snd` by rewriting with your
+--  simplification lemmas instead of using `rfl` directly.
+--  Remember that you can use `dsimp only` to simplify
+--  expressions accessing the `fst` or `snd` elements of a
+--  pair.
+
+def unzip {α : Type} {β : Type} (l : List (α × β)) : List α × List β := sorry
+
+theorem unzip_test1 : unzip [(1, false), (2, true)] = ([1, 2], [false, true]) := by
+  sorry
+
+theorem unzip_test_fst : (unzip [(1, false), (2, true)]).fst = [1, 2] := by
+  sorry
+
+theorem unzip_test_snd : (unzip [(1, false), (2, true)]).snd = [false, true] := by
+  sorry
 
 --  ### Polymorphic Options
 
@@ -472,8 +522,7 @@ example : filter isLength1
     [[1, 2], [3], [4], [5, 6, 7], [], [8]]
   = [[3], [4], [8]] := by rfl
 
-theorem filter_nil {α : Type} {test : α → Bool} :
-  filter test [] = [] := by rfl
+theorem filter_nil {α : Type} {test : α → Bool} : filter test [] = [] := by rfl
 
 theorem filter_cons_of_pos {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = true) :
@@ -485,10 +534,10 @@ theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
     filter test (x :: l) = filter test l := by
    rw [filter, h, cond_false]
 
---  Note that `x` and `l` are implicit too, following a
---  general convention: any argument an equation's shape
+--  Note that `head` and `tail` are implicit too, following
+--  a general convention: any argument an equation's shape
 --  determines when applied is made implicit, so using `rw`
---  lemmas requires no extra `_` arguments.
+--  and `simp` lemmas requires no extra `_` arguments.
 
 --  The `filter` function (especially when combined with
 --  some other functions we'll see later) enables a powerful
@@ -677,4 +726,4 @@ def fold_plus : List Nat → Nat → Nat :=
 --  Output:
 --    fold_plus : List Nat → Nat → Nat
 
--- Built on 2026-09-03 20:04 UTC
+-- Built on 2026-09-01 15:23 UTC

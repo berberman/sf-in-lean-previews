@@ -981,7 +981,7 @@ theorem add_self_injective (n m : Nat)
       rw [Nat.add_comm, Nat.add_comm (m' + 1)] at h
       injections h
 
---  ### Exercise (2 stars): add_self_injective_informal (Manually graded) ⭐⭐
+--  ### Exercise (2 stars): add_self_injective_informal ⭐⭐
 
 --  Give a careful informal proof of `add_self_injective`, stating the
 --  induction hypothesis explicitly and being as explicit as possible about
@@ -1526,4 +1526,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Built on 2026-09-03 20:04 UTC
+-- Built on 2026-09-01 15:23 UTC

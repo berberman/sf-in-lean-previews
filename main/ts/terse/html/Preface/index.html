@@ -1050,6 +1050,34 @@ details.sf-quiz-solution > .sf-quiz-solution-body {
   border-left: 3px solid var(--sf-rule, #ccc);
 }
 </style><style>
+details.sf-details {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.015);
+  border-radius: 2px;
+}
+details.sf-details > summary {
+  cursor: pointer;
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  color: var(--sf-heading, inherit);
+  list-style: none;
+}
+details.sf-details > summary::-webkit-details-marker { display: none; }
+details.sf-details > summary::before {
+  content: "▸ ";
+  display: inline-block;
+  width: 1em;
+  transition: transform 120ms ease-in-out;
+}
+details.sf-details[open] > summary::before {
+  content: "▾ ";
+}
+details.sf-details[open] {
+  background: rgba(0, 0, 0, 0.03);
+}
+</style><style>
 table.bnf {
   margin: 1em auto;
   border-collapse: collapse;
@@ -1078,34 +1106,6 @@ table.bnf td.bnf-note {
   font-family: inherit;
   font-style: italic;
   opacity: 0.65;
-}
-</style><style>
-details.sf-details {
-  margin: 1em 0;
-  padding: 0.4em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-  background: rgba(0, 0, 0, 0.015);
-  border-radius: 2px;
-}
-details.sf-details > summary {
-  cursor: pointer;
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  color: var(--sf-heading, inherit);
-  list-style: none;
-}
-details.sf-details > summary::-webkit-details-marker { display: none; }
-details.sf-details > summary::before {
-  content: "▸ ";
-  display: inline-block;
-  width: 1em;
-  transition: transform 120ms ease-in-out;
-}
-details.sf-details[open] > summary::before {
-  content: "▾ ";
-}
-details.sf-details[open] {
-  background: rgba(0, 0, 0, 0.03);
 }
 </style><style>
 
@@ -2177,7 +2177,7 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="current numbered"><td class="num">1.</td><td><a href="Preface/#Type-Systems--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Smallstep/#Smallstep">Smallstep: Small-step Operational Semantics</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Types/#Types">Types: Type Systems</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Stlc/#Stlc">Stlc: The Simply Typed Lambda-Calculus</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="StlcProp/#StlcProp">StlcProp: Properties of STLC</a></td></tr><tr class="numbered"><td class="num">7.</td><td><a href="MoreStlc/#MoreStlc">MoreStlc: More on the Simply Typed Lambda-Calculus</a></td></tr></table></div>
+              <table><tr class="current numbered"><td class="num">1.</td><td><a href="Preface/#Type-Systems--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Smallstep/#Smallstep">Smallstep: Small-step Operational Semantics</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Types/#Types">Types: Type Systems</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Stlc/#Stlc">Stlc: The Simply Typed Lambda-Calculus</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="StlcProp/#StlcProp">StlcProp: Properties of STLC</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
                 <label for="--verso-manual-toc-Type-Systems--Preface" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Type-Systems--Preface" checked="checked"></label><span class="number">1.</span> <span class="current"><a href="Preface/#Type-Systems--Preface">Preface</a></span></div>
@@ -2331,7 +2331,7 @@ part, by the National Science Foundation under the NSF Expeditions grant
               </section>
             </section>
           <div class="sf-build-stamp">
-            Built on 2026-09-03 20:06 UTC</div>
+            Built on 2026-09-01 15:25 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="#" rel="prev" title=" Type Systems"><span class="arrow">←</span><span class="where"> Type Systems</span></a><a class="local-button active" href="Slang/#Slang" rel="next" title="2. Slang: Arithmetic and Boolean Expressions"><span class="where">2. Slang: Arithmetic and Boolean Expressions</span><span class="arrow">→</span></a></nav>
           </div>

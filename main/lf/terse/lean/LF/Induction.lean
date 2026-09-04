@@ -30,16 +30,10 @@ namespace NatPlayground.Nat
 
 --  _Quiz:_
 
---  Recall the definition of `or`, which has notation `||`
---  and is *not* marked `@[irreducible]`:
---
---      def or (b1 : Bool) (b2 : Bool) : Bool :=
---        match b1 with
---        | true => true
---        | false => b2
---
 --  To prove the following theorem, which tactics will we
---  need besides `rfl`?
+--  need besides `rfl`? (Recall that `||` recurses on its
+--  *first* argument: `true || b = true` and
+--  `false || b = b`, by definition.)
 --
 --      theorem review₁ : (true || false) = true
 --
@@ -95,22 +89,12 @@ namespace NatPlayground.Nat
 
 --   ----------------------------------------
 
-sf_recall
-  def add (n : Nat) (m : Nat) : Nat :=
-    match m with
-    | zero => n
-    | succ m' => succ (add n m')
-
-sf_recall statement add_zero : ∀ n : Nat, n + zero = n
-
-sf_recall statement add_succ : ∀ n m : Nat, n + (succ m) = succ (n + m)
-
---   ----------------------------------------
-
 --  _Quiz:_
 
---  What about this one? Recall that our `add` function has
---  notation `+` and *is* marked `@[irreducible]`.
+--  What about this one? (Recall that our `add` function
+--  recurses on its *second* argument. Its simplification
+--  rules include `n + zero = n` and
+--  `n + (m + 1) = (n + m) + 1`.)
 --
 --      theorem review₄ (n : Nat) : n + zero = n
 --
@@ -444,4 +428,4 @@ example (b : Bool) : (b || true) = true := by
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
--- Built on 2026-09-03 20:04 UTC
+-- Built on 2026-09-01 15:23 UTC

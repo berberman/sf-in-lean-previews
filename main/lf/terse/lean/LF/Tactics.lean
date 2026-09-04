@@ -624,7 +624,7 @@ theorem add_self_injective (n m : Nat)
     n = m := by
   sorry
 
---  ### Exercise (2 stars): add_self_injective_informal (Manually graded) ⭐⭐
+--  ### Exercise (2 stars): add_self_injective_informal ⭐⭐
 
 --  Give a careful informal proof of `add_self_injective`,
 --  stating the induction hypothesis explicitly and being as
@@ -745,4 +745,4 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
   · rw [hTest] at h
     injections
 
--- Built on 2026-09-03 20:04 UTC
+-- Built on 2026-09-01 15:23 UTC
