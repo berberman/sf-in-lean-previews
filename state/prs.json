@@ -98,9 +98,9 @@
     "307": {
       "base_sha": "e0e2f9a24405759d662fb8210c9845b63b92e4de",
       "changed_variants": [],
-      "head_sha": "959b263d581566db0ffd79553410be52cc32cb88",
+      "head_sha": "982998182b257de9aeabf9f52cb77648d60b909d",
       "preview_path": "pr/307/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33963766702",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33988365258",
       "status": "ci-failed",
       "title": "Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
