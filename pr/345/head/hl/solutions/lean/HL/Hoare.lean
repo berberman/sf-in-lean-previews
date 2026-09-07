@@ -930,9 +930,6 @@ def delabTriple : Delab := whenPPOption getPPNotation do
 end HasTriple.Delab
 --  END DETAILS
 
---  Note to developers (Niklas Halonen @xhalo32):
---      Is it possible to add a line break after the `Y := Y`?
-
 --  ### Exercise (1 star): hoare_post_true ⭐
 
 --  Prove that if `Q` holds in every state, then any triple with `Q` as its
@@ -2066,7 +2063,7 @@ inductive Com : Type where
   | if1 : Bexp → Com → Com
 
 /-- One-sided conditional -/
-scoped syntax "if1 " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : imp_com
+scoped syntax "if1 " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" : imp_com
 
 namespace Com
 
@@ -3471,4 +3468,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Built on 2026-09-01 12:45 UTC
+-- Built on 2026-09-07 22:15 UTC

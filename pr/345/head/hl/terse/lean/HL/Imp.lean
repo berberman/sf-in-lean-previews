@@ -383,18 +383,18 @@ declare_syntax_cat imp_com
 /-- The command that does nothing (`skip`) -/
 syntax:max ident : imp_com
 /-- Sequencing: one command after another (right associative. min + 1 = 11) -/
-syntax:min imp_com:11 ";" ppDedent(ppLine imp_com:min) : imp_com
+syntax:min imp_com:11 Lean.Parser.semicolonOrLinebreak ppHardSpace imp_com:min : imp_com
 /-- Assignment -/
 syntax:max ident ppHardSpace ":=" ppHardSpace imp_aexp : imp_com
 /-- Conditional -/
-syntax:max "if " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine imp_com ppDedent(ppLine "}") : imp_com
+syntax:max "if " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" ppHardSpace "else" ppHardSpace "{" imp_com "}" : imp_com
 /-- Loop -/
-syntax:max "while " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : imp_com
+syntax:max "while " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" : imp_com
 /-- Escape to Lean -/
 syntax:max "~" term:max : imp_com
 
 /-- Include an Imp command in Lean code -/
-syntax:min "imp" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : term
+syntax:min "imp" ppHardSpace "{" imp_com "}" : term
 
 namespace Com
 
@@ -469,40 +469,39 @@ end Imp.Delab
 --  END DETAILS
 
 def fact_in_lean : Com := imp {
-  Z := X;
-  Y := 1;
+  Z := X
+  Y := 1
   while (Z ≠ 0) {
-    Y := Y * Z;
+    Y := Y * Z
     Z := Z - 1
   }
 }
 
-/--
-info: def fact_in_lean : Com :=
-imp {
-  Z := X;
-  Y := 1;
-  while (Z ≠ 0) {
-    Y := Y * Z;
-    Z := Z - 1
-  }
-}
--/
-#guard_msgs in
 #print fact_in_lean
+
+--  Output:
+--    def fact_in_lean : Com :=
+--    imp {Z := X; Y := 1; while (Z ≠ 0) {Y := Y * Z; Z := Z - 1}}
 
 --  ### Desugaring Notations
 
-/-- info: imp {
-  X := X + 1
-} : Com -/
-#guard_msgs in
+--  Even though the notations are useful for getting the
+--  high-level picture, it's sometimes helpful to turn off
+--  the notation to see the parsed structure as a plain
+--  term. This can be done with
+--  `set_option pp.notation false` (which we briefly
+--  mentioned in the Typeclasses chapter) as follows:
+
 #check imp { X := X + 1 }
 
-/-- info: Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com -/
-#guard_msgs in
+--  Output:
+--    imp {X := X + 1} : Com
+
 set_option pp.notation false in
 #check imp { X := X + 1 }
+
+--  Output:
+--    Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com
 
 --  ### More Examples
 
@@ -832,7 +831,7 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
       simp [Aexp.eval_plus, Aexp.eval_id, Aexp.eval_num, TotalMap.update_eq] at h ⊢
       lia
 
---  ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): XtimesYinZ_spec (Optional, Manually graded) ⭐⭐⭐
 
 --  State and prove a specification of `XtimesYinZ`.
 
@@ -1112,11 +1111,7 @@ attribute [app_unexpander Com.whileDo] unexpandComWhileDo
 
 end Delab
 
-/--
-info: imp {
-  brk
-} : Com
--/
+/-- info: imp {brk} : Com -/
 #guard_msgs in
 #check imp {brk}
 --  END DETAILS
@@ -1278,4 +1273,4 @@ end Imp.Break
 --  making up a concrete Notation for `for` loops, but feel
 --  free to play with this too if you like.)
 
--- Built on 2026-09-01 12:45 UTC
+-- Built on 2026-09-07 22:15 UTC

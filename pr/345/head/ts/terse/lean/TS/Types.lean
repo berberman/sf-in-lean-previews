@@ -462,7 +462,6 @@ inductive Tm.HasType : Tm → Ty → Prop where
   | succ (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ succ t₁ ⦂ Nat }>
   | pred (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ pred t₁ ⦂ Nat }>
   | isZero (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ iszero t₁ ⦂ Bool }>
-end
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: typing relation)
 -- The same rules repeated with hygiene enabled, for use after the section.
@@ -489,6 +488,7 @@ def Tm.HasType.unexpand : Lean.PrettyPrinter.Unexpander
   | `($_ $t:ident $T:ident)  => `(<{ ⊢ $(⟨t.raw⟩) ⦂ $T }>)
   | `($_ $t $T)              => `(<{ ⊢ ~$t ⦂ ~$T }>)
   | _ => throw ()
+end
 --  END DETAILS
 
 example : <{ ⊢ if false then 0 else succ 0 ⦂ Nat }> :=
@@ -548,7 +548,7 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : 
 --  informal proof in the following exercise before starting
 --  — this will save you a lot of time.)
 
-theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
+theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
   sorry
 
 --   ----------------------------------------
@@ -571,7 +571,7 @@ theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ 
 
 --   ----------------------------------------
 
---  ### Exercise (3 stars): finish_progress_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_progress_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the corresponding informal proof.
 
@@ -655,10 +655,10 @@ theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ 
 --  property. (Again, make sure you understand the informal
 --  proof fragment in the following exercise first.)
 
-theorem preservation (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ T }> := by
+theorem preservation (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ τ }> := by
   sorry
 
---  ### Exercise (3 stars): finish_preservation_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_preservation_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the following informal proof.
 --
@@ -874,4 +874,4 @@ end TM
 --  Why might we prefer the small-step semantics for stating
 --  preservation and progress?
 
--- Built on 2026-09-01 12:46 UTC
+-- Built on 2026-09-07 22:16 UTC

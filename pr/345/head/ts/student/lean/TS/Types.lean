@@ -468,9 +468,9 @@ example : alt_simplify_step <{ 0 }> = none := rfl
 --  such ill-typed terms by defining a *typing relation* that relates terms
 --  to the types (either numeric or boolean) of their final results.
 
---  The *typing relation* `⊢ t ⦂ T` relates terms to the types of their
---  results. In informal notation it is often written `⊢ t ⦂ T` and
---  pronounced "`t` has type `T`." The `⊢` symbol is called a "turnstile."
+--  The *typing relation* `⊢ t ⦂ τ` relates terms to the types of their
+--  results. In informal notation it is often written `⊢ t ⦂ τ` and
+--  pronounced "`t` has type `τ`." The `⊢` symbol is called a "turnstile."
 --  The `⦂` between the term and its type is a dedicated type-colon glyph
 --  (distinct from an ordinary `:`); in the editor you enter it with the
 --  Lean input abbreviation `\tc` followed by a space. Below, we're going
@@ -484,9 +484,9 @@ example : alt_simplify_step <{ 0 }> = none := rfl
 --                       --------------               (fls)
 --                       ⊢ false ⦂ Bool
 --
---            ⊢ t₁ ⦂ Bool    ⊢ t₂ ⦂ T    ⊢ t₃ ⦂ T
+--            ⊢ t₁ ⦂ Bool    ⊢ t₂ ⦂ τ    ⊢ t₃ ⦂ τ
 --            -----------------------------------     (ite)
---                ⊢ if t₁ then t₂ else t₃ ⦂ T
+--                ⊢ if t₁ then t₂ else t₃ ⦂ τ
 --
 --                         ---------                  (zero)
 --                         ⊢ 0 ⦂ Nat
@@ -550,7 +550,6 @@ inductive Tm.HasType : Tm → Ty → Prop where
   | succ (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ succ t₁ ⦂ Nat }>
   | pred (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ pred t₁ ⦂ Nat }>
   | isZero (t₁ : Tm) (h : <{ ⊢ t₁ ⦂ Nat }>) : <{ ⊢ iszero t₁ ⦂ Bool }>
-end
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: typing relation)
 -- The same rules repeated with hygiene enabled, for use after the section.
@@ -577,6 +576,7 @@ def Tm.HasType.unexpand : Lean.PrettyPrinter.Unexpander
   | `($_ $t:ident $T:ident)  => `(<{ ⊢ $(⟨t.raw⟩) ⦂ $T }>)
   | `($_ $t $T)              => `(<{ ⊢ ~$t ⦂ ~$T }>)
   | _ => throw ()
+end
 --  END DETAILS
 
 example : <{ ⊢ if false then 0 else succ 0 ⦂ Nat }> :=
@@ -632,7 +632,7 @@ theorem nat_canonical (t : Tm) (hT : <{ ⊢ t ⦂ Nat }>) (hv : Tm.IsValue t) : 
 --  understand the parts we've given of the informal proof in the following
 --  exercise before starting — this will save you a lot of time.)
 
-theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
+theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) : Tm.IsValue t ∨ ∃ t', t ⟶ t' := by
   sorry
 
 --   ----------------------------------------
@@ -654,7 +654,7 @@ theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ 
 
 --   ----------------------------------------
 
---  ### Exercise (3 stars): finish_progress_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_progress_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the corresponding informal proof.
 --
@@ -736,10 +736,10 @@ theorem progress (t : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) : Tm.IsValue t ∨ 
 --  sure you understand the informal proof fragment in the following
 --  exercise first.)
 
-theorem preservation (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ T }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ T }> := by
+theorem preservation (t t' : Tm) (τ : Ty) (hT : <{ ⊢ t ⦂ τ }>) (he : t ⟶ t') : <{ ⊢ t' ⦂ τ }> := by
   sorry
 
---  ### Exercise (3 stars): finish_preservation_informal (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): finish_preservation_informal (Optional, Manually graded) ⭐⭐⭐
 
 --  Complete the following informal proof.
 --
@@ -941,4 +941,4 @@ end TM
 --  for nonterminating programs? Why might we prefer the small-step
 --  semantics for stating preservation and progress?
 
--- Built on 2026-09-01 12:45 UTC
+-- Built on 2026-09-07 22:15 UTC
