@@ -1,0 +1,1 @@
+window.docContents[147].resolve({"/Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Review":{"contents":"\n\n\n\n\n\n","context":"Logical Foundations\u0009Tactics: More Basic Tactics","header":"7.8. Review","id":"/Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Review"}});
