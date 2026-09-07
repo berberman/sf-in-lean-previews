@@ -940,4 +940,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-09-03 21:39 UTC
+-- Built on 2026-09-07 16:22 UTC

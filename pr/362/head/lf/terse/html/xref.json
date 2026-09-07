@@ -3380,6 +3380,39 @@
         "Functions as Data",
         "Map"]}},
      "address": "/Poly/"}],
+   "nth?_nil":
+   [{"id": "nth____nil",
+     "data":
+     {"/Poly/#nth____nil":
+      {"display": "nth?_nil",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Options"]}},
+     "address": "/Poly/"}],
+   "nth?_cons_zero":
+   [{"id": "nth____cons_zero",
+     "data":
+     {"/Poly/#nth____cons_zero":
+      {"display": "nth?_cons_zero",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Options"]}},
+     "address": "/Poly/"}],
+   "nth?_cons_succ":
+   [{"id": "nth____cons_succ",
+     "data":
+     {"/Poly/#nth____cons_succ":
+      {"display": "nth?_cons_succ",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Options"]}},
+     "address": "/Poly/"}],
    "nth?":
    [{"id": "nth___",
      "data":
@@ -3514,16 +3547,6 @@
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
-   "length_append_self":
-   [{"id": "length_append_self",
-     "data":
-     {"/Tactics/#length_append_self":
-      {"display": "length_append_self",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Rewriting with Conditional Statements"]}},
-     "address": "/Tactics/"}],
    "keepIf_some":
    [{"id": "keepIf_some",
      "data":
@@ -4529,7 +4552,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq",
+   [{"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -4538,7 +4561,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
+    {"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6190,26 +6213,6 @@
         "Lists: Working with Structured Data",
         "Partial Maps"]}},
      "address": "/Lists/"}],
-   "Lists.PartialMap.quiz2":
-   [{"id": "Lists___PartialMap___quiz2",
-     "data":
-     {"/Lists/#Lists___PartialMap___quiz2":
-      {"display": "quiz2",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Partial Maps"]}},
-     "address": "/Lists/"}],
-   "Lists.PartialMap.quiz1":
-   [{"id": "Lists___PartialMap___quiz1",
-     "data":
-     {"/Lists/#Lists___PartialMap___quiz1":
-      {"display": "quiz1",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Partial Maps"]}},
-     "address": "/Lists/"}],
    "Lists.PartialMap.find":
    [{"id": "Lists___PartialMap___find",
      "data":
@@ -7404,7 +7407,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -7421,7 +7424,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",

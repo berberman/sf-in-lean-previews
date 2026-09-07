@@ -103,7 +103,7 @@ sf_expect_failure_in
 --    ⊢ List Nat
 
 --  One way to resolve this is to supply all the arguments
---  and hypotheses explicity:
+--  and hypotheses explicitly:
 
 example (a b c d e f : Nat)
     (h₁ : [a, b] = [c, d])
@@ -232,15 +232,14 @@ theorem injection_ex3 {α : Type} (x y z : α) (l j : List α)
 --  disjointness?
 
 --  Two terms beginning with different constructors (like
---  like `0` and `Nat.succ`, or `true` and `false`) can
---  never be equal.
+--  `0` and `Nat.succ`, or `true` and `false`) can never be
+--  equal.
 
---  The `contradiction` tactic, which we've already seen for
---  handling cases where we have assumed `False`, also
---  embodies this principle: if we have a a hypothesis
---  involving an equality between different constructors
---  (e.g., `false = true`), `contradiction` solves the
---  current goal immediately. Some examples:
+--  The `contradiction` tactic embodies this principle. If
+--  the context contains a contradictory hypothesis, such as
+--  an equality between different constructors (e.g.,
+--  `false = true`), `contradiction` solves the current goal
+--  immediately. Some examples:
 
 example (n m : Nat)
     (h : false = true) :
@@ -312,7 +311,8 @@ sf_recall
 --
 --  (2) The tactic fails.
 --
---  (3) Hypothesis `h` becomes `hxy : x = y`.
+--  (3) Lean adds a hypothesis `hxy : x = y`, while the goal
+--  remains `y = x`.
 --
 --  (4) None of the above.
 
@@ -514,9 +514,9 @@ example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
 
 --  Tactics like `have` and `replace` can also be used with
 --  lemmas and theorems we've already proven, not just
---  things in our context. Using these tactis before `apply`
---  gives us yet another way to control where `apply` does
---  its work.
+--  things in our context. Using these tactics before
+--  `apply` gives us yet another way to control where
+--  `apply` does its work.
 
 example (a b c d e f : Nat)
     (h₁ : [a, b] = [c, d])
@@ -658,22 +658,22 @@ theorem length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat}
 
 --  ### Exercise (3 stars): length_append_self (Optional) ⭐⭐⭐
 
---  Prove this by induction on `l₁`, without using
+--  Prove this by induction on `l`, without using
 --  `List.length_append`. Hint: you might need to use
 --  `length_append_cons` you just proved.
 
 theorem length_append_self {α : Type} {n : Nat} {l : List α}
     (h : l.length = n) :
     (l ++ l).length = n + n := by
-  induction l generalizing n with
-  | nil =>
-    rw [List.append_nil,  List.length_nil] at *
-    rw [← h]
-  | cons x xs ih =>
-    rw [List.cons_append, List.length_cons] at *
-    rw [← length_append_cons rfl]
-    rw [ih rfl, ← h]
-    rw [Nat.add_add_add_comm]
+  sorry
+
+--  ### Exercise (3 stars): list_ext ⭐⭐⭐
+
+--  Prove the *extensionality principle* for lists.
+--  `nth?_always_none` should be useful.
+
+theorem list_ext {l₁ l₂ : List α} (h : ∀ n, nth? l₁ n = nth? l₂ n) : l₁ = l₂ := by
+  sorry
 
 --  ### Exercise (3 stars): diagonal_induction (Optional) ⭐⭐⭐
 
@@ -715,7 +715,7 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 --  get the first and second projections of `v` using this
 --  tactic:
 --
---      let ⟨a, β⟩ := v
+--      let ⟨a, b⟩ := v
 
 --  ### Splitting with Equations
 
@@ -745,4 +745,4 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
   · rw [hTest] at h
     injections
 
--- Built on 2026-09-03 21:40 UTC
+-- Built on 2026-09-07 16:23 UTC

@@ -3503,6 +3503,39 @@
         "Using Evidence in Proofs",
         "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
+   "nth?_nil":
+   [{"id": "nth____nil",
+     "data":
+     {"/Poly/#nth____nil":
+      {"display": "nth?_nil",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Options"]}},
+     "address": "/Poly/"}],
+   "nth?_cons_zero":
+   [{"id": "nth____cons_zero",
+     "data":
+     {"/Poly/#nth____cons_zero":
+      {"display": "nth?_cons_zero",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Options"]}},
+     "address": "/Poly/"}],
+   "nth?_cons_succ":
+   [{"id": "nth____cons_succ",
+     "data":
+     {"/Poly/#nth____cons_succ":
+      {"display": "nth?_cons_succ",
+       "context":
+       ["Logical Foundations",
+        "Poly: Polymorphism and Higher-Order Functions",
+        "Polymorphism",
+        "Polymorphic Options"]}},
+     "address": "/Poly/"}],
    "nth?":
    [{"id": "nth___",
      "data":
@@ -3648,16 +3681,6 @@
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
-   "length_append_self":
-   [{"id": "length_append_self",
-     "data":
-     {"/Tactics/#length_append_self":
-      {"display": "length_append_self",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Rewriting with Conditional Statements"]}},
-     "address": "/Tactics/"}],
    "left":
    [{"id": "left",
      "data":
@@ -3670,7 +3693,7 @@
         "Conjunction"]}},
      "address": "/Logic/"}],
    "keepIf_some":
-   [{"id": "keepIf_some-next",
+   [{"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -3687,7 +3710,7 @@
         "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some",
+    {"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -7079,26 +7102,6 @@
      "data":
      {"/Lists/#Lists___PartialMap___record":
       {"display": "record",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Partial Maps"]}},
-     "address": "/Lists/"}],
-   "Lists.PartialMap.quiz2":
-   [{"id": "Lists___PartialMap___quiz2",
-     "data":
-     {"/Lists/#Lists___PartialMap___quiz2":
-      {"display": "quiz2",
-       "context":
-       ["Logical Foundations",
-        "Lists: Working with Structured Data",
-        "Partial Maps"]}},
-     "address": "/Lists/"}],
-   "Lists.PartialMap.quiz1":
-   [{"id": "Lists___PartialMap___quiz1",
-     "data":
-     {"/Lists/#Lists___PartialMap___quiz1":
-      {"display": "quiz1",
        "context":
        ["Logical Foundations",
         "Lists: Working with Structured Data",

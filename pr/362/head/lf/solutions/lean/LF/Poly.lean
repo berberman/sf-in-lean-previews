@@ -646,6 +646,12 @@ def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
     | 0 => some x
     | n' + 1 => nth? l' n'
 
+theorem nth?_nil {α : Type} {n : Nat} : nth? ([] : List α) n = none := by rfl
+
+theorem nth?_cons_zero {α : Type} {x : α} {l' : List α} : nth? (x :: l') 0 = some x := by rfl
+
+theorem nth?_cons_succ {α : Type} {x : α} {l' : List α} {n : Nat} : nth? (x :: l') (n + 1) = nth? l' n := by rfl
+
 example : nth? [4, 5, 6, 7] 0 = some 4 := by rfl
 example : nth? [[1], [2]] 1 = some [2] := by rfl
 example : nth? [true] 2 = none := by rfl
@@ -1390,4 +1396,4 @@ theorem exp_3 : exp three two = plus (mult two (mult two two)) one := (by rfl)
 
 end Church
 
--- Built on 2026-09-03 21:39 UTC
+-- Built on 2026-09-07 16:22 UTC

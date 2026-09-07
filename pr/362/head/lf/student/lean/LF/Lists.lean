@@ -752,7 +752,7 @@ theorem replicate_append_general (c₁ c₂ n : Nat) :
   | zero =>
     rw [replicate_zero, Nat.zero_add, nil_append]
   | succ c1' ih =>
-    rw [Nat.succ_add, replicate_succ, replicate_succ, cons_append, ih]
+    rw [Nat.add_right_comm, replicate_succ, replicate_succ, cons_append, ih]
 
 --  Then, we can use this more general theorem to prove the original goal:
 
@@ -843,8 +843,9 @@ theorem length_reverse (l : NatList) :
   | cons n l' ih =>
     rw [reverse_cons, append_length_succ, ih, length_cons]
 
---  We can also prove a more general form that gives the length of any two
---  appended lists.
+--  We can also prove a more general form that gives the length of *any*
+--  two appended lists. We could use this theorem rather than
+--  `append_length_succ` to help prove `length_reverse`.
 
 theorem length_append (l₁ l₂ : NatList) :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
@@ -853,7 +854,8 @@ theorem length_append (l₁ l₂ : NatList) :
   | cons n l₁' ih =>
     rw [cons_append, length_cons, ih, length_cons, Nat.succ_add]
 
---  For comparison, here are informal proofs of these two theorems:
+--  For comparison, here are informal proofs of these two theorems,
+--  `length_append` and `length_reverse`.
 --
 --  *Theorem*: For all lists `l₁` and `l₂`,
 --
@@ -916,9 +918,9 @@ theorem length_append (l₁ l₂ : NatList) :
 --
 --  *Theorem*: For all lists `l`, `l.reverse.length = l.length`.
 --
---  *Proof*: First observe, by a straightforward induction on `l`, that
---  `(l ++ [n]).length = .succ l.length` for any `l`. The main property
---  then follows by another induction on `l`, using the observation
+--  *Proof*: First observe, by a straightforward induction on `l₁`, that
+--  `(l₁ ++ l₂).length = l₁.length + l₂.length` for any `l₁` and `l₂`. The
+--  main property then follows by induction on `l`, using the observation
 --  together with the induction hypothesis in the case where
 --  `l = n' :: l'`. *QED*.
 --
@@ -1192,9 +1194,9 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
 
 --  Is the following claim true or false?
 
-theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
-    find x (update d x n) = .some n := by
-  rw [update, find, MyId.beq_refl, cond_true]
+--  ∀ (d : PartialMap) (x : MyId) (n : Nat),
+--  -----------------------------------------
+--    find x (update d x n) = .some n
 
 --  (A) True (B) False (C) Not sure
 
@@ -1204,11 +1206,10 @@ theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
 
 --  Is the following claim true or false?
 
-theorem quiz2 (d : PartialMap) (x y : MyId) (o : Nat) :
-    MyId.beq x y = false →
-    find x (update d y o) = find x d := by
-  intro h
-  rw [update, find, h, cond_false]
+--  ∀ (d : PartialMap) (x y : MyId) (o : Nat)
+--    (h : MyId.beq x y = false),
+--  -----------------------------------------
+--    find x (update d y o) = find x d
 
 --  (A) True (B) False (C) Not sure
 
@@ -1230,4 +1231,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-03 21:39 UTC
+-- Built on 2026-09-07 16:22 UTC

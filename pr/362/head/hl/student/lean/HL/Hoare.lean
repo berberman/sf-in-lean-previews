@@ -1716,7 +1716,7 @@ inductive Com : Type where
   | if1 : Bexp → Com → Com
 
 /-- One-sided conditional -/
-scoped syntax "if1 " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : imp_com
+scoped syntax "if1 " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" : imp_com
 
 namespace Com
 
@@ -2746,4 +2746,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Built on 2026-09-03 21:40 UTC
+-- Built on 2026-09-07 16:23 UTC

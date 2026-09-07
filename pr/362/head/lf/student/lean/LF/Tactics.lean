@@ -149,10 +149,10 @@ theorem trans_eq {α : Type} (x y z : α) :
 --  still needs an intermediate term `y`.
 --
 --  We want to prove `[a, b] = [e, f]`. By transitivity, it's enough to
---  prove `[a, b] = ?y` and `?y = [e, f]`, for some intermidiate list `?y`.
---  Here `?y` is a *metavariable*: a place holder for a value Lean has not
+--  prove `[a, b] = ?y` and `?y = [e, f]`, for some intermediate list `?y`.
+--  Here `?y` is a *metavariable*: a placeholder for a value Lean has not
 --  yet determined. Before we provide the hypothesis `h₂`, Lean doesn't
---  know that this intermediate list shoud be `[c, d]`.
+--  know that this intermediate list should be `[c, d]`.
 
 sf_expect_failure_in
   example (a b c d e f : Nat)
@@ -182,7 +182,7 @@ sf_expect_failure_in
 --    ⊢ List Nat
 
 --  One way to resolve this is to supply all the arguments and hypotheses
---  explicity:
+--  explicitly:
 
 example (a b c d e f : Nat)
     (h₁ : [a, b] = [c, d])
@@ -191,9 +191,9 @@ example (a b c d e f : Nat)
   apply trans_eq [a, b] [c, d] [e, f] h₁ h₂
 
 --  In the previous example, we had to specify the `x` and `z` arguments to
---  `trans_eq` before we could supply `[c, d]` for `y` or `eq1` and `eq2`
---  for the premises. However, we just said that Lean was able to infer
---  these arguments, so it's a bit redundant (and wordy) for us to do it.
+--  `trans_eq` before we could supply `[c, d]` for `y` or `h₁` and `h₂` for
+--  the premises. However, we just said that Lean was able to infer these
+--  arguments, so it's a bit redundant (and wordy) for us to do it.
 
 --  Thankfully, Lean allows us to use `_`s for positional arguments that it
 --  can infer.
@@ -221,11 +221,11 @@ example (a b c d e f : Nat)
 --  practices associated with writing proofs in Lean. One of these
 --  conventions concerns the use of the `exact` tactic. When fully applying
 --  another theorem like in the previous examples, it is considered good
---  practice to use the `exact` tactic instead of `apply`.This signals to a
---  reader of the proof that the proof is "exactly" an instance of another
---  lemma, and that nothing of particular interest is happening here. This
---  achieves a similar goal as when a mathematician says that one result is
---  "just" an instance of another.
+--  practice to use the `exact` tactic instead of `apply`. This signals to
+--  a reader of the proof that the proof is "exactly" an instance of
+--  another lemma, and that nothing of particular interest is happening
+--  here. This achieves a similar goal as when a mathematician says that
+--  one result is "just" an instance of another.
 
 example (a b c d e f : Nat)
     (h₁ : [a, b] = [c, d])
@@ -359,11 +359,10 @@ theorem injection_ex3 {α : Type} (x y z : α) (l j : List α)
 --  justified in concluding anything we want, since the assumption is
 --  nonsensical.
 
---  The `contradiction` tactic, which we've already seen for handling cases
---  where we have assumed `False`, also embodies this principle: if we have
---  a a hypothesis involving an equality between different constructors
---  (e.g., `false = true`), `contradiction` solves the current goal
---  immediately. Some examples:
+--  The `contradiction` tactic embodies this principle. If the context
+--  contains a contradictory hypothesis, such as an equality between
+--  different constructors (e.g., `false = true`), `contradiction` solves
+--  the current goal immediately. Some examples:
 
 example (n m : Nat)
     (h : false = true) :
@@ -449,7 +448,8 @@ sf_recall
 --
 --  (2) The tactic fails.
 --
---  (3) Hypothesis `h` becomes `hxy : x = y`.
+--  (3) Lean adds a hypothesis `hxy : x = y`, while the goal remains
+--  `y = x`.
 --
 --  (4) None of the above.
 
@@ -598,8 +598,8 @@ example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
 --  The tactic `apply t at h` matches an implication `t` (say, of the form
 --  `a → b`) against a hypothesis `h` in the local context. Unlike ordinary
 --  `apply`, which matches the goal against `b` and replaces it with the
---  subgoal `a`), `apply t at h` matches the type of `h` against `a` and,
---  if successful, replaces `h` with a hypothesis of type `b`.
+--  subgoal `a`, `apply t at h` matches the type of `h` against `a` and, if
+--  successful, replaces `h` with a hypothesis of type `b`.
 --
 --  In other words, `apply t at h` gives us a form of "forward reasoning":
 --  given `t : a → b` and `h : a`, it replaces `h` with a proof of `b`.
@@ -689,17 +689,16 @@ example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
 
 --  ### Exercise (3 stars): nth?_always_none ⭐⭐⭐
 
---  Use `have`, `replace`, or `specialize` to prove the the following
---  lemma, following the model of the examples above. Do not use
---  `induction`.
+--  Use `have`, `replace`, or `specialize` to prove the following lemma,
+--  following the model of the examples above. Do not use `induction`.
 
-theorem nth?_always_none (l : List Nat) (h : ∀ i, nth? l i = none) :
+theorem nth?_always_none {l : List α} (h : ∀ i, nth? l i = none) :
     l = [] := by
   sorry
 
 --  Tactics like `have` and `replace` can also be used with lemmas and
 --  theorems we've already proven, not just things in our context. Using
---  these tactis before `apply` gives us yet another way to control where
+--  these tactics before `apply` gives us yet another way to control where
 --  `apply` does its work.
 
 example (a b c d e f : Nat)
@@ -725,10 +724,10 @@ sf_recall
     | 0 => 0
     | n' + 1 => double n' + 2
 
---  Sometimes `induction` gives us an an induction hypothesis too specific
---  to be useful. This can happen when another varaible in the theorem is
+--  Sometimes `induction` gives us an induction hypothesis too specific to
+--  be useful. This can happen when another variable in the theorem is
 --  fixed during the induction, even though the induction step might need
---  to use it with different values of that variables.
+--  to use that variable at different values.
 --
 --  For example, suppose we want to show that `Nat.double` is injective —
 --  i.e., that it maps different arguments to different results:
@@ -802,9 +801,9 @@ sf_expect_failure_in
 --  `n` and `m`, together with the hypothesis `n.double = m.double` and
 --  trying to prove `n = m`.
 --
---  The claim itself makes perfect sense, but for the induction, however,
---  keeping `m` fixed causes the trouble: we are proving, for *all* `n`,
---  the proposition
+--  The claim itself makes perfect sense, but keeping `m` fixed during
+--  induction causes trouble: we are proving, for *all* `n`, the
+--  proposition
 --
 --  - `P n` = "if `n.double = m.double`, then `n = m`"
 --
@@ -828,8 +827,8 @@ sf_expect_failure_in
 --
 --  - "if `(n + 1).double = m.double` then `n + 1 = m`".
 --
---  To see why this is strange, let's choose of a particular `m` — say,
---  `5`. The statement is then saying that, if we know
+--  To see why this is strange, let's choose a particular `m` — say, `5`.
+--  The statement is then saying that, if we know
 --
 --  - `Q` = "if `n.double = 10` then `n = 5`"
 --
@@ -893,8 +892,8 @@ theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := by
 --       `m'.double + 2`, so this case is impossible.
 --
 --  - Second, suppose `n = n' + 1`. The induction hypothesis says that, for
---    every `m`, if `(n' + 1).double = m.double` then `n' + 1 = m`. Again
---    there are two cases to consider for `m`:
+--    every `m`, if `n'.double = m.double` then `n' = m`. Again there are
+--    two cases to consider for `m`:
 --
 --    1. If `m = 0`, then by the definition of `Nat.double` our assumption
 --       says `n'.double + 2 = 0`, which is impossible.
@@ -959,7 +958,7 @@ example (n m p q : Nat)
 --  rewrite the goal, and then asks us to prove the hypothesis needed by
 --  `double_injective`. Thus we get two goals: the updated main goal,
 --  `m + p = q`, which follows from `hm`, and the condition from
---  `double_injective`, `n.double = m.double`, whicch follows from `h`.
+--  `double_injective`, `n.double = m.double`, which follows from `h`.
 
 --  If we rewrite with a conditional statement of the form `P → a = b`,
 --  then Lean tries to rewrite with `a = b`, and then asks us to prove `P`
@@ -986,21 +985,21 @@ theorem length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat}
 
 --  ### Exercise (3 stars): length_append_self (Optional) ⭐⭐⭐
 
---  Prove this by induction on `l₁`, without using `List.length_append`.
+--  Prove this by induction on `l`, without using `List.length_append`.
 --  Hint: you might need to use `length_append_cons` you just proved.
 
 theorem length_append_self {α : Type} {n : Nat} {l : List α}
     (h : l.length = n) :
     (l ++ l).length = n + n := by
-  induction l generalizing n with
-  | nil =>
-    rw [List.append_nil,  List.length_nil] at *
-    rw [← h]
-  | cons x xs ih =>
-    rw [List.cons_append, List.length_cons] at *
-    rw [← length_append_cons rfl]
-    rw [ih rfl, ← h]
-    rw [Nat.add_add_add_comm]
+  sorry
+
+--  ### Exercise (3 stars): list_ext ⭐⭐⭐
+
+--  Prove the *extensionality principle* for lists. `nth?_always_none`
+--  should be useful.
+
+theorem list_ext {l₁ l₂ : List α} (h : ∀ n, nth? l₁ n = nth? l₂ n) : l₁ = l₂ := by
+  sorry
 
 --  ### Exercise (3 stars): diagonal_induction (Optional) ⭐⭐⭐
 
@@ -1021,7 +1020,7 @@ theorem diagonal_induction (p : Nat → Nat → Prop)
 --  cases on the result of some *expression*. We can also do this with
 --  `cases`.
 --
---  Here are some examples:
+--  Here is an example:
 
 def chooseIf {α : Type} (test : α → Bool) (x y : α) : α :=
   if test x then x else y
@@ -1036,11 +1035,12 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 --  `true` or it isn't, so we can use `cases (test x)` to let us reason
 --  about the two cases.
 --
---  In general, the `cases` tactic can be used to perform case analysis of
---  the results of arbitrary computations. If `e` is an expression whose
---  type is some inductively defined type `T`, then, for each constructor
---  `c` of `T`, `cases e` generates a subgoal in which all occurrences of
---  `e` (in the goal and in the context) are replaced by `c`.
+--  In general, the `cases` tactic can perform case analysis on the results
+--  of arbitrary computations. If `e` has an inductively defined type `T`,
+--  then `cases e` generates one subgoal for each constructor of `T`,
+--  specializing the goal to that case. It does not necessarily rewrite
+--  occurrences of `e` in hypotheses; when that information is needed, we
+--  can save an equation as described below.
 
 --  ### Destructing Tuples
 
@@ -1054,7 +1054,7 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 --  When we have a value `v : α × β` in our context, we can get the first
 --  and second projections of `v` using this tactic:
 --
---      let ⟨a, β⟩ := v
+--      let ⟨a, b⟩ := v
 
 --  ### Exercise (3 stars): zip_unzip' ⭐⭐⭐
 
@@ -1158,9 +1158,7 @@ theorem bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) :
 --    conclusion matches the goal; its premises become new goals
 --
 --  - `apply thm at h`: use a theorem on a hypothesis in the context,
---    replacing `h` by the resulting
---
---    fact (forward reasoning)
+--    replacing `h` by the resulting fact (forward reasoning)
 --
 --  - `specialize h ...`: instantiate quantified variables in a hypothesis,
 --    modifying `h` in place
@@ -1199,7 +1197,7 @@ theorem bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) :
 --    reduced to `x = y`
 --
 --  - `injection h with ...`: use injectivity of constructors to extract
---    equalities from constructor applications equations
+--    equalities from equations between constructor applications
 --
 --  - `injections`: repeatedly use constructor injectivity on suitable
 --    equalities in the context
@@ -1251,9 +1249,9 @@ theorem map_injective_of_injective {α β : Type}
 
 --  ### Exercise (3 stars): unzip_zip (Advanced, Manually graded) ⭐⭐⭐
 
---  We proved `zip_unzip'` that `zip`ping the result of `unzip` recovers
---  the original list. What about the other direction? Complete and prove
---  the following `unzip_zip`:
+--  We proved in `zip_unzip'` that `zip`ping the result of `unzip'`
+--  recovers the original list. What about the other direction? Complete
+--  and prove the following `unzip_zip`:
 --
 --      theorem unzip_zip {α β : Type}
 --          {l₁ : List α} {l₂ : List β}
@@ -1309,4 +1307,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     anyTrue test l = anyTrue' test l := by
   sorry
 
--- Built on 2026-09-03 21:39 UTC
+-- Built on 2026-09-07 16:22 UTC
