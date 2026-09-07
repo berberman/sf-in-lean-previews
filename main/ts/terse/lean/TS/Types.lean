@@ -860,4 +860,4 @@ end TM
 --  Why might we prefer the small-step semantics for stating
 --  preservation and progress?
 
--- Built on 2026-09-07 10:31 UTC
+-- Built on 2026-09-07 17:56 UTC

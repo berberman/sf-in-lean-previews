@@ -29,7 +29,8 @@ import SFLCompat
 --  lemma.
 
 --  The `apply` tactic is useful when the goal is instead the conclusion of
---  an implication.
+--  an implication. If the conclusion of the implication matches the
+--  current goal, its premises become new subgoals to be proved.
 
 --  For example, suppose we have a hypothesis `h : p → q` and our goal is
 --  `q`. We can use `apply h` to replace the goal `q` with the premise `p`:
@@ -38,9 +39,7 @@ example (p q : Prop) (h : p → q) (hp : p) : q := by
   apply h
   exact hp
 
---  The `apply` tactic also works with hypotheses and lemmas whose types
---  are implications. If the conclusion of the implication matches the
---  current goal, its premises become new subgoals to be proved.
+--  Here is another example:
 
 example (n m o p : Nat) (hnm : n = m) (h : n = m → [n, o] = [m, p]) :
     [n, o] = [m, p] := by
@@ -106,19 +105,19 @@ theorem rev_exercise1 {α : Type} (l l' : List α) (h : l = l'.rev) :
 --  ### Supplying arguments to `apply`
 
 --  The following silly example uses two rewrites in a row to get from
---  `[a, b]` to `[e, f]`.
+--  `[u, v]` to `[y, z]`.
 
-example (a b c d e f : Nat)
-    (h₁ : [a, b] = [c, d])
-    (h₂ : [c, d] = [e, f]) :
-    [a, b] = [e, f] := by
+example (u v w x y z : Nat)
+    (h₁ : [u, v] = [w, x])
+    (h₂ : [w, x] = [y, z]) :
+    [u, v] = [y, z] := by
   rw [h₁, h₂]
 
 --  Since this is a common pattern, we might like to pull it out as a lemma
 --  that records, once and for all, the fact that equality is *transitive*.
 
-theorem trans_eq {α : Type} (x y z : α) :
-    x = y → y = z → x = z := by
+theorem trans_eq {α : Type} (a b c : α) :
+    a = b → b = c → a = c := by
   intro h₁ h₂
   rw [h₁, h₂]
 
@@ -129,121 +128,121 @@ theorem trans_eq {α : Type} (x y z : α) :
 --  Output:
 --    Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c
 
---  In Lean's version, the arguments corresponding to `x`, `y`, and `z` are
---  implicit, since they can usually be inferred from the equality
+--  Notice that in Lean's version, the arguments `a`, `b`, and `c` are
+--  implicit.
+
+--  This is because they can usually be inferred from the equality
 --  hypotheses and the goal.
 --
 --  Now let's use our `trans_eq` to prove the example above.
 
 --  If we simply write `apply trans_eq`, Lean can infer some arguments from
 --  the goal, but not the intermediate list or the hypotheses needed for
---  the lemma's premises. If you inspect the proof state after `apply`, you
---  will see that Lean has created three goals:
---
---  1. `[a, b] = ?y`
---  2. `?y = [e, f]`
---  3. `List Nat`
---
---  Recall that `trans_eq` has five arguments. From the goal, Lean can
---  infer the endpoints `x` and `z`, namely `[a, b]` and `[e, f]`. But it
---  still needs an intermediate term `y`.
---
---  We want to prove `[a, b] = [e, f]`. By transitivity, it's enough to
---  prove `[a, b] = ?y` and `?y = [e, f]`, for some intermediate list `?y`.
---  Here `?y` is a *metavariable*: a placeholder for a value Lean has not
---  yet determined. Before we provide the hypothesis `h₂`, Lean doesn't
---  know that this intermediate list should be `[c, d]`.
+--  the lemma's premises.
 
 sf_expect_failure_in
-  example (a b c d e f : Nat)
-      (h₁ : [a, b] = [c, d])
-      (h₂ : [c, d] = [e, f]) :
-      [a, b] = [e, f] := by
+  example (u v w x y z : Nat)
+      (h₁ : [u, v] = [w, x])
+      (h₂ : [w, x] = [y, z]) :
+      [u, v] = [y, z] := by
     apply trans_eq
+
+--  Here is the proof state after `apply`:
 
 --  Output:
 --    unsolved goals
 --    case a
---    a b c d e f : Nat
---    h₁ : [a, b] = [c, d]
---    h₂ : [c, d] = [e, f]
---    ⊢ [a, b] = ?y
+--    u v w x y z : Nat
+--    h₁ : [u, v] = [w, x]
+--    h₂ : [w, x] = [y, z]
+--    ⊢ [u, v] = ?b
 --
 --    case a
---    a b c d e f : Nat
---    h₁ : [a, b] = [c, d]
---    h₂ : [c, d] = [e, f]
---    ⊢ ?y = [e, f]
+--    u v w x y z : Nat
+--    h₁ : [u, v] = [w, x]
+--    h₂ : [w, x] = [y, z]
+--    ⊢ ?b = [y, z]
 --
---    case y
---    a b c d e f : Nat
---    h₁ : [a, b] = [c, d]
---    h₂ : [c, d] = [e, f]
+--    case b
+--    u v w x y z : Nat
+--    h₁ : [u, v] = [w, x]
+--    h₂ : [w, x] = [y, z]
 --    ⊢ List Nat
 
---  One way to resolve this is to supply all the arguments and hypotheses
+--  Notice that we have three goals:
+--
+--  1. `[u, v] = ?b`
+--  2. `?b = [y, z]`
+--  3. `List Nat`
+--
+--  Recall that `trans_eq` has five arguments. From the goal, Lean can
+--  infer the endpoints `a` and `c`, namely `[u, v]` and `[y, z]`. But it
+--  still needs an intermediate term `b`.
+--
+--  We want to prove `[u, v] = [y, z]`. By transitivity, it's enough to
+--  prove `[u, v] = ?b` and `?b = [y, z]`, for some intermediate list `?b`.
+--  Here `?b` is a *metavariable*: a placeholder for a value Lean has not
+--  yet determined. Before we provide the hypothesis `h₂`, Lean doesn't
+--  know that this intermediate list should be `[w, x]`.
+
+--  One way to resolve this is to supply the arguments and hypotheses
 --  explicitly:
 
-example (a b c d e f : Nat)
-    (h₁ : [a, b] = [c, d])
-    (h₂ : [c, d] = [e, f]) :
-    [a, b] = [e, f] := by
-  apply trans_eq [a, b] [c, d] [e, f] h₁ h₂
+example (u v w x y z : Nat)
+    (h₁ : [u, v] = [w, x])
+    (h₂ : [w, x] = [y, z]) :
+    [u, v] = [y, z] := by
+  apply trans_eq [u, v] [w, x] [y, z] h₁ h₂
 
---  In the previous example, we had to specify the `x` and `z` arguments to
---  `trans_eq` before we could supply `[c, d]` for `y` or `h₁` and `h₂` for
+--  In the previous example, we had to specify the `a` and `c` arguments to
+--  `trans_eq` before we could supply `[w, x]` for `b` or `h₁` and `h₂` for
 --  the premises. However, we just said that Lean was able to infer these
 --  arguments, so it's a bit redundant (and wordy) for us to do it.
 
 --  Thankfully, Lean allows us to use `_`s for positional arguments that it
 --  can infer.
 
-example (a b c d e f : Nat)
-    (h₁ : [a, b] = [c, d])
-    (h₂ : [c, d] = [e, f]) :
-    [a, b] = [e, f] := by
+example (u v w x y z : Nat)
+    (h₁ : [u, v] = [w, x])
+    (h₂ : [w, x] = [y, z]) :
+    [u, v] = [y, z] := by
   apply trans_eq _ _ _ h₁ h₂
 
 --  If we know the name of the argument we are supplying (in this case
---  `y`), we can name it directly and avoid typing any `_`s. This feature
+--  `b`), we can name it directly and avoid typing any `_`s. This feature
 --  is called *named arguments*. Named arguments can be used in function
 --  applications generally, not just with `apply`.
 
-example (a b c d e f : Nat)
-    (h₁ : [a, b] = [c, d])
-    (h₂ : [c, d] = [e, f]) :
-    [a, b] = [e, f] := by
-  apply trans_eq (y := [c, d])
+example (u v w x y z : Nat)
+    (h₁ : [u, v] = [w, x])
+    (h₂ : [w, x] = [y, z]) :
+    [u, v] = [y, z] := by
+  apply trans_eq (b := [w, x])
   apply h₁
   apply h₂
 
---  Like any other kind of software, there are conventions and best
---  practices associated with writing proofs in Lean. One of these
---  conventions concerns the use of the `exact` tactic. When fully applying
---  another theorem like in the previous examples, it is considered good
---  practice to use the `exact` tactic instead of `apply`. This signals to
---  a reader of the proof that the proof is "exactly" an instance of
---  another lemma, and that nothing of particular interest is happening
---  here. This achieves a similar goal as when a mathematician says that
---  one result is "just" an instance of another.
+--  When fully applying another theorem or hypothesis to conclude a proof,
+--  it is good practice to use the `exact` tactic instead of `apply`. Doing
+--  so signals to a reader that the proof is solved *exactly* by this fact,
+--  and nothing more.
 
-example (a b c d e f : Nat)
-    (h₁ : [a, b] = [c, d])
-    (h₂ : [c, d] = [e, f]) :
-    [a, b] = [e, f] := by
+example (u v w x y z : Nat)
+    (h₁ : [u, v] = [w, x])
+    (h₂ : [w, x] = [y, z]) :
+    [u, v] = [y, z] := by
   exact trans_eq _ _ _ h₁ h₂
 
---  Recall the `calc` we have learned in the UsingLean chapter. It works by
---  chaining equalities together using transitivity, serving the same
---  purpose here as applying `trans_eq`.
+--  Recall the `calc` we saw in the UsingLean chapter. It works by chaining
+--  equalities together using transitivity, serving the same purpose here
+--  as applying `trans_eq`.
 
-example (a b c d e f : Nat)
-    (h₁ : [a, b] = [c, d])
-    (h₂ : [c, d] = [e, f]) :
-    [a, b] = [e, f] := by
+example (u v w x y z : Nat)
+    (h₁ : [u, v] = [w, x])
+    (h₂ : [w, x] = [y, z]) :
+    [u, v] = [y, z] := by
   calc
-  [a, b] = [c, d] := by rw [h₁]
-  [c, d] = [e, f] := by rw [h₂]
+  [u, v] = [w, x] := by rw [h₁]
+  _ = [y, z] := by rw [h₂]
 
 --  ### Exercise (3 stars): trans_eq_exercise (Optional) ⭐⭐⭐
 
@@ -253,7 +252,7 @@ theorem trans_eq_exercise (n m o p : Nat)
     (n + p) = o.minusTwo := by
   sorry
 
---  ## The `injection` and `contradiction` Tactics
+--  ## Tactics `injection` and `contradiction`
 
 --  Recall the definition of natural numbers:
 
@@ -262,10 +261,10 @@ sf_recall
     | zero
     | succ (n : Nat)
 
---  It is obvious from this definition that every number has one of two
---  forms: either it is the constructor `0` or it is built by applying the
---  constructor `.succ` to another number. But there is more here than
---  meets the eye: implicit in the definition are two additional facts:
+--  By this definition, every number has exactly one of two forms: either
+--  it is the constructor `0` or it is built by applying the constructor
+--  `.succ` to another number. There are two important consequences of this
+--  definition:
 --
 --  - The constructor `.succ` is *injective* (or *one-to-one*). That is, if
 --    `n + 1 = m + 1`, it must also be that `n = m`.
@@ -305,24 +304,17 @@ example (n m : Nat)
 example (n m : Nat)
     (h : n + 1 = m + 1) :
     n = m := by
-  injection h with hmn
-
---  By writing `injection h with hmn` at this point, we are asking Lean to
---  generate all equations that it can infer from `h` using the injectivity
---  of constructors (in the present example, the equation `n = m`). This
---  equation is added as a hypothesis (called `hmn` in this case) into the
---  context. Because this equation is exactly our goal, in this case the
---  `injection` tactic is able to automatically close the goal.
-
---  `with ...` can be omitted if the generated equations are not used.
-
-example (n m : Nat)
-    (h : n + 1 = m + 1) :
-    n = m := by
   injection h
 
---  Here's a more interesting example that shows how `injection` can derive
---  multiple equations at once.
+--  Writing `injection h` asks Lean to generate all equations that it can
+--  infer from `h` using the injectivity of constructors, adding them to
+--  the context. In the present example, Lean can infer that `n = m` from
+--  `n + 1 = m + 1`. When a generated equation satisfies the goal, as is
+--  the case here, the `injection` tactic automatically closes the goal.
+
+--  When generated equations do not immediately close the goal, we can add
+--  `with` to name the equations to be added to the context (otherwise Lean
+--  generates names for us).
 
 example (n m o : Nat)
     (h : [n, m] = [o, o]) :
@@ -332,9 +324,8 @@ example (n m o : Nat)
   rw [h₁, h₃]
 
 --  There is also a related tactic, `injections`, that applies the
---  `injection` tactic to all your hypotheses at once, as many times in a
---  row as it can. Using this tactic can avoid needing to repeatedly use
---  `injection` on lists. For example:
+--  `injection` tactic to all hypotheses, repeatedly. Using it simplifies
+--  the proof of the above example.
 
 example (n m o : Nat)
     (h : [n, m] = [o, o]) :
@@ -354,15 +345,13 @@ theorem injection_ex3 {α : Type} (x y z : α) (l j : List α)
 
 --  The principle of disjointness says that two terms beginning with
 --  different constructors (like `0` and `Nat.succ`, or `true` and `false`)
---  can never be equal. This means that, any time we find ourselves in a
---  context where we've *assumed* that two such terms are equal, we are
---  justified in concluding anything we want, since the assumption is
---  nonsensical.
+--  can never be equal. Therefore, any time we find ourselves in a context
+--  where we've *assumed* that two such terms are equal, we are justified
+--  in concluding anything we want, since the assumption is nonsensical.
 
 --  The `contradiction` tactic embodies this principle. If the context
---  contains a contradictory hypothesis, such as an equality between
---  different constructors (e.g., `false = true`), `contradiction` solves
---  the current goal immediately. Some examples:
+--  contains a contradictory hypothesis, such as `false = true`,
+--  `contradiction` solves the current goal immediately. Some examples:
 
 example (n m : Nat)
     (h : false = true) :
@@ -378,8 +367,12 @@ example (n : Nat)
 --  *principle of explosion*, which asserts that a contradictory hypothesis
 --  entails anything (even manifestly false things!).
 --
---  Notice that due to the way addition on naturals is defined, deriving a
---  contradiction from `1 + n = 0` is not as trivial as it seems.
+--  In the above example, `n + 1` is shorthand for a constructor
+--  application `Nat.succ n` so contradiction applies to it directly.
+--  Sometimes you need to do a little work to expose a contradictory
+--  hypothesis involving constructors. For example, recall that `Nat.add`
+--  recurses on its second argument, so deriving a contradiction from
+--  `1 + n = 0` is not direct.
 
 sf_expect_failure_in
   example (n : Nat)
@@ -521,23 +514,27 @@ sf_recall
 
 --   ----------------------------------------
 
+--  ### Tactic `congr`
+
 --  The injectivity of constructors allows us to reason that
 --  `∀ (n m : Nat), n + 1 = m + 1 → n = m`. The converse of this
---  implication is an instance of a more general fact about both
---  constructors and functions:
-
-example {α β : Type} (f : α → β) (x y : α)
-    (h : x = y) : f x = f y := by
-  rw [h]
+--  implication is also true:
 
 example (n m : Nat) (h : n = m) :
     n + 1 = m + 1 := by
   rw [h]
 
---  Indeed, there is also a tactic named `congr` that can prove such goals
---  directly. Given a goal of the form `f a₁ ... aₙ = g b₁ ... bₙ`, the
---  tactic `congr` will produce subgoals of the form `f = g`, `a₁ = b₁`,
---  ..., `aₙ = bₙ`. At the same time, any of these subgoals that are simple
+--  This is an instance of a more general fact about both constructors
+--  *and* functions:
+
+example {α β : Type} (f : α → β) (x y : α)
+    (h : x = y) : f x = f y := by
+  rw [h]
+
+--  There is a tactic named `congr` that can prove such goals directly.
+--  Given a goal of the form `f a₁ ... aₙ = g b₁ ... bₙ`, the tactic
+--  `congr` will produce subgoals of the form `f = g`, `a₁ = b₁`, ...,
+--  `aₙ = bₙ`. At the same time, any of these subgoals that are simple
 --  enough (e.g., immediately provable by `rfl`) will be automatically
 --  discharged.
 
@@ -701,11 +698,11 @@ theorem nth?_always_none {l : List α} (h : ∀ i, nth? l i = none) :
 --  these tactics before `apply` gives us yet another way to control where
 --  `apply` does its work.
 
-example (a b c d e f : Nat)
-    (h₁ : [a, b] = [c, d])
-    (h₂ : [c, d] = [e, f]) :
-    [a, b] = [e, f] := by
-  have h := trans_eq (y := [c, d])
+example (u v w x y z : Nat)
+    (h₁ : [u, v] = [w, x])
+    (h₂ : [w, x] = [y, z]) :
+    [u, v] = [y, z] := by
+  have h := trans_eq (b := [w, x])
   apply h
   /- This tactic closes a goal if it appears anywhere in the context.
      In this case we could also write `exact h₁` ... -/
@@ -1307,4 +1304,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     anyTrue test l = anyTrue' test l := by
   sorry
 
--- Built on 2026-09-07 10:28 UTC
+-- Built on 2026-09-07 17:53 UTC

@@ -1,5 +1,5 @@
 {
-  "main_sha": "334c7f217db97b1145ea525f6dc00c349686a678",
+  "main_sha": "30859f44d5a733e6ddd5439b85cd7d3df9cf68a6",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -292,16 +292,6 @@
       "status": "published",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
-    },
-    "372": {
-      "base_sha": "30859f44d5a733e6ddd5439b85cd7d3df9cf68a6",
-      "changed_variants": [],
-      "head_sha": "f2d0a050fbe11a4a930202428238e4b1dae94349",
-      "preview_path": "pr/372/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Tactics: Reorganization",
-      "url": "https://github.com/plclub/sf-in-lean/pull/372"
     }
   },
   "schema": 3
