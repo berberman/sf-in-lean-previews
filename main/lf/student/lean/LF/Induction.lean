@@ -558,7 +558,7 @@ theorem add_assoc'' (n m p : Nat) :
 --
 --  Proof: ...
 
---  ### Exercise (2 stars): beq_refl_informal (Optional, Manually graded) ⭐⭐
+--  ### Exercise (2 stars): beq_refl_informal (Optional) ⭐⭐
 
 --  Write an informal proof of the following theorem, using the informal
 --  proof of `add_assoc` as a model. Don't just paraphrase the Lean tactics
@@ -940,4 +940,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-09-06 22:40 UTC
+-- Built on 2026-09-02 21:21 UTC
