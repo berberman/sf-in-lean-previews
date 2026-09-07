@@ -544,18 +544,18 @@ declare_syntax_cat imp_com
 /-- The command that does nothing (`skip`) -/
 syntax:max ident : imp_com
 /-- Sequencing: one command after another (right associative. min + 1 = 11) -/
-syntax:min imp_com:11 ";" ppDedent(ppLine imp_com:min) : imp_com
+syntax:min imp_com:11 Lean.Parser.semicolonOrLinebreak ppHardSpace imp_com:min : imp_com
 /-- Assignment -/
 syntax:max ident ppHardSpace ":=" ppHardSpace imp_aexp : imp_com
 /-- Conditional -/
-syntax:max "if " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine imp_com ppDedent(ppLine "}") : imp_com
+syntax:max "if " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" ppHardSpace "else" ppHardSpace "{" imp_com "}" : imp_com
 /-- Loop -/
-syntax:max "while " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : imp_com
+syntax:max "while " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" : imp_com
 /-- Escape to Lean -/
 syntax:max "~" term:max : imp_com
 
 /-- Include an Imp command in Lean code -/
-syntax:min "imp" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : term
+syntax:min "imp" ppHardSpace "{" imp_com "}" : term
 
 namespace Com
 
@@ -641,10 +641,10 @@ end Imp.Delab
 --  concrete Imp program at the very start of the chapter.)
 
 def fact_in_lean : Com := imp {
-  Z := X;
-  Y := 1;
+  Z := X
+  Y := 1
   while (Z ≠ 0) {
-    Y := Y * Z;
+    Y := Y * Z
     Z := Z - 1
   }
 }
@@ -653,50 +653,30 @@ def fact_in_lean : Com := imp {
 --  with `#print`, which pretty prints the stored definition using the same
 --  syntax:
 
-/--
-info: def fact_in_lean : Com :=
-imp {
-  Z := X;
-  Y := 1;
-  while (Z ≠ 0) {
-    Y := Y * Z;
-    Z := Z - 1
-  }
-}
--/
-#guard_msgs in
 #print fact_in_lean
+
+--  Output:
+--    def fact_in_lean : Com :=
+--    imp {Z := X; Y := 1; while (Z ≠ 0) {Y := Y * Z; Z := Z - 1}}
 
 --  ### Desugaring Notations
 
---  The `imp { … }` notation, together with the delaborators, is purely a
---  convenience for reading and writing programs. Occasionally, such as
---  when debugging a definition or a stuck proof, the concrete syntax
---  `hide`s the underlying structure we want to see. For those moments we
---  can switch the Imp notation off in Lean's output with
---  `set_option pp.notation false`, which our delaborators honor.
---
---  Note that unlike a `def`, `imp { … }` is a `macro` which is expanded
---  during elaboration, **before** the resulting term is type-checked. So
---  `fact_in_lean` is not a program hidden behind a layer of notation that
---  a proof must first peel back; it simply **is** the underlying tree of
---  `Com`, `Aexp`, and `Bexp` constructors. Consequently, when a proof goal
---  mentions an Imp program, tactics such as `cases`, `injection`, and
---  `simp` already act on those constructors directly -- there is nothing
---  to "unfold". The delaborators affect only how that tree is
---  **displayed**. Nevertheless, seeing the raw constructors is sometimes
---  very helpful!
+--  Even though the notations are useful for getting the high-level
+--  picture, it's sometimes helpful to turn off the notation to see the
+--  parsed structure as a plain term. This can be done with
+--  `set_option pp.notation false` (which we briefly mentioned in the
+--  Typeclasses chapter) as follows:
 
-/-- info: imp {
-  X := X + 1
-} : Com -/
-#guard_msgs in
 #check imp { X := X + 1 }
 
-/-- info: Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com -/
-#guard_msgs in
+--  Output:
+--    imp {X := X + 1} : Com
+
 set_option pp.notation false in
 #check imp { X := X + 1 }
+
+--  Output:
+--    Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com
 
 --  ### More Examples
 
@@ -1110,7 +1090,7 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
       simp [Aexp.eval_plus, Aexp.eval_id, Aexp.eval_num, TotalMap.update_eq] at h ⊢
       lia
 
---  ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): XtimesYinZ_spec (Optional, Manually graded) ⭐⭐⭐
 
 --  State and prove a specification of `XtimesYinZ`.
 
@@ -1559,11 +1539,7 @@ attribute [app_unexpander Com.whileDo] unexpandComWhileDo
 
 end Delab
 
-/--
-info: imp {
-  brk
-} : Com
--/
+/-- info: imp {brk} : Com -/
 #guard_msgs in
 #check imp {brk}
 --  END DETAILS
@@ -1820,4 +1796,4 @@ end Imp.Break
 --        not just a single name, reads better with hover types (e.g. the
 --        `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 
--- Built on 2026-09-02 21:23 UTC
+-- Built on 2026-09-07 10:29 UTC

@@ -29,7 +29,7 @@ def NatProd.snd (p : NatProd) : Nat :=
   | .pair _ y => y
 
 --  Defining these functions with the `NatProd` type name
---  qualifying their name allows us to use them with `.`
+--  qualifying their names allows us to use them with `.`
 --  notation:
 
 example : (NatProd.pair 3 5).fst = 3 := by rfl
@@ -38,7 +38,7 @@ example : (NatProd.pair 3 5).fst = 3 := by rfl
 
 example : (⟨3, 5⟩ : NatProd).fst = 3 := by rfl
 
---  The anonymous constructor can be used in both
+--  The anonymous constructor can be used both in
 --  expressions and in pattern matches.
 
 def NatProd.fst' (p : NatProd) : Nat :=
@@ -263,11 +263,12 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --
 --  which follows directly from the definition of `append`.
 --
---  - Next, suppose `l₁ = n :: l₁'`, with
+--  - Next, suppose `l₁ = n :: l₁'`, which gives us the
+--    following inductive hypothesis.
 --
 --      (l₁' ++ l₂) ++ l₃ = l₁' ++ (l₂ ++ l₃)
 --
---  (the induction hypothesis). We must show
+--  We must show
 --
 --      ((n :: l₁') ++ l₂) ++ l₃ = (n :: l₁') ++ (l₂ ++ l₃).
 --
@@ -275,7 +276,7 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --
 --      n :: ((l₁' ++ l₂) ++ l₃) = n :: (l₁' ++ (l₂ ++ l₃)),
 --
---  which is immediate from the induction hypothesis. *Qed*.
+--  which is immediate from the induction hypothesis. *QED*.
 
 --  #### Generalizing Statements
 
@@ -288,7 +289,7 @@ sf_expect_failure_in
     induction c with
     | zero => rw [replicate_zero, nil_append]
     | succ c' ih =>
-      rw [replicate_succ]
+      rw [replicate_succ, cons_append]
       -- Now we seem to be stuck.
       -- The `ih` only works for `c' + c'`,
       -- but we need `c' + 1 + (c' + 1)`.
@@ -298,9 +299,9 @@ sf_expect_failure_in
 --    case succ
 --    n c' : Nat
 --    ih : replicate n c' ++ replicate n c' = replicate n (c' + c')
---    ⊢ (n :: replicate n c') ++ (n :: replicate n c') = replicate n (c' + 1 + (c' + 1))
+--    ⊢ n :: replicate n c' ++ (n :: replicate n c') = replicate n (c' + 1 + (c' + 1))
 
---  A generalization that gives a stronger inductive
+--  A generalization that gives a stronger induction
 --  hypothesis:
 
 theorem replicate_append_general (c₁ c₂ n : Nat) :
@@ -309,7 +310,7 @@ theorem replicate_append_general (c₁ c₂ n : Nat) :
   | zero =>
     rw [replicate_zero, Nat.zero_add, nil_append]
   | succ c1' ih =>
-    rw [Nat.succ_add, replicate_succ, replicate_succ, cons_append, ih]
+    rw [Nat.add_right_comm, replicate_succ, replicate_succ, cons_append, ih]
 
 --  Then, we can use this more general theorem to prove the
 --  original goal:
@@ -391,6 +392,11 @@ theorem length_reverse (l : NatList) :
   | nil => rw [reverse_nil]
   | cons n l' ih =>
     rw [reverse_cons, append_length_succ, ih, length_cons]
+
+--  We can also prove a more general form that gives the
+--  length of *any* two appended lists. We could use this
+--  theorem rather than `append_length_succ` to help prove
+--  `length_reverse`.
 
 theorem length_append (l₁ l₂ : NatList) :
     (l₁ ++ l₂).length = l₁.length + l₂.length := by
@@ -545,9 +551,9 @@ def find (x : MyId) (d : PartialMap) : NatOption :=
 
 --  Is the following claim true or false?
 
-theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
-    find x (update d x n) = .some n := by
-  rw [update, find, MyId.beq_refl, cond_true]
+--  ∀ (d : PartialMap) (x : MyId) (n : Nat),
+--  -----------------------------------------
+--    find x (update d x n) = .some n
 
 --  (A) True (B) False (C) Not sure
 
@@ -557,11 +563,10 @@ theorem quiz1 (d : PartialMap) (x : MyId) (n : Nat) :
 
 --  Is the following claim true or false?
 
-theorem quiz2  (d : PartialMap) (x y : MyId) (o : Nat) :
-    MyId.beq x y = false →
-    find x (update d y o) = find x d := by
-  intro h
-  rw [update, find, h, cond_false]
+--  ∀ (d : PartialMap) (x y : MyId) (o : Nat)
+--    (h : MyId.beq x y = false),
+--  -----------------------------------------
+--    find x (update d y o) = find x d
 
 --  (A) True (B) False (C) Not sure
 
@@ -571,4 +576,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-02 21:22 UTC
+-- Built on 2026-09-07 10:28 UTC
