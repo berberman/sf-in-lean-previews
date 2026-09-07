@@ -292,6 +292,16 @@
       "status": "published",
       "title": "Initial Port of Subtyping",
       "url": "https://github.com/plclub/sf-in-lean/pull/362"
+    },
+    "371": {
+      "base_sha": "334c7f217db97b1145ea525f6dc00c349686a678",
+      "changed_variants": [],
+      "head_sha": "7a6216e10fc762b0a54fdb95533e99ada9177484",
+      "preview_path": "pr/371/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34117355581",
+      "status": "ci-failed",
+      "title": "Tactics: Polishing pass",
+      "url": "https://github.com/plclub/sf-in-lean/pull/371"
     }
   },
   "schema": 3
