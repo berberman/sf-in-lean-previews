@@ -249,12 +249,59 @@
     "377": {
       "base_sha": "fc10434ac1533f5b9628127815b8be5f3c5a5b45",
       "changed_variants": [],
-      "head_sha": "44ab46a946e72538b6c86d4d2a5ccb67d4a204f2",
+      "head_sha": "c071cfc8816a8e3276ca0a428c8a881b6b27f3e0",
       "preview_path": "pr/377/head/",
       "run_url": null,
       "status": "waiting-ci",
       "title": "Improvements to Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/377"
+    },
+    "378": {
+      "base_sha": "fc10434ac1533f5b9628127815b8be5f3c5a5b45",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "624aed3775d59ff6c017e4ab81202d021708ae1b",
+      "preview_path": "pr/378/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34248639988",
+      "status": "published",
+      "title": "Tactics: missing title; release",
+      "url": "https://github.com/plclub/sf-in-lean/pull/378"
     }
   },
   "schema": 3
