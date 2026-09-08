@@ -570,7 +570,7 @@ theorem test_member2 : member 2 [1, 4, 1] = false := (by rfl)
 
 --  ### Removal
 
---  ### Exercise (3 stars): removing (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): removeOne ⭐⭐⭐
 
 --  Here are some more `NatList` functions for you to practice with.
 --
@@ -603,6 +603,8 @@ example : count 5 (removeOne 5 [1, 5, 4]) = 0 := (by rfl)
 theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := (by rfl)
 
 theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := (by rfl)
+
+--  ### Exercise (3 stars): removeAll (Optional) ⭐⭐⭐
 
 def removeAll (n : Nat) (l : NatList) : NatList := (
   match l with
@@ -1084,9 +1086,6 @@ theorem ble_self_succ (n : Nat) :
   | zero       => rfl
   | succ n' ih => rw [Nat.ble]; exact ih
 
---  Before doing the next exercise, make sure you've filled in the
---  definition of `removeOne` above.
-
 --  ### Exercise (3 stars): remove_does_not_increase_count (Advanced) ⭐⭐⭐
 
 theorem remove_does_not_increase_count (l : NatList) :
@@ -1346,4 +1345,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-08 14:32 UTC
+-- Built on 2026-09-08 17:35 UTC

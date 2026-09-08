@@ -1,5 +1,5 @@
 {
-  "main_sha": "fc10434ac1533f5b9628127815b8be5f3c5a5b45",
+  "main_sha": "9fdcf66c9ed7214a0e354227c4b4d888ffbf3508",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -246,18 +246,8 @@
       "title": "Customize VSCode title/activity bar colors",
       "url": "https://github.com/plclub/sf-in-lean/pull/376"
     },
-    "377": {
-      "base_sha": "fc10434ac1533f5b9628127815b8be5f3c5a5b45",
-      "changed_variants": [],
-      "head_sha": "c071cfc8816a8e3276ca0a428c8a881b6b27f3e0",
-      "preview_path": "pr/377/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34250484508",
-      "status": "ci-failed",
-      "title": "Improvements to Tactics",
-      "url": "https://github.com/plclub/sf-in-lean/pull/377"
-    },
-    "378": {
-      "base_sha": "fc10434ac1533f5b9628127815b8be5f3c5a5b45",
+    "380": {
+      "base_sha": "9fdcf66c9ed7214a0e354227c4b4d888ffbf3508",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -296,22 +286,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "624aed3775d59ff6c017e4ab81202d021708ae1b",
-      "preview_path": "pr/378/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34248639988",
+      "head_sha": "d35961127b1ed616331f4decca85644710735eba",
+      "preview_path": "pr/380/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34258016005",
       "status": "published",
-      "title": "Tactics: missing title; release",
-      "url": "https://github.com/plclub/sf-in-lean/pull/378"
-    },
-    "379": {
-      "base_sha": "fc10434ac1533f5b9628127815b8be5f3c5a5b45",
-      "changed_variants": [],
-      "head_sha": "5a3832da7675044c0b9d9c4a1352e42412d0f478",
-      "preview_path": "pr/379/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Fix autograder directives; fix gradescope autograder",
-      "url": "https://github.com/plclub/sf-in-lean/pull/379"
+      "title": "Poly: Tidying",
+      "url": "https://github.com/plclub/sf-in-lean/pull/380"
     }
   },
   "schema": 3
