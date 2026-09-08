@@ -1,5 +1,5 @@
 {
-  "main_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
+  "main_sha": "6da34dacef8afd7f8e2a8e019ee4b419f1fb7c7a",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -199,109 +199,15 @@
       "title": "Build: Install devcontainer in built artifacts",
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
     },
-    "362": {
-      "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "82afd1b6278e2d6ead445822c310859c4ea2f230",
-      "preview_path": "pr/362/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34224751865",
-      "status": "published",
-      "title": "Initial Port of Subtyping",
-      "url": "https://github.com/plclub/sf-in-lean/pull/362"
-    },
     "374": {
       "base_sha": "6c0baecadc00bdb0a0dc560033cef46e1439612c",
       "changed_variants": [],
       "head_sha": "0ec7eb55d94b78873c4a4387da489b59d167064f",
       "preview_path": "pr/374/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34173349847",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Add missing space",
       "url": "https://github.com/plclub/sf-in-lean/pull/374"
-    },
-    "375": {
-      "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "e48cbacdd5a85602868f816f6574f116d72e8cf4",
-      "preview_path": "pr/375/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34230273317",
-      "status": "published",
-      "title": "Tactics: More tidying",
-      "url": "https://github.com/plclub/sf-in-lean/pull/375"
     },
     "376": {
       "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",

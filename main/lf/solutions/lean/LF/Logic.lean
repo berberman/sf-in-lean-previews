@@ -8,6 +8,18 @@ import SFLCompat
 
 --  # Logic in Lean
 
+--  Note to developers (Mike Hicks @mwhicks1):
+--      See about working the following into this chapter.
+--
+--      Any tactic that accepts an `at` clause can target several locations
+--      at once, including the goal, by listing them together after `at`.
+--
+--
+--
+--      `example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+--        rw [Nat.add_zero] at h ⊢
+--        assumption`
+
 --  Note to developers (before next release):
 --      Unlike earlier chapters, there are probably too many WORKINCLASSes
 --      in this chapter. BCP 20: But conversely some more quizzes would be
@@ -2286,4 +2298,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Built on 2026-09-08 09:09 UTC
+-- Built on 2026-09-08 14:05 UTC

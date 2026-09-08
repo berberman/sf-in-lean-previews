@@ -124,7 +124,7 @@ theorem injection_ex3 {α : Type} (x y z : α) (l j : List α)
   rw [hyz, hxz]
 
 --  So much for injectivity of constructors. What about disjointness?
-
+--
 --  The principle of disjointness says that two terms beginning with
 --  different constructors (like `0` and `Nat.succ`, or `true` and `false`)
 --  can never be equal. Therefore, any time we find ourselves in a context
@@ -156,10 +156,12 @@ example (n : Nat)
 
 --  In the above example, `n + 1` is shorthand for a constructor
 --  application `Nat.succ n` so contradiction applies to it directly.
+
 --  Sometimes you need to do a little work to expose a contradictory
---  hypothesis involving constructors. For example, recall that `Nat.add`
---  recurses on its second argument, so deriving a contradiction from
---  `1 + n = 0` is not direct.
+--  hypothesis involving constructors.
+
+--  For example, recall that `Nat.add` recurses on its second argument, so
+--  deriving a contradiction from `1 + n = 0` is not direct.
 
 sf_expect_failure_in
   example (n : Nat)
@@ -390,32 +392,13 @@ example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
 --        rw [Nat.add_comm]
 --        congr`
 
---  ## More about `cases`
+--  ## Using `cases` on Expressions
 
 --  We've seen many examples where the `cases` tactic is used to perform
---  case analysis of the value of some variable. The tactic offers more
---  general-purpose functionality, too.
-
---  For example, it turns out that `cases` builds in this same reasoning
---  that the `injection` and `contradiction` tactics exploit about the
---  injectivity and disjointness of constructors. Here are a few examples.
-
--- substitution
-example (x : Nat) (h : x = 0) : Nat.succ x = 1 := by
-  cases h
-  rfl
-
--- disjointness
-example (h : (0 : Nat) = 1) : 2 = 3 := by
-  cases h
-
--- injectivity
-example {m n : Nat} (h : Nat.succ m = Nat.succ n) : m = n := by
-  cases h
-  rfl
-
---  Sometimes we need to reason by cases on the result of some
---  *expression*. We can do so with `cases`, directly. Here is an example:
+--  case analysis of the value of some *variable*, such as one of type
+--  `Bool` or `Nat`. Sometimes we need to reason by cases on the result of
+--  some *expression*. We can do so with `cases`, directly. Here is an
+--  example:
 
 def chooseIf {α : Type} (test : α → Bool) (x y : α) : α :=
   if test x then x else y
@@ -425,7 +408,7 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
   rw [chooseIf]
   cases test x <;> rfl
 
---  After *unfolding* `chooseIf` in the above proof, we find that we are
+--  After unfolding `chooseIf` in the above proof, we find that we are
 --  stuck on `(if test x = true then x else x) = x`. But either `test x` is
 --  `true` or it isn't, so we can use `cases (test x)` to let us reason
 --  about the two cases.
@@ -565,13 +548,12 @@ theorem bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) :
 
 --  ## The `apply` Tactic
 
---  We often encounter situations where the goal to be proved is *exactly*
---  the same as some hypothesis in the context or some previously proved
---  lemma.
+--  When the goal to be proved is *exactly* the same as a hypothesis or a
+--  previously proved lemma, we can use the `exact` tactic.
 
---  The `apply` tactic is useful when the goal is instead the conclusion of
---  an implication. If the conclusion of the implication matches the
---  current goal, its premises become new subgoals to be proved.
+--  When the goal to be proved is the conclusion of hypothesis or lemma
+--  expressing an implication, we can use the `apply` tactic. When we do,
+--  the premises of the implication become new subgoals to be proved.
 
 --  For example, suppose we have a hypothesis `h : p → q` and our goal is
 --  `q`. We can use `apply h` to replace the goal `q` with the premise `p`:
@@ -586,6 +568,10 @@ example (n m o p : Nat) (hnm : n = m) (h : n = m → [n, o] = [m, p]) :
     [n, o] = [m, p] := by
   apply h
   exact hnm
+
+--  This process is called *backward reasoning*. We are trying to prove
+--  some goal `⊢ b` and we know some fact `h : a → b`. So we work backwards
+--  by applying that fact, which replaces the goal with `⊢ a`.
 
 --  When we use `apply h`, Lean tries to match the conclusion of the type
 --  of `h` with the current goal. Here `h : n = m → [n, o] = [m, p]` has
@@ -818,7 +804,9 @@ theorem trans_eq_exercise (n m o p : Nat)
   _ = m := by rw [h₂]
   _ = o.minusTwo := by rw [h₁]
 
---  ## Forward Reasoning with `apply`
+--  ### Forward Reasoning with `apply`
+
+--  We can also use the `apply` tactic to rewrite *hypotheses*.
 
 --  The tactic `apply t at h` matches an implication `t` (say, of the form
 --  `a → b`) against a hypothesis `h` in the local context. Unlike ordinary
@@ -826,11 +814,11 @@ theorem trans_eq_exercise (n m o p : Nat)
 --  subgoal `a`, `apply t at h` matches the type of `h` against `a` and, if
 --  successful, replaces `h` with a hypothesis of type `b`.
 --
---  In other words, `apply t at h` gives us a form of "forward reasoning":
+--  In other words, `apply t at h` gives us a form of *forward reasoning*:
 --  given `t : a → b` and `h : a`, it replaces `h` with a proof of `b`.
---
---  By contrast, ordinary `apply t` is "backward reasoning": given
---  `t : a → b` and a goal `⊢ b`, it replaces the goal with `⊢ a`.
+--  Contrast this with the backward reasoning done by ordinary `apply`:
+--  given `t : a → b` and a goal `⊢ b`, `apply t` replaces the goal with
+--  `⊢ a`.
 --
 --  Here is a proof that uses forward reasoning rather than backward
 --  reasoning:
@@ -863,27 +851,18 @@ example (n m p q : Nat)
 --  the whole thing here, but we have made `apply ... at ...` available
 --  because it is quite useful.
 
---  To apply a tactic in multiple places at the same time, you can list
---  multiple hypotheses in a row after the `at`. You can also explicitly
---  use a tactic on the goal (usually because you are applying the tactic
---  to both a hypothesis and the goal) by including it after the `at` with
---  the turnstile symbol `⊢`, written `\|-`, `\goal` or `\vdash`.
-
-example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
-  rw [Nat.add_zero] at h ⊢
-  assumption
-
 --  ## Specializing Hypotheses
 
---  We've already seen how we can use `have` to do forward reasoning, by
---  letting us state and prove useful facts that get us closer to the main
---  goal we're trying to prove. Often, though, these facts are just special
---  cases of more general hypotheses we already have.
+--  The `have` tactic, which we have already seen, supports forward
+--  reasoning by letting us state and prove useful facts that get us closer
+--  to the main goal we're trying to prove.
 --
---  If `h` is a quantified hypothesis in the current context — i.e.,
---  `h : ∀ (x : α), P x` — then we can use `have` to obtain a special case
---  of `h` by supplying a value for `x`. For example, `have h := h e`
---  introduces a new `h` which `x` has been instantiated with `e`.
+--  These facts are often just special cases of more general hypotheses we
+--  already have. If `h` is a quantified hypothesis in the current context
+--  — i.e., `h : ∀ (x : α), P x` — then we can use `have` to obtain a
+--  special case of `h` by supplying a value for `x`. For example,
+--  `have h := h e` introduces a new `h` which `x` has been instantiated
+--  with `e`.
 --
 --  For example:
 
@@ -1229,13 +1208,95 @@ example (n m p q : Nat)
 --  `rw [double_injective n m]`, Lean uses the conclusion `n = m` to
 --  rewrite the goal, and then asks us to prove the hypothesis needed by
 --  `double_injective`. Thus we get two goals: the updated main goal,
---  `m + p = q`, which follows from `hm`, and the condition from
---  `double_injective`, `n.double = m.double`, which follows from `h`.
+--  `m + p = q`, and the condition from `double_injective`,
+--  `n.double = m.double`. These goals follow by assumption from `hm` and
+--  `h`, respectively.
 
 --  If we rewrite with a conditional statement of the form `P → a = b`,
 --  then Lean tries to rewrite with `a = b`, and then asks us to prove `P`
 --  in a new subgoal. If the statement has more than one assumption, then
 --  we get one subgoal for each assumption.
+
+--  ## Review
+
+--  We've now talked about many of Lean's most fundamental tactics. We'll
+--  introduce a few more in the coming chapters, and later on we'll see
+--  some more powerful *automation* tactics that make Lean help us with
+--  low-level details. But basically we've got what we need to get work
+--  done.
+
+--  Here are the tactics we've seen so far.
+--
+--  Managing goals and hypotheses:
+--
+--  - `intro h`: move an assumption/quantified variable from the goal into
+--    the local context
+--
+--  - `apply thm`: use a theorem, hypothesis, or constructor whose
+--    conclusion matches the goal; its premises become new goals
+--
+--  - `apply thm at h`: use a theorem on a hypothesis in the context,
+--    replacing `h` by the resulting fact (forward reasoning)
+--
+--  - `specialize h ...`: instantiate quantified variables in a hypothesis,
+--    modifying `h` in place
+--
+--  - `replace h := ...`: replace a hypothesis with a newly proved fact
+--
+--  - `have h : P := ...`: prove a local fact `P` and add it to the context
+--    with the name `h`
+--
+--  - `contradiction`: close the current goal when the context contains
+--    contradictory assumptions
+--
+--  Equality, rewriting, and unfolding:
+--
+--  - `rfl`: close an equality that holds by reflexivity (possibly after
+--    computation)
+--
+--  - `rw [h]`: rewrite the goal using an equality hypothesis or theorem
+--
+--  - `rw [d]`: unfold a definition in the goal
+--
+--  - `rw [h] at h'`: rewrite a hypothesis using an equality hypothesis or
+--    theorem
+--
+--  - `rw [d] at h'`: unfold a definition in a hypothesis
+--
+--  - `symm`: reverse an equality goal, changing `t = u` to `u = t`
+--
+--  - `symm at h`: reverse an equality hypothesis
+--
+--  - `calc`: prove a goal about equality or another transitive relation by
+--    giving a sequence of intermediate steps
+--
+--  - `congr`: use congruence to reduce an equality between expressions
+--    with the same outer form; for example, a goal `f x = f y` may be
+--    reduced to `x = y`
+--
+--  - `injection h with ...`: use injectivity of constructors to extract
+--    equalities from equations between constructor applications
+--
+--  - `injections`: repeatedly use constructor injectivity on suitable
+--    equalities in the context
+--
+--  Case analysis:
+--
+--  - `cases x`: reason separately about the possible constructors of an
+--    inductively defined value
+--
+--  - `cases h : e`: perform case analysis on an expression `e` and add an
+--    equation named `h` recording the result of the case analysis
+--
+--  Induction:
+--
+--  - `induction x`: prove the goal by induction on an inductively defined
+--    value
+--
+--  - `induction x generalizing y`: induction on `x` while generalizing the
+--    listed local variables, giving a more general induction hypothesis
+
+--  ## Additional Exercises
 
 --  ### Exercise (3 stars): nth?_after_last ⭐⭐⭐
 
@@ -1343,87 +1404,6 @@ theorem diagonal_induction (p : Nat → Nat → Prop)
     | succ n' =>
       apply hss
       apply ih
-
---  ## Review
-
---  We've now talked about many of Lean's most fundamental tactics. We'll
---  introduce a few more in the coming chapters, and later on we'll see
---  some more powerful *automation* tactics that make Lean help us with
---  low-level details. But basically we've got what we need to get work
---  done.
---
---  Here are the ones we've seen so far.
---
---  Managing goals and hypotheses:
---
---  - `intro h`: move an assumption/quantified variable from the goal into
---    the local context
---
---  - `apply thm`: use a theorem, hypothesis, or constructor whose
---    conclusion matches the goal; its premises become new goals
---
---  - `apply thm at h`: use a theorem on a hypothesis in the context,
---    replacing `h` by the resulting fact (forward reasoning)
---
---  - `specialize h ...`: instantiate quantified variables in a hypothesis,
---    modifying `h` in place
---
---  - `replace h := ...`: replace a hypothesis with a newly proved fact
---
---  - `have h : P := ...`: prove a local fact `P` and add it to the context
---    with the name `h`
---
---  - `contradiction`: close the current goal when the context contains
---    contradictory assumptions
---
---  Equality, rewriting, and unfolding:
---
---  - `rfl`: close an equality that holds by reflexivity (possibly after
---    computation)
---
---  - `rw [h]`: rewrite the goal using an equality hypothesis or theorem
---
---  - `rw [d]`: unfold a definition in the goal
---
---  - `rw [h] at h'`: rewrite a hypothesis using an equality hypothesis or
---    theorem
---
---  - `rw [d] at h'`: unfold a definition in a hypothesis
---
---  - `symm`: reverse an equality goal, changing `t = u` to `u = t`
---
---  - `symm at h`: reverse an equality hypothesis
---
---  - `calc`: prove a goal about equality or another transitive relation by
---    giving a sequence of intermediate steps
---
---  - `congr`: use congruence to reduce an equality between expressions
---    with the same outer form; for example, a goal `f x = f y` may be
---    reduced to `x = y`
---
---  - `injection h with ...`: use injectivity of constructors to extract
---    equalities from equations between constructor applications
---
---  - `injections`: repeatedly use constructor injectivity on suitable
---    equalities in the context
---
---  Case analysis:
---
---  - `cases x`: reason separately about the possible constructors of an
---    inductively defined value
---
---  - `cases h : e`: perform case analysis on an expression `e` and add an
---    equation named `h` recording the result of the case analysis
---
---  Induction:
---
---  - `induction x`: prove the goal by induction on an inductively defined
---    value
---
---  - `induction x generalizing y`: induction on `x` while generalizing the
---    listed local variables, giving a more general induction hypothesis
-
---  ### Additional Exercises
 
 --  ### Exercise (2 stars): append_left_cancel ⭐⭐
 
@@ -1588,4 +1568,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Built on 2026-09-08 09:09 UTC
+-- Built on 2026-09-08 14:05 UTC

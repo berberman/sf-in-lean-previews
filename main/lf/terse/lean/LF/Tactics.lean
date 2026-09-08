@@ -55,17 +55,6 @@ example (n m o : Nat)
     n = m := by
   sorry
 
---  ### Exercise (3 stars): injection_ex3 ⭐⭐⭐
-
-theorem injection_ex3 {α : Type} (x y z : α) (l j : List α)
-    (h₁ : x :: y :: l = z :: j)
-    (h₂ : j = z :: l) :
-    x = y := by
-  sorry
-
---  So much for injectivity of constructors. What about
---  disjointness?
-
 --  Two terms beginning with different constructors (like
 --  `0` and `Nat.succ`, or `true` and `false`) can never be
 --  equal.
@@ -90,13 +79,8 @@ example (n : Nat)
 --  that a contradictory hypothesis entails anything (even
 --  manifestly false things!).
 
---  In the above example, `n + 1` is shorthand for a
---  constructor application `Nat.succ n` so contradiction
---  applies to it directly. Sometimes you need to do a
---  little work to expose a contradictory hypothesis
---  involving constructors. For example, recall that
---  `Nat.add` recurses on its second argument, so deriving a
---  contradiction from `1 + n = 0` is not direct.
+--  Sometimes you need to do a little work to expose a
+--  contradictory hypothesis involving constructors.
 
 sf_expect_failure_in
   example (n : Nat)
@@ -286,30 +270,7 @@ example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
   rw [Nat.add_comm]
   congr
 
---  ## More about `cases`
-
---  We've seen many examples where the `cases` tactic is
---  used to perform case analysis of the value of some
---  variable. The tactic offers more general-purpose
---  functionality, too.
-
---  The `cases` tactic has specialized machinery that lets
---  it solve some goals involving disjointness and
---  injectivity, as well as substitution, of constructors:
-
--- substitution
-example (x : Nat) (h : x = 0) : Nat.succ x = 1 := by
-  cases h
-  rfl
-
--- disjointness
-example (h : (0 : Nat) = 1) : 2 = 3 := by
-  cases h
-
--- injectivity
-example {m n : Nat} (h : Nat.succ m = Nat.succ n) : m = n := by
-  cases h
-  rfl
+--  ## Using `cases` on Expressions
 
 --  The `cases` tactic can be used on expressions as well as
 --  variables:
@@ -368,10 +329,10 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
 
 --  ## The `apply` Tactic
 
---  The `apply` tactic is useful when the goal is instead
---  the conclusion of an implication. If the conclusion of
---  the implication matches the current goal, its premises
---  become new subgoals to be proved.
+--  When the goal to be proved is the conclusion of
+--  hypothesis or lemma expressing an implication, we can
+--  use the `apply` tactic. When we do, the premises of the
+--  implication become new subgoals to be proved.
 
 example (p q : Prop) (h : p → q) (hp : p) : q := by
   apply h
@@ -383,6 +344,11 @@ example (n m o p : Nat) (hnm : n = m) (h : n = m → [n, o] = [m, p]) :
     [n, o] = [m, p] := by
   apply h
   exact hnm
+
+--  This process is called *backward reasoning*. We are
+--  trying to prove some goal `⊢ b` and we know some fact
+--  `h : a → b`. So we work backwards by applying that fact,
+--  which replaces the goal with `⊢ a`.
 
 --  Observe how Lean picks appropriate values for the
 --  universally quantified variables of the hypothesis:
@@ -518,22 +484,17 @@ example (u v w x y z : Nat)
   [u, v] = [w, x] := by rw [h₁]
   _ = [y, z] := by rw [h₂]
 
---  ### Exercise (3 stars): trans_eq_exercise (Optional) ⭐⭐⭐
+--  ### Forward Reasoning with `apply`
 
-theorem trans_eq_exercise (n m o p : Nat)
-    (h₁ : m = o.minusTwo)
-    (h₂ : (n + p) = m) :
-    (n + p) = o.minusTwo := by
-  sorry
+--  We can also use the `apply` tactic to rewrite
+--  *hypotheses*.
 
---  ## Forward Reasoning with `apply`
-
---  The ordinary `apply` tactic is a form of "backward
---  reasoning." It says "We are trying to prove `a` and we
+--  The ordinary `apply` tactic is a form of backward
+--  reasoning. It says "We are trying to prove `a` and we
 --  know `b → a`, so if we can prove `b` we'll be done."
 --
---  By contrast, the variant `apply ... at ...` is "forward
---  reasoning": it says "We know `b` and we know `b → a`, so
+--  By contrast, the variant `apply ... at ...` is *forward
+--  reasoning*: it says "We know `b` and we know `b → a`, so
 --  we also know `a`."
 
 example (n m p q : Nat)
@@ -543,26 +504,20 @@ example (n m p q : Nat)
   apply h at hnm
   exact hnm
 
---  You can apply tactics in multiple places at the same
---  time, including the goal:
-
-example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
-  rw [Nat.add_zero] at h ⊢
-  assumption
-
 --  ## Specializing Hypotheses
 
---  We've already seen how we can use `have` to do forward
---  reasoning, by letting us state and prove useful facts
---  that get us closer to the main goal we're trying to
---  prove. Often, though, these facts are just special cases
---  of more general hypotheses we already have.
+--  The `have` tactic, which we have already seen, supports
+--  forward reasoning by letting us state and prove useful
+--  facts that get us closer to the main goal we're trying
+--  to prove.
 --
---  If `h` is a quantified hypothesis in the current context
---  — i.e., `h : ∀ (x : α), P x` — then we can use `have` to
---  obtain a special case of `h` by supplying a value for
---  `x`. For example, `have h := h e` introduces a new `h`
---  which `x` has been instantiated with `e`.
+--  These facts are often just special cases of more general
+--  hypotheses we already have. If `h` is a quantified
+--  hypothesis in the current context — i.e.,
+--  `h : ∀ (x : α), P x` — then we can use `have` to obtain
+--  a special case of `h` by supplying a value for `x`. For
+--  example, `have h := h e` introduces a new `h` which `x`
+--  has been instantiated with `e`.
 --
 --  For example:
 
@@ -696,22 +651,6 @@ theorem double_injective (n m : Nat) (h : n.double = m.double) : n = m := by
 --  applies to every `m` rather than just the particular `m`
 --  in the context.
 
---  ### Exercise (3 stars): add_self_injective ⭐⭐⭐
-
---  The following theorem follows the same pattern as
---  `double_injective`.
-
-theorem add_self_injective (n m : Nat)
-    (h : n + n = m + m) :
-    n = m := by
-  sorry
-
---  ### Exercise (2 stars): add_self_injective_informal (Manually graded) ⭐⭐
-
---  Give a careful informal proof of `add_self_injective`,
---  stating the induction hypothesis explicitly and being as
---  explicit as possible about quantifiers, everywhere.
-
 --  ## Rewriting with Conditional Statements
 
 example (n m p q : Nat)
@@ -728,46 +667,86 @@ example (n m p q : Nat)
 --  statement has more than one assumption, then we get one
 --  subgoal for each assumption.
 
---  ### Exercise (3 stars): length_append_cons (Optional) ⭐⭐⭐
+--  ## Review
 
---  Prove this by induction on `l₁`, without using
---  `List.length_append`.
+--  Here are the tactics we've seen so far.
+--
+--  Managing goals and hypotheses:
+--
+--  - `intro h`: move an assumption/quantified variable from
+--    the goal into the local context
+--
+--  - `apply thm`: use a theorem, hypothesis, or constructor
+--    whose conclusion matches the goal; its premises become
+--    new goals
+--
+--  - `apply thm at h`: use a theorem on a hypothesis in the
+--    context, replacing `h` by the resulting fact (forward
+--    reasoning)
+--
+--  - `specialize h ...`: instantiate quantified variables
+--    in a hypothesis, modifying `h` in place
+--
+--  - `replace h := ...`: replace a hypothesis with a newly
+--    proved fact
+--
+--  - `have h : P := ...`: prove a local fact `P` and add it
+--    to the context with the name `h`
+--
+--  - `contradiction`: close the current goal when the
+--    context contains contradictory assumptions
+--
+--  Equality, rewriting, and unfolding:
+--
+--  - `rfl`: close an equality that holds by reflexivity
+--    (possibly after computation)
+--
+--  - `rw [h]`: rewrite the goal using an equality
+--    hypothesis or theorem
+--
+--  - `rw [d]`: unfold a definition in the goal
+--
+--  - `rw [h] at h'`: rewrite a hypothesis using an equality
+--    hypothesis or theorem
+--
+--  - `rw [d] at h'`: unfold a definition in a hypothesis
+--
+--  - `symm`: reverse an equality goal, changing `t = u` to
+--    `u = t`
+--
+--  - `symm at h`: reverse an equality hypothesis
+--
+--  - `calc`: prove a goal about equality or another
+--    transitive relation by giving a sequence of
+--    intermediate steps
+--
+--  - `congr`: use congruence to reduce an equality between
+--    expressions with the same outer form; for example, a
+--    goal `f x = f y` may be reduced to `x = y`
+--
+--  - `injection h with ...`: use injectivity of
+--    constructors to extract equalities from equations
+--    between constructor applications
+--
+--  - `injections`: repeatedly use constructor injectivity
+--    on suitable equalities in the context
+--
+--  Case analysis:
+--
+--  - `cases x`: reason separately about the possible
+--    constructors of an inductively defined value
+--
+--  - `cases h : e`: perform case analysis on an expression
+--    `e` and add an equation named `h` recording the result
+--    of the case analysis
+--
+--  Induction:
+--
+--  - `induction x`: prove the goal by induction on an
+--    inductively defined value
+--
+--  - `induction x generalizing y`: induction on `x` while
+--    generalizing the listed local variables, giving a more
+--    general induction hypothesis
 
-theorem length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat}
-    (h : (l₁ ++ (x :: l₂)).length = n) :
-    ((l₁ ++ l₂).length) + 1 = n := by
-  sorry
-
---  ### Exercise (3 stars): length_append_self (Optional) ⭐⭐⭐
-
---  Prove this by induction on `l`, without using
---  `List.length_append`. Hint: you might need to use
---  `length_append_cons` you just proved.
-
-theorem length_append_self {α : Type} {n : Nat} {l : List α}
-    (h : l.length = n) :
-    (l ++ l).length = n + n := by
-  sorry
-
---  ### Exercise (3 stars): list_ext ⭐⭐⭐
-
---  Prove the *extensionality principle* for lists.
---  `nth?_always_none` should be useful.
-
-theorem list_ext {l₁ l₂ : List α} (h : ∀ n, nth? l₁ n = nth? l₂ n) : l₁ = l₂ := by
-  sorry
-
---  ### Exercise (3 stars): diagonal_induction (Optional) ⭐⭐⭐
-
---  Prove the following principle of induction over two
---  naturals.
-
-theorem diagonal_induction (p : Nat → Nat → Prop)
-    (hzz : p 0 0)
-    (hsz : ∀ m, p m 0 → p (m + 1) 0)
-    (hzs : ∀ n, p 0 n → p 0 (n + 1))
-    (hss : ∀ m n, p m n → p (m + 1) (n + 1)) :
-    ∀ m n, p m n := by
-  sorry
-
--- Built on 2026-09-08 09:09 UTC
+-- Built on 2026-09-08 14:05 UTC

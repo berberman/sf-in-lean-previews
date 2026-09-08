@@ -379,6 +379,61 @@
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "API and Encapsulation", "shortTitle": null, "number": "5"}]},
      "address": "/Typeclasses/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations",
+     "data":
+     {"title": "Splitting with Equations",
+      "shortTitle": null,
+      "sectionNum": "7.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Using  cases  on Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Splitting with Equations",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Destructing-Tuples":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Destructing-Tuples",
+     "data":
+     {"title": "Destructing Tuples",
+      "shortTitle": null,
+      "sectionNum": "7.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Using  cases  on Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Destructing Tuples", "shortTitle": null, "number": "1"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions",
+     "data":
+     {"title": "Using  cases  on Expressions",
+      "shortTitle": null,
+      "sectionNum": "7.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Using  cases  on Expressions",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Supplying-arguments-to--apply":
    [{"id":
      "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Supplying-arguments-to--apply",
@@ -396,6 +451,24 @@
        {"title": "Supplying arguments to  apply",
         "shortTitle": null,
         "number": "1"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Forward-Reasoning-with--apply":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Forward-Reasoning-with--apply",
+     "data":
+     {"title": "Forward Reasoning with  apply",
+      "shortTitle": null,
+      "sectionNum": "7.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "The  apply  Tactic", "shortTitle": null, "number": "3"},
+       {"title": "Forward Reasoning with  apply",
+        "shortTitle": null,
+        "number": "2"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic":
    [{"id":
@@ -489,7 +562,7 @@
      "data":
      {"title": "Specializing Hypotheses",
       "shortTitle": null,
-      "sectionNum": "7.5.",
+      "sectionNum": "7.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -498,109 +571,13 @@
         "number": "7"},
        {"title": "Specializing Hypotheses",
         "shortTitle": null,
-        "number": "5"}]},
+        "number": "4"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Rewriting-with-Conditional-Statements":
    [{"id":
      "Logical-Foundations--Tactics___-More-Basic-Tactics--Rewriting-with-Conditional-Statements",
      "data":
      {"title": "Rewriting with Conditional Statements",
-      "shortTitle": null,
-      "sectionNum": "7.7.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "Rewriting with Conditional Statements",
-        "shortTitle": null,
-        "number": "7"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Review--Additional-Exercises":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Review--Additional-Exercises",
-     "data":
-     {"title": "Additional Exercises",
-      "shortTitle": null,
-      "sectionNum": "7.8.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "Review", "shortTitle": null, "number": "8"},
-       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Review":
-   [{"id": "Logical-Foundations--Tactics___-More-Basic-Tactics--Review",
-     "data":
-     {"title": "Review",
-      "shortTitle": null,
-      "sectionNum": "7.8.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "Review", "shortTitle": null, "number": "8"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--More-about--cases--Splitting-with-Equations":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--More-about--cases--Splitting-with-Equations",
-     "data":
-     {"title": "Splitting with Equations",
-      "shortTitle": null,
-      "sectionNum": "7.2.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "More about  cases", "shortTitle": null, "number": "2"},
-       {"title": "Splitting with Equations",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--More-about--cases--Destructing-Tuples":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--More-about--cases--Destructing-Tuples",
-     "data":
-     {"title": "Destructing Tuples",
-      "shortTitle": null,
-      "sectionNum": "7.2.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "More about  cases", "shortTitle": null, "number": "2"},
-       {"title": "Destructing Tuples", "shortTitle": null, "number": "1"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--More-about--cases":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--More-about--cases",
-     "data":
-     {"title": "More about  cases",
-      "shortTitle": null,
-      "sectionNum": "7.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "More about  cases", "shortTitle": null, "number": "2"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Generalizing-the-Induction-Hypothesis":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Generalizing-the-Induction-Hypothesis",
-     "data":
-     {"title": "Generalizing the Induction Hypothesis",
       "shortTitle": null,
       "sectionNum": "7.6.",
       "searchPriority": 50,
@@ -609,26 +586,55 @@
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
         "number": "7"},
-       {"title": "Generalizing the Induction Hypothesis",
+       {"title": "Rewriting with Conditional Statements",
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Forward-Reasoning-with--apply":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Forward-Reasoning-with--apply",
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Review":
+   [{"id": "Logical-Foundations--Tactics___-More-Basic-Tactics--Review",
      "data":
-     {"title": "Forward Reasoning with  apply",
+     {"title": "Review",
       "shortTitle": null,
-      "sectionNum": "7.4.",
+      "sectionNum": "7.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
         "number": "7"},
-       {"title": "Forward Reasoning with  apply",
+       {"title": "Review", "shortTitle": null, "number": "7"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Generalizing-the-Induction-Hypothesis":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Generalizing-the-Induction-Hypothesis",
+     "data":
+     {"title": "Generalizing the Induction Hypothesis",
+      "shortTitle": null,
+      "sectionNum": "7.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "7"},
+       {"title": "Generalizing the Induction Hypothesis",
+        "shortTitle": null,
+        "number": "5"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Additional-Exercises":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "7.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Preface--Welcome":
    [{"id": "Logical-Foundations--Preface--Welcome",
@@ -3705,38 +3711,38 @@
         "Conjunction"]}},
      "address": "/Logic/"}],
    "keepIf_some":
-   [{"id": "keepIf_some-next",
+   [{"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "More about  cases",
+        "Using  cases  on Expressions",
         "Splitting with Equations"]},
       "/Tactics/#keepIf_some":
       {"display": "keepIf_some",
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "More about  cases",
+        "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some",
+    {"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "More about  cases",
+        "Using  cases  on Expressions",
         "Splitting with Equations"]},
       "/Tactics/#keepIf_some":
       {"display": "keepIf_some",
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "More about  cases",
+        "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"}],
    "keepIf":
@@ -3747,7 +3753,7 @@
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "More about  cases",
+        "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"}],
    "is_even_prime":
@@ -4062,7 +4068,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective",
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -4083,7 +4089,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective-next-next",
+    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -4199,7 +4205,7 @@
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "More about  cases"]}},
+        "Using  cases  on Expressions"]}},
      "address": "/Tactics/"}],
    "chooseIf":
    [{"id": "chooseIf",
@@ -4209,7 +4215,7 @@
        "context":
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
-        "More about  cases"]}},
+        "Using  cases  on Expressions"]}},
      "address": "/Tactics/"}],
    "beq_eq_true":
    [{"id": "beq_eq_true",
@@ -7831,7 +7837,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly",
+   [{"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -7842,7 +7848,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly-next",
+    {"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
