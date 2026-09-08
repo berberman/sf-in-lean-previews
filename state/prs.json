@@ -245,6 +245,16 @@
       "status": "published",
       "title": "Customize VSCode title/activity bar colors",
       "url": "https://github.com/plclub/sf-in-lean/pull/376"
+    },
+    "377": {
+      "base_sha": "fc10434ac1533f5b9628127815b8be5f3c5a5b45",
+      "changed_variants": [],
+      "head_sha": "44ab46a946e72538b6c86d4d2a5ccb67d4a204f2",
+      "preview_path": "pr/377/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Improvements to Tactics",
+      "url": "https://github.com/plclub/sf-in-lean/pull/377"
     }
   },
   "schema": 3
