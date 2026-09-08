@@ -105,53 +105,6 @@
       "title": "Style pass over IndProp",
       "url": "https://github.com/plclub/sf-in-lean/pull/307"
     },
-    "345": {
-      "base_sha": "c697034931b67b3b19d371047d890343f1ecb7af",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "135d324267454586553fe38edd87cebfd6bd70f6",
-      "preview_path": "pr/345/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34165878045",
-      "status": "published",
-      "title": "Polish Types",
-      "url": "https://github.com/plclub/sf-in-lean/pull/345"
-    },
     "347": {
       "base_sha": "ff6045bb6dbab9c4d60fa0fe2b5fbc34e60625c5",
       "changed_variants": [
