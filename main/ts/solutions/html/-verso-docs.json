@@ -1100,91 +1100,913 @@
  "264": "<code>t₁✝ ⟶ t₁'✝</code>",
  "263":
  "<code>Step.plusLeft (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : t₁.p t₂ ⟶ t₁'.p t₂</code>",
+ "2629": "<code>&lt;{ ⊤ → Bool }&gt; ≠ &lt;{ ⊤ → Bool }&gt;</code>",
+ "2628": "<code>&lt;{ ⊤ → Bool }&gt; &lt;: &lt;{ ⊤ → Bool }&gt;</code>",
+ "2627": "<code>w✝¹ = &lt;{ ⊤ }&gt;</code>",
+ "2626": "<code>w✝ = &lt;{ Bool }&gt;</code>",
+ "2625": "<code>σ = &lt;{ w✝¹ → w✝ }&gt;</code>",
+ "2624": "<code>σ ≠ &lt;{ ⊤ → Bool }&gt;</code>",
+ "2623": "<code>σ &lt;: &lt;{ ⊤ → Bool }&gt;</code>",
+ "2622":
+ "<code>_root_.String : Type</code><span class=\"sep\"></span><code class=\"docstring\">A string is a sequence of Unicode scalar values.\n\nAt runtime, strings are represented by [dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)\nof bytes using the UTF-8 encoding. Both the size in bytes (`String.utf8ByteSize`) and in characters\n(`String.length`) are cached and take constant time. Many operations on strings perform in-place\nmodifications when the reference to the string is unique.\n</code>",
+ "2621": "<code>&lt;{ ⊤ → Bool }&gt; = &lt;{ Unit }&gt;</code>",
+ "2620": "<code>&lt;{ ⊤ → Bool }&gt; = (w✝)</code>",
  "262": "<code>(Tm.c n₁).p (Tm.c n₂) ⟶ y₂</code>",
+ "2619": "<code>&lt;{ ⊤ → Bool }&gt; = &lt;{ Bool }&gt;</code>",
+ "2618":
+ "<code>&lt;{ ⊤ → Bool }&gt; = &lt;{ Bool }&gt; ∨ (∃ n, &lt;{ ⊤ → Bool }&gt; = (n)) ∨ &lt;{ ⊤ → Bool }&gt; = &lt;{ Unit }&gt;</code>",
+ "2617":
+ "<code>∃ σ, σ &lt;: &lt;{ ⊤ → Bool }&gt; ∧ σ ≠ &lt;{ ⊤ → Bool }&gt;</code>",
+ "2616":
+ "<code>∀ (τ : Ty), ¬(τ = &lt;{ Bool }&gt; ∨ (∃ n, τ = (n)) ∨ τ = &lt;{ Unit }&gt;) → ∃ σ, σ &lt;: τ ∧ σ ≠ τ</code>",
+ "2615": "<code>StlcSub.Ty.base : _root_.String → Ty</code>",
+ "2614": "<code>_root_.String</code>",
+ "2613":
+ "<code>StlcSub.FormalThoughtExercises.formal_proper_subtypes :\n  tf (∀ (τ : Ty), ¬(τ = &lt;{ Bool }&gt; ∨ (∃ n, τ = (n)) ∨ τ = &lt;{ Unit }&gt;) → ∃ σ, σ &lt;: τ ∧ σ ≠ τ)</code>",
+ "2612": "<code>&lt;{ ⊤ }&gt; &lt;: &lt;{ ⊤ }&gt;</code>",
+ "2611": "<code>inf_desc_chain (i' + 1) &lt;: inf_desc_chain i'</code>",
+ "2610": "<code>inf_desc_chain (i' + 1) &lt;: w✝¹</code>",
  "261":
  "<code>Step.plus (n₁ n₂ : Nat) : (Tm.c n₁).p (Tm.c n₂) ⟶ Tm.c (n₁ + n₂)</code>",
+ "2609":
+ "<code>(fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) i' = &lt;{ w✝¹ → w✝ }&gt;</code>",
+ "2608":
+ "<code>(fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) i' &lt;: (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) (i' + 1)</code>",
+ "2607":
+ "<code>&lt;{ ( ⊤ → ~(inf_desc_chain i')) → ⊤ }&gt; = &lt;{ ( ⊤ → ~(inf_desc_chain j')) → ⊤ }&gt;</code>",
+ "2606":
+ "<code>(fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) i' ≠ (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) j'</code>",
+ "2605":
+ "<code>(fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) (i' + 1) = (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) (j' + 1)</code>",
+ "2604":
+ "<code>&lt;{ ( ⊤ → ~(inf_desc_chain i')) → ⊤ }&gt; = &lt;{ ⊤ → ⊤ }&gt;</code>",
+ "2603":
+ "<code>(fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) (i' + 1) = (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) 0</code>",
+ "2602":
+ "<code>&lt;{ ⊤ → ⊤ }&gt; = &lt;{ ( ⊤ → ~(inf_desc_chain n✝)) → ⊤ }&gt;</code>",
+ "2601":
+ "<code>(fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) 0 = (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) (n✝ + 1)</code>",
+ "2600":
+ "<code>(fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) 0 = (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) 0</code>",
  "260": "<code>x ⟶ y₁</code>",
  "26": "<code>Slang.Aexp.eval_num (n : Nat) : (num n).eval = n</code>",
+ "2599":
+ "<code>(fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) (i' + 1) = (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) j</code>",
+ "2598":
+ "<code>∀ (j : Nat), i' ≠ j → (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) i' ≠ (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) j</code>",
+ "2597":
+ "<code>(fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) 0 = (fun n =&gt; &lt;{ ~(inf_desc_chain n) → ⊤ }&gt;) j</code>",
+ "2596":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfh :\n  tf (∃ f, (∀ (i j : Nat), i ≠ j → f i ≠ f j) ∧ ∀ (i : Nat), f i &lt;: f (i + 1))</code>",
+ "2595": "<code>inf_desc_chain j' = inf_desc_chain i'</code>",
+ "2594":
+ "<code>HEq.{u} {α : Sort u} : α → {β : Sort u} → β → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Heterogeneous equality. `a ≍ b` asserts that `a` and `b` have the same\ntype, and casting `a` across the equality yields `b`, and vice versa.\n\nYou should avoid using this type if you can. Heterogeneous equality does not\nhave all the same properties as `Eq`, because the assumption that the types of\n`a` and `b` are equal is often too weak to prove theorems of interest. One\npublic important non-theorem is the analogue of `congr`: If `f ≍ g` and `x ≍ y`\nand `f x` and `g y` are well typed it does not follow that `f x ≍ g y`.\n(This does follow if you have `f = g` instead.) However if `a` and `b` have\nthe same type then `a = b` and `a ≍ b` are equivalent.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≍` in identifiers is `heq`.</code>",
+ "2593": "<code>contra ≍ ⋯</code>",
+ "2592":
+ "<code>&lt;{ ⊤ → ~(inf_desc_chain i') }&gt; = &lt;{ ⊤ → ~(inf_desc_chain j') }&gt;</code>",
+ "2591": "<code>inf_desc_chain i' ≠ inf_desc_chain j'</code>",
+ "2590": "<code>i' ≠ j'</code>",
  "259": "<code>step_deterministic : Deterministic Step</code>",
+ "2589": "<code>inf_desc_chain (i' + 1) = inf_desc_chain (j' + 1)</code>",
+ "2588": "<code>i' + 1 ≠ j' + 1</code>",
+ "2587": "<code>inf_desc_chain (i' + 1) = inf_desc_chain 0</code>",
+ "2586": "<code>i' + 1 ≠ 0</code>",
+ "2585": "<code>&lt;{ ⊤ }&gt; = &lt;{ ⊤ → ~(inf_desc_chain n✝) }&gt;</code>",
+ "2584": "<code>inf_desc_chain 0 = inf_desc_chain (n✝ + 1)</code>",
+ "2583": "<code>0 ≠ n✝ + 1</code>",
+ "2582": "<code>inf_desc_chain 0 = inf_desc_chain 0</code>",
+ "2581": "<code>0 ≠ 0</code>",
+ "2580": "<code>0 ≠ j</code>",
  "258": "<code>IsValue v₁</code>",
+ "2579": "<code>inf_desc_chain (i' + 1) = inf_desc_chain j</code>",
+ "2578": "<code>i' + 1 ≠ j</code>",
+ "2577":
+ "<code>∀ (j : Nat), i' ≠ j → inf_desc_chain i' ≠ inf_desc_chain j</code>",
+ "2576": "<code>inf_desc_chain 0 = inf_desc_chain j</code>",
+ "2575": "<code>i ≠ j</code>",
+ "2574": "<code>Nat → Ty</code>",
+ "2573":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfg :\n  tf (∃ f, (∀ (i j : Nat), i ≠ j → f i ≠ f j) ∧ ∀ (i : Nat), f (i + 1) &lt;: f i)</code>",
+ "2572":
+ "<code>StlcSub.FormalThoughtExercises.inf_desc_chain (n : Nat) : Ty</code>",
+ "2571":
+ "<code>∀ (σ₁ σ₂ : Ty), &lt;{ τ₁ → Bool }&gt; &lt;: &lt;{ σ₁ → σ₂ }&gt;</code>",
+ "2570": "<code>τ₂ = &lt;{ Unit }&gt;</code>",
  "257":
  "<code>Step.plusRight (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : Step t₂ t₂') : Step (v₁.p t₂) (v₁.p t₂')</code>",
+ "2569": "<code>τ₂ = &lt;{ Bool }&gt;</code>",
+ "2568": "<code>&lt;{ Unit }&gt; &lt;: w✝¹</code>",
+ "2567": "<code>&lt;{ Bool }&gt; &lt;: τ₁</code>",
+ "2566": "<code>&lt;{ Bool }&gt; &lt;: w✝¹</code>",
+ "2565": "<code>&lt;{ τ₁ → τ₂ }&gt; = &lt;{ w✝¹ → w✝ }&gt;</code>",
+ "2564":
+ "<code>∀ (σ₁ σ₂ : Ty), &lt;{ τ₁ → τ₂ }&gt; &lt;: &lt;{ σ₁ → σ₂ }&gt;</code>",
+ "2563":
+ "<code>∃ τ₁ τ₂, ∀ (σ₁ σ₂ : Ty), &lt;{ τ₁ → τ₂ }&gt; &lt;: &lt;{ σ₁ → σ₂ }&gt;</code>",
+ "2562":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_concepts_tff :\n  tf (∃ τ₁ τ₂, ∀ (σ₁ σ₂ : Ty), &lt;{ τ₁ → τ₂ }&gt; &lt;: &lt;{ σ₁ → σ₂ }&gt;)</code>",
+ "2561":
+ "<code>∀ (σ₁ σ₂ : Ty), &lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ Bool → τ₂ }&gt;</code>",
+ "2560": "<code>&lt;{ Unit }&gt; &lt;: τ₂</code>",
  "256":
  "<code>Step.plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (t₁.p t₂) (t₁'.p t₂)</code>",
+ "2559": "<code>&lt;{ Unit → Unit }&gt; = &lt;{ w✝¹ → w✝ }&gt;</code>",
+ "2558": "<code>&lt;{ Bool }&gt; &lt;: τ₂</code>",
+ "2557":
+ "<code>∀ (σ₁ σ₂ : Ty), &lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "2556":
+ "<code>∃ τ₁ τ₂, ∀ (σ₁ σ₂ : Ty), &lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "2555":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfe :\n  tf (∃ τ₁ τ₂, ∀ (σ₁ σ₂ : Ty), &lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ τ₁ → τ₂ }&gt;)</code>",
+ "2554":
+ "<code>∀ (σ₁ σ₂ : Ty), &lt;{ Bool × τ₂ }&gt; &lt;: &lt;{ σ₁ × σ₂ }&gt;</code>",
+ "2553": "<code>τ₁ = &lt;{ Unit }&gt;</code>",
+ "2552": "<code>τ₂ &lt;: &lt;{ Unit }&gt;</code>",
+ "2551": "<code>τ₁ &lt;: &lt;{ Unit }&gt;</code>",
+ "2550": "<code>w✝ &lt;: &lt;{ Unit }&gt;</code>",
  "255":
  "<code>Step.plus (n₁ n₂ : Nat) : Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
+ "2549": "<code>w✝¹ &lt;: &lt;{ Unit }&gt;</code>",
+ "2548": "<code>τ₂ &lt;: &lt;{ Bool }&gt;</code>",
+ "2547": "<code>w✝¹ &lt;: &lt;{ Bool }&gt;</code>",
+ "2546": "<code>&lt;{ τ₁ × τ₂ }&gt; = &lt;{ w✝¹ × w✝ }&gt;</code>",
+ "2545":
+ "<code>∀ (σ₁ σ₂ : Ty), &lt;{ τ₁ × τ₂ }&gt; &lt;: &lt;{ σ₁ × σ₂ }&gt;</code>",
+ "2544":
+ "<code>∃ τ₁ τ₂, ∀ (σ₁ σ₂ : Ty), &lt;{ τ₁ × τ₂ }&gt; &lt;: &lt;{ σ₁ × σ₂ }&gt;</code>",
+ "2543":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfd :\n  tf (∃ τ₁ τ₂, ∀ (σ₁ σ₂ : Ty), &lt;{ τ₁ × τ₂ }&gt; &lt;: &lt;{ σ₁ × σ₂ }&gt;)</code>",
+ "2542":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfc :\n  tf (∃ τ₁ τ₂, ∀ (σ₁ σ₂ : Ty), &lt;{ σ₁ × σ₂ }&gt; &lt;: &lt;{ τ₁ × τ₂ }&gt;)</code>",
+ "2541": "<code>&lt;{ Bool }&gt; = &lt;{ Unit }&gt;</code>",
+ "2540": "<code>∀ (σ : Ty), &lt;{ Bool }&gt; &lt;: σ</code>",
  "254": "<code>Step : Tm → Tm → Prop</code>",
+ "2539": "<code>σ = &lt;{ Unit }&gt;</code>",
+ "2538": "<code>σ = &lt;{ Bool }&gt;</code>",
+ "2537": "<code>∀ (σ_1 : Ty), σ &lt;: σ_1</code>",
+ "2536": "<code>∃ τ, ∀ (σ : Ty), τ &lt;: σ</code>",
+ "2535":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfb : tf (∃ τ, ∀ (σ : Ty), τ &lt;: σ)</code>",
+ "2534":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfa : tf (∃ τ, ∀ (σ : Ty), σ &lt;: τ)</code>",
+ "2533":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_2e : tf (∃ σ, &lt;{ σ → σ }&gt; &lt;: σ)</code>",
+ "2532": "<code>False</code>",
+ "2531": "<code>σ &lt;: &lt;{ σ → σ }&gt;</code>",
+ "2530": "<code>∃ σ, σ &lt;: &lt;{ σ → σ }&gt;</code>",
  "253": "<code>IsValue.const (n : Nat) : IsValue (Tm.c n)</code>",
+ "2529": "<code>τ₂ &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "2528": "<code>τ &lt;: τ₁</code>",
+ "2527": "<code>∀ (τ : Ty), τ₂ &lt;: &lt;{ τ → τ₂ }&gt; → False</code>",
+ "2526": "<code>∀ (τ : Ty), τ₁ &lt;: &lt;{ τ → τ₁ }&gt; → False</code>",
+ "2525": "<code>σ₁ &lt;: &lt;{ a✝¹ × a✝ }&gt;</code>",
+ "2524": "<code>&lt;{ a✝¹ × a✝ }&gt; = &lt;{ σ₁✝ → σ₁ }&gt;</code>",
+ "2523": "<code>&lt;{ a✝¹ × a✝ }&gt; &lt;: &lt;{ τ → a✝¹ × a✝ }&gt;</code>",
+ "2522": "<code>∀ (τ : Ty), a✝ &lt;: &lt;{ τ → a✝ }&gt; → False</code>",
+ "2521": "<code>∀ (τ : Ty), a✝¹ &lt;: &lt;{ τ → a✝¹ }&gt; → False</code>",
+ "2520": "<code>&lt;{ τ₁ → τ₂ }&gt; &lt;: &lt;{ τ → τ₁ → τ₂ }&gt;</code>",
  "252": "<code>IsValue : Tm → Prop</code>",
+ "2519": "<code>σ₁ &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "2518": "<code>τ &lt;: σ₁✝</code>",
+ "2517": "<code>&lt;{ τ₁ → τ₂ }&gt; = &lt;{ σ₁✝ → σ₁ }&gt;</code>",
+ "2516": "<code>σ &lt;: &lt;{ τ → σ }&gt;</code>",
+ "2515": "<code>∀ (σ τ : Ty), ¬σ &lt;: &lt;{ τ → σ }&gt;</code>",
+ "2514":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_2d : tf (∃ σ, σ &lt;: &lt;{ σ → σ }&gt;)</code>",
+ "2513": "<code>τ &lt;: A</code>",
+ "2512": "<code>&lt;{ ⊤ → A }&gt; = &lt;{ τ → τ }&gt;</code>",
+ "2511":
+ "<code>∀ (σ : Ty), σ &lt;: &lt;{ A → A }&gt; → ∃ τ, σ = &lt;{ τ → τ }&gt; ∧ τ &lt;: A</code>",
+ "2510":
+ "<code class=\"docstring\">`intros` repeatedly applies `intro` to introduce zero or more hypotheses\nuntil the goal is no longer a *binding expression*\n(i.e., a universal quantifier, function type, implication, or `have`/`let`),\nwithout performing any definitional reductions (no unfolding, beta, eta, etc.).\nThe introduced hypotheses receive inaccessible (hygienic) names.\n\n`intros x y z` is equivalent to `intro x y z` and exists only for historical reasons.\nThe `intro` tactic should be preferred in this case.\n\n## Properties and relations\n\n- `intros` succeeds even when it introduces no hypotheses.\n\n- `repeat intro` is like `intros`, but it performs definitional reductions\n  to expose binders, and as such it may introduce more hypotheses than `intros`.\n\n- `intros` is equivalent to `intro _ _ … _`,\n  with the fewest trailing `_` placeholders needed so that the goal is no longer a binding expression.\n  The trailing introductions do not perform any definitional reductions.\n\n## Examples\n\nImplications:\n```lean\nexample (p q : Prop) : p → q → p := by\n  intros\n  /- Tactic state\n     a✝¹ : p\n     a✝ : q\n     ⊢ p      -/\n  assumption\n```\n\nLet-bindings:\n```lean\nexample : let n := 1; let k := 2; n + k = 3 := by\n  intros\n  /- n✝ : Nat := 1\n     k✝ : Nat := 2\n     ⊢ n✝ + k✝ = 3 -/\n  rfl\n```\n\nDoes not unfold definitions:\n```lean\ndef AllEven (f : Nat → Nat) := ∀ n, f n % 2 = 0\n\nexample : ∀ (f : Nat → Nat), AllEven f → AllEven (fun k =&gt; f (k + 1)) := by\n  intros\n  /- Tactic state\n     f✝ : Nat → Nat\n     a✝ : AllEven f✝\n     ⊢ AllEven fun k =&gt; f✝ (k + 1) -/\n  sorry\n```\n</code>",
  "251": "<code>∀ (y₂ : Tm), SimpleArith1.Step (Tm.c n₂✝) y₂ → t₂' = y₂</code>",
+ "2509":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_2b :\n  tf (∀ (σ : Ty), σ &lt;: &lt;{ A → A }&gt; → ∃ τ, σ = &lt;{ τ → τ }&gt; ∧ τ &lt;: A)</code>",
+ "2508":
+ "<code>∀ (σ τ : Ty), σ &lt;: τ → &lt;{ σ → σ }&gt; &lt;: &lt;{ τ → τ }&gt;</code>",
+ "2507":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_2a : tf (∀ (σ τ : Ty), σ &lt;: τ → &lt;{ σ → σ }&gt; &lt;: &lt;{ τ → τ }&gt;)</code>",
+ "2506": "<code>w✝¹ &lt;: &lt;{ ⊤ }&gt;</code>",
+ "2505": "<code>w✝ &lt;: &lt;{ Bool }&gt;</code>",
+ "2504": "<code>&lt;{ Bool × ⊤ }&gt; = &lt;{ w✝¹ × w✝ }&gt;</code>",
+ "2503": "<code>&lt;{ Bool × ⊤ }&gt; &lt;: &lt;{ ⊤ × Bool }&gt;</code>",
+ "2502":
+ "<code>∀ (σ τ υ δ : Ty), σ &lt;: τ → υ &lt;: δ → &lt;{ σ × δ }&gt; &lt;: &lt;{ τ × υ }&gt;</code>",
+ "2501":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1g :\n  tf (∀ (σ τ υ δ : Ty), σ &lt;: τ → υ &lt;: δ → &lt;{ σ × δ }&gt; &lt;: &lt;{ τ × υ }&gt;)</code>",
+ "2500":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1f :\n  tf (∀ (σ τ υ δ : Ty), σ &lt;: τ → υ &lt;: δ → &lt;{ ((τ → σ) → τ) → υ }&gt; &lt;: &lt;{ ((σ → τ) → σ) → δ }&gt;)</code>",
  "250": "<code>SimpleArith1.Step (Tm.c n₂✝) t₂'</code>",
  "25":
  "<code class=\"docstring\">Theorems tagged with the `simp` attribute are used by the simplifier\n(i.e., the `simp` tactic, and its variants) to simplify expressions occurring in your goals.\nWe call theorems tagged with the `simp` attribute \"simp theorems\" or \"simp lemmas\".\nLean maintains a database/index containing all active simp theorems.\nHere is an example of a simp theorem.\n```lean\n@[simp] theorem ne_eq (a b : α) : (a ≠ b) = Not (a = b) := rfl\n```\nThis simp theorem instructs the simplifier to replace instances of the term\n`a ≠ b` (e.g. `x + 0 ≠ y`) with `Not (a = b)` (e.g., `Not (x + 0 = y)`).\nThe simplifier applies simp theorems in one direction only:\nif `A = B` is a simp theorem, then `simp` replaces `A`s with `B`s,\nbut it doesn't replace `B`s with `A`s. Hence a simp theorem should have the\nproperty that its right-hand side is \"simpler\" than its left-hand side.\nIn particular, `=` and `↔` should not be viewed as symmetric operators in this situation.\nThe following would be a terrible simp theorem (if it were even allowed):\n```lean\n@[simp] lemma mul_right_inv_bad (a : G) : 1 = a * a⁻¹ := ...\n```\nReplacing 1 with a * a⁻¹ is not a sensible default direction to travel.\nEven worse would be a theorem that causes expressions to grow without bound,\ncausing simp to loop forever.\n\nBy default the simplifier applies `simp` theorems to an expression `e`\nafter its sub-expressions have been simplified.\nWe say it performs a bottom-up simplification.\nYou can instruct the simplifier to apply a theorem before its sub-expressions\nhave been simplified by using the modifier `↓`. Here is an example\n```lean\n@[simp↓] theorem not_and_eq (p q : Prop) : (¬ (p ∧ q)) = (¬p ∨ ¬q) :=\n```\n\nYou can instruct the simplifier to rewrite the lemma from right-to-left:\n```lean\nattribute @[simp ←] and_assoc\n```\n\nWhen multiple simp theorems are applicable, the simplifier uses the one with highest priority.\nThe equational theorems of functions are applied at very low priority (100 and below).\nIf there are several with the same priority, it is uses the \"most recent one\". Example:\n```lean\n@[simp high] theorem cond_true (a b : α) : cond true a b = a := rfl\n@[simp low+1] theorem or_true (p : Prop) : (p ∨ True) = True :=\n  propext &lt;| Iff.intro (fun _ =&gt; trivial) (fun _ =&gt; Or.inr trivial)\n@[simp 100] theorem ite_self {d : Decidable c} (a : α) : ite c a a = a := by\n  cases d &lt;;&gt; rfl\n```\n</code>",
+ "2499": "<code>&lt;{ ⊤ }&gt; = &lt;{ Bool }&gt;</code>",
+ "2498": "<code>&lt;{ ⊤ }&gt; &lt;: &lt;{ Bool }&gt;</code>",
+ "2497": "<code>&lt;{ ⊤ }&gt; &lt;: w✝¹</code>",
+ "2496": "<code>&lt;{ Bool → Bool }&gt; = &lt;{ w✝¹ → w✝ }&gt;</code>",
+ "2495": "<code>&lt;{ Bool }&gt; &lt;: &lt;{ ⊤ }&gt;</code>",
+ "2494": "<code>&lt;{ Bool → Bool }&gt; &lt;: &lt;{ ⊤ → ⊤ }&gt;</code>",
+ "2493": "<code>w✝ &lt;: &lt;{ ⊤ }&gt;</code>",
+ "2492": "<code>&lt;{ Bool → Bool }&gt; &lt;: w✝¹</code>",
+ "2491": "<code>&lt;{ ( ⊤ → ⊤ ) → Bool }&gt; = &lt;{ w✝¹ → w✝ }&gt;</code>",
+ "2490":
+ "<code>&lt;{ ( ⊤ → ⊤ ) → Bool }&gt; &lt;: &lt;{ (Bool → Bool) → ⊤ }&gt;</code>",
  "249": "<code>SimpleArith1.Step ((Tm.c n₁).p t₂) y₂</code>",
+ "2489":
+ "<code>∀ (σ τ υ δ : Ty), σ &lt;: τ → υ &lt;: δ → &lt;{ (τ → τ) → υ }&gt; &lt;: &lt;{ (σ → σ) → δ }&gt;</code>",
+ "2488":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1e :\n  tf (∀ (σ τ υ δ : Ty), σ &lt;: τ → υ &lt;: δ → &lt;{ (τ → τ) → υ }&gt; &lt;: &lt;{ (σ → σ) → δ }&gt;)</code>",
+ "2487":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1d :\n  tf (∀ (σ τ υ δ : Ty), σ &lt;: τ → υ &lt;: δ → &lt;{ τ → τ → υ }&gt; &lt;: &lt;{ σ → σ → δ }&gt;)</code>",
+ "2486":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1c :\n  tf (∀ (σ τ υ δ : Ty), σ &lt;: τ → υ &lt;: δ → &lt;{ (C → C) → A × B }&gt; &lt;: &lt;{ (C → C) → ⊤ × B }&gt;)</code>",
+ "2485":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1b :\n  tf (∀ (σ τ υ δ : Ty), σ &lt;: τ → υ &lt;: δ → &lt;{ ⊤ → υ }&gt; &lt;: &lt;{ σ → ⊤ }&gt;)</code>",
+ "2484": "<code>υ &lt;: δ</code>",
+ "2483":
+ "<code>StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1a :\n  tf (∀ (σ τ υ δ : Ty), σ &lt;: τ → υ &lt;: δ → &lt;{ τ → σ }&gt; &lt;: &lt;{ τ → σ }&gt;)</code>",
+ "2482": "<code>Prop</code>",
+ "2481": "<code>StlcSub.FormalThoughtExercises.tf (p : Prop) : Prop</code>",
+ "2480": "<code><span class=\"literal string\">\"a\"</span> : String</code>",
  "248": "<code>∀ (y₂ : Tm), SimpleArith1.Step t₂ y₂ → t₂' = y₂</code>",
+ "2479": "<code>StlcSub.FormalThoughtExercises.a : _root_.String</code>",
+ "2478": "<code><span class=\"literal string\">\"p\"</span> : String</code>",
+ "2477": "<code>StlcSub.FormalThoughtExercises.p : _root_.String</code>",
+ "2476": "<code>&lt;{ ( t₁ , t₂ ) }&gt; ⟶ t'</code>",
+ "2475":
+ "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(τ₂) }&gt;</code>",
+ "2474": "<code>&lt;{ ∅ ⊢ ~(t') ⦂ ~(σ₂✝) }&gt;</code>",
+ "2473": "<code>&lt;{ ∅ ⊢ ~(v₁✝) ⦂ ~(σ₁✝) }&gt;</code>",
+ "2472":
+ "<code>∀ {t'_1 : Tm}, &lt;{ ( v₁✝ , t' ) }&gt; ⟶ t'_1 → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t'_1) ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2471": "<code>&lt;{ ∅ ⊢ ~(t') ⦂ ~(σ₂) }&gt;</code>",
+ "2470": "<code>&lt;{ ∅ ⊢ ~(v₁✝) ⦂ ~(σ₁) }&gt;</code>",
  "247": "<code>SimpleArith1.Step t₂ t₂'</code>",
+ "2469": "<code>&lt;{ ∅ ⊢ ~(v₂✝) ⦂ ~(σ₂✝) }&gt;</code>",
+ "2468": "<code>&lt;{ ∅ ⊢ ~(t') ⦂ ~(σ₁✝) }&gt;</code>",
+ "2467": "<code>&lt;{ σ₁✝ × σ₂✝ }&gt; &lt;: &lt;{ τ₁ × τ₂ }&gt;</code>",
+ "2466": "<code>&lt;{ σ₁✝ × σ₂✝ }&gt; = &lt;{ σ₁ × σ₂ }&gt;</code>",
+ "2465":
+ "<code>∀ {t'_1 : Tm}, &lt;{ ( t' , v₂✝ ) }&gt; ⟶ t'_1 → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t'_1) ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2464": "<code>&lt;{ ∅ ⊢ ~(v₂✝) ⦂ ~(σ₂) }&gt;</code>",
+ "2463": "<code>&lt;{ ∅ ⊢ ~(t') ⦂ ~(σ₁) }&gt;</code>",
+ "2462":
+ "<code>∀ {t' : Tm}, t ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2461":
+ "<code>∀ {t' : Tm}, t ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2460":
+ "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(τ₁) }&gt;</code>",
  "246":
  "<code>SimpleArith1.Step.plusRight (n₁ : Nat) (t₂ t₂' : Tm) (h : SimpleArith1.Step t₂ t₂') :\n  SimpleArith1.Step ((Tm.c n₁).p t₂) ((Tm.c n₁).p t₂')</code>",
+ "2459":
+ "<code>∀ {t' : Tm}, &lt;{ false }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Bool }&gt;</code>",
+ "2458":
+ "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "2457":
+ "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "2456":
+ "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ Bool }&gt;</code>",
+ "2455":
+ "<code>∀ {t' : Tm}, t₃ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "2454":
+ "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "2453":
+ "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ Bool }&gt;</code>",
+ "2452":
+ "<code>∀ {t' : Tm}, &lt;{ λ ~x✝ : τ₂ . t₁ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₂' → τ₁' }&gt;</code>",
+ "2451": "<code>&lt;{ ∅ ⊢ λ ~x✝ : τ₂ . t₁ ⦂ τ₂' → τ₁' }&gt;</code>",
+ "2450": "<code>&lt;{ ~(x✝ →ₚ τ₂) ⊢ ~(t₁) ⦂ ~(τ₁') }&gt;</code>",
  "245": "<code>SimpleArith1.Step t₂ t₂'✝</code>",
+ "2449": "<code>τ₂' &lt;: τ₂</code>",
+ "2448": "<code>t₁'.IsValue</code>",
+ "2447":
+ "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ₂') }&gt;</code>",
+ "2446":
+ "<code>∀ {t' : Tm}, t₁' ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₂' → τ₁' }&gt;</code>",
+ "2445": "<code>&lt;{ ∅ ⊢ ~(t₂) ⦂ ~(τ₂') }&gt;</code>",
+ "2444": "<code>&lt;{ ∅ ⊢ ~(t₁') ⦂ τ₂' → τ₁' }&gt;</code>",
+ "2443":
+ "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(τ₂') }&gt;</code>",
+ "2442":
+ "<code>∀ {t' : Tm}, t₁' ⟶ t' → ∅ = Γ → &lt;{ ~(Γ) ⊢ ~(t') ⦂ τ₂' → τ₁' }&gt;</code>",
+ "2441": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂') }&gt;</code>",
+ "2440": "<code>&lt;{ ~(Γ) ⊢ ~(t₁') ⦂ τ₂' → τ₁' }&gt;</code>",
  "244": "<code>SimpleArith1.Step t₁ t₁'✝</code>",
+ "2439": "<code>∀ {t' : Tm}, t₂ ⟶ t' → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ₂) }&gt;</code>",
+ "2438": "<code>∀ {t' : Tm}, t₁ ⟶ t' → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ₁) }&gt;</code>",
+ "2437":
+ "<code>∀ {t' : Tm}, t₂ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ₂) }&gt;</code>",
+ "2436":
+ "<code>∀ {t' : Tm}, t₁ ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ₁) }&gt;</code>",
+ "2435": "<code>&lt;{ t₁' t₂ }&gt; ⟶ t'</code>",
+ "2434": "<code>&lt;{ unit }&gt; ⟶ t'</code>",
+ "2433":
+ "<code>StlcSub.preservation {t t' : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ ~(t) ⦂ ~(τ) }&gt;) (hs : t ⟶ t') : &lt;{ ∅ ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "2432":
+ "<code>StlcSub.substitution_preserves_typing {Γ : StlcSub.Context} {x : String} {τ₁ : StlcSub.Ty} {t v : StlcSub.Tm}\n  {τ : StlcSub.Ty} (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(τ₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ ~(StlcSub.subst x v t) ⦂ ~(τ) }&gt;</code>",
+ "2431":
+ "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁✝ ; Γ_1 = x →ₚ τ₁✝ ; Γ → &lt;{ ~(Γ_1) ⊢ ~(subst x_1 v t₁) ⦂ ~(τ₁) }&gt;</code>",
+ "2430": "<code>&lt;{ ~(x →ₚ τ₁✝ ; Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt;</code>",
  "243": "<code>∀ (y₂ : Tm), SimpleArith1.Step (Tm.c n₁✝) y₂ → t₁' = y₂</code>",
+ "2429": "<code>&lt;{ ∅ ⊢ ~(v) ⦂ ~(τ₁✝) }&gt;</code>",
+ "2428":
+ "<code>∀ {Γ_1 : Context} {x : String}, x →ₚ τ₁✝ ; Γ_1 = Γ → &lt;{ ~(Γ_1) ⊢ ~(subst x v t₁) ⦂ ~(τ₁) }&gt;</code>",
+ "2427":
+ "<code>∀ {Γ_1 : Context} {x : String}, x →ₚ τ₁ ; Γ_1 = y →ₚ τ₂✝ ; Γ → &lt;{ ~(Γ_1) ⊢ ~(subst x v t₁✝) ⦂ ~(τ₁✝) }&gt;</code>",
+ "2426": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ) ⊢ ~(t₁✝) ⦂ ~(τ₁✝) }&gt;</code>",
+ "2425":
+ "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁ ; Γ_1 = y →ₚ τ₂✝ ; x →ₚ τ₁ ; Γ → &lt;{ ~(Γ_1) ⊢ ~(subst x_1 v t₁✝) ⦂ ~(τ₁✝) }&gt;</code>",
+ "2424": "<code>&lt;{ ~(y →ₚ τ₂✝ ; x →ₚ τ₁ ; Γ) ⊢ ~(t₁✝) ⦂ ~(τ₁✝) }&gt;</code>",
+ "2423":
+ "<code>∀ {Γ : Context} {x : String}, x →ₚ τ₁ ; Γ = y →ₚ τ₂✝ ; Γ✝ → &lt;{ ~(Γ) ⊢ ~(subst x v t₁✝) ⦂ ~(τ₁✝) }&gt;</code>",
+ "2422": "<code>&lt;{ ~(y →ₚ τ₂✝ ; Γ✝) ⊢ ~(t₁✝) ⦂ ~(τ₁✝) }&gt;</code>",
+ "2421": "<code>τ₁ = σ</code>",
+ "2420": "<code>(x →ₚ τ₁ ; Γ)[x] = some σ</code>",
  "242": "<code>SimpleArith1.Step (Tm.c n₁✝) t₁'</code>",
+ "2419": "<code>Γ[y] = some σ</code>",
+ "2418": "<code>(x →ₚ τ₁ ; Γ)[y] = some σ</code>",
+ "2417":
+ "<code>∀ {Γ_1 : Context} {x_1 : String}, x_1 →ₚ τ₁ ; Γ_1 = x →ₚ τ₁ ; Γ → &lt;{ ~(Γ_1) ⊢ ~(subst x_1 v t✝) ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "2416": "<code>&lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ ~(t✝) ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "2415": "<code>&lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
+ "2414": "<code>x →ₚ τ₁ ; Γ = Γ'</code>",
+ "2413":
+ "<code>StlcSub.substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {t v : Tm} {τ : Ty}\n  (ht : &lt;{ ~(x →ₚ τ₁ ; Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;) (hv : &lt;{ ∅ ⊢ ~(v) ⦂ ~(τ₁) }&gt;) : &lt;{ ~(Γ) ⊢ ~(subst x v t) ⦂ ~(τ) }&gt;</code>",
+ "2412":
+ "<code>StlcSub.weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : &lt;{ ∅ ⊢ ~(t) ⦂ ~(τ) }&gt;) : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
+ "2411":
+ "<code>∀ {Γ' : Context}, Γ ⊆ Γ' → &lt;{ ~(Γ') ⊢ ~(t₁) ⦂ ~(τ₁) }&gt;</code>",
+ "2410":
+ "<code>StlcSub.weakening {Γ Γ' : Context} {t : Tm} {τ : Ty} (hi : Γ ⊆ Γ') (ht : &lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(τ) }&gt;) :\n  &lt;{ ~(Γ') ⊢ ~(t) ⦂ ~(τ) }&gt;</code>",
  "241": "<code>SimpleArith1.Step (t₁.p t₂) y₂</code>",
+ "2409": "<code>w✝ &lt;: τ₂</code>",
+ "2408": "<code>τ₁ &lt;: w✝¹</code>",
+ "2407": "<code>&lt;{ σ₁ → σ₂ }&gt; = &lt;{ w✝¹ → w✝ }&gt;</code>",
+ "2406": "<code>&lt;{ ~(x →ₚ σ₁) ⊢ ~(t₂) ⦂ ~(σ₂) }&gt;</code>",
+ "2405": "<code>&lt;{ ∅ ⊢ λ ~x : σ₁ . t₂ ⦂ τ₁ → τ₂ }&gt;</code>",
+ "2404":
+ "<code>StlcSub.abs_arrow {x : String} {t₂ : Tm} {σ₁ τ₁ τ₂ : Ty} (h : &lt;{ ∅ ⊢ λ ~x : σ₁ . t₂ ⦂ τ₁ → τ₂ }&gt;) :\n  τ₁ &lt;: σ₁ ∧ &lt;{ ~(x →ₚ σ₁) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;</code>",
+ "2403":
+ "<code>∀ {t_1 : Tm}, &lt;{ snd t_1 }&gt; = &lt;{ snd t }&gt; → ∃ τ₁_1 τ₂, τ₂ &lt;: τ₁ ∧ &lt;{ ~(Γ) ⊢ ~(t_1) ⦂ τ₁_1 × τ₂ }&gt;</code>",
+ "2402": "<code>&lt;{ ~(Γ) ⊢ snd t ⦂ ~(τ₁) }&gt;</code>",
+ "2401":
+ "<code>∀ {t : Tm}, &lt;{ snd t }&gt; = t₁ → ∃ τ₁_1 τ₂, τ₂ &lt;: τ₁ ∧ &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁_1 × τ₂ }&gt;</code>",
+ "2400": "<code>&lt;{ snd t }&gt; = &lt;{ snd t✝ }&gt;</code>",
  "240": "<code>∀ (y₂ : Tm), SimpleArith1.Step t₁ y₂ → t₁' = y₂</code>",
  "24":
  "<code class=\"docstring\">Pattern matching. `match e, ... with | p, ... =&gt; f | ...` matches each given\nterm `e` against each pattern `p` of a match alternative. When all patterns\nof an alternative match, the `match` term evaluates to the value of the\ncorresponding right-hand side `f` with the pattern variables bound to the\nrespective matched values.\nIf used as `match h : e, ... with | p, ... =&gt; f | ...`, `h : e = p` is available\nwithin `f`.\n\nWhen not constructing a proof, `match` does not automatically substitute variables\nmatched on in dependent variables' types. Use `match (generalizing := true) ...` to\nenforce this.\n\nSyntax quotations can also be used in a pattern match.\nThis matches a `Syntax` value against quotations, pattern variables, or `_`.\n\nQuoted identifiers only match identical identifiers - custom matching such as by the preresolved\nnames only should be done explicitly.\n\n`Syntax.atom`s are ignored during matching by default except when part of a built-in literal.\nFor users introducing new atoms, we recommend wrapping them in dedicated syntax kinds if they\nshould participate in matching.\nFor example, in\n```lean\nsyntax \"c\" (\"foo\" &lt;|&gt; \"bar\") ...\n```\n`foo` and `bar` are indistinguishable during matching, but in\n```lean\nsyntax foo := \"foo\"\nsyntax \"c\" (foo &lt;|&gt; \"bar\") ...\n```\nthey are not.\n</code>",
+ "2399":
+ "<code>∀ {t : Tm}, &lt;{ snd t }&gt; = t✝ → ∃ τ₁_1 τ₂_1, τ₂_1 &lt;: &lt;{ τ₁ × τ₂ }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁_1 × τ₂_1 }&gt;</code>",
+ "2398":
+ "<code>∀ {t_1 : Tm}, &lt;{ snd t_1 }&gt; = t → ∃ τ₁_1 τ₂_1, τ₂_1 &lt;: &lt;{ τ₁ × τ₂ }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t_1) ⦂ τ₁_1 × τ₂_1 }&gt;</code>",
+ "2397": "<code>&lt;{ snd t }&gt; = &lt;{ fst t✝ }&gt;</code>",
+ "2396":
+ "<code>∀ {t : Tm}, &lt;{ snd t }&gt; = t✝ → ∃ τ₁ τ₂, τ₂ &lt;: &lt;{ τ₁✝ × τ₂✝ }&gt; ∧ &lt;{ ~(Γ✝) ⊢ ~(t) ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2395": "<code>&lt;{ snd t }&gt; = t'</code>",
+ "2394": "<code>&lt;{ ~(Γ) ⊢ snd t ⦂ ~(τ) }&gt;</code>",
+ "2393":
+ "<code>StlcSub.typing_inversion_snd {Γ : Context} {t : Tm} {τ : Ty} (h : &lt;{ ~(Γ) ⊢ snd t ⦂ ~(τ) }&gt;) :\n  ∃ τ₁ τ₂, τ₂ &lt;: τ ∧ &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2392": "<code>&lt;{ ~(Γ) ⊢ ~(t) ⦂ σ₁ × σ₂ }&gt;</code>",
+ "2391":
+ "<code>∀ {t_1 : Tm}, &lt;{ fst t_1 }&gt; = &lt;{ fst t }&gt; → ∃ τ₁_1 τ₂, τ₁_1 &lt;: τ₁ ∧ &lt;{ ~(Γ) ⊢ ~(t_1) ⦂ τ₁_1 × τ₂ }&gt;</code>",
+ "2390": "<code>&lt;{ ~(Γ) ⊢ fst t ⦂ ~(τ₁) }&gt;</code>",
  "239": "<code>SimpleArith1.Step t₁ t₁'</code>",
+ "2389":
+ "<code>∀ {t : Tm}, &lt;{ fst t }&gt; = t₁ → ∃ τ₁_1 τ₂, τ₁_1 &lt;: τ₁ ∧ &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁_1 × τ₂ }&gt;</code>",
+ "2388": "<code>&lt;{ fst t }&gt; = &lt;{ fst t✝ }&gt;</code>",
+ "2387":
+ "<code>∀ {t : Tm}, &lt;{ fst t }&gt; = t✝ → ∃ τ₁_1 τ₂_1, τ₁_1 &lt;: &lt;{ τ₁ × τ₂ }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁_1 × τ₂_1 }&gt;</code>",
+ "2386": "<code>&lt;{ ~(Γ) ⊢ ~(t✝) ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2385":
+ "<code>∀ {t_1 : Tm}, &lt;{ fst t_1 }&gt; = t → ∃ τ₁_1 τ₂_1, τ₁_1 &lt;: &lt;{ τ₁ × τ₂ }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t_1) ⦂ τ₁_1 × τ₂_1 }&gt;</code>",
+ "2384": "<code>&lt;{ fst t }&gt; = &lt;{ snd t✝ }&gt;</code>",
+ "2383":
+ "<code>∀ {t : Tm}, &lt;{ fst t }&gt; = t✝ → ∃ τ₁ τ₂, τ₁ &lt;: &lt;{ τ₁✝ × τ₂✝ }&gt; ∧ &lt;{ ~(Γ✝) ⊢ ~(t) ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2382": "<code>&lt;{ ~(Γ) ⊢ ~(t') ⦂ ~(τ) }&gt;</code>",
+ "2381": "<code>&lt;{ fst t }&gt; = t'</code>",
+ "2380": "<code>&lt;{ ~(Γ) ⊢ fst t ⦂ ~(τ) }&gt;</code>",
  "238":
  "<code>SimpleArith1.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : SimpleArith1.Step t₁ t₁') : SimpleArith1.Step (t₁.p t₂) (t₁'.p t₂)</code>",
+ "2379":
+ "<code>StlcSub.typing_inversion_fst {Γ : Context} {t : Tm} {τ : Ty} (h : &lt;{ ~(Γ) ⊢ fst t ⦂ ~(τ) }&gt;) :\n  ∃ τ₁ τ₂, τ₁ &lt;: τ ∧ &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2378":
+ "<code>Lean.Meta.Tactic.Backtrack.BacktrackConfig.maxDepth (self : Lean.Meta.Tactic.Backtrack.BacktrackConfig) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Maximum recursion depth. </code>",
+ "2377": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(σ₁) }&gt;</code>",
+ "2376": "<code>&lt;{ σ₁ × σ₂ }&gt; &lt;: τ₁</code>",
+ "2375":
+ "<code>∀ {t₁_1 t₂_1 : Tm},\n  &lt;{ ( t₁_1 , t₂_1 ) }&gt; = &lt;{ ( t₁ , t₂ ) }&gt; →\n    ∃ τ₁_1 τ₂, &lt;{ τ₁_1 × τ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(Γ) ⊢ ~(t₁_1) ⦂ ~(τ₁_1) }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t₂_1) ⦂ ~(τ₂) }&gt;</code>",
+ "2374": "<code>&lt;{ ~(Γ) ⊢ ( t₁ , t₂ ) ⦂ ~(τ₁) }&gt;</code>",
+ "2373": "<code>&lt;{ ( t₁ , t₂ ) }&gt; = &lt;{ ( t₁✝ , t₂✝ ) }&gt;</code>",
+ "2372":
+ "<code>∀ {t₁ t₂ : Tm},\n  &lt;{ ( t₁ , t₂ ) }&gt; = t₂✝ → ∃ τ₁ τ₂_1, &lt;{ τ₁ × τ₂_1 }&gt; &lt;: τ₂ ∧ &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂_1) }&gt;</code>",
+ "2371":
+ "<code>∀ {t₁ t₂ : Tm},\n  &lt;{ ( t₁ , t₂ ) }&gt; = t₁✝ → ∃ τ₁_1 τ₂, &lt;{ τ₁_1 × τ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁_1) }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;</code>",
+ "2370": "<code>&lt;{ ~(Γ) ⊢ ~(t₂✝) ⦂ ~(τ₂) }&gt;</code>",
  "237":
  "<code class=\"docstring\">`first | tac | ...` runs each `tac` until one succeeds, or else fails. </code>",
+ "2369": "<code>&lt;{ ~(Γ) ⊢ ~(t₁✝) ⦂ ~(τ₁) }&gt;</code>",
+ "2368":
+ "<code>∀ {t₁ t₂_1 : Tm},\n  &lt;{ ( t₁ , t₂_1 ) }&gt; = t₂ →\n    ∃ τ₁ τ₂_1, &lt;{ τ₁ × τ₂_1 }&gt; &lt;: τ₂ ∧ &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t₂_1) ⦂ ~(τ₂_1) }&gt;</code>",
+ "2367":
+ "<code>∀ {t₁_1 t₂ : Tm},\n  &lt;{ ( t₁_1 , t₂ ) }&gt; = t₁ →\n    ∃ τ₁_1 τ₂, &lt;{ τ₁_1 × τ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(Γ) ⊢ ~(t₁_1) ⦂ ~(τ₁_1) }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;</code>",
+ "2366": "<code>&lt;{ ( t₁ , t₂ ) }&gt; = &lt;{ snd t✝ }&gt;</code>",
+ "2365":
+ "<code>∀ {t₁ t₂ : Tm},\n  &lt;{ ( t₁ , t₂ ) }&gt; = t✝ →\n    ∃ τ₁ τ₂, &lt;{ τ₁ × τ₂ }&gt; &lt;: &lt;{ τ₁✝ × τ₂✝ }&gt; ∧ &lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt; ∧ &lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;</code>",
+ "2364": "<code>&lt;{ ( t₁ , t₂ ) }&gt; = t</code>",
+ "2363": "<code>&lt;{ ~(Γ) ⊢ ( t₁ , t₂ ) ⦂ ~(τ) }&gt;</code>",
+ "2362":
+ "<code>StlcSub.typing_inversion_pair {Γ : Context} {t₁ t₂ : Tm} {τ : Ty} (h : &lt;{ ~(Γ) ⊢ ( t₁ , t₂ ) ⦂ ~(τ) }&gt;) :\n  ∃ τ₁ τ₂, &lt;{ τ₁ × τ₂ }&gt; &lt;: τ ∧ &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;</code>",
+ "2361": "<code>&lt;{ Unit }&gt; &lt;: τ₁</code>",
+ "2360":
+ "<code class=\"docstring\">`specialize h a₁ ... aₙ` is equivalent to `replace h := h a₁ ... aₙ`.\nIt specializes the local hypothesis `h` by instantiating\nuniversal quantifications and implications using the concrete terms `a₁` ... `aₙ`.\nThe tactic adds a new hypothesis with the same name and tries to remove\nthe original `h` if possible.\n\nExample: given `h : ∀ (n : Nat), p n → q n` and `h' : p 2`,\nthen `specialize h 2 h'` replaces `h` with `h : q 2`.\n\nThe tactic also supports instantiating particular universal quantifiers\nusing named argument syntax. Example: given `h : ∀ (m n : Nat), p m n`,\nthen `specialize h (n := 2)` replaces `h` with `h : ∀ (m : Nat), p m 2`.\n</code>",
  "236": "<code>SimpleArith1.Step (Tm.c n₂) t₂'✝</code>",
+ "2359":
+ "<code>&lt;{ unit }&gt; = &lt;{ unit }&gt; → &lt;{ Unit }&gt; &lt;: τ₁</code>",
+ "2358": "<code>&lt;{ ~(Γ) ⊢ unit ⦂ ~(τ₁) }&gt;</code>",
+ "2357": "<code>&lt;{ unit }&gt; = t₁ → &lt;{ Unit }&gt; &lt;: τ₁</code>",
+ "2356": "<code>&lt;{ unit }&gt; = &lt;{ unit }&gt;</code>",
+ "2355":
+ "<code>StlcSub.HasType.unit (Γ : Context) : &lt;{ ~(Γ) ⊢ unit ⦂ Unit }&gt;</code>",
+ "2354": "<code>&lt;{ unit }&gt; = &lt;{ snd t✝ }&gt;</code>",
+ "2353":
+ "<code>&lt;{ unit }&gt; = t✝ → &lt;{ Unit }&gt; &lt;: &lt;{ τ₁✝ × τ₂✝ }&gt;</code>",
+ "2352": "<code>&lt;{ unit }&gt; = t</code>",
+ "2351": "<code>&lt;{ ~(Γ) ⊢ unit ⦂ ~(τ) }&gt;</code>",
+ "2350":
+ "<code>StlcSub.typing_inversion_unit (Γ : Context) (τ : Ty) (h : &lt;{ ~(Γ) ⊢ unit ⦂ ~(τ) }&gt;) : &lt;{ Unit }&gt; &lt;: τ</code>",
  "235": "<code>SimpleArith1.Step (Tm.c n₁) t₁'✝</code>",
+ "2349": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(σ₂) }&gt;</code>",
+ "2348": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ σ₂ → τ₁ }&gt;</code>",
+ "2347":
+ "<code>&lt;{ t₁ t₂ }&gt; = &lt;{ t₁ t₂ }&gt; → ∃ τ₁_1, &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ τ₁_1 → τ₁ }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₁_1) }&gt;</code>",
+ "2346": "<code>&lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(τ₁) }&gt;</code>",
+ "2345":
+ "<code>&lt;{ t₁✝ t₂ }&gt; = t₁ → ∃ τ₁_1, &lt;{ ~(Γ) ⊢ ~(t₁✝) ⦂ τ₁_1 → τ₁ }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₁_1) }&gt;</code>",
+ "2344":
+ "<code>&lt;{ t₁ t₂ }&gt; = t₂ → ∃ τ₁, &lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ τ₁ → τ₂✝ }&gt; ∧ &lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(τ₁) }&gt;</code>",
+ "2343": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(τ₂✝) }&gt;</code>",
+ "2342":
+ "<code>&lt;{ t₁ t₂ }&gt; = t₁ → ∃ τ₁, &lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ τ₁ → τ₂✝ → τ₁✝ }&gt; ∧ &lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(τ₁) }&gt;</code>",
+ "2341": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "2340": "<code>&lt;{ t₁ t₂ }&gt; = &lt;{ t₁✝ t₂✝ }&gt;</code>",
  "234": "<code>SimpleArith1.Step ((Tm.c n₁).p (Tm.c n₂)) y₂</code>",
+ "2339":
+ "<code>&lt;{ t₁ t₂ }&gt; = t₂✝ → ∃ τ₁, &lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ τ₁ → τ₂✝ }&gt; ∧ &lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(τ₁) }&gt;</code>",
+ "2338":
+ "<code>&lt;{ t₁ t₂ }&gt; = t₁✝ → ∃ τ₁, &lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ τ₁ → τ₂✝ → τ₁✝ }&gt; ∧ &lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(τ₁) }&gt;</code>",
+ "2337": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₂✝) ⦂ ~(τ₂✝) }&gt;</code>",
+ "2336": "<code>&lt;{ ~(Γ✝) ⊢ ~(t₁✝) ⦂ τ₂✝ → τ₁✝ }&gt;</code>",
+ "2335": "<code>&lt;{ t₁ t₂ }&gt; = &lt;{ snd t✝ }&gt;</code>",
+ "2334":
+ "<code>&lt;{ t₁ t₂ }&gt; = t✝ → ∃ τ₁, &lt;{ ~(Γ✝) ⊢ ~(t₁) ⦂ τ₁ → τ₁✝ × τ₂✝ }&gt; ∧ &lt;{ ~(Γ✝) ⊢ ~(t₂) ⦂ ~(τ₁) }&gt;</code>",
+ "2333": "<code>&lt;{ ~(Γ) ⊢ ~(t) ⦂ ~(τ₂) }&gt;</code>",
+ "2332": "<code>&lt;{ t₁ t₂ }&gt; = t</code>",
+ "2331": "<code>&lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(τ₂) }&gt;</code>",
+ "2330":
+ "<code>StlcSub.typing_inversion_app {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty} (h : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(τ₂) }&gt;) :\n  ∃ τ₁, &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ τ₁ → τ₂ }&gt; ∧ &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₁) }&gt;</code>",
  "233":
  "<code>SimpleArith1.Step.plus (n₁ n₂ : Nat) : SimpleArith1.Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
+ "2329": "<code>σ₂ &lt;: τ₁</code>",
+ "2328": "<code>Γ[x] = some σ₂</code>",
+ "2327":
+ "<code>StlcSub.Tm.var x = StlcSub.Tm.var x → ∃ σ, Γ[x] = some σ ∧ σ &lt;: τ₁</code>",
+ "2326": "<code>&lt;{ ~(Γ) ⊢ ~(StlcSub.Tm.var x) ⦂ ~(τ₁) }&gt;</code>",
+ "2325": "<code>StlcSub.Tm.var x = t₁ → ∃ σ, Γ[x] = some σ ∧ σ &lt;: τ₁</code>",
+ "2324": "<code>StlcSub.Tm.var x = StlcSub.Tm.var y</code>",
+ "2323": "<code>Γ[y] = some τ₁</code>",
+ "2322":
+ "<code>StlcSub.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : &lt;{ ~(Γ) ⊢ ~(StlcSub.Tm.var x) ⦂ ~(τ₁) }&gt;</code>",
+ "2321": "<code>StlcSub.Tm.var x = &lt;{ snd t✝ }&gt;</code>",
+ "2320":
+ "<code>StlcSub.Tm.var x = t✝ → ∃ σ, Γ✝[x] = some σ ∧ σ &lt;: &lt;{ τ₁✝ × τ₂✝ }&gt;</code>",
  "232": "<code>SimpleArith1.Step x y₁</code>",
+ "2319": "<code>StlcSub.Tm.var x = t</code>",
+ "2318": "<code>&lt;{ ~(Γ) ⊢ ~(StlcSub.Tm.var x) ⦂ ~(τ) }&gt;</code>",
+ "2317":
+ "<code>StlcSub.typing_inversion_var {Γ : Context} {x : String} {τ : Ty} (h : &lt;{ ~(Γ) ⊢ ~(StlcSub.Tm.var x) ⦂ ~(τ) }&gt;) :\n  ∃ σ, Γ[x] = some σ ∧ σ &lt;: τ</code>",
+ "2316": "<code>&lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ ~(t₂) ⦂ ~(σ₂) }&gt;</code>",
+ "2315": "<code>&lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁</code>",
+ "2314":
+ "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = &lt;{ λ ~x : σ₁ . t₂ }&gt; → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ ~(t₂) ⦂ ~(σ₂) }&gt;</code>",
+ "2313": "<code>&lt;{ ~(Γ) ⊢ λ ~x : σ₁ . t₂ ⦂ ~(τ₁) }&gt;</code>",
+ "2312":
+ "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t₁ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ ~(t₂) ⦂ ~(σ₂) }&gt;</code>",
+ "2311":
+ "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t₂ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x →ₚ σ₁ ; x →ₚ σ₁ ; Γ) ⊢ ~(t₂) ⦂ ~(σ₂) }&gt;</code>",
+ "2310": "<code>&lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ ~(t₂) ⦂ ~(τ₁) }&gt;</code>",
  "231":
  "<code>SimpleArith2.step_deterministic : Deterministic SimpleArith1.Step</code>",
+ "2309":
+ "<code>&lt;{ λ ~x✝ : σ₁ . t₂ }&gt; = &lt;{ λ ~x : τ₂ . t₁ }&gt;</code>",
+ "2308":
+ "<code>&lt;{ λ ~x✝ : σ₁ . t₂ }&gt; = t₁ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ₁ ∧ &lt;{ ~(x✝ →ₚ σ₁ ; x →ₚ τ₂ ; Γ) ⊢ ~(t₂) ⦂ ~(σ₂) }&gt;</code>",
+ "2307": "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = &lt;{ snd t✝ }&gt;</code>",
+ "2306":
+ "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t✝ → ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ τ₁✝ × τ₂✝ }&gt; ∧ &lt;{ ~(x →ₚ σ₁ ; Γ✝) ⊢ ~(t₂) ⦂ ~(σ₂) }&gt;</code>",
+ "2305": "<code>&lt;{ ~(Γ✝) ⊢ ~(t✝) ⦂ τ₁✝ × τ₂✝ }&gt;</code>",
+ "2304": "<code>&lt;{ λ ~x : σ₁ . t₂ }&gt; = t</code>",
+ "2303": "<code>&lt;{ ~(Γ) ⊢ λ ~x : σ₁ . t₂ ⦂ ~(τ) }&gt;</code>",
+ "2302":
+ "<code>StlcSub.typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty} {t₂ : Tm} {τ : Ty}\n  (h : &lt;{ ~(Γ) ⊢ λ ~x : σ₁ . t₂ ⦂ ~(τ) }&gt;) : ∃ σ₂, &lt;{ σ₁ → σ₂ }&gt; &lt;: τ ∧ &lt;{ ~(x →ₚ σ₁ ; Γ) ⊢ ~(t₂) ⦂ ~(σ₂) }&gt;</code>",
+ "2301":
+ "<code>StlcSub.HasType.snd (Γ : Context) (t : Tm) (τ₁ τ₂ : Ty) (h : &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁ × τ₂ }&gt;) : &lt;{ ~(Γ) ⊢ snd t ⦂ ~(τ₂) }&gt;</code>",
+ "2300":
+ "<code>&lt;{ ( v₁ , v₂ ) }&gt;.IsValue → ∃ t₁ t₂, &lt;{ ( v₁ , v₂ ) }&gt; = &lt;{ ( t₁ , t₂ ) }&gt;</code>",
  "230": "<code>X</code>",
  "23": "<code>Slang.Aexp.eval (a : Aexp) : Nat</code>",
+ "2299": "<code>&lt;{ ( v₁ , v₂ ) }&gt;.IsValue</code>",
+ "2298":
+ "<code>∅ = ∅ → &lt;{ ( v₁ , v₂ ) }&gt;.IsValue ∨ ∃ t', &lt;{ ( v₁ , v₂ ) }&gt; ⟶ t'</code>",
+ "2297": "<code>t.IsValue → ∃ t₁ t₂, t = &lt;{ ( t₁ , t₂ ) }&gt;</code>",
+ "2296":
+ "<code>StlcSub.HasType.fst (Γ : Context) (t : Tm) (τ₁ τ₂ : Ty) (h : &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁ × τ₂ }&gt;) : &lt;{ ~(Γ) ⊢ fst t ⦂ ~(τ₁) }&gt;</code>",
+ "2295":
+ "<code>&lt;{ true }&gt;.IsValue → &lt;{ true }&gt; = &lt;{ true }&gt; ∨ &lt;{ true }&gt; = &lt;{ false }&gt;</code>",
+ "2294":
+ "<code>∅ = ∅ → &lt;{ true }&gt;.IsValue ∨ ∃ t', &lt;{ true }&gt; ⟶ t'</code>",
+ "2293":
+ "<code>&lt;{ false }&gt;.IsValue → &lt;{ false }&gt; = &lt;{ true }&gt; ∨ &lt;{ false }&gt; = &lt;{ false }&gt;</code>",
+ "2292":
+ "<code>∅ = ∅ → &lt;{ false }&gt;.IsValue ∨ ∃ t', &lt;{ false }&gt; ⟶ t'</code>",
+ "2291":
+ "<code>t₁.IsValue → t₁ = &lt;{ true }&gt; ∨ t₁ = &lt;{ false }&gt;</code>",
+ "2290":
+ "<code>StlcSub.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ : Ty) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ Bool }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ) }&gt;) (h₃ : &lt;{ ~(Γ) ⊢ ~(t₃) ⦂ ~(τ) }&gt;) : &lt;{ ~(Γ) ⊢ if t₁ then t₂ else t₃ ⦂ ~(τ) }&gt;</code>",
  "229": "<code>Relation X</code>",
+ "2289": "<code>t₁ = &lt;{ λ ~x : σ . v }&gt;</code>",
+ "2288": "<code>t₁.IsValue → ∃ x σ₁ t₂, t₁ = &lt;{ λ ~x : σ₁ . t₂ }&gt;</code>",
+ "2287":
+ "<code>StlcSub.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ τ₂ → τ₁ }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;) : &lt;{ ~(Γ) ⊢ t₁ t₂ ⦂ ~(τ₁) }&gt;</code>",
+ "2286":
+ "<code>StlcSub.progress (t : Tm) (τ : Ty) (h : &lt;{ ∅ ⊢ ~(t) ⦂ ~(τ) }&gt;) : t.IsValue ∨ ∃ t', t ⟶ t'</code>",
+ "2285":
+ "<code>∀ {τ₁ τ₂ : Ty}, t₁.IsValue → &lt;{ τ₁ × τ₂ }&gt; = &lt;{ σ₁ × σ₂ }&gt; → ∃ t₁_1 t₂, t₁ = &lt;{ ( t₁_1 , t₂ ) }&gt;</code>",
+ "2284": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ σ₁ × σ₂ }&gt;</code>",
+ "2283": "<code>τ₁✝ = &lt;{ σ₁ × σ₂ }&gt;</code>",
+ "2282": "<code>τ₁✝ &lt;: &lt;{ τ₁ × τ₂ }&gt;</code>",
+ "2281":
+ "<code>∀ {τ₁ τ₂_1 : Ty}, t₂.IsValue → &lt;{ τ₁ × τ₂_1 }&gt; = τ₂ → ∃ t₁ t₂_1, t₂ = &lt;{ ( t₁ , t₂_1 ) }&gt;</code>",
+ "2280":
+ "<code>∀ {τ₁_1 τ₂ : Ty}, t₁.IsValue → &lt;{ τ₁_1 × τ₂ }&gt; = τ₁ → ∃ t₁_1 t₂, t₁ = &lt;{ ( t₁_1 , t₂ ) }&gt;</code>",
  "228": "<code>Deterministic {X : Type} (R : Relation X) : Prop</code>",
+ "2279": "<code>&lt;{ ( t₁ , t₂ ) }&gt;.IsValue</code>",
+ "2278":
+ "<code>∀ {τ₁ τ₂ : Ty}, t₂.IsValue → &lt;{ τ₁ × τ₂ }&gt; = τ₂✝ → ∃ t₁ t₂_1, t₂ = &lt;{ ( t₁ , t₂_1 ) }&gt;</code>",
+ "2277":
+ "<code>∀ {τ₁ τ₂ : Ty}, t₁.IsValue → &lt;{ τ₁ × τ₂ }&gt; = τ₁✝ → ∃ t₁_1 t₂, t₁ = &lt;{ ( t₁_1 , t₂ ) }&gt;</code>",
+ "2276": "<code>&lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂✝) }&gt;</code>",
+ "2275":
+ "<code>StlcSub.HasType.pair (Γ : Context) (t₁ t₂ : Tm) (τ₁ τ₂ : Ty) (h₁ : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt;)\n  (h₂ : &lt;{ ~(Γ) ⊢ ~(t₂) ⦂ ~(τ₂) }&gt;) : &lt;{ ~(Γ) ⊢ ( t₁ , t₂ ) ⦂ τ₁ × τ₂ }&gt;</code>",
+ "2274":
+ "<code>∀ {τ₁_1 τ₂_1 : Ty}, t✝.IsValue → &lt;{ τ₁_1 × τ₂_1 }&gt; = &lt;{ τ₁✝ × τ₁ × τ₂ }&gt; → ∃ t₁ t₂, t✝ = &lt;{ ( t₁ , t₂ ) }&gt;</code>",
+ "2273": "<code>&lt;{ ~(Γ✝) ⊢ ~(t✝) ⦂ τ₁✝ × τ₁ × τ₂ }&gt;</code>",
+ "2272": "<code>&lt;{ τ₁ × τ₂ }&gt; = τ</code>",
+ "2271":
+ "<code>StlcSub.canonical_forms_of_product_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty} (ht : &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁ × τ₂ }&gt;)\n  (hv : t.IsValue) : ∃ t₁ t₂, t = &lt;{ ( t₁ , t₂ ) }&gt;</code>",
+ "2270":
+ "<code>t₁.IsValue → &lt;{ Bool }&gt; = &lt;{ Bool }&gt; → t₁ = &lt;{ true }&gt; ∨ t₁ = &lt;{ false }&gt;</code>",
  "227":
  "<code class=\"docstring\">A type universe. `Type ≡ Type 0`, `Type u ≡ Sort (u + 1)`. </code>",
+ "2269": "<code>τ₁ = &lt;{ Bool }&gt;</code>",
+ "2268": "<code>τ₁ &lt;: &lt;{ Bool }&gt;</code>",
+ "2267":
+ "<code>t₁.IsValue → &lt;{ Bool }&gt; = τ₁ → t₁ = &lt;{ true }&gt; ∨ t₁ = &lt;{ false }&gt;</code>",
+ "2266":
+ "<code>t✝.IsValue → &lt;{ Bool }&gt; = &lt;{ τ₁✝ × Bool }&gt; → t✝ = &lt;{ true }&gt; ∨ t✝ = &lt;{ false }&gt;</code>",
+ "2265": "<code>&lt;{ ~(Γ✝) ⊢ ~(t✝) ⦂ τ₁✝ × Bool }&gt;</code>",
+ "2264": "<code>&lt;{ Bool }&gt; = τ</code>",
+ "2263": "<code>&lt;{ ~(Γ) ⊢ ~(t) ⦂ Bool }&gt;</code>",
+ "2262":
+ "<code>StlcSub.canonical_forms_of_bool {Γ : Context} {t : Tm} (ht : &lt;{ ~(Γ) ⊢ ~(t) ⦂ Bool }&gt;) (hv : t.IsValue) :\n  t = &lt;{ true }&gt; ∨ t = &lt;{ false }&gt;</code>",
+ "2261":
+ "<code>∀ {τ₁ τ₂ : Ty}, t₁.IsValue → &lt;{ τ₁ → τ₂ }&gt; = &lt;{ σ₁ → σ₂ }&gt; → ∃ x σ₁ t₂, t₁ = &lt;{ λ ~x : σ₁ . t₂ }&gt;</code>",
+ "2260": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ σ₁ → σ₂ }&gt;</code>",
  "226": "<code>Type</code>",
+ "2259": "<code>τ₁✝ = &lt;{ σ₁ → σ₂ }&gt;</code>",
+ "2258": "<code>τ₁✝ &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "2257": "<code>&lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁✝) }&gt;</code>",
+ "2256": "<code>&lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
+ "2255": "<code>&lt;{ τ₁ → τ₂ }&gt; = &lt;{ τ₂✝ → τ₁✝ }&gt;</code>",
+ "2254": "<code>&lt;{ λ ~x : τ₂✝ . t₁ }&gt;.IsValue</code>",
+ "2253":
+ "<code>∀ {τ₁ τ₂ : Ty}, t₁.IsValue → &lt;{ τ₁ → τ₂ }&gt; = τ₁✝ → ∃ x σ₁ t₂, t₁ = &lt;{ λ ~x : σ₁ . t₂ }&gt;</code>",
+ "2252": "<code>&lt;{ ~(x →ₚ τ₂✝ ; Γ) ⊢ ~(t₁) ⦂ ~(τ₁✝) }&gt;</code>",
+ "2251":
+ "<code>∀ {τ₁_1 τ₂ : Ty}, t₁.IsValue → &lt;{ τ₁_1 → τ₂ }&gt; = τ₁ → ∃ x σ₁ t₂, t₁ = &lt;{ λ ~x : σ₁ . t₂ }&gt;</code>",
+ "2250": "<code>&lt;{ ~(x →ₚ τ₂ ; Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt;</code>",
  "225": "<code>Relation (X : Type) : Type</code>",
+ "2249":
+ "<code>StlcSub.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : &lt;{ ~(x →ₚ τ₂ ; Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt;) :\n  &lt;{ ~(Γ) ⊢ λ ~x : τ₂ . t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "2248":
+ "<code>∀ {τ₁_1 τ₂_1 : Ty}, t✝.IsValue → &lt;{ τ₁_1 → τ₂_1 }&gt; = &lt;{ τ₁✝ × τ₁ → τ₂ }&gt; → ∃ x σ₁ t₂, t✝ = &lt;{ λ ~x : σ₁ . t₂ }&gt;</code>",
+ "2247": "<code>&lt;{ ~(Γ✝) ⊢ ~(t✝) ⦂ τ₁✝ × τ₁ → τ₂ }&gt;</code>",
+ "2246": "<code>&lt;{ snd t✝ }&gt;.IsValue</code>",
+ "2245": "<code>&lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁ → τ₂ }&gt;</code>",
+ "2244":
+ "<code>StlcSub.canonical_forms_of_arrow_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty} (ht : &lt;{ ~(Γ) ⊢ ~(t) ⦂ τ₁ → τ₂ }&gt;)\n  (hv : t.IsValue) : ∃ x σ₁ t₂, t = &lt;{ λ ~x : σ₁ . t₂ }&gt;</code>",
+ "2243":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ × τ₂ }&gt; = &lt;{ σ₁ × σ₂ }&gt; → ∃ σ₁ σ₂, &lt;{ σ₁' × σ₂' }&gt; = &lt;{ σ₁ × σ₂ }&gt; ∧ σ₁ &lt;: τ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2242": "<code>&lt;{ σ₁' × σ₂' }&gt; &lt;: &lt;{ σ₁ × σ₂ }&gt;</code>",
+ "2241": "<code>σ✝ = &lt;{ σ₁' × σ₂' }&gt;</code>",
+ "2240": "<code>σ₁' &lt;: σ₁</code>",
  "224":
  "<code>SimpleArith1.Step.plusRight (n₁ : Nat) (t₂ t₂' : Tm) (h : t₂ ⟶ t₂') : (Tm.c n₁).p t₂ ⟶ (Tm.c n₁).p t₂'</code>",
+ "2239": "<code>&lt;{ σ₁ × σ₂ }&gt; &lt;: &lt;{ τ₁ × τ₂ }&gt;</code>",
+ "2238":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ × τ₂ }&gt; = &lt;{ σ₁ × σ₂ }&gt; → ∃ σ₁ σ₂, σ✝ = &lt;{ σ₁ × σ₂ }&gt; ∧ σ₁ &lt;: τ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2237": "<code>σ✝ &lt;: &lt;{ σ₁ × σ₂ }&gt;</code>",
+ "2236": "<code>υ✝ = &lt;{ σ₁ × σ₂ }&gt;</code>",
+ "2235": "<code>σ₁ &lt;: τ₁</code>",
+ "2234":
+ "<code>∀ {τ₁_1 τ₂_1 : Ty}, &lt;{ τ₁_1 × τ₂_1 }&gt; = &lt;{ τ₁ × τ₂ }&gt; → ∃ σ₁ σ₂, υ✝ = &lt;{ σ₁ × σ₂ }&gt; ∧ σ₁ &lt;: τ₁_1 ∧ σ₂ &lt;: τ₂_1</code>",
+ "2233": "<code>υ✝ &lt;: &lt;{ τ₁ × τ₂ }&gt;</code>",
+ "2232":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ × τ₂ }&gt; = τ✝ → ∃ σ₁ σ₂, υ✝ = &lt;{ σ₁ × σ₂ }&gt; ∧ σ₁ &lt;: τ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2231":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ × τ₂ }&gt; = υ✝ → ∃ σ₁ σ₂, σ✝ = &lt;{ σ₁ × σ₂ }&gt; ∧ σ₁ &lt;: τ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2230": "<code>&lt;{ τ₁ × τ₂ }&gt; = &lt;{ τ₁✝ × τ₂✝ }&gt;</code>",
  "223":
  "<code>SimpleArith1.Step.plus (n₁ n₂ : Nat) : (Tm.c n₁).p (Tm.c n₂) ⟶ Tm.c (n₁ + n₂)</code>",
+ "2229":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ × τ₂ }&gt; = τ₂✝ → ∃ σ₁ σ₂_1, σ₂ = &lt;{ σ₁ × σ₂_1 }&gt; ∧ σ₁ &lt;: τ₁ ∧ σ₂_1 &lt;: τ₂</code>",
+ "2228":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ × τ₂ }&gt; = τ₁✝ → ∃ σ₁_1 σ₂, σ₁ = &lt;{ σ₁_1 × σ₂ }&gt; ∧ σ₁_1 &lt;: τ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2227": "<code>σ₁ &lt;: τ₁✝</code>",
+ "2226":
+ "<code>StlcSub.Subtype.prod {σ₁ σ₂ τ₁ τ₂ : Ty} (h₁ : σ₁ &lt;: τ₁) (h₂ : σ₂ &lt;: τ₂) : &lt;{ σ₁ × σ₂ }&gt; &lt;: &lt;{ τ₁ × τ₂ }&gt;</code>",
+ "2225": "<code>&lt;{ τ₁ × τ₂ }&gt; = &lt;{ τ₁✝ → τ₂✝ }&gt;</code>",
+ "2224":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ × τ₂ }&gt; = τ₂✝ → ∃ σ₁ σ₂, σ₂✝ = &lt;{ σ₁ × σ₂ }&gt; ∧ σ₁ &lt;: τ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2223":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ × τ₂ }&gt; = σ₁✝ → ∃ σ₁ σ₂, τ₁✝ = &lt;{ σ₁ × σ₂ }&gt; ∧ σ₁ &lt;: τ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2222": "<code>τ₁✝ &lt;: σ₁✝</code>",
+ "2221": "<code>σ &lt;: V</code>",
+ "2220": "<code>&lt;{ τ₁ × τ₂ }&gt; = V</code>",
  "222":
  "<code>SimpleArith1.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : t₁ ⟶ t₁') : t₁.p t₂ ⟶ t₁'.p t₂</code>",
+ "2219": "<code>σ &lt;: &lt;{ τ₁ × τ₂ }&gt;</code>",
+ "2218":
+ "<code>StlcSub.sub_inversion_prod {σ τ₁ τ₂ : Ty} (h : σ &lt;: &lt;{ τ₁ × τ₂ }&gt;) : ∃ σ₁ σ₂, σ = &lt;{ σ₁ × σ₂ }&gt; ∧ σ₁ &lt;: τ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2217": "<code>&lt;{ ⊤ }&gt; = &lt;{ ⊤ }&gt; → υ✝ = &lt;{ ⊤ }&gt;</code>",
+ "2216": "<code>&lt;{ ⊤ }&gt; &lt;: υ✝</code>",
+ "2215": "<code>&lt;{ ⊤ }&gt; = υ✝ → τ✝ = υ✝</code>",
+ "2214": "<code>&lt;{ ⊤ }&gt; = σ✝ → υ✝ = σ✝</code>",
+ "2213": "<code>&lt;{ ⊤ }&gt; = &lt;{ σ₁✝ × σ₂✝ }&gt;</code>",
+ "2212": "<code>&lt;{ ⊤ }&gt; = σ₂✝ → τ₂✝ = σ₂✝</code>",
+ "2211": "<code>&lt;{ ⊤ }&gt; = σ₁✝ → τ₁✝ = σ₁✝</code>",
+ "2210": "<code>&lt;{ ⊤ }&gt; = σ</code>",
  "221":
  "<code class=\"docstring\">`apply e` tries to match the current goal against the conclusion of `e`'s type.\nIf it succeeds, then the tactic returns as many subgoals as the number of premises that\nhave not been fixed by type inference or type class resolution.\nNon-dependent premises are added before dependent ones.\n\nThe `apply` tactic uses higher-order pattern matching, type class resolution,\nand first-order unification with dependent types.\n</code>",
+ "2209": "<code>&lt;{ ⊤ }&gt; &lt;: τ</code>",
+ "2208":
+ "<code>StlcSub.sub_inversion_top {τ : Ty} (h : &lt;{ ⊤ }&gt; &lt;: τ) : τ = &lt;{ ⊤ }&gt;</code>",
+ "2207": "<code>(s) = (s) → υ✝ = (s)</code>",
+ "2206": "<code>υ✝ &lt;: (s)</code>",
+ "2205": "<code>(s) = τ✝ → υ✝ = τ✝</code>",
+ "2204": "<code>(s) = υ✝ → σ✝ = υ✝</code>",
+ "2203": "<code>(s) = &lt;{ τ₁✝ × τ₂✝ }&gt;</code>",
+ "2202": "<code>(s) = τ₂✝ → σ₂✝ = τ₂✝</code>",
+ "2201": "<code>(s) = τ₁✝ → σ₁✝ = τ₁✝</code>",
+ "2200": "<code>(s) = σ</code>",
  "220": "<code><span class=\"literal string\">\" ⟶ \"</span> : String</code>",
  "22":
  "<code><span class=\"literal string\">\"1 + 2 * 3\"</span> : String</code>",
+ "2199": "<code>τ &lt;: (s)</code>",
+ "2198":
+ "<code>StlcSub.sub_inversion_base {τ : Ty} {s : String} (h : τ &lt;: (s)) : τ = (s)</code>",
+ "2197":
+ "<code>&lt;{ Unit }&gt; = &lt;{ Unit }&gt; → υ✝ = &lt;{ Unit }&gt;</code>",
+ "2196": "<code>υ✝ &lt;: &lt;{ Unit }&gt;</code>",
+ "2195": "<code>&lt;{ Unit }&gt; = τ✝ → υ✝ = τ✝</code>",
+ "2194": "<code>&lt;{ Unit }&gt; = υ✝ → σ✝ = υ✝</code>",
+ "2193": "<code>&lt;{ Unit }&gt; = &lt;{ τ₁✝ × τ₂✝ }&gt;</code>",
+ "2192": "<code>&lt;{ Unit }&gt; = τ₂✝ → σ₂✝ = τ₂✝</code>",
+ "2191": "<code>&lt;{ Unit }&gt; = τ₁✝ → σ₁✝ = τ₁✝</code>",
+ "2190": "<code>&lt;{ Unit }&gt; = σ</code>",
  "219": "<code>Step t₂ t₂'</code>",
+ "2189": "<code>τ &lt;: &lt;{ Unit }&gt;</code>",
+ "2188":
+ "<code>StlcSub.sub_inversion_unit {τ : Ty} (h : τ &lt;: &lt;{ Unit }&gt;) : τ = &lt;{ Unit }&gt;</code>",
+ "2187":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ → τ₂ }&gt; = &lt;{ σ₁ → σ₂ }&gt; → ∃ σ₁ σ₂, &lt;{ σ₁' → σ₂' }&gt; = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2186": "<code>&lt;{ σ₁' → σ₂' }&gt; &lt;: &lt;{ σ₁ → σ₂ }&gt;</code>",
+ "2185": "<code>σ✝ = &lt;{ σ₁' → σ₂' }&gt;</code>",
+ "2184": "<code>σ₂' &lt;: σ₂</code>",
+ "2183": "<code>σ₁ &lt;: σ₁'</code>",
+ "2182": "<code>&lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "2181":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ → τ₂ }&gt; = &lt;{ σ₁ → σ₂ }&gt; → ∃ σ₁ σ₂, σ✝ = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2180": "<code>σ✝ &lt;: &lt;{ σ₁ → σ₂ }&gt;</code>",
  "218":
  "<code>SimpleArith1.Step.plusRight (n₁ : Nat) (t₂ t₂' : Tm) (h : Step t₂ t₂') : Step ((Tm.c n₁).p t₂) ((Tm.c n₁).p t₂')</code>",
+ "2179":
+ "<code class=\"docstring\">`clear x...` removes the given hypotheses, or fails if there are remaining\nreferences to a hypothesis.\n</code>",
+ "2178": "<code>υ✝ = &lt;{ σ₁ → σ₂ }&gt;</code>",
+ "2177": "<code>σ₂ &lt;: τ₂</code>",
+ "2176": "<code>τ₁ &lt;: σ₁</code>",
+ "2175":
+ "<code>∀ {τ₁_1 τ₂_1 : Ty}, &lt;{ τ₁_1 → τ₂_1 }&gt; = &lt;{ τ₁ → τ₂ }&gt; → ∃ σ₁ σ₂, υ✝ = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁_1 &lt;: σ₁ ∧ σ₂ &lt;: τ₂_1</code>",
+ "2174": "<code>υ✝ &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "2173":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ → τ₂ }&gt; = τ✝ → ∃ σ₁ σ₂, υ✝ = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2172":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ → τ₂ }&gt; = υ✝ → ∃ σ₁ σ₂, σ✝ = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2171": "<code>&lt;{ τ₁ → τ₂ }&gt; = &lt;{ τ₁✝ → τ₂✝ }&gt;</code>",
+ "2170":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ → τ₂ }&gt; = τ₂✝ → ∃ σ₁ σ₂_1, σ₂ = &lt;{ σ₁ → σ₂_1 }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂_1 &lt;: τ₂</code>",
  "217": "<code>Step t₁ t₁'</code>",
+ "2169":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ → τ₂ }&gt; = σ₁ → ∃ σ₁ σ₂, τ₁✝ = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2168": "<code>σ₂ &lt;: τ₂✝</code>",
+ "2167": "<code>τ₁✝ &lt;: σ₁</code>",
+ "2166":
+ "<code>StlcSub.Subtype.arrow {σ₁ σ₂ τ₁ τ₂ : Ty} (h₁ : τ₁ &lt;: σ₁) (h₂ : σ₂ &lt;: τ₂) : &lt;{ σ₁ → σ₂ }&gt; &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "2165": "<code>&lt;{ τ₁ → τ₂ }&gt; = &lt;{ τ₁✝ × τ₂✝ }&gt;</code>",
+ "2164":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ → τ₂ }&gt; = τ₂✝ → ∃ σ₁ σ₂, σ₂✝ = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2163":
+ "<code>∀ {τ₁ τ₂ : Ty}, &lt;{ τ₁ → τ₂ }&gt; = τ₁✝ → ∃ σ₁ σ₂, σ₁✝ = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2162": "<code>σ &lt;: τ</code>",
+ "2161": "<code>&lt;{ τ₁ → τ₂ }&gt; = τ</code>",
+ "2160": "<code>σ &lt;: &lt;{ τ₁ → τ₂ }&gt;</code>",
  "216":
  "<code>SimpleArith1.Step.plusLeft (t₁ t₁' t₂ : Tm) (h : Step t₁ t₁') : Step (t₁.p t₂) (t₁'.p t₂)</code>",
+ "2159":
+ "<code>StlcSub.sub_inversion_arrow {σ τ₁ τ₂ : Ty} (h : σ &lt;: &lt;{ τ₁ → τ₂ }&gt;) : ∃ σ₁ σ₂, σ = &lt;{ σ₁ → σ₂ }&gt; ∧ τ₁ &lt;: σ₁ ∧ σ₂ &lt;: τ₂</code>",
+ "2158":
+ "<code class=\"docstring\">* `symm` applies to a goal whose target has the form `t ~ u` where `~` is a symmetric relation,\n  that is, a relation which has a symmetry lemma tagged with the attribute [symm].\n  It replaces the target with `u ~ t`.\n* `symm at h` will rewrite a hypothesis `h : t ~ u` to `h : u ~ t`.\n</code>",
+ "2157":
+ "<code>&lt;{ Bool }&gt; = &lt;{ Bool }&gt; → υ✝ = &lt;{ Bool }&gt;</code>",
+ "2156": "<code>υ✝ &lt;: &lt;{ Bool }&gt;</code>",
+ "2155": "<code>&lt;{ Bool }&gt; = τ✝ → υ✝ = τ✝</code>",
+ "2154": "<code>&lt;{ Bool }&gt; = υ✝ → σ✝ = υ✝</code>",
+ "2153": "<code>υ✝ &lt;: τ✝</code>",
+ "2152": "<code>σ✝ &lt;: υ✝</code>",
+ "2151":
+ "<code>StlcSub.Subtype.trans {σ υ τ : Ty} (h₁ : σ &lt;: υ) (h₂ : υ &lt;: τ) : σ &lt;: τ</code>",
+ "2150": "<code>StlcSub.Subtype.refl {τ : Ty} : τ &lt;: τ</code>",
  "215":
  "<code>SimpleArith1.Step.plus (n₁ n₂ : Nat) : Step ((Tm.c n₁).p (Tm.c n₂)) (Tm.c (n₁ + n₂))</code>",
+ "2149": "<code>&lt;{ Bool }&gt; = &lt;{ τ₁✝ × τ₂✝ }&gt;</code>",
+ "2148": "<code>&lt;{ Bool }&gt; = τ₂✝ → σ₂✝ = τ₂✝</code>",
+ "2147": "<code>&lt;{ Bool }&gt; = τ₁✝ → σ₁✝ = τ₁✝</code>",
+ "2146": "<code>σ₂✝ &lt;: τ₂✝</code>",
+ "2145": "<code>σ₁✝ &lt;: τ₁✝</code>",
+ "2144": "<code>τ &lt;: σ</code>",
+ "2143": "<code>&lt;{ Bool }&gt; = σ</code>",
+ "2142": "<code>τ &lt;: &lt;{ Bool }&gt;</code>",
+ "2141":
+ "<code>StlcSub.sub_inversion_bool (τ : Ty) (h : τ &lt;: &lt;{ Bool }&gt;) : τ = &lt;{ Bool }&gt;</code>",
+ "2140": "<code>StlcSub.Subtype.top {σ : Ty} : σ &lt;: &lt;{ ⊤ }&gt;</code>",
  "214": "<code>SimpleArith1.Step : Tm → Tm → Prop</code>",
+ "2139":
+ "<code>StlcSub.HasType.var (Γ : Context) (x : _root_.String) (τ₁ : Ty) (h : Γ[x] = some τ₁) :\n  &lt;{ ~(Γ) ⊢ ~(StlcSub.Tm.var x) ⦂ ~(τ₁) }&gt;</code>",
+ "2138":
+ "<code>StlcSub.HasType.abs (Γ : Context) (x : _root_.String) (τ₁ τ₂ : Ty) (t₁ : Tm)\n  (h : &lt;{ ~(x →ₚ τ₂ ; Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt;) : &lt;{ ~(Γ) ⊢ λ ~x : τ₂ . t₁ ⦂ τ₂ → τ₁ }&gt;</code>",
+ "2137":
+ "<code>StlcSub.HasType.sub (Γ : Context) (t₁ : Tm) (τ₁ τ₂ : Ty) (ht : &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₁) }&gt;) (hs : τ₁ &lt;: τ₂) :\n  &lt;{ ~(Γ) ⊢ ~(t₁) ⦂ ~(τ₂) }&gt;</code>",
+ "2136": "<code>StlcSub.HasType.unexpand : Unexpander</code>",
+ "2135":
+ "<code>StlcSub.unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a\ncontext prints as `x ↦ Nat ; Γ` rather than as a chain of map updates. </code>",
+ "2134":
+ "<code>StlcSub.HasType.snd (Γ : Context) (t : Tm) (τ₁ τ₂ : Ty) (h : HasType Γ t &lt;{ τ₁ × τ₂ }&gt;) : HasType Γ &lt;{ snd t }&gt; τ₂</code>",
+ "2133": "<code>HasType Γ t &lt;{ τ₁ × τ₂ }&gt;</code>",
+ "2132":
+ "<code>StlcSub.HasType.fst (Γ : Context) (t : Tm) (τ₁ τ₂ : Ty) (h : HasType Γ t &lt;{ τ₁ × τ₂ }&gt;) : HasType Γ &lt;{ fst t }&gt; τ₁</code>",
+ "2131":
+ "<code>StlcSub.HasType.pair (Γ : Context) (t₁ t₂ : Tm) (τ₁ τ₂ : Ty) (h₁ : HasType Γ t₁ τ₁) (h₂ : HasType Γ t₂ τ₂) :\n  HasType Γ &lt;{ ( t₁ , t₂ ) }&gt; &lt;{ τ₁ × τ₂ }&gt;</code>",
+ "2130": "<code>τ₁ &lt;: τ₂</code>",
  "213": "<code>Eval t₂ n₂</code>",
+ "2129": "<code>HasType Γ t₁ τ₁</code>",
+ "2128":
+ "<code>StlcSub.HasType.sub (Γ : Context) (t₁ : Tm) (τ₁ τ₂ : Ty) (ht : HasType Γ t₁ τ₁) (hs : τ₁ &lt;: τ₂) : HasType Γ t₁ τ₂</code>",
+ "2127":
+ "<code>StlcSub.HasType.unit (Γ : Context) : HasType Γ &lt;{ unit }&gt; &lt;{ Unit }&gt;</code>",
+ "2126":
+ "<code>StlcSub.HasType.ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ : Ty) (h₁ : HasType Γ t₁ &lt;{ Bool }&gt;) (h₂ : HasType Γ t₂ τ)\n  (h₃ : HasType Γ t₃ τ) : HasType Γ &lt;{ if t₁ then t₂ else t₃ }&gt; τ</code>",
+ "2125":
+ "<code>StlcSub.HasType.fls (Γ : Context) : HasType Γ &lt;{ false }&gt; &lt;{ Bool }&gt;</code>",
+ "2124":
+ "<code>StlcSub.HasType.tru (Γ : Context) : HasType Γ &lt;{ true }&gt; &lt;{ Bool }&gt;</code>",
+ "2123":
+ "<code>StlcSub.HasType.app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm) (h₁ : HasType Γ t₁ &lt;{ τ₂ → τ₁ }&gt;) (h₂ : HasType Γ t₂ τ₂) :\n  HasType Γ &lt;{ t₁ t₂ }&gt; τ₁</code>",
+ "2122":
+ "<code>StlcSub.HasType.abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm) (h : HasType (x →ₚ τ₂ ; Γ) t₁ τ₁) :\n  HasType Γ &lt;{ λ ~x : τ₂ . t₁ }&gt; &lt;{ τ₂ → τ₁ }&gt;</code>",
+ "2121":
+ "<code>StlcSub.HasType.var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) : HasType Γ (StlcSub.Tm.var x) τ₁</code>",
+ "2120": "<code>StlcSub.HasType : Context → Tm → Ty → Prop</code>",
  "212": "<code>Eval t₁ n₁</code>",
+ "2119":
+ "<code>StlcSub.ctxTerm (G : Lean.TSyntax `stlcCtx) : Lean.MacroM Lean.Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
+ "2118":
+ "<code>StlcSub.ctxTerm (G : TSyntax `stlcCtx) : MacroM Term</code><span class=\"sep\"></span><code class=\"docstring\">The `Context` denoted by a context expression. </code>",
+ "2117": "<code>StlcSub.Context : Type</code>",
+ "2116":
+ "<code><span class=\"literal string\">\"Integer\"</span> : String</code>",
+ "2115":
+ "<code><span class=\"literal string\">\"Float\"</span> : String</code>",
+ "2114": "<code>StlcSub.Examples.employee : Ty</code>",
+ "2113": "<code>StlcSub.Examples.student : Ty</code>",
+ "2112": "<code>StlcSub.Examples.person : Ty</code>",
+ "2111": "<code><span class=\"literal string\">\"Int\"</span> : String</code>",
+ "2110": "<code>StlcSub.Examples.Int : Ty</code>",
  "211":
  "<code>Eval.plus (t₁ t₂ : Tm) (n₁ n₂ : Nat) (h₁ : Eval t₁ n₁) (h₂ : Eval t₂ n₂) : Eval (t₁.p t₂) (n₁ + n₂)</code>",
+ "2109": "<code><span class=\"literal string\">\"Flat\"</span> : String</code>",
+ "2108": "<code>StlcSub.Examples.Float : Ty</code>",
+ "2107":
+ "<code><span class=\"literal string\">\"String\"</span> : String</code>",
+ "2106": "<code>StlcSub.Examples.String : Ty</code>",
+ "2105": "<code><span class=\"literal string\">\"C\"</span> : String</code>",
+ "2104": "<code>StlcSub.Examples.C : Ty</code>",
+ "2103": "<code><span class=\"literal string\">\"B\"</span> : String</code>",
+ "2102": "<code>StlcSub.Examples.B : Ty</code>",
+ "2101": "<code><span class=\"literal string\">\"A\"</span> : String</code>",
+ "2100": "<code>StlcSub.Examples.A : Ty</code>",
  "210": "<code>Eval.const (n : Nat) : Eval (Tm.c n) n</code>",
  "21": "<code>Slang.Bexp.and (b₁ b₂ : Bexp) : Bexp</code>",
+ "2099": "<code>Subtype σ₁ τ₁</code>",
+ "2098":
+ "<code>StlcSub.Subtype.prod {σ₁ σ₂ τ₁ τ₂ : Ty} (h₁ : Subtype σ₁ τ₁) (h₂ : Subtype σ₂ τ₂) : Subtype &lt;{ σ₁ × σ₂ }&gt; &lt;{ τ₁ × τ₂ }&gt;</code>",
+ "2097": "<code>Subtype σ₂ τ₂</code>",
+ "2096": "<code>Subtype τ₁ σ₁</code>",
+ "2095":
+ "<code>StlcSub.Subtype.arrow {σ₁ σ₂ τ₁ τ₂ : Ty} (h₁ : Subtype τ₁ σ₁) (h₂ : Subtype σ₂ τ₂) : Subtype &lt;{ σ₁ → σ₂ }&gt; &lt;{ τ₁ → τ₂ }&gt;</code>",
+ "2094": "<code>StlcSub.Subtype.top {σ : Ty} : Subtype σ &lt;{ ⊤ }&gt;</code>",
+ "2093": "<code>Subtype υ τ</code>",
+ "2092": "<code>Subtype σ υ</code>",
+ "2091":
+ "<code>StlcSub.Subtype.trans {σ υ τ : Ty} (h₁ : Subtype σ υ) (h₂ : Subtype υ τ) : Subtype σ τ</code>",
+ "2090": "<code>StlcSub.Subtype.refl {τ : Ty} : Subtype τ τ</code>",
  "209": "<code>Eval : Tm → Nat → Prop</code>",
+ "2089": "<code>StlcSub.Subtype : Ty → Ty → Prop</code>",
+ "2088":
+ "<code><span class=\"literal string\">\" &lt;: \"</span> : String</code>",
+ "2087":
+ "<code>StlcSub.Step.sndPair (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → Step &lt;{ snd  ( v₁ , v₂ ) }&gt; v₂</code>",
+ "2086":
+ "<code>StlcSub.Step.snd₁ (t t' : Tm) : Step t t' → Step &lt;{ snd t }&gt; &lt;{ snd t' }&gt;</code>",
+ "2085":
+ "<code>StlcSub.Step.fstPair (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → Step &lt;{ fst  ( v₁ , v₂ ) }&gt; v₁</code>",
+ "2084":
+ "<code>StlcSub.Step.fst₁ (t t' : Tm) : Step t t' → Step &lt;{ fst t }&gt; &lt;{ fst t' }&gt;</code>",
+ "2083":
+ "<code>StlcSub.Step.pair₂ (v₁ t₂ t₂' : Tm) : v₁.IsValue → Step t₂ t₂' → Step &lt;{ ( v₁ , t₂ ) }&gt; &lt;{ ( v₁ , t₂' ) }&gt;</code>",
+ "2082":
+ "<code>StlcSub.Step.pair₁ (t₁ t₁' t₂ : Tm) : Step t₁ t₁' → Step &lt;{ ( t₁ , t₂ ) }&gt; &lt;{ ( t₁' , t₂ ) }&gt;</code>",
+ "2081":
+ "<code>StlcSub.Step.ifFalse (t₂ t₃ : Tm) : Step &lt;{ if false then t₂ else t₃ }&gt; t₃</code>",
+ "2080":
+ "<code>StlcSub.Step.ifTrue (t₂ t₃ : Tm) : Step &lt;{ if true then t₂ else t₃ }&gt; t₂</code>",
  "208": "<code>evalF (t : Tm) : Nat</code>",
+ "2079":
+ "<code>StlcSub.Step.ifStep (t₁ t₁' t₂ t₃ : Tm) (h : Step t₁ t₁') :\n  Step &lt;{ if t₁ then t₂ else t₃ }&gt; &lt;{ if t₁' then t₂ else t₃ }&gt;</code>",
+ "2078":
+ "<code>StlcSub.Step.app₂ (v₁ t₂ t₂' : Tm) : v₁.IsValue → Step t₂ t₂' → Step &lt;{ v₁ t₂ }&gt; &lt;{ v₁ t₂' }&gt;</code>",
+ "2077":
+ "<code>StlcSub.Step.app₁ (t₁ t₁' t₂ : Tm) : Step t₁ t₁' → Step &lt;{ t₁ t₂ }&gt; &lt;{ t₁' t₂ }&gt;</code>",
+ "2076":
+ "<code>StlcSub.Step.appAbs (x : String) (τ₂ : Ty) (t₁ v₂ : Tm) : v₂.IsValue → Step &lt;{ (λ ~x : τ₂ . t₁) v₂ }&gt; (subst x v₂ t₁)</code>",
+ "2075": "<code>StlcSub.Step : Tm → Tm → Prop</code>",
+ "2074":
+ "<code>StlcSub.Tm.IsValue.pair (v₁ v₂ : Tm) : v₁.IsValue → v₂.IsValue → &lt;{ ( v₁ , v₂ ) }&gt;.IsValue</code>",
+ "2073": "<code>StlcSub.Tm.IsValue.unit : &lt;{ unit }&gt;.IsValue</code>",
+ "2072": "<code>StlcSub.Tm.IsValue.fls : &lt;{ false }&gt;.IsValue</code>",
+ "2071": "<code>StlcSub.Tm.IsValue.tru : &lt;{ true }&gt;.IsValue</code>",
+ "2070":
+ "<code>StlcSub.Tm.IsValue.abs (x : String) (τ₂ : Ty) (t₁ : Tm) : &lt;{ λ ~x : τ₂ . t₁ }&gt;.IsValue</code>",
  "207": "<code>Tm</code>",
+ "2069": "<code>StlcSub.Tm.IsValue : Tm → Prop</code>",
+ "2068": "<code>StlcSub.subst (x : String) (s t : Tm) : Tm</code>",
+ "2067": "<code>StlcSub.delabTm : Delab</code>",
+ "2066": "<code>StlcSub.delabTy : Delab</code>",
+ "2065":
+ "<code>StlcSub.delabTmInner : DelabM (TSyntax `stlcTm)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTm` concrete syntax from a `Tm` value. </code>",
+ "2064":
+ "<code>StlcSub.delabTyInner : DelabM (TSyntax `stlcTy)</code><span class=\"sep\"></span><code class=\"docstring\">Rebuild `stlcTy` concrete syntax from a `Ty` value. </code>",
+ "2063": "<code><span class=\"literal string\">\"if\"</span> : String</code>",
+ "2062":
+ "<code>StlcSub.isPlainTmVarName (s : String) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? </code>",
+ "2061": "<code><span class=\"literal string\">\" ⊤ \"</span> : String</code>",
+ "2060": "<code>StlcSub.Tm.snd : Tm → Tm</code>",
  "206": "<code>Tm.p (t₁ t₂ : Tm) : Tm</code>",
+ "2059": "<code>StlcSub.Tm.fst : Tm → Tm</code>",
+ "2058": "<code>StlcSub.Tm.pair : Tm → Tm → Tm</code>",
+ "2057": "<code>StlcSub.Tm.unit : Tm</code>",
+ "2056": "<code>StlcSub.Tm.ite : Tm → Tm → Tm → Tm</code>",
+ "2055": "<code>StlcSub.Tm.fls : Tm</code>",
+ "2054": "<code>StlcSub.Tm.tru : Tm</code>",
+ "2053": "<code>StlcSub.Tm.abs : String → Ty → Tm → Tm</code>",
+ "2052": "<code>StlcSub.Tm.app : Tm → Tm → Tm</code>",
+ "2051": "<code>StlcSub.Tm.var : String → Tm</code>",
+ "2050": "<code>StlcSub.Tm : Type</code>",
  "205": "<code>Tm.c (n : Nat) : Tm</code>",
+ "2049": "<code>StlcSub.Ty.prod : Ty → Ty → Ty</code>",
+ "2048": "<code>StlcSub.Ty.unit : Ty</code>",
+ "2047": "<code>StlcSub.Ty.arrow : Ty → Ty → Ty</code>",
+ "2046": "<code>StlcSub.Ty.base : String → Ty</code>",
+ "2045": "<code>StlcSub.Ty.bool : Ty</code>",
+ "2044": "<code>StlcSub.Ty.top : Ty</code>",
+ "2043": "<code>StlcSub.Ty : Type</code>",
  "2042": "<code>&lt;{ ~(x✝ →ₚ τ₁) ⊢ ~(t₁✝) ⦂ ~(τ₁) }&gt;</code>",
  "2041":
  "<code>∀ (t' : Tm), &lt;{ λ ~x✝ : τ₁ . t₁✝ }&gt; ⟶ t' → ∅ = ∅ → &lt;{ ∅ ⊢ ~(t') ⦂ τ₁ → τ₁ }&gt;</code>",

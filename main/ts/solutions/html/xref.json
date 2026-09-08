@@ -203,6 +203,396 @@
        {"title": "Types: Type Systems", "shortTitle": null, "number": "4"},
        {"title": "Additional Exercises", "shortTitle": null, "number": "2"}]},
      "address": "/Types/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Weakening":
+   [{"id": "Type-Systems--Sub___-Subtyping--Properties--Weakening",
+     "data":
+     {"title": "Weakening",
+      "shortTitle": null,
+      "sectionNum": "8.3.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Weakening", "shortTitle": null, "number": "5"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Substitution":
+   [{"id": "Type-Systems--Sub___-Subtyping--Properties--Substitution",
+     "data":
+     {"title": "Substitution",
+      "shortTitle": null,
+      "sectionNum": "8.3.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Substitution", "shortTitle": null, "number": "6"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Progress":
+   [{"id": "Type-Systems--Sub___-Subtyping--Properties--Progress",
+     "data":
+     {"title": "Progress",
+      "shortTitle": null,
+      "sectionNum": "8.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Progress", "shortTitle": null, "number": "3"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Preservation--Exercise___-Adding-Products":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Properties--Preservation--Exercise___-Adding-Products",
+     "data":
+     {"title": "Exercise: Adding Products",
+      "shortTitle": null,
+      "sectionNum": "8.3.7.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Preservation", "shortTitle": null, "number": "7"},
+       {"title": "Exercise: Adding Products",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Preservation":
+   [{"id": "Type-Systems--Sub___-Subtyping--Properties--Preservation",
+     "data":
+     {"title": "Preservation",
+      "shortTitle": null,
+      "sectionNum": "8.3.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Preservation", "shortTitle": null, "number": "7"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Inversion-Lemmas-for-Typing":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Properties--Inversion-Lemmas-for-Typing",
+     "data":
+     {"title": "Inversion Lemmas for Typing",
+      "shortTitle": null,
+      "sectionNum": "8.3.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Inversion Lemmas for Typing",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Inversion-Lemmas-for-Subtyping":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Properties--Inversion-Lemmas-for-Subtyping",
+     "data":
+     {"title": "Inversion Lemmas for Subtyping",
+      "shortTitle": null,
+      "sectionNum": "8.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Inversion Lemmas for Subtyping",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Formalized-___Thought-Exercises___":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Properties--Formalized-___Thought-Exercises___",
+     "data":
+     {"title": "Formalized \"Thought Exercises\"",
+      "shortTitle": null,
+      "sectionNum": "8.3.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Formalized \"Thought Exercises\"",
+        "shortTitle": null,
+        "number": "8"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties--Canonical-Forms":
+   [{"id": "Type-Systems--Sub___-Subtyping--Properties--Canonical-Forms",
+     "data":
+     {"title": "Canonical Forms",
+      "shortTitle": null,
+      "sectionNum": "8.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"},
+       {"title": "Canonical Forms", "shortTitle": null, "number": "2"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Properties":
+   [{"id": "Type-Systems--Sub___-Subtyping--Properties",
+     "data":
+     {"title": "Properties",
+      "shortTitle": null,
+      "sectionNum": "8.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Properties", "shortTitle": null, "number": "3"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Typing":
+   [{"id": "Type-Systems--Sub___-Subtyping--Formal-Definitions--Typing",
+     "data":
+     {"title": "Typing",
+      "shortTitle": null,
+      "sectionNum": "8.2.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
+       {"title": "Typing", "shortTitle": null, "number": "5"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Subtyping":
+   [{"id": "Type-Systems--Sub___-Subtyping--Formal-Definitions--Subtyping",
+     "data":
+     {"title": "Subtyping",
+      "shortTitle": null,
+      "sectionNum": "8.2.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
+       {"title": "Subtyping", "shortTitle": null, "number": "4"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Substitution":
+   [{"id": "Type-Systems--Sub___-Subtyping--Formal-Definitions--Substitution",
+     "data":
+     {"title": "Substitution",
+      "shortTitle": null,
+      "sectionNum": "8.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
+       {"title": "Substitution", "shortTitle": null, "number": "2"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Reduction":
+   [{"id": "Type-Systems--Sub___-Subtyping--Formal-Definitions--Reduction",
+     "data":
+     {"title": "Reduction",
+      "shortTitle": null,
+      "sectionNum": "8.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
+       {"title": "Reduction", "shortTitle": null, "number": "3"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions--Syntax":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions--Syntax",
+     "data":
+     {"title": "Syntax",
+      "shortTitle": null,
+      "sectionNum": "8.2.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
+       {"title": "Core Definitions", "shortTitle": null, "number": "1"},
+       {"title": "Syntax", "shortTitle": null, "number": "1"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Formal-Definitions--Core-Definitions",
+     "data":
+     {"title": "Core Definitions",
+      "shortTitle": null,
+      "sectionNum": "8.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Formal Definitions", "shortTitle": null, "number": "2"},
+       {"title": "Core Definitions", "shortTitle": null, "number": "1"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Formal-Definitions":
+   [{"id": "Type-Systems--Sub___-Subtyping--Formal-Definitions",
+     "data":
+     {"title": "Formal Definitions",
+      "shortTitle": null,
+      "sectionNum": "8.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Formal Definitions", "shortTitle": null, "number": "2"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--___":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--___",
+     "data":
+     {"title": "⊤",
+      "shortTitle": null,
+      "sectionNum": "8.1.4.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
+       {"title": "⊤", "shortTitle": null, "number": "4"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Summary":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Summary",
+     "data":
+     {"title": "Summary",
+      "shortTitle": null,
+      "sectionNum": "8.1.4.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
+       {"title": "Summary", "shortTitle": null, "number": "5"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Structural-Rules":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Structural-Rules",
+     "data":
+     {"title": "Structural Rules",
+      "shortTitle": null,
+      "sectionNum": "8.1.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
+       {"title": "Structural Rules", "shortTitle": null, "number": "1"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Records":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Records",
+     "data":
+     {"title": "Records",
+      "shortTitle": null,
+      "sectionNum": "8.1.4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
+       {"title": "Records", "shortTitle": null, "number": "3"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Products":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation--Products",
+     "data":
+     {"title": "Products",
+      "shortTitle": null,
+      "sectionNum": "8.1.4.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "The Subtype Relation", "shortTitle": null, "number": "4"},
+       {"title": "Products", "shortTitle": null, "number": "2"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation":
+   [{"id": "Type-Systems--Sub___-Subtyping--Concepts--The-Subtype-Relation",
+     "data":
+     {"title": "The Subtype Relation",
+      "shortTitle": null,
+      "sectionNum": "8.1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "The Subtype Relation", "shortTitle": null, "number": "4"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--The-Subsumption-Rule":
+   [{"id": "Type-Systems--Sub___-Subtyping--Concepts--The-Subsumption-Rule",
+     "data":
+     {"title": "The Subsumption Rule",
+      "shortTitle": null,
+      "sectionNum": "8.1.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "The Subsumption Rule", "shortTitle": null, "number": "3"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--Subtyping-and-Object-Oriented-Languages":
+   [{"id":
+     "Type-Systems--Sub___-Subtyping--Concepts--Subtyping-and-Object-Oriented-Languages",
+     "data":
+     {"title": "Subtyping and Object-Oriented Languages",
+      "shortTitle": null,
+      "sectionNum": "8.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "Subtyping and Object-Oriented Languages",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--Exercises":
+   [{"id": "Type-Systems--Sub___-Subtyping--Concepts--Exercises",
+     "data":
+     {"title": "Exercises",
+      "shortTitle": null,
+      "sectionNum": "8.1.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "Exercises", "shortTitle": null, "number": "5"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts--A-Motivating-Example":
+   [{"id": "Type-Systems--Sub___-Subtyping--Concepts--A-Motivating-Example",
+     "data":
+     {"title": "A Motivating Example",
+      "shortTitle": null,
+      "sectionNum": "8.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"},
+       {"title": "A Motivating Example", "shortTitle": null, "number": "1"}]},
+     "address": "/Sub/"}],
+   "Type-Systems--Sub___-Subtyping--Concepts":
+   [{"id": "Type-Systems--Sub___-Subtyping--Concepts",
+     "data":
+     {"title": "Concepts",
+      "shortTitle": null,
+      "sectionNum": "8.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"},
+       {"title": "Concepts", "shortTitle": null, "number": "1"}]},
+     "address": "/Sub/"}],
    "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Typing-Relation":
    [{"id":
      "Type-Systems--Stlc___-The-Simply-Typed-Lambda-Calculus--Typing--Typing-Relation",
@@ -1241,6 +1631,17 @@
       "context":
       [{"title": "Type Systems", "shortTitle": null, "number": null}]},
      "address": "/"}],
+   "Sub":
+   [{"id": "Sub",
+     "data":
+     {"title": "Sub: Subtyping",
+      "shortTitle": null,
+      "sectionNum": "8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Sub: Subtyping", "shortTitle": null, "number": "8"}]},
+     "address": "/Sub/"}],
    "StlcProp":
    [{"id": "StlcProp",
      "data":
@@ -2544,6 +2945,1175 @@
         "Typed Arithmetic Expressions",
         "Syntax"]}},
      "address": "/Types/"}],
+   "StlcSub.weakening_empty":
+   [{"id": "StlcSub___weakening_empty",
+     "data":
+     {"/Sub/#StlcSub___weakening_empty":
+      {"display": "weakening_empty",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Properties", "Weakening"]}},
+     "address": "/Sub/"}],
+   "StlcSub.weakening":
+   [{"id": "StlcSub___weakening",
+     "data":
+     {"/Sub/#StlcSub___weakening":
+      {"display": "weakening",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Properties", "Weakening"]}},
+     "address": "/Sub/"}],
+   "StlcSub.unexpandCtx":
+   [{"id": "StlcSub___unexpandCtx",
+     "data":
+     {"/Sub/#StlcSub___unexpandCtx":
+      {"display": "unexpandCtx",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.typing_inversion_var":
+   [{"id": "StlcSub___typing_inversion_var",
+     "data":
+     {"/Sub/#StlcSub___typing_inversion_var":
+      {"display": "typing_inversion_var",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.typing_inversion_unit":
+   [{"id": "StlcSub___typing_inversion_unit",
+     "data":
+     {"/Sub/#StlcSub___typing_inversion_unit":
+      {"display": "typing_inversion_unit",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.typing_inversion_snd":
+   [{"id": "StlcSub___typing_inversion_snd",
+     "data":
+     {"/Sub/#StlcSub___typing_inversion_snd":
+      {"display": "typing_inversion_snd",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.typing_inversion_pair":
+   [{"id": "StlcSub___typing_inversion_pair",
+     "data":
+     {"/Sub/#StlcSub___typing_inversion_pair":
+      {"display": "typing_inversion_pair",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.typing_inversion_fst":
+   [{"id": "StlcSub___typing_inversion_fst",
+     "data":
+     {"/Sub/#StlcSub___typing_inversion_fst":
+      {"display": "typing_inversion_fst",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.typing_inversion_app":
+   [{"id": "StlcSub___typing_inversion_app",
+     "data":
+     {"/Sub/#StlcSub___typing_inversion_app":
+      {"display": "typing_inversion_app",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.typing_inversion_abs":
+   [{"id": "StlcSub___typing_inversion_abs",
+     "data":
+     {"/Sub/#StlcSub___typing_inversion_abs":
+      {"display": "typing_inversion_abs",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.substitution_preserves_typing":
+   [{"id": "StlcSub___substitution_preserves_typing",
+     "data":
+     {"/Sub/#StlcSub___substitution_preserves_typing":
+      {"display": "substitution_preserves_typing",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Properties", "Substitution"]}},
+     "address": "/Sub/"}],
+   "StlcSub.subst":
+   [{"id": "StlcSub___subst",
+     "data":
+     {"/Sub/#StlcSub___subst":
+      {"display": "subst",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Substitution"]}},
+     "address": "/Sub/"}],
+   "StlcSub.sub_inversion_unit":
+   [{"id": "StlcSub___sub_inversion_unit",
+     "data":
+     {"/Sub/#StlcSub___sub_inversion_unit":
+      {"display": "sub_inversion_unit",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.sub_inversion_top":
+   [{"id": "StlcSub___sub_inversion_top",
+     "data":
+     {"/Sub/#StlcSub___sub_inversion_top":
+      {"display": "sub_inversion_top",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.sub_inversion_prod":
+   [{"id": "StlcSub___sub_inversion_prod",
+     "data":
+     {"/Sub/#StlcSub___sub_inversion_prod":
+      {"display": "sub_inversion_prod",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.sub_inversion_bool":
+   [{"id": "StlcSub___sub_inversion_bool",
+     "data":
+     {"/Sub/#StlcSub___sub_inversion_bool":
+      {"display": "sub_inversion_bool",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.sub_inversion_base":
+   [{"id": "StlcSub___sub_inversion_base",
+     "data":
+     {"/Sub/#StlcSub___sub_inversion_base":
+      {"display": "sub_inversion_base",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.sub_inversion_arrow":
+   [{"id": "StlcSub___sub_inversion_arrow",
+     "data":
+     {"/Sub/#StlcSub___sub_inversion_arrow":
+      {"display": "sub_inversion_arrow",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.progress":
+   [{"id": "StlcSub___progress",
+     "data":
+     {"/Sub/#StlcSub___progress":
+      {"display": "progress",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Properties", "Progress"]}},
+     "address": "/Sub/"}],
+   "StlcSub.preservation":
+   [{"id": "StlcSub___preservation",
+     "data":
+     {"/Sub/#StlcSub___preservation":
+      {"display": "preservation",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Properties", "Preservation"]}},
+     "address": "/Sub/"}],
+   "StlcSub.isPlainTmVarName":
+   [{"id": "StlcSub___isPlainTmVarName",
+     "data":
+     {"/Sub/#StlcSub___isPlainTmVarName":
+      {"display": "isPlainTmVarName",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.delabTyInner":
+   [{"id": "StlcSub___delabTyInner",
+     "data":
+     {"/Sub/#StlcSub___delabTyInner":
+      {"display": "delabTyInner",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.delabTy":
+   [{"id": "StlcSub___delabTy",
+     "data":
+     {"/Sub/#StlcSub___delabTy":
+      {"display": "delabTy",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.delabTmInner":
+   [{"id": "StlcSub___delabTmInner",
+     "data":
+     {"/Sub/#StlcSub___delabTmInner":
+      {"display": "delabTmInner",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.delabTm":
+   [{"id": "StlcSub___delabTm",
+     "data":
+     {"/Sub/#StlcSub___delabTm":
+      {"display": "delabTm",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.ctxTerm":
+   [{"id": "StlcSub___ctxTerm",
+     "data":
+     {"/Sub/#StlcSub___ctxTerm":
+      {"display": "ctxTerm",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.canonical_forms_of_product_types":
+   [{"id": "StlcSub___canonical_forms_of_product_types",
+     "data":
+     {"/Sub/#StlcSub___canonical_forms_of_product_types":
+      {"display": "canonical_forms_of_product_types",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Properties", "Canonical Forms"]}},
+     "address": "/Sub/"}],
+   "StlcSub.canonical_forms_of_bool":
+   [{"id": "StlcSub___canonical_forms_of_bool",
+     "data":
+     {"/Sub/#StlcSub___canonical_forms_of_bool":
+      {"display": "canonical_forms_of_bool",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Properties", "Canonical Forms"]}},
+     "address": "/Sub/"}],
+   "StlcSub.canonical_forms_of_arrow_types":
+   [{"id": "StlcSub___canonical_forms_of_arrow_types",
+     "data":
+     {"/Sub/#StlcSub___canonical_forms_of_arrow_types":
+      {"display": "canonical_forms_of_arrow_types",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Properties", "Canonical Forms"]}},
+     "address": "/Sub/"}],
+   "StlcSub.abs_arrow":
+   [{"id": "StlcSub___abs_arrow",
+     "data":
+     {"/Sub/#StlcSub___abs_arrow":
+      {"display": "abs_arrow",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Inversion Lemmas for Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Ty.unit":
+   [{"id": "StlcSub___Ty___unit",
+     "data":
+     {"/Sub/#StlcSub___Ty___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Ty.top":
+   [{"id": "StlcSub___Ty___top",
+     "data":
+     {"/Sub/#StlcSub___Ty___top":
+      {"display": "top",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Ty.prod":
+   [{"id": "StlcSub___Ty___prod",
+     "data":
+     {"/Sub/#StlcSub___Ty___prod":
+      {"display": "prod",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Ty.bool":
+   [{"id": "StlcSub___Ty___bool",
+     "data":
+     {"/Sub/#StlcSub___Ty___bool":
+      {"display": "bool",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Ty.base":
+   [{"id": "StlcSub___Ty___base",
+     "data":
+     {"/Sub/#StlcSub___Ty___base":
+      {"display": "base",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Ty.arrow":
+   [{"id": "StlcSub___Ty___arrow",
+     "data":
+     {"/Sub/#StlcSub___Ty___arrow":
+      {"display": "arrow",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Ty":
+   [{"id": "StlcSub___Ty",
+     "data":
+     {"/Sub/#StlcSub___Ty":
+      {"display": "Ty",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.var":
+   [{"id": "StlcSub___Tm___var",
+     "data":
+     {"/Sub/#StlcSub___Tm___var":
+      {"display": "var",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.unit":
+   [{"id": "StlcSub___Tm___unit",
+     "data":
+     {"/Sub/#StlcSub___Tm___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.tru":
+   [{"id": "StlcSub___Tm___tru",
+     "data":
+     {"/Sub/#StlcSub___Tm___tru":
+      {"display": "tru",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.snd":
+   [{"id": "StlcSub___Tm___snd",
+     "data":
+     {"/Sub/#StlcSub___Tm___snd":
+      {"display": "snd",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.pair":
+   [{"id": "StlcSub___Tm___pair",
+     "data":
+     {"/Sub/#StlcSub___Tm___pair":
+      {"display": "pair",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.ite":
+   [{"id": "StlcSub___Tm___ite",
+     "data":
+     {"/Sub/#StlcSub___Tm___ite":
+      {"display": "ite",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.fst":
+   [{"id": "StlcSub___Tm___fst",
+     "data":
+     {"/Sub/#StlcSub___Tm___fst":
+      {"display": "fst",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.fls":
+   [{"id": "StlcSub___Tm___fls",
+     "data":
+     {"/Sub/#StlcSub___Tm___fls":
+      {"display": "fls",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.app":
+   [{"id": "StlcSub___Tm___app",
+     "data":
+     {"/Sub/#StlcSub___Tm___app":
+      {"display": "app",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.abs":
+   [{"id": "StlcSub___Tm___abs",
+     "data":
+     {"/Sub/#StlcSub___Tm___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.IsValue.unit":
+   [{"id": "StlcSub___Tm___IsValue___unit",
+     "data":
+     {"/Sub/#StlcSub___Tm___IsValue___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.IsValue.tru":
+   [{"id": "StlcSub___Tm___IsValue___tru",
+     "data":
+     {"/Sub/#StlcSub___Tm___IsValue___tru":
+      {"display": "tru",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.IsValue.pair":
+   [{"id": "StlcSub___Tm___IsValue___pair",
+     "data":
+     {"/Sub/#StlcSub___Tm___IsValue___pair":
+      {"display": "pair",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.IsValue.fls":
+   [{"id": "StlcSub___Tm___IsValue___fls",
+     "data":
+     {"/Sub/#StlcSub___Tm___IsValue___fls":
+      {"display": "fls",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.IsValue.abs":
+   [{"id": "StlcSub___Tm___IsValue___abs",
+     "data":
+     {"/Sub/#StlcSub___Tm___IsValue___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm.IsValue":
+   [{"id": "StlcSub___Tm___IsValue",
+     "data":
+     {"/Sub/#StlcSub___Tm___IsValue":
+      {"display": "Tm.IsValue",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Tm":
+   [{"id": "StlcSub___Tm",
+     "data":
+     {"/Sub/#StlcSub___Tm":
+      {"display": "Tm",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Subtype.trans":
+   [{"id": "StlcSub___Subtype___trans",
+     "data":
+     {"/Sub/#StlcSub___Subtype___trans":
+      {"display": "trans",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Subtype.top":
+   [{"id": "StlcSub___Subtype___top",
+     "data":
+     {"/Sub/#StlcSub___Subtype___top":
+      {"display": "top",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Subtype.refl":
+   [{"id": "StlcSub___Subtype___refl",
+     "data":
+     {"/Sub/#StlcSub___Subtype___refl":
+      {"display": "refl",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Subtype.prod":
+   [{"id": "StlcSub___Subtype___prod",
+     "data":
+     {"/Sub/#StlcSub___Subtype___prod":
+      {"display": "prod",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Subtype.arrow":
+   [{"id": "StlcSub___Subtype___arrow",
+     "data":
+     {"/Sub/#StlcSub___Subtype___arrow":
+      {"display": "arrow",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Subtype":
+   [{"id": "StlcSub___Subtype",
+     "data":
+     {"/Sub/#StlcSub___Subtype":
+      {"display": "Subtype",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.snd₁":
+   [{"id": "StlcSub___Step___snd___",
+     "data":
+     {"/Sub/#StlcSub___Step___snd___":
+      {"display": "snd₁",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.sndPair":
+   [{"id": "StlcSub___Step___sndPair",
+     "data":
+     {"/Sub/#StlcSub___Step___sndPair":
+      {"display": "sndPair",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.pair₂":
+   [{"id": "StlcSub___Step___pair___-next",
+     "data":
+     {"/Sub/#StlcSub___Step___pair___-next":
+      {"display": "pair₂",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.pair₁":
+   [{"id": "StlcSub___Step___pair___",
+     "data":
+     {"/Sub/#StlcSub___Step___pair___":
+      {"display": "pair₁",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.ifTrue":
+   [{"id": "StlcSub___Step___ifTrue",
+     "data":
+     {"/Sub/#StlcSub___Step___ifTrue":
+      {"display": "ifTrue",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.ifStep":
+   [{"id": "StlcSub___Step___ifStep",
+     "data":
+     {"/Sub/#StlcSub___Step___ifStep":
+      {"display": "ifStep",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.ifFalse":
+   [{"id": "StlcSub___Step___ifFalse",
+     "data":
+     {"/Sub/#StlcSub___Step___ifFalse":
+      {"display": "ifFalse",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.fst₁":
+   [{"id": "StlcSub___Step___fst___",
+     "data":
+     {"/Sub/#StlcSub___Step___fst___":
+      {"display": "fst₁",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.fstPair":
+   [{"id": "StlcSub___Step___fstPair",
+     "data":
+     {"/Sub/#StlcSub___Step___fstPair":
+      {"display": "fstPair",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.app₂":
+   [{"id": "StlcSub___Step___app___-next",
+     "data":
+     {"/Sub/#StlcSub___Step___app___-next":
+      {"display": "app₂",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.app₁":
+   [{"id": "StlcSub___Step___app___",
+     "data":
+     {"/Sub/#StlcSub___Step___app___":
+      {"display": "app₁",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step.appAbs":
+   [{"id": "StlcSub___Step___appAbs",
+     "data":
+     {"/Sub/#StlcSub___Step___appAbs":
+      {"display": "appAbs",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Step":
+   [{"id": "StlcSub___Step",
+     "data":
+     {"/Sub/#StlcSub___Step":
+      {"display": "Step",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Reduction"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.var":
+   [{"id": "StlcSub___HasType___var",
+     "data":
+     {"/Sub/#StlcSub___HasType___var":
+      {"display": "var",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.unit":
+   [{"id": "StlcSub___HasType___unit",
+     "data":
+     {"/Sub/#StlcSub___HasType___unit":
+      {"display": "unit",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.unexpand":
+   [{"id": "StlcSub___HasType___unexpand",
+     "data":
+     {"/Sub/#StlcSub___HasType___unexpand":
+      {"display": "HasType.unexpand",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.tru":
+   [{"id": "StlcSub___HasType___tru",
+     "data":
+     {"/Sub/#StlcSub___HasType___tru":
+      {"display": "tru",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.sub":
+   [{"id": "StlcSub___HasType___sub",
+     "data":
+     {"/Sub/#StlcSub___HasType___sub":
+      {"display": "sub",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.snd":
+   [{"id": "StlcSub___HasType___snd",
+     "data":
+     {"/Sub/#StlcSub___HasType___snd":
+      {"display": "snd",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.pair":
+   [{"id": "StlcSub___HasType___pair",
+     "data":
+     {"/Sub/#StlcSub___HasType___pair":
+      {"display": "pair",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.ite":
+   [{"id": "StlcSub___HasType___ite",
+     "data":
+     {"/Sub/#StlcSub___HasType___ite":
+      {"display": "ite",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.fst":
+   [{"id": "StlcSub___HasType___fst",
+     "data":
+     {"/Sub/#StlcSub___HasType___fst":
+      {"display": "fst",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.fls":
+   [{"id": "StlcSub___HasType___fls",
+     "data":
+     {"/Sub/#StlcSub___HasType___fls":
+      {"display": "fls",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.app":
+   [{"id": "StlcSub___HasType___app",
+     "data":
+     {"/Sub/#StlcSub___HasType___app":
+      {"display": "app",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType.abs":
+   [{"id": "StlcSub___HasType___abs",
+     "data":
+     {"/Sub/#StlcSub___HasType___abs":
+      {"display": "abs",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.HasType":
+   [{"id": "StlcSub___HasType",
+     "data":
+     {"/Sub/#StlcSub___HasType":
+      {"display": "HasType",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.tf":
+   [{"id": "StlcSub___FormalThoughtExercises___tf",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___tf":
+      {"display": "tf",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.p":
+   [{"id": "StlcSub___FormalThoughtExercises___p",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___p":
+      {"display": "p",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.inf_desc_chain":
+   [{"id": "StlcSub___FormalThoughtExercises___inf_desc_chain",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___inf_desc_chain":
+      {"display": "inf_desc_chain",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_2e":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_2e",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_2e":
+      {"display": "formal_subtype_instances_tf_2e",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_2d":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_2d",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_2d":
+      {"display": "formal_subtype_instances_tf_2d",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_2b":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_2b",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_2b":
+      {"display": "formal_subtype_instances_tf_2b",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_2a":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_2a",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_2a":
+      {"display": "formal_subtype_instances_tf_2a",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1g":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1g",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1g":
+      {"display": "formal_subtype_instances_tf_1g",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1f":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1f",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1f":
+      {"display": "formal_subtype_instances_tf_1f",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1e":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1e",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1e":
+      {"display": "formal_subtype_instances_tf_1e",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1d":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1d",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1d":
+      {"display": "formal_subtype_instances_tf_1d",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1c":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1c",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1c":
+      {"display": "formal_subtype_instances_tf_1c",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1b":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1b",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1b":
+      {"display": "formal_subtype_instances_tf_1b",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_instances_tf_1a":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1a",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_instances_tf_1a":
+      {"display": "formal_subtype_instances_tf_1a",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfh":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfh",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfh":
+      {"display": "formal_subtype_concepts_tfh",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfg":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfg",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfg":
+      {"display": "formal_subtype_concepts_tfg",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_concepts_tff":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_concepts_tff",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_concepts_tff":
+      {"display": "formal_subtype_concepts_tff",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfe":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfe",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfe":
+      {"display": "formal_subtype_concepts_tfe",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfd":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfd",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfd":
+      {"display": "formal_subtype_concepts_tfd",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfc":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfc",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfc":
+      {"display": "formal_subtype_concepts_tfc",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfb":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfb",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfb":
+      {"display": "formal_subtype_concepts_tfb",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_subtype_concepts_tfa":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfa",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_subtype_concepts_tfa":
+      {"display": "formal_subtype_concepts_tfa",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.formal_proper_subtypes":
+   [{"id": "StlcSub___FormalThoughtExercises___formal_proper_subtypes",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___formal_proper_subtypes":
+      {"display": "formal_proper_subtypes",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.FormalThoughtExercises.a":
+   [{"id": "StlcSub___FormalThoughtExercises___a",
+     "data":
+     {"/Sub/#StlcSub___FormalThoughtExercises___a":
+      {"display": "a",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Properties",
+        "Formalized \"Thought Exercises\""]}},
+     "address": "/Sub/"}],
+   "StlcSub.Examples.student":
+   [{"id": "StlcSub___Examples___student",
+     "data":
+     {"/Sub/#StlcSub___Examples___student":
+      {"display": "student",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Examples.person":
+   [{"id": "StlcSub___Examples___person",
+     "data":
+     {"/Sub/#StlcSub___Examples___person":
+      {"display": "person",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Examples.employee":
+   [{"id": "StlcSub___Examples___employee",
+     "data":
+     {"/Sub/#StlcSub___Examples___employee":
+      {"display": "employee",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Examples.String":
+   [{"id": "StlcSub___Examples___String",
+     "data":
+     {"/Sub/#StlcSub___Examples___String":
+      {"display": "String",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Examples.Int":
+   [{"id": "StlcSub___Examples___Int",
+     "data":
+     {"/Sub/#StlcSub___Examples___Int":
+      {"display": "Int",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Examples.Float":
+   [{"id": "StlcSub___Examples___Float",
+     "data":
+     {"/Sub/#StlcSub___Examples___Float":
+      {"display": "Float",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Examples.C":
+   [{"id": "StlcSub___Examples___C",
+     "data":
+     {"/Sub/#StlcSub___Examples___C":
+      {"display": "C",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Examples.B":
+   [{"id": "StlcSub___Examples___B",
+     "data":
+     {"/Sub/#StlcSub___Examples___B":
+      {"display": "B",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Examples.A":
+   [{"id": "StlcSub___Examples___A",
+     "data":
+     {"/Sub/#StlcSub___Examples___A":
+      {"display": "A",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Context":
+   [{"id": "StlcSub___Context",
+     "data":
+     {"/Sub/#StlcSub___Context":
+      {"display": "Context",
+       "context":
+       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+     "address": "/Sub/"}],
    "StlcExtended.weakening_empty":
    [{"id": "StlcExtended___weakening_empty",
      "data":

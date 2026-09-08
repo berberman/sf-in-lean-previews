@@ -667,7 +667,7 @@ sf_expect_failure_in
 --  the list. If you choose this action, Lean adds an explicit branch for
 --  each constructor:
 
-example (n : Nat) : Nat.beq n n= true := by
+example (n : Nat) : Nat.beq n n = true := by
   induction n with
   | zero => sorry
   | succ n ih => sorry
@@ -1129,4 +1129,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-09-08 14:05 UTC
+-- Built on 2026-09-08 14:32 UTC

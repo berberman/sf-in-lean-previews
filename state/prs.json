@@ -1,5 +1,5 @@
 {
-  "main_sha": "6da34dacef8afd7f8e2a8e019ee4b419f1fb7c7a",
+  "main_sha": "fc10434ac1533f5b9628127815b8be5f3c5a5b45",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -198,16 +198,6 @@
       "status": "published",
       "title": "Build: Install devcontainer in built artifacts",
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
-    },
-    "374": {
-      "base_sha": "6c0baecadc00bdb0a0dc560033cef46e1439612c",
-      "changed_variants": [],
-      "head_sha": "0ec7eb55d94b78873c4a4387da489b59d167064f",
-      "preview_path": "pr/374/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Add missing space",
-      "url": "https://github.com/plclub/sf-in-lean/pull/374"
     },
     "376": {
       "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
