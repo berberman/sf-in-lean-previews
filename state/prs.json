@@ -292,6 +292,16 @@
       "status": "published",
       "title": "Pass over automation",
       "url": "https://github.com/plclub/sf-in-lean/pull/381"
+    },
+    "382": {
+      "base_sha": "393e106ad9f1944342bb30c019cdee13345dadd7",
+      "changed_variants": [],
+      "head_sha": "8a44be0fd99b5bf56eaf649c16c5ac9a66129462",
+      "preview_path": "pr/382/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Make build stamps reproducible",
+      "url": "https://github.com/plclub/sf-in-lean/pull/382"
     }
   },
   "schema": 3
