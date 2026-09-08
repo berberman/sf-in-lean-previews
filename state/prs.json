@@ -245,6 +245,53 @@
       "status": "published",
       "title": "Customize VSCode title/activity bar colors",
       "url": "https://github.com/plclub/sf-in-lean/pull/376"
+    },
+    "381": {
+      "base_sha": "393e106ad9f1944342bb30c019cdee13345dadd7",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "8977223a431f6b9b1b1938ab31c9124009264075",
+      "preview_path": "pr/381/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34278600808",
+      "status": "published",
+      "title": "Pass over automation",
+      "url": "https://github.com/plclub/sf-in-lean/pull/381"
     }
   },
   "schema": 3
