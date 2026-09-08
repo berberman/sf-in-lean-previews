@@ -144,7 +144,6 @@ sf_expect_failure_in
 --
 --  So there are three ways to prove that a number `n`
 --  eventually reaches `1` in the Collatz sequence:
---
 --  - `n` is `1`;
 --  - `n` is even and `div2 n` eventually reaches `1`;
 --  - `n` is odd and `(3 * n) + 1` eventually reaches `1`.
@@ -534,12 +533,10 @@ end Perm3
 --  In other words, if someone gives us evidence `e` for the
 --  proposition `Ev n`, then we know that `e` must be one of
 --  two things:
---
 --  - `e = ev_0` and `n = 0`, or
---
 --  - `e = ev_succ_succ n' e'` and `n = n' + 2`, where `e'`
 --    is evidence for `Ev n'`.
-
+--
 --  This suggests that it should be possible to do *case
 --  analysis* and even *induction* on evidence of
 --  evenness...
@@ -604,12 +601,9 @@ theorem inversion_ex2 n (h : n + 1 = 0) : 2 + 2 = 5 := by
 
 --  The `inversion` tactic works on any `h : p` where `p` is
 --  defined inductively:
---
 --  - For each constructor of `p`, make a subgoal where `h`
 --    is constrained by the form of this constructor.
---
 --  - Discard contradictory subgoals (such as `ev_0` above).
---
 --  - Generate auxiliary equalities (as with `ev_succ_succ`
 --    above).
 
@@ -690,4 +684,4 @@ theorem Nat.ev_Even (n : Nat) (h : Ev n) : Even n := by
     let ⟨k, hk⟩ := ih
     exists k + 1; rw [double_succ, hk]
 
--- Built on 2026-09-08 17:35 UTC
+-- Built on 2026-09-08 17:52 UTC

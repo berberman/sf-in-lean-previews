@@ -23,7 +23,7 @@ import SFLCompat
 --  Stlc chapters. Adding more realistic numeric types like machine
 --  integers and floats is also straightforward, though of course the
 --  specifications of the numeric primitives become more fiddly.
-
+--
 --  When writing a complex expression, it is useful to be able to give
 --  names to some of its subexpressions to avoid repetition and increase
 --  readability. Most languages provide one or more ways of doing this. In
@@ -42,7 +42,7 @@ import SFLCompat
 --  At this point in the book, it's probably easier simply to look at the
 --  rules defining this new feature than to wade through a lot of English
 --  text conveying the same information. Here they are:
-
+--
 --  Syntax:
 --
 --        t ::=                   Terms
@@ -72,7 +72,7 @@ import SFLCompat
 --  The formalization of pairs is almost too simple to be worth discussing.
 --  However, let's look briefly at the various parts of the definition to
 --  emphasize the common pattern.
-
+--
 --  In Lean, there are two ways of extracting the components of a pair:
 --  *pattern matching* and the projection operators `fst` and `snd`. Just
 --  for fun, let's do our pairs the latter way. For example, here's how
@@ -83,13 +83,13 @@ import SFLCompat
 --                let sum = fst x + snd x in
 --                let diff = fst x - snd x in
 --                (sum, diff)
-
+--
 --  Adding pairs to the simply typed lambda-calculus, then, involves adding
 --  two new forms of term - pairing, written `(t₁,t₂)`, and projection,
 --  written `fst t` for the first projection from `t` and `snd t` for the
 --  second projection - plus one new type constructor, `τ₁ × τ₂`, called
 --  the *product* of `τ₁` and `τ₂`.
-
+--
 --  Syntax:
 --
 --             t ::=                Terms
@@ -105,10 +105,10 @@ import SFLCompat
 --             τ ::=                Types
 --                 | ...
 --                 | τ₁ × τ₂          product type
-
+--
 --  For reduction, we need several new rules specifying how pairs and
 --  projection behave.
-
+--
 --                                    t₁ ⟶ t₁'
 --                               --------------------                        (pair₁)
 --                               (t₁,t₂) ⟶ (t₁',t₂)
@@ -130,7 +130,7 @@ import SFLCompat
 --
 --                                ------------------                       (sndPair)
 --                                snd (v₁,v₂) ⟶ v₂
-
+--
 --  Rules `fstPair` and `sndPair` say that, when a fully reduced pair meets
 --  a first or second projection, the result is the appropriate component.
 --  The congruence rules `fst₁` and `snd₁` allow reduction to proceed under
@@ -145,9 +145,9 @@ import SFLCompat
 --  components of a pair value must themselves be values ensures that a
 --  pair passed as an argument to a function will be fully reduced before
 --  the function body starts executing.
-
+--
 --  The typing rules for pairs and projections are straightforward.
-
+--
 --                           Γ ⊢ t₁ ⦂ τ₁     Γ t₂ ⦂ τ₂
 --                          ------------------------------              (pair)
 --                            Γ ⊢(t₁, t₂) ⦂ τ₁ × τ₂
@@ -159,7 +159,7 @@ import SFLCompat
 --                                  Γ ⊢ t ⦂ τ₁ × τ₂
 --                              -----------------------                   (snd)
 --                                   Γ ⊢ snd t ⦂ τ₂
-
+--
 --  `pair` says that `(t₁, t₂)` has type `τ₁ × τ₂` if `t₁` has type `τ₁`
 --  and `t₂` has type `τ₂`. Conversely, `fst` and `snd` tell us that, if
 --  `t` has a product type `τ₁ × τ₂` (i.e., if it will reduce to a pair),
@@ -168,12 +168,12 @@ import SFLCompat
 --  ### Unit
 
 --  Another handy base type is the singleton type `Unit`.
-
+--
 --  It has a single element - the term constant `unit` (with a small `u`) -
 --  and a typing rule making `unit` an element of `Unit`. We also add
 --  `unit` to the set of possible values - indeed, `unit` is the *only*
 --  possible result of reducing an expression of type `Unit`.
-
+--
 --  Syntax:
 --
 --             t ::=                Terms
@@ -192,7 +192,7 @@ import SFLCompat
 --
 --                               ----------------                       (unit)
 --                               Γ ⊢ unit ⦂ Unit
-
+--
 --  It may seem a little strange to bother defining a type that has just
 --  one element -- after all, wouldn't every computation living in such a
 --  type be trivial?
@@ -229,7 +229,7 @@ import SFLCompat
 --  two given types, e.g.:
 --
 --             Nat + Bool
-
+--
 --  We create elements of these types by *tagging* elements of the
 --  component types. For example, if `n` is a `Nat` then `inl n` is an
 --  element of `Nat + Bool`; similarly, if `b` is a `Bool` then `inr b` is
@@ -244,7 +244,7 @@ import SFLCompat
 --  actually treat them as functions in the way we formalize them: `inl`
 --  and `inr` are keywords, and `inl t` and `inr t` are primitive syntactic
 --  forms, not function applications.)
-
+--
 --  In general, the elements of a type `τ₁ + τ₂` consist of the elements of
 --  `τ₁` tagged with the token `inl`, plus the elements of `τ₂` tagged with
 --  `inr`.
@@ -259,7 +259,7 @@ import SFLCompat
 --                  inr unit
 --                else
 --                  inl ...
-
+--
 --  The type `Nat + Unit` above is in fact isomorphic to `Option Nat` in
 --  Lean - i.e., it's easy to write functions that translate back and
 --  forth.
@@ -267,7 +267,7 @@ import SFLCompat
 --  To *use* elements of sum types, we introduce a `case` construct (a very
 --  simplified form of Lean's `match`) to destruct them. For example, the
 --  following procedure converts a `Nat + Bool` into a `Nat`:
-
+--
 --          getNat ⦂ Nat+Bool → Nat
 --          getNat =
 --            λx:Nat+Bool,
@@ -340,7 +340,7 @@ import SFLCompat
 --  We use the type annotations on `inl` and `inr` to make the typing
 --  relation deterministic (each term has at most one type), as we did for
 --  functions.
-
+--
 --  Without this extra information, the typing rule `inl`, for example,
 --  would have to say that, once we have shown that `t₁` is an element of
 --  type `τ₁`, we can derive that `inl t₁` is an element of `τ₁ + τ₂` for
@@ -446,7 +446,7 @@ import SFLCompat
 --
 --  λ x:List Nat. case x of nil => 0 | a :: x' => case x' of nil => a | b
 --  :: x'' => a + b
-
+--
 --  Syntax:
 --
 --             t ::=                Terms
@@ -517,17 +517,17 @@ import SFLCompat
 --  Note that the right-hand side of this binder mentions `fact`, the
 --  variable being bound - something that is not allowed according to the
 --  way we defined `let` above.
-
+--
 --  (The body of a `let` is typechecked in the same context as the `let`
 --  itself, which means that the recursive occurrence of `fact` in the body
 --  will not have a type in the context when it is looked up by the `var`
 --  rule.)
-
+--
 --  Changing the `let` rule to handle "recursive definitions" like this is
 --  possible, but it requires some extra effort -- e.g., passing around an
 --  extra "environment" of recursive function definitions in the definition
 --  of the `step` relation. We're going to take a simpler path here.
-
+--
 --  Here is another way of presenting recursive functions that is a bit
 --  more verbose but equally powerful and much more straightforward to
 --  formalize: instead of writing recursive definitions, we will define a
@@ -549,20 +549,16 @@ import SFLCompat
 --                    if x=0 then 1 else x * (f (pred x)))
 
 --  We can derive the latter from the former as follows:
---
 --  - In the right-hand side of the definition of `fact`, replace recursive
 --    references to `fact` by a fresh variable `f`.
---
 --  - Add an abstraction binding `f` at the front, with an appropriate type
 --    annotation. (Since we are using `f` in place of `fact`, which had
 --    type `Nat→Nat`, we should require `f` to have the same type.) The new
 --    abstraction has type `(Nat→Nat) → (Nat→Nat)`.
---
 --  - Apply `fix` to this abstraction. This application has type `Nat→Nat`.
---
 --  - Use all of this as the right-hand side of an ordinary `let`-binding
 --    for `fact`.
-
+--
 --  For the mathematically inclined, the intuition here is that the
 --  higher-order function `f` passed to `fix` is a *generator* for the
 --  `fact` function: if `f` is applied to a function that "approximates"
@@ -579,7 +575,7 @@ import SFLCompat
 --  `x` such that `f(x) = x`. Here, a fixed point of a function `F` of type
 --  `(Nat→Nat)→(Nat→Nat)` is a function `f` of type `Nat→Nat` such that
 --  `F f` behaves the same as `f`.)
-
+--
 --  Syntax:
 --
 --             t ::=                Terms
@@ -733,6 +729,8 @@ import SFLCompat
 --  reduce to a normal form (assuming the usual reduction rules for
 --  arithmetic operations.
 
+--  (End of exercise)
+
 --  The ability to form the fixed point of a function of type `τ→τ` for any
 --  `τ` has some surprising consequences. In particular, it implies that
 --  *every* type is inhabited by some term. To see this, observe that, for
@@ -774,7 +772,7 @@ import SFLCompat
 --  obtained from pairs by two straightforward generalizations: they are
 --  n-ary (rather than just binary) and their fields are accessed by
 --  *label* (rather than position).
-
+--
 --  Syntax:
 --
 --             t ::=                          Terms
@@ -789,7 +787,7 @@ import SFLCompat
 --             τ ::=                          Types
 --                 | ...
 --                 | {i₁:τ₁, ..., in:τn}         record type
-
+--
 --  The generalization from products should be pretty obvious. But it's
 --  worth noticing the ways in which what we've actually written is even
 --  *more* informal than the informal syntax we've used in previous
@@ -797,7 +795,7 @@ import SFLCompat
 --  "any number of these," and we've omitted explicit mention of the usual
 --  side condition that the labels of a record should not contain any
 --  repetitions.
-
+--
 --  Reduction:
 --
 --                                    ti ⟶ ti'
@@ -811,13 +809,13 @@ import SFLCompat
 --
 --                            -------------------------                    (projRcd)
 --                            {..., i=vi, ...}.i ⟶ vi
-
+--
 --  Again, these rules are a bit informal. For example, the first rule is
 --  intended to be read "if `ti` is the leftmost field that is not a value
 --  and if `ti` steps to `ti'`, then the whole record steps..." In the last
 --  rule, the intention is that there should be only one field called `i`,
 --  and that all the other fields must contain values.
-
+--
 --  The typing rules are also simple:
 --
 --                     Γ ⊢ t₁ ⦂ τ₁     ...     Γ ⊢ tn ⦂ Tn
@@ -828,9 +826,8 @@ import SFLCompat
 --                            Γ ⊢ t ⦂ {..., i:Ti, ...}
 --                          ---------------------------------                  (proj)
 --                                Γ ⊢ t.i ⦂ Ti
-
---  There are several ways to approach formalizing the above definitions.
 --
+--  There are several ways to approach formalizing the above definitions.
 --  - We can directly formalize the syntactic forms and inference rules,
 --    staying as close as possible to the form we've given them above. This
 --    is conceptually straightforward, and it's probably what we'd want to
@@ -843,7 +840,6 @@ import SFLCompat
 --    the end of this chapter. (It is still useful to discuss them
 --    informally here because they will help motivate the addition of
 --    subtyping to the type system when we get to the Sub chapter.)
---
 --  - Alternatively, we could look for a smoother way of presenting records
 --    -- for example, a binary presentation with one constructor for the ∅
 --    record and another constructor for adding a single field to an
@@ -851,12 +847,11 @@ import SFLCompat
 --    builds a whole record at once. This is the right way to go if we are
 --    primarily interested in studying the metatheory of the calculi with
 --    records, since it leads to clean and elegant definitions and proofs.
---
 --  - Finally, if we like, we can avoid formalizing records altogether, by
 --    stipulating that record notations are just informal shorthands for
 --    more complex expressions involving pairs and product types. We sketch
 --    this approach in the next section.
-
+--
 --  Let's see how records can be encoded using just pairs and `unit`. (This
 --  clever encoding, as well as the observation that it also extends to
 --  systems with subtyping, is due to Luca Cardelli.)
@@ -935,7 +930,7 @@ import SFLCompat
 --  whole program at the same time, we can *choose* the numbering of labels
 --  so that we assign small positions to the most frequently used labels.
 --  Indeed, there are industrial compilers that essentially do this!
-
+--
 --  Just as products can be generalized to records, sums can be generalized
 --  to n-ary labeled types called *variants*. Instead of `τ₁+τ₂`, we can
 --  write something like `<l₁:τ₁,l₂:τ₂,...ln:τn>` where `l₁`,`l₂`,... are
@@ -958,14 +953,12 @@ import SFLCompat
 --  proofs accordingly.
 --
 --  To get you started, we've provided implementations for:
---
 --  - numbers
 --  - sums
 --  - lists
 --  - unit
 --
 --  You need to complete the implementations for:
---
 --  - pairs
 --  - let (which involves binding)
 --  - fix
@@ -976,7 +969,7 @@ import SFLCompat
 --  begin by reading carefully through the parts that are provided for you,
 --  referring to the text in the Stlc chapter for high-level intuitions and
 --  the embedded comments for detailed mechanics.
-
+--
 --  Syntax:
 
 namespace StlcExtended
@@ -1401,6 +1394,8 @@ example : <{ [z := 0] (let w = z in w) }> = <{ let w = 0 in w }> := by
 example : <{  [z := 0] (let y = succ 0 in z) }> = <{ let y = succ 0 in 0 }> := by
   sorry
 
+--  (End of exercise)
+
 --  Next we define the values of our language.
 
 inductive Tm.IsValue : Tm → Prop where
@@ -1626,6 +1621,8 @@ attribute [ExtStlcTyping] HasType.var HasType.abs HasType.app
     HasType.ite0 HasType.sumInl HasType.sumInr HasType.sumCase
     HasType.listNil HasType.listCons HasType.listCase HasType.unit
 --  FILL IN HERE
+
+--  (End of exercise)
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
 --  Closing the section retires the hygiene-free rule; the same rule is
@@ -1891,6 +1888,8 @@ theorem reduces :
 end Fix4
 end Examples
 
+--  (End of exercise)
+
 --  The proofs of progress and preservation for this enriched system are
 --  essentially the same (though of course longer) as for the pure STLC.
 
@@ -1899,7 +1898,6 @@ end Examples
 --  Complete the proof of `progress`
 --
 --  Theorem: Suppose `∅ ⊢ t ⦂ τ`. Then either
---
 --  1. `t` is a value, or
 --  2. `t ⟶ t'` for some `t'`.
 --
@@ -2081,6 +2079,8 @@ theorem progress (t : Tm) (τ : Ty) (ht :<{ ∅ ⊢ ~t ⦂ ~τ }>) :
     -- complete the proof
     --  FILL IN HERE
 
+--  (End of exercise)
+
 --  Through the power of automation, the weakening proof is exactly the
 --  same as for the original STLC.
 
@@ -2156,6 +2156,8 @@ theorem preservation (t t' : Tm) (τ : Ty)
     -- Complete the proof...
     --  FILL IN HERE
 
+--  (End of exercise)
+
 end StlcExtended
 
--- Built on 2026-09-08 17:37 UTC
+-- Built on 2026-09-08 17:54 UTC

@@ -47,13 +47,10 @@ theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
 --  also a decision procedure for first-order logic.
 --
 --  If the goal is a universally quantified formula made out of
---
 --  - numeric constants, addition (`+` and `succ`), subtraction (`-` and
 --    `pred`) and multiplication by constants (this is what makes it
 --    Presburger arithmetic),
---
 --  - equality (`=` and `≠`) and ordering (`≤` and `<`), and
---
 --  - the logical connectives `∧`, `∨`, `¬`, and `→`,
 --
 --  then invoking `lia` will either solve the goal or fail, meaning that
@@ -271,7 +268,7 @@ sf_expect_failure_in
 --  with `List.mem_cons_self` like before, we would instead first try
 --  `apply List.mem_cons_of_mem`, which would also succeed. This leaves us
 --  with the goal `10 ∈ []`, which is of course false.
-
+--
 --  With `first`, we can solve the earlier issue with `try` where it would
 --  stop executing the sequence on the first failure.
 
@@ -295,7 +292,7 @@ theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α)
 --  definitions all throughout this book are examples of these
 --  *simplification lemmas*, or *`simp` lemmas* as they're called by Lean
 --  programmers.
-
+--
 --  We tag theorems with `@[simp]` to add them to the set of rules `simp`
 --  considers when simplifying a term.
 
@@ -415,7 +412,7 @@ example α x (l₁ l₂ l₃ : List α)
 --  simplified. Because our proof after the `simp`s relies on the precise
 --  structure of the goals and hypotheses, these changes could cause the
 --  proof to break as the structure of the development evolves.
-
+--
 --  We can fix the style of this proof by changing the `simp`s to specify
 --  which theorems they are using to simplify:
 
@@ -431,10 +428,10 @@ example α x (l₁ l₂ l₃ : List α)
 
 --  This usage of `simp only` is better because the addition of new `simp`
 --  lemmas won't cause this proof to change.
-
+--
 --  Another rule around proper `simp` usage applies to the appropriate
 --  definition of `simp` lemmas.
-
+--
 --  All of the theorems marked with the `@[simp]` attribute in a Lean
 --  library compose the *simp set* for that library, and the result of
 --  simplifying an expression iteratively using all of the theorems in the
@@ -498,17 +495,16 @@ namespace RegExp
 --  Note that this definition is *polymorphic*: Regular expressions in
 --  `RegExp α` describe strings with characters drawn from `α` ─ which in
 --  this exercise we represent as *lists* with elements from `α`.
-
+--
 --  (Technical aside: We depart slightly from standard practice in that we
 --  do not require the type `α` to be finite. This results in a somewhat
 --  different theory of regular expressions, but the difference is not
 --  significant for present purposes.)
-
+--
 --  We connect regular expressions and strings by defining when a regular
 --  expression *matches* some string.
 
 --  Informally this looks as follows:
---
 --  - The regular expression `EmptySet` does not match any string.
 --
 --  - `EmptyStr` matches the empty string `[]`.
@@ -654,6 +650,8 @@ example : [1, 2, 3] =~ reg_exp_of_list [1, 2, 3] := by
 theorem regexp_match_of_list α (l : List α) : l =~ reg_exp_of_list l := by
   sorry
 
+--  (End of exercise)
+
 --  We can also prove general facts about `ExpMatch`. For instance, the
 --  following lemma shows that every string `s` matched by `re` is also
 --  matched by `Star re`.
@@ -666,7 +664,7 @@ theorem MStar1 α s (re : RegExp α) (h : s =~ re) : s =~ Star re := by
 
 --  (Note the use of `List.append_nil` to change the goal of the theorem to
 --  exactly the shape expected by `mStarApp`.)
-
+--
 --  The following lemmas show that the intuition about matching given at
 --  the beginning of the section can be obtained from the formal inductive
 --  definition.
@@ -682,6 +680,8 @@ theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
     s =~ re₁ ∨ s =~ re₂ →
     s =~ Union re₁ re₂ := by
   sorry
+
+--  (End of exercise)
 
 --  The next lemma is stated in terms of the `fold` function on Lists: If
 --  `ss : List (List α)` represents a sequence of strings `s₁, ..., sₙ`,
@@ -706,10 +706,12 @@ def EmptyStr' {α : Type} := @Star α (EmptySet)
 --  State and prove that this `EmptyStr'` definition matches exactly the
 --  same strings as the `EmptyStr` constructor.
 
+--  (End of exercise)
+
 --  Since the definition of `ExpMatch` has a recursive structure, we might
 --  expect that proofs involving regular expressions will often require
 --  induction on evidence.
-
+--
 --  For example, suppose we want to prove the following intuitive fact: If
 --  a string `s` is matched by a regular expression `re`, then all elements
 --  of `s` must occur as character literals somewhere in `re`.
@@ -1086,7 +1088,9 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
 
+--  (End of exercise)
+
 end Pumping
 end RegExp
 
--- Built on 2026-09-08 17:34 UTC
+-- Built on 2026-09-08 17:51 UTC

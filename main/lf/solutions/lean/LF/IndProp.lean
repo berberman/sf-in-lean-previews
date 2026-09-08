@@ -67,13 +67,10 @@ import SFLCompat
 --      afterward and there are some further opportunities for streamlining
 --      — perhaps enough to make the present treatment palatible). I see
 --      three possible paths forward:
---
 --      - 1. Choose a better example and simply replace all the even stuff.
 --           (But which one is better? I don't think we've found it yet.)
---
 --      - 2. Mix and match ─ use different examples from the top of the
 --           chapter to make different points.
---
 --      - 3. Leave the examples as-is but streamline as much as possible so
 --           we don't get stuck in them.
 --
@@ -277,7 +274,6 @@ sf_expect_failure_in
 --
 --  So there are three ways to prove that a number `n` eventually reaches
 --  `1` in the Collatz sequence:
---
 --  - `n` is `1`;
 --  - `n` is even and `div2 n` eventually reaches `1`;
 --  - `n` is odd and `(3 * n) + 1` eventually reaches `1`.
@@ -383,7 +379,7 @@ def Collatz := ∀ n, n ≠ 0 → CollatzHoldsFor n
 --        Le n m
 --      ──────────── (le_step)
 --      Le n (m + 1)
-
+--
 --  These rules say that there are two ways to show that a number is less
 --  than or equal to another: either observe that they are the same number,
 --  or, if the second has the form `m + 1`, give evidence that the first is
@@ -445,7 +441,7 @@ inductive ParentOf : Person → Person → Prop where
 
 --  In this example, `sage` is a parent of both `cleo` and `ridley`; and
 --  `cleo` is a parent of `moss`.
-
+--
 --  The `ParentOf` relation is not transitive, but we can define an
 --  "ancestor of" relation as its transitive closure:
 
@@ -576,18 +572,15 @@ inductive ClosReflTransSym {α : Type} (R : α → α → Prop) : α → α → 
 --      Perm3 [1, 2, 3] [2, 3, 1]                                                            Perm3 [2, 3, 1] [3, 2, 1]
 --      ────────────────────────────────────────────────────────────────────────────────────────────────────────────── (perm3_trans)
 --      Perm3 [1, 2, 3] [3, 2, 1]
-
---  This definition says:
 --
+--  This definition says:
 --  - If `l₂` can be obtained from `l₁` by swapping the first and second
 --    elements, then `l₂` is a permutation of `l₁`.
---
 --  - If `l₂` can be obtained from `l₁` by swapping the second and third
 --    elements, then `l₂` is a permutation of `l₁`.
---
 --  - If `l₂` is a permutation of `l₁` and `l₃` is a permutation of`l₂`,
 --    then `l₃` is a permutation of `l₁`.
-
+--
 --  In Lean, we can define `Perm3` as follows:
 
 inductive Perm3 {α : Type} : List α → List α → Prop where
@@ -624,9 +617,8 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 --          Ev n
 --      —————————————— (ev_succ_succ)
 --        Ev (n + 2)
-
---  Intuitively these rules say that:
 --
+--  Intuitively these rules say that:
 --  - The number `0` is even.
 --  - If `n` is even, then `n + 2` is even.
 --
@@ -634,7 +626,7 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 --  already seen two perfectly good ways of doing it. It makes a convenient
 --  running example because it is simple and compact, but we will soon
 --  return to the more compelling examples above.)
-
+--
 --  To illustrate how this new definition of evenness works, let's imagine
 --  using it to show that `4` is even:
 --
@@ -644,12 +636,12 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 --             Ev (.succ (.succ 0))
 --      ——————————————————————————————————— (ev_succ_succ)
 --      Ev (.succ (.succ (.succ (.succ 0))))
-
+--
 --  In words, to show that `4` is even, by rule `ev_succ_succ`, it suffices
 --  to show that `2` is even. This, in turn, is again guaranteed by rule
 --  `ev_succ_succ`, as long as we can show that `0` is even. But this last
 --  fact follows directly from the `ev_0` rule.
-
+--
 --  We can translate the informal definition of evenness from above into a
 --  formal `inductive` declaration, where each "way that a number can be
 --  even" corresponds to a separate constructor:
@@ -712,7 +704,7 @@ sf_expect_failure_in
 --  For example, in `inductive List (α : Type) ...`, the `α` is a
 --  parameter, while in `inductive Ev : Nat → Prop ...`, the unnamed `Nat`
 --  argument is an index.
-
+--
 --  We can think of the inductive definition of `Ev` as defining a Lean
 --  property `Ev : Nat → Prop`, together with two "evidence constructors":
 
@@ -767,6 +759,8 @@ theorem double (n : Nat) : Ev n.double := by
   | succ n ih =>
     rw [Nat.double_succ]; exact ev_succ_succ ih
 
+--  (End of exercise)
+
 end Ev
 
 --  ### Constructing Evidence for Permutations
@@ -811,6 +805,8 @@ theorem refl (α : Type) (a b c : α) : Perm3 [a, b, c] [a, b, c] := by
   . apply perm3_swap12
   . apply perm3_swap12
 
+--  (End of exercise)
+
 end Perm3
 
 --  ## Using Evidence in Proofs
@@ -826,12 +822,10 @@ end Perm3
 --
 --  In other words, if someone gives us evidence `e` for the proposition
 --  `Ev n`, then we know that `e` must be one of two things:
---
 --  - `e = ev_0` and `n = 0`, or
---
 --  - `e = ev_succ_succ n' e'` and `n = n' + 2`, where `e'` is evidence for
 --    `Ev n'`.
-
+--
 --  This suggests that it should be possible to analyze a hypothesis of the
 --  form `Ev n` much as we do inductively defined data structures; in
 --  particular, it should be possible to argue either by *case analysis* or
@@ -860,7 +854,7 @@ theorem ev_inversion (n : Nat) (h : Ev n) :
 --  Facts like this are often called "inversion lemmas" because they allow
 --  us to "invert" some given information to reason about all the different
 --  ways it could have been derived.
-
+--
 --  Here there are two ways to prove `Ev n`, and the inversion lemma makes
 --  this explicit.
 
@@ -874,6 +868,8 @@ theorem le_inversion (n m : Nat) (h : Le n m) :
   cases h with
   | refl => left; rfl
   | @step m h => right; exists m
+
+--  (End of exercise)
 
 end LePlayground
 
@@ -956,6 +952,8 @@ theorem ev5_nonsense (h : Ev 5) : 2 + 2 = 9 := by
     | ev_succ_succ h'' =>
       inversion h''
 
+--  (End of exercise)
+
 --  We can use `inversion` to re-prove some theorems from Tactics.
 --
 --  Note that `inversion` also works on equality propositions.
@@ -970,17 +968,13 @@ theorem inversion_ex2 n (h : n + 1 = 0) : 2 + 2 = 5 := by
 --      The wording there is totally awkward!
 
 --  Here's how `inversion` works in general.
---
 --  - Suppose the name `h` refers to an assumption `p` in the current
 --    context, where `p` has been defined by an `inductive` declaration.
---
 --  - Then, for each of the constructors of `p`, `inversion h` generates a
 --    subgoal in which `h` has been replaced by the specific conditions
 --    under which this constructor could have been used to prove `p`.
---
 --  - Some of these subgoals will be self-contradictory; `inversion` throws
 --    these away.
---
 --  - The ones that are left represent the cases that must be proved to
 --    establish the original goal. For those, `inversion` adds to the proof
 --    context all equations that must hold of the arguments given to `p` ─
@@ -1073,7 +1067,7 @@ sf_expect_failure_in
 --  similar problems in the Induction chapter, when trying to use case
 --  analysis to prove results that required induction. And once again the
 --  solution is... induction!
-
+--
 --  The behavior of `induction` on evidence is the same as its behavior on
 --  data: It causes Lean to generate one subgoal for each constructor that
 --  could have been used to build that evidence, while providing an
@@ -1089,7 +1083,7 @@ sf_expect_failure_in
 --  `Ev.ev_succ_succ n' h'`, where `n = n' + 2` and `h'` is evidence for
 --  `Ev n'`. In this case, the inductive hypothesis says that the property
 --  we are trying to prove holds for `n'`.
-
+--
 --  Let's try proving that lemma again:
 
 theorem Nat.ev_Even (n : Nat) (h : Ev n) : Even n := by
@@ -1105,7 +1099,7 @@ theorem Nat.ev_Even (n : Nat) (h : Ev n) : Even n := by
 --  the single recursive occurrence of `Ev` in its own definition. Since
 --  `h'` mentions `n'`, the induction hypothesis talks about `n'`, as
 --  opposed to `n` or some other number.
-
+--
 --  The equivalence between the second and third definitions of evenness
 --  now follows.
 
@@ -1162,6 +1156,8 @@ theorem ev_plus_plus (n m k : Nat)
     . assumption
   . rw [← Nat.double_add]; exact Ev.double n
 
+--  (End of exercise)
+
 --  Another example of a proposition that can be characterized both
 --  recursively and inductively is the `List.In` predicate we defined in
 --  the Logic chapter. As a reminder, the recursive definition we saw
@@ -1199,6 +1195,8 @@ theorem in_mem {α} (x : α) (l : List α) : List.In x l ↔ x ∈ l := by
   . intro h; induction h with
     | head l' => rw [List.In_cons]; left; rfl
     | tail h ih => rw [List.In_cons]; right; assumption
+
+--  (End of exercise)
 
 --  The characterizing lemmas for `∈` are called `List.mem_nil_iff` and
 --  `List.mem_cons`.
@@ -1284,6 +1282,8 @@ theorem ev'_ev n : Ev' n ↔ Ev n := by
     intro h; induction h
     . constructor
     . constructor; assumption; constructor
+
+--  (End of exercise)
 
 --  We can do similar inductive proofs on the `Perm3` relation, which we
 --  defined earlier as follows:
@@ -1660,15 +1660,11 @@ inductive R : Nat → Nat → Nat → Prop where
 --      it like this.
 
 --  - Which of the following propositions are provable?
---
 --  - `R 1 1 2`
---
 --  - `R 2 2 6`
---
 --  - If we dropped constructor `c5` from the definition of `R`, would the
 --    set of provable propositions change? Briefly (1 sentence) explain
 --    your answer.
---
 --  - If we dropped constructor `c4` from the definition of `R`, would the
 --    set of provable propositions change? Briefly (1 sentence) explain
 --    your answer.
@@ -1747,14 +1743,11 @@ theorem R.equiv_fR m n k : R m n k ↔ fR m n = k := by
 --    to do this. You should make sure that your definition behaves
 --    correctly on all the positive and negative examples above, but you do
 --    not need to prove this formally.
---
 --  - Prove `subseq_refl` that subsequence is reflexive, that is, any list
 --    is a subsequence of itself.
---
 --  - Prove `subseq_app` that for any lists `l₁`, `l₂`, and `l₃`, if `l₁`
 --    is a subsequence of `l₂`, then `l₁` is also a subsequence of
 --    `l₂ ++ l₃`.
---
 --  - (Harder) Prove `subseq_trans` that subsequence is transitive ─ that
 --    is, if `l₁` is a subsequence of `l₂` and `l₂` is a subsequence of
 --    `l₃`, then `l₁` is a subsequence of `l₃`.
@@ -1837,7 +1830,6 @@ end Subseq
 --        | c3 {n : Nat} {l : List Nat} (h : R (n + 1) l) : R  n      l
 --
 --  Which of the following propositions are provable?
---
 --  - `R 2 [1, 0]`
 --  - `R 1 [1, 2, 1, 0]`
 --  - `R 6 [3, 2, 1, 0]`
@@ -2200,10 +2192,8 @@ end Sol
 --  ### Exercise (4 stars): palindromes (Optional) ⭐⭐⭐⭐
 
 --  A palindrome is a sequence that reads the same backwards as forwards.
---
 --  - Define an inductive proposition `Pal` on `List α` that captures what
 --    it means to be a palindrome. (Hint: You'll need three cases.)
---
 --  - Prove `pal_app_reverse`, which states that
 --
 --      ∀ l, Pal (l ++ l.reverse).
@@ -2659,6 +2649,8 @@ theorem pigeonhole_principle (α : Type) (l₁ l₂ : List α)
           apply (IHl1' l2' IN2 LEN2).
   Qed. -/
 
+--  (End of exercise)
+
 --  /- Here's a clever alternative proof, based heavily on one by Daniel
 --      Schepler (<dschepler@gmail.com> Coq club mailing list on Wed, 02 Oct
 --      2013 02:02:12 -0700), that doesn't use decidability of [In], and hence
@@ -3080,4 +3072,4 @@ theorem pigeonhole_principle (α : Type) (l₁ l₂ : List α)
 --
 --  End Pigeon.
 
--- Built on 2026-09-08 17:35 UTC
+-- Built on 2026-09-08 17:51 UTC

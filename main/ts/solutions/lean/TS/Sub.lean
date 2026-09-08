@@ -19,7 +19,7 @@ import SFLCompat
 --
 --            Person  = {name:String, age:Nat}
 --            Student = {name:String, age:Nat, gpa:Nat}
-
+--
 --  In the simply typed lamdba-calculus with records, the term
 --
 --          (λ r:Person. (r.age)+1) {name="Pat", age=21, gpa=1}
@@ -50,9 +50,8 @@ import SFLCompat
 --  used in any context where a value of type `τ` is expected. The idea of
 --  subtyping applies not only to records, but to all of the type
 --  constructors in the language -- functions, pairs, etc.
-
---  Safe substitution principle:
 --
+--  Safe substitution principle:
 --  - `σ` is a subtype of `τ`, written `σ <: τ`, if a value of type `σ` can
 --    safely be used in any context where a value of type `τ` is expected.
 
@@ -102,7 +101,6 @@ import SFLCompat
 
 --  τ₂ Our goal for this chapter is to add subtyping to the simply typed
 --  lambda-calculus (with some basic extensions). This involves two steps:
---
 --  - Defining a binary *subtype relation* between types.
 --  - Enriching the typing relation to take subtyping into account.
 --
@@ -115,7 +113,7 @@ import SFLCompat
 --
 --  This rule says, intuitively, that it is OK to "forget" some of what we
 --  know about a term.
-
+--
 --  For example, we may know that `t₁` is a record with two fields (e.g.,
 --  `τ₁ = {x:α→α, y:β→β}`, but choose to forget about one of the fields
 --  (`τ₂ = {y:β→β}`) so that we can pass `t₁` to a function that requires
@@ -152,7 +150,7 @@ import SFLCompat
 --                                  σ₁ <: τ₁    σ₂ <: τ₂
 --                                  --------------------                        (prod)
 --                                   σ₁ × σ₂ <: τ₁ × τ₂
-
+--
 --  The subtyping rule for arrows is a little less intuitive. Suppose we
 --  have functions `f` and `g` with these types:
 --
@@ -327,15 +325,12 @@ import SFLCompat
 --
 --  It is worth noting that full-blown language designs may choose not to
 --  adopt all of these subtyping rules. For example, in Java:
---
 --  - Each class member (field or method) can be assigned a single index,
 --    adding new indices "on the right" as more members are added in
 --    subclasses (i.e., no permutation for classes).
---
 --  - A class may implement multiple interfaces -- so-called "multiple
 --    inheritance" of interfaces (i.e., permutation is allowed for
 --    interfaces).
---
 --  - In early versions of Java, a subclass could not change the argument
 --    or result types of a method of its superclass (i.e., no depth
 --    subtyping or no arrow subtyping, depending how you look at it).
@@ -382,7 +377,6 @@ import SFLCompat
 
 --  In summary, we form the STLC with subtyping by starting with the pure
 --  STLC (over some set of base types) and then...
---
 --  - adding a base type `⊤`,
 --  - adding the rule of subsumption
 --
@@ -391,7 +385,6 @@ import SFLCompat
 --                                     Γ ⊢ t₁ ⦂ τ₂
 --
 --  to the typing relation, and
---
 --  - defining a subtype relation as follows:
 --
 --                                    σ <: υ    υ <: τ
@@ -470,7 +463,6 @@ import SFLCompat
 --  `υ <: δ`. Which of the following subtyping assertions are then true?
 --  Write *true* or *false* after each one. (`A`, `B`, and `C` here are
 --  base types like `Bool`, `Nat`, etc.
---
 --  - `τ→σ <: τ→σ`
 
 --  Answer: True
@@ -503,7 +495,6 @@ import SFLCompat
 
 --  The following types happen to form a linear order with respect to
 --  subtyping:
---
 --  - `⊤`
 --  - `⊤ → Student`
 --  - `Student → Person`
@@ -566,7 +557,6 @@ import SFLCompat
 --  ### Exercise (1 star): subtype_concepts_tf (Manually graded) ⭐
 
 --  Which of the following statements are true, and which are false?
---
 --  - There exists a type that is a supertype of every other type.
 
 --  True
@@ -665,7 +655,6 @@ import SFLCompat
 --  Clearly, `τ` must have the form `τ₁→τ₂`.
 --
 --  Now we can read off the following constraints from the program:
---
 --  - `A  <:  τ₁` (from the application of p.snd to p.fst)
 --  - `τ₂  <:  A` (from the final result type)
 --  - `(A × A→A)  <:  (A × τ)` (from the outer application)
@@ -685,6 +674,8 @@ import SFLCompat
 --
 --  is both the largest and the smallest type that makes the whole typing
 --  statement true.
+
+--  (End of exercise)
 
 --   ----------------------------------------
 
@@ -842,7 +833,7 @@ open scoped MyGetElem
 --  extend the typing relation with the subsumption rule and add a new
 --  `inductive` definition for the subtyping relation. Let's first do the
 --  identical bits.
-
+--
 --  We include products in the syntax of types and terms, but not, for the
 --  moment, anywhere else; the `products` exercise below will ask you to
 --  extend the definitions of the value relation, operational semantics,
@@ -1267,6 +1258,8 @@ example : student <: person := by
 example : employee <: person := by
   rw [employee, person]; solve_by_elim using StlcSubTyping
 
+--  (End of exercise)
+
 --  The following facts are mostly easy to prove in Lean. To get full
 --  benefit from the exercises, make sure you also understand how to prove
 --  them on paper!
@@ -1280,6 +1273,8 @@ example : <{ ⊤ → ~student }> <:  <{ (C → C) → ~person }> := by
 
 example : <{ ⊤ → ~person }> <: <{ ~person → ⊤ }> := by
   rw [person]; solve_by_elim using StlcSubTyping
+
+--  (End of exercise)
 
 end Examples
 
@@ -1441,6 +1436,8 @@ example :
   · apply HasType.abs; apply HasType.var; rfl
   · apply Subtype.top
 
+--  (End of exercise)
+
 end Examples
 
 --  ## Properties
@@ -1454,10 +1451,9 @@ end Examples
 --  Before we look at the properties of the typing relation, we need to
 --  establish a couple of critical structural properties of the subtype
 --  relation:
---
 --  - `Bool` is the only subtype of `Bool`, and
 --  - every subtype of an arrow type is itself an arrow type.
-
+--
 --  These are called *inversion lemmas* because they play a similar role in
 --  proofs as the `inversion` tactic: given a hypothesis that there exists
 --  a derivation of some subtyping statement `σ <: τ` and some constraints
@@ -1498,8 +1494,9 @@ theorem sub_inversion_arrow {σ τ₁ τ₂ : Ty}
       · exact Subtype.trans hs₁ hs₁'
       · exact Subtype.trans hs₂' hs₂
 
+--  (End of exercise)
+
 --  There are additional *inversion lemmas* for the other types:
---
 --  - `Unit` is the only subtype of `Unit`, and
 --  - `Base n` is the only subtype of `Base n`, and
 --  - `⊤` is the only supertype of `⊤`.
@@ -1534,6 +1531,8 @@ theorem sub_inversion_top {τ : Ty} (h : Ty.top <: τ) : τ = Ty.top := by
   | trans h₁ h₂ ih₁ ih₂ =>
       rw [ih₂]; apply ih₁ rfl
       symm; apply ih₁ rfl
+
+--  (End of exercise)
 
 --  When you do the `products` exercise, add your inversion lemma for
 --  products here:
@@ -1592,6 +1591,8 @@ theorem canonical_forms_of_arrow_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty
       obtain ⟨σ₁, σ₂, _, hs₁, hs₂⟩ := sub_inversion_arrow hs; subst_vars
       exact ih hv rfl
 
+--  (End of exercise)
+
 --  Similarly, the canonical forms of type `Bool` are the constants `tru`
 --  and `fls`
 
@@ -1635,42 +1636,34 @@ theorem canonical_forms_of_product_types {Γ : Context} {t : Tm} {τ₁ τ₂ : 
 --  abstractions, `unit`, `true`, and `false` are already values. The `var`
 --  case is vacuous because variables cannot be typed in the empty context.
 --  The remaining cases are more interesting:
---
 --  - If the last step in the typing derivation uses rule `app`, then there
 --    are terms `t₁` `t₂` and types `τ₁` and `τ₂` such that `t = t₁ t₂`,
 --    `τ = τ₂`, `∅ ⊢ t₁ ⦂ τ₁ → τ₂`, and `∅ ⊢ t₂ ⦂ τ₁`. Moreover, by the
 --    induction hypothesis, either `t₁` is a value or it steps, and either
 --    `t₂` is a value or it steps. There are three possibilities to
 --    consider:
---
 --    - First, suppose `t₁ ⟶ t₁'` for some term `t₁'`. Then
 --      `t₁ t₂ ⟶ t₁' t₂` by `app₁'`.
---
 --    - Second, suppose `t₁` is a value and `t₂ ⟶ t₂'` for some term `t₂'`.
 --      Then `t₁ t₂ ⟶ t₁ t₂'` by rule `app₂` because `t₁` is a value.
---
 --    - Third, suppose `t₁` and `t₂` are both values. By the canonical
 --      forms lemma for arrow types, we know that `t₁` has the form
 --      `λ x : σ₁ . t₂` for some `x`, `σ₁`, and `s₂`. But then
 --      `(λ x : σ₁ . s₂) t₂ ⟶ [x := t₂] s₂` by `appAbs`, since `t₂` is a
 --      value.
---
 --  - If the final step of the derivation uses rule `if`, then there are
 --    terms `t₁`, `t₂`, and `t₃` such that `t = if t₁ then t₂ else t₃`,
 --    with `∅ ⊢ t₁ ⦂ Bool` and with `∅ ⊢ t₂ ⦂ τ` and `∅ ⊢ t₃ ⦂ τ`.
 --    Moreover, by the induction hypothesis, either `t₁` is a value or it
 --    steps.
---
 --    - If `t₁` is a value, then by the canonical forms lemma for booleans,
 --      either `t₁ = true` or `t₁ = false`. In either case, `t` can step,
 --      using rule `ifTrue` or `ifFalse`.
---
 --    - If `t₁` can step, then so can `t`, by rule `if`.
---
 --  - If the final step of the derivation is by `sub`, then there is a type
 --    `τ₂` such that `τ₁ <: τ₂` and `∅ ⊢ t₁ ⦂ τ₁`. The desired result is
 --    exactly the induction hypothesis for the typing subderivation.
-
+--
 --  Formally:
 
 theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
@@ -1767,23 +1760,21 @@ theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
 --  some typing statement `Γ ⊢ λ x : σ₁ . t₂ ⦂ τ` whose subject is an
 --  abstraction, then there must be some subderivation giving a type to the
 --  body `t₂`.
-
+--
 --  *Lemma*: If `Γ ⊢ λ x : σ₁ . t₂ ⦂ τ`, then there is a type `σ₂` such
 --  that `x ↦ σ₁ ;  Γ ⊢ t₂ ⦂ σ` and `σ₁ → σ₂ <: τ`.
 --
 --  Notice that the lemma does *not* say, "then `τ` itself is an arrow
 --  type" -- this is tempting, but false! (Why?)
-
+--
 --  *Proof*: Let `Γ`, `x`, `σ₁`, `t₂` and `τ` be given as described.
 --  Proceed by induction on the derivation of `Γ ⊢ λ x : σ₁ . t₂ ⦂ τ`. The
 --  cases for `var` and `app` are vacuous as those rules cannot be used to
 --  give a type to a syntactic abstraction.
---
 --  - If the last step of the derivation is a use of `abs` then there is a
 --    type `τ₁₂` such that `τ = σ₁ → τ₁₂` and `x ↦ σ₁; Γ ⊢ t₂ ⦂ τ₁₂`.
 --    Picking `τ₁₂` for `σ₂` gives us what we need, since
 --    `σ₁ → τ₁₂ <: σ₁ → τ₁₂` follows from `rfl`.
---
 --  - If the last step of the derivation is a use of `sub` then there is a
 --    type `σ` such that `σ <: τ` and `Γ ⊢ λx : σ₁, t₂ ⦂ σ`. The IH for the
 --    typing subderivation tells us that there is some type `σ₂` with
@@ -1830,6 +1821,8 @@ theorem typing_inversion_app {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty}
       exists σ₂; constructor <;> try assumption
       apply HasType.sub _ _ _ _ hs'
       solve_by_elim using StlcSubTyping
+
+--  (End of exercise)
 
 theorem typing_inversion_unit (Γ : Context) (τ : Ty)
   (h : <{ ~Γ ⊢ unit ⦂ ~τ }>) :
@@ -1961,7 +1954,6 @@ theorem substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {
 --  `unit`, `tru`, and `fls` cases are vacuous because abstractions and
 --  constants don't step. Case `var` is vacuous as well, since the context
 --  is empty.
---
 --  - If the final step of the derivation is by `app`, then there are terms
 --    `t₁` and `t₂` and types `τ₁` and `τ₂` such that `t = t₁ t₂`,
 --    `τ = τ₂`, `∅ ⊢ t₁ ⦂ τ₁ → τ₂`, and `∅ ⊢ t₂ ⦂ τ₁`.
@@ -1984,11 +1976,9 @@ theorem substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {
 --    Moreover, by the induction hypothesis, if `t₁` steps to `t₁'` then
 --    `∅ ⊢ t₁' : Bool`. There are three cases to consider, depending on
 --    which rule was used to show `t ⟶ t'`.
---
 --    - If `t ⟶ t'` by rule `if`, then `t' = if t₁' then t₂ else t₃` with
 --      `t₁ ⟶ t₁'`. By the induction hypothesis, `∅ ⊢ t₁' ⦂ Bool`, and so
 --      `∅ ⊢ t' ⦂ τ` by `if`.
---
 --    - If `t ⟶ t'` by rule `ifTrue` or `ifFalse`, then either `t' = t₂` or
 --      `t' = t₃`, and `∅ ⊢ t' ⦂ τ` follows by assumption.
 --
@@ -2065,7 +2055,6 @@ theorem preservation {t t' : Tm} {τ : Ty}
 --  cumulative: each part starts from the original language.) In each part,
 --  list which properties (Progress, Preservation, both, or neither) become
 --  false. If a property becomes false, give a counterexample.
---
 --  - Suppose we add the following typing rule:
 --
 --                                 <{ Γ ⊢ t ⦂ σ₁→σ₂ }>
@@ -2135,20 +2124,14 @@ theorem preservation {t t' : Tm} {τ : Ty}
 --  Adding pairs, projections, and product types to the system we have
 --  defined is a relatively straightforward matter. Carry out this
 --  extension by modifying the definitions and proofs above:
---
 --  - Constructors for pairs, first and second projections, and product
 --    types have already been added to the definitions of `Ty` and `Tm`.
 --    Also, the definition of substitution has been extended.
---
 --  - Extend the surrounding definitions accordingly (refer to chapter
 --    MoreStlc):
---
 --  - value relation
---
 --  - operational semantics
---
 --  - typing relation
---
 --  - Extend the subtyping relation with this rule:
 --
 --                              σ₁ <: τ₁    σ₂ <: τ₂
@@ -2396,8 +2379,10 @@ theorem formal_proper_subtypes:
   apply sub_inversion_top at h₂
   subst_vars; apply h₂; rfl
 
+--  (End of exercise)
+
 end FormalThoughtExercises
 
 end StlcSub
 
--- Built on 2026-09-08 17:37 UTC
+-- Built on 2026-09-08 17:54 UTC

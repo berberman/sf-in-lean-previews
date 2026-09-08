@@ -36,12 +36,9 @@ open scoped Com MyGetElem
 abbrev Assertion := State → Prop
 
 --  For example,
---
 --  - `fun st => st[X] = 3` holds for states `st` in which
 --    value of `X` is `3`,
---
 --  - `fun st => True` hold for all states, and
---
 --  - `fun st => False` holds for no states.
 
 --   ----------------------------------------
@@ -163,7 +160,7 @@ open scoped Assertion
 --
 --  `{{ f e1 ... en }}` stands for
 --  `(fun st => f (e1 st) ... (en st))`.
-
+--
 --  We can place a raw Lean function directly inside
 --  assertion notation:
 --
@@ -363,26 +360,21 @@ end Assertion.Delab
 --      {{P}} c {{Q}}
 --
 --  meaning:
---
 --  - If command `c` begins execution in a state satisfying
 --    assertion `P`,
---
 --  - and if `c` eventually terminates in some final state,
---
 --  - then that final state will satisfy the assertion `Q`.
 --
 --  Assertion `P` is called the *precondition* of the
 --  triple, and `Q` is the *postcondition*.
 
 --  For example,
---
 --  - The Hoare triple
 --
 --      {{X = 0}} X := X + 1 {{X = 1}}
 --
 --  states that command `X := X + 1` will transform a state
 --  in which `X = 0` to a state in which `X = 1`.
---
 --  - On the other hand,
 --
 --      ∀ m, {{X = m}} X := X + 1 {{X = m + 1}}
@@ -621,15 +613,11 @@ theorem hoare_pre_false {P Q : Assertion} {c : Com} (h : ∀ st, ¬ (P st)) :
 --  We want to be able to *prove* Hoare triples formally.
 --
 --  Here's our plan:
---
 --  - introduce one "proof rule" for each Imp syntactic form
---
 --  - plus a couple of "structural rules" that help glue
 --    proofs together
---
 --  - prove these rules correct in terms of the definition
 --    of `ValidHoareTriple`
---
 --  - prove programs correct using these proof rules,
 --    without ever unfolding the definition of
 --    `ValidHoareTriple`
@@ -1023,7 +1011,7 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
 --  recipe up as a tactic of our own).
 
 --  Here's a good candidate for automation:
-
+--
 --      theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
 --          (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
 --          {{ P }} c {{ Q }} := by
@@ -1205,7 +1193,7 @@ theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
 --  "else" branches.
 
 --  Better:
-
+--
 --      {{P ∧   b}} c1 {{Q}}
 --      {{P ∧ ¬ b}} c2 {{Q}}
 --      ------------------------------------  (hoare_if)
@@ -1490,4 +1478,4 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 --  the rules of Hoare logic as a closed world for reasoning
 --  about programs.
 
--- Built on 2026-09-08 17:36 UTC
+-- Built on 2026-09-08 17:53 UTC

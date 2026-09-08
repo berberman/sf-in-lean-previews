@@ -22,13 +22,13 @@ import SFLCompat
 --  Adding types, constants, and primitive operations for
 --  natural numbers is easy (as we saw in the `StlcExtended`
 --  exercises).
-
+--
 --  A more interesting extension... let-bindings.
 --
 --  When writing a complex expression, it is often useful to
 --  give names to some of its subexpressions: this avoids
 --  repetition and often increases readability.
-
+--
 --  Syntax:
 --
 --        t ::=                   Terms
@@ -79,9 +79,9 @@ import SFLCompat
 --             τ ::=                Types
 --                 | ...
 --                 | τ₁ × τ₂          product type
-
+--
 --  Reduction...
-
+--
 --                                    t₁ ⟶ t₁'
 --                               --------------------                        (pair₁)
 --                               (t₁,t₂) ⟶ (t₁',t₂)
@@ -103,9 +103,9 @@ import SFLCompat
 --
 --                                ------------------                       (sndPair)
 --                                snd (v₁,v₂) ⟶ v₂
-
+--
 --  Typing:
-
+--
 --                           Γ ⊢ t₁ ⦂ τ₁     Γ t₂ ⦂ τ₂
 --                          ------------------------------              (pair)
 --                            Γ ⊢(t₁, t₂) ⦂ τ₁ × τ₂
@@ -166,14 +166,14 @@ import SFLCompat
 --  set of values drawn from one of two given types, e.g.:
 --
 --             Nat + Bool
-
+--
 --  We create elements of these types by tagging elements of
 --  the component types, telling on which side of the sum we
 --  are putting them. E.g.,
 --
 --         inl 42   ⦂ Nat + Bool
 --         inr true ⦂ Nat + Bool
-
+--
 --  In general, the elements of a type `τ₁ + τ₂` consist of
 --  the elements of `τ₁` tagged with the token `inl`, plus
 --  the elements of `τ₂` tagged with `inr`.
@@ -188,9 +188,9 @@ import SFLCompat
 --                  inr unit
 --                else
 --                  inl ...
-
+--
 --  Values of sum type are "destructed" by case analysis:
-
+--
 --          getNat ⦂ Nat+Bool → Nat
 --          getNat =
 --            λx:Nat+Bool,
@@ -401,7 +401,7 @@ import SFLCompat
 --  Note that the right-hand side of this binder mentions
 --  `fact`, the variable being bound - something that is not
 --  allowed according to the way we defined `let` above.
-
+--
 --  Extending our formalization of `let`s to handle
 --  "recursive definitions" would require non-trivial
 --  effort.
@@ -533,7 +533,7 @@ import SFLCompat
 --  famous and extensively studied system. It is often
 --  called *PCF* because it is a simple language of "partial
 --  computable functions".
-
+--
 --  One important point to note is that, unlike definitions
 --  in Lean, there is nothing to prevent functions defined
 --  using `fix` from diverging.
@@ -577,7 +577,6 @@ import SFLCompat
 
 --  As a final example, records can be presented as a
 --  generalization of pairs:
---
 --  - they are n-ary (rather than binary);
 --  - they are accessed by *label* (rather than position).
 
@@ -595,15 +594,13 @@ import SFLCompat
 --             τ ::=                          Types
 --                 | ...
 --                 | {i₁:τ₁, ..., in:τn}         record type
-
+--
 --  Note that this is a quite informal definition compared
 --  to previous ones:
---
 --  - it uses "`...`" in the syntax for records
---
 --  - it omits a usual side condition that the labels of a
 --    record should not contain repetitions.
-
+--
 --  Reduction:
 --
 --                                    ti ⟶ ti'
@@ -617,14 +614,13 @@ import SFLCompat
 --
 --                            -------------------------                    (projRcd)
 --                            {..., i=vi, ...}.i ⟶ vi
-
+--
 --  - In the first rule, `ti` must be the leftmost field
 --    that is not a value;
---
 --  - In the last rule, there should be only one field
 --    called `i`, and all the other fields must contain
 --    values.
-
+--
 --  The typing rules are also simple:
 --
 --                     Γ ⊢ t₁ ⦂ τ₁     ...     Γ ⊢ tn ⦂ Tn
@@ -635,7 +631,7 @@ import SFLCompat
 --                            Γ ⊢ t ⦂ {..., i:Ti, ...}
 --                          ---------------------------------                  (proj)
 --                                Γ ⊢ t.i ⦂ Ti
-
+--
 --  Formalizing all this would take some work.
 
 --  ### Exercise: Formalizing the Extensions
@@ -1022,4 +1018,4 @@ attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl Tm.IsVal
 
 end StlcExtended
 
--- Built on 2026-09-08 17:38 UTC
+-- Built on 2026-09-08 17:55 UTC

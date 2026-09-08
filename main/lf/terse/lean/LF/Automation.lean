@@ -203,7 +203,7 @@ theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α)
 --  The lemmas we've been using for rewriting are the same
 --  ones we'll give to `simp` for it to automatically solve
 --  goals involving those theorems.
-
+--
 --  We tag theorems with `@[simp]` to add them to the set of
 --  rules `simp` considers when simplifying a term.
 
@@ -288,7 +288,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 --  This usage of `simp` is brittle and can break due to
 --  upstream changes.
-
+--
 --  We can fix the style of this proof by changing the
 --  `simp`s to specify which theorems they are using to
 --  simplify:
@@ -305,7 +305,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 --  Another rule around proper `simp` usage applies to the
 --  appropriate definition of `simp` lemmas.
-
+--
 --  Appropriately defined `simp` lemmas simplify left to
 --  right.
 
@@ -346,7 +346,6 @@ namespace RegExp
 --  when a regular expression *matches* some string.
 
 --  Informally this looks as follows:
---
 --  - The regular expression `EmptySet` does not match any
 --    string.
 --
@@ -472,6 +471,8 @@ example : [1, 2, 3] =~ reg_exp_of_list [1, 2, 3] := by
 theorem regexp_match_of_list α (l : List α) : l =~ reg_exp_of_list l := by
   sorry
 
+--  (End of exercise)
+
 --  Something more interesting:
 
 theorem MStar1 α s (re : RegExp α) (h : s =~ re) : s =~ Star re := by
@@ -492,6 +493,8 @@ theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
     s =~ re₁ ∨ s =~ re₂ →
     s =~ Union re₁ re₂ := by
   sorry
+
+--  (End of exercise)
 
 --  The next lemma is stated in terms of the `fold` function
 --  on Lists: If `ss : List (List α)` represents a sequence
@@ -518,9 +521,11 @@ def EmptyStr' {α : Type} := @Star α (EmptySet)
 --  State and prove that this `EmptyStr'` definition matches
 --  exactly the same strings as the `EmptyStr` constructor.
 
+--  (End of exercise)
+
 --  Naturally, proofs about `ExpMatch` often require
 --  induction (on evidence!).
-
+--
 --  For example, suppose we want to prove the following
 --  intuitive fact: If a string `s` is matched by a regular
 --  expression `re`, then all elements of `s` must occur as
@@ -906,7 +911,9 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
 
+--  (End of exercise)
+
 end Pumping
 end RegExp
 
--- Built on 2026-09-08 17:35 UTC
+-- Built on 2026-09-08 17:52 UTC

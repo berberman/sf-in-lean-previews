@@ -69,7 +69,6 @@ inductive Bexp where
 --      | b ∧ b
 
 --  Compared to the Lean version above...
---
 --  - The BNF is more informal -- for example, it gives some suggestions
 --    about the surface syntax of expressions (like the fact that the
 --    addition operation is written with an infix `+`) while leaving other
@@ -350,7 +349,7 @@ end ArithUnnamed
 --  The version above makes the rules somewhat easier to read, but gives
 --  less control over naming the hypotheses during proofs involving the
 --  relation. For this reason we adopt the named style.
-
+--
 --  It will be convenient to have an infix notation for `Aexp.EvalR`. We'll
 --  write `e ⇓ n` to mean that arithmetic expression `e` evaluates to value
 --  `n`. The `⇓` symbol is typed `\Downarrow`.
@@ -558,6 +557,8 @@ theorem evalR_iff_eval (b : Bexp) (bv : Bool) :
   · subst h
     induction b <;> constructor <;> simp_all [Aexp.evalR_iff_eval]
 
+--  (End of exercise)
+
 end Bexp
 end Slang
 
@@ -680,4 +681,4 @@ end Slang.AevalRExtended
 --  switch between points of view at will -- exactly what we did above in
 --  `Slang.Aexp.evalR_iff_eval` and `Slang.Bexp.evalR_iff_eval`.
 
--- Built on 2026-09-08 17:36 UTC
+-- Built on 2026-09-08 17:53 UTC

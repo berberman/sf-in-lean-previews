@@ -27,7 +27,6 @@ import SFLCompat
 --  compiles its dependencies as needed.
 --
 --  Troubleshooting:
---
 --  - If you get complaints about missing imports, make sure you have run
 --    `lake build` from the project root directory in a terminal, at least
 --    once.
@@ -201,7 +200,7 @@ sf_recall
 
 --  For the `add_zero` simplification rule, we were able to prove that
 --  `zero` is a neutral element for `+` on the *right* using just `rfl`.
-
+--
 --      theorem add_zero : ∀ (n : Nat), n + zero = n := by
 --        intro n
 --        rfl
@@ -260,7 +259,6 @@ sf_expect_failure_in
 --  induction over natural numbers*: If `P(n)` is some proposition
 --  involving a natural number `n` and we want to show that `P` holds for
 --  all numbers `n`, we can reason like this:
---
 --  - show that `P(zero)` holds;
 --  - show that, for any `n'`, if `P(n')` holds, then so does `P(succ n')`;
 --  - conclude that `P(n)` holds for all `n`.
@@ -300,7 +298,7 @@ theorem zero_add (n : Nat) : zero + n = n := by
 --  goal to `succ (zero + n') = succ n'`. Then `rewrite [ih]` rewrites
 --  `zero + n'` to `n'`, and the goal becomes `succ n' = succ n'`, which
 --  closes with reflexivity.
-
+--
 --  Here's another theorem to try, this time involving equality on natural
 --  numbers.
 
@@ -371,7 +369,7 @@ theorem add_assoc (n m p : Nat) :
 --  we could write this:
 --
 --      rw [double_zero]
-
+--
 --  One small caveat: `rw [...]` only performs a quick reflexivity check
 --  after rewriting; it does not unfold every definition. So, in some
 --  cases, `rw` may leave a goal that can actually be solved immediately by
@@ -431,7 +429,7 @@ theorem mul_zero_add' (n m : Nat) :
 --  The `have` tactic introduces a local lemma into the proof. We prove it
 --  immediately, and it's available as a hypothesis for the rest of the
 --  proof.
-
+--
 --  As another example, suppose we want to prove that
 --  `(n + m) + (p + q) = (m + n) + (p + q)`. The only difference between
 --  the two sides of the `=` is that the arguments `m` and `n` to the first
@@ -539,20 +537,17 @@ theorem add_assoc'' (n m p : Nat) :
 --
 --  On paper, a (somewhat pedantic) mathematician might write the proof
 --  like this:
---
 --  - *Theorem*: For any `n`, `m`, and `p`,
 --
 --        n + (m + p) = (n + m) + p.
 --
 --  *Proof*: By induction on `p`.
---
 --  - First, suppose `p = zero`. We must show that
 --
 --        n + (m + zero) = (n + m) + zero.
 --
 --  This follows directly from the definition of `+` (since `x + zero = x`
 --  for any `x`).
---
 --  - Next, suppose `p = p' + 1` (i.e., `p = succ p'`), where
 --
 --        n + (m + p') = (n + m) + p'.
@@ -566,7 +561,7 @@ theorem add_assoc'' (n m p : Nat) :
 --        (n + (m + p')) + 1   and   ((n + m) + p') + 1
 --
 --  respectively, which are equal by the induction hypothesis. *QED*.
-
+--
 --  The overall form of the formal and informal proofs is basically
 --  similar, and of course this is no accident: Lean has been designed so
 --  that its `induction` tactic generates the same sub-goals, in the same
@@ -587,7 +582,6 @@ theorem add_assoc'' (n m p : Nat) :
 
 --  Let natural numbers `n` and `m` be given. We show `n + m = m + n` by
 --  induction on `m`.
---
 --  - First, suppose `m = zero`. We must show
 --
 --      n + zero = zero + n.
@@ -598,7 +592,6 @@ theorem add_assoc'' (n m p : Nat) :
 --
 --  We have already shown (lemma `zero_add`) that `zero + n = n`. Thus both
 --  sides equal `n`.
---
 --  - Next, suppose `m = m' + 1` for some `m'`, where `n + m' = m' + n`. We
 --    must show that
 --
@@ -626,10 +619,8 @@ theorem add_assoc'' (n m p : Nat) :
 --  Proof:
 
 --  By induction on `n`.
---
 --  - First, suppose `n = zero`. We must show `(zero == zero) = true`. This
 --    follows directly from the definition of `beq`.
---
 --  - Next, suppose `n = n' + 1`, where `(n' == n') = true`. We must show
 --    `(n' + 1 == n' + 1) = true`. This follows directly from the induction
 --    hypothesis and the definition of `beq`.
@@ -643,7 +634,7 @@ theorem add_assoc'' (n m p : Nat) :
 --
 --  In VS Code, a lightbulb icon appears on the left when a code action is
 --  available at your cursor.
-
+--
 --  You can click the icon or open the code action menu with `Ctrl + .` on
 --  Windows/Linux or `Command + .` on macOS. For more information, see the
 --  [Lean 4 VSCode extension
@@ -653,7 +644,7 @@ theorem add_assoc'' (n m p : Nat) :
 --  pattern matching. This can be especially useful when working with
 --  `match` expressions or with tactics such as `cases` and `induction`,
 --  which we saw earlier in the book.
-
+--
 --  Let's look at a code action for `induction`. Suppose we start with the
 --  following incomplete proof:
 
@@ -662,7 +653,7 @@ sf_expect_failure_in
     induction n
 
 --  Put your cursor on `induction n` and open the code action menu.
-
+--
 --  You should see "Generate an explicit pattern match for 'induction'." in
 --  the list. If you choose this action, Lean adds an explicit branch for
 --  each constructor:
@@ -674,7 +665,7 @@ example (n : Nat) : Nat.beq n n = true := by
 
 --  This gives us the basic structure of the proof without requiring us to
 --  write each branch by hand. We can then focus on proving each case.
-
+--
 --  One possible proof is the following.
 
 example (n : Nat) : Nat.beq n n = true := by
@@ -700,10 +691,10 @@ sf_expect_failure_in
 --  Now you just have to replace the holes `_` with your definition. You
 --  can use code actions freely to fill out `induction`, `case`, and
 --  `match` branches while working with this book.
-
+--
 --  One note: Sometimes the variables the code action chooses are not
 --  ideal, so you might want to change them.
-
+--
 --  For example, here is what we get from the code action for `add_comm`
 
 theorem add_comm' (n m : Nat) : n + m = m + n := by
@@ -724,6 +715,8 @@ theorem mul_one (p : Nat) :
   induction p with
   | zero       => rw [mul_zero]
   | succ p' ih => rw [mul_succ, ih, succ_eq_add_one]
+
+--  (End of exercise)
 
 --  By default, `rewrite` and `rw` rewrite left to right, i.e., they
 --  transform the goal (or a hypothesis) from the form on the left side of
@@ -1005,6 +998,8 @@ theorem double_incr_bin (b : Bin) :
   | b0 n => rw [incr_b0, doubleBin_b1, doubleBin_b0, incr_b0, incr_b1, incr_b0]
   | b1 n => rw [incr_b1, doubleBin_b0, doubleBin_b1, incr_b0, incr_b1, incr_b1]
 
+--  (End of exercise)
+
 --  Let's return to our desired theorem:
 
 sf_expect_failure_in
@@ -1126,7 +1121,9 @@ theorem bin_nat_bin (b : Bin) :
     rw [natToBin_succ]
     rw [natToBin_two_mul, ih]
 
+--  (End of exercise)
+
 end NatToBin
 end NatPlayground.Nat
 
--- Built on 2026-09-08 17:35 UTC
+-- Built on 2026-09-08 17:51 UTC

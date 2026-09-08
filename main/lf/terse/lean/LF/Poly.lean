@@ -384,7 +384,7 @@ example : (3, 5).2 = 5 := by rfl
 --
 --  The `dsimp only` tactic can be used to simplify
 --  `(x, y).fst` into `x` and `(x, y).snd` into `y`.
-
+--
 --  Be careful not to get `(x, y)` and `α × β` confused!
 
 --  What does this function do?
@@ -683,4 +683,4 @@ def fold_plus : List Nat → Nat → Nat :=
 --  Output:
 --    fold_plus : List Nat → Nat → Nat
 
--- Built on 2026-09-08 17:35 UTC
+-- Built on 2026-09-08 17:52 UTC

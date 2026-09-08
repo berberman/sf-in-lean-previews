@@ -7,7 +7,7 @@ import SFLCompat
 
 --  In this chapter, we will learn to write more idiomatic Lean using its
 --  more powerful tools.
-
+--
 --  This includes the natural numbers from its standard library, tactics
 --  which can search for lemmas from the standard library, namespaces for
 --  organizing lemmas, and a new tactic, `calc`, which enables more
@@ -57,7 +57,7 @@ example : (2 * 2 : Nat) = 4 := by rfl
 --  `@[irreducible]`, so we can perform *automatic simplification* of
 --  functions on natural numbers, which is appropriate when their low-level
 --  behaviors are not the primary focus of proofs.
-
+--
 --  Doing so is very helpful for large numbers — we would not want to write
 --  out the hundreds or thousands of `rewrite` steps needed for proving
 --  examples like the following!
@@ -73,7 +73,7 @@ example (n m : Nat) (h : n = m) : n = m := by
   rw [h]
 
 --  From now on we will use the built-in `Nat` type.
-
+--
 --  We will write `Nat.<theorem>` to reference Lean's version of
 --  `<theorem>`; by convention, theorems about a type live in the namespace
 --  of that type.
@@ -155,11 +155,11 @@ theorem mul_three_beq (n : Nat) :
 
 --  In Lean proofs, long `rw` chains are useful, but they are sometimes
 --  hard to read because the intermediate goals are invisible.
-
+--
 --  Furthermore, sometimes we *know* exactly how we want to manipulate the
 --  terms of a proof, but don't want to have the tactics like
 --  `Nat.add_comm` and `Nat.add_assoc` "guess" which subterms to rewrite.
-
+--
 --  The `calc` tactic writes down the intermediate goals of a proof, and
 --  allows us to specify exactly which rewrite rules to apply at each step.
 --  It is designed to mimic the style of proofs in mathematics textbooks,
@@ -169,7 +169,7 @@ theorem mul_three_beq (n : Nat) :
 --      = (n + m) + k        ...   [by associativity of addition]
 --      = (m + n) + k        ...   [by commutativity of addition]
 --      = m + (n + k)        ...   [by associativity of addition]
-
+--
 --  Note how we can see each intermediate step of this proof when we look
 --  at it this way. Let's look at how we might prove this theorem (i.e.,
 --  that `n + (m + k) = m + (n + k)`) in Lean.
@@ -218,6 +218,8 @@ theorem succ_mul_succ' (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
   sorry
 
+--  (End of exercise)
+
 --  If you prefer `rw` to `calc`, that's fine! Each has particular uses,
 --  and both will be tools in your ever-growing toolbox of tactics.
 
@@ -245,7 +247,7 @@ sf_expect_failure_in
 --    ⊢ addThrice n = n + addTwice n
 
 --  What happened?
-
+--
 --  Consulting our definitions, what we are trying to prove amounts to the
 --  following equation:
 --
@@ -253,7 +255,7 @@ sf_expect_failure_in
 --
 --  These two things are not definitionally equal, so we cannot use `rfl`
 --  alone.
-
+--
 --  A natural next step is to rewrite by `Nat.add_assoc` so that `rfl`
 --  should work on the result.
 
@@ -275,7 +277,7 @@ sf_expect_failure_in
 --  The reason is that the expression in which we are trying to rewrite
 --  `Nat.add_assoc` isn't of the form `n + m + k` precisely; it is
 --  `addThrice n`.
-
+--
 --  We need to unfold the underlying definitions of `addThrice` and
 --  `addTwice` so that `rw`, which only operates on syntax, can see the
 --  addition. We can do this using the `rw` tactic.
@@ -299,6 +301,8 @@ example (n : Nat) : addThrice n = n + addTwice n := by
 
 theorem rwUnfold (n m : Nat) (h : m = n) : addThrice m = n + (n + n) := by
   sorry
+
+--  (End of exercise)
 
 --  Rewriting can also be used in places where `rfl` can't, like
 --  hypotheses.
@@ -476,6 +480,8 @@ theorem Nat.even_succ (n : Nat) :
     (n + 1).even = !(n.even) := by
   sorry
 
+--  (End of exercise)
+
 --  We reprove here for Lean's `Nat` some theorems about `Nat.even` and
 --  `Nat.double`, which we had previously proven for our custom
 --  `NatPlayground.Nat`.
@@ -494,6 +500,8 @@ theorem Nat.double_add (n : Nat) : n.double = n + n := by
 theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
   sorry
 
+--  (End of exercise)
+
 --  In the remainder of the book, we use Lean's built-in natural numbers
 --  everywhere. We also recommend using `rw?` and `exact?` to search for
 --  lemmas (though these should not appear in finished proofs).
@@ -501,4 +509,4 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 --  With these tools in hand, we can begin to prove properties about more
 --  sophisticated forms of data, beginning with `Lists`.
 
--- Built on 2026-09-08 17:34 UTC
+-- Built on 2026-09-08 17:51 UTC
