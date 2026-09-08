@@ -841,24 +841,6 @@ example (n m p q : Nat)
 --  idiomatic, though forward reasoning can sometimes be easier to follow
 --  or more natural for particular proofs.
 --
---  Note that the `apply` tactic, and indeed any tactic, can target the
---  goal explicitly rather than implicitly: you can name it using the
---  turnstile symbol `⊢`, written `\|-`, `\goal` or `\vdash`. Since the
---  goal is exactly what ordinary `apply` already works on, `apply t at ⊢`
---  behaves exactly like `apply t`.
-
-example (p q : Prop) (h : p → q) (hp : p) : q := by
-  apply h at ⊢
-  exact hp
-
---  This generalizes beyond `apply`: any tactic that accepts an `at` clause
---  can target several locations at once, including the goal, by listing
---  them together after `at`.
-
-example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
-  rw [Nat.add_zero] at h ⊢
-  assumption
-
 --  You may be interested to know that the `apply ... at ...` tactic is not
 --  part of Lean's core set of tactics. However, Lean makes it very easy
 --  for users to define new tactics that suit their particular proof style,
@@ -1586,4 +1568,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Built on 2026-09-08 11:57 UTC
+-- Built on 2026-09-08 13:12 UTC

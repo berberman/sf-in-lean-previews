@@ -504,22 +504,6 @@ example (n m p q : Nat)
   apply h at hnm
   exact hnm
 
---  The target of `at` can also be the goal itself, named
---  with `⊢`. Since that is exactly what ordinary `apply`
---  already works on, `apply t at ⊢` behaves exactly like
---  `apply t`:
-
-example (p q : Prop) (h : p → q) (hp : p) : q := by
-  apply h at ⊢
-  exact hp
-
---  More generally, `at` can list several locations at once,
---  including the goal:
-
-example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
-  rw [Nat.add_zero] at h ⊢
-  assumption
-
 --  ## Specializing Hypotheses
 
 --  The `have` tactic, which we have already seen, supports
@@ -765,4 +749,4 @@ example (n m p q : Nat)
 --    generalizing the listed local variables, giving a more
 --    general induction hypothesis
 
--- Built on 2026-09-08 11:57 UTC
+-- Built on 2026-09-08 13:12 UTC

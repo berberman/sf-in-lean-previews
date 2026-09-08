@@ -258,13 +258,97 @@
     },
     "375": {
       "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "e48cbacdd5a85602868f816f6574f116d72e8cf4",
       "preview_path": "pr/375/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34230273317",
+      "status": "published",
       "title": "Tactics: More tidying",
       "url": "https://github.com/plclub/sf-in-lean/pull/375"
+    },
+    "376": {
+      "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "924e77acaa3d569cbed8e3bb481d65e9f0ca6cd0",
+      "preview_path": "pr/376/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34231358138",
+      "status": "published",
+      "title": "Customize VSCode title/activity bar colors",
+      "url": "https://github.com/plclub/sf-in-lean/pull/376"
     }
   },
   "schema": 3
