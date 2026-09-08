@@ -1,5 +1,5 @@
 {
-  "main_sha": "c7e0ba4cf1c87ea2524fb2122b289821191f1f42",
+  "main_sha": "393e106ad9f1944342bb30c019cdee13345dadd7",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -245,53 +245,6 @@
       "status": "published",
       "title": "Customize VSCode title/activity bar colors",
       "url": "https://github.com/plclub/sf-in-lean/pull/376"
-    },
-    "380": {
-      "base_sha": "9fdcf66c9ed7214a0e354227c4b4d888ffbf3508",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "d35961127b1ed616331f4decca85644710735eba",
-      "preview_path": "pr/380/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34258016005",
-      "status": "published",
-      "title": "Poly: Tidying",
-      "url": "https://github.com/plclub/sf-in-lean/pull/380"
     }
   },
   "schema": 3
