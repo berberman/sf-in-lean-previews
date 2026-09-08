@@ -2158,4 +2158,4 @@ theorem preservation (t t' : Tm) (τ : Ty)
 
 end StlcExtended
 
--- Built on 2026-09-07 18:21 UTC
+-- Built on 2026-09-08 09:11 UTC
