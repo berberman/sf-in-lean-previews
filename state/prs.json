@@ -251,8 +251,8 @@
       "changed_variants": [],
       "head_sha": "c071cfc8816a8e3276ca0a428c8a881b6b27f3e0",
       "preview_path": "pr/377/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34250484508",
+      "status": "ci-failed",
       "title": "Improvements to Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/377"
     },
@@ -302,6 +302,16 @@
       "status": "published",
       "title": "Tactics: missing title; release",
       "url": "https://github.com/plclub/sf-in-lean/pull/378"
+    },
+    "379": {
+      "base_sha": "fc10434ac1533f5b9628127815b8be5f3c5a5b45",
+      "changed_variants": [],
+      "head_sha": "5a3832da7675044c0b9d9c4a1352e42412d0f478",
+      "preview_path": "pr/379/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Fix autograder directives; fix gradescope autograder",
+      "url": "https://github.com/plclub/sf-in-lean/pull/379"
     }
   },
   "schema": 3
