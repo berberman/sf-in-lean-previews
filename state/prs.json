@@ -200,7 +200,27 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/352"
     },
     "362": {
-      "base_sha": "334c7f217db97b1145ea525f6dc00c349686a678",
+      "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
+      "changed_variants": [],
+      "head_sha": "82afd1b6278e2d6ead445822c310859c4ea2f230",
+      "preview_path": "pr/362/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Initial Port of Subtyping",
+      "url": "https://github.com/plclub/sf-in-lean/pull/362"
+    },
+    "374": {
+      "base_sha": "6c0baecadc00bdb0a0dc560033cef46e1439612c",
+      "changed_variants": [],
+      "head_sha": "0ec7eb55d94b78873c4a4387da489b59d167064f",
+      "preview_path": "pr/374/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34173349847",
+      "status": "ci-failed",
+      "title": "Add missing space",
+      "url": "https://github.com/plclub/sf-in-lean/pull/374"
+    },
+    "375": {
+      "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -239,30 +259,10 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "4a23f3c02b77852d0977f6ed1462b16a3ac4895e",
-      "preview_path": "pr/362/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34142736999",
-      "status": "published",
-      "title": "Initial Port of Subtyping",
-      "url": "https://github.com/plclub/sf-in-lean/pull/362"
-    },
-    "374": {
-      "base_sha": "6c0baecadc00bdb0a0dc560033cef46e1439612c",
-      "changed_variants": [],
-      "head_sha": "0ec7eb55d94b78873c4a4387da489b59d167064f",
-      "preview_path": "pr/374/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34173349847",
-      "status": "ci-failed",
-      "title": "Add missing space",
-      "url": "https://github.com/plclub/sf-in-lean/pull/374"
-    },
-    "375": {
-      "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
-      "changed_variants": [],
-      "head_sha": "90f11e631a45ebf9f75521bca7d554d278bf76f1",
+      "head_sha": "a5d757de1ee3b84d39eba59da0e435e7b39d374c",
       "preview_path": "pr/375/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34223326459",
+      "status": "published",
       "title": "Tactics: More tidying",
       "url": "https://github.com/plclub/sf-in-lean/pull/375"
     }
