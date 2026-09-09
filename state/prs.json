@@ -95,16 +95,6 @@
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
-    "307": {
-      "base_sha": "6c0baecadc00bdb0a0dc560033cef46e1439612c",
-      "changed_variants": [],
-      "head_sha": "06fa38c3afe17ece3f9d58fffe948f66bc604b8f",
-      "preview_path": "pr/307/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34161992241",
-      "status": "ci-failed",
-      "title": "Style pass over IndProp",
-      "url": "https://github.com/plclub/sf-in-lean/pull/307"
-    },
     "347": {
       "base_sha": "ff6045bb6dbab9c4d60fa0fe2b5fbc34e60625c5",
       "changed_variants": [
@@ -295,11 +285,48 @@
     },
     "382": {
       "base_sha": "393e106ad9f1944342bb30c019cdee13345dadd7",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "8a44be0fd99b5bf56eaf649c16c5ac9a66129462",
       "preview_path": "pr/382/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34289998490",
+      "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
     }
