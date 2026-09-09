@@ -109,7 +109,7 @@ def nextWorkingDay (d : Day) : Day :=
 --  If you ever need to know the type of *any* pattern, object, or
 --  function, you can hover over it with your mouse, either in VS Code or
 --  in the HTML version of the chapter.
---
+
 --  Having defined a function, we should check that it works on some
 --  examples. There are a few different ways to do this in Lean. One is to
 --  use the `#eval` command to evaluate a compound expression involving
@@ -448,8 +448,6 @@ theorem true_and' : ∀ (b : MyBool), (MyBool.true && b) = b := by
 theorem false_or : ∀ (b : MyBool), (MyBool.false || b) = b := by
   sorry
 
---  (End of exercise)
-
 --  In this book we often use `sorry` as a placeholder for you to replace
 --  with an actual proof. This tells Lean that we want to skip trying to
 --  prove the theorem and just accept it as a given. This can be useful for
@@ -545,15 +543,17 @@ inductive Color : Type where
 --  or more other constructors or constructor expressions, obeying the
 --  declared number and types of the constructor arguments. E.g., these are
 --  valid constructor expressions...
+--
 --  - `RGB.red`
 --  - `Bool.true`
 --  - `Color.primary` `RGB.red`
 --
 --  ...but these are not:
+--
 --  - `RGB.red Color.primary`
 --  - `Bool.true RGB.red`
 --  - `Color.primary (Color.primary RGB.red)`
---
+
 --  We can define functions on colors using pattern matching, just as we
 --  did for `Day` and `MyBool`.
 
@@ -591,7 +591,7 @@ def isRed (c : Color) : Bool :=
 --  `Color.primary _` matches every `Color.primary` color, but because
 --  patterns are checked in order, the `Color.primary _` case will never be
 --  reached if the color is `RGB.red`.
---
+
 --  An alternative way to write the same function would be to explicitly
 --  nest match statements:
 
@@ -607,7 +607,7 @@ def isRed' (c : Color) : Bool :=
 --  This `isRed'` function produces the same result as `isRed`. It also
 --  illustrates the *use* of a pattern variable in the corresponding
 --  branch.
---
+
 --  The `Color.primary r` pattern stores the `RGB` argument into variable
 --  `r`, and then pattern matches on that argument to produce the final
 --  result.
@@ -846,7 +846,7 @@ sf_expect_failure_in
 --  Output:
 --    !true : Bool
 
---  ### Exercise (1 star): custom_namespace_checks (Manually graded) ⭐
+--  ### Exercise (1 star): custom_namespace_checks ⭐
 
 --  Predict the output of each of the statements below. Would their results
 --  change depending on which namespace the statements appear in? How?
@@ -926,7 +926,7 @@ structure NibbleStruct : Type where
 --    { x0 := Playground.Bit.b0, x1 := Playground.Bit.b0, x2 := Playground.Bit.b0, x3 := Playground.Bit.b0 } : NibbleStruct
 
 --  The `.mk` constructor is created for us.
---
+
 --  A nicer way to build structure values is to assign values to their
 --  fields by name.
 
@@ -1063,14 +1063,14 @@ def minusTwo (n : Nat) : Nat :=
 
 --  These are all things that can be applied to a number to yield a number.
 --  But there is a difference between `succ` and the other two.
---
+
 --  Functions like `pred` and `minusTwo` are defined by giving *computation
 --  rules* — e.g., the definition of `pred` says that
 --  `pred (succ (succ zero))` can be simplified to `succ zero` — while the
 --  definition of `succ` has no such behavior attached. Although it is like
 --  a function in the sense that it can be applied to an argument, it does
 --  not *do* anything at all! It is just the way we write down numbers.
---
+
 --  We can also define *recursive functions*: functions that call
 --  themselves repeatedly down to a base case. Recursion is the essence of
 --  repeated computation in functional programming; in this course, we will
@@ -1130,6 +1130,7 @@ scoped infixl:65 " + " => add
 --  their behavior.
 --
 --  Here is a simplification rule about `add`:
+--
 --  - `n + zero = n`
 --
 --  In Lean, this rule looks like this:
@@ -1391,8 +1392,6 @@ theorem mul_succ : ∀ n m : Nat, n * (succ m) = (n * m) + n := by
 
 attribute [irreducible] mul
 
---  (End of exercise)
-
 --  Prove this theorem using rewriting with the simplification rules.
 
 theorem zero_add_one : (zero + one : Nat) = one := by
@@ -1431,7 +1430,7 @@ theorem two_mul_two : (two * two : Nat) = four := by
 --  When we say that Lean relies on almost nothing that's truly built-in,
 --  we really mean it: even testing equality is not a primitive operation,
 --  but an ordinary function that we could reimplement ourselves as users.
---
+
 --  Here is a function `beq` that tests natural numbers for equality,
 --  yielding a boolean.
 
@@ -1487,8 +1486,6 @@ theorem blt_test3 : blt four two = false := sorry
 
 attribute [irreducible] blt ble
 
---  (End of exercise)
-
 --  We'll be using `beq` a lot, so let's give it an infix notation.
 
 scoped infixl:30 " == " => beq
@@ -1498,7 +1495,7 @@ scoped infixl:30 " == " => beq
 --  similarities later. For now, notice that `x = y` is a logical *claim* —
 --  a "proposition" — that we can try to prove, while `x == y` is a boolean
 --  *expression* whose value (either `true` or `false`) Lean can compute.
---
+
 --  We can also now define the simplification rules for `beq` with our new
 --  notation, one for each of the four cases of control flow through the
 --  function.
@@ -1644,7 +1641,7 @@ theorem not_involutive (b : Bool) : (!!b) = b := by
 --  how to search through the standard library for theorems like these. For
 --  now, note that, if you hover over the names of these theorems in VS
 --  Code, the Lean extension will show you what the theorem proves.
---
+
 --  We can also have nested case analysis:
 
 theorem and_commutative (b c : Bool) :
@@ -1843,8 +1840,6 @@ theorem binToNat_test3 : binToNat (.b0 (.b0 (.b1 .z))) = four := sorry
 
 attribute [irreducible] incr binToNat
 
---  (End of exercise)
-
 end Nat
 
 --  ## More Exercises
@@ -1915,8 +1910,11 @@ inductive ScreeningStatus : Type where
 
 --  Next, we define the possible stages of the airport process a traveler
 --  can inhabit:
+--
 --  - they have not yet purchased a ticket;
+--
 --  - they have a ticket but have not yet checked in;
+--
 --  - they have checked in, in which case the database also stores the
 --    screening status of their carry-on bag.
 --
@@ -1937,8 +1935,6 @@ inductive Traveler : Type where
 def buyTicket (t : Traveler) : Traveler := sorry
 theorem buyTicket_test1 : buyTicket (.noTicket .ordinary) = .ticketed .ordinary := sorry
 theorem buyTicket_test2 : buyTicket (.checkedIn .prohibited .blocked) = .checkedIn .prohibited .blocked := sorry
-
---  (End of exercise)
 
 --  Here are the simplification rules for `buyTicket`:
 
@@ -1964,8 +1960,6 @@ theorem buyTicket_idempotent (t : Traveler) :
     buyTicket (buyTicket t) = buyTicket t := by
   sorry
 
---  (End of exercise)
-
 --  A traveler can check in only after buying a ticket. Checking in records
 --  that their carry-on bag still needs to be inspected. Calling `checkIn`
 --  before buying a ticket or after already checking in does nothing.
@@ -1977,8 +1971,6 @@ def checkIn (t : Traveler) : Traveler := sorry
 theorem checkIn_test1 : checkIn (.noTicket .ordinary) = .noTicket .ordinary := sorry
 theorem checkIn_test2 : checkIn (.ticketed .prohibited) = .checkedIn .prohibited .notScreened := sorry
 theorem checkIn_test3 : checkIn (.checkedIn .ordinary .cleared) = .checkedIn .ordinary .cleared := sorry
-
---  (End of exercise)
 
 --  Again, we record one simplification rule for each case:
 
@@ -2004,8 +1996,6 @@ theorem buyTicket_then_checkIn (bagContent : BagContent) :
     checkIn (buyTicket (.noTicket bagContent)) = .checkedIn bagContent .notScreened := by
   sorry
 
---  (End of exercise)
-
 --  Carry-on inspection happens only after check-in. A bag containing only
 --  ordinary items is cleared, while a bag containing a prohibited item is
 --  blocked. If the traveler has not checked in, `inspectBag` does nothing.
@@ -2019,8 +2009,6 @@ def inspectBag (t : Traveler) : Traveler := sorry
 theorem inspectBag_test1 : inspectBag (.ticketed .prohibited) = .ticketed .prohibited := sorry
 theorem inspectBag_test2 : inspectBag (.checkedIn .ordinary .notScreened) = .checkedIn .ordinary .cleared := sorry
 theorem inspectBag_test3 : inspectBag (.checkedIn .prohibited .notScreened) = .checkedIn .prohibited .blocked := sorry
-
---  (End of exercise)
 
 --  Again, we record one characterization lemma for each case.
 
@@ -2046,8 +2034,6 @@ attribute [irreducible] inspectBag
 theorem inspectBag_idempotent (t : Traveler) : inspectBag (inspectBag t) = inspectBag t := by
   sorry
 
---  (End of exercise)
-
 --  A traveler may leave the screened area and return with a different
 --  carry-on bag. Since the previous screening result applied to the old
 --  bag, a new carry-on must be screened again before the traveler can
@@ -2061,8 +2047,6 @@ def changeBag (newContent : BagContent) (t : Traveler) : Traveler := sorry
 
 theorem changeBag_test1 : changeBag .prohibited (.ticketed .ordinary) = .ticketed .prohibited := sorry
 theorem changeBag_test2 : changeBag .prohibited (.checkedIn .ordinary .cleared) = .checkedIn .prohibited .notScreened := sorry
-
---  (End of exercise)
 
 --  As before, we record one simplification rule for each case.
 
@@ -2103,9 +2087,7 @@ theorem inspectBag_changeBag_comm_ticketed
     changeBag newContent (inspectBag (.ticketed oldContent)) := by
   sorry
 
---  (End of exercise)
-
 end Airport
 end NatPlayground
 
--- Built on 2026-09-09 00:03 UTC
+-- Built on 2026-09-02 16:10 UTC

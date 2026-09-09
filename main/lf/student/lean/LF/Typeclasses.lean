@@ -367,8 +367,6 @@ instance : HasThree Nat where
   one_neq_two := sorry
   --  FILL IN HERE
 
---  (End of exercise)
-
 namespace Algebra
 
 --  This facility is very powerful, and is used extensively in Lean to
@@ -376,13 +374,19 @@ namespace Algebra
 --  how those operators interact. As a simple example, let's use a
 --  typeclass to define a *monoid*, a simple algebraic structure that
 --  includes four things:
+--
 --  - an underlying set of data, represented by a type `α`,
+--
 --  - an operator (which we'll write `⊗`, typed otimes) that combines two
 --    elements of type `α` into one,
+--
 --  - a particular element `id` of type `α`, which we call the "identity
 --    element", and
+--
 --  - some laws about the interaction of `⊗` and `id`, namely that:
+--
 --    - `∀ x, id ⊗ x = x = x ⊗ id`, and
+--
 --    - `∀ x y z, x ⊗ (y ⊗ z) = (x ⊗ y) ⊗ z` (i.e., that `⊗` is
 --      associative)
 --
@@ -442,8 +446,6 @@ instance {α : Type} : Monoid (List α) where
   right_id := sorry
   assoc := sorry
 
---  (End of exercise)
-
 --  In addition to defining instances of `Monoid`, we can also prove some
 --  properties about monoids in general, just based on the laws defined on
 --  the typeclass. One simple theorem about monoids is that the identity
@@ -502,8 +504,6 @@ instance : Group Int where
   left_inv := sorry
   right_inv := sorry
 
---  (End of exercise)
-
 --  The study of groups is called *group theory* and is a rich area of
 --  mathematics. Here, we will only prove a handful of its simplest
 --  results:
@@ -537,8 +537,6 @@ theorem inv_inv' {α : Type} {g : Group α} (x y z : α)
 
 theorem inv_inv {α : Type} {g : Group α} (x : α) : g.inv (g.inv x) = x := by
   sorry
-
---  (End of exercise)
 
 end Algebra
 
@@ -867,8 +865,6 @@ theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {
     (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
   sorry
 
---  (End of exercise)
-
 --  The two remaining facts are equalities *between maps*, so we first need
 --  to say when two maps are equal. Since a total map is implemented as a
 --  function, this is effectively the functional extensionality principle
@@ -913,8 +909,6 @@ example : "bar" →ₜ true ; "foo" →ₜ true = "foo" →ₜ true ; "bar" →�
 theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) : (a →ₜ m[a] ; m) = m := by
   sorry
 
---  (End of exercise)
-
 --  Similarly, if we update a map `m` at a key `a` with a value `b₁` and
 --  then update again with the same key `a` and another value `b₂`, the
 --  resulting map behaves the same (gives the same result when applied to
@@ -927,8 +921,6 @@ theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) 
 theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
     (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
   sorry
-
---  (End of exercise)
 
 --  Note to developers (mwhicks1, NOW):
 --      Two things the Rocq source says here have been dropped.
@@ -962,8 +954,6 @@ theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β
 theorem update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :
     (a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m) = (a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m) := by
   sorry
-
---  (End of exercise)
 
 end TotalMap
 
@@ -1327,8 +1317,6 @@ theorem even_double_exists (n : Nat) :
     ∃ (k : Nat), n = bif even n then double k else double k + 1 := by
   sorry
 
---  (End of exercise)
-
 --  Now the main theorem:
 
 theorem even_iff_Even {n : Nat} : even n = true ↔ Even n where
@@ -1350,6 +1338,7 @@ end Nat
 --
 --  Similarly, to state that two numbers n and m are equal, we can say
 --  either
+--
 --  - that `n == m` returns `true`, or
 --  - that `n = m`
 --
@@ -1458,4 +1447,4 @@ example {α : Type} (x : α) [BEq α] [LawfulBEq α] (xs : List α)
 
 end Reflection
 
--- Built on 2026-09-09 00:03 UTC
+-- Built on 2026-09-02 16:10 UTC

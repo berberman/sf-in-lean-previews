@@ -383,18 +383,18 @@ declare_syntax_cat imp_com
 /-- The command that does nothing (`skip`) -/
 syntax:max ident : imp_com
 /-- Sequencing: one command after another (right associative. min + 1 = 11) -/
-syntax:min imp_com:11 Lean.Parser.semicolonOrLinebreak ppHardSpace imp_com:min : imp_com
+syntax:min imp_com:11 ";" ppDedent(ppLine imp_com:min) : imp_com
 /-- Assignment -/
 syntax:max ident ppHardSpace ":=" ppHardSpace imp_aexp : imp_com
 /-- Conditional -/
-syntax:max "if " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" ppHardSpace "else" ppHardSpace "{" imp_com "}" : imp_com
+syntax:max "if " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine imp_com ppDedent(ppLine "}") : imp_com
 /-- Loop -/
-syntax:max "while " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" : imp_com
+syntax:max "while " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : imp_com
 /-- Escape to Lean -/
 syntax:max "~" term:max : imp_com
 
 /-- Include an Imp command in Lean code -/
-syntax:min "imp" ppHardSpace "{" imp_com "}" : term
+syntax:min "imp" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : term
 
 namespace Com
 
@@ -469,39 +469,40 @@ end Imp.Delab
 --  END DETAILS
 
 def fact_in_lean : Com := imp {
-  Z := X
-  Y := 1
+  Z := X;
+  Y := 1;
   while (Z ≠ 0) {
-    Y := Y * Z
+    Y := Y * Z;
     Z := Z - 1
   }
 }
 
+/--
+info: def fact_in_lean : Com :=
+imp {
+  Z := X;
+  Y := 1;
+  while (Z ≠ 0) {
+    Y := Y * Z;
+    Z := Z - 1
+  }
+}
+-/
+#guard_msgs in
 #print fact_in_lean
-
---  Output:
---    def fact_in_lean : Com :=
---    imp {Z := X; Y := 1; while (Z ≠ 0) {Y := Y * Z; Z := Z - 1}}
 
 --  ### Desugaring Notations
 
---  Even though the notations are useful for getting the
---  high-level picture, it's sometimes helpful to turn off
---  the notation to see the parsed structure as a plain
---  term. This can be done with
---  `set_option pp.notation false` (which we briefly
---  mentioned in the Typeclasses chapter) as follows:
-
+/-- info: imp {
+  X := X + 1
+} : Com -/
+#guard_msgs in
 #check imp { X := X + 1 }
 
---  Output:
---    imp {X := X + 1} : Com
-
+/-- info: Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com -/
+#guard_msgs in
 set_option pp.notation false in
 #check imp { X := X + 1 }
-
---  Output:
---    Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com
 
 --  ### More Examples
 
@@ -695,8 +696,6 @@ example :
     ]=> (Z →ₜ 2 ; Y →ₜ 1 ; X →ₜ 0 ; ∅) := by
   sorry
 
---  (End of exercise)
-
 --  What sorts of things might we want to prove using these
 --  definitions? Here are some simple examples...
 
@@ -833,7 +832,7 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
       simp [Aexp.eval_plus, Aexp.eval_id, Aexp.eval_num, TotalMap.update_eq] at h ⊢
       lia
 
---  ### Exercise (3 stars): XtimesYinZ_spec (Optional, Manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
 
 --  State and prove a specification of `XtimesYinZ`.
 
@@ -922,13 +921,18 @@ theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
 --
 --  The instruction set for our stack language will consist
 --  of the following instructions:
+--
 --  - `sPush n`: Push the number `n` on the stack.
+--
 --  - `sLoad x`: Load the identifier `x` from the store and
 --    push it on the stack
+--
 --  - `sPlus`: Pop the two top numbers from the stack, add
 --    them, and push the result onto the stack.
+--
 --  - `sMinus`: Similar, but subtract the first number from
 --    the second.
+--
 --  - `sMult`: Similar, but multiply.
 
 namespace StackCompiler
@@ -1108,7 +1112,11 @@ attribute [app_unexpander Com.whileDo] unexpandComWhileDo
 
 end Delab
 
-/-- info: imp {brk} : Com -/
+/--
+info: imp {
+  brk
+} : Com
+-/
 #guard_msgs in
 #check imp {brk}
 --  END DETAILS
@@ -1161,18 +1169,23 @@ open Result
 --  very similar to the one we gave above for the regular
 --  evaluation relation (`st =[ c ]=> st'`) -- we just need
 --  to handle the termination signals appropriately:
+--
 --  - If the command is `skip`, then the state doesn't
 --    change and execution of any enclosing loop can
 --    continue normally.
+--
 --  - If the command is `brk`, the state stays unchanged but
 --    we signal a `sBreak`.
+--
 --  - If the command is an assignment, then we update the
 --    binding for that variable in the state accordingly and
 --    signal that execution can continue normally.
+--
 --  - If the command is of the form `if (b) {c₁} {c₂}`, then
 --    the state is updated as in the original semantics of
 --    Imp, except that we also propagate the signal from the
 --    execution of whichever branch was taken.
+--
 --  - If the command is a sequence `c₁ ; c₂`, we first
 --    execute `c₁`. If this yields a `sBreak`, we skip the
 --    execution of `c₂` and propagate the `sBreak` signal to
@@ -1181,6 +1194,7 @@ open Result
 --    Otherwise, we execute `c₂` on the state obtained after
 --    executing `c₁`, and propagate the signal generated
 --    there.
+--
 --  - Finally, for a loop of the form `while (b) {c}`, the
 --    semantics is almost the same as before. The only
 --    difference is that, when `b` evaluates to `true`, we
@@ -1246,8 +1260,6 @@ theorem ceval_deterministic (c : Com) (st st₁ st₂ : State) (s₁ s₂ : Resu
   st₁ = st₂ ∧ s₁ = s₂ := by
   sorry
 
---  (End of exercise)
-
 end Imp.Break
 
 --  ### Exercise (4 stars): add_for_loop (Optional) ⭐⭐⭐⭐
@@ -1266,4 +1278,4 @@ end Imp.Break
 --  making up a concrete Notation for `for` loops, but feel
 --  free to play with this too if you like.)
 
--- Built on 2026-09-09 00:05 UTC
+-- Built on 2026-09-02 16:12 UTC

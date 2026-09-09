@@ -10,21 +10,21 @@ import SFLCompat
 theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm with
-  | swap12 =>
+  | perm3_swap12 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
     . right; left; assumption
     . left; assumption
     . right; right; left; assumption
     . contradiction
-  | swap23 =>
+  | perm3_swap23 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
     . left; assumption
     . right; right; left; assumption
     . right; left; assumption
     . contradiction
-  | trans _ _ ih₁₂ ih₂₃ =>
+  | perm3_trans _ _ ih₁₂ ih₂₃ =>
     apply ih₂₃; apply ih₁₂; apply hIn
 
 --  In this file, we will introduce tactics that will shrink
@@ -55,7 +55,7 @@ example (a b c d : Prop) :
 theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm with
-  | swap12 =>
+  | perm3_swap12 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
     /- In addition to basic arithmetic, `lia` can also discharge goals
@@ -64,11 +64,11 @@ theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     . lia
     . lia
     . lia
-  | swap23 =>
+  | perm3_swap23 =>
   /- Here, we solve _all_ goals ─ and eschew the `obtain` ─ with
     the <;> tactic combinator, which we saw in the `Induction` chapter. -/
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
-  | trans _ _ ih₁₂ ih₂₃ =>
+  | perm3_trans _ _ ih₁₂ ih₂₃ =>
     lia -- was apply ih₂₃; apply ih₁₂; apply hIn
 
 --  ## Tactic Combinators
@@ -114,7 +114,7 @@ example {n} (h : silly n) : n ≠ 1 := by
 theorem Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm with (try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia)
-  | trans => lia
+  | perm3_trans => lia
 
 --  Note that `try lia <;> try rw [...] <;> lia` *doesn't*
 --  work, because the first time that `try` catches a
@@ -129,7 +129,7 @@ sf_expect_failure_in
 
 --  Output:
 --    unsolved goals
---    case swap12
+--    case perm3_swap12
 --    α : Type
 --    x : α
 --    l₁ l₂ : List α
@@ -137,7 +137,7 @@ sf_expect_failure_in
 --    hIn : x ∈ [x✝, y✝, z✝]
 --    ⊢ x ∈ [y✝, x✝, z✝]
 --
---    case swap23
+--    case perm3_swap23
 --    α : Type
 --    x : α
 --    l₁ l₂ : List α
@@ -203,7 +203,7 @@ theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α)
 --  The lemmas we've been using for rewriting are the same
 --  ones we'll give to `simp` for it to automatically solve
 --  goals involving those theorems.
---
+
 --  We tag theorems with `@[simp]` to add them to the set of
 --  rules `simp` considers when simplifying a term.
 
@@ -288,7 +288,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 --  This usage of `simp` is brittle and can break due to
 --  upstream changes.
---
+
 --  We can fix the style of this proof by changing the
 --  `simp`s to specify which theorems they are using to
 --  simplify:
@@ -305,7 +305,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 --  Another rule around proper `simp` usage applies to the
 --  appropriate definition of `simp` lemmas.
---
+
 --  Appropriately defined `simp` lemmas simplify left to
 --  right.
 
@@ -346,6 +346,7 @@ namespace RegExp
 --  when a regular expression *matches* some string.
 
 --  Informally this looks as follows:
+--
 --  - The regular expression `EmptySet` does not match any
 --    string.
 --
@@ -471,8 +472,6 @@ example : [1, 2, 3] =~ reg_exp_of_list [1, 2, 3] := by
 theorem regexp_match_of_list α (l : List α) : l =~ reg_exp_of_list l := by
   sorry
 
---  (End of exercise)
-
 --  Something more interesting:
 
 theorem MStar1 α s (re : RegExp α) (h : s =~ re) : s =~ Star re := by
@@ -493,8 +492,6 @@ theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
     s =~ re₁ ∨ s =~ re₂ →
     s =~ Union re₁ re₂ := by
   sorry
-
---  (End of exercise)
 
 --  The next lemma is stated in terms of the `fold` function
 --  on Lists: If `ss : List (List α)` represents a sequence
@@ -521,11 +518,9 @@ def EmptyStr' {α : Type} := @Star α (EmptySet)
 --  State and prove that this `EmptyStr'` definition matches
 --  exactly the same strings as the `EmptyStr` constructor.
 
---  (End of exercise)
-
 --  Naturally, proofs about `ExpMatch` often require
 --  induction (on evidence!).
---
+
 --  For example, suppose we want to prove the following
 --  intuitive fact: If a string `s` is matched by a regular
 --  expression `re`, then all elements of `s` must occur as
@@ -763,7 +758,10 @@ theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
 --  then assemble to prove the main lemma.
 --
 --  Your job is to complete the proofs of the helper lemmas;
---  the main lemma relies on these.
+--  the main lemma relies on these. Several of the lemmas
+--  about `Nat.ble` that were in an optional exercise
+--  earlier in the IndProp chapter may be useful here ─ in
+--  particular, `lt_ge_cases` and `add_le`.
 
 --  ### Exercise (2 stars): weak_pumping_char ⭐⭐
 
@@ -869,7 +867,7 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
       s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧
       s₃  ≠ [ ] ∧
       (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ .Star re)  := by
-  rw [List.length_append] at *
+  rw [append_length] at *
   obtain hs₁len0 | ⟨s₁len, hs₁re₁⟩ | hs₁re₁ :
     (s₁.length = 0
       ∨ (s₁.length ≠ 0 ∧ s₁.length < pumpingConstant re)
@@ -908,31 +906,7 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
 
---  (End of exercise)
-
 end Pumping
 end RegExp
 
---  ### Palindrome Revisit
-
---  ### Exercise (5 stars): palindrome_converse (Optional) ⭐⭐⭐⭐⭐
-
---  Here is one possible definition of the palindrome
---  inductive predicate, `Pal`, which we saw in the last
---  chapter.
-
-namespace PalConv
-
-inductive Pal {α : Type} : List α → Prop where
-  | nil : Pal []
-  | singleton {x : α} : Pal [x]
-  | cons_snoc {x : α} {l : List α} (h : Pal l) : Pal (x :: (l ++ [x]))
-
---  We previously proved that `∀ l, Pal l → l = l.reverse`.
---  The converse is also true, but significantly more
---  difficult to prove, due to the lack of evidence. Using
---  the definition of `Pal` above, prove that
---
---      ∀ l, l = l.reverse → Pal l
-
--- Built on 2026-09-09 00:03 UTC
+-- Built on 2026-09-02 16:11 UTC

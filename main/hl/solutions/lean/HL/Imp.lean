@@ -49,12 +49,12 @@ import SFLCompat
 --        Y := Y * Z;
 --        Z := Z - 1;
 --      }
---
+
 --  We concentrate here on defining the *syntax* and *semantics* of Imp;
 --  later in this volume we develop a theory of *program equivalence* and
 --  introduce *Hoare Logic*, a popular logic for reasoning about imperative
 --  programs.
---
+
 --  We build Imp in three layers. The first — a core language of
 --  *arithmetic and boolean expressions* — is developed in its own chapter,
 --  *Slang*; read that one first. There you meet the abstract syntax of
@@ -81,13 +81,13 @@ import SFLCompat
 --  we'll use total maps from the `Maps` chapter. A *machine state* (or
 --  just *state*) represents the current values of all variables at some
 --  point in the execution of a program.
---
+
 --  For simplicity, we assume that the state is defined for *all*
 --  variables, even though any given program is only able to mention a
 --  finite number of them. Because each variable stores a natural number,
 --  we represent the state as a total map from strings (variable names) to
 --  `Nat`, and will use `0` as the default value in the store.
---
+
 --  We give the type of variable identifiers a name, `Ident`. For now it is
 --  just `String`; naming it makes the intent clearer.
 
@@ -156,14 +156,17 @@ def Z : Ident := "Z"
 --
 --  You do not need to understand exactly what these declarations do.
 --  Briefly, though, here is how the two blocks below fit together:
+--
 --  - The `declare_syntax_cat` directive adds a new non-terminal to Lean's
 --    grammar, called `imp_aexp`. We'll add additional non-terminals
 --    further below.
+--
 --  - Each `syntax` directive defines a grammar production, of which there
 --    are eight in total. The first two define literals, `num` and `ident`,
 --    as `imp_aexp`s. The next several directives define productions for
 --    building larger expressions, with some annotations to define
 --    precedence, etc.
+--
 --  - Finally, `macro_rules` is used to translate each production of the
 --    `imp_aexp` nonterminal into a Lean expression.
 --
@@ -541,18 +544,18 @@ declare_syntax_cat imp_com
 /-- The command that does nothing (`skip`) -/
 syntax:max ident : imp_com
 /-- Sequencing: one command after another (right associative. min + 1 = 11) -/
-syntax:min imp_com:11 Lean.Parser.semicolonOrLinebreak ppHardSpace imp_com:min : imp_com
+syntax:min imp_com:11 ";" ppDedent(ppLine imp_com:min) : imp_com
 /-- Assignment -/
 syntax:max ident ppHardSpace ":=" ppHardSpace imp_aexp : imp_com
 /-- Conditional -/
-syntax:max "if " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" ppHardSpace "else" ppHardSpace "{" imp_com "}" : imp_com
+syntax:max "if " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}" ppHardSpace "else" ppHardSpace "{") ppLine imp_com ppDedent(ppLine "}") : imp_com
 /-- Loop -/
-syntax:max "while " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" : imp_com
+syntax:max "while " "(" imp_bexp ")" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : imp_com
 /-- Escape to Lean -/
 syntax:max "~" term:max : imp_com
 
 /-- Include an Imp command in Lean code -/
-syntax:min "imp" ppHardSpace "{" imp_com "}" : term
+syntax:min "imp" ppHardSpace "{" ppLine imp_com ppDedent(ppLine "}") : term
 
 namespace Com
 
@@ -638,10 +641,10 @@ end Imp.Delab
 --  concrete Imp program at the very start of the chapter.)
 
 def fact_in_lean : Com := imp {
-  Z := X
-  Y := 1
+  Z := X;
+  Y := 1;
   while (Z ≠ 0) {
-    Y := Y * Z
+    Y := Y * Z;
     Z := Z - 1
   }
 }
@@ -650,30 +653,50 @@ def fact_in_lean : Com := imp {
 --  with `#print`, which pretty prints the stored definition using the same
 --  syntax:
 
+/--
+info: def fact_in_lean : Com :=
+imp {
+  Z := X;
+  Y := 1;
+  while (Z ≠ 0) {
+    Y := Y * Z;
+    Z := Z - 1
+  }
+}
+-/
+#guard_msgs in
 #print fact_in_lean
-
---  Output:
---    def fact_in_lean : Com :=
---    imp {Z := X; Y := 1; while (Z ≠ 0) {Y := Y * Z; Z := Z - 1}}
 
 --  ### Desugaring Notations
 
---  Even though the notations are useful for getting the high-level
---  picture, it's sometimes helpful to turn off the notation to see the
---  parsed structure as a plain term. This can be done with
---  `set_option pp.notation false` (which we briefly mentioned in the
---  Typeclasses chapter) as follows:
+--  The `imp { … }` notation, together with the delaborators, is purely a
+--  convenience for reading and writing programs. Occasionally, such as
+--  when debugging a definition or a stuck proof, the concrete syntax
+--  `hide`s the underlying structure we want to see. For those moments we
+--  can switch the Imp notation off in Lean's output with
+--  `set_option pp.notation false`, which our delaborators honor.
+--
+--  Note that unlike a `def`, `imp { … }` is a `macro` which is expanded
+--  during elaboration, **before** the resulting term is type-checked. So
+--  `fact_in_lean` is not a program hidden behind a layer of notation that
+--  a proof must first peel back; it simply **is** the underlying tree of
+--  `Com`, `Aexp`, and `Bexp` constructors. Consequently, when a proof goal
+--  mentions an Imp program, tactics such as `cases`, `injection`, and
+--  `simp` already act on those constructors directly -- there is nothing
+--  to "unfold". The delaborators affect only how that tree is
+--  **displayed**. Nevertheless, seeing the raw constructors is sometimes
+--  very helpful!
 
+/-- info: imp {
+  X := X + 1
+} : Com -/
+#guard_msgs in
 #check imp { X := X + 1 }
 
---  Output:
---    imp {X := X + 1} : Com
-
+/-- info: Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com -/
+#guard_msgs in
 set_option pp.notation false in
 #check imp { X := X + 1 }
-
---  Output:
---    Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com
 
 --  ### More Examples
 
@@ -765,7 +788,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 --  Here's a better way: define `ceval` as a *relation* rather than a
 --  *function* -- i.e., make its result a `Prop` rather than a `State`,
 --  similar to what we did for `Aexp.EvalR` in the Slang chapter.
---
+
 --  This is an important change. Besides freeing us from awkward
 --  workarounds, it gives us more flexibility in the definition. For
 --  example, if we add nondeterministic features like `any` to the
@@ -921,8 +944,6 @@ example :
   · apply Com.EvalR.seq (st' := (Y →ₜ 1 ; X →ₜ 0 ; ∅))
     · apply Com.EvalR.asgn; rfl
     · apply Com.EvalR.asgn; rfl
-
---  (End of exercise)
 
 --  Note to developers:
 --      PR: I phrased these quizzes with the following alternatives: (A)
@@ -1089,7 +1110,7 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
       simp [Aexp.eval_plus, Aexp.eval_id, Aexp.eval_num, TotalMap.update_eq] at h ⊢
       lia
 
---  ### Exercise (3 stars): XtimesYinZ_spec (Optional, Manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): XtimesYinZ_spec (Optional) ⭐⭐⭐
 
 --  State and prove a specification of `XtimesYinZ`.
 
@@ -1114,8 +1135,6 @@ theorem XtimesYinZ_spec (st : State) :
 /- A less informative specification would be ... -/
 theorem XtimesYinZ_spec₂ (st : State) : ∃ st', st =[ XtimesYinZ ]=> st' := by
   exact ⟨(Z →ₜ st[X] * st[Y] ; st), by unfold XtimesYinZ; apply Com.EvalR.asgn; rfl⟩
-
---  (End of exercise)
 
 --  Note to developers (Niklas Halonen @xhalo32):
 --      We should use the `generalize` tactic here instead of `have key`.
@@ -1270,12 +1289,17 @@ theorem no_whiles_terminating' (c : Com) (st1 : State)
 --
 --  The instruction set for our stack language will consist of the
 --  following instructions:
+--
 --  - `sPush n`: Push the number `n` on the stack.
+--
 --  - `sLoad x`: Load the identifier `x` from the store and push it on the
 --    stack
+--
 --  - `sPlus`: Pop the two top numbers from the stack, add them, and push
 --    the result onto the stack.
+--
 --  - `sMinus`: Similar, but subtract the first number from the second.
+--
 --  - `sMult`: Similar, but multiply.
 
 namespace StackCompiler
@@ -1535,7 +1559,11 @@ attribute [app_unexpander Com.whileDo] unexpandComWhileDo
 
 end Delab
 
-/-- info: imp {brk} : Com -/
+/--
+info: imp {
+  brk
+} : Com
+-/
 #guard_msgs in
 #check imp {brk}
 --  END DETAILS
@@ -1583,23 +1611,29 @@ open Result
 --  to the one we gave above for the regular evaluation relation
 --  (`st =[ c ]=> st'`) -- we just need to handle the termination signals
 --  appropriately:
+--
 --  - If the command is `skip`, then the state doesn't change and execution
 --    of any enclosing loop can continue normally.
+--
 --  - If the command is `brk`, the state stays unchanged but we signal a
 --    `sBreak`.
+--
 --  - If the command is an assignment, then we update the binding for that
 --    variable in the state accordingly and signal that execution can
 --    continue normally.
+--
 --  - If the command is of the form `if (b) {c₁} {c₂}`, then the state is
 --    updated as in the original semantics of Imp, except that we also
 --    propagate the signal from the execution of whichever branch was
 --    taken.
+--
 --  - If the command is a sequence `c₁ ; c₂`, we first execute `c₁`. If
 --    this yields a `sBreak`, we skip the execution of `c₂` and propagate
 --    the `sBreak` signal to the surrounding context; the resulting state
 --    is the same as the one obtained by executing `c₁` alone. Otherwise,
 --    we execute `c₂` on the state obtained after executing `c₁`, and
 --    propagate the signal generated there.
+--
 --  - Finally, for a loop of the form `while (b) {c}`, the semantics is
 --    almost the same as before. The only difference is that, when `b`
 --    evaluates to `true`, we execute `c` and check the signal that it
@@ -1742,8 +1776,6 @@ theorem ceval_deterministic (c : Com) (st st₁ st₂ : State) (s₁ s₂ : Resu
       specialize ih _ _ hc'
       lia
 
---  (End of exercise)
-
 end Imp.Break
 
 --  ### Exercise (4 stars): add_for_loop (Optional) ⭐⭐⭐⭐
@@ -1760,8 +1792,6 @@ end Imp.Break
 --  body of the loop. (You don't need to worry about making up a concrete
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
-
---  (End of exercise)
 
 --  Note to developers (Michael Hicks @mwhicks1):
 --      `NOT PORTED YET — remaining sections of sfdev/lf/Imp.v to port:
@@ -1790,4 +1820,4 @@ end Imp.Break
 --        not just a single name, reads better with hover types (e.g. the
 --        `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 
--- Built on 2026-09-09 00:04 UTC
+-- Built on 2026-09-02 16:11 UTC

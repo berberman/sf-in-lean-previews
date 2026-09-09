@@ -24,8 +24,9 @@ open scoped HasEval MyGetElem
 --  Imp language -- in particular, assignment -- we need to consider the
 --  role of mutable state and develop a more sophisticated notion of
 --  correctness, which we'll call *behavioral equivalence*.
---
+
 --  For example:
+--
 --  - `X + 2` is behaviorally equivalent to `1 + X + 1`
 --  - `X - X` is behaviorally equivalent to `0`
 --  - `(X - 1) + 1` is *not* behaviorally equivalent to `X`
@@ -113,8 +114,6 @@ theorem skip_left {c : Com} : (imp { skip; ~c }).Equiv c := by
 theorem skip_right {c : Com} : (imp { ~c; skip }).Equiv c := by
   sorry
 
---  (End of exercise)
-
 --  Similarly, here is a simple equivalence that optimises `if` commands.
 
 theorem if_true_simple {c₁ c₂ : Com} : (imp {if (true) {~c₁} else {~c₂}}).Equiv c₁ := by
@@ -133,10 +132,11 @@ theorem if_true_simple {c₁ c₂ : Com} : (imp {if (true) {~c₁} else {~c₂}}
 --  literally `true`. (At least, no human programmer -- compilers and macro
 --  preprocessors do this sort of thing internally all the time!) But they
 --  might write one whose condition is *equivalent* to true:
---
+
 --  *Theorem*: If `b` is equivalent to `true`, then
 --  `if (~b) {~c₁}
 --  else {~c₂}` is equivalent to `c₁`. *Proof*:
+--
 --  - (`->`) We must show, for all `st` and `st'`, that if
 --    `st =[ imp {if (~b) {~c₁} else {~c₂}} ]=> st'` then
 --    `st =[ c₁ ]=> st'`.
@@ -144,6 +144,7 @@ theorem if_true_simple {c₁ c₂ : Com} : (imp {if (true) {~c₁} else {~c₂}}
 --    Proceed by cases on the rules that could possibly have been used to
 --    show `st =[ imp {if (~b) {~c₁} else {~c₂}} ]=> st'`, namely
 --    `Com.EvalR.ifTrue` and `Com.EvalR.ifFalse`.
+--
 --    - Suppose the final rule in the derivation of
 --      `st =[ imp {if (~b) {~c₁} else {~c₂}} ]=> st'` was
 --      `Com.EvalR.ifTrue`. We then have, by the premises of
@@ -170,7 +171,7 @@ theorem if_true_simple {c₁ c₂ : Com} : (imp {if (true) {~c₁} else {~c₂}}
 --    `(bexp {true}).eval st = true` = `true`. Together with the assumption
 --    that `st =[ c₁ ]=> st'`, we can apply `Com.EvalR.ifTrue` to derive
 --    `st =[ imp {if (~b) {~c₁} else {~c₂}} ]=> st'`.
---
+
 --  Here is the formal version of this proof:
 
 theorem if_true {b : Bexp} {c₁ c₂ : Com} (hb : b.Equiv (bexp {true})) :
@@ -207,13 +208,11 @@ theorem swap_if_branches {b : Bexp} {c₁ c₂ : Com} :
     (imp {if (¬ ~b) {~c₂} else {~c₁}}) := by
   sorry
 
---  (End of exercise)
-
 --  For `while` loops, we can give a similar pair of theorems. A loop whose
 --  guard is equivalent to `false` is equivalent to `skip`, while a loop
 --  whose guard is equivalent to `true` is equivalent to
 --  `while (true) {skip;} end` (or any other non-terminating program).
---
+
 --  The first of these facts is easy.
 
 theorem while_false_equiv {b : Bexp} {c : Com} (hb : b.Equiv (bexp {false})) :
@@ -237,11 +236,9 @@ theorem while_false_equiv {b : Bexp} {c : Com} (hb : b.Equiv (bexp {false})) :
 
 --  Write an informal proof of `while_false_equiv`.
 
---  (End of exercise)
-
 --  To prove the second fact, we need an auxiliary lemma stating that
 --  `while` loops whose guards are equivalent to `true` never terminate.
---
+
 --  *Lemma*: If `b` is equivalent to `true`, then it cannot be the case
 --  that `st =[ while (~b) {~c} ]=> st'`.
 --
@@ -250,15 +247,19 @@ theorem while_false_equiv {b : Bexp} {c : Com} (hb : b.Equiv (bexp {false})) :
 --  assumption leads to a contradiction. The only two cases to consider are
 --  `Com.EvalR.whileFalse` and `Com.EvalR.whileTrue`; the others are
 --  contradictory.
+--
 --  - Suppose `st =[ while (~b) {~c} ]=> st'` is proved using rule
 --    `Com.EvalR.whileFalse`. Then by assumption `b.eval st = false`. But
 --    this contradicts the assumption that `b` is equivalent to `true`.
 --
 --  - Suppose `st =[ while (~b) {~c} ]=> st'` is proved using rule
 --    `Com.EvalR.whileTrue`. We must have:
+--
 --    1. `b.eval st = true`, and
+--
 --    2. there is some `st₀` such that `st =[ c ] => st₀` and
 --       `st₀ =[ while (~b) {~c} ]=> st'`.
+--
 --    3. Also, we are given an induction hypothesis saying that
 --       `st₀ =[ while (~b) {~c} ]=> st'` leads to a contradiction,
 --
@@ -292,8 +293,6 @@ theorem while_true {b : Bexp} {c : Com} (hb : b.Equiv (bexp {true})) :
     (imp {while (~b) {~c}}).Equiv
     (imp {while (true) {skip}}) := by
   sorry
-
---  (End of exercise)
 
 --  A more interesting fact about `while` commands is that any number of
 --  copies of the body can be "unrolled" without changing meaning.
@@ -436,7 +435,7 @@ theorem Com.equiv_trans {c₁ c₂ c₃ : Com} (h₁ : c₁.Equiv c₂) (h₂ : 
 --  (Note that we are using the inference rule notation here not as part of
 --  an inductive definition, but simply to write down some valid
 --  implications in a readable format. We prove these implications below.)
---
+
 --  We will see a concrete example of why these congruence properties are
 --  important in the following section (in the proof of
 --  `fold_constants_com_sound`), but the main idea is that they allow us to
@@ -472,11 +471,13 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
 --  `st =[ while (~b) {~c} ]=> st'` iff `st = while (~b') {~c'}
 --  ]=> st'`.
 --  We consider the two directions separately.
+--
 --  - (`->`) We show that `st =[ while (~b) {~c} ]=> st'` implies
 --    `st =[ while (~b') {~c'} ]=> st'`, by induction on a derivation of
 --    `st =[ while (~b) {~c} ]=> st'`. The only nontrivial cases are when
 --    the final rule in the derivation is `Com.EvalR.whileFalse` or
 --    `Com.EvalR.whileTrue`.
+--
 --    - `Com.EvalR.whileFalse`: In this case, the form of the rule gives us
 --      `beval st b = false` and `st = st'`. But then, since `b` and `b'`
 --      are equivalent, we have `beval st b' =false`, and
@@ -495,4 +496,4 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
 --
 --  - (`<-`) Similar.
 
--- Built on 2026-09-09 00:04 UTC
+-- Built on 2026-09-02 16:11 UTC

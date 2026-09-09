@@ -138,8 +138,6 @@ theorem nand_test2 : nand MyBool.false MyBool.false = MyBool.true  := sorry
 theorem nand_test3 : nand MyBool.false MyBool.true  = MyBool.true  := sorry
 theorem nand_test4 : nand MyBool.true  MyBool.true  = MyBool.false := sorry
 
---  (End of exercise)
-
 --  Going forward, most exercises will be omitted from the
 --  "terse" version of the notes used in lecture. The "full"
 --  version (used online and for homeworks) contains both
@@ -770,8 +768,6 @@ theorem mul_succ : ∀ n m : Nat, n * (succ m) = (n * m) + n := by
 
 attribute [irreducible] mul
 
---  (End of exercise)
-
 --  Prove this theorem using rewriting with the
 --  simplification rules.
 
@@ -979,4 +975,4 @@ theorem and3_exchange (b c d : Bool) :
 
 end Nat
 
--- Built on 2026-09-09 00:03 UTC
+-- Built on 2026-09-02 16:11 UTC

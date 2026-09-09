@@ -148,7 +148,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --  We can give a proof, in the form of decorations, that
 --  this program is correct — i.e., it really swaps `X` and
 --  `Y` — as follows.
---
+
 --  WORK IN CLASS
 
 --  ### Example: Simple Conditionals
@@ -165,7 +165,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --      {{ Z + X = Y \/ Z + Y = X }}
 --
 --  Let's turn it into a decorated program...
---
+
 --  WORK IN CLASS
 
 --  ### Example: Reduce to Zero
@@ -178,7 +178,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --          X := X - 1
 --        end
 --      {{ X = 0 }}
---
+
 --  WORK IN CLASS
 
 --  ### Example: Division
@@ -211,7 +211,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --          Y := Y + 1
 --        end
 --      {{ n * Y + X = m /\ X < n }}
---
+
 --  WORK IN CLASS
 
 --  ### From Decorated Programs to Formal Proofs
@@ -658,14 +658,17 @@ example :
 --
 --  It does this by walking over `d` and generating a big
 --  conjunction that includes
+--
 --  - local consistency checks for each form of command,
 --    plus
+--
 --  - uses of `->>` to bridge the gap between the assertions
 --    found inside a decorated command and the assertions
 --    imposed by the external precondition; these uses
 --    correspond to applications of the consequence rule.
 
 --  *Local consistency* is defined as follows...
+--
 --  - The decorated command
 --
 --      skip {{Q}}
@@ -886,10 +889,13 @@ theorem dec_while_correct :
 
 --  Examining this skeleton, we can see that any valid `Inv`
 --  will have to respect three conditions:
+--
 --  - (a) it must be *weak* enough to be implied by the
 --    loop's precondition, i.e., (1) must imply (2);
+--
 --  - (b) it must be *strong* enough to imply the program's
 --    postcondition, i.e., (7) must imply (8);
+--
 --  - (c) it must be *preserved* by a single iteration of
 --    the loop, assuming that the loop guard also evaluates
 --    to true, i.e., (3) must imply (4).
@@ -909,7 +915,7 @@ theorem dec_while_correct :
 --  The *best* precondition:
 --
 --      {{ Y <= 4 }}  X := Y + 1  {{ X <= 5 }}
---
+
 --  Assertion `Y <= 4` is a *weakest precondition* of
 --  command `X := Y + 1` with respect to postcondition
 --  `X <= 5`. Think of *weakest* here as meaning "easiest to
@@ -918,7 +924,9 @@ theorem dec_while_correct :
 
 --  `P` is a weakest precondition of command `c` for
 --  postcondition `Q` if
+--
 --  - `P` is a precondition, that is, `{{P}} c {{Q}}`; and
+--
 --  - `P` is at least as weak as all other preconditions,
 --    that is, if `{{P'}} c {{Q}}` then `P' ->> P`.
 --
@@ -957,4 +965,4 @@ def IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
 --       while true do X := 0 end
 --       {{ X = 0 }}
 
--- Built on 2026-09-09 00:05 UTC
+-- Built on 2026-09-02 16:12 UTC

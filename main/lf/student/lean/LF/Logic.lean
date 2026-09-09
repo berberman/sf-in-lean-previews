@@ -39,7 +39,7 @@ import SFLCompat
 --  Indeed, propositions don't just have types — they are *first-class*
 --  entities that can be manipulated in all the same ways as any of the
 --  other things in Lean's world.
---
+
 --  So far, we've seen one primary place where propositions can appear: in
 --  `theorem` declarations.
 
@@ -63,7 +63,7 @@ theorem plusClaim_is_true : PlusClaim := rfl
 
 --  We can also write *parameterized* propositions — that is, functions
 --  that take arguments of some type and return a proposition.
---
+
 --  For instance, the following function takes a number and returns a
 --  proposition asserting that this number is equal to three:
 
@@ -187,6 +187,7 @@ theorem succ_inj' : Injective Nat.succ := by
 --  _Quiz:_
 
 --  Which of the following is *not* a proposition?
+--
 --  1. `3 + 2 = 4`
 --  2. `3 + 2 = 5`
 --  3. `3 + 2 == 5`
@@ -243,8 +244,6 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 theorem Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
   sorry
 
---  (End of exercise)
-
 --  So much for proving conjunctive statements. To go in the other
 --  direction — i.e., to *use* a conjunctive hypothesis to help prove
 --  something else — we can use `obtain` to obtain the components.
@@ -300,8 +299,6 @@ theorem left (a b : Prop) (h : a ∧ b) : a := by
 theorem right (a b : Prop) (h : a ∧ b) : b := by
   sorry
 
---  (End of exercise)
-
 --  Finally, we sometimes need to rearrange the order of conjunctions
 --  and/or the grouping of multi-way conjunctions. We can see this at work
 --  in the proofs of the following commutativity and associativity
@@ -327,8 +324,6 @@ theorem and_associate (a b c : Prop) (h : a ∧ (b ∧ c)) : (a ∧ b) ∧ c := 
   constructor
   · sorry
   · exact h.right.right
-
---  (End of exercise)
 
 --  The infix notation `∧` is actually just syntactic sugar for `And a b`.
 --  That is, `And` is a Lean operator that takes two propositions as
@@ -361,7 +356,7 @@ theorem Nat.factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
 --  disjunction `a ∨ b`, we must separately discharge two proof
 --  obligations, each showing that the conclusion holds under a different
 --  assumption - `a` in the first subgoal and `b` in the second.
---
+
 --  Rather than performing case analysis via `cases`, we can also use
 --  `obtain` to match on the two possible injections, much like with
 --  `obtain` and `∧`.
@@ -447,8 +442,6 @@ theorem not_implies_other_not (a : Prop) (h : ¬ a) :
     (∀ c : Prop, a → c) := by
   sorry
 
---  (End of exercise)
-
 --  Inequality is a very common form of negated statement, so there is a
 --  special notation for it: `≠`, which is infix notation for `Ne`.
 
@@ -521,8 +514,6 @@ theorem de_morgan_not_or {a b : Prop} (h : ¬ (a ∨ b)) : ¬ a ∧ ¬ b := by
 
 theorem not_succ_pred_n : ¬ (∀ n : Nat, n.pred + 1 = n) := by
   sorry
-
---  (End of exercise)
 
 --  Since inequality involves a negation, it also requires a little
 --  practice to be able to work with it fluently. Here is one useful trick.
@@ -649,7 +640,7 @@ example : True := by constructor
 --  Unlike `False`, which is used extensively, `True` is used relatively
 --  rarely: it is trivial (and therefore uninteresting) to prove as a goal,
 --  and it provides no useful information when it appears as a hypothesis.
---
+
 --  However, `True` can be quite useful when defining complex `Prop`s using
 --  conditionals or as a parameter to higher-order `Prop`s. We'll come back
 --  to this later.
@@ -702,7 +693,7 @@ theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
 --  The handy "if and only if" connective, which asserts that two
 --  propositions have the same truth value, is a structure containing the
 --  two implication directions. `a ↔ b` is notation for `Iff a b`.
---
+
 --  In Lean, `Iff` is a structure packaging two fields and a constructor,
 --  which allow you to access its component implications. Given an `Iff`
 --  hypothesis, you can access the "forward direction" implication via the
@@ -833,27 +824,43 @@ theorem dist_exists_or (α : Type) (p q : α → Prop) :
 --  ## Recap: Logical Connectives in Lean
 
 --  Connectives introduced in this chapter:
+--
 --  - `a ∧ b` (conjunction):
+--
 --    - introduced with `constructor`
 --    - eliminated with `intro ⟨ha, hb⟩` or `obtain ⟨ha, hb⟩ := h`
+--
 --  - `a ∨ b` (disjunction):
+--
 --    - introduced with `left` and `right`
 --    - eliminated with `cases` or `obtain h | h := h`
+--
 --  - `False` (falsehood):
+--
 --    - eliminated with `cases` or `contradiction`
+--
 --  - `¬ a` (negation):
+--
 --    - defined as `a → False`
+--
 --  - `True` (truthhood):
+--
 --    - introduced as `True.intro` or with `constructor`
+--
 --  - `a ↔ b` (iff):
+--
 --    - introduced with `constructor`
+--
 --    - eliminated with `intro ⟨hab, hba⟩`, `obtain ⟨hab, hba⟩ := h`, or
 --      `Iff.mp` and `Iff.mpr`
+--
 --  - `∃ x : α, a` (existential):
+--
 --    - introduced with `exists y`
 --    - eliminated with `intro ⟨x, Hx⟩` or `obtain ⟨x, Hx⟩ := H`
 --
 --  Fundamental connectives we've been using since the beginning:
+--
 --  - equality (`x = y`)
 --  - implication (`a → b`)
 --  - universal quantification (`∀ x, a`)
@@ -864,7 +871,7 @@ theorem dist_exists_or (α : Type) (p q : α → Prop) :
 --  defining complex propositions from simpler ones. To illustrate, let's
 --  look at how to express the claim that an element `x` occurs in a list
 --  `l`. Notice that this property has a simple recursive structure:
---
+
 --  We can translate this directly into a straightforward recursive
 --  function taking an element and a list and returning... a proposition!
 
@@ -943,14 +950,15 @@ theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
     (∀ x : α, In x l → p x) ↔ All p l := by
   sorry
 
---  (End of exercise)
-
 --  Note to developers (Yipeng Liu @berberman, NOW):
 --      I found this exercise combining too many awkward details for too
 --      little conceptual payoff:
+--
 --      1. the construction is artificial
+--
 --      2. before `simp` is introduced, `bif` requires noisy `rw` and
 --         Boolean case equations
+--
 --      3. I don't know how to nicely avoid `cases h : ...` syntax which
 --         IIRC we didn't mention before
 
@@ -991,7 +999,7 @@ theorem combineOddEven_elim_even
 --  Lean treats *proofs* as first-class objects. There is a great deal to
 --  be said about this, but it is not necessary to understand it all to use
 --  Lean. This section gives just a taste.
---
+
 --  We have seen that we can use `#check` to ask Lean whether an expression
 --  has a given type:
 
@@ -1023,13 +1031,15 @@ theorem combineOddEven_elim_even
 --  proposition that it is a proof of.
 --
 --  The type of an ordinary function tells us what we can do with it.
+--
 --  - If we have a term of type `Nat → Nat → Nat`, we can give it two
 --    `Nat`s as arguments and get a `Nat` back. Similarly, the statement of
 --    a theorem tells us what we can use that theorem for.
+--
 --  - If we have a term of type `∀ n m : Nat, n = m → n + n = m + m`, and
 --    we provide it two numbers `n` and `m` and a third "argument" of type
 --    `n = m`, we get back a proof object of type `n + n = m + m`.
---
+
 --  Operationally, this analogy goes even further: by applying a theorem as
 --  if it were a function, i.e., applying it to values and hypotheses with
 --  matching types, we can specialize its result without having to resort
@@ -1193,7 +1203,7 @@ theorem identity {a : Prop} : a → a := fun h => h
 --      | ------------------- | ------ | ------ |
 --      | decidable?          | yes    | no     |
 --      | useable with match? | yes    | no     |
---
+
 --  The crucial difference between the two worlds is *decidability*. Every
 --  (closed) expression of type `Bool` can be simplified in a finite number
 --  of steps to either `true` or `false` — i.e., there is a terminating
@@ -1214,7 +1224,7 @@ theorem identity {a : Prop} : a → a := fun h => h
 --  To evaluate a pattern match (or conditional) on a boolean, we need to
 --  know whether the scrutinee evaluates to `true` or `false`; this only
 --  works for `Bool`, not `Prop`.
---
+
 --  Since `Prop` includes *both* decidable and undecidable properties, we
 --  have two options when we want to formalize a property that happens to
 --  be decidable: we can express it either as a boolean computation, or as
@@ -1260,6 +1270,7 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 
 --  Similarly, to state that two numbers `n` and `m` are equal, we can say
 --  either
+--
 --  1. that `n == m` returns `true`, or
 --  2. that `n = m`.
 --
@@ -1303,7 +1314,7 @@ def is_even_prime (n : Nat) : Bool :=
 --  technique known as *proof by reflection*.
 --
 --  Consider the following statement:
---
+
 --  The most direct way to prove this is to give the value of `k`
 --  explicitly.
 
@@ -1451,10 +1462,11 @@ theorem List.allb_true_iff α {test : α → Bool} {l : List α} :
 --  encounters cases where translating standard mathematical reasoning into
 --  Lean is cumbersome - or even impossible - unless we enrich its core
 --  logic with additional axioms.
---
+
 --  For example, the equality assertions that we have seen so far mostly
 --  have concerned elements of inductive types (`Nat`, `Bool`, etc.). But
 --  since the equality operator is polymorphic, we can use it at *any* type
+--
 --  - in particular, we can write propositions claiming that two
 --    *propositions* are equal to each other:
 
@@ -1759,7 +1771,7 @@ theorem excluded_middle_nat_eq (n m : Nat) : n = m ∨ n ≠ m := by
   symm; apply beq_eq_true
 
 --  Sadly, this trick only works for decidable propositions.
---
+
 --  Logical systems in which excluded middle does not hold are referred to
 --  as *constructive logics*. They are so called because to prove a
 --  proposition, we must give a construction for it; for instance, a proof
@@ -1847,7 +1859,7 @@ theorem em : ∀ a, a ∨ ¬ a := by
 --  ourselves to remove double negations from arbitrary statements is
 --  equivalent to assuming the excluded middle law, as shown in one of the
 --  exercises below.
---
+
 --  Once again, Lean's `Classical` library provides double negation
 --  elimination, which relies on the `Classical.choice` axiom.
 
@@ -1919,4 +1931,4 @@ def ConsequentiaMirabilis := ∀ a : Prop, (¬ a → a) → a
 
 --  FILL IN HERE
 
--- Built on 2026-09-09 00:03 UTC
+-- Built on 2026-09-02 16:10 UTC

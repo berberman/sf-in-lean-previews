@@ -177,6 +177,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 
 --  For preservation, we need some technical machinery for
 --  reasoning about variables and substitution.
+--
 --  - The *preservation theorem* is proved by induction on a
 --    typing derivation and case analysis on the step
 --    relation, pretty much as we did in the Types chapter.
@@ -261,13 +262,16 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t �
 --  Now we come to the conceptual heart of the proof that
 --  reduction preserves types — namely, the observation that
 --  *substitution* preserves types.
---
+
 --  The *substitution lemma* says:
+--
 --  - Suppose we have a term `t` with a free variable `x`,
 --    and suppose we've been able to assign a type `T` to
 --    `t` under the assumption that `x` has some type `U`.
+--
 --  - Also, suppose that we have some other term `v` and
 --    that we've shown that `v` has type `U`.
+--
 --  - Then we can substitute `v` for each of the occurrences
 --    of `x` in `t` and obtain a new term that still has
 --    type `T`.
@@ -564,4 +568,4 @@ def delabTm : Delab := whenPPOption getPPNotation do
 
 end StlcArith
 
--- Built on 2026-09-09 00:06 UTC
+-- Built on 2026-09-02 16:13 UTC
