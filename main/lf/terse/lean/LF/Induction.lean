@@ -163,7 +163,7 @@ theorem succ_eq_add_one (n : Nat) : succ n = n + one := by
 --  For the `add_zero` simplification rule, we were able to
 --  prove that `zero` is a neutral element for `+` on the
 --  *right* using just `rfl`.
-
+--
 --  But the proof that it is also a neutral element on the
 --  *left* gets stuck...
 
@@ -210,7 +210,6 @@ sf_expect_failure_in
 --  If `P(n)` is some proposition involving a natural number
 --  `n`, and we want to show that `P` holds for *all*
 --  numbers, we can reason like this:
---
 --  - show that `P(zero)` holds
 --  - show that, if `P(n')` holds, then so does `P(succ n')`
 --  - conclude that `P(n)` holds for all `n`.
@@ -259,7 +258,7 @@ theorem add_comm (n m : Nat) :
 --  we could write this:
 --
 --      rw [double_zero]
-
+--
 --  If `rw` leaves a goal that looks definitionally true,
 --  try adding `rfl` after it.
 
@@ -324,13 +323,13 @@ sf_expect_failure_in
 
 --  Put your cursor on `induction n` and open the code
 --  action menu.
-
+--
 --  Click the lightbulb.
-
+--
 --  This gives us the basic structure of the proof without
 --  requiring us to write each branch by hand. We can then
 --  focus on proving each case.
-
+--
 --  Let's do the proof!
 
 example (n : Nat) : Nat.beq n n = true := by
@@ -362,12 +361,14 @@ theorem mul_one (p : Nat) :
     one * p = p := by
   sorry
 
+--  (End of exercise)
+
 --  By default, `rewrite` and `rw` rewrite left to right,
 --  i.e., they transform the goal (or a hypothesis) from the
 --  form on the left side of the equality to the right side.
 --  To rewrite from right to left, use `rewrite [← h]` or
 --  `rw [← h]`, where `←` is entered as `\l` or `\<-`.
-
+--
 --  These exercises state facts that will be used later. We
 --  don't need to work them in class.
 
@@ -444,4 +445,4 @@ example (b : Bool) : (b || true) = true := by
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
--- Built on 2026-09-02 16:11 UTC
+-- Built on 2026-09-09 00:03 UTC

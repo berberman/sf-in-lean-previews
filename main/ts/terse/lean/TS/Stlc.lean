@@ -11,16 +11,13 @@ import SFLCompat
 --  language and its type system.
 --
 --  Language: The *simply typed lambda-calculus* (STLC).
---
 --  - A small subset of Lean's built-in functional
 --    language...
---
 --  - ...but we'll use different concrete syntax (to avoid
 --    confusion, and for consistency with standard
 --    treatments)
 --
 --  Main new technical challenges:
---
 --  - variable binding
 --  - substitution
 
@@ -121,25 +118,19 @@ import SFLCompat
 --  constantly `false` function.
 
 --  Now reconsider our examples, each along with its type:
---
 --  - `λx:Bool. x` has type `Bool → Bool`
---
 --  - `(λx:Bool. x) true` has type `Bool`
---
 --  - `λx:Bool. if x then false else true` has type
 --    `Bool → Bool`
---
 --  - `λx:Bool. true` has type `Bool → Bool`
---
 --  - `λx:Bool. λy:Bool. x` has type `Bool → Bool → Bool`
 --    (i.e., `Bool → (Bool → Bool)`)
---
 --  - `(λx:Bool. λy:Bool. x) false true` has type `Bool`
 --
 --  The last two, higher-order examples are left off the
 --  list on purpose — working out their types is the subject
 --  of the quizzes that follow.
-
+--
 --  Note that *all* functions are anonymous.
 --
 --  We'll see how to add named function declarations as
@@ -209,7 +200,7 @@ inductive Tm where
 
 --  We need some notation magic to set up the concrete
 --  syntax, as we did in the Types chapter...
-
+--
 --  Types and terms are both written inside `<{ … }>`; `~e`
 --  escapes to Lean.
 
@@ -475,13 +466,10 @@ abbrev notB := <{ λ x : Bool . if x then false else true }>
 --  ## Operational Semantics
 
 --  To define the small-step semantics of STLC terms...
---
 --  - We begin by defining the set of values.
---
 --  - Next, we define *free variables* and *substitution*.
 --    These are used in the reduction rule for application
 --    expressions.
---
 --  - Finally, we give the small-step relation itself.
 
 --  ### Values
@@ -498,12 +486,10 @@ abbrev notB := <{ λ x : Bool . if x then false else true }>
 --  still has work left to do.
 
 --  Third, for abstractions, we have a choice:
---
 --  - We can say that `λx:T. t` is a value only when `t` is
 --    a value — i.e., only if the function's body has been
 --    reduced (as much as it can be without knowing what
 --    argument it is going to be applied to).
---
 --  - Or we can say that `λx:T. t` is always a value, no
 --    matter whether `t` is one or not — in other words, we
 --    can say that reduction stops at abstractions.
@@ -579,27 +565,18 @@ theorem notB_value : notB.IsValue := .abs ..
 --  pronounced "substitute `s` for `x` in `t`."
 
 --  Here are some examples:
---
 --  - `[x:=true] (if x then true else false)` yields
 --    `if true then true else false`
---
 --  - `[x:=true] x` yields `true`
---
 --  - `[x:=true] (if x then x else y)` yields
 --    `if true then true else y`
---
 --  - `[x:=true] y` yields `y`
---
 --  - `[x:=true] false` yields `false` (vacuous
 --    substitution)
---
 --  - `[x:=true] (λy:Bool. if y then x else false)` yields
 --    `λy:Bool. if y then true else false`
---
 --  - `[x:=true] (λy:Bool. x)` yields `λy:Bool. true`
---
 --  - `[x:=true] (λy:Bool. y)` yields `λy:Bool. y`
---
 --  - `[x:=true] (λx:Bool. x)` yields `λx:Bool. x`
 --
 --  The last example is illuminating: substituting `x` with
@@ -776,16 +753,13 @@ variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty)
 --                             v₁ t₂ ⟶ v₁ t₂'
 
 --  (plus the usual rules for conditionals).
-
+--
 --  The `appAbs` rule is often called *beta-reduction*.
-
+--
 --  This is *call by value* reduction: to reduce an
 --  application `(t₁ t₂)`, we
---
 --  - first reduce `t₁` to a value: a function `λx:T. t`
---
 --  - then reduce the argument `t₂` to a value `v`
---
 --  - then reduce the application itself by substituting `v`
 --    for the bound variable `x` in the body `t`.
 
@@ -1052,7 +1026,7 @@ abbrev Context := PartialMap String Ty
 --  We can read the three-place relation `Γ ⊢ t ⦂ T` as:
 --  "under the assumptions in Γ, the term `t` has the type
 --  `T`."
-
+--
 --  In the formal development, we write this judgment inside
 --  the same `<{ .. }>` brackets.
 
@@ -1271,4 +1245,4 @@ example : ¬ ∃ T, <{ ∅ ⊢ λ x : Bool . λ y : Bool . x y ⦂ ~T }> := by
 
 end Stlc
 
--- Built on 2026-09-02 16:13 UTC
+-- Built on 2026-09-09 00:06 UTC

@@ -9,14 +9,11 @@ import SFLCompat
 --  # Logic in Lean
 
 --  So far, we have seen:
---
 --  - *propositions*: mathematical statements, so far only
 --    of 3 kinds:
---
 --    - equality propositions (`e1 = e2`)
 --    - implications (`a -> b`)
 --    - quantified propositions (`∀ x, a`)
---
 --  - *proofs*: ways of presenting evidence for the truth of
 --    a proposition
 --
@@ -184,7 +181,6 @@ theorem succ_inj' : Injective Nat.succ := by
 --  _Quiz:_
 
 --  Which of the following is *not* a proposition?
---
 --  1. `3 + 2 = 4`
 --  2. `3 + 2 = 5`
 --  3. `3 + 2 == 5`
@@ -530,7 +526,7 @@ example : True := by constructor
 --  that two propositions have the same truth value, is a
 --  structure containing the two implication directions.
 --  `a ↔ b` is notation for `Iff a b`.
-
+--
 --  You can use `Iff.mp` to access the forward direction of
 --  the iff, `Iff.mpr` to access the backwards direction,
 --  and `Iff.intro` to convert a goal of the form `a ↔ b` to
@@ -621,48 +617,30 @@ example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
 --  ## Recap: Logical Connectives in Lean
 
 --  Connectives introduced in this chapter:
---
 --  - `a ∧ b` (conjunction):
---
 --    - introduced with `constructor`
---
 --    - eliminated with `intro ⟨ha, hb⟩` or
 --      `obtain ⟨ha, hb⟩ := h`
---
 --  - `a ∨ b` (disjunction):
---
 --    - introduced with `left` and `right`
 --    - eliminated with `cases` or `obtain h | h := h`
---
 --  - `False` (falsehood):
---
 --    - eliminated with `cases` or `contradiction`
---
 --  - `¬ a` (negation):
---
 --    - defined as `a → False`
---
 --  - `True` (truthhood):
---
 --    - introduced as `True.intro` or with `constructor`
---
 --  - `a ↔ b` (iff):
---
 --    - introduced with `constructor`
---
 --    - eliminated with `intro ⟨hab, hba⟩`,
 --      `obtain ⟨hab, hba⟩ := h`, or `Iff.mp` and `Iff.mpr`
---
 --  - `∃ x : α, a` (existential):
---
 --    - introduced with `exists y`
---
 --    - eliminated with `intro ⟨x, Hx⟩` or
 --      `obtain ⟨x, Hx⟩ := H`
 --
 --  Fundamental connectives we've been using since the
 --  beginning:
---
 --  - equality (`x = y`)
 --  - implication (`a → b`)
 --  - universal quantification (`∀ x, a`)
@@ -671,14 +649,12 @@ example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
 
 --  What does it mean to say that "an element `x` occurs in
 --  a list `l`"?
---
 --  - If `l` is the empty list, then `x` cannot occur in it,
 --    so the property "`x` appears in `l`" is simply false.
---
 --  - Otherwise, `l` has the form `[x' :: l']`. In this
 --    case, `x` occurs in `l` if it is equal to `x'` or if
 --    it occurs in `l'`.
-
+--
 --  We can translate this directly into a straightforward
 --  recursive function taking an element and a list and
 --  returning... a proposition!
@@ -720,7 +696,7 @@ theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : 
 --  ## Applying Theorems to Arguments
 
 --  Lean also treats *proofs* as first-class objects!
-
+--
 --  We have seen that we can use `#check` to ask Lean
 --  whether an expression has a given type:
 
@@ -755,18 +731,16 @@ theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : 
 --
 --  The type of an ordinary function tells us what we can do
 --  with it.
---
 --  - If we have a term of type `Nat → Nat → Nat`, we can
 --    give it two `Nat`s as arguments and get a `Nat` back.
 --    Similarly, the statement of a theorem tells us what we
 --    can use that theorem for.
---
 --  - If we have a term of type
 --    `∀ n m : Nat, n = m → n + n = m + m`, and we provide
 --    it two numbers `n` and `m` and a third "argument" of
 --    type `n = m`, we get back a proof object of type
 --    `n + n = m + m`.
-
+--
 --  Lean actually allows us to *apply* a theorem as if it
 --  were a function. This is often handy in proof scripts —
 --  e.g., suppose we want to prove the following:
@@ -929,7 +903,7 @@ end FunctionTheoremQuiz
 --      | ------------------- | ------ | ------ |
 --      | decidable?          | yes    | no     |
 --      | useable with match? | yes    | no     |
-
+--
 --  Since functions in Lean by default must terminate on all
 --  inputs, a terminating function of type `Nat → Bool` is a
 --  *decision procedure* — i.e., it yields `true` or `false`
@@ -937,7 +911,7 @@ end FunctionTheoremQuiz
 --
 --  For example, `Nat.even` is a decision procedure for the
 --  property "is even".
-
+--
 --  Since `Prop` includes *both* decidable and undecidable
 --  properties, we have two options when we want to
 --  formalize a property that happens to be decidable: we
@@ -985,7 +959,6 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 
 --  Similarly, to state that two numbers `n` and `m` are
 --  equal, we can say either
---
 --  1. that `n == m` returns `true`, or
 --  2. that `n = m`.
 --
@@ -1096,7 +1069,7 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 --  mathematical reasoning into Lean is cumbersome - or even
 --  impossible - unless we enrich its core logic with
 --  additional axioms.
-
+--
 --  A first instance has to do with equality of
 --  propositions.
 
@@ -1340,4 +1313,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Built on 2026-09-02 16:11 UTC
+-- Built on 2026-09-09 00:03 UTC
