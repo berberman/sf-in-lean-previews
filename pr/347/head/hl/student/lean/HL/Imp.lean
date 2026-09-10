@@ -884,8 +884,8 @@ example :
 --  Is the following proposition provable?
 --
 --      ∀ (c : Com) (st st' : State),
---        st =[ skip; ~c ]=> st' →
---        st =[ ~c ]=> st'
+--        st =[ skip; c ]=> st' →
+--        st =[ c ]=> st'
 --
 --  (A) Yes (B) No (C) Not sure
 
@@ -896,9 +896,9 @@ example :
 --  Is the following proposition provable?
 --
 --      ∀ (c₁ c₂ : Com) (st st' : State),
---        st =[ ~c₁; ~c₂ ]=> st' →
---        st =[ ~c₁ ]=> st →
---        st =[ ~c₂ ]=> st'
+--        st =[ c₁; c₂ ]=> st' →
+--        st =[ c₁ ]=> st →
+--        st =[ c₂ ]=> st'
 --
 --  (A) Yes (B) No (C) Not sure
 
@@ -909,8 +909,8 @@ example :
 --  Is the following proposition provable?
 --
 --      ∀ (b : Bexp) (c : Com) (st st' : State),
---        st =[ if (~b) { ~c } else { ~c } ]=> st' →
---        st =[ ~c ]=> st'
+--        st =[ if (b) { c } else { c } ]=> st' →
+--        st =[ c ]=> st'
 --
 --  (A) Yes (B) No (C) Not sure
 
@@ -1423,4 +1423,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Built on 2026-09-10 13:01 UTC
+-- Built on 2026-09-10 13:18 UTC

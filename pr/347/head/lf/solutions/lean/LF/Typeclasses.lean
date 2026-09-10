@@ -1676,4 +1676,4 @@ example {α : Type} (x : α) [BEq α] [LawfulBEq α] (xs : List α)
 
 end Reflection
 
--- Built on 2026-09-10 13:00 UTC
+-- Built on 2026-09-10 13:18 UTC

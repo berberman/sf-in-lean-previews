@@ -135,9 +135,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "895bf21fcbd7b7668fd9630a84608bb7cdf9e71a",
+      "head_sha": "b43f6607763ce6ceb18d5e56a2fb45d59382d3ef",
       "preview_path": "pr/347/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34479808920",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34481625931",
       "status": "published",
       "title": "Imp: proof polishing, remove EvalR unexpanders",
       "url": "https://github.com/plclub/sf-in-lean/pull/347"
@@ -332,11 +332,48 @@
     },
     "384": {
       "base_sha": "dcb7274fa4ae57b3e6461ac5b69af452e7bc6315",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "2ca8d7b7dd28a30be6b798dd287ccf7cd0fab95d",
       "preview_path": "pr/384/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34481170378",
+      "status": "published",
       "title": "Tactics: Tidying",
       "url": "https://github.com/plclub/sf-in-lean/pull/384"
     }
