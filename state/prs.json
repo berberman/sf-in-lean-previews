@@ -1,5 +1,5 @@
 {
-  "main_sha": "56f6e311085f86159e058f9cb22f7537331ec66a",
+  "main_sha": "b64913e9d3a6f3b052ad2d51a4fa7513088529b9",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -141,53 +141,6 @@
       "status": "published",
       "title": "Imp: proof polishing, remove EvalR unexpanders",
       "url": "https://github.com/plclub/sf-in-lean/pull/347"
-    },
-    "376": {
-      "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "924e77acaa3d569cbed8e3bb481d65e9f0ca6cd0",
-      "preview_path": "pr/376/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34231358138",
-      "status": "published",
-      "title": "Customize VSCode title/activity bar colors",
-      "url": "https://github.com/plclub/sf-in-lean/pull/376"
     },
     "381": {
       "base_sha": "457f3db63c2b099ce88309c1a8bfc5d490dd87d6",
