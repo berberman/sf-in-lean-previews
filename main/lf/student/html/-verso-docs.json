@@ -1,141 +1,141 @@
-{"999": "<code>Nat.zero_mul (n : Nat) : 0 * n = 0</code>",
- "998":
+{"999":
  "<code>Or.inl {a b : Prop} (h : a) : a ∨ b</code><span class=\"sep\"></span><code class=\"docstring\">`Or.inl` is \"left injection\" into an `Or`. If `h : a` then `Or.inl h : a ∨ b`. </code>",
- "997": "<code>n = 0 ∨ m = 0</code>",
- "996":
+ "998": "<code>n = 0 ∨ m = 0</code>",
+ "997":
  "<code>Nat.factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0</code>",
- "995":
+ "996":
  "<code>Or (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`Or a b`, or `a ∨ b`, is the disjunction of propositions. There are two\nconstructors for `Or`, called `Or.inl : a → a ∨ b` and `Or.inr : b → a ∨ b`,\nand you can use `match` or `cases` to destruct an `Or` assumption into the\ntwo cases.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∨` in identifiers is `or`.</code>",
- "994": "<code>a ∧ b ∧ c</code>",
- "993":
+ "995": "<code>a ∧ b ∧ c</code>",
+ "994":
  "<code>and_associate (a b c : Prop) (h : a ∧ b ∧ c) : (a ∧ b) ∧ c</code>",
- "992": "<code>and_commute' (a b : Prop) (h : a ∧ b) : b ∧ a</code>",
- "991":
+ "993": "<code>and_commute' (a b : Prop) (h : a ∧ b) : b ∧ a</code>",
+ "992":
  "<code>And.right {a b : Prop} (self : a ∧ b) : b</code><span class=\"sep\"></span><code class=\"docstring\">Extract the right conjunct from a conjunction. `h : a ∧ b` then\n`h.right`, also notated as `h.2`, is a proof of `b`. </code>",
- "990": "<code>and_commute (a b : Prop) (h : a ∧ b) : b ∧ a</code>",
+ "991": "<code>and_commute (a b : Prop) (h : a ∧ b) : b ∧ a</code>",
+ "990": "<code>right (a b : Prop) (h : a ∧ b) : b</code>",
  "99":
  "<code>isInversion_test4 : isInversion (Color.primary RGB.green) (Color.primary RGB.red) = false</code>",
- "989": "<code>right (a b : Prop) (h : a ∧ b) : b</code>",
- "988":
+ "989":
  "<code>And.left {a b : Prop} (self : a ∧ b) : a</code><span class=\"sep\"></span><code class=\"docstring\">Extract the left conjunct from a conjunction. `h : a ∧ b` then\n`h.left`, also notated as `h.1`, is a proof of `a`. </code>",
- "987": "<code>left (a b : Prop) (h : a ∧ b) : a</code>",
- "986": "<code>a ∧ b</code>",
- "985": "<code>proj1 (a b : Prop) (h : a ∧ b) : a</code>",
- "984": "<code>n + m = 0</code>",
- "983": "<code>n = 0 ∧ m = 0</code>",
- "982":
+ "988": "<code>left (a b : Prop) (h : a ∧ b) : a</code>",
+ "987": "<code>a ∧ b</code>",
+ "986": "<code>proj1 (a b : Prop) (h : a ∧ b) : a</code>",
+ "985": "<code>n + m = 0</code>",
+ "984": "<code>n = 0 ∧ m = 0</code>",
+ "983":
  "<code class=\"docstring\">The `obtain` tactic is a combination of `have` and `rcases`. See `rcases` for\na description of supported patterns.\n\n```lean\nobtain ⟨patt⟩ : type := proof\n```\nis equivalent to\n```lean\nhave h : type := proof\nrcases h with ⟨patt⟩\n```\n\nIf `⟨patt⟩` is omitted, `rcases` will try to infer the pattern.\n\nIf `type` is omitted, `:= proof` is required.\n</code>",
- "981": "<code>Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0</code>",
- "980": "<code>b</code>",
+ "982": "<code>Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0</code>",
+ "981": "<code>b</code>",
+ "980": "<code>a</code>",
  "98":
  "<code>isInversion_test3 : isInversion (Color.primary RGB.red) (Color.primary RGB.blue) = true</code>",
- "979": "<code>a</code>",
- "978":
+ "979":
  "<code>And.intro {a b : Prop} (left : a) (right : b) : a ∧ b</code><span class=\"sep\"></span><code class=\"docstring\">`And.intro : a → b → a ∧ b` is the constructor for the And operation. </code>",
- "977":
+ "978":
  "<code class=\"docstring\">If the main goal's target type is an inductive type, `constructor` solves it with\nthe first matching constructor, or else fails.\n</code>",
- "976":
+ "977":
  "<code>HAdd.{u, v, w} (α : Type u) (β : Type v) (γ : outParam (Type w)) : Type (max (max u v) w)</code><span class=\"sep\"></span><code class=\"docstring\">The notation typeclass for heterogeneous addition.\nThis enables the notation `a + b : γ` where `a : α`, `b : β`.\n</code>",
- "975": "<code>x.succ = y.succ</code>",
- "974": "<code>succ_inj' : Injective Nat.succ</code>",
- "973": "<code>Injective {α β : Type} (f : α → β) : Prop</code>",
- "972": "<code>Nat.IsThree (n : Nat) : Prop</code>",
- "971": "<code>plusClaim_is_true : PlusClaim</code>",
- "970": "<code>PlusClaim : Prop</code>",
+ "976": "<code>x.succ = y.succ</code>",
+ "975": "<code>succ_inj' : Injective Nat.succ</code>",
+ "974": "<code>Injective {α β : Type} (f : α → β) : Prop</code>",
+ "973": "<code>Nat.IsThree (n : Nat) : Prop</code>",
+ "972": "<code>plusClaim_is_true : PlusClaim</code>",
+ "971": "<code>PlusClaim : Prop</code>",
+ "970": "<code>plus_2_2_is_4 : 2 + 2 = 4</code>",
  "97":
  "<code>isInversion_test2 : isInversion Color.white Color.black = true</code>",
- "969": "<code>plus_2_2_is_4 : 2 + 2 = 4</code>",
- "968": "<code>?m.2</code>",
- "967":
+ "969": "<code>?m.2</code>",
+ "968":
  "<code>anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) : anyTrue test l = anyTrue' test l</code>",
- "966":
+ "967":
  "<code>anyTrue' {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
- "965": "<code>anyTrue {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
- "964": "<code>allTrue {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
- "963": "<code>filter test l = x :: l'</code>",
- "962":
+ "966": "<code>anyTrue {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
+ "965": "<code>allTrue {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
+ "964": "<code>filter test l = x :: l'</code>",
+ "963":
  "<code>test_pos_of_filter_cons {α : Type} (test : α → Bool) (x : α) (l l' : List α) (h : filter test l = x :: l') :\n  test x = true</code>",
- "961": "<code>map f l₁ = map f l₂</code>",
- "960": "<code>∀ (x y : α), f x = f y → x = y</code>",
+ "962": "<code>map f l₁ = map f l₂</code>",
+ "961": "<code>∀ (x y : α), f x = f y → x = y</code>",
+ "960":
+ "<code>map_injective_of_injective {α β : Type} (f : α → β) (hf : ∀ (x y : α), f x = f y → x = y) (l₁ l₂ : List α)\n  (h : map f l₁ = map f l₂) : l₁ = l₂</code>",
  "96":
  "<code>isInversion_test1 : isInversion Color.black Color.white = true</code>",
- "959":
- "<code>map_injective_of_injective {α β : Type} (f : α → β) (hf : ∀ (x y : α), f x = f y → x = y) (l₁ l₂ : List α)\n  (h : map f l₁ = map f l₂) : l₁ = l₂</code>",
- "958": "<code>l₁ ++ l₂ = l₁ ++ l₃</code>",
- "957":
+ "959": "<code>l₁ ++ l₂ = l₁ ++ l₃</code>",
+ "958":
  "<code>append_left_cancel {α : Type} (l₁ l₂ l₃ : List α) (h : l₁ ++ l₂ = l₁ ++ l₃) : l₂ = l₃</code>",
- "956": "<code>∀ (m n : Nat), p m n → p (m + 1) (n + 1)</code>",
- "955": "<code>∀ (n : Nat), p 0 n → p 0 (n + 1)</code>",
- "954": "<code>∀ (m : Nat), p m 0 → p (m + 1) 0</code>",
- "953": "<code>p 0 0</code>",
- "952": "<code>Nat → Nat → Prop</code>",
- "951":
+ "957": "<code>∀ (m n : Nat), p m n → p (m + 1) (n + 1)</code>",
+ "956": "<code>∀ (n : Nat), p 0 n → p 0 (n + 1)</code>",
+ "955": "<code>∀ (m : Nat), p m 0 → p (m + 1) 0</code>",
+ "954": "<code>p 0 0</code>",
+ "953": "<code>Nat → Nat → Prop</code>",
+ "952":
  "<code>diagonal_induction (p : Nat → Nat → Prop) (hzz : p 0 0) (hsz : ∀ (m : Nat), p m 0 → p (m + 1) 0)\n  (hzs : ∀ (n : Nat), p 0 n → p 0 (n + 1)) (hss : ∀ (m n : Nat), p m n → p (m + 1) (n + 1)) (m n : Nat) : p m n</code>",
- "950": "<code>∀ (n : Nat), nth? l₁ n = nth? l₂ n</code>",
+ "951": "<code>∀ (n : Nat), nth? l₁ n = nth? l₂ n</code>",
+ "950":
+ "<code>list_ext {α : Type} {l₁ l₂ : List α} (h : ∀ (n : Nat), nth? l₁ n = nth? l₂ n) : l₁ = l₂</code>",
  "95": "<code>isInversion (c1 c2 : Color) : Bool</code>",
  "949":
- "<code>list_ext {α : Type} {l₁ l₂ : List α} (h : ∀ (n : Nat), nth? l₁ n = nth? l₂ n) : l₁ = l₂</code>",
- "948":
  "<code>length_append_self {α : Type} {n : Nat} {l : List α} (h : l.length = n) : (l ++ l).length = n + n</code>",
- "947": "<code>(l₁ ++ x :: l₂).length = n</code>",
- "946":
+ "948": "<code>(l₁ ++ x :: l₂).length = n</code>",
+ "947":
  "<code>length_append_cons {α : Type} {l₁ l₂ : List α} {x : α} {n : Nat} (h : (l₁ ++ x :: l₂).length = n) :\n  (l₁ ++ l₂).length + 1 = n</code>",
- "945":
+ "946":
  "<code>List.length_append.{u} {α : Type u} {as bs : List α} : (as ++ bs).length = as.length + bs.length</code>",
- "944": "<code>l.length = n</code>",
- "943":
+ "945": "<code>l.length = n</code>",
+ "944":
  "<code>nth?_after_last {α : Type} {n : Nat} {l : List α} (h : l.length = n) : nth? l n = none</code>",
- "942": "<code>m + p = q</code>",
- "941":
+ "943": "<code>m + p = q</code>",
+ "942":
  "<code>add_self_injective (n m : Nat) (h : n + n = m + m) : n = m</code>",
- "940": "<code>n'.double + 2 = m'.double + 2</code>",
+ "941": "<code>n'.double + 2 = m'.double + 2</code>",
+ "940": "<code>n'.double + 2 = (m' + 1).double</code>",
  "94": "<code>is_weekend_test2 : is_weekend Day.friday = false</code>",
- "939": "<code>n'.double + 2 = (m' + 1).double</code>",
- "938": "<code>∀ (m : Nat), n'.double = m.double → n' = m</code>",
- "937": "<code>(n' + 1).double = (m' + 1).double</code>",
- "936": "<code>n'.double = (m' + 1).double → n' = m' + 1</code>",
- "935": "<code>n'.double + 2 = 0</code>",
- "934": "<code>(n' + 1).double = 0</code>",
- "933": "<code>(n' + 1).double = Nat.double 0</code>",
- "932": "<code>n'.double = Nat.double 0 → n' = 0</code>",
- "931": "<code>(n' + 1).double = m.double</code>",
- "930": "<code>n'.double = m.double → n' = m</code>",
+ "939": "<code>∀ (m : Nat), n'.double = m.double → n' = m</code>",
+ "938": "<code>(n' + 1).double = (m' + 1).double</code>",
+ "937": "<code>n'.double = (m' + 1).double → n' = m' + 1</code>",
+ "936": "<code>n'.double + 2 = 0</code>",
+ "935": "<code>(n' + 1).double = 0</code>",
+ "934": "<code>(n' + 1).double = Nat.double 0</code>",
+ "933": "<code>n'.double = Nat.double 0 → n' = 0</code>",
+ "932": "<code>(n' + 1).double = m.double</code>",
+ "931": "<code>n'.double = m.double → n' = m</code>",
+ "930": "<code>0 = m'.double + 2</code>",
  "93": "<code>is_weekend_test1 : is_weekend Day.sunday = true</code>",
- "929": "<code>0 = m'.double + 2</code>",
- "928": "<code>0 = (m' + 1).double</code>",
- "927": "<code>Nat.double_zero : Nat.double 0 = 0</code>",
- "926": "<code>Nat.double 0 = (m' + 1).double</code>",
- "925": "<code>Nat.double 0 = Nat.double 0</code>",
- "924": "<code>Nat.double 0 = m.double</code>",
- "923": "<code>n.double = m.double</code>",
- "922":
+ "929": "<code>0 = (m' + 1).double</code>",
+ "928": "<code>Nat.double_zero : Nat.double 0 = 0</code>",
+ "927": "<code>Nat.double 0 = (m' + 1).double</code>",
+ "926": "<code>Nat.double 0 = Nat.double 0</code>",
+ "925": "<code>Nat.double 0 = m.double</code>",
+ "924": "<code>n.double = m.double</code>",
+ "923":
  "<code>double_injective (n m : Nat) (h : n.double = m.double) : n = m</code>",
- "921": "<code>_root_.Nat.double (n : Nat) : Nat</code>",
- "920": "<code>∀ (a c : List Nat), a = [w, x] → [w, x] = c → a = c</code>",
+ "922": "<code>_root_.Nat.double (n : Nat) : Nat</code>",
+ "921": "<code>∀ (a c : List Nat), a = [w, x] → [w, x] = c → a = c</code>",
+ "920": "<code>∀ (i : Nat), nth? l i = none</code>",
  "92": "<code>is_weekend (d : Day) : Bool</code>",
- "919": "<code>∀ (i : Nat), nth? l i = none</code>",
- "918":
+ "919":
  "<code>nth?_always_none {α : Type} {l : List α} (h : ∀ (i : Nat), nth? l i = none) : l = []</code>",
- "917":
+ "918":
  "<code class=\"docstring\">`specialize h a₁ ... aₙ` is equivalent to `replace h := h a₁ ... aₙ`.\nIt specializes the local hypothesis `h` by instantiating\nuniversal quantifications and implications using the concrete terms `a₁` ... `aₙ`.\nThe tactic adds a new hypothesis with the same name and tries to remove\nthe original `h` if possible.\n\nExample: given `h : ∀ (n : Nat), p n → q n` and `h' : p 2`,\nthen `specialize h 2 h'` replaces `h` with `h : q 2`.\n\nThe tactic also supports instantiating particular universal quantifiers\nusing named argument syntax. Example: given `h : ∀ (m n : Nat), p m n`,\nthen `specialize h (n := 2)` replaces `h` with `h : ∀ (m : Nat), p m 2`.\n</code>",
- "916":
+ "917":
  "<code class=\"docstring\">`replace h := e` is like `have h := e`, but it removes a previous hypothesis\nof the same name as this one if possible. For example, if the state is:\n\n```lean\nf : α → β\nh : α\n⊢ goal\n```\n\nThen after `replace h := f h` the state will be:\n\n```lean\nf : α → β\nh : β\n⊢ goal\n```\n\nwhereas `have h := f h` would result in:\n\n```lean\nf : α → β\nh† : α\nh : β\n⊢ goal\n```\n\nThe tactic `specialize h a₁ ... aₙ` is a way to write `replace h := h a₁ ... aₙ`,\nautomatically inferring which hypothesis should be replaced.\n\nThe `replace` tactic can be used to simulate Rocq's `apply at` tactic.\n</code>",
- "915": "<code>m = 0</code>",
- "914": "<code>m * 1 = 0</code>",
- "913": "<code>∀ (n : Nat), m * n = 0</code>",
- "912": "<code>p = q</code>",
- "911":
+ "916": "<code>m = 0</code>",
+ "915": "<code>m * 1 = 0</code>",
+ "914": "<code>∀ (n : Nat), m * n = 0</code>",
+ "913": "<code>p = q</code>",
+ "912":
  "<code class=\"docstring\">`apply t at i` uses forward reasoning with `t` at the hypothesis `i`.\nExplicitly, if `t : α₁ → ⋯ → αᵢ → ⋯ → αₙ` and `i` has type `αᵢ`, then this tactic adds\nmetavariables/goals for any terms of `αⱼ` for `j = 1, …, i-1`,\nthen replaces the type of `i` with `αᵢ₊₁ → ⋯ → αₙ` by applying those metavariables and the\noriginal `i`.\n\nLifted from [https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Tactic/ApplyAt.lean].\n</code>",
- "910": "<code>n = m → p = q</code>",
+ "911": "<code>n = m → p = q</code>",
+ "910": "<code>n + p = m</code>",
  "91": "<code>isRed' (c : Color) : Bool</code>",
- "909": "<code>n + p = m</code>",
- "908": "<code>m = o.minusTwo</code>",
- "907":
+ "909": "<code>m = o.minusTwo</code>",
+ "908":
  "<code>trans_eq_exercise (n m o p : Nat) (h₁ : m = o.minusTwo) (h₂ : n + p = m) : n + p = o.minusTwo</code>",
- "906": "<code>Sort u</code>",
- "905":
+ "907": "<code>Sort u</code>",
+ "906":
  "<code>Eq.trans.{u} {α : Sort u} {a b c : α} (h₁ : a = b) (h₂ : b = c) : a = c</code><span class=\"sep\"></span><code class=\"docstring\">Equality is transitive: if `a = b` and `b = c` then `a = c`.\n\nBecause this is in the `Eq` namespace, if you have variables or expressions\n`h₁ : a = b` and `h₂ : b = c`, you can use `h₁.trans h₂ : a = c` as shorthand\nfor `Eq.trans h₁ h₂`.\n\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n</code>",
- "904": "<code>b = c</code>",
+ "905": "<code>b = c</code>",
+ "904": "<code>a = b</code>",
  "903": "<code>trans_eq {α : Type} (a b c : α) : a = b → b = c → a = c</code>",
  "902": "<code>[w, x] = [y, z]</code>",
  "901": "<code>[u, v] = [w, x]</code>",
@@ -161,9 +161,9 @@
  "887": "<code>Prop</code>",
  "886":
  "<code>bool_fn_iterate_three_eq_one (f : Bool → Bool) (b : Bool) : f (f (f b)) = f b</code>",
- "885": "<code>(if true = true then some x else none) = some y</code>",
- "884": "<code>(if false = true then some x else none) = some y</code>",
- "883": "<code>(if test x = true then some x else none) = some y</code>",
+ "885": "<code>(bif true then some x else none) = some y</code>",
+ "884": "<code>(bif false then some x else none) = some y</code>",
+ "883": "<code>(bif test x then some x else none) = some y</code>",
  "882": "<code>keepIf test x = some y</code>",
  "881":
  "<code>keepIf_some {α : Type} (test : α → Bool) (x y : α) (h : keepIf test x = some y) : x = y</code>",
@@ -174,46 +174,45 @@
  "<code>zip_unzip' {α β : Type} (l : List (α × β)) (l₁ : List α) (l₂ : List β) (h : unzip' l = (l₁, l₂)) : zip l₁ l₂ = l</code>",
  "877": "<code>unzip' {α β : Type} (l : List (α × β)) : List α × List β</code>",
  "876":
- "<code>ite.{u} {α : Sort u} (c : Prop) [h : Decidable c] (t e : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
- "875":
  "<code>chooseIf_self {α : Type} (test : α → Bool) (x : α) : chooseIf test x x = x</code>",
- "874":
- "<code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
- "873": "<code>chooseIf {α : Type} (test : α → Bool) (x y : α) : α</code>",
- "872": "<code>c = d</code>",
- "871": "<code>a = b</code>",
- "870": "<code>1 + x = 1 + y</code>",
- "87": "<code>monochrome (c : Color) : Bool</code>",
- "869": "<code>x + 1 = y + 1</code>",
- "868":
+ "875": "<code>chooseIf {α : Type} (test : α → Bool) (x y : α) : α</code>",
+ "874": "<code>d = c + 1</code>",
+ "873": "<code>a = b + 1</code>",
+ "872": "<code>1 + x = 1 + y</code>",
+ "871": "<code>x + 1 = y + 1</code>",
+ "870":
  "<code>Decidable.decide (p : Prop) [h : Decidable p] : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Converts a decidable proposition into a `Bool`.\n\nIf `p : Prop` is decidable, then `decide p : Bool` is the Boolean value\nthat is `true` if `p` is true and `false` if `p` is false.\n</code>",
- "867": "<code>(!decide (x = !y)) = true</code>",
- "866":
+ "87": "<code>monochrome (c : Color) : Bool</code>",
+ "869": "<code>(!decide (x = !y)) = true</code>",
+ "868":
  "<code class=\"docstring\">`assumption` tries to solve the main goal using a hypothesis of compatible type, or else fails.\nNote also the `‹t›` term notation, which is a shorthand for `show t by assumption`.\n</code>",
- "865":
+ "867":
  "<code class=\"docstring\">* `symm` applies to a goal whose target has the form `t ~ u` where `~` is a symmetric relation,\n  that is, a relation which has a symmetry lemma tagged with the attribute [symm].\n  It replaces the target with `u ~ t`.\n* `symm at h` will rewrite a hypothesis `h : t ~ u` to `h : u ~ t`.\n</code>",
- "864": "<code>x = y</code>",
- "863": "<code>Color.primary x = Color.primary y</code>",
- "862": "<code>_root_.Color.primary (p : RGB) : _root_.Color</code>",
- "861": "<code>_root_.Color.white : _root_.Color</code>",
- "860": "<code>_root_.Color.black : _root_.Color</code>",
+ "866": "<code>x = y</code>",
+ "865": "<code>Color.primary x = Color.primary y</code>",
+ "864": "<code>_root_.Color.primary (p : RGB) : _root_.Color</code>",
+ "863": "<code>_root_.Color.white : _root_.Color</code>",
+ "862": "<code>_root_.Color.black : _root_.Color</code>",
+ "861": "<code>_root_.RGB.blue : _root_.RGB</code>",
+ "860": "<code>_root_.RGB.green : _root_.RGB</code>",
  "86": "<code>RGB</code>",
- "859": "<code>_root_.RGB.blue : _root_.RGB</code>",
- "858": "<code>_root_.RGB.green : _root_.RGB</code>",
- "857": "<code>_root_.RGB.red : _root_.RGB</code>",
- "856": "<code>x :: y :: l = []</code>",
- "855":
+ "859": "<code>_root_.RGB.red : _root_.RGB</code>",
+ "858": "<code>x :: y :: l = []</code>",
+ "857":
  "<code>disjoint_ex3 {α : Type} (x y z : α) (l : List α) (h : x :: y :: l = []) : x = z</code>",
- "854": "<code>n.succ = 0</code>",
- "853": "<code>Nat.one_add (n : Nat) : 1 + n = n.succ</code>",
- "852": "<code>1 + n = 0</code>",
- "851": "<code>n + 1 = 0</code>",
- "850": "<code>false = true</code>",
+ "856": "<code>n.succ = 0</code>",
+ "855": "<code>Nat.one_add (n : Nat) : 1 + n = n.succ</code>",
+ "854": "<code>1 + n = 0</code>",
+ "853": "<code>n + 1 = 0</code>",
+ "852": "<code>false = true</code>",
+ "851": "<code>j = z :: l</code>",
+ "850": "<code>x :: y :: l = z :: j</code>",
  "85": "<code>Color.primary (p : RGB) : Color</code>",
- "849": "<code>j = z :: l</code>",
- "848": "<code>x :: y :: l = z :: j</code>",
- "847":
+ "849":
  "<code>injection_ex3 {α : Type} (x y z : α) (l j : List α) (h₁ : x :: y :: l = z :: j) (h₂ : j = z :: l) : x = y</code>",
+ "848": "<code>[n] ++ [m] = ([o] ++ [o]).reverse</code>",
+ "847":
+ "<code>List.reverse.{u} {α : Type u} (as : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Reverses a list.\n\n`O(|as|)`.\n\nBecause of the “functional but in place” optimization implemented by Lean's compiler, this function\ndoes not allocate a new list when its reference to the input list is unshared: it simply walks the\nlinked list and reverses all the node pointers.\n\nExamples:\n* `[1, 2, 3, 4].reverse = [4, 3, 2, 1]`\n* `[].reverse = []`\n</code>",
  "846":
  "<code class=\"docstring\">`injections` applies `injection` to all hypotheses recursively\n(since `injection` can produce new hypotheses). Useful for destructing nested\nconstructor equalities like `(a::b::c) = (d::e::f)`. </code>",
  "845": "<code>[] = []</code>",
@@ -1298,33 +1297,37 @@
  "194": "<code>NatPlayground.Nat.zero_mul_two : zero * two = zero</code>",
  "193": "<code>NatPlayground.Nat.one_add_one : one + one = two</code>",
  "192": "<code>NatPlayground.Nat.zero_add_one : zero + one = one</code>",
- "1910":
+ "1912":
  "<code>List.filter.{u} {α : Type u} (p : α → Bool) (l : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Returns the list of elements in `l` for which `p` returns `true`.\n\n`O(|l|)`.\n\nExamples:\n* `[1, 2, 5, 2, 7, 7].filter (· &gt; 2) = [5, 7, 7]`\n* `[1, 2, 5, 2, 7, 7].filter (fun _ =&gt; false) = []`\n* `[1, 2, 5, 2, 7, 7].filter (fun _ =&gt; true) = [1, 2, 5, 2, 7, 7]`\n</code>",
+ "1911": "<code>List.filter (fun x_1 =&gt; x == x_1) xs ≠ []</code>",
+ "1910":
+ "<code>decide_eq_true_iff {p : Prop} [Decidable p] : decide p = true ↔ p</code>",
  "191":
  "<code>NatPlayground.Nat.mul_succ (n m : Nat) : n * succ m = n * m + n</code>",
- "1909": "<code>List.filter (fun x_1 =&gt; x == x_1) xs ≠ []</code>",
+ "1909": "<code>Decidable p</code>",
  "1908":
- "<code>decide_eq_true_iff {p : Prop} [Decidable p] : decide p = true ↔ p</code>",
- "1907": "<code>Decidable p</code>",
- "1906":
  "<code>decide_eq_false_iff_not {p : Prop} {x✝ : Decidable p} : decide p = false ↔ ¬p</code>",
- "1905":
+ "1907":
  "<code>Decidable.isFalse {p : Prop} (h : ¬p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `¬p` </code>",
- "1904":
+ "1906":
  "<code>Decidable.isTrue {p : Prop} (h : p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `p` </code>",
- "1903": "<code>¬b = true</code>",
- "1902": "<code>b = true</code>",
- "1901": "<code>b = true ↔ p</code>",
- "1900":
+ "1905": "<code>¬b = true</code>",
+ "1904": "<code>b = true</code>",
+ "1903": "<code>b = true ↔ p</code>",
+ "1902":
  "<code>decidable_of_bool {a : Prop} (b : Bool) : (b = true ↔ a) → Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">Prove that `a` is decidable by constructing a boolean `b` and a proof that `b ↔ a`.\n(This is sometimes taken as an alternate definition of decidability.) </code>",
+ "1901":
+ "<code>Classical.propDecidable (a : Prop) : Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">All propositions are `Decidable`. </code>",
+ "1900": "<code>Reflection.eq {α : Type} (x y : α) : Bool</code>",
  "190": "<code>NatPlayground.Nat.mul_zero (n : Nat) : n * zero = zero</code>",
  "19":
  "<code class=\"docstring\">* `generalize ([h :] e = x),+` replaces all occurrences `e`s in the main goal\n  with a fresh hypothesis `x`s. If `h` is given, `h : e = x` is introduced as well.\n* `generalize e = x at h₁ ... hₙ` also generalizes occurrences of `e`\n  inside `h₁`, ..., `hₙ`.\n* `generalize e = x at *` will generalize occurrences of `e` everywhere.\n</code>",
- "1899":
- "<code>Classical.propDecidable (a : Prop) : Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">All propositions are `Decidable`. </code>",
- "1898": "<code>Reflection.eq {α : Type} (x y : α) : Bool</code>",
- "1897": "<code>instDecidableEqNat : DecidableEq.{1} Nat</code>",
- "1896": "<code>instDecidableEqNat : DecidableEq Nat</code>",
+ "1899": "<code>instDecidableEqNat : DecidableEq.{1} Nat</code>",
+ "1898":
+ "<code>ite.{u} {α : Sort u} (c : Prop) [h : Decidable c] (t e : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
+ "1897": "<code>instDecidableEqNat : DecidableEq Nat</code>",
+ "1896":
+ "<code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
  "1895": "<code>Reflection.nat_eq (m n : Nat) : Bool</code>",
  "1894":
  "<code class=\"docstring\">`decide` attempts to prove the main goal (with target type `p`) by synthesizing an instance of `Decidable p`\nand then reducing that instance to evaluate the truth value of `p`.\nIf it reduces to `isTrue h`, then `h` is a proof of `p` that closes the goal.\n\nThe target is not allowed to contain local variables or metavariables.\nIf there are local variables, you can first try using the `revert` tactic with these local variables to move them into the target,\nor you can use the `+revert` option, described below.\n\nOptions:\n- `decide +revert` begins by reverting local variables that the target depends on,\n  after cleaning up the local context of irrelevant variables.\n  A variable is *relevant* if it appears in the target, if it appears in a relevant variable,\n  or if it is a proposition that refers to a relevant variable.\n- `decide +kernel` uses kernel for reduction instead of the elaborator.\n  It has two key properties: (1) since it uses the kernel, it ignores transparency and can unfold everything,\n  and (2) it reduces the `Decidable` instance only once instead of twice.\n- `decide +native` uses the native code compiler (`#eval`) to evaluate the `Decidable` instance,\n  admitting the result via an axiom.\n  This can be significantly more efficient than using reduction, but it is at the cost of increasing the size\n  of the trusted code base.\n  Namely, it depends on the correctness of the Lean compiler and all definitions with an `@[implemented_by]` attribute.\n  Like with `+kernel`, the `Decidable` instance is evaluated only once.\n\nLimitation: In the default mode or `+kernel` mode, since `decide` uses reduction to evaluate the term,\n`Decidable` instances defined by well-founded recursion might not work because evaluating them requires reducing proofs.\nReduction can also get stuck on `Decidable` instances with `Eq.rec` terms.\nThese can appear in instances defined using tactics (such as `rw` and `simp`).\nTo avoid this, create such instances using definitions such as `decidable_of_iff` instead.\n\n## Examples\n\nProving inequalities:\n```lean\nexample : 2 + 2 ≠ 5 := by decide\n```\n\nTrying to prove a false proposition:\n```lean\nexample : 1 ≠ 1 := by decide\n/-\ntactic 'decide' proved that the proposition\n  1 ≠ 1\nis false\n-/\n```\n\nTrying to prove a proposition whose `Decidable` instance fails to reduce\n```lean\nopaque unknownProp : Prop\n\nopen scoped Classical in\nexample : unknownProp := by decide\n/-\ntactic 'decide' failed for proposition\n  unknownProp\nsince its 'Decidable' instance reduced to\n  Classical.choice ⋯\nrather than to the 'isTrue' constructor.\n-/\n```\n\n## Properties and relations\n\nFor equality goals for types with decidable equality, usually `rfl` can be used in place of `decide`.\n```lean\nexample : 1 + 1 = 2 := by decide\nexample : 1 + 1 = 2 := by rfl\n```\n</code>",
@@ -2091,634 +2094,633 @@
  "1421":
  "<code>pal_reverse {α : Type} {l : List α} (hp : Pal l) : l = l.reverse</code>",
  "1420":
- "<code>List.reverse.{u} {α : Type u} (as : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Reverses a list.\n\n`O(|as|)`.\n\nBecause of the “functional but in place” optimization implemented by Lean's compiler, this function\ndoes not allocate a new list when its reference to the input list is unshared: it simply walks the\nlinked list and reverses all the node pointers.\n\nExamples:\n* `[1, 2, 3, 4].reverse = [4, 3, 2, 1]`\n* `[].reverse = []`\n</code>",
+ "<code>pal_append_reverse (α : Type) (l : List α) : Pal (l ++ l.reverse)</code>",
  "142":
  "<code>_root_.Nat.zero : _root_.Nat</code><span class=\"sep\"></span><code class=\"docstring\">Zero, the smallest natural number.\n\nUsing `Nat.zero` explicitly should usually be avoided in favor of the literal `0`, which is the\n[simp normal form](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
- "1419":
- "<code>pal_append_reverse (α : Type) (l : List α) : Pal (l ++ l.reverse)</code>",
- "1418": "<code>Pal {α : Type} : List α → Prop</code>",
- "1417": "<code>List.allb (fun x =&gt; !test x) l₂ = true</code>",
- "1416": "<code>List.allb test l₁ = true</code>",
- "1415": "<code>Merge l₁ l₂ l</code>",
- "1414":
+ "1419": "<code>Pal {α : Type} : List α → Prop</code>",
+ "1418": "<code>List.allb (fun x =&gt; !test x) l₂ = true</code>",
+ "1417": "<code>List.allb test l₁ = true</code>",
+ "1416": "<code>Merge l₁ l₂ l</code>",
+ "1415":
  "<code>merge_filter (α : Type) (test : α → Bool) (l l₁ l₂ : List α) (h : Merge l₁ l₂ l) (h₁ : List.allb test l₁ = true)\n  (h₂ : List.allb (fun x =&gt; !test x) l₂ = true) : filter test l = l₁</code>",
- "1413": "<code>Merge {α : Type} : List α → List α → List α → Prop</code>",
- "1412": "<code>NoStutter {α : Type} : List α → Prop</code>",
- "1411":
+ "1414": "<code>Merge {α : Type} : List α → List α → List α → Prop</code>",
+ "1413": "<code>NoStutter {α : Type} : List α → Prop</code>",
+ "1412":
  "<code>empty_relation_is_empty (n m : Nat) : ¬EmptyRelation n m</code>",
- "1410": "<code>EmptyRelation : Nat → Nat → Prop</code>",
+ "1411": "<code>EmptyRelation : Nat → Nat → Prop</code>",
+ "1410": "<code>total_relation_is_total (n m : Nat) : TotalRelation n m</code>",
  "141":
  "<code>_root_.Nat : Type</code><span class=\"sep\"></span><code class=\"docstring\">The natural numbers, starting at zero.\n\nThis type is special-cased by both the kernel and the compiler, and overridden with an efficient\nimplementation. Both use a fast arbitrary-precision arithmetic library (usually\n[GMP](https://gmplib.org/)); at runtime, `Nat` values that are sufficiently small are unboxed.\n</code>",
- "1409": "<code>total_relation_is_total (n m : Nat) : TotalRelation n m</code>",
- "1408": "<code>TotalRelation : Nat → Nat → Prop</code>",
- "1407": "<code>R (n + 1) l</code>",
- "1406":
+ "1409": "<code>TotalRelation : Nat → Nat → Prop</code>",
+ "1408": "<code>R (n + 1) l</code>",
+ "1407":
  "<code>RProvability2.R.c3 {n : Nat} {l : List Nat} (h : R (n + 1) l) : R n l</code>",
- "1405": "<code>R n l</code>",
- "1404":
+ "1406": "<code>R n l</code>",
+ "1405":
  "<code>RProvability2.R.c2 {n : Nat} {l : List Nat} (h : R n l) : R (n + 1) (n :: l)</code>",
- "1403": "<code>RProvability2.R.c1 : R 0 []</code>",
- "1402": "<code>RProvability2.R : Nat → List Nat → Prop</code>",
- "1401": "<code>Subseq l₂ l₃</code>",
- "1400":
+ "1404": "<code>RProvability2.R.c1 : R 0 []</code>",
+ "1403": "<code>RProvability2.R : Nat → List Nat → Prop</code>",
+ "1402": "<code>Subseq l₂ l₃</code>",
+ "1401":
  "<code>Subseq.trans (l₁ l₂ l₃ : List Nat) (h12 : Subseq l₁ l₂) (h23 : Subseq l₂ l₃) : Subseq l₁ l₃</code>",
+ "1400": "<code>Subseq l₁ l₂</code>",
  "140": "<code>NatPlayground.ofNat : _root_.Nat → Nat</code>",
  "14":
  "<code class=\"docstring\">`lia` solves linear integer arithmetic goals.\n\nIt is a implemented as a thin wrapper around the `grind` tactic, enabling only the `lia` solver.\nPlease use `grind` instead if you need additional capabilities.\n</code>",
- "1399": "<code>Subseq l₁ l₂</code>",
- "1398":
+ "1399":
  "<code>Subseq.append (l₁ l₂ l₃ : List Nat) (h : Subseq l₁ l₂) : Subseq l₁ (l₂ ++ l₃)</code>",
- "1397": "<code>Subseq.refl (l : List Nat) : Subseq l l</code>",
- "1396": "<code>Subseq : List Nat → List Nat → Prop</code>",
- "1395":
+ "1398": "<code>Subseq.refl (l : List Nat) : Subseq l l</code>",
+ "1397": "<code>Subseq : List Nat → List Nat → Prop</code>",
+ "1396":
  "<code>RProvability.funR_iff_R {m n k : Nat} : funR m n = k ↔ R m n k</code>",
- "1394": "<code>RProvability.funR : Nat → Nat → Nat</code>",
- "1393": "<code>RProvability.R.c5 {m n k : Nat} (h : R m n k) : R n m k</code>",
- "1392": "<code>R (m + 1) (n + 1) (k + 2)</code>",
- "1391":
+ "1395": "<code>RProvability.funR : Nat → Nat → Nat</code>",
+ "1394": "<code>RProvability.R.c5 {m n k : Nat} (h : R m n k) : R n m k</code>",
+ "1393": "<code>R (m + 1) (n + 1) (k + 2)</code>",
+ "1392":
  "<code>RProvability.R.c4 {m n k : Nat} (h : R (m + 1) (n + 1) (k + 2)) : R m n k</code>",
- "1390":
+ "1391":
  "<code>RProvability.R.c3 {m n k : Nat} (h : R m n k) : R m (n + 1) (k + 1)</code>",
+ "1390": "<code>R m n k</code>",
  "139": "<code>NatPlayground.Nat.succ (n : Nat) : Nat</code>",
- "1389": "<code>R m n k</code>",
- "1388":
+ "1389":
  "<code>RProvability.R.c2 {m n k : Nat} (h : R m n k) : R (m + 1) n (k + 1)</code>",
- "1387": "<code>RProvability.R.c1 : R 0 0 0</code>",
- "1386": "<code>RProvability.R : Nat → Nat → Nat → Prop</code>",
- "1385":
+ "1388": "<code>RProvability.R.c1 : R 0 0 0</code>",
+ "1387": "<code>RProvability.R : Nat → Nat → Nat → Prop</code>",
+ "1386":
  "<code>LePlayground.ble_trans (n m k : Nat) : n.ble m = true → m.ble k = true → n.ble k = true</code>",
- "1384":
+ "1385":
  "<code>LePlayground.ble_eq (n m : Nat) : n.ble m = true ↔ n ≤ m</code>",
- "1383":
+ "1384":
  "<code>LePlayground.ble_eq_true_of_le (n m : Nat) (h : n ≤ m) : n.ble m = true</code>",
- "1382": "<code>n.ble m = true</code>",
- "1381":
+ "1383": "<code>n.ble m = true</code>",
+ "1382":
  "<code>LePlayground.le_of_ble_eq_true (n m : Nat) (h : n.ble m = true) : n ≤ m</code>",
- "1380": "<code>n₁ + n₂ &lt; m</code>",
- "138": "<code>NatPlayground.Nat.zero : Nat</code>",
- "1379":
+ "1381": "<code>n₁ + n₂ &lt; m</code>",
+ "1380":
  "<code>LePlayground.lt_and_lt_of_add_lt (n₁ n₂ m : Nat) (h : n₁ + n₂ &lt; m) : n₁ &lt; m ∧ n₂ &lt; m</code>",
- "1378": "<code>n &lt; m</code>",
- "1377":
+ "138": "<code>NatPlayground.Nat.zero : Nat</code>",
+ "1379": "<code>n &lt; m</code>",
+ "1378":
  "<code>LePlayground.le_of_lt (n m : Nat) (h : n &lt; m) : n ≤ m</code>",
- "1376": "<code>LePlayground.lt_or_ge (n m : Nat) : n &lt; m ∨ n ≥ m</code>",
- "1375": "<code>n &lt; 0</code>",
- "1374": "<code>LePlayground.lt_not_lt_zero (n : Nat) : ¬n &lt; 0</code>",
- "1373":
+ "1377": "<code>LePlayground.lt_or_ge (n m : Nat) : n &lt; m ∨ n ≥ m</code>",
+ "1376": "<code>n &lt; 0</code>",
+ "1375": "<code>LePlayground.lt_not_lt_zero (n : Nat) : ¬n &lt; 0</code>",
+ "1374":
  "<code>LePlayground.le_add_right_of_le (n m p : Nat) (h : n ≤ m) : n ≤ m + p</code>",
- "1372":
+ "1373":
  "<code>LePlayground.add_le_add_right (n m p : Nat) (h : n ≤ m) : n + p ≤ m + p</code>",
- "1371":
+ "1372":
  "<code>LePlayground.add_le_add_left (n m p : Nat) (h : n ≤ m) : p + n ≤ p + m</code>",
- "1370": "<code>n + m ≤ p + q</code>",
- "137": "<code>NatPlayground.Nat : Type</code>",
- "1369":
+ "1371": "<code>n + m ≤ p + q</code>",
+ "1370":
  "<code>LePlayground.le_or_le_of_add_le_add (n m p q : Nat) (h : n + m ≤ p + q) : n ≤ p ∨ m ≤ q</code>",
- "1368": "<code>n₁ + n₂ ≤ m</code>",
- "1367":
+ "137": "<code>NatPlayground.Nat : Type</code>",
+ "1369": "<code>n₁ + n₂ ≤ m</code>",
+ "1368":
  "<code>LePlayground.le_and_le_of_add_le (n₁ n₂ m : Nat) (h : n₁ + n₂ ≤ m) : n₁ ≤ m ∧ n₂ ≤ m</code>",
- "1366": "<code>LePlayground.le_add_right (n m : Nat) : n ≤ n + m</code>",
- "1365": "<code>LePlayground.le_not_succ_le_self (n : Nat) : ¬n + 1 ≤ n</code>",
- "1364": "<code>n + 1 ≤ m + 1</code>",
- "1363":
+ "1367": "<code>LePlayground.le_add_right (n m : Nat) : n ≤ n + m</code>",
+ "1366": "<code>LePlayground.le_not_succ_le_self (n : Nat) : ¬n + 1 ≤ n</code>",
+ "1365": "<code>n + 1 ≤ m + 1</code>",
+ "1364":
  "<code>LePlayground.le_of_succ_le_succ (n m : Nat) (h : n + 1 ≤ m + 1) : n ≤ m</code>",
- "1362":
+ "1363":
  "<code>LePlayground.succ_le_succ (n m : Nat) (h : n ≤ m) : n + 1 ≤ m + 1</code>",
- "1361": "<code>LePlayground.zero_le (n : Nat) : 0 ≤ n</code>",
- "1360": "<code>n ≤ k</code>",
+ "1362": "<code>LePlayground.zero_le (n : Nat) : 0 ≤ n</code>",
+ "1361": "<code>n ≤ k</code>",
+ "1360": "<code>m ≤ n</code>",
  "136":
  "<code>makeNibbleStruct (x0 x1 x2 x3 : Playground.Bit) : NibbleStruct</code>",
- "1359": "<code>m ≤ n</code>",
- "1358":
+ "1359":
  "<code>LePlayground.le_trans (m n k : Nat) (h₁ : m ≤ n) (h₂ : n ≤ k) : m ≤ k</code>",
- "1357": "<code>m ≥ n</code>",
- "1356": "<code><span class=\"literal string\">\" ≥ \"</span> : String</code>",
- "1355": "<code>LePlayground.Ge (m n : Nat) : Prop</code>",
- "1354":
+ "1358": "<code>m ≥ n</code>",
+ "1357": "<code><span class=\"literal string\">\" ≥ \"</span> : String</code>",
+ "1356": "<code>LePlayground.Ge (m n : Nat) : Prop</code>",
+ "1355":
  "<code>ge_iff_le.{u_1} {α : Type u_1} [LE α] {x y : α} : x ≥ y ↔ y ≤ x</code>",
- "1353":
+ "1354":
  "<code><span class=\"literal string\">\" &lt; \"</span> : String</code>",
- "1352": "<code>LePlayground.Lt (n m : Nat) : Prop</code>",
- "1351":
+ "1353": "<code>LePlayground.Lt (n m : Nat) : Prop</code>",
+ "1352":
  "<code>Nat.le (n : Nat) : Nat → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Non-strict, or weak, inequality of natural numbers, usually accessed via the `≤` operator.\n</code>",
- "1350": "<code>2 ≤ 0</code>",
+ "1351": "<code>2 ≤ 0</code>",
+ "1350": "<code>2 ≤ 1</code>",
  "135":
  "<code class=\"docstring\">Structure instance. `{ x := e, ... }` assigns `e` to field `x`, which may be\ninherited. If `e` is itself a variable called `x`, it can be elided:\n`fun y =&gt; { x := 1, y }`.\nA *structure update* of an existing value can be given via `with`:\n`{ point with x := 1 }`.\nThe structure type can be specified if not inferable:\n`{ x := 1, y := 2 : Point }`.\n</code>",
- "1349": "<code>2 ≤ 1</code>",
- "1348":
+ "1349":
  "<code>_root_.Not (a : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`Not p`, or `¬p`, is the negation of `p`. It is defined to be `p → False`,\nso if your goal is `¬p` you can use `intro h` to turn the goal into\n`h : p ⊢ False`, and if you have `hn : ¬p` and `h : p` then `hn h : False`\nand `(hn h).elim` will prove anything.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `¬` in identifiers is `not`.</code>",
- "1347": "<code>Perm3.Not : ¬Perm3 [1, 2, 3] [1, 2, 4]</code>",
- "1346": "<code>¬x ∈ l₁</code>",
- "1345":
+ "1348": "<code>Perm3.Not : ¬Perm3 [1, 2, 3] [1, 2, 4]</code>",
+ "1347": "<code>¬x ∈ l₁</code>",
+ "1346":
  "<code>Perm3.NotIn {α : Type} (x : α) (l₁ l₂ : List α) (hPerm : Perm3 l₁ l₂) (hIn : ¬x ∈ l₁) : ¬x ∈ l₂</code>",
- "1344": "<code>x ∈ l₁</code>",
- "1343":
+ "1345": "<code>x ∈ l₁</code>",
+ "1344":
  "<code>Perm3.In {α : Type} (x : α) (l₁ l₂ : List α) (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂</code>",
- "1342": "<code>Perm3 l₂✝ l₃✝</code>",
- "1341": "<code>Perm3 l₁✝ l₂✝</code>",
- "1340": "<code>Perm3 l₃✝ l₂✝</code>",
+ "1343": "<code>Perm3 l₂✝ l₃✝</code>",
+ "1342": "<code>Perm3 l₁✝ l₂✝</code>",
+ "1341": "<code>Perm3 l₃✝ l₂✝</code>",
+ "1340": "<code>Perm3 l₂✝ l₁✝</code>",
  "134": "<code>Playground.Bit</code>",
- "1339": "<code>Perm3 l₂✝ l₁✝</code>",
- "1338":
+ "1339":
  "<code>Perm3.symm {α : Type} (l₁ l₂ : List α) (h : Perm3 l₁ l₂) : Perm3 l₂ l₁</code>",
- "1337":
+ "1338":
  "<code>_root_.Perm3.trans {α : Type} {l₁ l₂ l₃ : List α} (h₁₂ : _root_.Perm3 l₁ l₂) (h₂₃ : _root_.Perm3 l₂ l₃) :\n  _root_.Perm3 l₁ l₃</code>",
- "1336":
+ "1337":
  "<code>_root_.Perm3.swap23 {α : Type} {x y z : α} : _root_.Perm3 [x, y, z] [x, z, y]</code>",
- "1335": "<code>_root_.Perm3 {α : Type} : List α → List α → Prop</code>",
- "1334":
+ "1336": "<code>_root_.Perm3 {α : Type} : List α → List α → Prop</code>",
+ "1335":
  "<code>_root_.Perm3.swap12 {α : Type} {x y z : α} : _root_.Perm3 [x, y, z] [y, x, z]</code>",
- "1333": "<code>Even'.iff_Even (n : Nat) : Even' n ↔ Even n</code>",
- "1332": "<code>Even' m</code>",
- "1331": "<code>Even' n</code>",
- "1330":
+ "1334": "<code>Even'.iff_Even (n : Nat) : Even' n ↔ Even n</code>",
+ "1333": "<code>Even' m</code>",
+ "1332": "<code>Even' n</code>",
+ "1331":
  "<code>Even'.add {n m : Nat} (h₁ : Even' n) (h₂ : Even' m) : Even' (n + m)</code>",
+ "1330": "<code>Even'.two : Even' 2</code>",
  "133": "<code>NibbleStruct</code>",
- "1329": "<code>Even'.two : Even' 2</code>",
- "1328": "<code>Even'.zero : Even' 0</code>",
- "1327": "<code>Even' : Nat → Prop</code>",
- "1326": "<code>ReflTransGen r y✝ z✝</code>",
- "1325": "<code>ReflTransGen r x✝ y✝</code>",
- "1324": "<code>y✝ = z✝</code>",
- "1323": "<code>x✝ = y✝</code>",
- "1322": "<code>r x✝ y✝</code>",
- "1321": "<code>Diagonal r</code>",
- "1320":
+ "1329": "<code>Even'.zero : Even' 0</code>",
+ "1328": "<code>Even' : Nat → Prop</code>",
+ "1327": "<code>ReflTransGen r y✝ z✝</code>",
+ "1326": "<code>ReflTransGen r x✝ y✝</code>",
+ "1325": "<code>y✝ = z✝</code>",
+ "1324": "<code>x✝ = y✝</code>",
+ "1323": "<code>r x✝ y✝</code>",
+ "1322": "<code>Diagonal r</code>",
+ "1321":
  "<code>closure_of_diagonal_is_diagonal {α : Type} (r : α → α → Prop) (hDiag : Diagonal r) : Diagonal (ReflTransGen r)</code>",
+ "1320": "<code>Diagonal {α : Type} (r : α → α → Prop) : Prop</code>",
  "132":
  "<code>setFirstTwoBits (old : NibbleStruct) (newX0 newX1 : Playground.Bit) : NibbleStruct</code>",
- "1319": "<code>Diagonal {α : Type} (r : α → α → Prop) : Prop</code>",
- "1318":
+ "1319":
  "<code>_root_.ReflTransGen.trans {α : Type} {r : α → α → Prop} {x y z : α} (h₁ : _root_.ReflTransGen r x y)\n  (h₂ : _root_.ReflTransGen r y z) : _root_.ReflTransGen r x z</code>",
- "1317":
+ "1318":
  "<code>_root_.ReflTransGen.refl {α : Type} {r : α → α → Prop} {x : α} : _root_.ReflTransGen r x x</code>",
- "1316":
+ "1317":
  "<code>_root_.ReflTransGen {α : Type} (r : α → α → Prop) : α → α → Prop</code>",
- "1315":
+ "1316":
  "<code>_root_.ReflTransGen.step {α : Type} {r : α → α → Prop} {x y : α} (h : r x y) : _root_.ReflTransGen r x y</code>",
- "1314":
+ "1315":
  "<code>List.mem_cons.{u_1} {α✝ : Type u_1} {b : α✝} {l : List α✝} {a : α✝} : a ∈ b :: l ↔ a = b ∨ a ∈ l</code>",
- "1313":
+ "1314":
  "<code>List.mem_nil_iff.{u_1} {α : Type u_1} (a : α) : a ∈ [] ↔ False</code>",
- "1312":
+ "1313":
  "<code>List.in_iff_mem {α : Type} (x : α) (l : List α) : In x l ↔ x ∈ l</code>",
- "1311":
+ "1312":
  "<code>Membership.mem.{u, v} {α : outParam (Type u)} {γ : Type v} [self : Membership α γ] : γ → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The membership relation `a ∈ s : Prop` where `a : α`, `s : γ`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∈` in identifiers is `mem`.</code>",
- "1310": "<code>In' x l</code>",
+ "1311": "<code>In' x l</code>",
+ "1310":
+ "<code>List.In'.tail {α : Type} {x y : α} {l : List α} (h : In' x l) : In' x (y :: l)</code>",
  "131": "<code>zeroNibble : NibbleStruct</code>",
  "1309":
- "<code>List.In'.tail {α : Type} {x y : α} {l : List α} (h : In' x l) : In' x (y :: l)</code>",
- "1308":
  "<code>List.In'.head {α : Type} {x : α} {l : List α} : In' x (x :: l)</code>",
- "1307": "<code>List.In' {α : Type} (x : α) : List α → Prop</code>",
- "1306": "<code>_root_.List.In {α : Type} (x : α) (xs : List α) : Prop</code>",
- "1305": "<code>Even (n + k)</code>",
- "1304":
+ "1308": "<code>List.In' {α : Type} (x : α) : List α → Prop</code>",
+ "1307": "<code>_root_.List.In {α : Type} (x : α) (xs : List α) : Prop</code>",
+ "1306": "<code>Even (n + k)</code>",
+ "1305":
  "<code>Even.add_of_add_left (n m k : Nat) (hₙₘ : Even (n + m)) (hₙₚ : Even (n + k)) : Even (m + k)</code>",
- "1303": "<code>Even (n + m)</code>",
- "1302":
+ "1304": "<code>Even (n + m)</code>",
+ "1303":
  "<code>Even.of_add_left (n m : Nat) (h : Even (n + m)) (hn : Even n) : Even m</code>",
- "1301": "<code>Even m</code>",
- "1300":
+ "1302": "<code>Even m</code>",
+ "1301":
  "<code>Even.add (n m : Nat) (hn : Even n) (hm : Even m) : Even (n + m)</code>",
+ "1300": "<code>Even.iff_nat_even (n : Nat) : Even n ↔ n.Even</code>",
  "130": "<code>Playground.Bit.b0 : Playground.Bit</code>",
  "13":
  "<code class=\"docstring\">The universe of propositions. `Prop ≡ Sort 0`.\n\nEvery proposition is propositionally equal to either `True` or `False`. </code>",
- "1299": "<code>Even.iff_nat_even (n : Nat) : Even n ↔ n.Even</code>",
- "1298": "<code>n✝ = k.double</code>",
- "1297":
+ "1299": "<code>n✝ = k.double</code>",
+ "1298":
  "<code class=\"docstring\">The `let` tactic is for adding definitions to the local context of the main goal.\nThe definition can be unfolded, unlike definitions introduced by `have`.\n\n* `let x : t := e` adds the definition `x : t := e` if `e` is a term of type `t`.\n* `let x := e` uses the type of `e` for `t`.\n* `let : t := e` and `let := e` use `this` for the name of the hypothesis.\n* `let pat := e` for a pattern `pat` is equivalent to `match e with | pat =&gt; _`,\n  where `_` stands for the tactics that follow this one.\n  It is convenient for types that let only one applicable constructor.\n  For example, given `p : α × β × γ`, `let ⟨x, y, z⟩ := p` produces the\n  local variables `x : α`, `y : β`, and `z : γ`.\n* The syntax `let (eq := h) pat := e` is equivalent to `match h : e with | pat =&gt; _`,\n  which adds the equation `h : e = pat` to the local context.\n\nThe tactic supports all the same syntax variants and options as the `let` term.\n\n## Properties and relations\n\n* Unlike `have`, it is possible to unfold definitions introduced using `let`, using tactics\n  such as `simp`, `dsimp`, `unfold`, and `subst`.\n* The `clear_value` tactic turns a `let` definition into a `have` definition after the fact.\n  The tactic might fail if the local context depends on the value of the variable.\n* The `let` tactic is preferred for data (non-propositions).\n* Sometimes `have` is used for non-propositions to ensure that the variable is never unfolded,\n  which may be important for performance reasons.\n</code>",
- "1296": "<code>n✝.Even</code>",
- "1295": "<code>Even.nat_even (n : Nat) (h : Even n) : n.Even</code>",
- "1294": "<code>Even (2 + n)</code>",
- "1293": "<code>n.mul n = (m'.add 1).succ</code>",
- "1292": "<code>h ≍ ⋯</code>",
- "1291": "<code>Even m'</code>",
- "1290": "<code>n.mul n = 0</code>",
- "129": "<code>Playground.Bit</code>",
- "1289":
+ "1297": "<code>n✝.Even</code>",
+ "1296": "<code>Even.nat_even (n : Nat) (h : Even n) : n.Even</code>",
+ "1295": "<code>Even (2 + n)</code>",
+ "1294": "<code>n.mul n = (m'.add 1).succ</code>",
+ "1293": "<code>h ≍ ⋯</code>",
+ "1292": "<code>Even m'</code>",
+ "1291": "<code>n.mul n = 0</code>",
+ "1290":
  "<code>HEq.{u} {α : Sort u} : α → {β : Sort u} → β → Prop</code><span class=\"sep\"></span><code class=\"docstring\">Heterogeneous equality. `a ≍ b` asserts that `a` and `b` have the same\ntype, and casting `a` across the equality yields `b`, and vice versa.\n\nYou should avoid using this type if you can. Heterogeneous equality does not\nhave all the same properties as `Eq`, because the assumption that the types of\n`a` and `b` are equal is often too weak to prove theorems of interest. One\npublic important non-theorem is the analogue of `congr`: If `f ≍ g` and `x ≍ y`\nand `f x` and `g y` are well typed it does not follow that `f x ≍ g y`.\n(This does follow if you have `f = g` instead.) However if `a` and `b` have\nthe same type then `a = b` and `a ≍ b` are equivalent.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≍` in identifiers is `heq`.</code>",
- "1288": "<code>h ≍ Even.zero</code>",
- "1287":
+ "129": "<code>Playground.Bit</code>",
+ "1289": "<code>h ≍ Even.zero</code>",
+ "1288":
  "<code>Nat.mul : Nat → Nat → Nat</code><span class=\"sep\"></span><code class=\"docstring\">Multiplication of natural numbers, usually accessed via the `*` operator.\n\nThis function is overridden in both the kernel and the compiler to efficiently evaluate using the\narbitrary-precision arithmetic library. The definition provided here is the logical model.\n</code>",
- "1286": "<code>Even (n * n)</code>",
- "1285": "<code>Even 5</code>",
- "1284": "<code>Even.even5_nonsense (h : Even 5) : 2 + 2 = 9</code>",
- "1283": "<code>Even (n + 4)</code>",
- "1282": "<code>Even.of_add_four {n : Nat} (h : Even (n + 4)) : Even n</code>",
- "1281": "<code>1 = n' + 2</code>",
- "1280": "<code>1 = 0 ∨ ∃ n', 1 = n' + 2 ∧ Even n'</code>",
+ "1287": "<code>Even (n * n)</code>",
+ "1286": "<code>Even 5</code>",
+ "1285": "<code>Even.even5_nonsense (h : Even 5) : 2 + 2 = 9</code>",
+ "1284": "<code>Even (n + 4)</code>",
+ "1283": "<code>Even.of_add_four {n : Nat} (h : Even (n + 4)) : Even n</code>",
+ "1282": "<code>1 = n' + 2</code>",
+ "1281": "<code>1 = 0 ∨ ∃ n', 1 = n' + 2 ∧ Even n'</code>",
+ "1280": "<code>Even 1</code>",
  "128":
  "<code>NibbleStruct.mk (x0 x1 x2 x3 : Playground.Bit) : NibbleStruct</code>",
- "1279": "<code>Even 1</code>",
- "1278":
+ "1279":
  "<code class=\"docstring\">`inversion h` behaves like `cases h` except that where `cases` would fail with\n&gt; \"Dependent elimination failed: Failed to solve equation ...\",\n\n`inversion` instead leaves behind those unsolveable equations in the context.\nThese equations arise from generalizing the indices of `h`'s type.\nIn such cases, `h` itself is generalized with a heterogenenous equality `heq`\nto the corresponding constructor in each branch.\n\nFor instance, given a hypothesis `h : f n ≤ 0`,\n`inversion h` will produce one goal for the case `Nat.le.refl {n} : n ≤ n`\nwith the equations `eq : f n = 0` and `heq : h ≍ Nat.le.refl`,\nrather than failing to solve `f n = 0`.\n\n* If `inversion +clear h` is set, then `heq` will be `clear`ed from the context if present,\n  along with `h` if there are no dependencies on it.\n  This is the usual behavior of `cases`.\n* The form `inversion t with (tac ...) | tag₁ x ... =&gt; tac ... | ... | tagₙ z ... =&gt; tac ...`\n  is supported, similar to that of `cases` and `induction`.\n</code>",
- "1277":
+ "1278":
  "<code class=\"docstring\">`subst x...` substitutes each hypothesis `x` with a definition found in the local context,\nthen eliminates the hypothesis.\n- If `x` is a local definition, then its definition is used.\n- Otherwise, if there is a hypothesis of the form `x = e` or `e = x`,\n  then `e` is used for the definition of `x`.\n\nIf `h : a = b`, then `subst h` may be used if either `a` or `b` unfolds to a local hypothesis.\nThis is similar to the `cases h` tactic.\n\nSee also: `subst_vars` for substituting all local hypotheses that have a defining equation.\n</code>",
- "1276": "<code>n = n'</code>",
- "1275": "<code>Even n'</code>",
- "1274": "<code>n + 2 = n' + 2</code>",
- "1273": "<code>n + 2 = 0 ∨ ∃ n', n + 2 = n' + 2 ∧ Even n'</code>",
- "1272": "<code>Even (n + 2)</code>",
- "1271": "<code>Even.of_succ_succ (n : Nat) (h : Even (n + 2)) : Even n</code>",
- "1270": "<code>n✝ + 1 = 0</code>",
+ "1277": "<code>n = n'</code>",
+ "1276": "<code>Even n'</code>",
+ "1275": "<code>n + 2 = n' + 2</code>",
+ "1274": "<code>n + 2 = 0 ∨ ∃ n', n + 2 = n' + 2 ∧ Even n'</code>",
+ "1273": "<code>Even (n + 2)</code>",
+ "1272": "<code>Even.of_succ_succ (n : Nat) (h : Even (n + 2)) : Even n</code>",
+ "1271": "<code>n✝ + 1 = 0</code>",
+ "1270": "<code>n✝ + 2 = 1</code>",
  "127": "<code>NibbleStruct.x3 (self : NibbleStruct) : Playground.Bit</code>",
- "1269": "<code>n✝ + 2 = 1</code>",
- "1268": "<code>Even n✝</code>",
- "1267": "<code>n = 1</code>",
- "1266": "<code>n ≤ m</code>",
- "1265":
+ "1269": "<code>Even n✝</code>",
+ "1268": "<code>n = 1</code>",
+ "1267": "<code>n ≤ m</code>",
+ "1266":
  "<code>LePlayground.le_inversion (n m : Nat) (h : n ≤ m) : n = m ∨ ∃ m', m = m' + 1 ∧ n ≤ m'</code>",
- "1264":
+ "1265":
  "<code>Even.inversion (n : Nat) (h : Even n) : n = 0 ∨ ∃ n', n = n' + 2 ∧ Even n'</code>",
- "1263":
+ "1264":
  "<code>Perm3.refl (α : Type) (a b c : α) : Perm3 [a, b, c] [a, b, c]</code>",
- "1262": "<code>Perm3.ex1 : Perm3 [1, 2, 3] [2, 3, 1]</code>",
- "1261": "<code>Perm3.rev' : Perm3 [1, 2, 3] [3, 2, 1]</code>",
- "1260": "<code>Perm3.rev : Perm3 [1, 2, 3] [3, 2, 1]</code>",
+ "1263": "<code>Perm3.ex1 : Perm3 [1, 2, 3] [2, 3, 1]</code>",
+ "1262": "<code>Perm3.rev' : Perm3 [1, 2, 3] [3, 2, 1]</code>",
+ "1261": "<code>Perm3.rev : Perm3 [1, 2, 3] [3, 2, 1]</code>",
+ "1260": "<code>Even.double (n : Nat) : Even n.double</code>",
  "126": "<code>NibbleStruct.x2 (self : NibbleStruct) : Playground.Bit</code>",
- "1259": "<code>Even.double (n : Nat) : Even n.double</code>",
- "1258": "<code>Even.plus4 (n : Nat) (h : Even n) : Even (4 + n)</code>",
- "1257": "<code>Nat → Prop</code>",
- "1256": "<code>Even n</code>",
- "1255": "<code>Even.succ_succ {n : Nat} (h : Even n) : Even (n + 2)</code>",
- "1254": "<code>Even.zero : Even 0</code>",
- "1253": "<code>Even : Nat → Prop</code>",
- "1252": "<code>Perm3 l₂ l₃</code>",
- "1251": "<code>Perm3 l₁ l₂</code>",
- "1250":
+ "1259": "<code>Even.plus4 (n : Nat) (h : Even n) : Even (4 + n)</code>",
+ "1258": "<code>Nat → Prop</code>",
+ "1257": "<code>Even n</code>",
+ "1256": "<code>Even.succ_succ {n : Nat} (h : Even n) : Even (n + 2)</code>",
+ "1255": "<code>Even.zero : Even 0</code>",
+ "1254": "<code>Even : Nat → Prop</code>",
+ "1253": "<code>Perm3 l₂ l₃</code>",
+ "1252": "<code>Perm3 l₁ l₂</code>",
+ "1251":
  "<code>Perm3.trans {α : Type} {l₁ l₂ l₃ : List α} (h₁₂ : Perm3 l₁ l₂) (h₂₃ : Perm3 l₂ l₃) : Perm3 l₁ l₃</code>",
+ "1250":
+ "<code>Perm3.swap23 {α : Type} {x y z : α} : Perm3 [x, y, z] [x, z, y]</code>",
  "125": "<code>NibbleStruct.x1 (self : NibbleStruct) : Playground.Bit</code>",
  "1249":
- "<code>Perm3.swap23 {α : Type} {x y z : α} : Perm3 [x, y, z] [x, z, y]</code>",
- "1248":
  "<code>Perm3.swap12 {α : Type} {x y z : α} : Perm3 [x, y, z] [y, x, z]</code>",
- "1247": "<code>Perm3 {α : Type} : List α → List α → Prop</code>",
- "1246": "<code>Collatz' : Prop</code>",
- "1245": "<code>CollatzStepMulti (n m : Nat) : Prop</code>",
- "1244": "<code>CollatzStep (n m : Nat) : Prop</code>",
- "1243": "<code>ReflTransGen r y z</code>",
- "1242": "<code>ReflTransGen r x y</code>",
- "1241":
+ "1248": "<code>Perm3 {α : Type} : List α → List α → Prop</code>",
+ "1247": "<code>Collatz' : Prop</code>",
+ "1246": "<code>CollatzStepMulti (n m : Nat) : Prop</code>",
+ "1245": "<code>CollatzStep (n m : Nat) : Prop</code>",
+ "1244": "<code>ReflTransGen r y z</code>",
+ "1243": "<code>ReflTransGen r x y</code>",
+ "1242":
  "<code>ReflTransGen.trans {α : Type} {r : α → α → Prop} {x y z : α} (h₁ : ReflTransGen r x y) (h₂ : ReflTransGen r y z) :\n  ReflTransGen r x z</code>",
- "1240":
+ "1241":
  "<code>ReflTransGen.refl {α : Type} {r : α → α → Prop} {x : α} : ReflTransGen r x x</code>",
+ "1240":
+ "<code>ReflTransGen.step {α : Type} {r : α → α → Prop} {x y : α} (h : r x y) : ReflTransGen r x y</code>",
  "124": "<code>NibbleStruct.x0 (self : NibbleStruct) : Playground.Bit</code>",
  "1239":
- "<code>ReflTransGen.step {α : Type} {r : α → α → Prop} {x y : α} (h : r x y) : ReflTransGen r x y</code>",
- "1238":
  "<code>ReflTransGen {α : Type} (r : α → α → Prop) : α → α → Prop</code>",
- "1237": "<code>ParentOf.cleo_moss : ParentOf cleo moss</code>",
- "1236": "<code>ParentOf.sage_cleo : ParentOf sage cleo</code>",
- "1235": "<code>AncestorOf : Person → Person → Prop</code>",
- "1234": "<code>ParentOf.cleo_moss : ParentOf Person.cleo Person.moss</code>",
- "1233":
+ "1238": "<code>ParentOf.cleo_moss : ParentOf cleo moss</code>",
+ "1237": "<code>ParentOf.sage_cleo : ParentOf sage cleo</code>",
+ "1236": "<code>AncestorOf : Person → Person → Prop</code>",
+ "1235": "<code>ParentOf.cleo_moss : ParentOf Person.cleo Person.moss</code>",
+ "1234":
  "<code>ParentOf.sage_ridley : ParentOf Person.sage Person.ridley</code>",
- "1232": "<code>ParentOf.sage_cleo : ParentOf Person.sage Person.cleo</code>",
- "1231": "<code>ParentOf : Person → Person → Prop</code>",
- "1230": "<code>Person.moss : Person</code>",
+ "1233": "<code>ParentOf.sage_cleo : ParentOf Person.sage Person.cleo</code>",
+ "1232": "<code>ParentOf : Person → Person → Prop</code>",
+ "1231": "<code>Person.moss : Person</code>",
+ "1230": "<code>Person.ridley : Person</code>",
  "123": "<code>NibbleStruct : Type</code>",
- "1229": "<code>Person.ridley : Person</code>",
- "1228": "<code>Person.cleo : Person</code>",
- "1227": "<code>Person.sage : Person</code>",
- "1226": "<code>Person : Type</code>",
- "1225": "<code>TransGen r y z</code>",
- "1224": "<code>TransGen r x y</code>",
- "1223":
+ "1229": "<code>Person.cleo : Person</code>",
+ "1228": "<code>Person.sage : Person</code>",
+ "1227": "<code>Person : Type</code>",
+ "1226": "<code>TransGen r y z</code>",
+ "1225": "<code>TransGen r x y</code>",
+ "1224":
  "<code>TransGen.trans {α : Type} {r : α → α → Prop} {x y z : α} (h₁ : TransGen r x y) (h₂ : TransGen r y z) : TransGen r x z</code>",
- "1222": "<code>r x y</code>",
- "1221":
+ "1223": "<code>r x y</code>",
+ "1222":
  "<code>TransGen.step {α : Type} {r : α → α → Prop} {x y : α} (h : r x y) : TransGen r x y</code>",
- "1220": "<code>α → α → Prop</code>",
+ "1221": "<code>α → α → Prop</code>",
+ "1220": "<code>TransGen {α : Type} (r : α → α → Prop) : α → α → Prop</code>",
  "122": "<code>Nibble</code>",
- "1219": "<code>TransGen {α : Type} (r : α → α → Prop) : α → α → Prop</code>",
- "1218": "<code>LePlayground.Le.refl {n : Nat} : n ≤ n</code>",
- "1217":
+ "1219": "<code>LePlayground.Le.refl {n : Nat} : n ≤ n</code>",
+ "1218":
  "<code>LePlayground.Le.step {n m : Nat} (h : n ≤ m) : n ≤ m + 1</code>",
- "1216": "<code><span class=\"literal string\">\" ≤ \"</span> : String</code>",
- "1215":
+ "1217": "<code><span class=\"literal string\">\" ≤ \"</span> : String</code>",
+ "1216":
  "<code class=\"docstring\">`infix:prec \"op\" =&gt; f` is equivalent to `notation:prec x:prec1 \"op\" y:prec1 =&gt; f x y`, where `prec1 := prec + 1`.\n</code>",
- "1214": "<code>Le n m</code>",
- "1213":
+ "1215": "<code>Le n m</code>",
+ "1214":
  "<code>LePlayground.Le.step {n m : Nat} (h : Le n m) : Le n (m + 1)</code>",
- "1212": "<code>LePlayground.Le.refl {n : Nat} : Le n n</code>",
- "1211": "<code>LePlayground.Le : Nat → Nat → Prop</code>",
- "1210": "<code>Collatz : Prop</code>",
+ "1213": "<code>LePlayground.Le.refl {n : Nat} : Le n n</code>",
+ "1212": "<code>LePlayground.Le : Nat → Nat → Prop</code>",
+ "1211": "<code>Collatz : Prop</code>",
+ "1210": "<code>CollatzHoldsFor (3 * n + 1)</code>",
  "121": "<code>Playground.allZero (nb : Nibble) : Bool</code>",
- "1209": "<code>CollatzHoldsFor (3 * n + 1)</code>",
- "1208": "<code>n.even = false</code>",
- "1207":
+ "1209": "<code>n.even = false</code>",
+ "1208":
  "<code>CollatzHoldsFor.odd {n : Nat} (h₁ : n.even = false) (h₂ : CollatzHoldsFor (3 * n + 1)) : CollatzHoldsFor n</code>",
- "1206": "<code>CollatzHoldsFor (div2 n)</code>",
- "1205":
+ "1207": "<code>CollatzHoldsFor (div2 n)</code>",
+ "1206":
  "<code>CollatzHoldsFor.even {n : Nat} (h₁ : n.even = true) (h₂ : CollatzHoldsFor (div2 n)) : CollatzHoldsFor n</code>",
- "1204": "<code>CollatzHoldsFor.one : CollatzHoldsFor 1</code>",
- "1203": "<code>CollatzHoldsFor : Nat → Prop</code>",
- "1202": "<code>CollatzHoldsFor (n : Nat) : Prop</code>",
- "1201":
+ "1205": "<code>CollatzHoldsFor.one : CollatzHoldsFor 1</code>",
+ "1204": "<code>CollatzHoldsFor : Nat → Prop</code>",
+ "1203": "<code>CollatzHoldsFor (n : Nat) : Prop</code>",
+ "1202":
  "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
- "1200": "<code>reaches1In (n : Nat) : Nat</code>",
+ "1201": "<code>reaches1In (n : Nat) : Nat</code>",
+ "1200": "<code>collatzStep (n : Nat) : Nat</code>",
  "120": "<code>Bit</code>",
  "12":
  "<code class=\"docstring\">`apply e` tries to match the current goal against the conclusion of `e`'s type.\nIf it succeeds, then the tactic returns as many subgoals as the number of premises that\nhave not been fixed by type inference or type class resolution.\nNon-dependent premises are added before dependent ones.\n\nThe `apply` tactic uses higher-order pattern matching, type class resolution,\nand first-order unification with dependent types.\n</code>",
- "1199": "<code>collatzStep (n : Nat) : Nat</code>",
- "1198": "<code>div2 (n : Nat) : Nat</code>",
- "1197": "<code>ConsequentiaMirabilis : Prop</code>",
- "1196": "<code>ImpOr : Prop</code>",
- "1195": "<code>DeMorganNotAndNot : Prop</code>",
- "1194": "<code>NotNot : Prop</code>",
- "1193": "<code>Peirce : Prop</code>",
- "1192":
+ "1199": "<code>div2 (n : Nat) : Nat</code>",
+ "1198": "<code>ConsequentiaMirabilis : Prop</code>",
+ "1197": "<code>ImpOr : Prop</code>",
+ "1196": "<code>DeMorganNotAndNot : Prop</code>",
+ "1195": "<code>NotNot : Prop</code>",
+ "1194": "<code>Peirce : Prop</code>",
+ "1193":
  "<code>not_exists_dist (α : Type) (p : α → Prop) : (¬∃ x, ¬p x) → ∀ (x : α), p x</code>",
- "1191": "<code>excluded_middle_irrefutable (a : Prop) : ¬¬(a ∨ ¬a)</code>",
- "1190":
+ "1192": "<code>excluded_middle_irrefutable (a : Prop) : ¬¬(a ∨ ¬a)</code>",
+ "1191":
  "<code>Classical.not_not {a : Prop} : ¬¬a ↔ a</code><span class=\"sep\"></span><code class=\"docstring\">The Double Negation Theorem: `¬¬P` is equivalent to `P`.\nThe left-to-right direction, double negation elimination (DNE),\nis classically true but not constructively. </code>",
+ "1190": "<code>em (a : Prop) : a ∨ ¬a</code>",
  "119": "<code>Playground.Nibble.bits (x0 x1 x2 x3 : Bit) : Nibble</code>",
- "1189": "<code>em (a : Prop) : a ∨ ¬a</code>",
- "1188":
+ "1189":
  "<code class=\"docstring\">`by_cases (h :)? p` splits the main goal into two cases, assuming `h : p` in the first branch, and `h : ¬ p` in the second branch.\n</code>",
- "1187":
+ "1188":
  "<code>Classical.choice.{u} {α : Sort u} : Nonempty α → α</code><span class=\"sep\"></span><code class=\"docstring\">**The axiom of choice**. `Nonempty α` is a proof that `α` has an element,\nbut the element itself is erased. The axiom `choice` supplies a particular\nelement of `α` given only this proof.\n\nThe textbook axiom of choice normally makes a family of choices all at once,\nbut that is implied from this formulation, because if `α : ι → Type` is a\nfamily of types and `h : ∀ i, Nonempty (α i)` is a proof that they are all\nnonempty, then `fun i =&gt; Classical.choice (h i) : ∀ i, α i` is a family of\nchosen elements. This is actually a bit stronger than the ZFC choice axiom;\nthis is sometimes called \"[global choice](https://en.wikipedia.org/wiki/Axiom_of_global_choice)\".\n\nIn Lean, we use the axiom of choice to derive the law of excluded middle\n(see `Classical.em`), so it will often show up in axiom listings where you\nmay not expect. You can use `#print axioms my_thm` to find out if a given\ntheorem depends on this or other axioms.\n\nThis axiom can be used to construct \"data\", but obviously there is no algorithm\nto compute it, so Lean will require you to mark any definition that would\ninvolve executing `Classical.choice` or other axioms as `noncomputable`, and\nwill not produce any executable code for such definitions.\n</code>",
- "1186":
+ "1187":
  "<code>Nonempty.{u} (α : Sort u) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`Nonempty α` is a typeclass that says that `α` is not an empty type,\nthat is, there exists an element in the type. It differs from `Inhabited α`\nin that `Nonempty α` is a `Prop`, which means that it does not actually carry\nan element of `α`, only a proof that *there exists* such an element.\nGiven `Nonempty α`, you can construct an element of `α` *nonconstructively*\nusing `Classical.choice`.\n</code>",
- "1185":
+ "1186":
  "<code>Classical.em (p : Prop) : p ∨ ¬p</code><span class=\"sep\"></span><code class=\"docstring\">**Diaconescu's theorem**: excluded middle from choice, Function extensionality and propositional extensionality. </code>",
- "1184": "<code>excluded_middle_nat_eq (n m : Nat) : n = m ∨ n ≠ m</code>",
- "1183": "<code>a ↔ true = true</code>",
- "1182": "<code>a ↔ false = true</code>",
- "1181": "<code>a ↔ b = true</code>",
- "1180":
+ "1185": "<code>excluded_middle_nat_eq (n m : Nat) : n = m ∨ n ≠ m</code>",
+ "1184": "<code>a ↔ true = true</code>",
+ "1183": "<code>a ↔ false = true</code>",
+ "1182": "<code>a ↔ b = true</code>",
+ "1181":
  "<code>restricted_excluded_middle (a : Prop) (b : Bool) (h : a ↔ b = true) : a ∨ ¬a</code>",
+ "1180": "<code>ExcludedMiddle : Prop</code>",
  "118": "<code>Playground.Nibble : Type</code>",
- "1179": "<code>ExcludedMiddle : Prop</code>",
- "1178": "<code>trRev_correct {α : Type} : trRev = List.rev</code>",
- "1177": "<code>trRev.{u_1} {α : Type u_1} (xs : List α) : List α</code>",
- "1176":
+ "1179": "<code>trRev_correct {α : Type} : trRev = List.rev</code>",
+ "1178": "<code>trRev.{u_1} {α : Type u_1} (xs : List α) : List α</code>",
+ "1177":
  "<code>revAppend_cons {α : Type} {x : α} {xs ys : List α} : revAppend (x :: xs) ys = revAppend xs (x :: ys)</code>",
- "1175":
+ "1176":
  "<code>revAppend_nil {α : Type} {xs : List α} : revAppend [] xs = xs</code>",
- "1174":
+ "1175":
  "<code>revAppend.{u_1} {α : Type u_1} (xs ys : List α) : List α</code>",
- "1173": "<code>p.fst = m</code>",
- "1172": "<code>p.snd = 4</code>",
- "1171": "<code>p.snd = 0</code>",
- "1170": "<code>p.fst = n + 1</code>",
+ "1174": "<code>p.fst = m</code>",
+ "1173": "<code>p.snd = 4</code>",
+ "1172": "<code>p.snd = 0</code>",
+ "1171": "<code>p.fst = n + 1</code>",
+ "1170": "<code>Nat × Nat</code>",
  "117": "<code>Playground.Bit.b0 : Bit</code>",
- "1169": "<code>Nat × Nat</code>",
- "1168":
+ "1169":
  "<code>add_comm_fun' : (fun n m =&gt; n + m) = fun n m =&gt; m + n</code>",
- "1167":
+ "1168":
  "<code class=\"docstring\">`ext1 pat*` is like `ext pat*` except that it only applies a single extensionality theorem rather\nthan recursively applying as many extensionality theorems as possible.\n\nThe `pat*` patterns are processed using the `rintro` tactic.\nIf no patterns are supplied, then variables are introduced anonymously using the `intros` tactic.\n</code>",
- "1166":
+ "1167":
  "<code>add_comm_fun : (fun n m =&gt; n + m) = fun n m =&gt; m + n</code>",
- "1165":
+ "1166":
  "<code>Quot.sound.{u} {α : Sort u} {r : α → α → Prop} {a b : α} : r a b → Quot.mk r a = Quot.mk r b</code><span class=\"sep\"></span><code class=\"docstring\">The **quotient axiom**, which asserts the equality of elements related by the quotient's relation.\n\nThe relation `r` does not need to be an equivalence relation to use this axiom. When `r` is not an\nequivalence relation, the quotient is with respect to the equivalence relation generated by `r`.\n\n`Quot.sound` is part of the built-in primitive quotient type:\n * `Quot` is the built-in quotient type.\n * `Quot.mk` places elements of the underlying type `α` into the quotient.\n * `Quot.lift` allows the definition of functions from the quotient to some other type.\n * `Quot.ind` is used to write proofs about quotients by assuming that all elements are constructed\n   with `Quot.mk`; it is analogous to the [recursor](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=recursors) for a\n   structure.\n\n[Quotient types](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=quotients) are described in more detail in the Lean Language\nReference.\n</code>",
- "1164": "<code>α✝ → β✝</code>",
- "1163":
+ "1165": "<code>α✝ → β✝</code>",
+ "1164":
  "<code>funext.{u, v} {α : Sort u} {β : α → Sort v} {f g : (x : α) → β x} (h : ∀ (x : α), f x = g x) : f = g</code><span class=\"sep\"></span><code class=\"docstring\">**Function extensionality.** If two functions return equal results for all possible arguments, then\nthey are equal.\n\nIt is called “extensionality” because it provides a way to prove two objects equal based on the\nproperties of the underlying mathematical functions, rather than based on the syntax used to denote\nthem. Function extensionality is a theorem that can be [proved using quotient\ntypes](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=quotient-funext).\n</code>",
- "1162": "<code>beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m</code>",
- "1161":
+ "1163": "<code>beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m</code>",
+ "1162":
  "<code>In_append_iff (α : Type) (l l' : List α) (x : α) : List.In x (l ++ l') ↔ List.In x l ∨ List.In x l'</code>",
- "1160":
+ "1161":
  "<code>mul_eq_0_ternary (n m p : Nat) : n * m * p = 0 ↔ n = 0 ∨ m = 0 ∨ p = 0</code>",
- "116": "<code>Playground.Bit.b1 : Bit</code>",
- "1159":
+ "1160":
  "<code class=\"docstring\">Prints the axioms used by a declaration, directly or indirectly.\nPlease consult [the reference manual](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=validating-proofs) to understand the significance of the output. </code>",
- "1158": "<code>and_comm_flip' (a b c : Prop) : a ∧ b ∧ c ↔ c ∧ b ∧ a</code>",
- "1157": "<code>and_comm_flip (a b c : Prop) : a ∧ b ∧ c ↔ c ∧ b ∧ a</code>",
- "1156": "<code>and_assoc {a b c : Prop} : (a ∧ b) ∧ c ↔ a ∧ b ∧ c</code>",
- "1155":
+ "116": "<code>Playground.Bit.b1 : Bit</code>",
+ "1159": "<code>and_comm_flip' (a b c : Prop) : a ∧ b ∧ c ↔ c ∧ b ∧ a</code>",
+ "1158": "<code>and_comm_flip (a b c : Prop) : a ∧ b ∧ c ↔ c ∧ b ∧ a</code>",
+ "1157": "<code>and_assoc {a b c : Prop} : (a ∧ b) ∧ c ↔ a ∧ b ∧ c</code>",
+ "1156":
  "<code>and_assoc_eq (a b c : Prop) : ((a ∧ b) ∧ c) = (a ∧ b ∧ c)</code>",
- "1154": "<code>and_comm_eq (a b : Prop) : (a ∧ b) = (b ∧ a)</code>",
- "1153":
+ "1155": "<code>and_comm_eq (a b : Prop) : (a ∧ b) = (b ∧ a)</code>",
+ "1154":
  "<code class=\"docstring\">Applies extensionality lemmas that are registered with the `@[ext]` attribute.\n* `ext pat*` applies extensionality theorems as much as possible,\n  using the patterns `pat*` to introduce the variables in extensionality theorems using `rintro`.\n  For example, the patterns are used to name the variables introduced by lemmas such as `funext`.\n* Without patterns,`ext` applies extensionality lemmas as much\n  as possible but introduces anonymous hypotheses whenever needed.\n* `ext pat* : n` applies ext theorems only up to depth `n`.\n\nThe `ext1 pat*` tactic is like `ext pat*` except that it only applies a single extensionality theorem.\n\nUnused patterns will generate warning.\nPatterns that don't match the variables will typically result in the introduction of anonymous hypotheses.\n</code>",
- "1152": "<code>True</code>",
- "1151": "<code>prop_true (a : Prop) (h : a) : a = True</code>",
- "1150": "<code>and_comm {a b : Prop} : a ∧ b ↔ b ∧ a</code>",
+ "1153": "<code>True</code>",
+ "1152": "<code>prop_true (a : Prop) (h : a) : a = True</code>",
+ "1151": "<code>and_comm {a b : Prop} : a ∧ b ↔ b ∧ a</code>",
+ "1150":
+ "<code>List.allb_true_iff (α : Type) {test : α → Bool} {l : List α} : allb test l = true ↔ All (fun x =&gt; test x = true) l</code>",
  "115": "<code>Playground.Bit : Type</code>",
  "1149":
- "<code>List.allb_true_iff (α : Type) {test : α → Bool} {l : List α} : allb test l = true ↔ All (fun x =&gt; test x = true) l</code>",
- "1148":
  "<code>List.allb_cons {α : Type} {test : α → Bool} {x : α} {l : List α} : allb test (x :: l) = (test x &amp;&amp; allb test l)</code>",
- "1147":
+ "1148":
  "<code>List.allb_nil {α : Type} {test : α → Bool} : allb test [] = true</code>",
- "1146":
+ "1147":
  "<code>List.allb {α : Type} (test : α → Bool) (l : List α) : Bool</code>",
- "1145": "<code>∀ (x y : α), beq x y = true ↔ x = y</code>",
- "1144":
+ "1146": "<code>∀ (x y : α), beq x y = true ↔ x = y</code>",
+ "1145":
  "<code>beqList_true_iff (α : Type) (beq : α → α → Bool) (h : ∀ (x y : α), beq x y = true ↔ x = y) {xs ys : List α} :\n  beqList beq xs ys = true ↔ xs = ys</code>",
- "1143":
+ "1144":
  "<code>beqList_cons_nil {α : Type} {beq : α → α → Bool} {x : α} {xs : List α} : beqList beq (x :: xs) [] = false</code>",
- "1142":
+ "1143":
  "<code>beqList_nil_cons {α : Type} {beq : α → α → Bool} {x : α} {xs : List α} : beqList beq [] (x :: xs) = false</code>",
- "1141":
+ "1142":
  "<code>beqList_cons_cons {α : Type} {beq : α → α → Bool} {x y : α} {xs ys : List α} :\n  beqList beq (x :: xs) (y :: ys) = (beq x y &amp;&amp; beqList beq xs ys)</code>",
- "1140":
+ "1141":
  "<code>beqList_nil_nil {α : Type} {beq : α → α → Bool} : beqList beq [] [] = true</code>",
+ "1140": "<code>α → α → Bool</code>",
  "114": "<code>Lean.Meta.Grind.Filter.true : Lean.Meta.Grind.Filter</code>",
- "1139": "<code>α → α → Bool</code>",
- "1138":
+ "1139":
  "<code>beqList {α : Type} (beq : α → α → Bool) (xs ys : List α) : Bool</code>",
- "1137":
+ "1138":
  "<code>orb_true_iff (b1 b2 : Bool) : (b1 || b2) = true ↔ b1 = true ∨ b2 = true</code>",
- "1136":
+ "1137":
  "<code>andb_true_iff (b1 b2 : Bool) : (b1 &amp;&amp; b2) = true ↔ b1 = true ∧ b2 = true</code>",
- "1135":
+ "1136":
  "<code>BEq.rfl.{u_1} {α : Type u_1} [BEq α] [ReflBEq α] {a : α} : (a == a) = true</code>",
- "1134": "<code>(n == m) = true</code>",
- "1133":
+ "1135": "<code>(n == m) = true</code>",
+ "1134":
  "<code>add_beq_true (n m p : Nat) (h : (n == m) = true) : (n + p == m + p) = true</code>",
- "1132": "<code>Nat.even 99 = true</code>",
- "1131": "<code>Nat.even 101 = true</code>",
- "1130": "<code>Nat.Even 101</code>",
+ "1133": "<code>Nat.even 99 = true</code>",
+ "1132": "<code>Nat.even 101 = true</code>",
+ "1131": "<code>Nat.Even 101</code>",
+ "1130": "<code>Nat.Even 100 → Nat.even 100 = true</code>",
  "113":
  "<code>Std.Do.ExceptConds.true.{u} {ps : Std.Do.PostShape} : Std.Do.ExceptConds ps</code><span class=\"sep\"></span><code class=\"docstring\">An assertion about the possible exceptions in `ps` that always holds.\n</code>",
- "1129": "<code>Nat.Even 100 → Nat.even 100 = true</code>",
- "1128": "<code>Nat.even 100 = true → Nat.Even 100</code>",
- "1127": "<code>is_even_prime (n : Nat) : Bool</code>",
- "1126": "<code>beq_eq_true (n m : Nat) : (n == m) = true ↔ n = m</code>",
- "1125":
+ "1129": "<code>Nat.even 100 = true → Nat.Even 100</code>",
+ "1128": "<code>is_even_prime (n : Nat) : Bool</code>",
+ "1127": "<code>beq_eq_true (n m : Nat) : (n == m) = true ↔ n = m</code>",
+ "1126":
  "<code>DecidableEq.{u} (α : Sort u) : Sort (max 1 u)</code><span class=\"sep\"></span><code class=\"docstring\">Propositional equality is `Decidable` for all elements of a type.\n\nIn other words, an instance of `DecidableEq α` is a means of deciding the proposition `a = b` is\nfor all `a b : α`.\n</code>",
- "1124":
+ "1125":
  "<code>Nat.beq_eq_true_eq (a b : Nat) : ((a == b) = true) = (a = b)</code>",
- "1123": "<code>n = k.double</code>",
- "1122":
+ "1124": "<code>n = k.double</code>",
+ "1123":
  "<code>cond_true.{u_1} {α : Sort u_1} (a b : α) : (bif true then a else b) = a</code>",
- "1121": "<code>n = bif true then k.double else k.double + 1</code>",
- "1120": "<code>n = bif n.even then k.double else k.double + 1</code>",
+ "1122": "<code>n = bif true then k.double else k.double + 1</code>",
+ "1121": "<code>n = bif n.even then k.double else k.double + 1</code>",
+ "1120": "<code>n.even = true</code>",
  "112": "<code>Lean.LBool.true : Lean.LBool</code>",
- "1119": "<code>n.even = true</code>",
- "1118": "<code>Nat.even_bool_prop (n : Nat) : n.even = true ↔ n.Even</code>",
- "1117":
+ "1119": "<code>Nat.even_bool_prop (n : Nat) : n.even = true ↔ n.Even</code>",
+ "1118":
  "<code>even_double_conv (n : Nat) : ∃ k, n = bif n.even then k.double else k.double + 1</code>",
- "1116": "<code>k'.double.even = true</code>",
- "1115": "<code>even_double (k : Nat) : k.double.even = true</code>",
- "1114": "<code>∀ {α : Type} {x y z : α}, x = y → y = z → x = z</code>",
- "1113": "<code>m = 42</code>",
- "1112": "<code>identity {a : Prop} : a → a</code>",
- "1111":
+ "1117": "<code>k'.double.even = true</code>",
+ "1116": "<code>even_double (k : Nat) : k.double.even = true</code>",
+ "1115": "<code>∀ {α : Type} {x y z : α}, x = y → y = z → x = z</code>",
+ "1114": "<code>m = 42</code>",
+ "1113": "<code>identity {a : Prop} : a → a</code>",
+ "1112":
  "<code>combineOddEven_elim_even (Odd Even : Nat → Prop) (n : Nat) (h : CombineOddEven Odd Even n) (hOdd : n.odd = false) :\n  Even n</code>",
- "1110": "<code>CombineOddEven Odd Even n</code>",
- "111": "<code>Lake.Toml.true : Lean.Parser.Parser</code>",
- "1109":
+ "1111": "<code>CombineOddEven Odd Even n</code>",
+ "1110":
  "<code>combineOddEven_elim_odd (Odd Even : Nat → Prop) (n : Nat) (h : CombineOddEven Odd Even n) (hOdd : n.odd = true) : Odd n</code>",
- "1108": "<code>n.odd = false → Even n</code>",
- "1107": "<code>n.odd = true → Odd n</code>",
- "1106":
+ "111": "<code>Lake.Toml.true : Lean.Parser.Parser</code>",
+ "1109": "<code>n.odd = false → Even n</code>",
+ "1108": "<code>n.odd = true → Odd n</code>",
+ "1107":
  "<code>combineOddEven_intro (Odd Even : Nat → Prop) (n : Nat) (hOdd : n.odd = true → Odd n) (hEven : n.odd = false → Even n) :\n  CombineOddEven Odd Even n</code>",
- "1105": "<code>Nat → Prop</code>",
- "1104": "<code>CombineOddEven (Odd Even : Nat → Prop) : Nat → Prop</code>",
- "1103":
+ "1106": "<code>Nat → Prop</code>",
+ "1105": "<code>CombineOddEven (Odd Even : Nat → Prop) : Nat → Prop</code>",
+ "1104":
  "<code>List.All_In {α : Type} {p : α → Prop} {l : List α} : (∀ (x : α), In x l → p x) ↔ All p l</code>",
- "1102":
+ "1103":
  "<code>List.All_cons {α : Type} {p : α → Prop} {x : α} {l : List α} : All p (x :: l) = (p x ∧ All p l)</code>",
- "1101": "<code>List.All_nil {α : Type} {a : α → Prop} : All a []</code>",
- "1100": "<code>List.All {α : Type} (p : α → Prop) (l : List α) : Prop</code>",
+ "1102": "<code>List.All_nil {α : Type} {a : α → Prop} : All a []</code>",
+ "1101": "<code>List.All {α : Type} (p : α → Prop) (l : List α) : Prop</code>",
+ "1100":
+ "<code>List.In_map_iff {α β : Type} {f : α → β} {xs : List α} {y : β} : In y (map f xs) ↔ ∃ x, f x = y ∧ In x xs</code>",
  "110": "<code>nextWorkingDay' (d : Day) : Day</code>",
  "11":
  "<code class=\"docstring\">Assuming `x` is a variable in the local context with an inductive type,\n`cases x` splits the main goal, producing one goal for each constructor of the\ninductive type, in which the target is replaced by a general instance of that constructor.\nIf the type of an element in the local context depends on `x`,\nthat element is reverted and reintroduced afterward,\nso that the case split affects that hypothesis as well.\n`cases` detects unreachable cases and closes them automatically.\n\nFor example, given `n : Nat` and a goal with a hypothesis `h : P n` and target `Q n`,\n`cases n` produces one goal with hypothesis `h : P 0` and target `Q 0`,\nand one goal with hypothesis `h : P (Nat.succ a)` and target `Q (Nat.succ a)`.\nHere the name `a` is chosen automatically and is not accessible.\nYou can use `with` to provide the variables names for each constructor.\n- `cases e`, where `e` is an expression instead of a variable, generalizes `e` in the goal,\n  and then cases on the resulting variable.\n- Given `as : List α`, `cases as with | nil =&gt; tac₁ | cons a as' =&gt; tac₂`,\n  uses tactic `tac₁` for the `nil` case, and `tac₂` for the `cons` case,\n  and `a` and `as'` are used as names for the new variables introduced.\n- `cases h : e`, where `e` is a variable or an expression,\n  performs cases on `e` as above, but also adds a hypothesis `h : e = ...` to each goal,\n  where `...` is the constructor instance for that particular case.\n</code>",
  "1099":
- "<code>List.In_map_iff {α β : Type} {f : α → β} {xs : List α} {y : β} : In y (map f xs) ↔ ∃ x, f x = y ∧ In x xs</code>",
- "1098":
  "<code>List.map_cons.{u, v} {α : Type u} {β : Type v} {f : α → β} {a : α} {l : List α} : map f (a :: l) = f a :: map f l</code>",
- "1097": "<code>In x xs'</code>",
- "1096": "<code>x = x'</code>",
- "1095": "<code>x = x' ∨ In x xs'</code>",
- "1094": "<code>In x (x' :: xs')</code>",
- "1093": "<code>In x xs' → In (f x) (map f xs')</code>",
- "1092": "<code>In x []</code>",
- "1091":
+ "1098": "<code>In x xs'</code>",
+ "1097": "<code>x = x'</code>",
+ "1096": "<code>x = x' ∨ In x xs'</code>",
+ "1095": "<code>In x (x' :: xs')</code>",
+ "1094": "<code>In x xs' → In (f x) (map f xs')</code>",
+ "1093": "<code>In x []</code>",
+ "1092":
  "<code>List.map.{u_1, u_2} {α : Type u_1} {β : Type u_2} (f : α → β) (l : List α) : List β</code><span class=\"sep\"></span><code class=\"docstring\">Applies a function to each element of the list, returning the resulting list of values.\n\n`O(|l|)`.\n\nExamples:\n* `[a, b, c].map f = [f a, f b, f c]`\n* `[].map Nat.succ = []`\n* `[\"one\", \"two\", \"three\"].map (·.length) = [3, 3, 5]`\n* `[\"one\", \"two\", \"three\"].map (·.reverse) = [\"eno\", \"owt\", \"eerht\"]`\n</code>",
- "1090": "<code>In x xs</code>",
- "109": "<code>MyOtherNamespace.myVisibleDef : Bool</code>",
- "1089":
+ "1091": "<code>In x xs</code>",
+ "1090":
  "<code>List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : In x xs) : In (f x) (map f xs)</code>",
- "1088": "<code>n = 4</code>",
- "1087": "<code>n = 2</code>",
- "1086": "<code>n = 2 ∨ List.In n [4]</code>",
- "1085": "<code>List.In n [2, 4]</code>",
- "1084":
+ "109": "<code>MyOtherNamespace.myVisibleDef : Bool</code>",
+ "1089": "<code>n = 4</code>",
+ "1088": "<code>n = 2</code>",
+ "1087": "<code>n = 2 ∨ List.In n [4]</code>",
+ "1086": "<code>List.In n [2, 4]</code>",
+ "1085":
  "<code>List.In_cons {α : Type} {x x' : α} {xs : List α} : In x (x' :: xs) = (x = x' ∨ In x xs)</code>",
- "1083": "<code>List.In_nil {α : Type} {x : α} : ¬In x []</code>",
- "1082": "<code>List.In {α : Type} (x : α) (xs : List α) : Prop</code>",
- "1081":
+ "1084": "<code>List.In_nil {α : Type} {x : α} : ¬In x []</code>",
+ "1083": "<code>List.In {α : Type} (x : α) (xs : List α) : Prop</code>",
+ "1082":
  "<code>dist_exists_or (α : Type) (p q : α → Prop) : (∃ x, p x ∨ q x) ↔ (∃ x, p x) ∨ ∃ x, q x</code>",
- "1080": "<code>∀ (x : α), p x</code>",
- "108": "<code>MyOtherNamespace.myHiddenDef : Bool</code>",
- "1079":
+ "1081": "<code>∀ (x : α), p x</code>",
+ "1080":
  "<code>dist_not_exists (α : Type) (p : α → Prop) (h : ∀ (x : α), p x) : ¬∃ x, ¬p x</code>",
- "1078": "<code>n = m + 4</code>",
- "1077": "<code>?m.1</code>",
- "1076": "<code>Nat.Even (x : Nat) : Prop</code>",
- "1075": "<code>α → Prop</code>",
- "1074":
+ "108": "<code>MyOtherNamespace.myHiddenDef : Bool</code>",
+ "1079": "<code>n = m + 4</code>",
+ "1078": "<code>?m.1</code>",
+ "1077": "<code>Nat.Even (x : Nat) : Prop</code>",
+ "1076": "<code>α → Prop</code>",
+ "1075":
  "<code class=\"docstring\">`exists e₁, e₂, ...` is shorthand for `refine ⟨e₁, e₂, ...⟩; try trivial`.\nIt is useful for existential goals.\n</code>",
- "1073": "<code>?m.4</code>",
- "1072":
+ "1074": "<code>?m.4</code>",
+ "1073":
  "<code>Exists.{u} {α : Sort u} (p : α → Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">Existential quantification. If `p : α → Prop` is a predicate, then `∃ x : α, p x`\nasserts that there is some `x` of type `α` such that `p x` holds.\nTo create an existential proof, use the `exists` tactic,\nor the anonymous constructor notation `⟨x, h⟩`.\nTo unpack an existential, use `cases h` where `h` is a proof of `∃ x : α, p x`,\nor `let ⟨x, hx⟩ := h`.\n\nBecause Lean has proof irrelevance, any two proofs of an existential are\ndefinitionally equal. One consequence of this is that it is impossible to recover the\nwitness of an existential from the mere fact of its existence.\nFor example, the following does not compile:\n```\nexample (h : ∃ x : Nat, x = x) : Nat :=\n  let ⟨x, _⟩ := h  -- fail, because the goal is `Nat : Type`\n  x\n```\nThe error message `recursor 'Exists.casesOn' can only eliminate into Prop` means\nthat this only works when the current goal is another proposition:\n```\nexample (h : ∃ x : Nat, x = x) : True :=\n  let ⟨x, _⟩ := h  -- ok, because the goal is `True : Prop`\n  trivial\n```\n</code>",
- "1071":
+ "1072":
  "<code>or_distributes_over_and (a b c : Prop) : a ∨ b ∧ c ↔ (a ∨ b) ∧ (a ∨ c)</code>",
- "1070": "<code>mul_eq_0 (n m : Nat) : n * m = 0 ↔ n = 0 ∨ m = 0</code>",
+ "1071": "<code>mul_eq_0 (n m : Nat) : n * m = 0 ↔ n = 0 ∨ m = 0</code>",
+ "1070": "<code>or_associate (a b c : Prop) : a ∨ b ∨ c ↔ (a ∨ b) ∨ c</code>",
  "107":
  "<code class=\"docstring\">Makes names from other namespaces visible without writing the namespace prefix.\n\nNames that are made available with `open` are visible within the current `section` or `namespace`\nblock. This makes referring to (type) definitions and theorems easier, but note that it can also\nmake [scoped instances], notations, and attributes from a different namespace available.\n\nThe `open` command can be used in a few different ways:\n\n* `open Some.Namespace.Path1 Some.Namespace.Path2` makes all non-protected names in\n  `Some.Namespace.Path1` and `Some.Namespace.Path2` available without the prefix, so that\n  `Some.Namespace.Path1.x` and `Some.Namespace.Path2.y` can be referred to by writing only `x` and\n  `y`.\n\n* `open Some.Namespace.Path hiding def1 def2` opens all non-protected names in `Some.Namespace.Path`\n  except `def1` and `def2`.\n\n* `open Some.Namespace.Path (def1 def2)` only makes `Some.Namespace.Path.def1` and\n  `Some.Namespace.Path.def2` available without the full prefix, so `Some.Namespace.Path.def3` would\n  be unaffected.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open Some.Namespace.Path renaming def1 → def1', def2 → def2'` same as `open Some.Namespace.Path\n  (def1 def2)` but `def1`/`def2`'s names are changed to `def1'`/`def2'`.\n\n  This works even if `def1` and `def2` are `protected`.\n\n* `open scoped Some.Namespace.Path1 Some.Namespace.Path2` **only** opens [scoped instances],\n  notations, and attributes from `Namespace1` and `Namespace2`; it does **not** make any other name\n  available.\n\n* `open &lt;any of the open shapes above&gt; in` makes the names `open`-ed visible only in the next\n  command or expression.\n\n[scoped instance]: https://lean-lang.org/theorem_proving_in_lean4/type_classes.html#scoped-instances\n(Scoped instances in Theorem Proving in Lean)\n\n\n## Examples\n\n```lean\n/-- SKI combinators https://en.wikipedia.org/wiki/SKI_combinator_calculus -/\nnamespace Combinator.Calculus\n  def I (a : α) : α := a\n  def K (a : α) : β → α := fun _ =&gt; a\n  def S (x : α → β → γ) (y : α → β) (z : α) : γ := x z (y z)\nend Combinator.Calculus\n\nsection\n  -- open everything under `Combinator.Calculus`, *i.e.* `I`, `K` and `S`,\n  -- until the section ends\n  open Combinator.Calculus\n\n  theorem SKx_eq_K : S K x = I := rfl\nend\n\n-- open everything under `Combinator.Calculus` only for the next command (the next `theorem`, here)\nopen Combinator.Calculus in\ntheorem SKx_eq_K' : S K x = I := rfl\n\nsection\n  -- open only `S` and `K` under `Combinator.Calculus`\n  open Combinator.Calculus (S K)\n\n  theorem SKxy_eq_y : S K x y = y := rfl\n\n  -- `I` is not in scope, we have to use its full path\n  theorem SKxy_eq_Iy : S K x y = Combinator.Calculus.I y := rfl\nend\n\nsection\n  open Combinator.Calculus\n    renaming\n      I → identity,\n      K → konstant\n\n  #check identity\n  #check konstant\nend\n\nsection\n  open Combinator.Calculus\n    hiding S\n\n  #check I\n  #check K\nend\n\nsection\n  namespace Demo\n    inductive MyType\n    | val\n\n    namespace N1\n      scoped infix:68 \" ≋ \" =&gt; BEq.beq\n\n      scoped instance : BEq MyType where\n        beq _ _ := true\n\n      def Alias := MyType\n    end N1\n  end Demo\n\n  -- bring `≋` and the instance in scope, but not `Alias`\n  open scoped Demo.N1\n\n  #check Demo.MyType.val == Demo.MyType.val\n  #check Demo.MyType.val ≋ Demo.MyType.val\n  -- #check Alias -- unknown identifier 'Alias'\nend\n```\n</code>",
- "1069": "<code>or_associate (a b c : Prop) : a ∨ b ∨ c ↔ (a ∨ b) ∨ c</code>",
- "1068": "<code>b ↔ c</code>",
- "1067":
+ "1069": "<code>b ↔ c</code>",
+ "1068":
  "<code>iff_trans (a b c : Prop) (h₁ : a ↔ b) (h₂ : b ↔ c) : a ↔ c</code>",
- "1066": "<code>iff_refl (a : Prop) : a ↔ a</code>",
- "1065": "<code>b = false</code>",
- "1064": "<code>not_true_iff_false (b : Bool) : b ≠ true ↔ b = false</code>",
- "1063": "<code>iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a</code>",
- "1062": "<code>a ↔ b</code>",
- "1061": "<code>b → a_1</code>",
- "1060":
+ "1067": "<code>iff_refl (a : Prop) : a ↔ a</code>",
+ "1066": "<code>b = false</code>",
+ "1065": "<code>not_true_iff_false (b : Bool) : b ≠ true ↔ b = false</code>",
+ "1064": "<code>iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a</code>",
+ "1063": "<code>a ↔ b</code>",
+ "1062": "<code>b → a_1</code>",
+ "1061":
  "<code>Iff.intro {a b : Prop} (mp : a → b) (mpr : b → a) : a ↔ b</code><span class=\"sep\"></span><code class=\"docstring\">If `a → b` and `b → a` then `a` and `b` are equivalent. </code>",
+ "1060":
+ "<code>Iff.mpr {a b : Prop} (self : a ↔ b) : b → a</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if, reversed. If `a ↔ b` and `b`, then `a`. </code>",
  "106": "<code>MyNamespace.myDef : Bool</code>",
  "1059":
- "<code>Iff.mpr {a b : Prop} (self : a ↔ b) : b → a</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if, reversed. If `a ↔ b` and `b`, then `a`. </code>",
- "1058":
  "<code>Iff.mp {a b : Prop} (self : a ↔ b) : a → b</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if. If `a ↔ b` and `a`, then `b`. </code>",
- "1057":
+ "1058":
  "<code>Iff (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">If and only if, or logical bi-implication. `a ↔ b` means that `a` implies `b` and vice versa.\nBy `propext`, this implies that `a` and `b` are equal and hence any expression involving `a`\nis equivalent to the corresponding expression with `b` instead.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `↔` in identifiers is `iff`.\n\n * The recommended spelling of `&lt;-&gt;` in identifiers is `iff` (prefer `↔` over `&lt;-&gt;`).</code>",
- "1056":
+ "1057":
  "<code>nil_is_not_cons {α : Type} (x : α) (xs : List α) : ¬[] = x :: xs</code>",
- "1055": "<code>DiscrFun (n + 1)</code>",
- "1054": "<code>DiscrFun 0</code>",
- "1053": "<code>0 = n + 1</code>",
- "1052": "<code>discr_example (n : Nat) : ¬0 = n + 1</code>",
- "1051": "<code>discrFun_succ (n : Nat) : ¬DiscrFun (n + 1)</code>",
- "1050": "<code>discrFun_zero : DiscrFun 0</code>",
+ "1056": "<code>DiscrFun (n + 1)</code>",
+ "1055": "<code>DiscrFun 0</code>",
+ "1054": "<code>0 = n + 1</code>",
+ "1053": "<code>discr_example (n : Nat) : ¬0 = n + 1</code>",
+ "1052": "<code>discrFun_succ (n : Nat) : ¬DiscrFun (n + 1)</code>",
+ "1051": "<code>discrFun_zero : DiscrFun 0</code>",
+ "1050": "<code>DiscrFun (n : Nat) : Prop</code>",
  "105": "<code>Day.nextWorkingDay' (d : Day) : Day</code>",
- "1049": "<code>DiscrFun (n : Nat) : Prop</code>",
- "1048":
+ "1049":
  "<code class=\"docstring\">`match` performs case analysis on one or more expressions.\nSee [Induction and Recursion][tpil4].\nThe syntax for the `match` tactic is the same as term-mode `match`, except that\nthe match arms are tactics instead of expressions.\n```\nexample (n : Nat) : n = n := by\n  match n with\n  | 0 =&gt; rfl\n  | i+1 =&gt; simp\n```\n\n[tpil4]: https://lean-lang.org/theorem_proving_in_lean4/induction_and_recursion.html\n</code>",
- "1047":
+ "1048":
  "<code>True.intro : True</code><span class=\"sep\"></span><code class=\"docstring\">`True` is true, and `True.intro` (or more commonly, `trivial`)\nis the proof. </code>",
- "1046":
+ "1047":
  "<code>True : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`True` is a proposition and has only an introduction rule, `True.intro : True`.\nIn other words, `True` is simply true, and has a canonical proof, `True.intro`\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
- "1045": "<code>1 = 0</code>",
- "1044": "<code>¬b</code>",
- "1043": "<code>x ≠ y</code>",
- "1042": "<code>x = y ∧ x ≠ y</code>",
- "1041": "<code>α✝</code>",
- "1040":
+ "1046": "<code>1 = 0</code>",
+ "1045": "<code>¬b</code>",
+ "1044": "<code>x ≠ y</code>",
+ "1043": "<code>x = y ∧ x ≠ y</code>",
+ "1042": "<code>α✝</code>",
+ "1041":
  "<code>not_true_is_false' (b : Bool) (h : b ≠ true) : b = false</code>",
- "104": "<code>RGB.myOtherBlue : RGB</code>",
- "1039":
+ "1040":
  "<code class=\"docstring\">`exfalso` converts a goal `⊢ tgt` into `⊢ False` by applying `False.elim`. </code>",
- "1038": "<code>true = true → False</code>",
- "1037": "<code>¬true = true</code>",
- "1036": "<code>true ≠ true</code>",
- "1035": "<code>false ≠ true</code>",
- "1034": "<code>b ≠ true</code>",
- "1033": "<code>not_true_is_false (b : Bool) (h : b ≠ true) : b = false</code>",
- "1032": "<code>not_succ_pred_n : ¬∀ (n : Nat), n.pred + 1 = n</code>",
- "1031": "<code>¬(a ∨ b)</code>",
- "1030": "<code>de_morgan_not_or {a b : Prop} (h : ¬(a ∨ b)) : ¬a ∧ ¬b</code>",
+ "104": "<code>RGB.myOtherBlue : RGB</code>",
+ "1039": "<code>true = true → False</code>",
+ "1038": "<code>¬true = true</code>",
+ "1037": "<code>true ≠ true</code>",
+ "1036": "<code>false ≠ true</code>",
+ "1035": "<code>b ≠ true</code>",
+ "1034": "<code>not_true_is_false (b : Bool) (h : b ≠ true) : b = false</code>",
+ "1033": "<code>not_succ_pred_n : ¬∀ (n : Nat), n.pred + 1 = n</code>",
+ "1032": "<code>¬(a ∨ b)</code>",
+ "1031": "<code>de_morgan_not_or {a b : Prop} (h : ¬(a ∨ b)) : ¬a ∧ ¬b</code>",
+ "1030": "<code>a → b</code>",
  "103": "<code>RGB.myBlue : RGB</code>",
- "1029": "<code>a → b</code>",
- "1028": "<code>contrapositive (a b : Prop) (h : a → b) : ¬b → ¬a</code>",
- "1027": "<code>double_neg (a : Prop) (ha : a) : ¬¬a</code>",
- "1026": "<code>a ∧ ¬a</code>",
- "1025":
+ "1029": "<code>contrapositive (a b : Prop) (h : a → b) : ¬b → ¬a</code>",
+ "1028": "<code>double_neg (a : Prop) (ha : a) : ¬¬a</code>",
+ "1027": "<code>a ∧ ¬a</code>",
+ "1026":
  "<code>contradiction_implies_anything (a b : Prop) (h : a ∧ ¬a) : b</code>",
- "1024": "<code>not_False : ¬False</code>",
- "1023": "<code>0 = 1</code>",
- "1022": "<code>zero_not_one : 0 ≠ 1</code>",
- "1021":
+ "1025": "<code>not_False : ¬False</code>",
+ "1024": "<code>0 = 1</code>",
+ "1023": "<code>zero_not_one : 0 ≠ 1</code>",
+ "1022":
  "<code>Ne.{u} {α : Sort u} (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a ≠ b`, or `Ne a b` is defined as `¬ (a = b)` or `a = b → False`,\nand asserts that `a` and `b` are not equal.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≠` in identifiers is `ne`.</code>",
- "1020": "<code>¬a</code>",
- "102": "<code>Playground.myBar : RGB</code>",
- "1019":
+ "1021": "<code>¬a</code>",
+ "1020":
  "<code>not_implies_other_not (a : Prop) (h : ¬a) (c : Prop) : a → c</code>",
- "1018": "<code>False</code>",
- "1017": "<code>ex_falso_quodlibet (a : Prop) (h : False) : a</code>",
- "1016":
+ "102": "<code>Playground.myBar : RGB</code>",
+ "1019": "<code>False</code>",
+ "1018": "<code>ex_falso_quodlibet (a : Prop) (h : False) : a</code>",
+ "1017":
  "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
- "1015":
+ "1016":
  "<code>Not (a : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`Not p`, or `¬p`, is the negation of `p`. It is defined to be `p → False`,\nso if your goal is `¬p` you can use `intro h` to turn the goal into\n`h : p ⊢ False`, and if you have `hn : ¬p` and `h : p` then `hn h : False`\nand `(hn h).elim` will prove anything.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `¬` in identifiers is `not`.</code>",
- "1014": "<code>a ∨ b</code>",
- "1013": "<code>or_commute (a b : Prop) (h : a ∨ b) : b ∨ a</code>",
- "1012": "<code>n * m = 0</code>",
- "1011":
+ "1015": "<code>a ∨ b</code>",
+ "1014": "<code>or_commute (a b : Prop) (h : a ∨ b) : b ∨ a</code>",
+ "1013": "<code>n * m = 0</code>",
+ "1012":
  "<code>Nat.mul_is_zero (n m : Nat) (h : n * m = 0) : n = 0 ∨ m = 0</code>",
- "1010": "<code>Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred</code>",
+ "1011": "<code>Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred</code>",
+ "1010": "<code>or_intro_l (a b : Prop) (h : a) : a ∨ b</code>",
  "101": "<code>Playground.myFoo : RGB</code>",
- "1009": "<code>or_intro_l (a b : Prop) (h : a) : a ∨ b</code>",
- "1008":
+ "1009":
  "<code class=\"docstring\">Applies the second constructor when\nthe goal is an inductive type with exactly two constructors, or fails otherwise.\n```\nexample {p q : Prop} (h : q) : p ∨ q := by\n  right\n  exact h\n```\n</code>",
- "1007":
+ "1008":
  "<code class=\"docstring\">Applies the first constructor when\nthe goal is an inductive type with exactly two constructors, or fails otherwise.\n```\nexample : True ∨ False := by\n  left\n  trivial\n```\n</code>",
- "1006":
+ "1007":
  "<code>Bool.false_and (b : Bool) : (false &amp;&amp; b) = false</code>",
- "1005": "<code>b2 = false</code>",
- "1004": "<code>b1 = false</code>",
- "1003": "<code>b1 = false ∨ b2 = false</code>",
- "1002":
+ "1006": "<code>b2 = false</code>",
+ "1005": "<code>b1 = false</code>",
+ "1004": "<code>b1 = false ∨ b2 = false</code>",
+ "1003":
  "<code>and_is_false (b1 b2 : Bool) (h : b1 = false ∨ b2 = false) : (b1 &amp;&amp; b2) = false</code>",
- "1001": "<code>Nat.mul_zero (n : Nat) : n * 0 = 0</code>",
- "1000":
+ "1002": "<code>Nat.mul_zero (n : Nat) : n * 0 = 0</code>",
+ "1001":
  "<code>Or.inr {a b : Prop} (h : b) : a ∨ b</code><span class=\"sep\"></span><code class=\"docstring\">`Or.inr` is \"right injection\" into an `Or`. If `h : b` then `Or.inr h : a ∨ b`. </code>",
+ "1000": "<code>Nat.zero_mul (n : Nat) : 0 * n = 0</code>",
  "100": "<code>myFoo : Bool</code>",
  "10":
  "<code class=\"docstring\">Apply congruence (recursively) to goals of the form `⊢ f as = f bs` and `⊢ f as ≍ f bs`.\nThe optional parameter is the depth of the recursive applications.\nThis is useful when `congr` is too aggressive in breaking down the goal.\nFor example, given `⊢ f (g (x + y)) = f (g (y + x))`,\n`congr` produces the goals `⊢ x = y` and `⊢ y = x`,\nwhile `congr 2` produces the intended `⊢ x + y = y + x`.\n</code>",
