@@ -96,7 +96,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
     "347": {
-      "base_sha": "ff6045bb6dbab9c4d60fa0fe2b5fbc34e60625c5",
+      "base_sha": "dcb7274fa4ae57b3e6461ac5b69af452e7bc6315",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -135,9 +135,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "df57420e24685628af1c46e851bfea670f76208a",
+      "head_sha": "895bf21fcbd7b7668fd9630a84608bb7cdf9e71a",
       "preview_path": "pr/347/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33415534520",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34479808920",
       "status": "published",
       "title": "Imp: proof polishing, remove EvalR unexpanders",
       "url": "https://github.com/plclub/sf-in-lean/pull/347"
@@ -329,6 +329,16 @@
       "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
+    },
+    "384": {
+      "base_sha": "dcb7274fa4ae57b3e6461ac5b69af452e7bc6315",
+      "changed_variants": [],
+      "head_sha": "2ca8d7b7dd28a30be6b798dd287ccf7cd0fab95d",
+      "preview_path": "pr/384/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Tactics: Tidying",
+      "url": "https://github.com/plclub/sf-in-lean/pull/384"
     }
   },
   "schema": 3

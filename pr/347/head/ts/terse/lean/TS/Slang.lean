@@ -76,6 +76,8 @@ end Bexp
 --  `decide` by hovering over `Bexp.eval_le` and
 --  `Bexp.eval_gt`.
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  What does the following expression evaluate to?
@@ -83,6 +85,8 @@ end Bexp
 --  Aexp.eval (.plus (.num 3) (.minus (.num 4) (.num 1)))
 
 --  (A) true (B) false (C) 0 (D) 3 (E) 6
+
+--   ----------------------------------------
 
 --  ### Optimization
 
@@ -212,6 +216,8 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 
 --  ### Inference Rule Notation
 
+--   ----------------------------------------
+
 --  _Quiz:_
 
 --  Which rules are needed to prove the following?
@@ -221,21 +227,23 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --  (A) `num` and `plus` (B) `num` only (C) `num` and `mult`
 --  (D) `mult` and `plus` (E) `num`, `mult`, and `plus`
 
---  ### Exercise (1 star): beval_rules (Optional, manually graded) ⭐
+--   ----------------------------------------
+
+--  ### Exercise (1 star): beval_rules (Optional, Manually graded) ⭐
 
 --  Here, again, is the definition of the `Bexp.eval`
 --  function:
-
---    def Bexp.eval (b : Bexp) : Bool :=
---      match b with
---      | bool b     => b
---      | eq   a₁ a₂ => a₁.eval == a₂.eval
---      | neq  a₁ a₂ => a₁.eval != a₂.eval
---      | le   a₁ a₂ => a₁.eval ≤ a₂.eval
---      | gt   a₁ a₂ => a₁.eval > a₂.eval
---      | not  b₁    => !eval b₁
---      | and  b₁ b₂ => eval b₁ && eval b₂
-
+--
+--      def Bexp.eval (b : Bexp) : Bool :=
+--        match b with
+--        | bool b     => b
+--        | eq   a₁ a₂ => a₁.eval == a₂.eval
+--        | neq  a₁ a₂ => a₁.eval != a₂.eval
+--        | le   a₁ a₂ => a₁.eval ≤ a₂.eval
+--        | gt   a₁ a₂ => a₁.eval > a₂.eval
+--        | not  b₁    => !eval b₁
+--        | and  b₁ b₂ => eval b₁ && eval b₂
+--
 --  Write out a corresponding definition of boolean
 --  evaluation as a relation in inference rule notation.
 
@@ -280,13 +288,15 @@ namespace Bexp
 open scoped Aexp -- opens the ⇓ notation for Aexp.EvalR
 
 inductive EvalR : Bexp → Bool → Prop where
-  -- FILL IN HERE
+  --  FILL IN HERE
 
 scoped notation:55 e:56 " ⇓ " b:56 => EvalR e b
 
 theorem evalR_iff_eval (b : Bexp) (bv : Bool) :
     b ⇓ bv ↔ b.eval = bv := by
   sorry
+
+--  (End of exercise)
 
 end Bexp
 end Slang
@@ -341,10 +351,10 @@ end Aexp
 --  Foundations in Lean. Curious readers can learn more
 --  about them from [Functional Programming in
 --  Lean](https://lean-lang.org/functional_programming_in_lean/Monads/).
-
+--
 --  By contrast, partiality is no problem for the relational
 --  version of the definition.
-
+--
 --  What should `Aexp.eval` return for
 --  `.div (.num 1) (.num 0)`??
 
@@ -369,7 +379,7 @@ end Slang.AevalRDivision
 namespace Slang.AevalRExtended
 
 --  Another example: a *nondeterministic* number generator:
-
+--
 --  As another example, suppose that we want to extend the
 --  arithmetic operations by a nondeterministic number
 --  generator `any` that, when evaluated, may yield any
@@ -388,7 +398,7 @@ inductive Aexp where
 --  evaluation is now *not* a deterministic function from
 --  expressions to numbers; but extending the relation is no
 --  problem.
-
+--
 --  What should `Aexp.eval` do with nondeterminism??
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
@@ -406,3 +416,4 @@ end Slang.AevalRExtended
 --  Functional: computation. Relational: expressive. Best:
 --  both, proved equivalent.
 
+-- Built on 2026-09-10 13:02 UTC
