@@ -22,7 +22,8 @@ import SFLCompat
 --  number theory.
 --
 --  Its statement is quite simple. First, we define a
---  function `collatzStep` on numbers as follows:
+--  function `csf` on numbers, as follows (where `csf`
+--  stands for "Collatz step function"):
 
 def div2 (n : Nat) : Nat :=
   match n with
@@ -30,15 +31,15 @@ def div2 (n : Nat) : Nat :=
   | 1      => 0
   | n' + 2 => div2 n' + 1
 
-def collatzStep (n : Nat) : Nat :=
+def csf (n : Nat) : Nat :=
   bif n.even then div2 n
   else (3 * n) + 1
 
 --  Next, we look at what happens when we repeatedly apply
---  `collatzStep` to some given starting number. For
---  example, `collatzStep 12` is `6`, and `collatzStep 6` is
---  `3`, so by repeatedly applying `collatzStep` we get the
---  sequence `12, 6, 3, 10, 5, 16, 8, 4, 2, 1`.
+--  `csf` to some given starting number. For example,
+--  `csf 12` is `6`, and `csf 6` is `3`, so by repeatedly
+--  applying `csf` we get the sequence
+--  `12, 6, 3, 10, 5, 16, 8, 4, 2, 1`.
 --
 --  Similarly, if we start with `19`, we get the longer
 --  sequence
@@ -57,13 +58,12 @@ def collatzStep (n : Nat) : Nat :=
 --  reach `1`. You can write this definition in a standard
 --  programming language, but it is rejected by Lean's
 --  termination checker, since the argument to the recursive
---  call, `collatzStep n`, is not "obviously smaller" than
---  `n`.
+--  call, `csf n`, is not "obviously smaller" than `n`.
 
 sf_expect_failure_in
   def reaches1In (n : Nat) : Nat :=
     bif n == 1 then 0
-    else 1 + reaches1In (collatzStep n)
+    else 1 + reaches1In (csf n)
 
 --  Output:
 --    fail to show termination for
@@ -72,7 +72,7 @@ sf_expect_failure_in
 --    failed to infer structural recursion:
 --    Cannot use parameter n:
 --      failed to eliminate recursive application
---        reaches1In (collatzStep n)
+--        reaches1In (csf n)
 --
 --
 --    failed to prove termination, possible solutions:
@@ -80,7 +80,7 @@ sf_expect_failure_in
 --      - Use `termination_by` to specify a different well-founded relation
 --      - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
 --    n : Nat
---    ⊢ collatzStep n < n
+--    ⊢ csf n < n
 
 --  Indeed, this isn't just a pointless limitation:
 --  functions in Lean are required to be total, to ensure
@@ -131,19 +131,20 @@ sf_expect_failure_in
 --  of numbers. Intuitively, this property is defined by a
 --  set of rules:
 --
---                    ─────────────────── (one)
+--                    ─────────────────── (chf_one)
 --                     CollatzHoldsFor 1
 --
---      n.even = true     CollatzHoldsFor (div2 n)
---      ─────────────────────────────────────────── (even)
+--      even n = true     CollatzHoldsFor (div2 n)
+--      ─────────────────────────────────────────── (chf_even)
 --                     CollatzHoldsFor n
 --
---      n.even = false    CollatzHoldsFor ((3 * n) + 1)
---      ─────────────────────────────────────────────── (odd)
+--      even n = false    CollatzHoldsFor ((3 * n) + 1)
+--      ─────────────────────────────────────────────── (chf_odd)
 --                     CollatzHoldsFor n
 --
 --  So there are three ways to prove that a number `n`
 --  eventually reaches `1` in the Collatz sequence:
+--
 --  - `n` is `1`;
 --  - `n` is even and `div2 n` eventually reaches `1`;
 --  - `n` is odd and `(3 * n) + 1` eventually reaches `1`.
@@ -153,35 +154,35 @@ sf_expect_failure_in
 --  here is the derivation proving that `12` reaches `1`
 --  (where we leave out the evenness/oddness premises):
 --
---      ─────────────────────── (one)
+--      ─────────────────────── (chf_one)
 --        CollatzHoldsFor 1
---      ─────────────────────── (even)
+--      ─────────────────────── (chf_even)
 --        CollatzHoldsFor 2
---      ─────────────────────── (even)
+--      ─────────────────────── (chf_even)
 --        CollatzHoldsFor 4
---      ─────────────────────── (even)
+--      ─────────────────────── (chf_even)
 --        CollatzHoldsFor 8
---      ─────────────────────── (even)
+--      ─────────────────────── (chf_even)
 --        CollatzHoldsFor 16
---      ─────────────────────── (odd)
+--      ─────────────────────── (chf_odd)
 --        CollatzHoldsFor 5
---      ─────────────────────── (even)
+--      ─────────────────────── (chf_even)
 --        CollatzHoldsFor 10
---      ─────────────────────── (odd)
+--      ─────────────────────── (chf_odd)
 --        CollatzHoldsFor 3
---      ─────────────────────── (even)
+--      ─────────────────────── (chf_even)
 --        CollatzHoldsFor 6
---      ─────────────────────── (even)
+--      ─────────────────────── (chf_even)
 --        CollatzHoldsFor 12
 
 --  Formally in Lean, the `CollatzHoldsFor` property is
 --  *inductively defined*:
 
 inductive CollatzHoldsFor : Nat → Prop where
-  | one  : CollatzHoldsFor 1
-  | even {n : Nat} (h₁ : n.even = true)
+  | chf_one  : CollatzHoldsFor 1
+  | chf_even {n : Nat} (h₁ : n.even = true)
     (h₂ : CollatzHoldsFor (div2 n)) : CollatzHoldsFor n
-  | odd  {n : Nat} (h₁ : n.even = false)
+  | chf_odd  {n : Nat} (h₁ : n.even = false)
     (h₂ : CollatzHoldsFor ((3 * n) + 1)) : CollatzHoldsFor n
 
 --  For particular numbers, we can now prove that the
@@ -193,21 +194,21 @@ inductive CollatzHoldsFor : Nat → Prop where
 --  `CollatzHoldsFor 6`, etc.
 
 example : CollatzHoldsFor 12 := by
-  apply CollatzHoldsFor.even;  rfl
-  apply CollatzHoldsFor.even;  rfl
-  apply CollatzHoldsFor.odd;   rfl
-  apply CollatzHoldsFor.even;  rfl
-  apply CollatzHoldsFor.odd;   rfl
-  apply CollatzHoldsFor.even;  rfl
-  apply CollatzHoldsFor.even;  rfl
-  apply CollatzHoldsFor.even;  rfl
-  apply CollatzHoldsFor.even;  rfl
-  exact CollatzHoldsFor.one
+  apply CollatzHoldsFor.chf_even;  rfl
+  apply CollatzHoldsFor.chf_even;  rfl
+  apply CollatzHoldsFor.chf_odd;   rfl
+  apply CollatzHoldsFor.chf_even;  rfl
+  apply CollatzHoldsFor.chf_odd;   rfl
+  apply CollatzHoldsFor.chf_even;  rfl
+  apply CollatzHoldsFor.chf_even;  rfl
+  apply CollatzHoldsFor.chf_even;  rfl
+  apply CollatzHoldsFor.chf_even;  rfl
+  exact CollatzHoldsFor.chf_one
 
 --  The Collatz conjecture then states that the sequence
 --  beginning from *any* positive number reaches `1`:
 
-def Collatz := ∀ n : Nat, n ≠ 0 → CollatzHoldsFor n
+def Collatz := ∀ n, n ≠ 0 → CollatzHoldsFor n
 
 --  If you succeed in proving this conjecture, you've got a
 --  bright future as a number theorist! But don't spend too
@@ -248,29 +249,26 @@ end LePlayground
 --  ### Example: Transitive Closure
 
 --  Another example: The *transitive closure* of a relation
---  `r` is the smallest relation that contains `r` and that
+--  `R` is the smallest relation that contains `R` and that
 --  is transitive. This can be defined by the following two
 --  rules:
 --
---                    r x y
+--                    R x y
 --               ─────────────── (t_step)
---               TransGen r x y
+--               ClosTrans R x y
 --
---      TransGen r x y    TransGen r y z
+--      ClosTrans R x y    ClosTrans R y z
 --      ──────────────────────────────────── (t_trans)
---               TransGen r x z
+--               ClosTrans R x z
 --
 --  In Lean this looks as follows:
 
-inductive TransGen {α : Type} (r : α → α → Prop) : α → α → Prop where
-  | step {x y : α} (h : r x y) : TransGen r x y
-  | trans {x y z : α}
-    (h₁ : TransGen r x y)
-    (h₂ : TransGen r y z) :
-    TransGen r x z
-
---  "Gen" is short for generated by — `TransGen r` means the
---  smallest transitive relation generated by `r`.
+inductive ClosTrans {α : Type} (R : α → α → Prop) : α → α → Prop where
+  | t_step {x y : α} (h : R x y) : ClosTrans R x y
+  | t_trans {x y z : α}
+    (h₁ : ClosTrans R x y)
+    (h₂ : ClosTrans R y z) :
+    ClosTrans R x z
 
 --  For example, suppose we define a "parent of" relation on
 --  a group of people...
@@ -282,73 +280,73 @@ inductive Person : Type where
   | moss
 
 inductive ParentOf : Person → Person → Prop where
-  | sage_cleo : ParentOf .sage .cleo
-  | sage_ridley : ParentOf .sage .ridley
-  | cleo_moss : ParentOf .cleo .moss
+  | po_SC : ParentOf .sage .cleo
+  | po_SR : ParentOf .sage .ridley
+  | po_CM : ParentOf .cleo .moss
 
 --  The `ParentOf` relation is not transitive, but we can
 --  define an "ancestor of" relation as its transitive
 --  closure:
 
-def AncestorOf : Person → Person → Prop := TransGen ParentOf
+def AncestorOf : Person → Person → Prop := ClosTrans ParentOf
 
---  Here is a derivation showing that `Person.sage` is an
---  ancestor of `moss`:
+--  Here is a derivation showing that `sage` is an ancestor
+--  of `moss`:
 --
---       ——————————————————— (sage_cleo) ——————————————————— (cleo_moss)
+--       ——————————————————— (po_SC)     ——————————————————— (po_CM)
 --       ParentOf .sage .cleo            ParentOf .cleo .moss
---      ————————————————————— (step)    ————————————————————— (step)
+--      ————————————————————— (t_step)  ————————————————————— (t_step)
 --      AncestorOf .sage .cleo          AncestorOf .cleo .moss
---      ———————————————————————————————————————————————————— (trans)
+--      ———————————————————————————————————————————————————— (t_trans)
 --                      AncestorOf .sage .moss
 
 example : AncestorOf .sage .moss := by
-  apply TransGen.trans
-  · apply TransGen.step; apply ParentOf.sage_cleo
-  · apply TransGen.step; apply ParentOf.cleo_moss
+  apply ClosTrans.t_trans
+  . apply ClosTrans.t_step; apply ParentOf.po_SC
+  . apply ClosTrans.t_step; apply ParentOf.po_CM
 
 --  ### Example: Reflexive and Transitive Closure
 
 --  As another example, the *reflexive and transitive
---  closure* of a relation `r` is the smallest relation that
---  contains `r` and that is reflexive and transitive. This
+--  closure* of a relation `R` is the smallest relation that
+--  contains `R` and that is reflexive and transitive. This
 --  can be defined by the following three rules (where we
---  added a reflexivity rule to `TransGen`):
+--  added a reflexivity rule to `ClosTrans`):
 --
---                         r x y
---               ——————————————————————— (step)
---                 ReflTransGen r x y
+--                         R x y
+--               ——————————————————————— (rt_step)
+--                 ClosReflTrans R x y
 --
---               ——————————————————————— (refl)
---                 ReflTransGen r x x
+--               ——————————————————————— (rt_refl)
+--                 ClosReflTrans R x x
 --
---         ReflTransGen r x y    ReflTransGen r y z
---      —————————————————————————————————————————————— (trans)
---                 ReflTransGen r x z
+--         ClosReflTrans R x y    ClosReflTrans R y z
+--      —————————————————————————————————————————————— (rt_trans)
+--                 ClosReflTrans R x z
 
-inductive ReflTransGen {α : Type} (r : α → α → Prop) : α → α → Prop where
-  | step {x y : α} (h : r x y) : ReflTransGen r x y
-  | refl {x : α} : ReflTransGen r x x
-  | trans {x y z : α}
-    (h₁ : ReflTransGen r x y)
-    (h₂ : ReflTransGen r y z) :
-    ReflTransGen r x z
+inductive ClosReflTrans {α : Type} (R : α → α → Prop) : α → α → Prop where
+  | rt_step {x y : α} (h : R x y) : ClosReflTrans R x y
+  | rt_refl {x : α} : ClosReflTrans R x x
+  | rt_trans {x y z : α}
+    (h₁ : ClosReflTrans R x y)
+    (h₂ : ClosReflTrans R y z) :
+    ClosReflTrans R x z
 
 --  For instance, this enables an equivalent definition of
 --  the Collatz conjecture. First we define a binary
 --  relation corresponding to the "Collatz step function"
---  `collatzStep`:
+--  `csf`:
 
-def CollatzStep (n m : Nat) : Prop := collatzStep n = m
+def CS (n m : Nat) : Prop := csf n = m
 
 --  This Collatz step relation can be used in conjunction
 --  with the reflexive and transitive closure operation to
---  define a *Collatz multi-step* relation, expressing that
---  a number `n` reaches another number `m` in zero or more
---  Collatz steps:
+--  define a *Collatz multi-step* (`CMS`) relation,
+--  expressing that a number `n` reaches another number `m`
+--  in zero or more Collatz steps:
 
-def CollatzStepMulti (n m : Nat) : Prop := ReflTransGen CollatzStep n m
-def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CollatzStepMulti n 1
+def CMS (n m : Nat) : Prop := ClosReflTrans CS n m
+def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CMS n 1
 
 --  ### Example: Permutations
 
@@ -359,32 +357,32 @@ def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CollatzStepMulti n 1
 --
 --  We can define such permutations by the following rules:
 --
---         ───────────────────────── (swap12)
+--         ───────────────────────── (perm3_swap12)
 --         Perm3 [a, b, c] [b, a, c]
 --
---         ───────────────────────── (swap23)
+--         ───────────────────────── (perm3_swap23)
 --         Perm3 [a, b, c] [a, c, b]
 --
 --      Perm3 l₁ l₂       Perm3 l₂ l₃
---      ───────────────────────────── (trans)
+--      ───────────────────────────── (perm3_trans)
 --               Perm3 l₁ l₃
 --
 --  For instance we can derive `Perm3 [1, 2, 3] [3, 2, 1]`
 --  as follows:
 --
---      ───────────────────────── (swap12)  ─────────────────────── (swap23)
---      Perm3 [1, 2, 3] [2, 1, 3]            Perm3 [2, 1, 3] [2, 3, 1]
---      ─────────────────────────────────────────────────────────────────(trans)    ───────────────────── (swap12)
---      Perm3 [1, 2, 3] [2, 3, 1]                                                    Perm3 [2, 3, 1] [3, 2, 1]
---      ───────────────────────────────────────────────────────────────────────────────────────────────────────── (trans)
+--      ───────────────────────── (perm3_swap12)   ───────────────────────── (perm3_swap23)
+--      Perm3 [1, 2, 3] [2, 1, 3]                  Perm3 [2, 1, 3] [2, 3, 1]
+--      ──────────────────────────────────────────────────────────────────── (perm3_trans)   ───────────────────────── (perm3_swap12)
+--      Perm3 [1, 2, 3] [2, 3, 1]                                                            Perm3 [2, 3, 1] [3, 2, 1]
+--      ────────────────────────────────────────────────────────────────────────────────────────────────────────────── (perm3_trans)
 --      Perm3 [1, 2, 3] [3, 2, 1]
 
 --  In Lean, we can define `Perm3` as follows:
 
 inductive Perm3 {α : Type} : List α → List α → Prop where
-  | swap12 {x y z : α} : Perm3 [x, y, z] [y, x, z]
-  | swap23 {x y z : α} : Perm3 [x, y, z] [x, z, y]
-  | trans {l₁ l₂ l₃ : List α}
+  | perm3_swap12 {x y z : α} : Perm3 [x, y, z] [y, x, z]
+  | perm3_swap23 {x y z : α} : Perm3 [x, y, z] [x, z, y]
+  | perm3_trans {l₁ l₂ l₃ : List α}
     (h₁₂ : Perm3 l₁ l₂)
     (h₂₃ : Perm3 l₂ l₃) :
     Perm3 l₁ l₃
@@ -405,34 +403,34 @@ inductive Perm3 {α : Type} : List α → List α → Prop where
 --  if we can *establish* its evenness from the following
 --  two rules:
 --
---        ────────── (zero)
---          Even 0
+--          ———— (ev_0)
+--          Ev 0
 --
---          Even n
---      —————————————— (succ_succ)
---        Even (n + 2)
+--          Ev n
+--      —————————————— (ev_succ_succ)
+--        Ev (n + 2)
 --
 --  To illustrate how this new definition of evenness works,
 --  let's imagine using it to show that `4` is even:
 --
---                       ──────── (zero)
---                        Even 0
---                ─────────────────────── (succ_succ)
---                Even (.succ (.succ 0))
---      ────────────────────────────────────────────── (succ_succ)
---      Even (.succ (.succ (.succ (.succ 0))))
+--                    ———— (ev_0)
+--                    Ev 0
+--             ———————————————————— (ev_succ_succ)
+--             Ev (.succ (.succ 0))
+--      ——————————————————————————————————— (ev_succ_succ)
+--      Ev (.succ (.succ (.succ (.succ 0))))
 
 --  We can translate the informal definition of evenness
 --  from above into a formal `inductive` declaration, where
 --  each "way that a number can be even" corresponds to a
 --  separate constructor:
 
-inductive Even : Nat → Prop where
-  | zero : Even 0
-  | succ_succ {n : Nat} (h : Even n) : Even (n + 2)
+inductive Ev : Nat → Prop where
+  | ev_0                              : Ev 0
+  | ev_succ_succ {n : Nat} (h : Ev n) : Ev (n + 2)
 
 --  There are both similarities and a few differences
---  between inductive *properties* like `Even` and the
+--  between inductive *properties* like `Ev` and the
 --  inductive *types* like `Nat` or `List` that we have been
 --  using throughout the course:
 
@@ -442,59 +440,49 @@ sf_expect_failure_in
     | cons (x : α) (l : List α) : List α
 
 --  The most important difference is that the constructors
---  of `Even`, `Even.zero` and `Even.succ_succ`, yield
---  different types (`Even 0` and `Even (n + 2)`), whereas
---  the `List` constructors both build `List α` values.
+--  of `Ev`, `Ev.ev_0` and `Ev.ev_succ_succ`, yield
+--  different types (`Ev 0` and `Ev (n + 2)`), whereas the
+--  `List` constructors both build `List α` values.
 
---  We can think of the inductive definition of `Even` as
---  defining a Lean property `Even : Nat → Prop`, together
+--  We can think of the inductive definition of `Ev` as
+--  defining a Lean property `Ev : Nat → Prop`, together
 --  with two "evidence constructors":
 
-#check (Even)
-#check Even.zero
-#check Even.succ_succ
-
---  Output:
---    Even : Nat → Prop
-
---  Output:
---    Even.zero : Even 0
-
---  Output:
---    Even.succ_succ {n : Nat} (h : Even n) : Even (n + 2)
+#check Ev.ev_0         -- Ev 0
+#check Ev.ev_succ_succ -- ∀ (n : Nat) (h : Ev n) : Ev (n + 2)
 
 --  These evidence constructors can be thought of as
 --  "primitive evidence of evenness", and they can be used
 --  later on just like proven theorems. In particular, we
 --  can use Lean's `apply` and `exact` tactics with the
---  constructor names to obtain evidence for `Even` of
+--  constructor names to obtain evidence for `Ev` of
 --  particular numbers...
 
-namespace Even
+namespace Ev
 
-example : Even 4 := by
-  apply succ_succ; apply succ_succ; exact zero
+example : Ev 4 := by
+  apply ev_succ_succ; apply ev_succ_succ; exact ev_0
 
 --  ... or we can use function application syntax to combine
 --  several constructors:
 
-example : Even 4 := by
-  exact succ_succ (succ_succ zero)
+example : Ev 4 := by
+  exact ev_succ_succ (ev_succ_succ ev_0)
 
 --  ... or we can also use the `constructor` tactic we saw
 --  earlier to select the appropriate inductive constructor:
 
-example : Even 4 := by
+example : Ev 4 := by
   constructor; constructor; constructor
 
 --  In this way, we can also prove theorems that have
---  hypotheses involving `Even`.
+--  hypotheses involving `Ev`.
 
-theorem plus4 (n : Nat) (h : Even n) : Even (4 + n) := by
+theorem plus4 (n : Nat) (h : Ev n) : Ev (4 + n) := by
   rw [Nat.add_comm]
-  exact (succ_succ (succ_succ h))
+  exact (ev_succ_succ (ev_succ_succ h))
 
-end Even
+end Ev
 
 --  ### Constructing Evidence for Permutations
 
@@ -504,11 +492,11 @@ end Even
 namespace Perm3
 
 theorem rev : Perm3 [1, 2, 3] [3, 2, 1] := by
-  apply trans (l₂:= [2, 3, 1])
-  · apply trans (l₂ := [2, 1, 3])
-    · apply swap12
-    · apply swap23
-  · apply swap12
+  apply perm3_trans (l₂:= [2, 3, 1])
+  . apply perm3_trans (l₂ := [2, 1, 3])
+    . apply perm3_swap12
+    . apply perm3_swap23
+  . apply perm3_swap12
 
 --  And again we can equivalently use function application
 --  syntax to combine several constructors. (Note that the
@@ -517,7 +505,9 @@ theorem rev : Perm3 [1, 2, 3] [3, 2, 1] := by
 --  context.)
 
 theorem rev' : Perm3 [1, 2, 3] [3, 2, 1] := by
-  exact (trans (trans swap12 swap23) swap12)
+  exact (perm3_trans
+          (perm3_trans perm3_swap12 perm3_swap23)
+          perm3_swap12)
 
 --  So the informal derivation trees we drew above are not
 --  too far from what's happening formally. Formally we're
@@ -534,20 +524,22 @@ end Perm3
 --  we can also *destruct* such evidence, reasoning about
 --  how it could have been built.
 --
---  Defining `Even` with an `inductive` declaration tells
---  Lean not only that the constructors `Even.zero` and
---  `Even.succ_succ` are valid ways to build evidence that
---  some number is `Even`, but also that these two
+--  Defining `Ev` with an `inductive` declaration tells Lean
+--  not only that the constructors `Ev.ev_0` and
+--  `Ev.ev_succ_succ` are valid ways to build evidence that
+--  some number is `Ev`, but also that these two
 --  constructors are the *only* ways to build evidence that
---  numbers are `Even`.
+--  numbers are `Ev`.
 
 --  In other words, if someone gives us evidence `e` for the
---  proposition `Even n`, then we know that `e` must be one
---  of two things:
---  - `e = Even.zero` and `n = 0`, or
---  - `e = Even.succ_succ n' e'` and `n = n' + 2`, where
---    `e'` is evidence for `Even n'`.
+--  proposition `Ev n`, then we know that `e` must be one of
+--  two things:
 --
+--  - `e = ev_0` and `n = 0`, or
+--
+--  - `e = ev_succ_succ n' e'` and `n = n' + 2`, where `e'`
+--    is evidence for `Ev n'`.
+
 --  This suggests that it should be possible to do *case
 --  analysis* and even *induction* on evidence of
 --  evenness...
@@ -555,13 +547,13 @@ end Perm3
 --  ### Destructing and Inverting Evidence
 
 --  We can prove our characterization of evidence for
---  `Even n`, using `cases`.
+--  `Ev n`, using `cases`.
 
-theorem Even.inversion (n : Nat) (h : Even n) :
-    (n = 0) ∨ ∃ n', n = n' + 2 ∧ Even n' := by
+theorem ev_inversion (n : Nat) (h : Ev n) :
+    (n = 0) ∨ ∃ n', n = n' + 2 ∧ Ev n' := by
   cases h with
-  | zero => left; rfl
-  | @succ_succ n h => right; exists n
+  | ev_0 => left; rfl
+  | @ev_succ_succ n h => right; exists n
 
 --  Facts like this are often called "inversion lemmas"
 --  because they allow us to "invert" some given information
@@ -585,8 +577,8 @@ theorem Even.inversion (n : Nat) (h : Even n) :
 --  We can use the inversion lemma that we proved above to
 --  help structure proofs:
 
-theorem Even.of_succ_succ (n : Nat) (h : Even (n + 2)) : Even n := by
-  apply inversion at h
+theorem ev_succ_succ_ev (n : Nat) (h : Ev (n + 2)) : Ev n := by
+  apply ev_inversion at h
   obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁,  h₂⟩⟩ := h
   injections h₁ heq
   subst heq
@@ -595,49 +587,31 @@ theorem Even.of_succ_succ (n : Nat) (h : Even (n + 2)) : Even n := by
 --  We've provided a handy tactic called `inversion` that
 --  does the work of our inversion lemma and more besides.
 
-example (n : Nat) (h : Even (n + 2)) : Even n := by
+theorem ev_succ_succ_ev' (n : Nat) (h : Ev (n + 2)) : Ev n := by
   inversion h; assumption
 
---  Recall that equality (`Eq`) is itself an inductively
---  defined proposition, so `inversion` can also be used on
---  equality propositions.
---
 --  We can use `inversion` to re-prove some theorems from
 --  Tactics.
+--
+--  Note that `inversion` also works on equality
+--  propositions.
 
-example (n m o : Nat) (h : [n, m] = [o, o]) : [n] = [m] := by
+theorem inversion_ex1 (n m o : Nat) (h : [n, m] = [o, o]) : [n] = [m] := by
   inversion h; rfl
 
-example (n : Nat) (h : n + 1 = 0) : 2 + 2 = 5 := by
+theorem inversion_ex2 n (h : n + 1 = 0) : 2 + 2 = 5 := by
   inversion h
 
---  For the inductively defined propositions we use,
---  `inversion` behaves much like `cases`: it performs case
---  analysis on the constructors of the hypothesis's
---  inductive type. However, when the case analysis on an
---  indexed proposition gives *unsolvable* equations between
---  its indices, `cases` itself fails, whereas `inversion`
---  leaves such equations in the context.
+--  The `inversion` tactic works on any `h : p` where `p` is
+--  defined inductively:
 --
---  For example, `cases` would immediately fail on `h`:
-
-sf_expect_failure_in
-  example (n : Nat) (h : Even (n * n)) :
-    n * n = 0 ∨ ∃ m, n * n = m + 2 := by
-    cases h
-
---  Output:
---    Dependent elimination failed: Failed to solve equation
---      n.mul n = 0
-
---  `inversion` instead leaves the equations in the context,
---  where we can use them directly:
-
-example (n : Nat) (h : Even (n * n)) :
-  n * n = 0 ∨ ∃ m, n * n = m + 2 := by
-  inversion h with
-  | zero => left; assumption
-  | succ_succ m' _ _ _ => right; exists m'
+--  - For each constructor of `p`, make a subgoal where `h`
+--    is constrained by the form of this constructor.
+--
+--  - Discard contradictory subgoals (such as `ev_0` above).
+--
+--  - Generate auxiliary equalities (as with `ev_succ_succ`
+--    above).
 
 --   ----------------------------------------
 
@@ -646,7 +620,7 @@ example (n : Nat) (h : Even (n * n)) :
 --  Which tactics are needed to prove this goal, in addition
 --  to `apply` or `exact`?
 --
---      ∀ n, Even (2 + n) → Even n
+--      ∀ n, Ev (2 + n) → Ev n
 --
 --  (A) `inversion` (B) `inversion`, `injections` (C)
 --  `inversion`, `rw [Nat.add_comm]` (D) `inversion`,
@@ -659,17 +633,43 @@ example (n : Nat) (h : Even (n * n)) :
 --  `Nat.double`).
 
 sf_expect_failure_in
-  example (n : Nat) (h : Even n) : Nat.Even n := by
+  example (n : Nat) : Ev n → Nat.Even n := by
+    /- We could try to proceed by case analysis or induction on `n`.  But
+        since `Ev` is mentioned in a premise, this strategy seems
+        unpromising, because (as we've noted before) the induction
+        hypothesis will talk about `n-1` (which is _not_ even!).  Thus, it
+        seems better to first try `inversion` on the evidence for `Ev`.
+        Indeed, the first case can be solved trivially. -/
+    intro h
     inversion h with
-    | zero => exists 0 -- The first case can be solved triviall.
-    | succ_succ n' h' =>
-
---  Unfortunately, the second case is harder. We need to
---  show `∃ n₀, n' + 2 = double n₀`, but the only available
---  assumption is `h'`, which states that `Even n'` holds.
---  In other words, what we need here is precisely the
---  result we are trying to prove, but applied to the
---  smaller evidence `h'`.
+    /- h = ev_0 -/
+    | ev_0 => exists 0  -- (`0 = double 0` is closed by `exists`'s final `rfl`)
+    /- h = ev_succ_succ n' h' -/
+    | ev_succ_succ n' h' =>
+    /- Unfortunately, the second case is harder.  We need to show
+      `∃ n₀, n' + 2 = double n₀`, but the only available assumption is
+      `h'`, which states that `Ev n'` holds.  Since this isn't directly
+      useful, it seems that we are stuck and that performing case
+      analysis on `h` was a waste of time.
+  
+      If we look more closely at our second goal, however, we can see
+      that something interesting happened: By performing case analysis
+      on `h`, we were able to reduce the original result to a similar
+      one that involves a _different_ piece of evidence for `Ev`: namely
+      `h'`.  More formally, we could finish our proof if we could show
+      that
+      ```
+      ∃ k', n' = double k',
+      ```
+      which is the same as the original statement, but with `n'` instead
+      of `n`.  Indeed, it is not difficult to convince Lean that this
+      intermediate result would suffice. -/
+      have he : (∃ (k' : Nat), n' = k'.double) → (∃ (n₀ : Nat), n' + 2 = n₀.double) := by
+        intro ⟨k, hk⟩; exists (k + 1); rw [Nat.double_succ, hk]
+      apply he
+      /- Unfortunately, now we are stuck: we are trying to prove another instance
+          of the same theorem we set out to prove -- only here we are
+          talking about `n'` instead of `n`. -/
 
 --  ### Induction on Evidence
 
@@ -681,33 +681,13 @@ sf_expect_failure_in
 --
 --  Let's try proving that lemma again:
 
-theorem Even.nat_even (n : Nat) (h : Even n) : Nat.Even n := by
+theorem Nat.ev_Even (n : Nat) (h : Ev n) : Even n := by
   induction h with
-  | zero => exists 0 -- (`0 = double 0` is closed by `exists`'s final `rfl`)
-  | succ_succ h' ih =>
+  -- h = ev_0
+  | ev_0 => exists 0 -- (`0 = double 0` is closed by `exists`'s final `rfl`)
+  -- h = ev_succ_succ n' h', with ih : Even n'
+  | ev_succ_succ h' ih =>
     let ⟨k, hk⟩ := ih
-    exists k + 1; rw [Nat.double_succ, hk]
+    exists k + 1; rw [double_succ, hk]
 
---  Recall the definition of `List.In` from last chapter:
-
-sf_recall
-  def List.In {α : Type} (x : α) (xs : List α) : Prop :=
-    match xs with
-    | [] => False
-    | x' :: xs' => x = x' ∨ In x xs'
-
---  We can also write this definition inductively like so:
-
-inductive List.In' {α : Type} (x : α) : List α → Prop
-  | head {l : List α} : In' x (x :: l)
-  | tail {y : α} {l : List α} (h : In' x l) : In' x (y :: l)
-
---  In fact, this is exactly how Lean defines this
---  proposition, which it calls `Membership.mem` and which
---  is written `x ∈ l`. Its negation `¬ x ∈ l` is also
---  written as `x ∉ l`.
---
---  The characterizing lemmas for `∈` are called
---  `List.mem_nil_iff` and `List.mem_cons`.
-
--- Built on 2026-09-10 16:21 UTC
+-- Built on 2026-09-07 17:53 UTC

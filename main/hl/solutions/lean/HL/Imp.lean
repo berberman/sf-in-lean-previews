@@ -49,12 +49,12 @@ import SFLCompat
 --        Y := Y * Z;
 --        Z := Z - 1;
 --      }
---
+
 --  We concentrate here on defining the *syntax* and *semantics* of Imp;
 --  later in this volume we develop a theory of *program equivalence* and
 --  introduce *Hoare Logic*, a popular logic for reasoning about imperative
 --  programs.
---
+
 --  We build Imp in three layers. The first — a core language of
 --  *arithmetic and boolean expressions* — is developed in its own chapter,
 --  *Slang*; read that one first. There you meet the abstract syntax of
@@ -81,13 +81,13 @@ import SFLCompat
 --  we'll use total maps from the `Maps` chapter. A *machine state* (or
 --  just *state*) represents the current values of all variables at some
 --  point in the execution of a program.
---
+
 --  For simplicity, we assume that the state is defined for *all*
 --  variables, even though any given program is only able to mention a
 --  finite number of them. Because each variable stores a natural number,
 --  we represent the state as a total map from strings (variable names) to
 --  `Nat`, and will use `0` as the default value in the store.
---
+
 --  We give the type of variable identifiers a name, `Ident`. For now it is
 --  just `String`; naming it makes the intent clearer.
 
@@ -156,14 +156,17 @@ def Z : Ident := "Z"
 --
 --  You do not need to understand exactly what these declarations do.
 --  Briefly, though, here is how the two blocks below fit together:
+--
 --  - The `declare_syntax_cat` directive adds a new non-terminal to Lean's
 --    grammar, called `imp_aexp`. We'll add additional non-terminals
 --    further below.
+--
 --  - Each `syntax` directive defines a grammar production, of which there
 --    are eight in total. The first two define literals, `num` and `ident`,
 --    as `imp_aexp`s. The next several directives define productions for
 --    building larger expressions, with some annotations to define
 --    precedence, etc.
+--
 --  - Finally, `macro_rules` is used to translate each production of the
 --    `imp_aexp` nonterminal into a Lean expression.
 --
@@ -765,7 +768,7 @@ def Com.ceval_fun_no_while (st : State) (c : Com) : State :=
 --  Here's a better way: define `ceval` as a *relation* rather than a
 --  *function* -- i.e., make its result a `Prop` rather than a `State`,
 --  similar to what we did for `Aexp.EvalR` in the Slang chapter.
---
+
 --  This is an important change. Besides freeing us from awkward
 --  workarounds, it gives us more flexibility in the definition. For
 --  example, if we add nondeterministic features like `any` to the
@@ -921,8 +924,6 @@ example :
   · apply Com.EvalR.seq (st' := (Y →ₜ 1 ; X →ₜ 0 ; ∅))
     · apply Com.EvalR.asgn; rfl
     · apply Com.EvalR.asgn; rfl
-
---  (End of exercise)
 
 --  Note to developers:
 --      PR: I phrased these quizzes with the following alternatives: (A)
@@ -1115,8 +1116,6 @@ theorem XtimesYinZ_spec (st : State) :
 theorem XtimesYinZ_spec₂ (st : State) : ∃ st', st =[ XtimesYinZ ]=> st' := by
   exact ⟨(Z →ₜ st[X] * st[Y] ; st), by unfold XtimesYinZ; apply Com.EvalR.asgn; rfl⟩
 
---  (End of exercise)
-
 --  Note to developers (Niklas Halonen @xhalo32):
 --      We should use the `generalize` tactic here instead of `have key`.
 --      I've changed some Hoare proofs from `have key` to `generalize` but
@@ -1270,12 +1269,17 @@ theorem no_whiles_terminating' (c : Com) (st1 : State)
 --
 --  The instruction set for our stack language will consist of the
 --  following instructions:
+--
 --  - `sPush n`: Push the number `n` on the stack.
+--
 --  - `sLoad x`: Load the identifier `x` from the store and push it on the
 --    stack
+--
 --  - `sPlus`: Pop the two top numbers from the stack, add them, and push
 --    the result onto the stack.
+--
 --  - `sMinus`: Similar, but subtract the first number from the second.
+--
 --  - `sMult`: Similar, but multiply.
 
 namespace StackCompiler
@@ -1583,23 +1587,29 @@ open Result
 --  to the one we gave above for the regular evaluation relation
 --  (`st =[ c ]=> st'`) -- we just need to handle the termination signals
 --  appropriately:
+--
 --  - If the command is `skip`, then the state doesn't change and execution
 --    of any enclosing loop can continue normally.
+--
 --  - If the command is `brk`, the state stays unchanged but we signal a
 --    `sBreak`.
+--
 --  - If the command is an assignment, then we update the binding for that
 --    variable in the state accordingly and signal that execution can
 --    continue normally.
+--
 --  - If the command is of the form `if (b) {c₁} {c₂}`, then the state is
 --    updated as in the original semantics of Imp, except that we also
 --    propagate the signal from the execution of whichever branch was
 --    taken.
+--
 --  - If the command is a sequence `c₁ ; c₂`, we first execute `c₁`. If
 --    this yields a `sBreak`, we skip the execution of `c₂` and propagate
 --    the `sBreak` signal to the surrounding context; the resulting state
 --    is the same as the one obtained by executing `c₁` alone. Otherwise,
 --    we execute `c₂` on the state obtained after executing `c₁`, and
 --    propagate the signal generated there.
+--
 --  - Finally, for a loop of the form `while (b) {c}`, the semantics is
 --    almost the same as before. The only difference is that, when `b`
 --    evaluates to `true`, we execute `c` and check the signal that it
@@ -1742,8 +1752,6 @@ theorem ceval_deterministic (c : Com) (st st₁ st₂ : State) (s₁ s₂ : Resu
       specialize ih _ _ hc'
       lia
 
---  (End of exercise)
-
 end Imp.Break
 
 --  ### Exercise (4 stars): add_for_loop (Optional) ⭐⭐⭐⭐
@@ -1760,8 +1768,6 @@ end Imp.Break
 --  body of the loop. (You don't need to worry about making up a concrete
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
-
---  (End of exercise)
 
 --  Note to developers (Michael Hicks @mwhicks1):
 --      `NOT PORTED YET — remaining sections of sfdev/lf/Imp.v to port:
@@ -1790,4 +1796,4 @@ end Imp.Break
 --        not just a single name, reads better with hover types (e.g. the
 --        `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 
--- Built on 2026-09-10 16:22 UTC
+-- Built on 2026-09-07 17:54 UTC

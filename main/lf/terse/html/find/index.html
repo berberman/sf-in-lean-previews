@@ -1929,305 +1929,6 @@ and its border extension paints the outline triangle with the box's border color
 }
 
 </style><script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // The innermost element under the pointer, used to show only the most specific hover
-    let hoverTarget = null;
-    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
-
-    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
-    const visibleTippies = new Set();
-    function blockedByTippy(elem) {
-      for (const ref of visibleTippies) {
-        if (!ref.contains(elem) && !elem.contains(ref)) return true;
-      }
-      return false;
-    }
-
-    // Whether the element's tooltip would have content to show. Content nested in a
-    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
-    // not a tippy instance is currently attached to it.
-    function showsContent(el) {
-      if (!el._tippy) return false;
-      if (el.classList.contains('tactic')) {
-        const toggle = el.querySelector(':scope > input.tactic-toggle');
-        return !!toggle && !toggle.checked;
-      }
-      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
-        !blockedByTactic(el);
-    }
-
-    // The nearest enclosing element whose tooltip has content
-    function innermostShowable(el) {
-      while (el && el.nodeType === Node.ELEMENT_NODE) {
-        if (showsContent(el)) return el;
-        el = el.parentElement;
-      }
-      return null;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-    function hideDescendantTooltips(element) {
-      for (const ref of visibleTippies) {
-        if (ref !== element && element.contains(ref)) {
-          ref._tippy.hide();
-        }
-      }
-    }
-
-    // Renders the documentation for a hover ID from the doc table
-    function docHoverContent(hoverId) {
-      const info = document.createElement('span');
-      info.className = 'hover-info';
-      info.style.display = 'block';
-      const data = versoDocData[hoverId];
-      if (data) {
-        info.innerHTML = data;
-        /* Render docstrings - TODO server-side */
-        if ('undefined' !== typeof marked) {
-          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement('div');
-            rendered.classList.add('docstring');
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-          }
-        }
-      } else {
-        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
-      }
-      return info;
-    }
-
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        const ref = inst.reference;
-        if (ref.className == 'tactic') {
-          const toggle = ref.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
-          if (blockedByTactic(ref)) { return false };
-        } else { // Nothing to show here!
-          return false;
-        }
-        // Show only the most specific hover under the pointer
-        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
-          return false;
-        }
-        hideParentTooltips(ref);
-        hideDescendantTooltips(ref);
-        if (blockedByTippy(ref)) { return false; }
-      },
-      onShown(inst) { visibleTippies.add(inst.reference); },
-      onHidden(inst) { visibleTippies.delete(inst.reference); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          // Messages come from the inline hover-info; documentation comes from the doc
-          // table. An element with both (a message span sharing a documented token's
-          // extent) shows both in one tooltip.
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverInfo) {
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          if (hoverId) {
-            // TODO stop doing an implicit conversion from string to number here
-            content.appendChild(docHoverContent(hoverId));
-          }
-          if (hoverInfo && hoverId) {
-            content.classList.add('mixed');
-          }
-          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (!el._tippy) {
-              tippy(el, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (el._tippy) el._tippy.destroy();
-          });
-        }
-        // The toggle changes which element's tooltip belongs to the pointer's position,
-        // but the pointer stays put, so no hover event announces the change. Show the
-        // right tooltip once the click that flipped the toggle has hidden the old one.
-        setTimeout(() => {
-          if (hoverTarget && hoverTarget.isConnected) {
-            const showable = innermostShowable(hoverTarget);
-            if (showable && showable._tippy) showable._tippy.show();
-          }
-        }, 0);
-      });
-  });
-}
-</script>
-    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -2615,7 +2316,7 @@ window.onload = async () => {
      "data":
      {"title": "Splitting with Equations",
       "shortTitle": null,
-      "sectionNum": "7.2.2.",
+      "sectionNum": "7.7.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -2624,7 +2325,7 @@ window.onload = async () => {
         "number": "7"},
        {"title": "Using  cases  on Expressions",
         "shortTitle": null,
-        "number": "2"},
+        "number": "7"},
        {"title": "Splitting with Equations",
         "shortTitle": null,
         "number": "2"}]},
@@ -2635,7 +2336,7 @@ window.onload = async () => {
      "data":
      {"title": "Destructing Tuples",
       "shortTitle": null,
-      "sectionNum": "7.2.1.",
+      "sectionNum": "7.7.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -2644,7 +2345,7 @@ window.onload = async () => {
         "number": "7"},
        {"title": "Using  cases  on Expressions",
         "shortTitle": null,
-        "number": "2"},
+        "number": "7"},
        {"title": "Destructing Tuples", "shortTitle": null, "number": "1"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions":
@@ -2653,7 +2354,7 @@ window.onload = async () => {
      "data":
      {"title": "Using  cases  on Expressions",
       "shortTitle": null,
-      "sectionNum": "7.2.",
+      "sectionNum": "7.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -2662,49 +2363,13 @@ window.onload = async () => {
         "number": "7"},
        {"title": "Using  cases  on Expressions",
         "shortTitle": null,
-        "number": "2"}]},
+        "number": "7"}]},
      "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Supplying-arguments-to--apply":
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--apply--on-Hypotheses":
    [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Supplying-arguments-to--apply",
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--apply--on-Hypotheses",
      "data":
-     {"title": "Supplying arguments to  apply",
-      "shortTitle": null,
-      "sectionNum": "7.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "The  apply  Tactic", "shortTitle": null, "number": "3"},
-       {"title": "Supplying arguments to  apply",
-        "shortTitle": null,
-        "number": "1"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Forward-Reasoning-with--apply":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Forward-Reasoning-with--apply",
-     "data":
-     {"title": "Forward Reasoning with  apply",
-      "shortTitle": null,
-      "sectionNum": "7.3.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "The  apply  Tactic", "shortTitle": null, "number": "3"},
-       {"title": "Forward Reasoning with  apply",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic",
-     "data":
-     {"title": "The  apply  Tactic",
+     {"title": "Using  apply  on Hypotheses",
       "shortTitle": null,
       "sectionNum": "7.3.",
       "searchPriority": 50,
@@ -2713,49 +2378,15 @@ window.onload = async () => {
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
         "number": "7"},
-       {"title": "The  apply  Tactic", "shortTitle": null, "number": "3"}]},
+       {"title": "Using  apply  on Hypotheses",
+        "shortTitle": null,
+        "number": "3"}]},
      "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Tactic--congr":
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Supplying-arguments-to--apply":
    [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Tactic--congr",
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic--Supplying-arguments-to--apply",
      "data":
-     {"title": "Tactic  congr",
-      "shortTitle": null,
-      "sectionNum": "7.1.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "Tactics  injection  and  contradiction",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Tactic  congr", "shortTitle": null, "number": "3"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Quizzes":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Quizzes",
-     "data":
-     {"title": "Quizzes",
-      "shortTitle": null,
-      "sectionNum": "7.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "Tactics  injection  and  contradiction",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Quizzes", "shortTitle": null, "number": "2"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Injectivity":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Injectivity",
-     "data":
-     {"title": "Injectivity",
+     {"title": "Supplying arguments to  apply",
       "shortTitle": null,
       "sectionNum": "7.1.1.",
       "searchPriority": 50,
@@ -2764,16 +2395,16 @@ window.onload = async () => {
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
         "number": "7"},
-       {"title": "Tactics  injection  and  contradiction",
+       {"title": "The  apply  Tactic", "shortTitle": null, "number": "1"},
+       {"title": "Supplying arguments to  apply",
         "shortTitle": null,
-        "number": "1"},
-       {"title": "Injectivity", "shortTitle": null, "number": "1"}]},
+        "number": "1"}]},
      "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction":
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic":
    [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction",
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--The--apply--Tactic",
      "data":
-     {"title": "Tactics  injection  and  contradiction",
+     {"title": "The  apply  Tactic",
       "shortTitle": null,
       "sectionNum": "7.1.",
       "searchPriority": 50,
@@ -2782,9 +2413,78 @@ window.onload = async () => {
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
         "number": "7"},
+       {"title": "The  apply  Tactic", "shortTitle": null, "number": "1"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Tactic--congr":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Tactic--congr",
+     "data":
+     {"title": "Tactic  congr",
+      "shortTitle": null,
+      "sectionNum": "7.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
        {"title": "Tactics  injection  and  contradiction",
         "shortTitle": null,
-        "number": "1"}]},
+        "number": "2"},
+       {"title": "Tactic  congr", "shortTitle": null, "number": "3"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Quizzes":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Quizzes",
+     "data":
+     {"title": "Quizzes",
+      "shortTitle": null,
+      "sectionNum": "7.2.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Tactics  injection  and  contradiction",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Quizzes", "shortTitle": null, "number": "2"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Injectivity":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Injectivity",
+     "data":
+     {"title": "Injectivity",
+      "shortTitle": null,
+      "sectionNum": "7.2.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Tactics  injection  and  contradiction",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Injectivity", "shortTitle": null, "number": "1"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction",
+     "data":
+     {"title": "Tactics  injection  and  contradiction",
+      "shortTitle": null,
+      "sectionNum": "7.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Tactics  injection  and  contradiction",
+        "shortTitle": null,
+        "number": "2"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Specializing-Hypotheses":
    [{"id":
@@ -2820,19 +2520,35 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "6"}]},
      "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Review":
-   [{"id": "Logical-Foundations--Tactics___-More-Basic-Tactics--Review",
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Review--Additional-Exercises":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Review--Additional-Exercises",
      "data":
-     {"title": "Review",
+     {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "7.7.",
+      "sectionNum": "7.8.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Tactics: More Basic Tactics",
         "shortTitle": null,
         "number": "7"},
-       {"title": "Review", "shortTitle": null, "number": "7"}]},
+       {"title": "Review", "shortTitle": null, "number": "8"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Review":
+   [{"id": "Logical-Foundations--Tactics___-More-Basic-Tactics--Review",
+     "data":
+     {"title": "Review",
+      "shortTitle": null,
+      "sectionNum": "7.8.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Review", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Generalizing-the-Induction-Hypothesis":
    [{"id":
@@ -2850,21 +2566,6 @@ window.onload = async () => {
        {"title": "Generalizing the Induction Hypothesis",
         "shortTitle": null,
         "number": "5"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Additional-Exercises":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Additional-Exercises",
-     "data":
-     {"title": "Additional Exercises",
-      "shortTitle": null,
-      "sectionNum": "7.8.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "Additional Exercises", "shortTitle": null, "number": "8"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Preface--Welcome":
    [{"id": "Logical-Foundations--Preface--Welcome",
@@ -5145,24 +4846,6 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "3"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Palindrome-Revisit":
-   [{"id":
-     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Palindrome-Revisit",
-     "data":
-     {"title": "Palindrome Revisit",
-      "shortTitle": null,
-      "sectionNum": "10.5.6.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Automation: More Automation",
-        "shortTitle": null,
-        "number": "10"},
-       {"title": "Case Study: Regular Expressions",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Palindrome Revisit", "shortTitle": null, "number": "6"}]},
-     "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Examples":
    [{"id":
      "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Examples",
@@ -5878,6 +5561,28 @@ window.onload = async () => {
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
+   "inversion_ex2":
+   [{"id": "inversion_ex2",
+     "data":
+     {"/IndProp/#inversion_ex2":
+      {"display": "inversion_ex2",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Destructing and Inverting Evidence"]}},
+     "address": "/IndProp/"}],
+   "inversion_ex1":
+   [{"id": "inversion_ex1",
+     "data":
+     {"/IndProp/#inversion_ex1":
+      {"display": "inversion_ex1",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Destructing and Inverting Evidence"]}},
+     "address": "/IndProp/"}],
    "instDefaultValueOption":
    [{"id": "instDefaultValueOption",
      "data":
@@ -6038,8 +5743,41 @@ window.onload = async () => {
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
+   "ev_succ_succ_ev'":
+   [{"id": "ev_succ_succ_ev___",
+     "data":
+     {"/IndProp/#ev_succ_succ_ev___":
+      {"display": "ev_succ_succ_ev'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Destructing and Inverting Evidence"]}},
+     "address": "/IndProp/"}],
+   "ev_succ_succ_ev":
+   [{"id": "ev_succ_succ_ev",
+     "data":
+     {"/IndProp/#ev_succ_succ_ev":
+      {"display": "ev_succ_succ_ev",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Destructing and Inverting Evidence"]}},
+     "address": "/IndProp/"}],
+   "ev_inversion":
+   [{"id": "ev_inversion",
+     "data":
+     {"/IndProp/#ev_inversion":
+      {"display": "ev_inversion",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Destructing and Inverting Evidence"]}},
+     "address": "/IndProp/"}],
    "double_injective":
-   [{"id": "double_injective",
+   [{"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next":
       {"display": "double_injective",
@@ -6054,7 +5792,7 @@ window.onload = async () => {
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective-next",
+    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next":
       {"display": "double_injective",
@@ -6091,6 +5829,17 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
+   "csf":
+   [{"id": "csf",
+     "data":
+     {"/IndProp/#csf":
+      {"display": "csf",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"}],
    "countOddMembers":
    [{"id": "countOddMembers",
      "data":
@@ -6113,17 +5862,6 @@ window.onload = async () => {
         "Functions as Data",
         "Functions That Construct Functions"]}},
      "address": "/Poly/"}],
-   "collatzStep":
-   [{"id": "collatzStep",
-     "data":
-     {"/IndProp/#collatzStep":
-      {"display": "collatzStep",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
    "chooseIf_self":
    [{"id": "chooseIf_self",
      "data":
@@ -6251,39 +5989,6 @@ window.onload = async () => {
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Unfolding definitions using  rw"]}},
      "address": "/UsingLean/"}],
-   "TransGen.trans":
-   [{"id": "TransGen___trans",
-     "data":
-     {"/IndProp/#TransGen___trans":
-      {"display": "trans",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "TransGen.step":
-   [{"id": "TransGen___step",
-     "data":
-     {"/IndProp/#TransGen___step":
-      {"display": "step",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "TransGen":
-   [{"id": "TransGen",
-     "data":
-     {"/IndProp/#TransGen":
-      {"display": "TransGen",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}],
    "TotalMap.update_eq":
    [{"id": "TotalMap___update_eq",
      "data":
@@ -6796,7 +6501,7 @@ window.onload = async () => {
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq-next",
+   [{"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6805,7 +6510,7 @@ window.onload = async () => {
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq",
+    {"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6828,50 +6533,6 @@ window.onload = async () => {
       {"display": "even_double",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
-   "ReflTransGen.trans":
-   [{"id": "ReflTransGen___trans",
-     "data":
-     {"/IndProp/#ReflTransGen___trans":
-      {"display": "trans",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "ReflTransGen.step":
-   [{"id": "ReflTransGen___step",
-     "data":
-     {"/IndProp/#ReflTransGen___step":
-      {"display": "step",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "ReflTransGen.refl":
-   [{"id": "ReflTransGen___refl",
-     "data":
-     {"/IndProp/#ReflTransGen___refl":
-      {"display": "refl",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "ReflTransGen":
-   [{"id": "ReflTransGen",
-     "data":
-     {"/IndProp/#ReflTransGen":
-      {"display": "ReflTransGen",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
    "RGB.red":
    [{"id": "RGB___red",
      "data":
@@ -7147,39 +6808,6 @@ window.onload = async () => {
         "Automation: More Automation",
         "The  simp  Tactic"]}},
      "address": "/Automation/"}],
-   "Perm3.trans":
-   [{"id": "Perm3___trans",
-     "data":
-     {"/IndProp/#Perm3___trans":
-      {"display": "trans",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3.swap23":
-   [{"id": "Perm3___swap23",
-     "data":
-     {"/IndProp/#Perm3___swap23":
-      {"display": "swap23",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3.swap12":
-   [{"id": "Perm3___swap12",
-     "data":
-     {"/IndProp/#Perm3___swap12":
-      {"display": "swap12",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Permutations"]}},
-     "address": "/IndProp/"}],
    "Perm3.rev'":
    [{"id": "Perm3___rev___",
      "data":
@@ -7201,6 +6829,39 @@ window.onload = async () => {
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Constructing Evidence for Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3.perm3_trans":
+   [{"id": "Perm3___perm3_trans",
+     "data":
+     {"/IndProp/#Perm3___perm3_trans":
+      {"display": "perm3_trans",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3.perm3_swap23":
+   [{"id": "Perm3___perm3_swap23",
+     "data":
+     {"/IndProp/#Perm3___perm3_swap23":
+      {"display": "perm3_swap23",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3.perm3_swap12":
+   [{"id": "Perm3___perm3_swap12",
+     "data":
+     {"/IndProp/#Perm3___perm3_swap12":
+      {"display": "perm3_swap12",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3":
    [{"id": "Perm3",
@@ -7389,33 +7050,33 @@ window.onload = async () => {
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
-   "ParentOf.sage_ridley":
-   [{"id": "ParentOf___sage_ridley",
+   "ParentOf.po_SR":
+   [{"id": "ParentOf___po_SR",
      "data":
-     {"/IndProp/#ParentOf___sage_ridley":
-      {"display": "sage_ridley",
+     {"/IndProp/#ParentOf___po_SR":
+      {"display": "po_SR",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "ParentOf.sage_cleo":
-   [{"id": "ParentOf___sage_cleo",
+   "ParentOf.po_SC":
+   [{"id": "ParentOf___po_SC",
      "data":
-     {"/IndProp/#ParentOf___sage_cleo":
-      {"display": "sage_cleo",
+     {"/IndProp/#ParentOf___po_SC":
+      {"display": "po_SC",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "ParentOf.cleo_moss":
-   [{"id": "ParentOf___cleo_moss",
+   "ParentOf.po_CM":
+   [{"id": "ParentOf___po_CM",
      "data":
-     {"/IndProp/#ParentOf___cleo_moss":
-      {"display": "cleo_moss",
+     {"/IndProp/#ParentOf___po_CM":
+      {"display": "po_CM",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -7433,50 +7094,6 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "PalConv.Pal.singleton":
-   [{"id": "PalConv___Pal___singleton",
-     "data":
-     {"/Automation/#PalConv___Pal___singleton":
-      {"display": "singleton",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
-     "address": "/Automation/"}],
-   "PalConv.Pal.nil":
-   [{"id": "PalConv___Pal___nil",
-     "data":
-     {"/Automation/#PalConv___Pal___nil":
-      {"display": "nil",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
-     "address": "/Automation/"}],
-   "PalConv.Pal.cons_snoc":
-   [{"id": "PalConv___Pal___cons_snoc",
-     "data":
-     {"/Automation/#PalConv___Pal___cons_snoc":
-      {"display": "cons_snoc",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
-     "address": "/Automation/"}],
-   "PalConv.Pal":
-   [{"id": "PalConv___Pal",
-     "data":
-     {"/Automation/#PalConv___Pal":
-      {"display": "Pal",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
-     "address": "/Automation/"}],
    "NibbleStruct.x3":
    [{"id": "NibbleStruct___x3",
      "data":
@@ -8225,6 +7842,17 @@ window.onload = async () => {
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
+   "Nat.ev_Even":
+   [{"id": "Nat___ev_Even",
+     "data":
+     {"/IndProp/#Nat___ev_Even":
+      {"display": "Nat.ev_Even",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Induction on Evidence"]}},
+     "address": "/IndProp/"}],
    "Nat.double_zero":
    [{"id": "Nat___double_zero",
      "data":
@@ -9307,39 +8935,6 @@ window.onload = async () => {
         "Logic in Lean",
         "Programming with Propositions"]}},
      "address": "/Logic/"}],
-   "List.In'.tail":
-   [{"id": "List___In______tail",
-     "data":
-     {"/IndProp/#List___In______tail":
-      {"display": "tail",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Induction on Evidence"]}},
-     "address": "/IndProp/"}],
-   "List.In'.head":
-   [{"id": "List___In______head",
-     "data":
-     {"/IndProp/#List___In______head":
-      {"display": "head",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Induction on Evidence"]}},
-     "address": "/IndProp/"}],
-   "List.In'":
-   [{"id": "List___In___",
-     "data":
-     {"/IndProp/#List___In___":
-      {"display": "List.In'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Induction on Evidence"]}},
-     "address": "/IndProp/"}],
    "List.In":
    [{"id": "List___In",
      "data":
@@ -9490,32 +9085,10 @@ window.onload = async () => {
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "Even.zero":
-   [{"id": "Even___zero",
+   "Ev.plus4":
+   [{"id": "Ev___plus4",
      "data":
-     {"/IndProp/#Even___zero":
-      {"display": "zero",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "Even.succ_succ":
-   [{"id": "Even___succ_succ",
-     "data":
-     {"/IndProp/#Even___succ_succ":
-      {"display": "succ_succ",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
-     "address": "/IndProp/"}],
-   "Even.plus4":
-   [{"id": "Even___plus4",
-     "data":
-     {"/IndProp/#Even___plus4":
+     {"/IndProp/#Ev___plus4":
       {"display": "plus4",
        "context":
        ["Logical Foundations",
@@ -9523,44 +9096,33 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
-   "Even.of_succ_succ":
-   [{"id": "Even___of_succ_succ",
+   "Ev.ev_succ_succ":
+   [{"id": "Ev___ev_succ_succ",
      "data":
-     {"/IndProp/#Even___of_succ_succ":
-      {"display": "Even.of_succ_succ",
+     {"/IndProp/#Ev___ev_succ_succ":
+      {"display": "ev_succ_succ",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Destructing and Inverting Evidence"]}},
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
-   "Even.nat_even":
-   [{"id": "Even___nat_even",
+   "Ev.ev_0":
+   [{"id": "Ev___ev_0",
      "data":
-     {"/IndProp/#Even___nat_even":
-      {"display": "Even.nat_even",
+     {"/IndProp/#Ev___ev_0":
+      {"display": "ev_0",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Induction on Evidence"]}},
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
-   "Even.inversion":
-   [{"id": "Even___inversion",
+   "Ev":
+   [{"id": "Ev",
      "data":
-     {"/IndProp/#Even___inversion":
-      {"display": "Even.inversion",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
-   "Even":
-   [{"id": "Even",
-     "data":
-     {"/IndProp/#Even":
-      {"display": "Even",
+     {"/IndProp/#Ev":
+      {"display": "Ev",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -9760,55 +9322,33 @@ window.onload = async () => {
         "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
-   "CollatzStepMulti":
-   [{"id": "CollatzStepMulti",
+   "CollatzHoldsFor.chf_one":
+   [{"id": "CollatzHoldsFor___chf_one",
      "data":
-     {"/IndProp/#CollatzStepMulti":
-      {"display": "CollatzStepMulti",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "CollatzStep":
-   [{"id": "CollatzStep",
-     "data":
-     {"/IndProp/#CollatzStep":
-      {"display": "CollatzStep",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "CollatzHoldsFor.one":
-   [{"id": "CollatzHoldsFor___one",
-     "data":
-     {"/IndProp/#CollatzHoldsFor___one":
-      {"display": "one",
+     {"/IndProp/#CollatzHoldsFor___chf_one":
+      {"display": "chf_one",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "CollatzHoldsFor.odd":
-   [{"id": "CollatzHoldsFor___odd",
+   "CollatzHoldsFor.chf_odd":
+   [{"id": "CollatzHoldsFor___chf_odd",
      "data":
-     {"/IndProp/#CollatzHoldsFor___odd":
-      {"display": "odd",
+     {"/IndProp/#CollatzHoldsFor___chf_odd":
+      {"display": "chf_odd",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "CollatzHoldsFor.even":
-   [{"id": "CollatzHoldsFor___even",
+   "CollatzHoldsFor.chf_even":
+   [{"id": "CollatzHoldsFor___chf_even",
      "data":
-     {"/IndProp/#CollatzHoldsFor___even":
-      {"display": "even",
+     {"/IndProp/#CollatzHoldsFor___chf_even":
+      {"display": "chf_even",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -9893,6 +9433,105 @@ window.onload = async () => {
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"}],
+   "ClosTrans.t_trans":
+   [{"id": "ClosTrans___t_trans",
+     "data":
+     {"/IndProp/#ClosTrans___t_trans":
+      {"display": "t_trans",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "ClosTrans.t_step":
+   [{"id": "ClosTrans___t_step",
+     "data":
+     {"/IndProp/#ClosTrans___t_step":
+      {"display": "t_step",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "ClosTrans":
+   [{"id": "ClosTrans",
+     "data":
+     {"/IndProp/#ClosTrans":
+      {"display": "ClosTrans",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "ClosReflTrans.rt_trans":
+   [{"id": "ClosReflTrans___rt_trans",
+     "data":
+     {"/IndProp/#ClosReflTrans___rt_trans":
+      {"display": "rt_trans",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "ClosReflTrans.rt_step":
+   [{"id": "ClosReflTrans___rt_step",
+     "data":
+     {"/IndProp/#ClosReflTrans___rt_step":
+      {"display": "rt_step",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "ClosReflTrans.rt_refl":
+   [{"id": "ClosReflTrans___rt_refl",
+     "data":
+     {"/IndProp/#ClosReflTrans___rt_refl":
+      {"display": "rt_refl",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "ClosReflTrans":
+   [{"id": "ClosReflTrans",
+     "data":
+     {"/IndProp/#ClosReflTrans":
+      {"display": "ClosReflTrans",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "CS":
+   [{"id": "CS",
+     "data":
+     {"/IndProp/#CS":
+      {"display": "CS",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "CMS":
+   [{"id": "CMS",
+     "data":
+     {"/IndProp/#CMS":
+      {"display": "CMS",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
      "address": "/IndProp/"}],
    "BoolList.nil":
    [{"id": "BoolList___nil",
@@ -10192,6 +9831,305 @@ if (paramName) {
     });
 }
 </script>
+    <script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
+    function blockedByTippy(elem) {
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
+        } else { // Nothing to show here!
+          return false;
+        }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
+      },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverInfo) {
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
+          });
+        }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
+      });
+  });
+}
+</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -10234,7 +10172,7 @@ if (paramName) {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Built on 2026-09-10 16:21 UTC</div>
+            Built on 2026-09-07 17:53 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

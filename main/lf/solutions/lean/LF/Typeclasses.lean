@@ -389,8 +389,6 @@ instance : HasThree Nat where
   one_neq_three := (by intro contra; contradiction)
   two_neq_three := (by intro contra; contradiction)
 
---  (End of exercise)
-
 namespace Algebra
 
 --  This facility is very powerful, and is used extensively in Lean to
@@ -398,13 +396,19 @@ namespace Algebra
 --  how those operators interact. As a simple example, let's use a
 --  typeclass to define a *monoid*, a simple algebraic structure that
 --  includes four things:
+--
 --  - an underlying set of data, represented by a type `α`,
+--
 --  - an operator (which we'll write `⊗`, typed otimes) that combines two
 --    elements of type `α` into one,
+--
 --  - a particular element `id` of type `α`, which we call the "identity
 --    element", and
+--
 --  - some laws about the interaction of `⊗` and `id`, namely that:
+--
 --    - `∀ x, id ⊗ x = x = x ⊗ id`, and
+--
 --    - `∀ x y z, x ⊗ (y ⊗ z) = (x ⊗ y) ⊗ z` (i.e., that `⊗` is
 --      associative)
 --
@@ -469,8 +473,6 @@ instance {α : Type} : Monoid (List α) where
   right_id := (by simp)
   assoc := (by simp)
 
---  (End of exercise)
-
 --  In addition to defining instances of `Monoid`, we can also prove some
 --  properties about monoids in general, just based on the laws defined on
 --  the typeclass. One simple theorem about monoids is that the identity
@@ -529,8 +531,6 @@ instance : Group Int where
   left_inv := (by lia)
   right_inv := (by lia)
 
---  (End of exercise)
-
 --  The study of groups is called *group theory* and is a rich area of
 --  mathematics. Here, we will only prove a handful of its simplest
 --  results:
@@ -547,8 +547,6 @@ theorem inv_unique {α : Type} {g₁ g₂ : Group α} (h : g₁.op = g₂.op) : 
   ext x
   rw [← g₁.right_id (Group.inv x), ← g₁.right_inv x]
   rw [g₁.assoc, h, g₂.left_inv, g₂.left_id]
-
---  (End of exercise)
 
 --  Note to developers (Daniel Sainati @dsainati1):
 --      Taking suggestions for additional simple group theory theorems to
@@ -584,8 +582,6 @@ theorem inv_inv' {α : Type} {g : Group α} (x y z : α)
 theorem inv_inv {α : Type} {g : Group α} (x : α) : g.inv (g.inv x) = x := by
   symm; apply inv_inv' (y := g.inv x) <;> rfl
 
---  (End of exercise)
-
 end Algebra
 
 --  ## API and Encapsulation
@@ -599,15 +595,22 @@ end Algebra
 --      more difficult for the upstream library to evolve.
 --
 --      Explain the following items:
+--
 --      - What is API and how does it relate to typeclasses
+--
 --      - What is encapsulation: public and private API
+--
 --        - Function definitions and one-field structures are encapsulation
 --          boundaries
+--
 --        - Definitions and structures are usually private, characterizing
 --          lemmas are public
+--
 --        - Constructors of inductives are public
+--
 --        - Mention `public`, `private` keywords and that we don't use them
 --          on the course?
+--
 --        - One can mostly ignore proof terms due to proof irrelevance
 --
 --      Here is an example where the proof term is blocking a rewrite. The
@@ -961,8 +964,6 @@ theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {
   dsimp only
   rw [beq_false_of_ne h, cond_false]
 
---  (End of exercise)
-
 --  The two remaining facts are equalities *between maps*, so we first need
 --  to say when two maps are equal. Since a total map is implemented as a
 --  function, this is effectively the functional extensionality principle
@@ -1011,8 +1012,6 @@ theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) 
     simp
   · simp [update_neq h]
 
---  (End of exercise)
-
 --  Similarly, if we update a map `m` at a key `a` with a value `b₁` and
 --  then update again with the same key `a` and another value `b₂`, the
 --  resulting map behaves the same (gives the same result when applied to
@@ -1029,8 +1028,6 @@ theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β
   · subst h
     simp
   · simp [update_neq h]
-
---  (End of exercise)
 
 --  Note to developers (mwhicks1, NOW):
 --      Two things the Rocq source says here have been dropped.
@@ -1089,8 +1086,6 @@ theorem update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α �
     · subst h₂
       rw [update_eq, update_eq]
     · rw [update_neq h₂, update_neq h₂, update_neq h₁]
-
---  (End of exercise)
 
 --  Note to developers:
 --      The Rocq source also has `getElem_empty` (originally `apply_empty`)
@@ -1488,8 +1483,6 @@ theorem even_double_exists (n : Nat) :
       rw [cond_false, Bool.not_false, cond_true]
       rfl
 
---  (End of exercise)
-
 --  Now the main theorem:
 
 theorem even_iff_Even {n : Nat} : even n = true ↔ Even n where
@@ -1511,6 +1504,7 @@ end Nat
 --
 --  Similarly, to state that two numbers n and m are equal, we can say
 --  either
+--
 --  - that `n == m` returns `true`, or
 --  - that `n = m`
 --
@@ -1676,4 +1670,4 @@ example {α : Type} (x : α) [BEq α] [LawfulBEq α] (xs : List α)
 
 end Reflection
 
--- Built on 2026-09-10 16:21 UTC
+-- Built on 2026-09-07 17:53 UTC

@@ -296,8 +296,6 @@ theorem evalR_iff_eval (b : Bexp) (bv : Bool) :
     b ⇓ bv ↔ b.eval = bv := by
   sorry
 
---  (End of exercise)
-
 end Bexp
 end Slang
 
@@ -354,7 +352,7 @@ end Aexp
 --
 --  By contrast, partiality is no problem for the relational
 --  version of the definition.
---
+
 --  What should `Aexp.eval` return for
 --  `.div (.num 1) (.num 0)`??
 
@@ -379,7 +377,7 @@ end Slang.AevalRDivision
 namespace Slang.AevalRExtended
 
 --  Another example: a *nondeterministic* number generator:
---
+
 --  As another example, suppose that we want to extend the
 --  arithmetic operations by a nondeterministic number
 --  generator `any` that, when evaluated, may yield any
@@ -398,7 +396,7 @@ inductive Aexp where
 --  evaluation is now *not* a deterministic function from
 --  expressions to numbers; but extending the relation is no
 --  problem.
---
+
 --  What should `Aexp.eval` do with nondeterminism??
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
@@ -416,4 +414,4 @@ end Slang.AevalRExtended
 --  Functional: computation. Relational: expressive. Best:
 --  both, proved equivalent.
 
--- Built on 2026-09-10 16:22 UTC
+-- Built on 2026-09-07 17:55 UTC

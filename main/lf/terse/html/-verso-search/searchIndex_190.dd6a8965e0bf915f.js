@@ -1,0 +1,1 @@
+window.docContents[190].resolve({"/Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Review--Additional-Exercises":{"contents":"\n\n\n\n","context":"Logical Foundations\u0009Tactics: More Basic Tactics\u0009Review","header":"7.8.1. Additional Exercises","id":"/Tactics/#Logical-Foundations--Tactics___-More-Basic-Tactics--Review--Additional-Exercises"}});

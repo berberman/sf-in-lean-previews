@@ -17,7 +17,7 @@ import SFLCompat
 --  and its main properties (progress and preservation). The new technical
 --  challenges arise from the mechanisms of *variable binding* and
 --  *substitution*. It will take some work to deal with these.
---
+
 --  The STLC lives in the lower-left front corner of the famous *lambda
 --  cube* (also called the *Barendregt Cube*), which visualizes three sets
 --  of features that can be added to its simple core:
@@ -60,6 +60,7 @@ import SFLCompat
 --  subtyping, and mutable state.
 --
 --  Starting from boolean constants and conditionals, we add three things:
+--
 --  - variables
 --  - function abstractions
 --  - application
@@ -111,7 +112,7 @@ import SFLCompat
 
 --  A two-argument function that takes two booleans and returns the first
 --  one.
---
+
 --  (As in Lean, a two-argument function in the lambda-calculus is really a
 --  one-argument function whose body is also a one-argument function.)
 
@@ -119,7 +120,7 @@ import SFLCompat
 
 --  A two-argument function that takes two booleans and returns the first
 --  one, applied to the booleans `false` and `true`.
---
+
 --  (As in Lean, application associates to the left — i.e., this expression
 --  is parsed as `((λx:Bool. λy:Bool. x) false) true`.)
 
@@ -142,14 +143,20 @@ import SFLCompat
 --  functions: i.e., all functions are "anonymous." We'll see in chapter
 --  `MoreStlc` that it is easy to add named functions — indeed, the
 --  fundamental naming and binding mechanisms are exactly the same.
---
+
 --  Now reconsider our examples, each along with its type:
+--
 --  - `λx:Bool. x` has type `Bool → Bool`
+--
 --  - `(λx:Bool. x) true` has type `Bool`
+--
 --  - `λx:Bool. if x then false else true` has type `Bool → Bool`
+--
 --  - `λx:Bool. true` has type `Bool → Bool`
+--
 --  - `λx:Bool. λy:Bool. x` has type `Bool → Bool → Bool` (i.e.,
 --    `Bool → (Bool → Bool)`)
+--
 --  - `(λx:Bool. λy:Bool. x) false true` has type `Bool`
 --
 --  The last two, higher-order examples are left off the list on purpose —
@@ -219,14 +226,17 @@ inductive Tm where
 
 --  We need some notation magic to set up the concrete syntax, as we did in
 --  the Types chapter...
---
+
 --  The upshot of this section is that STLC types and terms are both
 --  written inside one pair of brackets, `<{ … }>`, and that `~e` inside
 --  the brackets escapes back to an arbitrary Lean expression:
+--
 --  - `<{ Bool → Bool }>` is a type;
+--
 --  - `<{ λ x : Bool . x }>` is a term — a bare identifier inside the
 --    brackets is the object-language variable of that name, so `<{ x }>`
 --    is the variable `x`;
+--
 --  - `<{ ~t₁ ~t₂ }>` applies one Lean-level term to another.
 --
 --  Lean works out from context which of the two a given bracket holds, so
@@ -504,9 +514,11 @@ abbrev notB := <{ λ x : Bool . if x then false else true }>
 --  invoked on some argument, which clearly still has work left to do.
 --
 --  Third, for abstractions, we have a choice:
+--
 --  - We can say that `λx:T. t` is a value only when `t` is a value — i.e.,
 --    only if the function's body has been reduced (as much as it can be
 --    without knowing what argument it is going to be applied to).
+--
 --  - Or we can say that `λx:T. t` is always a value, no matter whether `t`
 --    is one or not — in other words, we can say that reduction stops at
 --    abstractions.
@@ -580,16 +592,25 @@ theorem notB_value : notB.IsValue := .abs ..
 --  is written `[x:=s]t` and pronounced "substitute `s` for `x` in `t`."
 --
 --  Here are some examples:
+--
 --  - `[x:=true] (if x then true else false)` yields
 --    `if true then true else false`
+--
 --  - `[x:=true] x` yields `true`
+--
 --  - `[x:=true] (if x then x else y)` yields `if true then true else y`
+--
 --  - `[x:=true] y` yields `y`
+--
 --  - `[x:=true] false` yields `false` (vacuous substitution)
+--
 --  - `[x:=true] (λy:Bool. if y then x else false)` yields
 --    `λy:Bool. if y then true else false`
+--
 --  - `[x:=true] (λy:Bool. x)` yields `λy:Bool. true`
+--
 --  - `[x:=true] (λy:Bool. y)` yields `λy:Bool. y`
+--
 --  - `[x:=true] (λx:Bool. x)` yields `λx:Bool. x`
 --
 --  The last example is illuminating: substituting `x` with `true` in
@@ -809,11 +830,14 @@ theorem substi_correct (s : Tm) (x : String) (t t' : Tm) :
 
 --  This is *call by value* reduction: to reduce an application `(t₁ t₂)`,
 --  we
+--
 --  - first reduce `t₁` to a value: a function `λx:T. t`
+--
 --  - then reduce the argument `t₂` to a value `v`
+--
 --  - then reduce the application itself by substituting `v` for the bound
 --    variable `x` in the body `t`.
---
+
 --  Formally:
 
 section
@@ -1042,7 +1066,7 @@ theorem stepExample5' : <{ ~idBBBB ~idBB ~idB }> ⟶* idB := by
 
 --  Next we consider the typing relation of the STLC, which is meant to
 --  prevent reduction from getting stuck.
---
+
 --  For instance, the following two STLC terms are both stuck:
 
 --   `if λx:Bool. x then true else false`
@@ -1117,11 +1141,11 @@ abbrev Context := PartialMap String Ty
 
 --  We can read the three-place relation `Γ ⊢ t ⦂ T` as: "under the
 --  assumptions in Γ, the term `t` has the type `T`."
---
+
 --  In the formal development, we write this judgment inside the same
 --  `<{ .. }>` brackets we use for types and terms, as introduced by the
 --  following notational conventions.
---
+
 --  A context is written `∅` when empty and `x ↦ T ; Γ` when extended with
 --  a binding, and `~e` escapes to a Lean expression of type `Context`. The
 --  whole judgment then goes inside the same `<{ … }>` brackets as terms,
@@ -1298,8 +1322,6 @@ example :
             ⦂ ~T }> := by
   sorry
 
---  (End of exercise)
-
 --  We can also show that some terms are *not* typable. For example, we can
 --  check that there is no typing derivation assigning a type to the term
 --  `λx:Bool. λy:Bool. x y` — i.e.,
@@ -1361,4 +1383,4 @@ example : ¬ ∃ S T, <{ ∅ ⊢ λ x : ~S . x x ⦂ ~T }> := by
 
 end Stlc
 
--- Built on 2026-09-10 16:23 UTC
+-- Built on 2026-09-07 17:55 UTC

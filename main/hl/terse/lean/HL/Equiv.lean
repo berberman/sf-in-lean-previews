@@ -64,8 +64,6 @@ theorem skip_left {c : Com} : (imp { skip; ~c }).Equiv c := by
 theorem skip_right {c : Com} : (imp { ~c; skip }).Equiv c := by
   sorry
 
---  (End of exercise)
-
 theorem if_true_simple {c₁ c₂ : Com} : (imp {if (true) {~c₁} else {~c₂}}).Equiv c₁ := by
   rw [equiv_def]
   intro st st'
@@ -112,8 +110,6 @@ theorem swap_if_branches {b : Bexp} {c₁ c₂ : Com} :
     (imp {if (¬ ~b) {~c₂} else {~c₁}}) := by
   sorry
 
---  (End of exercise)
-
 theorem while_false_equiv {b : Bexp} {c : Com} (hb : b.Equiv (bexp {false})) :
     (imp {while (~b) {~c}}).Equiv
     (imp {skip}) := by
@@ -135,8 +131,6 @@ theorem while_false_equiv {b : Bexp} {c : Com} (hb : b.Equiv (bexp {false})) :
 
 --  Write an informal proof of `while_false_equiv`.
 
---  (End of exercise)
-
 theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State} (hb : b.Equiv (bexp {true})) :
     ¬ st =[ while (~b) {~c} ]=> st' := by
   sorry -- heq says that different commands are equal
@@ -155,8 +149,6 @@ theorem while_true {b : Bexp} {c : Com} (hb : b.Equiv (bexp {true})) :
     (imp {while (~b) {~c}}).Equiv
     (imp {while (true) {skip}}) := by
   sorry
-
---  (End of exercise)
 
 theorem loop_unrolling {b : Bexp} {c : Com} :
     (imp {while (~b) {~c}}).Equiv
@@ -263,4 +255,4 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
       rw [Aexp.equiv_def] at ha
       rw [ha]
 
--- Built on 2026-09-10 16:22 UTC
+-- Built on 2026-09-07 17:55 UTC

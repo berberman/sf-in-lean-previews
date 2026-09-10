@@ -56,6 +56,7 @@ import SFLCompat
 --  In an earlier chapter, we began applying the mathematical tools
 --  developed in the first part of the course to studying the theory of a
 --  small programming language, Imp.
+--
 --  - We defined a type of *abstract syntax trees* for Imp, together with
 --    an *evaluation relation* (a partial function on states) that
 --    specifies the *operational semantics* of programs.
@@ -68,13 +69,18 @@ import SFLCompat
 --  - We proved a number of *metatheoretic properties* -- "meta" in the
 --    sense that they are properties of the language as a whole, rather
 --    than of particular programs in the language. These included:
+--
 --    - determinism of evaluation
+--
 --    - equivalence of some different ways of writing down the definitions
 --      (e.g., functional and relational definitions of arithmetic
 --      expression evaluation)
+--
 --    - guaranteed termination of certain classes of programs
+--
 --    - correctness (in the sense of preserving meaning) of a number of
 --      useful program transformations
+--
 --    - behavioral equivalence of programs (in the Equiv chapter).
 --
 --  If we stopped here, we would already have something useful: a set of
@@ -92,7 +98,7 @@ import SFLCompat
 --  theme of metatheoretic properties of whole languages when we discuss
 --  *types* and *type soundness*. In this chapter, though, we turn to a
 --  different set of issues.
---
+
 --  Our goal in this chapter is to develop the tools to work through some
 --  simple examples of *program verification* -- i.e., to use the precise
 --  definition of Imp to prove formally that particular programs satisfy
@@ -103,12 +109,12 @@ import SFLCompat
 --  constructs of Imp is equipped with a generic "proof rule" that can be
 --  used to reason compositionally about the correctness of programs
 --  involving this construct.
---
+
 --  Hoare Logic originated in the 1960s, and it continues to be the subject
 --  of intensive research right up to the present day. It lies at the core
 --  of a multitude of tools that are being used in academia and industry to
 --  specify and verify real software systems.
---
+
 --  Hoare Logic combines two beautiful ideas: a natural way of writing down
 --  *specifications* of programs, and a *structured proof technique* for
 --  proving that programs are correct with respect to such specifications
@@ -174,9 +180,12 @@ abbrev Assertion := State → Prop
 --      answers we expect.
 
 --  For example,
+--
 --  - `fun st => st[X] = 3` holds for states `st` in which value of `X` is
 --    `3`,
+--
 --  - `fun st => True` hold for all states, and
+--
 --  - `fun st => False` holds for no states.
 
 --   ----------------------------------------
@@ -236,7 +245,7 @@ end ExAssertions
 --
 --  Here the "doubly curly" braces `{{` and `}}` delimit the scope of an
 --  assertion. We'll see more examples below.
---
+
 --  This example also illustrates a convention that we'll use throughout
 --  the Hoare Logic chapters: in informal assertions, capital letters like
 --  `X`, `Y`, and `Z` are Imp variables, while lowercase letters like `x`,
@@ -426,7 +435,7 @@ open scoped Assertion
 --  Function applications inside assertions automatically interpret their
 --  arguments in the current state. Thus, `{{ f e1 ... en }}` stands for
 --  `fun st => f (e1 st) ... (en st)`.
---
+
 --  Occasionally it is simpler to write an assertion directly as a Lean
 --  function. Such a function can be placed inside the assertion notation
 --  without an escape marker.
@@ -645,6 +654,7 @@ end Assertion.Delab
 --      {{P}} c {{Q}}
 --
 --  meaning:
+--
 --  - If command `c` begins execution in a state satisfying assertion `P`,
 --  - and if `c` eventually terminates in some final state,
 --  - then that final state will satisfy the assertion `Q`.
@@ -653,12 +663,14 @@ end Assertion.Delab
 --  the *postcondition*.
 --
 --  For example,
+--
 --  - The Hoare triple
 --
 --      {{X = 0}} X := X + 1 {{X = 1}}
 --
 --  states that command `X := X + 1` will transform a state in which
 --  `X = 0` to a state in which `X = 1`.
+--
 --  - On the other hand,
 --
 --      ∀ m, {{X = m}} X := X + 1 {{X = m + 1}}
@@ -1020,7 +1032,7 @@ theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
 --  it: if we take the postcondition `X = 1` and in it replace `X` with
 --  `Y`---that is, replace the left-hand side of the assignment statement
 --  with the right-hand side---we get the precondition, `Y = 1`.
---
+
 --  That same idea works in more complicated cases. For example:
 --
 --      {{ ??? }}  X := X + Y  {{ X = 1 }}
@@ -1038,7 +1050,7 @@ theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
 --  property holds of *whatever is being assigned to* `X`. So, in the
 --  example, we need "equals `1`" to hold of `X + Y`. That's exactly what
 --  the technique guarantees.
---
+
 --  In general, the postcondition could be some arbitrary assertion `Q`,
 --  and the right-hand side of the assignment could be some arbitrary
 --  arithmetic expression `a`:
@@ -1060,7 +1072,7 @@ theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
 --  terminate in a state that satisfies assertion `Q`, then it suffices to
 --  start in a state that also satisfies `Q`, except where `a` is
 --  substituted for every occurrence of `X`.
---
+
 --  To many people, this rule seems "backwards" at first, because it
 --  proceeds from the postcondition to the precondition. Actually it makes
 --  good sense to go in this direction: the postcondition is often what is
@@ -1069,7 +1081,7 @@ theorem hoare_seq {P Q R : Assertion} {c1 c2 : Com}
 --
 --  Nonetheless, it's also possible to formulate a "forward" assignment
 --  rule. We'll do that later in some exercises.
---
+
 --  Here are some valid instances of the assignment rule:
 --
 --      {{ (X ≤ 5) [X ↦ X + 1] }}         (that is, X + 1 ≤ 5)
@@ -1161,7 +1173,7 @@ end Assertion.Delab
 --  that behaves just like `P` except that, wherever `P` looks up the
 --  variable `X` in the current state, `P'` instead uses the value of the
 --  expression `a`.
---
+
 --  To see how this works in more detail, let's calculate what happens with
 --  a couple of examples. First, suppose `P'` is `(X ≤ 5) [X ↦ 3]` -- that
 --  is, more formally, `P'` is the Lean expression
@@ -1208,7 +1220,7 @@ end Assertion.Delab
 --        (Aexp.eval st (aexp { X + 1 })) ≤ 5.
 --
 --  That is, `P'` is the assertion that `X + 1` is at most `5`.
---
+
 --  We can demonstrate formally that we have captured intuitive meaning of
 --  "assertion subsitution" by proving some example logical equivalences:
 
@@ -1277,7 +1289,7 @@ theorem assertion_sub_example :
 --  `TotalMap.update_neq`, `TotalMap.update_shadow`,
 --  `TotalMap.update_same`, and `TotalMap.update_permute`. Make sure you
 --  understand their statements.
---
+
 --  Complete these Hoare triples by providing an appropriate precondition
 --  using `exists`, then prove then with `apply
 --  hoare_asgn`. If you find
@@ -1574,7 +1586,7 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
 --  opportune place for automation, because all it does is `unfold`,
 --  `intro`, and `apply`. (It uses `assumption`, too, but that's just
 --  application of a hypothesis.)
---
+
 --      theorem hoare_consequence_pre (P P' Q : Assertion) (c : Com)
 --          (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
 --          {{ P }} c {{ Q }} := by
@@ -1647,14 +1659,14 @@ theorem hoare_asgn_example1'' :
 --  Now we have quite a nice proof script: it simply identifies the Hoare
 --  rules that need to be used and leaves the remaining low-level details
 --  up to Lean to figure out.
---
+
 --  By now it might be apparent that the *entire* proof could be automated
 --  by a more ambitious tactic that also knew about the Hoare rules
 --  themselves. We won't build one in this chapter, so that we can get a
 --  better understanding of when and how the Hoare rules are used. In the
 --  next chapter, *Hoare2*, we'll dive deeper into automating entire proofs
 --  of Hoare triples.
---
+
 --  The other example of using consequence that we did earlier,
 --  `hoare_asgn_example2`, requires a little more work to automate. `simp`
 --  simplifies the assertion implication in the final bullet, but cannot
@@ -1805,12 +1817,15 @@ theorem hoare_asgn_example4 :
 --  Your proof should not need to use `rw [validHoareTriple_def]`.
 --
 --  Hints:
+--
 --  - Remember that Imp commands need to be enclosed in `imp { … }`
 --    brackets.
+--
 --  - Remember that the assignment rule works best when it's applied "back
 --    to front," from the postcondition to the precondition. So your proof
 --    will want to start at the end and work back to the beginning of your
 --    program.
+--
 --  - Remember that `apply` is your friend.)
 
 --  Note to developers:
@@ -1866,11 +1881,14 @@ theorem swap_exercise :
 --  the hypothesis will be instantiated on `your_a` and `your_n`.
 --
 --  Having chosen your `a` and `n`, proceed as follows:
+--
 --  - Use the (assumed) validity of the given hoare triple to derive a
 --    state `st'` in which `Y` has some value `y1`
+--
 --  - Use the evaluation rules (`Com.EvalR.seq` and `Com.EvalR.asgn`) to
 --    show that `Y` has a *different* value `y2` in the same final state
 --    `st'`
+--
 --  - Since `y1` and `y2` are both equal to `st'[Y]`, they are equal to
 --    each other. But we chose them to be different, so this is a
 --    contradiction, which finishes the proof.
@@ -1912,14 +1930,14 @@ theorem invalid_triple : ¬ ∀ (a : Aexp) (n : Nat),
 --
 --  since the rule doesn't tell us enough about the state in which the
 --  assignments take place in the "then" and "else" branches.
---
+
 --  Fortunately, we can say something more precise. In the "then" branch,
 --  we know that the boolean expression `b` evaluates to `true`, and in the
 --  "else" branch, we know it evaluates to `false`. Making this information
 --  available in the premises of the rule gives us more information to work
 --  with when reasoning about the behavior of `c1` and `c2` (i.e., the
 --  reasons why they establish the postcondition `Q`).
---
+
 --      {{P ∧   b}} c1 {{Q}}
 --      {{P ∧ ¬ b}} c2 {{Q}}
 --      ------------------------------------  (hoare_if)
@@ -2151,8 +2169,6 @@ theorem if1false_test :
   apply Com.EvalR.if1False
   rfl
 
---  (End of exercise)
-
 --  Note to developers:
 --      This is outdated. It should explain `HasTriple`
 
@@ -2214,8 +2230,6 @@ theorem hoare_if1 (b : Bexp) (c : Com) (P Q : Assertion)
 --      }
 --      {{ X = Z }}
 
---  (End of exercise)
-
 --  Before the next exercise, we need to restate the Hoare rules of
 --  consequence (for preconditions) and assignment for the new `Com` type.
 
@@ -2266,8 +2280,6 @@ theorem hoare_if1_good :
     · assertion_auto
   · assertion_auto
 
---  (End of exercise)
-
 end If1
 
 --  ### While Loops
@@ -2283,7 +2295,7 @@ end If1
 --  holds. Note that the command invariant might temporarily become false
 --  in the middle of executing `c`, but by the end of `c` it must be
 --  restored.
---
+
 --  As a first attempt at a `while` rule, we could try:
 --
 --             {{P}} c {{P}}
@@ -2308,11 +2320,13 @@ end If1
 --            {{P ∧ b}} c {{P}}
 --      --------------------------------- (hoare_while)
 --      {{P}} while b do c end {{P ∧ ¬b}}
---
+
 --  That is the Hoare `while` rule. Note how it combines aspects of `skip`
 --  and conditionals:
+--
 --  - If the loop body executes zero times, the rule is like `skip` in that
 --    the precondition survives to become (part of) the postcondition.
+--
 --  - Like a conditional, we can assume guard `b` holds on entry to the
 --    subcommand.
 
@@ -2750,8 +2764,6 @@ theorem hoare_repeat {P Q : Assertion} {b : Bexp} {c : Com}
 --      } until (X = 0)
 --      {{ X = 0 ∧ Y > 0 }}
 
---  (End of exercise)
-
 --  Note to developers (Claude):
 --      The Rocq exercise region extends to End RepeatExercise. The
 --      directive here covers only the part up to the litmus-test display
@@ -2934,7 +2946,7 @@ end RepeatExercise
 
 --  So far, we've introduced Hoare Logic as a tool for reasoning about Imp
 --  programs.
---
+
 --  The rules of Hoare Logic are:
 --
 --             --------------------------- (hoare_asgn)
@@ -3129,8 +3141,6 @@ theorem havoc_post {P : Assertion} {x : Ident} :
     rw [TotalMap.update_same]
     exact hpre
 
---  (End of exercise)
-
 end Himp
 
 --  ### Assert and Assume
@@ -3144,8 +3154,10 @@ end Himp
 --  `assume`. Both commands are ways to indicate that a certain assertion
 --  should hold any time this part of the program is reached. However they
 --  differ as follows:
+--
 --  - If an `assert` statement fails, it causes the program to go into an
 --    error state and exit.
+--
 --  - If an `assume` statement fails, the program fails to evaluate at all.
 --    In other words, the program gets stuck and has no final state.
 --
@@ -3313,8 +3325,6 @@ theorem assert_implies_assume (P : Assertion) (b : Bexp) (Q : Assertion)
     subst hsteq
     exact ⟨rfl, h2⟩
 
---  (End of exercise)
-
 --  Next, here are proofs for the old hoare rules adapted to the new
 --  semantics. You don't need to do anything with these.
 
@@ -3458,4 +3468,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Built on 2026-09-10 16:22 UTC
+-- Built on 2026-09-07 17:54 UTC

@@ -58,10 +58,13 @@ import SFLCompat
 --
 --  The present volume weaves together three conceptual
 --  threads:
+--
 --  - basic tools from *logic* for making and justifying
 --    precise claims about programs;
+--
 --  - the use of *provers* (or *proof assistants*) to
 --    construct rigorous logical arguments;
+--
 --  - *functional programming*, both as a programming method
 --    that simplifies reasoning about programs and as a
 --    bridge between programming and logic.
@@ -98,6 +101,7 @@ import SFLCompat
 --  the development of software tools for helping construct
 --  and validate proofs of logical statements. These tools
 --  fall into two broad categories:
+--
 --  - *Automated theorem provers* provide "push-button"
 --    operation: you give them a proposition and they return
 --    either *true* or *false* (or, sometimes, *don't know:
@@ -106,6 +110,7 @@ import SFLCompat
 --    tremendously in recent decades and are used now in a
 --    multitude of settings. Examples of such tools include
 --    SAT solvers, SMT solvers, and model checkers.
+--
 --  - *Proof assistants* — or just *provers* — are hybrid
 --    tools that automate the more routine aspects of
 --    creating proofs while depending on human guidance for
@@ -269,14 +274,20 @@ import SFLCompat
 
 --  The Visual Studio Code IDE is the recommended platform
 --  for using Lean. To get set up, follow these steps:
+--
 --  - Install VS Code if needed.
+--
 --  - From the Extensions tab of VS Code, install the Lean 4
 --    extension.
+--
 --  - Download the book, build it if necessary — more below.
+--
 --  - Open the built book directory in a VS Code window.
+--
 --  - Open a Lean file; the extension will offer to install
 --    Lean; accept, and it will fetch the version this book
 --    needs.
+--
 --  - Wait for Lean to build the project (it takes a few
 --    minutes).
 
@@ -325,8 +336,10 @@ import SFLCompat
 --
 --  With Lean installed, `make lf-student` writes two things
 --  to `_out/lf/student/`:
+--
 --  - `html/`, an HTML-formatted version of the whole book;
 --    and
+--
 --  - `lean/`, a standalone Lean project holding the same
 --    chapters as `.lean` files, with solutions to exercises
 --    omitted.
@@ -369,14 +382,18 @@ import SFLCompat
 --  Each chapter includes numerous exercises. Each is marked
 --  with a "star rating," which can be interpreted as
 --  follows:
+--
 --  - One star: easy exercises that underscore points in the
 --    text and that, for most readers, should take only a
 --    minute or two. Get in the habit of working these as
 --    you reach them.
+--
 --  - Two stars: straightforward exercises (five or ten
 --    minutes).
+--
 --  - Three stars: exercises requiring a bit of thought (ten
 --    minutes to half an hour).
+--
 --  - Four and five stars: more difficult exercises (half an
 --    hour and up).
 --
@@ -488,4 +505,4 @@ import SFLCompat
 --  National Science Foundation under the NSF Expeditions
 --  grant 1521523, *The Science of Deep Specification*.
 
--- Built on 2026-09-10 16:21 UTC
+-- Built on 2026-09-07 17:53 UTC
