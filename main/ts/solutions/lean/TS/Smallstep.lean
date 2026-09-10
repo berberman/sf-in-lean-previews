@@ -1583,4 +1583,4 @@ theorem normalize_ex : exists e', (.p (.c 3) (.p (.c 2) (.c 1))) ⟶* e' ∧ IsV
   · normalize using SimpleArith
   · constructor
 
--- Built on 2026-09-09 00:06 UTC
+-- Built on 2026-09-10 14:29 UTC
