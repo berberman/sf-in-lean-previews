@@ -142,53 +142,6 @@
       "title": "Imp: proof polishing, remove EvalR unexpanders",
       "url": "https://github.com/plclub/sf-in-lean/pull/347"
     },
-    "352": {
-      "base_sha": "e6c791393e9d7fac06ca68ff719cd3022744d2b1",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "8327c16ff2bcec9863045038cf63b97527419217",
-      "preview_path": "pr/352/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33488036166",
-      "status": "published",
-      "title": "Build: Install devcontainer in built artifacts",
-      "url": "https://github.com/plclub/sf-in-lean/pull/352"
-    },
     "376": {
       "base_sha": "7ae97add70d663cc4c92df8671ccd16ffb83a84e",
       "changed_variants": [
@@ -237,49 +190,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/376"
     },
     "381": {
-      "base_sha": "393e106ad9f1944342bb30c019cdee13345dadd7",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "8977223a431f6b9b1b1938ab31c9124009264075",
+      "base_sha": "457f3db63c2b099ce88309c1a8bfc5d490dd87d6",
+      "changed_variants": [],
+      "head_sha": "f274c738e73ab889f1b90663bd00b26db697654d",
       "preview_path": "pr/381/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34278600808",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Pass over automation",
       "url": "https://github.com/plclub/sf-in-lean/pull/381"
     },
@@ -376,6 +292,53 @@
       "status": "published",
       "title": "Tactics: Tidying",
       "url": "https://github.com/plclub/sf-in-lean/pull/384"
+    },
+    "387": {
+      "base_sha": "457f3db63c2b099ce88309c1a8bfc5d490dd87d6",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "9428f4995f65146a94209e8775315194b391d40e",
+      "preview_path": "pr/387/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34499836345",
+      "status": "published",
+      "title": "Logic: Tidying and a few :::dev notes",
+      "url": "https://github.com/plclub/sf-in-lean/pull/387"
     }
   },
   "schema": 3
