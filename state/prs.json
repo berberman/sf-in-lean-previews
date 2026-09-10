@@ -1,5 +1,5 @@
 {
-  "main_sha": "30859f44d5a733e6ddd5439b85cd7d3df9cf68a6",
+  "main_sha": "925bd7dbf2b1b22d16cb7a5067479086f6b229ce",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -282,53 +282,6 @@
       "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
-    },
-    "384": {
-      "base_sha": "dcb7274fa4ae57b3e6461ac5b69af452e7bc6315",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "2ca8d7b7dd28a30be6b798dd287ccf7cd0fab95d",
-      "preview_path": "pr/384/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34481170378",
-      "status": "published",
-      "title": "Tactics: Tidying",
-      "url": "https://github.com/plclub/sf-in-lean/pull/384"
     },
     "387": {
       "base_sha": "457f3db63c2b099ce88309c1a8bfc5d490dd87d6",

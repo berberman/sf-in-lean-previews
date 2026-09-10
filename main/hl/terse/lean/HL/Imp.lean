@@ -695,6 +695,8 @@ example :
     ]=> (Z →ₜ 2 ; Y →ₜ 1 ; X →ₜ 0 ; ∅) := by
   sorry
 
+--  (End of exercise)
+
 --  What sorts of things might we want to prove using these
 --  definitions? Here are some simple examples...
 
@@ -920,18 +922,13 @@ theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
 --
 --  The instruction set for our stack language will consist
 --  of the following instructions:
---
 --  - `sPush n`: Push the number `n` on the stack.
---
 --  - `sLoad x`: Load the identifier `x` from the store and
 --    push it on the stack
---
 --  - `sPlus`: Pop the two top numbers from the stack, add
 --    them, and push the result onto the stack.
---
 --  - `sMinus`: Similar, but subtract the first number from
 --    the second.
---
 --  - `sMult`: Similar, but multiply.
 
 namespace StackCompiler
@@ -1164,23 +1161,18 @@ open Result
 --  very similar to the one we gave above for the regular
 --  evaluation relation (`st =[ c ]=> st'`) -- we just need
 --  to handle the termination signals appropriately:
---
 --  - If the command is `skip`, then the state doesn't
 --    change and execution of any enclosing loop can
 --    continue normally.
---
 --  - If the command is `brk`, the state stays unchanged but
 --    we signal a `sBreak`.
---
 --  - If the command is an assignment, then we update the
 --    binding for that variable in the state accordingly and
 --    signal that execution can continue normally.
---
 --  - If the command is of the form `if (b) {c₁} {c₂}`, then
 --    the state is updated as in the original semantics of
 --    Imp, except that we also propagate the signal from the
 --    execution of whichever branch was taken.
---
 --  - If the command is a sequence `c₁ ; c₂`, we first
 --    execute `c₁`. If this yields a `sBreak`, we skip the
 --    execution of `c₂` and propagate the `sBreak` signal to
@@ -1189,7 +1181,6 @@ open Result
 --    Otherwise, we execute `c₂` on the state obtained after
 --    executing `c₁`, and propagate the signal generated
 --    there.
---
 --  - Finally, for a loop of the form `while (b) {c}`, the
 --    semantics is almost the same as before. The only
 --    difference is that, when `b` evaluates to `true`, we
@@ -1255,6 +1246,8 @@ theorem ceval_deterministic (c : Com) (st st₁ st₂ : State) (s₁ s₂ : Resu
   st₁ = st₂ ∧ s₁ = s₂ := by
   sorry
 
+--  (End of exercise)
+
 end Imp.Break
 
 --  ### Exercise (4 stars): add_for_loop (Optional) ⭐⭐⭐⭐
@@ -1273,4 +1266,4 @@ end Imp.Break
 --  making up a concrete Notation for `for` loops, but feel
 --  free to play with this too if you like.)
 
--- Built on 2026-09-07 17:55 UTC
+-- Built on 2026-09-10 16:22 UTC

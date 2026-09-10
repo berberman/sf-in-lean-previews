@@ -22,7 +22,7 @@ open scoped MyGetElem
 --  identify the possible *canonical forms* (i.e., well-typed values)
 --  belonging to each type. For `Bool`, these are again the boolean values
 --  `true` and `false`; for arrow types, they are lambda-abstractions.
-
+--
 --  Formally, we will need these lemmas only for terms that are not only
 --  well typed but *closed* — i.e., well typed in the empty context.
 
@@ -49,43 +49,33 @@ theorem canonical_forms_fun (t : Tm) (T₁ T₂ : Ty)
 --  step. The proof is a relatively straightforward extension of the
 --  progress proof we saw in the Types chapter. We give the proof in
 --  English first, then the formal version.
-
---  *Proof*: By induction on the derivation of `⊢ t ⦂ T`.
 --
+--  *Proof*: By induction on the derivation of `⊢ t ⦂ T`.
 --  - The last rule of the derivation cannot be `HasType.var`, since a
 --    variable is never well typed in an empty context.
---
 --  - The `HasType.tru`, `HasType.fls`, and `HasType.abs` cases are
 --    trivial, since in each of these cases we can see by inspecting the
 --    rule that `t` is a value.
---
 --  - If the last rule of the derivation is `HasType.app`, then `t` has the
 --    form `t₁ t₂` for some `t₁` and `t₂`, where `⊢ t₁ ⦂ T₂ → T` and
 --    `⊢ t₂ ⦂ T₂` for some type `T₂`. The induction hypothesis for the
 --    first subderivation says that either `t₁` is a value or else it can
 --    take a reduction step.
---
 --    - If `t₁` is a value, then consider `t₂`, which by the induction
 --      hypothesis for the second subderivation must also either be a value
 --      or take a step.
---
 --      - Suppose `t₂` is a value. Since `t₁` is a value with an arrow
 --        type, it must be a lambda abstraction; hence `t₁ t₂` can take a
 --        step by `Step.appAbs`.
---
 --      - Otherwise, `t₂` can take a step, and hence so can `t₁ t₂` by
 --        `Step.app2`.
---
 --    - If `t₁` can take a step, then so can `t₁ t₂` by `Step.app1`.
---
 --  - If the last rule of the derivation is `HasType.ite`, then
 --    `t = if t₁ then t₂ else t₃`, where `t₁` has type `Bool`. The first IH
 --    says that `t₁` either is a value or takes a step.
---
 --    - If `t₁` is a value, then since it has type `Bool` it must be either
 --      `true` or `false`. If it is `true`, then `t` steps to `t₂`;
 --      otherwise it steps to `t₃`.
---
 --    - Otherwise, `t₁` takes a step, and therefore so does `t` (by
 --      `Step.ifStep`).
 
@@ -158,7 +148,6 @@ theorem progress' (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --  actually interested in to the lowest-level technical lemmas that are
 --  needed by various cases of the more interesting proofs), the story goes
 --  like this:
---
 --  - The *preservation theorem* is proved by induction on a typing
 --    derivation and case analysis on the step relation, pretty much as we
 --    did in the Types chapter. The one case that is significantly
@@ -166,7 +155,6 @@ theorem progress' (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --    uses the substitution operation. To see that this step preserves
 --    typing, we need to know that the substitution itself does. So we
 --    prove a...
---
 --  - *substitution lemma*, stating that substituting a (closed,
 --    well-typed) term `s` for a variable `x` in a term `t` preserves the
 --    type of `t`. The proof goes by induction on the form of `t` and
@@ -175,7 +163,6 @@ theorem progress' (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --    need to deduce from the fact that a term `s` has type S in the empty
 --    context the fact that `s` has type S in every context. For this we
 --    prove a...
---
 --  - *weakening* lemma, showing that typing is preserved under
 --    "extensions" to the context `Γ`.
 --
@@ -231,7 +218,7 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t �
 --  Now we come to the conceptual heart of the proof that reduction
 --  preserves types — namely, the observation that *substitution* preserves
 --  types.
-
+--
 --  Formally, the so-called *substitution lemma* says this: Suppose we have
 --  a term `t` with a free variable `x`, and suppose we've assigned a type
 --  `T` to `t` under the assumption that `x` has some type `U`. Also,
@@ -291,15 +278,12 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
 --
 --  *Proof*: We show, by induction on `t`, that for all `T` and `Γ`, if
 --  `x ↦ U; Γ ⊢ t ⦂ T` and `⊢ v ⦂ U`, then `Γ ⊢ [x:=v]t ⦂ T`.
---
 --  - If `t` is a variable there are two cases to consider, depending on
 --    whether `t` is `x` or some other variable.
---
 --    - If `t = x`, then from the fact that `x ↦ U; Γ ⊢ x ⦂ T` we conclude
 --      that `U = T`. We must show that `[x:=v]x = v` has type `T` under
 --      `Γ`, given the assumption that `v` has type `U = T` under the empty
 --      context. This follows from the weakening lemma.
---
 --    - If `t` is some variable `y` that is not equal to `x`, then we need
 --      only note that `y` has the same type under `x ↦ U; Γ` as under `Γ`.
 --
@@ -327,7 +311,7 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
 --    induction hypotheses.
 --
 --  - The remaining cases are similar to the application case.
-
+--
 --  One technical subtlety in the statement of the above lemma is that we
 --  assume `v` has type `U` in the *empty* context — in other words, we
 --  assume `v` is closed. (Since we are using a simple definition of
@@ -380,7 +364,6 @@ theorem preservation (t t' : Tm) (T : Ty)
     | ifStep _ t₁' _ _ h => exact .ite _ _ _ _ _ (ih₁ t₁' h rfl) h₂ h₃
 
 --  *Proof*: By induction on the derivation of `⊢ t ⦂ T`.
---
 --  - We can immediately rule out `HasType.var`, `HasType.abs`,
 --    `HasType.tru`, and `HasType.fls` as final rules in the derivation,
 --    since in each of these cases `t` cannot take a step.
@@ -391,13 +374,10 @@ theorem preservation (t t' : Tm) (T : Ty)
 --    `⊢ t₁' ⦂ T₂→T` and (2) `t₂ ⟶ t₂'` implies `⊢ t₂' ⦂ T₂`. There are now
 --    three subcases to consider, one for each rule that could be used to
 --    show that `t₁ t₂` takes a step to `t'`.
---
 --    - If `t₁ t₂` takes a step by `Step.app1`, with `t₁` stepping to
 --      `t₁'`, then, by the first IH, `t₁'` has the same type as `t₁`
 --      (`⊢ t₁' ⦂ T₂→T`), and hence by `HasType.app` `t₁' t₂` has type `T`.
---
 --    - The `Step.app2` case is similar, using the second IH.
---
 --    - If `t₁ t₂` takes a step by `Step.appAbs`, then `t₁ = λx:T₀. t₀` and
 --      `t₁ t₂` steps to `[x0:=t₂]t₀`; the desired result now follows from
 --      the substitution lemma.
@@ -410,11 +390,9 @@ theorem preservation (t t' : Tm) (T : Ty)
 --
 --    There are again three subcases to consider, depending on how `t`
 --    steps.
---
 --    - If `t` steps to `t₂` or `t₃` by `Step.ifTrue` or `Step.ifFalse`,
 --      the result is immediate, since `t₂` and `t₃` have the same type as
 --      `t`.
---
 --    - Otherwise, `t` steps by `Step.ifStep`, and the desired conclusion
 --      follows directly from the first induction hypothesis.
 
@@ -475,7 +453,6 @@ theorem unique_types (Γ : Context) (e : Tm) (T T' : Ty)
 --  More technically, a variable `x` *appears free in* a term *t* if `t`
 --  contains some occurrence of `x` that is not under an abstraction
 --  labeled `x`. For example:
---
 --  - `y` appears free, but `x` does not, in `λx:T→U. x y`
 --  - both `x` and `y` appear free in `(λx:T→U. x y) x`
 --  - no variables appear free in `λx:T→U. λy:T. x y`
@@ -522,6 +499,8 @@ def Tm.Closed (t : Tm) : Prop := ∀ x, ¬ x ∈ᶠ t
 --  understanding it is crucial to understanding substitution and its
 --  properties, which are really the crux of the lambda-calculus.
 
+--  (End of exercise)
+
 --  Next, we show that if a variable `x` appears free in a term `t`, and if
 --  we know `t` is well typed in context `Γ`, then it must be the case that
 --  `Γ` assigns a type to `x`.
@@ -534,21 +513,17 @@ theorem free_in_context (x : String) (t : Tm) (T : Ty) (Γ : Context)
 --  *Proof*: We show, by induction on the proof that `x` appears free in
 --  `t`, that, for all contexts `Γ`, if `t` is well typed under `Γ`, then
 --  `Γ` assigns some type to `x`.
---
 --  - If the last rule used is `AppearsFreeIn.var`, then `t = x`, and from
 --    the assumption that `t` is well typed under `Γ` we have immediately
 --    that `Γ` assigns a type to `x`.
---
 --  - If the last rule used is `AppearsFreeIn.app1`, then `t = t₁ t₂` and
 --    `x` appears free in `t₁`. Since `t` is well typed under `Γ`, we can
 --    see from the typing rules that `t₁` must also be, and the IH then
 --    tells us that `Γ` assigns `x` a type.
---
 --  - Almost all the other cases are similar: `x` appears free in a subterm
 --    of `t`, and since `t` is well typed under `Γ`, we know the subterm of
 --    `t` in which `x` appears is well typed under `Γ` as well, and the IH
 --    gives us exactly the conclusion we want.
---
 --  - The only remaining case is `AppearsFreeIn.abs`. In this case
 --    `t = λy:T₁. t₁` and `x` appears free in `t₁`, and we also know that
 --    `x` is different from `y`. The difference from the previous cases is
@@ -563,6 +538,8 @@ theorem free_in_context (x : String) (t : Tm) (T : Ty) (Γ : Context)
 
 --  Complete the following proof.
 
+--  (End of exercise)
+
 --  From the `free_in_context` lemma, it immediately follows that any term
 --  `t` that is well typed in the empty context is closed (it has no free
 --  variables).
@@ -571,6 +548,8 @@ theorem free_in_context (x : String) (t : Tm) (T : Ty) (Γ : Context)
 
 theorem typable_empty_closed (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) : t.Closed := by
   sorry
+
+--  (End of exercise)
 
 --  Finally, we establish *context invariance*. It is useful in cases when
 --  we have a proof of some typing relation `Γ ⊢ t ⦂ T`, and we need to
@@ -586,7 +565,6 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
   sorry
 
 --  *Proof*: By induction on the derivation of `Γ ⊢ t ⦂ T`.
---
 --  - If the last rule in the derivation was `HasType.var`, then `t = x`
 --    and `Γ x = T`. By assumption, `Γ' x = T` as well, and hence
 --    `Γ' ⊢ t ⦂ T` by `HasType.var`.
@@ -626,6 +604,8 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 
 --  Complete the following proof.
 
+--  (End of exercise)
+
 --  The context invariance lemma can actually be used in place of the
 --  weakening lemma to prove the crucial substitution lemma stated earlier.
 
@@ -653,7 +633,6 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --  Which of the following properties of the STLC remain true in the
 --  presence of these rules? For each property, write either "remains true"
 --  or "becomes false." If a property becomes false, give a counterexample.
---
 --  - Determinism of `step`
 --
 --  - Progress
@@ -675,7 +654,6 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---
 --  - Determinism of `step`
 --
 --  - Progress
@@ -689,7 +667,6 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --  the presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---
 --  - Determinism of `step`
 --
 --  - Progress
@@ -708,7 +685,6 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---
 --  - Determinism of `step`
 --
 --  - Progress
@@ -729,7 +705,6 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---
 --  - Determinism of `step`
 --
 --  - Progress
@@ -750,7 +725,6 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---
 --  - Determinism of `step`
 --
 --  - Progress
@@ -769,12 +743,13 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---
 --  - Determinism of `step`
 --
 --  - Progress
 --
 --  - Preservation
+
+--  (End of exercise)
 
 end Stlc
 
@@ -1221,6 +1196,8 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
     t.IsValue ∨ ∃ t', t ⟶ t' := by
   sorry
 
+--  (End of exercise)
+
 end StlcArith
 
--- Built on 2026-09-07 17:55 UTC
+-- Built on 2026-09-10 16:23 UTC

@@ -123,7 +123,7 @@ def mylist2 : NatList := 1 :: 2 :: 3 :: []
 def mylist3 : NatList := [1, 2, 3]
 
 --  Some useful list-manipulation functions...
-
+--
 --  Let's define some functions on lists.
 
 def replicate (n count : Nat) : NatList :=
@@ -250,19 +250,17 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 
 --  For comparison, here is an informal proof of the same
 --  theorem.
-
+--
 --  *Theorem*: For all lists `l₁`, `l₂`, and `l₃`,
 --
 --      (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
 --
 --  *Proof*: By induction on `l₁`.
---
 --  - First, suppose `l₁ = []`. We must show
 --
 --      ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
 --
 --  which follows directly from the definition of `append`.
---
 --  - Next, suppose `l₁ = n :: l₁'`, which gives us the
 --    following inductive hypothesis.
 --
@@ -519,6 +517,8 @@ def MyId.beq (x₁ x₂ : MyId) : Bool :=
 theorem MyId.beq_refl (x : MyId) : MyId.beq x x = true := by
   sorry
 
+--  (End of exercise)
+
 --  Now we define the type of partial maps:
 
 inductive PartialMap : Type where
@@ -576,4 +576,4 @@ end PartialMap
 
 end Lists
 
--- Built on 2026-09-07 17:53 UTC
+-- Built on 2026-09-10 16:21 UTC

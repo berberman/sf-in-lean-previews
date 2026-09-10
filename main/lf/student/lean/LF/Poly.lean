@@ -31,7 +31,7 @@ inductive BoolList : Type where
 --  manipulating functions (`length`, `++`, `reverse`, etc.) and all their
 --  properties (`length_reverse`, `append_assoc`, etc.) for each new
 --  definition.
-
+--
 --  To avoid this repetition, we can make the element type itself an
 --  *argument* to the definition. Lean calls such definitions
 --  *polymorphic*. Here is a polymorphic list type:
@@ -187,7 +187,7 @@ example : replicate Bool false 1 = .cons false .nil := by rfl
 --  notation `[]` for `List.nil`, `::` for `List.cons`, and `[1, 2, 3]` for
 --  list literals. The `++` operator is list append. The type arguments to
 --  the list constructors are implicit.
-
+--
 --  Using Lean's built-in list notations, we can now write lists in the
 --  natural way:
 
@@ -390,7 +390,6 @@ inductive Grumble (α : Type) : Type where
 
 --  Which of the following are well-typed elements of `Grumble α` for some
 --  type `α`? (Add YES or NO to each line.)
---
 --  - `Grumble.d (Mumble.b Mumble.a 5)`
 --  - `@Grumble.d Mumble (Mumble.b Mumble.a 5)`
 --  - `@Grumble.d Bool (Mumble.b Mumble.a 5)`
@@ -489,12 +488,12 @@ example : (3, 5).2 = 5 := by rfl
 --
 --  The `dsimp only` tactic can be used to simplify `(x, y).fst` into `x`
 --  and `(x, y).snd` into `y`.
-
+--
 --  It is easy at first to get `(x, y)` and `α × β` confused. Remember that
 --  `(x, y)` is a *value* built from two other values, while `α × β` is a
 --  *type* built from two other types. If `x` has type `α` and `y` has type
 --  `β`, then `(x, y)` has type `α × β`.
-
+--
 --  The following function takes two lists and combines them into a list of
 --  pairs.
 
@@ -525,7 +524,6 @@ theorem zip_cons_cons {α β : Type} {x : α} {y : β} {l₁ : List α} {l₂ : 
 
 --  Try answering the following questions on paper and checking your
 --  answers in Lean:
---
 --  - What is the type of `zip` (i.e., what does `#check @zip` print?)
 --
 --  - What does
@@ -582,11 +580,14 @@ def nth? {α : Type} (l : List α) (n : Nat) : Option α :=
     | 0 => some x
     | n' + 1 => nth? l' n'
 
-theorem nth?_nil {α : Type} {n : Nat} : nth? ([] : List α) n = none := by rfl
+theorem nth?_nil {α : Type} {n : Nat} :
+  nth? ([] : List α) n = none := by rfl
 
-theorem nth?_cons_zero {α : Type} {x : α} {l' : List α} : nth? (x :: l') 0 = some x := by rfl
+theorem nth?_cons_zero {α : Type} {x : α} {l' : List α} :
+  nth? (x :: l') 0 = some x := by rfl
 
-theorem nth?_cons_succ {α : Type} {x : α} {l' : List α} {n : Nat} : nth? (x :: l') (n + 1) = nth? l' n := by rfl
+theorem nth?_cons_succ {α : Type} {x : α} {l' : List α} {n : Nat} :
+  nth? (x :: l') (n + 1) = nth? l' n := by rfl
 
 example : nth? [4, 5, 6, 7] 0 = some 4 := by rfl
 example : nth? [[1], [2]] 1 = some [2] := by rfl
@@ -671,12 +672,12 @@ theorem filter_nil {α : Type} {test : α → Bool} :
 theorem filter_cons_of_pos {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = true) :
     filter test (x :: l) = x :: filter test l := by
-  rw [filter, h, cond_true]
+  rw [filter, h, Bool.cond_true]
 
 theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
     {l : List α} (h : test x = false) :
     filter test (x :: l) = filter test l := by
-   rw [filter, h, cond_false]
+   rw [filter, h, Bool.cond_false]
 
 --  You might have noticed that `filter_cons_of_pos` and
 --  `filter_cons_of_neg` have implicit parameters, such as `x` and `l`,
@@ -701,7 +702,7 @@ theorem filter_cons_of_neg {α : Type} {test : α → Bool} {x : α}
 --  `Nat.even 3 = true` that way. It's a general proof obligation.
 --
 --  We'll follow the Lean standard convention from now on.
-
+--
 --  We can use `filter` to give a concise version of the `countOddMembers`
 --  function from the Lists chapter.
 
@@ -723,7 +724,6 @@ example : countOddMembers [] = 0 := by rfl
 --  Fortunately, there is a better way. We can construct a function "on the
 --  fly" without declaring it at the top level or giving it a name. Lean
 --  provides two syntaxes for anonymous functions:
---
 --  - `fun n => n * n` — traditional lambda syntax
 --  - `(· * ·)` — "term with holes" syntax, where `·` marks arguments
 
@@ -859,6 +859,8 @@ def flatMap {α β : Type} (f : α → List β) (l : List α) : List β := sorry
 theorem test_flatMap : flatMap (fun n => [n, n, n]) [1, 5, 4]
   = [1, 1, 1, 5, 5, 5, 4, 4, 4] := sorry
 
+--  (End of exercise)
+
 theorem flatMap_nil {α : Type} {β : Type} (f : α → List β) : flatMap f [] = [] :=
    sorry
 
@@ -913,10 +915,11 @@ example : fold (· ++ ·) [[1], [], [2, 3], [4]] [] = [1, 2, 3, 4] := by rfl
 
 example : fold (fun l n => l.length + n) [[1], [], [2, 3, 2], [4]] 0 = 5 := by rfl
 
-theorem fold_nil {α : Type} {β : Type} {f : α → β → β} {b : β} : fold f [] b = b := by rfl
+theorem fold_nil {α β : Type} {f : α → β → β} {b : β} :
+  fold f [] b = b := by rfl
 
-theorem fold_cons {α : Type} {β : Type} {f : α → β → β} {a : α} {l : List α} {b : β} :
-    fold f (a :: l) b = f a (fold f l b) := by rfl
+theorem fold_cons {α β : Type} {f : α → β → β} {a : α} {l : List α} {b : β} :
+  fold f (a :: l) b = f a (fold f l b) := by rfl
 
 --   ----------------------------------------
 
@@ -1018,7 +1021,6 @@ def fold_plus : List Nat → Nat → Nat :=
 --
 --  We can think of `fold` not as a three-argument function, but as a
 --  one-argument function that:
---
 --  1. Takes an argument `f` of type `α → β → β`
 --  2. Returns a function of type `List α → β → β` that "remembers" `f`
 --
@@ -1273,6 +1275,8 @@ theorem exp_1 : exp two two = plus two two := sorry
 theorem exp_2 : exp three zero = one := sorry
 theorem exp_3 : exp three two = plus (mult two (mult two two)) one := sorry
 
+--  (End of exercise)
+
 end Church
 
--- Built on 2026-09-07 17:53 UTC
+-- Built on 2026-09-10 16:20 UTC

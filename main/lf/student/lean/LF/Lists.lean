@@ -108,7 +108,7 @@ sf_expect_failure_in
 --  several separate cases into a single match arm. This means the
 --  simplification rules we define for such a function may not always match
 --  one-to-one with the cases of its match construct.
-
+--
 --  A property like `p = ⟨p.fst, p.snd⟩` can be proved by exposing the
 --  structure of the pair, either with `cases` or by destructuring in
 --  `intro`.
@@ -500,6 +500,8 @@ theorem test_count1 : count 1 [1, 1, 4] = 2 := sorry
 
 theorem test_count2 : count 5 [1, 1, 4] = 0 := sorry
 
+--  (End of exercise)
+
 --  Again, all these proofs could be completed with just `rfl`, because the
 --  proof is computationally straightforward — compute both sides of the
 --  equality and check whether they are the same.
@@ -536,7 +538,7 @@ theorem test_member2 : member 2 [1, 4, 1] = false := sorry
 
 --  ### Removal
 
---  ### Exercise (3 stars): removing (Optional) ⭐⭐⭐
+--  ### Exercise (3 stars): removeOne ⭐⭐⭐
 
 --  Here are some more `NatList` functions for you to practice with.
 --
@@ -566,6 +568,8 @@ example : count 5 (removeOne 5 [1, 5, 4]) = 0 := sorry
 theorem test_removeOne1 : count 4 (removeOne 5 [4, 5, 1, 4]) = 2 := sorry
 
 theorem test_removeOne2 : count 5 (removeOne 5 [1, 5, 5, 4]) = 1 := sorry
+
+--  ### Exercise (3 stars): removeAll (Optional) ⭐⭐⭐
 
 def removeAll (n : Nat) (l : NatList) : NatList := sorry
 
@@ -641,10 +645,10 @@ theorem tail_length_pred (l : NatList) :
 --  and `l'`, corresponding to the fact that the `cons` constructor for
 --  lists takes two arguments (the head and tail of the list it is
 --  constructing).
-
+--
 --  Usually, though, interesting theorems about lists require induction for
 --  their proofs. We'll see how to do this next.
-
+--
 --  (Micro-Sermon: As we get deeper into this material, simply *reading*
 --  proof scripts will not help you very much. Rather, it is important to
 --  step through the details of each one using Lean and think about what
@@ -670,9 +674,7 @@ theorem tail_length_pred (l : NatList) :
 --  Thus, if we have in mind some proposition `P` that mentions a list `l`
 --  and we want to argue that `P` holds for *all* lists, we can reason as
 --  follows:
---
 --  - First, show that `P` is true of `l` when `l` is `[]`.
---
 --  - Then show that `P` is true of `l` when `l` is `n :: l'` for some
 --    number `n` and some smaller list `l'`, assuming that `P` is true for
 --    `l'`.
@@ -696,13 +698,11 @@ theorem append_assoc (l₁ l₂ l₃ : NatList) :
 --      (l₁ ++ l₂) ++ l₃ = l₁ ++ (l₂ ++ l₃).
 --
 --  *Proof*: By induction on `l₁`.
---
 --  - First, suppose `l₁ = []`. We must show
 --
 --      ([] ++ l₂) ++ l₃ = [] ++ (l₂ ++ l₃),
 --
 --  which follows directly from the definition of `append`.
---
 --  - Next, suppose `l₁ = n :: l₁'`, which gives us the following inductive
 --    hypothesis.
 --
@@ -862,13 +862,11 @@ theorem length_append (l₁ l₂ : NatList) :
 --      (l₁ ++ l₂).length = l₁.length + l₂.length.
 --
 --  *Proof*: By induction on `l₁`.
---
 --  - First, suppose `l₁ = []`. We must show
 --
 --      ([] ++ l₂).length = [].length + l₂.length,
 --
 --  which follows directly from the definitions of `length`, `++`, and `+`.
---
 --  - Next, suppose `l₁ = n :: l₁'`, with
 --
 --      (l₁' ++ l₂).length = l₁'.length + l₂.length
@@ -883,13 +881,11 @@ theorem length_append (l₁ l₂ : NatList) :
 --  *Theorem*: For all lists `l`, `l.reverse.length = l.length`.
 --
 --  *Proof*: By induction on `l`.
---
 --  - First, suppose `l = []`. We must show
 --
 --      [].reverse.length = [].length,
 --
 --  which follows directly from the definitions of `length` and `reverse`.
---
 --  - Next, suppose `l = n :: l'`, with
 --
 --      l'.reverse.length = l'.length
@@ -1005,6 +1001,8 @@ theorem count_member_nonZero (l : NatList) :
     Nat.ble 1 (count 1 (1 :: l)) = true := by
   sorry
 
+--  (End of exercise)
+
 --  The following lemma about `Nat.ble` might help you in the next exercise
 --  (it will also be useful in later chapters).
 
@@ -1013,9 +1011,6 @@ theorem ble_self_succ (n : Nat) :
   induction n with
   | zero       => rfl
   | succ n' ih => rw [Nat.ble]; exact ih
-
---  Before doing the next exercise, make sure you've filled in the
---  definition of `removeOne` above.
 
 --  ### Exercise (3 stars): remove_does_not_increase_count (Advanced) ⭐⭐⭐
 
@@ -1127,6 +1122,8 @@ theorem option_elim_head? (l : NatList) (default : Nat) :
     head default l = NatOption.elim default (head? l) := by
   sorry
 
+--  (End of exercise)
+
 end NatList
 
 --  ## Partial Maps
@@ -1154,6 +1151,8 @@ def MyId.beq (x₁ x₂ : MyId) : Bool :=
 
 theorem MyId.beq_refl (x : MyId) : MyId.beq x x = true := by
   sorry
+
+--  (End of exercise)
 
 --  Now we define the type of partial maps:
 
@@ -1227,8 +1226,10 @@ theorem update_neq (d : PartialMap) (x y : MyId) (o : Nat) :
     MyId.beq x y = false → find x (update d y o) = find x d := by
   sorry
 
+--  (End of exercise)
+
 end PartialMap
 
 end Lists
 
--- Built on 2026-09-07 17:53 UTC
+-- Built on 2026-09-10 16:20 UTC

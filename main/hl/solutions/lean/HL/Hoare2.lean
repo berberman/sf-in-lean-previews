@@ -9,7 +9,6 @@ open scoped Com MyGetElem Assertion HasTriple
 --  Note to developers (before next release):
 --      BCP 23,25: There are a lot of questions about the flow of this
 --      material. Needs a deep look. In particular:
---
 --      - One feels that it takes a rather circuitous route to get to
 --        formal decorated programs -- there might be a way to just go
 --        straight there. More importantly, it isn't very clear to me that
@@ -19,7 +18,6 @@ open scoped Com MyGetElem Assertion HasTriple
 --        programs with a lighter annotation burden (as in the exercise at
 --        the end) and just add optional annotations when we want to, to
 --        make particular examples clearer.
---
 --      - The rigidity of the Hoare rules as stated in the last chapter is
 --        also annoying here at many points. Building the rules of
 --        consequence into all the other rules might make a lot of things
@@ -31,7 +29,6 @@ open scoped Com MyGetElem Assertion HasTriple
 --  Note to developers (Michael Clarkson @clarksmr, before next release, 2020):
 --      Here are a bunch of improvements I wanted to make but didn't have
 --      time to get to. Maybe next time if no one else gets to them first.
---
 --      - 1. This chapter feels largely disconnected from the style of the
 --           rest of the series, which is "100% Rocq script". There's a
 --           significant amount of "just comments" here instead. I think we
@@ -43,7 +40,6 @@ open scoped Com MyGetElem Assertion HasTriple
 --           formal so far to the end. The `parity` exercise is a good
 --           example of one that already almost does this already. (BCP 21:
 --           Done!)
---
 --      - 2. There are several places where we are verifying Imp program
 --           schemas, not actual programs. We're mixing Rocq variables with
 --           Imp variables. That's confusing. One example is `two_loops`;
@@ -51,12 +47,10 @@ open scoped Com MyGetElem Assertion HasTriple
 --           added some quizzes and such to try to clarify the relation
 --           between programs / triples and program/triple schemas. BCP 25:
 --           I think this is a non-issue now.)
---
 --      - 3. Weakest preconditions show up in this chapter as completely
 --           optional, then are revisited (and required) in HoareAsLogic.
 --           Consider moving the entire treatment to that chapter. (BCP 23:
 --           Yes, we should do that!)
---
 --      - 4. It seems a shame that the SparseAnnotations section is not
 --           visible in the full version, but only in a solution. It's
 --           fantastic! It would be great to show it off. (BCP 25: Yes!
@@ -155,10 +149,10 @@ open scoped Com MyGetElem Assertion HasTriple
 --        X := X - 1
 --      end
 --      {{ Z = p - m }}
-
+--
 --  (Note the *parameters* `m` and `p`, which stand for fixed-but-arbitrary
 --  numbers. Formally, they are simply Lean variables of type `Nat`.)
-
+--
 --  Here is a decorated version of this program, embodying a proof of this
 --  specification:
 --
@@ -214,7 +208,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --  the Hoare Logic rules, and the structure of the program itself shows
 --  how to assemble all these individual steps into a proof for the whole
 --  program.
-
+--
 --  Our goal is to verify such decorated programs "mostly automatically."
 --  But, before we can verify anything, we need to be able to *find* a
 --  proof for a given specification, and for this we need to discover the
@@ -237,7 +231,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --
 --  We can give a proof, in the form of decorations, that this program is
 --  correct — i.e., it really swaps `X` and `Y` — as follows.
-
+--
 --      (1)    {{ X = m /\ Y = n }} ->>
 --      (2)    {{ (X + Y) - ((X + Y) - Y) = n /\ (X + Y) - Y = m }}
 --               X := X + Y
@@ -248,28 +242,23 @@ open scoped Com MyGetElem Assertion HasTriple
 --      (5)    {{ X = n /\ Y = m }}
 --
 --  The decorations can be constructed as follows:
---
 --  - We begin with the undecorated program (the unnumbered lines).
---
 --  - We add the specification — i.e., the outer precondition (1) and
 --    postcondition (5). In the precondition, we use parameters `m` and `n`
 --    to remember the initial values of variables `X` and `Y` so that we
 --    can refer to them in the postcondition (5).
---
 --  - We work backwards, mechanically, starting from (5) and proceeding
 --    until we get to (2). At each step, we obtain the precondition of the
 --    assignment from its postcondition by substituting the assigned
 --    variable with the right-hand-side of the assignment. For instance, we
 --    obtain (4) by substituting `X` with `X - Y` in (5), and we obtain (3)
 --    by substituting `Y` with `X - Y` in (4).
---
 --  - Finally, we verify that (1) logically implies (2) — i.e., that the
 --    step from (1) to (2) is a valid use of the law of consequence — by
 --    doing a bit of high-school algebra.
 
 --  Note to developers:
 --      HIDE: BCP 21: This side comment seems too technical:
---
 --      - (Note that we are working with natural numbers rather than
 --        fixed-width machine integers, so we don't need to worry about the
 --        possibility of arithmetic overflow anywhere in this argument.
@@ -297,17 +286,13 @@ open scoped Com MyGetElem Assertion HasTriple
 --      (8)   {{ Z + X = Y \/ Z + Y = X }}
 --
 --  These decorations can be constructed as follows:
---
 --  - We start with the outer precondition (1) and postcondition (8).
---
 --  - Following the format dictated by the `hoare_if` rule, we copy the
 --    postcondition (8) to (4) and (7). We conjoin the precondition (1)
 --    with the guard of the conditional to obtain (2). We conjoin (1) with
 --    the negated guard of the conditional to obtain (5).
---
 --  - In order to use the assignment rule and obtain (3), we substitute `Z`
 --    by `Y - X` in (4). To obtain (6) we substitute `Z` by `X - Y` in (7).
---
 --  - Finally, we verify that (2) implies (3) and (5) implies (6). Both of
 --    these implications crucially depend on the ordering of `X` and `Y`
 --    obtained from the guard. For instance, knowing that `X <= Y` ensures
@@ -380,19 +365,14 @@ open scoped Com MyGetElem Assertion HasTriple
 --      (6)    {{ X = 0 }}
 --
 --  The decorations can be constructed as follows:
---
 --  - Start with the outer precondition (1) and postcondition (6).
---
 --  - Following the format dictated by the `hoare_while` rule, we copy (1)
 --    to (4). We conjoin (1) with the guard to obtain (2). We also conjoin
 --    (1) with the negation of the guard to obtain (5).
---
 --  - Because the final postcondition (6) does not syntactically match (5),
 --    we add an implication between them.
---
 --  - Using the assignment rule with assertion (4), we trivially substitute
 --    and obtain assertion (3).
---
 --  - We add the implication between (2) and (3).
 --
 --  Finally we check that the implications do hold; both are trivial.
@@ -414,7 +394,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --  If we replace `m` and `n` by concrete numbers and execute the program,
 --  it will terminate with the variable `X` set to the remainder when `m`
 --  is divided by `n` and `Y` set to the quotient.
-
+--
 --  In order to give a specification to this program we need to remember
 --  that dividing `m` by `n` produces a remainder `X` and a quotient `Y`
 --  such that `n * Y + X = m /\ X < n`.
@@ -451,14 +431,11 @@ open scoped Com MyGetElem Assertion HasTriple
 --  uses of the consequence rule are correct — i.e., that (1) implies (2),
 --  that (5) implies (6), and that (9) implies (10). This is indeed the
 --  case:
---
 --  - (1) ->> (2): trivial, by algebra.
---
 --  - (5) ->> (6): because `n <= X`, we are guaranteed that the subtraction
 --    in (6) does not get zero-truncated. We can therefore rewrite (6) as
 --    `n * Y + n + X - n` and cancel the `n`s, which results in the left
 --    conjunct of (5).
---
 --  - (9) ->> (10): if `~ (n <= X)` then `X < n`. That's straightforward
 --    from high-school algebra. So, we have a valid decorated program.
 
@@ -468,12 +445,12 @@ open scoped Com MyGetElem Assertion HasTriple
 --  in principle" to read off a formal proof using the Lean theorems
 --  corresponding to the Hoare Logic rules, but these proofs can be a bit
 --  long and fiddly.
-
+--
 --  Note that we do *not* unfold the definition of `ValidHoareTriple`
 --  anywhere in this proof: the point of the game we're playing now is to
 --  use the Hoare rules as a self-contained logic for reasoning about
 --  programs.
-
+--
 --  For example...
 
 def reduceToZero : Com :=
@@ -575,7 +552,6 @@ end DComFirstTry
 --
 --  Instead, our formal syntax of decorated commands will omit
 --  preconditions whenever possible and embed just postconditions.
---
 --  - The `skip` command, for example, is decorated only with its
 --    postcondition
 --
@@ -587,7 +563,6 @@ end DComFirstTry
 --  We carry the same assumption through the other syntactic forms: each
 --  decorated command is assumed to carry its own postcondition within
 --  itself but take its precondition from its context in which it is used.
---
 --  - Sequences `d1 ; d2` need no additional decorations.
 --
 --  Why?
@@ -597,7 +572,6 @@ end DComFirstTry
 --
 --  Similarly, inside `d1` there will also be a postcondition, which
 --  additionally serves as the *precondition* for `d2`.
---
 --  - An assignment `X := a` is decorated only with its postcondition:
 --
 --      X := a {{ Q }}
@@ -620,7 +594,6 @@ end DComFirstTry
 --      while b do {{ P }} d end {{ Q }}
 --
 --  The postcondition embedded in `d` serves as the loop invariant.
---
 --  - Implications `->>` can be added as decorations either for a
 --    precondition...
 --
@@ -941,22 +914,18 @@ example :
 --
 --  It does this by walking over `d` and generating a big conjunction that
 --  includes
---
 --  - local consistency checks for each form of command, plus
---
 --  - uses of `->>` to bridge the gap between the assertions found inside a
 --    decorated command and the assertions imposed by the external
 --    precondition; these uses correspond to applications of the
 --    consequence rule.
 --
 --  *Local consistency* is defined as follows...
---
 --  - The decorated command
 --
 --      skip {{Q}}
 --
 --  is locally consistent with respect to a precondition `P` if `P ->> Q`.
---
 --  - The sequential composition of `d1` and `d2` is locally consistent
 --    with respect to `P` if `d1` is locally consistent with respect to `P`
 --    and `d2` is locally consistent with respect to the postcondition of
@@ -987,7 +956,6 @@ example :
 --  (5) `d1.postcondition ->> Q`
 --
 --  (6) `d2.postcondition ->> Q`
---
 --  - A loop
 --
 --      while b do {{Q}} d end {{R}}
@@ -1001,7 +969,6 @@ example :
 --  (3) `d.postcondition /\ b ->> R`
 --
 --  (4) `d` is locally consistent with respect to `Q`
---
 --  - A command with an extra assertion at the beginning
 --
 --      ->> {{Q}} d
@@ -1011,7 +978,6 @@ example :
 --  (1) `P ->> Q`
 --
 --  (2) `d` is locally consistent with respect to `Q`
---
 --  - A command with an extra assertion at the end
 --
 --      d ->> {{Q}}
@@ -1228,12 +1194,10 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  creative part of a verifying program using Hoare Logic is finding the
 --  right loop invariants. The reason this is difficult is the same as the
 --  reason that inductive mathematical proofs are:
---
 --  - Strengthening a *loop invariant* means that you have a stronger
 --    assumption to work with when trying to establish the postcondition of
 --    the loop body, but it also means that the loop body's postcondition
 --    is harder to prove.
---
 --  - Similarly, strengthening an *induction hypothesis* means that you
 --    have a stronger assumption to work with when trying to complete the
 --    induction step of the proof, but it also means that the statement
@@ -1278,13 +1242,10 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --
 --  Examining this skeleton, we can see that any valid `Inv` will have to
 --  respect three conditions:
---
 --  - (a) it must be *weak* enough to be implied by the loop's
 --    precondition, i.e., (1) must imply (2);
---
 --  - (b) it must be *strong* enough to imply the program's postcondition,
 --    i.e., (7) must imply (8);
---
 --  - (c) it must be *preserved* by a single iteration of the loop,
 --    assuming that the loop guard also evaluates to true, i.e., (3) must
 --    imply (4).
@@ -2295,6 +2256,8 @@ theorem dpow2_down_correct (n : Nat) :
     (dpow2Dec n).OuterTripleValid := by
   sorry
 
+--  (End of exercise)
+
 --  Note to developers:
 --      `HIDE: Another (very) good exercise from 09-mid2 -- just needs typeset
 --
@@ -2444,6 +2407,8 @@ def dfib (n : Nat) : Decorated where
 theorem dfib_correct (n : Nat) :
     (dfib n).OuterTripleValid := by
   sorry
+
+--  (End of exercise)
 
 --  Note to developers (Benjamin Pierce @bcpierce00, before next release, 2021):
 --      This exercise should really be expanded into its own whole section.
@@ -2956,16 +2921,14 @@ end SparseAnnotations
 --
 --  The assertion `Y <= 4` is called the *weakest precondition* of
 --  `X := Y + 1` with respect to the postcondition `X <= 5`.
-
+--
 --  Assertion `Y <= 4` is a *weakest precondition* of command `X := Y + 1`
 --  with respect to postcondition `X <= 5`. Think of *weakest* here as
 --  meaning "easiest to satisfy": a weakest precondition is one that as
 --  many states as possible can satisfy.
 --
 --  `P` is a weakest precondition of command `c` for postcondition `Q` if
---
 --  - `P` is a precondition, that is, `{{P}} c {{Q}}`; and
---
 --  - `P` is at least as weak as all other preconditions, that is, if
 --    `{{P'}} c {{Q}}` then `P' ->> P`.
 --
@@ -3051,4 +3014,4 @@ theorem hoare_havoc_weakest (P Q : Assertion) (x : Ident)
 
 end Himp2
 
--- Built on 2026-09-07 17:54 UTC
+-- Built on 2026-09-10 16:22 UTC

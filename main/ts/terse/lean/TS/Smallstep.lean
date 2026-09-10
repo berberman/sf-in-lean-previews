@@ -26,13 +26,10 @@ import SFLCompat
 --  ⟶ 16
 
 --  Advantages of the small-step style include:
---
 --  - Finer-grained "abstract machine", closer to real
 --    implementations.
---
 --  - Extends smoothly to concurrent languages and languages
 --    with other sorts of *computational effects*.
---
 --  - Separates *divergence* (nontermination) from
 --    *stuckness* (run-time error).
 
@@ -94,7 +91,7 @@ scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
 --  is ready to go — the first rule tells how to rewrite it,
 --  the second and third tell where to find it — and
 --  constants do not step to anything.
-
+--
 --  Let's pause and check a couple of examples of reasoning
 --  with the step relation.
 --
@@ -130,6 +127,8 @@ example :
         (.c 2)
         (.c 4))) := by
   sorry
+
+--  (End of exercise)
 
 --   ----------------------------------------
 
@@ -183,18 +182,14 @@ def Relation (X : Type) := X → X → Prop
 --  a derivation of `x ⟶ y₁`. There are several cases,
 --  depending on the last rule used in this derivation and
 --  the last rule in the given derivation of `x ⟶ y₂`.
---
 --  - If both are `plus`, the result is immediate.
---
 --  - The cases when both derivations end with `plusLeft` or
 --    `plusRight` follow by the induction hypothesis.
---
 --  - It cannot happen that one is `plus` and the other is
 --    `plusLeft`/`plusRight`, since this would imply that
 --    `x` has the form `p t₁ t₂` where both `t₁` and `t₂`
 --    are constants (by `plus`) *and* one of `t₁` or `t₂`
 --    has the form `p _`.
---
 --  - Similarly, it cannot happen that one is `plusLeft` and
 --    the other is `plusRight`, since this would imply that
 --    `x` has the form `p t₁ t₂` where `t₁` has both the
@@ -254,18 +249,14 @@ notation:40 t:41 " ⟶ " t':41 => Step t t'
 --  `y₁` and `y₂`, then `y₁` and `y₂` are equal. Consider
 --  the final rules used in the derivations of `x ⟶ y₁` and
 --  `x ⟶ y₂`.
---
 --  - If both are `plus`, the result is immediate.
---
 --  - The cases when both derivations end with `plusLeft` or
 --    `plusRight` follow by the induction hypothesis.
---
 --  - It cannot happen that one is `plus` and the other is
 --    `plusLeft`/`plusRight`, since this would imply that
 --    `x` has the form `p t₁ t₂` where both `t₁` and `t₂`
 --    are constants (by `plus`) *and* one of `t₁` or `t₂`
 --    has the form `p _`.
---
 --  - Similarly, it cannot happen that one is `plusLeft` and
 --    the other is `plusRight`, since this would imply that
 --    `x` has the form `p t₁ t₂` where `t₁` both has the
@@ -384,6 +375,8 @@ theorem value_not_same_as_normal_form :
   apply Exists.intro (.p (.c 0) (.c 0))
   apply And.intro (.funny _ 0)
   sorry
+
+--  (End of exercise)
 
 end Temp1
 
@@ -561,6 +554,8 @@ theorem normal_forms_unique : Deterministic (IsNormalFormOf Step) := by
   obtain ⟨p₂₁, p₂₂⟩ := p₂
   sorry
 
+--  (End of exercise)
+
 --  The `Step` relation is *normalizing* it is deterministic
 --  and always reaches a normal form in a finite number of
 --  steps.
@@ -578,6 +573,8 @@ theorem multistep_congr_1 (t₁ t₁' t₂ : Tm) (h : t₁ ⟶* t₁') : (.p t�
 theorem multistep_congr_2 (v₁ t₂ t₂' : Tm) (hv : IsValue v₁) (h : t₂ ⟶* t₂') :
     (.p v₁ t₂) ⟶* (.p v₁ t₂') := by
   sorry
+
+--  (End of exercise)
 
 theorem step_normalizing : Normalizing Step := by
   intro t
@@ -627,16 +624,13 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 
 --  That is, the multi-step reduction of a term of the form
 --  `p t₁ t₂` proceeds in three phases:
---
 --  - First, we use `plusLeft` some number of times to
 --    reduce `t₁` to a normal form, which must (by
 --    `nf_same_as_value`) be a term of the form `c n₁` for
 --    some `n₁`.
---
 --  - Next, we use `plusRight` some number of times to
 --    reduce `t₂` to a normal form, which must again be a
 --    term of the form `c n₂` for some `n₂`.
---
 --  - Finally, we use `plus` one time to reduce
 --    `p (c n₁) (c n₂)` to `c (n₁ + n₂)`.
 --
@@ -650,6 +644,8 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 --  `multistep_of_eval`. (A paper exercise — there is no
 --  Lean proof to fill in here.)
 
+--  (End of exercise)
+
 --  For the converse, we need one lemma, which establishes a
 --  relation between single-step reduction and big-step
 --  evaluation. A single step preserves the big-step value.
@@ -658,6 +654,8 @@ theorem multistep_of_eval (t : Tm) (n : Nat) (h : t ⇓ n) : t ⟶* .c n := by
 
 theorem eval_of_step (t t' : Tm) (n : Nat) (hs : t ⟶ t') (he : t' ⇓ n) : t ⇓ n := by
   sorry
+
+--  (End of exercise)
 
 --  The fact that small-step reduction implies big-step
 --  evaluation is now straightforward to prove, once we have
@@ -690,7 +688,7 @@ theorem evalF_eval (t : Tm) (n : Nat) : evalF t = n ↔ t ⇓ n := by
 --  Small-step semantics for the richer `Slang` arithmetic
 --  and boolean expressions. Notations: `⟶a` (arithmetic)
 --  and `⟶b` (boolean).
-
+--
 --  We work in the `Slang` namespace, reusing the arithmetic
 --  and boolean expression syntax (`Aexp`, `Bexp`) and the
 --  big-step evaluator (`Aexp.eval`) from the `Slang`
@@ -785,14 +783,10 @@ example :
 
 --  Which of these properties does this small-step semantics
 --  for `Slang` expressions satisfy? (Yes or No for each.)
---
 --  - determinism
---
 --  - strong progress (every non-value takes a step)
---
 --  - values and normal forms coincide (i.e., there are no
 --    "stuck" terms)
---
 --  - the step relation is normalizing (i.e., evaluation
 --    always terminates)
 
@@ -863,6 +857,8 @@ theorem anstep_not_deterministic : ¬ Deterministic ANStep := by
 
 theorem anstep_preserves_eval (a a' : Aexp) (h : a ⟶n a') : a.eval = a'.eval := by
   sorry
+
+--  (End of exercise)
 
 --  This lifts to any number of steps by a routine induction
 --  on the multi-step derivation:
@@ -972,6 +968,8 @@ theorem compiler_is_correct (a : Aexp) :
     Multi StackStep (compile a, []) ([], [a.eval]) := by
   sorry
 
+--  (End of exercise)
+
 end Slang
 
 --  ### Automation with `solve_by_elim`
@@ -1051,4 +1049,4 @@ macro_rules
 example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
   normalize using SimpleArith
 
--- Built on 2026-09-07 17:56 UTC
+-- Built on 2026-09-10 16:24 UTC
