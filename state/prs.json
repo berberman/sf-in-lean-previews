@@ -1,5 +1,5 @@
 {
-  "main_sha": "457f3db63c2b099ce88309c1a8bfc5d490dd87d6",
+  "main_sha": "925bd7dbf2b1b22d16cb7a5067479086f6b229ce",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -49,7 +49,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/286"
     },
     "303": {
-      "base_sha": "bb5978b1d631d4f4cebc263fafd2f917112c0b6a",
+      "base_sha": "457f3db63c2b099ce88309c1a8bfc5d490dd87d6",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -88,9 +88,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "70b26c1aea87bd39658fbb7706dff49bd2c44906",
+      "head_sha": "cdfb277e974efbc4bbded8178017cc9ef8e67612",
       "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/33091433151",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34501525671",
       "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
@@ -191,11 +191,48 @@
     },
     "381": {
       "base_sha": "457f3db63c2b099ce88309c1a8bfc5d490dd87d6",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "f274c738e73ab889f1b90663bd00b26db697654d",
       "preview_path": "pr/381/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34500694397",
+      "status": "published",
       "title": "Pass over automation",
       "url": "https://github.com/plclub/sf-in-lean/pull/381"
     },

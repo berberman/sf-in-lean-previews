@@ -2915,6 +2915,24 @@
         "shortTitle": null,
         "number": "3"}]},
      "address": "/Automation/"}],
+   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Palindrome-Revisit":
+   [{"id":
+     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Palindrome-Revisit",
+     "data":
+     {"title": "Palindrome Revisit",
+      "shortTitle": null,
+      "sectionNum": "10.5.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Automation: More Automation",
+        "shortTitle": null,
+        "number": "10"},
+       {"title": "Case Study: Regular Expressions",
+        "shortTitle": null,
+        "number": "5"},
+       {"title": "Palindrome Revisit", "shortTitle": null, "number": "6"}]},
+     "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Examples":
    [{"id":
      "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Examples",
@@ -3630,28 +3648,6 @@
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
-   "inversion_ex2":
-   [{"id": "inversion_ex2",
-     "data":
-     {"/IndProp/#inversion_ex2":
-      {"display": "inversion_ex2",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
-   "inversion_ex1":
-   [{"id": "inversion_ex1",
-     "data":
-     {"/IndProp/#inversion_ex1":
-      {"display": "inversion_ex1",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
    "instDefaultValueOption":
    [{"id": "instDefaultValueOption",
      "data":
@@ -3812,39 +3808,6 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
-   "ev_succ_succ_ev'":
-   [{"id": "ev_succ_succ_ev___",
-     "data":
-     {"/IndProp/#ev_succ_succ_ev___":
-      {"display": "ev_succ_succ_ev'",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
-   "ev_succ_succ_ev":
-   [{"id": "ev_succ_succ_ev",
-     "data":
-     {"/IndProp/#ev_succ_succ_ev":
-      {"display": "ev_succ_succ_ev",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
-   "ev_inversion":
-   [{"id": "ev_inversion",
-     "data":
-     {"/IndProp/#ev_inversion":
-      {"display": "ev_inversion",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Destructing and Inverting Evidence"]}},
-     "address": "/IndProp/"}],
    "double_injective":
    [{"id": "double_injective",
      "data":
@@ -3898,17 +3861,6 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "csf":
-   [{"id": "csf",
-     "data":
-     {"/IndProp/#csf":
-      {"display": "csf",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
    "countOddMembers":
    [{"id": "countOddMembers",
      "data":
@@ -3931,6 +3883,17 @@
         "Functions as Data",
         "Functions That Construct Functions"]}},
      "address": "/Poly/"}],
+   "collatzStep":
+   [{"id": "collatzStep",
+     "data":
+     {"/IndProp/#collatzStep":
+      {"display": "collatzStep",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: The Collatz Conjecture"]}},
+     "address": "/IndProp/"}],
    "chooseIf_self":
    [{"id": "chooseIf_self",
      "data":
@@ -4058,6 +4021,39 @@
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Unfolding definitions using  rw"]}},
      "address": "/UsingLean/"}],
+   "TransGen.trans":
+   [{"id": "TransGen___trans",
+     "data":
+     {"/IndProp/#TransGen___trans":
+      {"display": "trans",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "TransGen.step":
+   [{"id": "TransGen___step",
+     "data":
+     {"/IndProp/#TransGen___step":
+      {"display": "step",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "TransGen":
+   [{"id": "TransGen",
+     "data":
+     {"/IndProp/#TransGen":
+      {"display": "TransGen",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Transitive Closure"]}},
+     "address": "/IndProp/"}],
    "TotalMap.update_eq":
    [{"id": "TotalMap___update_eq",
      "data":
@@ -4570,7 +4566,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq",
+   [{"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -4579,7 +4575,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
+    {"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -4602,6 +4598,50 @@
       {"display": "even_double",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
+   "ReflTransGen.trans":
+   [{"id": "ReflTransGen___trans",
+     "data":
+     {"/IndProp/#ReflTransGen___trans":
+      {"display": "trans",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "ReflTransGen.step":
+   [{"id": "ReflTransGen___step",
+     "data":
+     {"/IndProp/#ReflTransGen___step":
+      {"display": "step",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "ReflTransGen.refl":
+   [{"id": "ReflTransGen___refl",
+     "data":
+     {"/IndProp/#ReflTransGen___refl":
+      {"display": "refl",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "ReflTransGen":
+   [{"id": "ReflTransGen",
+     "data":
+     {"/IndProp/#ReflTransGen":
+      {"display": "ReflTransGen",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
    "RGB.red":
    [{"id": "RGB___red",
      "data":
@@ -4877,6 +4917,39 @@
         "Automation: More Automation",
         "The  simp  Tactic"]}},
      "address": "/Automation/"}],
+   "Perm3.trans":
+   [{"id": "Perm3___trans",
+     "data":
+     {"/IndProp/#Perm3___trans":
+      {"display": "trans",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3.swap23":
+   [{"id": "Perm3___swap23",
+     "data":
+     {"/IndProp/#Perm3___swap23":
+      {"display": "swap23",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Permutations"]}},
+     "address": "/IndProp/"}],
+   "Perm3.swap12":
+   [{"id": "Perm3___swap12",
+     "data":
+     {"/IndProp/#Perm3___swap12":
+      {"display": "swap12",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Permutations"]}},
+     "address": "/IndProp/"}],
    "Perm3.rev'":
    [{"id": "Perm3___rev___",
      "data":
@@ -4898,39 +4971,6 @@
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Constructing Evidence for Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3.perm3_trans":
-   [{"id": "Perm3___perm3_trans",
-     "data":
-     {"/IndProp/#Perm3___perm3_trans":
-      {"display": "perm3_trans",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3.perm3_swap23":
-   [{"id": "Perm3___perm3_swap23",
-     "data":
-     {"/IndProp/#Perm3___perm3_swap23":
-      {"display": "perm3_swap23",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Permutations"]}},
-     "address": "/IndProp/"}],
-   "Perm3.perm3_swap12":
-   [{"id": "Perm3___perm3_swap12",
-     "data":
-     {"/IndProp/#Perm3___perm3_swap12":
-      {"display": "perm3_swap12",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Permutations"]}},
      "address": "/IndProp/"}],
    "Perm3":
    [{"id": "Perm3",
@@ -5119,33 +5159,33 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Maps", "Partial Maps"]}},
      "address": "/Typeclasses/"}],
-   "ParentOf.po_SR":
-   [{"id": "ParentOf___po_SR",
+   "ParentOf.sage_ridley":
+   [{"id": "ParentOf___sage_ridley",
      "data":
-     {"/IndProp/#ParentOf___po_SR":
-      {"display": "po_SR",
+     {"/IndProp/#ParentOf___sage_ridley":
+      {"display": "sage_ridley",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "ParentOf.po_SC":
-   [{"id": "ParentOf___po_SC",
+   "ParentOf.sage_cleo":
+   [{"id": "ParentOf___sage_cleo",
      "data":
-     {"/IndProp/#ParentOf___po_SC":
-      {"display": "po_SC",
+     {"/IndProp/#ParentOf___sage_cleo":
+      {"display": "sage_cleo",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "ParentOf.po_CM":
-   [{"id": "ParentOf___po_CM",
+   "ParentOf.cleo_moss":
+   [{"id": "ParentOf___cleo_moss",
      "data":
-     {"/IndProp/#ParentOf___po_CM":
-      {"display": "po_CM",
+     {"/IndProp/#ParentOf___cleo_moss":
+      {"display": "cleo_moss",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -5163,6 +5203,50 @@
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
+   "PalConv.Pal.singleton":
+   [{"id": "PalConv___Pal___singleton",
+     "data":
+     {"/Automation/#PalConv___Pal___singleton":
+      {"display": "singleton",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "Palindrome Revisit"]}},
+     "address": "/Automation/"}],
+   "PalConv.Pal.nil":
+   [{"id": "PalConv___Pal___nil",
+     "data":
+     {"/Automation/#PalConv___Pal___nil":
+      {"display": "nil",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "Palindrome Revisit"]}},
+     "address": "/Automation/"}],
+   "PalConv.Pal.cons_snoc":
+   [{"id": "PalConv___Pal___cons_snoc",
+     "data":
+     {"/Automation/#PalConv___Pal___cons_snoc":
+      {"display": "cons_snoc",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "Palindrome Revisit"]}},
+     "address": "/Automation/"}],
+   "PalConv.Pal":
+   [{"id": "PalConv___Pal",
+     "data":
+     {"/Automation/#PalConv___Pal":
+      {"display": "Pal",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "Palindrome Revisit"]}},
+     "address": "/Automation/"}],
    "Or.inl":
    [{"id": "Or___inl",
      "data":
@@ -5922,17 +6006,6 @@
         "UsingLean: Using the Full Power of a Proof Assistant",
         "Redefining Functions and Lemmas over Nats"]}},
      "address": "/UsingLean/"}],
-   "Nat.ev_Even":
-   [{"id": "Nat___ev_Even",
-     "data":
-     {"/IndProp/#Nat___ev_Even":
-      {"display": "Nat.ev_Even",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Using Evidence in Proofs",
-        "Induction on Evidence"]}},
-     "address": "/IndProp/"}],
    "Nat.double_zero":
    [{"id": "Nat___double_zero",
      "data":
@@ -6955,7 +7028,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly-next",
+   [{"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -6966,7 +7039,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly",
+    {"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -7015,6 +7088,39 @@
         "Logic in Lean",
         "Programming with Propositions"]}},
      "address": "/Logic/"}],
+   "List.In'.tail":
+   [{"id": "List___In______tail",
+     "data":
+     {"/IndProp/#List___In______tail":
+      {"display": "tail",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Induction on Evidence"]}},
+     "address": "/IndProp/"}],
+   "List.In'.head":
+   [{"id": "List___In______head",
+     "data":
+     {"/IndProp/#List___In______head":
+      {"display": "head",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Induction on Evidence"]}},
+     "address": "/IndProp/"}],
+   "List.In'":
+   [{"id": "List___In___",
+     "data":
+     {"/IndProp/#List___In___":
+      {"display": "List.In'",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Induction on Evidence"]}},
+     "address": "/IndProp/"}],
    "List.In":
    [{"id": "List___In",
      "data":
@@ -7165,10 +7271,32 @@
         "The Logic of Lean",
         "Classical vs. Constructive Logic"]}},
      "address": "/Logic/"}],
-   "Ev.plus4":
-   [{"id": "Ev___plus4",
+   "Even.zero":
+   [{"id": "Even___zero",
      "data":
-     {"/IndProp/#Ev___plus4":
+     {"/IndProp/#Even___zero":
+      {"display": "zero",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
+     "address": "/IndProp/"}],
+   "Even.succ_succ":
+   [{"id": "Even___succ_succ",
+     "data":
+     {"/IndProp/#Even___succ_succ":
+      {"display": "succ_succ",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Evenness (yet again)"]}},
+     "address": "/IndProp/"}],
+   "Even.plus4":
+   [{"id": "Even___plus4",
+     "data":
+     {"/IndProp/#Even___plus4":
       {"display": "plus4",
        "context":
        ["Logical Foundations",
@@ -7176,33 +7304,44 @@
         "Inductively Defined Propositions",
         "Example: Evenness (yet again)"]}},
      "address": "/IndProp/"}],
-   "Ev.ev_succ_succ":
-   [{"id": "Ev___ev_succ_succ",
+   "Even.of_succ_succ":
+   [{"id": "Even___of_succ_succ",
      "data":
-     {"/IndProp/#Ev___ev_succ_succ":
-      {"display": "ev_succ_succ",
+     {"/IndProp/#Even___of_succ_succ":
+      {"display": "Even.of_succ_succ",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
+        "Using Evidence in Proofs",
+        "Destructing and Inverting Evidence"]}},
      "address": "/IndProp/"}],
-   "Ev.ev_0":
-   [{"id": "Ev___ev_0",
+   "Even.nat_even":
+   [{"id": "Even___nat_even",
      "data":
-     {"/IndProp/#Ev___ev_0":
-      {"display": "ev_0",
+     {"/IndProp/#Even___nat_even":
+      {"display": "Even.nat_even",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Evenness (yet again)"]}},
+        "Using Evidence in Proofs",
+        "Induction on Evidence"]}},
      "address": "/IndProp/"}],
-   "Ev":
-   [{"id": "Ev",
+   "Even.inversion":
+   [{"id": "Even___inversion",
      "data":
-     {"/IndProp/#Ev":
-      {"display": "Ev",
+     {"/IndProp/#Even___inversion":
+      {"display": "Even.inversion",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Using Evidence in Proofs",
+        "Destructing and Inverting Evidence"]}},
+     "address": "/IndProp/"}],
+   "Even":
+   [{"id": "Even",
+     "data":
+     {"/IndProp/#Even":
+      {"display": "Even",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -7402,33 +7541,55 @@
         "A First Taste of Proofs",
         "New Types from Old"]}},
      "address": "/Basics/"}],
-   "CollatzHoldsFor.chf_one":
-   [{"id": "CollatzHoldsFor___chf_one",
+   "CollatzStepMulti":
+   [{"id": "CollatzStepMulti",
      "data":
-     {"/IndProp/#CollatzHoldsFor___chf_one":
-      {"display": "chf_one",
+     {"/IndProp/#CollatzStepMulti":
+      {"display": "CollatzStepMulti",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "CollatzStep":
+   [{"id": "CollatzStep",
+     "data":
+     {"/IndProp/#CollatzStep":
+      {"display": "CollatzStep",
+       "context":
+       ["Logical Foundations",
+        "IndProp: Inductively Defined Propositions",
+        "Inductively Defined Propositions",
+        "Example: Reflexive and Transitive Closure"]}},
+     "address": "/IndProp/"}],
+   "CollatzHoldsFor.one":
+   [{"id": "CollatzHoldsFor___one",
+     "data":
+     {"/IndProp/#CollatzHoldsFor___one":
+      {"display": "one",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "CollatzHoldsFor.chf_odd":
-   [{"id": "CollatzHoldsFor___chf_odd",
+   "CollatzHoldsFor.odd":
+   [{"id": "CollatzHoldsFor___odd",
      "data":
-     {"/IndProp/#CollatzHoldsFor___chf_odd":
-      {"display": "chf_odd",
+     {"/IndProp/#CollatzHoldsFor___odd":
+      {"display": "odd",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
-   "CollatzHoldsFor.chf_even":
-   [{"id": "CollatzHoldsFor___chf_even",
+   "CollatzHoldsFor.even":
+   [{"id": "CollatzHoldsFor___even",
      "data":
-     {"/IndProp/#CollatzHoldsFor___chf_even":
-      {"display": "chf_even",
+     {"/IndProp/#CollatzHoldsFor___even":
+      {"display": "even",
        "context":
        ["Logical Foundations",
         "IndProp: Inductively Defined Propositions",
@@ -7436,7 +7597,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -7453,7 +7614,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -7513,105 +7674,6 @@
         "IndProp: Inductively Defined Propositions",
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
-     "address": "/IndProp/"}],
-   "ClosTrans.t_trans":
-   [{"id": "ClosTrans___t_trans",
-     "data":
-     {"/IndProp/#ClosTrans___t_trans":
-      {"display": "t_trans",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "ClosTrans.t_step":
-   [{"id": "ClosTrans___t_step",
-     "data":
-     {"/IndProp/#ClosTrans___t_step":
-      {"display": "t_step",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "ClosTrans":
-   [{"id": "ClosTrans",
-     "data":
-     {"/IndProp/#ClosTrans":
-      {"display": "ClosTrans",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "ClosReflTrans.rt_trans":
-   [{"id": "ClosReflTrans___rt_trans",
-     "data":
-     {"/IndProp/#ClosReflTrans___rt_trans":
-      {"display": "rt_trans",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "ClosReflTrans.rt_step":
-   [{"id": "ClosReflTrans___rt_step",
-     "data":
-     {"/IndProp/#ClosReflTrans___rt_step":
-      {"display": "rt_step",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "ClosReflTrans.rt_refl":
-   [{"id": "ClosReflTrans___rt_refl",
-     "data":
-     {"/IndProp/#ClosReflTrans___rt_refl":
-      {"display": "rt_refl",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "ClosReflTrans":
-   [{"id": "ClosReflTrans",
-     "data":
-     {"/IndProp/#ClosReflTrans":
-      {"display": "ClosReflTrans",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "CS":
-   [{"id": "CS",
-     "data":
-     {"/IndProp/#CS":
-      {"display": "CS",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
-     "address": "/IndProp/"}],
-   "CMS":
-   [{"id": "CMS",
-     "data":
-     {"/IndProp/#CMS":
-      {"display": "CMS",
-       "context":
-       ["Logical Foundations",
-        "IndProp: Inductively Defined Propositions",
-        "Inductively Defined Propositions",
-        "Example: Reflexive and Transitive Closure"]}},
      "address": "/IndProp/"}],
    "BoolList.nil":
    [{"id": "BoolList___nil",
