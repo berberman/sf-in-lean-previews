@@ -20,21 +20,21 @@ import SFLCompat
 theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm with
-  | perm3_swap12 =>
+  | swap12 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
     . right; left; assumption
     . left; assumption
     . right; right; left; assumption
     . contradiction
-  | perm3_swap23 =>
+  | swap23 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
     . left; assumption
     . right; right; left; assumption
     . right; left; assumption
     . contradiction
-  | perm3_trans _ _ ih₁₂ ih₂₃ =>
+  | trans _ _ ih₁₂ ih₂₃ =>
     apply ih₂₃; apply ih₁₂; apply hIn
 
 --  In this file, we will introduce tactics that will shrink this proof
@@ -51,8 +51,7 @@ theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
 
 --  If the goal is a universally quantified formula made out of
 --  - numeric constants, addition (`+` and `succ`), subtraction (`-` and
---    `pred`) and multiplication by constants (this is what makes it
---    Presburger arithmetic),
+--    `pred`) and multiplication by constants,
 --  - equality (`=` and `≠`) and ordering (`≤` and `<`), and
 --  - the logical connectives `∧`, `∨`, `¬`, and `→`,
 --
@@ -84,20 +83,20 @@ example (a b c d : Prop) :
 theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm with
-  | perm3_swap12 =>
+  | swap12 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
     /- In addition to basic arithmetic, `lia` can also discharge goals
       that are simple facts about logic. -/
     . lia -- was right; left; assumption
-    . lia
-    . lia
-    . lia
-  | perm3_swap23 =>
+    . lia -- was left; assumption
+    . lia -- was right; right; left; assumption
+    . lia -- was contradiction
+  | swap23 =>
   /- Here, we solve _all_ goals ─ and eschew the `obtain` ─ with
     the <;> tactic combinator, which we saw in the `Induction` chapter. -/
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
-  | perm3_trans _ _ ih₁₂ ih₂₃ =>
+  | trans _ _ ih₁₂ ih₂₃ =>
     lia -- was apply ih₂₃; apply ih₁₂; apply hIn
 
 --  ## Tactic Combinators
@@ -206,7 +205,7 @@ example {n} (h : silly n) : n ≠ 1 := by
 theorem Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm with (try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia)
-  | perm3_trans => lia
+  | trans => lia
 
 --  Note that `try lia <;> try rw [...] <;> lia` *doesn't* work, because
 --  the first time that `try` catches a failure in a `<;>` sequence, the
@@ -220,7 +219,7 @@ sf_expect_failure_in
 
 --  Output:
 --    unsolved goals
---    case perm3_swap12
+--    case swap12
 --    α : Type
 --    x : α
 --    l₁ l₂ : List α
@@ -228,7 +227,7 @@ sf_expect_failure_in
 --    hIn : x ∈ [x✝, y✝, z✝]
 --    ⊢ x ∈ [y✝, x✝, z✝]
 --
---    case perm3_swap23
+--    case swap23
 --    α : Type
 --    x : α
 --    l₁ l₂ : List α
@@ -247,7 +246,8 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
   repeat
     rw [List.mem_cons]
     try left; rfl
-    -- `try` makes this optional, which is necessary for the last repetition where `left; rfl` succeeds
+    -- `try` makes this optional, which is necessary for the
+    -- last repetition where `left; rfl` succeeds
     try right
 
 --  The tactic `repeat t` never fails: if the tactic `t` doesn't apply to
@@ -479,12 +479,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 --  This usage of `simp only` is better because the addition of new `simp`
 --  lemmas won't cause this proof to change.
-
---  Note to developers (Daniel Sainati @dsainati1):
---      Chris suggested using Mathlib's `linter.flexible` option to enforce
---      proper `simp` usage. How do we feel about adding a Mathlib
---      dependency for this?
-
+--
 --  Another rule around proper `simp` usage applies to the appropriate
 --  definition of `simp` lemmas.
 --
@@ -521,7 +516,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 example : 1 = 1 := by trivial
 example : (1, 2).fst = 1 := by trivial
-example (A B : Prop) : ¬ A -> A -> B := by intro h₁ h₂; trivial
+example (a b : Prop) : ¬ a -> a -> b := by intro h₁ h₂; trivial
 
 --  ## Case Study: Regular Expressions
 
@@ -754,7 +749,8 @@ theorem EmptySet_is_empty α (s : List α) : ¬(s =~ EmptySet) := by
 theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
     s =~ re₁ ∨ s =~ re₂ →
     s =~ Union re₁ re₂ := by
-  rintro (_ | _)
+  intro h
+  obtain h | h := h
   case inl => apply mUnionL; assumption
   case inr => apply mUnionR; assumption
 
@@ -881,24 +877,28 @@ theorem reNotEmpty_correct {α : Type} (re : RegExp α) :
   | App re₁ re₂ ih₁ ih₂ =>
     simp only [Bool.and_eq_true]
     constructor
-    · rintro ⟨s, h⟩
+    · intro h
+      obtain ⟨s, h⟩ := h
       inversion h with
       | mApp s₁ s₂ h₁ h₂ =>
         constructor
         case left  => apply ih₁.mp; exists s₁
         case right => apply ih₂.mp; exists s₂
-    · rintro ⟨h₁, h₂⟩
+    · intro h
+      obtain ⟨h₁, h₂⟩ := h
       obtain ⟨s₁, hs₁⟩ := ih₁.mpr h₁
       obtain ⟨s₂, hs₂⟩ := ih₂.mpr h₂
       exists (s₁ ++ s₂); constructor <;> assumption
   | Union re₁ re₂ ih₁ ih₂ =>
     simp only [Bool.or_eq_true]
     constructor
-    · rintro ⟨s, h⟩
+    · intro h
+      obtain ⟨s, h⟩ := h
       inversion h with
       | mUnionL h₁ => left; apply ih₁.mp; exists s
       | mUnionR h₂ => right; apply ih₂.mp; exists s
-    · rintro (h₁ | h₂)
+    · intro h
+      obtain h₁ | h₂ := h
       case inl => obtain ⟨s, hs⟩ := ih₁.mpr h₁; exists s; constructor; assumption
       case inr => obtain ⟨s, hs⟩ := ih₂.mpr h₂; exists s; apply mUnionR; assumption
   | Star re _ =>
@@ -1090,9 +1090,7 @@ theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
 --  main lemma.
 --
 --  Your job is to complete the proofs of the helper lemmas; the main lemma
---  relies on these. Several of the lemmas about `Nat.ble` that were in an
---  optional exercise earlier in the IndProp chapter may be useful here ─
---  in particular, `lt_ge_cases` and `add_le`.
+--  relies on these.
 
 --  ### Exercise (2 stars): weak_pumping_char ⭐⭐
 
@@ -1125,9 +1123,9 @@ theorem weak_pumping_app {α : Type} (s₁ s₂ : List α) (re₁ re₂ : RegExp
       (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ App re₁ re₂) := by
   obtain h | h :
     pumpingConstant re₁ ≤ s₁.length ∨ pumpingConstant re₂ ≤ s₂.length := by
-    rw [append_length] at hLen
-    apply add_le_cases
-    apply hLen
+    rw [List.length_append] at hLen
+    simp [pumpingConstant] at hLen
+    lia
   case inl =>
     specialize ih₁ h
     let ⟨s₁₂, s₁₃, s₁₄, h₁, h₂, h₃⟩ := ih₁
@@ -1250,7 +1248,7 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
       s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧
       s₃  ≠ [ ] ∧
       (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ .Star re)  := by
-  rw [append_length] at *
+  rw [List.length_append] at *
   obtain hs₁len0 | ⟨s₁len, hs₁re₁⟩ | hs₁re₁ :
     (s₁.length = 0
       ∨ (s₁.length ≠ 0 ∧ s₁.length < pumpingConstant re)
@@ -1261,7 +1259,7 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
       right
       have hcases : (List.length (h :: s₁') < pumpingConstant re
                     ∨ pumpingConstant re ≤ List.length (h :: s₁')) := by
-        apply lt_ge_cases
+        lia
       cases hcases with
       | inl =>
         left; constructor
@@ -1322,7 +1320,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
 --      think/talk about it. I also reduced the rating from 10 to 5 (which
 --      I think is the maximum?).
 
---  ### Exercise (5 stars): weak_pumping (Optional) ⭐⭐⭐⭐⭐
+--  ### Exercise (5 stars): strong_pumping (Optional) ⭐⭐⭐⭐⭐
 
 --  Now here is the usual version of the pumping lemma. In addition to
 --  requiring that `s₂ ≠ []`, it also strengthens the result to include the
@@ -1344,4 +1342,106 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
 end Pumping
 end RegExp
 
--- Built on 2026-09-08 17:51 UTC
+--  ### Palindrome Revisit
+
+--  ### Exercise (5 stars): palindrome_converse (Optional) ⭐⭐⭐⭐⭐
+
+--  Here is one possible definition of the palindrome inductive predicate,
+--  `Pal`, which we saw in the last chapter.
+
+namespace PalConv
+
+inductive Pal {α : Type} : List α → Prop where
+  | nil : Pal []
+  | singleton {x : α} : Pal [x]
+  | cons_snoc {x : α} {l : List α} (h : Pal l) : Pal (x :: (l ++ [x]))
+
+--  We previously proved that `∀ l, Pal l → l = l.reverse`. The converse is
+--  also true, but significantly more difficult to prove, due to the lack
+--  of evidence. Using the definition of `Pal` above, prove that
+--
+--      ∀ l, l = l.reverse → Pal l
+
+--  Note to developers (Yipeng Liu @berberman):
+--      A similar proof using strong induction! (`Nat.strongRec` is
+--      available in Batteries.)
+--
+--      `theorem reverse_pal {α : Type} {l : List α}
+--          (h : l = l.reverse) : Pal l := by
+--        induction hlen : l.length using Nat.strongRec generalizing l with
+--        | ind n ih =>
+--          cases l with
+--          | nil => constructor
+--          | cons x xs =>
+--            cases hxs : xs.reverse with
+--            | nil =>
+--              rw [← List.reverse_nil] at hxs
+--              simp only [List.reverse_nil, List.reverse_eq_nil_iff] at hxs
+--              subst xs
+--              constructor
+--            | cons y ys =>
+--              rw [List.reverse_cons, hxs] at h
+--              injection h with hxy htail
+--              subst y
+--              simp only [htail, List.append_eq, List.reverse_append, List.reverse_cons, List.reverse_nil,
+--                List.nil_append, List.cons_append, List.cons.injEq, true_and] at hxs
+--              rw [htail]
+--              apply Pal.cons_snoc
+--              apply ih ys.length _ hxs.symm rfl
+--              rw [← hlen]
+--              simp only [htail, List.append_eq, List.length_cons, List.length_append, List.length_nil,
+--                Nat.zero_add]
+--              lia`
+
+/- Proving the converse theorem is much harder, because a standard
+    induction over the list `l` doesn't work.  The trick to the
+    following proof, due to Nathan Collins, is to induct over _half
+    the length_ of `l`. -/
+
+theorem reverse_pal {α : Type} {n : Nat} {l : List α}
+    (hlen : l.length / 2 = n) (hrev : l = l.reverse) : Pal l := by
+  induction n generalizing l with
+  /- (length l) / 2 = 0 || l has length 0 or 1 -/
+  | zero =>
+    cases l with
+    | nil => constructor
+    | cons x xs =>
+      cases xs with
+      | nil => constructor
+      | cons y ys =>
+        /- impossible : (x :: y :: ys) has length > 1 -/
+        simp only [List.length_cons, simp_lemmas_example.add_succ, Nat.add_zero,
+          Nat.div_eq_zero_iff, reduceCtorEq, false_or] at hlen
+        lia
+  /- (length l) / 2 >= 1  || l has length at least 2 -/
+  | succ n ih =>
+    cases l with
+    | nil => rw [List.length_nil, Nat.zero_div] at hlen; contradiction
+    | cons x xs =>
+      rw [List.length_cons] at hlen
+      rw [List.reverse_cons] at hrev
+      cases heq : xs.reverse with
+      | nil =>
+        simp only [List.reverse_eq_nil_iff] at heq
+        subst xs
+        constructor
+      | cons y ys =>
+        rw [heq] at hrev
+        injection hrev with hxy heq'
+        simp only [heq', List.append_eq, List.reverse_append, List.reverse_cons, List.reverse_nil,
+          List.nil_append, List.cons_append, List.cons.injEq] at heq
+        rw [heq']
+        constructor
+        apply ih
+        · simp only [heq', List.append_eq, List.length_append, List.length_cons, List.length_nil,
+          simp_lemmas_example.add_succ, Nat.add_zero] at hlen
+          lia
+        · exact heq.2.symm
+
+
+theorem palindrome_converse {α : Type} {l : List α} (h : l = l.reverse) : Pal l := by
+  exact reverse_pal rfl h
+
+end PalConv
+
+-- Built on 2026-09-11 10:34 UTC

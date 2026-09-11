@@ -20,21 +20,21 @@ import SFLCompat
 theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm with
-  | perm3_swap12 =>
+  | swap12 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
     . right; left; assumption
     . left; assumption
     . right; right; left; assumption
     . contradiction
-  | perm3_swap23 =>
+  | swap23 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
     . left; assumption
     . right; right; left; assumption
     . right; left; assumption
     . contradiction
-  | perm3_trans _ _ ih₁₂ ih₂₃ =>
+  | trans _ _ ih₁₂ ih₂₃ =>
     apply ih₂₃; apply ih₁₂; apply hIn
 
 --  In this file, we will introduce tactics that will shrink this proof
@@ -48,8 +48,7 @@ theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
 --
 --  If the goal is a universally quantified formula made out of
 --  - numeric constants, addition (`+` and `succ`), subtraction (`-` and
---    `pred`) and multiplication by constants (this is what makes it
---    Presburger arithmetic),
+--    `pred`) and multiplication by constants,
 --  - equality (`=` and `≠`) and ordering (`≤` and `<`), and
 --  - the logical connectives `∧`, `∨`, `¬`, and `→`,
 --
@@ -81,20 +80,20 @@ example (a b c d : Prop) :
 theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm with
-  | perm3_swap12 =>
+  | swap12 =>
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
     obtain h | h | h | h := hIn
     /- In addition to basic arithmetic, `lia` can also discharge goals
       that are simple facts about logic. -/
     . lia -- was right; left; assumption
-    . lia
-    . lia
-    . lia
-  | perm3_swap23 =>
+    . lia -- was left; assumption
+    . lia -- was right; right; left; assumption
+    . lia -- was contradiction
+  | swap23 =>
   /- Here, we solve _all_ goals ─ and eschew the `obtain` ─ with
     the <;> tactic combinator, which we saw in the `Induction` chapter. -/
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
-  | perm3_trans _ _ ih₁₂ ih₂₃ =>
+  | trans _ _ ih₁₂ ih₂₃ =>
     lia -- was apply ih₂₃; apply ih₁₂; apply hIn
 
 --  ## Tactic Combinators
@@ -155,7 +154,7 @@ example {n} (h : silly n) : n ≠ 1 := by
 theorem Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
   induction hPerm with (try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia)
-  | perm3_trans => lia
+  | trans => lia
 
 --  Note that `try lia <;> try rw [...] <;> lia` *doesn't* work, because
 --  the first time that `try` catches a failure in a `<;>` sequence, the
@@ -169,7 +168,7 @@ sf_expect_failure_in
 
 --  Output:
 --    unsolved goals
---    case perm3_swap12
+--    case swap12
 --    α : Type
 --    x : α
 --    l₁ l₂ : List α
@@ -177,7 +176,7 @@ sf_expect_failure_in
 --    hIn : x ∈ [x✝, y✝, z✝]
 --    ⊢ x ∈ [y✝, x✝, z✝]
 --
---    case perm3_swap23
+--    case swap23
 --    α : Type
 --    x : α
 --    l₁ l₂ : List α
@@ -196,7 +195,8 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
   repeat
     rw [List.mem_cons]
     try left; rfl
-    -- `try` makes this optional, which is necessary for the last repetition where `left; rfl` succeeds
+    -- `try` makes this optional, which is necessary for the
+    -- last repetition where `left; rfl` succeeds
     try right
 
 --  The tactic `repeat t` never fails: if the tactic `t` doesn't apply to
@@ -465,7 +465,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 example : 1 = 1 := by trivial
 example : (1, 2).fst = 1 := by trivial
-example (A B : Prop) : ¬ A -> A -> B := by intro h₁ h₂; trivial
+example (a b : Prop) : ¬ a -> a -> b := by intro h₁ h₂; trivial
 
 --  ## Case Study: Regular Expressions
 
@@ -942,9 +942,7 @@ theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
 --  main lemma.
 --
 --  Your job is to complete the proofs of the helper lemmas; the main lemma
---  relies on these. Several of the lemmas about `Nat.ble` that were in an
---  optional exercise earlier in the IndProp chapter may be useful here ─
---  in particular, `lt_ge_cases` and `add_le`.
+--  relies on these.
 
 --  ### Exercise (2 stars): weak_pumping_char ⭐⭐
 
@@ -1050,7 +1048,7 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
       s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧
       s₃  ≠ [ ] ∧
       (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ .Star re)  := by
-  rw [append_length] at *
+  rw [List.length_append] at *
   obtain hs₁len0 | ⟨s₁len, hs₁re₁⟩ | hs₁re₁ :
     (s₁.length = 0
       ∨ (s₁.length ≠ 0 ∧ s₁.length < pumpingConstant re)
@@ -1074,7 +1072,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
 
 --  ### The (Strong) Pumping Lemma
 
---  ### Exercise (5 stars): weak_pumping (Optional) ⭐⭐⭐⭐⭐
+--  ### Exercise (5 stars): strong_pumping (Optional) ⭐⭐⭐⭐⭐
 
 --  Now here is the usual version of the pumping lemma. In addition to
 --  requiring that `s₂ ≠ []`, it also strengthens the result to include the
@@ -1093,4 +1091,24 @@ theorem pumping {α : Type} {re : RegExp α} {s : List α}
 end Pumping
 end RegExp
 
--- Built on 2026-09-08 17:51 UTC
+--  ### Palindrome Revisit
+
+--  ### Exercise (5 stars): palindrome_converse (Optional) ⭐⭐⭐⭐⭐
+
+--  Here is one possible definition of the palindrome inductive predicate,
+--  `Pal`, which we saw in the last chapter.
+
+namespace PalConv
+
+inductive Pal {α : Type} : List α → Prop where
+  | nil : Pal []
+  | singleton {x : α} : Pal [x]
+  | cons_snoc {x : α} {l : List α} (h : Pal l) : Pal (x :: (l ++ [x]))
+
+--  We previously proved that `∀ l, Pal l → l = l.reverse`. The converse is
+--  also true, but significantly more difficult to prove, due to the lack
+--  of evidence. Using the definition of `Pal` above, prove that
+--
+--      ∀ l, l = l.reverse → Pal l
+
+-- Built on 2026-09-11 10:34 UTC
