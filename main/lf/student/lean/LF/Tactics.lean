@@ -100,15 +100,6 @@ example (n m o : Nat)
   injections h₁ _ h₃
   rw [h₁, h₃]
 
---  Note that both `injection` and `injections` will simplify a hypothesis
---  before applying injectivity. Thus we could also use them to solve the
---  following example, which requires simplifying the `++` and
---  `List.reverse` expressions:
-
-example (n m o : Nat)
-    (h : [n] ++ [m] = List.reverse ([o] ++ [o])) :
-    n = m := by sorry
-
 --  ### Exercise (3 stars): injection_ex3 ⭐⭐⭐
 
 theorem injection_ex3 {α : Type} (x y z : α) (l j : List α)
@@ -117,7 +108,7 @@ theorem injection_ex3 {α : Type} (x y z : α) (l j : List α)
     x = y := by
   sorry
 
---  ### Disjointness
+--  (End of exercise)
 
 --  So much for injectivity of constructors. What about disjointness?
 --
@@ -336,32 +327,39 @@ example (n m : Nat) (h : n = m) :
 --  our goal unprovable. Consider:
 
 sf_expect_failure_in
-  example (a b c d : Nat) (h1 : a = b + 1) (h2 : d = c + 1) :
-      (a + c, true) = (b + d, true) := by
+  example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
+      (a, c + 1) = (b, 1 + d) := by
     congr
 
---  We now have two goals: `a = b` and `c = d`, but these are not provable
---  from our hypotheses! `congr` has gone too deep.
+--  We now have three goals: `c = 1`, `1 = d`, and `1 = d`, but these are
+--  not provable from our hypotheses! `congr` has gone too deep.
 
 --  Output:
 --    unsolved goals
---    case e_fst.e_a
+--    case e_snd.e_a
 --    a b c d : Nat
---    h1 : a = b + 1
---    h2 : d = c + 1
---    ⊢ a = b
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ c = 1
 --
---    case e_fst.e_a
+--    case e_snd.e_a.e_2
 --    a b c d : Nat
---    h1 : a = b + 1
---    h2 : d = c + 1
---    ⊢ c = d
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ 1 = d
+--
+--    case e_snd.e_a.e_3
+--    a b c d : Nat
+--    hab : a = b
+--    hcd : c = d
+--    ⊢ 1 = d
 
-example (a b c d : Nat) (h1 : a = b + 1) (h2 : d = c + 1) :
-    (a + c, true) = (b + d, true) := by
+example (a b c d : Nat) (hab : a = b) (hcd : c = d) :
+    (a, c + 1) = (b, 1 + d) := by
   /- Using `congr` shallowly allows us to complete the proof -/
   congr 1
-  rw [h1, h2, Nat.add_assoc, Nat.add_comm 1 c]
+  rw [Nat.add_comm]
+  congr
 
 --  ## Using `cases` on Expressions
 
@@ -372,7 +370,7 @@ example (a b c d : Nat) (h1 : a = b + 1) (h2 : d = c + 1) :
 --  example:
 
 def chooseIf {α : Type} (test : α → Bool) (x y : α) : α :=
-  bif test x then x else y
+  if test x then x else y
 
 theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
     chooseIf test x x = x := by
@@ -380,7 +378,7 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
   cases test x <;> rfl
 
 --  After unfolding `chooseIf` in the above proof, we find that we are
---  stuck on `(bif test x then x else x) = x`. But either `test x` is
+--  stuck on `(if test x = true then x else x) = x`. But either `test x` is
 --  `true` or it isn't, so we can use `cases (test x)` to let us reason
 --  about the two cases.
 --
@@ -424,13 +422,14 @@ theorem zip_unzip' {α β : Type} (l : List (α × β))
 
 --  When using `cases`, we can specify to Lean that it should remember an
 --  equality between a compound expression and what we are decomposing it
---  into, using `cases h : ...` syntax. This step is sometimes critical: if
---  we leave it out, we might lack information we need to complete a proof.
+--  into, using `cases h : ...` syntax. This step can actually be critical:
+--  if we leave it out, we might lack information we need to complete a
+--  proof.
 --
 --  For example, suppose we define a function `keepIf` like this:
 
 def keepIf {α : Type} (test : α → Bool) (x : α) : Option α :=
-  bif test x then some x else none
+  if test x then some x else none
 
 --  Now suppose that we want to prove that, if `keepIf` returns a result of
 --  the form `some y`, then `x = y`. If we start the proof like this (with
@@ -449,14 +448,14 @@ sf_expect_failure_in
 --    α : Type
 --    test : α → Bool
 --    x y : α
---    h : (bif test x then some x else none) = some y
+--    h : (if test x = true then some x else none) = some y
 --    ⊢ x = y
 --
 --    case true
 --    α : Type
 --    test : α → Bool
 --    x y : α
---    h : (bif test x then some x else none) = some y
+--    h : (if test x = true then some x else none) = some y
 --    ⊢ x = y
 
 --  ... then we are stuck because the context does not contain enough
@@ -471,15 +470,13 @@ theorem keepIf_some {α : Type} (test : α → Bool) (x y : α)
     (h : keepIf test x = some y) :
     x = y := by
   rw [keepIf] at h
+  cases hTest : test x
   -- Now we have the same state as at the point where we got stuck
   -- above, except that the context contains an extra equality
   -- assumption, which is exactly what we need to make progress.
-  cases hTest : test x with
-  | false =>
-    rw [hTest] at h
+  · rw [hTest] at h
     contradiction
-  | true =>
-    rw [hTest] at h
+  · rw [hTest] at h
     injections
 
 --  ### Exercise (2 stars): bool_fn_iterate_three_eq_one ⭐⭐
@@ -732,10 +729,13 @@ theorem trans_eq_exercise (n m o p : Nat)
 --  `apply`, which matches the goal against `b` and replaces it with the
 --  subgoal `a`, `apply t at h` matches the type of `h` against `a` and, if
 --  successful, replaces `h` with a hypothesis of type `b`. In other words,
---  `apply t at h` is a form of *forward reasoning* from the hypotheses
+--  `apply t at h` is a form of "forward reasoning" from the hypotheses
 --  toward the goal.
 --
---  By contrast, ordinary `apply t` is *backward reasoning*: given
+--  In other words, `apply t at h` gives us a form of "forward reasoning":
+--  given `t : a → b` and `h : a`, it replaces `h` with a proof of `b`.
+--
+--  By contrast, ordinary `apply t` is "backward reasoning": given
 --  `t : a → b` and a goal `⊢ b`, it replaces the goal with `⊢ a`.
 --
 --  Here is a proof that uses forward reasoning rather than backward
@@ -774,14 +774,11 @@ example (n m p q : Nat)
 --  We've already seen how we can use `have` to do forward reasoning, by
 --  letting us state and prove useful facts that get us closer to the main
 --  goal we're trying to prove. Often, though, these facts are just special
---  cases of more general hypotheses we already have.
---
---  If `h` is a quantified hypothesis in the current context — i.e.,
+--  cases of more general hypotheses we already have. If `h` is a
+--  quantified hypothesis in the current context — i.e.,
 --  `h : ∀ (x : α), P x` — then we can use `have` to obtain a special case
---  of `h` by supplying a value for `x`.
---
---  In other words, `have h := h e` introduces a new `h` which `x` has been
---  instantiated with `e`.
+--  of `h` by supplying a value for `x`. For example, `have h := h e`
+--  introduces a new `h` which `x` has been instantiated with `e`.
 --
 --  For example:
 
@@ -791,13 +788,10 @@ example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
   exact h
 
 --  One thing to notice here is that the original `h` is still present in
---  the context, although it is shadowed by the new `h`.
---
---  If we don't care to keep this old hypothesis around, we can use the
---  `replace` tactic instead.
---
---  This behaves like `have`, except that it gets rid of the old hypothesis
---  afterwards when possible:
+--  the context, although it is shadowed by the new `h`. Often we don't
+--  care to keep this old hypothesis around, in which case we can use the
+--  `replace` tactic instead. This behaves like `have`, except that it gets
+--  rid of the old hypothesis afterwards when possible:
 
 example (m : Nat) (h : ∀ n, m * n = 0) : m = 0 := by
   replace h := h 1
@@ -1282,4 +1276,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     anyTrue test l = anyTrue' test l := by
   sorry
 
--- Built on 2026-09-11 10:34 UTC
+-- Built on 2026-09-08 17:51 UTC
