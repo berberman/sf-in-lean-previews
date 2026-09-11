@@ -5265,6 +5265,17 @@
         "Case Study: Regular Expressions",
         "Palindrome Revisit"]}},
      "address": "/Automation/"}],
+   "Or.inl":
+   [{"id": "Or___inl",
+     "data":
+     {"/Automation/#Or___inl":
+      {"display": "inl",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "The  simp  Tactic",
+        "Idiomatic  simp  Usage"]}},
+     "address": "/Automation/"}],
    "NibbleStruct.x3":
    [{"id": "NibbleStruct___x3",
      "data":

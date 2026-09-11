@@ -61,9 +61,9 @@ theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     /- In addition to basic arithmetic, `lia` can also discharge goals
       that are simple facts about logic. -/
     . lia -- was right; left; assumption
-    . lia
-    . lia
-    . lia
+    . lia -- was left; assumption
+    . lia -- was right; right; left; assumption
+    . lia -- was contradiction
   | swap23 =>
   /- Here, we solve _all_ goals ─ and eschew the `obtain` ─ with
     the <;> tactic combinator, which we saw in the `Induction` chapter. -/
@@ -158,7 +158,8 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
   repeat
     rw [List.mem_cons]
     try left; rfl
-    -- `try` makes this optional, which is necessary for the last repetition where `left; rfl` succeeds
+    -- `try` makes this optional, which is necessary for the
+    -- last repetition where `left; rfl` succeeds
     try right
 
 --  `repeat` can loop forever.
@@ -318,7 +319,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 example : 1 = 1 := by trivial
 example : (1, 2).fst = 1 := by trivial
-example (A B : Prop) : ¬ A -> A -> B := by intro h₁ h₂; trivial
+example (a b : Prop) : ¬ a -> a -> b := by intro h₁ h₂; trivial
 
 --  ## Case Study: Regular Expressions
 
@@ -893,7 +894,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
 
 --  ### The (Strong) Pumping Lemma
 
---  ### Exercise (5 stars): weak_pumping (Optional) ⭐⭐⭐⭐⭐
+--  ### Exercise (5 stars): strong_pumping (Optional) ⭐⭐⭐⭐⭐
 
 --  Now here is the usual version of the pumping lemma. In
 --  addition to requiring that `s₂ ≠ []`, it also
@@ -935,4 +936,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Built on 2026-09-10 23:19 UTC
+-- Built on 2026-09-11 10:35 UTC

@@ -7733,6 +7733,17 @@
         "IndProp: Inductively Defined Propositions",
         "Additional Exercises"]}},
      "address": "/IndProp/"}],
+   "Or.inl":
+   [{"id": "Or___inl",
+     "data":
+     {"/Automation/#Or___inl":
+      {"display": "inl",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "The  simp  Tactic",
+        "Idiomatic  simp  Usage"]}},
+     "address": "/Automation/"}],
    "OptionPlayground.Option.some":
    [{"id": "OptionPlayground___Option___some",
      "data":
