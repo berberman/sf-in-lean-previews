@@ -51,7 +51,8 @@ theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
 
 --  If the goal is a universally quantified formula made out of
 --  - numeric constants, addition (`+` and `succ`), subtraction (`-` and
---    `pred`) and multiplication by constants,
+--    `pred`) and multiplication by constants (this is what makes it
+--    Presburger arithmetic),
 --  - equality (`=` and `≠`) and ordering (`≤` and `<`), and
 --  - the logical connectives `∧`, `∨`, `¬`, and `→`,
 --
@@ -89,9 +90,9 @@ theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     /- In addition to basic arithmetic, `lia` can also discharge goals
       that are simple facts about logic. -/
     . lia -- was right; left; assumption
-    . lia -- was left; assumption
-    . lia -- was right; right; left; assumption
-    . lia -- was contradiction
+    . lia
+    . lia
+    . lia
   | swap23 =>
   /- Here, we solve _all_ goals ─ and eschew the `obtain` ─ with
     the <;> tactic combinator, which we saw in the `Induction` chapter. -/
@@ -246,8 +247,7 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
   repeat
     rw [List.mem_cons]
     try left; rfl
-    -- `try` makes this optional, which is necessary for the
-    -- last repetition where `left; rfl` succeeds
+    -- `try` makes this optional, which is necessary for the last repetition where `left; rfl` succeeds
     try right
 
 --  The tactic `repeat t` never fails: if the tactic `t` doesn't apply to
@@ -479,7 +479,12 @@ example α x (l₁ l₂ l₃ : List α)
 
 --  This usage of `simp only` is better because the addition of new `simp`
 --  lemmas won't cause this proof to change.
---
+
+--  Note to developers (Daniel Sainati @dsainati1):
+--      Chris suggested using Mathlib's `linter.flexible` option to enforce
+--      proper `simp` usage. How do we feel about adding a Mathlib
+--      dependency for this?
+
 --  Another rule around proper `simp` usage applies to the appropriate
 --  definition of `simp` lemmas.
 --
@@ -516,7 +521,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 example : 1 = 1 := by trivial
 example : (1, 2).fst = 1 := by trivial
-example (a b : Prop) : ¬ a -> a -> b := by intro h₁ h₂; trivial
+example (A B : Prop) : ¬ A -> A -> B := by intro h₁ h₂; trivial
 
 --  ## Case Study: Regular Expressions
 
@@ -749,8 +754,7 @@ theorem EmptySet_is_empty α (s : List α) : ¬(s =~ EmptySet) := by
 theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
     s =~ re₁ ∨ s =~ re₂ →
     s =~ Union re₁ re₂ := by
-  intro h
-  obtain h | h := h
+  rintro (_ | _)
   case inl => apply mUnionL; assumption
   case inr => apply mUnionR; assumption
 
@@ -877,28 +881,24 @@ theorem reNotEmpty_correct {α : Type} (re : RegExp α) :
   | App re₁ re₂ ih₁ ih₂ =>
     simp only [Bool.and_eq_true]
     constructor
-    · intro h
-      obtain ⟨s, h⟩ := h
+    · rintro ⟨s, h⟩
       inversion h with
       | mApp s₁ s₂ h₁ h₂ =>
         constructor
         case left  => apply ih₁.mp; exists s₁
         case right => apply ih₂.mp; exists s₂
-    · intro h
-      obtain ⟨h₁, h₂⟩ := h
+    · rintro ⟨h₁, h₂⟩
       obtain ⟨s₁, hs₁⟩ := ih₁.mpr h₁
       obtain ⟨s₂, hs₂⟩ := ih₂.mpr h₂
       exists (s₁ ++ s₂); constructor <;> assumption
   | Union re₁ re₂ ih₁ ih₂ =>
     simp only [Bool.or_eq_true]
     constructor
-    · intro h
-      obtain ⟨s, h⟩ := h
+    · rintro ⟨s, h⟩
       inversion h with
       | mUnionL h₁ => left; apply ih₁.mp; exists s
       | mUnionR h₂ => right; apply ih₂.mp; exists s
-    · intro h
-      obtain h₁ | h₂ := h
+    · rintro (h₁ | h₂)
       case inl => obtain ⟨s, hs⟩ := ih₁.mpr h₁; exists s; constructor; assumption
       case inr => obtain ⟨s, hs⟩ := ih₂.mpr h₂; exists s; apply mUnionR; assumption
   | Star re _ =>
@@ -1320,7 +1320,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
 --      think/talk about it. I also reduced the rating from 10 to 5 (which
 --      I think is the maximum?).
 
---  ### Exercise (5 stars): strong_pumping (Optional) ⭐⭐⭐⭐⭐
+--  ### Exercise (5 stars): weak_pumping (Optional) ⭐⭐⭐⭐⭐
 
 --  Now here is the usual version of the pumping lemma. In addition to
 --  requiring that `s₂ ≠ []`, it also strengthens the result to include the
@@ -1444,4 +1444,4 @@ theorem palindrome_converse {α : Type} {l : List α} (h : l = l.reverse) : Pal 
 
 end PalConv
 
--- Built on 2026-09-11 10:34 UTC
+-- Built on 2026-09-09 00:03 UTC
