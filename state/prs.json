@@ -96,49 +96,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
     "347": {
-      "base_sha": "dcb7274fa4ae57b3e6461ac5b69af452e7bc6315",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b43f6607763ce6ceb18d5e56a2fb45d59382d3ef",
+      "base_sha": "1de20ca376581bbdadfb358615796a2b140c983a",
+      "changed_variants": [],
+      "head_sha": "4e7e95212a0d65ea9f8d3afb315273b3da3d1469",
       "preview_path": "pr/347/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34481625931",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Imp: proof polishing, remove EvalR unexpanders",
       "url": "https://github.com/plclub/sf-in-lean/pull/347"
     },
@@ -235,6 +198,53 @@
       "status": "published",
       "title": "Logic: Address issues, tweaks to narrative",
       "url": "https://github.com/plclub/sf-in-lean/pull/389"
+    },
+    "390": {
+      "base_sha": "1de20ca376581bbdadfb358615796a2b140c983a",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "f5b0c6ad1e60152197bb48fa4a0313f79fc2eaf0",
+      "preview_path": "pr/390/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34865438931",
+      "status": "published",
+      "title": "Polishing imp",
+      "url": "https://github.com/plclub/sf-in-lean/pull/390"
     }
   },
   "schema": 3
