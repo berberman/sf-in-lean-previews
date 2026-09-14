@@ -141,53 +141,6 @@
       "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
-    },
-    "390": {
-      "base_sha": "90ba887100aa05a137f9792c5a46c0a0147c6074",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "81b33079d96315e342ebadac76314398bb34efec",
-      "preview_path": "pr/390/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34875021590",
-      "status": "published",
-      "title": "Polishing imp",
-      "url": "https://github.com/plclub/sf-in-lean/pull/390"
     }
   },
   "schema": 3
