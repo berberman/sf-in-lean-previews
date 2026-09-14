@@ -191,48 +191,11 @@
     },
     "387": {
       "base_sha": "457f3db63c2b099ce88309c1a8bfc5d490dd87d6",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "9428f4995f65146a94209e8775315194b391d40e",
+      "changed_variants": [],
+      "head_sha": "192284ce75e0a030b32051eadce2dab82202cec4",
       "preview_path": "pr/387/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34499836345",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34793045164",
+      "status": "ci-failed",
       "title": "Logic: Tidying and a few :::dev notes",
       "url": "https://github.com/plclub/sf-in-lean/pull/387"
     },
