@@ -1073,7 +1073,7 @@ theorem verification_conditions_correct (dec : Decorated)
 --      changed things back.`
 
 example : decWhile.VerificationConditions := by
-  unfold Decorated.VerificationConditions decWhile
+  rw [Decorated.VerificationConditions, decWhile]
   simp only [DCom.VerificationConditions,
     DCom.postcondition]
   sorry
@@ -3014,4 +3014,4 @@ theorem hoare_havoc_weakest (P Q : Assertion) (x : Ident)
 
 end Himp2
 
--- Built on 2026-09-11 10:36 UTC
+-- Built on 2026-09-14 01:08 UTC
