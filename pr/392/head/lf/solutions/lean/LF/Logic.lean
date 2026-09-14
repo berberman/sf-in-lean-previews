@@ -13,6 +13,23 @@ import SFLCompat
 --      in this chapter. BCP 20: But conversely some more quizzes would be
 --      great!
 
+--  Note to developers (Mike Hicks @mwhicks1):
+--      It would be convenient to declare the variables below so that
+--      inline prose throughout this chapter can use `a`, `b`, `c`, `n`,
+--      `m`, `α`, `e1`, `e2`, `x`, and `y` without repeating their type
+--      annotations, but the same problem described elsewhere in this
+--      chapter applies: an unused `variable` is silently added to the
+--      local context in basically every proof from here on, even when the
+--      theorem never mentions it. Until we have a way to declare variables
+--      visible only for inline prose (rather than for every `lean` block),
+--      we leave this commented out:
+--
+--      `-- variable (a b c : Prop) (n m : Nat) (α : Type) (e1 e2 x y : α)`
+--
+--      Yipeng Liu (berberman) said: Maybe we should implement a separate
+--      scope for declaring variables only visible to `lean` role instead
+--      of `lean` block.
+
 --  ## The `Prop` Type
 
 --  We have now seen many examples of factual claims (i.e., *propositions*)
@@ -939,10 +956,12 @@ theorem or_distributes_over_and (a b c : Prop) :
 --  ### Existential Quantification
 
 --  Note to developers (Mike Hicks @mwhicks1):
---      Declaring the variables above adds all these variables to proof
---      statements. For example, scroll down to the exam for `Even 4` below
---      and you will see this in the InfoView (and the web-rendered student
---      version).
+--      It would be convenient to declare the variables below so that later
+--      code blocks can use `α`, `β`, `x`, `y`, `l`, `f`, `g`, and `p`
+--      without repeating their type annotations, but doing so adds all of
+--      them to every proof context and leanOutput.
+--
+--      `-- variable (α β : Type) (x x' y : α) (l l' : List α) (f g : α → β) (p : α → Prop)`
 
 --  Another fundamental logical connective is *existential quantification*.
 --  To say that there is some `x` of type `α` such that some property `a`
@@ -981,7 +1000,7 @@ example : Even 4 := by exists 2
 --  context, we destructure it to obtain a witness `x` and a hypothesis
 --  stating that `a` holds of `x`.
 
-example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
+example (n : Nat) : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
   intro ⟨m, hm⟩
   exists (m + 2)
 
@@ -1046,6 +1065,10 @@ theorem dist_exists_or (α : Type) (p q : α → Prop) :
 --  defining complex propositions from simpler ones. To illustrate, let's
 --  look at how to express the claim that an element `x` occurs in a list
 --  `l`. Notice that this property has a simple recursive structure:
+--  - If `l` is the empty list, then `x` cannot occur in it, so the
+--    property "`x` appears in `l`" is simply false.
+--  - Otherwise, `l` has the form `x' :: l'`. In this case, `x` occurs in
+--    `l` if it is equal to `x'` or if it occurs in `l'`.
 --
 --  We can translate this directly into a straightforward recursive
 --  function taking an element and a list and returning... a proposition!
@@ -1275,23 +1298,8 @@ sf_expect_failure_in
     rw [Nat.add_comm]
     rw [Nat.add_comm]
 
---  Note to developers (Yipeng Liu @berberman, before next release):
---      These hidden variables are only for inline prose, but they
---      currently leak into `leanOutput` error contexts. Maybe we should
---      implement a separate scope for declaring variables only visible to
---      `lean` role instead of `lean` block.
-
 --  Output:
 --    unsolved goals
---    a b c : Prop
---    n m : Nat
---    α✝ : Type
---    e1 e2 x✝¹ y✝¹ : α✝
---    α β : Type
---    x✝ x' y✝ : α
---    l l' : List α
---    f g : α → β
---    p : α → Prop
 --    x y z : Nat
 --    ⊢ x + (y + z) = z + y + x
 
@@ -1534,18 +1542,13 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 --
 --  Again, these two notions are equivalent.
 
---  Note to developers (Yipeng Liu @berberman):
---      Either get rid of the development of `beq` story or use our own
---      `beq` on `Nat`.
-
---  Don't worry too much about `Nat.beq_eq_true_eq` yet; we need this from
---  Lean because `n == m` is a wrapper of `DecidableEq Nat`. We will go
---  over this in the Typeclasses chapter.
-
 theorem beq_eq_true (n m : Nat) :
     (n == m) = true ↔ n = m := by
   rw [Nat.beq_eq_true_eq]
 
+--  (We use `Nat.beq_eq_true_eq` because `n == m` is a wrapper of
+--  `DecidableEq Nat`. We will go over this in the Typeclasses chapter.)
+--
 --  So what should we do in situations where some claim could be formalized
 --  as either a proposition or a boolean computation? Which should we
 --  choose?
@@ -1561,12 +1564,12 @@ def is_even_prime (n : Nat) : Bool :=
 --  general to phrase as boolean computations, even many *computable*
 --  properties are easier to express using `Prop` than `Bool`, since
 --  recursive function definitions are subject to significant restrictions.
---  For instance, the next chapter shows how to define the property that a
---  regular expression matches a given string using `Prop`. Doing the same
---  with `Bool` would amount to writing a regular expression matching
---  algorithm, which would be more complicated, harder to understand, and
---  harder to reason about than a simple (non-algorithmic) definition of
---  this property.
+--  For instance, the Automation chapter shows how to define the property
+--  that a regular expression matches a given string using `Prop`. Doing
+--  the same with `Bool` would amount to writing a regular expression
+--  matching algorithm, which would be more complicated, harder to
+--  understand, and harder to reason about than a simple (non-algorithmic)
+--  definition of this property.
 --
 --  Conversely, an important side benefit of stating facts using booleans
 --  is enabling some proof automation through computation with terms, a
@@ -1834,15 +1837,6 @@ sf_expect_failure_in
 --    is not definitionally equal to the right-hand side
 --      b = b ∧ a
 --
---    a✝ b✝ c : Prop
---    n m : Nat
---    α✝ : Type
---    e1 e2 x✝ y✝ : α✝
---    α β : Type
---    x x' y : α
---    l l' : List α
---    f g : α → β
---    p : α → Prop
 --    a b : Prop
 --    ⊢ a ∧ b = b ∧ a
 
@@ -1857,15 +1851,6 @@ sf_expect_failure_in
 --
 --    Consider using the 'by_cases' tactic, which does true/false reasoning for propositions.
 --
---    a✝ b✝ c : Prop
---    n m : Nat
---    α✝ : Type
---    e1 e2 x✝ y✝ : α✝
---    α β : Type
---    x x' y : α
---    l l' : List α
---    f g : α → β
---    p : α → Prop
 --    a b : Prop
 --    ⊢ a ∧ b = b ∧ a
 
@@ -2373,4 +2358,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Built on 2026-09-14 21:04 UTC
+-- Built on 2026-09-14 21:51 UTC

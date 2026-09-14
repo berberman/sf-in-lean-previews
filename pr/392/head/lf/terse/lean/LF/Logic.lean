@@ -659,7 +659,7 @@ example : Even 4 := by exists 2
 --  witness `x` and a hypothesis stating that `a` holds of
 --  `x`.
 
-example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
+example (n : Nat) : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
   intro ⟨m, hm⟩
   exists (m + 2)
 
@@ -803,15 +803,6 @@ sf_expect_failure_in
 
 --  Output:
 --    unsolved goals
---    a b c : Prop
---    n m : Nat
---    α✝ : Type
---    e1 e2 x✝¹ y✝¹ : α✝
---    α β : Type
---    x✝ x' y✝ : α
---    l l' : List α
---    f g : α → β
---    p : α → Prop
 --    x y z : Nat
 --    ⊢ x + (y + z) = z + y + x
 
@@ -1026,15 +1017,14 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 --
 --  Again, these two notions are equivalent.
 
---  Don't worry too much about `Nat.beq_eq_true_eq` yet; we
---  need this from Lean because `n == m` is a wrapper of
---  `DecidableEq Nat`. We will go over this in the
---  Typeclasses chapter.
-
 theorem beq_eq_true (n m : Nat) :
     (n == m) = true ↔ n = m := by
   rw [Nat.beq_eq_true_eq]
 
+--  (We use `Nat.beq_eq_true_eq` because `n == m` is a
+--  wrapper of `DecidableEq Nat`. We will go over this in
+--  the Typeclasses chapter.)
+--
 --  So what should we do in situations where some claim
 --  could be formalized as either a proposition or a boolean
 --  computation? Which should we choose?
@@ -1154,15 +1144,6 @@ sf_expect_failure_in
 --    is not definitionally equal to the right-hand side
 --      b = b ∧ a
 --
---    a✝ b✝ c : Prop
---    n m : Nat
---    α✝ : Type
---    e1 e2 x✝ y✝ : α✝
---    α β : Type
---    x x' y : α
---    l l' : List α
---    f g : α → β
---    p : α → Prop
 --    a b : Prop
 --    ⊢ a ∧ b = b ∧ a
 
@@ -1177,15 +1158,6 @@ sf_expect_failure_in
 --
 --    Consider using the 'by_cases' tactic, which does true/false reasoning for propositions.
 --
---    a✝ b✝ c : Prop
---    n m : Nat
---    α✝ : Type
---    e1 e2 x✝ y✝ : α✝
---    α β : Type
---    x x' y : α
---    l l' : List α
---    f g : α → β
---    p : α → Prop
 --    a b : Prop
 --    ⊢ a ∧ b = b ∧ a
 
@@ -1379,4 +1351,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Built on 2026-09-14 21:04 UTC
+-- Built on 2026-09-14 21:51 UTC
