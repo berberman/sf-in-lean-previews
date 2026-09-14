@@ -936,4 +936,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Built on 2026-09-14 17:09 UTC
+-- Built on 2026-09-14 19:13 UTC
