@@ -79,6 +79,8 @@ theorem succ_inj' : Injective Nat.succ := by
   intro x y h
   injection h
 
+--  ### Equality Propositions
+
 --  The familiar equality operator `=` is a (binary)
 --  function that returns a `Prop`. The expression `n = m`
 --  is notation for `Eq n m`. Because `Eq` can be used with
@@ -89,10 +91,35 @@ theorem succ_inj' : Injective Nat.succ := by
 --  Output:
 --    Eq.{u_1} {α : Sort u_1} : α → α → Prop
 
+--  The injectivity/disjointness principles from the
+--  `Tactics` chapter apply to equality hypotheses too, and
+--  `cases` can exploit them directly:
+
+-- substitution
+example (x : Nat) (h : x = 0) : Nat.succ x = 1 := by
+  cases h
+  rfl
+
+-- injectivity
+example {m n : Nat} (h : Nat.succ m = Nat.succ n) : m = n := by
+  cases h
+  rfl
+
+-- disjointness
+example (h : (0 : Nat) = 1) : False := by
+  cases h
+
+-- acyclicity
+example (n : Nat) (h : n = Nat.succ n) : False := by
+  cases h
+
+--  There are more examples of this kind of reasoning yet to
+--  come.
+--
 --  As a convenience, Lean will cast booleans to
 --  propositions by equating them to `true`, which is why
 --  checking them against `Prop` succeeds. For clarity, we
---  will avoid relying on these implicit casts.
+--  will generally avoid relying on these implicit casts.
 
 #check (false : Prop)
 
@@ -103,6 +130,8 @@ theorem succ_inj' : Injective Nat.succ := by
 
 --  Output:
 --    true = true : Prop
+
+--  ### Quizzes
 
 --   ----------------------------------------
 
@@ -196,15 +225,20 @@ theorem succ_inj' : Injective Nat.succ := by
 --  and `b` is written `a ∧ b`; it represents the claim that
 --  both `a` and `b` are true.
 
-example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
-  /- A proof of a conjunction is a pair of proofs of the two components.
-      To prove a conjunction, we build a pair using `constructor`. -/
-  constructor
-  · rfl /- 3 + 4 = 7 -/
-  · rfl /- 2 * 2 = 4 -/
+example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by sorry -- proofs below
 
---  The constructor for conjunction is `And.intro`, which
---  concludes that `a ∧ b` given that `a` and `b` hold
+--  The infix notation `∧` is actually just syntactic sugar
+--  for `And a b`. That is, `And` is a Lean operator that
+--  takes two propositions as arguments and yields a
+--  proposition.
+
+#check And
+
+--  Output:
+--    And (a b : Prop) : Prop
+
+--  The sole constructor for conjunction is `And.intro`,
+--  which concludes `a ∧ b` given that `a` and `b` hold
 --  individually.
 
 #check And.intro
@@ -212,8 +246,7 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 --  Output:
 --    And.intro {a b : Prop} (left : a) (right : b) : a ∧ b
 
---  We can also apply the constructor for the conjunction
---  explicitly.
+--  We can `apply` `And.intro` to carry out proofs.
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   apply And.intro
@@ -226,6 +259,19 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   exact And.intro rfl rfl
+
+--  Lean can figure out which constructor to use just from
+--  the goal's type, so we don't have to name it ourselves.
+--  This is what the tactic `constructor` does
+--  automatically: it applies whatever constructor builds a
+--  value of the goal's type, leaving one subgoal per
+--  argument of that constructor. Since `And` has just one
+--  constructor, `constructor` always picks it here.
+
+example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
+  constructor
+  · rfl
+  · rfl
 
 --  We can also use Lean's anonymous constructor notation
 --  `⟨..., ...⟩`, which works on constructors for proofs as
@@ -257,16 +303,6 @@ example (n m : Nat) : n = 0 ∧ m = 0 → n + m = 0 := by
 example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
   sorry
 
---  The infix notation `∧` is actually just syntactic sugar
---  for `And a b`. That is, `And` is a Lean operator that
---  takes two propositions as arguments and yields a
---  proposition.
-
-#check And
-
---  Output:
---    And (a b : Prop) : Prop
-
 --  ### Disjunction
 
 --  Another important connective is the *disjunction*, or
@@ -280,12 +316,13 @@ example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
 --  (for "left injection", or "in the left case") and `inr`
 --  (for "right injection", or "in the right case").
 
-theorem Nat.factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
-  cases h with
-  /- `n = 0` -/
-  | inl hn => rw [hn, Nat.zero_mul]
-  /- `m = 0` -/
-  | inr hm => rw [hm, Nat.mul_zero]
+theorem Nat.factor_is_zero (n m : Nat)
+  (h : n = 0 ∨ m = 0) : n * m = 0 := by
+    cases h with
+    /- `n = 0` -/
+    | inl hn => rw [hn, Nat.zero_mul]
+    /- `m = 0` -/
+    | inr hm => rw [hm, Nat.mul_zero]
 
 --  Rather than performing case analysis via `cases`, we can
 --  also use `obtain` to match on the two possible
@@ -334,9 +371,9 @@ theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
 --  is prefix notation for `Not`.
 --
 --  To see how negation works, recall the *principle of
---  explosion* from the `Tactics` chapter, which asserts
---  that, if we assume a contradiction, then any other
---  proposition can be derived.
+--  explosion* from the Tactics chapter, which asserts that,
+--  if we assume a contradiction, then any other proposition
+--  can be derived.
 --
 --  Following this intuition, we could define `¬ a` ("not
 --  `a`") as `∀ c, a → c`. Lean makes an equivalent but
@@ -778,6 +815,13 @@ sf_expect_failure_in
 example (x y z : Nat) : x + (y + z) = (z + y) + x := by
   rw [Nat.add_comm]
   rw [Nat.add_comm z y]
+
+--  Aside: some tactics, like `rw` and `dsimp`, can list
+--  several locations at once with `at`, including the goal:
+
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
 
 --  The fact that implications are functions means we can
 --  prove them by explicitly providing a function.
@@ -1273,7 +1317,7 @@ theorem add_comm_fun' : (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) 
 
 --   ----------------------------------------
 
---  #### Other Extensionality Principles
+--  ### Other Extensionality Principles
 
 --  We can use `ext` on pairs as follows:
 
@@ -1316,4 +1360,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Built on 2026-09-14 16:21 UTC
+-- Built on 2026-09-14 17:09 UTC

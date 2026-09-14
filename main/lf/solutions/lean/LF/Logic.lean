@@ -8,18 +8,6 @@ import SFLCompat
 
 --  # Logic in Lean
 
---  Note to developers (Mike Hicks @mwhicks1):
---      See about working the following into this chapter.
---
---      Any tactic that accepts an `at` clause can target several locations
---      at once, including the goal, by listing them together after `at`.
---
---
---
---      `example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
---        rw [Nat.add_zero] at h ⊢
---        assumption`
-
 --  Note to developers (before next release):
 --      Unlike earlier chapters, there are probably too many WORKINCLASSes
 --      in this chapter. BCP 20: But conversely some more quizzes would be
@@ -109,6 +97,8 @@ theorem succ_inj' : Injective Nat.succ := by
 --      definition? Is it worth a word about that? Have students seen this
 --      happen to this point?
 
+--  ### Equality Propositions
+
 --  The familiar equality operator `=` is a (binary) function that returns
 --  a `Prop`. The expression `n = m` is notation for `Eq n m`. Because `Eq`
 --  can be used with elements of any type, it is also polymorphic:
@@ -118,9 +108,47 @@ theorem succ_inj' : Injective Nat.succ := by
 --  Output:
 --    Eq.{u_1} {α : Sort u_1} : α → α → Prop
 
+--  Equality turns out to be an inductively defined proposition, with a
+--  single constructor, `Eq.refl`, standing for the proof that anything is
+--  equal to itself. Recall from the Tactics chapter that the constructors
+--  of an inductive type are *injective* and *disjoint*, and that
+--  `injection` and `contradiction` let us exploit those facts about
+--  hypotheses concerning `Nat`, `List`, and so on. The very same
+--  injectivity and disjointness reasoning applies to a hypothesis of the
+--  form `a = b`. In fact, `cases` can carry out this reasoning directly on
+--  an equality hypothesis, without our having to name `injection` or
+--  `contradiction`. Here are a few examples.
+
+-- substitution
+example (x : Nat) (h : x = 0) : Nat.succ x = 1 := by
+  cases h
+  rfl
+
+-- injectivity
+example {m n : Nat} (h : Nat.succ m = Nat.succ n) : m = n := by
+  cases h
+  rfl
+
+--  (This is the same injectivity fact used above by the `injection` tactic
+--  in `succ_inj'`; here `cases` gets us the same conclusion in a single
+--  step.)
+
+-- disjointness
+example (h : (0 : Nat) = 1) : False := by
+  cases h
+
+-- acyclicity
+example (n : Nat) (h : n = Nat.succ n) : False := by
+  cases h
+
+--  We'll see this same disjointness principle put to use again shortly,
+--  via `contradiction`, to prove `0 ≠ 1` in the `Falsehood
+--  and Negation`
+--  section below.
+--
 --  As a convenience, Lean will cast booleans to propositions by equating
 --  them to `true`, which is why checking them against `Prop` succeeds. For
---  clarity, we will avoid relying on these implicit casts.
+--  clarity, we will generally avoid relying on these implicit casts.
 
 #check (false : Prop)
 
@@ -131,6 +159,8 @@ theorem succ_inj' : Injective Nat.succ := by
 
 --  Output:
 --    true = true : Prop
+
+--  ### Quizzes
 
 --   ----------------------------------------
 
@@ -224,14 +254,18 @@ theorem succ_inj' : Injective Nat.succ := by
 --  written `a ∧ b`; it represents the claim that both `a` and `b` are
 --  true.
 
-example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
-  /- A proof of a conjunction is a pair of proofs of the two components.
-      To prove a conjunction, we build a pair using `constructor`. -/
-  constructor
-  · rfl /- 3 + 4 = 7 -/
-  · rfl /- 2 * 2 = 4 -/
+example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by sorry -- proofs below
 
---  The constructor for conjunction is `And.intro`, which concludes that
+--  The infix notation `∧` is actually just syntactic sugar for `And a b`.
+--  That is, `And` is a Lean operator that takes two propositions as
+--  arguments and yields a proposition.
+
+#check And
+
+--  Output:
+--    And (a b : Prop) : Prop
+
+--  The sole constructor for conjunction is `And.intro`, which concludes
 --  `a ∧ b` given that `a` and `b` hold individually.
 
 #check And.intro
@@ -239,7 +273,7 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 --  Output:
 --    And.intro {a b : Prop} (left : a) (right : b) : a ∧ b
 
---  We can also apply the constructor for the conjunction explicitly.
+--  We can `apply` `And.intro` to carry out proofs.
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   apply And.intro
@@ -251,6 +285,18 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   exact And.intro rfl rfl
+
+--  Lean can figure out which constructor to use just from the goal's type,
+--  so we don't have to name it ourselves. This is what the tactic
+--  `constructor` does automatically: it applies whatever constructor
+--  builds a value of the goal's type, leaving one subgoal per argument of
+--  that constructor. Since `And` has just one constructor, `constructor`
+--  always picks it here.
+
+example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
+  constructor
+  · rfl
+  · rfl
 
 --  We can also use Lean's anonymous constructor notation `⟨..., ...⟩`,
 --  which works on constructors for proofs as well.
@@ -341,7 +387,7 @@ theorem and_commute (a b : Prop) (h : a ∧ b) : b ∧ a := by
   · exact h.right
   · exact h.left
 
---  The anonymous constructor allows us to write a much terser proof.
+--  The anonymous constructor allows us to write a much shorter proof.
 
 theorem and_commute' (a b : Prop) (h : a ∧ b) : b ∧ a := by
   exact ⟨h.right, h.left⟩
@@ -359,17 +405,6 @@ theorem and_associate (a b c : Prop) (h : a ∧ (b ∧ c)) : (a ∧ b) ∧ c := 
     · exact h.right.left
   · exact h.right.right
 
---  (End of exercise)
-
---  The infix notation `∧` is actually just syntactic sugar for `And a b`.
---  That is, `And` is a Lean operator that takes two propositions as
---  arguments and yields a proposition.
-
-#check And
-
---  Output:
---    And (a b : Prop) : Prop
-
 --  ### Disjunction
 
 --  Another important connective is the *disjunction*, or *logical or*, of
@@ -381,12 +416,13 @@ theorem and_associate (a b c : Prop) (h : a ∧ (b ∧ c)) : (a ∧ b) ∧ c := 
 --  The two cases are `inl` (for "left injection", or "in the left case")
 --  and `inr` (for "right injection", or "in the right case").
 
-theorem Nat.factor_is_zero (n m : Nat) (h : n = 0 ∨ m = 0) : n * m = 0 := by
-  cases h with
-  /- `n = 0` -/
-  | inl hn => rw [hn, Nat.zero_mul]
-  /- `m = 0` -/
-  | inr hm => rw [hm, Nat.mul_zero]
+theorem Nat.factor_is_zero (n m : Nat)
+  (h : n = 0 ∨ m = 0) : n * m = 0 := by
+    cases h with
+    /- `n = 0` -/
+    | inl hn => rw [hn, Nat.zero_mul]
+    /- `m = 0` -/
+    | inr hm => rw [hm, Nat.mul_zero]
 
 --  We can see in this example that, when we perform case analysis on a
 --  disjunction `a ∨ b`, we must separately discharge two proof
@@ -449,8 +485,8 @@ theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
 --  notation for `Not`.
 --
 --  To see how negation works, recall the *principle of explosion* from the
---  `Tactics` chapter, which asserts that, if we assume a contradiction,
---  then any other proposition can be derived.
+--  Tactics chapter, which asserts that, if we assume a contradiction, then
+--  any other proposition can be derived.
 --
 --  Following this intuition, we could define `¬ a` ("not `a`") as
 --  `∀ c, a → c`. Lean makes an equivalent but slightly different choice,
@@ -1115,14 +1151,12 @@ theorem List.All_In {α : Type} {p : α → Prop} {l : List α} :
 
 --  (End of exercise)
 
---  Note to developers (Yipeng Liu @berberman, NOW):
+--  Note to developers (Yipeng Liu @berberman):
 --      I found this exercise combining too many awkward details for too
 --      little conceptual payoff:
 --      1. the construction is artificial
 --      2. before `simp` is introduced, `bif` requires noisy `rw` and
 --         Boolean case equations
---      3. I don't know how to nicely avoid `cases h : ...` syntax which
---         IIRC we didn't mention before
 
 --  ### Exercise (2 stars): CombineOddEven (Optional) ⭐⭐
 
@@ -1263,6 +1297,15 @@ example (x y z : Nat) : x + (y + z) = (z + y) + x := by
 example (x y z : Nat) : x + (y + z) = (z + y) + x := by
   rw [Nat.add_comm x (y + z)]
   rw [Nat.add_comm z y]
+
+--  As an aside, some tactics that accept an `at` clause can target several
+--  locations at once, including the goal, written using the `⊢` symbol, by
+--  listing them together after `at` — for instance, both `rw` and `dsimp`
+--  support this.
+
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
 
 --  The fact that implications are functions means we can prove them by
 --  explicitly providing a function.
@@ -1750,11 +1793,11 @@ theorem List.allb_true_iff α {test : α → Bool} {l : List α} :
 --  Lean is cumbersome — or even impossible — unless we enrich its core
 --  logic with additional axioms.
 --
---  For example, the equality assertions that we have seen so far mostly
---  have concerned elements of inductive types (`Nat`, `Bool`, etc.). But
---  since the equality operator is polymorphic, we can use it at *any* type
---  — in particular, we can write propositions claiming that two
---  *propositions* are equal to each other:
+--  For example, the equality assertions that we have seen so far have
+--  mostly involved inductive types (`Nat`, `Bool`, etc.). But since the
+--  equality operator is polymorphic, we can use it at *any* type — in
+--  particular, we can write propositions claiming that two *propositions*
+--  are equal to each other:
 
 #check (∀ a b : Prop, (a ∧ b) = (b ∧ a) : Prop)
 
@@ -1973,7 +2016,7 @@ theorem add_comm_fun' : (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) 
 
 --   ----------------------------------------
 
---  #### Other Extensionality Principles
+--  ### Other Extensionality Principles
 
 --  Functions and propositions are not the only things that have
 --  extensionality principles. Many structures like pairs also have them:
@@ -2315,4 +2358,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Built on 2026-09-14 16:20 UTC
+-- Built on 2026-09-14 17:08 UTC

@@ -263,4 +263,4 @@ theorem Com.congruence.asgn {x : Ident} {a a' : Aexp} (ha : a.Equiv a') :
       rw [Aexp.equiv_def] at ha
       rw [ha]
 
--- Built on 2026-09-14 15:59 UTC
+-- Built on 2026-09-14 17:33 UTC
