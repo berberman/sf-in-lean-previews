@@ -50,48 +50,11 @@
     },
     "303": {
       "base_sha": "cd40b3e20162d2d23aaea977703551bdc0dd02ce",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "6ad7112636893bb4658c01f83e84a8c3bbc6cd7e",
+      "changed_variants": [],
+      "head_sha": "ee537339b351613c6b31d5eafb6fc73275bc3821",
       "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34607181049",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34898081168",
+      "status": "ci-failed",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
@@ -144,48 +107,11 @@
     },
     "392": {
       "base_sha": "a5250d75c39493f3f0cfc9f6f8d5064957e84707",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "9becc01e21900d8fe87c7aa40a347d4789933977",
+      "changed_variants": [],
+      "head_sha": "3b65d1836f7d4182659de23f8abea98cf82c7718",
       "preview_path": "pr/392/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34896470492",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Logic: Explain \"introduce\" and \"eliminate\"",
       "url": "https://github.com/plclub/sf-in-lean/pull/392"
     }
