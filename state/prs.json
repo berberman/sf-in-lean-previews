@@ -51,9 +51,9 @@
     "303": {
       "base_sha": "cd40b3e20162d2d23aaea977703551bdc0dd02ce",
       "changed_variants": [],
-      "head_sha": "ee537339b351613c6b31d5eafb6fc73275bc3821",
+      "head_sha": "efc7b0fbbf4eb753fcb19b3bd680fde7f42a19b4",
       "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34898081168",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34904305777",
       "status": "ci-failed",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
@@ -151,6 +151,16 @@
       "status": "published",
       "title": "Logic: Improvement Pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/392"
+    },
+    "394": {
+      "base_sha": "a5250d75c39493f3f0cfc9f6f8d5064957e84707",
+      "changed_variants": [],
+      "head_sha": "d386ee87fa7731dcfbbd762d9e96e9791df17d85",
+      "preview_path": "pr/394/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Tactics: drop optional grading, change unzip_zip to unzip'_zip",
+      "url": "https://github.com/plclub/sf-in-lean/pull/394"
     }
   },
   "schema": 3
