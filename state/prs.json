@@ -235,6 +235,53 @@
       "status": "published",
       "title": "Logic: Tidying and a few :::dev notes",
       "url": "https://github.com/plclub/sf-in-lean/pull/387"
+    },
+    "388": {
+      "base_sha": "cd40b3e20162d2d23aaea977703551bdc0dd02ce",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "d557e2d09c2e86dc1def7784a5c0de2ae6e0ffb2",
+      "preview_path": "pr/388/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34791650615",
+      "status": "published",
+      "title": "Imp & Hoare 2: Drop the `unfold` tactic in favor of `rw [name]`",
+      "url": "https://github.com/plclub/sf-in-lean/pull/388"
     }
   },
   "schema": 3
