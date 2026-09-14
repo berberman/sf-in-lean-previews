@@ -188,53 +188,6 @@
       "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
-    },
-    "387": {
-      "base_sha": "cd40b3e20162d2d23aaea977703551bdc0dd02ce",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "4abfebcbf2a5b159827ba0fc2ec42f344d12a340",
-      "preview_path": "pr/387/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34794451119",
-      "status": "published",
-      "title": "Logic: Tidying and a few :::dev notes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/387"
     }
   },
   "schema": 3
