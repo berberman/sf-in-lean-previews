@@ -977,7 +977,7 @@ theorem plus2_spec (st : State) (n : Nat) (st' : State)
     st'[X] = n + 2 := by
   -- Inverting `heval` forces one step of the `ceval` computation: since
   -- `plus2` is an assignment, `st'` must be `st` extended at `X`.
-  rw [plus2] at heval
+  unfold plus2 at heval
   inversion heval with
   | asgn m h =>
       simp [Aexp.eval_plus, Aexp.eval_id, Aexp.eval_num, TotalMap.update_eq] at h ⊢
@@ -1387,4 +1387,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Built on 2026-09-14 01:08 UTC
+-- Built on 2026-09-11 10:36 UTC
