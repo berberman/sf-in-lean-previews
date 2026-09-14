@@ -1,0 +1,433 @@
+module
+
+public meta import Lean.Elab.ConfigEval
+public meta import Lean.Elab.Tactic.RenameInaccessibles
+public meta import Lean.Elab.Tactic.Induction
+meta import all Lean.Meta.Tactic.Cases
+
+meta section
+
+namespace Lean.Parser
+open Tactic
+
+/-- Internal syntactic representation of a single inversion alternative. -/
+declare_syntax_cat invAlt
+syntax " | " caseArg " => " tacticSeq : invAlt
+
+/-- An inversion alternative matching one or more goal tags,
+  expanding to multiple single [invAlt]s. -/
+declare_syntax_cat invAlts
+syntax (" | " caseArg)+ " => " tacticSeq : invAlts
+
+/--
+  `inversion h` behaves like `cases h` except that where `cases` would fail with
+  > "Dependent elimination failed: Failed to solve equation ...",
+
+  `inversion` instead leaves behind those unsolveable equations in the context.
+  These equations arise from generalizing the indices of `h`'s type.
+  In such cases, `h` itself is generalized with a heterogenenous equality `heq`
+  to the corresponding constructor in each branch.
+
+  For instance, given a hypothesis `h : f n ≤ 0`,
+  `inversion h` will produce one goal for the case `Nat.le.refl {n} : n ≤ n`
+  with the equations `eq : f n = 0` and `heq : h ≍ Nat.le.refl`,
+  rather than failing to solve `f n = 0`.
+
+  * If `inversion +clear h` is set, then `heq` will be `clear`ed from the context if present,
+    along with `h` if there are no dependencies on it.
+    This is the usual behavior of `cases`.
+  * The form `inversion t with (tac ...) | tag₁ x ... => tac ... | ... | tagₙ z ... => tac ...`
+    is supported, similar to that of `cases` and `induction`.
+-/
+syntax (name := inversion)
+  "inversion " optConfig ident (" with " (tacticSeq)? (colGe invAlts)*)? : tactic
+
+end Lean.Parser
+
+namespace Lean.Meta
+
+/-- Get the user-facing name for the given metavariable. -/
+def _root_.Lean.MVarId.getUserName (mvarId : MVarId) : MetaM Name := do
+  let decl ← mvarId.getDecl
+  return decl.userName
+
+/-- Get the string suffix of a name as a name -/
+def _root_.Lean.Name.getSuffix : Name → Name
+| .anonymous => .anonymous
+| .str _ s => .str .anonymous s
+| .num n _ => n.getSuffix
+
+/--
+  This function is similar to `forallMetaTelescopeReducing`: Given `e` of the
+  form `forall ..xs, A`, this combinator will create a new metavariable for
+  each `x` in `xs` until it reaches an `x` whose type is defeq to `t`,
+  and instantiate `A` with these, while also reducing `A` if needed.
+  It uses `forallMetaTelescopeReducing`.
+
+  This function returns a triple `(mvs, bis, out)` where
+  - `mvs` is an array containing the new metavariables.
+  - `bis` is an array containing the binder infos for the `mvs`.
+  - `out` is `e` but instantiated with the `mvs`.
+
+  Lifted from [https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Lean/Meta/Basic.lean#L41].
+-/
+def forallMetaTelescopeReducingUntilDefEq
+    (e t : Expr) (kind : MetavarKind := MetavarKind.natural) :
+    MetaM (Array Expr × Array BinderInfo × Expr) := do
+  let (ms, bs, tp) ← forallMetaTelescopeReducing e (some 1) kind
+  unless ms.size == 1 do
+    if ms.size == 0 then throwError m!"Failed: {← ppExpr e} is not the type of a function."
+    else throwError m!"Failed"
+  let mut mvs := ms
+  let mut bis := bs
+  let mut out : Expr := tp
+  while !(← isDefEq (← inferType mvs.toList.getLast!) t) do
+    let (ms, bs, tp) ← forallMetaTelescopeReducing out (some 1) kind
+    unless ms.size == 1 do
+      throwError m!"Failed to find {← ppExpr t} as the type of a parameter of {← ppExpr e}."
+    mvs := mvs ++ ms
+    bis := bis ++ bs
+    out := tp
+  return (mvs, bis, out)
+
+/-- Given equations `eqs` in the local context of `mvarId`,
+  unify them using [Lean.Meta.unifyEq?],
+  but if unification fails, leave the equation in the context.
+  This means we should never get a "Dependent elimination failed" error.
+  While marked partial, this _should_ always terminate,
+  decreasing on the sum of the sizes of the terms of each equation.
+
+  Lifted from [Lean.Meta.Cases.unifyEqs]. -/
+partial def unifyEqs (eqs : List FVarId) (mvarId : MVarId) (subst : FVarSubst) (caseName? : Option Name) : MetaM (MVarId × FVarSubst) := withIncRecDepth do
+  match eqs with
+  | [] => return (mvarId, subst)
+  | eq :: eqs =>
+    let some { mvarId, subst, numNewEqs } ← Option.join <$> (observing? $ unifyEq? mvarId eq subst MVarId.acyclic caseName?)
+      | unifyEqs eqs mvarId subst caseName?
+    let (newEqs, mvarId) ← mvarId.introN numNewEqs
+    let eqs := eqs.map (Expr.fvarId! ∘ subst.get)
+    unifyEqs (newEqs.toList ++ eqs) mvarId subst caseName?
+
+/-- Lifted from [Lean.Meta.Cases.unifyCasesEqs]. -/
+def unifyCasesEqs (eqs : List FVarId) (subgoals : Array CasesSubgoal) : MetaM (Array CasesSubgoal) :=
+  subgoals.filterMapM fun s => do
+    let eqs := eqs.filterMap (Expr.fvarId? ∘ s.subst.get)
+    let (mvarId, subst) ← unifyEqs eqs s.mvarId s.subst s.ctorName
+    if (← mvarId.isAssignedOrDelayedAssigned) then return none
+    else return some { s with
+      mvarId := mvarId,
+      subst  := subst,
+      fields := s.fields.map (subst.apply ·)
+    }
+
+/-- Try to clear the given fvars from the local context of each subgoal,
+  using the subgoals' substitution mappings to find the fvars.
+
+  As with [MVarId.tryClearMany], the fvars must be in the order they appear in the context.  -/
+def casesClearMany (subgoals : Array CasesSubgoal) (fvarIds : Array FVarId) : MetaM (Array CasesSubgoal) :=
+  subgoals.mapM fun s => do
+    let fvarIds := fvarIds.filterMap (Expr.fvarId? ∘ s.subst.get)
+    let mvarId ← s.mvarId.tryClearMany fvarIds
+    return { s with mvarId }
+
+end Lean.Meta
+
+namespace Lean.Elab.Tactic
+open Meta Term
+
+-- [https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Tactic/Lemma.lean]
+-- [https://github.com/leanprover-community/batteries/blob/main/Batteries/Tactic/Lemma.lean]
+/-- Synonym for `theorem`. -/
+macro "lemma " thm:declId sig:declSig val:declVal : command => `(theorem $thm $sig $val)
+
+/--
+  `apply t at i` uses forward reasoning with `t` at the hypothesis `i`.
+  Explicitly, if `t : α₁ → ⋯ → αᵢ → ⋯ → αₙ` and `i` has type `αᵢ`, then this tactic adds
+  metavariables/goals for any terms of `αⱼ` for `j = 1, …, i-1`,
+  then replaces the type of `i` with `αᵢ₊₁ → ⋯ → αₙ` by applying those metavariables and the
+  original `i`.
+
+  Lifted from [https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/Tactic/ApplyAt.lean].
+-/
+elab "apply " t:term " at " i:ident : tactic => withSynthesize <| withMainContext do
+  let f ← elabTermForApply t
+  let some ldecl := (← getLCtx).findFromUserName? i.getId
+    | throwErrorAt i m!"Identifier {i} not found"
+  let (mvs, bis, _) ← forallMetaTelescopeReducingUntilDefEq (← inferType f) ldecl.type
+  for (m, b) in mvs.zip bis do
+    if b.isInstImplicit && !(← m.mvarId!.isAssigned) then
+      try m.mvarId!.inferInstance
+      catch _ => continue
+  let (_, mainGoal) ← (← getMainGoal).note ldecl.userName
+    (← mkAppOptM' f (mvs.pop.push ldecl.toExpr |>.map some))
+  let mainGoal ← mainGoal.tryClear ldecl.fvarId
+  replaceMainGoal <| [mainGoal] ++ mvs.pop.toList.map (·.mvarId!)
+
+structure InversionConfig where
+  clear : Bool := false
+
+declare_config_elab elabInversionConfig InversionConfig
+
+open Cases in
+/-- Perform inversion on the given variable in the context of the given goal.
+  Behaves like [Lean.Meta.Cases.cases] and generalizes indices if they aren't independent,
+  except instead of calling [Lean.Meta.Cases.unifyEqs], which may fail
+  if the generalizing equations can't all be destructed and substituted away,
+  it calls our [unifyCasesEqs] above, which keeps unsolvable equations in the context. -/
+def _root_.Lean.MVarId.inversion (mvarId : MVarId) (h : FVarId) (config : InversionConfig)
+    (givenNames : Array AltVarNames := #[]) (interestingCtors? : Option (Array Name) := none) :
+    TacticM (Array CasesSubgoal) := mvarId.withContext do
+  let goal ← getMainGoal
+  goal.withContext do
+    let some ctx ← mkCasesContext? h
+    | throwTacticEx `inversion goal "Target {Expr.fvar h} does not belong to an inductive type"
+    -- If the target's type isn't a predicate with indices, behave like `cases`
+    if ← hasIndepIndices ctx then
+      let subgoals ← inductionCasesOn goal h givenNames ctx (interestingCtors? := interestingCtors?)
+      let subgoals ← if config.clear
+        then casesClearMany subgoals #[h]
+        else pure subgoals
+      return subgoals
+    -- Otherwise, use custom [unifyEqs] to not fail on unifying HEqs
+    else
+      let gis@⟨newGoal, _, newTarget, numEqs⟩ ← generalizeIndices goal h
+      let (newEqs, newGoal) ← newGoal.introN numEqs
+      let some targetEq := newEqs.back?
+      | throwTacticEx `inversion newGoal "Failed to generalize target"
+      let subgoals ← inductionCasesOn newGoal newTarget givenNames ctx (interestingCtors? := interestingCtors?)
+      let subgoals ← elimAuxIndices gis subgoals
+      let subgoals ← unifyCasesEqs newEqs.toList subgoals
+      let subgoals ← if config.clear
+        then casesClearMany subgoals #[h, targetEq]
+        else pure subgoals
+      return subgoals
+
+/-- Given an inversion alternative and a list of goals,
+  solve the tagged goal with the provided tactics,
+  throwing an error if the goal cannot be found or solved. -/
+def evalInvAlt (goals : List MVarId) (alt : TSyntax `invAlt) : TacticM (List MVarId) :=
+  match alt with
+  | `(invAlt| | $tag:ident $vars:binderIdent* => $tactics:tacticSeq) => do
+    if let some goal ← goals.findM? (matchTag tag.getId <$> ·.getUserName) then
+      return [← trySolveGoal vars tactics goal]
+    else throwError m!"Invalid alternative name `{tag.getId}`: {← errorMsg}"
+  | `(invAlt| | _ $vars:binderIdent* => $tactics:tacticSeq) => do
+    if !goals.isEmpty then
+      goals.mapM (trySolveGoal vars tactics)
+    else throwErrorAt alt m!"Invalid wildcard alternative: {← errorMsg}"
+  | _ => throwErrorAt alt "Could not parse inversion alternative"
+where
+  matchTag tag name : Bool :=
+    tag == name || tag.isPrefixOf name || tag.isSuffixOf name
+  trySolveGoal vars tactics goal : TacticM MVarId := do
+    let goals ← renameInaccessibles goal vars >>= evalTacticAt tactics
+    unless goals.isEmpty do
+      reportUnsolvedGoals goals
+    return goal
+  errorMsg : TacticM MessageData := do
+    let goalMsgs ← goals.mapM (.ofName <$> ·.getUserName)
+    return if goals.isEmpty
+      then m!"There are no unhandled alternatives"
+      else m!"Expected {.orList goalMsgs}"
+
+@[tactic Lean.Parser.inversion, inherit_doc Lean.Parser.inversion]
+public meta def evalInversion : Tactic
+  | `(tactic| inversion $config $h:ident $[with $[$tactics?:tacticSeq]? $[$alts?:invAlts]*]?) => do
+    let casesSubgoals ← (← getMainGoal).inversion (← getFVarId h) (← elabInversionConfig config)
+    let mut goals ← casesSubgoals.toList.mapM setUserName
+    if let some tactics := tactics?.join then
+      let subgoals ← goals.mapM (evalTacticAt tactics)
+      goals ← subgoals.flatten.filterM (not <$> ·.isAssignedOrDelayedAssigned)
+    if let some alts := alts? then
+      let expandedAlts ← Array.flatten <$> alts.mapM expandInvAlts
+      for alt in expandedAlts do
+        let solvedGoals ← evalInvAlt goals alt
+        goals := goals.removeAll solvedGoals
+      unless goals.isEmpty do
+        reportUnsolvedGoals goals
+    replaceMainGoal goals
+  | stx => throwErrorAt stx "Could not parse inversion tactic"
+where
+  setUserName subgoal : TacticM MVarId := do
+    if let some name := subgoal.ctorName then
+      subgoal.mvarId.setUserName name.getSuffix
+    return subgoal.mvarId
+  expandInvAlts
+    | `(invAlts| $[| $args:caseArg]* => $tactics:tacticSeq) =>
+      args.mapM (`(invAlt| | $(·) => $tactics))
+    | stx => throwErrorAt stx "Could not parse inversion alternatives"
+
+end Lean.Elab.Tactic
+
+end -- meta section
+
+namespace Tests
+open Nat
+
+set_option autoImplicit false
+set_option pp.proofs true
+set_option pp.fieldNotation false
+
+/-! # `inversion` tests -/
+
+/-- In Lean, "inversion" on `leq : f n ≤ 0`, where `f : Nat → Nat`,
+  requires `generalizing e : f n = m`, since Lean does not perform
+  the dependent case analysis automatically. `cases leq` will fail here.
+  We want to keep the style of reasoning familiar to PL:
+  "I know `h`; what must have been true for `h` to be true?"
+  The technicality of needing to generalize hinders teaching and learning
+  this style of reasoning for audiences new to proof assistants and logic.
+  To solve this, we introduce and use the `inversion` tactic,
+  which automatically generalizes varaibles, performs case analysis,
+  and eliminates impossible subcases. -/
+example (f : Nat → Nat) (n : Nat) (leq : f n ≤ 0) : 0 = f n := by
+  -- cases leq /- Dependent elimination failed: Failed to solve equation 0 = f n -/
+  inversion leq; assumption
+
+example (f : Nat → Nat) (n : Nat) (leq : f n ≤ 0) : 0 = f n := by
+  inversion +clear leq; assumption
+
+/-- error: Unknown identifier `leq` -/
+#guard_msgs(error) in
+example (f : Nat → Nat) (n : Nat) (leq : f n ≤ 0) : 0 = f n := by
+  inversion +clear leq
+  guard_hyp leq
+
+example (f : Nat → Nat) (n : Nat) (leq : f n ≤ 0) : 0 = f n := by
+  inversion leq with
+  | refl heq eq =>
+    guard_hyp heq : leq ≍ le.refl
+    guard_hyp eq : 0 = f n
+    assumption
+
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
+example (f : Nat → Nat) (n m : Nat) (leq : f n ≤ f m) : f n = 0 := by
+  inversion leq with
+  | refl e _ | step k _ e _ =>
+    try rw [← e]
+    sorry
+
+/-- error: Invalid wildcard alternative: There are no unhandled alternatives -/
+#guard_msgs(error) in
+example (f : Nat → Nat) (n m : Nat) (leq : f n ≤ f m) : f n = 0 := by
+  inversion +clear leq with
+  | refl e | step k _ e =>
+    try rw [← e]
+    sorry
+  | _ => sorry
+
+/-- error: Invalid alternative name `step`: There are no unhandled alternatives -/
+#guard_msgs(error) in
+example (f : Nat → Nat) (n m : Nat) (leq : f n ≤ f m) : f n = 0 := by
+  inversion +clear leq with
+  | _ e | step k _ e =>
+    try rw [← e]
+    sorry
+
+inductive The : ∀ {α}, α → Prop where
+  | mk : The zero
+
+/-- sfl#40: Case names should be the constructors' names -/
+example {x : Nat} (h : The x) : x = zero := by
+  inversion h with
+  | mk => rfl
+
+example {α} {n m k : α} : [n, m] = [k, k] → [n] = [m] := by
+  intro h
+  inversion h; rfl
+
+example {n : Nat} : n + 1 = 1 + n := by
+  induction n with try rfl
+  | succ => lia
+
+inductive NoStutter {α : Type} : List α → Prop where
+  | nostutter0: NoStutter []
+  | nostutter1 {n} : NoStutter (n :: [])
+  | nostutter2 {x y l} (hneq : x ≠ y) (h : NoStutter (y :: l)) : NoStutter (x :: y :: l)
+
+/-- The last (only) case name need not be provided -/
+example : ¬ (NoStutter [3, 1, 1, 4]) := by
+  intro contra
+  inversion contra with | _ contra =>
+  inversion contra with | _ h _ =>
+  apply h
+  rfl
+
+/-- Inversion may optionally take a sequence of tactics on all goals -/
+example {α x y} {l : List α} (h : NoStutter l) (hl : l = x :: y :: []) : x ≠ y := by
+  inversion h with
+    injections
+    try subst_vars
+  | nostutter2 => assumption
+
+/-- `with` acts similarly to `<;>` on the optional sequence of tactics -/
+example {α x y} {l : List α} (h : NoStutter l) (hl : l = x :: y :: []) : x ≠ y := by
+  inversion h with
+    injections
+    try (subst_vars; assumption)
+
+example {x y} {l : List Nat} (h : NoStutter l) (hl : l = x :: y :: []) : x ≠ y := by
+  inversion h with
+    injections
+    try cases x
+  | nostutter2.zero => subst_vars; assumption
+  | nostutter2.succ => subst_vars; assumption
+
+inductive Vec α : Nat → Type where
+  | nil : Vec α 0
+  | cons {n} : α → Vec α n → Vec α (n + 1)
+
+/-- Inversion should work on indexed `Type`s as well -/
+example {α} (n : Nat) (v : Vec α (n + 1)) : ∃ hd tl, v = Vec.cons hd tl := by
+  inversion v with
+  | cons hd tl => exists hd, tl
+
+inductive Wec α : Nat → Type where
+  | nil : Wec α 0
+  | cons {n} (f : Nat → Nat) : α → Wec α n → Wec α (f n)
+
+/-- warning: declaration uses `sorry` -/
+#guard_msgs(warning) in
+example {α} (n : Nat) (v : Wec α (succ n)) :
+    ∃ hd tl, v = Wec.cons succ hd tl := by
+  inversion v with
+  | cons m f hd tl eq heq =>
+    guard_hyp eq : succ n = f m
+    guard_hyp heq : v ≍ Wec.cons f hd tl
+    sorry
+
+inductive EmptyRelation : Nat → Nat → Prop where
+
+/-- sfl#52: Inversion should still work on nonindexed `Prop`s -/
+example n m : ¬ EmptyRelation n m := by
+  intro contra; inversion contra
+
+/-- With `inductive.autoPromoteIndices` true (the default),
+  this is also a nonindexed `Prop`... -/
+inductive silly : Nat → Prop where
+| silly1 n (h : n > 1) : silly n
+| silly2 n (h : exists m, m * 2 = n) : silly n
+| silly3 n (h : exists m, n = m + 2) : silly n
+
+/-- ...and inversion should continue to work -/
+example {n} (h : silly n) : n ≠ 1 := by
+  inversion h <;> omega
+
+/-- Inversion should also work on nonindexed `Type`s -/
+example (n : Nat) : Nat := by
+  inversion n with
+  | zero => exact zero
+  | succ n' => exact n'
+
+/-! # `lemma` tests -/
+
+lemma doubleNegation : ∀ P, P → ¬ ¬ P := by
+  intro P p np; exact (np p)
+
+/-! # `apply` tests -/
+
+example (H : Bool → Nat → False) (n : Nat) : False := by
+  apply H at n; apply n; exact true
+
+end Tests
