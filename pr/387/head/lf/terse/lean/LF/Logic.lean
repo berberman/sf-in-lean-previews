@@ -32,14 +32,14 @@ import SFLCompat
 --  true or not.
 --
 --  Simply *being* a proposition is one thing; being
---  *provable* is a different thing!
+--  *provable* is something else!
 
 #check (2 = 2 : Prop)
 #check (3 = 2 : Prop)
 #check (∀ n : Nat, n = 2 : Prop)
 
---  So far, we've seen one primary place where propositions
---  can appear: in `theorem` declarations.
+--  So far, we've seen one place where propositions can
+--  appear: in `theorem` declarations.
 
 theorem plus_2_2_is_4 : 2 + 2 = 4 := rfl
 
@@ -91,11 +91,8 @@ theorem succ_inj' : Injective Nat.succ := by
 
 --  As a convenience, Lean will cast booleans to
 --  propositions by equating them to `true`, which is why
---  checking them against `Prop` succeeds. It also casts
---  boolean equalities to propositions by equating to
---  `true`, and boolean inequalities by equating to `false`.
---  For clarity, we will avoid relying on these implicit
---  casts.
+--  checking them against `Prop` succeeds. For clarity, we
+--  will avoid relying on these implicit casts.
 
 #check (false : Prop)
 
@@ -941,9 +938,13 @@ theorem even_double (k : Nat) :
   | zero => rw [Nat.double_zero]; rfl
   | succ k' ih => rw [Nat.double_succ]; exact ih
 
+--  ### Exercise (3 stars): even_double_conv ⭐⭐⭐
+
 theorem even_double_conv (n : Nat) : ∃ k : Nat,
     n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by
   sorry
+
+--  (End of exercise)
 
 --  Now the main theorem:
 
@@ -963,7 +964,7 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 --  1. that `n == m` returns `true`, or
 --  2. that `n = m`.
 --
---  Again, these two notions are equivalent:
+--  Again, these two notions are equivalent.
 
 --  Don't worry too much about `Nat.beq_eq_true_eq` yet; we
 --  need this from Lean because `n == m` is a wrapper of
@@ -1315,4 +1316,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Built on 2026-09-10 16:07 UTC
+-- Built on 2026-09-14 01:02 UTC

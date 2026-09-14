@@ -1,5 +1,5 @@
 {
-  "main_sha": "cd40b3e20162d2d23aaea977703551bdc0dd02ce",
+  "main_sha": "9634d355a80bfa5316af22bbab3fae5fe40853eb",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -190,16 +190,6 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
     },
     "387": {
-      "base_sha": "457f3db63c2b099ce88309c1a8bfc5d490dd87d6",
-      "changed_variants": [],
-      "head_sha": "192284ce75e0a030b32051eadce2dab82202cec4",
-      "preview_path": "pr/387/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34793045164",
-      "status": "ci-failed",
-      "title": "Logic: Tidying and a few :::dev notes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/387"
-    },
-    "388": {
       "base_sha": "cd40b3e20162d2d23aaea977703551bdc0dd02ce",
       "changed_variants": [
         {
@@ -239,12 +229,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "d557e2d09c2e86dc1def7784a5c0de2ae6e0ffb2",
-      "preview_path": "pr/388/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34791650615",
+      "head_sha": "4abfebcbf2a5b159827ba0fc2ec42f344d12a340",
+      "preview_path": "pr/387/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34794451119",
       "status": "published",
-      "title": "Imp & Hoare 2: Drop the `unfold` tactic in favor of `rw [name]`",
-      "url": "https://github.com/plclub/sf-in-lean/pull/388"
+      "title": "Logic: Tidying and a few :::dev notes",
+      "url": "https://github.com/plclub/sf-in-lean/pull/387"
     }
   },
   "schema": 3

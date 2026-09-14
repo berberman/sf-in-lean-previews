@@ -29,8 +29,8 @@ import SFLCompat
 --  Note that *all* syntactically well-formed propositions have type `Prop`
 --  in Lean, regardless of whether they are true or not.
 --
---  Simply *being* a proposition is one thing; being *provable* is a
---  different thing!
+--  Simply *being* a proposition is one thing; being *provable* is
+--  something else!
 
 #check (2 = 2 : Prop)
 #check (3 = 2 : Prop)
@@ -40,7 +40,7 @@ import SFLCompat
 --  entities that can be manipulated in all the same ways as any of the
 --  other things in Lean's world.
 --
---  So far, we've seen one primary place where propositions can appear: in
+--  So far, we've seen one place where propositions can appear: in
 --  `theorem` declarations.
 
 theorem plus_2_2_is_4 : 2 + 2 = 4 := rfl
@@ -97,10 +97,8 @@ theorem succ_inj' : Injective Nat.succ := by
 --    Eq.{u_1} {α : Sort u_1} : α → α → Prop
 
 --  As a convenience, Lean will cast booleans to propositions by equating
---  them to `true`, which is why checking them against `Prop` succeeds. It
---  also casts boolean equalities to propositions by equating to `true`,
---  and boolean inequalities by equating to `false`. For clarity, we will
---  avoid relying on these implicit casts.
+--  them to `true`, which is why checking them against `Prop` succeeds. For
+--  clarity, we will avoid relying on these implicit casts.
 
 #check (false : Prop)
 
@@ -285,14 +283,14 @@ example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
 --  pattern `_` to indicate that the unneeded conjunct should just be
 --  thrown away.
 
-theorem proj1 (a b : Prop) (h : a ∧ b) : a := by
+example (a b : Prop) (h : a ∧ b) : a := by
   obtain ⟨hP, _⟩ := h
   exact hP
 
 --  Conjunctions come with their own built-in projections, `.left` and
 --  `.right`, which we can use instead of pattern matching.
 
-theorem left (a b : Prop) (h : a ∧ b) : a := by
+example (a b : Prop) (h : a ∧ b) : a := by
   exact h.left
 
 --  ### Exercise (1 star): proj2 (Optional) ⭐
@@ -1241,9 +1239,13 @@ theorem even_double (k : Nat) :
   | zero => rw [Nat.double_zero]; rfl
   | succ k' ih => rw [Nat.double_succ]; exact ih
 
+--  ### Exercise (3 stars): even_double_conv ⭐⭐⭐
+
 theorem even_double_conv (n : Nat) : ∃ k : Nat,
     n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by
   sorry
+
+--  (End of exercise)
 
 --  Now the main theorem:
 
@@ -1263,7 +1265,7 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 --  1. that `n == m` returns `true`, or
 --  2. that `n = m`.
 --
---  Again, these two notions are equivalent:
+--  Again, these two notions are equivalent.
 --
 --  Don't worry too much about `Nat.beq_eq_true_eq` yet; we need this from
 --  Lean because `n == m` is a wrapper of `DecidableEq Nat`. We will go
@@ -1370,7 +1372,7 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 --  back and forth between the boolean and propositional worlds will often
 --  be convenient in later chapters.
 
---  ### Exercise (2 stars): logical connectives ⭐⭐
+--  ### Exercise (2 stars): logical_connectives ⭐⭐
 
 --  The following theorems relate the propositional connectives studied in
 --  this chapter to the corresponding boolean operations.
@@ -1918,6 +1920,40 @@ def ImpOr := ∀ a b : Prop, (a → b) → (¬ a ∨ b)
 
 def ConsequentiaMirabilis := ∀ a : Prop, (¬ a → a) → a
 
---  FILL IN HERE
+theorem ImpOr_em : ImpOr → ExcludedMiddle := by
+  sorry
 
--- Built on 2026-09-10 16:07 UTC
+theorem em_ImpOr : ExcludedMiddle → ImpOr := by
+  sorry
+
+theorem em_demorgan : ExcludedMiddle → DeMorganNotAndNot := by
+  sorry
+
+theorem demorgan_em : DeMorganNotAndNot → ExcludedMiddle := by
+  sorry
+
+theorem em_not_not : ExcludedMiddle → NotNot := by
+  sorry
+
+theorem not_not_em' : NotNot → ExcludedMiddle := by
+  sorry
+
+theorem em_cm : ExcludedMiddle → ConsequentiaMirabilis := by
+  sorry
+
+theorem cm_em : ConsequentiaMirabilis → ExcludedMiddle := by
+  sorry
+
+theorem cm_not_not : ConsequentiaMirabilis → NotNot := by
+  sorry
+
+theorem not_not_cm : NotNot → ConsequentiaMirabilis := by
+  sorry
+
+theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
+  sorry
+
+theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
+  sorry
+
+-- Built on 2026-09-14 01:02 UTC

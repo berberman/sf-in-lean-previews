@@ -46,8 +46,8 @@ import SFLCompat
 --  Note that *all* syntactically well-formed propositions have type `Prop`
 --  in Lean, regardless of whether they are true or not.
 --
---  Simply *being* a proposition is one thing; being *provable* is a
---  different thing!
+--  Simply *being* a proposition is one thing; being *provable* is
+--  something else!
 
 #check (2 = 2 : Prop)
 #check (3 = 2 : Prop)
@@ -57,7 +57,7 @@ import SFLCompat
 --  entities that can be manipulated in all the same ways as any of the
 --  other things in Lean's world.
 --
---  So far, we've seen one primary place where propositions can appear: in
+--  So far, we've seen one place where propositions can appear: in
 --  `theorem` declarations.
 
 theorem plus_2_2_is_4 : 2 + 2 = 4 := rfl
@@ -104,6 +104,11 @@ theorem succ_inj' : Injective Nat.succ := by
   intro x y h
   injection h
 
+--  Note to developers (Mike Hicks @mwhicks1):
+--      Is it confusing that you can do `intro` *through* the `Injective`
+--      definition? Is it worth a word about that? Have students seen this
+--      happen to this point?
+
 --  The familiar equality operator `=` is a (binary) function that returns
 --  a `Prop`. The expression `n = m` is notation for `Eq n m`. Because `Eq`
 --  can be used with elements of any type, it is also polymorphic:
@@ -114,10 +119,8 @@ theorem succ_inj' : Injective Nat.succ := by
 --    Eq.{u_1} {α : Sort u_1} : α → α → Prop
 
 --  As a convenience, Lean will cast booleans to propositions by equating
---  them to `true`, which is why checking them against `Prop` succeeds. It
---  also casts boolean equalities to propositions by equating to `true`,
---  and boolean inequalities by equating to `false`. For clarity, we will
---  avoid relying on these implicit casts.
+--  them to `true`, which is why checking them against `Prop` succeeds. For
+--  clarity, we will avoid relying on these implicit casts.
 
 #check (false : Prop)
 
@@ -311,14 +314,14 @@ example (n m : Nat) (h : n + m = 0) : n * m = 0 := by
 --  pattern `_` to indicate that the unneeded conjunct should just be
 --  thrown away.
 
-theorem proj1 (a b : Prop) (h : a ∧ b) : a := by
+example (a b : Prop) (h : a ∧ b) : a := by
   obtain ⟨hP, _⟩ := h
   exact hP
 
 --  Conjunctions come with their own built-in projections, `.left` and
 --  `.right`, which we can use instead of pattern matching.
 
-theorem left (a b : Prop) (h : a ∧ b) : a := by
+example (a b : Prop) (h : a ∧ b) : a := by
   exact h.left
 
 --  ### Exercise (1 star): proj2 (Optional) ⭐
@@ -773,6 +776,17 @@ theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
   apply isNil_cons x xs
   rw [←h]
   exact hn
+
+--  (End of exercise)
+
+--  Note to developers (Niklas Halonen @xhalo32):
+--      In `List.IsNil` changing the `_ =>` arm to `_ :: _ =>` would
+--      introduce a hidden dependency to `List.All` (and `List.In`) which
+--      is not emitted to the grading variant because it's in a solution
+--      block. This would lead to the solution of `List.All_In` (and
+--      `List.in_mem` in IndProp) to not pass comparator because the
+--      underlying terms are different. TLDR: Don't change `List.IsNil` to
+--      use `_ :: _ =>`.
 
 --  ### Logical Equivalence
 
@@ -1418,12 +1432,7 @@ theorem even_double (k : Nat) :
 --  Note to developers (Yipeng Liu @berberman):
 --      Same issue as `CombineOddEven`.
 
---  Note to developers (Claude):
---      This lemma is proved with `solution!` but is not wrapped in an
---      `exercise` directive, so the student build gets a `sorry`ed helper
---      with no exercise framing — and `Nat.even_bool_prop` just below
---      depends on it. Consider making it a named, rated exercise or
---      switching to `workinclass!`.
+--  ### Exercise (3 stars): even_double_conv ⭐⭐⭐
 
 theorem even_double_conv (n : Nat) : ∃ k : Nat,
     n = bif Nat.even n then Nat.double k else Nat.double k + 1 := by
@@ -1441,6 +1450,8 @@ theorem even_double_conv (n : Nat) : ∃ k : Nat,
     | true =>
       rw [h] at ihk; rw [not] at *; rw [cond_true] at ihk
       exists k'; congr
+
+--  (End of exercise)
 
 --  Now the main theorem:
 
@@ -1460,7 +1471,7 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 --  1. that `n == m` returns `true`, or
 --  2. that `n = m`.
 --
---  Again, these two notions are equivalent:
+--  Again, these two notions are equivalent.
 
 --  Note to developers (Yipeng Liu @berberman):
 --      Either get rid of the development of `beq` story or use our own
@@ -1514,6 +1525,12 @@ example : Nat.Even 100 := by
 --  don't have to invent the witness `50`: computation does it for us!
 
 example : Nat.even 100 = true := rfl
+
+--  Note to developers (Mike Hicks @mwhicks1):
+--      Basically this is saying that computation is a good proof tactic.
+--      But this is a little confusing to me because we seem to want to
+--      eschew computation in favor of "simplification rules", which imply
+--      a preference for the Prop version, despite the downside shown here.
 
 --  Now, the useful observation is that, since the two notions are
 --  equivalent, we can use the boolean formulation to prove the other one
@@ -1571,7 +1588,7 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 --  back and forth between the boolean and propositional worlds will often
 --  be convenient in later chapters.
 
---  ### Exercise (2 stars): logical connectives ⭐⭐
+--  ### Exercise (2 stars): logical_connectives ⭐⭐
 
 --  The following theorems relate the propositional connectives studied in
 --  this chapter to the corresponding boolean operations.
@@ -2206,9 +2223,6 @@ theorem not_exists_dist (α : Type) (p : α → Prop) :
 
 --  ### Exercise (5 stars): classical_axioms (Optional) ⭐⭐⭐⭐⭐
 
---  Note to developers (Niklas Halonen @xhalo32):
---      The following exercise needs grading attributes or manual grading.
-
 --  For those who like a challenge, here is an exercise adapted from the
 --  Coq'Art book by Bertot and Castéran (p. 123). Each of the following
 --  five statements, together with `ExcludedMiddle`, can be considered as
@@ -2263,6 +2277,7 @@ theorem demorgan_em : DeMorganNotAndNot → ExcludedMiddle := by
   apply h a (¬ a)
   intro ⟨hna, hnna⟩
   exact hnna hna
+
 theorem em_not_not : ExcludedMiddle → NotNot := by
   intro h a hnna
   obtain ha | hna := h a
@@ -2300,4 +2315,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Built on 2026-09-10 16:07 UTC
+-- Built on 2026-09-14 01:02 UTC
