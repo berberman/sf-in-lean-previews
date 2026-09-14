@@ -188,6 +188,53 @@
       "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
+    },
+    "389": {
+      "base_sha": "1de20ca376581bbdadfb358615796a2b140c983a",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "2c5c2660d62d95dff64c8efd0221fbee02fd8f76",
+      "preview_path": "pr/389/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34842545488",
+      "status": "published",
+      "title": "Logic: Address issues, tweaks to narrative",
+      "url": "https://github.com/plclub/sf-in-lean/pull/389"
     }
   },
   "schema": 3
