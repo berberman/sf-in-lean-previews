@@ -1,5 +1,5 @@
 {
-  "main_sha": "1de20ca376581bbdadfb358615796a2b140c983a",
+  "main_sha": "d7772165b661f297a609add5629f11550082e4b8",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -94,16 +94,6 @@
       "status": "published",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
-    },
-    "347": {
-      "base_sha": "1de20ca376581bbdadfb358615796a2b140c983a",
-      "changed_variants": [],
-      "head_sha": "4e7e95212a0d65ea9f8d3afb315273b3da3d1469",
-      "preview_path": "pr/347/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Imp: proof polishing, remove EvalR unexpanders",
-      "url": "https://github.com/plclub/sf-in-lean/pull/347"
     },
     "382": {
       "base_sha": "393e106ad9f1944342bb30c019cdee13345dadd7",
