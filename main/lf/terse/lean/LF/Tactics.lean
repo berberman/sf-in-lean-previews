@@ -720,4 +720,4 @@ example (n m p q : Nat)
 --    generalizing the listed local variables, giving a more
 --    general induction hypothesis
 
--- Built on 2026-09-14 01:07 UTC
+-- Built on 2026-09-14 10:30 UTC

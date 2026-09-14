@@ -1255,4 +1255,4 @@ theorem preservation {t t' : Tm} {τ : Ty}
 
 end StlcSub
 
--- Built on 2026-09-14 01:10 UTC
+-- Built on 2026-09-14 10:33 UTC
