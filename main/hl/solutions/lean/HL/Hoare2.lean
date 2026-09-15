@@ -3005,14 +3005,13 @@ theorem hoare_asgn_weakest
 --  Show that your `havoc_pre` function from the `himp_hoare` exercise in
 --  the Hoare chapter returns a weakest precondition.
 
-namespace HimpHoare2
-open HimpHoare
+namespace Himp2
 
 theorem hoare_havoc_weakest (P Q : Assertion) (x : Ident)
-    (h : ValidHoareTriple P (Com.havoc x) Q) :
-    P ->> havoc_pre x Q := by
+    (h : Himp.ValidHoareTriple P (Himp.Com.havoc x) Q) :
+    P ->> Himp.havoc_pre x Q := by
   sorry
 
-end HimpHoare2
+end Himp2
 
--- Built on 2026-09-15 21:42 UTC
+-- Built on 2026-09-14 16:22 UTC

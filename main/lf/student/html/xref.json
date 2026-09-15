@@ -1198,21 +1198,24 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Other-Extensionality-Principles":
+   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles":
    [{"id":
-     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Other-Extensionality-Principles",
+     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles",
      "data":
      {"title": "Other Extensionality Principles",
       "shortTitle": null,
-      "sectionNum": "8.7.3.",
+      "sectionNum": "8.7.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "7"},
+       {"title": "Functional Extensionality",
+        "shortTitle": null,
+        "number": "2"},
        {"title": "Other Extensionality Principles",
         "shortTitle": null,
-        "number": "3"}]},
+        "number": "1"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality":
    [{"id":
@@ -1236,7 +1239,7 @@
      "data":
      {"title": "Classical vs. Constructive Logic",
       "shortTitle": null,
-      "sectionNum": "8.7.4.",
+      "sectionNum": "8.7.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -1244,7 +1247,7 @@
        {"title": "The Logic of Lean", "shortTitle": null, "number": "7"},
        {"title": "Classical vs. Constructive Logic",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "3"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean":
    [{"id": "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean",
@@ -1257,33 +1260,6 @@
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "7"}]},
-     "address": "/Logic/"}],
-   "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Quizzes":
-   [{"id": "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Quizzes",
-     "data":
-     {"title": "Quizzes",
-      "shortTitle": null,
-      "sectionNum": "8.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "The  Prop  Type", "shortTitle": null, "number": "1"},
-       {"title": "Quizzes", "shortTitle": null, "number": "2"}]},
-     "address": "/Logic/"}],
-   "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Equality-Propositions":
-   [{"id":
-     "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Equality-Propositions",
-     "data":
-     {"title": "Equality Propositions",
-      "shortTitle": null,
-      "sectionNum": "8.1.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "The  Prop  Type", "shortTitle": null, "number": "1"},
-       {"title": "Equality Propositions", "shortTitle": null, "number": "1"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The--Prop--Type":
    [{"id": "Logical-Foundations--Logic-in-Lean--The--Prop--Type",
@@ -3207,6 +3183,7 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
+        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "succ_mul_succ":
@@ -3375,6 +3352,7 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
+        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend_cons":
@@ -3386,6 +3364,7 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
+        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend":
@@ -3397,6 +3376,7 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
+        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "restricted_excluded_middle":
@@ -8576,7 +8556,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -8593,7 +8573,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
