@@ -1,5 +1,5 @@
 {
-  "main_sha": "e1d5f7d54a09c34028550f6185e5186095e1c3f7",
+  "main_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -94,53 +94,6 @@
       "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
-    },
-    "397": {
-      "base_sha": "e1d5f7d54a09c34028550f6185e5186095e1c3f7",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "31b85816bcee4152509cdb7693d89349f39f210e",
-      "preview_path": "pr/397/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35017784222",
-      "status": "published",
-      "title": "Logic: better Nat.zero_or_succ",
-      "url": "https://github.com/plclub/sf-in-lean/pull/397"
     }
   },
   "schema": 3

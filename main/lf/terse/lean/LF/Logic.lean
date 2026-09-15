@@ -365,7 +365,7 @@ theorem or_intro_l (a b : Prop) (h : a) : a ∨ b := by
 --  ... and here is a slightly more interesting example
 --  requiring both `left` and `right`:
 
-theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
+theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n - 1).succ := by
   sorry
 
 --  ### Exercise (2 stars): mul_is_zero ⭐⭐
@@ -1331,4 +1331,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Built on 2026-09-15 19:57 UTC
+-- Built on 2026-09-15 21:41 UTC

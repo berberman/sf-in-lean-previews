@@ -3452,7 +3452,7 @@
  "1224": "<code>n * m = 0</code>",
  "1223":
  "<code>Nat.mul_is_zero (n m : Nat) (h : n * m = 0) : n = 0 ∨ m = 0</code>",
- "1222": "<code>Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred</code>",
+ "1222": "<code>Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n - 1).succ</code>",
  "1221": "<code>or_intro_l (a b : Prop) (h : a) : a ∨ b</code>",
  "1220":
  "<code class=\"docstring\">Applies the second constructor when\nthe goal is an inductive type with exactly two constructors, or fails otherwise.\n```\nexample {p q : Prop} (h : q) : p ∨ q := by\n  right\n  exact h\n```\n</code>",

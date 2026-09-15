@@ -476,10 +476,10 @@ theorem or_intro_l (a b : Prop) (h : a) : a ∨ b := by
 --  ... and here is a slightly more interesting example requiring both
 --  `left` and `right`:
 
-theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n + 1).pred := by
+theorem Nat.zero_or_succ (n : Nat) : n = 0 ∨ n = (n - 1).succ := by
   cases n with
   | zero => left; rfl
-  | succ n => right; rw [Nat.pred_succ]
+  | succ n => right; rfl
 
 --  ### Exercise (2 stars): mul_is_zero ⭐⭐
 
@@ -2354,4 +2354,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Built on 2026-09-15 19:56 UTC
+-- Built on 2026-09-15 21:40 UTC
