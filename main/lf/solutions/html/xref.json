@@ -3198,26 +3198,6 @@
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
-   "unzip_zip'":
-   [{"id": "unzip_zip___",
-     "data":
-     {"/Tactics/#unzip_zip___":
-      {"display": "unzip_zip'",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Additional Exercises"]}},
-     "address": "/Tactics/"}],
-   "unzip_zip":
-   [{"id": "unzip_zip",
-     "data":
-     {"/Tactics/#unzip_zip":
-      {"display": "unzip_zip",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Additional Exercises"]}},
-     "address": "/Tactics/"}],
    "unzip_test_snd'":
    [{"id": "unzip_test_snd___",
      "data":
@@ -3328,6 +3308,26 @@
         "Polymorphism",
         "Polymorphic Pairs"]}},
      "address": "/Poly/"}],
+   "unzip'_zip'":
+   [{"id": "unzip____zip___",
+     "data":
+     {"/Tactics/#unzip____zip___":
+      {"display": "unzip'_zip'",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Additional Exercises"]}},
+     "address": "/Tactics/"}],
+   "unzip'_zip":
+   [{"id": "unzip____zip",
+     "data":
+     {"/Tactics/#unzip____zip":
+      {"display": "unzip'_zip",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Additional Exercises"]}},
+     "address": "/Tactics/"}],
    "unzip'":
    [{"id": "unzip___",
      "data":
@@ -5048,28 +5048,7 @@
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective-next-next",
-     "data":
-     {"/Tactics/#double_injective-next-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]}},
-     "address": "/Tactics/"},
-    {"id": "double_injective-next",
+   [{"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5091,6 +5070,27 @@
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
     {"id": "double_injective",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -6649,7 +6649,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq",
+   [{"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6658,7 +6658,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
+    {"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
