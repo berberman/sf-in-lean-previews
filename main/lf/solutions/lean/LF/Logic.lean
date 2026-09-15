@@ -1634,7 +1634,7 @@ example : ¬ Nat.Even 101 := by
 theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
     (n + p == m + p) = true := by
   apply (beq_eq_true n m).mp at h
-  rw [h, BEq.rfl]
+  rw [h, BEq.refl]
 
 --  We'll come back to reflection and decidable propositions in a later
 --  chapter, but the examples above already illustrate the different
@@ -1876,12 +1876,18 @@ theorem prop_true (a : Prop) (h : a) : a = True := by
     exact h
 
 --  Lean provides an `ext` tactic that applies `propext` for us. We can use
---  it to show that commuted conjoined propositions are equal. Similarly,
---  we can use it to show that reassociated conjoined propositions are
---  equal as well.
+--  it to show that commuted conjoined propositions are equal.
 
 theorem and_comm_eq (a b : Prop) : (a ∧ b) = (b ∧ a) := by
   ext; apply and_comm
+
+--  Similarly, we can use it to show that reassociated conjoined
+--  propositions are equal as well.
+
+#check and_assoc
+
+--  Output:
+--    and_assoc {a b c : Prop} : (a ∧ b) ∧ c ↔ a ∧ b ∧ c
 
 theorem and_assoc_eq (a b c : Prop) : ((a ∧ b) ∧ c) = (a ∧ (b ∧ c)) := by
   ext; apply and_assoc
@@ -1967,7 +1973,7 @@ example : (fun x => x + 2) = (fun x => x + (Nat.pred 3)) := by rfl
 #check (fun f g => funext (f := f) (g := g) :
     ∀ {α β : Type} (f g : α → β), (∀ x, f x = g x) → f = g)
 
---  Here, functional extensionality means that a function's identity is
+--  Functional extensionality means that a function's identity is
 --  completely determined by what we can observe from it — i.e., the
 --  results we obtain after applying it. (Its full type is actually
 --  slightly more general, and is defined in terms of a more fundamental
@@ -1991,8 +1997,8 @@ theorem add_comm_fun :
     exact Nat.add_comm n m
 
 --  The `ext` tactic will also apply `funext` as many times as possible,
---  introducing all variables in one go. (The singular version of the
---  tactic is `ext1`.)
+--  introducing all variables in one go. The singular version of the tactic
+--  is `ext1`.
 
 theorem add_comm_fun' :
   (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) := by
@@ -2348,4 +2354,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Built on 2026-09-15 13:21 UTC
+-- Built on 2026-09-15 16:22 UTC

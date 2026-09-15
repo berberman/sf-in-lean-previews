@@ -1,5 +1,5 @@
 {
-  "main_sha": "71f031e6168dd52a45ce727e54efcdb60f9428ba",
+  "main_sha": "dd7463fc11394bd988ded0de17f70821d5d83164",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -49,11 +49,11 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/286"
     },
     "303": {
-      "base_sha": "cd40b3e20162d2d23aaea977703551bdc0dd02ce",
+      "base_sha": "71f031e6168dd52a45ce727e54efcdb60f9428ba",
       "changed_variants": [],
-      "head_sha": "1c9d8f9ef6f7b269b0d16b7f18a2bc7434e54890",
+      "head_sha": "71881d4618326f2bd6afa38d3b68a7d1a5407789",
       "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34908857844",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34993517901",
       "status": "ci-failed",
       "title": "Finishing Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/303"
@@ -104,53 +104,6 @@
       "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
-    },
-    "395": {
-      "base_sha": "71f031e6168dd52a45ce727e54efcdb60f9428ba",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "f63f2594d43397459629b6fc4c8e9f31af098247",
-      "preview_path": "pr/395/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34978908110",
-      "status": "published",
-      "title": "Logic: More tweaks",
-      "url": "https://github.com/plclub/sf-in-lean/pull/395"
     }
   },
   "schema": 3

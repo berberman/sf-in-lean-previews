@@ -1011,6 +1011,12 @@ theorem beq_eq_true (n m : Nat) :
 def is_even_prime (n : Nat) : Bool :=
   bif n == 2 then true else false
 
+--  An important benefit of stating facts using booleans is
+--  enabling some proof automation through computation with
+--  terms, a technique known as *proof by reflection*.
+--
+--  Consider the following statement:
+--
 --      Nat.Even 100
 --
 --  The most direct way to prove this is to give the value
@@ -1037,11 +1043,6 @@ example : Nat.Even 100 := by
 --  Although we haven't gained much in terms of proof-script
 --  simplicity in this case, larger proofs can often be made
 --  considerably simpler by the use of reflection.
---
---  As an extreme example, a famous mechanized proof of the
---  even more famous *four-color theorem* uses reflection to
---  reduce the analysis of hundreds of different cases to a
---  boolean computation.
 --
 --  Another advantage of booleans is that the *negation* of
 --  a claim about booleans is straightforward to state and
@@ -1156,12 +1157,18 @@ sf_expect_failure_in
 
 --  Lean provides an `ext` tactic that applies `propext` for
 --  us. We can use it to show that commuted conjoined
---  propositions are equal. Similarly, we can use it to show
---  that reassociated conjoined propositions are equal as
---  well.
+--  propositions are equal.
 
 theorem and_comm_eq (a b : Prop) : (a ∧ b) = (b ∧ a) := by
   ext; apply and_comm
+
+--  Similarly, we can use it to show that reassociated
+--  conjoined propositions are equal as well.
+
+#check and_assoc
+
+--  Output:
+--    and_assoc {a b c : Prop} : (a ∧ b) ∧ c ↔ a ∧ b ∧ c
 
 theorem and_assoc_eq (a b c : Prop) : ((a ∧ b) ∧ c) = (a ∧ (b ∧ c)) := by
   ext; apply and_assoc
@@ -1233,6 +1240,14 @@ example : (fun x => x + 2) = (fun x => x + (Nat.pred 3)) := by rfl
 #check (fun f g => funext (f := f) (g := g) :
     ∀ {α β : Type} (f g : α → β), (∀ x, f x = g x) → f = g)
 
+--  Technically, `funext` is not an axiom, but its proof
+--  depends on one (which we will not explain).
+
+#print axioms funext
+
+--  Output:
+--    'funext' depends on axioms: [Quot.sound]
+
 --  Now we can prove some intuitively obvious equalities
 --  about functions that would not be provable without
 --  `funext`.
@@ -1244,8 +1259,8 @@ theorem add_comm_fun :
     exact Nat.add_comm n m
 
 --  The `ext` tactic will also apply `funext` as many times
---  as possible, introducing all variables in one go. (The
---  singular version of the tactic is `ext1`.)
+--  as possible, introducing all variables in one go. The
+--  singular version of the tactic is `ext1`.
 
 theorem add_comm_fun' :
   (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) := by
@@ -1309,4 +1324,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Built on 2026-09-15 13:22 UTC
+-- Built on 2026-09-15 16:23 UTC
