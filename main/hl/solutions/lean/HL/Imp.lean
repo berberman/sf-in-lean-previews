@@ -1770,4 +1770,4 @@ end Imp.Break
 --        not just a single name, reads better with hover types (e.g. the
 --        `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 
--- Built on 2026-09-15 17:12 UTC
+-- Built on 2026-09-15 19:58 UTC

@@ -280,6 +280,13 @@ example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
 example : 3 + 4 = 7 ∧ 2 * 2 = 4 := by
   exact ⟨rfl, rfl⟩
 
+--  ### Exercise (2 stars): add_is_zero ⭐⭐
+
+theorem Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
+  sorry
+
+--  (End of exercise)
+
 --  The tactics we've just used — `constructor`, applying
 --  `And.intro`, and the anonymous constructor `⟨_, _⟩` —
 --  all conclude `a ∧ b` from proofs of `a` and `b`. We say
@@ -1324,4 +1331,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Built on 2026-09-15 17:12 UTC
+-- Built on 2026-09-15 19:57 UTC
