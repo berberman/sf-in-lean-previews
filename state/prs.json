@@ -1,5 +1,5 @@
 {
-  "main_sha": "dd7463fc11394bd988ded0de17f70821d5d83164",
+  "main_sha": "4a3a04f443b52b48ad867b91ab933956fb2848ae",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -47,16 +47,6 @@
       "status": "published",
       "title": "Print the substitutions with braces instead",
       "url": "https://github.com/plclub/sf-in-lean/pull/286"
-    },
-    "303": {
-      "base_sha": "71f031e6168dd52a45ce727e54efcdb60f9428ba",
-      "changed_variants": [],
-      "head_sha": "71881d4618326f2bd6afa38d3b68a7d1a5407789",
-      "preview_path": "pr/303/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34993517901",
-      "status": "ci-failed",
-      "title": "Finishing Equiv",
-      "url": "https://github.com/plclub/sf-in-lean/pull/303"
     },
     "382": {
       "base_sha": "393e106ad9f1944342bb30c019cdee13345dadd7",

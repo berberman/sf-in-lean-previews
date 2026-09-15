@@ -2979,7 +2979,7 @@ end RepeatExercise
 --  First, we enclose this work in a separate namespace, and recall the
 --  syntax and big-step semantics of Himp commands.
 
-namespace Himp
+namespace HimpHoare
 
 inductive Com : Type where
   | skip : Com
@@ -3124,7 +3124,7 @@ theorem havoc_post {P : Assertion} {x : Ident} :
 
 --  (End of exercise)
 
-end Himp
+end HimpHoare
 
 --  ### Assert and Assume
 
@@ -3450,4 +3450,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Built on 2026-09-15 16:24 UTC
+-- Built on 2026-09-15 17:12 UTC

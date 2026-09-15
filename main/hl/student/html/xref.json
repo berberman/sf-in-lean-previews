@@ -1220,6 +1220,37 @@
         "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare2/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux",
+     "data":
+     {"title": "Soundness of (0 + n) Elimination, Redux",
+      "shortTitle": null,
+      "sectionNum": "4.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Soundness of (0 + n) Elimination, Redux",
+        "shortTitle": null,
+        "number": "4"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence",
+     "data":
+     {"title": "Proving Inequivalence",
+      "shortTitle": null,
+      "sectionNum": "4.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Proving Inequivalence", "shortTitle": null, "number": "5"}]},
+     "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
    [{"id":
      "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
@@ -1277,9 +1308,76 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Simple-Examples":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--The-Constant-Folding-Transformation":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Simple-Examples",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--The-Constant-Folding-Transformation",
+     "data":
+     {"title": "The Constant-Folding Transformation",
+      "shortTitle": null,
+      "sectionNum": "4.3.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Program Transformation", "shortTitle": null, "number": "3"},
+       {"title": "The Constant-Folding Transformation",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-Constant-Folding":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-Constant-Folding",
+     "data":
+     {"title": "Soundness of Constant Folding",
+      "shortTitle": null,
+      "sectionNum": "4.3.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Program Transformation", "shortTitle": null, "number": "3"},
+       {"title": "Soundness of Constant Folding",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation",
+     "data":
+     {"title": "Program Transformation",
+      "shortTitle": null,
+      "sectionNum": "4.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Program Transformation", "shortTitle": null, "number": "3"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Extended-Exercise___-Nondeterministic-Imp":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Extended-Exercise___-Nondeterministic-Imp",
+     "data":
+     {"title": "Extended Exercise: Nondeterministic Imp",
+      "shortTitle": null,
+      "sectionNum": "4.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Extended Exercise: Nondeterministic Imp",
+        "shortTitle": null,
+        "number": "6"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence--Simple-Examples":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence--Simple-Examples",
      "data":
      {"title": "Simple Examples",
       "shortTitle": null,
@@ -1290,12 +1388,12 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Behavioral Equivaleence", "shortTitle": null, "number": "1"},
+       {"title": "Behavioral Equivalence", "shortTitle": null, "number": "1"},
        {"title": "Simple Examples", "shortTitle": null, "number": "2"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Definitions":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence--Definitions":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence--Definitions",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence--Definitions",
      "data":
      {"title": "Definitions",
       "shortTitle": null,
@@ -1306,13 +1404,13 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Behavioral Equivaleence", "shortTitle": null, "number": "1"},
+       {"title": "Behavioral Equivalence", "shortTitle": null, "number": "1"},
        {"title": "Definitions", "shortTitle": null, "number": "1"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence":
-   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivaleence",
+   "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence",
      "data":
-     {"title": "Behavioral Equivaleence",
+     {"title": "Behavioral Equivalence",
       "shortTitle": null,
       "sectionNum": "4.1.",
       "searchPriority": 50,
@@ -1321,9 +1419,21 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Behavioral Equivaleence",
+       {"title": "Behavioral Equivalence", "shortTitle": null, "number": "1"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Additional-Exercises":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "4.7.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
-        "number": "1"}]},
+        "number": "4"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "7"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic":
    [{"id": "Hoare-Logic",
@@ -1485,6 +1595,14 @@
         "Finding Loop Invariants",
         "Example: Slow Subtraction"]}},
      "address": "/Hoare2/"}],
+   "subst_inequiv":
+   [{"id": "subst_inequiv",
+     "data":
+     {"/Equiv/#subst_inequiv":
+      {"display": "subst_inequiv",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
    "reduce_to_zero_correct'''":
    [{"id": "reduce_to_zero_correct_________",
      "data":
@@ -1627,6 +1745,26 @@
         "Finding Loop Invariants",
         "Example: Parity"]}},
      "address": "/Hoare2/"}],
+   "optimizer_sound":
+   [{"id": "optimizer_sound",
+     "data":
+     {"/Equiv/#optimizer_sound":
+      {"display": "optimizer_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
+   "optimizer":
+   [{"id": "optimizer",
+     "data":
+     {"/Equiv/#optimizer":
+      {"display": "optimizer",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
    "one_le_pow2":
    [{"id": "one_le_pow2",
      "data":
@@ -2262,6 +2400,54 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "VarNotUsedInAexp.plus":
+   [{"id": "VarNotUsedInAexp___plus",
+     "data":
+     {"/Equiv/#VarNotUsedInAexp___plus":
+      {"display": "plus",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
+   "VarNotUsedInAexp.num":
+   [{"id": "VarNotUsedInAexp___num",
+     "data":
+     {"/Equiv/#VarNotUsedInAexp___num":
+      {"display": "num",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
+   "VarNotUsedInAexp.mult":
+   [{"id": "VarNotUsedInAexp___mult",
+     "data":
+     {"/Equiv/#VarNotUsedInAexp___mult":
+      {"display": "mult",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
+   "VarNotUsedInAexp.minus":
+   [{"id": "VarNotUsedInAexp___minus",
+     "data":
+     {"/Equiv/#VarNotUsedInAexp___minus":
+      {"display": "minus",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
+   "VarNotUsedInAexp.id":
+   [{"id": "VarNotUsedInAexp___id",
+     "data":
+     {"/Equiv/#VarNotUsedInAexp___id":
+      {"display": "id",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
+   "VarNotUsedInAexp":
+   [{"id": "VarNotUsedInAexp",
+     "data":
+     {"/Equiv/#VarNotUsedInAexp":
+      {"display": "VarNotUsedInAexp",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
    "ValidHoareTriple":
    [{"id": "ValidHoareTriple",
      "data":
@@ -2272,6 +2458,14 @@
         "Hoare: Hoare Logic, Part I",
         "Hoare Triples, Formally"]}},
      "address": "/Hoare/"}],
+   "SubstEquivProperty":
+   [{"id": "SubstEquivProperty",
+     "data":
+     {"/Equiv/#SubstEquivProperty":
+      {"display": "SubstEquivProperty",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
    "State":
    [{"id": "State",
      "data":
@@ -3987,10 +4181,10 @@
         "Additional Exercises",
         "Assert and Assume"]}},
      "address": "/Hoare/"}],
-   "Himp.validHoareTriple_def":
-   [{"id": "Himp___validHoareTriple_def",
+   "HimpHoare.validHoareTriple_def":
+   [{"id": "HimpHoare___validHoareTriple_def",
      "data":
-     {"/Hoare/#Himp___validHoareTriple_def":
+     {"/Hoare/#HimpHoare___validHoareTriple_def":
       {"display": "validHoareTriple_def",
        "context":
        ["Hoare Logic",
@@ -3998,10 +4192,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.hoare_consequence_pre":
-   [{"id": "Himp___hoare_consequence_pre",
+   "HimpHoare.hoare_consequence_pre":
+   [{"id": "HimpHoare___hoare_consequence_pre",
      "data":
-     {"/Hoare/#Himp___hoare_consequence_pre":
+     {"/Hoare/#HimpHoare___hoare_consequence_pre":
       {"display": "hoare_consequence_pre",
        "context":
        ["Hoare Logic",
@@ -4009,10 +4203,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.ValidHoareTriple":
-   [{"id": "Himp___ValidHoareTriple",
+   "HimpHoare.ValidHoareTriple":
+   [{"id": "HimpHoare___ValidHoareTriple",
      "data":
-     {"/Hoare/#Himp___ValidHoareTriple":
+     {"/Hoare/#HimpHoare___ValidHoareTriple":
       {"display": "ValidHoareTriple",
        "context":
        ["Hoare Logic",
@@ -4020,10 +4214,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.whileDo":
-   [{"id": "Himp___Com___whileDo",
+   "HimpHoare.Com.whileDo":
+   [{"id": "HimpHoare___Com___whileDo",
      "data":
-     {"/Hoare/#Himp___Com___whileDo":
+     {"/Hoare/#HimpHoare___Com___whileDo":
       {"display": "whileDo",
        "context":
        ["Hoare Logic",
@@ -4031,10 +4225,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.skip":
-   [{"id": "Himp___Com___skip",
+   "HimpHoare.Com.skip":
+   [{"id": "HimpHoare___Com___skip",
      "data":
-     {"/Hoare/#Himp___Com___skip":
+     {"/Hoare/#HimpHoare___Com___skip":
       {"display": "skip",
        "context":
        ["Hoare Logic",
@@ -4042,10 +4236,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.seq":
-   [{"id": "Himp___Com___seq",
+   "HimpHoare.Com.seq":
+   [{"id": "HimpHoare___Com___seq",
      "data":
-     {"/Hoare/#Himp___Com___seq":
+     {"/Hoare/#HimpHoare___Com___seq":
       {"display": "seq",
        "context":
        ["Hoare Logic",
@@ -4053,10 +4247,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.havoc":
-   [{"id": "Himp___Com___havoc",
+   "HimpHoare.Com.havoc":
+   [{"id": "HimpHoare___Com___havoc",
      "data":
-     {"/Hoare/#Himp___Com___havoc":
+     {"/Hoare/#HimpHoare___Com___havoc":
       {"display": "havoc",
        "context":
        ["Hoare Logic",
@@ -4064,10 +4258,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.evalR_eq":
-   [{"id": "Himp___Com___evalR_eq",
+   "HimpHoare.Com.evalR_eq":
+   [{"id": "HimpHoare___Com___evalR_eq",
      "data":
-     {"/Hoare/#Himp___Com___evalR_eq":
+     {"/Hoare/#HimpHoare___Com___evalR_eq":
       {"display": "Com.evalR_eq",
        "context":
        ["Hoare Logic",
@@ -4075,10 +4269,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.cond":
-   [{"id": "Himp___Com___cond",
+   "HimpHoare.Com.cond":
+   [{"id": "HimpHoare___Com___cond",
      "data":
-     {"/Hoare/#Himp___Com___cond":
+     {"/Hoare/#HimpHoare___Com___cond":
       {"display": "cond",
        "context":
        ["Hoare Logic",
@@ -4086,10 +4280,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.asgn":
-   [{"id": "Himp___Com___asgn",
+   "HimpHoare.Com.asgn":
+   [{"id": "HimpHoare___Com___asgn",
      "data":
-     {"/Hoare/#Himp___Com___asgn":
+     {"/Hoare/#HimpHoare___Com___asgn":
       {"display": "asgn",
        "context":
        ["Hoare Logic",
@@ -4097,10 +4291,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.EvalR.whileTrue":
-   [{"id": "Himp___Com___EvalR___whileTrue",
+   "HimpHoare.Com.EvalR.whileTrue":
+   [{"id": "HimpHoare___Com___EvalR___whileTrue",
      "data":
-     {"/Hoare/#Himp___Com___EvalR___whileTrue":
+     {"/Hoare/#HimpHoare___Com___EvalR___whileTrue":
       {"display": "whileTrue",
        "context":
        ["Hoare Logic",
@@ -4108,10 +4302,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.EvalR.whileFalse":
-   [{"id": "Himp___Com___EvalR___whileFalse",
+   "HimpHoare.Com.EvalR.whileFalse":
+   [{"id": "HimpHoare___Com___EvalR___whileFalse",
      "data":
-     {"/Hoare/#Himp___Com___EvalR___whileFalse":
+     {"/Hoare/#HimpHoare___Com___EvalR___whileFalse":
       {"display": "whileFalse",
        "context":
        ["Hoare Logic",
@@ -4119,10 +4313,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.EvalR.skip":
-   [{"id": "Himp___Com___EvalR___skip",
+   "HimpHoare.Com.EvalR.skip":
+   [{"id": "HimpHoare___Com___EvalR___skip",
      "data":
-     {"/Hoare/#Himp___Com___EvalR___skip":
+     {"/Hoare/#HimpHoare___Com___EvalR___skip":
       {"display": "skip",
        "context":
        ["Hoare Logic",
@@ -4130,10 +4324,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.EvalR.seq":
-   [{"id": "Himp___Com___EvalR___seq",
+   "HimpHoare.Com.EvalR.seq":
+   [{"id": "HimpHoare___Com___EvalR___seq",
      "data":
-     {"/Hoare/#Himp___Com___EvalR___seq":
+     {"/Hoare/#HimpHoare___Com___EvalR___seq":
       {"display": "seq",
        "context":
        ["Hoare Logic",
@@ -4141,10 +4335,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.EvalR.ifTrue":
-   [{"id": "Himp___Com___EvalR___ifTrue",
+   "HimpHoare.Com.EvalR.ifTrue":
+   [{"id": "HimpHoare___Com___EvalR___ifTrue",
      "data":
-     {"/Hoare/#Himp___Com___EvalR___ifTrue":
+     {"/Hoare/#HimpHoare___Com___EvalR___ifTrue":
       {"display": "ifTrue",
        "context":
        ["Hoare Logic",
@@ -4152,10 +4346,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.EvalR.ifFalse":
-   [{"id": "Himp___Com___EvalR___ifFalse",
+   "HimpHoare.Com.EvalR.ifFalse":
+   [{"id": "HimpHoare___Com___EvalR___ifFalse",
      "data":
-     {"/Hoare/#Himp___Com___EvalR___ifFalse":
+     {"/Hoare/#HimpHoare___Com___EvalR___ifFalse":
       {"display": "ifFalse",
        "context":
        ["Hoare Logic",
@@ -4163,10 +4357,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.EvalR.havoc":
-   [{"id": "Himp___Com___EvalR___havoc",
+   "HimpHoare.Com.EvalR.havoc":
+   [{"id": "HimpHoare___Com___EvalR___havoc",
      "data":
-     {"/Hoare/#Himp___Com___EvalR___havoc":
+     {"/Hoare/#HimpHoare___Com___EvalR___havoc":
       {"display": "havoc",
        "context":
        ["Hoare Logic",
@@ -4174,10 +4368,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.EvalR.asgn":
-   [{"id": "Himp___Com___EvalR___asgn",
+   "HimpHoare.Com.EvalR.asgn":
+   [{"id": "HimpHoare___Com___EvalR___asgn",
      "data":
-     {"/Hoare/#Himp___Com___EvalR___asgn":
+     {"/Hoare/#HimpHoare___Com___EvalR___asgn":
       {"display": "asgn",
        "context":
        ["Hoare Logic",
@@ -4185,10 +4379,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com.EvalR":
-   [{"id": "Himp___Com___EvalR",
+   "HimpHoare.Com.EvalR":
+   [{"id": "HimpHoare___Com___EvalR",
      "data":
-     {"/Hoare/#Himp___Com___EvalR":
+     {"/Hoare/#HimpHoare___Com___EvalR":
       {"display": "Com.EvalR",
        "context":
        ["Hoare Logic",
@@ -4196,10 +4390,10 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
-   "Himp.Com":
-   [{"id": "Himp___Com",
+   "HimpHoare.Com":
+   [{"id": "HimpHoare___Com",
      "data":
-     {"/Hoare/#Himp___Com":
+     {"/Hoare/#HimpHoare___Com":
       {"display": "Com",
        "context":
        ["Hoare Logic",
@@ -4207,6 +4401,226 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
+   "Himp.p₆":
+   [{"id": "Himp___p___-next-next-next-next-next",
+     "data":
+     {"/Equiv/#Himp___p___-next-next-next-next-next":
+      {"display": "p₆",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.p₅":
+   [{"id": "Himp___p___-next-next-next-next",
+     "data":
+     {"/Equiv/#Himp___p___-next-next-next-next":
+      {"display": "p₅",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.p₄":
+   [{"id": "Himp___p___-next-next-next",
+     "data":
+     {"/Equiv/#Himp___p___-next-next-next":
+      {"display": "p₄",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.p₃":
+   [{"id": "Himp___p___-next-next",
+     "data":
+     {"/Equiv/#Himp___p___-next-next":
+      {"display": "p₃",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.p₂":
+   [{"id": "Himp___p___-next",
+     "data":
+     {"/Equiv/#Himp___p___-next":
+      {"display": "p₂",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.p₁":
+   [{"id": "Himp___p___",
+     "data":
+     {"/Equiv/#Himp___p___":
+      {"display": "p₁",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.ptwice":
+   [{"id": "Himp___ptwice",
+     "data":
+     {"/Equiv/#Himp___ptwice":
+      {"display": "ptwice",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.pcopy":
+   [{"id": "Himp___pcopy",
+     "data":
+     {"/Equiv/#Himp___pcopy":
+      {"display": "pcopy",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.pYX":
+   [{"id": "Himp___pYX",
+     "data":
+     {"/Equiv/#Himp___pYX":
+      {"display": "pYX",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.pXY":
+   [{"id": "Himp___pXY",
+     "data":
+     {"/Equiv/#Himp___pXY":
+      {"display": "pXY",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Delab.unexpandComHavoc":
+   [{"id": "Himp___Delab___unexpandComHavoc",
+     "data":
+     {"/Equiv/#Himp___Delab___unexpandComHavoc":
+      {"display": "unexpandComHavoc",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.whileDo":
+   [{"id": "Himp___Com___whileDo",
+     "data":
+     {"/Equiv/#Himp___Com___whileDo":
+      {"display": "whileDo",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.skip":
+   [{"id": "Himp___Com___skip",
+     "data":
+     {"/Equiv/#Himp___Com___skip":
+      {"display": "skip",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.seq":
+   [{"id": "Himp___Com___seq",
+     "data":
+     {"/Equiv/#Himp___Com___seq":
+      {"display": "seq",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.havoc":
+   [{"id": "Himp___Com___havoc",
+     "data":
+     {"/Equiv/#Himp___Com___havoc":
+      {"display": "havoc",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.evalR_eq":
+   [{"id": "Himp___Com___evalR_eq",
+     "data":
+     {"/Equiv/#Himp___Com___evalR_eq":
+      {"display": "Com.evalR_eq",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.equiv_notation":
+   [{"id": "Himp___Com___equiv_notation",
+     "data":
+     {"/Equiv/#Himp___Com___equiv_notation":
+      {"display": "Com.equiv_notation",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.equiv_def":
+   [{"id": "Himp___Com___equiv_def",
+     "data":
+     {"/Equiv/#Himp___Com___equiv_def":
+      {"display": "Com.equiv_def",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.cond":
+   [{"id": "Himp___Com___cond",
+     "data":
+     {"/Equiv/#Himp___Com___cond":
+      {"display": "cond",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.asgn":
+   [{"id": "Himp___Com___asgn",
+     "data":
+     {"/Equiv/#Himp___Com___asgn":
+      {"display": "asgn",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com.Equiv":
+   [{"id": "Himp___Com___Equiv",
+     "data":
+     {"/Equiv/#Himp___Com___Equiv":
+      {"display": "Com.Equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
+   "Himp.Com":
+   [{"id": "Himp___Com",
+     "data":
+     {"/Equiv/#Himp___Com":
+      {"display": "Com",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Extended Exercise: Nondeterministic Imp"]}},
+     "address": "/Equiv/"}],
    "HasTriple.Triple":
    [{"id": "HasTriple___Triple",
      "data":
@@ -4397,6 +4811,28 @@
       {"display": "assertion1",
        "context": ["Hoare Logic", "Hoare: Hoare Logic, Part I", "Assertions"]}},
      "address": "/Hoare/"}],
+   "Equiv.equiv":
+   [{"id": "Equiv___equiv",
+     "data":
+     {"/Equiv/#Equiv___equiv":
+      {"display": "equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
+   "Equiv":
+   [{"id": "Equiv-next",
+     "data":
+     {"/Equiv/#Equiv-next":
+      {"display": "Equiv",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
    "Decorated.precondition":
    [{"id": "Decorated___precondition",
      "data":
@@ -4804,15 +5240,15 @@
         "Formal Decorated Programs",
         "Syntax"]}},
      "address": "/Hoare2/"}],
-   "Com.while_false_equiv":
-   [{"id": "Com___while_false_equiv",
+   "Com.while_false":
+   [{"id": "Com___while_false",
      "data":
-     {"/Equiv/#Com___while_false_equiv":
-      {"display": "while_false_equiv",
+     {"/Equiv/#Com___while_false":
+      {"display": "while_false",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Simple Examples"]}},
      "address": "/Equiv/"}],
    "Com.whileDo":
@@ -4823,6 +5259,16 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Com.transSound_def":
+   [{"id": "Com___transSound_def",
+     "data":
+     {"/Equiv/#Com___transSound_def":
+      {"display": "Com.transSound_def",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "Com.skip":
    [{"id": "Com___skip",
      "data":
@@ -4839,6 +5285,105 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Com.progI":
+   [{"id": "Com___progI",
+     "data":
+     {"/Equiv/#Com___progI":
+      {"display": "progI",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.progH":
+   [{"id": "Com___progH",
+     "data":
+     {"/Equiv/#Com___progH":
+      {"display": "progH",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.progG":
+   [{"id": "Com___progG",
+     "data":
+     {"/Equiv/#Com___progG":
+      {"display": "progG",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.progF":
+   [{"id": "Com___progF",
+     "data":
+     {"/Equiv/#Com___progF":
+      {"display": "progF",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.progE":
+   [{"id": "Com___progE",
+     "data":
+     {"/Equiv/#Com___progE":
+      {"display": "progE",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.progD":
+   [{"id": "Com___progD",
+     "data":
+     {"/Equiv/#Com___progD":
+      {"display": "progD",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.progC":
+   [{"id": "Com___progC",
+     "data":
+     {"/Equiv/#Com___progC":
+      {"display": "progC",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.progB":
+   [{"id": "Com___progB",
+     "data":
+     {"/Equiv/#Com___progB":
+      {"display": "progB",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.progA":
+   [{"id": "Com___progA",
+     "data":
+     {"/Equiv/#Com___progA":
+      {"display": "progA",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Simple Examples"]}},
+     "address": "/Equiv/"}],
    "Com.if_true_simple":
    [{"id": "Com___if_true_simple",
      "data":
@@ -4847,7 +5392,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Simple Examples"]}},
      "address": "/Equiv/"}],
    "Com.if_true":
@@ -4858,7 +5403,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Simple Examples"]}},
      "address": "/Equiv/"}],
    "Com.identity_assignment":
@@ -4869,8 +5414,19 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Simple Examples"]}},
+     "address": "/Equiv/"}],
+   "Com.foldConstants":
+   [{"id": "Com___foldConstants",
+     "data":
+     {"/Equiv/#Com___foldConstants":
+      {"display": "Com.foldConstants",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
      "address": "/Equiv/"}],
    "Com.evalR_eq":
    [{"id": "Com___evalR_eq",
@@ -4927,6 +5483,28 @@
         "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
+   "Com.equiv_notation":
+   [{"id": "Com___equiv_notation",
+     "data":
+     {"/Equiv/#Com___equiv_notation":
+      {"display": "Com.equiv_notation",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
+   "Com.equiv_equivalence":
+   [{"id": "Com___equiv_equivalence",
+     "data":
+     {"/Equiv/#Com___equiv_equivalence":
+      {"display": "Com.equiv_equivalence",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Properties of Behavior Equivalence",
+        "Behavioral Equivalence is an Equivalence"]}},
+     "address": "/Equiv/"}],
    "Com.equiv_def":
    [{"id": "Com___equiv_def",
      "data":
@@ -4935,14 +5513,14 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Definitions"]}},
      "address": "/Equiv/"}],
-   "Com.congruence.asgn":
-   [{"id": "Com___congruence___asgn",
+   "Com.congruence_asgn":
+   [{"id": "Com___congruence_asgn",
      "data":
-     {"/Equiv/#Com___congruence___asgn":
-      {"display": "Com.congruence.asgn",
+     {"/Equiv/#Com___congruence_asgn":
+      {"display": "Com.congruence_asgn",
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
@@ -4965,6 +5543,16 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Com.TransSound":
+   [{"id": "Com___TransSound",
+     "data":
+     {"/Equiv/#Com___TransSound":
+      {"display": "Com.TransSound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "Com.EvalR.whileTrue":
    [{"id": "Com___EvalR___whileTrue",
      "data":
@@ -5061,7 +5649,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Definitions"]}},
      "address": "/Equiv/"}],
    "Com":
@@ -5072,6 +5660,16 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Bexp.transSound_def":
+   [{"id": "Bexp___transSound_def",
+     "data":
+     {"/Equiv/#Bexp___transSound_def":
+      {"display": "Bexp.transSound_def",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "Bexp.not":
    [{"id": "Bexp___not",
      "data":
@@ -5116,6 +5714,72 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "Bexp.foldConstants_unary":
+   [{"id": "Bexp___foldConstants_unary",
+     "data":
+     {"/Equiv/#Bexp___foldConstants_unary":
+      {"display": "Bexp.foldConstants_unary",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Bexp.foldConstants_true":
+   [{"id": "Bexp___foldConstants_true",
+     "data":
+     {"/Equiv/#Bexp___foldConstants_true":
+      {"display": "Bexp.foldConstants_true",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Bexp.foldConstants_false":
+   [{"id": "Bexp___foldConstants_false",
+     "data":
+     {"/Equiv/#Bexp___foldConstants_false":
+      {"display": "Bexp.foldConstants_false",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Bexp.foldConstants_comp":
+   [{"id": "Bexp___foldConstants_comp",
+     "data":
+     {"/Equiv/#Bexp___foldConstants_comp":
+      {"display": "Bexp.foldConstants_comp",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Bexp.foldConstants_binary":
+   [{"id": "Bexp___foldConstants_binary",
+     "data":
+     {"/Equiv/#Bexp___foldConstants_binary":
+      {"display": "Bexp.foldConstants_binary",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Bexp.foldConstants":
+   [{"id": "Bexp___foldConstants",
+     "data":
+     {"/Equiv/#Bexp___foldConstants":
+      {"display": "Bexp.foldConstants",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
    "Bexp.eval_not":
    [{"id": "Bexp___eval_not",
      "data":
@@ -5237,6 +5901,17 @@
         "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
+   "Bexp.equiv_notation":
+   [{"id": "Bexp___equiv_notation",
+     "data":
+     {"/Equiv/#Bexp___equiv_notation":
+      {"display": "Bexp.equiv_notation",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
    "Bexp.equiv_def":
    [{"id": "Bexp___equiv_def",
      "data":
@@ -5245,7 +5920,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Definitions"]}},
      "address": "/Equiv/"}],
    "Bexp.eq":
@@ -5281,6 +5956,16 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "Bexp.TransSound":
+   [{"id": "Bexp___TransSound",
+     "data":
+     {"/Equiv/#Bexp___TransSound":
+      {"display": "Bexp.TransSound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
    "Bexp.Equiv":
    [{"id": "Bexp___Equiv",
      "data":
@@ -5289,7 +5974,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Definitions"]}},
      "address": "/Equiv/"}],
    "Bexp":
@@ -5431,6 +6116,32 @@
         "Assertions",
         "Assertion Implication"]}},
      "address": "/Hoare/"}],
+   "Approx":
+   [{"id": "Approx",
+     "data":
+     {"/Equiv/#Approx":
+      {"display": "Approx",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
+     "address": "/Equiv/"}],
+   "Aexp.transSound_def":
+   [{"id": "Aexp___transSound_def",
+     "data":
+     {"/Equiv/#Aexp___transSound_def":
+      {"display": "Aexp.transSound_def",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.subst":
+   [{"id": "Aexp___subst",
+     "data":
+     {"/Equiv/#Aexp___subst":
+      {"display": "Aexp.subst",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
    "Aexp.plus":
    [{"id": "Aexp___plus",
      "data":
@@ -5486,6 +6197,80 @@
         "Expressions With Variables",
         "Syntax"]}},
      "address": "/Imp/"}],
+   "Aexp.foldConstants_sound'":
+   [{"id": "Aexp___foldConstants_sound___",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_sound___":
+      {"display": "Aexp.foldConstants_sound'",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of Constant Folding"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_sound":
+   [{"id": "Aexp___foldConstants_sound",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_sound":
+      {"display": "Aexp.foldConstants_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "Soundness of Constant Folding"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_num":
+   [{"id": "Aexp___foldConstants_num",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_num":
+      {"display": "Aexp.foldConstants_num",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_id":
+   [{"id": "Aexp___foldConstants_id",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_id":
+      {"display": "Aexp.foldConstants_id",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_cases":
+   [{"id": "Aexp___foldConstants_cases",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_cases":
+      {"display": "Aexp.foldConstants_cases",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants":
+   [{"id": "Aexp___foldConstants",
+     "data":
+     {"/Equiv/#Aexp___foldConstants":
+      {"display": "Aexp.foldConstants",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.eval_weakening":
+   [{"id": "Aexp___eval_weakening",
+     "data":
+     {"/Equiv/#Aexp___eval_weakening":
+      {"display": "Aexp.eval_weakening",
+       "context":
+       ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
+     "address": "/Equiv/"}],
    "Aexp.eval_plus":
    [{"id": "Aexp___eval_plus",
      "data":
@@ -5585,6 +6370,17 @@
         "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
+   "Aexp.equiv_notation":
+   [{"id": "Aexp___equiv_notation",
+     "data":
+     {"/Equiv/#Aexp___equiv_notation":
+      {"display": "Aexp.equiv_notation",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Behavioral Equivalence",
+        "Definitions"]}},
+     "address": "/Equiv/"}],
    "Aexp.equiv_def":
    [{"id": "Aexp___equiv_def",
      "data":
@@ -5593,8 +6389,18 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Definitions"]}},
+     "address": "/Equiv/"}],
+   "Aexp.TransSound":
+   [{"id": "Aexp___TransSound",
+     "data":
+     {"/Equiv/#Aexp___TransSound":
+      {"display": "Aexp.TransSound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation"]}},
      "address": "/Equiv/"}],
    "Aexp.Equiv":
    [{"id": "Aexp___Equiv",
@@ -5604,7 +6410,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Behavioral Equivaleence",
+        "Behavioral Equivalence",
         "Definitions"]}},
      "address": "/Equiv/"}],
    "Aexp":
