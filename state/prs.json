@@ -1,5 +1,5 @@
 {
-  "main_sha": "9c38af65a8cf0a697f0cb0092ca22076f059c150",
+  "main_sha": "71f031e6168dd52a45ce727e54efcdb60f9428ba",
   "prs": {
     "286": {
       "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
@@ -105,15 +105,52 @@
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
     },
-    "392": {
-      "base_sha": "a5250d75c39493f3f0cfc9f6f8d5064957e84707",
-      "changed_variants": [],
-      "head_sha": "76067c93f6fbc92a0d6bfb79df3315f79a081e66",
-      "preview_path": "pr/392/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Logic: Improvement Pass",
-      "url": "https://github.com/plclub/sf-in-lean/pull/392"
+    "395": {
+      "base_sha": "71f031e6168dd52a45ce727e54efcdb60f9428ba",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "f63f2594d43397459629b6fc4c8e9f31af098247",
+      "preview_path": "pr/395/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34978908110",
+      "status": "published",
+      "title": "Logic: More tweaks",
+      "url": "https://github.com/plclub/sf-in-lean/pull/395"
     }
   },
   "schema": 3

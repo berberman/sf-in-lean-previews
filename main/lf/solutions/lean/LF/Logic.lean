@@ -13,6 +13,23 @@ import SFLCompat
 --      in this chapter. BCP 20: But conversely some more quizzes would be
 --      great!
 
+--  Note to developers (Mike Hicks @mwhicks1):
+--      It would be convenient to declare the variables below so that
+--      inline prose throughout this chapter can use `a`, `b`, `c`, `n`,
+--      `m`, `α`, `e1`, `e2`, `x`, and `y` without repeating their type
+--      annotations, but the same problem described elsewhere in this
+--      chapter applies: an unused `variable` is silently added to the
+--      local context in basically every proof from here on, even when the
+--      theorem never mentions it. Until we have a way to declare variables
+--      visible only for inline prose (rather than for every `lean` block),
+--      we leave this commented out:
+--
+--      `-- variable (a b c : Prop) (n m : Nat) (α : Type) (e1 e2 x y : α)`
+--
+--      Yipeng Liu (berberman) said: Maybe we should implement a separate
+--      scope for declaring variables only visible to `lean` role instead
+--      of `lean` block.
+
 --  ## The `Prop` Type
 
 --  We have now seen many examples of factual claims (i.e., *propositions*)
@@ -48,7 +65,7 @@ import SFLCompat
 --  So far, we've seen one place where propositions can appear: in
 --  `theorem` declarations.
 
-theorem plus_2_2_is_4 : 2 + 2 = 4 := rfl
+theorem plus_2_2_is_4 : 2 + 2 = 4 := by rfl
 
 --  But propositions can be used in other ways. For example, we can give a
 --  name to a proposition using a `def`, just as we give names to other
@@ -64,7 +81,7 @@ def PlusClaim : Prop := 2 + 2 = 4
 --  We can later use this name in any situation where a proposition is
 --  expected — for example, as the claim in a `theorem` declaration.
 
-theorem plusClaim_is_true : PlusClaim := rfl
+theorem plusClaim_is_true : PlusClaim := by rfl
 
 --  We can also write *parameterized* propositions — that is, functions
 --  that take arguments of some type and return a proposition.
@@ -320,9 +337,16 @@ theorem Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
 
 --  (End of exercise)
 
---  So much for proving conjunctive statements. To go in the other
---  direction — i.e., to *use* a conjunctive hypothesis to help prove
---  something else — we can use `obtain` to obtain the components.
+--  The tactics we've just used — `constructor`, applying `And.intro`, and
+--  the anonymous constructor `⟨_, _⟩` — all conclude `a ∧ b` from proofs
+--  of `a` and `b`. We say that these tactics *introduce* a conjunction:
+--  they derive it as a logical consequence of hypotheses we already have.
+--
+--  We also sometimes want to go the other way: given a conjunctive
+--  hypothesis, use it to help prove something else, by extracting the two
+--  proofs it packages together. In Lean, this is done with `obtain`. We
+--  say that `obtain` *eliminates* a conjunction: it takes the conjunction
+--  apart to expose the proofs inside.
 
 example (n m : Nat) : n = 0 ∧ m = 0 → n + m = 0 := by
   intro h
@@ -411,10 +435,11 @@ theorem and_associate (a b c : Prop) (h : a ∧ (b ∧ c)) : (a ∧ b) ∧ c := 
 --  two propositions: `a ∨ b` is true when either `a` or `b` is. This infix
 --  notation stands for `Or a b`, where `Or : Prop → Prop → Prop`.
 --
---  To use a disjunctive hypothesis in a proof, we proceed by case analysis
---  — which, as with other data types like `Nat`, is done using `cases`.
---  The two cases are `inl` (for "left injection", or "in the left case")
---  and `inr` (for "right injection", or "in the right case").
+--  To eliminate a disjunctive hypothesis — i.e., to use it in a proof — we
+--  proceed by case analysis, which, as with other data types like `Nat`,
+--  is done using `cases`. The two cases are `inl` (for "left injection",
+--  or "in the left case") and `inr` (for "right injection", or "in the
+--  right case").
 
 theorem Nat.factor_is_zero (n m : Nat)
   (h : n = 0 ∨ m = 0) : n * m = 0 := by
@@ -439,11 +464,11 @@ theorem and_is_false (b1 b2 : Bool) (h : (b1 = false) ∨ (b2 = false)) :
   · rw [hb1, Bool.false_and]
   · rw [hb2, Bool.and_false]
 
---  Conversely, to show that a disjunction holds, it suffices to show that
---  one of its sides holds. This can be done via the tactics `left` and
---  `right`. As their names imply, the first one requires proving the left
---  side of the disjunction, while the second requires proving the right
---  side. Here is a trivial use...
+--  Conversely, to introduce a disjunction — i.e., to show that it holds —
+--  it suffices to show that one of its sides holds. This can be done via
+--  the tactics `left` and `right`. As their names imply, the first one
+--  requires proving the left side of the disjunction, while the second
+--  requires proving the right side. Here is a trivial use...
 
 theorem or_intro_l (a b : Prop) (h : a) : a ∨ b := by
   left; exact h
@@ -496,8 +521,8 @@ theorem or_commute (a b : Prop) (h : a ∨ b) : b ∨ a := by
 #check Not
 #print Not
 
-example (a : Prop) : Not a = (a → False) := rfl
-example (a : Prop) : (¬ a) = (a → False) := rfl
+example (a : Prop) : Not a = (a → False) := by rfl
+example (a : Prop) : (¬ a) = (a → False) := by rfl
 
 --  Output:
 --    Not (a : Prop) : Prop
@@ -506,9 +531,11 @@ example (a : Prop) : (¬ a) = (a → False) := rfl
 --    @[implicit_reducible] def Not : Prop → Prop :=
 --    fun a => a → False
 
---  Since `False` is a contradictory proposition, the principle of
---  explosion also applies to it. If we can get `False` into the context,
---  we can use `cases` on it to complete any goal:
+--  Eliminating a `False` hypothesis works differently from eliminating the
+--  connectives above. Since `False` carries no information, there's
+--  nothing to extract. Rather, since `False` is a contradictory
+--  proposition, the principle of explosion applies to it: using `cases` on
+--  a `False` in the context completes any goal:
 
 theorem ex_falso_quodlibet (a : Prop) (h : False) : a := by
   cases h
@@ -743,9 +770,7 @@ theorem not_true_is_false' (b : Bool) (h : b ≠ true) : b = false := by
 --  `constructor` tactic.
 
 example : True := by exact True.intro
-example : True := True.intro
 example : True := by exact ⟨⟩
-example : True := ⟨⟩
 example : True := by constructor
 
 --  Unlike `False`, which is used extensively, `True` is used relatively
@@ -830,35 +855,27 @@ theorem nil_is_not_cons {α : Type} (x : α) (xs : List α) :
 --  propositions have the same truth value, is a structure containing the
 --  two implication directions. `a ↔ b` is notation for `Iff a b`.
 --
---  In Lean, `Iff` is a structure packaging two fields and a constructor,
---  which allow you to access its component implications. Given an `Iff`
---  hypothesis, you can access the "forward direction" implication via the
---  `Iff.mp` (short for *modus ponens*, the Latin name for reasoning by
---  implication) field, and the "reverse direction" via the `Iff.mpr`
---  (*modus ponens reverse*) field.
+--  In Lean, `Iff` is a structure packaging two fields and a constructor.
+--  Given an `Iff` hypothesis, you eliminate it to access its component
+--  implications: the "forward direction" via the `Iff.mp` (short for
+--  *modus ponens*, the Latin name for reasoning by implication) field, and
+--  the "reverse direction" via the `Iff.mpr` (*modus ponens reverse*)
+--  field.
 --
---  If your goal is an `Iff`, you can convert it into two goals, one for
---  each direction of the implication, via the `Iff.intro` constructor. Or
---  you can just use the `constructor` tactic.
+--  If your goal is an `Iff`, you introduce it by proving both implication
+--  directions: convert the goal into two subgoals, one for each direction,
+--  via the `Iff.intro` constructor, or just use the `constructor` tactic.
 
-#check (fun α β : Prop => α ↔ β : Prop → Prop → Prop)
-
-#check Iff
-#check Iff.intro
-#check Iff.mp
-#check Iff.mpr
+#print Iff
 
 --  Output:
---    Iff (a b : Prop) : Prop
-
---  Output:
---    Iff.intro {a b : Prop} (mp : a → b) (mpr : b → a) : a ↔ b
-
---  Output:
---    Iff.mp {a b : Prop} (self : a ↔ b) : a → b
-
---  Output:
---    Iff.mpr {a b : Prop} (self : a ↔ b) : b → a
+--    structure Iff (a b : Prop) : Prop
+--    number of parameters: 2
+--    fields:
+--      Iff.mp : a → b
+--      Iff.mpr : b → a
+--    constructor:
+--      Iff.intro {a b : Prop} (mp : a → b) (mpr : b → a) : a ↔ b
 
 theorem iff_sym (a b : Prop) (h : a ↔ b) : b ↔ a := by
   constructor
@@ -928,6 +945,14 @@ theorem or_distributes_over_and (a b c : Prop) :
 
 --  ### Existential Quantification
 
+--  Note to developers (Mike Hicks @mwhicks1):
+--      It would be convenient to declare the variables below so that later
+--      code blocks can use `α`, `β`, `x`, `y`, `l`, `f`, `g`, and `p`
+--      without repeating their type annotations, but doing so adds all of
+--      them to every proof context and leanOutput.
+--
+--      `-- variable (α β : Type) (x x' y : α) (l l' : List α) (f g : α → β) (p : α → Prop)`
+
 --  Another fundamental logical connective is *existential quantification*.
 --  To say that there is some `x` of type `α` such that some property `a`
 --  holds of `x`, we write `∃ x : α, a`. This is notation for the `Exists`
@@ -935,8 +960,8 @@ theorem or_distributes_over_and (a b c : Prop) :
 --  `∀ x : α`, the type annotation `: α` can be omitted if Lean is able to
 --  infer from the context what the type of `x` should be.
 --
---  To prove a statement of the form `∃ x, a`, we must show that `a` holds
---  for some specific choice for `x`, known as the *witness* of the
+--  To introduce a statement of the form `∃ x, a`, we must show that `a`
+--  holds for some specific choice for `x`, known as the *witness* of the
 --  existential. This is done in two steps: First, we explicitly tell Lean
 --  which witness `y` we have in mind by invoking the tactic `exists y`.
 --  Then we prove that `a` holds after all occurrences of `x` are replaced
@@ -961,11 +986,11 @@ example : Even 4 := by exists 2
   -- `4 = double 2` holds by `rfl`,
   -- but is proven automatically by `exists`
 
---  Conversely, if we have an existential hypothesis `∃ x, a` in the
---  context, we can destructure it to obtain a witness `x` and a hypothesis
+--  Conversely, to eliminate an existential hypothesis `∃ x, a` in the
+--  context, we destructure it to obtain a witness `x` and a hypothesis
 --  stating that `a` holds of `x`.
 
-example n : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
+example (n : Nat) : (∃ m, n = m + 4) → (∃ o, n = o + 2) := by
   intro ⟨m, hm⟩
   exists (m + 2)
 
@@ -1030,6 +1055,10 @@ theorem dist_exists_or (α : Type) (p q : α → Prop) :
 --  defining complex propositions from simpler ones. To illustrate, let's
 --  look at how to express the claim that an element `x` occurs in a list
 --  `l`. Notice that this property has a simple recursive structure:
+--  - If `l` is the empty list, then `x` cannot occur in it, so the
+--    property "`x` appears in `l`" is simply false.
+--  - Otherwise, `l` has the form `x' :: l'`. In this case, `x` occurs in
+--    `l` if it is equal to `x'` or if it occurs in `l'`.
 --
 --  We can translate this directly into a straightforward recursive
 --  function taking an element and a list and returning... a proposition!
@@ -1042,7 +1071,8 @@ def List.In {α : Type} (x : α) (xs : List α) : Prop :=
 theorem List.In_nil {α : Type} {x : α} : ¬ (List.In x []) := by
   rw [List.In]; intro h; assumption
 
-theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := rfl
+theorem List.In_cons {α : Type} {x x' : α} {xs : List α} :
+  List.In x (x' :: xs) = (x = x' ∨ List.In x xs) := by rfl
 
 --  When `List.In` is applied to a concrete list, it expands into a
 --  concrete sequence of nested disjunctions.
@@ -1050,20 +1080,21 @@ theorem List.In_cons {α : Type} {x x' : α} {xs : List α} : List.In x (x' :: x
 example : List.In 4 [1, 2, 3, 4, 5] := by
   rw [List.In]; right; right; right; left; rfl
 
-example (n : Nat) (h : List.In n [2, 4]) : ∃ n' : Nat, n = 2 * n' := by
-  rw [List.In] at h
-  obtain h | h | ⟨⟨⟩⟩ := h
-  · exists 1
-  · exists 2
-    /- (Notice the use of the empty pattern to discharge the last case.) -/
+example (n : Nat) (h : List.In n [2, 4]) :
+  ∃ n' : Nat, n = 2 * n' := by
+    rw [List.In] at h
+    obtain h | h | h := h
+    · exists 1
+    · exists 2
+    . contradiction
 
 --  We can also reason about more generic statements involving `List.In`.
 
-theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α} (h : In x xs) :
-    In (f x) (map f xs) := by
+theorem List.In_map {α β : Type} {f : α → β} {xs : List α} {x : α}
+  (h : In x xs) : In (f x) (map f xs) := by
   induction xs with
   | nil =>
-    exfalso; apply In_nil; assumption
+    apply In_nil at h; contradiction
   | cons x' xs' ih =>
     rw [In_cons] at h
     obtain h | h := h
@@ -1191,7 +1222,7 @@ theorem combineOddEven_elim_odd
     (n : Nat)
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = true) : Odd n := by
-  rw [CombineOddEven, hOdd, cond_true] at h
+  rw [CombineOddEven, hOdd, Bool.cond_true] at h
   exact h
 
 theorem combineOddEven_elim_even
@@ -1199,7 +1230,7 @@ theorem combineOddEven_elim_even
     (n : Nat)
     (h : CombineOddEven Odd Even n)
     (hOdd : Nat.odd n = false) : Even n := by
-  rw [CombineOddEven, hOdd, cond_false] at h
+  rw [CombineOddEven, hOdd, Bool.cond_false] at h
   exact h
 
 --  ## Applying Theorems to Arguments
@@ -1257,23 +1288,8 @@ sf_expect_failure_in
     rw [Nat.add_comm]
     rw [Nat.add_comm]
 
---  Note to developers (Yipeng Liu @berberman, before next release):
---      These hidden variables are only for inline prose, but they
---      currently leak into `leanOutput` error contexts. Maybe we should
---      implement a separate scope for declaring variables only visible to
---      `lean` role instead of `lean` block.
-
 --  Output:
 --    unsolved goals
---    a b c : Prop
---    n m : Nat
---    α✝ : Type
---    e1 e2 x✝¹ y✝¹ : α✝
---    α β : Type
---    x✝ x' y✝ : α
---    l l' : List α
---    f g : α → β
---    p : α → Prop
 --    x y z : Nat
 --    ⊢ x + (y + z) = z + y + x
 
@@ -1297,15 +1313,6 @@ example (x y z : Nat) : x + (y + z) = (z + y) + x := by
 example (x y z : Nat) : x + (y + z) = (z + y) + x := by
   rw [Nat.add_comm x (y + z)]
   rw [Nat.add_comm z y]
-
---  As an aside, some tactics that accept an `at` clause can target several
---  locations at once, including the goal, written using the `⊢` symbol, by
---  listing them together after `at` — for instance, both `rw` and `dsimp`
---  support this.
-
-example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
-  rw [Nat.add_zero] at h ⊢
-  assumption
 
 --  The fact that implications are functions means we can prove them by
 --  explicitly providing a function.
@@ -1414,6 +1421,15 @@ theorem identity {a : Prop} : a → a := fun h => h
 
 --   ----------------------------------------
 
+--  As an aside, some tactics that accept an `at` clause can target several
+--  locations at once, including the goal, written using the `⊢` symbol, by
+--  listing them together after `at` — for instance, both `rw` and `dsimp`
+--  support this.
+
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
+
 --  ## Working with Decidable Properties
 
 --  We've seen two different ways of expressing logical claims in Lean:
@@ -1454,7 +1470,7 @@ theorem identity {a : Prop} : a → a := fun h => h
 --  For instance, to claim that a number `n` is even, we can say either
 --  that `Nat.even n` evaluates to `true`...
 
-example : Nat.even 42 = true := rfl
+example : Nat.even 42 = true := by rfl
 
 --  ... or that there exists some `k` such that `n = double k`.
 
@@ -1488,10 +1504,10 @@ theorem even_double_conv (n : Nat) : ∃ k : Nat,
     rw [Nat.even_succ]
     cases h : Nat.even n' with
     | false =>
-      rw [h] at ihk; rw [not] at *; rw [cond_false] at ihk
-      exists (k' + 1); rw [ihk, cond_true, Nat.double_succ]
+      rw [h] at ihk; rw [not] at *; rw [Bool.cond_false] at ihk
+      exists (k' + 1); rw [ihk, Bool.cond_true, Nat.double_succ]
     | true =>
-      rw [h] at ihk; rw [not] at *; rw [cond_true] at ihk
+      rw [h] at ihk; rw [not] at *; rw [Bool.cond_true] at ihk
       exists k'; congr
 
 --  (End of exercise)
@@ -1502,7 +1518,7 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
   constructor
   · intro h
     obtain ⟨k, hk⟩ := even_double_conv n
-    rw [h] at hk; rw [cond_true] at hk; rw [Even]; exists k
+    rw [h] at hk; rw [Bool.cond_true] at hk; rw [Even]; exists k
   · intro ⟨k, hk⟩; rw [hk]; apply even_double
 
 --  In view of this theorem, we can say that the boolean computation
@@ -1516,18 +1532,13 @@ theorem Nat.even_bool_prop (n : Nat) : Nat.even n = true ↔ Even n := by
 --
 --  Again, these two notions are equivalent.
 
---  Note to developers (Yipeng Liu @berberman):
---      Either get rid of the development of `beq` story or use our own
---      `beq` on `Nat`.
-
---  Don't worry too much about `Nat.beq_eq_true_eq` yet; we need this from
---  Lean because `n == m` is a wrapper of `DecidableEq Nat`. We will go
---  over this in the Typeclasses chapter.
-
 theorem beq_eq_true (n m : Nat) :
     (n == m) = true ↔ n = m := by
   rw [Nat.beq_eq_true_eq]
 
+--  (We use `Nat.beq_eq_true_eq` because `n == m` is a wrapper of
+--  `DecidableEq Nat`. We will go over this in the Typeclasses chapter.)
+--
 --  So what should we do in situations where some claim could be formalized
 --  as either a proposition or a boolean computation? Which should we
 --  choose?
@@ -1543,12 +1554,12 @@ def is_even_prime (n : Nat) : Bool :=
 --  general to phrase as boolean computations, even many *computable*
 --  properties are easier to express using `Prop` than `Bool`, since
 --  recursive function definitions are subject to significant restrictions.
---  For instance, the next chapter shows how to define the property that a
---  regular expression matches a given string using `Prop`. Doing the same
---  with `Bool` would amount to writing a regular expression matching
---  algorithm, which would be more complicated, harder to understand, and
---  harder to reason about than a simple (non-algorithmic) definition of
---  this property.
+--  For instance, the Automation chapter shows how to define the property
+--  that a regular expression matches a given string using `Prop`. Doing
+--  the same with `Bool` would amount to writing a regular expression
+--  matching algorithm, which would be more complicated, harder to
+--  understand, and harder to reason about than a simple (non-algorithmic)
+--  definition of this property.
 --
 --  Conversely, an important side benefit of stating facts using booleans
 --  is enabling some proof automation through computation with terms, a
@@ -1567,7 +1578,7 @@ example : Nat.Even 100 := by
 --  The proof of the corresponding boolean statement is simpler, because we
 --  don't have to invent the witness `50`: computation does it for us!
 
-example : Nat.even 100 = true := rfl
+example : Nat.even 100 = true := by rfl
 
 --  Note to developers (Mike Hicks @mwhicks1):
 --      Basically this is saying that computation is a good proof tactic.
@@ -1595,7 +1606,7 @@ example : Nat.Even 100 := by
 --  booleans is straightforward to state and (when true) to prove: simply
 --  flip the expected boolean result.
 
-example : Nat.even 101 = false := rfl
+example : Nat.even 101 = false := by rfl
 
 --  In contrast, propositional negation can be difficult to work with
 --  directly. For example, suppose we state the nonevenness of `101`
@@ -1816,15 +1827,6 @@ sf_expect_failure_in
 --    is not definitionally equal to the right-hand side
 --      b = b ∧ a
 --
---    a✝ b✝ c : Prop
---    n m : Nat
---    α✝ : Type
---    e1 e2 x✝ y✝ : α✝
---    α β : Type
---    x x' y : α
---    l l' : List α
---    f g : α → β
---    p : α → Prop
 --    a b : Prop
 --    ⊢ a ∧ b = b ∧ a
 
@@ -1839,15 +1841,6 @@ sf_expect_failure_in
 --
 --    Consider using the 'by_cases' tactic, which does true/false reasoning for propositions.
 --
---    a✝ b✝ c : Prop
---    n m : Nat
---    α✝ : Type
---    e1 e2 x✝ y✝ : α✝
---    α β : Type
---    x x' y : α
---    l l' : List α
---    f g : α → β
---    p : α → Prop
 --    a b : Prop
 --    ⊢ a ∧ b = b ∧ a
 
@@ -1960,7 +1953,7 @@ theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
 --  to each other. In some cases, we can also prove that two functions are
 --  equal by reflexivity when both reduce to the same expression:
 
-example : (fun x => x + 2) = (fun x => x + (Nat.pred 3)) := rfl
+example : (fun x => x + 2) = (fun x => x + (Nat.pred 3)) := by rfl
 
 --  In general, functions can be equal for more interesting reasons. In
 --  common mathematical practice, two functions `f` and `g` are considered
@@ -1991,17 +1984,19 @@ example : (fun x => x + 2) = (fun x => x + (Nat.pred 3)) := rfl
 --  Now we can prove some intuitively obvious equalities about functions
 --  that would not be provable without `funext`.
 
-theorem add_comm_fun : (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) := by
-  apply funext; intro n
-  apply funext; intro m
-  exact Nat.add_comm n m
+theorem add_comm_fun :
+  (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) := by
+    apply funext; intro n
+    apply funext; intro m
+    exact Nat.add_comm n m
 
 --  The `ext` tactic will also apply `funext` as many times as possible,
 --  introducing all variables in one go. (The singular version of the
 --  tactic is `ext1`.)
 
-theorem add_comm_fun' : (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) := by
-  ext n m; exact Nat.add_comm n m
+theorem add_comm_fun' :
+  (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) := by
+    ext n m; exact Nat.add_comm n m
 
 --   ----------------------------------------
 
@@ -2021,24 +2016,19 @@ theorem add_comm_fun' : (fun (n m : Nat) => n + m) = (fun (n m : Nat) => m + n) 
 --  Functions and propositions are not the only things that have
 --  extensionality principles. Many structures like pairs also have them:
 
-example {n : Nat} {p : Nat × Nat} (hx_fst : p.fst = n + 1) (hx_snd : p.snd = 0) :
-    (n + 1, 0) = p := by
-  ext -- uses the `Prod.ext` lemma
-  · rw [hx_fst]
-  · rw [hx_snd]
-
---  Note to developers (Claude):
---      The `prod_ext_example` exercise is rated 2, but its content is an
---      anonymous `example`, so there is no constant for a `gradeTheorem`
---      directive to reference. Either name the theorem and add a grading
---      directive, or mark the exercise as optional/ungraded.
+example {n : Nat} {p : Nat × Nat}
+  (hx_fst : p.fst = n + 1) (hx_snd : p.snd = 0) : (n + 1, 0) = p := by
+    ext -- uses the `Prod.ext` lemma
+    · rw [hx_fst]
+    · rw [hx_snd]
 
 --  ### Exercise (2 stars): prod_ext_example ⭐⭐
 
 --  Now, use `ext1` to prove the following. Remember that `dsimp only`
 --  simplifies projections like `(a, b).fst` to `a`.
 
-example {m : Nat} {p : Nat × Nat} (hp_snd : p.snd = 4) (hp_fst : p.fst = m) :
+theorem prod_ext_example {m : Nat} {p : Nat × Nat}
+  (hp_snd : p.snd = 4) (hp_fst : p.fst = m) :
     ((p.fst + 1, 2), (p.fst, 4)) = ((m + 1, p.snd - 2), p) := by
   ext1
   · dsimp only
@@ -2067,10 +2057,10 @@ def revAppend {α} (xs ys : List α) : List α :=
   | [] => ys
   | x :: xs => revAppend xs (x :: ys)
 
-theorem revAppend_nil {α : Type} {xs : List α} : revAppend [] xs = xs := rfl
+theorem revAppend_nil {α : Type} {xs : List α} : revAppend [] xs = xs := by rfl
 
 theorem revAppend_cons {α : Type} {x : α} {xs ys : List α} :
-    revAppend (x :: xs) ys = revAppend xs (x :: ys) := rfl
+    revAppend (x :: xs) ys = revAppend xs (x :: ys) := by rfl
 
 def trRev {α} (xs : List α) : List α := revAppend xs []
 
@@ -2358,4 +2348,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Built on 2026-09-15 00:45 UTC
+-- Built on 2026-09-15 13:21 UTC
