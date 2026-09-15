@@ -107,48 +107,11 @@
     },
     "392": {
       "base_sha": "a5250d75c39493f3f0cfc9f6f8d5064957e84707",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "a980f8c2d36481e769097eb2d8908d38d01f0e2f",
+      "changed_variants": [],
+      "head_sha": "76067c93f6fbc92a0d6bfb79df3315f79a081e66",
       "preview_path": "pr/392/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34900859313",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Logic: Improvement Pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/392"
     }
