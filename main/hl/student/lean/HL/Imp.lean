@@ -71,7 +71,7 @@ abbrev State := TotalMap Ident Nat
 
 --  We can add variables to the arithmetic expressions we had before simply
 --  by including one more constructor. (This is a fresh `Aexp`, replacing
---  the variable-free one from the *Slang* chapter.)
+--  the variable-free one from the Slang chapter.)
 
 inductive Aexp where
   | num (n : Nat)
@@ -80,8 +80,13 @@ inductive Aexp where
   | minus (a₁ a₂ : Aexp)
   | mult (a₁ a₂ : Aexp)
 
+--  <<<<<<< HEAD
+--
 --  The `Bexp` definition is unchanged, except that it now refers to the
---  new `Aexp`.
+--  new `Aexp`. ======= The `Bexp` definition is unchanged, except that it
+--  now refers to the new `Aexp`.
+
+--  90ba887100aa05a137f9792c5a46c0a0147c6074
 
 inductive Bexp where
   | bool (b : Bool)
@@ -141,7 +146,7 @@ syntax:max "(" imp_aexp ")" : imp_aexp
 syntax:max "~" term:max : imp_aexp
 
 /-- Embed an Imp arithmetic expression into a Lean term -/
-syntax:min "aexp " "{" imp_aexp "}" : term
+syntax:80 "aexp " "{" imp_aexp "}" : term
 --  END DETAILS
 
 namespace Imp.Elab
@@ -201,7 +206,7 @@ syntax:max "(" imp_bexp ")" : imp_bexp
 syntax:max "~" term:max : imp_bexp
 
 /-- Embed an Imp boolean expression into a Lean term -/
-syntax:min "bexp " "{" imp_bexp "}" : term
+syntax:80 "bexp " "{" imp_bexp "}" : term
 --  END DETAILS
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions, macro rules)
@@ -363,7 +368,7 @@ end Imp.Delab
 --
 --  The pretty-printed version of an expression might not exactly match its
 --  original form. For example, the parentheses around `X * 2` in
---  `aexp { 3 + (X * 2) }` are not printed because they are redundant --
+--  `aexp { 3 + (X * 2) }` are not printed because they are redundant,
 --  which the parenthesizer knows.
 
 /-- info: aexp {3 + X * 2} : Aexp -/
@@ -458,7 +463,7 @@ declare_syntax_cat imp_com
 /-- The command that does nothing (`skip`) -/
 syntax:max ident : imp_com
 /-- Sequencing: one command after another (right associative. min + 1 = 11) -/
-syntax:min imp_com:11 Lean.Parser.semicolonOrLinebreak ppHardSpace imp_com:min : imp_com
+syntax:80 imp_com:11 Lean.Parser.semicolonOrLinebreak ppHardSpace imp_com:min : imp_com
 /-- Assignment -/
 syntax:max ident ppHardSpace ":=" ppHardSpace imp_aexp : imp_com
 /-- Conditional -/
@@ -469,7 +474,7 @@ syntax:max "while " "(" imp_bexp ")" ppHardSpace "{" imp_com "}" : imp_com
 syntax:max "~" term:max : imp_com
 
 /-- Include an Imp command in Lean code -/
-syntax:min "imp" ppHardSpace "{" imp_com "}" : term
+syntax:80 "imp" ppHardSpace "{" imp_com "}" : term
 
 namespace Com
 
@@ -667,12 +672,12 @@ sf_expect_failure_in
 --    h✝ : Bexp.eval st b = true
 --    ⊢ 1 + sizeOf c + (1 + sizeOf b + sizeOf c) < 1 + sizeOf b + sizeOf c
 
---  Lean doesn't accept such a definition ("fail to show termination")
---  because the function we want to define is not guaranteed to terminate.
---  Indeed, it *doesn't* always terminate: the full `Com.eval` applied to
---  the `loop` program above would run forever. Since Lean aims to be not
---  just a programming language but also a consistent logic, any
---  potentially non-terminating function must be rejected.
+--  Lean doesn't accept such a definition because the function we want to
+--  define is not guaranteed to terminate. Indeed, it *doesn't* always
+--  terminate: the full `Com.eval` applied to the `loop` program above
+--  would run forever. Since Lean aims to be not just a programming
+--  language but also a consistent logic, any potentially non-terminating
+--  function must be rejected.
 --
 --  Here is what would go wrong if Lean allowed non-terminating recursive
 --  functions:
@@ -704,9 +709,9 @@ sf_expect_failure_in
 --  `st =[ c ]=> st'` means that executing program `c` in a starting state
 --  `st` results in an ending state `st'`. This can be pronounced "`c`
 --  takes state `st` to `st'`".
---
---  Operational Semantics
---
+
+--  ### Operational Semantics
+
 --  Here is an informal definition of evaluation, presented as inference
 --  rules for readability:
 --
@@ -953,39 +958,35 @@ example :
 theorem ceval_deterministic {c : Com} {st st1 st2 : State}
     (e₁ : st =[ ~c ]=> st1) (e₂ : st =[ ~c ]=> st2) : st1 = st2 := by
   induction e₁ generalizing st2 with
-  | @skip st =>
-    inversion e₂
-    rfl
-  | @asgn st a n x h =>
-    inversion e₂ with
-    | asgn h' =>
-      subst h h'
+  | skip =>
+      inversion e₂
       rfl
-  | @seq c₁ c₂ st st' st'' h₁ h₂ ih₁ ih₂ =>
-    inversion e₂ with
-    | seq st2' h₁' h₂' =>
-      have hst : st' = st2' := ih₁ h₁'
-      subst hst
-      exact ih₂ h₂'
-  | @ifTrue st st' b c₁ c₂ hb hc ih =>
-    inversion e₂ with
-    | ifTrue hb' hc' => exact ih hc'
-    | ifFalse hb' hc' => simp_all
-  | @ifFalse st st' b c₁ c₂ hb hc ih =>
-    inversion e₂ with
-    | ifTrue hb' hc' => simp_all
-    | ifFalse hb' hc' => exact ih hc'
-  | @whileFalse b st c hb =>
-    inversion e₂ with
-    | whileFalse hb' => rfl
-    | whileTrue hb' hc' hl' => simp_all
-  | @whileTrue st st' st'' b c hb hc hloop ih₁ ih₂ =>
-    inversion e₂ with
-    | whileFalse hb' => simp_all
-    | whileTrue st2' _ hc' hl' =>
-      have hst : st' = st2' := ih₁ hc'
-      subst hst
-      exact ih₂ hl'
+  | asgn =>
+      inversion e₂ with
+      | asgn h' => subst_vars; rfl
+  | seq h₁ h₂ ih₁ ih₂ =>
+      inversion e₂ with
+      | seq st2' h₁' h₂' =>
+          apply ih₁ at h₁'; subst h₁'
+          exact ih₂ h₂'
+  | ifTrue hb hc ih =>
+      inversion e₂ with
+      | ifTrue hb' hc' => exact ih hc'
+      | ifFalse hb' hc' => simp_all
+  | ifFalse hb hc ih =>
+      inversion e₂ with
+      | ifTrue hb' hc' => simp_all
+      | ifFalse hb' hc' => exact ih hc'
+  | whileFalse hb =>
+      inversion e₂ with
+      | whileFalse hb' => rfl
+      | whileTrue hb' hc' hl' => simp_all
+  | whileTrue hb hc hloop ih₁ ih₂ =>
+      inversion e₂ with
+      | whileFalse hb' => simp_all
+      | whileTrue st2' _ hc' hl' =>
+          apply ih₁ at hc'; subst hc'
+          exact ih₂ hl'
 
 --  ### Exercise (3 stars): pupToN (Optional) ⭐⭐⭐
 
@@ -1045,7 +1046,7 @@ theorem loop_never_stops (st st' : State) : ¬ (st =[ loop ]=> st') := by
 def Com.no_whiles (c : Com) : Bool :=
   match c with
   | imp {skip} => true
-  | imp {_x := ~_a} => true
+  | imp {x := ~a} => true
   | imp {c₁; c₂} => no_whiles c₁ && no_whiles c₂
   | imp {if (~_) {ct} else {cf}} => no_whiles ct && no_whiles cf
   | imp {while (~_) {~_}} => false
@@ -1065,11 +1066,6 @@ theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
 theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
     ∃ st', st =[ c ]=> st' := by
   sorry
-
---  And here is an alternative solution by induction on `c` (using
---  `Com.no_whiles` instead of `Com.NoWhilesR`):
-
---  FILL IN HERE
 
 --  ### Additional Exercises
 
@@ -1212,7 +1208,6 @@ def Bexp.evalSC (st : State) (b : Bexp) : Bool := sorry
 
 --  FILL IN HERE
 
--- This exercise turned out to be easier than we intended!
 theorem Bexp.eval_eq_evalSc (st : State) (b : Bexp) :
   b.eval st = b.evalSC st := by
   sorry
@@ -1423,4 +1418,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Built on 2026-09-14 16:21 UTC
+-- Built on 2026-09-15 21:41 UTC
