@@ -378,22 +378,6 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Imp/"}],
-   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Evaluating-Commands--Operational-Semantics":
-   [{"id":
-     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Evaluating-Commands--Operational-Semantics",
-     "data":
-     {"title": "Operational Semantics",
-      "shortTitle": null,
-      "sectionNum": "3.3.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Imp: Simple Imperative Programs",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Evaluating Commands", "shortTitle": null, "number": "3"},
-       {"title": "Operational Semantics", "shortTitle": null, "number": "3"}]},
-     "address": "/Imp/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Evaluating-Commands--Evaluation-as-a-Relation":
    [{"id":
      "Hoare-Logic--Imp___-Simple-Imperative-Programs--Evaluating-Commands--Evaluation-as-a-Relation",
@@ -436,7 +420,7 @@
      "data":
      {"title": "Determinism of Evaluation",
       "shortTitle": null,
-      "sectionNum": "3.3.4.",
+      "sectionNum": "3.3.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -446,7 +430,7 @@
        {"title": "Evaluating Commands", "shortTitle": null, "number": "3"},
        {"title": "Determinism of Evaluation",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "3"}]},
      "address": "/Imp/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Evaluating-Commands":
    [{"id":
@@ -1615,7 +1599,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "quiz4_answer":
    [{"id": "quiz4_answer",
@@ -1626,7 +1610,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "quiz3_answer":
    [{"id": "quiz3_answer",
@@ -1637,7 +1621,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "quiz1_answer":
    [{"id": "quiz1_answer",
@@ -1648,24 +1632,24 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
-   "pup_to_2_ceval":
-   [{"id": "pup_to_2_ceval",
+   "pup_to_n":
+   [{"id": "pup_to_n",
      "data":
-     {"/Imp/#pup_to_2_ceval":
-      {"display": "pup_to_2_ceval",
+     {"/Imp/#pup_to_n":
+      {"display": "pup_to_n",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
         "Determinism of Evaluation"]}},
      "address": "/Imp/"}],
-   "pupToN":
-   [{"id": "pupToN",
+   "pup_to_2_ceval":
+   [{"id": "pup_to_2_ceval",
      "data":
-     {"/Imp/#pupToN":
-      {"display": "pupToN",
+     {"/Imp/#pup_to_2_ceval":
+      {"display": "pup_to_2_ceval",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
@@ -1831,17 +1815,6 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Reasoning About Imp Programs"]}},
-     "address": "/Imp/"}],
-   "loop_false":
-   [{"id": "loop_false",
-     "data":
-     {"/Imp/#loop_false":
-      {"display": "loop_false",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Evaluating Commands",
-        "Evaluation as a Function (Failed Attempt)"]}},
      "address": "/Imp/"}],
    "loop":
    [{"id": "loop",
@@ -4039,6 +4012,18 @@
         "While Loops",
         "Exercise:  repeat"]}},
      "address": "/Hoare/"}],
+   "RepeatExercise.Com.unexpandEvalR":
+   [{"id": "RepeatExercise___Com___unexpandEvalR",
+     "data":
+     {"/Hoare/#RepeatExercise___Com___unexpandEvalR":
+      {"display": "Com.unexpandEvalR",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
    "RepeatExercise.Com.skip":
    [{"id": "RepeatExercise___Com___skip",
      "data":
@@ -4068,18 +4053,6 @@
      "data":
      {"/Hoare/#RepeatExercise___Com___repeatUntil":
       {"display": "repeatUntil",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "While Loops",
-        "Exercise:  repeat"]}},
-     "address": "/Hoare/"}],
-   "RepeatExercise.Com.evalR_eq":
-   [{"id": "RepeatExercise___Com___evalR_eq",
-     "data":
-     {"/Hoare/#RepeatExercise___Com___evalR_eq":
-      {"display": "Com.evalR_eq",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -4835,6 +4808,18 @@
         "Conditionals",
         "Exercise: One-sided conditionals"]}},
      "address": "/Hoare/"}],
+   "If1.Com.unexpandEvalR":
+   [{"id": "If1___Com___unexpandEvalR",
+     "data":
+     {"/Hoare/#If1___Com___unexpandEvalR":
+      {"display": "Com.unexpandEvalR",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Conditionals",
+        "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
    "If1.Com.skip":
    [{"id": "If1___Com___skip",
      "data":
@@ -4864,18 +4849,6 @@
      "data":
      {"/Hoare/#If1___Com___if1":
       {"display": "if1",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Conditionals",
-        "Exercise: One-sided conditionals"]}},
-     "address": "/Hoare/"}],
-   "If1.Com.evalR_eq":
-   [{"id": "If1___Com___evalR_eq",
-     "data":
-     {"/Hoare/#If1___Com___evalR_eq":
-      {"display": "Com.evalR_eq",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -5226,6 +5199,17 @@
         "Additional Exercises",
         "Assert and Assume"]}},
      "address": "/Hoare/"}],
+   "HoareAssertAssume.Com.unexpandEvalR":
+   [{"id": "HoareAssertAssume___Com___unexpandEvalR",
+     "data":
+     {"/Hoare/#HoareAssertAssume___Com___unexpandEvalR":
+      {"display": "Com.unexpandEvalR",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
    "HoareAssertAssume.Com.skip":
    [{"id": "HoareAssertAssume___Com___skip",
      "data":
@@ -5242,17 +5226,6 @@
      "data":
      {"/Hoare/#HoareAssertAssume___Com___seq":
       {"display": "seq",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Additional Exercises",
-        "Assert and Assume"]}},
-     "address": "/Hoare/"}],
-   "HoareAssertAssume.Com.evalR_eq":
-   [{"id": "HoareAssertAssume___Com___evalR_eq",
-     "data":
-     {"/Hoare/#HoareAssertAssume___Com___evalR_eq":
-      {"display": "Com.evalR_eq",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -5544,6 +5517,17 @@
         "Additional Exercises",
         "Havoc"]}},
      "address": "/Hoare/"}],
+   "Himp.Com.unexpandEvalR":
+   [{"id": "Himp___Com___unexpandEvalR",
+     "data":
+     {"/Hoare/#Himp___Com___unexpandEvalR":
+      {"display": "Com.unexpandEvalR",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Havoc"]}},
+     "address": "/Hoare/"}],
    "Himp.Com.skip":
    [{"id": "Himp___Com___skip",
      "data":
@@ -5571,17 +5555,6 @@
      "data":
      {"/Hoare/#Himp___Com___havoc":
       {"display": "havoc",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Additional Exercises",
-        "Havoc"]}},
-     "address": "/Hoare/"}],
-   "Himp.Com.evalR_eq":
-   [{"id": "Himp___Com___evalR_eq",
-     "data":
-     {"/Hoare/#Himp___Com___evalR_eq":
-      {"display": "Com.evalR_eq",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -5759,7 +5732,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "HasEval.Delab.delabTriple":
    [{"id": "HasEval___Delab___delabTriple",
@@ -5770,7 +5743,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "HasEval":
    [{"id": "HasEval",
@@ -5781,7 +5754,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "ExamplePrettyAssertions.assertion9":
    [{"id": "ExamplePrettyAssertions___assertion9",
@@ -6358,6 +6331,17 @@
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
      "address": "/Imp/"}],
+   "Com.unexpandEvalR":
+   [{"id": "Com___unexpandEvalR",
+     "data":
+     {"/Imp/#Com___unexpandEvalR":
+      {"display": "Com.unexpandEvalR",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Evaluation as a Relation"]}},
+     "address": "/Imp/"}],
    "Com.swap_if_branches":
    [{"id": "Com___swap_if_branches",
      "data":
@@ -6472,28 +6456,6 @@
         "Behavioral Equivaleence",
         "Simple Examples"]}},
      "address": "/Equiv/"}],
-   "Com.evalR_eq":
-   [{"id": "Com___evalR_eq",
-     "data":
-     {"/Imp/#Com___evalR_eq":
-      {"display": "Com.evalR_eq",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Evaluating Commands",
-        "Operational Semantics"]}},
-     "address": "/Imp/"}],
-   "Com.eval":
-   [{"id": "Com___eval",
-     "data":
-     {"/Imp/#Com___eval":
-      {"display": "Com.eval",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Evaluating Commands",
-        "Evaluation as a Function (Failed Attempt)"]}},
-     "address": "/Imp/"}],
    "Com.equiv_trans":
    [{"id": "Com___equiv_trans",
      "data":
@@ -6556,6 +6518,17 @@
       {"display": "cond",
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
+     "address": "/Imp/"}],
+   "Com.ceval_fun_no_while":
+   [{"id": "Com___ceval_fun_no_while",
+     "data":
+     {"/Imp/#Com___ceval_fun_no_while":
+      {"display": "Com.ceval_fun_no_while",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Evaluating Commands",
+        "Evaluation as a Function (Failed Attempt)"]}},
      "address": "/Imp/"}],
    "Com.assign_equiv":
    [{"id": "Com___assign_equiv",
@@ -6635,7 +6608,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "Com.EvalR.whileFalse":
    [{"id": "Com___EvalR___whileFalse",
@@ -6646,7 +6619,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "Com.EvalR.skip":
    [{"id": "Com___EvalR___skip",
@@ -6657,7 +6630,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "Com.EvalR.seq":
    [{"id": "Com___EvalR___seq",
@@ -6668,7 +6641,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "Com.EvalR.ifTrue":
    [{"id": "Com___EvalR___ifTrue",
@@ -6679,7 +6652,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "Com.EvalR.ifFalse":
    [{"id": "Com___EvalR___ifFalse",
@@ -6690,7 +6663,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "Com.EvalR.asgn":
    [{"id": "Com___EvalR___asgn",
@@ -6701,7 +6674,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "Com.EvalR":
    [{"id": "Com___EvalR",
@@ -6712,7 +6685,7 @@
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
-        "Operational Semantics"]}},
+        "Evaluation as a Relation"]}},
      "address": "/Imp/"}],
    "Com.Equiv":
    [{"id": "Com___Equiv",

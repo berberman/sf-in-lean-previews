@@ -925,7 +925,7 @@ theorem verification_conditions_correct (dec : Decorated)
 --  big and contain many conjuncts that are essentially trivial.
 
 example : decWhile.VerificationConditions := by
-  rw [Decorated.VerificationConditions, decWhile]
+  unfold Decorated.VerificationConditions decWhile
   simp only [DCom.VerificationConditions,
     DCom.postcondition]
   sorry
@@ -1943,4 +1943,4 @@ theorem hoare_havoc_weakest (P Q : Assertion) (x : Ident)
 
 end Himp2
 
--- Built on 2026-09-15 00:45 UTC
+-- Built on 2026-09-10 14:28 UTC
