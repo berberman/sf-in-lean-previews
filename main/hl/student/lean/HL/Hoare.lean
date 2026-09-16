@@ -1780,8 +1780,10 @@ inductive Com.EvalR : Com → State → State → Prop where
 instance : HasEval Com State State where
   Eval := Com.EvalR
 
-@[simp]
-theorem Com.evalR_eq {c : Com} {st st' : State} : EvalR c st st' ↔ st =[ ~c ]=> st' := by rfl
+@[app_unexpander Com.EvalR]
+def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
+  | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
+  | _ => throw ()
 
 --  The following unit tests should be provable simply by applying your new
 --  rules (plus `rfl` for the boolean side conditions) if you have defined
@@ -2221,9 +2223,10 @@ inductive Com.EvalR : Com → State → State → Prop where
 instance : HasEval Com State State where
   Eval := Com.EvalR
 
-@[simp]
-theorem Com.evalR_eq {c : Com} {st st' : State} :
-    EvalR c st st' ↔ st =[ ~c ]=> st' := by rfl
+@[app_unexpander Com.EvalR]
+def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
+  | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
+  | _ => throw ()
 
 --  A couple of definitions from above, copied here so they use the new
 --  `Com.EvalR`.
@@ -2341,7 +2344,7 @@ end RepeatExercise
 --  First, we enclose this work in a separate namespace, and recall the
 --  syntax and big-step semantics of Himp commands.
 
-namespace HimpHoare
+namespace Himp
 
 inductive Com : Type where
   | skip : Com
@@ -2402,9 +2405,10 @@ inductive Com.EvalR : Com → State → State → Prop where
 instance : HasEval Com State State where
   Eval := Com.EvalR
 
-@[simp]
-theorem Com.evalR_eq {c : Com} {st st' : State} :
-    EvalR c st st' ↔ st =[ ~c ]=> st' := by rfl
+@[app_unexpander Com.EvalR]
+def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
+  | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
+  | _ => throw ()
 
 --  The definition of Hoare triples is exactly as before.
 
@@ -2467,7 +2471,7 @@ theorem havoc_post {P : Assertion} {x : Ident} :
 
 --  (End of exercise)
 
-end HimpHoare
+end Himp
 
 --  ### Assert and Assume
 
@@ -2568,9 +2572,10 @@ inductive Com.EvalR : Com → State → Result → Prop where
 instance : HasEval Com State Result where
   Eval := Com.EvalR
 
-@[simp]
-theorem Com.evalR_eq {c : Com} {st : State} {res : Result} :
-    EvalR c st res ↔ st =[ ~c ]=> res := by rfl
+@[app_unexpander Com.EvalR]
+def Com.unexpandEvalR : Lean.PrettyPrinter.Unexpander
+  | `($_ $c $st0 $st1) => ``($st0 =[ ~$c ]=> $st1)
+  | _ => throw ()
 
 --  We redefine hoare triples: Now, `{{ P }} c {{ Q }}` means that,
 --  whenever `c` is started in a state satisfying `P`, and terminates with
@@ -2731,4 +2736,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Built on 2026-09-15 21:41 UTC
+-- Built on 2026-09-14 10:31 UTC

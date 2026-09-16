@@ -1445,25 +1445,25 @@ theorem map_injective_of_injective {α β : Type}
       injection h with hxy hxs
       rw [hf x y hxy, ih ys hxs]
 
---  ### Exercise (3 stars): unzip'_zip (Advanced, Manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): unzip_zip (Advanced, Manually graded) ⭐⭐⭐
 
 --  We proved in `zip_unzip'` that `zip`ping the result of `unzip'`
 --  recovers the original list. What about the other direction? Complete
---  and prove the following `unzip'_zip`:
+--  and prove the following `unzip_zip`:
 --
---      theorem unzip'_zip {α β : Type}
+--      theorem unzip_zip {α β : Type}
 --          {l₁ : List α} {l₂ : List β}
 --          /- add appropriate parameters and hypotheses here -/ :
---          unzip' (zip l₁ l₂) = (l₁, l₂) := sorry
+--          unzip (zip l₁ l₂) = (l₁, l₂) := sorry
 --
 --  Hint: Take a look at the definition of `zip` in Poly. Your definition
 --  will need to account for the behavior of `zip` in its base cases, which
 --  possibly drop some list elements.
 
-theorem unzip'_zip {α β : Type}
+theorem unzip_zip {α β : Type}
     {l₁ : List α} {l₂ : List β}
     (h : l₁.length = l₂.length) :
-    unzip' (zip l₁ l₂) = (l₁, l₂) := by
+    unzip (zip l₁ l₂) = (l₁, l₂) := by
   induction l₁ generalizing l₂ with
   | nil =>
     cases l₂ with
@@ -1473,26 +1473,26 @@ theorem unzip'_zip {α β : Type}
     cases l₂ with
     | nil => contradiction
     | cons y ys =>
-      rw [zip_cons_cons, unzip']
+      rw [zip_cons_cons, unzip]
       rewrite [ih]
       · rfl
       · injections
 
 /- Here is one more approach -/
-theorem unzip'_zip' {α β : Type}
+theorem unzip_zip' {α β : Type}
     {l₁ : List α} {l₂ : List β}
-    {l : List (α × β)} (h : (l₁, l₂) = unzip' l) :
-    unzip' (zip l₁ l₂) = (l₁, l₂) := by
+    {l : List (α × β)} (h : (l₁, l₂) = unzip l) :
+    unzip (zip l₁ l₂) = (l₁, l₂) := by
   induction l generalizing l₁ l₂ with
   | nil =>
-    rw [unzip'] at h
+    rw [unzip_nil] at h
     injections h₁ h₂
-    rw [h₁, h₂, zip, unzip']
+    rw [h₁, h₂, zip, unzip]
   | cons x xs ih =>
     let ⟨a, b⟩ := x
-    rw [unzip'] at h
+    rw [unzip] at h
     injections h₁ h₂
-    rewrite [h₁, h₂, zip, unzip', ih]
+    rewrite [h₁, h₂, zip, unzip, ih]
     · rfl
     · rfl
 
@@ -1562,4 +1562,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Built on 2026-09-15 21:40 UTC
+-- Built on 2026-09-14 10:30 UTC
