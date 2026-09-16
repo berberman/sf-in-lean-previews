@@ -49,7 +49,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/286"
     },
     "382": {
-      "base_sha": "393e106ad9f1944342bb30c019cdee13345dadd7",
+      "base_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -88,9 +88,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "8a44be0fd99b5bf56eaf649c16c5ac9a66129462",
+      "head_sha": "a83c1680ded3565bac835c983d9fc5178ca0dc80",
       "preview_path": "pr/382/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/34289998490",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35156045129",
       "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"

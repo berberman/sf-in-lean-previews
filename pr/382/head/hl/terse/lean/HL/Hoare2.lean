@@ -813,7 +813,7 @@ theorem verification_conditions_correct (dec : Decorated)
 --  many conjuncts that are essentially trivial.
 
 example : decWhile.VerificationConditions := by
-  unfold Decorated.VerificationConditions decWhile
+  rw [Decorated.VerificationConditions, decWhile]
   simp only [DCom.VerificationConditions,
     DCom.postcondition]
   sorry
@@ -957,4 +957,4 @@ def IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop :=
 --       while true do X := 0 end
 --       {{ X = 0 }}
 
--- Source 6f8258e0581d28decb99b9bbfa8995bdc665e57b, committed 2026-09-08 23:17 UTC
+-- Source revision: 803a443

@@ -925,7 +925,7 @@ theorem verification_conditions_correct (dec : Decorated)
 --  big and contain many conjuncts that are essentially trivial.
 
 example : decWhile.VerificationConditions := by
-  unfold Decorated.VerificationConditions decWhile
+  rw [Decorated.VerificationConditions, decWhile]
   simp only [DCom.VerificationConditions,
     DCom.postcondition]
   sorry
@@ -1934,13 +1934,14 @@ theorem hoare_asgn_weakest
 --  Show that your `havoc_pre` function from the `himp_hoare` exercise in
 --  the Hoare chapter returns a weakest precondition.
 
-namespace Himp2
+namespace HimpHoare2
+open HimpHoare
 
 theorem hoare_havoc_weakest (P Q : Assertion) (x : Ident)
-    (h : Himp.ValidHoareTriple P (Himp.Com.havoc x) Q) :
-    P ->> Himp.havoc_pre x Q := by
+    (h : ValidHoareTriple P (Com.havoc x) Q) :
+    P ->> havoc_pre x Q := by
   sorry
 
-end Himp2
+end HimpHoare2
 
--- Source 6f8258e0581d28decb99b9bbfa8995bdc665e57b, committed 2026-09-08 23:17 UTC
+-- Source revision: 803a443
