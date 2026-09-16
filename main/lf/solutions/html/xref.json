@@ -1198,24 +1198,21 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles":
+   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Other-Extensionality-Principles":
    [{"id":
-     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles",
+     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Other-Extensionality-Principles",
      "data":
      {"title": "Other Extensionality Principles",
       "shortTitle": null,
-      "sectionNum": "8.7.2.1.",
+      "sectionNum": "8.7.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "7"},
-       {"title": "Functional Extensionality",
-        "shortTitle": null,
-        "number": "2"},
        {"title": "Other Extensionality Principles",
         "shortTitle": null,
-        "number": "1"}]},
+        "number": "3"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality":
    [{"id":
@@ -1239,7 +1236,7 @@
      "data":
      {"title": "Classical vs. Constructive Logic",
       "shortTitle": null,
-      "sectionNum": "8.7.3.",
+      "sectionNum": "8.7.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
@@ -1247,7 +1244,7 @@
        {"title": "The Logic of Lean", "shortTitle": null, "number": "7"},
        {"title": "Classical vs. Constructive Logic",
         "shortTitle": null,
-        "number": "3"}]},
+        "number": "4"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean":
    [{"id": "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean",
@@ -1260,6 +1257,33 @@
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "The Logic of Lean", "shortTitle": null, "number": "7"}]},
+     "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Quizzes":
+   [{"id": "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Quizzes",
+     "data":
+     {"title": "Quizzes",
+      "shortTitle": null,
+      "sectionNum": "8.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "The  Prop  Type", "shortTitle": null, "number": "1"},
+       {"title": "Quizzes", "shortTitle": null, "number": "2"}]},
+     "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Equality-Propositions":
+   [{"id":
+     "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Equality-Propositions",
+     "data":
+     {"title": "Equality Propositions",
+      "shortTitle": null,
+      "sectionNum": "8.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "The  Prop  Type", "shortTitle": null, "number": "1"},
+       {"title": "Equality Propositions", "shortTitle": null, "number": "1"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The--Prop--Type":
    [{"id": "Logical-Foundations--Logic-in-Lean--The--Prop--Type",
@@ -3174,26 +3198,6 @@
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
-   "unzip_zip'":
-   [{"id": "unzip_zip___",
-     "data":
-     {"/Tactics/#unzip_zip___":
-      {"display": "unzip_zip'",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Additional Exercises"]}},
-     "address": "/Tactics/"}],
-   "unzip_zip":
-   [{"id": "unzip_zip",
-     "data":
-     {"/Tactics/#unzip_zip":
-      {"display": "unzip_zip",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Additional Exercises"]}},
-     "address": "/Tactics/"}],
    "unzip_test_snd'":
    [{"id": "unzip_test_snd___",
      "data":
@@ -3304,6 +3308,26 @@
         "Polymorphism",
         "Polymorphic Pairs"]}},
      "address": "/Poly/"}],
+   "unzip'_zip'":
+   [{"id": "unzip____zip___",
+     "data":
+     {"/Tactics/#unzip____zip___":
+      {"display": "unzip'_zip'",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Additional Exercises"]}},
+     "address": "/Tactics/"}],
+   "unzip'_zip":
+   [{"id": "unzip____zip",
+     "data":
+     {"/Tactics/#unzip____zip":
+      {"display": "unzip'_zip",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Additional Exercises"]}},
+     "address": "/Tactics/"}],
    "unzip'":
    [{"id": "unzip___",
      "data":
@@ -3367,7 +3391,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "trRev":
@@ -3379,7 +3402,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "total_relation_is_total":
@@ -3710,7 +3732,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend_nil":
@@ -3722,7 +3743,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend_cons":
@@ -3734,7 +3754,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend":
@@ -3746,7 +3765,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "restricted_excluded_middle":
@@ -3838,6 +3856,17 @@
         "Logic in Lean",
         "The Logic of Lean",
         "Propositional Extensionality"]}},
+     "address": "/Logic/"}],
+   "prod_ext_example":
+   [{"id": "prod_ext_example",
+     "data":
+     {"/Logic/#prod_ext_example":
+      {"display": "prod_ext_example",
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "The Logic of Lean",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "prodUncurry":
    [{"id": "prodUncurry",
@@ -5030,28 +5059,7 @@
         "Falsehood and Negation"]}},
      "address": "/Logic/"}],
    "double_injective":
-   [{"id": "double_injective-next-next",
-     "data":
-     {"/Tactics/#double_injective-next-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective-next":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]},
-      "/Tactics/#double_injective":
-      {"display": "double_injective",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Generalizing the Induction Hypothesis"]}},
-     "address": "/Tactics/"},
-    {"id": "double_injective-next",
+   [{"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5073,6 +5081,27 @@
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
     {"id": "double_injective",
+     "data":
+     {"/Tactics/#double_injective-next-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective-next":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]},
+      "/Tactics/#double_injective":
+      {"display": "double_injective",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Generalizing the Induction Hypothesis"]}},
+     "address": "/Tactics/"},
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -6631,7 +6660,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq",
+   [{"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6640,7 +6669,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
+    {"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
