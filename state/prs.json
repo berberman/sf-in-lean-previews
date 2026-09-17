@@ -235,6 +235,53 @@
       "status": "published",
       "title": "Logic: more polishing",
       "url": "https://github.com/plclub/sf-in-lean/pull/403"
+    },
+    "404": {
+      "base_sha": "5249396ed05051a321672b881192cdd111e44e13",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "e50979c533ee7e4155a922b64effd9af645b81a3",
+      "preview_path": "pr/404/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35257423508",
+      "status": "published",
+      "title": "branchwatcher nit",
+      "url": "https://github.com/plclub/sf-in-lean/pull/404"
     }
   },
   "schema": 3
