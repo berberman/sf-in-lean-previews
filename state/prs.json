@@ -1,50 +1,13 @@
 {
-  "main_sha": "5249396ed05051a321672b881192cdd111e44e13",
+  "main_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
   "prs": {
     "382": {
-      "base_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "a83c1680ded3565bac835c983d9fc5178ca0dc80",
+      "base_sha": "5249396ed05051a321672b881192cdd111e44e13",
+      "changed_variants": [],
+      "head_sha": "f3e3e535c682138143ab404a3b0764ec209a288a",
       "preview_path": "pr/382/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35156045129",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
     },
@@ -94,53 +57,6 @@
       "status": "published",
       "title": "Imp: Ported Rest and Polish Pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/399"
-    },
-    "400": {
-      "base_sha": "dfa94878733217eff97151cf9019e2a7eeb3df3e",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "0a978b35f15012ac42ce4eb8fff668f1a77b3e97",
-      "preview_path": "pr/400/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35240826861",
-      "status": "published",
-      "title": "Remove some unnecessary antiquotes",
-      "url": "https://github.com/plclub/sf-in-lean/pull/400"
     },
     "402": {
       "base_sha": "dfa94878733217eff97151cf9019e2a7eeb3df3e",
@@ -284,9 +200,9 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/404"
     },
     "406": {
-      "base_sha": "5249396ed05051a321672b881192cdd111e44e13",
+      "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
       "changed_variants": [],
-      "head_sha": "eeba8682ecb602b726534d5b06dfb12d48b5b350",
+      "head_sha": "2c5b8085795ad3b389d6c61e6164a30e0a71690f",
       "preview_path": "pr/406/head/",
       "run_url": null,
       "status": "waiting-ci",

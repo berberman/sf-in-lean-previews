@@ -2,26 +2,7 @@
  {"title": "Sections or chapters of the manual",
   "description": null,
   "contents":
-  {"le-example":
-   [{"id": "le-example",
-     "data":
-     {"title": "Example: Binary Relation for Comparing Numbers",
-      "shortTitle": null,
-      "sectionNum": "9.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "IndProp: Inductively Defined Propositions",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Inductively Defined Propositions",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Example: Binary Relation for Comparing Numbers",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/IndProp/"}],
-   "UsingLean":
+  {"UsingLean":
    [{"id": "UsingLean",
      "data":
      {"title": "UsingLean: Using the Full Power of a Proof Assistant",
@@ -2167,6 +2148,26 @@
         "shortTitle": null,
         "number": "6"}]},
      "address": "/IndProp/"}],
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers":
+   [{"id":
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Example___-Binary-Relation-for-Comparing-Numbers",
+     "data":
+     {"title": "Example: Binary Relation for Comparing Numbers",
+      "shortTitle": null,
+      "sectionNum": "9.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "IndProp: Inductively Defined Propositions",
+        "shortTitle": null,
+        "number": "9"},
+       {"title": "Inductively Defined Propositions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Example: Binary Relation for Comparing Numbers",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/IndProp/"}],
    "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Constructing-Evidence-for-Permutations":
    [{"id":
      "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Inductively-Defined-Propositions--Constructing-Evidence-for-Permutations",
@@ -2204,88 +2205,11 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations--More-Facts-about--Le--Relating--Le--and--Nat___ble":
+   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercising-with-Inductive-Relations":
    [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations--More-Facts-about--Le--Relating--Le--and--Nat___ble",
+     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercising-with-Inductive-Relations",
      "data":
-     {"title": "Relating  Le  and  Nat.ble",
-      "shortTitle": null,
-      "sectionNum": "9.3.1.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "IndProp: Inductively Defined Propositions",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Exercises with Inductive Relations",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Facts about  Le", "shortTitle": null, "number": "1"},
-       {"title": "Relating  Le  and  Nat.ble",
-        "shortTitle": null,
-        "number": "3"}]},
-     "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations--More-Facts-about--Le--Facts-about--___":
-   [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations--More-Facts-about--Le--Facts-about--___",
-     "data":
-     {"title": "Facts about  ≤",
-      "shortTitle": null,
-      "sectionNum": "9.3.1.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "IndProp: Inductively Defined Propositions",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Exercises with Inductive Relations",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Facts about  Le", "shortTitle": null, "number": "1"},
-       {"title": "Facts about  ≤", "shortTitle": null, "number": "1"}]},
-     "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations--More-Facts-about--Le--Facts-about--_LT_--and--___":
-   [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations--More-Facts-about--Le--Facts-about--_LT_--and--___",
-     "data":
-     {"title": "Facts about  <  and  ≥",
-      "shortTitle": null,
-      "sectionNum": "9.3.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "IndProp: Inductively Defined Propositions",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Exercises with Inductive Relations",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Facts about  Le", "shortTitle": null, "number": "1"},
-       {"title": "Facts about  <  and  ≥", "shortTitle": null, "number": "2"}]},
-     "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations--More-Facts-about--Le":
-   [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations--More-Facts-about--Le",
-     "data":
-     {"title": "More Facts about  Le",
-      "shortTitle": null,
-      "sectionNum": "9.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "IndProp: Inductively Defined Propositions",
-        "shortTitle": null,
-        "number": "9"},
-       {"title": "Exercises with Inductive Relations",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "More Facts about  Le", "shortTitle": null, "number": "1"}]},
-     "address": "/IndProp/"}],
-   "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations":
-   [{"id":
-     "Logical-Foundations--IndProp___-Inductively-Defined-Propositions--Exercises-with-Inductive-Relations",
-     "data":
-     {"title": "Exercises with Inductive Relations",
+     {"title": "Exercising with Inductive Relations",
       "shortTitle": null,
       "sectionNum": "9.3.",
       "searchPriority": 50,
@@ -2294,7 +2218,7 @@
        {"title": "IndProp: Inductively Defined Propositions",
         "shortTitle": null,
         "number": "9"},
-       {"title": "Exercises with Inductive Relations",
+       {"title": "Exercising with Inductive Relations",
         "shortTitle": null,
         "number": "3"}]},
      "address": "/IndProp/"}],
@@ -4686,7 +4610,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq-next",
+   [{"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -4695,7 +4619,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq",
+    {"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -7148,7 +7072,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly",
+   [{"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -7159,7 +7083,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly-next",
+    {"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
