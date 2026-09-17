@@ -548,14 +548,14 @@ sf_expect_failure_in
     match c with
     | imp {skip} => st
     | imp {x := ~a} => (x →ₜ a.eval st ; st)
-    | imp {~c₁; ~c₂} =>
+    | imp {c₁; c₂} =>
         let st' := eval st c₁
         eval st' c₂
-    | imp {if (~b) {~c₁} else {~c₂}} =>
+    | imp {if (b) {c₁} else {c₂}} =>
         if b.eval st then eval st c₁
         else eval st c₂
-    | imp {while (~b) {~c}} =>
-        if b.eval st then eval st (imp { ~c; while (~b) {~c}})
+    | imp {while (b) {c}} =>
+        if b.eval st then eval st (imp { c; while (b) {c}})
         --                ^-- recursive call without a decreasing argument
         else st
 
@@ -687,7 +687,7 @@ instance : HasEval Com State State where
 
 @[simp]
 theorem Com.evalR_eq {c : Com} {st st' : State} :
-    EvalR c st st' ↔ st =[ ~c ]=> st' := by rfl
+    EvalR c st st' ↔ st =[ c ]=> st' := by rfl
 --  END DETAILS
 
 --  The cost of defining evaluation as a relation instead of
@@ -844,7 +844,7 @@ example :
 --  relation really is a (partial) function...
 
 theorem ceval_deterministic {c : Com} {st st1 st2 : State}
-    (e₁ : st =[ ~c ]=> st1) (e₂ : st =[ ~c ]=> st2) : st1 = st2 := by
+    (e₁ : st =[ c ]=> st1) (e₂ : st =[ c ]=> st2) : st1 = st2 := by
   induction e₁ generalizing st2 with
   | skip =>
       inversion e₂
@@ -888,13 +888,13 @@ theorem ceval_deterministic {c : Com} {st st1 st2 : State}
 def pupToN : Com := sorry
 
 theorem pup_to_2_ceval :
-    {X ↦ 2} =[ ~pupToN ]=> {X ↦ 0, Y ↦ 3, X ↦ 1, Y ↦ 2, Y ↦ 0, X ↦ 2} := by
+    {X ↦ 2} =[ pupToN ]=> {X ↦ 0, Y ↦ 3, X ↦ 1, Y ↦ 2, Y ↦ 0, X ↦ 2} := by
   sorry
 
 --  ## Reasoning About Imp Programs
 
 theorem plus2_spec {st : State} {n : Nat} {st' : State}
-    (hx : st[X] = n) (heval : st =[ ~plus2 ]=> st') :
+    (hx : st[X] = n) (heval : st =[ plus2 ]=> st') :
     st'[X] = n + 2 := by
   -- Inverting `heval` forces one step of the `ceval` computation: since
   -- `plus2` is an assignment, `st'` must be `st` extended at `X`.
@@ -933,8 +933,8 @@ def Com.no_whiles (c : Com) : Bool :=
   | imp {skip} => true
   | imp {x := ~a} => true
   | imp {c₁; c₂} => no_whiles c₁ && no_whiles c₂
-  | imp {if (~_) {ct} else {cf}} => no_whiles ct && no_whiles cf
-  | imp {while (~_) {~_}} => false
+  | imp {if (b) {ct} else {cf}} => no_whiles ct && no_whiles cf
+  | imp {while (b) {c}} => false
 
 inductive Com.NoWhilesR : Com → Prop where
   --  FILL IN HERE
@@ -1269,12 +1269,13 @@ scoped notation:40 st0:41 " =[ " c " ]=> " st1:41 " // " s:41 => Com.EvalR c st0
 
 --  Now prove the following properties of your definition:
 
-theorem break_ignore {c : Com} (st st' : State) {s : Result} (h : st =[ imp { brk ; ~c } ]=> st' // s) :
+theorem break_ignore {c : Com} (st st' : State) {s : Result}
+  (h : st =[ imp { brk ; c } ]=> st' // s) :
   st = st' := by
   sorry
 
 theorem while_continue {b : Bexp} {c : Com} {st st' : State} {s : Result}
-  (h : st =[ imp { while (~b) {~c} } ]=> st' // s) :
+  (h : st =[ imp { while (b) {c} } ]=> st' // s) :
   s = sContinue := by
   sorry
 
@@ -1285,20 +1286,20 @@ theorem while_stops_on_break {b : Bexp} {c : Com} {st st' : State}
   sorry
 
 theorem seq_continue {c₁ c₂ : Com} {st st' st'' : State}
-  (h₁ : st =[ imp { ~c₁ } ]=> st' // sContinue)
-  (h₂ : st' =[ imp { ~c₂ } ]=> st'' // sContinue) :
-  st =[ imp { ~c₁ ; ~c₂ } ]=> st'' // sContinue := by
+  (h₁ : st =[ imp { c₁ } ]=> st' // sContinue)
+  (h₂ : st' =[ imp { c₂ } ]=> st'' // sContinue) :
+  st =[ imp { c₁ ; c₂ } ]=> st'' // sContinue := by
   sorry
 
 theorem seq_stops_on_break {c₁ c₂ : Com} {st st' : State}
-  (h : st =[ imp { ~c₁ } ]=> st' // sBreak) :
-  st =[ imp { ~c₁ ; ~c₂ } ]=> st' // sBreak := by
+  (h : st =[ imp { c₁ } ]=> st' // sBreak) :
+  st =[ imp { c₁ ; c₂ } ]=> st' // sBreak := by
   sorry
 
 --  ### Exercise (3 stars): while_break_true (Optional) ⭐⭐⭐
 
 theorem while_break_true {b : Bexp} {c : Com} {st st' : State}
-  (h₁ : st =[ imp { while (~b) {~c} } ]=> st' // sContinue)
+  (h₁ : st =[ imp { while (b) {c} } ]=> st' // sContinue)
   (h₂ : b.eval st' = true) :
   ∃ st'', st'' =[ imp { c } ]=> st' // sBreak := by
   sorry
@@ -1306,8 +1307,8 @@ theorem while_break_true {b : Bexp} {c : Com} {st st' : State}
 --  ### Exercise (4 stars): ceval_deterministic (Optional) ⭐⭐⭐⭐
 
 theorem ceval_deterministic {c : Com} {st st₁ st₂ : State} {s₁ s₂ : Result}
-  (h₁ : st =[ imp { ~c } ]=> st₁ // s₁)
-  (h₂ : st =[ imp { ~c } ]=> st₂ // s₂) :
+  (h₁ : st =[ imp { c } ]=> st₁ // s₁)
+  (h₂ : st =[ imp { c } ]=> st₂ // s₂) :
   st₁ = st₂ ∧ s₁ = s₂ := by
   sorry
 
@@ -1331,4 +1332,4 @@ end Imp.Break
 --  making up a concrete Notation for `for` loops, but feel
 --  free to play with this too if you like.)
 
--- Built on 2026-09-15 21:42 UTC
+-- Built on 2026-09-17 20:40 UTC

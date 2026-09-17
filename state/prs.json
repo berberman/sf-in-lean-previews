@@ -1,13 +1,50 @@
 {
-  "main_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
+  "main_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
   "prs": {
     "382": {
       "base_sha": "5249396ed05051a321672b881192cdd111e44e13",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "f3e3e535c682138143ab404a3b0764ec209a288a",
       "preview_path": "pr/382/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35271533340",
+      "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
     },
@@ -201,11 +238,48 @@
     },
     "406": {
       "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "2c5b8085795ad3b389d6c61e6164a30e0a71690f",
       "preview_path": "pr/406/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35272647821",
+      "status": "published",
       "title": "Strong Pumping Lemma and some RegExp polish",
       "url": "https://github.com/plclub/sf-in-lean/pull/406"
     }
