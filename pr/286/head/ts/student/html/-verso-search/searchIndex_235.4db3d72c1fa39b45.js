@@ -1,1 +1,0 @@
-window.docContents[235].resolve({"/Smallstep/#Smallstep":{"contents":"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n","context":"Type Systems","header":"3. Smallstep: Small-step Operational Semantics","id":"/Smallstep/#Smallstep"}});

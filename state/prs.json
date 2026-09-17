@@ -1,53 +1,6 @@
 {
   "main_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
   "prs": {
-    "286": {
-      "base_sha": "95150f6bf978efbac5981302ba566cc0e7128456",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "89664253dca701c2e2652d0719b1152abe24d5bd",
-      "preview_path": "pr/286/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/32370085311",
-      "status": "published",
-      "title": "Print the substitutions with braces instead",
-      "url": "https://github.com/plclub/sf-in-lean/pull/286"
-    },
     "382": {
       "base_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
       "changed_variants": [
