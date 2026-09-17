@@ -491,6 +491,24 @@
      "data":
      {"title": "Tactic  congr",
       "shortTitle": null,
+      "sectionNum": "7.1.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Tactics  injection  and  contradiction",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Tactic  congr", "shortTitle": null, "number": "4"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Quizzes":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Quizzes",
+     "data":
+     {"title": "Quizzes",
+      "shortTitle": null,
       "sectionNum": "7.1.3.",
       "searchPriority": 50,
       "context":
@@ -501,25 +519,7 @@
        {"title": "Tactics  injection  and  contradiction",
         "shortTitle": null,
         "number": "1"},
-       {"title": "Tactic  congr", "shortTitle": null, "number": "3"}]},
-     "address": "/Tactics/"}],
-   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Quizzes":
-   [{"id":
-     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Quizzes",
-     "data":
-     {"title": "Quizzes",
-      "shortTitle": null,
-      "sectionNum": "7.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Tactics: More Basic Tactics",
-        "shortTitle": null,
-        "number": "7"},
-       {"title": "Tactics  injection  and  contradiction",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Quizzes", "shortTitle": null, "number": "2"}]},
+       {"title": "Quizzes", "shortTitle": null, "number": "3"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Injectivity":
    [{"id":
@@ -538,6 +538,24 @@
         "shortTitle": null,
         "number": "1"},
        {"title": "Injectivity", "shortTitle": null, "number": "1"}]},
+     "address": "/Tactics/"}],
+   "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Disjointness":
+   [{"id":
+     "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction--Disjointness",
+     "data":
+     {"title": "Disjointness",
+      "shortTitle": null,
+      "sectionNum": "7.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Tactics: More Basic Tactics",
+        "shortTitle": null,
+        "number": "7"},
+       {"title": "Tactics  injection  and  contradiction",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Disjointness", "shortTitle": null, "number": "2"}]},
      "address": "/Tactics/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Tactics--injection--and--contradiction":
    [{"id":
@@ -1155,55 +1173,14 @@
      "data":
      {"title": "Working with Decidable Properties",
       "shortTitle": null,
-      "sectionNum": "8.7.",
+      "sectionNum": "8.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Working with Decidable Properties",
         "shortTitle": null,
-        "number": "7"}]},
-     "address": "/Logic/"}],
-   "Logical-Foundations--Logic-in-Lean--Truth--Logical-Equivalence":
-   [{"id": "Logical-Foundations--Logic-in-Lean--Truth--Logical-Equivalence",
-     "data":
-     {"title": "Logical Equivalence",
-      "shortTitle": null,
-      "sectionNum": "8.3.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "Truth", "shortTitle": null, "number": "3"},
-       {"title": "Logical Equivalence", "shortTitle": null, "number": "1"}]},
-     "address": "/Logic/"}],
-   "Logical-Foundations--Logic-in-Lean--Truth--Existential-Quantification":
-   [{"id":
-     "Logical-Foundations--Logic-in-Lean--Truth--Existential-Quantification",
-     "data":
-     {"title": "Existential Quantification",
-      "shortTitle": null,
-      "sectionNum": "8.3.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "Truth", "shortTitle": null, "number": "3"},
-       {"title": "Existential Quantification",
-        "shortTitle": null,
-        "number": "2"}]},
-     "address": "/Logic/"}],
-   "Logical-Foundations--Logic-in-Lean--Truth":
-   [{"id": "Logical-Foundations--Logic-in-Lean--Truth",
-     "data":
-     {"title": "Truth",
-      "shortTitle": null,
-      "sectionNum": "8.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "Truth", "shortTitle": null, "number": "3"}]},
+        "number": "6"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Propositional-Extensionality":
    [{"id":
@@ -1211,34 +1188,31 @@
      "data":
      {"title": "Propositional Extensionality",
       "shortTitle": null,
-      "sectionNum": "8.8.1.",
+      "sectionNum": "8.7.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
+       {"title": "The Logic of Lean", "shortTitle": null, "number": "7"},
        {"title": "Propositional Extensionality",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Logic/"}],
-   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles":
+   "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Other-Extensionality-Principles":
    [{"id":
-     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality--Other-Extensionality-Principles",
+     "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Other-Extensionality-Principles",
      "data":
      {"title": "Other Extensionality Principles",
       "shortTitle": null,
-      "sectionNum": "8.8.2.1.",
+      "sectionNum": "8.7.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
-       {"title": "Functional Extensionality",
-        "shortTitle": null,
-        "number": "2"},
+       {"title": "The Logic of Lean", "shortTitle": null, "number": "7"},
        {"title": "Other Extensionality Principles",
         "shortTitle": null,
-        "number": "1"}]},
+        "number": "3"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean--Functional-Extensionality":
    [{"id":
@@ -1246,12 +1220,12 @@
      "data":
      {"title": "Functional Extensionality",
       "shortTitle": null,
-      "sectionNum": "8.8.2.",
+      "sectionNum": "8.7.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
+       {"title": "The Logic of Lean", "shortTitle": null, "number": "7"},
        {"title": "Functional Extensionality",
         "shortTitle": null,
         "number": "2"}]},
@@ -1262,27 +1236,54 @@
      "data":
      {"title": "Classical vs. Constructive Logic",
       "shortTitle": null,
-      "sectionNum": "8.8.3.",
+      "sectionNum": "8.7.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "The Logic of Lean", "shortTitle": null, "number": "8"},
+       {"title": "The Logic of Lean", "shortTitle": null, "number": "7"},
        {"title": "Classical vs. Constructive Logic",
         "shortTitle": null,
-        "number": "3"}]},
+        "number": "4"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean":
    [{"id": "Logical-Foundations--Logic-in-Lean--The-Logic-of-Lean",
      "data":
      {"title": "The Logic of Lean",
       "shortTitle": null,
-      "sectionNum": "8.8.",
+      "sectionNum": "8.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
-       {"title": "The Logic of Lean", "shortTitle": null, "number": "8"}]},
+       {"title": "The Logic of Lean", "shortTitle": null, "number": "7"}]},
+     "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Quizzes":
+   [{"id": "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Quizzes",
+     "data":
+     {"title": "Quizzes",
+      "shortTitle": null,
+      "sectionNum": "8.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "The  Prop  Type", "shortTitle": null, "number": "1"},
+       {"title": "Quizzes", "shortTitle": null, "number": "2"}]},
+     "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Equality-Propositions":
+   [{"id":
+     "Logical-Foundations--Logic-in-Lean--The--Prop--Type--Equality-Propositions",
+     "data":
+     {"title": "Equality Propositions",
+      "shortTitle": null,
+      "sectionNum": "8.1.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "The  Prop  Type", "shortTitle": null, "number": "1"},
+       {"title": "Equality Propositions", "shortTitle": null, "number": "1"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--The--Prop--Type":
    [{"id": "Logical-Foundations--Logic-in-Lean--The--Prop--Type",
@@ -1302,28 +1303,55 @@
      "data":
      {"title": "Recap: Logical Connectives in Lean",
       "shortTitle": null,
-      "sectionNum": "8.4.",
+      "sectionNum": "8.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Recap: Logical Connectives in Lean",
         "shortTitle": null,
-        "number": "4"}]},
+        "number": "3"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--Programming-with-Propositions":
    [{"id": "Logical-Foundations--Logic-in-Lean--Programming-with-Propositions",
      "data":
      {"title": "Programming with Propositions",
       "shortTitle": null,
-      "sectionNum": "8.5.",
+      "sectionNum": "8.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Programming with Propositions",
         "shortTitle": null,
-        "number": "5"}]},
+        "number": "4"}]},
+     "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--Logical-Connectives--Truth":
+   [{"id": "Logical-Foundations--Logic-in-Lean--Logical-Connectives--Truth",
+     "data":
+     {"title": "Truth",
+      "shortTitle": null,
+      "sectionNum": "8.2.4.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
+       {"title": "Truth", "shortTitle": null, "number": "4"}]},
+     "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--Logical-Connectives--Logical-Equivalence":
+   [{"id":
+     "Logical-Foundations--Logic-in-Lean--Logical-Connectives--Logical-Equivalence",
+     "data":
+     {"title": "Logical Equivalence",
+      "shortTitle": null,
+      "sectionNum": "8.2.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
+       {"title": "Logical Equivalence", "shortTitle": null, "number": "5"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--Logical-Connectives--Falsehood-and-Negation":
    [{"id":
@@ -1338,6 +1366,22 @@
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
        {"title": "Falsehood and Negation", "shortTitle": null, "number": "3"}]},
+     "address": "/Logic/"}],
+   "Logical-Foundations--Logic-in-Lean--Logical-Connectives--Existential-Quantification":
+   [{"id":
+     "Logical-Foundations--Logic-in-Lean--Logical-Connectives--Existential-Quantification",
+     "data":
+     {"title": "Existential Quantification",
+      "shortTitle": null,
+      "sectionNum": "8.2.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
+       {"title": "Logical Connectives", "shortTitle": null, "number": "2"},
+       {"title": "Existential Quantification",
+        "shortTitle": null,
+        "number": "6"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Logic-in-Lean--Logical-Connectives--Disjunction":
    [{"id":
@@ -1384,14 +1428,14 @@
      "data":
      {"title": "Applying Theorems to Arguments",
       "shortTitle": null,
-      "sectionNum": "8.6.",
+      "sectionNum": "8.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Logic in Lean", "shortTitle": null, "number": "8"},
        {"title": "Applying Theorems to Arguments",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "5"}]},
      "address": "/Logic/"}],
    "Logical-Foundations--Lists___-Working-with-Structured-Data--Reasoning-About-Lists--List-Exercises___-Part-2":
    [{"id":
@@ -3154,26 +3198,6 @@
         "Constructors with Multiple Parameters (Tuple Types)",
         "Structures"]}},
      "address": "/Basics/"}],
-   "unzip_zip'":
-   [{"id": "unzip_zip___",
-     "data":
-     {"/Tactics/#unzip_zip___":
-      {"display": "unzip_zip'",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Additional Exercises"]}},
-     "address": "/Tactics/"}],
-   "unzip_zip":
-   [{"id": "unzip_zip",
-     "data":
-     {"/Tactics/#unzip_zip":
-      {"display": "unzip_zip",
-       "context":
-       ["Logical Foundations",
-        "Tactics: More Basic Tactics",
-        "Additional Exercises"]}},
-     "address": "/Tactics/"}],
    "unzip_test_snd'":
    [{"id": "unzip_test_snd___",
      "data":
@@ -3284,6 +3308,26 @@
         "Polymorphism",
         "Polymorphic Pairs"]}},
      "address": "/Poly/"}],
+   "unzip'_zip'":
+   [{"id": "unzip____zip___",
+     "data":
+     {"/Tactics/#unzip____zip___":
+      {"display": "unzip'_zip'",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Additional Exercises"]}},
+     "address": "/Tactics/"}],
+   "unzip'_zip":
+   [{"id": "unzip____zip",
+     "data":
+     {"/Tactics/#unzip____zip":
+      {"display": "unzip'_zip",
+       "context":
+       ["Logical Foundations",
+        "Tactics: More Basic Tactics",
+        "Additional Exercises"]}},
+     "address": "/Tactics/"}],
    "unzip'":
    [{"id": "unzip___",
      "data":
@@ -3347,7 +3391,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "trRev":
@@ -3359,7 +3402,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "total_relation_is_total":
@@ -3690,7 +3732,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend_nil":
@@ -3702,7 +3743,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend_cons":
@@ -3714,7 +3754,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "revAppend":
@@ -3726,7 +3765,6 @@
        ["Logical Foundations",
         "Logic in Lean",
         "The Logic of Lean",
-        "Functional Extensionality",
         "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "restricted_excluded_middle":
@@ -3819,16 +3857,16 @@
         "The Logic of Lean",
         "Propositional Extensionality"]}},
      "address": "/Logic/"}],
-   "proj1":
-   [{"id": "proj1",
+   "prod_ext_example":
+   [{"id": "prod_ext_example",
      "data":
-     {"/Logic/#proj1":
-      {"display": "proj1",
+     {"/Logic/#prod_ext_example":
+      {"display": "prod_ext_example",
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Logical Connectives",
-        "Conjunction"]}},
+        "The Logic of Lean",
+        "Other Extensionality Principles"]}},
      "address": "/Logic/"}],
    "prodUncurry":
    [{"id": "prodUncurry",
@@ -3956,7 +3994,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Logical Equivalence"]}},
      "address": "/Logic/"}],
    "or_commute":
@@ -3978,7 +4016,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Logical Equivalence"]}},
      "address": "/Logic/"}],
    "optionMap":
@@ -4086,7 +4124,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Logical Equivalence"]}},
      "address": "/Logic/"}],
    "not_succ_pred_n":
@@ -4160,7 +4198,11 @@
      "data":
      {"/Logic/#nil_is_not_cons":
       {"display": "nil_is_not_cons",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Truth"]}},
      "address": "/Logic/"}],
    "nextWorkingDay'":
    [{"id": "nextWorkingDay___",
@@ -4246,7 +4288,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Logical Equivalence"]}},
      "address": "/Logic/"}],
    "monochrome'":
@@ -4388,17 +4430,6 @@
         "Tactics: More Basic Tactics",
         "Additional Exercises"]}},
      "address": "/Tactics/"}],
-   "left":
-   [{"id": "left",
-     "data":
-     {"/Logic/#left":
-      {"display": "left",
-       "context":
-       ["Logical Foundations",
-        "Logic in Lean",
-        "Logical Connectives",
-        "Conjunction"]}},
-     "address": "/Logic/"}],
    "keepIf_some":
    [{"id": "keepIf_some-next",
      "data":
@@ -4515,14 +4546,22 @@
      "data":
      {"/Logic/#isNil_nil":
       {"display": "isNil_nil",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Truth"]}},
      "address": "/Logic/"}],
    "isNil_cons":
    [{"id": "isNil_cons",
      "data":
      {"/Logic/#isNil_cons":
       {"display": "isNil_cons",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Truth"]}},
      "address": "/Logic/"}],
    "isLength1":
    [{"id": "isLength1",
@@ -4639,7 +4678,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Logical Equivalence"]}},
      "address": "/Logic/"}],
    "iff_sym":
@@ -4650,7 +4689,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Logical Equivalence"]}},
      "address": "/Logic/"}],
    "iff_refl":
@@ -4661,7 +4700,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Logical Equivalence"]}},
      "address": "/Logic/"}],
    "identity":
@@ -5041,7 +5080,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective-next-next",
+    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5062,7 +5101,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective",
+    {"id": "double_injective-next-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5113,7 +5152,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Existential Quantification"]}},
      "address": "/Logic/"}],
    "dist_exists_or":
@@ -5124,7 +5163,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Existential Quantification"]}},
      "address": "/Logic/"}],
    "disjoint_ex3":
@@ -5136,28 +5175,40 @@
        ["Logical Foundations",
         "Tactics: More Basic Tactics",
         "Tactics  injection  and  contradiction",
-        "Injectivity"]}},
+        "Disjointness"]}},
      "address": "/Tactics/"}],
    "discr_example":
    [{"id": "discr_example",
      "data":
      {"/Logic/#discr_example":
       {"display": "discr_example",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Truth"]}},
      "address": "/Logic/"}],
    "discrFun_zero":
    [{"id": "discrFun_zero",
      "data":
      {"/Logic/#discrFun_zero":
       {"display": "discrFun_zero",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Truth"]}},
      "address": "/Logic/"}],
    "discrFun_succ":
    [{"id": "discrFun_succ",
      "data":
      {"/Logic/#discrFun_succ":
       {"display": "discrFun_succ",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Truth"]}},
      "address": "/Logic/"}],
    "diagonal_induction":
    [{"id": "diagonal_induction",
@@ -7715,6 +7766,17 @@
         "IndProp: Inductively Defined Propositions",
         "Additional Exercises"]}},
      "address": "/IndProp/"}],
+   "Or.inl":
+   [{"id": "Or___inl",
+     "data":
+     {"/Automation/#Or___inl":
+      {"display": "inl",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "The  simp  Tactic",
+        "Idiomatic  simp  Usage"]}},
+     "address": "/Automation/"}],
    "OptionPlayground.Option.some":
    [{"id": "OptionPlayground___Option___some",
      "data":
@@ -10173,7 +10235,7 @@
        "context":
        ["Logical Foundations",
         "Logic in Lean",
-        "Truth",
+        "Logical Connectives",
         "Existential Quantification"]}},
      "address": "/Logic/"}],
    "MyProd.snd":
@@ -12368,7 +12430,11 @@
      "data":
      {"/Logic/#List___IsNil":
       {"display": "List.IsNil",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Truth"]}},
      "address": "/Logic/"}],
    "List.In_nil":
    [{"id": "List___In_nil",
@@ -13398,7 +13464,11 @@
      "data":
      {"/Logic/#DiscrFun":
       {"display": "DiscrFun",
-       "context": ["Logical Foundations", "Logic in Lean", "Truth"]}},
+       "context":
+       ["Logical Foundations",
+        "Logic in Lean",
+        "Logical Connectives",
+        "Truth"]}},
      "address": "/Logic/"}],
    "Diagonal":
    [{"id": "Diagonal",
