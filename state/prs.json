@@ -50,48 +50,11 @@
     },
     "398": {
       "base_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "49ffb1f01b2b90dcfe26d631c7431fdbbbe2451e",
+      "changed_variants": [],
+      "head_sha": "51cb9c5310c32644647c9a76d3d1cd4abf359c5e",
       "preview_path": "pr/398/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35041204194",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "IndProp: Proofreading pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/398"
     },
@@ -141,6 +104,53 @@
       "status": "published",
       "title": "Imp: Ported Rest and Polish Pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/399"
+    },
+    "400": {
+      "base_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "894c7fdbf148d1a9ac1a376e52984a5573b8e860",
+      "preview_path": "pr/400/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35236298270",
+      "status": "published",
+      "title": "Remove some unnecessary antiquotes",
+      "url": "https://github.com/plclub/sf-in-lean/pull/400"
     }
   },
   "schema": 3
