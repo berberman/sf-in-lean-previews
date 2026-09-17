@@ -1018,4 +1018,4 @@ attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl Tm.IsVal
 
 end StlcExtended
 
--- Built on 2026-09-17 14:56 UTC
+-- Built on 2026-09-17 15:36 UTC

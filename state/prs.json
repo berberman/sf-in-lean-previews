@@ -1,5 +1,5 @@
 {
-  "main_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
+  "main_sha": "dfa94878733217eff97151cf9019e2a7eeb3df3e",
   "prs": {
     "382": {
       "base_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
@@ -97,11 +97,48 @@
     },
     "400": {
       "base_sha": "dfa94878733217eff97151cf9019e2a7eeb3df3e",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "0a978b35f15012ac42ce4eb8fff668f1a77b3e97",
       "preview_path": "pr/400/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35240826861",
+      "status": "published",
       "title": "Remove some unnecessary antiquotes",
       "url": "https://github.com/plclub/sf-in-lean/pull/400"
     }

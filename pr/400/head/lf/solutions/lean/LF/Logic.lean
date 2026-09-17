@@ -347,6 +347,16 @@ theorem Nat.add_is_zero (n m : Nat) : n + m = 0 → n = 0 ∧ m = 0 := by
 --  proofs it packages together. In Lean, this is done with `obtain`. We
 --  say that `obtain` *eliminates* a conjunction: it takes the conjunction
 --  apart to expose the proofs inside.
+--
+--  You've already seen the related terms *construct* and *destruct* (or
+--  *destructure*), used for building or taking apart a value via its
+--  constructors — e.g., destructuring a pair in Lists. Building a proof
+--  with a constructor like `And.intro` is one way to introduce a
+--  proposition; taking a proof apart via its constructors, as `obtain`
+--  does, is one way to eliminate a hypothesis. We'll use whichever pair of
+--  terms fits the context — "introduce"/"eliminate" when talking about a
+--  connective's proof rules, "construct"/"destruct" when talking about the
+--  underlying constructors.
 
 example (n m : Nat) : n = 0 ∧ m = 0 → n + m = 0 := by
   intro h
@@ -2354,4 +2364,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   intro h a; exact h a False
 
--- Built on 2026-09-17 14:52 UTC
+-- Built on 2026-09-17 15:33 UTC
