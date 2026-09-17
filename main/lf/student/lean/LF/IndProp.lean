@@ -176,8 +176,8 @@ inductive CollatzHoldsFor : Nat → Prop where
 --  What we've done here is to use Lean's `inductive` definition mechanism
 --  to characterize the property "Collatz holds for..." by stating three
 --  different ways in which it can hold: (1) Collatz holds for `1`, (2) if
---  Collatz holds for `div2 n` and `n` is even then Collatz holds for `n`,
---  and (3) if Collatz holds for `(3 * n) + 1` and `n` is odd then Collatz
+--  Collatz holds for `div2 n` and `n` is even, then Collatz holds for `n`,
+--  and (3) if Collatz holds for `(3 * n) + 1` and `n` is odd, then Collatz
 --  holds for `n`. This Lean definition directly corresponds to the three
 --  rules we wrote informally above.
 --
@@ -205,13 +205,13 @@ example : CollatzHoldsFor 12 := by
 def Collatz := ∀ n : Nat, n ≠ 0 → CollatzHoldsFor n
 
 --  If you succeed in proving this conjecture, you've got a bright future
---  as a number theorist! But don't spend too long on it ─ it's been [open
+--  as a number theorist! But don't spend too long on it — it's been [open
 --  since 1937](https://en.wikipedia.org/wiki/Collatz_conjecture).
 
 --  ### Example: Binary Relation for Comparing Numbers
 
 --  A binary *relation* on a set `α` has Lean type `α → α → Prop`. This is
---  a family of propositions parameterized by two elements of `α` ─ i.e., a
+--  a family of propositions parameterized by two elements of `α` — i.e., a
 --  proposition about pairs of elements of `α`.
 --
 --  For example, one familiar binary relation on `Nat` is
@@ -238,7 +238,7 @@ inductive Le : Nat → Nat → Prop where
 
 scoped infix:50 (priority := high) " ≤ " => Le
 
---  This definition is a bit simpler and more elegant than the Boolean
+--  This definition is a bit simpler and more elegant than the boolean
 --  function `Nat.ble` we defined in Basics. As usual, `Le` and `Nat.ble`
 --  are equivalent, and there is an exercise about that later.
 
@@ -295,8 +295,7 @@ inductive ParentOf : Person → Person → Prop where
 
 def AncestorOf : Person → Person → Prop := TransGen ParentOf
 
---  Here is a derivation showing that `Person.sage` is an ancestor of
---  `moss`:
+--  Here is a derivation showing that `sage` is an ancestor of `moss`:
 --
 --       ——————————————————— (sage_cleo) ——————————————————— (cleo_moss)
 --       ParentOf .sage .cleo            ParentOf .cleo .moss
@@ -311,16 +310,16 @@ example : AncestorOf .sage .moss := by
   · apply TransGen.step; apply ParentOf.cleo_moss
 
 --  Computing the transitive closure can be undecidable even for a relation
---  `r` that is decidable (e.g., the `CollatzStepMulti` relation below), so
---  in general we can't expect to define transitive closure as a boolean
---  function. Fortunately, Lean allows us to define transitive closure as
---  an inductive relation.
+--  `r` that is decidable (e.g., the `CollatzStep` relation below, whose
+--  closure is `CollatzStepMulti`), so in general we can't expect to define
+--  transitive closure as a boolean function. Fortunately, Lean allows us
+--  to define transitive closure as an inductive relation.
 --
 --  The transitive closure of a binary relation cannot, in general, be
 --  [expressed in first-order
 --  logic](https://en.wikipedia.org/wiki/Transitive_closure#In_logic_and_computational_complexity).
---  The logic of Lean is, however, much more powerful, and can easily
---  define such inductive relations.
+--  The logic of Lean is, however, much more powerful and can easily define
+--  such inductive relations.
 
 --  ### Example: Reflexive and Transitive Closure
 
@@ -364,7 +363,7 @@ def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CollatzStepMulti n 1
 
 --  This `CollatzStepMulti` relation defined in terms of `ReflTransGen`
 --  allows for more interesting derivations than the linear ones of the
---  directly-defined `CollatzHoldsFor` relation:
+--  directly defined `CollatzHoldsFor` relation:
 --
 --      collatzStep 16 = 8          collatzStep 8 = 4          collatzStep 4 = 2          collatzStep 2 = 1
 --      ────────────────── (step)   ───────────────── (step)   ───────────────── (step)   ───────────────── (step)
@@ -402,7 +401,7 @@ def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CollatzStepMulti n 1
 --      ───────────────────────────── (trans)
 --               Perm3 l₁ l₃
 --
---  For instance we can derive `Perm3 [1, 2, 3] [3, 2, 1]` as follows:
+--  For instance, we can derive `Perm3 [1, 2, 3] [3, 2, 1]` as follows:
 --
 --      ───────────────────────── (swap12)  ─────────────────────── (swap23)
 --      Perm3 [1, 2, 3] [2, 1, 3]            Perm3 [2, 1, 3] [2, 3, 1]
@@ -490,7 +489,7 @@ inductive Even : Nat → Prop where
 --  `inductive` for defining inductive datatypes like `Nat` or `List`. For
 --  one thing, we are defining not a `Type` (like `Nat`) or a function
 --  yielding a `Type` (like `List`), but rather a function from `Nat` to
---  `Prop` ─ that is, a property of numbers. But what is really new is
+--  `Prop` — that is, a property of numbers. But what is really new is
 --  that, because the `Nat` argument of `Even` appears to the *right* of
 --  the colon on the first line, it is allowed to take *different* values
 --  in the types of different constructors: `0` in the type of `Even.zero`
@@ -534,7 +533,7 @@ sf_expect_failure_in
 --    Note: The value of parameter `n` must be fixed throughout the inductive declaration. Consider making this parameter an index if it must vary.
 
 --  In an `inductive` definition, an argument to the type constructor on
---  the left of the colon is called a "parameter", whereas an argument on
+--  the left of the colon is called a "parameter," whereas an argument on
 --  the right is called an "index" or "annotation."
 --
 --  For example, in `inductive List (α : Type) ...`, the `α` is a
@@ -559,7 +558,7 @@ sf_expect_failure_in
 --    Even.succ_succ {n : Nat} (h : Even n) : Even (n + 2)
 
 --  These evidence constructors can be thought of as "primitive evidence of
---  evenness", and they can be used later on just like proven theorems. In
+--  evenness," and they can be used later on just like proven theorems. In
 --  particular, we can use Lean's `apply` and `exact` tactics with the
 --  constructor names to obtain evidence for `Even` of particular
 --  numbers...
@@ -599,13 +598,13 @@ end Even
 
 --  ### Constructing Evidence for Permutations
 
---  Similarly we can apply the evidence constructors to obtain evidence of
+--  Similarly, we can apply the evidence constructors to obtain evidence of
 --  `Perm3 [1, 2, 3] [3, 2, 1]`:
 
 namespace Perm3
 
 theorem rev : Perm3 [1, 2, 3] [3, 2, 1] := by
-  apply trans (l₂:= [2, 3, 1])
+  apply trans (l₂ := [2, 3, 1])
   · apply trans (l₂ := [2, 1, 3])
     · apply swap12
     · apply swap23
@@ -620,7 +619,7 @@ theorem rev' : Perm3 [1, 2, 3] [3, 2, 1] := by
   exact (trans (trans swap12 swap23) swap12)
 
 --  So the informal derivation trees we drew above are not too far from
---  what's happening formally. Formally we're using the evidence
+--  what's happening formally. Formally, we're using the evidence
 --  constructors to build *evidence trees*, similar to the finite trees we
 --  built using the constructors of data types such as `Nat`, `List`,
 --  binary trees, etc.
@@ -687,7 +686,7 @@ theorem Even.inversion (n : Nat) (h : Even n) :
 
 --  ### Exercise (1 star): le_inversion ⭐
 
---  Let's prove a similar inversion lemma for `le`.
+--  Let's prove a similar inversion lemma for `Le`.
 
 namespace LePlayground
 
@@ -717,7 +716,7 @@ end LePlayground
 
 theorem Even.of_succ_succ (n : Nat) (h : Even (n + 2)) : Even n := by
   apply inversion at h
-  obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁,  h₂⟩⟩ := h
+  obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁, h₂⟩⟩ := h
   injections h₁ heq
   subst heq
   exact h₂
@@ -753,7 +752,7 @@ example (n : Nat) (h : Even (n + 2)) : Even n := by
 
 example : ¬ Even 1 := by
   intro h; apply Even.inversion at h
-  obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁,  h₂⟩⟩ := h
+  obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁, h₂⟩⟩ := h
   injections
 
 example : ¬ Even 1 := by
@@ -881,7 +880,7 @@ sf_expect_failure_in
 --  `Even.zero`, then `n = 0` and the property must hold of `0`. If it was
 --  constructed by `Even.succ_succ`, then the evidence of `Even n` is of
 --  the form `Even.succ_succ n' h'`, where `n = n' + 2` and `h'` is
---  evidence for `Even n'`. In this case, the inductive hypothesis says
+--  evidence for `Even n'`. In this case, the induction hypothesis says
 --  that the property we are trying to prove holds for `n'`.
 --
 --  Let's try proving that lemma again:
@@ -907,7 +906,7 @@ theorem Even.iff_nat_even (n : Nat) : Even n ↔ Nat.Even n := by
   · intro ⟨k, hk⟩; rw [hk]; exact double k
 
 --  As we will see in later chapters, induction on evidence is a recurring
---  technique across many areas ─ in particular for formalizing the
+--  technique across many areas — in particular for formalizing the
 --  semantics of programming languages.
 --
 --  The following exercises provide simpler examples of this technique, to
@@ -927,13 +926,13 @@ theorem Even.of_add_left (n m : Nat) (h : Even (n + m)) (hn : Even n) : Even m :
 
 --  ### Exercise (3 stars): add_of_add_left (Optional) ⭐⭐⭐
 
---  This exercise can be completed without induction or case analysis. But,
+--  This exercise can be completed without induction or case analysis. But
 --  you will need a clever `have` and some tedious rewriting. Hint: Is
 --  `(n + m) + (n + k)` even?
 
 theorem Even.add_of_add_left (n m k : Nat)
     (hₙₘ : Even (n + m))
-    (hₙₚ : Even (n + k)) :
+    (hₙₖ : Even (n + k)) :
     Even (m + k) := by
   sorry
 
@@ -975,7 +974,7 @@ theorem List.in_iff_mem {α} (x : α) (l : List α) : List.In x l ↔ x ∈ l :=
 
 --  ### Multiple Induction Hypotheses
 
---  Recall the definition of the reflexive, transitive, closure of a
+--  Recall the definition of the reflexive, transitive closure of a
 --  relation:
 
 sf_recall
@@ -988,7 +987,7 @@ sf_recall
       ReflTransGen r x z
 
 --  Let's say that a relation on a type `α` is *diagonal* if it refines the
---  identity relation ─ i.e., if `r x y` implies `x = y`.
+--  identity relation — i.e., if `r x y` implies `x = y`.
 
 def Diagonal {α : Type} (r : α → α → Prop) := ∀ {x y}, r x y → x = y
 
@@ -1006,11 +1005,11 @@ theorem closure_of_diagonal_is_diagonal {α : Type} (r : α → α → Prop)
 --  Something interesting happens here: there are two induction hypotheses,
 --  `ihxy` and `ihyz`! If you think about it, it is not that weird: we are
 --  in the case `trans`, which has two recursive components, `hxy`,
---  relating `x` to `y` and `hyz`, relating `y` to `z`. Hence we may want
+--  relating `x` to `y`, and `hyz`, relating `y` to `z`. Hence we may want
 --  (and will actually need) an induction hypothesis for `hxy` and one for
---  `hyz` ─ they are called `ihxy` and `ihyz` here. In general, Lean will
---  always generate one induction hypothesis per recursive constructor of
---  the type being inducted over.
+--  `hyz` — they are called `ihxy` and `ihyz` here. In general, Lean will
+--  always generate one induction hypothesis per recursive premise of each
+--  constructor of the type being inducted over.
 
 --  ### Exercise (4 stars): Even' (Advanced, Optional) ⭐⭐⭐⭐
 
@@ -1072,8 +1071,8 @@ theorem NotIn {α} (x : α) (l₁ l₂ : List α)
 
 --  ### Exercise (2 stars): NotPerm3 (Optional) ⭐⭐
 
---  Proving that something is NOT a permutation is quite tricky. Some of
---  the lemmas above, like `Perm3.In` can be useful for this.
+--  Proving that something is *not* a permutation is quite tricky. Some of
+--  the lemmas above, like `Perm3.In`, can be useful for this.
 
 theorem Not : ¬ Perm3 [1, 2, 3] [1, 2, 4] := by
   sorry
@@ -1137,14 +1136,14 @@ theorem le_add_right_of_le (n m p : Nat) (h : n ≤ m) : n ≤ m + p := by
 --  #### Facts about `<` and `≥`
 
 --  The "strictly less than" relation `n < m` can now be defined in terms
---  of `Nat.le`.
+--  of `Le`.
 
 def Lt (n m : Nat) : Prop := Le (n + 1) m
 
 scoped infix:50 (priority := high) " < " => Lt
 
---  The `≥` operation is defined in terms of `≤`. Lean provides a theorem
---  `ge_iff_le` allowing us to rewrite between them.
+--  The `≥` relation is defined in terms of `≤`, so unfolding its
+--  definition with `rw` lets us move between them.
 
 def Ge (m n : Nat) : Prop := Le n m
 
@@ -1217,10 +1216,10 @@ inductive R : Nat → Nat → Nat → Prop where
 --  - `R 2 2 6`
 --
 --  2. If we dropped constructor `c5` from the definition of `R`, would the
---     set of provable propositions change? Briefly (1 sentence) explain
+--     set of provable propositions change? Briefly (one sentence) explain
 --     your answer.
 --  3. If we dropped constructor `c4` from the definition of `R`, would the
---     set of provable propositions change? Briefly (1 sentence) explain
+--     set of provable propositions change? Briefly (one sentence) explain
 --     your answer.
 
 --  ### Exercise (3 stars): R_fact (Optional) ⭐⭐⭐
@@ -1262,12 +1261,12 @@ end RProvability
 --    to do this. You should make sure that your definition behaves
 --    correctly on all the positive and negative examples above, but you do
 --    not need to prove this formally.
---  - Prove `Subseq.refl` that subsequence is reflexive, that is, any list
+--  - Prove `Subseq.refl` that subsequence is reflexive — that is, any list
 --    is a subsequence of itself.
 --  - Prove `Subseq.append` that for any lists `l₁`, `l₂`, and `l₃`, if
 --    `l₁` is a subsequence of `l₂`, then `l₁` is also a subsequence of
 --    `l₂ ++ l₃`.
---  - (Harder) Prove `Subseq.trans` that subsequence is transitive ─ that
+--  - (Harder) Prove `Subseq.trans` that subsequence is transitive — that
 --    is, if `l₁` is a subsequence of `l₂` and `l₂` is a subsequence of
 --    `l₃`, then `l₁` is a subsequence of `l₃`.
 
@@ -1313,7 +1312,7 @@ end RProvability2
 
 --  ### Exercise (2 stars): total_relation (Optional) ⭐⭐
 
---  Define an inductive binary relation `total_relation` that holds between
+--  Define an inductive binary relation `TotalRelation` that holds between
 --  every pair of natural numbers.
 
 inductive TotalRelation : Nat → Nat → Prop where
@@ -1324,7 +1323,7 @@ theorem total_relation_is_total (n m : Nat) : TotalRelation n m := by
 
 --  ### Exercise (2 stars): empty_relation (Optional) ⭐⭐
 
---  Define an inductive binary relation `empty_relation` (on numbers) that
+--  Define an inductive binary relation `EmptyRelation` (on numbers) that
 --  never holds.
 
 inductive EmptyRelation : Nat → Nat → Prop where
@@ -1356,7 +1355,7 @@ inductive NoStutter {α : Type} : List α → Prop where
 --  which case the examples might need a different proof. (You'll notice
 --  that the suggested proofs use a number of tactics we haven't talked
 --  about, to make them more robust to different possible ways of defining
---  `NoStutter`. You can probably just uncomment and use them as-is, but
+--  `NoStutter`. You can probably just uncomment and use them as is, but
 --  you can also prove each example with more basic tactics.)
 
 example : NoStutter [3, 1, 4, 1, 5, 6] := by
@@ -1415,7 +1414,7 @@ example : ¬ (NoStutter [3, 1, 1, 4]) := by
 --  Now, suppose we have a type `α`, a function `test : α → Bool`, and a
 --  list `l` of type `List α`. Suppose further that `l` is an in-order
 --  merge of two lists, `l₁` and `l₂`, such that every item in `l₁`
---  satisfies `test` and no item in `l₂` satisfies test. Then
+--  satisfies `test` and no item in `l₂` satisfies `test`. Then
 --  `filter test l = l₁`.
 --
 --  First define what it means for one list to be a merge of two others. Do
@@ -1513,14 +1512,14 @@ inductive NoDup {α : Type} : List α → Prop where
 --  FILL IN HERE
 
 --  Finally, state and prove one or more interesting theorems relating
---  `Disjoint`, `NoDup` and `++` (list append).
+--  `Disjoint`, `NoDup`, and `++` (list append).
 
 --  ### Exercise (5 stars): pigeonhole_principle (Advanced, Optional) ⭐⭐⭐⭐⭐
 
 --  The *pigeonhole principle* states a basic fact about counting: if we
 --  distribute more than `n` items into `n` pigeonholes, some pigeonhole
 --  must contain at least two items. As often happens, this apparently
---  trivial fact about numbers requires non-trivial machinery to prove, but
+--  trivial fact about numbers requires nontrivial machinery to prove, but
 --  we now have enough...
 --
 --  First prove an easy and useful lemma.
@@ -1538,7 +1537,7 @@ inductive Repeats {α : Type} : List α → Prop where
 --  Now, here's a way to formalize the pigeonhole principle. Suppose list
 --  `l₂` represents a list of pigeonhole labels, and list `l₁` represents
 --  the labels assigned to a list of items. If there are more items than
---  labels, at least two items must have the same label -- i.e., list `l₁`
+--  labels, at least two items must have the same label — i.e., list `l₁`
 --  must contain repeats.
 --
 --  This proof is much easier if you use the excluded middle to show that
@@ -1546,11 +1545,10 @@ inductive Repeats {α : Type} : List α → Prop where
 --  `by_cases` tactic from Logic!
 
 open LePlayground in
-
 theorem pigeonhole_principle {α : Type} {l₁ l₂ : List α}
     (hin : ∀ x, x ∈ l₁ → x ∈ l₂)
     (hlen : l₂.length < l₁.length) :
     Repeats l₁ := by
   sorry
 
--- Built on 2026-09-17 15:32 UTC
+-- Built on 2026-09-17 17:23 UTC

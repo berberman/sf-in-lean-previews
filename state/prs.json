@@ -1,5 +1,5 @@
 {
-  "main_sha": "dfa94878733217eff97151cf9019e2a7eeb3df3e",
+  "main_sha": "5249396ed05051a321672b881192cdd111e44e13",
   "prs": {
     "382": {
       "base_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
@@ -142,15 +142,62 @@
       "title": "Remove some unnecessary antiquotes",
       "url": "https://github.com/plclub/sf-in-lean/pull/400"
     },
-    "401": {
+    "402": {
       "base_sha": "dfa94878733217eff97151cf9019e2a7eeb3df3e",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "167a16a0ffc24231b0358c1ddb304caab1a92b47",
+      "preview_path": "pr/402/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35251857289",
+      "status": "published",
+      "title": "Quick round of polishing on Automation.lean",
+      "url": "https://github.com/plclub/sf-in-lean/pull/402"
+    },
+    "403": {
+      "base_sha": "5249396ed05051a321672b881192cdd111e44e13",
       "changed_variants": [],
-      "head_sha": "d28f32fed7b780bcc63c905435b8b75b0994542c",
-      "preview_path": "pr/401/head/",
+      "head_sha": "5fa0cf94f49466eccbe785f7e6f2f62e702cbddf",
+      "preview_path": "pr/403/head/",
       "run_url": null,
       "status": "waiting-ci",
-      "title": "IndProp polishing (mostly low level)",
-      "url": "https://github.com/plclub/sf-in-lean/pull/401"
+      "title": "Logic: more polishing",
+      "url": "https://github.com/plclub/sf-in-lean/pull/403"
     }
   },
   "schema": 3
