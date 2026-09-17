@@ -282,6 +282,16 @@
       "status": "published",
       "title": "branchwatcher nit",
       "url": "https://github.com/plclub/sf-in-lean/pull/404"
+    },
+    "406": {
+      "base_sha": "5249396ed05051a321672b881192cdd111e44e13",
+      "changed_variants": [],
+      "head_sha": "eeba8682ecb602b726534d5b06dfb12d48b5b350",
+      "preview_path": "pr/406/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Strong Pumping Lemma and some RegExp polish",
+      "url": "https://github.com/plclub/sf-in-lean/pull/406"
     }
   },
   "schema": 3
