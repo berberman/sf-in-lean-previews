@@ -1,1 +1,0 @@
-window.docContents[213].resolve({"/Sub/#Sub":{"contents":"\n\n\n\n\n\n","context":"Type Systems","header":"8. Sub: Subtyping","id":"/Sub/#Sub"}});

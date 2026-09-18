@@ -27,8 +27,8 @@ theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
   | trans _ _ ih₁₂ ih₂₃ =>
     apply ih₂₃; apply ih₁₂; apply hIn
 
---  In this file, we will introduce tactics that will shrink
---  this proof from around eighteen lines to two.
+--  In this chapter, we will introduce tactics that will
+--  shrink this proof from around eighteen lines to one.
 
 --  ## The `lia` Tactic
 
@@ -65,7 +65,7 @@ theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     . lia -- was right; right; left; assumption
     . lia -- was contradiction
   | swap23 =>
-  /- Here, we solve _all_ goals ─ and eschew the `obtain` ─ with
+  /- Here, we solve _all_ goals — and skip the `obtain` — with
     the <;> tactic combinator, which we saw in the `Induction` chapter. -/
     rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
   | trans _ _ ih₁₂ ih₂₃ =>
@@ -89,21 +89,21 @@ example {a : Prop} (h : a) : a := by
 example : 1 = 1 := by
   try rfl -- here `try rfl` just does `rfl`
 
-inductive silly : Nat → Prop where
-| mk1 n (h : n > 1) : silly n
-| mk2 n (h : 1 ∈ []) : silly n
-| mk3 n (h : ∃ m, n = m + 2) : silly n
+inductive Silly : Nat → Prop where
+| mk1 n (h : n > 1) : Silly n
+| mk2 n (h : 1 ∈ []) : Silly n
+| mk3 n (h : ∃ m, n = m + 2) : Silly n
 
-example {n} (h : silly n) : n ≠ 1 := by
+example {n} (h : Silly n) : n ≠ 1 := by
   inversion h with
   | mk1 => lia
   | mk2 => contradiction
   | mk3 => lia
 
 --  The `try` and `<;>` combinators used together allow you
---  to use a tactic to some, but not all, goals...
+--  to apply a tactic to some, but not all, goals...
 
-example {n} (h : silly n) : n ≠ 1 := by
+example {n} (h : Silly n) : n ≠ 1 := by
   cases h <;> try lia
   -- `lia` doesn't know that `1 ∈ []` is impossible, but we can use `contradiction`
   contradiction
@@ -167,7 +167,7 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
 sf_expect_failure_in
   example (m n : Nat) : m + n = n + m := by
     /- Uncomment the next line to see the infinite loop occur.  You will
-       then need to recomment it make Lean listen to you again. -/
+       then need to recomment it to make Lean listen to you again. -/
     -- repeat rewrite [Nat.add_comm]
 
 --  ### The `first` Combinator
@@ -215,20 +215,20 @@ namespace simp_lemmas_example
 theorem add_zero (n : Nat) : n + 0 = n := by rfl
 
 @[simp]
-theorem add_succ (n m : Nat) : n + (m + 1) = (n + m) + 1:= by rfl
+theorem add_succ (n m : Nat) : n + (m + 1) = (n + m) + 1 := by rfl
 
 --  Instead of manually rewriting by the characterizing
 --  lemmas in the example below, `simp` does it
 --  automatically.
 
 theorem add_succ_nested (n m : Nat) :
-    n + (m + 1 + 1) = (n + m + 1)  + 1 := by
+    n + (m + 1 + 1) = (n + m + 1) + 1 := by
   simp
 
 --  `simp only` uses only the provided theorems:
 
 theorem add_succ_nested_2 (n m : Nat) :
-    n + (m + 1 + 1) = (n + m + 1)  + 1 := by
+    n + (m + 1 + 1) = (n + m + 1) + 1 := by
   simp only [add_succ, add_zero]
 
 --  If you want to know what `simp` is doing, you can run
@@ -254,7 +254,7 @@ theorem Perm3_In_almost_shortest (α : Type) (x : α) (l₁ l₂ : List α)
 example α x (l₁ l₂ l₃ : List α)
     (h₁ : x ∈ l₁ ++ l₂)
     (h₂ : x ∈ l₂ ++ l₃) :
-    x ∈ l₁ ++  l₃ ∨ x ∈ l₂ := by
+    x ∈ l₁ ++ l₃ ∨ x ∈ l₂ := by
   simp at h₁; simp at h₂; simp; lia
 
 --  The `simp_all` tactic simplifies in all hypotheses and
@@ -263,7 +263,7 @@ example α x (l₁ l₂ l₃ : List α)
 example α x (l₁ l₂ l₃ : List α)
     (h₁ : x ∈ l₁ ++ l₂)
     (h₂ : x ∈ l₂ ++ l₃) :
-    x ∈ l₁ ++  l₃ ∨ x ∈ l₂ := by
+    x ∈ l₁ ++ l₃ ∨ x ∈ l₂ := by
   simp_all; lia
 
 --  The simplest version of our theorem uses `simp_all`:
@@ -275,13 +275,13 @@ theorem Perm3_In_shortest (α : Type) (x : α) (l₁ l₂ : List α)
 --  ### Idiomatic `simp` Usage
 
 --  Don't use `simp` without `only` unless you're closing a
---  goal or following with a flexible tactic, like in this
---  example below:
+--  goal or following with a flexible tactic. The example
+--  below breaks this rule:
 
 example α x (l₁ l₂ l₃ : List α)
     (h₁ : x ∈ l₁ ++ l₂)
     (h₂ : x ∈ l₂ ++ l₃) :
-    x ∈ l₁ ++  l₃ ∨ x ∈ l₂ := by
+    x ∈ l₁ ++ l₃ ∨ x ∈ l₂ := by
   simp at h₁; simp at h₂; simp
   cases h₁ with
   | inl h => left; left; exact h
@@ -297,7 +297,7 @@ example α x (l₁ l₂ l₃ : List α)
 example α x (l₁ l₂ l₃ : List α)
     (h₁ : x ∈ l₁ ++ l₂)
     (h₂ : x ∈ l₂ ++ l₃) :
-    x ∈ l₁ ++  l₃ ∨ x ∈ l₂ := by
+    x ∈ l₁ ++ l₃ ∨ x ∈ l₂ := by
   -- the * here targets all hypotheses and the goal
   simp only [List.mem_append] at *
   cases h₁ with
@@ -314,12 +314,12 @@ example α x (l₁ l₂ l₃ : List α)
 
 --  A final automated tactic to have in your toolkit is
 --  `trivial`, which tries a number of different simple
---  tactics (such as `rfl` or `contradiction`) to try to
---  close the current goal. Some examples:
+--  tactics (such as `rfl` or `contradiction`) to close the
+--  current goal. Some examples:
 
 example : 1 = 1 := by trivial
 example : (1, 2).fst = 1 := by trivial
-example (a b : Prop) : ¬ a -> a -> b := by intro h₁ h₂; trivial
+example (a b : Prop) : ¬ a → a → b := by intro h₁ h₂; trivial
 
 --  ## Case Study: Regular Expressions
 
@@ -338,21 +338,21 @@ attribute [pp_nodot] RegExp.Char RegExp.App RegExp.Union RegExp.Star
 
 namespace RegExp
 
---  Note that this definition is *polymorphic*: Regular
+--  Note that this definition is *polymorphic*: regular
 --  expressions in `RegExp α` describe strings with
---  characters drawn from `α` ─ which in this exercise we
+--  characters drawn from `α` — which in this exercise we
 --  represent as *lists* with elements from `α`.
 
 --  We connect regular expressions and strings by defining
 --  when a regular expression *matches* some string.
 
---  Informally this looks as follows:
+--  Informally, this looks as follows:
 --  - The regular expression `EmptySet` does not match any
 --    string.
 --
 --  - `EmptyStr` matches the empty string `[]`.
 --
---  - `Char x` matches the one-character string `x`.
+--  - `Char x` matches the one-character string `[x]`.
 --
 --  - If `re₁` matches `s₁`, and `re₂` matches `s₂`, then
 --    `App re₁ re₂` matches `s₁ ++ s₂`.
@@ -442,7 +442,7 @@ infix:40 " =~ " => ExpMatch
 example : [1] =~ Char 1 := by
   apply mChar
 
-example : [1, 2] =~ App (Char 1) (Char 2):= by
+example : [1, 2] =~ App (Char 1) (Char 2) := by
   apply mApp [1] <;> constructor
 
 example : ¬([1, 2] =~ Char 1) := by
@@ -497,10 +497,10 @@ theorem MUnion' α (s : List α) (re₁ re₂ : RegExp α) :
 
 --  (End of exercise)
 
---  The next lemma is stated in terms of the `fold` function
---  on Lists: If `ss : List (List α)` represents a sequence
---  of strings `s₁, ..., sₙ`, then
---  `List.foldr (· ++ ·) ss []` is the result of
+--  The next lemma is stated in terms of the `List.foldr`
+--  function on lists: if `ss : List (List α)` represents a
+--  sequence of strings `s₁, ..., sₙ`, then
+--  `List.foldr (· ++ ·) [] ss` is the result of
 --  concatenating them all together.
 
 --  ### Exercise (2 stars): MStar' ⭐⭐
@@ -528,12 +528,12 @@ def EmptyStr' {α : Type} := @Star α (EmptySet)
 --  induction (on evidence!).
 --
 --  For example, suppose we want to prove the following
---  intuitive fact: If a string `s` is matched by a regular
+--  intuitive fact: if a string `s` is matched by a regular
 --  expression `re`, then all elements of `s` must occur as
 --  character literals somewhere in `re`.
 --
 --  To state this as a theorem, we first define a function
---  `re_chars` that lists all characters that occur in a
+--  `reChars` that lists all characters that occur in a
 --  regular expression:
 
 def reChars {α : Type} (re : RegExp α) : List α :=
@@ -555,7 +555,7 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
   | mApp _ _ _ _ ih₁ ih₂ =>
 
   /- Something interesting happens in the `mApp` case.  We obtain
-    _two_ induction hypotheses: One that applies when `x` occurs in
+    _two_ induction hypotheses: one that applies when `x` occurs in
     `s₁` (which is matched by `re₁`), and a second one that applies when `x`
     occurs in `s₂` (matched by `re₂`). -/
     sorry
@@ -568,9 +568,9 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
 
   /- Here again we get two induction hypotheses, and they illustrate
     why we need induction on evidence for `ExpMatch`, rather than
-    induction on the regular expression `re`: The latter would only
+    induction on the regular expression `re`: the latter would only
     provide an induction hypothesis for strings that match `re`, which
-    would not allow us to reason about the case `In x ∈ s₂`. -/
+    would not allow us to reason about the case `x ∈ s₂`. -/
     sorry
 
 --  ### Exercise (1 star): reNotEmpty (Manually graded) ⭐
@@ -593,7 +593,7 @@ sf_expect_failure_in
       s₁ ++ s₂ =~ Star re := by
     intro h₁
     /- Now, just doing an `inversion` on `h₁` won't get us very far in
-      the recursive cases. (Try it!). So we need induction (on
+      the recursive cases. (Try it!) So we need induction (on
       evidence). We might try this, but Lean won't let us: -/
     induction h₁
 
@@ -628,7 +628,7 @@ sf_expect_failure_in
 
 --  The tactic `generalize h : e = x` causes Lean to (1)
 --  replace all occurrences of the expression `e` by the
---  variable `x`, and (2) add an equation `h : x = e` to the
+--  variable `x`, and (2) add an equation `h : e = x` to the
 --  context. Here's how we can use it to show the above
 --  result:
 
@@ -638,8 +638,8 @@ theorem star_app α (s₁ s₂ : List α) (re : RegExp α) :
     s₁ ++ s₂ =~ Star re := by
   intro h₁
   generalize heq : Star re = re' at h₁
-  /- We now have `heq : Star re = re'`.
-    heq` is contradictory in most cases, allowing us to conclude immediately via `contradiction`. -/
+  /- We now have `heq : Star re = re'`;
+    `heq` is contradictory in most cases, allowing us to conclude immediately via `contradiction`. -/
   induction h₁ <;> try contradiction
   -- The interesting cases are those that correspond to `Star`.
   case mStar0 _ => intro h₂; simp only [List.nil_append]; exact h₂
@@ -650,13 +650,13 @@ theorem star_app α (s₁ s₂ : List α) (re : RegExp α) :
     . assumption
     . apply ih₂ <;> trivial
   /- Note that the induction hypothesis `ih₂` on the `mStarApp` case
-    mentions an additional premise [Star re'' = Star re], which
+    mentions an additional premise `Star re'' = Star re`, which
     results from the equality generated by `generalize`. -/
 
 --  ### Exercise (1 star): exp_match_ex2 (Optional) ⭐
 
 --  The `MStar''` lemma below (combined with its converse,
---  the `MStar'` exercise above), shows that our definition
+--  the `MStar'` exercise above) shows that our definition
 --  of `ExpMatch` for `Star` is equivalent to the informal
 --  one given previously.
 
@@ -676,7 +676,7 @@ theorem MStar'' α (s : List α) (re : RegExp α) (h : s =~ Star re) :
 --  arbitrary number of times to produce a new string also
 --  matching `re`. For the sake of simplicity, this exercise
 --  considers a slightly weaker theorem than is usually
---  stated in courses on automata theory ─ hence the name
+--  stated in courses on automata theory — hence the name
 --  `weak_pumping`. The stronger one can be found below.
 --
 --  To get started, we need to define "sufficiently long."
@@ -685,32 +685,24 @@ theorem MStar'' α (s : List α) (re : RegExp α) (h : s =~ Star re) :
 --  regular expression `re`, a minimum length for strings
 --  `s` to guarantee "pumpability."
 
-namespace Pumping
-
 def pumpingConstant {α : Type} (re : RegExp α) : Nat :=
   match re with
   | EmptySet => 1
   | EmptyStr => 1
   | Char _ => 2
-  | App re₁ re₂ => pumpingConstant re₁ + pumpingConstant re₂
-  | Union re₁ re₂ => pumpingConstant re₁ + pumpingConstant re₂
-  | Star r => pumpingConstant r
+  | App re₁ re₂ => re₁.pumpingConstant + re₂.pumpingConstant
+  | Union re₁ re₂ => re₁.pumpingConstant + re₂.pumpingConstant
+  | Star r => r.pumpingConstant
 
 --  You may find these lemmas about the pumping constant
 --  useful when proving the pumping lemma below.
 
 theorem pumping_constant_ge_1 {α : Type} (re : RegExp α) :
-    pumpingConstant re ≥ 1 := by
-  induction re with
-  | EmptySet => simp [pumpingConstant]
-  | EmptyStr => simp [pumpingConstant]
-  | Char _ => simp [pumpingConstant]
-  | App re₁ _ ih1 _ => simp only [pumpingConstant]; lia
-  | Union re₁ _ ih1 _ => simp only [pumpingConstant]; lia
-  | Star _ ih => simp only [pumpingConstant]; exact ih
+    re.pumpingConstant ≥ 1 := by
+  induction re with (simp_all [pumpingConstant]; try lia)
 
 theorem pumping_constant_0_false {α : Type} (re : RegExp α)
-    (h : pumpingConstant re = 0) : False := by
+    (h : re.pumpingConstant = 0) : False := by
   have := pumping_constant_ge_1 re; lia
 
 --  Next, it is useful to define an auxiliary function that
@@ -735,9 +727,7 @@ theorem napp_succ {α : Type} (n : Nat) (l : List α) : napp (n + 1) l = l ++ na
 @[simp]
 theorem napp_plus {α : Type} (n m : Nat) (l : List α) :
     napp (n + m) l = napp n l ++ napp m l := by
-  induction n with
-  | zero => simp
-  | succ n ih => rw [Nat.succ_add]; simp [ih]
+  induction n with simp_all [Nat.succ_add]
 
 theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
     (hs₁ : s₁ =~ re) (hs₂ : s₂ =~ Star re) :
@@ -760,7 +750,7 @@ theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
 --  strings matching `re` that are as long as we like.
 --
 --  This proof is quite long, so to make it more tractable
---  we've broken it up into a number of sub-proofs, which we
+--  we've broken it up into a number of subproofs, which we
 --  then assemble to prove the main lemma.
 --
 --  Your job is to complete the proofs of the helper lemmas;
@@ -769,7 +759,7 @@ theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
 --  ### Exercise (2 stars): weak_pumping_char ⭐⭐
 
 theorem weak_pumping_char {α : Type} (x : α)
-    (h : pumpingConstant (Char x) ≤ [x].length) :
+    (h : (Char x).pumpingConstant ≤ [x].length) :
     ∃ s₁ s₂ s₃ : List α,
       [x] = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [ ] ∧
       (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Char x) := by
@@ -780,23 +770,23 @@ theorem weak_pumping_char {α : Type} (x : α)
 theorem weak_pumping_app {α : Type} (s₁ s₂ : List α) (re₁ re₂ : RegExp α)
     (h₁ : s₁ =~ re₁)
     (h₂ : s₂ =~ re₂)
-    (ih₁ : pumpingConstant re₁ ≤ s₁.length →
+    (ih₁ : re₁.pumpingConstant ≤ s₁.length →
       ∃ s₂ s₃ s₄ : List α,
         s₁ = s₂ ++ s₃ ++ s₄ ∧
         s₃ ≠ [ ] ∧
         (∀ m : Nat, s₂ ++ napp m s₃ ++ s₄ =~ re₁))
-    (ih₂ : pumpingConstant re₂ ≤ s₂.length →
+    (ih₂ : re₂.pumpingConstant ≤ s₂.length →
       ∃ s₁ s₃ s₄ : List α,
         s₂ = s₁ ++ s₃ ++ s₄ ∧
         s₃ ≠ [ ] ∧
         (∀ m : Nat, s₁ ++ napp m s₃ ++ s₄ =~ re₂))
-    (hLen : pumpingConstant (App re₁ re₂) ≤ (s₁ ++ s₂).length) :
+    (hLen : (App re₁ re₂).pumpingConstant ≤ (s₁ ++ s₂).length) :
     ∃ s₀ s₃ s₄ : List α,
       s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧
       s₃ ≠ [ ] ∧
       (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ App re₁ re₂) := by
   obtain h | h :
-    pumpingConstant re₁ ≤ s₁.length ∨ pumpingConstant re₂ ≤ s₂.length := by
+    re₁.pumpingConstant ≤ s₁.length ∨ re₂.pumpingConstant ≤ s₂.length := by
     sorry
   case inl =>
     sorry
@@ -807,17 +797,17 @@ theorem weak_pumping_app {α : Type} (s₁ s₂ : List α) (re₁ re₂ : RegExp
 
 theorem weak_pumping_union_l  {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α)
     (h₁ : s₁ =~ re₁)
-    (ih : pumpingConstant re₁ ≤ s₁.length →
+    (ih : re₁.pumpingConstant ≤ s₁.length →
       ∃ s₂ s₃ s₄ : List α,
         s₁ = s₂ ++ s₃ ++ s₄ ∧
         s₃ ≠ [ ] ∧
         (∀ m : Nat, s₂ ++ napp m s₃ ++ s₄ =~ re₁))
-    (hLen : pumpingConstant (Union re₁ re₂) ≤ s₁.length) :
+    (hLen : (Union re₁ re₂).pumpingConstant ≤ s₁.length) :
     ∃ s₀ s₂ s₃ : List α,
       s₁ = s₀ ++ s₂ ++ s₃ ∧
       s₂ ≠ [ ] ∧
       (∀ m : Nat, s₀ ++ napp m s₂ ++ s₃ =~ Union re₁ re₂) := by
-  have h : pumpingConstant re₁ ≤ s₁.length := by
+  have h : re₁.pumpingConstant ≤ s₁.length := by
     sorry
   sorry
 
@@ -825,25 +815,25 @@ theorem weak_pumping_union_l  {α : Type} (s₁ : List α) (re₁ re₂ : RegExp
 
 theorem weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α)
   (h₂ : s₂ =~ re₂)
-  (ih : pumpingConstant re₂ ≤ s₂.length →
+  (ih : re₂.pumpingConstant ≤ s₂.length →
     ∃ s₁ s₃ s₄ : List α,
       s₂ = s₁ ++ s₃ ++ s₄ ∧
       s₃ ≠ [ ] ∧
       (∀ m : Nat, s₁ ++ napp m s₃ ++ s₄ =~ re₂))
-  (hLen : pumpingConstant (Union re₁ re₂) ≤ s₂.length) :
+  (hLen : (Union re₁ re₂).pumpingConstant ≤ s₂.length) :
   ∃ s₁ s₀ s₃ : List α,
     s₂ = s₁ ++ s₀ ++ s₃ ∧
     s₀ ≠ [ ] ∧
     (∀ m : Nat, s₁ ++ napp m s₀ ++ s₃ =~ Union re₁ re₂) := by
   -- symmetric to the previous
-  have h : pumpingConstant re₂ ≤ s₂.length := by
+  have h : re₂.pumpingConstant ≤ s₂.length := by
    sorry
   sorry
 
 --  ### Exercise (2 stars): weak_pumping_star_zero (Optional) ⭐⭐
 
 theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
-    (h : pumpingConstant (Star re) ≤ @List.length α []) :
+    (h : (Star re).pumpingConstant ≤ @List.length α []) :
     ∃ s₁ s₂ s₃ : List α,
       [ ] = s₁ ++ s₂ ++ s₃ ∧
       s₂ ≠ [ ] ∧
@@ -855,26 +845,26 @@ theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
 theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
     (h₁ : s₁ =~ re)
     (h₂ : s₂ =~ Star re)
-    (ih₁ : pumpingConstant re ≤ List.length s₁ →
+    (ih₁ : re.pumpingConstant ≤ List.length s₁ →
       ∃ s₂ s₃ s₄ : List α,
         s₁ = s₂ ++ s₃ ++ s₄
-        ∧ s₃  ≠ [ ] ∧
+        ∧ s₃ ≠ [ ] ∧
         (∀ m : Nat, s₂ ++ napp m s₃ ++ s₄ =~ re))
-    (ih₂ : pumpingConstant (Star re) ≤ s₂.length →
+    (ih₂ : (Star re).pumpingConstant ≤ s₂.length →
       ∃ s₁ s₃ s₄ : List α,
         s₂ = s₁ ++ s₃ ++ s₄ ∧
-        s₃  ≠ [ ] ∧
+        s₃ ≠ [ ] ∧
         (∀ m : Nat, s₁ ++ napp m s₃ ++ s₄ =~ Star re))
-    (hLen : pumpingConstant (Star re) ≤ (s₁ ++ s₂).length) :
+    (hLen : (Star re).pumpingConstant ≤ (s₁ ++ s₂).length) :
     ∃ s₀ s₃ s₄ : List α,
       s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧
-      s₃  ≠ [ ] ∧
-      (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ .Star re)  := by
+      s₃ ≠ [ ] ∧
+      (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ .Star re) := by
   rw [List.length_append] at *
   obtain hs₁len0 | ⟨s₁len, hs₁re₁⟩ | hs₁re₁ :
     (s₁.length = 0
-      ∨ (s₁.length ≠ 0 ∧ s₁.length < pumpingConstant re)
-      ∨ pumpingConstant re ≤ s₁.length) := by
+      ∨ (s₁.length ≠ 0 ∧ s₁.length < re.pumpingConstant)
+      ∨ re.pumpingConstant ≤ s₁.length) := by
     cases s₁ with
     | nil => sorry
     | cons h s₁' =>
@@ -886,7 +876,7 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
 --  ### Exercise (3 stars): weak_pumping ⭐⭐⭐
 
 theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
-    (hmatch : s =~ re) (hlen : pumpingConstant re ≤ s.length) :
+    (hmatch : s =~ re) (hlen : re.pumpingConstant ≤ s.length) :
     ∃ s₁ s₂ s₃ : List α,
       s = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [] ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
@@ -899,22 +889,21 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
 --  Now here is the usual version of the pumping lemma. In
 --  addition to requiring that `s₂ ≠ []`, it also
 --  strengthens the result to include the claim that
---  `s₁.length + s₂.length ≤ pumpingConstant re`.
+--  `s₁.length + s₂.length ≤ re.pumpingConstant`.
 
 theorem pumping {α : Type} {re : RegExp α} {s : List α}
-    (hmatch : s =~ re) (hlen : pumpingConstant re ≤ s.length) :
+    (hmatch : s =~ re) (hlen : re.pumpingConstant ≤ s.length) :
     ∃ s₁ s₂ s₃ : List α,
       s = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [] ∧
-      s₁.length + s₂.length ≤ pumpingConstant re ∧
+      s₁.length + s₂.length ≤ re.pumpingConstant ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
 
 --  (End of exercise)
 
-end Pumping
 end RegExp
 
---  ### Palindrome Revisit
+--  ### Palindromes Revisited
 
 --  ### Exercise (5 stars): palindrome_converse (Optional) ⭐⭐⭐⭐⭐
 
@@ -936,4 +925,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Built on 2026-09-18 10:43 UTC
+-- Built on 2026-09-18 13:14 UTC
