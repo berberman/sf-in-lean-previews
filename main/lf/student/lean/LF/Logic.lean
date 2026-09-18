@@ -1516,10 +1516,13 @@ theorem List.allb_true_iff α {test : α → Bool} {l : List α} :
 #check (∀ a b : Prop, (a ∧ b) = (b ∧ a) : Prop)
 
 --  This is an equality between two conjunctions, which itself is also a
---  proposition. It states that commuted conjunctions are equal
---  propositions. However, we cannot prove this equality by reflexivity, as
---  the two sides don't compute to the same term, and we cannot proceed by
---  cases on `a` or `b`, as they are not inductive.
+--  proposition. It states that commuted conjunctions are *equal*
+--  propositions, meaning that they hold, and do not hold, in exactly the
+--  same circumstances.
+--
+--  However, we cannot prove this equality by reflexivity, as the two sides
+--  don't compute to the same term, and we cannot proceed by cases on `a`
+--  or `b`, as they are not inductive.
 
 sf_expect_failure_in
   example (a b : Prop) : a ∧ b = b ∧ a := by rfl
@@ -1555,9 +1558,12 @@ sf_expect_failure_in
 --  Output:
 --    and_comm {a b : Prop} : a ∧ b ↔ b ∧ a
 
---  Since it would be convenient to be able to rewrite propositions from
---  one side of `↔` to the other, Lean provides an axiom to turn `↔` into
---  `=`, which is called *propositional extensionality* (`propext`).
+--  If we think about it, this is what we mean when we say two propositions
+--  are equal — that one holds if and only if the other holds. It would be
+--  convenient to apply this meaning of equality to proofs so that we can
+--  *rewrite* propositions from one side of `↔` to the other. To allow
+--  this, Lean provides an axiom to turn `↔` into `=`, which is called
+--  *propositional extensionality* (`propext`).
 
 #print propext
 
@@ -1659,9 +1665,14 @@ theorem beq_neq_false (n m : Nat) : (n == m) = false ↔ n ≠ m := by
 
 example : (fun x => x + 2) = (fun x => x + (Nat.pred 3)) := by rfl
 
---  In general, functions can be equal for more interesting reasons. In
---  common mathematical practice, two functions `f` and `g` are considered
---  equal if they produce the same output on every input:
+--  But this doesn't always work the way we'd like:
+
+sf_expect_failure_in
+  example : (fun x => x + 2) = (fun x => 2 + x) := by rfl
+
+--  In common mathematical practice, two functions `f` and `g` are
+--  considered equal if they produce the same output on every input,
+--  regardless of how they happen to compute that output:
 --
 --      (∀ x, f x = g x) → f = g
 --
@@ -1999,4 +2010,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   sorry
 
--- Built on 2026-09-17 20:38 UTC
+-- Built on 2026-09-18 10:52 UTC

@@ -1,5 +1,5 @@
 {
-  "main_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
+  "main_sha": "ee1041ca446e583acfac51b9e54c943cbe3547ba",
   "prs": {
     "382": {
       "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
@@ -95,53 +95,6 @@
       "title": "Imp: Ported Rest and Polish Pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/399"
     },
-    "402": {
-      "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "a16d9d80fd3a57447a95a4c5f49c68e0da90e056",
-      "preview_path": "pr/402/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35336264857",
-      "status": "published",
-      "title": "Quick round of polishing on Automation.lean",
-      "url": "https://github.com/plclub/sf-in-lean/pull/402"
-    },
     "404": {
       "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
       "changed_variants": [
@@ -235,6 +188,53 @@
       "status": "published",
       "title": "Strong Pumping Lemma and some RegExp polish",
       "url": "https://github.com/plclub/sf-in-lean/pull/406"
+    },
+    "407": {
+      "base_sha": "ee1041ca446e583acfac51b9e54c943cbe3547ba",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "cba7270fea49b4fe3e22de5d8a77aae8ec178467",
+      "preview_path": "pr/407/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35338780405",
+      "status": "published",
+      "title": "Logic: Mention FOL explicitly; ref in Automation",
+      "url": "https://github.com/plclub/sf-in-lean/pull/407"
     }
   },
   "schema": 3
