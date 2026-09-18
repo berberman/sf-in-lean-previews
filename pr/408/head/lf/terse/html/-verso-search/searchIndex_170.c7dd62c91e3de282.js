@@ -1,0 +1,1 @@
+window.docContents[170].resolve({"/Induction/#Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back":{"contents":"\n\n\n\n","context":"Logical Foundations\u0009Induction: Proof by Induction","header":"3.9. Nat to Bin and Back","id":"/Induction/#Logical-Foundations--Induction___-Proof-by-Induction--Nat-to-Bin-and-Back"}});

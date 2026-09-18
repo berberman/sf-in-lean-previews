@@ -94,6 +94,53 @@
       "status": "published",
       "title": "branchwatcher nit",
       "url": "https://github.com/plclub/sf-in-lean/pull/404"
+    },
+    "408": {
+      "base_sha": "a44de2ea9ab79db411bc7ff0f19f21a4126218c7",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "ab229f4de1acbbe34689fe25f74e539418d1c2ce",
+      "preview_path": "pr/408/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35361116728",
+      "status": "published",
+      "title": "Fix confusing text in Tactics",
+      "url": "https://github.com/plclub/sf-in-lean/pull/408"
     }
   },
   "schema": 3
