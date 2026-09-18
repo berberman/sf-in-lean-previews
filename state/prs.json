@@ -1,5 +1,5 @@
 {
-  "main_sha": "a44de2ea9ab79db411bc7ff0f19f21a4126218c7",
+  "main_sha": "4901f908a9ef32ab10adc987fe1e4cfc407208dc",
   "prs": {
     "399": {
       "base_sha": "dfd1ccaff62b6db714ace827ea4604946488028c",
@@ -47,53 +47,6 @@
       "status": "published",
       "title": "Imp: Ported Rest and Polish Pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/399"
-    },
-    "404": {
-      "base_sha": "6ebf12da7a48332b896f9b116867d51927d8bb5d",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "a5bcb3ca120c1886a7e3a03beadf63c4fab78afb",
-      "preview_path": "pr/404/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35348770019",
-      "status": "published",
-      "title": "branchwatcher nit",
-      "url": "https://github.com/plclub/sf-in-lean/pull/404"
     },
     "408": {
       "base_sha": "a44de2ea9ab79db411bc7ff0f19f21a4126218c7",

@@ -1450,4 +1450,4 @@ example : ¬ ∃ S T, <{ ∅ ⊢ λ x : ~S . x x ⦂ ~T }> := by
 
 end Stlc
 
--- Source revision: a44de2e, committed 2026-09-18 13:12 UTC
+-- Source revision: 4901f90, committed 2026-09-18 18:11 UTC

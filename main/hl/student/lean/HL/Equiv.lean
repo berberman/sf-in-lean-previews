@@ -1605,4 +1605,4 @@ def zprop (c : Com) : Prop := sorry
 theorem zprop_preserving (c c' : Com) (hc : zprop c) (ha : Approx c c') : zprop c' := by
   sorry
 
--- Source revision: a44de2e, committed 2026-09-18 13:12 UTC
+-- Source revision: 4901f90, committed 2026-09-18 18:11 UTC
