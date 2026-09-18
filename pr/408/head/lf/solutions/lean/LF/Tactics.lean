@@ -435,6 +435,14 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 --  Recall the `unzip` function from chapter Poly; copy your implementation
 --  from that chapter and paste it below:
 
+--  Note to developers (Daniel Sainati, before next release):
+--      Asking students to copy and paste their definition of `unzip` from
+--      the previous chapter is unfortunate, especially because it's very
+--      easy to accidentally forget to change the recursive call from
+--      `unzip` to `unzip'`. AFAIK we do it this way to make the chapters
+--      easier to autograde, but let's figure out a way to allow grading
+--      across chapters so that we don't need to do this repetition.
+
 def unzip' {α β : Type} (l : List (α × β)) : List α × List β := (
   match l with
   | [] => ([], [])
@@ -1563,4 +1571,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Source revision: b6f416b, committed 2026-09-18 15:13 UTC
+-- Source revision: 98cf518, committed 2026-09-18 20:02 UTC

@@ -50,11 +50,48 @@
     },
     "408": {
       "base_sha": "4901f908a9ef32ab10adc987fe1e4cfc407208dc",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "19e025f1a4c382a2faa79aa89ae43a002fb6d89e",
       "preview_path": "pr/408/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35389292727",
+      "status": "published",
       "title": "Fix confusing text in Tactics",
       "url": "https://github.com/plclub/sf-in-lean/pull/408"
     }
