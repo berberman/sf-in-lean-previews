@@ -2379,4 +2379,4 @@ theorem pigeonhole_principle' {α : Type} {l₁ l₂ : List α}
     Repeats l₁ :=
   pigeonhole_aux l₁ [] l₂ hin hlen
 
--- Source revision: 4901f90, committed 2026-09-18 18:11 UTC
+-- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC

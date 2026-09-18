@@ -406,7 +406,8 @@ theorem chooseIf_self {α : Type} (test : α → Bool) (x : α) :
 
 --  ### Exercise (3 stars): zip_unzip' ⭐⭐⭐
 
---  Here is an implementation of the `unzip` function from chapter Poly:
+--  Recall the `unzip` function from chapter Poly; copy your implementation
+--  from that chapter and paste it below:
 
 def unzip' {α β : Type} (l : List (α × β)) : List α × List β := sorry
 
@@ -1282,4 +1283,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     anyTrue test l = anyTrue' test l := by
   sorry
 
--- Source revision: 4901f90, committed 2026-09-18 18:11 UTC
+-- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
