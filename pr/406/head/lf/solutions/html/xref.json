@@ -3035,11 +3035,11 @@
         "shortTitle": null,
         "number": "3"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Palindrome-Revisit":
+   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Palindromes-Revisited":
    [{"id":
-     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Palindrome-Revisit",
+     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Palindromes-Revisited",
      "data":
-     {"title": "Palindrome Revisit",
+     {"title": "Palindromes Revisited",
       "shortTitle": null,
       "sectionNum": "10.5.6.",
       "searchPriority": 50,
@@ -3051,7 +3051,7 @@
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
-       {"title": "Palindrome Revisit", "shortTitle": null, "number": "6"}]},
+       {"title": "Palindromes Revisited", "shortTitle": null, "number": "6"}]},
      "address": "/Automation/"}],
    "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--Examples":
    [{"id":
@@ -3665,50 +3665,6 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "The  simp  Tactic"]}},
-     "address": "/Automation/"}],
-   "silly.mk3":
-   [{"id": "silly___mk3",
-     "data":
-     {"/Automation/#silly___mk3":
-      {"display": "mk3",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Tactic Combinators",
-        "The  try  Combinator"]}},
-     "address": "/Automation/"}],
-   "silly.mk2":
-   [{"id": "silly___mk2",
-     "data":
-     {"/Automation/#silly___mk2":
-      {"display": "mk2",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Tactic Combinators",
-        "The  try  Combinator"]}},
-     "address": "/Automation/"}],
-   "silly.mk1":
-   [{"id": "silly___mk1",
-     "data":
-     {"/Automation/#silly___mk1":
-      {"display": "mk1",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Tactic Combinators",
-        "The  try  Combinator"]}},
-     "address": "/Automation/"}],
-   "silly":
-   [{"id": "silly",
-     "data":
-     {"/Automation/#silly":
-      {"display": "silly",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Tactic Combinators",
-        "The  try  Combinator"]}},
      "address": "/Automation/"}],
    "setFirstTwoBits":
    [{"id": "setFirstTwoBits",
@@ -6255,6 +6211,50 @@
         "More Facts about  Le",
         "Relating  Le  and  Nat.ble"]}},
      "address": "/IndProp/"}],
+   "Silly.mk3":
+   [{"id": "Silly___mk3",
+     "data":
+     {"/Automation/#Silly___mk3":
+      {"display": "mk3",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Tactic Combinators",
+        "The  try  Combinator"]}},
+     "address": "/Automation/"}],
+   "Silly.mk2":
+   [{"id": "Silly___mk2",
+     "data":
+     {"/Automation/#Silly___mk2":
+      {"display": "mk2",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Tactic Combinators",
+        "The  try  Combinator"]}},
+     "address": "/Automation/"}],
+   "Silly.mk1":
+   [{"id": "Silly___mk1",
+     "data":
+     {"/Automation/#Silly___mk1":
+      {"display": "mk1",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Tactic Combinators",
+        "The  try  Combinator"]}},
+     "address": "/Automation/"}],
+   "Silly":
+   [{"id": "Silly",
+     "data":
+     {"/Automation/#Silly":
+      {"display": "Silly",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Tactic Combinators",
+        "The  try  Combinator"]}},
+     "address": "/Automation/"}],
    "Repeats.tail":
    [{"id": "Repeats___tail",
      "data":
@@ -7843,7 +7843,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
+        "Palindromes Revisited"]}},
      "address": "/Automation/"}],
    "PalConv.palindrome_converse":
    [{"id": "PalConv___palindrome_converse",
@@ -7854,7 +7854,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
+        "Palindromes Revisited"]}},
      "address": "/Automation/"}],
    "PalConv.Pal.singleton":
    [{"id": "PalConv___Pal___singleton",
@@ -7865,7 +7865,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
+        "Palindromes Revisited"]}},
      "address": "/Automation/"}],
    "PalConv.Pal.nil":
    [{"id": "PalConv___Pal___nil",
@@ -7876,7 +7876,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
+        "Palindromes Revisited"]}},
      "address": "/Automation/"}],
    "PalConv.Pal.cons_snoc":
    [{"id": "PalConv___Pal___cons_snoc",
@@ -7887,7 +7887,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
+        "Palindromes Revisited"]}},
      "address": "/Automation/"}],
    "PalConv.Pal":
    [{"id": "PalConv___Pal",
@@ -7898,7 +7898,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Case Study: Regular Expressions",
-        "Palindrome Revisit"]}},
+        "Palindromes Revisited"]}},
      "address": "/Automation/"}],
    "Pal.singleton":
    [{"id": "Pal___singleton",
@@ -12529,7 +12529,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly-next",
+   [{"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -12540,7 +12540,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly",
+    {"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -13980,7 +13980,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -13997,7 +13997,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",

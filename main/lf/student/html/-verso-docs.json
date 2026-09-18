@@ -2049,16 +2049,16 @@
  "<code>Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α) (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂</code>",
  "1461":
  "<code>GT.gt.{u} {α : Type u} [LT α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a &gt; b` is an abbreviation for `b &lt; a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&gt;` in identifiers is `gt`.</code>",
- "1460": "<code>silly n</code>",
+ "1460": "<code>Silly n</code>",
  "146":
  "<code>OfNat.mk.{u} {α : Type u} {x✝ : _root_.Nat} (ofNat : α) : OfNat α x✝</code>",
  "1459": "<code>∃ m, n = m + 2</code>",
- "1458": "<code>silly.mk3 (n : Nat) (h : ∃ m, n = m + 2) : silly n</code>",
+ "1458": "<code>Silly.mk3 (n : Nat) (h : ∃ m, n = m + 2) : Silly n</code>",
  "1457": "<code>1 ∈ []</code>",
- "1456": "<code>silly.mk2 (n : Nat) (h : 1 ∈ []) : silly n</code>",
+ "1456": "<code>Silly.mk2 (n : Nat) (h : 1 ∈ []) : Silly n</code>",
  "1455": "<code>n &gt; 1</code>",
- "1454": "<code>silly.mk1 (n : Nat) (h : n &gt; 1) : silly n</code>",
- "1453": "<code>silly : Nat → Prop</code>",
+ "1454": "<code>Silly.mk1 (n : Nat) (h : n &gt; 1) : Silly n</code>",
+ "1453": "<code>Silly : Nat → Prop</code>",
  "1452":
  "<code class=\"docstring\">`tac &lt;;&gt; tac'` runs `tac` on the main goal and `tac'` on each produced goal,\nconcatenating all goals produced by `tac'`.\n</code>",
  "1451":

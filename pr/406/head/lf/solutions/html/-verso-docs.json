@@ -2211,16 +2211,16 @@
  "<code>Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α) (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂</code>",
  "2174":
  "<code>GT.gt.{u} {α : Type u} [LT α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a &gt; b` is an abbreviation for `b &lt; a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&gt;` in identifiers is `gt`.</code>",
- "2173": "<code>silly n</code>",
+ "2173": "<code>Silly n</code>",
  "2172": "<code>∃ m, n = m + 2</code>",
- "2171": "<code>silly.mk3 (n : Nat) (h : ∃ m, n = m + 2) : silly n</code>",
+ "2171": "<code>Silly.mk3 (n : Nat) (h : ∃ m, n = m + 2) : Silly n</code>",
  "2170": "<code>1 ∈ []</code>",
  "217":
  "<code class=\"docstring\">After `with`, there is an optional tactic that runs on all branches, and\nthen a list of alternatives.\n</code>",
- "2169": "<code>silly.mk2 (n : Nat) (h : 1 ∈ []) : silly n</code>",
+ "2169": "<code>Silly.mk2 (n : Nat) (h : 1 ∈ []) : Silly n</code>",
  "2168": "<code>n &gt; 1</code>",
- "2167": "<code>silly.mk1 (n : Nat) (h : n &gt; 1) : silly n</code>",
- "2166": "<code>silly : Nat → Prop</code>",
+ "2167": "<code>Silly.mk1 (n : Nat) (h : n &gt; 1) : Silly n</code>",
+ "2166": "<code>Silly : Nat → Prop</code>",
  "2165":
  "<code class=\"docstring\">`tac &lt;;&gt; tac'` runs `tac` on the main goal and `tac'` on each produced goal,\nconcatenating all goals produced by `tac'`.\n</code>",
  "2164":

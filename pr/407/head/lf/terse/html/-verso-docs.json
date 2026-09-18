@@ -237,15 +237,15 @@
  "<code>GT.gt.{u} {α : Type u} [LT α] (a b : α) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`a &gt; b` is an abbreviation for `b &lt; a`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&gt;` in identifiers is `gt`.</code>",
  "842":
  "<code class=\"docstring\">`tac &lt;;&gt; tac'` runs `tac` on the main goal and `tac'` on each produced goal,\nconcatenating all goals produced by `tac'`.\n</code>",
- "841": "<code>silly n</code>",
+ "841": "<code>Silly n</code>",
  "840": "<code>∃ m, n = m + 2</code>",
  "84": "<code>Playground.myBar : RGB</code>",
- "839": "<code>silly.mk3 (n : Nat) (h : ∃ m, n = m + 2) : silly n</code>",
+ "839": "<code>Silly.mk3 (n : Nat) (h : ∃ m, n = m + 2) : Silly n</code>",
  "838": "<code>1 ∈ []</code>",
- "837": "<code>silly.mk2 (n : Nat) (h : 1 ∈ []) : silly n</code>",
+ "837": "<code>Silly.mk2 (n : Nat) (h : 1 ∈ []) : Silly n</code>",
  "836": "<code>n &gt; 1</code>",
- "835": "<code>silly.mk1 (n : Nat) (h : n &gt; 1) : silly n</code>",
- "834": "<code>silly : Nat → Prop</code>",
+ "835": "<code>Silly.mk1 (n : Nat) (h : n &gt; 1) : Silly n</code>",
+ "834": "<code>Silly : Nat → Prop</code>",
  "833":
  "<code>Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α) (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂</code>",
  "832":

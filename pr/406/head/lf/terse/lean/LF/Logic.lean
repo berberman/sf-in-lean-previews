@@ -1118,43 +1118,18 @@ theorem add_beq_true (n m p : Nat) (h : (n == m) = true) :
 --  additional axioms.
 --
 --  A first instance has to do with equality of
---  propositions.
+--  propositions. For example:
 
 #check (∀ a b : Prop, (a ∧ b) = (b ∧ a) : Prop)
 
 --  This is an equality between two conjunctions, which
 --  itself is also a proposition. It states that commuted
---  conjunctions are equal propositions. However, we cannot
---  prove this equality by reflexivity, as the two sides
---  don't compute to the same term, and we cannot proceed by
---  cases on `a` or `b`, as they are not inductive.
-
-sf_expect_failure_in
-  example (a b : Prop) : a ∧ b = b ∧ a := by rfl
-
---  Output:
---    Tactic `rfl` failed: The left-hand side
---      a
---    is not definitionally equal to the right-hand side
---      b = b ∧ a
+--  conjunctions are *equal* propositions, meaning that they
+--  hold, and do not hold, in exactly the same
+--  circumstances.
 --
---    a b : Prop
---    ⊢ a ∧ b = b ∧ a
-
-sf_expect_failure_in
-  example (a b : Prop) : a ∧ b = b ∧ a := by cases a
-
---  Output:
---    Tactic `cases` failed: major premise type is not an inductive type
---      Prop
+--  Unfortunately, we cannot *prove* this equality directly.
 --
---    Explanation: the `cases` tactic is for constructor-based reasoning as well as for applying custom cases principles with a 'using' clause or a registered '@[cases_eliminator]' theorem. The above type neither is an inductive type nor has a registered theorem.
---
---    Consider using the 'by_cases' tactic, which does true/false reasoning for propositions.
---
---    a b : Prop
---    ⊢ a ∧ b = b ∧ a
-
 --  However, we *can* prove that `a ∧ b` implies `b ∧ a`,
 --  and vice versa — this is the commutativity of
 --  conjunction that we have seen earlier.
@@ -1164,10 +1139,13 @@ sf_expect_failure_in
 --  Output:
 --    and_comm {a b : Prop} : a ∧ b ↔ b ∧ a
 
---  Since it would be convenient to be able to rewrite
---  propositions from one side of `↔` to the other, Lean
---  provides an axiom to turn `↔` into `=`, which is called
---  *propositional extensionality* (`propext`).
+--  If we think about it, this is what we mean when we say
+--  two propositions are equal — that one holds if and only
+--  if the other holds. It would be convenient to apply this
+--  meaning of equality to proofs so that we can *rewrite*
+--  propositions from one side of `↔` to the other. To allow
+--  this, Lean provides an axiom to turn `↔` into `=`, which
+--  is called *propositional extensionality* (`propext`).
 
 #print propext
 
@@ -1195,15 +1173,6 @@ theorem and_assoc_eq (a b c : Prop) : ((a ∧ b) ∧ c) = (a ∧ (b ∧ c)) := b
 --  Here is an example of where using `=` instead of `↔` is
 --  more convenient: we show that it's possible to "flip"
 --  three conjoined propositions.
---
---  One way to prove this is to construct the `↔`, destruct
---  the `↔`s provided by `and_comm` and `and_assoc`, and
---  apply the resulting implications a few times. But this
---  is a lot of hassle when the proof is conceptually
---  simple: we flip `b` and `c`, then we flip that
---  conjunction with `a`, and we finish by associativity. By
---  using `and_comm_eq`, this is easily done by rewriting
---  equal propositions.
 
 theorem and_comm_flip (a b c : Prop) : (a ∧ b ∧ c) ↔ (c ∧ b ∧ a) := by
   rw [and_comm_eq b c, and_comm_eq a, and_assoc_eq]
@@ -1246,10 +1215,15 @@ theorem mul_eq_0_ternary (n m p : Nat) :
 
 example : (fun x => x + 2) = (fun x => x + (Nat.pred 3)) := by rfl
 
---  In general, functions can be equal for more interesting
---  reasons. In common mathematical practice, two functions
---  `f` and `g` are considered equal if they produce the
---  same output on every input:
+--  But this doesn't always work the way we'd like:
+
+sf_expect_failure_in
+  example : (fun x => x + 2) = (fun x => 2 + x) := by rfl
+
+--  In common mathematical practice, two functions `f` and
+--  `g` are considered equal if they produce the same output
+--  on every input, regardless of how they happen to compute
+--  that output:
 --
 --      (∀ x, f x = g x) → f = g
 --
@@ -1343,4 +1317,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Built on 2026-09-17 20:47 UTC
+-- Built on 2026-09-18 11:37 UTC

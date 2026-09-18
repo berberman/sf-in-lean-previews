@@ -1,5 +1,5 @@
 {
-  "main_sha": "ee1041ca446e583acfac51b9e54c943cbe3547ba",
+  "main_sha": "ee7b9f7d2f6a89d660f2a803e0ae887707fdadbc",
   "prs": {
     "382": {
       "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
@@ -143,7 +143,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/404"
     },
     "406": {
-      "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
+      "base_sha": "ee7b9f7d2f6a89d660f2a803e0ae887707fdadbc",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -182,15 +182,15 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "2c5b8085795ad3b389d6c61e6164a30e0a71690f",
+      "head_sha": "a9156bf6d53c1bc06c006b991acf3b6a23b35e91",
       "preview_path": "pr/406/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35272647821",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35340324289",
       "status": "published",
       "title": "Strong Pumping Lemma and some RegExp polish",
       "url": "https://github.com/plclub/sf-in-lean/pull/406"
     },
     "407": {
-      "base_sha": "ee1041ca446e583acfac51b9e54c943cbe3547ba",
+      "base_sha": "ee7b9f7d2f6a89d660f2a803e0ae887707fdadbc",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -229,9 +229,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "cba7270fea49b4fe3e22de5d8a77aae8ec178467",
+      "head_sha": "fc49044e3149bd0d0d28bae06b7675b387e59421",
       "preview_path": "pr/407/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35338780405",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35340249239",
       "status": "published",
       "title": "Logic: Mention FOL explicitly; ref in Automation",
       "url": "https://github.com/plclub/sf-in-lean/pull/407"
