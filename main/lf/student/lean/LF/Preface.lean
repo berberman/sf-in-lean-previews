@@ -407,4 +407,4 @@ import SFLCompat
 --  was supported, in part, by the National Science Foundation under the
 --  NSF Expeditions grant 1521523, *The Science of Deep Specification*.
 
--- Built on 2026-09-18 12:36 UTC
+-- Source revision: a44de2e, committed 2026-09-18 13:12 UTC
