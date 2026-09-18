@@ -2,7 +2,7 @@
   "main_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
   "prs": {
     "382": {
-      "base_sha": "5249396ed05051a321672b881192cdd111e44e13",
+      "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -41,9 +41,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "f3e3e535c682138143ab404a3b0764ec209a288a",
+      "head_sha": "d3bd78c999acaee673e6c3b3144a1eb1484eb308",
       "preview_path": "pr/382/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35271533340",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35336314830",
       "status": "published",
       "title": "Make build stamps reproducible",
       "url": "https://github.com/plclub/sf-in-lean/pull/382"
@@ -96,7 +96,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/399"
     },
     "402": {
-      "base_sha": "dfa94878733217eff97151cf9019e2a7eeb3df3e",
+      "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -135,62 +135,15 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "167a16a0ffc24231b0358c1ddb304caab1a92b47",
+      "head_sha": "a16d9d80fd3a57447a95a4c5f49c68e0da90e056",
       "preview_path": "pr/402/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35251857289",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35336264857",
       "status": "published",
       "title": "Quick round of polishing on Automation.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/402"
     },
-    "403": {
-      "base_sha": "5249396ed05051a321672b881192cdd111e44e13",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "5fa0cf94f49466eccbe785f7e6f2f62e702cbddf",
-      "preview_path": "pr/403/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35253542021",
-      "status": "published",
-      "title": "Logic: more polishing",
-      "url": "https://github.com/plclub/sf-in-lean/pull/403"
-    },
     "404": {
-      "base_sha": "5249396ed05051a321672b881192cdd111e44e13",
+      "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -229,9 +182,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "e50979c533ee7e4155a922b64effd9af645b81a3",
+      "head_sha": "a03438339bbebdea87c9a91a078f104667206152",
       "preview_path": "pr/404/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35257423508",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35335916932",
       "status": "published",
       "title": "branchwatcher nit",
       "url": "https://github.com/plclub/sf-in-lean/pull/404"

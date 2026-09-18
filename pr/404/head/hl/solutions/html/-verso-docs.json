@@ -1236,23 +1236,24 @@
  "194": "<code>Slang.AevalRExtended.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
  "193": "<code>Slang.AevalRExtended.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
  "192": "<code>Slang.AevalRExtended.Aexp.plus (a₁ a₂ : Aexp) : Aexp</code>",
- "1915": "<code>HimpHoare.Com.havoc : Ident → HimpHoare.Com</code>",
- "1914":
+ "1916": "<code>HimpHoare.Com.havoc : Ident → HimpHoare.Com</code>",
+ "1915":
  "<code>HimpHoare.ValidHoareTriple (P : Assertion) (c : HimpHoare.Com) (Q : Assertion) : Prop</code>",
- "1913": "<code>HimpHoare.ValidHoareTriple P (Com.havoc x) Q</code>",
- "1912":
- "<code>HimpHoare2.hoare_havoc_weakest (P Q : Assertion) (x : Ident) (h : HimpHoare.ValidHoareTriple P (Com.havoc x) Q) :\n  P -&gt;&gt; havoc_pre x Q</code>",
+ "1914": "<code>HimpHoare.ValidHoareTriple p (Com.havoc x) q</code>",
+ "1913":
+ "<code>HimpHoare2.hoare_havoc_weakest (p q : Assertion) (x : Ident) (h : HimpHoare.ValidHoareTriple p (Com.havoc x) q) :\n  p -&gt;&gt; havoc_pre x q</code>",
+ "1912": "<code>p st</code>",
  "1911":
- "<code>∀ {st st' : State}, (st =[ x := ~a ]=&gt; st') → P st → Q st'</code>",
- "1910": "<code>{{P}} x := ~a {{Q}}</code>",
+ "<code>∀ {st st' : State}, (st =[ x := ~a ]=&gt; st') → p st → q st'</code>",
+ "1910": "<code>{{p}} x := ~a {{q}}</code>",
  "191": "<code>Slang.AevalRExtended.Aexp.num (n : Nat) : Aexp</code>",
  "1909":
  "<code class=\"docstring\">`refine e` behaves like `exact e`, except that named (`?x`) or unnamed (`?_`)\nholes in `e` that are not solved by unification with the main goal's target type\nare converted into new goals, using the hole's name, if any, as the goal case name.\n</code>",
  "1908":
- "<code>hoare_asgn_weakest (Q : Assertion) (x : Ident) (a : Aexp) : IsWp ({{Q [x ↦ ~a]}}) (imp {x := ~a}) Q</code>",
+ "<code>hoare_asgn_weakest (q : Assertion) (x : Ident) (a : Aexp) : IsWp ({{q [x ↦ ~a]}}) (imp {x := ~a}) q</code>",
  "1907":
  "<code>is_wp_example : IsWp ({{Y ≤ 4}}) (imp {X := Y + 1}) ({{X ≤ 5}})</code>",
- "1906": "<code>IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
+ "1906": "<code>IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop</code>",
  "1905": "<code>dfib_correct (n : Nat) : (dfib n).OuterTripleValid</code>",
  "1904": "<code>dfib (n : Nat) : Decorated</code>",
  "1903": "<code><span class=\"literal string\">\"T\"</span> : String</code>",
@@ -1324,11 +1325,11 @@
  "<code>Decorated.VerificationConditions (dec : Decorated) : Prop</code>",
  "186":
  "<code>Slang.AevalRDivision.Aexp.EvalR.div (a₁ a₂ : Aexp) (n₁ n₂ n₃ : Nat) (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂)\n  (hpos : n₂ &gt; 0) (hdiv : n₂ * n₃ = n₁) : (a₁.div a₂).EvalR n₃</code>",
- "1859": "<code>DCom.VerificationConditions P d</code>",
+ "1859": "<code>DCom.VerificationConditions p d</code>",
  "1858":
- "<code>verification_correct (d : DCom) (P : Assertion) (hvc : DCom.VerificationConditions P d) :\n  ValidHoareTriple P d.erase d.postcondition</code>",
+ "<code>verification_correct (d : DCom) (p : Assertion) (hvc : DCom.VerificationConditions p d) :\n  ValidHoareTriple p d.erase d.postcondition</code>",
  "1857":
- "<code>DCom.VerificationConditions (P : Assertion) (d : DCom) : Prop</code>",
+ "<code>DCom.VerificationConditions (p : Assertion) (d : DCom) : Prop</code>",
  "1856": "<code>Decorated.OuterTripleValid (dec : Decorated) : Prop</code>",
  "1855":
  "<code class=\"docstring\">Apply function extensionality and introduce new hypotheses.\nThe tactic `funext` will keep applying the `funext` lemma until the goal target is not reducible to\n```\n  |-  ((fun x =&gt; ...) = (fun x =&gt; ...))\n```\nThe variant `funext h₁ ... hₙ` applies `funext` `n` times, and uses the given identifiers to name the new hypotheses.\nPatterns can be used like in the `intro` tactic. Example, given a goal\n```\n  |-  ((fun x : Nat × Bool =&gt; ...) = (fun x =&gt; ...))\n```\n`funext (a, b)` applies `funext` once and performs pattern matching on the newly introduced pair.\n</code>",

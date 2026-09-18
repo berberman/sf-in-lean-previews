@@ -211,14 +211,14 @@ def Collatz := ∀ n : Nat, n ≠ 0 → CollatzHoldsFor n
 
 --  If you succeed in proving this conjecture, you've got a
 --  bright future as a number theorist! But don't spend too
---  long on it ─ it's been [open since
+--  long on it — it's been [open since
 --  1937](https://en.wikipedia.org/wiki/Collatz_conjecture).
 
 --  ### Example: Binary Relation for Comparing Numbers
 
 --  A binary *relation* on a set `α` has Lean type
 --  `α → α → Prop`. This is a family of propositions
---  parameterized by two elements of `α` ─ i.e., a
+--  parameterized by two elements of `α` — i.e., a
 --  proposition about pairs of elements of `α`.
 --
 --  For example, one familiar binary relation on `Nat` is
@@ -293,8 +293,8 @@ inductive ParentOf : Person → Person → Prop where
 
 def AncestorOf : Person → Person → Prop := TransGen ParentOf
 
---  Here is a derivation showing that `Person.sage` is an
---  ancestor of `moss`:
+--  Here is a derivation showing that `sage` is an ancestor
+--  of `moss`:
 --
 --       ——————————————————— (sage_cleo) ——————————————————— (cleo_moss)
 --       ParentOf .sage .cleo            ParentOf .cleo .moss
@@ -370,7 +370,7 @@ def Collatz' : Prop := ∀ (n : Nat), n ≠ 0 → CollatzStepMulti n 1
 --      ───────────────────────────── (trans)
 --               Perm3 l₁ l₃
 --
---  For instance we can derive `Perm3 [1, 2, 3] [3, 2, 1]`
+--  For instance, we can derive `Perm3 [1, 2, 3] [3, 2, 1]`
 --  as follows:
 --
 --      ───────────────────────── (swap12)  ─────────────────────── (swap23)
@@ -465,7 +465,7 @@ sf_expect_failure_in
 --    Even.succ_succ {n : Nat} (h : Even n) : Even (n + 2)
 
 --  These evidence constructors can be thought of as
---  "primitive evidence of evenness", and they can be used
+--  "primitive evidence of evenness," and they can be used
 --  later on just like proven theorems. In particular, we
 --  can use Lean's `apply` and `exact` tactics with the
 --  constructor names to obtain evidence for `Even` of
@@ -499,13 +499,13 @@ end Even
 
 --  ### Constructing Evidence for Permutations
 
---  Similarly we can apply the evidence constructors to
+--  Similarly, we can apply the evidence constructors to
 --  obtain evidence of `Perm3 [1, 2, 3] [3, 2, 1]`:
 
 namespace Perm3
 
 theorem rev : Perm3 [1, 2, 3] [3, 2, 1] := by
-  apply trans (l₂:= [2, 3, 1])
+  apply trans (l₂ := [2, 3, 1])
   · apply trans (l₂ := [2, 1, 3])
     · apply swap12
     · apply swap23
@@ -521,7 +521,7 @@ theorem rev' : Perm3 [1, 2, 3] [3, 2, 1] := by
   exact (trans (trans swap12 swap23) swap12)
 
 --  So the informal derivation trees we drew above are not
---  too far from what's happening formally. Formally we're
+--  too far from what's happening formally. Formally, we're
 --  using the evidence constructors to build *evidence
 --  trees*, similar to the finite trees we built using the
 --  constructors of data types such as `Nat`, `List`, binary
@@ -589,7 +589,7 @@ theorem Even.inversion (n : Nat) (h : Even n) :
 
 theorem Even.of_succ_succ (n : Nat) (h : Even (n + 2)) : Even n := by
   apply inversion at h
-  obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁,  h₂⟩⟩ := h
+  obtain ⟨⟨⟩⟩ | ⟨n', ⟨h₁, h₂⟩⟩ := h
   injections h₁ heq
   subst heq
   exact h₂
@@ -712,4 +712,4 @@ inductive List.In' {α : Type} (x : α) : List α → Prop
 --  The characterizing lemmas for `∈` are called
 --  `List.mem_nil_iff` and `List.mem_cons`.
 
--- Built on 2026-09-17 17:19 UTC
+-- Built on 2026-09-18 10:47 UTC

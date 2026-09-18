@@ -668,14 +668,14 @@ sf_expect_failure_in
     match c with
     | imp {skip} => st
     | imp {x := ~a} => (x →ₜ a.eval st ; st)
-    | imp {~c₁; ~c₂} =>
+    | imp {c₁; c₂} =>
         let st' := eval st c₁
         eval st' c₂
-    | imp {if (~b) {~c₁} else {~c₂}} =>
+    | imp {if (b) {c₁} else {c₂}} =>
         if b.eval st then eval st c₁
         else eval st c₂
-    | imp {while (~b) {~c}} =>
-        if b.eval st then eval st (imp { ~c; while (~b) {~c}})
+    | imp {while (b) {c}} =>
+        if b.eval st then eval st (imp { c; while (b) {c}})
         --                ^-- recursive call without a decreasing argument
         else st
 
@@ -837,7 +837,7 @@ instance : HasEval Com State State where
 
 @[simp]
 theorem Com.evalR_eq {c : Com} {st st' : State} :
-    EvalR c st st' ↔ st =[ ~c ]=> st' := by rfl
+    EvalR c st st' ↔ st =[ c ]=> st' := by rfl
 --  END DETAILS
 
 --  The cost of defining evaluation as a relation instead of a function is
@@ -1009,7 +1009,7 @@ example :
 --  In fact this cannot happen: `ceval` *is* a partial function.
 
 theorem ceval_deterministic {c : Com} {st st1 st2 : State}
-    (e₁ : st =[ ~c ]=> st1) (e₂ : st =[ ~c ]=> st2) : st1 = st2 := by
+    (e₁ : st =[ c ]=> st1) (e₂ : st =[ c ]=> st2) : st1 = st2 := by
   induction e₁ generalizing st2 with
   | skip =>
       inversion e₂
@@ -1059,7 +1059,7 @@ def pupToN : Com := (
   })
 
 theorem pup_to_2_ceval :
-    {X ↦ 2} =[ ~pupToN ]=> {X ↦ 0, Y ↦ 3, X ↦ 1, Y ↦ 2, Y ↦ 0, X ↦ 2} := by
+    {X ↦ 2} =[ pupToN ]=> {X ↦ 0, Y ↦ 3, X ↦ 1, Y ↦ 2, Y ↦ 0, X ↦ 2} := by
   rw [pupToN]
   apply Com.EvalR.seq (st' := (Y →ₜ 0 ; X →ₜ 2 ; ∅))
   · apply Com.EvalR.asgn; rfl
@@ -1082,7 +1082,7 @@ theorem pup_to_2_ceval :
 --  bare definitions. This section explores some examples.
 
 theorem plus2_spec {st : State} {n : Nat} {st' : State}
-    (hx : st[X] = n) (heval : st =[ ~plus2 ]=> st') :
+    (hx : st[X] = n) (heval : st =[ plus2 ]=> st') :
     st'[X] = n + 2 := by
   -- Inverting `heval` forces one step of the `ceval` computation: since
   -- `plus2` is an assignment, `st'` must be `st` extended at `X`.
@@ -1098,7 +1098,7 @@ theorem plus2_spec {st : State} {n : Nat} {st' : State}
 
 /- Here is a specification in the style of `plus2_spec`: -/
 theorem XtimesYinZ_spec₁ {st : State} {nx ny : Nat} {st' : State}
-    (hx : st[X] = nx) (hy : st[Y] = ny) (heval : st =[ ~XtimesYinZ ]=> st') :
+    (hx : st[X] = nx) (hy : st[Y] = ny) (heval : st =[ XtimesYinZ ]=> st') :
     st'[Z] = nx * ny := by
   rw [XtimesYinZ] at heval
   inversion heval with
@@ -1107,13 +1107,13 @@ theorem XtimesYinZ_spec₁ {st : State} {nx ny : Nat} {st' : State}
 
 /- Though perhaps a cleaner specification would be: -/
 theorem XtimesYinZ_spec {st : State} :
-    st =[ ~XtimesYinZ ]=> (Z →ₜ st[X] * st[Y] ; st) := by
+    st =[ XtimesYinZ ]=> (Z →ₜ st[X] * st[Y] ; st) := by
   rw [XtimesYinZ]
   apply EvalR.asgn
   rfl
 
 /- A less informative specification would be ... -/
-theorem XtimesYinZ_spec₂ {st : State} : ∃ st', st =[ ~XtimesYinZ ]=> st' := by
+theorem XtimesYinZ_spec₂ {st : State} : ∃ st', st =[ XtimesYinZ ]=> st' := by
   exists (Z →ₜ st[X] * st[Y] ; st)
   exact XtimesYinZ_spec
 
@@ -1154,16 +1154,16 @@ def Com.no_whiles (c : Com) : Bool :=
   | imp {skip} => true
   | imp {x := ~a} => true
   | imp {c₁; c₂} => no_whiles c₁ && no_whiles c₂
-  | imp {if (~_) {ct} else {cf}} => no_whiles ct && no_whiles cf
-  | imp {while (~_) {~_}} => false
+  | imp {if (b) {ct} else {cf}} => no_whiles ct && no_whiles cf
+  | imp {while (b) {c}} => false
 
 inductive Com.NoWhilesR : Com → Prop where
   | skip : Com.NoWhilesR (imp { skip })
   | asgn {x : Ident} {a : Aexp} : Com.NoWhilesR (imp { x := ~a })
   | seq {c₁ c₂ : Com} (h₁ : Com.NoWhilesR c₁) (h₂ : Com.NoWhilesR c₂) :
-      Com.NoWhilesR (imp { ~c₁; ~c₂ })
+      Com.NoWhilesR (imp { c₁; c₂ })
   | cond {b : Bexp} {c₁ c₂ : Com} (h₁ : Com.NoWhilesR c₁) (h₂ : Com.NoWhilesR c₂) :
-      Com.NoWhilesR (imp { if (~b) { ~c₁ } else { ~c₂ } })
+      Com.NoWhilesR (imp { if (b) { c₁ } else { c₂ } })
 
 theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
   constructor
@@ -1623,7 +1623,8 @@ scoped notation:40 st0:41 " =[ " c " ]=> " st1:41 " // " s:41 => Com.EvalR c st0
 
 --  Now prove the following properties of your definition:
 
-theorem break_ignore {c : Com} (st st' : State) {s : Result} (h : st =[ imp { brk ; ~c } ]=> st' // s) :
+theorem break_ignore {c : Com} (st st' : State) {s : Result}
+  (h : st =[ imp { brk ; c } ]=> st' // s) :
   st = st' := by
   inversion h with
   | seqContinue st'' h₁ h₂ =>
@@ -1632,7 +1633,7 @@ theorem break_ignore {c : Com} (st st' : State) {s : Result} (h : st =[ imp { br
       inversion h; rfl
 
 theorem while_continue {b : Bexp} {c : Com} {st st' : State} {s : Result}
-  (h : st =[ imp { while (~b) {~c} } ]=> st' // s) :
+  (h : st =[ imp { while (b) {c} } ]=> st' // s) :
   s = sContinue := by
   inversion h <;> rfl
 
@@ -1643,20 +1644,20 @@ theorem while_stops_on_break {b : Bexp} {c : Com} {st st' : State}
   apply Com.EvalR.whileBreak <;> assumption
 
 theorem seq_continue {c₁ c₂ : Com} {st st' st'' : State}
-  (h₁ : st =[ imp { ~c₁ } ]=> st' // sContinue)
-  (h₂ : st' =[ imp { ~c₂ } ]=> st'' // sContinue) :
-  st =[ imp { ~c₁ ; ~c₂ } ]=> st'' // sContinue := by
+  (h₁ : st =[ imp { c₁ } ]=> st' // sContinue)
+  (h₂ : st' =[ imp { c₂ } ]=> st'' // sContinue) :
+  st =[ imp { c₁ ; c₂ } ]=> st'' // sContinue := by
   apply Com.EvalR.seqContinue (st' := st') <;> assumption
 
 theorem seq_stops_on_break {c₁ c₂ : Com} {st st' : State}
-  (h : st =[ imp { ~c₁ } ]=> st' // sBreak) :
-  st =[ imp { ~c₁ ; ~c₂ } ]=> st' // sBreak := by
+  (h : st =[ imp { c₁ } ]=> st' // sBreak) :
+  st =[ imp { c₁ ; c₂ } ]=> st' // sBreak := by
   apply Com.EvalR.seqBreak <;> assumption
 
 --  ### Exercise (3 stars): while_break_true (Optional) ⭐⭐⭐
 
 theorem while_break_true {b : Bexp} {c : Com} {st st' : State}
-  (h₁ : st =[ imp { while (~b) {~c} } ]=> st' // sContinue)
+  (h₁ : st =[ imp { while (b) {c} } ]=> st' // sContinue)
   (h₂ : b.eval st' = true) :
   ∃ st'', st'' =[ imp { c } ]=> st' // sBreak := by
   generalize heq : (imp {while (b) {c}}) = c' at h₁
@@ -1670,8 +1671,8 @@ theorem while_break_true {b : Bexp} {c : Com} {st st' : State}
 --  ### Exercise (4 stars): ceval_deterministic (Optional) ⭐⭐⭐⭐
 
 theorem ceval_deterministic {c : Com} {st st₁ st₂ : State} {s₁ s₂ : Result}
-  (h₁ : st =[ imp { ~c } ]=> st₁ // s₁)
-  (h₂ : st =[ imp { ~c } ]=> st₂ // s₂) :
+  (h₁ : st =[ imp { c } ]=> st₁ // s₁)
+  (h₂ : st =[ imp { c } ]=> st₂ // s₂) :
   st₁ = st₂ ∧ s₁ = s₂ := by
   induction h₁ generalizing st₂ s₂ with (try (inversion h₂ <;> lia))
   | seqContinue h₁' h₂' ih₁ ih₂ =>
@@ -1770,4 +1771,4 @@ end Imp.Break
 --        not just a single name, reads better with hover types (e.g. the
 --        `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 
--- Source revision: 6dc98cd, committed 2026-09-17 20:33 UTC
+-- Source revision: 84f5f6a, committed 2026-09-18 10:45 UTC

@@ -257,31 +257,31 @@ def Bexp.foldConstants (b : Bexp) : Bexp :=
   | bexp { ~a₁ = ~a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => if n₁ = n₂ then bexp { true } else bexp {false}
-    | a₁', a₂' => bexp { ~a₁' = ~a₂' }
+    | a₁', a₂' => bexp { a₁' = a₂' }
   | bexp { ~a₁ ≠ ~a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => if n₁ ≠ n₂ then bexp { true } else bexp {false}
-    | a₁', a₂' => bexp { ~a₁' ≠ ~a₂' }
+    | a₁', a₂' => bexp { a₁' ≠ a₂' }
   | bexp { ~a₁ ≤ ~a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => if n₁ ≤ n₂ then bexp { true } else bexp {false}
-    | a₁', a₂' => bexp { ~a₁' ≤ ~a₂' }
+    | a₁', a₂' => bexp { a₁' ≤ a₂' }
   | bexp { ~a₁ > ~a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => if n₁ > n₂ then bexp { true } else bexp {false}
-    | a₁', a₂' => bexp { ~a₁' > ~a₂' }
+    | a₁', a₂' => bexp { a₁' > a₂' }
   | bexp { ¬ ~b₁ } =>
     match b₁.foldConstants with
     | bexp { true } => bexp { false }
     | bexp { false } => bexp { true }
-    | b₁' => bexp { ¬ ~b₁' }
+    | b₁' => bexp { ¬ b₁' }
   | bexp { ~b₁ ∧ ~b₂ } =>
     match b₁.foldConstants, b₂.foldConstants with
     | bexp { true }, bexp { true } => bexp { true }
     | bexp { true }, bexp { false } => bexp { false }
     | bexp { false }, bexp { true } => bexp { false }
     | bexp { false }, bexp { false } => bexp { false }
-    | b₁', b₂' => bexp { ~b₁' ∧ ~b₂' }
+    | b₁', b₂' => bexp { b₁' ∧ b₂' }
 
 @[simp]
 theorem Bexp.foldConstants_true : (bexp { true }).foldConstants = (bexp { true }) := rfl
@@ -306,7 +306,7 @@ theorem Bexp.foldConstants_comp (a₁ a₂ : Aexp) :
 
 theorem Bexp.foldConstants_unary (b : Bexp) :
     (b.foldConstants = (bexp { true }) ∨ b.foldConstants = (bexp { false })) ∨
-    (bexp { ¬~b }).foldConstants = (bexp { ¬(~b.foldConstants)}) := by
+    (bexp { ¬b }).foldConstants = (bexp { ¬(b.foldConstants)}) := by
   cases hb : b.foldConstants with
   | bool b' =>
     simp_all
@@ -316,7 +316,7 @@ theorem Bexp.foldConstants_unary (b : Bexp) :
 theorem Bexp.foldConstants_binary (b₁ : Bexp) (b₂ : Bexp) :
     ((b₁.foldConstants = (bexp { true }) ∨ b₁.foldConstants = (bexp { false })) ∧
      (b₂.foldConstants = (bexp { true }) ∨ b₂.foldConstants = (bexp { false }))) ∨
-    (bexp {~b₁ ∧ ~b₂}).foldConstants = (bexp {~b₁.foldConstants ∧ ~b₂.foldConstants}) := by
+    (bexp {b₁ ∧ b₂}).foldConstants = (bexp {b₁.foldConstants ∧ b₂.foldConstants}) := by
   cases hb₁ : b₁.foldConstants with
   | bool b₁' =>
     cases hb₂ : b₂.foldConstants with
@@ -480,4 +480,4 @@ theorem subst_inequiv : ¬ SubstEquivProperty := by
   rw [TotalMap.update_eq, TotalMap.update_eq] at contra
   contradiction
 
--- Built on 2026-09-17 17:20 UTC
+-- Built on 2026-09-18 10:49 UTC

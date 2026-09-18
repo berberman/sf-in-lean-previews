@@ -1781,7 +1781,7 @@ instance : HasEval Com State State where
   Eval := Com.EvalR
 
 @[simp]
-theorem Com.evalR_eq {c : Com} {st st' : State} : EvalR c st st' ↔ st =[ ~c ]=> st' := by rfl
+theorem Com.evalR_eq {c : Com} {st st' : State} : EvalR c st st' ↔ st =[ c ]=> st' := by rfl
 
 --  The following unit tests should be provable simply by applying your new
 --  rules (plus `rfl` for the boolean side conditions) if you have defined
@@ -2223,7 +2223,7 @@ instance : HasEval Com State State where
 
 @[simp]
 theorem Com.evalR_eq {c : Com} {st st' : State} :
-    EvalR c st st' ↔ st =[ ~c ]=> st' := by rfl
+    EvalR c st st' ↔ st =[ c ]=> st' := by rfl
 
 --  A couple of definitions from above, copied here so they use the new
 --  `Com.EvalR`.
@@ -2404,7 +2404,7 @@ instance : HasEval Com State State where
 
 @[simp]
 theorem Com.evalR_eq {c : Com} {st st' : State} :
-    EvalR c st st' ↔ st =[ ~c ]=> st' := by rfl
+    EvalR c st st' ↔ st =[ c ]=> st' := by rfl
 
 --  The definition of Hoare triples is exactly as before.
 
@@ -2570,7 +2570,7 @@ instance : HasEval Com State Result where
 
 @[simp]
 theorem Com.evalR_eq {c : Com} {st : State} {res : Result} :
-    EvalR c st res ↔ st =[ ~c ]=> res := by rfl
+    EvalR c st res ↔ st =[ c ]=> res := by rfl
 
 --  We redefine hoare triples: Now, `{{ P }} c {{ Q }}` means that,
 --  whenever `c` is started in a state satisfying `P`, and terminates with
@@ -2731,4 +2731,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: 6dc98cd, committed 2026-09-17 20:33 UTC
+-- Source revision: 84f5f6a, committed 2026-09-18 10:45 UTC

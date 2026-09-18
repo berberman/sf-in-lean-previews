@@ -7,7 +7,7 @@
  "<code>Slang.ArithUnnamed.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.plus a₂) (n₁ + n₂)</code>",
  "95":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
- "941": "<code>IsWp (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
+ "941": "<code>IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop</code>",
  "940": "<code>dec_while_correct : decWhile.OuterTripleValid</code>",
  "94": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
  "939":
@@ -18,11 +18,11 @@
  "<code>verification_conditions_correct (dec : Decorated) (hvc : dec.VerificationConditions) : dec.OuterTripleValid</code>",
  "935":
  "<code>Decorated.VerificationConditions (dec : Decorated) : Prop</code>",
- "934": "<code>DCom.VerificationConditions P d</code>",
+ "934": "<code>DCom.VerificationConditions p d</code>",
  "933":
- "<code>verification_correct (d : DCom) (P : Assertion) (hvc : DCom.VerificationConditions P d) :\n  ValidHoareTriple P d.erase d.postcondition</code>",
+ "<code>verification_correct (d : DCom) (p : Assertion) (hvc : DCom.VerificationConditions p d) :\n  ValidHoareTriple p d.erase d.postcondition</code>",
  "932":
- "<code>DCom.VerificationConditions (P : Assertion) (d : DCom) : Prop</code>",
+ "<code>DCom.VerificationConditions (p : Assertion) (d : DCom) : Prop</code>",
  "931": "<code>Decorated.OuterTripleValid (dec : Decorated) : Prop</code>",
  "930": "<code>Decorated.postcondition (dec : Decorated) : Assertion</code>",
  "93":
