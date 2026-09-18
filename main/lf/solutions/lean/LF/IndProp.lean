@@ -355,10 +355,10 @@ example : AncestorOf .sage .moss := by
 --  to define transitive closure as an inductive relation.
 --
 --  The transitive closure of a binary relation cannot, in general, be
---  [expressed in first-order
---  logic](https://en.wikipedia.org/wiki/Transitive_closure#In_logic_and_computational_complexity).
---  The logic of Lean is, however, much more powerful and can easily define
---  such inductive relations.
+--  expressed in first-order logic (see the Logic chapter), since doing so
+--  would require quantifying over relations themselves. The logic of Lean
+--  is, however, much more powerful — being higher-order, as we saw there —
+--  and can easily define such inductive relations.
 
 --  ### Example: Reflexive and Transitive Closure
 
@@ -2379,4 +2379,4 @@ theorem pigeonhole_principle' {α : Type} {l₁ l₂ : List α}
     Repeats l₁ :=
   pigeonhole_aux l₁ [] l₂ hin hlen
 
--- Built on 2026-09-18 11:34 UTC
+-- Built on 2026-09-18 12:36 UTC

@@ -1,5 +1,5 @@
 {
-  "main_sha": "ee7b9f7d2f6a89d660f2a803e0ae887707fdadbc",
+  "main_sha": "6ebf12da7a48332b896f9b116867d51927d8bb5d",
   "prs": {
     "382": {
       "base_sha": "9a54cdfd6b3b3a2f44afe36024d97cd0e4e36296",
@@ -141,100 +141,6 @@
       "status": "published",
       "title": "branchwatcher nit",
       "url": "https://github.com/plclub/sf-in-lean/pull/404"
-    },
-    "406": {
-      "base_sha": "ee7b9f7d2f6a89d660f2a803e0ae887707fdadbc",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "a9156bf6d53c1bc06c006b991acf3b6a23b35e91",
-      "preview_path": "pr/406/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35340324289",
-      "status": "published",
-      "title": "Strong Pumping Lemma and some RegExp polish",
-      "url": "https://github.com/plclub/sf-in-lean/pull/406"
-    },
-    "407": {
-      "base_sha": "ee7b9f7d2f6a89d660f2a803e0ae887707fdadbc",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "fc49044e3149bd0d0d28bae06b7675b387e59421",
-      "preview_path": "pr/407/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35340249239",
-      "status": "published",
-      "title": "Logic: Mention FOL explicitly; ref in Automation",
-      "url": "https://github.com/plclub/sf-in-lean/pull/407"
     }
   },
   "schema": 3
