@@ -11,4 +11,4 @@ import LF.Automation
 import LF.Typeclasses
 import LF.Postscript
 
--- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
+-- Built on 2026-09-18 12:24 UTC

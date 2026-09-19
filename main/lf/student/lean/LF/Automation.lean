@@ -868,24 +868,32 @@ theorem MStar'' α (s : List α) (re : RegExp α) (h : s =~ Star re) :
 --  *calculate*, for each regular expression `re`, a minimum length for
 --  strings `s` to guarantee "pumpability."
 
+namespace Pumping
+
 def pumpingConstant {α : Type} (re : RegExp α) : Nat :=
   match re with
   | EmptySet => 1
   | EmptyStr => 1
   | Char _ => 2
-  | App re₁ re₂ => re₁.pumpingConstant + re₂.pumpingConstant
-  | Union re₁ re₂ => re₁.pumpingConstant + re₂.pumpingConstant
-  | Star r => r.pumpingConstant
+  | App re₁ re₂ => pumpingConstant re₁ + pumpingConstant re₂
+  | Union re₁ re₂ => pumpingConstant re₁ + pumpingConstant re₂
+  | Star r => pumpingConstant r
 
 --  You may find these lemmas about the pumping constant useful when
 --  proving the pumping lemma below.
 
 theorem pumping_constant_ge_1 {α : Type} (re : RegExp α) :
-    re.pumpingConstant ≥ 1 := by
-  induction re with (simp_all [pumpingConstant]; try lia)
+    pumpingConstant re ≥ 1 := by
+  induction re with
+  | EmptySet => simp [pumpingConstant]
+  | EmptyStr => simp [pumpingConstant]
+  | Char _ => simp [pumpingConstant]
+  | App re₁ _ ih1 _ => simp only [pumpingConstant]; lia
+  | Union re₁ _ ih1 _ => simp only [pumpingConstant]; lia
+  | Star _ ih => simp only [pumpingConstant]; exact ih
 
 theorem pumping_constant_0_false {α : Type} (re : RegExp α)
-    (h : re.pumpingConstant = 0) : False := by
+    (h : pumpingConstant re = 0) : False := by
   have := pumping_constant_ge_1 re; lia
 
 --  Next, it is useful to define an auxiliary function that repeats a
@@ -909,7 +917,9 @@ theorem napp_succ {α : Type} (n : Nat) (l : List α) : napp (n + 1) l = l ++ na
 @[simp]
 theorem napp_plus {α : Type} (n m : Nat) (l : List α) :
     napp (n + m) l = napp n l ++ napp m l := by
-  induction n with simp_all [Nat.succ_add]
+  induction n with
+  | zero => simp
+  | succ n ih => rw [Nat.succ_add]; simp [ih]
 
 theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
     (hs₁ : s₁ =~ re) (hs₂ : s₂ =~ Star re) :
@@ -939,7 +949,7 @@ theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
 --  ### Exercise (2 stars): weak_pumping_char ⭐⭐
 
 theorem weak_pumping_char {α : Type} (x : α)
-    (h : (Char x).pumpingConstant ≤ [x].length) :
+    (h : pumpingConstant (Char x) ≤ [x].length) :
     ∃ s₁ s₂ s₃ : List α,
       [x] = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [ ] ∧
       (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Char x) := by
@@ -950,23 +960,23 @@ theorem weak_pumping_char {α : Type} (x : α)
 theorem weak_pumping_app {α : Type} (s₁ s₂ : List α) (re₁ re₂ : RegExp α)
     (h₁ : s₁ =~ re₁)
     (h₂ : s₂ =~ re₂)
-    (ih₁ : re₁.pumpingConstant ≤ s₁.length →
+    (ih₁ : pumpingConstant re₁ ≤ s₁.length →
       ∃ s₂ s₃ s₄ : List α,
         s₁ = s₂ ++ s₃ ++ s₄ ∧
         s₃ ≠ [ ] ∧
         (∀ m : Nat, s₂ ++ napp m s₃ ++ s₄ =~ re₁))
-    (ih₂ : re₂.pumpingConstant ≤ s₂.length →
+    (ih₂ : pumpingConstant re₂ ≤ s₂.length →
       ∃ s₁ s₃ s₄ : List α,
         s₂ = s₁ ++ s₃ ++ s₄ ∧
         s₃ ≠ [ ] ∧
         (∀ m : Nat, s₁ ++ napp m s₃ ++ s₄ =~ re₂))
-    (hLen : (App re₁ re₂).pumpingConstant ≤ (s₁ ++ s₂).length) :
+    (hLen : pumpingConstant (App re₁ re₂) ≤ (s₁ ++ s₂).length) :
     ∃ s₀ s₃ s₄ : List α,
       s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧
       s₃ ≠ [ ] ∧
       (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ App re₁ re₂) := by
   obtain h | h :
-    re₁.pumpingConstant ≤ s₁.length ∨ re₂.pumpingConstant ≤ s₂.length := by
+    pumpingConstant re₁ ≤ s₁.length ∨ pumpingConstant re₂ ≤ s₂.length := by
     sorry
   case inl =>
     sorry
@@ -977,17 +987,17 @@ theorem weak_pumping_app {α : Type} (s₁ s₂ : List α) (re₁ re₂ : RegExp
 
 theorem weak_pumping_union_l  {α : Type} (s₁ : List α) (re₁ re₂ : RegExp α)
     (h₁ : s₁ =~ re₁)
-    (ih : re₁.pumpingConstant ≤ s₁.length →
+    (ih : pumpingConstant re₁ ≤ s₁.length →
       ∃ s₂ s₃ s₄ : List α,
         s₁ = s₂ ++ s₃ ++ s₄ ∧
         s₃ ≠ [ ] ∧
         (∀ m : Nat, s₂ ++ napp m s₃ ++ s₄ =~ re₁))
-    (hLen : (Union re₁ re₂).pumpingConstant ≤ s₁.length) :
+    (hLen : pumpingConstant (Union re₁ re₂) ≤ s₁.length) :
     ∃ s₀ s₂ s₃ : List α,
       s₁ = s₀ ++ s₂ ++ s₃ ∧
       s₂ ≠ [ ] ∧
       (∀ m : Nat, s₀ ++ napp m s₂ ++ s₃ =~ Union re₁ re₂) := by
-  have h : re₁.pumpingConstant ≤ s₁.length := by
+  have h : pumpingConstant re₁ ≤ s₁.length := by
     sorry
   sorry
 
@@ -995,25 +1005,25 @@ theorem weak_pumping_union_l  {α : Type} (s₁ : List α) (re₁ re₂ : RegExp
 
 theorem weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp α)
   (h₂ : s₂ =~ re₂)
-  (ih : re₂.pumpingConstant ≤ s₂.length →
+  (ih : pumpingConstant re₂ ≤ s₂.length →
     ∃ s₁ s₃ s₄ : List α,
       s₂ = s₁ ++ s₃ ++ s₄ ∧
       s₃ ≠ [ ] ∧
       (∀ m : Nat, s₁ ++ napp m s₃ ++ s₄ =~ re₂))
-  (hLen : (Union re₁ re₂).pumpingConstant ≤ s₂.length) :
+  (hLen : pumpingConstant (Union re₁ re₂) ≤ s₂.length) :
   ∃ s₁ s₀ s₃ : List α,
     s₂ = s₁ ++ s₀ ++ s₃ ∧
     s₀ ≠ [ ] ∧
     (∀ m : Nat, s₁ ++ napp m s₀ ++ s₃ =~ Union re₁ re₂) := by
   -- symmetric to the previous
-  have h : re₂.pumpingConstant ≤ s₂.length := by
-   sorry
+  have h : pumpingConstant re₂ ≤ s₂.length := by
+    sorry
   sorry
 
 --  ### Exercise (2 stars): weak_pumping_star_zero (Optional) ⭐⭐
 
 theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
-    (h : (Star re).pumpingConstant ≤ @List.length α []) :
+    (h : pumpingConstant (Star re) ≤ @List.length α []) :
     ∃ s₁ s₂ s₃ : List α,
       [ ] = s₁ ++ s₂ ++ s₃ ∧
       s₂ ≠ [ ] ∧
@@ -1025,17 +1035,17 @@ theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
 theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
     (h₁ : s₁ =~ re)
     (h₂ : s₂ =~ Star re)
-    (ih₁ : re.pumpingConstant ≤ List.length s₁ →
+    (ih₁ : pumpingConstant re ≤ List.length s₁ →
       ∃ s₂ s₃ s₄ : List α,
         s₁ = s₂ ++ s₃ ++ s₄
         ∧ s₃ ≠ [ ] ∧
         (∀ m : Nat, s₂ ++ napp m s₃ ++ s₄ =~ re))
-    (ih₂ : (Star re).pumpingConstant ≤ s₂.length →
+    (ih₂ : pumpingConstant (Star re) ≤ s₂.length →
       ∃ s₁ s₃ s₄ : List α,
         s₂ = s₁ ++ s₃ ++ s₄ ∧
         s₃ ≠ [ ] ∧
         (∀ m : Nat, s₁ ++ napp m s₃ ++ s₄ =~ Star re))
-    (hLen : (Star re).pumpingConstant ≤ (s₁ ++ s₂).length) :
+    (hLen : pumpingConstant (Star re) ≤ (s₁ ++ s₂).length) :
     ∃ s₀ s₃ s₄ : List α,
       s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧
       s₃ ≠ [ ] ∧
@@ -1043,8 +1053,8 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
   rw [List.length_append] at *
   obtain hs₁len0 | ⟨s₁len, hs₁re₁⟩ | hs₁re₁ :
     (s₁.length = 0
-      ∨ (s₁.length ≠ 0 ∧ s₁.length < re.pumpingConstant)
-      ∨ re.pumpingConstant ≤ s₁.length) := by
+      ∨ (s₁.length ≠ 0 ∧ s₁.length < pumpingConstant re)
+      ∨ pumpingConstant re ≤ s₁.length) := by
     cases s₁ with
     | nil => sorry
     | cons h s₁' =>
@@ -1056,7 +1066,7 @@ theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
 --  ### Exercise (3 stars): weak_pumping ⭐⭐⭐
 
 theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
-    (hmatch : s =~ re) (hlen : re.pumpingConstant ≤ s.length) :
+    (hmatch : s =~ re) (hlen : pumpingConstant re ≤ s.length) :
     ∃ s₁ s₂ s₃ : List α,
       s = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [] ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
@@ -1068,18 +1078,19 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
 
 --  Now here is the usual version of the pumping lemma. In addition to
 --  requiring that `s₂ ≠ []`, it also strengthens the result to include the
---  claim that `s₁.length + s₂.length ≤ re.pumpingConstant`.
+--  claim that `s₁.length + s₂.length ≤ pumpingConstant re`.
 
 theorem pumping {α : Type} {re : RegExp α} {s : List α}
-    (hmatch : s =~ re) (hlen : re.pumpingConstant ≤ s.length) :
+    (hmatch : s =~ re) (hlen : pumpingConstant re ≤ s.length) :
     ∃ s₁ s₂ s₃ : List α,
       s = s₁ ++ s₂ ++ s₃ ∧ s₂ ≠ [] ∧
-      s₁.length + s₂.length ≤ re.pumpingConstant ∧
+      s₁.length + s₂.length ≤ pumpingConstant re ∧
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
 
 --  (End of exercise)
 
+end Pumping
 end RegExp
 
 --  ### Palindromes Revisited
@@ -1102,4 +1113,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
+-- Built on 2026-09-18 12:24 UTC

@@ -4403,94 +4403,6 @@
         "Case Study: Regular Expressions",
         "Examples"]}},
      "address": "/Automation/"}],
-   "RegExp.pumping_constant_ge_1":
-   [{"id": "RegExp___pumping_constant_ge_1",
-     "data":
-     {"/Automation/#RegExp___pumping_constant_ge_1":
-      {"display": "pumping_constant_ge_1",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "The \"Weak\" Pumping Lemma"]}},
-     "address": "/Automation/"}],
-   "RegExp.pumping_constant_0_false":
-   [{"id": "RegExp___pumping_constant_0_false",
-     "data":
-     {"/Automation/#RegExp___pumping_constant_0_false":
-      {"display": "pumping_constant_0_false",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "The \"Weak\" Pumping Lemma"]}},
-     "address": "/Automation/"}],
-   "RegExp.pumpingConstant":
-   [{"id": "RegExp___pumpingConstant",
-     "data":
-     {"/Automation/#RegExp___pumpingConstant":
-      {"display": "pumpingConstant",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "The \"Weak\" Pumping Lemma"]}},
-     "address": "/Automation/"}],
-   "RegExp.napp_zero":
-   [{"id": "RegExp___napp_zero",
-     "data":
-     {"/Automation/#RegExp___napp_zero":
-      {"display": "napp_zero",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "The \"Weak\" Pumping Lemma"]}},
-     "address": "/Automation/"}],
-   "RegExp.napp_succ":
-   [{"id": "RegExp___napp_succ",
-     "data":
-     {"/Automation/#RegExp___napp_succ":
-      {"display": "napp_succ",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "The \"Weak\" Pumping Lemma"]}},
-     "address": "/Automation/"}],
-   "RegExp.napp_star":
-   [{"id": "RegExp___napp_star",
-     "data":
-     {"/Automation/#RegExp___napp_star":
-      {"display": "napp_star",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "The \"Weak\" Pumping Lemma"]}},
-     "address": "/Automation/"}],
-   "RegExp.napp_plus":
-   [{"id": "RegExp___napp_plus",
-     "data":
-     {"/Automation/#RegExp___napp_plus":
-      {"display": "napp_plus",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "The \"Weak\" Pumping Lemma"]}},
-     "address": "/Automation/"}],
-   "RegExp.napp":
-   [{"id": "RegExp___napp",
-     "data":
-     {"/Automation/#RegExp___napp":
-      {"display": "napp",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "The \"Weak\" Pumping Lemma"]}},
-     "address": "/Automation/"}],
    "RegExp.Union":
    [{"id": "RegExp___Union",
      "data":
@@ -4512,6 +4424,105 @@
         "Automation: More Automation",
         "Case Study: Regular Expressions",
         "Definitions"]}},
+     "address": "/Automation/"}],
+   "RegExp.Pumping.pumping_constant_ge_1":
+   [{"id": "RegExp___Pumping___pumping_constant_ge_1",
+     "data":
+     {"/Automation/#RegExp___Pumping___pumping_constant_ge_1":
+      {"display": "pumping_constant_ge_1",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
+     "address": "/Automation/"}],
+   "RegExp.Pumping.pumping_constant_0_false":
+   [{"id": "RegExp___Pumping___pumping_constant_0_false",
+     "data":
+     {"/Automation/#RegExp___Pumping___pumping_constant_0_false":
+      {"display": "pumping_constant_0_false",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
+     "address": "/Automation/"}],
+   "RegExp.Pumping.pumpingConstant":
+   [{"id": "RegExp___Pumping___pumpingConstant",
+     "data":
+     {"/Automation/#RegExp___Pumping___pumpingConstant":
+      {"display": "pumpingConstant",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
+     "address": "/Automation/"}],
+   "RegExp.Pumping.pumping":
+   [{"id": "RegExp___Pumping___pumping",
+     "data":
+     {"/Automation/#RegExp___Pumping___pumping":
+      {"display": "pumping",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The (Strong) Pumping Lemma"]}},
+     "address": "/Automation/"}],
+   "RegExp.Pumping.napp_zero":
+   [{"id": "RegExp___Pumping___napp_zero",
+     "data":
+     {"/Automation/#RegExp___Pumping___napp_zero":
+      {"display": "napp_zero",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
+     "address": "/Automation/"}],
+   "RegExp.Pumping.napp_succ":
+   [{"id": "RegExp___Pumping___napp_succ",
+     "data":
+     {"/Automation/#RegExp___Pumping___napp_succ":
+      {"display": "napp_succ",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
+     "address": "/Automation/"}],
+   "RegExp.Pumping.napp_star":
+   [{"id": "RegExp___Pumping___napp_star",
+     "data":
+     {"/Automation/#RegExp___Pumping___napp_star":
+      {"display": "napp_star",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
+     "address": "/Automation/"}],
+   "RegExp.Pumping.napp_plus":
+   [{"id": "RegExp___Pumping___napp_plus",
+     "data":
+     {"/Automation/#RegExp___Pumping___napp_plus":
+      {"display": "napp_plus",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
+     "address": "/Automation/"}],
+   "RegExp.Pumping.napp":
+   [{"id": "RegExp___Pumping___napp",
+     "data":
+     {"/Automation/#RegExp___Pumping___napp":
+      {"display": "napp",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Case Study: Regular Expressions",
+        "The \"Weak\" Pumping Lemma"]}},
      "address": "/Automation/"}],
    "RegExp.ExpMatch.mUnionR":
    [{"id": "RegExp___ExpMatch___mUnionR",
