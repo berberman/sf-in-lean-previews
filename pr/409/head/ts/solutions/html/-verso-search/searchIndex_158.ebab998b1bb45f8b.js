@@ -1,0 +1,1 @@
+window.docContents[158].resolve({"/Sub/#Type-Systems--Sub___-Subtyping--Concepts":{"contents":"We now turn to subtyping, a key feature of - in particular -\nobject-oriented programming languages.\n\n\n\n\n\n\n\n\n\n\n\n","context":"Type Systems\u0009Sub: Subtyping","header":"8.1. Concepts","id":"/Sub/#Type-Systems--Sub___-Subtyping--Concepts"}});

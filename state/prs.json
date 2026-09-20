@@ -47,6 +47,53 @@
       "status": "published",
       "title": "Imp: Ported Rest and Polish Pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/399"
+    },
+    "409": {
+      "base_sha": "1a547d11ba2e21d254fa0f873212cad3eb28a7f1",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "a271b0c98ca4383d279c4f06f35f53afc4bab35d",
+      "preview_path": "pr/409/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35517004051",
+      "status": "published",
+      "title": "Tactics: Missing proof",
+      "url": "https://github.com/plclub/sf-in-lean/pull/409"
     }
   },
   "schema": 3
