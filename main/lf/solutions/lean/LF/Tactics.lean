@@ -116,7 +116,9 @@ example (n m o : Nat)
 
 example (n m o : Nat)
     (h : [n] ++ [m] = List.reverse ([o] ++ [o])) :
-    n = m := by sorry
+    n = m := by
+  injections h₁ _ h₃
+  rw [h₁, h₃]
 
 --  ### Exercise (3 stars): injection_ex3 ⭐⭐⭐
 
@@ -1571,4 +1573,4 @@ theorem anyTrue_eq_anyTrue (α : Type) (test : α → Bool) (l : List α) :
     rw [anyTrue, ih, anyTrue', anyTrue', allTrue]
     rw [Bool.not_and, Bool.not_not]
 
--- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
+-- Source revision: f32f845, committed 2026-09-21 01:00 UTC
