@@ -77,7 +77,8 @@ example (a b c d : Prop) :
     (a → b) → (b → c) → (c → d) → (a → d) := by
   lia
 
---  `lia` can solve many of the cases of our old `Perm3.In` example.
+--  The `lia` tactic can solve many of the cases of our old `Perm3.In`
+--  example.
 
 theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
@@ -291,14 +292,14 @@ theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α)
 --
 --  The tactic simplifies the target (the goal and/or one or more
 --  hypotheses) by repeatedly rewriting it using a set of lemmas. At each
---  step it tries every lemmas in its available set the way `first` would,
+--  step it tries every lemma in its available set the way `first` would,
 --  applies whichever one matches via `rw`, and `repeat`s until no lemma
 --  applies anywhere. Like `repeat`, it fails outright if it never manages
 --  to apply a rewrite ("simp made no progress"), rather than succeeding as
 --  a no-op the way `try` `simp` would.
 --
---  `simp`'s available set of lemmas begins with a default set and can be
---  extended to include theorems labeled `@[simp]`. Indeed, the
+--  The `simp` tactic's available set of lemmas begins with a default set
+--  and can be extended to include theorems labeled `@[simp]`. Indeed, the
 --  characterizing lemmas we've been writing for our definitions all
 --  throughout this book are examples of these *simplification lemmas*, or
 --  *`simp` lemmas* as they're called by Lean programmers, only we have
@@ -350,8 +351,8 @@ end simp_lemmas_example
 --  chapter.
 --
 --  Interestingly, we can see for this example that `simp` used the `Nat`
---  version of `add_zero`, not our own added above, and also pulled in
---  `Nat.add_left_cancel_iff` which is not strictly needed. But the
+--  version of `add_zero`, not our own, added above, and also pulled in
+--  `Nat.add_left_cancel_iff`, which is not strictly needed. But the
 --  combination works, even if it is not minimal.
 --
 --  As with `apply` and `rw`, `simp` can also simplify hypotheses —
@@ -374,16 +375,16 @@ example α x (l₁ l₂ l₃ : List α)
 
 --  If we want to *mutually* simplify everywhere, we can use `simp_all`,
 --  which simplifies in all hypotheses and in the goal at the same time.
---  Tactic `simp_all` is not the same as `simp at *`. The latter simplifies
---  each target *independently*, whereas `simp_all` additionally lets the
---  (simplified) hypotheses simplify each other and the goal, iterating to
---  a joint fixpoint.
+--  The tactic `simp_all` is not the same as `simp at *`. The latter
+--  simplifies each target *independently*, whereas `simp_all` additionally
+--  lets the (simplified) hypotheses simplify each other and the goal,
+--  iterating to a joint fixpoint.
 --
 --  Here's an example that illustrates the difference:
 
 sf_expect_failure_in
   example (a b : Nat) (h1 : a = 0) (h2 : a + b = 5) : b = 5 := by
-      simp at *
+    simp at *
 
 --  This fails with:
 
@@ -393,7 +394,7 @@ sf_expect_failure_in
 --  But `simp_all` closes the goal:
 
 example (a b : Nat) (h1 : a = 0) (h2 : a + b = 5) : b = 5 := by
-    simp_all
+  simp_all
 
 --  We can dramatically simplify our `Perm3_In_shortest` theorem using
 --  `simp_all`:
@@ -557,30 +558,30 @@ namespace RegExp
 --  We can easily translate this intuition into a set of rules, where we
 --  write `s =~ re` to say that `re` matches `s`:
 --
---      ─────────────── (mEmpty)
---      [] =~ EmptyStr
+--              ─────────────── (mEmpty)
+--              [] =~ EmptyStr
 --
---      ─────────────── (mChar)
---      [x] =~ (Char x)
+--              ─────────────── (mChar)
+--              [x] =~ (Char x)
 --
---      s₁ =~ re₁     s₂ =~ re₂
---      ─────────────────────────── (mApp)
---      (s₁ ++ s₂) =~ (App re₁ re₂)
+--          s₁ =~ re₁     s₂ =~ re₂
+--        ─────────────────────────── (mApp)
+--        (s₁ ++ s₂) =~ (App re₁ re₂)
 --
---      s₁ =~ re₁
---      ───────────────────── (mUnionL)
---      s₁ =~ (Union re₁ re₂)
+--                 s₁ =~ re₁
+--          ───────────────────── (mUnionL)
+--          s₁ =~ (Union re₁ re₂)
 --
---      s₂ =~ re₂
---      ───────────────────── (mUnionR)
---      s₂ =~ (Union re₁ re₂)
+--                 s₂ =~ re₂
+--          ───────────────────── (mUnionR)
+--          s₂ =~ (Union re₁ re₂)
 --
---      ──────────────── (mStar0)
---      [] =~ (Star re)
+--            ──────────────── (mStar0)
+--            [] =~ (Star re)
 --
 --      s₁ =~ re     s₂ =~ (Star re)
 --      ──────────────────────────── (mStarApp)
---      (s₁ ++ s₂) =~ (Star re)
+--        (s₁ ++ s₂) =~ (Star re)
 --
 --  This directly corresponds to the following inductive definition:
 
@@ -1090,7 +1091,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
 
---  ### The (Strong) Pumping Lemma
+--  ### The "Strong" Pumping Lemma
 
 --  ### Exercise (5 stars): strong_pumping (Optional) ⭐⭐⭐⭐⭐
 
@@ -1130,4 +1131,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: 26f47c2, committed 2026-09-21 15:05 UTC
+-- Source revision: cb9219e, committed 2026-09-21 17:08 UTC

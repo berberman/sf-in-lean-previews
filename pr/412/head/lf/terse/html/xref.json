@@ -2995,11 +2995,11 @@
         "shortTitle": null,
         "number": "4"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-_LPAR_Strong_RPAR_-Pumping-Lemma":
+   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-___Strong___-Pumping-Lemma":
    [{"id":
-     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-_LPAR_Strong_RPAR_-Pumping-Lemma",
+     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-___Strong___-Pumping-Lemma",
      "data":
-     {"title": "The (Strong) Pumping Lemma",
+     {"title": "The \"Strong\" Pumping Lemma",
       "shortTitle": null,
       "sectionNum": "10.5.5.",
       "searchPriority": 50,
@@ -3011,7 +3011,7 @@
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
-       {"title": "The (Strong) Pumping Lemma",
+       {"title": "The \"Strong\" Pumping Lemma",
         "shortTitle": null,
         "number": "5"}]},
      "address": "/Automation/"}],

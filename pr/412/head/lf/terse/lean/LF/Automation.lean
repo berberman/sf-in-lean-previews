@@ -49,8 +49,8 @@ example (a b c d : Prop) :
     (a → b) → (b → c) → (c → d) → (a → d) := by
   lia
 
---  `lia` can solve many of the cases of our old `Perm3.In`
---  example.
+--  The `lia` tactic can solve many of the cases of our old
+--  `Perm3.In` example.
 
 theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
@@ -80,7 +80,7 @@ example (b c : Bool) : (b && c) = (c && b) := by
 
 --  ### The `try` Combinator
 
---  The `try` combinator allows tactics to fail.
+--  The `try` combinator swallows a tactic's failure.
 
 example {a : Prop} (h : a) : a := by
   try rfl -- `rfl` would fail here, but `try` swallows the failure...
@@ -162,7 +162,7 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
     -- last repetition where `left; rfl` succeeds
     try right
 
---  `repeat` can loop forever.
+--  The `repeat` combinator can loop forever.
 
 sf_expect_failure_in
   example (m n : Nat) : m + n = n + m := by
@@ -209,12 +209,12 @@ theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α)
 --  more hypotheses) by repeatedly rewriting it using a set
 --  of lemmas.
 --
---  `simp`'s available set of lemmas begins with a default
---  set and can be extended to include theorems labeled
---  `@[simp]`. Indeed, the characterizing lemmas we've been
---  using for rewriting are good ones to give to `simp`,
---  which is why they are also called *simplification
---  lemmas*.
+--  The `simp` tactic's available set of lemmas begins with
+--  a default set and can be extended to include theorems
+--  labeled `@[simp]`. Indeed, the characterizing lemmas
+--  we've been using for rewriting are good ones to give to
+--  `simp`, which is why they are also called
+--  *simplification lemmas*.
 
 namespace simp_lemmas_example
 
@@ -233,7 +233,8 @@ theorem add_succ_nested (n m : Nat) :
     n + (m + 1 + 1) = (n + m + 1) + 1 := by
   simp
 
---  `simp only` uses only the provided theorems:
+--  Writing `simp only` applies `simp` with only the
+--  provided theorems:
 
 theorem add_succ_nested_2 (n m : Nat) :
     n + (m + 1 + 1) = (n + m + 1) + 1 := by
@@ -278,7 +279,7 @@ example α x (l₁ l₂ l₃ : List α)
 
 sf_expect_failure_in
   example (a b : Nat) (h1 : a = 0) (h2 : a + b = 5) : b = 5 := by
-      simp at *
+    simp at *
 
 --  This fails with:
 
@@ -288,7 +289,7 @@ sf_expect_failure_in
 --  But `simp_all` closes the goal:
 
 example (a b : Nat) (h1 : a = 0) (h2 : a + b = 5) : b = 5 := by
-    simp_all
+  simp_all
 
 --  We can dramatically simplify our `Perm3_In_shortest`
 --  theorem using `simp_all`:
@@ -398,31 +399,31 @@ namespace RegExp
 --  We can easily translate this intuition into a set of
 --  rules, where we write `s =~ re` to say that `re` matches
 --  `s`:
-
---      ─────────────── (mEmpty)
---      [] =~ EmptyStr
 --
---      ─────────────── (mChar)
---      [x] =~ (Char x)
+--              ─────────────── (mEmpty)
+--              [] =~ EmptyStr
 --
---      s₁ =~ re₁     s₂ =~ re₂
---      ─────────────────────────── (mApp)
---      (s₁ ++ s₂) =~ (App re₁ re₂)
+--              ─────────────── (mChar)
+--              [x] =~ (Char x)
 --
---      s₁ =~ re₁
---      ───────────────────── (mUnionL)
---      s₁ =~ (Union re₁ re₂)
+--          s₁ =~ re₁     s₂ =~ re₂
+--        ─────────────────────────── (mApp)
+--        (s₁ ++ s₂) =~ (App re₁ re₂)
 --
---      s₂ =~ re₂
---      ───────────────────── (mUnionR)
---      s₂ =~ (Union re₁ re₂)
+--                 s₁ =~ re₁
+--          ───────────────────── (mUnionL)
+--          s₁ =~ (Union re₁ re₂)
 --
---      ──────────────── (mStar0)
---      [] =~ (Star re)
+--                 s₂ =~ re₂
+--          ───────────────────── (mUnionR)
+--          s₂ =~ (Union re₁ re₂)
+--
+--            ──────────────── (mStar0)
+--            [] =~ (Star re)
 --
 --      s₁ =~ re     s₂ =~ (Star re)
 --      ──────────────────────────── (mStarApp)
---      (s₁ ++ s₂) =~ (Star re)
+--        (s₁ ++ s₂) =~ (Star re)
 --
 --  This directly corresponds to the following inductive
 --  definition:
@@ -907,7 +908,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
 
---  ### The (Strong) Pumping Lemma
+--  ### The "Strong" Pumping Lemma
 
 --  ### Exercise (5 stars): strong_pumping (Optional) ⭐⭐⭐⭐⭐
 
@@ -950,4 +951,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: 26f47c2, committed 2026-09-21 15:05 UTC
+-- Source revision: cb9219e, committed 2026-09-21 17:08 UTC

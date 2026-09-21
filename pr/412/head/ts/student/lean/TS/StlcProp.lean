@@ -1200,4 +1200,4 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 
 end StlcArith
 
--- Source revision: 26f47c2, committed 2026-09-21 15:05 UTC
+-- Source revision: cb9219e, committed 2026-09-21 17:08 UTC
