@@ -1167,6 +1167,23 @@ theorem symm {α} (l₁ l₂ : List α)
   | trans _ _ ih₁₂ ih₂₃ =>
     exact trans ih₂₃ ih₁₂
 
+--  We pause for a moment to point out that some tactics that accept an
+--  `at` clause can target several locations at once, including the goal,
+--  written using the `⊢` symbol, by listing them together after `at` — for
+--  instance, both `rw` and `dsimp` support this.
+
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
+
+--  Instead of listing specific targets, you can also write `at *` to
+--  target *all* the hypotheses and the goal. Here is another example,
+--  relevant to the next exercise.
+
+example (hIn : x ∈ [1, 2, 3]) : x ∈ [2, 1, 3] := by
+  rw [List.mem_cons, List.mem_cons] at *
+  exact or_left_comm.mp hIn
+
 --  ### Exercise (2 stars): Perm3_In ⭐⭐
 
 --  If you find yourself dealing with deeply nested `cases` in this proof,
@@ -2379,4 +2396,4 @@ theorem pigeonhole_principle' {α : Type} {l₁ l₂ : List α}
     Repeats l₁ :=
   pigeonhole_aux l₁ [] l₂ hin hlen
 
--- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
+-- Source revision: cdbd63d, committed 2026-09-21 21:19 UTC
