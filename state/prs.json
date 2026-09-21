@@ -3,11 +3,48 @@
   "prs": {
     "414": {
       "base_sha": "d819c3722bdd19dad8ad3e2a6e8ba9e9a59f3273",
-      "changed_variants": [],
-      "head_sha": "fe8d6170d3f03004cbeb4d1a8a13a3f2870fe77f",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "4db8ef2d36d5398094cfb550b9041f9a9492369c",
       "preview_path": "pr/414/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35662760314",
+      "status": "published",
       "title": "Up-to-date, working, read-over STLCProp.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/414"
     }
