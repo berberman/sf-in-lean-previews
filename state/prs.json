@@ -47,6 +47,53 @@
       "status": "published",
       "title": "IndProp: Introduce `at *`",
       "url": "https://github.com/plclub/sf-in-lean/pull/411"
+    },
+    "412": {
+      "base_sha": "f32f8455b8e28f8aea693aaf78f28dcc46ea16dd",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "fe69343c307011b036368e45404b9882e4df35fc",
+      "preview_path": "pr/412/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35616565882",
+      "status": "published",
+      "title": "Automation: Improve `simp` narrative",
+      "url": "https://github.com/plclub/sf-in-lean/pull/412"
     }
   },
   "schema": 3
