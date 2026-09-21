@@ -2995,11 +2995,11 @@
         "shortTitle": null,
         "number": "4"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-___Strong___-Pumping-Lemma":
+   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-_LPAR_Strong_RPAR_-Pumping-Lemma":
    [{"id":
-     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-___Strong___-Pumping-Lemma",
+     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-_LPAR_Strong_RPAR_-Pumping-Lemma",
      "data":
-     {"title": "The \"Strong\" Pumping Lemma",
+     {"title": "The (Strong) Pumping Lemma",
       "shortTitle": null,
       "sectionNum": "10.5.5.",
       "searchPriority": 50,
@@ -3011,7 +3011,7 @@
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
-       {"title": "The \"Strong\" Pumping Lemma",
+       {"title": "The (Strong) Pumping Lemma",
         "shortTitle": null,
         "number": "5"}]},
      "address": "/Automation/"}],
@@ -6470,7 +6470,7 @@
        ["Logical Foundations",
         "Automation: More Automation",
         "Case Study: Regular Expressions",
-        "The \"Strong\" Pumping Lemma"]}},
+        "The (Strong) Pumping Lemma"]}},
      "address": "/Automation/"}],
    "RegExp.napp_zero":
    [{"id": "RegExp___napp_zero",
@@ -6788,7 +6788,7 @@
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
-   [{"id": "Reflection___eq-next",
+   [{"id": "Reflection___eq",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -6797,7 +6797,7 @@
       {"display": "eq",
        "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
      "address": "/Typeclasses/"},
-    {"id": "Reflection___eq",
+    {"id": "Reflection___eq-next",
      "data":
      {"/Typeclasses/#Reflection___eq-next":
       {"display": "eq",
@@ -7461,6 +7461,16 @@
         "Tactic Combinators",
         "The  first  Combinator"]}},
      "address": "/Automation/"}],
+   "Perm3_In_almost_shortest":
+   [{"id": "Perm3_In_almost_shortest",
+     "data":
+     {"/Automation/#Perm3_In_almost_shortest":
+      {"display": "Perm3_In_almost_shortest",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "The  simp  Tactic"]}},
+     "address": "/Automation/"}],
    "Perm3.trans":
    [{"id": "Perm3___trans",
      "data":
@@ -7930,6 +7940,17 @@
         "IndProp: Inductively Defined Propositions",
         "Additional Exercises"]}},
      "address": "/IndProp/"}],
+   "Or.inl":
+   [{"id": "Or___inl",
+     "data":
+     {"/Automation/#Or___inl":
+      {"display": "inl",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "The  simp  Tactic",
+        "Idiomatic  simp  Usage"]}},
+     "address": "/Automation/"}],
    "OptionPlayground.Option.some":
    [{"id": "OptionPlayground___Option___some",
      "data":
@@ -12508,7 +12529,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly-next",
+   [{"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -12519,7 +12540,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly",
+    {"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -13959,7 +13980,7 @@
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -13976,7 +13997,7 @@
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
