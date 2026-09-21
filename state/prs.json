@@ -94,6 +94,53 @@
       "status": "published",
       "title": "Automation: Improve `simp` narrative",
       "url": "https://github.com/plclub/sf-in-lean/pull/412"
+    },
+    "413": {
+      "base_sha": "5826f4031f2f5f31b99ce2c9e9adf07abdb4db94",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "7e03451eceba90d7b7ea0c361ede40a86776ce19",
+      "preview_path": "pr/413/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35638321385",
+      "status": "published",
+      "title": "IndProp: Adjust narrative, mention subst in terse",
+      "url": "https://github.com/plclub/sf-in-lean/pull/413"
     }
   },
   "schema": 3
