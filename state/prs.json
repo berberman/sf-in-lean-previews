@@ -1,5 +1,5 @@
 {
-  "main_sha": "f32f8455b8e28f8aea693aaf78f28dcc46ea16dd",
+  "main_sha": "1a547d11ba2e21d254fa0f873212cad3eb28a7f1",
   "prs": {
     "411": {
       "base_sha": "f32f8455b8e28f8aea693aaf78f28dcc46ea16dd",
@@ -48,55 +48,8 @@
       "title": "IndProp: Introduce `at *`",
       "url": "https://github.com/plclub/sf-in-lean/pull/411"
     },
-    "412": {
-      "base_sha": "f32f8455b8e28f8aea693aaf78f28dcc46ea16dd",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "efb990e49fe27a3fe95b910a560cd86865d1d5e7",
-      "preview_path": "pr/412/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35650542452",
-      "status": "published",
-      "title": "Automation: Improve `simp` narrative",
-      "url": "https://github.com/plclub/sf-in-lean/pull/412"
-    },
     "413": {
-      "base_sha": "5826f4031f2f5f31b99ce2c9e9adf07abdb4db94",
+      "base_sha": "8ea0ba100888c7b9caeca7a6850558204f0838dc",
       "changed_variants": [
         {
           "audience": "solutions",
