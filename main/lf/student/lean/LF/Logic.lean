@@ -2034,4 +2034,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   sorry
 
--- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
+-- Source revision: f32f845, committed 2026-09-21 01:00 UTC
