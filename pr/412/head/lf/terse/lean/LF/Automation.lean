@@ -49,6 +49,10 @@ example (a b c d : Prop) :
     (a → b) → (b → c) → (c → d) → (a → d) := by
   lia
 
+example (α : Type) (x : α) (l₁ l₂ l₃ : List α)
+  (h₁ : x ∈ l₁ → x ∈ l₂) (h₂ : x ∈ l₂ → x ∈ l₃) : x ∈ l₁ → x ∈ l₃ := by
+  lia
+
 --  The `lia` tactic can solve many of the cases of our old
 --  `Perm3.In` example.
 
@@ -951,4 +955,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: cb9219e, committed 2026-09-21 17:08 UTC
+-- Source revision: 9f36ec6, committed 2026-09-21 19:01 UTC

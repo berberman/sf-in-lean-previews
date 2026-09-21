@@ -88,9 +88,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "5826f4031f2f5f31b99ce2c9e9adf07abdb4db94",
+      "head_sha": "682e1f57d1e4e4bb3fa3e7fff7d2a1bde161a696",
       "preview_path": "pr/412/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35630110050",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35642211030",
       "status": "published",
       "title": "Automation: Improve `simp` narrative",
       "url": "https://github.com/plclub/sf-in-lean/pull/412"

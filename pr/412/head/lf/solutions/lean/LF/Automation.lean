@@ -54,11 +54,27 @@ theorem Perm3_In_old (α : Type) (x : α) (l₁ l₂ : List α)
 --  - equality (`=` and `≠`) and ordering (`≤` and `<`), and
 --  - the logical connectives `∧`, `∨`, `¬`, and `→`,
 --
---  then invoking `lia` will either solve the goal or fail, meaning that
---  the goal is actually false. If the goal is *not* of this form, `lia`
---  will fail. Note that, when failing, `lia` may mention another tactic,
---  called `grind`. This is another, more powerful tactic that subsumes
---  `lia`, but we will not use it here.
+--  then invoking `lia` will either solve the goal, or fail because the
+--  goal is actually false: within this fragment, `lia` is a complete
+--  decision procedure. `lia` reasons about the goal together with any
+--  hypotheses already in the local context: each hypothesis is used
+--  exactly as if it had been written into the goal as an antecedent with
+--  `→`.
+--
+--  Outside this fragment, `lia` can fail even when the goal is true — for
+--  example, on `n * n ≥ n`, which multiplies two variables together rather
+--  than a constant and a variable. Such a failure only means `lia`
+--  couldn't decide the goal, not that the goal is false. Note that, when
+--  failing, `lia` may mention another tactic, called `grind`. This is
+--  another, more powerful tactic that subsumes `lia`, but we will not use
+--  it here.
+--
+--  Anything in the goal or hypotheses that isn't built from these
+--  arithmetic pieces — including an arbitrary proposition like `x ∈ l` —
+--  `lia` simply treats as an opaque atom. So `lia` can also solve goals
+--  that are purely propositional, with no arithmetic in them at all, as
+--  long as the only way such atoms are combined is with `∧`, `∨`, `¬`, and
+--  `→`.
 
 example (m n o p : Nat) :
     m + n ≤ n + o ∧ o + 3 = p + 3 →
@@ -75,6 +91,10 @@ example (m n p : Nat) :
 
 example (a b c d : Prop) :
     (a → b) → (b → c) → (c → d) → (a → d) := by
+  lia
+
+example (α : Type) (x : α) (l₁ l₂ l₃ : List α)
+  (h₁ : x ∈ l₁ → x ∈ l₂) (h₂ : x ∈ l₂ → x ∈ l₃) : x ∈ l₁ → x ∈ l₃ := by
   lia
 
 --  The `lia` tactic can solve many of the cases of our old `Perm3.In`
@@ -1615,4 +1635,4 @@ theorem palindrome_converse {α : Type} {l : List α} (h : l = l.reverse) : Pal 
 
 end PalConv
 
--- Source revision: cb9219e, committed 2026-09-21 17:08 UTC
+-- Source revision: 9f36ec6, committed 2026-09-21 19:01 UTC
