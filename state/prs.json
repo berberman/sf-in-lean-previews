@@ -1,16 +1,5 @@
 {
   "main_sha": "5c6e6365ea2ca35da73f87e2b8afe26297fb9631",
-  "prs": {
-    "399": {
-      "base_sha": "5c6e6365ea2ca35da73f87e2b8afe26297fb9631",
-      "changed_variants": [],
-      "head_sha": "dabbfb5005292c58529e74651e6f545315f9b8fc",
-      "preview_path": "pr/399/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35545720280",
-      "status": "ci-failed",
-      "title": "Imp: Ported Rest and Polish Pass",
-      "url": "https://github.com/plclub/sf-in-lean/pull/399"
-    }
-  },
+  "prs": {},
   "schema": 3
 }
