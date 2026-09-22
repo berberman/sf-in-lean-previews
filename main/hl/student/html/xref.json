@@ -272,6 +272,24 @@
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
+   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs--Additional-Exercises":
+   [{"id":
+     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "3.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Imp: Simple Imperative Programs",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Reasoning About Imp Programs",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
+     "address": "/Imp/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs":
    [{"id":
      "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs",
@@ -490,37 +508,6 @@
         "shortTitle": null,
         "number": "3"},
        {"title": "Commands", "shortTitle": null, "number": "2"}]},
-     "address": "/Imp/"}],
-   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_--Additional-Exercises":
-   [{"id":
-     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_--Additional-Exercises",
-     "data":
-     {"title": "Additional Exercises",
-      "shortTitle": null,
-      "sectionNum": "3.5.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Imp: Simple Imperative Programs",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Case Study (Optional)", "shortTitle": null, "number": "5"},
-       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
-     "address": "/Imp/"}],
-   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_":
-   [{"id":
-     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_",
-     "data":
-     {"title": "Case Study (Optional)",
-      "shortTitle": null,
-      "sectionNum": "3.5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Imp: Simple Imperative Programs",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Case Study (Optional)", "shortTitle": null, "number": "5"}]},
      "address": "/Imp/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Summary":
    [{"id": "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Summary",
@@ -1649,16 +1636,6 @@
         "Decorated Programs",
         "From Decorated Programs to Formal Proofs"]}},
      "address": "/Hoare2/"}],
-   "realFact":
-   [{"id": "realFact",
-     "data":
-     {"/Imp/#realFact":
-      {"display": "realFact",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
    "quiz5_answer":
    [{"id": "quiz5_answer",
      "data":
@@ -2007,16 +1984,6 @@
         "Proof Rules",
         "Assignment"]}},
      "address": "/Hoare/"}],
-   "guard_false_after_loop":
-   [{"id": "guard_false_after_loop",
-     "data":
-     {"/Imp/#guard_false_after_loop":
-      {"display": "guard_false_after_loop",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
    "fib":
    [{"id": "fib",
      "data":
@@ -2035,66 +2002,6 @@
       {"display": "fact_in_lean",
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
-     "address": "/Imp/"}],
-   "factLoop_preserves_invariant":
-   [{"id": "factLoop_preserves_invariant",
-     "data":
-     {"/Imp/#factLoop_preserves_invariant":
-      {"display": "factLoop_preserves_invariant",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factLoop":
-   [{"id": "factLoop",
-     "data":
-     {"/Imp/#factLoop":
-      {"display": "factLoop",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factCom_correct":
-   [{"id": "factCom_correct",
-     "data":
-     {"/Imp/#factCom_correct":
-      {"display": "factCom_correct",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factCom":
-   [{"id": "factCom",
-     "data":
-     {"/Imp/#factCom":
-      {"display": "factCom",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factBody_preserves_invariant":
-   [{"id": "factBody_preserves_invariant",
-     "data":
-     {"/Imp/#factBody_preserves_invariant":
-      {"display": "factBody_preserves_invariant",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factBody":
-   [{"id": "factBody",
-     "data":
-     {"/Imp/#factBody":
-      {"display": "factBody",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
      "address": "/Imp/"}],
    "fact":
    [{"id": "fact",
@@ -2401,7 +2308,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "_private.HL.Hoare2.0.DCom.Delab.getDCom?":
@@ -2578,7 +2485,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sPlus":
@@ -2589,7 +2496,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sMult":
@@ -2600,7 +2507,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sMinus":
@@ -2611,7 +2518,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sLoad":
@@ -2622,7 +2529,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr":
@@ -2633,7 +2540,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Slang.Bexp.not":
@@ -3655,7 +3562,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Result.sBreak":
@@ -3666,7 +3573,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Result":
@@ -3677,7 +3584,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.whileDo":
@@ -3688,7 +3595,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.skip":
@@ -3699,7 +3606,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.seq":
@@ -3710,7 +3617,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.cond":
@@ -3721,7 +3628,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.brk":
@@ -3732,7 +3639,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.asgn":
@@ -3743,7 +3650,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com":
@@ -3754,7 +3661,7 @@
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "If1.validHoareTriple_def":
@@ -4776,16 +4683,6 @@
         "Imp: Simple Imperative Programs",
         "Evaluating Commands",
         "Operational Semantics"]}},
-     "address": "/Imp/"}],
-   "FactInvariant":
-   [{"id": "FactInvariant",
-     "data":
-     {"/Imp/#FactInvariant":
-      {"display": "FactInvariant",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
      "address": "/Imp/"}],
    "ExamplePrettyAssertions.assertion9":
    [{"id": "ExamplePrettyAssertions___assertion9",
