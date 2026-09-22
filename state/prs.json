@@ -50,11 +50,48 @@
     },
     "416": {
       "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "d5c6fdc3982289658ce297cb8df2bc99977590bc",
       "preview_path": "pr/416/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35761521953",
+      "status": "published",
       "title": "Automation: Narrative improvements",
       "url": "https://github.com/plclub/sf-in-lean/pull/416"
     }
