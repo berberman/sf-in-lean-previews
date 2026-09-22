@@ -1,5 +1,5 @@
 {
-  "main_sha": "1a547d11ba2e21d254fa0f873212cad3eb28a7f1",
+  "main_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
   "prs": {
     "414": {
       "base_sha": "d819c3722bdd19dad8ad3e2a6e8ba9e9a59f3273",
@@ -97,11 +97,48 @@
     },
     "417": {
       "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "3c37c6ee4acc23d0cd4a5c8ee08db96fb67b99c1",
       "preview_path": "pr/417/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35778078211",
+      "status": "published",
       "title": "Automation: autograding directives, exercise visibility",
       "url": "https://github.com/plclub/sf-in-lean/pull/417"
     }

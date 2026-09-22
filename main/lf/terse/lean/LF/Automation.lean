@@ -49,8 +49,12 @@ example (a b c d : Prop) :
     (a → b) → (b → c) → (c → d) → (a → d) := by
   lia
 
---  `lia` can solve many of the cases of our old `Perm3.In`
---  example.
+example (α : Type) (x : α) (l₁ l₂ l₃ : List α)
+  (h₁ : x ∈ l₁ → x ∈ l₂) (h₂ : x ∈ l₂ → x ∈ l₃) : x ∈ l₁ → x ∈ l₃ := by
+  lia
+
+--  The `lia` tactic can solve many of the cases of our old
+--  `Perm3.In` example.
 
 theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
@@ -80,7 +84,7 @@ example (b c : Bool) : (b && c) = (c && b) := by
 
 --  ### The `try` Combinator
 
---  The `try` combinator allows tactics to fail.
+--  The `try` combinator swallows a tactic's failure.
 
 example {a : Prop} (h : a) : a := by
   try rfl -- `rfl` would fail here, but `try` swallows the failure...
@@ -162,7 +166,7 @@ example : 10 ∈ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] := by
     -- last repetition where `left; rfl` succeeds
     try right
 
---  `repeat` can loop forever.
+--  The `repeat` combinator can loop forever.
 
 sf_expect_failure_in
   example (m n : Nat) : m + n = n + m := by
@@ -201,12 +205,20 @@ theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α)
 
 --  ## The `simp` Tactic
 
---  The lemmas we've been using for rewriting are the same
---  ones we'll give to `simp` for it to automatically solve
---  goals involving those theorems.
+--  The `simp` tactic is Lean's *simplifier*. It is one of
+--  the most powerful tools in the language, and it is used
+--  heavily in real Lean developments.
 --
---  We tag theorems with `@[simp]` to add them to the set of
---  rules `simp` considers when simplifying a term.
+--  The tactic simplifies the target (the goal and/or one or
+--  more hypotheses) by repeatedly rewriting it using a set
+--  of lemmas.
+--
+--  The `simp` tactic's available set of lemmas begins with
+--  a default set and can be extended to include theorems
+--  labeled `@[simp]`. Indeed, the characterizing lemmas
+--  we've been using for rewriting are good ones to give to
+--  `simp`, which is why they are also called
+--  *simplification lemmas*.
 
 namespace simp_lemmas_example
 
@@ -225,7 +237,8 @@ theorem add_succ_nested (n m : Nat) :
     n + (m + 1 + 1) = (n + m + 1) + 1 := by
   simp
 
---  `simp only` uses only the provided theorems:
+--  Writing `simp only` applies `simp` with only the
+--  provided theorems:
 
 theorem add_succ_nested_2 (n m : Nat) :
     n + (m + 1 + 1) = (n + m + 1) + 1 := by
@@ -240,14 +253,11 @@ theorem add_succ_nested_3 (n m : Nat) :
 
 end simp_lemmas_example
 
---  `simp` makes our example *much* shorter.
+--  In the InfoView, you will see
 
-theorem Perm3_In_almost_shortest (α : Type) (x : α) (l₁ l₂ : List α)
-    (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
-  induction hPerm <;>
-    first
-    | simp at * <;> lia
-    | lia
+--  Output:
+--    Try this:
+--      [apply] simp only [add_succ, Nat.add_zero, Nat.add_left_cancel_iff]
 
 --  The `simp ... at ...` tactic simplifies in a hypothesis.
 
@@ -257,16 +267,36 @@ example α x (l₁ l₂ l₃ : List α)
     x ∈ l₁ ++ l₃ ∨ x ∈ l₂ := by
   simp at h₁; simp at h₂; simp; lia
 
---  The `simp_all` tactic simplifies in all hypotheses and
---  the goal.
+--  We could equally well have written
 
 example α x (l₁ l₂ l₃ : List α)
     (h₁ : x ∈ l₁ ++ l₂)
     (h₂ : x ∈ l₂ ++ l₃) :
     x ∈ l₁ ++ l₃ ∨ x ∈ l₂ := by
-  simp_all; lia
+  simp at *; lia
 
---  The simplest version of our theorem uses `simp_all`:
+--  If we want to *mutually* simplify everywhere, we can use
+--  `simp_all`, which simplifies in all hypotheses and in
+--  the goal at the same time.
+--
+--  Here's an example that illustrates the difference:
+
+sf_expect_failure_in
+  example (a b : Nat) (h1 : a = 0) (h2 : a + b = 5) : b = 5 := by
+    simp at *
+
+--  This fails with:
+
+--  Output:
+--    `simp` made no progress
+
+--  But `simp_all` closes the goal:
+
+example (a b : Nat) (h1 : a = 0) (h2 : a + b = 5) : b = 5 := by
+  simp_all
+
+--  We can dramatically simplify our `Perm3_In_shortest`
+--  theorem using `simp_all`:
 
 theorem Perm3_In_shortest (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
@@ -373,31 +403,31 @@ namespace RegExp
 --  We can easily translate this intuition into a set of
 --  rules, where we write `s =~ re` to say that `re` matches
 --  `s`:
-
---      ─────────────── (mEmpty)
---      [] =~ EmptyStr
 --
---      ─────────────── (mChar)
---      [x] =~ (Char x)
+--              ─────────────── (mEmpty)
+--              [] =~ EmptyStr
 --
---      s₁ =~ re₁     s₂ =~ re₂
---      ─────────────────────────── (mApp)
---      (s₁ ++ s₂) =~ (App re₁ re₂)
+--              ─────────────── (mChar)
+--              [x] =~ (Char x)
 --
---      s₁ =~ re₁
---      ───────────────────── (mUnionL)
---      s₁ =~ (Union re₁ re₂)
+--          s₁ =~ re₁     s₂ =~ re₂
+--        ─────────────────────────── (mApp)
+--        (s₁ ++ s₂) =~ (App re₁ re₂)
 --
---      s₂ =~ re₂
---      ───────────────────── (mUnionR)
---      s₂ =~ (Union re₁ re₂)
+--                 s₁ =~ re₁
+--          ───────────────────── (mUnionL)
+--          s₁ =~ (Union re₁ re₂)
 --
---      ──────────────── (mStar0)
---      [] =~ (Star re)
+--                 s₂ =~ re₂
+--          ───────────────────── (mUnionR)
+--          s₂ =~ (Union re₁ re₂)
+--
+--            ──────────────── (mStar0)
+--            [] =~ (Star re)
 --
 --      s₁ =~ re     s₂ =~ (Star re)
 --      ──────────────────────────── (mStarApp)
---      (s₁ ++ s₂) =~ (Star re)
+--        (s₁ ++ s₂) =~ (Star re)
 --
 --  This directly corresponds to the following inductive
 --  definition:
@@ -431,9 +461,12 @@ infix:40 " =~ " => ExpMatch
 --  ... is not explicitly reflected in the above definition.
 --  Do we need to add something?
 --
---  (A) Yes, we should add a rule for this. (B) No, one of
---  the other rules already covers this case. (C) No, the
---  *lack* of a rule actually gives us the behavior we want.
+--  (A) Yes, we should add a rule for this.
+--
+--  (B) No, one of the other rules already covers this case.
+--
+--  (C) No, the *lack* of a rule actually gives us the
+--  behavior we want.
 
 --   ----------------------------------------
 
@@ -553,11 +586,10 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
   | mEmpty => simp at hin
   | mChar c => simp only [reChars]; assumption
   | mApp _ _ _ _ ih₁ ih₂ =>
-
   /- Something interesting happens in the `mApp` case.  We obtain
     _two_ induction hypotheses: one that applies when `x` occurs in
-    `s₁` (which is matched by `re₁`), and a second one that applies when `x`
-    occurs in `s₂` (matched by `re₂`). -/
+    `s₁` (which is matched by `re₁`), and a second one that applies
+    when `x` occurs in `s₂` (matched by `re₂`). -/
     sorry
   | mUnionL _ _ ih =>
     simp only [reChars, List.mem_append]; left; exact ih hin
@@ -565,7 +597,6 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     simp only [reChars, List.mem_append]; right; exact ih hin
   | mStar0 => simp at hin
   | mStarApp _ _ _ _ ih₁ ih₂ =>
-
   /- Here again we get two induction hypotheses, and they illustrate
     why we need induction on evidence for `ExpMatch`, rather than
     induction on the regular expression `re`: the latter would only
@@ -587,7 +618,7 @@ theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
 --  example:
 
 sf_expect_failure_in
-  example α (s₁ s₂ : List α) (re : RegExp α) :
+  example (α : Type) (s₁ s₂ : List α) (re : RegExp α) :
       s₁ =~ Star re →
       s₂ =~ Star re →
       s₁ ++ s₂ =~ Star re := by
@@ -652,6 +683,12 @@ theorem star_app α (s₁ s₂ : List α) (re : RegExp α) :
   /- Note that the induction hypothesis `ih₂` on the `mStarApp` case
     mentions an additional premise `Star re'' = Star re`, which
     results from the equality generated by `generalize`. -/
+
+--  Do not confuse `generalize` with the `generalizing`
+--  clause on `induction` introduced in the Tactics chapter.
+--  The `generalizing` clause would not help us here —
+--  `induction` on `s₁ =~ Star re` would still fail because
+--  `Star re` is a compound expression, not a bare variable.
 
 --  ### Exercise (1 star): exp_match_ex2 (Optional) ⭐
 
@@ -882,7 +919,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
       ∀ m, s₁ ++ napp m s₂ ++ s₃ =~ re := by
   sorry
 
---  ### The (Strong) Pumping Lemma
+--  ### The "Strong" Pumping Lemma
 
 --  ### Exercise (5 stars): strong_pumping (Optional) ⭐⭐⭐⭐⭐
 
@@ -925,4 +962,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
+-- Source revision: f2d5baf, committed 2026-09-22 13:03 UTC
