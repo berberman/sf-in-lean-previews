@@ -49,9 +49,9 @@ import SFLCompat
 --  ### States
 
 --  Since we'll want to look variables up to find out their current values,
---  we'll use total maps from the `Typeclasses` chapter. A *machine state*
---  (or just *state*) represents the current values of all variables at
---  some point in the execution of a program.
+--  we'll use total maps from the `Maps` chapter. A *machine state* (or
+--  just *state*) represents the current values of all variables at some
+--  point in the execution of a program.
 --
 --  For simplicity, we assume that the state is defined for *all*
 --  variables, even though any given program is only able to mention a
@@ -80,8 +80,13 @@ inductive Aexp where
   | minus (a₁ a₂ : Aexp)
   | mult (a₁ a₂ : Aexp)
 
+--  <<<<<<< HEAD
+--
 --  The `Bexp` definition is unchanged, except that it now refers to the
---  new `Aexp`.
+--  new `Aexp`. ======= The `Bexp` definition is unchanged, except that it
+--  now refers to the new `Aexp`.
+
+--  90ba887100aa05a137f9792c5a46c0a0147c6074
 
 inductive Bexp where
   | bool (b : Bool)
@@ -379,7 +384,7 @@ end Imp.Delab
 --  The arithmetic and boolean evaluators must now be extended to handle
 --  variables, taking a state `st` as an extra argument. A variable is
 --  looked up in the state with the map-indexing notation `st[x]` from the
---  `Typeclasses` chapter in the Logical Foundations book. For the notation
+--  Typeclasses chapter in the Logical Foundations book. For the notation
 --  to work, we used `open scoped MyGetElem` earlier, which opens only the
 --  scoped items like notation from the module.
 
@@ -573,7 +578,7 @@ def fact_in_lean : Com := imp {
 --  picture, it's sometimes helpful to turn off the notation to see the
 --  parsed structure as a plain term. This can be done with
 --  `set_option pp.notation false` (which we briefly mentioned in the
---  `Typeclasses` chapter) as follows:
+--  Typeclasses chapter) as follows:
 
 #check imp { X := X + 1 }
 
@@ -867,7 +872,7 @@ example : ∅ =[ X := 2; Y := 3 ]=> {Y ↦ 3, X ↦ 2} := by
 
 --  ### Exercise (2 stars): ceval_example₂ ⭐⭐
 
-theorem ceval_example₂ :
+example :
     ∅ =[
       X := 0;
       Y := 1;
@@ -948,7 +953,7 @@ theorem ceval_example₂ :
 --  evaluation be a total function. But it raises a question: is the
 --  relational definition really a partial *function*? Could the same
 --  command, from the same state, evaluate to two different final states?
---  In fact this cannot happen: `Com.EvalR` *is* a partial function.
+--  In fact this cannot happen: `ceval` *is* a partial function.
 
 theorem ceval_deterministic {c : Com} {st st1 st2 : State}
     (e₁ : st =[ c ]=> st1) (e₂ : st =[ c ]=> st2) : st1 = st2 := by
@@ -1007,7 +1012,7 @@ theorem pup_to_2_ceval :
 theorem plus2_spec {st : State} {n : Nat} {st' : State}
     (hx : st[X] = n) (heval : st =[ plus2 ]=> st') :
     st'[X] = n + 2 := by
-  -- Inverting `heval` forces one step of the evaluation relation: since
+  -- Inverting `heval` forces one step of the `ceval` computation: since
   -- `plus2` is an assignment, `st'` must be `st` extended at `X`.
   rw [plus2] at heval
   inversion heval with
@@ -1058,157 +1063,9 @@ theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
 --  prove a theorem `no_whiles_terminating` that says this. Use either
 --  `Com.no_whiles` or `Com.NoWhilesR`, as you prefer.
 
-theorem no_whiles_terminating {c : Com} (st : State) (h : Com.NoWhilesR c) :
-    ∃ st', st =[ ~c ]=> st' := by
+theorem no_whiles_terminating (c : Com) (st : State) (h : Com.NoWhilesR c) :
+    ∃ st', st =[ c ]=> st' := by
   sorry
-
---  ## Case Study (Optional)
-
---  Recall the factorial program (broken up into smaller pieces this time,
---  for convenience of proving things about it).
-
-def factBody : Com := imp {
-  Y := Y * Z;
-  Z := Z - 1
-}
-
-def factLoop : Com := imp {
-  while (Z ≠ 0) {
-    ~factBody
-  }
-}
-
-def factCom : Com := imp {
-  Z := X;
-  Y := 1;
-  ~factLoop
-}
-
---  Here is an alternative "mathematical" definition of the factorial
---  function:
-
-def realFact (n : Nat) : Nat :=
-  match n with
-  | 0 => 1
-  | n' + 1 => (n' + 1) * realFact n'
-
---  We would like to show that they agree -- if we start `factCom` in a
---  state where variable `X` contains some number `n`, then it will
---  terminate in a state where variable `Y` contains the factorial of `n`.
---
---  To show this, we rely on the critical idea of a *loop invariant*.
-
-def FactInvariant (n : Nat) (st : State) : Prop :=
-  st[Y] * realFact st[Z] = realFact n
-
---  We show that the body of the factorial loop preserves the invariant:
-
-theorem factBody_preserves_invariant {st st' : State} {n : Nat}
-    (hinv : FactInvariant n st) (hz : st[Z] ≠ 0)
-    (heval : st =[ ~factBody ]=> st') :
-    FactInvariant n st' := by
-  rw [FactInvariant] at hinv ⊢
-  rw [factBody] at heval
-  inversion heval with
-  | seq _ h₁ h₂ =>
-    inversion h₁ with
-    | asgn hy =>
-      inversion h₂ with
-      | asgn hz' =>
-        subst hy hz'
-        have hyz : Y ≠ Z := by decide
-        have hzy : Z ≠ Y := by decide
-        simp [hyz, hzy]
-        -- Show that `st[Z] = z + 1` for some `z`
-        cases hzz : st[Z] with
-        | zero => contradiction
-        | succ z =>
-          rw [hzz, realFact] at hinv
-          rw [Nat.add_sub_cancel, Nat.mul_assoc]
-          exact hinv
-
---  From this, we can show that the whole loop also preserves the
---  invariant:
-
-theorem factLoop_preserves_invariant {st st' : State} {n : Nat}
-    (hinv : FactInvariant n st) (heval : st =[ ~factLoop ]=> st') :
-    FactInvariant n st' := by
-  generalize heq : factLoop = c at heval
-  induction heval with
-  | whileFalse hb =>
-    -- trivial when the loop doesn't run...
-    exact hinv
-  | @whileTrue st st' st'' b c hb hc hloop ih₁ ih₂ =>
-    -- if the loop does run, we know that `factBody` preserves
-    -- `FactInvariant` -- we just need to assemble the pieces
-    rw [factLoop] at heq
-    injection heq with hb' hc'
-    subst hb' hc'
-    have hz : st[Z] ≠ 0 := by
-      intro hz
-      simp [hz] at hb
-    exact ih₂ (factBody_preserves_invariant hinv hz hc) rfl
-  | skip | asgn | seq | ifTrue | ifFalse => simp [factLoop] at heq
-
---  Next, we show that, for any loop, if the loop terminates, then the
---  condition guarding the loop must be false at the end:
-
-theorem guard_false_after_loop {b : Bexp} {c : Com} {st st' : State}
-    (heval : st =[ while (~b) {~c} ]=> st') :
-    b.eval st' = false := by
-  generalize heq : (imp { while (~b) {~c} }) = cmd at heval
-  induction heval with
-  | whileFalse hb =>
-    injection heq with hb' _
-    subst hb'
-    exact hb
-  | whileTrue _ _ _ _ ih₂ => exact ih₂ heq
-  | skip | asgn | seq | ifTrue | ifFalse => simp at heq
-
---  Finally, we can patch it all together...
-
-theorem factCom_correct {st st' : State} {n : Nat}
-    (hx : st[X] = n) (heval : st =[ ~factCom ]=> st') :
-    st'[Y] = realFact n := by
-  rw [factCom] at heval
-  inversion heval with
-  | seq _ h₁ h₂ =>
-    inversion h₁ with
-    | asgn hz =>
-      inversion h₂ with
-      | seq _ h₃ h₄ =>
-        inversion h₃ with
-        | asgn hy =>
-          subst hz hy
-          -- The invariant is true before the loop runs...
-          have hinv : FactInvariant n (Y →ₜ 1 ; Z →ₜ st[X] ; st) := by
-            have hyz : Y ≠ Z := by decide
-            simp [FactInvariant, hyz, hx]
-          -- ...so when the loop is done running, the invariant
-          -- is maintained
-          have hinv' := factLoop_preserves_invariant hinv h₄
-          -- Finally, if the loop terminated, then `Z` is `0`; so `Y` must be
-          -- factorial of `X`
-          rw [factLoop] at h₄
-          have hz := guard_false_after_loop h₄
-          simp at hz
-          rw [FactInvariant, hz, realFact, Nat.mul_one] at hinv'
-          exact hinv'
-
---  One might wonder whether all this work with poking at states and
---  unfolding definitions could be ameliorated with some more powerful
---  lemmas and/or more uniform reasoning principles... Indeed, this is
---  exactly the point of the Hoare chapters!
-
---  ### Exercise (4 stars): subtract_slowly_spec (Optional) ⭐⭐⭐⭐
-
---  Prove a specification for `subtract_slowly`, using the above
---  specification of `factCom` and the invariant below as guides.
-
-def SsInvariant (n z : Nat) (st : State) : Prop :=
-  st[Z] - st[X] = z - n
-
---  FILL IN HERE
 
 --  ### Additional Exercises
 
@@ -1254,11 +1111,11 @@ def SsInvariant (n z : Nat) (st : State) : Prop :=
 namespace StackCompiler
 
 inductive Sinstr : Type where
-  | sPush (n : Nat)
-  | sLoad (x : String)
-  | sPlus
-  | sMinus
-  | sMult
+| sPush (n : Nat)
+| sLoad (x : String)
+| sPlus
+| sMinus
+| sMult
 
 open Sinstr
 
@@ -1277,13 +1134,14 @@ open Sinstr
 
 def sExecute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat :=
   sorry
+                                        -- Bad state: skip
 
 --  FILL IN HERE
 
-theorem sExecute1 : sExecute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
+example : sExecute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
   sorry
 
-theorem sExecute2 : sExecute {X ↦ 3} [3, 4] [sPush 4, sLoad X, sMult, sPlus] = [15, 4] := by
+example : sExecute {X ↦ 3} [3, 4] [sPush 4, sLoad X, sMult, sPlus] = [15, 4] := by
   sorry
 
 --  Next, write a function that compiles an `Aexp` into a stack machine
@@ -1298,7 +1156,7 @@ def sCompile (a : Aexp) : List Sinstr :=
 --  After you've defined `sCompile`, prove the following to test that it
 --  works.
 
-theorem sCompile1 : sCompile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, sMinus] := by
+example : sCompile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, sMinus] := by
   sorry
 
 --  ### Exercise (3 stars): execute_app ⭐⭐⭐
@@ -1319,13 +1177,13 @@ theorem execute_app (st : State) (p₁ p₂ : List Sinstr) (stack : List Nat) :
 --  `sCompile` could be simplified.
 
 theorem sCompile_correct_aux (st : State) (a : Aexp) (stack : List Nat) :
-    sExecute st stack (sCompile a) = Aexp.eval st a :: stack := by
+  sExecute st stack (sCompile a) = Aexp.eval st a :: stack := by
   sorry
 
 --  The main theorem should be a very easy corollary of that lemma.
 
 theorem sCompile_correct (st : State) (a : Aexp) :
-    sExecute st [] (sCompile a) = [Aexp.eval st a] := by
+  sExecute st [] (sCompile a) = [ Aexp.eval st a ] := by
   sorry
 
 end StackCompiler
@@ -1333,25 +1191,25 @@ end StackCompiler
 --  ### Exercise (3 stars): short_circuit (Optional) ⭐⭐⭐
 
 --  Most modern programming languages use a "short-circuit" evaluation rule
---  for boolean `and`: to evaluate `Bexp.and b₁ b₂`, first evaluate `b₁`.
+--  for boolean `and`: to evaluate `BExp.and b₁ b₂`, first evaluate `b₁`.
 --  If it evaluates to `false`, then the entire `and` expression evaluates
 --  to `false` immediately, without evaluating `b₂`. Otherwise, `b₂` is
 --  evaluated to determine the result of the `and` expression.
 --
---  Write an alternate version of `Bexp.eval` that performs short-circuit
---  evaluation of `Bexp.and` in this manner, and prove that it is
---  equivalent to `Bexp.eval`. (N.b. This is only true because expression
---  evaluation in Imp is rather simple. In a bigger language where
---  evaluating an expression might diverge, the short-circuiting `and`
---  would *not* be equivalent to the original, since it would make more
---  programs terminate.)
+--  Write an alternate version of `BExp.eval` that performs short-circuit
+--  evaluation of `BAnd` in this manner, and prove that it is equivalent to
+--  `BExp.eval`. (N.b. This is only true because expression evaluation in
+--  Imp is rather simple. In a bigger language where evaluating an
+--  expression might diverge, the short-circuiting `and` would *not* be
+--  equivalent to the original, since it would make more programs
+--  terminate.)
 
 def Bexp.evalSC (st : State) (b : Bexp) : Bool := sorry
 
 --  FILL IN HERE
 
-theorem Bexp.eval_eq_evalSC (st : State) (b : Bexp) :
-    b.eval st = b.evalSC st := by
+theorem Bexp.eval_eq_evalSc (st : State) (b : Bexp) :
+  b.eval st = b.evalSC st := by
   sorry
 
 --  ### Exercise (3 stars): break_imp (Optional) ⭐⭐⭐
@@ -1469,8 +1327,8 @@ open Result
 --  - If the command is an assignment, then we update the binding for that
 --    variable in the state accordingly and signal that execution can
 --    continue normally.
---  - If the command is of the form `if (b) {c₁} else {c₂}`, then the state
---    is updated as in the original semantics of Imp, except that we also
+--  - If the command is of the form `if (b) {c₁} {c₂}`, then the state is
+--    updated as in the original semantics of Imp, except that we also
 --    propagate the signal from the execution of whichever branch was
 --    taken.
 --  - If the command is a sequence `c₁ ; c₂`, we first execute `c₁`. If
@@ -1510,9 +1368,9 @@ theorem while_continue {b : Bexp} {c : Com} {st st' : State} {s : Result}
   sorry
 
 theorem while_stops_on_break {b : Bexp} {c : Com} {st st' : State}
-    (h₁ : b.eval st = true)
-    (h₂ : st =[ imp { ~c } ]=> st' // sBreak) :
-    st =[ imp { while (~b) {~c} } ]=> st' // sContinue := by
+  (h₁ : b.eval st = true)
+  (h₂ : st =[ imp { c } ]=> st' // sBreak) :
+  st =[ imp { while (b) {c} } ]=> st' // sContinue := by
   sorry
 
 theorem seq_continue {c₁ c₂ : Com} {st st' st'' : State}
@@ -1548,10 +1406,10 @@ end Imp.Break
 
 --  ### Exercise (4 stars): add_for_loop (Optional) ⭐⭐⭐⭐
 
---  Add C-style `for` loops to the language of commands, update the
---  `Com.EvalR` definition to define the semantics of `for` loops, and add
---  cases for `for` loops as needed so that all the proofs in this file are
---  accepted by Lean.
+--  Add C-style `for` loops to the language of commands, update the `ceval`
+--  definition to define the semantics of `for` loops, and add cases for
+--  `for` loops as needed so that all the proofs in this file are accepted
+--  by Rocq.
 --
 --  A `for` loop should be parameterized by (a) a statement executed
 --  initially, (b) a test that is run on each iteration of the loop to
@@ -1561,4 +1419,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: d819c37, committed 2026-09-21 21:31 UTC
+-- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
