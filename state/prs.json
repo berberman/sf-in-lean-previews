@@ -94,6 +94,16 @@
       "status": "published",
       "title": "Automation: Narrative improvements",
       "url": "https://github.com/plclub/sf-in-lean/pull/416"
+    },
+    "417": {
+      "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
+      "changed_variants": [],
+      "head_sha": "3c37c6ee4acc23d0cd4a5c8ee08db96fb67b99c1",
+      "preview_path": "pr/417/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Automation: autograding directives, exercise visibility",
+      "url": "https://github.com/plclub/sf-in-lean/pull/417"
     }
   },
   "schema": 3
