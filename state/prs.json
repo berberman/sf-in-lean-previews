@@ -141,6 +141,16 @@
       "status": "published",
       "title": "Automation: autograding directives, exercise visibility",
       "url": "https://github.com/plclub/sf-in-lean/pull/417"
+    },
+    "418": {
+      "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
+      "changed_variants": [],
+      "head_sha": "73f995e5369fd94354158a4578d44eb7eb2280fa",
+      "preview_path": "pr/418/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Add cross-book chapter references",
+      "url": "https://github.com/plclub/sf-in-lean/pull/418"
     }
   },
   "schema": 3
