@@ -56,95 +56,6 @@
     <link rel="stylesheet" href="-verso-data/tippy-border.css">
     <link rel="stylesheet" href="-verso-data/katex/katex.css">
     <style>
-.exercise {
-  margin: 1.2em 0;
-  padding: 0.6em 1em;
-  border-left: 3px solid #a00;
-  background: #fdf8ee;
-}
-.exercise-header {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.5em;
-}
-.exercise-header .exercise-label,
-.exercise-header .exercise-stars,
-.exercise-header .exercise-name,
-.exercise-header .exercise-level {
-  font-family: inherit;
-}
-.exercise-stars { margin: 0 0.5em; color: #c08000; }
-.exercise-name  {
-  font-family: var(--verso-code-font-family);
-  font-style: italic;
-  color: #555;
-}
-.exercise-level {
-  margin-left: 0.5em;
-  font-weight: 700;
-  color: #a00;
-}
-</style><style>
-div.sf-quote {
-  font-style: italic;
-  margin: 1em 0;
-}
-</style><style>
-div.sf-quiz {
-  margin: 1em 0;
-  padding: 0.4em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 2px;
-}
-div.sf-quiz > .sf-quiz-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.4em;
-}
-</style><style>
-details.sf-quiz-solution {
-  margin: 0.6em 0;
-}
-details.sf-quiz-solution > summary {
-  cursor: pointer;
-  display: inline-block;
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  font-size: 0.85em;
-  padding: 0.2em 0.7em;
-  border: 1px solid var(--sf-rule, #ccc);
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.04);
-  user-select: none;
-}
-details.sf-quiz-solution[open] > summary {
-  margin-bottom: 0.5em;
-}
-details.sf-quiz-solution > .sf-quiz-solution-body {
-  padding: 0.2em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-}
-</style><style>
-/* +centered display: center the whole block as a rigid unit, so multi-line
-   ASCII art (e.g. inference rules) keeps its internal alignment -- unlike
-   text-align: center, which would center each line independently and
-   misalign the premises/bar/conclusion. */
-.sf-display-centered {
-  margin: 1em 0;
-  display: flex;
-  justify-content: center;
-}
-.sf-display-centered pre {
-  margin: 0;
-  overflow-x: auto;
-  width: fit-content;
-}
-.sf-display-centered pre code {
-  font-family: var(--verso-code-font-family, monospace);
-  white-space: pre;
-}
-</style><style>
 /* A display is set off vertically and indented a few characters from the left
    margin — not flush left, not centered — the way a textbook indents a displayed
    line. */
@@ -918,6 +829,61 @@ details.sf-quiz-solution > .sf-quiz-solution-body {
   opacity: 0.5;
 }
 </style><style>
+table.tabular {
+  margin: auto;
+  border-spacing: 1rem;
+}
+table.tabular.left-align {
+  margin-right: auto;
+  margin-left: 0;
+}
+table.tabular.center-align {
+  margin: auto;
+}
+table.tabular.right-align {
+  margin-left auto;
+  margin-right: 0;
+}
+table.tabular td, table.tabular th {
+  text-align: left;
+  vertical-align: top;
+}
+table.tabular td > p:first-child, table.tabular th > p:first-child {
+  margin-top: 0;
+}
+table.tabular td > p:last-child, table.tabular th > p:first-child {
+  margin-bottom: 0;
+}
+</style><style>
+.exercise {
+  margin: 1.2em 0;
+  padding: 0.6em 1em;
+  border-left: 3px solid #a00;
+  background: #fdf8ee;
+}
+.exercise-header {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+.exercise-header .exercise-label,
+.exercise-header .exercise-stars,
+.exercise-header .exercise-name,
+.exercise-header .exercise-level {
+  font-family: inherit;
+}
+.exercise-stars { margin: 0 0.5em; color: #c08000; }
+.exercise-name  {
+  font-family: var(--verso-code-font-family);
+  font-style: italic;
+  color: #555;
+}
+.exercise-level {
+  margin-left: 0.5em;
+  font-weight: 700;
+  color: #a00;
+}
+</style><style>
 :root {
   --sf-bg: #fffdf6;
   --sf-text: #1a1208;
@@ -1036,30 +1002,9 @@ blockquote {
   border-left: 3px solid var(--sf-accent);
 }
 </style><style>
-table.tabular {
-  margin: auto;
-  border-spacing: 1rem;
-}
-table.tabular.left-align {
-  margin-right: auto;
-  margin-left: 0;
-}
-table.tabular.center-align {
-  margin: auto;
-}
-table.tabular.right-align {
-  margin-left auto;
-  margin-right: 0;
-}
-table.tabular td, table.tabular th {
-  text-align: left;
-  vertical-align: top;
-}
-table.tabular td > p:first-child, table.tabular th > p:first-child {
-  margin-top: 0;
-}
-table.tabular td > p:last-child, table.tabular th > p:first-child {
-  margin-bottom: 0;
+div.sf-quote {
+  font-style: italic;
+  margin: 1em 0;
 }
 </style><style>
 .marginalia .note {
@@ -1158,6 +1103,19 @@ body {
   margin-right: 0.5em;
 }
 </style><style>
+div.sf-quiz {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+}
+div.sf-quiz > .sf-quiz-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.4em;
+}
+</style><style>
 div.sf-dev-note {
   margin: 1em 0;
   padding: 0.5em 0.9em;
@@ -1173,6 +1131,29 @@ div.sf-dev-note > .sf-dev-note-label {
   letter-spacing: 0.03em;
   color: #7a5800;
   margin-bottom: 0.3em;
+}
+</style><style>
+details.sf-quiz-solution {
+  margin: 0.6em 0;
+}
+details.sf-quiz-solution > summary {
+  cursor: pointer;
+  display: inline-block;
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  font-size: 0.85em;
+  padding: 0.2em 0.7em;
+  border: 1px solid var(--sf-rule, #ccc);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.04);
+  user-select: none;
+}
+details.sf-quiz-solution[open] > summary {
+  margin-bottom: 0.5em;
+}
+details.sf-quiz-solution > .sf-quiz-solution-body {
+  padding: 0.2em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
 }
 </style><style>
 details.sf-details {
@@ -5244,11 +5225,11 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "4"}]},
      "address": "/Automation/"}],
-   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-___Strong___-Pumping-Lemma":
+   "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-_LPAR_Strong_RPAR_-Pumping-Lemma":
    [{"id":
-     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-___Strong___-Pumping-Lemma",
+     "Logical-Foundations--Automation___-More-Automation--Case-Study___-Regular-Expressions--The-_LPAR_Strong_RPAR_-Pumping-Lemma",
      "data":
-     {"title": "The \"Strong\" Pumping Lemma",
+     {"title": "The (Strong) Pumping Lemma",
       "shortTitle": null,
       "sectionNum": "10.5.5.",
       "searchPriority": 50,
@@ -5260,7 +5241,7 @@ window.onload = async () => {
        {"title": "Case Study: Regular Expressions",
         "shortTitle": null,
         "number": "5"},
-       {"title": "The \"Strong\" Pumping Lemma",
+       {"title": "The (Strong) Pumping Lemma",
         "shortTitle": null,
         "number": "5"}]},
      "address": "/Automation/"}],
@@ -8719,7 +8700,7 @@ window.onload = async () => {
        ["Logical Foundations",
         "Automation: More Automation",
         "Case Study: Regular Expressions",
-        "The \"Strong\" Pumping Lemma"]}},
+        "The (Strong) Pumping Lemma"]}},
      "address": "/Automation/"}],
    "RegExp.napp_zero":
    [{"id": "RegExp___napp_zero",
@@ -9710,6 +9691,16 @@ window.onload = async () => {
         "Tactic Combinators",
         "The  first  Combinator"]}},
      "address": "/Automation/"}],
+   "Perm3_In_almost_shortest":
+   [{"id": "Perm3_In_almost_shortest",
+     "data":
+     {"/Automation/#Perm3_In_almost_shortest":
+      {"display": "Perm3_In_almost_shortest",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "The  simp  Tactic"]}},
+     "address": "/Automation/"}],
    "Perm3.trans":
    [{"id": "Perm3___trans",
      "data":
@@ -10179,6 +10170,17 @@ window.onload = async () => {
         "IndProp: Inductively Defined Propositions",
         "Additional Exercises"]}},
      "address": "/IndProp/"}],
+   "Or.inl":
+   [{"id": "Or___inl",
+     "data":
+     {"/Automation/#Or___inl":
+      {"display": "inl",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "The  simp  Tactic",
+        "Idiomatic  simp  Usage"]}},
+     "address": "/Automation/"}],
    "OptionPlayground.Option.some":
    [{"id": "OptionPlayground___Option___some",
      "data":
@@ -14757,7 +14759,7 @@ window.onload = async () => {
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly-next",
+   [{"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -14768,7 +14770,7 @@ window.onload = async () => {
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly",
+    {"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -16208,7 +16210,7 @@ window.onload = async () => {
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"}],
    "CollatzHoldsFor":
-   [{"id": "CollatzHoldsFor-next",
+   [{"id": "CollatzHoldsFor",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -16225,7 +16227,7 @@ window.onload = async () => {
         "Inductively Defined Propositions",
         "Example: The Collatz Conjecture"]}},
      "address": "/IndProp/"},
-    {"id": "CollatzHoldsFor",
+    {"id": "CollatzHoldsFor-next",
      "data":
      {"/IndProp/#CollatzHoldsFor-next":
       {"display": "CollatzHoldsFor",
@@ -16915,7 +16917,7 @@ if (paramName) {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Source revision: f2d5baf, committed 2026-09-22 13:03 UTC</div>
+            Source revision: 1a547d1, committed 2026-09-18 21:25 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>
