@@ -48,53 +48,6 @@
       "title": "Up-to-date, working, read-over STLCProp.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/414"
     },
-    "416": {
-      "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "d5c6fdc3982289658ce297cb8df2bc99977590bc",
-      "preview_path": "pr/416/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35761521953",
-      "status": "published",
-      "title": "Automation: Narrative improvements",
-      "url": "https://github.com/plclub/sf-in-lean/pull/416"
-    },
     "417": {
       "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
       "changed_variants": [
@@ -144,11 +97,48 @@
     },
     "418": {
       "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "73f995e5369fd94354158a4578d44eb7eb2280fa",
       "preview_path": "pr/418/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35784260016",
+      "status": "published",
       "title": "Add cross-book chapter references",
       "url": "https://github.com/plclub/sf-in-lean/pull/418"
     }
