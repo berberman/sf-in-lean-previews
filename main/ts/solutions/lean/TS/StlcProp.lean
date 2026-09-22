@@ -1691,4 +1691,4 @@ end StlcArith
 --      the grader can tell them apart from this chapter's own `progress`
 --      and `preservation`.
 
--- Source revision: d819c37, committed 2026-09-21 21:31 UTC
+-- Source revision: f2d5baf, committed 2026-09-22 13:03 UTC

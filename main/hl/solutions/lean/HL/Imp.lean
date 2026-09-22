@@ -1933,4 +1933,4 @@ end Imp.Break
 --        not just a single name, reads better with hover types (e.g. the
 --        `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
 
--- Source revision: d819c37, committed 2026-09-21 21:31 UTC
+-- Source revision: f2d5baf, committed 2026-09-22 13:03 UTC
