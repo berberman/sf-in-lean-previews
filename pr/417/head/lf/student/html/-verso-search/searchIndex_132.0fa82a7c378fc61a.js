@@ -1,1 +1,0 @@
-window.docContents[132].resolve({"/Typeclasses/#Logical-Foundations--Typeclasses--API-and-Encapsulation":{"contents":"\n\n","context":"Logical Foundations\u0009Typeclasses","header":"11.5. API and Encapsulation","id":"/Typeclasses/#Logical-Foundations--Typeclasses--API-and-Encapsulation"}});

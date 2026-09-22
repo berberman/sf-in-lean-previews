@@ -2025,4 +2025,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   sorry
 
--- Source revision: f2d5baf, committed 2026-09-22 13:03 UTC
+-- Source revision: 570bfd5, committed 2026-09-22 21:52 UTC

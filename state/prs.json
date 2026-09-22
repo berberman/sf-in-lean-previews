@@ -1,5 +1,5 @@
 {
-  "main_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
+  "main_sha": "570bfd5b4de68e670bff40170de901bebfa69e6b",
   "prs": {
     "414": {
       "base_sha": "d819c3722bdd19dad8ad3e2a6e8ba9e9a59f3273",
@@ -47,53 +47,6 @@
       "status": "published",
       "title": "Up-to-date, working, read-over STLCProp.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/414"
-    },
-    "417": {
-      "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "3c37c6ee4acc23d0cd4a5c8ee08db96fb67b99c1",
-      "preview_path": "pr/417/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35778078211",
-      "status": "published",
-      "title": "Automation: autograding directives, exercise visibility",
-      "url": "https://github.com/plclub/sf-in-lean/pull/417"
     },
     "418": {
       "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
