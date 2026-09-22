@@ -47,6 +47,16 @@
       "status": "published",
       "title": "Up-to-date, working, read-over STLCProp.lean",
       "url": "https://github.com/plclub/sf-in-lean/pull/414"
+    },
+    "416": {
+      "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
+      "changed_variants": [],
+      "head_sha": "d5c6fdc3982289658ce297cb8df2bc99977590bc",
+      "preview_path": "pr/416/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Automation: Narrative improvements",
+      "url": "https://github.com/plclub/sf-in-lean/pull/416"
     }
   },
   "schema": 3
