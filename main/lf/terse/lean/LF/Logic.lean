@@ -933,6 +933,13 @@ namespace FunctionTheoremQuiz
 
 end FunctionTheoremQuiz
 
+--  Aside: some tactics, like `rw` and `dsimp`, can list
+--  several locations at once with `at`, including the goal:
+
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
+
 --  ## Working with Decidable Properties
 
 --  We've seen two different ways of expressing logical
@@ -1339,4 +1346,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Source revision: 570bfd5, committed 2026-09-22 21:52 UTC
+-- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
