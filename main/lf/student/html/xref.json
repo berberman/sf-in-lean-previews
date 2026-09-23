@@ -5366,16 +5366,6 @@
         "Tactic Combinators",
         "The  try  Combinator"]}},
      "address": "/Automation/"}],
-   "Perm3_In_better_with_lia_semi":
-   [{"id": "Perm3_In_better_with_lia_semi",
-     "data":
-     {"/Automation/#Perm3_In_better_with_lia_semi":
-      {"display": "Perm3_In_better_with_lia_semi",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Tactic Combinators"]}},
-     "address": "/Automation/"}],
    "Perm3_In_better_with_lia":
    [{"id": "Perm3_In_better_with_lia",
      "data":
