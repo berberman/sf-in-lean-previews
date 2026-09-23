@@ -113,9 +113,12 @@ theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
     . lia -- was right; right; left; assumption
     . lia -- was contradiction
   | swap23 =>
-  /- Here, we solve _all_ goals — and skip the `obtain` — with
-    the <;> tactic combinator, which we saw in the `Induction` chapter. -/
-    rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
+    rw [List.mem_cons, List.mem_cons, List.mem_cons] at *
+    obtain h | h | h | h := hIn
+    . lia -- was left; assumption
+    . lia -- was right; right; left; assumption
+    . lia -- was right; right; assumption
+    . lia -- was contradiction
   | trans _ _ ih₁₂ ih₂₃ =>
     lia -- was apply ih₂₃; apply ih₁₂; apply hIn
 
@@ -129,9 +132,19 @@ theorem Perm3_In_better_with_lia (α : Type) (x : α) (l₁ l₂ : List α)
 example (b c : Bool) : (b && c) = (c && b) := by
   cases b <;> cases c <;> rfl
 
---  This `<;>` is not the only such combinator that Lean has to offer,
---  however. In general, combinators allow us to build tactics out of
---  smaller ones, letting us discharge many similar subgoals at once.
+--  We can use this combinator to further simplify our `Perm3` proof:
+
+theorem Perm3_In_better_with_lia_semi (α : Type) (x : α) (l₁ l₂ : List α)
+    (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
+  induction hPerm with
+  | swap12 =>
+    rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
+  | swap23 =>
+    rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
+  | trans _ _ ih₁₂ ih₂₃ => lia
+
+--  The `<;>` is not the only combinator that Lean has to offer. In
+--  general, combinators allow us to build tactics out of smaller ones.
 --  Getting used to them takes a little energy, but it lets us scale up to
 --  more complex definitions and more interesting properties without
 --  drowning in boring, repetitive detail.
@@ -144,7 +157,7 @@ example (b c : Bool) : (b && c) = (c && b) := by
 --  failing).
 
 example {a : Prop} (h : a) : a := by
-  try rfl -- `rfl` would fail here, but `try` swallows the failure...
+  try rfl -- `rfl` would fail here, but `try` swallows it...
   exact h -- ...so we can still finish some other way.
 
 example : 1 = 1 := by
@@ -169,7 +182,8 @@ example {n} (h : Silly n) : n ≠ 1 := by
 
 example {n} (h : Silly n) : n ≠ 1 := by
   cases h <;> try lia
-  -- `lia` doesn't know that `1 ∈ []` is impossible, but we can use `contradiction`
+  -- `lia` doesn't know that `1 ∈ []` is impossible,
+  -- but we can use `contradiction`
   contradiction
 
 --  We can further simplify our `Perm3.In` example with `try`.
@@ -302,7 +316,7 @@ theorem Perm3_In_better_with_first (α : Type) (x : α) (l₁ l₂ : List α)
     | rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia
     | lia
 
---  Our `Perm3.In` example is getting quite short! But can we do better?
+--  Our `Perm3.In` example is now quite short! Can we still do better?
 
 --  ## The `simp` Tactic
 
@@ -1065,7 +1079,7 @@ theorem weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp 
    sorry
   sorry
 
---  ### Exercise (2 stars): weak_pumping_star_zero (Optional) ⭐⭐
+--  ### Exercise (2 stars): weak_pumping_star_zero ⭐⭐
 
 theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
     (h : (Star re).pumpingConstant ≤ @List.length α []) :
@@ -1075,7 +1089,7 @@ theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
       (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Star re) := by
   sorry
 
---  ### Exercise (5 stars): weak_pumping_star_app (Optional) ⭐⭐⭐⭐⭐
+--  ### Exercise (5 stars): weak_pumping_star_app ⭐⭐⭐⭐⭐
 
 theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
     (h₁ : s₁ =~ re)
@@ -1119,7 +1133,7 @@ theorem weak_pumping {α : Type} {re : RegExp α} {s : List α}
 
 --  ### The "Strong" Pumping Lemma
 
---  ### Exercise (5 stars): strong_pumping (Optional) ⭐⭐⭐⭐⭐
+--  ### Exercise (5 stars): strong_pumping (Advanced, Optional) ⭐⭐⭐⭐⭐
 
 --  Now here is the usual version of the pumping lemma. In addition to
 --  requiring that `s₂ ≠ []`, it also strengthens the result to include the
@@ -1157,4 +1171,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: d819c37, committed 2026-09-21 21:31 UTC
+-- Source revision: 570bfd5, committed 2026-09-22 21:52 UTC

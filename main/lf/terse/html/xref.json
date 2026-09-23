@@ -4601,17 +4601,6 @@
         "Case Study: Regular Expressions",
         "Definitions"]}},
      "address": "/Automation/"}],
-   "RegExp.EmptyStr'":
-   [{"id": "RegExp___EmptyStr___",
-     "data":
-     {"/Automation/#RegExp___EmptyStr___":
-      {"display": "EmptyStr'",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Examples"]}},
-     "address": "/Automation/"}],
    "RegExp.EmptyStr":
    [{"id": "RegExp___EmptyStr",
      "data":
@@ -4995,6 +4984,16 @@
         "Tactic Combinators",
         "The  try  Combinator"]}},
      "address": "/Automation/"}],
+   "Perm3_In_better_with_lia_semi":
+   [{"id": "Perm3_In_better_with_lia_semi",
+     "data":
+     {"/Automation/#Perm3_In_better_with_lia_semi":
+      {"display": "Perm3_In_better_with_lia_semi",
+       "context":
+       ["Logical Foundations",
+        "Automation: More Automation",
+        "Tactic Combinators"]}},
+     "address": "/Automation/"}],
    "Perm3_In_better_with_lia":
    [{"id": "Perm3_In_better_with_lia",
      "data":
@@ -5302,50 +5301,6 @@
         "Inductively Defined Propositions",
         "Example: Transitive Closure"]}},
      "address": "/IndProp/"}],
-   "PalConv.Pal.singleton":
-   [{"id": "PalConv___Pal___singleton",
-     "data":
-     {"/Automation/#PalConv___Pal___singleton":
-      {"display": "singleton",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Palindromes Revisited"]}},
-     "address": "/Automation/"}],
-   "PalConv.Pal.nil":
-   [{"id": "PalConv___Pal___nil",
-     "data":
-     {"/Automation/#PalConv___Pal___nil":
-      {"display": "nil",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Palindromes Revisited"]}},
-     "address": "/Automation/"}],
-   "PalConv.Pal.cons_snoc":
-   [{"id": "PalConv___Pal___cons_snoc",
-     "data":
-     {"/Automation/#PalConv___Pal___cons_snoc":
-      {"display": "cons_snoc",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Palindromes Revisited"]}},
-     "address": "/Automation/"}],
-   "PalConv.Pal":
-   [{"id": "PalConv___Pal",
-     "data":
-     {"/Automation/#PalConv___Pal":
-      {"display": "Pal",
-       "context":
-       ["Logical Foundations",
-        "Automation: More Automation",
-        "Case Study: Regular Expressions",
-        "Palindromes Revisited"]}},
-     "address": "/Automation/"}],
    "NibbleStruct.x3":
    [{"id": "NibbleStruct___x3",
      "data":
