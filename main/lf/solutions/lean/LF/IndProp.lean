@@ -345,8 +345,8 @@ example : AncestorOf .sage .moss := by
   · apply TransGen.step; apply ParentOf.sage_cleo
   · apply TransGen.step; apply ParentOf.cleo_moss
 
---  Note to developers:
---      HIDE: CH: A simple exercise could be nice here?
+--  Note to developers (Chris Henson):
+--      A simple exercise could be nice here?
 
 --  Computing the transitive closure can be undecidable even for a relation
 --  `r` that is decidable (e.g., the `CollatzStep` relation below, whose
@@ -902,6 +902,8 @@ example (n : Nat) (h : Even (n * n)) :
 
 --   ----------------------------------------
 
+--  ### Induction on Evidence
+
 --  The `Even.double` exercise above allows us to easily show that our new
 --  notion of evenness is implied by the two earlier ones. In fact, by
 --  `Nat.even_bool_prop` in the Logic chapter, we already know that those
@@ -925,9 +927,7 @@ sf_expect_failure_in
 --  which states that `Even n'` holds. In other words, what we need here is
 --  precisely the result we are trying to prove, but applied to the smaller
 --  evidence `h'`.
-
---  ### Induction on Evidence
-
+--
 --  If this story feels familiar, it is no coincidence: we encountered
 --  similar problems in the Induction chapter, when trying to use case
 --  analysis to prove results that required induction. And once again the
@@ -1166,6 +1166,23 @@ theorem symm {α} (l₁ l₂ : List α)
   | swap23 => constructor
   | trans _ _ ih₁₂ ih₂₃ =>
     exact trans ih₂₃ ih₁₂
+
+--  We pause for a moment to point out that some tactics that accept an
+--  `at` clause can target several locations at once, including the goal,
+--  written using the `⊢` symbol, by listing them together after `at` — for
+--  instance, both `rw` and `dsimp` support this.
+
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
+
+--  Instead of listing specific targets, you can also write `at *` to
+--  target *all* the hypotheses and the goal. Here is another example,
+--  relevant to the next exercise.
+
+example (hIn : x ∈ [1, 2, 3]) : x ∈ [2, 1, 3] := by
+  rw [List.mem_cons, List.mem_cons] at *
+  exact or_left_comm.mp hIn
 
 --  ### Exercise (2 stars): Perm3_In ⭐⭐
 
@@ -2379,4 +2396,4 @@ theorem pigeonhole_principle' {α : Type} {l₁ l₂ : List α}
     Repeats l₁ :=
   pigeonhole_aux l₁ [] l₂ hin hlen
 
--- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
+-- Source revision: dcf4433, committed 2026-09-24 17:39 UTC

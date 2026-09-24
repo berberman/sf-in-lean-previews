@@ -594,6 +594,10 @@ theorem Even.of_succ_succ (n : Nat) (h : Even (n + 2)) : Even n := by
   subst heq
   exact h₂
 
+--  Note: the `subst` `h` rewrites both the hypotheses and
+--  the goal using equation `h : x = t` from the context,
+--  and then drops `h`.
+--
 --  We've provided a handy tactic called `inversion` that
 --  does the work of our inversion lemma and more besides.
 
@@ -656,6 +660,8 @@ example (n : Nat) (h : Even (n * n)) :
 
 --   ----------------------------------------
 
+--  ### Induction on Evidence
+
 --  Let's try to show that our new notion of evenness
 --  implies our earlier notion (the one based on
 --  `Nat.double`).
@@ -672,9 +678,7 @@ sf_expect_failure_in
 --  In other words, what we need here is precisely the
 --  result we are trying to prove, but applied to the
 --  smaller evidence `h'`.
-
---  ### Induction on Evidence
-
+--
 --  If this story feels familiar, it is no coincidence: we
 --  encountered similar problems in the Induction chapter,
 --  when trying to use case analysis to prove results that
@@ -712,4 +716,4 @@ inductive List.In' {α : Type} (x : α) : List α → Prop
 --  The characterizing lemmas for `∈` are called
 --  `List.mem_nil_iff` and `List.mem_cons`.
 
--- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
+-- Source revision: dcf4433, committed 2026-09-24 17:39 UTC
