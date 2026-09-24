@@ -1230,6 +1230,15 @@ theorem identity {a : Prop} : a → a := fun h => h
 
 --   ----------------------------------------
 
+--  As an aside, some tactics that accept an `at` clause can target several
+--  locations at once, including the goal, written using the `⊢` symbol, by
+--  listing them together after `at` — for instance, both `rw` and `dsimp`
+--  support this.
+
+example (n m : Nat) (h : n + 0 = m) : n = m + 0 := by
+  rw [Nat.add_zero] at h ⊢
+  assumption
+
 --  ## Working with Decidable Properties
 
 --  We've seen two different ways of expressing logical claims in Lean:
@@ -2025,4 +2034,4 @@ theorem cm_peirce : ConsequentiaMirabilis → Peirce := by
 theorem peirce_cm : Peirce → ConsequentiaMirabilis := by
   sorry
 
--- Source revision: 570bfd5, committed 2026-09-22 21:52 UTC
+-- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
