@@ -141,6 +141,16 @@
       "status": "published",
       "title": "Proof Reading changes from the IMP chapter",
       "url": "https://github.com/plclub/sf-in-lean/pull/420"
+    },
+    "422": {
+      "base_sha": "75da4e7ed3323dbc2e42051ed3b96e0e92d69fe4",
+      "changed_variants": [],
+      "head_sha": "5b7305dd428e5693c81107416203fc409a49d18d",
+      "preview_path": "pr/422/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Proof Reading Equiv",
+      "url": "https://github.com/plclub/sf-in-lean/pull/422"
     }
   },
   "schema": 3
