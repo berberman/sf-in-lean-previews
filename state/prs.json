@@ -1,5 +1,5 @@
 {
-  "main_sha": "f71d207199d4aa29fbe34fa25911ea8d30f5b837",
+  "main_sha": "1a547d11ba2e21d254fa0f873212cad3eb28a7f1",
   "prs": {
     "418": {
       "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
@@ -147,10 +147,20 @@
       "changed_variants": [],
       "head_sha": "5b7305dd428e5693c81107416203fc409a49d18d",
       "preview_path": "pr/422/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36029411091",
+      "status": "ci-failed",
       "title": "Proof Reading Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/422"
+    },
+    "423": {
+      "base_sha": "f71d207199d4aa29fbe34fa25911ea8d30f5b837",
+      "changed_variants": [],
+      "head_sha": "d5a25ba16011c02ca82d058db4977daeb43f5096",
+      "preview_path": "pr/423/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Automation: More polish",
+      "url": "https://github.com/plclub/sf-in-lean/pull/423"
     }
   },
   "schema": 3

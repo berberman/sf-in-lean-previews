@@ -1832,6 +1832,305 @@ and its border extension paints the outline triangle with the box's border color
 }
 
 </style><script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
+    function blockedByTippy(elem) {
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
+        } else { // Nothing to show here!
+          return false;
+        }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
+      },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverInfo) {
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
+          });
+        }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
+      });
+  });
+}
+</script>
+    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -2106,6 +2405,24 @@ and its border extension paints the outline triangle with the box's border color
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Preface", "shortTitle": null, "number": "1"}]},
      "address": "/Preface/"}],
+   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs--Additional-Exercises":
+   [{"id":
+     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "3.4.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Imp: Simple Imperative Programs",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Reasoning About Imp Programs",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
+     "address": "/Imp/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs":
    [{"id":
      "Hoare-Logic--Imp___-Simple-Imperative-Programs--Reasoning-About-Imp-Programs",
@@ -2324,37 +2641,6 @@ and its border extension paints the outline triangle with the box's border color
         "shortTitle": null,
         "number": "3"},
        {"title": "Commands", "shortTitle": null, "number": "2"}]},
-     "address": "/Imp/"}],
-   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_--Additional-Exercises":
-   [{"id":
-     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_--Additional-Exercises",
-     "data":
-     {"title": "Additional Exercises",
-      "shortTitle": null,
-      "sectionNum": "3.5.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Imp: Simple Imperative Programs",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Case Study (Optional)", "shortTitle": null, "number": "5"},
-       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
-     "address": "/Imp/"}],
-   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_":
-   [{"id":
-     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_",
-     "data":
-     {"title": "Case Study (Optional)",
-      "shortTitle": null,
-      "sectionNum": "3.5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Imp: Simple Imperative Programs",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Case Study (Optional)", "shortTitle": null, "number": "5"}]},
      "address": "/Imp/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Summary":
    [{"id": "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Summary",
@@ -3526,36 +3812,6 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic", "Equiv: Program Equivalence", "Proving Inequivalence"]}},
      "address": "/Equiv/"}],
-   "ss_preserves_invariant":
-   [{"id": "ss_preserves_invariant",
-     "data":
-     {"/Imp/#ss_preserves_invariant":
-      {"display": "ss_preserves_invariant",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "ss_correct":
-   [{"id": "ss_correct",
-     "data":
-     {"/Imp/#ss_correct":
-      {"display": "ss_correct",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "ss_body_preserves_invariant":
-   [{"id": "ss_body_preserves_invariant",
-     "data":
-     {"/Imp/#ss_body_preserves_invariant":
-      {"display": "ss_body_preserves_invariant",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
    "sqrt_correct":
    [{"id": "sqrt_correct",
      "data":
@@ -3633,16 +3889,6 @@ and its border extension paints the outline triangle with the box's border color
         "Decorated Programs",
         "From Decorated Programs to Formal Proofs"]}},
      "address": "/Hoare2/"}],
-   "realFact":
-   [{"id": "realFact",
-     "data":
-     {"/Imp/#realFact":
-      {"display": "realFact",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
    "quiz5_answer":
    [{"id": "quiz5_answer",
      "data":
@@ -4267,16 +4513,6 @@ and its border extension paints the outline triangle with the box's border color
         "Proof Rules",
         "Assignment"]}},
      "address": "/Hoare/"}],
-   "guard_false_after_loop":
-   [{"id": "guard_false_after_loop",
-     "data":
-     {"/Imp/#guard_false_after_loop":
-      {"display": "guard_false_after_loop",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
    "fib_eqn":
    [{"id": "fib_eqn",
      "data":
@@ -4339,66 +4575,6 @@ and its border extension paints the outline triangle with the box's border color
       {"display": "fact_in_lean",
        "context":
        ["Hoare Logic", "Imp: Simple Imperative Programs", "Commands"]}},
-     "address": "/Imp/"}],
-   "factLoop_preserves_invariant":
-   [{"id": "factLoop_preserves_invariant",
-     "data":
-     {"/Imp/#factLoop_preserves_invariant":
-      {"display": "factLoop_preserves_invariant",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factLoop":
-   [{"id": "factLoop",
-     "data":
-     {"/Imp/#factLoop":
-      {"display": "factLoop",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factCom_correct":
-   [{"id": "factCom_correct",
-     "data":
-     {"/Imp/#factCom_correct":
-      {"display": "factCom_correct",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factCom":
-   [{"id": "factCom",
-     "data":
-     {"/Imp/#factCom":
-      {"display": "factCom",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factBody_preserves_invariant":
-   [{"id": "factBody_preserves_invariant",
-     "data":
-     {"/Imp/#factBody_preserves_invariant":
-      {"display": "factBody_preserves_invariant",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
-   "factBody":
-   [{"id": "factBody",
-     "data":
-     {"/Imp/#factBody":
-      {"display": "factBody",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
      "address": "/Imp/"}],
    "fact":
    [{"id": "fact",
@@ -4523,17 +4699,6 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic", "Equiv: Program Equivalence", "Additional Exercises"]}},
      "address": "/Equiv/"}],
-   "ceval_example₂":
-   [{"id": "ceval_example___",
-     "data":
-     {"/Imp/#ceval_example___":
-      {"display": "ceval_example₂",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Evaluating Commands",
-        "Operational Semantics"]}},
-     "address": "/Imp/"}],
    "ceval_deterministic":
    [{"id": "ceval_deterministic",
      "data":
@@ -4863,7 +5028,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "_private.HL.Hoare2.0.DCom.Delab.getDCom?":
@@ -5081,7 +5246,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sExecute_plus_bad":
@@ -5092,7 +5257,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sExecute_plus":
@@ -5103,7 +5268,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sExecute_nil":
@@ -5114,7 +5279,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sExecute_mult_bad":
@@ -5125,7 +5290,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sExecute_mult":
@@ -5136,7 +5301,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sExecute_minus_bad":
@@ -5147,7 +5312,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sExecute_minus":
@@ -5158,7 +5323,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sExecute_load":
@@ -5169,29 +5334,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
-        "Additional Exercises"]}},
-     "address": "/Imp/"}],
-   "StackCompiler.sExecute2":
-   [{"id": "StackCompiler___sExecute2",
-     "data":
-     {"/Imp/#StackCompiler___sExecute2":
-      {"display": "sExecute2",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
-        "Additional Exercises"]}},
-     "address": "/Imp/"}],
-   "StackCompiler.sExecute1":
-   [{"id": "StackCompiler___sExecute1",
-     "data":
-     {"/Imp/#StackCompiler___sExecute1":
-      {"display": "sExecute1",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sExecute":
@@ -5202,7 +5345,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sCompile_plus":
@@ -5213,7 +5356,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sCompile_num":
@@ -5224,7 +5367,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sCompile_mult":
@@ -5235,7 +5378,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sCompile_minus":
@@ -5246,7 +5389,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sCompile_id":
@@ -5257,7 +5400,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sCompile_correct_aux":
@@ -5268,7 +5411,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sCompile_correct":
@@ -5279,18 +5422,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
-        "Additional Exercises"]}},
-     "address": "/Imp/"}],
-   "StackCompiler.sCompile1":
-   [{"id": "StackCompiler___sCompile1",
-     "data":
-     {"/Imp/#StackCompiler___sCompile1":
-      {"display": "sCompile1",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.sCompile":
@@ -5301,7 +5433,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.execute_app":
@@ -5312,7 +5444,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sPush":
@@ -5323,7 +5455,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sPlus":
@@ -5334,7 +5466,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sMult":
@@ -5345,7 +5477,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sMinus":
@@ -5356,7 +5488,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sLoad":
@@ -5367,7 +5499,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr":
@@ -5378,18 +5510,8 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
-     "address": "/Imp/"}],
-   "SsInvariant":
-   [{"id": "SsInvariant",
-     "data":
-     {"/Imp/#SsInvariant":
-      {"display": "SsInvariant",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
      "address": "/Imp/"}],
    "Slang.Bexp.optimize0plus_test2":
    [{"id": "Slang___Bexp___optimize0plus_test2",
@@ -6720,7 +6842,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.while_continue":
@@ -6731,7 +6853,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.while_break_true":
@@ -6742,7 +6864,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.seq_stops_on_break":
@@ -6753,7 +6875,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.seq_continue":
@@ -6764,7 +6886,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.ceval_deterministic":
@@ -6775,7 +6897,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.break_ignore":
@@ -6786,7 +6908,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Result.sContinue":
@@ -6797,7 +6919,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Result.sBreak":
@@ -6808,7 +6930,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Result":
@@ -6819,7 +6941,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.whileDo":
@@ -6830,7 +6952,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.skip":
@@ -6841,7 +6963,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.seq":
@@ -6852,7 +6974,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.cond":
@@ -6863,7 +6985,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.brk":
@@ -6874,7 +6996,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.asgn":
@@ -6885,7 +7007,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.whileFalse":
@@ -6896,7 +7018,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.whileContinue":
@@ -6907,7 +7029,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.whileBreak":
@@ -6918,7 +7040,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.skip":
@@ -6929,7 +7051,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.seqContinue":
@@ -6940,7 +7062,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.seqBreak":
@@ -6951,7 +7073,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.ifTrue":
@@ -6962,7 +7084,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.ifFalse":
@@ -6973,7 +7095,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.brk":
@@ -6984,7 +7106,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR.asgn":
@@ -6995,7 +7117,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.EvalR":
@@ -7006,7 +7128,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com":
@@ -7017,7 +7139,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "If1.validHoareTriple_def":
@@ -8476,16 +8598,6 @@ and its border extension paints the outline triangle with the box's border color
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
-   "FactInvariant":
-   [{"id": "FactInvariant",
-     "data":
-     {"/Imp/#FactInvariant":
-      {"display": "FactInvariant",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Case Study (Optional)"]}},
-     "address": "/Imp/"}],
    "ExamplePrettyAssertions.assertion9":
    [{"id": "ExamplePrettyAssertions___assertion9",
      "data":
@@ -9891,15 +10003,15 @@ and its border extension paints the outline triangle with the box's border color
         "Expressions With Variables",
         "Evaluation"]}},
      "address": "/Imp/"}],
-   "Bexp.eval_eq_evalSC":
-   [{"id": "Bexp___eval_eq_evalSC",
+   "Bexp.eval_eq_evalSc":
+   [{"id": "Bexp___eval_eq_evalSc",
      "data":
-     {"/Imp/#Bexp___eval_eq_evalSC":
-      {"display": "Bexp.eval_eq_evalSC",
+     {"/Imp/#Bexp___eval_eq_evalSc":
+      {"display": "Bexp.eval_eq_evalSc",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.eval_eq":
@@ -9943,7 +10055,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.evalSC_neq":
@@ -9954,7 +10066,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.evalSC_le":
@@ -9965,7 +10077,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.evalSC_gt":
@@ -9976,7 +10088,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.evalSC_eq":
@@ -9987,7 +10099,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.evalSC_bool":
@@ -9998,7 +10110,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.evalSC_and":
@@ -10009,7 +10121,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.evalSC":
@@ -10020,7 +10132,7 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
+        "Reasoning About Imp Programs",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Bexp.eval":
@@ -10768,305 +10880,6 @@ if (paramName) {
     });
 }
 </script>
-    <script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // The innermost element under the pointer, used to show only the most specific hover
-    let hoverTarget = null;
-    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
-
-    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
-    const visibleTippies = new Set();
-    function blockedByTippy(elem) {
-      for (const ref of visibleTippies) {
-        if (!ref.contains(elem) && !elem.contains(ref)) return true;
-      }
-      return false;
-    }
-
-    // Whether the element's tooltip would have content to show. Content nested in a
-    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
-    // not a tippy instance is currently attached to it.
-    function showsContent(el) {
-      if (!el._tippy) return false;
-      if (el.classList.contains('tactic')) {
-        const toggle = el.querySelector(':scope > input.tactic-toggle');
-        return !!toggle && !toggle.checked;
-      }
-      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
-        !blockedByTactic(el);
-    }
-
-    // The nearest enclosing element whose tooltip has content
-    function innermostShowable(el) {
-      while (el && el.nodeType === Node.ELEMENT_NODE) {
-        if (showsContent(el)) return el;
-        el = el.parentElement;
-      }
-      return null;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-    function hideDescendantTooltips(element) {
-      for (const ref of visibleTippies) {
-        if (ref !== element && element.contains(ref)) {
-          ref._tippy.hide();
-        }
-      }
-    }
-
-    // Renders the documentation for a hover ID from the doc table
-    function docHoverContent(hoverId) {
-      const info = document.createElement('span');
-      info.className = 'hover-info';
-      info.style.display = 'block';
-      const data = versoDocData[hoverId];
-      if (data) {
-        info.innerHTML = data;
-        /* Render docstrings - TODO server-side */
-        if ('undefined' !== typeof marked) {
-          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement('div');
-            rendered.classList.add('docstring');
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-          }
-        }
-      } else {
-        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
-      }
-      return info;
-    }
-
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        const ref = inst.reference;
-        if (ref.className == 'tactic') {
-          const toggle = ref.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
-          if (blockedByTactic(ref)) { return false };
-        } else { // Nothing to show here!
-          return false;
-        }
-        // Show only the most specific hover under the pointer
-        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
-          return false;
-        }
-        hideParentTooltips(ref);
-        hideDescendantTooltips(ref);
-        if (blockedByTippy(ref)) { return false; }
-      },
-      onShown(inst) { visibleTippies.add(inst.reference); },
-      onHidden(inst) { visibleTippies.delete(inst.reference); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          // Messages come from the inline hover-info; documentation comes from the doc
-          // table. An element with both (a message span sharing a documented token's
-          // extent) shows both in one tooltip.
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverInfo) {
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          if (hoverId) {
-            // TODO stop doing an implicit conversion from string to number here
-            content.appendChild(docHoverContent(hoverId));
-          }
-          if (hoverInfo && hoverId) {
-            content.classList.add('mixed');
-          }
-          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (!el._tippy) {
-              tippy(el, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (el._tippy) el._tippy.destroy();
-          });
-        }
-        // The toggle changes which element's tooltip belongs to the pointer's position,
-        // but the pointer stays put, so no hover event announces the change. Show the
-        // right tooltip once the click that flipped the toggle has hidden the old one.
-        setTimeout(() => {
-          if (hoverTarget && hoverTarget.isConnected) {
-            const showable = innermostShowable(hoverTarget);
-            if (showable && showable._tippy) showable._tippy.show();
-          }
-        }, 0);
-      });
-  });
-}
-</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -11109,7 +10922,7 @@ window.onload = async () => {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Source revision: f71d207, committed 2026-09-24 15:25 UTC</div>
+            Source revision: 1a547d1, committed 2026-09-18 21:25 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>
