@@ -564,4 +564,4 @@ def delabTm : Delab := whenPPOption getPPNotation do
 
 end StlcArith
 
--- Source revision: 570bfd5, committed 2026-09-22 21:52 UTC
+-- Source revision: 5c6e636, committed 2026-09-20 21:46 UTC
