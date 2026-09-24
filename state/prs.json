@@ -48,119 +48,15 @@
       "title": "Add cross-book chapter references",
       "url": "https://github.com/plclub/sf-in-lean/pull/418"
     },
-    "419": {
-      "base_sha": "570bfd5b4de68e670bff40170de901bebfa69e6b",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "5fb67aab8cddd0579dcb3f9e222896bf52b76032",
-      "preview_path": "pr/419/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35862847046",
-      "status": "published",
-      "title": "Adding support for EMACS to the proofreading skill.",
-      "url": "https://github.com/plclub/sf-in-lean/pull/419"
-    },
-    "420": {
-      "base_sha": "5fb67aab8cddd0579dcb3f9e222896bf52b76032",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "75da4e7ed3323dbc2e42051ed3b96e0e92d69fe4",
-      "preview_path": "pr/420/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35863047360",
-      "status": "published",
-      "title": "Proof Reading changes from the IMP chapter",
-      "url": "https://github.com/plclub/sf-in-lean/pull/420"
-    },
     "422": {
-      "base_sha": "75da4e7ed3323dbc2e42051ed3b96e0e92d69fe4",
+      "base_sha": "cf51a53afc8809dbc7b81a3a98671c6a687029ca",
       "changed_variants": [],
-      "head_sha": "5b7305dd428e5693c81107416203fc409a49d18d",
+      "head_sha": "84def2c8c9d70c9ea903a347acb09324707139a0",
       "preview_path": "pr/422/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36029411091",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36035240020",
       "status": "ci-failed",
       "title": "Proof Reading Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/422"
-    },
-    "423": {
-      "base_sha": "f71d207199d4aa29fbe34fa25911ea8d30f5b837",
-      "changed_variants": [],
-      "head_sha": "d5a25ba16011c02ca82d058db4977daeb43f5096",
-      "preview_path": "pr/423/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Automation: More polish",
-      "url": "https://github.com/plclub/sf-in-lean/pull/423"
     }
   },
   "schema": 3
