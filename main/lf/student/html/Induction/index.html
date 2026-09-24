@@ -57,95 +57,6 @@
     <link rel="stylesheet" href="-verso-data/tippy-border.css">
     <link rel="stylesheet" href="-verso-data/katex/katex.css">
     <style>
-.exercise {
-  margin: 1.2em 0;
-  padding: 0.6em 1em;
-  border-left: 3px solid #a00;
-  background: #fdf8ee;
-}
-.exercise-header {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.5em;
-}
-.exercise-header .exercise-label,
-.exercise-header .exercise-stars,
-.exercise-header .exercise-name,
-.exercise-header .exercise-level {
-  font-family: inherit;
-}
-.exercise-stars { margin: 0 0.5em; color: #c08000; }
-.exercise-name  {
-  font-family: var(--verso-code-font-family);
-  font-style: italic;
-  color: #555;
-}
-.exercise-level {
-  margin-left: 0.5em;
-  font-weight: 700;
-  color: #a00;
-}
-</style><style>
-div.sf-quote {
-  font-style: italic;
-  margin: 1em 0;
-}
-</style><style>
-div.sf-quiz {
-  margin: 1em 0;
-  padding: 0.4em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 2px;
-}
-div.sf-quiz > .sf-quiz-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.4em;
-}
-</style><style>
-details.sf-quiz-solution {
-  margin: 0.6em 0;
-}
-details.sf-quiz-solution > summary {
-  cursor: pointer;
-  display: inline-block;
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  font-size: 0.85em;
-  padding: 0.2em 0.7em;
-  border: 1px solid var(--sf-rule, #ccc);
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.04);
-  user-select: none;
-}
-details.sf-quiz-solution[open] > summary {
-  margin-bottom: 0.5em;
-}
-details.sf-quiz-solution > .sf-quiz-solution-body {
-  padding: 0.2em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-}
-</style><style>
-/* +centered display: center the whole block as a rigid unit, so multi-line
-   ASCII art (e.g. inference rules) keeps its internal alignment -- unlike
-   text-align: center, which would center each line independently and
-   misalign the premises/bar/conclusion. */
-.sf-display-centered {
-  margin: 1em 0;
-  display: flex;
-  justify-content: center;
-}
-.sf-display-centered pre {
-  margin: 0;
-  overflow-x: auto;
-  width: fit-content;
-}
-.sf-display-centered pre code {
-  font-family: var(--verso-code-font-family, monospace);
-  white-space: pre;
-}
-</style><style>
 /* A display is set off vertically and indented a few characters from the left
    margin — not flush left, not centered — the way a textbook indents a displayed
    line. */
@@ -919,6 +830,61 @@ details.sf-quiz-solution > .sf-quiz-solution-body {
   opacity: 0.5;
 }
 </style><style>
+table.tabular {
+  margin: auto;
+  border-spacing: 1rem;
+}
+table.tabular.left-align {
+  margin-right: auto;
+  margin-left: 0;
+}
+table.tabular.center-align {
+  margin: auto;
+}
+table.tabular.right-align {
+  margin-left auto;
+  margin-right: 0;
+}
+table.tabular td, table.tabular th {
+  text-align: left;
+  vertical-align: top;
+}
+table.tabular td > p:first-child, table.tabular th > p:first-child {
+  margin-top: 0;
+}
+table.tabular td > p:last-child, table.tabular th > p:first-child {
+  margin-bottom: 0;
+}
+</style><style>
+.exercise {
+  margin: 1.2em 0;
+  padding: 0.6em 1em;
+  border-left: 3px solid #a00;
+  background: #fdf8ee;
+}
+.exercise-header {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+.exercise-header .exercise-label,
+.exercise-header .exercise-stars,
+.exercise-header .exercise-name,
+.exercise-header .exercise-level {
+  font-family: inherit;
+}
+.exercise-stars { margin: 0 0.5em; color: #c08000; }
+.exercise-name  {
+  font-family: var(--verso-code-font-family);
+  font-style: italic;
+  color: #555;
+}
+.exercise-level {
+  margin-left: 0.5em;
+  font-weight: 700;
+  color: #a00;
+}
+</style><style>
 :root {
   --sf-bg: #fffdf6;
   --sf-text: #1a1208;
@@ -1037,30 +1003,9 @@ blockquote {
   border-left: 3px solid var(--sf-accent);
 }
 </style><style>
-table.tabular {
-  margin: auto;
-  border-spacing: 1rem;
-}
-table.tabular.left-align {
-  margin-right: auto;
-  margin-left: 0;
-}
-table.tabular.center-align {
-  margin: auto;
-}
-table.tabular.right-align {
-  margin-left auto;
-  margin-right: 0;
-}
-table.tabular td, table.tabular th {
-  text-align: left;
-  vertical-align: top;
-}
-table.tabular td > p:first-child, table.tabular th > p:first-child {
-  margin-top: 0;
-}
-table.tabular td > p:last-child, table.tabular th > p:first-child {
-  margin-bottom: 0;
+div.sf-quote {
+  font-style: italic;
+  margin: 1em 0;
 }
 </style><style>
 .marginalia .note {
@@ -1159,6 +1104,19 @@ body {
   margin-right: 0.5em;
 }
 </style><style>
+div.sf-quiz {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+}
+div.sf-quiz > .sf-quiz-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.4em;
+}
+</style><style>
 div.sf-dev-note {
   margin: 1em 0;
   padding: 0.5em 0.9em;
@@ -1174,6 +1132,29 @@ div.sf-dev-note > .sf-dev-note-label {
   letter-spacing: 0.03em;
   color: #7a5800;
   margin-bottom: 0.3em;
+}
+</style><style>
+details.sf-quiz-solution {
+  margin: 0.6em 0;
+}
+details.sf-quiz-solution > summary {
+  cursor: pointer;
+  display: inline-block;
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  font-size: 0.85em;
+  padding: 0.2em 0.7em;
+  border: 1px solid var(--sf-rule, #ccc);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.04);
+  user-select: none;
+}
+details.sf-quiz-solution[open] > summary {
+  margin-bottom: 0.5em;
+}
+details.sf-quiz-solution > .sf-quiz-solution-body {
+  padding: 0.2em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
 }
 </style><style>
 details.sf-details {
@@ -3136,7 +3117,7 @@ didn't prove its correctness. Now we'll do so.</p>
                   Prove that the following diagram commutes — that is, incrementing a binary number and
   then converting it to a (standard, unary) natural number yields the same result as first converting
   it to a natural number and then incrementing:</p>
-                <div class="sf-display-centered">
+                <div class="sf-display">
                   <pre><code>                      incr
           Bin ------------------------&gt; Bin
            |                             |
@@ -3183,8 +3164,8 @@ make the recursion as simple as possible.</p>
               <p>
                 The opposite direction — starting with a <code class="hl lean inline" data-lean-context="examples"><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a></code>, converting to <code class="hl lean inline" data-lean-context="examples"><a href="Basics/#NatPlayground___Nat" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat" data-verso-hover="137">Nat</span></a></code>,
 then converting back to <code class="hl lean inline" data-lean-context="examples"><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a></code> — turns out to be problematic: the expected "theorem" does not hold.</p>
-              <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.example-35107">example</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-35115">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-35115">:</span><span class="inter-text"> </span><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-35115">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-35125">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-35136">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-35136">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-35127">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-35153">:=</span><span class="inter-text"> </span><span class="has-info error" data-verso-hover="34"><span class="hover-container"><span class="hover-info messages"><code class="verso-message error"><span class="text"></span><span class="text">unsolved goals</span><span class="text">
-</span><span class="text"></span><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.7" data-verso-hover="236">b</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="35">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span></span></span></span></code></span></span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-35156">by</span></span><span class="inter-text">
+              <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.example-35097">example</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-35105">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-35105">:</span><span class="inter-text"> </span><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-35105">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-35115">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-35126">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-35126">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-35117">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-35143">:=</span><span class="inter-text"> </span><span class="has-info error" data-verso-hover="34"><span class="hover-container"><span class="hover-info messages"><code class="verso-message error"><span class="text"></span><span class="text">unsolved goals</span><span class="text">
+</span><span class="text"></span><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.7" data-verso-hover="236">b</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="35">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span></span></span></span></code></span></span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-35146">by</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                 Let's explore why it fails and how to prove a modified
 version of it. We'll start with some lemmas that might seem
@@ -3216,8 +3197,8 @@ chapter.</p>
 </span><span class="unknown token" data-binding=""></span></code></div>
               <p>
                 Let's return to our desired theorem:</p>
-              <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.example-36913">example</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36921">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36921">:</span><span class="inter-text"> </span><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36921">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-36931">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-36942">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-36942">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-36933">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-36959">:=</span><span class="inter-text"> </span><span class="has-info error" data-verso-hover="34"><span class="hover-container"><span class="hover-info messages"><code class="verso-message error"><span class="text"></span><span class="text">unsolved goals</span><span class="text">
-</span><span class="text"></span><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.7" data-verso-hover="236">b</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="35">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span></span></span></span></code></span></span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-36962">by</span></span><span class="inter-text">
+              <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.example-36903">example</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36911">(</span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36911">:</span><span class="inter-text"> </span><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.explicitBinder-36911">)</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Term.typeSpec-36921">:</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-36932">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-36932">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-36923">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-36949">:=</span><span class="inter-text"> </span><span class="has-info error" data-verso-hover="34"><span class="hover-container"><span class="hover-info messages"><code class="verso-message error"><span class="text"></span><span class="text">unsolved goals</span><span class="text">
+</span><span class="text"></span><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.7" data-verso-hover="236">b</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="35">=</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span></span></span></span></code></span></span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-36952">by</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                 The theorem fails because there are some <code class="hl lean inline" data-lean-context="examples"><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a></code>s for which we won't
 necessarily get back to the <em>original</em> <code class="hl lean inline" data-lean-context="examples"><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a></code>, but instead to an
@@ -3261,7 +3242,7 @@ proceed. They won't be graded, but do fill in a few below.</p>
                   Now that we have defined all of our functions and their characterizing lemmas,
 we mark the definitions irreducible as usual. From here on, proofs about these definitions
 should use <code class="hl lean inline" data-lean-context="examples"><span class="keyword token" data-binding="" data-verso-hover="0">rewrite</span></code> or <code class="hl lean inline" data-lean-context="examples"><span class="keyword token" data-binding="" data-verso-hover="4">rw</span></code>, not <code class="hl lean inline" data-lean-context="examples"><span class="keyword token" data-binding="" data-verso-hover="1">rfl</span></code>.</p>
-                <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.attribute-40074">attribute</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Command.attribute-40074">[</span><span class="unknown token" data-binding="">irreducible</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Command.attribute-40074">]</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.normalize" data-verso-hover="386">normalize</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.doubleBin" data-verso-hover="379">doubleBin</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.incr" data-verso-hover="365">incr</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text">
+                <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.attribute-40064">attribute</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Command.attribute-40064">[</span><span class="unknown token" data-binding="">irreducible</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Command.attribute-40064">]</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.normalize" data-verso-hover="386">normalize</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.doubleBin" data-verso-hover="379">doubleBin</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.incr" data-verso-hover="365">incr</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code><p>
                   Finally, prove the main theorem. The inductive cases could be a
 bit tricky.</p>
@@ -3279,12 +3260,12 @@ use of <code class="hl lean inline" data-lean-context="examples"><span class="co
     </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.hygienicLParen-63">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="punctuation bracket token" data-binding="kw-occ-Lean.Parser.Term.paren-63">)</span><span class="inter-text"> </span><span class="punctuation operator token" data-binding="kw-occ-«term_=_»-54">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.normalize" data-verso-hover="386">normalize</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="inter-text"> </span><span class="built-in delim token" data-binding="kw-occ-Lean.Parser.Command.declValSimple-90">:=</span><span class="inter-text"> </span><span class="tactic"><label for="tactic-state-10127633096501506319-93-95-747"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Term.byTactic-93" data-verso-hover="34">by</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-10127633096501506319-93-95-747"><span class="tactic-state"><span class="goal"><span class="hypotheses"><span class="hypothesis"><span class="name"><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span></span><span class="colon">:</span><span class="type"><span class="inter-text"></span><a href="Induction/#NatPlayground___Nat___NatToBin___Bin" title="Definition of example"><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.Bin" data-verso-hover="359">Bin</span></a><span class="inter-text"></span></span></span></span><span class="conclusion"><span class="prefix">⊢ </span><span class="type"><span class="inter-text"></span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.natToBin" data-verso-hover="376">natToBin</span><span class="inter-text"> </span><span class="unknown token" data-binding="">(</span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.binToNat" data-verso-hover="369">binToNat</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span><span class="unknown token" data-binding="">)</span><span class="inter-text"> </span><span class="const token" data-binding="const-Eq" data-verso-hover="35">=</span><span class="inter-text"> </span><span class="const token" data-binding="const-NatPlayground.Nat.NatToBin.normalize" data-verso-hover="386">normalize</span><span class="inter-text"> </span><span class="var token" data-binding="var-_uniq.2" data-verso-hover="236">b</span></span></span></span></span></span><span class="inter-text">
   </span><span class="tactic"><label for="tactic-state-7-98-103-749"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Tactic.tacticSorry-98" data-verso-hover="53">sorry</span></label><input type="checkbox" class="tactic-toggle" id="tactic-state-7-98-103-749"><span class="tactic-state">All goals completed! 🐙</span></span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code></div>
-              <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-42016" data-verso-hover="72">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">NatToBin</span><span class="inter-text">
-</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-42029" data-verso-hover="72">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">NatPlayground.Nat</span><span class="inter-text">
+              <code class="hl lean block" data-lean-context="examples"><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-42006" data-verso-hover="72">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">NatToBin</span><span class="inter-text">
+</span><span class="keyword token" data-binding="kw-occ-Lean.Parser.Command.end-42019" data-verso-hover="72">end</span><span class="inter-text"> </span><span class="unknown token" data-binding="">NatPlayground.Nat</span><span class="inter-text">
 </span><span class="unknown token" data-binding=""></span></code></section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: 570bfd5, committed 2026-09-22 21:52 UTC</div>
+            Source revision: 1a547d1, committed 2026-09-18 21:25 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Basics/#Basics" rel="prev" title="2. Basics: Functional Programming in Lean"><span class="arrow">←</span><span class="where">2. Basics: Functional Programming in Lean</span></a><a class="local-button active" href="UsingLean/#UsingLean" rel="next" title="4. UsingLean: Using the Full Power of a Proof Assistant"><span class="where">4. UsingLean: Using the Full Power of a Proof Assistant</span><span class="arrow">→</span></a></nav>
           </div>
