@@ -88,9 +88,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "73f995e5369fd94354158a4578d44eb7eb2280fa",
+      "head_sha": "8458e9f96af24ff202f8327d5101d2f9926b81b4",
       "preview_path": "pr/418/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/35784260016",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36013566136",
       "status": "published",
       "title": "Add cross-book chapter references",
       "url": "https://github.com/plclub/sf-in-lean/pull/418"

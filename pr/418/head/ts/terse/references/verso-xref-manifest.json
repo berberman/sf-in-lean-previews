@@ -1,0 +1,10 @@
+{"version": 0,
+ "sources":
+ {"lf":
+  {"updated": "2026-09-24:14:40:01.169074000",
+   "updateFrequency": "always",
+   "sources": [{"local": "_out/lf/terse/html/xref.json"}],
+   "shortName": "LF",
+   "root": "../../../lf/terse/html/",
+   "longName": "Logical Foundations"}},
+ "outputDir": "_out/ts/terse/references"}

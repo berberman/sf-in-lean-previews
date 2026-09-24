@@ -1,0 +1,10 @@
+{"version": 0,
+ "sources":
+ {"lf":
+  {"updated": "2026-09-24:14:37:45.719788000",
+   "updateFrequency": "always",
+   "sources": [{"local": "_out/lf/solutions/html/xref.json"}],
+   "shortName": "LF",
+   "root": "../../../lf/solutions/html/",
+   "longName": "Logical Foundations"}},
+ "outputDir": "_out/hl/solutions/references"}

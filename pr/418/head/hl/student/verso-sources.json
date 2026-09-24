@@ -1,0 +1,9 @@
+{"version": 0,
+ "sources":
+ {"lf":
+  {"updateFrequency": "always",
+   "sources": [{"local": "_out/lf/student/html/xref.json"}],
+   "shortName": "LF",
+   "root": "../../../lf/student/html/",
+   "longName": "Logical Foundations"}},
+ "output": "_out/hl/student/references"}
