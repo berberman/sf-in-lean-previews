@@ -1,7 +1,7 @@
 {"version": 0,
  "sources":
  {"lf":
-  {"updated": "2026-09-24:14:38:11.913734000",
+  {"updated": "2026-09-25:03:17:34.454873000",
    "updateFrequency": "always",
    "sources": [{"local": "_out/lf/terse/html/xref.json"}],
    "shortName": "LF",

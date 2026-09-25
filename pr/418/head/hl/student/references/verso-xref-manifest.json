@@ -1,7 +1,7 @@
 {"version": 0,
  "sources":
  {"lf":
-  {"updated": "2026-09-24:14:37:21.670230000",
+  {"updated": "2026-09-25:03:17:00.318859000",
    "updateFrequency": "always",
    "sources": [{"local": "_out/lf/student/html/xref.json"}],
    "shortName": "LF",

@@ -2,7 +2,7 @@
   "main_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
   "prs": {
     "418": {
-      "base_sha": "f2d5bafbde451991cde70bca7ab213adfe00eb42",
+      "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -41,9 +41,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "8458e9f96af24ff202f8327d5101d2f9926b81b4",
+      "head_sha": "b0626dd2f40aab0f14a3c32a7835d35cf621fb08",
       "preview_path": "pr/418/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36013566136",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36089409579",
       "status": "published",
       "title": "Add cross-book chapter references",
       "url": "https://github.com/plclub/sf-in-lean/pull/418"
