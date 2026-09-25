@@ -26,21 +26,21 @@ open scoped MyGetElem
 --  Formally, we will need these lemmas only for terms that are not only
 --  well typed but *closed* — i.e., well typed in the empty context.
 
-theorem canonical_forms_bool (t : Tm) (hT : <{ ∅ ⊢ ~t ⦂ Bool }>) (hv : t.IsValue) :
+theorem canonical_forms_bool (t : Tm) (hτ : <{ ∅ ⊢ ~t ⦂ Bool }>) (hv : t.IsValue) :
     t = <{ true }> ∨ t = <{ false }> := by
   cases hv with
-  | abs x T t₁ => cases hT
+  | abs x τ t₁ => cases hτ
   | tru => left; rfl
   | fls => right; rfl
 
-theorem canonical_forms_fun (t : Tm) (T₁ T₂ : Ty)
-    (hT : <{ ∅ ⊢ ~t ⦂ ~T₁ → ~T₂ }>) (hv : t.IsValue) :
-    ∃ x u, t = <{ λ ~x : ~T₁ . ~u }> := by
+theorem canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty)
+    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ₁ → ~τ₂ }>) (hv : t.IsValue) :
+    ∃ x u, t = <{ λ ~x : ~τ₁ . ~u }> := by
   cases hv with
-  | abs x T t₁ => cases hT with | abs _ _ _ _ _ _ =>
+  | abs x τ t₁ => cases hτ with | abs _ _ _ _ _ _ =>
     exists x, t₁
-  | tru => cases hT
-  | fls => cases hT
+  | tru => cases hτ
+  | fls => cases hτ
 
 --  ## Progress
 
@@ -50,15 +50,15 @@ theorem canonical_forms_fun (t : Tm) (T₁ T₂ : Ty)
 --  progress proof we saw in the Types chapter. We give the proof in
 --  English first, then the formal version.
 --
---  *Proof*: By induction on the derivation of `⊢ t ⦂ T`.
+--  *Proof*: By induction on the derivation of `∅ ⊢ t ⦂ τ`.
 --  - The last rule of the derivation cannot be `HasType.var`, since a
 --    variable is never well typed in an empty context.
 --  - The `HasType.tru`, `HasType.fls`, and `HasType.abs` cases are
 --    trivial, since in each of these cases we can see by inspecting the
 --    rule that `t` is a value.
 --  - If the last rule of the derivation is `HasType.app`, then `t` has the
---    form `t₁ t₂` for some `t₁` and `t₂`, where `⊢ t₁ ⦂ T₂ → T` and
---    `⊢ t₂ ⦂ T₂` for some type `T₂`. The induction hypothesis for the
+--    form `t₁ t₂` for some `t₁` and `t₂`, where `∅ ⊢ t₁ ⦂ τ₂ → τ` and
+--    `∅ ⊢ t₂ ⦂ τ₂` for some type `τ₂`. The induction hypothesis for the
 --    first subderivation says that either `t₁` is a value or else it can
 --    take a reduction step.
 --    - If `t₁` is a value, then consider `t₂`, which by the induction
@@ -79,11 +79,11 @@ theorem canonical_forms_fun (t : Tm) (T₁ T₂ : Ty)
 --    - Otherwise, `t₁` takes a step, and therefore so does `t` (by
 --      `Step.ifStep`).
 
-theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
+theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
     t.IsValue ∨ ∃ t', t ⟶ t' := by
-  generalize hΓ : (∅ : Context) = Γ at hT
-  induction hT with
-  | var Γ x T₁ h =>
+  generalize hΓ : (∅ : Context) = Γ at hτ
+  induction hτ with
+  | var Γ x τ₁ h =>
     subst hΓ
     -- Contradictory: variables cannot be typed in an empty context.
     rw [PartialMap.getElem_empty] at h
@@ -91,14 +91,15 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
   | abs => left; constructor
   | tru => left; constructor
   | fls => left; constructor
-  | app Γ T₁ T₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
+  | app Γ τ₁ τ₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
     -- `t = t₁ t₂`.  Proceed by cases on whether `t₁` is a value or steps.
+    subst hΓ
     right
-    cases ih₁ hΓ with
+    cases ih₁ rfl with
     | inl hv₁ =>
-      cases ih₂ hΓ with
+      cases ih₂ rfl with
       | inl hv₂ =>
-        obtain ⟨x, u, rfl⟩ := canonical_forms_fun t₁ _ _ (hΓ ▸ h₁) hv₁
+        obtain ⟨x, u, rfl⟩ := canonical_forms_fun t₁ _ _ h₁ hv₁
         exists <{ [~x := ~t₂] ~u }>
         constructor
         assumption
@@ -110,11 +111,12 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
       obtain ⟨t₁', h⟩ := hs₁
       exists <{ ~t₁' ~t₂ }>
       constructor <;> assumption
-  | ite Γ t₁ t₂ t₃ T₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
+  | ite Γ t₁ t₂ t₃ τ₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
+    subst hΓ
     right
-    cases ih₁ hΓ with
+    cases ih₁ rfl with
     | inl hv₁ =>
-      cases canonical_forms_bool t₁ (hΓ ▸ h₁) hv₁ with
+      cases canonical_forms_bool t₁ h₁ hv₁ with
       | inl he =>
         subst he
         exists t₂
@@ -134,8 +136,7 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --  Show that progress can also be proved by induction on terms instead of
 --  induction on typing derivations.
 
--- IN PROGRESS
-theorem progress' (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
+theorem progress' (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
     t.IsValue ∨ ∃ t', t ⟶ t' := by
   sorry
 
@@ -160,9 +161,9 @@ theorem progress' (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --    type of `t`. The proof goes by induction on the form of `t` and
 --    requires looking at all the different cases in the definition of
 --    substitution. This time, for the variables case, we discover that we
---    need to deduce from the fact that a term `s` has type S in the empty
---    context the fact that `s` has type S in every context. For this we
---    prove a...
+--    need to deduce from the fact that a term `s` has type `σ` in the
+--    empty context the fact that `s` has type `σ` in every context. For
+--    this we prove a...
 --  - *weakening* lemma, showing that typing is preserved under
 --    "extensions" to the context `Γ`.
 --
@@ -178,21 +179,30 @@ theorem progress' (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 theorem weakening {Γ Γ' : Context} {t : Tm} {τ : Ty}
     (hi : Γ ⊆ Γ') (ht : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
   induction ht generalizing Γ' with
-  | var =>
-      constructor; apply hi; assumption
-  | abs _ _ _ _ _ _ ih =>
-      constructor; apply ih; apply PartialMap.update_subset; assumption
+  | var _ x _ h =>
+    constructor
+    exact hi h
+  | abs _ x _ _ _ _ ih =>
+    constructor
+    apply ih
+    apply PartialMap.update_subset
+    assumption
   | app _ _ _ _ _ _ _ ih₁ ih₂ =>
-      constructor
-      . exact ih₁ hi
-      . exact ih₂ hi
+    constructor
+    · apply ih₁
+      exact hi
+    · apply ih₂
+      exact hi
   | tru => constructor
   | fls => constructor
   | ite _ _ _ _ _ _ _ _ ih₁ ih₂ ih₃ =>
-      constructor
-      . exact ih₁ hi
-      . exact ih₂ hi
-      . exact ih₃ hi
+    constructor
+    · apply ih₁
+      exact hi
+    · apply ih₂
+      exact hi
+    · apply ih₃
+      exact hi
 
 --  Through judicious use of `apply_rules`, we can heavily automate this
 --  proof. The tactic after `with` is applied to every case of the
@@ -208,10 +218,12 @@ theorem weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty}
 
 theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
     <{ ~Γ ⊢ ~t ⦂ ~τ }> := by
-  apply weakening _ ht
-  intro _ _ h
-  rw [PartialMap.getElem_empty] at h
-  contradiction
+  apply weakening (Γ := ∅)
+  -- this is the "manual" way to show that the empty context is a subset of any context:
+  -- show that a 'lookup' in it is impossible.
+  · intros x b contra
+    contradiction
+  · assumption
 
 --  ### The Substitution Lemma
 
@@ -221,53 +233,79 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t �
 --
 --  Formally, the so-called *substitution lemma* says this: Suppose we have
 --  a term `t` with a free variable `x`, and suppose we've assigned a type
---  `T` to `t` under the assumption that `x` has some type `U`. Also,
+--  `τ` to `t` under the assumption that `x` has some type `τ'`. Also,
 --  suppose that we have some other term `v` and that we've shown that `v`
---  has type `U`. Then, since `v` satisfies the assumption we made about
+--  has type `τ'`. Then, since `v` satisfies the assumption we made about
 --  `x` when typing `t`, we can substitute `v` for each of the occurrences
---  of `x` in `t` and obtain a new term that still has type `T`.
+--  of `x` in `t` and obtain a new term that still has type `τ`.
 
--- IN PROGRESS
-theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
-    (t v : Tm) (T : Ty)
-    (hT : <{ ~x ↦ ~U ; ~Γ ⊢ ~t ⦂ ~T }>) (hv : <{ ∅ ⊢ ~v ⦂ ~U }>) :
-    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~T }> := by
-  -- By induction on `t`; in each case we get at the derivation of `hT`.
-  induction t generalizing Γ T with
+theorem substitution_preserves_typing (Γ : Context) (x : String) (τ' : Ty)
+    (t v : Tm) (τ : Ty)
+    (hτ : <{ ~x ↦ ~τ' ; ~Γ ⊢ ~t ⦂ ~τ }>) (hv : <{ ∅ ⊢ ~v ⦂ ~τ' }>) :
+    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~τ }> := by
+  -- By induction on `t`; in each case we get at the derivation of `hτ`.
+  induction t generalizing Γ τ with
   | var y =>
-    cases hT with
+    cases hτ with
     | var _ _ _ h =>
       by_cases hxy : x = y
       · subst hxy
         rw [PartialMap.update_eq] at h
         rw [subst_var_eq]
-        have hUT : U = T := Option.some.inj h
-        subst hUT
-        exact weakening_empty hv
+        have hτ'τ : τ' = τ := by
+          apply Option.some.inj
+          exact h
+        subst hτ'τ
+        apply weakening_empty
+        exact hv
       · rw [PartialMap.update_neq hxy] at h
         rw [subst_var_ne _ _ _ hxy]
-        exact .var _ y _ h
+        constructor
+        exact h
   | app t₁ t₂ ih₁ ih₂ =>
-    cases hT with
-    | app _ _ _ _ _ h₁ h₂ => rw [subst_app]; exact .app _ _ _ _ _ (ih₁ _ _ h₁) (ih₂ _ _ h₂)
-  | abs y S t₁ ih =>
-    cases hT with
+    cases hτ with
+    | app _ _ _ _ _ h₁ h₂ =>
+      rw [subst_app]
+      constructor
+      · apply ih₁
+        exact h₁
+      · apply ih₂
+        exact h₂
+  | abs y σ t₁ ih =>
+    cases hτ with
     | abs _ _ _ _ _ h =>
       by_cases hxy : x = y
       · subst hxy
         rw [subst_abs_eq]
         rw [PartialMap.update_shadow] at h
-        exact .abs _ _ _ _ _ h
+        constructor
+        exact h
       · rw [subst_abs_ne _ _ _ _ _ hxy]
         rw [PartialMap.update_permute (Ne.symm hxy)] at h
-        exact .abs _ _ _ _ _ (ih _ _ h)
-  | tru => cases hT with | tru => rw [subst_tru]; exact .tru _
-  | fls => cases hT with | fls => rw [subst_fls]; exact .fls _
+        constructor
+        apply ih
+        exact h
+  | tru =>
+    cases hτ with
+    | tru =>
+      rw [subst_tru]
+      constructor
+  | fls =>
+    cases hτ with
+    | fls =>
+      rw [subst_fls]
+      constructor
   | ite c t e ihc iht ihe =>
-    cases hT with
+    cases hτ with
     | ite _ _ _ _ _ h₁ h₂ h₃ =>
       rw [subst_ite]
-      exact .ite _ _ _ _ _ (ihc _ _ h₁) (iht _ _ h₂) (ihe _ _ h₃)
+      constructor
+      · apply ihc
+        exact h₁
+      · apply iht
+        exact h₂
+      · apply ihe
+        exact h₃
 
 --  The substitution lemma can be viewed as a kind of "commutation
 --  property." Intuitively, it says that substitution and typing can be
@@ -276,35 +314,38 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
 --  substitution, or we can substitute first and then assign a type to
 --  `[x:=v] t`; the result is the same either way.
 --
---  *Proof*: We show, by induction on `t`, that for all `T` and `Γ`, if
---  `x ↦ U; Γ ⊢ t ⦂ T` and `⊢ v ⦂ U`, then `Γ ⊢ [x:=v]t ⦂ T`.
+--  *Proof*: We show, by induction on `t`, that for all `τ` and `Γ`, if
+--  `x ↦ τ' ; Γ ⊢ t ⦂ τ` and `∅ ⊢ v ⦂ τ'`, then `Γ ⊢ [x:=v]t ⦂ τ`.
 --  - If `t` is a variable there are two cases to consider, depending on
 --    whether `t` is `x` or some other variable.
---    - If `t = x`, then from the fact that `x ↦ U; Γ ⊢ x ⦂ T` we conclude
---      that `U = T`. We must show that `[x:=v]x = v` has type `T` under
---      `Γ`, given the assumption that `v` has type `U = T` under the empty
---      context. This follows from the weakening lemma.
+--    - If `t = x`, then from the fact that `x ↦ τ' ; Γ ⊢ x ⦂ τ` we
+--      conclude that `τ' = τ`. We must show that `[x:=v]x = v` has type
+--      `τ` under `Γ`, given the assumption that `v` has type `τ' = τ`
+--      under the empty context. This follows from the weakening lemma.
 --    - If `t` is some variable `y` that is not equal to `x`, then we need
---      only note that `y` has the same type under `x ↦ U; Γ` as under `Γ`.
+--      only note that `y` has the same type under `x ↦ τ' ; Γ` as under
+--      `Γ`.
 --
---  - If `t` is an abstraction `λy:S. t₀`, then `T = S→T₁` and the IH tells
---    us, for all `Γ'` and `T₀`, that if `x ↦ U; Γ' ⊢ t₀ ⦂ T₀`, then
---    `Γ' ⊢ [x:=v]t₀ ⦂ T₀`. Moreover, by inspecting the typing rules we see
---    it must be the case that `y ↦ S; x ↦ U; Γ ⊢ t₀ ⦂ T₁`.
+--  - If `t` is an abstraction `λy:σ. t₀`, then `τ = σ → τ₁` and the IH
+--    tells us, for all `Γ'` and `τ₀`, that if `x ↦ τ' ; Γ' ⊢ t₀ ⦂ τ₀`,
+--    then `Γ' ⊢ [x:=v]t₀ ⦂ τ₀`. Moreover, by inspecting the typing rules
+--    we see it must be the case that `y ↦ σ ; x ↦ τ' ; Γ ⊢ t₀ ⦂ τ₁`.
 --
 --    The substitution in the conclusion behaves differently depending on
 --    whether `x` and `y` are the same variable.
 --
 --    First, suppose `x = y`. Then, by the definition of substitution,
---    `[x:=v]t = t`, so we just need to show `Γ ⊢ t ⦂ T`. Using
---    `HasType.abs`, we need to show that `y ↦ S; Γ ⊢ t₀ ⦂ T₁`. But we know
---    `y ↦ S; x ↦ U; Γ ⊢ t₀ ⦂ T₁`, and the claim follows since `x = y`.
+--    `[x:=v]t = t`, so we just need to show `Γ ⊢ t ⦂ τ`. Using
+--    `HasType.abs`, we need to show that `y ↦ σ ; Γ ⊢ t₀ ⦂ τ₁`. But we
+--    know `y ↦ σ ; x ↦ τ' ; Γ ⊢ t₀ ⦂ τ₁`, and the claim follows since
+--    `x = y`.
 --
---    Second, suppose `x <> y`. Again, using `HasType.abs`, we need to show
---    that `y ↦ S; Γ ⊢ [x:=v]t₀ ⦂ T₁`. Since `x <> y`, we have
---    `y ↦ S; x ↦ U; Γ = x ↦ U; y ↦ S; Γ`. So we have
---    `x ↦ U; y ↦ S; Γ ⊢ t₀ ⦂ T₁`. Then, the the IH applies (taking
---    `Γ' = y ↦ S; Γ`), giving us `y ↦ S; Γ ⊢ [x:=v]t₀ ⦂ T₁`, as required.
+--    Second, suppose `x ≠ y`. Again, using `HasType.abs`, we need to show
+--    that `y ↦ σ ; Γ ⊢ [x:=v]t₀ ⦂ τ₁`. Since `x ≠ y`, we have
+--    `y ↦ σ ; x ↦ τ' ; Γ = x ↦ τ' ; y ↦ σ ; Γ`. So we have
+--    `x ↦ τ' ; y ↦ σ ; Γ ⊢ t₀ ⦂ τ₁`. Then, the IH applies (taking
+--    `Γ' = y ↦ σ ; Γ`), giving us `y ↦ σ ; Γ ⊢ [x:=v]t₀ ⦂ τ₁`, as
+--    required.
 --
 --  - If `t` is an application `t₁ t₂`, the result follows
 --    straightforwardly from the definition of substitution and the
@@ -313,7 +354,7 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
 --  - The remaining cases are similar to the application case.
 --
 --  One technical subtlety in the statement of the above lemma is that we
---  assume `v` has type `U` in the *empty* context — in other words, we
+--  assume `v` has type `τ'` in the *empty* context — in other words, we
 --  assume `v` is closed. (Since we are using a simple definition of
 --  substitution that is not capture-avoiding, it doesn't make sense to
 --  substitute non-closed terms into other terms. Fortunately, closed terms
@@ -324,69 +365,88 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
 --  Show that substitution*preserves*typing can also be proved by induction
 --  on typing derivations instead of induction on terms.
 
--- IN PROGRESS
-theorem substitution_preserves_typing_from_typing_ind (Γ : Context) (x : String) (U : Ty)
-    (t v : Tm) (T : Ty)
-    (hT : <{ ~x ↦ ~U ; ~Γ ⊢ ~t ⦂ ~T }>) (hv : <{ ∅ ⊢ ~v ⦂ ~U }>) :
-    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~T }> := by
+theorem substitution_preserves_typing_from_typing_ind (Γ : Context) (x : String) (τ' : Ty)
+    (t v : Tm) (τ : Ty)
+    (hτ : <{ ~x ↦ ~τ' ; ~Γ ⊢ ~t ⦂ ~τ }>) (hv : <{ ∅ ⊢ ~v ⦂ ~τ' }>) :
+    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~τ }> := by
   sorry
 
 --  ### Main Theorem
 
 --  We now have the ingredients we need to prove preservation: if a closed,
---  well-typed term `t` has type `T` and takes a step to `t'`, then `t'` is
---  also a closed term with type `T`. In other words, the small-step
+--  well-typed term `t` has type `τ` and takes a step to `t'`, then `t'` is
+--  also a closed term with type `τ`. In other words, the small-step
 --  reduction relation preserves types.
 
--- IN PROGRESS
-theorem preservation (t t' : Tm) (T : Ty)
-    (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) (hs : t ⟶ t') : <{ ∅ ⊢ ~t' ⦂ ~T }> := by
-  generalize hΓ : (∅ : Context) = Γ at hT
-  induction hT generalizing t' with
+theorem preservation (t t' : Tm) (τ : Ty)
+    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) (hs : t ⟶ t') : <{ ∅ ⊢ ~t' ⦂ ~τ }> := by
+  generalize hΓ : (∅ : Context) = Γ at hτ
+  induction hτ generalizing t' with
   | var => cases hs
   | abs => cases hs
   | tru => cases hs
   | fls => cases hs
-  | app Γ T₁ T₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
+  | app Γ τ₁ τ₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
     subst hΓ
     cases hs with
     | appAbs _ _ _ _ _ =>
       -- The one interesting case: the desired result is the substitution lemma.
       cases h₁ with
-      | abs _ _ _ _ _ hb => exact substitution_preserves_typing _ _ _ _ _ _ hb h₂
-    | app1 _ t₁' _ h => exact .app _ _ _ _ _ (ih₁ t₁' h rfl) h₂
-    | app2 _ _ t₂' _ h => exact .app _ _ _ _ _ h₁ (ih₂ t₂' h rfl)
-  | ite Γ t₁ t₂ t₃ T₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
+      | abs _ _ _ _ _ hb =>
+        apply substitution_preserves_typing
+        · exact hb
+        · exact h₂
+    | app1 _ t₁' _ h =>
+      constructor
+      · apply ih₁
+        · exact h
+        · rfl
+      · exact h₂
+    | app2 _ _ t₂' _ h =>
+      constructor
+      · exact h₁
+      · apply ih₂
+        · exact h
+        · rfl
+  | ite Γ t₁ t₂ t₃ τ₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
     subst hΓ
     cases hs with
     | ifTrue => exact h₂
     | ifFalse => exact h₃
-    | ifStep _ t₁' _ _ h => exact .ite _ _ _ _ _ (ih₁ t₁' h rfl) h₂ h₃
+    | ifStep _ t₁' _ _ h =>
+      constructor
+      · apply ih₁
+        · exact h
+        · rfl
+      · exact h₂
+      · exact h₃
 
---  *Proof*: By induction on the derivation of `⊢ t ⦂ T`.
+--  *Proof*: By induction on the derivation of `∅ ⊢ t ⦂ τ`.
 --  - We can immediately rule out `HasType.var`, `HasType.abs`,
 --    `HasType.tru`, and `HasType.fls` as final rules in the derivation,
 --    since in each of these cases `t` cannot take a step.
 --
 --  - If the last rule in the derivation is `HasType.app`, then
---    `t = t₁ t₂`, and there are subderivations showing that `⊢ t₁ ⦂ T₂→T`
---    and `⊢ t₂ ⦂ T₂` plus two induction hypotheses: (1) `t₁ ⟶ t₁'` implies
---    `⊢ t₁' ⦂ T₂→T` and (2) `t₂ ⟶ t₂'` implies `⊢ t₂' ⦂ T₂`. There are now
---    three subcases to consider, one for each rule that could be used to
---    show that `t₁ t₂` takes a step to `t'`.
+--    `t = t₁ t₂`, and there are subderivations showing that
+--    `∅ ⊢ t₁ ⦂ τ₂ → τ` and `∅ ⊢ t₂ ⦂ τ₂` plus two induction hypotheses:
+--    (1) `t₁ ⟶ t₁'` implies `∅ ⊢ t₁' ⦂ τ₂ → τ` and (2) `t₂ ⟶ t₂'` implies
+--    `∅ ⊢ t₂' ⦂ τ₂`. There are now three subcases to consider, one for
+--    each rule that could be used to show that `t₁ t₂` takes a step to
+--    `t'`.
 --    - If `t₁ t₂` takes a step by `Step.app1`, with `t₁` stepping to
 --      `t₁'`, then, by the first IH, `t₁'` has the same type as `t₁`
---      (`⊢ t₁' ⦂ T₂→T`), and hence by `HasType.app` `t₁' t₂` has type `T`.
+--      (`∅ ⊢ t₁' ⦂ τ₂ → τ`), and hence by `HasType.app` `t₁' t₂` has type
+--      `τ`.
 --    - The `Step.app2` case is similar, using the second IH.
---    - If `t₁ t₂` takes a step by `Step.appAbs`, then `t₁ = λx:T₀. t₀` and
---      `t₁ t₂` steps to `[x0:=t₂]t₀`; the desired result now follows from
+--    - If `t₁ t₂` takes a step by `Step.appAbs`, then `t₁ = λx:τ₀. t₀` and
+--      `t₁ t₂` steps to `[x:=t₂]t₀`; the desired result now follows from
 --      the substitution lemma.
 --
 --  - If the last rule in the derivation is `HasType.ite`, then
---    `t = if t₁ then t₂ else t₃`, with `⊢ t₁ ⦂ Bool`, `⊢ t₂ ⦂ T₁`, and
---    `⊢ t₃ ⦂ T₁`, and with three induction hypotheses: (1) `t₁ ⟶ t₁'`
---    implies `⊢ t₁' ⦂ Bool`, (2) `t₂ ⟶ t₂'` implies `⊢ t₂' ⦂ T₁`, and (3)
---    `t₃ ⟶ t₃'` implies `⊢ t₃' ⦂ T₁`.
+--    `t = if t₁ then t₂ else t₃`, with `∅ ⊢ t₁ ⦂ Bool`, `∅ ⊢ t₂ ⦂ τ₁`, and
+--    `∅ ⊢ t₃ ⦂ τ₁`, and with three induction hypotheses: (1) `t₁ ⟶ t₁'`
+--    implies `∅ ⊢ t₁' ⦂ Bool`, (2) `t₂ ⟶ t₂'` implies `∅ ⊢ t₂' ⦂ τ₁`, and
+--    (3) `t₃ ⟶ t₃'` implies `∅ ⊢ t₃' ⦂ τ₁`.
 --
 --    There are again three subcases to consider, depending on how `t`
 --    steps.
@@ -402,27 +462,34 @@ theorem preservation (t t' : Tm) (T : Ty)
 --  property for the simple language of arithmetic and boolean expressions.
 --  This property did not hold for that language, and it also fails for
 --  STLC. That is, it is not always the case that, if `t ⟶ t'` and
---  `empty ⊢ t' ⦂ T`, then `empty ⊢ t ⦂ T`. Show this by giving a
---  counter-example that does *not involve conditionals*.
+--  `∅ ⊢ t' ⦂ τ`, then `∅ ⊢ t ⦂ τ`. Show this by giving a counter-example
+--  that does *not involve conditionals*.
 
 theorem not_subject_expansion :
-    ∃ (t t' : Tm) (T : Ty), t ⟶ t' ∧ <{ ∅ ⊢ ~t' ⦂ ~T }> ∧ ¬ <{ ∅ ⊢ ~t ⦂ ~T }> := by
+    ∃ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ <{ ∅ ⊢ ~t' ⦂ ~τ }> ∧ ¬ <{ ∅ ⊢ ~t ⦂ ~τ }> := by
+    -- Hint: for giving counterexamples in STLC, give each witness
+    -- with `exists <{ … }>`.  This works for both terms and types, as
+    -- in `<{true}>` and `<{ Bool }>`.
     sorry
 
 --  ## Type Soundness
 
---  ### Exercise (2 stars): type_soundness ⭐⭐
+--  ### Exercise (2 stars): type_soundness (Optional) ⭐⭐
 
 --  Put progress and preservation together and show that a well-typed term
 --  can *never* reach a stuck state.
 
 def Tm.IsStuck (t : Tm) : Prop := IsNormalForm Step t ∧ ¬ t.IsValue
 
-theorem type_soundness (t t' : Tm) (T : Ty)
-    (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) (hm : t ⟶* t') : ¬ t'.IsStuck := by
+theorem type_soundness (t t' : Tm) (τ : Ty)
+    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) (hm : t ⟶* t') : ¬ t'.IsStuck := by
   intro hst
   obtain ⟨hnf, hnv⟩ := hst
-  sorry
+  induction hm with
+  | refl u =>
+    sorry
+  | step u w z h₁ _ ih =>
+    sorry
 
 --  ## Uniqueness of Types
 
@@ -431,9 +498,8 @@ theorem type_soundness (t t' : Tm) (T : Ty)
 --  Another nice property of the STLC is that types are unique: a given
 --  term (in a given context) has at most one type.
 
--- AI
-theorem unique_types (Γ : Context) (e : Tm) (T T' : Ty)
-    (h : <{ ~Γ ⊢ ~e ⦂ ~T }>) (h' : <{ ~Γ ⊢ ~e ⦂ ~T' }>) : T = T' := by
+theorem unique_types (Γ : Context) (e : Tm) (τ τ' : Ty)
+    (h : <{ ~Γ ⊢ ~e ⦂ ~τ }>) (h' : <{ ~Γ ⊢ ~e ⦂ ~τ' }>) : τ = τ' := by
   sorry
 
 --  ## Context Invariance (Optional)
@@ -450,12 +516,12 @@ theorem unique_types (Γ : Context) (e : Tm) (T T' : Ty)
 --  scope of an enclosing function abstraction binding a variable of the
 --  same name.
 --
---  More technically, a variable `x` *appears free in* a term *t* if `t`
+--  More technically, a variable `x` *appears free in* a term `t` if `t`
 --  contains some occurrence of `x` that is not under an abstraction
 --  labeled `x`. For example:
---  - `y` appears free, but `x` does not, in `λx:T→U. x y`
---  - both `x` and `y` appear free in `(λx:T→U. x y) x`
---  - no variables appear free in `λx:T→U. λy:T. x y`
+--  - `y` appears free, but `x` does not, in `λx:τ → τ'. x y`
+--  - both `x` and `y` appear free in `(λx:τ → τ'. x y) x`
+--  - no variables appear free in `λx:τ → τ'. λy:τ. x y`
 --
 --  We write this `x ∈ᶠ t`, reading the relation as "`x` is one of the free
 --  variables of `t`". Formally:
@@ -468,8 +534,8 @@ inductive AppearsFreeIn (x : String) : Tm → Prop where
   | var : x ∈ᶠ (Tm.var x)
   | app1 (t₁ t₂ : Tm) (h : x ∈ᶠ t₁) : x ∈ᶠ <{ ~t₁ ~t₂ }>
   | app2 (t₁ t₂ : Tm) (h : x ∈ᶠ t₂) : x ∈ᶠ <{ ~t₁ ~t₂ }>
-  | abs (y : String) (T₁ : Ty) (t₁ : Tm) (hne : y ≠ x) (h : x ∈ᶠ t₁) :
-      x ∈ᶠ <{ λ ~y : ~T₁ . ~t₁ }>
+  | abs (y : String) (τ₁ : Ty) (t₁ : Tm) (hne : y ≠ x) (h : x ∈ᶠ t₁) :
+      x ∈ᶠ <{ λ ~y : ~τ₁ . ~t₁ }>
   | ite1 (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₁) : x ∈ᶠ <{ if ~t₁ then ~t₂ else ~t₃ }>
   | ite2 (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₂) : x ∈ᶠ <{ if ~t₁ then ~t₂ else ~t₃ }>
   | ite3 (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₃) : x ∈ᶠ <{ if ~t₁ then ~t₂ else ~t₃ }>
@@ -489,7 +555,7 @@ def Tm.Closed (t : Tm) : Prop := ∀ x, ¬ x ∈ᶠ t
 --  open ones. "Open" precisely means "possibly containing free
 --  variables.")
 
---  ### Exercise (1 star): afi (Manually graded) ⭐
+--  ### Exercise (1 star): afi (Optional, Manually graded) ⭐
 
 --  (Officially optional, but strongly recommended!) In the space below,
 --  write out the rules of the `∈ᶠ` relation in informal inference-rule
@@ -504,12 +570,7 @@ def Tm.Closed (t : Tm) : Prop := ∀ x, ¬ x ∈ᶠ t
 --  Next, we show that if a variable `x` appears free in a term `t`, and if
 --  we know `t` is well typed in context `Γ`, then it must be the case that
 --  `Γ` assigns a type to `x`.
-
--- IN PROGRESS
-theorem free_in_context (x : String) (t : Tm) (T : Ty) (Γ : Context)
-    (ha : x ∈ᶠ t) (hT : <{ ~Γ ⊢ ~t ⦂ ~T }>) : ∃ T', Γ[x] = some T' := by
-  sorry
-
+--
 --  *Proof*: We show, by induction on the proof that `x` appears free in
 --  `t`, that, for all contexts `Γ`, if `t` is well typed under `Γ`, then
 --  `Γ` assigns some type to `x`.
@@ -525,11 +586,11 @@ theorem free_in_context (x : String) (t : Tm) (T : Ty) (Γ : Context)
 --    `t` in which `x` appears is well typed under `Γ` as well, and the IH
 --    gives us exactly the conclusion we want.
 --  - The only remaining case is `AppearsFreeIn.abs`. In this case
---    `t = λy:T₁. t₁` and `x` appears free in `t₁`, and we also know that
+--    `t = λy:τ₁. t₁` and `x` appears free in `t₁`, and we also know that
 --    `x` is different from `y`. The difference from the previous cases is
 --    that, whereas `t` is well typed under `Γ`, its body `t₁` is well
---    typed under `y ↦ T₁; Γ`, so the IH allows us to conclude that `x` is
---    assigned some type by the extended context `y ↦ T₁; Γ`. To conclude
+--    typed under `y ↦ τ₁ ; Γ`, so the IH allows us to conclude that `x` is
+--    assigned some type by the extended context `y ↦ τ₁ ; Γ`. To conclude
 --    that `Γ` assigns a type to `x`, we appeal to lemma
 --    `PartialMap.update_neq`, noting that `x` and `y` are different
 --    variables.
@@ -538,61 +599,91 @@ theorem free_in_context (x : String) (t : Tm) (T : Ty) (Γ : Context)
 
 --  Complete the following proof.
 
+theorem free_in_context (x : String) (t : Tm) (τ : Ty) (Γ : Context)
+    (ha : x ∈ᶠ t) (hτ : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : ∃ τ', Γ[x] = some τ' := by
+  induction ha generalizing Γ τ with
+  | var =>
+    cases hτ with
+    | var _ _ _ h =>
+      constructor
+      exact h
+  | app1 _ _ _ ih =>
+    cases hτ with
+    | app _ _ _ _ _ h₁ _ =>
+      apply ih
+      exact h₁
+  | app2 _ _ _ ih =>
+    cases hτ with
+    | app _ _ _ _ _ _ h₂ =>
+      apply ih
+      exact h₂
+  | abs y _ _ hne _ ih =>
+    sorry
+  | ite1 _ _ _ _ ih =>
+    cases hτ with
+    | ite _ _ _ _ _ h₁ _ _ =>
+      apply ih
+      exact h₁
+  | ite2 _ _ _ _ ih =>
+    cases hτ with
+    | ite _ _ _ _ _ _ h₂ _ =>
+      apply ih
+      exact h₂
+  | ite3 _ _ _ _ ih =>
+    cases hτ with
+    | ite _ _ _ _ _ _ _ h₃ =>
+      apply ih
+      exact h₃
+
 --  (End of exercise)
 
 --  From the `free_in_context` lemma, it immediately follows that any term
 --  `t` that is well typed in the empty context is closed (it has no free
 --  variables).
 
---  ### Exercise (2 stars): typable_empty__closed ⭐⭐
+--  ### Exercise (2 stars): typable_empty_closed (Optional) ⭐⭐
 
-theorem typable_empty_closed (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) : t.Closed := by
+theorem typable_empty_closed (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) : t.Closed := by
   sorry
 
 --  (End of exercise)
 
 --  Finally, we establish *context invariance*. It is useful in cases when
---  we have a proof of some typing relation `Γ ⊢ t ⦂ T`, and we need to
+--  we have a proof of some typing relation `Γ ⊢ t ⦂ τ`, and we need to
 --  replace `Γ` by a different context `Γ'`. When is it safe to do this?
 --  Intuitively, it must at least be the case that `Γ'` assigns the same
 --  types as `Γ` to all the variables that appear free in `t`. In fact,
 --  this is the only condition that is needed.
-
--- IN PROGRESS
-theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
-    (hT : <{ ~Γ ⊢ ~t ⦂ ~T }>) (hf : ∀ x, x ∈ᶠ t → Γ[x] = Γ'[x]) :
-    <{ ~Γ' ⊢ ~t ⦂ ~T }> := by
-  sorry
-
---  *Proof*: By induction on the derivation of `Γ ⊢ t ⦂ T`.
+--
+--  *Proof*: By induction on the derivation of `Γ ⊢ t ⦂ τ`.
 --  - If the last rule in the derivation was `HasType.var`, then `t = x`
---    and `Γ x = T`. By assumption, `Γ' x = T` as well, and hence
---    `Γ' ⊢ t ⦂ T` by `HasType.var`.
+--    and `Γ x = τ`. By assumption, `Γ' x = τ` as well, and hence
+--    `Γ' ⊢ t ⦂ τ` by `HasType.var`.
 --
---  - If the last rule was `HasType.abs`, then `t = λy:T₂. t₁`, with
---    `T = T₂ → T₁` and `y ↦ T₂; Γ ⊢ t₁ ⦂ T₁`. The induction hypothesis
---    states that for any context `Γ''`, if `y ↦ T₂; Γ` and `Γ''` assign
+--  - If the last rule was `HasType.abs`, then `t = λy:τ₂. t₁`, with
+--    `τ = τ₂ → τ₁` and `y ↦ τ₂ ; Γ ⊢ t₁ ⦂ τ₁`. The induction hypothesis
+--    states that for any context `Γ''`, if `y ↦ τ₂ ; Γ` and `Γ''` assign
 --    the same types to all the free variables in `t₁`, then `t₁` has type
---    `T₁` under `Γ''`. Let `Γ'` be a context which agrees with `Γ` on the
---    free variables in `t`; we must show `Γ' ⊢ λy:T₂. t₁ ⦂ T₂ → T₁`.
+--    `τ₁` under `Γ''`. Let `Γ'` be a context which agrees with `Γ` on the
+--    free variables in `t`; we must show `Γ' ⊢ λy:τ₂. t₁ ⦂ τ₂ → τ₁`.
 --
---    By `HasType.abs`, it suffices to show that `y ↦ T₂; Γ' ⊢ t₁ ⦂ T₁`. By
---    the IH (setting `Γ'' = y ↦ T₂;Γ'`), it suffices to show that
---    `y ↦ T₂;Γ` and `y ↦ T₂;Γ'` agree on all the variables that appear
+--    By `HasType.abs`, it suffices to show that `y ↦ τ₂ ; Γ' ⊢ t₁ ⦂ τ₁`.
+--    By the IH (setting `Γ'' = y ↦ τ₂ ; Γ'`), it suffices to show that
+--    `y ↦ τ₂ ; Γ` and `y ↦ τ₂ ; Γ'` agree on all the variables that appear
 --    free in `t₁`.
 --
 --    Any variable occurring free in `t₁` must be either `y` or some other
---    variable. `y ↦ T₂; Γ` and `y ↦ T₂; Γ'` clearly agree on `y`.
+--    variable. `y ↦ τ₂ ; Γ` and `y ↦ τ₂ ; Γ'` clearly agree on `y`.
 --    Otherwise, note that any variable other than `y` that occurs free in
---    `t₁` also occurs free in `t = λy:T₂. t₁`, and by assumption `Γ` and
---    `Γ'` agree on all such variables; hence so do `y ↦ T₂; Γ` and
---    `y ↦ T₂; Γ'`.
+--    `t₁` also occurs free in `t = λy:τ₂. t₁`, and by assumption `Γ` and
+--    `Γ'` agree on all such variables; hence so do `y ↦ τ₂ ; Γ` and
+--    `y ↦ τ₂ ; Γ'`.
 --
 --  - If the last rule was `HasType.app`, then `t = t₁ t₂`, with
---    `Γ ⊢ t₁ ⦂ T₂ → T` and `Γ ⊢ t₂ ⦂ T₂`. One induction hypothesis states
+--    `Γ ⊢ t₁ ⦂ τ₂ → τ` and `Γ ⊢ t₂ ⦂ τ₂`. One induction hypothesis states
 --    that for all contexts `Γ'`, if `Γ'` agrees with `Γ` on the free
---    variables in `t₁`, then `t₁` has type `T₂ → T` under `Γ'`; there is a
---    similar IH for `t₂`. We must show that `t₁ t₂` also has type `T`
+--    variables in `t₁`, then `t₁` has type `τ₂ → τ` under `Γ'`; there is a
+--    similar IH for `t₂`. We must show that `t₁ t₂` also has type `τ`
 --    under `Γ'`, given the assumption that `Γ'` agrees with `Γ` on all the
 --    free variables in `t₁ t₂`. By `HasType.app`, it suffices to show that
 --    `t₁` and `t₂` each have the same type under `Γ'` as under `Γ`. But
@@ -600,9 +691,39 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 --    for `t₂`; hence the desired result follows from the induction
 --    hypotheses.
 
---  ### Exercise (3 stars): context_invariance ⭐⭐⭐
+--  ### Exercise (3 stars): context_invariance (Optional) ⭐⭐⭐
 
 --  Complete the following proof.
+
+theorem context_invariance (Γ Γ' : Context) (t : Tm) (τ : Ty)
+    (hτ : <{ ~Γ ⊢ ~t ⦂ ~τ }>) (hf : ∀ x, x ∈ᶠ t → Γ[x] = Γ'[x]) :
+    <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
+  induction hτ generalizing Γ' with
+  | var _ x _ h =>
+    sorry
+  | abs _ y _ _ _ _ ih =>
+    sorry
+  | app _ _ _ t₁ t₂ _ _ ih₁ ih₂ =>
+    sorry
+  | tru => constructor
+  | fls => constructor
+  | ite _ t₁ t₂ t₃ _ _ _ _ ih₁ ih₂ ih₃ =>
+    constructor
+    · apply ih₁
+      intro z hz
+      apply hf
+      apply AppearsFreeIn.ite1
+      exact hz
+    · apply ih₂
+      intro z hz
+      apply hf
+      apply AppearsFreeIn.ite2
+      exact hz
+    · apply ih₃
+      intro z hz
+      apply hf
+      apply AppearsFreeIn.ite3
+      exact hz
 
 --  (End of exercise)
 
@@ -611,29 +732,37 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 
 --  ## Additional Exercises
 
---  ### Exercise (1 star): progress_preservation_statement (Manually graded) ⭐
+--  ### Exercise (1 star): progress_preservation_statement (Optional, Manually graded) ⭐
 
 --  (Officially optional, but strongly recommended!) Without peeking at
 --  their statements above, write down the progress and preservation
 --  theorems for the simply typed lambda-calculus (as Lean theorems). You
 --  can write `sorry` for the proofs.
 
+--  theorem progress_statement :
+--      FILL IN HERE := by
+--    apply progress
+--
+--  theorem preservation_statement :
+--      FILL IN HERE := by
+--    apply preservation
+
 --  ### Exercise (2 stars): stlc_variation1 (Manually graded) ⭐⭐
 
 --  Suppose we add a new term `zap` with the following reduction rule
---
---      ---------                  (ST_Zap)
---      t --> zap
---
+
+--  ---------                  (zap)
+--                           t ⟶ zap
+
 --  and the following typing rule:
---
---      -------------------           (T_Zap)
---      Γ ⊢ zap ⦂ T
---
+
+--  -----------                 (zap)
+--                          Γ ⊢ zap ⦂ τ
+
 --  Which of the following properties of the STLC remain true in the
 --  presence of these rules? For each property, write either "remains true"
 --  or "becomes false." If a property becomes false, give a counterexample.
---  - Determinism of `step`
+--  - Determinism of `Step`
 --
 --  - Progress
 --
@@ -643,18 +772,18 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 
 --  Suppose instead that we add a new term `foo` with the following
 --  reduction rules:
+
+--  -----------------                (foo1)
+--                          (λx:τ. x) ⟶ foo
 --
---      -----------------                (ST_Foo1)
---      (\x:A, x) --> foo
---
---        ------------                   (ST_Foo2)
---        foo --> true
---
+--                           ------------                   (foo2)
+--                            foo ⟶ true
+
 --  Which of the following properties of the STLC remain true in the
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---  - Determinism of `step`
+--  - Determinism of `Step`
 --
 --  - Progress
 --
@@ -662,88 +791,88 @@ theorem context_invariance (Γ Γ' : Context) (t : Tm) (T : Ty)
 
 --  ### Exercise (2 stars): stlc_variation3 (Manually graded) ⭐⭐
 
---  Suppose instead that we remove the rule `Step.app1` from the `step`
+--  Suppose instead that we remove the rule `Step.app1` from the `Step`
 --  relation. Which of the following properties of the STLC remain true in
 --  the presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---  - Determinism of `step`
+--  - Determinism of `Step`
 --
 --  - Progress
 --
 --  - Preservation
 
---  ### Exercise (2 stars): stlc_variation4 ⭐⭐
+--  ### Exercise (2 stars): stlc_variation4 (Optional) ⭐⭐
 
 --  Suppose instead that we add the following new rule to the reduction
 --  relation:
---
---      ----------------------------------        (ST_FunnyIfTrue)
---      (if true then t₁ else t₂) --> true
---
+
+--  ----------------------------------        (funnyIfTrue)
+--               (if true then t₁ else t₂) ⟶ true
+
 --  Which of the following properties of the STLC remain true in the
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---  - Determinism of `step`
+--  - Determinism of `Step`
 --
 --  - Progress
 --
 --  - Preservation
 
---  ### Exercise (2 stars): stlc_variation5 ⭐⭐
+--  ### Exercise (2 stars): stlc_variation5 (Optional) ⭐⭐
 
 --  Suppose instead that we add the following new rule to the typing
 --  relation:
---
---      Γ ⊢ t₁ ⦂ Bool->Bool->Bool
---          Γ ⊢ t₂ ⦂ Bool
---      ---------------------------------       (T_FunnyApp)
---         Γ ⊢ t₁ t₂ ⦂ Bool
---
+
+--  Γ ⊢ t₁ ⦂ Bool → Bool → Bool
+--                          Γ ⊢ t₂ ⦂ Bool
+--                  ------------------------------       (funnyApp)
+--                         Γ ⊢ t₁ t₂ ⦂ Bool
+
 --  Which of the following properties of the STLC remain true in the
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---  - Determinism of `step`
+--  - Determinism of `Step`
 --
 --  - Progress
 --
 --  - Preservation
 
---  ### Exercise (2 stars): stlc_variation6 ⭐⭐
+--  ### Exercise (2 stars): stlc_variation6 (Optional) ⭐⭐
 
 --  Suppose instead that we add the following new rule to the typing
 --  relation:
---
---      Γ ⊢ t₁ ⦂ Bool
---      Γ ⊢ t₂ ⦂ Bool
---      ------------------------            (T_FunnyApp')
---      Γ ⊢ t₁ t₂ ⦂ Bool
---
+
+--  Γ ⊢ t₁ ⦂ Bool
+--                          Γ ⊢ t₂ ⦂ Bool
+--                        ------------------            (funnyApp')
+--                        Γ ⊢ t₁ t₂ ⦂ Bool
+
 --  Which of the following properties of the STLC remain true in the
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---  - Determinism of `step`
+--  - Determinism of `Step`
 --
 --  - Progress
 --
 --  - Preservation
 
---  ### Exercise (2 stars): stlc_variation7 ⭐⭐
+--  ### Exercise (2 stars): stlc_variation7 (Optional) ⭐⭐
 
 --  Suppose we add the following new rule to the typing relation of the
 --  STLC:
---
---      ---------------------- (T_FunnyAbs)
---      ⊢ \x:Bool,t ⦂ Bool
---
+
+--  ------------------------     (funnyAbs)
+--                          ∅ ⊢ λx:Bool. t ⦂ Bool
+
 --  Which of the following properties of the STLC remain true in the
 --  presence of this rule? For each one, write either "remains true" or
 --  else "becomes false." If a property becomes false, give a
 --  counterexample.
---  - Determinism of `step`
+--  - Determinism of `Step`
 --
 --  - Progress
 --
@@ -774,7 +903,7 @@ open scoped MyGetElem
 --  for brevity).
 
 inductive Ty where
-  | arrow (T₁ T₂ : Ty)
+  | arrow (τ₁ τ₂ : Ty)
   | nat
 
 --  To terms, we add natural number constants, along with successor,
@@ -783,7 +912,7 @@ inductive Ty where
 inductive Tm where
   | var (x : String)
   | app (t₁ t₂ : Tm)
-  | abs (x : String) (T : Ty) (t : Tm)
+  | abs (x : String) (τ : Ty) (t : Tm)
   | const (n : Nat)
   | succ (t : Tm)
   | pred (t : Tm)
@@ -806,14 +935,14 @@ inductive Tm where
 --  base type, and the arrow builds this language's `StlcArith.Ty.arrow`.
 
 scoped macro_rules (kind := Stlc.tyBracket)
-  | `(<{ ~$T:term }>)    => pure T
-  | `(<{ ($T:stlcTy) }>) => `(<{ $T:stlcTy }>)
+  | `(<{ ~$τ:term }>)    => pure τ
+  | `(<{ ($τ:stlcTy) }>) => `(<{ $τ:stlcTy }>)
   | `(<{ $x:ident }>) =>
       match x.getId.toString with
       | "Nat" => `(Ty.nat)
       | _ => `(($x : Ty))
-  | `(<{ $T₁:stlcTy → $T₂:stlcTy }>)  => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
-  | `(<{ $T₁:stlcTy -> $T₂:stlcTy }>) => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
+  | `(<{ $τ₁:stlcTy → $τ₂:stlcTy }>)  => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
+  | `(<{ $τ₁:stlcTy -> $τ₂:stlcTy }>) => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
 --  END DETAILS
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: terms)
@@ -854,8 +983,8 @@ scoped macro_rules (kind := Stlc.tmBracket)
           | "pred" => `(Tm.pred <{ $t₂:stlcTm }>)
           | _      => `(Tm.app <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
       | _ => `(Tm.app <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
-  | `(<{ λ $x : $T . $t }>) => do
-      `(Tm.abs $(← Stlc.varStr x) <{ $T:stlcTy }> <{ $t:stlcTm }>)
+  | `(<{ λ $x : $τ . $t }>) => do
+      `(Tm.abs $(← Stlc.varStr x) <{ $τ:stlcTy }> <{ $t:stlcTm }>)
   | `(<{ $t₁:stlcTm * $t₂:stlcTm }>) => `(Tm.mult <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
   | `(<{ if0 $c then $t else $e }>) =>
       `(Tm.ite0 <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
@@ -918,9 +1047,9 @@ partial def delabTmInner : DelabM (TSyntax `stlcTm) := do
         `(stlcTm| $f $a)
     | Tm.abs _ _ _ => do
         let x ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
-        let T ← withAppFn <| withAppArg delabTyInner
+        let τ ← withAppFn <| withAppArg delabTyInner
         let t ← withAppArg delabTmInner
-        `(stlcTm| λ $x : $T . $t)
+        `(stlcTm| λ $x : $τ . $t)
     | Tm.succ _ => do
         let t ← withAppArg delabTmInner
         `(stlcTm| $(mkIdent `succ):ident $t)
@@ -1035,19 +1164,16 @@ def delabSubst : Delab := whenPPOption getPPNotation do
 --  for.
 
 section
-variable (x y : String) (s t t₁ t₂ t₃ : Tm) (T : Ty) (n : Nat)
+variable (x y : String) (s t t₁ t₂ t₃ : Tm) (τ : Ty) (n : Nat)
 --  FILL IN HERE
 end
 
---  Next, the values. In the pure STLC, function abstractions were the only
---  values; now the numbers are values too.
+--  Next, the values.
 
 inductive Tm.IsValue : Tm → Prop where
 --  FILL IN HERE
 
---  Now the reduction relation. The three rules for application are the
---  STLC's; the rest say how the arithmetic operators evaluate their
---  arguments and what they compute once those arguments are numbers.
+--  Now the reduction relation.
 
 section
 set_option hygiene false in
@@ -1062,7 +1188,8 @@ scoped notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
 --  An example:
 
--- AI
+--  FILL IN HERE
+
 theorem Nat_step_example : ∃ t, <{ (λ x : Nat . λ y : Nat . x * y) 3 2 }> ⟶* t := by
   sorry
 
@@ -1079,24 +1206,22 @@ abbrev Context := PartialMap String Ty
 
 open Lean in
 /-- The `Context` denoted by a context expression. -/
-partial def ctxTerm (G : TSyntax `stlcCtx) : MacroM Term :=
-  match G with
+partial def ctxTerm (Γ : TSyntax `stlcCtx) : MacroM Term :=
+  match Γ with
   | `(stlcCtx| ∅)   => `((∅ : Context))
   | `(stlcCtx| ~$e) => pure e
-  | `(stlcCtx| $x:stlcVar ↦ $T:stlcTy ; $G:stlcCtx) => do
-      `(PartialMap.update $(← ctxTerm G) $(← Stlc.varStr x) <{ $T:stlcTy }>)
+  | `(stlcCtx| $x:stlcVar ↦ $τ:stlcTy ; $Γ:stlcCtx) => do
+      `(PartialMap.update $(← ctxTerm Γ) $(← Stlc.varStr x) <{ $τ:stlcTy }>)
   | _ => Macro.throwUnsupported
 
 section StlcArith
 set_option hygiene false in
 local macro_rules (kind := Stlc.judgeBracket)
-  | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
-      `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
+  | `(<{ $Γ:stlcCtx ⊢ $t:stlcTm ⦂ $τ:stlcTy }>) => do
+      `(HasType $(← ctxTerm Γ) <{ $t:stlcTm }> <{ $τ:stlcTy }>)
 --  END DETAILS
 
---  The typing rules for variables, abstraction, and application are the
---  STLC's. The remaining four are the typing rules for arithmetic
---  expressions.
+--  Now the typing relation.
 
 inductive HasType : Context → Tm → Ty → Prop where
 --  FILL IN HERE
@@ -1109,45 +1234,44 @@ inductive HasType : Context → Tm → Ty → Prop where
 end StlcArith
 
 scoped macro_rules (kind := Stlc.judgeBracket)
-  | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $T:stlcTy }>) => do
-      `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $T:stlcTy }>)
+  | `(<{ $Γ:stlcCtx ⊢ $t:stlcTm ⦂ $τ:stlcTy }>) => do
+      `(HasType $(← ctxTerm Γ) <{ $t:stlcTm }> <{ $τ:stlcTy }>)
 
 open Lean PrettyPrinter in
 /-- Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a
 context prints as `x ↦ Nat ; Γ` rather than as a chain of map updates. -/
 partial def unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)
   | `(∅) => `(stlcCtx| ∅)
-  | `($x:str →ₚ $T) => do
-      unexpandCtx (← `($x →ₚ $T ; ∅))
-  | `($x:str →ₚ $T ; $G) => do
-      let G' ← unexpandCtx G
+  | `($x:str →ₚ $τ) => do
+      unexpandCtx (← `($x →ₚ $τ ; ∅))
+  | `($x:str →ₚ $τ ; $Γ) => do
+      let Γ' ← unexpandCtx Γ
       let x' : TSyntax `stlcVar ←
         if Stlc.isPlainName x.getString then
           `(stlcVar| $(mkIdent (Name.mkSimple x.getString)):ident)
         else `(stlcVar| ~$x)
-      match T with
-      | `(<{ $T':stlcTy }>) => `(stlcCtx| $x':stlcVar ↦ $T' ; $G')
-      | _                   => `(stlcCtx| $x':stlcVar ↦ ~($T) ; $G')
-  | G => `(stlcCtx| ~($G))
+      match τ with
+      | `(<{ $τ':stlcTy }>) => `(stlcCtx| $x':stlcVar ↦ $τ' ; $Γ')
+      | _                   => `(stlcCtx| $x':stlcVar ↦ ~($τ) ; $Γ')
+  | Γ => `(stlcCtx| ~($Γ))
 
 open Lean PrettyPrinter in
 @[app_unexpander StlcArith.HasType]
 def HasType.unexpand : Unexpander
-  | `($_ $G <{ $t:stlcTm }> <{ $T:stlcTy }>) =>
-      do `(<{ $(← unexpandCtx G) ⊢ $t ⦂ $T }>)
-  | `($_ $G <{ $t:stlcTm }> $T) =>
-      do `(<{ $(← unexpandCtx G) ⊢ $t ⦂ ~($T) }>)
-  | `($_ $G $t <{ $T:stlcTy }>) =>
-      do `(<{ $(← unexpandCtx G) ⊢ ~($t) ⦂ $T }>)
-  | `($_ $G $t $T) =>
-      do `(<{ $(← unexpandCtx G) ⊢ ~($t) ⦂ ~($T) }>)
+  | `($_ $Γ <{ $t:stlcTm }> <{ $τ:stlcTy }>) =>
+      do `(<{ $(← unexpandCtx Γ) ⊢ $t ⦂ $τ }>)
+  | `($_ $Γ <{ $t:stlcTm }> $τ) =>
+      do `(<{ $(← unexpandCtx Γ) ⊢ $t ⦂ ~($τ) }>)
+  | `($_ $Γ $t <{ $τ:stlcTy }>) =>
+      do `(<{ $(← unexpandCtx Γ) ⊢ ~($t) ⦂ $τ }>)
+  | `($_ $Γ $t $τ) =>
+      do `(<{ $(← unexpandCtx Γ) ⊢ ~($t) ⦂ ~($τ) }>)
   | _ => throw ()
 --  END DETAILS
 
 --  An example:
 
--- AI
-theorem Nat_typing_example : <{ ∅ ⊢ (λ x : Nat . λ y : Nat . x * y) 3 2 ⦂ Nat }> :=
+theorem Nat_typing_example : <{ ∅ ⊢ (λ x : Nat . λ y : Nat . x * y) 3 2 ⦂ Nat }> := by
   sorry
 
 --  #### The Technical Theorems
@@ -1156,24 +1280,14 @@ theorem Nat_typing_example : <{ ∅ ⊢ (λ x : Nat . λ y : Nat . x * y) 3 2 �
 
 --  ### Exercise (4 stars): StlcArith.weakening ⭐⭐⭐⭐
 
--- AI
-theorem weakening (Γ Γ' : Context) (t : Tm) (T : Ty)
-    (hi : Γ ⊆ Γ') (hT : <{ ~Γ ⊢ ~t ⦂ ~T }>) : <{ ~Γ' ⊢ ~t ⦂ ~T }> := by
+theorem weakening (Γ Γ' : Context) (t : Tm) (τ : Ty)
+    (hi : Γ ⊆ Γ') (hτ : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
   sorry
 
 --  The two helper lemmas that weakening is for are also proved just as
 --  they were for the STLC.
 
--- AI
-theorem weakening_empty (Γ : Context) (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
-    <{ ~Γ ⊢ ~t ⦂ ~T }> :=
-  sorry
--- AI
-theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
-    (t v : Tm) (T : Ty)
-    (hT : <{ ~x ↦ ~U ; ~Γ ⊢ ~t ⦂ ~T }>) (hv : <{ ∅ ⊢ ~v ⦂ ~U }>) :
-    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~T }> := by
-  sorry
+--  FILL IN HERE
 
 --  #### Preservation
 
@@ -1182,17 +1296,15 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
 --  *Hint*: you will need to define and prove the same helper lemmas we
 --  used before.
 
-theorem preservation (t t' : Tm) (T : Ty)
--- AI
-    (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) (hs : t ⟶ t') : <{ ∅ ⊢ ~t' ⦂ ~T }> := by
+theorem preservation (t t' : Tm) (τ : Ty)
+    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) (hs : t ⟶ t') : <{ ∅ ⊢ ~t' ⦂ ~τ }> := by
   sorry
 
 --  #### Progress
 
 --  ### Exercise (4 stars): StlcArith.progress ⭐⭐⭐⭐
 
--- AI
-theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
+theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
     t.IsValue ∨ ∃ t', t ⟶ t' := by
   sorry
 
@@ -1200,4 +1312,4 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 
 end StlcArith
 
--- Source revision: 5c6e636, committed 2026-09-20 21:46 UTC
+-- Source revision: dcf4433, committed 2026-09-24 17:39 UTC
