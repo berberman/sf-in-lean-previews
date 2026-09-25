@@ -345,8 +345,8 @@ example : AncestorOf .sage .moss := by
   · apply TransGen.step; apply ParentOf.sage_cleo
   · apply TransGen.step; apply ParentOf.cleo_moss
 
---  Note to developers:
---      HIDE: CH: A simple exercise could be nice here?
+--  Note to developers (Chris Henson):
+--      A simple exercise could be nice here?
 
 --  Computing the transitive closure can be undecidable even for a relation
 --  `r` that is decidable (e.g., the `CollatzStep` relation below, whose
@@ -2396,4 +2396,4 @@ theorem pigeonhole_principle' {α : Type} {l₁ l₂ : List α}
     Repeats l₁ :=
   pigeonhole_aux l₁ [] l₂ hin hlen
 
--- Source revision: f71d207, committed 2026-09-24 15:25 UTC
+-- Source revision: dcf4433, committed 2026-09-24 17:39 UTC
