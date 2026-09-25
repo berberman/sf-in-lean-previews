@@ -10,7 +10,7 @@ import SFLCompat
 --  Syntax:
 
 --  t ::= x                     (variable)
---      | λ x : T . t           (abstraction)
+--      | λ x : τ . t           (abstraction)
 --      | t t                   (application)
 --      | true                  (constant true)
 --      | false                 (constant false)
@@ -18,7 +18,7 @@ import SFLCompat
 
 --  Values:
 
---  v ::= λ x : T . t
+--  v ::= λ x : τ . t
 --      | true
 --      | false
 
@@ -26,8 +26,8 @@ import SFLCompat
 --
 --      [x:=s]x               = s
 --      [x:=s]y               = y                     if x ≠ y
---      [x:=s](λx:T. t)       = λx:T. t
---      [x:=s](λy:T. t)       = λy:T. [x:=s]t         if x ≠ y
+--      [x:=s](λx:τ. t)       = λx:τ. t
+--      [x:=s](λy:τ. t)       = λy:τ. [x:=s]t         if x ≠ y
 --      [x:=s](t₁ t₂)         = ([x:=s]t₁) ([x:=s]t₂)
 --      [x:=s]true            = true
 --      [x:=s]false           = false
@@ -38,7 +38,7 @@ import SFLCompat
 
 --  v.IsValue
 --                         -----------------------                    (appAbs)
---                          (λx:T. t) v ⟶ [x:=v]t
+--                          (λx:τ. t) v ⟶ [x:=v]t
 --
 --                                t₁ ⟶ t₁'
 --                            ----------------                        (app1)
@@ -61,18 +61,18 @@ import SFLCompat
 
 --  Typing:
 
---  Γ x = T₁
+--  Γ x = τ₁
 --                              ------------                       (var)
---                               Γ ⊢ x ⦂ T₁
+--                               Γ ⊢ x ⦂ τ₁
 --
---                          x ↦ T₂ ; Γ ⊢ t₁ ⦂ T₁
+--                          x ↦ τ₂ ; Γ ⊢ t₁ ⦂ τ₁
 --                        -------------------------                (abs)
---                         Γ ⊢ λx:T₂. t₁ ⦂ T₂ → T₁
+--                         Γ ⊢ λx:τ₂. t₁ ⦂ τ₂ → τ₁
 --
---                            Γ ⊢ t₁ ⦂ T₂ → T₁
---                              Γ ⊢ t₂ ⦂ T₂
+--                            Γ ⊢ t₁ ⦂ τ₂ → τ₁
+--                              Γ ⊢ t₂ ⦂ τ₂
 --                           ------------------                    (app)
---                             Γ ⊢ t₁ t₂ ⦂ T₁
+--                             Γ ⊢ t₁ t₂ ⦂ τ₁
 --
 --                            -----------------                    (tru)
 --                             Γ ⊢ true ⦂ Bool
@@ -80,9 +80,9 @@ import SFLCompat
 --                           ------------------                    (fls)
 --                            Γ ⊢ false ⦂ Bool
 --
---               Γ ⊢ t₁ ⦂ Bool    Γ ⊢ t₂ ⦂ T₁    Γ ⊢ t₃ ⦂ T₁
+--               Γ ⊢ t₁ ⦂ Bool    Γ ⊢ t₂ ⦂ τ₁    Γ ⊢ t₃ ⦂ τ₁
 --              ---------------------------------------------      (ite)
---                     Γ ⊢ if t₁ then t₂ else t₃ ⦂ T₁
+--                     Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ₁
 
 --  In this chapter, we develop the fundamental theory of
 --  the Simply Typed Lambda Calculus — in particular, the
@@ -102,32 +102,32 @@ open scoped MyGetElem
 --  are not only well typed but *closed* — i.e., well typed
 --  in the empty context.
 
-theorem canonical_forms_bool (t : Tm) (hT : <{ ∅ ⊢ ~t ⦂ Bool }>) (hv : t.IsValue) :
+theorem canonical_forms_bool (t : Tm) (hτ : <{ ∅ ⊢ ~t ⦂ Bool }>) (hv : t.IsValue) :
     t = <{ true }> ∨ t = <{ false }> := by
   cases hv with
-  | abs x T t₁ => cases hT
+  | abs x τ t₁ => cases hτ
   | tru => left; rfl
   | fls => right; rfl
 
-theorem canonical_forms_fun (t : Tm) (T₁ T₂ : Ty)
-    (hT : <{ ∅ ⊢ ~t ⦂ ~T₁ → ~T₂ }>) (hv : t.IsValue) :
-    ∃ x u, t = <{ λ ~x : ~T₁ . ~u }> := by
+theorem canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty)
+    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ₁ → ~τ₂ }>) (hv : t.IsValue) :
+    ∃ x u, t = <{ λ ~x : ~τ₁ . ~u }> := by
   cases hv with
-  | abs x T t₁ => cases hT with | abs _ _ _ _ _ _ =>
+  | abs x τ t₁ => cases hτ with | abs _ _ _ _ _ _ =>
     exists x, t₁
-  | tru => cases hT
-  | fls => cases hT
+  | tru => cases hτ
+  | fls => cases hτ
 
 --  ## Progress
 
 --  The *progress* theorem tells us that closed, well-typed
 --  terms are not stuck.
 
-theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
+theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
     t.IsValue ∨ ∃ t', t ⟶ t' := by
-  generalize hΓ : (∅ : Context) = Γ at hT
-  induction hT with
-  | var Γ x T₁ h =>
+  generalize hΓ : (∅ : Context) = Γ at hτ
+  induction hτ with
+  | var Γ x τ₁ h =>
     subst hΓ
     -- Contradictory: variables cannot be typed in an empty context.
     rw [PartialMap.getElem_empty] at h
@@ -135,14 +135,15 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
   | abs => left; constructor
   | tru => left; constructor
   | fls => left; constructor
-  | app Γ T₁ T₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
+  | app Γ τ₁ τ₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
     -- `t = t₁ t₂`.  Proceed by cases on whether `t₁` is a value or steps.
+    subst hΓ
     right
-    cases ih₁ hΓ with
+    cases ih₁ rfl with
     | inl hv₁ =>
-      cases ih₂ hΓ with
+      cases ih₂ rfl with
       | inl hv₂ =>
-        obtain ⟨x, u, rfl⟩ := canonical_forms_fun t₁ _ _ (hΓ ▸ h₁) hv₁
+        obtain ⟨x, u, rfl⟩ := canonical_forms_fun t₁ _ _ h₁ hv₁
         exists <{ [~x := ~t₂] ~u }>
         constructor
         assumption
@@ -154,11 +155,12 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
       obtain ⟨t₁', h⟩ := hs₁
       exists <{ ~t₁' ~t₂ }>
       constructor <;> assumption
-  | ite Γ t₁ t₂ t₃ T₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
+  | ite Γ t₁ t₂ t₃ τ₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
+    subst hΓ
     right
-    cases ih₁ hΓ with
+    cases ih₁ rfl with
     | inl hv₁ =>
-      cases canonical_forms_bool t₁ (hΓ ▸ h₁) hv₁ with
+      cases canonical_forms_bool t₁ h₁ hv₁ with
       | inl he =>
         subst he
         exists t₂
@@ -199,8 +201,8 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 --  Tricky case: variables.
 --
 --  In this case, we need to deduce from the fact that a
---  term `s` has type S in the empty context the fact that
---  `s` has type S in every context.
+--  term `s` has type `σ` in the empty context the fact that
+--  `s` has type `σ` in every context.
 --
 --  For this we prove a...
 
@@ -219,21 +221,30 @@ theorem progress (t : Tm) (T : Ty) (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) :
 theorem weakening {Γ Γ' : Context} {t : Tm} {τ : Ty}
     (hi : Γ ⊆ Γ') (ht : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
   induction ht generalizing Γ' with
-  | var =>
-      constructor; apply hi; assumption
-  | abs _ _ _ _ _ _ ih =>
-      constructor; apply ih; apply PartialMap.update_subset; assumption
+  | var _ x _ h =>
+    constructor
+    exact hi h
+  | abs _ x _ _ _ _ ih =>
+    constructor
+    apply ih
+    apply PartialMap.update_subset
+    assumption
   | app _ _ _ _ _ _ _ ih₁ ih₂ =>
-      constructor
-      . exact ih₁ hi
-      . exact ih₂ hi
+    constructor
+    · apply ih₁
+      exact hi
+    · apply ih₂
+      exact hi
   | tru => constructor
   | fls => constructor
   | ite _ _ _ _ _ _ _ _ ih₁ ih₂ ih₃ =>
-      constructor
-      . exact ih₁ hi
-      . exact ih₂ hi
-      . exact ih₃ hi
+    constructor
+    · apply ih₁
+      exact hi
+    · apply ih₂
+      exact hi
+    · apply ih₃
+      exact hi
 
 --  Through judicious use of `apply_rules`, we can heavily
 --  automate this proof. The tactic after `with` is applied
@@ -251,10 +262,12 @@ theorem weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty}
 
 theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
     <{ ~Γ ⊢ ~t ⦂ ~τ }> := by
-  apply weakening _ ht
-  intro _ _ h
-  rw [PartialMap.getElem_empty] at h
-  contradiction
+  apply weakening (Γ := ∅)
+  -- this is the "manual" way to show that the empty context is a subset of any context:
+  -- show that a 'lookup' in it is impossible.
+  · intros x b contra
+    contradiction
+  · assumption
 
 --  ### The Substitution Lemma
 
@@ -264,88 +277,132 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t �
 --
 --  The *substitution lemma* says:
 --  - Suppose we have a term `t` with a free variable `x`,
---    and suppose we've been able to assign a type `T` to
---    `t` under the assumption that `x` has some type `U`.
+--    and suppose we've been able to assign a type `τ` to
+--    `t` under the assumption that `x` has some type `τ'`.
 --  - Also, suppose that we have some other term `v` and
---    that we've shown that `v` has type `U`.
+--    that we've shown that `v` has type `τ'`.
 --  - Then we can substitute `v` for each of the occurrences
 --    of `x` in `t` and obtain a new term that still has
---    type `T`.
+--    type `τ`.
 
--- IN PROGRESS
-theorem substitution_preserves_typing (Γ : Context) (x : String) (U : Ty)
-    (t v : Tm) (T : Ty)
-    (hT : <{ ~x ↦ ~U ; ~Γ ⊢ ~t ⦂ ~T }>) (hv : <{ ∅ ⊢ ~v ⦂ ~U }>) :
-    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~T }> := by
-  -- By induction on `t`; in each case we get at the derivation of `hT`.
-  induction t generalizing Γ T with
+theorem substitution_preserves_typing (Γ : Context) (x : String) (τ' : Ty)
+    (t v : Tm) (τ : Ty)
+    (hτ : <{ ~x ↦ ~τ' ; ~Γ ⊢ ~t ⦂ ~τ }>) (hv : <{ ∅ ⊢ ~v ⦂ ~τ' }>) :
+    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~τ }> := by
+  -- By induction on `t`; in each case we get at the derivation of `hτ`.
+  induction t generalizing Γ τ with
   | var y =>
-    cases hT with
+    cases hτ with
     | var _ _ _ h =>
       by_cases hxy : x = y
       · subst hxy
         rw [PartialMap.update_eq] at h
         rw [subst_var_eq]
-        have hUT : U = T := Option.some.inj h
-        subst hUT
-        exact weakening_empty hv
+        have hτ'τ : τ' = τ := by
+          apply Option.some.inj
+          exact h
+        subst hτ'τ
+        apply weakening_empty
+        exact hv
       · rw [PartialMap.update_neq hxy] at h
         rw [subst_var_ne _ _ _ hxy]
-        exact .var _ y _ h
+        constructor
+        exact h
   | app t₁ t₂ ih₁ ih₂ =>
-    cases hT with
-    | app _ _ _ _ _ h₁ h₂ => rw [subst_app]; exact .app _ _ _ _ _ (ih₁ _ _ h₁) (ih₂ _ _ h₂)
-  | abs y S t₁ ih =>
-    cases hT with
+    cases hτ with
+    | app _ _ _ _ _ h₁ h₂ =>
+      rw [subst_app]
+      constructor
+      · apply ih₁
+        exact h₁
+      · apply ih₂
+        exact h₂
+  | abs y σ t₁ ih =>
+    cases hτ with
     | abs _ _ _ _ _ h =>
       by_cases hxy : x = y
       · subst hxy
         rw [subst_abs_eq]
         rw [PartialMap.update_shadow] at h
-        exact .abs _ _ _ _ _ h
+        constructor
+        exact h
       · rw [subst_abs_ne _ _ _ _ _ hxy]
         rw [PartialMap.update_permute (Ne.symm hxy)] at h
-        exact .abs _ _ _ _ _ (ih _ _ h)
-  | tru => cases hT with | tru => rw [subst_tru]; exact .tru _
-  | fls => cases hT with | fls => rw [subst_fls]; exact .fls _
+        constructor
+        apply ih
+        exact h
+  | tru =>
+    cases hτ with
+    | tru =>
+      rw [subst_tru]
+      constructor
+  | fls =>
+    cases hτ with
+    | fls =>
+      rw [subst_fls]
+      constructor
   | ite c t e ihc iht ihe =>
-    cases hT with
+    cases hτ with
     | ite _ _ _ _ _ h₁ h₂ h₃ =>
       rw [subst_ite]
-      exact .ite _ _ _ _ _ (ihc _ _ h₁) (iht _ _ h₂) (ihe _ _ h₃)
+      constructor
+      · apply ihc
+        exact h₁
+      · apply iht
+        exact h₂
+      · apply ihe
+        exact h₃
 
 --  ### Main Theorem
 
 --  We now have the ingredients we need to prove
 --  preservation: if a closed, well-typed term `t` has type
---  `T` and takes a step to `t'`, then `t'` is also a closed
---  term with type `T`. In other words, the small-step
+--  `τ` and takes a step to `t'`, then `t'` is also a closed
+--  term with type `τ`. In other words, the small-step
 --  reduction relation preserves types.
 
--- IN PROGRESS
-theorem preservation (t t' : Tm) (T : Ty)
-    (hT : <{ ∅ ⊢ ~t ⦂ ~T }>) (hs : t ⟶ t') : <{ ∅ ⊢ ~t' ⦂ ~T }> := by
-  generalize hΓ : (∅ : Context) = Γ at hT
-  induction hT generalizing t' with
+theorem preservation (t t' : Tm) (τ : Ty)
+    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) (hs : t ⟶ t') : <{ ∅ ⊢ ~t' ⦂ ~τ }> := by
+  generalize hΓ : (∅ : Context) = Γ at hτ
+  induction hτ generalizing t' with
   | var => cases hs
   | abs => cases hs
   | tru => cases hs
   | fls => cases hs
-  | app Γ T₁ T₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
+  | app Γ τ₁ τ₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
     subst hΓ
     cases hs with
     | appAbs _ _ _ _ _ =>
       -- The one interesting case: the desired result is the substitution lemma.
       cases h₁ with
-      | abs _ _ _ _ _ hb => exact substitution_preserves_typing _ _ _ _ _ _ hb h₂
-    | app1 _ t₁' _ h => exact .app _ _ _ _ _ (ih₁ t₁' h rfl) h₂
-    | app2 _ _ t₂' _ h => exact .app _ _ _ _ _ h₁ (ih₂ t₂' h rfl)
-  | ite Γ t₁ t₂ t₃ T₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
+      | abs _ _ _ _ _ hb =>
+        apply substitution_preserves_typing
+        · exact hb
+        · exact h₂
+    | app1 _ t₁' _ h =>
+      constructor
+      · apply ih₁
+        · exact h
+        · rfl
+      · exact h₂
+    | app2 _ _ t₂' _ h =>
+      constructor
+      · exact h₁
+      · apply ih₂
+        · exact h
+        · rfl
+  | ite Γ t₁ t₂ t₃ τ₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
     subst hΓ
     cases hs with
     | ifTrue => exact h₂
     | ifFalse => exact h₃
-    | ifStep _ t₁' _ _ h => exact .ite _ _ _ _ _ (ih₁ t₁' h rfl) h₂ h₃
+    | ifStep _ t₁' _ _ h =>
+      constructor
+      · apply ih₁
+        · exact h
+        · rfl
+      · exact h₂
+      · exact h₃
 
 end Stlc
 
@@ -360,7 +417,7 @@ open scoped MyGetElem
 --  remove booleans, for brevity).
 
 inductive Ty where
-  | arrow (T₁ T₂ : Ty)
+  | arrow (τ₁ τ₂ : Ty)
   | nat
 
 --  To terms, we add natural number constants, along with
@@ -370,7 +427,7 @@ inductive Ty where
 inductive Tm where
   | var (x : String)
   | app (t₁ t₂ : Tm)
-  | abs (x : String) (T : Ty) (t : Tm)
+  | abs (x : String) (τ : Ty) (t : Tm)
   | const (n : Nat)
   | succ (t : Tm)
   | pred (t : Tm)
@@ -387,14 +444,14 @@ inductive Tm where
 --  language's `StlcArith.Ty.arrow`.
 
 scoped macro_rules (kind := Stlc.tyBracket)
-  | `(<{ ~$T:term }>)    => pure T
-  | `(<{ ($T:stlcTy) }>) => `(<{ $T:stlcTy }>)
+  | `(<{ ~$τ:term }>)    => pure τ
+  | `(<{ ($τ:stlcTy) }>) => `(<{ $τ:stlcTy }>)
   | `(<{ $x:ident }>) =>
       match x.getId.toString with
       | "Nat" => `(Ty.nat)
       | _ => `(($x : Ty))
-  | `(<{ $T₁:stlcTy → $T₂:stlcTy }>)  => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
-  | `(<{ $T₁:stlcTy -> $T₂:stlcTy }>) => `(Ty.arrow <{ $T₁:stlcTy }> <{ $T₂:stlcTy }>)
+  | `(<{ $τ₁:stlcTy → $τ₂:stlcTy }>)  => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
+  | `(<{ $τ₁:stlcTy -> $τ₂:stlcTy }>) => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
 --  END DETAILS
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: terms)
@@ -439,8 +496,8 @@ scoped macro_rules (kind := Stlc.tmBracket)
           | "pred" => `(Tm.pred <{ $t₂:stlcTm }>)
           | _      => `(Tm.app <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
       | _ => `(Tm.app <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
-  | `(<{ λ $x : $T . $t }>) => do
-      `(Tm.abs $(← Stlc.varStr x) <{ $T:stlcTy }> <{ $t:stlcTm }>)
+  | `(<{ λ $x : $τ . $t }>) => do
+      `(Tm.abs $(← Stlc.varStr x) <{ $τ:stlcTy }> <{ $t:stlcTm }>)
   | `(<{ $t₁:stlcTm * $t₂:stlcTm }>) => `(Tm.mult <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
   | `(<{ if0 $c then $t else $e }>) =>
       `(Tm.ite0 <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
@@ -504,9 +561,9 @@ partial def delabTmInner : DelabM (TSyntax `stlcTm) := do
         `(stlcTm| $f $a)
     | Tm.abs _ _ _ => do
         let x ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
-        let T ← withAppFn <| withAppArg delabTyInner
+        let τ ← withAppFn <| withAppArg delabTyInner
         let t ← withAppArg delabTmInner
-        `(stlcTm| λ $x : $T . $t)
+        `(stlcTm| λ $x : $τ . $t)
     | Tm.succ _ => do
         let t ← withAppArg delabTmInner
         `(stlcTm| $(mkIdent `succ):ident $t)
@@ -564,4 +621,4 @@ def delabTm : Delab := whenPPOption getPPNotation do
 
 end StlcArith
 
--- Source revision: 1a547d1, committed 2026-09-18 21:25 UTC
+-- Source revision: dcf4433, committed 2026-09-24 17:39 UTC
