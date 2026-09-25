@@ -167,11 +167,11 @@ example : 1 = 1 := by
 --  these, but it is very useful together with the `<;>` combinator.
 
 inductive Silly : Nat → Prop where
-| mk1 {n : Nat} (h : n > 1) : Silly n
-| mk2 {n : Nat} (h : 1 ∈ []) : Silly n
-| mk3 {n : Nat} (h : ∃ m, n = m + 2) : Silly n
+| mk1 n (h : n > 1) : Silly n
+| mk2 n (h : 1 ∈ []) : Silly n
+| mk3 n (h : ∃ m, n = m + 2) : Silly n
 
-example {n : Nat} (h : Silly n) : n ≠ 1 := by
+example {n} (h : Silly n) : n ≠ 1 := by
   inversion h with
   | mk1 => lia
   | mk2 => contradiction
@@ -190,16 +190,12 @@ example {n} (h : Silly n) : n ≠ 1 := by
 
 theorem Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
-  induction hPerm with
-    (try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia)
+  induction hPerm with (try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia)
   | trans => lia
 
---  Note that `try lia <;> try rw [...] <;> lia` *doesn't* work because
---  `<;>` short circuits. A failure in the first `lia` prevents the rest of
---  the sequence from executing, meaning the `try rw [...]` never fires.
---  (`try lia <;> ...` is parsed `try (lia <;> (...))`, and it's the
---  outermost `try` that catches the failure in this case.) We'll see a
---  solution to this problem further below.
+--  Note that `try lia <;> try rw [...] <;> lia` *doesn't* work, because
+--  the first time that `try` catches a failure in a `<;>` sequence, the
+--  whole sequence will stop executing.
 
 sf_expect_failure_in
   example (α : Type) (x : α) (l₁ l₂ : List α)
@@ -557,7 +553,6 @@ inductive RegExp (α : Type) : Type where
   | Star (r : RegExp α)
 deriving BEq, DecidableEq, Repr
 
--- prevents printing dot-chained, method-call-style like r1.App r2
 attribute [pp_nodot] RegExp.Char RegExp.App RegExp.Union RegExp.Star
 
 namespace RegExp
@@ -573,7 +568,7 @@ namespace RegExp
 --
 --  We connect regular expressions and strings by defining when a regular
 --  expression *matches* some string.
---
+
 --  Informally, this looks as follows:
 --  - The regular expression `EmptySet` does not match any string.
 --
@@ -805,7 +800,7 @@ def reChars {α : Type} (re : RegExp α) : List α :=
 theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     (hmatch : s =~ re) (hin : x ∈ s) : x ∈ reChars re := by
   induction hmatch with
-  | mEmpty => contradiction
+  | mEmpty => simp at hin
   | mChar c => simp only [reChars]; assumption
   | mApp _ _ _ _ ih₁ ih₂ =>
   /- Something interesting happens in the `mApp` case.  We obtain
@@ -894,8 +889,7 @@ theorem star_app α (s₁ s₂ : List α) (re : RegExp α) :
   intro h₁
   generalize heq : Star re = re' at h₁
   /- We now have `heq : Star re = re'`;
-    `heq` is contradictory in most cases, allowing us to conclude
-    immediately via `contradiction`. -/
+    `heq` is contradictory in most cases, allowing us to conclude immediately via `contradiction`. -/
   induction h₁ <;> try contradiction
   -- The interesting cases are those that correspond to `Star`.
   case mStar0 _ => intro h₂; simp only [List.nil_append]; exact h₂
@@ -976,8 +970,7 @@ def napp {α : Type} (n : Nat) (l : List α) : List α :=
 theorem napp_zero {α : Type} (l : List α) : napp 0 l = [] := by rfl
 
 @[simp]
-theorem napp_succ {α : Type} (n : Nat) (l : List α) :
-  napp (n + 1) l = l ++ napp n l := by rfl
+theorem napp_succ {α : Type} (n : Nat) (l : List α) : napp (n + 1) l = l ++ napp n l := by rfl
 
 --  These auxiliary lemmas might also be useful in your proof of the
 --  pumping lemma.
@@ -1178,4 +1171,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: dcf4433, committed 2026-09-24 17:39 UTC
+-- Source revision: f71d207, committed 2026-09-24 15:25 UTC

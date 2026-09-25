@@ -68,10 +68,9 @@ import SFLCompat
 --  ### States
 
 --  Since we'll want to look variables up to find out their current values,
---  we'll use total maps from the `Typeclasses` chapter of *Logical
---  Foundations*. A *machine state* (or just *state*) represents the
---  current values of all variables at some point in the execution of a
---  program.
+--  we'll use total maps from the `Typeclasses` chapter. A *machine state*
+--  (or just *state*) represents the current values of all variables at
+--  some point in the execution of a program.
 --
 --  For simplicity, we assume that the state is defined for *all*
 --  variables, even though any given program is only able to mention a
@@ -130,24 +129,17 @@ def Z : Ident := "Z"
 --  - The `declare_syntax_cat` directive adds a new non-terminal to Lean's
 --    grammar, called `imp_aexp`. We'll add additional non-terminals
 --    further below.
---  - Each `syntax` directive defines a grammar production. Seven of them
---    build the `imp_aexp` category itself: the first two make a numeric
---    literal and an identifier into an `imp_aexp`, the next three build
---    larger expressions (with annotations that fix precedence and
---    associativity), and the last two are parentheses for grouping and
---    `~`, the escape back to Lean. The eighth, `aexp { … }`, is a
---    production of Lean's own `term` category — it is what lets an Imp
---    expression appear in ordinary Lean code.
---  - `~e` splices an already-elaborated Lean term `e` into Imp syntax. We
---    use it throughout the chapter to drop a previously-defined expression
---    or command into a larger program, as in
---    `imp { while (X ≠ 0) { ~subtract_slowly_body } }`.
+--  - Each `syntax` directive defines a grammar production, of which there
+--    are eight in total. The first two define literals, `num` and `ident`,
+--    as `imp_aexp`s. The next several directives define productions for
+--    building larger expressions, with some annotations to define
+--    precedence, etc.
 --  - Finally, `macro_rules` is used to translate each production of the
---    `imp_aexp` non-terminal into a Lean expression.
+--    `imp_aexp` nonterminal into a Lean expression.
 --
 --  Boolean expressions and, later, commands follow this same pattern
 --  exactly, so their declarations are collapsed where they appear: open
---  one if you want to see the pattern repeated, and skip it otherwise.
+--  one if you want to see the pattern repeated, and skip them otherwise.
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: arithmetic expressions)
 /-- Arithmetic expressions of Imp -/
@@ -351,6 +343,7 @@ private def BExp.delabBool : Delab := whenPPOption getPPNotation do
   | false => `(bexp { $(mkIdent `false):ident })
   | _ => failure
 
+
 @[app_unexpander Bexp.eq]
 private def Bexp.unexpandEq : Unexpander
   | `($_ $a $b) => `(bexp { $(getAexp a):imp_aexp = $(getAexp b):imp_aexp })
@@ -466,8 +459,8 @@ example : bexp { true ∧ ¬(X ≤ 4) }.eval (X →ₜ 5) = true := by rfl
 --  c ::= skip
 --      | x := a
 --      | c ; c
---      | if ( b ) { c } else { c }
---      | while ( b ) { c }
+--      | if b then c else c end
+--      | while b do c end
 
 --  Here is the formal definition of the abstract syntax of commands.
 
@@ -584,7 +577,7 @@ def fact_in_lean : Com := imp {
 }
 
 --  Because we registered a delaborator, we can inspect a defined program
---  with `#print`, which pretty-prints (i.e., delaborates) the stored
+--  with `#print`, which pretty prints (i.e. delaborates) the stored
 --  definition using the same syntax:
 
 #print fact_in_lean
@@ -652,7 +645,7 @@ def loop : Com := imp { while (true) { skip } }
 
 --  ### Evaluation as a Function (Failed Attempt)
 
---  In a more conventional functional language like OCaml or Haskell, we
+--  In a more conventional functional language like OCaml or Haskell we
 --  could define the evaluation function as follows:
 
 sf_expect_failure_in
@@ -735,12 +728,12 @@ sf_expect_failure_in
 --      I kind of hate this notation. Is there something more standard in
 --      Lean? CSLib precedent maybe?
 
---  ### Operational Semantics
-
 --  We'll use the notation `st =[ c ]=> st'` for the `Com.EvalR` relation:
 --  `st =[ c ]=> st'` means that executing program `c` in a starting state
 --  `st` results in an ending state `st'`. This can be pronounced "`c`
 --  takes state `st` to `st'`".
+
+--  ### Operational Semantics
 
 --  Here is an informal definition of evaluation, presented as inference
 --  rules for readability:
@@ -759,23 +752,23 @@ sf_expect_failure_in
 --
 --                           b.eval st = true
 --                            st =[ c₁ ]=> st'
---                 ---------------------------------------       (ifTrue)
---                 st =[ if (b) { c₁ } else { c₂ } ]=> st'
+--                 --------------------------------------        (ifTrue)
+--                 st =[ if b then c₁ else c₂ end ]=> st'
 --
 --                          b.eval st = false
 --                            st =[ c₂ ]=> st'
---                 ---------------------------------------       (ifFalse)
---                 st =[ if (b) { c₁ } else { c₂ } ]=> st'
+--                 --------------------------------------        (ifFalse)
+--                 st =[ if b then c₁ else c₂ end ]=> st'
 --
 --                          b.eval st = false
---                     ----------------------------              (whileFalse)
---                     st =[ while (b) { c } ]=> st
+--                     -----------------------------             (whileFalse)
+--                     st =[ while b do c end ]=> st
 --
 --                           b.eval st = true
 --                            st =[ c ]=> st'
---                   st' =[ while (b) { c } ]=> st''
---                   -------------------------------             (whileTrue)
---                   st  =[ while (b) { c } ]=> st''
+--                   st' =[ while b do c end ]=> st''
+--                   --------------------------------            (whileTrue)
+--                   st  =[ while b do c end ]=> st''
 --
 --  Here is the formal definition. Make sure you understand how it
 --  corresponds to the inference rules.
@@ -863,11 +856,11 @@ example :
 --      `∅ =[ X := 2 ]=> {X ↦ 2}`. It would be silly to use
 --      `apply EvalR.seq (st' := {X ↦ 2}) <;> try simp only [evalR_eq] at *`.
 
---  Since the total-map update notation (`→ₜ`) is difficult to type, we
+--  Since the total map update notation (`→ₜ`) is difficult to type, we
 --  prefer to use the `{}`-notation with `KVPair`s.
 --
 --  In the above proof, using `EvalR.asgn rfl` is convenient because it
---  computes the value of the right-hand side and can use it to determine
+--  computes the value of the right hand side and can use it to determine
 --  `st'`.
 
 example {x : Nat} : ∅ =[ X := ~(.num x) ]=> {X ↦ x} := by
@@ -887,7 +880,7 @@ example : ∅ =[ X := 2; Y := 3 ]=> {Y ↦ 3, X ↦ 2} := by
 
 --  This is a case where `rfl` is more powerful than `simp`, because it can
 --  assign the `?st'` metavariable. To demonstrate, here's a version with
---  `simp`:
+--  `simp`
 
 sf_expect_failure_in
   example : ∅ =[ X := 2; Y := 3 ]=> {Y ↦ 3, X ↦ 2} := by
@@ -998,7 +991,7 @@ theorem ceval_example₂ :
 --  evaluation be a total function. But it raises a question: is the
 --  relational definition really a partial *function*? Could the same
 --  command, from the same state, evaluate to two different final states?
---  In fact, this cannot happen: `Com.EvalR` *is* a partial function.
+--  In fact this cannot happen: `Com.EvalR` *is* a partial function.
 
 theorem ceval_deterministic {c : Com} {st st1 st2 : State}
     (e₁ : st =[ c ]=> st1) (e₂ : st =[ c ]=> st2) : st1 = st2 := by
@@ -1410,11 +1403,11 @@ theorem ss_correct {st st' : State} {n z : Nat}
   simp [hx'] at hinv'
   exact hinv'
 
---  ## Additional Exercises
+--  ### Additional Exercises
 
 --  ### Exercise (3 stars): stack_compiler ⭐⭐⭐
 
---  Old HP calculators, programming languages like Forth and Postscript,
+--  Old HP Calculators, programming languages like Forth and Postscript,
 --  and abstract machines like the Java Virtual Machine all evaluate
 --  arithmetic expressions using a *stack*. For instance, the expression
 --
@@ -1439,13 +1432,13 @@ theorem ss_correct {st st' : State} {n z : Nat}
 --        [12]          |
 
 --  The goal of this exercise is to write a small compiler that translates
---  `Aexp`s into stack machine instructions.
+--  `aexp`s into stack machine instructions.
 --
 --  The instruction set for our stack language will consist of the
 --  following instructions:
 --  - `sPush n`: Push the number `n` on the stack.
 --  - `sLoad x`: Load the identifier `x` from the store and push it on the
---    stack.
+--    stack
 --  - `sPlus`: Pop the two top numbers from the stack, add them, and push
 --    the result onto the stack.
 --  - `sMinus`: Similar, but subtract the first number from the second.
@@ -1471,7 +1464,7 @@ open Sinstr
 --  Note that it is unspecified what to do when encountering an `sPlus`,
 --  `sMinus`, or `sMult` instruction if the stack contains fewer than two
 --  elements. In a sense, it is immaterial what we do, since a correct
---  compiler will never emit such a malformed program. But for the sake of
+--  compiler will never emit such a malformed program. But for sake of
 --  later exercises, it would be best to skip the offending instruction and
 --  continue with the next one.
 
@@ -1709,9 +1702,9 @@ end Delab
 --
 --          X := 0;
 --          Y := 1;
---          while (0 ≠ Y) {
+--          while (0 <> Y) {
 --            while (true) {
---              brk
+--              break
 --            };
 --            X := 1;
 --            Y := Y - 1
@@ -1762,7 +1755,7 @@ open Result
 --    raises. If that signal is `sContinue`, then the execution proceeds as
 --    in the original semantics. Otherwise, we stop the execution of the
 --    loop, and the resulting state is the same as the one resulting from
---    the execution of the current iteration. In either case, since `brk`
+--    the execution of the current iteration. In either case, since `break`
 --    only terminates the innermost loop, `while` signals `sContinue`.
 --
 --  Based on the above description, complete the definition of the
@@ -1833,9 +1826,6 @@ theorem seq_stops_on_break {c₁ c₂ : Com} {st st' : State}
 
 --  ### Exercise (3 stars): while_break_true (Optional) ⭐⭐⭐
 
---  Prove that if the condition of a while loop is true after it
---  terminates, then the inner command must have breaked.
-
 theorem while_break_true {b : Bexp} {c : Com} {st st' : State}
   (h₁ : st =[ imp { while (b) {c} } ]=> st' // sContinue)
   (h₂ : b.eval st' = true) :
@@ -1849,8 +1839,6 @@ theorem while_break_true {b : Bexp} {c : Com} {st st' : State}
     exists st
 
 --  ### Exercise (4 stars): ceval_deterministic (Optional) ⭐⭐⭐⭐
-
---  Prove that your defined relation is deterministic.
 
 theorem ceval_deterministic {c : Com} {st st₁ st₂ : State} {s₁ s₂ : Result}
   (h₁ : st =[ imp { c } ]=> st₁ // s₁)
@@ -1924,4 +1912,25 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: dcf4433, committed 2026-09-24 17:39 UTC
+--  (End of exercise)
+
+--  Note to developers:
+--      `HTML polish — deferred Verso-markup opportunities for a later pass (see
+--      CONTRIBUTING.md, "Verso markup for nicer HTML"):
+--      * {name} was applied to resolvable declaration references in visible prose.
+--        More could be added, but bare type names were linked only selectively (avoid
+--        over-linking; mind forward references and namespace scope — a name must
+--        already be defined and in scope at that point in the document, or {name} fails
+--        to build).
+--      * {ref "tag"} cross-references link "see the X section" phrasings; add a
+--        `%%% tag := "…" %%%` block under a heading to make it a target. Done for the
+--        Notations and Delaborators sections; more internal "above/below" phrasings
+--        could get the same treatment.
+--      * {deftech}/{tech} — a small glossary: define Imp's core terms once with
+--        {deftech} (abstract syntax, state, big-step, relation, partial function, …)
+--        and link later uses with {tech}.
+--      * {lean}`expr` — inline elaborated expressions/types where a whole expression,
+--        not just a single name, reads better with hover types (e.g. the
+--        `Coe Ident Aexp` / `OfNat Aexp n` bullets in the Notations section).`
+
+-- Source revision: f71d207, committed 2026-09-24 15:25 UTC

@@ -19,10 +19,9 @@ import SFLCompat
 
 --  Since we'll want to look variables up to find out their
 --  current values, we'll use total maps from the
---  `Typeclasses` chapter of *Logical Foundations*. A
---  *machine state* (or just *state*) represents the current
---  values of all variables at some point in the execution
---  of a program.
+--  `Typeclasses` chapter. A *machine state* (or just
+--  *state*) represents the current values of all variables
+--  at some point in the execution of a program.
 --
 --  We give the type of variable identifiers a name,
 --  `Ident`. For now it is just `String`; naming it makes
@@ -266,6 +265,7 @@ private def BExp.delabBool : Delab := whenPPOption getPPNotation do
   | true => `(bexp { $(mkIdent `true):ident })
   | false => `(bexp { $(mkIdent `false):ident })
   | _ => failure
+
 
 @[app_unexpander Bexp.eq]
 private def Bexp.unexpandEq : Unexpander
@@ -534,7 +534,7 @@ def loop : Com := imp { while (true) { skip } }
 --  ### Evaluation as a Function (Failed Attempt)
 
 --  In a more conventional functional language like OCaml or
---  Haskell, we could define the evaluation function as
+--  Haskell we could define the evaluation function as
 --  follows:
 
 sf_expect_failure_in
@@ -586,13 +586,13 @@ sf_expect_failure_in
 --  `Prop` rather than a `State`, similar to what we did for
 --  `Aexp.EvalR` in the Slang chapter.
 
---  ### Operational Semantics
-
 --  We'll use the notation `st =[ c ]=> st'` for the
 --  `Com.EvalR` relation: `st =[ c ]=> st'` means that
 --  executing program `c` in a starting state `st` results
 --  in an ending state `st'`. This can be pronounced "`c`
 --  takes state `st` to `st'`".
+
+--  ### Operational Semantics
 
 --  Here is an informal definition of evaluation, presented
 --  as inference rules for readability:
@@ -611,23 +611,23 @@ sf_expect_failure_in
 --
 --                           b.eval st = true
 --                            st =[ c₁ ]=> st'
---                 ---------------------------------------       (ifTrue)
---                 st =[ if (b) { c₁ } else { c₂ } ]=> st'
+--                 --------------------------------------        (ifTrue)
+--                 st =[ if b then c₁ else c₂ end ]=> st'
 --
 --                          b.eval st = false
 --                            st =[ c₂ ]=> st'
---                 ---------------------------------------       (ifFalse)
---                 st =[ if (b) { c₁ } else { c₂ } ]=> st'
+--                 --------------------------------------        (ifFalse)
+--                 st =[ if b then c₁ else c₂ end ]=> st'
 --
 --                          b.eval st = false
---                     ----------------------------              (whileFalse)
---                     st =[ while (b) { c } ]=> st
+--                     -----------------------------             (whileFalse)
+--                     st =[ while b do c end ]=> st
 --
 --                           b.eval st = true
 --                            st =[ c ]=> st'
---                   st' =[ while (b) { c } ]=> st''
---                   -------------------------------             (whileTrue)
---                   st  =[ while (b) { c } ]=> st''
+--                   st' =[ while b do c end ]=> st''
+--                   --------------------------------            (whileTrue)
+--                   st  =[ while b do c end ]=> st''
 --
 --  Here is the formal definition. Make sure you understand
 --  how it corresponds to the inference rules.
@@ -709,12 +709,12 @@ example :
     · rfl
     · exact EvalR.asgn rfl
 
---  Since the total-map update notation (`→ₜ`) is difficult
+--  Since the total map update notation (`→ₜ`) is difficult
 --  to type, we prefer to use the `{}`-notation with
 --  `KVPair`s.
 --
 --  In the above proof, using `EvalR.asgn rfl` is convenient
---  because it computes the value of the right-hand side and
+--  because it computes the value of the right hand side and
 --  can use it to determine `st'`.
 
 example {x : Nat} : ∅ =[ X := ~(.num x) ]=> {X ↦ x} := by
@@ -734,7 +734,7 @@ example : ∅ =[ X := 2; Y := 3 ]=> {Y ↦ 3, X ↦ 2} := by
 
 --  This is a case where `rfl` is more powerful than `simp`,
 --  because it can assign the `?st'` metavariable. To
---  demonstrate, here's a version with `simp`:
+--  demonstrate, here's a version with `simp`
 
 sf_expect_failure_in
   example : ∅ =[ X := 2; Y := 3 ]=> {Y ↦ 3, X ↦ 2} := by
@@ -1015,11 +1015,11 @@ theorem factCom_correct {st st' : State} {n : Nat}
 --  reasoning principles... Indeed, this is exactly the
 --  point of the Hoare chapters!
 
---  ## Additional Exercises
+--  ### Additional Exercises
 
 --  ### Exercise (3 stars): stack_compiler ⭐⭐⭐
 
---  Old HP calculators, programming languages like Forth and
+--  Old HP Calculators, programming languages like Forth and
 --  Postscript, and abstract machines like the Java Virtual
 --  Machine all evaluate arithmetic expressions using a
 --  *stack*. For instance, the expression
@@ -1046,13 +1046,13 @@ theorem factCom_correct {st st' : State} {n : Nat}
 --        [12]          |
 
 --  The goal of this exercise is to write a small compiler
---  that translates `Aexp`s into stack machine instructions.
+--  that translates `aexp`s into stack machine instructions.
 --
 --  The instruction set for our stack language will consist
 --  of the following instructions:
 --  - `sPush n`: Push the number `n` on the stack.
 --  - `sLoad x`: Load the identifier `x` from the store and
---    push it on the stack.
+--    push it on the stack
 --  - `sPlus`: Pop the two top numbers from the stack, add
 --    them, and push the result onto the stack.
 --  - `sMinus`: Similar, but subtract the first number from
@@ -1082,7 +1082,7 @@ open Sinstr
 --  an `sPlus`, `sMinus`, or `sMult` instruction if the
 --  stack contains fewer than two elements. In a sense, it
 --  is immaterial what we do, since a correct compiler will
---  never emit such a malformed program. But for the sake of
+--  never emit such a malformed program. But for sake of
 --  later exercises, it would be best to skip the offending
 --  instruction and continue with the next one.
 
@@ -1145,4 +1145,4 @@ theorem sCompile_correct (st : State) (a : Aexp) :
 
 end StackCompiler
 
--- Source revision: dcf4433, committed 2026-09-24 17:39 UTC
+-- Source revision: f71d207, committed 2026-09-24 15:25 UTC
