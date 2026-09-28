@@ -104,6 +104,53 @@
       "status": "published",
       "title": "Port shared STLC language setup",
       "url": "https://github.com/plclub/sf-in-lean/pull/424"
+    },
+    "427": {
+      "base_sha": "958a21889c2432482dfa1569c7120f075f2e506c",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "7b0ca83b6eec1e62ce0e40d01072437cb9145409",
+      "preview_path": "pr/427/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36470216344",
+      "status": "published",
+      "title": "Basics: grade all three blt tests",
+      "url": "https://github.com/plclub/sf-in-lean/pull/427"
     }
   },
   "schema": 3
