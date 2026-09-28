@@ -56,6 +56,26 @@
     <link rel="stylesheet" href="-verso-data/tippy-border.css">
     <link rel="stylesheet" href="-verso-data/katex/katex.css">
     <style>
+/* A display is set off vertically and indented a few characters from the left
+   margin — not flush left, not centered — the way a textbook indents a displayed
+   line. */
+.sf-display {
+  margin: 1em 0;
+  margin-left: 2.5em;
+}
+.sf-display pre {
+  margin: 0;
+  overflow-x: auto;
+}
+.sf-display pre code {
+  font-family: var(--verso-code-font-family, monospace);
+  white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
+}
+</style><style>
 .exercise {
   margin: 1.2em 0;
   padding: 0.6em 1em;
@@ -149,22 +169,6 @@ table.bnf td.bnf-note {
   font-family: inherit;
   font-style: italic;
   opacity: 0.65;
-}
-</style><style>
-/* A display is set off vertically and indented a few characters from the left
-   margin — not flush left, not centered — the way a textbook indents a displayed
-   line. */
-.sf-display {
-  margin: 1em 0;
-  margin-left: 2.5em;
-}
-.sf-display pre {
-  margin: 0;
-  overflow-x: auto;
-}
-.sf-display pre code {
-  font-family: var(--verso-code-font-family, monospace);
-  white-space: pre;
 }
 </style><style>
 .namedocs {
@@ -2294,7 +2298,7 @@ window.onload = async () => {
             <script type="module" src="-verso-search/search-page.js"></script>
             </section>
           <div class="sf-build-stamp">
-            Source revision: ddeab07, committed 2026-09-28 01:26 UTC</div>
+            Source revision: a0a721e, committed 2026-09-28 20:18 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

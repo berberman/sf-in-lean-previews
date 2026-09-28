@@ -1031,4 +1031,4 @@ example : ¬ ∃ τ, <{ ∅ ⊢ λ X : Bool . λ Y : Bool . X Y ⦂ τ }> := by
 
 end Stlc
 
--- Source revision: ddeab07, committed 2026-09-28 01:26 UTC
+-- Source revision: a0a721e, committed 2026-09-28 20:18 UTC

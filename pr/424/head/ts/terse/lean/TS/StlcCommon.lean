@@ -17,7 +17,7 @@ syntax (name := quotedTy) stlcTy : stlcQuoted
 
 declare_syntax_cat stlcVar
 
-syntax:max ident : stlcVar
+syntax:max (name := objectVar) ident : stlcVar
 syntax:max "~" term:max : stlcVar
 
 declare_syntax_cat stlcTm
@@ -55,6 +55,16 @@ def withSourceInfoOf {kind : Name} (ref : Syntax) (stx : TSyntax kind)
 
 def mkObjectIdentFrom (ref : Syntax) (name : String) : Ident :=
   mkIdentFrom ref (Name.mkSimple name)
+
+/--
+Disable the unused-variable linter for our synthetic binder fvars.
+A bound object language variable may occur through antiquotation,
+so Lean's syntactic check is not accurate; and it would also suggest
+invalid binder names like `_X`.
+-/
+@[unused_variables_ignore_fn]
+def ignoreUnusedObjectVars : Linter.IgnoreFunction :=
+  fun _ stack _ => stack.matches [``StlcCommon.objectVar]
 
 structure Language where
   tyType : Name
