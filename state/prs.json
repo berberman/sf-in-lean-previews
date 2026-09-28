@@ -104,6 +104,53 @@
       "status": "published",
       "title": "Port shared STLC language setup",
       "url": "https://github.com/plclub/sf-in-lean/pull/424"
+    },
+    "425": {
+      "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "385214e1d7c7ff2a1554d7ec54c7606d9af0dfb6",
+      "preview_path": "pr/425/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36395108500",
+      "status": "published",
+      "title": "fix: intentation",
+      "url": "https://github.com/plclub/sf-in-lean/pull/425"
     }
   },
   "schema": 3
