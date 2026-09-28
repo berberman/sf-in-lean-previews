@@ -57,6 +57,26 @@
     <link rel="stylesheet" href="-verso-data/tippy-border.css">
     <link rel="stylesheet" href="-verso-data/katex/katex.css">
     <style>
+/* A display is set off vertically and indented a few characters from the left
+   margin — not flush left, not centered — the way a textbook indents a displayed
+   line. */
+.sf-display {
+  margin: 1em 0;
+  margin-left: 2.5em;
+}
+.sf-display pre {
+  margin: 0;
+  overflow-x: auto;
+}
+.sf-display pre code {
+  font-family: var(--verso-code-font-family, monospace);
+  white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
+}
+</style><style>
 .exercise {
   margin: 1.2em 0;
   padding: 0.6em 1em;
@@ -125,41 +145,6 @@ details.sf-quiz-solution[open] > summary {
 details.sf-quiz-solution > .sf-quiz-solution-body {
   padding: 0.2em 0.8em;
   border-left: 3px solid var(--sf-rule, #ccc);
-}
-</style><style>
-/* +centered display: center the whole block as a rigid unit, so multi-line
-   ASCII art (e.g. inference rules) keeps its internal alignment -- unlike
-   text-align: center, which would center each line independently and
-   misalign the premises/bar/conclusion. */
-.sf-display-centered {
-  margin: 1em 0;
-  display: flex;
-  justify-content: center;
-}
-.sf-display-centered pre {
-  margin: 0;
-  overflow-x: auto;
-  width: fit-content;
-}
-.sf-display-centered pre code {
-  font-family: var(--verso-code-font-family, monospace);
-  white-space: pre;
-}
-</style><style>
-/* A display is set off vertically and indented a few characters from the left
-   margin — not flush left, not centered — the way a textbook indents a displayed
-   line. */
-.sf-display {
-  margin: 1em 0;
-  margin-left: 2.5em;
-}
-.sf-display pre {
-  margin: 0;
-  overflow-x: auto;
-}
-.sf-display pre code {
-  font-family: var(--verso-code-font-family, monospace);
-  white-space: pre;
 }
 </style><style>
 .namedocs {
@@ -1061,6 +1046,29 @@ table.tabular td > p:first-child, table.tabular th > p:first-child {
 }
 table.tabular td > p:last-child, table.tabular th > p:first-child {
   margin-bottom: 0;
+}
+</style><style>
+/* +centered display: center the whole block as a rigid unit, so multi-line
+   ASCII art (e.g. inference rules) keeps its internal alignment -- unlike
+   text-align: center, which would center each line independently and
+   misalign the premises/bar/conclusion. */
+.sf-display-centered {
+  margin: 1em 0;
+  display: flex;
+  justify-content: center;
+}
+.sf-display-centered pre {
+  margin: 0;
+  overflow-x: auto;
+  width: fit-content;
+}
+.sf-display-centered pre code {
+  font-family: var(--verso-code-font-family, monospace);
+  white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
 }
 </style><style>
 .marginalia .note {
@@ -3783,7 +3791,7 @@ Finding the right type can be tricky.</p>
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: dcf4433, committed 2026-09-24 17:39 UTC</div>
+            Source revision: 958a218, committed 2026-09-28 10:35 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Lists/#Lists" rel="prev" title="5. Lists: Working with Structured Data"><span class="arrow">←</span><span class="where">5. Lists: Working with Structured Data</span></a><a class="local-button active" href="Tactics/#Tactics" rel="next" title="7. Tactics: More Basic Tactics"><span class="where">7. Tactics: More Basic Tactics</span><span class="arrow">→</span></a></nav>
           </div>

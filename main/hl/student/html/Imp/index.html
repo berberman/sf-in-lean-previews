@@ -71,6 +71,10 @@
 .sf-display pre code {
   font-family: var(--verso-code-font-family, monospace);
   white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
 }
 </style><style>
 .namedocs {
@@ -3856,7 +3860,7 @@ to play with this too if you like.)</p>
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: dcf4433, committed 2026-09-24 17:39 UTC</div>
+            Source revision: 958a218, committed 2026-09-28 10:35 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Slang/#Slang" rel="prev" title="2. Slang: Arithmetic and Boolean Expressions"><span class="arrow">←</span><span class="where">2. Slang: Arithmetic and Boolean Expressions</span></a><a class="local-button active" href="Equiv/#Equiv" rel="next" title="4. Equiv: Program Equivalence"><span class="where">4. Equiv: Program Equivalence</span><span class="arrow">→</span></a></nav>
           </div>
