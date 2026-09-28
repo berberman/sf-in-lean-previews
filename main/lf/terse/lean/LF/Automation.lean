@@ -109,11 +109,11 @@ example : 1 = 1 := by
   try rfl -- here `try rfl` just does `rfl`
 
 inductive Silly : Nat → Prop where
-| mk1 {n : Nat} (h : n > 1) : Silly n
-| mk2 {n : Nat} (h : 1 ∈ []) : Silly n
-| mk3 {n : Nat} (h : ∃ m, n = m + 2) : Silly n
+| mk1 n (h : n > 1) : Silly n
+| mk2 n (h : 1 ∈ []) : Silly n
+| mk3 n (h : ∃ m, n = m + 2) : Silly n
 
-example {n : Nat} (h : Silly n) : n ≠ 1 := by
+example {n} (h : Silly n) : n ≠ 1 := by
   inversion h with
   | mk1 => lia
   | mk2 => contradiction
@@ -133,18 +133,13 @@ example {n} (h : Silly n) : n ≠ 1 := by
 
 theorem Perm3_In_better_with_try (α : Type) (x : α) (l₁ l₂ : List α)
     (hPerm : Perm3 l₁ l₂) (hIn : x ∈ l₁) : x ∈ l₂ := by
-  induction hPerm with
-    (try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia)
+  induction hPerm with (try rw [List.mem_cons, List.mem_cons, List.mem_cons] at * <;> lia)
   | trans => lia
 
 --  Note that `try lia <;> try rw [...] <;> lia` *doesn't*
---  work because `<;>` short circuits. A failure in the
---  first `lia` prevents the rest of the sequence from
---  executing, meaning the `try rw [...]` never fires.
---  (`try lia <;> ...` is parsed `try (lia <;> (...))`, and
---  it's the outermost `try` that catches the failure in
---  this case.) We'll see a solution to this problem further
---  below.
+--  work, because the first time that `try` catches a
+--  failure in a `<;>` sequence, the whole sequence will
+--  stop executing.
 
 sf_expect_failure_in
   example (α : Type) (x : α) (l₁ l₂ : List α)
@@ -385,7 +380,6 @@ inductive RegExp (α : Type) : Type where
   | Star (r : RegExp α)
 deriving BEq, DecidableEq, Repr
 
--- prevents printing dot-chained, method-call-style like r1.App r2
 attribute [pp_nodot] RegExp.Char RegExp.App RegExp.Union RegExp.Star
 
 namespace RegExp
@@ -524,6 +518,16 @@ example : [1, 2, 3] =~ reg_exp_of_list [1, 2, 3] := by
 theorem MStar1 α s (re : RegExp α) (h : s =~ re) : s =~ Star re := by
   sorry
 
+--  The following lemmas show that the intuition about
+--  matching given at the beginning of the section can be
+--  obtained from the formal inductive definition.
+--
+--  The next lemma is stated in terms of the `List.foldr`
+--  function on lists: if `ss : List (List α)` represents a
+--  sequence of strings `s₁, ..., sₙ`, then
+--  `List.foldr (· ++ ·) [] ss` is the result of
+--  concatenating them all together.
+--
 --  Naturally, proofs about `ExpMatch` often require
 --  induction (on evidence!).
 --
@@ -550,7 +554,7 @@ def reChars {α : Type} (re : RegExp α) : List α :=
 theorem in_re_match {α : Type} {s : List α} {re : RegExp α} {x : α}
     (hmatch : s =~ re) (hin : x ∈ s) : x ∈ reChars re := by
   induction hmatch with
-  | mEmpty => contradiction
+  | mEmpty => simp at hin
   | mChar c => simp only [reChars]; assumption
   | mApp _ _ _ _ ih₁ ih₂ =>
   /- Something interesting happens in the `mApp` case.  We obtain
@@ -631,8 +635,7 @@ theorem star_app α (s₁ s₂ : List α) (re : RegExp α) :
   intro h₁
   generalize heq : Star re = re' at h₁
   /- We now have `heq : Star re = re'`;
-    `heq` is contradictory in most cases, allowing us to conclude
-    immediately via `contradiction`. -/
+    `heq` is contradictory in most cases, allowing us to conclude immediately via `contradiction`. -/
   induction h₁ <;> try contradiction
   -- The interesting cases are those that correspond to `Star`.
   case mStar0 _ => intro h₂; simp only [List.nil_append]; exact h₂
@@ -652,15 +655,100 @@ theorem star_app α (s₁ s₂ : List α) (re : RegExp α) :
 --  `induction` on `s₁ =~ Star re` would still fail because
 --  `Star re` is a compound expression, not a bare variable.
 
---  The remainder of this section in the full version of the
---  chapter develops an extended exercise on regular
---  expressions, leading up to a proof of the so-called
---  *pumping lemma*, which states, informally, that any
---  sufficiently long string `s` matching a regular
---  expression `re` can be "pumped" by repeating some middle
---  section of `s` an arbitrary number of times to produce a
---  new string also matching `re`.
+--  ### The "Weak" Pumping Lemma
+
+--  One of the first really interesting theorems in the
+--  theory of regular expressions is the so-called *pumping
+--  lemma*, which states, informally, that any sufficiently
+--  long string `s` matching a regular expression `re` can
+--  be "pumped" by repeating some middle section of `s` an
+--  arbitrary number of times to produce a new string also
+--  matching `re`. For the sake of simplicity, this exercise
+--  considers a slightly weaker theorem than is usually
+--  stated in courses on automata theory — hence the name
+--  `weak_pumping`. The stronger one can be found below.
+--
+--  To get started, we need to define "sufficiently long."
+--  Since we are working in a constructive logic, we
+--  actually need to be able to *calculate*, for each
+--  regular expression `re`, a minimum length for strings
+--  `s` to guarantee "pumpability."
+
+def pumpingConstant {α : Type} (re : RegExp α) : Nat :=
+  match re with
+  | EmptySet => 1
+  | EmptyStr => 1
+  | Char _ => 2
+  | App re₁ re₂ => re₁.pumpingConstant + re₂.pumpingConstant
+  | Union re₁ re₂ => re₁.pumpingConstant + re₂.pumpingConstant
+  | Star r => r.pumpingConstant
+
+--  You may find these lemmas about the pumping constant
+--  useful when proving the pumping lemma below.
+
+theorem pumping_constant_ge_1 {α : Type} (re : RegExp α) :
+    re.pumpingConstant ≥ 1 := by
+  induction re with (simp_all [pumpingConstant]; try lia)
+
+theorem pumping_constant_0_false {α : Type} (re : RegExp α)
+    (h : re.pumpingConstant = 0) : False := by
+  have := pumping_constant_ge_1 re; lia
+
+--  Next, it is useful to define an auxiliary function that
+--  repeats a string (appends it to itself) some number of
+--  times. Note how we define `simp` lemmas for `napp` to go
+--  with its definition.
+
+def napp {α : Type} (n : Nat) (l : List α) : List α :=
+  match n with
+  | 0 => []
+  | n' + 1 => l ++ napp n' l
+
+@[simp]
+theorem napp_zero {α : Type} (l : List α) : napp 0 l = [] := by rfl
+
+@[simp]
+theorem napp_succ {α : Type} (n : Nat) (l : List α) : napp (n + 1) l = l ++ napp n l := by rfl
+
+--  These auxiliary lemmas might also be useful in your
+--  proof of the pumping lemma.
+
+@[simp]
+theorem napp_plus {α : Type} (n m : Nat) (l : List α) :
+    napp (n + m) l = napp n l ++ napp m l := by
+  induction n with simp_all [Nat.succ_add]
+
+theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
+    (hs₁ : s₁ =~ re) (hs₂ : s₂ =~ Star re) :
+    napp m s₁ ++ s₂ =~ Star re := by
+  induction m with
+  | zero => simp only [napp_zero, List.nil_append]; trivial
+  | succ m ih =>
+    simp only [napp_succ]
+    rw [List.append_assoc]
+    apply mStarApp <;> trivial
+
+--  The (weak) pumping lemma itself says that, if `s =~ re`
+--  and if the length of `s` is at least the pumping
+--  constant of `re`, then `s` can be split into three
+--  substrings `s₁ ++ s₂ ++ s₃` in such a way that `s₂` can
+--  be repeated any number of times and the result, when
+--  combined with `s₁` and `s₃`, will still match `re`.
+--  Since `s₂` is also guaranteed not to be the empty
+--  string, this gives us a (constructive!) way to generate
+--  strings matching `re` that are as long as we like.
+--
+--  This proof is quite long, so to make it more tractable
+--  we've broken it up into a number of subproofs, which we
+--  then assemble to prove the main lemma.
+--
+--  Your job is to complete the proofs of the helper lemmas;
+--  the main lemma relies on these.
+
+--  ### The "Strong" Pumping Lemma
 
 end RegExp
 
--- Source revision: dcf4433, committed 2026-09-24 17:39 UTC
+--  ### Palindromes Revisited
+
+-- Source revision: 570bfd5, committed 2026-09-22 21:52 UTC
