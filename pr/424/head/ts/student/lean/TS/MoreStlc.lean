@@ -268,9 +268,9 @@ import SFLCompat
 --  simplified form of Lean's `match`) to destruct them. For example, the
 --  following procedure converts a `Nat + Bool` into a `Nat`:
 --
---          GetNat ⦂ Nat+Bool → Nat
+--          GetNat ⦂ Nat + Bool → Nat
 --          GetNat =
---            λX:Nat+Bool,
+--            λX:Nat + Bool,
 --              case X of
 --                inl N => N
 --              | inr B => if B then 1 else 0
@@ -2256,4 +2256,4 @@ theorem preservation (t t' : Tm) (τ : Ty)
 
 end StlcExtended
 
--- Source revision: a0a721e, committed 2026-09-28 20:18 UTC
+-- Source revision: decaffa, committed 2026-09-28 21:35 UTC

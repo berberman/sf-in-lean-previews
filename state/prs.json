@@ -59,7 +59,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/422"
     },
     "424": {
-      "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
+      "base_sha": "958a21889c2432482dfa1569c7120f075f2e506c",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -98,9 +98,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "e3975392ca65c10f6819398562d1a1169a5d8109",
+      "head_sha": "84f04e6a788224ad155e7cfad0b00d1314767be1",
       "preview_path": "pr/424/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36478247727",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36487147005",
       "status": "published",
       "title": "Port shared STLC language setup",
       "url": "https://github.com/plclub/sf-in-lean/pull/424"

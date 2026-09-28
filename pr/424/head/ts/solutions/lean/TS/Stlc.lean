@@ -235,7 +235,7 @@ inductive Tm where
 --  The notation distinguishes these two uses by naming convention, which
 --  we will follow throughout the STLC chapters:
 --  - A name beginning with a capital Latin letter is taken literally as a
---    name in the STLC syntax. Thus `X`, `Y`, and `Zed` are STLC term
+--    name in the STLC syntax. Thus `X`, `Y`, and `Z` are STLC term
 --    variables. Such a name must be a single Lean identifier and cannot
 --    contain a dot. In languages with named base types, which we will see
 --    in the Sub chapter, names such as `A`, `Int`, and `Bool` name those
@@ -248,7 +248,7 @@ inductive Tm where
 --    `<{ ~(Tm.var "X") t }>` inserts the expression `Tm.var "X"` as the
 --    function and the Lean variable `t` as its argument. The same escape
 --    is needed to insert a capitalized Lean variable, since an unescaped
---    capitalized name is taken literally as an STLC name.
+--    capitalized name is assumed to be an STLC name.
 --
 --  This capitalization convention applies to actual variable names in
 --  concrete STLC examples and inside `<{ ... }>` brackets. In grammars,
@@ -542,6 +542,10 @@ def subst (x : String) (s : Tm) (t : Tm) : Tm :=
   | .fls => .fls
   | .ite t₁ t₂ t₃ =>
       <{ if [x := s] t₁ then [x := s] t₂ else [x := s] t₃ }>
+
+--  Note that due to an unfortunate limitation of Lean's notation system,
+--  we must use constructor names for match statements rather than our
+--  custom syntax.
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
 open Lean PrettyPrinter in
@@ -1247,4 +1251,4 @@ example : ¬ ∃ τ σ, <{ ∅ ⊢ λ X : τ . X X ⦂ σ }> := by
 
 end Stlc
 
--- Source revision: a0a721e, committed 2026-09-28 20:18 UTC
+-- Source revision: decaffa, committed 2026-09-28 21:35 UTC

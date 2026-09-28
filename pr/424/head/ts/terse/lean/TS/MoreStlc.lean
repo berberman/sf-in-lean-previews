@@ -191,9 +191,9 @@ import SFLCompat
 --
 --  Values of sum type are "destructed" by case analysis:
 --
---          GetNat ⦂ Nat+Bool → Nat
+--          GetNat ⦂ Nat + Bool → Nat
 --          GetNat =
---            λX:Nat+Bool,
+--            λX:Nat + Bool,
 --              case X of
 --                inl N => N
 --              | inr B => if B then 1 else 0
@@ -1173,4 +1173,4 @@ attribute [ExtStlcEval] Tm.IsValue.abs Tm.IsValue.nat Tm.IsValue.sumInl Tm.IsVal
 
 end StlcExtended
 
--- Source revision: a0a721e, committed 2026-09-28 20:18 UTC
+-- Source revision: decaffa, committed 2026-09-28 21:35 UTC
