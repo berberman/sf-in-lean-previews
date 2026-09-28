@@ -1,0 +1,1 @@
+window.docContents[107].resolve({"/Slang/#Slang":{"contents":"We need to figure out our approach to text width, especially\nfor proofs.  Quite a few proofs here don't render into the\nchosen page width, and for terse mode it will be worse.\n\n\n\n\n\n\n\n","context":"Type Systems","header":"2. Slang: Arithmetic and Boolean Expressions","id":"/Slang/#Slang"}});
