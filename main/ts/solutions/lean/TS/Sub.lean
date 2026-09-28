@@ -1,5 +1,4 @@
 import TS.Stlc
-import TS.Types
 import LF.CustomTactics
 import LF.Typeclasses
 
@@ -22,7 +21,7 @@ import SFLCompat
 --
 --  In the simply typed lamdba-calculus with records, the term
 --
---          (λ r:Person. (r.age)+1) {name="Pat", age=21, gpa=1}
+--          (λ R:Person. (R.age)+1) {name="Pat", age=21, gpa=1}
 --
 --  is not typable, since it applies a function that wants a two-field
 --  record to an argument that actually provides three fields, while the
@@ -31,7 +30,7 @@ import SFLCompat
 --
 --  But this is silly: we're passing the function a *better* argument than
 --  it needs! The only thing the body of the function can possibly do with
---  its record argument `r` is project the field `age` from it: nothing
+--  its record argument `R` is project the field `age` from it: nothing
 --  else is allowed by the type, and the presence or absence of an extra
 --  `gpa` field makes no difference at all. So, intuitively, it seems that
 --  this function should be applicable to any record value that has at
@@ -152,19 +151,19 @@ import SFLCompat
 --                                   σ₁ × σ₂ <: τ₁ × τ₂
 --
 --  The subtyping rule for arrows is a little less intuitive. Suppose we
---  have functions `f` and `g` with these types:
+--  have functions `F` and `G` with these types:
 --
---             f : C → Student
---             g : (C→Person) → D
+--             F : C → Student
+--             G : (C→Person) → D
 --
---  That is, `f` is a function that yields a record of type `Student`, and
---  `g` is a (higher-order) function that expects its argument to be a
+--  That is, `F` is a function that yields a record of type `Student`, and
+--  `G` is a (higher-order) function that expects its argument to be a
 --  function yielding a record of type `Person`. Also suppose that
---  `Student` is a subtype of `Person`. Then the application `g f` is safe
+--  `Student` is a subtype of `Person`. Then the application `G F` is safe
 --  even though their types do not match up precisely, because the only
---  thing `g` can do with `f` is to apply it to some argument (of type
---  `C`); the result will actually be a `Student`, while `g` will be
---  expecting a `Person`, but this is safe because the only thing `g` can
+--  thing `G` can do with `F` is to apply it to some argument (of type
+--  `C`); the result will actually be a `Student`, while `G` will be
+--  expecting a `Person`, but this is safe because the only thing `G` can
 --  then do is to project out the two fields that it knows about (`name`
 --  and `age`), and these will certainly be among the fields that are
 --  present.
@@ -192,12 +191,12 @@ import SFLCompat
 --
 --  Here is an example that illustrates this:
 --
---             f : Person → C
---             g : (Student → C) → D
+--             F : Person → C
+--             G : (Student → C) → D
 --
---  The application `g f` is safe, because the only thing the body of `g`
---  can do with `f` is to apply it to some argument of type `Student`.
---  Since `f` requires records having (at least) the fields of a `Person`,
+--  The application `G F` is safe, because the only thing the body of `G`
+--  can do with `F` is to apply it to some argument of type `Student`.
+--  Since `F` requires records having (at least) the fields of a `Person`,
 --  this will always work. So `Person → C` is a subtype of `Student → C`
 --  since `Student` is a subtype of `Person`.
 --
@@ -280,11 +279,11 @@ import SFLCompat
 --  We *could* formalize these requirements in a single subtyping rule for
 --  records as follows:
 --
---                              ∀ jk in j₁..jn,
---                          ∃ ip in i₁..im, such that
---                              jk=ip and σp <: τk
+--                              ∀ jₖ in j₁..jₙ,
+--                          ∃ iₚ in i₁..iₘ, such that
+--                              jₖ=iₚ and σₚ <: τₖ
 --                        ----------------------------------                    (rcd)
---                        {i₁:σ₁...im:σm} <: {j₁:τ₁...jn:τn}
+--                        {i₁:σ₁...iₘ:σₘ} <: {j₁:τ₁...jₙ:τₙ}
 --
 --  That is, the record on the left should have all the field labels of the
 --  one on the right (and possibly more), while the types of the common
@@ -298,7 +297,7 @@ import SFLCompat
 --
 --                                     n > m
 --                       ---------------------------------                 (rcdWidth)
---                       {i₁:τ₁...in:τn} <: {i₁:τ₁...im:τm}
+--                       {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
 --
 --  We can use `rcdWidth` to drop later fields of a multi-field record
 --  while keeping earlier fields, showing for example that
@@ -307,9 +306,9 @@ import SFLCompat
 --  Second, subtyping can be applied inside the components of a compound
 --  record type:
 --
---                             σ₁ <: τ₁  ...  σn <: τn
+--                             σ₁ <: τ₁  ...  σₙ <: τₙ
 --                        ----------------------------------               (rcdDepth)
---                        {i₁:σ₁...in:σn} <: {i₁:τ₁...in:τn}
+--                        {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
 --
 --  For example, we can use `rcdDepth` and `rcdWidth` together to show that
 --  `{y:Student, x:Nat} <: {y:Person}`.
@@ -319,9 +318,9 @@ import SFLCompat
 --  achieved this yet: using just `rcdDepth` and `rcdWidth` we can only
 --  drop fields from the *end* of a record type. So we add:
 --
---               {i₁:σ₁...in:σn} is a permutation of {j₁:τ₁...jn:τn}
+--               {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
 --               ---------------------------------------------------        (rcdPerm)
---                        {i₁:σ₁...in:σn} <: {j₁:τ₁...jn:τn}
+--                        {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
 --
 --  It is worth noting that full-blown language designs may choose not to
 --  adopt all of these subtyping rules. For example, in Java:
@@ -344,20 +343,20 @@ import SFLCompat
 --                                  --------------------                (arrowWrong)
 --                                  σ₁ → σ₂ <: τ₁ → τ₂
 --
---  Give a concrete example of functions `f` and `g` with the following
+--  Give a concrete example of functions `F` and `G` with the following
 --  types...
 --
---             f : Student → Nat
---             g : (Person → Nat) → Nat
+--             F : Student → Nat
+--             G : (Person → Nat) → Nat
 --
---  ... such that the application `g f` will get stuck during execution.
+--  ... such that the application `G F` will get stuck during execution.
 --  (Use informal syntax. No need to prove formally that the application
 --  gets stuck.)
 
 --  Answer:
 --
---             f = λr:Student. r.gpa
---             g = λf:Person→Nat. f {name="Alex",age=20}
+--             F = λR:Student. R.gpa
+--             G = λF:Person→Nat. F {name="Alex",age=20}
 
 --  #### ⊤
 
@@ -407,15 +406,15 @@ import SFLCompat
 --
 --                                     n > m
 --                       ---------------------------------                 (rcdWidth)
---                       {i₁:τ₁...in:τn} <: {i₁:τ₁...im:τm}
+--                       {i₁:τ₁...iₙ:τₙ} <: {i₁:τ₁...iₘ:τₘ}
 --
---                             σ₁ <: τ₁  ...  σn <: τn
+--                             σ₁ <: τ₁  ...  σₙ <: τₙ
 --                        ----------------------------------               (rcdDepth)
---                        {i₁:σ₁...in:σn} <: {i₁:τ₁...in:τn}
+--                        {i₁:σ₁...iₙ:σₙ} <: {i₁:τ₁...iₙ:τₙ}
 --
---               {i₁:σ₁...in:σn} is a permutation of {j₁:τ₁...jn:τn}
+--               {i₁:σ₁...iₙ:σₙ} is a permutation of {j₁:τ₁...jₙ:τₙ}
 --               ---------------------------------------------------        (rcdPerm)
---                        {i₁:σ₁...in:σn} <: {j₁:τ₁...jn:τn}
+--                        {i₁:σ₁...iₙ:σₙ} <: {j₁:τ₁...jₙ:τₙ}
 
 --   ----------------------------------------
 
@@ -475,15 +474,15 @@ import SFLCompat
 
 --  Answer: True
 
---  - `τ→τ→υ <: σ→σ→V`
+--  - `τ→τ→υ <: σ→σ→δ`
 
 --  Answer: True
 
---  - `(τ→τ)→υ <: (σ→σ)→V`
+--  - `(τ→τ)→υ <: (σ→σ)→δ`
 
 --  Answer: False
 
---  - `((τ→σ)→τ)→υ <: ((σ→τ)→σ)→V`
+--  - `((τ→σ)→τ)→υ <: ((σ→τ)→σ)→δ`
 
 --  Answer: True
 
@@ -616,7 +615,7 @@ import SFLCompat
 --    that makes the following assertion true? (Assume we have `Unit` among
 --    the base types and `unit` as a constant of this type. )
 --
---        ∅ ⊢ (λp:τ×⊤. p.fst) ((λz:A,z). unit) ⦂ A→A
+--        ∅ ⊢ (λP:τ×⊤. P.fst) ((λZ:A. Z), unit) ⦂ A→A
 
 --        τ = A → A
 
@@ -629,7 +628,7 @@ import SFLCompat
 --  - What is the *smallest* type `τ` that makes the following assertion
 --    true?
 --
---             ∅ ⊢ (λp:(A→A × B→B), p) ((λz:A.z), (λz:B.z)) ⦂ τ
+--             ∅ ⊢ (λP:(A→A × B→B). P) ((λZ:A. Z), (λZ:B. Z)) ⦂ τ
 
 --             τ  =  (A→A × B→B)
 
@@ -642,7 +641,7 @@ import SFLCompat
 --  - What is the *smallest* type `τ` that makes the following assertion
 --    true?
 --
---             a:A ⊢ (λp:(A×τ). (p.snd) (p.fst)) (a. λz:A.z) ⦂ A
+--             X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
 
 --             τ = A→A
 
@@ -655,7 +654,7 @@ import SFLCompat
 --  Clearly, `τ` must have the form `τ₁→τ₂`.
 --
 --  Now we can read off the following constraints from the program:
---  - `A  <:  τ₁` (from the application of p.snd to p.fst)
+--  - `A  <:  τ₁` (from the application of `P.snd` to `P.fst`)
 --  - `τ₂  <:  A` (from the final result type)
 --  - `(A × A→A)  <:  (A × τ)` (from the outer application)
 --
@@ -684,7 +683,7 @@ import SFLCompat
 --  What is the *smallest* type `τ` that makes the following assertion
 --  true?
 --
---          a:A ⊢ (λp:(A×τ). (p.snd) (p.fst)) (a, λz:A. z) ⦂ A
+--          X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
 --
 --  (A) `⊤`
 --
@@ -704,7 +703,7 @@ import SFLCompat
 
 --  What is the *largest* type `τ` that makes the following assertion true?
 --
---             a:A ⊢ (λp:(A×τ). (p.snd) (p.fst)) (a, λz:A.z) ⦂ A
+--             X:A ⊢ (λP:(A×τ). (P.snd) (P.fst)) (X, λZ:A. Z) ⦂ A
 --
 --  (A) `⊤`
 --
@@ -749,7 +748,7 @@ import SFLCompat
 --    following assertion true?
 --
 --             ∃ σ,
---               ∅ ⊢ (λp:(A*τ), (p.snd) (p.fst)) ⦂ σ
+--               ∅ ⊢ (λP:(A×τ). (P.snd) (P.fst)) ⦂ σ
 
 --  There is no smallest such type -- any type of the form `A → σ` for some
 --  type `σ` will make the assertion true, but there is no smallest one of
@@ -764,8 +763,8 @@ import SFLCompat
 --  What is the *smallest* type `τ` (if one exists) that makes the
 --  following assertion true?
 --
---            exists σ t,
---              ∅ ⊢ (\x:τ, x x) t ⦂ σ
+--            ∃ σ t,
+--              ∅ ⊢ (λX:τ. X X) t ⦂ σ
 
 --  Answer: Any type of the form `τ = ⊤→υ` will make the assertion true,
 --  but there is no smallest one of these: 1⊤→A→A1 and `⊤→B→B` are both
@@ -776,7 +775,7 @@ import SFLCompat
 --  What is the *smallest* type `τ` that makes the following assertion
 --  true?
 --
---            ∅ ⊢ (\x:⊤, x) ((λz:A,z) , (λz:B,z)) ⦂ τ
+--            ∅ ⊢ (λX:⊤. X) ((λZ:A. Z), (λZ:B. Z)) ⦂ τ
 
 --            τ  =  ⊤
 
@@ -871,182 +870,249 @@ inductive Tm : Type where
   | fst : Tm → Tm
   | snd : Tm → Tm
 
+--  This language uses the shared `<{ ... }>` notation from Stlc. Capital
+--  Latin identifiers in term positions are `Tm` variables. In type
+--  positions, `Bool` and `Unit` name the distinguished types above, while
+--  other capital Latin identifiers, such as `A`, `Int`, or `String`, name
+--  base types in `Ty`. Lowercase and Greek identifiers refer directly to
+--  in-scope Lean variables, while arbitrary Lean expressions require `~`
+--  antiquotation.
+
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation)
-syntax:50 stlcTy:51 " × " stlcTy:50 : stlcTy
-syntax:50 stlcTy:51 " + " stlcTy:50 : stlcTy
-syntax:max " ⊤ " : stlcTy
-syntax:51 " [ " stlcTy:50  " ] " : stlcTy
-
-open Lean in
-scoped macro_rules (kind := Stlc.tyBracket)
-  | `(<{ ~$τ:term }>)    => pure τ
-  | `(<{ ($τ:stlcTy) }>) => `(<{ $τ:stlcTy }>)
-  | `(<{ ⊤ }>) => `(Ty.top)
-  | `(<{ $x:ident }>) =>
-      match x.getId.toString with
-      | "Bool" => `(Ty.bool)
-      | "Unit" => `(Ty.unit)
-      | _ => `(Ty.base  $(quote x.getId.toString))
-  | `(<{ $τ₁:stlcTy → $τ₂:stlcTy }>)  => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
-  | `(<{ $τ₁:stlcTy × $τ₂:stlcTy }>)  => `(Ty.prod <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
-  | `(<{ $τ₁:stlcTy -> $τ₂:stlcTy }>) => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
-
-#check <{ ⊤ × ⊤ }>
-#check <{ Bool → ⊤ }>
-#check <{ (Bool × Unit) -> Nat }>
-
+scoped syntax:50 stlcTy:51 " × " stlcTy:50 : stlcTy
+scoped syntax:max " ⊤ " : stlcTy
 scoped syntax:50 "if " stlcTm:51 " then " stlcTm:50 " else " stlcTm:50 : stlcTm
-
 scoped syntax:max " ( " stlcTm:60 " , " stlcTm:60 " ) " : stlcTm
 
-open Lean in
-scoped macro_rules (kind := Stlc.tmBracket)
-  | `(<{ ~$e:term }>)    => pure e
-  | `(<{ ($t:stlcTm) }>) => `(<{ $t:stlcTm }>)
-  | `(<{ $x:ident }>) =>
-      match x.getId.toString with
-      | "Nat"  => Macro.throwErrorAt x "`Nat` is a type, not a term"
-      | "Unit"  => Macro.throwErrorAt x "`Unit` is a type, not a term"
-      | "fst" => Macro.throwErrorAt x "`fst` must be applied to an argument"
-      | "snd" => Macro.throwErrorAt x "`snd` must be applied to an argument"
-      | "unit" =>  `(Tm.unit)
-      | "true" =>  `(Tm.tru)
-      | "false" =>  `(Tm.fls)
-      | _      => `(Tm.var $(quote x.getId.toString))
-  | `(<{ λ $x : $τ . $t }>) => do
-      `(Tm.abs $(← Stlc.varStr x) <{ $τ:stlcTy }> <{ $t:stlcTm }>)
-  | `(<{ $t₁:stlcTm $t₂:stlcTm }>) =>
-      match t₁ with
-      | `(stlcTm| $f:ident) =>
-          match f.getId.toString with
-          | "fst" => `(Tm.fst <{ $t₂:stlcTm }>)
-          | "snd" => `(Tm.snd <{ $t₂:stlcTm }>)
-          | _      => `(Tm.app  <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
-      | _ => `(Tm.app <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
-  | `(<{ if $c then $t else $e }>) =>
-      `(Tm.ite <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
+namespace Elab
 
-  | `(<{ ( $t₁:stlcTm , $t₂:stlcTm ) }>) => `(Tm.pair <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
+open StlcCommon
+open Lean Meta Elab Term
 
-open Lean in
-/-- Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? -/
-def isPlainTmVarName (s : String) : Bool :=
-  Stlc.isPlainName s && s != "Bool" && s != "unit" && s != "Unit" && s != "if"
 
-open Lean PrettyPrinter Delaborator SubExpr in
-/-- Rebuild `stlcTy` concrete syntax from a `Ty` value. -/
-partial def delabTyInner : DelabM (TSyntax `stlcTy) := do
-  let stx ←
-    match_expr ← getExpr with
-    | Ty.bool => `(stlcTy| $(mkIdent `Bool):ident)
-    | Ty.unit => `(stlcTy| $(mkIdent `Unit):ident)
-    | Ty.top => `(stlcTy| ⊤)
-    | Ty.arrow _ _ => do
-        let a ← withAppFn <| withAppArg delabTyInner
-        let b ← withAppArg delabTyInner
-        `(stlcTy| $a → $b)
-    | Ty.prod _ _ => do
-        let a ← withAppFn <| withAppArg delabTyInner
-        let b ← withAppArg delabTyInner
-        `(stlcTy| $a × $b)
-    | Ty.base _ => do
-        let b ← withAppArg delab
-        `(stlcTy| ~($b))
-    | _ => do
-        match ← delab with
-        | `($i:ident) => `(stlcTy| $i:ident)
-        | e => `(stlcTy| ~$e)
-  (⟨·⟩) <$> annotateTermInfo ⟨stx.raw⟩
+def language : Language where
+  tyType := ``Ty
+  tmType := ``Tm
+  arrowCtor := ``Ty.arrow
+  varCtor := ``Tm.var
+  appCtor := ``Tm.app
+  absCtor := ``Tm.abs
+  -- defined later
+  subst := `StlcSub.subst
+  hasType := `StlcSub.HasType
 
-open Lean PrettyPrinter Delaborator SubExpr in
-/-- Rebuild `stlcTm` concrete syntax from a `Tm` value. -/
-partial def delabTmInner : DelabM (TSyntax `stlcTm) := do
-  let stx ←
-    match_expr ← getExpr with
-    | Tm.var _ => do
-        let x ← withAppArg delab
-        match x with
-        | `($s:str) =>
-            if isPlainTmVarName s.getString then
-              `(stlcTm| $(mkIdent (Name.mkSimple s.getString)):ident)
-            else
-              let var : Term := mkIdent ``Tm.var
-              `(stlcTm| ~($var $x))
-        | _ =>
-            let var : Term := mkIdent ``Tm.var
-            `(stlcTm| ~($var $x))
-    | Tm.app _ _ => do
-        let f ← withAppFn <| withAppArg delabTmInner
-        let a ← withAppArg delabTmInner
-        `(stlcTm| $f $a)
-    | Tm.abs _ _ _ => do
-        let x ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
-        let τ ← withAppFn <| withAppArg delabTyInner
-        let t ← withAppArg delabTmInner
-        `(stlcTm| λ $x : $τ . $t)
-    | Tm.ite _ _ _ => do
-        let c ← withAppFn <| withAppFn <| withAppArg delabTmInner
-        let t ← withAppFn <| withAppArg delabTmInner
-        let e ← withAppArg delabTmInner
-        `(stlcTm| if $c then $t else $e)
-    | Tm.pair _ _ => do
-        let a ← withAppFn <| withAppArg delabTmInner
-        let b ← withAppArg delabTmInner
-        `(stlcTm| ( $a , $b ) )
-    | Tm.fst _ => do
-        let b ← withAppArg delabTmInner
-        `(stlcTm| $(mkIdent `fst):ident $b )
-    | Tm.snd _ => do
-        let b ← withAppArg delabTmInner
-        `(stlcTm| $(mkIdent `snd):ident $b )
-    | Tm.unit => do
-        `(stlcTm| $(mkIdent `unit):ident)
-    | Tm.tru => do
-      `(stlcTm| $(mkIdent `true):ident)
-    | Tm.fls => do
-      `(stlcTm| $(mkIdent `false):ident)
-    | _ => do
-        -- `subst` is defined below, so it is matched by name rather than with
-        -- `match_expr`; a substitution prints in its own bracket notation.
-        let e ← getExpr
-        if e.getAppFn.constName? == some `SltcExtended.subst && e.getAppNumArgs == 3 then
-          let x ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
-          let s ← withAppFn <| withAppArg delabTmInner
-          let t ← withAppArg delabTmInner
-          `(stlcTm| [$x := $s] $t)
-        else
-          match ← delab with
-          | `($i:ident) => `(stlcTm| $i:ident)
-          | e => `(stlcTm| ~$e)
-  (⟨·⟩) <$> annotateTermInfo ⟨stx.raw⟩
+def subTyHandler : TyElabHandler :=
+  fun recur k T => do
+    match T with
+    | `(stlcTy| ⊤) => do
+        return mkConst ``Ty.top
+    | `(stlcTy| Bool) => do
+        return mkConst ``Ty.bool
+    | `(stlcTy| Unit) => do
+        return mkConst ``Ty.unit
+    | `(stlcTy| $T₁:stlcTy × $T₂:stlcTy) => do
+        let T₁ ← recur T₁
+        let T₂ ← recur T₂
+        return mkApp2 (mkConst ``Ty.prod) T₁ T₂
+    | _ => k T
 
-open Lean PrettyPrinter Delaborator SubExpr in
-@[delab app.StlcSub.Ty.bool, delab app.StlcSub.Ty.arrow, delab app.StlcSub.Ty.unit,
-  delab app.StlcSub.Ty.prod, delab app.StlcSub.Ty.base, delab app.StlcSub.Ty.top]
-def delabTy : Delab := whenPPOption getPPNotation do
-  guard <| match_expr ← getExpr with
-    | Ty.bool => true | Ty.arrow _ _ => true
-    | Ty.prod _ _ => true | Ty.base _ => true | Ty.top => true
-    | Ty.unit => true | _ => false
-  match ← delabTyInner with
-  | `(stlcTy| ~$e) => pure e
-  | e => `(<{ $e:stlcTy }>)
+/--
+Make unresolved type identifiers "base types".
+This must run after `commonTyHandler`
+so a Lean variable `τ : Ty` is implicitly antiquoted first.
+-/
 
-open Lean PrettyPrinter Delaborator SubExpr in
-@[delab app.StlcSub.Tm.var, delab app.StlcSub.Tm.app, delab app.StlcSub.Tm.abs,
-  delab app.StlcSub.Tm.ite, delab app.StlcSub.Tm.pair,
-  delab app.StlcSub.Tm.fst, delab app.StlcSub.Tm.snd, delab app.StlcSub.Tm.unit,
-  delab app.StlcSub.Tm.tru, delab app.StlcSub.Tm.fls ]
-def delabTm : Delab := whenPPOption getPPNotation do
-  guard <| match_expr ← getExpr with
-    | Tm.var _ => true | Tm.app _ _ => true | Tm.abs _ _ _ => true
-    | Tm.ite _ _ _ => true | Tm.unit => true | Tm.tru => true | Tm.fls => true
-    | Tm.pair _ _ => true | Tm.fst _ => true | Tm.snd _ => true
-    | _ => false
-  match ← delabTmInner with
-  | `(stlcTm| ~($e)) => pure e
-  | `(stlcTm| ~$e) => pure e
-  | e => `(<{ $e:stlcTm }>)
+def baseTyHandler : TyElabHandler :=
+  fun _recur k T => do
+    match T with
+    | `(stlcTy| $id:ident) => do
+        match classifyIdent? id with
+        | some (.object, name) =>
+          return mkApp (mkConst ``Ty.base) (mkStrLit name)
+        | _ => k T
+    | _ => k T
+
+def tyHandlers : TyElabHandler :=
+  subTyHandler.orElse ((commonTyHandler language).orElse baseTyHandler)
+
+partial def elabTy : TyElab := tyHandlers elabTy  <| unsupportedTy language
+
+def subTmHandler : TmElabHandler :=
+  fun recur k Γ free t => do
+    match t with
+    | `(stlcTm| true) =>
+        return (mkConst ``Tm.tru, free)
+    | `(stlcTm| false) =>
+        return (mkConst ``Tm.fls, free)
+    | `(stlcTm| Bool) =>
+        throwError "`Bool` is not a valid term."
+    | `(stlcTm| Unit) =>
+        throwError "`Unit` is not a valid term."
+    | `(stlcTm| if $c:stlcTm then $t:stlcTm else $e:stlcTm) => do
+        let (c, free) ← recur Γ free c
+        let (t, free) ← recur Γ free t
+        let (e, free) ← recur Γ free e
+        return (mkApp3 (mkConst ``Tm.ite) c t e, free)
+    | `(stlcTm| unit) =>
+        return (mkConst ``Tm.unit, free)
+    | `(stlcTm| ($t₁:stlcTm, $t₂:stlcTm)) => do
+        let (t₁, free) ← recur Γ free t₁
+        let (t₂, free) ← recur Γ free t₂
+        return (mkApp2 (mkConst ``Tm.pair) t₁ t₂, free)
+    | `(stlcTm| fst $t:stlcTm) => do
+        let (t, free) ← recur Γ free t
+        return (mkApp (mkConst ``Tm.fst) t, free)
+    | `(stlcTm| snd $t:stlcTm) => do
+        let (t, free) ← recur Γ free t
+        return (mkApp (mkConst ``Tm.snd) t, free)
+    | _ => k Γ free t
+
+def tmHandlers : TmElabHandler := subTmHandler.orElse (commonTmHandler language elabTy)
+
+partial def elabTm : TmElab := tmHandlers elabTm unsupportedTm
+
+def elabCtx : CtxElab :=
+  elabCtxCommon language elabTy
+
+@[scoped term_elab StlcCommon.bracket]
+def elabBracket : TermElab :=
+  fun stx expectedType? => do
+    let `(<{ $q:stlcQuoted }>) := stx
+      | throwUnsupportedSyntax
+    elabQuoted language elabTy elabTm elabCtx q expectedType?
+
+end Elab
+
+open scoped Elab
+
+namespace Delab
+
+open StlcCommon Elab Delab
+open Lean PrettyPrinter Delaborator
+
+
+@[app_unexpander Ty.top]
+private def Ty.unexpandTop : Unexpander
+  | _ => `(<{ ⊤ }>)
+
+@[app_unexpander Ty.bool]
+private def Ty.unexpandBool : Unexpander
+  | stx => do
+      let Bool := mkObjectIdentFrom stx "Bool"
+      let T ← `(stlcTy| $Bool:ident)
+      `(<{ $T:stlcTy }>)
+
+@[app_unexpander Ty.unit]
+private def Ty.unexpandUnit : Unexpander
+  | stx => do
+      let Unit := mkObjectIdentFrom stx "Unit"
+      let T ← `(stlcTy| $Unit:ident)
+      `(<{ $T:stlcTy }>)
+
+@[app_unexpander Ty.arrow]
+private def Ty.unexpandArrow : Unexpander := Delab.unexpandArrow
+
+@[app_unexpander Ty.prod]
+private def Ty.unexpandProd : Unexpander
+  | `($_ $T₁ $T₂) => do
+      let T₁' := getTy T₁
+      let T₂' := getTy T₂
+      `(<{ $T₁':stlcTy × $T₂':stlcTy }>)
+  | _ => throw ()
+
+private def reservedTyNames : String → Bool
+  | "Bool" | "Unit" => true
+  | _ => false
+
+@[app_unexpander Ty.base]
+private def Ty.unexpandBase : Unexpander
+  | stx@`($_ $s:str) => do
+      let name := s.getString
+      let id := mkObjectIdentFrom stx name
+      match classifyIdent? id, reservedTyNames name with
+      | some (.object, _), false =>
+          let T ← `(stlcTy| $id:ident)
+          `(<{ $T:stlcTy }>)
+      | _, _ => throw ()
+  | _ => throw ()
+
+private def reservedTmNames : String → Bool
+  | "true" | "false" | "Bool"
+  | "Unit" | "unit" | "fst"
+  | "snd" => true
+  | _ => false
+
+
+@[app_unexpander Tm.var]
+private def Tm.unexpandVar : Unexpander :=
+  Delab.unexpandVar reservedTmNames ``Tm.var
+
+@[app_delab Tm.var]
+private def Tm.delabVar : Delab := Delab.delabVar ``Tm.var
+
+@[app_unexpander Tm.app]
+private def Tm.unexpandApp : Unexpander := Delab.unexpandApp
+
+@[app_unexpander Tm.abs]
+private def Tm.unexpandAbs : Unexpander := Delab.unexpandAbs
+
+@[app_unexpander Tm.tru]
+private def Tm.unexpandTru : Unexpander
+  | stx => do
+      let tru := mkObjectIdentFrom stx "true"
+      let t ← `(stlcTm| $tru:ident)
+      `(<{ $t:stlcTm }>)
+
+@[app_unexpander Tm.fls]
+private def Tm.unexpandFls : Unexpander
+  | stx => do
+      let fls := mkObjectIdentFrom stx "false"
+      let t ← `(stlcTm| $fls:ident)
+      `(<{ $t:stlcTm }>)
+
+@[app_unexpander Tm.ite]
+private def Tm.unexpandIte : Unexpander
+  | `($_ $c $t $e) => do
+      let c' := getTm c
+      let t' := getTm t
+      let e' := getTm e
+      `(<{if $c':stlcTm then $t':stlcTm else $e':stlcTm }>)
+  | _ => throw ()
+
+
+@[app_unexpander Tm.unit]
+private def Tm.unexpandUnit : Unexpander
+  | stx => do
+      let unit := mkObjectIdentFrom stx "unit"
+      let t ← `(stlcTm| $unit:ident)
+      `(<{ $t:stlcTm }>)
+
+@[app_unexpander Tm.pair]
+private def Tm.unexpandPair : Unexpander
+  | `($_ $t₁ $t₂) => do
+      let t₁' := getTm t₁
+      let t₂' := getTm t₂
+      `(<{ ($t₁':stlcTm, $t₂':stlcTm) }>)
+  | _ => throw ()
+
+
+@[app_unexpander Tm.fst]
+private def Tm.unexpandFst : Unexpander
+  | stx@`($_ $t) => do
+      let fst := mkObjectIdentFrom stx "fst"
+      let t' := getTm t
+      `(<{ $fst:ident $t':stlcTm }>)
+  | _ => throw ()
+
+@[app_unexpander Tm.snd]
+private def Tm.unexpandSnd : Unexpander
+  | stx@`($_ $t) => do
+      let snd := mkObjectIdentFrom stx "snd"
+      let t' := getTm t
+      `(<{ $snd:ident $t':stlcTm }>)
+  | _ => throw ()
+
+end Delab
 --  END DETAILS
 
 --  ### Substitution
@@ -1054,62 +1120,56 @@ def delabTm : Delab := whenPPOption getPPNotation do
 --  The definition of substitution remains exactly the same as for the pure
 --  STLC.
 
-section
-set_option hygiene false in
-local macro_rules (kind := Stlc.tmBracket)
-  | `(<{ [$x := $s] $t }>) => do
-      `(subst $(← Stlc.varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
-
 def subst (x : String) (s : Tm) (t : Tm) : Tm :=
   match t with
   -- pure STLC
   | .var y =>
       if x = y then s else t
-  | <{ λ ~y : ~τ . ~t₁}> =>
-      if x = y then t else <{ λ ~y : ~τ . [~x := ~s] ~t₁ }>
-  | <{ ~t₁ ~t₂ }> =>
-      <{ ([~x := ~s] ~t₁) ([~x := ~s] ~t₂) }>
+  | .abs y τ t₁ =>
+      if x = y then t else <{ λ y : τ . [x := s] t₁ }>
+  | .app t₁ t₂ =>
+      <{ ([x := s] t₁) ([x := s] t₂) }>
   -- unit
   | .unit => <{ unit }>
   -- bools
-  | <{ true }> => <{ true }>
-  | <{ false }> => <{ false }>
-  | <{ if ~t₁ then ~t₂ else ~t₃ }> =>
-      <{ if [~x := ~s] ~t₁ then [~x := ~s] ~t₂ else [~x := ~s] ~t₃ }>
+  | .tru => <{ true }>
+  | .fls => <{ false }>
+  | .ite t₁ t₂ t₃ =>
+      <{ if [x := s] t₁ then [x := s] t₂ else [x := s] t₃ }>
 
   -- Complete the following cases when you do the `products` exercise later
-  | <{(~t₁, ~t₂)}> =>
-      (<{ ([~x := ~s] ~t₁ , [~x := ~s] ~t₂) }>)
-  | Tm.fst t =>
-      (<{ fst ([~x := ~s] ~t)}>)
-  | Tm.snd t =>
-      (<{ snd ([~x := ~s] ~t)}>)
+  | .pair t₁ t₂ =>
+      (<{ ([x := s] t₁, [x := s] t₂) }>)
+  | .fst t =>
+      (<{ fst ([x := s] t) }>)
+  | .snd t =>
+      (<{ snd ([x := s] t) }>)
 
-end
-
-macro_rules (kind := Stlc.tmBracket)
-  | `(<{ [$x := $s] $t }>) => do
-      `(subst $(← Stlc.varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
+open Lean PrettyPrinter in
+@[app_unexpander subst]
+def unexpandSubst : Unexpander := StlcCommon.Delab.unexpandSubst
+--  END DETAILS
 
 --  ### Reduction
 
 --  Likewise the definitions of `IsValue` and `Step`.
 
 inductive Tm.IsValue : Tm → Prop where
-  | abs : ∀ x τ₂ t₁,
-      IsValue <{λ ~x : ~τ₂ . ~t₁}>
+  | abs (x : String) (τ₂ : Ty) (t₁ : Tm) :
+      IsValue <{λ x : τ₂ . t₁}>
   | tru :
       IsValue <{true}>
   | fls :
       IsValue <{false}>
   | unit :
-      IsValue .unit
+      IsValue <{unit}>
 
 -- Fill in more rules when you do the `products` exercise later
-  | pair : ∀ v₁ v₂,
+  | pair (v₁ v₂ : Tm) :
       IsValue v₁ →
       IsValue v₂ →
-      IsValue <{(~v₁, ~v₂)}>
+      IsValue <{(v₁, v₂)}>
 
 attribute [StlcSubEval] Tm.IsValue.pair
 
@@ -1122,45 +1182,45 @@ local notation:40 t:41 " ⟶ " t':41 => Step t t'
 inductive Step : Tm → Tm → Prop where
   -- pure STLC
   | appAbs (x : String) (τ₂ : Ty) (t₁ v₂ : Tm) :
-        v₂.IsValue →
-         <{(λ ~x: ~τ₂ . ~t₁) ~v₂}> ⟶ <{ [~x := ~v₂] ~t₁ }>
+      v₂.IsValue →
+       <{(λ x : τ₂ . t₁) v₂}> ⟶ <{ [x := v₂] t₁ }>
   | app₁ (t₁ t₁' t₂ : Tm) :
-         t₁ ⟶ t₁' →
-         <{~t₁ ~t₂}> ⟶ <{~t₁' ~t₂}>
+      t₁ ⟶ t₁' →
+      <{t₁ t₂}> ⟶ <{t₁' t₂}>
   | app₂ (v₁ t₂ t₂' : Tm) :
-        v₁.IsValue →
-         t₂ ⟶ t₂' →
-         <{~v₁ ~t₂}> ⟶ <{~v₁  ~t₂'}>
+      v₁.IsValue →
+      t₂ ⟶ t₂' →
+      <{v₁ t₂}> ⟶ <{v₁ t₂'}>
   -- booleans
   | ifStep (t₁ t₁' t₂ t₃ : Tm) (h : t₁ ⟶ t₁') :
-      <{ if ~t₁ then ~t₂ else ~t₃ }> ⟶ <{ if ~t₁' then ~t₂ else ~t₃ }>
+      <{ if t₁ then t₂ else t₃ }> ⟶ <{ if t₁' then t₂ else t₃ }>
   | ifTrue (t₂ t₃ : Tm) :
-      <{ if true then ~t₂ else ~t₃ }> ⟶ t₂
+      <{ if true then t₂ else t₃ }> ⟶ t₂
   | ifFalse (t₂ t₃ : Tm) :
-      <{ if false then ~t₂ else ~t₃ }> ⟶ t₃
+      <{ if false then t₂ else t₃ }> ⟶ t₃
 
   -- Fill in more rules when you do the `products` exercise later
   | pair₁  (t₁ t₁' t₂ : Tm) :
-        t₁ ⟶ t₁' →
-        <{ (~t₁, ~t₂) }> ⟶ <{ (~t₁' , ~t₂) }>
+      t₁ ⟶ t₁' →
+      <{ (t₁, t₂) }> ⟶ <{ (t₁', t₂) }>
   | pair₂ (v₁ t₂ t₂' : Tm) :
-        v₁.IsValue →
-        t₂ ⟶ t₂' →
-        <{ (~v₁, ~t₂) }> ⟶  <{ (~v₁, ~t₂') }>
+      v₁.IsValue →
+      t₂ ⟶ t₂' →
+      <{ (v₁, t₂) }> ⟶  <{ (v₁, t₂') }>
   | fst₁ (t t' : Tm) :
-        t ⟶ t' →
-        <{ fst ~t }> ⟶ <{ fst ~t' }>
+      t ⟶ t' →
+      <{ fst t }> ⟶ <{ fst t' }>
   | fstPair (v₁ v₂ : Tm) :
-        v₁.IsValue →
-        v₂.IsValue →
-        Tm.fst  <{ (~v₁ , ~v₂) }> ⟶ v₁
+      v₁.IsValue →
+      v₂.IsValue →
+      <{ fst (v₁ , v₂) }> ⟶ v₁
   | snd₁ (t t' : Tm) :
-        t ⟶ t' →
-        <{ snd ~t }> ⟶ <{ snd ~t' }>
+      t ⟶ t' →
+      <{ snd t }> ⟶ <{ snd t' }>
   | sndPair (v₁ v₂ : Tm) :
-        v₁.IsValue →
-        v₂.IsValue →
-        Tm.snd  <{ (~v₁, ~v₂) }> ⟶ v₂
+      v₁.IsValue →
+      v₂.IsValue →
+      <{ snd (v₁, v₂) }> ⟶ v₂
 end
 
 scoped notation:40 t:41 " ⟶ " t':41 => Step t t'
@@ -1196,13 +1256,13 @@ inductive Subtype : Ty → Ty → Prop where
   | arrow { σ₁ σ₂ τ₁ τ₂ : Ty}
       (h₁ : τ₁ <: σ₁)
       (h₂ : σ₂ <: τ₂) :
-      <{ ~σ₁→~σ₂ }> <: <{ ~τ₁→~τ₂ }>
+      <{ σ₁ → σ₂ }> <: <{ τ₁ → τ₂ }>
 
 -- Fill in more rules when you do the `products` exercise later
   | prod { σ₁ σ₂ τ₁ τ₂ : Ty}
       (h₁ : σ₁ <: τ₁)
       (h₂ : σ₂ <: τ₂) :
-      <{ ~σ₁ × ~σ₂ }> <: <{ ~τ₁ × ~τ₂ }>
+      <{ σ₁ × σ₂ }> <: <{ τ₁ × τ₂ }>
 end
 
 scoped notation:40 τ:41 " <: " τ':41 => Subtype τ τ'
@@ -1216,15 +1276,7 @@ Subtype.prod
 
 namespace Examples
 
-abbrev A := Ty.base "A"
-abbrev B := Ty.base "B"
-abbrev C := Ty.base "C"
-
-abbrev String := Ty.base "String"
-abbrev Float := Ty.base "Flat"
-abbrev Int := Ty.base "Int"
-
-example : <{ ~C → Bool }> <: <{ ~C → ⊤ }> := by
+example : <{ C → Bool }> <: <{ C → ⊤ }> := by
   solve_by_elim using StlcSubTyping
 
 --  Note that, because the `Subtype` rules are not "syntax directed" (e.g.,
@@ -1266,12 +1318,12 @@ example : employee <: person := by
 
 --  ### Exercise (1 star): subtyping_example_1 (Optional) ⭐
 
-example : <{ ⊤ → ~student }> <:  <{ (C → C) → ~person }> := by
+example : <{ ⊤ → student }> <:  <{ (C → C) → person }> := by
   rw [student, person]; solve_by_elim using StlcSubTyping
 
 --  ### Exercise (1 star): subtyping_example_2 (Optional) ⭐
 
-example : <{ ⊤ → ~person }> <: <{ ~person → ⊤ }> := by
+example : <{ ⊤ → person }> <: <{ person → ⊤ }> := by
   rw [person]; solve_by_elim using StlcSubTyping
 
 --  (End of exercise)
@@ -1285,121 +1337,61 @@ end Examples
 
 abbrev Context := PartialMap String Ty
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: contexts and judgments)
---  The context grammar `stlcCtx` is reused as well; only the map it
---  denotes is new, since the types it stores are this language's. As with
---  `subst`, the judgment rule is introduced twice: `local` and
---  hygiene-free while the relation is being declared, then again for real.
-
-open Lean in
-/-- The `Context` denoted by a context expression. -/
-partial def ctxTerm (G : TSyntax `stlcCtx) : MacroM Term :=
-  match G with
-  | `(stlcCtx| ∅)   => `((∅ : Context))
-  | `(stlcCtx| ~$e) => pure e
-  | `(stlcCtx| $x:stlcVar ↦ $τ:stlcTy ; $G:stlcCtx) => do
-      `(PartialMap.update $(← ctxTerm G) $(← Stlc.varStr x) <{ $τ:stlcTy }>)
-  | _ => Macro.throwUnsupported
-
-section StlcExtended
-set_option hygiene false in
-local macro_rules (kind := Stlc.judgeBracket)
-  | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $τ:stlcTy }>) => do
-      `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $τ:stlcTy }>)
---  END DETAILS
-
 inductive HasType : Context → Tm → Ty → Prop where
   -- pure STLC
   | var (Γ : Context) (x : String) (τ₁ : Ty) (h : Γ[x] = some τ₁) :
-      <{ ~Γ ⊢ ~(Tm.var x) ⦂ ~τ₁ }>
+      <{ Γ ⊢ ~(Tm.var x) ⦂ τ₁ }>
   | abs (Γ : Context) (x : String) (τ₁ τ₂ : Ty) (t₁ : Tm)
-      (h : <{ ~x ↦ ~τ₂ ; ~Γ ⊢ ~t₁ ⦂ ~τ₁ }>) :
-      <{ ~Γ ⊢ λ ~x : ~τ₂ . ~t₁ ⦂ ~τ₂ → ~τ₁ }>
+      (h : <{ x ↦ τ₂ ; Γ ⊢ t₁ ⦂ τ₁ }>) :
+      <{ Γ ⊢ λ x : τ₂ . t₁ ⦂ τ₂ → τ₁ }>
   | app (Γ : Context) (τ₁ τ₂ : Ty) (t₁ t₂ : Tm)
-      (h₁ : <{ ~Γ ⊢ ~t₁ ⦂ ~τ₂ → ~τ₁ }>) (h₂ : <{ ~Γ ⊢ ~t₂ ⦂ ~τ₂ }>) :
-      <{ ~Γ ⊢ ~t₁ ~t₂ ⦂ ~τ₁ }>
+      (h₁ : <{ Γ ⊢ t₁ ⦂ τ₂ → τ₁ }>) (h₂ : <{ Γ ⊢ t₂ ⦂ τ₂ }>) :
+      <{ Γ ⊢ t₁ t₂ ⦂ τ₁ }>
   -- booleans
   | tru (Γ : Context) :
-      <{ ~Γ ⊢ true ⦂ Bool }>
+      <{ Γ ⊢ true ⦂ Bool }>
   | fls (Γ : Context) :
-      <{ ~Γ ⊢ false ⦂ Bool }>
+      <{ Γ ⊢ false ⦂ Bool }>
   | ite (Γ : Context) (t₁ t₂ t₃ : Tm) (τ : Ty)
-      (h₁ : <{ ~Γ ⊢ ~t₁ ⦂ Bool }>) (h₂ : <{ ~Γ ⊢ ~t₂ ⦂ ~τ }>)
-      (h₃ : <{ ~Γ ⊢ ~t₃ ⦂ ~τ }>) :
-      <{ ~Γ ⊢ if ~t₁ then ~t₂ else ~t₃ ⦂ ~τ }>
+      (h₁ : <{ Γ ⊢ t₁ ⦂ Bool }>) (h₂ : <{ Γ ⊢ t₂ ⦂ τ }>)
+      (h₃ : <{ Γ ⊢ t₃ ⦂ τ }>) :
+      <{ Γ ⊢ if t₁ then t₂ else t₃ ⦂ τ }>
   -- unit
   | unit (Γ : Context) :
-      <{ ~Γ ⊢ unit ⦂ Unit }>
+      <{ Γ ⊢ unit ⦂ Unit }>
   -- subsumption
   | sub (Γ : Context) (t₁ : Tm) (τ₁ τ₂ : Ty)
-      (ht : <{ ~Γ ⊢ ~t₁ ⦂ ~τ₁ }>)
+      (ht : <{ Γ ⊢ t₁ ⦂ τ₁ }>)
       (hs : τ₁ <: τ₂) :
-      <{ ~Γ ⊢ ~t₁ ⦂ ~τ₂ }>
+      <{ Γ ⊢ t₁ ⦂ τ₂ }>
 
   -- Fill in more rules when you do the `products` exercise later
   | pair (Γ : Context) (t₁ t₂ : Tm) (τ₁ τ₂ : Ty)
-      (h₁ : <{ ~Γ ⊢ ~t₁ ⦂ ~τ₁ }>)
-      (h₂ : <{ ~Γ ⊢ ~t₂ ⦂ ~τ₂ }>) :
-      <{ ~Γ ⊢ (~t₁, ~t₂) ⦂ ~τ₁ × ~τ₂ }>
+      (h₁ : <{ Γ ⊢ t₁ ⦂ τ₁ }>)
+      (h₂ : <{ Γ ⊢ t₂ ⦂ τ₂ }>) :
+      <{ Γ ⊢ (t₁, t₂) ⦂ τ₁ × τ₂ }>
   | fst (Γ : Context) (t : Tm) (τ₁ τ₂ : Ty)
-      (h : <{ ~Γ ⊢ ~t ⦂ ~τ₁ × ~τ₂ }>) :
-      <{ ~Γ ⊢ fst ~t ⦂ ~τ₁ }>
+      (h : <{ Γ ⊢ t ⦂ τ₁ × τ₂ }>) :
+      <{ Γ ⊢ fst t ⦂ τ₁ }>
   | snd (Γ : Context) (t : Tm) (τ₁ τ₂ : Ty)
-      (h : <{ ~Γ ⊢ ~t ⦂ ~τ₁ × ~τ₂ }>) :
-      <{ ~Γ ⊢ snd ~t ⦂ ~τ₂ }>
+      (h : <{ Γ ⊢ t ⦂ τ₁ × τ₂ }>) :
+      <{ Γ ⊢ snd t ⦂ τ₂ }>
 
 -- Make sure to add your constructors here
 attribute [StlcSubTyping] HasType.var HasType.abs HasType.app
     HasType.ite HasType.tru HasType.fls HasType.unit
     HasType.pair HasType.fst HasType.snd
 
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
+open Lean PrettyPrinter in
+@[app_unexpander HasType]
+def HasType.unexpand : Unexpander := StlcCommon.Delab.unexpandHasType
+--  END DETAILS
+
 --  We deliberately exclude `HasType.sub` from the list of constructors
 --  with the `StlcSubTyping`. `apply_rules using StlcSubTyping` will search
 --  for derivations without using the subtyping rule; if you want to make
 --  use of it in a derivation you will need to do so yourself.
-
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
---  Closing the section retires the hygiene-free rule; the same rule is
---  then declared again, hygienically, for every later use, and a pair of
---  unexpanders prints judgments back in their own notation.
-
-end StlcExtended
-
-scoped macro_rules (kind := Stlc.judgeBracket)
-  | `(<{ $G:stlcCtx ⊢ $t:stlcTm ⦂ $τ:stlcTy }>) => do
-      `(HasType $(← ctxTerm G) <{ $t:stlcTm }> <{ $τ:stlcTy }>)
-
-open Lean PrettyPrinter in
-/-- Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a
-context prints as `x ↦ Nat ; Γ` rather than as a chain of map updates. -/
-partial def unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)
-  | `(∅) => `(stlcCtx| ∅)
-  | `($x:str →ₚ $τ) => do
-      unexpandCtx (← `($x →ₚ $τ ; ∅))
-  | `($x:str →ₚ $τ ; $G) => do
-      let G' ← unexpandCtx G
-      let x' : TSyntax `stlcVar ←
-        if Stlc.isPlainName x.getString then
-          `(stlcVar| $(mkIdent (Name.mkSimple x.getString)):ident)
-        else `(stlcVar| ~$x)
-      match τ with
-      | `(<{ $T':stlcTy }>) => `(stlcCtx| $x':stlcVar ↦ $T' ; $G')
-      | _                   => `(stlcCtx| $x':stlcVar ↦ ~($τ) ; $G')
-  | G => `(stlcCtx| ~($G))
-
-open Lean PrettyPrinter in
-@[app_unexpander HasType]
-def HasType.unexpand : Unexpander
-  | `($_ $G <{ $t:stlcTm }> <{ $τ:stlcTy }>) =>
-      do `(<{ $(← unexpandCtx G) ⊢ $t ⦂ $τ }>)
-  | `($_ $G <{ $t:stlcTm }> $τ) =>
-      do `(<{ $(← unexpandCtx G) ⊢ $t ⦂ ~($τ) }>)
-  | `($_ $G $t <{ $τ:stlcTy }>) =>
-      do `(<{ $(← unexpandCtx G) ⊢ ~($t) ⦂ $τ }>)
-  | `($_ $G $t $τ) =>
-      do `(<{ $(← unexpandCtx G) ⊢ ~($t) ⦂ ~($τ) }>)
-  | _ => throw ()
---  END DETAILS
 
 namespace Examples
 
@@ -1409,16 +1401,16 @@ namespace Examples
 
 --  ### Exercise (1 star): typing_example_0 (Optional) ⭐
 
---      ∅ ⊢ ((λz:A.z), (λz:B,z)) ⦂ (A→A × B→B)
+--      ∅ ⊢ ((λZ:A. Z), (λZ:B. Z)) ⦂ (A→A × B→B)
 
-example : <{ ∅ ⊢ ((λz : ~A . z), (λz : ~B . z)) ⦂ ((~A → ~A) × (~B → ~B)) }> := by
+example : <{ ∅ ⊢ ((λ Z : A . Z), (λ Z : B . Z)) ⦂ ((A → A) × (B → B)) }> := by
   apply_rules using StlcSubTyping
 
 --  ### Exercise (2 stars): typing_example_1 (Optional) ⭐⭐
 
---      ∅ ⊢ (λx:(⊤ × B→B). snd x) ((λz:A. z), (λz:B. z)) ⦂ B→B
+--      ∅ ⊢ (λX:(⊤ × B→B). snd X) ((λZ:A. Z), (λZ:B. Z)) ⦂ B→B
 
-example : <{ ∅ ⊢ (λx: (⊤ × (~B → ~B)). snd x) (((λz: ~A . z), (λz: ~B . z))) ⦂ ( ~B → ~B) }> := by
+example : <{ ∅ ⊢ (λ X : (⊤ × (B → B)) . snd X) ((λ Z : A . Z), (λ Z : B . Z)) ⦂ (B → B) }> := by
   apply_rules using StlcSubTyping
   apply HasType.sub
   · apply HasType.abs; apply HasType.var; rfl
@@ -1426,11 +1418,11 @@ example : <{ ∅ ⊢ (λx: (⊤ × (~B → ~B)). snd x) (((λz: ~A . z), (λz: ~
 
 --  ### Exercise (2 stars): typing_example_2 (Optional) ⭐⭐
 
---      ∅ ⊢ (λz:(C→C)→(⊤ × B→B). snd (z (λx:C.x))) (λz:C→C. ((λz:A. z), (λz:B. z))) ⦂ B→B
+--      ∅ ⊢ (λZ:(C→C)→(⊤ × B→B). snd (Z (λX:C. X))) (λZ:C→C. ((λZ:A. Z), (λZ:B. Z))) ⦂ B→B
 
 example :
-  <{ ∅ ⊢(λz : (~C → ~C) → (⊤ × ~B → ~B) . snd (z (λx: ~C . x)))
-          (λz: ~C → ~C . ((λ z : ~A . z), (λ z : ~B . z))) ⦂ (~B → ~B) }> := by
+  <{ ∅ ⊢ (λ Z : (C → C) → (⊤ × B → B) . snd (Z (λ X : C . X)))
+          (λ Z : C → C . ((λ Z : A . Z), (λ Z : B . Z))) ⦂ (B → B) }> := by
   apply_rules using StlcSubTyping
   apply HasType.sub
   · apply HasType.abs; apply HasType.var; rfl
@@ -1477,10 +1469,10 @@ theorem sub_inversion_bool (τ : Ty)
 --  ### Exercise (3 stars): sub_inversion_arrow ⭐⭐⭐
 
 theorem sub_inversion_arrow {σ τ₁ τ₂ : Ty}
-     (h : σ <: <{ ~τ₁ → ~τ₂ }>) :
+     (h : σ <: <{ τ₁ → τ₂ }>) :
      ∃ σ₁ σ₂,
-     σ = <{ ~σ₁ → ~σ₂ }> ∧ τ₁ <: σ₁ ∧ σ₂ <: τ₂ := by
-  generalize heq : <{ ~τ₁ → ~τ₂ }> = τ at h
+     σ = <{ σ₁ → σ₂ }> ∧ τ₁ <: σ₁ ∧ σ₂ <: τ₂ := by
+  generalize heq : <{ τ₁ → τ₂ }> = τ at h
   induction h generalizing τ₁ τ₂ with (subst_vars; try contradiction)
   | refl =>
       exists τ₁, τ₂; constructor; rfl
@@ -1537,9 +1529,9 @@ theorem sub_inversion_top {τ : Ty} (h : Ty.top <: τ) : τ = Ty.top := by
 --  When you do the `products` exercise, add your inversion lemma for
 --  products here:
 
-theorem sub_inversion_prod {σ τ₁ τ₂ : Ty} (h : σ <: <{ ~τ₁ × ~τ₂ }>) :
-     ∃ σ₁ σ₂, σ = <{ ~σ₁ × ~σ₂ }> ∧ σ₁ <: τ₁ ∧ σ₂ <: τ₂ := by
-  generalize heq : <{ ~τ₁ × ~τ₂ }> = V at h
+theorem sub_inversion_prod {σ τ₁ τ₂ : Ty} (h : σ <: <{ τ₁ × τ₂ }>) :
+     ∃ σ₁ σ₂, σ = <{ σ₁ × σ₂ }> ∧ σ₁ <: τ₁ ∧ σ₂ <: τ₂ := by
+  generalize heq : <{ τ₁ × τ₂ }> = υ at h
   induction h generalizing τ₁ τ₂ with (subst_vars; try contradiction)
   | refl =>
       exists τ₁, τ₂; constructor; rfl
@@ -1581,10 +1573,10 @@ theorem sub_inversion_prod {σ τ₁ τ₂ : Ty} (h : σ <: <{ ~τ₁ × ~τ₂ 
 --  ### Exercise (3 stars): canonical_forms_of_arrow_types (Optional) ⭐⭐⭐
 
 theorem canonical_forms_of_arrow_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty}
-  (ht : <{ ~Γ ⊢ ~t ⦂ ~τ₁ → ~τ₂ }>)
+  (ht : <{ Γ ⊢ t ⦂ τ₁ → τ₂ }>)
   (hv : t.IsValue) :
-  ∃ x σ₁ t₂, t = <{λ ~x : ~σ₁ . ~t₂}> := by
-  generalize heq : <{ ~τ₁ → ~τ₂ }> = τ at ht
+  ∃ x σ₁ t₂, t = <{λ x : σ₁ . t₂}> := by
+  generalize heq : <{ τ₁ → τ₂ }> = τ at ht
   induction ht generalizing τ₁ τ₂ with (subst_vars; try contradiction)
   | abs Γ x τ₁ τ₂ t₁ h ih => inversion heq; exists x, τ₂, t₁
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
@@ -1597,7 +1589,7 @@ theorem canonical_forms_of_arrow_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty
 --  and `fls`
 
 theorem canonical_forms_of_bool {Γ : Context} {t : Tm}
-  (ht : <{ ~Γ ⊢ ~t ⦂ Bool }>)
+  (ht : <{ Γ ⊢ t ⦂ Bool }>)
   (hv : t.IsValue) :
   t = Tm.tru ∨ t = Tm.fls := by
 
@@ -1611,10 +1603,10 @@ theorem canonical_forms_of_bool {Γ : Context} {t : Tm}
 --  products here:
 
 theorem canonical_forms_of_product_types {Γ : Context} {t : Tm} {τ₁ τ₂ : Ty}
-  (ht : <{ ~Γ ⊢ ~t ⦂ ~τ₁ × ~τ₂ }>)
+  (ht : <{ Γ ⊢ t ⦂ τ₁ × τ₂ }>)
   (hv : t.IsValue) :
-  ∃ t₁ t₂, t = <{ (~t₁, ~t₂) }> := by
-    generalize heq : <{ ~τ₁ × ~τ₂ }> = τ at ht
+  ∃ t₁ t₂, t = <{ (t₁, t₂) }> := by
+    generalize heq : <{ τ₁ × τ₂ }> = τ at ht
     induction ht generalizing τ₁ τ₂ with (subst_vars; try contradiction)
     | pair Γ t₁ t₂ τ₁ τ₂ h ih => inversion heq; exists t₁, t₂
     | sub Γ t₁ τ₁ τ₂ ht hs ih =>
@@ -1648,7 +1640,7 @@ theorem canonical_forms_of_product_types {Γ : Context} {t : Tm} {τ₁ τ₂ : 
 --      Then `t₁ t₂ ⟶ t₁ t₂'` by rule `app₂` because `t₁` is a value.
 --    - Third, suppose `t₁` and `t₂` are both values. By the canonical
 --      forms lemma for arrow types, we know that `t₁` has the form
---      `λ x : σ₁ . t₂` for some `x`, `σ₁`, and `s₂`. But then
+--      `λ x : σ₁ . s₂` for some `x`, `σ₁`, and `s₂`. But then
 --      `(λ x : σ₁ . s₂) t₂ ⟶ [x := t₂] s₂` by `appAbs`, since `t₂` is a
 --      value.
 --  - If the final step of the derivation uses rule `if`, then there are
@@ -1666,7 +1658,7 @@ theorem canonical_forms_of_product_types {Γ : Context} {t : Tm} {τ₁ τ₂ : 
 --
 --  Formally:
 
-theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
+theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ t ⦂ τ }>) :
     t.IsValue ∨ ∃ t', t ⟶ t' := by
   generalize heq : (∅ : Context) = Γ at h
   induction h with (subst_vars; first
@@ -1675,76 +1667,76 @@ theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
     | try (left; constructor; done)
   )
   | app Γ τ₁ τ₂ t₁ t₂ h₁ h₂ ih₁ ih₂ =>
-      right; cases ih₁ rfl
+      right; cases ih₁ rfl with
       -- t₁ is a value
-      case _ ht₁ =>
-        cases ih₂ rfl
+      | inl ht₁ =>
+        cases ih₂ rfl with
         -- t₂ is a value
-        case _ ht₂ =>
+        | inl ht₂ =>
           apply canonical_forms_of_arrow_types at h₁
           let ⟨x, σ, v, hv⟩ := h₁ ht₁
-          exists <{ [~x := ~t₂] ~v }>; simp [hv]
+          exists <{ [x := t₂] v }>; simp [hv]
           apply_rules using StlcSubEval
         -- t₂ is not a value
-        case _ ht₂ =>
+        | inr ht₂ =>
           obtain ⟨t₂', ht₂⟩ := ht₂
-          exists <{~t₁ ~t₂'}>; apply_rules using StlcSubEval
+          exists <{t₁ t₂'}>; apply_rules using StlcSubEval
       -- t₁ is not a value
-      case _ ht₁ =>
+      | inr ht₁ =>
         obtain ⟨t₁', ht₁⟩ := ht₁
-        exists <{~t₁' ~t₂}>; apply_rules using StlcSubEval
+        exists <{t₁' t₂}>; apply_rules using StlcSubEval
   | ite Γ t₁ t₂ t₃ τ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
-    right; cases ih₁ rfl
+    right; cases ih₁ rfl with
     -- t₁ is a value
-    case _ ht₁ =>
+    | inl ht₁ =>
       apply canonical_forms_of_bool at h₁
       obtain h₁ | h₁ := h₁ ht₁ <;> subst_vars
       · exists t₂; apply_rules using StlcSubEval
       · exists t₃; apply_rules using StlcSubEval
     -- t₁ is not a value
-    case _ ht₁ =>
+    | inr ht₁ =>
       obtain ⟨t₁', ht₁⟩ := ht₁
-      exists <{if ~t₁' then ~t₂ else ~t₃}>; apply_rules using StlcSubEval
+      exists <{if t₁' then t₂ else t₃}>; apply_rules using StlcSubEval
   | sub Γ t₁ τ₁ τ₂ ht hs ih => apply ih; rfl
 -- Fill in products here later
   | pair Γ t₁ t₂ τ₁ τ₂ h₁ h₂ ih₁ ih₂ =>
-      cases ih₁ rfl
+      cases ih₁ rfl with
       -- t₁ is a value
-      case _ ht₁ =>
-        cases ih₂ rfl
+      | inl ht₁ =>
+        cases ih₂ rfl with
         -- t₂ is a value
-        case _ ht₂ =>
+        | inl ht₂ =>
           left; apply_rules using StlcSubEval
         -- t₂ is not a value
-        case _ ht₂ =>
+        | inr ht₂ =>
           obtain ⟨t₂', ht₂⟩ := ht₂
-          right; exists <{(~t₁, ~t₂')}>; apply_rules using StlcSubEval
+          right; exists <{(t₁, t₂')}>; apply_rules using StlcSubEval
       -- t₁ is not a value
-      case _ ht₁ =>
+      | inr ht₁ =>
         obtain ⟨t₁', ht₁⟩ := ht₁
-        right; exists <{(~t₁', ~t₂)}>; apply_rules using StlcSubEval
+        right; exists <{(t₁', t₂)}>; apply_rules using StlcSubEval
   | fst Γ t τ₁ τ₂ h ih =>
-      right; cases ih rfl
+      right; cases ih rfl with
       -- t₁ is a value
-      case _ ht₁ =>
+      | inl ht₁ =>
         apply canonical_forms_of_product_types at h
         obtain ⟨v₁, v₂, hv⟩ := h ht₁; rw [hv]; subst_vars; inversion ht₁
         exists v₁; apply_rules using StlcSubEval
       -- t₁ is not a value
-      case _ ht₁ =>
+      | inr ht₁ =>
         obtain ⟨t₁', ht₁⟩ := ht₁
-        exists <{fst ~t₁'}>; apply_rules using StlcSubEval
+        exists <{fst t₁'}>; apply_rules using StlcSubEval
   | snd Γ t τ₁ τ₂ h ih =>
-      right; cases ih rfl
+      right; cases ih rfl with
       -- t₁ is a value
-      case _ ht₁ =>
+      | inl ht₁ =>
         apply canonical_forms_of_product_types at h
         obtain ⟨v₁, v₂, hv⟩ := h ht₁; rw [hv]; subst_vars; inversion ht₁
         exists v₂; apply_rules using StlcSubEval
       -- t₁ is not a value
-      case _ ht₁ =>
+      | inr ht₁ =>
         obtain ⟨t₁', ht₁⟩ := ht₁
-        exists <{snd ~t₁'}>; apply_rules using StlcSubEval
+        exists <{snd t₁'}>; apply_rules using StlcSubEval
 
 --  ### Inversion Lemmas for Typing
 
@@ -1762,7 +1754,7 @@ theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
 --  body `t₂`.
 --
 --  *Lemma*: If `Γ ⊢ λ x : σ₁ . t₂ ⦂ τ`, then there is a type `σ₂` such
---  that `x ↦ σ₁ ;  Γ ⊢ t₂ ⦂ σ` and `σ₁ → σ₂ <: τ`.
+--  that `x ↦ σ₁ ;  Γ ⊢ t₂ ⦂ σ₂` and `σ₁ → σ₂ <: τ`.
 --
 --  Notice that the lemma does *not* say, "then `τ` itself is an arrow
 --  type" -- this is tempting, but false! (Why?)
@@ -1784,10 +1776,10 @@ theorem progress (t : Tm) (τ : Ty) (h : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
 --  Formally:
 
 theorem typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty} {t₂ : Tm} {τ : Ty}
-  (h : <{ ~Γ ⊢ λ ~x : ~σ₁ . ~t₂ ⦂ ~τ }>) :
-    ∃ σ₂, <{ ~σ₁ → ~σ₂ }> <: τ ∧ <{ ~x ↦ ~σ₁ ; ~Γ ⊢ ~t₂ ⦂ ~σ₂ }> := by
+  (h : <{ Γ ⊢ λ x : σ₁ . t₂ ⦂ τ }>) :
+    ∃ σ₂, <{ σ₁ → σ₂ }> <: τ ∧ <{ x ↦ σ₁ ; Γ ⊢ t₂ ⦂ σ₂ }> := by
 
-  generalize heq : <{ λ ~x : ~σ₁ . ~t₂ }> = t at h
+  generalize heq : <{ λ x : σ₁ . t₂ }> = t at h
   induction h with (subst_vars; try contradiction)
   | abs Γ x τ₁ τ₂ t₁ h i =>
       inversion heq; exists τ₁; solve_by_elim using StlcSubTyping
@@ -1798,7 +1790,7 @@ theorem typing_inversion_abs {Γ : Context} {x : String} {σ₁ : Ty} {t₂ : Tm
 --  ### Exercise (3 stars): typing_inversion_var (Optional) ⭐⭐⭐
 
 theorem typing_inversion_var {Γ : Context} {x : String} {τ : Ty}
-  (h : <{ ~Γ ⊢ ~(.var x) ⦂ ~τ }>) :
+  (h : <{ Γ ⊢ ~(.var x) ⦂ τ }>) :
   ∃ σ, Γ[x] = some σ ∧ σ <: τ := by
 
   generalize heq : Tm.var x = t at h
@@ -1811,9 +1803,9 @@ theorem typing_inversion_var {Γ : Context} {x : String} {τ : Ty}
 --  ### Exercise (3 stars): typing_inversion_app (Optional) ⭐⭐⭐
 
 theorem typing_inversion_app {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty}
-  (h : <{ ~Γ ⊢ ~t₁ ~t₂ ⦂ ~τ₂ }>) :
-  ∃ τ₁, <{ ~Γ ⊢ ~t₁ ⦂ ~τ₁ → ~τ₂ }> ∧ <{ ~Γ ⊢ ~t₂ ⦂ ~τ₁ }> := by
-  generalize heq : <{ ~t₁ ~t₂ }> = t at h
+  (h : <{ Γ ⊢ t₁ t₂ ⦂ τ₂ }>) :
+  ∃ τ₁, <{ Γ ⊢ t₁ ⦂ τ₁ → τ₂ }> ∧ <{ Γ ⊢ t₂ ⦂ τ₁ }> := by
+  generalize heq : <{ t₁ t₂ }> = t at h
   induction h with (subst_vars; try contradiction)
   | app => inversion heq; solve_by_elim using StlcSubTyping
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
@@ -1825,7 +1817,7 @@ theorem typing_inversion_app {Γ : Context} {t₁ t₂ : Tm} {τ₂ : Ty}
 --  (End of exercise)
 
 theorem typing_inversion_unit (Γ : Context) (τ : Ty)
-  (h : <{ ~Γ ⊢ unit ⦂ ~τ }>) :
+  (h : <{ Γ ⊢ unit ⦂ τ }>) :
   <{ Unit }> <: τ := by
 
   generalize heq : Tm.unit = t at h
@@ -1838,10 +1830,10 @@ theorem typing_inversion_unit (Γ : Context) (τ : Ty)
 --  -- Add your lemmas for products here when you get to that exercise
 
 theorem typing_inversion_pair {Γ : Context} {t₁ t₂ : Tm} {τ : Ty}
-  (h : <{ ~Γ ⊢ (~t₁, ~t₂) ⦂ ~τ }>) :
-  ∃ τ₁ τ₂, <{ ~τ₁ × ~τ₂ }> <: τ ∧ <{ ~Γ ⊢ ~t₁ ⦂ ~τ₁ }> ∧ <{ ~Γ ⊢ ~t₂ ⦂ ~τ₂ }> := by
+  (h : <{ Γ ⊢ (t₁, t₂) ⦂ τ }>) :
+  ∃ τ₁ τ₂, <{ τ₁ × τ₂ }> <: τ ∧ <{ Γ ⊢ t₁ ⦂ τ₁ }> ∧ <{ Γ ⊢ t₂ ⦂ τ₂ }> := by
 
-    generalize heq : <{ (~t₁, ~t₂) }> = t at h
+    generalize heq : <{ (t₁, t₂) }> = t at h
     induction h generalizing t₁ t₂ with (subst_vars; try contradiction)
     | pair Γ t₁ t₂ τ₁ τ₂ h₁ h₂ ih₁ ih₂ =>
         inversion heq; exists τ₁, τ₂; solve_by_elim using StlcSubTyping
@@ -1850,11 +1842,11 @@ theorem typing_inversion_pair {Γ : Context} {t₁ t₂ : Tm} {τ : Ty}
       exists σ₁, σ₂; solve_by_elim (maxDepth := 10) using StlcSubTyping
 
 theorem typing_inversion_fst {Γ : Context} {t : Tm} {τ: Ty}
-  (h : <{ ~Γ ⊢ fst ~t ⦂ ~τ }>) :
+  (h : <{ Γ ⊢ fst t ⦂ τ }>) :
   ∃ τ₁ τ₂,
-    τ₁ <: τ ∧ <{ ~Γ ⊢ ~t ⦂ ~τ₁ × ~τ₂ }> := by
+    τ₁ <: τ ∧ <{ Γ ⊢ t ⦂ τ₁ × τ₂ }> := by
 
-  generalize heq : <{ fst ~t }> = t' at h
+  generalize heq : <{ fst t }> = t' at h
   induction h generalizing t with (subst_vars; try contradiction)
     | fst Γ t τ₁ τ₂ h ih =>
         inversion heq; exists τ₁, τ₂; solve_by_elim using StlcSubTyping
@@ -1863,11 +1855,11 @@ theorem typing_inversion_fst {Γ : Context} {t : Tm} {τ: Ty}
       exists σ₁, σ₂; solve_by_elim using StlcSubTyping
 
 theorem typing_inversion_snd {Γ : Context} {t : Tm} {τ: Ty}
-  (h : <{ ~Γ ⊢ snd ~t ⦂ ~τ }>) :
+  (h : <{ Γ ⊢ snd t ⦂ τ }>) :
   ∃ τ₁ τ₂,
-    τ₂ <: τ ∧ <{ ~Γ ⊢ ~t ⦂ ~τ₁ × ~τ₂ }> := by
+    τ₂ <: τ ∧ <{ Γ ⊢ t ⦂ τ₁ × τ₂ }> := by
 
-  generalize heq : <{ snd ~t }> = t' at h
+  generalize heq : <{ snd t }> = t' at h
   induction h generalizing t with (subst_vars; try contradiction)
   | snd Γ t τ₁ τ₂ h ih =>
       inversion heq; exists τ₁, τ₂; solve_by_elim using StlcSubTyping
@@ -1880,8 +1872,8 @@ theorem typing_inversion_snd {Γ : Context} {t : Tm} {τ: Ty}
 --  what we'll actually require below.
 
 theorem abs_arrow {x : String} {t₂ : Tm} {σ₁ τ₁ τ₂ : Ty}
-  (h : <{ ∅ ⊢ λ ~x : ~σ₁ . ~t₂ ⦂ ~τ₁ → ~τ₂ }> ) :
-  τ₁ <: σ₁ ∧ <{ ~x ↦ ~σ₁ ; ∅ ⊢ ~t₂ ⦂ ~τ₂ }> := by
+  (h : <{ ∅ ⊢ λ x : σ₁ . t₂ ⦂ τ₁ → τ₂ }> ) :
+  τ₁ <: σ₁ ∧ <{ x ↦ σ₁ ; ∅ ⊢ t₂ ⦂ τ₂ }> := by
     obtain ⟨σ₂, hs, ht⟩ := typing_inversion_abs h; clear h
     obtain ⟨_, _, heq, hs₁, hs₂⟩ := sub_inversion_arrow hs; clear hs
     inversion heq; constructor
@@ -1895,15 +1887,15 @@ theorem abs_arrow {x : String} {t₂ : Tm} {σ₁ τ₁ τ₂ : Ty}
 
 theorem weakening {Γ Γ' : Context} {t : Tm} {τ: Ty}
     (hi : Γ ⊆ Γ')
-    (ht : <{ ~Γ ⊢ ~t ⦂ ~τ }>) :
-     <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
+    (ht : <{ Γ ⊢ t ⦂ τ }>) :
+     <{ Γ' ⊢ t ⦂ τ }> := by
   induction ht generalizing Γ' with (try apply_rules [PartialMap.update_subset] using StlcSubTyping)
   | sub Γ t₁ τ₁ τ₂ ht hs ih =>
     apply HasType.sub <;> solve_by_elim using StlcSubTyping
 
 theorem weakening_empty {Γ : Context} {t : Tm} {τ: Ty}
-    (ht :<{ ∅ ⊢ ~t ⦂ ~τ }>) :
-    <{ ~Γ ⊢ ~t ⦂ ~τ }> := by
+    (ht :<{ ∅ ⊢ t ⦂ τ }>) :
+    <{ Γ ⊢ t ⦂ τ }> := by
   apply weakening _ ht
   intro _ _ h
   rw [PartialMap.getElem_empty] at h
@@ -1918,9 +1910,9 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ: Ty}
 --  `substitution_preserves_typing_from_typing_ind` in StlcProp).
 
 theorem substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {t v : Tm} {τ : Ty}
-    (ht : <{ ~x ↦ ~τ₁ ; ~Γ ⊢ ~t ⦂ ~τ }>)
-    (hv : <{ ∅ ⊢ ~v ⦂ ~τ₁ }>) :
-    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~τ }> := by
+    (ht : <{ x ↦ τ₁ ; Γ ⊢ t ⦂ τ }>)
+    (hv : <{ ∅ ⊢ v ⦂ τ₁ }>) :
+    <{ Γ ⊢ [x := v] t ⦂ τ }> := by
 
   generalize heq : x →ₚ τ₁ ; Γ = Γ' at ht
   induction ht generalizing x Γ with (
@@ -1963,12 +1955,13 @@ theorem substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {
 --    induction hypotheses for the typing subderivations and a use of
 --    `app`.
 --
---    Suppose instead `t₁ t₂` steps by `appAbs`. Then `t₁ = λ x:σ . τ₁₂`
---    for some type `σ` and term `τ₁₂`, and `t' = [x:=t₂] τ₁₂`.
+--    Suppose instead `t₁ t₂` steps by `appAbs`. Then `t₁ = λ x:σ . t₁₂`
+--    for some type `σ` and term `t₁₂`, and `t' = [x:=t₂] t₁₂`.
 --
---    By lemma `abs_arrow`, we have `τ₁ <: σ` and `x:σ₁ ⊢ t₂ ⦂ τ₂`. It then
---    follows by the substitution lemma (`substitution_preserves_typing`)
---    that `∅ ⊢ [x:=t₂] τ₁₂ ⦂ τ₂` as desired.
+--    By lemma `abs_arrow`, we have `τ₁ <: σ` and `x ↦ σ ; ∅ ⊢ t₁₂ ⦂ τ₂`.
+--    It then follows by the substitution lemma
+--    (`substitution_preserves_typing`) that `∅ ⊢ [x:=t₂] t₁₂ ⦂ τ₂` as
+--    desired.
 --
 --  - If the final step of the derivation uses rule `if`, then there are
 --    terms `t₁`, `t₂`, and `t₃` such that `t = if t₁ then t₂ else t₃`,
@@ -1990,9 +1983,9 @@ theorem substitution_preserves_typing {Γ : Context} {x : String} {τ₁ : Ty} {
 --  Qed.
 
 theorem preservation {t t' : Tm} {τ : Ty}
-  (ht : <{ ∅ ⊢ ~t ⦂ ~τ }>)
+  (ht : <{ ∅ ⊢ t ⦂ τ }>)
   (hs : t ⟶ t') :
-  <{ ∅ ⊢ ~t' ⦂ ~τ }> := by
+  <{ ∅ ⊢ t' ⦂ τ }> := by
 
   generalize heq : (∅ : Context) = Γ at ht
   induction ht generalizing t' with (subst_vars; first
@@ -2067,17 +2060,17 @@ theorem preservation {t t' : Tm} {τ : Ty}
 --  - Suppose we add the following reduction rule:
 --
 --                                   --------------------          (funny₂)
---                                   unit ⟶ (\x:⊤. x)
+--                                   unit ⟶ (λX:⊤. X)
 
 --  Answer: Preservation fails. For example, `unit` has type `Unit` but
---  steps to `(\x:⊤. x)`, which does not have type `Unit`.
+--  steps to `(λX:⊤. X)`, which does not have type `Unit`.
 
 --  - Suppose we add the following subtyping rule:
 --
 --                                    ----------------            (funny₃)
 --                                     Unit <: ⊤→⊤
 
---  Answer: Progress fails. For example, `unit (\x:⊤,⊤)` is well typed but
+--  Answer: Progress fails. For example, `unit (λX:⊤. X)` is well typed but
 --  stuck.
 
 --  - Suppose we add the following subtyping rule:
@@ -2102,8 +2095,8 @@ theorem preservation {t t' : Tm} {τ : Ty}
 --                                 ---------------------------     (funny₆)
 --                                 ∅ ⊢ unit ⦂ ⊤→⊤
 
---  Answer: Preservation fails. For example, 1unit (x:A,x)1 has type `⊤`,
---  but it steps to `(\x:A,x) unit`, which is ill typed,
+--  Answer: Preservation fails. For example, `unit (λX:A. X)` has type `⊤`,
+--  but it steps to `(λX:A. X) unit`, which is ill typed.
 
 --  - Suppose we *change* the arrow subtyping rule to:
 --
@@ -2111,11 +2104,11 @@ theorem preservation {t t' : Tm} {τ : Ty}
 --                                -------------------              (arrow')
 --                                σ₁→σ₂ <: τ₁→τ₂
 
---  Answer: Preservation fails. For example,
---  `(\x:Unit*Unit, x.fst) unit`has type `Unit`, but steps to `unit.fst`
---  which is ill typed. (In order to type `(\x:Unit*Unit, x.fst) unit` we
---  use `sub` twice; once to give `unit` the type `⊤`, and once to give
---  `\x:Unit*Unit, x.fst` the type `⊤ → Unit` using `S_Arrow'`).
+--  Answer: Preservation fails. For example, `(λX:Unit × Unit. fst X) unit`
+--  has type `Unit`, but steps to `fst unit`, which is ill typed. (In order
+--  to type `(λX:Unit × Unit. fst X) unit` we use `sub` twice: once to give
+--  `unit` the type `⊤`, and once to give `λX:Unit × Unit. fst X` the type
+--  `⊤ → Unit` using `arrow'`.)
 
 --  #### Exercise: Adding Products
 
@@ -2149,42 +2142,46 @@ theorem preservation {t t' : Tm} {τ : Ty}
 --  The following are formal exercises based on the previous "thought
 --  exercises."
 
+--  Note to developers (Yipeng Liu @berberman):
+--      This section needs a bit more polish: `tf` is non-idiomatic here —
+--      we could state each proposition directly and then e.g. write
+--      `p₁ ∨ ¬ p₁` directly. Also consider factoring out the variable
+--      definitions and hypotheses with section variables.
+
 namespace FormalThoughtExercises
 open Examples
-abbrev p := "p"
-abbrev a := "a"
 
 abbrev tf p := p ∨ ¬p
 
 --  ### Exercise (1 star): formal_subtype_instances_tf_1a (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1a:
-  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ ~τ → ~σ }> <: <{ ~τ → ~σ }>) := by
+  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ τ → σ }> <: <{ τ → σ }>) := by
   left; intro σ τ υ δ h₁ h₂; solve_by_elim using StlcSubTyping
 
 --  ### Exercise (1 star): formal_subtype_instances_tf_1b (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1b:
-  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ ⊤ → ~υ }> <: <{ ~σ → ⊤ }>) := by
+  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ ⊤ → υ }> <: <{ σ → ⊤ }>) := by
   left; intro σ τ υ δ h₁ h₂; solve_by_elim using StlcSubTyping
 
 --  ### Exercise (1 star): formal_subtype_instances_tf_1c (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1c:
   tf (∀ σ τ υ δ, σ <: τ → υ <: δ →
-         <{ (~C → ~C)→(~A × ~B) }> <: <{ (~C → ~C)→(⊤ × ~B) }>) := by
+         <{ (C → C)→(A × B) }> <: <{ (C → C)→(⊤ × B) }>) := by
   left; intro σ τ υ δ h₁ h₂; solve_by_elim using StlcSubTyping
 
 --  ### Exercise (1 star): formal_subtype_instances_tf_1d (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1d:
-  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ ~τ → (~τ → ~υ) }> <: <{ ~σ → (~σ → ~δ) }>) := by
+  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ τ → (τ → υ) }> <: <{ σ → (σ → δ) }>) := by
   left; intro σ τ υ δ h₁ h₂; solve_by_elim using StlcSubTyping
 
 --  ### Exercise (1 star): formal_subtype_instances_tf_1e (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1e:
-  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ (~τ → ~τ) → ~υ }> <: <{ (~σ → ~σ)→ ~δ }>) := by
+  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ (τ → τ) → υ }> <: <{ (σ → σ)→ δ }>) := by
   right; intro contra
   have h : <{ (⊤ → ⊤) → Bool }> <: <{ (Bool → Bool) → ⊤ }> := by
     solve_by_elim using StlcSubTyping
@@ -2197,13 +2194,13 @@ theorem formal_subtype_instances_tf_1e:
 --  ### Exercise (1 star): formal_subtype_instances_tf_1f (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1f:
-  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ ((~τ → ~σ) → ~τ)→ ~υ }> <: <{ ((~σ → ~τ)→ ~σ) → ~δ }>) := by
+  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ ((τ → σ) → τ)→ υ }> <: <{ ((σ → τ)→ σ) → δ }>) := by
   left; intro σ τ υ δ h₁ h₂; solve_by_elim (maxDepth:=10) using StlcSubTyping
 
 --  ### Exercise (1 star): formal_subtype_instances_tf_1g (Optional) ⭐
 
 theorem formal_subtype_instances_tf_1g:
-  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ ~σ × ~δ }> <: <{ ~τ × ~υ }>) := by
+  tf (∀ σ τ υ δ, σ <: τ → υ <: δ → <{ σ × δ }> <: <{ τ × υ }>) := by
 
   right; intro contra
   have h : <{ Bool × ⊤ }> <: <{ ⊤ × Bool }> := by solve_by_elim using StlcSubTyping
@@ -2213,7 +2210,7 @@ theorem formal_subtype_instances_tf_1g:
 --  ### Exercise (2 stars): formal_subtype_instances_tf_2a (Optional) ⭐⭐
 
 theorem formal_subtype_instances_tf_2a:
-  tf (∀ σ τ, σ <: τ →  <{ ~σ → ~σ }> <: <{ ~τ → ~τ }>) := by
+  tf (∀ σ τ, σ <: τ →  <{ σ → σ }> <: <{ τ → τ }>) := by
 
   right; intro contra
   have h : <{ Bool→Bool }> <: <{ ⊤→⊤ }> := by solve_by_elim using StlcSubTyping
@@ -2222,11 +2219,11 @@ theorem formal_subtype_instances_tf_2a:
 
 --  ### Exercise (2 stars): formal_subtype_instances_tf_2b (Optional) ⭐⭐
 
-theorem formal_subtype_instances_tf_2b:
-  tf (∀ σ, σ <: <{ ~A → ~A }> → ∃ τ, σ = <{ ~τ → ~τ }> ∧ τ <: A) := by
+theorem formal_subtype_instances_tf_2b {A : Ty}:
+  tf (∀ σ, σ <: <{ A → A }> → ∃ τ, σ = <{ τ → τ }> ∧ τ <: A) := by
 
   right; intros contra
-  obtain ⟨τ, h₁, h₂⟩ := contra <{ ⊤→ ~A }> (by solve_by_elim using StlcSubTyping)
+  obtain ⟨τ, h₁, h₂⟩ := contra <{ ⊤→ A }> (by solve_by_elim using StlcSubTyping)
   inversion h₁
 
 --  ### Exercise (2 stars): formal_subtype_instances_tf_2d (Optional) ⭐⭐
@@ -2234,9 +2231,9 @@ theorem formal_subtype_instances_tf_2b:
 --  Hint: Assert a generalization of the statement to be proved and use
 --  induction on a type (rather than on a subtyping derviation).
 
-theorem formal_subtype_instances_tf_2d: tf (∃ σ, σ <: <{ ~σ → ~σ }>) := by
+theorem formal_subtype_instances_tf_2d: tf (∃ σ, σ <: <{ σ → σ }>) := by
 
-  have h : ∀ σ τ, ¬ σ <: <{ ~τ → ~σ }> := by
+  have h : ∀ σ τ, ¬ σ <: <{ τ → σ }> := by
     intro σ τ contra
     induction σ generalizing τ with (
         obtain ⟨σ₁, σ₁, h₁, h₂, h₃⟩ := sub_inversion_arrow contra; try contradiction)
@@ -2248,7 +2245,7 @@ theorem formal_subtype_instances_tf_2d: tf (∃ σ, σ <: <{ ~σ → ~σ }>) := 
 
 --  ### Exercise (2 stars): formal_subtype_instances_tf_2e (Optional) ⭐⭐
 
-theorem formal_subtype_instances_tf_2e: tf (∃ σ, <{ ~σ → ~σ }> <: σ) := by
+theorem formal_subtype_instances_tf_2e: tf (∃ σ, <{ σ → σ }> <: σ) := by
   left; exists Ty.top; solve_by_elim using StlcSubTyping
 
 --  ### Exercise (2 stars): formal_subtype_concepts_tfa (Optional) ⭐⭐
@@ -2270,13 +2267,13 @@ theorem formal_subtype_concepts_tfb: tf (∃ τ, ∀ σ, τ <: σ) := by
 --  ### Exercise (2 stars): formal_subtype_concepts_tfc (Optional) ⭐⭐
 
 theorem formal_subtype_concepts_tfc:
-  tf (∃ τ₁ τ₂, ∀ σ₁ σ₂, <{ ~σ₁ ×  ~σ₂ }> <: <{ ~τ₁ × ~τ₂ }>) := by
+  tf (∃ τ₁ τ₂, ∀ σ₁ σ₂, <{ σ₁ ×  σ₂ }> <: <{ τ₁ × τ₂ }>) := by
   left; exists Ty.top, Ty.top; solve_by_elim using StlcSubTyping
 
 --  ### Exercise (2 stars): formal_subtype_concepts_tfd (Optional) ⭐⭐
 
 theorem formal_subtype_concepts_tfd:
-  tf (∃ τ₁ τ₂, ∀ σ₁ σ₂, <{ ~τ₁ × ~τ₂ }> <: <{ ~σ₁ × ~σ₂ }>) := by
+  tf (∃ τ₁ τ₂, ∀ σ₁ σ₂, <{ τ₁ × τ₂ }> <: <{ σ₁ × σ₂ }>) := by
   right; intro contra
   obtain ⟨τ₁, τ₂, h⟩ := contra
   obtain ⟨_, _, h₁, h₂, _⟩ := sub_inversion_prod (h <{ Bool }> <{ Bool }>)
@@ -2289,7 +2286,7 @@ theorem formal_subtype_concepts_tfd:
 --  ### Exercise (2 stars): formal_subtype_concepts_tfe (Optional) ⭐⭐
 
 theorem formal_subtype_concepts_tfe:
-  tf (∃ τ₁ τ₂, ∀ σ₁ σ₂, <{ ~σ₁ → ~σ₂ }> <: <{ ~τ₁→ ~τ₂ }>) := by
+  tf (∃ τ₁ τ₂, ∀ σ₁ σ₂, <{ σ₁ → σ₂ }> <: <{ τ₁→ τ₂ }>) := by
 
   right; intro contra
   obtain ⟨τ₁, τ₂, h⟩ := contra
@@ -2303,7 +2300,7 @@ theorem formal_subtype_concepts_tfe:
 --  ### Exercise (2 stars): formal_subtype_concepts_tff (Optional) ⭐⭐
 
 theorem formal_subtype_concepts_tff :
-  tf (∃ τ₁ τ₂, ∀ σ₁ σ₂, <{ ~τ₁ → ~τ₂ }> <: <{ ~σ₁ → ~σ₂ }>) := by
+  tf (∃ τ₁ τ₂, ∀ σ₁ σ₂, <{ τ₁ → τ₂ }> <: <{ σ₁ → σ₂ }>) := by
 
   right; intro contra
   obtain ⟨τ₁, τ₂, h⟩ := contra
@@ -2385,4 +2382,4 @@ end FormalThoughtExercises
 
 end StlcSub
 
--- Source revision: 958a218, committed 2026-09-28 10:35 UTC
+-- Source revision: c399212, committed 2026-09-28 22:57 UTC

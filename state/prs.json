@@ -1,5 +1,5 @@
 {
-  "main_sha": "958a21889c2432482dfa1569c7120f075f2e506c",
+  "main_sha": "c399212a31d407142e1c21c1aa5099b9c9960784",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -57,53 +57,6 @@
       "status": "ci-failed",
       "title": "Proof Reading Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/422"
-    },
-    "424": {
-      "base_sha": "958a21889c2432482dfa1569c7120f075f2e506c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "84f04e6a788224ad155e7cfad0b00d1314767be1",
-      "preview_path": "pr/424/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36487147005",
-      "status": "published",
-      "title": "Port shared STLC language setup",
-      "url": "https://github.com/plclub/sf-in-lean/pull/424"
     },
     "427": {
       "base_sha": "958a21889c2432482dfa1569c7120f075f2e506c",

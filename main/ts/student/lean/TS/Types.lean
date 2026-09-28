@@ -931,4 +931,4 @@ end TM
 --  for nonterminating programs? Why might we prefer the small-step
 --  semantics for stating preservation and progress?
 
--- Source revision: 958a218, committed 2026-09-28 10:35 UTC
+-- Source revision: c399212, committed 2026-09-28 22:57 UTC

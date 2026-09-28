@@ -1178,4 +1178,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: 958a218, committed 2026-09-28 10:35 UTC
+-- Source revision: c399212, committed 2026-09-28 22:57 UTC

@@ -663,4 +663,4 @@ theorem star_app α (s₁ s₂ : List α) (re : RegExp α) :
 
 end RegExp
 
--- Source revision: 958a218, committed 2026-09-28 10:35 UTC
+-- Source revision: c399212, committed 2026-09-28 22:57 UTC

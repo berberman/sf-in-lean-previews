@@ -68,4 +68,4 @@ import SFLCompat
 --    develops formalized mathematics using Lean and
 --    Mathlib.
 
--- Source revision: 958a218, committed 2026-09-28 10:35 UTC
+-- Source revision: c399212, committed 2026-09-28 22:57 UTC
