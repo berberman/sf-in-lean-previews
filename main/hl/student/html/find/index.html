@@ -70,6 +70,10 @@
 .sf-display pre code {
   font-family: var(--verso-code-font-family, monospace);
   white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
 }
 </style><style>
 .namedocs {
@@ -2624,22 +2628,6 @@ window.onload = async () => {
         "number": "3"},
        {"title": "Commands", "shortTitle": null, "number": "2"}]},
      "address": "/Imp/"}],
-   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_--Additional-Exercises":
-   [{"id":
-     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_--Additional-Exercises",
-     "data":
-     {"title": "Additional Exercises",
-      "shortTitle": null,
-      "sectionNum": "3.5.1.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Imp: Simple Imperative Programs",
-        "shortTitle": null,
-        "number": "3"},
-       {"title": "Case Study (Optional)", "shortTitle": null, "number": "5"},
-       {"title": "Additional Exercises", "shortTitle": null, "number": "1"}]},
-     "address": "/Imp/"}],
    "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_":
    [{"id":
      "Hoare-Logic--Imp___-Simple-Imperative-Programs--Case-Study-_LPAR_Optional_RPAR_",
@@ -2654,6 +2642,21 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "3"},
        {"title": "Case Study (Optional)", "shortTitle": null, "number": "5"}]},
+     "address": "/Imp/"}],
+   "Hoare-Logic--Imp___-Simple-Imperative-Programs--Additional-Exercises":
+   [{"id":
+     "Hoare-Logic--Imp___-Simple-Imperative-Programs--Additional-Exercises",
+     "data":
+     {"title": "Additional Exercises",
+      "shortTitle": null,
+      "sectionNum": "3.6.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Imp: Simple Imperative Programs",
+        "shortTitle": null,
+        "number": "3"},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Imp/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Summary":
    [{"id": "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Summary",
@@ -4534,7 +4537,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "_private.HL.Hoare2.0.DCom.Delab.getDCom?":
@@ -4711,7 +4713,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sPlus":
@@ -4722,7 +4723,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sMult":
@@ -4733,7 +4733,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sMinus":
@@ -4744,7 +4743,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr.sLoad":
@@ -4755,7 +4753,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "StackCompiler.Sinstr":
@@ -4766,7 +4763,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Slang.Bexp.not":
@@ -5788,7 +5784,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Result.sBreak":
@@ -5799,7 +5794,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Result":
@@ -5810,7 +5804,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.whileDo":
@@ -5821,7 +5814,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.skip":
@@ -5832,7 +5824,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.seq":
@@ -5843,7 +5834,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.cond":
@@ -5854,7 +5844,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.brk":
@@ -5865,7 +5854,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com.asgn":
@@ -5876,7 +5864,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "Imp.Break.Com":
@@ -5887,7 +5874,6 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
-        "Case Study (Optional)",
         "Additional Exercises"]}},
      "address": "/Imp/"}],
    "If1.validHoareTriple_def":
@@ -8860,7 +8846,7 @@ if (paramName) {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Source revision: f71d207, committed 2026-09-24 15:25 UTC</div>
+            Source revision: c399212, committed 2026-09-28 22:57 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

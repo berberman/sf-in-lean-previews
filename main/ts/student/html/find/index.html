@@ -56,6 +56,26 @@
     <link rel="stylesheet" href="-verso-data/tippy-border.css">
     <link rel="stylesheet" href="-verso-data/katex/katex.css">
     <style>
+/* A display is set off vertically and indented a few characters from the left
+   margin — not flush left, not centered — the way a textbook indents a displayed
+   line. */
+.sf-display {
+  margin: 1em 0;
+  margin-left: 2.5em;
+}
+.sf-display pre {
+  margin: 0;
+  overflow-x: auto;
+}
+.sf-display pre code {
+  font-family: var(--verso-code-font-family, monospace);
+  white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
+}
+</style><style>
 .exercise {
   margin: 1.2em 0;
   padding: 0.6em 1em;
@@ -149,22 +169,6 @@ table.bnf td.bnf-note {
   font-family: inherit;
   font-style: italic;
   opacity: 0.65;
-}
-</style><style>
-/* A display is set off vertically and indented a few characters from the left
-   margin — not flush left, not centered — the way a textbook indents a displayed
-   line. */
-.sf-display {
-  margin: 1em 0;
-  margin-left: 2.5em;
-}
-.sf-display pre {
-  margin: 0;
-  overflow-x: auto;
-}
-.sf-display pre code {
-  font-family: var(--verso-code-font-family, monospace);
-  white-space: pre;
 }
 </style><style>
 .namedocs {
@@ -1948,6 +1952,305 @@ and its border extension paints the outline triangle with the box's border color
 }
 
 </style><script>
+      
+window.onload = async () => {
+
+    // Don't show hovers inside of closed tactic states
+    function blockedByTactic(elem) {
+      let parent = elem.parentNode;
+      while (parent && "classList" in parent) {
+        if (parent.classList.contains("tactic")) {
+          const toggle = parent.querySelector(":scope > input.tactic-toggle");
+          if (toggle) {
+            return !toggle.checked;
+          }
+        }
+        parent = parent.parentNode;
+      }
+      return false;
+    }
+
+    // The innermost element under the pointer, used to show only the most specific hover
+    let hoverTarget = null;
+    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
+
+    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
+    const visibleTippies = new Set();
+    function blockedByTippy(elem) {
+      for (const ref of visibleTippies) {
+        if (!ref.contains(elem) && !elem.contains(ref)) return true;
+      }
+      return false;
+    }
+
+    // Whether the element's tooltip would have content to show. Content nested in a
+    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
+    // not a tippy instance is currently attached to it.
+    function showsContent(el) {
+      if (!el._tippy) return false;
+      if (el.classList.contains('tactic')) {
+        const toggle = el.querySelector(':scope > input.tactic-toggle');
+        return !!toggle && !toggle.checked;
+      }
+      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
+        !blockedByTactic(el);
+    }
+
+    // The nearest enclosing element whose tooltip has content
+    function innermostShowable(el) {
+      while (el && el.nodeType === Node.ELEMENT_NODE) {
+        if (showsContent(el)) return el;
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    // Binding highlights via event delegation with cached lookups
+    const bindingCache = new Map(); // context+binding -> [token elements]
+    let highlightedTokens = [];
+    function getBindingTokens(context, binding) {
+      const key = context + "\0" + binding;
+      let tokens = bindingCache.get(key);
+      if (!tokens) {
+        tokens = [];
+        for (const example of document.querySelectorAll(".hl.lean")) {
+          if (example.dataset.leanContext == context) {
+            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
+              tokens.push(tok);
+            }
+          }
+        }
+        bindingCache.set(key, tokens);
+      }
+      return tokens;
+    }
+    for (const container of document.querySelectorAll(".hl.lean")) {
+      container.addEventListener("mouseover", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
+        if (blockedByTactic(c)) return;
+        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
+        for (const tok of tokens) {
+          tok.classList.add("binding-hl");
+        }
+        highlightedTokens = tokens;
+      });
+      container.addEventListener("mouseout", (event) => {
+        const c = event.target.closest(".token");
+        if (!c || !container.contains(c)) return;
+        for (const tok of highlightedTokens) {
+          tok.classList.remove("binding-hl");
+        }
+        highlightedTokens = [];
+      });
+    }
+    /* Render docstrings */
+    if ('undefined' !== typeof marked) {
+        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement("div");
+            rendered.classList.add("docstring");
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+        }
+    }
+    // Add hovers
+    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
+
+    function hideParentTooltips(element) {
+      let parent = element.parentElement;
+      while (parent) {
+        const tippyInstance = parent._tippy;
+        if (tippyInstance) {
+          tippyInstance.hide();
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    function hideDescendantTooltips(element) {
+      for (const ref of visibleTippies) {
+        if (ref !== element && element.contains(ref)) {
+          ref._tippy.hide();
+        }
+      }
+    }
+
+    // Renders the documentation for a hover ID from the doc table
+    function docHoverContent(hoverId) {
+      const info = document.createElement('span');
+      info.className = 'hover-info';
+      info.style.display = 'block';
+      const data = versoDocData[hoverId];
+      if (data) {
+        info.innerHTML = data;
+        /* Render docstrings - TODO server-side */
+        if ('undefined' !== typeof marked) {
+          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
+            const str = d.innerText;
+            const html = marked.parse(str);
+            const rendered = document.createElement('div');
+            rendered.classList.add('docstring');
+            rendered.innerHTML = html;
+            d.parentNode.replaceChild(rendered, d);
+          }
+        }
+      } else {
+        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
+      }
+      return info;
+    }
+
+
+
+
+    const defaultTippyProps = {
+      /* DEBUG -- remove the space: * /
+      onHide(any) { return false; },
+      trigger: "click",
+      // */
+      /* theme: "lean", */
+      maxWidth: "none",
+      appendTo: () => document.body,
+      interactive: true,
+      delay: [100, null],
+      /* ignoreAttributes: true, */
+      followCursor: 'initial',
+      onShow(inst) {
+        const ref = inst.reference;
+        if (ref.className == 'tactic') {
+          const toggle = ref.querySelector(":scope > input.tactic-toggle");
+          if (toggle && toggle.checked) {
+            return false;
+          }
+        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
+          if (blockedByTactic(ref)) { return false };
+        } else { // Nothing to show here!
+          return false;
+        }
+        // Show only the most specific hover under the pointer
+        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
+          return false;
+        }
+        hideParentTooltips(ref);
+        hideDescendantTooltips(ref);
+        if (blockedByTippy(ref)) { return false; }
+      },
+      onShown(inst) { visibleTippies.add(inst.reference); },
+      onHidden(inst) { visibleTippies.delete(inst.reference); },
+      content (tgt) {
+        const content = document.createElement("span");
+        if (tgt.className == 'tactic') {
+          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
+          state.style.display = "block";
+          content.appendChild(state);
+          content.style.display = "block";
+          content.className = "hl lean popup";
+        } else {
+          content.className = "hl lean";
+          content.style.display = "block";
+          content.style.maxHeight = "300px";
+          content.style.overflowY = "auto";
+          content.style.overflowX = "hidden";
+          // Messages come from the inline hover-info; documentation comes from the doc
+          // table. An element with both (a message span sharing a documented token's
+          // extent) shows both in one tooltip.
+          const hoverId = tgt.dataset.versoHover;
+          const hoverInfo = tgt.querySelector(".hover-info");
+          if (hoverInfo) {
+            content.appendChild(hoverInfo.cloneNode(true));
+          }
+          if (hoverId) {
+            // TODO stop doing an implicit conversion from string to number here
+            content.appendChild(docHoverContent(hoverId));
+          }
+          if (hoverInfo && hoverId) {
+            content.classList.add('mixed');
+          }
+          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
+          if (extraLinks) {
+            try {
+              const extras = JSON.parse(extraLinks);
+              const links = document.createElement('ul');
+              links.className = 'extra-doc-links';
+              extras.forEach((l) => {
+                const li = document.createElement('li');
+                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
+                links.appendChild(li);
+              });
+              content.appendChild(links);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+        return content;
+      }
+    };
+
+
+    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'lean');
+    });
+    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'warning message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'info message');
+    });
+    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'error message');
+    });
+    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
+      element.setAttribute('data-tippy-theme', 'tactic');
+    });
+    // Skip tokens inside closed tactics — they interfere with tactic tippys
+    const closedTactics = new Set();
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle && !toggle.checked) closedTactics.add(tactic);
+    });
+    function isInsideClosedTactic(el) {
+      const tactic = el.closest('.tactic');
+      return tactic && tactic !== el && closedTactics.has(tactic);
+    }
+
+    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
+    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
+
+    // Create/destroy token tippys when tactic checkbox toggles
+    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
+    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
+      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
+      if (toggle) toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          closedTactics.delete(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (!el._tippy) {
+              tippy(el, defaultTippyProps);
+            }
+          });
+        } else {
+          closedTactics.add(tactic);
+          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
+            if (el._tippy) el._tippy.destroy();
+          });
+        }
+        // The toggle changes which element's tooltip belongs to the pointer's position,
+        // but the pointer stays put, so no hover event announces the change. Show the
+        // right tooltip once the click that flipped the toggle has hidden the old one.
+        setTimeout(() => {
+          if (hoverTarget && hoverTarget.isConnected) {
+            const showable = innermostShowable(hoverTarget);
+            if (showable && showable._tippy) showable._tippy.show();
+          }
+        }, 0);
+      });
+  });
+}
+</script>
+    <script>
       window.xref = {"Verso.Genre.Manual.section":
  {"title": "Sections or chapters of the manual",
   "description": null,
@@ -3757,6 +4060,774 @@ and its border extension paints the outline triangle with the box's border color
         "Smallstep: Small-step Operational Semantics",
         "A Toy Language"]}},
      "address": "/Smallstep/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.reservedTyNames":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___reservedTyNames",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___reservedTyNames":
+      {"display": "reservedTyNames",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.reservedTmNames":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___reservedTmNames",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___reservedTmNames":
+      {"display": "reservedTmNames",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Ty.unexpandUnit":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandUnit",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandUnit":
+      {"display": "Ty.unexpandUnit",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Ty.unexpandTop":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandTop",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandTop":
+      {"display": "Ty.unexpandTop",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Ty.unexpandProd":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandProd",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandProd":
+      {"display": "Ty.unexpandProd",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Ty.unexpandBool":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandBool",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandBool":
+      {"display": "Ty.unexpandBool",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Ty.unexpandBase":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandBase",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandBase":
+      {"display": "Ty.unexpandBase",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Ty.unexpandArrow":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandArrow",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Ty___unexpandArrow":
+      {"display": "Ty.unexpandArrow",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandVar":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandVar",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandVar":
+      {"display": "Tm.unexpandVar",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandUnit":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandUnit",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandUnit":
+      {"display": "Tm.unexpandUnit",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandTru":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandTru",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandTru":
+      {"display": "Tm.unexpandTru",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandSnd":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandSnd",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandSnd":
+      {"display": "Tm.unexpandSnd",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandPair":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandPair",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandPair":
+      {"display": "Tm.unexpandPair",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandIte":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandIte",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandIte":
+      {"display": "Tm.unexpandIte",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandFst":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandFst",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandFst":
+      {"display": "Tm.unexpandFst",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandFls":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandFls",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandFls":
+      {"display": "Tm.unexpandFls",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandApp":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandApp",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandApp":
+      {"display": "Tm.unexpandApp",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.unexpandAbs":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandAbs",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___unexpandAbs":
+      {"display": "Tm.unexpandAbs",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.Sub.0.StlcSub.Delab.Tm.delabVar":
+   [{"id": "_private___TS___Sub___0___StlcSub___Delab___Tm___delabVar",
+     "data":
+     {"/Sub/#_private___TS___Sub___0___StlcSub___Delab___Tm___delabVar":
+      {"display": "Tm.delabVar",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "_private.TS.StlcProp.0.StlcArith.Delab.reservedNames":
+   [{"id": "_private___TS___StlcProp___0___StlcArith___Delab___reservedNames",
+     "data":
+     {"/StlcProp/#_private___TS___StlcProp___0___StlcArith___Delab___reservedNames":
+      {"display": "reservedNames",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "_private.TS.StlcProp.0.StlcArith.Delab.Ty.unexpandNat":
+   [{"id":
+     "_private___TS___StlcProp___0___StlcArith___Delab___Ty___unexpandNat",
+     "data":
+     {"/StlcProp/#_private___TS___StlcProp___0___StlcArith___Delab___Ty___unexpandNat":
+      {"display": "Ty.unexpandNat",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "_private.TS.StlcProp.0.StlcArith.Delab.Ty.unexpandArrow":
+   [{"id":
+     "_private___TS___StlcProp___0___StlcArith___Delab___Ty___unexpandArrow",
+     "data":
+     {"/StlcProp/#_private___TS___StlcProp___0___StlcArith___Delab___Ty___unexpandArrow":
+      {"display": "Ty.unexpandArrow",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "_private.TS.StlcProp.0.StlcArith.Delab.Tm.unexpandVar":
+   [{"id":
+     "_private___TS___StlcProp___0___StlcArith___Delab___Tm___unexpandVar",
+     "data":
+     {"/StlcProp/#_private___TS___StlcProp___0___StlcArith___Delab___Tm___unexpandVar":
+      {"display": "Tm.unexpandVar",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "_private.TS.StlcProp.0.StlcArith.Delab.Tm.unexpandIte":
+   [{"id":
+     "_private___TS___StlcProp___0___StlcArith___Delab___Tm___unexpandIte",
+     "data":
+     {"/StlcProp/#_private___TS___StlcProp___0___StlcArith___Delab___Tm___unexpandIte":
+      {"display": "Tm.unexpandIte",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "_private.TS.StlcProp.0.StlcArith.Delab.Tm.unexpandApp":
+   [{"id":
+     "_private___TS___StlcProp___0___StlcArith___Delab___Tm___unexpandApp",
+     "data":
+     {"/StlcProp/#_private___TS___StlcProp___0___StlcArith___Delab___Tm___unexpandApp":
+      {"display": "Tm.unexpandApp",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "_private.TS.StlcProp.0.StlcArith.Delab.Tm.unexpandAbs":
+   [{"id":
+     "_private___TS___StlcProp___0___StlcArith___Delab___Tm___unexpandAbs",
+     "data":
+     {"/StlcProp/#_private___TS___StlcProp___0___StlcArith___Delab___Tm___unexpandAbs":
+      {"display": "Tm.unexpandAbs",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "_private.TS.StlcProp.0.StlcArith.Delab.Tm.delabVar":
+   [{"id": "_private___TS___StlcProp___0___StlcArith___Delab___Tm___delabVar",
+     "data":
+     {"/StlcProp/#_private___TS___StlcProp___0___StlcArith___Delab___Tm___delabVar":
+      {"display": "Tm.delabVar",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.reservedNames":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___reservedNames",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___reservedNames":
+      {"display": "reservedNames",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.Ty.unexpandBool":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___Ty___unexpandBool",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___Ty___unexpandBool":
+      {"display": "Ty.unexpandBool",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.Ty.unexpandArrow":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___Ty___unexpandArrow",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___Ty___unexpandArrow":
+      {"display": "Ty.unexpandArrow",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.Tm.unexpandVar":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandVar",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandVar":
+      {"display": "Tm.unexpandVar",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.Tm.unexpandTru":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandTru",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandTru":
+      {"display": "Tm.unexpandTru",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.Tm.unexpandIte":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandIte",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandIte":
+      {"display": "Tm.unexpandIte",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.Tm.unexpandFls":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandFls",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandFls":
+      {"display": "Tm.unexpandFls",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.Tm.unexpandApp":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandApp",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandApp":
+      {"display": "Tm.unexpandApp",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.Tm.unexpandAbs":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandAbs",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___Tm___unexpandAbs":
+      {"display": "Tm.unexpandAbs",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.Stlc.0.Stlc.Delab.Tm.delabVar":
+   [{"id": "_private___TS___Stlc___0___Stlc___Delab___Tm___delabVar",
+     "data":
+     {"/Stlc/#_private___TS___Stlc___0___Stlc___Delab___Tm___delabVar":
+      {"display": "Tm.delabVar",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.reservedNames":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___reservedNames",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___reservedNames":
+      {"display": "reservedNames",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Ty.unexpandUnit":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandUnit",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandUnit":
+      {"display": "Ty.unexpandUnit",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Ty.unexpandSum":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandSum",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandSum":
+      {"display": "Ty.unexpandSum",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Ty.unexpandProd":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandProd",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandProd":
+      {"display": "Ty.unexpandProd",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Ty.unexpandNat":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandNat",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandNat":
+      {"display": "Ty.unexpandNat",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Ty.unexpandList":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandList",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandList":
+      {"display": "Ty.unexpandList",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Ty.unexpandArrow":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandArrow",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Ty___unexpandArrow":
+      {"display": "Ty.unexpandArrow",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandVar":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandVar",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandVar":
+      {"display": "Tm.unexpandVar",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandUnit":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandUnit",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandUnit":
+      {"display": "Tm.unexpandUnit",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandSumInr":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSumInr",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSumInr":
+      {"display": "Tm.unexpandSumInr",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandSumInl":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSumInl",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSumInl":
+      {"display": "Tm.unexpandSumInl",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandSumCase":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSumCase",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSumCase":
+      {"display": "Tm.unexpandSumCase",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandSucc":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSucc",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSucc":
+      {"display": "Tm.unexpandSucc",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandSnd":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSnd",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandSnd":
+      {"display": "Tm.unexpandSnd",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandPred":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandPred",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandPred":
+      {"display": "Tm.unexpandPred",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandPair":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandPair",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandPair":
+      {"display": "Tm.unexpandPair",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandMult":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandMult",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandMult":
+      {"display": "Tm.unexpandMult",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandListNil":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandListNil",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandListNil":
+      {"display": "Tm.unexpandListNil",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandListCons":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandListCons",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandListCons":
+      {"display": "Tm.unexpandListCons",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandListCase":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandListCase",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandListCase":
+      {"display": "Tm.unexpandListCase",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandLetIn":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandLetIn",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandLetIn":
+      {"display": "Tm.unexpandLetIn",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandIte0":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandIte0",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandIte0":
+      {"display": "Tm.unexpandIte0",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandFst":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandFst",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandFst":
+      {"display": "Tm.unexpandFst",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandFix":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandFix",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandFix":
+      {"display": "Tm.unexpandFix",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandConst":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandConst",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandConst":
+      {"display": "Tm.unexpandConst",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandApp":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandApp",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandApp":
+      {"display": "Tm.unexpandApp",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.unexpandAbs":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandAbs",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___unexpandAbs":
+      {"display": "Tm.unexpandAbs",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "_private.TS.MoreStlc.0.StlcExtended.Delab.Tm.delabVar":
+   [{"id":
+     "_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___delabVar",
+     "data":
+     {"/MoreStlc/#_private___TS___MoreStlc___0___StlcExtended___Delab___Tm___delabVar":
+      {"display": "Tm.delabVar",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
    "Tm.p":
    [{"id": "Tm___p",
      "data":
@@ -4705,13 +5776,16 @@ and its border extension paints the outline triangle with the box's border color
        "context":
        ["Type Systems", "Sub: Subtyping", "Properties", "Weakening"]}},
      "address": "/Sub/"}],
-   "StlcSub.unexpandCtx":
-   [{"id": "StlcSub___unexpandCtx",
+   "StlcSub.unexpandSubst":
+   [{"id": "StlcSub___unexpandSubst",
      "data":
-     {"/Sub/#StlcSub___unexpandCtx":
-      {"display": "unexpandCtx",
+     {"/Sub/#StlcSub___unexpandSubst":
+      {"display": "unexpandSubst",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Substitution"]}},
      "address": "/Sub/"}],
    "StlcSub.typing_inversion_unit":
    [{"id": "StlcSub___typing_inversion_unit",
@@ -4742,74 +5816,6 @@ and its border extension paints the outline triangle with the box's border color
       {"display": "substitution_preserves_typing",
        "context":
        ["Type Systems", "Sub: Subtyping", "Properties", "Substitution"]}},
-     "address": "/Sub/"}],
-   "StlcSub.isPlainTmVarName":
-   [{"id": "StlcSub___isPlainTmVarName",
-     "data":
-     {"/Sub/#StlcSub___isPlainTmVarName":
-      {"display": "isPlainTmVarName",
-       "context":
-       ["Type Systems",
-        "Sub: Subtyping",
-        "Formal Definitions",
-        "Core Definitions",
-        "Syntax"]}},
-     "address": "/Sub/"}],
-   "StlcSub.delabTyInner":
-   [{"id": "StlcSub___delabTyInner",
-     "data":
-     {"/Sub/#StlcSub___delabTyInner":
-      {"display": "delabTyInner",
-       "context":
-       ["Type Systems",
-        "Sub: Subtyping",
-        "Formal Definitions",
-        "Core Definitions",
-        "Syntax"]}},
-     "address": "/Sub/"}],
-   "StlcSub.delabTy":
-   [{"id": "StlcSub___delabTy",
-     "data":
-     {"/Sub/#StlcSub___delabTy":
-      {"display": "delabTy",
-       "context":
-       ["Type Systems",
-        "Sub: Subtyping",
-        "Formal Definitions",
-        "Core Definitions",
-        "Syntax"]}},
-     "address": "/Sub/"}],
-   "StlcSub.delabTmInner":
-   [{"id": "StlcSub___delabTmInner",
-     "data":
-     {"/Sub/#StlcSub___delabTmInner":
-      {"display": "delabTmInner",
-       "context":
-       ["Type Systems",
-        "Sub: Subtyping",
-        "Formal Definitions",
-        "Core Definitions",
-        "Syntax"]}},
-     "address": "/Sub/"}],
-   "StlcSub.delabTm":
-   [{"id": "StlcSub___delabTm",
-     "data":
-     {"/Sub/#StlcSub___delabTm":
-      {"display": "delabTm",
-       "context":
-       ["Type Systems",
-        "Sub: Subtyping",
-        "Formal Definitions",
-        "Core Definitions",
-        "Syntax"]}},
-     "address": "/Sub/"}],
-   "StlcSub.ctxTerm":
-   [{"id": "StlcSub___ctxTerm",
-     "data":
-     {"/Sub/#StlcSub___ctxTerm":
-      {"display": "ctxTerm",
-       "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Typing"]}},
      "address": "/Sub/"}],
    "StlcSub.canonical_forms_of_bool":
    [{"id": "StlcSub___canonical_forms_of_bool",
@@ -5065,75 +6071,125 @@ and its border extension paints the outline triangle with the box's border color
         "Properties",
         "Formalized \"Thought Exercises\""]}},
      "address": "/Sub/"}],
-   "StlcSub.FormalThoughtExercises.p":
-   [{"id": "StlcSub___FormalThoughtExercises___p",
+   "StlcSub.Elab.tyHandlers":
+   [{"id": "StlcSub___Elab___tyHandlers",
      "data":
-     {"/Sub/#StlcSub___FormalThoughtExercises___p":
-      {"display": "p",
+     {"/Sub/#StlcSub___Elab___tyHandlers":
+      {"display": "tyHandlers",
        "context":
        ["Type Systems",
         "Sub: Subtyping",
-        "Properties",
-        "Formalized \"Thought Exercises\""]}},
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
      "address": "/Sub/"}],
-   "StlcSub.FormalThoughtExercises.a":
-   [{"id": "StlcSub___FormalThoughtExercises___a",
+   "StlcSub.Elab.tmHandlers":
+   [{"id": "StlcSub___Elab___tmHandlers",
      "data":
-     {"/Sub/#StlcSub___FormalThoughtExercises___a":
-      {"display": "a",
+     {"/Sub/#StlcSub___Elab___tmHandlers":
+      {"display": "tmHandlers",
        "context":
        ["Type Systems",
         "Sub: Subtyping",
-        "Properties",
-        "Formalized \"Thought Exercises\""]}},
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
      "address": "/Sub/"}],
-   "StlcSub.Examples.String":
-   [{"id": "StlcSub___Examples___String",
+   "StlcSub.Elab.subTyHandler":
+   [{"id": "StlcSub___Elab___subTyHandler",
      "data":
-     {"/Sub/#StlcSub___Examples___String":
-      {"display": "String",
+     {"/Sub/#StlcSub___Elab___subTyHandler":
+      {"display": "subTyHandler",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
      "address": "/Sub/"}],
-   "StlcSub.Examples.Int":
-   [{"id": "StlcSub___Examples___Int",
+   "StlcSub.Elab.subTmHandler":
+   [{"id": "StlcSub___Elab___subTmHandler",
      "data":
-     {"/Sub/#StlcSub___Examples___Int":
-      {"display": "Int",
+     {"/Sub/#StlcSub___Elab___subTmHandler":
+      {"display": "subTmHandler",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
      "address": "/Sub/"}],
-   "StlcSub.Examples.Float":
-   [{"id": "StlcSub___Examples___Float",
+   "StlcSub.Elab.language":
+   [{"id": "StlcSub___Elab___language",
      "data":
-     {"/Sub/#StlcSub___Examples___Float":
-      {"display": "Float",
+     {"/Sub/#StlcSub___Elab___language":
+      {"display": "language",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
      "address": "/Sub/"}],
-   "StlcSub.Examples.C":
-   [{"id": "StlcSub___Examples___C",
+   "StlcSub.Elab.elabTy":
+   [{"id": "StlcSub___Elab___elabTy",
      "data":
-     {"/Sub/#StlcSub___Examples___C":
-      {"display": "C",
+     {"/Sub/#StlcSub___Elab___elabTy":
+      {"display": "elabTy",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
      "address": "/Sub/"}],
-   "StlcSub.Examples.B":
-   [{"id": "StlcSub___Examples___B",
+   "StlcSub.Elab.elabTm":
+   [{"id": "StlcSub___Elab___elabTm",
      "data":
-     {"/Sub/#StlcSub___Examples___B":
-      {"display": "B",
+     {"/Sub/#StlcSub___Elab___elabTm":
+      {"display": "elabTm",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
      "address": "/Sub/"}],
-   "StlcSub.Examples.A":
-   [{"id": "StlcSub___Examples___A",
+   "StlcSub.Elab.elabCtx":
+   [{"id": "StlcSub___Elab___elabCtx",
      "data":
-     {"/Sub/#StlcSub___Examples___A":
-      {"display": "A",
+     {"/Sub/#StlcSub___Elab___elabCtx":
+      {"display": "elabCtx",
        "context":
-       ["Type Systems", "Sub: Subtyping", "Formal Definitions", "Subtyping"]}},
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Elab.elabBracket":
+   [{"id": "StlcSub___Elab___elabBracket",
+     "data":
+     {"/Sub/#StlcSub___Elab___elabBracket":
+      {"display": "elabBracket",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
+     "address": "/Sub/"}],
+   "StlcSub.Elab.baseTyHandler":
+   [{"id": "StlcSub___Elab___baseTyHandler",
+     "data":
+     {"/Sub/#StlcSub___Elab___baseTyHandler":
+      {"display": "baseTyHandler",
+       "context":
+       ["Type Systems",
+        "Sub: Subtyping",
+        "Formal Definitions",
+        "Core Definitions",
+        "Syntax"]}},
      "address": "/Sub/"}],
    "StlcSub.Context":
    [{"id": "StlcSub___Context",
@@ -5165,77 +6221,11 @@ and its border extension paints the outline triangle with the box's border color
         "Records",
         "Exercise: Formalizing the Extensions"]}},
      "address": "/MoreStlc/"}],
-   "StlcExtended.unexpandCtx":
-   [{"id": "StlcExtended___unexpandCtx",
+   "StlcExtended.unexpandSubst":
+   [{"id": "StlcExtended___unexpandSubst",
      "data":
-     {"/MoreStlc/#StlcExtended___unexpandCtx":
-      {"display": "unexpandCtx",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "StlcExtended.isPlainTmVarName":
-   [{"id": "StlcExtended___isPlainTmVarName",
-     "data":
-     {"/MoreStlc/#StlcExtended___isPlainTmVarName":
-      {"display": "isPlainTmVarName",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "StlcExtended.delabTyInner":
-   [{"id": "StlcExtended___delabTyInner",
-     "data":
-     {"/MoreStlc/#StlcExtended___delabTyInner":
-      {"display": "delabTyInner",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "StlcExtended.delabTy":
-   [{"id": "StlcExtended___delabTy",
-     "data":
-     {"/MoreStlc/#StlcExtended___delabTy":
-      {"display": "delabTy",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "StlcExtended.delabTmInner":
-   [{"id": "StlcExtended___delabTmInner",
-     "data":
-     {"/MoreStlc/#StlcExtended___delabTmInner":
-      {"display": "delabTmInner",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "StlcExtended.delabTm":
-   [{"id": "StlcExtended___delabTm",
-     "data":
-     {"/MoreStlc/#StlcExtended___delabTm":
-      {"display": "delabTm",
-       "context":
-       ["Type Systems",
-        "MoreStlc: More on the Simply Typed Lambda-Calculus",
-        "Records",
-        "Exercise: Formalizing the Extensions"]}},
-     "address": "/MoreStlc/"}],
-   "StlcExtended.ctxTerm":
-   [{"id": "StlcExtended___ctxTerm",
-     "data":
-     {"/MoreStlc/#StlcExtended___ctxTerm":
-      {"display": "ctxTerm",
+     {"/MoreStlc/#StlcExtended___unexpandSubst":
+      {"display": "unexpandSubst",
        "context":
        ["Type Systems",
         "MoreStlc: More on the Simply Typed Lambda-Calculus",
@@ -5660,6 +6650,105 @@ and its border extension paints the outline triangle with the box's border color
         "Records",
         "Exercise: Formalizing the Extensions"]}},
      "address": "/MoreStlc/"}],
+   "StlcExtended.Elab.tyHandlers":
+   [{"id": "StlcExtended___Elab___tyHandlers",
+     "data":
+     {"/MoreStlc/#StlcExtended___Elab___tyHandlers":
+      {"display": "tyHandlers",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Elab.tmHandlers":
+   [{"id": "StlcExtended___Elab___tmHandlers",
+     "data":
+     {"/MoreStlc/#StlcExtended___Elab___tmHandlers":
+      {"display": "tmHandlers",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Elab.language":
+   [{"id": "StlcExtended___Elab___language",
+     "data":
+     {"/MoreStlc/#StlcExtended___Elab___language":
+      {"display": "language",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Elab.extendedTyHandler":
+   [{"id": "StlcExtended___Elab___extendedTyHandler",
+     "data":
+     {"/MoreStlc/#StlcExtended___Elab___extendedTyHandler":
+      {"display": "extendedTyHandler",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Elab.extendedTmHandler":
+   [{"id": "StlcExtended___Elab___extendedTmHandler",
+     "data":
+     {"/MoreStlc/#StlcExtended___Elab___extendedTmHandler":
+      {"display": "extendedTmHandler",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Elab.elabTy":
+   [{"id": "StlcExtended___Elab___elabTy",
+     "data":
+     {"/MoreStlc/#StlcExtended___Elab___elabTy":
+      {"display": "elabTy",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Elab.elabTm":
+   [{"id": "StlcExtended___Elab___elabTm",
+     "data":
+     {"/MoreStlc/#StlcExtended___Elab___elabTm":
+      {"display": "elabTm",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Elab.elabCtx":
+   [{"id": "StlcExtended___Elab___elabCtx",
+     "data":
+     {"/MoreStlc/#StlcExtended___Elab___elabCtx":
+      {"display": "elabCtx",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
+   "StlcExtended.Elab.elabBracket":
+   [{"id": "StlcExtended___Elab___elabBracket",
+     "data":
+     {"/MoreStlc/#StlcExtended___Elab___elabBracket":
+      {"display": "elabBracket",
+       "context":
+       ["Type Systems",
+        "MoreStlc: More on the Simply Typed Lambda-Calculus",
+        "Records",
+        "Exercise: Formalizing the Extensions"]}},
+     "address": "/MoreStlc/"}],
    "StlcExtended.Context":
    [{"id": "StlcExtended___Context",
      "data":
@@ -5671,88 +6760,11 @@ and its border extension paints the outline triangle with the box's border color
         "Records",
         "Exercise: Formalizing the Extensions"]}},
      "address": "/MoreStlc/"}],
-   "StlcArith.unexpandCtx":
-   [{"id": "StlcArith___unexpandCtx",
+   "StlcArith.unexpandSubst":
+   [{"id": "StlcArith___unexpandSubst",
      "data":
-     {"/StlcProp/#StlcArith___unexpandCtx":
-      {"display": "unexpandCtx",
-       "context":
-       ["Type Systems",
-        "StlcProp: Properties of STLC",
-        "Additional Exercises",
-        "Exercise: STLC with Arithmetic"]}},
-     "address": "/StlcProp/"}],
-   "StlcArith.isPlainTmVarName":
-   [{"id": "StlcArith___isPlainTmVarName",
-     "data":
-     {"/StlcProp/#StlcArith___isPlainTmVarName":
-      {"display": "isPlainTmVarName",
-       "context":
-       ["Type Systems",
-        "StlcProp: Properties of STLC",
-        "Additional Exercises",
-        "Exercise: STLC with Arithmetic"]}},
-     "address": "/StlcProp/"}],
-   "StlcArith.delabTyInner":
-   [{"id": "StlcArith___delabTyInner",
-     "data":
-     {"/StlcProp/#StlcArith___delabTyInner":
-      {"display": "delabTyInner",
-       "context":
-       ["Type Systems",
-        "StlcProp: Properties of STLC",
-        "Additional Exercises",
-        "Exercise: STLC with Arithmetic"]}},
-     "address": "/StlcProp/"}],
-   "StlcArith.delabTy":
-   [{"id": "StlcArith___delabTy",
-     "data":
-     {"/StlcProp/#StlcArith___delabTy":
-      {"display": "delabTy",
-       "context":
-       ["Type Systems",
-        "StlcProp: Properties of STLC",
-        "Additional Exercises",
-        "Exercise: STLC with Arithmetic"]}},
-     "address": "/StlcProp/"}],
-   "StlcArith.delabTmInner":
-   [{"id": "StlcArith___delabTmInner",
-     "data":
-     {"/StlcProp/#StlcArith___delabTmInner":
-      {"display": "delabTmInner",
-       "context":
-       ["Type Systems",
-        "StlcProp: Properties of STLC",
-        "Additional Exercises",
-        "Exercise: STLC with Arithmetic"]}},
-     "address": "/StlcProp/"}],
-   "StlcArith.delabTm":
-   [{"id": "StlcArith___delabTm",
-     "data":
-     {"/StlcProp/#StlcArith___delabTm":
-      {"display": "delabTm",
-       "context":
-       ["Type Systems",
-        "StlcProp: Properties of STLC",
-        "Additional Exercises",
-        "Exercise: STLC with Arithmetic"]}},
-     "address": "/StlcProp/"}],
-   "StlcArith.delabSubst":
-   [{"id": "StlcArith___delabSubst",
-     "data":
-     {"/StlcProp/#StlcArith___delabSubst":
-      {"display": "delabSubst",
-       "context":
-       ["Type Systems",
-        "StlcProp: Properties of STLC",
-        "Additional Exercises",
-        "Exercise: STLC with Arithmetic"]}},
-     "address": "/StlcProp/"}],
-   "StlcArith.ctxTerm":
-   [{"id": "StlcArith___ctxTerm",
-     "data":
-     {"/StlcProp/#StlcArith___ctxTerm":
-      {"display": "ctxTerm",
+     {"/StlcProp/#StlcArith___unexpandSubst":
+      {"display": "unexpandSubst",
        "context":
        ["Type Systems",
         "StlcProp: Properties of STLC",
@@ -5902,6 +6914,149 @@ and its border extension paints the outline triangle with the box's border color
         "Additional Exercises",
         "Exercise: STLC with Arithmetic"]}},
      "address": "/StlcProp/"}],
+   "StlcArith.Elab.tyHandlers":
+   [{"id": "StlcArith___Elab___tyHandlers",
+     "data":
+     {"/StlcProp/#StlcArith___Elab___tyHandlers":
+      {"display": "tyHandlers",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Elab.tmHandlers":
+   [{"id": "StlcArith___Elab___tmHandlers",
+     "data":
+     {"/StlcProp/#StlcArith___Elab___tmHandlers":
+      {"display": "tmHandlers",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Elab.natTyHandler":
+   [{"id": "StlcArith___Elab___natTyHandler",
+     "data":
+     {"/StlcProp/#StlcArith___Elab___natTyHandler":
+      {"display": "natTyHandler",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Elab.language":
+   [{"id": "StlcArith___Elab___language",
+     "data":
+     {"/StlcProp/#StlcArith___Elab___language":
+      {"display": "language",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Elab.elabTy":
+   [{"id": "StlcArith___Elab___elabTy",
+     "data":
+     {"/StlcProp/#StlcArith___Elab___elabTy":
+      {"display": "elabTy",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Elab.elabTm":
+   [{"id": "StlcArith___Elab___elabTm",
+     "data":
+     {"/StlcProp/#StlcArith___Elab___elabTm":
+      {"display": "elabTm",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Elab.elabCtx":
+   [{"id": "StlcArith___Elab___elabCtx",
+     "data":
+     {"/StlcProp/#StlcArith___Elab___elabCtx":
+      {"display": "elabCtx",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Elab.elabBracket":
+   [{"id": "StlcArith___Elab___elabBracket",
+     "data":
+     {"/StlcProp/#StlcArith___Elab___elabBracket":
+      {"display": "elabBracket",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Elab.arithTmHandler":
+   [{"id": "StlcArith___Elab___arithTmHandler",
+     "data":
+     {"/StlcProp/#StlcArith___Elab___arithTmHandler":
+      {"display": "arithTmHandler",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Delab.Tm.unexpandSucc":
+   [{"id": "StlcArith___Delab___Tm___unexpandSucc",
+     "data":
+     {"/StlcProp/#StlcArith___Delab___Tm___unexpandSucc":
+      {"display": "Tm.unexpandSucc",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Delab.Tm.unexpandPred":
+   [{"id": "StlcArith___Delab___Tm___unexpandPred",
+     "data":
+     {"/StlcProp/#StlcArith___Delab___Tm___unexpandPred":
+      {"display": "Tm.unexpandPred",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Delab.Tm.unexpandMult":
+   [{"id": "StlcArith___Delab___Tm___unexpandMult",
+     "data":
+     {"/StlcProp/#StlcArith___Delab___Tm___unexpandMult":
+      {"display": "Tm.unexpandMult",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
+   "StlcArith.Delab.Tm.unexpandConst":
+   [{"id": "StlcArith___Delab___Tm___unexpandConst",
+     "data":
+     {"/StlcProp/#StlcArith___Delab___Tm___unexpandConst":
+      {"display": "Tm.unexpandConst",
+       "context":
+       ["Type Systems",
+        "StlcProp: Properties of STLC",
+        "Additional Exercises",
+        "Exercise: STLC with Arithmetic"]}},
+     "address": "/StlcProp/"}],
    "StlcArith.Context":
    [{"id": "StlcArith___Context",
      "data":
@@ -5946,49 +7101,16 @@ and its border extension paints the outline triangle with the box's border color
         "Preservation",
         "The Weakening Lemma"]}},
      "address": "/StlcProp/"}],
-   "Stlc.varStr":
-   [{"id": "Stlc___varStr",
+   "Stlc.unexpandSubst":
+   [{"id": "Stlc___unexpandSubst",
      "data":
-     {"/Stlc/#Stlc___varStr":
-      {"display": "varStr",
+     {"/Stlc/#Stlc___unexpandSubst":
+      {"display": "unexpandSubst",
        "context":
        ["Type Systems",
         "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.unexpandCtx":
-   [{"id": "Stlc___unexpandCtx",
-     "data":
-     {"/Stlc/#Stlc___unexpandCtx":
-      {"display": "unexpandCtx",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Typing",
-        "Typing Relation"]}},
-     "address": "/Stlc/"}],
-   "Stlc.tyBracket":
-   [{"id": "Stlc___tyBracket",
-     "data":
-     {"/Stlc/#Stlc___tyBracket":
-      {"display": "tyBracket",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.tmBracket":
-   [{"id": "Stlc___tmBracket",
-     "data":
-     {"/Stlc/#Stlc___tmBracket":
-      {"display": "tmBracket",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
+        "Operational Semantics",
+        "Substitution"]}},
      "address": "/Stlc/"}],
    "Stlc.substitution_preserves_typing":
    [{"id": "Stlc___substitution_preserves_typing",
@@ -6100,50 +7222,6 @@ and its border extension paints the outline triangle with the box's border color
         "Operational Semantics",
         "Substitution"]}},
      "address": "/Stlc/"}],
-   "Stlc.stlcTy.parenthesizer.wrapParens":
-   [{"id": "Stlc___stlcTy___parenthesizer___wrapParens",
-     "data":
-     {"/Stlc/#Stlc___stlcTy___parenthesizer___wrapParens":
-      {"display": "wrapParens",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.stlcTy.parenthesizer":
-   [{"id": "Stlc___stlcTy___parenthesizer",
-     "data":
-     {"/Stlc/#Stlc___stlcTy___parenthesizer":
-      {"display": "stlcTy.parenthesizer",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.stlcTm.parenthesizer.wrapParens":
-   [{"id": "Stlc___stlcTm___parenthesizer___wrapParens",
-     "data":
-     {"/Stlc/#Stlc___stlcTm___parenthesizer___wrapParens":
-      {"display": "wrapParens",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.stlcTm.parenthesizer":
-   [{"id": "Stlc___stlcTm___parenthesizer",
-     "data":
-     {"/Stlc/#Stlc___stlcTm___parenthesizer":
-      {"display": "stlcTm.parenthesizer",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
    "Stlc.progress":
    [{"id": "Stlc___progress",
      "data":
@@ -6207,39 +7285,6 @@ and its border extension paints the outline triangle with the box's border color
         "Syntax",
         "Terms"]}},
      "address": "/Stlc/"}],
-   "Stlc.judgeBracket":
-   [{"id": "Stlc___judgeBracket",
-     "data":
-     {"/Stlc/#Stlc___judgeBracket":
-      {"display": "judgeBracket",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Typing",
-        "Typing Relation"]}},
-     "address": "/Stlc/"}],
-   "Stlc.isPlainTmVarName":
-   [{"id": "Stlc___isPlainTmVarName",
-     "data":
-     {"/Stlc/#Stlc___isPlainTmVarName":
-      {"display": "isPlainTmVarName",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.isPlainName":
-   [{"id": "Stlc___isPlainName",
-     "data":
-     {"/Stlc/#Stlc___isPlainName":
-      {"display": "isPlainName",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
    "Stlc.idB_value":
    [{"id": "Stlc___idB_value",
      "data":
@@ -6294,83 +7339,6 @@ and its border extension paints the outline triangle with the box's border color
         "Stlc: The Simply Typed Lambda-Calculus",
         "Syntax",
         "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.delabVarInner":
-   [{"id": "Stlc___delabVarInner",
-     "data":
-     {"/Stlc/#Stlc___delabVarInner":
-      {"display": "delabVarInner",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.delabTyInner":
-   [{"id": "Stlc___delabTyInner",
-     "data":
-     {"/Stlc/#Stlc___delabTyInner":
-      {"display": "delabTyInner",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.delabTy":
-   [{"id": "Stlc___delabTy",
-     "data":
-     {"/Stlc/#Stlc___delabTy":
-      {"display": "delabTy",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.delabTmInner":
-   [{"id": "Stlc___delabTmInner",
-     "data":
-     {"/Stlc/#Stlc___delabTmInner":
-      {"display": "delabTmInner",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.delabTm":
-   [{"id": "Stlc___delabTm",
-     "data":
-     {"/Stlc/#Stlc___delabTm":
-      {"display": "delabTm",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Stlc.delabSubst":
-   [{"id": "Stlc___delabSubst",
-     "data":
-     {"/Stlc/#Stlc___delabSubst":
-      {"display": "delabSubst",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Operational Semantics",
-        "Substitution"]}},
-     "address": "/Stlc/"}],
-   "Stlc.ctxTerm":
-   [{"id": "Stlc___ctxTerm",
-     "data":
-     {"/Stlc/#Stlc___ctxTerm":
-      {"display": "ctxTerm",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Typing",
-        "Typing Relation"]}},
      "address": "/Stlc/"}],
    "Stlc.canonical_forms_fun":
    [{"id": "Stlc___canonical_forms_fun",
@@ -6806,6 +7774,105 @@ and its border extension paints the outline triangle with the box's border color
         "Stlc: The Simply Typed Lambda-Calculus",
         "Typing",
         "Typing Relation"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Elab.tyHandlers":
+   [{"id": "Stlc___Elab___tyHandlers",
+     "data":
+     {"/Stlc/#Stlc___Elab___tyHandlers":
+      {"display": "tyHandlers",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Elab.tmHandlers":
+   [{"id": "Stlc___Elab___tmHandlers",
+     "data":
+     {"/Stlc/#Stlc___Elab___tmHandlers":
+      {"display": "tmHandlers",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Elab.language":
+   [{"id": "Stlc___Elab___language",
+     "data":
+     {"/Stlc/#Stlc___Elab___language":
+      {"display": "language",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Elab.elabTy":
+   [{"id": "Stlc___Elab___elabTy",
+     "data":
+     {"/Stlc/#Stlc___Elab___elabTy":
+      {"display": "elabTy",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Elab.elabTm":
+   [{"id": "Stlc___Elab___elabTm",
+     "data":
+     {"/Stlc/#Stlc___Elab___elabTm":
+      {"display": "elabTm",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Elab.elabCtx":
+   [{"id": "Stlc___Elab___elabCtx",
+     "data":
+     {"/Stlc/#Stlc___Elab___elabCtx":
+      {"display": "elabCtx",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Elab.elabBracket":
+   [{"id": "Stlc___Elab___elabBracket",
+     "data":
+     {"/Stlc/#Stlc___Elab___elabBracket":
+      {"display": "elabBracket",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Elab.boolTyHandler":
+   [{"id": "Stlc___Elab___boolTyHandler",
+     "data":
+     {"/Stlc/#Stlc___Elab___boolTyHandler":
+      {"display": "boolTyHandler",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
+     "address": "/Stlc/"}],
+   "Stlc.Elab.boolTmHandler":
+   [{"id": "Stlc___Elab___boolTmHandler",
+     "data":
+     {"/Stlc/#Stlc___Elab___boolTmHandler":
+      {"display": "boolTmHandler",
+       "context":
+       ["Type Systems",
+        "Stlc: The Simply Typed Lambda-Calculus",
+        "Syntax",
+        "Terms"]}},
      "address": "/Stlc/"}],
    "Stlc.Context":
    [{"id": "Stlc___Context",
@@ -8453,50 +9520,6 @@ and its border extension paints the outline triangle with the box's border color
         "Syntax",
         "Notation"]}},
      "address": "/Types/"}],
-   "Lean.Parser.Category.stlcVar":
-   [{"id": "Lean___Parser___Category___stlcVar",
-     "data":
-     {"/Stlc/#Lean___Parser___Category___stlcVar":
-      {"display": "stlcVar",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Lean.Parser.Category.stlcTy":
-   [{"id": "Lean___Parser___Category___stlcTy",
-     "data":
-     {"/Stlc/#Lean___Parser___Category___stlcTy":
-      {"display": "stlcTy",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Lean.Parser.Category.stlcTm":
-   [{"id": "Lean___Parser___Category___stlcTm",
-     "data":
-     {"/Stlc/#Lean___Parser___Category___stlcTm":
-      {"display": "stlcTm",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Syntax",
-        "Terms"]}},
-     "address": "/Stlc/"}],
-   "Lean.Parser.Category.stlcCtx":
-   [{"id": "Lean___Parser___Category___stlcCtx",
-     "data":
-     {"/Stlc/#Lean___Parser___Category___stlcCtx":
-      {"display": "stlcCtx",
-       "context":
-       ["Type Systems",
-        "Stlc: The Simply Typed Lambda-Calculus",
-        "Typing",
-        "Typing Relation"]}},
-     "address": "/Stlc/"}],
    "IsValue.const":
    [{"id": "IsValue___const",
      "data":
@@ -8795,305 +9818,6 @@ if (paramName) {
     });
 }
 </script>
-    <script>
-      
-window.onload = async () => {
-
-    // Don't show hovers inside of closed tactic states
-    function blockedByTactic(elem) {
-      let parent = elem.parentNode;
-      while (parent && "classList" in parent) {
-        if (parent.classList.contains("tactic")) {
-          const toggle = parent.querySelector(":scope > input.tactic-toggle");
-          if (toggle) {
-            return !toggle.checked;
-          }
-        }
-        parent = parent.parentNode;
-      }
-      return false;
-    }
-
-    // The innermost element under the pointer, used to show only the most specific hover
-    let hoverTarget = null;
-    document.addEventListener('mouseover', (e) => { hoverTarget = e.target; }, true);
-
-    // Visible tippy references; a tooltip is blocked while an unrelated one is visible
-    const visibleTippies = new Set();
-    function blockedByTippy(elem) {
-      for (const ref of visibleTippies) {
-        if (!ref.contains(elem) && !elem.contains(ref)) return true;
-      }
-      return false;
-    }
-
-    // Whether the element's tooltip would have content to show. Content nested in a
-    // collapsed tactic region is covered by the region's proof-state tooltip, whether or
-    // not a tippy instance is currently attached to it.
-    function showsContent(el) {
-      if (!el._tippy) return false;
-      if (el.classList.contains('tactic')) {
-        const toggle = el.querySelector(':scope > input.tactic-toggle');
-        return !!toggle && !toggle.checked;
-      }
-      return (!!el.querySelector('.hover-info') || 'versoHover' in el.dataset) &&
-        !blockedByTactic(el);
-    }
-
-    // The nearest enclosing element whose tooltip has content
-    function innermostShowable(el) {
-      while (el && el.nodeType === Node.ELEMENT_NODE) {
-        if (showsContent(el)) return el;
-        el = el.parentElement;
-      }
-      return null;
-    }
-
-    // Binding highlights via event delegation with cached lookups
-    const bindingCache = new Map(); // context+binding -> [token elements]
-    let highlightedTokens = [];
-    function getBindingTokens(context, binding) {
-      const key = context + "\0" + binding;
-      let tokens = bindingCache.get(key);
-      if (!tokens) {
-        tokens = [];
-        for (const example of document.querySelectorAll(".hl.lean")) {
-          if (example.dataset.leanContext == context) {
-            for (const tok of example.querySelectorAll(".token[data-binding=\"" + CSS.escape(binding) + "\"]")) {
-              tokens.push(tok);
-            }
-          }
-        }
-        bindingCache.set(key, tokens);
-      }
-      return tokens;
-    }
-    for (const container of document.querySelectorAll(".hl.lean")) {
-      container.addEventListener("mouseover", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !c.dataset.binding || c.dataset.binding === "" || !container.contains(c)) return;
-        if (blockedByTactic(c)) return;
-        const tokens = getBindingTokens(container.dataset.leanContext, c.dataset.binding);
-        for (const tok of tokens) {
-          tok.classList.add("binding-hl");
-        }
-        highlightedTokens = tokens;
-      });
-      container.addEventListener("mouseout", (event) => {
-        const c = event.target.closest(".token");
-        if (!c || !container.contains(c)) return;
-        for (const tok of highlightedTokens) {
-          tok.classList.remove("binding-hl");
-        }
-        highlightedTokens = [];
-      });
-    }
-    /* Render docstrings */
-    if ('undefined' !== typeof marked) {
-        for (const d of document.querySelectorAll("code.docstring, pre.docstring")) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement("div");
-            rendered.classList.add("docstring");
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-        }
-    }
-    // Add hovers
-    const versoDocData = await (fetch("-verso-docs.json").then((resp) => resp.json()));
-
-    function hideParentTooltips(element) {
-      let parent = element.parentElement;
-      while (parent) {
-        const tippyInstance = parent._tippy;
-        if (tippyInstance) {
-          tippyInstance.hide();
-        }
-        parent = parent.parentElement;
-      }
-    }
-
-    function hideDescendantTooltips(element) {
-      for (const ref of visibleTippies) {
-        if (ref !== element && element.contains(ref)) {
-          ref._tippy.hide();
-        }
-      }
-    }
-
-    // Renders the documentation for a hover ID from the doc table
-    function docHoverContent(hoverId) {
-      const info = document.createElement('span');
-      info.className = 'hover-info';
-      info.style.display = 'block';
-      const data = versoDocData[hoverId];
-      if (data) {
-        info.innerHTML = data;
-        /* Render docstrings - TODO server-side */
-        if ('undefined' !== typeof marked) {
-          for (const d of info.querySelectorAll('code.docstring, pre.docstring')) {
-            const str = d.innerText;
-            const html = marked.parse(str);
-            const rendered = document.createElement('div');
-            rendered.classList.add('docstring');
-            rendered.innerHTML = html;
-            d.parentNode.replaceChild(rendered, d);
-          }
-        }
-      } else {
-        info.innerHTML = 'Failed to load doc ID: ' + hoverId;
-      }
-      return info;
-    }
-
-
-
-
-    const defaultTippyProps = {
-      /* DEBUG -- remove the space: * /
-      onHide(any) { return false; },
-      trigger: "click",
-      // */
-      /* theme: "lean", */
-      maxWidth: "none",
-      appendTo: () => document.body,
-      interactive: true,
-      delay: [100, null],
-      /* ignoreAttributes: true, */
-      followCursor: 'initial',
-      onShow(inst) {
-        const ref = inst.reference;
-        if (ref.className == 'tactic') {
-          const toggle = ref.querySelector(":scope > input.tactic-toggle");
-          if (toggle && toggle.checked) {
-            return false;
-          }
-        } else if (ref.querySelector(".hover-info") || "versoHover" in ref.dataset) {
-          if (blockedByTactic(ref)) { return false };
-        } else { // Nothing to show here!
-          return false;
-        }
-        // Show only the most specific hover under the pointer
-        if (hoverTarget && ref.contains(hoverTarget) && innermostShowable(hoverTarget) !== ref) {
-          return false;
-        }
-        hideParentTooltips(ref);
-        hideDescendantTooltips(ref);
-        if (blockedByTippy(ref)) { return false; }
-      },
-      onShown(inst) { visibleTippies.add(inst.reference); },
-      onHidden(inst) { visibleTippies.delete(inst.reference); },
-      content (tgt) {
-        const content = document.createElement("span");
-        if (tgt.className == 'tactic') {
-          const state = tgt.querySelector(":scope > .tactic-state").cloneNode(true);
-          state.style.display = "block";
-          content.appendChild(state);
-          content.style.display = "block";
-          content.className = "hl lean popup";
-        } else {
-          content.className = "hl lean";
-          content.style.display = "block";
-          content.style.maxHeight = "300px";
-          content.style.overflowY = "auto";
-          content.style.overflowX = "hidden";
-          // Messages come from the inline hover-info; documentation comes from the doc
-          // table. An element with both (a message span sharing a documented token's
-          // extent) shows both in one tooltip.
-          const hoverId = tgt.dataset.versoHover;
-          const hoverInfo = tgt.querySelector(".hover-info");
-          if (hoverInfo) {
-            content.appendChild(hoverInfo.cloneNode(true));
-          }
-          if (hoverId) {
-            // TODO stop doing an implicit conversion from string to number here
-            content.appendChild(docHoverContent(hoverId));
-          }
-          if (hoverInfo && hoverId) {
-            content.classList.add('mixed');
-          }
-          const extraLinks = tgt.dataset['versoLinks'] || tgt.parentElement.dataset['versoLinks'];
-          if (extraLinks) {
-            try {
-              const extras = JSON.parse(extraLinks);
-              const links = document.createElement('ul');
-              links.className = 'extra-doc-links';
-              extras.forEach((l) => {
-                const li = document.createElement('li');
-                li.innerHTML = "<a href=\"" + l['href'] + "\" title=\"" + l.long + "\">" + l.short + "</a>";
-                links.appendChild(li);
-              });
-              content.appendChild(links);
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-        return content;
-      }
-    };
-
-
-    document.querySelectorAll('.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'lean');
-    });
-    document.querySelectorAll('.hl.lean .has-info.warning').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'warning message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.information').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'info message');
-    });
-    document.querySelectorAll('.hl.lean .has-info.error').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'error message');
-    });
-    document.querySelectorAll('.hl.lean .tactic').forEach(element => {
-      element.setAttribute('data-tippy-theme', 'tactic');
-    });
-    // Skip tokens inside closed tactics — they interfere with tactic tippys
-    const closedTactics = new Set();
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle && !toggle.checked) closedTactics.add(tactic);
-    });
-    function isInsideClosedTactic(el) {
-      const tactic = el.closest('.tactic');
-      return tactic && tactic !== el && closedTactics.has(tactic);
-    }
-
-    const tokenSelector = '.hl.lean .const.token, .hl.lean .keyword.token, .hl.lean .literal.token, .hl.lean .option.token, .hl.lean .var.token, .hl.lean .typed.token, .hl.lean .has-info, .hl.lean .tactic, .hl.lean .level-var, .hl.lean .level-const, .hl.lean .level-op, .hl.lean .sort';
-    tippy(Array.from(document.querySelectorAll(tokenSelector)).filter(el => !isInsideClosedTactic(el)), defaultTippyProps);
-
-    // Create/destroy token tippys when tactic checkbox toggles
-    const tacticTippySelector = '.const.token, .keyword.token, .literal.token, .option.token, .var.token, .typed.token, .has-info, .level-var, .level-const, .level-op, .sort';
-    document.querySelectorAll('.hl.lean .tactic').forEach(tactic => {
-      const toggle = tactic.querySelector(':scope > input.tactic-toggle');
-      if (toggle) toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          closedTactics.delete(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (!el._tippy) {
-              tippy(el, defaultTippyProps);
-            }
-          });
-        } else {
-          closedTactics.add(tactic);
-          tactic.querySelectorAll(tacticTippySelector).forEach(el => {
-            if (el._tippy) el._tippy.destroy();
-          });
-        }
-        // The toggle changes which element's tooltip belongs to the pointer's position,
-        // but the pointer stays put, so no hover event announces the change. Show the
-        // right tooltip once the click that flipped the toggle has hidden the old one.
-        setTimeout(() => {
-          if (hoverTarget && hoverTarget.isConnected) {
-            const showable = innermostShowable(hoverTarget);
-            if (showable && showable._tippy) showable._tippy.show();
-          }
-        }, 0);
-      });
-  });
-}
-</script>
     <style data-previewctl-verso-code-links>
 .hl.lean a,
 .hl.lean a:hover,
@@ -9136,7 +9860,7 @@ window.onload = async () => {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Source revision: f71d207, committed 2026-09-24 15:25 UTC</div>
+            Source revision: c399212, committed 2026-09-28 22:57 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

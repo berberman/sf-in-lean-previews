@@ -71,6 +71,10 @@
 .sf-display pre code {
   font-family: var(--verso-code-font-family, monospace);
   white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
 }
 </style><style>
 .namedocs {
@@ -2611,7 +2615,7 @@ relation is no problem.</p>
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: f71d207, committed 2026-09-24 15:25 UTC</div>
+            Source revision: c399212, committed 2026-09-28 22:57 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="Preface/#Type-Systems--Preface" rel="prev" title="1. Preface"><span class="arrow">←</span><span class="where">1. Preface</span></a><a class="local-button active" href="Smallstep/#Smallstep" rel="next" title="3. Smallstep: Small-step Operational Semantics"><span class="where">3. Smallstep: Small-step Operational Semantics</span><span class="arrow">→</span></a></nav>
           </div>
