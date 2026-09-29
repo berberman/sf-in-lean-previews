@@ -14,6 +14,7 @@ import SFLCompat
 namespace Stlc
 
 open scoped MyGetElem
+open scoped Elab
 
 --  ## Canonical Forms
 
@@ -26,7 +27,7 @@ open scoped MyGetElem
 --  Formally, we will need these lemmas only for terms that are not only
 --  well typed but *closed* — i.e., well typed in the empty context.
 
-theorem canonical_forms_bool (t : Tm) (hτ : <{ ∅ ⊢ ~t ⦂ Bool }>) (hv : t.IsValue) :
+theorem canonical_forms_bool (t : Tm) (hτ : <{ ∅ ⊢ t ⦂ Bool }>) (hv : t.IsValue) :
     t = <{ true }> ∨ t = <{ false }> := by
   cases hv with
   | abs x τ t₁ => cases hτ
@@ -34,8 +35,8 @@ theorem canonical_forms_bool (t : Tm) (hτ : <{ ∅ ⊢ ~t ⦂ Bool }>) (hv : t.
   | fls => right; rfl
 
 theorem canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty)
-    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ₁ → ~τ₂ }>) (hv : t.IsValue) :
-    ∃ x u, t = <{ λ ~x : ~τ₁ . ~u }> := by
+    (hτ : <{ ∅ ⊢ t ⦂ τ₁ → τ₂ }>) (hv : t.IsValue) :
+    ∃ x u, t = <{ λ x : τ₁ . u }> := by
   cases hv with
   | abs x τ t₁ => cases hτ with | abs _ _ _ _ _ _ =>
     exists x, t₁
@@ -79,7 +80,7 @@ theorem canonical_forms_fun (t : Tm) (τ₁ τ₂ : Ty)
 --    - Otherwise, `t₁` takes a step, and therefore so does `t` (by
 --      `Step.ifStep`).
 
-theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
+theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ t ⦂ τ }>) :
     t.IsValue ∨ ∃ t', t ⟶ t' := by
   generalize hΓ : (∅ : Context) = Γ at hτ
   induction hτ with
@@ -100,16 +101,16 @@ theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
       cases ih₂ rfl with
       | inl hv₂ =>
         obtain ⟨x, u, rfl⟩ := canonical_forms_fun t₁ _ _ h₁ hv₁
-        exists <{ [~x := ~t₂] ~u }>
+        exists <{ [x := t₂] u }>
         constructor
         assumption
       | inr hs₂ =>
         obtain ⟨t₂', h⟩ := hs₂
-        exists <{ ~t₁ ~t₂' }>
+        exists <{ t₁ t₂' }>
         constructor <;> assumption
     | inr hs₁ =>
       obtain ⟨t₁', h⟩ := hs₁
-      exists <{ ~t₁' ~t₂ }>
+      exists <{ t₁' t₂ }>
       constructor <;> assumption
   | ite Γ t₁ t₂ t₃ τ₁ h₁ h₂ h₃ ih₁ ih₂ ih₃ =>
     subst hΓ
@@ -127,7 +128,7 @@ theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
         constructor
     | inr hs₁ =>
       obtain ⟨t₁', h⟩ := hs₁
-      exists <{ if ~t₁' then ~t₂ else ~t₃ }>
+      exists <{ if t₁' then t₂ else t₃ }>
       constructor
       assumption
 
@@ -136,7 +137,7 @@ theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
 --  Show that progress can also be proved by induction on terms instead of
 --  induction on typing derivations.
 
-theorem progress' (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
+theorem progress' (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ t ⦂ τ }>) :
     t.IsValue ∨ ∃ t', t ⟶ t' := by
   sorry
 
@@ -177,7 +178,7 @@ theorem progress' (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
 --  chapter.)
 
 theorem weakening {Γ Γ' : Context} {t : Tm} {τ : Ty}
-    (hi : Γ ⊆ Γ') (ht : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
+    (hi : Γ ⊆ Γ') (ht : <{ Γ ⊢ t ⦂ τ }>) : <{ Γ' ⊢ t ⦂ τ }> := by
   induction ht generalizing Γ' with
   | var _ x _ h =>
     constructor
@@ -211,13 +212,13 @@ theorem weakening {Γ Γ' : Context} {t : Tm} {τ : Ty}
 --  the `PartialMap.update_subset` lemma for this to work:
 
 theorem weakening' {Γ Γ' : Context} {t : Tm} {τ : Ty}
-    (hi : Γ ⊆ Γ') (ht : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
+    (hi : Γ ⊆ Γ') (ht : <{ Γ ⊢ t ⦂ τ }>) : <{ Γ' ⊢ t ⦂ τ }> := by
   induction ht generalizing Γ' with (apply_rules [PartialMap.update_subset] using StlcTyping)
 
 --  The following simple corollary is what we actually need below.
 
-theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
-    <{ ~Γ ⊢ ~t ⦂ ~τ }> := by
+theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ t ⦂ τ }>) :
+    <{ Γ ⊢ t ⦂ τ }> := by
   apply weakening (Γ := ∅)
   -- this is the "manual" way to show that the empty context is a subset of any context:
   -- show that a 'lookup' in it is impossible.
@@ -241,8 +242,8 @@ theorem weakening_empty {Γ : Context} {t : Tm} {τ : Ty} (ht : <{ ∅ ⊢ ~t �
 
 theorem substitution_preserves_typing (Γ : Context) (x : String) (τ' : Ty)
     (t v : Tm) (τ : Ty)
-    (hτ : <{ ~x ↦ ~τ' ; ~Γ ⊢ ~t ⦂ ~τ }>) (hv : <{ ∅ ⊢ ~v ⦂ ~τ' }>) :
-    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~τ }> := by
+    (hτ : <{ x ↦ τ' ; Γ ⊢ t ⦂ τ }>) (hv : <{ ∅ ⊢ v ⦂ τ' }>) :
+    <{ Γ ⊢ [x := v] t ⦂ τ }> := by
   -- By induction on `t`; in each case we get at the derivation of `hτ`.
   induction t generalizing Γ τ with
   | var y =>
@@ -367,8 +368,8 @@ theorem substitution_preserves_typing (Γ : Context) (x : String) (τ' : Ty)
 
 theorem substitution_preserves_typing_from_typing_ind (Γ : Context) (x : String) (τ' : Ty)
     (t v : Tm) (τ : Ty)
-    (hτ : <{ ~x ↦ ~τ' ; ~Γ ⊢ ~t ⦂ ~τ }>) (hv : <{ ∅ ⊢ ~v ⦂ ~τ' }>) :
-    <{ ~Γ ⊢ [~x := ~v] ~t ⦂ ~τ }> := by
+    (hτ : <{ x ↦ τ' ; Γ ⊢ t ⦂ τ }>) (hv : <{ ∅ ⊢ v ⦂ τ' }>) :
+    <{ Γ ⊢ [x := v] t ⦂ τ }> := by
   sorry
 
 --  ### Main Theorem
@@ -379,7 +380,7 @@ theorem substitution_preserves_typing_from_typing_ind (Γ : Context) (x : String
 --  reduction relation preserves types.
 
 theorem preservation (t t' : Tm) (τ : Ty)
-    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) (hs : t ⟶ t') : <{ ∅ ⊢ ~t' ⦂ ~τ }> := by
+    (hτ : <{ ∅ ⊢ t ⦂ τ }>) (hs : t ⟶ t') : <{ ∅ ⊢ t' ⦂ τ }> := by
   generalize hΓ : (∅ : Context) = Γ at hτ
   induction hτ generalizing t' with
   | var => cases hs
@@ -466,7 +467,7 @@ theorem preservation (t t' : Tm) (τ : Ty)
 --  that does *not involve conditionals*.
 
 theorem not_subject_expansion :
-    ∃ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ <{ ∅ ⊢ ~t' ⦂ ~τ }> ∧ ¬ <{ ∅ ⊢ ~t ⦂ ~τ }> := by
+    ∃ (t t' : Tm) (τ : Ty), t ⟶ t' ∧ <{ ∅ ⊢ t' ⦂ τ }> ∧ ¬ <{ ∅ ⊢ t ⦂ τ }> := by
     -- Hint: for giving counterexamples in STLC, give each witness
     -- with `exists <{ … }>`.  This works for both terms and types, as
     -- in `<{true}>` and `<{ Bool }>`.
@@ -482,7 +483,7 @@ theorem not_subject_expansion :
 def Tm.IsStuck (t : Tm) : Prop := IsNormalForm Step t ∧ ¬ t.IsValue
 
 theorem type_soundness (t t' : Tm) (τ : Ty)
-    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) (hm : t ⟶* t') : ¬ t'.IsStuck := by
+    (hτ : <{ ∅ ⊢ t ⦂ τ }>) (hm : t ⟶* t') : ¬ t'.IsStuck := by
   intro hst
   obtain ⟨hnf, hnv⟩ := hst
   induction hm with
@@ -499,7 +500,7 @@ theorem type_soundness (t t' : Tm) (τ : Ty)
 --  term (in a given context) has at most one type.
 
 theorem unique_types (Γ : Context) (e : Tm) (τ τ' : Ty)
-    (h : <{ ~Γ ⊢ ~e ⦂ ~τ }>) (h' : <{ ~Γ ⊢ ~e ⦂ ~τ' }>) : τ = τ' := by
+    (h : <{ Γ ⊢ e ⦂ τ }>) (h' : <{ Γ ⊢ e ⦂ τ' }>) : τ = τ' := by
   sorry
 
 --  ## Context Invariance (Optional)
@@ -516,15 +517,15 @@ theorem unique_types (Γ : Context) (e : Tm) (τ τ' : Ty)
 --  scope of an enclosing function abstraction binding a variable of the
 --  same name.
 --
---  More technically, a variable `x` *appears free in* a term `t` if `t`
---  contains some occurrence of `x` that is not under an abstraction
---  labeled `x`. For example:
---  - `y` appears free, but `x` does not, in `λx:τ → τ'. x y`
---  - both `x` and `y` appear free in `(λx:τ → τ'. x y) x`
---  - no variables appear free in `λx:τ → τ'. λy:τ. x y`
+--  More technically, a variable `X` *appears free in* a term `t` if `t`
+--  contains some occurrence of `X` that is not under an abstraction
+--  labeled `X`. For example:
+--  - `Y` appears free, but `X` does not, in `λX:τ → τ'. X Y`
+--  - both `X` and `Y` appear free in `(λX:τ → τ'. X Y) X`
+--  - no variables appear free in `λX:τ → τ'. λY:τ. X Y`
 --
---  We write this `x ∈ᶠ t`, reading the relation as "`x` is one of the free
---  variables of `t`". Formally:
+--  We write this schematically as `x ∈ᶠ t`, reading the relation as "`x`
+--  is one of the free variables of `t`". Formally:
 
 section
 set_option hygiene false in
@@ -532,13 +533,13 @@ local infix:50 " ∈ᶠ " => AppearsFreeIn
 
 inductive AppearsFreeIn (x : String) : Tm → Prop where
   | var : x ∈ᶠ (Tm.var x)
-  | app1 (t₁ t₂ : Tm) (h : x ∈ᶠ t₁) : x ∈ᶠ <{ ~t₁ ~t₂ }>
-  | app2 (t₁ t₂ : Tm) (h : x ∈ᶠ t₂) : x ∈ᶠ <{ ~t₁ ~t₂ }>
+  | app1 (t₁ t₂ : Tm) (h : x ∈ᶠ t₁) : x ∈ᶠ <{ t₁ t₂ }>
+  | app2 (t₁ t₂ : Tm) (h : x ∈ᶠ t₂) : x ∈ᶠ <{ t₁ t₂ }>
   | abs (y : String) (τ₁ : Ty) (t₁ : Tm) (hne : y ≠ x) (h : x ∈ᶠ t₁) :
-      x ∈ᶠ <{ λ ~y : ~τ₁ . ~t₁ }>
-  | ite1 (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₁) : x ∈ᶠ <{ if ~t₁ then ~t₂ else ~t₃ }>
-  | ite2 (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₂) : x ∈ᶠ <{ if ~t₁ then ~t₂ else ~t₃ }>
-  | ite3 (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₃) : x ∈ᶠ <{ if ~t₁ then ~t₂ else ~t₃ }>
+      x ∈ᶠ <{ λ y : τ₁ . t₁ }>
+  | ite1 (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₁) : x ∈ᶠ <{ if t₁ then t₂ else t₃ }>
+  | ite2 (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₂) : x ∈ᶠ <{ if t₁ then t₂ else t₃ }>
+  | ite3 (t₁ t₂ t₃ : Tm) (h : x ∈ᶠ t₃) : x ∈ᶠ <{ if t₁ then t₂ else t₃ }>
 end
 
 scoped infix:50 " ∈ᶠ " => AppearsFreeIn
@@ -600,7 +601,7 @@ def Tm.Closed (t : Tm) : Prop := ∀ x, ¬ x ∈ᶠ t
 --  Complete the following proof.
 
 theorem free_in_context (x : String) (t : Tm) (τ : Ty) (Γ : Context)
-    (ha : x ∈ᶠ t) (hτ : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : ∃ τ', Γ[x] = some τ' := by
+    (ha : x ∈ᶠ t) (hτ : <{ Γ ⊢ t ⦂ τ }>) : ∃ τ', Γ[x] = some τ' := by
   induction ha generalizing Γ τ with
   | var =>
     cases hτ with
@@ -643,7 +644,7 @@ theorem free_in_context (x : String) (t : Tm) (τ : Ty) (Γ : Context)
 
 --  ### Exercise (2 stars): typable_empty_closed (Optional) ⭐⭐
 
-theorem typable_empty_closed (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) : t.Closed := by
+theorem typable_empty_closed (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ t ⦂ τ }>) : t.Closed := by
   sorry
 
 --  (End of exercise)
@@ -696,8 +697,8 @@ theorem typable_empty_closed (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>)
 --  Complete the following proof.
 
 theorem context_invariance (Γ Γ' : Context) (t : Tm) (τ : Ty)
-    (hτ : <{ ~Γ ⊢ ~t ⦂ ~τ }>) (hf : ∀ x, x ∈ᶠ t → Γ[x] = Γ'[x]) :
-    <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
+    (hτ : <{ Γ ⊢ t ⦂ τ }>) (hf : ∀ x, x ∈ᶠ t → Γ[x] = Γ'[x]) :
+    <{ Γ' ⊢ t ⦂ τ }> := by
   induction hτ generalizing Γ' with
   | var _ x _ h =>
     sorry
@@ -920,189 +921,157 @@ inductive Tm where
   | ite0 (c t e : Tm)
 
 --  `StlcArith` is a **different** language from the STLC of this chapter,
---  not an extension of it, so it needs its own concrete syntax. Rather
---  than invent a new one, we reuse the grammars set up in the Stlc chapter
---  — the syntax categories `stlcTy`, `stlcTm`, and `stlcVar` — and give
---  them a new meaning here. Terms and types of this language are therefore
---  written inside the same `<{ … }>` brackets, with the same `~e` escape
---  back to Lean.
+--  not an extension of it, so it needs its own interpretation of the
+--  shared concrete syntax. Terms and types still use `<{ ... }>` and the
+--  same identifier convention as Stlc: capital Latin identifiers are
+--  object-language (`StlcArith`) names; lowercase and Greek identifiers
+--  refer directly to in-scope Lean variables; arbitrary Lean expressions
+--  require `~` antiquotation; and object-language identifiers cannot
+--  contain dots.
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: types)
---  The type grammar needs no new productions: `Nat` is a bare identifier,
---  which the template already accepts, and arrows and parentheses are
---  unchanged. Only the `macro_rules` are new, and they differ from the
---  STLC's in just two places — the identifier `Nat` names this language's
---  base type, and the arrow builds this language's `StlcArith.Ty.arrow`.
-
-scoped macro_rules (kind := Stlc.tyBracket)
-  | `(<{ ~$τ:term }>)    => pure τ
-  | `(<{ ($τ:stlcTy) }>) => `(<{ $τ:stlcTy }>)
-  | `(<{ $x:ident }>) =>
-      match x.getId.toString with
-      | "Nat" => `(Ty.nat)
-      | _ => `(($x : Ty))
-  | `(<{ $τ₁:stlcTy → $τ₂:stlcTy }>)  => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
-  | `(<{ $τ₁:stlcTy -> $τ₂:stlcTy }>) => `(Ty.arrow <{ $τ₁:stlcTy }> <{ $τ₂:stlcTy }>)
---  END DETAILS
-
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: terms)
---  Terms do need new productions: a numeral, an infix `*`, and the zero
---  test. Multiplication binds looser than application and tighter than
---  `λ`, so `x * y z` multiplies `x` by the application `y z`; it
---  associates to the right, so `x * y * z` is `x * (y * z)`.
---
---  `succ` and `pred` get no production of their own. Making them keywords
---  would reserve those words globally — and we would then be unable to
---  write `succ` as a case name in a proof, including for Lean's own `Nat`.
---  Instead they are written as though they were functions applied to an
---  argument, `succ t`, and the application rule below recognizes them.
---  `if0` **is** a keyword, since `then` and `else` leave no other option;
---  that is why the constructor above is called `StlcArith.Tm.ite0` rather
---  than `if0`, just as the STLC's conditional is `Stlc.Tm.ite`.
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
 scoped syntax:max num : stlcTm
-scoped syntax:60 stlcTm:61 " * " stlcTm:60 : stlcTm
+scoped syntax:60 stlcTm:60 " * " stlcTm:61 : stlcTm
 scoped syntax:50 "if0 " stlcTm:51 " then " stlcTm:50 " else " stlcTm:50 : stlcTm
 
-open Lean in
-scoped macro_rules (kind := Stlc.tmBracket)
-  | `(<{ ~$e:term }>)    => pure e
-  | `(<{ ($t:stlcTm) }>) => `(<{ $t:stlcTm }>)
-  | `(<{ $n:num }>)      => `(Tm.const $n)
-  | `(<{ $x:ident }>) =>
-      match x.getId.toString with
-      | "Nat"  => Macro.throwErrorAt x "`Nat` is a type, not a term"
-      | "succ" => Macro.throwErrorAt x "`succ` must be applied to an argument"
-      | "pred" => Macro.throwErrorAt x "`pred` must be applied to an argument"
-      | _      => `(Tm.var $(quote x.getId.toString))
-  | `(<{ $t₁:stlcTm $t₂:stlcTm }>) =>
-      match t₁ with
-      | `(stlcTm| $f:ident) =>
-          match f.getId.toString with
-          | "succ" => `(Tm.succ <{ $t₂:stlcTm }>)
-          | "pred" => `(Tm.pred <{ $t₂:stlcTm }>)
-          | _      => `(Tm.app <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
-      | _ => `(Tm.app <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
-  | `(<{ λ $x : $τ . $t }>) => do
-      `(Tm.abs $(← Stlc.varStr x) <{ $τ:stlcTy }> <{ $t:stlcTm }>)
-  | `(<{ $t₁:stlcTm * $t₂:stlcTm }>) => `(Tm.mult <{ $t₁:stlcTm }> <{ $t₂:stlcTm }>)
-  | `(<{ if0 $c then $t else $e }>) =>
-      `(Tm.ite0 <{ $c:stlcTm }> <{ $t:stlcTm }> <{ $e:stlcTm }>)
---  END DETAILS
+namespace Elab
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing it back)
---  As in the Stlc chapter, a delaborator runs the grammar backwards, so
---  that goals mentioning these terms and types read in the concrete
---  syntax. The parenthesizers registered there are for the whole syntax
---  category, so they serve this language too and are not repeated.
+open StlcCommon
+open Lean Meta Elab Term
 
-open Lean in
-/-- Is `s` usable as a bare variable in `stlcTm` rather than as reserved syntax? -/
-def isPlainTmVarName (s : String) : Bool :=
-  Stlc.isPlainName s && s != "Nat" && s != "succ" && s != "pred"
+def language : Language where
+  tyType := ``Ty
+  tmType := ``Tm
+  arrowCtor := ``Ty.arrow
+  varCtor := ``Tm.var
+  appCtor := ``Tm.app
+  absCtor := ``Tm.abs
 
-open Lean PrettyPrinter Delaborator SubExpr in
-/-- Rebuild `stlcTy` concrete syntax from a `Ty` value. -/
-partial def delabTyInner : DelabM (TSyntax `stlcTy) := do
-  let stx ←
-    match_expr ← getExpr with
-    | Ty.nat => `(stlcTy| $(mkIdent `Nat):ident)
-    | Ty.arrow _ _ => do
-        let a ← withAppFn <| withAppArg delabTyInner
-        let b ← withAppArg delabTyInner
-        `(stlcTy| $a → $b)
-    | _ => do
-        match ← delab with
-        | `($i:ident) => `(stlcTy| $i:ident)
-        | e => `(stlcTy| ~$e)
-  (⟨·⟩) <$> annotateTermInfo ⟨stx.raw⟩
+  -- defined later
+  subst := `StlcArith.subst
+  hasType := `StlcArith.HasType
 
-open Lean PrettyPrinter Delaborator SubExpr in
-/-- Rebuild `stlcTm` concrete syntax from a `Tm` value. -/
-partial def delabTmInner : DelabM (TSyntax `stlcTm) := do
-  let stx ←
-    match_expr ← getExpr with
-    | Tm.var _ => do
-        let x ← withAppArg delab
-        match x with
-        | `($s:str) =>
-            if isPlainTmVarName s.getString then
-              `(stlcTm| $(mkIdent (Name.mkSimple s.getString)):ident)
-            else
-              let var : Term := mkIdent ``StlcArith.Tm.var
-              `(stlcTm| ~($var $x))
-        | _ =>
-            let var : Term := mkIdent ``StlcArith.Tm.var
-            `(stlcTm| ~($var $x))
-    | Tm.const _ => do
-        let n ← withAppArg delab
-        match n with
-        | `($n:num) => `(stlcTm| $n:num)
-        | _ =>
-            let const : Term := mkIdent ``StlcArith.Tm.const
-            `(stlcTm| ~($const $n))
-    | Tm.app _ _ => do
-        let f ← withAppFn <| withAppArg delabTmInner
-        let a ← withAppArg delabTmInner
-        `(stlcTm| $f $a)
-    | Tm.abs _ _ _ => do
-        let x ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
-        let τ ← withAppFn <| withAppArg delabTyInner
-        let t ← withAppArg delabTmInner
-        `(stlcTm| λ $x : $τ . $t)
-    | Tm.succ _ => do
-        let t ← withAppArg delabTmInner
-        `(stlcTm| $(mkIdent `succ):ident $t)
-    | Tm.pred _ => do
-        let t ← withAppArg delabTmInner
-        `(stlcTm| $(mkIdent `pred):ident $t)
-    | Tm.mult _ _ => do
-        let a ← withAppFn <| withAppArg delabTmInner
-        let b ← withAppArg delabTmInner
-        `(stlcTm| $a * $b)
-    | Tm.ite0 _ _ _ => do
-        let c ← withAppFn <| withAppFn <| withAppArg delabTmInner
-        let t ← withAppFn <| withAppArg delabTmInner
-        let e ← withAppArg delabTmInner
-        `(stlcTm| if0 $c then $t else $e)
-    | _ => do
-        -- `subst` is defined below, so it is matched by name rather than with
-        -- `match_expr`; a substitution prints in its own bracket notation.
-        let e ← getExpr
-        if e.getAppFn.constName? == some `StlcArith.subst && e.getAppNumArgs == 3 then
-          let x ← withAppFn <| withAppFn <| withAppArg Stlc.delabVarInner
-          let s ← withAppFn <| withAppArg delabTmInner
-          let t ← withAppArg delabTmInner
-          `(stlcTm| [$x := $s] $t)
-        else
-          match ← delab with
-          | `($i:ident) => `(stlcTm| $i:ident)
-          | e => `(stlcTm| ~$e)
-  (⟨·⟩) <$> annotateTermInfo ⟨stx.raw⟩
+def natTyHandler : TyElabHandler :=
+  fun _recur k T => do
+    match T with
+    | `(stlcTy| Nat) =>
+        return mkConst ``Ty.nat
+    | _ => k T
 
-open Lean PrettyPrinter Delaborator SubExpr in
-@[delab app.StlcArith.Ty.nat, delab app.StlcArith.Ty.arrow]
-def delabTy : Delab := whenPPOption getPPNotation do
-  guard <| match_expr ← getExpr with
-    | Ty.nat => true | Ty.arrow _ _ => true | _ => false
-  match ← delabTyInner with
-  | `(stlcTy| ~$e) => pure e
-  | e => `(<{ $e:stlcTy }>)
+def tyHandlers : TyElabHandler :=
+  natTyHandler.orElse (commonTyHandler language)
 
-open Lean PrettyPrinter Delaborator SubExpr in
-@[delab app.StlcArith.Tm.var, delab app.StlcArith.Tm.app, delab app.StlcArith.Tm.abs,
-  delab app.StlcArith.Tm.const, delab app.StlcArith.Tm.succ, delab app.StlcArith.Tm.pred,
-  delab app.StlcArith.Tm.mult, delab app.StlcArith.Tm.ite0]
-def delabTm : Delab := whenPPOption getPPNotation do
-  guard <| match_expr ← getExpr with
-    | Tm.var _ => true | Tm.app _ _ => true | Tm.abs _ _ _ => true
-    | Tm.const _ => true | Tm.succ _ => true | Tm.pred _ => true
-    | Tm.mult _ _ => true | Tm.ite0 _ _ _ => true
-    | _ => false
-  match ← delabTmInner with
-  | `(stlcTm| ~($e)) => pure e
-  | `(stlcTm| ~$e) => pure e
-  | e => `(<{ $e:stlcTm }>)
+partial def elabTy : TyElab :=
+  tyHandlers elabTy <| unsupportedTy language
+
+def arithTmHandler : TmElabHandler :=
+  fun recur k Γ free t => do
+    match t with
+    | `(stlcTm| $n:num) => do
+        return (mkApp (mkConst ``Tm.const) (mkNatLit n.getNat), free)
+    | `(stlcTm| Nat) => do
+        throwError "`Nat` is not a valid term."
+    | `(stlcTm| succ $e:stlcTm) => do
+        let (e, free) ←  recur Γ free e
+        return (mkApp (mkConst ``Tm.succ) e, free)
+    | `(stlcTm| pred $e:stlcTm) => do
+        let (e, free) ←  recur Γ free e
+        return (mkApp (mkConst ``Tm.pred) e, free)
+    | `(stlcTm| $t₁:stlcTm * $t₂:stlcTm) => do
+        let (e₁, free) ←  recur Γ free t₁
+        let (e₂, free) ←  recur Γ free t₂
+        return (mkApp2 (mkConst ``Tm.mult) e₁ e₂, free)
+    | `(stlcTm| if0 $c:stlcTm then $t:stlcTm else $e:stlcTm) => do
+        let (c, free) ← recur Γ free c
+        let (t, free) ← recur Γ free t
+        let (e, free) ← recur Γ free e
+        return (mkApp3 (mkConst ``Tm.ite0) c t e, free)
+    | _ => k Γ free t
+
+def tmHandlers : TmElabHandler :=
+  arithTmHandler.orElse (commonTmHandler language elabTy)
+
+partial def elabTm : TmElab :=
+  tmHandlers elabTm unsupportedTm
+
+def elabCtx : CtxElab := elabCtxCommon language elabTy
+
+@[scoped term_elab StlcCommon.bracket]
+def elabBracket : TermElab :=
+  fun stx expectedType? => do
+    let `(<{ $q:stlcQuoted }>) := stx
+      | throwUnsupportedSyntax
+    elabQuoted language elabTy elabTm elabCtx q expectedType?
+
+end Elab
+
+open scoped Elab
+
+
+namespace Delab
+
+open StlcCommon Elab Delab
+open Lean PrettyPrinter Delaborator
+
+@[app_unexpander Ty.nat]
+private def Ty.unexpandNat : Unexpander
+  | stx => do
+    let T ← `(stlcTy| $(mkIdentFrom stx `Nat):ident)
+    `(<{ $T:stlcTy }>)
+
+@[app_unexpander Ty.arrow]
+private def Ty.unexpandArrow : Unexpander := Delab.unexpandArrow
+
+private def reservedNames : String → Bool
+  | "Nat" | "succ" | "pred" | "if0" => true
+  | _ => false
+
+@[app_unexpander Tm.var]
+private def Tm.unexpandVar : Unexpander := Delab.unexpandVar reservedNames ``Tm.var
+
+@[app_delab Tm.var]
+private def Tm.delabVar : Delab := Delab.delabVar ``Tm.var
+
+@[app_unexpander Tm.app]
+private def Tm.unexpandApp : Unexpander := Delab.unexpandApp
+
+@[app_unexpander Tm.abs]
+private def Tm.unexpandAbs : Unexpander := Delab.unexpandAbs
+
+@[app_unexpander Tm.ite0]
+private def Tm.unexpandIte : Unexpander
+  | `($_ $c $t $e) =>
+      `(<{ if0 $(getTm c) then $(getTm t) else $(getTm e) }>)
+  | _ => throw ()
+
+@[app_unexpander Tm.const]
+def Tm.unexpandConst : Unexpander
+  | `($_ $n:num) => `(<{ $n:num }>)
+  | _ => throw ()
+
+@[app_unexpander Tm.succ]
+def Tm.unexpandSucc : Unexpander
+  | stx@`($_ $t) => do
+    let succ := mkObjectIdentFrom stx "succ"
+    `(<{ $succ:ident $(getTm t) }>)
+  | _ => throw ()
+
+@[app_unexpander Tm.pred]
+def Tm.unexpandPred : Unexpander
+  | stx@`($_ $t) => do
+    let pred := mkObjectIdentFrom stx "pred"
+    `(<{ $pred:ident $(getTm t) }>)
+  | _ => throw ()
+
+@[app_unexpander Tm.mult]
+def Tm.unexpandMult : Unexpander
+  | `($_ $t₁ $t₂) => do
+    let t ← `(stlcTm| $(getTm t₁) * $(getTm t₂))
+    let q ← `(stlcQuoted| $t:stlcTm)
+    `(<{ $q:stlcQuoted }>)
+  | _ => throw ()
+
+end Delab
 --  END DETAILS
 
 --  In this extended exercise, your job is to finish formalizing the
@@ -1121,38 +1090,12 @@ def delabTm : Delab := whenPPOption getPPNotation do
 --  Substitution is defined exactly as it was for the STLC, with one clause
 --  per new constructor.
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Why the definition is wrapped in a section)
---  Substitution is written using its own `[x := s] t` notation, which is
---  being defined at the same time, so — as in the Stlc chapter — the rule
---  is first declared `local`, with hygiene off so that the `subst` in its
---  expansion refers to the function being defined, and then declared again
---  for real once the section closes.
---  END DETAILS
-
-section
-set_option hygiene false in
-local macro_rules (kind := Stlc.tmBracket)
-  | `(<{ [$x := $s] $t }>) => do
-      `(subst $(← Stlc.varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
-
 def subst (x : String) (s : Tm) (t : Tm) : Tm := sorry
-end
 
-macro_rules (kind := Stlc.tmBracket)
-  | `(<{ [$x := $s] $t }>) => do
-      `(subst $(← Stlc.varStr x) <{ $s:stlcTm }> <{ $t:stlcTm }>)
-
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: substitution)
---  One more line registers substitutions with the printer, so that a goal
---  mentioning one reads as `[x := s] t` rather than as a `subst`
---  application.
-
-open Lean PrettyPrinter Delaborator SubExpr in
-@[delab app.StlcArith.subst]
-def delabSubst : Delab := whenPPOption getPPNotation do
-  match ← delabTmInner with
-  | `(stlcTm| ~$e) => pure e
-  | e => `(<{ $e:stlcTm }>)
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
+open Lean PrettyPrinter in
+@[app_unexpander subst]
+def unexpandSubst : Unexpander := StlcCommon.Delab.unexpandSubst
 --  END DETAILS
 
 --  You will also want one `@[simp]` simplification lemma per constructor,
@@ -1190,7 +1133,7 @@ scoped notation:40 t:41 " ⟶* " t':41 => Multi Step t t'
 
 --  FILL IN HERE
 
-theorem Nat_step_example : ∃ t, <{ (λ x : Nat . λ y : Nat . x * y) 3 2 }> ⟶* t := by
+theorem Nat_step_example : ∃ t, <{ (λ X : Nat . λ Y : Nat . X * Y) 3 2 }> ⟶* t := by
   sorry
 
 --  A typing context is a partial map from variables to types, exactly as
@@ -1198,80 +1141,20 @@ theorem Nat_step_example : ∃ t, <{ (λ x : Nat . λ y : Nat . x * y) 3 2 }> �
 
 abbrev Context := PartialMap String Ty
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: contexts and judgments)
---  The context grammar `stlcCtx` is reused as well; only the map it
---  denotes is new, since the types it stores are this language's. As with
---  `subst`, the judgment rule is introduced twice: `local` and
---  hygiene-free while the relation is being declared, then again for real.
-
-open Lean in
-/-- The `Context` denoted by a context expression. -/
-partial def ctxTerm (Γ : TSyntax `stlcCtx) : MacroM Term :=
-  match Γ with
-  | `(stlcCtx| ∅)   => `((∅ : Context))
-  | `(stlcCtx| ~$e) => pure e
-  | `(stlcCtx| $x:stlcVar ↦ $τ:stlcTy ; $Γ:stlcCtx) => do
-      `(PartialMap.update $(← ctxTerm Γ) $(← Stlc.varStr x) <{ $τ:stlcTy }>)
-  | _ => Macro.throwUnsupported
-
-section StlcArith
-set_option hygiene false in
-local macro_rules (kind := Stlc.judgeBracket)
-  | `(<{ $Γ:stlcCtx ⊢ $t:stlcTm ⦂ $τ:stlcTy }>) => do
-      `(HasType $(← ctxTerm Γ) <{ $t:stlcTm }> <{ $τ:stlcTy }>)
---  END DETAILS
-
 --  Now the typing relation.
 
 inductive HasType : Context → Tm → Ty → Prop where
 --  FILL IN HERE
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: the judgment, for real)
---  Closing the section retires the hygiene-free rule; the same rule is
---  then declared again, hygienically, for every later use, and a pair of
---  unexpanders prints judgments back in their own notation.
-
-end StlcArith
-
-scoped macro_rules (kind := Stlc.judgeBracket)
-  | `(<{ $Γ:stlcCtx ⊢ $t:stlcTm ⦂ $τ:stlcTy }>) => do
-      `(HasType $(← ctxTerm Γ) <{ $t:stlcTm }> <{ $τ:stlcTy }>)
-
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding)
 open Lean PrettyPrinter in
-/-- Rebuild `stlcCtx` syntax from the term syntax of a `Context`, so that a
-context prints as `x ↦ Nat ; Γ` rather than as a chain of map updates. -/
-partial def unexpandCtx : Term → UnexpandM (TSyntax `stlcCtx)
-  | `(∅) => `(stlcCtx| ∅)
-  | `($x:str →ₚ $τ) => do
-      unexpandCtx (← `($x →ₚ $τ ; ∅))
-  | `($x:str →ₚ $τ ; $Γ) => do
-      let Γ' ← unexpandCtx Γ
-      let x' : TSyntax `stlcVar ←
-        if Stlc.isPlainName x.getString then
-          `(stlcVar| $(mkIdent (Name.mkSimple x.getString)):ident)
-        else `(stlcVar| ~$x)
-      match τ with
-      | `(<{ $τ':stlcTy }>) => `(stlcCtx| $x':stlcVar ↦ $τ' ; $Γ')
-      | _                   => `(stlcCtx| $x':stlcVar ↦ ~($τ) ; $Γ')
-  | Γ => `(stlcCtx| ~($Γ))
-
-open Lean PrettyPrinter in
-@[app_unexpander StlcArith.HasType]
-def HasType.unexpand : Unexpander
-  | `($_ $Γ <{ $t:stlcTm }> <{ $τ:stlcTy }>) =>
-      do `(<{ $(← unexpandCtx Γ) ⊢ $t ⦂ $τ }>)
-  | `($_ $Γ <{ $t:stlcTm }> $τ) =>
-      do `(<{ $(← unexpandCtx Γ) ⊢ $t ⦂ ~($τ) }>)
-  | `($_ $Γ $t <{ $τ:stlcTy }>) =>
-      do `(<{ $(← unexpandCtx Γ) ⊢ ~($t) ⦂ $τ }>)
-  | `($_ $Γ $t $τ) =>
-      do `(<{ $(← unexpandCtx Γ) ⊢ ~($t) ⦂ ~($τ) }>)
-  | _ => throw ()
+@[app_unexpander HasType]
+def HasType.unexpand : Unexpander := StlcCommon.Delab.unexpandHasType
 --  END DETAILS
 
 --  An example:
 
-theorem Nat_typing_example : <{ ∅ ⊢ (λ x : Nat . λ y : Nat . x * y) 3 2 ⦂ Nat }> := by
+theorem Nat_typing_example : <{ ∅ ⊢ (λ X : Nat . λ Y : Nat . X * Y) 3 2 ⦂ Nat }> := by
   sorry
 
 --  #### The Technical Theorems
@@ -1281,7 +1164,7 @@ theorem Nat_typing_example : <{ ∅ ⊢ (λ x : Nat . λ y : Nat . x * y) 3 2 �
 --  ### Exercise (4 stars): StlcArith.weakening ⭐⭐⭐⭐
 
 theorem weakening (Γ Γ' : Context) (t : Tm) (τ : Ty)
-    (hi : Γ ⊆ Γ') (hτ : <{ ~Γ ⊢ ~t ⦂ ~τ }>) : <{ ~Γ' ⊢ ~t ⦂ ~τ }> := by
+    (hi : Γ ⊆ Γ') (hτ : <{ Γ ⊢ t ⦂ τ }>) : <{ Γ' ⊢ t ⦂ τ }> := by
   sorry
 
 --  The two helper lemmas that weakening is for are also proved just as
@@ -1297,14 +1180,14 @@ theorem weakening (Γ Γ' : Context) (t : Tm) (τ : Ty)
 --  used before.
 
 theorem preservation (t t' : Tm) (τ : Ty)
-    (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) (hs : t ⟶ t') : <{ ∅ ⊢ ~t' ⦂ ~τ }> := by
+    (hτ : <{ ∅ ⊢ t ⦂ τ }>) (hs : t ⟶ t') : <{ ∅ ⊢ t' ⦂ τ }> := by
   sorry
 
 --  #### Progress
 
 --  ### Exercise (4 stars): StlcArith.progress ⭐⭐⭐⭐
 
-theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
+theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ t ⦂ τ }>) :
     t.IsValue ∨ ∃ t', t ⟶ t' := by
   sorry
 
@@ -1312,4 +1195,4 @@ theorem progress (t : Tm) (τ : Ty) (hτ : <{ ∅ ⊢ ~t ⦂ ~τ }>) :
 
 end StlcArith
 
--- Source revision: dcf4433, committed 2026-09-24 17:39 UTC
+-- Source revision: c399212, committed 2026-09-28 22:57 UTC
