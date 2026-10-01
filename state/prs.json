@@ -53,8 +53,8 @@
       "changed_variants": [],
       "head_sha": "d35621dd29be7885bd1f2cba353644132caebefc",
       "preview_path": "pr/422/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36881476886",
+      "status": "ci-failed",
       "title": "Proof Reading Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/422"
     },
