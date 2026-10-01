@@ -97,11 +97,48 @@
     },
     "428": {
       "base_sha": "864551150e387cabae5e888e9c6257e40dde01d4",
-      "changed_variants": [],
-      "head_sha": "933b091117c2012abb506bf8033c6d7d36c72784",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "41669fb044da708d1ef0e137985fe99a55a83d85",
       "preview_path": "pr/428/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36921827376",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36924354152",
+      "status": "published",
       "title": "Implement STLC Antiquotation Policy for imp",
       "url": "https://github.com/plclub/sf-in-lean/pull/428"
     }
