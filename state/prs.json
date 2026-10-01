@@ -141,6 +141,16 @@
       "status": "published",
       "title": "Implement STLC Antiquotation Policy for imp",
       "url": "https://github.com/plclub/sf-in-lean/pull/428"
+    },
+    "429": {
+      "base_sha": "864551150e387cabae5e888e9c6257e40dde01d4",
+      "changed_variants": [],
+      "head_sha": "19479060d66f5dbda6818d71a84a1cfa772dc8f0",
+      "preview_path": "pr/429/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36932370844",
+      "status": "ci-failed",
+      "title": "LF/Basics: unhide code block inside details block",
+      "url": "https://github.com/plclub/sf-in-lean/pull/429"
     }
   },
   "schema": 3
