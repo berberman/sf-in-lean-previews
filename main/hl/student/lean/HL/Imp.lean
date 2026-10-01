@@ -611,14 +611,14 @@ def subtract_slowly_body : Com := imp {
 
 def subtract_slowly : Com := imp {
   while (X ≠ 0) {
-    ~subtract_slowly_body
+    subtract_slowly_body
   }
 }
 
 def subtract_3_from_5_slowly : Com := imp {
   X := 3;
   Z := 5;
-  ~subtract_slowly
+  subtract_slowly
 }
 
 --  An infinite loop:
@@ -1066,7 +1066,7 @@ theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
 --  `Com.no_whiles` or `Com.NoWhilesR`, as you prefer.
 
 theorem no_whiles_terminating {c : Com} (st : State) (h : Com.NoWhilesR c) :
-    ∃ st', st =[ ~c ]=> st' := by
+    ∃ st', st =[ c ]=> st' := by
   sorry
 
 --  ## Case Study (Optional)
@@ -1081,14 +1081,14 @@ def factBody : Com := imp {
 
 def factLoop : Com := imp {
   while (Z ≠ 0) {
-    ~factBody
+    factBody
   }
 }
 
 def factCom : Com := imp {
   Z := X;
   Y := 1;
-  ~factLoop
+  factLoop
 }
 
 --  Here is an alternative "mathematical" definition of the factorial
@@ -1112,7 +1112,7 @@ def FactInvariant (n : Nat) (st : State) : Prop :=
 
 theorem factBody_preserves_invariant {st st' : State} {n : Nat}
     (hinv : FactInvariant n st) (hz : st[Z] ≠ 0)
-    (heval : st =[ ~factBody ]=> st') :
+    (heval : st =[ factBody ]=> st') :
     FactInvariant n st' := by
   rw [FactInvariant] at hinv ⊢
   rw [factBody] at heval
@@ -1138,7 +1138,7 @@ theorem factBody_preserves_invariant {st st' : State} {n : Nat}
 --  invariant:
 
 theorem factLoop_preserves_invariant {st st' : State} {n : Nat}
-    (hinv : FactInvariant n st) (heval : st =[ ~factLoop ]=> st') :
+    (hinv : FactInvariant n st) (heval : st =[ factLoop ]=> st') :
     FactInvariant n st' := by
   generalize heq : factLoop = c at heval
   induction heval with
@@ -1161,9 +1161,9 @@ theorem factLoop_preserves_invariant {st st' : State} {n : Nat}
 --  condition guarding the loop must be false at the end:
 
 theorem guard_false_after_loop {b : Bexp} {c : Com} {st st' : State}
-    (heval : st =[ while (~b) {~c} ]=> st') :
+    (heval : st =[ while (b) {c} ]=> st') :
     b.eval st' = false := by
-  generalize heq : (imp { while (~b) {~c} }) = cmd at heval
+  generalize heq : (imp { while (b) {c} }) = cmd at heval
   induction heval with
   | whileFalse hb =>
     injection heq with hb' _
@@ -1175,7 +1175,7 @@ theorem guard_false_after_loop {b : Bexp} {c : Com} {st st' : State}
 --  Finally, we can patch it all together...
 
 theorem factCom_correct {st st' : State} {n : Nat}
-    (hx : st[X] = n) (heval : st =[ ~factCom ]=> st') :
+    (hx : st[X] = n) (heval : st =[ factCom ]=> st') :
     st'[Y] = realFact n := by
   rw [factCom] at heval
   inversion heval with
@@ -1518,8 +1518,8 @@ theorem while_continue {b : Bexp} {c : Com} {st st' : State} {s : Result}
 
 theorem while_stops_on_break {b : Bexp} {c : Com} {st st' : State}
     (h₁ : b.eval st = true)
-    (h₂ : st =[ imp { ~c } ]=> st' // sBreak) :
-    st =[ imp { while (~b) {~c} } ]=> st' // sContinue := by
+    (h₂ : st =[ imp { c } ]=> st' // sBreak) :
+    st =[ imp { while (b) {c} } ]=> st' // sContinue := by
   sorry
 
 theorem seq_continue {c₁ c₂ : Com} {st st' st'' : State}
@@ -1573,4 +1573,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: c399212, committed 2026-09-28 22:57 UTC
+-- Source revision: 8645511, committed 2026-10-01 16:12 UTC

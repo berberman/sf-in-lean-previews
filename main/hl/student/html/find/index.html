@@ -980,6 +980,29 @@ blockquote {
   border-left: 3px solid var(--sf-accent);
 }
 </style><style>
+/* +centered display: center the whole block as a rigid unit, so multi-line
+   ASCII art (e.g. inference rules) keeps its internal alignment -- unlike
+   text-align: center, which would center each line independently and
+   misalign the premises/bar/conclusion. */
+.sf-display-centered {
+  margin: 1em 0;
+  display: flex;
+  justify-content: center;
+}
+.sf-display-centered pre {
+  margin: 0;
+  overflow-x: auto;
+  width: fit-content;
+}
+.sf-display-centered pre code {
+  font-family: var(--verso-code-font-family, monospace);
+  white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
+}
+</style><style>
 div.sf-quiz {
   margin: 1em 0;
   padding: 0.4em 0.8em;
@@ -3369,11 +3392,10 @@ window.onload = async () => {
         "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare2/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux":
-   [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux",
+   "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence",
      "data":
-     {"title": "Soundness of (0 + n) Elimination, Redux",
+     {"title": "Proving Inequivalence",
       "shortTitle": null,
       "sectionNum": "4.4.",
       "searchPriority": 50,
@@ -3382,27 +3404,11 @@ window.onload = async () => {
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Soundness of (0 + n) Elimination, Redux",
-        "shortTitle": null,
-        "number": "4"}]},
+       {"title": "Proving Inequivalence", "shortTitle": null, "number": "4"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence":
-   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence",
-     "data":
-     {"title": "Proving Inequivalence",
-      "shortTitle": null,
-      "sectionNum": "4.5.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Equiv: Program Equivalence",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Proving Inequivalence", "shortTitle": null, "number": "5"}]},
-     "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
      "data":
      {"title": "Behavioral Equivalence is an Equivalence",
       "shortTitle": null,
@@ -3413,16 +3419,16 @@ window.onload = async () => {
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavior Equivalence",
+       {"title": "Properties of Behavioral Equivalence",
         "shortTitle": null,
         "number": "2"},
        {"title": "Behavioral Equivalence is an Equivalence",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-a-Congruence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-a-Congruence",
      "data":
      {"title": "Behavioral Equivalence is a Congruence",
       "shortTitle": null,
@@ -3433,18 +3439,18 @@ window.onload = async () => {
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavior Equivalence",
+       {"title": "Properties of Behavioral Equivalence",
         "shortTitle": null,
         "number": "2"},
        {"title": "Behavioral Equivalence is a Congruence",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence",
      "data":
-     {"title": "Properties of Behavior Equivalence",
+     {"title": "Properties of Behavioral Equivalence",
       "shortTitle": null,
       "sectionNum": "4.2.",
       "searchPriority": 50,
@@ -3453,7 +3459,7 @@ window.onload = async () => {
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavior Equivalence",
+       {"title": "Properties of Behavioral Equivalence",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
@@ -3474,6 +3480,24 @@ window.onload = async () => {
        {"title": "The Constant-Folding Transformation",
         "shortTitle": null,
         "number": "1"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux",
+     "data":
+     {"title": "Soundness of (0 + n) Elimination, Redux",
+      "shortTitle": null,
+      "sectionNum": "4.3.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Program Transformation", "shortTitle": null, "number": "3"},
+       {"title": "Soundness of (0 + n) Elimination, Redux",
+        "shortTitle": null,
+        "number": "3"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-Constant-Folding":
    [{"id":
@@ -3513,7 +3537,7 @@ window.onload = async () => {
      "data":
      {"title": "Extended Exercise: Nondeterministic Imp",
       "shortTitle": null,
-      "sectionNum": "4.6.",
+      "sectionNum": "4.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -3522,7 +3546,7 @@ window.onload = async () => {
         "number": "4"},
        {"title": "Extended Exercise: Nondeterministic Imp",
         "shortTitle": null,
-        "number": "6"}]},
+        "number": "5"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence--Simple-Examples":
    [{"id":
@@ -3575,14 +3599,14 @@ window.onload = async () => {
      "data":
      {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "4.7.",
+      "sectionNum": "4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Additional Exercises", "shortTitle": null, "number": "7"}]},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic":
    [{"id": "Hoare-Logic",
@@ -3904,16 +3928,6 @@ window.onload = async () => {
         "Finding Loop Invariants",
         "Example: Parity"]}},
      "address": "/Hoare2/"}],
-   "optimizer_sound":
-   [{"id": "optimizer_sound",
-     "data":
-     {"/Equiv/#optimizer_sound":
-      {"display": "optimizer_sound",
-       "context":
-       ["Hoare Logic",
-        "Equiv: Program Equivalence",
-        "Soundness of (0 + n) Elimination, Redux"]}},
-     "address": "/Equiv/"}],
    "optimizer":
    [{"id": "optimizer",
      "data":
@@ -3922,6 +3936,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
+        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "one_le_pow2":
@@ -7680,7 +7695,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_symm":
@@ -7691,7 +7706,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_refl":
@@ -7702,7 +7717,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_notation":
@@ -7724,7 +7739,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_def":
@@ -7746,7 +7761,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is a Congruence"]}},
      "address": "/Equiv/"}],
    "Com.cond":
@@ -8098,7 +8113,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_symm":
@@ -8109,7 +8124,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_refl":
@@ -8120,7 +8135,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_notation":
@@ -8567,7 +8582,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_symm":
@@ -8578,7 +8593,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_refl":
@@ -8589,7 +8604,7 @@ window.onload = async () => {
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavior Equivalence",
+        "Properties of Behavioral Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_notation":
@@ -8846,7 +8861,7 @@ if (paramName) {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Source revision: c399212, committed 2026-09-28 22:57 UTC</div>
+            Source revision: 8645511, committed 2026-10-01 16:12 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

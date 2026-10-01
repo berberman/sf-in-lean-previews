@@ -456,14 +456,14 @@
  "71":
  "<code>HMul.hMul.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HMul α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a * b` computes the product of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `*` in identifiers is `mul`.</code>",
  "709":
- "<code>∀ (x₁ x₂ : String) (a₁ a₂ : Aexp), imp {x₁ := ~a₁; x₂ := ~a₂} ≃ imp {x₁ := ~a₁; x₂ := ~(Aexp.subst x₁ a₁ a₂)}</code>",
+ "<code>∀ (x₁ x₂ : Ident) (a₁ a₂ : Aexp), imp {x₁ := ~a₁; x₂ := ~a₂} ≃ imp {x₁ := ~a₁; x₂ := ~(Aexp.subst x₁ a₁ a₂)}</code>",
  "708": "<code>subst_inequiv : ¬SubstEquivProperty</code>",
  "707": "<code>SubstEquivProperty : Prop</code>",
- "706": "<code>Aexp.subst (x : String) (u a : Aexp) : Aexp</code>",
+ "706": "<code>Aexp.subst (x : Ident) (u a : Aexp) : Aexp</code>",
  "705":
  "<code>∀ (n₁ n₂ : Nat), a₁✝.foldConstants = num n₁ → a₂✝.foldConstants = num n₂ → False</code>",
- "704": "<code>eval st a₂✝ = eval st a₂✝.foldConstants</code>",
- "703": "<code>eval st a₁✝ = eval st a₁✝.foldConstants</code>",
+ "704": "<code>eval st a₂✝.foldConstants = eval st a₂✝</code>",
+ "703": "<code>eval st a₁✝.foldConstants = eval st a₁✝</code>",
  "702": "<code>a₁✝.foldConstants = num n₁✝</code>",
  "701": "<code>a₂✝.foldConstants = num n₂✝</code>",
  "700": "<code>Aexp.foldConstants_sound' : TransSound foldConstants</code>",
@@ -480,8 +480,8 @@
  "<code>∃ n₁ n₂, a₁.foldConstants = num n₁ ∧ a₂.foldConstants = num n₂</code>",
  "695":
  "<code>Or.inl {a b : Prop} (h : a) : a ∨ b</code><span class=\"sep\"></span><code class=\"docstring\">`Or.inl` is \"left injection\" into an `Or`. If `h : a` then `Or.inl h : a ∨ b`. </code>",
- "694": "<code>eval st a₂ = eval st a₂.foldConstants</code>",
- "693": "<code>eval st a₁ = eval st a₁.foldConstants</code>",
+ "694": "<code>eval st a₂.foldConstants = eval st a₂</code>",
+ "693": "<code>eval st a₁.foldConstants = eval st a₁</code>",
  "692": "<code>Aexp.foldConstants_sound : TransSound foldConstants</code>",
  "691": "<code>Com.foldConstants (c : Com) : Com</code>",
  "690": "<code>b₁.foldConstants = bexp {~a₁✝ = ~a₂✝}</code>",
@@ -551,17 +551,17 @@
  "<code>Aexp.foldConstants_num (n : Nat) : (num n).foldConstants = num n</code>",
  "644": "<code>Aexp.foldConstants (a : Aexp) : Aexp</code>",
  "643":
- "<code>Com.transSound_def {trans : Com → Com} : TransSound trans ↔ ∀ (c : Com), c ≃ trans c</code>",
+ "<code>Com.transSound_def {trans : Com → Com} : TransSound trans ↔ ∀ (c : Com), trans c ≃ c</code>",
  "642": "<code>Com → Com</code>",
  "641": "<code>Com.TransSound (trans : Com → Com) : Prop</code>",
  "640":
- "<code>Bexp.transSound_def {trans : Bexp → Bexp} : TransSound trans ↔ ∀ (b : Bexp), b ≃ trans b</code>",
+ "<code>Bexp.transSound_def {trans : Bexp → Bexp} : TransSound trans ↔ ∀ (b : Bexp), trans b ≃ b</code>",
  "64":
  "<code class=\"docstring\">Location specifications are used by many tactics that can operate on either the\nhypotheses or the goal. It can have one of the forms:\n* 'empty' is not actually present in this syntax, but most tactics use\n  `(location)?` matchers. It means to target the goal only.\n* `at h₁ ... hₙ`: target the hypotheses `h₁`, ..., `hₙ`\n* `at h₁ h₂ ⊢`: target the hypotheses `h₁` and `h₂`, and the goal\n* `at *`: target all hypotheses and the goal\n</code>",
  "639": "<code>Bexp → Bexp</code>",
  "638": "<code>Bexp.TransSound (trans : Bexp → Bexp) : Prop</code>",
  "637":
- "<code>Aexp.transSound_def {trans : Aexp → Aexp} : TransSound trans ↔ ∀ (a : Aexp), a ≃ trans a</code>",
+ "<code>Aexp.transSound_def {trans : Aexp → Aexp} : TransSound trans ↔ ∀ (a : Aexp), trans a ≃ a</code>",
  "636": "<code>Aexp → Aexp</code>",
  "635": "<code>Aexp.TransSound (trans : Aexp → Aexp) : Prop</code>",
  "634": "<code>c ≃ c'</code>",
@@ -608,30 +608,30 @@
  "<code>Com.identity_assignment {X : Ident} : imp {X := X} ≃ imp {skip}</code>",
  "605":
  "<code>Com.loop_unrolling {b : Bexp} {c : Com} : imp {while (~b) {~c}} ≃ imp {if (~b) {~c} else {skip}; while (~b) {~c}}</code>",
- "604":
+ "604": "<code>b ≃ bexp {true}</code>",
+ "603":
  "<code>Com.while_true_nonterm {b : Bexp} {c : Com} {st st' : State} (hb : b ≃ bexp {true}) : ¬st =[ while (~b) {~c} ]=&gt; st'</code>",
- "603": "<code>st =[ skip ]=&gt; st''</code>",
- "602": "<code>st =[ while (~b) {~c} ]=&gt; st''</code>",
- "601": "<code>b ≃ bexp {false}</code>",
- "600":
- "<code>Com.while_false {b : Bexp} {c : Com} (hb : b ≃ bexp {false}) : imp {while (~b) {~c}} ≃ imp {skip}</code>",
+ "602": "<code>st =[ skip ]=&gt; st''</code>",
+ "601": "<code>st =[ while (~b) {~c} ]=&gt; st''</code>",
+ "600": "<code>b ≃ bexp {false}</code>",
  "60": "<code>(num (n + 1)).optimize0plus.eval = (num (n + 1)).eval</code>",
  "6": "<code>Slang.Aexp.plus (a₁ a₂ : Aexp) : Aexp</code>",
- "599": "<code>st =[ if (~b) {~c₁} else {~c₂} ]=&gt; st'</code>",
- "598": "<code>b ≃ bexp {true}</code>",
- "597":
- "<code>Com.if_true {b : Bexp} {c₁ c₂ : Com} (hb : b ≃ bexp {true}) : imp {if (~b) {~c₁} else {~c₂}} ≃ c₁</code>",
- "596": "<code>st =[ ~c₁ ]=&gt; st'</code>",
- "595": "<code>c₂.EvalR st st'</code>",
- "594": "<code>Bexp.eval st (bexp {true}) = false</code>",
- "593": "<code>c₁.EvalR st st'</code>",
- "592": "<code>Bexp.eval st (bexp {true}) = true</code>",
- "591": "<code>st =[ if (true) {~c₁} else {~c₂} ]=&gt; st'</code>",
- "590":
- "<code>Com.if_true_simple {c₁ c₂ : Com} : imp {if (true) {~c₁} else {~c₂}} ≃ c₁</code>",
+ "599":
+ "<code>Com.while_false {b : Bexp} {c : Com} (hb : b ≃ bexp {false}) : imp {while (~b) {~c}} ≃ imp {skip}</code>",
+ "598": "<code>st =[ if (~b) {~c₁} else {~c₂} ]=&gt; st'</code>",
+ "597": "<code>bexp {true} ≃ b</code>",
+ "596":
+ "<code>Com.if_true {b : Bexp} {c₁ c₂ : Com} (hb : bexp {true} ≃ b) : imp {if (~b) {~c₁} else {~c₂}} ≃ c₁</code>",
+ "595": "<code>st =[ ~c₁ ]=&gt; st'</code>",
+ "594": "<code>c₂.EvalR st st'</code>",
+ "593": "<code>Bexp.eval st (bexp {true}) = false</code>",
+ "592": "<code>c₁.EvalR st st'</code>",
+ "591": "<code>Bexp.eval st (bexp {true}) = true</code>",
+ "590": "<code>st =[ if (true) {~c₁} else {~c₂} ]=&gt; st'</code>",
  "59":
  "<code>Nat.succ (n : Nat) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">The successor of a natural number `n`.\n\nUsing `Nat.succ n` should usually be avoided in favor of `n + 1`, which is the [simp normal\nform](https://lean-lang.org/doc/reference/4.34.0-rc2/find/?domain=Verso.Genre.Manual.section&amp;name=simp-normal-forms).\n</code>",
- "589": "<code>Com.skip_right {c : Com} : imp {~c; skip} ≃ c</code>",
+ "589":
+ "<code>Com.if_true_simple {c₁ c₂ : Com} : imp {if (true) {~c₁} else {~c₂}} ≃ c₁</code>",
  "588": "<code>Com.skip_left {c : Com} : imp {skip; ~c} ≃ c</code>",
  "587":
  "<code>Com.equiv_def {c₁ c₂ : Com} : c₁ ≃ c₂ ↔ ∀ {st st' : State}, (st =[ ~c₁ ]=&gt; st') ↔ st =[ ~c₂ ]=&gt; st'</code>",

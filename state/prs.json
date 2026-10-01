@@ -1,5 +1,5 @@
 {
-  "main_sha": "c399212a31d407142e1c21c1aa5099b9c9960784",
+  "main_sha": "864551150e387cabae5e888e9c6257e40dde01d4",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -47,53 +47,6 @@
       "status": "published",
       "title": "Add cross-book chapter references",
       "url": "https://github.com/plclub/sf-in-lean/pull/418"
-    },
-    "422": {
-      "base_sha": "c399212a31d407142e1c21c1aa5099b9c9960784",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "3d8ec2c81ded0abccad9abc89afe52ab09b36d93",
-      "preview_path": "pr/422/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36887943160",
-      "status": "published",
-      "title": "Proof Reading Equiv",
-      "url": "https://github.com/plclub/sf-in-lean/pull/422"
     },
     "427": {
       "base_sha": "958a21889c2432482dfa1569c7120f075f2e506c",
