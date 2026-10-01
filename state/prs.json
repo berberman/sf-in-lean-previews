@@ -49,12 +49,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/418"
     },
     "422": {
-      "base_sha": "cf51a53afc8809dbc7b81a3a98671c6a687029ca",
+      "base_sha": "c399212a31d407142e1c21c1aa5099b9c9960784",
       "changed_variants": [],
-      "head_sha": "84def2c8c9d70c9ea903a347acb09324707139a0",
+      "head_sha": "d35621dd29be7885bd1f2cba353644132caebefc",
       "preview_path": "pr/422/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36035240020",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Proof Reading Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/422"
     },
