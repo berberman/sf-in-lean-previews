@@ -50,11 +50,48 @@
     },
     "422": {
       "base_sha": "c399212a31d407142e1c21c1aa5099b9c9960784",
-      "changed_variants": [],
-      "head_sha": "d35621dd29be7885bd1f2cba353644132caebefc",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "3d8ec2c81ded0abccad9abc89afe52ab09b36d93",
       "preview_path": "pr/422/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36881476886",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36887943160",
+      "status": "published",
       "title": "Proof Reading Equiv",
       "url": "https://github.com/plclub/sf-in-lean/pull/422"
     },
