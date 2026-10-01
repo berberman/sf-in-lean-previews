@@ -1399,4 +1399,4 @@ theorem exp_3 : exp three two = plus (mult two (mult two two)) one := (by rfl)
 
 end Church
 
--- Source revision: 8645511, committed 2026-10-01 16:12 UTC
+-- Source revision: 2d86b23, committed 2026-10-01 22:21 UTC

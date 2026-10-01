@@ -527,8 +527,8 @@ theorem seq_assoc {c₁ c₂ c₃ : Com} :
 --  fact that we are treating equality on program states extensionally
 --  (e.g., `x →ₜ m[x] ; m` and `m` are equal maps) comes in handy.
 
-theorem identity_assignment {X : Ident} :
-    imp { X := X } ≃ imp { skip } := by
+theorem identity_assignment {x : Ident} :
+    imp { x := ~(.id x) } ≃ imp { skip } := by
   rw [equiv_def]
   intro st st'
   constructor
@@ -540,22 +540,22 @@ theorem identity_assignment {X : Ident} :
       exact Com.EvalR.skip
   · intro h
     inversion h
-    have h' : st =[ X := X ]=> X →ₜ st[X] ; st := by
+    have h' : st =[ x := ~(.id x) ]=> x →ₜ st[x] ; st := by
       apply Com.EvalR.asgn
       simp
     simp_all [TotalMap.update_same]
 
 --  ### Exercise (2 stars): assign_equiv ⭐⭐
 
-theorem assign_equiv {X : Ident} {a : Aexp} (ha : aexp { X } ≃ a) :
-    imp { skip } ≃ imp { X := a } := by
+theorem assign_equiv {x : Ident} {a : Aexp} (ha : .id x ≃ a) :
+    imp { skip } ≃ imp { x := a } := by
   rw [equiv_def]
   rw [Aexp.equiv_def] at ha
   intro st st'
   constructor
   · intro h
     inversion h
-    have h' : st =[ X := ~a ]=> X →ₜ st[X]; st := by
+    have h' : st =[ x := a ]=> x →ₜ st[x]; st := by
       apply Com.EvalR.asgn
       simp [← ha]
     simp_all [← ha]
@@ -946,18 +946,18 @@ def Aexp.foldConstants (a : Aexp) : Aexp :=
   match a with
   | .num n => .num n
   | .id x => .id x
-  | aexp { ~a₁ + ~a₂ } =>
+  | aexp { a₁ + a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => .num (n₁ + n₂)
-    | a₁', a₂' => aexp { ~a₁' + ~a₂' }
-  | aexp { ~a₁ - ~a₂ } =>
+    | a₁', a₂' => aexp { a₁' + a₂' }
+  | aexp { a₁ - a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => .num (n₁ - n₂)
-    | a₁', a₂' => aexp { ~a₁' - ~a₂' }
-  | aexp { ~a₁ * ~a₂ } =>
+    | a₁', a₂' => aexp { a₁' - a₂' }
+  | aexp { a₁ * a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => .num (n₁ * n₂)
-    | a₁', a₂' => aexp { ~a₁' * ~a₂' }
+    | a₁', a₂' => aexp { a₁' * a₂' }
 
 @[simp]
 theorem Aexp.foldConstants_num (n : Nat) : (Aexp.num n).foldConstants = .num n := rfl
@@ -1005,28 +1005,28 @@ def Bexp.foldConstants (b : Bexp) : Bexp :=
   match b with
   | bexp { true } => bexp { true }
   | bexp { false } => bexp { false }
-  | bexp { ~a₁ = ~a₂ } =>
+  | bexp { a₁ = a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => if n₁ = n₂ then bexp { true } else bexp {false}
     | a₁', a₂' => bexp { a₁' = a₂' }
-  | bexp { ~a₁ ≠ ~a₂ } =>
+  | bexp { a₁ ≠ a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => if n₁ ≠ n₂ then bexp { true } else bexp {false}
     | a₁', a₂' => bexp { a₁' ≠ a₂' }
-  | bexp { ~a₁ ≤ ~a₂ } =>
+  | bexp { a₁ ≤ a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => if n₁ ≤ n₂ then bexp { true } else bexp {false}
     | a₁', a₂' => bexp { a₁' ≤ a₂' }
-  | bexp { ~a₁ > ~a₂ } =>
+  | bexp { a₁ > a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
     | .num n₁, .num n₂ => if n₁ > n₂ then bexp { true } else bexp {false}
     | a₁', a₂' => bexp { a₁' > a₂' }
-  | bexp { ¬ ~b₁ } =>
+  | bexp { ¬ b₁ } =>
     match b₁.foldConstants with
     | bexp { true } => bexp { false }
     | bexp { false } => bexp { true }
     | b₁' => bexp { ¬ b₁' }
-  | bexp { ~b₁ ∧ ~b₂ } =>
+  | bexp { b₁ ∧ b₂ } =>
     match b₁.foldConstants, b₂.foldConstants with
     | bexp { true }, bexp { true } => bexp { true }
     | bexp { true }, bexp { false } => bexp { false }
@@ -1041,10 +1041,10 @@ theorem Bexp.foldConstants_false : (bexp { false }).foldConstants = (bexp { fals
 
 theorem Bexp.foldConstants_comp (a₁ a₂ : Aexp) :
     (∃ n₁ n₂, a₁.foldConstants = .num n₁ ∧ a₂.foldConstants = .num n₂) ∨
-    (bexp {~a₁ = ~a₂}).foldConstants = (bexp {~a₁.foldConstants = ~a₂.foldConstants}) ∧
-    (bexp {~a₁ ≠ ~a₂}).foldConstants = (bexp {~a₁.foldConstants ≠ ~a₂.foldConstants}) ∧
-    (bexp {~a₁ ≤ ~a₂}).foldConstants = (bexp {~a₁.foldConstants ≤ ~a₂.foldConstants}) ∧
-    (bexp {~a₁ > ~a₂}).foldConstants = (bexp {~a₁.foldConstants > ~a₂.foldConstants}) := by
+    (bexp {a₁ = a₂}).foldConstants = (bexp {~a₁.foldConstants = ~a₂.foldConstants}) ∧
+    (bexp {a₁ ≠ a₂}).foldConstants = (bexp {~a₁.foldConstants ≠ ~a₂.foldConstants}) ∧
+    (bexp {a₁ ≤ a₂}).foldConstants = (bexp {~a₁.foldConstants ≤ ~a₂.foldConstants}) ∧
+    (bexp {a₁ > a₂}).foldConstants = (bexp {~a₁.foldConstants > ~a₂.foldConstants}) := by
   cases ha₁ : a₁.foldConstants with
   | num n₁ =>
     cases ha₂ : a₂.foldConstants with
@@ -1057,7 +1057,7 @@ theorem Bexp.foldConstants_comp (a₁ a₂ : Aexp) :
 
 theorem Bexp.foldConstants_unary (b : Bexp) :
     (b.foldConstants = (bexp { true }) ∨ b.foldConstants = (bexp { false })) ∨
-    (bexp { ¬b }).foldConstants = (bexp { ¬(b.foldConstants)}) := by
+    (bexp { ¬b }).foldConstants = (bexp { ¬~(b.foldConstants)}) := by
   cases hb : b.foldConstants with
   | bool b' =>
     simp_all
@@ -1067,7 +1067,7 @@ theorem Bexp.foldConstants_unary (b : Bexp) :
 theorem Bexp.foldConstants_binary (b₁ : Bexp) (b₂ : Bexp) :
     ((b₁.foldConstants = (bexp { true }) ∨ b₁.foldConstants = (bexp { false })) ∧
      (b₂.foldConstants = (bexp { true }) ∨ b₂.foldConstants = (bexp { false }))) ∨
-    (bexp {b₁ ∧ b₂}).foldConstants = (bexp {b₁.foldConstants ∧ b₂.foldConstants}) := by
+    (bexp {b₁ ∧ b₂}).foldConstants = (bexp {~b₁.foldConstants ∧ ~b₂.foldConstants}) := by
   cases hb₁ : b₁.foldConstants with
   | bool b₁' =>
     cases hb₂ : b₂.foldConstants with
@@ -1086,18 +1086,18 @@ example : (bexp { (X = Y) ∧ ( 0 = (2 - (1 + 1))) }).foldConstants = (bexp { (X
 def Com.foldConstants (c : Com) : Com :=
   match c with
   | imp { skip } => imp { skip }
-  | imp { x := ~a } => imp { x := ~a.foldConstants }
-  | imp { c₁ ; c₂ } => imp { c₁.foldConstants ; c₂.foldConstants }
+  | imp { x := a } => imp { x := ~a.foldConstants }
+  | imp { c₁ ; c₂ } => imp { ~c₁.foldConstants ; ~c₂.foldConstants }
   | imp { if (b) { c₁ } else { c₂ }} =>
     match b.foldConstants with
     | bexp { true } => c₁.foldConstants
     | bexp { false } => c₂.foldConstants
-    | b' => imp { if (b') {c₁.foldConstants} else { c₂.foldConstants}}
+    | b' => imp { if (b') {~c₁.foldConstants} else { ~c₂.foldConstants}}
   | imp { while (b) {c}} =>
     match b.foldConstants with
     | bexp { true } => imp { while (true) { skip }}
     | bexp { false } => imp { skip }
-    | b' => imp { while (b') {c.foldConstants}}
+    | b' => imp { while (b') {~c.foldConstants}}
 
 example :
   (imp {
@@ -1127,7 +1127,7 @@ theorem Aexp.foldConstants_sound : TransSound Aexp.foldConstants := by
   | num n | id x => rfl
   | _ a₁ a₂ _ _ =>
     -- `plus`, `minus`, and `mult` follow from the IH and the observation that
-    -- `(aexp {~a₁ + ~a₂}).eval st = a₁.eval st + a₂.eval st
+    -- `(aexp {a₁ + a₂}).eval st = a₁.eval st + a₂.eval st
     --   = (Aexp.num (a₁.eval st + a₂.eval st)).eval st`
     -- (and similarly for `minus`/`-` and `mult`/`*`).
     cases Aexp.foldConstants_cases a₁ a₂ with
@@ -1366,28 +1366,28 @@ def Aexp.optimize0plus (a : Aexp) : Aexp := (
   match a with
   | Aexp.num n => Aexp.num n
   | Aexp.id x => Aexp.id x
-  | (aexp { 0 + ~a₂ }) => Aexp.optimize0plus a₂
-  | (aexp { ~a₁ + ~a₂ }) => (aexp { ~(Aexp.optimize0plus a₁) + ~(Aexp.optimize0plus a₂) })
-  | (aexp { ~a₁ - ~a₂ }) => (aexp { ~(Aexp.optimize0plus a₁) - ~(Aexp.optimize0plus a₂) })
-  | (aexp { ~a₁ * ~a₂ }) => (aexp { ~(Aexp.optimize0plus a₁) * ~(Aexp.optimize0plus a₂) })
+  | (aexp { 0 + a₂ }) => Aexp.optimize0plus a₂
+  | (aexp { a₁ + a₂ }) => (aexp { ~(Aexp.optimize0plus a₁) + ~(Aexp.optimize0plus a₂) })
+  | (aexp { a₁ - a₂ }) => (aexp { ~(Aexp.optimize0plus a₁) - ~(Aexp.optimize0plus a₂) })
+  | (aexp { a₁ * a₂ }) => (aexp { ~(Aexp.optimize0plus a₁) * ~(Aexp.optimize0plus a₂) })
 )
 
 def Bexp.optimize0plus (b : Bexp) : Bexp := (
   match b with
   | (bexp { true })        => (bexp { true })
   | (bexp { false })       => (bexp { false })
-  | (bexp { ~a₁ = ~a₂ })  => (bexp { ~(Aexp.optimize0plus a₁) =  ~(Aexp.optimize0plus a₂) })
-  | (bexp { ~a₁ ≠ ~a₂ })  => (bexp { ~(Aexp.optimize0plus a₁) ≠ ~(Aexp.optimize0plus a₂) })
-  | (bexp { ~a₁ ≤ ~a₂ }) => (bexp { ~(Aexp.optimize0plus a₁) ≤ ~(Aexp.optimize0plus a₂) })
-  | (bexp { ~a₁ > ~a₂ })  => (bexp { ~(Aexp.optimize0plus a₁) >  ~(Aexp.optimize0plus a₂) })
-  | (bexp { ¬ ~b₁ })     => (bexp { ¬ ~(Bexp.optimize0plus b₁) })
-  | (bexp { ~b₁ ∧ ~b₂ }) => (bexp { ~(Bexp.optimize0plus b₁) ∧ ~(Bexp.optimize0plus b₂) })
+  | (bexp { a₁ = a₂ })  => (bexp { ~(Aexp.optimize0plus a₁) =  ~(Aexp.optimize0plus a₂) })
+  | (bexp { a₁ ≠ a₂ })  => (bexp { ~(Aexp.optimize0plus a₁) ≠ ~(Aexp.optimize0plus a₂) })
+  | (bexp { a₁ ≤ a₂ }) => (bexp { ~(Aexp.optimize0plus a₁) ≤ ~(Aexp.optimize0plus a₂) })
+  | (bexp { a₁ > a₂ })  => (bexp { ~(Aexp.optimize0plus a₁) >  ~(Aexp.optimize0plus a₂) })
+  | (bexp { ¬ b₁ })     => (bexp { ¬ ~(Bexp.optimize0plus b₁) })
+  | (bexp { b₁ ∧ b₂ }) => (bexp { ~(Bexp.optimize0plus b₁) ∧ ~(Bexp.optimize0plus b₂) })
 )
 
 def Com.optimize0plus (c : Com) : Com := (
   match c with
   | (imp { skip })                     => (imp { skip })
-  | (imp { x := ~a })                  => (imp { x := ~(Aexp.optimize0plus a) })
+  | (imp { x := a })                  => (imp { x := ~(Aexp.optimize0plus a) })
   | (imp { c₁ ; c₂ })                  => imp { ~(Com.optimize0plus c₁) ; ~(Com.optimize0plus c₂) }
   | (imp { if (b) {c₁} else {c₂} }) =>
       imp { if (~(Bexp.optimize0plus b)) {~(Com.optimize0plus c₁)} else {~(Com.optimize0plus c₂)} }
@@ -1482,11 +1482,11 @@ def Aexp.subst (x : Ident) (u : Aexp) (a : Aexp) : Aexp :=
       Aexp.num n
   | Aexp.id x'       =>
       if x = x' then u else Aexp.id x'
-  | (aexp { ~a₁ + ~a₂ })  =>
+  | (aexp { a₁ + a₂ })  =>
       (aexp { ~(Aexp.subst x u a₁) + ~(Aexp.subst x u a₂) })
-  | (aexp { ~a₁ - ~a₂ }) =>
+  | (aexp { a₁ - a₂ }) =>
       (aexp { ~(Aexp.subst x u a₁) - ~(Aexp.subst x u a₂) })
-  | (aexp { ~a₁ * ~a₂ })  =>
+  | (aexp { a₁ * a₂ })  =>
       (aexp { ~(Aexp.subst x u a₁) * ~(Aexp.subst x u a₂) })
 
 example :
@@ -2202,4 +2202,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c) (ha : Approx c c') : zprop 
   obtain ⟨st', h⟩ := hc
   apply ha at h; exists st'
 
--- Source revision: 8645511, committed 2026-10-01 16:12 UTC
+-- Source revision: 2d86b23, committed 2026-10-01 22:21 UTC

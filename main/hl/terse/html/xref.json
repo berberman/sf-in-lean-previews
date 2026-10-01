@@ -1669,6 +1669,17 @@
         "Commands",
         "More Examples"]}},
      "address": "/Imp/"}],
+   "multXandYinZ":
+   [{"id": "multXandYinZ",
+     "data":
+     {"/Imp/#multXandYinZ":
+      {"display": "multXandYinZ",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Commands",
+        "More Examples"]}},
+     "address": "/Imp/"}],
    "loop":
    [{"id": "loop",
      "data":
@@ -2262,17 +2273,6 @@
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "Syntax"]}},
-     "address": "/Imp/"}],
-   "XtimesYinZ":
-   [{"id": "XtimesYinZ",
-     "data":
-     {"/Imp/#XtimesYinZ":
-      {"display": "XtimesYinZ",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Commands",
-        "More Examples"]}},
      "address": "/Imp/"}],
    "X":
    [{"id": "X",
@@ -3146,6 +3146,83 @@
      "data":
      {"/Imp/#Imp___Elab___withSourceInfoOf":
       {"display": "withSourceInfoOf",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notations"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.mkObjectIdentFrom":
+   [{"id": "Imp___Elab___mkObjectIdentFrom",
+     "data":
+     {"/Imp/#Imp___Elab___mkObjectIdentFrom":
+      {"display": "mkObjectIdentFrom",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notations"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.isGreek":
+   [{"id": "Imp___Elab___isGreek",
+     "data":
+     {"/Imp/#Imp___Elab___isGreek":
+      {"display": "isGreek",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notations"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.elabMetavarOnlyIdent":
+   [{"id": "Imp___Elab___elabMetavarOnlyIdent",
+     "data":
+     {"/Imp/#Imp___Elab___elabMetavarOnlyIdent":
+      {"display": "elabMetavarOnlyIdent",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notations"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.classifyIdent?":
+   [{"id": "Imp___Elab___classifyIdent___",
+     "data":
+     {"/Imp/#Imp___Elab___classifyIdent___":
+      {"display": "classifyIdent?",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notations"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.IdentKind.object":
+   [{"id": "Imp___Elab___IdentKind___object",
+     "data":
+     {"/Imp/#Imp___Elab___IdentKind___object":
+      {"display": "object",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notations"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.IdentKind.metavar":
+   [{"id": "Imp___Elab___IdentKind___metavar",
+     "data":
+     {"/Imp/#Imp___Elab___IdentKind___metavar":
+      {"display": "metavar",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Expressions With Variables",
+        "Notations"]}},
+     "address": "/Imp/"}],
+   "Imp.Elab.IdentKind":
+   [{"id": "Imp___Elab___IdentKind",
+     "data":
+     {"/Imp/#Imp___Elab___IdentKind":
+      {"display": "IdentKind",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",

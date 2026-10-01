@@ -115,10 +115,10 @@ inductive Bexp where
 --  Defining a few variable names as shorthands will make examples easier
 --  to read.
 
-def W : Ident := "W"
-def X : Ident := "X"
-def Y : Ident := "Y"
-def Z : Ident := "Z"
+abbrev W : Ident := "W"
+abbrev X : Ident := "X"
+abbrev Y : Ident := "Y"
+abbrev Z : Ident := "Z"
 
 --  ### Notations
 
@@ -139,9 +139,14 @@ def Z : Ident := "Z"
 --    production of Lean's own `term` category — it is what lets an Imp
 --    expression appear in ordinary Lean code.
 --  - `~e` splices an already-elaborated Lean term `e` into Imp syntax. We
---    use it throughout the chapter to drop a previously-defined expression
---    or command into a larger program, as in
---    `imp { while (X ≠ 0) { ~subtract_slowly_body } }`.
+--    will rarely need to use this in this book, however. By convention,
+--    our notation always treats identifiers starting with capital Latin
+--    letters as being literal names in Imp. Thus `X`, `Y`, and `Z` are Imp
+--    variables. Meanwhile, names beginning with lowercase Latin letters
+--    like (`a` or `c`) are treated as Lean variables. This will be useful
+--    later when we need to write theorems about Imp programs. We only need
+--    to use the `~` when we want to insert a larger Lean expression into
+--    an `Imp` term. We'll point out examples of this when they occur.
 --  - Finally, `macro_rules` is used to translate each production of the
 --    `imp_aexp` non-terminal into a Lean expression.
 --
@@ -180,28 +185,57 @@ def withSourceInfoOf {kind : Name} (ref : Syntax) (stx : TSyntax kind)
   let info := SourceInfo.fromRef ref (canonical := canonical)
   ⟨stx.raw.setInfo info⟩
 
+def isGreek (c : Char) : Bool :=
+  let n := c.val.toNat
+  decide (
+    (0x0370 ≤ n ∧ n ≤ 0x03ff) ∨
+    (0x1f00 ≤ n ∧ n ≤ 0x1fff))
+
+inductive IdentKind where
+  | object
+  | metavar
+  deriving BEq
+
+def classifyIdent? (id : Lean.Ident) : Option (IdentKind × String) := do
+  let Name.str .anonymous s := id.getId.eraseMacroScopes
+    | failure
+  if s.isEmpty || s.contains '.' then failure
+  let c := s.front
+  if c.isUpper then return (.object, s)
+  else if c.isLower || isGreek c then return (.metavar, s)
+  else failure
+
+def mkObjectIdentFrom (ref : Syntax) (name : String) : Lean.Ident :=
+  mkIdentFrom ref (Name.mkSimple name)
+
+def elabMetavarOnlyIdent (what : String) (expectedType : Term) (x : Lean.Ident) :
+    MacroM Term := do
+  match classifyIdent? x with
+  | some (.metavar, _) => `(($x : $expectedType))
+  | some (.object, name) =>
+      Macro.throwErrorAt x
+        s!"no Imp {what} named `{name}`; capitalized bare names are always \
+read as Imp identifiers — use a lowercase name or escape with `~` to refer to Lean name"
+  | none => Macro.throwErrorAt x "invalid bare identifier"
+
 macro_rules
   | `(aexp { $exp:imp_aexp }) => do
     let stx ← match exp with
       | `(imp_aexp| $n:num) => ``(Aexp.num $n)
       | `(imp_aexp| ~$e:term) => ``(($e : Aexp))
+      | `(imp_aexp| $x:ident) =>
+          match classifyIdent? x with
+          | some (.object, name) =>
+              let nameLit : Term := ⟨Syntax.mkStrLit name⟩
+              ``(Aexp.id $nameLit)
+          | some (.metavar, _) => ``(($x : Aexp))
+          | none => Macro.throwErrorAt x "invalid bare identifier"
       | `(imp_aexp| $a + $b) => ``(Aexp.plus (aexp {$a}) (aexp {$b}))
       | `(imp_aexp| $a - $b) => ``(Aexp.minus (aexp {$a}) (aexp {$b}))
       | `(imp_aexp| $a * $b) => ``(Aexp.mult (aexp {$a}) (aexp {$b}))
       | `(imp_aexp| ($a)) => ``(aexp {$a})
       | _ => Lean.Macro.throwUnsupported
     return withSourceInfoOf exp stx
-
-elab_rules : term
-  | `(aexp { $x:ident }) => do
-    let some e ← resolveId? x (withInfo := true)
-      | throwErrorAt x "unknown identifier `{x.getId.eraseMacroScopes}`"
-    let type ← whnf (← inferType e)
-    tryPostponeIfMVar type
-    match_expr type with
-    | Aexp => pure e
-    | String => mkAppM ``Aexp.id #[e]
-    | _ => throwErrorAt x "expected an Imp identifier or arithmetic expression"
 
 end Imp.Elab
 
@@ -241,7 +275,7 @@ macro_rules
     let stx ← match exp with
       | `(imp_bexp| true) => ``(Bexp.bool true)
       | `(imp_bexp| false) => ``(Bexp.bool false)
-      | `(imp_bexp| $x:ident) => ``(($x : Bexp))
+      | `(imp_bexp| $x:ident) => do elabMetavarOnlyIdent "boolean" (← ``(Bexp)) x
       | `(imp_bexp| ~$e:term) => ``(($e : Bexp))
       | `(imp_bexp| $a:imp_aexp = $b:imp_aexp) => ``(Bexp.eq (aexp {$a}) (aexp {$b}))
       | `(imp_bexp| $a:imp_aexp ≠ $b:imp_aexp) => ``(Bexp.neq (aexp {$a}) (aexp {$b}))
@@ -301,6 +335,10 @@ def getAexp (stx : Term) : TSyntax `imp_aexp :=
   withSourceInfoOf (canonical := false) stx <| Unhygienic.run do
     match stx with
     | `(aexp { $e:imp_aexp }) => return e
+    | `($id:ident) =>
+        match classifyIdent? id with
+        | some (.metavar, _) => `(imp_aexp| $id:ident)
+        | _ => `(imp_aexp| ~$stx)
     | _ => `(imp_aexp| ~$stx)
 
 @[app_unexpander Aexp.num]
@@ -310,7 +348,11 @@ private def Aexp.unexpandNum : Unexpander
 
 @[app_unexpander Aexp.id]
 private def Aexp.unexpandId : Unexpander
-  | `($_ $x:ident) => `(aexp { $x:ident })
+  | `($_ $s:str) => do
+      let id := mkObjectIdentFrom s.raw s.getString
+      match classifyIdent? id with
+      | some (.object, _) => `(aexp { $id:ident })
+      | _ => throw ()
   | _ => throw ()
 
 @[app_unexpander Aexp.plus]
@@ -335,6 +377,10 @@ def getBexp (stx : Term) : TSyntax `imp_bexp :=
   withSourceInfoOf (canonical := false) stx <| Unhygienic.run do
     match stx with
     | `(bexp { $e:imp_bexp }) => return e
+    | `($id:ident) =>
+        match classifyIdent? id with
+        | some (.metavar, _) => `(imp_bexp| $id:ident)
+        | _ => `(imp_bexp| ~$stx)
     | _ => `(imp_bexp| ~$stx)
 
 /--
@@ -505,11 +551,16 @@ scoped macro_rules
   | `(imp { $s }) => do
     let stx ← match s with
       | `(imp_com| skip) => ``(Com.skip)
-      | `(imp_com| $x:ident) => ``(($x : Com))
+      | `(imp_com| $x:ident) => do elabMetavarOnlyIdent "command" (← ``(Com)) x
       | `(imp_com| $c₁ ; $c₂) =>
         ``(Com.seq (imp {$c₁}) (imp {$c₂}))
       | `(imp_com| $x:ident := $a) =>
-        ``(Com.asgn $x (aexp {$a}))
+          match classifyIdent? x with
+          | some (.object, name) =>
+              let nameLit : Term := ⟨Syntax.mkStrLit name⟩
+              ``(Com.asgn $nameLit (aexp {$a}))
+          | some (.metavar, _) => ``(Com.asgn $x (aexp {$a}))
+          | none => Macro.throwErrorAt x "invalid bare identifier"
       | `(imp_com| if ($b) {$c₁} else {$c₂}) =>
         ``(Com.cond (bexp {$b}) (imp {$c₁}) (imp {$c₂}))
       | `(imp_com| while ($b) {$c}) =>
@@ -534,6 +585,10 @@ def getImp (stx : Term) : TSyntax `imp_com :=
   withSourceInfoOf (canonical := false) stx <| Unhygienic.run do
     match stx with
     | `(imp { $e:imp_com }) => return e
+    | `($id:ident) =>
+        match classifyIdent? id with
+        | some (.metavar, _) => `(imp_com| $id:ident)
+        | _ => `(imp_com| ~$stx)
     | _ => `(imp_com| ~$stx)
 
 @[app_unexpander Com.skip]
@@ -543,6 +598,11 @@ def unexpandComSkip : Unexpander
 @[app_unexpander Com.asgn]
 def unexpandComAsgn : Unexpander
   | `($_ $x:ident $a) => `(imp { $x:ident := $(getAexp a) })
+  | `($_ $s:str $a) => do
+      let id := mkObjectIdentFrom s.raw s.getString
+      match classifyIdent? id with
+      | some (.object, _) => `(imp { $id:ident := $(getAexp a) })
+      | _ => throw ()
   | _ => throw ()
 
 @[app_unexpander Com.seq]
@@ -610,7 +670,7 @@ set_option pp.notation false in
 #check imp { X := X + 1 }
 
 --  Output:
---    Com.asgn X ((Aexp.id X).plus (Aexp.num 1)) : Com
+--    Com.asgn "X" ((Aexp.id "X").plus (Aexp.num 1)) : Com
 
 --  ### More Examples
 
@@ -619,7 +679,7 @@ set_option pp.notation false in
 --  Assignment:
 
 def plus2 : Com := imp { X := X + 2 }
-def XtimesYinZ : Com := imp { Z := X * Y }
+def multXandYinZ : Com := imp { Z := X * Y }
 
 --  Loops:
 
@@ -659,7 +719,7 @@ sf_expect_failure_in
   def Com.eval (st : State) (c : Com) : State :=
     match c with
     | imp {skip} => st
-    | imp {x := ~a} => (x →ₜ a.eval st ; st)
+    | imp {x := a} => (x →ₜ a.eval st ; st)
     | imp {c₁; c₂} =>
         let st' := eval st c₁
         eval st' c₂
@@ -680,7 +740,7 @@ sf_expect_failure_in
 --      the type TotalMap Ident Nat does not have a `.brecOn` recursor
 --    Cannot use parameter c:
 --      failed to eliminate recursive application
---        eval st (imp {~c; while (~b) {~c}})
+--        eval st (imp {c; while (b) {c}})
 --
 --
 --    failed to prove termination, possible solutions:
@@ -816,9 +876,7 @@ def delabTriple : Delab := whenPPOption getPPNotation do
   let c ← withNaryArg 4 delab
   let st ← withNaryArg 5 delab
   let st' ← withNaryArg 6 delab
-  match c with
-  | `(imp { $c:imp_com }) => ``($st =[ $c ]=> $st')
-  | c => ``($st =[ ~$c ]=> $st')
+  ``($st =[ $(getImp c) ]=> $st')
 end Delab
 end HasEval
 
@@ -869,6 +927,9 @@ example :
 --  In the above proof, using `EvalR.asgn rfl` is convenient because it
 --  computes the value of the right-hand side and can use it to determine
 --  `st'`.
+--
+--  Note the use of `~` here, since `.num x` is a Lean term that we want to
+--  splice into Imp.
 
 example {x : Nat} : ∅ =[ X := ~(.num x) ]=> {X ↦ x} := by
   apply EvalR.asgn
@@ -1084,30 +1145,30 @@ theorem plus2_spec {st : State} {n : Nat} {st' : State}
     simp [hx] at h ⊢
     lia
 
---  ### Exercise (3 stars): XtimesYinZ_spec (Optional, Manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): multXandYinZ_spec (Optional, Manually graded) ⭐⭐⭐
 
---  State and prove a specification of `XtimesYinZ`.
+--  State and prove a specification of `multXandYinZ`.
 
 /- Here is a specification in the style of `plus2_spec`: -/
-theorem XtimesYinZ_spec₁ {st : State} {nx ny : Nat} {st' : State}
-    (hx : st[X] = nx) (hy : st[Y] = ny) (heval : st =[ XtimesYinZ ]=> st') :
+theorem multXandYinZ_spec₁ {st : State} {nx ny : Nat} {st' : State}
+    (hx : st[X] = nx) (hy : st[Y] = ny) (heval : st =[ multXandYinZ ]=> st') :
     st'[Z] = nx * ny := by
-  rw [XtimesYinZ] at heval
+  rw [multXandYinZ] at heval
   inversion heval with
   | asgn n h =>
     simp_all
 
 /- Though perhaps a cleaner specification would be: -/
-theorem XtimesYinZ_spec {st : State} :
-    st =[ XtimesYinZ ]=> (Z →ₜ st[X] * st[Y] ; st) := by
-  rw [XtimesYinZ]
+theorem multXandYinZ_spec {st : State} :
+    st =[ multXandYinZ ]=> (Z →ₜ st[X] * st[Y] ; st) := by
+  rw [multXandYinZ]
   apply EvalR.asgn
   rfl
 
 /- A less informative specification would be ... -/
-theorem XtimesYinZ_spec₂ {st : State} : ∃ st', st =[ XtimesYinZ ]=> st' := by
+theorem multXandYinZ_spec₂ {st : State} : ∃ st', st =[ multXandYinZ ]=> st' := by
   exists (Z →ₜ st[X] * st[Y] ; st)
-  exact XtimesYinZ_spec
+  exact multXandYinZ_spec
 
 --  (End of exercise)
 
@@ -1149,14 +1210,14 @@ theorem loop_never_stops (st st' : State) : ¬ (st =[ loop ]=> st') := by
 def Com.no_whiles (c : Com) : Bool :=
   match c with
   | imp {skip} => true
-  | imp {x := ~a} => true
+  | imp {x := a} => true
   | imp {c₁; c₂} => no_whiles c₁ && no_whiles c₂
   | imp {if (b) {ct} else {cf}} => no_whiles ct && no_whiles cf
   | imp {while (b) {c}} => false
 
 inductive Com.NoWhilesR : Com → Prop where
   | skip : Com.NoWhilesR (imp { skip })
-  | asgn {x : Ident} {a : Aexp} : Com.NoWhilesR (imp { x := ~a })
+  | asgn {x : Ident} {a : Aexp} : Com.NoWhilesR (imp { x := a })
   | seq {c₁ c₂ : Com} (h₁ : Com.NoWhilesR c₁) (h₂ : Com.NoWhilesR c₂) :
       Com.NoWhilesR (imp { c₁; c₂ })
   | cond {b : Bexp} {c₁ c₂ : Com} (h₁ : Com.NoWhilesR c₁) (h₂ : Com.NoWhilesR c₂) :
@@ -1659,11 +1720,16 @@ scoped macro_rules
     let stx ← match s with
       | `(imp_com| skip) => ``(Com.skip)
       | `(imp_com| brk) => ``(Com.brk)
-      | `(imp_com| $x:ident) => ``(($x : Com))
+      | `(imp_com| $x:ident) => do Imp.Elab.elabMetavarOnlyIdent "command" (← ``(Com)) x
       | `(imp_com| $c₁ ; $c₂) =>
         ``(Com.seq (imp {$c₁}) (imp {$c₂}))
       | `(imp_com| $x:ident := $a) =>
-        ``(Com.asgn $x (aexp {$a}))
+          match Imp.Elab.classifyIdent? x with
+          | some (.object, name) =>
+              let nameLit : Term := ⟨Syntax.mkStrLit name⟩
+              ``(Com.asgn $nameLit (aexp {$a}))
+          | some (.metavar, _) => ``(Com.asgn $x (aexp {$a}))
+          | none => Macro.throwErrorAt x "invalid bare identifier"
       | `(imp_com| if ($b) {$c₁} else {$c₂}) =>
         ``(Com.cond (bexp {$b}) (imp {$c₁}) (imp {$c₂}))
       | `(imp_com| while ($b) {$c}) =>
@@ -1924,4 +1990,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: 8645511, committed 2026-10-01 16:12 UTC
+-- Source revision: 2d86b23, committed 2026-10-01 22:21 UTC
