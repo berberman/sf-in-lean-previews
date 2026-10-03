@@ -1232,10 +1232,11 @@
         "number": "6"},
        {"title": "Decorated Programs", "shortTitle": null, "number": "1"}]},
      "address": "/Hoare2/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence":
-   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence",
+   "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux":
+   [{"id":
+     "Hoare-Logic--Equiv___-Program-Equivalence--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux",
      "data":
-     {"title": "Proving Inequivalence",
+     {"title": "Soundness of (0 + n) Elimination, Redux",
       "shortTitle": null,
       "sectionNum": "4.4.",
       "searchPriority": 50,
@@ -1244,11 +1245,27 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Proving Inequivalence", "shortTitle": null, "number": "4"}]},
+       {"title": "Soundness of (0 + n) Elimination, Redux",
+        "shortTitle": null,
+        "number": "4"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence":
+   [{"id": "Hoare-Logic--Equiv___-Program-Equivalence--Proving-Inequivalence",
+     "data":
+     {"title": "Proving Inequivalence",
+      "shortTitle": null,
+      "sectionNum": "4.5.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
+       {"title": "Equiv: Program Equivalence",
+        "shortTitle": null,
+        "number": "4"},
+       {"title": "Proving Inequivalence", "shortTitle": null, "number": "5"}]},
+     "address": "/Equiv/"}],
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-an-Equivalence",
      "data":
      {"title": "Behavioral Equivalence is an Equivalence",
       "shortTitle": null,
@@ -1259,16 +1276,16 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavioral Equivalence",
+       {"title": "Properties of Behavior Equivalence",
         "shortTitle": null,
         "number": "2"},
        {"title": "Behavioral Equivalence is an Equivalence",
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-a-Congruence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence--Behavioral-Equivalence-is-a-Congruence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence--Behavioral-Equivalence-is-a-Congruence",
      "data":
      {"title": "Behavioral Equivalence is a Congruence",
       "shortTitle": null,
@@ -1279,18 +1296,18 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavioral Equivalence",
+       {"title": "Properties of Behavior Equivalence",
         "shortTitle": null,
         "number": "2"},
        {"title": "Behavioral Equivalence is a Congruence",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence":
+   "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence":
    [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavioral-Equivalence",
+     "Hoare-Logic--Equiv___-Program-Equivalence--Properties-of-Behavior-Equivalence",
      "data":
-     {"title": "Properties of Behavioral Equivalence",
+     {"title": "Properties of Behavior Equivalence",
       "shortTitle": null,
       "sectionNum": "4.2.",
       "searchPriority": 50,
@@ -1299,7 +1316,7 @@
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Properties of Behavioral Equivalence",
+       {"title": "Properties of Behavior Equivalence",
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Equiv/"}],
@@ -1320,24 +1337,6 @@
        {"title": "The Constant-Folding Transformation",
         "shortTitle": null,
         "number": "1"}]},
-     "address": "/Equiv/"}],
-   "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux":
-   [{"id":
-     "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-_LPAR_0-___-n_RPAR_-Elimination___-Redux",
-     "data":
-     {"title": "Soundness of (0 + n) Elimination, Redux",
-      "shortTitle": null,
-      "sectionNum": "4.3.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Equiv: Program Equivalence",
-        "shortTitle": null,
-        "number": "4"},
-       {"title": "Program Transformation", "shortTitle": null, "number": "3"},
-       {"title": "Soundness of (0 + n) Elimination, Redux",
-        "shortTitle": null,
-        "number": "3"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Program-Transformation--Soundness-of-Constant-Folding":
    [{"id":
@@ -1377,7 +1376,7 @@
      "data":
      {"title": "Extended Exercise: Nondeterministic Imp",
       "shortTitle": null,
-      "sectionNum": "4.5.",
+      "sectionNum": "4.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -1386,7 +1385,7 @@
         "number": "4"},
        {"title": "Extended Exercise: Nondeterministic Imp",
         "shortTitle": null,
-        "number": "5"}]},
+        "number": "6"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic--Equiv___-Program-Equivalence--Behavioral-Equivalence--Simple-Examples":
    [{"id":
@@ -1439,14 +1438,14 @@
      "data":
      {"title": "Additional Exercises",
       "shortTitle": null,
-      "sectionNum": "4.6.",
+      "sectionNum": "4.7.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
        {"title": "Equiv: Program Equivalence",
         "shortTitle": null,
         "number": "4"},
-       {"title": "Additional Exercises", "shortTitle": null, "number": "6"}]},
+       {"title": "Additional Exercises", "shortTitle": null, "number": "7"}]},
      "address": "/Equiv/"}],
    "Hoare-Logic":
    [{"id": "Hoare-Logic",
@@ -1768,6 +1767,16 @@
         "Finding Loop Invariants",
         "Example: Parity"]}},
      "address": "/Hoare2/"}],
+   "optimizer_sound":
+   [{"id": "optimizer_sound",
+     "data":
+     {"/Equiv/#optimizer_sound":
+      {"display": "optimizer_sound",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Soundness of (0 + n) Elimination, Redux"]}},
+     "address": "/Equiv/"}],
    "optimizer":
    [{"id": "optimizer",
      "data":
@@ -1776,7 +1785,6 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
    "one_le_pow2":
@@ -1790,17 +1798,6 @@
         "Finding Loop Invariants",
         "Exercise: Power Series"]}},
      "address": "/Hoare2/"}],
-   "multXandYinZ":
-   [{"id": "multXandYinZ",
-     "data":
-     {"/Imp/#multXandYinZ":
-      {"display": "multXandYinZ",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Commands",
-        "More Examples"]}},
-     "address": "/Imp/"}],
    "loop_false":
    [{"id": "loop_false",
      "data":
@@ -2460,6 +2457,17 @@
         "Imp: Simple Imperative Programs",
         "Expressions With Variables",
         "Syntax"]}},
+     "address": "/Imp/"}],
+   "XtimesYinZ":
+   [{"id": "XtimesYinZ",
+     "data":
+     {"/Imp/#XtimesYinZ":
+      {"display": "XtimesYinZ",
+       "context":
+       ["Hoare Logic",
+        "Imp: Simple Imperative Programs",
+        "Commands",
+        "More Examples"]}},
      "address": "/Imp/"}],
    "X":
    [{"id": "X",
@@ -3511,83 +3519,6 @@
      "data":
      {"/Imp/#Imp___Elab___withSourceInfoOf":
       {"display": "withSourceInfoOf",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "Imp.Elab.mkObjectIdentFrom":
-   [{"id": "Imp___Elab___mkObjectIdentFrom",
-     "data":
-     {"/Imp/#Imp___Elab___mkObjectIdentFrom":
-      {"display": "mkObjectIdentFrom",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "Imp.Elab.isGreek":
-   [{"id": "Imp___Elab___isGreek",
-     "data":
-     {"/Imp/#Imp___Elab___isGreek":
-      {"display": "isGreek",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "Imp.Elab.elabMetavarOnlyIdent":
-   [{"id": "Imp___Elab___elabMetavarOnlyIdent",
-     "data":
-     {"/Imp/#Imp___Elab___elabMetavarOnlyIdent":
-      {"display": "elabMetavarOnlyIdent",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "Imp.Elab.classifyIdent?":
-   [{"id": "Imp___Elab___classifyIdent___",
-     "data":
-     {"/Imp/#Imp___Elab___classifyIdent___":
-      {"display": "classifyIdent?",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "Imp.Elab.IdentKind.object":
-   [{"id": "Imp___Elab___IdentKind___object",
-     "data":
-     {"/Imp/#Imp___Elab___IdentKind___object":
-      {"display": "object",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "Imp.Elab.IdentKind.metavar":
-   [{"id": "Imp___Elab___IdentKind___metavar",
-     "data":
-     {"/Imp/#Imp___Elab___IdentKind___metavar":
-      {"display": "metavar",
-       "context":
-       ["Hoare Logic",
-        "Imp: Simple Imperative Programs",
-        "Expressions With Variables",
-        "Notations"]}},
-     "address": "/Imp/"}],
-   "Imp.Elab.IdentKind":
-   [{"id": "Imp___Elab___IdentKind",
-     "data":
-     {"/Imp/#Imp___Elab___IdentKind":
-      {"display": "IdentKind",
        "context":
        ["Hoare Logic",
         "Imp: Simple Imperative Programs",
@@ -5612,7 +5543,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_symm":
@@ -5623,7 +5554,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_refl":
@@ -5634,7 +5565,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_notation":
@@ -5656,7 +5587,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Com.equiv_def":
@@ -5678,7 +5609,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is a Congruence"]}},
      "address": "/Equiv/"}],
    "Com.cond":
@@ -6030,7 +5961,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_symm":
@@ -6041,7 +5972,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_refl":
@@ -6052,7 +5983,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Bexp.equiv_notation":
@@ -6499,7 +6430,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_symm":
@@ -6510,7 +6441,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_refl":
@@ -6521,7 +6452,7 @@
        "context":
        ["Hoare Logic",
         "Equiv: Program Equivalence",
-        "Properties of Behavioral Equivalence",
+        "Properties of Behavior Equivalence",
         "Behavioral Equivalence is an Equivalence"]}},
      "address": "/Equiv/"}],
    "Aexp.equiv_notation":
