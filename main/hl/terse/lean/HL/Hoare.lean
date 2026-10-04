@@ -1478,4 +1478,4 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 --  the rules of Hoare logic as a closed world for reasoning
 --  about programs.
 
--- Source revision: c399212, committed 2026-09-28 22:57 UTC
+-- Source revision: 2d86b23, committed 2026-10-01 22:21 UTC
