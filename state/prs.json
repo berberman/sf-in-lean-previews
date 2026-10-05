@@ -105,8 +105,18 @@
       "title": "LF/Basics: unhide code block inside details block",
       "url": "https://github.com/plclub/sf-in-lean/pull/429"
     },
-    "430": {
+    "431": {
       "base_sha": "2d86b23da7abe8ce5611c70cd3261e11b3a820db",
+      "changed_variants": [],
+      "head_sha": "352e90caa46625ae549f761a4cae6bd3d2808eac",
+      "preview_path": "pr/431/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37367732007",
+      "status": "ci-failed",
+      "title": "Slang: Proofreading",
+      "url": "https://github.com/plclub/sf-in-lean/pull/431"
+    },
+    "432": {
+      "base_sha": "00e1228c2376d8c28875134eeb5ce30fcf435e0d",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -145,22 +155,12 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "9abeddcdef2105c0aec6a4e4d32bb0f380fe521f",
-      "preview_path": "pr/430/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37350525047",
+      "head_sha": "11e99086f4abede9dc7f3928b1c52f0dacde98b8",
+      "preview_path": "pr/432/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37380078317",
       "status": "published",
-      "title": "Typeclasses: proofreading, fixed reflection part",
-      "url": "https://github.com/plclub/sf-in-lean/pull/430"
-    },
-    "431": {
-      "base_sha": "2d86b23da7abe8ce5611c70cd3261e11b3a820db",
-      "changed_variants": [],
-      "head_sha": "352e90caa46625ae549f761a4cae6bd3d2808eac",
-      "preview_path": "pr/431/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37367732007",
-      "status": "ci-failed",
-      "title": "Slang: Proofreading",
-      "url": "https://github.com/plclub/sf-in-lean/pull/431"
+      "title": "Typeclasses: More work",
+      "url": "https://github.com/plclub/sf-in-lean/pull/432"
     }
   },
   "schema": 3
