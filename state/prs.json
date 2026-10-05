@@ -107,21 +107,58 @@
     },
     "430": {
       "base_sha": "2d86b23da7abe8ce5611c70cd3261e11b3a820db",
-      "changed_variants": [],
-      "head_sha": "e9d2e95c948e73f767361e2a2b4dc88deaecce69",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "908755c2715c2cb6a54de647d0ed67bd1e393c80",
       "preview_path": "pr/430/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37251103859",
-      "status": "ci-failed",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37313319621",
+      "status": "published",
       "title": "Typeclasses: proofreading, fixed reflection part",
       "url": "https://github.com/plclub/sf-in-lean/pull/430"
     },
     "431": {
       "base_sha": "2d86b23da7abe8ce5611c70cd3261e11b3a820db",
       "changed_variants": [],
-      "head_sha": "009fbf024a384641af59be259ccf83b53e322ab6",
+      "head_sha": "8e59a8b23782d1224d81c917f44173c81deea8ad",
       "preview_path": "pr/431/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37310957676",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Slang: Proofreading",
       "url": "https://github.com/plclub/sf-in-lean/pull/431"
     }
