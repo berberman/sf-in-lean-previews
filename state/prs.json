@@ -154,48 +154,11 @@
     },
     "431": {
       "base_sha": "2d86b23da7abe8ce5611c70cd3261e11b3a820db",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "8e59a8b23782d1224d81c917f44173c81deea8ad",
+      "changed_variants": [],
+      "head_sha": "352e90caa46625ae549f761a4cae6bd3d2808eac",
       "preview_path": "pr/431/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37315425164",
-      "status": "published",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37367732007",
+      "status": "ci-failed",
       "title": "Slang: Proofreading",
       "url": "https://github.com/plclub/sf-in-lean/pull/431"
     }
