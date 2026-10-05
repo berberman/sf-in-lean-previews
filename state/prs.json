@@ -157,8 +157,8 @@
       "changed_variants": [],
       "head_sha": "352e90caa46625ae549f761a4cae6bd3d2808eac",
       "preview_path": "pr/431/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37367732007",
+      "status": "ci-failed",
       "title": "Slang: Proofreading",
       "url": "https://github.com/plclub/sf-in-lean/pull/431"
     }
