@@ -268,4 +268,4 @@ theorem Nat.even_zero : even 0 = true := by rfl
 theorem Nat.double_zero : double 0 = 0 := by rfl
 theorem Nat.double_succ (n : Nat) : (n + 1).double = n.double + 2 := by rfl
 
--- Source revision: e4cd991, committed 2026-10-05 14:56 UTC
+-- Source revision: c3622d3, committed 2026-10-05 17:43 UTC
