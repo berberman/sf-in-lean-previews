@@ -114,6 +114,16 @@
       "status": "ci-failed",
       "title": "Typeclasses: proofreading, fixed reflection part",
       "url": "https://github.com/plclub/sf-in-lean/pull/430"
+    },
+    "431": {
+      "base_sha": "2d86b23da7abe8ce5611c70cd3261e11b3a820db",
+      "changed_variants": [],
+      "head_sha": "009fbf024a384641af59be259ccf83b53e322ab6",
+      "preview_path": "pr/431/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37310957676",
+      "status": "ci-failed",
+      "title": "Slang: Proofreading",
+      "url": "https://github.com/plclub/sf-in-lean/pull/431"
     }
   },
   "schema": 3
