@@ -96,14 +96,24 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/427"
     },
     "429": {
-      "base_sha": "864551150e387cabae5e888e9c6257e40dde01d4",
+      "base_sha": "2d86b23da7abe8ce5611c70cd3261e11b3a820db",
       "changed_variants": [],
-      "head_sha": "19479060d66f5dbda6818d71a84a1cfa772dc8f0",
+      "head_sha": "9cff0b21eb3f846ff0ce16e71365f1c820834941",
       "preview_path": "pr/429/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36932370844",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37251164322",
       "status": "ci-failed",
       "title": "LF/Basics: unhide code block inside details block",
       "url": "https://github.com/plclub/sf-in-lean/pull/429"
+    },
+    "430": {
+      "base_sha": "2d86b23da7abe8ce5611c70cd3261e11b3a820db",
+      "changed_variants": [],
+      "head_sha": "e9d2e95c948e73f767361e2a2b4dc88deaecce69",
+      "preview_path": "pr/430/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37251103859",
+      "status": "ci-failed",
+      "title": "Typeclasses: proofreading, fixed reflection part",
+      "url": "https://github.com/plclub/sf-in-lean/pull/430"
     }
   },
   "schema": 3
