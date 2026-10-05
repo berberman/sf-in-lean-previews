@@ -552,4 +552,4 @@ theorem subst_inequiv : ¬ SubstEquivProperty := by
   rw [TotalMap.update_eq, TotalMap.update_eq] at contra
   contradiction
 
--- Source revision: c04bea0, committed 2026-10-05 12:58 UTC
+-- Source revision: e4cd991, committed 2026-10-05 14:56 UTC

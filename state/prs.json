@@ -145,9 +145,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "908755c2715c2cb6a54de647d0ed67bd1e393c80",
+      "head_sha": "01c262b00b96bb4224ba0ae58d40ef22664b1793",
       "preview_path": "pr/430/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37313319621",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37328836937",
       "status": "published",
       "title": "Typeclasses: proofreading, fixed reflection part",
       "url": "https://github.com/plclub/sf-in-lean/pull/430"

@@ -1150,86 +1150,97 @@
  "<code>NatPlayground.Airport.Traveler.checkedIn (bagContent : BagContent) (screeningStatus : ScreeningStatus) : Traveler</code>",
  "286":
  "<code>NatPlayground.Airport.Traveler.ticketed (bagContent : BagContent) : Traveler</code>",
+ "2856":
+ "<code>Classical.propDecidable (a : Prop) : Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">All propositions are `Decidable`. </code>",
+ "2855":
+ "<code>ite.{u} {α : Sort u} (c : Prop) [h : Decidable c] (t e : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
+ "2854": "<code>Reflection.eq {α : Type} (x y : α) : Bool</code>",
+ "2853":
+ "<code>decide_eq_false_iff_not {p : Prop} {x✝ : Decidable p} : decide p = false ↔ ¬p</code>",
+ "2852":
+ "<code>decide_eq_true_iff {p : Prop} [Decidable p] : decide p = true ↔ p</code>",
+ "2851": "<code>¬b = true</code>",
+ "2850": "<code>b = true ↔ p</code>",
  "285": "<code>BagContent</code>",
  "2849":
- "<code>List.filter.{u} {α : Type u} (p : α → Bool) (l : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Returns the list of elements in `l` for which `p` returns `true`.\n\n`O(|l|)`.\n\nExamples:\n* `[1, 2, 5, 2, 7, 7].filter (· &gt; 2) = [5, 7, 7]`\n* `[1, 2, 5, 2, 7, 7].filter (fun _ =&gt; false) = []`\n* `[1, 2, 5, 2, 7, 7].filter (fun _ =&gt; true) = [1, 2, 5, 2, 7, 7]`\n</code>",
- "2848": "<code>List.filter (fun x_1 =&gt; x == x_1) xs ≠ []</code>",
- "2847":
- "<code>decide_eq_true_iff {p : Prop} [Decidable p] : decide p = true ↔ p</code>",
- "2846": "<code>Decidable p</code>",
- "2845":
- "<code>decide_eq_false_iff_not {p : Prop} {x✝ : Decidable p} : decide p = false ↔ ¬p</code>",
- "2844":
- "<code>Decidable.isFalse {p : Prop} (h : ¬p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `¬p` </code>",
- "2843":
- "<code>Decidable.isTrue {p : Prop} (h : p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `p` </code>",
- "2842": "<code>¬b = true</code>",
- "2841": "<code>b = true ↔ p</code>",
- "2840":
  "<code>decidable_of_bool {a : Prop} (b : Bool) : (b = true ↔ a) → Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">Prove that `a` is decidable by constructing a boolean `b` and a proof that `b ↔ a`.\n(This is sometimes taken as an alternate definition of decidability.) </code>",
+ "2848":
+ "<code>decidable_of_decidable_of_iff {p q : Prop} [Decidable p] (h : p ↔ q) : Decidable q</code><span class=\"sep\"></span><code class=\"docstring\">Transfer a decidability proof across an equivalence of propositions. </code>",
+ "2847":
+ "<code>Reflection.even_iff_Even {n : Nat} : Reflection.even n = true ↔ Reflection.Even n</code>",
+ "2846":
+ "<code>Even n → even n = true</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if, reversed. If `a ↔ b` and `b`, then `a`. </code>",
+ "2845": "<code>even (double k) = true</code>",
+ "2844": "<code>n = double k</code>",
+ "2843":
+ "<code>even n = true → Even n</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if. If `a ↔ b` and `a`, then `b`. </code>",
+ "2842":
+ "<code>Reflection.even_iff_Even {n : Nat} : even n = true ↔ Even n</code>",
+ "2841":
+ "<code>even (bif false then double k else double k + 1) = false</code>",
+ "2840": "<code>n = bif false then double k else double k + 1</code>",
  "284":
  "<code>NatPlayground.Airport.Traveler.noTicket (bagContent : BagContent) : Traveler</code>",
- "2839":
- "<code>Classical.propDecidable (a : Prop) : Decidable a</code><span class=\"sep\"></span><code class=\"docstring\">All propositions are `Decidable`. </code>",
- "2838": "<code>instDecidableEqNat : DecidableEq.{1} Nat</code>",
- "2837":
- "<code>ite.{u} {α : Sort u} (c : Prop) [h : Decidable c] (t e : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
- "2836": "<code>instDecidableEqNat : DecidableEq Nat</code>",
- "2835": "<code>Reflection.nat_eq (m n : Nat) : Bool</code>",
- "2834":
- "<code>decidable_of_decidable_of_iff {p q : Prop} [Decidable p] (h : p ↔ q) : Decidable q</code><span class=\"sep\"></span><code class=\"docstring\">Transfer a decidability proof across an equivalence of propositions. </code>",
- "2833":
- "<code>_root_.Decidable.isTrue {p : Prop} (h : p) : _root_.Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `p` </code>",
- "2832":
- "<code>_root_.Decidable (p : Prop) : Type</code><span class=\"sep\"></span><code class=\"docstring\">Either a proof that `p` is true or a proof that `p` is false. This is equivalent to a `Bool` paired\nwith a proof that the `Bool` is `true` if and only if `p` is true.\n\n`Decidable` instances are primarily used via `if`-expressions and the tactic `decide`. In\nconditional expressions, the `Decidable` instance for the proposition is used to select a branch. At\nrun time, this case distinction code is identical to that which would be generated for a\n`Bool`-based conditional. In proofs, the tactic `decide` synthesizes an instance of `Decidable p`,\nattempts to reduce it to `isTrue h`, and then succeeds with the proof `h` if it can.\n\nBecause `Decidable` carries data, when writing `@[simp]` lemmas which include a `Decidable` instance\non the LHS, it is best to use `{_ : Decidable p}` rather than `[Decidable p]` so that non-canonical\ninstances can be found via unification rather than instance synthesis.\n</code>",
- "2831": "<code>¬p</code>",
- "2830":
- "<code>_root_.Decidable.isFalse {p : Prop} (h : ¬p) : _root_.Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `¬p` </code>",
+ "2839": "<code>even n = false</code>",
+ "2838": "<code>Bool.not_eq_true (b : Bool) : (¬b = true) = (b = false)</code>",
+ "2837": "<code>even (bif true then double k else double k + 1) = true</code>",
+ "2836": "<code>n = bif true then double k else double k + 1</code>",
+ "2835": "<code>¬even n = true</code>",
+ "2834": "<code>even n = true</code>",
+ "2833": "<code>n = bif even n then double k else double k + 1</code>",
+ "2832": "<code>∃ k, n = bif even n then double k else double k + 1</code>",
+ "2831":
+ "<code>Reflection.even_double_exists (n : Nat) : ∃ k, n = bif even n then double k else double k + 1</code>",
+ "2830": "<code>even (double n) = true</code>",
  "283": "<code>NatPlayground.Airport.Traveler : Type</code>",
  "2829":
- "<code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
- "2828": "<code>Reflection.eq {α : Type} (x y : α) : Bool</code>",
+ "<code>Reflection.even_double (k : Nat) : even (double k) = true</code>",
+ "2828": "<code>Reflection.Even (x : Nat) : Prop</code>",
  "2827":
- "<code>beq_iff_eq.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {a b : α} : (a == b) = true ↔ a = b</code>",
- "2826":
- "<code>Reflection.even_iff_Even {n : Nat} : Reflection.even n = true ↔ Reflection.Even n</code>",
- "2825":
- "<code>Even n → even n = true</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if, reversed. If `a ↔ b` and `b`, then `a`. </code>",
- "2824": "<code>even (double k) = true</code>",
- "2823": "<code>n = double k</code>",
- "2822":
- "<code>even n = true → Even n</code><span class=\"sep\"></span><code class=\"docstring\">Modus ponens for if and only if. If `a ↔ b` and `a`, then `b`. </code>",
- "2821":
- "<code>Reflection.even_iff_Even {n : Nat} : even n = true ↔ Even n</code>",
+ "<code>Reflection.double_succ (n : Nat) : double (n + 1) = double n + 2</code>",
+ "2826": "<code>Reflection.double_zero : double 0 = 0</code>",
+ "2825": "<code>Reflection.double (n : Nat) : Nat</code>",
+ "2824": "<code>even (n' + 1) = !even n'</code>",
+ "2823": "<code>Reflection.even_succ (n : Nat) : even (n + 1) = !even n</code>",
+ "2822": "<code>Reflection.even_zero : even 0 = true</code>",
+ "2821": "<code>Reflection.even (n : Nat) : Bool</code>",
  "2820":
- "<code>even (bif false then double k else double k + 1) = false</code>",
+ "<code>LawfulBEq.eq_of_beq.{u} {α : Type u} {inst✝ : BEq α} [self : LawfulBEq α] {a b : α} : (a == b) = true → a = b</code><span class=\"sep\"></span><code class=\"docstring\">If `a == b` evaluates to `true`, then `a` and `b` are equal in the logic. </code>",
  "282":
  "<code>NatPlayground.Airport.ScreeningStatus.blocked : ScreeningStatus</code>",
- "2819": "<code>n = bif false then double k else double k + 1</code>",
- "2818": "<code>even n = false</code>",
- "2817": "<code>Bool.not_eq_true (b : Bool) : (¬b = true) = (b = false)</code>",
- "2816": "<code>even (bif true then double k else double k + 1) = true</code>",
- "2815": "<code>n = bif true then double k else double k + 1</code>",
- "2814": "<code>¬even n = true</code>",
- "2813": "<code>even n = true</code>",
- "2812": "<code>n = bif even n then double k else double k + 1</code>",
- "2811": "<code>∃ k, n = bif even n then double k else double k + 1</code>",
- "2810":
- "<code>Reflection.even_double_exists (n : Nat) : ∃ k, n = bif even n then double k else double k + 1</code>",
+ "2819":
+ "<code>List.mem_filter.{u_1} {α✝ : Type u_1} {p : α✝ → Bool} {as : List α✝} {x : α✝} :\n  x ∈ List.filter p as ↔ x ∈ as ∧ p x = true</code>",
+ "2818": "<code>(x == y) = true</code>",
+ "2817": "<code>y ∈ List.filter (fun x_1 =&gt; x == x_1) xs</code>",
+ "2816":
+ "<code>absurd.{v} {a : Prop} {b : Sort v} (h₁ : a) (h₂ : ¬a) : b</code><span class=\"sep\"></span><code class=\"docstring\">Anything follows from two contradictory hypotheses. Example:\n```\nexample (hp : p) (hnp : ¬p) : q := absurd hp hnp\n```\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
+ "2815": "<code>List.filter (fun x_1 =&gt; x == x_1) xs = y :: ys</code>",
+ "2814": "<code>List.filter (fun x_1 =&gt; x == x_1) xs = []</code>",
+ "2813":
+ "<code>List.filter.{u} {α : Type u} (p : α → Bool) (l : List α) : List α</code><span class=\"sep\"></span><code class=\"docstring\">Returns the list of elements in `l` for which `p` returns `true`.\n\n`O(|l|)`.\n\nExamples:\n* `[1, 2, 5, 2, 7, 7].filter (· &gt; 2) = [5, 7, 7]`\n* `[1, 2, 5, 2, 7, 7].filter (fun _ =&gt; false) = []`\n* `[1, 2, 5, 2, 7, 7].filter (fun _ =&gt; true) = [1, 2, 5, 2, 7, 7]`\n</code>",
+ "2812": "<code>List.filter (fun x_1 =&gt; x == x_1) xs ≠ []</code>",
+ "2811":
+ "<code>beq_iff_eq.{u_1} {α : Type u_1} [BEq α] [LawfulBEq α] {a b : α} : (a == b) = true ↔ a = b</code>",
+ "2810": "<code>nat_eq (m n : Nat) : Bool</code>",
  "281":
  "<code>NatPlayground.Airport.ScreeningStatus.cleared : ScreeningStatus</code>",
- "2809": "<code>even (double n) = true</code>",
+ "2809":
+ "<code class=\"docstring\">`if c then t else e` is notation for `ite c t e`, \"if-then-else\", which decides to\nreturn `t` or `e` depending on whether `c` is true or false. The explicit argument\n`c : Prop` does not have any actual computational content, but there is an additional\n`[Decidable c]` argument synthesized by typeclass inference which actually\ndetermines how to evaluate `c` to true or false. Write `if h : c then t else e`\ninstead for a \"dependent if-then-else\" `dite`, which allows `t`/`e` to use the fact\nthat `c` is true/false.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `if c then t else e` in identifiers is `ite` (use `left` for `t` and `right` for `e`).</code>",
  "2808":
- "<code>Reflection.even_double (k : Nat) : even (double k) = true</code>",
- "2807": "<code>Reflection.Even (x : Nat) : Prop</code>",
+ "<code>cond.{u} {α : Sort u} (c : Bool) (x y : α) : α</code><span class=\"sep\"></span><code class=\"docstring\">The conditional function.\n\n`cond c x y` is the same as `if c then x else y`, but optimized for a Boolean condition rather than\na decidable proposition. It can also be written using the notation `bif c then x else y`.\n\nJust like `ite`, `cond` is declared `@[macro_inline]`, which causes applications of `cond` to be\nunfolded. As a result, `x` and `y` are not evaluated at runtime until one of them is selected, and\nonly the selected branch is evaluated.\n</code>",
+ "2807": "<code>eq {α : Type} (x y : α) : Bool</code>",
  "2806":
- "<code>Reflection.double_succ (n : Nat) : double (n + 1) = double n + 2</code>",
- "2805": "<code>Reflection.double_zero : double 0 = 0</code>",
- "2804": "<code>Reflection.double (n : Nat) : Nat</code>",
- "2803": "<code>even (n' + 1) = !even n'</code>",
- "2802": "<code>Reflection.even_succ (n : Nat) : even (n + 1) = !even n</code>",
- "2801": "<code>Reflection.even_zero : even 0 = true</code>",
- "2800": "<code>Reflection.even (n : Nat) : Bool</code>",
+ "<code>Decidable.isFalse {p : Prop} (h : ¬p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `¬p` </code>",
+ "2805":
+ "<code>Decidable.isTrue {p : Prop} (h : p) : Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `p` </code>",
+ "2804":
+ "<code>_root_.Decidable.isTrue {p : Prop} (h : p) : _root_.Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `p` </code>",
+ "2803":
+ "<code>_root_.Decidable (p : Prop) : Type</code><span class=\"sep\"></span><code class=\"docstring\">Either a proof that `p` is true or a proof that `p` is false. This is equivalent to a `Bool` paired\nwith a proof that the `Bool` is `true` if and only if `p` is true.\n\n`Decidable` instances are primarily used via `if`-expressions and the tactic `decide`. In\nconditional expressions, the `Decidable` instance for the proposition is used to select a branch. At\nrun time, this case distinction code is identical to that which would be generated for a\n`Bool`-based conditional. In proofs, the tactic `decide` synthesizes an instance of `Decidable p`,\nattempts to reduce it to `isTrue h`, and then succeeds with the proof `h` if it can.\n\nBecause `Decidable` carries data, when writing `@[simp]` lemmas which include a `Decidable` instance\non the LHS, it is best to use `{_ : Decidable p}` rather than `[Decidable p]` so that non-canonical\ninstances can be found via unification rather than instance synthesis.\n</code>",
+ "2802": "<code>¬p</code>",
+ "2801":
+ "<code>_root_.Decidable.isFalse {p : Prop} (h : ¬p) : _root_.Decidable p</code><span class=\"sep\"></span><code class=\"docstring\">Proves that `p` is decidable by supplying a proof of `¬p` </code>",
+ "2800": "<code>instDecidableEqNat : DecidableEq Nat</code>",
  "280":
  "<code>NatPlayground.Airport.ScreeningStatus.notScreened : ScreeningStatus</code>",
  "28": "<code>Day.saturday : Day</code>",

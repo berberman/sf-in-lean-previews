@@ -238,18 +238,6 @@
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Using Typeclasses", "shortTitle": null, "number": "3"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--TODO":
-   [{"id": "Logical-Foundations--Typeclasses--TODO",
-     "data":
-     {"title": "TODO",
-      "shortTitle": null,
-      "sectionNum": "11.8.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "TODO", "shortTitle": null, "number": "8"}]},
-     "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses",
      "data":
@@ -4290,6 +4278,14 @@
         "Data and Functions",
         "Days of the Week (Enumerated Types)"]}},
      "address": "/Basics/"}],
+   "nat_eq":
+   [{"id": "nat_eq",
+     "data":
+     {"/Typeclasses/#nat_eq":
+      {"display": "nat_eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
    "myNil'":
    [{"id": "myNil___",
      "data":
@@ -5046,6 +5042,29 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
+   "eq":
+   [{"id": "eq-next",
+     "data":
+     {"/Typeclasses/#eq-next":
+      {"display": "eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]},
+      "/Typeclasses/#eq":
+      {"display": "eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"},
+    {"id": "eq",
+     "data":
+     {"/Typeclasses/#eq-next":
+      {"display": "eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]},
+      "/Typeclasses/#eq":
+      {"display": "eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
    "empty_relation_is_empty":
    [{"id": "empty_relation_is_empty",
      "data":
@@ -6780,14 +6799,6 @@
         "Case Study: Regular Expressions",
         "Definitions"]}},
      "address": "/Automation/"}],
-   "Reflection.nat_eq":
-   [{"id": "Reflection___nat_eq",
-     "data":
-     {"/Typeclasses/#Reflection___nat_eq":
-      {"display": "nat_eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
-     "address": "/Typeclasses/"}],
    "Reflection.even_zero":
    [{"id": "Reflection___even_zero",
      "data":
@@ -6839,22 +6850,7 @@
    "Reflection.eq":
    [{"id": "Reflection___eq",
      "data":
-     {"/Typeclasses/#Reflection___eq-next":
-      {"display": "eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]},
-      "/Typeclasses/#Reflection___eq":
-      {"display": "eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
-     "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
-     "data":
-     {"/Typeclasses/#Reflection___eq-next":
-      {"display": "eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]},
-      "/Typeclasses/#Reflection___eq":
+     {"/Typeclasses/#Reflection___eq":
       {"display": "eq",
        "context":
        ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
