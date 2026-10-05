@@ -29,10 +29,10 @@ def List.elemNat (n : Nat) (ms : List Nat) : Bool :=
   | [] => false
   | m :: ms' => bif n == m then true else elemNat n ms'
 
-theorem List.elem_nat_nil (n : Nat) : [].elemNat n = false := rfl
+theorem List.elem_nat_nil (n : Nat) : [].elemNat n = false := by rfl
 
 theorem List.elem_nat_cons (n m : Nat) (ms : List Nat) :
-    (m :: ms).elemNat n = bif n == m then true else elemNat n ms := rfl
+    (m :: ms).elemNat n = bif n == m then true else elemNat n ms := by rfl
 
 #eval [0, 1].elemNat 0
 #eval [0, 1].elemNat 1
@@ -93,10 +93,10 @@ def List.elemPoly {α : Type} [BEq α] (x : α) (ys : List α) : Bool :=
   | [] => false
   | y :: ys' => bif x == y then true else elemPoly x ys'
 
-theorem List.elemPoly_nil {α : Type} [BEq α] (x : α) : [].elemPoly x = false := rfl
+theorem List.elemPoly_nil {α : Type} [BEq α] (x : α) : [].elemPoly x = false := by rfl
 
 theorem List.elemPoly_cons {α : Type} [BEq α] (x y : α) (ys : List α) :
-    (y :: ys).elemPoly x = bif x == y then true else elemPoly x ys := rfl
+    (y :: ys).elemPoly x = bif x == y then true else elemPoly x ys := by rfl
 
 #eval [0, 1].elemPoly 0
 
@@ -106,7 +106,7 @@ theorem List.elemPoly_cons {α : Type} [BEq α] (x y : α) (ys : List α) :
 --  specifies an instance implicit `[BEq α]`. The instance
 --  implicit indicates that an instance of `BEq` must be
 --  provided at call sites for the particular type `α` that
---  is used. Second, whereas `List.elemPolyEq` invokes
+--  is used. Second, whereas `List.elemPolyEq` invokes the
 --  parameter `eq` to test equality, `List.elemPoly` uses
 --  `==` instead. As Lists noted when we first used it, `==`
 --  on `Nat` comes from the `BEq` typeclass. Finally,
@@ -191,13 +191,26 @@ structure DefaultValue (α : Type) where
 def natDefault : DefaultValue Nat where
   value := 0
 
+--  Naming the data this way already lets us take a step
+--  toward what we want: a version of `List.headOrEx` can
+--  take a `DefaultValue α` argument instead of a raw `α`,
+--  with callers supplying a value like `natDefault` instead
+--  of a bare `Nat`:
+
+def List.headOrEx {α : Type} (defaultValue : DefaultValue α) (xs : List α) : α :=
+  match xs with
+  | [] => defaultValue.value
+  | x :: _ => x
+
 end DefaultValueScratch
 
---  Now for the marking: we need to tell Lean that
---  `DefaultValue` is the sort of structure it should search
---  for automatically, the way it needs to for
---  `List.headOrEx`'s `defaultValue` argument. We do this by
---  writing `class` in place of `structure`:
+--  This is more verbose than before — callers must build a
+--  `DefaultValue` value first — but it has the right shape:
+--  all that's left is marking `DefaultValue` as searchable,
+--  so Lean can supply this argument itself. How do we do
+--  that? We need to tell Lean that `DefaultValue` is the
+--  sort of structure it should search for automatically. We
+--  do this by writing `class` in place of `structure`:
 
 class DefaultValue (α : Type) where
   value : α
@@ -289,7 +302,7 @@ set_option pp.all true in
 --    instDefaultValueNat
 
 --  For a typeclass like `DefaultValue` that carries data —
---  a term, such as the `1` above, rather than only proofs
+--  a term, such as the `0` above, rather than only proofs
 --  (which we will see below) — we expect at most one
 --  instance per type, so this search has a unique answer.
 --
@@ -319,19 +332,22 @@ sf_recall
   class BEq (α : Type) where
       beq : α → α → Bool
 
---  Writing `x == y` makes Lean search for an **instance**
---  of `BEq` for the type of `x` and `y`, the same way it
---  searched for a `DefaultValue` instance above. For `Nat`,
---  that instance is:
+--  Writing `x == y` makes Lean search for an *instance* of
+--  `BEq` for the type of `x` and `y`, the same way it
+--  searched for a `DefaultValue` instance above. Here is
+--  one way to define such an instance for `Nat`:
 
 instance (priority := low) : BEq Nat where
   beq := Nat.beq
 
---  This is the instance Lean supplies for `[BEq α]` when
---  `List.elemPoly` is called on a `List Nat` — no different
---  from Lean choosing `instDefaultValueNat` for
---  `DefaultValue.value` earlier when it was equated with
---  `(1 : Nat)`.
+--  This instance is given low priority so that it doesn't
+--  override the standard library's own `BEq Nat` instance —
+--  which, as we'll see later in this chapter, is actually
+--  derived from `Nat`'s decidable equality rather than from
+--  `Nat.beq` directly. Declaring it here just illustrates
+--  what a hand-written `BEq` instance looks like, the same
+--  way `instDefaultValueNat` illustrated a hand-written
+--  `DefaultValue` instance earlier.
 
 --  ### Exercise (1 star): List.elem_poly_eq_elem_nat ⭐
 
@@ -375,7 +391,7 @@ instance : HasTwo Nat where
   two := 2
   one_neq_two := by intro contra; contradiction
 
---  In most languages that support typeclasses (or traits)
+--  In most languages that support typeclasses (or traits),
 --  it is not possible to formally enforce laws such as
 --  `one_neq_two`. Thus it falls to the author to check,
 --  informally, that any required invariants are satisfied,
@@ -416,7 +432,7 @@ namespace Algebra
 --  - an operator (which we'll write `⊗`, typed otimes) that
 --    combines two elements of type `α` into one,
 --  - a particular element `id` of type `α`, which we call
---    the "identity element", and
+--    the "identity element," and
 --  - some laws about the interaction of `⊗` and `id`,
 --    namely that:
 --    - `∀ x, id ⊗ x = x = x ⊗ id`, and
@@ -448,7 +464,7 @@ class Monoid (α : Type) extends (OpSet α) where
 --  As one might expect, the `+` operator over `Nat`s forms
 --  a monoid, where `0` is the identity element. Note that
 --  we don't have to define `Nat`'s `OpSet` instance
---  separately, we can define a single instance that
+--  separately; we can define a single instance that
 --  implements both classes.
 
 instance : Monoid Nat where
@@ -494,24 +510,26 @@ instance {α : Type} : Monoid (List α) where
 --  monoids over the same set with the same operator, their
 --  identity elements must also be the same:
 
-theorem id_unique {α : Type} {m₁ m₂ : Monoid α} (h : m₁.op = m₂.op) : m₁.id = m₂.id := by
-  obtain @⟨op₁, id₁, left_id₁, right_id₁, assoc₁⟩ := m₁
-  obtain @⟨op₂, id₂, left_id₂, right_id₂, assoc₂⟩ := m₂
-  have h' : id₁ = id₂ := by
-    -- this introduces a use of m₁'s operator
-    rw [← left_id₁ id₂]
-    -- we use our hypothesis to rewrite m₁'s operator into m₂'s
-    rw [h]
-    -- then, we can use m₂'s right id
-    rw [right_id₂]
-  -- the goal `m₁.id = m₂.id` is equivalent with `id₁ = id₂` even though it displays `Monoid.id = Monoid.id`
-  exact h'
+theorem id_unique {α : Type} {m₁ m₂ : Monoid α} (h : m₁.op = m₂.op) :
+  m₁.id = m₂.id := by
+    obtain @⟨op₁, id₁, left_id₁, right_id₁, assoc₁⟩ := m₁
+    obtain @⟨op₂, id₂, left_id₂, right_id₂, assoc₂⟩ := m₂
+    have h' : id₁ = id₂ := by
+      -- this introduces a use of m₁'s operator
+      rw [← left_id₁ id₂]
+      -- we use our hypothesis to rewrite m₁'s operator into m₂'s
+      rw [h]
+      -- then, we can use m₂'s right id
+      rw [right_id₂]
+    -- the goal `m₁.id = m₂.id` is equivalent with `id₁ = id₂`
+    -- even though it displays `Monoid.id = Monoid.id`
+    exact h'
 
 --  In the above proof, we can destructure the monoid
 --  instances `m₁` and `m₂` with the `obtain` tactic we saw
---  in the Logic chapter. When we do so however, because
+--  in the Logic chapter. When we do so, however, because
 --  these are class instances instead of normal structures,
---  we prepend our tuple by the `@` symbol. When stepping
+--  we prepend the `@` symbol to our tuple. When stepping
 --  through the above proof, if the notation is confusing to
 --  you, remember that you can set `set_option pp.all true`
 --  or `set_option pp.explicit true` to make Lean show you
@@ -550,21 +568,21 @@ instance : Group Int where
 
 --  (End of exercise)
 
---  The study of groups is called *group theory* and is a
---  rich area of mathematics. Here, we will only prove a
---  handful of its simplest results:
+--  In mathematics, the study of groups is called *group
+--  theory*. Let's prove a handful of its simplest results:
 
 --  ### Exercise (1 star): InverseUnique ⭐
 
 --  Two groups defined with the same operation over the same
 --  set must have the same inverse as well.
 
-theorem inv_unique {α : Type} {g₁ g₂ : Group α} (h : g₁.op = g₂.op) : g₁.inv = g₂.inv := by
-  sorry
+theorem inv_unique {α : Type} {g₁ g₂ : Group α} (h : g₁.op = g₂.op) :
+  g₁.inv = g₂.inv := by
+    sorry
 
 --  ### Exercise (1 star): IdentityUnique ⭐
 
---  If an element of a monoid satisfies just one of the the
+--  If an element of a monoid satisfies just one of the
 --  identity laws (here, we take the left), then it must be
 --  equal to the monoid's identity element.
 
@@ -581,14 +599,15 @@ theorem inv_inv' {α : Type} {g : Group α} (x y z : α)
     (h₁ : g.inv x = y) (h₂ : g.inv y = z) : x = z := by
   sorry
 
-theorem inv_inv {α : Type} {g : Group α} (x : α) : g.inv (g.inv x) = x := by
-  sorry
+theorem inv_inv {α : Type} {g : Group α} (x : α) :
+  g.inv (g.inv x) = x := by
+    sorry
 
 --  (End of exercise)
 
 end Algebra
 
---  ## API and Encapsulation
+--  -- # API and Encapsulation
 
 --  ## Maps
 
@@ -596,6 +615,12 @@ end Algebra
 --  structures both in ordinary programming and in the
 --  theory of programming languages; we're going to need
 --  them in many places in later volumes.
+--
+--  Maps are also where the ideas in this chapter come
+--  together in a single, realistic example: overloaded
+--  notation, typeclass-supplied defaults, and
+--  proof-carrying instances that guarantee a data structure
+--  behaves the way we expect.
 --
 --  We'll define two flavors of maps: *total maps*, which
 --  include a "default" element to be returned when a key
@@ -622,8 +647,19 @@ sf_recall
   class LawfulBEq (α : Type) [BEq α] : Prop extends ReflBEq α where
       eq_of_beq : {a b : α} → a == b → a = b
 
---  These classes refine `BEq`, specifying that (`==`) is
---  reflexive and coincides with proposition equality `=`.
+--  These classes refine `BEq`, specifying that `==` is
+--  reflexive and coincides with propositional equality `=`.
+--  Neither property is automatic: `BEq`'s only obligation
+--  is to return *some* `Bool`, with no proof attached, so
+--  an arbitrary `BEq` instance could compute anything at
+--  all, whether or not it agrees with `=`. We'll need both
+--  facts below to reason about map updates: reflexivity to
+--  show that looking up the key you just updated returns
+--  the new value, and agreement with `=` to show that
+--  updating one key leaves lookups at every *other* key
+--  unchanged. We'll return to this distinction between
+--  `BEq` and provable equality in "Deciding Propositions"
+--  below.
 --
 --  In general, we place no constraints on the value type
 --  `β`.
@@ -638,8 +674,7 @@ sf_recall
 --  *extensional* view of maps, as we saw with functions in
 --  the Logic chapter: two maps that respond to every query
 --  in the same way will be represented as exactly the same
---  function, rather than just as "equivalent" list
---  structures. This simplifies proofs that use maps.
+--  function.
 --
 --  Instead of using functions directly, we encapsulate them
 --  inside a `structure` which we call `TotalMap`.
@@ -651,20 +686,15 @@ structure TotalMap (α : Type) (β : Type) where
 
 namespace TotalMap
 
---  In order to declare a default value of `β` we will use
---  the `Inhabited` typeclass, which is the standard
---  library's implementation of our `DefaultValue` example
---  from above:
---
---  The function `TotalMap.empty` yields an empty total map,
---  given a default element; this map always returns the
---  default element when applied to any key.
-
 def empty {α β : Type} [Inhabited β] : TotalMap α β where
   inner := fun _ => default
 
---  These types and implicit instances are now available
---  automatically to all the definitions in this section.
+--  In order to declare a default value of `β` we use the
+--  `Inhabited` typeclass, which is the standard library's
+--  implementation of our `DefaultValue` example from above.
+--  The function `TotalMap.empty` yields an empty total map,
+--  given a default element; this map always returns the
+--  default element when applied to any key.
 --
 --  Just as declaring `BEq`/`DefaultValue` instances above
 --  hooked `==` and `DefaultValue.value` up to our types, we
@@ -687,17 +717,18 @@ def emptyNatMap : TotalMap Nat Nat := ∅
 
 --  While `TotalMap`s happen to be implemented as functions
 --  under the hood, we would prefer not to expose this fact
---  in its public interface. Accordingly, we define new
+--  in their public interface. Accordingly, we define new
 --  operations for querying and updating mappings. We define
 --  a function `get` for getting the value associated with a
---  key playing the role that `find` played for the Lists
---  chapter's list-based maps,
+--  key, playing the role that `find` played for the Lists
+--  chapter's list-based maps.
 
 def get {α β : Type} (m : TotalMap α β) (a : α) := m.inner a
 
 /-- This exposes implementation-specific details of `TotalMap`.
   Avoid using this outside the `TotalMap` namespace. -/
-theorem get_def {α β : Type} {m : TotalMap α β} {a : α} : m.get a = m.inner a := by rfl
+theorem get_def {α β : Type} {m : TotalMap α β} {a : α} :
+  m.get a = m.inner a := by rfl
 
 example : emptyNatMap.get 2 = 0 := by rfl
 
@@ -716,7 +747,7 @@ example {n : Nat} : emptyNatMap.get n = 0 := by
 --  projection `.inner` on a structure of the form
 --  `{ inner := x }` is definitionally equal to `x`.
 --
---  `get` is the public API counterpart to `inner` which is
+--  `get` is the public API counterpart to `inner`, which is
 --  an implementation-specific detail of `TotalMap`. Because
 --  `get_def` "peeks" through the abstraction, it should be
 --  used sparingly, and only inside the `TotalMap`
@@ -774,7 +805,7 @@ instance {α β : Type} : MyGetElem (TotalMap α β) α β where
 --  Don't worry about following the mechanism in detail —
 --  the `macro_rules` and the `app_unexpander` below are
 --  minor technicalities. However, if you do wish to learn
---  more, Chapter 5 and 6 of [Metaprogramming in Lean
+--  more, Chapters 5 and 6 of [Metaprogramming in Lean
 --  4](https://leanprover-community.github.io/lean4-metaprogramming-book/)
 --  contain more detail.
 
@@ -803,12 +834,14 @@ open scoped MyGetElem
 
 namespace TotalMap
 
-theorem getElem_def {α β : Type} (m : TotalMap α β) (a : α) : m[a] = m.get a := by rfl
+theorem getElem_def {α β : Type} (m : TotalMap α β) (a : α) :
+  m[a] = m.get a := by rfl
 
 example : emptyNatMap[1] = default := by rfl
 
 example {n : Nat} : emptyNatMap[n] = 0 := by
-  rw [getElem_def, get_def, emptyNatMap, empty_def, Nat.default_eq_zero]
+  rw [getElem_def, get_def, emptyNatMap]
+  rw [empty_def, Nat.default_eq_zero]
 
 --  We want the public API of `TotalMap` to use the `m[a]`
 --  notation instead of `m.get a`, so we provide the reverse
@@ -816,14 +849,15 @@ example {n : Nat} : emptyNatMap[n] = 0 := by
 --  notation is the `TotalMap` API's `simp` normal form.
 
 @[simp]
-theorem get_eq_getElem {α β : Type} (m : TotalMap α β) (a : α) : m.get a = m[a] := rfl
+theorem get_eq_getElem {α β : Type} (m : TotalMap α β) (a : α) :
+  m.get a = m[a] := by rfl
 
 example {n : Nat} : emptyNatMap.get n = emptyNatMap[n] := by
   simp
 
 --  This design minimizes the need to use `getElem_def`
 --  outside concrete examples (which are typically solvable
---  with `rfl` anyways).
+--  with `rfl` anyway).
 
 --  #### Updating Elements
 
@@ -833,8 +867,9 @@ example {n : Nat} : emptyNatMap.get n = emptyNatMap[n] := by
 --  whatever `m` does. We do this by wrapping a new map
 --  function around the old one.
 
-def update {α β : Type} (m : TotalMap α β) [BEq α] (a : α) (b : β) : TotalMap α β where
-  inner := fun a' => bif a == a' then b else m[a']
+def update {α β : Type} (m : TotalMap α β) [BEq α] (a : α) (b : β) :
+  TotalMap α β where
+    inner := fun a' => bif a == a' then b else m[a']
 
 --  For example, we can build a map taking `String` to
 --  `Bool`, where `"foo"` and `"bar"` are mapped to `true`
@@ -864,18 +899,20 @@ notation a:55 " →ₜ " b:55 " ; " m:55 => TotalMap.update m a b
 /-- This exposes implementation-specific details of `TotalMap`.
   Avoid using this outside the `TotalMap` namespace.
   Prefer `update_apply` if possible. -/
-theorem update_def {α β : Type} [BEq α] (m : TotalMap α β) (a : α) (b : β) :
-  a →ₜ b ; m = { inner := fun a' => bif a == a' then b else m[a'] } := by rfl
+theorem update_def {α β : Type} [BEq α] (m : TotalMap α β)
+  (a : α) (b : β) : a →ₜ b ; m =
+  { inner := fun a' => bif a == a' then b else m[a'] } := by rfl
 
-theorem update_apply {α β : Type} [BEq α] (m : TotalMap α β) (a a' : α) (b : β) :
-  (a →ₜ b ; m)[a'] = bif a == a' then b else m[a'] := by rfl
+theorem update_apply {α β : Type} [BEq α] (m : TotalMap α β)
+  (a a' : α) (b : β) : (a →ₜ b ; m)[a'] =
+  bif a == a' then b else m[a'] := by rfl
 
 --  We can omit the map from the notation when we want it to
 --  be empty:
 
 notation a:55 " →ₜ " b:55 => TotalMap.update ∅ a b
 
---  The `examplemap` above can now be defined as follows:
+--  The `exampleMap` above can now be defined as follows:
 
 def exampleMap' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true ; ∅
 def exampleMap'' : TotalMap String Bool := "bar" →ₜ true ; "foo" →ₜ true
@@ -916,21 +953,24 @@ example : exampleMap'["quux"] = false := by
 --  keys:
 
 @[simp]
-theorem getElem_empty {α β : Type} [BEq α] [Inhabited β] (a : α) : (∅ : TotalMap α β)[a] = default := by
-  rw [empty_def, getElem_def, get_def]
+theorem getElem_empty {α β : Type} [BEq α] [Inhabited β] (a : α) :
+  (∅ : TotalMap α β)[a] = default := by
+    rw [empty_def, getElem_def, get_def]
 
---  Notice that in the example `exampleMap'["quux"] = false`
---  the last rewrite is effectively just `getElem_empty`.
+--  Notice that in the example
+--  `exampleMap'["quux"] = false`, the last rewrite is
+--  effectively just `getElem_empty`.
 --
 --  Next, if we update a map `m` at a key `a` with a new
 --  value `b` and then look up `a` in the map resulting from
 --  the `update`, we get back `b`:
 
 @[simp]
-theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a : α) (b : β) : (a →ₜ b ; m)[a] = b := by
-  rw [update_def, getElem_def, get_def]
-  dsimp only -- reduces `{ inner := ... }.inner` so that we get a subterm that looks like `a == a`
-  rw [BEq.rfl, cond_true]
+theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β)
+  (a : α) (b : β) : (a →ₜ b ; m)[a] = b := by
+    rw [update_def, getElem_def, get_def]
+    dsimp only -- reduces `{ inner := ... }.inner` so that we get a subterm that looks like `a == a`
+    rw [BEq.rfl, cond_true]
 
 --  On the other hand, if we update a map `m` at a key `a₁`
 --  and then look up a *different* key `a₂` in the resulting
@@ -939,8 +979,9 @@ theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β) (a :
 --  ### Exercise (2 stars): update_neq (Optional) ⭐⭐
 
 @[simp]
-theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
-    (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
+theorem update_neq {α β : Type} [BEq α] [LawfulBEq α]
+  {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
+  (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
   sorry
 
 --  (End of exercise)
@@ -957,16 +998,17 @@ theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {
 --
 --  The fact that `TotalMap` is a structure complicates
 --  things slightly. We need to use injectivity of its
---  constructor `mk` which Lean automatically provides for
+--  constructor `mk`, which Lean automatically provides for
 --  us as `mk.injEq`. It lets us prove `m₁ = m₂` from
 --  `m₁.inner = m₂.inner` or vice versa.
 
 @[ext]
-theorem ext {α β : Type} {m₁ m₂ : TotalMap α β} (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := by
-  rw [TotalMap.mk.injEq]
-  ext a; specialize h a
-  rw [getElem_def, get_def, getElem_def, get_def] at h
-  exact h
+theorem ext {α β : Type} {m₁ m₂ : TotalMap α β}
+  (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := by
+    rw [TotalMap.mk.injEq]
+    ext a; specialize h a
+    rw [getElem_def, get_def, getElem_def, get_def] at h
+    exact h
 
 --  To demonstrate this extensionality principle, let's look
 --  at an example:
@@ -992,8 +1034,9 @@ example : "bar" →ₜ true ; "foo" →ₜ true = "foo" →ₜ true ; "bar" →�
 --  ### Exercise (2 stars): update_same ⭐⭐
 
 @[simp]
-theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) : (a →ₜ m[a] ; m) = m := by
-  sorry
+theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β)
+  (a : α) : (a →ₜ m[a] ; m) = m := by
+    sorry
 
 --  (End of exercise)
 
@@ -1007,8 +1050,8 @@ theorem update_same {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) 
 --  ### Exercise (2 stars): update_shadow (Optional) ⭐⭐
 
 @[simp]
-theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :
-    (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
+theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β)
+  (a : α) (b₁ b₂ : β) : (a →ₜ b₂ ; a →ₜ b₁ ; m) = (a →ₜ b₂ ; m) := by
   sorry
 
 --  (End of exercise)
@@ -1019,8 +1062,9 @@ theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β
 
 --  ### Exercise (3 stars): update_permute ⭐⭐⭐
 
-theorem update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :
-    (a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m) = (a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m) := by
+theorem update_permute {α β : Type} [BEq α] [LawfulBEq α]
+  {m : TotalMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :
+  (a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m) = (a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m) := by
   sorry
 
 --  (End of exercise)
@@ -1031,9 +1075,9 @@ end TotalMap
 
 --  Wouldn't it be nice if we could use a more natural
 --  notation for concrete maps like
---  `{ "bar" ↦ true, "foo" ↦ true }`? To accomplish this we
+--  `{ "bar" ↦ true, "foo" ↦ true }`? To accomplish this, we
 --  define a simple structure that consists of a key and a
---  value along with `↦` notation for it.
+--  value, along with `↦` notation for it.
 
 /--
 A key-value pair with `↦` syntax.
@@ -1064,17 +1108,17 @@ instance {α β : Type} [BEq α] [Inhabited β] : Singleton (KVPair α β) (Tota
   singleton kv := insert kv ∅
 
 instance {α β : Type} [BEq α] [Inhabited β] : LawfulSingleton (KVPair α β) (TotalMap α β) where
-  insert_empty_eq _ := rfl
+  insert_empty_eq _ := by rfl
 
 end TotalMap
 
 --  Here are a couple of examples using the new notation:
 
-example : ({ "bar" ↦ true, "foo" ↦ true }) = "bar" →ₜ true ; "foo" →ₜ true ; ∅ := rfl
+example : ({ "bar" ↦ true, "foo" ↦ true }) = "bar" →ₜ true ; "foo" →ₜ true ; ∅ := by rfl
 
-example : ({ "foo" ↦ true } : TotalMap String Bool)["foo"] = true := rfl
+example : ({ "foo" ↦ true } : TotalMap String Bool)["foo"] = true := by rfl
 
-example : ({ 1 ↦ 2, 1 ↦ 3 } : TotalMap Nat Nat)[1] = 2 := rfl
+example : ({ 1 ↦ 2, 1 ↦ 3 } : TotalMap Nat Nat)[1] = 2 := by rfl
 
 --  The reason we need to explicitly specify the type of the
 --  map is that Lean doesn't know what type of collection
@@ -1102,14 +1146,17 @@ sf_expect_failure_in
 --  element is `none`.
 
 structure PartialMap (α : Type) (β : Type) where
-  /-- The underlying total map. Lean always generates a public projection for a structure
-    field, so `inner` is technically accessible, but it isn't part of the intended interface:
-    use `PartialMap.toTotal` instead, so there's exactly one sanctioned way to get at it. -/
+  /-- The underlying total map. Lean always generates a
+    public projection for a structure field, so `inner` is
+    technically accessible, but it isn't part of the
+    intended interface: use `PartialMap.toTotal` instead,
+    so there's exactly one sanctioned way to get at it. -/
   inner : TotalMap α (Option β)
 
-/- Note that this definition of `EmptyCollection` doesn't need `β` to have an `Inhabited`
-  instance like `TotalMap` did. This is because `Option β` has its own `Inhabited` instance:
-  `none` is a value of every `Option` type. -/
+/- Note that this definition of `EmptyCollection` doesn't
+  need `β` to have an `Inhabited` instance like `TotalMap`
+  did. This is because `Option β` has its own `Inhabited`
+  instance: `none` is a value of every `Option` type. -/
 instance {α β : Type} : EmptyCollection (PartialMap α β) where
   emptyCollection := { inner := ∅ }
 
@@ -1124,7 +1171,7 @@ theorem toTotal_def {α β : Type} (m : PartialMap α β) : m.toTotal = m.inner 
 instance {α β : Type} : MyGetElem (PartialMap α β) α (Option β) where
   getElem m a := m.toTotal[a]
 
-theorem getElem_def {α β : Type} (m : PartialMap α β) (a : α) : m[a] = m.toTotal[a] := rfl
+theorem getElem_def {α β : Type} (m : PartialMap α β) (a : α) : m[a] = m.toTotal[a] := by rfl
 
 def emptyNatMap : PartialMap Nat Nat where
   inner := ∅
@@ -1134,11 +1181,12 @@ example : emptyNatMap[1] = default := by rfl
 example {n : Nat} : emptyNatMap[n] = none := by
   rw [getElem_def, toTotal_def, emptyNatMap]
   dsimp only
-  rw [TotalMap.getElem_def, TotalMap.get_def, TotalMap.empty_def, Option.default_eq_none]
+  rw [TotalMap.getElem_def, TotalMap.get_def]
+  rw [TotalMap.empty_def, Option.default_eq_none]
 
 @[simp]
 theorem toTotal_eq_getElem {α β : Type} (m : PartialMap α β) (a : α) :
-    m.toTotal[a] = m[a] := rfl
+    m.toTotal[a] = m[a] := by rfl
 
 --  We previously defined `TotalMap.get` so that users can
 --  retrieve elements from a `TotalMap` in a manner
@@ -1156,7 +1204,7 @@ theorem toTotal_eq_getElem {α β : Type} (m : PartialMap α β) (a : α) :
 --  Updating a partial map at a key means storing a `some`
 --  value there. To update, we create a new partial map from
 --  `a →ₜ some b ; m.toTotal` by wrapping it in angle
---  brackets, i.e. using the anonymous constructor syntax.
+--  brackets, i.e., using the anonymous constructor syntax.
 --  This is equivalent to writing
 --  `{ inner := a →ₜ some b ; m.toTotal }`. We also
 --  introduce a similar notation for it as for total maps.
@@ -1174,11 +1222,12 @@ def examplePmap : PartialMap String Bool := "Church" →ₚ true ; "Turing" →�
 --  `toTotal`:
 
 @[simp]
-theorem toTotal_empty {α β : Type} : (∅ : PartialMap α β).toTotal = (∅ : TotalMap α (Option β)) := rfl
+theorem toTotal_empty {α β : Type} : (∅ : PartialMap α β).toTotal =
+  (∅ : TotalMap α (Option β)) := by rfl
 
 @[simp]
-theorem toTotal_update {α β : Type} [BEq α] (m : PartialMap α β) (a : α) (b : β) :
-    (a →ₚ b ; m).toTotal = a →ₜ some b ; m.toTotal := rfl
+theorem toTotal_update {α β : Type} [BEq α] (m : PartialMap α β)
+  (a : α) (b : β) : (a →ₚ b ; m).toTotal = a →ₜ some b ; m.toTotal := by rfl
 
 --  As an example, here's how we can use these on some
 --  concrete maps:
@@ -1193,57 +1242,63 @@ example : (2 →ₚ 3)[2] = some 3 := by
 example : (2 →ₚ 3)[2] = some 3 := by rfl
 
 --  Next, we lift all of the basic lemmas about total maps
---  to partial maps. To do this we should first prove an
+--  to partial maps. To do this, we should first prove an
 --  extensionality lemma about partial maps. To prove
 --  extensionality, we employ injectivity of `PartialMap`'s
 --  constructor `mk` using `mk.injEq`.
 
-theorem toTotal_eq_iff {α β : Type} (m₁ m₂ : PartialMap α β) : m₁.toTotal = m₂.toTotal ↔ m₁ = m₂ := by
-  rw [mk.injEq]
-  rfl
+theorem toTotal_eq_iff {α β : Type} (m₁ m₂ : PartialMap α β) :
+  m₁.toTotal = m₂.toTotal ↔ m₁ = m₂ := by
+    rw [mk.injEq]
+    rfl
 
 @[ext]
-theorem ext {α β : Type} {m₁ m₂ : PartialMap α β} (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := by
-  rw [← toTotal_eq_iff]
-  exact TotalMap.ext h
+theorem ext {α β : Type} {m₁ m₂ : PartialMap α β}
+  (h : ∀ a : α, m₁[a] = m₂[a]) : m₁ = m₂ := by
+    rw [← toTotal_eq_iff]
+    exact TotalMap.ext h
 
 --  Now, let's lift the `TotalMap` lemmas:
 
 @[simp]
-theorem getElem_empty {α β : Type} [BEq α] (a : α) : (∅ : PartialMap α β)[a] = none := by
-  rw [getElem_def, toTotal_empty, TotalMap.getElem_empty, Option.default_eq_none]
+theorem getElem_empty {α β : Type} [BEq α] (a : α) :
+  (∅ : PartialMap α β)[a] = none := by
+    rw [getElem_def, toTotal_empty, TotalMap.getElem_empty, Option.default_eq_none]
 
 @[simp]
-theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : PartialMap α β) (a : α) (b : β) :
-    (a →ₚ b ; m)[a] = some b := by
-  rw [getElem_def, toTotal_update, TotalMap.update_eq]
+theorem update_eq {α β : Type} [BEq α] [ReflBEq α]
+  (m : PartialMap α β) (a : α) (b : β) : (a →ₚ b ; m)[a] = some b := by
+    rw [getElem_def, toTotal_update, TotalMap.update_eq]
 
 @[simp]
-theorem update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α}
-    (h : a₁ ≠ a₂) (b : β) : (a₁ →ₚ b ; m)[a₂] = m[a₂] := by
-  simp only [getElem_def, toTotal_update]
-  rw [TotalMap.update_neq h]
+theorem update_neq {α β : Type} [BEq α] [LawfulBEq α]
+  {m : PartialMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
+  (a₁ →ₚ b ; m)[a₂] = m[a₂] := by
+    simp only [getElem_def, toTotal_update]
+    rw [TotalMap.update_neq h]
 
-theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : PartialMap α β) (a : α) (b₁ b₂ : β) :
-    (a →ₚ b₂ ; a →ₚ b₁ ; m) = (a →ₚ b₂ ; m) := by
-  apply ext
-  intro x
-  simp only [getElem_def, toTotal_update]
-  rw [TotalMap.update_shadow]
+theorem update_shadow {α β : Type} [BEq α] [LawfulBEq α]
+  (m : PartialMap α β) (a : α) (b₁ b₂ : β) :
+  (a →ₚ b₂ ; a →ₚ b₁ ; m) = (a →ₚ b₂ ; m) := by
+    apply ext
+    intro x
+    simp only [getElem_def, toTotal_update]
+    rw [TotalMap.update_shadow]
 
-theorem update_same {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a : α} {b : β}
-    (h : m[a] = some b) : (a →ₚ b ; m) = m := by
-  apply ext
-  intro x
-  simp only [getElem_def, toTotal_update]
-  rw [← h, getElem_def, TotalMap.update_same]
+theorem update_same {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β}
+  {a : α} {b : β} (h : m[a] = some b) : (a →ₚ b ; m) = m := by
+    apply ext
+    intro x
+    simp only [getElem_def, toTotal_update]
+    rw [← h, getElem_def, TotalMap.update_same]
 
-theorem update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : PartialMap α β} {a₁ a₂ : α}
-    {b₁ b₂ : β} (h : a₁ ≠ a₂) : (a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m) = (a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m) := by
-  apply ext
-  intro x
-  simp only [getElem_def, toTotal_update]
-  rw [TotalMap.update_permute h]
+theorem update_permute {α β : Type} [BEq α] [LawfulBEq α]
+  {m : PartialMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :
+  (a₁ →ₚ b₁ ; a₂ →ₚ b₂ ; m) = (a₂ →ₚ b₂ ; a₁ →ₚ b₁ ; m) := by
+    apply ext
+    intro x
+    simp only [getElem_def, toTotal_update]
+    rw [TotalMap.update_permute h]
 
 example : (2 →ₚ 3)[2] = some 3 := by
   simp
@@ -1261,9 +1316,9 @@ instance {α β : Type} [BEq α] : Singleton (KVPair α β) (PartialMap α β) w
   singleton kv := insert kv ∅
 
 instance {α β : Type} [BEq α] : LawfulSingleton (KVPair α β) (PartialMap α β) where
-  insert_empty_eq _ := rfl
+  insert_empty_eq _ := by rfl
 
-example : { 1 ↦ 2, 2 ↦ 3 } = 1 →ₚ 2 ; 2 →ₚ 3 := rfl
+example : { 1 ↦ 2, 2 ↦ 3 } = 1 →ₚ 2 ; 2 →ₚ 3 := by rfl
 
 --  One last thing: for partial maps, it's convenient to
 --  introduce a notion of map inclusion, stating that all
@@ -1278,7 +1333,7 @@ instance {α β : Type} : HasSubset (PartialMap α β) where
   Subset := PartialMap.Subset
 
 theorem subset_def {α β : Type} (m₁ m₂ : PartialMap α β) :
-    m₁ ⊆ m₂ ↔ (∀ {a : α} {b : β}, m₁[a] = some b → m₂[a] = some b) := .rfl
+    m₁ ⊆ m₂ ↔ (∀ {a : α} {b : β}, m₁[a] = some b → m₂[a] = some b) := by rfl
 
 --  We can then show that map update preserves map
 --  inclusion, that is:
@@ -1302,16 +1357,184 @@ end PartialMap
 --  where maps are used to keep track of which program
 --  variables are defined in a given scope.
 
---  ## Reflection
+--  ## Deciding Propositions
+
+--  The Logic chapter's "Working with Decidable Properties"
+--  section explored the trade-offs between stating a claim
+--  as a boolean (of type `Bool`) and as a proposition (of
+--  type `Prop`). Here, we tie up a loose end from the start
+--  of this chapter, and along the way formalize
+--  *decidability* itself as a typeclass.
+--
+--  Recall from "Why We Need Typeclasses" that
+--  `[0, 1].elemPoly 0`'s `==` is filled in automatically by
+--  Lean, in contrast to `[0, 1].elemPolyEq Nat.beq 0`,
+--  which is handed `Nat.beq` explicitly. It's tempting to
+--  assume Lean fills in that very `Nat.beq` function as the
+--  required `BEq` instance — but it doesn't. We can see
+--  this by asking Lean to synthesize the instance directly:
+
+#synth BEq Nat
+
+--  Output:
+--    instBEqOfDecidableEq
+
+--  Not `Nat.beq` at all! Recall that `BEq`'s only field is
+--  `beq : α → α → Bool` — nothing more.
+--  `instBEqOfDecidableEq` builds a `BEq α` instance from a
+--  `DecidableEq α` one by setting
+--  `beq a b := decide (a = b)`: it takes the proof-carrying
+--  `Decidable (a = b)` value and uses `decide` to strip
+--  away the proof, keeping only the resulting `Bool`.
+--  `DecidableEq α` means `∀ a b : α, Decidable (a = b)`, so
+--  `Nat`'s `instDecidableEqNat` is exactly such a
+--  proof-producing decision procedure, and
+--  `instBEqOfDecidableEq` turns it into a `BEq Nat`
+--  instance for free — no one had to write one wrapping
+--  `Nat.beq` by hand. Because `decide (a = b)` genuinely
+--  computes whether `a = b` holds, this particular `beq`
+--  really does coincide with `=`, which is exactly why the
+--  derived instance is `LawfulBEq`.
+--
+--  But that agreement is a fact about *this* instance, not
+--  something `BEq` requires of every instance — as the Maps
+--  section noted, `beq`'s only obligation is to return
+--  *some* `Bool`, with no proof attached, unlike
+--  `Decidable`'s constructors, whose whole point is to
+--  carry one. So `List.elemPoly`'s `[BEq α]` constraint is
+--  the weakest assumption sufficient for a purely
+--  computational membership test, matching the interface
+--  the rest of the Lean ecosystem (hash maps,
+--  `deriving BEq`, and so on) already uses for comparisons
+--  — it doesn't require the caller to have decidable
+--  equality, or even a comparison that agrees with `=`, at
+--  all. `Decidable`, by contrast, is Lean's general-purpose
+--  mechanism for making an arbitrary *proposition*
+--  computational — not just equality, as we'll see shortly
+--  with the `even`/`Even` example — and it's what you reach
+--  for when you specifically need the underlying proof, not
+--  just a boolean.
+--
+--  So what is `Decidable`, the more primitive notion
+--  `DecidableEq` is built from?
+
+sf_recall
+  class inductive Decidable (p : Prop) where
+    /-- Proves that `p` is decidable by supplying a proof of `¬ p` -/
+    | isFalse (h : Not p) : Decidable p
+    /-- Proves that `p` is decidable by supplying a proof of `p` -/
+    | isTrue (h : p) : Decidable p
+
+--  `Decidable p` is how Lean expresses that a single
+--  proposition `p` can be settled one way or the other,
+--  computationally. Like `HasTwo`'s `one_neq_two` field
+--  earlier in this chapter,
+--  `Decidable.isTrue`/`Decidable.isFalse` are
+--  proof-carrying: each one packages an actual proof — of
+--  `p` or of `¬p` — alongside which case holds.
+--  `DecidableEq α` is just shorthand for having one of
+--  these proof-carrying values for every equality
+--  proposition `a = b` in `α`.
+--
+--  Beyond letting the standard library derive `BEq`
+--  instances, `Decidable` lets Lean branch directly on a
+--  *proposition* with `if`, rather than only on an
+--  already-computed `Bool` with `bif`. You might wonder why
+--  Lean bothers with a separate `if` at all — why not just
+--  write `bif x = y then ... else ...`, and let Lean
+--  quietly turn the proposition into a boolean? Let's try
+--  it, for a fully generic type:
+
+sf_expect_failure_in
+  def eq {α : Type} (x y : α) : Bool := bif x = y then true else false
+
+--  Output:
+--    Application type mismatch: The argument
+--      x = y
+--    has type
+--      Prop
+--    but is expected to have type
+--      Bool
+--    in the application
+--      cond (x = y)
+
+--  This error doesn't even mention `Decidable`: `bif`'s
+--  underlying function, `cond`, is declared to take a
+--  `Bool` outright, so there's no instance for Lean to
+--  search for. `if`, by contrast, is built from the ground
+--  up to expect a *proposition*, and to go looking for a
+--  `Decidable` instance that tells it how to compute with
+--  it:
+
+sf_expect_failure_in
+  def eq {α : Type} (x y : α) : Bool := if x = y then true else false
+
+--  Output:
+--    failed to synthesize instance of type class
+--      Decidable (x = y)
+--
+--    Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+
+--  This error is far more informative: it names exactly the
+--  missing instance, `Decidable (x = y)`, rather than
+--  failing on a bare type mismatch.
+--
+--  But for `Nat`, which already has `instDecidableEqNat`,
+--  the analogous definition works fine:
+
+def nat_eq (m n : Nat) : Bool := if m = n then true else false
+
+--  Asking Lean to synthesize the instance for a concrete
+--  equality shows exactly which one gets used:
+
+#synth Decidable (2 = 3)
+
+--  Output:
+--    instDecidableEqNat 2 3
+
+--  That's the same `instDecidableEqNat` we met above —
+--  applied here to particular numbers, to produce the
+--  specific proof-carrying value `if` needs.
+--
+--  The same equivalence holds between `==` and `=` on `Nat`
+--  in general — the Logic chapter proved this by hand as
+--  `beq_eq_true`; the standard library already provides it,
+--  as `beq_iff_eq`:
+
+example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := by exact beq_iff_eq
+
+--  This is `LawfulBEq` at work again — the property the
+--  Maps section relied on when it required a `LawfulBEq`
+--  instance on keys.
+--
+--  `LawfulBEq` is exactly what lets us move from a boolean
+--  test on a list back to propositional membership, as in
+--  the following example: if filtering a list for elements
+--  equal to `x` (under `==`) leaves something behind, then
+--  `x` itself must have been in the list.
+
+example {α : Type} (x : α) [BEq α] [LawfulBEq α] (xs : List α)
+    (neq : xs.filter (x == ·) ≠ []) : x ∈ xs := by
+  rcases h : xs.filter (x == ·) with _ | ⟨y, ys⟩
+  · exact absurd h neq
+  · have hy : y ∈ xs.filter (x == ·) := by rw [h]; exact List.mem_cons_self
+    obtain ⟨hmem, heq⟩ := List.mem_filter.mp hy
+    rw [eq_of_beq heq]
+    exact hmem
+
+--  `instDecidableEqNat` works automatically because Lean's
+--  core library derives it for us — but not every
+--  proposition we might want to `decide` comes with a
+--  ready-made instance. Sometimes we have to build one
+--  ourselves. Let's revisit the Logic chapter's "even"
+--  example to see what that looks like: it stated the
+--  property as both `Nat.even` (a `Bool` computation) and
+--  `Nat.Even` (a `Prop`), connected by *reflection* via
+--  `Nat.even_bool_prop`. We restate the relevant pieces
+--  here, in their own namespace (dropping the `Nat.`
+--  prefix), so they don't require that chapter's import:
 
 namespace Reflection
-
---  In this section, we will make use of some definitions
---  and theorems about natural numbers that we discussed and
---  proved in previous chapters; copy your solutions to
---  those problems here:
-
-namespace Nat
 
 def even (n : Nat) :=
   match n with
@@ -1323,7 +1546,11 @@ theorem even_zero : even 0 = true := by rfl
 
 theorem even_succ (n : Nat) :
     even (n + 1) = !(even n) := by
-  sorry
+  induction n with
+  | zero =>
+    rfl
+  | succ n' ih =>
+    rw [even, ih, Bool.not_not]
 
 def double (n : Nat) : Nat :=
   match n with
@@ -1334,69 +1561,7 @@ theorem double_zero : double 0 = 0 := by rfl
 
 theorem double_succ (n : Nat) : double (n + 1) = double n + 2 := by rfl
 
-def Even x := ∃ n : Nat, x = Nat.double n
-
---  We've seen two different ways of expressing logical
---  claims in Lean: with booleans (of type `Bool`), and with
---  propositions (of type `Prop`).
---
---  Here are the key differences between `Bool` and `Prop`:
-
---  |                       | `Bool` | `Prop` |
---  | --------------------- | ------ | ------ |
---  | decidable?            |  yes   |   no   |
---  | useable with `match`? |  yes   |   no   |
---  | works with `rewrite`? |   no   |   yes  |
-
---  The crucial difference between the two worlds is
---  decidability. Every (closed) Lean expression of type
---  `Bool` can be simplified in a finite number of steps to
---  either `true` or `false` — i.e., there is a terminating
---  mechanical procedure for deciding whether or not it is
---  true.
---
---  This means that, for example, the type `Nat → Bool` is
---  inhabited only by functions that, given a `Nat`, always
---  yield either `true` or `false` in finite time; and this,
---  in turn, means (by a standard computability argument)
---  that there is no function in `Nat → Bool` that checks
---  whether a given number is the code of a terminating
---  Turing machine.
---
---  By contrast, the type `Prop` includes both decidable and
---  undecidable mathematical propositions; in particular,
---  the type `Nat → Prop` does contain functions
---  representing properties like "the nth Turing machine
---  halts." The second row in the table follows directly
---  from this essential difference. To evaluate a pattern
---  match (or conditional) on a boolean, we need to know
---  whether the scrutinee evaluates to `true` or `false`;
---  this only works for `Bool`, not `Prop`.
---
---  The third row highlights an important practical
---  difference: equality functions like `Nat.beq` that
---  return a boolean cannot be used directly to justify
---  rewriting with the rewrite tactic; propositional
---  equality is required for this. Since `Prop` includes
---  both decidable and undecidable properties, we have two
---  options when we want to formalize a property that
---  happens to be decidable: we can express it either as a
---  boolean computation or as a function into Prop.
---
---  As an example, we can write
-
-example : even 42 := rfl
-
---  or that there exists some `k` such that `42 = double k`.
-
-example : Even 42 := by exists 21
-
---  Of course, it would be deeply strange if these two
---  characterizations of evenness did not describe the same
---  set of natural numbers!
---
---  Fortunately, they do! To prove this, we first need two
---  helper lemmas.
+def Even x := ∃ n : Nat, x = double n
 
 theorem even_double (k : Nat) : even (double k) = true := by
   induction k with
@@ -1406,15 +1571,25 @@ theorem even_double (k : Nat) : even (double k) = true := by
     rw [double_succ, even_succ, even_succ, Bool.not_not]
     exact ih
 
---  ### Exercise (3 stars): even_double_exists ⭐⭐⭐
-
 theorem even_double_exists (n : Nat) :
     ∃ (k : Nat), n = bif even n then double k else double k + 1 := by
-  sorry
-
---  (End of exercise)
-
---  Now the main theorem:
+  induction n with
+  | zero =>
+    exists 0
+  | succ n ih =>
+    obtain ⟨k, ih⟩ := ih
+    rewrite [even_succ]
+    by_cases h : even n
+    · exists k
+      rw [h] at ih ⊢
+      subst ih
+      rfl
+    · exists k + 1
+      rw [Bool.not_eq_true] at h
+      rw [h] at ih ⊢
+      subst ih
+      rw [cond_false, Bool.not_false, cond_true]
+      rfl
 
 theorem even_iff_Even {n : Nat} : even n = true ↔ Even n where
   mp h := by
@@ -1427,84 +1602,70 @@ theorem even_iff_Even {n : Nat} : even n = true ↔ Even n where
     subst hk
     exact even_double k
 
-end Nat
+--  `even_iff_Even` is exactly the kind of iff-shaped
+--  reflection lemma we need: the standard library's
+--  `decidable_of_decidable_of_iff` carries a `Decidable`
+--  instance across any `p ↔ q` — from `Decidable p` to
+--  `Decidable q`. Applying it here is all it takes to build
+--  a custom `Decidable (Even n)` instance:
 
---  In view of this theorem, we can say that the boolean
---  computation `Nat.even n` is reflected in the truth of
---  the proposition `∃ (k : Nat), n = Nat.double k`.
+instance (n : Nat) : Decidable (Even n) :=
+  decidable_of_decidable_of_iff even_iff_Even
+
+--  Its type shows exactly what it needs and produces:
+
+#check @decidable_of_decidable_of_iff
+
+--  Output:
+--    @decidable_of_decidable_of_iff : {p q : Prop} → [Decidable p] → (p ↔ q) → Decidable q
+
+--  Given a `Decidable p` instance and a proof `p ↔ q`, it
+--  produces a `Decidable q`. Here, `p` is `even n = true` —
+--  already decidable, since equality of `Bool`s always is —
+--  and `q` is `Even n`; `even_iff_Even` supplies the
+--  connecting `p ↔ q`. Under the hood, it checks whether
+--  `p` holds (using the `Decidable p` instance it was
+--  given) and uses the iff to turn that proof of `p` or
+--  `¬p` into one of `q` or `¬q`, which it then packages
+--  with `Decidable.isTrue`/`Decidable.isFalse` — we'll see
+--  this exact case split written out by hand shortly.
 --
---  Similarly, to state that two numbers n and m are equal,
---  we can say either
---  - that `n == m` returns `true`, or
---  - that `n = m`
+--  Now we can complete such proofs by computation, using
+--  the `decide` tactic:
+
+example : Even 2 := by decide
+example : Even 4 := by decide
+example : Even 6 := by decide
+example : Even 100 := by decide
+example : ¬ Even 101 := by decide
+example : ∀ n < 10, Even (2 * n) := by decide
+example : ∀ n < 10, Even (2 * n) ∧ ¬ Even (2 * n + 1) := by decide
+
+--  The standard library's `decidable_of_bool` builds a
+--  `Decidable p` the same general way, but starting from a
+--  `Bool` `b` and a proof `b = true ↔ p`, rather than from
+--  an existing `Decidable` instance: it case-splits on `b`
+--  and packages the result with the
+--  `Decidable.isTrue`/`Decidable.isFalse` constructors from
+--  the `recall` block above. We can write that same case
+--  split by hand:
+
+example {p : Prop} (b : Bool) (h : b = true ↔ p) : Decidable p := by
+  by_cases hb : b
+  · apply isTrue
+    simp [← h, hb]
+  · apply isFalse
+    simp [← h, hb]
+
+--  The `decide` tactic itself rests on two lemmas relating
+--  a `Decidable` instance's underlying boolean to the
+--  proposition it decides: `decide_eq_true_iff` says
+--  `decide p = true ↔ p`, and `decide_eq_false_iff_not`
+--  says `decide p = false ↔ ¬p`. `decide` reduces the goal
+--  `p` to computing whether `decide p` evaluates to `true`,
+--  then invokes the first of these.
 --
---  Again, these two notions are equivalent:
-
-example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := beq_iff_eq
-
---  So what should we do in situations where some claim
---  could be formalized as either a proposition or a boolean
---  computation? Which should we choose?
---
---  In general, both can be useful. Which we choose has to
---  do with the *computational* nature of Lean's core
---  language, which is designed so that every function it
---  expresses is total, and by default computable unless we
---  explicit indicate otherwise. As an example, consider
---  trying to write a function `α → α → Bool` checking for
---  equality on an arbitrary type:
-
---  Lean will complain here that it cannot find an instance
---  of `Decidable`. This typeclass
-
-sf_recall
-  class inductive Decidable (p : Prop) where
-    /-- Proves that `p` is decidable by supplying a proof of `¬ p` -/
-    | isFalse (h : Not p) : Decidable p
-    /-- Proves that `p` is decidable by supplying a proof of `p` -/
-    | isTrue (h : p) : Decidable p
-
---  is the way that we express in Lean that a given
---  proposition is decidable. This is the generalization of
---  our observation that `Nat.even_iff_Even` was reflecting
---  a proof between boolean and propositional equality. In
---  fact, we can use this theorem to directly construct a
---  `Decidable` instance.
-
-instance (n : Nat) : Decidable (Nat.Even n) :=
-  decidable_of_decidable_of_iff Nat.even_iff_Even
-
---  Now we are able to complete such proofs by computation
---  using the `decide` tactic:
-
-example : Nat.Even 2 := by decide
-example : Nat.Even 4 := by decide
-example : Nat.Even 6 := by decide
-example : Nat.Even 100 := by decide
-example : ¬ Nat.Even 101 := by decide
-example : ∀ n < 10, Nat.Even (2 * n) := by decide
-example : ∀ n < 10, Nat.Even (2 * n) ∧ ¬ Nat.Even (2 * n + 1) := by decide
-
---  In general, Lean will try to use typeclass synthesis
---  with `Decidable` in order to determine when it is
---  appropriate to use `Prop` and `Bool` interchangeably.
---  For instance, while our example `eq` failed above while
---  trying to use propositional equality `=` in the
---  condition of an `if` statement, we are allowed to write
-
-def nat_eq (m n : Nat) : Bool := if m = n then true else false
-
---  Why is this allowed? It is precisely because equality of
---  natural numbers is decidable, and Lean makes use of this
---  fact. If we print this definition with notation unset,
---  we would find that it is using `instDecidableEqNat`:
-
-set_option pp.all true in
-#print nat_eq
-
---  which proves that this equality is decidable.
---
---  This is only half the story however: while Lean's core
+--  This is only half the story, however: while Lean's core
 --  theory enables this computation, Lean is also often used
 --  in applications where we don't care about computability,
 --  such as pure mathematics. In particular, it is possible
@@ -1516,6 +1677,10 @@ sf_experiment
   
   set_option pp.all true in
   #print eq
+
+--  Output:
+--    def Reflection.eq : {α : Type} → (x y : α) → Bool :=
+--    fun {α : Type} (x y : α) => @ite.{1} Bool (@Eq.{1} α x y) (Classical.propDecidable (@Eq.{1} α x y)) Bool.true Bool.false
 
 --  But we have indicated to Lean, using the `noncomputable`
 --  keyword and `Classical` namespace, that we are *not*
@@ -1529,24 +1694,6 @@ sf_experiment
 --  computational features of Lean such as the `decide`
 --  tactic or the `#eval` command.
 
---  ## TODO
-
-#check decidable_of_bool
-
-example {p : Prop} (b : Bool) (h : b = true ↔ p) : Decidable p := by
-  by_cases hb : b
-  · apply isTrue
-    simp [← h, hb]
-  · apply isFalse
-    simp [← h, hb]
-
-#check decide_eq_false_iff_not
-#check decide_eq_true_iff
-
-example {α : Type} (x : α) [BEq α] [LawfulBEq α] (xs : List α)
-    (neq : xs.filter (x == ·) ≠ []) : x ∈ xs := by
-  sorry
-
 end Reflection
 
--- Source revision: 2d86b23, committed 2026-10-01 22:21 UTC
+-- Source revision: 00e1228, committed 2026-10-05 22:06 UTC

@@ -76,76 +76,6 @@
   background: none;
 }
 </style><style>
-.exercise {
-  margin: 1.2em 0;
-  padding: 0.6em 1em;
-  border-left: 3px solid #a00;
-  background: #fdf8ee;
-}
-.exercise-header {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.5em;
-}
-.exercise-header .exercise-label,
-.exercise-header .exercise-stars,
-.exercise-header .exercise-name,
-.exercise-header .exercise-level {
-  font-family: inherit;
-}
-.exercise-stars { margin: 0 0.5em; color: #c08000; }
-.exercise-name  {
-  font-family: var(--verso-code-font-family);
-  font-style: italic;
-  color: #555;
-}
-.exercise-level {
-  margin-left: 0.5em;
-  font-weight: 700;
-  color: #a00;
-}
-</style><style>
-div.sf-quote {
-  font-style: italic;
-  margin: 1em 0;
-}
-</style><style>
-div.sf-quiz {
-  margin: 1em 0;
-  padding: 0.4em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 2px;
-}
-div.sf-quiz > .sf-quiz-label {
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  margin-bottom: 0.4em;
-}
-</style><style>
-details.sf-quiz-solution {
-  margin: 0.6em 0;
-}
-details.sf-quiz-solution > summary {
-  cursor: pointer;
-  display: inline-block;
-  font-family: var(--verso-structure-font-family);
-  font-weight: 600;
-  font-size: 0.85em;
-  padding: 0.2em 0.7em;
-  border: 1px solid var(--sf-rule, #ccc);
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.04);
-  user-select: none;
-}
-details.sf-quiz-solution[open] > summary {
-  margin-bottom: 0.5em;
-}
-details.sf-quiz-solution > .sf-quiz-solution-body {
-  padding: 0.2em 0.8em;
-  border-left: 3px solid var(--sf-rule, #ccc);
-}
-</style><style>
 .namedocs {
   position: relative;
   border: solid 1px #98B2C0;
@@ -903,6 +833,35 @@ details.sf-quiz-solution > .sf-quiz-solution-body {
   opacity: 0.5;
 }
 </style><style>
+.exercise {
+  margin: 1.2em 0;
+  padding: 0.6em 1em;
+  border-left: 3px solid #a00;
+  background: #fdf8ee;
+}
+.exercise-header {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+.exercise-header .exercise-label,
+.exercise-header .exercise-stars,
+.exercise-header .exercise-name,
+.exercise-header .exercise-level {
+  font-family: inherit;
+}
+.exercise-stars { margin: 0 0.5em; color: #c08000; }
+.exercise-name  {
+  font-family: var(--verso-code-font-family);
+  font-style: italic;
+  color: #555;
+}
+.exercise-level {
+  margin-left: 0.5em;
+  font-weight: 700;
+  color: #a00;
+}
+</style><style>
 :root {
   --sf-bg: #fffdf6;
   --sf-text: #1a1208;
@@ -1021,32 +980,6 @@ blockquote {
   border-left: 3px solid var(--sf-accent);
 }
 </style><style>
-table.tabular {
-  margin: auto;
-  border-spacing: 1rem;
-}
-table.tabular.left-align {
-  margin-right: auto;
-  margin-left: 0;
-}
-table.tabular.center-align {
-  margin: auto;
-}
-table.tabular.right-align {
-  margin-left auto;
-  margin-right: 0;
-}
-table.tabular td, table.tabular th {
-  text-align: left;
-  vertical-align: top;
-}
-table.tabular td > p:first-child, table.tabular th > p:first-child {
-  margin-top: 0;
-}
-table.tabular td > p:last-child, table.tabular th > p:first-child {
-  margin-bottom: 0;
-}
-</style><style>
 /* +centered display: center the whole block as a rigid unit, so multi-line
    ASCII art (e.g. inference rules) keeps its internal alignment -- unlike
    text-align: center, which would center each line independently and
@@ -1068,6 +1001,11 @@ table.tabular td > p:last-child, table.tabular th > p:first-child {
      left padding only shifts the first line. */
   padding: 0;
   background: none;
+}
+</style><style>
+div.sf-quote {
+  font-style: italic;
+  margin: 1em 0;
 }
 </style><style>
 .marginalia .note {
@@ -1166,6 +1104,19 @@ body {
   margin-right: 0.5em;
 }
 </style><style>
+div.sf-quiz {
+  margin: 1em 0;
+  padding: 0.4em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+}
+div.sf-quiz > .sf-quiz-label {
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  margin-bottom: 0.4em;
+}
+</style><style>
 div.sf-dev-note {
   margin: 1em 0;
   padding: 0.5em 0.9em;
@@ -1181,6 +1132,29 @@ div.sf-dev-note > .sf-dev-note-label {
   letter-spacing: 0.03em;
   color: #7a5800;
   margin-bottom: 0.3em;
+}
+</style><style>
+details.sf-quiz-solution {
+  margin: 0.6em 0;
+}
+details.sf-quiz-solution > summary {
+  cursor: pointer;
+  display: inline-block;
+  font-family: var(--verso-structure-font-family);
+  font-weight: 600;
+  font-size: 0.85em;
+  padding: 0.2em 0.7em;
+  border: 1px solid var(--sf-rule, #ccc);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.04);
+  user-select: none;
+}
+details.sf-quiz-solution[open] > summary {
+  margin-bottom: 0.5em;
+}
+details.sf-quiz-solution > .sf-quiz-solution-body {
+  padding: 0.2em 0.8em;
+  border-left: 3px solid var(--sf-rule, #ccc);
 }
 </style><style>
 details.sf-details {
@@ -2495,30 +2469,6 @@ window.onload = async () => {
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
        {"title": "Using Typeclasses", "shortTitle": null, "number": "3"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--TODO":
-   [{"id": "Logical-Foundations--Typeclasses--TODO",
-     "data":
-     {"title": "TODO",
-      "shortTitle": null,
-      "sectionNum": "11.8.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "TODO", "shortTitle": null, "number": "8"}]},
-     "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--Reflection":
-   [{"id": "Logical-Foundations--Typeclasses--Reflection",
-     "data":
-     {"title": "Reflection",
-      "shortTitle": null,
-      "sectionNum": "11.7.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
-       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Reflection", "shortTitle": null, "number": "7"}]},
-     "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Proof-Carrying-Typeclasses",
      "data":
@@ -2539,12 +2489,12 @@ window.onload = async () => {
      "data":
      {"title": "Updating Elements",
       "shortTitle": null,
-      "sectionNum": "11.6.2.2.",
+      "sectionNum": "11.5.2.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"},
        {"title": "Updating Elements", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
@@ -2554,12 +2504,12 @@ window.onload = async () => {
      "data":
      {"title": "Getting Elements",
       "shortTitle": null,
-      "sectionNum": "11.6.2.1.",
+      "sectionNum": "11.5.2.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"},
        {"title": "Getting Elements", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
@@ -2568,12 +2518,12 @@ window.onload = async () => {
      "data":
      {"title": "Total Maps",
       "shortTitle": null,
-      "sectionNum": "11.6.2.",
+      "sectionNum": "11.5.2.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Total Maps", "shortTitle": null, "number": "2"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Partial-Maps":
@@ -2581,12 +2531,12 @@ window.onload = async () => {
      "data":
      {"title": "Partial Maps",
       "shortTitle": null,
-      "sectionNum": "11.6.4.",
+      "sectionNum": "11.5.4.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Partial Maps", "shortTitle": null, "number": "4"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps--Notation-for-Concrete-Maps":
@@ -2594,12 +2544,12 @@ window.onload = async () => {
      "data":
      {"title": "Notation for Concrete Maps",
       "shortTitle": null,
-      "sectionNum": "11.6.3.",
+      "sectionNum": "11.5.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Notation for Concrete Maps",
         "shortTitle": null,
         "number": "3"}]},
@@ -2609,12 +2559,12 @@ window.onload = async () => {
      "data":
      {"title": "Key and Value Types",
       "shortTitle": null,
-      "sectionNum": "11.6.1.",
+      "sectionNum": "11.5.1.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"},
+       {"title": "Maps", "shortTitle": null, "number": "5"},
        {"title": "Key and Value Types", "shortTitle": null, "number": "1"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Maps":
@@ -2622,12 +2572,12 @@ window.onload = async () => {
      "data":
      {"title": "Maps",
       "shortTitle": null,
-      "sectionNum": "11.6.",
+      "sectionNum": "11.5.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "Maps", "shortTitle": null, "number": "6"}]},
+       {"title": "Maps", "shortTitle": null, "number": "5"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses":
    [{"id": "Logical-Foundations--Typeclasses--Defining-Your-Own-Typeclasses",
@@ -2643,17 +2593,17 @@ window.onload = async () => {
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Typeclasses/"}],
-   "Logical-Foundations--Typeclasses--API-and-Encapsulation":
-   [{"id": "Logical-Foundations--Typeclasses--API-and-Encapsulation",
+   "Logical-Foundations--Typeclasses--Deciding-Propositions":
+   [{"id": "Logical-Foundations--Typeclasses--Deciding-Propositions",
      "data":
-     {"title": "API and Encapsulation",
+     {"title": "Deciding Propositions",
       "shortTitle": null,
-      "sectionNum": "11.5.",
+      "sectionNum": "11.6.",
       "searchPriority": 50,
       "context":
       [{"title": "Logical Foundations", "shortTitle": null, "number": null},
        {"title": "Typeclasses", "shortTitle": null, "number": "11"},
-       {"title": "API and Encapsulation", "shortTitle": null, "number": "5"}]},
+       {"title": "Deciding Propositions", "shortTitle": null, "number": "6"}]},
      "address": "/Typeclasses/"}],
    "Logical-Foundations--Tactics___-More-Basic-Tactics--Using--cases--on-Expressions--Splitting-with-Equations":
    [{"id":
@@ -5826,6 +5776,14 @@ window.onload = async () => {
         "Data and Functions",
         "Days of the Week (Enumerated Types)"]}},
      "address": "/Basics/"}],
+   "nat_eq":
+   [{"id": "nat_eq",
+     "data":
+     {"/Typeclasses/#nat_eq":
+      {"display": "nat_eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
    "myNil'":
    [{"id": "myNil___",
      "data":
@@ -6141,6 +6099,29 @@ window.onload = async () => {
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
+   "eq":
+   [{"id": "eq-next",
+     "data":
+     {"/Typeclasses/#eq-next":
+      {"display": "eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]},
+      "/Typeclasses/#eq":
+      {"display": "eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"},
+    {"id": "eq",
+     "data":
+     {"/Typeclasses/#eq-next":
+      {"display": "eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]},
+      "/Typeclasses/#eq":
+      {"display": "eq",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
    "double_injective":
    [{"id": "double_injective-next",
      "data":
@@ -6825,45 +6806,93 @@ window.onload = async () => {
         "Case Study: Regular Expressions",
         "Definitions"]}},
      "address": "/Automation/"}],
-   "Reflection.nat_eq":
-   [{"id": "Reflection___nat_eq",
+   "Reflection.even_zero":
+   [{"id": "Reflection___even_zero",
      "data":
-     {"/Typeclasses/#Reflection___nat_eq":
-      {"display": "nat_eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     {"/Typeclasses/#Reflection___even_zero":
+      {"display": "even_zero",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_succ":
+   [{"id": "Reflection___even_succ",
+     "data":
+     {"/Typeclasses/#Reflection___even_succ":
+      {"display": "even_succ",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_iff_Even":
+   [{"id": "Reflection___even_iff_Even",
+     "data":
+     {"/Typeclasses/#Reflection___even_iff_Even":
+      {"display": "even_iff_Even",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_double_exists":
+   [{"id": "Reflection___even_double_exists",
+     "data":
+     {"/Typeclasses/#Reflection___even_double_exists":
+      {"display": "even_double_exists",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even_double":
+   [{"id": "Reflection___even_double",
+     "data":
+     {"/Typeclasses/#Reflection___even_double":
+      {"display": "even_double",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.even":
+   [{"id": "Reflection___even",
+     "data":
+     {"/Typeclasses/#Reflection___even":
+      {"display": "even",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
    [{"id": "Reflection___eq",
      "data":
-     {"/Typeclasses/#Reflection___eq-next":
+     {"/Typeclasses/#Reflection___eq":
       {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
-      "/Typeclasses/#Reflection___eq":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
-     "address": "/Typeclasses/"},
-    {"id": "Reflection___eq-next",
-     "data":
-     {"/Typeclasses/#Reflection___eq-next":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]},
-      "/Typeclasses/#Reflection___eq":
-      {"display": "eq",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Nat.even_iff_Even":
-   [{"id": "Reflection___Nat___even_iff_Even",
+   "Reflection.double_zero":
+   [{"id": "Reflection___double_zero",
      "data":
-     {"/Typeclasses/#Reflection___Nat___even_iff_Even":
-      {"display": "even_iff_Even",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     {"/Typeclasses/#Reflection___double_zero":
+      {"display": "double_zero",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
      "address": "/Typeclasses/"}],
-   "Reflection.Nat.even_double":
-   [{"id": "Reflection___Nat___even_double",
+   "Reflection.double_succ":
+   [{"id": "Reflection___double_succ",
      "data":
-     {"/Typeclasses/#Reflection___Nat___even_double":
-      {"display": "even_double",
-       "context": ["Logical Foundations", "Typeclasses", "Reflection"]}},
+     {"/Typeclasses/#Reflection___double_succ":
+      {"display": "double_succ",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.double":
+   [{"id": "Reflection___double",
+     "data":
+     {"/Typeclasses/#Reflection___double":
+      {"display": "double",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+     "address": "/Typeclasses/"}],
+   "Reflection.Even":
+   [{"id": "Reflection___Even",
+     "data":
+     {"/Typeclasses/#Reflection___Even":
+      {"display": "Even",
+       "context":
+       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
      "address": "/Typeclasses/"}],
    "ReflTransGen.trans":
    [{"id": "ReflTransGen___trans",
@@ -9570,6 +9599,16 @@ window.onload = async () => {
         "Typeclasses",
         "Defining Your Own Typeclasses"]}},
      "address": "/Typeclasses/"}],
+   "DefaultValueScratch.List.headOrEx":
+   [{"id": "DefaultValueScratch___List___headOrEx",
+     "data":
+     {"/Typeclasses/#DefaultValueScratch___List___headOrEx":
+      {"display": "List.headOrEx",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Defining Your Own Typeclasses"]}},
+     "address": "/Typeclasses/"}],
    "DefaultValueScratch.DefaultValue.value":
    [{"id": "DefaultValueScratch___DefaultValue___value",
      "data":
@@ -10227,7 +10266,7 @@ if (paramName) {
             <div id="message"></div>
             </section>
           <div class="sf-build-stamp">
-            Source revision: 2d86b23, committed 2026-10-01 22:21 UTC</div>
+            Source revision: 00e1228, committed 2026-10-05 22:06 UTC</div>
           <nav class="prev-next-buttons">
             <div></div>
             <div></div>

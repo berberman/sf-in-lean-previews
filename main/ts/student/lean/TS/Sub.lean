@@ -1927,4 +1927,4 @@ end FormalThoughtExercises
 
 end StlcSub
 
--- Source revision: 2d86b23, committed 2026-10-01 22:21 UTC
+-- Source revision: 00e1228, committed 2026-10-05 22:06 UTC
