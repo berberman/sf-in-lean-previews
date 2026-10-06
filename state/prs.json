@@ -114,16 +114,6 @@
       "status": "ci-failed",
       "title": "Slang: Proofreading",
       "url": "https://github.com/plclub/sf-in-lean/pull/431"
-    },
-    "432": {
-      "base_sha": "00e1228c2376d8c28875134eeb5ce30fcf435e0d",
-      "changed_variants": [],
-      "head_sha": "fccbf505c3cbf12c06d29c761fb7261a86475ca1",
-      "preview_path": "pr/432/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Typeclasses: More work",
-      "url": "https://github.com/plclub/sf-in-lean/pull/432"
     }
   },
   "schema": 3

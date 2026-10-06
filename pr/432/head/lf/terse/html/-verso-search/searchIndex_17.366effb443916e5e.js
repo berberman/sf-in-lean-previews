@@ -1,1 +1,0 @@
-window.docContents[17].resolve({"/Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Introduction":{"contents":"\n\n","context":"Logical Foundations\u0009Basics: Functional Programming in Lean","header":"2.1. Introduction","id":"/Basics/#Logical-Foundations--Basics___-Functional-Programming-in-Lean--Introduction"}});
