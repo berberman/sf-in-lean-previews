@@ -340,7 +340,7 @@ sf_recall
 --  searched for a `DefaultValue` instance above. Here is
 --  one way to define such an instance for `Nat`:
 
-instance (priority := low) : BEq Nat where
+instance (priority := low) instNatbeq : BEq Nat where
   beq := Nat.beq
 
 --  This instance is given low priority so that it doesn't
@@ -351,6 +351,13 @@ instance (priority := low) : BEq Nat where
 --  what a hand-written `BEq` instance looks like, the same
 --  way `instDefaultValueNat` illustrated a hand-written
 --  `DefaultValue` instance earlier.
+--
+--  If you prefer a specific instance you can provide it
+--  explicitly, by using `@` to make the instance argument
+--  explicit. Here we provide our `instNatbeq` instance
+--  specifically.
+
+#eval @List.elemPoly Nat instNatbeq 1 [1,2,3]
 
 --  ### Exercise (1 star): List.elem_poly_eq_elem_nat ⭐
 
@@ -530,13 +537,15 @@ theorem id_unique {α : Type} {m₁ m₂ : Monoid α} (h : m₁.op = m₂.op) :
 
 --  In the above proof, we can destructure the monoid
 --  instances `m₁` and `m₂` with the `obtain` tactic we saw
---  in the Logic chapter. When we do so, however, because
---  these are class instances instead of normal structures,
---  we prepend the `@` symbol to our tuple. When stepping
---  through the above proof, if the notation is confusing to
---  you, remember that you can set `set_option pp.all true`
---  or `set_option pp.explicit true` to make Lean show you
---  more clearly what is going on. For example, the goal is
+--  in the Logic chapter. When we do so, we prepend the `@`
+--  symbol to our tuple so that we can "flatten" the
+--  `Monoid` to reveal both its `OpSet` field `op` and its
+--  `Monoid` (only) fields `id`, `left_id`, etc., together.
+--  When stepping through the above proof, if the notation
+--  is confusing to you, remember that you can set
+--  `set_option pp.all true` or
+--  `set_option pp.explicit true` to make Lean show you more
+--  clearly what is going on. For example, the goal is
 --  displayed as `Monoid.id = Monoid.id` since the instances
 --  `m₁` and `m₂` are implicit arguments to `Monoid.id`.
 --  Setting `pp.explicit true` displays the goal as
@@ -919,11 +928,11 @@ example : exampleMap'["quux"] = false := by
 
 sf_recall
   class ReflBEq (α : Type) [BEq α] : Prop where
-      rfl {a : α} : a == a
+      rfl {a : α} : (a == a) = true
 
 sf_recall
   class LawfulBEq (α : Type) [BEq α] : Prop extends ReflBEq α where
-      eq_of_beq : {a b : α} → a == b → a = b
+      eq_of_beq : {a b : α} → (a == b) = true → a = b
 
 --  These classes refine `BEq`, specifying that `==` is
 --  reflexive and coincides with propositional equality `=`.
@@ -1647,8 +1656,11 @@ instance (n : Nat) : Decidable (Even n) :=
 --  with `Decidable.isTrue`/`Decidable.isFalse`.
 --
 --  Now we can complete such proofs by computation, using
---  the `decide` tactic:
+--  the `decide` tactic, and use `Even` in `if` expressions.
 
+#check if Even 2 then "is even" else "is odd"
+def odd (n : Nat) : Bool :=
+  if Even n then false else true
 example : Even 2 := by decide
 example : Even 4 := by decide
 example : Even 6 := by decide
@@ -1711,4 +1723,4 @@ sf_experiment
 
 end Reflection
 
--- Source revision: 8fca49c, committed 2026-10-06 15:30 UTC
+-- Source revision: e85fe77, committed 2026-10-06 21:16 UTC

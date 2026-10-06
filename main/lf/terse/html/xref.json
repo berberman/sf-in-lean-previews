@@ -3761,6 +3761,13 @@
         "Functions as Data",
         "Filter"]}},
      "address": "/Poly/"}],
+   "instNatbeq":
+   [{"id": "instNatbeq",
+     "data":
+     {"/Typeclasses/#instNatbeq":
+      {"display": "instNatbeq",
+       "context": ["Logical Foundations", "Typeclasses", "Using Typeclasses"]}},
+     "address": "/Typeclasses/"}],
    "instDefaultValueOption":
    [{"id": "instDefaultValueOption",
      "data":
@@ -4612,6 +4619,17 @@
         "Case Study: Regular Expressions",
         "Definitions"]}},
      "address": "/Automation/"}],
+   "Reflection.odd":
+   [{"id": "Reflection___odd",
+     "data":
+     {"/Typeclasses/#Reflection___odd":
+      {"display": "odd",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
+     "address": "/Typeclasses/"}],
    "Reflection.even_zero":
    [{"id": "Reflection___even_zero",
      "data":
@@ -7108,7 +7126,7 @@
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"}],
    "List.elemPoly":
-   [{"id": "List___elemPoly-next",
+   [{"id": "List___elemPoly",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
@@ -7119,7 +7137,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Why We Need Typeclasses"]}},
      "address": "/Typeclasses/"},
-    {"id": "List___elemPoly",
+    {"id": "List___elemPoly-next",
      "data":
      {"/Typeclasses/#List___elemPoly-next":
       {"display": "List.elemPoly",
