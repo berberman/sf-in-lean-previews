@@ -104,6 +104,53 @@
       "status": "ci-failed",
       "title": "LF/Basics: unhide code block inside details block",
       "url": "https://github.com/plclub/sf-in-lean/pull/429"
+    },
+    "433": {
+      "base_sha": "8fca49c8abc6cf68937f849bf4544814b5988e41",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "f23b54803587b7cf7c2397d14cf7969b53568175",
+      "preview_path": "pr/433/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37526713996",
+      "status": "published",
+      "title": "Typeclasses: Nits after lecture",
+      "url": "https://github.com/plclub/sf-in-lean/pull/433"
     }
   },
   "schema": 3
