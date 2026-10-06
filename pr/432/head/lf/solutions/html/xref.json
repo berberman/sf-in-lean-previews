@@ -364,6 +364,54 @@
         "shortTitle": null,
         "number": "2"}]},
      "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--and-Equality":
+   [{"id":
+     "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--and-Equality",
+     "data":
+     {"title": "Decidable  and Equality",
+      "shortTitle": null,
+      "sectionNum": "11.6.1.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Deciding Propositions", "shortTitle": null, "number": "6"},
+       {"title": "Decidable  and Equality",
+        "shortTitle": null,
+        "number": "1"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--and-Classical-Logic":
+   [{"id":
+     "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--and-Classical-Logic",
+     "data":
+     {"title": "Decidable  and Classical Logic",
+      "shortTitle": null,
+      "sectionNum": "11.6.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Deciding Propositions", "shortTitle": null, "number": "6"},
+       {"title": "Decidable  and Classical Logic",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Typeclasses/"}],
+   "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--Beyond-Equality":
+   [{"id":
+     "Logical-Foundations--Typeclasses--Deciding-Propositions--Decidable--Beyond-Equality",
+     "data":
+     {"title": "Decidable  Beyond Equality",
+      "shortTitle": null,
+      "sectionNum": "11.6.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Logical Foundations", "shortTitle": null, "number": null},
+       {"title": "Typeclasses", "shortTitle": null, "number": "11"},
+       {"title": "Deciding Propositions", "shortTitle": null, "number": "6"},
+       {"title": "Decidable  Beyond Equality",
+        "shortTitle": null,
+        "number": "2"}]},
+     "address": "/Typeclasses/"}],
    "Logical-Foundations--Typeclasses--Deciding-Propositions":
    [{"id": "Logical-Foundations--Typeclasses--Deciding-Propositions",
      "data":
@@ -4274,7 +4322,10 @@
      {"/Typeclasses/#nat_eq":
       {"display": "nat_eq",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  and Equality"]}},
      "address": "/Typeclasses/"}],
    "myNil'":
    [{"id": "myNil___",
@@ -5032,28 +5083,27 @@
         "Logic in Lean",
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
+   "eq_dec":
+   [{"id": "eq_dec",
+     "data":
+     {"/Typeclasses/#eq_dec":
+      {"display": "eq_dec",
+       "context":
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  and Equality"]}},
+     "address": "/Typeclasses/"}],
    "eq":
    [{"id": "eq",
      "data":
-     {"/Typeclasses/#eq-next":
+     {"/Typeclasses/#eq":
       {"display": "eq",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]},
-      "/Typeclasses/#eq":
-      {"display": "eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
-     "address": "/Typeclasses/"},
-    {"id": "eq-next",
-     "data":
-     {"/Typeclasses/#eq-next":
-      {"display": "eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]},
-      "/Typeclasses/#eq":
-      {"display": "eq",
-       "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  and Equality"]}},
      "address": "/Typeclasses/"}],
    "empty_relation_is_empty":
    [{"id": "empty_relation_is_empty",
@@ -6776,7 +6826,10 @@
      {"/Typeclasses/#Reflection___even_zero":
       {"display": "even_zero",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.even_succ":
    [{"id": "Reflection___even_succ",
@@ -6784,7 +6837,10 @@
      {"/Typeclasses/#Reflection___even_succ":
       {"display": "even_succ",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.even_iff_Even":
    [{"id": "Reflection___even_iff_Even",
@@ -6792,7 +6848,10 @@
      {"/Typeclasses/#Reflection___even_iff_Even":
       {"display": "even_iff_Even",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.even_double_exists":
    [{"id": "Reflection___even_double_exists",
@@ -6800,7 +6859,10 @@
      {"/Typeclasses/#Reflection___even_double_exists":
       {"display": "even_double_exists",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.even_double":
    [{"id": "Reflection___even_double",
@@ -6808,7 +6870,10 @@
      {"/Typeclasses/#Reflection___even_double":
       {"display": "even_double",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.even":
    [{"id": "Reflection___even",
@@ -6816,7 +6881,10 @@
      {"/Typeclasses/#Reflection___even":
       {"display": "even",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.eq":
    [{"id": "Reflection___eq",
@@ -6824,7 +6892,10 @@
      {"/Typeclasses/#Reflection___eq":
       {"display": "eq",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  and Classical Logic"]}},
      "address": "/Typeclasses/"}],
    "Reflection.double_zero":
    [{"id": "Reflection___double_zero",
@@ -6832,7 +6903,10 @@
      {"/Typeclasses/#Reflection___double_zero":
       {"display": "double_zero",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.double_succ":
    [{"id": "Reflection___double_succ",
@@ -6840,7 +6914,10 @@
      {"/Typeclasses/#Reflection___double_succ":
       {"display": "double_succ",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.double":
    [{"id": "Reflection___double",
@@ -6848,7 +6925,10 @@
      {"/Typeclasses/#Reflection___double":
       {"display": "double",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "Reflection.Even":
    [{"id": "Reflection___Even",
@@ -6856,7 +6936,10 @@
      {"/Typeclasses/#Reflection___Even":
       {"display": "Even",
        "context":
-       ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
+       ["Logical Foundations",
+        "Typeclasses",
+        "Deciding Propositions",
+        "Decidable  Beyond Equality"]}},
      "address": "/Typeclasses/"}],
    "ReflTransGen.trans":
    [{"id": "ReflTransGen___trans",

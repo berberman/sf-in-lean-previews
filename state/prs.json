@@ -117,11 +117,48 @@
     },
     "432": {
       "base_sha": "00e1228c2376d8c28875134eeb5ce30fcf435e0d",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "47cd10d223190513fd4f5c70a2ba6ecf62e3bae5",
       "preview_path": "pr/432/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37460251265",
+      "status": "published",
       "title": "Typeclasses: More work",
       "url": "https://github.com/plclub/sf-in-lean/pull/432"
     }
