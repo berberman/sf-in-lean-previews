@@ -914,15 +914,15 @@ example : exampleMap'["quux"] = false := by rfl
 --  rewrites:
 
 example : exampleMap'["bar"] = true := by
-  rw [exampleMap', update_apply, BEq.rfl, cond_true]
+  rw [exampleMap', update_apply, BEq.rfl, Bool.cond_true]
 
 example : exampleMap'["foo"] = true := by
-  rw [exampleMap', update_apply, show ("bar" == "foo") = false by simp, cond_false]
-  rw [update_apply, BEq.rfl, cond_true]
+  rw [exampleMap', update_apply, show ("bar" == "foo") = false by simp, Bool.cond_false]
+  rw [update_apply, BEq.rfl, Bool.cond_true]
 
 example : exampleMap'["quux"] = false := by
-  rw [exampleMap', update_apply, show ("bar" == "quux") = false by simp, cond_false]
-  rw [update_apply, show ("foo" == "quux") = false by rfl, cond_false]
+  rw [exampleMap', update_apply, show ("bar" == "quux") = false by simp, Bool.cond_false]
+  rw [update_apply, show ("foo" == "quux") = false by rfl, Bool.cond_false]
   rw [empty_def, getElem_def, get_def, Bool.default_bool]
 
 --  Each `show ... = false by simp`/`by rfl` above goes through because
@@ -932,9 +932,9 @@ example : exampleMap'["quux"] = false := by
 
 --  ### Reasoning About Total Maps
 
---  In addition to `BEq`, which we have already seen, reasoning about map
---  updates requires our key type `α` to have instances of the `ReflBEq`
---  and `LawfulBEq` typeclasses:
+--  When we use maps in later volumes, we'll need several fundamental
+--  properties about how they behave. Several of these properties depend on
+--  `BEq`, which our maps use to compare keys of type `α`.
 
 sf_recall
   class ReflBEq (α : Type) [BEq α] : Prop where
@@ -955,32 +955,26 @@ sf_recall
 --  distinction between `BEq` and provable equality in "Deciding
 --  Propositions" below.
 --
---  When we use maps in later volumes, we'll need several fundamental facts
---  about how they behave.
---
 --  Even if you don't work the following exercises, make sure you
---  thoroughly understand the statements of the lemmas!
+--  thoroughly understand the statements of the lemmas! Some of the proofs
+--  require the extensionality tactic `ext`, discussed in the Logic
+--  chapter.
 --
---  (Some of the proofs require the extensionality tactic `ext`, discussed
---  in the Logic chapter.)
---
---  First, the empty map returns its default element for all keys:
+--  Here is our first property, that the empty map returns its default
+--  element for all keys:
 
 @[simp]
 theorem getElem_empty {α β : Type} [BEq α] [Inhabited β] (a : α) :
   (∅ : TotalMap α β)[a] = default := by
     rw [empty_def, getElem_def, get_def]
 
---  Notice that in the example `exampleMap'["quux"] = false`, the last
---  rewrite is effectively just `getElem_empty`.
---
 --  Next, if we update a map `m` at a key `a` with a new value `b` and then
 --  look up `a` in the map resulting from the `update`, we get back `b`:
 
 @[simp]
 theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β)
   (a : α) (b : β) : (a →ₜ b ; m)[a] = b := by
-    rw [update_apply, BEq.rfl, cond_true]
+    rw [update_apply, BEq.rfl, Bool.cond_true]
 
 --  On the other hand, if we update a map `m` at a key `a₁` and then look
 --  up a *different* key `a₂` in the resulting map, we get the same result
@@ -992,7 +986,7 @@ theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β)
 theorem update_neq {α β : Type} [BEq α] [LawfulBEq α]
   {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :
   (a₁ →ₜ b ; m)[a₂] = m[a₂] := by
-  rw [update_apply, beq_false_of_ne h, cond_false]
+  rw [update_apply, beq_false_of_ne h, Bool.cond_false]
 
 --  (End of exercise)
 
@@ -1406,37 +1400,20 @@ end PartialMap
 --  Output:
 --    instBEqOfDecidableEq
 
---  Not `Nat.beq` at all! Recall that `BEq`'s only field is
---  `beq : α → α → Bool` — nothing more. `instBEqOfDecidableEq` builds a
---  `BEq α` instance from a `DecidableEq α` one by setting
---  `beq a b := decide (a = b)`: it takes the proof-carrying
---  `Decidable (a = b)` value and uses `decide` to strip away the proof,
---  keeping only the resulting `Bool`. `DecidableEq α` means
---  `∀ a b : α, Decidable (a = b)`, so `Nat`'s `instDecidableEqNat` is
---  exactly such a proof-producing decision procedure, and
---  `instBEqOfDecidableEq` turns it into a `BEq Nat` instance for free — no
---  one had to write one wrapping `Nat.beq` by hand. Because
---  `decide (a = b)` genuinely computes whether `a = b` holds, this
---  particular `beq` really does coincide with `=`, which is exactly why
---  the derived instance is `LawfulBEq`.
---
---  But that agreement is a fact about *this* instance, not something `BEq`
---  requires of every instance — as the Maps section noted, `beq`'s only
---  obligation is to return *some* `Bool`, with no proof attached, unlike
---  `Decidable`'s constructors, whose whole point is to carry one. So
---  `List.elemPoly`'s `[BEq α]` constraint is the weakest assumption
---  sufficient for a purely computational membership test, matching the
---  interface the rest of the Lean ecosystem (hash maps, `deriving BEq`,
---  and so on) already uses for comparisons — it doesn't require the caller
---  to have decidable equality, or even a comparison that agrees with `=`,
---  at all. `Decidable`, by contrast, is Lean's general-purpose mechanism
---  for making an arbitrary *proposition* computational — not just
---  equality, as we'll see shortly with the `even`/`Even` example — and
---  it's what you reach for when you specifically need the underlying
---  proof, not just a boolean.
---
---  So what is `Decidable`, the more primitive notion `DecidableEq` is
---  built from?
+--  What is this? Recall that `BEq`'s only field is `beq : α → α → Bool`.
+--  `instBEqOfDecidableEq` builds a `BEq α` instance by setting
+--  `beq a b := decide (a = b)`. What is `decide`? Let's see:
+
+#check @decide
+
+--  Output:
+--    decide : (p : Prop) → [h : Decidable p] → Bool
+
+--  We can see that `decide` takes a proposition (like `a = b`) and a proof
+--  that that proposition is decidable (i.e., `Decidable (a = b)`), and
+--  returns a `Bool` corresponding to the truth or falsehood of that
+--  proposition. What does it mean for a proposition to be `Decidable`?
+--  Here is its definition:
 
 sf_recall
   class inductive Decidable (p : Prop) where
@@ -1445,17 +1422,43 @@ sf_recall
     /-- Proves that `p` is decidable by supplying a proof of `p` -/
     | isTrue (h : p) : Decidable p
 
---  `Decidable p` is how Lean expresses that a single proposition `p` can
---  be settled one way or the other, computationally. Like `HasTwo`'s
+--  In other words, `Decidable p` expresses that a single proposition `p`
+--  can be settled one way or the other, computationally. Like `HasTwo`'s
 --  `one_neq_two` field earlier in this chapter,
 --  `Decidable.isTrue`/`Decidable.isFalse` are proof-carrying: each one
---  packages an actual proof — of `p` or of `¬p` — alongside which case
---  holds. `DecidableEq α` is just shorthand for having one of these
---  proof-carrying values for every equality proposition `a = b` in `α`.
+--  packages a proof — of `p` or of `¬p` — alongside which case holds.
+--  `instBEqOfDecidableEq` references `DecidableEq α`, which means
+--  `∀ a b : α, Decidable (a = b)`, i.e., it's a shorthand for having one
+--  of these proof-carrying values for every equality proposition `a = b`
+--  in `α`.
 --
---  Beyond letting the standard library derive `BEq` instances, `Decidable`
---  lets Lean branch directly on a *proposition* with `if`, rather than
---  only on an already-computed `Bool` with `bif`. You might wonder why
+--  Because `decide (a = b)` genuinely computes whether `a = b` holds,
+--  deriving `BEq` from `DecidableEq` this way also guarantees the result
+--  is `LawfulBEq`: the `beq` it produces is certain to agree with `=`.
+--  That guarantee is a fact about *this* instance, though, not something
+--  `BEq` demands of every instance — as the Maps section noted, `beq`'s
+--  only obligation is to return *some* `Bool`, with no proof attached,
+--  unlike `Decidable`'s constructors, whose whole point is to carry one.
+--  `List.elemPoly`'s `[BEq α]` constraint is therefore the weakest
+--  assumption sufficient for a purely computational membership test: it
+--  doesn't require the caller to have decidable equality, or even a
+--  comparison that agrees with `=`, at all.
+
+--  This is also why the chapter's earlier hand-written `BEq Nat` instance
+--  — the low-priority one built directly from `Nat.beq` — is a worse
+--  choice, not just a redundant one. `Nat.beq` does happen to agree with
+--  `=`, but nothing tells Lean that automatically: proving that
+--  hand-written instance `LawfulBEq` would take its own separate induction
+--  on `Nat.beq`'s recursive definition. Deriving `BEq Nat` from
+--  `DecidableEq Nat` instead sidesteps that work entirely — the proof of
+--  agreement is already carried by the `Decidable` instance, as we saw
+--  above — which is exactly why the standard library prefers it.
+--
+--  `Decidable`'s second job is letting Lean branch directly on a
+--  proposition, rather than only on an already-computed `Bool`. `if` and
+--  `decide` turn out to be built the same way: both case-split directly on
+--  a `Decidable p` instance — `if` (really `ite`) keeping one of its two
+--  branches, `decide` returning `true` or `false`. You might wonder why
 --  Lean bothers with a separate `if` at all — why not just write
 --  `bif x = y then ... else ...`, and let Lean quietly turn the
 --  proposition into a boolean? Let's try it, for a fully generic type:
@@ -1488,10 +1491,6 @@ sf_expect_failure_in
 --
 --    Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
 
---  This error is far more informative: it names exactly the missing
---  instance, `Decidable (x = y)`, rather than failing on a bare type
---  mismatch.
---
 --  But for `Nat`, which already has `instDecidableEqNat`, the analogous
 --  definition works fine:
 
@@ -1509,29 +1508,6 @@ def nat_eq (m n : Nat) : Bool := if m = n then true else false
 --  particular numbers, to produce the specific proof-carrying value `if`
 --  needs.
 --
---  The same equivalence holds between `==` and `=` on `Nat` in general —
---  the Logic chapter proved this by hand as `beq_eq_true`; the standard
---  library already provides it, as `beq_iff_eq`:
-
-example (n₁ n₂ : Nat) : n₁ == n₂ ↔ n₁ = n₂ := by exact beq_iff_eq
-
---  This is `LawfulBEq` at work again — the property the Maps section
---  relied on when it required a `LawfulBEq` instance on keys.
---
---  `LawfulBEq` is exactly what lets us move from a boolean test on a list
---  back to propositional membership, as in the following example: if
---  filtering a list for elements equal to `x` (under `==`) leaves
---  something behind, then `x` itself must have been in the list.
-
-example {α : Type} (x : α) [BEq α] [LawfulBEq α] (xs : List α)
-    (neq : xs.filter (x == ·) ≠ []) : x ∈ xs := by
-  rcases h : xs.filter (x == ·) with _ | ⟨y, ys⟩
-  · exact absurd h neq
-  · have hy : y ∈ xs.filter (x == ·) := by rw [h]; exact List.mem_cons_self
-    obtain ⟨hmem, heq⟩ := List.mem_filter.mp hy
-    rw [eq_of_beq heq]
-    exact hmem
-
 --  `instDecidableEqNat` works automatically because Lean's core library
 --  derives it for us — but not every proposition we might want to `decide`
 --  comes with a ready-made instance. Sometimes we have to build one
@@ -1596,13 +1572,13 @@ theorem even_double_exists (n : Nat) :
       rw [Bool.not_eq_true] at h
       rw [h] at ih ⊢
       subst ih
-      rw [cond_false, Bool.not_false, cond_true]
+      rw [Bool.cond_false, Bool.not_false, Bool.cond_true]
       rfl
 
 theorem even_iff_Even {n : Nat} : even n = true ↔ Even n where
   mp h := by
     have ⟨k, hk⟩ := even_double_exists n
-    rw [h, cond_true] at hk
+    rw [h, Bool.cond_true] at hk
     subst hk
     exists k
   mpr h := by
@@ -1636,7 +1612,11 @@ instance (n : Nat) : Decidable (Even n) :=
 --  this exact case split written out by hand shortly.
 --
 --  Now we can complete such proofs by computation, using the `decide`
---  tactic:
+--  tactic — not to be confused with the `decide` *function* from earlier.
+--  The function merely computes a `Bool` from a `Decidable` instance; the
+--  tactic instead closes a goal `p` outright, by computing that `decide p`
+--  reduces to `true` and invoking the connection between the two (made
+--  precise below):
 
 example : Even 2 := by decide
 example : Even 4 := by decide
@@ -1667,10 +1647,16 @@ example {p : Prop} (b : Bool) (h : b = true ↔ p) : Decidable p := by
 --  reduces the goal `p` to computing whether `decide p` evaluates to
 --  `true`, then invokes the first of these.
 --
---  This is only half the story, however: while Lean's core theory enables
---  this computation, Lean is also often used in applications where we
---  don't care about computability, such as pure mathematics. In
---  particular, it is possible to write a function for arbitrary equality:
+--  Computable instances like `instDecidableEqNat` and the one we built for
+--  `Even` are only half the story, however: Lean is also often used in
+--  applications where we don't care about computability, such as pure
+--  mathematics. The Logic chapter's "Classical vs. Constructive Logic"
+--  section already showed how `Classical.choice` lets Lean prove `p ∨ ¬ p`
+--  for an *arbitrary* proposition `p` via `Classical.em`, something no
+--  computable procedure could do in general. The same axiom lets Lean
+--  manufacture a `Decidable p` instance for arbitrary `p`, letting us
+--  write a function for arbitrary equality that no decision procedure
+--  could actually compute:
 
 sf_experiment
   open scoped Classical in
@@ -1695,4 +1681,4 @@ sf_experiment
 
 end Reflection
 
--- Source revision: d629cf5, committed 2026-10-05 22:04 UTC
+-- Source revision: ccb5492, committed 2026-10-06 01:42 UTC

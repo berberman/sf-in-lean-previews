@@ -3871,7 +3871,7 @@
         "Working with Decidable Properties"]}},
      "address": "/Logic/"}],
    "eq":
-   [{"id": "eq-next",
+   [{"id": "eq",
      "data":
      {"/Typeclasses/#eq-next":
       {"display": "eq",
@@ -3882,7 +3882,7 @@
        "context":
        ["Logical Foundations", "Typeclasses", "Deciding Propositions"]}},
      "address": "/Typeclasses/"},
-    {"id": "eq",
+    {"id": "eq-next",
      "data":
      {"/Typeclasses/#eq-next":
       {"display": "eq",

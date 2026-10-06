@@ -155,9 +155,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "11e99086f4abede9dc7f3928b1c52f0dacde98b8",
+      "head_sha": "6f1d018df927467b60b942cfbada7b1cb04d0b75",
       "preview_path": "pr/432/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37380078317",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37400532416",
       "status": "published",
       "title": "Typeclasses: More work",
       "url": "https://github.com/plclub/sf-in-lean/pull/432"
