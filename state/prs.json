@@ -104,6 +104,53 @@
       "status": "ci-failed",
       "title": "LF/Basics: unhide code block inside details block",
       "url": "https://github.com/plclub/sf-in-lean/pull/429"
+    },
+    "437": {
+      "base_sha": "6ccbf321d41afa3e93694a58028749bd3142fa71",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "35990315372ff710e56d6483820e044a04df9589",
+      "preview_path": "pr/437/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37665312140",
+      "status": "published",
+      "title": "Make weak_pumping_star_zero a 1 star exercise",
+      "url": "https://github.com/plclub/sf-in-lean/pull/437"
     }
   },
   "schema": 3
