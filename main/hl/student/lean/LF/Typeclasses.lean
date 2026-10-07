@@ -890,7 +890,7 @@ theorem update_eq {α β : Type} [BEq α] [ReflBEq α] (m : TotalMap α β)
 --  up a *different* key `a₂` in the resulting map, we get the same result
 --  that `m` would have given:
 
---  ### Exercise (2 stars): update_neq (Optional) ⭐⭐
+--  ### Exercise (2 stars): update_neq ⭐⭐
 
 @[simp]
 theorem update_neq {α β : Type} [BEq α] [LawfulBEq α]
@@ -1581,4 +1581,4 @@ sf_experiment
 
 end Reflection
 
--- Source revision: fac0ff2, committed 2026-10-07 21:03 UTC
+-- Source revision: 1894c7c, committed 2026-10-07 21:03 UTC
