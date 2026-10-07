@@ -151,6 +151,16 @@
       "status": "published",
       "title": "Make weak_pumping_star_zero a 1 star exercise",
       "url": "https://github.com/plclub/sf-in-lean/pull/437"
+    },
+    "438": {
+      "base_sha": "6ccbf321d41afa3e93694a58028749bd3142fa71",
+      "changed_variants": [],
+      "head_sha": "024fca3e061b4ce5a7165b9b89ff2139f68c1c51",
+      "preview_path": "pr/438/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Typeclasses: fix optional grading",
+      "url": "https://github.com/plclub/sf-in-lean/pull/438"
     }
   },
   "schema": 3
