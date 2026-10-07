@@ -26,9 +26,13 @@ inductive Bexp where
   | not (b : Bexp)
   | and (b₁ b₂ : Bexp)
 
---  ### Evaluation
+--  ### Semantics: Evaluation
 
---  *Evaluating* an arithmetic expression produces a number.
+--  The *semantics* of a programming language gives meaning
+--  to its programs. For Slang, the meaning of each
+--  arithmetic expression is the number it *evaluates* to.
+--  We can specify evaluation using a simple recursive
+--  function, an intepreter.
 
 namespace Aexp
 def eval (a : Aexp) : Nat :=
@@ -49,8 +53,8 @@ def eval (a : Aexp) : Nat :=
 example : eval (.plus (.num 2) (.num 2)) = 4 := by simp
 end Aexp
 
---  Similarly, evaluating a boolean expression yields a
---  boolean.
+--  Similarly, the semantics of a boolean expression is the
+--  boolean it evaluates to.
 
 namespace Bexp
 def eval (b : Bexp) : Bool :=
@@ -95,6 +99,16 @@ end Bexp
 --  (A) true (B) false (C) 0 (D) 3 (E) 6
 
 --   ----------------------------------------
+
+--  As a technical note: We are specifying the semantics of
+--  Slang in what is called the "big step" style: each
+--  `eval` function take an expression (the input) in one
+--  "big step" to its meaning (the output, as a number or
+--  boolean). This is in contrast to the "small step" style,
+--  which breaks a single evaluation into multiple, smaller
+--  steps. The small-step style is introduced in the Type
+--  Systems volume; we stick with big-step throughout the
+--  Hoare Logic volume.
 
 --  ### Optimization
 
@@ -367,4 +381,4 @@ end Slang.AevalRExtended
 --  Functional: computation. Relational: expressive. Best:
 --  both, proved equivalent.
 
--- Source revision: e85fe77, committed 2026-10-06 21:16 UTC
+-- Source revision: dd2de2a, committed 2026-10-07 11:54 UTC

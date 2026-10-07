@@ -2,30 +2,6 @@ import SFLCompat
 
 --  # Typeclasses
 
---  Note to developers (Mike Hicks @mwhicks1):
---      Big TODO: Need to make a :::terse version of this lecture. My
---      experience so far was that "Why We Need Typeclasses", "Defining
---      Your Own Typeclasses", "Using Typeclasses", "Proof-Carrying
---      Typeclasses" were mostly all useful to present, as is. We can go
---      much faster through TotalMaps, briefly mentioning a property that
---      uses `ext`. Then for PartialMaps you can just say it's an Option
---      value type, and then skip past the rest. Finally, the Decidable
---      section is pretty good as is, with the code examples, with a little
---      textual glue.
-
---  Note to developers (Mike Hicks @mwhicks1):
---      It would be convenient to declare the variables below so that
---      inline prose throughout this chapter can use `α`, `β`,
---      `defaultValue`, `n`, and `m` without repeating their type
---      annotations, but the same problem described in the Logic chapter
---      applies: an unused `variable` is silently added to the local
---      context in basically every proof from here on, even when the
---      theorem never mentions it. Until we have a way to declare variables
---      visible only for inline prose (rather than for every `lean` block),
---      we leave this commented out:
---
---      `-- variable (α β : Type) (defaultValue : α) (n m : Nat)`
-
 --  Chapter Poly introduced **parametric polymorphism**, declaring a type
 --  variable with no constraint on it.
 --
@@ -574,12 +550,6 @@ theorem inv_unique {α : Type} {g₁ g₂ : Group α} (h : g₁.op = g₂.op) :
     rw [← g₁.right_id (Group.inv x), ← g₁.right_inv x]
     rw [g₁.assoc, h, g₂.left_inv, g₂.left_id]
 
---  (End of exercise)
-
---  Note to developers (Daniel Sainati @dsainati1):
---      Taking suggestions for additional simple group theory theorems to
---      prove here.
-
 --  ### Exercise (1 star): IdentityUnique ⭐
 
 --  If an element of a monoid satisfies just one of the identity laws
@@ -614,49 +584,6 @@ theorem inv_inv {α : Type} {g : Group α} (x : α) :
 --  (End of exercise)
 
 end Algebra
-
---  Note to developers (Niklas Halonen @xhalo32):
---      -- # API and Encapsulation
---
---      === This section is still only the outline below; there is no
---      reader-facing prose yet. It is also not free-standing: the bullets
---      name exactly the vocabulary the Maps section below uses without
---      ever defining it — `get` as the "public API counterpart" to
---      `inner`, `toTotal` playing the same role for `PartialMap`, and the
---      recurring pattern of `*_def` lemmas marked "exposes
---      implementation-specific details ... avoid using outside the X
---      namespace." Revisit alongside the Maps section to decide whether to
---      write this section now, using `get`/`inner` and `toTotal`/`inner`
---      as the worked examples, or leave it as a stub. ===
---
---      Here, we should tie back the story from early chapters about
---      characterizing lemmas and definition unfolding. When unfolding a
---      definition directly without characterizing lemmas, the
---      implementation details are exposed. When downstream code can depend
---      on implementation details of upstream library code, it makes it
---      more difficult for the upstream library to evolve.
---
---      Explain the following items:
---      - What is API and how does it relate to typeclasses
---      - What is encapsulation: public and private API
---        - Function definitions and one-field structures are encapsulation
---          boundaries
---        - Definitions and structures are usually private, characterizing
---          lemmas are public
---        - Constructors of inductives are public
---        - Mention `public`, `private` keywords and that we don't use them
---          on the course?
---        - One can mostly ignore proof terms due to proof irrelevance
---
---      Here is an example where the proof term is blocking a rewrite. The
---      solution is to simplify it away.
---
---      `-- set_option pp.proofs true in
---      example {n m : Nat} {a : Fin n} {b : Fin m} (h₁ : n = m) (h₂ : a.val = b.val) :
---          a = ⟨b.val, h₁ ▸ b.isLt⟩ := by
---        -- ext
---        -- dsimp only
---        rw [← h₂]`
 
 --  ## Maps
 
@@ -876,10 +803,6 @@ def exampleMap :=
 --  letting us chain a sequence of function or method calls left to right
 --  without nested parentheses.
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      Should we introduce this notation earlier? (Are there good places
---      to use it earlier?)
-
 --  We also introduce a notation for updating maps — this time, rather than
 --  going through a typeclass and its own `notation`/`macro_rules`
 --  machinery as we did for `MyGetElem`, we write a `notation` that
@@ -1021,25 +944,6 @@ theorem ext {α β : Type} {m₁ m₂ : TotalMap α β}
 --  type, already proved once and for all, with nothing `TotalMap`-specific
 --  left to establish. This is the proof-simplifying payoff of representing
 --  maps as functions.
-
---  Note to developers (Mike Hicks @mwhicks1):
---      Claude suggested the following, but I'm not sure I buy it, so
---      leaving it out:
---
---      A hand-rolled representation doesn't get this for free. Consider
---      the Lists chapter's list-based `PartialMap`: updating the same key
---      to the same value twice, `update (update empty x 1) x
---      1`, agrees
---      with a single `update empty x 1` at every key, but the two are
---      *not* equal as `PartialMap` values — the shadowed entry is a
---      genuinely different (longer) term, so the obvious extensionality
---      statement is simply false for that type, not just hard to prove.
---      Getting an analogous `@[ext]` principle for such a representation
---      would mean changing the type itself — quotienting it by "same
---      `find` behavior" — not just writing one more lemma.
---
---      It's an attempted answer to a prior question from Niklas (xhalo32)
---      about why the functional approach is better. Not sure!
 
 --  To demonstrate this extensionality principle, let's look at an example:
 
@@ -1662,23 +1566,6 @@ example : ¬ Even 101 := by decide
 example : ∀ n < 10, Even (2 * n) := by decide
 example : ∀ n < 10, Even (2 * n) ∧ ¬ Even (2 * n + 1) := by decide
 
---  Note to developers (Mike Hicks @mwhicks1):
---      The following seems useful but I don't know where to put it.
---
---      The standard library's `decidable_of_bool` builds a `Decidable p`
---      the same general way, but starting from a `Bool` `b` and a proof
---      `b = true ↔ p`, rather than from an existing `Decidable` instance:
---      it case-splits on `b` and packages the result with the
---      `Decidable.isTrue`/`Decidable.isFalse` constructors from the
---      `recall` block above. We can write that same case split by hand:
---
---      `example {p : Prop} (b : Bool) (h : b = true ↔ p) : Decidable p := by
---        by_cases hb : b
---        · apply isTrue
---          simp [← h, hb]
---        · apply isFalse
---          simp [← h, hb]`
-
 --  ### `Decidable` and Classical Logic
 
 --  Computable instances like `instDecidableEqNat` and the one we built for
@@ -1726,4 +1613,4 @@ sf_experiment
 
 end Reflection
 
--- Source revision: e85fe77, committed 2026-10-06 21:16 UTC
+-- Source revision: dd2de2a, committed 2026-10-07 11:54 UTC

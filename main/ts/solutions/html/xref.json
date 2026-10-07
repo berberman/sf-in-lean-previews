@@ -1370,6 +1370,24 @@
         "number": "1"},
        {"title": "Syntax", "shortTitle": null, "number": "1"}]},
      "address": "/Slang/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Semantics___-Evaluation":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Semantics___-Evaluation",
+     "data":
+     {"title": "Semantics: Evaluation",
+      "shortTitle": null,
+      "sectionNum": "2.1.2.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "1"},
+       {"title": "Semantics: Evaluation", "shortTitle": null, "number": "2"}]},
+     "address": "/Slang/"}],
    "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Optimization":
    [{"id":
      "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Optimization",
@@ -1387,24 +1405,6 @@
         "shortTitle": null,
         "number": "1"},
        {"title": "Optimization", "shortTitle": null, "number": "3"}]},
-     "address": "/Slang/"}],
-   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Evaluation":
-   [{"id":
-     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions--Evaluation",
-     "data":
-     {"title": "Evaluation",
-      "shortTitle": null,
-      "sectionNum": "2.1.2.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "Slang: Arithmetic and Boolean Expressions",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Arithmetic and Boolean Expressions",
-        "shortTitle": null,
-        "number": "1"},
-       {"title": "Evaluation", "shortTitle": null, "number": "2"}]},
      "address": "/Slang/"}],
    "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Arithmetic-and-Boolean-Expressions":
    [{"id":
@@ -8845,7 +8845,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_neq":
    [{"id": "Slang___Bexp___eval_neq",
@@ -8856,7 +8856,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_le":
    [{"id": "Slang___Bexp___eval_le",
@@ -8867,7 +8867,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_gt":
    [{"id": "Slang___Bexp___eval_gt",
@@ -8878,7 +8878,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_eq":
    [{"id": "Slang___Bexp___eval_eq",
@@ -8889,7 +8889,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_bool":
    [{"id": "Slang___Bexp___eval_bool",
@@ -8900,7 +8900,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eval_and":
    [{"id": "Slang___Bexp___eval_and",
@@ -8911,7 +8911,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.evalR_iff_eval":
    [{"id": "Slang___Bexp___evalR_iff_eval",
@@ -8933,7 +8933,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Bexp.eq":
    [{"id": "Slang___Bexp___eq",
@@ -9434,7 +9434,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.eval_num":
    [{"id": "Slang___Aexp___eval_num",
@@ -9445,7 +9445,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.eval_mult":
    [{"id": "Slang___Aexp___eval_mult",
@@ -9456,7 +9456,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.eval_minus":
    [{"id": "Slang___Aexp___eval_minus",
@@ -9467,7 +9467,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.evalR_iff_eval'":
    [{"id": "Slang___Aexp___evalR_iff_eval___",
@@ -9500,7 +9500,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Arithmetic and Boolean Expressions",
-        "Evaluation"]}},
+        "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
    "Slang.Aexp.Nat.odd":
    [{"id": "Slang___Aexp___Nat___odd",

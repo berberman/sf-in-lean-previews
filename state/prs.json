@@ -1,5 +1,5 @@
 {
-  "main_sha": "e85fe773e189d3a1c0a79acd23e2c4492858e3d7",
+  "main_sha": "dd2de2ab4dc95b3610893aa33ef15a01cfc1ea40",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -108,10 +108,10 @@
     "436": {
       "base_sha": "e85fe773e189d3a1c0a79acd23e2c4492858e3d7",
       "changed_variants": [],
-      "head_sha": "9a07ff17cb86bbc0990eaa6b5d739f835fb04c96",
+      "head_sha": "1d6295aa0149b4ed68726a1bcabde2a7193d32b0",
       "preview_path": "pr/436/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37617199002",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Imp: Proofreading and tidying",
       "url": "https://github.com/plclub/sf-in-lean/pull/436"
     }

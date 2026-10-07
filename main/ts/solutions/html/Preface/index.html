@@ -1054,6 +1054,29 @@ blockquote {
   border-left: 3px solid var(--sf-accent);
 }
 </style><style>
+/* +centered display: center the whole block as a rigid unit, so multi-line
+   ASCII art (e.g. inference rules) keeps its internal alignment -- unlike
+   text-align: center, which would center each line independently and
+   misalign the premises/bar/conclusion. */
+.sf-display-centered {
+  margin: 1em 0;
+  display: flex;
+  justify-content: center;
+}
+.sf-display-centered pre {
+  margin: 0;
+  overflow-x: auto;
+  width: fit-content;
+}
+.sf-display-centered pre code {
+  font-family: var(--verso-code-font-family, monospace);
+  white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
+}
+</style><style>
 .marginalia .note {
   position: relative;
   padding: 0.5rem;
@@ -2304,11 +2327,11 @@ Please check back later!</p>
               <p>
                 If you want to refer to this volume in your own writing, please
 do so as follows:</p>
-              <pre>@book            {SFL:2,
+              <pre>@book            {SFL:3,
 author       =   {Mike Hicks and Benjamin C. Pierce and the SF-in-Lean team},
 title        =   "Type Systems",
 series       =   "Software Foundations in Lean",
-volume       =   "2",
+volume       =   "3",
 year         =   "2026",
 publisher    =   "Electronic textbook",
 note         =   {Version 0.1.0, \URL&lt;https://github.com/plclub/sf-in-lean&gt;}
@@ -2431,7 +2454,7 @@ part, by the National Science Foundation under the NSF Expeditions grant
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: e85fe77, committed 2026-10-06 21:16 UTC</div>
+            Source revision: dd2de2a, committed 2026-10-07 11:54 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="#" rel="prev" title=" Type Systems"><span class="arrow">←</span><span class="where"> Type Systems</span></a><a class="local-button active" href="Slang/#Slang" rel="next" title="2. Slang: Arithmetic and Boolean Expressions"><span class="where">2. Slang: Arithmetic and Boolean Expressions</span><span class="arrow">→</span></a></nav>
           </div>

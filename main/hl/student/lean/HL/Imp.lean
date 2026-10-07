@@ -155,7 +155,6 @@ syntax:max "~" term:max : imp_aexp
 
 /-- Embed an Imp arithmetic expression into a Lean term -/
 syntax:80 "aexp " "{" imp_aexp "}" : term
---  END DETAILS
 
 namespace Imp.Elab
 
@@ -219,6 +218,7 @@ macro_rules
     return withSourceInfoOf exp stx
 
 end Imp.Elab
+--  END DETAILS
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: boolean expressions)
 /-- Boolean expressions of Imp -/
@@ -1639,4 +1639,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: e85fe77, committed 2026-10-06 21:16 UTC
+-- Source revision: dd2de2a, committed 2026-10-07 11:54 UTC

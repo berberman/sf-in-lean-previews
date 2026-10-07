@@ -2131,11 +2131,11 @@ window.onload = async () => {
             <div class="split-toc book">
               <div class="title">
                 <label for="--verso-manual-toc-----bookRoot" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-----bookRoot" checked="checked"></label><span class="">Table of Contents</span></div>
-              <table><tr class="current numbered"><td class="num">1.</td><td><a href="Preface/#Hoare-Logic--Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Imp/#Imp">Imp: Simple Imperative Programs</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Equiv/#Equiv">Equiv: Program Equivalence</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Hoare/#Hoare">Hoare: Hoare Logic, Part I</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Hoare2/#Hoare2">Hoare2: Hoare Logic, Part II</a></td></tr></table></div>
+              <table><tr class="current numbered"><td class="num">1.</td><td><a href="Preface/#Preface">Preface</a></td></tr><tr class="numbered"><td class="num">2.</td><td><a href="Slang/#Slang">Slang: Arithmetic and Boolean Expressions</a></td></tr><tr class="numbered"><td class="num">3.</td><td><a href="Imp/#Imp">Imp: Simple Imperative Programs</a></td></tr><tr class="numbered"><td class="num">4.</td><td><a href="Equiv/#Equiv">Equiv: Program Equivalence</a></td></tr><tr class="numbered"><td class="num">5.</td><td><a href="Hoare/#Hoare">Hoare: Hoare Logic, Part I</a></td></tr><tr class="numbered"><td class="num">6.</td><td><a href="Hoare2/#Hoare2">Hoare2: Hoare Logic, Part II</a></td></tr></table></div>
             <div class="split-toc">
               <div class="title">
-                <label for="--verso-manual-toc-Hoare-Logic--Preface" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Hoare-Logic--Preface" checked="checked"></label><span class="number">1.</span> <span class="current"><a href="Preface/#Hoare-Logic--Preface">Preface</a></span></div>
-              <table><tr class="numbered"><td class="num">1.1.</td><td><a href="Preface/#Hoare-Logic--Preface--Recommended-Citation-Format">Recommended Citation Format</a></td></tr></table></div>
+                <label for="--verso-manual-toc-Preface" class="toggle-split-toc"><input type="checkbox" class="toggle-split-toc" id="--verso-manual-toc-Preface" checked="checked"></label><span class="number">1.</span> <span class="current"><a href="Preface/#Preface">Preface</a></span></div>
+              <table><tr class="numbered"><td class="num">1.1.</td><td><a href="Preface/#Hoare-Logic--Preface--Welcome">Welcome</a></td></tr><tr class="numbered"><td class="num">1.2.</td><td><a href="Preface/#Hoare-Logic--Preface--Overview">Overview</a></td></tr><tr class="numbered"><td class="num">1.3.</td><td><a href="Preface/#Hoare-Logic--Preface--Practicalities">Practicalities</a></td></tr><tr class="numbered"><td class="num">1.4.</td><td><a href="Preface/#Hoare-Logic--Preface--For-Potential-Contributors">For Potential Contributors</a></td></tr></table></div>
             </div>
           </div>
         <div class="last"></div>
@@ -2146,28 +2146,125 @@ window.onload = async () => {
             <a class="local-button active" href="#" rel="prev" title=" Hoare Logic"><span class="arrow">←</span><span class="where"> Hoare Logic</span></a><a class="local-button active" href="Slang/#Slang" rel="next" title="2. Slang: Arithmetic and Boolean Expressions"><span class="where">2. Slang: Arithmetic and Boolean Expressions</span><span class="arrow">→</span></a></nav>
           <section>
             <h1>
-              1. Preface<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface" title="Permalink">🔗</a></span></h1>
-            <p>
-              This volume is a work in progress.  It will develop a Lean formalization
-of Hoare Logic, covering axiomatic semantics, program verification, and
-reasoning about imperative programs.  Please check back later!</p>
+              1. Preface<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Preface" title="Permalink">🔗</a></span></h1>
             <section>
-              <h2 id="Hoare-Logic--Preface--Recommended-Citation-Format">
-                1.1. Recommended Citation Format<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface--Recommended-Citation-Format" title="Permalink">🔗</a></span></h2>
+              <h2 id="Hoare-Logic--Preface--Welcome">
+                1.1. Welcome<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface--Welcome" title="Permalink">🔗</a></span></h2>
               <p>
-                If you want to refer to this volume in your own writing, please
+                This is Hoare Logic, volume 2 of <em>Software Foundations in
+Lean</em>.  It develops formal techniques for reasoning about what programs do.
+For example, with the techniques we present, one can prove that an algorithm
+sorts an array or that a compiler optimization does not incorrectly change
+the behavior of the program it optimizes. This volume complements Type Systems,
+which develops techniques for establishing properties of <em>all</em> programs written
+in a given language; the two volumes can be read in either order, and both build
+on the material in Logical Foundations.</p>
+              </section>
+            <section>
+              <h2 id="Hoare-Logic--Preface--Overview">
+                1.2. Overview<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface--Overview" title="Permalink">🔗</a></span></h2>
+              <p>
+                To reason about a program, we first need a way of representing it as a
+mathematical object, so that we can talk about it precisely, together with a
+way of describing its behavior in terms of a mathematical function or
+relation. Our main tool for this is <em>operational semantics</em> in
+"big step" style, which is a method of specifying the meaning of a programming
+language by writing an abstract interpreter for it.</p>
+              <p>
+                The programming language we consider throughout this volume is <em>Imp</em>, a
+toy language capturing the core features of conventional imperative
+programming: variables, assignment, conditionals, and loops. Imp's
+arithmetic and boolean expressions are developed as their own simple sublangage,
+called Slang.</p>
+              <p>
+                We study two different ways of reasoning about the behavior of Imp programs.</p>
+              <p>
+                First, we consider what it means to say that two Imp programs are
+<em>equivalent</em>, in the sense that they produce the same behavior when started
+in the same initial state. This notion of equivalence becomes a criterion for
+judging the correctness of program transformations, such as those used in
+compilers and optimizers. We build some simple optimizers for Imp and prove that
+they preserve the behavior of the programs they transform.</p>
+              <p>
+                Second, we develop a methodology for proving that a given Imp program
+satisfies a formal specification of its behavior. We introduce <em>Hoare
+triples</em> — Imp programs annotated with pre- and post-conditions describing
+what they expect to be true of their starting state and what they promise
+to be true of their ending state, if they terminate — and the
+reasoning principles of <em>Hoare Logic</em>, a domain-specific logic for
+compositional reasoning about imperative programs. We then develop
+<em>decorated programs</em>, a practical notation for writing out Hoare Logic
+proofs alongside the code they verify.</p>
+              <p>
+                The techniques this volume presents are relatively simple, but they
+nevertheless underpin many of today's real-world software and hardware verification
+efforts.</p>
+              </section>
+            <section>
+              <h2 id="Hoare-Logic--Preface--Practicalities">
+                1.3. Practicalities<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface--Practicalities" title="Permalink">🔗</a></span></h2>
+              <p>
+                This volume assumes you already have Lean and VS Code set up as described in
+the Logical Foundations Preface, and that you are comfortable with the basic
+mechanics of working through an SFL chapter. The exercises here have the
+same "advanced"/"optional" markings, and star ratings.</p>
+              <p>
+                Briefly (see the Logical Foundations Preface for detail), to get started:</p>
+              <p>
+                If you are using this book as part of a class, your instructor will have
+created a "student" release for you; download and unzip it, open the
+resulting directory in VS Code, and open a <code>.lean</code> file (e.g., <code>HL/Slang.lean</code>)
+to get started.</p>
+              <p>
+                If you are reading on your own, clone the
+<a href="https://github.com/plclub/sf-in-lean">SF-in-Lean</a> repository and run <code>make
+hl-student</code> from the root directory to build the student version of this
+volume; it is written to <code>_out/hl/student/</code>, with an <code>html/</code> directory and a
+<code>lean/</code> directory, exactly as described for Logical Foundations. Run <code>make
+student</code> instead if you want all three volumes built together.</p>
+              <section>
+                <h3 id="Hoare-Logic--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations">
+                  1.3.1. Building on Your Own Copy of Logical Foundations<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface--Practicalities--Building-on-Your-Own-Copy-of-Logical-Foundations" title="Permalink">🔗</a></span></h3>
+                <p>
+                  This project includes a copy of the Logical Foundations files that
+chapters in this volme depends on, in their own <code>LF/</code> directory, so you do
+not need a separate Logical Foundations download to build or read this volume.
+If you have already worked through Logical Foundations and would rather this
+volume build on your own work, copy the whole <code>LF/</code> directory from your
+Logical Foundations download over this project's <code>LF/</code> directory, then
+rebuild.</p>
+                <p>
+                  Exercises in this volume use the same star ratings, and the same
+"advanced"/"optional" markings, described in the Logical Foundations
+Preface.</p>
+                </section>
+              <section>
+                <h3 id="Hoare-Logic--Preface--Practicalities--Citation-Format">
+                  1.3.2. Citation Format<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface--Practicalities--Citation-Format" title="Permalink">🔗</a></span></h3>
+                <p>
+                  If you want to refer to this volume in your own writing, please
 do so as follows:</p>
-              <pre>@book            {SFL:3,
+                <pre>@book            {SFL:2,
 author       =   {Mike Hicks and Benjamin C. Pierce and the SF-in-Lean team},
 title        =   "Hoare Logic",
 series       =   "Software Foundations in Lean",
-volume       =   "3",
+volume       =   "2",
 year         =   "2026",
 publisher    =   "Electronic textbook",
 note         =   {Version 0.1.0, \URL&lt;https://github.com/plclub/sf-in-lean&gt;}
-}</pre><section>
-                <h3 id="Hoare-Logic--Preface--Recommended-Citation-Format--Credits">
-                  1.1.1. Credits<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface--Recommended-Citation-Format--Credits" title="Permalink">🔗</a></span></h3>
+}</pre></section>
+              </section>
+            <section>
+              <h2 id="Hoare-Logic--Preface--For-Potential-Contributors">
+                1.4. For Potential Contributors<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface--For-Potential-Contributors" title="Permalink">🔗</a></span></h2>
+              <p>
+                If you find things you'd like to help add or improve, your
+contributions are welcome!  To get started, clone the
+<a href="https://github.com/plclub/sf-in-lean">SF-in-Lean git repo</a> and
+have a look at <code>ALPHA-TESTERS.md</code>.</p>
+              <section>
+                <h3 id="Hoare-Logic--Preface--For-Potential-Contributors--Credits">
+                  1.4.1. Credits<span class="permalink-widget inline"><a href="find/?domain=Verso.Genre.Manual.section&amp;name=Hoare-Logic--Preface--For-Potential-Contributors--Credits" title="Permalink">🔗</a></span></h3>
                 <p>
                   <strong>Leadership:</strong> Mike Hicks and Benjamin C. Pierce lead the SF-in-Lean project.</p>
                 <p>
@@ -2284,7 +2381,7 @@ part, by the National Science Foundation under the NSF Expeditions grant
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: e85fe77, committed 2026-10-06 21:16 UTC</div>
+            Source revision: dd2de2a, committed 2026-10-07 11:54 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="#" rel="prev" title=" Hoare Logic"><span class="arrow">←</span><span class="where"> Hoare Logic</span></a><a class="local-button active" href="Slang/#Slang" rel="next" title="2. Slang: Arithmetic and Boolean Expressions"><span class="where">2. Slang: Arithmetic and Boolean Expressions</span><span class="arrow">→</span></a></nav>
           </div>
