@@ -6,13 +6,13 @@ import SFLCompat
 
 --  This is Hoare Logic, volume 2 of *Software Foundations in Lean*. It
 --  develops formal techniques for reasoning about what programs do. For
---  example, with techniques we present, one can prove that an algorithm
---  sorts an array or that a compiler optimization does not incorrectly
---  change the behavior of the program it optimizes. This volume
---  complements Type Systems, which develops techniques for establishing
---  properties of *all* programs written in a given language; the two
---  volumes can be read in either order, and both build on the material in
---  Logical Foundations.
+--  example, with the techniques we present, one can prove that an
+--  algorithm sorts an array or that a compiler optimization does not
+--  incorrectly change the behavior of the program it optimizes. This
+--  volume complements Type Systems, which develops techniques for
+--  establishing properties of *all* programs written in a given language;
+--  the two volumes can be read in either order, and both build on the
+--  material in Logical Foundations.
 
 --  ## Overview
 
@@ -34,11 +34,11 @@ import SFLCompat
 --
 --  First, we consider what it means to say that two Imp programs are
 --  *equivalent*, in the sense that they produce the same behavior when
---  started in any initial state. This notion of equivalence becomes a
+--  started in the same initial state. This notion of equivalence becomes a
 --  criterion for judging the correctness of program transformations, such
---  as those used in compilers and optimizers. We build a simple optimizer
---  for Imp and prove that it preserves the behavior of the programs it
---  transforms.
+--  as those used in compilers and optimizers. We build some simple
+--  optimizers for Imp and prove that they preserve the behavior of the
+--  programs they transform.
 --
 --  Second, we develop a methodology for proving that a given Imp program
 --  satisfies a formal specification of its behavior. We introduce *Hoare
@@ -48,7 +48,7 @@ import SFLCompat
 --  and the reasoning principles of *Hoare Logic*, a domain-specific logic
 --  for compositional reasoning about imperative programs. We then develop
 --  *decorated programs*, a practical notation for writing out Hoare Logic
---  proofs alongside the code they justify.
+--  proofs alongside the code they verify.
 --
 --  The techniques this volume presents are relatively simple, but they
 --  nevertheless underpin today's real-world software and hardware
@@ -163,4 +163,4 @@ import SFLCompat
 --  was supported, in part, by the National Science Foundation under the
 --  NSF Expeditions grant 1521523, *The Science of Deep Specification*.
 
--- Source revision: 564bef4, committed 2026-10-07 01:12 UTC
+-- Source revision: 976141b, committed 2026-10-07 10:10 UTC
