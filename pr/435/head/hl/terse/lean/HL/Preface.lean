@@ -23,9 +23,9 @@ import SFLCompat
 --  talk about it precisely, together with a way of
 --  describing its behavior in terms of a mathematical
 --  function or relation. Our main tool for this is
---  *operational semantics*, a method of specifying the
---  meaning of a programming language by writing an abstract
---  interpreter for it.
+--  *operational semantics* in "big step" style, which is a
+--  method of specifying the meaning of a programming
+--  language by writing an abstract interpreter for it.
 --
 --  The programming language we consider throughout this
 --  volume is *Imp*, a toy language capturing the core
@@ -51,17 +51,17 @@ import SFLCompat
 --  given Imp program satisfies a formal specification of
 --  its behavior. We introduce *Hoare triples* — Imp
 --  programs annotated with pre- and post-conditions
---  describing what they expect to be true of the state in
---  which they start and what they promise to be true of the
---  state in which they terminate — and the reasoning
---  principles of *Hoare Logic*, a domain-specific logic for
+--  describing what they expect to be true of their starting
+--  state and what they promise to be true of their ending
+--  state, if they terminate — and the reasoning principles
+--  of *Hoare Logic*, a domain-specific logic for
 --  compositional reasoning about imperative programs. We
 --  then develop *decorated programs*, a practical notation
 --  for writing out Hoare Logic proofs alongside the code
 --  they verify.
 --
 --  The techniques this volume presents are relatively
---  simple, but they nevertheless underpin today's
+--  simple, but they nevertheless underpin many of today's
 --  real-world software and hardware verification efforts.
 
 --  ## Practicalities
@@ -190,4 +190,4 @@ import SFLCompat
 --  National Science Foundation under the NSF Expeditions
 --  grant 1521523, *The Science of Deep Specification*.
 
--- Source revision: 976141b, committed 2026-10-07 10:10 UTC
+-- Source revision: 0c2455e, committed 2026-10-07 11:25 UTC

@@ -2,11 +2,6 @@ import SFLCompat
 
 --  # Slang: Arithmetic and Boolean Expressions
 
---  Note to developers (Benjamin Pierce @bcpierce00):
---      We need to figure out our approach to text width, especially for
---      proofs. Quite a few proofs here don't render into the chosen page
---      width, and for terse mode it will be worse.
-
 --  In **Logical Foundations** (LF) we went through the basics of how to
 --  use Lean to prove theorems and write functional programs. Now, we begin
 --  to shift gears to using it to reason about properties of programs and
@@ -94,9 +89,12 @@ inductive Bexp where
 --  for communicating between humans and formal ones for carrying out
 --  implementations and proofs.
 
---  ### Evaluation
+--  ### Semantics: Evaluation
 
---  *Evaluating* an arithmetic expression produces a number.
+--  The *semantics* of a programming language gives meaning to its
+--  programs. For Slang, the meaning of each arithmetic expression is the
+--  number it *evaluates* to. We can specify evaluation using a simple
+--  recursive function, an intepreter.
 
 namespace Aexp
 def eval (a : Aexp) : Nat :=
@@ -117,7 +115,8 @@ def eval (a : Aexp) : Nat :=
 example : eval (.plus (.num 2) (.num 2)) = 4 := by simp
 end Aexp
 
---  Similarly, evaluating a boolean expression yields a boolean.
+--  Similarly, the semantics of a boolean expression is the boolean it
+--  evaluates to.
 
 namespace Bexp
 def eval (b : Bexp) : Bool :=
@@ -160,6 +159,14 @@ end Bexp
 --  (A) true (B) false (C) 0 (D) 3 (E) 6
 
 --   ----------------------------------------
+
+--  As a technical note: We are specifying the semantics of Slang in what
+--  is called the "big step" style: each `eval` function take an expression
+--  (the input) in one "big step" to its meaning (the output, as a number
+--  or boolean). This is in contrast to the "small step" style, which
+--  breaks a single evaluation into multiple, smaller steps. The small-step
+--  style is introduced in the Type Systems volume; we stick with big-step
+--  throughout the Hoare Logic volume.
 
 --  ### Optimization
 
@@ -384,20 +391,20 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --  of *inference rules*, where the premises above the line justify the
 --  conclusion below the line. For example, the constructor `plus` can be
 --  written like this as an inference rule:
-
---  a₁ ⇓ n₁
---                           a₂ ⇓ n₂
---                      ------------------          (plus)
---                      plus a₁ a₂ ⇓ n₁ + n₂
-
+--
+--            a₁ ⇓ n₁
+--            a₂ ⇓ n₂
+--      --------------------   (plus)
+--      plus a₁ a₂ ⇓ n₁ + n₂
+--
 --  Notice the structural correspondence between this rule and our version
 --  of the inductive type with unnamed hypotheses:
-
---  | plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) :
+--
+--      | plus (a₁ a₂ : Aexp) (n₁ n₂ : Nat) :
 --          EvalR a₁ n₁ →
 --          EvalR a₂ n₂ →
 --          EvalR (.plus a₁ a₂) (n₁ + n₂)
-
+--
 --  Formally, there is nothing deep about inference rules: they are just an
 --  informal notation for implications. You can read the rule name on the
 --  right as the name of the constructor and read each of the linebreaks
@@ -418,24 +425,24 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --  metavariables like `a₁` and `n₁` are implicitly universally quantified.
 --  The whole collection of rules defines `⇓` as the smallest relation
 --  closed under them:
-
---  ---------                (num)
---                          num n ⇓ n
 --
---                           a₁ ⇓ n₁
---                           a₂ ⇓ n₂
---                      ------------------           (plus)
---                      plus a₁ a₂ ⇓ n₁ + n₂
+--      ───────── (num)
+--      num n ⇓ n
 --
---                           a₁ ⇓ n₁
---                           a₂ ⇓ n₂
---                     -------------------           (minus)
---                     minus a₁ a₂ ⇓ n₁ - n₂
+--            a₁ ⇓ n₁
+--            a₂ ⇓ n₂
+--      ──────────────────── (plus)
+--      plus a₁ a₂ ⇓ n₁ + n₂
 --
---                           a₁ ⇓ n₁
---                           a₂ ⇓ n₂
---                      ------------------           (mult)
---                      mult a₁ a₂ ⇓ n₁*n₂
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--      ───────────────────── (minus)
+--      minus a₁ a₂ ⇓ n₁ - n₂
+--
+--           a₁ ⇓ n₁
+--           a₂ ⇓ n₂
+--      ────────────────── (mult)
+--      mult a₁ a₂ ⇓ n₁*n₂
 
 --   ----------------------------------------
 
@@ -479,37 +486,37 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 
 --  Answer (`⇓` is defined below):
 --
---                    -------------                (bool)
---                     bool bv ⇓ bv
+--      ──────────── (bool)
+--      bool bv ⇓ bv
 --
---                          a₁ ⇓ n₁
---                          a₂ ⇓ n₂
---                    ---------------------        (eq)
---                    eq a₁ a₂ ⇓ (n₁ == n₂)
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--      ───────────────────── (eq)
+--      eq a₁ a₂ ⇓ (n₁ == n₂)
 --
---                          a₁ ⇓ n₁
---                          a₂ ⇓ n₂
---                  ---------------------          (neq)
---                   neq a₁ a₂ ⇓ n₁ != n₂
+--            a₁ ⇓ n₁
+--            a₂ ⇓ n₂
+--      ──────────────────── (neq)
+--      neq a₁ a₂ ⇓ n₁ != n₂
 --
---                          a₁ ⇓ n₁
---                          a₂ ⇓ n₂
---                    --------------------------   (le)
---                    le a₁ a₂ ⇓ (Nat.ble n₁ n₂)
+--               a₁ ⇓ n₁
+--               a₂ ⇓ n₂
+--      ────────────────────────── (le)
+--      le a₁ a₂ ⇓ (Nat.ble n₁ n₂)
 --
---                          a₁ ⇓ n₁
---                          a₂ ⇓ n₂
---                    ---------------------------  (gt)
---                    gt a₁ a₂ ⇓ !(Nat.ble n₁ n₂)
+--                a₁ ⇓ n₁
+--                a₂ ⇓ n₂
+--      ─────────────────────────── (gt)
+--      gt a₁ a₂ ⇓ !(Nat.ble n₁ n₂)
 --
---                           b ⇓ bv
---                       -----------               (not)
---                       not b ⇓ !bv
+--        b ⇓ bv
+--      ─────────── (not)
+--      not b ⇓ !bv
 --
---                          b₁ ⇓ bv₁
---                          b₂ ⇓ bv₂
---                   ----------------------        (and)
---                   and b₁ b₂ ⇓ bv₁ && bv₂
+--             b₁ ⇓ bv₁
+--             b₂ ⇓ bv₂
+--      ────────────────────── (and)
+--      and b₁ b₂ ⇓ bv₁ && bv₂
 
 --  ### Equivalence of the Definitions
 
@@ -709,4 +716,4 @@ end Slang.AevalRExtended
 --  switch between points of view at will — exactly what we did above in
 --  `Slang.Aexp.evalR_iff_eval` and `Slang.Bexp.evalR_iff_eval`.
 
--- Source revision: 976141b, committed 2026-10-07 10:10 UTC
+-- Source revision: 0c2455e, committed 2026-10-07 11:25 UTC

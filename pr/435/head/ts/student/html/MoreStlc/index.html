@@ -1054,6 +1054,29 @@ blockquote {
   border-left: 3px solid var(--sf-accent);
 }
 </style><style>
+/* +centered display: center the whole block as a rigid unit, so multi-line
+   ASCII art (e.g. inference rules) keeps its internal alignment -- unlike
+   text-align: center, which would center each line independently and
+   misalign the premises/bar/conclusion. */
+.sf-display-centered {
+  margin: 1em 0;
+  display: flex;
+  justify-content: center;
+}
+.sf-display-centered pre {
+  margin: 0;
+  overflow-x: auto;
+  width: fit-content;
+}
+.sf-display-centered pre code {
+  font-family: var(--verso-code-font-family, monospace);
+  white-space: pre;
+  /* Undo the theme's inline-code padding/background: on an inline <code>,
+     left padding only shifts the first line. */
+  padding: 0;
+  background: none;
+}
+</style><style>
 .marginalia .note {
   position: relative;
   padding: 0.5rem;
@@ -4649,7 +4672,7 @@ STLC.</p>
               </section>
             </section>
           <div class="sf-build-stamp">
-            Source revision: 976141b, committed 2026-10-07 10:10 UTC</div>
+            Source revision: 0c2455e, committed 2026-10-07 11:25 UTC</div>
           <nav class="prev-next-buttons">
             <a class="local-button active" href="StlcProp/#StlcProp" rel="prev" title="6. StlcProp: Properties of STLC"><span class="arrow">←</span><span class="where">6. StlcProp: Properties of STLC</span></a><a class="local-button active" href="Sub/#Sub" rel="next" title="8. Sub: Subtyping"><span class="where">8. Sub: Subtyping</span><span class="arrow">→</span></a></nav>
           </div>
