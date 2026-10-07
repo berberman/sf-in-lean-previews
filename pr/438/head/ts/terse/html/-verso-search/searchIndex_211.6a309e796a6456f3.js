@@ -1,0 +1,1 @@
+window.docContents[211].resolve({"/MoreStlc/#MoreStlc":{"contents":"Not enough quizzes??\n\n\n\n\n\n","context":"Type Systems","header":"7. MoreStlc: More on the Simply Typed Lambda-Calculus","id":"/MoreStlc/#MoreStlc"}});

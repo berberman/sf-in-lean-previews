@@ -100,8 +100,8 @@
       "changed_variants": [],
       "head_sha": "9cff0b21eb3f846ff0ce16e71365f1c820834941",
       "preview_path": "pr/429/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37251164322",
-      "status": "ci-failed",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "LF/Basics: unhide code block inside details block",
       "url": "https://github.com/plclub/sf-in-lean/pull/429"
     },
@@ -154,11 +154,48 @@
     },
     "438": {
       "base_sha": "6ccbf321d41afa3e93694a58028749bd3142fa71",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "024fca3e061b4ce5a7165b9b89ff2139f68c1c51",
       "preview_path": "pr/438/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37682411200",
+      "status": "published",
       "title": "Typeclasses: fix optional grading",
       "url": "https://github.com/plclub/sf-in-lean/pull/438"
     }
