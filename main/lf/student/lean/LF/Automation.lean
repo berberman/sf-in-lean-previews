@@ -1086,7 +1086,7 @@ theorem weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp 
    sorry
   sorry
 
---  ### Exercise (2 stars): weak_pumping_star_zero ⭐⭐
+--  ### Exercise (1 star): weak_pumping_star_zero ⭐
 
 theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
     (h : (Star re).pumpingConstant ≤ @List.length α []) :
@@ -1178,4 +1178,4 @@ inductive Pal {α : Type} : List α → Prop where
 --
 --      ∀ l, l = l.reverse → Pal l
 
--- Source revision: 6ccbf32, committed 2026-10-07 17:27 UTC
+-- Source revision: fac0ff2, committed 2026-10-07 21:03 UTC

@@ -1360,7 +1360,7 @@ theorem weak_pumping_union_r {α : Type} (s₂ : List α) (re₁ re₂ : RegExp 
       apply mUnionR
       assumption
 
---  ### Exercise (2 stars): weak_pumping_star_zero ⭐⭐
+--  ### Exercise (1 star): weak_pumping_star_zero ⭐
 
 theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
     (h : (Star re).pumpingConstant ≤ @List.length α []) :
@@ -1368,11 +1368,9 @@ theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
       [ ] = s₁ ++ s₂ ++ s₃ ∧
       s₂ ≠ [ ] ∧
       (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Star re) := by
-  simp only [List.length_nil] at h
-  inversion h with
-  | refl h h₁ =>
-    have h₂ := pumping_constant_ge_1 re
-    rw [← h₁] at h₂; inversion h₂
+  simp only [List.length_nil, Nat.le_zero] at h
+  apply pumping_constant_0_false at h
+  contradiction
 
 --  ### Exercise (5 stars): weak_pumping_star_app ⭐⭐⭐⭐⭐
 
@@ -1679,4 +1677,4 @@ theorem palindrome_converse {α : Type} {l : List α} (h : l = l.reverse) : Pal 
 
 end PalConv
 
--- Source revision: 6ccbf32, committed 2026-10-07 17:27 UTC
+-- Source revision: fac0ff2, committed 2026-10-07 21:03 UTC
