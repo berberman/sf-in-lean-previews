@@ -124,7 +124,7 @@ abbrev Z : Ident := "Z"
 --    our notation always treats identifiers starting with capital Latin
 --    letters as being literal names in Imp. Thus `X`, `Y`, and `Z` are Imp
 --    variables. Meanwhile, names beginning with lowercase Latin letters
---    like (`a` or `c`) are treated as Lean variables. This will be useful
+--    (like `a` or `c`) are treated as Lean variables. This will be useful
 --    later when we need to write theorems about Imp programs. We only need
 --    to use the `~` when we want to insert a larger Lean expression into
 --    an `Imp` term. We'll point out examples of this when they occur.
@@ -277,7 +277,7 @@ end Imp.Elab
 --  ### Delaborators
 
 --  Next, we write a suite of *delaborators* for `Aexp` and `Bexp`.
---  Delaborators are like the opposite of `macro_rules` -- they are used to
+--  Delaborators are like the opposite of `macro_rules` — they are used to
 --  pretty print *elaborated* terms back to the user.
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing expressions back)
@@ -454,27 +454,31 @@ def Bexp.eval (st : State) (b : Bexp) : Bool :=
   | not  b₁     =>  !b₁.eval st
   | and  b₁ b₂  =>  b₁.eval st && b₂.eval st
 
-@[simp] theorem Aexp.eval_num (st : State) (n : Nat) : (num n).eval st = n := rfl
-@[simp] theorem Aexp.eval_id (st : State) (x : Ident) : (Aexp.id x).eval st = st[x] := rfl
+@[simp] theorem Aexp.eval_num (st : State) (n : Nat) :
+    (num n).eval st = n := by rfl
+@[simp] theorem Aexp.eval_id (st : State) (x : Ident) :
+    (Aexp.id x).eval st = st[x] := by rfl
 @[simp] theorem Aexp.eval_plus (st : State) (a₁ a₂ : Aexp) :
-    (plus a₁ a₂).eval st = a₁.eval st + a₂.eval st := rfl
+    (plus a₁ a₂).eval st = a₁.eval st + a₂.eval st := by rfl
 @[simp] theorem Aexp.eval_minus (st : State) (a₁ a₂ : Aexp) :
-    (minus a₁ a₂).eval st = a₁.eval st - a₂.eval st := rfl
+    (minus a₁ a₂).eval st = a₁.eval st - a₂.eval st := by rfl
 @[simp] theorem Aexp.eval_mult (st : State) (a₁ a₂ : Aexp) :
-    (mult a₁ a₂).eval st = a₁.eval st * a₂.eval st := rfl
+    (mult a₁ a₂).eval st = a₁.eval st * a₂.eval st := by rfl
 
-@[simp] theorem Bexp.eval_bool (st : State) (b : Bool) : (bool b).eval st = b := rfl
+@[simp] theorem Bexp.eval_bool (st : State) (b : Bool) :
+    (bool b).eval st = b := by rfl
 @[simp] theorem Bexp.eval_eq (st : State) (a₁ a₂ : Aexp) :
-    (eq a₁ a₂).eval st = (a₁.eval st == a₂.eval st) := rfl
+    (eq a₁ a₂).eval st = (a₁.eval st == a₂.eval st) := by rfl
 @[simp] theorem Bexp.eval_neq (st : State) (a₁ a₂ : Aexp) :
-    (neq a₁ a₂).eval st = (a₁.eval st != a₂.eval st) := rfl
+    (neq a₁ a₂).eval st = (a₁.eval st != a₂.eval st) := by rfl
 @[simp] theorem Bexp.eval_le (st : State) (a₁ a₂ : Aexp) :
-    (le a₁ a₂).eval st = (a₁.eval st ≤ a₂.eval st : Bool) := rfl
+    (le a₁ a₂).eval st = (a₁.eval st ≤ a₂.eval st : Bool) := by rfl
 @[simp] theorem Bexp.eval_gt (st : State) (a₁ a₂ : Aexp) :
-    (gt a₁ a₂).eval st = (a₁.eval st > a₂.eval st : Bool) := rfl
-@[simp] theorem Bexp.eval_not (st : State) (b : Bexp) : (not b).eval st = !b.eval st := rfl
+    (gt a₁ a₂).eval st = (a₁.eval st > a₂.eval st : Bool) := by rfl
+@[simp] theorem Bexp.eval_not (st : State) (b : Bexp) :
+    (not b).eval st = !b.eval st := by rfl
 @[simp] theorem Bexp.eval_and (st : State) (b₁ b₂ : Bexp) :
-    (and b₁ b₂).eval st = (b₁.eval st && b₂.eval st) := rfl
+    (and b₁ b₂).eval st = (b₁.eval st && b₂.eval st) := by rfl
 
 --  We reuse the total-map notation (`x →ₜ v` etc.) for states.
 
@@ -510,7 +514,7 @@ inductive Com where
 declare_syntax_cat imp_com
 /-- The command that does nothing (`skip`) -/
 syntax:max ident : imp_com
-/-- Sequencing: one command after another (right associative. min + 1 = 11) -/
+/-- Sequencing: one command after another (right associative; min + 1 = 11) -/
 syntax:80 imp_com:11 Lean.Parser.semicolonOrLinebreak ppHardSpace imp_com:min : imp_com
 /-- Assignment -/
 syntax:max ident ppHardSpace ":=" ppHardSpace imp_aexp : imp_com
@@ -752,20 +756,20 @@ sf_expect_failure_in
 --  consistency.
 --
 --  Thus, because it doesn't terminate on all inputs, the full `Com.eval`
---  cannot be written in Lean -- at least not without additional tricks and
+--  cannot be written in Lean — at least not without additional tricks and
 --  workarounds.
 
 --  ### Evaluation as a Relation
 
 --  Here's a better way: define `Com.eval` as a *relation* rather than a
---  *function* -- i.e., make its result a `Prop` rather than a `State`,
+--  *function* — i.e., make its result a `Prop` rather than a `State`,
 --  similar to what we did for `Aexp.EvalR` in the Slang chapter.
 --
 --  This is an important change. Besides freeing us from awkward
 --  workarounds, it gives us more flexibility in the definition. For
 --  example, if we add nondeterministic features like `any` to the
---  language, we want the definition of evaluation to be nondeterministic
---  -- i.e., not only will it not be total, it will not even be a function!
+--  language, we want the definition of evaluation to be nondeterministic —
+--  i.e., not only will it not be total, it will not even be a function!
 
 --  ### Operational Semantics
 
@@ -777,57 +781,61 @@ sf_expect_failure_in
 --  Here is an informal definition of evaluation, presented as inference
 --  rules for readability:
 --
---                            -----------------                  (skip)
---                            st =[ skip ]=> st
+--      ───────────────── (skip)
+--      st =[ skip ]=> st
 --
---                            a.eval st = n
---                    --------------------------------           (asgn)
---                    st =[ x := a ]=> (x →ₜ n ; st)
+--              a.eval st = n
+--      ────────────────────────────── (asgn)
+--      st =[ x := a ]=> (x →ₜ n ; st)
 --
---                            st  =[ c₁ ]=> st'
---                            st' =[ c₂ ]=> st''
---                          ---------------------                (seq)
---                          st =[ c₁;c₂ ]=> st''
+--       st  =[ c₁ ]=> st'
+--       st' =[ c₂ ]=> st''
+--      ──────────────────── (seq)
+--      st =[ c₁;c₂ ]=> st''
 --
---                           b.eval st = true
---                            st =[ c₁ ]=> st'
---                 ---------------------------------------       (ifTrue)
---                 st =[ if (b) { c₁ } else { c₂ } ]=> st'
+--                 b.eval st = true
+--                 st =[ c₁ ]=> st'
+--      ─────────────────────────────────────── (ifTrue)
+--      st =[ if (b) { c₁ } else { c₂ } ]=> st'
 --
---                          b.eval st = false
---                            st =[ c₂ ]=> st'
---                 ---------------------------------------       (ifFalse)
---                 st =[ if (b) { c₁ } else { c₂ } ]=> st'
+--                 b.eval st = false
+--                 st =[ c₂ ]=> st'
+--      ─────────────────────────────────────── (ifFalse)
+--      st =[ if (b) { c₁ } else { c₂ } ]=> st'
 --
---                          b.eval st = false
---                     ----------------------------              (whileFalse)
---                     st =[ while (b) { c } ]=> st
+--           b.eval st = false
+--      ──────────────────────────── (whileFalse)
+--      st =[ while (b) { c } ]=> st
 --
---                           b.eval st = true
---                            st =[ c ]=> st'
---                   st' =[ while (b) { c } ]=> st''
---                   -------------------------------             (whileTrue)
---                   st  =[ while (b) { c } ]=> st''
+--             b.eval st = true
+--              st =[ c ]=> st'
+--      st' =[ while (b) { c } ]=> st''
+--      ─────────────────────────────── (whileTrue)
+--      st  =[ while (b) { c } ]=> st''
 --
 --  Here is the formal definition. Make sure you understand how it
 --  corresponds to the inference rules.
 
 inductive Com.EvalR : Com → State → State → Prop where
   | skip {st : State} : EvalR (imp {skip}) st st
-  | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : a.eval st = n) :
+  | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident}
+      (h : a.eval st = n) :
       EvalR (imp {x := a}) st (x →ₜ n ; st)
-  | seq {c₁ c₂ : Com} {st st' st'' : State} (h₁ : EvalR c₁ st st') (h₂ : EvalR c₂ st' st'') :
+  | seq {c₁ c₂ : Com} {st st' st'' : State}
+      (h₁ : EvalR c₁ st st') (h₂ : EvalR c₂ st' st'') :
       EvalR (imp {c₁; c₂}) st st''
-  | ifTrue {st st' : State} {b : Bexp} {c₁ c₂ : Com} (hb : b.eval st = true)
-      (hc : EvalR c₁ st st') :
+  | ifTrue {st st' : State} {b : Bexp} {c₁ c₂ : Com}
+      (hb : b.eval st = true) (hc : EvalR c₁ st st') :
       EvalR (imp {if (b) {c₁} else {c₂}}) st st'
-  | ifFalse {st st' : State} {b : Bexp} {c₁ c₂ : Com} (hb : b.eval st = false)
-      (hc : EvalR c₂ st st') :
+  | ifFalse {st st' : State} {b : Bexp} {c₁ c₂ : Com}
+      (hb : b.eval st = false) (hc : EvalR c₂ st st') :
       EvalR (imp {if (b) {c₁} else {c₂}}) st st'
-  | whileFalse {b : Bexp} {st : State} {c : Com} (hb : b.eval st = false) :
+  | whileFalse {b : Bexp} {st : State} {c : Com}
+      (hb : b.eval st = false) :
       EvalR (imp {while (b) {c}}) st st
-  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com} (hb : b.eval st = true)
-      (hc : EvalR c st st') (hloop : Com.EvalR (imp {while (b) {c}}) st' st'') :
+  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com}
+      (hb : b.eval st = true) (hc : EvalR c st st')
+      (hloop : Com.EvalR (imp {while (b) {c}}) st' st'') :
       EvalR (imp {while (b) {c}}) st st''
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: commands)
@@ -879,8 +887,8 @@ example :
         Z := 4
       }
     ]=> {Z ↦ 4, X ↦ 2} := by
-  -- To supply the intermediate state to the `seq` rule, which is sometimes necessary,
-  -- we can write `Com.EvalR.seq (st' := ...)`.
+  -- To supply the intermediate state to the `seq` rule, which is
+  -- sometimes necessary, we can write `Com.EvalR.seq (st' := ...)`.
   apply EvalR.seq (st' := {X ↦ 2})
   · exact EvalR.asgn rfl
   · apply EvalR.ifFalse
@@ -899,7 +907,8 @@ example :
 
 example {x : Nat} : ∅ =[ X := ~(.num x) ]=> {X ↦ x} := by
   apply EvalR.asgn
-  -- `⊢ Aexp.eval ∅ x = (X ↦ x).value`, which we can prove with `simp` or `rfl`
+  -- `⊢ Aexp.eval ∅ x = (X ↦ x).value`, which we can prove with
+  -- `simp` or `rfl`
   simp
 
 example {x : Nat} : ∅ =[ X := ~(.num x) ]=> {X ↦ x} := by
@@ -908,7 +917,8 @@ example {x : Nat} : ∅ =[ X := ~(.num x) ]=> {X ↦ x} := by
 example : ∅ =[ X := 2; Y := 3 ]=> {Y ↦ 3, X ↦ 2} := by
   apply EvalR.seq
   · -- `⊢ imp {X := 2}.EvalR ∅ ?st'`
-    exact EvalR.asgn rfl -- assigns the metavariable `?st'` to `{X ↦ 2}` (or equivalent)
+    -- assigns the metavariable `?st'` to `{X ↦ 2}` (or equivalent)
+    exact EvalR.asgn rfl
   · simp only [Aexp.eval_num, evalR_eq]
     exact EvalR.asgn rfl
 
@@ -1062,7 +1072,8 @@ theorem ceval_deterministic {c : Com} {st st1 st2 : State}
 def pupToN : Com := sorry
 
 theorem pup_to_2_ceval :
-    {X ↦ 2} =[ pupToN ]=> {X ↦ 0, Y ↦ 3, X ↦ 1, Y ↦ 2, Y ↦ 0, X ↦ 2} := by
+    {X ↦ 2} =[ pupToN ]=>
+      {X ↦ 0, Y ↦ 3, X ↦ 1, Y ↦ 2, Y ↦ 0, X ↦ 2} := by
   sorry
 
 --  ## Reasoning About Imp Programs
@@ -1096,7 +1107,8 @@ theorem plus2_spec {st : State} {n : Nat} {st' : State}
 --  so can be solved in one step (by `simp`/`contradiction` on the
 --  impossible command equation).
 
-theorem loop_never_stops (st st' : State) : ¬ (st =[ loop ]=> st') := by
+theorem loop_never_stops (st st' : State) :
+    ¬ (st =[ loop ]=> st') := by
   sorry
 
 --  ### Exercise (3 stars): no_whiles_eqv ⭐⭐⭐
@@ -1117,7 +1129,8 @@ def Com.no_whiles (c : Com) : Bool :=
 inductive Com.NoWhilesR : Com → Prop where
   --  FILL IN HERE
 
-theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
+theorem no_whiles_eqv (c : Com) :
+    c.no_whiles = true ↔ Com.NoWhilesR c := by
   sorry
 
 --  ### Exercise (4 stars): no_whiles_terminating ⭐⭐⭐⭐
@@ -1126,7 +1139,8 @@ theorem no_whiles_eqv (c : Com) : c.no_whiles = true ↔ Com.NoWhilesR c := by
 --  prove a theorem `no_whiles_terminating` that says this. Use either
 --  `Com.no_whiles` or `Com.NoWhilesR`, as you prefer.
 
-theorem no_whiles_terminating {c : Com} (st : State) (h : Com.NoWhilesR c) :
+theorem no_whiles_terminating {c : Com} (st : State)
+    (h : Com.NoWhilesR c) :
     ∃ st', st =[ c ]=> st' := by
   sorry
 
@@ -1160,7 +1174,7 @@ def realFact (n : Nat) : Nat :=
   | 0 => 1
   | n' + 1 => (n' + 1) * realFact n'
 
---  We would like to show that they agree -- if we start `factCom` in a
+--  We would like to show that they agree — if we start `factCom` in a
 --  state where variable `X` contains some number `n`, then it will
 --  terminate in a state where variable `Y` contains the factorial of `n`.
 --
@@ -1255,8 +1269,8 @@ theorem factCom_correct {st st' : State} {n : Nat}
           -- ...so when the loop is done running, the invariant
           -- is maintained
           have hinv' := factLoop_preserves_invariant hinv h₄
-          -- Finally, if the loop terminated, then `Z` is `0`; so `Y` must be
-          -- factorial of `X`
+          -- Finally, if the loop terminated, then `Z` is `0`; so
+          -- `Y` must be factorial of `X`
           rw [factLoop] at h₄
           have hz := guard_false_after_loop h₄
           simp at hz
@@ -1343,15 +1357,19 @@ open Sinstr
 --  later exercises, it would be best to skip the offending instruction and
 --  continue with the next one.
 
-def sExecute (st : State) (stack : List Nat) (prog : List Sinstr) : List Nat :=
+def sExecute (st : State) (stack : List Nat) (prog : List Sinstr) :
+    List Nat :=
   sorry
 
 --  FILL IN HERE
 
-theorem sExecute1 : sExecute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
+theorem sExecute1 :
+    sExecute ∅ [] [sPush 5, sPush 3, sPush 1, sMinus] = [2, 5] := by
   sorry
 
-theorem sExecute2 : sExecute {X ↦ 3} [3, 4] [sPush 4, sLoad X, sMult, sPlus] = [15, 4] := by
+theorem sExecute2 :
+    sExecute {X ↦ 3} [3, 4] [sPush 4, sLoad X, sMult, sPlus] =
+      [15, 4] := by
   sorry
 
 --  Next, write a function that compiles an `Aexp` into a stack machine
@@ -1366,7 +1384,9 @@ def sCompile (a : Aexp) : List Sinstr :=
 --  After you've defined `sCompile`, prove the following to test that it
 --  works.
 
-theorem sCompile1 : sCompile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y, sMult, sMinus] := by
+theorem sCompile1 :
+    sCompile (aexp { X - (2 * Y) }) =
+      [sLoad X, sPush 2, sLoad Y, sMult, sMinus] := by
   sorry
 
 --  ### Exercise (3 stars): execute_app ⭐⭐⭐
@@ -1375,8 +1395,10 @@ theorem sCompile1 : sCompile (aexp { X - (2 * Y) }) = [sLoad X, sPush 2, sLoad Y
 --  program `p₁ ++ p₂` is the same as executing `p₁`, taking the resulting
 --  stack, and executing `p₂` from that stack. Prove that fact.
 
-theorem execute_app (st : State) (p₁ p₂ : List Sinstr) (stack : List Nat) :
-    sExecute st stack (p₁ ++ p₂) = sExecute st (sExecute st stack p₁) p₂ := by
+theorem execute_app (st : State) (p₁ p₂ : List Sinstr)
+    (stack : List Nat) :
+    sExecute st stack (p₁ ++ p₂) =
+      sExecute st (sExecute st stack p₁) p₂ := by
   sorry
 
 --  ### Exercise (3 stars): compiler_correct ⭐⭐⭐
@@ -1408,7 +1430,7 @@ end StackCompiler
 --
 --  Write an alternate version of `Bexp.eval` that performs short-circuit
 --  evaluation of `Bexp.and` in this manner, and prove that it is
---  equivalent to `Bexp.eval`. (N.b. This is only true because expression
+--  equivalent to `Bexp.eval`. (N.B. This is only true because expression
 --  evaluation in Imp is rather simple. In a bigger language where
 --  evaluating an expression might diverge, the short-circuiting `and`
 --  would *not* be equivalent to the original, since it would make more
@@ -1533,7 +1555,7 @@ open Result
 --
 --  The definition of the `st =[ c ]=> st' // s` relation is very similar
 --  to the one we gave above for the regular evaluation relation
---  (`st =[ c ]=> st'`) -- we just need to handle the termination signals
+--  (`st =[ c ]=> st'`) — we just need to handle the termination signals
 --  appropriately:
 --  - If the command is `skip`, then the state doesn't change and execution
 --    of any enclosing loop can continue normally.
@@ -1568,7 +1590,8 @@ inductive Com.EvalR : Com → State → State → Result → Prop where
   | skip {st : State} : EvalR (imp {skip}) st st sContinue
   --  FILL IN HERE
 
-scoped notation:40 st0:41 " =[ " c " ]=> " st1:41 " // " s:41 => Com.EvalR c st0 st1 s
+scoped notation:40 st0:41 " =[ " c " ]=> " st1:41 " // " s:41 =>
+    Com.EvalR c st0 st1 s
 
 --  Now prove the following properties of your definition:
 
@@ -1614,7 +1637,8 @@ theorem while_break_true {b : Bexp} {c : Com} {st st' : State}
 
 --  Prove that your defined relation is deterministic.
 
-theorem ceval_deterministic {c : Com} {st st₁ st₂ : State} {s₁ s₂ : Result}
+theorem ceval_deterministic {c : Com} {st st₁ st₂ : State}
+  {s₁ s₂ : Result}
   (h₁ : st =[ imp { c } ]=> st₁ // s₁)
   (h₂ : st =[ imp { c } ]=> st₂ // s₂) :
   st₁ = st₂ ∧ s₁ = s₂ := by
@@ -1639,4 +1663,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: dd2de2a, committed 2026-10-07 11:54 UTC
+-- Source revision: 6ccbf32, committed 2026-10-07 17:27 UTC

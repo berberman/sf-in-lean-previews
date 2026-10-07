@@ -569,13 +569,13 @@ theorem Monoid.id_unique_left {α : Type} [Monoid α] (x : α)
 theorem inv_inv' {α : Type} {g : Group α} (x y z : α)
     (h₁ : g.inv x = y) (h₂ : g.inv y = z) : x = z := by
   calc x
-  _ = g.id ⊗ x          := by rw [g.left_id x]
-  _ = (g.inv y ⊗ y) ⊗ x := by rw [g.left_inv y]
-  _ = g.inv y ⊗ (y ⊗ x) := by rw [g.assoc]
-  _ = z ⊗ (y ⊗ x)       := by rw [h₂]
-  _ = z ⊗ (g.inv x ⊗ x) := by rw [h₁]
-  _ = z ⊗ g.id          := by rw [g.left_inv]
-  _ = z                 := by rw [g.right_id]
+    _ = g.id ⊗ x          := by rw [g.left_id x]
+    _ = (g.inv y ⊗ y) ⊗ x := by rw [g.left_inv y]
+    _ = g.inv y ⊗ (y ⊗ x) := by rw [g.assoc]
+    _ = z ⊗ (y ⊗ x)       := by rw [h₂]
+    _ = z ⊗ (g.inv x ⊗ x) := by rw [h₁]
+    _ = z ⊗ g.id          := by rw [g.left_inv]
+    _ = z                 := by rw [g.right_id]
 
 theorem inv_inv {α : Type} {g : Group α} (x : α) :
   g.inv (g.inv x) = x := by
@@ -1613,4 +1613,4 @@ sf_experiment
 
 end Reflection
 
--- Source revision: dd2de2a, committed 2026-10-07 11:54 UTC
+-- Source revision: 6ccbf32, committed 2026-10-07 17:27 UTC

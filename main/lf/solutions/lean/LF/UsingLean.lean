@@ -218,11 +218,11 @@ theorem succ_mul_succ (n m : Nat) :
 theorem succ_mul_succ' (n m : Nat) :
     (n + 1) * (m + 1) = n * m + n + m + 1 := by
   calc (n + 1) * (m + 1)
-  _ = n * (m + 1) + 1 * (m + 1) := by rw [Nat.add_mul]
-  _ = n * (m + 1) + (m + 1)     := by rw [Nat.one_mul]
-  _ = (n * m + n * 1) + (m + 1) := by rw [Nat.mul_add]
-  _ = (n * m + n) + (m + 1)     := by rw [Nat.mul_one]
-  _ = n * m + n + m + 1         := by rw [← Nat.add_assoc]
+    _ = n * (m + 1) + 1 * (m + 1) := by rw [Nat.add_mul]
+    _ = n * (m + 1) + (m + 1)     := by rw [Nat.one_mul]
+    _ = (n * m + n * 1) + (m + 1) := by rw [Nat.mul_add]
+    _ = (n * m + n) + (m + 1)     := by rw [Nat.mul_one]
+    _ = n * m + n + m + 1         := by rw [← Nat.add_assoc]
 
 --  (End of exercise)
 
@@ -526,4 +526,4 @@ theorem Nat.double_mul (n : Nat) : n.double = 2 * n := by
 --  With these tools in hand, we can begin to prove properties about more
 --  sophisticated forms of data, beginning with `Lists`.
 
--- Source revision: dd2de2a, committed 2026-10-07 11:54 UTC
+-- Source revision: 6ccbf32, committed 2026-10-07 17:27 UTC

@@ -5,4 +5,4 @@ import HL.Equiv
 import HL.Hoare
 import HL.Hoare2
 
--- Source revision: dd2de2a, committed 2026-10-07 11:54 UTC
+-- Source revision: 6ccbf32, committed 2026-10-07 17:27 UTC
