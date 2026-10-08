@@ -141,6 +141,53 @@
       "status": "published",
       "title": "Hoare pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/441"
+    },
+    "443": {
+      "base_sha": "dc58a45f22b16f24965be14b5075a2befadf5985",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "a387aee64081286cff0cd197cf02b2ad4fe4fc04",
+      "preview_path": "pr/443/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37860251258",
+      "status": "published",
+      "title": "Proof patterns draft with induction details",
+      "url": "https://github.com/plclub/sf-in-lean/pull/443"
     }
   },
   "schema": 3
