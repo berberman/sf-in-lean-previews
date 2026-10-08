@@ -4532,7 +4532,7 @@
         "Additional Exercises"]}},
      "address": "/Tactics/"}],
    "keepIf_some":
-   [{"id": "keepIf_some-next",
+   [{"id": "keepIf_some",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -4549,7 +4549,7 @@
         "Using  cases  on Expressions",
         "Splitting with Equations"]}},
      "address": "/Tactics/"},
-    {"id": "keepIf_some",
+    {"id": "keepIf_some-next",
      "data":
      {"/Tactics/#keepIf_some-next":
       {"display": "keepIf_some",
@@ -5212,7 +5212,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective-next",
+    {"id": "double_injective",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -5233,7 +5233,7 @@
         "Tactics: More Basic Tactics",
         "Generalizing the Induction Hypothesis"]}},
      "address": "/Tactics/"},
-    {"id": "double_injective",
+    {"id": "double_injective-next",
      "data":
      {"/Tactics/#double_injective-next-next":
       {"display": "double_injective",
@@ -8822,7 +8822,7 @@
         "More Exercises"]}},
      "address": "/Induction/"}],
    "NatPlayground.Nat.isZero":
-   [{"id": "NatPlayground___Nat___isZero-next",
+   [{"id": "NatPlayground___Nat___isZero",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -8837,7 +8837,7 @@
         "Induction: Proof by Induction",
         "Aside: Using Code Actions to Generate Match Skeletons"]}},
      "address": "/Induction/"},
-    {"id": "NatPlayground___Nat___isZero",
+    {"id": "NatPlayground___Nat___isZero-next",
      "data":
      {"/Induction/#NatPlayground___Nat___isZero-next":
       {"display": "isZero",
@@ -9066,6 +9066,30 @@
      "data":
      {"/Basics/#NatPlayground___Nat___blt_test3":
       {"display": "blt_test3",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Equality and Ordering"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.blt_test2":
+   [{"id": "NatPlayground___Nat___blt_test2",
+     "data":
+     {"/Basics/#NatPlayground___Nat___blt_test2":
+      {"display": "blt_test2",
+       "context":
+       ["Logical Foundations",
+        "Basics: Functional Programming in Lean",
+        "Proof by Rewriting",
+        "Working with Numerals",
+        "Equality and Ordering"]}},
+     "address": "/Basics/"}],
+   "NatPlayground.Nat.blt_test1":
+   [{"id": "NatPlayground___Nat___blt_test1",
+     "data":
+     {"/Basics/#NatPlayground___Nat___blt_test1":
+      {"display": "blt_test1",
        "context":
        ["Logical Foundations",
         "Basics: Functional Programming in Lean",

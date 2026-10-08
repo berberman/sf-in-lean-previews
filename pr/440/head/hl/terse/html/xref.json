@@ -2802,6 +2802,28 @@
         "Arithmetic and Boolean Expressions",
         "Semantics: Evaluation"]}},
      "address": "/Slang/"}],
+   "Slang.Aexp.Nat.odd":
+   [{"id": "Slang___Aexp___Nat___odd",
+     "data":
+     {"/Slang/#Slang___Aexp___Nat___odd":
+      {"display": "Nat.odd",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
+   "Slang.Aexp.Nat.even":
+   [{"id": "Slang___Aexp___Nat___even",
+     "data":
+     {"/Slang/#Slang___Aexp___Nat___even":
+      {"display": "Nat.even",
+       "context":
+       ["Hoare Logic",
+        "Slang: Arithmetic and Boolean Expressions",
+        "Arithmetic and Boolean Expressions",
+        "Optimization"]}},
+     "address": "/Slang/"}],
    "Slang.Aexp.EvalR.plus":
    [{"id": "Slang___Aexp___EvalR___plus",
      "data":

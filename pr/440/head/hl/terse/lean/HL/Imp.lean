@@ -35,11 +35,6 @@ abbrev State := TotalMap Ident Nat
 
 --  ### Syntax
 
---  We can add variables to the arithmetic expressions we
---  had before simply by including one more constructor.
---  (This is a fresh `Aexp`, replacing the variable-free one
---  from the Slang chapter.)
-
 inductive Aexp where
   | num (n : Nat)
   | id (x : Ident)                -- NEW
@@ -598,9 +593,8 @@ def loop : Com := imp { while (true) { skip } }
 
 --  ### Evaluation as a Function (Failed Attempt)
 
---  In a more conventional functional language like OCaml or
---  Haskell, we could define the evaluation function as
---  follows:
+--  In a more conventional language we could define the
+--  evaluation function as follows:
 
 sf_expect_failure_in
   def Com.eval (st : State) (c : Com) : State :=
@@ -784,8 +778,9 @@ example :
 --  because it computes the value of the right-hand side and
 --  can use it to determine `st'`.
 --
---  Note the use of `~` here, since `.num x` is a Lean term
---  that we want to splice into Imp.
+--  Here are some more examples. Note the use of `~` in the
+--  first, since `.num x` is a Lean term that we want to
+--  splice into Imp.
 
 example {x : Nat} : ∅ =[ X := ~(.num x) ]=> {X ↦ x} := by
   apply EvalR.asgn
@@ -1225,4 +1220,4 @@ theorem sCompile_correct (st : State) (a : Aexp) :
 
 end StackCompiler
 
--- Source revision: 07c22c7, committed 2026-10-08 11:59 UTC
+-- Source revision: 1d34213, committed 2026-10-08 17:35 UTC

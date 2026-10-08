@@ -50,7 +50,7 @@ def eval (a : Aexp) : Nat :=
 @[simp] theorem eval_mult (a₁ a₂ : Aexp) :
     (mult a₁ a₂).eval = a₁.eval * a₂.eval := by rfl
 
-example : eval (.plus (.num 2) (.num 2)) = 4 := by simp
+example : eval (.plus (.num 2) (.num 2)) = 4 := by rfl
 end Aexp
 
 --  Similarly, the semantics of a boolean expression is the
@@ -104,11 +104,7 @@ end Bexp
 --  Slang in what is called the "big step" style: each
 --  `eval` function take an expression (the input) in one
 --  "big step" to its meaning (the output, as a number or
---  boolean). This is in contrast to the "small step" style,
---  which breaks a single evaluation into multiple, smaller
---  steps. The small-step style is introduced in the Type
---  Systems volume; we stick with big-step throughout the
---  Hoare Logic volume.
+--  boolean).
 
 --  ### Optimization
 
@@ -157,6 +153,24 @@ theorem optimize0plus_sound (a : Aexp) :
   | mult a₁ a₂ ih₁ ih₂ =>
     simp only [optimize0plus, eval_mult]
     rw [ih₁, ih₂]
+
+--  The `fun_induction` tactic inducts along a function's
+--  **own** recursion structure:
+--  `fun_induction Aexp.optimize0plus a` hands us one goal
+--  per branch of `optimize0plus` — the special
+--  `plus (num 0) e` branch included — so the nested `cases`
+--  disappear.
+
+def Nat.even (n : Nat) :=
+  match n with
+  | 0 => true
+  | 1 => false
+  | n' + 2 => even n'
+
+def Nat.odd (n : Nat) := Nat.even (n + 1)
+
+example (n : Nat) (h : Nat.even n = true) : Nat.odd n = false := by
+  sorry
 
 --  We can use `fun_induction` to achieve a much shorter
 --  proof.
@@ -208,6 +222,32 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 
 --  ### Inference Rule Notation
 
+--  A group of inference rules corresponds to a single
+--  inductive definition; each rule's name corresponds to a
+--  constructor name; above the line are the premises, below
+--  the line the conclusion; metavariables like `a₁` and
+--  `n₁` are implicitly universally quantified. The whole
+--  collection of rules defines `⇓` as the smallest relation
+--  closed under them:
+--
+--            ───────── (num)
+--            num n ⇓ n
+--
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--      ──────────────────── (plus)
+--      plus a₁ a₂ ⇓ n₁ + n₂
+--
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--      ───────────────────── (minus)
+--      minus a₁ a₂ ⇓ n₁ - n₂
+--
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--       ──────────────────── (mult)
+--       mult a₁ a₂ ⇓ n₁ * n₂
+
 --   ----------------------------------------
 
 --  _Quiz:_
@@ -252,10 +292,6 @@ theorem evalR_iff_eval' (a : Aexp) (n : Nat) :
 
 end Aexp
 
-namespace Bexp
-open scoped Aexp -- opens the ⇓ notation for Aexp.EvalR
-
-end Bexp
 end Slang
 
 --  ### Functional vs. Relational Definitions
@@ -304,17 +340,10 @@ def eval (a : Aexp) : Option Nat :=
 end Aexp
 
 --  This definition is a lot wordier than the earlier
---  version. There are tools to reduce this overhead, namely
---  monads, but we will not discuss these in Software
---  Foundations in Lean. Curious readers can learn more
---  about them from [Functional Programming in
---  Lean](https://lean-lang.org/functional_programming_in_lean/Monads/).
+--  version.
 --
 --  By contrast, partiality is no problem for the relational
 --  version of the definition.
---
---  What should `Aexp.eval` return for
---  `.div (.num 1) (.num 0)`??
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
   | num (n : Nat) : EvalR (.num n) n
@@ -341,13 +370,6 @@ end Slang.AevalRDivision
 namespace Slang.AevalRExtended
 
 --  Another example: a *nondeterministic* number generator:
---
---  As another example, suppose that we want to extend the
---  arithmetic operations by a nondeterministic number
---  generator `any` that, when evaluated, may yield any
---  number. (This is not the same as making a
---  *probabilistic* choice among all numbers — we only say
---  which results are *possible*.)
 
 inductive Aexp where
   | any                            -- NEW
@@ -356,11 +378,6 @@ inductive Aexp where
   | minus (a₁ a₂ : Aexp)
   | mult (a₁ a₂ : Aexp)
 
---  Again, extending `Aexp.eval` would be tricky, since
---  evaluation is now *not* a deterministic function from
---  expressions to numbers; but extending the relation is no
---  problem.
---
 --  What should `Aexp.eval` do with nondeterminism??
 
 inductive Aexp.EvalR : Aexp → Nat → Prop where
@@ -381,4 +398,4 @@ end Slang.AevalRExtended
 --  Functional: computation. Relational: expressive. Best:
 --  both, proved equivalent.
 
--- Source revision: 07c22c7, committed 2026-10-08 11:59 UTC
+-- Source revision: 1d34213, committed 2026-10-08 17:35 UTC
