@@ -141,6 +141,53 @@
       "status": "published",
       "title": "LF/Basics: unhide code block inside details block",
       "url": "https://github.com/plclub/sf-in-lean/pull/429"
+    },
+    "440": {
+      "base_sha": "1894c7ce51aa1586a73fd2a41df53d3b17417306",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "395cd95c0a73f55fd83ab73724d2c675baab6af2",
+      "preview_path": "pr/440/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37773794425",
+      "status": "published",
+      "title": "HL tweaks: Formatting, terse/full",
+      "url": "https://github.com/plclub/sf-in-lean/pull/440"
     }
   },
   "schema": 3
