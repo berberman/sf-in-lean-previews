@@ -188,6 +188,16 @@
       "status": "published",
       "title": "HL tweaks: Formatting, terse/full",
       "url": "https://github.com/plclub/sf-in-lean/pull/440"
+    },
+    "441": {
+      "base_sha": "1894c7ce51aa1586a73fd2a41df53d3b17417306",
+      "changed_variants": [],
+      "head_sha": "bba239f0a452484a6c897f7ea103eda927072b7b",
+      "preview_path": "pr/441/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Hoare pass",
+      "url": "https://github.com/plclub/sf-in-lean/pull/441"
     }
   },
   "schema": 3
