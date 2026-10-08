@@ -1,5 +1,5 @@
 {
-  "main_sha": "1894c7ce51aa1586a73fd2a41df53d3b17417306",
+  "main_sha": "c46a2fa4e23b7afb50a7499f0e8335f43efb840d",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -47,100 +47,6 @@
       "status": "published",
       "title": "Add cross-book chapter references",
       "url": "https://github.com/plclub/sf-in-lean/pull/418"
-    },
-    "427": {
-      "base_sha": "958a21889c2432482dfa1569c7120f075f2e506c",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "7b0ca83b6eec1e62ce0e40d01072437cb9145409",
-      "preview_path": "pr/427/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/36470216344",
-      "status": "published",
-      "title": "Basics: grade all three blt tests",
-      "url": "https://github.com/plclub/sf-in-lean/pull/427"
-    },
-    "429": {
-      "base_sha": "2d86b23da7abe8ce5611c70cd3261e11b3a820db",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "9cff0b21eb3f846ff0ce16e71365f1c820834941",
-      "preview_path": "pr/429/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37251164322",
-      "status": "published",
-      "title": "LF/Basics: unhide code block inside details block",
-      "url": "https://github.com/plclub/sf-in-lean/pull/429"
     },
     "440": {
       "base_sha": "1894c7ce51aa1586a73fd2a41df53d3b17417306",

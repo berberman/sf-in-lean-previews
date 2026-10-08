@@ -1339,4 +1339,4 @@ def ExcludedMiddle := ∀ a : Prop, a ∨ ¬ a
 --  Output:
 --    Classical.em (p : Prop) : p ∨ ¬p
 
--- Source revision: 1894c7c, committed 2026-10-07 21:03 UTC
+-- Source revision: c46a2fa, committed 2026-10-08 15:45 UTC

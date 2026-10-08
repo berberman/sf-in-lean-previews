@@ -63,4 +63,4 @@ import SFLCompat
 --    Lean](https://leanprover-community.github.io/mathematics_in_lean/)
 --    develops formalized mathematics using Lean and Mathlib.
 
--- Source revision: 1894c7c, committed 2026-10-07 21:03 UTC
+-- Source revision: c46a2fa, committed 2026-10-08 15:45 UTC

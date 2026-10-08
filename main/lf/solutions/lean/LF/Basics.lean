@@ -1515,8 +1515,8 @@ example : ble four two = false := by rfl
 
 def blt (n m : Nat) : Bool := (ble (succ n) m)
 
-example : blt two two = false := (by rfl)
-example : blt two four = true  := (by rfl)
+theorem blt_test1 : blt two two = false := (by rfl)
+theorem blt_test2 : blt two four = true  := (by rfl)
 theorem blt_test3 : blt four two = false := (by rfl)
 
 attribute [irreducible] blt ble
@@ -2270,4 +2270,4 @@ theorem inspectBag_changeBag_comm_ticketed
 end Airport
 end NatPlayground
 
--- Source revision: 1894c7c, committed 2026-10-07 21:03 UTC
+-- Source revision: c46a2fa, committed 2026-10-08 15:45 UTC
