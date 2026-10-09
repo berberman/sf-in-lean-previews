@@ -188,6 +188,16 @@
       "status": "published",
       "title": "Proof patterns draft with induction details",
       "url": "https://github.com/plclub/sf-in-lean/pull/443"
+    },
+    "444": {
+      "base_sha": "dc58a45f22b16f24965be14b5075a2befadf5985",
+      "changed_variants": [],
+      "head_sha": "c3062c08110fbceb1a1674529dd131ea62e2a9c0",
+      "preview_path": "pr/444/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Fixed reNotEmpty difficulty and documentation. Wrapped exercises in full blocks.",
+      "url": "https://github.com/plclub/sf-in-lean/pull/444"
     }
   },
   "schema": 3
