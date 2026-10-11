@@ -48,53 +48,6 @@
       "title": "Add cross-book chapter references",
       "url": "https://github.com/plclub/sf-in-lean/pull/418"
     },
-    "440": {
-      "base_sha": "1894c7ce51aa1586a73fd2a41df53d3b17417306",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "2d8d2888ab4ad2f44d8621352a4fc54d2c0fdf6b",
-      "preview_path": "pr/440/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37817695341",
-      "status": "published",
-      "title": "HL tweaks: Formatting, terse/full",
-      "url": "https://github.com/plclub/sf-in-lean/pull/440"
-    },
     "441": {
       "base_sha": "1894c7ce51aa1586a73fd2a41df53d3b17417306",
       "changed_variants": [
