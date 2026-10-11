@@ -101,13 +101,23 @@ abbrev X : Ident := "X"
 abbrev Y : Ident := "Y"
 abbrev Z : Ident := "Z"
 
---  ### Notations
+--  ### Notation
 
 --  To make Imp programs easier to read and write, we introduce some
---  notations.
+--  notation.
 --
---  You do not need to understand exactly what these declarations do.
---  Briefly, though, here is how the two blocks below fit together:
+--  By convention, our notation always treats identifiers starting with
+--  capital Latin letters as being literal names in Imp. Thus `X`, `Y`, and
+--  `Z` are Imp variables. Meanwhile, names beginning with lowercase Latin
+--  letters (like `a` or `c`) are treated as Lean variables, with the
+--  exception `true`/`false`, which are `Bexp` literals. Allowing Lean
+--  variables in Imp programs will be useful later when we need to write
+--  theorems about Imp programs. For Lean terms `e` that are not variables,
+--  `~e` splices `e` into Imp syntax. We will rarely need to use this in
+--  this book; we'll point out examples of this when they occur.
+
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: arithmetic expressions)
+--  Briefly, here is how the blocks below fit together:
 --  - The `declare_syntax_cat` directive adds a new non-terminal to Lean's
 --    grammar, called `imp_aexp`. We'll add additional non-terminals
 --    further below.
@@ -119,23 +129,9 @@ abbrev Z : Ident := "Z"
 --    `~`, the escape back to Lean. The eighth, `aexp { … }`, is a
 --    production of Lean's own `term` category — it is what lets an Imp
 --    expression appear in ordinary Lean code.
---  - `~e` splices an already-elaborated Lean term `e` into Imp syntax. We
---    will rarely need to use this in this book, however. By convention,
---    our notation always treats identifiers starting with capital Latin
---    letters as being literal names in Imp. Thus `X`, `Y`, and `Z` are Imp
---    variables. Meanwhile, names beginning with lowercase Latin letters
---    (like `a` or `c`) are treated as Lean variables. This will be useful
---    later when we need to write theorems about Imp programs. We only need
---    to use the `~` when we want to insert a larger Lean expression into
---    an `Imp` term. We'll point out examples of this when they occur.
 --  - Finally, `macro_rules` is used to translate each production of the
 --    `imp_aexp` non-terminal into a Lean expression.
---
---  Boolean expressions and, later, commands follow this same pattern
---  exactly, so their declarations are collapsed where they appear: open
---  one if you want to see the pattern repeated, and skip it otherwise.
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: arithmetic expressions)
 /-- Arithmetic expressions of Imp -/
 declare_syntax_cat imp_aexp
 /-- Numeric literal -/
@@ -273,14 +269,14 @@ end Imp.Elab
 
 #check aexp { 3 + (X * 2) }
 #check bexp { true ∧ ¬(X ≤ 4) }
+#check fun x:Aexp => aexp { 3 + x }
+#check fun x:Aexp => aexp { 3 + ~(Aexp.mult x x) }
 
---  ### Delaborators
-
---  Next, we write a suite of *delaborators* for `Aexp` and `Bexp`.
+--  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing expressions back)
+--  Here, we write a suite of *delaborators* for `Aexp` and `Bexp`.
 --  Delaborators are like the opposite of `macro_rules` — they are used to
 --  pretty print *elaborated* terms back to the user.
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing expressions back)
 namespace Imp.Delab
 
 open Lean PrettyPrinter Delaborator SubExpr Parenthesizer Imp.Elab
@@ -306,9 +302,7 @@ where
     let stx := stx.setInfo .none
     let pstx ← `(imp_bexp| ($(⟨stx⟩)))
     return pstx.raw.setInfo stxInfo
---  END DETAILS
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: registering the delaborators)
 /--
 Recognizes a term as being an `aexp { ... }` expression.
 -/
@@ -411,9 +405,6 @@ private def Bexp.unexpandAnd : Unexpander
 end Imp.Delab
 --  END DETAILS
 
---  With these delaborators in place, Lean pretty-prints Imp expressions
---  with the higher-level notations rather than their raw constructors.
---
 --  The pretty-printed version of an expression might not exactly match its
 --  original form. For example, the parentheses around `X * 2` in
 --  `aexp { 3 + (X * 2) }` are not printed because they are redundant,
@@ -697,8 +688,8 @@ def loop : Com := imp { while (true) { skip } }
 
 --  ### Evaluation as a Function (Failed Attempt)
 
---  In a more conventional functional language like OCaml or Haskell, we
---  could define the evaluation function as follows:
+--  In a more conventional language we could define the evaluation function
+--  as follows:
 
 sf_expect_failure_in
   def Com.eval (st : State) (c : Com) : State :=
@@ -781,17 +772,17 @@ sf_expect_failure_in
 --  Here is an informal definition of evaluation, presented as inference
 --  rules for readability:
 --
---      ───────────────── (skip)
---      st =[ skip ]=> st
+--                ───────────────── (skip)
+--                st =[ skip ]=> st
 --
---              a.eval st = n
---      ────────────────────────────── (asgn)
---      st =[ x := a ]=> (x →ₜ n ; st)
+--                  a.eval st = n
+--           ────────────────────────────── (asgn)
+--           st =[ x := a ]=> (x →ₜ n ; st)
 --
---       st  =[ c₁ ]=> st'
---       st' =[ c₂ ]=> st''
---      ──────────────────── (seq)
---      st =[ c₁;c₂ ]=> st''
+--                 st  =[ c₁ ]=> st'
+--                 st' =[ c₂ ]=> st''
+--                ──────────────────── (seq)
+--                st =[ c₁;c₂ ]=> st''
 --
 --                 b.eval st = true
 --                 st =[ c₁ ]=> st'
@@ -803,15 +794,15 @@ sf_expect_failure_in
 --      ─────────────────────────────────────── (ifFalse)
 --      st =[ if (b) { c₁ } else { c₂ } ]=> st'
 --
---           b.eval st = false
---      ──────────────────────────── (whileFalse)
---      st =[ while (b) { c } ]=> st
+--                 b.eval st = false
+--            ──────────────────────────── (whileFalse)
+--            st =[ while (b) { c } ]=> st
 --
---             b.eval st = true
---              st =[ c ]=> st'
---      st' =[ while (b) { c } ]=> st''
---      ─────────────────────────────── (whileTrue)
---      st  =[ while (b) { c } ]=> st''
+--                 b.eval st = true
+--                  st =[ c ]=> st'
+--          st' =[ while (b) { c } ]=> st''
+--          ─────────────────────────────── (whileTrue)
+--          st  =[ while (b) { c } ]=> st''
 --
 --  Here is the formal definition. Make sure you understand how it
 --  corresponds to the inference rules.
@@ -888,7 +879,7 @@ example :
       }
     ]=> {Z ↦ 4, X ↦ 2} := by
   -- To supply the intermediate state to the `seq` rule, which is
-  -- sometimes necessary, we can write `Com.EvalR.seq (st' := ...)`.
+  -- sometimes necessary, we can write `EvalR.seq (st' := ...)`.
   apply EvalR.seq (st' := {X ↦ 2})
   · exact EvalR.asgn rfl
   · apply EvalR.ifFalse
@@ -902,8 +893,8 @@ example :
 --  computes the value of the right-hand side and can use it to determine
 --  `st'`.
 --
---  Note the use of `~` here, since `.num x` is a Lean term that we want to
---  splice into Imp.
+--  Here are some more examples. Note the use of `~` in the first, since
+--  `.num x` is a Lean term that we want to splice into Imp.
 
 example {x : Nat} : ∅ =[ X := ~(.num x) ]=> {X ↦ x} := by
   apply EvalR.asgn
@@ -1663,4 +1654,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: dc58a45, committed 2026-10-08 15:46 UTC
+-- Source revision: 0d90715, committed 2026-10-11 15:31 UTC

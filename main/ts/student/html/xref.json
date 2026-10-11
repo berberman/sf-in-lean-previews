@@ -1299,6 +1299,24 @@
         "shortTitle": null,
         "number": "1"}]},
      "address": "/Slang/"}],
+   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Functional-vs___-Relational-Definitions":
+   [{"id":
+     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Functional-vs___-Relational-Definitions",
+     "data":
+     {"title": "Functional vs. Relational Definitions",
+      "shortTitle": null,
+      "sectionNum": "2.2.3.",
+      "searchPriority": 50,
+      "context":
+      [{"title": "Type Systems", "shortTitle": null, "number": null},
+       {"title": "Slang: Arithmetic and Boolean Expressions",
+        "shortTitle": null,
+        "number": "2"},
+       {"title": "Evaluation as a Relation", "shortTitle": null, "number": "2"},
+       {"title": "Functional vs. Relational Definitions",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Slang/"}],
    "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Equivalence-of-the-Definitions":
    [{"id":
      "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Equivalence-of-the-Definitions",
@@ -1316,24 +1334,6 @@
        {"title": "Equivalence of the Definitions",
         "shortTitle": null,
         "number": "2"}]},
-     "address": "/Slang/"}],
-   "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Computational-vs___-Relational-Definitions":
-   [{"id":
-     "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation--Computational-vs___-Relational-Definitions",
-     "data":
-     {"title": "Computational vs. Relational Definitions",
-      "shortTitle": null,
-      "sectionNum": "2.2.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Type Systems", "shortTitle": null, "number": null},
-       {"title": "Slang: Arithmetic and Boolean Expressions",
-        "shortTitle": null,
-        "number": "2"},
-       {"title": "Evaluation as a Relation", "shortTitle": null, "number": "2"},
-       {"title": "Computational vs. Relational Definitions",
-        "shortTitle": null,
-        "number": "3"}]},
      "address": "/Slang/"}],
    "Type-Systems--Slang___-Arithmetic-and-Boolean-Expressions--Evaluation-as-a-Relation":
    [{"id":
@@ -6668,7 +6668,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.num":
    [{"id": "Slang___AevalRExtended___Aexp___num",
@@ -6679,7 +6679,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.mult":
    [{"id": "Slang___AevalRExtended___Aexp___mult",
@@ -6690,7 +6690,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.minus":
    [{"id": "Slang___AevalRExtended___Aexp___minus",
@@ -6701,7 +6701,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.any":
    [{"id": "Slang___AevalRExtended___Aexp___any",
@@ -6712,7 +6712,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.plus":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___plus",
@@ -6723,7 +6723,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.num":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___num",
@@ -6734,7 +6734,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.mult":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___mult",
@@ -6745,7 +6745,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.minus":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___minus",
@@ -6756,7 +6756,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR.any":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR___any",
@@ -6767,7 +6767,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp.EvalR":
    [{"id": "Slang___AevalRExtended___Aexp___EvalR",
@@ -6778,7 +6778,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRExtended.Aexp":
    [{"id": "Slang___AevalRExtended___Aexp",
@@ -6789,7 +6789,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.plus":
    [{"id": "Slang___AevalRDivision___Aexp___plus",
@@ -6800,7 +6800,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.num":
    [{"id": "Slang___AevalRDivision___Aexp___num",
@@ -6811,7 +6811,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.mult":
    [{"id": "Slang___AevalRDivision___Aexp___mult",
@@ -6822,7 +6822,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.minus":
    [{"id": "Slang___AevalRDivision___Aexp___minus",
@@ -6833,7 +6833,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.eval":
    [{"id": "Slang___AevalRDivision___Aexp___eval",
@@ -6844,7 +6844,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.div":
    [{"id": "Slang___AevalRDivision___Aexp___div",
@@ -6855,7 +6855,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.plus":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___plus",
@@ -6866,7 +6866,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.num":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___num",
@@ -6877,7 +6877,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.mult":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___mult",
@@ -6888,7 +6888,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.minus":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___minus",
@@ -6899,7 +6899,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR.div":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR___div",
@@ -6910,7 +6910,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp.EvalR":
    [{"id": "Slang___AevalRDivision___Aexp___EvalR",
@@ -6921,7 +6921,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AevalRDivision.Aexp":
    [{"id": "Slang___AevalRDivision___Aexp",
@@ -6932,7 +6932,7 @@
        ["Type Systems",
         "Slang: Arithmetic and Boolean Expressions",
         "Evaluation as a Relation",
-        "Computational vs. Relational Definitions"]}},
+        "Functional vs. Relational Definitions"]}},
      "address": "/Slang/"}],
    "Slang.AStep.plusRight":
    [{"id": "Slang___AStep___plusRight",

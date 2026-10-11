@@ -35,11 +35,6 @@ abbrev State := TotalMap Ident Nat
 
 --  ### Syntax
 
---  We can add variables to the arithmetic expressions we
---  had before simply by including one more constructor.
---  (This is a fresh `Aexp`, replacing the variable-free one
---  from the Slang chapter.)
-
 inductive Aexp where
   | num (n : Nat)
   | id (x : Ident)                -- NEW
@@ -67,7 +62,15 @@ abbrev X : Ident := "X"
 abbrev Y : Ident := "Y"
 abbrev Z : Ident := "Z"
 
---  ### Notations
+--  ### Notation
+
+--  To make Imp programs easier to read and write, we
+--  introduce some notation.
+--
+--  By convention, `X`, `Y`, and `Z` are Imp variables, and
+--  `a`, `b`, and `c` are Lean variables, with the exception
+--  of `true`/`false`. Syntax `~e` splices `e` into Imp
+--  syntax.
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: arithmetic expressions)
 /-- Arithmetic expressions of Imp -/
@@ -207,8 +210,8 @@ end Imp.Elab
 
 #check aexp { 3 + (X * 2) }
 #check bexp { true ∧ ¬(X ≤ 4) }
-
---  ### Delaborators
+#check fun x:Aexp => aexp { 3 + x }
+#check fun x:Aexp => aexp { 3 + ~(Aexp.mult x x) }
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing expressions back)
 namespace Imp.Delab
@@ -236,9 +239,7 @@ where
     let stx := stx.setInfo .none
     let pstx ← `(imp_bexp| ($(⟨stx⟩)))
     return pstx.raw.setInfo stxInfo
---  END DETAILS
 
---  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: registering the delaborators)
 /--
 Recognizes a term as being an `aexp { ... }` expression.
 -/
@@ -592,9 +593,8 @@ def loop : Com := imp { while (true) { skip } }
 
 --  ### Evaluation as a Function (Failed Attempt)
 
---  In a more conventional functional language like OCaml or
---  Haskell, we could define the evaluation function as
---  follows:
+--  In a more conventional language we could define the
+--  evaluation function as follows:
 
 sf_expect_failure_in
   def Com.eval (st : State) (c : Com) : State :=
@@ -656,17 +656,17 @@ sf_expect_failure_in
 --  Here is an informal definition of evaluation, presented
 --  as inference rules for readability:
 --
---      ───────────────── (skip)
---      st =[ skip ]=> st
+--                ───────────────── (skip)
+--                st =[ skip ]=> st
 --
---              a.eval st = n
---      ────────────────────────────── (asgn)
---      st =[ x := a ]=> (x →ₜ n ; st)
+--                  a.eval st = n
+--           ────────────────────────────── (asgn)
+--           st =[ x := a ]=> (x →ₜ n ; st)
 --
---       st  =[ c₁ ]=> st'
---       st' =[ c₂ ]=> st''
---      ──────────────────── (seq)
---      st =[ c₁;c₂ ]=> st''
+--                 st  =[ c₁ ]=> st'
+--                 st' =[ c₂ ]=> st''
+--                ──────────────────── (seq)
+--                st =[ c₁;c₂ ]=> st''
 --
 --                 b.eval st = true
 --                 st =[ c₁ ]=> st'
@@ -678,15 +678,15 @@ sf_expect_failure_in
 --      ─────────────────────────────────────── (ifFalse)
 --      st =[ if (b) { c₁ } else { c₂ } ]=> st'
 --
---           b.eval st = false
---      ──────────────────────────── (whileFalse)
---      st =[ while (b) { c } ]=> st
+--                 b.eval st = false
+--            ──────────────────────────── (whileFalse)
+--            st =[ while (b) { c } ]=> st
 --
---             b.eval st = true
---              st =[ c ]=> st'
---      st' =[ while (b) { c } ]=> st''
---      ─────────────────────────────── (whileTrue)
---      st  =[ while (b) { c } ]=> st''
+--                 b.eval st = true
+--                  st =[ c ]=> st'
+--          st' =[ while (b) { c } ]=> st''
+--          ─────────────────────────────── (whileTrue)
+--          st  =[ while (b) { c } ]=> st''
 --
 --  Here is the formal definition. Make sure you understand
 --  how it corresponds to the inference rules.
@@ -763,7 +763,7 @@ example :
       }
     ]=> {Z ↦ 4, X ↦ 2} := by
   -- To supply the intermediate state to the `seq` rule, which is
-  -- sometimes necessary, we can write `Com.EvalR.seq (st' := ...)`.
+  -- sometimes necessary, we can write `EvalR.seq (st' := ...)`.
   apply EvalR.seq (st' := {X ↦ 2})
   · exact EvalR.asgn rfl
   · apply EvalR.ifFalse
@@ -778,8 +778,9 @@ example :
 --  because it computes the value of the right-hand side and
 --  can use it to determine `st'`.
 --
---  Note the use of `~` here, since `.num x` is a Lean term
---  that we want to splice into Imp.
+--  Here are some more examples. Note the use of `~` in the
+--  first, since `.num x` is a Lean term that we want to
+--  splice into Imp.
 
 example {x : Nat} : ∅ =[ X := ~(.num x) ]=> {X ↦ x} := by
   apply EvalR.asgn
@@ -1219,4 +1220,4 @@ theorem sCompile_correct (st : State) (a : Aexp) :
 
 end StackCompiler
 
--- Source revision: dc58a45, committed 2026-10-08 15:46 UTC
+-- Source revision: 0d90715, committed 2026-10-11 15:31 UTC

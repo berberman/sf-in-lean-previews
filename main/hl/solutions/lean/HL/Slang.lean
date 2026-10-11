@@ -112,7 +112,7 @@ def eval (a : Aexp) : Nat :=
 @[simp] theorem eval_mult (a₁ a₂ : Aexp) :
     (mult a₁ a₂).eval = a₁.eval * a₂.eval := by rfl
 
-example : eval (.plus (.num 2) (.num 2)) = 4 := by simp
+example : eval (.plus (.num 2) (.num 2)) = 4 := by rfl
 end Aexp
 
 --  Similarly, the semantics of a boolean expression is the boolean it
@@ -163,9 +163,11 @@ end Bexp
 --  As a technical note: We are specifying the semantics of Slang in what
 --  is called the "big step" style: each `eval` function take an expression
 --  (the input) in one "big step" to its meaning (the output, as a number
---  or boolean). This is in contrast to the "small step" style, which
---  breaks a single evaluation into multiple, smaller steps. The small-step
---  style is introduced in the Type Systems volume; we stick with big-step
+--  or boolean).
+--
+--  This is in contrast to the "small step" style, which breaks a single
+--  evaluation into multiple, smaller steps. The small-step style is
+--  introduced in the Type Systems volume; we stick with big-step
 --  throughout the Hoare Logic volume.
 
 --  ### Optimization
@@ -243,8 +245,7 @@ theorem optimize0plus_sound (a : Aexp) :
 --  analysis that `Aexp.optimize0plus` itself performs.
 --
 --  The `fun_induction` tactic inducts along a function's **own** recursion
---  structure: `fun_induction
---  Aexp.optimize0plus a` hands us one goal per
+--  structure: `fun_induction Aexp.optimize0plus a` hands us one goal per
 --  branch of `optimize0plus` — the special `plus (num 0) e` branch
 --  included — so the nested `cases` disappear.
 --
@@ -419,18 +420,20 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --  this is sometimes indicated by saying something like "Let `Aexp.EvalR`
 --  be the smallest relation closed under the following rules...".
 --
---  To summarize: a group of inference rules corresponds to a single
---  inductive definition; each rule's name corresponds to a constructor
---  name; above the line are the premises, below the line the conclusion;
---  metavariables like `a₁` and `n₁` are implicitly universally quantified.
---  The whole collection of rules defines `⇓` as the smallest relation
---  closed under them:
+--  To summarize:
 --
---      ───────── (num)
---      num n ⇓ n
+--  A group of inference rules corresponds to a single inductive
+--  definition; each rule's name corresponds to a constructor name; above
+--  the line are the premises, below the line the conclusion; metavariables
+--  like `a₁` and `n₁` are implicitly universally quantified. The whole
+--  collection of rules defines `⇓` as the smallest relation closed under
+--  them:
 --
---            a₁ ⇓ n₁
---            a₂ ⇓ n₂
+--            ───────── (num)
+--            num n ⇓ n
+--
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
 --      ──────────────────── (plus)
 --      plus a₁ a₂ ⇓ n₁ + n₂
 --
@@ -439,10 +442,10 @@ scoped notation:55 e:56 " ⇓ " n:56 => EvalR e n
 --      ───────────────────── (minus)
 --      minus a₁ a₂ ⇓ n₁ - n₂
 --
---           a₁ ⇓ n₁
---           a₂ ⇓ n₂
---      ────────────────── (mult)
---      mult a₁ a₂ ⇓ n₁*n₂
+--             a₁ ⇓ n₁
+--             a₂ ⇓ n₂
+--       ──────────────────── (mult)
+--       mult a₁ a₂ ⇓ n₁ * n₂
 
 --   ----------------------------------------
 
@@ -587,9 +590,10 @@ theorem evalR_iff_eval (b : Bexp) (bv : Bool) :
 --  (End of exercise)
 
 end Bexp
+
 end Slang
 
---  ### Computational vs. Relational Definitions
+--  ### Functional vs. Relational Definitions
 
 --  For the definitions of evaluation for arithmetic and boolean
 --  expressions, the choice of whether to use functional or relational
@@ -635,10 +639,11 @@ def eval (a : Aexp) : Option Nat :=
                     | _, _ => none
 end Aexp
 
---  This definition is a lot wordier than the earlier version. There are
---  tools to reduce this overhead, namely monads, but we will not discuss
---  these in Software Foundations in Lean. Curious readers can learn more
---  about them from [Functional Programming in
+--  This definition is a lot wordier than the earlier version.
+--
+--  There are tools to reduce this overhead, namely monads, but we will not
+--  discuss these in Software Foundations in Lean. Curious readers can
+--  learn more about them from [Functional Programming in
 --  Lean](https://lean-lang.org/functional_programming_in_lean/Monads/).
 --
 --  By contrast, partiality is no problem for the relational version of the
@@ -716,4 +721,4 @@ end Slang.AevalRExtended
 --  switch between points of view at will — exactly what we did above in
 --  `Slang.Aexp.evalR_iff_eval` and `Slang.Bexp.evalR_iff_eval`.
 
--- Source revision: dc58a45, committed 2026-10-08 15:46 UTC
+-- Source revision: 0d90715, committed 2026-10-11 15:31 UTC
