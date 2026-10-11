@@ -143,12 +143,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/443"
     },
     "444": {
-      "base_sha": "dc58a45f22b16f24965be14b5075a2befadf5985",
+      "base_sha": "0d9071538eb0690d9220ba4ad217a8edab392808",
       "changed_variants": [],
-      "head_sha": "c3062c08110fbceb1a1674529dd131ea62e2a9c0",
+      "head_sha": "e41d6c6d8dd4f3b14f059fe66215c9fd771f3ee6",
       "preview_path": "pr/444/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38180818760",
+      "status": "ci-failed",
       "title": "Fixed reNotEmpty difficulty and documentation. Wrapped exercises in full blocks.",
       "url": "https://github.com/plclub/sf-in-lean/pull/444"
     }
