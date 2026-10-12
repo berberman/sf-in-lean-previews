@@ -142,53 +142,6 @@
       "title": "Proof patterns draft with induction details",
       "url": "https://github.com/plclub/sf-in-lean/pull/443"
     },
-    "445": {
-      "base_sha": "0d9071538eb0690d9220ba4ad217a8edab392808",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "a3ab8cd7f4a060f4ead9289fad0a5a7e8314c72a",
-      "preview_path": "pr/445/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38250089769",
-      "status": "published",
-      "title": "CustomTactics: give each inversion alternative its own TacticInfo node",
-      "url": "https://github.com/plclub/sf-in-lean/pull/445"
-    },
     "446": {
       "base_sha": "0d9071538eb0690d9220ba4ad217a8edab392808",
       "changed_variants": [
@@ -238,13 +191,97 @@
     },
     "448": {
       "base_sha": "e2b3e1623dc50e4619eb4dde8ba02531e71424ac",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "41bdf9d6565ccb7c3eb02f41e006f3d680c22695",
       "preview_path": "pr/448/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38302745517",
+      "status": "published",
       "title": "`inversion` tactic cleanup",
       "url": "https://github.com/plclub/sf-in-lean/pull/448"
+    },
+    "449": {
+      "base_sha": "e2b3e1623dc50e4619eb4dde8ba02531e71424ac",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "0f74845c92a144837e83ef96753b6c1246861ced",
+      "preview_path": "pr/449/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38303582006",
+      "status": "published",
+      "title": "inversion: accept `@` alternatives, like `cases`",
+      "url": "https://github.com/plclub/sf-in-lean/pull/449"
     }
   },
   "schema": 3
