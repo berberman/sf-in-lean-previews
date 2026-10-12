@@ -235,6 +235,16 @@
       "status": "published",
       "title": "Equiv: Various improvements",
       "url": "https://github.com/plclub/sf-in-lean/pull/446"
+    },
+    "448": {
+      "base_sha": "e2b3e1623dc50e4619eb4dde8ba02531e71424ac",
+      "changed_variants": [],
+      "head_sha": "41bdf9d6565ccb7c3eb02f41e006f3d680c22695",
+      "preview_path": "pr/448/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "`inversion` tactic cleanup",
+      "url": "https://github.com/plclub/sf-in-lean/pull/448"
     }
   },
   "schema": 3
