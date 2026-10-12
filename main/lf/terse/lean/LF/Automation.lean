@@ -524,6 +524,16 @@ example : [1, 2, 3] =~ reg_exp_of_list [1, 2, 3] := by
 theorem MStar1 α s (re : RegExp α) (h : s =~ re) : s =~ Star re := by
   sorry
 
+--  The next lemma is stated in terms of the `List.foldr`
+--  function on lists: if `ss : List (List α)` represents a
+--  sequence of strings `s₁, ..., sₙ`, then
+--  `List.foldr (· ++ ·) [] ss` is the result of
+--  concatenating them all together.
+--
+--  Since the definition of `ExpMatch` has a recursive
+--  structure, we might expect that proofs involving regular
+--  expressions will often require induction on evidence.
+--
 --  Naturally, proofs about `ExpMatch` often require
 --  induction (on evidence!).
 --
@@ -661,6 +671,123 @@ theorem star_app α (s₁ s₂ : List α) (re : RegExp α) :
 --  section of `s` an arbitrary number of times to produce a
 --  new string also matching `re`.
 
+def pumpingConstant {α : Type} (re : RegExp α) : Nat :=
+  match re with
+  | EmptySet => 1
+  | EmptyStr => 1
+  | Char _ => 2
+  | App re₁ re₂ => re₁.pumpingConstant + re₂.pumpingConstant
+  | Union re₁ re₂ => re₁.pumpingConstant + re₂.pumpingConstant
+  | Star r => r.pumpingConstant
+
+--  You may find these lemmas about the pumping constant
+--  useful when proving the pumping lemma below.
+
+theorem pumping_constant_ge_1 {α : Type} (re : RegExp α) :
+    re.pumpingConstant ≥ 1 := by
+  induction re with (simp_all [pumpingConstant]; try lia)
+
+theorem pumping_constant_0_false {α : Type} (re : RegExp α)
+    (h : re.pumpingConstant = 0) : False := by
+  have := pumping_constant_ge_1 re; lia
+
+--  Next, it is useful to define an auxiliary function that
+--  repeats a string (appends it to itself) some number of
+--  times. Note how we define `simp` lemmas for `napp` to go
+--  with its definition.
+
+def napp {α : Type} (n : Nat) (l : List α) : List α :=
+  match n with
+  | 0 => []
+  | n' + 1 => l ++ napp n' l
+
+@[simp]
+theorem napp_zero {α : Type} (l : List α) : napp 0 l = [] := by rfl
+
+@[simp]
+theorem napp_succ {α : Type} (n : Nat) (l : List α) :
+  napp (n + 1) l = l ++ napp n l := by rfl
+
+--  These auxiliary lemmas might also be useful in your
+--  proof of the pumping lemma.
+
+@[simp]
+theorem napp_plus {α : Type} (n m : Nat) (l : List α) :
+    napp (n + m) l = napp n l ++ napp m l := by
+  induction n with simp_all [Nat.succ_add]
+
+theorem napp_star {α : Type} (m : Nat) (s₁ s₂ : List α) (re : RegExp α)
+    (hs₁ : s₁ =~ re) (hs₂ : s₂ =~ Star re) :
+    napp m s₁ ++ s₂ =~ Star re := by
+  induction m with
+  | zero => simp only [napp_zero, List.nil_append]; trivial
+  | succ m ih =>
+    simp only [napp_succ]
+    rw [List.append_assoc]
+    apply mStarApp <;> trivial
+
+--  The (weak) pumping lemma itself says that, if `s =~ re`
+--  and if the length of `s` is at least the pumping
+--  constant of `re`, then `s` can be split into three
+--  substrings `s₁ ++ s₂ ++ s₃` in such a way that `s₂` can
+--  be repeated any number of times and the result, when
+--  combined with `s₁` and `s₃`, will still match `re`.
+--  Since `s₂` is also guaranteed not to be the empty
+--  string, this gives us a (constructive!) way to generate
+--  strings matching `re` that are as long as we like.
+--
+--  This proof is quite long, so to make it more tractable
+--  we've broken it up into a number of subproofs, which we
+--  then assemble to prove the main lemma.
+--
+--  Your job is to complete the proofs of the helper lemmas;
+--  the main lemma relies on these.
+
+--  ### Exercise (1 star): weak_pumping_star_zero ⭐
+
+theorem weak_pumping_star_zero {α : Type} (re : RegExp α)
+    (h : (Star re).pumpingConstant ≤ @List.length α []) :
+    ∃ s₁ s₂ s₃ : List α,
+      [ ] = s₁ ++ s₂ ++ s₃ ∧
+      s₂ ≠ [ ] ∧
+      (∀ m : Nat, s₁ ++ napp m s₂ ++ s₃ =~ Star re) := by
+  sorry
+
+--  ### Exercise (5 stars): weak_pumping_star_app ⭐⭐⭐⭐⭐
+
+theorem weak_pumping_star_app {α : Type} (s₁ s₂ : List α) (re : RegExp α)
+    (h₁ : s₁ =~ re)
+    (h₂ : s₂ =~ Star re)
+    (ih₁ : re.pumpingConstant ≤ List.length s₁ →
+      ∃ s₂ s₃ s₄ : List α,
+        s₁ = s₂ ++ s₃ ++ s₄
+        ∧ s₃ ≠ [ ] ∧
+        (∀ m : Nat, s₂ ++ napp m s₃ ++ s₄ =~ re))
+    (ih₂ : (Star re).pumpingConstant ≤ s₂.length →
+      ∃ s₁ s₃ s₄ : List α,
+        s₂ = s₁ ++ s₃ ++ s₄ ∧
+        s₃ ≠ [ ] ∧
+        (∀ m : Nat, s₁ ++ napp m s₃ ++ s₄ =~ Star re))
+    (hLen : (Star re).pumpingConstant ≤ (s₁ ++ s₂).length) :
+    ∃ s₀ s₃ s₄ : List α,
+      s₁ ++ s₂ = s₀ ++ s₃ ++ s₄ ∧
+      s₃ ≠ [ ] ∧
+      (∀ m : Nat, s₀ ++ napp m s₃ ++ s₄ =~ .Star re) := by
+  rw [List.length_append] at *
+  obtain hs₁len0 | ⟨s₁len, hs₁re₁⟩ | hs₁re₁ :
+    (s₁.length = 0
+      ∨ (s₁.length ≠ 0 ∧ s₁.length < re.pumpingConstant)
+      ∨ re.pumpingConstant ≤ s₁.length) := by
+    cases s₁ with
+    | nil => sorry
+    | cons h s₁' =>
+      sorry
+  . sorry
+  . sorry
+  . sorry
+
+--  (End of exercise)
+
 end RegExp
 
--- Source revision: 0d90715, committed 2026-10-11 15:31 UTC
+-- Source revision: e2b3e16, committed 2026-10-12 14:58 UTC
