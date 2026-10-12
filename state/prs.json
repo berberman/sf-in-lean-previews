@@ -188,6 +188,16 @@
       "status": "published",
       "title": "Fixed reNotEmpty difficulty and documentation. Wrapped exercises in full blocks.",
       "url": "https://github.com/plclub/sf-in-lean/pull/444"
+    },
+    "445": {
+      "base_sha": "0d9071538eb0690d9220ba4ad217a8edab392808",
+      "changed_variants": [],
+      "head_sha": "a3ab8cd7f4a060f4ead9289fad0a5a7e8314c72a",
+      "preview_path": "pr/445/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "CustomTactics: give each inversion alternative its own TacticInfo node",
+      "url": "https://github.com/plclub/sf-in-lean/pull/445"
     }
   },
   "schema": 3
