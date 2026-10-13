@@ -235,53 +235,6 @@
       "status": "published",
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
-    },
-    "450": {
-      "base_sha": "501904e250506944e85e5c658493f2b9037df631",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "30b5f4f32cdff5023b38282e02b076bb5832ca2b",
-      "preview_path": "pr/450/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38459274919",
-      "status": "published",
-      "title": "HL/Equiv: Text adjustments",
-      "url": "https://github.com/plclub/sf-in-lean/pull/450"
     }
   },
   "schema": 3
