@@ -235,6 +235,63 @@
       "status": "published",
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
+    },
+    "450": {
+      "base_sha": "824c1a7cad99712013cbebcfd525738fd91f0bad",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "43208fdbc7e22886661d4f8509c89dd5ea9126db",
+      "preview_path": "pr/450/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38424976856",
+      "status": "published",
+      "title": "HL/Equiv: Text adjustments",
+      "url": "https://github.com/plclub/sf-in-lean/pull/450"
+    },
+    "451": {
+      "base_sha": "824c1a7cad99712013cbebcfd525738fd91f0bad",
+      "changed_variants": [],
+      "head_sha": "2fe02fa83969bca569274c50e1d373c6b6e267a9",
+      "preview_path": "pr/451/head/",
+      "run_url": null,
+      "status": "waiting-ci",
+      "title": "Imp, Equiv: make 2 hw problems optional this year",
+      "url": "https://github.com/plclub/sf-in-lean/pull/451"
     }
   },
   "schema": 3
