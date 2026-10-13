@@ -13,11 +13,15 @@ open scoped HasEval MyGetElem Com
 
 --  ## Behavioral Equivalence
 
+--  - `X + 2` is behaviorally equivalent to `1 + X + 1`
+--  - `X - X` is behaviorally equivalent to `0`
+--  - `(X - 1) + 1` is *not* behaviorally equivalent to `X`
+
 --  ### Definitions
 
---  We'll define a type class `Equiv`, so that these
---  relations (and the one for commands, below) can all be
---  written with the notation `≃`.
+--  Instances of the type class `Equiv` express the meaning
+--  of behavioral equivalence, and are written with the
+--  notation `≃`.
 
 class Equiv (α : Type) where
   equiv : α → α → Prop
@@ -173,7 +177,7 @@ theorem while_false {b : Bexp} {c : Com} (hb : b ≃ bexp {false}) :
 theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State}
     (hb : b ≃ bexp {true}) :
     ¬ st =[ while (b) {c} ]=> st' := by
-  sorry -- `heq` says that different commands are equal
+  sorry
 
 theorem loop_unrolling {b : Bexp} {c : Com} :
     imp { while (b) {c} } ≃
@@ -567,4 +571,4 @@ theorem subst_inequiv : ¬ SubstEquivProperty := by
   rw [TotalMap.update_eq, TotalMap.update_eq] at contra
   contradiction
 
--- Source revision: 501904e, committed 2026-10-13 19:49 UTC
+-- Source revision: 88200c1, committed 2026-10-13 20:39 UTC

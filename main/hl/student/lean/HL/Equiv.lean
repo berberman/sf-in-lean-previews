@@ -61,8 +61,8 @@ open scoped HasEval MyGetElem Com
 --  clear: two `Aexp`s or `Bexp`s are "behaviorally equivalent" if they
 --  evaluate to the same result in every state.
 --
---  We'll define a type class `Equiv`, so that these relations (and the one
---  for commands, below) can all be written with the notation `≃`.
+--  Instances of the type class `Equiv` express the meaning of behavioral
+--  equivalence, and are written with the notation `≃`.
 
 class Equiv (α : Type) where
   equiv : α → α → Prop
@@ -364,7 +364,8 @@ theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State}
   | whileTrue hb' hc' hwhile ih1 ih2 =>
     exact ih2 heq
   | skip | asgn | seq | ifTrue | ifFalse =>
-    contradiction -- `heq` says that different commands are equal
+    -- `heq` says that different commands are equal
+    contradiction
 
 --  ### Exercise (2 stars): while_true_nonterm_informal (Optional) ⭐⭐
 
@@ -807,6 +808,58 @@ theorem Aexp.foldConstants_cases (a₁ a₂ : Aexp) :
       simp [foldConstants, ha₁, ha₂]
   | _ =>
     simp [foldConstants, ha₁]
+
+--  The `Aexp.foldConstants_cases` theorem is also a characterizing lemma,
+--  but it's different from ones we've seen before, which have always been
+--  equations. To keep that style, we might have written more lemmas like
+--  the following:
+
+-- (don't want to actually add to simp set) @[simp]
+theorem Aexp.foldConstants_add_num
+  (h₁ : a₁.foldConstants = .num n₁)
+  (h₂ : a₂.foldConstants = .num n₂) :
+  (aexp{a₁ + a₂}).foldConstants = .num (n₁ + n₂) := by
+  simp only [Aexp.foldConstants]
+  simp [h₁, h₂]
+-- @[simp]
+theorem Aexp.foldConstants_add_other
+  (h : ¬∃ n₁ n₂,
+    a₁.foldConstants = .num n₁ ∧ a₂.foldConstants = .num n₂) :
+  (aexp{ a₁ + a₂ }).foldConstants =
+    aexp { ~a₁.foldConstants + ~a₂.foldConstants} := by sorry
+-- etc.
+
+--  These are *conditional* `simp` lemmas — the equation in the conclusion
+--  depends on one or more hypotheses. These hypotheses are themselves
+--  about `Aexp.foldConstants`, which `simp` would have to recursively
+--  simplify. But the hypotheses say things like "`a₁.foldConstants` equal
+--  to a numeral" for an abstract `a₁`, and `simp` cannot further simplify
+--  that. You can see that in the state in the proof of
+--  `Aexp.foldConstants_add_num` just after the
+--  `simp only [Aexp.foldConstants]` part — It leaves a `match` in the goal
+--  that the proof must subsequently consider.
+
+--  The `Aexp.foldConstants_cases` theorem helps with that, capturing a
+--  common pattern of compound expressions: for any `a₁` and `a₂`, either
+--  folding turns both of them into numerals — in which case folding
+--  `a₁ + a₂` (and `-`, and `*`) collapses to a single numeral — or at
+--  least one of them doesn't, in which case folding `a₁ + a₂` (etc.) just
+--  rebuilds the operator around the already-folded operands. This theorem
+--  is meant to be consumed with `cases` to split a proof into those two
+--  scenarios; we will see its use when proving `Aexp.foldConstants_sound`
+--  below.
+--
+--  Note we could also show the following as a proof
+
+theorem Aexp.foldConstants_add_other_left (h : ¬∃ n₁, a₁.foldConstants = .num n₁) :
+    aexp{ a₁ + a₂ }.foldConstants = aexp { ~a₁.foldConstants + ~a₂.foldConstants} := by
+  rw [Aexp.foldConstants.eq_3]
+  split
+  next n₁ n₂ h₁ h₂ =>
+    exfalso
+    apply h
+    exists n₁
+  next h => rfl
 
 example : (aexp { (1 + 2) * X }).foldConstants =
         (aexp { 3 * X }) := by rfl
@@ -1764,4 +1817,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
     (ha : Approx c c') : zprop c' := by
   sorry
 
--- Source revision: 501904e, committed 2026-10-13 19:49 UTC
+-- Source revision: 88200c1, committed 2026-10-13 20:39 UTC

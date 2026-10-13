@@ -6380,6 +6380,39 @@
         "Program Transformation",
         "The Constant-Folding Transformation"]}},
      "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_other_left":
+   [{"id": "Aexp___foldConstants_add_other_left",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_other_left":
+      {"display": "Aexp.foldConstants_add_other_left",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_other":
+   [{"id": "Aexp___foldConstants_add_other",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_other":
+      {"display": "Aexp.foldConstants_add_other",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_num":
+   [{"id": "Aexp___foldConstants_add_num",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_num":
+      {"display": "Aexp.foldConstants_add_num",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
    "Aexp.foldConstants":
    [{"id": "Aexp___foldConstants",
      "data":
