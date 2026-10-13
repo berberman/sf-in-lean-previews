@@ -282,16 +282,6 @@
       "status": "published",
       "title": "HL/Equiv: Text adjustments",
       "url": "https://github.com/plclub/sf-in-lean/pull/450"
-    },
-    "451": {
-      "base_sha": "824c1a7cad99712013cbebcfd525738fd91f0bad",
-      "changed_variants": [],
-      "head_sha": "2fe02fa83969bca569274c50e1d373c6b6e267a9",
-      "preview_path": "pr/451/head/",
-      "run_url": null,
-      "status": "waiting-ci",
-      "title": "Imp, Equiv: make 2 hw problems optional this year",
-      "url": "https://github.com/plclub/sf-in-lean/pull/451"
     }
   },
   "schema": 3
