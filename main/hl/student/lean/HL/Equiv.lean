@@ -8,7 +8,16 @@ import SFLCompat
 
 open scoped HasEval MyGetElem Com
 
---  Advice for Working on Exercises:
+--  This chapter develops a notion of *behavioral equivalence* for Imp's
+--  expressions and commands.
+--
+--  To illustrate it use, we verify that program transformations such as
+--  constant folding preserve behavior. Along the way we also see
+--  techniques for proving that two programs are *not* equivalent. Finally,
+--  we close with an extended look at what equivalence means once Imp is
+--  made nondeterministic.
+--
+--  **Advice for Working on Exercises:**
 --  - Most of the Lean proofs we ask you to do in this chapter are similar
 --    to proofs that we've provided. Before starting to work on exercises,
 --    take the time to work through our proofs (both informally and in
@@ -28,7 +37,7 @@ open scoped HasEval MyGetElem Com
 
 --  ## Behavioral Equivalence
 
---  In an earlier chapter, we investigated the correctness of a very simple
+--  In the Slang chapter, we investigated the correctness of a very simple
 --  program transformation: the `optimize0plus` function. The programming
 --  language we were considering was the first version of the language of
 --  arithmetic expressions - with no variables - so in that setting it was
@@ -51,17 +60,9 @@ open scoped HasEval MyGetElem Com
 --  For `Aexp`s and `Bexp`s with variables, the definition we want is
 --  clear: two `Aexp`s or `Bexp`s are "behaviorally equivalent" if they
 --  evaluate to the same result in every state.
-
-def Aexp.Equiv (a₁ a₂ : Aexp) : Prop :=
-  ∀ (st : State),
-    a₁.eval st = a₂.eval st
-
-def Bexp.Equiv (b₁ b₂ : Bexp) : Prop :=
-  ∀ (st : State),
-    b₁.eval st = b₂.eval st
-
---  We'll also define a type class `Equiv`, so that these relations (and
---  the one for commands, below) can all be written with the notation `≃`.
+--
+--  We'll define a type class `Equiv`, so that these relations (and the one
+--  for commands, below) can all be written with the notation `≃`.
 
 class Equiv (α : Type) where
   equiv : α → α → Prop
@@ -69,19 +70,17 @@ class Equiv (α : Type) where
 infix:70 " ≃ " => Equiv.equiv -- you can type `≃` as \simeq
 
 instance : Equiv Aexp where
-  equiv := Aexp.Equiv
+  equiv := fun a₁ a₂ =>
+    ∀ (st : State), Aexp.eval st a₁ = Aexp.eval st a₂
 
 instance : Equiv Bexp where
-  equiv := Bexp.Equiv
+  equiv := fun b₁ b₂ =>
+    ∀ (st : State), Bexp.eval st b₁ = Bexp.eval st b₂
 
-@[simp]
-theorem Aexp.equiv_notation {a₁ a₂ : Aexp} : a₁.Equiv a₂ ↔ a₁ ≃ a₂ := by rfl
 @[simp]
 theorem Aexp.equiv_def {a₁ a₂ : Aexp} :
     a₁ ≃ a₂ ↔ ∀ (st : State), a₁.eval st = a₂.eval st := by rfl
 
-@[simp]
-theorem Bexp.equiv_notation {b₁ b₂ : Bexp} : b₁.Equiv b₂ ↔ b₁ ≃ b₂ := by rfl
 @[simp]
 theorem Bexp.equiv_def {b₁ b₂ : Bexp} :
     b₁ ≃ b₂ ↔ ∀ (st : State), b₁.eval st = b₂.eval st := by rfl
@@ -100,23 +99,21 @@ example : bexp { X - X = 0 } ≃ bexp { true } := by simp
 --  terminate in any final state at all!
 --
 --  What we need instead is this: two commands are behaviorally equivalent
---  if, for any given starting state, they either (1) both diverge or else
---  (2) both terminate in the same final state. A compact way to express
---  this is "if the first one terminates in a particular state then so does
---  the second, and vice versa."
-
-def Com.Equiv (c₁ c₂ : Com) : Prop :=
-    ∀ {st st' : State},
-      (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st')
+--  if, for any given starting state, they either (1) both *diverge* (fail
+--  to terminate in any final state) or else (2) both terminate in the same
+--  final state. A compact way to express this is "if the first one
+--  terminates in a particular state then so does the second, and vice
+--  versa."
 
 instance : Equiv Com where
-  equiv := Com.Equiv
+  equiv := fun c₁ c₂ =>
+    ∀ {st st' : State},
+    (st =[ c₁ ]=> st') ↔ st =[ c₂ ]=> st'
 
 @[simp]
-theorem Com.equiv_notation {c₁ c₂ : Com} : c₁.Equiv c₂ ↔ c₁ ≃ c₂ := by rfl
-@[simp]
 theorem Com.equiv_def {c₁ c₂ : Com} : c₁ ≃ c₂ ↔
-    ∀ {st st' : State}, (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st') := by rfl
+    ∀ {st st' : State},
+      (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st') := by rfl
 
 --   ----------------------------------------
 
@@ -219,7 +216,8 @@ theorem skip_right {c : Com} : imp { c; skip } ≃ c := by
 
 --  Similarly, here is a simple equivalence that optimizes `if` commands.
 
-theorem if_true_simple {c₁ c₂ : Com} : imp {if (true) {c₁} else {c₂}} ≃ c₁ := by
+theorem if_true_simple {c₁ c₂ : Com} :
+    imp {if (true) {c₁} else {c₂}} ≃ c₁ := by
   rw [equiv_def]
   intro st st'
   constructor
@@ -353,7 +351,8 @@ theorem while_false {b : Bexp} {c : Com} (hb : b ≃ bexp {false}) :
 --
 --    We obtain a contradiction by 2 and 3.
 
-theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State} (hb : b ≃ bexp {true}) :
+theorem while_true_nonterm {b : Bexp} {c : Com} {st st' : State}
+    (hb : b ≃ bexp {true}) :
     ¬ st =[ while (b) {c} ]=> st' := by
   intro contra
   generalize heq : (imp {while (b) {c}}) = com at contra
@@ -535,37 +534,46 @@ def equiv_classes : List (List Com) := sorry
 
 --  First, let's verify that the equivalences on `Aexp`s, `Bexp`s, and
 --  `Com`s really are *equivalences* - i.e., that they are reflexive,
---  symmetric, and transitive. These proofs are all easy. We also register
---  the reflexivity lemmas with the `@[refl]` tag to the `rfl` to prove
---  goals about them and the symmetry lemmas with the `@[symm]` tag to swap
---  sides of goals about equivalence using the `symm`.
+--  symmetric, and transitive. These proofs are all easy.
+--
+--  We also tag each reflexivity lemma with the `@[refl]` attribute: this
+--  lets the `rfl` tactic close a goal like `c ≃ c` directly, just as it
+--  closes `c = c`. Likewise, we tag each symmetry lemma with the `@[symm]`
+--  attribute, which lets the `symm` tactic swap the two sides of a goal or
+--  hypothesis stated with `≃`, exactly as it does for `=`.
 
 end Com
 
 @[refl]
 theorem Aexp.equiv_refl (a : Aexp) : a ≃ a := by simp_all
 @[symm]
-theorem Aexp.equiv_symm {a₁ a₂ : Aexp} (h : a₁ ≃ a₂) : a₂ ≃ a₁ := by simp_all
-theorem Aexp.equiv_trans {a₁ a₂ a₃ : Aexp} (h₁ : a₁ ≃ a₂) (h₂ : a₂ ≃ a₃) : a₁ ≃ a₃ := by simp_all
+theorem Aexp.equiv_symm {a₁ a₂ : Aexp} (h : a₁ ≃ a₂) :
+    a₂ ≃ a₁ := by simp_all
+theorem Aexp.equiv_trans {a₁ a₂ a₃ : Aexp} (h₁ : a₁ ≃ a₂)
+    (h₂ : a₂ ≃ a₃) : a₁ ≃ a₃ := by simp_all
 
 @[refl]
 theorem Bexp.equiv_refl {b : Bexp} : b ≃ b := by simp_all
 @[symm]
-theorem Bexp.equiv_symm {b₁ b₂ : Bexp} (h : b₁ ≃ b₂) : b₂ ≃ b₁ := by simp_all
-theorem Bexp.equiv_trans {b₁ b₂ b₃ : Bexp} (h₁ : b₁ ≃ b₂) (h₂ : b₂ ≃ b₃) : b₁ ≃ b₃ := by simp_all
+theorem Bexp.equiv_symm {b₁ b₂ : Bexp} (h : b₁ ≃ b₂) :
+    b₂ ≃ b₁ := by simp_all
+theorem Bexp.equiv_trans {b₁ b₂ b₃ : Bexp} (h₁ : b₁ ≃ b₂)
+    (h₂ : b₂ ≃ b₃) : b₁ ≃ b₃ := by simp_all
 
 @[refl]
 theorem Com.equiv_refl {c : Com} : c ≃ c := by simp_all
 @[symm]
-theorem Com.equiv_symm {c₁ c₂ : Com} (h : c₁ ≃ c₂) : c₂ ≃ c₁ := by simp_all
-theorem Com.equiv_trans {c₁ c₂ c₃ : Com} (h₁ : c₁ ≃ c₂) (h₂ : c₂ ≃ c₃) : c₁ ≃ c₃ := by simp_all
+theorem Com.equiv_symm {c₁ c₂ : Com} (h : c₁ ≃ c₂) :
+    c₂ ≃ c₁ := by simp_all
+theorem Com.equiv_trans {c₁ c₂ c₃ : Com} (h₁ : c₁ ≃ c₂)
+    (h₂ : c₂ ≃ c₃) : c₁ ≃ c₃ := by simp_all
 
 --  Lean has a standard library definition for relations that are
 --  equivalences, unsurprisingly called `Equivalence`. To show that a
 --  relation is an `Equivalence`, one need only supply proofs of the three
 --  properties above:
 
-theorem Com.equiv_equivalence : Equivalence Com.Equiv where
+theorem Com.equiv_equivalence : Equivalence (Equiv.equiv (α := Com)) where
   refl := @Com.equiv_refl
   symm := Com.equiv_symm
   trans := Com.equiv_trans
@@ -646,7 +654,8 @@ theorem Com.congruence_asgn {x : Ident} {a a' : Aexp} (ha : a ≃ a') :
 --
 --  - (`←`) Similar.
 
-theorem Com.congruence_while {b b' : Bexp} {c c' : Com} (hb : b ≃ b') (hc : c ≃ c') :
+theorem Com.congruence_while {b b' : Bexp} {c c' : Com}
+    (hb : b ≃ b') (hc : c ≃ c') :
     imp {while (b) {c}} ≃ imp {while (b') {c'}} := by
   rw [equiv_def]
   intro st st'
@@ -692,7 +701,8 @@ theorem Com.congruence_while {b b' : Bexp} {c c' : Com} (hb : b ≃ b') (hc : c 
 
 --  ### Exercise (3 stars): Com.congruence_seq (Optional) ⭐⭐⭐
 
-theorem Com.congruence_seq {c₁ c₁' c₂ c₂' : Com} (hc₁ : c₁ ≃ c₁') (hc₂ : c₂ ≃ c₂') :
+theorem Com.congruence_seq {c₁ c₁' c₂ c₂' : Com}
+    (hc₁ : c₁ ≃ c₁') (hc₂ : c₂ ≃ c₂') :
     imp {c₁ ; c₂} ≃ imp {c₁' ; c₂'} := by
   sorry
 
@@ -722,7 +732,7 @@ example :
 
 --  ### Exercise (3 stars): not_congr (Advanced, Manually graded) ⭐⭐⭐
 
---  We've shown that the `Com.Equiv` relation is both an equivalence and a
+--  We've shown that the `Equiv` relation is both an equivalence and a
 --  congruence on commands. Can you think of a relation on commands that is
 --  an equivalence but *not* a congruence? Write down the relation
 --  (formally), together with an informal sketch of a proof that it is an
@@ -735,28 +745,17 @@ example :
 --  as constant folding are canonical examples, but there are many others.
 --
 --  A program transformation is *sound* if it preserves the behavior of the
---  original program.
+--  original program. Since `Aexp`, `Bexp`, and `Com` all have
+--  `≃`-equivalence via the `Equiv` class, we can state soundness once,
+--  generically, instead of writing it out separately for each type of Imp
+--  syntax.
 
-def Aexp.TransSound (trans : Aexp → Aexp) : Prop :=
-  ∀ (a : Aexp), (trans a) ≃ a
-
-@[simp]
-theorem Aexp.transSound_def {trans : Aexp → Aexp} :
-    TransSound trans ↔ ∀ (a : Aexp), (trans a) ≃ a := by rfl
-
-def Bexp.TransSound (trans : Bexp → Bexp) : Prop :=
-  ∀ (b : Bexp), (trans b) ≃ b
+def TransSound {T : Type} [Equiv T] (trans : T → T) : Prop :=
+  ∀ (t : T), (trans t) ≃ t
 
 @[simp]
-theorem Bexp.transSound_def {trans : Bexp → Bexp} :
-    TransSound trans ↔ ∀ (b : Bexp), (trans b) ≃ b := by rfl
-
-def Com.TransSound (trans : Com → Com) : Prop :=
-  ∀ (c : Com), (trans c) ≃ c
-
-@[simp]
-theorem Com.transSound_def {trans : Com → Com} :
-    TransSound trans ↔ ∀ (c : Com), (trans c) ≃ c := by rfl
+theorem transSound_def {T : Type} [Equiv T] {trans : T → T} :
+    TransSound trans ↔ ∀ (t : T), (trans t) ≃ t := by rfl
 
 --  ### The Constant-Folding Transformation
 
@@ -783,15 +782,21 @@ def Aexp.foldConstants (a : Aexp) : Aexp :=
     | a₁', a₂' => aexp { a₁' * a₂' }
 
 @[simp]
-theorem Aexp.foldConstants_num (n : Nat) : (Aexp.num n).foldConstants = .num n := rfl
+theorem Aexp.foldConstants_num (n : Nat) :
+    (Aexp.num n).foldConstants = .num n := by rfl
 @[simp]
-theorem Aexp.foldConstants_id (x : Ident) : (Aexp.id x).foldConstants = .id x := rfl
+theorem Aexp.foldConstants_id (x : Ident) :
+    (Aexp.id x).foldConstants = .id x := by rfl
 
 theorem Aexp.foldConstants_cases (a₁ a₂ : Aexp) :
-    (∃ n₁ n₂, a₁.foldConstants = .num n₁ ∧ a₂.foldConstants = .num n₂) ∨
-    (aexp {a₁ + a₂}).foldConstants = (aexp {~a₁.foldConstants + ~a₂.foldConstants}) ∧
-    (aexp {a₁ - a₂}).foldConstants = (aexp {~a₁.foldConstants - ~a₂.foldConstants}) ∧
-    (aexp {a₁ * a₂}).foldConstants = (aexp {~a₁.foldConstants * ~a₂.foldConstants}) := by
+    (∃ n₁ n₂, a₁.foldConstants = .num n₁ ∧
+      a₂.foldConstants = .num n₂) ∨
+    (aexp {a₁ + a₂}).foldConstants =
+      (aexp {~a₁.foldConstants + ~a₂.foldConstants}) ∧
+    (aexp {a₁ - a₂}).foldConstants =
+      (aexp {~a₁.foldConstants - ~a₂.foldConstants}) ∧
+    (aexp {a₁ * a₂}).foldConstants =
+      (aexp {~a₁.foldConstants * ~a₂.foldConstants}) := by
   cases ha₁ : a₁.foldConstants with
   | num n₁ =>
     cases ha₂ : a₂.foldConstants with
@@ -803,7 +808,8 @@ theorem Aexp.foldConstants_cases (a₁ a₂ : Aexp) :
   | _ =>
     simp [foldConstants, ha₁]
 
-example : (aexp { (1 + 2) * X }).foldConstants = (aexp { 3 * X }) := by rfl
+example : (aexp { (1 + 2) * X }).foldConstants =
+        (aexp { 3 * X }) := by rfl
 
 --  Note that this version of constant folding doesn't do other "obvious"
 --  things like eliminating trivial additions (e.g., rewriting `0 + X` to
@@ -814,7 +820,8 @@ example : (aexp { (1 + 2) * X }).foldConstants = (aexp { 3 * X }) := by rfl
 --  the definitions and proofs just get longer. We'll consider some in the
 --  exercises.
 
-example : (aexp { X - ((0 * 6) + Y) }).foldConstants = (aexp { X - (0 + Y) }) := by rfl
+example : (aexp { X - ((0 * 6) + Y) }).foldConstants =
+      (aexp { X - (0 + Y) }) := by rfl
 
 --  Not only can we lift `Aexp.foldConstants` to `Bexp` in the `Bexp.eq`,
 --  `Bexp.neq`, `Bexp.le`, and `Bexp.gt` cases, we can also look for
@@ -826,19 +833,23 @@ def Bexp.foldConstants (b : Bexp) : Bexp :=
   | bexp { false } => bexp { false }
   | bexp { a₁ = a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
-    | .num n₁, .num n₂ => if n₁ = n₂ then bexp { true } else bexp {false}
+    | .num n₁, .num n₂ =>
+      if n₁ = n₂ then bexp { true } else bexp { false }
     | a₁', a₂' => bexp { a₁' = a₂' }
   | bexp { a₁ ≠ a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
-    | .num n₁, .num n₂ => if n₁ ≠ n₂ then bexp { true } else bexp {false}
+    | .num n₁, .num n₂ =>
+      if n₁ ≠ n₂ then bexp { true } else bexp { false }
     | a₁', a₂' => bexp { a₁' ≠ a₂' }
   | bexp { a₁ ≤ a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
-    | .num n₁, .num n₂ => if n₁ ≤ n₂ then bexp { true } else bexp {false}
+    | .num n₁, .num n₂ =>
+      if n₁ ≤ n₂ then bexp { true } else bexp { false }
     | a₁', a₂' => bexp { a₁' ≤ a₂' }
   | bexp { a₁ > a₂ } =>
     match a₁.foldConstants, a₂.foldConstants with
-    | .num n₁, .num n₂ => if n₁ > n₂ then bexp { true } else bexp {false}
+    | .num n₁, .num n₂ =>
+      if n₁ > n₂ then bexp { true } else bexp { false }
     | a₁', a₂' => bexp { a₁' > a₂' }
   | bexp { ¬ b₁ } =>
     match b₁.foldConstants with
@@ -854,16 +865,23 @@ def Bexp.foldConstants (b : Bexp) : Bexp :=
     | b₁', b₂' => bexp { b₁' ∧ b₂' }
 
 @[simp]
-theorem Bexp.foldConstants_true : (bexp { true }).foldConstants = (bexp { true }) := rfl
+theorem Bexp.foldConstants_true :
+    (bexp { true }).foldConstants = (bexp { true }) := by rfl
 @[simp]
-theorem Bexp.foldConstants_false : (bexp { false }).foldConstants = (bexp { false }) := rfl
+theorem Bexp.foldConstants_false :
+    (bexp { false }).foldConstants = (bexp { false }) := by rfl
 
 theorem Bexp.foldConstants_comp (a₁ a₂ : Aexp) :
-    (∃ n₁ n₂, a₁.foldConstants = .num n₁ ∧ a₂.foldConstants = .num n₂) ∨
-    (bexp {a₁ = a₂}).foldConstants = (bexp {~a₁.foldConstants = ~a₂.foldConstants}) ∧
-    (bexp {a₁ ≠ a₂}).foldConstants = (bexp {~a₁.foldConstants ≠ ~a₂.foldConstants}) ∧
-    (bexp {a₁ ≤ a₂}).foldConstants = (bexp {~a₁.foldConstants ≤ ~a₂.foldConstants}) ∧
-    (bexp {a₁ > a₂}).foldConstants = (bexp {~a₁.foldConstants > ~a₂.foldConstants}) := by
+    (∃ n₁ n₂, a₁.foldConstants = .num n₁ ∧
+      a₂.foldConstants = .num n₂) ∨
+    (bexp {a₁ = a₂}).foldConstants =
+      (bexp {~a₁.foldConstants = ~a₂.foldConstants}) ∧
+    (bexp {a₁ ≠ a₂}).foldConstants =
+      (bexp {~a₁.foldConstants ≠ ~a₂.foldConstants}) ∧
+    (bexp {a₁ ≤ a₂}).foldConstants =
+      (bexp {~a₁.foldConstants ≤ ~a₂.foldConstants}) ∧
+    (bexp {a₁ > a₂}).foldConstants =
+      (bexp {~a₁.foldConstants > ~a₂.foldConstants}) := by
   cases ha₁ : a₁.foldConstants with
   | num n₁ =>
     cases ha₂ : a₂.foldConstants with
@@ -875,8 +893,10 @@ theorem Bexp.foldConstants_comp (a₁ a₂ : Aexp) :
   | _ => simp [foldConstants, ha₁]
 
 theorem Bexp.foldConstants_unary (b : Bexp) :
-    (b.foldConstants = (bexp { true }) ∨ b.foldConstants = (bexp { false })) ∨
-    (bexp { ¬b }).foldConstants = (bexp { ¬~(b.foldConstants)}) := by
+    (b.foldConstants = (bexp { true }) ∨
+      b.foldConstants = (bexp { false })) ∨
+    (bexp { ¬b }).foldConstants =
+      (bexp { ¬~(b.foldConstants)}) := by
   cases hb : b.foldConstants with
   | bool b' =>
     simp_all
@@ -884,9 +904,12 @@ theorem Bexp.foldConstants_unary (b : Bexp) :
     simp [foldConstants, hb]
 
 theorem Bexp.foldConstants_binary (b₁ : Bexp) (b₂ : Bexp) :
-    ((b₁.foldConstants = (bexp { true }) ∨ b₁.foldConstants = (bexp { false })) ∧
-     (b₂.foldConstants = (bexp { true }) ∨ b₂.foldConstants = (bexp { false }))) ∨
-    (bexp {b₁ ∧ b₂}).foldConstants = (bexp {~b₁.foldConstants ∧ ~b₂.foldConstants}) := by
+    ((b₁.foldConstants = (bexp { true }) ∨
+        b₁.foldConstants = (bexp { false })) ∧
+      (b₂.foldConstants = (bexp { true }) ∨
+        b₂.foldConstants = (bexp { false }))) ∨
+    (bexp {b₁ ∧ b₂}).foldConstants =
+      (bexp {~b₁.foldConstants ∧ ~b₂.foldConstants}) := by
   cases hb₁ : b₁.foldConstants with
   | bool b₁' =>
     cases hb₂ : b₂.foldConstants with
@@ -894,9 +917,11 @@ theorem Bexp.foldConstants_binary (b₁ : Bexp) (b₂ : Bexp) :
     | _ => simp [foldConstants, hb₁, hb₂]
   | _ => simp [foldConstants, hb₁]
 
-example : (bexp { true ∧ ¬( false ∧ true) }).foldConstants = (bexp { true }) := by
+example : (bexp { true ∧ ¬( false ∧ true) }).foldConstants =
+      (bexp { true }) := by
   rfl
-example : (bexp { (X = Y) ∧ ( 0 = (2 - (1 + 1))) }).foldConstants = (bexp { (X = Y) ∧ true }) := by
+example : (bexp { (X = Y) ∧ ( 0 = (2 - (1 + 1))) }).foldConstants =
+      (bexp { (X = Y) ∧ true }) := by
   rfl
 
 --  To fold constants in a command, we simply apply the appropriate folding
@@ -911,7 +936,8 @@ def Com.foldConstants (c : Com) : Com :=
     match b.foldConstants with
     | bexp { true } => c₁.foldConstants
     | bexp { false } => c₂.foldConstants
-    | b' => imp { if (b') {~c₁.foldConstants} else { ~c₂.foldConstants}}
+    | b' =>
+      imp { if (b') {~c₁.foldConstants} else { ~c₂.foldConstants} }
   | imp { while (b) {c}} =>
     match b.foldConstants with
     | bexp { true } => imp { while (true) { skip }}
@@ -945,9 +971,10 @@ theorem Aexp.foldConstants_sound : TransSound Aexp.foldConstants := by
   induction a with
   | num n | id x => rfl
   | _ a₁ a₂ _ _ =>
-    -- `plus`, `minus`, and `mult` follow from the IH and the observation that
-    -- `(aexp {a₁ + a₂}).eval st = a₁.eval st + a₂.eval st
-    --   = (Aexp.num (a₁.eval st + a₂.eval st)).eval st`
+    -- `plus`, `minus`, and `mult` follow from the IH and the
+    -- observation that
+    -- `(aexp {a₁ + a₂}).eval st = a₁.eval st + a₂.eval st`
+    -- `  = (Aexp.num (a₁.eval st + a₂.eval st)).eval st`
     -- (and similarly for `minus`/`-` and `mult`/`*`).
     cases Aexp.foldConstants_cases a₁ a₂ with
     | inl h =>
@@ -959,7 +986,8 @@ theorem Aexp.foldConstants_sound : TransSound Aexp.foldConstants := by
 --  An equivalent version using the `fun_induction` tactic would look
 --  simpler:
 
-theorem Aexp.foldConstants_sound' : TransSound Aexp.foldConstants := by
+theorem Aexp.foldConstants_sound' :
+    TransSound Aexp.foldConstants := by
   intro a st
   fun_induction Aexp.foldConstants <;> simp_all
 
@@ -1050,7 +1078,8 @@ theorem Aexp.foldConstants_sound' : TransSound Aexp.foldConstants := by
 
 --  completing the case.
 
-theorem Bexp.foldConstants_sound : Bexp.TransSound Bexp.foldConstants := by
+theorem Bexp.foldConstants_sound :
+    TransSound Bexp.foldConstants := by
   intro b st
   induction b with
   | bool b => cases b <;> rfl
@@ -1061,7 +1090,8 @@ theorem Bexp.foldConstants_sound : Bexp.TransSound Bexp.foldConstants := by
       Aexp.foldConstants_sound a₂ st
     cases Bexp.foldConstants_comp a₁ a₂ with
     | inl h =>
-      -- The only interesting case: both `a₁` and `a₂` fold to constants
+      -- The only interesting case: both `a₁` and `a₂` fold to
+      -- constants
       obtain ⟨n₁, n₂, hn₁, hn₂⟩ := h
       by_cases n₁ = n₂ <;> simp_all [foldConstants]
     | inr h =>
@@ -1098,7 +1128,8 @@ theorem Bexp.foldConstants_sound : Bexp.TransSound Bexp.foldConstants := by
 
 --  Complete the `while` case of the following proof.
 
-theorem Com.foldConstants_sound : Com.TransSound Com.foldConstants := by
+theorem Com.foldConstants_sound :
+    TransSound Com.foldConstants := by
   intro c
   induction c with
   | skip =>
@@ -1115,7 +1146,8 @@ theorem Com.foldConstants_sound : Com.TransSound Com.foldConstants := by
       -- If the optimization doesn't eliminate the `if`, then the
       -- result is easy to prove from the `ih` and
       -- `Bexp.foldConstants_sound`
-      cases heq : b.foldConstants <;> try (apply Com.congruence_if <;> simp_all)
+      cases heq : b.foldConstants <;>
+        try (apply Com.congruence_if <;> simp_all)
       · case cond.bool b =>
           cases b with
           | false =>
@@ -1169,13 +1201,16 @@ theorem test_optimize0plus :
 --  proofs for `foldConstants`, you may find the `fun_induction` tactic
 --  helpful here.
 
-theorem Aexp.optimize0plus_sound : Aexp.TransSound Aexp.optimize0plus := by
+theorem Aexp.optimize0plus_sound :
+    TransSound Aexp.optimize0plus := by
   sorry
 
-theorem Bexp.optimize0plus_sound : Bexp.TransSound Bexp.optimize0plus := by
+theorem Bexp.optimize0plus_sound :
+    TransSound Bexp.optimize0plus := by
   sorry
 
-theorem Com.optimize0plus_sound : Com.TransSound Com.optimize0plus := by
+theorem Com.optimize0plus_sound :
+    TransSound Com.optimize0plus := by
   sorry
 
 --  Finally, let's define a compound optimizer on commands that first folds
@@ -1186,7 +1221,7 @@ def optimizer (c : Com) := Com.optimize0plus (Com.foldConstants c)
 
 --  Prove that this optimizer is sound.
 
-theorem optimizer_sound : Com.TransSound optimizer := by
+theorem optimizer_sound : TransSound optimizer := by
   sorry
 
 --  ## Proving Inequivalence
@@ -1281,7 +1316,8 @@ theorem subst_inequiv : ¬ SubstEquivProperty := by
   have h₂ : ∅ =[ c₂ ]=> st₂ := by
     constructor <;> constructor <;> rfl
 
-  -- Finally, we use the fact that evaluation is deterministic to obtain a contradiction.
+  -- Finally, we use the fact that evaluation is deterministic to
+  -- obtain a contradiction.
   apply h.mp at h₁
   apply ceval_deterministic h₁ at h₂
   have contra : st₁[Y] = st₂[Y] := by rw [h₂]
@@ -1311,7 +1347,8 @@ inductive VarNotUsedInAexp (x : Ident) : Aexp → Prop where
       (h₂ : VarNotUsedInAexp x a₂) :
       VarNotUsedInAexp x ((aexp { a₁ * a₂ }))
 
-theorem Aexp.eval_weakening {x : Ident} {st : State} {a : Aexp} {ni : Nat}
+theorem Aexp.eval_weakening {x : Ident} {st : State} {a : Aexp}
+  {ni : Nat}
   (h : VarNotUsedInAexp x a) :
   a.eval (x →ₜ ni ; st) = a.eval st := by
 
@@ -1451,20 +1488,24 @@ end Delab
 
 inductive Com.EvalR : Com → State → State → Prop where
   | skip {st : State} : EvalR (imp {skip}) st st
-  | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : a.eval st = n) :
+  | asgn {st : State} {a : Aexp} {n : Nat} {x : Ident}
+      (h : a.eval st = n) :
       EvalR (imp {x := a}) st (x →ₜ n ; st)
-  | seq {c₁ c₂ : Com} {st st' st'' : State} (h₁ : EvalR c₁ st st') (h₂ : EvalR c₂ st' st'') :
+  | seq {c₁ c₂ : Com} {st st' st'' : State}
+      (h₁ : EvalR c₁ st st') (h₂ : EvalR c₂ st' st'') :
       EvalR (imp {c₁; c₂}) st st''
-  | ifTrue {st st' : State} {b : Bexp} {c₁ c₂ : Com} (hb : b.eval st = true)
-      (hc : EvalR c₁ st st') :
+  | ifTrue {st st' : State} {b : Bexp} {c₁ c₂ : Com}
+      (hb : b.eval st = true) (hc : EvalR c₁ st st') :
       EvalR (imp {if (b) {c₁} else {c₂}}) st st'
-  | ifFalse {st st' : State} {b : Bexp} {c₁ c₂ : Com} (hb : b.eval st = false)
-      (hc : EvalR c₂ st st') :
+  | ifFalse {st st' : State} {b : Bexp} {c₁ c₂ : Com}
+      (hb : b.eval st = false) (hc : EvalR c₂ st st') :
       EvalR (imp {if (b) {c₁} else {c₂}}) st st'
-  | whileFalse {b : Bexp} {st : State} {c : Com} (hb : b.eval st = false) :
+  | whileFalse {b : Bexp} {st : State} {c : Com}
+      (hb : b.eval st = false) :
       EvalR (imp {while (b) {c}}) st st
-  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com} (hb : b.eval st = true)
-      (hc : EvalR c st st') (hloop : Com.EvalR (imp {while (b) {c}}) st' st'') :
+  | whileTrue {st st' st'' : State} {b : Bexp} {c : Com}
+      (hb : b.eval st = true) (hc : EvalR c st st')
+      (hloop : Com.EvalR (imp {while (b) {c}}) st' st'') :
       EvalR (imp {while (b) {c}}) st st''
 --  FILL IN HERE
 
@@ -1498,10 +1539,12 @@ instance : Equiv Com where
   equiv := Com.Equiv
 
 @[simp]
-theorem Com.equiv_notation {c₁ c₂ : Com} : c₁.Equiv c₂ ↔ c₁ ≃ c₂ := by rfl
+theorem Com.equiv_notation {c₁ c₂ : Com} :
+    c₁.Equiv c₂ ↔ c₁ ≃ c₂ := by rfl
 @[simp]
 theorem Com.equiv_def {c₁ c₂ : Com} : c₁ ≃ c₂ ↔
-    ∀ {st st' : State}, (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st') := by rfl
+    ∀ {st st' : State},
+      (st =[ c₁ ]=> st') ↔ (st =[ c₂ ]=> st') := by rfl
 
 --  Let's apply this definition to prove some nondeterministic programs
 --  equivalent / inequivalent.
@@ -1714,9 +1757,11 @@ theorem cMin_minimal (c : Com) : Approx cMin c := by
 --  Finally, find a non-trivial property which is preserved by program
 --  approximation (when going from left to right).
 
-def zprop (c : Com) : Prop := sorry
-
-theorem zprop_preserving (c c' : Com) (hc : zprop c) (ha : Approx c c') : zprop c' := by
+def zprop (c : Com) : Prop :=
   sorry
 
--- Source revision: e2b3e16, committed 2026-10-12 14:58 UTC
+theorem zprop_preserving (c c' : Com) (hc : zprop c)
+    (ha : Approx c c') : zprop c' := by
+  sorry
+
+-- Source revision: 824c1a7, committed 2026-10-13 11:44 UTC

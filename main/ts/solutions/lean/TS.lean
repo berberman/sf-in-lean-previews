@@ -7,4 +7,4 @@ import TS.StlcProp
 import TS.MoreStlc
 import TS.Sub
 
--- Source revision: e2b3e16, committed 2026-10-12 14:58 UTC
+-- Source revision: 824c1a7, committed 2026-10-13 11:44 UTC

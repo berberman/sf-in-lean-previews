@@ -1,5 +1,5 @@
 {
-  "main_sha": "e2b3e1623dc50e4619eb4dde8ba02531e71424ac",
+  "main_sha": "824c1a7cad99712013cbebcfd525738fd91f0bad",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -141,53 +141,6 @@
       "status": "published",
       "title": "Proof patterns draft with induction details",
       "url": "https://github.com/plclub/sf-in-lean/pull/443"
-    },
-    "446": {
-      "base_sha": "e2b3e1623dc50e4619eb4dde8ba02531e71424ac",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "18fa9cf986741cfa610ce3d079cd80160026e3b3",
-      "preview_path": "pr/446/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38329478569",
-      "status": "published",
-      "title": "Equiv: Various improvements",
-      "url": "https://github.com/plclub/sf-in-lean/pull/446"
     },
     "448": {
       "base_sha": "e2b3e1623dc50e4619eb4dde8ba02531e71424ac",
