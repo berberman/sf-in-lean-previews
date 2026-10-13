@@ -1254,4 +1254,4 @@ theorem preservation {t t' : Tm} {τ : Ty}
 
 end StlcSub
 
--- Source revision: 08c7080, committed 2026-10-13 16:27 UTC
+-- Source revision: 501904e, committed 2026-10-13 19:49 UTC

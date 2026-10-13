@@ -8655,6 +8655,17 @@
         "Program Transformation",
         "The Constant-Folding Transformation"]}},
      "address": "/Equiv/"}],
+   "Aexp.foldConstants_add_other_left":
+   [{"id": "Aexp___foldConstants_add_other_left",
+     "data":
+     {"/Equiv/#Aexp___foldConstants_add_other_left":
+      {"display": "Aexp.foldConstants_add_other_left",
+       "context":
+       ["Hoare Logic",
+        "Equiv: Program Equivalence",
+        "Program Transformation",
+        "The Constant-Folding Transformation"]}},
+     "address": "/Equiv/"}],
    "Aexp.foldConstants_add_other":
    [{"id": "Aexp___foldConstants_add_other",
      "data":

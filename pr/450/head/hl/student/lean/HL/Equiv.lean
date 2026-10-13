@@ -834,8 +834,11 @@ theorem Aexp.foldConstants_add_other
 --  about `Aexp.foldConstants`, which `simp` would have to recursively
 --  simplify. But the hypotheses say things like "`a₁.foldConstants` equal
 --  to a numeral" for an abstract `a₁`, and `simp` cannot further simplify
---  that. It's a specific case a proof must consider.
---
+--  that. You can see that in the state in the proof of
+--  `Aexp.foldConstants_add_num` just after the
+--  `simp only [Aexp.foldConstants]` part — It leaves a `match` in the goal
+--  that the proof must subsequently consider.
+
 --  The `Aexp.foldConstants_cases` theorem helps with that, capturing a
 --  common pattern of compound expressions: for any `a₁` and `a₂`, either
 --  folding turns both of them into numerals — in which case folding
@@ -845,6 +848,18 @@ theorem Aexp.foldConstants_add_other
 --  is meant to be consumed with `cases` to split a proof into those two
 --  scenarios; we will see its use when proving `Aexp.foldConstants_sound`
 --  below.
+--
+--  Note we could also show the following as a proof
+
+theorem Aexp.foldConstants_add_other_left (h : ¬∃ n₁, a₁.foldConstants = .num n₁) :
+    aexp{ a₁ + a₂ }.foldConstants = aexp { ~a₁.foldConstants + ~a₂.foldConstants} := by
+  rw [Aexp.foldConstants.eq_3]
+  split
+  next n₁ n₂ h₁ h₂ =>
+    exfalso
+    apply h
+    exists n₁
+  next h => rfl
 
 example : (aexp { (1 + 2) * X }).foldConstants =
         (aexp { 3 * X }) := by rfl
@@ -1802,4 +1817,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
     (ha : Approx c c') : zprop c' := by
   sorry
 
--- Source revision: 8e12a8d, committed 2026-10-13 17:28 UTC
+-- Source revision: 7780d5e, committed 2026-10-13 19:59 UTC

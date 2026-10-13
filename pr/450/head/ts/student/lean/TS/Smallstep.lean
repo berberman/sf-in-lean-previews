@@ -1351,4 +1351,4 @@ example : (.p (.c 3) (.p (.c 3) (.c 4))) ⟶* (.c 10) := by
 theorem normalize_ex : exists e', (.p (.c 3) (.p (.c 2) (.c 1))) ⟶* e' ∧ IsValue e' := by
   sorry
 
--- Source revision: 8e12a8d, committed 2026-10-13 17:28 UTC
+-- Source revision: 7780d5e, committed 2026-10-13 19:59 UTC
