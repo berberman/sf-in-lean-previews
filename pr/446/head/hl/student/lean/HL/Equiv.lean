@@ -13,9 +13,9 @@ open scoped HasEval MyGetElem Com
 --
 --  To illustrate it use, we verify that program transformations such as
 --  constant folding preserve behavior. Along the way we also see
---  techniques for proving two programs are *not* equivalent, and close
---  with an extended look at what equivalence means once Imp is made
---  nondeterministic.
+--  techniques for proving that two programs are *not* equivalent. Finally,
+--  we close with an extended look at what equivalence means once Imp is
+--  made nondeterministic.
 --
 --  **Advice for Working on Exercises:**
 --  - Most of the Lean proofs we ask you to do in this chapter are similar
@@ -747,7 +747,8 @@ example :
 --  A program transformation is *sound* if it preserves the behavior of the
 --  original program. Since `Aexp`, `Bexp`, and `Com` all have
 --  `≃`-equivalence via the `Equiv` class, we can state soundness once,
---  generically, instead of writing it out three times.
+--  generically, instead of writing it out separately for each type of Imp
+--  syntax.
 
 def TransSound {T : Type} [Equiv T] (trans : T → T) : Prop :=
   ∀ (t : T), (trans t) ≃ t
@@ -1763,4 +1764,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
     (ha : Approx c c') : zprop c' := by
   sorry
 
--- Source revision: 549fd3f, committed 2026-10-12 12:53 UTC
+-- Source revision: c300e01, committed 2026-10-13 00:53 UTC
