@@ -1180,7 +1180,7 @@ theorem multXandYinZ_spec₂ {st : State} :
   exists (Z →ₜ st[X] * st[Y] ; st)
   exact multXandYinZ_spec
 
---  ### Exercise (3 stars): loop_never_stops ⭐⭐⭐
+--  ### Exercise (3 stars): loop_never_stops (Optional) ⭐⭐⭐
 
 --  Hint: proceed by induction on the assumed derivation showing that
 --  `loop` terminates. Most of the cases are immediately contradictory and
@@ -2029,4 +2029,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: 824c1a7, committed 2026-10-13 11:44 UTC
+-- Source revision: 08c7080, committed 2026-10-13 16:27 UTC

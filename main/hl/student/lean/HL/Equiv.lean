@@ -730,7 +730,7 @@ example :
       simp
     · apply Com.equiv_refl
 
---  ### Exercise (3 stars): not_congr (Advanced, Manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): not_congr (Advanced, Optional, Manually graded) ⭐⭐⭐
 
 --  We've shown that the `Equiv` relation is both an equivalence and a
 --  congruence on commands. Can you think of a relation on commands that is
@@ -1764,4 +1764,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
     (ha : Approx c c') : zprop c' := by
   sorry
 
--- Source revision: 824c1a7, committed 2026-10-13 11:44 UTC
+-- Source revision: 08c7080, committed 2026-10-13 16:27 UTC

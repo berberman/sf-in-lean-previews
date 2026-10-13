@@ -1,5 +1,5 @@
 {
-  "main_sha": "824c1a7cad99712013cbebcfd525738fd91f0bad",
+  "main_sha": "08c7080be26e7a5aee67b8d1c291d87fda723b2c",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -282,6 +282,53 @@
       "status": "published",
       "title": "HL/Equiv: Text adjustments",
       "url": "https://github.com/plclub/sf-in-lean/pull/450"
+    },
+    "452": {
+      "base_sha": "08c7080be26e7a5aee67b8d1c291d87fda723b2c",
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
+      "head_sha": "810bc3676e7a37e070ddc2115d43a3b7b2141927",
+      "preview_path": "pr/452/head/",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38434684856",
+      "status": "published",
+      "title": "Imp: fix autograding",
+      "url": "https://github.com/plclub/sf-in-lean/pull/452"
     }
   },
   "schema": 3
