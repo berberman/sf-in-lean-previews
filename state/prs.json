@@ -143,49 +143,12 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/443"
     },
     "446": {
-      "base_sha": "0d9071538eb0690d9220ba4ad217a8edab392808",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "b343de253f8fd707ae1841a1c87ffd06d8981c06",
+      "base_sha": "e2b3e1623dc50e4619eb4dde8ba02531e71424ac",
+      "changed_variants": [],
+      "head_sha": "18fa9cf986741cfa610ce3d079cd80160026e3b3",
       "preview_path": "pr/446/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38251876277",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "Equiv: Various improvements",
       "url": "https://github.com/plclub/sf-in-lean/pull/446"
     },
