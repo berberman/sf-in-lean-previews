@@ -893,7 +893,7 @@ example :
       simp
     · apply Com.equiv_refl
 
---  ### Exercise (3 stars): not_congr (Advanced, Manually graded) ⭐⭐⭐
+--  ### Exercise (3 stars): not_congr (Advanced, Optional, Manually graded) ⭐⭐⭐
 
 --  We've shown that the `Equiv` relation is both an equivalence and a
 --  congruence on commands. Can you think of a relation on commands that is
@@ -996,7 +996,9 @@ theorem Aexp.foldConstants_cases (a₁ a₂ : Aexp) :
 theorem Aexp.foldConstants_add_num
   (h₁ : a₁.foldConstants = .num n₁)
   (h₂ : a₂.foldConstants = .num n₂) :
-  (aexp{a₁ + a₂}).foldConstants = .num (n₁ + n₂) := by sorry
+  (aexp{a₁ + a₂}).foldConstants = .num (n₁ + n₂) := by
+  simp only [Aexp.foldConstants]
+  simp [h₁, h₂]
 -- @[simp]
 theorem Aexp.foldConstants_add_other
   (h : ¬∃ n₁ n₂,
@@ -2304,4 +2306,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
   obtain ⟨st', h⟩ := hc
   apply ha at h; exists st'
 
--- Source revision: 00fbd0a, committed 2026-10-13 15:46 UTC
+-- Source revision: 8e12a8d, committed 2026-10-13 17:28 UTC

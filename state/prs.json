@@ -276,9 +276,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "43208fdbc7e22886661d4f8509c89dd5ea9126db",
+      "head_sha": "967ecd5717a65dfd7baf4a0633e97b6363b2d6bd",
       "preview_path": "pr/450/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38424976856",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38438921630",
       "status": "published",
       "title": "HL/Equiv: Text adjustments",
       "url": "https://github.com/plclub/sf-in-lean/pull/450"
