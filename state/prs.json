@@ -95,53 +95,6 @@
       "title": "Proof patterns draft with induction details",
       "url": "https://github.com/plclub/sf-in-lean/pull/443"
     },
-    "448": {
-      "base_sha": "88200c16482eeb13d05ac64825d8573e32191abf",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "a6230d4531c95aa6019b17ffd57f6e9bc59831b5",
-      "preview_path": "pr/448/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38565188413",
-      "status": "published",
-      "title": "`inversion` tactic cleanup",
-      "url": "https://github.com/plclub/sf-in-lean/pull/448"
-    },
     "449": {
       "base_sha": "e2b3e1623dc50e4619eb4dde8ba02531e71424ac",
       "changed_variants": [
