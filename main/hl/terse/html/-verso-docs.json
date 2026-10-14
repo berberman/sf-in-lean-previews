@@ -1,328 +1,335 @@
-{"999":
- "<code>DCom.VerificationConditions (p : Assertion) (d : DCom) : Prop</code>",
- "998": "<code>Decorated.OuterTripleValid (dec : Decorated) : Prop</code>",
- "997": "<code>Decorated.postcondition (dec : Decorated) : Assertion</code>",
- "996": "<code>DCom.postcondition (d : DCom) : Assertion</code>",
- "995": "<code>Decorated.precondition (dec : Decorated) : Assertion</code>",
- "994": "<code>Decorated</code>",
- "993": "<code>Decorated.erase (dec : Decorated) : Com</code>",
- "992": "<code>DCom.erase (d : DCom) : Com</code>",
- "991": "<code>DCom</code>",
- "990": "<code>State → Prop</code>",
+{"999": "<code>State → Prop</code>",
+ "998": "<code>decWhile : Decorated</code>",
+ "997": "<code>Decorated.body (self : Decorated) : DCom</code>",
+ "996": "<code>Decorated.pre (self : Decorated) : Assertion</code>",
+ "995": "<code>Decorated : Type</code>",
+ "994": "<code>DCom.Delab.unexpandPost : Unexpander</code>",
+ "993": "<code>DCom.Delab.unexpandPre : Unexpander</code>",
+ "992": "<code>DCom.Delab.unexpandWhileDo : Unexpander</code>",
+ "991": "<code>DCom.Delab.unexpandCond : Unexpander</code>",
+ "990": "<code>DCom.Delab.unexpandSeq : Unexpander</code>",
  "99":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.plus a₂) (n₁ + n₂)</code>",
- "989": "<code>decWhile : Decorated</code>",
- "988": "<code>Decorated.body (self : Decorated) : DCom</code>",
- "987": "<code>Decorated.pre (self : Decorated) : Assertion</code>",
- "986": "<code>Decorated : Type</code>",
- "985": "<code>DCom.Delab.unexpandPost : Unexpander</code>",
- "984": "<code>DCom.Delab.unexpandPre : Unexpander</code>",
- "983": "<code>DCom.Delab.unexpandWhileDo : Unexpander</code>",
- "982": "<code>DCom.Delab.unexpandCond : Unexpander</code>",
- "981": "<code>DCom.Delab.unexpandSeq : Unexpander</code>",
- "980": "<code>DCom.Delab.unexpandAsgn : Unexpander</code>",
+ "989": "<code>DCom.Delab.unexpandAsgn : Unexpander</code>",
+ "988":
+ "<code>DCom.asgn (x : _root_.Ident) (a : Aexp) (post : Assertion) : DCom</code>",
+ "987": "<code>DCom.Delab.unexpandSkip : Unexpander</code>",
+ "986":
+ "<code>DCom.Delab.getDCom? (stx : Term) : Option (TSyntax `dcom)</code>",
+ "985": "<code>DCom.Delab.getAssnBody (stx : Term) : Term</code>",
+ "984": "<code>TSyntax `dcom</code>",
+ "983":
+ "<code>DCom.Delab.dcom.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
+ "982": "<code>DCom.Delab.dcom.parenthesizer : CategoryParenthesizer</code>",
+ "981": "<code>Lean.Parser.Category.dcom : Parser.Category</code>",
+ "980":
+ "<code>Imp.Elab.withSourceInfoOf {kind : Lean.Name} (ref : Lean.Syntax) (stx : Lean.TSyntax kind) (canonical : Bool := true) :\n  Lean.TSyntax kind</code>",
  "98":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.num (n : Nat) : EvalR (Aexp.num n) n</code>",
  "979":
- "<code>DCom.asgn (x : _root_.Ident) (a : Aexp) (post : Assertion) : DCom</code>",
- "978": "<code>DCom.Delab.unexpandSkip : Unexpander</code>",
- "977":
- "<code>DCom.Delab.getDCom? (stx : Term) : Option (TSyntax `dcom)</code>",
- "976": "<code>DCom.Delab.getAssnBody (stx : Term) : Term</code>",
- "975": "<code>TSyntax `dcom</code>",
- "974":
- "<code>DCom.Delab.dcom.parenthesizer.wrapParens (stx : Syntax) : Syntax</code>",
- "973": "<code>DCom.Delab.dcom.parenthesizer : CategoryParenthesizer</code>",
- "972": "<code>Lean.Parser.Category.dcom : Parser.Category</code>",
- "971":
- "<code>Imp.Elab.withSourceInfoOf {kind : Lean.Name} (ref : Lean.Syntax) (stx : Lean.TSyntax kind) (canonical : Bool := true) :\n  Lean.TSyntax kind</code>",
- "970":
  "<code>Lean.Macro.throwUnsupported {α : Type} : Lean.MacroM α</code><span class=\"sep\"></span><code class=\"docstring\">Throw an `unsupportedSyntax` exception. </code>",
- "97": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
- "969": "<code>Lean.TSyntax `imp_bexp</code>",
- "968": "<code>Lean.TSyntax `dcom</code>",
- "967": "<code><span class=\"literal string\">\"dcom\"</span> : String</code>",
- "966":
+ "978": "<code>Lean.TSyntax `imp_bexp</code>",
+ "977": "<code>Lean.TSyntax `dcom</code>",
+ "976": "<code><span class=\"literal string\">\"dcom\"</span> : String</code>",
+ "975":
  "<code><span class=\"literal string\">\"-&gt;&gt;\"</span> : String</code>",
- "965": "<code><span class=\"literal string\">\"do\"</span> : String</code>",
- "964": "<code><span class=\"literal string\">\"end\"</span> : String</code>",
- "963": "<code><span class=\"literal string\">\"then\"</span> : String</code>",
- "962":
+ "974": "<code><span class=\"literal string\">\"do\"</span> : String</code>",
+ "973": "<code><span class=\"literal string\">\"end\"</span> : String</code>",
+ "972": "<code><span class=\"literal string\">\"then\"</span> : String</code>",
+ "971":
  "<code>Lean.Parser.ppLine : Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser that advises the pretty printer to emit a hard line break. </code>",
- "961":
+ "970":
  "<code>Lean.Parser.ppDedent : Lean.Parser.Parser → Lean.Parser.Parser</code><span class=\"sep\"></span><code class=\"docstring\">No-op parser combinator that advises the pretty printer to dedent the given syntax.\nDedenting can in particular be used to counteract automatic indentation. </code>",
- "960": "<code><span class=\"literal string\">\";\"</span> : String</code>",
+ "97": "<code>Slang.ArithUnnamed.Aexp.EvalR : Aexp → Nat → Prop</code>",
+ "969": "<code><span class=\"literal string\">\";\"</span> : String</code>",
+ "968": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
+ "967": "<code><span class=\"literal string\">\"skip\"</span> : String</code>",
+ "966": "<code>Lean.Parser.Category.dcom : Lean.Parser.Category</code>",
+ "965": "<code>DCom.post (body : DCom) (post : Assertion) : DCom</code>",
+ "964": "<code>DCom.pre (pre : Assertion) (body : DCom) : DCom</code>",
+ "963":
+ "<code>DCom.whileDo (b : Bexp) (bodyPre : Assertion) (body : DCom) (post : Assertion) : DCom</code>",
+ "962":
+ "<code>DCom.cond (b : Bexp) (thenPre : Assertion) (thenBranch : DCom) (elsePre : Assertion) (elseBranch : DCom)\n  (post : Assertion) : DCom</code>",
+ "961":
+ "<code>DCom.asgn (x : Ident) (a : Aexp) (post : Assertion) : DCom</code>",
+ "960": "<code>DCom.seq (first second : DCom) : DCom</code>",
  "96":
  "<code>Slang.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.mult a₂).EvalR (n₁ * n₂)</code>",
- "959": "<code><span class=\"literal string\">\" := \"</span> : String</code>",
- "958": "<code><span class=\"literal string\">\"skip\"</span> : String</code>",
- "957": "<code>Lean.Parser.Category.dcom : Lean.Parser.Category</code>",
- "956": "<code>DCom.post (body : DCom) (post : Assertion) : DCom</code>",
- "955": "<code>DCom.pre (pre : Assertion) (body : DCom) : DCom</code>",
+ "959": "<code>DCom.skip (post : Assertion) : DCom</code>",
+ "958": "<code>DCom : Type</code>",
+ "957":
+ "<code>DComFirstTry.DCom.weakenPost (body : DCom) (post : Assertion) : DCom</code>",
+ "956":
+ "<code>DComFirstTry.DCom.strengthenPre (pre : Assertion) (body : DCom) : DCom</code>",
+ "955":
+ "<code>DComFirstTry.DCom.whileDo (pre : Assertion) (b : Bexp) (bodyPre : Assertion) (body : DCom) (bodyPost post : Assertion) :\n  DCom</code>",
  "954":
- "<code>DCom.whileDo (b : Bexp) (bodyPre : Assertion) (body : DCom) (post : Assertion) : DCom</code>",
+ "<code>DComFirstTry.DCom.cond (pre : Assertion) (b : Bexp) (thenPre : Assertion) (thenBranch : DCom) (elsePre : Assertion)\n  (elseBranch : DCom) (post : Assertion) : DCom</code>",
  "953":
- "<code>DCom.cond (b : Bexp) (thenPre : Assertion) (thenBranch : DCom) (elsePre : Assertion) (elseBranch : DCom)\n  (post : Assertion) : DCom</code>",
- "952":
- "<code>DCom.asgn (x : Ident) (a : Aexp) (post : Assertion) : DCom</code>",
- "951": "<code>DCom.seq (first second : DCom) : DCom</code>",
- "950": "<code>DCom.skip (post : Assertion) : DCom</code>",
+ "<code>DComFirstTry.DCom.asgn (x : Ident) (a : Aexp) (post : Assertion) : DCom</code>",
+ "952": "<code>DCom</code>",
+ "951":
+ "<code>DComFirstTry.DCom.seq (pre : Assertion) (first : DCom) (middle : Assertion) (second : DCom) (post : Assertion) : DCom</code>",
+ "950": "<code>DComFirstTry.DCom.skip (pre : Assertion) : DCom</code>",
  "95":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) :\n  (a₁.minus a₂).EvalR (n₁ - n₂)</code>",
- "949": "<code>DCom : Type</code>",
+ "949": "<code>DComFirstTry.DCom : Type</code>",
  "948":
- "<code>DComFirstTry.DCom.weakenPost (body : DCom) (post : Assertion) : DCom</code>",
- "947":
- "<code>DComFirstTry.DCom.strengthenPre (pre : Assertion) (body : DCom) : DCom</code>",
- "946":
- "<code>DComFirstTry.DCom.whileDo (pre : Assertion) (b : Bexp) (bodyPre : Assertion) (body : DCom) (bodyPost post : Assertion) :\n  DCom</code>",
- "945":
- "<code>DComFirstTry.DCom.cond (pre : Assertion) (b : Bexp) (thenPre : Assertion) (thenBranch : DCom) (elsePre : Assertion)\n  (elseBranch : DCom) (post : Assertion) : DCom</code>",
- "944":
- "<code>DComFirstTry.DCom.asgn (x : Ident) (a : Aexp) (post : Assertion) : DCom</code>",
- "943": "<code>DCom</code>",
- "942":
- "<code>DComFirstTry.DCom.seq (pre : Assertion) (first : DCom) (middle : Assertion) (second : DCom) (post : Assertion) : DCom</code>",
- "941": "<code>DComFirstTry.DCom.skip (pre : Assertion) : DCom</code>",
- "940": "<code>DComFirstTry.DCom : Type</code>",
- "94": "<code>EvalR a₂ n₂</code>",
- "939":
  "<code>reduce_to_zero_correct''' : {{True}} ~reduceToZero {{X = 0}}</code>",
- "938":
+ "947":
  "<code><span class=\"literal string\">\"verify_assertion\"</span> : String</code>",
- "937":
+ "946":
  "<code>reduce_to_zero_correct' : {{True}} ~reduceToZero {{X = 0}}</code>",
- "936": "<code>reduceToZero : Com</code>",
- "935":
+ "945": "<code>reduceToZero : Com</code>",
+ "944":
  "<code>P st✝ → imp {while (b) {c} } = c₂✝ → P st'✝ ∧ ¬Bexp.eval st'✝ b = true</code>",
- "934":
- "<code>Com.EvalR.ifFalse {st st' : State} {b : Bexp} {c₁ c₂ : Com} (hb : Bexp.eval st b = false) (hc : c₂.EvalR st st') :\n  imp {if (b) {c₁} else {c₂} }.EvalR st st'</code>",
- "933": "<code>imp {while (b) {c} } = imp {if (b✝) {c₁✝} else {c₂✝} }</code>",
- "932":
- "<code>Com.EvalR.ifTrue {st st' : State} {b : Bexp} {c₁ c₂ : Com} (hb : Bexp.eval st b = true) (hc : c₁.EvalR st st') :\n  imp {if (b) {c₁} else {c₂} }.EvalR st st'</code>",
- "931": "<code>imp {while (b) {c} } = imp {c₁✝; c₂✝}</code>",
- "930":
+ "943": "<code>st✝ =[ ~c₂✝ ]=&gt; st'✝</code>",
+ "942":
+ "<code>Com.EvalR.ifFalse {st st' : State} {b : Bexp} {c₁ c₂ : Com} (hb : Bexp.eval st b = false) (hc : st =[ ~c₂ ]=&gt; st') :\n  st =[ if (b) {c₁} else {c₂} ]=&gt; st'</code>",
+ "941": "<code>imp {while (b) {c} } = imp {if (b✝) {c₁✝} else {c₂✝} }</code>",
+ "940":
+ "<code>Com.EvalR.ifTrue {st st' : State} {b : Bexp} {c₁ c₂ : Com} (hb : Bexp.eval st b = true) (hc : st =[ ~c₁ ]=&gt; st') :\n  st =[ if (b) {c₁} else {c₂} ]=&gt; st'</code>",
+ "94": "<code>EvalR a₂ n₂</code>",
+ "939": "<code>imp {while (b) {c} } = imp {c₁✝; c₂✝}</code>",
+ "938":
  "<code>P st'✝ → imp {while (b) {c} } = c₂✝ → P st''✝ ∧ ¬Bexp.eval st''✝ b = true</code>",
+ "937":
+ "<code>P st✝ → imp {while (b) {c} } = c₁✝ → P st'✝ ∧ ¬Bexp.eval st'✝ b = true</code>",
+ "936": "<code>st'✝ =[ ~c₂✝ ]=&gt; st''✝</code>",
+ "935": "<code>st✝ =[ ~c₁✝ ]=&gt; st'✝</code>",
+ "934":
+ "<code>Com.EvalR.seq {c₁ c₂ : Com} {st st' st'' : State} (h₁ : st =[ ~c₁ ]=&gt; st') (h₂ : st' =[ ~c₂ ]=&gt; st'') :\n  st =[ c₁; c₂ ]=&gt; st''</code>",
+ "933": "<code>imp {while (b) {c} } = imp {x✝ := a✝}</code>",
+ "932":
+ "<code>Com.EvalR.asgn {st : State} {a : Aexp} {n : Nat} {x : Ident} (h : Aexp.eval st a = n) : st =[ x := a ]=&gt; x →ₜ n ; st</code>",
+ "931": "<code>imp {while (b) {c} } = imp {skip}</code>",
+ "930": "<code>Com.EvalR.skip {st : State} : st =[ skip ]=&gt; st</code>",
  "93": "<code>EvalR a₁ n₁</code>",
  "929":
- "<code>P st✝ → imp {while (b) {c} } = c₁✝ → P st'✝ ∧ ¬Bexp.eval st'✝ b = true</code>",
- "928": "<code>imp {while (b) {c} } = imp {x✝ := a✝}</code>",
- "927": "<code>imp {while (b) {c} } = imp {skip}</code>",
- "926": "<code>P st✝</code>",
- "925":
- "<code>P s0' → imp {while (b) {c} } = imp {while (b) {c} } → P s0'' ∧ ¬Bexp.eval s0'' b = true</code>",
- "924": "<code>imp {while (b) {c} }.EvalR s0' s0''</code>",
+ "<code>P st'✝ → imp {while (b) {c} } = imp {while (b) {c} } → P st''✝ ∧ ¬Bexp.eval st''✝ b = true</code>",
+ "928": "<code>st'✝ =[ while (b) {c} ]=&gt; st''✝</code>",
+ "927":
+ "<code>P st✝ → imp {while (b) {c} } = c → P st'✝ ∧ ¬Bexp.eval st'✝ b = true</code>",
+ "926": "<code>st✝ =[ ~c ]=&gt; st'✝</code>",
+ "925": "<code>Bexp.eval st✝ b = true</code>",
+ "924":
+ "<code>P st'✝ → imp {while (b) {c} } = imp {while (b✝) {c✝} } → P st''✝ ∧ ¬Bexp.eval st''✝ b = true</code>",
  "923":
- "<code>P s0 → imp {while (b) {c} } = c → P s0' ∧ ¬Bexp.eval s0' b = true</code>",
- "922": "<code>c.EvalR s0 s0'</code>",
- "921": "<code>Bexp.eval s0 b = true</code>",
+ "<code>P st✝ → imp {while (b) {c} } = c✝ → P st'✝ ∧ ¬Bexp.eval st'✝ b = true</code>",
+ "922": "<code>st'✝ =[ while (b✝) {c✝} ]=&gt; st''✝</code>",
+ "921": "<code>st✝ =[ ~c✝ ]=&gt; st'✝</code>",
  "920":
- "<code>P s0' → imp {while (b) {c} } = imp {while (b0) {c0} } → P s0'' ∧ ¬Bexp.eval s0'' b = true</code>",
+ "<code>Com.EvalR.whileTrue {st st' st'' : State} {b : Bexp} {c : Com} (hb : Bexp.eval st b = true) (hc : st =[ ~c ]=&gt; st')\n  (hloop : st' =[ while (b) {c} ]=&gt; st'') : st =[ while (b) {c} ]=&gt; st''</code>",
  "92":
  "<code>Slang.Aexp.EvalR.plus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁.EvalR n₁) (h₂ : a₂.EvalR n₂) : (a₁.plus a₂).EvalR (n₁ + n₂)</code>",
- "919":
- "<code>P s0 → imp {while (b) {c} } = c0 → P s0' ∧ ¬Bexp.eval s0' b = true</code>",
- "918": "<code>imp {while (b0) {c0} }.EvalR s0' s0''</code>",
- "917": "<code>c0.EvalR s0 s0'</code>",
- "916": "<code>Bexp.eval s0 b0 = true</code>",
+ "919": "<code>imp {while (b) {c} } = imp {while (b✝) {c✝} }</code>",
+ "918": "<code>P st✝</code>",
+ "917":
+ "<code>Com.EvalR.whileFalse {b : Bexp} {st : State} {c : Com} (hb : Bexp.eval st b = false) : st =[ while (b) {c} ]=&gt; st</code>",
+ "916": "<code>imp {while (b) {c} } = cmd</code>",
  "915":
- "<code>Com.EvalR.whileTrue {st st' st'' : State} {b : Bexp} {c : Com} (hb : Bexp.eval st b = true) (hc : c.EvalR st st')\n  (hloop : imp {while (b) {c} }.EvalR st' st'') : imp {while (b) {c} }.EvalR st st''</code>",
- "914": "<code>c = c0</code>",
- "913": "<code>b = b0</code>",
- "912": "<code>imp {while (b) {c} } = imp {while (b0) {c0} }</code>",
- "911": "<code>P s0</code>",
- "910": "<code>Bexp.eval s0 b0 = false</code>",
- "91": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
- "909":
- "<code>Com.EvalR.whileFalse {b : Bexp} {st : State} {c : Com} (hb : Bexp.eval st b = false) : imp {while (b) {c} }.EvalR st st</code>",
- "908": "<code>imp {while (b) {c} } = cmd</code>",
- "907":
  "<code>∀ {st st' : State}, (st =[ c ]=&gt; st') → P st ∧ Bexp.eval st b = true → P st'</code>",
- "906": "<code>{{P ∧ b}} ~c {{P}}</code>",
- "905":
+ "914": "<code>{{P ∧ b}} ~c {{P}}</code>",
+ "913":
  "<code>hoare_while {P : Assertion} {b : Bexp} {c : Com} (hhoare : {{P ∧ b}} ~c {{P}}) : {{P}} while (b) {c} {{P ∧ ¬b}}</code>",
- "904":
+ "912":
  "<code>if_example' : {{True}} if (X = 0) {Y := 2} else {Y := X + 1} {{X ≤ Y}}</code>",
- "903":
+ "911":
  "<code>if_example : {{True}} if (X = 0) {Y := 2} else {Y := X + 1} {{X ≤ Y}}</code>",
- "902": "<code>¬Bexp.eval st b = true</code>",
- "901": "<code>Bool.not_eq_true (b : Bool) : (¬b = true) = (b = false)</code>",
- "900": "<code>c2.EvalR st st'</code>",
+ "910": "<code>¬Bexp.eval st b = true</code>",
+ "91": "<code>Slang.Aexp.EvalR.num (n : Nat) : (num n).EvalR n</code>",
+ "909": "<code>Bool.not_eq_true (b : Bool) : (¬b = true) = (b = false)</code>",
+ "908": "<code>st =[ ~c₂ ]=&gt; st'</code>",
+ "907":
+ "<code>And.intro {a b : Prop} (left : a) (right : b) : a ∧ b</code><span class=\"sep\"></span><code class=\"docstring\">`And.intro : a → b → a ∧ b` is the constructor for the And operation. </code>",
+ "906": "<code>st =[ ~c₁ ]=&gt; st'</code>",
+ "905":
+ "<code>∀ {st st' : State}, (st =[ c₂ ]=&gt; st') → P st ∧ ¬Bexp.eval st b = true → Q st'</code>",
+ "904":
+ "<code>∀ {st st' : State}, (st =[ c₁ ]=&gt; st') → P st ∧ Bexp.eval st b = true → Q st'</code>",
+ "903": "<code>{{P ∧ ¬b}} ~c₂ {{Q}}</code>",
+ "902": "<code>{{P ∧ b}} ~c₁ {{Q}}</code>",
+ "901":
+ "<code>hoare_if {P Q : Assertion} {b : Bexp} {c₁ c₂ : Com} (htrue : {{P ∧ b}} ~c₁ {{Q}}) (hfalse : {{P ∧ ¬b}} ~c₂ {{Q}}) :\n  {{P}} if (b) {c₁} else {c₂} {{Q}}</code>",
+ "900":
+ "<code>hoare_asgn_example3 (a : Aexp) (n : Nat) : {{a = n}} X := a; skip {{X = n}}</code>",
  "90": "<code>Slang.Aexp.EvalR : Aexp → Nat → Prop</code>",
  "9": "<code>Slang.Aexp.mult (a₁ a₂ : Aexp) : Aexp</code>",
- "899":
- "<code>And.intro {a b : Prop} (left : a) (right : b) : a ∧ b</code><span class=\"sep\"></span><code class=\"docstring\">`And.intro : a → b → a ∧ b` is the constructor for the And operation. </code>",
- "898": "<code>c1.EvalR st st'</code>",
- "897": "<code>st =[ if (b) {c1} else {c2} ]=&gt; st'</code>",
+ "899": "<code>hoare_asgn_example1''' : {{True}} X := 1 {{X = 1}}</code>",
+ "898":
+ "<code>assertion_sub_example2'' : {{X &lt; 4}} X := X + 1 {{X &lt; 5}}</code>",
+ "897":
+ "<code class=\"docstring\">`focus tac` focuses on the main goal, suppressing all other goals, and runs `tac` on it.\nUsually `· tac`, which enforces that the goal is closed by `tac`, should be preferred.\n</code>",
  "896":
- "<code>∀ {st st' : State}, (st =[ c2 ]=&gt; st') → P st ∧ ¬Bexp.eval st b = true → Q st'</code>",
+ "<code>Lean.Parser.Category.tactic : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">`tactic` is the builtin syntax category for tactics. These appear after\n`by` in proofs, and they are programs that take in the proof context\n(the hypotheses in scope plus the type of the term to synthesize) and construct\na term of the expected type. For example, `simp` is a tactic, used in:\n```\nexample : 2 + 2 = 4 := by simp\n```\n</code>",
  "895":
- "<code>∀ {st st' : State}, (st =[ c1 ]=&gt; st') → P st ∧ Bexp.eval st b = true → Q st'</code>",
- "894": "<code>{{P ∧ ¬b}} ~c2 {{Q}}</code>",
- "893": "<code>{{P ∧ b}} ~c1 {{Q}}</code>",
- "892":
- "<code>hoare_if {P Q : Assertion} {b : Bexp} {c1 c2 : Com} (htrue : {{P ∧ b}} ~c1 {{Q}}) (hfalse : {{P ∧ ¬b}} ~c2 {{Q}}) :\n  {{P}} if (b) {c1} else {c2} {{Q}}</code>",
- "891":
- "<code class=\"docstring\">The `dsimp` tactic is the definitional simplifier. It is similar to `simp` but only\napplies theorems that hold by reflexivity. Thus, the result is guaranteed to be\ndefinitionally equal to the input.\n</code>",
+ "<code><span class=\"literal string\">\"assertion_auto\"</span> : String</code>",
+ "894":
+ "<code>assertion_sub_example2' : {{X &lt; 4}} X := X + 1 {{X &lt; 5}}</code>",
+ "893": "<code>hoare_asgn_example1'' : {{True}} X := 1 {{X = 1}}</code>",
+ "892": "<code>True</code>",
+ "891": "<code>hoare_asgn_example1' : {{True}} X := 1 {{X = 1}}</code>",
  "890":
- "<code>bexp_eval_false (b : Bexp) (st : State) (h : Bexp.eval st b = false) : ¬({{b}}) st</code>",
+ "<code>hoare_consequence_post' {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' -&gt;&gt; Q) : {{P}} ~c {{Q}}</code>",
  "89":
  "<code class=\"docstring\">`simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target\nare simplified multiple times until no simplification is applicable.\nOnly non-dependent propositional hypotheses are considered.\n</code>",
  "889":
- "<code>hoare_asgn_example3 (a : Aexp) (n : Nat) : {{a = n}} X := a; skip {{X = n}}</code>",
- "888": "<code>hoare_asgn_example1''' : {{True}} X := 1 {{X = 1}}</code>",
- "887":
- "<code>assertion_sub_example2'' : {{X &lt; 4}} X := X + 1 {{X &lt; 5}}</code>",
- "886":
- "<code class=\"docstring\">`focus tac` focuses on the main goal, suppressing all other goals, and runs `tac` on it.\nUsually `· tac`, which enforces that the goal is closed by `tac`, should be preferred.\n</code>",
- "885":
- "<code>Lean.Parser.Category.tactic : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">`tactic` is the builtin syntax category for tactics. These appear after\n`by` in proofs, and they are programs that take in the proof context\n(the hypotheses in scope plus the type of the term to synthesize) and construct\na term of the expected type. For example, `simp` is a tactic, used in:\n```\nexample : 2 + 2 = 4 := by simp\n```\n</code>",
- "884":
- "<code><span class=\"literal string\">\"assertion_auto\"</span> : String</code>",
- "883":
- "<code>assertion_sub_example2' : {{X &lt; 4}} X := X + 1 {{X &lt; 5}}</code>",
- "882": "<code>hoare_asgn_example1'' : {{True}} X := 1 {{X = 1}}</code>",
- "881": "<code>True</code>",
- "880": "<code>hoare_asgn_example1' : {{True}} X := 1 {{X = 1}}</code>",
- "88": "<code>e₁✝.optimize0plus.eval = e₁✝.eval</code>",
- "879":
- "<code>hoare_consequence_post' (P Q Q' : Assertion) (c : Com) (hhoare : {{P}} ~c {{Q'}}) (himp : Q' -&gt;&gt; Q) : {{P}} ~c {{Q}}</code>",
- "878":
- "<code>hoare_consequence_pre'' (P P' Q : Assertion) (c : Com) (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
- "877":
+ "<code>hoare_consequence_pre'' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "888":
  "<code class=\"docstring\">`apply_rules [l₁, l₂, ...]` tries to solve the main goal by iteratively\napplying the list of lemmas `[l₁, l₂, ...]` or by applying a local hypothesis.\nIf `apply` generates new goals, `apply_rules` iteratively tries to solve those goals.\nYou can use `apply_rules [-h]` to omit a local hypothesis.\n\n`apply_rules` will also use `rfl`, `trivial`, `congrFun` and `congrArg`.\nThese can be disabled, as can local hypotheses, by using `apply_rules only [...]`.\n\nYou can use `apply_rules using [a₁, ...]` to use all lemmas which have been labelled\nwith the attributes `aᵢ` (these attributes must be created using `register_label_attr`).\n\nYou can pass a further configuration via the syntax `apply_rules (config := {...})`.\nThe options supported are the same as for `solve_by_elim` (and include all the options for `apply`).\n\n`apply_rules` will try calling `symm` on hypotheses and `exfalso` on the goal as needed.\nThis can be disabled with `apply_rules (config := {symm := false, exfalso := false})`.\n\nYou can bound the iteration depth using the syntax `apply_rules (config := {maxDepth := n})`.\n\nUnlike `solve_by_elim`, `apply_rules` does not perform backtracking, and greedily applies\na lemma from the list until it gets stuck.\n</code>",
- "876":
- "<code>hoare_consequence_pre' (P P' Q : Assertion) (c : Com) (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
- "875": "<code>{{P'}} ~c {{Q'}}</code>",
- "874":
+ "887":
+ "<code>hoare_consequence_pre' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "886": "<code>{{P'}} ~c {{Q'}}</code>",
+ "885":
  "<code>hoare_consequence {P P' Q Q' : Assertion} {c : Com} (htriple : {{P'}} ~c {{Q'}}) (hpre : P -&gt;&gt; P') (hpost : Q' -&gt;&gt; Q) :\n  {{P}} ~c {{Q}}</code>",
- "873":
+ "884":
  "<code>assertion_sub_example2 : {{X &lt; 4}} X := X + 1 {{X &lt; 5}}</code>",
- "872": "<code>hoare_asgn_example1 : {{True}} X := 1 {{X = 1}}</code>",
- "871": "<code>∀ (st : State), Q' st → Q st</code>",
- "870": "<code>∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q' st'</code>",
+ "883": "<code>hoare_asgn_example1 : {{True}} X := 1 {{X = 1}}</code>",
+ "882": "<code>∀ (st : State), Q' st → Q st</code>",
+ "881": "<code>∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q' st'</code>",
+ "880": "<code>Q' -&gt;&gt; Q</code>",
+ "88": "<code>e₁✝.optimize0plus.eval = e₁✝.eval</code>",
+ "879": "<code>{{P}} ~c {{Q'}}</code>",
+ "878":
+ "<code>hoare_consequence_post {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' -&gt;&gt; Q) : {{P}} ~c {{Q}}</code>",
+ "877": "<code>∀ (st : State), P st → P' st</code>",
+ "876": "<code>∀ {st st' : State}, (st =[ c ]=&gt; st') → P' st → Q st'</code>",
+ "875": "<code>P -&gt;&gt; P'</code>",
+ "874": "<code>{{P'}} ~c {{Q}}</code>",
+ "873":
+ "<code>hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "872":
+ "<code>TotalMap.update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :\n  a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m = a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m</code>",
+ "871":
+ "<code>TotalMap.update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :\n  a →ₜ b₂ ; a →ₜ b₁ ; m = a →ₜ b₂ ; m</code>",
+ "870":
+ "<code>TotalMap.update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :\n  (a₁ →ₜ b ; m)[a₂] = m[a₂]</code>",
  "87":
  "<code>False : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`False` is the empty proposition. Thus, it has no introduction rules.\nIt represents a contradiction. `False` elimination rule, `False.rec`,\nexpresses the fact that anything follows from a contradiction.\nThis rule is sometimes called ex falso (short for ex falso sequitur quodlibet),\nor the principle of explosion.\nFor more information: [Propositional Logic](https://lean-lang.org/theorem_proving_in_lean4/propositions_and_proofs.html#propositional-logic)\n</code>",
- "869": "<code>Q' -&gt;&gt; Q</code>",
- "868": "<code>{{P}} ~c {{Q'}}</code>",
+ "869":
+ "<code>assertion_sub_example : {{(X &lt; 5) [X ↦ X + 1]}} X := X + 1 {{X &lt; 5}}</code>",
+ "868": "<code>Q (x →ₜ Aexp.eval st a ; st)</code>",
  "867":
- "<code>hoare_consequence_post {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' -&gt;&gt; Q) : {{P}} ~c {{Q}}</code>",
- "866": "<code>∀ (st : State), P st → P' st</code>",
- "865": "<code>∀ {st st' : State}, (st =[ c ]=&gt; st') → P' st → Q st'</code>",
- "864": "<code>P -&gt;&gt; P'</code>",
- "863": "<code>{{P'}} ~c {{Q}}</code>",
- "862":
- "<code>hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "<code>Assertion.subst_def {x : Ident} {a : Aexp} {P : Assertion} : P [x ↦ a] = fun st =&gt; P (x →ₜ Aexp.eval st a ; st)</code>",
+ "866": "<code>Q [x ↦ a] st</code>",
+ "865":
+ "<code>hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} : {{Q [x ↦ a]}} x := a {{Q}}</code>",
+ "864":
+ "<code>Assertion.subst_apply {x : Ident} {a : Aexp} {P : Assertion} {st : State} : P [x ↦ a] st ↔ P (x →ₜ Aexp.eval st a ; st)</code>",
+ "863": "<code>3 ≤ 5</code>",
+ "862": "<code>(X ≤ 5) [X ↦ 3] st</code>",
  "861":
- "<code>TotalMap.update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :\n  a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m = a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m</code>",
+ "<code>Assertion.Delab.unexpandSubst : Unexpander</code><span class=\"sep\"></span><code class=\"docstring\">Print an `Assertion.subst` back in `P [x ↦ a]` notation.  Emits the\nbare inside-the-braces form: the generic application case of `delabBody`\npicks it up inside an assertion body, and the enclosing printer supplies\nthe single pair of braces. </code>",
  "860":
- "<code>TotalMap.update_shadow {α β : Type} [BEq α] [LawfulBEq α] (m : TotalMap α β) (a : α) (b₁ b₂ : β) :\n  a →ₜ b₂ ; a →ₜ b₁ ; m = a →ₜ b₂ ; m</code>",
+ "<code>Assertion.subst (x : _root_.Ident) (a : Aexp) (P : Assertion) : Assertion</code>",
  "86": "<code>e₁✝ = num 0 → False</code>",
  "859":
- "<code>TotalMap.update_neq {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} (h : a₁ ≠ a₂) (b : β) :\n  (a₁ →ₜ b ; m)[a₂] = m[a₂]</code>",
- "858":
- "<code>assertion_sub_example : {{(X &lt; 5) [X ↦ X + 1]}} X := X + 1 {{X &lt; 5}}</code>",
- "857": "<code>Q (x →ₜ Aexp.eval st a ; st)</code>",
- "856":
- "<code>Assertion.subst_def {x : Ident} {a : Aexp} {P : Assertion} :\n  P [x ↦ a] = {{P (((TotalMap.update instBEqOfDecidableEq) x) a)}}</code>",
- "855": "<code>Q [x ↦ a] st</code>",
- "854":
- "<code>hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} : {{Q [x ↦ a]}} x := a {{Q}}</code>",
- "853":
- "<code>Assertion.subst_apply {x : Ident} {a : Aexp} {P : Assertion} {st : State} : P [x ↦ a] st ↔ P (x →ₜ Aexp.eval st a ; st)</code>",
- "852": "<code>3 ≤ 5</code>",
- "851": "<code>(X ≤ 5) [X ↦ 3] st</code>",
- "850":
- "<code>assertIff_def {P Q : Assertion} : P &lt;&lt;-&gt;&gt; Q ↔ P &lt;&lt;-&gt;&gt; Q</code>",
- "85": "<code>e₂✝.optimize0plus.eval = e₂✝.eval</code>",
- "849":
- "<code>Assertion.Delab.unexpandSubst : Unexpander</code><span class=\"sep\"></span><code class=\"docstring\">Print an `Assertion.subst` back in `P [x ↦ a]` notation.  Emits the\nbare inside-the-braces form: the generic application case of `delabBody`\npicks it up inside an assertion body, and the enclosing printer supplies\nthe single pair of braces. </code>",
- "848":
- "<code>Assertion.subst (x : _root_.Ident) (a : Aexp) (P : Assertion) : Assertion</code>",
- "847":
  "<code>Assertion.subst_apply {x : Ident} {a : Aexp} {P : Assertion} {st : State} :\n  subst x a P st ↔ P (x →ₜ Aexp.eval st a ; st)</code>",
- "846":
- "<code>instBEqOfDecidableEq.{u_1} {α : Type u_1} [DecidableEq α] : BEq α</code>",
- "845":
- "<code>Assertion.subst_def {x : Ident} {a : Aexp} {P : Assertion} :\n  subst x a P = {{P (((TotalMap.update instBEqOfDecidableEq) x) a)}}</code>",
- "844": "<code>Lean.TSyntax `imp_aexp</code>",
- "843": "<code>Lean.TSyntax `ident</code>",
- "842": "<code><span class=\"literal string\">\"]\"</span> : String</code>",
- "841": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
- "840": "<code><span class=\"literal string\">\" [\"</span> : String</code>",
+ "858":
+ "<code>Assertion.subst_def {x : Ident} {a : Aexp} {P : Assertion} : subst x a P = fun st =&gt; P (x →ₜ Aexp.eval st a ; st)</code>",
+ "857": "<code>Lean.TSyntax `imp_aexp</code>",
+ "856": "<code>Lean.TSyntax `ident</code>",
+ "855": "<code><span class=\"literal string\">\"]\"</span> : String</code>",
+ "854": "<code><span class=\"literal string\">\" ↦ \"</span> : String</code>",
+ "853": "<code><span class=\"literal string\">\" [\"</span> : String</code>",
+ "852":
+ "<code class=\"docstring\">Precedence used for application arguments (`do`, `by`, ...). </code>",
+ "851":
+ "<code class=\"docstring\">The standardized \"high\" priority `high = 10000`, for things that should be higher than default priority. </code>",
+ "850":
+ "<code>Assertion.subst (x : Ident) (a : Aexp) (P : Assertion) : Assertion</code>",
+ "85": "<code>e₂✝.optimize0plus.eval = e₂✝.eval</code>",
+ "849": "<code>∀ {st st' : State}, (st =[ c₁ ]=&gt; st') → P st → Q st'</code>",
+ "848": "<code>∀ {st st' : State}, (st =[ c₂ ]=&gt; st') → Q st → R st'</code>",
+ "847": "<code>st'✝ =[ ~c₂ ]=&gt; st'</code>",
+ "846": "<code>st =[ ~c₁ ]=&gt; st'✝</code>",
+ "845": "<code>st =[ c₁; c₂ ]=&gt; st'</code>",
+ "844": "<code>{{P}} ~c₁ {{Q}}</code>",
+ "843": "<code>{{Q}} ~c₂ {{R}}</code>",
+ "842":
+ "<code>hoare_seq {P Q R : Assertion} {c₁ c₂ : Com} (h₁ : {{Q}} ~c₂ {{R}}) (h₂ : {{P}} ~c₁ {{Q}}) : {{P}} c₁; c₂ {{R}}</code>",
+ "841": "<code>P st</code>",
+ "840":
+ "<code>validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :\n  {{P}} ~c {{Q}} ↔ ∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q st'</code>",
  "84":
  "<code>Slang.Aexp.optimize0plus_sound' (a : Aexp) : a.optimize0plus.eval = a.eval</code>",
- "839":
- "<code class=\"docstring\">Precedence used for application arguments (`do`, `by`, ...). </code>",
- "838":
- "<code>Assertion.subst (x : Ident) (a : Aexp) (P : Assertion) : Assertion</code>",
- "837": "<code>∀ {st st' : State}, (st =[ c1 ]=&gt; st') → P st → Q st'</code>",
- "836": "<code>∀ {st st' : State}, (st =[ c2 ]=&gt; st') → Q st → R st'</code>",
- "835": "<code>c2.EvalR st'' st'</code>",
- "834": "<code>c1.EvalR st st''</code>",
- "833": "<code>st =[ c1; c2 ]=&gt; st'</code>",
- "832": "<code>{{P}} ~c1 {{Q}}</code>",
- "831": "<code>{{Q}} ~c2 {{R}}</code>",
+ "839": "<code>hoare_skip {P : Assertion} : {{P}} skip {{P}}</code>",
+ "838": "<code>∀ (st : State), ¬P st</code>",
+ "837":
+ "<code>hoare_pre_false {P Q : Assertion} {c : Com} (h : ∀ (st : State), ¬P st) : {{P}} ~c {{Q}}</code>",
+ "836": "<code>∀ (st : State), Q st</code>",
+ "835":
+ "<code>hoare_post_true {P Q : Assertion} {c : Com} (h : ∀ (st : State), Q st) : {{P}} ~c {{Q}}</code>",
+ "834": "<code>Com.EvalR : Com → _root_.State → _root_.State → Prop</code>",
+ "833":
+ "<code>Lean.Expr.getAppNumArgs (e : Expr) : Nat</code><span class=\"sep\"></span><code class=\"docstring\">Counts the number `n` of arguments for an expression `f a₁ .. aₙ`. </code>",
+ "832": "<code>HasEval.Delab.delabEvalR : Delab</code>",
+ "831": "<code>HasTriple.Delab.delabTriple : Delab</code>",
  "830":
- "<code>hoare_seq {P Q R : Assertion} {c1 c2 : Com} (h1 : {{Q}} ~c2 {{R}}) (h2 : {{P}} ~c1 {{Q}}) : {{P}} c1; c2 {{R}}</code>",
+ "<code>validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :\n  HasTriple.Triple ({{P}}) c ({{Q}}) ↔ ∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q st'</code>",
  "83":
  "<code class=\"docstring\">The `sorry` tactic is a temporary placeholder for an incomplete tactic proof,\nclosing the main goal using `exact sorry`.\n\nThis is intended for stubbing-out incomplete parts of a proof while still having a syntactically correct proof skeleton.\nLean will give a warning whenever a proof uses `sorry`, so you aren't likely to miss it,\nbut you can double check if a theorem depends on `sorry` by looking for `sorryAx` in the output\nof the `#print axioms my_thm` command, the axiom used by the implementation of `sorry`.\n</code>",
- "829": "<code>P st</code>",
- "828":
- "<code>validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :\n  {{P}} ~c {{Q}} ↔ ∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q st'</code>",
- "827": "<code>hoare_skip {P : Assertion} : {{P}} skip {{P}}</code>",
- "826": "<code>∀ (st : State), ¬P st</code>",
- "825":
- "<code>hoare_pre_false {P Q : Assertion} {c : Com} (h : ∀ (st : State), ¬P st) : {{P}} ~c {{Q}}</code>",
- "824": "<code>∀ (st : State), Q st</code>",
- "823":
- "<code>hoare_post_true {P Q : Assertion} {c : Com} (h : ∀ (st : State), Q st) : {{P}} ~c {{Q}}</code>",
- "822": "<code>HasTriple.Delab.delabTriple : Delab</code>",
- "821":
- "<code>validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :\n  HasTriple.Triple ({{P}}) c ({{Q}}) ↔ ∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q st'</code>",
- "820": "<code>Assertion → Com → Assertion → Prop</code>",
- "82": "<code>Nat.even n = true</code>",
- "819": "<code><span class=\"literal string\">\" {{\"</span> : String</code>",
- "818": "<code><span class=\"literal string\">\"}} \"</span> : String</code>",
- "817":
- "<code>HasTriple.Triple {Com : Type} [self : HasTriple Com] : Assertion → Com → Assertion → Prop</code>",
- "816": "<code>HasTriple (Com : Type) : Type</code>",
- "815":
+ "829": "<code>Assertion → Com → Assertion → Prop</code>",
+ "828": "<code><span class=\"literal string\">\" {{\"</span> : String</code>",
+ "827": "<code><span class=\"literal string\">\"}} \"</span> : String</code>",
+ "826":
+ "<code>HasTriple.Triple {α : Type} [self : HasTriple α] : Assertion → α → Assertion → Prop</code>",
+ "825": "<code>HasTriple (α : Type) : Type</code>",
+ "824":
  "<code>ValidHoareTriple (P : Assertion) (c : Com) (Q : Assertion) : Prop</code>",
- "814":
- "<code>Assertion.Delab.delabAssertIff : Delab</code><span class=\"sep\"></span><code class=\"docstring\">`&lt;&lt;-&gt;&gt;` abbreviates a conjunction of two `AssertImplies`, so its\ndelaborator is keyed on `∧` and bails out unless the two conjuncts mirror\neach other. </code>",
- "813": "<code>Assertion.Delab.delabAssertImplies : Delab</code>",
- "812":
- "<code>assertIff_def {P Q : Assertion} : (P -&gt;&gt; Q) ∧ (Q -&gt;&gt; P) ↔ (P -&gt;&gt; Q) ∧ (Q -&gt;&gt; P)</code>",
- "811":
+ "823": "<code>Assertion.Delab.delabAssertIff : Delab</code>",
+ "822": "<code>Assertion.Delab.delabAssertImplies : Delab</code>",
+ "821":
+ "<code>assertIff_def {P Q : Assertion} : P &lt;&lt;-&gt;&gt; Q ↔ (P -&gt;&gt; Q) ∧ (Q -&gt;&gt; P)</code>",
+ "820":
  "<code><span class=\"literal string\">\" &lt;&lt;-&gt;&gt; \"</span> : String</code>",
- "810":
+ "82": "<code>Nat.even n = true</code>",
+ "819": "<code>AssertIff (P Q : Assertion) : Prop</code>",
+ "818":
  "<code>assertImplies_def {P Q : Assertion} : P -&gt;&gt; Q ↔ ∀ (st : State), P st → Q st</code>",
+ "817":
+ "<code><span class=\"literal string\">\" -&gt;&gt; \"</span> : String</code>",
+ "816": "<code>AssertImplies (P Q : Assertion) : Prop</code>",
+ "815":
+ "<code>Lean.PrettyPrinter.Delaborator.withBindingBodyUnusedName {α : Type} (d : Syntax → DelabM α)\n  (preserveName : Bool := false) (avoid : NameSet := ∅) : DelabM α</code><span class=\"sep\"></span><code class=\"docstring\">Enters the body of the current expression, which must be a lambda or forall.\nThe binding variable is passed to `d` as `Syntax`, and it is an identifier that has been annotated with the fvar expression\nfor the variable.\n\nIf `pp.safeShadowing` is true, then the name is allowed to shadow a name in the local context\nif the name does not appear in the body or in the `avoid` set.\n(The `avoid` set is assumed to be a subset of the names used by the local context.)\n\nIf `preserveName` is `false` (the default), gives the binder an unused name.\nOtherwise, it tries to preserve the textual form of the name, preserving whether it is hygienic.\n</code>",
+ "814":
+ "<code>Assertion.Delab.delabExistsState : Delab</code><span class=\"sep\"></span><code class=\"docstring\">An existential over states, `∃ st, …`, is printed as a binder rather\nthan as `Exists {{ … }}`: its body is a state lambda, but not an assertion. </code>",
+ "813":
+ "<code>Assertion.Delab.delabAssertion : Delab</code><span class=\"sep\"></span><code class=\"docstring\">Print a bare assertion lambda in `{{ … }}` notation.  Keyed on lambdas\nat large, so the guards bail out cheaply unless the binder is a `State`\nand the body is a proposition the printer can rebuild. </code>",
+ "812":
+ "<code>Assertion.Delab.delabAssnArg (i : Nat) : DelabM Term</code><span class=\"sep\"></span><code class=\"docstring\">Print an assertion-position argument: a state lambda gets the\n`{{ … }}` notation; any other term (a named assertion, a substitution)\nalready reads well bare. </code>",
+ "811": "<code>Lean.Expr.fvarId! : Expr → FVarId</code>",
+ "810":
+ "<code>Lean.PrettyPrinter.Delaborator.SubExpr.withBindingBody' {α : Type} {m : Type → Type} [Monad m] [MonadReaderOf SubExpr m]\n  [MonadWithReaderOf SubExpr m] [MonadControlT MetaM m] {β : Type} (n : Name) (v : Expr → m β) (x : β → m α) : m α</code><span class=\"sep\"></span><code class=\"docstring\">Assumes the `SubExpr` is a lambda or forall.\n1. Creates a local declaration for this binder using the name `n`.\n2. Evaluates `v` using the fvar for the local declaration.\n3. Enters the binding body, and evaluates `x` using this result.\n</code>",
  "81": "<code>Slang.Aexp.Nat.odd (n : Nat) : Bool</code>",
  "809":
- "<code><span class=\"literal string\">\" -&gt;&gt; \"</span> : String</code>",
- "808": "<code>AssertImplies (P Q : Assertion) : Prop</code>",
- "807": "<code>Lean.Expr.bindingDomain! : Expr → Expr</code>",
+ "<code>Lean.Expr.headBeta (e : Expr) : Expr</code><span class=\"sep\"></span><code class=\"docstring\">`(fun x =&gt; e) a` ==&gt; `e[x/a]`. </code>",
+ "808":
+ "<code>Lean.Expr.updateLambdaE! (e newDomain newBody : Expr) : Expr</code>",
+ "807":
+ "<code>Assertion.Delab.delabAssn : DelabM Term</code><span class=\"sep\"></span><code class=\"docstring\">Print an `Assertion`-valued term as it appears inside `{{ … }}`: a\nstate lambda is un-threaded; a term the printer cannot rebuild falls back\nto the lambda itself, which is exactly this notation's escape form.  An\napplied lambda at the head of the body, `fun st =&gt; (fun st' =&gt; …) st`, is\nreduced first so that the escape form stays a single lambda. </code>",
  "806":
- "<code>Assertion.Delab.delabAssertion : Delab</code><span class=\"sep\"></span><code class=\"docstring\">Print a bare assertion lambda in `{{ … }}` notation.  Keyed on lambdas\nat large, so the guards bail out cheaply unless the binder is a `State`\nand the body is a proposition the printer can rebuild. </code>",
+ "<code>Lean.Expr.isAppOf (e : Expr) (n : Name) : Bool</code><span class=\"sep\"></span><code class=\"docstring\">Given `f a₀ a₁ ... aₙ`, returns true if `f` is a constant with name `n`. </code>",
  "805":
- "<code>Assertion.Delab.delabAssnArg (i : Nat) : DelabM Term</code><span class=\"sep\"></span><code class=\"docstring\">Print an assertion-position argument: a state lambda gets the\n`{{ … }}` notation; any other term (a named assertion, a substitution)\nalready reads well bare. </code>",
- "804": "<code>Lean.Expr.fvarId! : Expr → FVarId</code>",
+ "<code>Lean.Expr.isMVar : Expr → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Return `true` if the given expression is a metavariable. </code>",
+ "804":
+ "<code>Lean.Expr.isConst : Expr → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Return `true` if the given expression is a constant. </code>",
  "803":
- "<code>Lean.PrettyPrinter.Delaborator.SubExpr.withBindingBody' {α : Type} {m : Type → Type} [Monad m] [MonadReaderOf SubExpr m]\n  [MonadWithReaderOf SubExpr m] [MonadControlT MetaM m] {β : Type} (n : Name) (v : Expr → m β) (x : β → m α) : m α</code><span class=\"sep\"></span><code class=\"docstring\">Assumes the `SubExpr` is a lambda or forall.\n1. Creates a local declaration for this binder using the name `n`.\n2. Evaluates `v` using the fvar for the local declaration.\n3. Enters the binding body, and evaluates `x` using this result.\n</code>",
+ "<code>Lean.Expr.isFVar : Expr → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Return `true` if the given expression is a free variable. </code>",
  "802":
- "<code>Assertion.Delab.delabAssn : DelabM Term</code><span class=\"sep\"></span><code class=\"docstring\">Print an `Assertion`-valued term as it appears inside `{{ … }}`: a\nstate lambda is un-threaded; a term the printer cannot rebuild falls back\nto the raw lambda, which is exactly this notation's escape form. </code>",
- "801": "<code>Options</code>",
+ "<code>Lean.Expr.instantiate1 (e subst : Expr) : Expr</code><span class=\"sep\"></span><code class=\"docstring\">Instantiates loose bound variable `0` in `e` using the expression `subst`,\nwhere in particular a loose `Expr.bvar i` at binding depth `d` is instantiated with `subst` if `i = d`,\nand otherwise it is replaced with `Expr.bvar (i - 1)`; non-loose bound variables are not touched.\n\nIf we imagine all expressions as being able to refer to the infinite list of loose bound variables ..., 3, 2, 1, 0 in that order,\nthen conceptually `instantiate1` is instantiating the last one of these and reindexing the remaining ones.\n\nThis function is equivalent to `instantiate e #[subst]`, but it avoids allocating an array.\n\nSee the documentation for `Lean.Expr.instantiate` for a description of instantiation.\nIn short, during instantiation the loose bound variables in `subst` have their own de Bruijn indices updated to account\nfor the binding depth of the replaced loose bound variable.\n</code>",
+ "801":
+ "<code>Lean.PrettyPrinter.Delaborator.SubExpr.descend {α : Type} {m : Type → Type} [MonadWithReaderOf SubExpr m] (child : Expr)\n  (childIdx : Nat) (x : m α) : m α</code>",
  "800":
- "<code>Lean.Option.set {α : Type} [KVMap.Value α] (opts : Options) (opt : Lean.Option α) (val : α) : Options</code>",
+ "<code>Lean.Expr.isLambda : Expr → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Return `true` if the given expression is a lambda abstraction aka anonymous function. </code>",
  "80":
  "<code>Bool.false : Bool</code><span class=\"sep\"></span><code class=\"docstring\">The Boolean value `false`, not to be confused with the proposition `False`. </code>",
  "8": "<code>Slang.Aexp.minus (a₁ a₂ : Aexp) : Aexp</code>",
- "799": "<code>Lean.pp.notation : Lean.Option Bool</code>",
- "798":
- "<code>Lean.MonadWithOptions.withOptions {m : Type → Type} [self : MonadWithOptions m] {α : Type} (f : Options → Options)\n  (x : m α) : m α</code>",
+ "799": "<code>Lean.Expr.bindingDomain! : Expr → Expr</code>",
+ "798": "<code>Lean.Expr.bindingBody! : Expr → Expr</code>",
  "797":
- "<code>Lean.Expr.isLambda : Expr → Bool</code><span class=\"sep\"></span><code class=\"docstring\">Return `true` if the given expression is a lambda abstraction aka anonymous function. </code>",
+ "<code>Lean.Meta.whnfR (e : Expr) : MetaM Expr</code><span class=\"sep\"></span><code class=\"docstring\">`whnf` with reducible transparency.</code>",
  "796":
  "<code>Lean.Expr.app (fn arg : Expr) : Expr</code><span class=\"sep\"></span><code class=\"docstring\">A function application.\n\nFor example, the natural number one, i.e. `Nat.succ Nat.zero` is represented as\n``Expr.app (.const `Nat.succ []) (.const `Nat.zero [])``.\nNote that multiple arguments are represented using partial application.\n\nFor example, the two argument application `f x y` is represented as\n`Expr.app (.app f x) y`.\n</code>",
  "795":
@@ -1390,22 +1397,32 @@
  "104": "<code><span class=\"literal string\">\" ⇓ \"</span> : String</code>",
  "103": "<code>Lean.TSyntax `term</code>",
  "102": "<code>Slang.Aexp.EvalR : Slang.Aexp → Nat → Prop</code>",
+ "1017": "<code>IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop</code>",
+ "1016": "<code>dec_while_correct : decWhile.OuterTripleValid</code>",
+ "1015":
+ "<code><span class=\"literal string\">\"verify\"</span> : String</code>",
+ "1014":
+ "<code>Decorated.mk (pre : Assertion) (body : DCom) : Decorated</code>",
+ "1013": "<code>dec.VerificationConditions</code>",
+ "1012":
+ "<code>verification_conditions_correct (dec : Decorated) (hvc : dec.VerificationConditions) : dec.OuterTripleValid</code>",
+ "1011":
+ "<code>Decorated.VerificationConditions (dec : Decorated) : Prop</code>",
+ "1010": "<code>DCom.VerificationConditions p d</code>",
  "101":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.mult a₂) (n₁ * n₂)</code>",
- "1008": "<code>IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop</code>",
- "1007": "<code>dec_while_correct : decWhile.OuterTripleValid</code>",
- "1006":
- "<code><span class=\"literal string\">\"verify\"</span> : String</code>",
- "1005":
- "<code>Decorated.mk (pre : Assertion) (body : DCom) : Decorated</code>",
- "1004": "<code>dec.VerificationConditions</code>",
- "1003":
- "<code>verification_conditions_correct (dec : Decorated) (hvc : dec.VerificationConditions) : dec.OuterTripleValid</code>",
- "1002":
- "<code>Decorated.VerificationConditions (dec : Decorated) : Prop</code>",
- "1001": "<code>DCom.VerificationConditions p d</code>",
- "1000":
+ "1009":
  "<code>verification_correct (d : DCom) (p : Assertion) (hvc : DCom.VerificationConditions p d) :\n  ValidHoareTriple p d.erase d.postcondition</code>",
+ "1008":
+ "<code>DCom.VerificationConditions (p : Assertion) (d : DCom) : Prop</code>",
+ "1007": "<code>Decorated.OuterTripleValid (dec : Decorated) : Prop</code>",
+ "1006": "<code>Decorated.postcondition (dec : Decorated) : Assertion</code>",
+ "1005": "<code>DCom.postcondition (d : DCom) : Assertion</code>",
+ "1004": "<code>Decorated.precondition (dec : Decorated) : Assertion</code>",
+ "1003": "<code>Decorated</code>",
+ "1002": "<code>Decorated.erase (dec : Decorated) : Com</code>",
+ "1001": "<code>DCom.erase (d : DCom) : Com</code>",
+ "1000": "<code>DCom</code>",
  "100":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.minus a₂) (n₁ - n₂)</code>",
  "10": "<code>Slang.Bexp : Type</code>",

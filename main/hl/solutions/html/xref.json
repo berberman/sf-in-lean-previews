@@ -1638,17 +1638,6 @@
         "Program Transformation",
         "Soundness of (0 + n) Elimination, Redux"]}},
      "address": "/Equiv/"}],
-   "swap_program":
-   [{"id": "swap_program",
-     "data":
-     {"/Hoare/#swap_program":
-      {"display": "swap_program",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Sequencing + Assignment"]}},
-     "address": "/Hoare/"}],
    "swap_noninterfering_assignments":
    [{"id": "swap_noninterfering_assignments",
      "data":
@@ -1679,6 +1668,17 @@
         "Formal Decorated Programs",
         "More Automation"]}},
      "address": "/Hoare2/"}],
+   "swapProgram":
+   [{"id": "swapProgram",
+     "data":
+     {"/Hoare/#swapProgram":
+      {"display": "swapProgram",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "Sequencing + Assignment"]}},
+     "address": "/Hoare/"}],
    "swapDec":
    [{"id": "swapDec",
      "data":
@@ -2094,6 +2094,17 @@
         "Imp: Simple Imperative Programs",
         "Reasoning About Imp Programs"]}},
      "address": "/Imp/"}],
+   "never_loop_hoare":
+   [{"id": "never_loop_hoare",
+     "data":
+     {"/Hoare/#never_loop_hoare":
+      {"display": "never_loop_hoare",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops"]}},
+     "address": "/Hoare/"}],
    "multXandYinZ_spec₂":
    [{"id": "multXandYinZ_spec___-next",
      "data":
@@ -2861,17 +2872,6 @@
         "Expressions With Variables",
         "Notation"]}},
      "address": "/Imp/"}],
-   "bexp_eval_false":
-   [{"id": "bexp_eval_false",
-     "data":
-     {"/Hoare/#bexp_eval_false":
-      {"display": "bexp_eval_false",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "Conditionals"]}},
-     "address": "/Hoare/"}],
    "a₂":
    [{"id": "a___-next",
      "data":
@@ -2981,6 +2981,28 @@
         "Hoare: Hoare Logic, Part I",
         "Assertions",
         "Assertion Implication"]}},
+     "address": "/Hoare/"}],
+   "always_loop_hoare''":
+   [{"id": "always_loop_hoare______",
+     "data":
+     {"/Hoare/#always_loop_hoare______":
+      {"display": "always_loop_hoare''",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops"]}},
+     "address": "/Hoare/"}],
+   "always_loop_hoare'":
+   [{"id": "always_loop_hoare___",
+     "data":
+     {"/Hoare/#always_loop_hoare___":
+      {"display": "always_loop_hoare'",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops"]}},
      "address": "/Hoare/"}],
    "always_loop_hoare":
    [{"id": "always_loop_hoare",
@@ -3146,6 +3168,19 @@
         "Formal Decorated Programs",
         "Syntax"]}},
      "address": "/Hoare2/"}],
+   "_private.HL.Hoare.0.RepeatExercise.Delab.Com.unexpandRepeatUntil":
+   [{"id":
+     "_private___HL___Hoare___0___RepeatExercise___Delab___Com___unexpandRepeatUntil",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___RepeatExercise___Delab___Com___unexpandRepeatUntil":
+      {"display": "Com.unexpandRepeatUntil",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
    "_private.HL.Hoare.0.If1.Delab.Com.unexpandIf1":
    [{"id": "_private___HL___Hoare___0___If1___Delab___Com___unexpandIf1",
      "data":
@@ -3157,6 +3192,42 @@
         "Proof Rules",
         "Conditionals",
         "Exercise: One-sided conditionals"]}},
+     "address": "/Hoare/"}],
+   "_private.HL.Hoare.0.HoareAssertAssume.Delab.Com.unexpandAssume":
+   [{"id":
+     "_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssume",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssume":
+      {"display": "Com.unexpandAssume",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "_private.HL.Hoare.0.HoareAssertAssume.Delab.Com.unexpandAssert":
+   [{"id":
+     "_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssert",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___HoareAssertAssume___Delab___Com___unexpandAssert":
+      {"display": "Com.unexpandAssert",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "_private.HL.Hoare.0.HimpHoare.Delab.Com.unexpandHavoc":
+   [{"id":
+     "_private___HL___Hoare___0___HimpHoare___Delab___Com___unexpandHavoc",
+     "data":
+     {"/Hoare/#_private___HL___Hoare___0___HimpHoare___Delab___Com___unexpandHavoc":
+      {"display": "Com.unexpandHavoc",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Havoc"]}},
      "address": "/Hoare/"}],
    "_private.HL.Hoare.0.Assertion.Delab.getAssn":
    [{"id": "_private___HL___Hoare___0___Assertion___Delab___getAssn",
@@ -4549,11 +4620,11 @@
         "While Loops",
         "Exercise:  repeat"]}},
      "address": "/Hoare/"}],
-   "RepeatExercise.ex1_repeat_works":
-   [{"id": "RepeatExercise___ex1_repeat_works",
+   "RepeatExercise.hoare_repeat_implies_hoare_repeat'":
+   [{"id": "RepeatExercise___hoare_repeat_implies_hoare_repeat___",
      "data":
-     {"/Hoare/#RepeatExercise___ex1_repeat_works":
-      {"display": "ex1_repeat_works",
+     {"/Hoare/#RepeatExercise___hoare_repeat_implies_hoare_repeat___":
+      {"display": "hoare_repeat_implies_hoare_repeat'",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -4561,11 +4632,47 @@
         "While Loops",
         "Exercise:  repeat"]}},
      "address": "/Hoare/"}],
-   "RepeatExercise.ex1_repeat":
-   [{"id": "RepeatExercise___ex1_repeat",
+   "RepeatExercise.hoare_repeat'":
+   [{"id": "RepeatExercise___hoare_repeat___",
      "data":
-     {"/Hoare/#RepeatExercise___ex1_repeat":
-      {"display": "ex1_repeat",
+     {"/Hoare/#RepeatExercise___hoare_repeat___":
+      {"display": "hoare_repeat'",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.hoare_repeat":
+   [{"id": "RepeatExercise___hoare_repeat",
+     "data":
+     {"/Hoare/#RepeatExercise___hoare_repeat":
+      {"display": "hoare_repeat",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.ex1Repeat_works":
+   [{"id": "RepeatExercise___ex1Repeat_works",
+     "data":
+     {"/Hoare/#RepeatExercise___ex1Repeat_works":
+      {"display": "ex1Repeat_works",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Proof Rules",
+        "While Loops",
+        "Exercise:  repeat"]}},
+     "address": "/Hoare/"}],
+   "RepeatExercise.ex1Repeat":
+   [{"id": "RepeatExercise___ex1Repeat",
+     "data":
+     {"/Hoare/#RepeatExercise___ex1Repeat":
+      {"display": "ex1Repeat",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -5734,6 +5841,28 @@
         "Additional Exercises",
         "Assert and Assume"]}},
      "address": "/Hoare/"}],
+   "HoareAssertAssume.hoare_assume":
+   [{"id": "HoareAssertAssume___hoare_assume",
+     "data":
+     {"/Hoare/#HoareAssertAssume___hoare_assume":
+      {"display": "hoare_assume",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
+   "HoareAssertAssume.hoare_assert":
+   [{"id": "HoareAssertAssume___hoare_assert",
+     "data":
+     {"/Hoare/#HoareAssertAssume___hoare_assert":
+      {"display": "hoare_assert",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Additional Exercises",
+        "Assert and Assume"]}},
+     "address": "/Hoare/"}],
    "HoareAssertAssume.hoare_asgn":
    [{"id": "HoareAssertAssume___hoare_asgn",
      "data":
@@ -6779,6 +6908,16 @@
         "Evaluating Commands",
         "Operational Semantics"]}},
      "address": "/Imp/"}],
+   "HasEval.Delab.delabEvalR":
+   [{"id": "HasEval___Delab___delabEvalR",
+     "data":
+     {"/Hoare/#HasEval___Delab___delabEvalR":
+      {"display": "delabEvalR",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Hoare Triples, Formally"]}},
+     "address": "/Hoare/"}],
    "HasEval":
    [{"id": "HasEval",
      "data":
@@ -8423,6 +8562,17 @@
         "Proof Rules",
         "Assignment"]}},
      "address": "/Hoare/"}],
+   "Assertion.Delab.delabExistsState":
+   [{"id": "Assertion___Delab___delabExistsState",
+     "data":
+     {"/Hoare/#Assertion___Delab___delabExistsState":
+      {"display": "delabExistsState",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
+        "Printing Assertions"]}},
+     "address": "/Hoare/"}],
    "Assertion.Delab.delabBody":
    [{"id": "Assertion___Delab___delabBody",
      "data":
@@ -8501,6 +8651,17 @@
      "data":
      {"/Hoare/#AssertImplies":
       {"display": "AssertImplies",
+       "context":
+       ["Hoare Logic",
+        "Hoare: Hoare Logic, Part I",
+        "Assertions",
+        "Assertion Implication"]}},
+     "address": "/Hoare/"}],
+   "AssertIff":
+   [{"id": "AssertIff",
+     "data":
+     {"/Hoare/#AssertIff":
+      {"display": "AssertIff",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",

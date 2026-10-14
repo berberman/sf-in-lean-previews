@@ -1,5 +1,5 @@
 {
-  "main_sha": "88200c16482eeb13d05ac64825d8573e32191abf",
+  "main_sha": "ad16a2417b1561796c3f0eb5a652aafdc4d77e29",
   "prs": {
     "418": {
       "base_sha": "dcf44331b94b0918ec9655c06a459390e3924177",
@@ -47,53 +47,6 @@
       "status": "published",
       "title": "Add cross-book chapter references",
       "url": "https://github.com/plclub/sf-in-lean/pull/418"
-    },
-    "441": {
-      "base_sha": "1894c7ce51aa1586a73fd2a41df53d3b17417306",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "bba239f0a452484a6c897f7ea103eda927072b7b",
-      "preview_path": "pr/441/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/37790961597",
-      "status": "published",
-      "title": "Hoare pass",
-      "url": "https://github.com/plclub/sf-in-lean/pull/441"
     },
     "443": {
       "base_sha": "dc58a45f22b16f24965be14b5075a2befadf5985",
@@ -143,7 +96,7 @@
       "url": "https://github.com/plclub/sf-in-lean/pull/443"
     },
     "448": {
-      "base_sha": "e2b3e1623dc50e4619eb4dde8ba02531e71424ac",
+      "base_sha": "88200c16482eeb13d05ac64825d8573e32191abf",
       "changed_variants": [
         {
           "audience": "solutions",
@@ -182,9 +135,9 @@
           "volume": "ts"
         }
       ],
-      "head_sha": "41bdf9d6565ccb7c3eb02f41e006f3d680c22695",
+      "head_sha": "a6230d4531c95aa6019b17ffd57f6e9bc59831b5",
       "preview_path": "pr/448/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38302745517",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38565188413",
       "status": "published",
       "title": "`inversion` tactic cleanup",
       "url": "https://github.com/plclub/sf-in-lean/pull/448"

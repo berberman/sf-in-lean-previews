@@ -1091,7 +1091,7 @@ theorem plus2_spec {st : State} {n : Nat} {st' : State}
 
 --  FILL IN HERE
 
---  ### Exercise (3 stars): loop_never_stops ⭐⭐⭐
+--  ### Exercise (3 stars): loop_never_stops (Optional) ⭐⭐⭐
 
 --  Hint: proceed by induction on the assumed derivation showing that
 --  `loop` terminates. Most of the cases are immediately contradictory and
@@ -1654,4 +1654,4 @@ end Imp.Break
 --  Notation for `for` loops, but feel free to play with this too if you
 --  like.)
 
--- Source revision: 9d4ea5f, committed 2026-10-12 20:12 UTC
+-- Source revision: 382df0b, committed 2026-10-14 12:37 UTC
