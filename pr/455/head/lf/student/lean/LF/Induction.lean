@@ -941,4 +941,4 @@ theorem bin_nat_bin (b : Bin) :
 end NatToBin
 end NatPlayground.Nat
 
--- Source revision: d4c0cd4, committed 2026-10-15 16:37 UTC
+-- Source revision: e2873d6, committed 2026-10-15 17:25 UTC

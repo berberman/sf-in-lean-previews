@@ -994,10 +994,10 @@ theorem assertion_sub_example :
 --  well. We can capture this observation with the following
 --  rule:
 --
---         {{P'}} c {{Q}}
---           P ↞↠ P'
---      ---------------------
---         {{P}} c {{Q}}
+--      {{P'}} c {{Q}}
+--          P ↞↠ P'
+--      --------------
+--      {{P}} c {{Q}}
 
 --  Taking this line of thought a bit further, we can see
 --  that strengthening the precondition or weakening the
@@ -1006,14 +1006,14 @@ theorem assertion_sub_example :
 --  of Consequence*.
 --
 --      {{P'}} c {{Q}}
---         P ↠ P'
+--          P ↠ P'
 --      --------------   (hoare_consequence_pre)
---       {{P}} c {{Q}}
+--      {{P}} c {{Q}}
 --
 --      {{P}} c {{Q'}}
---        Q' ↠ Q
+--         Q' ↠ Q
 --      --------------    (hoare_consequence_post)
---       {{P}} c {{Q}}
+--      {{P}} c {{Q}}
 
 --  Here are the formal versions:
 
@@ -1069,11 +1069,11 @@ theorem assertion_sub_example2 :
 --  allows us to vary both the precondition and the
 --  postcondition.
 --
---             {{P'}} c {{Q'}}
---                P ↠ P'
---                Q' ↠ Q
---      -----------------------------   (hoare_consequence)
---             {{P}} c {{Q}}
+--      {{P'}} c {{Q'}}
+--           P ↠ P'
+--          Q' ↠ Q
+--      ---------------   (hoare_consequence)
+--       {{P}} c {{Q}}
 
 theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
     (htriple : {{ P' }} c {{ Q' }}) (hpre : P ↠ P') (hpost : Q' ↠ Q) :
@@ -1131,7 +1131,10 @@ theorem hoare_consequence_pre' {P P' Q : Assertion} {c : Com}
 --  Since, after the `rw` and `intro`, the remaining steps
 --  just apply hypotheses to the goal (and each other), the
 --  remaining proof can be compressed into a single tactic:
---  `apply_rules`.
+--  `apply_rules`. Besides local hypotheses, `apply_rules`
+--  also tries `rfl` and `trivial` automatically, and
+--  `apply_rules [l₁, l₂, …]` additionally tries the given
+--  lemmas.
 
 theorem hoare_consequence_pre'' {P P' Q : Assertion} {c : Com}
     (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
@@ -1189,7 +1192,7 @@ theorem assertion_sub_example2' :
     {{X < 5}} := by
   apply hoare_consequence_pre
   · exact hoare_asgn
-  · simp [assertImplies_def] <;> -- an arithmetic goal remains
+  · simp [assertImplies_def] -- an arithmetic goal remains
     lia
 
 --  Let's introduce our own tactic to handle both that
@@ -1347,19 +1350,6 @@ theorem if_example :
     apply hoare_consequence_pre
     · exact hoare_asgn
     · assertion_auto
-
---  We can even shorten it a little bit more.
-
-theorem if_example' :
-    {{True}}
-      if (X = 0) {
-        Y := 2
-      } else {
-        Y := X + 1
-      }
-    {{X ≤ Y}} := by
-  apply hoare_if <;>
-    apply hoare_consequence_pre hoare_asgn (by assertion_auto)
 
 --  ### While Loops
 
@@ -1585,4 +1575,4 @@ theorem hoare_while {P : Assertion} {b : Bexp} {c : Com}
 --  of Hoare logic as a closed world for reasoning about
 --  programs.
 
--- Source revision: d4c0cd4, committed 2026-10-15 16:37 UTC
+-- Source revision: e2873d6, committed 2026-10-15 17:25 UTC

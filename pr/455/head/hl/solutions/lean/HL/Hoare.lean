@@ -1407,10 +1407,10 @@ theorem hoare_asgn_fwd_exists {a : Aexp} {P : Assertion} :
 --  then the other must certainly be as well. We can capture this
 --  observation with the following rule:
 --
---         {{P'}} c {{Q}}
---           P ↞↠ P'
---      ---------------------
---         {{P}} c {{Q}}
+--      {{P'}} c {{Q}}
+--          P ↞↠ P'
+--      --------------
+--      {{P}} c {{Q}}
 --
 --  Taking this line of thought a bit further, we can see that
 --  strengthening the precondition or weakening the postcondition of a
@@ -1418,14 +1418,14 @@ theorem hoare_asgn_fwd_exists {a : Aexp} {P : Assertion} :
 --  captured by two *Rules of Consequence*.
 --
 --      {{P'}} c {{Q}}
---         P ↠ P'
+--          P ↠ P'
 --      --------------   (hoare_consequence_pre)
---       {{P}} c {{Q}}
+--      {{P}} c {{Q}}
 --
 --      {{P}} c {{Q'}}
---        Q' ↠ Q
+--         Q' ↠ Q
 --      --------------    (hoare_consequence_post)
---       {{P}} c {{Q}}
+--      {{P}} c {{Q}}
 --
 --  Here are the formal versions:
 
@@ -1480,22 +1480,17 @@ theorem assertion_sub_example2 :
   apply hoare_consequence_pre (P' := {{ (X < 5) [X ↦ X + 1] }})
   · exact hoare_asgn
   · rw [assertImplies_def]
-    intro st h
-    simp <;> lia
-
---  Note to developers (Niklas Halonen @xhalo32):
---      The above proof uses `simp <;> lia` purely because `lia` can't see
---      that `X` and `"X"` are the same (they are currently marked as
---      `@[simp]` in Imp).
+    simp
+    lia
 
 --  Finally, here is a combined rule of consequence that allows us to vary
 --  both the precondition and the postcondition.
 --
---             {{P'}} c {{Q'}}
---                P ↠ P'
---                Q' ↠ Q
---      -----------------------------   (hoare_consequence)
---             {{P}} c {{Q}}
+--      {{P'}} c {{Q'}}
+--           P ↠ P'
+--          Q' ↠ Q
+--      ---------------   (hoare_consequence)
+--       {{P}} c {{Q}}
 
 --  Note to developers (Niklas Halonen @xhalo32):
 --      In the following proof, `(P' := P')` is not necessary, however it
@@ -1563,7 +1558,9 @@ theorem hoare_consequence_pre' {P P' Q : Assertion} {c : Com}
 --
 --  Since, after the `rw` and `intro`, the remaining steps just apply
 --  hypotheses to the goal (and each other), the remaining proof can be
---  compressed into a single tactic: `apply_rules`.
+--  compressed into a single tactic: `apply_rules`. Besides local
+--  hypotheses, `apply_rules` also tries `rfl` and `trivial` automatically,
+--  and `apply_rules [l₁, l₂, …]` additionally tries the given lemmas.
 
 theorem hoare_consequence_pre'' {P P' Q : Assertion} {c : Com}
     (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
@@ -1625,7 +1622,7 @@ theorem assertion_sub_example2' :
     {{X < 5}} := by
   apply hoare_consequence_pre
   · exact hoare_asgn
-  · simp [assertImplies_def] <;> -- an arithmetic goal remains
+  · simp [assertImplies_def] -- an arithmetic goal remains
     lia
 
 --  Let's introduce our own tactic to handle both that bullet and the
@@ -1947,18 +1944,27 @@ theorem if_example :
     · exact hoare_asgn
     · assertion_auto
 
---  We can even shorten it a little bit more.
-
-theorem if_example' :
-    {{True}}
-      if (X = 0) {
-        Y := 2
-      } else {
-        Y := X + 1
-      }
-    {{X ≤ Y}} := by
-  apply hoare_if <;>
-    apply hoare_consequence_pre hoare_asgn (by assertion_auto)
+--  Note to developers (Mike Hicks @mwhicks1):
+--      `if_example'` (and the `if_minus_plus` solution below) write
+--      `apply hoare_consequence_pre hoare_asgn (by assertion_auto)`,
+--      supplying `hoare_consequence_pre`'s two arguments directly instead
+--      of applying it and closing the two resulting goals separately. This
+--      idiom has never been shown to students. Options: teach the general
+--      fact here with a sentence or two, or introduce the approach
+--      properly earlier in the text. ===
+--
+--      We can even shorten it a little bit more.
+--
+--      `theorem if_example' :
+--          {{True}}
+--            if (X = 0) {
+--              Y := 2
+--            } else {
+--              Y := X + 1
+--            }
+--          {{X ≤ Y}} := by
+--        apply hoare_if <;>
+--          apply hoare_consequence_pre hoare_asgn (by assertion_auto)`
 
 --  ### Exercise (2 stars): if_minus_plus ⭐⭐
 
@@ -3379,7 +3385,9 @@ theorem hoare_if {P Q : Assertion} {b : Bexp} {c₁ c₂ : Com}
   intro st r heval hpre
   inversion heval with
   | ifTrue hb hc =>
-    -- b is true
+    -- b is true; `htrue` needs a proof of `P st ∧ b.eval st = true`,
+    -- which `apply_rules` builds from `hpre` and `hb` via `And.intro`
+    -- (conjunction-introduction isn't one of its automatic defaults)
     apply_rules [And.intro]
   | ifFalse hb hc =>
     -- b is false
@@ -3460,4 +3468,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: d4c0cd4, committed 2026-10-15 16:37 UTC
+-- Source revision: e2873d6, committed 2026-10-15 17:25 UTC
