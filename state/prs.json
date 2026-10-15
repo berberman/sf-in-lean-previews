@@ -144,48 +144,11 @@
     },
     "455": {
       "base_sha": "9d7ef8f95c8a9a7fa4baa348e701ae3658138835",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "5cd31dbe50e1886ff520c3bbd36d156696a5fe04",
+      "changed_variants": [],
+      "head_sha": "867de26ff02c32c595d72901d231d3d5cef1dec4",
       "preview_path": "pr/455/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38770580756",
-      "status": "published",
+      "run_url": null,
+      "status": "waiting-ci",
       "title": "HL/Hoare: Full pass",
       "url": "https://github.com/plclub/sf-in-lean/pull/455"
     }
