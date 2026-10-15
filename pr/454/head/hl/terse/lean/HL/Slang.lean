@@ -398,4 +398,4 @@ end Slang.AevalRExtended
 --  Functional: computation. Relational: expressive. Best:
 --  both, proved equivalent.
 
--- Source revision: c58235d, committed 2026-10-15 11:54 UTC
+-- Source revision: 049fa36, committed 2026-10-15 12:31 UTC

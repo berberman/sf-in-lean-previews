@@ -457,6 +457,8 @@ theorem assertImplies_def {P Q : Assertion} :
 --  is available only where the `Assertion` namespace is open, as it is
 --  throughout this chapter.)
 --
+--  To type `↠` in VS Code, we can write `\rr-`.
+--
 --  We'll also want the "iff" variant of implication between assertions:
 
 def AssertIff (P Q : Assertion) : Prop :=
@@ -469,6 +471,8 @@ end Assertion
 theorem assertIff_def {P Q : Assertion} :
     P ↞↠ Q ↔ (P ↠ Q) ∧ (Q ↠ P) := by rfl
 
+--  To type `↞↠` in VS Code, we can write `\llrr` or `\ll-\rr-`.
+--
 --  The matching delaborators print implications and equivalences between
 --  assertions back in `↠` and `↞↠` notation.
 
@@ -2887,4 +2891,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: c58235d, committed 2026-10-15 11:54 UTC
+-- Source revision: 049fa36, committed 2026-10-15 12:31 UTC

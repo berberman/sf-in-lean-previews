@@ -957,4 +957,4 @@ def IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop :=
 --       while (true) {X := 0}
 --       {{ X = 0 }}
 
--- Source revision: c58235d, committed 2026-10-15 11:54 UTC
+-- Source revision: 049fa36, committed 2026-10-15 12:31 UTC
