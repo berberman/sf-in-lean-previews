@@ -141,53 +141,6 @@
       "status": "published",
       "title": "inversion: accept `@` alternatives, like `cases`",
       "url": "https://github.com/plclub/sf-in-lean/pull/449"
-    },
-    "454": {
-      "base_sha": "84ffe058ad6378462747e2a479d617e3d0fc45fa",
-      "changed_variants": [
-        {
-          "audience": "solutions",
-          "volume": "hl"
-        },
-        {
-          "audience": "student",
-          "volume": "hl"
-        },
-        {
-          "audience": "terse",
-          "volume": "hl"
-        },
-        {
-          "audience": "solutions",
-          "volume": "lf"
-        },
-        {
-          "audience": "student",
-          "volume": "lf"
-        },
-        {
-          "audience": "terse",
-          "volume": "lf"
-        },
-        {
-          "audience": "solutions",
-          "volume": "ts"
-        },
-        {
-          "audience": "student",
-          "volume": "ts"
-        },
-        {
-          "audience": "terse",
-          "volume": "ts"
-        }
-      ],
-      "head_sha": "ac5876478e5b7893244b8fbaed0befa8bc6afc6b",
-      "preview_path": "pr/454/head/",
-      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/38735289259",
-      "status": "published",
-      "title": "notation change",
-      "url": "https://github.com/plclub/sf-in-lean/pull/454"
     }
   },
   "schema": 3
