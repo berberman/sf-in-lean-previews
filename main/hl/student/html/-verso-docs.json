@@ -1284,7 +1284,7 @@
  "<code>HimpHoare.ValidHoareTriple (P : Assertion) (c : HimpHoare.Com) (Q : Assertion) : Prop</code>",
  "1575": "<code>HimpHoare.ValidHoareTriple p (imp {havoc x}) q</code>",
  "1574":
- "<code>HimpHoare2.hoare_havoc_weakest (p q : Assertion) (x : Ident) (h : HimpHoare.ValidHoareTriple p (imp {havoc x}) q) :\n  p -&gt;&gt; havoc_pre x q</code>",
+ "<code>HimpHoare2.hoare_havoc_weakest (p q : Assertion) (x : Ident) (h : HimpHoare.ValidHoareTriple p (imp {havoc x}) q) :\n  p ↠ havoc_pre x q</code>",
  "1573":
  "<code>hoare_asgn_weakest (q : Assertion) (x : Ident) (a : Aexp) : IsWp ({{q [x ↦ a]}}) (imp {x := a}) q</code>",
  "1572":
@@ -1419,8 +1419,7 @@
  "1486": "<code>Lean.TSyntax `imp_bexp</code>",
  "1485": "<code>Lean.TSyntax `dcom</code>",
  "1484": "<code><span class=\"literal string\">\"dcom\"</span> : String</code>",
- "1483":
- "<code><span class=\"literal string\">\"-&gt;&gt;\"</span> : String</code>",
+ "1483": "<code><span class=\"literal string\">\"↠\"</span> : String</code>",
  "1482": "<code><span class=\"literal string\">\"do\"</span> : String</code>",
  "1481": "<code><span class=\"literal string\">\"end\"</span> : String</code>",
  "1480": "<code><span class=\"literal string\">\"then\"</span> : String</code>",
@@ -1585,13 +1584,13 @@
  "1382":
  "<code>∀ {st : State} {r : Result}, (st =[ c ]=&gt; r) → P st → ∃ st', r = Result.normal st' ∧ Q' st'</code>",
  "1381":
- "<code>HoareAssertAssume.hoare_consequence_post {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' -&gt;&gt; Q) :\n  {{P}} ~c {{Q}}</code>",
+ "<code>HoareAssertAssume.hoare_consequence_post {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' ↠ Q) :\n  {{P}} ~c {{Q}}</code>",
  "1380": "<code>st =[ c ]=&gt; r</code>",
  "138": "<code>a₂ ⇓ a₂.eval</code>",
  "1379":
  "<code>∀ {st : State} {r : Result}, (st =[ c ]=&gt; r) → P' st → ∃ st', r = Result.normal st' ∧ Q st'</code>",
  "1378":
- "<code>HoareAssertAssume.hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') :\n  {{P}} ~c {{Q}}</code>",
+ "<code>HoareAssertAssume.hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P ↠ P') :\n  {{P}} ~c {{Q}}</code>",
  "1377": "<code>st =[ x := a ]=&gt; r</code>",
  "1376":
  "<code>HoareAssertAssume.hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} : {{Q [x ↦ a]}} x := a {{Q}}</code>",
@@ -1671,7 +1670,7 @@
  "133":
  "<code>Slang.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} (h₁ : a₁ ⇓ n₁) (h₂ : a₂ ⇓ n₂) : a₁.minus a₂ ⇓ n₁ - n₂</code>",
  "1329":
- "<code>HimpHoare.hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') :\n  {{P}} ~c {{Q}}</code>",
+ "<code>HimpHoare.hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P ↠ P') :\n  {{P}} ~c {{Q}}</code>",
  "1328":
  "<code>HimpHoare.validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :\n  {{P}} ~c {{Q}} ↔ ∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q st'</code>",
  "1327":
@@ -1817,7 +1816,7 @@
  "1244":
  "<code>If1.hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} : {{Q [x ↦ a]}} x := a {{Q}}</code>",
  "1243":
- "<code>If1.hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "<code>If1.hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P ↠ P') : {{P}} ~c {{Q}}</code>",
  "1242":
  "<code>If1.validHoareTriple_def {P : Assertion} {c : Com} {Q : Assertion} :\n  {{P}} ~c {{Q}} ↔ ∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q st'</code>",
  "1241":
@@ -1916,16 +1915,16 @@
  "1188": "<code>hoare_asgn_example1'' : {{True}} X := 1 {{X = 1}}</code>",
  "1187": "<code>hoare_asgn_example1' : {{True}} X := 1 {{X = 1}}</code>",
  "1186":
- "<code>hoare_consequence_post' {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' -&gt;&gt; Q) : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_post' {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' ↠ Q) : {{P}} ~c {{Q}}</code>",
  "1185":
- "<code>hoare_consequence_pre'' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_pre'' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P ↠ P') : {{P}} ~c {{Q}}</code>",
  "1184":
  "<code class=\"docstring\">`apply_rules [l₁, l₂, ...]` tries to solve the main goal by iteratively\napplying the list of lemmas `[l₁, l₂, ...]` or by applying a local hypothesis.\nIf `apply` generates new goals, `apply_rules` iteratively tries to solve those goals.\nYou can use `apply_rules [-h]` to omit a local hypothesis.\n\n`apply_rules` will also use `rfl`, `trivial`, `congrFun` and `congrArg`.\nThese can be disabled, as can local hypotheses, by using `apply_rules only [...]`.\n\nYou can use `apply_rules using [a₁, ...]` to use all lemmas which have been labelled\nwith the attributes `aᵢ` (these attributes must be created using `register_label_attr`).\n\nYou can pass a further configuration via the syntax `apply_rules (config := {...})`.\nThe options supported are the same as for `solve_by_elim` (and include all the options for `apply`).\n\n`apply_rules` will try calling `symm` on hypotheses and `exfalso` on the goal as needed.\nThis can be disabled with `apply_rules (config := {symm := false, exfalso := false})`.\n\nYou can bound the iteration depth using the syntax `apply_rules (config := {maxDepth := n})`.\n\nUnlike `solve_by_elim`, `apply_rules` does not perform backtracking, and greedily applies\na lemma from the list until it gets stuck.\n</code>",
  "1183":
- "<code>hoare_consequence_pre' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_pre' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P ↠ P') : {{P}} ~c {{Q}}</code>",
  "1182": "<code>{{P'}} ~c {{Q'}}</code>",
  "1181":
- "<code>hoare_consequence {P P' Q Q' : Assertion} {c : Com} (htriple : {{P'}} ~c {{Q'}}) (hpre : P -&gt;&gt; P') (hpost : Q' -&gt;&gt; Q) :\n  {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence {P P' Q Q' : Assertion} {c : Com} (htriple : {{P'}} ~c {{Q'}}) (hpre : P ↠ P') (hpost : Q' ↠ Q) :\n  {{P}} ~c {{Q}}</code>",
  "1180": "<code>st[X] &lt; 4</code>",
  "118":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.mult {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.mult a₂) (n₁ * n₂)</code>",
@@ -1936,19 +1935,19 @@
  "1176": "<code>∀ (st : State), Q' st → Q st</code>",
  "1175":
  "<code>∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q' st'</code>",
- "1174": "<code>Q' -&gt;&gt; Q</code>",
+ "1174": "<code>Q' ↠ Q</code>",
  "1173": "<code>{{P}} ~c {{Q'}}</code>",
  "1172":
- "<code>hoare_consequence_post {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' -&gt;&gt; Q) : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_post {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' ↠ Q) : {{P}} ~c {{Q}}</code>",
  "1171": "<code>∀ (st : State), P st → P' st</code>",
  "1170":
  "<code>∀ {st st' : State}, (st =[ c ]=&gt; st') → P' st → Q st'</code>",
  "117":
  "<code>Slang.ArithUnnamed.Aexp.EvalR.minus {a₁ a₂ : Aexp} {n₁ n₂ : Nat} :\n  EvalR a₁ n₁ → EvalR a₂ n₂ → EvalR (a₁.minus a₂) (n₁ - n₂)</code>",
- "1169": "<code>P -&gt;&gt; P'</code>",
+ "1169": "<code>P ↠ P'</code>",
  "1168": "<code>{{P'}} ~c {{Q}}</code>",
  "1167":
- "<code>hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P ↠ P') : {{P}} ~c {{Q}}</code>",
  "1166":
  "<code>hoare_asgn_fwd_exists {a : Aexp} {P : Assertion} :\n  {{P}} X := a {{fun st =&gt; ∃ m, P (X →ₜ m ; st) ∧ st[X] = Aexp.eval (X →ₜ m ; st) a}}</code>",
  "1165":
@@ -2040,15 +2039,13 @@
  "1113": "<code>Assertion.Delab.delabAssertIff : Delab</code>",
  "1112": "<code>Assertion.Delab.delabAssertImplies : Delab</code>",
  "1111":
- "<code>assertIff_def {P Q : Assertion} : P &lt;&lt;-&gt;&gt; Q ↔ (P -&gt;&gt; Q) ∧ (Q -&gt;&gt; P)</code>",
- "1110":
- "<code><span class=\"literal string\">\" &lt;&lt;-&gt;&gt; \"</span> : String</code>",
+ "<code>assertIff_def {P Q : Assertion} : P ↞↠ Q ↔ (P ↠ Q) ∧ (Q ↠ P)</code>",
+ "1110": "<code><span class=\"literal string\">\" ↞↠ \"</span> : String</code>",
  "111": "<code>EvalR a₂ n₂</code>",
  "1109": "<code>AssertIff (P Q : Assertion) : Prop</code>",
  "1108":
- "<code>assertImplies_def {P Q : Assertion} : P -&gt;&gt; Q ↔ ∀ (st : State), P st → Q st</code>",
- "1107":
- "<code><span class=\"literal string\">\" -&gt;&gt; \"</span> : String</code>",
+ "<code>assertImplies_def {P Q : Assertion} : P ↠ Q ↔ ∀ (st : State), P st → Q st</code>",
+ "1107": "<code><span class=\"literal string\">\" ↠ \"</span> : String</code>",
  "1106": "<code>AssertImplies (P Q : Assertion) : Prop</code>",
  "1105":
  "<code>Lean.PrettyPrinter.Delaborator.withBindingBodyUnusedName {α : Type} (d : Syntax → DelabM α)\n  (preserveName : Bool := false) (avoid : NameSet := ∅) : DelabM α</code><span class=\"sep\"></span><code class=\"docstring\">Enters the body of the current expression, which must be a lambda or forall.\nThe binding variable is passed to `d` as `Syntax`, and it is an identifier that has been annotated with the fvar expression\nfor the variable.\n\nIf `pp.safeShadowing` is true, then the name is allowed to shadow a name in the local context\nif the name does not appear in the body or in the `avoid` set.\n(The `avoid` set is assumed to be a subset of the names used by the local context.)\n\nIf `preserveName` is `false` (the default), gives the binder an unused name.\nOtherwise, it tries to preserve the textual form of the name, preserving whether it is hygienic.\n</code>",

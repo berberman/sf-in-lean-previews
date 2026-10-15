@@ -531,7 +531,7 @@ end Assertion.Delab
 --  ### Assertion Implication
 
 --  Given two assertions `P` and `Q`, we say that `P` *implies* `Q`,
---  written `P ->> Q`, if, whenever `P` holds in some state `st`, `Q` also
+--  written `P ↠ Q`, if, whenever `P` holds in some state `st`, `Q` also
 --  holds.
 
 def AssertImplies (P Q : Assertion) : Prop :=
@@ -541,30 +541,34 @@ def AssertImplies (P Q : Assertion) : Prop :=
 --  "usual" Lean implication `→`.
 
 namespace Assertion
-scoped notation:26 P:27 " ->> " Q:27 => AssertImplies P Q
+scoped notation:26 P:27 " ↠ " Q:27 => AssertImplies P Q
 end Assertion
 
 theorem assertImplies_def {P Q : Assertion} :
-    P ->> Q ↔ ∀ st : State, P st → Q st := by rfl
+    P ↠ Q ↔ ∀ st : State, P st → Q st := by rfl
 
 --  (The `scoped` keyword tells Lean that this notation is not global but
 --  is available only where the `Assertion` namespace is open, as it is
 --  throughout this chapter.)
 --
+--  To type `↠` in VS Code, we can write `\rr-`.
+--
 --  We'll also want the "iff" variant of implication between assertions:
 
 def AssertIff (P Q : Assertion) : Prop :=
-  (P ->> Q) ∧ (Q ->> P)
+  (P ↠ Q) ∧ (Q ↠ P)
 
 namespace Assertion
-scoped notation:26 P:27 " <<->> " Q:27 => AssertIff P Q
+scoped notation:26 P:27 " ↞↠ " Q:27 => AssertIff P Q
 end Assertion
 
 theorem assertIff_def {P Q : Assertion} :
-    P <<->> Q ↔ (P ->> Q) ∧ (Q ->> P) := by rfl
+    P ↞↠ Q ↔ (P ↠ Q) ∧ (Q ↠ P) := by rfl
 
+--  To type `↞↠` in VS Code, we can write `\llrr` or `\ll-\rr-`.
+--
 --  The matching delaborators print implications and equivalences between
---  assertions back in `->>` and `<<->>` notation.
+--  assertions back in `↠` and `↞↠` notation.
 
 --  THE FOLLOWING DETAILS CAN BE SKIPPED (Notation encoding: printing implications back)
 namespace Assertion.Delab
@@ -573,12 +577,12 @@ open Lean PrettyPrinter Delaborator SubExpr
 @[delab app.AssertImplies]
 def delabAssertImplies : Delab := whenPPOption getPPNotation do
   guard <| (← getExpr).isAppOfArity ``AssertImplies 2
-  `($(← delabAssnArg 0) ->> $(← delabAssnArg 1))
+  `($(← delabAssnArg 0) ↠ $(← delabAssnArg 1))
 
 @[delab app.AssertIff]
 def delabAssertIff : Delab := whenPPOption getPPNotation do
   guard <| (← getExpr).isAppOfArity ``AssertIff 2
-  `($(← delabAssnArg 0) <<->> $(← delabAssnArg 1))
+  `($(← delabAssnArg 0) ↞↠ $(← delabAssnArg 1))
 
 end Assertion.Delab
 --  END DETAILS
@@ -1233,7 +1237,7 @@ end Assertion.Delab
 
 namespace ExampleAssertionSub
 example :
-    {{ (X ≤ 5) [X ↦ 3] }} <<->> {{ 3 ≤ 5 }} := by
+    {{ (X ≤ 5) [X ↦ 3] }} ↞↠ {{ 3 ≤ 5 }} := by
   rw [assertIff_def]
   constructor
   · rw [assertImplies_def]
@@ -1244,7 +1248,7 @@ example :
     simp
 
 example :
-    {{ (X ≤ 5) [X ↦ X + 1] }} <<->> {{ (X + 1) ≤ 5 }} := by
+    {{ (X ≤ 5) [X ↦ X + 1] }} ↞↠ {{ (X + 1) ≤ 5 }} := by
   rw [assertIff_def]
   constructor
   · rw [assertImplies_def]
@@ -1447,7 +1451,7 @@ theorem hoare_asgn_fwd_exists {a : Aexp} {P : Assertion} :
 --  observation with the following rule:
 --
 --         {{P'}} c {{Q}}
---           P <<->> P'
+--           P ↞↠ P'
 --      ---------------------
 --         {{P}} c {{Q}}
 --
@@ -1457,19 +1461,19 @@ theorem hoare_asgn_fwd_exists {a : Aexp} {P : Assertion} :
 --  captured by two *Rules of Consequence*.
 --
 --             {{P'}} c {{Q}}
---                P ->> P'
+--                P ↠ P'
 --      -----------------------------   (hoare_consequence_pre)
 --             {{P}} c {{Q}}
 --
 --             {{P}} c {{Q'}}
---               Q' ->> Q
+--               Q' ↠ Q
 --      -----------------------------    (hoare_consequence_post)
 --             {{P}} c {{Q}}
 --
 --  Here are the formal versions:
 
 theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
-    (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
+    (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
@@ -1478,7 +1482,7 @@ theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
   exact himp _ hpre
 
 theorem hoare_consequence_post {P Q Q' : Assertion} {c : Com}
-    (hhoare : {{ P }} c {{ Q' }}) (himp : Q' ->> Q) :
+    (hhoare : {{ P }} c {{ Q' }}) (himp : Q' ↠ Q) :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
@@ -1488,7 +1492,7 @@ theorem hoare_consequence_post {P Q Q' : Assertion} {c : Com}
 
 --  For example, we can use the first consequence rule like this:
 --
---      {{ True }} ->>
+--      {{ True }} ↠
 --      {{ (X = 1) [X ↦ 1] }}
 --        X := 1
 --      {{ X = 1 }}
@@ -1505,7 +1509,7 @@ theorem hoare_asgn_example1 :
 
 --  We can also use it to prove the example mentioned earlier.
 --
---      {{ X < 4 }} ->>
+--      {{ X < 4 }} ↠
 --      {{ (X < 5)[X ↦ X + 1] }}
 --        X := X + 1
 --      {{ X < 5 }}
@@ -1531,8 +1535,8 @@ theorem assertion_sub_example2 :
 --  both the precondition and the postcondition.
 --
 --             {{P'}} c {{Q'}}
---                P ->> P'
---                Q' ->> Q
+--                P ↠ P'
+--                Q' ↠ Q
 --      -----------------------------   (hoare_consequence)
 --             {{P}} c {{Q}}
 
@@ -1543,7 +1547,7 @@ theorem assertion_sub_example2 :
 --      `exact hoare_consequence_pre (hoare_consequence_post htriple hpost) hpre`.
 
 theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
-    (htriple : {{ P' }} c {{ Q' }}) (hpre : P ->> P') (hpost : Q' ->> Q) :
+    (htriple : {{ P' }} c {{ Q' }}) (hpre : P ↠ P') (hpost : Q' ↠ Q) :
     {{ P }} c {{ Q }} := by
   apply hoare_consequence_pre (P' := P')
   · exact hoare_consequence_post htriple hpost
@@ -1571,7 +1575,7 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
 --  that's just application of a hypothesis.)
 --
 --      theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
---          (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
+--          (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
 --          {{ P }} c {{ Q }} := by
 --        rw [validHoareTriple_def] at hhoare ⊢
 --        intro st st' heval hpre
@@ -1581,7 +1585,7 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
 --
 --  Since `AssertImplies` is not marked `irreducible`, and
 --  `assertImplies_def` is a proof by definitional equality, we can skip
---  the `rw [assertImplies_def] at himp` and use `P ->> P'` like an
+--  the `rw [assertImplies_def] at himp` and use `P ↠ P'` like an
 --  implication directly.
 
 --  Note to developers (Niklas Halonen @xhalo32):
@@ -1589,7 +1593,7 @@ theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
 --      definitions without using their characterizing lemmas.
 
 theorem hoare_consequence_pre' {P P' Q : Assertion} {c : Com}
-    (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
+    (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
@@ -1604,7 +1608,7 @@ theorem hoare_consequence_pre' {P P' Q : Assertion} {c : Com}
 --  compressed into a single tactic: `apply_rules`.
 
 theorem hoare_consequence_pre'' {P P' Q : Assertion} {c : Com}
-    (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
+    (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
@@ -1613,7 +1617,7 @@ theorem hoare_consequence_pre'' {P P' Q : Assertion} {c : Com}
 --  The same trick works for `hoare_consequence_post`.
 
 theorem hoare_consequence_post' {P Q Q' : Assertion} {c : Com}
-    (hhoare : {{ P }} c {{ Q' }}) (himp : Q' ->> Q) :
+    (hhoare : {{ P }} c {{ Q' }}) (himp : Q' ↠ Q) :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
@@ -1627,7 +1631,7 @@ theorem hoare_asgn_example1' :
   apply hoare_consequence_pre -- leaves a "hole" `?P'` for the precondition
   · -- The goal is `{{?P'}} X := 1 {{X = 1}}`
     exact hoare_asgn -- assigns `{{ (X = 1) [X ↦ 1] }}` to `?P'`, closing `case P'`
-  · intro st _ -- Since `->>` is an implication, we can just use `intro` directly.
+  · intro st _ -- Since `↠` is an implication, we can just use `intro` directly.
     simp
 
 --  The final bullet of that proof also looks like a candidate for
@@ -1761,15 +1765,15 @@ theorem hoare_asgn_example3 (a : Aexp) (n : Nat) :
 
 --  Translate this "decorated program" into a formal proof:
 --
---                     {{ True }} ->>
+--                     {{ True }} ↠
 --                     {{ 1 = 1 }}
 --      X := 1
---                     {{ X = 1 }} ->>
+--                     {{ X = 1 }} ↠
 --                     {{ X = 1 ∧ 2 = 2 }};
 --      Y := 2
 --                     {{ X = 1 ∧ Y = 2 }}
 --
---  Note the use of "`->>`" decorations, each marking a use of
+--  Note the use of "`↠`" decorations, each marking a use of
 --  `hoare_consequence_pre`.
 --
 --  We've started you off by providing a use of `hoare_seq` that explicitly
@@ -2179,12 +2183,12 @@ attribute [irreducible] ValidHoareTriple
 --
 --  Hint: if you encounter difficulty getting Lean to parse part of your
 --  rule as an assertion, try wrapping it in the `{{ … }}` brackets (and in
---  parentheses, when it is an argument of `->>`). For example, if you want
+--  parentheses, when it is an argument of `↠`). For example, if you want
 --  `P ∧ ¬ b` to be read as an assertion, write it as `({{ P ∧ ¬ b }})`.
 
 theorem hoare_if1 {b : Bexp} {c : Com} {P Q : Assertion}
     (htrue : {{ P ∧ b }} c {{ Q }})
-    (hfalse : ({{ P ∧ ¬ b }}) ->> Q) :
+    (hfalse : ({{ P ∧ ¬ b }}) ↠ Q) :
     {{ P }} if1 (b) { c } {{ Q }} := by
   rw [validHoareTriple_def] at htrue ⊢
   intro st st' heval hpre
@@ -2210,7 +2214,7 @@ theorem hoare_if1 {b : Bexp} {c : Com} {P Q : Assertion}
 --  consequence (for preconditions) and assignment for the new `Com` type.
 
 theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
-    (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
+    (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
@@ -2765,14 +2769,14 @@ theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
     exact hQ
 
 theorem hoare_consequence {P P' Q Q' : Assertion} {c : Com}
-    (hht : {{ P' }} c {{ Q' }}) (hPP' : P ->> P') (hQ'Q : Q' ->> Q) :
+    (hht : {{ P' }} c {{ Q' }}) (hPP' : P ↠ P') (hQ'Q : Q' ↠ Q) :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hht ⊢
   intro st st' hc hP
   apply_rules
 
 theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
-    (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
+    (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st st' hc hP
@@ -2921,8 +2925,8 @@ end RepeatExercise
 --        {{P}} while b do c end {{P ∧ ¬ b}}
 --
 --                {{P'}} c {{Q'}}
---                   P ->> P'
---                   Q' ->> Q
+--                   P ↠ P'
+--                   Q' ↠ Q
 --         -----------------------------   (hoare_consequence)
 --                {{P}} c {{Q}}
 --
@@ -3052,7 +3056,7 @@ attribute [irreducible] ValidHoareTriple
 --  And the precondition consequence rule is exactly as before.
 
 theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
-    (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
+    (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st st' heval hpre
@@ -3314,14 +3318,14 @@ theorem hoare_asgn {Q : Assertion} {x : Ident} {a : Aexp} :
     exact ⟨rfl, hQ⟩
 
 theorem hoare_consequence_pre {P P' Q : Assertion} {c : Com}
-    (hhoare : {{ P' }} c {{ Q }}) (himp : P ->> P') :
+    (hhoare : {{ P' }} c {{ Q }}) (himp : P ↠ P') :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st r hc hpre
   apply_rules
 
 theorem hoare_consequence_post {P Q Q' : Assertion} {c : Com}
-    (hhoare : {{ P }} c {{ Q' }}) (himp : Q' ->> Q) :
+    (hhoare : {{ P }} c {{ Q' }}) (himp : Q' ↠ Q) :
     {{ P }} c {{ Q }} := by
   rw [validHoareTriple_def] at hhoare ⊢
   intro st r hc hpre
@@ -3444,4 +3448,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: 84ffe05, committed 2026-10-14 13:18 UTC
+-- Source revision: 9d7ef8f, committed 2026-10-15 13:13 UTC

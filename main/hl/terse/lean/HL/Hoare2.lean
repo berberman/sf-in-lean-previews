@@ -104,28 +104,28 @@ open scoped Com MyGetElem Assertion HasTriple
 --  Here is a decorated version of this program, embodying a
 --  proof of this specification:
 --
---      {{ True }} ->>
+--      {{ True }} ↠
 --      {{ m = m }}
 --        X := m
---                           {{ X = m }} ->>
+--                           {{ X = m }} ↠
 --                           {{ X = m ∧ p = p }};
 --        Z := p;
---                           {{ X = m ∧ Z = p }} ->>
+--                           {{ X = m ∧ Z = p }} ↠
 --                           {{ Z - X = p - m }}
 --        while X ≠ 0 do
---                           {{ Z - X = p - m ∧ X ≠ 0 }} ->>
+--                           {{ Z - X = p - m ∧ X ≠ 0 }} ↠
 --                           {{ (Z - 1) - (X - 1) = p - m }}
 --          Z := Z - 1
 --                           {{ Z - (X - 1) = p - m }};
 --          X := X - 1
 --                           {{ Z - X = p - m }}
 --        end
---      {{ Z - X = p - m ∧ ¬ (X ≠ 0) }} ->>
+--      {{ Z - X = p - m ∧ ¬ (X ≠ 0) }} ↠
 --      {{ Z = p - m }}
 
 --  Concretely, a decorated program consists of the
 --  program's text interleaved with assertions (sometimes
---  multiple assertions separated by ->>).
+--  multiple assertions separated by ↠).
 
 --  A decorated program can be viewed as a compact
 --  representation of a proof in Hoare Logic: the assertions
@@ -357,14 +357,14 @@ end DComFirstTry
 --  The postcondition embedded in `d` serves as the loop
 --  invariant.
 
---  - Implications `->>` can be added as decorations either
+--  - Implications `↠` can be added as decorations either
 --    for a precondition...
 --
---      ->> {{ p }} d
+--      ↠ {{ p }} d
 --
 --  ...or for a postcondition:
 --
---      d ->> {{ q }}
+--      d ↠ {{ q }}
 --
 --  The former is waiting for another precondition to be
 --  supplied by the context; the latter relies on the
@@ -404,8 +404,8 @@ syntax:max "if " "(" imp_bexp ")" ppHardSpace "then" ppLine
 syntax:max "while " "(" imp_bexp ")" ppHardSpace "do" ppLine
   "{{" term "}}" ppLine dcom ppDedent(ppLine "end") ppLine
   "{{" term "}}" : dcom
-syntax:5 "->>" " {{" term "}}" ppLine dcom:0 : dcom
-syntax:5 dcom:6 ppLine "->>" " {{" term "}}" : dcom
+syntax:5 "↠" " {{" term "}}" ppLine dcom:0 : dcom
+syntax:5 dcom:6 ppLine "↠" " {{" term "}}" : dcom
 
 syntax:min "dcom" ppHardSpace "{" ppLine dcom
   ppDedent(ppLine "}") : term
@@ -440,9 +440,9 @@ macro_rules
             {{ $q }}) =>
         `(DCom.whileDo (bexp { $b }) ({{ $p }})
           (dcom { $body }) ({{ $q }}))
-      | `(dcom| ->> {{ $p }} $body:dcom) =>
+      | `(dcom| ↠ {{ $p }} $body:dcom) =>
         `(DCom.pre ({{ $p }}) (dcom { $body }))
-      | `(dcom| $body:dcom ->> {{ $q }}) =>
+      | `(dcom| $body:dcom ↠ {{ $q }}) =>
         `(DCom.post (dcom { $body }) ({{ $q }}))
       | _ => Lean.Macro.throwUnsupported
     return Imp.Elab.withSourceInfoOf s stx
@@ -526,14 +526,14 @@ def unexpandWhileDo : Unexpander
 def unexpandPre : Unexpander
   | `($_ $pre $body) => do
       let some body := getDCom? body | throw ()
-      `(dcom { ->> {{ $(getAssnBody pre) }} $body })
+      `(dcom { ↠ {{ $(getAssnBody pre) }} $body })
   | _ => throw ()
 
 @[app_unexpander DCom.post]
 def unexpandPost : Unexpander
   | `($_ $body $post) => do
       let some body := getDCom? body | throw ()
-      `(dcom { $body ->> {{ $(getAssnBody post) }} })
+      `(dcom { $body ↠ {{ $(getAssnBody post) }} })
   | _ => throw ()
 
 end DCom.Delab
@@ -576,7 +576,7 @@ def decWhile : Decorated where
       X := X - 1 {{ True }}
     end
       {{ True ∧ X = 0 }}
-    ->> {{ X = 0 }}
+    ↠ {{ X = 0 }}
   }
 
 --  It is easy to go from a `dcom` to a `com` by erasing all
@@ -660,7 +660,7 @@ example :
 --  conjunction that includes
 --  - local consistency checks for each form of command,
 --    plus
---  - uses of `->>` to bridge the gap between the assertions
+--  - uses of `↠` to bridge the gap between the assertions
 --    found inside a decorated command and the assertions
 --    imposed by the external precondition; these uses
 --    correspond to applications of the consequence rule.
@@ -671,7 +671,7 @@ example :
 --      skip {{q}}
 --
 --  is locally consistent with respect to a precondition `p`
---  if `p ->> q`.
+--  if `p ↠ q`.
 
 --  - The sequential composition of `d₁` and `d₂` is locally
 --    consistent with respect to `p` if `d₁` is locally
@@ -685,7 +685,7 @@ example :
 --  is locally consistent with respect to a precondition `p`
 --  if:
 --
---      p ->> q [X ↦ a]
+--      p ↠ q [X ↦ a]
 
 --  - A conditional
 --
@@ -694,17 +694,17 @@ example :
 --  is locally consistent with respect to precondition `p`
 --  if
 --
---  (1) `p ∧ b ->> p₁`
+--  (1) `p ∧ b ↠ p₁`
 --
---  (2) `p ∧ b ->> p₂`
+--  (2) `p ∧ b ↠ p₂`
 --
 --  (3) `d₁` is locally consistent with respect to `p₁`
 --
 --  (4) `d₂` is locally consistent with respect to `p₂`
 --
---  (5) `d₁.postcondition ->> q`
+--  (5) `d₁.postcondition ↠ q`
 --
---  (6) `d₂.postcondition ->> q`
+--  (6) `d₂.postcondition ↠ q`
 
 --  - A loop
 --
@@ -713,35 +713,35 @@ example :
 --  is locally consistent with respect to precondition `p`
 --  if:
 --
---  (1) `p ->> d.postcondition`
+--  (1) `p ↠ d.postcondition`
 --
---  (2) `d.postcondition ∧ b ->> q`
+--  (2) `d.postcondition ∧ b ↠ q`
 --
---  (3) `d.postcondition ∧ b ->> r`
+--  (3) `d.postcondition ∧ b ↠ r`
 --
 --  (4) `d` is locally consistent with respect to `q`
 
 --  - A command with an extra assertion at the beginning
 --
---      ->> {{q}} d
+--      ↠ {{q}} d
 --
 --  is locally consistent with respect to a precondition `p`
 --  if:
 --
---  (1) `p ->> q`
+--  (1) `p ↠ q`
 --
 --  (2) `d` is locally consistent with respect to `q`
 
 --  - A command with an extra assertion at the end
 --
---      d ->> {{q}}
+--      d ↠ {{q}}
 --
 --  is locally consistent with respect to a precondition `p`
 --  if:
 --
 --  (1) `d` is locally consistent with respect to `p`
 --
---  (2) `d.postcondition ->> q`
+--  (2) `d.postcondition ↠ q`
 
 --  With all this in mind, we can write a *verification
 --  condition generator* that takes a decorated command and
@@ -756,31 +756,31 @@ def DCom.VerificationConditions
     (p : Assertion) (d : DCom) : Prop :=
   match d with
   | .skip q =>
-      p ->> q
+      p ↠ q
   | .seq d₁ d₂ =>
       d₁.VerificationConditions p ∧
       d₂.VerificationConditions d₁.postcondition
   | .asgn x a q =>
-      p ->> {{ q [x ↦ a] }}
+      p ↠ {{ q [x ↦ a] }}
   | .cond b p₁ d₁ p₂ d₂ q =>
-      ({{ p ∧ b }} ->> p₁) ∧
-      ({{ p ∧ ¬ b }} ->> p₂) ∧
-      (d₁.postcondition ->> q) ∧
-      (d₂.postcondition ->> q) ∧
+      ({{ p ∧ b }} ↠ p₁) ∧
+      ({{ p ∧ ¬ b }} ↠ p₂) ∧
+      (d₁.postcondition ↠ q) ∧
+      (d₂.postcondition ↠ q) ∧
       d₁.VerificationConditions p₁ ∧
       d₂.VerificationConditions p₂
   | .whileDo b bodyPre body q =>
       -- The body's postcondition is both the loop invariant
       -- and the precondition for the first iteration.
-      (p ->> body.postcondition) ∧
-      ({{ body.postcondition ∧ b }} ->> bodyPre) ∧
-      ({{ body.postcondition ∧ ¬ b }} ->> q) ∧
+      (p ↠ body.postcondition) ∧
+      ({{ body.postcondition ∧ b }} ↠ bodyPre) ∧
+      ({{ body.postcondition ∧ ¬ b }} ↠ q) ∧
       body.VerificationConditions bodyPre
   | .pre p' body =>
-      (p ->> p') ∧ body.VerificationConditions p'
+      (p ↠ p') ∧ body.VerificationConditions p'
   | .post body q =>
       body.VerificationConditions p ∧
-      (body.postcondition ->> q)
+      (body.postcondition ↠ q)
 
 --  The following key theorem states that
 --  `DCom.VerificationConditions` does its job correctly.
@@ -871,17 +871,17 @@ theorem dec_while_correct :
 
 --  This leads to the following skeleton:
 --
---      (1)    {{ X = m ∧ Y = n }}  ->>                   (a)
+--      (1)    {{ X = m ∧ Y = n }}  ↠                   (a)
 --      (2)    {{ Inv }}
 --               while X ≠ 0 do
---      (3)              {{ Inv ∧ X ≠ 0 }}  ->>          (c)
+--      (3)              {{ Inv ∧ X ≠ 0 }}  ↠          (c)
 --      (4)              {{ Inv [X ↦ X-1] [Y ↦ Y-1] }}
 --                 Y := Y - 1;
 --      (5)              {{ Inv [X ↦ X-1] }}
 --                 X := X - 1
 --      (6)              {{ Inv }}
 --               end
---      (7)    {{ Inv ∧ ¬ (X ≠ 0) }}  ->>                (b)
+--      (7)    {{ Inv ∧ ¬ (X ≠ 0) }}  ↠                (b)
 --      (8)    {{ Y = n - m }}
 
 --  Examining this skeleton, we can see that any valid `Inv`
@@ -920,7 +920,7 @@ theorem dec_while_correct :
 --  postcondition `q` if
 --  - `p` is a precondition, that is, `{{p}} c {{q}}`; and
 --  - `p` is at least as weak as all other preconditions,
---    that is, if `{{p'}} c {{q}}` then `p' ->> p`.
+--    that is, if `{{p'}} c {{q}}` then `p' ↠ p`.
 --
 --  Note that weakest preconditions need not be unique. For
 --  example, `Y ≤ 4` was a weakest precondition above, but
@@ -928,11 +928,11 @@ theorem dec_while_correct :
 --  `Y ≤ 2 * 2`, etc. It is easy to show that any two
 --  weakest preconditions `p` and `p'` of a command `c` with
 --  respect to postcondition `q` are logically equivalent;
---  that is, `p <<->> p'`.
+--  that is, `p ↞↠ p'`.
 
 def IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop :=
   ValidHoareTriple p c q ∧
-  ∀ p' : Assertion, {{ p' }} c {{ q }} → p' ->> p
+  ∀ p' : Assertion, {{ p' }} c {{ q }} → p' ↠ p
 
 --  ### Exercise (1 star): wp (Optional) ⭐
 
@@ -957,4 +957,4 @@ def IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop :=
 --       while (true) {X := 0}
 --       {{ X = 0 }}
 
--- Source revision: 84ffe05, committed 2026-10-14 13:18 UTC
+-- Source revision: 9d7ef8f, committed 2026-10-15 13:13 UTC

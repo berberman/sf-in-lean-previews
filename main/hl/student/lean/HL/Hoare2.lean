@@ -101,28 +101,28 @@ open scoped Com MyGetElem Assertion HasTriple
 --  Here is a decorated version of this program, embodying a proof of this
 --  specification:
 --
---      {{ True }} ->>
+--      {{ True }} ↠
 --      {{ m = m }}
 --        X := m
---                           {{ X = m }} ->>
+--                           {{ X = m }} ↠
 --                           {{ X = m ∧ p = p }};
 --        Z := p;
---                           {{ X = m ∧ Z = p }} ->>
+--                           {{ X = m ∧ Z = p }} ↠
 --                           {{ Z - X = p - m }}
 --        while X ≠ 0 do
---                           {{ Z - X = p - m ∧ X ≠ 0 }} ->>
+--                           {{ Z - X = p - m ∧ X ≠ 0 }} ↠
 --                           {{ (Z - 1) - (X - 1) = p - m }}
 --          Z := Z - 1
 --                           {{ Z - (X - 1) = p - m }};
 --          X := X - 1
 --                           {{ Z - X = p - m }}
 --        end
---      {{ Z - X = p - m ∧ ¬ (X ≠ 0) }} ->>
+--      {{ Z - X = p - m ∧ ¬ (X ≠ 0) }} ↠
 --      {{ Z = p - m }}
 --
 --  Concretely, a decorated program consists of the program's text
 --  interleaved with assertions (sometimes multiple assertions separated by
---  ->>).
+--  ↠).
 --
 --  A decorated program can be viewed as a compact representation of a
 --  proof in Hoare Logic: the assertions surrounding each command specify
@@ -154,7 +154,7 @@ open scoped Com MyGetElem Assertion HasTriple
 --  We can give a proof, in the form of decorations, that this program is
 --  correct — i.e., it really swaps `X` and `Y` — as follows.
 --
---      (1)    {{ X = m ∧ Y = n }} ->>
+--      (1)    {{ X = m ∧ Y = n }} ↠
 --      (2)    {{ (X + Y) - ((X + Y) - Y) = n ∧ (X + Y) - Y = m }}
 --               X := X + Y
 --      (3)                     {{ X - (X - Y) = n ∧ X - Y = m }};
@@ -185,12 +185,12 @@ open scoped Com MyGetElem Assertion HasTriple
 --
 --      (1)   {{ True }}
 --              if X ≤ Y then
---      (2)                    {{ True ∧ X ≤ Y }} ->>
+--      (2)                    {{ True ∧ X ≤ Y }} ↠
 --      (3)                    {{ (Y - X) + X = Y ∨ (Y - X) + Y = X }}
 --                Z := Y - X
 --      (4)                    {{ Z + X = Y ∨ Z + Y = X }}
 --              else
---      (5)                    {{ True ∧ ¬(X ≤ Y) }} ->>
+--      (5)                    {{ True ∧ ¬(X ≤ Y) }} ↠
 --      (6)                    {{ (X - Y) + X = Y ∨ (X - Y) + Y = X }}
 --                Z := X - Y
 --      (7)                    {{ Z + X = Y ∨ Z + Y = X }}
@@ -224,19 +224,19 @@ open scoped Com MyGetElem Assertion HasTriple
 --
 --      {{ True }}
 --        if X ≤ Y then
---                  {{                         }} ->>
+--                  {{                         }} ↠
 --                  {{                         }}
 --          Z := Y - X
 --                  {{                         }}
 --        else
---                  {{                         }} ->>
+--                  {{                         }} ↠
 --                  {{                         }}
 --          Y := X + Z
 --                  {{                         }}
 --        end
 --      {{ Y = X + Z }}
 --
---  Briefly justify each use of `->>`.
+--  Briefly justify each use of `↠`.
 
 --  ### Example: Reduce to Zero
 
@@ -245,12 +245,12 @@ open scoped Com MyGetElem Assertion HasTriple
 --
 --      (1)    {{ True }}
 --               while X ≠ 0 do
---      (2)                  {{ True ∧ X ≠ 0 }} ->>
+--      (2)                  {{ True ∧ X ≠ 0 }} ↠
 --      (3)                  {{ True }}
 --                 X := X - 1
 --      (4)                  {{ True }}
 --               end
---      (5)    {{ True ∧ ¬(X ≠ 0) }} ->>
+--      (5)    {{ True ∧ ¬(X ≠ 0) }} ↠
 --      (6)    {{ X = 0 }}
 --
 --  The decorations can be constructed as follows:
@@ -293,21 +293,21 @@ open scoped Com MyGetElem Assertion HasTriple
 --  the first conjunct, `n * Y + X = m`, and we can use this to decorate
 --  the program.
 --
---       (1)  {{ True }} ->>
+--       (1)  {{ True }} ↠
 --       (2)  {{ n * 0 + m = m }}
 --              X := m;
 --       (3)                     {{ n * 0 + X = m }}
 --              Y := 0;
 --       (4)                     {{ n * Y + X = m }}
 --              while n ≤ X do
---       (5)                     {{ n * Y + X = m ∧ n ≤ X }} ->>
+--       (5)                     {{ n * Y + X = m ∧ n ≤ X }} ↠
 --       (6)                     {{ n * (Y + 1) + (X - n) = m }}
 --                X := X - n;
 --       (7)                     {{ n * (Y + 1) + X = m }}
 --                Y := Y + 1
 --       (8)                     {{ n * Y + X = m }}
 --              end
---       (9)  {{ n * Y + X = m ∧ ¬ (n ≤ X) }} ->>
+--       (9)  {{ n * Y + X = m ∧ ¬ (n ≤ X) }} ↠
 --      (10)  {{ n * Y + X = m ∧ X < n }}
 --
 --  Assertions (4), (5), (8), and (9) are derived mechanically from the
@@ -320,13 +320,13 @@ open scoped Com MyGetElem Assertion HasTriple
 --  uses of the consequence rule are correct — i.e., that (1) implies (2),
 --  that (5) implies (6), and that (9) implies (10). This is indeed the
 --  case:
---  - (1) ->> (2): trivial, by algebra.
---  - (5) ->> (6): because `n ≤ X`, we are guaranteed that the subtraction
---    in (6) does not get zero-truncated. We can therefore rewrite (6) as
+--  - (1) ↠ (2): trivial, by algebra.
+--  - (5) ↠ (6): because `n ≤ X`, we are guaranteed that the subtraction in
+--    (6) does not get zero-truncated. We can therefore rewrite (6) as
 --    `n * Y + n + X - n` and cancel the `n`s, which results in the left
 --    conjunct of (5).
---  - (9) ->> (10): if `¬ (n ≤ X)` then `X < n`. That's straightforward
---    from high-school algebra. So, we have a valid decorated program.
+--  - (9) ↠ (10): if `¬ (n ≤ X)` then `X < n`. That's straightforward from
+--    high-school algebra. So, we have a valid decorated program.
 
 --  ### From Decorated Programs to Formal Proofs
 
@@ -477,14 +477,14 @@ end DComFirstTry
 --      while (b) {{ p }} { d } {{ q }}
 --
 --  The postcondition embedded in `d` serves as the loop invariant.
---  - Implications `->>` can be added as decorations either for a
+--  - Implications `↠` can be added as decorations either for a
 --    precondition...
 --
---      ->> {{ p }} d
+--      ↠ {{ p }} d
 --
 --  ...or for a postcondition:
 --
---      d ->> {{ q }}
+--      d ↠ {{ q }}
 --
 --  The former is waiting for another precondition to be supplied by the
 --  context; the latter relies on the postcondition already embedded in
@@ -523,8 +523,8 @@ syntax:max "if " "(" imp_bexp ")" ppHardSpace "then" ppLine
 syntax:max "while " "(" imp_bexp ")" ppHardSpace "do" ppLine
   "{{" term "}}" ppLine dcom ppDedent(ppLine "end") ppLine
   "{{" term "}}" : dcom
-syntax:5 "->>" " {{" term "}}" ppLine dcom:0 : dcom
-syntax:5 dcom:6 ppLine "->>" " {{" term "}}" : dcom
+syntax:5 "↠" " {{" term "}}" ppLine dcom:0 : dcom
+syntax:5 dcom:6 ppLine "↠" " {{" term "}}" : dcom
 
 syntax:min "dcom" ppHardSpace "{" ppLine dcom
   ppDedent(ppLine "}") : term
@@ -559,9 +559,9 @@ macro_rules
             {{ $q }}) =>
         `(DCom.whileDo (bexp { $b }) ({{ $p }})
           (dcom { $body }) ({{ $q }}))
-      | `(dcom| ->> {{ $p }} $body:dcom) =>
+      | `(dcom| ↠ {{ $p }} $body:dcom) =>
         `(DCom.pre ({{ $p }}) (dcom { $body }))
-      | `(dcom| $body:dcom ->> {{ $q }}) =>
+      | `(dcom| $body:dcom ↠ {{ $q }}) =>
         `(DCom.post (dcom { $body }) ({{ $q }}))
       | _ => Lean.Macro.throwUnsupported
     return Imp.Elab.withSourceInfoOf s stx
@@ -645,14 +645,14 @@ def unexpandWhileDo : Unexpander
 def unexpandPre : Unexpander
   | `($_ $pre $body) => do
       let some body := getDCom? body | throw ()
-      `(dcom { ->> {{ $(getAssnBody pre) }} $body })
+      `(dcom { ↠ {{ $(getAssnBody pre) }} $body })
   | _ => throw ()
 
 @[app_unexpander DCom.post]
 def unexpandPost : Unexpander
   | `($_ $body $post) => do
       let some body := getDCom? body | throw ()
-      `(dcom { $body ->> {{ $(getAssnBody post) }} })
+      `(dcom { $body ↠ {{ $(getAssnBody post) }} })
   | _ => throw ()
 
 end DCom.Delab
@@ -688,7 +688,7 @@ def decWhile : Decorated where
       X := X - 1 {{ True }}
     end
       {{ True ∧ X = 0 }}
-    ->> {{ X = 0 }}
+    ↠ {{ X = 0 }}
   }
 
 --  It is easy to go from a `dcom` to a `com` by erasing all annotations.
@@ -785,7 +785,7 @@ example :
 --  It does this by walking over `d` and generating a big conjunction that
 --  includes
 --  - local consistency checks for each form of command, plus
---  - uses of `->>` to bridge the gap between the assertions found inside a
+--  - uses of `↠` to bridge the gap between the assertions found inside a
 --    decorated command and the assertions imposed by the external
 --    precondition; these uses correspond to applications of the
 --    consequence rule.
@@ -795,7 +795,7 @@ example :
 --
 --      skip {{q}}
 --
---  is locally consistent with respect to a precondition `p` if `p ->> q`.
+--  is locally consistent with respect to a precondition `p` if `p ↠ q`.
 --  - The sequential composition of `d₁` and `d₂` is locally consistent
 --    with respect to `p` if `d₁` is locally consistent with respect to `p`
 --    and `d₂` is locally consistent with respect to the postcondition of
@@ -807,7 +807,7 @@ example :
 --
 --  is locally consistent with respect to a precondition `p` if:
 --
---      p ->> q [X ↦ a]
+--      p ↠ q [X ↦ a]
 --
 --  - A conditional
 --
@@ -815,48 +815,48 @@ example :
 --
 --  is locally consistent with respect to precondition `p` if
 --
---  (1) `p ∧ b ->> p₁`
+--  (1) `p ∧ b ↠ p₁`
 --
---  (2) `p ∧ b ->> p₂`
+--  (2) `p ∧ b ↠ p₂`
 --
 --  (3) `d₁` is locally consistent with respect to `p₁`
 --
 --  (4) `d₂` is locally consistent with respect to `p₂`
 --
---  (5) `d₁.postcondition ->> q`
+--  (5) `d₁.postcondition ↠ q`
 --
---  (6) `d₂.postcondition ->> q`
+--  (6) `d₂.postcondition ↠ q`
 --  - A loop
 --
 --      while (b) {{{q}} d} {{r}}
 --
 --  is locally consistent with respect to precondition `p` if:
 --
---  (1) `p ->> d.postcondition`
+--  (1) `p ↠ d.postcondition`
 --
---  (2) `d.postcondition ∧ b ->> q`
+--  (2) `d.postcondition ∧ b ↠ q`
 --
---  (3) `d.postcondition ∧ b ->> r`
+--  (3) `d.postcondition ∧ b ↠ r`
 --
 --  (4) `d` is locally consistent with respect to `q`
 --  - A command with an extra assertion at the beginning
 --
---      ->> {{q}} d
+--      ↠ {{q}} d
 --
 --  is locally consistent with respect to a precondition `p` if:
 --
---  (1) `p ->> q`
+--  (1) `p ↠ q`
 --
 --  (2) `d` is locally consistent with respect to `q`
 --  - A command with an extra assertion at the end
 --
---      d ->> {{q}}
+--      d ↠ {{q}}
 --
 --  is locally consistent with respect to a precondition `p` if:
 --
 --  (1) `d` is locally consistent with respect to `p`
 --
---  (2) `d.postcondition ->> q`
+--  (2) `d.postcondition ↠ q`
 --
 --  With all this in mind, we can write a *verification condition
 --  generator* that takes a decorated command and reads off a proposition
@@ -870,31 +870,31 @@ def DCom.VerificationConditions
     (p : Assertion) (d : DCom) : Prop :=
   match d with
   | .skip q =>
-      p ->> q
+      p ↠ q
   | .seq d₁ d₂ =>
       d₁.VerificationConditions p ∧
       d₂.VerificationConditions d₁.postcondition
   | .asgn x a q =>
-      p ->> {{ q [x ↦ a] }}
+      p ↠ {{ q [x ↦ a] }}
   | .cond b p₁ d₁ p₂ d₂ q =>
-      ({{ p ∧ b }} ->> p₁) ∧
-      ({{ p ∧ ¬ b }} ->> p₂) ∧
-      (d₁.postcondition ->> q) ∧
-      (d₂.postcondition ->> q) ∧
+      ({{ p ∧ b }} ↠ p₁) ∧
+      ({{ p ∧ ¬ b }} ↠ p₂) ∧
+      (d₁.postcondition ↠ q) ∧
+      (d₂.postcondition ↠ q) ∧
       d₁.VerificationConditions p₁ ∧
       d₂.VerificationConditions p₂
   | .whileDo b bodyPre body q =>
       -- The body's postcondition is both the loop invariant
       -- and the precondition for the first iteration.
-      (p ->> body.postcondition) ∧
-      ({{ body.postcondition ∧ b }} ->> bodyPre) ∧
-      ({{ body.postcondition ∧ ¬ b }} ->> q) ∧
+      (p ↠ body.postcondition) ∧
+      ({{ body.postcondition ∧ b }} ↠ bodyPre) ∧
+      ({{ body.postcondition ∧ ¬ b }} ↠ q) ∧
       body.VerificationConditions bodyPre
   | .pre p' body =>
-      (p ->> p') ∧ body.VerificationConditions p'
+      (p ↠ p') ∧ body.VerificationConditions p'
   | .post body q =>
       body.VerificationConditions p ∧
-      (body.postcondition ->> q)
+      (body.postcondition ↠ q)
 
 --  The following key theorem states that `DCom.VerificationConditions`
 --  does its job correctly. Not surprisingly, each of the Hoare Logic rules
@@ -958,7 +958,7 @@ theorem dec_while_correct :
 def swapDec (m n : Nat) : Decorated where
   pre := ({{ X = m ∧ Y = n }})
   body := dcom {
-    ->> {{ (X + Y) - ((X + Y) - Y) = n ∧ (X + Y) - Y = m }}
+    ↠ {{ (X + Y) - ((X + Y) - Y) = n ∧ (X + Y) - Y = m }}
     X := X + Y {{ X - (X - Y) = n ∧ X - Y = m }};
     Y := X - Y {{ X - Y = n ∧ Y = m }};
     X := X - Y {{ X = n ∧ Y = m }}
@@ -976,11 +976,11 @@ def positiveDifferenceDec : Decorated where
   body := dcom {
     if (X ≤ Y) then
       {{ True ∧ X ≤ Y }}
-      ->> {{ (Y - X) + X = Y ∨ (Y - X) + Y = X }}
+      ↠ {{ (Y - X) + X = Y ∨ (Y - X) + Y = X }}
       Z := Y - X {{ Z + X = Y ∨ Z + Y = X }}
     else
       {{ True ∧ ¬ X ≤ Y }}
-      ->> {{ (X - Y) + X = Y ∨ (X - Y) + Y = X }}
+      ↠ {{ (X - Y) + X = Y ∨ (X - Y) + Y = X }}
       Z := X - Y {{ Z + X = Y ∨ Z + Y = X }}
     end
       {{ Z + X = Y ∨ Z + Y = X }}
@@ -1002,11 +1002,11 @@ def ifMinusPlusDec : Decorated where
   body := dcom {
     if (X ≤ Y) then
       {{ True ∧ X ≤ Y }}
-      ->> {{ Y = X + (Y - X) }}
+      ↠ {{ Y = X + (Y - X) }}
       Z := Y - X {{ Y = X + Z }}
     else
       {{ True ∧ ¬ X ≤ Y }}
-      ->> {{ X + Z = X + Z }}
+      ↠ {{ X + Z = X + Z }}
       Y := X + Z {{ Y = X + Z }}
     end
       {{ Y = X + Z }}
@@ -1023,17 +1023,17 @@ theorem if_minus_plus_correct :
 def divModDec (a b : Nat) : Decorated where
   pre := ({{ True }})
   body := dcom {
-    ->> {{ b * 0 + a = a }}
+    ↠ {{ b * 0 + a = a }}
     X := ~(Aexp.num a) {{ b * 0 + X = a }};
     Y := 0 {{ b * Y + X = a }};
     while (~(Aexp.num b) ≤ X) do
       {{ b * Y + X = a ∧ b ≤ X }}
-      ->> {{ b * (Y + 1) + (X - b) = a }}
+      ↠ {{ b * (Y + 1) + (X - b) = a }}
       X := X - ~(Aexp.num b) {{ b * (Y + 1) + X = a }};
       Y := Y + 1 {{ b * Y + X = a }}
     end
       {{ b * Y + X = a ∧ ¬ b ≤ X }}
-    ->> {{ b * Y + X = a ∧ X < b }}
+    ↠ {{ b * Y + X = a ∧ X < b }}
   }
 
 theorem div_mod_outer_triple_valid (a b : Nat) :
@@ -1079,17 +1079,17 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --
 --  This leads to the following skeleton:
 --
---      (1)    {{ X = m ∧ Y = n }}  ->>                   (a)
+--      (1)    {{ X = m ∧ Y = n }}  ↠                   (a)
 --      (2)    {{ Inv }}
 --               while X ≠ 0 do
---      (3)              {{ Inv ∧ X ≠ 0 }}  ->>          (c)
+--      (3)              {{ Inv ∧ X ≠ 0 }}  ↠          (c)
 --      (4)              {{ Inv [X ↦ X-1] [Y ↦ Y-1] }}
 --                 Y := Y - 1;
 --      (5)              {{ Inv [X ↦ X-1] }}
 --                 X := X - 1
 --      (6)              {{ Inv }}
 --               end
---      (7)    {{ Inv ∧ ¬ (X ≠ 0) }}  ->>                (b)
+--      (7)    {{ Inv ∧ ¬ (X ≠ 0) }}  ↠                (b)
 --      (8)    {{ Y = n - m }}
 --
 --  Examining this skeleton, we can see that any valid `Inv` will have to
@@ -1118,17 +1118,17 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  Maybe it will work here too. To find out, let's try instantiating `Inv`
 --  with `True` in the skeleton above and see what we get...
 --
---      (1)    {{ X = m ∧ Y = n }} ->>                    (a - OK)
+--      (1)    {{ X = m ∧ Y = n }} ↠                    (a - OK)
 --      (2)    {{ True }}
 --               while X ≠ 0 do
---      (3)                   {{ True ∧ X ≠ 0 }} ->>     (c - OK)
+--      (3)                   {{ True ∧ X ≠ 0 }} ↠     (c - OK)
 --      (4)                   {{ True }}
 --                 Y := Y - 1;
 --      (5)                   {{ True }}
 --                 X := X - 1
 --      (6)                   {{ True }}
 --               end
---      (7)    {{ True ∧ ¬(X ≠ 0) }} ->>                 (b - WRONG!)
+--      (7)    {{ True ∧ ¬(X ≠ 0) }} ↠                 (b - WRONG!)
 --      (8)    {{ Y = n - m }}
 --
 --  While conditions (a) and (c) are trivially satisfied, (b) is wrong: it
@@ -1143,17 +1143,17 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  skeleton, instantiate `Inv` with `Y = n - m`, and try checking
 --  conditions (a) to (c) again.
 --
---      (1)    {{ X = m ∧ Y = n }} ->>                        (a - WRONG!)
+--      (1)    {{ X = m ∧ Y = n }} ↠                        (a - WRONG!)
 --      (2)    {{ Y = n - m }}
 --               while X ≠ 0 do
---      (3)                     {{ Y = n - m ∧ X ≠ 0 }} ->>  (c - WRONG!)
+--      (3)                     {{ Y = n - m ∧ X ≠ 0 }} ↠  (c - WRONG!)
 --      (4)                     {{ Y - 1 = n - m }}
 --                 Y := Y - 1;
 --      (5)                     {{ Y = n - m }}
 --                 X := X - 1
 --      (6)                     {{ Y = n - m }}
 --               end
---      (7)    {{ Y = n - m ∧ ¬(X ≠ 0) }} ->>                (b - OK)
+--      (7)    {{ Y = n - m ∧ ¬(X ≠ 0) }} ↠                (b - OK)
 --      (8)    {{ Y = n - m }}
 --
 --  This time, condition (b) holds trivially, but (a) and (c) are broken.
@@ -1182,17 +1182,17 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 --  difference is always `n - m`. So let's try instantiating `Inv` in the
 --  skeleton above with `Y - X = n - m`.
 --
---      (1)    {{ X = m ∧ Y = n }} ->>                            (a - OK)
+--      (1)    {{ X = m ∧ Y = n }} ↠                            (a - OK)
 --      (2)    {{ Y - X = n - m }}
 --               while X ≠ 0 do
---      (3)                    {{ Y - X = n - m ∧ X ≠ 0 }} ->>   (c - OK)
+--      (3)                    {{ Y - X = n - m ∧ X ≠ 0 }} ↠   (c - OK)
 --      (4)                    {{ (Y - 1) - (X - 1) = n - m }}
 --                 Y := Y - 1;
 --      (5)                    {{ Y - (X - 1) = n - m }}
 --                 X := X - 1
 --      (6)                    {{ Y - X = n - m }}
 --               end
---      (7)    {{ Y - X = n - m ∧ ¬(X ≠ 0) }} ->>                (b - OK)
+--      (7)    {{ Y - X = n - m ∧ ¬(X ≠ 0) }} ↠                (b - OK)
 --      (8)    {{ Y = n - m }}
 --
 --  Success! Conditions (a), (b) and (c) all hold now. (To verify (c), we
@@ -1205,15 +1205,15 @@ theorem div_mod_outer_triple_valid (a b : Nat) :
 def subtractSlowlyDec (m n : Nat) : Decorated where
   pre := ({{ X = m ∧ Y = n }})
   body := dcom {
-    ->> {{ Y - X = n - m }}
+    ↠ {{ Y - X = n - m }}
     while (X ≠ 0) do
       {{ Y - X = n - m ∧ ¬ X = 0 }}
-      ->> {{ (Y - 1) - (X - 1) = n - m }}
+      ↠ {{ (Y - 1) - (X - 1) = n - m }}
       Y := Y - 1 {{ Y - (X - 1) = n - m }};
       X := X - 1 {{ Y - X = n - m }}
     end
       {{ Y - X = n - m ∧ X = 0 }}
-    ->> {{ Y = n - m }}
+    ↠ {{ Y = n - m }}
   }
 
 theorem subtract_slowly_outer_triple_valid (m n : Nat) :
@@ -1234,16 +1234,16 @@ def slowAssignmentDec (m : Nat) : Decorated where
   pre := ({{ X = m }})
   body := dcom {
     Y := 0 {{ sorry }};
-    (->> {{ sorry }}
+    (↠ {{ sorry }}
       while (X ≠ 0) do
         {{ sorry }}
-        ->> {{ sorry }}
+        ↠ {{ sorry }}
         X := X - 1 {{ sorry }};
-        (->> {{ sorry }}
+        (↠ {{ sorry }}
           Y := Y + 1 {{ sorry }})
       end
         {{ sorry }}
-      ->> {{ Y = m }})
+      ↠ {{ Y = m }})
   }
 
 theorem slow_assignment (m : Nat) :
@@ -1279,15 +1279,15 @@ def parity : Nat → Nat
 --  Using `parity X = parity m` as an invariant we obtain the following
 --  decorated program:
 --
---      {{ X = m }} ->>                                         (a - OK)
+--      {{ X = m }} ↠                                         (a - OK)
 --      {{ parity X = parity m }}
 --        while 2 ≤ X do
---                     {{ parity X = parity m ∧ 2 ≤ X }} ->>  (c - OK)
+--                     {{ parity X = parity m ∧ 2 ≤ X }} ↠  (c - OK)
 --                     {{ parity (X-2) = parity m }}
 --          X := X - 2
 --                     {{ parity X = parity m }}
 --        end
---      {{ parity X = parity m ∧ ¬(2 ≤ X) }} ->>              (b - OK)
+--      {{ parity X = parity m ∧ ¬(2 ≤ X) }} ↠              (b - OK)
 --      {{ X = parity m }}
 --
 --  With this loop invariant, conditions (a), (b), and (c) are all
@@ -1321,14 +1321,14 @@ def parityDec (m : Nat) : Decorated where
     let post : Assertion :=
       fun st => st[X] = parity m
     dcom {
-    ->> {{ inv }}
+    ↠ {{ inv }}
     while (2 ≤ X) do
       {{ guardedInv }}
-      ->> {{ bodyPre }}
+      ↠ {{ bodyPre }}
       X := X - 2 {{ inv }}
     end
       {{ exit }}
-    ->> {{ post }}
+    ↠ {{ post }}
   }
 
 --  If you use the suggested loop invariant, you may find the following two
@@ -1365,18 +1365,18 @@ theorem parity_outer_triple_valid (m : Nat) :
 --  As we did before, we can try to use the postcondition as a candidate
 --  loop invariant, obtaining the following decorated program:
 --
---      (1)  {{ X=m }} ->>                  (a - second conjunct of (2) WRONG!)
+--      (1)  {{ X=m }} ↠                  (a - second conjunct of (2) WRONG!)
 --      (2)  {{ 0*0 ≤ m ∧ m<(0+1)*(0+1) }}
 --              Z := 0
 --      (3)            {{ Z*Z ≤ m ∧ m<(Z+1)*(Z+1) }};
 --              while (Z+1)*(Z+1) ≤ X do
 --      (4)            {{ Z*Z≤m ∧ m<(Z+1)*(Z+1)
---                               ∧ (Z+1)*(Z+1)≤X }} ->>          (c - WRONG!)
+--                               ∧ (Z+1)*(Z+1)≤X }} ↠          (c - WRONG!)
 --      (5)            {{ (Z+1)*(Z+1)≤m ∧ m<((Z+1)+1)*((Z+1)+1) }}
 --                Z := Z+1
 --      (6)            {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) }}
 --              end
---      (7)  {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) ∧ ¬((Z+1)*(Z+1)≤X) }} ->>    (b - OK)
+--      (7)  {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) ∧ ¬((Z+1)*(Z+1)≤X) }} ↠    (b - OK)
 --      (8)  {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) }}
 --
 --  This didn't work very well: conditions (a) and (c) both failed. Looking
@@ -1392,17 +1392,17 @@ theorem parity_outer_triple_valid (m : Nat) :
 --
 --  So we now try `X=m ∧ Z*Z ≤ m` as the loop invariant:
 --
---      {{ X=m }} ->>                                           (a - OK)
+--      {{ X=m }} ↠                                           (a - OK)
 --      {{ X=m ∧ 0*0 ≤ m }}
 --        Z := 0
 --                   {{ X=m ∧ Z*Z ≤ m }};
 --        while (Z+1)*(Z+1) ≤ X do
---                   {{ X=m ∧ Z*Z≤m ∧ (Z+1)*(Z+1)≤X }} ->>  (c - OK)
+--                   {{ X=m ∧ Z*Z≤m ∧ (Z+1)*(Z+1)≤X }} ↠  (c - OK)
 --                   {{ X=m ∧ (Z+1)*(Z+1)≤m }}
 --          Z := Z + 1
 --                   {{ X=m ∧ Z*Z≤m }}
 --        end
---      {{ X=m ∧ Z*Z≤m ∧ ¬((Z+1)*(Z+1)≤X) }} ->>            (b - OK)
+--      {{ X=m ∧ Z*Z≤m ∧ ¬((Z+1)*(Z+1)≤X) }} ↠            (b - OK)
 --      {{ Z*Z≤m ∧ m<(Z+1)*(Z+1) }}
 --
 --  This works, since conditions (a), (b), and (c) are now all rather
@@ -1424,15 +1424,15 @@ theorem parity_outer_triple_valid (m : Nat) :
 def sqrtDec (m : Nat) : Decorated where
   pre := ({{ X = m }})
   body := dcom {
-    ->> {{ sorry }}
+    ↠ {{ sorry }}
     Z := 0 {{ sorry }};
     while ((Z + 1) * (Z + 1) ≤ X) do
       {{ sorry }}
-      ->> {{ sorry }}
+      ↠ {{ sorry }}
       Z := Z + 1 {{ sorry }}
     end
       {{ sorry }}
-    ->> {{ Z * Z ≤ m ∧ m < (Z + 1) * (Z + 1) }}
+    ↠ {{ Z * Z ≤ m ∧ m < (Z + 1) * (Z + 1) }}
   }
 
 theorem sqrt_correct (m : Nat) :
@@ -1461,21 +1461,21 @@ theorem sqrt_correct (m : Nat) :
 --  let's add that too, leading to the candidate loop invariant
 --  `Z = m * m ∧ X = m`.
 --
---      {{ X = m }} ->>                                       (a - WRONG)
+--      {{ X = m }} ↠                                       (a - WRONG)
 --      {{ 0 = m*m ∧ X = m }}
 --        Y := 0
 --                     {{ 0 = m*m ∧ X = m }};
 --        Z := 0
 --                     {{ Z = m*m ∧ X = m }};
 --        while Y ≠ X do
---                     {{ Z = m*m ∧ X = m ∧ Y ≠ X }} ->>   (c - WRONG)
+--                     {{ Z = m*m ∧ X = m ∧ Y ≠ X }} ↠   (c - WRONG)
 --                     {{ Z+X = m*m ∧ X = m }}
 --          Z := Z + X
 --                     {{ Z = m*m ∧ X = m }};
 --          Y := Y + 1
 --                     {{ Z = m*m ∧ X = m }}
 --        end
---      {{ Z = m*m ∧ X = m ∧ ¬(Y ≠ X) }} ->>               (b - OK)
+--      {{ Z = m*m ∧ X = m ∧ ¬(Y ≠ X) }} ↠               (b - OK)
 --      {{ Z = m*m }}
 --
 --  Conditions (a) and (c) fail because of the `Z = m*m` part. While `Z`
@@ -1486,21 +1486,21 @@ theorem sqrt_correct (m : Nat) :
 --  go through the loop, this leads us to derive a new loop invariant
 --  candidate: `Z = Y*m ∧ X = m`.
 --
---      {{ X = m }} ->>                                        (a - OK)
+--      {{ X = m }} ↠                                        (a - OK)
 --      {{ 0 = 0*m ∧ X = m }}
 --        Y := 0
 --                      {{ 0 = Y*m ∧ X = m }};
 --        Z := 0
 --                      {{ Z = Y*m ∧ X = m }};
 --        while Y ≠ X do
---                      {{ Z = Y*m ∧ X = m ∧ Y ≠ X }} ->>   (c - OK)
+--                      {{ Z = Y*m ∧ X = m ∧ Y ≠ X }} ↠   (c - OK)
 --                      {{ Z+X = (Y+1)*m ∧ X = m }}
 --          Z := Z + X
 --                      {{ Z = (Y+1)*m ∧ X = m }};
 --          Y := Y + 1
 --                      {{ Z = Y*m ∧ X = m }}
 --        end
---      {{ Z = Y*m ∧ X = m ∧ ¬(Y ≠ X) }} ->>                (b - OK)
+--      {{ Z = Y*m ∧ X = m ∧ ¬(Y ≠ X) }} ↠                (b - OK)
 --      {{ Z = m*m }}
 --
 --  This new loop invariant makes the proof go through: all three
@@ -1575,7 +1575,7 @@ theorem factorial_correct (m : Nat) :
 def minimumDec (a b : Nat) : Decorated where
   pre := ({{ True }})
   body := dcom {
-    ->> {{ sorry }}
+    ↠ {{ sorry }}
     X := ~(Aexp.num a) {{
       sorry
     }};
@@ -1587,7 +1587,7 @@ def minimumDec (a b : Nat) : Decorated where
     }};
     while (X ≠ 0 ∧ Y ≠ 0) do
       {{ sorry }}
-      ->> {{ sorry }}
+      ↠ {{ sorry }}
       X := X - 1 {{
         sorry
       }};
@@ -1599,7 +1599,7 @@ def minimumDec (a b : Nat) : Decorated where
       }}
     end
       {{ sorry }}
-    ->> {{ Z = Nat.min a b }}
+    ↠ {{ Z = Nat.min a b }}
   }
 
 theorem minimum_correct (a b : Nat) :
@@ -1630,7 +1630,7 @@ theorem minimum_correct (a b : Nat) :
 def twoLoopsDec (a b c : Nat) : Decorated where
   pre := ({{ True }})
   body := dcom {
-    ->> {{ sorry }}
+    ↠ {{ sorry }}
     X := 0 {{ sorry }};
     Y := 0 {{ sorry }};
     Z := ~(Aexp.num c) {{
@@ -1638,22 +1638,22 @@ def twoLoopsDec (a b c : Nat) : Decorated where
     }};
     (while (X ≠ ~(Aexp.num a)) do
       {{ sorry }}
-      ->> {{ sorry }}
+      ↠ {{ sorry }}
       X := X + 1 {{
         sorry
       }};
       Z := Z + 1 {{ sorry }}
     end
       {{ sorry }}
-    ->> {{ sorry }});
+    ↠ {{ sorry }});
     while (Y ≠ ~(Aexp.num b)) do
       {{ sorry }}
-      ->> {{ sorry }}
+      ↠ {{ sorry }}
       Y := Y + 1 {{ sorry }};
       Z := Z + 1 {{ sorry }}
     end
       {{ sorry }}
-    ->> {{ Z = a + b + c }}
+    ↠ {{ Z = a + b + c }}
   }
 
 theorem two_loops (a b c : Nat) :
@@ -1685,7 +1685,7 @@ def pow2 : Nat → Nat
 def dpow2Dec (n : Nat) : Decorated where
   pre := ({{ True }})
   body := dcom {
-    ->> {{ sorry }}
+    ↠ {{ sorry }}
     X := 0 {{
       sorry
     }};
@@ -1697,7 +1697,7 @@ def dpow2Dec (n : Nat) : Decorated where
     }};
     while (X ≠ ~(Aexp.num n)) do
       {{ sorry }}
-      ->> {{ sorry }}
+      ↠ {{ sorry }}
       Z := 2 * Z {{
         sorry
       }};
@@ -1709,7 +1709,7 @@ def dpow2Dec (n : Nat) : Decorated where
       }}
     end
       {{ sorry }}
-    ->> {{ Y = pow2 (n + 1) - 1 }}
+    ↠ {{ Y = pow2 (n + 1) - 1 }}
   }
 
 --  Some lemmas that you may find useful...
@@ -1798,20 +1798,20 @@ def dfib (n : Nat) : Decorated where
     let exit : Assertion :=
       sorry
     dcom {
-      ->> {{ init }}
+      ↠ {{ init }}
       X := 1 {{ afterX }};
       Y := 1 {{ afterY }};
       Z := 1 {{ inv }};
       while (X ≠ ~(Aexp.num (1 + n))) do
         {{ guardedInv }}
-        ->> {{ bodyPre }}
+        ↠ {{ bodyPre }}
         T := Z {{ afterT }};
         Z := Z + Y {{ afterZ }};
         Y := T {{ afterYBody }};
         X := 1 + X {{ inv }}
       end
         {{ exit }}
-      ->> {{ Y = fib n }}
+      ↠ {{ Y = fib n }}
     }
 
 theorem dfib_correct (n : Nat) :
@@ -1872,18 +1872,18 @@ end SparseAnnotations
 --  `p` is a weakest precondition of command `c` for postcondition `q` if
 --  - `p` is a precondition, that is, `{{p}} c {{q}}`; and
 --  - `p` is at least as weak as all other preconditions, that is, if
---    `{{p'}} c {{q}}` then `p' ->> p`.
+--    `{{p'}} c {{q}}` then `p' ↠ p`.
 --
 --  Note that weakest preconditions need not be unique. For example,
 --  `Y ≤ 4` was a weakest precondition above, but so are the logically
 --  equivalent assertions `Y < 5`, `Y ≤ 2 * 2`, etc. It is easy to show
 --  that any two weakest preconditions `p` and `p'` of a command `c` with
 --  respect to postcondition `q` are logically equivalent; that is,
---  `p <<->> p'`.
+--  `p ↞↠ p'`.
 
 def IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop :=
   ValidHoareTriple p c q ∧
-  ∀ p' : Assertion, {{ p' }} c {{ q }} → p' ->> p
+  ∀ p' : Assertion, {{ p' }} c {{ q }} → p' ↠ p
 
 --  ### Exercise (1 star): wp (Optional) ⭐
 
@@ -1939,9 +1939,9 @@ open HimpHoare
 
 theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
     (h : ValidHoareTriple p (Com.havoc x) q) :
-    p ->> havoc_pre x q := by
+    p ↠ havoc_pre x q := by
   sorry
 
 end HimpHoare2
 
--- Source revision: 84ffe05, committed 2026-10-14 13:18 UTC
+-- Source revision: 9d7ef8f, committed 2026-10-15 13:13 UTC

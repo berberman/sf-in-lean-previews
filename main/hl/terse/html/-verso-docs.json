@@ -31,8 +31,7 @@
  "978": "<code>Lean.TSyntax `imp_bexp</code>",
  "977": "<code>Lean.TSyntax `dcom</code>",
  "976": "<code><span class=\"literal string\">\"dcom\"</span> : String</code>",
- "975":
- "<code><span class=\"literal string\">\"-&gt;&gt;\"</span> : String</code>",
+ "975": "<code><span class=\"literal string\">\"↠\"</span> : String</code>",
  "974": "<code><span class=\"literal string\">\"do\"</span> : String</code>",
  "973": "<code><span class=\"literal string\">\"end\"</span> : String</code>",
  "972": "<code><span class=\"literal string\">\"then\"</span> : String</code>",
@@ -171,34 +170,34 @@
  "892": "<code>True</code>",
  "891": "<code>hoare_asgn_example1' : {{True}} X := 1 {{X = 1}}</code>",
  "890":
- "<code>hoare_consequence_post' {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' -&gt;&gt; Q) : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_post' {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' ↠ Q) : {{P}} ~c {{Q}}</code>",
  "89":
  "<code class=\"docstring\">`simp_all` is a stronger version of `simp [*] at *` where the hypotheses and target\nare simplified multiple times until no simplification is applicable.\nOnly non-dependent propositional hypotheses are considered.\n</code>",
  "889":
- "<code>hoare_consequence_pre'' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_pre'' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P ↠ P') : {{P}} ~c {{Q}}</code>",
  "888":
  "<code class=\"docstring\">`apply_rules [l₁, l₂, ...]` tries to solve the main goal by iteratively\napplying the list of lemmas `[l₁, l₂, ...]` or by applying a local hypothesis.\nIf `apply` generates new goals, `apply_rules` iteratively tries to solve those goals.\nYou can use `apply_rules [-h]` to omit a local hypothesis.\n\n`apply_rules` will also use `rfl`, `trivial`, `congrFun` and `congrArg`.\nThese can be disabled, as can local hypotheses, by using `apply_rules only [...]`.\n\nYou can use `apply_rules using [a₁, ...]` to use all lemmas which have been labelled\nwith the attributes `aᵢ` (these attributes must be created using `register_label_attr`).\n\nYou can pass a further configuration via the syntax `apply_rules (config := {...})`.\nThe options supported are the same as for `solve_by_elim` (and include all the options for `apply`).\n\n`apply_rules` will try calling `symm` on hypotheses and `exfalso` on the goal as needed.\nThis can be disabled with `apply_rules (config := {symm := false, exfalso := false})`.\n\nYou can bound the iteration depth using the syntax `apply_rules (config := {maxDepth := n})`.\n\nUnlike `solve_by_elim`, `apply_rules` does not perform backtracking, and greedily applies\na lemma from the list until it gets stuck.\n</code>",
  "887":
- "<code>hoare_consequence_pre' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_pre' {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P ↠ P') : {{P}} ~c {{Q}}</code>",
  "886": "<code>{{P'}} ~c {{Q'}}</code>",
  "885":
- "<code>hoare_consequence {P P' Q Q' : Assertion} {c : Com} (htriple : {{P'}} ~c {{Q'}}) (hpre : P -&gt;&gt; P') (hpost : Q' -&gt;&gt; Q) :\n  {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence {P P' Q Q' : Assertion} {c : Com} (htriple : {{P'}} ~c {{Q'}}) (hpre : P ↠ P') (hpost : Q' ↠ Q) :\n  {{P}} ~c {{Q}}</code>",
  "884":
  "<code>assertion_sub_example2 : {{X &lt; 4}} X := X + 1 {{X &lt; 5}}</code>",
  "883": "<code>hoare_asgn_example1 : {{True}} X := 1 {{X = 1}}</code>",
  "882": "<code>∀ (st : State), Q' st → Q st</code>",
  "881": "<code>∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q' st'</code>",
- "880": "<code>Q' -&gt;&gt; Q</code>",
+ "880": "<code>Q' ↠ Q</code>",
  "88": "<code>e₁✝.optimize0plus.eval = e₁✝.eval</code>",
  "879": "<code>{{P}} ~c {{Q'}}</code>",
  "878":
- "<code>hoare_consequence_post {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' -&gt;&gt; Q) : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_post {P Q Q' : Assertion} {c : Com} (hhoare : {{P}} ~c {{Q'}}) (himp : Q' ↠ Q) : {{P}} ~c {{Q}}</code>",
  "877": "<code>∀ (st : State), P st → P' st</code>",
  "876": "<code>∀ {st st' : State}, (st =[ c ]=&gt; st') → P' st → Q st'</code>",
- "875": "<code>P -&gt;&gt; P'</code>",
+ "875": "<code>P ↠ P'</code>",
  "874": "<code>{{P'}} ~c {{Q}}</code>",
  "873":
- "<code>hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P -&gt;&gt; P') : {{P}} ~c {{Q}}</code>",
+ "<code>hoare_consequence_pre {P P' Q : Assertion} {c : Com} (hhoare : {{P'}} ~c {{Q}}) (himp : P ↠ P') : {{P}} ~c {{Q}}</code>",
  "872":
  "<code>TotalMap.update_permute {α β : Type} [BEq α] [LawfulBEq α] {m : TotalMap α β} {a₁ a₂ : α} {b₁ b₂ : β} (h : a₁ ≠ a₂) :\n  a₁ →ₜ b₁ ; a₂ →ₜ b₂ ; m = a₂ →ₜ b₂ ; a₁ →ₜ b₁ ; m</code>",
  "871":
@@ -281,15 +280,13 @@
  "823": "<code>Assertion.Delab.delabAssertIff : Delab</code>",
  "822": "<code>Assertion.Delab.delabAssertImplies : Delab</code>",
  "821":
- "<code>assertIff_def {P Q : Assertion} : P &lt;&lt;-&gt;&gt; Q ↔ (P -&gt;&gt; Q) ∧ (Q -&gt;&gt; P)</code>",
- "820":
- "<code><span class=\"literal string\">\" &lt;&lt;-&gt;&gt; \"</span> : String</code>",
+ "<code>assertIff_def {P Q : Assertion} : P ↞↠ Q ↔ (P ↠ Q) ∧ (Q ↠ P)</code>",
+ "820": "<code><span class=\"literal string\">\" ↞↠ \"</span> : String</code>",
  "82": "<code>Nat.even n = true</code>",
  "819": "<code>AssertIff (P Q : Assertion) : Prop</code>",
  "818":
- "<code>assertImplies_def {P Q : Assertion} : P -&gt;&gt; Q ↔ ∀ (st : State), P st → Q st</code>",
- "817":
- "<code><span class=\"literal string\">\" -&gt;&gt; \"</span> : String</code>",
+ "<code>assertImplies_def {P Q : Assertion} : P ↠ Q ↔ ∀ (st : State), P st → Q st</code>",
+ "817": "<code><span class=\"literal string\">\" ↠ \"</span> : String</code>",
  "816": "<code>AssertImplies (P Q : Assertion) : Prop</code>",
  "815":
  "<code>Lean.PrettyPrinter.Delaborator.withBindingBodyUnusedName {α : Type} (d : Syntax → DelabM α)\n  (preserveName : Bool := false) (avoid : NameSet := ∅) : DelabM α</code><span class=\"sep\"></span><code class=\"docstring\">Enters the body of the current expression, which must be a lambda or forall.\nThe binding variable is passed to `d` as `Syntax`, and it is an identifier that has been annotated with the fvar expression\nfor the variable.\n\nIf `pp.safeShadowing` is true, then the name is allowed to shadow a name in the local context\nif the name does not appear in the body or in the `avoid` set.\n(The `avoid` set is assumed to be a subset of the names used by the local context.)\n\nIf `preserveName` is `false` (the default), gives the binder an unused name.\nOtherwise, it tries to preserve the textual form of the name, preserving whether it is hygienic.\n</code>",
