@@ -1748,6 +1748,25 @@ theorem if_example :
     · exact hoare_asgn
     · assertion_auto
 
+--  We can even shorten it a little bit more. Wherever Lean expects a term
+--  of some type, we may write `(by <tactics>)` in its place: the tactics
+--  run immediately, and the proof they produce is spliced in as that term.
+--  Here we use it to supply `hoare_consequence_pre`'s second argument, the
+--  implication `P ↠ P'`, directly at the call site, instead of `apply`-ing
+--  `hoare_consequence_pre` and discharging that goal afterward with a
+--  separate bullet.
+
+theorem if_example' :
+    {{True}}
+      if (X = 0) {
+        Y := 2
+      } else {
+        Y := X + 1
+      }
+    {{X ≤ Y}} := by
+  apply hoare_if <;>
+    apply hoare_consequence_pre hoare_asgn (by assertion_auto)
+
 --  ### Exercise (2 stars): if_minus_plus ⭐⭐
 
 --  Prove the theorem below using `hoare_if`. Do not unfold
@@ -2928,4 +2947,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: e2873d6, committed 2026-10-15 17:25 UTC
+-- Source revision: 8a39d15, committed 2026-10-16 10:41 UTC
