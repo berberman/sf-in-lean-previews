@@ -19,21 +19,6 @@
         "number": "1"},
        {"title": "Notation", "shortTitle": null, "number": "3"}]},
      "address": "/Imp/"}],
-   "assn-delaborators":
-   [{"id": "assn-delaborators",
-     "data":
-     {"title": "Printing Assertions",
-      "shortTitle": null,
-      "sectionNum": "5.1.3.",
-      "searchPriority": 50,
-      "context":
-      [{"title": "Hoare Logic", "shortTitle": null, "number": null},
-       {"title": "Hoare: Hoare Logic, Part I",
-        "shortTitle": null,
-        "number": "5"},
-       {"title": "Assertions", "shortTitle": null, "number": "1"},
-       {"title": "Printing Assertions", "shortTitle": null, "number": "3"}]},
-     "address": "/Hoare/"}],
    "Slang":
    [{"id": "Slang",
      "data":
@@ -853,7 +838,7 @@
      "data":
      {"title": "Assertion Implication",
       "shortTitle": null,
-      "sectionNum": "5.1.4.",
+      "sectionNum": "5.1.3.",
       "searchPriority": 50,
       "context":
       [{"title": "Hoare Logic", "shortTitle": null, "number": null},
@@ -861,7 +846,7 @@
         "shortTitle": null,
         "number": "5"},
        {"title": "Assertions", "shortTitle": null, "number": "1"},
-       {"title": "Assertion Implication", "shortTitle": null, "number": "4"}]},
+       {"title": "Assertion Implication", "shortTitle": null, "number": "3"}]},
      "address": "/Hoare/"}],
    "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Assertions":
    [{"id": "Hoare-Logic--Hoare___-Hoare-Logic___-Part-I--Assertions",
@@ -3238,7 +3223,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Z":
    [{"id": "Z",
@@ -4613,30 +4598,6 @@
      "data":
      {"/Hoare/#RepeatExercise___validHoareTriple_def":
       {"display": "validHoareTriple_def",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "While Loops",
-        "Exercise:  repeat"]}},
-     "address": "/Hoare/"}],
-   "RepeatExercise.hoare_repeat_implies_hoare_repeat'":
-   [{"id": "RepeatExercise___hoare_repeat_implies_hoare_repeat___",
-     "data":
-     {"/Hoare/#RepeatExercise___hoare_repeat_implies_hoare_repeat___":
-      {"display": "hoare_repeat_implies_hoare_repeat'",
-       "context":
-       ["Hoare Logic",
-        "Hoare: Hoare Logic, Part I",
-        "Proof Rules",
-        "While Loops",
-        "Exercise:  repeat"]}},
-     "address": "/Hoare/"}],
-   "RepeatExercise.hoare_repeat'":
-   [{"id": "RepeatExercise___hoare_repeat___",
-     "data":
-     {"/Hoare/#RepeatExercise___hoare_repeat___":
-      {"display": "hoare_repeat'",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -8544,7 +8505,7 @@
    [{"id": "Assertion___subst",
      "data":
      {"/Hoare/#Assertion___subst":
-      {"display": "Assertion.subst",
+      {"display": "subst",
        "context":
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
@@ -8571,7 +8532,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabBody":
    [{"id": "Assertion___Delab___delabBody",
@@ -8582,7 +8543,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssnArg":
    [{"id": "Assertion___Delab___delabAssnArg",
@@ -8593,7 +8554,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssn":
    [{"id": "Assertion___Delab___delabAssn",
@@ -8604,7 +8565,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssertion":
    [{"id": "Assertion___Delab___delabAssertion",
@@ -8615,7 +8576,7 @@
        ["Hoare Logic",
         "Hoare: Hoare Logic, Part I",
         "Assertions",
-        "Printing Assertions"]}},
+        "Notations for Assertions"]}},
      "address": "/Hoare/"}],
    "Assertion.Delab.delabAssertImplies":
    [{"id": "Assertion___Delab___delabAssertImplies",

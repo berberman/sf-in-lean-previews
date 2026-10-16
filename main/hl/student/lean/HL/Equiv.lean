@@ -849,7 +849,7 @@ theorem Aexp.foldConstants_add_other
 --  scenarios; we will see its use when proving `Aexp.foldConstants_sound`
 --  below.
 --
---  Note we could also show the following as a proof
+--  Note we could also show the following as a proof.
 
 theorem Aexp.foldConstants_add_other_left (h : ¬∃ n₁, a₁.foldConstants = .num n₁) :
     aexp{ a₁ + a₂ }.foldConstants = aexp { ~a₁.foldConstants + ~a₂.foldConstants} := by
@@ -1817,4 +1817,4 @@ theorem zprop_preserving (c c' : Com) (hc : zprop c)
     (ha : Approx c c') : zprop c' := by
   sorry
 
--- Source revision: 9d7ef8f, committed 2026-10-15 13:13 UTC
+-- Source revision: e5626ab, committed 2026-10-16 11:57 UTC
