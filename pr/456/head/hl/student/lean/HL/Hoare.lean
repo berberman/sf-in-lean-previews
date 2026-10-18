@@ -224,9 +224,12 @@ partial def delabBody (stId : FVarId) : DelabM Term := do
     delab
   else
     match_expr e with
-    | MyGetElem.getElem _ _ _ _ st _ =>
+    | MyGetElem.getElem _ _ _ _ st k =>
       guard (st == .fvar stId)
-      withAppArg delab
+      if let .lit (.strVal s) := k then
+        `($(mkIdent (Name.mkSimple s)):ident)
+      else
+        withAppArg delab
     | Aexp.eval st _ =>
       guard (st == .fvar stId)
       withAppArg delab
@@ -997,7 +1000,7 @@ macro_rules
 end Assertion
 
 namespace Assertion.Delab
-open Lean PrettyPrinter Delaborator SubExpr Imp.Delab
+open Lean PrettyPrinter Delaborator SubExpr Imp.Elab Imp.Delab
 
 /-- Print an `Assertion.subst` back in `P [x ↦ a]` notation.  Emits
 the bare inside-the-braces form: the generic application case of
@@ -1005,7 +1008,11 @@ the bare inside-the-braces form: the generic application case of
 printer supplies the single pair of braces. -/
 @[app_unexpander Assertion.subst]
 def unexpandSubst : Unexpander
-  | `($_ $x:ident $a $P) =>
+  | `($_ $x $a $P) => do
+    let x ← match x with
+      | `($x:ident) => pure x
+      | `($s:str) => pure (mkObjectIdentFrom s.raw s.getString)
+      | _ => throw ()
     match getAssn P with
     | `($P:ident) => `($P:ident [$x:ident ↦ $(getAexp a):imp_aexp])
     | P => `(($P) [$x:ident ↦ $(getAexp a):imp_aexp])
@@ -2947,4 +2954,4 @@ theorem assert_assume_example :
 
 end HoareAssertAssume
 
--- Source revision: 1a1cbd4, committed 2026-10-17 17:53 UTC
+-- Source revision: 5e69f7b, committed 2026-10-18 23:00 UTC

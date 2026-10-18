@@ -4,7 +4,7 @@ import SFLCompat
 
 --  # Hoare2: Hoare Logic, Part II
 
-open scoped Com MyGetElem Assertion HasTriple
+open scoped Com MyGetElem Assertion HasTriple HasEval
 
 --  In this chapter, we put Hoare Logic's rules to work,
 --  verifying Imp programs via formal *decorated programs*.
@@ -239,11 +239,17 @@ theorem reduce_to_zero_correct' :
     {{ True }} reduceToZero {{ X = 0 }} := by
   -- First put the postcondition into the form expected by
   -- the while rule.
-  sorry
+  apply hoare_consequence_post
+  -- We use the fact that after the `while` loop, the loops condition must not hold.
+  · apply hoare_while
+    -- Trivial postcondition: we just need to prove `True`
+    · apply hoare_post_true; simp
+    -- Our precondition that `X ≠ 0` cannot hold is exactly what we need to prove `X = 0`.
+  · simp
+    intros _ h; assumption
 
---  A little more (OK, quite a bit more) tactic fanciness
---  for helping deal with the boring parts of the process of
---  proving assertions:
+--  A little more tactic fanciness for helping deal with the
+--  boring parts of the process of proving assertions:
 
 macro "verify_assertion" : tactic =>
   `(tactic| assertion_auto)
@@ -252,7 +258,9 @@ macro "verify_assertion" : tactic =>
 
 theorem reduce_to_zero_correct''' :
     {{ True }} reduceToZero {{ X = 0 }} := by
-  sorry
+  apply hoare_consequence_post
+  apply hoare_while
+  all_goals verify_assertion
 
 --  This example shows that it is conceptually
 --  straightforward to read off the main elements of a
@@ -817,7 +825,56 @@ def DCom.VerificationConditions
 theorem verification_correct (d : DCom) (p : Assertion)
     (hvc : d.VerificationConditions p) :
     ValidHoareTriple p d.erase d.postcondition := by
-  sorry
+  induction d generalizing p with
+    simp only [DCom.VerificationConditions, DCom.erase,
+      DCom.postcondition] at hvc ⊢
+  -- Note that we need to escape `skip` as `«skip»`,
+  -- as it is a reserved word under Hoare2's `dcom` syntax.
+  | «skip» q =>
+    apply hoare_consequence_pre
+    · apply hoare_skip
+    · exact hvc
+  | seq d₁ d₂ ih₁ ih₂ =>
+    obtain ⟨h₁, h₂⟩ := hvc
+    apply hoare_seq
+    · apply ih₂; exact h₂
+    · apply ih₁; exact h₁
+  | asgn x a q =>
+    apply hoare_consequence_pre
+    · apply hoare_asgn
+    · exact hvc
+  | cond b p₁ d₁ p₂ d₂ q ih₁ ih₂ =>
+    obtain ⟨hpre₁, hpre₂, hd₁, hd₂, hthen, helse⟩ := hvc
+    specialize ih₁ p₁ hthen
+    specialize ih₂ p₂ helse
+    apply hoare_if
+    · apply hoare_consequence
+      · exact ih₁
+      · exact hpre₁
+      · exact hd₁
+    · apply hoare_consequence
+      · exact ih₂
+      · exact hpre₂
+      · exact hd₂
+  | whileDo b bodyPre body q ih =>
+    obtain ⟨hpre, hbody, hpost, hd⟩ := hvc
+    apply hoare_consequence
+    · apply hoare_while
+      apply hoare_consequence_pre
+      · apply ih; exact hd
+      · exact hbody
+    · exact hpre
+    · exact hpost
+  | pre p' body ih =>
+    obtain ⟨hp, hd⟩ := hvc
+    apply hoare_consequence_pre
+    · apply ih; exact hd
+    · exact hp
+  | post body q ih =>
+    obtain ⟨hd, hq⟩ := hvc
+    apply hoare_consequence_post
+    · apply ih; exact hd
+    · exact hq
 
 --  Now that all the pieces are in place, we can define what
 --  it means to verify an entire program.
@@ -840,11 +897,11 @@ theorem verification_conditions_correct (dec : Decorated)
 --  `DCom.VerificationConditions` are fairly big and contain
 --  many conjuncts that are essentially trivial.
 
-example : decWhile.VerificationConditions := by
-  rw [Decorated.VerificationConditions, decWhile]
-  simp only [DCom.VerificationConditions,
-    DCom.postcondition]
-  sorry
+sf_expect_failure_in
+  example : decWhile.VerificationConditions := by
+    rw [Decorated.VerificationConditions, decWhile]
+    simp only [DCom.VerificationConditions,
+      DCom.postcondition]
 
 --  Fortunately, our `verify_assertion` tactic can generally
 --  take care of most (or sometimes all) of them.
@@ -855,14 +912,43 @@ example : decWhile.VerificationConditions := by
 
 --  To automate the overall process of verification, we can
 --  use `verification_conditions_correct` to extract the
---  verification conditions, use `verify_assertion` to
---  verify them as much as it can, and finally tidy up any
---  remaining bits by hand.
+--  verification conditions, use the logic of
+--  `verify_assertion` to verify them as much as it can, and
+--  finally tidy up any remaining bits by hand.
 
+-- Adapted from One An's `hoare2-meluge-pass`.
+
+-- These boolean comparisons
+-- in guards simplify straight to propositions rather than to
+-- `decide (…) = true`, whose `Decidable` instance `simp` leaves behind.
+theorem Bexp.eval_le_true {st : State} {a₁ a₂ : Aexp} :
+    (Bexp.le a₁ a₂).eval st = true ↔ a₁.eval st ≤ a₂.eval st := by
+  simp
+
+theorem Bexp.eval_le_false {st : State} {a₁ a₂ : Aexp} :
+    (Bexp.le a₁ a₂).eval st = false ↔ ¬ a₁.eval st ≤ a₂.eval st := by
+  simp
+
+theorem Bexp.eval_gt_true {st : State} {a₁ a₂ : Aexp} :
+    (Bexp.gt a₁ a₂).eval st = true ↔ a₁.eval st > a₂.eval st := by
+  simp
+
+theorem Bexp.eval_gt_false {st : State} {a₁ a₂ : Aexp} :
+    (Bexp.gt a₁ a₂).eval st = false ↔ ¬ a₁.eval st > a₂.eval st := by
+  simp
+
+-- Unlike `verify_assertion`, this leaves any conjunct `lia` cannot
+-- prove open as a separate goal.
 macro "verify" : tactic =>
   `(tactic|
     (apply verification_conditions_correct;
-     verify_assertion))
+     simp +decide [-Bexp.eval_le, -Bexp.eval_gt,
+       Bexp.eval_le_true, Bexp.eval_le_false,
+       Bexp.eval_gt_true, Bexp.eval_gt_false,
+       assertImplies_def, assertIff_def,
+       validHoareTriple_def, Assertion.subst_def];
+     all_goals and_intros;
+     all_goals try lia))
 
 --  Here's the final, formal proof that `decWhile` is
 --  correct.
@@ -988,6 +1074,12 @@ def IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop :=
   ValidHoareTriple p c q ∧
   ∀ p' : Assertion, {{ p' }} c {{ q }} → p' ↠ p
 
+theorem isWp_def {p : Assertion} {c : Com} {q : Assertion} :
+    IsWp p c q ↔
+      ValidHoareTriple p c q ∧
+      ∀ p' : Assertion, {{ p' }} c {{ q }} → p' ↠ p := by
+  rfl
+
 --  ### Exercise (1 star): wp (Optional) ⭐
 
 --  What are weakest preconditions of the following commands
@@ -1011,4 +1103,4 @@ def IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop :=
 --       while (true) {X := 0}
 --       {{ X = 0 }}
 
--- Source revision: 1a1cbd4, committed 2026-10-17 17:53 UTC
+-- Source revision: 5e69f7b, committed 2026-10-18 23:00 UTC

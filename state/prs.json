@@ -144,11 +144,48 @@
     },
     "456": {
       "base_sha": "e5626ab5e464b04580aff937b8badeabee375609",
-      "changed_variants": [],
+      "changed_variants": [
+        {
+          "audience": "solutions",
+          "volume": "hl"
+        },
+        {
+          "audience": "student",
+          "volume": "hl"
+        },
+        {
+          "audience": "terse",
+          "volume": "hl"
+        },
+        {
+          "audience": "solutions",
+          "volume": "lf"
+        },
+        {
+          "audience": "student",
+          "volume": "lf"
+        },
+        {
+          "audience": "terse",
+          "volume": "lf"
+        },
+        {
+          "audience": "solutions",
+          "volume": "ts"
+        },
+        {
+          "audience": "student",
+          "volume": "ts"
+        },
+        {
+          "audience": "terse",
+          "volume": "ts"
+        }
+      ],
       "head_sha": "c6102f77a3f030f5b4d798ca1f4b9c66806143df",
       "preview_path": "pr/456/head/",
-      "run_url": null,
-      "status": "waiting-ci",
+      "run_url": "https://github.com/plclub/sf-in-lean/actions/runs/39174679172",
+      "status": "published",
       "title": "HL/Hoare2: Proofreading, other text improvements, some proofs",
       "url": "https://github.com/plclub/sf-in-lean/pull/456"
     }
