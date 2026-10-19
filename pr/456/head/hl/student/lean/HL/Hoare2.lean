@@ -1036,12 +1036,10 @@ example : decWhile.VerificationConditions := by
 --  `verification_conditions_correct` to extract the verification
 --  conditions, use the logic of `verify_assertion` to verify them as much
 --  as it can, and finally tidy up any remaining bits by hand.
+--
+--  We first add some low-level simplification lemmas to make this process
+--  feel more smooth.
 
--- Adapted from One An's `hoare2-meluge-pass`.
-
--- These boolean comparisons
--- in guards simplify straight to propositions rather than to
--- `decide (…) = true`, whose `Decidable` instance `simp` leaves behind.
 theorem Bexp.eval_le_true {st : State} {a₁ a₂ : Aexp} :
     (Bexp.le a₁ a₂).eval st = true ↔ a₁.eval st ≤ a₂.eval st := by
   simp
@@ -2095,4 +2093,4 @@ theorem hoare_havoc_weakest (p q : Assertion) (x : Ident)
 
 end HimpHoare2
 
--- Source revision: 5e69f7b, committed 2026-10-18 23:00 UTC
+-- Source revision: 6fa62b1, committed 2026-10-19 03:30 UTC

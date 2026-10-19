@@ -1166,90 +1166,89 @@
  "240": "<code><span class=\"literal string\">\"aexp \"</span> : String</code>",
  "24":
  "<code class=\"docstring\">Theorems tagged with the `simp` attribute are used by the simplifier\n(i.e., the `simp` tactic, and its variants) to simplify expressions occurring in your goals.\nWe call theorems tagged with the `simp` attribute \"simp theorems\" or \"simp lemmas\".\nLean maintains a database/index containing all active simp theorems.\nHere is an example of a simp theorem.\n```lean\n@[simp] theorem ne_eq (a b : α) : (a ≠ b) = Not (a = b) := rfl\n```\nThis simp theorem instructs the simplifier to replace instances of the term\n`a ≠ b` (e.g. `x + 0 ≠ y`) with `Not (a = b)` (e.g., `Not (x + 0 = y)`).\nThe simplifier applies simp theorems in one direction only:\nif `A = B` is a simp theorem, then `simp` replaces `A`s with `B`s,\nbut it doesn't replace `B`s with `A`s. Hence a simp theorem should have the\nproperty that its right-hand side is \"simpler\" than its left-hand side.\nIn particular, `=` and `↔` should not be viewed as symmetric operators in this situation.\nThe following would be a terrible simp theorem (if it were even allowed):\n```lean\n@[simp] lemma mul_right_inv_bad (a : G) : 1 = a * a⁻¹ := ...\n```\nReplacing 1 with a * a⁻¹ is not a sensible default direction to travel.\nEven worse would be a theorem that causes expressions to grow without bound,\ncausing simp to loop forever.\n\nBy default the simplifier applies `simp` theorems to an expression `e`\nafter its sub-expressions have been simplified.\nWe say it performs a bottom-up simplification.\nYou can instruct the simplifier to apply a theorem before its sub-expressions\nhave been simplified by using the modifier `↓`. Here is an example\n```lean\n@[simp↓] theorem not_and_eq (p q : Prop) : (¬ (p ∧ q)) = (¬p ∨ ¬q) :=\n```\n\nYou can instruct the simplifier to rewrite the lemma from right-to-left:\n```lean\nattribute @[simp ←] and_assoc\n```\n\nWhen multiple simp theorems are applicable, the simplifier uses the one with highest priority.\nThe equational theorems of functions are applied at very low priority (100 and below).\nIf there are several with the same priority, it is uses the \"most recent one\". Example:\n```lean\n@[simp high] theorem cond_true (a b : α) : cond true a b = a := rfl\n@[simp low+1] theorem or_true (p : Prop) : (p ∨ True) = True :=\n  propext &lt;| Iff.intro (fun _ =&gt; trivial) (fun _ =&gt; Or.inr trivial)\n@[simp 100] theorem ite_self {d : Decidable c} (a : α) : ite c a a = a := by\n  cases d &lt;;&gt; rfl\n```\n</code>",
- "2399":
+ "2398":
  "<code>∀ {st st' : State}, (st =[ havoc x ]=&gt; st') → p st → q st'</code>",
- "2398": "<code>HimpHoare.Com.havoc : Ident → HimpHoare.Com</code>",
- "2397": "<code>HimpHoare.ValidHoareTriple p (imp {havoc x}) q</code>",
- "2396":
- "<code>HimpHoare2.hoare_havoc_weakest (p q : Assertion) (x : Ident) (h : HimpHoare.ValidHoareTriple p (imp {havoc x}) q) :\n  p ↠ havoc_pre x q</code>",
+ "2397": "<code>HimpHoare.Com.havoc : Ident → HimpHoare.Com</code>",
+ "2396": "<code>HimpHoare.ValidHoareTriple p (imp {havoc x}) q</code>",
  "2395":
- "<code>HimpHoare.validHoareTriple_def {P : Assertion} {c : HimpHoare.Com} {Q : Assertion} :\n  {{P}} ~c {{Q}} ↔ ∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q st'</code>",
+ "<code>HimpHoare2.hoare_havoc_weakest (p q : Assertion) (x : Ident) (h : HimpHoare.ValidHoareTriple p (imp {havoc x}) q) :\n  p ↠ havoc_pre x q</code>",
  "2394":
+ "<code>HimpHoare.validHoareTriple_def {P : Assertion} {c : HimpHoare.Com} {Q : Assertion} :\n  {{P}} ~c {{Q}} ↔ ∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q st'</code>",
+ "2393":
  "<code>HimpHoare.ValidHoareTriple (P : Assertion) (c : HimpHoare.Com) (Q : Assertion) : Prop</code>",
- "2393": "<code>HimpHoare.Com</code>",
- "2392":
+ "2392": "<code>HimpHoare.Com</code>",
+ "2391":
  "<code>HimpHoare2.validHoareTriple_def' {P : Assertion} {c : HimpHoare.Com} {Q : Assertion} :\n  HimpHoare.ValidHoareTriple P c Q ↔ ∀ {st st' : State}, (st =[ c ]=&gt; st') → P st → Q st'</code>",
- "2391": "<code>p st</code>",
- "2390":
- "<code>∀ {st st' : State}, (st =[ x := a ]=&gt; st') → p st → q st'</code>",
+ "2390": "<code>p st</code>",
  "239":
  "<code>Lean.Parser.Category.term : Lean.Parser.Category</code><span class=\"sep\"></span><code class=\"docstring\">`term` is the builtin syntax category for terms. A term denotes an expression\nin lean's type theory, for example `2 + 2` is a term. The difference between\n`Term` and `Expr` is that the former is a kind of syntax, while the latter is\nthe result of elaboration. For example `by simp` is also a `Term`, but it elaborates\nto different `Expr`s depending on the context. </code>",
- "2389": "<code>{{p}} x := a {{q}}</code>",
- "2388":
+ "2389":
+ "<code>∀ {st st' : State}, (st =[ x := a ]=&gt; st') → p st → q st'</code>",
+ "2388": "<code>{{p}} x := a {{q}}</code>",
+ "2387":
  "<code>hoare_asgn_weakest (q : Assertion) (x : Ident) (a : Aexp) : IsWp ({{q [x ↦ a]}}) (imp {x := a}) q</code>",
- "2387": "<code>st[Y] ≤ 4</code>",
- "2386": "<code>(X →ₜ st[Y] + 1 ; st)[X] ≤ 5</code>",
- "2385": "<code>st =[ X := Y + 1 ]=&gt; X →ₜ st[Y] + 1 ; st</code>",
- "2384": "<code>p' st</code>",
- "2383":
+ "2386": "<code>st[Y] ≤ 4</code>",
+ "2385": "<code>(X →ₜ st[Y] + 1 ; st)[X] ≤ 5</code>",
+ "2384": "<code>st =[ X := Y + 1 ]=&gt; X →ₜ st[Y] + 1 ; st</code>",
+ "2383": "<code>p' st</code>",
+ "2382":
  "<code>∀ {st st' : State}, (st =[ X := Y + 1 ]=&gt; st') → p' st → st'[X] ≤ 5</code>",
- "2382": "<code>{{p'}} X := Y + 1 {{X ≤ 5}}</code>",
- "2381":
- "<code>is_wp_example : IsWp ({{Y ≤ 4}}) (imp {X := Y + 1}) ({{X ≤ 5}})</code>",
+ "2381": "<code>{{p'}} X := Y + 1 {{X ≤ 5}}</code>",
  "2380":
- "<code>isWp_def {p : Assertion} {c : Com} {q : Assertion} :\n  IsWp p c q ↔ ValidHoareTriple p c q ∧ ∀ (p' : Assertion), {{p'}} ~c {{q}} → p' ↠ p</code>",
+ "<code>is_wp_example : IsWp ({{Y ≤ 4}}) (imp {X := Y + 1}) ({{X ≤ 5}})</code>",
  "238": "<code><span class=\"literal string\">\"~\"</span> : String</code>",
- "2379": "<code>IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop</code>",
- "2378": "<code>¬st[\"X\"] = 1 + n</code>",
- "2377": "<code>st[\"X\"] = 1 + n</code>",
- "2376":
+ "2379":
+ "<code>isWp_def {p : Assertion} {c : Com} {q : Assertion} :\n  IsWp p c q ↔ ValidHoareTriple p c q ∧ ∀ (p' : Assertion), {{p'}} ~c {{q}} → p' ↠ p</code>",
+ "2378": "<code>IsWp (p : Assertion) (c : Com) (q : Assertion) : Prop</code>",
+ "2377": "<code>¬st[\"X\"] = 1 + n</code>",
+ "2376": "<code>st[\"X\"] = 1 + n</code>",
+ "2375":
  "<code>SparseAnnotations.dfib_correct (n : Nat) : (dfib n).OuterTripleValid</code>",
- "2375": "<code>SparseAnnotations.dfib (n : Nat) : Decorated</code>",
- "2374": "<code>st[\"X\"] = 0</code>",
- "2373": "<code>SparseAnnotations.T : Ident</code>",
- "2372":
+ "2374": "<code>SparseAnnotations.dfib (n : Nat) : Decorated</code>",
+ "2373": "<code>st[\"X\"] = 0</code>",
+ "2372": "<code>SparseAnnotations.T : Ident</code>",
+ "2371":
  "<code>SparseAnnotations.factorial_outer_triple_valid (m : Nat) : (factorialDec m).OuterTripleValid</code>",
- "2371": "<code>SparseAnnotations.factorialDec (m : Nat) : Decorated</code>",
- "2370": "<code>¬st[\"X\"] = n</code>",
+ "2370": "<code>SparseAnnotations.factorialDec (m : Nat) : Decorated</code>",
  "237": "<code><span class=\"literal string\">\")\"</span> : String</code>",
- "2369":
+ "2369": "<code>¬st[\"X\"] = n</code>",
+ "2368":
  "<code>SparseAnnotations.dpow2_down_correct (n : Nat) : (dpow2Down n).OuterTripleValid</code>",
- "2368": "<code>SparseAnnotations.dpow2Down (n : Nat) : Decorated</code>",
- "2367":
- "<code>SparseAnnotations.subtract_slowly_correct (m p : Nat) : (subtractSlowlyDec m p).OuterTripleValid</code>",
+ "2367": "<code>SparseAnnotations.dpow2Down (n : Nat) : Decorated</code>",
  "2366":
- "<code>SparseAnnotations.subtractSlowlyDec (m p : Nat) : Decorated</code>",
+ "<code>SparseAnnotations.subtract_slowly_correct (m p : Nat) : (subtractSlowlyDec m p).OuterTripleValid</code>",
  "2365":
+ "<code>SparseAnnotations.subtractSlowlyDec (m p : Nat) : Decorated</code>",
+ "2364":
  "<code>SparseAnnotations.two_loops_correct (a b c : Nat) : (twoLoopsDec a b c).OuterTripleValid</code>",
- "2364": "<code>SparseAnnotations.twoLoopsDec (a b c : Nat) : Decorated</code>",
- "2363":
- "<code>SparseAnnotations.square_simpler_outer_triple_valid (m : Nat) : (squareSimplerDec m).OuterTripleValid</code>",
+ "2363": "<code>SparseAnnotations.twoLoopsDec (a b c : Nat) : Decorated</code>",
  "2362":
- "<code>SparseAnnotations.squareSimplerDec (m : Nat) : Decorated</code>",
+ "<code>SparseAnnotations.square_simpler_outer_triple_valid (m : Nat) : (squareSimplerDec m).OuterTripleValid</code>",
  "2361":
+ "<code>SparseAnnotations.squareSimplerDec (m : Nat) : Decorated</code>",
+ "2360":
  "<code>Nat.le_mul_of_pos_right {m : Nat} (n : Nat) (h : 0 &lt; m) : n ≤ n * m</code>",
- "2360": "<code>st[X] ≤ st[X] * st[Y]</code>",
  "236": "<code><span class=\"literal string\">\"(\"</span> : String</code>",
- "2359":
+ "2359": "<code>st[X] ≤ st[X] * st[Y]</code>",
+ "2358":
  "<code>Nat.mul_le_mul_left {n m : Nat} (k : Nat) (h : n ≤ m) : k * n ≤ k * m</code>",
- "2358": "<code>st[X] * st[Y] ≤ st[X] * st[X]</code>",
- "2357": "<code>Nat.mul_sub (n m k : Nat) : n * (m - k) = n * m - n * k</code>",
- "2356": "<code>st[Y] ≤ st[X]</code>",
- "2355": "<code>st[\"Y\"] = 0</code>",
- "2354": "<code>st[Z] = st[X] * (st[X] - st[Y])</code>",
- "2353":
+ "2357": "<code>st[X] * st[Y] ≤ st[X] * st[X]</code>",
+ "2356": "<code>Nat.mul_sub (n m k : Nat) : n * (m - k) = n * m - n * k</code>",
+ "2355": "<code>st[Y] ≤ st[X]</code>",
+ "2354": "<code>st[\"Y\"] = 0</code>",
+ "2353": "<code>st[Z] = st[X] * (st[X] - st[Y])</code>",
+ "2352":
  "<code>SparseAnnotations.square_dec'_correct (n : Nat) : (squareDec' n).OuterTripleValid</code>",
- "2352": "<code>SparseAnnotations.squareDec' (n : Nat) : Decorated</code>",
- "2351": "<code>st[\"Z\"] + (st[\"X\"] * y + st[\"X\"]) = m * m</code>",
- "2350": "<code>Nat.mul_succ (n m : Nat) : n * m.succ = n * m + n</code>",
+ "2351": "<code>SparseAnnotations.squareDec' (n : Nat) : Decorated</code>",
+ "2350": "<code>st[Z] + (st[X] * y + st[X]) = m * m</code>",
  "235": "<code><span class=\"literal string\">\" * \"</span> : String</code>",
- "2349": "<code>¬y + 1 = 0</code>",
- "2348": "<code>st[\"Z\"] + st[\"X\"] * (y + 1) = m * m</code>",
- "2347": "<code>¬0 = 0</code>",
- "2346": "<code>st[\"Z\"] + st[\"X\"] * 0 = m * m</code>",
- "2345": "<code>¬y = 0</code>",
- "2344": "<code>st[\"Z\"] + st[\"X\"] * y = m * m</code>",
- "2343": "<code>st[\"Z\"] + st[\"X\"] * st[\"Y\"] = m * m</code>",
+ "2349": "<code>Nat.mul_succ (n m : Nat) : n * m.succ = n * m + n</code>",
+ "2348": "<code>¬y + 1 = 0</code>",
+ "2347": "<code>st[Z] + st[X] * (y + 1) = m * m</code>",
+ "2346": "<code>¬0 = 0</code>",
+ "2345": "<code>st[Z] + st[X] * 0 = m * m</code>",
+ "2344": "<code>¬y = 0</code>",
+ "2343": "<code>st[Z] + st[X] * y = m * m</code>",
  "2342": "<code>¬st[\"Y\"] = 0</code>",
  "2341": "<code>st[Z] + st[X] * st[Y] = m * m</code>",
  "2340":
